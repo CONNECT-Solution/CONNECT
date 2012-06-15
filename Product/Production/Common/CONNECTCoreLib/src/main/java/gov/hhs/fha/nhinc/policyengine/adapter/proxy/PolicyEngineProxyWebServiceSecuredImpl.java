@@ -26,8 +26,15 @@
  */
 package gov.hhs.fha.nhinc.policyengine.adapter.proxy;
 
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.security.UnrecoverableKeyException;
 import java.util.Map;
 
+import javax.net.ssl.KeyManager;
+import javax.net.ssl.KeyManagerFactory;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.TrustManagerFactory;
 import javax.xml.ws.BindingProvider;
 import javax.xml.ws.Service;
 
@@ -39,6 +46,8 @@ import org.apache.cxf.transport.http.HTTPConduit;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import gov.hhs.fha.nhinc.adapterpolicyenginesecured.AdapterPolicyEngineSecuredPortType;
+import gov.hhs.fha.nhinc.callback.openSAML.CertificateManager;
+import gov.hhs.fha.nhinc.callback.openSAML.CertificateManagerImpl;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestSecuredType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
@@ -146,11 +155,42 @@ public class PolicyEngineProxyWebServiceSecuredImpl implements PolicyEngineProxy
                 new String[] { CLIENT_POLICY_ENGINE_SPRING_FILE });
         AdapterPolicyEngineSecuredPortType port = (AdapterPolicyEngineSecuredPortType) context
                 .getBean(POLICY_ENGINE_BEAN);
+           
         HTTPConduit httpConduit = (HTTPConduit) ClientProxy.getClient(port).getConduit();
         TLSClientParameters tlsCP = new TLSClientParameters();
+        tlsCP.setDisableCNCheck(true);
+
+        CertificateManager cm = CertificateManagerImpl.getInstance();
+
+        try {
+            KeyManagerFactory keyFactory = KeyManagerFactory.getInstance(KeyManagerFactory.getDefaultAlgorithm());
+            String password = System.getProperty("javax.net.ssl.keyStorePassword");
+            keyFactory.init(cm.getKeyStore(), password.toCharArray()); 
+            KeyManager[] km = keyFactory.getKeyManagers(); 
+            tlsCP.setKeyManagers(km); 
+            
+            TrustManagerFactory trustFactory = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm()); 
+            trustFactory.init(cm.getTrustStore()); 
+            TrustManager[] tm = trustFactory.getTrustManagers(); 
+            tlsCP.setTrustManagers(tm); 
+        } catch (NoSuchAlgorithmException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (UnrecoverableKeyException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (KeyStoreException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
         httpConduit.setTlsClientParameters(tlsCP);
+
         Map<String, Object> requestContext = ((BindingProvider) port).getRequestContext();
         requestContext.put("assertion", assertion);
+        
+        
+        
         return port;
 
     }
