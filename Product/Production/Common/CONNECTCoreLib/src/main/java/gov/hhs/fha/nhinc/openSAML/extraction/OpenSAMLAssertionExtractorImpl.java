@@ -39,6 +39,8 @@ import org.opensaml.saml2.core.AttributeStatement;
 import org.opensaml.saml2.core.AuthnStatement;
 import org.opensaml.saml2.core.AuthzDecisionStatement;
 import org.opensaml.saml2.core.Evidence;
+import org.opensaml.saml2.core.NameID;
+import org.opensaml.saml2.core.Subject;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.schema.XSAny;
 import org.opensaml.xml.util.AttributeMap;
@@ -52,6 +54,7 @@ import org.w3c.dom.NodeList;
 public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
     private static final Logger log = Logger.getLogger(OpenSAMLAssertionExtractorImpl.class);
     private static final String EMPTY_STRING = "";
+    private static final String X509_FORMAT = "urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName";
     
     /**
      * This method is used to extract the SAML assertion information.
@@ -67,7 +70,7 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
 
         AssertionType target = initializeAssertion();
         // Populate the Subject Information
-        //populateSubject(saml2Assertion, target);
+        populateSubject(saml2Assertion, target);
         // Populate the Authentication Statement Information.
         //populateAuthenticationStatement(saml2Assertion, target);
         // Populate the Attribute Statement Information.
@@ -257,15 +260,18 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
      * @param assertion
      *            target assertion
      */
-    /*private void populateSubject(final Assertion saml2Assertion, final AssertionType assertion) {
-
-        LOGGER.debug("Executing Saml2AssertionExtractor.populateSubject()...");
-        SubjectType subject = new SubjectType();
-        subject.setNameID(saml2Assertion.getSubject().getNameID().getDOM().getTextContent());
-        subject.setNameIDFormat(saml2Assertion.getSubject().getNameID().getFormat());
-        assertion.setSubject(subject);
-        LOGGER.debug("end populateSubject()");
-    }*/
+    private void populateSubject(final Assertion saml2Assertion, final AssertionType assertion) {
+        log.debug("Executing Saml2AssertionExtractor.populateSubject()...");
+        
+        Subject subject = saml2Assertion.getSubject();
+        NameID name = subject.getNameID();
+        if (X509_FORMAT.equals(name.getFormat())) {
+            log.warn("Subject name format is not X509!");
+        }
+        assertion.getUserInfo().setUserName(name.getValue());
+        
+        log.debug("end populateSubject()");
+    }
 
     /**
      * This method is used to populate the Authorization Decision Statement

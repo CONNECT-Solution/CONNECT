@@ -266,7 +266,12 @@ public class SamlTokenExtractor {
             AssertionType assertOut) {
         log.debug("Entering SamlTokenExtractor.extractSubject...");
 
-        UserType userInfo = assertOut.getUserInfo();
+        UserType userInfo = null;
+        if (assertOut.getUserInfo() == null) {
+            userInfo = new UserType();
+        } else {
+            userInfo = assertOut.getUserInfo();
+        }
 
         if (assertType.getSubject() != null) {
             List<JAXBElement<?>> contents = assertType.getSubject().getContent();
