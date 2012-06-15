@@ -15,9 +15,9 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
 
     <import resource="classpath:CONNECT-interceptor-beans.xml" />
 
-    <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adapterpolicyenginesecured" id="AdapterPolicyEngineSecured"
-        address="/AdapterPolicyEngineSecured" serviceName="tns:AdapterPolicyEngineSecured"
-        endpointName="tns:AdapterPolicyEngineSecuredPortSoap" implementor="gov.hhs.fha.nhinc.policyengine.adapter.AdapterPolicyEngineSecured"
+    <jaxws:endpoint xmlns:apes="urn:gov:hhs:fha:nhinc:adapterpolicyenginesecured" id="AdapterPolicyEngineSecured"
+        address="/AdapterPolicyEngineSecured" serviceName="apes:AdapterPolicyEngineSecured"
+        endpointName="apes:AdapterPolicyEngineSecuredPortSoap" implementor="gov.hhs.fha.nhinc.policyengine.adapter.AdapterPolicyEngineSecured"
         wsdlLocation="/WEB-INF/wsdl/AdapterPolicyEngineSecured/AdapterPolicyEngineSecured.wsdl">
 
         <jaxws:properties>
@@ -29,6 +29,12 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
             <ref bean="securityInInterceptor" />
         </jaxws:inInterceptors>
 
+    </jaxws:endpoint>
+    
+    <jaxws:endpoint xmlns:ape="urn:gov:hhs:fha:nhinc:adapterpolicyengine" id="AdapterPolicyEngine"
+        address="/AdapterPolicyEngine" serviceName="ape:AdapterPolicyEngine"
+        endpointName="ape:AdapterPolicyEnginePortSoap" implementor="gov.hhs.fha.nhinc.policyengine.adapter.AdapterPolicyEngine"
+        wsdlLocation="/WEB-INF/wsdl/AdapterPolicyEngine/AdapterPolicyEngine.wsdl">
     </jaxws:endpoint>
 
 </beans>
