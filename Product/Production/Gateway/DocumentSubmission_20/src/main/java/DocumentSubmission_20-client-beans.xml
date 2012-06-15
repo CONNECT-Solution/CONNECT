@@ -17,7 +17,7 @@
 
     <!-- Bean Definitions -->
 
-    <bean id="proxyFactory" class="org.apache.cxf.jaxws.JaxWsProxyFactoryBean">
+    <bean id="nhinProxyFactory" class="org.apache.cxf.jaxws.JaxWsProxyFactoryBean">
         <property name="serviceClass" value="ihe.iti.xdr._2007.DocumentRepositoryXDRPortType" />
         <property name="bindingId" value="http://www.w3.org/2003/05/soap/bindings/HTTP/" />
         <property name="outInterceptors">
@@ -27,6 +27,18 @@
         </property>
     </bean>
     
-    <bean id="documentSubmissionPortType" class="org.apache.cxf.jaxws.JaxWsProxyFactoryBean" factory-bean="proxyFactory" factory-method="create" />
+    <bean id="documentSubmissionPortType" class="org.apache.cxf.jaxws.JaxWsProxyFactoryBean" factory-bean="nhinProxyFactory" factory-method="create" />
+    
+    <bean id="adapterProxyFactory" class="org.apache.cxf.jaxws.JaxWsProxyFactoryBean">
+        <property name="serviceClass" value="gov.hhs.fha.nhinc.adapterxdrsecured.AdapterXDRSecuredPortType" />
+        <property name="bindingId" value="http://www.w3.org/2003/05/soap/bindings/HTTP/" />
+        <property name="outInterceptors">
+            <list>
+                <ref bean="securityOutInterceptor" />
+            </list>
+        </property>
+    </bean>
+    
+    <bean id="adapterDocumentSubmissionPortType" class="org.apache.cxf.jaxws.JaxWsProxyFactoryBean" factory-bean="adapterProxyFactory" factory-method="create" />
         
 </beans>

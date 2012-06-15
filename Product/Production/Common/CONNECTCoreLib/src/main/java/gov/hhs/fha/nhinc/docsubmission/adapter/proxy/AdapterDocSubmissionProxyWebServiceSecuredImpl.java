@@ -26,18 +26,36 @@
  */
 package gov.hhs.fha.nhinc.docsubmission.adapter.proxy;
 
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.security.UnrecoverableKeyException;
+import java.util.Map;
+
 import gov.hhs.fha.nhinc.adapterxdrsecured.AdapterXDRSecuredPortType;
+import gov.hhs.fha.nhinc.callback.openSAML.CertificateManager;
+import gov.hhs.fha.nhinc.callback.openSAML.CertificateManagerImpl;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADAPTER_API_LEVEL;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
+import ihe.iti.xdr._2007.DocumentRepositoryXDRPortType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
+
+import javax.net.ssl.KeyManager;
+import javax.net.ssl.KeyManagerFactory;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.TrustManagerFactory;
 import javax.xml.namespace.QName;
+import javax.xml.ws.BindingProvider;
 import javax.xml.ws.Service;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.cxf.configuration.jsse.TLSClientParameters;
+import org.apache.cxf.frontend.ClientProxy;
+import org.apache.cxf.transport.http.HTTPConduit;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
  * 
@@ -81,7 +99,42 @@ public class AdapterDocSubmissionProxyWebServiceSecuredImpl implements AdapterDo
         if (service != null) {
             log.debug("Obtained service - creating port.");
 
-            port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), AdapterXDRSecuredPortType.class);
+            ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(new String[] { "DocumentSubmission_20-client-beans.xml" });
+            port = (AdapterXDRSecuredPortType)context.getBean("adapterDocumentSubmissionPortType");
+            
+            HTTPConduit httpConduit = (HTTPConduit) ClientProxy.getClient(port).getConduit();
+            TLSClientParameters tlsCP = new TLSClientParameters();
+            tlsCP.setDisableCNCheck(true);
+            
+            CertificateManager cm = CertificateManagerImpl.getInstance();
+            
+            try {
+                KeyManagerFactory keyFactory = KeyManagerFactory.getInstance(KeyManagerFactory.getDefaultAlgorithm());
+                String password = System.getProperty("javax.net.ssl.keyStorePassword");
+                keyFactory.init(cm.getKeyStore(), password.toCharArray()); 
+                KeyManager[] km = keyFactory.getKeyManagers(); 
+                tlsCP.setKeyManagers(km); 
+                
+                TrustManagerFactory trustFactory = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm()); 
+                trustFactory.init(cm.getTrustStore()); 
+                TrustManager[] tm = trustFactory.getTrustManagers(); 
+                tlsCP.setTrustManagers(tm); 
+            } catch (NoSuchAlgorithmException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            } catch (UnrecoverableKeyException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            } catch (KeyStoreException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            
+            httpConduit.setTlsClientParameters(tlsCP);
+
+            Map<String, Object> requestContext = ((BindingProvider) port).getRequestContext();
+            requestContext.put("assertion", assertion);
+            
             oProxyHelper.initializeSecurePort((javax.xml.ws.BindingProvider) port, url, serviceAction,
                     wsAddressingAction, assertion);
         } else {

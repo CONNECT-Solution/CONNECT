@@ -35,6 +35,7 @@
     <dependency org="CXF" name="wss4j-1.6.5" rev="1.6.5" conf="compile->default" transitive="false" />
     <dependency org="CXF" name="cxf-2.6.0" rev="2.6.0" conf="compile->default" transitive="false" />
     <dependency org="CXF" name="neethi-3.0.2" rev="3.0.2" conf="compile->default" transitive="false" />
+    <dependency org="CXF" name="commons-lang-2.6" rev="2.6.0" conf="compile->default" transitive="false" />
 
  <!-- runtime jars -->
     <dependency org="commons-collections" name="commons-collections" rev="2.1.1" conf="runtime->default" transitive="false" />
