@@ -38,7 +38,9 @@ import org.opensaml.saml2.core.Attribute;
 import org.opensaml.saml2.core.AttributeStatement;
 import org.opensaml.saml2.core.AuthnStatement;
 import org.opensaml.saml2.core.AuthzDecisionStatement;
+import org.opensaml.saml2.core.Conditions;
 import org.opensaml.saml2.core.Evidence;
+import org.opensaml.saml2.core.Issuer;
 import org.opensaml.saml2.core.NameID;
 import org.opensaml.saml2.core.Subject;
 import org.opensaml.xml.XMLObject;
@@ -46,6 +48,11 @@ import org.opensaml.xml.schema.XSAny;
 import org.opensaml.xml.util.AttributeMap;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
+
+import com.sun.xml.wss.saml.internal.saml20.jaxb20.ActionType;
+import com.sun.xml.wss.saml.internal.saml20.jaxb20.AuthzDecisionStatementType;
+import com.sun.xml.wss.saml.internal.saml20.jaxb20.DecisionType;
+import com.sun.xml.wss.saml.internal.saml20.jaxb20.EvidenceType;
 
 /**
  * @author mweaver
@@ -67,7 +74,7 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
 
         log.debug("Executing Saml2AssertionExtractor.extractSamlAssertion()...");
         Assertion saml2Assertion = extractSaml2Assertion(element);
-
+               
         AssertionType target = initializeAssertion();
         // Populate the Subject Information
         populateSubject(saml2Assertion, target);
@@ -76,7 +83,7 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
         // Populate the Attribute Statement Information.
         populateAttributeStatement(saml2Assertion, target);
         // Populate the Authorization Decision Statement Information
-        //populateAuthzDecisionStatement(saml2Assertion, target);
+        populateAuthzDecisionStatement(saml2Assertion, target);
         log.debug("end extractSamlAssertion()");
 
         return target;
@@ -282,62 +289,76 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
      * @param target
      *            target assertion
      */
-    /*private void populateAuthzDecisionStatement(final Assertion saml2Assertion, final AssertionType target) {
+    private void populateAuthzDecisionStatement(final Assertion saml2Assertion, final AssertionType target) {
 
-        LOGGER.debug("Executing Saml2AssertionExtractor.populateAuthzDecisionStatement()...");
-        AuthzDecisionStatementType targetAuthzStmt = new AuthzDecisionStatementType();
-        AuthzDecisionStatementEvidenceAssertionType targetEvidenceAssertion = new AuthzDecisionStatementEvidenceAssertionType();
+        final String ACCESS_CONSENT_POLICY_ATTRIBUTE_NAME = "AccessConsentPolicy";
+        final String INSTANCE_ACCESS_CONSENT_POLICY_ATTRIBUTE_NAME = "InstanceAccessConsentPolicy";
+        
+        log.debug("Executing Saml2AssertionExtractor.populateAuthzDecisionStatement()...");
+        
+        List<AuthzDecisionStatement> saml2AuthzDecisionStatements = saml2Assertion.getAuthzDecisionStatements();
+        AuthzDecisionStatement saml2AuthzDecisionStatement = saml2AuthzDecisionStatements.get(0);
+        
+        SamlAuthzDecisionStatementType targetAuthzDecisionStatement = new SamlAuthzDecisionStatementType();
+        target.setSamlAuthzDecisionStatement(targetAuthzDecisionStatement);
+        
+        // Translate attributes (Decision and Resource)
+        targetAuthzDecisionStatement.setDecision(saml2AuthzDecisionStatement.getDecision().toString());
+        targetAuthzDecisionStatement.setResource(saml2AuthzDecisionStatement.getResource());
+        
+        // Translate action                
+        targetAuthzDecisionStatement.setAction(saml2AuthzDecisionStatement.getActions().get(0).getAction());
 
-        List<AuthzDecisionStatement> authzDecisionStatements = saml2Assertion.getAuthzDecisionStatements();
-        // If there is no AuthzDecision Statement, return
-        if (authzDecisionStatements == null || authzDecisionStatements.size() < 1) {
-            return;
-        }
+        // Translate evidence
+        Evidence saml2Evidence = saml2AuthzDecisionStatement.getEvidence();
+        List<Assertion> saml2EvidenceAssertions = saml2Evidence.getAssertions();
+                
+        SamlAuthzDecisionStatementEvidenceType targetEvidence = new SamlAuthzDecisionStatementEvidenceType();
+        targetAuthzDecisionStatement.setEvidence(targetEvidence);
+        
+        // Translate Evidence Assertion
+        Assertion saml2EvidenceAssertion =  saml2EvidenceAssertions.get(0);
+        
+        SamlAuthzDecisionStatementEvidenceAssertionType targetEvidenceAssertion = new SamlAuthzDecisionStatementEvidenceAssertionType();
+        targetEvidence.setAssertion(targetEvidenceAssertion);
+                
+        
+        // Translate Evidence Attribute Statement
+        AttributeStatement saml2EvidenceAttributeStatement = saml2EvidenceAssertion.getAttributeStatements().get(0);
+        List<Attribute> saml2EvidenceAttributes = saml2EvidenceAttributeStatement.getAttributes();
 
-        AuthzDecisionStatement authzDecisionStatement = authzDecisionStatements.get(0);
-        targetAuthzStmt.setAction(authzDecisionStatement.getActions().get(0).getAction());
-        targetAuthzStmt.setResource(authzDecisionStatement.getResource());
-        targetAuthzStmt.setDecision(transformAuthzDecision(authzDecisionStatement.getDecision().toString()));
+        for (Attribute saml2EvidenceAttribute : saml2EvidenceAttributes) {
+            if (saml2EvidenceAttribute.getName().equals(ACCESS_CONSENT_POLICY_ATTRIBUTE_NAME)) {
+                XMLObject xmlObject = saml2EvidenceAttribute.getAttributeValues().get(0);
+                String accessConsent = xmlObject.getDOM().getTextContent();
 
-        Evidence evidence = authzDecisionStatement.getEvidence();
-        InstanceAccessConsentPolicyAttributeType instanceACP = new InstanceAccessConsentPolicyAttributeType();
-        AccessConsentPolicyAttributeType acp = new AccessConsentPolicyAttributeType();
+                targetEvidenceAssertion.getAccessConsentPolicy().add(accessConsent);
+            } else if (saml2EvidenceAttribute.getName().equals(INSTANCE_ACCESS_CONSENT_POLICY_ATTRIBUTE_NAME)) {
+                XMLObject xmlObject = saml2EvidenceAttribute.getAttributeValues().get(0);
+                String instanceAccessConsent = xmlObject.getDOM().getTextContent();
 
-        List<Assertion> assertions = evidence.getAssertions();
-
-        for (Assertion evidenceAssertion : assertions) {
-            List<AttributeStatement> attributeStatements = evidenceAssertion.getAttributeStatements();
-            AttributeStatement attributeStatement = attributeStatements.get(0);
-            List<Attribute> attributes = attributeStatement.getAttributes();
-
-            for (Attribute attribute : attributes) {
-                if (attribute.getName().equals(NhinSecurityConstants.ACCESS_CONSENT_POLICY_ATTRIBUTE_NAME)) {
-                    XMLObject xmlObject = attribute.getAttributeValues().get(0);
-                    // urn:oid:1.2.3.4
-                    String accessConsent = xmlObject.getDOM().getTextContent();
-                    acp.setAttributeValue(accessConsent);
-                    targetEvidenceAssertion
-                            .getAccessConsentPolicyAttributeOrInstanceAccessConsentPolicyAttribute().add(acp);
-                } else if (attribute.getName().equals(
-                        NhinSecurityConstants.INSTANCE_ACCESS_CONSENT_POLICY_ATTRIBUTE_NAME)) {
-                    XMLObject xmlObject = attribute.getAttributeValues().get(0);
-                    // urn:oid:1.2.3.4.123456789
-                    String instanceAccessConsent = xmlObject.getDOM().getTextContent();
-                    instanceACP.setAttributeValue(instanceAccessConsent);
-                    targetEvidenceAssertion
-                            .getAccessConsentPolicyAttributeOrInstanceAccessConsentPolicyAttribute().add(
-                                    instanceACP);
-                }
+                targetEvidenceAssertion.getInstanceAccessConsentPolicy().add(instanceAccessConsent);
             }
-
         }
-        targetAuthzStmt.getAuthzDecisionStatementEvidence().add(targetEvidenceAssertion);
 
-        // There should only be one AuthzDecisionStatement inside the SAML 2.0
-        // assertion
-        target.setAuthzDecisionStatement(targetAuthzStmt);
-        LOGGER.debug("end populateAuthzDecisionStatement()");
-    }*/
+        // Translate Evidence Conditions
+        Conditions saml2EvidenceCondition = saml2EvidenceAssertion.getConditions();
+        
+        SamlAuthzDecisionStatementEvidenceConditionsType targetConditions = new SamlAuthzDecisionStatementEvidenceConditionsType();
+        targetEvidenceAssertion.setConditions(targetConditions);        
+        
+        targetConditions.setNotBefore(saml2EvidenceCondition.getNotBefore().toString());
+        targetConditions.setNotOnOrAfter(saml2EvidenceCondition.getNotOnOrAfter().toString());
+        
+        // Translate Evidence Issuer
+        Issuer saml2EvidenceIssuer = saml2EvidenceAssertion.getIssuer();
+        
+        targetEvidenceAssertion.setIssuerFormat(saml2EvidenceIssuer.getFormat());
+        targetEvidenceAssertion.setIssuer(saml2EvidenceIssuer.getValue());
+        
+                      
+        log.debug("end populateAuthzDecisionStatement()");
+    }
 
     /**
      * Transform the authz decision value.
@@ -349,6 +370,7 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
     /*private DecisionType transformAuthzDecision(final String string) {
         return DecisionType.fromValue(string);
     }*/
+    
     /**
      * This method is used to construct HL7 Subject Role Attribute, and adds it
      * to the Assertion.
