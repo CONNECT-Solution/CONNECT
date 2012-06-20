@@ -95,7 +95,10 @@
             <replacevalue><![CDATA[<contains string="${targeted.java.version}" substring="1.7"/>]]></replacevalue>
         </replace>
         <replace file="${glassfish.install.ant.script}" token="requires JDK 1.5 or higher" value="requires JDK 1.7"/>
-    	<echoproperties/>
+        <replace file="${glassfish.install.ant.script}">
+            <replacetoken><![CDATA[Current Java Version ${java.version}]]></replacetoken>
+            <replacevalue><![CDATA[Current Local Java Home ${local.java.home}, Current Java Version ${java.version}]]></replacevalue>
+        </replace>
 		<if>
 			<istrue value="${is.windows}"/>
 			<then>
