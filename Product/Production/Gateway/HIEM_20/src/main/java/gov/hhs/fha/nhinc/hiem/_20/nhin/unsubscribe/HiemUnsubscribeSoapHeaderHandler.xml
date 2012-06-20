@@ -3,8 +3,7 @@
     <handler-chains>
         <handler-chain>
             <handler>
-                <handler-class>gov.hhs.fha.nhinc.hiem._20.nhin.unsubscribe.HiemUnsubscribeSoapHeaderHandler
-                </handler-class>
+                <handler-class>gov.hhs.fha.nhinc.hiem._20.nhin.unsubscribe.HiemUnsubscribeSoapHeaderHandler</handler-class>
             </handler>
             <handler>
                 <handler-name>PerformanceLogHandler</handler-name>

@@ -10,6 +10,5 @@
                 <handler-class>gov.hhs.fha.nhinc.perfrepo.PerformanceLogHandler</handler-class>
             </handler>
         </handler-chain>
-    </handler-chain>
     </handler-chains>
 </handler-config>

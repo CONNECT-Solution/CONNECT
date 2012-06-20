@@ -10,8 +10,9 @@
         </not>
     </condition>
 
-    <target name="ci" depends="clean, checkstyle, dist, unittest.run"/>
+    <target name="ci" depends="clean, dist, unittest.run"/>
     <target name="dev.ci" depends="quick.clean, checkstyle, quick.package.create, unittest.run"/>
+    <target name="dev" depends="quick.clean, checkstyle, quick.package.create"/>
 
     <target name="coverage.bless" description="Will take all existing coverage failures and enter them as exceptions in each project's coverage.thresholds.xml file.">
         <var name="do-to-target" value="coverage.bless" />
