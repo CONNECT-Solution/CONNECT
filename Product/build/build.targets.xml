@@ -274,7 +274,7 @@ layer of abstraction
     </target>
 
     <target name="checkstyle">
-        <call target="checkstyle.style"/>
+        <call target="do-checkstyle"/>
     </target>
 
     <target name="scratch.files">

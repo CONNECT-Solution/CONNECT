@@ -3,6 +3,7 @@
 
     <dirname property="checkstyle.targets.basedir" file="${ant.file.checkstyle.targets}"/>
     <property name="checkstyle.targets.ant.lib.dir" location="${checkstyle.targets.basedir}/../../../ThirdParty/AntExtraLibs"/>
+    <property name="checkstyle.html.report.file.path" location="${checkstyle.targets.basedir}/../../CheckstyleReport/CheckstyleReport.html"/>
 
     <taskdef resource="checkstyletask.properties">
         <classpath>
@@ -14,33 +15,31 @@
 
     <import file="checkstyle.properties.xml" />
 
-    <target name="checkstyle.help">
-    
-    </target>
-
     <target name="checkstyle.clean">
         <delete dir="${checkstyle.report.dir.path}" failonerror="true" />
     </target>
 
-  <!-- -->
-  <!-- Run checkstyle and generate error report with links to source code -->
-  <!-- -->
-  <target name="checkstyle.style"
-          description="Runs checkstyle and generates an error report">
-    
-    <mkdir dir="${checkstyle.report.dir.path}"/>
-    <checkstyle failonviolation="false" config="${checkstyle.configuration.file.path}">
-      <fileset dir="${checkstyle.src.dir}"
-               includes="**/src/**/*.java, **/src/**/*.properties"/>
-      <formatter type="xml" toFile="${checkstyle.report.file.path}"/>
-    </checkstyle>
+    <!-- -->
+    <!-- Run checkstyle and generate error report with links to source code -->
+    <!-- -->
+    <target name="do-checkstyle" description="Runs checkstyle and generates an error report">
 
-    <xslt basedir="${checkstyle.report.dir.path}"
+        <mkdir dir="${checkstyle.report.dir.path}"/>
+        <checkstyle failonviolation="false" failureProperty="checkstyle.errors.are.present"
+               config="${checkstyle.configuration.file.path}" maxErrors="13820" maxWarnings="0">
+            <fileset dir="${checkstyle.src.dir}"
+               includes="**/src/**/*.java, **/src/**/*.properties" excludes="**/*Test.java, **/build.generated/*"/>
+            <formatter type="xml" toFile="${checkstyle.report.file.path}"/>
+        </checkstyle>
+
+        <xslt basedir="${checkstyle.report.dir.path}"
            destdir="${checkstyle.report.dir.path}"
            includes="${checkstyle.report.file.name}"
            style="${checkstyle.xsl.file.path}">
-           <param name="output.dir" expression="${checkstyle.report.dir.path}"/>
-     </xslt>
-  </target>
-  
+        </xslt>
+
+        <fail if="checkstyle.errors.are.present" message="There are checkstyle errors!${line.separator}See full report here: ${checkstyle.html.report.file.path}"/>
+
+    </target>
+
 </project>

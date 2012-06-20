@@ -53,10 +53,12 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.nhinhiem.proxy.unsubscribe.NhinHiemUnsubscribeProxy;
 import gov.hhs.fha.nhinc.nhinhiem.proxy.unsubscribe.NhinHiemUnsubscribeProxyObjectFactory;
+import gov.hhs.fha.nhinc.perfrepo.PerformanceManager;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
 import gov.hhs.fha.nhinc.subscription.repository.data.HiemSubscriptionItem;
 import gov.hhs.fha.nhinc.subscription.repository.service.HiemSubscriptionRepositoryService;
 import gov.hhs.fha.nhinc.subscription.repository.service.SubscriptionRepositoryException;
+import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import gov.hhs.fha.nhinc.xmlCommon.XmlUtility;
 
 /**
@@ -71,6 +73,11 @@ public class EntityUnsubscribeServiceImpl {
             throws gov.hhs.fha.nhinc.entitysubscriptionmanagement.UnableToDestroySubscriptionFault,
             gov.hhs.fha.nhinc.entitysubscriptionmanagement.ResourceUnknownFault, Exception {
 
+        // Log the start of the entity performance record
+        PerformanceManager.getPerformanceManagerInstance().logPerformanceStart(
+                NhincConstants.HIEM_UNSUBSCRIBE_ENTITY_SERVICE_NAME, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE,
+                NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, HomeCommunityMap.getLocalHomeCommunityId());
+
         UnsubscribeResponse response = null;
         try {
             response = unsubscribeOps(unsubscribeRequest, context);
@@ -83,6 +90,10 @@ public class EntityUnsubscribeServiceImpl {
             log.error("Exception: " + e.getMessage());
             throw e;
         }
+        // Log the end of the entity performance record
+        PerformanceManager.getPerformanceManagerInstance().logPerformanceStop(
+                NhincConstants.HIEM_UNSUBSCRIBE_ENTITY_SERVICE_NAME, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE,
+                NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, HomeCommunityMap.getLocalHomeCommunityId());
         return response;
     }
 
@@ -195,8 +206,7 @@ public class EntityUnsubscribeServiceImpl {
 
             log.debug("unmarshalling response");
             WsntUnsubscribeResponseMarshaller unsubscribeResponseMarshaller = new WsntUnsubscribeResponseMarshaller();
-            UnsubscribeResponse unsubscribeResponse = unsubscribeResponseMarshaller
-                    .unmarshal(unsubscribeResponseElement);
+            unsubscribeResponseMarshaller.unmarshal(unsubscribeResponseElement);
             log.debug("unmarshalled response");
 
             log.debug("invoking subscription repository to remove child subscription");
@@ -216,6 +226,11 @@ public class EntityUnsubscribeServiceImpl {
             throws gov.hhs.fha.nhinc.entitysubscriptionmanagementsecured.UnableToDestroySubscriptionFault,
             gov.hhs.fha.nhinc.entitysubscriptionmanagementsecured.ResourceUnknownFault, Exception {
         UnsubscribeResponse response = null;
+
+        // Log the start of the entity performance record
+        PerformanceManager.getPerformanceManagerInstance().logPerformanceStart(
+                NhincConstants.HIEM_UNSUBSCRIBE_ENTITY_SERVICE_NAME, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE,
+                NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, HomeCommunityMap.getLocalHomeCommunityId());
         try {
             response = unsubscribeOps(unsubscribeRequest, context);
         } catch (org.oasis_open.docs.wsn.bw_2.ResourceUnknownFault ex) {
@@ -227,6 +242,10 @@ public class EntityUnsubscribeServiceImpl {
             log.error("Exception occured: " + e.getMessage());
             throw e;
         }
+        // Log the end of the entity performance record
+        PerformanceManager.getPerformanceManagerInstance().logPerformanceStop(
+                NhincConstants.HIEM_UNSUBSCRIBE_ENTITY_SERVICE_NAME, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE,
+                NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, HomeCommunityMap.getLocalHomeCommunityId());
         return response;
     }
 

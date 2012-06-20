@@ -1,30 +1,37 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
- * All rights reserved. 
+ * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * All rights reserved.
  *
- * Redistribution and use in source and binary forms, with or without 
- * modification, are permitted provided that the following conditions are met: 
- *     * Redistributions of source code must retain the above 
- *       copyright notice, this list of conditions and the following disclaimer. 
- *     * Redistributions in binary form must reproduce the above copyright 
- *       notice, this list of conditions and the following disclaimer in the documentation 
- *       and/or other materials provided with the distribution. 
- *     * Neither the name of the United States Government nor the 
- *       names of its contributors may be used to endorse or promote products 
- *       derived from this software without specific prior written permission. 
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *     * Redistributions of source code must retain the above
+ *       copyright notice, this list of conditions and the following disclaimer.
+ *     * Redistributions in binary form must reproduce the above copyright
+ *       notice, this list of conditions and the following disclaimer in the documentation
+ *       and/or other materials provided with the distribution.
+ *     * Neither the name of the United States Government nor the
+ *       names of its contributors may be used to endorse or promote products
+ *       derived from this software without specific prior written permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
- * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
- * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY 
- * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES 
- * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
- * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND 
- * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
- * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package gov.hhs.fha.nhinc.perfrepo;
+
+import java.sql.Timestamp;
+import java.util.Calendar;
+import java.util.List;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import gov.hhs.fha.nhinc.common.entityperformancelogquery.CountDataType;
 import gov.hhs.fha.nhinc.common.entityperformancelogquery.DetailDataType;
@@ -33,15 +40,10 @@ import gov.hhs.fha.nhinc.perfrepo.dao.PerfrepositoryDao;
 import gov.hhs.fha.nhinc.perfrepo.model.Perfrepository;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
-import java.sql.Timestamp;
-import java.util.Calendar;
-import java.util.List;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 /**
  * PerformanceManager contains methods to consolidate, coordinate and manage dao level functions.
- * 
+ *
  * @author richard.ettema
  */
 public class PerformanceManager {
@@ -59,7 +61,7 @@ public class PerformanceManager {
 
     /**
      * Singleton instance returned...
-     * 
+     *
      * @return PerformanceManager
      */
     public static PerformanceManager getPerformanceManagerInstance() {
@@ -67,28 +69,27 @@ public class PerformanceManager {
         return perfManager;
     }
 
-    /*
-     * Methods for managing the add and update of perfrepository records
-     */
-
     /**
      * Log new performance repository log record with initial start time
-     * 
+     *
      * @param time
      * @param servicetype
      * @param messagetype
      * @param direction
      * @param communityid
      * @return Long - Generated id from SQL INSERT
+     * @deprecated
      */
+    @Deprecated
     public Long logPerformanceStart(final Timestamp time, final String servicetype, final String messagetype,
             final String direction, final String communityid) {
         log.debug("PerformanceManager.logPerformanceStart() - Begin");
 
         Long newId = null;
 
-        if (PerformanceManager.IsPerfMonitorEnabled()) {
-            newId = createPerformanceRecord(time, servicetype, messagetype, direction, communityid, null, null, null, null, null);
+        if (PerformanceManager.isPerfMonitorEnabled()) {
+            newId = createPerformanceRecord(time, servicetype, messagetype, direction, communityid, null, null, null,
+                    null, null);
         } else {
             log.info("PerformanceManager.logPerformanceStart() - Performance Monitor is Disabled");
         }
@@ -97,9 +98,10 @@ public class PerformanceManager {
 
         return newId;
     }
+
     /**
      * Log new performance repository log record with initial start time
-     * 
+     *
      * @param time
      * @param servicetype
      * @param messagetype
@@ -107,14 +109,43 @@ public class PerformanceManager {
      * @param communityid
      * @return Long - Generated id from SQL INSERT
      */
-    public Long logPerformanceStop(final Timestamp time, final String servicetype, final String messagetype,
+    public Long logPerformanceStart(final String servicetype, final String messagetype,
             final String direction, final String communityid) {
         log.debug("PerformanceManager.logPerformanceStart() - Begin");
 
         Long newId = null;
 
-        if (PerformanceManager.IsPerfMonitorEnabled()) {
-            newId = createPerformanceRecord(time, servicetype, messagetype, direction, communityid, null, null, null, null, null);
+        if (PerformanceManager.isPerfMonitorEnabled()) {
+            newId = createPerformanceRecord(createTimestamp(), servicetype, messagetype, direction, communityid, null, null, null,
+                    null, null);
+        } else {
+            log.info("PerformanceManager.logPerformanceStart() - Performance Monitor is Disabled");
+        }
+
+        log.debug("PerformanceManager.logPerformanceStart() - End");
+
+        return newId;
+    }
+
+    /**
+     * Log new performance repository log record with initial start time
+     *
+     * @param time
+     * @param servicetype
+     * @param messagetype
+     * @param direction
+     * @param communityid
+     * @return Long - Generated id from SQL INSERT
+     */
+    public Long logPerformanceStop(final String servicetype, final String messagetype,
+            final String direction, final String communityid) {
+        log.debug("PerformanceManager.logPerformanceStart() - Begin");
+
+        Long newId = null;
+
+        if (PerformanceManager.isPerfMonitorEnabled()) {
+            newId = createPerformanceRecord(createTimestamp(), servicetype, messagetype, direction, communityid, null, null, null,
+                    null, null);
         } else {
             log.info("PerformanceManager.logPerformanceStop() - Performance Monitor is Disabled");
         }
@@ -124,9 +155,9 @@ public class PerformanceManager {
         return newId;
     }
 
-    private Long createPerformanceRecord(final Timestamp time, final String servicetype, final String messagetype,
-            final String direction, final String communityid,final String correlationId,final String errorCode,
-            final String messageVersion,final String payLoadSize, final String payLoadType) {
+    private static Long createPerformanceRecord(final Timestamp time, final String servicetype, final String messagetype,
+            final String direction, final String communityid, final String correlationId, final String errorCode,
+            final String messageVersion, final String payLoadSize, final String payLoadType) {
         Long newId = null;
         Perfrepository perfRecord = new Perfrepository();
         perfRecord.setTime(time);
@@ -151,7 +182,7 @@ public class PerformanceManager {
 
     /**
      * Update stop time and duration for known started performance repository log record
-     * 
+     *
      * @param id
      * @param starttime
      * @param stoptime
@@ -159,11 +190,11 @@ public class PerformanceManager {
      * @deprecated
      * @return Long - Calculated duration in milliseconds
      */
+    @Deprecated
     public Long logPerformanceStop(Long id, Timestamp starttime, Timestamp stoptime) {
         log.debug("PerformanceManager.logPerformanceStop() - Begin");
 
         Long duration = null;
-        Integer status = 0;
 
         // Check for valid performance repository id
         if (id != null && id > 0) {
@@ -175,17 +206,15 @@ public class PerformanceManager {
                     duration = (stoptime.getTime() - starttime.getTime());
                     log.info("PerformanceManager.logPerformanceStop() - Performance Duration = " + duration);
                 } else {
-                    status = -1;
                     duration = null;
                     log.warn("PerformanceManager.logPerformanceStop() - ERROR Calculating Performance Duration - starttime and/or stoptime null");
                 }
 
-//                perfRecord.setStoptime(stoptime);
-//                perfRecord.setDuration(duration);
-//                perfRecord.setStatus(status);
+                // perfRecord.setStoptime(stoptime);
+                // perfRecord.setDuration(duration);
+                // perfRecord.setStatus(status);
 
                 if (!PerfrepositoryDao.getPerfrepositoryDaoInstance().updatePerfrepository(perfRecord)) {
-                    status = -1;
                     duration = null;
                     log.warn("PerformanceManager.logPerformanceStop() - ERROR Updating Performance Log Record");
                 }
@@ -201,11 +230,11 @@ public class PerformanceManager {
 
     /*
      * Return performance count data list for this gateway
-     * 
+     *
      * @param beginTime
-     * 
+     *
      * @param endTime
-     * 
+     *
      * @return countDataList
      */
     public List<CountDataType> getPerfrepositoryCountData(Calendar beginTime, Calendar endTime) {
@@ -223,11 +252,11 @@ public class PerformanceManager {
 
     /*
      * Return performance detail data list for this gateway
-     * 
+     *
      * @param beginTime
-     * 
+     *
      * @param endTime
-     * 
+     *
      * @return detailDataList
      */
     public List<DetailDataType> getPerfrepositoryDetailData(Calendar beginTime, Calendar endTime) {
@@ -245,10 +274,10 @@ public class PerformanceManager {
 
     /**
      * Return boolean performance monitor enabled indicator based on gateway property
-     * 
+     *
      * @return
      */
-    private static boolean IsPerfMonitorEnabled() {
+    private static boolean isPerfMonitorEnabled() {
         boolean match = false;
         try {
             // Use CONNECT utility class to access gateway.properties
@@ -263,6 +292,15 @@ public class PerformanceManager {
             log.error(ex.getMessage());
         }
         return match;
+    }
+
+    /**
+     * Returns a timestamp, down to the millisecond.
+     *
+     * @return
+     */
+    public Timestamp createTimestamp() {
+        return new Timestamp(System.currentTimeMillis());
     }
 
 }
