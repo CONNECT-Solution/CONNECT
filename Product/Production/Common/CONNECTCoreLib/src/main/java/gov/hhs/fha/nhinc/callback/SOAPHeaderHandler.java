@@ -61,7 +61,7 @@ public class SOAPHeaderHandler implements SOAPHandler<SOAPMessageContext> {
 	}
 
 	public boolean handleMessage(SOAPMessageContext messageContext) {
-		log.debug("Entering AsynchMessageHandler.handleMessage");
+		log.debug("Entering SOAPHeaderHandler.handleMessage");
 		Boolean isOutboundMessage = (Boolean) messageContext
 				.get(MessageContext.MESSAGE_OUTBOUND_PROPERTY);
 		try {
