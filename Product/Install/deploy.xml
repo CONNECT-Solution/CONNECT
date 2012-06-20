@@ -88,6 +88,7 @@
       </then>
     </if>
     <runtarget target="delete.common.jars"/>
+    <runtarget target="deploy.thirdparty.libs"/>
     <runtarget target="deploy.shared.libs.to.glassfish"/>
     <runtarget target="deploy.glassfish.start.server"/>
     <runtarget target="deploy.wars.to.glassfish"/>
@@ -99,6 +100,24 @@
         <runtarget target="deploy.glassfish.stop.server"/>
       </then>
     </if>
+  </target>
+  
+  <target name="deploy.thirdparty.libs">
+      <delete file="${glassfish.home}/lib/asm-3.1.jar"/>
+	  <copy todir="${glassfish.home}/lib" overwrite="true" flatten="true">
+		<fileset dir="${nhinc.deployment.thirdparty.dir}">
+		    <include name="C3PO/*.jar"/>
+		    <include name="log4j/*.jar"/>
+		    <include name="HibernateLibraries/*.jar"/>
+		    <include name="MySQLDB/*.jar"/>
+		    <include name="XStream/*.jar"/>
+		    <include name="XStream/*.txt"/>
+		    <include name="SpringFramework/*.jar"/>
+		    <include name="Xerces/*.jar"/>
+		    <include name="OpenSSO/*.jar"/>
+		    <include name="UDDIModifierLib/json-*.jar"/>
+		</fileset>
+	  </copy>
   </target>
 
   <target name="undeploy.from.production">
