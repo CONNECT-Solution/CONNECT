@@ -20,3 +20,4 @@ bin/
 .externalToolBuilders/
 Product/Install/local.install.properties
 Product/Install/install.debug.log
+Product/Install/.backup*/
