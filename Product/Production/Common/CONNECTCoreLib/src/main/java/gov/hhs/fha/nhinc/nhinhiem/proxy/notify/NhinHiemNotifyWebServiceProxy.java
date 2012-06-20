@@ -81,6 +81,11 @@ public class NhinHiemNotifyWebServiceProxy implements NhinHiemNotifyProxy {
 
         log.debug("Notify element received in NhinHiemNotifyWebServiceProxy: "
                 + XmlUtility.serializeElementIgnoreFaults(notifyElement));
+        
+        log.debug("unmarshaling notify message");
+        WsntSubscribeMarshaller notifyMarshaller = new WsntSubscribeMarshaller();
+        Notify notify = notifyMarshaller.unmarshalNotifyRequest(notifyElement);
+        auditInputMessage(notify, assertion);
 
         if (target != null) {
             try {
@@ -97,14 +102,9 @@ public class NhinHiemNotifyWebServiceProxy implements NhinHiemNotifyProxy {
         try {
             if (NullChecker.isNotNullish(url)) {
 
-                log.debug("unmarshaling notify message");
-                WsntSubscribeMarshaller notifyMarshaller = new WsntSubscribeMarshaller();
-                Notify notify = notifyMarshaller.unmarshalNotifyRequest(notifyElement);
-
                 // Policy check
                 log.debug("Calling checkPolicy");
                 if (checkPolicy(notify, assertion)) {
-                    auditInputMessage(notify, assertion);
                     NotificationConsumer port = getPort(url, assertion);
 
                     log.debug("attaching reference parameter headers");

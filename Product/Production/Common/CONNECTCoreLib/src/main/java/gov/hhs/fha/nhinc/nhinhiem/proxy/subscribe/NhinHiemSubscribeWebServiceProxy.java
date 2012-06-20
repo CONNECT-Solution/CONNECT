@@ -98,6 +98,10 @@ public class NhinHiemSubscribeWebServiceProxy implements NhinHiemSubscribeProxy 
 
         log.debug("In NhinSubscribeWebserviceProxy.subscribe()");
 
+        WsntSubscribeMarshaller subscribeMarshaller = new WsntSubscribeMarshaller();
+        Subscribe subscribe = subscribeMarshaller.unmarshalUnsubscribeRequest(subscribeElement);
+        auditInputMessage(subscribe, assertion);
+
         if (target != null) {
             try {
                 url = ConnectionManagerCache.getInstance().getEndpointURLFromNhinTarget(target,
@@ -113,11 +117,7 @@ public class NhinHiemSubscribeWebServiceProxy implements NhinHiemSubscribeProxy 
         if (NullChecker.isNotNullish(url)) {
             NotificationProducer port = getPort(url, assertion);
 
-            WsntSubscribeMarshaller subscribeMarshaller = new WsntSubscribeMarshaller();
-            Subscribe subscribe = subscribeMarshaller.unmarshalUnsubscribeRequest(subscribeElement);
-
             if (checkPolicy(subscribe, assertion)) {
-                auditInputMessage(subscribe, assertion);
                 // The proxyhelper invocation casts exceptions to generic Exception, trying to use the default method
                 // invocation
                 response = port.subscribe(subscribe);
