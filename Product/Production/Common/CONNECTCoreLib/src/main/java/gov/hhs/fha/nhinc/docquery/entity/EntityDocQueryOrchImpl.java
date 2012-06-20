@@ -168,12 +168,13 @@ public class EntityDocQueryOrchImpl {
             }
 
             // Obtain all the URLs for the targets being sent to
-            try {
-                urlInfoList = ConnectionManagerCache.getInstance().getEndpointURLFromNhinTargetCommunities(targets,
-                        NhincConstants.DOC_QUERY_SERVICE_NAME);
-            } catch (Exception ex) {
-                log.error("EntityDocQueryOrchImpl Failed to obtain target URLs", ex);
-            }
+
+            urlInfoList = getEndpointForNhinTargetCommunities(targets, NhincConstants.DOC_QUERY_SERVICE_NAME);
+            /*
+             * try { urlInfoList = ConnectionManagerCache.getInstance().getEndpointURLFromNhinTargetCommunities(targets,
+             * NhincConstants.DOC_QUERY_SERVICE_NAME); } catch (Exception ex) {
+             * log.error("EntityDocQueryOrchImpl Failed to obtain target URLs", ex); }
+             */
             if ((!isTargeted) || (isTargeted && NullChecker.isNotNullish(urlInfoList))) {
                 RegistryErrorList homeCommunityErrorList = new RegistryErrorList();
                 // Validate that the message is not null
@@ -199,9 +200,12 @@ public class EntityDocQueryOrchImpl {
                             log.debug("EntityDocQueryOrchImpl correlated target aaid="
                                     + identifier.getAssigningAuthorityIdentifier());
                             NhinTargetSystemType target = new NhinTargetSystemType();
-
-                            HomeCommunityType targetCommunity = new EntityDocQueryHelper().lookupHomeCommunityId(
+                            HomeCommunityType targetCommunity = getTargetCommunity(
                                     identifier.getAssigningAuthorityIdentifier(), localAA, getLocalHomeCommunityId());
+                            /*
+                             * HomeCommunityType targetCommunity = new EntityDocQueryHelper().lookupHomeCommunityId(
+                             * identifier.getAssigningAuthorityIdentifier(), localAA, getLocalHomeCommunityId());
+                             */
                             String sTargetHomeCommunityId = null;
                             if (targetCommunity != null) {
                                 target.setHomeCommunity(targetCommunity);
@@ -328,6 +332,36 @@ public class EntityDocQueryOrchImpl {
         auditDocQueryResponse(response, assertion, auditLog);
         log.debug("Exiting EntityDocQueryOrchImpl.respondingGatewayCrossGatewayQuery...");
         return response;
+    }
+
+    /**
+     * @param targets
+     * @param docQueryServiceName
+     * @return
+     */
+    protected List<UrlInfo> getEndpointForNhinTargetCommunities(NhinTargetCommunitiesType targets,
+            String docQueryServiceName) {
+        List<UrlInfo> urlInfoList = null;
+        try {
+            urlInfoList = ConnectionManagerCache.getInstance().getEndpointURLFromNhinTargetCommunities(targets,
+                    NhincConstants.DOC_QUERY_SERVICE_NAME);
+        } catch (Exception ex) {
+            log.error("EntityDocQueryOrchImpl Failed to obtain target URLs", ex);
+        }
+        return urlInfoList;
+    }
+
+    /**
+     * @param assigningAuthorityIdentifier
+     * @param localAA
+     * @param localHomeCommunityId
+     * @return
+     */
+    protected HomeCommunityType getTargetCommunity(String assigningAuthorityIdentifier, String localAA,
+            String localHomeCommunityId) {
+        HomeCommunityType targetCommunity = new EntityDocQueryHelper().lookupHomeCommunityId(
+                assigningAuthorityIdentifier, localAA, localHomeCommunityId);
+        return targetCommunity;
     }
 
     /**
