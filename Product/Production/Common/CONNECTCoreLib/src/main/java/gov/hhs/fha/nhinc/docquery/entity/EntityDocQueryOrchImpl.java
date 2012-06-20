@@ -324,7 +324,13 @@ public class EntityDocQueryOrchImpl {
                                 newRegErrorList.getRegistryError().add(regErr);
                             }
                         }
-                        response.setRegistryErrorList(newRegErrorList);
+                        
+                        if (newRegErrorList.getRegistryError() == null || newRegErrorList.getRegistryError().size() == 0) {
+                        	response.setRegistryErrorList(null);
+                        }
+                        else {
+                        	response.setRegistryErrorList(newRegErrorList);
+                        }
                     }
 
                     log.debug("EntityDocQueryOrchImpl taskexecutor done and received response");
