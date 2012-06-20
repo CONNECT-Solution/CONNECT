@@ -42,7 +42,7 @@
         <condition property="is.windows">
             <os family="windows"/>
         </condition>
-        <condition property="is.mac">
+        <condition property="is.linux">
             <os family="unix"/>
         </condition>
     </target>
@@ -55,6 +55,11 @@
     <target name="setup.for.mac" if="is.mac">
         <property name="glassfish.zip.file" value="${temp.dir}/glassfish-2.1.1.mac.zip"/>
         <get src="https://developer.connectopensource.org/download/attachments/20316168/glassfish-2.1.1.mac.zip" dest="${glassfish.zip.file}"/>
+    </target>
+    
+    <target name="setup.for.linux" if="is.linux">
+        <property name="glassfish.zip.file" value="${temp.dir}/glassfish-2.1.1.linux.zip"/>
+        <get src="https://developer.connectopensource.org/download/attachments/20316168/glassfish-2.1.1.linux.zip" dest="${glassfish.zip.file}"/>
     </target>
     
     <target name="setup.for.windows"  if="is.windows">
