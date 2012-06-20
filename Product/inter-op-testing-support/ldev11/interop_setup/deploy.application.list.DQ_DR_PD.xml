@@ -87,10 +87,6 @@
          <should.deploy>false</should.deploy>
       </war>
       <war>
-         <name>CONNECTUDDIModifierGUI</name>
-         <should.deploy>false</should.deploy>
-      </war>
-      <war>
          <name>AdapterDocRepository2Soap12Web</name>
          <should.deploy>true</should.deploy>
       </war>
