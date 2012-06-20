@@ -1,4 +1,7 @@
 ivy-cache
 ivy-project-cache
 target
-
+Product/Production/Common/Properties/Dev/test*.properties
+Product/Production/Common/CONNECTCoreLib/testMPI.xml
+Product/Install/deploy.application.list.xml
+Product/NHINC/
