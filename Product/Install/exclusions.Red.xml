@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<project name="nhinc.deployment.exclusion.settings.dev">
-  <property name="deploy.exclude.war.CONNECTUDDIModifierGUI" value="true"/>
-  <property name="deploy.exclude.ejb.MuralMpiEJB" value="true"/>
-</project>
