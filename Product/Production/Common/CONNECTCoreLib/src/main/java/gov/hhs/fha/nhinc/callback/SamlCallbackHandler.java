@@ -211,9 +211,7 @@ public class SamlCallbackHandler implements CallbackHandler {
             SAMLAssertionFactory factory = SAMLAssertionFactory.newInstance(SAMLAssertionFactory.SAML2_0);
 
             // create the assertion id
-            // Per GATEWAY-847 the id attribute should not be allowed to start with a number (UUIDs can). Direction
-            // given from 2011 specification set was to prepend with and underscore.
-            String aID = ID_PREFIX.concat(String.valueOf(UUID.randomUUID()));
+            String aID = createAssertionId();
             log.debug("Assertion ID: " + aID);
 
             // name id of the issuer - For now just use default
@@ -258,9 +256,7 @@ public class SamlCallbackHandler implements CallbackHandler {
             SAMLAssertionFactory factory = SAMLAssertionFactory.newInstance(SAMLAssertionFactory.SAML2_0);
 
             // create the assertion id
-            // Per GATEWAY-847 the id attribute should not be allowed to start with a number (UUIDs can). Direction
-            // given from 2011 specification set was to prepend with and underscore.
-            String aID = ID_PREFIX.concat(String.valueOf(UUID.randomUUID()));
+            String aID = createAssertionId();
             log.debug("Assertion ID: " + aID);
             // name id of the issuer - For now just use default
             NameID issueId = null;
@@ -784,7 +780,7 @@ public class SamlCallbackHandler implements CallbackHandler {
 
         List evAsserts = new ArrayList();
         try {
-            String evAssertionID = String.valueOf(UUID.randomUUID());
+            String evAssertionID = createAssertionId();
             if (tokenVals.containsKey(SamlConstants.EVIDENCE_ID_PROP)
                     && tokenVals.get(SamlConstants.EVIDENCE_ID_PROP) != null) {
                 evAssertionID = tokenVals.get(SamlConstants.EVIDENCE_ID_PROP).toString();
@@ -881,6 +877,17 @@ public class SamlCallbackHandler implements CallbackHandler {
         return evidence;
     }
 
+    /**  
+     * Creates a new UUID and strips out the dashes so resulting String is alphanumeric only. Prefixes with "_".
+     * Per GATEWAY-847 the id attribute should not be allowed to start with a number (UUIDs can). Direction
+     * given from 2011 specification set was to prepend with and underscore.
+     * 
+     * @return a String representation of a UUID with the dashes removed   
+     */
+    private String createAssertionId() {   
+        return ID_PREFIX + UUID.randomUUID().toString().replaceAll("-", "");   
+    }
+    
     /**
      * Creates a calendar object representing the time given.
      * 
