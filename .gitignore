@@ -1,0 +1,15 @@
+build.generated/
+build/
+lib/
+ivy-cache/
+dist/
+coverage-reports/
+unit-test-reports/
+C:/
+Product/Production/Common/Properties/Dev/test*.properties
+Product/Production/Common/CONNECTCoreLib/testMPI.xml
+CheckstyleReport/
+Product/Install/deploy.application.list.xml
+target/
+ivy-project-cache/
+Product/NHINC/
