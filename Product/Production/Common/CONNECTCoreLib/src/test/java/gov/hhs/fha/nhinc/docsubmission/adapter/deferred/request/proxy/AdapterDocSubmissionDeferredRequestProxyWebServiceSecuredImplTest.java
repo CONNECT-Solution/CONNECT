@@ -26,27 +26,33 @@
  */
 package gov.hhs.fha.nhinc.docsubmission.adapter.deferred.request.proxy;
 
-import gov.hhs.fha.nhinc.adapterxdrrequestsecured.AdapterXDRRequestSecuredPortType;
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADAPTER_API_LEVEL;
-import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
-import gov.hhs.healthit.nhin.XDRAcknowledgementType;
+import static org.junit.Assert.assertEquals;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
+
 import java.net.MalformedURLException;
+
 import javax.xml.ws.BindingProvider;
 import javax.xml.ws.Service;
+
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
+
 import org.apache.commons.logging.Log;
 import org.jmock.Expectations;
+import org.jmock.Mockery;
+import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
-import org.jmock.Mockery;
-import org.jmock.lib.legacy.ClassImposteriser;
+
+import gov.hhs.fha.nhinc.adapterxdrrequestsecured.AdapterXDRRequestSecuredPortType;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADAPTER_API_LEVEL;
+import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
+
+import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 
 /**
  * 

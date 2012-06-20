@@ -1,30 +1,47 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
- * All rights reserved. 
+ * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * All rights reserved.
  *
- * Redistribution and use in source and binary forms, with or without 
- * modification, are permitted provided that the following conditions are met: 
- *     * Redistributions of source code must retain the above 
- *       copyright notice, this list of conditions and the following disclaimer. 
- *     * Redistributions in binary form must reproduce the above copyright 
- *       notice, this list of conditions and the following disclaimer in the documentation 
- *       and/or other materials provided with the distribution. 
- *     * Neither the name of the United States Government nor the 
- *       names of its contributors may be used to endorse or promote products 
- *       derived from this software without specific prior written permission. 
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *     * Redistributions of source code must retain the above
+ *       copyright notice, this list of conditions and the following disclaimer.
+ *     * Redistributions in binary form must reproduce the above copyright
+ *       notice, this list of conditions and the following disclaimer in the documentation
+ *       and/or other materials provided with the distribution.
+ *     * Neither the name of the United States Government nor the
+ *       names of its contributors may be used to endorse or promote products
+ *       derived from this software without specific prior written permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
- * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
- * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY 
- * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES 
- * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
- * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND 
- * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
- * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package gov.hhs.fha.nhinc.nhinhiem.proxy.subscribe;
+
+//import java.lang.reflect.InvocationTargetException;
+
+import javax.xml.namespace.QName;
+import javax.xml.ws.BindingProvider;
+import javax.xml.ws.Service;
+
+import oasis.names.tc.xacml._2_0.context.schema.os.DecisionType;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.oasis_open.docs.wsn.b_2.Subscribe;
+import org.oasis_open.docs.wsn.b_2.SubscribeCreationFailedFaultType;
+import org.oasis_open.docs.wsn.b_2.SubscribeResponse;
+import org.oasis_open.docs.wsn.bw_2.NotificationProducer;
+import org.oasis_open.docs.wsn.bw_2.SubscribeCreationFailedFault;
+import org.w3c.dom.Element;
 
 import gov.hhs.fha.nhinc.auditrepository.AuditRepositoryLogger;
 import gov.hhs.fha.nhinc.auditrepository.nhinc.proxy.AuditRepositoryProxy;
@@ -47,33 +64,9 @@ import gov.hhs.fha.nhinc.policyengine.adapter.proxy.PolicyEngineProxy;
 import gov.hhs.fha.nhinc.policyengine.adapter.proxy.PolicyEngineProxyObjectFactory;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import gov.hhs.fha.nhinc.xmlCommon.XmlUtility;
-import javax.xml.namespace.QName;
-import javax.xml.ws.BindingProvider;
-import javax.xml.ws.Service;
-import oasis.names.tc.xacml._2_0.context.schema.os.DecisionType;
-import org.oasis_open.docs.wsn.b_2.SubscribeResponse;
-import org.oasis_open.docs.wsn.bw_2.InvalidFilterFault;
-import org.oasis_open.docs.wsn.bw_2.InvalidMessageContentExpressionFault;
-import org.oasis_open.docs.wsn.bw_2.InvalidProducerPropertiesExpressionFault;
-import org.oasis_open.docs.wsn.bw_2.InvalidTopicExpressionFault;
-import org.oasis_open.docs.wsn.bw_2.NotificationProducer;
-import org.oasis_open.docs.wsn.bw_2.NotificationProducerService;
-import org.oasis_open.docs.wsn.bw_2.NotifyMessageNotSupportedFault;
-import org.oasis_open.docs.wsn.bw_2.ResourceUnknownFault;
-import org.oasis_open.docs.wsn.bw_2.SubscribeCreationFailedFault;
-import org.oasis_open.docs.wsn.bw_2.TopicExpressionDialectUnknownFault;
-import org.oasis_open.docs.wsn.bw_2.TopicNotSupportedFault;
-import org.oasis_open.docs.wsn.bw_2.UnacceptableInitialTerminationTimeFault;
-import org.oasis_open.docs.wsn.bw_2.UnrecognizedPolicyRequestFault;
-import org.oasis_open.docs.wsn.bw_2.UnsupportedPolicyRequestFault;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.oasis_open.docs.wsn.b_2.Subscribe;
-import org.oasis_open.docs.wsn.b_2.SubscribeCreationFailedFaultType;
-import org.w3c.dom.Element;
 
 /**
- * 
+ *
  * @author Jon Hoppesch
  */
 public class NhinHiemSubscribeWebServiceProxy implements NhinHiemSubscribeProxy {
@@ -86,12 +79,13 @@ public class NhinHiemSubscribeWebServiceProxy implements NhinHiemSubscribeProxy 
     private static final String SERVICE_LOCAL_PART = "NotificationProducerService";
     private static final String PORT_LOCAL_PART = "NotificationProducerPort";
     private static final String WSDL_FILE = "NhinSubscription.wsdl";
+    private static final String WS_ADDRESSING_ACTION = "http://docs.oasis-open.org/wsn/bw-2/NotificationProducer/SubscribeRequest";
+    private static final String SUBSCRIBE_SERVICE = "subscribe";
 
+
+    @Override
     public Element subscribe(Element subscribeElement, AssertionType assertion, NhinTargetSystemType target)
-            throws InvalidFilterFault, InvalidMessageContentExpressionFault, InvalidProducerPropertiesExpressionFault,
-            InvalidTopicExpressionFault, NotifyMessageNotSupportedFault, ResourceUnknownFault,
-            SubscribeCreationFailedFault, TopicExpressionDialectUnknownFault, TopicNotSupportedFault,
-            UnacceptableInitialTerminationTimeFault, UnrecognizedPolicyRequestFault, UnsupportedPolicyRequestFault {
+            throws Exception {
         Element responseElement = null;
         SubscribeResponse response = null;
         String url = null;
@@ -116,16 +110,20 @@ public class NhinHiemSubscribeWebServiceProxy implements NhinHiemSubscribeProxy 
 
         if (NullChecker.isNotNullish(url)) {
             NotificationProducer port = getPort(url, assertion);
-
             if (checkPolicy(subscribe, assertion)) {
-                // The proxyhelper invocation casts exceptions to generic Exception, trying to use the default method
-                // invocation
-                response = port.subscribe(subscribe);
+                    try {
+                        response = (SubscribeResponse) oProxyHelper.invokePort(port, NotificationProducer.class,
+                                SUBSCRIBE_SERVICE, subscribe);
+                    } catch (Exception e) {
+                        log.error("Exception: " + e.getMessage());
+                        throw e;
+                    }
                 auditResponseMessage(response, assertion);
             } else {
                 SubscribeCreationFailedFaultType faultInfo = null;
                 throw new SubscribeCreationFailedFault("Policy check failed", faultInfo);
             }
+
 
             SubscribeResponseMarshaller responseMarshaller = new SubscribeResponseMarshaller();
             responseElement = responseMarshaller.marshal(response);
@@ -222,7 +220,7 @@ public class NhinHiemSubscribeWebServiceProxy implements NhinHiemSubscribeProxy 
 
                 // Initialize secured port
                 getWebServiceProxyHelper().initializeSecurePort((BindingProvider) oPort, url,
-                        NhincConstants.SUBSCRIBE_ACTION, null, assertIn);
+                        NhincConstants.SUBSCRIBE_ACTION, WS_ADDRESSING_ACTION, assertIn);
             } else {
                 log.error("Unable to obtain service - no port created.");
             }

@@ -26,12 +26,14 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery.entity.proxy;
 
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
-import gov.hhs.fha.nhinc.entitypatientdiscovery.EntityPatientDiscoveryPortType;
-import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.fail;
+
+
 import javax.xml.ws.Service;
+
 import org.apache.commons.logging.Log;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.RespondingGatewayPRPAIN201306UV02ResponseType;
@@ -42,7 +44,12 @@ import org.jmock.integration.junit4.JUnit4Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import static org.junit.Assert.*;
+
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
+import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
+import gov.hhs.fha.nhinc.entitypatientdiscovery.EntityPatientDiscoveryPortType;
+import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 
 /**
  * 

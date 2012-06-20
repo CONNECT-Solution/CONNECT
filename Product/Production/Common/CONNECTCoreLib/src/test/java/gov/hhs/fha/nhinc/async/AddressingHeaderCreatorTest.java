@@ -26,23 +26,25 @@
  */
 package gov.hhs.fha.nhinc.async;
 
-import com.sun.xml.ws.api.message.Header;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.xml.stream.FactoryConfigurationError;
-import javax.xml.stream.XMLOutputFactory;
 import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamWriter;
 
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
+
+import com.sun.xml.ws.api.message.Header;
 
 /**
  * This class is used to test the AsyncHeaderCreator class
@@ -83,6 +85,7 @@ public class AddressingHeaderCreatorTest {
         String relatesToId = "TestRelatesToId_1";
         String addrAnon = "http://www.w3.org/2005/08/addressing/anonymous";
         List<String> relatesToIds = new ArrayList<String>();
+        final String messageId_prefix = "urn:uuid:";
         relatesToIds.add(relatesToId);
 
         AddressingHeaderCreator hdrCreator = new AddressingHeaderCreator(url, action, messageId, relatesToIds);
@@ -105,7 +108,8 @@ public class AddressingHeaderCreatorTest {
                     } else if ("ReplyTo".equals(elemTag)) {
                         assertEquals(addrAnon, hdr.getStringContent());
                     } else if ("MessageID".equals(elemTag)) {
-                        assertEquals(messageId, hdr.getStringContent());
+                        assertFalse(messageId == hdr.getStringContent());
+                        assertEquals(messageId_prefix + messageId, hdr.getStringContent());
                     } else if ("RelatesTo".equals(elemTag)) {
                         assertEquals(relatesToId, hdr.getStringContent());
                     } else {
@@ -131,6 +135,7 @@ public class AddressingHeaderCreatorTest {
         String relatesToId1 = "TestRelatesToId_1";
         String relatesToId2 = "TestRelatesToId_2";
         String addrAnon = "http://www.w3.org/2005/08/addressing/anonymous";
+        final String messageId_prefix = "urn:uuid:";
         List<String> relatesToIds = new ArrayList<String>();
         relatesToIds.add(relatesToId1);
         relatesToIds.add(relatesToId2);
@@ -156,7 +161,8 @@ public class AddressingHeaderCreatorTest {
                     } else if ("ReplyTo".equals(elemTag)) {
                         assertEquals(addrAnon, hdr.getStringContent());
                     } else if ("MessageID".equals(elemTag)) {
-                        assertEquals(messageId, hdr.getStringContent());
+                        assertFalse(messageId == hdr.getStringContent());
+                        assertEquals(messageId_prefix + messageId, hdr.getStringContent());
                     } else if ("RelatesTo".equals(elemTag)) {
                         assertTrue(hdr.getStringContent().startsWith("TestRelatesToId_"));
                     } else {
@@ -176,6 +182,7 @@ public class AddressingHeaderCreatorTest {
         String url = "TestUrl";
         String action = "TestAction";
         String messageId = "TestMessageId";
+        final String messageId_prefix = "urn:uuid:";
         String addrAnon = "http://www.w3.org/2005/08/addressing/anonymous";
 
         AddressingHeaderCreator hdrCreator = new AddressingHeaderCreator(url, action, messageId, null);
@@ -198,7 +205,8 @@ public class AddressingHeaderCreatorTest {
                     } else if ("ReplyTo".equals(elemTag)) {
                         assertEquals(addrAnon, hdr.getStringContent());
                     } else if ("MessageID".equals(elemTag)) {
-                        assertEquals(messageId, hdr.getStringContent());
+                        assertFalse(messageId == hdr.getStringContent());
+                        assertEquals(messageId_prefix + messageId, hdr.getStringContent());
                     } else {
                         fail("Unknown header element tag: " + elemTag);
                     }
@@ -257,6 +265,7 @@ public class AddressingHeaderCreatorTest {
 
         String url = "TestUrl";
         String messageId = "TestMessageId";
+        final String messageId_prefix = "urn:uuid:";
         String relatesToId = "TestRelatesToId_1";
         String addrAnon = "http://www.w3.org/2005/08/addressing/anonymous";
         List<String> relatesToIds = new ArrayList<String>();
@@ -286,7 +295,8 @@ public class AddressingHeaderCreatorTest {
                     } else if ("ReplyTo".equals(elemTag)) {
                         assertEquals(addrAnon, hdr.getStringContent());
                     } else if ("MessageID".equals(elemTag)) {
-                        assertEquals(messageId, hdr.getStringContent());
+                        assertFalse(messageId == hdr.getStringContent());
+                        assertEquals(messageId_prefix + messageId, hdr.getStringContent());
                     } else if ("RelatesTo".equals(elemTag)) {
                         assertEquals(relatesToId, hdr.getStringContent());
                     } else {
@@ -305,6 +315,7 @@ public class AddressingHeaderCreatorTest {
 
         String action = "TestAction";
         String messageId = "TestMessageId";
+        final String messageId_prefix = "urn:uuid:";
         String relatesToId = "TestRelatesToId_1";
         String addrAnon = "http://www.w3.org/2005/08/addressing/anonymous";
         List<String> relatesToIds = new ArrayList<String>();
@@ -334,7 +345,8 @@ public class AddressingHeaderCreatorTest {
                     } else if ("ReplyTo".equals(elemTag)) {
                         assertEquals(addrAnon, hdr.getStringContent());
                     } else if ("MessageID".equals(elemTag)) {
-                        assertEquals(messageId, hdr.getStringContent());
+                        assertFalse(messageId == hdr.getStringContent());
+                        assertEquals(messageId_prefix + messageId, hdr.getStringContent());
                     } else if ("RelatesTo".equals(elemTag)) {
                         assertEquals(relatesToId, hdr.getStringContent());
                     } else {
