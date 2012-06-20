@@ -48,6 +48,8 @@ public class PropertyFileManagerTest
     @Test
     public void testWritePropertyFile() throws Exception
     {
+        PropertyAccessor propertyAccessor = PropertyAccessor.getInstance();
+        
         System.out.println("writePropertyFile");
         String sPropertyFile = "testprops";
         Properties oProps = new Properties();
@@ -56,28 +58,28 @@ public class PropertyFileManagerTest
         oProps.setProperty("Prop2", "Value2");
         PropertyFileManager.writePropertyFile(sPropertyFile, oProps);
         
-        String sValue = PropertyAccessor.getProperty(sPropertyFile, "CacheRefreshDuration");
+        String sValue = propertyAccessor.getProperty(sPropertyFile, "CacheRefreshDuration");
         assertEquals("0", sValue);
         
-        sValue = PropertyAccessor.getProperty(sPropertyFile, "Prop1");
+        sValue = propertyAccessor.getProperty(sPropertyFile, "Prop1");
         assertEquals("Value1", sValue);
         
-        sValue = PropertyAccessor.getProperty(sPropertyFile, "Prop2");
+        sValue = propertyAccessor.getProperty(sPropertyFile, "Prop2");
         assertEquals("Value2", sValue);
         
         oProps.setProperty("Prop3", "Value3");
         PropertyFileManager.writePropertyFile(sPropertyFile, oProps);
         
-        sValue = PropertyAccessor.getProperty(sPropertyFile, "CacheRefreshDuration");
+        sValue = propertyAccessor.getProperty(sPropertyFile, "CacheRefreshDuration");
         assertEquals("0", sValue);
         
-        sValue = PropertyAccessor.getProperty(sPropertyFile, "Prop1");
+        sValue = propertyAccessor.getProperty(sPropertyFile, "Prop1");
         assertEquals("Value1", sValue);
         
-        sValue = PropertyAccessor.getProperty(sPropertyFile, "Prop2");
+        sValue = propertyAccessor.getProperty(sPropertyFile, "Prop2");
         assertEquals("Value2", sValue);
 
-        sValue = PropertyAccessor.getProperty(sPropertyFile, "Prop3");
+        sValue = propertyAccessor.getProperty(sPropertyFile, "Prop3");
         assertEquals("Value3", sValue);
         
         PropertyFileManager.deletePropertyFile(sPropertyFile);

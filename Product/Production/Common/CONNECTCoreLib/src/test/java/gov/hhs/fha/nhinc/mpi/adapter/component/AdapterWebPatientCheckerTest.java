@@ -62,14 +62,14 @@ public class AdapterWebPatientCheckerTest {
 
     @Before
     public void setUp() {
-        propertyFileLocation = PropertyAccessor.getPropertyFileLocation();
+        propertyFileLocation = PropertyAccessor.getInstance().getPropertyFileLocation();
         String testConfigDir = System.getProperty("user.dir") + "/src/test/resources/config";
-        PropertyAccessor.setPropertyFileLocation(testConfigDir);
+        PropertyAccessor.getInstance().setPropertyFileLocation(testConfigDir);
     }
 
     @After
     public void tearDown() {
-        PropertyAccessor.setPropertyFileLocation(propertyFileLocation);
+        PropertyAccessor.getInstance().setPropertyFileLocation(propertyFileLocation);
     }
 
     /**

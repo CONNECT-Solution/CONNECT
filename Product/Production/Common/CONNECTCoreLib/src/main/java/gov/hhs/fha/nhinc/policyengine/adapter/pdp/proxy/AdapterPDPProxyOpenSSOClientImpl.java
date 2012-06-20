@@ -138,7 +138,7 @@ public class AdapterPDPProxyOpenSSOClientImpl implements AdapterPDPProxy
 
     {
 
-        return PropertyAccessor.getProperty(PROPERTY_FILE_NAME_GATEWAY, PROPERTY_FILE_KEY_PDP_ENTITY);
+        return PropertyAccessor.getInstance().getProperty(PROPERTY_FILE_NAME_GATEWAY, PROPERTY_FILE_KEY_PDP_ENTITY);
 
     }
 

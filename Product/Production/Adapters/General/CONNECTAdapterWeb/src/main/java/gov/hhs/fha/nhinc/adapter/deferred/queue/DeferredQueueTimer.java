@@ -92,7 +92,7 @@ public class DeferredQueueTimer extends Thread {
     private void initialize() throws DeferredQueueException {
 
         try {
-            String sDuration = PropertyAccessor.getProperty(GATEWAY_PROPERTY_FILE,
+            String sDuration = PropertyAccessor.getInstance().getProperty(GATEWAY_PROPERTY_FILE,
                     DEFERRED_QUEUE_REFRESH_DURATION_PROPERTY);
             if ((sDuration != null) && (sDuration.length() > 0)) {
                 m_iDurationSeconds = Integer.parseInt(sDuration);

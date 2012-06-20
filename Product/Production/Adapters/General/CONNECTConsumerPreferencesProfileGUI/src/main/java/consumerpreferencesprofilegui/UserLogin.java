@@ -177,7 +177,7 @@ public class UserLogin extends AbstractPageBean {
         }
 
         try {
-            String agencyName = PropertyAccessor.getProperty(PROPERTY_FILE_NAME_ADAPTER, PROPERTY_FILE_KEY_AGENCY);
+            String agencyName = PropertyAccessor.getInstance().getProperty(PROPERTY_FILE_NAME_ADAPTER, PROPERTY_FILE_KEY_AGENCY);
             this.agencyLogo.setText(agencyName);
         } catch (PropertyAccessException ex) {
             log.error("CPP GUI can not access " + PROPERTY_FILE_KEY_AGENCY + " property: ", ex);

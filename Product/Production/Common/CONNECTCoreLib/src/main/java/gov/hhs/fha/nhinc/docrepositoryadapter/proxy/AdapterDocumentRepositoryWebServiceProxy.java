@@ -64,7 +64,7 @@ public class AdapterDocumentRepositoryWebServiceProxy implements AdapterDocument
         try { // Call Web Service Operation
             String url = null;
 
-            String xdsbHomeCommunityId = PropertyAccessor.getProperty(ADAPTER_PROPERTY_FILE_NAME,
+            String xdsbHomeCommunityId = PropertyAccessor.getInstance().getProperty(ADAPTER_PROPERTY_FILE_NAME,
                     XDS_HOME_COMMUNITY_ID_PROPERTY);
             if (log.isDebugEnabled()) {
                 log.debug("Value of " + XDS_HOME_COMMUNITY_ID_PROPERTY + " retrieved from the "
@@ -93,7 +93,7 @@ public class AdapterDocumentRepositoryWebServiceProxy implements AdapterDocument
 
             String url = null;
 
-            String xdsbHomeCommunityId = PropertyAccessor.getProperty(ADAPTER_PROPERTY_FILE_NAME,
+            String xdsbHomeCommunityId = PropertyAccessor.getInstance().getProperty(ADAPTER_PROPERTY_FILE_NAME,
                     XDS_HOME_COMMUNITY_ID_PROPERTY);
             if (xdsbHomeCommunityId != null && !xdsbHomeCommunityId.equals("")) {
                 url = oProxyHelper.getAdapterEndPointFromConnectionManager(xdsbHomeCommunityId,

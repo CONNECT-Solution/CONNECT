@@ -56,7 +56,7 @@ public class NhinHiemNotifyProxyObjectFactory {
     private static ApplicationContext context = null;
 
     static {
-        context = new FileSystemXmlApplicationContext(PropertyAccessor.getPropertyFileURL() + CONFIG_FILE_NAME);
+        context = new FileSystemXmlApplicationContext(PropertyAccessor.getInstance().getPropertyFileURL() + CONFIG_FILE_NAME);
     }
 
     /**

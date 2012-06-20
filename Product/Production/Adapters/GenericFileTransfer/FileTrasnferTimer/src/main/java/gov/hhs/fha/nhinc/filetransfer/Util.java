@@ -65,7 +65,7 @@ public class Util {
     public static String getExportDirectory() {
         String dir = "";
         try {
-            dir = PropertyAccessor.getProperty(ADAPTER_PROPERTY_FILE, "CDCExportDir");
+            dir = PropertyAccessor.getInstance().getProperty(ADAPTER_PROPERTY_FILE, "CDCExportDir");
         } catch (Exception ex) {
 
         }

@@ -69,7 +69,7 @@ public class UddiConnectionInfoDAOFileImpl extends ConnectionManagerDAOBase impl
 
     public String getUddiConnectionFileLocation() {
         if (fileLocation == null) {
-            String sValue = PropertyAccessor.getPropertyFileLocation();
+            String sValue = PropertyAccessor.getInstance().getPropertyFileLocation();
             if ((sValue != null) && (sValue.length() > 0)) {
                 if (sValue.endsWith(File.separator)) {
                     fileLocation = sValue + UDDI_XML_FILE_NAME;

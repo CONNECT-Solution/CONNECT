@@ -67,7 +67,7 @@ public class HibernateUtil {
         File result = null;
 
         try {
-            result = HibernateAccessor.getHibernateFile(NhincConstants.HIBERNATE_PERFREPO_REPOSITORY);
+            result = HibernateAccessor.getInstance().getHibernateFile(NhincConstants.HIBERNATE_PERFREPO_REPOSITORY);
         } catch (Exception ex) {
             log.error("Unable to load " + NhincConstants.HIBERNATE_PERFREPO_REPOSITORY + " " + ex.getMessage(), ex);
         }

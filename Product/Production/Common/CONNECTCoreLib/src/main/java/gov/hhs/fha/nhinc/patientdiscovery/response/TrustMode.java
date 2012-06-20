@@ -264,7 +264,7 @@ public class TrustMode implements ResponseMode {
         String result = "";
 
         try {
-            result = PropertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
+            result = PropertyAccessor.getInstance().getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
                     NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
         } catch (Exception ex) {
             log.error(ex.getMessage(), ex);

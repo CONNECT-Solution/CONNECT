@@ -139,7 +139,7 @@ public class AdminDistributionHelper {
     public boolean readBooleanGatewayProperty(String propertyName) {
         boolean result = false;
         try {
-            result = PropertyAccessor.getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE, propertyName);
+            result = PropertyAccessor.getInstance().getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE, propertyName);
         } catch (PropertyAccessException ex) {
             log.error("Error: Failed to retrieve " + propertyName + " from property file: "
                     + NhincConstants.GATEWAY_PROPERTY_FILE);
@@ -151,7 +151,7 @@ public class AdminDistributionHelper {
     public String readStringGatewayProperty(String propertyName) {
         String result = "";
         try {
-            result = PropertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, propertyName);
+            result = PropertyAccessor.getInstance().getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, propertyName);
         } catch (Exception ex) {
             log.error("Unable to retrieve " + propertyName + " from Gateway.properties");
             log.error(ex);

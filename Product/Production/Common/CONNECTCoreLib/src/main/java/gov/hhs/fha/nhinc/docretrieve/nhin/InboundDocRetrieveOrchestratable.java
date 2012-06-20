@@ -55,7 +55,7 @@ public abstract class InboundDocRetrieveOrchestratable implements InboundOrchest
     public boolean isEnabled() {
         boolean result = false;
         try {
-            result = PropertyAccessor.getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE,
+            result = PropertyAccessor.getInstance().getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE,
                     NhincConstants.NHINC_DOCUMENT_RETRIEVE_SERVICE_KEY);
         } catch (PropertyAccessException ex) {
             Logger.getLogger(InboundDocRetrieveOrchestratable.class.getName()).log(Level.SEVERE, null, ex);
@@ -66,7 +66,7 @@ public abstract class InboundDocRetrieveOrchestratable implements InboundOrchest
     public boolean isPassthru() {
         boolean result = false;
         try {
-            result = PropertyAccessor.getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE,
+            result = PropertyAccessor.getInstance().getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE,
                     NhincConstants.NHINC_DOCUMENT_RETRIEVE_SERVICE_PASSTHRU_PROPERTY);
         } catch (PropertyAccessException ex) {
             Logger.getLogger(InboundDocRetrieveOrchestratable.class.getName()).log(Level.SEVERE, null, ex);

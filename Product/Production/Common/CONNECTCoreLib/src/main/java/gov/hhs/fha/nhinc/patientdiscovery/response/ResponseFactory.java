@@ -29,6 +29,8 @@ package gov.hhs.fha.nhinc.patientdiscovery.response;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import gov.hhs.fha.nhinc.properties.PropertyAccessor;
+
 /**
  * 
  * @author dunnek
@@ -80,8 +82,7 @@ public class ResponseFactory {
         String result = "";
 
         try {
-            result = gov.hhs.fha.nhinc.properties.PropertyAccessor.getProperty("gateway",
-                    "patientDiscoveryResponseMode");
+            result = PropertyAccessor.getInstance().getProperty("gateway", "patientDiscoveryResponseMode");
         } catch (Exception ex) {
             log.error(ex.getMessage(), ex);
         }

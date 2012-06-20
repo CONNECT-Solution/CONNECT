@@ -63,7 +63,7 @@ public class PatientChecker {
             String sHomeCommunityId = "";
             String sEndpointURL = "";
             try {
-                sHomeCommunityId = PropertyAccessor.getProperty(GATEWAY_PROPERTY_FILE, HOME_COMMUNITY_ID_PROPERTY);
+                sHomeCommunityId = PropertyAccessor.getInstance().getProperty(GATEWAY_PROPERTY_FILE, HOME_COMMUNITY_ID_PROPERTY);
             } catch (Exception e) {
                 log.error("Failed to read " + HOME_COMMUNITY_ID_PROPERTY + " property from the "
                         + GATEWAY_PROPERTY_FILE + ".properties  file.  Error: " + e.getMessage(), e);

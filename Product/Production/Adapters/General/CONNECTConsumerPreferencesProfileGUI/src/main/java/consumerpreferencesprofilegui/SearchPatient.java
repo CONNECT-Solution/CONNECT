@@ -936,7 +936,7 @@ public class SearchPatient extends AbstractPageBean {
         Properties properties = null;
 
         try {
-            properties = PropertyAccessor.getProperties(propertiesFile);
+            properties = PropertyAccessor.getInstance().getProperties(propertiesFile);
         } catch (Exception e) {
             log.error("Exception while reading properties file: " + propertiesFile, e);
         }

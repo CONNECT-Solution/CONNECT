@@ -80,7 +80,7 @@ public class PatientSaver {
 
         // Set the localDeviceId in the Ack Message
         try {
-            localDeviceId = PropertyAccessor.getProperty(PROPERTY_FILE, PROPERTY_NAME);
+            localDeviceId = PropertyAccessor.getInstance().getProperty(PROPERTY_FILE, PROPERTY_NAME);
         } catch (Exception e) {
             localDeviceId = HL7Constants.DEFAULT_LOCAL_DEVICE_ID;
         }
