@@ -3,3 +3,10 @@ bin
 .classpath
 nbproject
 .class
+build
+dist
+lib
+coverage-reports
+unit-test-reports
+
+
