@@ -40,13 +40,9 @@ import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.util.StringUtil;
 import gov.hhs.fha.nhinc.util.format.PatientIdFormatUtil;
 import gov.hhs.fha.nhinc.util.format.UTCDateUtil;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
+
 import java.util.Date;
 import java.util.List;
-import java.util.Properties;
 import java.util.UUID;
 import javax.xml.bind.JAXBElement;
 import oasis.names.tc.ebxml_regrep.xsd.lcm._3.SubmitObjectsRequest;
@@ -188,7 +184,6 @@ public class PatientConsentDocumentBuilderHelper {
 
         String sSubmissionSetUniqueId = PropertyAccessor.getInstance().getProperty(FILE_NAME, "submissionsetuniqueid");
         log.debug("sSubmissionSetUniqueId: " + sSubmissionSetUniqueId);
-        // getOidFromProperty("submissionsetuniqueid");
         oExtIdTypePatForReg = createExternalIdentifier(oRimObjectFactory,
                 CDAConstants.EXTERNAL_IDENTIFICATION_SCHEMA_REGISTRYOBJECT,
                 CDAConstants.EXTERNAL_IDENTIFICATION_SCHEMA_UNIQUEID, CDAConstants.EXTERNAL_OBJECT_IDENTIFIER_TYPE,
@@ -1019,34 +1014,7 @@ public class PatientConsentDocumentBuilderHelper {
         log.info("------- End PatientConsentDocumentBuilderHelper.createInternationalStringType -------");
         return intStr;
     }
-
-    protected synchronized String getOidFromProperty(String sPropertyName) {
-        String sUniqueId = "";
-        try {
-            Properties tempProp = new Properties();
-            InputStream propsInFile = new FileInputStream(sPropertyFile);
-            tempProp.load(propsInFile);
-            propsInFile.close();
-            sUniqueId = tempProp.getProperty(sPropertyName);
-            String sFirstPart = sUniqueId.substring(0, sUniqueId.lastIndexOf("."));
-            String sDotString = sUniqueId.substring(sUniqueId.lastIndexOf("."));
-            sDotString = sDotString.substring(1);
-            int iSUniqueId = Integer.parseInt(sDotString);
-            iSUniqueId = iSUniqueId + 1;
-            String sNewId = sFirstPart + "." + iSUniqueId;
-            tempProp.setProperty(sPropertyName, sNewId);
-            OutputStream propsOutFile = new FileOutputStream(sPropertyFile);
-            tempProp.store(propsOutFile, "Update property file with new sequence");
-            propsOutFile.close();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-        if (log.isDebugEnabled()) {
-            log.debug("Generated unique id: " + sUniqueId);
-        }
-        return sUniqueId;
-    }
-
+ 
     private String extractAddressFromPatInfo(PolicyPatientInfoType patInfo) {
         StringBuffer sAddr = new StringBuffer();
         if (patInfo != null) {
