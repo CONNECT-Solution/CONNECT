@@ -15,3 +15,5 @@ Product/NHINC/
 Product/Install/deploy.application.list.xml
 Product/Production/Common/Properties/Dev/test*.properties
 Product/Production/Common/CONNECTCoreLib/testMPI.xml
+C:/
+bin/
