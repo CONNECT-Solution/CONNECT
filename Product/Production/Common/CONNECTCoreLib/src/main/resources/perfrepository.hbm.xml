@@ -20,5 +20,12 @@
     <property column="direction" name="direction"/>
     <property column="communityid" name="communityid"/>
     <property column="status" name="status"/>
+  
+    <property column="version" name="version"/>
+    <proprety column="payloadtype" name="payloadType"
+    <property column=size name="size"/>
+   <property column="correlationid" name="correlationId"/>
+    <property column="othercommunityid" name="otherCommunityId"/>
+    <property column="errorcode" name="errorCode"/>
   </class>
 </hibernate-mapping>
