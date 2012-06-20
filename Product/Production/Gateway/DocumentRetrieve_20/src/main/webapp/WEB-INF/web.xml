@@ -55,100 +55,8 @@
         <servlet-name>DocRetrieve</servlet-name>
         <url-pattern>/NhinService/RespondingGateway_Retrieve_Service/DocRetrieve</url-pattern>
     </servlet-mapping>
-
-
-	<!-- BEGIN: Document Retrieve Deferred Services -->
-	<servlet>
-		<servlet-name>EntityDocRetrieveDeferredReq</servlet-name>
-		<servlet-class>gov.hhs.fha.nhinc.docretrieve._20.entity.deferred.request.EntityDocRetrieveDeferredReq</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>EntityDocRetrieveDeferredReq</servlet-name>
-		<url-pattern>/EntityService/EntityDocRetrieveDeferredRequest</url-pattern>
-	</servlet-mapping>
-
-	<servlet>
-		<servlet-name>EntityDocRetrieveDeferredReqSecured</servlet-name>
-		<servlet-class>gov.hhs.fha.nhinc.docretrieve._20.entity.deferred.request.EntityDocRetrieveDeferredReqSecured</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>EntityDocRetrieveDeferredReqSecured</servlet-name>
-		<url-pattern>/EntityService/EntityDocRetrieveDeferredRequestSecured</url-pattern>
-	</servlet-mapping>
-
-	<servlet>
-		<servlet-name>EntityDocRetrieveDeferredResp</servlet-name>
-		<servlet-class>gov.hhs.fha.nhinc.docretrieve._20.entity.deferred.response.EntityDocRetrieveDeferredResp</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>EntityDocRetrieveDeferredResp</servlet-name>
-		<url-pattern>/EntityService/EntityDocRetrieveDeferredResponse</url-pattern>
-	</servlet-mapping>
-
-	<servlet>
-		<servlet-name>EntityDocRetrieveDeferredRespSecured</servlet-name>
-		<servlet-class>gov.hhs.fha.nhinc.docretrieve._20.entity.deferred.response.EntityDocRetrieveDeferredRespSecured</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>EntityDocRetrieveDeferredRespSecured</servlet-name>
-		<url-pattern>/EntityService/EntityDocRetrieveDeferredResponseSecured</url-pattern>
-	</servlet-mapping>
-
-	<!-- Begin Nhinc proxy Document retrieve deferred services -->
-	<servlet>
-		<servlet-name>PassthruDocRetrieveDeferredRequestUnsecured</servlet-name>
-		<servlet-class>gov.hhs.fha.nhinc.docretrieve._20.passthru.deferred.request.PassthruDocRetrieveDeferredRequestUnsecured</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>PassthruDocRetrieveDeferredRequestUnsecured</servlet-name>
-		<url-pattern>/EntityService/NhincProxyDocRetrieveDeferredRequest</url-pattern>
-	</servlet-mapping>
-	<servlet>
-		<servlet-name>PassthruDocRetrieveDeferredRequestSecured</servlet-name>
-		<servlet-class>gov.hhs.fha.nhinc.docretrieve._20.passthru.deferred.request.PassthruDocRetrieveDeferredRequestSecured</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>PassthruDocRetrieveDeferredRequestSecured</servlet-name>
-		<url-pattern>/EntityService/NhincProxyDocRetrieveDeferredRequestSecured</url-pattern>
-	</servlet-mapping>
-	<servlet>
-		<servlet-name>PassthruDocRetrieveDeferredResponseUnsecured</servlet-name>
-		<servlet-class>gov.hhs.fha.nhinc.docretrieve._20.passthru.deferred.response.PassthruDocRetrieveDeferredResponseUnsecured</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>PassthruDocRetrieveDeferredResponseUnsecured</servlet-name>
-		<url-pattern>/EntityService/NhincProxyDocRetrieveDeferredResponse</url-pattern>
-	</servlet-mapping>
-
-	<servlet>
-		<servlet-name>PassthruDocRetrieveDeferredResponseSecured</servlet-name>
-		<servlet-class>gov.hhs.fha.nhinc.docretrieve._20.passthru.deferred.response.PassthruDocRetrieveDeferredResponseSecured</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>PassthruDocRetrieveDeferredResponseSecured</servlet-name>
-		<url-pattern>/EntityService/NhincProxyDocRetrieveDeferredResponseSecured</url-pattern>
-	</servlet-mapping>
-
-	<!-- END: Document Retrieve Deferred Services -->
 	
-	   <!-- BEGIN: Document Retrieve Deferred Services -->
-    <servlet>
-        <servlet-name>NhinDocRetrieveDeferredRequest</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.docretrieve._20.nhin.deferred.request.NhinDocRetrieveDeferredRequest</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>NhinDocRetrieveDeferredRequest</servlet-name>
-        <url-pattern>/NhinService/RespondingGatewayDeferredRequest_Retrieve_Service</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>NhinDocRetrieveDeferredResponse</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.docretrieve._20.nhin.deferred.response.NhinDocRetrieveDeferredResponse</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>NhinDocRetrieveDeferredResponse</servlet-name>
-        <url-pattern>/NhinService/RespondingGatewayDeferredResponse_Retrieve_Service</url-pattern>
-    </servlet-mapping>
-
+	
 	<security-constraint>
 	
 		<web-resource-collection>
@@ -160,44 +68,13 @@
 		<web-resource-collection>
 			<web-resource-name>EntityDocRetrieveSecured</web-resource-name>
 			<url-pattern>/EntityService/EntityDocRetrieveSecured</url-pattern>
-		</web-resource-collection>
-		<web-resource-collection>
-			<web-resource-name>EntityDocRetrieveDeferredRespSecured</web-resource-name>
-			<url-pattern>/EntityService/EntityDocRetrieveDeferredResponseSecured</url-pattern>
-		</web-resource-collection>
-		<web-resource-collection>
-			<web-resource-name>EntityDocRetrieveDeferredReqSecured</web-resource-name>
-			<url-pattern>/EntityService/EntityDocRetrieveDeferredRequestSecured</url-pattern>
-		</web-resource-collection>
+		</web-resource-collection>		
 		<!-- END: Document Retrieve Services -->
 
 		<web-resource-collection>
 			<web-resource-name>NhincProxyDocRetrieveSecured</web-resource-name>
 			<url-pattern>/EntityService/NhincProxyDocRetrieveSecured</url-pattern>
 		</web-resource-collection>
-
-		<!-- Begin Nhinc proxy Document retrieve deferred services -->
-		<web-resource-collection>
-			<web-resource-name>PassthruDocRetrieveDeferredRequestSecured</web-resource-name>
-			<url-pattern>/EntityService/NhincProxyDocRetrieveDeferredRequestSecured</url-pattern>
-		</web-resource-collection>
-		<web-resource-collection>
-			<web-resource-name>PassthruDocRetrieveDeferredResponseSecured</web-resource-name>
-			<url-pattern>/EntityService/NhincProxyDocRetrieveDeferredResponseSecured</url-pattern>
-		</web-resource-collection>
-		<!-- End Nhinc proxy Document retrieve deferred services -->
-
-
-		  <!-- BEGIN Document Retrieve Deferred Service -->
-        <web-resource-collection>
-            <web-resource-name>NhinDocRetrieveDeferredRequest</web-resource-name>
-            <url-pattern>/NhinService/RespondingGatewayDeferredRequest_Retrieve_Service</url-pattern>
-        </web-resource-collection>
-        <web-resource-collection>
-            <web-resource-name>NhinDocRetrieveDeferredResponse</web-resource-name>
-            <url-pattern>/NhinService/RespondingGatewayDeferredResponse_Retrieve_Service</url-pattern>
-        </web-resource-collection>
-        <!-- END Document Retrieve Deferred Service -->
 
 		<user-data-constraint>
 			<transport-guarantee>CONFIDENTIAL</transport-guarantee>
