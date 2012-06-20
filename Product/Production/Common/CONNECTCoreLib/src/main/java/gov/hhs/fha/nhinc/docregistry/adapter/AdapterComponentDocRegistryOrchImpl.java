@@ -89,7 +89,7 @@ public class AdapterComponentDocRegistryOrchImpl {
     private static final String EBXML_DOCENTRY_SERVICE_STOP_TIME_TO = "$XDSDocumentEntryServiceStopTimeTo";
     private static final String EBXML_EVENT_CODE_LIST = "$XDSDocumentEntryEventCodeList";
     private static final String EBXML_EVENT_CODE_LIST_SCHEME = "$XDSDocumentEntryEventCodeListScheme";
-    private static final String EBXML_DOCENTRY_STATUS = "$XDSDocumentEntryStatus";    
+    private static final String EBXML_DOCENTRY_STATUS = "$XDSDocumentEntryStatus";
     private static final String EBXML_DOCENTRY_ENTRY_TYPE = "$XDSDocumentEntryType";
     // -- End IHE defined FindDocuments parameters --
 
@@ -101,22 +101,31 @@ public class AdapterComponentDocRegistryOrchImpl {
     private static final String NHINC_CUSTOM_DOCUMENT_ID = "$XDSDocumentEntryUniqueId";
 
     private static final String EBXML_RESPONSE_REPOSITORY_UNIQUE_ID_SLOTNAME = "repositoryUniqueId";
-    private static final String EBXML_RESPONSE_DOCID_IDENTIFICATION_SCHEME = "urn:uuid:2e82c1f6-a085-4c72-9da3-8640a32e42ab";
+    private static final String EBXML_RESPONSE_DOCID_IDENTIFICATION_SCHEME = 
+            "urn:uuid:2e82c1f6-a085-4c72-9da3-8640a32e42ab";
     private static final String EBXML_RESPONSE_DOCID_NAME = "XDSDocumentEntry.uniqueId";
-    private static final String EBXML_RESPONSE_PATIENTID_IDENTIFICATION_SCHEME = "urn:uuid:58a6f841-87b3-4a3e-92fd-a8ffeff98427";
+    private static final String EBXML_RESPONSE_PATIENTID_IDENTIFICATION_SCHEME = 
+            "urn:uuid:58a6f841-87b3-4a3e-92fd-a8ffeff98427";
     private static final String EBXML_RESPONSE_PATIENTID_NAME = "XDSDocumentEntry.patientId";
-    private static final String EBXML_RESPONSE_AUTHOR_CLASS_SCHEME = "urn:uuid:93606bcf-9494-43ec-9b4e-a7748d1a838d";
+    private static final String EBXML_RESPONSE_AUTHOR_CLASS_SCHEME = 
+            "urn:uuid:93606bcf-9494-43ec-9b4e-a7748d1a838d";
     private static final String EBXML_RESPONSE_AUTHOR_PERSON_SLOTNAME = "authorPerson";
     private static final String EBXML_RESPONSE_AUTHOR_INSTITUTION_SLOTNAME = "authorInstitution";
     private static final String EBXML_RESPONSE_AUTHOR_ROLE_SLOTNAME = "authorRole";
     private static final String EBXML_RESPONSE_AUTHOR_SPECIALTY_SLOTNAME = "authorSpecialty";
-    private static final String EBXML_RESPONSE_CLASSCODE_CLASS_SCHEME = "urn:uuid:41a5887f-8865-4c09-adf7-e362475b143a";
-    private static final String EBXML_RESPONSE_CONFIDENTIALITYCODE_CLASS_SCHEME = "urn:uuid:f4f85eac-e6cb-4883-b524-f2705394840f";
+    private static final String EBXML_RESPONSE_CLASSCODE_CLASS_SCHEME = 
+            "urn:uuid:41a5887f-8865-4c09-adf7-e362475b143a";
+    private static final String EBXML_RESPONSE_CONFIDENTIALITYCODE_CLASS_SCHEME = 
+            "urn:uuid:f4f85eac-e6cb-4883-b524-f2705394840f";
     private static final String EBXML_RESPONSE_EVENTCODE_CLASS_SCHEME = "urn:uuid:2c6b8cb7-8b2a-4051-b291-b1ae6a575ef4";
-    private static final String EBXML_RESPONSE_FORMATCODE_CLASS_SCHEME = "urn:uuid:a09d5840-386c-46f2-b5ad-9c3699a4309d";
-    private static final String EBXML_RESPONSE_HEALTHCAREFACILITYTYPE_CLASS_SCHEME = "urn:uuid:f33fb8ac-18af-42cc-ae0e-ed0b0bdb91e1";
-    private static final String EBXML_RESPONSE_PRACTICESETTING_CLASS_SCHEME = "urn:uuid:cccf5598-8b07-4b77-a05e-ae952c785ead";
-    private static final String EBXML_RESPONSE_TYPECODE_CLASS_SCHEME = "urn:uuid:f0306f51-975f-434e-a61c-c59651d33983";
+    private static final String EBXML_RESPONSE_FORMATCODE_CLASS_SCHEME = 
+            "urn:uuid:a09d5840-386c-46f2-b5ad-9c3699a4309d";
+    private static final String EBXML_RESPONSE_HEALTHCAREFACILITYTYPE_CLASS_SCHEME = 
+            "urn:uuid:f33fb8ac-18af-42cc-ae0e-ed0b0bdb91e1";
+    private static final String EBXML_RESPONSE_PRACTICESETTING_CLASS_SCHEME = 
+            "urn:uuid:cccf5598-8b07-4b77-a05e-ae952c785ead";
+    private static final String EBXML_RESPONSE_TYPECODE_CLASS_SCHEME = 
+            "urn:uuid:f0306f51-975f-434e-a61c-c59651d33983";
     private static final String EBXML_RESPONSE_CODE_CODESCHEME_SLOTNAME = "codingScheme";
     private static final String EBXML_RESPONSE_CREATIONTIME_SLOTNAME = "creationTime";
     private static final String EBXML_RESPONSE_HASH_SLOTNAME = "hash";
@@ -131,36 +140,52 @@ public class AdapterComponentDocRegistryOrchImpl {
     private static final String EBXML_RESPONSE_URI_SLOTNAME = "URI";
     private static final int EBXML_RESPONSE_URI_LINE_LENGTH = 128;
 
-    private static final String XDS_QUERY_RESPONSE_STATUS_SUCCESS = "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Success";
-    private static final String XDS_QUERY_RESPONSE_EXTRINSIC_OBJCECT_OBJECT_TYPE = "urn:uuid:7edca82f-054d-47f2-a032-9b2a5b5186c1";
- 
+    private static final String XDS_QUERY_RESPONSE_STATUS_SUCCESS = 
+            "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Success";
+    private static final String XDS_QUERY_RESPONSE_EXTRINSIC_OBJCECT_OBJECT_TYPE = 
+            "urn:uuid:7edca82f-054d-47f2-a032-9b2a5b5186c1";
     private static final String EBXML_DOCENTRY_STABLE_DOCUMENTS_VALUE = "urn:uuid:7edca82f-054d-47f2-a032-9b2a5b5186c1";
-    private static final String EBXML_DOCENTRY_ONDEMAND_DOCUMENTS_VALUE = "urn:uuid:34268e47-fdf5-41a6-ba33-82133c465248";
-    
+    private static final String EBXML_DOCENTRY_ONDEMAND_DOCUMENTS_VALUE = 
+            "urn:uuid:34268e47-fdf5-41a6-ba33-82133c465248";
+
     private static final String REPOSITORY_UNIQUE_ID = "1";
 
     // Properties file keys
     private static final String PROPERTY_FILE_NAME_GATEWAY = "gateway";
     private static final String PROPERTY_FILE_KEY_HOME_COMMUNITY = "localHomeCommunityId";
-    
+
     private static final String EBXML_DOCQUERY_STORED_QUERY_ERROR = "XDSUnknownStoredQuery";
     private static final String EBXML_DOCQUERY_STORED_QUERY_MISSIN_PARAM = "XDSStoredQueryMissingParam";
 
-    private static final String FindDocumentsQueryId = "urn:uuid:14d4debf-8f97-4251-9a74-a90016b0af0d";
+    private static final String findDocumentsQueryId = "urn:uuid:14d4debf-8f97-4251-9a74-a90016b0af0d";
+
     
+    /**
+     * Constructor.
+     */
     public AdapterComponentDocRegistryOrchImpl() {
         log = createLogger();
         utcDateUtil = createDateUtil();
     }
-
+    
+    /**
+     * @return log
+     */
     protected Log createLogger() {
         return ((log != null) ? log : LogFactory.getLog(getClass()));
     }
 
+    /**
+     * @return UTCDateUtil
+     */
     protected UTCDateUtil createDateUtil() {
         return ((utcDateUtil != null) ? utcDateUtil : new UTCDateUtil());
     }
 
+    /**
+     * @param request - AdhocQUeryRequest input Parameter.
+     * @return response - This method outputs the AdhocQUeryResponse back.
+     */
     public AdhocQueryResponse registryStoredQuery(AdhocQueryRequest request) {
         log.debug("Begin AdapterComponentDocRegistryOrchImpl.registryStoredQuery(...)");
         AdhocQueryResponse response = new AdhocQueryResponse();
@@ -169,82 +194,89 @@ public class AdapterComponentDocRegistryOrchImpl {
         boolean registryIdPresent = false;
         DocumentQueryParams params = new DocumentQueryParams();
         if (getRegistryQueryId().contains(request.getAdhocQuery().getId())) {
-                registryIdPresent = true;
+            registryIdPresent = true;
         }
         boolean patientIdSlotPresent = false;
         if (registryIdPresent) {
             ObjectFactory queryObjFact = new ObjectFactory();
             response = queryObjFact.createAdhocQueryResponse();
-        if (request != null) { 
-           
-            List<SlotType1> slots = getSlotsFromAdhocQueryRequest(request);
-            if(request.getAdhocQuery().getId().equals(FindDocumentsQueryId)){
-                   List<String> slotValues = new ArrayList<String>();
-                   for (SlotType1 slot : slots){
-                       if (slot.getName().equals(EBXML_DOCENTRY_PATIENT_ID)){
-                           patientIdSlotPresent = true;
-                           slotValues = extractSlotValues(slots, EBXML_DOCENTRY_PATIENT_ID);
-                           if( slotValues == null ||slotValues.isEmpty() ){
-                               response = createErrorResponse(EBXML_DOCQUERY_STORED_QUERY_MISSIN_PARAM, "Required parameter XDSDocumentEntryPatientId, not present in query request");
-                               return response;
-                             }
-                       }
-                   }
-                   if (!patientIdSlotPresent){
-                       response = createErrorResponse(EBXML_DOCQUERY_STORED_QUERY_MISSIN_PARAM, "Required parameter XDSDocumentEntryPatientId, not present in query request");
-                       return response;
-                   }
+            if (request != null) {
+
+                List<SlotType1> slots = getSlotsFromAdhocQueryRequest(request);
+                if (request.getAdhocQuery().getId().equals(findDocumentsQueryId)) {
+                    List<String> slotValues = new ArrayList<String>();
+                    for (SlotType1 slot : slots) {
+                        if (slot.getName().equals(EBXML_DOCENTRY_PATIENT_ID)) {
+                            patientIdSlotPresent = true;
+                            slotValues = extractSlotValues(slots, EBXML_DOCENTRY_PATIENT_ID);
+                            if (slotValues == null || slotValues.isEmpty()) {
+                                response = createErrorResponse(EBXML_DOCQUERY_STORED_QUERY_MISSIN_PARAM,
+                                        "Required parameter XDSDocumentEntryPatientId, not present in query request");
+                                return response;
+                            }
+                        }
+                    }
+                    if (!patientIdSlotPresent) {
+                        response = createErrorResponse(EBXML_DOCQUERY_STORED_QUERY_MISSIN_PARAM,
+                                "Required parameter XDSDocumentEntryPatientId, not present in query request");
+                        return response;
+                    }
+                }
+                params = generateDocumentQueryParamsFromSlots(slots);
+
+                List<String> docEntryTypeValues = extractDocumentEntryType(slots);
+                if (NullChecker.isNotNullish(docEntryTypeValues)) {
+                    queryForStableDocs = hasStableDocumentsEntry(docEntryTypeValues);
+                    queryForOnDemandDocs = hasOnDemandDocumentsEntry(docEntryTypeValues);
+                }
             }
-            params = generateDocumentQueryParamsFromSlots(slots);
-            
-            List<String> docEntryTypeValues = extractDocumentEntryType(slots);     
-            if (NullChecker.isNotNullish(docEntryTypeValues)) {
-                queryForStableDocs = hasStableDocumentsEntry(docEntryTypeValues);
-                queryForOnDemandDocs = hasOnDemandDocumentsEntry(docEntryTypeValues);                
-            }      
-        }       
-                
-        DocumentService service = getDocumentService();
-        
-        List<Document> docs = new ArrayList<Document>();
-        if (queryForStableDocs) {
-            params.setOnDemandParams(false);
-            docs = service.documentQuery(params);
-        }
-        
-        List<Document> onDemandDocs = new ArrayList<Document>();
-        if (queryForOnDemandDocs) {
-            params.setOnDemandParams(true);
-            params.setCreationTimeFrom(null);
-            params.setCreationTimeTo(null);
-            onDemandDocs = service.documentQuery(params);
-        }
-        
-        docs.addAll(onDemandDocs);
-        log.debug("registryStoredQuery- docs.size: " + docs.size());
-        
-        loadResponseMessage(response, docs);
-        
-        log.debug("End AdapterComponentDocRegistryOrchImpl.registryStoredQuery(...)");
-        }
-        else {
+
+            DocumentService service = getDocumentService();
+
+            List<Document> docs = new ArrayList<Document>();
+            if (queryForStableDocs) {
+                params.setOnDemandParams(false);
+                docs = service.documentQuery(params);
+            }
+
+            List<Document> onDemandDocs = new ArrayList<Document>();
+            if (queryForOnDemandDocs) {
+                params.setOnDemandParams(true);
+                params.setCreationTimeFrom(null);
+                params.setCreationTimeTo(null);
+                onDemandDocs = service.documentQuery(params);
+            }
+
+            docs.addAll(onDemandDocs);
+            log.debug("registryStoredQuery- docs.size: " + docs.size());
+            loadResponseMessage(response, docs);
+            log.debug("End AdapterComponentDocRegistryOrchImpl.registryStoredQuery(...)");
+        } else {
             response = createErrorResponse(EBXML_DOCQUERY_STORED_QUERY_ERROR, "Unknown Stored Query query id ="
                     + request.getAdhocQuery().getId());
         }
         return response;
     }
-    
+
+    /**
+     * @param request - AdhocQUery Request i/p parameter.
+     * @return SlotType1 - This method returns all the slots from Request. 
+     */
     protected List<SlotType1> getSlotsFromAdhocQueryRequest(AdhocQueryRequest request) {
         AdhocQueryType adhocQuery = request.getAdhocQuery();
         List<SlotType1> slots = null;
         if (adhocQuery != null) {
             slots = adhocQuery.getSlot();
         }
-        
+
         return slots;
     }
-    
-    protected DocumentQueryParams generateDocumentQueryParamsFromSlots(List<SlotType1> slots) { 
+
+    /**
+     * @param slots - All the slots from request i/p Parameter.
+     * @return DocumentQueryParams - This method outputs the DocumentQueryParams.
+     */
+    protected DocumentQueryParams generateDocumentQueryParamsFromSlots(List<SlotType1> slots) {
         String patientId = extractPatientIdentifier(slots);
         List<String> classCodeValues = extractClassCodes(slots);
         String classCodeScheme = extractClassCodeScheme(slots);
@@ -258,11 +290,11 @@ public class AdapterComponentDocRegistryOrchImpl {
         List<String> documentUniqueIds = extractDocumentId(slots);
         List<String> eventCodeValues = extractEventCodeList(slots);
         List<String> eventCodeSchemeValues = extractEventCodeListSchemes(slots);
-        
+
         DocumentQueryParams params = new DocumentQueryParams();
         params.setPatientId(patientId);
         params.setClassCodes(classCodeValues);
-        params.setClassCodeScheme(classCodeScheme);        
+        params.setClassCodeScheme(classCodeScheme);
         params.setCreationTimeFrom(creationTimeFrom);
         params.setCreationTimeTo(creationTimeTo);
         params.setServiceStartTimeFrom(serviceStartTimeFrom);
@@ -272,10 +304,13 @@ public class AdapterComponentDocRegistryOrchImpl {
         params.setStatuses(statuses);
         params.setDocumentUniqueId(documentUniqueIds);
         params.setEventCodeParams(createEventCodeParameters(eventCodeValues, eventCodeSchemeValues));
-        
+
         return params;
     }
-    
+
+    /**
+     * @return DocumentService
+     */
     protected DocumentService getDocumentService() {
         return new DocumentService();
     }
@@ -285,8 +320,8 @@ public class AdapterComponentDocRegistryOrchImpl {
         List<EventCodeParam> eventCodeParams = null;
         if (NullChecker.isNotNullish(eventCodeValues)) {
             eventCodeParams = new ArrayList<EventCodeParam>();
-            boolean hasMatchingSchemes = (NullChecker.isNotNullish(eventCodeSchemeValues) && (eventCodeValues.size() == eventCodeSchemeValues
-                    .size()));
+            boolean hasMatchingSchemes = (NullChecker.isNotNullish(eventCodeSchemeValues) 
+                    && (eventCodeValues.size() == eventCodeSchemeValues .size()));
             for (int i = 0; i < eventCodeValues.size(); i++) {
                 String eventCode = eventCodeValues.get(i);
                 EventCodeParam eventCodeParam = new EventCodeParam();
@@ -420,50 +455,49 @@ public class AdapterComponentDocRegistryOrchImpl {
         }
         return documentIds;
     }
-    
+
     /**
      * Extracts the document entry types from the slots if it exists.
      * 
      * @param slots The list of slots to extract the document entry types from
-     * @return The list of string containing  the values from the document entry types
+     * @return The list of string containing the values from the document entry types
      */
     private List<String> extractDocumentEntryType(List<SlotType1> slots) {
         List<String> documentEntryTypes = null;
-        
-        List<String> slotValues = extractSlotValues(slots, EBXML_DOCENTRY_ENTRY_TYPE);            
+
+        List<String> slotValues = extractSlotValues(slots, EBXML_DOCENTRY_ENTRY_TYPE);
         String[] entries = extractValueListFromSlotValues(slotValues);
-        
-        if (entries != null && entries.length > 0) {        
+
+        if (entries != null && entries.length > 0) {
             documentEntryTypes = new ArrayList<String>();
-            for (String entryType: entries) {
+            for (String entryType : entries) {
                 documentEntryTypes.add(entryType);
             }
-        } 
-        
+        }
+
         return documentEntryTypes;
     }
-    
+
     /**
-     * Extracts the comma seperated value from Slot/ValueList and returns it as a tokenized string array.  The
-     * expected value list is in the following format:
+     * Extracts the comma seperated value from Slot/ValueList and returns it as a tokenized string array. The expected
+     * value list is in the following format:
      * 
      * ('urn:uuid:7edca82f-054d-47f2-a032-9b2a5b5186c1', 'urn:uuid:34268e47-fdf5-41a6-ba33-82133c465248')
      * 
      * The returned value for this example will consist of a string array with elements
-     *   urn:uuid:7edca82f-054d-47f2-a032-9b2a5b5186c1
-     *   urn:uuid:34268e47-fdf5-41a6-ba33-82133c465248
+     * urn:uuid:7edca82f-054d-47f2-a032-9b2a5b5186c1 urn:uuid:34268e47-fdf5-41a6-ba33-82133c465248
      * 
-     * @param slotValues The list of values from the slot.  Only one element is expected so only the first is parsed.
-     * @return an array of String containing the tokenized values.  null if the passed in argument is null.
+     * @param slotValues The list of values from the slot. Only one element is expected so only the first is parsed.
+     * @return an array of String containing the tokenized values. null if the passed in argument is null.
      */
     private String[] extractValueListFromSlotValues(List<String> slotValues) {
-        if (NullChecker.isNotNullish(slotValues)) { 
+        if (NullChecker.isNotNullish(slotValues)) {
             String entriesString = slotValues.get(0).replaceAll("['() ]", "");
             return entriesString.split(",");
         }
         return null;
     }
-    
+
     /**
      * Checks whether the document entry value list passed in contains the stable document entry.
      * 
@@ -475,30 +509,29 @@ public class AdapterComponentDocRegistryOrchImpl {
             if (documentEntryType.toLowerCase().equals(EBXML_DOCENTRY_STABLE_DOCUMENTS_VALUE)) {
                 return true;
             }
-        }   
-        
+        }
+
         return false;
     }
-    
+
     /**
      * Checks whether the document entry value list passed in contains the dynamic document entry.
      * 
      * @param documentEntryTypes The list of strings to search the entry for
      * @return true if the list contains the value, false if not
-     */    
+     */
     private boolean hasOnDemandDocumentsEntry(List<String> documentEntryTypes) {
         for (String documentEntryType : documentEntryTypes) {
             if (documentEntryType.toLowerCase().equals(EBXML_DOCENTRY_ONDEMAND_DOCUMENTS_VALUE)) {
                 return true;
             }
-        }   
-        
+        }
+
         return false;
     }
-    
 
     /**
-     * Extract the repository ID from the slots
+     * Extract the repository ID from the slots.
      * 
      * @param slots The slots to be searched.
      * @return The repository Id.
@@ -539,6 +572,10 @@ public class AdapterComponentDocRegistryOrchImpl {
         return classCodes;
     }
 
+    /**
+     * @param response - AdhocQueryResponse i/p Parameter.
+     * @param docs     - Documents i/p Parameter.
+     */
     public void loadResponseMessage(oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse response,
             List<Document> docs) {
         RegistryObjectListType regObjList = new RegistryObjectListType();
@@ -551,7 +588,8 @@ public class AdapterComponentDocRegistryOrchImpl {
             log.debug("loadResponseMessage - docs size: " + docs.size());
             response.setStatus(XDS_QUERY_RESPONSE_STATUS_SUCCESS);
 
-            oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory oRimObjectFactory = new oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory();
+            oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory oRimObjectFactory = 
+                    new oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory();
 
             // Collect the home community id
             String homeCommunityId = retrieveHomeCommunityId();
@@ -560,8 +598,10 @@ public class AdapterComponentDocRegistryOrchImpl {
 
             // Save these so that theyu can be added in later after all of the other items..
             // ------------------------------------------------------------------------------
-            ArrayList<JAXBElement<? extends IdentifiableType>> olObjRef = new ArrayList<JAXBElement<? extends IdentifiableType>>();
-            ArrayList<JAXBElement<? extends IdentifiableType>> olAssoc = new ArrayList<JAXBElement<? extends IdentifiableType>>();
+            ArrayList<JAXBElement<? extends IdentifiableType>> olObjRef = 
+                    new ArrayList<JAXBElement<? extends IdentifiableType>>();
+            ArrayList<JAXBElement<? extends IdentifiableType>> olAssoc = 
+                    new ArrayList<JAXBElement<? extends IdentifiableType>>();
 
             for (Document doc : docs) {
                 ExtrinsicObjectType oExtObj = new ExtrinsicObjectType();
@@ -589,7 +629,7 @@ public class AdapterComponentDocRegistryOrchImpl {
                     oExtId.setRegistryObject(sDocumentUUID);
                     oExtId.setValue(sDocumentId);
                     oExtId.setIdentificationScheme(EBXML_RESPONSE_DOCID_IDENTIFICATION_SCHEME);
-                    InternationalStringType oName = CreateSingleValueInternationalStringType(EBXML_RESPONSE_DOCID_NAME);
+                    InternationalStringType oName = createSingleValueInternationalStringType(EBXML_RESPONSE_DOCID_NAME);
                     oExtId.setName(oName);
                     bHaveData = true;
                 }
@@ -606,7 +646,7 @@ public class AdapterComponentDocRegistryOrchImpl {
                 // AuthorPerson
                 // -------------
                 if (NullChecker.isNotNullish(doc.getAuthorPerson())) {
-                    SlotType1 oSlot = CreateSingleValueSlot(EBXML_RESPONSE_AUTHOR_PERSON_SLOTNAME,
+                    SlotType1 oSlot = createSingleValueSlot(EBXML_RESPONSE_AUTHOR_PERSON_SLOTNAME,
                             doc.getAuthorPerson());
                     olClassificationSlot.add(oSlot);
                     bHasAuthorData = true;
@@ -614,7 +654,7 @@ public class AdapterComponentDocRegistryOrchImpl {
                 // AuthorInstitution
                 // ------------------
                 if (NullChecker.isNotNullish(doc.getAuthorInstitution())) {
-                    SlotType1 oSlot = CreateSingleValueSlot(EBXML_RESPONSE_AUTHOR_INSTITUTION_SLOTNAME,
+                    SlotType1 oSlot = createSingleValueSlot(EBXML_RESPONSE_AUTHOR_INSTITUTION_SLOTNAME,
                             doc.getAuthorInstitution());
                     olClassificationSlot.add(oSlot);
                     bHasAuthorData = true;
@@ -623,7 +663,7 @@ public class AdapterComponentDocRegistryOrchImpl {
                 // AuthorRole
                 // ------------
                 if (NullChecker.isNotNullish(doc.getAuthorRole())) {
-                    SlotType1 oSlot = CreateSingleValueSlot(EBXML_RESPONSE_AUTHOR_ROLE_SLOTNAME, doc.getAuthorRole());
+                    SlotType1 oSlot = createSingleValueSlot(EBXML_RESPONSE_AUTHOR_ROLE_SLOTNAME, doc.getAuthorRole());
                     olClassificationSlot.add(oSlot);
                     bHasAuthorData = true;
                 }
@@ -631,7 +671,7 @@ public class AdapterComponentDocRegistryOrchImpl {
                 // AuthorSpecialty
                 // ----------------
                 if (NullChecker.isNotNullish(doc.getAuthorSpecialty())) {
-                    SlotType1 oSlot = CreateSingleValueSlot(EBXML_RESPONSE_AUTHOR_SPECIALTY_SLOTNAME,
+                    SlotType1 oSlot = createSingleValueSlot(EBXML_RESPONSE_AUTHOR_SPECIALTY_SLOTNAME,
                             doc.getAuthorSpecialty());
                     olClassificationSlot.add(oSlot);
                     bHasAuthorData = true;
@@ -662,7 +702,7 @@ public class AdapterComponentDocRegistryOrchImpl {
                 // Comments
                 // ---------
                 if (NullChecker.isNotNullish(doc.getComments())) {
-                    InternationalStringType oComments = CreateSingleValueInternationalStringType(doc.getComments());
+                    InternationalStringType oComments = createSingleValueInternationalStringType(doc.getComments());
                     oExtObj.setDescription(oComments);
                     bHaveData = true;
                 }
@@ -681,7 +721,7 @@ public class AdapterComponentDocRegistryOrchImpl {
                 // Creation Time
                 // --------------
                 if (doc.getCreationTime() != null) {
-                    SlotType1 oSlot = CreateSingleValueSlot(EBXML_RESPONSE_CREATIONTIME_SLOTNAME,
+                    SlotType1 oSlot = createSingleValueSlot(EBXML_RESPONSE_CREATIONTIME_SLOTNAME,
                             utcDateUtil.formatUTCDate(doc.getCreationTime()));
                     olSlot.add(oSlot);
                     bHaveData = true;
@@ -715,7 +755,7 @@ public class AdapterComponentDocRegistryOrchImpl {
                 // Hash Code
                 // ----------
                 if (NullChecker.isNotNullish(doc.getHash())) {
-                    SlotType1 oSlot = CreateSingleValueSlot(EBXML_RESPONSE_HASH_SLOTNAME, doc.getHash());
+                    SlotType1 oSlot = createSingleValueSlot(EBXML_RESPONSE_HASH_SLOTNAME, doc.getHash());
                     olSlot.add(oSlot);
                     bHaveData = true;
                 }
@@ -741,7 +781,7 @@ public class AdapterComponentDocRegistryOrchImpl {
 
                 if (!intendedRecipients.isEmpty()) {
                     String[] intendedRecipientArray = intendedRecipients.toArray(new String[intendedRecipients.size()]);
-                    SlotType1 oSlot = CreateMultiValueSlot(EBXML_RESPONSE_INTENDEDRECIPIENTS_SLOTNAME,
+                    SlotType1 oSlot = createMultiValueSlot(EBXML_RESPONSE_INTENDEDRECIPIENTS_SLOTNAME,
                             intendedRecipientArray);
                     olSlot.add(oSlot);
                     bHaveData = true;
@@ -750,7 +790,8 @@ public class AdapterComponentDocRegistryOrchImpl {
                 // Language Code
                 // ---------------
                 if (NullChecker.isNotNullish(doc.getLanguageCode())) {
-                    SlotType1 oSlot = CreateSingleValueSlot(EBXML_RESPONSE_LANGUAGECODE_SLOTNAME, doc.getLanguageCode());
+                    SlotType1 oSlot = createSingleValueSlot(EBXML_RESPONSE_LANGUAGECODE_SLOTNAME, 
+                            doc.getLanguageCode());
                     olSlot.add(oSlot);
                     bHaveData = true;
                 }
@@ -758,7 +799,7 @@ public class AdapterComponentDocRegistryOrchImpl {
                 // LegalAuthenticator Code
                 // ------------------------
                 if (NullChecker.isNotNullish(doc.getLegalAuthenticator())) {
-                    SlotType1 oSlot = CreateSingleValueSlot(EBXML_RESPONSE_LEGALAUTHENTICATOR_SLOTNAME,
+                    SlotType1 oSlot = createSingleValueSlot(EBXML_RESPONSE_LEGALAUTHENTICATOR_SLOTNAME,
                             doc.getLegalAuthenticator());
                     olSlot.add(oSlot);
                     bHaveData = true;
@@ -782,7 +823,8 @@ public class AdapterComponentDocRegistryOrchImpl {
                     ExternalIdentifierType oExtId = new ExternalIdentifierType();
                     oExtId.setId("");
                     oExtId.setIdentificationScheme(EBXML_RESPONSE_PATIENTID_IDENTIFICATION_SCHEME);
-                    InternationalStringType oPatIdName = CreateSingleValueInternationalStringType(EBXML_RESPONSE_PATIENTID_NAME);
+                    InternationalStringType oPatIdName = 
+                            createSingleValueInternationalStringType(EBXML_RESPONSE_PATIENTID_NAME);
                     oExtId.setName(oPatIdName);
                     oExtId.setRegistryObject(sDocumentUUID);
                     oExtId.setValue(formattedPatientId);
@@ -803,7 +845,7 @@ public class AdapterComponentDocRegistryOrchImpl {
                 // Service Start Time
                 // -------------------
                 if (doc.getServiceStartTime() != null) {
-                    SlotType1 oSlot = CreateSingleValueSlot(EBXML_RESPONSE_SERVICESTARTTIME_SLOTNAME,
+                    SlotType1 oSlot = createSingleValueSlot(EBXML_RESPONSE_SERVICESTARTTIME_SLOTNAME,
                             utcDateUtil.formatUTCDate(doc.getServiceStartTime()));
                     olSlot.add(oSlot);
                     bHaveData = true;
@@ -812,7 +854,7 @@ public class AdapterComponentDocRegistryOrchImpl {
                 // Service Stop Time
                 // ------------------
                 if (doc.getServiceStopTime() != null) {
-                    SlotType1 oSlot = CreateSingleValueSlot(EBXML_RESPONSE_SERVICESTOPTIME_SLOTNAME,
+                    SlotType1 oSlot = createSingleValueSlot(EBXML_RESPONSE_SERVICESTOPTIME_SLOTNAME,
                             utcDateUtil.formatUTCDate(doc.getServiceStopTime()));
                     olSlot.add(oSlot);
                     bHaveData = true;
@@ -821,7 +863,7 @@ public class AdapterComponentDocRegistryOrchImpl {
                 // Size
                 // -----
                 if ((doc.getSize() != null) && (doc.getSize().intValue() > 0)) {
-                    SlotType1 oSlot = CreateSingleValueSlot(EBXML_RESPONSE_SIZE_SLOTNAME, doc.getSize().toString());
+                    SlotType1 oSlot = createSingleValueSlot(EBXML_RESPONSE_SIZE_SLOTNAME, doc.getSize().toString());
                     olSlot.add(oSlot);
                     bHaveData = true;
                 }
@@ -829,7 +871,7 @@ public class AdapterComponentDocRegistryOrchImpl {
                 // Source Patient Id
                 // ------------------
                 if (NullChecker.isNotNullish(doc.getSourcePatientId())) {
-                    SlotType1 oSlot = CreateSingleValueSlot(EBXML_RESPONSE_SOURCEPATIENTID_SLOTNAME,
+                    SlotType1 oSlot = createSingleValueSlot(EBXML_RESPONSE_SOURCEPATIENTID_SLOTNAME,
                             doc.getSourcePatientId());
                     olSlot.add(oSlot);
                     bHaveData = true;
@@ -857,7 +899,7 @@ public class AdapterComponentDocRegistryOrchImpl {
                 if (!sourcePatientInfoValues.isEmpty()) {
                     String[] sourcePatientInfoValuesArray = sourcePatientInfoValues
                             .toArray(new String[sourcePatientInfoValues.size()]);
-                    SlotType1 oSlot = CreateMultiValueSlot(EBXML_RESPONSE_SOURCEPATIENTINFO_SLOTNAME,
+                    SlotType1 oSlot = createMultiValueSlot(EBXML_RESPONSE_SOURCEPATIENTINFO_SLOTNAME,
                             sourcePatientInfoValuesArray);
                     olSlot.add(oSlot);
                     bHaveData = true;
@@ -866,7 +908,7 @@ public class AdapterComponentDocRegistryOrchImpl {
                 // Title
                 // -------
                 if (NullChecker.isNotNullish(doc.getDocumentTitle())) {
-                    InternationalStringType oTitle = CreateSingleValueInternationalStringType(doc.getDocumentTitle());
+                    InternationalStringType oTitle = createSingleValueInternationalStringType(doc.getDocumentTitle());
                     oExtObj.setName(oTitle);
                     bHaveData = true;
                 }
@@ -887,13 +929,13 @@ public class AdapterComponentDocRegistryOrchImpl {
                     SlotType1 oSlot = null;
                     String documentUri = doc.getDocumentUri();
                     if (documentUri.length() <= EBXML_RESPONSE_URI_LINE_LENGTH) {
-                        oSlot = CreateSingleValueSlot(EBXML_RESPONSE_URI_SLOTNAME, documentUri);
+                        oSlot = createSingleValueSlot(EBXML_RESPONSE_URI_SLOTNAME, documentUri);
                     } else {
                         int iStart = 0;
                         String sURI = documentUri;
                         int iTotalLen = sURI.length();
                         int iIndex = 1;
-                        String saURIPart[] = null;
+                        String[] saURIPart = null;
 
                         if ((iTotalLen % EBXML_RESPONSE_URI_LINE_LENGTH) == 0) {
                             saURIPart = new String[iTotalLen / EBXML_RESPONSE_URI_LINE_LENGTH];
@@ -912,7 +954,7 @@ public class AdapterComponentDocRegistryOrchImpl {
                             iIndex++;
                         }
 
-                        oSlot = CreateMultiValueSlot(EBXML_RESPONSE_URI_SLOTNAME, saURIPart);
+                        oSlot = createMultiValueSlot(EBXML_RESPONSE_URI_SLOTNAME, saURIPart);
                     } // else
 
                     if (oSlot != null) {
@@ -928,7 +970,7 @@ public class AdapterComponentDocRegistryOrchImpl {
 
                     // Repository Unique ID
                     // ---------------------
-                    SlotType1 oSlot = CreateSingleValueSlot(EBXML_RESPONSE_REPOSITORY_UNIQUE_ID_SLOTNAME,
+                    SlotType1 oSlot = createSingleValueSlot(EBXML_RESPONSE_REPOSITORY_UNIQUE_ID_SLOTNAME,
                             REPOSITORY_UNIQUE_ID);
                     olSlot.add(oSlot);
 
@@ -981,7 +1023,7 @@ public class AdapterComponentDocRegistryOrchImpl {
         // Code System
         // ------------
         if (NullChecker.isNotNullish(codeScheme)) {
-            SlotType1 oSlot = CreateSingleValueSlot(EBXML_RESPONSE_CODE_CODESCHEME_SLOTNAME, codeScheme);
+            SlotType1 oSlot = createSingleValueSlot(EBXML_RESPONSE_CODE_CODESCHEME_SLOTNAME, codeScheme);
             olClassificationSlot.add(oSlot);
             bHasCode = true;
         }
@@ -989,7 +1031,7 @@ public class AdapterComponentDocRegistryOrchImpl {
         // DisplayName
         // ------------
         if (NullChecker.isNotNullish(codeDisplayName)) {
-            InternationalStringType oDisplayName = CreateSingleValueInternationalStringType(codeDisplayName);
+            InternationalStringType oDisplayName = createSingleValueInternationalStringType(codeDisplayName);
             oClassification.setName(oDisplayName);
             bHasCode = true;
         }
@@ -1002,11 +1044,15 @@ public class AdapterComponentDocRegistryOrchImpl {
         }
     }
 
+    /**
+     * @return homeCommunityId - Retrieve HomeCommunityId from gateway.properties
+     */
     protected String retrieveHomeCommunityId() {
         String homeCommunityId = null;
         try {
             homeCommunityId = "urn:oid:"
-                    + PropertyAccessor.getInstance().getProperty(PROPERTY_FILE_NAME_GATEWAY, PROPERTY_FILE_KEY_HOME_COMMUNITY);
+                    + PropertyAccessor.getInstance().getProperty(PROPERTY_FILE_NAME_GATEWAY,
+                            PROPERTY_FILE_KEY_HOME_COMMUNITY);
         } catch (Throwable t) {
             log.error("Error retrieving the home community id: " + t.getMessage(), t);
         }
@@ -1035,6 +1081,10 @@ public class AdapterComponentDocRegistryOrchImpl {
         return returnValues;
     }
 
+    /**
+     * @param paramFormattedString - PatientIdFormattes String i/p Parameter.
+     * @param resultCollection     - Collection of PatientId's i/p Parameter.
+     */
     public void parseParamFormattedString(String paramFormattedString, List<String> resultCollection) {
         if ((paramFormattedString != null) && (resultCollection != null)) {
             if (paramFormattedString.startsWith("(")) {
@@ -1079,12 +1129,12 @@ public class AdapterComponentDocRegistryOrchImpl {
      * @param sSlotValue The value for the slot.
      * @return The SlotType1 object containing the data passed in.
      */
-    private SlotType1 CreateSingleValueSlot(String sSlotName, String sSlotValue) {
+    private SlotType1 createSingleValueSlot(String sSlotName, String sSlotValue) {
         log.debug("DocumentRegistryHelper.CreateSingleValueSlot() -- Begin");
-        String saSlotValue[] = new String[1];
+        String[] saSlotValue = new String[1];
         saSlotValue[0] = sSlotValue;
         log.debug("DocumentRegistryHelper.CreateSingleValueSlot() -- End");
-        return CreateMultiValueSlot(sSlotName, saSlotValue);
+        return createMultiValueSlot(sSlotName, saSlotValue);
     }
 
     /**
@@ -1094,7 +1144,7 @@ public class AdapterComponentDocRegistryOrchImpl {
      * @param saSlotValue The array of values for the slot.
      * @return The SlotType1 object containing the data passed in.
      */
-    private SlotType1 CreateMultiValueSlot(String sSlotName, String[] saSlotValue) {
+    private SlotType1 createMultiValueSlot(String sSlotName, String[] saSlotValue) {
         log.debug("DocumentRegistryHelper.CreateMultiValueSlot() -- Begin");
         SlotType1 oSlot = new SlotType1();
         oSlot.setName(sSlotName);
@@ -1114,7 +1164,7 @@ public class AdapterComponentDocRegistryOrchImpl {
      * @param sLocStrValue The value to be placed in the string.
      * @return The InternationStringType that is being returned.
      */
-    private InternationalStringType CreateSingleValueInternationalStringType(String sLocStrValue) {
+    private InternationalStringType createSingleValueInternationalStringType(String sLocStrValue) {
         log.debug("DocumentTransforms.CreateSingleValueInternationalStringType() -- Begin");
         InternationalStringType oName = new InternationalStringType();
         List<LocalizedStringType> olLocStr = oName.getLocalizedString();
@@ -1125,8 +1175,9 @@ public class AdapterComponentDocRegistryOrchImpl {
         return oName;
     }
 
-    private oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse createErrorResponse(String errorCode, String codeContext) {
-    	AdhocQueryResponse response = new AdhocQueryResponse();
+    private oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse createErrorResponse(String errorCode,
+            String codeContext) {
+        AdhocQueryResponse response = new AdhocQueryResponse();
         RegistryErrorList regErrList = new RegistryErrorList();
         response.setRegistryErrorList(regErrList);
         response.setStatus(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_FAILURE);
@@ -1137,7 +1188,10 @@ public class AdapterComponentDocRegistryOrchImpl {
         regErr.setSeverity(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR);
         return response;
     }
-    
+
+    /**
+     * @return registryQueryId - List of valid QueryId's defined in spec.
+     */
     protected List<String> getRegistryQueryId() {
         List<String> registryQueryId = new ArrayList<String>();
         registryQueryId.add("urn:uuid:14d4debf-8f97-4251-9a74-a90016b0af0d");
@@ -1155,6 +1209,5 @@ public class AdapterComponentDocRegistryOrchImpl {
         registryQueryId.add("urn:uuid:d90e5407-b356-4d91-a89f-873917b4b0e6");
         return registryQueryId;
     }
-
 
 }
