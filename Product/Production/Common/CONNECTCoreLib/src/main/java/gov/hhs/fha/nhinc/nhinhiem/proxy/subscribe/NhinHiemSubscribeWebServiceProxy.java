@@ -188,7 +188,6 @@ public class NhinHiemSubscribeWebServiceProxy implements NhinHiemSubscribeProxy 
 
     private void auditResponseMessage(SubscribeResponse response, AssertionType assertion) {
         log.debug("In NhinHiemSubscribeWebServiceProxy.auditResponseMessage");
-        AcknowledgementType ack = null;
         try {
             AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
 
@@ -202,7 +201,7 @@ public class NhinHiemSubscribeWebServiceProxy implements NhinHiemSubscribeProxy 
             if (auditLogMsg != null) {
                 AuditRepositoryProxyObjectFactory auditRepoFactory = new AuditRepositoryProxyObjectFactory();
                 AuditRepositoryProxy proxy = auditRepoFactory.getAuditRepositoryProxy();
-                ack = proxy.auditLog(auditLogMsg, assertion);
+                proxy.auditLog(auditLogMsg, assertion);
             }
         } catch (Throwable t) {
             log.error("Error logging subscribe response message: " + t.getMessage(), t);
