@@ -31,6 +31,7 @@ import javax.xml.ws.BindingType;
 import javax.annotation.Resource;
 import javax.xml.ws.WebServiceContext;
 import javax.jws.HandlerChain;
+import javax.xml.ws.soap.Addressing;
 
 /**
  * 
@@ -39,6 +40,7 @@ import javax.jws.HandlerChain;
 @WebService(serviceName = "NotificationConsumerService", portName = "NotificationConsumerPort", endpointInterface = "org.oasis_open.docs.wsn.bw_2.NotificationConsumer", targetNamespace = "http://docs.oasis-open.org/wsn/bw-2", wsdlLocation = "WEB-INF/wsdl/HiemNotify/NhinSubscription.wsdl")
 @HandlerChain(file = "NotifySoapHeaderHandler.xml")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
+@Addressing(enabled = true)
 public class HiemNotify {
     @Resource
     private WebServiceContext context;
