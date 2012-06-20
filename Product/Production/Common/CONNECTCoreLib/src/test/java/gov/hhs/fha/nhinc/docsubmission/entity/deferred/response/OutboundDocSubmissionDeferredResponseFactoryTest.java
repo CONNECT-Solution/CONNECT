@@ -24,23 +24,29 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
-package gov.hhs.fha.nhinc.docsubmission.entity;
+
+package gov.hhs.fha.nhinc.docsubmission.entity.deferred.response;
+
+import static org.junit.Assert.assertTrue;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.orchestration.OrchestrationContextBuilder;
 
 import org.junit.Test;
 
 /**
- * 
- * @author zmelnick
+ * @author akong
+ *
  */
-public class OutboundDocSubmissionStrategyImpl_g0Test {
-    public OutboundDocSubmissionStrategyImpl_g0Test() {
-    }
-
+public class OutboundDocSubmissionDeferredResponseFactoryTest {
     @Test
-    public void testExecute() {
-        System.out.println("execute");
-        OutboundDocSubmissionOrchestratable message = null;
-        OutboundDocSubmissionStrategyImpl_g0 instance_g0 = new OutboundDocSubmissionStrategyImpl_g0();
-        instance_g0.execute(message);
+    public void testCreateOrchestrationContextBuilder() {
+        
+        OutboundDocSubmissionDeferredResponseFactory factory = OutboundDocSubmissionDeferredResponseFactory.getInstance();
+        
+        OrchestrationContextBuilder contextBuilder = factory.createOrchestrationContextBuilder(NhincConstants.GATEWAY_API_LEVEL.LEVEL_g0);        
+        assertTrue(contextBuilder instanceof OutboundDocSubmissionDeferredResponseOrchestrationContextBuilder_g0);
+                
+        contextBuilder = factory.createOrchestrationContextBuilder(NhincConstants.GATEWAY_API_LEVEL.LEVEL_g1);        
+        assertTrue(contextBuilder instanceof OutboundDocSubmissionDeferredResponseOrchestrationContextBuilder_g1);        
     }
 }

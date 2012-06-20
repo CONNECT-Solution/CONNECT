@@ -24,28 +24,29 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
-package gov.hhs.fha.nhinc.docsubmission.entity.proxy;
 
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
-import gov.hhs.fha.nhinc.common.nhinccommon.UrlInfoType;
-import gov.hhs.fha.nhinc.docsubmission.entity.EntityDocSubmissionOrchImpl;
-import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
-import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
+package gov.hhs.fha.nhinc.docsubmission.entity.deferred.request;
 
-public class EntityDocSubmissionProxyJavaImpl implements EntityDocSubmissionProxy {
+import static org.junit.Assert.assertTrue;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.orchestration.OrchestrationContextBuilder;
 
-    protected EntityDocSubmissionOrchImpl getEntityDocSubmissionOrchImpl() {
-        return new EntityDocSubmissionOrchImpl();
-    }
-    
-    public RegistryResponseType provideAndRegisterDocumentSetB(ProvideAndRegisterDocumentSetRequestType msg,
-            AssertionType assertion, NhinTargetCommunitiesType targets, UrlInfoType urlInfo) {
-        RegistryResponseType response = new RegistryResponseType();
+import org.junit.Test;
 
-        EntityDocSubmissionOrchImpl orchImpl = getEntityDocSubmissionOrchImpl();
-        response = orchImpl.provideAndRegisterDocumentSetB(msg, assertion, targets, urlInfo);
-
-        return response;
+/**
+ * @author akong
+ *
+ */
+public class OutboundDocSubmissionDeferredRequestFactoryTest {
+    @Test
+    public void testCreateOrchestrationContextBuilder() {
+        
+        OutboundDocSubmissionDeferredRequestFactory factory = OutboundDocSubmissionDeferredRequestFactory.getInstance();
+        
+        OrchestrationContextBuilder contextBuilder = factory.createOrchestrationContextBuilder(NhincConstants.GATEWAY_API_LEVEL.LEVEL_g0);        
+        assertTrue(contextBuilder instanceof OutboundDocSubmissionDeferredRequestOrchestrationContextBuilder_g0);
+                
+        contextBuilder = factory.createOrchestrationContextBuilder(NhincConstants.GATEWAY_API_LEVEL.LEVEL_g1);        
+        assertTrue(contextBuilder instanceof OutboundDocSubmissionDeferredRequestOrchestrationContextBuilder_g1);        
     }
 }

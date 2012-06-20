@@ -51,6 +51,10 @@ public class OutboundDocSubmissionDeferredRequestStrategyImpl_g1 implements Orch
         return log;
     }
 
+    protected NhinDocSubmissionDeferredRequestProxy getNhinDocSubmissionDeferredRequestProxy() {
+        return new NhinDocSubmissionDeferredRequestProxyObjectFactory().getNhinDocSubmissionDeferredRequestProxy();
+    }
+    
     @Override
     public void execute(Orchestratable message) {
         if (message instanceof OutboundDocSubmissionDeferredRequestOrchestratable) {
@@ -62,23 +66,13 @@ public class OutboundDocSubmissionDeferredRequestStrategyImpl_g1 implements Orch
 
     public void execute(OutboundDocSubmissionDeferredRequestOrchestratable message) {
         getLogger().debug("Begin OutboundDocSubmissionOrchestratableImpl_g1.process");
-        if (message == null) {
-            getLogger().debug("OutboundDocSubmissionOrchestratable was null");
-            return;
-        }
 
-        if (message instanceof OutboundDocSubmissionDeferredRequestOrchestratable) {
+        NhinDocSubmissionDeferredRequestProxy nhincDocSubmission = getNhinDocSubmissionDeferredRequestProxy();
+        XDRAcknowledgementType response = new XDRAcknowledgementType();
+        response.setMessage(nhincDocSubmission.provideAndRegisterDocumentSetBRequest20(message.getRequest(),
+                message.getAssertion(), message.getTarget()));
+        message.setResponse(response);
 
-            NhinDocSubmissionDeferredRequestProxy nhincDocSubmission = new NhinDocSubmissionDeferredRequestProxyObjectFactory().getNhinDocSubmissionDeferredRequestProxy();
-            XDRAcknowledgementType response = new XDRAcknowledgementType();
-            response.setMessage(nhincDocSubmission.provideAndRegisterDocumentSetBRequest20(message.getRequest(),
-                    message.getAssertion(), message.getTarget()));
-            message.setResponse(response);
-
-        } else {
-            getLogger().error("OutboundDocSubmissionDeferredRequestStrategyImpl_g1 AdapterDelegateImpl_a0.process received a message " +
-                    "which was not of type OutboundDocSubmissionOrchestratable.");
-        }
         getLogger().debug("End OutboundDocSubmissionDeferredRequestStrategyImpl_g1.process");
     }
 

@@ -51,6 +51,10 @@ public class OutboundDocSubmissionDeferredResponseStrategyImpl_g1 implements Orc
     protected Log getLogger() {
         return log;
     }
+    
+    protected NhinDocSubmissionDeferredResponseProxy getNhinDocSubmissionDeferredResponseProxy() {
+        return new NhinDocSubmissionDeferredResponseProxyObjectFactory().getNhinDocSubmissionDeferredResponseProxy();
+    }
 
     @Override
     public void execute(Orchestratable message) {
@@ -63,25 +67,15 @@ public class OutboundDocSubmissionDeferredResponseStrategyImpl_g1 implements Orc
 
     public void execute(OutboundDocSubmissionDeferredResponseOrchestratable message) {
         getLogger().debug("Begin OutboundDocSubmissionOrchestratableImpl_g1.process");
-        if (message == null) {
-            getLogger().debug("OutboundDocSubmissionOrchestratable was null");
-            return;
-        }
 
-        if (message instanceof OutboundDocSubmissionDeferredResponseOrchestratable) {
+        XDRAcknowledgementType ack = new XDRAcknowledgementType();
+        NhinDocSubmissionDeferredResponseProxy nhincDocSubmission = getNhinDocSubmissionDeferredResponseProxy();
+        RegistryResponseType response = nhincDocSubmission.provideAndRegisterDocumentSetBDeferredResponse20(
+                message.getRequest(), message.getAssertion(), message.getTarget());
 
-        	XDRAcknowledgementType ack = new XDRAcknowledgementType();
-            NhinDocSubmissionDeferredResponseProxy nhincDocSubmission = new NhinDocSubmissionDeferredResponseProxyObjectFactory().getNhinDocSubmissionDeferredResponseProxy();
-            RegistryResponseType response = nhincDocSubmission.provideAndRegisterDocumentSetBDeferredResponse20(message.getRequest(),
-                    message.getAssertion(), message.getTarget());
-            
-            ack.setMessage(response);
-            message.setResponse(ack);
+        ack.setMessage(response);
+        message.setResponse(ack);
 
-        } else {
-            getLogger().error("OutboundDocSubmissionDeferredResponseStrategyImpl_g1 AdapterDelegateImpl_a0.process received a message " +
-                    "which was not of type OutboundDocSubmissionOrchestratableImpl_a0.");
-        }
         getLogger().debug("End OutboundDocSubmissionDeferredResponseStrategyImpl_g1.process");
     }
 

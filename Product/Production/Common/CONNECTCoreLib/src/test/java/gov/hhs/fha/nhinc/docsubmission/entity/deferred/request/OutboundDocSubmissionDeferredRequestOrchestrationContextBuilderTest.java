@@ -24,28 +24,50 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
-package gov.hhs.fha.nhinc.docsubmission.entity.proxy;
 
+package gov.hhs.fha.nhinc.docsubmission.entity.deferred.request;
+
+import static org.junit.Assert.assertNotNull;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
-import gov.hhs.fha.nhinc.common.nhinccommon.UrlInfoType;
-import gov.hhs.fha.nhinc.docsubmission.entity.EntityDocSubmissionOrchImpl;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
-import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
-public class EntityDocSubmissionProxyJavaImpl implements EntityDocSubmissionProxy {
+import org.junit.Test;
 
-    protected EntityDocSubmissionOrchImpl getEntityDocSubmissionOrchImpl() {
-        return new EntityDocSubmissionOrchImpl();
+/**
+ * @author akong
+ *
+ */
+public class OutboundDocSubmissionDeferredRequestOrchestrationContextBuilderTest {
+    @Test
+    public void testOutboundDocSubmissionDeferredRequestOrchestrationContextBuilder_g0() {
+        OutboundDocSubmissionDeferredRequestOrchestrationContextBuilder_g0  contextBuilder = new OutboundDocSubmissionDeferredRequestOrchestrationContextBuilder_g0();
+        
+        testContextBuilder(contextBuilder);
     }
     
-    public RegistryResponseType provideAndRegisterDocumentSetB(ProvideAndRegisterDocumentSetRequestType msg,
-            AssertionType assertion, NhinTargetCommunitiesType targets, UrlInfoType urlInfo) {
-        RegistryResponseType response = new RegistryResponseType();
-
-        EntityDocSubmissionOrchImpl orchImpl = getEntityDocSubmissionOrchImpl();
-        response = orchImpl.provideAndRegisterDocumentSetB(msg, assertion, targets, urlInfo);
-
-        return response;
+    @Test
+    public void testOutboundDocSubmissionDeferredRequestOrchestrationContextBuilder_g1() {
+        OutboundDocSubmissionDeferredRequestOrchestrationContextBuilder_g1  contextBuilder = new OutboundDocSubmissionDeferredRequestOrchestrationContextBuilder_g1();
+           
+        testContextBuilder(contextBuilder);        
+    }
+    
+    private void testContextBuilder(OutboundDocSubmissionDeferredRequestOrchestrationContextBuilder contextBuilder) {
+        contextBuilder.build();
+        
+        contextBuilder.setAssertionType(new AssertionType());
+        assertNotNull(contextBuilder.getAssertionType());
+        
+        assertNotNull(contextBuilder.getLog());
+        
+        contextBuilder.setNhinDelegate(new OutboundDocSubmissionDeferredRequestDelegate());
+        assertNotNull(contextBuilder.getNhinDelegate());
+        
+        contextBuilder.setRequest(new ProvideAndRegisterDocumentSetRequestType());
+        assertNotNull(contextBuilder.getRequest());
+        
+        contextBuilder.setTarget(new NhinTargetSystemType());
+        assertNotNull(contextBuilder.getTarget());
     }
 }
