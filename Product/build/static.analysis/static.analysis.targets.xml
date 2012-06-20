@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="static.analysis.targets" basedir=".">
+
+    <dirname property="static.analysis.targets.basedir" file="${ant.file.static.analysis.targets}"/>
+    <property name="static.analysis.targets.ant.lib.dir" location="${static.analysis.targets.basedir}/../../../ThirdParty/AntExtraLibs"/>
+    <property name="checkstyle.html.report.file.path" location="${static.analysis.targets.basedir}/../../CheckstyleReport/CheckstyleReport.html"/>
+
+    <taskdef resource="checkstyletask.properties">
+        <classpath>
+            <fileset dir="${static.analysis.targets.ant.lib.dir}/">
+                <include name="*.jar"/>
+            </fileset>
+        </classpath>
+    </taskdef>
+
+    <taskdef name="pmd" classname="net.sourceforge.pmd.ant.PMDTask">
+        <classpath>
+            <fileset dir="${static.analysis.targets.ant.lib.dir}/">
+                <include name="*.jar"/>
+            </fileset>
+        </classpath>
+    </taskdef>
+
+    <import file="static.analysis.properties.xml" />
+
+    <target name="static.analysis.clean" depends="checkstyle.clean, pmd.clean"/>
+
+    <target name="checkstyle.clean">
+        <delete dir="${checkstyle.report.dir.path}" failonerror="true" />
+    </target>
+
+    <target name="pmd.clean">
+        <delete dir="${pmd.report.dir.path}" failonerror="true" />
+    </target>
+
+    <target name="checkstyle" description="Runs checkstyle and generates an error report">
+        <mkdir dir="${checkstyle.report.dir.path}"/>
+        <checkstyle failonviolation="false" failureProperty="checkstyle.errors.are.present"
+               config="${checkstyle.configuration.file.path}" maxErrors="13820" maxWarnings="0">
+            <fileset dir="${src.dir}"
+               includes="**/src/**/*.java, **/src/**/*.properties" excludes="**/*Test.java, **/build.generated/*"/>
+            <formatter type="xml" toFile="${checkstyle.report.file.path}"/>
+        </checkstyle>
+        <xslt basedir="${checkstyle.report.dir.path}"
+           destdir="${checkstyle.report.dir.path}"
+           includes="${checkstyle.report.file.name}"
+           style="${checkstyle.xsl.file.path}">
+        </xslt>
+        <fail if="checkstyle.errors.are.present" message="There are checkstyle errors!${line.separator}See full report here: ${checkstyle.html.report.file.path}"/>
+    </target>
+
+    <target name="pmd">
+        <mkdir dir="${pmd.report.dir.path}"/>
+        <pmd rulesetfiles="${pmd.configuration.file.path}" failOnRuleViolation="true" maxRuleViolations="8418">
+            <formatter type="html" toFile="${pmd.report.dir.path}/index.html"/>
+            <formatter type="xml" toFile="${pmd.report.dir.path}/pmd.xml"/>
+            <fileset dir="${src.dir}"
+                includes="**/src/**/*.java, **/src/**/*.properties" excludes="**/*Test.java, **/build.generated/*"/>
+        </pmd>
+    </target>
+
+</project>
