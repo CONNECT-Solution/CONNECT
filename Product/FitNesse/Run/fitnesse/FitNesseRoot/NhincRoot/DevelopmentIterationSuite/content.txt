@@ -1,6 +1,0 @@
-!2 Purpose
-This suite holds tests that the developers are working to make pass.  At the beginning of the iteration all the tests will be failing.  The goal is to have all the tests passing before the end of the iteration.
-
-!note This suite should be executed as a symbolic link from the .NhincRoot.LocalSuite.
-
-!contents -R2 -g -p -f -h

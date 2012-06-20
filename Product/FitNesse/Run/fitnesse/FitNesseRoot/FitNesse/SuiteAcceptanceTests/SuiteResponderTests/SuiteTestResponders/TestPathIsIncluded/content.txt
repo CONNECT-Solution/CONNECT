@@ -1,6 +1,0 @@
-!path zork
-
-!|Java Properties|
-|show|property|java.class.path||
-|property|java.class.path|should match|.*zork.*|
-
