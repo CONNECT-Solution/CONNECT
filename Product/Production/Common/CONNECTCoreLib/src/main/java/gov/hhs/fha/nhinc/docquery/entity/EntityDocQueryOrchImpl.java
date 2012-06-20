@@ -202,11 +202,12 @@ public class EntityDocQueryOrchImpl {
                                 identifier.getAssigningAuthorityIdentifier(), localAA, getLocalHomeCommunityId());
                         String sTargetHomeCommunityId = null;
                         if (targetCommunity != null) {
-                            target.setHomeCommunity(targetCommunity);
+                        	target.setHomeCommunity(targetCommunity);
                             sTargetHomeCommunityId = targetCommunity.getHomeCommunityId();
-                        }                        
-                        log.debug("EntityDocQueryOrchImpl correlated target hcid=" + targetCommunity.getHomeCommunityId());
+                        }
 
+                        log.debug("EntityDocQueryOrchImpl correlated target hcid=" + targetCommunity.getHomeCommunityId());
+	
                         if (isValidPolicy(adhocQueryRequest, assertion, targetCommunity)) {
                             OutboundDelegate nd = new OutboundDocQueryDelegate();
                             OutboundResponseProcessor np = null;
@@ -252,8 +253,8 @@ public class EntityDocQueryOrchImpl {
                             regErr.setErrorCode("XDSRepositoryError");
                             regErr.setSeverity(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR);
                             policyErrList.getRegistryError().add(regErr);
-                        }
-                    }
+                       }
+                   }
 
                     // note that if responseIsSpecA0 taskexecutor is set to return OutboundDocQueryOrchestratable_a0
                     // else taskexecutor set to return OutboundDocQueryOrchestratable_a1
@@ -309,44 +310,18 @@ public class EntityDocQueryOrchImpl {
                         }
                     }
 
-                    RegistryErrorList newRegErrorList = null;
-                    //Remove instances of "XDSUnknownPatientId" from error list
-                    if(response != null && response.getRegistryErrorList()!= null) {
-                        newRegErrorList = new RegistryErrorList();
-                        
-                        for (RegistryError oRegError : response.getRegistryErrorList().getRegistryError()) {
-                            if(!oRegError.getCodeContext().equals("XDSUnknownPatientId")) {
-                                RegistryError regErr = new RegistryError();
-                                regErr.setCodeContext(oRegError.getCodeContext());
-                                regErr.setErrorCode(oRegError.getErrorCode());
-                                regErr.setSeverity(oRegError.getSeverity());
-
-                                newRegErrorList.getRegistryError().add(regErr);
-                            }
-                        }
-                        
-                        if (newRegErrorList.getRegistryError() == null || newRegErrorList.getRegistryError().size() == 0) {
-                        	response.setRegistryErrorList(null);
-                        }
-                        else {
-                        	response.setRegistryErrorList(newRegErrorList);
-                        }
-                    }
-
                     log.debug("EntityDocQueryOrchImpl taskexecutor done and received response");
                 } else {
                     log.debug("EntityDocQueryOrchImpl no patient found, return empty list");
-                    RegistryObjectListType regObjList = new RegistryObjectListType();
-                    response.setRegistryObjectList(regObjList);
-                    response.setStatus("urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Success");
+                    response = createErrorResponse("XDSUnknownPatientId", "No patient correlations found.");
                 }
             } else {
                 log.error("Incomplete doc query message");
-                response = createErrorResponse("Incomplete/empty adhocquery message");
+                response = createErrorResponse("XDSRepositoryError", "Incomplete/empty adhocquery message");
             }
         } catch (Exception e) {
             log.error("Error occured processing doc query on entity interface: " + e.getMessage(), e);
-            response = createErrorResponse("Fault encountered processing internal document query" + " exception="
+            response = createErrorResponse("XDSRepositoryError", "Fault encountered processing internal document query" + " exception="
                     + e.getMessage());
         }
         auditDocQueryResponse(response, assertion, auditLog);
@@ -468,17 +443,21 @@ public class EntityDocQueryOrchImpl {
     }
 
 
-    private AdhocQueryResponse createErrorResponse(String codeContext) {
+    private AdhocQueryResponse createErrorResponse(String errorCode, String codeContext) {
         AdhocQueryResponse response = new AdhocQueryResponse();
-        RegistryErrorList regErrList = new RegistryErrorList();
-        response.setRegistryErrorList(regErrList);
+        response.setRegistryErrorList(createErrorListWithError(errorCode, codeContext));
         response.setStatus(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_FAILURE);
+        return response;
+    }
+    
+    private RegistryErrorList createErrorListWithError(String errorCode, String codeContext) {
+    	RegistryErrorList regErrList = new RegistryErrorList();
         RegistryError regErr = new RegistryError();
         regErrList.getRegistryError().add(regErr);
         regErr.setCodeContext(codeContext);
-        regErr.setErrorCode("XDSRepositoryError");
+        regErr.setErrorCode(errorCode);
         regErr.setSeverity(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR);
-        return response;
+        return regErrList;
     }
 
 }

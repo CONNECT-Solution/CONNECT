@@ -71,7 +71,6 @@ public class OutboundDocQueryProcessorHelper {
 
         // create new cumulativeResponse object
         AdhocQueryResponse newResponse = new AdhocQueryResponse();
-        newResponse.setStatus(XDS_RESPONSE_STATUS_SUCCESS);
         newResponse.setStartIndex(BigInteger.ZERO);
         newResponse.setTotalResultCount(BigInteger.ZERO);
 
@@ -98,7 +97,6 @@ public class OutboundDocQueryProcessorHelper {
 
         // create new cumulativeResponse object
         AdhocQueryResponse newResponse = new AdhocQueryResponse();
-        newResponse.setStatus(XDS_RESPONSE_STATUS_SUCCESS);
         newResponse.setStartIndex(BigInteger.ZERO);
         newResponse.setTotalResultCount(BigInteger.ZERO);
 

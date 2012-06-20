@@ -169,7 +169,6 @@ public class AdapterComponentDocRegistryOrchImpl {
     public AdhocQueryResponse registryStoredQuery(AdhocQueryRequest request) {
         log.debug("Begin AdapterComponentDocRegistryOrchImpl.registryStoredQuery(...)");
 
-        Boolean patientIdSet = false;
         oasis.names.tc.ebxml_regrep.xsd.query._3.ObjectFactory queryObjFact = new oasis.names.tc.ebxml_regrep.xsd.query._3.ObjectFactory();
         oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse response = queryObjFact.createAdhocQueryResponse();
 
@@ -240,10 +239,8 @@ public class AdapterComponentDocRegistryOrchImpl {
             log.debug("registryStoredQuery- docs.size: is null");
         }
 
-        patientIdSet = (patientId != null && !patientId.isEmpty());
         // Create response
-        //loadResponseMessage(response, docs);
-        loadResponseMessage(response, docs, patientIdSet);
+        loadResponseMessage(response, docs);
 
         log.debug("End AdapterComponentDocRegistryOrchImpl.registryStoredQuery(...)");
         return response;
@@ -437,33 +434,16 @@ public class AdapterComponentDocRegistryOrchImpl {
     }
 
     public void loadResponseMessage(oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse response,
-            List<Document> docs, Boolean patientIdSet) {
+            List<Document> docs) {
         RegistryObjectListType regObjList = new RegistryObjectListType();
         response.setRegistryObjectList(regObjList);
 
-         if (NullChecker.isNullish(docs)) {
-             log.debug("loadResponseMessage - docs size: null");
-            //  If the search criteria included the patient ID, we need to return
-            //  XDSUnknownPatientId (GW-186)
-            if(patientIdSet){
-                log.error("XDSUnknownPatientId");
-                createErrorResponse("XDSUnknownPatientId", response);
-            }else {
-                response.setRegistryObjectList(regObjList);
-                response.setStatus(XDS_QUERY_RESPONSE_STATUS_SUCCESS);
-            }
-         } else {
-             log.debug("loadResponseMessage - docs size: " + docs.size());
-            //Check here to see if the document count is 0.
-            //  If the search criteria included the patient ID, we need to return
-            //  XDSUnknownPatientId (GW-186)
-            if(docs.size()==0 && patientIdSet) {
-                log.error("XDSUnknownPatientId");
-                createErrorResponse("XDSUnknownPatientId", response);
-            } else {
-                response.setRegistryObjectList(regObjList);
-                response.setStatus(XDS_QUERY_RESPONSE_STATUS_SUCCESS);
-            }
+        if (NullChecker.isNullish(docs)) {
+            log.debug("loadResponseMessage - docs size: null");
+            response.setStatus(XDS_QUERY_RESPONSE_STATUS_SUCCESS);
+        } else {
+            log.debug("loadResponseMessage - docs size: " + docs.size());
+            response.setStatus(XDS_QUERY_RESPONSE_STATUS_SUCCESS);
 
             oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory oRimObjectFactory = new oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory();
 
@@ -1039,17 +1019,17 @@ public class AdapterComponentDocRegistryOrchImpl {
         return oName;
     }
 
-    private void createErrorResponse(String codeContext, oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse  response) {
-
+    private oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse createErrorResponse(String errorCode, String codeContext) {
+    	AdhocQueryResponse response = new AdhocQueryResponse();
         RegistryErrorList regErrList = new RegistryErrorList();
         response.setRegistryErrorList(regErrList);
         response.setStatus(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_FAILURE);
         RegistryError regErr = new RegistryError();
         regErrList.getRegistryError().add(regErr);
         regErr.setCodeContext(codeContext);
-        regErr.setErrorCode("XDSRepositoryError");
+        regErr.setErrorCode(errorCode);
         regErr.setSeverity(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR);
-
+        return response;
     }
 
 }
