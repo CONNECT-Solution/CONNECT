@@ -34,10 +34,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.NotifyRequestType;
 import gov.hhs.fha.nhinc.hiem.dte.SoapUtil;
 import gov.hhs.fha.nhinc.hiem.processor.entity.EntityNotifyProcessor;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.perfrepo.PerformanceManager;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
-import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 
 /**
  *
@@ -54,20 +51,10 @@ public class EntityNotifyServiceImpl {
         AcknowledgementType ack = new AcknowledgementType();
 
         try {
-            // Log the start of the entity performance record
-            PerformanceManager.getPerformanceManagerInstance().logPerformanceStart(
-                    NhincConstants.HIEM_NOTIFY_ENTITY_SERVICE_NAME, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE,
-                    NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, HomeCommunityMap.getLocalHomeCommunityId());
-
             String rawNotifyXml = new SoapUtil().extractSoapMessage(context, "notifySoapMessage");
 
             EntityNotifyProcessor processor = new EntityNotifyProcessor();
             processor.processNotify(notifyRequest.getNotify(), notifyRequest.getAssertion(), rawNotifyXml);
-
-            // Log the end of the entity performance record
-            PerformanceManager.getPerformanceManagerInstance().logPerformanceStop(
-                    NhincConstants.HIEM_NOTIFY_ENTITY_SERVICE_NAME, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE,
-                    NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, HomeCommunityMap.getLocalHomeCommunityId());
         } catch (Throwable t) {
             log.error("Exception encountered processing notify message: " + t.getMessage(), t);
         }
@@ -80,19 +67,9 @@ public class EntityNotifyServiceImpl {
         AcknowledgementType ack = new AcknowledgementType();
 
         try {
-            // Log the start of the entity performance record
-            PerformanceManager.getPerformanceManagerInstance().logPerformanceStart(
-                    NhincConstants.HIEM_NOTIFY_ENTITY_SERVICE_NAME, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE,
-                    NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, HomeCommunityMap.getLocalHomeCommunityId());
             String rawNotifyXml = new SoapUtil().extractSoapMessage(context, "notifySoapMessage");
-
             EntityNotifyProcessor processor = new EntityNotifyProcessor();
             processor.processNotify(notifyRequest, SamlTokenExtractor.GetAssertion(context), rawNotifyXml);
-
-            // Log the end of the entity performance record
-            PerformanceManager.getPerformanceManagerInstance().logPerformanceStop(
-                    NhincConstants.HIEM_NOTIFY_ENTITY_SERVICE_NAME, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE,
-                    NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, HomeCommunityMap.getLocalHomeCommunityId());
         } catch (Throwable t) {
             log.error("Exception encountered processing notify message: " + t.getMessage(), t);
         }

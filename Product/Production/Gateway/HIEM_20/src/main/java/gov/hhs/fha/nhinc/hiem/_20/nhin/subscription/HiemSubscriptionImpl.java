@@ -59,12 +59,10 @@ import gov.hhs.fha.nhinc.dte.WebServiceContextHelper;
 import gov.hhs.fha.nhinc.hiem.processor.nhin.NhinSubscribeProcessor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
-import gov.hhs.fha.nhinc.perfrepo.PerformanceManager;
 import gov.hhs.fha.nhinc.policyengine.PolicyEngineChecker;
 import gov.hhs.fha.nhinc.policyengine.adapter.proxy.PolicyEngineProxy;
 import gov.hhs.fha.nhinc.policyengine.adapter.proxy.PolicyEngineProxyObjectFactory;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
-import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 
 /**
  *
@@ -78,11 +76,6 @@ public class HiemSubscriptionImpl {
             throws NotifyMessageNotSupportedFault, SubscribeCreationFailedFault, TopicNotSupportedFault,
             InvalidTopicExpressionFault, ResourceUnknownFault {
         log.debug("Entering HiemSubscriptionImpl.subscribe");
-
-        // Log the start of the nhin performance record
-        PerformanceManager.getPerformanceManagerInstance().logPerformanceStart(
-                NhincConstants.HIEM_SUBSCRIBE_SERVICE_NAME, NhincConstants.AUDIT_LOG_NHIN_INTERFACE,
-                NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, HomeCommunityMap.getLocalHomeCommunityId());
 
         WebServiceContextHelper contextHelper = new WebServiceContextHelper();
         Element soapMessage = contextHelper.extractSoapMessage(context);
@@ -103,12 +96,6 @@ public class HiemSubscriptionImpl {
 
         // Audit the response message
         auditResponseMessage(response, assertion);
-
-        // Log the end of the nhin performance record
-        PerformanceManager.getPerformanceManagerInstance().logPerformanceStop(
-                NhincConstants.HIEM_SUBSCRIBE_SERVICE_NAME, NhincConstants.AUDIT_LOG_NHIN_INTERFACE,
-                NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, HomeCommunityMap.getLocalHomeCommunityId());
-
         log.debug("Exiting HiemSubscriptionImpl.subscribe");
         return response;
     }

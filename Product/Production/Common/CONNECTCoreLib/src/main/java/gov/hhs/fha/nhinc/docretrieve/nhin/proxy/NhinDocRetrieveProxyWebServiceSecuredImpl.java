@@ -48,8 +48,6 @@ import gov.hhs.fha.nhinc.gateway.aggregator.document.DocumentConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
-import gov.hhs.fha.nhinc.perfrepo.PerformanceManager;
-import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 
 /**
@@ -113,21 +111,8 @@ public class NhinDocRetrieveProxyWebServiceSecuredImpl implements NhinDocRetriev
                 if (NullChecker.isNotNullish(url)) {
                     RespondingGatewayRetrievePortType port = getPort(url, NhincConstants.DOC_RETRIEVE_ACTION,
                             WS_ADDRESSING_ACTION, assertion);
-
-                    // Log the start of the performance record
-                    String targetHomeCommunityId = HomeCommunityMap.getCommunityIdFromTargetSystem(targetSystem);
-                    
-                    PerformanceManager.getPerformanceManagerInstance().logPerformanceStart(
-                            NhincConstants.DOC_RETRIEVE_SERVICE_NAME, NhincConstants.AUDIT_LOG_NHIN_INTERFACE,
-                            NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, targetHomeCommunityId);
-
                     response = (RetrieveDocumentSetResponseType) oProxyHelper.invokePort(port,
                             RespondingGatewayRetrievePortType.class, "respondingGatewayCrossGatewayRetrieve", request);
-
-                    // Log the end of the performance record
-                    PerformanceManager.getPerformanceManagerInstance().logPerformanceStop(
-                            NhincConstants.DOC_RETRIEVE_SERVICE_NAME, NhincConstants.AUDIT_LOG_NHIN_INTERFACE,
-                            NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, targetHomeCommunityId);
                 } else {
                     log.error("Failed to call the web service (" + sServiceName + ").  The URL is null.");
                 }

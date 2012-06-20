@@ -89,7 +89,6 @@ public class NhinPatientDiscoveryServiceTest {
                 return mockPatientDiscoveryTransforms;
             }
 
-            @Override
             protected PerformanceManager getPerformanceManager() {
                 return mockPerformanceManager;
             }

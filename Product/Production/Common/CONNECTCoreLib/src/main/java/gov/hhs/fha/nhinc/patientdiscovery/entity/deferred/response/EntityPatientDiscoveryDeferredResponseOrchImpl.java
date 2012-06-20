@@ -46,9 +46,7 @@ import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscovery201306Processor;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditLogger;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditor;
 import gov.hhs.fha.nhinc.patientdiscovery.PolicyChecker;
-import gov.hhs.fha.nhinc.perfrepo.PerformanceManager;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7AckTransforms;
-import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 
 /**
@@ -94,13 +92,6 @@ public class EntityPatientDiscoveryDeferredResponseOrchImpl implements EntityPat
             List<UrlInfo> urlInfoList = getTargetEndpoints(target);
             if (urlInfoList != null) {
                 for (UrlInfo urlInfo : urlInfoList) {
-
-                    // Log the start of the performance record
-                    PerformanceManager.getPerformanceManagerInstance().logPerformanceStart(
-                            NhincConstants.PATIENT_DISCOVERY_DEFERRED_SERVICE_NAME,
-                            NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
-                            HomeCommunityMap.getLocalHomeCommunityId());
-
                     // create a new request to send out to each target community
                     PRPAIN201306UV02 new201306 = pd201306Processor.createNewRequest(body, urlInfo.getHcid());
                     RespondingGatewayPRPAIN201306UV02RequestType newRequest = createNewRespondingGatewayRequest(
@@ -113,12 +104,6 @@ public class EntityPatientDiscoveryDeferredResponseOrchImpl implements EntityPat
                     } else {
                         ack = HL7AckTransforms.createAckFrom201306(body, "Policy Failed");
                     }
-
-                    // Log the end of the performance record
-                    PerformanceManager.getPerformanceManagerInstance().logPerformanceStop(
-                            NhincConstants.PATIENT_DISCOVERY_DEFERRED_SERVICE_NAME,
-                            NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
-                            HomeCommunityMap.getLocalHomeCommunityId());
                 }
             } else {
                 log.warn("No targets were found for the Patient Discovery Response");

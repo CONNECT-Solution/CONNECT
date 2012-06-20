@@ -51,12 +51,10 @@ import gov.hhs.fha.nhinc.hiem.dte.SoapUtil;
 import gov.hhs.fha.nhinc.hiem.processor.nhin.NhinNotifyProcessor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
-import gov.hhs.fha.nhinc.perfrepo.PerformanceManager;
 import gov.hhs.fha.nhinc.policyengine.PolicyEngineChecker;
 import gov.hhs.fha.nhinc.policyengine.adapter.proxy.PolicyEngineProxy;
 import gov.hhs.fha.nhinc.policyengine.adapter.proxy.PolicyEngineProxyObjectFactory;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
-import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 
 /**
  *
@@ -68,11 +66,6 @@ public class HiemNotifyImpl {
 
     public static void notify(Notify notifyRequest, WebServiceContext context) {
         log.debug("Entering HiemNotifyImpl.notify");
-
-        // Log the start of the nhin performance record
-        PerformanceManager.getPerformanceManagerInstance().logPerformanceStart(NhincConstants.HIEM_NOTIFY_SERVICE_NAME,
-                NhincConstants.AUDIT_LOG_NHIN_INTERFACE, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION,
-                HomeCommunityMap.getLocalHomeCommunityId());
 
         SoapUtil contextHelper = new SoapUtil();
         Element soapMessage = contextHelper.extractSoapMessageElement(context,
@@ -93,10 +86,6 @@ public class HiemNotifyImpl {
             // TODO: Add specific catch statements and throw the appropriate fault
 
         }
-        // Log the end of the nhin performance record
-        PerformanceManager.getPerformanceManagerInstance().logPerformanceStop(NhincConstants.HIEM_NOTIFY_SERVICE_NAME,
-                NhincConstants.AUDIT_LOG_NHIN_INTERFACE, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION,
-                HomeCommunityMap.getLocalHomeCommunityId());
         log.debug("Exiting HiemNotifyImpl.notify");
     }
 

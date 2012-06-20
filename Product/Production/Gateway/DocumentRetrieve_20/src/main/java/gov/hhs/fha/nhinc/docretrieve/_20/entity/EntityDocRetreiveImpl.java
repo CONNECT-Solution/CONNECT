@@ -40,14 +40,11 @@ import gov.hhs.fha.nhinc.docretrieve.entity.OutboundDocRetrieveOrchestratable;
 import gov.hhs.fha.nhinc.docretrieve.entity.OutboundDocRetrieveOrchestratableImpl;
 import gov.hhs.fha.nhinc.docretrieve.entity.OutboundDocRetrieveOrchestratorImpl;
 import gov.hhs.fha.nhinc.docretrieve.entity.OutboundDocRetrievePolicyTransformer_a0;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.orchestration.AuditTransformer;
 import gov.hhs.fha.nhinc.orchestration.NhinAggregator;
 import gov.hhs.fha.nhinc.orchestration.OutboundDelegate;
 import gov.hhs.fha.nhinc.orchestration.PolicyTransformer;
-import gov.hhs.fha.nhinc.perfrepo.PerformanceManager;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
-import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 
 /**
  *
@@ -80,11 +77,6 @@ public class EntityDocRetreiveImpl {
     public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(
             ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType body, AssertionType assertion) {
 
-        // Log the start of the performance record
-        String homeCommunityId = HomeCommunityMap.getLocalHomeCommunityId();
-        Long logId = PerformanceManager.getPerformanceManagerInstance().logPerformanceStart(NhincConstants.DOC_RETRIEVE_SERVICE_NAME, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE,
-                NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, homeCommunityId);
-
         PolicyTransformer pt = new OutboundDocRetrievePolicyTransformer_a0();
         AuditTransformer at = new OutboundDocRetrieveAuditTransformer_a0();
         OutboundDelegate nd = new OutboundDocRetrieveDelegate();
@@ -93,10 +85,6 @@ public class EntityDocRetreiveImpl {
                 assertion, pt, at, nd, na, null);
         OutboundDocRetrieveOrchestratorImpl oOrchestrator = new OutboundDocRetrieveOrchestratorImpl();
         oOrchestrator.process(EntityDROrchImpl);
-
-        // Log the end of the performance record
-        PerformanceManager.getPerformanceManagerInstance().logPerformanceStop(NhincConstants.DOC_RETRIEVE_SERVICE_NAME, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE,
-                NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, homeCommunityId);
 
         ResponseScrubber rs = new ResponseScrubber();
         return rs.Scrub(EntityDROrchImpl.getResponse());

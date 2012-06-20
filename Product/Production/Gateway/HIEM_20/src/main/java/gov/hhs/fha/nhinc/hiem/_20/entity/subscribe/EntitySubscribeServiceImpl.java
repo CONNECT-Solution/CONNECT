@@ -51,10 +51,7 @@ import gov.hhs.fha.nhinc.entitysubscriptionmanagementsecured.UnrecognizedPolicyR
 import gov.hhs.fha.nhinc.entitysubscriptionmanagementsecured.UnsupportedPolicyRequestFault;
 import gov.hhs.fha.nhinc.hiem.dte.SoapUtil;
 import gov.hhs.fha.nhinc.hiem.processor.entity.EntitySubscribeProcessor;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.perfrepo.PerformanceManager;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
-import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 
 /**
  *
@@ -116,10 +113,10 @@ public class EntitySubscribeServiceImpl {
 
     public org.oasis_open.docs.wsn.b_2.SubscribeResponse subscribe(
             gov.hhs.fha.nhinc.common.nhinccommonentity.SubscribeRequestType subscribeRequest, WebServiceContext context)
-            throws gov.hhs.fha.nhinc.entitysubscriptionmanagement.TopicNotSupportedFault,
-            gov.hhs.fha.nhinc.entitysubscriptionmanagement.InvalidTopicExpressionFault,
-            gov.hhs.fha.nhinc.entitysubscriptionmanagement.SubscribeCreationFailedFault,
-            gov.hhs.fha.nhinc.entitysubscriptionmanagement.ResourceUnknownFault {
+                    throws gov.hhs.fha.nhinc.entitysubscriptionmanagement.TopicNotSupportedFault,
+                    gov.hhs.fha.nhinc.entitysubscriptionmanagement.InvalidTopicExpressionFault,
+                    gov.hhs.fha.nhinc.entitysubscriptionmanagement.SubscribeCreationFailedFault,
+                    gov.hhs.fha.nhinc.entitysubscriptionmanagement.ResourceUnknownFault {
         log.debug("In subscribe");
         AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
 
@@ -148,24 +145,13 @@ public class EntitySubscribeServiceImpl {
 
     private org.oasis_open.docs.wsn.b_2.SubscribeResponse subscribe(Subscribe subscribe, Element subscribeElement,
             AssertionType assertion, NhinTargetCommunitiesType targetCommunitites)
-            throws org.oasis_open.docs.wsn.bw_2.TopicNotSupportedFault,
-            org.oasis_open.docs.wsn.bw_2.InvalidTopicExpressionFault,
-            org.oasis_open.docs.wsn.bw_2.SubscribeCreationFailedFault,
-            org.oasis_open.docs.wsn.bw_2.ResourceUnknownFault {
+                    throws org.oasis_open.docs.wsn.bw_2.TopicNotSupportedFault,
+                    org.oasis_open.docs.wsn.bw_2.InvalidTopicExpressionFault,
+                    org.oasis_open.docs.wsn.bw_2.SubscribeCreationFailedFault,
+                    org.oasis_open.docs.wsn.bw_2.ResourceUnknownFault {
         SubscribeResponse response = null;
         EntitySubscribeProcessor processor = new EntitySubscribeProcessor();
-
-        // Log the start of the entity performance record
-        PerformanceManager.getPerformanceManagerInstance().logPerformanceStart(
-                NhincConstants.HIEM_SUBSCRIBE_ENTITY_SERVICE_NAME, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE,
-                NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, HomeCommunityMap.getLocalHomeCommunityId());
-
         response = processor.processSubscribe(subscribe, subscribeElement, assertion, targetCommunitites);
-
-        // Log the end of the entity performance record
-        PerformanceManager.getPerformanceManagerInstance().logPerformanceStop(
-                NhincConstants.HIEM_SUBSCRIBE_ENTITY_SERVICE_NAME, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE,
-                NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, HomeCommunityMap.getLocalHomeCommunityId());
         return response;
     }
 }

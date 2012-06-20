@@ -40,14 +40,11 @@ import gov.hhs.fha.nhinc.hiem.consumerreference.ReferenceParametersElements;
 import gov.hhs.fha.nhinc.hiem.consumerreference.ReferenceParametersHelper;
 import gov.hhs.fha.nhinc.hiem.dte.marshallers.WsntUnsubscribeMarshaller;
 import gov.hhs.fha.nhinc.hiem.dte.marshallers.WsntUnsubscribeResponseMarshaller;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhincproxysubscriptionmanagement.ResourceUnknownFault;
 import gov.hhs.fha.nhinc.nhincproxysubscriptionmanagement.UnableToDestroySubscriptionFault;
 import gov.hhs.fha.nhinc.nhinhiem.proxy.unsubscribe.NhinHiemUnsubscribeProxy;
 import gov.hhs.fha.nhinc.nhinhiem.proxy.unsubscribe.NhinHiemUnsubscribeProxyObjectFactory;
-import gov.hhs.fha.nhinc.perfrepo.PerformanceManager;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
-import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import gov.hhs.fha.nhinc.xmlCommon.XmlUtility;
 
 /**
@@ -62,11 +59,6 @@ public class ProxyHiemUnsubscribeImpl {
             gov.hhs.fha.nhinc.common.nhinccommonproxy.UnsubscribeRequestType unsubscribeRequest,
             WebServiceContext context) throws Exception {
         log.debug("Entering ProxyHiemUnsubscribeImpl.unsubscribe...");
-
-        // Log the start of the nhin performance record
-        PerformanceManager.getPerformanceManagerInstance().logPerformanceStart(NhincConstants.HIEM_UNSUBSCRIBE_PROXY_SERVICE_NAME_SECURED, NhincConstants.AUDIT_LOG_NHIN_INTERFACE,
-                NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, HomeCommunityMap.getLocalHomeCommunityId());
-
         log.debug("extracting unsubscribe");
         Unsubscribe unsubscribe = unsubscribeRequest.getUnsubscribe();
         WsntUnsubscribeMarshaller wsntUnsubscribeMarshaller = new WsntUnsubscribeMarshaller();
@@ -111,9 +103,6 @@ public class ProxyHiemUnsubscribeImpl {
             response = new UnsubscribeResponse();
             response.getAny().add(ex);
         }
-        // Log the end of the nhin performance record
-        PerformanceManager.getPerformanceManagerInstance().logPerformanceStop(NhincConstants.HIEM_UNSUBSCRIBE_PROXY_SERVICE_NAME_SECURED, NhincConstants.AUDIT_LOG_NHIN_INTERFACE,
-                NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, HomeCommunityMap.getLocalHomeCommunityId());
         log.debug("Exiting ProxyHiemUnsubscribeImpl.unsubscribe...");
         return response;
     }
@@ -122,11 +111,6 @@ public class ProxyHiemUnsubscribeImpl {
             gov.hhs.fha.nhinc.common.nhinccommonproxy.UnsubscribeRequestSecuredType unsubscribeRequest,
             WebServiceContext context) throws UnableToDestroySubscriptionFault, ResourceUnknownFault {
         log.debug("Entering ProxyHiemUnsubscribeImpl.unsubscribe...");
-
-        // Log the start of the nhin performance record
-        PerformanceManager.getPerformanceManagerInstance().logPerformanceStart(NhincConstants.HIEM_UNSUBSCRIBE_PROXY_SERVICE_NAME_SECURED, NhincConstants.AUDIT_LOG_NHIN_INTERFACE,
-                NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, HomeCommunityMap.getLocalHomeCommunityId());
-
         log.debug("extracting unsubscribe");
         Unsubscribe unsubscribe = unsubscribeRequest.getUnsubscribe();
         WsntUnsubscribeMarshaller wsntUnsubscribeMarshaller = new WsntUnsubscribeMarshaller();
@@ -174,9 +158,6 @@ public class ProxyHiemUnsubscribeImpl {
             log.error("exception occured: " + e.getMessage());
             response.getAny().add(e);
         }
-        // Log the end of the nhin performance record
-        PerformanceManager.getPerformanceManagerInstance().logPerformanceStop(NhincConstants.HIEM_UNSUBSCRIBE_PROXY_SERVICE_NAME_SECURED, NhincConstants.AUDIT_LOG_NHIN_INTERFACE,
-                NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, HomeCommunityMap.getLocalHomeCommunityId());
         log.debug("Exiting ProxyHiemUnsubscribeImpl.unsubscribe...");
         return response;
     }
