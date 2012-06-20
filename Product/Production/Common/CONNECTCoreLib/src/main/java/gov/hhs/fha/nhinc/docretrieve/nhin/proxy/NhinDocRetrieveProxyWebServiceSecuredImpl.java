@@ -28,6 +28,7 @@ package gov.hhs.fha.nhinc.docretrieve.nhin.proxy;
 
 import ihe.iti.xds_b._2007.RespondingGatewayRetrievePortType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
+import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType.DocumentRequest;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 
 import javax.xml.namespace.QName;
@@ -115,6 +116,7 @@ public class NhinDocRetrieveProxyWebServiceSecuredImpl implements NhinDocRetriev
 
                     // Log the start of the performance record
                     String targetHomeCommunityId = HomeCommunityMap.getCommunityIdFromTargetSystem(targetSystem);
+                    
                     PerformanceManager.getPerformanceManagerInstance().logPerformanceStart(
                             NhincConstants.DOC_RETRIEVE_SERVICE_NAME, NhincConstants.AUDIT_LOG_NHIN_INTERFACE,
                             NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, targetHomeCommunityId);
@@ -128,6 +130,11 @@ public class NhinDocRetrieveProxyWebServiceSecuredImpl implements NhinDocRetriev
                             NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, targetHomeCommunityId);
                 } else {
                     log.error("Failed to call the web service (" + sServiceName + ").  The URL is null.");
+                }
+                for ( DocumentRequest doc : request.getDocumentRequest()){
+                    if (!doc.getHomeCommunityId().startsWith("urn:oid:")){
+                        doc.setHomeCommunityId("urn:oid:" + doc.getHomeCommunityId());
+                    }
                 }
             } else {
                 log.error("Failed to call the web service (" + sServiceName + ").  The input parameter is null.");
