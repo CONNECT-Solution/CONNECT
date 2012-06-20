@@ -26,7 +26,6 @@
  */
 package gov.hhs.fha.nhinc.docregistry.adapter;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -68,62 +67,62 @@ public class AdapterComponentDocRegistryOrchImplTest {
     };
     final Log mockLog = context.mock(Log.class);
     final DocumentService mockDocumentService = context.mock(DocumentService.class);
-    
+
     /**
      * Default constructor
      */
     public AdapterComponentDocRegistryOrchImplTest() {
     }
-   
+
     private AdapterComponentDocRegistryOrchImpl createAdapterComponentDocRegistryOrchImpl() {
         return new AdapterComponentDocRegistryOrchImpl() {
             @Override
             protected Log createLogger() {
                 return mockLog;
             }
-            
+
             @Override
             protected DocumentService getDocumentService() {
                 return createDocumentService();
             }
-            
+
             @Override
             protected String retrieveHomeCommunityId() {
                 return "1.1";
             }
         };
     }
-    
+
     private DocumentService createDocumentService() {
         return new DocumentService() {
             @Override
             public List<Document> documentQuery(DocumentQueryParams params) {
-                
+
                 ArrayList<Document> docs = new ArrayList<Document>();
                 if (params.getOnDemand()) {
                     Document onDemandDoc = new Document();
                     onDemandDoc.setDocumentUniqueId("12345.11111");
-                    
+
                     docs.add(onDemandDoc);
                 } else {
                     Document stableDoc = new Document();
                     stableDoc.setDocumentUniqueId("12345.22222");
-                    
+
                     Document stableDoc2 = new Document();
                     stableDoc2.setDocumentUniqueId("12345.33333");
-                    
+
                     docs.add(stableDoc);
-                    docs.add(stableDoc2);                    
+                    docs.add(stableDoc2);
                 }
                 return docs;
             }
         };
     }
-    
+
     private AdhocQueryRequest createAdhocQueryRequest(String documentEntryTypeValue) {
         AdhocQueryRequest request = new AdhocQueryRequest();
-        AdhocQueryType query = new AdhocQueryType();          
-        request.setAdhocQuery(query); 
+        AdhocQueryType query = new AdhocQueryType();
+        request.setAdhocQuery(query);
         request.getAdhocQuery().setId("urn:uuid:14d4debf-8f97-4251-9a74-a90016b0af0d");
         SlotType1 slot = new SlotType1();
         slot.setName("$XDSDocumentEntryType");
@@ -139,66 +138,66 @@ public class AdapterComponentDocRegistryOrchImplTest {
         query.getSlot().add(slot2);
         return request;
     }
-    
-    
-    private AdhocQueryRequest createAdhocQueryRequestForOnDemandDocuments() {        
+
+    private AdhocQueryRequest createAdhocQueryRequestForOnDemandDocuments() {
         return createAdhocQueryRequest("('urn:uuid:34268e47-fdf5-41a6-ba33-82133c465248')");
     }
-    
-    private AdhocQueryRequest createAdhocQueryRequestForStableDocuments() {        
+
+    private AdhocQueryRequest createAdhocQueryRequestForStableDocuments() {
         return createAdhocQueryRequest("('urn:uuid:7edca82f-054d-47f2-a032-9b2a5b5186c1')");
     }
-    
-    private AdhocQueryRequest createAdhocQueryRequestForStableAndOnDemandDocuments() {        
-        return createAdhocQueryRequest("('urn:uuid:7edca82f-054d-47f2-a032-9b2a5b5186c1', 'urn:uuid:34268e47-fdf5-41a6-ba33-82133c465248')");
+
+    private AdhocQueryRequest createAdhocQueryRequestForStableAndOnDemandDocuments() {
+        return createAdhocQueryRequest("('urn:uuid:7edca82f-054d-47f2-a032-9b2a5b5186c1', " +
+        		"'urn:uuid:34268e47-fdf5-41a6-ba33-82133c465248')");
     }
-        
+
     @Test
     public void testRegistryStoredQuery_OnDemandDocs() {
         AdapterComponentDocRegistryOrchImpl orchImpl = createAdapterComponentDocRegistryOrchImpl();
         context.checking(new Expectations() {
-            {                
+            {
                 allowing(mockLog).debug(with(any(String.class)));
             }
         });
-        
+
         AdhocQueryRequest request = createAdhocQueryRequestForOnDemandDocuments();
-                
+
         AdhocQueryResponse response = orchImpl.registryStoredQuery(request);
-        
-        List<JAXBElement<? extends IdentifiableType>> objectList = response.getRegistryObjectList().getIdentifiable();       
+
+        List<JAXBElement<? extends IdentifiableType>> objectList = response.getRegistryObjectList().getIdentifiable();
         assertEquals(1, objectList.size());
-                                      
+
         ExtrinsicObjectType docExtrinsic = (ExtrinsicObjectType) objectList.get(0).getValue();
         List<ExternalIdentifierType> externalIdentifierList = docExtrinsic.getExternalIdentifier();
-        assertEquals(1, externalIdentifierList.size());        
+        assertEquals(1, externalIdentifierList.size());
         assertEquals("12345.11111", externalIdentifierList.get(0).getValue());
     }
-    
+
     @Test
     public void testRegistryStoredQuery_StableDocs() {
         AdapterComponentDocRegistryOrchImpl orchImpl = createAdapterComponentDocRegistryOrchImpl();
         context.checking(new Expectations() {
-            {                
+            {
                 allowing(mockLog).debug(with(any(String.class)));
             }
         });
-        
+
         AdhocQueryRequest request = createAdhocQueryRequestForStableDocuments();
-                
+
         AdhocQueryResponse response = orchImpl.registryStoredQuery(request);
-        
-        List<JAXBElement<? extends IdentifiableType>> objectList = response.getRegistryObjectList().getIdentifiable();       
+
+        List<JAXBElement<? extends IdentifiableType>> objectList = response.getRegistryObjectList().getIdentifiable();
         assertEquals(2, objectList.size());
-                                      
+
         ExtrinsicObjectType docExtrinsic = (ExtrinsicObjectType) objectList.get(0).getValue();
         List<ExternalIdentifierType> externalIdentifierList = docExtrinsic.getExternalIdentifier();
-        assertEquals(1, externalIdentifierList.size());        
+        assertEquals(1, externalIdentifierList.size());
         assertEquals("12345.22222", externalIdentifierList.get(0).getValue());
-        
+
         docExtrinsic = (ExtrinsicObjectType) objectList.get(1).getValue();
         externalIdentifierList = docExtrinsic.getExternalIdentifier();
-        assertEquals(1, externalIdentifierList.size());        
+        assertEquals(1, externalIdentifierList.size());
         assertEquals("12345.33333", externalIdentifierList.get(0).getValue());
     }
 
@@ -206,18 +205,18 @@ public class AdapterComponentDocRegistryOrchImplTest {
     public void testRegistryStoredQuery_StableAndOnDemandDocs() {
         AdapterComponentDocRegistryOrchImpl orchImpl = createAdapterComponentDocRegistryOrchImpl();
         context.checking(new Expectations() {
-            {                
+            {
                 allowing(mockLog).debug(with(any(String.class)));
             }
         });
-        
-        AdhocQueryRequest request = createAdhocQueryRequestForStableAndOnDemandDocuments();               
+
+        AdhocQueryRequest request = createAdhocQueryRequestForStableAndOnDemandDocuments();
         AdhocQueryResponse response = orchImpl.registryStoredQuery(request);
-        
-        List<JAXBElement<? extends IdentifiableType>> objectList = response.getRegistryObjectList().getIdentifiable();       
-        assertEquals(3, objectList.size());                   
+
+        List<JAXBElement<? extends IdentifiableType>> objectList = response.getRegistryObjectList().getIdentifiable();
+        assertEquals(3, objectList.size());
     }
-    
+
     @Test
     public void testRegistryStoredQuery_unknownRegistryQueryId() {
         AdapterComponentDocRegistryOrchImpl orchImpl = createAdapterComponentDocRegistryOrchImpl();
@@ -230,8 +229,6 @@ public class AdapterComponentDocRegistryOrchImplTest {
         AdhocQueryResponse response = orchImpl.registryStoredQuery(request);
         assertSame(response.getStatus(), DocumentConstants.XDS_QUERY_RESPONSE_STATUS_FAILURE);
     }
-    
-    
 
     private AdhocQueryRequest createAdhocQueryRequestForunknownStoredQuery() {
         return createAdhocQueryRequestUnknownStoredQuery("('urn:uuid:7edca82f-054d-47f2-a032-9b2a5b5186c1')");
@@ -250,12 +247,12 @@ public class AdapterComponentDocRegistryOrchImplTest {
         SlotType1 slot2 = new SlotType1();
         slot2.setName("$XDSDocumentEntryPatientId");
         query.getSlot().add(slot);
-        //query.getSlot().add(slot2);
+        // query.getSlot().add(slot2);
         return request;
     }
-    
+
     @Test
-    public void testRegistryStoredQuery_RegistryQueryIdMissingParam(){
+    public void testRegistryStoredQuery_RegistryQueryIdMissingParam() {
         AdapterComponentDocRegistryOrchImpl orchImpl = createAdapterComponentDocRegistryOrchImpl();
         context.checking(new Expectations() {
             {
@@ -264,14 +261,15 @@ public class AdapterComponentDocRegistryOrchImplTest {
         });
         AdhocQueryRequest request = createAdhocQueryRequestforMissingParam();
         AdhocQueryResponse response = orchImpl.registryStoredQuery(request);
-        assertSame(response.getRegistryErrorList().getRegistryError().get(0).getErrorCode(), "XDSStoredQueryMissingParam");
+        assertSame(response.getRegistryErrorList().getRegistryError().get(0).getErrorCode(),
+                "XDSStoredQueryMissingParam");
     }
 
     /**
      * @return
      */
     private AdhocQueryRequest createAdhocQueryRequestforMissingParam() {
-       
+
         return createAdhocQueryRequestMissingParam("('urn:uuid:7edca82f-054d-47f2-a032-9b2a5b5186c1')");
     }
 
@@ -293,7 +291,48 @@ public class AdapterComponentDocRegistryOrchImplTest {
         return request;
     }
 
+    @Test
+    public void testRegistryStoredQuery_XDSStoredQueryParamNumberError() {
+        AdapterComponentDocRegistryOrchImpl orchImpl = createAdapterComponentDocRegistryOrchImpl();
+        context.checking(new Expectations() {
+            {
+                allowing(mockLog).debug(with(any(String.class)));
+            }
+        });
+        AdhocQueryRequest request = createAdhocQueryRequestForXDSStoredQueryParamNumberError();
+        AdhocQueryResponse response = orchImpl.registryStoredQuery(request);
+        assertSame(response.getRegistryErrorList().getRegistryError().get(0).getErrorCode(),
+                "XDSStoredQueryParamNumber");
+    }
 
-    
-    
+    private AdhocQueryRequest createAdhocQueryRequestForXDSStoredQueryParamNumberError() {
+        return createAdhocQueryRequestXDSStoredQueryParamNumberError("('urn:uuid:7edca82f-054d-47f2-a032-9b2a5b5186c1')");
+    }
+
+    private AdhocQueryRequest createAdhocQueryRequestXDSStoredQueryParamNumberError(String documentEntryTypeValue) {
+        AdhocQueryRequest request = new AdhocQueryRequest();
+        AdhocQueryType query = new AdhocQueryType();
+        request.setAdhocQuery(query);
+        request.getAdhocQuery().setId("urn:uuid:14d4debf-8f97-4251-9a74-a90016b0af0d");
+        SlotType1 slot = new SlotType1();
+        slot.setName("$XDSDocumentEntryType");
+        ValueListType valList = new ValueListType();
+        valList.getValue().add(documentEntryTypeValue);
+        slot.setValueList(valList);
+        query.getSlot().add(slot);
+        SlotType1 slot2 = new SlotType1();
+        slot2.setName("$XDSDocumentEntryPatientId");
+        ValueListType valList2 = new ValueListType();
+        valList.getValue().add("D123401^^^&1.1&ISO");
+        slot2.setValueList(valList2);
+        query.getSlot().add(slot2);
+        SlotType1 slot3 = new SlotType1();
+        slot3.setName("$XDSDocumentEntryPatientId");
+        ValueListType valList3 = new ValueListType();
+        valList.getValue().add("D123402^^^&2.2&ISO");
+        slot3.setValueList(valList3);
+        query.getSlot().add(slot3);
+        return request;
+    }
+
 }
