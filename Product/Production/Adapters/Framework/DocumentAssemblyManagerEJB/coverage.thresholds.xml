@@ -67,7 +67,7 @@
               linesexecuted="0"/>
    <threshold branchcount="56" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.assemblymanager.builder.cda.modules.AllergiesModule"
-              linecount="179"
+              linecount="181"
               linerate="80"
               linesexecuted="0"/>
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
@@ -92,7 +92,7 @@
               linesexecuted="0"/>
    <threshold branchcount="96" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.assemblymanager.builder.cda.modules.MedicationModule"
-              linecount="240"
+              linecount="247"
               linerate="80"
               linesexecuted="0"/>
    <threshold branchcount="28" branchrate="80" branchsexecuted="0"
@@ -102,17 +102,17 @@
               linesexecuted="0"/>
    <threshold branchcount="26" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.assemblymanager.builder.cda.modules.ProblemsModule"
-              linecount="94"
+              linecount="97"
               linerate="80"
               linesexecuted="0"/>
    <threshold branchcount="52" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.assemblymanager.builder.cda.modules.RecordTargetModule"
-              linecount="68"
+              linecount="71"
               linerate="80"
               linesexecuted="0"/>
    <threshold branchcount="28" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.assemblymanager.builder.cda.section.AllergiesSectionImpl"
-              linecount="66"
+              linecount="70"
               linerate="80"
               linesexecuted="0"/>
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
@@ -122,12 +122,12 @@
               linesexecuted="0"/>
    <threshold branchcount="6" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.assemblymanager.builder.cda.section.MedicationsSectionImpl"
-              linecount="22"
+              linecount="24"
               linerate="80"
               linesexecuted="0"/>
    <threshold branchcount="16" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.assemblymanager.builder.cda.section.ProblemsSectionImpl"
-              linecount="48"
+              linecount="51"
               linerate="80"
               linesexecuted="0"/>
    <threshold branchcount="20" branchrate="80" branchsexecuted="0"

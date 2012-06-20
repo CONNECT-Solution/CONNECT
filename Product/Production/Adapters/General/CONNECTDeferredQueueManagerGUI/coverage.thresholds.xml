@@ -1,38 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <thresholds>
-      <threshold branchcount="4" branchrate="80" branchsexecuted="0"
-                       class="gov.hhs.fha.nhinc.adapter.deferred.queue.PatientDiscoveryDeferredReqQueueClient"
-                       linecount="33"
-                       linerate="80"
-                       linesexecuted="0"/>
-      <threshold branchcount="4" branchrate="80" branchsexecuted="0"
-                       class="gov.hhs.fha.nhinc.adapter.deferred.queue.QueryForDocumentsDeferredReqQueueClient"
-                       linecount="33"
-                       linerate="80"
-                       linesexecuted="0"/>
-      <threshold branchcount="4" branchrate="80" branchsexecuted="0"
-                       class="gov.hhs.fha.nhinc.adapter.deferred.queue.RetrieveDocumentsDeferredReqQueueClient"
-                       linecount="33"
-                       linerate="80"
-                       linesexecuted="0"/>
-      <threshold branchcount="8" branchrate="80" branchsexecuted="0"
-                       class="gov.hhs.fha.nhinc.adapter.deferred.queue.gui.UserSession"
-                       linecount="34"
-                       linerate="80"
-                       linesexecuted="0"/>
-      <threshold branchcount="0" branchrate="80" branchsexecuted="0"
-                       class="gov.hhs.fha.nhinc.adapter.deferred.queue.gui.servicefacade.DeferredQueueManagerFacade"
-                       linecount="44"
-                       linerate="80"
-                       linesexecuted="0"/>
-      <threshold branchcount="0" branchrate="80" branchsexecuted="0"
-                       class="gov.hhs.fha.nhinc.util.DeferredGUIConstants"
-                       linecount="0"
-                       linerate="80"
-                       linesexecuted="0"/>                       
-      <threshold branchcount="74" branchrate="80" branchsexecuted="0"
-                       class="gov.hhs.fha.nhinc.util.Format"
-                       linecount="118"
-                       linerate="80"
-                       linesexecuted="0"/>
+   <threshold branchcount="8" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.adapter.deferred.queue.gui.UserSession"
+              linecount="34"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.adapter.deferred.queue.gui.servicefacade.DeferredQueueManagerFacade"
+              linecount="44"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.util.DeferredGUIConstants"
+              linecount="0"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="74" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.util.Format"
+              linecount="118"
+              linerate="80"
+              linesexecuted="0"/>
 </thresholds>

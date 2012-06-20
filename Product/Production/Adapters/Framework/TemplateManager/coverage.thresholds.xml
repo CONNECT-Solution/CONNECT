@@ -17,7 +17,7 @@
               linesexecuted="0"/>
    <threshold branchcount="14" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.template.dao.TemplateManagerDAO"
-              linecount="76"
+              linecount="78"
               linerate="80"
               linesexecuted="0"/>
    <threshold branchcount="12" branchrate="80" branchsexecuted="0"

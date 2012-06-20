@@ -1,8 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <thresholds>
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.admindistribution._20.passthru.NhincAdminDist_g1"
+              class="gov.hhs.fha.nhinc.admindistribution._20.entity.EntityAdministrativeDistributionSecured_g1"
+              linecount="6"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.admindistribution._20.entity.EntityAdministrativeDistribution_g1"
               linecount="4"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.admindistribution._20.nhin.NhinAdministrativeDistribution_g1"
+              linecount="6"
               linerate="80"
               linesexecuted="0"/>
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
@@ -11,18 +21,8 @@
               linerate="80"
               linesexecuted="0"/>
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.admindistribution._20.nhin.NhinAdministrativeDistribution_g1"
-              linecount="7"
+              class="gov.hhs.fha.nhinc.admindistribution._20.passthru.NhincAdminDist_g1"
+              linecount="4"
               linerate="80"
-              linesexecuted="0.04"/>
-   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.admindistribution._20.entity.EntityAdministrativeDistribution_g1"
-              linecount="5"
-              linerate="80"
-              linesexecuted="0.03"/>
-   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.admindistribution._20.entity.EntityAdministrativeDistributionSecured_g1"
-              linecount="7"
-              linerate="80"
-              linesexecuted="0.04"/>
+              linesexecuted="0"/>
 </thresholds>

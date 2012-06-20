@@ -1,31 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <thresholds>
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.adapterauditquery.AdapterAuditQueryService"
-              linecount="2"
-              linerate="80"
-              linesexecuted="0"/>
-   <threshold branchcount="8" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.adapterauditquery.AdapterAuditQueryServiceImpl"
-              linecount="28"
-              linerate="80"
-              linesexecuted="0"/>
-   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.auditquery.EntityAuditQuery"
-              linecount="10"
-              linerate="80"
-              linesexecuted="0"/>
-   <threshold branchcount="26" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.auditquery.entity.EntityAuditLogImpl"
-              linecount="56"
-              linerate="80"
-              linesexecuted="0"/>
-   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.auditquery.entity.EntityAuditLogQuery"
-              linecount="2"
-              linerate="80"
-              linesexecuted="0"/>
-   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.auditrepository.nhinc.AuditRepository"
               linecount="5"
               linerate="80"
@@ -47,32 +22,52 @@
               linesexecuted="0"/>
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.gateway.policyenginetransformation.PolicyEngineTransformationService"
-              linecount="12"
+              linecount="9"
               linerate="80"
               linesexecuted="0"/>
    <threshold branchcount="4" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.gateway.servlet.InitServlet"
-              linecount="19"
-              linerate="80"
-              linesexecuted="0"/>
-   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.patientcorrelation.nhinc.PatientCorrelationServiceSecured"
-              linecount="3"
-              linerate="80"
-              linesexecuted="0"/>
-   <threshold branchcount="10" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.patientcorrelation.nhinc.PatientCorrelationServiceSecuredImpl"
               linecount="21"
               linerate="80"
               linesexecuted="0"/>
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.patientcorrelation.nhinc.PatientCorrelationServiceUnsecured"
-              linecount="3"
+              class="gov.hhs.fha.nhinc.patientcorrelation.nhinc.PatientCorrelationService"
+              linecount="0"
               linerate="80"
               linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.patientcorrelation.nhinc.PatientCorrelationServiceFactory"
+              linecount="0"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="2" branchrate="80" branchsexecuted="0.01"
+              class="gov.hhs.fha.nhinc.patientcorrelation.nhinc.PatientCorrelationServiceSecured"
+              linecount="13"
+              linerate="80"
+              linesexecuted="0.13"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.patientcorrelation.nhinc.PatientCorrelationServiceSecuredFactory"
+              linecount="6"
+              linerate="80"
+              linesexecuted="0.06"/>
    <threshold branchcount="8" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.patientcorrelation.nhinc.PatientCorrelationServiceUnsecuredImpl"
-              linecount="14"
+              class="gov.hhs.fha.nhinc.patientcorrelation.nhinc.PatientCorrelationServiceSecuredServiceImpl"
+              linecount="17"
               linerate="80"
-              linesexecuted="0"/>
+              linesexecuted="0.04"/>
+   <threshold branchcount="10" branchrate="80" branchsexecuted="0.05"
+              class="gov.hhs.fha.nhinc.patientcorrelation.nhinc.PatientCorrelationServiceUnsecured"
+              linecount="18"
+              linerate="80"
+              linesexecuted="0.15"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.patientcorrelation.nhinc.PatientCorrelationServiceUnsecuredFactory"
+              linecount="6"
+              linerate="80"
+              linesexecuted="0.06"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.patientcorrelation.nhinc.PatientCorrelationServiceUnsecuredImpl"
+              linecount="11"
+              linerate="80"
+              linesexecuted="0.04"/>
 </thresholds>

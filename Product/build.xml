@@ -218,8 +218,7 @@
     <var name="do-to-target" value="just.unittest.run" />
     <antcall target="do-to-projects" />
     <call target="-unittest.product.check"/>
-    <!-- all coverage-related checks should be re-enabled when GATEWAY-1303 is resolved -->
-    <!--call target="-coverage.product.check"/-->
+    <call target="-coverage.product.check"/>
   </target>
 
   <target name="copyright.add" description="Clean all projects: run ant help for more info...">
