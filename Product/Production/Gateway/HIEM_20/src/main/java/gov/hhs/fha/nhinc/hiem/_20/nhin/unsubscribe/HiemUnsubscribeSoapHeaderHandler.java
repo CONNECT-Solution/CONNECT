@@ -26,7 +26,6 @@
  */
 package gov.hhs.fha.nhinc.hiem._20.nhin.unsubscribe;
 
-import gov.hhs.fha.nhinc.callback.SOAPHeaderHandler;
 import gov.hhs.fha.nhinc.hiem.dte.SoapUtil;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import java.util.ArrayList;
@@ -59,8 +58,6 @@ public class HiemUnsubscribeSoapHeaderHandler implements SOAPHandler<SOAPMessage
     }
 
     public boolean handleMessage(SOAPMessageContext context) {
-    	//SOAPHeaderHandler prefixHandler = new SOAPHeaderHandler();
-    	//prefixHandler.handleMessage(context);
         new SoapUtil().extractReferenceParameters(context, NhincConstants.HIEM_UNSUBSCRIBE_SOAP_HDR_ATTR_TAG);
         return true;
 
