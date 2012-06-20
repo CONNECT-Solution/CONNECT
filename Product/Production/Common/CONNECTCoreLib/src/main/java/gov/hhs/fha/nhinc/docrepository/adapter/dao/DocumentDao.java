@@ -243,6 +243,7 @@ public class DocumentDao {
         Date serviceStopTimeTo = null;
         List<String> statuses = null;
         List<String> documentUniqueIds = null;
+        boolean onDemand = false;
         if (params != null) {
             patientId = params.getPatientId();
             classCodes = params.getClassCodes();
@@ -255,7 +256,7 @@ public class DocumentDao {
             serviceStopTimeTo = params.getServiceStopTimeTo();
             statuses = params.getStatuses();
             documentUniqueIds = params.getDocumentUniqueIds();
-
+            onDemand = params.getOnDemand();
         }
         List<Document> documents = null;
         Session sess = null;
@@ -384,7 +385,12 @@ public class DocumentDao {
                         }
                         criteria.add(Expression.in("documentUniqueId", documentUniqueIds));
                     }
-
+                    
+                    if (log.isDebugEnabled()) {
+                        log.debug("Document query - onDemand: " + onDemand);                      
+                    }
+                    criteria.add(Expression.eq("onDemand", onDemand));
+                    
                     documents = criteria.list();
                 } else {
                     log.error("Failed to obtain a session from the sessionFactory");

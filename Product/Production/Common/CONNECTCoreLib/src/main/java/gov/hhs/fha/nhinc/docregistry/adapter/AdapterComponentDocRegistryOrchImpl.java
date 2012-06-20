@@ -28,6 +28,7 @@ package gov.hhs.fha.nhinc.docregistry.adapter;
 
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
+import oasis.names.tc.ebxml_regrep.xsd.query._3.ObjectFactory;
 
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
@@ -80,27 +81,16 @@ public class AdapterComponentDocRegistryOrchImpl {
     private static final String EBXML_DOCENTRY_PATIENT_ID = "$XDSDocumentEntryPatientId";
     private static final String EBXML_DOCENTRY_CLASS_CODE = "$XDSDocumentEntryClassCode";
     private static final String EBXML_DOCENTRY_CLASS_CODE_SCHEME = "$XDSDocumentEntryClassCodeScheme";
-    // Begin new
-    private static final String EBXML_DOCENTRY_PRACTICE_SETTING_CODE = "$XDSDocumentEntryPracticeSettingCode";
-    private static final String EBXML_DOCENTRY_PRACTICE_SETTING_CODE_SCHEME = "$XDSDocumentEntryPracticeSettingCodeScheme";
-    // End new
     private static final String EBXML_DOCENTRY_CREATION_TIME_FROM = "$XDSDocumentEntryCreationTimeFrom";
     private static final String EBXML_DOCENTRY_CREATION_TIME_TO = "$XDSDocumentEntryCreationTimeTo";
     private static final String EBXML_DOCENTRY_SERVICE_START_TIME_FROM = "$XDSDocumentEntryServiceStartTimeFrom";
     private static final String EBXML_DOCENTRY_SERVICE_START_TIME_TO = "$XDSDocumentEntryServiceStartTimeTo";
     private static final String EBXML_DOCENTRY_SERVICE_STOP_TIME_FROM = "$XDSDocumentEntryServiceStopTimeFrom";
     private static final String EBXML_DOCENTRY_SERVICE_STOP_TIME_TO = "$XDSDocumentEntryServiceStopTimeTo";
-    // Begin new
-    private static final String EBXML_DOCENTRY_HEALTHCARE_FACILITY_CODE = "$XDSDocumentEntryHealthcareFacilityTypeCode";
-    private static final String EBXML_DOCENTRY_HEALTHCARE_FACILITY_CODE_SCHEME = "$XDSDocumentEntryHealthcareFacilityTypeCodeScheme";
-    // End new
     private static final String EBXML_EVENT_CODE_LIST = "$XDSDocumentEntryEventCodeList";
     private static final String EBXML_EVENT_CODE_LIST_SCHEME = "$XDSDocumentEntryEventCodeListScheme";
-    // Begin new
-    private static final String EBXML_DOCENTRY_CONFIDENTIALITY_CODE = "$XDSDocumentEntryConfidentialityCode";
-    private static final String EBXML_DOCENTRY_FORMAT_CODE = "$XDSDocumentEntryFormatCode";
-    // End new
-    private static final String EBXML_DOCENTRY_STATUS = "$XDSDocumentEntryStatus";
+    private static final String EBXML_DOCENTRY_STATUS = "$XDSDocumentEntryStatus";    
+    private static final String EBXML_DOCENTRY_ENTRY_TYPE = "$XDSDocumentEntryType";
     // -- End IHE defined FindDocuments parameters --
 
     // We need to be able to do a search using AdhocQueryRequest parameters, but
@@ -142,11 +132,11 @@ public class AdapterComponentDocRegistryOrchImpl {
     private static final int EBXML_RESPONSE_URI_LINE_LENGTH = 128;
 
     private static final String XDS_QUERY_RESPONSE_STATUS_SUCCESS = "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Success";
-    private static final String XDS_QUERY_RESPONSE_STATUS_FAILURE = "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure";
-    private static final String XDS_QUERY_RESPONSE_OPTION_RETURN_TYPE_OBJECT_REF = "ObjectRef";
-    private static final String XDS_QUERY_RESPONSE_OPTION_RETURN_TYPE_LEAF_CLASS = "LeafClass";
     private static final String XDS_QUERY_RESPONSE_EXTRINSIC_OBJCECT_OBJECT_TYPE = "urn:uuid:7edca82f-054d-47f2-a032-9b2a5b5186c1";
-
+ 
+    private static final String EBXML_DOCENTRY_STABLE_DOCUMENTS_VALUE = "urn:uuid:7edca82f-054d-47f2-a032-9b2a5b5186c1";
+    private static final String EBXML_DOCENTRY_ONDEMAND_DOCUMENTS_VALUE = "urn:uuid:34268e47-fdf5-41a6-ba33-82133c465248";
+    
     private static final String REPOSITORY_UNIQUE_ID = "1";
 
     // Properties file keys
@@ -169,58 +159,79 @@ public class AdapterComponentDocRegistryOrchImpl {
     public AdhocQueryResponse registryStoredQuery(AdhocQueryRequest request) {
         log.debug("Begin AdapterComponentDocRegistryOrchImpl.registryStoredQuery(...)");
 
-        oasis.names.tc.ebxml_regrep.xsd.query._3.ObjectFactory queryObjFact = new oasis.names.tc.ebxml_regrep.xsd.query._3.ObjectFactory();
-        oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse response = queryObjFact.createAdhocQueryResponse();
+        ObjectFactory queryObjFact = new ObjectFactory();
+        AdhocQueryResponse response = queryObjFact.createAdhocQueryResponse();
 
-        // Collect input values from query.
-        String patientId = null;
-        List<String> classCodeValues = null;
-        String classCodeScheme = null;
-        Date creationTimeFrom = null;
-        Date creationTimeTo = null;
-        Date serviceStartTimeFrom = null;
-        Date serviceStartTimeTo = null;
-        Date serviceStopTimeFrom = null;
-        Date serviceStopTimeTo = null;
-        List<String> statuses = null;
-        List<String> documentUniqueIds = null;
-        String sRepositoryId = null;
-        List<String> eventCodeValues = null;
-        List<String> eventCodeSchemeValues = null;
+        boolean queryForStableDocs = true;
+        boolean queryForOnDemandDocs = false;
+        
+        DocumentQueryParams params = new DocumentQueryParams();
+        if (request != null) {            
+            List<SlotType1> slots = getSlotsFromAdhocQueryRequest(request);
 
-        if (request != null) {
-            AdhocQueryType adhocQuery = request.getAdhocQuery();
-            List<SlotType1> slots = null;
-            if (adhocQuery != null) {
-                slots = adhocQuery.getSlot();
-            }
-
-            patientId = extractPatientIdentifier(slots);
-            classCodeValues = extractClassCodes(slots);
-            classCodeScheme = extractClassCodeScheme(slots);
-            creationTimeFrom = extractCreationTimeFrom(slots);
-            creationTimeTo = extractCreationTimeTo(slots);
-            serviceStartTimeFrom = extractServiceStartTimeFrom(slots);
-            serviceStartTimeTo = extractServiceStartTimeTo(slots);
-            serviceStopTimeFrom = extractServiceStopTimeFrom(slots);
-            serviceStopTimeTo = extractServiceStopTimeTo(slots);
-            statuses = extractStatuses(slots);
-            documentUniqueIds = extractDocumentId(slots);
-
-            // We really do not do much with the repository ID - Since
-            // we are not supporting multiple repositories...
-            // ---------------------------------------------------------
-            sRepositoryId = extractRepositoryId(slots);
-
-            eventCodeValues = extractEventCodeList(slots);
-            eventCodeSchemeValues = extractEventCodeListSchemes(slots);
+            params = generateDocumentQueryParamsFromSlots(slots);
+            
+            List<String> docEntryTypeValues = extractDocumentEntryType(slots);     
+            if (NullChecker.isNotNullish(docEntryTypeValues)) {
+                queryForStableDocs = hasStableDocumentsEntry(docEntryTypeValues);
+                queryForOnDemandDocs = hasOnDemandDocumentsEntry(docEntryTypeValues);                
+            }      
+        }       
+                
+        DocumentService service = getDocumentService();
+        
+        List<Document> docs = new ArrayList<Document>();
+        if (queryForStableDocs) {
+            params.setOnDemandParams(false);
+            docs = service.documentQuery(params);
         }
+        
+        List<Document> onDemandDocs = new ArrayList<Document>();
+        if (queryForOnDemandDocs) {
+            params.setOnDemandParams(true);
+            params.setCreationTimeFrom(null);
+            params.setCreationTimeTo(null);
+            onDemandDocs = service.documentQuery(params);
+        }
+        
+        docs.addAll(onDemandDocs);
+        log.debug("registryStoredQuery- docs.size: " + docs.size());
+        
+        loadResponseMessage(response, docs);
 
-        // Perform Query
+        log.debug("End AdapterComponentDocRegistryOrchImpl.registryStoredQuery(...)");
+        return response;
+    }
+    
+    protected List<SlotType1> getSlotsFromAdhocQueryRequest(AdhocQueryRequest request) {
+        AdhocQueryType adhocQuery = request.getAdhocQuery();
+        List<SlotType1> slots = null;
+        if (adhocQuery != null) {
+            slots = adhocQuery.getSlot();
+        }
+        
+        return slots;
+    }
+    
+    protected DocumentQueryParams generateDocumentQueryParamsFromSlots(List<SlotType1> slots) { 
+        String patientId = extractPatientIdentifier(slots);
+        List<String> classCodeValues = extractClassCodes(slots);
+        String classCodeScheme = extractClassCodeScheme(slots);
+        Date creationTimeFrom = extractCreationTimeFrom(slots);
+        Date creationTimeTo = extractCreationTimeTo(slots);
+        Date serviceStartTimeFrom = extractServiceStartTimeFrom(slots);
+        Date serviceStartTimeTo = extractServiceStartTimeTo(slots);
+        Date serviceStopTimeFrom = extractServiceStopTimeFrom(slots);
+        Date serviceStopTimeTo = extractServiceStopTimeTo(slots);
+        List<String> statuses = extractStatuses(slots);
+        List<String> documentUniqueIds = extractDocumentId(slots);
+        List<String> eventCodeValues = extractEventCodeList(slots);
+        List<String> eventCodeSchemeValues = extractEventCodeListSchemes(slots);
+        
         DocumentQueryParams params = new DocumentQueryParams();
         params.setPatientId(patientId);
         params.setClassCodes(classCodeValues);
-        params.setClassCodeScheme(classCodeScheme);
+        params.setClassCodeScheme(classCodeScheme);        
         params.setCreationTimeFrom(creationTimeFrom);
         params.setCreationTimeTo(creationTimeTo);
         params.setServiceStartTimeFrom(serviceStartTimeFrom);
@@ -230,22 +241,10 @@ public class AdapterComponentDocRegistryOrchImpl {
         params.setStatuses(statuses);
         params.setDocumentUniqueId(documentUniqueIds);
         params.setEventCodeParams(createEventCodeParameters(eventCodeValues, eventCodeSchemeValues));
-        DocumentService service = getDocumentService();
-        List<Document> docs = service.documentQuery(params);
-
-        if (docs != null) {
-            log.debug("registryStoredQuery- docs.size: " + docs.size());
-        } else {
-            log.debug("registryStoredQuery- docs.size: is null");
-        }
-
-        // Create response
-        loadResponseMessage(response, docs);
-
-        log.debug("End AdapterComponentDocRegistryOrchImpl.registryStoredQuery(...)");
-        return response;
+        
+        return params;
     }
-
+    
     protected DocumentService getDocumentService() {
         return new DocumentService();
     }
@@ -390,6 +389,82 @@ public class AdapterComponentDocRegistryOrchImpl {
         }
         return documentIds;
     }
+    
+    /**
+     * Extracts the document entry types from the slots if it exists.
+     * 
+     * @param slots The list of slots to extract the document entry types from
+     * @return The list of string containing  the values from the document entry types
+     */
+    private List<String> extractDocumentEntryType(List<SlotType1> slots) {
+        List<String> documentEntryTypes = null;
+        
+        List<String> slotValues = extractSlotValues(slots, EBXML_DOCENTRY_ENTRY_TYPE);            
+        String[] entries = extractValueListFromSlotValues(slotValues);
+        
+        if (entries != null && entries.length > 0) {        
+            documentEntryTypes = new ArrayList<String>();
+            for (String entryType: entries) {
+                documentEntryTypes.add(entryType);
+            }
+        } 
+        
+        return documentEntryTypes;
+    }
+    
+    /**
+     * Extracts the comma seperated value from Slot/ValueList and returns it as a tokenized string array.  The
+     * expected value list is in the following format:
+     * 
+     * ('urn:uuid:7edca82f-054d-47f2-a032-9b2a5b5186c1', 'urn:uuid:34268e47-fdf5-41a6-ba33-82133c465248')
+     * 
+     * The returned value for this example will consist of a string array with elements
+     *   urn:uuid:7edca82f-054d-47f2-a032-9b2a5b5186c1
+     *   urn:uuid:34268e47-fdf5-41a6-ba33-82133c465248
+     * 
+     * @param slotValues The list of values from the slot.  Only one element is expected so only the first is parsed.
+     * @return an array of String containing the tokenized values.  null if the passed in argument is null.
+     */
+    private String[] extractValueListFromSlotValues(List<String> slotValues) {
+        if (NullChecker.isNotNullish(slotValues)) { 
+            String entriesString = slotValues.get(0).replaceAll("['() ]", "");
+            return entriesString.split(",");
+        }
+        return null;
+    }
+    
+    /**
+     * Checks whether the document entry value list passed in contains the stable document entry.
+     * 
+     * @param documentEntryTypes The list of strings to search the entry for
+     * @return true if the list contains the value, false if not
+     */
+    private boolean hasStableDocumentsEntry(List<String> documentEntryTypes) {
+        for (String documentEntryType : documentEntryTypes) {
+            if (documentEntryType.toLowerCase().equals(EBXML_DOCENTRY_STABLE_DOCUMENTS_VALUE)) {
+                return true;
+            }
+        }   
+        
+        return false;
+    }
+    
+    /**
+     * Checks whether the document entry value list passed in contains the dynamic document entry.
+     * 
+     * @param documentEntryTypes The list of strings to search the entry for
+     * @return true if the list contains the value, false if not
+     */    
+    private boolean hasOnDemandDocumentsEntry(List<String> documentEntryTypes) {
+        for (String documentEntryType : documentEntryTypes) {
+            if (documentEntryType.toLowerCase().equals(EBXML_DOCENTRY_ONDEMAND_DOCUMENTS_VALUE)) {
+                return true;
+            }
+        }   
+        
+        return false;
+    }
+    
 
     /**
      * Extract the repository ID from the slots
@@ -896,7 +971,7 @@ public class AdapterComponentDocRegistryOrchImpl {
         }
     }
 
-    private String retrieveHomeCommunityId() {
+    protected String retrieveHomeCommunityId() {
         String homeCommunityId = null;
         try {
             homeCommunityId = "urn:oid:"
