@@ -46,7 +46,6 @@ import gov.hhs.fha.nhinc.gateway.executorservice.ExecutorServiceHelper;
 import gov.hhs.fha.nhinc.gateway.executorservice.NhinCallableRequest;
 import gov.hhs.fha.nhinc.gateway.executorservice.NhinTaskExecutor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.NHIN_SERVICE_NAMES;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.orchestration.OutboundDelegate;
@@ -223,7 +222,12 @@ public class EntityDocQueryOrchImpl {
                                 }
                                 // set the home community id to the target hcid
                                 if (NullChecker.isNotNullish(sTargetHomeCommunityId)) {
-                                    clonedRequest.getAdhocQuery().setHome(sTargetHomeCommunityId);
+                                    if (!(sTargetHomeCommunityId.startsWith("urn:oid:"))){
+                                    clonedRequest.getAdhocQuery().setHome("urn:oid:"+ sTargetHomeCommunityId);
+                                    }
+                                    else {
+                                        clonedRequest.getAdhocQuery().setHome(sTargetHomeCommunityId);  
+                                    }
                                 }
 
                                 for (UrlInfo urlInfo : urlInfoList) {
