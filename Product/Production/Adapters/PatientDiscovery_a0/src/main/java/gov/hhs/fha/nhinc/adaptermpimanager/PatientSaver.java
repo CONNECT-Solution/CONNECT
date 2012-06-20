@@ -102,9 +102,7 @@ public class PatientSaver {
             Patient sourcePatient = HL7Parser201301.ExtractMpiPatientFromHL7Patient(patient);
             log.info("perform patient lookup in mpi");
 
-            log.info("source patient check 1 [" + sourcePatient.getName().getLastName() + "]");
             Patients searchResults = MpiDataAccess.LookupPatients(sourcePatient, AllowSearchByDemographics);
-            log.info("source patient check 2 [" + sourcePatient.getName().getLastName() + "]");
 
             if (CommonChecks.isZeroSearchResult(searchResults)) {
                 log.info("patient not found in MPI");

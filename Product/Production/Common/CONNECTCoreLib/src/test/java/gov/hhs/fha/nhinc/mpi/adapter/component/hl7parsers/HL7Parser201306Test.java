@@ -97,8 +97,8 @@ public class HL7Parser201306Test {
         Patient patient = TestHelper.createMpiPatient(firstExpectedName, lastExpectedName, middleExpectedName, "M",
                 "March 1, 1956", patId);
 
-        patient.getName().setSuffix(expectedSuffix);
-        patient.getName().setTitle(expectedTitle);
+        patient.getNames().get(0).setSuffix(expectedSuffix);
+        patient.getNames().get(0).setTitle(expectedTitle);
 
         Patients patients = new Patients();
         patients.add(patient);
@@ -141,8 +141,8 @@ public class HL7Parser201306Test {
         Patient patient = TestHelper.createMpiPatient(firstExpectedName, lastExpectedName, middleExpectedName, "M",
                 "March 1, 1956", patId);
 
-        patient.getName().setSuffix(expectedSuffix);
-        patient.getName().setTitle(expectedTitle);
+        patient.getNames().get(0).setSuffix(expectedSuffix);
+        patient.getNames().get(0).setTitle(expectedTitle);
 
         patient.getPhoneNumbers().add(new PhoneNumber("7031231234"));
 
@@ -182,8 +182,8 @@ public class HL7Parser201306Test {
         Patient patient = TestHelper.createMpiPatient(firstExpectedName, lastExpectedName, middleExpectedName, "M",
                 "March 1, 1956", patId);
 
-        patient.getName().setSuffix(expectedSuffix);
-        patient.getName().setTitle(expectedTitle);
+        patient.getNames().get(0).setSuffix(expectedSuffix);
+        patient.getNames().get(0).setTitle(expectedTitle);
 
         patient.getPhoneNumbers().add(new PhoneNumber("7031231234"));
         patient.getPhoneNumbers().add(new PhoneNumber("2021231234"));
@@ -225,8 +225,8 @@ public class HL7Parser201306Test {
         Patient patient = TestHelper.createMpiPatient(firstExpectedName, lastExpectedName, middleExpectedName, "M",
                 "March 1, 1956", patId);
 
-        patient.getName().setSuffix(expectedSuffix);
-        patient.getName().setTitle(expectedTitle);
+        patient.getNames().get(0).setSuffix(expectedSuffix);
+        patient.getNames().get(0).setTitle(expectedTitle);
 
         Address add = new Address();
         add.setCity("Chantilly");
@@ -271,8 +271,8 @@ public class HL7Parser201306Test {
         Patient patient = TestHelper.createMpiPatient(firstExpectedName, lastExpectedName, middleExpectedName, "M",
                 "March 1, 1956", patId);
 
-        patient.getName().setSuffix(expectedSuffix);
-        patient.getName().setTitle(expectedTitle);
+        patient.getNames().get(0).setSuffix(expectedSuffix);
+        patient.getNames().get(0).setTitle(expectedTitle);
 
         Address add = new Address();
         add.setCity("Chantilly");

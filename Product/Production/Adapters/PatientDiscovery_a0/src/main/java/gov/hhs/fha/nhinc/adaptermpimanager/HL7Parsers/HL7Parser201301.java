@@ -281,8 +281,8 @@ public class HL7Parser201301 {
 
     public static Patient ExtractMpiPatientFromHL7Patient(PRPAMT201301UV02Patient patient) {
         PRPAMT201301UV02Person patientPerson = ExtractHL7PatientPersonFromHL7Patient(patient);
-        Patient mpiPatient = new Patient();
-        mpiPatient.setName(ExtractPersonName(patientPerson));
+        Patient mpiPatient = new Patient();        
+        mpiPatient.getNames().add(ExtractPersonName(patientPerson));
         mpiPatient.setGender(ExtractGender(patientPerson));
         String birthdateString = ExtractBirthdate(patientPerson);
         mpiPatient.setDateOfBirth(birthdateString);
@@ -332,18 +332,24 @@ public class HL7Parser201301 {
         PNExplicit name = (PNExplicit) (factory.createPNExplicit());
         List namelist = name.getContent();
 
-        if (mpiPatient.getName() != null && mpiPatient.getName().getLastName().length() > 0) {
-            log.info("familyName >" + mpiPatient.getName().getLastName() + "<");
+        
+        PersonName mpiPatientName = null;
+        if (mpiPatient.getNames().size() > 0) {
+            mpiPatientName = mpiPatient.getNames().get(0);
+        }
+        
+        if (mpiPatientName != null && mpiPatientName.getLastName().length() > 0) {
+            log.info("familyName >" + mpiPatientName.getLastName() + "<");
             EnExplicitFamily familyName = new EnExplicitFamily();
-            familyName.setContent(mpiPatient.getName().getLastName());
+            familyName.setContent(mpiPatientName.getLastName());
             familyName.setPartType("FAM");
             namelist.add(factory.createPNExplicitFamily(familyName));
         }
 
-        if (mpiPatient.getName() != null && mpiPatient.getName().getFirstName().length() > 0) {
-            log.info("givenName >" + mpiPatient.getName().getFirstName() + "<");
+        if (mpiPatientName != null && mpiPatientName.getFirstName().length() > 0) {
+            log.info("givenName >" + mpiPatientName.getFirstName() + "<");
             EnExplicitGiven givenName = new EnExplicitGiven();
-            givenName.setContent(mpiPatient.getName().getFirstName());
+            givenName.setContent(mpiPatientName.getFirstName());
             givenName.setPartType("GIV");
             namelist.add(factory.createPNExplicitGiven(givenName));
         }

@@ -26,17 +26,18 @@
  */
 package gov.hhs.fha.nhinc.mpilib;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 
 /**
  * 
  * @author rayj
  */
 public class Identifier implements java.io.Serializable {
-    private static Log log = LogFactory.getLog(Identifier.class);
     static final long serialVersionUID = -4713959967816233116L;
-
+        
+    private String id = "";
+    private String organizationId = "";
+    
     public Identifier() {
     }
 
@@ -44,9 +45,6 @@ public class Identifier implements java.io.Serializable {
         this.id = id;
         this.organizationId = organizationId;
     }
-
-    private String id = "";
-    private String organizationId = "";
 
     public String getOrganizationId() {
         return organizationId;
@@ -63,5 +61,39 @@ public class Identifier implements java.io.Serializable {
     public void setId(String id) {
         this.id = id;
     }
+    
+    @Override 
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+
+        if (!(obj instanceof Identifier))
+            return false;
+
+        return equals(this, (Identifier) obj);
+
+    }
+    
+    @Override
+    public int hashCode() {
+        int hashCode = 0;
+        if (NullChecker.isNotNullish(id)) {
+            hashCode = id.hashCode();
+            if (NullChecker.isNotNullish(organizationId)) {
+                hashCode += organizationId.hashCode();
+            }
+        }
+        return hashCode;
+    }
+    
+    private boolean equals(Identifier a, Identifier b) {        
+        if ((NullChecker.isNullish(a.getId())) || (a.getOrganizationId() == null) ||
+                (NullChecker.isNullish(b.getId())) || (b.getOrganizationId() == null) ) {
+            return false;
+        }
+
+        return a.getId().contentEquals(b.getId()) && a.getOrganizationId().contentEquals(b.getOrganizationId());
+    }
+
 
 }

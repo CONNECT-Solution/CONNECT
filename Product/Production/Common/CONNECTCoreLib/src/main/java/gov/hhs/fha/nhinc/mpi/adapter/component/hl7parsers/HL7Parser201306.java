@@ -450,7 +450,11 @@ public class HL7Parser201306 {
     }
 
     private static PNExplicit createSubjectName(Patient patient) {
-        return createSubjectName(patient.getName());
+        if (patient.getNames().size() > 0) {
+            return createSubjectName(patient.getNames().get(0));
+        }
+        
+        return createSubjectName(new PersonName());
     }
 
     private static PNExplicit createSubjectName(PersonName personName) {
