@@ -217,10 +217,22 @@
         <call target="-unittest.product.prep"/>
         <var name="do-to-target" value="just.unittest.run" />
         <antcall target="do-to-projects" />
-        <call target="unittest.write.html.report"/>
+        <call target="unittest.write.master.html.report"/>
         <call target="-unittest.product.check"/>
         <call target="coverage.write.report"/>
         <call target="-coverage.product.check"/>
+    </target>
+
+    <target name="unittest.write.master.html.report">
+        <delete dir="${basedir}/unit-test-reports"/>
+        <mkdir dir="${basedir}/unit-test-reports"/>
+        <junitreportplus reportfile="${basedir}/unit-test-reports/UnitTests.xml" testtype="unit">
+            <xmlreports>
+                <fileset dir="${basedir}">
+                    <include name="**/TEST-*.xml" />
+                </fileset>
+            </xmlreports>
+        </junitreportplus>
     </target>
 
     <target name="copyright.add" description="Clean all projects: run ant help for more info...">
