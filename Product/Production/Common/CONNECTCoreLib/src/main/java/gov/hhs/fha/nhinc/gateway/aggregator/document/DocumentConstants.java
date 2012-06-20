@@ -97,7 +97,9 @@ public class DocumentConstants {
     public static final String XDS_RETRIEVE_RESPONSE_STATUS_FAILURE = "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure";
     public static final String XDS_SUBMISSION_RESPONSE_STATUS_SUCCESS = "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Success";
     public static final String XDS_SUBMISSION_RESPONSE_STATUS_FAILURE = "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure"; 
-    
+    public static final String XDS_QUERY_RESPONSE_STATUS_PARTIALSUCCESS = "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Partial Success";
+
+    public static final String XDS_QUERY_ERRORCODE_HOMECOMMUNITY_ERROR = "XDSUnknownCommunity";
     
     public static final String XDS_RETRIEVE_ERRORCODE_REGISTRY_ERROR = "XDSRegistryError";
     public static final String XDS_RETRIEVE_CODECONTEXT_TIMEDOUT_MSG = "We did not recieve a response to a document query message from this NHIN gateway.";
