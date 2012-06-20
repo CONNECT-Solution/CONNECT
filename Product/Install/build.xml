@@ -47,7 +47,7 @@
         </condition>
     </target>
     
-    <target name="setup" depends="setup.for.mac, setup.for.windows">
+    <target name="setup" depends="setup.for.mac, setup.for.windows, setup.for.linux">
         <property name="metro.zip.file" value="${temp.dir}/metro-2.1.1.zip"/>
         <get src="https://developer.connectopensource.org/download/attachments/20316168/metro-2.1.1.zip" dest="${metro.zip.file}"/>
     </target>
