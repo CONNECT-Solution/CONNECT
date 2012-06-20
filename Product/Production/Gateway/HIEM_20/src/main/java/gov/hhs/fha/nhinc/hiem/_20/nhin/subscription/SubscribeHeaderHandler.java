@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.hiem._20.nhin.subscription;
 
+import gov.hhs.fha.nhinc.callback.SOAPHeaderHandler;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import java.io.ByteArrayOutputStream;
 import java.util.Collections;
@@ -51,6 +52,8 @@ public class SubscribeHeaderHandler implements SOAPHandler<SOAPMessageContext> {
     }
 
     public boolean handleMessage(SOAPMessageContext context) {
+    	SOAPHeaderHandler prefixHandler = new SOAPHeaderHandler();
+    	prefixHandler.handleMessage(context);
         extractReferenceParameters(context);
         return true;
     }
