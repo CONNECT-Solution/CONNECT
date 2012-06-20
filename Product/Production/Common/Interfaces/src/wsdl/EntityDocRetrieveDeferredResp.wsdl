@@ -64,7 +64,7 @@
         <port name="EntityDocRetrieveDeferredResponsePortSoap"
           binding="tns:EntityDocRetrieveDeferredResponseBindingSoap">
             <soap:address
-               location="http://localhost:${HttpDefaultPort}/NhinConnect/EntityDocRetrieveDeferredResponse"/>
+               location="http://localhost:${HttpDefaultPort}/Gateway/DocumentRetrieve/2_0/EntityDocRetrieveDeferredResponse"/>
         </port>
     </service>
     <wsp:Policy wsu:Id="EntityDocRetrievePolicy">

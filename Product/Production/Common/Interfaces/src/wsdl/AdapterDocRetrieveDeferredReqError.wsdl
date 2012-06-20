@@ -35,7 +35,7 @@
 	</binding>
 	<service name="AdapterDocRetrieveDeferredRequestErrorService">
 		<port name="AdapterDocRetrieveRequestErrorPortSoap" binding="tns:AdapterDocRetrieveDeferredRequestErrorBinding">
-			<soap:address location="http://localhost:${HttpDefaultPort}/AdapterDocRetrieveDeferredRequestError"/>
+			<soap:address location="http://localhost:${HttpDefaultPort}/Adapter/DocumentRetrieve/A_0/AdapterDocRetrieveDeferredRequestErrorService"/>
 		</port>
 	</service>
 </definitions>

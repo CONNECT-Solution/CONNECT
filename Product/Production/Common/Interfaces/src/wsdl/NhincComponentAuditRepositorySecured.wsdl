@@ -80,7 +80,7 @@
         <port name="AuditRepositoryManagerSecuredPort"
               binding="tns:AuditRepositoryManagerSecuredBinding">
             <soap:address
-                location="https://localhost:${HttpsDefaultPort}/NhinConnect/AuditRepositoryManagerSecuredService"/>
+                location="https://localhost:${HttpsDefaultPort}/CONNECTGateway/GatewayService/AuditRepositoryManagerSecuredService"/>
         </port>
     </service>
     <plnk:partnerLinkType name="AuditRepositoryManagerSecured">

@@ -325,14 +325,14 @@
         <wsdl:port name="EntityNotificationProducerPortSoap" 
                binding="tns:EntityNotificationProducerBindingSoap">
             <soap:address 
-         location="http://localhost:${HttpDefaultPort}/NhinConnect/EntityNotificationProducer"/>
+         location="http://localhost:${HttpDefaultPort}/Gateway/HIEM/2_0/EntityNotificationProducer"/>
         </wsdl:port>
     </wsdl:service>
     <wsdl:service name="EntitySubscriptionManager">
         <wsdl:port name="EntitySubscriptionManagerPortSoap" 
                binding="tns:EntitySubscriptionManagerBindingSoap">
             <soap:address 
-         location="http://localhost:${HttpDefaultPort}/NhinConnect/EntitySubscriptionManager"/>
+         location="http://localhost:${HttpDefaultPort}/Gateway/HIEM/2_0/EntitySubscriptionManager"/>
         </wsdl:port>
     </wsdl:service>
     <plnk:partnerLinkType name="EntityNotificationProducer">

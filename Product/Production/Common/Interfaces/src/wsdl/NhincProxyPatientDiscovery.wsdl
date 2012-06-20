@@ -35,7 +35,7 @@
 	</wsdl:binding>
 	<wsdl:service name="NhincProxyPatientDiscovery">
 		<wsdl:port name="NhincProxyPatientDiscoveryPort" binding="tns:NhincProxyPatientDiscoveryBinding">
-			<soap:address location="http://localhost:${HttpDefaultPort}/NhinConnect/NhincProxyPatientDiscovery"/>
+			<soap:address location="http://localhost:${HttpDefaultPort}/Gateway/PatientDiscovery/1_0/MsgProxy/NhincProxyPatientDiscovery"/>
 		</wsdl:port>
 	</wsdl:service>
 </wsdl:definitions>

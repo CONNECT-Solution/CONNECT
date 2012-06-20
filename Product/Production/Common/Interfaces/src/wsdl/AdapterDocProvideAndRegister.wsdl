@@ -34,7 +34,7 @@
 	
 	<service name="AdapterDocProvideAndRegisterService">
 		<port name="AdapterDocProvideAndRegisterPortTypeBindingPortSoap" binding="tns:AdapterDocProvideAndRegisterPortTypeBindingSoap">
-			<soap:address location="http://localhost:${HttpDefaultPort}/NhinConnect/AdapterDocProvideAndRegisterService"/>
+			<soap:address location="http://localhost:${HttpDefaultPort}/CONNECTAdapter/AdapterDocProvideAndRegisterservice"/>
 		</port>
 	</service>
 	<plnk:partnerLinkType name="AdapterDocProvideAndRegister">

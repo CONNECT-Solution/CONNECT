@@ -70,7 +70,7 @@
         <port name="AuditRepositoryManagerPort" 
               binding="tns:AuditRepositoryManagerBinding">
             <soap:address 
-                location="http://localhost:${NhincHttpPort}/NhinConnect/AuditRepositoryManagerService"/>
+                location="http://localhost:${HttpDefaultPort}/CONNECTGateway/GatewayService/AuditRepositoryManagerService"/>
         </port>
     </service>
     <plnk:partnerLinkType name="AuditRepositoryManager">

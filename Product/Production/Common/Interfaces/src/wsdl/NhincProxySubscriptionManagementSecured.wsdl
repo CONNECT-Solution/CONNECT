@@ -293,7 +293,7 @@
     <wsdl:port name="NhincProxySubscriptionManagerSecuredPortSoap" 
                binding="tns:NhincProxySubscriptionManagerSecuredBindingSoap">
       <soap:address 
-         location="https://localhost:${HttpsDefaultPort}/NhinConnect/NhincProxySubscriptionManagerSecured"/>
+         location="https://localhost:${HttpsDefaultPort}/Gateway/HIEM/2_0/NhincProxySubscriptionManagerSecured"/>
     </wsdl:port>
   </wsdl:service>
   

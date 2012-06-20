@@ -59,7 +59,7 @@
     
     <service name="AdapterDocRetrieve">
         <port name="AdapterDocRetrievePortSoap" binding="tns:AdapterDocRetrieveBindingSoap">
-            <soap:address location="http://localhost:${HttpDefaultPort}/NhinConnect/AdapterDocRetrieve"/>
+            <soap:address location="http://localhost:${HttpDefaultPort}/Adapter/DocumentRetrieve/A_0/AdapterDocRetrieve"/>
         </port>
     </service>
     

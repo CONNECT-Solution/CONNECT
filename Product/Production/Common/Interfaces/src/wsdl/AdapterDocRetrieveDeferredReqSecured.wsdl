@@ -40,7 +40,7 @@
     </binding>
     <service name="AdapterDocRetrieveDeferredRequestSecured">
         <port name="AdapterDocRetrieveDeferredRequestSecuredPortSoap" binding="tns:AdapterDocRetrieveDeferredRequestSecuredBindingSoap">
-            <soap:address location="https://localhost:${HttpsDefaultPort}/NhinConnect/AdapterDocRetrieveDeferredRequestSecured"/>
+            <soap:address location="https://localhost:${HttpsDefaultPort}/Adapter/DocumentRetrieve/A_0/AdapterDocRetrieveDeferredRequestSecured"/>
         </port>
     </service>
     <wsp:Policy wsu:Id="RespondingGateway_Retrieve_Binding_SoapPolicy">

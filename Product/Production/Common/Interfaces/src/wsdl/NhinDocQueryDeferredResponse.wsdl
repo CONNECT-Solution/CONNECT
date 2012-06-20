@@ -42,7 +42,7 @@
     </binding>
     <service name="RespondingGateway_QueryDeferredResponse_Service">
         <port name="RespondingGateway_QueryDeferredResponse_Port_Soap" binding="ihe:RespondingGateway_QueryDeferredResponse_Binding_Soap">
-            <soap12:address location="https://localhost:${HttpsDefaultPort}/RespondingGateway_QueryDeferredResponse_Service"/>
+            <soap12:address location="https://localhost:${HttpsDefaultPort}/Gateway/DocumentQuery/2_0/RespondingGateway_QueryDeferredResponse_Service"/>
         </port>
     </service>
     <wsp:Policy wsu:Id="RespondingGateway_QueryDeferredResponse_Binding_SoapPolicy">

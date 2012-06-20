@@ -41,7 +41,7 @@
     </binding>
     <service name="AdapterComponentXDRSecured_Service">
         <port name="AdapterComponentXDRSecured_Port" binding="tns:AdapterXDRSecured_Binding">
-            <soap:address location="https://localhost:${HttpsDefaultPort}/NhinConnect/AdapterXDRSecured"/>
+            <soap:address location="https://localhost:${HttpsDefaultPort}/Adapter/DocumentSubmission/A_0/AdapterComponentDocSubmissionSecured"/>
         </port>
     </service>
     <wsp:Policy wsu:Id="AdapterComponentXDRPolicy">

@@ -52,7 +52,7 @@
 
     <service name="AdapterDocQueryDeferredReqQueueProcess">
         <port name="AdapterDocQueryDeferredReqQueueProcessPort" binding="tns:AdapterDocQueryDeferredReqQueueProcessBindingSoap">
-            <soap:address location="http://localhost:${NhincHttpPort}/CONNECTGateway/AdapterDocQueryDeferredReqQueueProcess"/>
+            <soap:address location="http://localhost:${HttpDefaultPort}/Adapter/DocumentQuery/A_0/AdapterDocQueryDeferredReqQueueProcess"/>
         </port>
     </service>
 

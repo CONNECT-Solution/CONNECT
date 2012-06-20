@@ -47,7 +47,7 @@
 	</binding>
 	<service name="AdapterXDR_Service">
 		<port name="AdapterXDR_Port" binding="tns:AdapterXDR_Binding">
-			<soap:address location="http://localhost:${HttpDefaultPort}/NhinConnect/AdapterXDR"/>
+			<soap:address location="http://localhost:${HttpDefaultPort}/Adapter/DocumentSubmission/A_0/AdapterDocSubmissionUnsecured"/>
 		</port>
 	</service>
 </definitions>

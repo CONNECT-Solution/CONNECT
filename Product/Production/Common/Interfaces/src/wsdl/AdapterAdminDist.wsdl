@@ -45,7 +45,7 @@
     </binding>
     <service name="Adapter_AdministrativeDistribution">
         <port name="Adapter_AdministrativeDistribution_PortType" binding="tns:Adapter_AdministrativeDistribution_Binding_Soap12">
-            <soap12:address location="https://localhost:${HttpsDefaultPort}/Adapter_AdministrativeDistribution"/>
+            <soap12:address location="http://localhost:${HttpDefaultPort}/Adapter/AdminDistribution/A_0/AdapterAdministrativeDistribution"/>
         </port>
     </service>
     

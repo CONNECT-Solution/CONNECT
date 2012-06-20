@@ -327,7 +327,7 @@
     <wsdl:port name="AdapterSubscriptionManagerPortSoap" 
                binding="tns:AdapterSubscriptionManagerBindingSoap">
       <soap:address 
-         location="https://localhost:${HttpsDefaultPort}/NhinConnect/AdapterSubscriptionManagerSecured"/>
+         location="https://localhost:${HttpsDefaultPort}/NhinConnect/AdapterSubscriptionManager"/>
     </wsdl:port>
   </wsdl:service>
   

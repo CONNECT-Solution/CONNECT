@@ -139,7 +139,7 @@
                binding="tns:EntityNotificationConsumerBindingSoap">
             <soap:address 
          location=
-            "http://localhost:${HttpDefaultPort}/NhinConnect/EntityNotificationConsumer"/>
+            "http://localhost:${HttpDefaultPort}/Gateway/HIEM/2_0/EntityNotificationConsumer"/>
         </wsdl:port>
     </wsdl:service>
     

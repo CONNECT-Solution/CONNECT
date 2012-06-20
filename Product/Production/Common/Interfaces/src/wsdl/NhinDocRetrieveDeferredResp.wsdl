@@ -40,7 +40,7 @@
     </binding>
     <service name="RespondingGatewayDeferredResponse_Retrieve_Service">
         <port name="RespondingGatewayDeferredResponse_Retrieve_Port_Soap" binding="tns:RespondingGatewayDeferredResponse_Retrieve_Binding_Soap">
-            <soap:address location="https://localhost:${HttpsDefaultPort}/RespondingGatewayDeferredResponse_Retrieve_Service"/>
+            <soap:address location="https://localhost:${HttpsDefaultPort}/Gateway/DocumentQuery/2_0/RespondingGateway_QueryDeferredResponse_Service"/>
         </port>
     </service>
     <wsp:Policy wsu:Id="RespondingGateway_Retrieve_Binding_SoapPolicy">

@@ -37,7 +37,7 @@
 	
 	<service name="AdapterPolicyEngine">
 		<port name="AdapterPolicyEnginePortSoap" binding="tns:AdapterPolicyEngineBindingSoap">
-			<soap:address location="http://localhost:${HttpDefaultPort}/NhinConnect/AdapterPolicyEngine"/>
+			<soap:address location="http://localhost:${HttpDefaultPort}/CONNECTAdapter/AdapterProxyService/AdapterPolicyEngine"/>
 		</port>
 	</service>
 	<plnk:partnerLinkType name="AdapterPolicyEngine">

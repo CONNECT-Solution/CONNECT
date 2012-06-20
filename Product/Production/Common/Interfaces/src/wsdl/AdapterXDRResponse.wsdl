@@ -49,7 +49,7 @@
 	
     <service name="AdapterXDRResponse_Service">
         <port name="AdapterXDRResponse_Port" binding="tns:AdapterXDRResponse_Binding">
-            <soap:address location="https://localhost:${HttpsDefaultPort}/AdapterXDRResponseService"/>
+            <soap:address location="http://localhost:${HttpDefaultPort}/Adapter/DocumentSubmission/A_0/AdapterService/AdapterDocSubmissionDeferredResponse"/>
         </port>
     </service>
 </definitions>

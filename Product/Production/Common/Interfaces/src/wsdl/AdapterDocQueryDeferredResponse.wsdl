@@ -36,7 +36,7 @@
 	</binding>
 	<service name="AdapterDocQueryDeferredResponse">
 		<port name="AdapterDocQueryDeferredResponsePortSoap" binding="tns:AdapterDocQueryDeferredResponseBindingSoap">
-			<soap:address location="http://localhost:${HttpDefaultPort}/NhinConnect/AdapterDocQueryDeferredResponse"/>
+			<soap:address location="http://localhost:${HttpDefaultPort}/Adapter/DocumentQuery/A_0/AdapterDocQueryDeferredResponse"/>
 		</port>
 	</service>
 </definitions>

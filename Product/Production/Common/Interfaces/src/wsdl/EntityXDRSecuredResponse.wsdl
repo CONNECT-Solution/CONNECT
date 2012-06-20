@@ -60,7 +60,7 @@
     </binding>
     <service name="EntityXDRSecuredAsyncResponse_Service">
         <port name="EntityXDRSecuredAsyncResponse_Port" binding="tns:EntityXDRSecuredAsyncResponse_Binding">
-            <soap:address location="https://localhost:${HttpsDefaultPort}/EntityService/EntityXDRSecuredAsyncResponse"/>
+            <soap:address location="https://localhost:${HttpsDefaultPort}/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionDeferredResponseSecured"/>
         </port>
     </service>
     <wsp:Policy wsu:Id="RespondingGateway_XDR_Binding_SoapPolicy">

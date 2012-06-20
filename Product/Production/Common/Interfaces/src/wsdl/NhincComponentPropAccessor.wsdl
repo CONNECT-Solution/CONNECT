@@ -282,7 +282,7 @@
         <port name="NhincComponentPropAccessorPort" 
               binding="tns:NhincComponentPropAccessorBindingSoap">
             <soap:address 
-               location="http://localhost:${NhincHttpPort}/NhinConnect/NhincComponentPropAccessor"/>
+               location="http://localhost:${HttpDefaultPort}/CONNECTCommon/NhincComponentPropAccessor"/>
         </port>
     </service>
     

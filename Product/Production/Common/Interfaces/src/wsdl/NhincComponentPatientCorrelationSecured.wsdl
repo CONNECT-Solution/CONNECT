@@ -56,7 +56,7 @@
     </binding>
     <service name="PatientCorrelationServiceSecured">
         <port name="PatientCorrelationSecuredPort" binding="tns:PatientCorrelationSecuredBinding">
-            <soap:address location="https://localhost:${HttpsDefaultPort}/PatientCorrelationServiceSecured"/>
+            <soap:address location="https://localhost:${HttpsDefaultPort}/CONNECTGateway/GatewayService/PatientCorrelationServiceSecured"/>
         </port>
     </service>
     <wsp:Policy wsu:Id="PatientCorrelationService_Binding_SoapPolicy">

@@ -41,7 +41,7 @@ name="EntityDocQueryDeferredResponseSecured" targetNamespace="urn:gov:hhs:fha:nh
     </binding>
     <service name="EntityDocQueryDeferredResponseSecured">
         <port name="EntityDocQueryDeferredResponseSecuredPortSoap" binding="tns:EntityDocQueryDeferredResponseSecuredBindingSoap">
-            <soap:address location="https://localhost:${HttpsDefaultPort}/NhinConnect/EntityDocQueryDeferredResponseSecured"/>
+            <soap:address location="https://localhost:${HttpsDefaultPort}/Gateway/DocumentQuery/2_0/EntityDocQueryDeferredResponseSecured"/>
         </port>
     </service>
     <wsp:Policy wsu:Id="RespondingGateway_Query_Binding_SoapPolicy">

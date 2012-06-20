@@ -45,7 +45,7 @@
     </binding>
     <service name="AdministrativeDistributionSecured_Service">
         <port name="AdministrativeDistributionSecured_PortType" binding="tns:AdministrativeDistributionSecured_Binding_Soap12">
-            <soap12:address location="https://localhost:${HttpsDefaultPort}/NhinConnect/AdministrativeDistributionSecured"/>
+            <soap12:address location="https://localhost:${HttpsDefaultPort}/Gateway/AdminDistribution/1_0/AdministrativeDistributionSecured_Service"/>
         </port>
     </service>
 

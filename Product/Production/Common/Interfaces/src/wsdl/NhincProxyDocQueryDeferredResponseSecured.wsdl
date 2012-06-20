@@ -43,7 +43,7 @@ targetNamespace="urn:gov:hhs:fha:nhinc:nhincproxydocquerydeferredresponsesecured
     </binding>
     <service name="NhincProxyDocQueryDeferredResponseSecured">
         <port name="NhincProxyDocQueryDeferredResponseSecuredPortSoap" binding="tns:NhincProxyDocQueryDeferredResponseSecuredBindingSoap">
-            <soap:address location="https://localhost:${HttpsDefaultPort}/NhinConnect/NhincProxyDocQueryDeferredResponseSecured"/>
+            <soap:address location="https://localhost:${HttpsDefaultPort}/Gateway/DocumentQuery/2_0/NhincProxyDocQueryDeferredResponseSecured"/>
         </port>
     </service>
     <wsp:Policy wsu:Id="RespondingGateway_Query_Binding_SoapPolicy">

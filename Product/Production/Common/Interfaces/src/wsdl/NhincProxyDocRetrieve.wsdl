@@ -61,7 +61,7 @@
         <port name="NhincProxyDocRetrievePortSoap" 
           binding="tns:NhincProxyDocRetrieveBindingSoap">
             <soap:address 
-               location="http://localhost:${HttpDefaultPort}/NhinConnect/NhincProxyDocRetrieve"/>
+               location="http://localhost:${HttpDefaultPort}/Gateway/DocumentRetrieve/2_0/NhincProxyDocRetrieveUnsecured"/>
         </port>
     </service>
     

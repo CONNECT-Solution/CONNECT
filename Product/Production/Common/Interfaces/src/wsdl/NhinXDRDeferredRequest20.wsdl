@@ -39,7 +39,7 @@
     </binding>
     <service name="XDRDeferredRequest20_Service">
         <port name="XDRDeferredRequest20_Port_Soap" binding="tns:XDRDeferredRequest20_Binding">
-            <soap:address location="https://localhost:${HttpsDefaultPort}/NhinService/XDRDeferredRequestService"/>
+            <soap:address location="https://localhost:${HttpsDefaultPort}/Gateway/DocumentSubmission/2_0/NhinService/XDRRequest_Service"/>
         </port>
     </service>
     <wsp:Policy wsu:Id="RespondingGateway_XDRRequest_Binding_SoapPolicy">

@@ -53,7 +53,7 @@
 
     <service name="AdapterPatientDiscoveryDeferredReqQueueProcess">
         <port name="AdapterPatientDiscoveryDeferredReqQueueProcessPort" binding="tns:AdapterPatientDiscoveryDeferredReqQueueProcessBindingSoap">
-            <soap:address location="http://localhost:${NhincHttpPort}/CONNECTAdapter/AdapterPatientDiscoveryDeferredReqQueueProcess"/>
+            <soap:address location="http://localhost:${DefaultHttpPort}/Adapter/PatientDiscovery/A_0/AdapterPatientDiscoveryDeferredReqQueueProcess"/>
         </port>
     </service>
 

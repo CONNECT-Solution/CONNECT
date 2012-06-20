@@ -120,7 +120,7 @@
         <port name="NhincComponentSubscriptionRepositoryPort" 
               binding="tns:NhincComponentSubscriptionRepositoryBinding">
             <soap:address 
-                location="http://localhost:${NhincHttpPort}/NhinConnect/NhincComponentSubscriptionRepository"/>
+                location="http://localhost:${HttpDefaultPort}/Gateway/HIEM/2_0/GatewayInternalService/NhincComponentSubscriptionRepository"/>
         </port>
     </service>
     <plnk:partnerLinkType name="NhincComponentSubscriptionRepository">

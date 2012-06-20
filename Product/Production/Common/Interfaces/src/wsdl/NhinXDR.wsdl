@@ -72,7 +72,7 @@
     </binding>
     <service name="DocumentRepositoryXDR_Service">
         <port name="DocumentRepositoryXDR_Port_Soap" binding="tns:DocumentRepositoryXDR_Binding">
-            <soap:address location="https://localhost:${HttpsDefaultPort}/XDR_Service"/>
+            <soap:address location="https://localhost:${HttpsDefaultPort}/Gateway/DocumentSubmission/1_1/DocumentRepositoryXDR_Service"/>
         </port>
     </service>
     <wsp:Policy wsu:Id="RespondingGateway_XDR_Binding_SoapPolicy">

@@ -213,7 +213,7 @@
     <service name="DocumentRegistry_Service">
         <port name="DocumentRegistry_Port_Soap" binding="ihe:DocumentRegistry_Binding_Soap">
             <soap:address
-               location="http://localhost:${NhincHttpPort}/DocumentRegistry_Service"/>
+               location="http://localhost:${DefaultHttpPort}/CONNECTAdapter/DocumentRegistry_Service"/>
         </port>
     </service>
 </definitions>

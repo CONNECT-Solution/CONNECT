@@ -60,7 +60,7 @@
 
     <service name="AdapterDocRetrieveDeferredRequest">
         <port name="AdapterDocRetrieveDeferredRequestPortSoap" binding="tns:AdapterDocRetrieveDeferredRequestBindingSoap">
-            <soap:address location="http://localhost:${HttpDefaultPort}/NhinConnect/AdapterDocRetrieveDeferredRequest"/>
+            <soap:address location="http://localhost:${HttpDefaultPort}/Adapter/DocumentRetrieve/A_0/AdapterDocRetrieveDeferredRequest"/>
         </port>
     </service>
     <wsp:Policy wsu:Id="AdapterDocRetrievePolicy">

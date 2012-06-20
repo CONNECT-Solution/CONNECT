@@ -43,7 +43,7 @@
     </binding>
     <service name="EntityDocQueryDeferredRequestSecured">
         <port name="EntityDocQueryDeferredRequestSecuredPortSoap" binding="tns:EntityDocQueryDeferredRequestSecuredBindingSoap">
-            <soap:address location="https://localhost:${HttpsDefaultPort}/NhinConnect/EntityDocQueryDeferredRequestSecured"/>
+            <soap:address location="https://localhost:${HttpsDefaultPort}/Gateway/DocumentQuery/2_0/EntityDocQueryDeferredRequestSecured"/>
         </port>
     </service>
     <wsp:Policy wsu:Id="RespondingGateway_Query_Binding_SoapPolicy">

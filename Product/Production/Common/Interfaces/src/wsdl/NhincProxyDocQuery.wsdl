@@ -59,7 +59,7 @@
 	<port name="NhincProxyDocQueryPortSoap" 
           binding="tns:NhincProxyDocQueryBindingSoap">
       <soap:address 
-         location="http://localhost:${HttpDefaultPort}/NhinConnect/NhincProxyDocQuery" />
+         location="http://localhost:${HttpDefaultPort}/Gateway/DocumentQuery/2_0/EntityService/NhincProxyDocQueryUnsecured" />
     </port>
   </service>
   <plnk:partnerLinkType name="NhincProxyDocQuery">

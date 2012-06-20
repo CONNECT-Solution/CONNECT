@@ -342,7 +342,7 @@
     </binding>
     <service name="NhincComponentConnectionManager">
         <port name="NhincComponentConnectionManagerPortSoap" binding="tns:NhincComponentConnectionManagerBindingSoap">
-            <soap:address location="http://localhost:${NhincHttpPort}/NhinConnect/NhincComponentConnectionManager" />
+            <soap:address location="http://localhost:${HttpDefaultPort}/CONNECTCommon/NhincComponentConnectionManager" />
         </port>
     </service>
     <plnk:partnerLinkType name="NhincComponentConnectionManager">

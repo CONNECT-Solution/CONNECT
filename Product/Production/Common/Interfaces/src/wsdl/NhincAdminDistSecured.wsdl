@@ -46,7 +46,7 @@
     </binding>
     <service name="NhincAdminDistSecuredService">
         <port name="NhincAdminDistSecured_PortType" binding="tns:NhincAdminDistSecured_Binding_Soap12">
-            <soap12:address location="https://localhost:${HttpsDefaultPort}/NhinConnect/NhincAdminDistSecuredService"/>
+            <soap12:address location="https://localhost:${HttpsDefaultPort}/Gateway/AdminDistribution/1_0/MsgProxy/NhincProxyAdminDistSecured"/>
         </port>
     </service>
     

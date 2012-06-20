@@ -117,7 +117,7 @@
 
     <service name="DeferredQueueManager">
         <port name="DeferredQueueManagerPort" binding="tns:DeferredQueueManagerBinding">
-            <soap:address location="http://localhost:${NhincHttpPort}/NhinConnect/DeferredQueueManager"/>
+            <soap:address location="http://localhost:${DefaultHttpPort}/CONNECTAdapter/DeferredQueueManager"/>
         </port>
     </service>
 
