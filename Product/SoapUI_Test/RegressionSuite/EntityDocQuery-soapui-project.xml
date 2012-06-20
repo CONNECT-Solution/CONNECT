@@ -15,27 +15,26 @@
     <con:runType>SEQUENTIAL</con:runType>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="4906f58e-5725-4a79-8ab1-c86eb8822975" keepSession="false" maxResults="0" name="Document Query Fanout" searchProperties="true">
       <con:settings/>
-      <con:testStep disabled="true" name="Backup gateway.properties file" type="groovy">
+      
+      <con:testStep name="Copy uddiConnectionInfo" type="groovy">
         <con:settings/>
-        <con:config>
-          <script>//def GatewayPropFile = "${context.findProperty('NHINGatewayConfigDir')}/gateway.properties"
-def GatewayPropFile = System.env['NHINC_PROPERTIES_DIR']+"/gateway.properties"
+        <con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+def testCase = testRunner.getTestCase()
+def testSuite = testCase.getTestSuite()
+def project = testSuite.getProject()
+def projectPropFullFile = project.getPath()
+def projectPropPath = groovyUtils.projectPath
 
-File gatewayFile = new File(GatewayPropFile)
-File gatewayBakFile = new File(GatewayPropFile + ".bak")
+def sourceDir = projectPropPath;
+def sourceFile = "uddiConnectionInfo_FANOUT.xml";
+def destDir = System.env['NHINC_PROPERTIES_DIR'];
+def destFile = "uddiConnectionInfo.xml";
 
-if(gatewayBakFile.exists()) {
-	gatewayBakFile.delete()
-}
+log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-if(gatewayFile.exists()) {
-	gatewayBakFile &lt;&lt; gatewayFile.asWritable()
-} else {
-	throw new RuntimeException('Unable to locate gateway.properties')
-}</script>
-        </con:config>
+FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</script></con:config>
       </con:testStep>
-      <con:testStep disabled="true" name="update config" type="groovy">
+      <con:testStep name="update config" type="groovy">
         <con:settings/>
         <con:config>
           <script>//def destConfigFileLocation = context.findProperty("NHINGatewayConfigDir");
@@ -122,13 +121,14 @@ def docQueryURL2 = "https://" + Host3 + ":8181/Gateway/DocumentQuery/2_0/NhinSer
 FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml",destConfigFileLocation, HCID2, "QueryForDocuments", docQueryURL1,"2.0", context, log)
 FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml",destConfigFileLocation, HCID3, "QueryForDocuments", docQueryURL2,"2.0", context, log)</script></con:config>
       </con:testStep>
+      
       <con:testStep name="Document Query" type="request">
         <con:settings/>
         <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
           <con:interface>EntityDocQueryBindingSoap</con:interface>
           <con:operation>RespondingGateway_CrossGatewayQuery</con:operation>
           <con:request name="Document Query">
-            <con:settings/>
+            <con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting></con:settings>
             <con:encoding>UTF-8</con:encoding>
             <con:endpoint>${#Project#Endpoint-DocQuery}</con:endpoint>
             <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn3="urn:gov:hhs:fha:nhinc:common:nhinccommon">
@@ -394,43 +394,47 @@ count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)
             <con:wsrmConfig version="1.2"/>
           </con:request>
         </con:config>
-      </con:testStep>
-      <con:testStep disabled="true" name="Restore gateway.properties file" type="groovy">
-        <con:settings/>
-        <con:config>
-          <script>//def GatewayPropFile = "${context.findProperty('NHINGatewayConfigDir')}/gateway.properties"
+      </con:testStep><con:setupScript>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 
-def GatewayPropFile = System.env['NHINC_PROPERTIES_DIR']+"/gateway.properties"
+File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
+File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
 
-File gatewayFile = new File(GatewayPropFile)
-File gatewayBakFile = new File(GatewayPropFile + ".bak")
+File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml");
+File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
 
-if(gatewayBakFile.exists()) {
-	gatewayBakFile.renameTo(gatewayFile)
-} else {
-	throw new RuntimeException('Unable to locate gateway.properties.bak')
-}</script>
-        </con:config>
-      </con:testStep>
-      <con:setupScript>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
+void MoveFile(File sourceFile, File destinationFile, log){
+ 
+ if(sourceFile.exists())
+   {
+    def reader = sourceFile.newReader();
+    destinationFile.withWriter 
+    { writer -&gt;       
+     writer &lt;&lt; reader;   
+    }   
+    reader.close();
+   } 
+   else {
+      log.info("unable to find source file " + sourceFile);
+   }   
+}
 
-//FileUtils.MoveFile(destConfigFileLocation,"uddiConnectionInfo.xml",destConfigFileLocation,"uddiConnectionInfo_BACKUP.xml",context,log);
-//FileUtils.MoveFile(destConfigFileLocation,"uddiConnectionInfo_FANOUT.xml",destConfigFileLocation,"uddiConnectionInfo.xml",context,log);</con:setupScript><con:properties>
+MoveFile(sourceInternalFile, backupInternalFile, log);
+MoveFile(sourceUddiFile, backupUddiFile, log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-02-24T04:08:10Z</con:value>
+          <con:value>2012-03-15T13:02:12Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-02-24T04:18:10Z</con:value>
+          <con:value>2012-03-15T13:12:12Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>02/24/2012 04:08:10</con:value>
+          <con:value>03/15/2012 13:02:12</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-03-25T00:00:00Z</con:value>
+          <con:value>2012-04-14T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -438,171 +442,69 @@ if(gatewayBakFile.exists()) {
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    <con:tearDownScript>//FileUtils.restoreToMasterConfiguration(context, log);
+    <con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);
 
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 
-//FileUtils.MoveFile(destConfigFileLocation,"uddiConnectionInfo_BACKUP.xml",destConfigFileLocation,"uddiConnectionInfo.xml",context,log);
-//FileUtils.DeleteFile(destConfigFileLocation,"uddiConnectionInfo_BACKUP.xml",context,log);
-</con:tearDownScript></con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="9c7bc51e-43ca-4c8d-83da-068f42cbfc00" keepSession="false" maxResults="0" name="Document Query Fanout - bad endpoint" searchProperties="true">
-      <con:settings/>
-      <con:testStep disabled="true" name="Test Case Properties" type="properties">
-        <con:settings/>
-        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" createMissingOnLoad="true" discardValuesOnSave="true" saveFirst="true" xsi:type="con:PropertiesStep">
-          <con:source>EntityDocQuery-soapui-project.properties</con:source>
-          <con:properties>
-            <con:property>
-              <con:name>LocalHCID</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>LocalAA</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>LocalHCDescription</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>NHINGatewayConfigDir</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>Endpoint-DocQuery</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>RealPatientID</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>DQDocID</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>DQPatientID</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>startDate</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>endDate</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>sigDate</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>expireDate</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>CorrectedLocalHCID</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>FullPatientID</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>DBHost</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>DBPort</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>DBUser</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>DBPass</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>PatientCorrelationDB</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>PatientCorrelationTable</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>LocalPatientID</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>AAMappingDB</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>AAMappingTable</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>RemoteHCID1</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>RemoteAA1</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>RemoteHCDescription2</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>RemotePatientID1</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>RemoteHCID2</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>RemoteAA2</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>RemotePatientID2</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>Host2</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>Host3</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-          </con:properties>
-        </con:config>
-      </con:testStep>
-      <con:testStep name="Backup gateway.properties file" type="groovy">
-        <con:settings/>
-        <con:config>
-          <script>//def GatewayPropFile = "${context.findProperty('NHINGatewayConfigDir')}/gateway.properties"
-def GatewayPropFile = System.env['NHINC_PROPERTIES_DIR']+"/gateway.properties"
+File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
+File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
 
-File gatewayFile = new File(GatewayPropFile)
-File gatewayBakFile = new File(GatewayPropFile + ".bak")
+File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml");
+File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
 
-if(gatewayBakFile.exists()) {
-	gatewayBakFile.delete()
+void MoveFile(File sourceFile, File destinationFile, log){
+ 
+ if(sourceFile.exists())
+   {
+    def reader = sourceFile.newReader();
+    destinationFile.withWriter 
+    { writer -&gt;       
+     writer &lt;&lt; reader;   
+    }   
+    reader.close();
+   } 
+   else {
+      log.info("unable to find source file " + sourceFile);
+   }   
 }
 
-if(gatewayFile.exists()) {
-	gatewayBakFile &lt;&lt; gatewayFile.asWritable()
-} else {
-	throw new RuntimeException('Unable to locate gateway.properties')
-}</script>
-        </con:config>
+MoveFile(backupInternalFile, sourceInternalFile, log);
+MoveFile(backupUddiFile, sourceUddiFile, log);
+
+void DeleteFile(File file, log) {  
+   if(file.exists()) {    
+      log.info("deleting file " + file);
+      file.delete(); 
+   } else {
+      log.info("file not found, skipping delete for " + file);
+   }
+}
+
+DeleteFile(backupInternalFile, log);
+DeleteFile(backupUddiFile, log);</con:tearDownScript></con:testCase>
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="9c7bc51e-43ca-4c8d-83da-068f42cbfc00" keepSession="false" maxResults="0" name="Document Query Fanout - bad endpoint" searchProperties="true">
+      <con:settings/>
+      
+      
+      <con:testStep name="Copy uddiConnectionInfo" type="groovy">
+        <con:settings/>
+        <con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+def testCase = testRunner.getTestCase()
+def testSuite = testCase.getTestSuite()
+def project = testSuite.getProject()
+def projectPropFullFile = project.getPath()
+def projectPropPath = groovyUtils.projectPath
+
+def sourceDir = projectPropPath;
+def sourceFile = "uddiConnectionInfo_FANOUT.xml";
+def destDir = System.env['NHINC_PROPERTIES_DIR'];
+def destFile = "uddiConnectionInfo.xml";
+
+log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
+
+FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</script></con:config>
       </con:testStep>
+      
       <con:testStep name="update config" type="groovy">
         <con:settings/>
         <con:config>
@@ -626,42 +528,6 @@ void UpdateProperty(String directory, String filename, String propertyKey, Strin
 UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySelf","false",context,log);</script>
         </con:config>
       </con:testStep>
-      <con:testStep disabled="true" name="get Dates" type="groovy">
-        <con:settings/>
-        <con:config>
-          <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
-
-sdf = new java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
-sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
-
-sdf2 = new java.text.SimpleDateFormat("MM/dd/yyyy' 'HH:mm:ss");
-sdf2.setTimeZone(TimeZone.getTimeZone("UTC"));
-
-Calendar cal = new GregorianCalendar();
-nowDate = new Date();
-
-cal.setTime(nowDate);
-cal.add(Calendar.MINUTE, -5);
-startDate = cal.getTime();
-startDateStr = sdf.format(startDate);
-sigDateStr = sdf2.format(startDate);
-
-cal.setTime(nowDate);
-cal.add(Calendar.MINUTE, 5);
-endDate = cal.getTime();
-endDateStr = sdf.format(endDate);
-
-cal.setTime(nowDate);
-cal.add(Calendar.DATE, 30);
-expireDate = cal.getTime();
-expireDateStr = sdf2.format(expireDate);
-
-groovyUtils.setPropertyValue( "Test Case Properties", "startDate", startDateStr);
-groovyUtils.setPropertyValue( "Test Case Properties", "endDate", endDateStr);
-groovyUtils.setPropertyValue( "Test Case Properties", "sigDate", sigDateStr);
-groovyUtils.setPropertyValue( "Test Case Properties", "expireDate", expireDateStr);</script>
-        </con:config>
-      </con:testStep>
       <con:testStep name="Generate patient ID for Doc Query" type="groovy">
         <con:settings/>
         <con:config>
@@ -671,6 +537,7 @@ def dqPatientID = context.findProperty('DQPatientID')
 context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;${localAA}&amp;amp;ISO'");</script>
         </con:config>
       </con:testStep>
+      
       <con:testStep name="Clear Correlation Table &amp; Add Correlation" type="groovy">
         <con:settings/>
         <con:config>
@@ -692,45 +559,6 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
 }</script>
         </con:config>
       </con:testStep>
-      <con:testStep disabled="true" name="Clear AA Mapping Table &amp; Add Mapping-1" type="groovy">
-        <con:settings/>
-        <con:config>
-          <script>import groovy.sql.Sql;
-
-def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
-def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
-def host = dataSource.getPropertyValue( "DBHost" );
-def port = dataSource.getPropertyValue( "DBPort" );
-def user = dataSource.getPropertyValue( "DBUser" );
-def pass = dataSource.getPropertyValue( "DBPass" );
-def db = dataSource.getPropertyValue( "AAMappingDB" );
-def table = dataSource.getPropertyValue( "AAMappingTable" );
-def remoteHCID1 = dataSource.getPropertyValue( "RemoteHCID1" );
-def remoteAA1 = dataSource.getPropertyValue( "RemoteAA1" );
-def remoteHCID2 = dataSource.getPropertyValue( "RemoteHCID2" );
-def remoteAA2 = dataSource.getPropertyValue( "RemoteAA2" );
-
-void clearTable(host, port, dbName, user, password, table) {
-   
-   def sqlConnect = 'jdbc:mysql://' + host + ':' + port + '/' + dbName;
-   def sqlExecute = 'delete from ' + table;
-   def sql = Sql.newInstance(sqlConnect, user, password, "com.mysql.jdbc.Driver");
-   def result = sql.execute(sqlExecute);
-   }
-
-void runSQL(id, host, port, dbName, user, password, table, remoteAA, remoteHCID) {
-   
-   def sqlConnect = 'jdbc:mysql://' + host + ':' + port + '/' + dbName;
-   def sqlExecute = 'insert into ' + dbName + '.' + table + ' values (' + id + ', "' + remoteAA + '", "' + remoteHCID + '")';
-   def sql = Sql.newInstance(sqlConnect, user, password, "com.mysql.jdbc.Driver");
-   def result = sql.execute(sqlExecute);
-   }
-
-clearTable(host, port, db, user, pass, table);
-runSQL(1, host, port, db, user, pass, table, remoteAA1, remoteHCID1);
-runSQL(2, host, port, db, user, pass, table, remoteAA2, remoteHCID2);</script>
-        </con:config>
-      </con:testStep>
       <con:testStep name="Clear AA Mapping Table &amp; Add Mapping" type="groovy">
         <con:settings/>
         <con:config>
@@ -750,126 +578,23 @@ runSQL(2, host, port, db, user, pass, table, remoteAA2, remoteHCID2);</script>
 }</script>
         </con:config>
       </con:testStep>
+      
       <con:testStep name="Set Connection Info" type="groovy">
         <con:settings/>
-        <con:config>
-          <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+        <con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 def Host2 = context.findProperty("Host2");
 def HCID2 = context.findProperty( "RemoteHCID1" );
-def docQueryURL1 = "https://" + Host2 + ":8181/CONNECTNhinServicesWeb/NhinService/RespondingGateway_Query_Service/DocQuery";
+def docQueryURL1 = "https://" + Host2 + ":8181/Gateway/DocumentQuery/2_0/NhinService/RespondingGateway_Query_Service/DocQuery";
 
 def Host3 = context.findProperty("Host3");
 def HCID3 = context.findProperty( "RemoteHCID2" );
-def docQueryURL2 = "https://" + Host3 + ":8181/RespondingGateway_Query_Service/DocQuer";
+def docQueryURL2 = "https://" + Host3 + ":8181/RespondingGateway_Query_Service/BadURL";
 
-FileUtils.CreateOrUpdateConnection(destConfigFileLocation, HCID2, "QueryForDocument", docQueryURL1, context, log)
-FileUtils.CreateOrUpdateConnection(destConfigFileLocation, HCID3, "QueryForDocument", docQueryURL2, context, log)</script>
-        </con:config>
+FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, HCID2, "QueryForDocuments", docQueryURL1, "2.0", context, log)
+FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, HCID3, "QueryForDocuments", docQueryURL2, "2.0", context, log)</script></con:config>
       </con:testStep>
-      <con:testStep disabled="true" name="set doc query properties" type="transfer">
-        <con:settings/>
-        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:PropertyTransfersStep">
-          <con:transfers entitize="false" failOnError="true" ignoreEmpty="false" setNullOnMissingSource="true" transferChildNodes="false" transferTextContent="true" transferToAll="false" useXQuery="false">
-            <con:name>endpointTransfer</con:name>
-            <con:sourceType>Endpoint-DocQuery</con:sourceType>
-            <con:sourceStep>Test Case Properties</con:sourceStep>
-            <con:targetType>Endpoint</con:targetType>
-            <con:targetStep>Document Query</con:targetStep>
-          </con:transfers>
-          <con:transfers entitize="false" failOnError="true" ignoreEmpty="false" setNullOnMissingSource="true" transferChildNodes="false" transferTextContent="true" transferToAll="false" useXQuery="false">
-            <con:name>fullPatientID</con:name>
-            <con:sourceType>FullPatientID</con:sourceType>
-            <con:sourceStep>Test Case Properties</con:sourceStep>
-            <con:targetType>Request</con:targetType>
-            <con:targetStep>Document Query</con:targetStep>
-            <con:targetPath>declare namespace urn2='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
-declare namespace urn1='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
-declare namespace urn='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
-//urn:RespondingGateway_CrossGatewayQueryRequest[1]/urn1:AdhocQueryRequest[1]/urn2:AdhocQuery[1]/urn2:Slot[1]/urn2:ValueList[1]/urn2:Value[1]</con:targetPath>
-          </con:transfers>
-          <con:transfers entitize="false" failOnError="true" ignoreEmpty="false" setNullOnMissingSource="true" transferChildNodes="false" transferTextContent="true" transferToAll="false" useXQuery="false">
-            <con:name>signatureDate</con:name>
-            <con:sourceType>sigDate</con:sourceType>
-            <con:sourceStep>Test Case Properties</con:sourceStep>
-            <con:targetType>Request</con:targetType>
-            <con:targetStep>Document Query</con:targetStep>
-            <con:targetPath>declare namespace urn='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
-declare namespace urn3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//urn:RespondingGateway_CrossGatewayQueryRequest[1]/urn:assertion[1]/urn3:dateOfSignature[1]</con:targetPath>
-          </con:transfers>
-          <con:transfers entitize="false" failOnError="true" ignoreEmpty="false" setNullOnMissingSource="true" transferChildNodes="false" transferTextContent="true" transferToAll="false" useXQuery="false">
-            <con:name>expirationDate</con:name>
-            <con:sourceType>expireDate</con:sourceType>
-            <con:sourceStep>Test Case Properties</con:sourceStep>
-            <con:targetType>Request</con:targetType>
-            <con:targetStep>Document Query</con:targetStep>
-            <con:targetPath>declare namespace urn='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
-declare namespace urn3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//urn:RespondingGateway_CrossGatewayQueryRequest[1]/urn:assertion[1]/urn3:expirationDate[1]</con:targetPath>
-          </con:transfers>
-          <con:transfers failOnError="true" setNullOnMissingSource="true" transferTextContent="true">
-            <con:name>assertionHCID</con:name>
-            <con:sourceType>LocalHCID</con:sourceType>
-            <con:sourceStep>Test Case Properties</con:sourceStep>
-            <con:targetType>Request</con:targetType>
-            <con:targetStep>Document Query</con:targetStep>
-            <con:targetPath>declare namespace urn='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
-declare namespace urn3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//urn:RespondingGateway_CrossGatewayQueryRequest[1]/urn:assertion[1]/urn3:homeCommunity[1]/urn3:homeCommunityId[1]</con:targetPath>
-          </con:transfers>
-          <con:transfers failOnError="true" setNullOnMissingSource="true" transferTextContent="true">
-            <con:name>assertionHCName</con:name>
-            <con:sourceType>LocalHCDescription</con:sourceType>
-            <con:sourceStep>Test Case Properties</con:sourceStep>
-            <con:targetType>Request</con:targetType>
-            <con:targetStep>Document Query</con:targetStep>
-            <con:targetPath>declare namespace urn='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
-declare namespace urn3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//urn:RespondingGateway_CrossGatewayQueryRequest[1]/urn:assertion[1]/urn3:homeCommunity[1]/urn3:name[1]</con:targetPath>
-          </con:transfers>
-          <con:transfers entitize="false" failOnError="true" ignoreEmpty="false" setNullOnMissingSource="true" transferChildNodes="false" transferTextContent="true" transferToAll="false" useXQuery="false">
-            <con:name>assertionHCDescription</con:name>
-            <con:sourceType>LocalHCDescription</con:sourceType>
-            <con:sourceStep>Test Case Properties</con:sourceStep>
-            <con:targetType>Request</con:targetType>
-            <con:targetStep>Document Query</con:targetStep>
-            <con:targetPath>declare namespace urn='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
-declare namespace urn3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//urn:RespondingGateway_CrossGatewayQueryRequest[1]/urn:assertion[1]/urn3:homeCommunity[1]/urn3:description[1]</con:targetPath>
-          </con:transfers>
-          <con:transfers failOnError="true" setNullOnMissingSource="true" transferTextContent="true">
-            <con:name>orgHCID</con:name>
-            <con:sourceType>LocalHCID</con:sourceType>
-            <con:sourceStep>Test Case Properties</con:sourceStep>
-            <con:targetType>Request</con:targetType>
-            <con:targetStep>Document Query</con:targetStep>
-            <con:targetPath>declare namespace urn='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
-declare namespace urn3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//urn:RespondingGateway_CrossGatewayQueryRequest[1]/urn:assertion[1]/urn3:userInfo[1]/urn3:org[1]/urn3:homeCommunityId[1]</con:targetPath>
-          </con:transfers>
-          <con:transfers failOnError="true" setNullOnMissingSource="true" transferTextContent="true">
-            <con:name>orgHCName</con:name>
-            <con:sourceType>LocalHCDescription</con:sourceType>
-            <con:sourceStep>Test Case Properties</con:sourceStep>
-            <con:targetType>Request</con:targetType>
-            <con:targetStep>Document Query</con:targetStep>
-            <con:targetPath>declare namespace urn='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
-declare namespace urn3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//urn:RespondingGateway_CrossGatewayQueryRequest[1]/urn:assertion[1]/urn3:userInfo[1]/urn3:org[1]/urn3:name[1]</con:targetPath>
-          </con:transfers>
-          <con:transfers entitize="false" failOnError="true" ignoreEmpty="false" setNullOnMissingSource="true" transferChildNodes="false" transferTextContent="true" transferToAll="false" useXQuery="false">
-            <con:name>orgHCDescription</con:name>
-            <con:sourceType>LocalHCDescription</con:sourceType>
-            <con:sourceStep>Test Case Properties</con:sourceStep>
-            <con:targetType>Request</con:targetType>
-            <con:targetStep>Document Query</con:targetStep>
-            <con:targetPath>declare namespace urn='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
-declare namespace urn3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//urn:RespondingGateway_CrossGatewayQueryRequest[1]/urn:assertion[1]/urn3:userInfo[1]/urn3:org[1]/urn3:description[1]</con:targetPath>
-          </con:transfers>
-        </con:config>
-      </con:testStep>
+      
       <con:testStep name="Document Query" type="request">
         <con:settings/>
         <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
@@ -1150,40 +875,47 @@ count(//ns9:AdhocQueryResponse[1]/ns7:RegistryErrorList[1]/ns7:RegistryError)</p
             <con:wsrmConfig version="1.2"/>
           </con:request>
         </con:config>
-      </con:testStep>
-      <con:testStep name="Restore gateway.properties file" type="groovy">
-        <con:settings/>
-        <con:config>
-          <script>//def GatewayPropFile = "${context.findProperty('NHINGatewayConfigDir')}/gateway.properties"
+      </con:testStep><con:setupScript>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 
-def GatewayPropFile = System.env['NHINC_PROPERTIES_DIR']+"/gateway.properties"
+File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
+File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
 
-File gatewayFile = new File(GatewayPropFile)
-File gatewayBakFile = new File(GatewayPropFile + ".bak")
+File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml");
+File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
 
-if(gatewayBakFile.exists()) {
-	gatewayBakFile.renameTo(gatewayFile)
-} else {
-	throw new RuntimeException('Unable to locate gateway.properties.bak')
-}</script>
-        </con:config>
-      </con:testStep>
-      <con:properties>
+void MoveFile(File sourceFile, File destinationFile, log){
+ 
+ if(sourceFile.exists())
+   {
+    def reader = sourceFile.newReader();
+    destinationFile.withWriter 
+    { writer -&gt;       
+     writer &lt;&lt; reader;   
+    }   
+    reader.close();
+   } 
+   else {
+      log.info("unable to find source file " + sourceFile);
+   }   
+}
+
+MoveFile(sourceInternalFile, backupInternalFile, log);
+MoveFile(sourceUddiFile, backupUddiFile, log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-30T20:56:27Z</con:value>
+          <con:value>2012-03-15T13:02:15Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-30T21:06:27Z</con:value>
+          <con:value>2012-03-15T13:12:15Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/30/2010 20:56:27</con:value>
+          <con:value>03/15/2012 13:02:15</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-29T00:00:00Z</con:value>
+          <con:value>2012-04-14T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -1191,165 +923,69 @@ if(gatewayBakFile.exists()) {
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    <con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript></con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="eb2fe928-9168-4d20-a4ae-d1cbba57db99" keepSession="false" maxResults="0" name="Document Query SingleEndpoint" searchProperties="true">
-      <con:settings/>
-      <con:testStep disabled="true" name="Test Case Properties" type="properties">
-        <con:settings/>
-        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" createMissingOnLoad="true" discardValuesOnSave="true" saveFirst="true" xsi:type="con:PropertiesStep">
-          <con:source>EntityDocQuery-soapui-project.properties</con:source>
-          <con:properties>
-            <con:property>
-              <con:name>LocalHCID</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>LocalAA</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>LocalHCDescription</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>NHINGatewayConfigDir</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>Endpoint-DocQuery</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>RealPatientID</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>DQDocID</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>DQPatientID</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>startDate</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>endDate</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>sigDate</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>expireDate</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>CorrectedLocalHCID</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>FullPatientID</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>DBHost</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>DBPort</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>DBUser</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>DBPass</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>PatientCorrelationDB</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>PatientCorrelationTable</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>LocalPatientID</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>AAMappingDB</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>AAMappingTable</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>RemoteHCID1</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>RemoteAA1</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>RemoteHCDescription2</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>RemotePatientID1</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>RemoteHCID2</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>RemoteAA2</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>RemotePatientID2</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>Host2</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>Host3</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-          </con:properties>
-        </con:config>
-      </con:testStep>
-      <con:testStep disabled="true" name="Backup gateway.properties file" type="groovy">
-        <con:settings/>
-        <con:config>
-          <script>//def GatewayPropFile = "${context.findProperty('NHINGatewayConfigDir')}/gateway.properties"
-def GatewayPropFile = System.env['NHINC_PROPERTIES_DIR']+"/gateway.properties"
+    <con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);
 
-File gatewayFile = new File(GatewayPropFile)
-File gatewayBakFile = new File(GatewayPropFile + ".bak")
+def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 
-if(gatewayBakFile.exists()) {
-	gatewayBakFile.delete()
+File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
+File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
+
+File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml");
+File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
+
+void MoveFile(File sourceFile, File destinationFile, log){
+ 
+ if(sourceFile.exists())
+   {
+    def reader = sourceFile.newReader();
+    destinationFile.withWriter 
+    { writer -&gt;       
+     writer &lt;&lt; reader;   
+    }   
+    reader.close();
+   } 
+   else {
+      log.info("unable to find source file " + sourceFile);
+   }   
 }
 
-if(gatewayFile.exists()) {
-	gatewayBakFile &lt;&lt; gatewayFile.asWritable()
-} else {
-	throw new RuntimeException('Unable to locate gateway.properties')
-}</script>
-        </con:config>
+MoveFile(backupInternalFile, sourceInternalFile, log);
+MoveFile(backupUddiFile, sourceUddiFile, log);
+
+void DeleteFile(File file, log) {  
+   if(file.exists()) {    
+      log.info("deleting file " + file);
+      file.delete(); 
+   } else {
+      log.info("file not found, skipping delete for " + file);
+   }
+}
+
+DeleteFile(backupInternalFile, log);
+DeleteFile(backupUddiFile, log);</con:tearDownScript></con:testCase>
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="eb2fe928-9168-4d20-a4ae-d1cbba57db99" keepSession="false" maxResults="0" name="Document Query SingleEndpoint" searchProperties="true">
+      <con:settings/>
+      
+      
+      <con:testStep name="Copy uddiConnectionInfo" type="groovy">
+        <con:settings/>
+        <con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+def testCase = testRunner.getTestCase()
+def testSuite = testCase.getTestSuite()
+def project = testSuite.getProject()
+def projectPropFullFile = project.getPath()
+def projectPropPath = groovyUtils.projectPath
+
+def sourceDir = projectPropPath;
+def sourceFile = "uddiConnectionInfo_FANOUT.xml";
+def destDir = System.env['NHINC_PROPERTIES_DIR'];
+def destFile = "uddiConnectionInfo.xml";
+
+log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
+
+FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</script></con:config>
       </con:testStep>
+      
       <con:testStep name="update config" type="groovy">
         <con:settings/>
         <con:config>
@@ -1371,42 +1007,6 @@ void UpdateProperty(String directory, String filename, String propertyKey, Strin
 }
 
 UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySelf","false",context,log);</script>
-        </con:config>
-      </con:testStep>
-      <con:testStep disabled="true" name="get Dates" type="groovy">
-        <con:settings/>
-        <con:config>
-          <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
-
-sdf = new java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
-sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
-
-sdf2 = new java.text.SimpleDateFormat("MM/dd/yyyy' 'HH:mm:ss");
-sdf2.setTimeZone(TimeZone.getTimeZone("UTC"));
-
-Calendar cal = new GregorianCalendar();
-nowDate = new Date();
-
-cal.setTime(nowDate);
-cal.add(Calendar.MINUTE, -5);
-startDate = cal.getTime();
-startDateStr = sdf.format(startDate);
-sigDateStr = sdf2.format(startDate);
-
-cal.setTime(nowDate);
-cal.add(Calendar.MINUTE, 5);
-endDate = cal.getTime();
-endDateStr = sdf.format(endDate);
-
-cal.setTime(nowDate);
-cal.add(Calendar.DATE, 30);
-expireDate = cal.getTime();
-expireDateStr = sdf2.format(expireDate);
-
-groovyUtils.setPropertyValue( "Test Case Properties", "startDate", startDateStr);
-groovyUtils.setPropertyValue( "Test Case Properties", "endDate", endDateStr);
-groovyUtils.setPropertyValue( "Test Case Properties", "sigDate", sigDateStr);
-groovyUtils.setPropertyValue( "Test Case Properties", "expireDate", expireDateStr);</script>
         </con:config>
       </con:testStep>
       <con:testStep name="Generate patient ID for Doc Query" type="groovy">
@@ -1456,6 +1056,7 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
 }</script>
         </con:config>
       </con:testStep>
+      
       <con:testStep name="Set Connection Info" type="groovy">
         <con:settings/>
         <con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
@@ -1466,109 +1067,7 @@ def docQueryURL1 = "https://" + Host2 + ":8181/Gateway/DocumentQuery/2_0/NhinSer
 
 FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, HCID2, "QueryForDocuments", docQueryURL1, "2.0", context, log)</script></con:config>
       </con:testStep>
-      <con:testStep disabled="true" name="set doc query properties" type="transfer">
-        <con:settings/>
-        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:PropertyTransfersStep">
-          <con:transfers entitize="false" failOnError="true" ignoreEmpty="false" setNullOnMissingSource="true" transferChildNodes="false" transferTextContent="true" transferToAll="false" useXQuery="false">
-            <con:name>endpointTransfer</con:name>
-            <con:sourceType>Endpoint-DocQuery</con:sourceType>
-            <con:sourceStep>Test Case Properties</con:sourceStep>
-            <con:targetType>Endpoint</con:targetType>
-            <con:targetStep>Document Query</con:targetStep>
-          </con:transfers>
-          <con:transfers entitize="false" failOnError="true" ignoreEmpty="false" setNullOnMissingSource="true" transferChildNodes="false" transferTextContent="true" transferToAll="false" useXQuery="false">
-            <con:name>fullPatientID</con:name>
-            <con:sourceType>FullPatientID</con:sourceType>
-            <con:sourceStep>Test Case Properties</con:sourceStep>
-            <con:targetType>Request</con:targetType>
-            <con:targetStep>Document Query</con:targetStep>
-            <con:targetPath>declare namespace urn2='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
-declare namespace urn1='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
-declare namespace urn='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
-//urn:RespondingGateway_CrossGatewayQueryRequest[1]/urn1:AdhocQueryRequest[1]/urn2:AdhocQuery[1]/urn2:Slot[1]/urn2:ValueList[1]/urn2:Value[1]</con:targetPath>
-          </con:transfers>
-          <con:transfers entitize="false" failOnError="true" ignoreEmpty="false" setNullOnMissingSource="true" transferChildNodes="false" transferTextContent="true" transferToAll="false" useXQuery="false">
-            <con:name>signatureDate</con:name>
-            <con:sourceType>sigDate</con:sourceType>
-            <con:sourceStep>Test Case Properties</con:sourceStep>
-            <con:targetType>Request</con:targetType>
-            <con:targetStep>Document Query</con:targetStep>
-            <con:targetPath>declare namespace urn='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
-declare namespace urn3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//urn:RespondingGateway_CrossGatewayQueryRequest[1]/urn:assertion[1]/urn3:dateOfSignature[1]</con:targetPath>
-          </con:transfers>
-          <con:transfers entitize="false" failOnError="true" ignoreEmpty="false" setNullOnMissingSource="true" transferChildNodes="false" transferTextContent="true" transferToAll="false" useXQuery="false">
-            <con:name>expirationDate</con:name>
-            <con:sourceType>expireDate</con:sourceType>
-            <con:sourceStep>Test Case Properties</con:sourceStep>
-            <con:targetType>Request</con:targetType>
-            <con:targetStep>Document Query</con:targetStep>
-            <con:targetPath>declare namespace urn='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
-declare namespace urn3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//urn:RespondingGateway_CrossGatewayQueryRequest[1]/urn:assertion[1]/urn3:expirationDate[1]</con:targetPath>
-          </con:transfers>
-          <con:transfers failOnError="true" setNullOnMissingSource="true" transferTextContent="true">
-            <con:name>assertionHCID</con:name>
-            <con:sourceType>LocalHCID</con:sourceType>
-            <con:sourceStep>Test Case Properties</con:sourceStep>
-            <con:targetType>Request</con:targetType>
-            <con:targetStep>Document Query</con:targetStep>
-            <con:targetPath>declare namespace urn='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
-declare namespace urn3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//urn:RespondingGateway_CrossGatewayQueryRequest[1]/urn:assertion[1]/urn3:homeCommunity[1]/urn3:homeCommunityId[1]</con:targetPath>
-          </con:transfers>
-          <con:transfers failOnError="true" setNullOnMissingSource="true" transferTextContent="true">
-            <con:name>assertionHCName</con:name>
-            <con:sourceType>LocalHCDescription</con:sourceType>
-            <con:sourceStep>Test Case Properties</con:sourceStep>
-            <con:targetType>Request</con:targetType>
-            <con:targetStep>Document Query</con:targetStep>
-            <con:targetPath>declare namespace urn='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
-declare namespace urn3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//urn:RespondingGateway_CrossGatewayQueryRequest[1]/urn:assertion[1]/urn3:homeCommunity[1]/urn3:name[1]</con:targetPath>
-          </con:transfers>
-          <con:transfers failOnError="true" setNullOnMissingSource="true" transferTextContent="true">
-            <con:name>assertionHCDescription</con:name>
-            <con:sourceType>LocalHCDescription</con:sourceType>
-            <con:sourceStep>Test Case Properties</con:sourceStep>
-            <con:targetType>Request</con:targetType>
-            <con:targetStep>Document Query</con:targetStep>
-            <con:targetPath>declare namespace urn='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
-declare namespace urn3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//urn:RespondingGateway_CrossGatewayQueryRequest[1]/urn:assertion[1]/urn3:homeCommunity[1]/urn3:description[1]</con:targetPath>
-          </con:transfers>
-          <con:transfers failOnError="true" setNullOnMissingSource="true" transferTextContent="true">
-            <con:name>orgHCID</con:name>
-            <con:sourceType>LocalHCID</con:sourceType>
-            <con:sourceStep>Test Case Properties</con:sourceStep>
-            <con:targetType>Request</con:targetType>
-            <con:targetStep>Document Query</con:targetStep>
-            <con:targetPath>declare namespace urn='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
-declare namespace urn3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//urn:RespondingGateway_CrossGatewayQueryRequest[1]/urn:assertion[1]/urn3:userInfo[1]/urn3:org[1]/urn3:homeCommunityId[1]</con:targetPath>
-          </con:transfers>
-          <con:transfers failOnError="true" setNullOnMissingSource="true" transferTextContent="true">
-            <con:name>orgHCName</con:name>
-            <con:sourceType>LocalHCDescription</con:sourceType>
-            <con:sourceStep>Test Case Properties</con:sourceStep>
-            <con:targetType>Request</con:targetType>
-            <con:targetStep>Document Query</con:targetStep>
-            <con:targetPath>declare namespace urn='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
-declare namespace urn3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//urn:RespondingGateway_CrossGatewayQueryRequest[1]/urn:assertion[1]/urn3:userInfo[1]/urn3:org[1]/urn3:name[1]</con:targetPath>
-          </con:transfers>
-          <con:transfers entitize="false" failOnError="true" ignoreEmpty="false" setNullOnMissingSource="true" transferChildNodes="false" transferTextContent="true" transferToAll="false" useXQuery="false">
-            <con:name>orgHCDescription</con:name>
-            <con:sourceType>LocalHCDescription</con:sourceType>
-            <con:sourceStep>Test Case Properties</con:sourceStep>
-            <con:targetType>Request</con:targetType>
-            <con:targetStep>Document Query</con:targetStep>
-            <con:targetPath>declare namespace urn='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
-declare namespace urn3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//urn:RespondingGateway_CrossGatewayQueryRequest[1]/urn:assertion[1]/urn3:userInfo[1]/urn3:org[1]/urn3:description[1]</con:targetPath>
-          </con:transfers>
-        </con:config>
-      </con:testStep>
+      
       <con:testStep name="Document Query" type="request">
         <con:settings/>
         <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
@@ -1834,43 +1333,47 @@ count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)
             <con:wsrmConfig version="1.2"/>
           </con:request>
         </con:config>
-      </con:testStep>
-      <con:testStep disabled="true" name="Restore gateway.properties file" type="groovy">
-        <con:settings/>
-        <con:config>
-          <script>//def GatewayPropFile = "${context.findProperty('NHINGatewayConfigDir')}/gateway.properties"
+      </con:testStep><con:setupScript>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 
-def GatewayPropFile = System.env['NHINC_PROPERTIES_DIR']+"/gateway.properties"
+File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
+File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
 
-File gatewayFile = new File(GatewayPropFile)
-File gatewayBakFile = new File(GatewayPropFile + ".bak")
+File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml");
+File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
 
-if(gatewayBakFile.exists()) {
-	gatewayBakFile.renameTo(gatewayFile)
-} else {
-	throw new RuntimeException('Unable to locate gateway.properties.bak')
-}</script>
-        </con:config>
-      </con:testStep>
-      <con:setupScript>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
+void MoveFile(File sourceFile, File destinationFile, log){
+ 
+ if(sourceFile.exists())
+   {
+    def reader = sourceFile.newReader();
+    destinationFile.withWriter 
+    { writer -&gt;       
+     writer &lt;&lt; reader;   
+    }   
+    reader.close();
+   } 
+   else {
+      log.info("unable to find source file " + sourceFile);
+   }   
+}
 
-FileUtils.MoveFile(destConfigFileLocation,"uddiConnectionInfo.xml",destConfigFileLocation,"uddiConnectionInfo_BACKUP.xml",context,log);
-FileUtils.MoveFile(destConfigFileLocation,"uddiConnectionInfo_FANOUT.xml",destConfigFileLocation,"uddiConnectionInfo.xml",context,log);</con:setupScript><con:properties>
+MoveFile(sourceInternalFile, backupInternalFile, log);
+MoveFile(sourceUddiFile, backupUddiFile, log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-02-23T23:16:51Z</con:value>
+          <con:value>2012-03-15T13:02:18Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-02-23T23:26:51Z</con:value>
+          <con:value>2012-03-15T13:12:18Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>02/23/2012 23:16:51</con:value>
+          <con:value>03/15/2012 13:02:18</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-03-24T00:00:00Z</con:value>
+          <con:value>2012-04-14T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -1882,167 +1385,65 @@ FileUtils.MoveFile(destConfigFileLocation,"uddiConnectionInfo_FANOUT.xml",destCo
 
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 
-FileUtils.MoveFile(destConfigFileLocation,"uddiConnectionInfo_BACKUP.xml",destConfigFileLocation,"uddiConnectionInfo.xml",context,log);
-FileUtils.DeleteFile(destConfigFileLocation,"uddiConnectionInfo_BACKUP.xml",context,log);
-</con:tearDownScript></con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="f15669b3-5b74-4be0-84df-ebec541cbbeb" keepSession="false" maxResults="0" name="Document Query State Fanout" searchProperties="true">
-      <con:settings/>
-      <con:testStep disabled="true" name="Test Case Properties" type="properties">
-        <con:settings/>
-        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" createMissingOnLoad="true" discardValuesOnSave="true" saveFirst="true" xsi:type="con:PropertiesStep">
-          <con:source>EntityDocQuery-soapui-project.properties</con:source>
-          <con:properties>
-            <con:property>
-              <con:name>LocalHCID</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>LocalAA</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>LocalHCDescription</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>NHINGatewayConfigDir</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>Endpoint-DocQuery</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>RealPatientID</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>DQDocID</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>DQPatientID</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>startDate</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>endDate</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>sigDate</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>expireDate</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>CorrectedLocalHCID</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>FullPatientID</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>DBHost</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>DBPort</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>DBUser</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>DBPass</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>PatientCorrelationDB</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>PatientCorrelationTable</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>LocalPatientID</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>AAMappingDB</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>AAMappingTable</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>RemoteHCID1</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>RemoteAA1</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>RemoteHCDescription2</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>RemotePatientID1</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>RemoteHCID2</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>RemoteAA2</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>RemotePatientID2</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>Host2</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>Host3</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-          </con:properties>
-        </con:config>
-      </con:testStep>
-      <con:testStep name="Backup gateway.properties file" type="groovy">
-        <con:settings/>
-        <con:config>
-          <script>//def GatewayPropFile = "${context.findProperty('NHINGatewayConfigDir')}/gateway.properties"
-def GatewayPropFile = System.env['NHINC_PROPERTIES_DIR']+"/gateway.properties"
+File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
+File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
 
-File gatewayFile = new File(GatewayPropFile)
-File gatewayBakFile = new File(GatewayPropFile + ".bak")
+File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml");
+File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
 
-if(gatewayBakFile.exists()) {
-	gatewayBakFile.delete()
+void MoveFile(File sourceFile, File destinationFile, log){
+ 
+ if(sourceFile.exists())
+   {
+    def reader = sourceFile.newReader();
+    destinationFile.withWriter 
+    { writer -&gt;       
+     writer &lt;&lt; reader;   
+    }   
+    reader.close();
+   } 
+   else {
+      log.info("unable to find source file " + sourceFile);
+   }   
 }
 
-if(gatewayFile.exists()) {
-	gatewayBakFile &lt;&lt; gatewayFile.asWritable()
-} else {
-	throw new RuntimeException('Unable to locate gateway.properties')
-}</script>
-        </con:config>
+MoveFile(backupInternalFile, sourceInternalFile, log);
+MoveFile(backupUddiFile, sourceUddiFile, log);
+
+void DeleteFile(File file, log) {  
+   if(file.exists()) {    
+      log.info("deleting file " + file);
+      file.delete(); 
+   } else {
+      log.info("file not found, skipping delete for " + file);
+   }
+}
+
+DeleteFile(backupInternalFile, log);
+DeleteFile(backupUddiFile, log);</con:tearDownScript></con:testCase>
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="f15669b3-5b74-4be0-84df-ebec541cbbeb" keepSession="false" maxResults="0" name="Document Query State Fanout" searchProperties="true">
+      <con:settings/>
+      
+      
+      <con:testStep name="Copy uddiConnectionInfo" type="groovy">
+        <con:settings/>
+        <con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+def testCase = testRunner.getTestCase()
+def testSuite = testCase.getTestSuite()
+def project = testSuite.getProject()
+def projectPropFullFile = project.getPath()
+def projectPropPath = groovyUtils.projectPath
+
+def sourceDir = projectPropPath;
+def sourceFile = "uddiConnectionInfo_FANOUT.xml";
+def destDir = System.env['NHINC_PROPERTIES_DIR'];
+def destFile = "uddiConnectionInfo.xml";
+
+log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
+
+FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</script></con:config>
       </con:testStep>
+      
       <con:testStep name="update config" type="groovy">
         <con:settings/>
         <con:config>
@@ -2064,42 +1465,6 @@ void UpdateProperty(String directory, String filename, String propertyKey, Strin
 }
 
 UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySelf","false",context,log);</script>
-        </con:config>
-      </con:testStep>
-      <con:testStep disabled="true" name="get Dates" type="groovy">
-        <con:settings/>
-        <con:config>
-          <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
-
-sdf = new java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
-sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
-
-sdf2 = new java.text.SimpleDateFormat("MM/dd/yyyy' 'HH:mm:ss");
-sdf2.setTimeZone(TimeZone.getTimeZone("UTC"));
-
-Calendar cal = new GregorianCalendar();
-nowDate = new Date();
-
-cal.setTime(nowDate);
-cal.add(Calendar.MINUTE, -5);
-startDate = cal.getTime();
-startDateStr = sdf.format(startDate);
-sigDateStr = sdf2.format(startDate);
-
-cal.setTime(nowDate);
-cal.add(Calendar.MINUTE, 5);
-endDate = cal.getTime();
-endDateStr = sdf.format(endDate);
-
-cal.setTime(nowDate);
-cal.add(Calendar.DATE, 30);
-expireDate = cal.getTime();
-expireDateStr = sdf2.format(expireDate);
-
-groovyUtils.setPropertyValue( "Test Case Properties", "startDate", startDateStr);
-groovyUtils.setPropertyValue( "Test Case Properties", "endDate", endDateStr);
-groovyUtils.setPropertyValue( "Test Case Properties", "sigDate", sigDateStr);
-groovyUtils.setPropertyValue( "Test Case Properties", "expireDate", expireDateStr);</script>
         </con:config>
       </con:testStep>
       <con:testStep name="Generate patient ID for Doc Query" type="groovy">
@@ -2151,127 +1516,23 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
 }</script>
         </con:config>
       </con:testStep>
+      
       <con:testStep name="Set Connection Info" type="groovy">
         <con:settings/>
-        <con:config>
-          <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
-//def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
+        <con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 def Host2 = context.findProperty("Host2");
 def HCID2 = context.findProperty( "RemoteHCID1" );
-def docQueryURL1 = "https://" + Host2 + ":8181/CONNECTNhinServicesWeb/NhinService/RespondingGateway_Query_Service/DocQuery";
+def docQueryURL1 = "https://" + Host2 + ":8181/Gateway/DocumentQuery/2_0/NhinService/RespondingGateway_Query_Service/DocQuery";
 
 def Host3 = context.findProperty("Host3");
 def HCID3 = context.findProperty( "RemoteHCID2" );
-def docQueryURL2 = "https://" + Host3 + ":8181/CONNECTNhinServicesWeb/NhinService/RespondingGateway_Query_Service/DocQuery";
+def docQueryURL2 = "https://" + Host2 + ":8181/Gateway/DocumentQuery/2_0/NhinService/RespondingGateway_Query_Service/DocQuery";
 
-FileUtils.CreateOrUpdateConnection(destConfigFileLocation, HCID2, "QueryForDocument", docQueryURL1, context, log)
-FileUtils.CreateOrUpdateConnection(destConfigFileLocation, HCID3, "QueryForDocument", docQueryURL2, context, log)</script>
-        </con:config>
+FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, HCID2, "QueryForDocuments", docQueryURL1, "2.0", context, log)
+FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, HCID3, "QueryForDocuments", docQueryURL2, "2.0", context, log)</script></con:config>
       </con:testStep>
-      <con:testStep disabled="true" name="set doc query properties" type="transfer">
-        <con:settings/>
-        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:PropertyTransfersStep">
-          <con:transfers entitize="false" failOnError="true" ignoreEmpty="false" setNullOnMissingSource="true" transferChildNodes="false" transferTextContent="true" transferToAll="false" useXQuery="false">
-            <con:name>endpointTransfer</con:name>
-            <con:sourceType>Endpoint-DocQuery</con:sourceType>
-            <con:sourceStep>Test Case Properties</con:sourceStep>
-            <con:targetType>Endpoint</con:targetType>
-            <con:targetStep>Document Query</con:targetStep>
-          </con:transfers>
-          <con:transfers entitize="false" failOnError="true" ignoreEmpty="false" setNullOnMissingSource="true" transferChildNodes="false" transferTextContent="true" transferToAll="false" useXQuery="false">
-            <con:name>fullPatientID</con:name>
-            <con:sourceType>FullPatientID</con:sourceType>
-            <con:sourceStep>Test Case Properties</con:sourceStep>
-            <con:targetType>Request</con:targetType>
-            <con:targetStep>Document Query</con:targetStep>
-            <con:targetPath>declare namespace urn2='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
-declare namespace urn1='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
-declare namespace urn='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
-//urn:RespondingGateway_CrossGatewayQueryRequest[1]/urn1:AdhocQueryRequest[1]/urn2:AdhocQuery[1]/urn2:Slot[1]/urn2:ValueList[1]/urn2:Value[1]</con:targetPath>
-          </con:transfers>
-          <con:transfers entitize="false" failOnError="true" ignoreEmpty="false" setNullOnMissingSource="true" transferChildNodes="false" transferTextContent="true" transferToAll="false" useXQuery="false">
-            <con:name>signatureDate</con:name>
-            <con:sourceType>sigDate</con:sourceType>
-            <con:sourceStep>Test Case Properties</con:sourceStep>
-            <con:targetType>Request</con:targetType>
-            <con:targetStep>Document Query</con:targetStep>
-            <con:targetPath>declare namespace urn='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
-declare namespace urn3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//urn:RespondingGateway_CrossGatewayQueryRequest[1]/urn:assertion[1]/urn3:dateOfSignature[1]</con:targetPath>
-          </con:transfers>
-          <con:transfers entitize="false" failOnError="true" ignoreEmpty="false" setNullOnMissingSource="true" transferChildNodes="false" transferTextContent="true" transferToAll="false" useXQuery="false">
-            <con:name>expirationDate</con:name>
-            <con:sourceType>expireDate</con:sourceType>
-            <con:sourceStep>Test Case Properties</con:sourceStep>
-            <con:targetType>Request</con:targetType>
-            <con:targetStep>Document Query</con:targetStep>
-            <con:targetPath>declare namespace urn='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
-declare namespace urn3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//urn:RespondingGateway_CrossGatewayQueryRequest[1]/urn:assertion[1]/urn3:expirationDate[1]</con:targetPath>
-          </con:transfers>
-          <con:transfers failOnError="true" setNullOnMissingSource="true" transferTextContent="true">
-            <con:name>assertionHCID</con:name>
-            <con:sourceType>LocalHCID</con:sourceType>
-            <con:sourceStep>Test Case Properties</con:sourceStep>
-            <con:targetType>Request</con:targetType>
-            <con:targetStep>Document Query</con:targetStep>
-            <con:targetPath>declare namespace urn='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
-declare namespace urn3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//urn:RespondingGateway_CrossGatewayQueryRequest[1]/urn:assertion[1]/urn3:homeCommunity[1]/urn3:homeCommunityId[1]</con:targetPath>
-          </con:transfers>
-          <con:transfers failOnError="true" setNullOnMissingSource="true" transferTextContent="true">
-            <con:name>assertionHCName</con:name>
-            <con:sourceType>LocalHCDescription</con:sourceType>
-            <con:sourceStep>Test Case Properties</con:sourceStep>
-            <con:targetType>Request</con:targetType>
-            <con:targetStep>Document Query</con:targetStep>
-            <con:targetPath>declare namespace urn='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
-declare namespace urn3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//urn:RespondingGateway_CrossGatewayQueryRequest[1]/urn:assertion[1]/urn3:homeCommunity[1]/urn3:name[1]</con:targetPath>
-          </con:transfers>
-          <con:transfers failOnError="true" setNullOnMissingSource="true" transferTextContent="true">
-            <con:name>assertionHCDescription</con:name>
-            <con:sourceType>LocalHCDescription</con:sourceType>
-            <con:sourceStep>Test Case Properties</con:sourceStep>
-            <con:targetType>Request</con:targetType>
-            <con:targetStep>Document Query</con:targetStep>
-            <con:targetPath>declare namespace urn='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
-declare namespace urn3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//urn:RespondingGateway_CrossGatewayQueryRequest[1]/urn:assertion[1]/urn3:homeCommunity[1]/urn3:description[1]</con:targetPath>
-          </con:transfers>
-          <con:transfers failOnError="true" setNullOnMissingSource="true" transferTextContent="true">
-            <con:name>orgHCID</con:name>
-            <con:sourceType>LocalHCID</con:sourceType>
-            <con:sourceStep>Test Case Properties</con:sourceStep>
-            <con:targetType>Request</con:targetType>
-            <con:targetStep>Document Query</con:targetStep>
-            <con:targetPath>declare namespace urn='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
-declare namespace urn3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//urn:RespondingGateway_CrossGatewayQueryRequest[1]/urn:assertion[1]/urn3:userInfo[1]/urn3:org[1]/urn3:homeCommunityId[1]</con:targetPath>
-          </con:transfers>
-          <con:transfers entitize="false" failOnError="true" ignoreEmpty="false" setNullOnMissingSource="true" transferChildNodes="false" transferTextContent="true" transferToAll="false" useXQuery="false">
-            <con:name>orgHCName</con:name>
-            <con:sourceType>LocalHCDescription</con:sourceType>
-            <con:sourceStep>Test Case Properties</con:sourceStep>
-            <con:targetType>Request</con:targetType>
-            <con:targetStep>Document Query</con:targetStep>
-            <con:targetPath>declare namespace urn='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
-declare namespace urn3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//urn:RespondingGateway_CrossGatewayQueryRequest[1]/urn:assertion[1]/urn3:userInfo[1]/urn3:org[1]/urn3:name[1]</con:targetPath>
-          </con:transfers>
-          <con:transfers entitize="false" failOnError="true" ignoreEmpty="false" setNullOnMissingSource="true" transferChildNodes="false" transferTextContent="true" transferToAll="false" useXQuery="false">
-            <con:name>orgHCDescription</con:name>
-            <con:sourceType>LocalHCDescription</con:sourceType>
-            <con:sourceStep>Test Case Properties</con:sourceStep>
-            <con:targetType>Request</con:targetType>
-            <con:targetStep>Document Query</con:targetStep>
-            <con:targetPath>declare namespace urn='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
-declare namespace urn3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//urn:RespondingGateway_CrossGatewayQueryRequest[1]/urn:assertion[1]/urn3:userInfo[1]/urn3:org[1]/urn3:description[1]</con:targetPath>
-          </con:transfers>
-        </con:config>
-      </con:testStep>
+      
       <con:testStep name="Document Query" type="request">
         <con:settings/>
         <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
@@ -2544,40 +1805,47 @@ count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)
             <con:wsrmConfig version="1.2"/>
           </con:request>
         </con:config>
-      </con:testStep>
-      <con:testStep name="Restore gateway.properties file" type="groovy">
-        <con:settings/>
-        <con:config>
-          <script>//def GatewayPropFile = "${context.findProperty('NHINGatewayConfigDir')}/gateway.properties"
+      </con:testStep><con:setupScript>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 
-def GatewayPropFile = System.env['NHINC_PROPERTIES_DIR']+"/gateway.properties"
+File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
+File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
 
-File gatewayFile = new File(GatewayPropFile)
-File gatewayBakFile = new File(GatewayPropFile + ".bak")
+File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml");
+File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
 
-if(gatewayBakFile.exists()) {
-	gatewayBakFile.renameTo(gatewayFile)
-} else {
-	throw new RuntimeException('Unable to locate gateway.properties.bak')
-}</script>
-        </con:config>
-      </con:testStep>
-      <con:properties>
+void MoveFile(File sourceFile, File destinationFile, log){
+ 
+ if(sourceFile.exists())
+   {
+    def reader = sourceFile.newReader();
+    destinationFile.withWriter 
+    { writer -&gt;       
+     writer &lt;&lt; reader;   
+    }   
+    reader.close();
+   } 
+   else {
+      log.info("unable to find source file " + sourceFile);
+   }   
+}
+
+MoveFile(sourceInternalFile, backupInternalFile, log);
+MoveFile(sourceUddiFile, backupUddiFile, log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-30T20:56:32Z</con:value>
+          <con:value>2012-03-15T13:02:20Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-30T21:06:32Z</con:value>
+          <con:value>2012-03-15T13:12:20Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/30/2010 20:56:32</con:value>
+          <con:value>03/15/2012 13:02:20</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-29T00:00:00Z</con:value>
+          <con:value>2012-04-14T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -2585,165 +1853,69 @@ if(gatewayBakFile.exists()) {
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    <con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript></con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="c7f8f863-a545-48d3-86c2-d7a329f2cb10" keepSession="false" maxResults="0" name="Document Query State Fanout Multiple Communities" searchProperties="true">
-      <con:settings/>
-      <con:testStep disabled="true" name="Test Case Properties" type="properties">
-        <con:settings/>
-        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" createMissingOnLoad="true" discardValuesOnSave="true" saveFirst="true" xsi:type="con:PropertiesStep">
-          <con:source>EntityDocQuery-soapui-project.properties</con:source>
-          <con:properties>
-            <con:property>
-              <con:name>LocalHCID</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>LocalAA</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>LocalHCDescription</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>NHINGatewayConfigDir</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>Endpoint-DocQuery</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>RealPatientID</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>DQDocID</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>DQPatientID</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>startDate</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>endDate</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>sigDate</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>expireDate</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>CorrectedLocalHCID</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>FullPatientID</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>DBHost</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>DBPort</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>DBUser</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>DBPass</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>PatientCorrelationDB</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>PatientCorrelationTable</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>LocalPatientID</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>AAMappingDB</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>AAMappingTable</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>RemoteHCID1</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>RemoteAA1</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>RemoteHCDescription2</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>RemotePatientID1</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>RemoteHCID2</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>RemoteAA2</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>RemotePatientID2</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>Host2</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-            <con:property>
-              <con:name>Host3</con:name>
-              <con:value xsi:nil="true"/>
-            </con:property>
-          </con:properties>
-        </con:config>
-      </con:testStep>
-      <con:testStep name="Backup gateway.properties file" type="groovy">
-        <con:settings/>
-        <con:config>
-          <script>//def GatewayPropFile = "${context.findProperty('NHINGatewayConfigDir')}/gateway.properties"
-def GatewayPropFile = System.env['NHINC_PROPERTIES_DIR']+"/gateway.properties"
+    <con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);
 
-File gatewayFile = new File(GatewayPropFile)
-File gatewayBakFile = new File(GatewayPropFile + ".bak")
+def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 
-if(gatewayBakFile.exists()) {
-	gatewayBakFile.delete()
+File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
+File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
+
+File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml");
+File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
+
+void MoveFile(File sourceFile, File destinationFile, log){
+ 
+ if(sourceFile.exists())
+   {
+    def reader = sourceFile.newReader();
+    destinationFile.withWriter 
+    { writer -&gt;       
+     writer &lt;&lt; reader;   
+    }   
+    reader.close();
+   } 
+   else {
+      log.info("unable to find source file " + sourceFile);
+   }   
 }
 
-if(gatewayFile.exists()) {
-	gatewayBakFile &lt;&lt; gatewayFile.asWritable()
-} else {
-	throw new RuntimeException('Unable to locate gateway.properties')
-}</script>
-        </con:config>
+MoveFile(backupInternalFile, sourceInternalFile, log);
+MoveFile(backupUddiFile, sourceUddiFile, log);
+
+void DeleteFile(File file, log) {  
+   if(file.exists()) {    
+      log.info("deleting file " + file);
+      file.delete(); 
+   } else {
+      log.info("file not found, skipping delete for " + file);
+   }
+}
+
+DeleteFile(backupInternalFile, log);
+DeleteFile(backupUddiFile, log);</con:tearDownScript></con:testCase>
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="c7f8f863-a545-48d3-86c2-d7a329f2cb10" keepSession="false" maxResults="0" name="Document Query State Fanout Multiple Communities" searchProperties="true">
+      <con:settings/>
+      
+      
+      <con:testStep name="Copy uddiConnectionInfo" type="groovy">
+        <con:settings/>
+        <con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+def testCase = testRunner.getTestCase()
+def testSuite = testCase.getTestSuite()
+def project = testSuite.getProject()
+def projectPropFullFile = project.getPath()
+def projectPropPath = groovyUtils.projectPath
+
+def sourceDir = projectPropPath;
+def sourceFile = "uddiConnectionInfo_FANOUT.xml";
+def destDir = System.env['NHINC_PROPERTIES_DIR'];
+def destFile = "uddiConnectionInfo.xml";
+
+log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
+
+FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</script></con:config>
       </con:testStep>
+      
       <con:testStep name="update config" type="groovy">
         <con:settings/>
         <con:config>
@@ -2765,42 +1937,6 @@ void UpdateProperty(String directory, String filename, String propertyKey, Strin
 }
 
 UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySelf","false",context,log);</script>
-        </con:config>
-      </con:testStep>
-      <con:testStep disabled="true" name="get Dates" type="groovy">
-        <con:settings/>
-        <con:config>
-          <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
-
-sdf = new java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
-sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
-
-sdf2 = new java.text.SimpleDateFormat("MM/dd/yyyy' 'HH:mm:ss");
-sdf2.setTimeZone(TimeZone.getTimeZone("UTC"));
-
-Calendar cal = new GregorianCalendar();
-nowDate = new Date();
-
-cal.setTime(nowDate);
-cal.add(Calendar.MINUTE, -5);
-startDate = cal.getTime();
-startDateStr = sdf.format(startDate);
-sigDateStr = sdf2.format(startDate);
-
-cal.setTime(nowDate);
-cal.add(Calendar.MINUTE, 5);
-endDate = cal.getTime();
-endDateStr = sdf.format(endDate);
-
-cal.setTime(nowDate);
-cal.add(Calendar.DATE, 30);
-expireDate = cal.getTime();
-expireDateStr = sdf2.format(expireDate);
-
-groovyUtils.setPropertyValue( "Test Case Properties", "startDate", startDateStr);
-groovyUtils.setPropertyValue( "Test Case Properties", "endDate", endDateStr);
-groovyUtils.setPropertyValue( "Test Case Properties", "sigDate", sigDateStr);
-groovyUtils.setPropertyValue( "Test Case Properties", "expireDate", expireDateStr);</script>
         </con:config>
       </con:testStep>
       <con:testStep name="Generate patient ID for Doc Query" type="groovy">
@@ -2852,127 +1988,23 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
 }</script>
         </con:config>
       </con:testStep>
+      
       <con:testStep name="Set Connection Info" type="groovy">
         <con:settings/>
-        <con:config>
-          <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
-//def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
+        <con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 def Host2 = context.findProperty("Host2");
 def HCID2 = context.findProperty( "RemoteHCID1" );
-def docQueryURL1 = "https://" + Host2 + ":8181/CONNECTNhinServicesWeb/NhinService/RespondingGateway_Query_Service/DocQuery";
+def docQueryURL1 = "https://" + Host2 + ":8181/Gateway/DocumentQuery/2_0/NhinService/RespondingGateway_Query_Service/DocQuery";
 
 def Host3 = context.findProperty("Host3");
 def HCID3 = context.findProperty( "RemoteHCID2" );
-def docQueryURL2 = "https://" + Host3 + ":8181/CONNECTNhinServicesWeb/NhinService/RespondingGateway_Query_Service/DocQuery";
+def docQueryURL2 = "https://" + Host2 + ":8181/Gateway/DocumentQuery/2_0/NhinService/RespondingGateway_Query_Service/DocQuery";
 
-FileUtils.CreateOrUpdateConnection(destConfigFileLocation, HCID2, "QueryForDocument", docQueryURL1, context, log)
-FileUtils.CreateOrUpdateConnection(destConfigFileLocation, HCID3, "QueryForDocument", docQueryURL2, context, log)</script>
-        </con:config>
+FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, HCID2, "QueryForDocuments", docQueryURL1, "2.0", context, log)
+FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, HCID3, "QueryForDocuments", docQueryURL2, "2.0", context, log)</script></con:config>
       </con:testStep>
-      <con:testStep disabled="true" name="set doc query properties" type="transfer">
-        <con:settings/>
-        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:PropertyTransfersStep">
-          <con:transfers entitize="false" failOnError="true" ignoreEmpty="false" setNullOnMissingSource="true" transferChildNodes="false" transferTextContent="true" transferToAll="false" useXQuery="false">
-            <con:name>endpointTransfer</con:name>
-            <con:sourceType>Endpoint-DocQuery</con:sourceType>
-            <con:sourceStep>Test Case Properties</con:sourceStep>
-            <con:targetType>Endpoint</con:targetType>
-            <con:targetStep>Document Query</con:targetStep>
-          </con:transfers>
-          <con:transfers entitize="false" failOnError="true" ignoreEmpty="false" setNullOnMissingSource="true" transferChildNodes="false" transferTextContent="true" transferToAll="false" useXQuery="false">
-            <con:name>fullPatientID</con:name>
-            <con:sourceType>FullPatientID</con:sourceType>
-            <con:sourceStep>Test Case Properties</con:sourceStep>
-            <con:targetType>Request</con:targetType>
-            <con:targetStep>Document Query</con:targetStep>
-            <con:targetPath>declare namespace urn2='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
-declare namespace urn1='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
-declare namespace urn='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
-//urn:RespondingGateway_CrossGatewayQueryRequest[1]/urn1:AdhocQueryRequest[1]/urn2:AdhocQuery[1]/urn2:Slot[1]/urn2:ValueList[1]/urn2:Value[1]</con:targetPath>
-          </con:transfers>
-          <con:transfers entitize="false" failOnError="true" ignoreEmpty="false" setNullOnMissingSource="true" transferChildNodes="false" transferTextContent="true" transferToAll="false" useXQuery="false">
-            <con:name>signatureDate</con:name>
-            <con:sourceType>sigDate</con:sourceType>
-            <con:sourceStep>Test Case Properties</con:sourceStep>
-            <con:targetType>Request</con:targetType>
-            <con:targetStep>Document Query</con:targetStep>
-            <con:targetPath>declare namespace urn='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
-declare namespace urn3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//urn:RespondingGateway_CrossGatewayQueryRequest[1]/urn:assertion[1]/urn3:dateOfSignature[1]</con:targetPath>
-          </con:transfers>
-          <con:transfers entitize="false" failOnError="true" ignoreEmpty="false" setNullOnMissingSource="true" transferChildNodes="false" transferTextContent="true" transferToAll="false" useXQuery="false">
-            <con:name>expirationDate</con:name>
-            <con:sourceType>expireDate</con:sourceType>
-            <con:sourceStep>Test Case Properties</con:sourceStep>
-            <con:targetType>Request</con:targetType>
-            <con:targetStep>Document Query</con:targetStep>
-            <con:targetPath>declare namespace urn='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
-declare namespace urn3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//urn:RespondingGateway_CrossGatewayQueryRequest[1]/urn:assertion[1]/urn3:expirationDate[1]</con:targetPath>
-          </con:transfers>
-          <con:transfers failOnError="true" setNullOnMissingSource="true" transferTextContent="true">
-            <con:name>assertionHCID</con:name>
-            <con:sourceType>LocalHCID</con:sourceType>
-            <con:sourceStep>Test Case Properties</con:sourceStep>
-            <con:targetType>Request</con:targetType>
-            <con:targetStep>Document Query</con:targetStep>
-            <con:targetPath>declare namespace urn='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
-declare namespace urn3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//urn:RespondingGateway_CrossGatewayQueryRequest[1]/urn:assertion[1]/urn3:homeCommunity[1]/urn3:homeCommunityId[1]</con:targetPath>
-          </con:transfers>
-          <con:transfers failOnError="true" setNullOnMissingSource="true" transferTextContent="true">
-            <con:name>assertionHCName</con:name>
-            <con:sourceType>LocalHCDescription</con:sourceType>
-            <con:sourceStep>Test Case Properties</con:sourceStep>
-            <con:targetType>Request</con:targetType>
-            <con:targetStep>Document Query</con:targetStep>
-            <con:targetPath>declare namespace urn='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
-declare namespace urn3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//urn:RespondingGateway_CrossGatewayQueryRequest[1]/urn:assertion[1]/urn3:homeCommunity[1]/urn3:name[1]</con:targetPath>
-          </con:transfers>
-          <con:transfers failOnError="true" setNullOnMissingSource="true" transferTextContent="true">
-            <con:name>assertionHCDescription</con:name>
-            <con:sourceType>LocalHCDescription</con:sourceType>
-            <con:sourceStep>Test Case Properties</con:sourceStep>
-            <con:targetType>Request</con:targetType>
-            <con:targetStep>Document Query</con:targetStep>
-            <con:targetPath>declare namespace urn='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
-declare namespace urn3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//urn:RespondingGateway_CrossGatewayQueryRequest[1]/urn:assertion[1]/urn3:homeCommunity[1]/urn3:description[1]</con:targetPath>
-          </con:transfers>
-          <con:transfers failOnError="true" setNullOnMissingSource="true" transferTextContent="true">
-            <con:name>orgHCID</con:name>
-            <con:sourceType>LocalHCID</con:sourceType>
-            <con:sourceStep>Test Case Properties</con:sourceStep>
-            <con:targetType>Request</con:targetType>
-            <con:targetStep>Document Query</con:targetStep>
-            <con:targetPath>declare namespace urn='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
-declare namespace urn3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//urn:RespondingGateway_CrossGatewayQueryRequest[1]/urn:assertion[1]/urn3:userInfo[1]/urn3:org[1]/urn3:homeCommunityId[1]</con:targetPath>
-          </con:transfers>
-          <con:transfers entitize="false" failOnError="true" ignoreEmpty="false" setNullOnMissingSource="true" transferChildNodes="false" transferTextContent="true" transferToAll="false" useXQuery="false">
-            <con:name>orgHCName</con:name>
-            <con:sourceType>LocalHCDescription</con:sourceType>
-            <con:sourceStep>Test Case Properties</con:sourceStep>
-            <con:targetType>Request</con:targetType>
-            <con:targetStep>Document Query</con:targetStep>
-            <con:targetPath>declare namespace urn='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
-declare namespace urn3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//urn:RespondingGateway_CrossGatewayQueryRequest[1]/urn:assertion[1]/urn3:userInfo[1]/urn3:org[1]/urn3:name[1]</con:targetPath>
-          </con:transfers>
-          <con:transfers entitize="false" failOnError="true" ignoreEmpty="false" setNullOnMissingSource="true" transferChildNodes="false" transferTextContent="true" transferToAll="false" useXQuery="false">
-            <con:name>orgHCDescription</con:name>
-            <con:sourceType>LocalHCDescription</con:sourceType>
-            <con:sourceStep>Test Case Properties</con:sourceStep>
-            <con:targetType>Request</con:targetType>
-            <con:targetStep>Document Query</con:targetStep>
-            <con:targetPath>declare namespace urn='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
-declare namespace urn3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//urn:RespondingGateway_CrossGatewayQueryRequest[1]/urn:assertion[1]/urn3:userInfo[1]/urn3:org[1]/urn3:description[1]</con:targetPath>
-          </con:transfers>
-        </con:config>
-      </con:testStep>
+      
       <con:testStep name="Document Query" type="request">
         <con:settings/>
         <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
@@ -3241,44 +2273,51 @@ count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)
                 <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
               </con:configuration>
             </con:assertion>
-            <con:wsaConfig mustUnderstand="NONE" version="200508"/>
+            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
             <con:wsrmConfig version="1.2"/>
           </con:request>
         </con:config>
-      </con:testStep>
-      <con:testStep name="Restore gateway.properties file" type="groovy">
-        <con:settings/>
-        <con:config>
-          <script>//def GatewayPropFile = "${context.findProperty('NHINGatewayConfigDir')}/gateway.properties"
+      </con:testStep><con:setupScript>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 
-def GatewayPropFile = System.env['NHINC_PROPERTIES_DIR']+"/gateway.properties"
+File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
+File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
 
-File gatewayFile = new File(GatewayPropFile)
-File gatewayBakFile = new File(GatewayPropFile + ".bak")
+File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml");
+File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
 
-if(gatewayBakFile.exists()) {
-	gatewayBakFile.renameTo(gatewayFile)
-} else {
-	throw new RuntimeException('Unable to locate gateway.properties.bak')
-}</script>
-        </con:config>
-      </con:testStep>
-      <con:properties>
+void MoveFile(File sourceFile, File destinationFile, log){
+ 
+ if(sourceFile.exists())
+   {
+    def reader = sourceFile.newReader();
+    destinationFile.withWriter 
+    { writer -&gt;       
+     writer &lt;&lt; reader;   
+    }   
+    reader.close();
+   } 
+   else {
+      log.info("unable to find source file " + sourceFile);
+   }   
+}
+
+MoveFile(sourceInternalFile, backupInternalFile, log);
+MoveFile(sourceUddiFile, backupUddiFile, log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-30T20:56:34Z</con:value>
+          <con:value>2012-03-15T13:02:49Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-30T21:06:34Z</con:value>
+          <con:value>2012-03-15T13:12:49Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/30/2010 20:56:34</con:value>
+          <con:value>03/15/2012 13:02:49</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-29T00:00:00Z</con:value>
+          <con:value>2012-04-14T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -3286,7 +2325,46 @@ if(gatewayBakFile.exists()) {
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    <con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript></con:testCase>
+    <con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);
+
+def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
+
+File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
+File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
+
+File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml");
+File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
+
+void MoveFile(File sourceFile, File destinationFile, log){
+ 
+ if(sourceFile.exists())
+   {
+    def reader = sourceFile.newReader();
+    destinationFile.withWriter 
+    { writer -&gt;       
+     writer &lt;&lt; reader;   
+    }   
+    reader.close();
+   } 
+   else {
+      log.info("unable to find source file " + sourceFile);
+   }   
+}
+
+MoveFile(backupInternalFile, sourceInternalFile, log);
+MoveFile(backupUddiFile, sourceUddiFile, log);
+
+void DeleteFile(File file, log) {  
+   if(file.exists()) {    
+      log.info("deleting file " + file);
+      file.delete(); 
+   } else {
+      log.info("file not found, skipping delete for " + file);
+   }
+}
+
+DeleteFile(backupInternalFile, log);
+DeleteFile(backupUddiFile, log);</con:tearDownScript></con:testCase>
     <con:properties/>
     <con:setupScript>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 
