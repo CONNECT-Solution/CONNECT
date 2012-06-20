@@ -18,4 +18,5 @@ Product/Production/Common/CONNECTCoreLib/testMPI.xml
 C:/
 bin/
 .externalToolBuilders/
-Product/Install/local.properties
+Product/Install/local.install.properties
+Product/Install/install.debug.log
