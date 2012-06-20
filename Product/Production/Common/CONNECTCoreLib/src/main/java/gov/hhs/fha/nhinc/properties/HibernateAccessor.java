@@ -56,7 +56,7 @@ public class HibernateAccessor {
         return instance;
     }
     
-    public File getHibernateFile(String hibernateFileName) throws PropertyAccessException {
+    public synchronized File getHibernateFile(String hibernateFileName) throws PropertyAccessException {
         checkEnvVarSet();
 
         File result = new File(propertyFileDir + "hibernate" + File.separator + hibernateFileName);
@@ -71,7 +71,7 @@ public class HibernateAccessor {
         return PropertyAccessor.getInstance();
     }
     
-    private void loadPropertyFileDir() {
+    private synchronized void loadPropertyFileDir() {
         propertyFileDir = getPropertyAccessor().getPropertyFileLocation();
         if (NullChecker.isNullish(propertyFileDir)) {
             log.error("Failed to load Hibernate Directory");
@@ -79,7 +79,7 @@ public class HibernateAccessor {
         }
     }
     
-    private boolean checkEnvVarSet() throws PropertyAccessException {
+    private synchronized boolean checkEnvVarSet() throws PropertyAccessException {
         if (failedToLoadEnvVar) {
             throw new PropertyAccessException("Failed to load Hibernate Directory");
         }
