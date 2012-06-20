@@ -528,7 +528,7 @@ public class EntityDocQueryOrchImpl {
             AdhocQueryResponse response, RegistryErrorList policyErrList) throws InterruptedException,
             ExecutionException {
         OutboundDocQueryOrchestratable_a0 orchResponse_g0 = null;
-        if (callableList.size() > 0) {
+        if (!callableList.isEmpty()) {
             NhinTaskExecutor<OutboundDocQueryOrchestratable_a0, OutboundDocQueryOrchestratable> dqexecutor = new NhinTaskExecutor<OutboundDocQueryOrchestratable_a0, OutboundDocQueryOrchestratable>(
                     ExecutorServiceHelper.getInstance().checkExecutorTaskIsLarge(correlationsResult.size()) ? largejobExecutor
                             : regularExecutor, callableList, transactionId);
@@ -557,7 +557,7 @@ public class EntityDocQueryOrchImpl {
             AdhocQueryResponse response, RegistryErrorList policyErrList) throws InterruptedException,
             ExecutionException {
         OutboundDocQueryOrchestratable_a1 orchResponse_g1 = null;
-        if (callableList.size() > 0) {
+        if (!callableList.isEmpty()) {
             NhinTaskExecutor<OutboundDocQueryOrchestratable_a1, OutboundDocQueryOrchestratable> dqexecutor = new NhinTaskExecutor<OutboundDocQueryOrchestratable_a1, OutboundDocQueryOrchestratable>(
                     ExecutorServiceHelper.getInstance().checkExecutorTaskIsLarge(correlationsResult.size()) ? largejobExecutor
                             : regularExecutor, callableList, transactionId);
