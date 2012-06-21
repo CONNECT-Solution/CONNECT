@@ -26,6 +26,9 @@
  */
 package gov.hhs.fha.nhinc.hiem.processor.entity;
 
+import gov.hhs.fha.nhinc.auditrepository.AuditRepositoryLogger;
+import gov.hhs.fha.nhinc.auditrepository.nhinc.proxy.AuditRepositoryProxy;
+import gov.hhs.fha.nhinc.auditrepository.nhinc.proxy.AuditRepositoryProxyObjectFactory;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.hiem.consumerreference.ReferenceParametersElements;
@@ -50,6 +53,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
+import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
 
 /**
  * 
@@ -68,6 +72,8 @@ public class EntityNotifyProcessor {
         } else {
             log.warn("EntityNotifyProcessor.processNotify - The assertion was not null for the entity notify message");
         }
+        auditInputMessage(notify, assertion,
+            NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE);
 
         NodeList notificationMessageNodes = getNotificationMessageNodes(rawNotifyXml);
         if (notificationMessageNodes != null) {
@@ -208,5 +214,35 @@ public class EntityNotifyProcessor {
                             + ex.getMessage(), ex);
         }
         return msgNodes;
+    }
+
+    /**
+    * Create a generic log for Input messages.
+    * @param notify The notify message to be audited
+    * @param assertion The assertion element to be audited
+    * @param direction The direction of the log to be audited (Inbound or Outbound)
+    * @param logInterface The interface of the log to be audited (NHIN or Adapter)
+    */
+    private void auditInputMessage(Notify notify, AssertionType assertion, String direction,
+            String logInterface) {
+        log.debug("In NhinHiemNotifyWebServiceProxy.auditInputMessage");
+        try {
+            AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
+
+            gov.hhs.fha.nhinc.common.nhinccommoninternalorch.NotifyRequestType message = new gov.hhs.fha.nhinc.common.nhinccommoninternalorch.NotifyRequestType();
+            message.setAssertion(assertion);
+            message.setNotify(notify);
+
+            LogEventRequestType auditLogMsg = auditLogger.logNhinNotifyRequest(message,
+                    direction, logInterface);
+
+            if (auditLogMsg != null) {
+                AuditRepositoryProxyObjectFactory auditRepoFactory = new AuditRepositoryProxyObjectFactory();
+                AuditRepositoryProxy proxy = auditRepoFactory.getAuditRepositoryProxy();
+                proxy.auditLog(auditLogMsg, assertion);
+            }
+        } catch (Throwable t) {
+            log.error("Error logging subscribe message: " + t.getMessage(), t);
+        }
     }
 }

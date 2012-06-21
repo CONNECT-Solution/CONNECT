@@ -96,9 +96,12 @@ public class NhinDocSubmissionDeferredRequestOrchImpl {
     
     private XDRAcknowledgementType sendToAdapter(ProvideAndRegisterDocumentSetRequestType body,
             AssertionType assertion) {
+        auditRequestToAdapter(body, assertion);
         
         AdapterDocSubmissionDeferredRequestProxy proxy = getAdapterDocSubmissionDeferredRequestProxy();
         XDRAcknowledgementType response = proxy.provideAndRegisterDocumentSetBRequest(body, null, assertion);
+
+        auditResponseFromAdapter(response, assertion);
 
         return response;
     }
@@ -118,6 +121,15 @@ public class NhinDocSubmissionDeferredRequestOrchImpl {
     
     private void auditResponseToNhin(XDRAcknowledgementType response,  AssertionType assertion) {
         getXDRAuditLogger().auditAcknowledgement(response, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION,
+                NhincConstants.XDR_REQUEST_ACTION);
+    }
+
+    private void auditRequestToAdapter(ProvideAndRegisterDocumentSetRequestType request, AssertionType assertion) {
+        getXDRAuditLogger().auditAdapterXDR(request, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
+    }
+
+    private void auditResponseFromAdapter(XDRAcknowledgementType response, AssertionType assertion) {
+        getXDRAuditLogger().auditAdapterAcknowledgement(response, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
                 NhincConstants.XDR_REQUEST_ACTION);
     }
     

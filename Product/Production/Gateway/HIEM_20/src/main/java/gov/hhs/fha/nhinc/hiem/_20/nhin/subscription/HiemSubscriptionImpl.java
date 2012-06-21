@@ -78,7 +78,7 @@ public class HiemSubscriptionImpl {
             throws NotifyMessageNotSupportedFault, SubscribeCreationFailedFault, TopicNotSupportedFault,
             InvalidTopicExpressionFault, ResourceUnknownFault {
         log.debug("Entering HiemSubscriptionImpl.subscribe");
-
+       
         // Log the start of the nhin performance record
         PerformanceManager.getPerformanceManagerInstance().logPerformanceStart(
                 NhincConstants.HIEM_SUBSCRIBE_SERVICE_NAME, NhincConstants.AUDIT_LOG_NHIN_INTERFACE,
@@ -89,31 +89,41 @@ public class HiemSubscriptionImpl {
 
         NhinSubscribeProcessor subscribeProcessor = new NhinSubscribeProcessor();
         AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
-
         // Audit the input message
-        auditInputMessage(subscribeRequest, assertion);
+        auditInputMessage(subscribeRequest, assertion,
+            NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
+
 
         SubscribeResponse response = null;
         if (checkPolicy(subscribeRequest, assertion)) {
+            // Audit the input message
+            auditInputMessage(subscribeRequest, assertion,
+                NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE);
+
             response = subscribeProcessor.processNhinSubscribe(soapMessage, assertion);
+            // Audit the response message
+            auditResponseMessage(response, assertion,
+                NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE);
         } else {
             SubscribeCreationFailedFaultType faultInfo = null;
             throw new SubscribeCreationFailedFault("Policy check failed", faultInfo);
         }
-
-        // Audit the response message
-        auditResponseMessage(response, assertion);
 
         // Log the end of the nhin performance record
         PerformanceManager.getPerformanceManagerInstance().logPerformanceStop(
                 NhincConstants.HIEM_SUBSCRIBE_SERVICE_NAME, NhincConstants.AUDIT_LOG_NHIN_INTERFACE,
                 NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, HomeCommunityMap.getLocalHomeCommunityId());
 
+        // Audit the response message
+        auditResponseMessage(response, assertion,
+                NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
+
         log.debug("Exiting HiemSubscriptionImpl.subscribe");
         return response;
     }
 
-    private void auditInputMessage(Subscribe subscribe, AssertionType assertion) {
+    private void auditInputMessage(Subscribe subscribe, AssertionType assertion,
+            String direction, String logInterface) {
         log.debug("In HiemSubscriptionImpl.auditInputMessage");
         try {
             AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
@@ -123,7 +133,7 @@ public class HiemSubscriptionImpl {
             message.setSubscribe(subscribe);
 
             LogEventRequestType auditLogMsg = auditLogger.logNhinSubscribeRequest(message,
-                    NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
+                    direction, logInterface);
 
             if (auditLogMsg != null) {
                 AuditRepositoryProxyObjectFactory auditRepoFactory = new AuditRepositoryProxyObjectFactory();
@@ -135,7 +145,8 @@ public class HiemSubscriptionImpl {
         }
     }
 
-    private void auditResponseMessage(SubscribeResponse response, AssertionType assertion) {
+    private void auditResponseMessage(SubscribeResponse response, AssertionType assertion,
+            String direction, String logInterface) {
         log.debug("In HiemSubscriptionImpl.auditResponseMessage");
         AcknowledgementType ack = null;
         try {
@@ -146,7 +157,7 @@ public class HiemSubscriptionImpl {
             message.setSubscribeResponse(response);
 
             LogEventRequestType auditLogMsg = auditLogger.logSubscribeResponse(message,
-                    NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
+                    direction, logInterface);
 
             if (auditLogMsg != null) {
                 AuditRepositoryProxyObjectFactory auditRepoFactory = new AuditRepositoryProxyObjectFactory();

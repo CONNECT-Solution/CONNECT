@@ -94,7 +94,7 @@ public class NhinHiemSubscribeWebServiceProxy implements NhinHiemSubscribeProxy 
 
         WsntSubscribeMarshaller subscribeMarshaller = new WsntSubscribeMarshaller();
         Subscribe subscribe = subscribeMarshaller.unmarshalUnsubscribeRequest(subscribeElement);
-        auditInputMessage(subscribe, assertion);
+
 
         if (target != null) {
             try {
@@ -111,6 +111,8 @@ public class NhinHiemSubscribeWebServiceProxy implements NhinHiemSubscribeProxy 
         if (NullChecker.isNotNullish(url)) {
             NotificationProducer port = getPort(url, assertion);
             if (checkPolicy(subscribe, assertion)) {
+                    auditInputMessage(subscribe, assertion,
+                        NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
                     try {
                         response = (SubscribeResponse) oProxyHelper.invokePort(port, NotificationProducer.class,
                                 SUBSCRIBE_SERVICE, subscribe);
@@ -118,7 +120,8 @@ public class NhinHiemSubscribeWebServiceProxy implements NhinHiemSubscribeProxy 
                         log.error("Exception: " + e.getMessage());
                         throw e;
                     }
-                auditResponseMessage(response, assertion);
+                auditResponseMessage(response, assertion,
+                        NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
             } else {
                 SubscribeCreationFailedFaultType faultInfo = null;
                 throw new SubscribeCreationFailedFault("Policy check failed", faultInfo);
@@ -163,7 +166,15 @@ public class NhinHiemSubscribeWebServiceProxy implements NhinHiemSubscribeProxy 
         return policyIsValid;
     }
 
-    private void auditInputMessage(Subscribe subscribe, AssertionType assertion) {
+    /**
+     * Create generic audit log for Input requests.
+     * @param subscribe The subscribe message to be audited
+     * @param assertion The assertion to be audited
+     * @param logDirection The direction of the log being audited (Inbound or Outbound)
+     * @param logInterface The interface of the log being audited (NHIN or Adapter)
+     */
+    private void auditInputMessage(Subscribe subscribe, AssertionType assertion, 
+            String logDirection, String logInterface ) {
         log.debug("In NhinHiemSubscribeWebServiceProxy.auditInputMessage");
         AcknowledgementType ack = null;
         try {
@@ -174,7 +185,7 @@ public class NhinHiemSubscribeWebServiceProxy implements NhinHiemSubscribeProxy 
             message.setSubscribe(subscribe);
 
             LogEventRequestType auditLogMsg = auditLogger.logNhinSubscribeRequest(message,
-                    NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
+                    logDirection, logInterface);
 
             if (auditLogMsg != null) {
                 AuditRepositoryProxyObjectFactory auditRepoFactory = new AuditRepositoryProxyObjectFactory();
@@ -186,7 +197,15 @@ public class NhinHiemSubscribeWebServiceProxy implements NhinHiemSubscribeProxy 
         }
     }
 
-    private void auditResponseMessage(SubscribeResponse response, AssertionType assertion) {
+    /**
+     * Create generic audit log for response messages.
+     * @param response the response to be audited
+     * @param assertion the assertion to be audited
+     * @param logDirection the direction of the log to be audited (Inbound or Outbound)
+     * @param logInterface the interface of the log being audited (NHIN or Adapter)
+     */
+    private void auditResponseMessage(SubscribeResponse response, AssertionType assertion, String logDirection,
+            String logInterface ) {
         log.debug("In NhinHiemSubscribeWebServiceProxy.auditResponseMessage");
         try {
             AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
@@ -196,7 +215,7 @@ public class NhinHiemSubscribeWebServiceProxy implements NhinHiemSubscribeProxy 
             message.setSubscribeResponse(response);
 
             LogEventRequestType auditLogMsg = auditLogger.logSubscribeResponse(message,
-                    NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
+                    logDirection, logInterface);
 
             if (auditLogMsg != null) {
                 AuditRepositoryProxyObjectFactory auditRepoFactory = new AuditRepositoryProxyObjectFactory();

@@ -72,7 +72,7 @@ public class NhinDocSubmissionDeferredRequestOrchImplTest {
     @Test
     public void testProvideAndRegisterDocumentSetB() throws PropertyAccessException {
         allowAnyMockLogging();
-        expect2MockAudits();
+        expect4MockAudits();
         setMockPropertyAccessorToReturnValidHcid();
         setMockServiceEnabled(true);
         setMockPassthruMode(false);
@@ -106,7 +106,7 @@ public class NhinDocSubmissionDeferredRequestOrchImplTest {
     @Test
     public void testProvideAndRegisterDocumentSetB_passthru() throws PropertyAccessException {
         allowAnyMockLogging();
-        expect2MockAudits();
+        expect4MockAudits();
         setMockServiceEnabled(true);
         setMockPassthruMode(true);
         expectMockProxyInvocationAndReturnValidResponse();
@@ -206,6 +206,24 @@ public class NhinDocSubmissionDeferredRequestOrchImplTest {
                         with(any(AssertionType.class)), with(any(String.class)));
 
                 oneOf(mockXDRLog).auditAcknowledgement(with(any(XDRAcknowledgementType.class)),
+                        with(any(AssertionType.class)), with(any(String.class)), with(any(String.class)));
+            }
+        });
+    }
+
+    private void expect4MockAudits() {
+        context.checking(new Expectations() {
+            {
+                oneOf(mockXDRLog).auditNhinXDR(with(any(ProvideAndRegisterDocumentSetRequestType.class)),
+                        with(any(AssertionType.class)), with(any(String.class)));
+
+                oneOf(mockXDRLog).auditAdapterXDR(with(any(ProvideAndRegisterDocumentSetRequestType.class)),
+                        with(any(AssertionType.class)), with(any(String.class)));
+
+                oneOf(mockXDRLog).auditAcknowledgement(with(any(XDRAcknowledgementType.class)),
+                        with(any(AssertionType.class)), with(any(String.class)), with(any(String.class)));
+                
+                oneOf(mockXDRLog).auditAdapterAcknowledgement(with(any(XDRAcknowledgementType.class)),
                         with(any(AssertionType.class)), with(any(String.class)), with(any(String.class)));
             }
         });

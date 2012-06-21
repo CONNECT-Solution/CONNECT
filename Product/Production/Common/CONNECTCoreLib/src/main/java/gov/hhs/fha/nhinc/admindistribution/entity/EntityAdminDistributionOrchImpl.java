@@ -77,7 +77,6 @@ public class EntityAdminDistributionOrchImpl {
 
                 if (bIsPolicyOk) {
                     NhinTargetSystemType targetSystem = buildTargetSystem(urlInfo);
-                    auditMessage(message, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
                     sendToNhinProxy(message, assertion, targetSystem);
                 } // if (bIsPolicyOk)
                 else {
