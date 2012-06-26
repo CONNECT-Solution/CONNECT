@@ -51,7 +51,7 @@ public class DocumentConstants {
     public static final String EBXML_DOCENTRY_CONFIDENTIALITY_CODE_SCHEME = "$XDSDocumentEntryConfidentialityCodeScheme";
     public static final String EBXML_DOCENTRY_FORMAT_CODE = "$XDSDocumentEntryFormatCode";
     public static final String EBXML_DOCENTRY_STATUS = "$XDSDocumentEntryStatus";
-
+    public static final String EBXML_DOCQUERY_STORED_QUERY_MISSIN_PARAM = "XDSStoredQueryMissingParam";
     public static final String XDS_QUERY_ID_FIND_DOCUMENTS = "urn:uuid:14d4debf-8f97-4251-9a74-a90016b0af0d";
 
     public static final String XDS_QUERY_RESPONSE_OPTION_RETURN_TYPE_OBJECT_REF = "ObjectRef";
@@ -95,6 +95,7 @@ public class DocumentConstants {
     public static final String XDS_QUERY_RESPONSE_STATUS_PARTIAL_SUCCESS = "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:PartialSuccess";
     public static final String XDS_RETRIEVE_RESPONSE_STATUS_SUCCESS = "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Success";
     public static final String XDS_RETRIEVE_RESPONSE_STATUS_FAILURE = "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure";
+    public static final String XDS_RETRIEVE_RESPONSE_STATUS_PARTIALSUCCESS ="urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:PartialSuccess";
     public static final String XDS_SUBMISSION_RESPONSE_STATUS_SUCCESS = "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Success";
     public static final String XDS_SUBMISSION_RESPONSE_STATUS_FAILURE = "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure"; 
     public static final String XDS_QUERY_RESPONSE_STATUS_PARTIALSUCCESS = "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Partial Success";
