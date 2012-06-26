@@ -35,7 +35,6 @@ import org.hl7.v3.RespondingGatewayPRPAIN201306UV02ResponseType;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.gateway.servlet.InitServlet;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.patientdiscovery.entity.EntityPatientDiscoveryOrchImpl;
 import gov.hhs.fha.nhinc.perfrepo.PerformanceManager;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
@@ -84,17 +83,7 @@ public class EntityPatientDiscoveryImpl {
 
             EntityPatientDiscoveryOrchImpl processor = getEntityPatientDiscoveryProcessor();
             if (processor != null) {
-
-                // Log the start of the performance record
-                String homeCommunityId = getLocalHomeCommunityId();
-                getPerformanceManager().logPerformanceStart(NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE,
-                        NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, homeCommunityId);
-
                 response = processor.respondingGatewayPRPAIN201305UV02(request, assertion);
-
-                // Log the end of the performance record
-                getPerformanceManager().logPerformanceStop(NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE,
-                        NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, homeCommunityId);
             } else {
                 log.error("The EntityPatientDiscoveryProcessor was null.");
             }
@@ -120,18 +109,8 @@ public class EntityPatientDiscoveryImpl {
         } else {
             EntityPatientDiscoveryOrchImpl processor = getEntityPatientDiscoveryProcessor();
             if (processor != null) {
-
-                // Log the start of the performance record
-                String homeCommunityId = getLocalHomeCommunityId();
-                getPerformanceManager().logPerformanceStart(NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE,
-                        NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, homeCommunityId);
-
                 response = processor.respondingGatewayPRPAIN201305UV02(respondingGatewayPRPAIN201305UV02Request,
                         respondingGatewayPRPAIN201305UV02Request.getAssertion());
-
-                // Log the end of the performance record
-                getPerformanceManager().logPerformanceStop(NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE,
-                        NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, homeCommunityId);
             } else {
                 log.warn("EntityPatientDiscoveryProcessor was null.");
             }

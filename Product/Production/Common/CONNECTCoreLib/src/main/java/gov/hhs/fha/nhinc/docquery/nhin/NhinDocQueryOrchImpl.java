@@ -40,7 +40,6 @@ import gov.hhs.fha.nhinc.docquery.DocQueryPolicyChecker;
 import gov.hhs.fha.nhinc.docquery.adapter.proxy.AdapterDocQueryProxy;
 import gov.hhs.fha.nhinc.docquery.adapter.proxy.AdapterDocQueryProxyObjectFactory;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.perfrepo.PerformanceManager;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
@@ -83,11 +82,6 @@ public class NhinDocQueryOrchImpl {
         auditAdhocQueryRequest(crossGatewayQueryRequest, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
                 NhincConstants.AUDIT_LOG_NHIN_INTERFACE, requestCommunityID);
 
-        // Log the start of the nhin performance record
-        PerformanceManager.getPerformanceManagerInstance()
-                .logPerformanceStart(NhincConstants.DOC_QUERY_SERVICE_NAME, NhincConstants.AUDIT_LOG_NHIN_INTERFACE,
-                        NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, requestCommunityID);
-
         // AssignProcessFlag: 'true' = $GetPropertyOut.GetPropertyResponse/propacc:propertyValue
         // Check if the AdhocQuery Service is enabled
         if (isServiceEnabled()) {
@@ -107,11 +101,6 @@ public class NhinDocQueryOrchImpl {
             resp.setTotalResultCount(NhincConstants.NHINC_ADHOC_QUERY_NO_RESULT_COUNT);
             resp.setStatus(NhincConstants.NHINC_ADHOC_QUERY_SUCCESS_RESPONSE);
         }
-
-        // Log the end of the nhin performance record
-        PerformanceManager.getPerformanceManagerInstance()
-                .logPerformanceStop(NhincConstants.DOC_QUERY_SERVICE_NAME, NhincConstants.AUDIT_LOG_NHIN_INTERFACE,
-                        NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, requestCommunityID);
 
         // create an audit record for the response
         auditAdhocQueryResponse(resp, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION,

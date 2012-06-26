@@ -37,9 +37,7 @@ import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditor;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryException;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryProcessor;
 import gov.hhs.fha.nhinc.patientdiscovery.adapter.proxy.AdapterPatientDiscoveryProxy;
-import gov.hhs.fha.nhinc.perfrepo.PerformanceManager;
 import gov.hhs.fha.nhinc.properties.ServicePropertyAccessor;
-import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 
 /**
  *
@@ -105,18 +103,7 @@ public class NhinPatientDiscoveryOrchImpl implements InboundPatientDiscoveryOrch
         // Audit the incoming Nhin 201305 Message
         auditLogger.auditNhin201305(body, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
 
-        // Log the start of the adapter performance record
-        String homeCommunityId = HomeCommunityMap.getLocalHomeCommunityId();
-        PerformanceManager.getPerformanceManagerInstance().logPerformanceStart(
-                NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE,
-                NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, homeCommunityId);
-
         response = process(body, assertion);
-
-        // Log the end of the adapter performance record
-        PerformanceManager.getPerformanceManagerInstance().logPerformanceStop(
-                NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE,
-                NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, homeCommunityId);
 
         // Audit the outgoing Nhin 201306 Message - response that came
         // back from the adapter.

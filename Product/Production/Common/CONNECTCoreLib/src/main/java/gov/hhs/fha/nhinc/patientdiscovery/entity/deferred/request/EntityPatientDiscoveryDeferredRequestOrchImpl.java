@@ -51,10 +51,8 @@ import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscovery201305Processor;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditLogger;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditor;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryPolicyChecker;
-import gov.hhs.fha.nhinc.perfrepo.PerformanceManager;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7AckTransforms;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7DataTransformHelper;
-import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 
 public class EntityPatientDiscoveryDeferredRequestOrchImpl {
 
@@ -104,15 +102,9 @@ public class EntityPatientDiscoveryDeferredRequestOrchImpl {
             // loop through the communities and send request if results were not null
             List<UrlInfo> urlInfoList = getTargetEndpoints(targets);
             if (urlInfoList != null) {
-
-                // Log the start of the performance record
-                PerformanceManager.getPerformanceManagerInstance().logPerformanceStart(NhincConstants.PATIENT_DISCOVERY_DEFERRED_SERVICE_NAME,
-                        NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION,
-                        HomeCommunityMap.getLocalHomeCommunityId());
-
                 II patientId = pd201305Processor.extractPatientIdFrom201305(message);
                 if (patientId != null) {
-                	createMessageIdToPatientIdCorrelation(assertion.getMessageId(), patientId);
+                    createMessageIdToPatientIdCorrelation(assertion.getMessageId(), patientId);
                 }
 
                 for (UrlInfo urlInfo : urlInfoList) {
@@ -136,11 +128,6 @@ public class EntityPatientDiscoveryDeferredRequestOrchImpl {
                     // clean up new assertion
                     newAssertion = null;
                 }
-
-                // Log the end of the performance record
-                PerformanceManager.getPerformanceManagerInstance().logPerformanceStop(NhincConstants.PATIENT_DISCOVERY_DEFERRED_SERVICE_NAME,
-                        NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION,
-                        HomeCommunityMap.getLocalHomeCommunityId());
             } else {
                 ackMsg = "No targets were found for the Patient Discovery Request";
                 log.warn(ackMsg);

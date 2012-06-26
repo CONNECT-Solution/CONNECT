@@ -37,7 +37,6 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.patientdiscovery.nhin.GenericFactory;
 import gov.hhs.fha.nhinc.patientdiscovery.nhin.InboundPatientDiscoveryOrchestration;
-import gov.hhs.fha.nhinc.perfrepo.PerformanceManager;
 import gov.hhs.fha.nhinc.service.WebServiceHelper;
 import gov.hhs.fha.nhinc.transform.audit.PatientDiscoveryTransforms;
 
@@ -64,24 +63,13 @@ public class NhinPatientDiscoveryImpl extends WebServiceHelper {
 
         AssertionType assertion = getSamlAssertion(context);
         String targetCommunityId = getTargetCommunityId(body);
-
-        getPerformanceManager().logPerformanceStart(NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME,
-                NhincConstants.AUDIT_LOG_NHIN_INTERFACE, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, targetCommunityId);
-
         PRPAIN201306UV02 response;
         response = respondingGatewayPRPAIN201305UV02(body, assertion);
-
-        PerformanceManager.getPerformanceManagerInstance().logPerformanceStop(NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME,
-                NhincConstants.AUDIT_LOG_NHIN_INTERFACE, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, targetCommunityId);
 
         // Send response back to the initiating Gateway
         log.debug("Exiting NhinPatientDiscoveryImpl.respondingGatewayPRPAIN201305UV02");
         return response;
 
-    }
-
-    protected PerformanceManager getPerformanceManager() {
-        return PerformanceManager.getPerformanceManagerInstance();
     }
 
     private PRPAIN201306UV02 respondingGatewayPRPAIN201305UV02(PRPAIN201305UV02 body, AssertionType assertion)

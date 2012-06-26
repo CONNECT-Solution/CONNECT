@@ -40,6 +40,8 @@ import gov.hhs.fha.nhinc.util.HomeCommunityMap;
  * 
  */
 public class PerformanceLogHandler implements SOAPHandler<SOAPMessageContext> {
+    private static final String ENTITY_INTERFACE_LOWERCASE = NhincConstants.AUDIT_LOG_ENTITY_INTERFACE.toLowerCase();
+    private static final String PASSTHROUGH_INTERFACE_LOWERCASE = "nhinc";
 
     @Override
     public void close(MessageContext message) {
@@ -90,17 +92,14 @@ public class PerformanceLogHandler implements SOAPHandler<SOAPMessageContext> {
     }
 
     private String getMessageType(SOAPMessageContext message) {
-        String messagetype = message.get(SOAPMessageContext.WSDL_INTERFACE).toString();
+        String messagetype = message.get(SOAPMessageContext.WSDL_INTERFACE).toString().toLowerCase();
 
-        if (messagetype.contains(NhincConstants.AUDIT_LOG_ENTITY_INTERFACE)) {
+        if (messagetype.contains(ENTITY_INTERFACE_LOWERCASE)) {
             return NhincConstants.AUDIT_LOG_ENTITY_INTERFACE;
-        } else if (messagetype.contains(NhincConstants.AUDIT_LOG_NHIN_INTERFACE)) {
+        } else if (messagetype.contains(PASSTHROUGH_INTERFACE_LOWERCASE)) {
+            return NhincConstants.AUDIT_LOG_PROXY_INTERFACE;
+        } else {
             return NhincConstants.AUDIT_LOG_NHIN_INTERFACE;
-        } else if (messagetype.contains(NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE)) {
-            return NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE;
         }
-        return null;
-
     }
-
 }

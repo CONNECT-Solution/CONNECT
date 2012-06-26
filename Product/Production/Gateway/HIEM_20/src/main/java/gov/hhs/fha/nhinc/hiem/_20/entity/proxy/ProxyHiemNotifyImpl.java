@@ -38,12 +38,9 @@ import gov.hhs.fha.nhinc.common.nhinccommonproxy.NotifyRequestType;
 import gov.hhs.fha.nhinc.hiem.consumerreference.ReferenceParametersElements;
 import gov.hhs.fha.nhinc.hiem.consumerreference.ReferenceParametersHelper;
 import gov.hhs.fha.nhinc.hiem.dte.SoapUtil;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinhiem.proxy.notify.NhinHiemNotifyProxy;
 import gov.hhs.fha.nhinc.nhinhiem.proxy.notify.NhinHiemNotifyProxyObjectFactory;
-import gov.hhs.fha.nhinc.perfrepo.PerformanceManager;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
-import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import gov.hhs.fha.nhinc.xmlCommon.XmlUtility;
 
 /**
@@ -56,12 +53,6 @@ public class ProxyHiemNotifyImpl {
 
     public void notify(NotifyRequestType notifyRequest, WebServiceContext context) {
         log.debug("Entering ProxyHiemNotifyImpl.notify...");
-
-        // Log the start of the nhin performance record
-        PerformanceManager.getPerformanceManagerInstance().logPerformanceStart(
-                NhincConstants.HIEM_NOTIFY_PROXY_SERVICE_NAME_SECURED, NhincConstants.AUDIT_LOG_NHIN_INTERFACE,
-                NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, HomeCommunityMap.getLocalHomeCommunityId());
-
         Element notifyElement = new SoapUtil().extractFirstElement(context, "notifySoapMessage", "Notify");
 
         log.debug("extracting soap header elements");
@@ -78,22 +69,11 @@ public class ProxyHiemNotifyImpl {
 
         proxy.notify(notifyElement, referenceParametersElements, notifyRequest.getAssertion(),
                 notifyRequest.getNhinTargetSystem());
-
-        // Log the end of the nhin performance record
-        PerformanceManager.getPerformanceManagerInstance().logPerformanceStop(
-                NhincConstants.HIEM_NOTIFY_PROXY_SERVICE_NAME_SECURED, NhincConstants.AUDIT_LOG_NHIN_INTERFACE,
-                NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, HomeCommunityMap.getLocalHomeCommunityId());
-
         log.debug("Exiting ProxyHiemNotifyImpl.notify...");
     }
 
     public void notify(NotifyRequestSecuredType notifyRequest, WebServiceContext context) {
         log.debug("Entering ProxyHiemNotifyImpl.notify...");
-        // Log the start of the nhin performance record
-        PerformanceManager.getPerformanceManagerInstance().logPerformanceStart(
-                NhincConstants.HIEM_NOTIFY_PROXY_SERVICE_NAME_SECURED, NhincConstants.AUDIT_LOG_NHIN_INTERFACE,
-                NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, HomeCommunityMap.getLocalHomeCommunityId());
-
         Element notifyElement = new SoapUtil().extractFirstElement(context, "notifySoapMessage", "Notify");
 
         log.debug("NOTIFY MESSAGE RECEIVED FROM SECURED INTERFACE: "
@@ -115,12 +95,6 @@ public class ProxyHiemNotifyImpl {
 
         proxy.notify(notifyElement, referenceParametersElements, SamlTokenExtractor.GetAssertion(context),
                 notifyRequest.getNhinTargetSystem());
-
-        // Log the end of the nhin performance record
-        PerformanceManager.getPerformanceManagerInstance().logPerformanceStop(
-                NhincConstants.HIEM_NOTIFY_PROXY_SERVICE_NAME_SECURED, NhincConstants.AUDIT_LOG_NHIN_INTERFACE,
-                NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, HomeCommunityMap.getLocalHomeCommunityId());
-
         log.debug("Exiting ProxyHiemNotifyImpl.notify...");
     }
 

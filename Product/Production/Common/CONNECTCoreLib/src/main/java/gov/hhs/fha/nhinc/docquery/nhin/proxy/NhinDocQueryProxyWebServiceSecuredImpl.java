@@ -43,7 +43,6 @@ import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.docrepository.DocumentProcessHelper;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
-import gov.hhs.fha.nhinc.perfrepo.PerformanceManager;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 
@@ -61,6 +60,7 @@ public class NhinDocQueryProxyWebServiceSecuredImpl implements NhinDocQueryProxy
     private static final String PORT_LOCAL_PART = "RespondingGateway_Query_Port_Soap";
     private static final String WSDL_FILE = "NhinDocQuery.wsdl";
     private static final String WS_ADDRESSING_ACTION = "urn:ihe:iti:2007:CrossGatewayQuery";
+    private static final String EMPTY_STRING = "";
     private final WebServiceProxyHelper oProxyHelper = new WebServiceProxyHelper();
 
     public NhinDocQueryProxyWebServiceSecuredImpl() {
@@ -151,18 +151,13 @@ public class NhinDocQueryProxyWebServiceSecuredImpl implements NhinDocQueryProxy
             } else if (port == null) {
                 log.error("port was null");
             } else {
-                String uniquePatientId = "";
+                String uniquePatientId = EMPTY_STRING;
                 if (assertion != null && assertion.getUniquePatientId() != null
                         && assertion.getUniquePatientId().size() > 0) {
                     uniquePatientId = assertion.getUniquePatientId().get(0);
                 }
 
-                // Log the start of the performance record
-                String targetHomeCommunityId = HomeCommunityMap.getCommunityIdFromTargetSystem(target);
-                PerformanceManager.getPerformanceManagerInstance().logPerformanceStart(
-                        NhincConstants.DOC_QUERY_SERVICE_NAME, NhincConstants.AUDIT_LOG_NHIN_INTERFACE,
-                        NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, targetHomeCommunityId);
-
+                HomeCommunityMap.getCommunityIdFromTargetSystem(target);
                 response = (AdhocQueryResponse) oProxyHelper.invokePort(port, RespondingGatewayQueryPortType.class,
                         "respondingGatewayCrossGatewayQuery", request);
 
@@ -177,11 +172,6 @@ public class NhinDocQueryProxyWebServiceSecuredImpl implements NhinDocQueryProxy
                 } else {
                     log.debug("CONNECT Demo Operation Mode Disabled");
                 }
-
-                // Log the end of the performance record
-                PerformanceManager.getPerformanceManagerInstance().logPerformanceStop(
-                        NhincConstants.DOC_QUERY_SERVICE_NAME, NhincConstants.AUDIT_LOG_NHIN_INTERFACE,
-                        NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, targetHomeCommunityId);
             }
         } catch (Exception ex) {
             log.error("Error calling respondingGatewayCrossGatewayQuery: " + ex.getMessage(), ex);

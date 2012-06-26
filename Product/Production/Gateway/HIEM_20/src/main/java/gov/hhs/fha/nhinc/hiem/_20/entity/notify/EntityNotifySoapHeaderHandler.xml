@@ -3,6 +3,7 @@
     <handler-chains>
         <handler-chain>
             <handler>
+                <handler-name>SOAPHeaderHandler</handler-name>
                 <handler-class>gov.hhs.fha.nhinc.hiem._20.entity.notify.EntityNotifySoapHeaderHandler</handler-class>
             </handler>
             <handler>

@@ -41,7 +41,6 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
-import gov.hhs.fha.nhinc.perfrepo.PerformanceManager;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 
 /**
@@ -87,7 +86,7 @@ public class NhinPatientDiscoveryProxyWebServiceSecuredImpl implements NhinPatie
                 String url = target.getUrl();
                 if (NullChecker.isNullish(url)) {
                     url = ConnectionManagerCache.getInstance().getDefaultEndpointURLByServiceName(
-                        target.getHomeCommunity().getHomeCommunityId(), NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME);
+                            target.getHomeCommunity().getHomeCommunityId(), NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME);
                     log.debug("After target system URL look up. URL for service: "
                             + NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME + " is: " + url);
                 }
@@ -95,23 +94,8 @@ public class NhinPatientDiscoveryProxyWebServiceSecuredImpl implements NhinPatie
                 if (NullChecker.isNotNullish(url)) {
                     RespondingGatewayPortType port = getPort(url, NhincConstants.PATIENT_DISCOVERY_ACTION,
                             WS_ADDRESSING_ACTION, assertion);
-
-                    // Log the start of the performance record
-                    String targetCommunityId = "";
-
-                    if ((target != null) && (target.getHomeCommunity() != null)) {
-                        targetCommunityId = target.getHomeCommunity().getHomeCommunityId();
-                    }
-                    PerformanceManager.getPerformanceManagerInstance().logPerformanceStart(NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME, NhincConstants.AUDIT_LOG_NHIN_INTERFACE,
-                            NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, targetCommunityId);
-
                     response = (PRPAIN201306UV02) oProxyHelper.invokePort(port, RespondingGatewayPortType.class,
                             "respondingGatewayPRPAIN201305UV02", request);
-
-                    // Log the end of the performance record
-                    PerformanceManager.getPerformanceManagerInstance().logPerformanceStop(NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME, NhincConstants.AUDIT_LOG_NHIN_INTERFACE,
-                            NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, targetCommunityId);
-
                 } else {
                     log.error("Failed to call the web service (" + NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME
                             + ").  The URL is null.");

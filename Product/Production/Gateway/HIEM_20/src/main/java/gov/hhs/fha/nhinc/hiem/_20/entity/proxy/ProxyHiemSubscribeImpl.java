@@ -38,12 +38,9 @@ import gov.hhs.fha.nhinc.common.nhinccommonproxy.SubscribeRequestSecuredType;
 import gov.hhs.fha.nhinc.common.nhinccommonproxy.SubscribeRequestType;
 import gov.hhs.fha.nhinc.hiem.dte.SoapUtil;
 import gov.hhs.fha.nhinc.hiem.dte.marshallers.SubscribeResponseMarshaller;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinhiem.proxy.subscribe.NhinHiemSubscribeProxy;
 import gov.hhs.fha.nhinc.nhinhiem.proxy.subscribe.NhinHiemSubscribeProxyObjectFactory;
-import gov.hhs.fha.nhinc.perfrepo.PerformanceManager;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
-import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import gov.hhs.fha.nhinc.xmlCommon.XmlUtility;
 
 /**
@@ -57,11 +54,6 @@ public class ProxyHiemSubscribeImpl {
     public SubscribeResponse subscribe(SubscribeRequestType subscribeRequest, WebServiceContext context)
             throws Exception {
         log.debug("Entering ProxyHiemSubscribeImpl.subscribe...");
-
-        // Log the start of the nhin performance record
-        PerformanceManager.getPerformanceManagerInstance().logPerformanceStart(
-                NhincConstants.HIEM_SUBSCRIBE_PROXY_SERVICE_NAME_SECURED, NhincConstants.AUDIT_LOG_NHIN_INTERFACE,
-                NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, HomeCommunityMap.getLocalHomeCommunityId());
         SubscribeResponse resp = null;
 
         Element subscribeElement = new SoapUtil().extractFirstElement(context, "subscribeSoapMessage", "Subscribe");
@@ -77,12 +69,6 @@ public class ProxyHiemSubscribeImpl {
 
         SubscribeResponseMarshaller responseMarshaller = new SubscribeResponseMarshaller();
         resp = responseMarshaller.unmarshal(responseElement);
-
-        // Log the end of the nhin performance record
-        PerformanceManager.getPerformanceManagerInstance().logPerformanceStop(
-                NhincConstants.HIEM_SUBSCRIBE_PROXY_SERVICE_NAME_SECURED, NhincConstants.AUDIT_LOG_NHIN_INTERFACE,
-                NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, HomeCommunityMap.getLocalHomeCommunityId());
-
         log.debug("Exiting ProxyHiemSubscribeImpl.subscribe...");
         return resp;
     }
@@ -114,11 +100,6 @@ public class ProxyHiemSubscribeImpl {
     public SubscribeResponse subscribe(SubscribeRequestSecuredType subscribeRequest, WebServiceContext context)
             throws Exception {
         log.debug("Entering Secured ProxyHiemSubscribeImpl.subscribe...");
-
-        // Log the start of the nhin performance record
-        PerformanceManager.getPerformanceManagerInstance().logPerformanceStart(
-                NhincConstants.HIEM_SUBSCRIBE_PROXY_SERVICE_NAME_SECURED, NhincConstants.AUDIT_LOG_NHIN_INTERFACE,
-                NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, HomeCommunityMap.getLocalHomeCommunityId());
         SubscribeResponse resp = null;
 
         Element subscribeElement = new SoapUtil().extractFirstElement(context, "subscribeSoapMessage", "Subscribe");
@@ -134,12 +115,6 @@ public class ProxyHiemSubscribeImpl {
 
         SubscribeResponseMarshaller responseMarshaller = new SubscribeResponseMarshaller();
         resp = responseMarshaller.unmarshal(responseElement);
-
-        // Log the end of the nhin performance record
-        PerformanceManager.getPerformanceManagerInstance().logPerformanceStop(
-                NhincConstants.HIEM_SUBSCRIBE_PROXY_SERVICE_NAME_SECURED, NhincConstants.AUDIT_LOG_NHIN_INTERFACE,
-                NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, HomeCommunityMap.getLocalHomeCommunityId());
-
         log.debug("Response = " + XmlUtility.serializeElementIgnoreFaults(responseElement));
 
         log.debug("Exiting Secured ProxyHiemSubscribeImpl.subscribe...");

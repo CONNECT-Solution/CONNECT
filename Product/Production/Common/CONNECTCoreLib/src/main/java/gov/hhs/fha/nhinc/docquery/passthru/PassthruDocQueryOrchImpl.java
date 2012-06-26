@@ -36,7 +36,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import gov.hhs.fha.nhinc.common.auditlog.AdhocQueryResponseMessageType;
-import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.docquery.DocQueryAuditLog;
@@ -45,7 +44,6 @@ import gov.hhs.fha.nhinc.docquery.entity.OutboundDocQueryOrchestratable;
 import gov.hhs.fha.nhinc.gateway.aggregator.document.DocumentConstants;
 import gov.hhs.fha.nhinc.gateway.executorservice.ExecutorServiceHelper;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.perfrepo.PerformanceManager;
 
 /**
  *
@@ -76,26 +74,16 @@ public class PassthruDocQueryOrchImpl {
         log.debug("=====>>>>> responseCommunityID is " + responseCommunityID);
         // Audit the Document Query Request Message sent on the Nhin Interface
         DocQueryAuditLog auditLog = new DocQueryAuditLog();
-        AcknowledgementType ack = auditLog.auditDQRequest(body, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION,
+        auditLog.auditDQRequest(body, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION,
                 NhincConstants.AUDIT_LOG_NHIN_INTERFACE, responseCommunityID);
 
         try {
             log.debug("Creating NhinDocQueryProxy");
 
-            // Log the start of the nhin performance record
-            Long logId = PerformanceManager.getPerformanceManagerInstance().logPerformanceStart(
-                    NhincConstants.DOC_QUERY_SERVICE_NAME, NhincConstants.AUDIT_LOG_NHIN_INTERFACE,
-                    NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, responseCommunityID);
-
             OutboundDocQueryDelegate delegate = new OutboundDocQueryDelegate();
             OutboundDocQueryOrchestratable orchestratable = new OutboundDocQueryOrchestratable(delegate, null, null,
                     null, assertion, NhincConstants.DOC_QUERY_SERVICE_NAME, target, body);
             response = delegate.process(orchestratable).getResponse();
-
-            // Log the end of the nhin performance record
-            PerformanceManager.getPerformanceManagerInstance().logPerformanceStop(
-                    NhincConstants.DOC_QUERY_SERVICE_NAME, NhincConstants.AUDIT_LOG_NHIN_INTERFACE,
-                    NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, responseCommunityID);
         } catch (Exception ex) {
             log.error("PassthruDocQueryOrchImpl Exception", ex);
             String err = ExecutorServiceHelper.getFormattedExceptionInfo(ex, target,
@@ -107,7 +95,7 @@ public class PassthruDocQueryOrchImpl {
         AdhocQueryResponseMessageType auditMsg = new AdhocQueryResponseMessageType();
         auditMsg.setAdhocQueryResponse(response);
         auditMsg.setAssertion(assertion);
-        ack = auditLog.auditDQResponse(response, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
+        auditLog.auditDQResponse(response, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
                 NhincConstants.AUDIT_LOG_NHIN_INTERFACE, responseCommunityID);
 
         log.debug("Leaving NhincProxyDocQuerySecuredImpl.respondingGatewayCrossGatewayQuery...");
