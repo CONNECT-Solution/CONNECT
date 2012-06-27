@@ -179,10 +179,6 @@ public class EntityPatientDiscoverySecuredImplTest {
                     oneOf(mockProcessor).respondingGatewayPRPAIN201305UV02(
                             with(aNonNull(RespondingGatewayPRPAIN201305UV02RequestType.class)),
                             with(aNonNull(AssertionType.class)));
-                    oneOf(mockPerformanceManager).logPerformanceStart(with(aNonNull(String.class)),
-                            with(aNonNull(String.class)), with(aNonNull(String.class)), with(aNonNull(String.class)));
-                    oneOf(mockPerformanceManager).logPerformanceStop(with(aNonNull(String.class)),
-                            with(aNonNull(String.class)), with(aNonNull(String.class)), with(aNonNull(String.class)));
                 }
             });
 
