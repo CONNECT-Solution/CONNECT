@@ -34,6 +34,7 @@ import javax.xml.bind.JAXBElement;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+//import org.bouncycastle.crypto.DSA;
 
 import gov.hhs.fha.nhinc.docrepository.adapter.model.Document;
 import gov.hhs.fha.nhinc.docrepository.adapter.model.DocumentQueryParams;
@@ -65,6 +66,7 @@ import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryObjectListType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
+import gov.hhs.fha.nhinc.docretrieve.util.DocRetrieveStatusUtil;
 
 /**
  * 
@@ -74,6 +76,7 @@ public class AdapterComponentDocRepositoryOrchImpl {
 
     public static final String XDS_RETRIEVE_RESPONSE_STATUS_FAILURE = "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure";
     public static final String XDS_RETRIEVE_RESPONSE_STATUS_SUCCESS = "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Success";
+    public static final String XDS_RETRIEVE_RESPONSE_STATUS_PARTIALSUCCESS = "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:PartialSuccess";
     public static final String XDS_AVAILABLILTY_STATUS_APPROVED = "Active";
     public static final String XDS_STATUS = "urn:oasis:names:tc:ebxml-regrep:StatusType:Approved";
     public static final String XDS_STATUS_ONLINE = "Online";
@@ -126,6 +129,9 @@ public class AdapterComponentDocRepositoryOrchImpl {
     private Log log = null;
     private UTCDateUtil utcDateUtil = null;
     private static final String REPOSITORY_UNIQUE_ID = "1";
+    private static final String XDS_DOCUMENT_UNIQUE_ID_ERROR = "XDSDocumentUniqueIdError";
+    private static String status = null;
+
     // private final static int FILECHUNK = 65536;
 
     public AdapterComponentDocRepositoryOrchImpl() {
@@ -151,11 +157,17 @@ public class AdapterComponentDocRepositoryOrchImpl {
      * @param body Message containing docurment retrieve parameters
      * @return Document retrieve response message.
      */
+
     public ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType documentRepositoryRetrieveDocumentSet(
             ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType body) {
         ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType response = new ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType();
         String docUniqueId = "";
         String reposUniqueId = "";
+        RegistryResponseType regResponse = new RegistryResponseType();
+        regResponse.setStatus(NhincConstants.NHINC_ADHOC_QUERY_SUCCESS_RESPONSE);
+        response.setRegistryResponse(regResponse);
+        RegistryErrorList regerrList = new RegistryErrorList();
+
         if ((body != null) && (body.getDocumentRequest() != null) && (!body.getDocumentRequest().isEmpty())) {
             String homeCommunityId = null;
             List<String> documentUniqueIds = new ArrayList<String>();
@@ -165,7 +177,6 @@ public class AdapterComponentDocRepositoryOrchImpl {
 
             while (iterDocRequest.hasNext()) {
                 DocumentRequest oDocRequest = iterDocRequest.next();
-
                 // Home Community
                 // ----------------
                 if ((homeCommunityId == null) && (oDocRequest.getHomeCommunityId() != null)
@@ -175,16 +186,35 @@ public class AdapterComponentDocRepositoryOrchImpl {
 
                 // Document Uniqiue ID
                 // --------------------
-                if ((oDocRequest.getDocumentUniqueId() != null) && (oDocRequest.getDocumentUniqueId().length() > 0)) {
+                if ((oDocRequest.getDocumentUniqueId() != null) && (oDocRequest.getDocumentUniqueId().length() > 0)
+                        && (!(oDocRequest.getDocumentUniqueId().isEmpty()))) {
                     docUniqueId = StringUtil.extractStringFromTokens(oDocRequest.getDocumentUniqueId(), "'()");
                     documentUniqueIds.add(docUniqueId);
+                    /*
+                     * status = DocRetrieveStatusUtil.setResponseStatus(response); regResponse.setStatus(status);
+                     */
+                } else {
+                    if (regResponse.getRegistryErrorList() == null) {
+                        regResponse.setRegistryErrorList(regerrList);
+                    }
+                    RegistryError regErr = new RegistryError();
+                    regerrList.getRegistryError().add(regErr);
+                    regErr.setCodeContext("Document id not found" + "(" + ")");
+                    regErr.setErrorCode(XDS_DOCUMENT_UNIQUE_ID_ERROR);
+                    regErr.setSeverity(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR);
+                    regResponse.setStatus(XDS_RETRIEVE_RESPONSE_STATUS_FAILURE);
+                    // status = DocRetrieveStatusUtil.setResponseStatus(response);
+                    // regResponse.setStatus(status);
                 }
 
                 // Repository Unique ID
                 // ----------------------
-                if ((oDocRequest.getRepositoryUniqueId() != null) && (oDocRequest.getRepositoryUniqueId().length() > 0)) {
+                if ((oDocRequest.getRepositoryUniqueId() != null) && (oDocRequest.getRepositoryUniqueId().length() > 0)
+                        && (!(oDocRequest.getRepositoryUniqueId().isEmpty()))) {
                     reposUniqueId = StringUtil.extractStringFromTokens(oDocRequest.getRepositoryUniqueId(), "'()");
                     repositoryUniqueIds.add(reposUniqueId);
+                } else {
+                    log.debug("RepositoryId not found");
                 }
 
             } // while (iterDocRequest.hasNext())
@@ -199,36 +229,56 @@ public class AdapterComponentDocRepositoryOrchImpl {
                                 + repositoryUniqueId);
                     }
                 }
+                retrieveDocuments(repositoryIdMatched, documentUniqueIds, response, homeCommunityId, regerrList);
 
-                if (repositoryIdMatched) {
-                    DocumentQueryParams params = new DocumentQueryParams();
-                    params.setDocumentUniqueId(documentUniqueIds);
-                    DocumentService service = getDocumentService();
-                    List<Document> docs = service.documentQuery(params);
-                    loadDocumentResponses(response, docs, homeCommunityId);
-                }
             }
 
         }
-        
-        if (response.getRegistryResponse() == null) {
-        	RegistryResponseType regResponse = new RegistryResponseType();
-        	regResponse.setStatus(NhincConstants.NHINC_ADHOC_QUERY_SUCCESS_RESPONSE);
-        	response.setRegistryResponse(regResponse);
-        }
+
         return response;
     }
 
-    private void loadDocumentResponses(ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType response,
-            List<Document> docs, String homeCommunityId) {
+    protected void retrieveDocuments(boolean repositoryIdMatched, List<String> documentUniqueIds,
+            ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType response, String homeCommunityId,
+            RegistryErrorList regerrList) {
+        if (repositoryIdMatched) {
+            DocumentQueryParams params = new DocumentQueryParams();
+            params.setDocumentUniqueId(documentUniqueIds);
+            DocumentService service = getDocumentService();
+            List<Document> docs = service.documentQuery(params);
+            loadDocumentResponses(response, docs, homeCommunityId, documentUniqueIds, regerrList);
+        }
+    }
+
+    protected void loadDocumentResponses(ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType response,
+            List<Document> docs, String homeCommunityId, List<String> documentUniqueId, RegistryErrorList regerrList) {
         if (response != null) {
             String responseStatus = XDS_RETRIEVE_RESPONSE_STATUS_FAILURE;
             List<DocumentResponse> olDocResponse = response.getDocumentResponse();
-            RegistryResponseType registryResponse = new oasis.names.tc.ebxml_regrep.xsd.rs._3.ObjectFactory()
-                    .createRegistryResponseType();
-            response.setRegistryResponse(registryResponse);
 
             if ((docs != null) && (!docs.isEmpty())) {
+                for (String documentId : documentUniqueId) {
+                    boolean documentIdPresent = false;
+                    for (Document doc : docs) {
+                        if (doc.getDocumentUniqueId().equals(documentId)) {
+                            documentIdPresent = true;
+                        }
+                    }
+                    if (!documentIdPresent) {
+                        if (response.getRegistryResponse().getRegistryErrorList() == null) {
+                            response.getRegistryResponse().setRegistryErrorList(regerrList);
+                        }
+                        RegistryError regErr = new RegistryError();
+                        response.getRegistryResponse().getRegistryErrorList().getRegistryError().add(regErr);
+                        regErr.setCodeContext("Document id not found" + "(" + documentId + ")");
+                        regErr.setErrorCode(XDS_DOCUMENT_UNIQUE_ID_ERROR);
+                        regErr.setSeverity(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR);
+                        response.getRegistryResponse().setStatus(XDS_RETRIEVE_RESPONSE_STATUS_FAILURE);
+                        // status = DocRetrieveStatusUtil.setResponseStatus(response);
+                        // response.getRegistryResponse().setStatus(status);
+                    }
+                }
+
                 for (Document doc : docs) {
                     DocumentResponse oDocResponse = new DocumentResponse();
                     boolean bHasData = false;
@@ -257,44 +307,7 @@ public class AdapterComponentDocRepositoryOrchImpl {
                         bHasData = true;
                     }
 
-                    // Document
-                    // ---------
-                    if ((doc.getRawData() != null) && (doc.getRawData().length > 0)) {
-                        String url = new String(doc.getRawData());
-                        log.info("Raw Data: " + url);
-
-                        // Convert the url to a uri
-                        URI uri = null;
-
-                        try {
-                            uri = new URI(url);
-                            File sourceFile = new File(uri);
-
-                            try {
-                                FileInputStream in = new FileInputStream(sourceFile);
-                                Long longObj = new Long(sourceFile.length());
-                                byte[] buffer = new byte[longObj.intValue()];
-                                in.read(buffer);
-
-                                log.info("Found Large File: " + url);
-                                log.info("File Size:: " + sourceFile.length());
-
-                                oDocResponse.setDocument(buffer);
-
-                                bHasData = true;
-                            } catch (FileNotFoundException ex) {
-                                log.error("File Not Found: " + sourceFile.getName() + ". " + ex.getMessage());
-                                bHasData = false;
-                            } catch (IOException ex) {
-                                log.error("Failed to read contents of the file : " + sourceFile.getName() + ". "
-                                        + ex.getMessage());
-                                bHasData = false;
-                            }
-                        } catch (URISyntaxException e) {
-                            oDocResponse.setDocument(doc.getRawData());
-                            bHasData = true;
-                        }
-                    }
+                    bHasData = setDocumentResponse(doc, oDocResponse);
 
                     // On-Demand document
                     if (doc.isOnDemand()) {
@@ -304,25 +317,75 @@ public class AdapterComponentDocRepositoryOrchImpl {
 
                     if (bHasData) {
                         olDocResponse.add(oDocResponse);
-                        responseStatus = XDS_RETRIEVE_RESPONSE_STATUS_SUCCESS;
+                        // status = DocRetrieveStatusUtil.setResponseStatus(response);
+
                     }
+
                 }
+
             } else {
                 log.info("loadDocumentResponses - no response messages returned.");
-                registryResponse.setStatus(responseStatus);
+                response.getRegistryResponse().setStatus(responseStatus);
                 RegistryErrorList regErrList = new RegistryErrorList();
-                registryResponse.setRegistryErrorList(regErrList);
+                response.getRegistryResponse().setRegistryErrorList(regErrList);
                 RegistryError regErr = new RegistryError();
                 regErrList.getRegistryError().add(regErr);
                 regErr.setCodeContext("Document id not found");
-                regErr.setErrorCode("XDSDocumentUniqueIdError");
+                regErr.setErrorCode(XDS_DOCUMENT_UNIQUE_ID_ERROR);
                 regErr.setSeverity(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR);
             }
-
-            registryResponse.setStatus(responseStatus);
+            // response.getRegistryResponse().setStatus(responseStatus);
+            if (response.getRegistryResponse().getStatus().equals(XDS_RETRIEVE_RESPONSE_STATUS_FAILURE)
+                    && (response.getDocumentResponse().size() > 0)) {
+                response.getRegistryResponse().setStatus(XDS_RETRIEVE_RESPONSE_STATUS_PARTIALSUCCESS);
+            } else if (response.getRegistryResponse().getStatus().equals(XDS_RETRIEVE_RESPONSE_STATUS_SUCCESS)
+                    && (response.getRegistryResponse().getRegistryErrorList() != null)
+                    && (response.getRegistryResponse().getRegistryErrorList().getRegistryError() != null)) {
+                response.getRegistryResponse().setStatus(XDS_RETRIEVE_RESPONSE_STATUS_SUCCESS);
+            }
         } else {
             log.info("loadDocumentResponses - response object was null");
         }
+    }
+
+    protected boolean setDocumentResponse(Document doc, DocumentResponse oDocResponse) {
+        boolean bHasData = false;
+        if ((doc.getRawData() != null) && (doc.getRawData().length > 0)) {
+            String url = new String(doc.getRawData());
+            log.info("Raw Data: " + url);
+
+            // Convert the url to a uri
+            URI uri = null;
+
+            try {
+                uri = new URI(url);
+                File sourceFile = new File(uri);
+
+                try {
+                    FileInputStream in = new FileInputStream(sourceFile);
+                    Long longObj = new Long(sourceFile.length());
+                    byte[] buffer = new byte[longObj.intValue()];
+                    in.read(buffer);
+
+                    log.info("Found Large File: " + url);
+                    log.info("File Size:: " + sourceFile.length());
+
+                    oDocResponse.setDocument(buffer);
+
+                    bHasData = true;
+                } catch (FileNotFoundException ex) {
+                    log.error("File Not Found: " + sourceFile.getName() + ". " + ex.getMessage());
+                    bHasData = false;
+                } catch (IOException ex) {
+                    log.error("Failed to read contents of the file : " + sourceFile.getName() + ". " + ex.getMessage());
+                    bHasData = false;
+                }
+            } catch (URISyntaxException e) {
+                oDocResponse.setDocument(doc.getRawData());
+                bHasData = true;
+            }
+        }
+        return bHasData;
     }
 
     /**
@@ -407,7 +470,8 @@ public class AdapterComponentDocRepositoryOrchImpl {
                                 + "DocumentRepositoryHelper.documentRepositoryProvideAndRegisterDocumentSet"); // kludgy?
                         error.setErrorCode(XDS_ERROR_CODE_MISSING_DOCUMENT_METADATA);
                         error.setSeverity(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR);
-                        error.setValue(XDS_MISSING_DOCUMENT_METADATA + "extrinsicObject.getExternalIdentifier() element is null or empty.");
+                        error.setValue(XDS_MISSING_DOCUMENT_METADATA
+                                + "extrinsicObject.getExternalIdentifier() element is null or empty.");
 
                         errorList.getRegistryError().add(error);
 
@@ -787,8 +851,6 @@ public class AdapterComponentDocRepositoryOrchImpl {
 
                 log.debug("associationType object present");
 
-                
-                
                 if (NullChecker.isNullish(associationObj.getAssociationType())) {
                     RegistryError error = new oasis.names.tc.ebxml_regrep.xsd.rs._3.ObjectFactory()
                             .createRegistryError();
@@ -1070,4 +1132,5 @@ public class AdapterComponentDocRepositoryOrchImpl {
         doc.setEventCodes(eventCodes);
         log.debug("End extractEventCodes");
     }
+
 }

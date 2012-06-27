@@ -29,10 +29,13 @@ package gov.hhs.fha.nhinc.docretrieve.entity;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType.DocumentRequest;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType.DocumentResponse;
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 /**
@@ -81,6 +84,26 @@ public class OutboundDocRetrieveOrchestratableFactory {
     public AssertionType getAssertion() {
         AssertionType assertion = new AssertionType();
         return assertion;
+    }
+    
+    public RetrieveDocumentSetResponseType getRetrieveDocumentSetResponseTypePartialSuccess(){
+        RetrieveDocumentSetResponseType resp = new RetrieveDocumentSetResponseType();
+        resp.setRegistryResponse(new RegistryResponseType());
+        DocumentResponse dr = new DocumentResponse();
+        dr.setDocument(new byte[1]);
+        dr.setDocumentUniqueId("1.1.1");
+        dr.setHomeCommunityId("2.2.2");
+        dr.setMimeType("energon");
+        dr.setRepositoryUniqueId("3.3.3");
+        resp.getDocumentResponse().add(dr);
+        RegistryErrorList regErrList = new RegistryErrorList();
+        RegistryError regErr = new RegistryError();
+        resp.getRegistryResponse().setRegistryErrorList(regErrList);
+        regErrList.getRegistryError().add(regErr);
+        regErr.setCodeContext("Document id not found");
+        regErr.setErrorCode("XDSDocumentUniqueIdError");
+        regErr.setSeverity(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR);
+        return resp;
     }
 
 }
