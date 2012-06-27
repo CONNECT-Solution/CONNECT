@@ -123,7 +123,7 @@ public class SamlCallbackHandler implements CallbackHandler {
     private static final String HL7_NS = "urn:hl7-org:v3";
     private static final int DEFAULT_NAME = 0;
     private static final int PRIMARY_NAME = 1;
-    private HashMap<Object, Object> tokenVals = new HashMap<Object, Object>();
+    protected HashMap<Object, Object> tokenVals = new HashMap<Object, Object>();
     private KeyStore keyStore;
     private KeyStore trustStore;
     private static Element svAssertion;
@@ -156,7 +156,6 @@ public class SamlCallbackHandler implements CallbackHandler {
             initTrustStore();
         } catch (IOException e) {
             log.error("SamlCallbackHandler Exception: " + e.getMessage());
-            e.printStackTrace();
             throw new RuntimeException(e);
         }
         log.debug("SamlCallbackHandler Constructor -- Begin");
@@ -194,6 +193,7 @@ public class SamlCallbackHandler implements CallbackHandler {
             } else {
                 log.error("Unknown Callback encountered: " + callbacks[i]);
                 throw new UnsupportedCallbackException(null, "Unsupported Callback Type Encountered");
+
             }
         }
         log.debug("**********************************  Handle SAML Callback End  **************************");
@@ -239,7 +239,6 @@ public class SamlCallbackHandler implements CallbackHandler {
             log.debug("createSVSAMLAssertion20 end ()");
             return assertion.toElement(null);
         } catch (Exception e) {
-            e.printStackTrace();
             throw new RuntimeException(e);
         }
     }
@@ -316,19 +315,15 @@ public class SamlCallbackHandler implements CallbackHandler {
             return assertion.sign(pubKey, privKey);
         } catch (ParserConfigurationException ex) {
             log.error("Unable to create HOK Assertion: " + ex.getMessage());
-            ex.printStackTrace();
             throw new RuntimeException(ex);
         } catch (IOException ex) {
             log.error("Unable to create HOK Assertion: " + ex.getMessage());
-            ex.printStackTrace();
             throw new RuntimeException(ex);
         } catch (SAMLException ex) {
             log.error("Unable to create HOK Assertion: " + ex.getMessage());
-            ex.printStackTrace();
             throw new RuntimeException(ex);
         } catch (XWSSecurityException ex) {
             log.error("Unable to create HOK Assertion: " + ex.getMessage());
-            ex.printStackTrace();
             throw new RuntimeException(ex);
         }
     }
@@ -732,8 +727,8 @@ public class SamlCallbackHandler implements CallbackHandler {
         boolean match = false;
         try {
             // Use CONNECT utility class to access gateway.properties
-            String purposeForUseEnabled = PropertyAccessor.getInstance().getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
-                    PURPOSE_FOR_USE_DEPRECATED_ENABLED);
+            String purposeForUseEnabled = PropertyAccessor.getInstance().getProperty(
+                    NhincConstants.GATEWAY_PROPERTY_FILE, PURPOSE_FOR_USE_DEPRECATED_ENABLED);
             if (purposeForUseEnabled != null && purposeForUseEnabled.equalsIgnoreCase("true")) {
                 match = true;
             }
@@ -754,11 +749,11 @@ public class SamlCallbackHandler implements CallbackHandler {
      * @return The Evidence element
      * @throws com.sun.xml.wss.saml.SAMLException
      */
-    private Evidence createEvidence() throws SAMLException, XWSSecurityException {
+    protected Evidence createEvidence() throws SAMLException, XWSSecurityException {
         log.debug("SamlCallbackHandler.createEvidence() -- Begin");
-        Boolean defaultInstant=false;
-        Boolean defaultBefore=false;
-        Boolean defaultAfter=false;
+        Boolean defaultInstant = false;
+        Boolean defaultBefore = false;
+        Boolean defaultAfter = false;
 
         String evAssertVersion = ASSERTION_VERSION_2_0;
         if ((tokenVals.containsKey(SamlConstants.EVIDENCE_VERSION_PROP) && tokenVals
@@ -808,7 +803,7 @@ public class SamlCallbackHandler implements CallbackHandler {
                 }
             } else {
                 log.debug("Defaulting Authentication instant to current time");
-                defaultInstant=true;
+                defaultInstant = true;
             }
 
             NameID evIssuerId = null;
@@ -836,30 +831,46 @@ public class SamlCallbackHandler implements CallbackHandler {
             GregorianCalendar beginValidTime = calendarFactory();
             if ((tokenVals.containsKey(SamlConstants.EVIDENCE_CONDITION_NOT_BEFORE_PROP) && tokenVals
                     .get(SamlConstants.EVIDENCE_CONDITION_NOT_BEFORE_PROP) != null)) {
-                beginValidTime = createCal(tokenVals.get(SamlConstants.EVIDENCE_CONDITION_NOT_BEFORE_PROP).toString());
+                GregorianCalendar tempBeginValidTime = createCal(tokenVals.get(
+                        SamlConstants.EVIDENCE_CONDITION_NOT_BEFORE_PROP).toString());
+
+                // If given time is now or passed, then use given value
+                if (!tempBeginValidTime.after(beginValidTime))
+                    beginValidTime = tempBeginValidTime;
             } else {
                 log.debug("Defaulting Evidence NotBefore condition to: current time");
-                defaultBefore=true;
+                defaultBefore = true;
             }
 
+            // If issueInstant is passed and before begin time, set begin time to issueInstant
+            if (beginValidTime.after(issueInstant)) {
+                log.warn("Evidence NotBefore set to time after issue instant,"
+                        + " setting NotBefore equal to issue instant");
+                beginValidTime = issueInstant;
+            }
+
+            // Default to 5 minutes from now
             GregorianCalendar endValidTime = calendarFactory();
+            endValidTime.set(Calendar.MINUTE, endValidTime.get(Calendar.MINUTE) + 5);
             if ((tokenVals.containsKey(SamlConstants.EVIDENCE_CONDITION_NOT_AFTER_PROP) && tokenVals
                     .get(SamlConstants.EVIDENCE_CONDITION_NOT_AFTER_PROP) != null)) {
-                endValidTime = createCal(tokenVals.get(SamlConstants.EVIDENCE_CONDITION_NOT_AFTER_PROP).toString());
+
+                GregorianCalendar tempEndValidTime = createCal(tokenVals.get(
+                        SamlConstants.EVIDENCE_CONDITION_NOT_AFTER_PROP).toString());
+                // if provided time is less then 5 minutes from now, then use default time
+                // Otherwise set the end time to the provided time
+                if (!tempEndValidTime.before(endValidTime)) {
+                    endValidTime = tempEndValidTime;
+                }
             } else {
                 log.debug("Defaulting Evidence NotAfter condition to: current time");
-                defaultAfter=true;
+                defaultAfter = true;
             }
 
-            if (defaultInstant && defaultBefore && defaultAfter) {
-                log.warn("Begin, End, and Instant time all defaulted to current time.  Set end time to future.");
-                endValidTime.set(Calendar.MINUTE, endValidTime.get(Calendar.MINUTE)+5);
-            }
-            if (beginValidTime.after(endValidTime)) {
-                // set beginning time to now
-                beginValidTime = calendarFactory();
-                log.warn("The beginning time for the valid evidence should be before the ending time.  "
-                        + "Setting the beginning time to the current system time.");
+            // If end value is before the issueInstant then give 5 minutes after issue instant
+            if (endValidTime.before(issueInstant)) {
+                endValidTime = issueInstant;
+                endValidTime.set(Calendar.MINUTE, endValidTime.get(Calendar.MINUTE) + 5);
             }
 
             Conditions conditions = factory.createConditions(beginValidTime, endValidTime, null, null, null, null);
@@ -877,17 +888,17 @@ public class SamlCallbackHandler implements CallbackHandler {
         return evidence;
     }
 
-    /**  
-     * Creates a new UUID and strips out the dashes so resulting String is alphanumeric only. Prefixes with "_".
-     * Per GATEWAY-847 the id attribute should not be allowed to start with a number (UUIDs can). Direction
-     * given from 2011 specification set was to prepend with and underscore.
+    /**
+     * Creates a new UUID and strips out the dashes so resulting String is alphanumeric only. Prefixes with "_". Per
+     * GATEWAY-847 the id attribute should not be allowed to start with a number (UUIDs can). Direction given from 2011
+     * specification set was to prepend with and underscore.
      * 
-     * @return a String representation of a UUID with the dashes removed   
+     * @return a String representation of a UUID with the dashes removed
      */
-    private String createAssertionId() {   
-        return ID_PREFIX + UUID.randomUUID().toString().replaceAll("-", "");   
+    private String createAssertionId() {
+        return ID_PREFIX + UUID.randomUUID().toString().replaceAll("-", "");
     }
-    
+
     /**
      * Creates a calendar object representing the time given.
      * 
@@ -1087,7 +1098,7 @@ public class SamlCallbackHandler implements CallbackHandler {
      * @param request The SignatureKeyCallback request object
      * @throws java.io.IOException
      */
-    private void getDefaultPrivKeyCert(SignatureKeyCallback.DefaultPrivKeyCertRequest request) throws IOException {
+    protected void getDefaultPrivKeyCert(SignatureKeyCallback.DefaultPrivKeyCertRequest request) throws IOException {
         log.debug("SamlCallbackHandler.getDefaultPrivKeyCert() -- Begin");
         String uniqueAlias = null;
         String client_key_alias = System.getProperty("CLIENT_KEY_ALIAS");
