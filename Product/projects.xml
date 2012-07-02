@@ -98,7 +98,7 @@
         <should.build>true</should.build>
         <should.deploy>true</should.deploy>
     </project>
-    
+
     <project>
         <name>AdminDistribution_10</name>
         <directory>/Production/Gateway/AdminDistribution_10</directory>
@@ -120,7 +120,7 @@
         <should.build>true</should.build>
         <should.deploy>true</should.deploy>
     </project>
-    
+
     <project>
         <name>HIEM_20</name>
         <directory>/Production/Gateway/HIEM_20/</directory>
@@ -134,7 +134,7 @@
         <dist.type>war</dist.type>
         <should.build>true</should.build>
         <should.deploy>true</should.deploy>
-    </project>    
+    </project>
     <project>
         <name>FTAConfigManager</name>
         <directory>/Production/Adapters/GenericFileTransfer/FTAConfigManager</directory>
@@ -161,21 +161,21 @@
         <directory>/Production/Adapters/General/CONNECTConsumerPreferencesProfileGUI</directory>
         <dist.type>war</dist.type>
         <should.build>true</should.build>
-        <should.deploy>true</should.deploy>
+        <should.deploy>false</should.deploy>
     </project>
     <project>
         <name>CONNECTDeferredQueueManagerGUI</name>
         <directory>/Production/Adapters/General/CONNECTDeferredQueueManagerGUI</directory>
         <dist.type>war</dist.type>
         <should.build>true</should.build>
-        <should.deploy>true</should.deploy>
+        <should.deploy>false</should.deploy>
     </project>
     <project>
         <name>CONNECTUniversalClientGUI</name>
         <directory>/Production/Adapters/General/CONNECTUniversalClientGUI</directory>
         <dist.type>war</dist.type>
         <should.build>true</should.build>
-        <should.deploy>true</should.deploy>
+        <should.deploy>false</should.deploy>
     </project>
     <project>
         <name>AdapterDocRepository2Soap12Web</name>
@@ -210,7 +210,7 @@
         <directory>/Production/Adapters/GenericFileTransfer/FileTransferAdapterGUI</directory>
         <dist.type>war</dist.type>
         <should.build>true</should.build>
-        <should.deploy>true</should.deploy>
+        <should.deploy>false</should.deploy>
     </project>
     <!-- BEGIN Dynamic Document Generation Projects -->
     <project>
