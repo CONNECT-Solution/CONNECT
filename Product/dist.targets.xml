@@ -7,7 +7,7 @@
             <isset property="released.version.name" />
         </not>
         <then>
-            <property name="released.version.name" value="MANGO_snapshot_${snapshot_tstamp}"/>
+            <property name="released.version.name" value="CONNECT_snapshot_${snapshot_tstamp}"/>
         </then>
     </if>
 
