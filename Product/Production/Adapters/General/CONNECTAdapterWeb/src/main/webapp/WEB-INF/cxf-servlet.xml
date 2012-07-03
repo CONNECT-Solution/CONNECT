@@ -32,7 +32,7 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
     </jaxws:endpoint>
     
     <jaxws:endpoint xmlns:ape="urn:gov:hhs:fha:nhinc:adapterpolicyengine" id="AdapterPolicyEngine"
-        address="/AdapterPolicyEngine" serviceName="ape:AdapterPolicyEngine"
+        address="/AdapterProxyService/AdapterPolicyEngine" serviceName="ape:AdapterPolicyEngine"
         endpointName="ape:AdapterPolicyEnginePortSoap" implementor="gov.hhs.fha.nhinc.policyengine.adapter.AdapterPolicyEngine"
         wsdlLocation="/WEB-INF/wsdl/AdapterPolicyEngine/AdapterPolicyEngine.wsdl">
     </jaxws:endpoint>
