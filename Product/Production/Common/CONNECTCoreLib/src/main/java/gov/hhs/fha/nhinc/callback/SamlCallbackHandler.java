@@ -33,6 +33,10 @@ import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.UnrecoverableKeyException;
 import java.security.cert.CertificateException;
+import gov.hhs.fha.nhinc.callback.purposeuse.*;
+import gov.hhs.fha.nhinc.properties.PropertyAccessException;
+import gov.hhs.fha.nhinc.properties.PropertyAccessor;
+
 import java.util.*;
 import java.security.KeyStore;
 import java.security.PrivateKey;
@@ -44,9 +48,7 @@ import javax.security.auth.callback.CallbackHandler;
 import javax.security.auth.callback.UnsupportedCallbackException;
 import com.sun.xml.wss.impl.callback.*;
 import com.sun.xml.wss.saml.*;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.properties.PropertyAccessException;
-import gov.hhs.fha.nhinc.properties.PropertyAccessor;
+
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -58,6 +60,7 @@ import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 
 /**
  * This class implements the CallbackHandler which is invoked upon sending a message requiring the SAML Assertion Token.
@@ -68,14 +71,14 @@ public class SamlCallbackHandler implements CallbackHandler {
     private static Log log = LogFactory.getLog(SamlCallbackHandler.class);
     // Valid Evidence Assertion versions
     private static final String ASSERTION_VERSION_2_0 = "2.0";
-    private static final String[] VALID_ASSERTION_VERSION_ARRAY = { ASSERTION_VERSION_2_0 };
+    private static final String[] VALID_ASSERTION_VERSION_ARRAY = {ASSERTION_VERSION_2_0 };
     private static final List<String> VALID_ASSERTION_VERSION_LIST = Collections.unmodifiableList(Arrays
             .asList(VALID_ASSERTION_VERSION_ARRAY));
     // Valid Authorization Decision values
     private static final String AUTHZ_DECISION_PERMIT = "Permit";
     private static final String AUTHZ_DECISION_DENY = "Deny";
     private static final String AUTHZ_DECISION_INDETERMINATE = "Indeterminate";
-    private static final String[] VALID_AUTHZ_DECISION_ARRAY = { AUTHZ_DECISION_PERMIT, AUTHZ_DECISION_DENY,
+    private static final String[] VALID_AUTHZ_DECISION_ARRAY = {AUTHZ_DECISION_PERMIT, AUTHZ_DECISION_DENY,
             AUTHZ_DECISION_INDETERMINATE };
     private static final List<String> VALID_AUTHZ_DECISION_LIST = Collections.unmodifiableList(Arrays
             .asList(VALID_AUTHZ_DECISION_ARRAY));
@@ -86,20 +89,23 @@ public class SamlCallbackHandler implements CallbackHandler {
     private static final String UNSPECIFIED_NAME_ID = "urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified";
     private static final String EMAIL_NAME_ID = "urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress";
     private static final String X509_NAME_ID = "urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName";
-    private static final String WINDOWS_NAME_ID = "urn:oasis:names:tc:SAML:1.1:nameid-format:WindowsDomainQualifiedName";
+    private static final String WINDOWS_NAME_ID = "urn:oasis:names:tc:SAML:1.1:nameid-format:"
+            + "WindowsDomainQualifiedName";
     private static final String KERBEROS_NAME_ID = "urn:oasis:names:tc:SAML:1.1:nameid-format:kerberos";
     private static final String ENTITY_NAME_ID = "urn:oasis:names:tc:SAML:1.1:nameid-format:entity";
     private static final String PERSISTENT_NAME_ID = "urn:oasis:names:tc:SAML:1.1:nameid-format:persistent";
     private static final String TRANSIENT_NAME_ID = "urn:oasis:names:tc:SAML:1.1:nameid-format:transient";
-    private static final String[] VALID_NAME_ID_ARRAY = { UNSPECIFIED_NAME_ID, EMAIL_NAME_ID, X509_NAME_ID,
+    private static final String[] VALID_NAME_ID_ARRAY = {UNSPECIFIED_NAME_ID, EMAIL_NAME_ID, X509_NAME_ID,
             WINDOWS_NAME_ID, KERBEROS_NAME_ID, ENTITY_NAME_ID, PERSISTENT_NAME_ID, TRANSIENT_NAME_ID };
     private static final List<String> VALID_NAME_LIST = Collections
             .unmodifiableList(Arrays.asList(VALID_NAME_ID_ARRAY));
     // Valid Context Class references
     private static final String INTERNET_AUTHN_CNTX_CLS = "urn:oasis:names:tc:SAML:2.0:ac:classes:InternetProtocol";
-    private static final String INTERNET_PASSWORD_AUTHN_CNTX_CLS = "urn:oasis:names:tc:SAML:2.0:ac:classes:InternetProtocolPassword";
+    private static final String INTERNET_PASSWORD_AUTHN_CNTX_CLS = "urn:oasis:names:tc:SAML:2.0:ac:classes:"
+            + "InternetProtocolPassword";
     private static final String PASSWORD_AUTHN_CNTX_CLS = "urn:oasis:names:tc:SAML:2.0:ac:classes:Password";
-    private static final String PASSWORD_TRANS_AUTHN_CNTX_CLS = "urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport";
+    private static final String PASSWORD_TRANS_AUTHN_CNTX_CLS = "urn:oasis:names:tc:SAML:2.0:ac:classes:"
+            + "PasswordProtectedTransport";
     private static final String KERBEROS_AUTHN_CNTX_CLS = "urn:oasis:names:tc:SAML:2.0:ac:classes:Kerberos";
     private static final String PREVIOUS_AUTHN_CNTX_CLS = "urn:oasis:names:tc:SAML:2.0:ac:classes:PreviousSession";
     private static final String REMOTE_AUTHN_CNTX_CLS = "urn:oasis:names:tc:SAML:2.0:ac:classes:SecureRemotePassword";
@@ -109,7 +115,7 @@ public class SamlCallbackHandler implements CallbackHandler {
     private static final String SPKI_AUTHN_CNTX_CLS = "urn:oasis:names:tc:SAML:2.0:ac:classes:SPKI";
     private static final String DIG_SIGN_AUTHN_CNTX_CLS = "urn:oasis:names:tc:SAML:2.0:ac:classes:XMLDSig";
     private static final String UNSPECIFIED_AUTHN_CNTX_CLS = "urn:oasis:names:tc:SAML:2.0:ac:classes:unspecified";
-    private static final String[] VALID_AUTHN_CNTX_CLS_ARRAY = { INTERNET_AUTHN_CNTX_CLS,
+    private static final String[] VALID_AUTHN_CNTX_CLS_ARRAY = {INTERNET_AUTHN_CNTX_CLS,
             INTERNET_PASSWORD_AUTHN_CNTX_CLS, PASSWORD_AUTHN_CNTX_CLS, PASSWORD_TRANS_AUTHN_CNTX_CLS,
             KERBEROS_AUTHN_CNTX_CLS, PREVIOUS_AUTHN_CNTX_CLS, REMOTE_AUTHN_CNTX_CLS, TLS_AUTHN_CNTX_CLS,
             X509_AUTHN_CNTX_CLS, PGP_AUTHN_CNTX_CLS, SPKI_AUTHN_CNTX_CLS, DIG_SIGN_AUTHN_CNTX_CLS,
@@ -146,8 +152,7 @@ public class SamlCallbackHandler implements CallbackHandler {
     }
 
     /**
-     * Constructs the callback handler and initializes the keystore and truststore references to the security
-     * certificates
+     * Constructs callback handler and initializes the keystore & truststore references to the security certificates.
      */
     public SamlCallbackHandler() {
         log.debug("SamlCallbackHandler Constructor -- Begin");
@@ -329,10 +334,10 @@ public class SamlCallbackHandler implements CallbackHandler {
     }
 
     /**
-     * Both the Issuer and the Subject elements have a NameID element which is formed through this method. Currently
-     * default data is used to specify the required Issuer information. However, the Subject information is defined
-     * based on the stored value of the userid. If this is a legal X509 structute the NameId is constructed in that
-     * format, if not it is constructed as an "Unspecified" format.
+     * Both the Issuer and the Subject elements have a NameID element which is formed through this method. 
+     * Currently default data is used to specify the required Issuer information. However, the Subject information
+     * is defined based on the stored value of the userid. If this is a legal X509 structute the NameId is
+     * constructed in that format, if not it is constructed as an "Unspecified" format.
      * 
      * @param factory The factory object used to assist in the construction of the SAML Assertion token
      * @param assId Identifies this as default usage case or one with declared value.
@@ -375,15 +380,7 @@ public class SamlCallbackHandler implements CallbackHandler {
         return nmId;
     }
 
-    /*
-     * public boolean isValidEmailAddress(String address) { log.debug("SamlCallbackHandler.isValidEmailAddress() " +
-     * address + " -- Begin"); boolean retBool = false; if (address != null && address.length() > 0) { try {
-     * InternetAddress emailAddr = new InternetAddress(address, true); String[] tokens = address.split("@"); if
-     * (tokens.length == 2 && tokens[0].trim().length() > 0 && tokens[1].trim().length() > 0) { retBool = true; } else {
-     * log.debug("Address does not follow the form 'local-part@domain'"); } } catch (AddressException ex) { // address
-     * does not comply with RFC822 log.debug("Address is not of the RFC822 format"); } }
-     * log.debug("SamlCallbackHandler.isValidEmailAddress() " + retBool + " -- End"); return retBool; }
-     */
+   
     /**
      * Creates the authentication statement, the attribute statements, and the authorization decision statements for
      * placement in the SAML Assertion.
@@ -532,7 +529,7 @@ public class SamlCallbackHandler implements CallbackHandler {
     }
 
     /**
-     * Creates the Attribute statements for UserName, UserOrganization, UserRole, and PurposeOfUse
+     * Creates the Attribute statements for UserName, UserOrganization, UserRole, and PurposeOfUse.
      * 
      * @param factory The factory object used to assist in the construction of the SAML Assertion token
      * @return The listing of all Attribute statements
@@ -649,21 +646,17 @@ public class SamlCallbackHandler implements CallbackHandler {
         }
 
         try {
-            /*
-             * Gateway-347 - Support for both values will remain until NHIN Specs updated Determine whether to use
-             * PurposeOfUse or PuposeForUse
-             */
-            String purposeAttributeValueName = "hl7:PurposeOfUse";
-            if (isPurposeForUseEnabled()) {
-                purposeAttributeValueName = "hl7:PurposeForUse";
-            }
 
             // Add the Purpose Of/For Use Attribute Value
             List attributeValues4 = new ArrayList();
             final Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
-            final Element elemPFUAttr = document.createElementNS("urn:oasis:names:tc:SAML:2.0:assertion",
-                    "AttibuteValue");
-            final Element purpose = document.createElementNS(HL7_NS, purposeAttributeValueName);
+            final Element elemPFUAttr = document.createElementNS("urn:oasis:names:tc:SAML:2.0:assertion", "AttibuteValue");
+
+            PurposeUseProxyObjectFactory purposeFactory = new PurposeUseProxyObjectFactory();
+            PurposeUseProxy purposeUse = purposeFactory.getPurposeUseProxy();
+             
+            Element purpose = createPurposeUseElement(document, purposeUse.createPurposeUseElement(tokenVals));
+
             elemPFUAttr.appendChild(purpose);
 
             purpose.setAttributeNS("http://www.w3.org/2001/XMLSchema-instance", "xsi:type", "hl7:CE");
@@ -719,35 +712,14 @@ public class SamlCallbackHandler implements CallbackHandler {
     }
 
     /**
-     * Returns boolean condition on whether PurposeForUse is enabled
-     * 
-     * @return The PurposeForUse enabled setting
-     */
-    private boolean isPurposeForUseEnabled() {
-        boolean match = false;
-        try {
-            // Use CONNECT utility class to access gateway.properties
-            String purposeForUseEnabled = PropertyAccessor.getInstance().getProperty(
-                    NhincConstants.GATEWAY_PROPERTY_FILE, PURPOSE_FOR_USE_DEPRECATED_ENABLED);
-            if (purposeForUseEnabled != null && purposeForUseEnabled.equalsIgnoreCase("true")) {
-                match = true;
-            }
-        } catch (PropertyAccessException ex) {
-            log.error("Error: Failed to retrieve " + PURPOSE_FOR_USE_DEPRECATED_ENABLED + " from property file: "
-                    + NhincConstants.GATEWAY_PROPERTY_FILE);
-            log.error(ex.getMessage());
-        }
-        return match;
-    }
+     * Creates the Evidence element.
+     * The Evidence element encompasses the Assertion defining the
+     * authorization form needed in cases where evidence of authorization to
+     * access the medical records must be provided along with the message request
 
-    /**
-     * Creates the Evidence element that encompasses the Assertion defining the authorization form needed in cases where
-     * evidence of authorization to access the medical records must be provided along with the message request
-     * 
-     * @param factory The factory object used to assist in the construction of the SAML Assertion token
-     * @param issueInstant The calendar representing the time of Assertion issuance
-     * @return The Evidence element
-     * @throws com.sun.xml.wss.saml.SAMLException
+     * @return
+     * @throws SAMLException
+     * @throws XWSSecurityException
      */
     protected Evidence createEvidence() throws SAMLException, XWSSecurityException {
         log.debug("SamlCallbackHandler.createEvidence() -- Begin");
@@ -1161,5 +1133,21 @@ public class SamlCallbackHandler implements CallbackHandler {
         GregorianCalendar calendar = new GregorianCalendar();
         calendar.setTimeZone(TimeZone.getTimeZone("GMT"));
         return calendar;
+    }
+
+    /**
+     * Creates the purposeOfUse/purposeForUse element.
+     * @param document The document for which this element is to be added
+     * @param purposeForUseEnabled true if purposeForUse should be used
+     * @return the created element
+     */
+    private Element createPurposeUseElement(Document document, boolean purposeForUseEnabled) {
+        String purposeAttributeValueName = "hl7:PurposeOfUse";
+        if (purposeForUseEnabled) {
+            purposeAttributeValueName = "hl7:PurposeForUse";
+        }
+
+        Element element =  document.createElementNS(HL7_NS, purposeAttributeValueName);
+        return element;
     }
 }
