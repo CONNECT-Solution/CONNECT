@@ -51,6 +51,7 @@ import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.perfrepo.PerformanceManager;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
+import javax.xml.ws.BindingProvider;
 
 /**
  *
@@ -118,6 +119,8 @@ public class NhinDocRetrieveProxyWebServiceSecuredImpl implements NhinDocRetriev
                 if (NullChecker.isNotNullish(url)) {
                     RespondingGatewayRetrievePortType port = getPort(url, NhincConstants.DOC_RETRIEVE_ACTION,
                             WS_ADDRESSING_ACTION, assertion);
+                    WebServiceProxyHelper wsHelper = new WebServiceProxyHelper();
+                    wsHelper.addTargetCommunity(((BindingProvider)port), targetSystem);
 
                     // Log the start of the performance record
                     String targetHomeCommunityId = HomeCommunityMap.getCommunityIdFromTargetSystem(targetSystem);

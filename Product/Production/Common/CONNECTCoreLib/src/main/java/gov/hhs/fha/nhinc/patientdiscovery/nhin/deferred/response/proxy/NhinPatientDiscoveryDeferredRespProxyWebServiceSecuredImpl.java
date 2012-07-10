@@ -34,6 +34,7 @@ import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import ihe.iti.xcpd._2009.RespondingGatewayDeferredResponsePortType;
 import javax.xml.namespace.QName;
+import javax.xml.ws.BindingProvider;
 import javax.xml.ws.Service;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -130,6 +131,9 @@ public class NhinPatientDiscoveryDeferredRespProxyWebServiceSecuredImpl implemen
                 if (NullChecker.isNotNullish(url)) {
                     RespondingGatewayDeferredResponsePortType port = getPort(url,
                             NhincConstants.PATIENT_DISCOVERY_ACTION, WS_ADDRESSING_ACTION, assertion);
+                    WebServiceProxyHelper wsHelper = new WebServiceProxyHelper();
+                    wsHelper.addTargetCommunity(((BindingProvider)port), target);
+
                     response = (MCCIIN000002UV01) oProxyHelper.invokePort(port,
                             RespondingGatewayDeferredResponsePortType.class,
                             "respondingGatewayDeferredPRPAIN201306UV02", request);

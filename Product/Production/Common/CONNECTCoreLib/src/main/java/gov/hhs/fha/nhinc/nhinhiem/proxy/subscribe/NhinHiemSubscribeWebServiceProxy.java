@@ -110,6 +110,9 @@ public class NhinHiemSubscribeWebServiceProxy implements NhinHiemSubscribeProxy 
 
         if (NullChecker.isNotNullish(url)) {
             NotificationProducer port = getPort(url, assertion);
+            WebServiceProxyHelper wsHelper = new WebServiceProxyHelper();
+            wsHelper.addTargetCommunity(((BindingProvider)port), target);
+
             if (checkPolicy(subscribe, assertion)) {
                     auditInputMessage(subscribe, assertion,
                         NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);

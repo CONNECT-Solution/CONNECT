@@ -81,6 +81,8 @@ public class NhinAdminDistributionProxyWebServiceSecuredImpl implements NhinAdmi
 
         if (NullChecker.isNotNullish(url)) {
             RespondingGatewayAdministrativeDistributionPortType port = getPort(url, assertion, apiLevel);
+            WebServiceProxyHelper wsHelper = new WebServiceProxyHelper();
+            wsHelper.addTargetCommunity(((BindingProvider)port), target);
 
             SamlTokenCreator tokenCreator = new SamlTokenCreator();
             Map requestContext = tokenCreator.CreateRequestContext(assertion, url, NhincConstants.ADMIN_DIST_ACTION);

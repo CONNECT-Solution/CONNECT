@@ -114,6 +114,8 @@ public class NhinHiemNotifyWebServiceProxy implements NhinHiemNotifyProxy {
                 log.debug("Calling checkPolicy");
                 if (checkPolicy(notify, assertion)) {
                     NotificationConsumer port = getPort(url, assertion);
+                    WebServiceProxyHelper wsHelper = new WebServiceProxyHelper();
+                    wsHelper.addTargetCommunity(((BindingProvider)port), target);
 
                     log.debug("attaching reference parameter headers");
                     List<Header> headers = oProxyHelper.createWSAddressingHeaders((WSBindingProvider) port,

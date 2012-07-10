@@ -53,12 +53,14 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.connectmgr.AdapterEndpointManager;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADAPTER_API_LEVEL;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.properties.IPropertyAcessor;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenCreator;
 import gov.hhs.fha.nhinc.tools.ws.processor.generator.ServicePropertyLoader;
+import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 
 /**
  * This class is used as a helper in each of the Web Service Proxies. Since the bulk of the work being done in each web
@@ -1072,5 +1074,15 @@ public class WebServiceProxyHelper {
 
         log.debug("End createService");
         return service;
+    }
+
+    /**
+     * Add a target home community to the port object.
+     * @param port The port to add the property to
+     * @param targetSystem The targetSystem of the request
+     */
+    public void addTargetCommunity(BindingProvider port, NhinTargetSystemType targetSystem) {
+        ((BindingProvider)port).getRequestContext().put(NhincConstants.WS_SOAP_TARGET_HOME_COMMUNITY_ID,
+            HomeCommunityMap.getCommunityIdFromTargetSystem(targetSystem));
     }
 }

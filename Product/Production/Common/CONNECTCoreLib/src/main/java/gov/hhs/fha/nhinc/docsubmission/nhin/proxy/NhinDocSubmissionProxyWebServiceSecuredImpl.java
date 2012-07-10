@@ -40,6 +40,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import ihe.iti.xdr._2007.DocumentRepositoryXDRPortType;
 import javax.xml.namespace.QName;
+import javax.xml.ws.BindingProvider;
 import javax.xml.ws.Service;
 
 /**
@@ -140,6 +141,8 @@ public class NhinDocSubmissionProxyWebServiceSecuredImpl implements NhinDocSubmi
             String url = proxyHelper.getUrlFromTargetSystemByGatewayAPILevel(targetSystem,
                     NhincConstants.NHINC_XDR_SERVICE_NAME, apiLevel);
             DocumentRepositoryXDRPortType port = getPort(url, assertion, apiLevel);
+            WebServiceProxyHelper wsHelper = new WebServiceProxyHelper();
+            wsHelper.addTargetCommunity(((BindingProvider)port), targetSystem);
 
             if (request == null) {
                 log.error("Message was null");

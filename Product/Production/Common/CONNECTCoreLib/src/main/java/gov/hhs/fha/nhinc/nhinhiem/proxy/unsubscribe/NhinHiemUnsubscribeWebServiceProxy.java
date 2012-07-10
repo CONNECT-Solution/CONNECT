@@ -87,6 +87,9 @@ public class NhinHiemUnsubscribeWebServiceProxy implements NhinHiemUnsubscribePr
             AssertionType assertion, NhinTargetSystemType target) throws ResourceUnknownFault,
             UnableToDestroySubscriptionFault, Exception {
         SubscriptionManager port = getPort(target, assertion);
+        WebServiceProxyHelper wsHelper = new WebServiceProxyHelper();
+        wsHelper.addTargetCommunity(((BindingProvider)port), target);
+
         Element responseElement = null;
         UnsubscribeResponse response = null;
 

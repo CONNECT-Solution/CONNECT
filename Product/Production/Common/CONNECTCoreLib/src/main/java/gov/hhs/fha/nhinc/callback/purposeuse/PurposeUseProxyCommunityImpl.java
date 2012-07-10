@@ -33,11 +33,15 @@ public class PurposeUseProxyCommunityImpl extends PurposeUseProxyBaseImpl{
     public boolean createPurposeUseElement(HashMap<Object, Object> tokens) {
         log.info("Entering PurposeUseProxyCommunityImpl.createPurposeUseElement...");
         String homeCommunityId = null;
-        if (tokens.containsKey(SamlConstants.HOME_COM_PROP) 
+        /*if (tokens.containsKey(SamlConstants.HOME_COM_PROP)
                 && tokens.get(SamlConstants.HOME_COM_PROP) != null) {
             homeCommunityId = tokens.get(SamlConstants.HOME_COM_PROP).toString();
-        }
+        }*/
 
+        if (tokens.containsKey(NhincConstants.WS_SOAP_TARGET_HOME_COMMUNITY_ID)
+                && tokens.get(NhincConstants.WS_SOAP_TARGET_HOME_COMMUNITY_ID) != null) {
+            homeCommunityId = tokens.get(NhincConstants.WS_SOAP_TARGET_HOME_COMMUNITY_ID).toString();
+        }
         return ((NullChecker.isNotNullish(homeCommunityId) 
                 && isPurposeForUseEnabled(homeCommunityId))
                 || isPurposeForUseEnabled());

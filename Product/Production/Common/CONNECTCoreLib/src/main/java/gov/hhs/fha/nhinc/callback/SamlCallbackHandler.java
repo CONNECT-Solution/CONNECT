@@ -34,8 +34,6 @@ import java.security.NoSuchAlgorithmException;
 import java.security.UnrecoverableKeyException;
 import java.security.cert.CertificateException;
 import gov.hhs.fha.nhinc.callback.purposeuse.*;
-import gov.hhs.fha.nhinc.properties.PropertyAccessException;
-import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 
 import java.util.*;
 import java.security.KeyStore;
@@ -60,7 +58,6 @@ import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 
 /**
  * This class implements the CallbackHandler which is invoked upon sending a message requiring the SAML Assertion Token.
