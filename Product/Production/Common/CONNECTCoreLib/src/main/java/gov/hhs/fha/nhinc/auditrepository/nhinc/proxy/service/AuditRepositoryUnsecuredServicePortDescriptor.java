@@ -24,26 +24,55 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
-package gov.hhs.fha.nhinc.auditrepository.nhinc.proxy;
 
-import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
-import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.FindCommunitiesAndAuditEventsRequestType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.FindCommunitiesAndAuditEventsResponseType;
+package gov.hhs.fha.nhinc.auditrepository.nhinc.proxy.service;
+
+import gov.hhs.fha.nhinc.nhinccomponentauditrepository.AuditRepositoryManagerPortType;
 
 /**
- * 
- * @author Jon Hoppesch
+ * @author akong
+ *
  */
-public interface AuditRepositoryProxy {
+public class AuditRepositoryUnsecuredServicePortDescriptor extends AbstractServicePortDescriptor<AuditRepositoryManagerPortType> {
 
-    /**
-     * Logs an audit record to the audit repository.
-     * 
-     * @param request Audit record
-     * @return Repsonse that is a simple ack.
+    /* (non-Javadoc)
+     * @see gov.hhs.fha.messaging.service.port.ServicePortDescriptor#getServiceLocalPart()
      */
-    public AcknowledgementType auditLog(LogEventRequestType request, AssertionType assertion);
+    @Override
+    public String getServiceLocalPart() {
+        return "AuditRepositoryManagerService";
+    }
+
+    /* (non-Javadoc)
+     * @see gov.hhs.fha.messaging.service.port.ServicePortDescriptor#getPortLocalPart()
+     */
+    @Override
+    public String getPortLocalPart() {
+        return "AuditRepositoryManagerPort";
+    }
+
+    /* (non-Javadoc)
+     * @see gov.hhs.fha.messaging.service.port.ServicePortDescriptor#getWSDLFileName()
+     */
+    @Override
+    public String getWSDLFileName() {
+        return "NhincComponentAuditRepository.wsdl";
+    }
+
+    /* (non-Javadoc)
+     * @see gov.hhs.fha.messaging.service.port.ServicePortDescriptor#getWSAddressingAction()
+     */
+    @Override
+    public String getWSAddressingAction() {
+        return "urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository:LogEventRequest";
+    }
+
+    /* (non-Javadoc)
+     * @see gov.hhs.fha.messaging.service.port.ServicePortDescriptor#getPortClass()
+     */
+    @Override
+    public Class<AuditRepositoryManagerPortType> getPortClass() {
+        return AuditRepositoryManagerPortType.class;
+    }
 
 }

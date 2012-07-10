@@ -24,26 +24,37 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
-package gov.hhs.fha.nhinc.auditrepository.nhinc.proxy;
 
-import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
-import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.FindCommunitiesAndAuditEventsRequestType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.FindCommunitiesAndAuditEventsResponseType;
+package gov.hhs.fha.nhinc.docsubmission.nhin.proxy.service;
+
+import ihe.iti.xdr._2007.DocumentRepositoryXDRPortType;
+import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
+
 
 /**
- * 
- * @author Jon Hoppesch
+ * @author akong
+ *
  */
-public interface AuditRepositoryProxy {
-
-    /**
-     * Logs an audit record to the audit repository.
-     * 
-     * @param request Audit record
-     * @return Repsonse that is a simple ack.
-     */
-    public AcknowledgementType auditLog(LogEventRequestType request, AssertionType assertion);
+public abstract class AbstractServicePortDescriptor implements ServicePortDescriptor<DocumentRepositoryXDRPortType> {
+    
+    private static final String NAMESPACE_URI = "urn:ihe:iti:xdr:2007";
+    private static final String SERVICE_LOCAL_PART = "DocumentRepositoryXDR_Service";
+    private static final String PORT_LOCAL_PART = "DocumentRepositoryXDR_Port_Soap";    
+        
+    public String getNamespaceUri() {
+        return NAMESPACE_URI;
+    }
+    
+    public String getServiceLocalPart() {
+        return SERVICE_LOCAL_PART;
+    }
+    
+    public String getPortLocalPart() {
+        return PORT_LOCAL_PART;
+    }
+    
+    public Class<DocumentRepositoryXDRPortType> getPortClass() {
+        return DocumentRepositoryXDRPortType.class;
+    }
 
 }

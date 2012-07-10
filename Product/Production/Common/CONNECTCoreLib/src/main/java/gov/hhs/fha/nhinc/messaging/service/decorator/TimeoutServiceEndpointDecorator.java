@@ -24,26 +24,43 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
-package gov.hhs.fha.nhinc.auditrepository.nhinc.proxy;
 
-import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
-import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.FindCommunitiesAndAuditEventsRequestType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.FindCommunitiesAndAuditEventsResponseType;
+package gov.hhs.fha.nhinc.messaging.service.decorator;
+
+import gov.hhs.fha.nhinc.messaging.service.ServiceEndpoint;
+import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
+
+import java.util.Map;
 
 /**
- * 
- * @author Jon Hoppesch
+ * @author bhumphrey
+ * @param <T>
+ *
  */
-public interface AuditRepositoryProxy {
+public class TimeoutServiceEndpointDecorator<T> extends ServiceEndpointDecorator<T> {
 
+    public static final String KEY_CONNECT_TIMEOUT = "com.sun.xml.ws.connect.timeout";
+    public static final String KEY_REQUEST_TIMEOUT = "com.sun.xml.ws.request.timeout";
+    private int connectTimeout;
+    private int requestTimeout;
+    
     /**
-     * Logs an audit record to the audit repository.
-     * 
-     * @param request Audit record
-     * @return Repsonse that is a simple ack.
+     * @param decoratored
      */
-    public AcknowledgementType auditLog(LogEventRequestType request, AssertionType assertion);
+    public TimeoutServiceEndpointDecorator(ServiceEndpoint<T> decoratoredEndpoint) {
+        super(decoratoredEndpoint);
+        
+        WebServiceProxyHelper proxyHelper = new WebServiceProxyHelper();
+        this.connectTimeout = proxyHelper.getTimeout();
+        this.requestTimeout = proxyHelper.getTimeout();;
+    }
 
+    @Override
+    public void configure() {
+        super.configure();
+        Map<String, Object> requestContext = ((javax.xml.ws.BindingProvider)getPort()).getRequestContext();
+        requestContext.put(KEY_CONNECT_TIMEOUT, connectTimeout);
+        requestContext.put(KEY_REQUEST_TIMEOUT, requestTimeout);
+    }
+    
 }

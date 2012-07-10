@@ -26,35 +26,21 @@
  */
 package gov.hhs.fha.nhinc.policyengine.adapter.proxy;
 
-import java.security.KeyStoreException;
-import java.security.NoSuchAlgorithmException;
-import java.security.UnrecoverableKeyException;
-import java.util.Map;
-
-import javax.net.ssl.KeyManager;
-import javax.net.ssl.KeyManagerFactory;
-import javax.net.ssl.TrustManager;
-import javax.net.ssl.TrustManagerFactory;
-import javax.xml.ws.BindingProvider;
-import javax.xml.ws.Service;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.apache.cxf.configuration.jsse.TLSClientParameters;
-import org.apache.cxf.frontend.ClientProxy;
-import org.apache.cxf.transport.http.HTTPConduit;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-
 import gov.hhs.fha.nhinc.adapterpolicyenginesecured.AdapterPolicyEngineSecuredPortType;
-import gov.hhs.fha.nhinc.callback.openSAML.CertificateManager;
-import gov.hhs.fha.nhinc.callback.openSAML.CertificateManagerImpl;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestSecuredType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyResponseType;
+import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
+import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
+import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import gov.hhs.fha.nhinc.policyengine.adapter.proxy.service.PolicyEngineSecuredServicePortDescriptor;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * 
@@ -62,14 +48,6 @@ import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
  */
 public class PolicyEngineProxyWebServiceSecuredImpl implements PolicyEngineProxy {
     private Log log = null;
-    private static Service cachedService = null;
-    private static final String NAMESPACE_URI = "urn:gov:hhs:fha:nhinc:adapterpolicyenginesecured";
-    private static final String SERVICE_LOCAL_PART = "AdapterPolicyEngineSecured";
-    private static final String WSDL_FILE = "AdapterPolicyEngineSecured.wsdl";
-    private static final String WS_ADDRESSING_ACTION = "urn:gov:hhs:fha:nhinc:adapterpolicyenginesecured:body";
-    private static final String CLIENT_POLICY_ENGINE_SPRING_FILE = "PolicyEngine-client.xml";
-    private static final String POLICY_ENGINE_BEAN = "adapterPolicyEngineSecuredPortType";
-
     private WebServiceProxyHelper oProxyHelper = null;
 
     public PolicyEngineProxyWebServiceSecuredImpl() {
@@ -85,58 +63,27 @@ public class PolicyEngineProxyWebServiceSecuredImpl implements PolicyEngineProxy
         return new WebServiceProxyHelper();
     }
 
-    private AdapterPolicyEngineSecuredPortType getPort(String url, String wsAddressingAction, AssertionType assertion) {
-        AdapterPolicyEngineSecuredPortType port = null;
-
-        Service service = getService();
-        if (service != null) {
-            log.debug("Obtained service - creating port.");
-            // port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART),
-            // AdapterPolicyEngineSecuredPortType.class);
-            port = createPort(assertion);
-
-            oProxyHelper.initializeSecurePort((javax.xml.ws.BindingProvider) port, url,
-                    NhincConstants.POLICY_ENGINE_ACTION, wsAddressingAction, assertion);
-        } else {
-            log.error("Unable to obtain serivce - no port created.");
-        }
-        return port;
-    }
-
-    /**
-     * Retrieve the service class for this web service.
-     * 
-     * @return The service class for this web service.
-     */
-    protected Service getService() {
-        if (cachedService == null) {
-            try {
-                cachedService = oProxyHelper.createService(WSDL_FILE, NAMESPACE_URI, SERVICE_LOCAL_PART);
-            } catch (Throwable t) {
-                log.error("Error creating service: " + t.getMessage(), t);
-            }
-        }
-        return cachedService;
-    }
-
     public CheckPolicyResponseType checkPolicy(CheckPolicyRequestType checkPolicyRequest, AssertionType assertion) {
         log.debug("Begin PolicyEngineWebServiceProxySecuredImpl.checkPolicy");
         CheckPolicyResponseType response = null;
 
         try {
-            log.debug("Before target system URL look up.");
             String serviceName = NhincConstants.POLICYENGINE_SERVICE_SECURED_NAME;
             String url = oProxyHelper.getAdapterEndPointFromConnectionManager(serviceName);
-            log.debug("After target system URL look up. URL for service: " + serviceName + " is: " + url);
 
             if (NullChecker.isNotNullish(url)) {
                 CheckPolicyRequestSecuredType securedRequest = new CheckPolicyRequestSecuredType();
                 if (checkPolicyRequest != null) {
                     securedRequest.setRequest(checkPolicyRequest.getRequest());
                 }
-                AdapterPolicyEngineSecuredPortType port = getPort(url, WS_ADDRESSING_ACTION, assertion);
-                response = (CheckPolicyResponseType) oProxyHelper.invokePort(port,
-                        AdapterPolicyEngineSecuredPortType.class, "checkPolicy", securedRequest);
+
+                ServicePortDescriptor<AdapterPolicyEngineSecuredPortType> portDescriptor = new PolicyEngineSecuredServicePortDescriptor();
+
+                CONNECTClient<AdapterPolicyEngineSecuredPortType> client = new CONNECTClientFactory<AdapterPolicyEngineSecuredPortType>()
+                        .getCONNECTClientSecured(portDescriptor, url, assertion);
+
+                response = (CheckPolicyResponseType) client.invokePort(AdapterPolicyEngineSecuredPortType.class,
+                        "checkPolicy", securedRequest);
             } else {
                 log.error("Failed to call the web service (" + serviceName + ").  The URL is null.");
             }
@@ -148,50 +95,5 @@ public class PolicyEngineProxyWebServiceSecuredImpl implements PolicyEngineProxy
 
         log.debug("End PolicyEngineWebServiceProxySecuredImpl.checkPolicy");
         return response;
-    }
-
-    private AdapterPolicyEngineSecuredPortType createPort(AssertionType assertion) {
-        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
-                new String[] { CLIENT_POLICY_ENGINE_SPRING_FILE });
-        AdapterPolicyEngineSecuredPortType port = (AdapterPolicyEngineSecuredPortType) context
-                .getBean(POLICY_ENGINE_BEAN);
-           
-        HTTPConduit httpConduit = (HTTPConduit) ClientProxy.getClient(port).getConduit();
-        TLSClientParameters tlsCP = new TLSClientParameters();
-        tlsCP.setDisableCNCheck(true);
-
-        CertificateManager cm = CertificateManagerImpl.getInstance();
-
-        try {
-            KeyManagerFactory keyFactory = KeyManagerFactory.getInstance(KeyManagerFactory.getDefaultAlgorithm());
-            String password = System.getProperty("javax.net.ssl.keyStorePassword");
-            keyFactory.init(cm.getKeyStore(), password.toCharArray()); 
-            KeyManager[] km = keyFactory.getKeyManagers(); 
-            tlsCP.setKeyManagers(km); 
-            
-            TrustManagerFactory trustFactory = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm()); 
-            trustFactory.init(cm.getTrustStore()); 
-            TrustManager[] tm = trustFactory.getTrustManagers(); 
-            tlsCP.setTrustManagers(tm); 
-        } catch (NoSuchAlgorithmException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (UnrecoverableKeyException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (KeyStoreException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-
-        httpConduit.setTlsClientParameters(tlsCP);
-
-        Map<String, Object> requestContext = ((BindingProvider) port).getRequestContext();
-        requestContext.put("assertion", assertion);
-        
-        
-        
-        return port;
-
     }
 }

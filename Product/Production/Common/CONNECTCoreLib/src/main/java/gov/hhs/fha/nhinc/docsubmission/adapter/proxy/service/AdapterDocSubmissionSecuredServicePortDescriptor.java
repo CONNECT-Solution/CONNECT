@@ -24,53 +24,64 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
-package gov.hhs.fha.nhinc.auditrepository.nhinc.proxy;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+package gov.hhs.fha.nhinc.docsubmission.adapter.proxy.service;
 
-import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
-import gov.hhs.fha.nhinc.common.auditlog.LogEventSecureRequestType;
-import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.FindCommunitiesAndAuditEventsRequestType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.FindCommunitiesAndAuditEventsResponseType;
-import gov.hhs.fha.nhinc.auditrepository.nhinc.AuditRepositoryOrchImpl;
+import gov.hhs.fha.nhinc.adapterxdrsecured.AdapterXDRSecuredPortType;
+import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 
 /**
- * 
- * @author mflynn02
+ * @author akong
+ *
  */
-public class AuditRepositoryProxyJavaImpl implements AuditRepositoryProxy {
-    private Log log = null;
+public class AdapterDocSubmissionSecuredServicePortDescriptor implements ServicePortDescriptor<AdapterXDRSecuredPortType> {
 
-    public AuditRepositoryProxyJavaImpl() {
-        log = createLogger();
-    }
-
-    protected Log createLogger() {
-        return LogFactory.getLog(getClass());
-    }
-
-    protected AuditRepositoryOrchImpl getAuditRepositoryOrchImpl() {
-        return new AuditRepositoryOrchImpl();
-    }
-
-    /**
-     * Logs an audit record to the audit repository.
-     * 
-     * @param request Audit record
-     * @return Repsonse that is a simple ack.
+    /* (non-Javadoc)
+     * @see gov.hhs.fha.messaging.service.port.ServicePortDescriptor#getNamespaceUri()
      */
-    public AcknowledgementType auditLog(LogEventRequestType request, AssertionType assertion) {
+    @Override
+    public String getNamespaceUri() {
+        return "urn:gov:hhs:fha:nhinc:adapterxdrsecured";
+    }
 
-        LogEventSecureRequestType securedRequest = new LogEventSecureRequestType();
-        securedRequest.setAuditMessage(request.getAuditMessage());
-        securedRequest.setDirection(request.getDirection());
-        securedRequest.setInterface(request.getInterface());
+    /* (non-Javadoc)
+     * @see gov.hhs.fha.messaging.service.port.ServicePortDescriptor#getServiceLocalPart()
+     */
+    @Override
+    public String getServiceLocalPart() {
+        return "AdapterXDRSecured_Service";
+    }
 
-        return getAuditRepositoryOrchImpl().logAudit(securedRequest, assertion);
+    /* (non-Javadoc)
+     * @see gov.hhs.fha.messaging.service.port.ServicePortDescriptor#getPortLocalPart()
+     */
+    @Override
+    public String getPortLocalPart() {
+        return "AdapterXDRSecured_Port";
+    }
 
+    /* (non-Javadoc)
+     * @see gov.hhs.fha.messaging.service.port.ServicePortDescriptor#getWSDLFileName()
+     */
+    @Override
+    public String getWSDLFileName() {
+        return "AdapterXDRSecured.wsdl";
+    }
+
+    /* (non-Javadoc)
+     * @see gov.hhs.fha.messaging.service.port.ServicePortDescriptor#getWSAddressingAction()
+     */
+    @Override
+    public String getWSAddressingAction() {
+        return "urn:gov:hhs:fha:nhinc:adapterxdrsecured:ProvideAndRegisterDocumentSet-b";
+    }
+
+    /* (non-Javadoc)
+     * @see gov.hhs.fha.messaging.service.port.ServicePortDescriptor#getPortClass()
+     */
+    @Override
+    public Class<AdapterXDRSecuredPortType> getPortClass() {
+        return AdapterXDRSecuredPortType.class;
     }
 
 }

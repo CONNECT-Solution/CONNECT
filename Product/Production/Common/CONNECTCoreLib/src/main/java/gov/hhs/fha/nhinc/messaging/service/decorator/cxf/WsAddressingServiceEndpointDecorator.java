@@ -24,26 +24,62 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
-package gov.hhs.fha.nhinc.auditrepository.nhinc.proxy;
 
-import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
-import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
+package gov.hhs.fha.nhinc.messaging.service.decorator.cxf;
+
+import javax.xml.ws.BindingProvider;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.FindCommunitiesAndAuditEventsRequestType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.FindCommunitiesAndAuditEventsResponseType;
+import gov.hhs.fha.nhinc.messaging.service.ServiceEndpoint;
+import gov.hhs.fha.nhinc.messaging.service.decorator.ServiceEndpointDecorator;
 
 /**
+ * @author akong
  * 
- * @author Jon Hoppesch
  */
-public interface AuditRepositoryProxy {
+public class WsAddressingServiceEndpointDecorator<T> extends ServiceEndpointDecorator<T> {
+
+    private static final String UUID_TAG = "urn:uuid:";
+    private Log log = null;
+    
+    private BindingProvider bindingProviderPort;
+    private String url;
+    private String wsAddressingAction;
+    private AssertionType assertion;
 
     /**
-     * Logs an audit record to the audit repository.
      * 
-     * @param request Audit record
-     * @return Repsonse that is a simple ack.
+     * @param decoratoredEndpoint
+     * @param url
+     * @param wsAddressingAction
+     * @param assertion
      */
-    public AcknowledgementType auditLog(LogEventRequestType request, AssertionType assertion);
+    public WsAddressingServiceEndpointDecorator(ServiceEndpoint<T> decoratoredEndpoint, String url,
+            String wsAddressingAction, AssertionType assertion) {
+        super(decoratoredEndpoint);
+        log = createLogger();
+        
+        this.bindingProviderPort = (BindingProvider) decoratedEndpoint.getPort();
+        this.url = url;
+        this.wsAddressingAction = wsAddressingAction;
+        this.assertion = assertion;
+    }
+
+    @Override
+    public void configure() {
+        super.configure();
+
+        // TODO: CONFIGURE OUTBOUND HEADERS USING INTERCEPTOR
+    }
+    
+    protected Log createLogger() {
+        return LogFactory.getLog(getClass());
+    }
+        
+    
+    
 
 }
