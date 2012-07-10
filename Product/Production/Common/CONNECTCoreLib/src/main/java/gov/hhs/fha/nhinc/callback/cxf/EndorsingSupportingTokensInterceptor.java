@@ -760,11 +760,12 @@ public class EndorsingSupportingTokensInterceptor extends WSS4JInInterceptor {
         validator.setTimestampElement(timestamp);
         check &= validator.validatePolicy(aim, msg, results, signedResults, encryptedResults);
 
-        /*validator = new EndorsingTokenPolicyValidator();
+        validator = new CONNECTEndorsingTokenPolicyValidator();
         validator.setUsernameTokenResults(utResults, utWithCallbacks);
         validator.setSAMLTokenResults(samlResults);
         validator.setTimestampElement(timestamp);
-        check &= validator.validatePolicy(aim, msg, results, signedResults, encryptedResults);*/
+        check &= validator.validatePolicy(aim, msg, results, signedResults, encryptedResults);
+        
         Collection<AssertionInfo> ais = aim.get(SP12Constants.ENDORSING_SUPPORTING_TOKENS);
         for (AssertionInfo ai : ais) {
             SupportingToken binding = (SupportingToken)ai.getAssertion();

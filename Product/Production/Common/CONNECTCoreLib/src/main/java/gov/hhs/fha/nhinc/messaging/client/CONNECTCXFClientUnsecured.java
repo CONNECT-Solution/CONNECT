@@ -24,26 +24,42 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
-package gov.hhs.fha.nhinc.auditrepository.nhinc.proxy;
 
-import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
-import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
+package gov.hhs.fha.nhinc.messaging.client;
+
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.FindCommunitiesAndAuditEventsRequestType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.FindCommunitiesAndAuditEventsResponseType;
+import gov.hhs.fha.nhinc.messaging.service.ServiceEndpoint;
+import gov.hhs.fha.nhinc.messaging.service.decorator.cxf.WsAddressingServiceEndpointDecorator;
+import gov.hhs.fha.nhinc.messaging.service.port.CXFServicePortBuilder;
+import gov.hhs.fha.nhinc.messaging.service.port.ServicePortBuilder;
+import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 
 /**
+ * @author akong
  * 
- * @author Jon Hoppesch
  */
-public interface AuditRepositoryProxy {
+public class CONNECTCXFClientUnsecured<T> extends CONNECTClient<T> {
 
-    /**
-     * Logs an audit record to the audit repository.
-     * 
-     * @param request Audit record
-     * @return Repsonse that is a simple ack.
-     */
-    public AcknowledgementType auditLog(LogEventRequestType request, AssertionType assertion);
+    private ServiceEndpoint<T> serviceEndpoint = null;
+
+    CONNECTCXFClientUnsecured(ServicePortDescriptor<T> portDescriptor, String url, AssertionType assertion) {
+        super();
+
+        String wsAddressingAction = portDescriptor.getWSAddressingAction();
+
+        ServicePortBuilder<T> portBuilder = new CXFServicePortBuilder<T>(portDescriptor);
+
+        serviceEndpoint = super.configureBasePort(portBuilder.createPort(), url);
+
+        // CXF specific decorator configuration
+        serviceEndpoint = new WsAddressingServiceEndpointDecorator<T>(serviceEndpoint, url, wsAddressingAction,
+                assertion);
+
+        serviceEndpoint.configure();
+    }
+
+    public T getPort() {
+        return serviceEndpoint.getPort();
+    }
 
 }

@@ -38,10 +38,6 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.FindCommunitiesAndAuditEvents
  */
 public class AuditRepositoryProxyNoOpImpl implements AuditRepositoryProxy {
 
-    public FindCommunitiesAndAuditEventsResponseType auditQuery(FindCommunitiesAndAuditEventsRequestType request) {
-        return new FindCommunitiesAndAuditEventsResponseType();
-    }
-
     public AcknowledgementType auditLog(LogEventRequestType request, AssertionType assertion) {
         return new AcknowledgementType();
     }
