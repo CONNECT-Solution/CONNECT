@@ -25,61 +25,43 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
 
-package gov.hhs.fha.messaging.service.decorator.cxf;
+package gov.hhs.fha.nhinc.messaging.client;
 
-import javax.xml.ws.BindingProvider;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
-import gov.hhs.fha.messaging.service.ServiceEndpoint;
-import gov.hhs.fha.messaging.service.decorator.ServiceEndpointDecorator;
+import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.messaging.service.ServiceEndpoint;
+import gov.hhs.fha.nhinc.messaging.service.decorator.SAMLServiceEndpointDecorator;
+import gov.hhs.fha.nhinc.messaging.service.decorator.metro.WsAddressingServiceEndpointDecorator;
+import gov.hhs.fha.nhinc.messaging.service.port.MetroServicePortBuilder;
+import gov.hhs.fha.nhinc.messaging.service.port.ServicePortBuilder;
+import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 
 /**
  * @author akong
  * 
  */
-public class WsAddressingServiceEndpointDecorator<T> extends ServiceEndpointDecorator<T> {
-
-    private static final String UUID_TAG = "urn:uuid:";
-    private Log log = null;
+public class CONNECTMetroClientSecured<T> extends CONNECTClient<T> {
     
-    private BindingProvider bindingProviderPort;
-    private String url;
-    private String wsAddressingAction;
-    private AssertionType assertion;
+    private ServiceEndpoint<T> serviceEndpoint = null;
 
-    /**
-     * 
-     * @param decoratoredEndpoint
-     * @param url
-     * @param wsAddressingAction
-     * @param assertion
-     */
-    public WsAddressingServiceEndpointDecorator(ServiceEndpoint<T> decoratoredEndpoint, String url,
-            String wsAddressingAction, AssertionType assertion) {
-        super(decoratoredEndpoint);
-        log = createLogger();
+    CONNECTMetroClientSecured(ServicePortDescriptor<T> portDescriptor, String url, AssertionType assertion) {
+        super();
+
+        String wsAddressingAction = portDescriptor.getWSAddressingAction();
+
+        ServicePortBuilder<T> portBuilder = new MetroServicePortBuilder<T>(portDescriptor);
+
+        serviceEndpoint = super.configureBasePort(portBuilder.createPort(), url);
+        serviceEndpoint = new SAMLServiceEndpointDecorator<T>(serviceEndpoint, assertion);
         
-        this.bindingProviderPort = (BindingProvider) decoratedEndpoint.getPort();
-        this.url = url;
-        this.wsAddressingAction = wsAddressingAction;
-        this.assertion = assertion;
+        // Metro specific decorator configuration
+        serviceEndpoint = new WsAddressingServiceEndpointDecorator<T>(serviceEndpoint, url, wsAddressingAction,
+                assertion);
+
+        serviceEndpoint.configure();
     }
 
-    @Override
-    public void configure() {
-        super.configure();
-
-        // TODO: CONFIGURE OUTBOUND HEADERS USING INTERCEPTOR
+    public T getPort() {
+        return serviceEndpoint.getPort();
     }
-    
-    protected Log createLogger() {
-        return LogFactory.getLog(getClass());
-    }
-        
-    
-    
-
 }

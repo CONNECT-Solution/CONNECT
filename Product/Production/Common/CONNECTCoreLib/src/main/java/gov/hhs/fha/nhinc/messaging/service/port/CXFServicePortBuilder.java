@@ -25,45 +25,32 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
 
-package gov.hhs.fha.messaging.client;
+package gov.hhs.fha.nhinc.messaging.service.port;
 
-import gov.hhs.fha.messaging.service.BaseServiceEndpoint;
-import gov.hhs.fha.messaging.service.ServiceEndpoint;
-import gov.hhs.fha.messaging.service.decorator.TimeoutServiceEndpointDecorator;
-import gov.hhs.fha.messaging.service.decorator.URLServiceEndpointDecorator;
-import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 
+import org.apache.cxf.jaxws.JaxWsProxyFactoryBean;
 
 /**
  * @author akong
  *
  */
-public abstract class CONNECTClient<T> {
+public class CXFServicePortBuilder<T> implements ServicePortBuilder<T> {
 
-    private WebServiceProxyHelper proxyHelper = null;
+    private Class<T> serviceEndpointClass; 
+     
     
-    CONNECTClient() {
-        this.proxyHelper = new WebServiceProxyHelper();       
+    public CXFServicePortBuilder(ServicePortDescriptor<T> portDescriptor) {
+        super();
+        this.serviceEndpointClass = portDescriptor.getPortClass();        
     }
     
-    public abstract T getPort();
-    
-    public Object invokePort(Class<T> portClass, String methodName, Object operationInput) throws Exception {        
-        return proxyHelper.invokePort(getPort(), portClass, methodName, operationInput);        
-    }
-    
-    /**
-     * Configures the given port with properties common to all ports.
-     * 
-     * @param port
-     * @param url
-     * @return
-     */
-    protected ServiceEndpoint<T> configureBasePort(T port, String url) {
-        ServiceEndpoint<T> serviceEndpoint = new BaseServiceEndpoint<T>(port);
-        serviceEndpoint = new URLServiceEndpointDecorator<T>(serviceEndpoint, url);        
-        serviceEndpoint = new TimeoutServiceEndpointDecorator<T>(serviceEndpoint);
-        
-        return serviceEndpoint;
+    @SuppressWarnings("unchecked")
+    public T createPort() {
+               
+        JaxWsProxyFactoryBean clientFactory = new JaxWsProxyFactoryBean();
+        clientFactory.setServiceClass(serviceEndpointClass);
+        clientFactory.setBindingId("http://www.w3.org/2003/05/soap/bindings/HTTP/");
+                
+        return (T) clientFactory.create();
     }
 }

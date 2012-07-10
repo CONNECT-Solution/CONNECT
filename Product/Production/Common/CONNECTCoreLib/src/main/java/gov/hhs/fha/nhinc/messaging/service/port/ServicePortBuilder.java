@@ -25,25 +25,13 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
 
-package gov.hhs.fha.messaging.client;
-
-import gov.hhs.fha.messaging.service.port.ServicePortDescriptor;
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+package gov.hhs.fha.nhinc.messaging.service.port;
 
 /**
  * @author akong
- * 
+ *
  */
-public class CONNECTClientFactory<T> {
+public interface ServicePortBuilder<T> {
 
-    public CONNECTClient<T> getCONNECTClientSecured(ServicePortDescriptor<T> portDescriptor, String url,
-            AssertionType assertion) {
-        return new CONNECTCXFClientSecured<T>(portDescriptor, url, assertion);
-    }
-
-    public CONNECTClient<T> getCONNECTClientUnsecured(ServicePortDescriptor<T> portDescriptor, String url,
-            AssertionType assertion) {
-        return new CONNECTCXFClientUnsecured<T>(portDescriptor, url, assertion);
-    }
-
+    public T createPort();
 }

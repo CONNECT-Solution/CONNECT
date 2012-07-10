@@ -28,7 +28,7 @@
 package gov.hhs.fha.nhinc.docsubmission.nhin.proxy.service;
 
 import ihe.iti.xdr._2007.DocumentRepositoryXDRPortType;
-import gov.hhs.fha.messaging.service.port.ServicePortDescriptor;
+import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 
 
 /**

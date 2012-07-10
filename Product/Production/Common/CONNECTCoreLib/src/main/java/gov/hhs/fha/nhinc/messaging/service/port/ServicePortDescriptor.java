@@ -25,41 +25,23 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
 
-package gov.hhs.fha.messaging.client;
-
-import gov.hhs.fha.messaging.service.ServiceEndpoint;
-import gov.hhs.fha.messaging.service.decorator.metro.WsAddressingServiceEndpointDecorator;
-import gov.hhs.fha.messaging.service.port.MetroServicePortBuilder;
-import gov.hhs.fha.messaging.service.port.ServicePortBuilder;
-import gov.hhs.fha.messaging.service.port.ServicePortDescriptor;
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+package gov.hhs.fha.nhinc.messaging.service.port;
 
 /**
  * @author akong
- * 
+ *
  */
-public class CONNECTMetroClientUnsecured<T> extends CONNECTClient<T> {
+public interface ServicePortDescriptor<T> {
 
-    private ServiceEndpoint<T> serviceEndpoint = null;
-
-    CONNECTMetroClientUnsecured(ServicePortDescriptor<T> portDescriptor, String url, AssertionType assertion) {
-        super();
-
-        String wsAddressingAction = portDescriptor.getWSAddressingAction();
-        
-        ServicePortBuilder<T> portBuilder = new MetroServicePortBuilder<T>(portDescriptor);
-
-        serviceEndpoint = super.configureBasePort(portBuilder.createPort(), url);
-
-        // Metro specific decorator configuration
-        serviceEndpoint = new WsAddressingServiceEndpointDecorator<T>(serviceEndpoint, url, wsAddressingAction,
-                assertion);
-
-        serviceEndpoint.configure();
-    }
-
-    public T getPort() {
-        return serviceEndpoint.getPort();
-    }
-
+    public String getNamespaceUri();
+    
+    public String getServiceLocalPart();
+    
+    public String getPortLocalPart();
+    
+    public String getWSDLFileName();
+    
+    public String getWSAddressingAction();
+    
+    public Class<T> getPortClass();
 }

@@ -25,17 +25,18 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
 
-package gov.hhs.fha.messaging.client;
+package gov.hhs.fha.nhinc.messaging.client;
 
-import gov.hhs.fha.messaging.service.ServiceEndpoint;
-import gov.hhs.fha.messaging.service.decorator.SAMLServiceEndpointDecorator;
-import gov.hhs.fha.messaging.service.decorator.cxf.SecurityOutInterceptorServiceEndpointDecorator;
-import gov.hhs.fha.messaging.service.decorator.cxf.TLSClientServiceEndpointDecorator;
-import gov.hhs.fha.messaging.service.decorator.cxf.WsAddressingServiceEndpointDecorator;
-import gov.hhs.fha.messaging.service.port.CXFServicePortBuilder;
-import gov.hhs.fha.messaging.service.port.ServicePortBuilder;
-import gov.hhs.fha.messaging.service.port.ServicePortDescriptor;
+import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.messaging.service.ServiceEndpoint;
+import gov.hhs.fha.nhinc.messaging.service.decorator.SAMLServiceEndpointDecorator;
+import gov.hhs.fha.nhinc.messaging.service.decorator.cxf.SecurityOutInterceptorServiceEndpointDecorator;
+import gov.hhs.fha.nhinc.messaging.service.decorator.cxf.TLSClientServiceEndpointDecorator;
+import gov.hhs.fha.nhinc.messaging.service.decorator.cxf.WsAddressingServiceEndpointDecorator;
+import gov.hhs.fha.nhinc.messaging.service.port.CXFServicePortBuilder;
+import gov.hhs.fha.nhinc.messaging.service.port.ServicePortBuilder;
+import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 
 /**
  * @author akong

@@ -25,41 +25,42 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
 
-package gov.hhs.fha.messaging.client;
+package gov.hhs.fha.nhinc.messaging.service.decorator;
 
-import gov.hhs.fha.messaging.service.ServiceEndpoint;
-import gov.hhs.fha.messaging.service.decorator.cxf.WsAddressingServiceEndpointDecorator;
-import gov.hhs.fha.messaging.service.port.CXFServicePortBuilder;
-import gov.hhs.fha.messaging.service.port.ServicePortBuilder;
-import gov.hhs.fha.messaging.service.port.ServicePortDescriptor;
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.messaging.service.ServiceEndpoint;
+import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
+
+import java.util.Map;
 
 /**
- * @author akong
- * 
+ * @author bhumphrey
+ * @param <T>
+ *
  */
-public class CONNECTCXFClientUnsecured<T> extends CONNECTClient<T> {
+public class TimeoutServiceEndpointDecorator<T> extends ServiceEndpointDecorator<T> {
 
-    private ServiceEndpoint<T> serviceEndpoint = null;
-
-    CONNECTCXFClientUnsecured(ServicePortDescriptor<T> portDescriptor, String url, AssertionType assertion) {
-        super();
-
-        String wsAddressingAction = portDescriptor.getWSAddressingAction();
-
-        ServicePortBuilder<T> portBuilder = new CXFServicePortBuilder<T>(portDescriptor);
-
-        serviceEndpoint = super.configureBasePort(portBuilder.createPort(), url);
-
-        // CXF specific decorator configuration
-        serviceEndpoint = new WsAddressingServiceEndpointDecorator<T>(serviceEndpoint, url, wsAddressingAction,
-                assertion);
-
-        serviceEndpoint.configure();
+    public static final String KEY_CONNECT_TIMEOUT = "com.sun.xml.ws.connect.timeout";
+    public static final String KEY_REQUEST_TIMEOUT = "com.sun.xml.ws.request.timeout";
+    private int connectTimeout;
+    private int requestTimeout;
+    
+    /**
+     * @param decoratored
+     */
+    public TimeoutServiceEndpointDecorator(ServiceEndpoint<T> decoratoredEndpoint) {
+        super(decoratoredEndpoint);
+        
+        WebServiceProxyHelper proxyHelper = new WebServiceProxyHelper();
+        this.connectTimeout = proxyHelper.getTimeout();
+        this.requestTimeout = proxyHelper.getTimeout();;
     }
 
-    public T getPort() {
-        return serviceEndpoint.getPort();
+    @Override
+    public void configure() {
+        super.configure();
+        Map<String, Object> requestContext = ((javax.xml.ws.BindingProvider)getPort()).getRequestContext();
+        requestContext.put(KEY_CONNECT_TIMEOUT, connectTimeout);
+        requestContext.put(KEY_REQUEST_TIMEOUT, requestTimeout);
     }
-
+    
 }

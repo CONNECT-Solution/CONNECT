@@ -25,23 +25,35 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
 
-package gov.hhs.fha.messaging.service.port;
+package gov.hhs.fha.nhinc.messaging.service.decorator;
+
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.messaging.service.ServiceEndpoint;
+
+import java.util.Map;
 
 /**
- * @author akong
+ * @author bhumphrey
+ * @param <T>
  *
  */
-public interface ServicePortDescriptor<T> {
+public class SAMLServiceEndpointDecorator<T> extends ServiceEndpointDecorator<T> {
 
-    public String getNamespaceUri();
+    private AssertionType assertion;
     
-    public String getServiceLocalPart();
-    
-    public String getPortLocalPart();
-    
-    public String getWSDLFileName();
-    
-    public String getWSAddressingAction();
-    
-    public Class<T> getPortClass();
+    /**
+     * @param decoratored
+     */
+    public SAMLServiceEndpointDecorator(ServiceEndpoint<T> decoratoredEndpoint, AssertionType assertion) {
+        super(decoratoredEndpoint);
+        this.assertion = assertion;
+    }
+
+    @Override
+    public void configure() {
+        super.configure();
+        Map<String, Object> requestContext = ((javax.xml.ws.BindingProvider) getPort()).getRequestContext();
+        requestContext.put("assertion", assertion);
+    }
+        
 }

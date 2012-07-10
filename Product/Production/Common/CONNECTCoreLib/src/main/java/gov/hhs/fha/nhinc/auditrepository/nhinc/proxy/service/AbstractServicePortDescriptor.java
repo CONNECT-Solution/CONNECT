@@ -27,7 +27,7 @@
 
 package gov.hhs.fha.nhinc.auditrepository.nhinc.proxy.service;
 
-import gov.hhs.fha.messaging.service.port.ServicePortDescriptor;
+import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 
 
 /**

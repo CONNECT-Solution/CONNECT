@@ -25,34 +25,41 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
 
-package gov.hhs.fha.messaging.service.port;
+package gov.hhs.fha.nhinc.messaging.client;
 
-
-import org.apache.cxf.jaxws.JaxWsProxyFactoryBean;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.messaging.service.ServiceEndpoint;
+import gov.hhs.fha.nhinc.messaging.service.decorator.cxf.WsAddressingServiceEndpointDecorator;
+import gov.hhs.fha.nhinc.messaging.service.port.CXFServicePortBuilder;
+import gov.hhs.fha.nhinc.messaging.service.port.ServicePortBuilder;
+import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 
 /**
  * @author akong
- *
+ * 
  */
-public class CXFServicePortBuilder<T> implements ServicePortBuilder<T> {
+public class CONNECTCXFClientUnsecured<T> extends CONNECTClient<T> {
 
-    private String wsdlFile;
-    private Class<T> serviceEndpointClass; 
-     
-    
-    public CXFServicePortBuilder(ServicePortDescriptor<T> portDescriptor) {
+    private ServiceEndpoint<T> serviceEndpoint = null;
+
+    CONNECTCXFClientUnsecured(ServicePortDescriptor<T> portDescriptor, String url, AssertionType assertion) {
         super();
-        this.wsdlFile = portDescriptor.getWSDLFileName();
-        this.serviceEndpointClass = portDescriptor.getPortClass();        
+
+        String wsAddressingAction = portDescriptor.getWSAddressingAction();
+
+        ServicePortBuilder<T> portBuilder = new CXFServicePortBuilder<T>(portDescriptor);
+
+        serviceEndpoint = super.configureBasePort(portBuilder.createPort(), url);
+
+        // CXF specific decorator configuration
+        serviceEndpoint = new WsAddressingServiceEndpointDecorator<T>(serviceEndpoint, url, wsAddressingAction,
+                assertion);
+
+        serviceEndpoint.configure();
     }
-    
-    @SuppressWarnings("unchecked")
-    public T createPort() {
-               
-        JaxWsProxyFactoryBean clientFactory = new JaxWsProxyFactoryBean();
-        clientFactory.setServiceClass(serviceEndpointClass);
-        clientFactory.setBindingId("http://www.w3.org/2003/05/soap/bindings/HTTP/");
-                
-        return (T) clientFactory.create();
+
+    public T getPort() {
+        return serviceEndpoint.getPort();
     }
+
 }

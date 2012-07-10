@@ -25,26 +25,45 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
 
-package gov.hhs.fha.messaging.service.decorator;
+package gov.hhs.fha.nhinc.messaging.client;
 
-import gov.hhs.fha.messaging.service.ServiceEndpoint;
+import gov.hhs.fha.nhinc.messaging.service.BaseServiceEndpoint;
+import gov.hhs.fha.nhinc.messaging.service.ServiceEndpoint;
+import gov.hhs.fha.nhinc.messaging.service.decorator.TimeoutServiceEndpointDecorator;
+import gov.hhs.fha.nhinc.messaging.service.decorator.URLServiceEndpointDecorator;
+import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
+
 
 /**
  * @author akong
  *
  */
-public abstract class ServiceEndpointDecorator <T> implements ServiceEndpoint<T>{
-    protected ServiceEndpoint<T> decoratedEndpoint; 
+public abstract class CONNECTClient<T> {
+
+    private WebServiceProxyHelper proxyHelper = null;
     
-    public ServiceEndpointDecorator (ServiceEndpoint<T> decoratedEndpoint) {
-        this.decoratedEndpoint = decoratedEndpoint;
+    CONNECTClient() {
+        this.proxyHelper = new WebServiceProxyHelper();       
     }
     
-    public void configure() {
-        decoratedEndpoint.configure();
+    public abstract T getPort();
+    
+    public Object invokePort(Class<T> portClass, String methodName, Object operationInput) throws Exception {        
+        return proxyHelper.invokePort(getPort(), portClass, methodName, operationInput);        
     }
     
-    public T getPort() {
-        return decoratedEndpoint.getPort();
+    /**
+     * Configures the given port with properties common to all ports.
+     * 
+     * @param port
+     * @param url
+     * @return
+     */
+    protected ServiceEndpoint<T> configureBasePort(T port, String url) {
+        ServiceEndpoint<T> serviceEndpoint = new BaseServiceEndpoint<T>(port);
+        serviceEndpoint = new URLServiceEndpointDecorator<T>(serviceEndpoint, url);        
+        serviceEndpoint = new TimeoutServiceEndpointDecorator<T>(serviceEndpoint);
+        
+        return serviceEndpoint;
     }
 }

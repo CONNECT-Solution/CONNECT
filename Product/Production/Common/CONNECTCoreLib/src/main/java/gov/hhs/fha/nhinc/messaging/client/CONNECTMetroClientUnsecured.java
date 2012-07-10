@@ -25,35 +25,42 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
 
-package gov.hhs.fha.messaging.service.decorator;
+package gov.hhs.fha.nhinc.messaging.client;
 
-import gov.hhs.fha.messaging.service.ServiceEndpoint;
+import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-
-import java.util.Map;
+import gov.hhs.fha.nhinc.messaging.service.ServiceEndpoint;
+import gov.hhs.fha.nhinc.messaging.service.decorator.metro.WsAddressingServiceEndpointDecorator;
+import gov.hhs.fha.nhinc.messaging.service.port.MetroServicePortBuilder;
+import gov.hhs.fha.nhinc.messaging.service.port.ServicePortBuilder;
+import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 
 /**
- * @author bhumphrey
- * @param <T>
- *
+ * @author akong
+ * 
  */
-public class SAMLServiceEndpointDecorator<T> extends ServiceEndpointDecorator<T> {
+public class CONNECTMetroClientUnsecured<T> extends CONNECTClient<T> {
 
-    private AssertionType assertion;
-    
-    /**
-     * @param decoratored
-     */
-    public SAMLServiceEndpointDecorator(ServiceEndpoint<T> decoratoredEndpoint, AssertionType assertion) {
-        super(decoratoredEndpoint);
-        this.assertion = assertion;
-    }
+    private ServiceEndpoint<T> serviceEndpoint = null;
 
-    @Override
-    public void configure() {
-        super.configure();
-        Map<String, Object> requestContext = ((javax.xml.ws.BindingProvider) getPort()).getRequestContext();
-        requestContext.put("assertion", assertion);
-    }
+    CONNECTMetroClientUnsecured(ServicePortDescriptor<T> portDescriptor, String url, AssertionType assertion) {
+        super();
+
+        String wsAddressingAction = portDescriptor.getWSAddressingAction();
         
+        ServicePortBuilder<T> portBuilder = new MetroServicePortBuilder<T>(portDescriptor);
+
+        serviceEndpoint = super.configureBasePort(portBuilder.createPort(), url);
+
+        // Metro specific decorator configuration
+        serviceEndpoint = new WsAddressingServiceEndpointDecorator<T>(serviceEndpoint, url, wsAddressingAction,
+                assertion);
+
+        serviceEndpoint.configure();
+    }
+
+    public T getPort() {
+        return serviceEndpoint.getPort();
+    }
+
 }

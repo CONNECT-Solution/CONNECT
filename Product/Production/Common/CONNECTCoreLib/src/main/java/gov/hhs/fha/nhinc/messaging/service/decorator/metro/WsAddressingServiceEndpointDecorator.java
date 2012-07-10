@@ -25,7 +25,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
 
-package gov.hhs.fha.messaging.service.decorator.metro;
+package gov.hhs.fha.nhinc.messaging.service.decorator.metro;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,10 +39,10 @@ import org.apache.commons.logging.LogFactory;
 import com.sun.xml.ws.api.message.Header;
 import com.sun.xml.ws.developer.WSBindingProvider;
 
-import gov.hhs.fha.messaging.service.ServiceEndpoint;
-import gov.hhs.fha.messaging.service.decorator.ServiceEndpointDecorator;
 import gov.hhs.fha.nhinc.async.AddressingHeaderCreator;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.messaging.service.ServiceEndpoint;
+import gov.hhs.fha.nhinc.messaging.service.decorator.ServiceEndpointDecorator;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 
 /**

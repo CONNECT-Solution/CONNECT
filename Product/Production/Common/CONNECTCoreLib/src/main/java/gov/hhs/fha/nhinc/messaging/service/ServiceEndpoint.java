@@ -25,42 +25,16 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
 
-package gov.hhs.fha.messaging.service.decorator;
-
-import gov.hhs.fha.messaging.service.ServiceEndpoint;
-import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
-
-import java.util.Map;
+package gov.hhs.fha.nhinc.messaging.service;
 
 /**
- * @author bhumphrey
- * @param <T>
+ * @author akong
  *
  */
-public class TimeoutServiceEndpointDecorator<T> extends ServiceEndpointDecorator<T> {
-
-    public static final String KEY_CONNECT_TIMEOUT = "com.sun.xml.ws.connect.timeout";
-    public static final String KEY_REQUEST_TIMEOUT = "com.sun.xml.ws.request.timeout";
-    private int connectTimeout;
-    private int requestTimeout;
+public interface ServiceEndpoint<T> {
     
-    /**
-     * @param decoratored
-     */
-    public TimeoutServiceEndpointDecorator(ServiceEndpoint<T> decoratoredEndpoint) {
-        super(decoratoredEndpoint);
-        
-        WebServiceProxyHelper proxyHelper = new WebServiceProxyHelper();
-        this.connectTimeout = proxyHelper.getTimeout();
-        this.requestTimeout = proxyHelper.getTimeout();;
-    }
-
-    @Override
-    public void configure() {
-        super.configure();
-        Map<String, Object> requestContext = ((javax.xml.ws.BindingProvider)getPort()).getRequestContext();
-        requestContext.put(KEY_CONNECT_TIMEOUT, connectTimeout);
-        requestContext.put(KEY_REQUEST_TIMEOUT, requestTimeout);
-    }
+    public void configure();
+    
+    public T getPort();
     
 }

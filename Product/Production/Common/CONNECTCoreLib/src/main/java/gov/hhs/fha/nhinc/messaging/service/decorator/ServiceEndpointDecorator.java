@@ -25,13 +25,26 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
 
-package gov.hhs.fha.messaging.service.port;
+package gov.hhs.fha.nhinc.messaging.service.decorator;
+
+import gov.hhs.fha.nhinc.messaging.service.ServiceEndpoint;
 
 /**
  * @author akong
  *
  */
-public interface ServicePortBuilder<T> {
-
-    public T createPort();
+public abstract class ServiceEndpointDecorator <T> implements ServiceEndpoint<T>{
+    protected ServiceEndpoint<T> decoratedEndpoint; 
+    
+    public ServiceEndpointDecorator (ServiceEndpoint<T> decoratedEndpoint) {
+        this.decoratedEndpoint = decoratedEndpoint;
+    }
+    
+    public void configure() {
+        decoratedEndpoint.configure();
+    }
+    
+    public T getPort() {
+        return decoratedEndpoint.getPort();
+    }
 }

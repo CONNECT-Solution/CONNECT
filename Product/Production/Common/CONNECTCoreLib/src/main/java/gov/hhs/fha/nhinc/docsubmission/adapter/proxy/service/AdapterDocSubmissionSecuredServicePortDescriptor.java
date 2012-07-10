@@ -27,8 +27,8 @@
 
 package gov.hhs.fha.nhinc.docsubmission.adapter.proxy.service;
 
-import gov.hhs.fha.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.adapterxdrsecured.AdapterXDRSecuredPortType;
+import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 
 /**
  * @author akong

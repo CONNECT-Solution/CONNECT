@@ -25,40 +25,27 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
 
-package gov.hhs.fha.messaging.service.decorator.cxf;
+package gov.hhs.fha.nhinc.messaging.client;
 
-import gov.hhs.fha.messaging.service.ServiceEndpoint;
-import gov.hhs.fha.messaging.service.decorator.ServiceEndpointDecorator;
-
-import org.apache.cxf.configuration.jsse.TLSClientParameters;
-import org.apache.cxf.endpoint.Client;
-import org.apache.cxf.frontend.ClientProxy;
-import org.apache.cxf.transport.http.HTTPConduit;
+import gov.hhs.fha.nhinc.messaging.client.CONNECTCXFClientUnsecured;
+import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 
 /**
- * @author bhumphrey
- * @param <T>
+ * @author akong
  * 
  */
-public class TLSClientServiceEndpointDecorator<T> extends ServiceEndpointDecorator<T> {
+public class CONNECTClientFactory<T> {
 
-    /**
-     * @param decoratored
-     * @param assertion 
-     * @param url 
-     */
-    public TLSClientServiceEndpointDecorator(ServiceEndpoint<T> decoratoredEndpoint) {
-        super(decoratoredEndpoint);
+    public CONNECTClient<T> getCONNECTClientSecured(ServicePortDescriptor<T> portDescriptor, String url,
+            AssertionType assertion) {
+        return new CONNECTCXFClientSecured<T>(portDescriptor, url, assertion);
     }
 
-    @Override
-    public void configure() {
-
-        super.configure();
-        Client client = ClientProxy.getClient(getPort());
-        HTTPConduit conduit = (HTTPConduit) client.getConduit();
-        TLSClientParameters tlsCP = TLSClientParametersFactory.getInstance().getTLSClientParameters();
-        conduit.setTlsClientParameters(tlsCP);
+    public CONNECTClient<T> getCONNECTClientUnsecured(ServicePortDescriptor<T> portDescriptor, String url,
+            AssertionType assertion) {
+        return new CONNECTCXFClientUnsecured<T>(portDescriptor, url, assertion);
     }
 
 }

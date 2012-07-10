@@ -25,27 +25,40 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
 
-package gov.hhs.fha.messaging.service;
+package gov.hhs.fha.nhinc.messaging.service.decorator.cxf;
 
+import gov.hhs.fha.nhinc.messaging.service.ServiceEndpoint;
+import gov.hhs.fha.nhinc.messaging.service.decorator.ServiceEndpointDecorator;
+
+import org.apache.cxf.configuration.jsse.TLSClientParameters;
+import org.apache.cxf.endpoint.Client;
+import org.apache.cxf.frontend.ClientProxy;
+import org.apache.cxf.transport.http.HTTPConduit;
 
 /**
- * @author akong
- *
+ * @author bhumphrey
+ * @param <T>
+ * 
  */
-public class BaseServiceEndpoint<T> implements ServiceEndpoint<T> {
-    
-    protected T port;
-    
-    public BaseServiceEndpoint(T port) {
-        this.port = port;
+public class TLSClientServiceEndpointDecorator<T> extends ServiceEndpointDecorator<T> {
+
+    /**
+     * @param decoratored
+     * @param assertion 
+     * @param url 
+     */
+    public TLSClientServiceEndpointDecorator(ServiceEndpoint<T> decoratoredEndpoint) {
+        super(decoratoredEndpoint);
     }
-    
+
+    @Override
     public void configure() {
-        // DO NOTHING
-    }
-    
-    public T getPort() {
-        return this.port;
+
+        super.configure();
+        Client client = ClientProxy.getClient(getPort());
+        HTTPConduit conduit = (HTTPConduit) client.getConduit();
+        TLSClientParameters tlsCP = TLSClientParametersFactory.getInstance().getTLSClientParameters();
+        conduit.setTlsClientParameters(tlsCP);
     }
 
 }

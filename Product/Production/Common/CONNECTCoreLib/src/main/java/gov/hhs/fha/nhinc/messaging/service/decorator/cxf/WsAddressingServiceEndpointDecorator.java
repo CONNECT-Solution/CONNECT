@@ -25,34 +25,61 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
 
-package gov.hhs.fha.messaging.service.decorator;
+package gov.hhs.fha.nhinc.messaging.service.decorator.cxf;
 
-import gov.hhs.fha.messaging.service.ServiceEndpoint;
+import javax.xml.ws.BindingProvider;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
-import java.util.Map;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.messaging.service.ServiceEndpoint;
+import gov.hhs.fha.nhinc.messaging.service.decorator.ServiceEndpointDecorator;
 
 /**
- * @author bhumphrey
- * @param <T>
- *
+ * @author akong
+ * 
  */
-public class URLServiceEndpointDecorator<T> extends ServiceEndpointDecorator<T> {
+public class WsAddressingServiceEndpointDecorator<T> extends ServiceEndpointDecorator<T> {
 
-    private String url;
+    private static final String UUID_TAG = "urn:uuid:";
+    private Log log = null;
     
+    private BindingProvider bindingProviderPort;
+    private String url;
+    private String wsAddressingAction;
+    private AssertionType assertion;
+
     /**
-     * @param decoratored
+     * 
+     * @param decoratoredEndpoint
+     * @param url
+     * @param wsAddressingAction
+     * @param assertion
      */
-    public URLServiceEndpointDecorator(ServiceEndpoint<T> decoratoredEndpoint, String url) {
+    public WsAddressingServiceEndpointDecorator(ServiceEndpoint<T> decoratoredEndpoint, String url,
+            String wsAddressingAction, AssertionType assertion) {
         super(decoratoredEndpoint);
+        log = createLogger();
+        
+        this.bindingProviderPort = (BindingProvider) decoratedEndpoint.getPort();
         this.url = url;
+        this.wsAddressingAction = wsAddressingAction;
+        this.assertion = assertion;
     }
 
     @Override
     public void configure() {
         super.configure();
-        Map<String, Object> requestContext = ((javax.xml.ws.BindingProvider) getPort()).getRequestContext();
-        requestContext.put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
+
+        // TODO: CONFIGURE OUTBOUND HEADERS USING INTERCEPTOR
     }
+    
+    protected Log createLogger() {
+        return LogFactory.getLog(getClass());
+    }
+        
+    
+    
+
 }

@@ -25,42 +25,33 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
 
-package gov.hhs.fha.messaging.client;
+package gov.hhs.fha.nhinc.messaging.service.decorator;
 
-import gov.hhs.fha.messaging.service.ServiceEndpoint;
-import gov.hhs.fha.messaging.service.decorator.SAMLServiceEndpointDecorator;
-import gov.hhs.fha.messaging.service.decorator.metro.WsAddressingServiceEndpointDecorator;
-import gov.hhs.fha.messaging.service.port.MetroServicePortBuilder;
-import gov.hhs.fha.messaging.service.port.ServicePortBuilder;
-import gov.hhs.fha.messaging.service.port.ServicePortDescriptor;
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.messaging.service.ServiceEndpoint;
+
+import java.util.Map;
 
 /**
- * @author akong
- * 
+ * @author bhumphrey
+ * @param <T>
+ *
  */
-public class CONNECTMetroClientSecured<T> extends CONNECTClient<T> {
+public class URLServiceEndpointDecorator<T> extends ServiceEndpointDecorator<T> {
+
+    private String url;
     
-    private ServiceEndpoint<T> serviceEndpoint = null;
-
-    CONNECTMetroClientSecured(ServicePortDescriptor<T> portDescriptor, String url, AssertionType assertion) {
-        super();
-
-        String wsAddressingAction = portDescriptor.getWSAddressingAction();
-
-        ServicePortBuilder<T> portBuilder = new MetroServicePortBuilder<T>(portDescriptor);
-
-        serviceEndpoint = super.configureBasePort(portBuilder.createPort(), url);
-        serviceEndpoint = new SAMLServiceEndpointDecorator<T>(serviceEndpoint, assertion);
-        
-        // Metro specific decorator configuration
-        serviceEndpoint = new WsAddressingServiceEndpointDecorator<T>(serviceEndpoint, url, wsAddressingAction,
-                assertion);
-
-        serviceEndpoint.configure();
+    /**
+     * @param decoratored
+     */
+    public URLServiceEndpointDecorator(ServiceEndpoint<T> decoratoredEndpoint, String url) {
+        super(decoratoredEndpoint);
+        this.url = url;
     }
 
-    public T getPort() {
-        return serviceEndpoint.getPort();
+    @Override
+    public void configure() {
+        super.configure();
+        Map<String, Object> requestContext = ((javax.xml.ws.BindingProvider) getPort()).getRequestContext();
+        requestContext.put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
     }
 }

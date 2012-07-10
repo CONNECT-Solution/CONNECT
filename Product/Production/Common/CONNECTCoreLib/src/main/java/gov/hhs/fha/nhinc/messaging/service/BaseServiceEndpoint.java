@@ -25,16 +25,29 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
 
-package gov.hhs.fha.messaging.service;
+package gov.hhs.fha.nhinc.messaging.service;
+
+import gov.hhs.fha.nhinc.messaging.service.ServiceEndpoint;
+
 
 /**
  * @author akong
  *
  */
-public interface ServiceEndpoint<T> {
+public class BaseServiceEndpoint<T> implements ServiceEndpoint<T> {
     
-    public void configure();
+    protected T port;
     
-    public T getPort();
+    public BaseServiceEndpoint(T port) {
+        this.port = port;
+    }
     
+    public void configure() {
+        // DO NOTHING
+    }
+    
+    public T getPort() {
+        return this.port;
+    }
+
 }
