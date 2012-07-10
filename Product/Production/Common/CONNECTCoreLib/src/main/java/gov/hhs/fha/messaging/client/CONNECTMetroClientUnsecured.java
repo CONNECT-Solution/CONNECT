@@ -27,10 +27,7 @@
 
 package gov.hhs.fha.messaging.client;
 
-import gov.hhs.fha.messaging.service.BaseServiceEndpoint;
 import gov.hhs.fha.messaging.service.ServiceEndpoint;
-import gov.hhs.fha.messaging.service.decorator.TimeoutServiceEndpointDecorator;
-import gov.hhs.fha.messaging.service.decorator.URLServiceEndpointDecorator;
 import gov.hhs.fha.messaging.service.decorator.metro.WsAddressingServiceEndpointDecorator;
 import gov.hhs.fha.messaging.service.port.MetroServicePortBuilder;
 import gov.hhs.fha.messaging.service.port.ServicePortBuilder;
@@ -49,14 +46,12 @@ public class CONNECTMetroClientUnsecured<T> extends CONNECTClient<T> {
         super();
 
         String wsAddressingAction = portDescriptor.getWSAddressingAction();
-
+        
         ServicePortBuilder<T> portBuilder = new MetroServicePortBuilder<T>(portDescriptor);
 
-        this.serviceEndpoint = new BaseServiceEndpoint<T>(portBuilder.createPort());
-        serviceEndpoint = new URLServiceEndpointDecorator<T>(serviceEndpoint, url);     
-        serviceEndpoint = new TimeoutServiceEndpointDecorator<T>(serviceEndpoint);
+        serviceEndpoint = super.configureBasePort(portBuilder.createPort(), url);
 
-        // Metro specific decorators
+        // Metro specific decorator configuration
         serviceEndpoint = new WsAddressingServiceEndpointDecorator<T>(serviceEndpoint, url, wsAddressingAction,
                 assertion);
 

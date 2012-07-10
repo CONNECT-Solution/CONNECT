@@ -27,6 +27,10 @@
 
 package gov.hhs.fha.messaging.client;
 
+import gov.hhs.fha.messaging.service.BaseServiceEndpoint;
+import gov.hhs.fha.messaging.service.ServiceEndpoint;
+import gov.hhs.fha.messaging.service.decorator.TimeoutServiceEndpointDecorator;
+import gov.hhs.fha.messaging.service.decorator.URLServiceEndpointDecorator;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 
 
@@ -46,5 +50,20 @@ public abstract class CONNECTClient<T> {
     
     public Object invokePort(Class<T> portClass, String methodName, Object operationInput) throws Exception {        
         return proxyHelper.invokePort(getPort(), portClass, methodName, operationInput);        
+    }
+    
+    /**
+     * Configures the given port with properties common to all ports.
+     * 
+     * @param port
+     * @param url
+     * @return
+     */
+    protected ServiceEndpoint<T> configureBasePort(T port, String url) {
+        ServiceEndpoint<T> serviceEndpoint = new BaseServiceEndpoint<T>(port);
+        serviceEndpoint = new URLServiceEndpointDecorator<T>(serviceEndpoint, url);        
+        serviceEndpoint = new TimeoutServiceEndpointDecorator<T>(serviceEndpoint);
+        
+        return serviceEndpoint;
     }
 }

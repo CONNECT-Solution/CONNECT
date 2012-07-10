@@ -27,11 +27,8 @@
 
 package gov.hhs.fha.messaging.client;
 
-import gov.hhs.fha.messaging.service.BaseServiceEndpoint;
 import gov.hhs.fha.messaging.service.ServiceEndpoint;
 import gov.hhs.fha.messaging.service.decorator.SAMLServiceEndpointDecorator;
-import gov.hhs.fha.messaging.service.decorator.TimeoutServiceEndpointDecorator;
-import gov.hhs.fha.messaging.service.decorator.URLServiceEndpointDecorator;
 import gov.hhs.fha.messaging.service.decorator.cxf.SecurityOutInterceptorServiceEndpointDecorator;
 import gov.hhs.fha.messaging.service.decorator.cxf.TLSClientServiceEndpointDecorator;
 import gov.hhs.fha.messaging.service.decorator.cxf.WsAddressingServiceEndpointDecorator;
@@ -54,13 +51,11 @@ public class CONNECTCXFClientSecured<T> extends CONNECTClient<T> {
         String wsAddressingAction = portDescriptor.getWSAddressingAction();
 
         ServicePortBuilder<T> portBuilder = new CXFServicePortBuilder<T>(portDescriptor);
-
-        this.serviceEndpoint = new BaseServiceEndpoint<T>(portBuilder.createPort());
-        serviceEndpoint = new URLServiceEndpointDecorator<T>(serviceEndpoint, url);                
-        serviceEndpoint = new TimeoutServiceEndpointDecorator<T>(serviceEndpoint);
+        
+        serviceEndpoint = super.configureBasePort(portBuilder.createPort(), url);
         serviceEndpoint = new SAMLServiceEndpointDecorator<T>(serviceEndpoint, assertion);
 
-        // CXF specific decorators
+        // CXF specific decorator configuration
         serviceEndpoint = new WsAddressingServiceEndpointDecorator<T>(serviceEndpoint, url, wsAddressingAction,
                 assertion);
         serviceEndpoint = new TLSClientServiceEndpointDecorator<T>(serviceEndpoint);

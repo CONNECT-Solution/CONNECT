@@ -27,10 +27,7 @@
 
 package gov.hhs.fha.messaging.client;
 
-import gov.hhs.fha.messaging.service.BaseServiceEndpoint;
 import gov.hhs.fha.messaging.service.ServiceEndpoint;
-import gov.hhs.fha.messaging.service.decorator.TimeoutServiceEndpointDecorator;
-import gov.hhs.fha.messaging.service.decorator.URLServiceEndpointDecorator;
 import gov.hhs.fha.messaging.service.decorator.cxf.WsAddressingServiceEndpointDecorator;
 import gov.hhs.fha.messaging.service.port.CXFServicePortBuilder;
 import gov.hhs.fha.messaging.service.port.ServicePortBuilder;
@@ -52,11 +49,9 @@ public class CONNECTCXFClientUnsecured<T> extends CONNECTClient<T> {
 
         ServicePortBuilder<T> portBuilder = new CXFServicePortBuilder<T>(portDescriptor);
 
-        this.serviceEndpoint = new BaseServiceEndpoint<T>(portBuilder.createPort());
-        serviceEndpoint = new URLServiceEndpointDecorator<T>(serviceEndpoint, url);     
-        serviceEndpoint = new TimeoutServiceEndpointDecorator<T>(serviceEndpoint);
+        serviceEndpoint = super.configureBasePort(portBuilder.createPort(), url);
 
-        // CXF specific decorators
+        // CXF specific decorator configuration
         serviceEndpoint = new WsAddressingServiceEndpointDecorator<T>(serviceEndpoint, url, wsAddressingAction,
                 assertion);
 
