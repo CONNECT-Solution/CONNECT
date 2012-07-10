@@ -24,26 +24,48 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
-package gov.hhs.fha.nhinc.auditrepository.nhinc.proxy;
 
-import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
-import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
+package gov.hhs.fha.messaging.client;
+
+import gov.hhs.fha.messaging.service.BaseServiceEndpoint;
+import gov.hhs.fha.messaging.service.ServiceEndpoint;
+import gov.hhs.fha.messaging.service.decorator.SAMLServiceEndpointDecorator;
+import gov.hhs.fha.messaging.service.decorator.TimeoutServiceEndpointDecorator;
+import gov.hhs.fha.messaging.service.decorator.URLServiceEndpointDecorator;
+import gov.hhs.fha.messaging.service.decorator.metro.WsAddressingServiceEndpointDecorator;
+import gov.hhs.fha.messaging.service.port.MetroServicePortBuilder;
+import gov.hhs.fha.messaging.service.port.ServicePortBuilder;
+import gov.hhs.fha.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.FindCommunitiesAndAuditEventsRequestType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.FindCommunitiesAndAuditEventsResponseType;
 
 /**
+ * @author akong
  * 
- * @author Jon Hoppesch
  */
-public interface AuditRepositoryProxy {
+public class CONNECTMetroClientSecured<T> extends CONNECTClient<T> {
+    
+    private ServiceEndpoint<T> serviceEndpoint = null;
 
-    /**
-     * Logs an audit record to the audit repository.
-     * 
-     * @param request Audit record
-     * @return Repsonse that is a simple ack.
-     */
-    public AcknowledgementType auditLog(LogEventRequestType request, AssertionType assertion);
+    CONNECTMetroClientSecured(ServicePortDescriptor<T> portDescriptor, String url, AssertionType assertion) {
+        super();
 
+        String wsAddressingAction = portDescriptor.getWSAddressingAction();
+
+        ServicePortBuilder<T> portBuilder = new MetroServicePortBuilder<T>(portDescriptor);
+
+        this.serviceEndpoint = new BaseServiceEndpoint<T>(portBuilder.createPort());
+        serviceEndpoint = new URLServiceEndpointDecorator<T>(serviceEndpoint, url);        
+        serviceEndpoint = new TimeoutServiceEndpointDecorator<T>(serviceEndpoint);
+        serviceEndpoint = new SAMLServiceEndpointDecorator<T>(serviceEndpoint, assertion);
+        
+        // Metro specific decorators
+        serviceEndpoint = new WsAddressingServiceEndpointDecorator<T>(serviceEndpoint, url, wsAddressingAction,
+                assertion);
+
+        serviceEndpoint.configure();
+    }
+
+    public T getPort() {
+        return serviceEndpoint.getPort();
+    }
 }

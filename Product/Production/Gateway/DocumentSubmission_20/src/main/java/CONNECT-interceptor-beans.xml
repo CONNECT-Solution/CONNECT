@@ -4,45 +4,6 @@
             http://www.springframework.org/schema/beans
             http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="passwordCallBackHandler" class="gov.hhs.fha.nhinc.callback.cxf.CXFPasswordCallbackHandler" />
-
-    <bean id="securityOutInterceptor" class="org.apache.cxf.ws.security.wss4j.WSS4JOutInterceptor">
-        <constructor-arg>
-            <map>
-                <entry key="action" value="Timestamp SAMLTokenSigned" />
-                <entry key="timeToLive" value="3600" />
-                <entry key="user" value="gateway" />
-                <entry>
-                    <key>
-                        <value>passwordCallbackRef</value>
-                    </key>
-                    <ref bean="passwordCallBackHandler" />
-                </entry>
-                <entry key="passwordType" value="PasswordDigest" />
-                <entry key="samlPropFile" value="saml.properties" />
-                <entry key="signaturePropFile" value="keystore.properties" />
-                <entry key="signatureAlgorithm" value="http://www.w3.org/2000/09/xmldsig#rsa-sha1" />
-                <entry key="signatureDigestAlgorithm" value="http://www.w3.org/2000/09/xmldsig#sha1" />
-                <entry key="signatureParts"
-                    value="{Element}{http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd}Timestamp;" />
-            </map>
-        </constructor-arg>
-    </bean>
-
-    <bean id="securityInInterceptor" class="gov.hhs.fha.nhinc.callback.cxf.EndorsingSupportingTokensInterceptor">
-        <!-- constructor-arg>
-            <map>
-                <entry key="action" value="Timestamp SAMLTokenSigned Signature" />
-                <entry key="timeToLive" value="3600" />
-                <entry key="passwordType" value="PasswordDigest" />
-                <entry key="signaturePropFile" value="truststore.properties" />
-                <entry key="signatureAlgorithm" value="http://www.w3.org/2000/09/xmldsig#rsa-sha1" />
-                <entry key="signatureDigestAlgorithm" value="http://www.w3.org/2000/09/xmldsig#sha1" />
-                <entry key="signatureParts"
-                    value="{Element}{http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd}Timestamp;" />
-                <entry key="enableSignatureConfirmation" value="true" />
-            </map>
-        </constructor-arg -->
-    </bean>
-
+    <bean id="securityInInterceptor" class="gov.hhs.fha.nhinc.callback.cxf.EndorsingSupportingTokensInterceptor" />
+    
 </beans>

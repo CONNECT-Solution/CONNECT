@@ -24,26 +24,26 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
-package gov.hhs.fha.nhinc.auditrepository.nhinc.proxy;
 
-import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
-import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
+package gov.hhs.fha.messaging.client;
+
+import gov.hhs.fha.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.FindCommunitiesAndAuditEventsRequestType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.FindCommunitiesAndAuditEventsResponseType;
 
 /**
+ * @author akong
  * 
- * @author Jon Hoppesch
  */
-public interface AuditRepositoryProxy {
+public class CONNECTClientFactory<T> {
 
-    /**
-     * Logs an audit record to the audit repository.
-     * 
-     * @param request Audit record
-     * @return Repsonse that is a simple ack.
-     */
-    public AcknowledgementType auditLog(LogEventRequestType request, AssertionType assertion);
+    public CONNECTClient<T> getCONNECTClientSecured(ServicePortDescriptor<T> portDescriptor, String url,
+            AssertionType assertion) {
+        return new CONNECTCXFClientSecured<T>(portDescriptor, url, assertion);
+    }
+
+    public CONNECTClient<T> getCONNECTClientUnsecured(ServicePortDescriptor<T> portDescriptor, String url,
+            AssertionType assertion) {
+        return new CONNECTCXFClientUnsecured<T>(portDescriptor, url, assertion);
+    }
 
 }

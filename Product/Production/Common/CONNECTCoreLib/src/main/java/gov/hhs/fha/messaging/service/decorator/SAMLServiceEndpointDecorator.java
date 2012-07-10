@@ -24,26 +24,36 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
-package gov.hhs.fha.nhinc.auditrepository.nhinc.proxy;
 
-import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
-import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
+package gov.hhs.fha.messaging.service.decorator;
+
+import gov.hhs.fha.messaging.service.ServiceEndpoint;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.FindCommunitiesAndAuditEventsRequestType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.FindCommunitiesAndAuditEventsResponseType;
+
+import java.util.Map;
 
 /**
- * 
- * @author Jon Hoppesch
+ * @author bhumphrey
+ * @param <T>
+ *
  */
-public interface AuditRepositoryProxy {
+public class SAMLServiceEndpointDecorator<T> extends ServiceEndpointDecorator<T> {
 
+    private AssertionType assertion;
+    
     /**
-     * Logs an audit record to the audit repository.
-     * 
-     * @param request Audit record
-     * @return Repsonse that is a simple ack.
+     * @param decoratored
      */
-    public AcknowledgementType auditLog(LogEventRequestType request, AssertionType assertion);
+    public SAMLServiceEndpointDecorator(ServiceEndpoint<T> decoratoredEndpoint, AssertionType assertion) {
+        super(decoratoredEndpoint);
+        this.assertion = assertion;
+    }
 
+    @Override
+    public void configure() {
+        super.configure();
+        Map<String, Object> requestContext = ((javax.xml.ws.BindingProvider) getPort()).getRequestContext();
+        requestContext.put("assertion", assertion);
+    }
+        
 }

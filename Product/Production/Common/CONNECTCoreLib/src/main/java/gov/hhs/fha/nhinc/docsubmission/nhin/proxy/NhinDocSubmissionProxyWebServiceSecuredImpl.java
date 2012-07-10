@@ -26,50 +26,22 @@
  */
 package gov.hhs.fha.nhinc.docsubmission.nhin.proxy;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.net.URI;
-import java.net.URL;
-import java.security.KeyStore;
-import java.security.KeyStoreException;
-import java.security.NoSuchAlgorithmException;
-import java.security.UnrecoverableKeyException;
-import java.util.HashMap;
-import java.util.Map;
-
-import gov.hhs.fha.nhinc.callback.cxf.CXFPasswordCallbackHandler;
-import gov.hhs.fha.nhinc.callback.cxf.CXFSAMLCallbackHandler;
-import gov.hhs.fha.nhinc.callback.cxf.CryptoManager;
-import gov.hhs.fha.nhinc.callback.openSAML.CertificateManager;
-import gov.hhs.fha.nhinc.callback.openSAML.CertificateManagerImpl;
+import gov.hhs.fha.messaging.client.CONNECTClient;
+import gov.hhs.fha.messaging.client.CONNECTClientFactory;
+import gov.hhs.fha.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
-import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
-import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
+import gov.hhs.fha.nhinc.docsubmission.nhin.proxy.service.NhinDocSubmission20ServicePortDescriptor;
+import gov.hhs.fha.nhinc.docsubmission.nhin.proxy.service.NhinDocSubmissionServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
+import ihe.iti.xdr._2007.DocumentRepositoryXDRPortType;
+import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
+
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.cxf.Bus;
-import org.apache.cxf.BusFactory;
-import org.apache.cxf.bus.spring.SpringBusFactory;
-import org.apache.cxf.configuration.jsse.TLSClientParameters;
-import org.apache.cxf.configuration.security.ClientAuthentication;
-import org.apache.cxf.frontend.ClientProxy;
-import org.apache.cxf.transport.http.HTTPConduit;
-import org.apache.ws.security.handler.WSHandlerConstants;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-
-import ihe.iti.xdr._2007.DocumentRepositoryXDRPortType;
-
-import javax.net.ssl.KeyManager;
-import javax.net.ssl.KeyManagerFactory;
-import javax.net.ssl.TrustManager;
-import javax.net.ssl.TrustManagerFactory;
-import javax.xml.namespace.QName;
-import javax.xml.ws.BindingProvider;
-import javax.xml.ws.Service;
 
 /**
  * 
@@ -77,122 +49,25 @@ import javax.xml.ws.Service;
  */
 public class NhinDocSubmissionProxyWebServiceSecuredImpl implements NhinDocSubmissionProxy {
     private Log log = null;
-    private static HashMap<String, Service> cachedServiceMap = new HashMap<String, Service>();
-    private static final String NAMESPACE_URI = "urn:ihe:iti:xdr:2007";
-    private static final String SERVICE_LOCAL_PART = "DocumentRepositoryXDR_Service";
-    private static final String PORT_LOCAL_PART = "DocumentRepositoryXDR_Port_Soap";
-    private static final String WSDL_FILE_G0 = "NhinXDR.wsdl";
-    private static final String WSDL_FILE_G1 = "NhinXDR20.wsdl";
-    private static final String WS_ADDRESSING_ACTION_G0 = "urn:ihe:iti:xdr:2007:ProvideAndRegisterDocumentSet-b";
-    private static final String WS_ADDRESSING_ACTION_G1 = "urn:ihe:iti:2007:ProvideAndRegisterDocumentSet-b";
     private WebServiceProxyHelper proxyHelper = null;
 
     public NhinDocSubmissionProxyWebServiceSecuredImpl() {
         log = createLogger();
-        proxyHelper = createWebServiceProxyHelper();
+        proxyHelper = new WebServiceProxyHelper();
     }
 
     protected Log createLogger() {
         return LogFactory.getLog(getClass());
     }
 
-    protected WebServiceProxyHelper createWebServiceProxyHelper() {
-        return new WebServiceProxyHelper();
-    }
-
-    protected void initializeSecurePort(DocumentRepositoryXDRPortType port, String url, String wsAddressingAction,
-            AssertionType assertion) {
-        proxyHelper.initializeSecurePort((javax.xml.ws.BindingProvider) port, url, NhincConstants.XDR_ACTION,
-                wsAddressingAction, assertion);
-    }
-
-    /**
-     * This method retrieves and initializes the port.
-     * 
-     * @param url The URL for the web service.
-     * @return The port object for the web service.
-     */
-    protected DocumentRepositoryXDRPortType getPort(String url, AssertionType assertion,
+    public ServicePortDescriptor<DocumentRepositoryXDRPortType> getServicePortDescriptor(
             NhincConstants.GATEWAY_API_LEVEL apiLevel) {
-        DocumentRepositoryXDRPortType port = null;
-        Service service;
-        String wsAddressingAction;
         switch (apiLevel) {
         case LEVEL_g0:
-            service = getService(WSDL_FILE_G0);
-            wsAddressingAction = WS_ADDRESSING_ACTION_G0;
-            break;
-        case LEVEL_g1:
-            service = getService(WSDL_FILE_G1);
-            wsAddressingAction = WS_ADDRESSING_ACTION_G1;
-            break;
+            return new NhinDocSubmissionServicePortDescriptor();
         default:
-            service = null;
-            wsAddressingAction = null;
+            return new NhinDocSubmission20ServicePortDescriptor();
         }
-
-        if (service != null) {
-            log.debug("Obtained service - creating port.");
-                       
-            ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(new String[] { "DocumentSubmission_20-client-beans.xml" });
-            port = (DocumentRepositoryXDRPortType)context.getBean("documentSubmissionPortType");
-            
-            HTTPConduit httpConduit = (HTTPConduit) ClientProxy.getClient(port).getConduit();
-            TLSClientParameters tlsCP = new TLSClientParameters();
-            tlsCP.setDisableCNCheck(true);
-            
-            CertificateManager cm = CertificateManagerImpl.getInstance();
-            
-            try {
-                KeyManagerFactory keyFactory = KeyManagerFactory.getInstance(KeyManagerFactory.getDefaultAlgorithm());
-                String password = System.getProperty("javax.net.ssl.keyStorePassword");
-                keyFactory.init(cm.getKeyStore(), password.toCharArray()); 
-                KeyManager[] km = keyFactory.getKeyManagers(); 
-                tlsCP.setKeyManagers(km); 
-                
-                TrustManagerFactory trustFactory = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm()); 
-                trustFactory.init(cm.getTrustStore()); 
-                TrustManager[] tm = trustFactory.getTrustManagers(); 
-                tlsCP.setTrustManagers(tm); 
-            } catch (NoSuchAlgorithmException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            } catch (UnrecoverableKeyException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            } catch (KeyStoreException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-            
-            httpConduit.setTlsClientParameters(tlsCP);
-
-            Map<String, Object> requestContext = ((BindingProvider) port).getRequestContext();
-            requestContext.put("assertion", assertion);
-
-            initializeSecurePort(port, url, wsAddressingAction, assertion);
-        } else {
-            log.error("Unable to obtain service - no port created.");
-        }
-        return port;
-    }
-
-    /**
-     * Retrieve the service class for this web service.
-     * 
-     * @return The service class for this web service.
-     */
-    protected Service getService(String wsdl) {
-        Service cachedService = cachedServiceMap.get(wsdl);
-        if (cachedService == null) {
-            try {
-                cachedService = proxyHelper.createService(wsdl, NAMESPACE_URI, SERVICE_LOCAL_PART);
-                cachedServiceMap.put(wsdl, cachedService);
-            } catch (Throwable t) {
-                log.error("Error creating service: " + t.getMessage(), t);
-            }
-        }
-        return cachedService;
     }
 
     public RegistryResponseType provideAndRegisterDocumentSetB(ProvideAndRegisterDocumentSetRequestType request,
@@ -203,16 +78,15 @@ public class NhinDocSubmissionProxyWebServiceSecuredImpl implements NhinDocSubmi
         try {
             String url = proxyHelper.getUrlFromTargetSystemByGatewayAPILevel(targetSystem,
                     NhincConstants.NHINC_XDR_SERVICE_NAME, apiLevel);
-            DocumentRepositoryXDRPortType port = getPort(url, assertion, apiLevel);
 
-            if (request == null) {
-                log.error("Message was null");
-            } else if (port == null) {
-                log.error("port was null");
-            } else {
-                response = (RegistryResponseType) proxyHelper.invokePort(port, DocumentRepositoryXDRPortType.class,
-                        "documentRepositoryProvideAndRegisterDocumentSetB", request);
-            }
+            ServicePortDescriptor<DocumentRepositoryXDRPortType> portDescriptor = getServicePortDescriptor(apiLevel);
+
+            CONNECTClient<DocumentRepositoryXDRPortType> client = new CONNECTClientFactory<DocumentRepositoryXDRPortType>()
+                    .getCONNECTClientSecured(portDescriptor, url, assertion);
+
+            response = (RegistryResponseType) client.invokePort(DocumentRepositoryXDRPortType.class,
+                    "documentRepositoryProvideAndRegisterDocumentSetB", request);
+
         } catch (Exception ex) {
             log.error("Error calling documentRepositoryProvideAndRegisterDocumentSetB: " + ex.getMessage(), ex);
         }

@@ -24,26 +24,22 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
-package gov.hhs.fha.nhinc.auditrepository.nhinc.proxy;
 
-import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
-import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.FindCommunitiesAndAuditEventsRequestType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.FindCommunitiesAndAuditEventsResponseType;
+package gov.hhs.fha.nhinc.docsubmission.nhin.proxy.service;
+
 
 /**
- * 
- * @author Jon Hoppesch
+ * @author akong
+ *
  */
-public interface AuditRepositoryProxy {
-
-    /**
-     * Logs an audit record to the audit repository.
-     * 
-     * @param request Audit record
-     * @return Repsonse that is a simple ack.
-     */
-    public AcknowledgementType auditLog(LogEventRequestType request, AssertionType assertion);
+public class NhinDocSubmission20ServicePortDescriptor extends AbstractServicePortDescriptor {
+   
+    public String getWSDLFileName() {
+        return  "NhinXDR20.wsdl";
+    }
+    
+    public String getWSAddressingAction() {
+        return "urn:ihe:iti:2007:ProvideAndRegisterDocumentSet-b";
+    }
 
 }

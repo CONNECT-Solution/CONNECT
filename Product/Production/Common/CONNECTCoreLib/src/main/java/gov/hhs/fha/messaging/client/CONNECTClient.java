@@ -24,26 +24,27 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
-package gov.hhs.fha.nhinc.auditrepository.nhinc.proxy;
 
-import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
-import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.FindCommunitiesAndAuditEventsRequestType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.FindCommunitiesAndAuditEventsResponseType;
+package gov.hhs.fha.messaging.client;
+
+import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
+
 
 /**
- * 
- * @author Jon Hoppesch
+ * @author akong
+ *
  */
-public interface AuditRepositoryProxy {
+public abstract class CONNECTClient<T> {
 
-    /**
-     * Logs an audit record to the audit repository.
-     * 
-     * @param request Audit record
-     * @return Repsonse that is a simple ack.
-     */
-    public AcknowledgementType auditLog(LogEventRequestType request, AssertionType assertion);
-
+    private WebServiceProxyHelper proxyHelper = null;
+    
+    CONNECTClient() {
+        this.proxyHelper = new WebServiceProxyHelper();       
+    }
+    
+    public abstract T getPort();
+    
+    public Object invokePort(Class<T> portClass, String methodName, Object operationInput) throws Exception {        
+        return proxyHelper.invokePort(getPort(), portClass, methodName, operationInput);        
+    }
 }
