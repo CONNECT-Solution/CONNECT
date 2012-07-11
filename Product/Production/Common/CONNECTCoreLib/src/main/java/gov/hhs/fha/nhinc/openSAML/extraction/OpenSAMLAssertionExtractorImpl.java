@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package gov.hhs.fha.nhinc.openSAML.extraction;
 
@@ -47,7 +47,7 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 
 /**
  * @author mweaver
- * 
+ *
  */
 public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
     private static final Logger log = Logger.getLogger(OpenSAMLAssertionExtractorImpl.class);
@@ -56,7 +56,7 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
 
     /**
      * This method is used to extract the SAML assertion information.
-     * 
+     *
      * @param Element element
      * @return AssertionType
      */
@@ -81,7 +81,7 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
 
     /**
      * This method is used extract the saml2Assertion from Context.
-     * 
+     *
      * @param context context
      * @return saml2 assertion from context
      */
@@ -103,7 +103,7 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
 
     /**
      * This method is used to populate the Attribute Statement.
-     * 
+     *
      * @param saml2Assertion saml2 assertion
      * @param target target assertion
      */
@@ -115,91 +115,65 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
         for (AttributeStatement attributeStatement : saml2Assertion.getAttributeStatements()) {
             for (Attribute attribute : attributeStatement.getAttributes()) {
 
-                if (NhincConstants.USER_ROLE_ATTR.equals(attribute.getName())) {
+                switch (attribute.getName()) {
+                case NhincConstants.ATTRIBUTE_NAME_SUBJECT_ROLE:
                     log.debug("Extracting Assertion.userInfo.roleCoded:");
-                    target.getUserInfo().setRoleCoded(
-                            helper.extractNhinCodedElement(attribute, NhincConstants.USER_ROLE_ATTR));
-                }
+                    populateSubjectRole(attribute, target);
+                    break;
 
-                else if (NhincConstants.PURPOSE_ROLE_ATTR.equals(attribute.getName())) {
+                case NhincConstants.ATTRIBUTE_NAME_PURPOSE_OF_USE:
                     log.debug("Extracting Assertion.purposeOfDisclosure:");
-                    target.setPurposeOfDisclosureCoded(helper.extractNhinCodedElement(attribute,
-                            NhincConstants.PURPOSE_ROLE_ATTR));
-                }
+                    populatePurposeOfUseAttribute(attribute, target);
+                    break;
 
-                else if (NhincConstants.USERNAME_ATTR.equals(attribute.getName())) {
+                case NhincConstants.USERNAME_ATTR:
                     helper.extractNameParts(attribute, target);
-                }
+                    break;
 
-                else if (NhincConstants.USER_ORG_ATTR.equals(attribute.getName())) {
-                    String sUserOrg = helper.extractAttributeValueString(attribute);
-                    target.getUserInfo().getOrg().setName(sUserOrg);
-                    log.debug("Assertion.userInfo.org.Name = " + sUserOrg);
-                }
-
-                else if (NhincConstants.USER_ORG_ID_ATTR.equals(attribute.getName())) {
-                    String sUserOrgId = helper.extractAttributeValueString(attribute);
-                    target.getUserInfo().getOrg().setHomeCommunityId(sUserOrgId);
-                    log.debug("Assertion.userInfo.org.homeCommunityId = " + sUserOrgId);
-                }
-
-                else if (NhincConstants.HOME_COM_ID_ATTR.equals(attribute.getName())) {
-                    String sHomeComId = helper.extractAttributeValueString(attribute);
-                    target.getHomeCommunity().setHomeCommunityId(sHomeComId);
-                    log.debug("Assertion.homeCommunity.homeCommunityId = " + sHomeComId);
-                }
-
-                else if (NhincConstants.PATIENT_ID_ATTR.equals(attribute.getName())) {
-                    String sPatientId = helper.extractAttributeValueString(attribute);
-                    target.getUniquePatientId().add(sPatientId);
-                    log.debug("Assertion.uniquePatientId = " + sPatientId);
-                }
-
-                else if (NhincConstants.ACCESS_CONSENT_ATTR.equals(attribute.getName())) {
-                    List<String> sAccessConsentId = transformXMLtoString(attribute.getAttributeValues());
-                    target.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getAccessConsentPolicy()
-                    .addAll(sAccessConsentId);
-                    log.debug("Assertion.SamlAuthzDecisionStatement.Evidence.Assertion.AccessConsentPolicy = "
-                            + sAccessConsentId);
-                }
-
-                else if (NhincConstants.INST_ACCESS_CONSENT_ATTR.equals(attribute.getName())) {
-                    List<String> sInstAccessConsentId = transformXMLtoString(attribute.getAttributeValues());
-                    target.getSamlAuthzDecisionStatement().getEvidence().getAssertion()
-                    .getInstanceAccessConsentPolicy().addAll(sInstAccessConsentId);
-                    log.debug("Assertion.SamlAuthzDecisionStatement.Evidence.Assertion.InstanceAccessConsentPolicy = "
-                            + sInstAccessConsentId);
-                }
-
-                else if (NhincConstants.ATTRIBUTE_NAME_ORG.equals(attribute.getName())) {
+                case NhincConstants.USER_ORG_ATTR:
                     String orgAttribute = getAttributeValue(attribute);
                     target.getUserInfo().getOrg().setName(orgAttribute);
-                }
+                    log.debug("Assertion.userInfo.org.Name = " + orgAttribute);
+                    break;
 
-                else if (NhincConstants.ATTRIBUTE_NAME_ORG_ID.equals(attribute.getName())) {
+                case NhincConstants.USER_ORG_ID_ATTR:
                     String orgIDAttribute = getAttributeValue(attribute);
                     target.getUserInfo().getOrg().setHomeCommunityId(orgIDAttribute);
-                }
+                    log.debug("Assertion.userInfo.org.homeCommunityId = " + orgIDAttribute);
+                    break;
 
-                else if (NhincConstants.ATTRIBUTE_NAME_HCID.equals(attribute.getName())) {
-                    HomeCommunityType hcidAttribute = new HomeCommunityType();
-                    hcidAttribute.setHomeCommunityId(getAttributeValue(attribute));
-                    target.setHomeCommunity(hcidAttribute);
-                }
+                case NhincConstants.ATTRIBUTE_NAME_HCID:
+                    String homeCommunityId = getAttributeValue(attribute);
+                    target.getHomeCommunity().setHomeCommunityId(homeCommunityId);
+                    log.debug("Assertion.homeCommunity.homeCommunityId = " + homeCommunityId);
+                    break;
 
-                else if (NhincConstants.ATTRIBUTE_NAME_SUBJECT_ROLE.equals(attribute.getName())) {
-                    populateSubjectRole(attribute, target);
-                }
+                case NhincConstants.ACCESS_CONSENT_ATTR:
+                    List<String> accessConsentId = transformXMLtoString(attribute.getAttributeValues());
+                    target.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getAccessConsentPolicy()
+                            .addAll(accessConsentId);
+                    log.debug("Assertion.SamlAuthzDecisionStatement.Evidence.Assertion.AccessConsentPolicy = "
+                            + accessConsentId);
+                    break;
 
-                else if (NhincConstants.ATTRIBUTE_NAME_PURPOSE_OF_USE.equals(attribute.getName())) {
-                    populatePurposeOfUseAttribute(attribute, target);
-                }
+                case NhincConstants.INST_ACCESS_CONSENT_ATTR:
+                    List<String> instAccessConsentId = transformXMLtoString(attribute.getAttributeValues());
+                    target.getSamlAuthzDecisionStatement().getEvidence().getAssertion()
+                            .getInstanceAccessConsentPolicy().addAll(instAccessConsentId);
+                    log.debug("Assertion.SamlAuthzDecisionStatement.Evidence.Assertion.InstanceAccessConsentPolicy = "
+                            + instAccessConsentId);
+                    break;
 
-                else if (NhincConstants.ATTRIBUTE_NAME_RESOURCE_ID.equals(attribute.getName())
-                        && !StringUtils.isEmpty(attribute.getDOM().getTextContent())) {
-                    target.getUniquePatientId().add(getAttributeValue(attribute));
-                } else {
+                case NhincConstants.ATTRIBUTE_NAME_RESOURCE_ID:
+                    if (!StringUtils.isEmpty(attribute.getDOM().getTextContent())) {
+                        String patientId = getAttributeValue(attribute);
+                        target.getUniquePatientId().add(patientId);
+                        log.debug("Assertion.uniquePatientId = " + patientId);
+                        break;
+                    }
+                default:
                     log.warn("Unrecognized Name Attribute: " + attribute.getName());
+                    break;
                 }
             }
         }
@@ -212,20 +186,19 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
      */
     private List<String> transformXMLtoString(List<XMLObject> attributeValues) {
         List<String> stringList = new ArrayList<String>();
-        for(XMLObject item : attributeValues){
+        for (XMLObject item : attributeValues) {
             stringList.add(item.toString());
         }
         return stringList;
     }
 
     private String getAttributeValue(Attribute attribute) {
-        return attribute.getAttributeValues().get(0).getDOM()
-                .getTextContent();
+        return attribute.getAttributeValues().get(0).getDOM().getTextContent();
     }
 
     /**
      * This method is used to populate the Authentication Statement Information.
-     * 
+     *
      * @param saml2Assertion saml2 assertion
      * @param target target assertion
      */
@@ -250,7 +223,7 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
 
     /**
      * This method is used to populate the Subject Information into the target assertion.
-     * 
+     *
      * @param saml2Assertion saml2 assertion
      * @param target target assertion
      */
@@ -269,7 +242,7 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
 
     /**
      * This method is used to populate the Authorization Decision Statement Information.
-     * 
+     *
      * @param saml2Assertion saml2 assertion
      * @param target target assertion
      */
@@ -344,7 +317,7 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
 
     /**
      * This method is used to construct HL7 PurposeOfUse Attribute, and adds it to the Assertion.
-     * 
+     *
      * @param attribute attribute
      * @param target target assertion
      */
@@ -394,7 +367,7 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
     /**
      * Initializes the assertion object to contain empty strings for all values. These are overwritten in the extraction
      * process with real values if they are available
-     * 
+     *
      * @param assertOut The Assertion element being written to
      */
     private AssertionType initializeAssertion() {
@@ -484,7 +457,7 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
 
     /**
      * This method is used to construct HL7 Subject Role Attribute, and adds it to the Assertion.
-     * 
+     *
      * @param attribute attribute
      * @param target target assertion
      */
@@ -493,8 +466,7 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
         log.debug("Executing Saml2AssertionExtractor.populateSubjectRole...");
 
         XMLObject subjRoleAttribute = attribute.getAttributeValues().get(0);
-        AttributeMap attributeMap = ((XSAny) subjRoleAttribute.getOrderedChildren().get(0))
-                .getUnknownAttributes();
+        AttributeMap attributeMap = ((XSAny) subjRoleAttribute.getOrderedChildren().get(0)).getUnknownAttributes();
 
         String code = "";
         String codeSystem = "";

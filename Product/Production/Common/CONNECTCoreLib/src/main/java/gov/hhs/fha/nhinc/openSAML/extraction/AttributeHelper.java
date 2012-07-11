@@ -145,7 +145,6 @@ public class AttributeHelper {
                 }
             }
         }
-
         return strBuf.toString().trim();
     }
 
