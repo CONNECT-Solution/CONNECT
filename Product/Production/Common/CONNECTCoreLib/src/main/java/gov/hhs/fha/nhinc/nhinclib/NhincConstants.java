@@ -29,9 +29,9 @@ package gov.hhs.fha.nhinc.nhinclib;
 import java.math.BigInteger;
 
 /**
- * 
- * 
- * 
+ *
+ *
+ *
  * @author Jon Hoppesch
  */
 public class NhincConstants {
@@ -73,36 +73,36 @@ public class NhincConstants {
             throw new IllegalArgumentException("No enum constant " + valueString);
         }
     };
-    
+
     public static enum NHIN_SERVICE_NAMES {
-    	PATIENT_DISCOVERY(PATIENT_DISCOVERY_SERVICE_NAME),
-    	PATIENT_DISCOVERY_DEFERRED_REQUEST(PATIENT_DISCOVERY_DEFERRED_REQ_SERVICE_NAME),
-    	PATIENT_DISCOVERY_DEFERRED_RESPONSE(PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME),
-    	
-    	DOCUMENT_QUERY(DOC_QUERY_SERVICE_NAME),
-    	
-    	DOCUMENT_RETRIEVE(DOC_RETRIEVE_SERVICE_NAME),
-    	
-    	DOCUMENT_SUBMISSION(NHINC_XDR_SERVICE_NAME),
-    	DOCUMENT_SUBMISSION_DEFERRED_REQUEST(NHINC_XDR_REQUEST_SERVICE_NAME),
-    	DOCUMENT_SUBMISSION_DEFERRED_RESPONSE(NHINC_XDR_RESPONSE_SERVICE_NAME),
-    	
-    	ADMINISTRATIVE_DISTRIBUTION(NHIN_ADMIN_DIST_SERVICE_NAME),
-    	
-    	HIEM_SUBSCRIBE(HIEM_SUBSCRIBE_SERVICE_NAME),
-    	HIEM_NOTIFY(HIEM_NOTIFY_SERVICE_NAME),
-    	HIEM_UNSUBSCRIBE(HIEM_UNSUBSCRIBE_ENTITY_SERVICE_NAME);
-    	
+        PATIENT_DISCOVERY(PATIENT_DISCOVERY_SERVICE_NAME),
+        PATIENT_DISCOVERY_DEFERRED_REQUEST(PATIENT_DISCOVERY_DEFERRED_REQ_SERVICE_NAME),
+        PATIENT_DISCOVERY_DEFERRED_RESPONSE(PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME),
+
+        DOCUMENT_QUERY(DOC_QUERY_SERVICE_NAME),
+
+        DOCUMENT_RETRIEVE(DOC_RETRIEVE_SERVICE_NAME),
+
+        DOCUMENT_SUBMISSION(NHINC_XDR_SERVICE_NAME),
+        DOCUMENT_SUBMISSION_DEFERRED_REQUEST(NHINC_XDR_REQUEST_SERVICE_NAME),
+        DOCUMENT_SUBMISSION_DEFERRED_RESPONSE(NHINC_XDR_RESPONSE_SERVICE_NAME),
+
+        ADMINISTRATIVE_DISTRIBUTION(NHIN_ADMIN_DIST_SERVICE_NAME),
+
+        HIEM_SUBSCRIBE(HIEM_SUBSCRIBE_SERVICE_NAME),
+        HIEM_NOTIFY(HIEM_NOTIFY_SERVICE_NAME),
+        HIEM_UNSUBSCRIBE(HIEM_UNSUBSCRIBE_ENTITY_SERVICE_NAME);
+
         private String UDDIServiceName = null;
 
         NHIN_SERVICE_NAMES(String value) {
             this.UDDIServiceName = value;
         }
-        
-    	public String getUDDIServiceName()
-    	{
-    		return this.UDDIServiceName;
-    	}
+
+        public String getUDDIServiceName()
+        {
+            return this.UDDIServiceName;
+        }
     };
 
     // Property File Constants
@@ -189,6 +189,7 @@ public class NhincConstants {
     public static final String XDR_ACTION = "xdr";
     public static final String XDR_REQUEST_ACTION = "xdrrequest";
     public static final String XDR_RESPONSE_ACTION = "xdrresponse";
+
     public static final String USERNAME_ATTR = "urn:oasis:names:tc:xspa:1.0:subject:subject-id";
     public static final String USER_ORG_ATTR = "urn:oasis:names:tc:xspa:1.0:subject:organization";
     public static final String USER_ORG_ID_ATTR = "urn:oasis:names:tc:xspa:1.0:subject:organization-id";
@@ -198,6 +199,18 @@ public class NhincConstants {
     public static final String PATIENT_ID_ATTR = "urn:oasis:names:tc:xacml:2.0:resource:resource-id";
     public static final String ACCESS_CONSENT_ATTR = "AccessConsentPolicy";
     public static final String INST_ACCESS_CONSENT_ATTR = "InstanceAccessConsentPolicy";
+
+    // Attribute NameID Constants
+    public static final String ATTRIBUTE_NAME_SUBJECT_ID = "urn:oasis:names:tc:xacml:1.0:subject:subject-id";
+    public static final String ATTRIBUTE_NAME_SUBJECT_ID_XSPA = "urn:oasis:names:tc:xspa:1.0:subject:subject-id";
+    public static final String ATTRIBUTE_NAME_ORG = "urn:oasis:names:tc:xspa:1.0:subject:organization";
+    public static final String ATTRIBUTE_NAME_ORG_ID = "urn:oasis:names:tc:xspa:1.0:subject:organization-id";
+    public static final String ATTRIBUTE_NAME_HCID = "urn:nhin:names:saml:homeCommunityId";
+    public static final String ATTRIBUTE_NAME_SUBJECT_ROLE = "urn:oasis:names:tc:xacml:2.0:subject:role";
+    public static final String ATTRIBUTE_NAME_PURPOSE_OF_USE = "urn:oasis:names:tc:xspa:1.0:subject:purposeofuse";
+    public static final String ATTRIBUTE_NAME_RESOURCE_ID = "urn:oasis:names:tc:xacml:2.0:resource:resource-id";
+    public static final String ATTRIBUTE_NAME_NPI = "urn:oasis:names:tc:xspa:2.0:subject:npi";
+
     public static final String CE_CODE_ID = "code";
     public static final String CE_CODESYS_ID = "codeSystem";
     public static final String CE_CODESYSNAME_ID = "codeSystemName";
@@ -217,6 +230,22 @@ public class NhincConstants {
     public static final String NS_ADDRESSING_2005 = "http://www.w3.org/2005/08/addressing";
     public static final String HEADER_MESSAGEID = "MessageID";
     public static final String HEADER_RELATESTO = "RelatesTo";
+
+    // HL7 references
+    public static final String HL7_NAME = "hl7";
+    public static final String HL7_NS = "urn:hl7-org:v3";
+    public static final String CE_NAME = "CE";
+    public static final String CE_CODE = "code";
+    public static final String CE_CODESYSTEM = "codeSystem";
+    public static final String CE_CODESYSTEM_NAME = "codeSystemName";
+    public static final String CE_DISPLAYNAME = "displayName";
+    public static final String HL7_SUBJECT_ROLE_ROLE = "Role";
+    public static final String HL7_SUBJECT_PURPOSE_OF_USE = "PurposeOfUse";
+    public static final String ACCESS_CONSENT_POLICY_ATTRIBUTE_NAME = "AccessConsentPolicy";
+    public static final String ACCESS_CONSENT_POLICY_ATTRIBUTE_NAMEFORMAT = "http://www.hhs.gov/healthit/nhin";
+    public static final String INSTANCE_ACCESS_CONSENT_POLICY_ATTRIBUTE_NAME = "InstanceAccessConsentPolicy";
+    public static final String INSTANCE_ACCESS_CONSENT_POLICY_ATTRIBUTE_NAMEFORMAT = "http://www.hhs.gov/healthit/nhin";
+    public static final String AUTHZ_DECISION_STMT_ACTION_NAMESPACE = "urn:oasis:names:tc:SAML:1.0:action:rwedc";
     // Audit Logging Constants
     public static final String AUDIT_REPO_SERVICE_NAME = "auditrepository";
     public static final String AUDIT_REPO_SECURE_SERVICE_NAME = "auditrepositorysecured";
@@ -296,7 +325,7 @@ public class NhincConstants {
     public static final String HIEM_SUBSCRIBE_SOAP_HDR_ATTR_TAG = "subscribeSoapMessage";
     public static final String HIEM_UNSUBSCRIBE_SOAP_HDR_ATTR_TAG = "unsubscribeSoapMessage";
     public static final String HIEM_NOTIFY_SOAP_HDR_ATTR_TAG = "notifySoapMessage";
-    public static final String WS_ADDRESSING_URL = "http://www.w3.org/2005/08/addressing"; 
+    public static final String WS_ADDRESSING_URL = "http://www.w3.org/2005/08/addressing";
     public static final String WS_ADDRESSING_URL_ANONYMOUS = "http://www.w3.org/2005/08/addressing/anonymous";
     public static final String WS_SOAP_HEADER_ACTION = "Action";
     public static final String WS_RETRIEVE_DOCUMENT_ACTION = "urn:ihe:iti:2007:RetrieveDocumentSet";
@@ -514,7 +543,7 @@ public class NhincConstants {
     public static final String ADAPTER_COMPONENT_DOC_RETRIEVE_DEFERRED_RESPONSE_SERVICE_NAME = "adaptercomponentdocretrievedeferredresponse";
     public static final String ADAPTER_DOC_RETRIEVE_DEFERRED_RESPONSE_SERVICE_NAME = "adapterdocretrievedeferredresponse";
     public static final String ADAPTER_DOC_RETRIEVE_DEFERRED_RESPONSE_SECURED_SERVICE_NAME = "adapterdocretrievedeferredresponsesecured";
-    
+
     public static final String XDS_REGISTRY_ERROR_SEVERITY_WARNING = "urn:oasis:names:tc:ebxml-regrep:ErrorSeverityType:Warning";
     public static final String XDS_REGISTRY_ERROR_SEVERITY_ERROR = "urn:oasis:names:tc:ebxml-regrep:ErrorSeverityType:Error";
 

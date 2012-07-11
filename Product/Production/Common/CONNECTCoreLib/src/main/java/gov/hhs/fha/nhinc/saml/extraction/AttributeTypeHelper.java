@@ -1,50 +1,50 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
- * All rights reserved. 
+ * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * All rights reserved.
  *
- * Redistribution and use in source and binary forms, with or without 
- * modification, are permitted provided that the following conditions are met: 
- *     * Redistributions of source code must retain the above 
- *       copyright notice, this list of conditions and the following disclaimer. 
- *     * Redistributions in binary form must reproduce the above copyright 
- *       notice, this list of conditions and the following disclaimer in the documentation 
- *       and/or other materials provided with the distribution. 
- *     * Neither the name of the United States Government nor the 
- *       names of its contributors may be used to endorse or promote products 
- *       derived from this software without specific prior written permission. 
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *     * Redistributions of source code must retain the above
+ *       copyright notice, this list of conditions and the following disclaimer.
+ *     * Redistributions in binary form must reproduce the above copyright
+ *       notice, this list of conditions and the following disclaimer in the documentation
+ *       and/or other materials provided with the distribution.
+ *     * Neither the name of the United States Government nor the
+ *       names of its contributors may be used to endorse or promote products
+ *       derived from this software without specific prior written permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
- * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
- * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY 
- * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES 
- * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
- * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND 
- * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
- * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package gov.hhs.fha.nhinc.saml.extraction;
-
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommon.CeType;
-import gov.hhs.fha.nhinc.common.nhinccommon.PersonNameType;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.xerces.dom.ElementNSImpl;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import org.apache.xerces.dom.ElementNSImpl;
 import com.sun.xml.wss.saml.internal.saml20.jaxb20.AttributeType;
 
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.CeType;
+import gov.hhs.fha.nhinc.common.nhinccommon.PersonNameType;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+
 /**
- * 
+ *
  * @author mweaver
  */
 public class AttributeTypeHelper {
@@ -55,7 +55,7 @@ public class AttributeTypeHelper {
     /**
      * This method takes an attribute and extracts the string value of the attribute. If the attribute has multiple
      * values, then it concatenates all of the values.
-     * 
+     *
      * @param attrib The attribute containing the string value.
      * @return The string value (or if there are multiple values, the concatenated string value.)
      */
@@ -87,7 +87,7 @@ public class AttributeTypeHelper {
 
     /**
      * This method takes an attribute and extracts the base64Encoded value from the first attribute value.
-     * 
+     *
      * @param attrib The attribute containing the string value.
      * @return The string value (or if there are multiple values, the concatenated string value.)
      */
@@ -108,7 +108,7 @@ public class AttributeTypeHelper {
      * The value of the UserName attribute is assumed to be a user's name in plain text. The name parts are extracted in
      * this method as the first word constitutes the first name, the last word constitutes the last name and all other
      * text in between these words constitute the middle name.
-     * 
+     *
      * @param attrib The Attribute that has the user name as its value
      * @param assertOut The Assertion element being written to
      */
@@ -178,7 +178,7 @@ public class AttributeTypeHelper {
      * The value of the UserRole and PurposeOfUse attributes are formatted according to the specifications of an
      * nhin:CodedElement. This method parses that expected structure to obtain the code, codeSystem, codeSystemName, and
      * the displayName attributes of that element.
-     * 
+     *
      * @param attrib The Attribute that has the UserRole or PurposeOfUse as its value
      * @param assertOut The Assertion element being written to
      * @param codeId Identifies which coded element this is parsing
@@ -213,7 +213,7 @@ public class AttributeTypeHelper {
                 for (int idx = 0; idx < numNodes; idx++) {
                     if (nodelist.item(idx) instanceof Node) {
                         // log.debug("Processing index:" + idx + " node as " + nodelist.item(idx).getNodeName());
-                        Node node = (Node) nodelist.item(idx);
+                        Node node = nodelist.item(idx);
                         NamedNodeMap attrMap = node.getAttributes();
                         if ((attrMap != null) && (attrMap.getLength() > 0)) {
                             int numMapNodes = attrMap.getLength();
