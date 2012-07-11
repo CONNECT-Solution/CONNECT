@@ -1704,7 +1704,7 @@
                <urn1:evidence>
                   <urn1:assertion>
                      <urn1:id>40df7c0a-ff3e-4b26-baeb-f2910f6d05a9</urn1:id>
-                     <urn1:issueInstant>2009-04-16T13:10:39:093Z</urn1:issueInstant>
+                     <urn1:issueInstant>2009-04-16T13:10:39.093Z</urn1:issueInstant>
                      <!--Optional:-->
                      <urn1:version>2.0</urn1:version>
                      <!--Optional:-->
@@ -1716,7 +1716,7 @@
                         <!--Optional:-->
                         <urn1:notBefore>2009-04-16T13:10:39.093Z</urn1:notBefore>
                         <!--Optional:-->
-                        <urn1:notOnOrAfter>2009-12-31T12:00:00:00.000Z</urn1:notOnOrAfter>
+                        <urn1:notOnOrAfter>2009-12-31T12:00:00.000Z</urn1:notOnOrAfter>
                      </urn1:conditions>
                      <!--Zero or more repetitions:-->
                      <urn1:accessConsentPolicy>Claim-Ref-1234</urn1:accessConsentPolicy>

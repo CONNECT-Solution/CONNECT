@@ -27,7 +27,6 @@
 
 package gov.hhs.fha.nhinc.messaging.client;
 
-import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.messaging.service.ServiceEndpoint;
 import gov.hhs.fha.nhinc.messaging.service.decorator.SAMLServiceEndpointDecorator;
