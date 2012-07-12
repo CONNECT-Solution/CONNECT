@@ -28,32 +28,30 @@ package gov.hhs.fha.nhinc.docsubmission.nhin.deferred.response.proxy20;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+import gov.hhs.fha.nhinc.docsubmission.nhin.deferred.response.proxy20.service.NhinDocSubmissionDeferredResponseServicePortDescriptor;
+import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
+import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
+import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import ihe.iti.xdr._2007.XDRDeferredResponse20PortType;
-import java.util.HashMap;
-import javax.xml.namespace.QName;
+
 import javax.xml.ws.Holder;
-import javax.xml.ws.Service;
 
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author JHOPPESC
  */
-public class NhinDocSubmissionDeferredResponseProxyWebServiceSecuredImpl implements NhinDocSubmissionDeferredResponseProxy {
+public class NhinDocSubmissionDeferredResponseProxyWebServiceSecuredImpl implements
+        NhinDocSubmissionDeferredResponseProxy {
     private Log log = null;
-    private static HashMap<String, Service> cachedServiceMap = new HashMap<String, Service>();
-    private static final String NAMESPACE_URI = "urn:ihe:iti:xdr:2007";
-    private static final String SERVICE_LOCAL_PART = "XDRDeferredResponse20_Service";
-    private static final String PORT_LOCAL_PART = "XDRDeferredResponse20_Port_Soap";
-    private static final String WSDL_FILE_G1 = "NhinXDRDeferredResponse20.wsdl";
-    private static final String WS_ADDRESSING_ACTION_G1 = "urn:nhin:Deferred:ProvideAndRegisterDocumentSet-bResponse";
     private WebServiceProxyHelper oProxyHelper = null;
 
     public NhinDocSubmissionDeferredResponseProxyWebServiceSecuredImpl() {
@@ -69,91 +67,41 @@ public class NhinDocSubmissionDeferredResponseProxyWebServiceSecuredImpl impleme
         return new WebServiceProxyHelper();
     }
 
-    /**
-     * This method retrieves and initializes the port.
-     *
-     * @param url The URL for the web service.
-     * @return The port object for the web service.
-     */
-    protected XDRDeferredResponse20PortType getPort20(String url, AssertionType assertion)
-    {
-        WebServiceProxyHelper proxyHelper = getWebServiceProxyHelper();
-
-        XDRDeferredResponse20PortType port = null;
-
-        Service service = getService(WSDL_FILE_G1, NAMESPACE_URI, SERVICE_LOCAL_PART);
-        String wsAction = WS_ADDRESSING_ACTION_G1;
-
-        if (service != null)
-        {
-            log.debug("Obtained service - creating port.");
-            port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), XDRDeferredResponse20PortType.class);
-            proxyHelper.initializeSecurePort((javax.xml.ws.BindingProvider) port, url, NhincConstants.XDR_RESPONSE_ACTION, wsAction, assertion);
-         }
-        else
-        {
-            log.error("Unable to obtain service - no port created.");
-        }
-        return port;
-    }
-
-    protected WebServiceProxyHelper getWebServiceProxyHelper()
-    {
+    protected WebServiceProxyHelper getWebServiceProxyHelper() {
         return new WebServiceProxyHelper();
     }
 
-    /**
-     * Retrieve the service class for this web service.
-     *
-     * @return The service class for this web service.
-     */
-    protected Service getService(String wsdl, String uri, String service)
-    {
-        Service cachedService = cachedServiceMap.get(wsdl);
-        if (cachedService == null)
-        {
-            try
-            {
-                WebServiceProxyHelper proxyHelper = new WebServiceProxyHelper();
-                cachedService = proxyHelper.createService(wsdl, uri, service);
-                cachedServiceMap.put(wsdl, cachedService);
-            }
-            catch (Throwable t)
-            {
-                log.error("Error creating service: " + t.getMessage(), t);
-            }
-        }
-        return cachedService;
+    protected CONNECTClient<XDRDeferredResponse20PortType> getCONNECTClientSecured(
+            ServicePortDescriptor<XDRDeferredResponse20PortType> portDescriptor, String url, AssertionType assertion) {
+        
+        return new CONNECTClientFactory<XDRDeferredResponse20PortType>().getCONNECTClientSecured(portDescriptor,
+                url, assertion);
     }
-
-    public RegistryResponseType provideAndRegisterDocumentSetBDeferredResponse20(RegistryResponseType request, AssertionType assertion,
-            NhinTargetSystemType target) {
+    
+    public RegistryResponseType provideAndRegisterDocumentSetBDeferredResponse20(RegistryResponseType request,
+            AssertionType assertion, NhinTargetSystemType target) {
         log.debug("Begin provideAndRegisterDocumentSetBDeferredResponse");
         RegistryResponseType response = null;
 
-        try
-        {
-            String url = oProxyHelper.getUrlFromTargetSystemByGatewayAPILevel(target, NhincConstants.NHINC_XDR_RESPONSE_SERVICE_NAME, GATEWAY_API_LEVEL.LEVEL_g1);
-            XDRDeferredResponse20PortType port = getPort20(url, assertion);
+        try {
+            String url = oProxyHelper.getUrlFromTargetSystemByGatewayAPILevel(target,
+                    NhincConstants.NHINC_XDR_RESPONSE_SERVICE_NAME, GATEWAY_API_LEVEL.LEVEL_g1);
 
-            if(request == null)
-            {
+            if (request == null) {
                 log.error("Message was null");
-            }
-            else if(port == null)
-            {
-                log.error("port was null");
-            }
-            else
-            {
-            	Holder<RegistryResponseType> respHolder = new Holder<RegistryResponseType>();
-            	respHolder.value = request;
-                oProxyHelper.invokePort(port, XDRDeferredResponse20PortType.class, "provideAndRegisterDocumentSetBDeferredResponse", respHolder);
+            } else {
+                Holder<RegistryResponseType> respHolder = new Holder<RegistryResponseType>();
+                respHolder.value = request;
+
+                ServicePortDescriptor<XDRDeferredResponse20PortType> portDescriptor = new NhinDocSubmissionDeferredResponseServicePortDescriptor();
+
+                CONNECTClient<XDRDeferredResponse20PortType> client = getCONNECTClientSecured(portDescriptor, url, assertion);
+
+                client.invokePort(XDRDeferredResponse20PortType.class,
+                        "provideAndRegisterDocumentSetBDeferredResponse", respHolder);
                 response = respHolder.value;
             }
-        }
-        catch (Exception ex)
-        {
+        } catch (Exception ex) {
             log.error("Error calling provideAndRegisterDocumentSetBDeferredResponse: " + ex.getMessage(), ex);
             response.setStatus(NhincConstants.XDR_ACK_FAILURE_STATUS_MSG);
             RegistryError re = new RegistryError();

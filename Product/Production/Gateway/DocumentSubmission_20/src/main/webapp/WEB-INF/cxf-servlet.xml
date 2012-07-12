@@ -35,11 +35,11 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
          <jaxws:inInterceptors>
             <ref bean="securityInInterceptor"/>
          </jaxws:inInterceptors> 
-           
+          
         <jaxws:handlers>
             <ref bean="SOAPHeaderHandler" />
         </jaxws:handlers>
-
+        
     </jaxws:endpoint>
 
 
@@ -51,6 +51,28 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:nhincentityxdrsecured:async:response" id="EntityDocSubmissionDeferredResponseSecured_g1"
         address="EntityService/EntityDocSubmissionDeferredResponseSecured" serviceName="tns:EntityXDRSecuredAsyncResponse_Service" endpointName="tns:EntityXDRSecuredAsyncResponse_Port"
         implementor="gov.hhs.fha.nhinc.docsubmission._20.entity.deferred.response.EntityDocSubmissionDeferredResponseSecured_g1" wsdlLocation="/WEB-INF/wsdl/EntityDocSubmissionDeferredResponseSecured/EntityXDRSecuredResponse.wsdl">
+    </jaxws:endpoint>
+
+    <jaxws:endpoint xmlns:tns="urn:ihe:iti:xdr:2007" id="NhinXDRResponse20" address="/NhinService/XDRResponse_Service"
+        serviceName="tns:XDRDeferredResponse20_Service" endpointName="tns:XDRDeferredResponse20_Port_Soap"
+        implementor="gov.hhs.fha.nhinc.docsubmission._20.nhin.deferred.response.NhinXDRResponse20" wsdlLocation="/WEB-INF/wsdl/NhinXDRResponse20/NhinXDRDeferredResponse20.wsdl">
+        
+         <jaxws:properties>
+             <entry key="ws-security.callback-handler" 
+                 value="gov.hhs.fha.nhinc.callback.cxf.CXFSAMLCallbackHandler"/>
+             <entry key="ws-security.signature.properties" 
+                 value="keystore.properties"/>
+             <entry key="ws-security.encryption.properties" 
+                 value="truststore.properties"/>
+         </jaxws:properties>
+         <jaxws:inInterceptors>
+            <ref bean="securityInInterceptor"/>
+         </jaxws:inInterceptors> 
+           
+        <jaxws:handlers>
+            <ref bean="SOAPHeaderHandler" />
+        </jaxws:handlers>
+
     </jaxws:endpoint>
 
 

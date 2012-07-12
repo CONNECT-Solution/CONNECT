@@ -42,7 +42,7 @@ public abstract class CONNECTClient<T> {
 
     private WebServiceProxyHelper proxyHelper = null;
     
-    CONNECTClient() {
+    protected CONNECTClient() {
         this.proxyHelper = new WebServiceProxyHelper();       
     }
     
