@@ -33,16 +33,12 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.UrlInfoType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetRequestType;
-import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType;
 import gov.hhs.fha.nhinc.gateway.aggregator.document.DocumentConstants;
+import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
+import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhincentityxdr.EntityXDRPortType;
-import gov.hhs.fha.nhinc.nhincentityxdrsecured.EntityXDRSecuredPortType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
-
-import javax.xml.namespace.QName;
-import javax.xml.ws.Service;
-
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 import org.apache.commons.logging.Log;
@@ -67,45 +63,21 @@ public class EntityDocSubmissionProxyWebServiceUnsecuredImplTest {
     };
     final Log mockLog = context.mock(Log.class);
     final WebServiceProxyHelper mockProxyHelper = context.mock(WebServiceProxyHelper.class);
-    final Service mockService = context.mock(Service.class);
-    final EntityXDRPortType mockPort = context.mock(EntityXDRPortType.class);
-
+    @SuppressWarnings("unchecked")
+    final CONNECTClient<EntityXDRPortType> mockCONNECTClient = context.mock(CONNECTClient.class);
+    
     @Test
     public void testProvideAndRegisterDocumentSetB() throws Exception {
 
         setMockLoggerExpectations();
         setMockWebServiceProxyHelperExpectations();
-        setMockServiceExpectations();
+        expectMockCONNECTClient();
 
         EntityDocSubmissionProxyWebServiceUnsecuredImpl proxyImpl = createProxyImpl();
         RegistryResponseType response = invokeProvideAndRegisterDocumentSetB(proxyImpl);
 
         assertEquals(DocumentConstants.XDS_SUBMISSION_RESPONSE_STATUS_SUCCESS, response.getStatus());
         context.assertIsSatisfied();
-    }
-    
-    @Test 
-    public void testProvideAndRegisterDocumentSetB_nullService() throws Exception {
-        
-        setMockLoggerExpectations();
-        setMockWebServiceProxyHelperExpectations();
-        
-        EntityDocSubmissionProxyWebServiceUnsecuredImpl proxyImpl = createProxyImpl_nullService();
-        RegistryResponseType response = invokeProvideAndRegisterDocumentSetB(proxyImpl);
-        
-        assertNull(response.getStatus());
-    }
-    
-    @Test 
-    public void testProvideAndRegisterDocumentSetB_nullPort() throws Exception {
-        
-        setMockLoggerExpectations();
-        setMockWebServiceProxyHelperExpectations();
-        
-        EntityDocSubmissionProxyWebServiceUnsecuredImpl proxyImpl = createProxyImpl_nullPort();
-        RegistryResponseType response = invokeProvideAndRegisterDocumentSetB(proxyImpl);
-        
-        assertNull(response.getStatus());
     }
     
     @Test
@@ -138,24 +110,18 @@ public class EntityDocSubmissionProxyWebServiceUnsecuredImplTest {
             {
                 oneOf(mockProxyHelper).getUrlLocalHomeCommunity(NhincConstants.ENTITY_XDR_SERVICE_NAME);
                 will(returnValue(mockUrl));
-
-                oneOf(mockProxyHelper).createService(with(any(String.class)), with(any(String.class)),
-                        with(any(String.class)));
-                will(returnValue(mockService));
-
-                oneOf(mockProxyHelper).invokePort(with(any(Object.class)), with(any(Class.class)),
-                        with(any(String.class)),
-                        with(any(RespondingGatewayProvideAndRegisterDocumentSetRequestType.class)));
-                will(returnValue(createValidRegistryResponse()));
             }
         });
     }
-
-    private void setMockServiceExpectations() {
+    
+    @SuppressWarnings("unchecked")
+    private void expectMockCONNECTClient() throws Exception {
         context.checking(new Expectations() {
-            {
-                oneOf(mockService).getPort(with(any(QName.class)), with(any(Class.class)));
-                will(returnValue(mockPort));
+            {                
+                oneOf(mockCONNECTClient).invokePort(with(any(Class.class)),
+                        with(any(String.class)),
+                        with(any(RespondingGatewayProvideAndRegisterDocumentSetRequestType.class)));
+                will(returnValue(createValidRegistryResponse()));
             }
         });
     }
@@ -176,41 +142,10 @@ public class EntityDocSubmissionProxyWebServiceUnsecuredImplTest {
             protected WebServiceProxyHelper createWebServiceProxyHelper() {
                 return mockProxyHelper;
             }
-
-            protected void initializeUnsecurePort(EntityXDRPortType port, String url, AssertionType assertion) {
-                return;
-            }
-        };
-    }
-
-    private EntityDocSubmissionProxyWebServiceUnsecuredImpl createProxyImpl_nullService() {
-        return new EntityDocSubmissionProxyWebServiceUnsecuredImpl() {
-            protected Log createLogger() {
-                return mockLog;
-            }
-
-            protected WebServiceProxyHelper createWebServiceProxyHelper() {
-                return mockProxyHelper;
-            }
-
-            protected Service getService() {
-                return null;
-            }
-        };
-    }
-    
-    private EntityDocSubmissionProxyWebServiceUnsecuredImpl createProxyImpl_nullPort() {
-        return new EntityDocSubmissionProxyWebServiceUnsecuredImpl() {
-            protected Log createLogger() {
-                return mockLog;
-            }
-
-            protected WebServiceProxyHelper createWebServiceProxyHelper() {
-                return mockProxyHelper;
-            }
-
-            protected EntityXDRPortType getPort(String url, AssertionType assertion) {
-                return null;
+            
+            protected CONNECTClient<EntityXDRPortType> getCONNECTClient(
+                    ServicePortDescriptor<EntityXDRPortType> portDescriptor, String url, AssertionType assertion) {
+                return mockCONNECTClient;
             }
         };
     }

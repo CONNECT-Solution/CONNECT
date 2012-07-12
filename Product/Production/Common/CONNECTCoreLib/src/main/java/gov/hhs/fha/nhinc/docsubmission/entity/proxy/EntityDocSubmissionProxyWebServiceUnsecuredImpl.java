@@ -30,12 +30,14 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.UrlInfoType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetRequestType;
+import gov.hhs.fha.nhinc.docsubmission.entity.proxy.description.EntityDocSubmissiona0ServicePortDescriptor;
+import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
+import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
+import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhincentityxdr.EntityXDRPortType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
-import javax.xml.namespace.QName;
-import javax.xml.ws.Service;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -43,12 +45,6 @@ import org.apache.commons.logging.LogFactory;
 
 public class EntityDocSubmissionProxyWebServiceUnsecuredImpl implements EntityDocSubmissionProxy {
     private Log log = null;
-    private static Service cachedService = null;
-    private static final String NAMESPACE_URI = "urn:gov:hhs:fha:nhinc:nhincentityxdr";
-    private static final String SERVICE_LOCAL_PART = "EntityXDR_Service";
-    private static final String PORT_LOCAL_PART = "EntityXDR_Port";
-    private static final String WSDL_FILE = "EntityXDR.wsdl";
-    private static final String WS_ADDRESSING_ACTION = "urn:gov:hhs:fha:nhinc:nhincentityxdr:ProvideAndRegisterDocumentSet-b";
     private WebServiceProxyHelper oProxyHelper = null;
 
     public EntityDocSubmissionProxyWebServiceUnsecuredImpl() {
@@ -64,44 +60,9 @@ public class EntityDocSubmissionProxyWebServiceUnsecuredImpl implements EntityDo
         return new WebServiceProxyHelper();
     }
 
-    protected void initializeUnsecurePort(EntityXDRPortType port, String url, AssertionType assertion) {
-        oProxyHelper.initializeUnsecurePort((javax.xml.ws.BindingProvider) port, url, WS_ADDRESSING_ACTION, assertion);
-    }
-
-    /**
-     * This method retrieves and initializes the port.
-     * 
-     * @param url The URL for the web service.
-     * @return The port object for the web service.
-     */
-    protected EntityXDRPortType getPort(String url, AssertionType assertion) {
-        EntityXDRPortType port = null;
-        Service service = getService();
-        if (service != null) {
-            log.debug("Obtained service - creating port.");
-
-            port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), EntityXDRPortType.class);
-            initializeUnsecurePort(port, url, assertion);
-        } else {
-            log.error("Unable to obtain serivce - no port created.");
-        }
-        return port;
-    }
-
-    /**
-     * Retrieve the service class for this web service.
-     * 
-     * @return The service class for this web service.
-     */
-    protected Service getService() {
-        if (cachedService == null) {
-            try {
-                cachedService = oProxyHelper.createService(WSDL_FILE, NAMESPACE_URI, SERVICE_LOCAL_PART);
-            } catch (Throwable t) {
-                log.error("Error creating service: " + t.getMessage(), t);
-            }
-        }
-        return cachedService;
+    public ServicePortDescriptor<EntityXDRPortType> getServicePortDescriptor(
+            NhincConstants.ADAPTER_API_LEVEL apiLevel) {
+        return new EntityDocSubmissiona0ServicePortDescriptor();
     }
 
     public RegistryResponseType provideAndRegisterDocumentSetB(ProvideAndRegisterDocumentSetRequestType message,
@@ -111,24 +72,35 @@ public class EntityDocSubmissionProxyWebServiceUnsecuredImpl implements EntityDo
 
         try {
             String url = oProxyHelper.getUrlLocalHomeCommunity(NhincConstants.ENTITY_XDR_SERVICE_NAME);
-            EntityXDRPortType port = getPort(url, assertion);
+            
+            ServicePortDescriptor<EntityXDRPortType> portDescriptor = getServicePortDescriptor(NhincConstants.ADAPTER_API_LEVEL.LEVEL_a0);
 
-            if (port != null) {
-                RespondingGatewayProvideAndRegisterDocumentSetRequestType request = new RespondingGatewayProvideAndRegisterDocumentSetRequestType();
-                request.setNhinTargetCommunities(targets);
-                request.setProvideAndRegisterDocumentSetRequest(message);
-                request.setUrl(urlInfo);
-                request.setAssertion(assertion);
-                response = (RegistryResponseType) oProxyHelper.invokePort(port, EntityXDRPortType.class,
-                        "provideAndRegisterDocumentSetB", request);
-            } else {
-                log.error("EntityXDRPortType is null");
-            }
+            CONNECTClient<EntityXDRPortType> client = getCONNECTClient(portDescriptor, url, assertion);
+
+            RespondingGatewayProvideAndRegisterDocumentSetRequestType request = new RespondingGatewayProvideAndRegisterDocumentSetRequestType();
+            request.setNhinTargetCommunities(targets);
+            request.setProvideAndRegisterDocumentSetRequest(message);
+            request.setUrl(urlInfo);
+            
+            response = (RegistryResponseType) client.invokePort(EntityXDRPortType.class,
+                    "provideAndRegisterDocumentSetB", request);
+
         } catch (Exception ex) {
             log.error("Error calling provideAndRegisterDocumentSetB: " + ex.getMessage(), ex);
         }
 
         log.debug("End EntityDocSubmissionProxyWebServiceUnsecuredImpl.provideAndRegisterDocumentSetB");
         return response;
+    }
+
+    /**
+     * @param portDescriptor
+     * @param url
+     * @param assertion
+     * @return
+     */
+    protected CONNECTClient<EntityXDRPortType> getCONNECTClient(ServicePortDescriptor<EntityXDRPortType> portDescriptor,
+            String url, AssertionType assertion) {
+        return new CONNECTClientFactory<EntityXDRPortType>().getCONNECTClientUnsecured(portDescriptor, url, assertion);
     }
 }

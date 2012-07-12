@@ -13,33 +13,70 @@ http://www.springframework.org/schema/beans http://www.springframework.org/schem
 http://cxf.apache.org/bindings/soap http://cxf.apache.org/schemas/configuration/soap.xsd
 http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
 
+    <import resource="classpath:META-INF/cxf/cxf.xml" />
+    <import resource="classpath:META-INF/cxf/cxf-extension-soap.xml" />
+    <import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
     <import resource="classpath:CONNECT-interceptor-beans.xml" />
 
+    <!-- Nhin services -->
+    <jaxws:endpoint xmlns:nds="urn:ihe:iti:xdr:2007" id="NhinDocSubmission_g1" address="/DocumentRepositoryXDR_Service"
+        serviceName="nds:DocumentRepositoryXDR_Service" endpointName="nds:DocumentRepositoryXDR_Port_Soap"
+        implementor="gov.hhs.fha.nhinc.docsubmission._20.nhin.NhinXDR_g1" wsdlLocation="/WEB-INF/wsdl/NhinXDR/NhinXDR20.wsdl">
+        <jaxws:properties>
+            <entry key="ws-security.callback-handler" value="gov.hhs.fha.nhinc.callback.cxf.CXFSAMLCallbackHandler" />
+            <entry key="ws-security.signature.properties" value="keystore.properties" />
+            <entry key="ws-security.encryption.properties" value="truststore.properties" />
+        </jaxws:properties>
+        <jaxws:inInterceptors>
+            <ref bean="securityInInterceptor" />
+        </jaxws:inInterceptors>
+        <jaxws:handlers>
+            <ref bean="SOAPHeaderHandler" />
+        </jaxws:handlers>
+    </jaxws:endpoint>
+
+    <!-- Entity services -->
     <jaxws:endpoint xmlns:eds="urn:gov:hhs:fha:nhinc:nhincentityxdr" id="EntityDocSubmissionUnsecured_g1"
         address="/EntityService/EntityDocSubmissionUnsecured" serviceName="eds:EntityXDR_Service" endpointName="eds:EntityXDR_Port"
         implementor="gov.hhs.fha.nhinc.docsubmission._20.entity.EntityDocSubmissionUnsecured_g1" wsdlLocation="/WEB-INF/wsdl/EntityDocSubmissionUnsecured/EntityXDR.wsdl">
     </jaxws:endpoint>
-
-    <jaxws:endpoint xmlns:nds="urn:ihe:iti:xdr:2007" id="NhinDocSubmission_g1" address="/DocumentRepositoryXDR_Service"
-        serviceName="nds:DocumentRepositoryXDR_Service" endpointName="nds:DocumentRepositoryXDR_Port_Soap"
-        implementor="gov.hhs.fha.nhinc.docsubmission._20.nhin.NhinXDR_g1" wsdlLocation="/WEB-INF/wsdl/NhinXDR/NhinXDR20.wsdl">
-        
-         <jaxws:properties>
-             <entry key="ws-security.callback-handler" 
-                 value="gov.hhs.fha.nhinc.callback.cxf.CXFSAMLCallbackHandler"/>
-             <entry key="ws-security.signature.properties" 
-                 value="keystore.properties"/>
-             <entry key="ws-security.encryption.properties" 
-                 value="truststore.properties"/>
-         </jaxws:properties>
-         <jaxws:inInterceptors>
-            <ref bean="securityInInterceptor"/>
-         </jaxws:inInterceptors> 
-           
+    
+    <jaxws:endpoint xmlns:edss="urn:gov:hhs:fha:nhinc:nhincentityxdrsecured" id="EntityDocSubmissionSecured_g1"
+        address="/EntityService/EntityDocSubmissionSecured" serviceName="edss:EntityXDRSecured_Service" endpointName="edss:EntityXDRSecured_Port"
+        implementor="gov.hhs.fha.nhinc.docsubmission._20.entity.EntityDocSubmissionSecured_g1" wsdlLocation="/WEB-INF/wsdl/EntityDocSubmissionSecured/EntityXDRSecured.wsdl">
+        <jaxws:properties>
+            <entry key="ws-security.callback-handler" value="gov.hhs.fha.nhinc.callback.cxf.CXFSAMLCallbackHandler" />
+            <entry key="ws-security.signature.properties" value="keystore.properties" />
+            <entry key="ws-security.encryption.properties" value="truststore.properties" />
+        </jaxws:properties>
+        <jaxws:inInterceptors>
+            <ref bean="securityInInterceptor" />
+        </jaxws:inInterceptors>
         <jaxws:handlers>
             <ref bean="SOAPHeaderHandler" />
         </jaxws:handlers>
+    </jaxws:endpoint>
 
+    <!-- MsgProxy/NhincProxy/Passthru services -->
+    <jaxws:endpoint xmlns:mpds="urn:gov:hhs:fha:nhinc:nhincproxyxdr" id="NhincProxyXDR_g1"
+        address="/EntityService/PassthruDocSubmissionUnsecured" serviceName="mpds:ProxyXDR_Service" endpointName="mpds:ProxyXDR_Port"
+        implementor="gov.hhs.fha.nhinc.docsubmission._20.passthru.PassthruDocSubmissionUnsecured_g1" wsdlLocation="/WEB-INF/wsdl/PassthruDocSubmissionUnsecured/NhincProxyXDR.wsdl">
+    </jaxws:endpoint>
+
+    <jaxws:endpoint xmlns:mpdss="urn:gov:hhs:fha:nhinc:nhincproxyxdrsecured" id="NhincProxyXDRSecured_g1"
+        address="/EntityService/PassthruDocSubmissionSecured" serviceName="mpdss:ProxyXDRSecured_Service" endpointName="mpdss:ProxyXDRSecured_Port"
+        implementor="gov.hhs.fha.nhinc.docsubmission._20.passthru.PassthruDocSubmissionSecured_g1" wsdlLocation="/WEB-INF/wsdl/PassthruDocSubmissionSecured/NhincProxyXDRSecured.wsdl">
+        <jaxws:properties>
+            <entry key="ws-security.callback-handler" value="gov.hhs.fha.nhinc.callback.cxf.CXFSAMLCallbackHandler" />
+            <entry key="ws-security.signature.properties" value="keystore.properties" />
+            <entry key="ws-security.encryption.properties" value="truststore.properties" />
+        </jaxws:properties>
+        <jaxws:inInterceptors>
+            <ref bean="securityInInterceptor" />
+        </jaxws:inInterceptors>
+        <jaxws:handlers>
+            <ref bean="SOAPHeaderHandler" />
+        </jaxws:handlers>
     </jaxws:endpoint>
 
     <bean id="SOAPHeaderHandler" class="gov.hhs.fha.nhinc.callback.SOAPHeaderHandler" />

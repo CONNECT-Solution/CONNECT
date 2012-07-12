@@ -34,13 +34,11 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.UrlInfoType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType;
 import gov.hhs.fha.nhinc.gateway.aggregator.document.DocumentConstants;
+import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
+import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhincentityxdrsecured.EntityXDRSecuredPortType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
-
-import javax.xml.namespace.QName;
-import javax.xml.ws.Service;
-
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 import org.apache.commons.logging.Log;
@@ -57,9 +55,6 @@ import org.junit.Test;
 public class EntityDocSubmissionProxyWebServiceSecuredImplTest {
 
     private static final String mockUrl = "http://localhost:8080/";
-    private static final String NAMESPACE_URI = "urn:gov:hhs:fha:nhinc:nhincentityxdrsecured";
-    private static final String SERVICE_LOCAL_PART = "EntityXDRSecured_Service";
-    private static final String WSDL_FILE = "EntityXDRSecured.wsdl";
     
     protected Mockery context = new JUnit4Mockery() {
         {
@@ -68,16 +63,14 @@ public class EntityDocSubmissionProxyWebServiceSecuredImplTest {
     };
     final Log mockLog = context.mock(Log.class);
     final WebServiceProxyHelper mockProxyHelper = context.mock(WebServiceProxyHelper.class);
-    final Service mockService = context.mock(Service.class);
-    final EntityXDRSecuredPortType mockPort = context.mock(EntityXDRSecuredPortType.class);
+    @SuppressWarnings("unchecked")
+    final CONNECTClient<EntityXDRSecuredPortType> mockCONNECTClient = context.mock(CONNECTClient.class);
 
     @Test
     public void testProvideAndRegisterDocumentSetB() throws Exception {
         allowAnyMockLogging();
-        expectMockServiceGetPort();
+        expectMockCONNECTClient();
         expectMockWebServiceProxyHelperGetUrl();
-        expectMockWebServiceProxyHelperCreateService();
-        expectMockWebServiceProxyHelperInvokePort();
 
         EntityDocSubmissionProxyWebServiceSecuredImpl proxyImpl = createWebServiceSecuredImpl();
         RegistryResponseType response = invokeProvideAndRegisterDocumentSetB(proxyImpl);
@@ -85,31 +78,7 @@ public class EntityDocSubmissionProxyWebServiceSecuredImplTest {
         context.assertIsSatisfied();
         assertEquals(DocumentConstants.XDS_SUBMISSION_RESPONSE_STATUS_SUCCESS, response.getStatus());
     }
-    
-    @Test 
-    public void testProvideAndRegisterDocumentSetB_nullService() throws Exception {        
-        allowAnyMockLogging();
-        expectMockWebServiceProxyHelperGetUrl();
-        
-        EntityDocSubmissionProxyWebServiceSecuredImpl proxyImpl = createWebServiceSecuredImpl_nullService();
-        RegistryResponseType response = invokeProvideAndRegisterDocumentSetB(proxyImpl);
-        
-        context.assertIsSatisfied();
-        assertNull(response.getStatus());
-    }
-    
-    @Test 
-    public void testProvideAndRegisterDocumentSetB_nullPort() throws Exception {        
-        allowAnyMockLogging();
-        expectMockWebServiceProxyHelperGetUrl();
-        
-        EntityDocSubmissionProxyWebServiceSecuredImpl proxyImpl = createWebServiceSecuredImpl_nullPort();
-        RegistryResponseType response = invokeProvideAndRegisterDocumentSetB(proxyImpl);
-        
-        context.assertIsSatisfied();
-        assertNull(response.getStatus());
-    }
-    
+       
     @Test
     public void testGetters() {
         EntityDocSubmissionProxyWebServiceSecuredImpl proxyImpl = new EntityDocSubmissionProxyWebServiceSecuredImpl();
@@ -144,33 +113,15 @@ public class EntityDocSubmissionProxyWebServiceSecuredImplTest {
             }
         });
     }
-    
-    private void expectMockWebServiceProxyHelperCreateService() throws Exception {
-        context.checking(new Expectations() {
-            {
-                oneOf(mockProxyHelper).createService(with(equal(WSDL_FILE)), with(equal(NAMESPACE_URI)),
-                        with(equal(SERVICE_LOCAL_PART)));
-                will(returnValue(mockService));
-            }
-        });   
-    }
-    
-    private void expectMockWebServiceProxyHelperInvokePort() throws Exception {
+
+    @SuppressWarnings("unchecked")
+    private void expectMockCONNECTClient() throws Exception {
         context.checking(new Expectations() {
             {                
-                oneOf(mockProxyHelper).invokePort(with(any(Object.class)), with(equal(EntityXDRSecuredPortType.class)),
-                        with(equal("provideAndRegisterDocumentSetB")),
+                oneOf(mockCONNECTClient).invokePort(with(any(Class.class)),
+                        with(any(String.class)),
                         with(any(RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType.class)));
                 will(returnValue(createValidRegistryResponse()));
-            }
-        });   
-    }
-
-    private void expectMockServiceGetPort() {
-        context.checking(new Expectations() {
-            {
-                oneOf(mockService).getPort(with(any(QName.class)), with(equal(EntityXDRSecuredPortType.class)));
-                will(returnValue(mockPort));
             }
         });
     }
@@ -191,41 +142,10 @@ public class EntityDocSubmissionProxyWebServiceSecuredImplTest {
             protected WebServiceProxyHelper createWebServiceProxyHelper() {
                 return mockProxyHelper;
             }
-
-            protected void initializeSecurePort(EntityXDRSecuredPortType port, String url, AssertionType assertion) {
-                return;
-            }
-        };
-    }
-
-    private EntityDocSubmissionProxyWebServiceSecuredImpl createWebServiceSecuredImpl_nullService() {
-        return new EntityDocSubmissionProxyWebServiceSecuredImpl() {
-            protected Log createLogger() {
-                return mockLog;
-            }
-
-            protected WebServiceProxyHelper createWebServiceProxyHelper() {
-                return mockProxyHelper;
-            }
-
-            protected Service getService() {
-                return null;
-            }
-        };
-    }
-    
-    private EntityDocSubmissionProxyWebServiceSecuredImpl createWebServiceSecuredImpl_nullPort() {
-        return new EntityDocSubmissionProxyWebServiceSecuredImpl() {
-            protected Log createLogger() {
-                return mockLog;
-            }
-
-            protected WebServiceProxyHelper createWebServiceProxyHelper() {
-                return mockProxyHelper;
-            }
-
-            protected EntityXDRSecuredPortType getPort(String url, AssertionType assertion) {
-                return null;
+            
+            protected CONNECTClient<EntityXDRSecuredPortType> getCONNECTClient(
+                    ServicePortDescriptor<EntityXDRSecuredPortType> portDescriptor, String url, AssertionType assertion) {
+                return mockCONNECTClient;
             }
         };
     }
