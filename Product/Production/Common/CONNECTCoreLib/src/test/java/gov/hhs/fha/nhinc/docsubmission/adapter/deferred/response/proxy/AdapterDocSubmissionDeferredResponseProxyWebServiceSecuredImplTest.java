@@ -27,12 +27,14 @@
 package gov.hhs.fha.nhinc.docsubmission.adapter.deferred.response.proxy;
 
 import static org.junit.Assert.assertEquals;
-
-import java.net.MalformedURLException;
-
-import javax.xml.ws.BindingProvider;
-import javax.xml.ws.Service;
-
+import static org.junit.Assert.assertNull;
+import gov.hhs.fha.nhinc.adapterxdrresponsesecured.AdapterXDRResponseSecuredPortType;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
+import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
+import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 import org.apache.commons.logging.Log;
@@ -45,19 +47,21 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import gov.hhs.fha.nhinc.adapterxdrresponsesecured.AdapterXDRResponseSecuredPortType;
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADAPTER_API_LEVEL;
-import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
-
-import gov.hhs.healthit.nhin.XDRAcknowledgementType;
-
 /**
  * 
  * @author patlollav
  */
 public class AdapterDocSubmissionDeferredResponseProxyWebServiceSecuredImplTest {
+    Mockery mockery = new Mockery() {
+
+        {
+            setImposteriser(ClassImposteriser.INSTANCE);
+        }
+    };
+    
+    final Log mockLogger = mockery.mock(Log.class);      
+    final CONNECTClient<AdapterXDRResponseSecuredPortType> client = new CONNECTClientMock();
+    
     public AdapterDocSubmissionDeferredResponseProxyWebServiceSecuredImplTest() {
     }
 
@@ -76,60 +80,42 @@ public class AdapterDocSubmissionDeferredResponseProxyWebServiceSecuredImplTest 
     @After
     public void tearDown() {
     }
+    
+    class CONNECTClientMock extends CONNECTClient<AdapterXDRResponseSecuredPortType> {
 
-    /**
-     * Test of provideAndRegisterDocumentSetBResponse method, of class AdapterXDRResponseWebServiceProxy.
-     */
-    @Test
-    public void testProvideAndRegisterDocumentSetBResponse() {
-        System.out.println("provideAndRegisterDocumentSetBResponse");
-
-        Mockery mockery = new Mockery() {
-
-            {
-                setImposteriser(ClassImposteriser.INSTANCE);
-            }
-        };
-
-        final Log mockLogger = mockery.mock(Log.class);
-        final AdapterXDRResponseSecuredPortType mockPort = mockery.mock(AdapterXDRResponseSecuredPortType.class);
-        final Service mockService = mockery.mock(Service.class);
-        final WebServiceProxyHelper proxyHelper = new WebServiceProxyHelper() {
+        @Override
+        public AdapterXDRResponseSecuredPortType getPort() {
+            return null;
+        }
+        
+        @Override
+        public Object invokePort(Class<AdapterXDRResponseSecuredPortType> portClass, String methodName, Object operationInput)
+                throws Exception {
+            XDRAcknowledgementType response = new XDRAcknowledgementType();
+            RegistryResponseType regResp = new RegistryResponseType();
+            regResp.setStatus(NhincConstants.XDR_ACK_STATUS_MSG);
+            response.setMessage(regResp);
+            return response;
+        }    
+    }
+    
+    private WebServiceProxyHelper createMockWebServiceProxyHelper(final String url) {
+        return new WebServiceProxyHelper() {
             @Override
             protected Log createLogger() {
                 return mockLogger;
             }
 
             @Override
-            public String getEndPointFromConnectionManagerByAdapterAPILevel(String sServiceName, ADAPTER_API_LEVEL level)
+            public String getAdapterEndPointFromConnectionManager(String sServiceName)
             {
-                return "url";
-            }
-
-            @Override
-            public Object invokePort(Object portObject, Class portClass, String methodName, Object operationInput)
-                    throws Exception {
-                XDRAcknowledgementType response = new XDRAcknowledgementType();
-                RegistryResponseType regResp = new RegistryResponseType();
-                regResp.setStatus(NhincConstants.XDR_ACK_STATUS_MSG);
-                response.setMessage(regResp);
-                return response;
-            }
-
-            @Override
-            public void initializeSecurePort(BindingProvider port, String url, String serviceAction,
-                    String wsAddressingAction, AssertionType assertion) {
-
-            }
-
-            @Override
-            public Service createService(String wsdlFile, String namespaceURI, String serviceLocalPart)
-                    throws MalformedURLException {
-                return mockService;
-            }
+                return url;
+            }            
         };
-
-        AdapterDocSubmissionDeferredResponseProxyWebServiceSecuredImpl adapterXDRResponseWebServiceProxy = new AdapterDocSubmissionDeferredResponseProxyWebServiceSecuredImpl() {
+    }
+    
+    private AdapterDocSubmissionDeferredResponseProxyWebServiceSecuredImpl createWebServiceProxy(final WebServiceProxyHelper proxyHelper) {
+        return new AdapterDocSubmissionDeferredResponseProxyWebServiceSecuredImpl() {
             @Override
             protected Log createLogger() {
                 return mockLogger;
@@ -139,13 +125,23 @@ public class AdapterDocSubmissionDeferredResponseProxyWebServiceSecuredImplTest 
             protected WebServiceProxyHelper createWebServiceProxyHelper() {
                 return proxyHelper;
             }
-
+            
             @Override
-            protected AdapterXDRResponseSecuredPortType getPort(String url, String wsAddressingAction,
-                    AssertionType assertion) {
-                return mockPort;
+            protected CONNECTClient<AdapterXDRResponseSecuredPortType> getCONNECTClientSecured(
+                    ServicePortDescriptor<AdapterXDRResponseSecuredPortType> portDescriptor, String url, AssertionType assertion) {
+                
+                return client;            
             }
         };
+    }
+
+    /**
+     * Test of provideAndRegisterDocumentSetBResponse method, of class AdapterXDRResponseWebServiceProxy.
+     */
+    @Test
+    public void testProvideAndRegisterDocumentSetBResponse() {        
+        WebServiceProxyHelper proxyHelper = createMockWebServiceProxyHelper("url"); 
+        AdapterDocSubmissionDeferredResponseProxyWebServiceSecuredImpl adapterXDRResponseWebServiceProxy = createWebServiceProxy(proxyHelper);
 
         mockery.checking(new Expectations() {
             {
@@ -166,71 +162,9 @@ public class AdapterDocSubmissionDeferredResponseProxyWebServiceSecuredImplTest 
      */
     @Test
     public void testProvideAndRegisterDocumentSetBResponseFailureCase() {
-        System.out.println("provideAndRegisterDocumentSetBResponse");
-
-        Mockery mockery = new Mockery() {
-
-            {
-                setImposteriser(ClassImposteriser.INSTANCE);
-            }
-        };
-
-        final Log mockLogger = mockery.mock(Log.class);
-        final AdapterXDRResponseSecuredPortType mockPort = mockery.mock(AdapterXDRResponseSecuredPortType.class);
-        final Service mockService = mockery.mock(Service.class);
-        final WebServiceProxyHelper proxyHelper = new WebServiceProxyHelper() {
-            @Override
-            protected Log createLogger() {
-                return mockLogger;
-            }
-
-            @Override
-            public String getEndPointFromConnectionManagerByAdapterAPILevel(String sServiceName, ADAPTER_API_LEVEL level)
-            {
-                return "url";
-            }
-
-            @Override
-            public Object invokePort(Object portObject, Class portClass, String methodName, Object operationInput)
-                    throws Exception {
-                XDRAcknowledgementType response = new XDRAcknowledgementType();
-                RegistryResponseType regResp = new RegistryResponseType();
-                regResp.setStatus(NhincConstants.XDR_ACK_STATUS_MSG);
-                response.setMessage(regResp);
-                return response;
-            }
-
-            @Override
-            public void initializeSecurePort(BindingProvider port, String url, String serviceAction,
-                    String wsAddressingAction, AssertionType assertion) {
-
-            }
-
-            @Override
-            public Service createService(String wsdlFile, String namespaceURI, String serviceLocalPart)
-                    throws MalformedURLException {
-                return mockService;
-            }
-        };
-
-        AdapterDocSubmissionDeferredResponseProxyWebServiceSecuredImpl adapterXDRResponseWebServiceProxy = new AdapterDocSubmissionDeferredResponseProxyWebServiceSecuredImpl() {
-            @Override
-            protected Log createLogger() {
-                return mockLogger;
-            }
-
-            @Override
-            protected WebServiceProxyHelper createWebServiceProxyHelper() {
-                return proxyHelper;
-            }
-
-            @Override
-            protected AdapterXDRResponseSecuredPortType getPort(String url, String wsAddressingAction,
-                    AssertionType assertion) {
-                return mockPort;
-            }
-        };
-
+        WebServiceProxyHelper proxyHelper = createMockWebServiceProxyHelper(null);        
+        AdapterDocSubmissionDeferredResponseProxyWebServiceSecuredImpl adapterXDRResponseWebServiceProxy = createWebServiceProxy(proxyHelper);
+        
         mockery.checking(new Expectations() {
             {
                 allowing(mockLogger).isDebugEnabled();
@@ -243,6 +177,6 @@ public class AdapterDocSubmissionDeferredResponseProxyWebServiceSecuredImplTest 
         AssertionType assertion = new AssertionType();
         XDRAcknowledgementType result = adapterXDRResponseWebServiceProxy.provideAndRegisterDocumentSetBResponse(body,
                 assertion);
-        assertEquals(NhincConstants.XDR_ACK_STATUS_MSG, result.getMessage().getStatus());
+        assertNull(result);
     }
 }

@@ -25,42 +25,63 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
 
-package gov.hhs.fha.nhinc.messaging.client;
+package gov.hhs.fha.nhinc.docsubmission.adapter.deferred.response.proxy.service;
 
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.messaging.service.ServiceEndpoint;
-import gov.hhs.fha.nhinc.messaging.service.decorator.SAMLServiceEndpointDecorator;
-import gov.hhs.fha.nhinc.messaging.service.decorator.metro.WsAddressingServiceEndpointDecorator;
-import gov.hhs.fha.nhinc.messaging.service.port.MetroServicePortBuilder;
-import gov.hhs.fha.nhinc.messaging.service.port.ServicePortBuilder;
+import gov.hhs.fha.nhinc.adapterxdrresponse.AdapterXDRResponsePortType;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 
 /**
  * @author akong
- * 
+ *
  */
-public class CONNECTMetroClientSecured<T> extends CONNECTClient<T> {
-    
-    private ServiceEndpoint<T> serviceEndpoint = null;
+public class AdapterDocSubmissionDeferredResponseUnsecuredServicePortDescriptor implements ServicePortDescriptor<AdapterXDRResponsePortType> {
 
-    CONNECTMetroClientSecured(ServicePortDescriptor<T> portDescriptor, String url, AssertionType assertion) {
-        super();
-
-        String wsAddressingAction = portDescriptor.getWSAddressingAction();
-
-        ServicePortBuilder<T> portBuilder = new MetroServicePortBuilder<T>(portDescriptor);
-
-        serviceEndpoint = super.configureBasePort(portBuilder.createPort(), url);
-        serviceEndpoint = new SAMLServiceEndpointDecorator<T>(serviceEndpoint, assertion);
-        
-        // Metro specific decorator configuration
-        serviceEndpoint = new WsAddressingServiceEndpointDecorator<T>(serviceEndpoint, url, wsAddressingAction,
-                assertion);
-
-        serviceEndpoint.configure();
+    /* (non-Javadoc)
+     * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getNamespaceUri()
+     */
+    @Override
+    public String getNamespaceUri() {
+        return "urn:gov:hhs:fha:nhinc:adapterxdrresponse";
     }
 
-    public T getPort() {
-        return serviceEndpoint.getPort();
+    /* (non-Javadoc)
+     * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getServiceLocalPart()
+     */
+    @Override
+    public String getServiceLocalPart() {
+        return "AdapterXDRResponse_Service";
     }
+
+    /* (non-Javadoc)
+     * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getPortLocalPart()
+     */
+    @Override
+    public String getPortLocalPart() {
+        return "AdapterXDRResponse_Port";
+    }
+
+    /* (non-Javadoc)
+     * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getWSDLFileName()
+     */
+    @Override
+    public String getWSDLFileName() {
+        return "AdapterXDRResponse.wsdl";
+    }
+
+    /* (non-Javadoc)
+     * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getWSAddressingAction()
+     */
+    @Override
+    public String getWSAddressingAction() {
+        return "urn:gov:hhs:fha:nhinc:adapterxdrresponse:XDRResponseInputMessage";
+    }
+
+    /* (non-Javadoc)
+     * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getPortClass()
+     */
+    @Override
+    public Class<AdapterXDRResponsePortType> getPortClass() {
+        return AdapterXDRResponsePortType.class;
+    }
+
 }
