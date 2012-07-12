@@ -40,10 +40,8 @@ import gov.hhs.fha.nhinc.docrepository.adapter.proxy.AdapterComponentDocReposito
 import gov.hhs.fha.nhinc.docrepository.adapter.proxy.AdapterComponentDocRepositoryProxyObjectFactory;
 import gov.hhs.fha.nhinc.gateway.aggregator.document.DocumentConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.perfrepo.PerformanceManager;
 import gov.hhs.fha.nhinc.redactionengine.adapter.proxy.AdapterRedactionEngineProxy;
 import gov.hhs.fha.nhinc.redactionengine.adapter.proxy.AdapterRedactionEngineProxyObjectFactory;
-import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 
 /**
  *
@@ -73,20 +71,11 @@ public class AdapterDocRetrieveOrchImpl {
         RetrieveDocumentSetResponseType response = null;
 
         try {
-            // Log the start of the adapter performance record
-            String homeCommunityId = HomeCommunityMap.getLocalHomeCommunityId();
-            PerformanceManager.getPerformanceManagerInstance().logPerformanceStart(NhincConstants.DOC_RETRIEVE_SERVICE_NAME, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE,
-                    NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, homeCommunityId);
-
             AdapterComponentDocRepositoryProxy proxy = new AdapterComponentDocRepositoryProxyObjectFactory()
                     .getAdapterDocumentRepositoryProxy();
 
             response = proxy.retrieveDocument(body, assertion);
             response = callRedactionEngine(body, response, assertion);
-
-            // Log the end of the adapter performance record
-            PerformanceManager.getPerformanceManagerInstance().logPerformanceStop(NhincConstants.DOC_RETRIEVE_SERVICE_NAME, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE,
-                    NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, homeCommunityId);
         } catch (Throwable t) {
             String errorMsg = "Error processing an adapter document retrieve message: " + t.getMessage();
             log.error(errorMsg, t);
