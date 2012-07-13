@@ -26,7 +26,6 @@
  */
 package gov.hhs.fha.nhinc.docsubmission._20.passthru.deferred.request;
 
-import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType;
 import javax.annotation.Resource;
 import javax.jws.WebService;
 import javax.xml.ws.BindingType;
