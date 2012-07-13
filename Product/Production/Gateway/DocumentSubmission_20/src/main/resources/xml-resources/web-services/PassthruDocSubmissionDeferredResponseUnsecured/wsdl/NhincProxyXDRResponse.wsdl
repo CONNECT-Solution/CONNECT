@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- This wsdl file is for an XDS.b Document Repository Actor -->
-<definitions xmlns:tns="urn:gov:hhs:fha:nhinc:nhincproxyxdr:async:response" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:nccommonproxy="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:ihe="urn:ihe:iti:xds-b:2007" xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:wsaws="http://www.w3.org/2006/05/addressing/wsdl" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xdr="http://www.hhs.gov/healthit/nhin" name="NhincProxyXDRResponse" targetNamespace="urn:gov:hhs:fha:nhinc:nhincproxyxdr:async:response">
+<definitions xmlns:tns="urn:gov:hhs:fha:nhinc:nhincproxyxdr:async:response" 
+             xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/" 
+             xmlns="http://schemas.xmlsoap.org/wsdl/" 
+             xmlns:nccommonproxy="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" 
+             xmlns:ihe="urn:ihe:iti:xds-b:2007" 
+             xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" 
+             xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" 
+             xmlns:wsaws="http://www.w3.org/2006/05/addressing/wsdl" 
+             xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+             xmlns:xdr="http://www.hhs.gov/healthit/nhin" 
+             name="NhincProxyXDRResponse" 
+             targetNamespace="urn:gov:hhs:fha:nhinc:nhincproxyxdr:async:response">
 	<documentation>IHE XDR Document Repository</documentation>
 	<types>
 		<xsd:schema>
@@ -38,7 +49,7 @@
 	</binding>
 	<service name="ProxyXDRAsyncResponse_Service">
 		<port name="ProxyXDRAsyncResponse_Port" binding="tns:ProxyXDRAsyncResponse_Binding">
-			<soap:address location="http://localhost:${HttpDefaultPort}/EntityService/NhincProxyXDRAsyncResponse"/>
+			<soap:address location="http://localhost:${HttpDefaultPort}/Gateway/DocumentSubmission/1_1/EntityService/PassthruDocSubmissionDeferredResponseUnsecured"/>
 		</port>
 	</service>
 </definitions>
