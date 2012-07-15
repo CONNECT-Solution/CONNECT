@@ -65,9 +65,9 @@ public class AdapterDocSubmissionDeferredRequestProxyWebServiceUnsecuredImpl imp
         return new WebServiceProxyHelper();
     }
 
-    protected CONNECTClient<AdapterXDRRequestPortType> getCONNECTClientSecured(
+    protected CONNECTClient<AdapterXDRRequestPortType> getCONNECTClientUnsecured(
             ServicePortDescriptor<AdapterXDRRequestPortType> portDescriptor, String url, AssertionType assertion) {
-        return new CONNECTClientFactory<AdapterXDRRequestPortType>().getCONNECTClientSecured(portDescriptor, url,
+        return new CONNECTClientFactory<AdapterXDRRequestPortType>().getCONNECTClientUnsecured(portDescriptor, url,
                 assertion);
     }
 
@@ -89,7 +89,7 @@ public class AdapterDocSubmissionDeferredRequestProxyWebServiceUnsecuredImpl imp
                 wsRequest.setAssertion(assertion);
 
                 ServicePortDescriptor<AdapterXDRRequestPortType> portDescriptor = new AdapterDocSubmissionDeferredRequestUnsecuredServicePortDescriptor();
-                CONNECTClient<AdapterXDRRequestPortType> client = getCONNECTClientSecured(portDescriptor, destURL,
+                CONNECTClient<AdapterXDRRequestPortType> client = getCONNECTClientUnsecured(portDescriptor, destURL,
                         assertion);
                 response = (XDRAcknowledgementType) client.invokePort(AdapterXDRRequestPortType.class,
                         "provideAndRegisterDocumentSetBRequest", wsRequest);

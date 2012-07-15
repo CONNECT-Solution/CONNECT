@@ -67,7 +67,7 @@ public class EntityDocSubmissionDeferredRequestProxyWebServiceUnsecuredImpl impl
         return new WebServiceProxyHelper();
     }
 
-    protected CONNECTClient<EntityXDRAsyncRequestPortType> getCONNECTClientSecured(
+    protected CONNECTClient<EntityXDRAsyncRequestPortType> getCONNECTClientUnsecured(
             ServicePortDescriptor<EntityXDRAsyncRequestPortType> portDescriptor, String url, AssertionType assertion) {
 
         return new CONNECTClientFactory<EntityXDRAsyncRequestPortType>().getCONNECTClientUnsecured(portDescriptor, url,
@@ -100,7 +100,7 @@ public class EntityDocSubmissionDeferredRequestProxyWebServiceUnsecuredImpl impl
                 }
 
                 ServicePortDescriptor<EntityXDRAsyncRequestPortType> portDescriptor = new EntityDocSubmissionDeferredRequestServicePortDescriptor();
-                CONNECTClient<EntityXDRAsyncRequestPortType> client = getCONNECTClientSecured(portDescriptor, url,
+                CONNECTClient<EntityXDRAsyncRequestPortType> client = getCONNECTClientUnsecured(portDescriptor, url,
                         assertion);
 
                 response = (XDRAcknowledgementType) client.invokePort(EntityXDRAsyncRequestPortType.class,
