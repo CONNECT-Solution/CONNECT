@@ -29,13 +29,15 @@ package gov.hhs.fha.nhinc.docsubmission._20.passthru.deferred.response;
 import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetResponseRequestType;
-import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
-import javax.xml.ws.WebServiceContext;
 import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType;
+import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
 import gov.hhs.fha.nhinc.docsubmission.passthru.deferred.response.PassthruDocSubmissionDeferredResponseOrchImpl;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
+
 import java.util.List;
+
+import javax.xml.ws.WebServiceContext;
 
 /**
  * 
@@ -66,7 +68,8 @@ public class PassthruDocSubmissionDeferredResponseImpl_g1 {
     protected AssertionType extractAssertionFromContext(WebServiceContext context, AssertionType oAssertionIn) {
         AssertionType assertion = null;
         if (oAssertionIn == null) {
-            assertion = SamlTokenExtractor.GetAssertion(context);
+            SAML2AssertionExtractor extractor = new SAML2AssertionExtractor();
+            assertion = extractor.extractSamlAssertion(context);
         } else {
             assertion = oAssertionIn;
         }

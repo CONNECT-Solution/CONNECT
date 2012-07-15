@@ -27,14 +27,15 @@
 package gov.hhs.fha.nhinc.docsubmission._20.passthru;
 
 import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
-import javax.xml.ws.WebServiceContext;
-import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetRequestType;
-import gov.hhs.fha.nhinc.docsubmission.passthru.deferred.request.PassthruDocSubmissionDeferredRequestOrchImpl;
-import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
-import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
+import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType;
+import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
 import gov.hhs.fha.nhinc.docsubmission.passthru.PassthruDocSubmissionOrchImpl;
+
+import javax.xml.ws.WebServiceContext;
+
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 /**
  * 
@@ -61,8 +62,9 @@ public class PassthruDocSubmissionImpl_g1 {
 
     protected AssertionType extractAssertionFromContext(WebServiceContext context, AssertionType oAssertionIn) {
         AssertionType assertion = null;
-        if (oAssertionIn == null) {
-            assertion = SamlTokenExtractor.GetAssertion(context);
+        if (oAssertionIn == null) {            
+            SAML2AssertionExtractor extractor = new SAML2AssertionExtractor();
+            assertion = extractor.extractSamlAssertion(context);
         } else {
             assertion = oAssertionIn;
         }
