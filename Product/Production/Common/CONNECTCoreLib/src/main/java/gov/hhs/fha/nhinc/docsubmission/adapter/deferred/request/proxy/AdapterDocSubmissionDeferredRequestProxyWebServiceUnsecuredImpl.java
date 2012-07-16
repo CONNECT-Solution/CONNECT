@@ -85,7 +85,7 @@ public class AdapterDocSubmissionDeferredRequestProxyWebServiceUnsecuredImpl imp
             if (NullChecker.isNotNullish(destURL)) {
                 AdapterProvideAndRegisterDocumentSetRequestType wsRequest = new AdapterProvideAndRegisterDocumentSetRequestType();
                 wsRequest.setProvideAndRegisterDocumentSetRequest(request);
-                wsRequest.setUrl(url);
+                wsRequest.setUrl(destURL);
                 wsRequest.setAssertion(assertion);
 
                 ServicePortDescriptor<AdapterXDRRequestPortType> portDescriptor = new AdapterDocSubmissionDeferredRequestUnsecuredServicePortDescriptor();

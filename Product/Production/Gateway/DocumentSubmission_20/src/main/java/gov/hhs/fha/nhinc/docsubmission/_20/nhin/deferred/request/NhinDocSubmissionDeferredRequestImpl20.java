@@ -28,13 +28,13 @@ package gov.hhs.fha.nhinc.docsubmission._20.nhin.deferred.request;
 
 import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
 import gov.hhs.fha.nhinc.docsubmission.nhin.deferred.request.NhinDocSubmissionDeferredRequestOrchImpl;
-import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
+import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
+
 import javax.xml.ws.WebServiceContext;
 
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
-import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
-import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 
 /**
  *
@@ -48,8 +48,9 @@ public class NhinDocSubmissionDeferredRequestImpl20 {
      * @param context
      * @return
      */
-    public RegistryResponseType provideAndRegisterDocumentSetBRequest(ProvideAndRegisterDocumentSetRequestType body, WebServiceContext context) {
-        AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
+    public RegistryResponseType provideAndRegisterDocumentSetBRequest(ProvideAndRegisterDocumentSetRequestType body, WebServiceContext context) {        
+        SAML2AssertionExtractor extractor = new SAML2AssertionExtractor();
+        AssertionType assertion = extractor.extractSamlAssertion(context);
 
         if (assertion != null) {
             AsyncMessageIdExtractor msgIdExtractor = new AsyncMessageIdExtractor();

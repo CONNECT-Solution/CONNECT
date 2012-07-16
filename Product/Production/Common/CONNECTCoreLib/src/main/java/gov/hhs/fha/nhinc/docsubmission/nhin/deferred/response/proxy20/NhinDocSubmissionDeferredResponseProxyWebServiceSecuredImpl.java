@@ -67,10 +67,6 @@ public class NhinDocSubmissionDeferredResponseProxyWebServiceSecuredImpl impleme
         return new WebServiceProxyHelper();
     }
 
-    protected WebServiceProxyHelper getWebServiceProxyHelper() {
-        return new WebServiceProxyHelper();
-    }
-
     protected CONNECTClient<XDRDeferredResponse20PortType> getCONNECTClientSecured(
             ServicePortDescriptor<XDRDeferredResponse20PortType> portDescriptor, String url, AssertionType assertion) {
         
