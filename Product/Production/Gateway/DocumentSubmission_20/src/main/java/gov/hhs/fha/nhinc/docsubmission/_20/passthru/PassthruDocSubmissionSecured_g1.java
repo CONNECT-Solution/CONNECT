@@ -34,13 +34,13 @@ import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
 
 /**
- * 
+ *
  * @author jhoppesc
  */
 @WebService(serviceName = "ProxyXDRSecured_Service", portName = "ProxyXDRSecured_Port", endpointInterface = "gov.hhs.fha.nhinc.nhincproxyxdrsecured.ProxyXDRSecuredPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:nhincproxyxdrsecured", wsdlLocation = "WEB-INF/wsdl/PassthruDocSubmissionSecured/NhincProxyXDRSecured.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 @Addressing(enabled = true)
-@HandlerChain(file="../../../../../../handler-chain.xml")
+@HandlerChain(file = "../../../../../../../handler-chain.xml")
 public class PassthruDocSubmissionSecured_g1 {
     @Resource
     private WebServiceContext context;
