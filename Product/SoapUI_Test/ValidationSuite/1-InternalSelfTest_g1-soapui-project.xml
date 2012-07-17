@@ -2642,7 +2642,7 @@ assert (docData.size() != 0)</scriptText>
     
     
     
-  <con:property><con:name>RemoteAA</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemoteHCDescription</con:name><con:value>InternalTest2</con:value></con:property><con:property><con:name>RemoteHCID</con:name><con:value>2.2</con:value></con:property><con:property><con:name>SubscriptionDB</con:name><con:value>subscriptionrepository</con:value></con:property><con:property><con:name>SubscriptionTable</con:name><con:value>subscription</con:value></con:property></con:properties>
+  <con:property><con:name>RemoteAA</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemoteHCDescription</con:name><con:value>InternalTest2</con:value></con:property><con:property><con:name>RemoteHCID</con:name><con:value>2.2</con:value></con:property><con:property><con:name>SubscriptionDB</con:name><con:value>subscriptionrepository</con:value></con:property><con:property><con:name>SubscriptionTable</con:name><con:value>subscription</con:value></con:property><con:property><con:name>Endpoint-NhincProxyXDR</con:name><con:value>http://localhost:8080/Gateway/DocumentSubmission/2_0/EntityService/PassthruDocSubmissionUnsecured</con:value></con:property><con:property><con:name>Endpoint-NhincProxyDSResp</con:name><con:value>http://localhost:8080/Gateway/DocumentSubmission/2_0/EntityService/PassthruDocSubmissionDeferredResponseUnsecured</con:value></con:property></con:properties>
   <con:afterLoadScript>def propertiesFilename = project.path[0..(project.path.size()-4)] + 'properties'
 def propertiesFile = new File(propertiesFilename)
 if (propertiesFile.exists()) {
