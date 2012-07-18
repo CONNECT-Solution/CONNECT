@@ -30,7 +30,7 @@ import gov.hhs.fha.nhinc.adapterxdrresponsesecured.AdapterXDRResponseSecuredPort
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.docsubmission.adapter.deferred.response.proxy.service.AdapterDocSubmissionDeferredResponseSecuredServicePortDescriptor;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
-import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
+import gov.hhs.fha.nhinc.messaging.client.CONNECTCXFClientFactory;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
@@ -67,7 +67,7 @@ public class AdapterDocSubmissionDeferredResponseProxyWebServiceSecuredImpl impl
     protected CONNECTClient<AdapterXDRResponseSecuredPortType> getCONNECTClientSecured(
             ServicePortDescriptor<AdapterXDRResponseSecuredPortType> portDescriptor, String url, AssertionType assertion) {
         
-        return new CONNECTClientFactory<AdapterXDRResponseSecuredPortType>().getCONNECTClientSecured(portDescriptor,
+        return new CONNECTCXFClientFactory<AdapterXDRResponseSecuredPortType>().getCONNECTClientSecured(portDescriptor,
                 url, assertion);
     }
 

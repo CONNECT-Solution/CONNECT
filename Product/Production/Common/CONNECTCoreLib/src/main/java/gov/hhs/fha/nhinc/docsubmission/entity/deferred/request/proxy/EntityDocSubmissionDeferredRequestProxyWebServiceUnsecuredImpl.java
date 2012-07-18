@@ -38,7 +38,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.UrlInfoType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetRequestType;
 import gov.hhs.fha.nhinc.docsubmission.entity.deferred.request.proxy.service.EntityDocSubmissionDeferredRequestServicePortDescriptor;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
-import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
+import gov.hhs.fha.nhinc.messaging.client.CONNECTCXFClientFactory;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhincentityxdr.async.request.EntityXDRAsyncRequestPortType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
@@ -70,7 +70,7 @@ public class EntityDocSubmissionDeferredRequestProxyWebServiceUnsecuredImpl impl
     protected CONNECTClient<EntityXDRAsyncRequestPortType> getCONNECTClientUnsecured(
             ServicePortDescriptor<EntityXDRAsyncRequestPortType> portDescriptor, String url, AssertionType assertion) {
 
-        return new CONNECTClientFactory<EntityXDRAsyncRequestPortType>().getCONNECTClientUnsecured(portDescriptor, url,
+        return new CONNECTCXFClientFactory<EntityXDRAsyncRequestPortType>().getCONNECTClientUnsecured(portDescriptor, url,
                 assertion);
     }
 

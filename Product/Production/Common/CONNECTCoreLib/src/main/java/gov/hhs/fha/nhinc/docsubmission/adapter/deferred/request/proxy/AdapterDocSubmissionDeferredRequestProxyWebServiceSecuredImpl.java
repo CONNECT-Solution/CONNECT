@@ -36,7 +36,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterProvideAndRegisterDocumentSetSecuredRequestType;
 import gov.hhs.fha.nhinc.docsubmission.adapter.deferred.request.proxy.service.AdapterDocSubmissionDeferredRequestSecuredServicePortDescriptor;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
-import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
+import gov.hhs.fha.nhinc.messaging.client.CONNECTCXFClientFactory;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
@@ -69,7 +69,7 @@ public class AdapterDocSubmissionDeferredRequestProxyWebServiceSecuredImpl imple
 
     protected CONNECTClient<AdapterXDRRequestSecuredPortType> getCONNECTClientSecured(
             ServicePortDescriptor<AdapterXDRRequestSecuredPortType> portDescriptor, String url, AssertionType assertion) {
-        return new CONNECTClientFactory<AdapterXDRRequestSecuredPortType>().getCONNECTClientSecured(portDescriptor,
+        return new CONNECTCXFClientFactory<AdapterXDRRequestSecuredPortType>().getCONNECTClientSecured(portDescriptor,
                 url, assertion);
     }
 

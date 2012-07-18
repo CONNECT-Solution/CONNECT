@@ -28,6 +28,7 @@
 package gov.hhs.fha.nhinc.messaging.client;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.messaging.service.BaseServiceEndpoint;
 import gov.hhs.fha.nhinc.messaging.service.ServiceEndpoint;
 import gov.hhs.fha.nhinc.messaging.service.decorator.SAMLServiceEndpointDecorator;
 import gov.hhs.fha.nhinc.messaging.service.decorator.metro.WsAddressingServiceEndpointDecorator;
@@ -50,7 +51,7 @@ public class CONNECTMetroClientSecured<T> extends CONNECTClient<T> {
 
         ServicePortBuilder<T> portBuilder = new MetroServicePortBuilder<T>(portDescriptor);
 
-        serviceEndpoint = super.configureBasePort(portBuilder.createPort(), url);
+        ServiceEndpoint<T> serviceEndpoint = new BaseServiceEndpoint<T>(portBuilder.createPort());
         serviceEndpoint = new SAMLServiceEndpointDecorator<T>(serviceEndpoint, assertion);
         
         // Metro specific decorator configuration

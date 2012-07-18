@@ -31,7 +31,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType;
 import gov.hhs.fha.nhinc.docsubmission.entity.deferred.response.proxy.service.EntityDocSubmissionDeferredResponseSecuredServicePortDescriptor;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
-import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
+import gov.hhs.fha.nhinc.messaging.client.CONNECTCXFClientFactory;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhincentityxdrsecured.async.response.EntityXDRSecuredAsyncResponsePortType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
@@ -83,7 +83,7 @@ public class EntityDocSubmissionDeferredResponseProxyWebServiceSecuredImpl imple
 
                 ServicePortDescriptor<EntityXDRSecuredAsyncResponsePortType> portDescriptor = new EntityDocSubmissionDeferredResponseSecuredServicePortDescriptor();
 
-                CONNECTClient<EntityXDRSecuredAsyncResponsePortType> client = new CONNECTClientFactory<EntityXDRSecuredAsyncResponsePortType>()
+                CONNECTClient<EntityXDRSecuredAsyncResponsePortType> client = CONNECTCXFClientFactory.getInstance()
                         .getCONNECTClientSecured(portDescriptor, url, assertion);
 
                 response = (XDRAcknowledgementType) client.invokePort(EntityXDRSecuredAsyncResponsePortType.class,

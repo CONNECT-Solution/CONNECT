@@ -38,22 +38,12 @@ import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
  * @author akong
  * 
  */
-public class CONNECTCXFClientUnsecured<T> extends CONNECTClient<T> {
+public class CONNECTCXFClientUnsecured<T>  extends CONNECTCXFClient<T>  {
 
     private ServiceEndpoint<T> serviceEndpoint = null;
 
     CONNECTCXFClientUnsecured(ServicePortDescriptor<T> portDescriptor, String url, AssertionType assertion) {
-        super();
-
-        String wsAddressingAction = portDescriptor.getWSAddressingAction();
-
-        ServicePortBuilder<T> portBuilder = new CXFServicePortBuilder<T>(portDescriptor);
-
-        serviceEndpoint = super.configureBasePort(portBuilder.createPort(), url);
-
-        // CXF specific decorator configuration
-        serviceEndpoint = new WsAddressingServiceEndpointDecorator<T>(serviceEndpoint, url, wsAddressingAction,
-                assertion);
+        super(portDescriptor, url, assertion );
 
         serviceEndpoint.configure();
     }
