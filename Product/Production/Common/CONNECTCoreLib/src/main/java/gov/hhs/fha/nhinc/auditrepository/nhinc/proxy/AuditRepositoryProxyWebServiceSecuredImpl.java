@@ -32,7 +32,7 @@ import gov.hhs.fha.nhinc.common.auditlog.LogEventSecureRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
-import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
+import gov.hhs.fha.nhinc.messaging.client.CONNECTCXFClientFactory;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhinccomponentauditrepository.AuditRepositoryManagerSecuredPortType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
@@ -82,7 +82,7 @@ public class AuditRepositoryProxyWebServiceSecuredImpl implements AuditRepositor
 
                     ServicePortDescriptor<AuditRepositoryManagerSecuredPortType> portDescriptor = new AuditRepositorySecuredServicePortDescriptor();
 
-                    CONNECTClient<AuditRepositoryManagerSecuredPortType> client = new CONNECTClientFactory<AuditRepositoryManagerSecuredPortType>()
+                    CONNECTClient<AuditRepositoryManagerSecuredPortType> client = new CONNECTCXFClientFactory<AuditRepositoryManagerSecuredPortType>()
                             .getCONNECTClientSecured(portDescriptor, url, assertion);
 
                     result = (AcknowledgementType) client.invokePort(AuditRepositoryManagerSecuredPortType.class,

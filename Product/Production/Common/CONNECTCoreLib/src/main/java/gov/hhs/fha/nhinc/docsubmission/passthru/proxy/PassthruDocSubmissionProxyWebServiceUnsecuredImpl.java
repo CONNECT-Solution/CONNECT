@@ -31,7 +31,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetRequestType;
 import gov.hhs.fha.nhinc.docsubmission.passthru.proxy.description.PassthruDocSubmissiona0ServicePortDescriptor;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
-import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
+import gov.hhs.fha.nhinc.messaging.client.CONNECTCXFClientFactory;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhincproxyxdr.ProxyXDRPortType;
@@ -77,7 +77,7 @@ public class PassthruDocSubmissionProxyWebServiceUnsecuredImpl implements Passth
 
             ServicePortDescriptor<ProxyXDRPortType> portDescriptor = getServicePortDescriptor(NhincConstants.ADAPTER_API_LEVEL.LEVEL_a0);
 
-            CONNECTClient<ProxyXDRPortType> client = new CONNECTClientFactory<ProxyXDRPortType>()
+            CONNECTClient<ProxyXDRPortType> client = CONNECTCXFClientFactory.getInstance()
                     .getCONNECTClientUnsecured(portDescriptor, url, assertion);
 
             RespondingGatewayProvideAndRegisterDocumentSetRequestType request = new RespondingGatewayProvideAndRegisterDocumentSetRequestType();

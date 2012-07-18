@@ -31,7 +31,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetRequestType;
 import gov.hhs.fha.nhinc.docsubmission.passthru.deferred.request.proxy.service.PassthruDocSubmissionDeferredRequestUnsecuredServicePortDescriptor;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
-import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
+import gov.hhs.fha.nhinc.messaging.client.CONNECTCXFClientFactory;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhincproxyxdr.async.request.ProxyXDRAsyncRequestPortType;
@@ -68,7 +68,7 @@ public class PassthruDocSubmissionDeferredRequestProxyWebServiceUnsecuredImpl im
     protected CONNECTClient<ProxyXDRAsyncRequestPortType> getCONNECTClientUnsecured(
             ServicePortDescriptor<ProxyXDRAsyncRequestPortType> portDescriptor, String url, AssertionType assertion) {
 
-        return new CONNECTClientFactory<ProxyXDRAsyncRequestPortType>().getCONNECTClientUnsecured(portDescriptor, url,
+        return CONNECTCXFClientFactory.getInstance().getCONNECTClientUnsecured(portDescriptor, url,
                 assertion);
     }
 

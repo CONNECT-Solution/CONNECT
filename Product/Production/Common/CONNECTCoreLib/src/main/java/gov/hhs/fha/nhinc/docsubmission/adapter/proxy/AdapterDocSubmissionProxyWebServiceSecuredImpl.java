@@ -30,7 +30,7 @@ import gov.hhs.fha.nhinc.adapterxdrsecured.AdapterXDRSecuredPortType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.docsubmission.adapter.proxy.service.AdapterDocSubmissionSecuredServicePortDescriptor;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
-import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
+import gov.hhs.fha.nhinc.messaging.client.CONNECTCXFClientFactory;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
@@ -74,7 +74,7 @@ public class AdapterDocSubmissionProxyWebServiceSecuredImpl implements AdapterDo
 
                 ServicePortDescriptor<AdapterXDRSecuredPortType> portDescriptor = new AdapterDocSubmissionSecuredServicePortDescriptor();
 
-                CONNECTClient<AdapterXDRSecuredPortType> client = new CONNECTClientFactory<AdapterXDRSecuredPortType>()
+                CONNECTClient<AdapterXDRSecuredPortType> client = new CONNECTCXFClientFactory<AdapterXDRSecuredPortType>()
                         .getCONNECTClientSecured(portDescriptor, url, assertion);
 
                 response = (RegistryResponseType) client.invokePort(AdapterXDRSecuredPortType.class,

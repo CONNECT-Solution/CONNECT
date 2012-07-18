@@ -27,45 +27,25 @@
 
 package gov.hhs.fha.nhinc.messaging.client;
 
+import gov.hhs.fha.nhinc.messaging.client.CONNECTCXFClientUnsecured;
+import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.messaging.service.decorator.SAMLServiceEndpointDecorator;
-import gov.hhs.fha.nhinc.messaging.service.decorator.cxf.SecurityOutInterceptorServiceEndpointDecorator;
-import gov.hhs.fha.nhinc.messaging.service.decorator.cxf.TLSClientServiceEndpointDecorator;
-<<<<<<< HEAD
-import gov.hhs.fha.nhinc.messaging.service.decorator.cxf.WsAddressingServiceEndpointDecorator;
-import gov.hhs.fha.nhinc.messaging.service.port.CXFServicePortBuilderWithAddressing;
-import gov.hhs.fha.nhinc.messaging.service.port.ServicePortBuilder;
-=======
->>>>>>> a2d1b9b... refactor to change how CONNECTCXFClient works
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 
 /**
  * @author akong
  * 
  */
-public class CONNECTCXFClientSecured<T> extends CONNECTCXFClient<T> {
+public class CONNECTCXFClientFactory<T> {
 
-   
-    CONNECTCXFClientSecured(ServicePortDescriptor<T> portDescriptor, String url, AssertionType assertion) {
-        super(portDescriptor, url, assertion);
-
-<<<<<<< HEAD
-        ServicePortBuilder<T> portBuilder = new CXFServicePortBuilderWithAddressing<T>(portDescriptor);
-        
-        serviceEndpoint = super.configureBasePort(portBuilder.createPort(), url);
-=======
->>>>>>> a2d1b9b... refactor to change how CONNECTCXFClient works
-        serviceEndpoint = new SAMLServiceEndpointDecorator<T>(serviceEndpoint, assertion);
-
-        serviceEndpoint = new TLSClientServiceEndpointDecorator<T>(serviceEndpoint);
-        serviceEndpoint = new SecurityOutInterceptorServiceEndpointDecorator<T>(serviceEndpoint);
-
-        
-        serviceEndpoint.configure();
+    public CONNECTClient<T> getCONNECTClientSecured(ServicePortDescriptor<T> portDescriptor, String url,
+            AssertionType assertion) {
+        return new CONNECTCXFClientSecured<T>(portDescriptor, url, assertion);
     }
 
-    public T getPort() {
-        return serviceEndpoint.getPort();
+    public CONNECTClient<T> getCONNECTClientUnsecured(ServicePortDescriptor<T> portDescriptor, String url,
+            AssertionType assertion) {
+        return new CONNECTCXFClientUnsecured<T>(portDescriptor, url, assertion);
     }
 
 }
