@@ -81,7 +81,7 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
 
     <!-- Nhin services -->
     <jaxws:endpoint xmlns:tns="urn:ihe:iti:xdr:2007" id="NhinXDRRequest" address="/NhinService/XDRRequest_Service"
-        serviceName="tns:XDRDeferredRequest11_Service" endpointName="tns:XDRDeferredRequest_Port_Soap"
+        serviceName="tns:XDRDeferredRequest_Service" endpointName="tns:XDRDeferredRequest_Port_Soap"
         implementor="gov.hhs.fha.nhinc.docsubmission._11.nhin.deferred.request.NhinXDRRequest" wsdlLocation="/WEB-INF/wsdl/NhinXDRRequest/NhinXDRDeferredRequest.wsdl">
         <jaxws:properties>
             <entry key="ws-security.callback-handler" value="gov.hhs.fha.nhinc.callback.cxf.CXFSAMLCallbackHandler" />
@@ -149,7 +149,7 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
 
     <!-- Nhin services -->
     <jaxws:endpoint xmlns:tns="urn:ihe:iti:xdr:2007" id="NhinXDRResponse" address="/NhinService/XDRResponse_Service"
-        serviceName="tns:XDRDeferredResponse11_Service" endpointName="tns:XDRDeferredResponse_Port_Soap"
+        serviceName="tns:XDRDeferredResponse_Service" endpointName="tns:XDRDeferredResponse_Port_Soap"
         implementor="gov.hhs.fha.nhinc.docsubmission._11.nhin.deferred.response.NhinXDRResponse" wsdlLocation="/WEB-INF/wsdl/NhinXDRResponse/NhinXDRDeferredResponse.wsdl">
         <jaxws:properties>
             <entry key="ws-security.callback-handler" value="gov.hhs.fha.nhinc.callback.cxf.CXFSAMLCallbackHandler" />

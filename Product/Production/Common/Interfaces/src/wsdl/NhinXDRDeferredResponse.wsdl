@@ -98,7 +98,7 @@
     <wsp:Policy wsu:Id="RespondingGateway_XDRResponse_Binding_Soap_Output_Policy">
         <wsp:ExactlyOne>
             <wsp:All>
-                <wsoma:OptimizedMimeSerialization wsp:Optimized="true">
+                <wsoma:OptimizedMimeSerialization wsp:Optimized="true"/>
             </wsp:All>
         </wsp:ExactlyOne>
     </wsp:Policy>
