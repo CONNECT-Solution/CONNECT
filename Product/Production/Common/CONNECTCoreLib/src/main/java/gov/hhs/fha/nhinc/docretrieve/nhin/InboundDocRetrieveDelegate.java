@@ -12,7 +12,7 @@ import gov.hhs.fha.nhinc.orchestration.InboundOrchestratable;
 import gov.hhs.fha.nhinc.orchestration.Orchestratable;
 import gov.hhs.fha.nhinc.orchestration.OrchestrationContext;
 import gov.hhs.fha.nhinc.orchestration.OrchestrationContextBuilder;
-import gov.hhs.fha.nhinc.orchestration.OrchestrationContextFactory;
+import gov.hhs.fha.nhinc.orchestration.OrchestrationContextFactoryImpl;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
@@ -52,7 +52,7 @@ public class InboundDocRetrieveDelegate implements InboundDelegate {
         } catch (PropertyAccessException ex) {
             ex.printStackTrace();
         }
-        InboundDocRetrieveContextBuilder contextBuilder = (InboundDocRetrieveContextBuilder) OrchestrationContextFactory
+        InboundDocRetrieveContextBuilder contextBuilder = (InboundDocRetrieveContextBuilder) OrchestrationContextFactoryImpl
                 .getInstance().getBuilder(hcid, NhincConstants.ADAPTER_DOC_RETRIEVE_SERVICE_NAME);
 
         contextBuilder.setContextMessage(message);

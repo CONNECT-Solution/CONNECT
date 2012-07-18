@@ -30,7 +30,7 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratable;
 import gov.hhs.fha.nhinc.orchestration.OutboundDelegate;
 import gov.hhs.fha.nhinc.orchestration.Orchestratable;
-import gov.hhs.fha.nhinc.orchestration.OrchestrationContextFactory;
+import gov.hhs.fha.nhinc.orchestration.OrchestrationContextFactoryImpl;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -72,7 +72,7 @@ public class OutboundDocQueryDelegate implements OutboundDelegate {
     public OutboundDocQueryOrchestratable process(OutboundDocQueryOrchestratable message) {
         getLogger().debug("NhinDocQueryDelegate::process EntityDocQueryOrchestratable");
 
-        OutboundDocQueryOrchestrationContextBuilder contextBuilder = (OutboundDocQueryOrchestrationContextBuilder) OrchestrationContextFactory
+        OutboundDocQueryOrchestrationContextBuilder contextBuilder = (OutboundDocQueryOrchestrationContextBuilder) OrchestrationContextFactoryImpl
                 .getInstance().getBuilder(message.getTarget().getHomeCommunity(), NhincConstants.NHIN_SERVICE_NAMES.DOCUMENT_QUERY);
 
         contextBuilder.setAssertionType(message.getAssertion());
