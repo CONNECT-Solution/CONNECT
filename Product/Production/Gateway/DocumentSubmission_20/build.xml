@@ -19,7 +19,7 @@
         <!-- Add classes from other projects like so...-->
         <pathelement path="${project.CONNECTCommonTypesLib.build.classes.dir}" />
         <pathelement path="${project.CONNECTCoreLib.build.classes.dir}" />
-        <pathelement path="${project.DocumentSubmissionClient.build.classes.dir}" />
+        <pathelement path="${project.DocumentSubmissionCore.build.classes.dir}" />
     </path>
 
     <!-- Add project dependencies here, these projects will be built first... -->
@@ -28,7 +28,7 @@
             <file name="${project.CONNECTCoreLib.build.file}" />
         </filelist>
         <filelist dir="${root.project.directory.path}">
-            <file name="${project.DocumentSubmissionClient.build.file}" />
+            <file name="${project.DocumentSubmissionCore.build.file}" />
         </filelist>
     </path>
 
@@ -37,7 +37,7 @@
     <property name="core.lib" location="../../Common/CONNECTCoreLib/dist/debug" />
     <property name="common.lib" location="../../Common/CONNECTCommonTypesLib/dist/debug" />
     <property name="opensaml.home" location="../../../../ThirdParty/openSAML" />
-    <property name ="client.xdr" location="../../Client/DocumentSubmissionClient/dist/debug"/>
+    <property name ="core.xdr" location="../../Services/DocumentSubmission/Core/DocumentSubmissionCore/dist/debug"/>
 
     <path id="war.libs">
         <fileset dir="${cxf.home}">
@@ -85,8 +85,8 @@
             <file name="CONNECTCommonTypesLib.jar" />
         </filelist>
 
-        <filelist dir="${client.xdr}">
-            <file name="DocumentSubmissionClient.jar" />
+        <filelist dir="${core.xdr}">
+            <file name="DocumentSubmissionCore.jar" />
         </filelist>
     </path>
 

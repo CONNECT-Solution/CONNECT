@@ -8,7 +8,7 @@
     <property name="deploy.type" value="war" />
     <property name="copy.wsdl.to.webinf" value="true" />
 	<property name="coverage.isneeded" value="false" />
-    <property name ="client.xdr" location="../../Client/DocumentSubmissionClient/dist/debug"/>
+    <property name ="core.xdr" location="../../Services/DocumentSubmission/Core/DocumentSubmissionCore/dist/debug"/>
     
 	
 	<!-- Please make sure that this goes up to the correct directory -->
@@ -21,7 +21,7 @@
 		<!-- Add classes from other projects like so...-->
         <pathelement path="${project.CONNECTCommonTypesLib.build.classes.dir}" />
 		<pathelement path="${project.CONNECTCoreLib.build.classes.dir}" />
-        <pathelement path="${project.DocumentSubmissionClient.build.classes.dir}" />
+        <pathelement path="${project.DocumentSubmissionCore.build.classes.dir}" />
     </path>
 
 	<!-- Add project dependencies here, these projects will be built first... -->
@@ -29,13 +29,13 @@
         <filelist dir="${root.project.directory.path}">
         </filelist>
         <filelist dir="${root.project.directory.path}">
-            <file name="${project.DocumentSubmissionClient.build.file}" />
+            <file name="${project.DocumentSubmissionCore.build.file}" />
         </filelist>
     </path>
 
     <path id="war.libs">
-        <filelist dir="${client.xdr}">
-            <file name="DocumentSubmissionClient.jar" />
+        <filelist dir="${core.xdr}">
+            <file name="DocumentSubmissionCore.jar" />
         </filelist>
     </path>
   
