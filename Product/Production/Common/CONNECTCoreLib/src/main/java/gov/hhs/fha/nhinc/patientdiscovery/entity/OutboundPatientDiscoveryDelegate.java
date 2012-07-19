@@ -30,7 +30,7 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratable;
 import gov.hhs.fha.nhinc.orchestration.OutboundDelegate;
 import gov.hhs.fha.nhinc.orchestration.Orchestratable;
-import gov.hhs.fha.nhinc.orchestration.OrchestrationContextFactory;
+import gov.hhs.fha.nhinc.orchestration.OrchestrationContextFactoryImpl;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -74,7 +74,7 @@ public class OutboundPatientDiscoveryDelegate implements OutboundDelegate {
     public OutboundPatientDiscoveryOrchestratable process(OutboundPatientDiscoveryOrchestratable message) {
         getLogger().debug("NhinPatientDiscoveryDelegate::process EntityPatientDiscoveryOrchestratable");
 
-        OutboundPatientDiscoveryOrchestrationContextBuilder contextBuilder = (OutboundPatientDiscoveryOrchestrationContextBuilder) OrchestrationContextFactory
+        OutboundPatientDiscoveryOrchestrationContextBuilder contextBuilder = (OutboundPatientDiscoveryOrchestrationContextBuilder) OrchestrationContextFactoryImpl
                 .getInstance().getBuilder(message.getTarget().getHomeCommunity(), NhincConstants.NHIN_SERVICE_NAMES.PATIENT_DISCOVERY);
 
         contextBuilder.setAssertionType(message.getAssertion());
