@@ -26,24 +26,23 @@
  */
 package gov.hhs.fha.nhinc.docsubmission.entity.deferred.request.proxy;
 
-import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
-import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.UrlInfoType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType;
 import gov.hhs.fha.nhinc.docsubmission.entity.deferred.request.proxy.service.EntityDocSubmissionDeferredRequestSecuredServicePortDescriptor;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
-import gov.hhs.fha.nhinc.messaging.client.CONNECTCXFClientFactory;
+import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhincentityxdrsecured.async.request.EntityXDRSecuredAsyncRequestPortType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
+import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  *
@@ -71,7 +70,7 @@ public class EntityDocSubmissionDeferredRequestProxyWebServiceSecuredImpl implem
             ServicePortDescriptor<EntityXDRSecuredAsyncRequestPortType> portDescriptor, String url,
             AssertionType assertion) {
 
-        return new CONNECTCXFClientFactory<EntityXDRSecuredAsyncRequestPortType>().getCONNECTClientSecured(portDescriptor,
+        return CONNECTClientFactory.getInstance().getCONNECTClientSecured(portDescriptor,
                 url, assertion);
     }
 

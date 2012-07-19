@@ -82,7 +82,7 @@ public class AuditRepositoryProxyWebServiceSecuredImpl implements AuditRepositor
 
                     ServicePortDescriptor<AuditRepositoryManagerSecuredPortType> portDescriptor = new AuditRepositorySecuredServicePortDescriptor();
 
-                    CONNECTClient<AuditRepositoryManagerSecuredPortType> client = new CONNECTCXFClientFactory<AuditRepositoryManagerSecuredPortType>()
+                    CONNECTClient<AuditRepositoryManagerSecuredPortType> client = CONNECTCXFClientFactory.getInstance()
                             .getCONNECTClientSecured(portDescriptor, url, assertion);
 
                     result = (AcknowledgementType) client.invokePort(AuditRepositoryManagerSecuredPortType.class,

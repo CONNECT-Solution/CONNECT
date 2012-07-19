@@ -67,7 +67,7 @@ public class AdapterDocSubmissionDeferredRequestProxyWebServiceUnsecuredImpl imp
 
     protected CONNECTClient<AdapterXDRRequestPortType> getCONNECTClientUnsecured(
             ServicePortDescriptor<AdapterXDRRequestPortType> portDescriptor, String url, AssertionType assertion) {
-        return new CONNECTCXFClientFactory<AdapterXDRRequestPortType>().getCONNECTClientUnsecured(portDescriptor, url,
+        return CONNECTCXFClientFactory.getInstance().getCONNECTClientUnsecured(portDescriptor, url,
                 assertion);
     }
 

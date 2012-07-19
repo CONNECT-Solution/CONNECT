@@ -36,14 +36,14 @@ import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
  * @author akong
  * 
  */
-public class CONNECTCXFClientFactory<T> {
+public class CONNECTCXFClientFactory extends CONNECTClientFactory {
 
-    public CONNECTClient<T> getCONNECTClientSecured(ServicePortDescriptor<T> portDescriptor, String url,
+    public <T> CONNECTClient<T> getCONNECTClientSecured(ServicePortDescriptor<T> portDescriptor, String url,
             AssertionType assertion) {
         return new CONNECTCXFClientSecured<T>(portDescriptor, url, assertion);
     }
 
-    public CONNECTClient<T> getCONNECTClientUnsecured(ServicePortDescriptor<T> portDescriptor, String url,
+    public <T> CONNECTClient<T> getCONNECTClientUnsecured(ServicePortDescriptor<T> portDescriptor, String url,
             AssertionType assertion) {
         return new CONNECTCXFClientUnsecured<T>(portDescriptor, url, assertion);
     }
