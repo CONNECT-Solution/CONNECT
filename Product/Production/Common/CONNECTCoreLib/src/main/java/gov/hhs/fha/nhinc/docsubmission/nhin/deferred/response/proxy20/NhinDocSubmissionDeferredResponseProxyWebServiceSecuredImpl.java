@@ -30,7 +30,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.docsubmission.nhin.deferred.response.proxy20.service.NhinDocSubmissionDeferredResponseServicePortDescriptor;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
-import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
+import gov.hhs.fha.nhinc.messaging.client.CONNECTCXFClientFactory;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
@@ -70,7 +70,7 @@ public class NhinDocSubmissionDeferredResponseProxyWebServiceSecuredImpl impleme
     protected CONNECTClient<XDRDeferredResponse20PortType> getCONNECTClientSecured(
             ServicePortDescriptor<XDRDeferredResponse20PortType> portDescriptor, String url, AssertionType assertion) {
         
-        return new CONNECTClientFactory<XDRDeferredResponse20PortType>().getCONNECTClientSecured(portDescriptor,
+        return CONNECTCXFClientFactory.getInstance().getCONNECTClientSecured(portDescriptor,
                 url, assertion);
     }
     

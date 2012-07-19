@@ -32,7 +32,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.UrlInfoType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetRequestType;
 import gov.hhs.fha.nhinc.docsubmission.entity.proxy.description.EntityDocSubmissiona0ServicePortDescriptor;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
-import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
+import gov.hhs.fha.nhinc.messaging.client.CONNECTCXFClientFactory;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhincentityxdr.EntityXDRPortType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
@@ -101,6 +101,6 @@ public class EntityDocSubmissionProxyWebServiceUnsecuredImpl implements EntityDo
      */
     protected CONNECTClient<EntityXDRPortType> getCONNECTClient(ServicePortDescriptor<EntityXDRPortType> portDescriptor,
             String url, AssertionType assertion) {
-        return new CONNECTClientFactory<EntityXDRPortType>().getCONNECTClientUnsecured(portDescriptor, url, assertion);
+        return CONNECTCXFClientFactory.getInstance().getCONNECTClientUnsecured(portDescriptor, url, assertion);
     }
 }

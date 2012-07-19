@@ -31,7 +31,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType;
 import gov.hhs.fha.nhinc.docsubmission.passthru.deferred.response.proxy.service.PassthruDocSubmissionDeferredResponseSecuredServicePortDescriptor;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
-import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
+import gov.hhs.fha.nhinc.messaging.client.CONNECTCXFClientFactory;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhincproxyxdrsecured.async.response.ProxyXDRSecuredAsyncResponsePortType;
@@ -68,7 +68,7 @@ public class PassthruDocSubmissionDeferredResponseProxyWebServiceSecuredImpl imp
     protected CONNECTClient<ProxyXDRSecuredAsyncResponsePortType> getCONNECTClientSecured(
             ServicePortDescriptor<ProxyXDRSecuredAsyncResponsePortType> portDescriptor, String url, AssertionType assertion) {
         
-    return new CONNECTClientFactory<ProxyXDRSecuredAsyncResponsePortType>().getCONNECTClientSecured(portDescriptor, url, assertion);
+    return CONNECTCXFClientFactory.getInstance().getCONNECTClientSecured(portDescriptor, url, assertion);
 }
     
     public XDRAcknowledgementType provideAndRegisterDocumentSetBResponse(RegistryResponseType request,

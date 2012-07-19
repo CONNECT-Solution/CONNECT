@@ -78,7 +78,7 @@ public class AdapterDocSubmissionProxyWebServiceUnsecuredImpl implements Adapter
                 
                 ServicePortDescriptor<AdapterXDRPortType> portDescriptor = new AdapterDocSubmissionUnsecuredServicePortDescriptor();
                 
-                CONNECTClient<AdapterXDRPortType> client = new CONNECTClientFactory<AdapterXDRPortType>()
+                CONNECTClient<AdapterXDRPortType> client = CONNECTClientFactory.getInstance()
                         .getCONNECTClientUnsecured(portDescriptor, url, assertion);
                 
                 response = (RegistryResponseType) client.invokePort(AdapterXDRPortType.class,

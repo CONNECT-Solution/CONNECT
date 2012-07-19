@@ -31,7 +31,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType;
 import gov.hhs.fha.nhinc.docsubmission.passthru.proxy.description.PassthruDocSubmissionSecureda0ServicePortDescriptor;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
-import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
+import gov.hhs.fha.nhinc.messaging.client.CONNECTCXFClientFactory;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhincproxyxdrsecured.ProxyXDRSecuredPortType;
@@ -77,7 +77,7 @@ public class PassthruDocSubmissionProxyWebServiceSecuredImpl implements Passthru
             
             ServicePortDescriptor<ProxyXDRSecuredPortType> portDescriptor = getServicePortDescriptor(NhincConstants.ADAPTER_API_LEVEL.LEVEL_a0);
 
-            CONNECTClient<ProxyXDRSecuredPortType> client = new CONNECTClientFactory<ProxyXDRSecuredPortType>()
+            CONNECTClient<ProxyXDRSecuredPortType> client = CONNECTCXFClientFactory.getInstance()
                     .getCONNECTClientSecured(portDescriptor, url, assertion);
 
             RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request = new RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType();

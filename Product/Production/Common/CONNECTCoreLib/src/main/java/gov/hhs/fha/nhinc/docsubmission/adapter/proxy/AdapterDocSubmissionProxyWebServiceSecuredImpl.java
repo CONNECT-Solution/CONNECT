@@ -74,7 +74,7 @@ public class AdapterDocSubmissionProxyWebServiceSecuredImpl implements AdapterDo
 
                 ServicePortDescriptor<AdapterXDRSecuredPortType> portDescriptor = new AdapterDocSubmissionSecuredServicePortDescriptor();
 
-                CONNECTClient<AdapterXDRSecuredPortType> client = new CONNECTClientFactory<AdapterXDRSecuredPortType>()
+                CONNECTClient<AdapterXDRSecuredPortType> client = CONNECTClientFactory.getInstance()
                         .getCONNECTClientSecured(portDescriptor, url, assertion);
 
                 response = (RegistryResponseType) client.invokePort(AdapterXDRSecuredPortType.class,

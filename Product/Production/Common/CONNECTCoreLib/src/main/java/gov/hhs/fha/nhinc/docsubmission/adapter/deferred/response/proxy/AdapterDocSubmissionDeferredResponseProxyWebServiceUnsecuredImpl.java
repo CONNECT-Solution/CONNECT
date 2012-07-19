@@ -67,7 +67,7 @@ public class AdapterDocSubmissionDeferredResponseProxyWebServiceUnsecuredImpl im
     protected CONNECTClient<AdapterXDRResponsePortType> getCONNECTClientUnsecured(
             ServicePortDescriptor<AdapterXDRResponsePortType> portDescriptor, String url, AssertionType assertion) {
         
-        return new CONNECTClientFactory<AdapterXDRResponsePortType>().getCONNECTClientUnsecured(portDescriptor, url, assertion);
+        return CONNECTClientFactory.getInstance().getCONNECTClientUnsecured(portDescriptor, url, assertion);
     } 
 
     public XDRAcknowledgementType provideAndRegisterDocumentSetBResponse(RegistryResponseType regResponse,

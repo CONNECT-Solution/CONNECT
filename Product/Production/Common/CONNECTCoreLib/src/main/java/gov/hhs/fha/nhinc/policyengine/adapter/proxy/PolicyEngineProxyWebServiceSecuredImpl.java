@@ -32,7 +32,7 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestSecuredType
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyResponseType;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
-import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
+import gov.hhs.fha.nhinc.messaging.client.CONNECTCXFClientFactory;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
@@ -79,7 +79,7 @@ public class PolicyEngineProxyWebServiceSecuredImpl implements PolicyEngineProxy
 
                 ServicePortDescriptor<AdapterPolicyEngineSecuredPortType> portDescriptor = new PolicyEngineSecuredServicePortDescriptor();
 
-                CONNECTClient<AdapterPolicyEngineSecuredPortType> client = new CONNECTClientFactory<AdapterPolicyEngineSecuredPortType>()
+                CONNECTClient<AdapterPolicyEngineSecuredPortType> client = CONNECTCXFClientFactory.getInstance()
                         .getCONNECTClientSecured(portDescriptor, url, assertion);
 
                 response = (CheckPolicyResponseType) client.invokePort(AdapterPolicyEngineSecuredPortType.class,

@@ -31,23 +31,27 @@ import javax.xml.ws.BindingProvider;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.cxf.ws.addressing.impl.AddressingPropertiesImpl;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.messaging.service.ServiceEndpoint;
 import gov.hhs.fha.nhinc.messaging.service.decorator.ServiceEndpointDecorator;
+import gov.hhs.fha.nhinc.wsa.WSAHeaderHelper;
+
+import org.apache.cxf.ws.addressing.AttributedURIType;
+import org.apache.cxf.ws.addressing.JAXWSAConstants;
+import org.apache.cxf.ws.addressing.RelatesToType;
 
 /**
- * @author akong
+ * @author akong and young weezy
  * 
  */
 public class WsAddressingServiceEndpointDecorator<T> extends ServiceEndpointDecorator<T> {
 
-    private static final String UUID_TAG = "urn:uuid:";
     private Log log = null;
     
     private BindingProvider bindingProviderPort;
-    private String url;
-    private String wsAddressingAction;
+    private AddressingPropertiesImpl maps;
     private AssertionType assertion;
 
     /**
@@ -63,8 +67,19 @@ public class WsAddressingServiceEndpointDecorator<T> extends ServiceEndpointDeco
         log = createLogger();
         
         this.bindingProviderPort = (BindingProvider) decoratedEndpoint.getPort();
-        this.url = url;
-        this.wsAddressingAction = wsAddressingAction;
+        
+        maps = new AddressingPropertiesImpl();
+        
+        AttributedURIType to = new AttributedURIType();
+        log.debug("Setting wsa:To - " + url);
+        to.setValue(url);
+        maps.setTo(to);
+        
+        AttributedURIType action = new AttributedURIType();
+        log.debug("Setting wsa:Action - " + wsAddressingAction);
+        action.setValue(wsAddressingAction);
+        maps.setAction(action);
+        
         this.assertion = assertion;
     }
 
@@ -72,7 +87,29 @@ public class WsAddressingServiceEndpointDecorator<T> extends ServiceEndpointDeco
     public void configure() {
         super.configure();
 
-        // TODO: CONFIGURE OUTBOUND HEADERS USING INTERCEPTOR
+        String sRelatesTo = null;
+        for (String s: assertion.getRelatesToList()) {
+            sRelatesTo = s;
+            break;
+        }
+        String sMessageId = assertion.getMessageId();
+        
+        WSAHeaderHelper wsaHelper = new WSAHeaderHelper();
+        sRelatesTo = wsaHelper.addUrnUuid(sRelatesTo);
+        sMessageId = wsaHelper.addUrnUuid(sMessageId);
+        
+        RelatesToType relatesTo = new RelatesToType();
+        log.debug("Setting wsa:RelatesTo - " + sRelatesTo);
+        relatesTo.setValue(sRelatesTo);
+        maps.setRelatesTo(relatesTo);
+        
+        AttributedURIType messageId = new AttributedURIType();
+        log.debug("Setting wsa:MessageId - " + sMessageId);
+        messageId.setValue(sMessageId);
+        maps.setMessageID(messageId);
+        
+        log.debug("Setting wsa attributes on the request context.");
+        bindingProviderPort.getRequestContext().put(JAXWSAConstants.CLIENT_ADDRESSING_PROPERTIES, maps);
     }
     
     protected Log createLogger() {

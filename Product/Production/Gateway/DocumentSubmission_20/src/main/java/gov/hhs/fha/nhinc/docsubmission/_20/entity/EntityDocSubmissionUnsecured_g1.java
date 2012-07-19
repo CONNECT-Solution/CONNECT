@@ -47,9 +47,7 @@ public class EntityDocSubmissionUnsecured_g1 {
         RegistryResponseType response = null;
 
         EntityDocSubmissionImpl_g1 impl = getEntityDocSubmissionImpl();
-        if (impl != null) {
-            response = impl.provideAndRegisterDocumentSetBUnsecured(body, getWebServiceContext());
-        }
+        response = impl.provideAndRegisterDocumentSetB(body, context);
 
         return response;
     }
