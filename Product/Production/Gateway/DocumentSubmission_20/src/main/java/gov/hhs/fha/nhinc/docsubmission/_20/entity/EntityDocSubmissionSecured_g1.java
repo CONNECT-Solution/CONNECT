@@ -26,7 +26,11 @@
  */
 package gov.hhs.fha.nhinc.docsubmission._20.entity;
 
+import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType;
+import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
+import gov.hhs.fha.nhinc.jaxws.WebServiceHeaderExtractor;
 import javax.annotation.Resource;
 import javax.jws.WebService;
 import javax.xml.ws.BindingType;
@@ -44,12 +48,9 @@ public class EntityDocSubmissionSecured_g1 {
 
     public RegistryResponseType provideAndRegisterDocumentSetB(
             RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType body) {
-        RegistryResponseType response = null;
-
+        
         EntityDocSubmissionImpl_g1 impl = getEntityDocSubmissionImpl();
-        if (impl != null) {
-            response = impl.provideAndRegisterDocumentSetBSecured(body, getWebServiceContext());
-        }
+        RegistryResponseType response = impl.provideAndRegisterDocumentSetB(body, context);
 
         return response;
     }
