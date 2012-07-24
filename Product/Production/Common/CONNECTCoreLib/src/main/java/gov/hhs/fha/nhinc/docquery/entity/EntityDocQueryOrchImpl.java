@@ -528,6 +528,10 @@ public class EntityDocQueryOrchImpl {
         AdhocQueryResponse response = new AdhocQueryResponse();
         response.setRegistryErrorList(createErrorListWithError(errorCode, codeContext));
         response.setStatus(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_FAILURE);
+        
+        RegistryObjectListType regObjectList = new RegistryObjectListType();
+        response.setRegistryObjectList(regObjectList);
+        
         return response;
     }
 
@@ -566,6 +570,13 @@ public class EntityDocQueryOrchImpl {
                 response.getRegistryErrorList().getRegistryError().addAll(policyErrList.getRegistryError());
             }
         }
+        
+        if(response.getRegistryObjectList() == null )
+        {
+        	RegistryObjectListType regObjectList = new RegistryObjectListType();
+            response.setRegistryObjectList(regObjectList);
+        }
+        
         return response;
 
     }
@@ -595,6 +606,13 @@ public class EntityDocQueryOrchImpl {
                 response.getRegistryErrorList().getRegistryError().addAll(policyErrList.getRegistryError());
             }
         }
+        
+        if(response.getRegistryObjectList() == null )
+        {
+        	RegistryObjectListType regObjectList = new RegistryObjectListType();
+            response.setRegistryObjectList(regObjectList);
+        }
+        
         return response;
 
     }
