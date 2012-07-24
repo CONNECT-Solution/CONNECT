@@ -1,6 +1,7 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><con:soapui-project xmlns:con="http://eviware.com/soapui/config" abortOnError="false" name="EntityDocRetrieve" resourceRoot="${projectDir}" runType="SEQUENTIAL" soapui-version="3.5.1">
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project abortOnError="false" name="EntityDocRetrieve" resourceRoot="${projectDir}" runType="SEQUENTIAL" soapui-version="3.6" xmlns:con="http://eviware.com/soapui/config">
 	<con:settings/>
-	<con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitydocretrieve}EntityDocRetrieveBindingSoap" definition="WSDL path not set.  #EntityDocRetrieve.wsdl" name="EntityDocRetrieveBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
+	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitydocretrieve}EntityDocRetrieveBindingSoap" definition="c:\glassfish-2.1.1\domains\domain1\config\nhin\wsdl\EntityDocRetrieve.wsdl" name="EntityDocRetrieveBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 		
 		<con:endpoints>
@@ -15,155 +16,8 @@
 		<con:runType>SEQUENTIAL</con:runType>
 		<con:testCase failOnError="true" failTestCaseOnErrors="true" id="f9ae55a3-041d-456c-8991-3f8768d021f0" keepSession="false" maxResults="0" name="Document Retrieve Fanout" searchProperties="true">
 			<con:settings/>
-			<con:testStep disabled="true" name="Test Case Properties" type="properties">
-				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" createMissingOnLoad="true" discardValuesOnSave="true" saveFirst="true" xsi:type="con:PropertiesStep">
-					<con:source>EntityDocRetrieve-soapui-project.properties</con:source>
-					<con:properties>
-						<con:property>
-							<con:name>LocalHCID</con:name>
-							<con:value xsi:nil="true"/>
-						</con:property>
-						<con:property>
-							<con:name>CorrectedLocalHCID</con:name>
-							<con:value xsi:nil="true"/>
-						</con:property>
-						<con:property>
-							<con:name>LocalAA</con:name>
-							<con:value xsi:nil="true"/>
-						</con:property>
-						<con:property>
-							<con:name>LocalHCDescription</con:name>
-							<con:value xsi:nil="true"/>
-						</con:property>
-						<con:property>
-							<con:name>RemoteHCDescription</con:name>
-							<con:value xsi:nil="true"/>
-						</con:property>
-						<con:property>
-							<con:name>Endpoint-DocRetrieve</con:name>
-							<con:value xsi:nil="true"/>
-						</con:property>
-						<con:property>
-							<con:name>startDate</con:name>
-							<con:value xsi:nil="true"/>
-						</con:property>
-						<con:property>
-							<con:name>endDate</con:name>
-							<con:value xsi:nil="true"/>
-						</con:property>
-						<con:property>
-							<con:name>sigDate</con:name>
-							<con:value xsi:nil="true"/>
-						</con:property>
-						<con:property>
-							<con:name>expireDate</con:name>
-							<con:value xsi:nil="true"/>
-						</con:property>
-						<con:property>
-							<con:name>correctedRemoteHCID1</con:name>
-							<con:value xsi:nil="true"/>
-						</con:property>
-						<con:property>
-							<con:name>LocalPatientID</con:name>
-							<con:value xsi:nil="true"/>
-						</con:property>
-						<con:property>
-							<con:name>DRRepoID</con:name>
-							<con:value xsi:nil="true"/>
-						</con:property>
-						<con:property>
-							<con:name>correctedRemoteHCID2</con:name>
-							<con:value xsi:nil="true"/>
-						</con:property>
-						<con:property>
-							<con:name>RemoteHCID1</con:name>
-							<con:value xsi:nil="true"/>
-						</con:property>
-						<con:property>
-							<con:name>RemoteAA1</con:name>
-							<con:value xsi:nil="true"/>
-						</con:property>
-						<con:property>
-							<con:name>RemoteHCDescription1</con:name>
-							<con:value xsi:nil="true"/>
-						</con:property>
-						<con:property>
-							<con:name>RemoteHCID2</con:name>
-							<con:value xsi:nil="true"/>
-						</con:property>
-						<con:property>
-							<con:name>RemoteAA2</con:name>
-							<con:value xsi:nil="true"/>
-						</con:property>
-						<con:property>
-							<con:name>RemoteHCDescription2</con:name>
-							<con:value xsi:nil="true"/>
-						</con:property>
-						<con:property>
-							<con:name>DRDocID1</con:name>
-							<con:value xsi:nil="true"/>
-						</con:property>
-						<con:property>
-							<con:name>DRDocID2</con:name>
-							<con:value xsi:nil="true"/>
-						</con:property>
-						<con:property>
-							<con:name>tmp</con:name>
-							<con:value xsi:nil="true"/>
-						</con:property>
-						<con:property>
-							<con:name>NHINGatewayConfigDir</con:name>
-							<con:value xsi:nil="true"/>
-						</con:property>
-						<con:property>
-							<con:name>Host2</con:name>
-							<con:value xsi:nil="true"/>
-						</con:property>
-						<con:property>
-							<con:name>Host3</con:name>
-							<con:value xsi:nil="true"/>
-						</con:property>
-					</con:properties>
-				</con:config>
-			</con:testStep>
-			<con:testStep disabled="true" name="get Dates" type="groovy">
-				<con:settings/>
-				<con:config>
-					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
-
-sdf = new java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
-sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
-
-sdf2 = new java.text.SimpleDateFormat("MM/dd/yyyy' 'HH:mm:ss");
-sdf2.setTimeZone(TimeZone.getTimeZone("UTC"));
-
-Calendar cal = new GregorianCalendar();
-nowDate = new Date();
-
-cal.setTime(nowDate);
-cal.add(Calendar.MINUTE, -5);
-startDate = cal.getTime();
-startDateStr = sdf.format(startDate);
-sigDateStr = sdf2.format(startDate);
-
-cal.setTime(nowDate);
-cal.add(Calendar.MINUTE, 5);
-endDate = cal.getTime();
-endDateStr = sdf.format(endDate);
-
-cal.setTime(nowDate);
-cal.add(Calendar.DATE, 30);
-expireDate = cal.getTime();
-expireDateStr = sdf2.format(expireDate);
-
-groovyUtils.setPropertyValue( "Test Case Properties", "startDate", startDateStr);
-groovyUtils.setPropertyValue( "Test Case Properties", "endDate", endDateStr);
-groovyUtils.setPropertyValue( "Test Case Properties", "sigDate", sigDateStr);
-groovyUtils.setPropertyValue( "Test Case Properties", "expireDate", expireDateStr);
-					</script>
-				</con:config>
-			</con:testStep>
+			
+			
 			<con:testStep name="Generate HCID for Doc Retrieve" type="groovy">
 				<con:settings/>
 				<con:config>
@@ -183,189 +37,29 @@ context.testCase.setPropertyValue('CorrectedRemoteHCID2', "urn:oid:${context.fin
 			</con:testStep>
 			<con:testStep name="Set Connection Info" type="groovy">
 				<con:settings/>
-				<con:config>
-					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
-//def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
+				<con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context) ;
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-def Host2 = context.findProperty("Host2");
+def host2 = context.findProperty("Host2");
 def HCID2 = context.findProperty( "RemoteHCID1" );
-def docRetrieveURL1 = "https://" + Host2 + ":8181/CONNECTNhinServicesWeb/NhinService/RespondingGateway_Retrieve_Service/DocRetrieve";
+def docRetrieveURL2_20 = "https://" + host2 + ":8181/Gateway/DocumentRetrieve/2_0/NhinService/RespondingGateway_Retrieve_Service/DocRetrieve";
+def docRetrieveURL2_30 = "https://" + host2 + ":8181/Gateway/DocumentRetrieve/3_0/NhinService/RespondingGateway_Retrieve_Service/DocRetrieve";
 
-def Host3 = context.findProperty("Host3");
+def host3 = context.findProperty("Host3");
 def HCID3 = context.findProperty( "RemoteHCID2" );
-def docRetrieveURL2 = "https://" + Host3 + ":8181/CONNECTNhinServicesWeb/NhinService/RespondingGateway_Retrieve_Service/DocRetrieve";
+def docRetrieveURL3_20 = "https://" + host3 + ":8181/Gateway/DocumentRetrieve/2_0/NhinService/RespondingGateway_Retrieve_Service/DocRetrieve";
+def docRetrieveURL3_30 = "https://" + host3 + ":8181/Gateway/DocumentRetrieve/3_0/NhinService/RespondingGateway_Retrieve_Service/DocRetrieve";
 
-FileUtils.CreateOrUpdateConnection(destConfigFileLocation, HCID2, "RetrieveDocument", docRetrieveURL1, context, log)
-FileUtils.CreateOrUpdateConnection(destConfigFileLocation, HCID3, "RetrieveDocument", docRetrieveURL2, context, log)
-					</script>
-				</con:config>
+FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml",destConfigFileLocation, HCID2, "RetrieveDocuments", docRetrieveURL2_20,"2.0", context, log)
+FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml",destConfigFileLocation, HCID2, "RetrieveDocuments", docRetrieveURL2_30,"3.0", context, log)
+
+FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml",destConfigFileLocation, HCID3, "RetrieveDocuments", docRetrieveURL3_20,"2.0", context, log)
+FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml",destConfigFileLocation, HCID3, "RetrieveDocuments", docRetrieveURL3_30,"3.0", context, log)
+</script></con:config>
 			</con:testStep>
-			<con:testStep disabled="true" name="set doc retrieve properties" type="transfer">
-				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:PropertyTransfersStep">
-					<con:transfers entitize="false" failOnError="true" ignoreEmpty="false" setNullOnMissingSource="true" transferChildNodes="false" transferTextContent="true" transferToAll="false" useXQuery="false">
-						<con:name>endpointTransfer</con:name>
-						<con:sourceType>Endpoint-DocRetrieve</con:sourceType>
-						<con:sourceStep>Test Case Properties</con:sourceStep>
-						<con:targetType>Endpoint</con:targetType>
-						<con:targetStep>Document Retrieve</con:targetStep>
-						<con:targetPath/>
-					</con:transfers>
-					<con:transfers entitize="false" failOnError="true" ignoreEmpty="false" setNullOnMissingSource="true" transferChildNodes="false" transferTextContent="true" transferToAll="false" useXQuery="false">
-						<con:name>docID1</con:name>
-						<con:sourceType>DRDocID1</con:sourceType>
-						<con:sourceStep>Test Case Properties</con:sourceStep>
-						<con:targetType>Request</con:targetType>
-						<con:targetStep>Document Retrieve</con:targetStep>
-						<con:targetPath>declare namespace urn1='urn:ihe:iti:xds-b:2007';
-declare namespace urn='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
-//urn:RespondingGateway_CrossGatewayRetrieveRequest[1]/urn1:RetrieveDocumentSetRequest[1]/urn1:DocumentRequest[1]/urn1:DocumentUniqueId[1]</con:targetPath>
-					</con:transfers>
-					<con:transfers entitize="false" failOnError="true" setNullOnMissingSource="true" transferChildNodes="false" transferTextContent="true" transferToAll="false" useXQuery="false">
-						<con:name>queryHCID1</con:name>
-						<con:sourceType>correctedRemoteHCID1</con:sourceType>
-						<con:sourceStep>Test Case Properties</con:sourceStep>
-						<con:targetType>Request</con:targetType>
-						<con:targetStep>Document Retrieve</con:targetStep>
-						<con:targetPath>declare namespace urn1='urn:ihe:iti:xds-b:2007';
-declare namespace urn='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
-//urn:RespondingGateway_CrossGatewayRetrieveRequest[1]/urn1:RetrieveDocumentSetRequest[1]/urn1:DocumentRequest[1]/urn1:HomeCommunityId[1]</con:targetPath>
-					</con:transfers>
-					<con:transfers disabled="false" entitize="false" failOnError="true" ignoreEmpty="false" setNullOnMissingSource="true" transferChildNodes="false" transferTextContent="true" transferToAll="false" useXQuery="false">
-						<con:name>targetDescription</con:name>
-						<con:sourceType>RemoteHCDescription1</con:sourceType>
-						<con:sourceStep>Test Case Properties</con:sourceStep>
-						<con:targetType>Request</con:targetType>
-						<con:targetStep>Document Retrieve</con:targetStep>
-						<con:targetPath>declare namespace urn='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
-declare namespace urn2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//urn:RespondingGateway_CrossGatewayRetrieveRequest[1]/urn:nhinTargetSystem[1]/urn2:homeCommunity[1]/urn2:description[1]</con:targetPath>
-					</con:transfers>
-					<con:transfers entitize="false" failOnError="true" ignoreEmpty="false" setNullOnMissingSource="true" transferChildNodes="false" transferTextContent="true" transferToAll="false" useXQuery="false">
-						<con:name>targetName</con:name>
-						<con:sourceType>RemoteHCDescription1</con:sourceType>
-						<con:sourceStep>Test Case Properties</con:sourceStep>
-						<con:targetType>Request</con:targetType>
-						<con:targetStep>Document Retrieve</con:targetStep>
-						<con:targetPath>declare namespace urn='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
-declare namespace urn2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//urn:RespondingGateway_CrossGatewayRetrieveRequest[1]/urn:nhinTargetSystem[1]/urn2:homeCommunity[1]/urn2:name[1]</con:targetPath>
-					</con:transfers>
-					<con:transfers entitize="false" failOnError="true" ignoreEmpty="false" setNullOnMissingSource="true" transferChildNodes="false" transferTextContent="true" transferToAll="false" useXQuery="false">
-						<con:name>signatureDate</con:name>
-						<con:sourceType>sigDate</con:sourceType>
-						<con:sourceStep>Test Case Properties</con:sourceStep>
-						<con:targetType>Request</con:targetType>
-						<con:targetStep>Document Retrieve</con:targetStep>
-						<con:targetPath>declare namespace urn='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
-declare namespace urn2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//urn:RespondingGateway_CrossGatewayRetrieveRequest[1]/urn:assertion[1]/urn2:dateOfSignature[1]</con:targetPath>
-					</con:transfers>
-					<con:transfers entitize="false" failOnError="true" ignoreEmpty="false" setNullOnMissingSource="true" transferChildNodes="false" transferTextContent="true" transferToAll="false" useXQuery="false">
-						<con:name>expirationDate</con:name>
-						<con:sourceType>expireDate</con:sourceType>
-						<con:sourceStep>Test Case Properties</con:sourceStep>
-						<con:targetType>Request</con:targetType>
-						<con:targetStep>Document Retrieve</con:targetStep>
-						<con:targetPath>declare namespace urn='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
-declare namespace urn2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//urn:RespondingGateway_CrossGatewayRetrieveRequest[1]/urn:assertion[1]/urn2:expirationDate[1]</con:targetPath>
-					</con:transfers>
-					<con:transfers failOnError="true" setNullOnMissingSource="true" transferTextContent="true">
-						<con:name>assertionHCID</con:name>
-						<con:sourceType>LocalHCID</con:sourceType>
-						<con:sourceStep>Test Case Properties</con:sourceStep>
-						<con:targetType>Request</con:targetType>
-						<con:targetStep>Document Retrieve</con:targetStep>
-						<con:targetPath>declare namespace urn='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
-declare namespace urn2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//urn:RespondingGateway_CrossGatewayRetrieveRequest[1]/urn:assertion[1]/urn2:homeCommunity[1]/urn2:homeCommunityId[1]</con:targetPath>
-					</con:transfers>
-					<con:transfers failOnError="true" setNullOnMissingSource="true" transferTextContent="true">
-						<con:name>assertionHCName</con:name>
-						<con:sourceType>LocalHCDescription</con:sourceType>
-						<con:sourceStep>Test Case Properties</con:sourceStep>
-						<con:targetType>Request</con:targetType>
-						<con:targetStep>Document Retrieve</con:targetStep>
-						<con:targetPath>declare namespace urn='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
-declare namespace urn2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//urn:RespondingGateway_CrossGatewayRetrieveRequest[1]/urn:assertion[1]/urn2:homeCommunity[1]/urn2:name[1]</con:targetPath>
-					</con:transfers>
-					<con:transfers failOnError="true" setNullOnMissingSource="true" transferTextContent="true">
-						<con:name>assertionHCDescription</con:name>
-						<con:sourceType>LocalHCDescription</con:sourceType>
-						<con:sourceStep>Test Case Properties</con:sourceStep>
-						<con:targetType>Request</con:targetType>
-						<con:targetStep>Document Retrieve</con:targetStep>
-						<con:targetPath>declare namespace urn='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
-declare namespace urn2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//urn:RespondingGateway_CrossGatewayRetrieveRequest[1]/urn:assertion[1]/urn2:homeCommunity[1]/urn2:description[1]</con:targetPath>
-					</con:transfers>
-					<con:transfers failOnError="true" setNullOnMissingSource="true" transferTextContent="true">
-						<con:name>orgHCID</con:name>
-						<con:sourceType>LocalHCID</con:sourceType>
-						<con:sourceStep>Test Case Properties</con:sourceStep>
-						<con:targetType>Request</con:targetType>
-						<con:targetStep>Document Retrieve</con:targetStep>
-						<con:targetPath>declare namespace urn='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
-declare namespace urn2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//urn:RespondingGateway_CrossGatewayRetrieveRequest[1]/urn:assertion[1]/urn2:userInfo[1]/urn2:org[1]/urn2:homeCommunityId[1]</con:targetPath>
-					</con:transfers>
-					<con:transfers failOnError="true" setNullOnMissingSource="true" transferTextContent="true">
-						<con:name>orgHCName</con:name>
-						<con:sourceType>LocalHCDescription</con:sourceType>
-						<con:sourceStep>Test Case Properties</con:sourceStep>
-						<con:targetType>Request</con:targetType>
-						<con:targetStep>Document Retrieve</con:targetStep>
-						<con:targetPath>declare namespace urn='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
-declare namespace urn2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//urn:RespondingGateway_CrossGatewayRetrieveRequest[1]/urn:assertion[1]/urn2:userInfo[1]/urn2:org[1]/urn2:name[1]</con:targetPath>
-					</con:transfers>
-					<con:transfers entitize="false" failOnError="true" ignoreEmpty="false" setNullOnMissingSource="true" transferChildNodes="false" transferTextContent="true" transferToAll="false" useXQuery="false">
-						<con:name>orgHCDescription</con:name>
-						<con:sourceType>LocalHCDescription</con:sourceType>
-						<con:sourceStep>Test Case Properties</con:sourceStep>
-						<con:targetType>Request</con:targetType>
-						<con:targetStep>Document Retrieve</con:targetStep>
-						<con:targetPath>declare namespace urn='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
-declare namespace urn2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//urn:RespondingGateway_CrossGatewayRetrieveRequest[1]/urn:assertion[1]/urn2:userInfo[1]/urn2:org[1]/urn2:description[1]</con:targetPath>
-					</con:transfers>
-					<con:transfers entitize="false" failOnError="true" setNullOnMissingSource="true" transferTextContent="true">
-						<con:name>queryHCID2</con:name>
-						<con:sourceType>correctedRemoteHCID2</con:sourceType>
-						<con:sourceStep>Test Case Properties</con:sourceStep>
-						<con:targetType>Request</con:targetType>
-						<con:targetStep>Document Retrieve</con:targetStep>
-						<con:targetPath>declare namespace urn1='urn:ihe:iti:xds-b:2007';
-declare namespace urn='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
-//urn:RespondingGateway_CrossGatewayRetrieveRequest[1]/urn1:RetrieveDocumentSetRequest[1]/urn1:DocumentRequest[2]/urn1:HomeCommunityId[1]</con:targetPath>
-					</con:transfers>
-					<con:transfers entitize="false" failOnError="true" setNullOnMissingSource="true" transferTextContent="true" transferToAll="false">
-						<con:name>docID2</con:name>
-						<con:sourceType>DRDocID2</con:sourceType>
-						<con:sourceStep>Test Case Properties</con:sourceStep>
-						<con:targetType>Request</con:targetType>
-						<con:targetStep>Document Retrieve</con:targetStep>
-						<con:targetPath>declare namespace urn1='urn:ihe:iti:xds-b:2007';
-declare namespace urn='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
-//urn:RespondingGateway_CrossGatewayRetrieveRequest[1]/urn1:RetrieveDocumentSetRequest[1]/urn1:DocumentRequest[2]/urn1:DocumentUniqueId[1]</con:targetPath>
-					</con:transfers>
-					<con:transfers entitize="false" failOnError="true" ignoreEmpty="false" setNullOnMissingSource="true" transferChildNodes="false" transferTextContent="true" transferToAll="false" useXQuery="false">
-						<con:name>TargetHCID</con:name>
-						<con:sourceType>RemoteHCID1</con:sourceType>
-						<con:sourceStep>Test Case Properties</con:sourceStep>
-						<con:targetType>Request</con:targetType>
-						<con:targetStep>Document Retrieve</con:targetStep>
-						<con:targetPath>declare namespace urn='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
-declare namespace urn2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//urn:RespondingGateway_CrossGatewayRetrieveRequest[1]/urn:nhinTargetSystem[1]/urn2:homeCommunity[1]/urn2:homeCommunityId[1]</con:targetPath>
-					</con:transfers>
-				</con:config>
-			</con:testStep>
+			
 			<con:testStep name="Document Retrieve" type="request">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:interface>EntityDocRetrieveBindingSoap</con:interface>
 					<con:operation>RespondingGateway_CrossGatewayRetrieve</con:operation>
 					<con:request incomingWss="" name="Document Retrieve" outgoingWss="" wssPasswordType="">
@@ -634,19 +328,19 @@ count(//ns16:RetrieveDocumentSetResponse[1]/ns16:DocumentResponse)</path>
 			<con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2010-08-30T20:57:08Z</con:value>
+					<con:value>2012-07-23T11:51:32Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2010-08-30T21:07:08Z</con:value>
+					<con:value>2012-07-23T12:01:32Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>08/30/2010 20:57:08</con:value>
+					<con:value>07/23/2012 11:51:32</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2010-09-29T00:00:00Z</con:value>
+					<con:value>2012-08-22T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>CorrectedRemoteHCID1</con:name>
@@ -662,155 +356,8 @@ count(//ns16:RetrieveDocumentSetResponse[1]/ns16:DocumentResponse)</path>
 		</con:testCase>
 		<con:testCase failOnError="true" failTestCaseOnErrors="true" id="db9ed78d-5fc0-473b-a15a-4ed7a5ab27b2" keepSession="false" maxResults="0" name="Document Retrieve Fanout - bad endpoint" searchProperties="true">
 			<con:settings/>
-			<con:testStep disabled="true" name="Test Case Properties" type="properties">
-				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" createMissingOnLoad="true" discardValuesOnSave="true" saveFirst="true" xsi:type="con:PropertiesStep">
-					<con:source>EntityDocRetrieve-soapui-project.properties</con:source>
-					<con:properties>
-						<con:property>
-							<con:name>LocalHCID</con:name>
-							<con:value xsi:nil="true"/>
-						</con:property>
-						<con:property>
-							<con:name>CorrectedLocalHCID</con:name>
-							<con:value xsi:nil="true"/>
-						</con:property>
-						<con:property>
-							<con:name>LocalAA</con:name>
-							<con:value xsi:nil="true"/>
-						</con:property>
-						<con:property>
-							<con:name>LocalHCDescription</con:name>
-							<con:value xsi:nil="true"/>
-						</con:property>
-						<con:property>
-							<con:name>RemoteHCDescription</con:name>
-							<con:value xsi:nil="true"/>
-						</con:property>
-						<con:property>
-							<con:name>Endpoint-DocRetrieve</con:name>
-							<con:value xsi:nil="true"/>
-						</con:property>
-						<con:property>
-							<con:name>startDate</con:name>
-							<con:value xsi:nil="true"/>
-						</con:property>
-						<con:property>
-							<con:name>endDate</con:name>
-							<con:value xsi:nil="true"/>
-						</con:property>
-						<con:property>
-							<con:name>sigDate</con:name>
-							<con:value xsi:nil="true"/>
-						</con:property>
-						<con:property>
-							<con:name>expireDate</con:name>
-							<con:value xsi:nil="true"/>
-						</con:property>
-						<con:property>
-							<con:name>correctedRemoteHCID1</con:name>
-							<con:value xsi:nil="true"/>
-						</con:property>
-						<con:property>
-							<con:name>LocalPatientID</con:name>
-							<con:value xsi:nil="true"/>
-						</con:property>
-						<con:property>
-							<con:name>DRRepoID</con:name>
-							<con:value xsi:nil="true"/>
-						</con:property>
-						<con:property>
-							<con:name>correctedRemoteHCID2</con:name>
-							<con:value xsi:nil="true"/>
-						</con:property>
-						<con:property>
-							<con:name>RemoteHCID1</con:name>
-							<con:value xsi:nil="true"/>
-						</con:property>
-						<con:property>
-							<con:name>RemoteAA1</con:name>
-							<con:value xsi:nil="true"/>
-						</con:property>
-						<con:property>
-							<con:name>RemoteHCDescription1</con:name>
-							<con:value xsi:nil="true"/>
-						</con:property>
-						<con:property>
-							<con:name>RemoteHCID2</con:name>
-							<con:value xsi:nil="true"/>
-						</con:property>
-						<con:property>
-							<con:name>RemoteAA2</con:name>
-							<con:value xsi:nil="true"/>
-						</con:property>
-						<con:property>
-							<con:name>RemoteHCDescription2</con:name>
-							<con:value xsi:nil="true"/>
-						</con:property>
-						<con:property>
-							<con:name>DRDocID1</con:name>
-							<con:value xsi:nil="true"/>
-						</con:property>
-						<con:property>
-							<con:name>DRDocID2</con:name>
-							<con:value xsi:nil="true"/>
-						</con:property>
-						<con:property>
-							<con:name>tmp</con:name>
-							<con:value xsi:nil="true"/>
-						</con:property>
-						<con:property>
-							<con:name>NHINGatewayConfigDir</con:name>
-							<con:value xsi:nil="true"/>
-						</con:property>
-						<con:property>
-							<con:name>Host2</con:name>
-							<con:value xsi:nil="true"/>
-						</con:property>
-						<con:property>
-							<con:name>Host3</con:name>
-							<con:value xsi:nil="true"/>
-						</con:property>
-					</con:properties>
-				</con:config>
-			</con:testStep>
-			<con:testStep disabled="true" name="get Dates" type="groovy">
-				<con:settings/>
-				<con:config>
-					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
-
-sdf = new java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
-sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
-
-sdf2 = new java.text.SimpleDateFormat("MM/dd/yyyy' 'HH:mm:ss");
-sdf2.setTimeZone(TimeZone.getTimeZone("UTC"));
-
-Calendar cal = new GregorianCalendar();
-nowDate = new Date();
-
-cal.setTime(nowDate);
-cal.add(Calendar.MINUTE, -5);
-startDate = cal.getTime();
-startDateStr = sdf.format(startDate);
-sigDateStr = sdf2.format(startDate);
-
-cal.setTime(nowDate);
-cal.add(Calendar.MINUTE, 5);
-endDate = cal.getTime();
-endDateStr = sdf.format(endDate);
-
-cal.setTime(nowDate);
-cal.add(Calendar.DATE, 30);
-expireDate = cal.getTime();
-expireDateStr = sdf2.format(expireDate);
-
-groovyUtils.setPropertyValue( "Test Case Properties", "startDate", startDateStr);
-groovyUtils.setPropertyValue( "Test Case Properties", "endDate", endDateStr);
-groovyUtils.setPropertyValue( "Test Case Properties", "sigDate", sigDateStr);
-groovyUtils.setPropertyValue( "Test Case Properties", "expireDate", expireDateStr);
-					</script>
-				</con:config>
-			</con:testStep>
+			
+			
 			<con:testStep name="Generate HCID for Doc Retrieve" type="groovy">
 				<con:settings/>
 				<con:config>
@@ -821,195 +368,35 @@ context.testCase.setPropertyValue('CorrectedRemoteHCID2', "urn:oid:${context.fin
 			</con:testStep>
 			<con:testStep name="Set Connection Info" type="groovy">
 				<con:settings/>
-				<con:config>
-					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
-//def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
+				<con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils(context) ;
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-def Host2 = context.findProperty("Host2");
+def host2 = context.findProperty("Host2");
 def HCID2 = context.findProperty( "RemoteHCID1" );
-def docRetrieveURL1 = "https://" + Host2 + ":8181/CONNECTNhinServicesWeb/NhinService/RespondingGateway_Retrieve_Service/DocRetrieve";
+def docRetrieveURL2_20 = "https://" + host2 + ":8181/Gateway/DocumentRetrieve/2_0/NhinService/RespondingGateway_Retrieve_Service/DocRetrieve";
+def docRetrieveURL2_30 = "https://" + host2 + ":8181/Gateway/DocumentRetrieve/3_0/NhinService/RespondingGateway_Retrieve_Service/DocRetrieve";
 
-def Host3 = context.findProperty("Host3");
+def host3 = context.findProperty("Host3");
 def HCID3 = context.findProperty( "RemoteHCID2" );
-def docRetrieveURL2 = "https://" + Host3 + ":8181/RespondingGateway_Retrieve_Service/DocRetriev";
+def docRetrieveURL3_20_bad = "https://" + host3 + ":8181/bad_endpoint";
+def docRetrieveURL3_30_bad = "https://" + host3 + ":8181/bad_endpoint";
 
-FileUtils.CreateOrUpdateConnection(destConfigFileLocation, HCID2, "RetrieveDocument", docRetrieveURL1, context, log)
-FileUtils.CreateOrUpdateConnection(destConfigFileLocation, HCID3, "RetrieveDocument", docRetrieveURL2, context, log)
-					</script>
-				</con:config>
+FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml",destConfigFileLocation, HCID2, "RetrieveDocuments", docRetrieveURL2_20,"2.0", context, log)
+FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml",destConfigFileLocation, HCID2, "RetrieveDocuments", docRetrieveURL2_30,"3.0", context, log)
+
+FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml",destConfigFileLocation, HCID3, "RetrieveDocuments", docRetrieveURL3_20_bad,"2.0", context, log)
+FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml",destConfigFileLocation, HCID3, "RetrieveDocuments", docRetrieveURL3_30_bad,"3.0", context, log)
+</script></con:config>
 			</con:testStep>
-			<con:testStep disabled="true" name="set doc retrieve properties" type="transfer">
-				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:PropertyTransfersStep">
-					<con:transfers entitize="false" failOnError="true" ignoreEmpty="false" setNullOnMissingSource="true" transferChildNodes="false" transferTextContent="true" transferToAll="false" useXQuery="false">
-						<con:name>endpointTransfer</con:name>
-						<con:sourceType>Endpoint-DocRetrieve</con:sourceType>
-						<con:sourceStep>Test Case Properties</con:sourceStep>
-						<con:targetType>Endpoint</con:targetType>
-						<con:targetStep>Document Retrieve</con:targetStep>
-						<con:targetPath/>
-					</con:transfers>
-					<con:transfers entitize="false" failOnError="true" ignoreEmpty="false" setNullOnMissingSource="true" transferChildNodes="false" transferTextContent="true" transferToAll="false" useXQuery="false">
-						<con:name>docID1</con:name>
-						<con:sourceType>DRDocID1</con:sourceType>
-						<con:sourceStep>Test Case Properties</con:sourceStep>
-						<con:targetType>Request</con:targetType>
-						<con:targetStep>Document Retrieve</con:targetStep>
-						<con:targetPath>declare namespace urn1='urn:ihe:iti:xds-b:2007';
-declare namespace urn='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
-//urn:RespondingGateway_CrossGatewayRetrieveRequest[1]/urn1:RetrieveDocumentSetRequest[1]/urn1:DocumentRequest[1]/urn1:DocumentUniqueId[1]</con:targetPath>
-					</con:transfers>
-					<con:transfers entitize="false" failOnError="true" setNullOnMissingSource="true" transferChildNodes="false" transferTextContent="true" transferToAll="false" useXQuery="false">
-						<con:name>queryHCID1</con:name>
-						<con:sourceType>correctedRemoteHCID1</con:sourceType>
-						<con:sourceStep>Test Case Properties</con:sourceStep>
-						<con:targetType>Request</con:targetType>
-						<con:targetStep>Document Retrieve</con:targetStep>
-						<con:targetPath>declare namespace urn1='urn:ihe:iti:xds-b:2007';
-declare namespace urn='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
-//urn:RespondingGateway_CrossGatewayRetrieveRequest[1]/urn1:RetrieveDocumentSetRequest[1]/urn1:DocumentRequest[1]/urn1:HomeCommunityId[1]</con:targetPath>
-					</con:transfers>
-					<con:transfers disabled="false" entitize="false" failOnError="true" ignoreEmpty="false" setNullOnMissingSource="true" transferChildNodes="false" transferTextContent="true" transferToAll="false" useXQuery="false">
-						<con:name>targetDescription</con:name>
-						<con:sourceType>RemoteHCDescription1</con:sourceType>
-						<con:sourceStep>Test Case Properties</con:sourceStep>
-						<con:targetType>Request</con:targetType>
-						<con:targetStep>Document Retrieve</con:targetStep>
-						<con:targetPath>declare namespace urn='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
-declare namespace urn2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//urn:RespondingGateway_CrossGatewayRetrieveRequest[1]/urn:nhinTargetSystem[1]/urn2:homeCommunity[1]/urn2:description[1]</con:targetPath>
-					</con:transfers>
-					<con:transfers entitize="false" failOnError="true" ignoreEmpty="false" setNullOnMissingSource="true" transferChildNodes="false" transferTextContent="true" transferToAll="false" useXQuery="false">
-						<con:name>targetName</con:name>
-						<con:sourceType>RemoteHCDescription1</con:sourceType>
-						<con:sourceStep>Test Case Properties</con:sourceStep>
-						<con:targetType>Request</con:targetType>
-						<con:targetStep>Document Retrieve</con:targetStep>
-						<con:targetPath>declare namespace urn='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
-declare namespace urn2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//urn:RespondingGateway_CrossGatewayRetrieveRequest[1]/urn:nhinTargetSystem[1]/urn2:homeCommunity[1]/urn2:name[1]</con:targetPath>
-					</con:transfers>
-					<con:transfers entitize="false" failOnError="true" ignoreEmpty="false" setNullOnMissingSource="true" transferChildNodes="false" transferTextContent="true" transferToAll="false" useXQuery="false">
-						<con:name>signatureDate</con:name>
-						<con:sourceType>sigDate</con:sourceType>
-						<con:sourceStep>Test Case Properties</con:sourceStep>
-						<con:targetType>Request</con:targetType>
-						<con:targetStep>Document Retrieve</con:targetStep>
-						<con:targetPath>declare namespace urn='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
-declare namespace urn2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//urn:RespondingGateway_CrossGatewayRetrieveRequest[1]/urn:assertion[1]/urn2:dateOfSignature[1]</con:targetPath>
-					</con:transfers>
-					<con:transfers entitize="false" failOnError="true" ignoreEmpty="false" setNullOnMissingSource="true" transferChildNodes="false" transferTextContent="true" transferToAll="false" useXQuery="false">
-						<con:name>expirationDate</con:name>
-						<con:sourceType>expireDate</con:sourceType>
-						<con:sourceStep>Test Case Properties</con:sourceStep>
-						<con:targetType>Request</con:targetType>
-						<con:targetStep>Document Retrieve</con:targetStep>
-						<con:targetPath>declare namespace urn='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
-declare namespace urn2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//urn:RespondingGateway_CrossGatewayRetrieveRequest[1]/urn:assertion[1]/urn2:expirationDate[1]</con:targetPath>
-					</con:transfers>
-					<con:transfers failOnError="true" setNullOnMissingSource="true" transferTextContent="true">
-						<con:name>assertionHCID</con:name>
-						<con:sourceType>LocalHCID</con:sourceType>
-						<con:sourceStep>Test Case Properties</con:sourceStep>
-						<con:targetType>Request</con:targetType>
-						<con:targetStep>Document Retrieve</con:targetStep>
-						<con:targetPath>declare namespace urn='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
-declare namespace urn2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//urn:RespondingGateway_CrossGatewayRetrieveRequest[1]/urn:assertion[1]/urn2:homeCommunity[1]/urn2:homeCommunityId[1]</con:targetPath>
-					</con:transfers>
-					<con:transfers failOnError="true" setNullOnMissingSource="true" transferTextContent="true">
-						<con:name>assertionHCName</con:name>
-						<con:sourceType>LocalHCDescription</con:sourceType>
-						<con:sourceStep>Test Case Properties</con:sourceStep>
-						<con:targetType>Request</con:targetType>
-						<con:targetStep>Document Retrieve</con:targetStep>
-						<con:targetPath>declare namespace urn='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
-declare namespace urn2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//urn:RespondingGateway_CrossGatewayRetrieveRequest[1]/urn:assertion[1]/urn2:homeCommunity[1]/urn2:name[1]</con:targetPath>
-					</con:transfers>
-					<con:transfers failOnError="true" setNullOnMissingSource="true" transferTextContent="true">
-						<con:name>assertionHCDescription</con:name>
-						<con:sourceType>LocalHCDescription</con:sourceType>
-						<con:sourceStep>Test Case Properties</con:sourceStep>
-						<con:targetType>Request</con:targetType>
-						<con:targetStep>Document Retrieve</con:targetStep>
-						<con:targetPath>declare namespace urn='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
-declare namespace urn2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//urn:RespondingGateway_CrossGatewayRetrieveRequest[1]/urn:assertion[1]/urn2:homeCommunity[1]/urn2:description[1]</con:targetPath>
-					</con:transfers>
-					<con:transfers failOnError="true" setNullOnMissingSource="true" transferTextContent="true">
-						<con:name>orgHCID</con:name>
-						<con:sourceType>LocalHCID</con:sourceType>
-						<con:sourceStep>Test Case Properties</con:sourceStep>
-						<con:targetType>Request</con:targetType>
-						<con:targetStep>Document Retrieve</con:targetStep>
-						<con:targetPath>declare namespace urn='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
-declare namespace urn2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//urn:RespondingGateway_CrossGatewayRetrieveRequest[1]/urn:assertion[1]/urn2:userInfo[1]/urn2:org[1]/urn2:homeCommunityId[1]</con:targetPath>
-					</con:transfers>
-					<con:transfers failOnError="true" setNullOnMissingSource="true" transferTextContent="true">
-						<con:name>orgHCName</con:name>
-						<con:sourceType>LocalHCDescription</con:sourceType>
-						<con:sourceStep>Test Case Properties</con:sourceStep>
-						<con:targetType>Request</con:targetType>
-						<con:targetStep>Document Retrieve</con:targetStep>
-						<con:targetPath>declare namespace urn='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
-declare namespace urn2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//urn:RespondingGateway_CrossGatewayRetrieveRequest[1]/urn:assertion[1]/urn2:userInfo[1]/urn2:org[1]/urn2:name[1]</con:targetPath>
-					</con:transfers>
-					<con:transfers entitize="false" failOnError="true" ignoreEmpty="false" setNullOnMissingSource="true" transferChildNodes="false" transferTextContent="true" transferToAll="false" useXQuery="false">
-						<con:name>orgHCDescription</con:name>
-						<con:sourceType>LocalHCDescription</con:sourceType>
-						<con:sourceStep>Test Case Properties</con:sourceStep>
-						<con:targetType>Request</con:targetType>
-						<con:targetStep>Document Retrieve</con:targetStep>
-						<con:targetPath>declare namespace urn='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
-declare namespace urn2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//urn:RespondingGateway_CrossGatewayRetrieveRequest[1]/urn:assertion[1]/urn2:userInfo[1]/urn2:org[1]/urn2:description[1]</con:targetPath>
-					</con:transfers>
-					<con:transfers entitize="false" failOnError="true" setNullOnMissingSource="true" transferTextContent="true">
-						<con:name>queryHCID2</con:name>
-						<con:sourceType>correctedRemoteHCID2</con:sourceType>
-						<con:sourceStep>Test Case Properties</con:sourceStep>
-						<con:targetType>Request</con:targetType>
-						<con:targetStep>Document Retrieve</con:targetStep>
-						<con:targetPath>declare namespace urn1='urn:ihe:iti:xds-b:2007';
-declare namespace urn='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
-//urn:RespondingGateway_CrossGatewayRetrieveRequest[1]/urn1:RetrieveDocumentSetRequest[1]/urn1:DocumentRequest[2]/urn1:HomeCommunityId[1]</con:targetPath>
-					</con:transfers>
-					<con:transfers entitize="false" failOnError="true" setNullOnMissingSource="true" transferTextContent="true" transferToAll="false">
-						<con:name>docID2</con:name>
-						<con:sourceType>DRDocID2</con:sourceType>
-						<con:sourceStep>Test Case Properties</con:sourceStep>
-						<con:targetType>Request</con:targetType>
-						<con:targetStep>Document Retrieve</con:targetStep>
-						<con:targetPath>declare namespace urn1='urn:ihe:iti:xds-b:2007';
-declare namespace urn='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
-//urn:RespondingGateway_CrossGatewayRetrieveRequest[1]/urn1:RetrieveDocumentSetRequest[1]/urn1:DocumentRequest[2]/urn1:DocumentUniqueId[1]</con:targetPath>
-					</con:transfers>
-					<con:transfers entitize="false" failOnError="true" setNullOnMissingSource="true" transferChildNodes="false" transferTextContent="true" transferToAll="false">
-						<con:name>TargetHCID</con:name>
-						<con:sourceType>RemoteHCID1</con:sourceType>
-						<con:sourceStep>Test Case Properties</con:sourceStep>
-						<con:targetType>Request</con:targetType>
-						<con:targetStep>Document Retrieve</con:targetStep>
-						<con:targetPath>declare namespace urn='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
-declare namespace urn2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//urn:RespondingGateway_CrossGatewayRetrieveRequest[1]/urn:nhinTargetSystem[1]/urn2:homeCommunity[1]/urn2:homeCommunityId[1]</con:targetPath>
-					</con:transfers>
-				</con:config>
-			</con:testStep>
+			
 			<con:testStep name="Document Retrieve" type="request">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:interface>EntityDocRetrieveBindingSoap</con:interface>
 					<con:operation>RespondingGateway_CrossGatewayRetrieve</con:operation>
 					<con:request incomingWss="" name="Document Retrieve" outgoingWss="" wssPasswordType="">
 						<con:settings>
 							<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@expand-mtom-attachments">true</con:setting>
-							<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting>
+							<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
 						</con:settings>
 						<con:encoding>UTF-8</con:encoding>
 						<con:endpoint>${#Project#Endpoint-DocRetrieve}</con:endpoint>
@@ -1292,19 +679,19 @@ count(//ns11:RetrieveDocumentSetResponse[1]/ns12:RegistryResponse[1]/ns12:Regist
 			<con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2010-08-30T20:57:23Z</con:value>
+					<con:value>2012-07-23T11:51:35Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2010-08-30T21:07:23Z</con:value>
+					<con:value>2012-07-23T12:01:35Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>08/30/2010 20:57:23</con:value>
+					<con:value>07/23/2012 11:51:35</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2010-09-29T00:00:00Z</con:value>
+					<con:value>2012-08-22T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>CorrectedRemoteHCID1</con:name>
@@ -1346,7 +733,7 @@ def propertiesFile = new File(propertiesFilename)
 if (propertiesFile.exists()) {
 	def props = new Properties()
 	props.load(new FileReader(propertiesFile))
-	props.each { key, value -&gt;
+	props.each { key, value ->
 	    project.setPropertyValue(key, value)
 	}
 }
@@ -1354,11 +741,11 @@ if (propertiesFile.exists()) {
 
 TimeZone.setDefault(TimeZone.getTimeZone("UTC"))
 def testRunListener = [
-  afterRun: { testRunner, runContext -&gt; },
-  afterStep: { testRunner, runContext, result -&gt; },
-  beforeStep: { testRunner, runContext -&gt; },
-  beforeStep: { testRunner, runContext, testStep -&gt; },
-  beforeRun: { testRunner, runContext -&gt; 
+  afterRun: { testRunner, runContext -> },
+  afterStep: { testRunner, runContext, result -> },
+  beforeStep: { testRunner, runContext -> },
+  beforeStep: { testRunner, runContext, testStep -> },
+  beforeRun: { testRunner, runContext -> 
     use (org.codehaus.groovy.runtime.TimeCategory) {
       def startDate = 5.minutes.ago
       def endDate = 5.minutes.from.now
@@ -1379,14 +766,14 @@ project.testSuiteList*.testCaseList.flatten()*.addTestRunListener(testRunListene
 
 
 
-com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.findProperty = { propertyName -&gt;
+com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.findProperty = { propertyName ->
     return delegate.getProperty(propertyName) ?:
                 delegate.testCase.getPropertyValue(propertyName) ?:
                 delegate.testCase.testSuite.getPropertyValue(propertyName) ?:
                 delegate.testCase.testSuite.project.getPropertyValue(propertyName)
 }
 
-com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.withSql = { dbOrPropertyName, block -&gt;
+com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.withSql = { dbOrPropertyName, block ->
   def dbName = delegate.findProperty(dbOrPropertyName) ?: dbOrPropertyName
   def host = delegate.findProperty('DBHost')
   def port = delegate.findProperty('DBPort')
