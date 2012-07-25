@@ -37,8 +37,7 @@ import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
  */
 public class CONNECTCXFClientUnsecured<T>  extends CONNECTCXFClient<T>  {
 
-    private ServiceEndpoint<T> serviceEndpoint = null;
-
+ 
     CONNECTCXFClientUnsecured(ServicePortDescriptor<T> portDescriptor, String url, AssertionType assertion) {
         super(portDescriptor, url, assertion);
 
