@@ -46,53 +46,59 @@ import org.apache.commons.logging.LogFactory;
  */
 public class OutboundDocRetrieveAggregator_a0 implements NhinAggregator {
 
-    private static final Log logger = LogFactory.getLog(OutboundDocRetrieveAggregator_a0.class);
+    private static final Log LOGGER = LogFactory.getLog(OutboundDocRetrieveAggregator_a0.class);
 
     private Log getLogger() {
-        return logger;
+        return LOGGER;
     }
 
+    /**
+     * Aggregates the message in the from Orchestrable to the to Orchestratable.
+     * 
+     * @param to The orchestratable which contains the aggregated message
+     * @param from The orchestratable which contains the message to be aggregated
+     */
     public void aggregate(OutboundOrchestratable to, OutboundOrchestratable from) {
         if (to instanceof OutboundDocRetrieveOrchestratable) {
             String status = null;
             if (from instanceof OutboundDocRetrieveOrchestratable) {
-                OutboundDocRetrieveOrchestratable to_a0 = (OutboundDocRetrieveOrchestratable) to;
-                OutboundDocRetrieveOrchestratable from_a0 = (OutboundDocRetrieveOrchestratable) from;
-                if (to_a0.getResponse() == null) {
-                    to_a0.setResponse(new RetrieveDocumentSetResponseType());
+                OutboundDocRetrieveOrchestratable aggregatedResponse = (OutboundDocRetrieveOrchestratable) to;
+                OutboundDocRetrieveOrchestratable fromResponse = (OutboundDocRetrieveOrchestratable) from;
+                if (aggregatedResponse.getResponse() == null) {
+                    aggregatedResponse.setResponse(new RetrieveDocumentSetResponseType());
                 }
 
-                if (to_a0.getResponse().getRegistryResponse() == null) {
+                if (aggregatedResponse.getResponse().getRegistryResponse() == null) {
                     RegistryResponseType rrt = new RegistryResponseType();
-                    to_a0.getResponse().setRegistryResponse(rrt);
+                    aggregatedResponse.getResponse().setRegistryResponse(rrt);
                 }
 
-                if (from_a0.getResponse() != null) {
-                    to_a0.getResponse().getDocumentResponse().addAll(from_a0.getResponse().getDocumentResponse());
+                if (fromResponse.getResponse() != null) {
+                    aggregatedResponse.getResponse().getDocumentResponse()
+                            .addAll(fromResponse.getResponse().getDocumentResponse());
                 }
 
-                if (from_a0.getResponse() != null
-                        && from_a0.getResponse().getRegistryResponse() != null
-                        && from_a0.getResponse().getRegistryResponse().getRegistryErrorList() != null
-                        && from_a0.getResponse().getRegistryResponse().getRegistryErrorList().getRegistryError() != null
-                        && (!from_a0.getResponse().getRegistryResponse().getRegistryErrorList().getRegistryError()
-                                .isEmpty())) {
-                    addRegistryErrors(to_a0, from_a0);
-                }
-                status = DocRetrieveStatusUtil.setResponseStatus(from_a0.getResponse(), to_a0.getResponse());
-                to_a0.getResponse().getRegistryResponse().setStatus(status);
+                status = DocRetrieveStatusUtil.setResponseStatus(fromResponse.getResponse(),
+                        aggregatedResponse.getResponse());
+                aggregatedResponse.getResponse().getRegistryResponse().setStatus(status);
 
-            } /*
-               * else if (from instanceof EntityDocRetrieveOrchestratableImpl_a1) {
-               * 
-               * }
-               */
+                if (DocRetrieveStatusUtil.isStatusFailureOrPartialFailure(fromResponse.getResponse()
+                        .getRegistryResponse().getStatus())) {
+                    addRegistryErrors(aggregatedResponse, fromResponse);
+                }
+            }
         } else {
             // throw error, this aggregator does not handle this case
             getLogger().error("This aggregator only aggregates to EntityDocRetrieveOrchestratableImpl_a0.");
         }
     }
 
+    /**
+     * Adds the registry error to the to Orchestrable from the from Orchestratable. If none exists, then one is created.
+     * 
+     * @param to the Orchestratrable whose response is to be modified
+     * @param from the Orchestratrable whose response's registry error is to used
+     */
     private void addRegistryErrors(OutboundDocRetrieveOrchestratable to, OutboundDocRetrieveOrchestratable from) {
         if (to.getResponse().getRegistryResponse().getRegistryErrorList() == null) {
             to.getResponse().getRegistryResponse().setRegistryErrorList(new RegistryErrorList());
