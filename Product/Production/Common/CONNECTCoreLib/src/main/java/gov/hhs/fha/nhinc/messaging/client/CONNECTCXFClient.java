@@ -25,11 +25,7 @@ public abstract class CONNECTCXFClient<T> extends CONNECTClient<T> {
     CONNECTCXFClient(ServicePortDescriptor<T> portDescriptor, String url, AssertionType assertion, ServicePortBuilder<T> portBuilder) {
         serviceEndpoint = super.configureBasePort(portBuilder.createPort(), url);
         
-        String wsAddressingAction = portDescriptor.getWSAddressingAction();
-        
-        // CXF specific decorator configuration
-        serviceEndpoint = new WsAddressingServiceEndpointDecorator<T>(serviceEndpoint, url, wsAddressingAction,
-                assertion);
+      
     }
 
     public T getPort() {
