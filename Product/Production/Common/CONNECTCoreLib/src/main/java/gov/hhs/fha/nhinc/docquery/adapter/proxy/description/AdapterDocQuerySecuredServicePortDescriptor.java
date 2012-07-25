@@ -24,6 +24,7 @@ public class AdapterDocQuerySecuredServicePortDescriptor implements ServicePortD
     public String getNamespaceUri() {
         return NAMESPACE_URI;
     }
+    
     /* (non-Javadoc)
      * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getServiceLocalPart()
      */
@@ -31,6 +32,7 @@ public class AdapterDocQuerySecuredServicePortDescriptor implements ServicePortD
     public String getServiceLocalPart() {
         return SERVICE_LOCAL_PART;
     }
+    
     /* (non-Javadoc)
      * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getPortLocalPart()
      */
@@ -38,6 +40,7 @@ public class AdapterDocQuerySecuredServicePortDescriptor implements ServicePortD
     public String getPortLocalPart() {
         return PORT_LOCAL_PART;
     }
+    
     /* (non-Javadoc)
      * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getWSDLFileName()
      */
@@ -45,6 +48,7 @@ public class AdapterDocQuerySecuredServicePortDescriptor implements ServicePortD
     public String getWSDLFileName() {
         return WSDL_FILE;
     }
+    
     /* (non-Javadoc)
      * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getWSAddressingAction()
      */
@@ -52,13 +56,12 @@ public class AdapterDocQuerySecuredServicePortDescriptor implements ServicePortD
     public String getWSAddressingAction() {
         return WS_ADDRESSING_ACTION;
     }
+    
     /* (non-Javadoc)
      * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getPortClass()
      */
     @Override
     public Class<AdapterDocQuerySecuredPortType> getPortClass() {
         return AdapterDocQuerySecuredPortType.class;
-    }
-    
-    
+    }    
 }

@@ -16,19 +16,35 @@ public class NhinDocQueryServicePortDescriptor implements ServicePortDescriptor<
     private static final String PORT_LOCAL_PART = "RespondingGateway_Query_Port_Soap";
     private static final String WSDL_FILE = "NhinDocQuery.wsdl";
     private static final String WS_ADDRESSING_ACTION = "urn:ihe:iti:2007:CrossGatewayQuery";
-        
+
+    /* (non-Javadoc)
+     * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getNamespaceUri()
+     */
+    @Override
     public String getNamespaceUri() {
         return NAMESPACE_URI;
     }
     
+    /* (non-Javadoc)
+     * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getServiceLocalPart()
+     */
+    @Override
     public String getServiceLocalPart() {
         return SERVICE_LOCAL_PART;
     }
     
+    /* (non-Javadoc)
+     * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getPortLocalPart()
+     */
+    @Override
     public String getPortLocalPart() {
         return PORT_LOCAL_PART;
     }
     
+    /* (non-Javadoc)
+     * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getPortClass()
+     */
+    @Override
     public Class<RespondingGatewayQueryPortType> getPortClass() {
         return RespondingGatewayQueryPortType.class;
     }
@@ -48,6 +64,4 @@ public class NhinDocQueryServicePortDescriptor implements ServicePortDescriptor<
     public String getWSAddressingAction() {
         return WS_ADDRESSING_ACTION;
     }
-
-
 }
