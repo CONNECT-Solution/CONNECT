@@ -29,13 +29,16 @@ package gov.hhs.fha.nhinc.docquery.passthru.proxy;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayCrossGatewayQuerySecuredRequestType;
+import gov.hhs.fha.nhinc.docquery.passthru.proxy.description.PassthruDocQuerySecuredServicePortDescriptor;
+import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
+import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
+import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhincproxydocquerysecured.NhincProxyDocQuerySecuredPortType;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
-import javax.xml.namespace.QName;
-import javax.xml.ws.Service;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -45,12 +48,6 @@ import org.apache.commons.logging.LogFactory;
  */
 public class PassthruDocQueryProxyWebServiceSecuredImpl implements PassthruDocQueryProxy {
     private Log log = null;
-    private static Service cachedService = null;
-    private static final String NAMESPACE_URI = "urn:gov:hhs:fha:nhinc:nhincproxydocquerysecured";
-    private static final String SERVICE_LOCAL_PART = "NhincProxyDocQuerySecured";
-    private static final String PORT_LOCAL_PART = "NhincProxyDocQuerySecuredPortSoap";
-    private static final String WSDL_FILE = "NhincProxyDocQuerySecured.wsdl";
-    private static final String WS_ADDRESSING_ACTION = "urn:gov:hhs:fha:nhinc:nhincproxydocquerysecured:RespondingGateway_CrossGatewayQueryRequestSecuredMessage";
     private WebServiceProxyHelper oProxyHelper = null;
 
     public PassthruDocQueryProxyWebServiceSecuredImpl() {
@@ -66,42 +63,14 @@ public class PassthruDocQueryProxyWebServiceSecuredImpl implements PassthruDocQu
         return new WebServiceProxyHelper();
     }
 
-    /**
-     * This method retrieves and initializes the port.
-     * 
-     * @param url The URL for the web service.
-     * @return The port object for the web service.
-     */
-    protected NhincProxyDocQuerySecuredPortType getPort(String url, String serviceAction, String wsAddressingAction,
-            AssertionType assertion) {
-        NhincProxyDocQuerySecuredPortType port = null;
-        Service service = getService();
-        if (service != null) {
-            log.debug("Obtained service - creating port.");
-
-            port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), NhincProxyDocQuerySecuredPortType.class);
-            oProxyHelper.initializeSecurePort((javax.xml.ws.BindingProvider) port, url, serviceAction,
-                    wsAddressingAction, assertion);
-        } else {
-            log.error("Unable to obtain serivce - no port created.");
+    public ServicePortDescriptor<NhincProxyDocQuerySecuredPortType> getServicePortDescriptor(
+            NhincConstants.ADAPTER_API_LEVEL apiLevel) {
+        switch (apiLevel) {
+        case LEVEL_a0:
+            return new PassthruDocQuerySecuredServicePortDescriptor();
+        default:
+            return new PassthruDocQuerySecuredServicePortDescriptor();
         }
-        return port;
-    }
-
-    /**
-     * Retrieve the service class for this web service.
-     * 
-     * @return The service class for this web service.
-     */
-    protected Service getService() {
-        if (cachedService == null) {
-            try {
-                cachedService = oProxyHelper.createService(WSDL_FILE, NAMESPACE_URI, SERVICE_LOCAL_PART);
-            } catch (Throwable t) {
-                log.error("Error creating service: " + t.getMessage(), t);
-            }
-        }
-        return cachedService;
     }
 
     public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest body, AssertionType assertion,
@@ -112,21 +81,22 @@ public class PassthruDocQueryProxyWebServiceSecuredImpl implements PassthruDocQu
         try {
             String url = oProxyHelper
                     .getUrlLocalHomeCommunity(NhincConstants.NHINC_PROXY_DOC_QUERY_SECURED_SERVICE_NAME);
-            NhincProxyDocQuerySecuredPortType port = getPort(url, NhincConstants.DOC_QUERY_ACTION,
-                    WS_ADDRESSING_ACTION, assertion);
 
             if (body == null) {
                 log.error("Message was null");
             } else if (target == null) {
                 log.error("target was null");
-            } else if (port == null) {
-                log.error("port was null");
             } else {
                 RespondingGatewayCrossGatewayQuerySecuredRequestType request = new RespondingGatewayCrossGatewayQuerySecuredRequestType();
                 request.setAdhocQueryRequest(body);
                 request.setNhinTargetSystem(target);
+                
+                ServicePortDescriptor<NhincProxyDocQuerySecuredPortType> portDescriptor = getServicePortDescriptor(NhincConstants.ADAPTER_API_LEVEL.LEVEL_a0);
 
-                response = (AdhocQueryResponse) oProxyHelper.invokePort(port, NhincProxyDocQuerySecuredPortType.class,
+                CONNECTClient<NhincProxyDocQuerySecuredPortType> client = new CONNECTClientFactory<NhincProxyDocQuerySecuredPortType>()
+                        .getCONNECTClientSecured(portDescriptor, url, assertion);
+
+                response = (AdhocQueryResponse) client.invokePort(NhincProxyDocQuerySecuredPortType.class,
                         "respondingGatewayCrossGatewayQuery", request);
             }
         } catch (Exception ex) {
