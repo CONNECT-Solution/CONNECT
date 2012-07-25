@@ -31,8 +31,8 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.messaging.service.decorator.SAMLServiceEndpointDecorator;
 import gov.hhs.fha.nhinc.messaging.service.decorator.cxf.SecurityOutInterceptorServiceEndpointDecorator;
 import gov.hhs.fha.nhinc.messaging.service.decorator.cxf.TLSClientServiceEndpointDecorator;
+import gov.hhs.fha.nhinc.messaging.service.decorator.cxf.WsAddressingServiceEndpointDecorator;
 import gov.hhs.fha.nhinc.messaging.service.port.CXFServicePortBuilderWithAddressing;
-import gov.hhs.fha.nhinc.messaging.service.port.ServicePortBuilder;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 
 /**
@@ -43,16 +43,18 @@ public class CONNECTCXFClientSecured<T> extends CONNECTCXFClient<T> {
 
    
     CONNECTCXFClientSecured(ServicePortDescriptor<T> portDescriptor, String url, AssertionType assertion) {
-        super(portDescriptor, url, assertion);
-
-        ServicePortBuilder<T> portBuilder = new CXFServicePortBuilderWithAddressing<T>(portDescriptor);
-        
-        serviceEndpoint = super.configureBasePort(portBuilder.createPort(), url);
+        super(portDescriptor, url, assertion, new CXFServicePortBuilderWithAddressing<T>(portDescriptor));
         serviceEndpoint = new SAMLServiceEndpointDecorator<T>(serviceEndpoint, assertion);
 
         serviceEndpoint = new TLSClientServiceEndpointDecorator<T>(serviceEndpoint);
         serviceEndpoint = new SecurityOutInterceptorServiceEndpointDecorator<T>(serviceEndpoint);
 
+        
+        String wsAddressingAction = portDescriptor.getWSAddressingAction();
+        
+        // CXF specific decorator configuration
+        serviceEndpoint = new WsAddressingServiceEndpointDecorator<T>(serviceEndpoint, url, wsAddressingAction,
+                assertion);
         
         serviceEndpoint.configure();
     }
