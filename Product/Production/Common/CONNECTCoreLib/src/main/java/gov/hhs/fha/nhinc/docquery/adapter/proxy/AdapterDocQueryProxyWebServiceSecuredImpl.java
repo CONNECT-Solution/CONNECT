@@ -28,16 +28,18 @@ package gov.hhs.fha.nhinc.docquery.adapter.proxy;
 
 import gov.hhs.fha.nhinc.adapterdocquerysecured.AdapterDocQuerySecuredPortType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.docquery.adapter.proxy.description.AdapterDocQuerySecuredServicePortDescriptor;
 import gov.hhs.fha.nhinc.gateway.aggregator.document.DocumentConstants;
+import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
+import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
+import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADAPTER_API_LEVEL;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
-import javax.xml.namespace.QName;
-import javax.xml.ws.Service;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -48,12 +50,7 @@ import org.apache.commons.logging.LogFactory;
  */
 public class AdapterDocQueryProxyWebServiceSecuredImpl implements AdapterDocQueryProxy {
     private Log log = null;
-    private static Service cachedService = null;
-    private static final String NAMESPACE_URI = "urn:gov:hhs:fha:nhinc:adapterdocquerysecured";
-    private static final String SERVICE_LOCAL_PART = "AdapterDocQuerySecured";
-    private static final String PORT_LOCAL_PART = "AdapterDocQuerySecuredPortSoap";
-    private static final String WSDL_FILE = "AdapterDocQuerySecured.wsdl";
-    private static final String WS_ADDRESSING_ACTION = "urn:gov:hhs:fha:nhinc:adapterdocquerysecured:AdapterDocQueryRequestSecuredMessage";
+
     private WebServiceProxyHelper oProxyHelper = null;
 
     public AdapterDocQueryProxyWebServiceSecuredImpl() {
@@ -69,42 +66,14 @@ public class AdapterDocQueryProxyWebServiceSecuredImpl implements AdapterDocQuer
         return new WebServiceProxyHelper();
     }
 
-    /**
-     * This method retrieves and initializes the port.
-     * 
-     * @param url The URL for the web service.
-     * @return The port object for the web service.
-     */
-    protected AdapterDocQuerySecuredPortType getPort(String url, String serviceAction, String wsAddressingAction,
-            AssertionType assertion) {
-        AdapterDocQuerySecuredPortType port = null;
-        Service service = getService();
-        if (service != null) {
-            log.debug("Obtained service - creating port.");
-
-            port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), AdapterDocQuerySecuredPortType.class);
-            oProxyHelper.initializeSecurePort((javax.xml.ws.BindingProvider) port, url, serviceAction,
-                    wsAddressingAction, assertion);
-        } else {
-            log.error("Unable to obtain serivce - no port created.");
+    public ServicePortDescriptor<AdapterDocQuerySecuredPortType> getServicePortDescriptor(
+            NhincConstants.ADAPTER_API_LEVEL apiLevel) {
+        switch (apiLevel) {
+        case LEVEL_a0:
+            return new AdapterDocQuerySecuredServicePortDescriptor();
+        default:
+            return new AdapterDocQuerySecuredServicePortDescriptor();
         }
-        return port;
-    }
-
-    /**
-     * Retrieve the service class for this web service.
-     * 
-     * @return The service class for this web service.
-     */
-    protected Service getService() {
-        if (cachedService == null) {
-            try {
-                cachedService = oProxyHelper.createService(WSDL_FILE, NAMESPACE_URI, SERVICE_LOCAL_PART);
-            } catch (Throwable t) {
-                log.error("Error creating service: " + t.getMessage(), t);
-            }
-        }
-        return cachedService;
     }
 
     public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest msg, AssertionType assertion) {
@@ -114,15 +83,16 @@ public class AdapterDocQueryProxyWebServiceSecuredImpl implements AdapterDocQuer
             String url = oProxyHelper
                     .getAdapterEndPointFromConnectionManager(NhincConstants.ADAPTER_DOC_QUERY_SECURED_SERVICE_NAME);
             if (NullChecker.isNotNullish(url)) {
-                AdapterDocQuerySecuredPortType port = getPort(url, NhincConstants.DOC_QUERY_ACTION,
-                        WS_ADDRESSING_ACTION, assertion);
 
                 if (msg == null) {
                     log.error("Message was null");
-                } else if (port == null) {
-                    log.error("port was null");
                 } else {
-                    response = (AdhocQueryResponse) oProxyHelper.invokePort(port, AdapterDocQuerySecuredPortType.class,
+                    ServicePortDescriptor<AdapterDocQuerySecuredPortType> portDescriptor = getServicePortDescriptor(NhincConstants.ADAPTER_API_LEVEL.LEVEL_a0);
+
+                    CONNECTClient<AdapterDocQuerySecuredPortType> client = new CONNECTClientFactory<AdapterDocQuerySecuredPortType>()
+                            .getCONNECTClientSecured(portDescriptor, url, assertion);
+
+                    response = (AdhocQueryResponse) client.invokePort(AdapterDocQuerySecuredPortType.class,
                             "respondingGatewayCrossGatewayQuery", msg);
                 }
             } else {

@@ -1,57 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
-   <servlet>
-        <servlet-name>InitServlet</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.gateway.servlet.InitServlet</servlet-class>
+    <servlet>
+       <servlet-name>InitServlet</servlet-name>
+       <servlet-class>gov.hhs.fha.nhinc.gateway.servlet.InitServlet</servlet-class>
+       <load-on-startup>1</load-on-startup>
+    </servlet>
+    
+    <servlet>
+        <servlet-name>cxf</servlet-name>
+        <servlet-class>org.apache.cxf.transport.servlet.CXFServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
 
-
-<!-- Entity -->
-    <servlet>
-        <servlet-name>EntityDocQuerySecured</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.docquery._20.entity.EntityDocQuerySecured</servlet-class>
-    </servlet>
     <servlet-mapping>
-        <servlet-name>EntityDocQuerySecured</servlet-name>
-        <url-pattern>/EntityService/EntityDocQuerySecured</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>EntityDocQueryUnsecured</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.docquery._20.entity.EntityDocQueryUnsecured</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>EntityDocQueryUnsecured</servlet-name>
-        <url-pattern>/EntityService/EntityDocQueryUnsecured</url-pattern>
-    </servlet-mapping>
-    
-<!-- NHIN -->
-    <servlet>
-        <servlet-name>DocQuery</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.docquery._20.nhin.DocQuery</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>DocQuery</servlet-name>
-        <url-pattern>/NhinService/RespondingGateway_Query_Service/DocQuery</url-pattern>
-    </servlet-mapping>
-    
-<!-- Proxy -->
-    <servlet>
-        <servlet-name>NhincProxyDocQuerySecured</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.docquery._20.passthru.NhincProxyDocQuerySecured</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>NhincProxyDocQuerySecured</servlet-name>
-        <url-pattern>/EntityService/NhincProxyDocQuerySecured</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>NhincProxyDocQueryUnsecured</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.docquery._20.passthru.NhincProxyDocQueryUnsecured</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>NhincProxyDocQueryUnsecured</servlet-name>
-        <url-pattern>/EntityService/NhincProxyDocQueryUnsecured</url-pattern>
+        <servlet-name>cxf</servlet-name>
+        <url-pattern>/*</url-pattern>
     </servlet-mapping>
 
     <security-constraint>

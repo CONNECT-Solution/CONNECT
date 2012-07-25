@@ -36,5 +36,11 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
         endpointName="ape:AdapterPolicyEnginePortSoap" implementor="gov.hhs.fha.nhinc.policyengine.adapter.AdapterPolicyEngine"
         wsdlLocation="/WEB-INF/wsdl/AdapterPolicyEngine/AdapterPolicyEngine.wsdl">
     </jaxws:endpoint>
+    
+    <jaxws:endpoint xmlns:adreg="urn:ihe:iti:xds-b:2007" id="AdapterDocumentRegistry"
+        address="/DocumentRegistry_Service" serviceName="adreg:DocumentRegistry_Service"
+        endpointName="adreg:DocumentRegistry_Port_Soap" implementor="gov.hhs.fha.nhinc.docregistry.adapter.DocumentRegistryService"
+        wsdlLocation="/WEB-INF/wsdl/DocumentRegistryService/AdapterComponentDocRegistry.wsdl">
+    </jaxws:endpoint>
 
 </beans>
