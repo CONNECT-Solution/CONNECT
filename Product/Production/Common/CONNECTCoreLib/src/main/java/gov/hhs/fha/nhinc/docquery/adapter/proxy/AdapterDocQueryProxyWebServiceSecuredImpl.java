@@ -89,7 +89,7 @@ public class AdapterDocQueryProxyWebServiceSecuredImpl implements AdapterDocQuer
                 } else {
                     ServicePortDescriptor<AdapterDocQuerySecuredPortType> portDescriptor = getServicePortDescriptor(NhincConstants.ADAPTER_API_LEVEL.LEVEL_a0);
 
-                    CONNECTClient<AdapterDocQuerySecuredPortType> client = new CONNECTClientFactory<AdapterDocQuerySecuredPortType>()
+                    CONNECTClient<AdapterDocQuerySecuredPortType> client = CONNECTClientFactory.getInstance()
                             .getCONNECTClientSecured(portDescriptor, url, assertion);
 
                     response = (AdhocQueryResponse) client.invokePort(AdapterDocQuerySecuredPortType.class,

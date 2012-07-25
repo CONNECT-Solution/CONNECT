@@ -99,7 +99,7 @@ public class NhinDocQueryProxyWebServiceSecuredImpl implements NhinDocQueryProxy
 
             ServicePortDescriptor<RespondingGatewayQueryPortType> portDescriptor = getServicePortDescriptor(NhincConstants.GATEWAY_API_LEVEL.LEVEL_g0);
 
-            CONNECTClient<RespondingGatewayQueryPortType> client = new CONNECTClientFactory<RespondingGatewayQueryPortType>()
+            CONNECTClient<RespondingGatewayQueryPortType> client = CONNECTClientFactory.getInstance()
                     .getCONNECTClientSecured(portDescriptor, url, assertion);
 
             response = (AdhocQueryResponse) client.invokePort(RespondingGatewayQueryPortType.class,

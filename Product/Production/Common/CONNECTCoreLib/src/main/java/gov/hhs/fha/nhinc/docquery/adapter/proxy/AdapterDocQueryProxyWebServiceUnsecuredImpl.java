@@ -95,7 +95,7 @@ public class AdapterDocQueryProxyWebServiceUnsecuredImpl implements AdapterDocQu
                     request.setAssertion(assertion);
                     ServicePortDescriptor<AdapterDocQueryPortType> portDescriptor = getServicePortDescriptor(NhincConstants.ADAPTER_API_LEVEL.LEVEL_a0);
 
-                    CONNECTClient<AdapterDocQueryPortType> client = new CONNECTClientFactory<AdapterDocQueryPortType>()
+                    CONNECTClient<AdapterDocQueryPortType> client = CONNECTClientFactory.getInstance()
                             .getCONNECTClientUnsecured(portDescriptor, url, assertion);
 
                     response = (AdhocQueryResponse) client.invokePort(AdapterDocQueryPortType.class,

@@ -93,7 +93,7 @@ public class PassthruDocQueryProxyWebServiceSecuredImpl implements PassthruDocQu
                 
                 ServicePortDescriptor<NhincProxyDocQuerySecuredPortType> portDescriptor = getServicePortDescriptor(NhincConstants.ADAPTER_API_LEVEL.LEVEL_a0);
 
-                CONNECTClient<NhincProxyDocQuerySecuredPortType> client = new CONNECTClientFactory<NhincProxyDocQuerySecuredPortType>()
+                CONNECTClient<NhincProxyDocQuerySecuredPortType> client = CONNECTClientFactory.getInstance()
                         .getCONNECTClientSecured(portDescriptor, url, assertion);
 
                 response = (AdhocQueryResponse) client.invokePort(NhincProxyDocQuerySecuredPortType.class,

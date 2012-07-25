@@ -92,7 +92,7 @@ public class AdapterComponentDocRegistryProxyWebServiceUnsecuredImpl implements 
                 } else {
                     ServicePortDescriptor<DocumentRegistryPortType> portDescriptor = getServicePortDescriptor(NhincConstants.ADAPTER_API_LEVEL.LEVEL_a0);
 
-                    CONNECTClient<DocumentRegistryPortType> client = new CONNECTClientFactory<DocumentRegistryPortType>()
+                    CONNECTClient<DocumentRegistryPortType> client = CONNECTClientFactory.getInstance()
                             .getCONNECTClientUnsecured(portDescriptor, url, assertion);
 
                     response = (AdhocQueryResponse) client.invokePort(DocumentRegistryPortType.class,
