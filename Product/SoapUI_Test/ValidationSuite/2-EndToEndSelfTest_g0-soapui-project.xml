@@ -3915,8 +3915,8 @@ DeleteFile(backupUddiFile, log);
                <urn3:zipCode>AddrZip</urn3:zipCode>
             </urn3:address>
             <urn3:dateOfBirth xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">06/04/1959 05:21:00</urn3:dateOfBirth>
-            <urn3:dateOfSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#sigDate}</urn3:dateOfSignature>
-            <urn3:expirationDate xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#expireDate}</urn3:expirationDate>
+            <!-- urn3:dateOfSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#sigDate}</urn3:dateOfSignature -->
+            <!-- urn3:expirationDate xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#expireDate}</urn3:expirationDate -->
             <urn3:explanationNonClaimantSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">Electronic</urn3:explanationNonClaimantSignature>
             <urn3:haveSecondWitnessSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn3:haveSecondWitnessSignature>
             <urn3:haveSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn3:haveSignature>
@@ -3954,7 +3954,7 @@ DeleteFile(backupUddiFile, log);
                   <urn3:originalText>phoneCode</urn3:originalText>
                </urn3:phoneNumberType>
             </urn3:phoneNumber>
-            <urn3:purposeOfDisclosure xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">TREATMENT</urn3:purposeOfDisclosure>
+            <!-- urn3:purposeOfDisclosure xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">TREATMENT</urn3:purposeOfDisclosure -->
             <urn3:secondWitnessAddress xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <urn3:addressType>
                   <urn3:code>AddrCode</urn3:code>
@@ -4058,8 +4058,8 @@ DeleteFile(backupUddiFile, log);
                   <urn3:secondNameOrInitials>S</urn3:secondNameOrInitials>
                   <urn3:fullName>Kasrl S. Skagerberg</urn3:fullName>
                </urn3:personName>
-               <urn3:userName>kskagerb</urn3:userName>
-               <urn3:role>Pharmacy</urn3:role>
+               <urn3:userName>kskagerberg</urn3:userName>
+               <!-- urn3:role>Pharmacy</urn3:role -->
                <urn3:org>
                   <urn3:description>${#Project#LocalHCDescription}</urn3:description>
                   <urn3:homeCommunityId>${#Project#LocalHCID}</urn3:homeCommunityId>
@@ -4083,8 +4083,8 @@ DeleteFile(backupUddiFile, log);
                <urn3:displayName>Use or disclosure of Psychotherapy Notes</urn3:displayName>
                <urn3:originalText>Use or disclosure of Psychotherapy Notes</urn3:originalText>
             </urn3:purposeOfDisclosureCoded>
-            <urn3:claimFormRef>Ref-Clm-123</urn3:claimFormRef>
-            <urn3:claimFormRaw>YWVvbGlhbQ==</urn3:claimFormRaw>
+            <!-- urn3:claimFormRef>Ref-Clm-123</urn3:claimFormRef -->
+            <!-- urn3:claimFormRaw>YWVvbGlhbQ==</urn3:claimFormRaw -->
             <urn3:samlAuthnStatement xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <urn3:authInstant>2009-04-16T13:15:39Z</urn3:authInstant>
                <urn3:sessionIndex>987</urn3:sessionIndex>
@@ -4092,7 +4092,7 @@ DeleteFile(backupUddiFile, log);
                <urn3:subjectLocalityAddress>158.147.185.168</urn3:subjectLocalityAddress>
                <urn3:subjectLocalityDNSName>cs.myharris.net</urn3:subjectLocalityDNSName>
             </urn3:samlAuthnStatement>
-         <!--   <urn3:samlAuthzDecisionStatement xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+         <urn3:samlAuthzDecisionStatement xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <urn3:decision>Permit</urn3:decision>
                <urn3:resource>https://158.147.185.168:8181/SamlReceiveService/SamlProcessWS</urn3:resource>
                <urn3:action>TestSaml</urn3:action>
@@ -4111,7 +4111,7 @@ DeleteFile(backupUddiFile, log);
                      <urn3:instanceAccessConsentPolicy>urn:oid:1.2.3.4.123456789</urn3:instanceAccessConsentPolicy>
                   </urn3:assertion>
                </urn3:evidence>
-            </urn3:samlAuthzDecisionStatement> -->
+            </urn3:samlAuthzDecisionStatement>
          </urn:assertion>
          <urn:NhinTargetCommunities>
             <urn3:nhinTargetCommunity>
