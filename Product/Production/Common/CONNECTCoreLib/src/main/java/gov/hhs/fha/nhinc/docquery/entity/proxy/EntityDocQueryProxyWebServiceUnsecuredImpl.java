@@ -29,11 +29,13 @@ package gov.hhs.fha.nhinc.docquery.entity.proxy;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayQueryRequestType;
+import gov.hhs.fha.nhinc.docquery.entity.proxy.description.EntityDocQueryServicePortDescriptor;
 import gov.hhs.fha.nhinc.entitydocquery.EntityDocQueryPortType;
+import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
+import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
+import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
-import javax.xml.namespace.QName;
-import javax.xml.ws.Service;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 import org.apache.commons.logging.Log;
@@ -41,12 +43,7 @@ import org.apache.commons.logging.LogFactory;
 
 public class EntityDocQueryProxyWebServiceUnsecuredImpl implements EntityDocQueryProxy {
     private Log log = null;
-    private static Service cachedService = null;
-    private static final String NAMESPACE_URI = "urn:gov:hhs:fha:nhinc:entitydocquery";
-    private static final String SERVICE_LOCAL_PART = "EntityDocQuery";
-    private static final String PORT_LOCAL_PART = "EntityDocQueryPortSoap";
-    private static final String WSDL_FILE = "EntityDocQuery.wsdl";
-    private static final String WS_ADDRESSING_ACTION = "urn:gov:hhs:fha:nhinc:entitydocquery:RespondingGateway_CrossGatewayQueryRequest";
+
     private WebServiceProxyHelper oProxyHelper = null;
 
     public EntityDocQueryProxyWebServiceUnsecuredImpl() {
@@ -62,42 +59,14 @@ public class EntityDocQueryProxyWebServiceUnsecuredImpl implements EntityDocQuer
         return new WebServiceProxyHelper();
     }
 
-    /**
-     * This method retrieves and initializes the port.
-     * 
-     * @param url The URL for the web service.
-     * @return The port object for the web service.
-     */
-    protected EntityDocQueryPortType getPort(String url, String serviceAction, String wsAddressingAction,
-            AssertionType assertion) {
-        EntityDocQueryPortType port = null;
-        Service service = getService();
-        if (service != null) {
-            log.debug("Obtained service - creating port.");
-
-            port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), EntityDocQueryPortType.class);
-            oProxyHelper
-                    .initializeUnsecurePort((javax.xml.ws.BindingProvider) port, url, wsAddressingAction, assertion);
-        } else {
-            log.error("Unable to obtain serivce - no port created.");
+    public ServicePortDescriptor<EntityDocQueryPortType> getServicePortDescriptor(
+            NhincConstants.ADAPTER_API_LEVEL apiLevel) {
+        switch (apiLevel) {
+        case LEVEL_a0:
+            return new EntityDocQueryServicePortDescriptor();
+        default:
+            return new EntityDocQueryServicePortDescriptor();
         }
-        return port;
-    }
-
-    /**
-     * Retrieve the service class for this web service.
-     * 
-     * @return The service class for this web service.
-     */
-    protected Service getService() {
-        if (cachedService == null) {
-            try {
-                cachedService = oProxyHelper.createService(WSDL_FILE, NAMESPACE_URI, SERVICE_LOCAL_PART);
-            } catch (Throwable t) {
-                log.error("Error creating service: " + t.getMessage(), t);
-            }
-        }
-        return cachedService;
     }
 
     public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest msg, AssertionType assertion,
@@ -107,7 +76,6 @@ public class EntityDocQueryProxyWebServiceUnsecuredImpl implements EntityDocQuer
 
         try {
             String url = oProxyHelper.getUrlLocalHomeCommunity(NhincConstants.ENTITY_DOC_QUERY_PROXY_SERVICE_NAME);
-            EntityDocQueryPortType port = getPort(url, NhincConstants.DOC_QUERY_ACTION, WS_ADDRESSING_ACTION, assertion);
 
             if (msg == null) {
                 log.error("Message was null");
@@ -115,15 +83,18 @@ public class EntityDocQueryProxyWebServiceUnsecuredImpl implements EntityDocQuer
                 log.error("assertion was null");
             } else if (targets == null) {
                 log.error("targets was null");
-            } else if (port == null) {
-                log.error("port was null");
             } else {
+                ServicePortDescriptor<EntityDocQueryPortType> portDescriptor = getServicePortDescriptor(NhincConstants.ADAPTER_API_LEVEL.LEVEL_a0);
+
+                CONNECTClient<EntityDocQueryPortType> client = CONNECTClientFactory.getInstance()
+                        .getCONNECTClientSecured(portDescriptor, url, assertion);
+
                 RespondingGatewayCrossGatewayQueryRequestType request = new RespondingGatewayCrossGatewayQueryRequestType();
                 request.setAdhocQueryRequest(msg);
                 request.setAssertion(assertion);
                 request.setNhinTargetCommunities(targets);
 
-                response = (AdhocQueryResponse) oProxyHelper.invokePort(port, EntityDocQueryPortType.class,
+                response = (AdhocQueryResponse) client.invokePort(EntityDocQueryPortType.class,
                         "respondingGatewayCrossGatewayQuery", request);
             }
         } catch (Exception ex) {
