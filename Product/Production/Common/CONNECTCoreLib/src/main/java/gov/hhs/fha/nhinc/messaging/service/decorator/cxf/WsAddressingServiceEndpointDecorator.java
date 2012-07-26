@@ -36,6 +36,7 @@ import org.apache.cxf.ws.addressing.impl.AddressingPropertiesImpl;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.messaging.service.ServiceEndpoint;
 import gov.hhs.fha.nhinc.messaging.service.decorator.ServiceEndpointDecorator;
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.wsa.WSAHeaderHelper;
 
 import org.apache.cxf.ws.addressing.AttributedURIType;
@@ -92,16 +93,14 @@ public class WsAddressingServiceEndpointDecorator<T> extends ServiceEndpointDeco
             sRelatesTo = s;
             break;
         }
-        String sMessageId = assertion.getMessageId();
+        String sMessageId = getMessageId();
         
-        WSAHeaderHelper wsaHelper = new WSAHeaderHelper();
-        sRelatesTo = wsaHelper.addUrnUuid(sRelatesTo);
-        sMessageId = wsaHelper.addUrnUuid(sMessageId);
-        
-        RelatesToType relatesTo = new RelatesToType();
-        log.debug("Setting wsa:RelatesTo - " + sRelatesTo);
-        relatesTo.setValue(sRelatesTo);
-        maps.setRelatesTo(relatesTo);
+        if (sRelatesTo != null) {
+            RelatesToType relatesTo = new RelatesToType();
+            log.debug("Setting wsa:RelatesTo - " + sRelatesTo);
+            relatesTo.setValue(sRelatesTo);
+            maps.setRelatesTo(relatesTo);
+        }
         
         AttributedURIType messageId = new AttributedURIType();
         log.debug("Setting wsa:MessageId - " + sMessageId);
@@ -115,7 +114,37 @@ public class WsAddressingServiceEndpointDecorator<T> extends ServiceEndpointDeco
     protected Log createLogger() {
         return LogFactory.getLog(getClass());
     }
+    
+    /**
+     * This method retrieves the message identifier stored in the assertion If the message ID is null or empty, this
+     * method will generate a new UUID to use for the message ID.  This will also modify the assertion to contain the
+     * new id if necessary.
+     * 
+     * @return The message identifier
+     */
+    private String getMessageId() {
+        WSAHeaderHelper wsaHelper = new WSAHeaderHelper();
         
+        String messageId = null;
+        if (assertion != null) {
+            messageId = assertion.getMessageId();
+        }
+             
+        if (NullChecker.isNullish(messageId)) {          
+            messageId = wsaHelper.generateMessageID();
+            log.warn("Assertion did not contain a message ID.  Generating one now...  Message ID = " + messageId);
+        } else {
+            messageId = wsaHelper.fixMessageIDPrefix(messageId);
+        }
+        
+        if (assertion != null) {
+            assertion.setMessageId(messageId);
+        }
+        
+        return messageId;
+    }
+    
+
     
     
 
