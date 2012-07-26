@@ -31,6 +31,10 @@ import javax.xml.ws.BindingProvider;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.cxf.endpoint.Client;
+import org.apache.cxf.frontend.ClientProxy;
+import org.apache.cxf.transport.http.HTTPConduit;
+import org.apache.cxf.transports.http.configuration.HTTPClientPolicy;
 import org.apache.cxf.ws.addressing.impl.AddressingPropertiesImpl;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
@@ -50,7 +54,7 @@ import org.apache.cxf.ws.addressing.RelatesToType;
 public class WsAddressingServiceEndpointDecorator<T> extends ServiceEndpointDecorator<T> {
 
     private Log log = null;
-    
+
     private BindingProvider bindingProviderPort;
     private AddressingPropertiesImpl maps;
     private AssertionType assertion;
@@ -66,22 +70,23 @@ public class WsAddressingServiceEndpointDecorator<T> extends ServiceEndpointDeco
             String wsAddressingAction, AssertionType assertion) {
         super(decoratoredEndpoint);
         log = createLogger();
-        
+
         this.bindingProviderPort = (BindingProvider) decoratedEndpoint.getPort();
-        
+        this.assertion = assertion;
+
         maps = new AddressingPropertiesImpl();
-        
+
         AttributedURIType to = new AttributedURIType();
         log.debug("Setting wsa:To - " + url);
         to.setValue(url);
         maps.setTo(to);
-        
+
         AttributedURIType action = new AttributedURIType();
         log.debug("Setting wsa:Action - " + wsAddressingAction);
         action.setValue(wsAddressingAction);
         maps.setAction(action);
-        
-        this.assertion = assertion;
+
+        setContentTypeInHTTPHeader();
     }
 
     @Override
@@ -89,63 +94,92 @@ public class WsAddressingServiceEndpointDecorator<T> extends ServiceEndpointDeco
         super.configure();
 
         String sRelatesTo = null;
-        for (String s: assertion.getRelatesToList()) {
+        for (String s : assertion.getRelatesToList()) {
             sRelatesTo = s;
             break;
         }
         String sMessageId = getMessageId();
-        
+
         if (sRelatesTo != null) {
             RelatesToType relatesTo = new RelatesToType();
             log.debug("Setting wsa:RelatesTo - " + sRelatesTo);
             relatesTo.setValue(sRelatesTo);
             maps.setRelatesTo(relatesTo);
         }
-        
+
         AttributedURIType messageId = new AttributedURIType();
         log.debug("Setting wsa:MessageId - " + sMessageId);
         messageId.setValue(sMessageId);
         maps.setMessageID(messageId);
-        
+
         log.debug("Setting wsa attributes on the request context.");
         bindingProviderPort.getRequestContext().put(JAXWSAConstants.CLIENT_ADDRESSING_PROPERTIES, maps);
     }
-    
+
     protected Log createLogger() {
         return LogFactory.getLog(getClass());
     }
-    
+
+    /**
+     * Sets the content type in the HTTP header. It will create one if needed as leaving it empty will cause CXF to
+     * automatically generates it with an action parameter that will cause problems. As the action parameter is optional
+     * for Soap 1.2, we will ensure that it is not included.
+     */
+    private void setContentTypeInHTTPHeader() {
+        Client client = ClientProxy.getClient(getPort());
+        HTTPConduit conduit = (HTTPConduit) client.getConduit();
+        HTTPClientPolicy httpClientPolicy = conduit.getClient();
+
+        String contentType = httpClientPolicy.getContentType();
+        if (NullChecker.isNullish(contentType)) {
+            contentType = "application/soap+xml; charset=UTF-8";
+        } else {
+            contentType = removeActionFromContentType(contentType);
+        }
+
+        httpClientPolicy.setContentType(contentType);
+    }
+
+    private String removeActionFromContentType(String contentType) {
+        String[] contentTypeValues = contentType.split(";");
+
+        String newContentType = "";
+        for (int i = 0; i < contentTypeValues.length; i++) {
+            if (!contentTypeValues[i].trim().startsWith("action")) {
+                newContentType = contentType.concat(contentTypeValues[i]);
+            }
+        }
+
+        return newContentType;
+    }
+
     /**
      * This method retrieves the message identifier stored in the assertion If the message ID is null or empty, this
-     * method will generate a new UUID to use for the message ID.  This will also modify the assertion to contain the
-     * new id if necessary.
+     * method will generate a new UUID to use for the message ID. This will also modify the assertion to contain the new
+     * id if necessary.
      * 
      * @return The message identifier
      */
     private String getMessageId() {
         WSAHeaderHelper wsaHelper = new WSAHeaderHelper();
-        
+
         String messageId = null;
         if (assertion != null) {
             messageId = assertion.getMessageId();
         }
-             
-        if (NullChecker.isNullish(messageId)) {          
+
+        if (NullChecker.isNullish(messageId)) {
             messageId = wsaHelper.generateMessageID();
             log.warn("Assertion did not contain a message ID.  Generating one now...  Message ID = " + messageId);
         } else {
             messageId = wsaHelper.fixMessageIDPrefix(messageId);
         }
-        
+
         if (assertion != null) {
             assertion.setMessageId(messageId);
         }
-        
+
         return messageId;
     }
-    
-
-    
-    
 
 }
