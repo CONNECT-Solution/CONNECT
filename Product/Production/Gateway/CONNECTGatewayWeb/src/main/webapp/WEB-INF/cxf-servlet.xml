@@ -15,6 +15,7 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
 
     <import resource="classpath:CONNECT-interceptor-beans.xml" />
 
+    <!-- Audit Services -->
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository" id="AuditRepositoryManagerUnsecured"
         address="/GatewayService/AuditRepositoryManagerService" serviceName="tns:AuditRepositoryManagerService"
         endpointName="tns:AuditRepositoryManagerPort" implementor="gov.hhs.fha.nhinc.auditrepository.nhinc.AuditRepositoryUnsecured"
@@ -31,12 +32,33 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
             <entry key="ws-security.signature.properties" value="keystore.properties" />
             <entry key="ws-security.encryption.properties" value="truststore.properties" />
         </jaxws:properties>
+        
         <jaxws:inInterceptors>
             <ref bean="securityInInterceptor" />
         </jaxws:inInterceptors>
+    </jaxws:endpoint>
+    
+    <!-- Patient Correlation Services -->
+    <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpatientcorrelation" id="PatientCorrelationUnsecured"
+        address="/GatewayService/PatientCorrelationServiceUnsecured" serviceName="tns:PatientCorrelationService"
+        endpointName="tns:PatientCorrelationPort" implementor="gov.hhs.fha.nhinc.patientcorrelation.nhinc.PatientCorrelationServiceUnsecured"
+        wsdlLocation="/WEB-INF/wsdl/PatientCorrelationServiceUnsecured/NhincComponentPatientCorrelation.wsdl">
+    </jaxws:endpoint>
 
-        <!-- <jaxws:handlers> <ref bean="SOAPHeaderHandler" /> </jaxws:handlers> -->
+    <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpatientcorrelation" id="PatientCorrelationSecured"
+        address="/GatewayService/PatientCorrelationServiceSecured" serviceName="tns:PatientCorrelationServiceSecured"
+        endpointName="tns:PatientCorrelationSecuredPort" implementor="gov.hhs.fha.nhinc.patientcorrelation.nhinc.PatientCorrelationServiceSecured"
+        wsdlLocation="/WEB-INF/wsdl/PatientCorrelationServiceSecured/NhincComponentPatientCorrelationSecured.wsdl">
 
+        <jaxws:properties>
+            <entry key="ws-security.callback-handler" value="gov.hhs.fha.nhinc.callback.cxf.CXFSAMLCallbackHandler" />
+            <entry key="ws-security.signature.properties" value="keystore.properties" />
+            <entry key="ws-security.encryption.properties" value="truststore.properties" />
+        </jaxws:properties>
+        
+        <jaxws:inInterceptors>
+            <ref bean="securityInInterceptor" />
+        </jaxws:inInterceptors>
     </jaxws:endpoint>
 
     <bean id="SOAPHeaderHandler" class="gov.hhs.fha.nhinc.callback.SOAPHeaderHandler" />

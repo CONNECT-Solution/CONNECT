@@ -53,8 +53,8 @@
         <name>DocumentQuery_20</name>
         <directory>/Production/Gateway/DocumentQuery_20</directory>
         <dist.type>war</dist.type>
-        <should.build>false</should.build>
-        <should.deploy>false</should.deploy>
+        <should.build>true</should.build>
+        <should.deploy>true</should.deploy>
     </project>
     <project>
         <name>DocumentSubmission_11</name>
@@ -81,8 +81,8 @@
         <name>DocumentQuery_a0</name>
         <directory>/Production/Adapters/DocumentQuery_a0</directory>
         <dist.type>war</dist.type>
-        <should.build>false</should.build>
-        <should.deploy>false</should.deploy>
+        <should.build>true</should.build>
+        <should.deploy>true</should.deploy>
     </project>
     <project>
         <name>DocumentRetrieve_20</name>
