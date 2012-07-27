@@ -33,7 +33,7 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
  * @author zmelnick
  *
  */
-public abstract class OrchestrationContextFactory {
+public abstract class AbstractOrchestrationContextFactory {
 
     public abstract OrchestrationContextBuilder getBuilder(HomeCommunityType homeCommunityType,
             NhincConstants.NHIN_SERVICE_NAMES serviceName);

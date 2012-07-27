@@ -4,26 +4,30 @@
     <property name="dist.type" value="war" />
     <property name="webtest.hasTests" value="false" />
     <property name="unittest.hasTests" value="true" />
-    <property name="deploy.isDeployable" value="true"/>
+    <property name="deploy.isDeployable" value="true" />
     <property name="deploy.type" value="war" />
     <property name="copy.wsdl.to.webinf" value="true" />
-	<property name="coverage.isneeded" value="false" />
-	
-	<!-- Please make sure that this goes up to the correct directory -->
+    <property name="coverage.isneeded" value="false" />
+
+    <!-- Please make sure that this goes up to the correct directory -->
     <import file="../../../build/build.targets.xml" />
 
     <path id="build.classpath">
         <fileset refid="classpath.compile" />
         <fileset refid="classpath.runtime" />
 
-		<!-- Add classes from other projects like so...-->
+        <!-- Add classes from other projects like so...-->
         <pathelement path="${project.CONNECTCommonTypesLib.build.classes.dir}" />
-		<pathelement path="${project.CONNECTCoreLib.build.classes.dir}" />
+        <pathelement path="${project.CONNECTCoreLib.build.classes.dir}" />
+        <pathelement path="${project.DocumentQueryCore.build.classes.dir}" />
     </path>
 
-	<!-- Add project dependencies here, these projects will be built first... -->
+    <!-- Add project dependencies here, these projects will be built first... -->
     <path id="build.project.dependencies">
         <filelist dir="${root.project.directory.path}">
+        </filelist>
+        <filelist dir="${root.project.directory.path}">
+            <file name="${project.DocumentQueryCore.build.file}" />
         </filelist>
     </path>
 
@@ -32,6 +36,7 @@
     <property name="core.lib" location="../../Common/CONNECTCoreLib/dist/debug" />
     <property name="common.lib" location="../../Common/CONNECTCommonTypesLib/dist/debug" />
     <property name="opensaml.home" location="../../../../ThirdParty/openSAML" />
+    <property name="core.docquery" location="../../Services/DocumentQuery/Core/DocumentQueryCore/dist/debug" />
 
     <path id="war.libs">
         <fileset dir="${cxf.home}">
@@ -78,5 +83,9 @@
         <filelist dir="${common.lib}">
             <file name="CONNECTCommonTypesLib.jar" />
         </filelist>
-	</path>
+
+        <filelist dir="${core.docquery}">
+            <file name="DocumentQueryCore.jar" />
+        </filelist>
+    </path>
 </project>

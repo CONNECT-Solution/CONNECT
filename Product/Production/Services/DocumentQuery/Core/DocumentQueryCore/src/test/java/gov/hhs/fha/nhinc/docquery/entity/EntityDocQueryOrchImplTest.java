@@ -1,55 +1,44 @@
 /**
- * 
+ *
  */
 package gov.hhs.fha.nhinc.docquery.entity;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertSame;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
-import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
-import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
-import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunityType;
-import gov.hhs.fha.nhinc.common.nhinccommon.QualifiedSubjectIdentifierType;
-import gov.hhs.fha.nhinc.gateway.aggregator.document.DocumentConstants;
-import gov.hhs.fha.nhinc.gateway.executorservice.NhinCallableRequest;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants.NHIN_SERVICE_NAMES;
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayQuerySecuredRequestType;
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
-import gov.hhs.fha.nhinc.connectmgr.UrlInfo;
-import gov.hhs.fha.nhinc.docquery.DocQueryAuditLog;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.hl7.v3.PRPAIN201306UV02;
-import org.junit.Test;
+import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
+import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
+import oasis.names.tc.ebxml_regrep.xsd.rim._3.AdhocQueryType;
+import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1;
+import oasis.names.tc.ebxml_regrep.xsd.rim._3.ValueListType;
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
 
+import org.apache.commons.logging.Log;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JUnit4Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
+import org.junit.Test;
 
-import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
-import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
-import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
-import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
-import oasis.names.tc.ebxml_regrep.xsd.rim._3.AdhocQueryType;
-import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryObjectListType;
-import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1;
-import oasis.names.tc.ebxml_regrep.xsd.rim._3.ValueListType;
-
-import org.hl7.v3.*;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunityType;
+import gov.hhs.fha.nhinc.common.nhinccommon.QualifiedSubjectIdentifierType;
+import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayQuerySecuredRequestType;
+import gov.hhs.fha.nhinc.connectmgr.UrlInfo;
+import gov.hhs.fha.nhinc.docquery.DocQueryAuditLog;
+import gov.hhs.fha.nhinc.gateway.aggregator.document.DocumentConstants;
+import gov.hhs.fha.nhinc.gateway.executorservice.NhinCallableRequest;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants.NHIN_SERVICE_NAMES;
 
 /**
  * @author achidamb
- * 
- * 
+ *
+ *
  */
 public class EntityDocQueryOrchImplTest {
 
@@ -143,13 +132,14 @@ public class EntityDocQueryOrchImplTest {
             context.checking(new Expectations() {
                 {
                     allowing(mockLog).debug(with(any(String.class)));
+                    allowing(mockLog).error(with(any(String.class)));
                 }
             });
             response = entitydocqueryimpl.respondingGatewayCrossGatewayQuery(adhocQueryRequest, assertion,
                     createNhinTargetCommunites());
 
         } catch (Exception e) {
-            mockLog.error("Received Error Response");
+            e.printStackTrace();
         }
         assertSame(response.getStatus(), DocumentConstants.XDS_QUERY_RESPONSE_STATUS_FAILURE);
 
@@ -212,8 +202,9 @@ public class EntityDocQueryOrchImplTest {
 
                 if (callableList.size() > 0) {
                     response.setStatus(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_SUCCESS);
-                } else
+                } else {
                     response.setStatus(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_FAILURE);
+                }
                 return response;
             }
 
@@ -267,6 +258,7 @@ public class EntityDocQueryOrchImplTest {
             context.checking(new Expectations() {
                 {
                     allowing(mockLog).debug(with(any(String.class)));
+                    allowing(mockLog).error(with(any(String.class)));
                 }
             });
 
@@ -274,7 +266,7 @@ public class EntityDocQueryOrchImplTest {
                     createNhinTargetCommunitesForMultipleTargets());
 
         } catch (Exception e) {
-            mockLog.error("Received Error Response");
+            e.printStackTrace();
         }
         assertSame(response.getStatus(), DocumentConstants.XDS_QUERY_RESPONSE_STATUS_PARTIALSUCCESS);
 

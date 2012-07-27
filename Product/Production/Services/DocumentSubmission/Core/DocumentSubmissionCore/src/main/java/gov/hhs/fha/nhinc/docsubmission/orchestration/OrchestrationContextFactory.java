@@ -33,20 +33,20 @@ import gov.hhs.fha.nhinc.docsubmission.entity.deferred.request.OutboundDocSubmis
 import gov.hhs.fha.nhinc.docsubmission.entity.deferred.response.OutboundDocSubmissionDeferredResponseFactory;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.orchestration.OrchestrationContextBuilder;
-import gov.hhs.fha.nhinc.orchestration.OrchestrationContextFactory;
+import gov.hhs.fha.nhinc.orchestration.AbstractOrchestrationContextFactory;
 
 /**
  * @author zmelnick
  *
  */
-public class OrchestrationContextFactory_DS extends OrchestrationContextFactory {
+public class OrchestrationContextFactory extends AbstractOrchestrationContextFactory {
 
-    private static OrchestrationContextFactory_DS INSTANCE = new OrchestrationContextFactory_DS();
+    private static OrchestrationContextFactory INSTANCE = new OrchestrationContextFactory();
 
-    private OrchestrationContextFactory_DS() {
+    private OrchestrationContextFactory() {
     }
 
-    public static OrchestrationContextFactory_DS getInstance() {
+    public static OrchestrationContextFactory getInstance() {
         return INSTANCE;
     }
 

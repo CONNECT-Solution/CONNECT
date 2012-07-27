@@ -41,7 +41,7 @@ import org.junit.Test;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
-import gov.hhs.fha.nhinc.docsubmission.orchestration.OrchestrationContextFactory_DS;
+import gov.hhs.fha.nhinc.docsubmission.orchestration.OrchestrationContextFactory;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.orchestration.Orchestratable;
 import gov.hhs.fha.nhinc.orchestration.OrchestrationContext;
@@ -64,7 +64,7 @@ public class OutboundDocSubmissionDeferredRequestDelegateTest {
     private static final String RESPONSE_ID_G1 = "g1";
 
     private final Log mockLog = context.mock(Log.class);
-    private final OrchestrationContextFactory_DS mockContextFactory = context.mock(OrchestrationContextFactory_DS.class);
+    private final OrchestrationContextFactory mockContextFactory = context.mock(OrchestrationContextFactory.class);
     private final OrchestrationContext mockOrchestrationContext = context.mock(OrchestrationContext.class);
 
     @Test
@@ -268,7 +268,7 @@ public class OutboundDocSubmissionDeferredRequestDelegateTest {
                 return mockLog;
             }
 
-            protected OrchestrationContextFactory_DS getOrchestrationContextFactory() {
+            protected OrchestrationContextFactory getOrchestrationContextFactory() {
                 return mockContextFactory;
             }
         };
