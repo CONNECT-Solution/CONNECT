@@ -27,6 +27,8 @@
 
 package gov.hhs.fha.nhinc.messaging.client;
 
+import java.util.HashMap;
+
 import gov.hhs.fha.nhinc.messaging.client.CONNECTCXFClientUnsecured;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
@@ -38,14 +40,45 @@ import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
  */
 public class CONNECTCXFClientFactory extends CONNECTClientFactory {
 
+    private static HashMap<String, Object> clientHashMap = new HashMap<String, Object>();
+
     public <T> CONNECTClient<T> getCONNECTClientSecured(ServicePortDescriptor<T> portDescriptor, String url,
             AssertionType assertion) {
-        return new CONNECTCXFClientSecured<T>(portDescriptor, url, assertion);
+        CONNECTCXFClientSecured<T> client = new CONNECTCXFClientSecured<T>(portDescriptor, url, assertion);
+
+        preventCXFCacheGarbageCollection(portDescriptor.getWSDLFileName(), client);
+
+        return client;
     }
 
     public <T> CONNECTClient<T> getCONNECTClientUnsecured(ServicePortDescriptor<T> portDescriptor, String url,
             AssertionType assertion) {
-        return new CONNECTCXFClientUnsecured<T>(portDescriptor, url, assertion);
+        CONNECTCXFClientUnsecured<T> client = new CONNECTCXFClientUnsecured<T>(portDescriptor, url, assertion);
+
+        preventCXFCacheGarbageCollection(portDescriptor.getWSDLFileName(), client);
+
+        return client;
+    }
+
+    /**
+     * This method is a performance tweak for CXF to prevent JABContext from being recreated at each call as they can be
+     * expensive.
+     * 
+     * It does this by keeping a static reference to all first instances of a client. The reason why we are storing them
+     * is to prevent cxf's caching of JAXBContext to be garbage collected. CXF's caching mechanism
+     * (org.apache.cxf.common.jaxb.JAXBContextCache) stores the context as WeakReferences which allow for garbage
+     * collection, and during runs, these contexts seems to be collected almost immediately. By keeping a live reference
+     * through a static hashmap, we ensure that these context will not be collected.
+     * 
+     * Do NOT reuse the clients stored here as they are not thread-safe.
+     * 
+     * @param wsdl
+     * @param client
+     */
+    private void preventCXFCacheGarbageCollection(String wsdl, Object client) {
+        if (!clientHashMap.containsKey(wsdl)) {
+            clientHashMap.put(wsdl, client);
+        }
     }
 
 }
