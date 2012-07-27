@@ -29,7 +29,7 @@ package gov.hhs.fha.nhinc.docsubmission.entity;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import gov.hhs.fha.nhinc.docsubmission.orchestration.OrchestrationContextFactory_DS;
+import gov.hhs.fha.nhinc.docsubmission.orchestration.OrchestrationContextFactory;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.orchestration.Orchestratable;
 import gov.hhs.fha.nhinc.orchestration.OrchestrationContextBuilder;
@@ -75,8 +75,8 @@ public class OutboundDocSubmissionDelegate implements OutboundDelegate {
         return null;
     }
 
-    protected OrchestrationContextFactory_DS getOrchestrationContextFactory() {
-        return OrchestrationContextFactory_DS.getInstance();
+    protected OrchestrationContextFactory getOrchestrationContextFactory() {
+        return OrchestrationContextFactory.getInstance();
     }
 
     protected Log getLogger() {

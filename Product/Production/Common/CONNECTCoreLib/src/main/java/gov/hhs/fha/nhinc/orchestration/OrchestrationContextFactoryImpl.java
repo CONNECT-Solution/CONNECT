@@ -30,7 +30,6 @@ import gov.hhs.fha.nhinc.admindistribution.entity.OutboundAdminDistributionFacto
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.connectmgr.AdapterEndpointManager;
 import gov.hhs.fha.nhinc.connectmgr.NhinEndpointManager;
-import gov.hhs.fha.nhinc.docquery.entity.OutboundDocQueryFactory;
 import gov.hhs.fha.nhinc.docretrieve.entity.OutboundDocRetrieveFactory;
 import gov.hhs.fha.nhinc.docretrieve.nhin.InboundDocRetrieveFactory;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
@@ -38,7 +37,7 @@ import gov.hhs.fha.nhinc.patientdiscovery.entity.OutboundPatientDiscoveryFactory
 import gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.request.OutboundPatientDiscoveryDeferredRequestFactory;
 import gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.response.OutboundPatientDiscoveryDeferredResponseFactory;
 
-public class OrchestrationContextFactoryImpl extends OrchestrationContextFactory{
+public class OrchestrationContextFactoryImpl extends AbstractOrchestrationContextFactory{
 
     private static OrchestrationContextFactoryImpl INSTANCE = new OrchestrationContextFactoryImpl();
 
@@ -75,8 +74,6 @@ public class OrchestrationContextFactoryImpl extends OrchestrationContextFactory
         case PATIENT_DISCOVERY_DEFERRED_RESPONSE:
             return OutboundPatientDiscoveryDeferredResponseFactory.getInstance().createOrchestrationContextBuilder(
                     apiLevel);
-        case DOCUMENT_QUERY:
-            return OutboundDocQueryFactory.getInstance().createOrchestrationContextBuilder(apiLevel);
         case DOCUMENT_RETRIEVE:
             return OutboundDocRetrieveFactory.getInstance().createOrchestrationContextBuilder(apiLevel);
         case ADMINISTRATIVE_DISTRIBUTION:
