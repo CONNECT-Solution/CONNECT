@@ -65,7 +65,7 @@ public class AdapterComponentDocSubmissionRequestProxyNoOpImpl implements Adapte
      * @return The ACK
      */
     public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(ProvideAndRegisterDocumentSetRequestType body,
-            AssertionType assertion, String url) {
+            AssertionType assertion) {
 
         log.debug("Entering AdapterComponentDocSubmissionRequestProxyNoOpImpl.provideAndRegisterDocumentSetBRequest");
         return new XDRAcknowledgementType();

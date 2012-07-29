@@ -74,7 +74,7 @@ public class AdapterDocSubmissionDeferredRequestProxyWebServiceSecuredImpl imple
     }
 
     public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(
-            ProvideAndRegisterDocumentSetRequestType request, String url, AssertionType assertion) {
+            ProvideAndRegisterDocumentSetRequestType request, AssertionType assertion) {
         log.debug("Begin AdapterDocSubmissionDeferredRequestProxyWebServiceSecuredImpl.provideAndRegisterDocumentSetBRequest");
         XDRAcknowledgementType response = null;
         String serviceName = NhincConstants.ADAPTER_XDR_REQUEST_SECURED_SERVICE_NAME;

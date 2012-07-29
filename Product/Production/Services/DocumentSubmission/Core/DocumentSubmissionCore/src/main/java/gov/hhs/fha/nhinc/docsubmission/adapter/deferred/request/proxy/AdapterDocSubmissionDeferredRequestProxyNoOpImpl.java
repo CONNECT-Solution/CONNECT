@@ -51,7 +51,7 @@ public class AdapterDocSubmissionDeferredRequestProxyNoOpImpl implements Adapter
     }
 
     public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(ProvideAndRegisterDocumentSetRequestType body,
-            String url, AssertionType assertion) {
+            AssertionType assertion) {
         log.debug("Begin AdapterDocSubmissionDeferredRequestProxyNoOpImpl.provideAndRegisterDocumentSetBRequest");
 
         XDRAcknowledgementType ack = new XDRAcknowledgementType();

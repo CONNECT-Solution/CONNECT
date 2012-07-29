@@ -65,11 +65,9 @@ public class AdapterComponentXDRRequestImpl {
 
         AssertionType assertion = null;
         ProvideAndRegisterDocumentSetRequestType request = null;
-        String url = "";
         if (body != null) {
             request = body.getProvideAndRegisterDocumentSetRequest();
             assertion = body.getAssertion();
-            url = body.getUrl();
         }
 
         // Load any information from the web service context into the assertion.
@@ -77,7 +75,7 @@ public class AdapterComponentXDRRequestImpl {
         loadAssertion(context, assertion);
 
         AdapterComponentDocSubmissionRequestOrchImpl oOrchestrator = new AdapterComponentDocSubmissionRequestOrchImpl();
-        XDRAcknowledgementType response = oOrchestrator.provideAndRegisterDocumentSetBRequest(request, assertion, url);
+        XDRAcknowledgementType response = oOrchestrator.provideAndRegisterDocumentSetBRequest(request, assertion);
 
         // Send response back to the initiating Gateway
         log.debug("Exiting AdapterComponentXDRRequestImpl.provideAndRegisterDocumentSetBRequest");
