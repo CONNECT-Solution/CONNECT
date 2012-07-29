@@ -178,7 +178,7 @@ public class AdapterDocSubmissionDeferredRequestProxyWebServiceSecuredImplTest {
         ProvideAndRegisterDocumentSetRequestType iheMsg = new ProvideAndRegisterDocumentSetRequestType();
         AssertionType assertion = new AssertionType();
         XDRAcknowledgementType result = adapterXDRRequestWebServiceProxy.provideAndRegisterDocumentSetBRequest(iheMsg,
-                null, assertion);
+                assertion);
         assertEquals(NhincConstants.XDR_ACK_STATUS_MSG, result.getMessage().getStatus());
     }
 
@@ -264,7 +264,7 @@ public class AdapterDocSubmissionDeferredRequestProxyWebServiceSecuredImplTest {
         ProvideAndRegisterDocumentSetRequestType iheMsg = new ProvideAndRegisterDocumentSetRequestType();
         AssertionType assertion = new AssertionType();
         XDRAcknowledgementType result = adapterXDRRequestWebServiceProxy.provideAndRegisterDocumentSetBRequest(iheMsg,
-                null, assertion);
+                assertion);
         assertEquals(NhincConstants.XDR_ACK_STATUS_MSG, result.getMessage().getStatus());
     }
 }

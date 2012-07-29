@@ -49,10 +49,10 @@ public class AdapterDocSubmissionDeferredRequestProxyJavaImpl implements Adapter
     }
 
     public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(
-            ProvideAndRegisterDocumentSetRequestType request, String url, AssertionType assertion) {
+            ProvideAndRegisterDocumentSetRequestType request, AssertionType assertion) {
         log.debug("Begin AdapterDocSubmissionDeferredRequestProxyJavaImpl.provideAndRegisterDocumentSetBRequest");
         XDRAcknowledgementType response = new AdapterDocSubmissionDeferredRequestOrchImpl()
-                .provideAndRegisterDocumentSetBRequest(request, url, assertion);
+                .provideAndRegisterDocumentSetBRequest(request, assertion);
 
         log.debug("End AdapterDocSubmissionDeferredRequestProxyJavaImpl.provideAndRegisterDocumentSetBRequest");
         return response;

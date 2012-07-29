@@ -51,14 +51,14 @@ public class AdapterDocSubmissionDeferredRequestOrchImpl {
     }
 
     public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(ProvideAndRegisterDocumentSetRequestType body,
-            String url, AssertionType assertion) {
+            AssertionType assertion) {
         log.debug("Begin AdapterDocSubmissionDeferredRequestOrchImpl.provideAndRegisterDocumentSetBRequest");
 
         XDRAcknowledgementType ack = null;
 
         AdapterComponentDocSubmissionRequestProxyObjectFactory oFactory = new AdapterComponentDocSubmissionRequestProxyObjectFactory();
         AdapterComponentDocSubmissionRequestProxy oProxy = oFactory.getAdapterComponentDocSubmissionRequestProxy();
-        ack = oProxy.provideAndRegisterDocumentSetBRequest(body, assertion, url);
+        ack = oProxy.provideAndRegisterDocumentSetBRequest(body, assertion);
 
         log.debug("End AdapterDocSubmissionDeferredRequestOrchImpl.provideAndRegisterDocumentSetBRequest");
         return ack;

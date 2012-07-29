@@ -36,5 +36,5 @@ import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
  */
 public interface AdapterDocSubmissionDeferredRequestProxy {
     public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(ProvideAndRegisterDocumentSetRequestType body,
-            String url, AssertionType assertion);
+            AssertionType assertion);
 }
