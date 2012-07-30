@@ -67,11 +67,11 @@ public class AdapterComponentDocSubmissionRequestProxyJavaImpl implements Adapte
      * @return The ACK
      */
     public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(ProvideAndRegisterDocumentSetRequestType body,
-            AssertionType assertion, String url) {
+            AssertionType assertion) {
         log.debug("Entering AdapterComponentDocSubmissionRequestProxyJavaImpl.provideAndRegisterDocumentSetBRequest");
         AdapterComponentDocSubmissionRequestOrchImpl oOrchestrator = new AdapterComponentDocSubmissionRequestOrchImpl();
         log.debug("Leaving AdapterComponentDocSubmissionRequestProxyJavaImpl.provideAndRegisterDocumentSetBRequest");
-        return oOrchestrator.provideAndRegisterDocumentSetBRequest(body, assertion, url);
+        return oOrchestrator.provideAndRegisterDocumentSetBRequest(body, assertion);
 
     }
 }

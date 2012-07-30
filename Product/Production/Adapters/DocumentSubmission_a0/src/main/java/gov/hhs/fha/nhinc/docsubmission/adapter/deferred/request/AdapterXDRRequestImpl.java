@@ -29,7 +29,7 @@ package gov.hhs.fha.nhinc.docsubmission.adapter.deferred.request;
 import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterProvideAndRegisterDocumentSetRequestType;
-import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
+import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import javax.xml.ws.WebServiceContext;
@@ -66,7 +66,7 @@ public class AdapterXDRRequestImpl {
         }
         assertion = getAssertion(context, assertion);
 
-        response = provideAndRegisterDocumentSetBRequest(request, url, assertion);
+        response = provideAndRegisterDocumentSetBRequest(request, assertion);
         log.debug("End AdapterXDRRequestImpl.provideAndRegisterDocumentSetBRequest(unsecure)");
         return response;
     }
@@ -78,15 +78,13 @@ public class AdapterXDRRequestImpl {
         XDRAcknowledgementType response = null;
 
         ProvideAndRegisterDocumentSetRequestType request = null;
-        String url = null;
         AssertionType assertion = null;
         if (body != null) {
             request = body.getProvideAndRegisterDocumentSetRequest();
-            url = body.getUrl();
         }
         assertion = getAssertion(context, assertion);
 
-        response = provideAndRegisterDocumentSetBRequest(request, url, assertion);
+        response = provideAndRegisterDocumentSetBRequest(request, assertion);
         log.debug("End AdapterXDRRequestImpl.provideAndRegisterDocumentSetBRequest(secure)");
         return response;
     }
@@ -94,7 +92,7 @@ public class AdapterXDRRequestImpl {
     protected AssertionType getAssertion(WebServiceContext context, AssertionType oAssertionIn) {
         AssertionType assertion = null;
         if (oAssertionIn == null) {
-            assertion = SamlTokenExtractor.GetAssertion(context);
+            assertion = new SAML2AssertionExtractor().extractSamlAssertion(context);
         } else {
             assertion = oAssertionIn;
         }
@@ -107,8 +105,8 @@ public class AdapterXDRRequestImpl {
     }
 
     protected XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(
-            ProvideAndRegisterDocumentSetRequestType request, String url, AssertionType assertion) {
-        return new AdapterDocSubmissionDeferredRequestOrchImpl().provideAndRegisterDocumentSetBRequest(request, url,
+            ProvideAndRegisterDocumentSetRequestType request, AssertionType assertion) {
+        return new AdapterDocSubmissionDeferredRequestOrchImpl().provideAndRegisterDocumentSetBRequest(request,
                 assertion);
     }
 }

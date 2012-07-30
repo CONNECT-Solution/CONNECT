@@ -98,7 +98,7 @@ public class NhinDocSubmissionDeferredRequestOrchImpl {
             AssertionType assertion) {
         
         AdapterDocSubmissionDeferredRequestProxy proxy = getAdapterDocSubmissionDeferredRequestProxy();
-        XDRAcknowledgementType response = proxy.provideAndRegisterDocumentSetBRequest(body, null, assertion);
+        XDRAcknowledgementType response = proxy.provideAndRegisterDocumentSetBRequest(body, assertion);
 
         return response;
     }

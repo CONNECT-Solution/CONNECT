@@ -42,9 +42,8 @@ public interface AdapterComponentDocSubmissionRequestProxy {
      * 
      * @param body The doc submission message.
      * @param assertion The assertion information.
-     * @param url
      * @return The ACK
      */
     public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(ProvideAndRegisterDocumentSetRequestType body,
-            AssertionType assertion, String url);
+            AssertionType assertion);
 }

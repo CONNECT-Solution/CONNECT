@@ -53,7 +53,7 @@ public class AdapterComponentDocSubmissionRequestOrchImpl {
      */
     // This is a dummy adapter - ignoring the URL parameter in interest of not updating the interface
     public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(ProvideAndRegisterDocumentSetRequestType body,
-            AssertionType assertion, String url) {
+            AssertionType assertion) {
         log.debug("Entering AdapterComponentXDRRequestOrchImpl.provideAndRegisterDocumentSetBRequest");
         XDRAcknowledgementType response = new XDRAcknowledgementType();
         RegistryResponseType regResp = new RegistryResponseType();

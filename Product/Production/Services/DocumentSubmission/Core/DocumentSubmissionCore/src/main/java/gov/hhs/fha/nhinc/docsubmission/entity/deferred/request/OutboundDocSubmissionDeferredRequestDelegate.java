@@ -30,7 +30,7 @@ package gov.hhs.fha.nhinc.docsubmission.entity.deferred.request;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import gov.hhs.fha.nhinc.docsubmission.orchestration.OrchestrationContextFactory_DS;
+import gov.hhs.fha.nhinc.docsubmission.orchestration.OrchestrationContextFactory;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.orchestration.Orchestratable;
 import gov.hhs.fha.nhinc.orchestration.OrchestrationContextBuilder;
@@ -79,8 +79,8 @@ public class OutboundDocSubmissionDeferredRequestDelegate implements OutboundDel
         return log;
     }
 
-    protected OrchestrationContextFactory_DS getOrchestrationContextFactory() {
-        return OrchestrationContextFactory_DS.getInstance();
+    protected OrchestrationContextFactory getOrchestrationContextFactory() {
+        return OrchestrationContextFactory.getInstance();
     }
 
 	@Override

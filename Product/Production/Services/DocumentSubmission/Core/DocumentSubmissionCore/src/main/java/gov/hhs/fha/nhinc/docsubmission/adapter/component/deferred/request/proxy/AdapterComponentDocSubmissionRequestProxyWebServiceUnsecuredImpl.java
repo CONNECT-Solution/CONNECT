@@ -29,16 +29,18 @@ package gov.hhs.fha.nhinc.docsubmission.adapter.component.deferred.request.proxy
 import gov.hhs.fha.nhinc.adaptercomponentxdrrequest.AdapterComponentXDRRequestPortType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterProvideAndRegisterDocumentSetRequestType;
+import gov.hhs.fha.nhinc.docsubmission.adapter.component.deferred.request.proxy.service.AdapterComponentDocSubmissionRequestServicePortDescriptor;
+import gov.hhs.fha.nhinc.messaging.client.CONNECTCXFClientFactory;
+import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
+import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADAPTER_API_LEVEL;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
-import javax.xml.namespace.QName;
-import javax.xml.ws.Service;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * 
@@ -46,12 +48,7 @@ import javax.xml.ws.Service;
  */
 public class AdapterComponentDocSubmissionRequestProxyWebServiceUnsecuredImpl implements
         AdapterComponentDocSubmissionRequestProxy {
-    private static Service cachedService = null;
-    private static final String NAMESPACE_URI = "urn:gov:hhs:fha:nhinc:adaptercomponentxdrrequest";
-    private static final String SERVICE_LOCAL_PART = "AdapterComponentXDRRequest_Service";
-    private static final String PORT_LOCAL_PART = "AdapterComponentXDRRequest_Port";
-    private static final String WSDL_FILE = "AdapterComponentXDRRequest.wsdl";
-    private static final String WS_ADDRESSING_ACTION = NAMESPACE_URI + ":" + "XDRRequestInputMessage";
+
     private Log log = null;
     private WebServiceProxyHelper oProxyHelper = new WebServiceProxyHelper();
 
@@ -71,6 +68,13 @@ public class AdapterComponentDocSubmissionRequestProxyWebServiceUnsecuredImpl im
         return ((log != null) ? log : LogFactory.getLog(getClass()));
     }
 
+    protected CONNECTClient<AdapterComponentXDRRequestPortType> getCONNECTClientUnsecured(
+            ServicePortDescriptor<AdapterComponentXDRRequestPortType> portDescriptor, String url,
+            AssertionType assertion) {
+
+        return CONNECTCXFClientFactory.getInstance().getCONNECTClientUnsecured(portDescriptor, url, assertion);
+    }
+
     /**
      * Receive document deferred document submission request.
      * 
@@ -80,7 +84,7 @@ public class AdapterComponentDocSubmissionRequestProxyWebServiceUnsecuredImpl im
      * @return The ACK
      */
     public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(ProvideAndRegisterDocumentSetRequestType body,
-            AssertionType assertion, String url) {
+            AssertionType assertion) {
         String endpointUrl = null;
         XDRAcknowledgementType response = new XDRAcknowledgementType();
         String sServiceName = NhincConstants.ADAPTER_COMPONENT_XDR_REQUEST_SERVICE_NAME;
@@ -95,12 +99,15 @@ public class AdapterComponentDocSubmissionRequestProxyWebServiceUnsecuredImpl im
                     AdapterProvideAndRegisterDocumentSetRequestType request = new AdapterProvideAndRegisterDocumentSetRequestType();
                     request.setAssertion(assertion);
                     request.setProvideAndRegisterDocumentSetRequest(body);
-                    request.setUrl(url);
+                    request.setUrl(endpointUrl);
 
-                    AdapterComponentXDRRequestPortType port = getPort(endpointUrl,
-                            NhincConstants.ADAPTER_XDRREQUEST_ACTION, WS_ADDRESSING_ACTION, assertion);
-                    response = (XDRAcknowledgementType) oProxyHelper.invokePort(port,
-                            AdapterComponentXDRRequestPortType.class, "provideAndRegisterDocumentSetBRequest", request);
+                    ServicePortDescriptor<AdapterComponentXDRRequestPortType> portDescriptor = new AdapterComponentDocSubmissionRequestServicePortDescriptor();
+
+                    CONNECTClient<AdapterComponentXDRRequestPortType> client = getCONNECTClientUnsecured(
+                            portDescriptor, endpointUrl, assertion);
+
+                    response = (XDRAcknowledgementType) client.invokePort(AdapterComponentXDRRequestPortType.class,
+                            "provideAndRegisterDocumentSetBRequest", request);
                 } else {
                     log.error("Failed to call the web service (" + sServiceName + ").  The URL is null.");
                 }
@@ -115,44 +122,4 @@ public class AdapterComponentDocSubmissionRequestProxyWebServiceUnsecuredImpl im
         return response;
     }
 
-    /**
-     * Retrieve the service class for this web service.
-     * 
-     * @return The service class for this web service.
-     */
-    protected Service getService() {
-        if (cachedService == null) {
-            try {
-                cachedService = oProxyHelper.createService(WSDL_FILE, NAMESPACE_URI, SERVICE_LOCAL_PART);
-            } catch (Throwable t) {
-                log.error("Error creating service: " + t.getMessage(), t);
-            }
-        }
-        return cachedService;
-    }
-
-    /**
-     * This method retrieves and initializes the port.
-     * 
-     * @param url The URL for the web service.
-     * @param serviceAction The action for the web service.
-     * @param wsAddressingAction The action assigned to the input parameter for the web service operation.
-     * @param assertion The assertion information for the web service
-     * @return The port object for the web service.
-     */
-    protected AdapterComponentXDRRequestPortType getPort(String url, String serviceAction, String wsAddressingAction,
-            AssertionType assertion) {
-        AdapterComponentXDRRequestPortType port = null;
-        Service service = getService();
-        if (service != null) {
-            log.debug("Obtained service - creating port.");
-
-            port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), AdapterComponentXDRRequestPortType.class);
-            oProxyHelper
-                    .initializeUnsecurePort((javax.xml.ws.BindingProvider) port, url, wsAddressingAction, assertion);
-        } else {
-            log.error("Unable to obtain serivce - no port created.");
-        }
-        return port;
-    }
 }

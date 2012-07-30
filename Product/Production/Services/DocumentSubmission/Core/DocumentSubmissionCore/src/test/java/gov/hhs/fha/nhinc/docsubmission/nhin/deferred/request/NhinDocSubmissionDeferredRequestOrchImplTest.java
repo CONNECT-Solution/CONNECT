@@ -252,7 +252,8 @@ public class NhinDocSubmissionDeferredRequestOrchImplTest {
     private void setMockPassthruMode(final boolean passthruEnabled) {
         context.checking(new Expectations() {
             {
-                oneOf(mockUtils).isInPassThroughMode(with(equal(NhincConstants.DOC_SUBMISSION_DEFERRED_REQ_PASSTHRU_PROP)));
+                oneOf(mockUtils).isInPassThroughMode(
+                        with(equal(NhincConstants.DOC_SUBMISSION_DEFERRED_REQ_PASSTHRU_PROP)));
                 will(returnValue(passthruEnabled));
             }
         });
@@ -262,8 +263,7 @@ public class NhinDocSubmissionDeferredRequestOrchImplTest {
         context.checking(new Expectations() {
             {
                 oneOf(mockProxy).provideAndRegisterDocumentSetBRequest(
-                        with(any(ProvideAndRegisterDocumentSetRequestType.class)), with(any(String.class)),
-                        with(any(AssertionType.class)));
+                        with(any(ProvideAndRegisterDocumentSetRequestType.class)), with(any(AssertionType.class)));
                 will(returnValue(createXDRAcknowledgementType()));
             }
         });
