@@ -24,23 +24,23 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
-package gov.hhs.fha.nhinc.docrepository.adapter.proxy;
 
-import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
-import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
-import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
+package gov.hhs.fha.nhinc.policyengine.adapter.pip.proxy.service;
 
 /**
- * 
- * @author rayj
+ * @author akong
+ *
  */
-public interface AdapterComponentDocRepositoryProxy {
-    public RetrieveDocumentSetResponseType retrieveDocument(
-            RetrieveDocumentSetRequestType retrieveDocumentSetRequestType, AssertionType assertion);
+public class AdapterPIPRetrieveByDocIdServicePortDescriptor extends AdapterPIPServicePortDescriptor {
 
-    public RegistryResponseType provideAndRegisterDocumentSet(ProvideAndRegisterDocumentSetRequestType body,
-            AssertionType assertion);
+    private static final String WS_ADDRESSING_ACTION_RETRIEVEPTCONSENTBYPTDOCID = "urn:gov:hhs:fha:nhinc:adapterpip:RetrievePtConsentByPtDocIdRequest";
+    
+    /* (non-Javadoc)
+     * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getWSAddressingAction()
+     */
+    @Override
+    public String getWSAddressingAction() {
+        return WS_ADDRESSING_ACTION_RETRIEVEPTCONSENTBYPTDOCID;
+    }
 
 }

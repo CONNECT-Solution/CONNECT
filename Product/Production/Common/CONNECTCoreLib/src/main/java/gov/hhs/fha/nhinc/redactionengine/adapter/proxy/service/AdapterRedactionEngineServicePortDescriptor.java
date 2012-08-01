@@ -25,63 +25,58 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
 
-package gov.hhs.fha.nhinc.policyengine.adapter.proxy.service;
+package gov.hhs.fha.nhinc.redactionengine.adapter.proxy.service;
 
-import gov.hhs.fha.nhinc.adapterpolicyengine.AdapterPolicyEnginePortType;
+import gov.hhs.fha.nhinc.adaptercomponentredaction.AdapterComponentRedactionEnginePortType;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 
 /**
  * @author akong
  *
  */
-public class PolicyEngineUnsecuredServicePortDescriptor implements ServicePortDescriptor<AdapterPolicyEnginePortType> {
-
+public abstract class AdapterRedactionEngineServicePortDescriptor implements ServicePortDescriptor<AdapterComponentRedactionEnginePortType> {
+    private static final String NAMESPACE_URI = "urn:gov:hhs:fha:nhinc:adaptercomponentredaction";
+    private static final String SERVICE_LOCAL_PART = "AdapterComponentRedactionEngineService";
+    private static final String PORT_LOCAL_PART = "AdapterComponentRedactionEnginePortTypeBindingPort";
+    private static final String WSDL_FILE = "AdapterComponentRedactionEngine.wsdl";
+        
     /* (non-Javadoc)
-     * @see gov.hhs.fha.messaging.service.port.ServicePortDescriptor#getNamespaceUri()
+     * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getNamespaceUri()
      */
     @Override
     public String getNamespaceUri() {
-        return "urn:gov:hhs:fha:nhinc:adapterpolicyengine";
+        return NAMESPACE_URI;
     }
 
     /* (non-Javadoc)
-     * @see gov.hhs.fha.messaging.service.port.ServicePortDescriptor#getServiceLocalPart()
+     * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getServiceLocalPart()
      */
     @Override
     public String getServiceLocalPart() {
-        return "AdapterPolicyEngine";
+        return SERVICE_LOCAL_PART;
     }
 
     /* (non-Javadoc)
-     * @see gov.hhs.fha.messaging.service.port.ServicePortDescriptor#getPortLocalPart()
+     * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getPortLocalPart()
      */
     @Override
     public String getPortLocalPart() {
-        return "AdapterPolicyEnginePortSoap";
+        return PORT_LOCAL_PART;
     }
 
     /* (non-Javadoc)
-     * @see gov.hhs.fha.messaging.service.port.ServicePortDescriptor#getWSDLFileName()
+     * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getWSDLFileName()
      */
     @Override
     public String getWSDLFileName() {
-        return "AdapterPolicyEngine.wsdl";
+        return WSDL_FILE;
     }
 
     /* (non-Javadoc)
-     * @see gov.hhs.fha.messaging.service.port.ServicePortDescriptor#getWSAddressingAction()
+     * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getPortClass()
      */
     @Override
-    public String getWSAddressingAction() {
-        return "urn:gov:hhs:fha:nhinc:adapterpolicyengine:CheckPolicyRequest";
-    }
-
-    /* (non-Javadoc)
-     * @see gov.hhs.fha.messaging.service.port.ServicePortDescriptor#getPortClass()
-     */
-    @Override
-    public Class<AdapterPolicyEnginePortType> getPortClass() {
-        return AdapterPolicyEnginePortType.class;
-    }
-
+    public Class<AdapterComponentRedactionEnginePortType> getPortClass() {
+        return AdapterComponentRedactionEnginePortType.class;
+    }    
 }

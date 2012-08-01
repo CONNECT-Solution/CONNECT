@@ -24,26 +24,23 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
-package gov.hhs.fha.nhinc.docrepositoryadapter.proxy;
 
-import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
-import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
-import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
-import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
+package gov.hhs.fha.nhinc.redactionengine.adapter.proxy.service;
 
 /**
- * Interface for the adapter document repository proxy.
- * 
- * @author Neil Webb
+ * @author akong
+ *
  */
-public interface AdapterDocumentRepositoryProxy {
-    /**
-     * Retrieve a document set.
-     * 
-     * @param request Retrieve document set request
-     * @return Retrieve document set response
-     */
-    public RetrieveDocumentSetResponseType retrieveDocumentSet(RetrieveDocumentSetRequestType request);
+public class AdapterRedactionEngineRetrieveServicePortDescriptor extends AdapterRedactionEngineServicePortDescriptor {
 
-    public RegistryResponseType provideAndRegisterDocumentSet(ProvideAndRegisterDocumentSetRequestType body);
+    private static final String WS_ADDRESSING_ACTION_RETRIEVE = "urn:gov:hhs:fha:nhinc:adaptercomponentredaction:FilterDocRetrieveResultsRequest";
+    
+    /* (non-Javadoc)
+     * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getWSAddressingAction()
+     */
+    @Override
+    public String getWSAddressingAction() {
+        return WS_ADDRESSING_ACTION_RETRIEVE;
+    }
+
 }
