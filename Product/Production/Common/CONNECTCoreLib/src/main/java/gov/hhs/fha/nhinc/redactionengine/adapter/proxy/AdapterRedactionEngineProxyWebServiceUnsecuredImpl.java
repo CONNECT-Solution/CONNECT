@@ -32,16 +32,18 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.FilterDocQueryResultsRequestT
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.FilterDocQueryResultsResponseType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.FilterDocRetrieveResultsRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.FilterDocRetrieveResultsResponseType;
+import gov.hhs.fha.nhinc.messaging.client.CONNECTCXFClientFactory;
+import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
+import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADAPTER_API_LEVEL;
+import gov.hhs.fha.nhinc.redactionengine.adapter.proxy.service.AdapterRedactionEngineQueryServicePortDescriptor;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
-import javax.xml.namespace.QName;
-import javax.xml.ws.Service;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -51,13 +53,6 @@ import org.apache.commons.logging.LogFactory;
  */
 public class AdapterRedactionEngineProxyWebServiceUnsecuredImpl implements AdapterRedactionEngineProxy {
     private Log log = null;
-    private static Service cachedService = null;
-    private static final String NAMESPACE_URI = "urn:gov:hhs:fha:nhinc:adaptercomponentredaction";
-    private static final String SERVICE_LOCAL_PART = "AdapterComponentRedactionEngineService";
-    private static final String PORT_LOCAL_PART = "AdapterComponentRedactionEnginePortTypeBindingPort";
-    private static final String WSDL_FILE = "AdapterComponentRedactionEngine.wsdl";
-    private static final String WS_ADDRESSING_ACTION_QUERY = "urn:gov:hhs:fha:nhinc:adaptercomponentredaction:FilterDocQueryResultsRequest";
-    private static final String WS_ADDRESSING_ACTION_RETRIEVE = "urn:gov:hhs:fha:nhinc:adaptercomponentredaction:FilterDocRetrieveResultsRequest";
     private WebServiceProxyHelper oProxyHelper = null;
 
     public AdapterRedactionEngineProxyWebServiceUnsecuredImpl() {
@@ -73,43 +68,11 @@ public class AdapterRedactionEngineProxyWebServiceUnsecuredImpl implements Adapt
         return new WebServiceProxyHelper();
     }
 
-    /**
-     * This method retrieves and initializes the port.
-     * 
-     * @param url The URL for the web service.
-     * @return The port object for the web service.
-     */
-    protected AdapterComponentRedactionEnginePortType getPort(String url, String wsAddressingAction,
+    protected CONNECTClient<AdapterComponentRedactionEnginePortType> getCONNECTClientUnsecured(
+            ServicePortDescriptor<AdapterComponentRedactionEnginePortType> portDescriptor, String url,
             AssertionType assertion) {
-        AdapterComponentRedactionEnginePortType port = null;
-        Service service = getService();
-        if (service != null) {
-            log.debug("Obtained service - creating port.");
 
-            port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART),
-                    AdapterComponentRedactionEnginePortType.class);
-            oProxyHelper
-                    .initializeUnsecurePort((javax.xml.ws.BindingProvider) port, url, wsAddressingAction, assertion);
-        } else {
-            log.error("Unable to obtain serivce - no port created.");
-        }
-        return port;
-    }
-
-    /**
-     * Retrieve the service class for this web service.
-     * 
-     * @return The service class for this web service.
-     */
-    protected Service getService() {
-        if (cachedService == null) {
-            try {
-                cachedService = oProxyHelper.createService(WSDL_FILE, NAMESPACE_URI, SERVICE_LOCAL_PART);
-            } catch (Throwable t) {
-                log.error("Error creating service: " + t.getMessage(), t);
-            }
-        }
-        return cachedService;
+        return CONNECTCXFClientFactory.getInstance().getCONNECTClientUnsecured(portDescriptor, url, assertion);
     }
 
     public AdhocQueryResponse filterAdhocQueryResults(AdhocQueryRequest adhocQueryRequest,
@@ -121,21 +84,21 @@ public class AdapterRedactionEngineProxyWebServiceUnsecuredImpl implements Adapt
             String serviceName = NhincConstants.REDACTION_ENGINE_SERVICE_NAME;
             String url = oProxyHelper.getAdapterEndPointFromConnectionManager(serviceName);
             if (NullChecker.isNotNullish(url)) {
-                AdapterComponentRedactionEnginePortType port = getPort(url, WS_ADDRESSING_ACTION_QUERY, assertion);
-
                 if (adhocQueryRequest == null) {
                     log.error("adhocQueryRequest was null");
                 } else if (adhocQueryResponse == null) {
                     log.error("adhocQueryResponse was null");
-                } else if (port == null) {
-                    log.error("port was null");
                 } else {
                     FilterDocQueryResultsRequestType filterDocQueryResultsRequest = new FilterDocQueryResultsRequestType();
                     filterDocQueryResultsRequest.setAdhocQueryRequest(adhocQueryRequest);
                     filterDocQueryResultsRequest.setAdhocQueryResponse(adhocQueryResponse);
 
-                    FilterDocQueryResultsResponseType filteredResponse = (FilterDocQueryResultsResponseType) oProxyHelper
-                            .invokePort(port, AdapterComponentRedactionEnginePortType.class, "filterDocQueryResults",
+                    ServicePortDescriptor<AdapterComponentRedactionEnginePortType> portDescriptor = new AdapterRedactionEngineQueryServicePortDescriptor();
+
+                    CONNECTClient<AdapterComponentRedactionEnginePortType> client = getCONNECTClientUnsecured(portDescriptor, url, assertion);
+                    
+                    FilterDocQueryResultsResponseType filteredResponse = (FilterDocQueryResultsResponseType) client
+                            .invokePort(AdapterComponentRedactionEnginePortType.class, "filterDocQueryResults",
                                     filterDocQueryResultsRequest);
                     response = filteredResponse.getAdhocQueryResponse();
                 }
@@ -159,22 +122,22 @@ public class AdapterRedactionEngineProxyWebServiceUnsecuredImpl implements Adapt
         try {
             String serviceName = NhincConstants.REDACTION_ENGINE_SERVICE_NAME;
             String url = oProxyHelper.getAdapterEndPointFromConnectionManager(serviceName);
-            if (NullChecker.isNotNullish(url)) {
-                AdapterComponentRedactionEnginePortType port = getPort(url, WS_ADDRESSING_ACTION_RETRIEVE, assertion);
-
+            if (NullChecker.isNotNullish(url)) {                
                 if (retrieveDocumentSetRequest == null) {
                     log.error("retrieveDocumentSetRequest was null");
                 } else if (retrieveDocumentSetResponse == null) {
                     log.error("retrieveDocumentSetResponse was null");
-                } else if (port == null) {
-                    log.error("port was null");
                 } else {
                     FilterDocRetrieveResultsRequestType filterDocRetrieveResultsRequest = new FilterDocRetrieveResultsRequestType();
                     filterDocRetrieveResultsRequest.setRetrieveDocumentSetRequest(retrieveDocumentSetRequest);
                     filterDocRetrieveResultsRequest.setRetrieveDocumentSetResponse(retrieveDocumentSetResponse);
+                    
+                    ServicePortDescriptor<AdapterComponentRedactionEnginePortType> portDescriptor = new AdapterRedactionEngineQueryServicePortDescriptor();
 
-                    FilterDocRetrieveResultsResponseType filteredResponse = (FilterDocRetrieveResultsResponseType) oProxyHelper
-                            .invokePort(port, AdapterComponentRedactionEnginePortType.class,
+                    CONNECTClient<AdapterComponentRedactionEnginePortType> client = getCONNECTClientUnsecured(portDescriptor, url, assertion);
+
+                    FilterDocRetrieveResultsResponseType filteredResponse = (FilterDocRetrieveResultsResponseType) client
+                            .invokePort(AdapterComponentRedactionEnginePortType.class,
                                     "filterDocRetrieveResults", filterDocRetrieveResultsRequest);
                     response = filteredResponse.getRetrieveDocumentSetResponse();
                 }

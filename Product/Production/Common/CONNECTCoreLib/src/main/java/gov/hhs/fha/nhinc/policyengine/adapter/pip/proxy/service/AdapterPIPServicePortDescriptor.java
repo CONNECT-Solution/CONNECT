@@ -24,26 +24,60 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
-package gov.hhs.fha.nhinc.docrepositoryadapter.proxy;
 
-import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
-import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
-import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
-import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
+package gov.hhs.fha.nhinc.policyengine.adapter.pip.proxy.service;
+
+import gov.hhs.fha.nhinc.adapterpip.AdapterPIPPortType;
+import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 
 /**
- * No-Op implementation of the adapter document repository proxy.
- * 
- * @author Neil Webb
+ * @author akong
+ *
  */
-public class AdapterDocumentRepositoryNoOpImpl implements AdapterDocumentRepositoryProxy {
-
-    public RetrieveDocumentSetResponseType retrieveDocumentSet(RetrieveDocumentSetRequestType request) {
-        return new RetrieveDocumentSetResponseType();
+public abstract class AdapterPIPServicePortDescriptor implements ServicePortDescriptor<AdapterPIPPortType>{
+    
+    private static final String NAMESPACE_URI = "urn:gov:hhs:fha:nhinc:adapterpip";
+    private static final String SERVICE_LOCAL_PART = "AdapterPIP";
+    private static final String PORT_LOCAL_PART = "AdapterPIPPortSoap";
+    private static final String WSDL_FILE = "AdapterPIP.wsdl";
+    
+    /* (non-Javadoc)
+     * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getNamespaceUri()
+     */
+    @Override
+    public String getNamespaceUri() {
+        return NAMESPACE_URI;
     }
 
-    public RegistryResponseType provideAndRegisterDocumentSet(ProvideAndRegisterDocumentSetRequestType body) {
-        return new RegistryResponseType();
+    /* (non-Javadoc)
+     * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getServiceLocalPart()
+     */
+    @Override
+    public String getServiceLocalPart() {
+        return SERVICE_LOCAL_PART;
     }
 
+    /* (non-Javadoc)
+     * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getPortLocalPart()
+     */
+    @Override
+    public String getPortLocalPart() {
+        return PORT_LOCAL_PART;
+    }
+
+    /* (non-Javadoc)
+     * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getWSDLFileName()
+     */
+    @Override
+    public String getWSDLFileName() {
+        return WSDL_FILE;
+    }
+
+    /* (non-Javadoc)
+     * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getPortClass()
+     */
+    @Override
+    public Class<AdapterPIPPortType> getPortClass() {
+        return AdapterPIPPortType.class;
+    }    
 }

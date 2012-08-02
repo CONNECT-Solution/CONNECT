@@ -15,6 +15,8 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
 
     <import resource="classpath:CONNECT-interceptor-beans.xml" />
 
+    <!-- Adapter Policy Engine -->
+
     <jaxws:endpoint xmlns:apes="urn:gov:hhs:fha:nhinc:adapterpolicyenginesecured" id="AdapterPolicyEngineSecured"
         address="/AdapterPolicyEngineSecured" serviceName="apes:AdapterPolicyEngineSecured"
         endpointName="apes:AdapterPolicyEngineSecuredPortSoap" implementor="gov.hhs.fha.nhinc.policyengine.adapter.AdapterPolicyEngineSecured"
@@ -37,10 +39,52 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
         wsdlLocation="/WEB-INF/wsdl/AdapterPolicyEngine/AdapterPolicyEngine.wsdl">
     </jaxws:endpoint>
     
+    <!-- Adapter Policy Engine Orchestrator -->
+    
+    <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adapterpolicyengineorchestrator" id="AdapterPolicyEngineOrchestrator"
+        address="/AdapterPolicyEngineOrchestrator" serviceName="tns:AdapterPolicyEngineOrchestrator"
+        endpointName="tns:AdapterPolicyEngineOrchestratorPortSoap" implementor="gov.hhs.fha.nhinc.policyengine.adapter.component.AdapterPolicyEngineOrchestrator"
+        wsdlLocation="/WEB-INF/wsdl/AdapterPolicyEngineOrchestrator/AdapterPolicyEngineOrchestrator.wsdl">
+    </jaxws:endpoint> 
+    
+    <!-- Adapter PEP -->
+    
+    <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adapterpep" id="AdapterPEPService"
+        address="/AdapterPEP" serviceName="tns:AdapterPEP"
+        endpointName="tns:AdapterPEPPortSoap" implementor="gov.hhs.fha.nhinc.policyengine.adapter.pep.AdapterPEPService"
+        wsdlLocation="/WEB-INF/wsdl/AdapterPEPService/AdapterPEP.wsdl">
+    </jaxws:endpoint>
+    
+    <!-- Adapter PIP -->
+    
+    <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adapterpip" id="AdapterPIPService"
+        address="/AdapterPIP" serviceName="tns:AdapterPIP"
+        endpointName="tns:AdapterPIPPortSoap" implementor="gov.hhs.fha.nhinc.policyengine.adapter.pip.AdapterPIPService"
+        wsdlLocation="/WEB-INF/wsdl/AdapterPIPService/AdapterPIP.wsdl">
+    </jaxws:endpoint> 
+    
+    <!-- Adapter Document Registry -->
+    
     <jaxws:endpoint xmlns:adreg="urn:ihe:iti:xds-b:2007" id="AdapterDocumentRegistry"
         address="/DocumentRegistry_Service" serviceName="adreg:DocumentRegistry_Service"
         endpointName="adreg:DocumentRegistry_Port_Soap" implementor="gov.hhs.fha.nhinc.docregistry.adapter.DocumentRegistryService"
         wsdlLocation="/WEB-INF/wsdl/DocumentRegistryService/AdapterComponentDocRegistry.wsdl">
+    </jaxws:endpoint>
+    
+    <!-- Adapter Document Repository -->
+    
+    <jaxws:endpoint xmlns:tns="urn:ihe:iti:xds-b:2007" id="AdapterDocumentRepository"
+        address="/DocumentRepository_Service" serviceName="tns:DocumentRepository_Service"
+        endpointName="tns:DocumentRepository_Port_Soap" implementor="gov.hhs.fha.nhinc.docrepository.adapter.DocumentRepositoryService"
+        wsdlLocation="/WEB-INF/wsdl/DocumentRepositoryService/AdapterComponentDocRepository.wsdl">
+    </jaxws:endpoint>
+    
+    <!-- Adapter Redaction Engine -->
+    
+    <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adaptercomponentredaction" id="AdapterComponentRedactionEngine"
+        address="/AdapterComponentRedactionService" serviceName="tns:AdapterComponentRedactionEngineService"
+        endpointName="tns:AdapterComponentRedactionEnginePortTypeBindingPort" implementor="gov.hhs.fha.nhinc.redactionengine.adapter.AdapterComponentRedactionEngine"
+        wsdlLocation="/WEB-INF/wsdl/AdapterComponentRedactionEngine/AdapterComponentRedactionEngine.wsdl">
     </jaxws:endpoint>
 
 </beans>
