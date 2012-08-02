@@ -32,6 +32,10 @@ import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayCrossGatewayRe
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.nhincproxydocretrievesecured.NhincProxyDocRetrieveSecuredPortType;
+import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
+import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
+import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
+import gov.hhs.fha.nhinc.docretrieve.passthru.proxy.description.PassthruDocRetrieveSecuredServicePortDescriptor;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
@@ -66,8 +70,13 @@ public class PassthruDocRetrieveProxyWebServiceSecuredImpl implements PassthruDo
     protected WebServiceProxyHelper createWebServiceProxyHelper() {
         return new WebServiceProxyHelper();
     }
+    
+    public ServicePortDescriptor<NhincProxyDocRetrieveSecuredPortType> getServicePortDescriptor(
+            NhincConstants.ADAPTER_API_LEVEL apiLevel){
+      return new PassthruDocRetrieveSecuredServicePortDescriptor();
+    }
 
-    protected NhincProxyDocRetrieveSecuredPortType getPort(String url, String wsAddressingAction,
+    /*protected NhincProxyDocRetrieveSecuredPortType getPort(String url, String wsAddressingAction,
             AssertionType assertion) {
         NhincProxyDocRetrieveSecuredPortType port = null;
 
@@ -83,14 +92,14 @@ public class PassthruDocRetrieveProxyWebServiceSecuredImpl implements PassthruDo
             log.error("Unable to obtain serivce - no port created.");
         }
         return port;
-    }
+    }*/
 
     /**
      * Retrieve the service class for this web service.
      * 
      * @return The service class for this web service.
      */
-    protected Service getService() {
+   /* protected Service getService() {
         if (cachedService == null) {
             try {
                 cachedService = oProxyHelper.createService(WSDL_FILE, NAMESPACE_URI, SERVICE_LOCAL_PART);
@@ -99,7 +108,7 @@ public class PassthruDocRetrieveProxyWebServiceSecuredImpl implements PassthruDo
             }
         }
         return cachedService;
-    }
+    }*/
 
     public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(
             RetrieveDocumentSetRequestType request, AssertionType assertion, NhinTargetSystemType targetSystem) {
@@ -120,10 +129,19 @@ public class PassthruDocRetrieveProxyWebServiceSecuredImpl implements PassthruDo
                     securedRequest.setRetrieveDocumentSetRequest(request);
                     securedRequest.setNhinTargetSystem(targetSystem);
                 }
-                NhincProxyDocRetrieveSecuredPortType port = getPort(url, WS_ADDRESSING_ACTION, assertion);
-                response = (RetrieveDocumentSetResponseType) oProxyHelper.invokePort(port,
+                
+                ServicePortDescriptor<NhincProxyDocRetrieveSecuredPortType> portDescriptor = getServicePortDescriptor(NhincConstants.ADAPTER_API_LEVEL.LEVEL_a0);
+                
+                CONNECTClient<NhincProxyDocRetrieveSecuredPortType> client = CONNECTClientFactory.getInstance().
+                        getCONNECTClientSecured(portDescriptor, url, assertion);
+                
+                response = (RetrieveDocumentSetResponseType) client.invokePort(NhincProxyDocRetrieveSecuredPortType.class,
+                        "respondingGatewayCrossGatewayRetrieve", request);
+                
+               // NhincProxyDocRetrieveSecuredPortType port = getPort(url, WS_ADDRESSING_ACTION, assertion);
+              /*  response = (RetrieveDocumentSetResponseType) oProxyHelper.invokePort(port,
                         NhincProxyDocRetrieveSecuredPortType.class, "respondingGatewayCrossGatewayRetrieve",
-                        securedRequest);
+                        securedRequest);*/
             } else {
                 log.error("Failed to call the web service (" + serviceName + ").  The URL is null.");
             }

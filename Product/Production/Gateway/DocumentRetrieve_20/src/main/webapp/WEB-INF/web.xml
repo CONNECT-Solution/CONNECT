@@ -9,7 +9,18 @@
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 -->
-	<servlet>
+    <servlet>
+        <servlet-name>cxf</servlet-name>
+        <servlet-class>org.apache.cxf.transport.servlet.CXFServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>cxf</servlet-name>
+        <url-pattern>/*</url-pattern>
+    </servlet-mapping>
+    
+<!-- 	<servlet>
 		<servlet-name>EntityDocRetrieveSecured</servlet-name>
 		<servlet-class>gov.hhs.fha.nhinc.docretrieve._20.entity.EntityDocRetrieveSecured</servlet-class>
 	</servlet>
@@ -29,7 +40,7 @@
 
 	<!-- message proxy -->
 
-	<servlet>
+<!-- 	<servlet>
 		<servlet-name>NhincProxyDocRetrieveUnsecured</servlet-name>
 		<servlet-class>gov.hhs.fha.nhinc.docretrieve._20.passthru.NhincProxyDocRetrieveUnsecured</servlet-class>
 	</servlet>
@@ -44,7 +55,7 @@
 	<servlet-mapping>
 		<servlet-name>NhincProxyDocRetrieveSecured</servlet-name>
 		<url-pattern>/EntityService/NhincProxyDocRetrieveSecured</url-pattern>
-	</servlet-mapping>
+	</servlet-mapping> 
 
 
 	<servlet>
@@ -54,7 +65,7 @@
     <servlet-mapping>
         <servlet-name>DocRetrieve</servlet-name>
         <url-pattern>/NhinService/RespondingGateway_Retrieve_Service/DocRetrieve</url-pattern>
-    </servlet-mapping>
+    </servlet-mapping> -->
 	
 	
 	<security-constraint>
