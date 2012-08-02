@@ -34,7 +34,7 @@ import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
  * @author akong
  *
  */
-public class PolicyEngineUnsecuredServicePortDescriptor implements ServicePortDescriptor<AdapterPolicyEnginePortType> {
+public class PolicyEngineServicePortDescriptor implements ServicePortDescriptor<AdapterPolicyEnginePortType> {
 
     /* (non-Javadoc)
      * @see gov.hhs.fha.messaging.service.port.ServicePortDescriptor#getNamespaceUri()

@@ -28,8 +28,11 @@ package gov.hhs.fha.nhinc.docrepository.adapter.proxy;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.docrepository.adapter.AdapterComponentDocRepositoryOrchImpl;
+import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -44,6 +47,11 @@ public class AdapterComponentDocRepositoryProxyJavaImpl implements AdapterCompon
             AssertionType assertion) {
         log.debug("Using Java Implementation for Adapter Component Doc Repository Service");
         return new AdapterComponentDocRepositoryOrchImpl().documentRepositoryRetrieveDocumentSet(request);
+    }
+    
+    public RegistryResponseType provideAndRegisterDocumentSet(ProvideAndRegisterDocumentSetRequestType body, AssertionType assertion) {
+        log.debug("Using Java Implementation for Adapter Component Doc Repository Service");
+        return new AdapterComponentDocRepositoryOrchImpl().documentRepositoryProvideAndRegisterDocumentSet(body);
     }
 
 }

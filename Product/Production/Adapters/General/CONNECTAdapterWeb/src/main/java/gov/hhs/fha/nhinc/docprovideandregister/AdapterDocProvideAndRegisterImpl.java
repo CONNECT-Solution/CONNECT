@@ -28,8 +28,8 @@ package gov.hhs.fha.nhinc.docprovideandregister;
 
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayProvideAndRegisterDocumentSetRequestRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayProvideAndRegisterDocumentSetRequestResponseType;
-import gov.hhs.fha.nhinc.docrepositoryadapter.proxy.AdapterDocumentRepositoryProxy;
-import gov.hhs.fha.nhinc.docrepositoryadapter.proxy.AdapterDocumentRepositoryProxyObjectFactory;
+import gov.hhs.fha.nhinc.docrepository.adapter.proxy.AdapterComponentDocRepositoryProxy;
+import gov.hhs.fha.nhinc.docrepository.adapter.proxy.AdapterComponentDocRepositoryProxyObjectFactory;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 /**
@@ -41,10 +41,10 @@ public class AdapterDocProvideAndRegisterImpl {
             RespondingGatewayCrossGatewayProvideAndRegisterDocumentSetRequestRequestType part1) {
         RespondingGatewayCrossGatewayProvideAndRegisterDocumentSetRequestResponseType res = new RespondingGatewayCrossGatewayProvideAndRegisterDocumentSetRequestResponseType();
         if (part1 != null) {
-            AdapterDocumentRepositoryProxyObjectFactory objFactory = new AdapterDocumentRepositoryProxyObjectFactory();
-            AdapterDocumentRepositoryProxy registryProxy = objFactory.getAdapterDocumentRepositoryProxy();
+            AdapterComponentDocRepositoryProxyObjectFactory objFactory = new AdapterComponentDocRepositoryProxyObjectFactory();
+            AdapterComponentDocRepositoryProxy registryProxy = objFactory.getAdapterDocumentRepositoryProxy();
             RegistryResponseType response = registryProxy.provideAndRegisterDocumentSet(part1
-                    .getProvideAndRegisterDocumentSetRequest());
+                    .getProvideAndRegisterDocumentSetRequest(), null);
             res.setRegistryResponse(response);
         }
         return res;
