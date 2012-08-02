@@ -46,6 +46,7 @@ import org.junit.runner.RunWith;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhincproxydocretrieve.NhincProxyDocRetrievePortType;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
@@ -116,42 +117,6 @@ public class PassthruDocRetrieveProxyWebServiceUnsecuredImplTest {
     }
 
     @Test
-    public void testGetPortNullService() {
-        try {
-            PassthruDocRetrieveProxyWebServiceUnsecuredImpl sut = new PassthruDocRetrieveProxyWebServiceUnsecuredImpl() {
-                @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-
-                @Override
-                protected WebServiceProxyHelper createWebServiceProxyHelper() {
-                    return mockWebServiceProxyHelper;
-                }
-
-                @Override
-                protected Service getService() {
-                    return null;
-                }
-            };
-            context.checking(new Expectations() {
-                {
-                    allowing(mockLog).debug(with(any(String.class)));
-                    oneOf(mockLog).error("Unable to obtain serivce - no port created.");
-                }
-            });
-            String url = "url";
-            String wsAddressingAction = "";
-            NhincProxyDocRetrievePortType port = sut.getPort(url, wsAddressingAction, mockAssertion);
-            assertNull("Port was not null", port);
-        } catch (Throwable t) {
-            System.out.println("Error running testGetPortNullService test: " + t.getMessage());
-            t.printStackTrace();
-            fail("Error running testGetPortNullService test: " + t.getMessage());
-        }
-    }
-
-    @Test
     public void testRespondingGatewayCrossGatewayRetrieveHappy() {
         try {
             final RetrieveDocumentSetResponseType mockResponse = context.mock(RetrieveDocumentSetResponseType.class);
@@ -165,12 +130,23 @@ public class PassthruDocRetrieveProxyWebServiceUnsecuredImplTest {
                 public String getUrlLocalHomeCommunity(String serviceName) {
                     return "url";
                 }
-
+            };
+            final CONNECTClient<NhincProxyDocRetrievePortType> mockClient = new CONNECTClient<NhincProxyDocRetrievePortType>() {
                 @Override
-                public Object invokePort(Object portObject, Class portClass, String methodName, Object operationInput)
-                        throws Exception {
+                public NhincProxyDocRetrievePortType getPort() {
+                    // TODO Auto-generated method stub
+                    return null;
+                }
+                
+                /* (non-Javadoc)
+                 * @see gov.hhs.fha.nhinc.messaging.client.CONNECTClient#invokePort(java.lang.Class, java.lang.String, java.lang.Object)
+                 */
+                @Override
+                public Object invokePort(Class<NhincProxyDocRetrievePortType> portClass, String methodName,
+                        Object operationInput) throws Exception {
                     return mockResponse;
                 }
+                
             };
             PassthruDocRetrieveProxyWebServiceUnsecuredImpl webProxy = new PassthruDocRetrieveProxyWebServiceUnsecuredImpl() {
                 @Override
@@ -182,17 +158,16 @@ public class PassthruDocRetrieveProxyWebServiceUnsecuredImplTest {
                 protected WebServiceProxyHelper createWebServiceProxyHelper() {
                     return wsProxyHelper;
                 }
-
+                
                 @Override
-                protected NhincProxyDocRetrievePortType getPort(String url, String wsAddressingAction,
-                        AssertionType assertion) {
-                    return mockPort;
+                protected CONNECTClient<NhincProxyDocRetrievePortType> getClient(String url, AssertionType assertion) {
+                    return mockClient;
                 }
             };
             context.checking(new Expectations() {
                 {
                     allowing(mockLog).isDebugEnabled();
-                    allowing(mockLog).debug(with(any(String.class)));
+                    allowing(mockLog).debug(with(any(String.class))); 
                 }
             });
             RetrieveDocumentSetResponseType response = webProxy.respondingGatewayCrossGatewayRetrieve(
@@ -208,6 +183,7 @@ public class PassthruDocRetrieveProxyWebServiceUnsecuredImplTest {
     @Test
     public void testRespondingGatewayCrossGatewayRetrieveNullUrl() {
         try {
+            final RetrieveDocumentSetResponseType mockResponse = context.mock(RetrieveDocumentSetResponseType.class);
             final WebServiceProxyHelper wsProxyHelper = new WebServiceProxyHelper() {
                 @Override
                 protected Log createLogger() {
@@ -219,6 +195,23 @@ public class PassthruDocRetrieveProxyWebServiceUnsecuredImplTest {
                     return null;
                 }
             };
+            final CONNECTClient<NhincProxyDocRetrievePortType> mockClient = new CONNECTClient<NhincProxyDocRetrievePortType>() {
+                @Override
+                public NhincProxyDocRetrievePortType getPort() {
+                    // TODO Auto-generated method stub
+                    return null;
+                }
+                
+                /* (non-Javadoc)
+                 * @see gov.hhs.fha.nhinc.messaging.client.CONNECTClient#invokePort(java.lang.Class, java.lang.String, java.lang.Object)
+                 */
+                @Override
+                public Object invokePort(Class<NhincProxyDocRetrievePortType> portClass, String methodName,
+                        Object operationInput) throws Exception {
+                    return mockResponse;
+                }
+                
+            };
             PassthruDocRetrieveProxyWebServiceUnsecuredImpl webProxy = new PassthruDocRetrieveProxyWebServiceUnsecuredImpl() {
                 @Override
                 protected Log createLogger() {
@@ -229,11 +222,10 @@ public class PassthruDocRetrieveProxyWebServiceUnsecuredImplTest {
                 protected WebServiceProxyHelper createWebServiceProxyHelper() {
                     return wsProxyHelper;
                 }
-
+                
                 @Override
-                protected NhincProxyDocRetrievePortType getPort(String url, String wsAddressingAction,
-                        AssertionType assertion) {
-                    return mockPort;
+                protected CONNECTClient<NhincProxyDocRetrievePortType> getClient(String url, AssertionType assertion) {
+                    return mockClient;
                 }
             };
             context.checking(new Expectations() {
@@ -277,6 +269,23 @@ public class PassthruDocRetrieveProxyWebServiceUnsecuredImplTest {
                     return mockResponse;
                 }
             };
+            final CONNECTClient<NhincProxyDocRetrievePortType> mockClient = new CONNECTClient<NhincProxyDocRetrievePortType>() {
+                @Override
+                public NhincProxyDocRetrievePortType getPort() {
+                    // TODO Auto-generated method stub
+                    return null;
+                }
+                
+                /* (non-Javadoc)
+                 * @see gov.hhs.fha.nhinc.messaging.client.CONNECTClient#invokePort(java.lang.Class, java.lang.String, java.lang.Object)
+                 */
+                @Override
+                public Object invokePort(Class<NhincProxyDocRetrievePortType> portClass, String methodName,
+                        Object operationInput) throws Exception {
+                    return mockResponse;
+                }
+                
+            };
             PassthruDocRetrieveProxyWebServiceUnsecuredImpl webProxy = new PassthruDocRetrieveProxyWebServiceUnsecuredImpl() {
                 @Override
                 protected Log createLogger() {
@@ -287,11 +296,10 @@ public class PassthruDocRetrieveProxyWebServiceUnsecuredImplTest {
                 protected WebServiceProxyHelper createWebServiceProxyHelper() {
                     return wsProxyHelper;
                 }
-
+                
                 @Override
-                protected NhincProxyDocRetrievePortType getPort(String url, String wsAddressingAction,
-                        AssertionType assertion) {
-                    return mockPort;
+                protected CONNECTClient<NhincProxyDocRetrievePortType> getClient(String url, AssertionType assertion) {
+                    return mockClient;
                 }
             };
             context.checking(new Expectations() {
@@ -314,6 +322,7 @@ public class PassthruDocRetrieveProxyWebServiceUnsecuredImplTest {
     @Test
     public void testRespondingGatewayCrossGatewayRetrieveException() {
         try {
+            final RetrieveDocumentSetResponseType mockResponse = context.mock(RetrieveDocumentSetResponseType.class);
             final WebServiceProxyHelper wsProxyHelper = new WebServiceProxyHelper() {
                 @Override
                 protected Log createLogger() {
@@ -324,12 +333,23 @@ public class PassthruDocRetrieveProxyWebServiceUnsecuredImplTest {
                 public String getUrlLocalHomeCommunity(String serviceName) {
                     return "url";
                 }
-
+            };
+            final CONNECTClient<NhincProxyDocRetrievePortType> mockClient = new CONNECTClient<NhincProxyDocRetrievePortType>() {
                 @Override
-                public Object invokePort(Object portObject, Class portClass, String methodName, Object operationInput)
-                        throws Exception {
+                public NhincProxyDocRetrievePortType getPort() {
+                    // TODO Auto-generated method stub
+                    return null;
+                }
+                
+                /* (non-Javadoc)
+                 * @see gov.hhs.fha.nhinc.messaging.client.CONNECTClient#invokePort(java.lang.Class, java.lang.String, java.lang.Object)
+                 */
+                @Override
+                public Object invokePort(Class<NhincProxyDocRetrievePortType> portClass, String methodName,
+                        Object operationInput) throws Exception {
                     throw new IllegalArgumentException("Thrown Exception");
                 }
+                
             };
             PassthruDocRetrieveProxyWebServiceUnsecuredImpl webProxy = new PassthruDocRetrieveProxyWebServiceUnsecuredImpl() {
                 @Override
@@ -341,11 +361,10 @@ public class PassthruDocRetrieveProxyWebServiceUnsecuredImplTest {
                 protected WebServiceProxyHelper createWebServiceProxyHelper() {
                     return wsProxyHelper;
                 }
-
+                
                 @Override
-                protected NhincProxyDocRetrievePortType getPort(String url, String wsAddressingAction,
-                        AssertionType assertion) {
-                    return mockPort;
+                protected CONNECTClient<NhincProxyDocRetrievePortType> getClient(String url, AssertionType assertion) {
+                    return mockClient;
                 }
             };
             context.checking(new Expectations() {

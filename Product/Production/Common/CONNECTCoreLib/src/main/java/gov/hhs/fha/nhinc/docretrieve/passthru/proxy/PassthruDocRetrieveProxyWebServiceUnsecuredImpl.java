@@ -39,8 +39,6 @@ import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
-import javax.xml.namespace.QName;
-import javax.xml.ws.Service;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -49,13 +47,8 @@ import org.apache.commons.logging.LogFactory;
  * @author Neil Webb
  */
 public class PassthruDocRetrieveProxyWebServiceUnsecuredImpl implements PassthruDocRetrieveProxy {
+    
     private Log log = null;
-    private static Service cachedService = null;
-    private static final String NAMESPACE_URI = "urn:gov:hhs:fha:nhinc:nhincproxydocretrieve";
-    private static final String SERVICE_LOCAL_PART = "NhincProxyDocRetrieve";
-    private static final String PORT_LOCAL_PART = "NhincProxyDocRetrievePortSoap";
-    private static final String WSDL_FILE = "NhincProxyDocRetrieve.wsdl";
-    private static final String WS_ADDRESSING_ACTION = "urn:gov:hhs:fha:nhinc:nhincproxydocretrieve:RespondingGateway_CrossGatewayRetrieveRequest";
     private WebServiceProxyHelper oProxyHelper = null;
 
     public PassthruDocRetrieveProxyWebServiceUnsecuredImpl() {
@@ -76,37 +69,12 @@ public class PassthruDocRetrieveProxyWebServiceUnsecuredImpl implements Passthru
             NhincConstants.ADAPTER_API_LEVEL apiLevel){
         return new passthruDocRetrievea0ServicePortDescriptor();
     }
-    /* protected NhincProxyDocRetrievePortType getPort(String url, String wsAddressingAction, AssertionType assertion) {
-        NhincProxyDocRetrievePortType port = null;
-
-        Service service = getService();
-        if (service != null) {
-            log.debug("Obtained service - creating port.");
-
-            port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), NhincProxyDocRetrievePortType.class);
-            oProxyHelper
-                    .initializeUnsecurePort((javax.xml.ws.BindingProvider) port, url, wsAddressingAction, assertion);
-        } else {
-            log.error("Unable to obtain serivce - no port created.");
-        }
-        return port;
-    }*/
-
-    /**
-     * Retrieve the service class for this web service.
-     * 
-     * @return The service class for this web service.
-     */
-  /*  protected Service getService() {
-        if (cachedService == null) {
-            try {
-                cachedService = oProxyHelper.createService(WSDL_FILE, NAMESPACE_URI, SERVICE_LOCAL_PART);
-            } catch (Throwable t) {
-                log.error("Error creating service: " + t.getMessage(), t);
-            }
-        }
-        return cachedService;
-    }*/
+    
+    protected CONNECTClient<NhincProxyDocRetrievePortType> getClient(String url, AssertionType assertion) {
+        ServicePortDescriptor<NhincProxyDocRetrievePortType> portDescriptor = getServicePortDescriptor(NhincConstants.ADAPTER_API_LEVEL.LEVEL_a0);
+        
+        return CONNECTClientFactory.getInstance().getCONNECTClientUnsecured(portDescriptor, url, assertion);
+    }
 
     public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(
             RetrieveDocumentSetRequestType request, AssertionType assertion, NhinTargetSystemType targetSystem) {
@@ -129,17 +97,10 @@ public class PassthruDocRetrieveProxyWebServiceUnsecuredImpl implements Passthru
                     wsRequest.setAssertion(assertion);
                 }
                 
-                ServicePortDescriptor<NhincProxyDocRetrievePortType> portDescriptor = getServicePortDescriptor(NhincConstants.ADAPTER_API_LEVEL.LEVEL_a0);
-                
-                CONNECTClient<NhincProxyDocRetrievePortType> client = CONNECTClientFactory.getInstance().
-                        getCONNECTClientUnsecured(portDescriptor, url, assertion);
+                CONNECTClient<NhincProxyDocRetrievePortType> client = getClient(url, assertion);
                 
                 response = (RetrieveDocumentSetResponseType) client.invokePort(NhincProxyDocRetrievePortType.class,
                         "respondingGatewayCrossGatewayRetieve", request);
-                
-                //NhincProxyDocRetrievePortType port = getPort(url, WS_ADDRESSING_ACTION, assertion);
-               /* response = (RetrieveDocumentSetResponseType) oProxyHelper.invokePort(port,
-                        NhincProxyDocRetrievePortType.class, "respondingGatewayCrossGatewayRetrieve", wsRequest);*/
             } else {
                 log.error("Failed to call the web service (" + serviceName + ").  The URL is null.");
             }
