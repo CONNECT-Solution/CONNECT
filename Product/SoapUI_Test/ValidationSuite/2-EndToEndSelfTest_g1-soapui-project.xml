@@ -2602,8 +2602,6 @@
                <urn1:zipCode>AddrZip</urn1:zipCode>
             </urn1:address>
             <urn1:dateOfBirth>06/04/1959 05:21:00</urn1:dateOfBirth>
-            <urn1:dateOfSignature>${#Project#sigDate}</urn1:dateOfSignature>
-            <urn1:expirationDate>${#Project#expireDate}</urn1:expirationDate>
             <urn1:explanationNonClaimantSignature>Electronic</urn1:explanationNonClaimantSignature>
             <urn1:haveSecondWitnessSignature>false</urn1:haveSecondWitnessSignature>
             <urn1:haveSignature>false</urn1:haveSignature>
@@ -2641,7 +2639,6 @@
                   <urn1:originalText>phoneCode</urn1:originalText>
                </urn1:phoneNumberType>
             </urn1:phoneNumber>
-            <urn1:purposeOfDisclosure>TREATMENT</urn1:purposeOfDisclosure>
             <urn1:secondWitnessAddress>
                <urn1:addressType>
                   <urn1:code>AddrCode</urn1:code>
@@ -2747,7 +2744,6 @@
                   <urn1:fullName>Kasrl S. Skagerberg</urn1:fullName>
                </urn1:personName>
                <urn1:userName>${#TestCase#UserId}</urn1:userName>
-               <urn1:role>Pharmacy</urn1:role>
                <urn1:org>
                   <urn1:description>${#Project#LocalHCDescription}</urn1:description>
                   <urn1:homeCommunityId>${#Project#LocalHCID}</urn1:homeCommunityId>
@@ -2771,8 +2767,6 @@
                <urn1:displayName>Use or disclosure of Psychotherapy Notes</urn1:displayName>
                <urn1:originalText>Psychotherapy Notes</urn1:originalText>
             </urn1:purposeOfDisclosureCoded>
-            <urn1:claimFormRef>Ref-Clm-123</urn1:claimFormRef>
-            <urn1:claimFormRaw>YWVvbGlhbQ==</urn1:claimFormRaw>
             <urn1:samlAuthnStatement>
                <urn1:authInstant>2009-09-01T13:00:00.000Z</urn1:authInstant>
                <urn1:sessionIndex>mySessionIndex</urn1:sessionIndex>
@@ -2792,8 +2786,8 @@
                      <urn1:issuer>CN=Mr Saml User,OU=SU,O=Mr SAML Org,L=Chantilly,ST=VA,C=US</urn1:issuer>
                      <urn1:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn1:issuerFormat>
                      <urn1:conditions>
-                        <urn1:notBefore>01/01/2001 01:00:00</urn1:notBefore>
-                        <urn1:notOnOrAfter>05/06/2009 22:00:17</urn1:notOnOrAfter>
+                        <urn1:notBefore>2009-04-16T13:10:39.093Z</urn1:notBefore>
+                        <urn1:notOnOrAfter>2009-12-31T12:00:00.000Z</urn1:notOnOrAfter>
                      </urn1:conditions>
                      <urn1:accessConsentPolicy>urn:oid:1.2.3.4</urn1:accessConsentPolicy>
                      <urn1:instanceAccessConsentPolicy>urn:oid:1.2.3.4.123456789</urn1:instanceAccessConsentPolicy>
@@ -2811,9 +2805,7 @@
                <!--Optional:-->
                <urn1:signatureValue>cid:383675305350</urn1:signatureValue>
             </urn1:samlSignature>
-            <!--Optional:-->
-            <urn1:asyncMessageId>?</urn1:asyncMessageId>
-         </urn:assertion>
+            </urn:assertion>
          <!--Optional:-->
          <urn:nhinTargetCommunities>
             <!--1 or more repetitions:-->

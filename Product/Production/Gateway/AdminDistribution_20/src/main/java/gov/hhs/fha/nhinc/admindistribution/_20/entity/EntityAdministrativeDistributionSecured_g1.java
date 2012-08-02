@@ -26,9 +26,10 @@
  */
 package gov.hhs.fha.nhinc.admindistribution._20.entity;
 
-import gov.hhs.fha.nhinc.admindistribution.entity.*;
+import gov.hhs.fha.nhinc.admindistribution.entity.EntityAdminDistributionOrchImpl;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
+import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
+
 import javax.annotation.Resource;
 import javax.jws.WebService;
 import javax.xml.ws.BindingType;
@@ -57,7 +58,7 @@ public class EntityAdministrativeDistributionSecured_g1 {
     }
 
     protected AssertionType extractAssertion(WebServiceContext context) {
-        return SamlTokenExtractor.GetAssertion(context);
+        return new SAML2AssertionExtractor().extractSamlAssertion(context);
     }
 
     protected EntityAdminDistributionOrchImpl getEntityImpl() {

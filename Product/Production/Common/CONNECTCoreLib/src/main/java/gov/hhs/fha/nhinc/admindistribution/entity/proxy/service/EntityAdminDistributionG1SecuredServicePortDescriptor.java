@@ -24,44 +24,22 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
-package gov.hhs.fha.nhinc.admindistribution._20.nhin;
 
-import gov.hhs.fha.nhinc.admindistribution.nhin.NhinAdminDistributionOrchImpl;
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
-
-import javax.annotation.Resource;
-import javax.jws.WebService;
-import javax.xml.ws.BindingType;
-import javax.xml.ws.WebServiceContext;
-import javax.xml.ws.soap.Addressing;
+package gov.hhs.fha.nhinc.admindistribution.entity.proxy.service;
 
 /**
- * 
- * @author dunnek
+ * @author akong
+ *
  */
-@WebService(serviceName = "RespondingGateway_AdministrativeDistribution", portName = "RespondingGateway_AdministrativeDistribution_PortType", endpointInterface = "gov.hhs.fha.nhinc.nhinadmindistribution.RespondingGatewayAdministrativeDistributionPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:nhinadmindistribution", wsdlLocation = "WEB-INF/wsdl/NhinAdministrativeDistribution/NhinAdminDist_g1.wsdl")
-@BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
-@Addressing(enabled = true)
-public class NhinAdministrativeDistribution_g1 {
+public class EntityAdminDistributionG1SecuredServicePortDescriptor extends EntityAdminDistributionSecuredServicePortDescriptor {
 
-    @Resource
-    private WebServiceContext context;
-
-    public void sendAlertMessage(oasis.names.tc.emergency.edxl.de._1.EDXLDistribution body) {
-
-        AssertionType assertion = extractAssertion(context);
-
-        getNhinImpl().sendAlertMessage(body, assertion);
-
-    }
-
-    protected AssertionType extractAssertion(WebServiceContext context) {
-        return new SAML2AssertionExtractor().extractSamlAssertion(context);
-    }
-
-    protected NhinAdminDistributionOrchImpl getNhinImpl() {
-        return new NhinAdminDistributionOrchImpl();
-    }
-
+    private static final String WSDL_FILE_G1 = "EntityAdminDistSecured_g1.wsdl";
+    
+    /* (non-Javadoc)
+     * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getWSDLFileName()
+     */
+    @Override
+    public String getWSDLFileName() {
+        return WSDL_FILE_G1;
+    }    
 }

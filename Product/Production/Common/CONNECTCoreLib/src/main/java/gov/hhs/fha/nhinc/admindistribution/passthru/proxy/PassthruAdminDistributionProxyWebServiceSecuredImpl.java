@@ -27,22 +27,21 @@
 package gov.hhs.fha.nhinc.admindistribution.passthru.proxy;
 
 import gov.hhs.fha.nhinc.admindistribution.AdminDistributionHelper;
-import gov.hhs.fha.nhinc.admindistribution.PassthruAdminDistributionHelper;
-import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
+import gov.hhs.fha.nhinc.admindistribution.passthru.proxy.service.PassthruAdminDistributionG0SecuredServicePortDescriptor;
+import gov.hhs.fha.nhinc.admindistribution.passthru.proxy.service.PassthruAdminDistributionG1SecuredServicePortDescriptor;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import gov.hhs.fha.nhinc.nhincadmindistribution.NhincAdminDistSecuredPortType;
 import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewaySendAlertMessageSecuredType;
+import gov.hhs.fha.nhinc.messaging.client.CONNECTCXFClientFactory;
+import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
+import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
+import gov.hhs.fha.nhinc.nhincadmindistribution.NhincAdminDistSecuredPortType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
-import gov.hhs.fha.nhinc.saml.extraction.SamlTokenCreator;
-import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
-import java.util.Map;
-import javax.xml.namespace.QName;
-import javax.xml.ws.BindingProvider;
-import javax.xml.ws.Service;
+import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * 
@@ -51,55 +50,53 @@ import javax.xml.ws.Service;
 public class PassthruAdminDistributionProxyWebServiceSecuredImpl implements PassthruAdminDistributionProxy {
 
     private Log log = LogFactory.getLog(getClass());;
-    private WebServiceProxyHelper proxyHelper;
-    private PassthruAdminDistributionHelper adminDistributionHelper;
-    private static final String NAMESPACE_URI = "urn:gov:hhs:fha:nhinc:nhincadmindistribution";
-    private static final String SERVICE_LOCAL_PART = "NhincAdminDistSecuredService";
-    private static final String PORT_LOCAL_PART = "NhincAdminDistSecured_PortType";
-    private static final String WSDL_FILE_G0 = "NhincAdminDistSecured.wsdl";
-    private static final String WSDL_FILE_G1 = "NhincAdminDistSecured_g1.wsdl";
-    private static final String WS_ADDRESSING_ACTION = "urn:gov:hhs:fha:nhinc:nhincadmindistribution:SendAlertMessageSecured_Message";
 
-    public PassthruAdminDistributionProxyWebServiceSecuredImpl() {
-        proxyHelper = new WebServiceProxyHelper();
-        adminDistributionHelper = new PassthruAdminDistributionHelper(proxyHelper, WSDL_FILE_G0, WSDL_FILE_G1,
-                NAMESPACE_URI, SERVICE_LOCAL_PART, PORT_LOCAL_PART, WS_ADDRESSING_ACTION);
+    public PassthruAdminDistributionProxyWebServiceSecuredImpl() {        
     }
 
-    public PassthruAdminDistributionProxyWebServiceSecuredImpl(WebServiceProxyHelper proxyHelper,
-            PassthruAdminDistributionHelper adminDistributionHelper) {
-        this.proxyHelper = proxyHelper;
-        this.adminDistributionHelper = adminDistributionHelper;
+    protected AdminDistributionHelper getAdminDistributionHelper() {
+        return new AdminDistributionHelper();
     }
 
-    protected AdminDistributionHelper getHelper() {
-        return adminDistributionHelper;
+    public ServicePortDescriptor<NhincAdminDistSecuredPortType> getServicePortDescriptor(
+            NhincConstants.GATEWAY_API_LEVEL apiLevel) {
+        switch (apiLevel) {
+        case LEVEL_g0:
+            return new PassthruAdminDistributionG0SecuredServicePortDescriptor();
+        default:
+            return new PassthruAdminDistributionG1SecuredServicePortDescriptor();
+        }
+    }
+
+    protected CONNECTClient<NhincAdminDistSecuredPortType> getCONNECTClientSecured(
+            ServicePortDescriptor<NhincAdminDistSecuredPortType> portDescriptor, String url, AssertionType assertion) {
+
+        return CONNECTCXFClientFactory.getInstance().getCONNECTClientSecured(portDescriptor, url, assertion);
     }
 
     public void sendAlertMessage(EDXLDistribution body, AssertionType assertion, NhinTargetSystemType target,
             NhincConstants.GATEWAY_API_LEVEL apiLevel) {
         log.debug("begin sendAlertMessage");
 
-        String hcid = adminDistributionHelper.getLocalCommunityId();
-        String url = adminDistributionHelper.getUrl(hcid, NhincConstants.NHINC_ADMIN_DIST_SECURED_SERVICE_NAME,
-                apiLevel);
+        AdminDistributionHelper helper = getAdminDistributionHelper();
+        String hcid = helper.getLocalCommunityId();
+        String url = helper.getUrl(hcid, NhincConstants.NHINC_ADMIN_DIST_SECURED_SERVICE_NAME, apiLevel);
 
         if (NullChecker.isNotNullish(url)) {
-            NhincAdminDistSecuredPortType port = adminDistributionHelper.getSecuredPort(url,
-                    NhincConstants.NHINC_ADMIN_DIST_SECURED_SERVICE_NAME, WS_ADDRESSING_ACTION, assertion, apiLevel);
-            RespondingGatewaySendAlertMessageSecuredType message = new RespondingGatewaySendAlertMessageSecuredType();
-
-            message.setEDXLDistribution(body);
-            message.setNhinTargetSystem(target);
-            SamlTokenCreator tokenCreator = new SamlTokenCreator();
-            Map requestContext = tokenCreator.CreateRequestContext(assertion, url, NhincConstants.ADMIN_DIST_ACTION);
-
             try {
-                ((BindingProvider) port).getRequestContext().putAll(requestContext);
-                proxyHelper.invokePort(port, RespondingGatewaySendAlertMessageSecuredType.class, "sendAlertMessage",
-                        message);
+                RespondingGatewaySendAlertMessageSecuredType message = new RespondingGatewaySendAlertMessageSecuredType();
+                message.setEDXLDistribution(body);
+                message.setNhinTargetSystem(target);
+
+                ServicePortDescriptor<NhincAdminDistSecuredPortType> portDescriptor = getServicePortDescriptor(apiLevel);
+
+                CONNECTClient<NhincAdminDistSecuredPortType> client = getCONNECTClientSecured(portDescriptor, url,
+                        assertion);
+
+                client.invokePort(NhincAdminDistSecuredPortType.class, "sendAlertMessage", message);
+
             } catch (Exception ex) {
-                log.error("Unable to send message: " + ex.getMessage());
+                log.error("Unable to send message: " + ex.getMessage(), ex);
             }
         } else {
             log.error("Failed to call the web service (" + NhincConstants.NHINC_ADMIN_DIST_SECURED_SERVICE_NAME
