@@ -13,12 +13,22 @@ http://www.springframework.org/schema/beans http://www.springframework.org/schem
 http://cxf.apache.org/bindings/soap http://cxf.apache.org/schemas/configuration/soap.xsd
 http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
 
+    <import resource="classpath:META-INF/cxf/cxf.xml" />
+    <import resource="classpath:META-INF/cxf/cxf-extension-soap.xml" />
+    <import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
     <import resource="classpath:CONNECT-interceptor-beans.xml" />
 
-    <jaxws:endpoint xmlns:apes="urn:gov:hhs:fha:nhinc:adapterpolicyenginesecured" id="AdapterPolicyEngineSecured"
-        address="/AdapterPolicyEngineSecured" serviceName="apes:AdapterPolicyEngineSecured" endpointName="apes:AdapterPolicyEngineSecuredPortSoap"
-        implementor="gov.hhs.fha.nhinc.policyengine.adapter.AdapterPolicyEngineSecured" wsdlLocation="/WEB-INF/wsdl/AdapterPolicyEngineSecured/AdapterPolicyEngineSecured.wsdl">
+    <!-- Document Retrieve -->
 
+    <!-- Adapter Services -->
+    <jaxws:endpoint xmlns:adr="urn:gov:hhs:fha:nhinc:adapterdocretrieve" id="AdapterDocRetrieve_a0"
+        address="/AdapterDocRetrieve" serviceName="adr:AdapterDocRetrieve" endpointName="adr:AdapterDocRetrievePortSoap"
+        implementor="gov.hhs.fha.nhinc.docretrieve.adapter.AdapterDocRetrieve" wsdlLocation="/WEB-INF/wsdl/AdapterDocRetrieve/AdapterDocRetrieve.wsdl">
+    </jaxws:endpoint>
+
+    <jaxws:endpoint xmlns:adrs="urn:gov:hhs:fha:nhinc:adapterdocretrievesecured" id="AdapterDocRetrieveSecured_a0"
+        address="/AdapterDocRetrieveSecured" serviceName="adrs:AdapterDocRetrieveSecured" endpointName="adrs:AdapterDocRetrieveSecuredPortSoap"
+        implementor="gov.hhs.fha.nhinc.docretrieve.adapter.AdapterDocRetrieveSecured" wsdlLocation="/WEB-INF/wsdl/AdapterDocRetrieveSecured/AdapterDocRetrieveSecured.wsdl">
         <jaxws:properties>
             <entry key="ws-security.callback-handler" value="gov.hhs.fha.nhinc.callback.cxf.CXFSAMLCallbackHandler" />
             <entry key="ws-security.signature.properties" value="keystore.properties" />
@@ -27,22 +37,7 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
         <jaxws:inInterceptors>
             <ref bean="securityInInterceptor" />
         </jaxws:inInterceptors>
-
     </jaxws:endpoint>
 
-    <jaxws:endpoint xmlns:ape="urn:gov:hhs:fha:nhinc:adapterpolicyengine" id="AdapterPolicyEngine"
-        address="/AdapterProxyService/AdapterPolicyEngine" serviceName="ape:AdapterPolicyEngine" endpointName="ape:AdapterPolicyEnginePortSoap"
-        implementor="gov.hhs.fha.nhinc.policyengine.adapter.AdapterPolicyEngine" wsdlLocation="/WEB-INF/wsdl/AdapterPolicyEngine/AdapterPolicyEngine.wsdl">
-    </jaxws:endpoint>
-
-    <jaxws:endpoint xmlns:adreg="urn:ihe:iti:xds-b:2007" id="AdapterDocumentRegistry" address="/DocumentRegistry_Service"
-        serviceName="adreg:DocumentRegistry_Service" endpointName="adreg:DocumentRegistry_Port_Soap"
-        implementor="gov.hhs.fha.nhinc.docregistry.adapter.DocumentRegistryService" wsdlLocation="/WEB-INF/wsdl/DocumentRegistryService/AdapterComponentDocRegistry.wsdl">
-    </jaxws:endpoint>
-
-    <jaxws:endpoint xmlns:tns="urn:ihe:iti:xds-b:2007" id="AdapterDocumentRepository"
-        address="/DocumentRepository_Service" serviceName="tns:DocumentRepository_Service" endpointName="tns:DocumentRepository_Port_Soap"
-        implementor="gov.hhs.fha.nhinc.docrepository.adapter.DocumentRepositoryService" wsdlLocation="/WEB-INF/wsdl/DocumentRepositoryService/AdapterComponentDocRepository.wsdl">
-    </jaxws:endpoint>
-
+    <bean id="SOAPHeaderHandler" class="gov.hhs.fha.nhinc.callback.SOAPHeaderHandler" />
 </beans>

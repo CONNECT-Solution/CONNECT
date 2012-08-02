@@ -28,13 +28,15 @@ package gov.hhs.fha.nhinc.docretrieve.adapter.proxy;
 
 import gov.hhs.fha.nhinc.adapterdocretrievesecured.AdapterDocRetrieveSecuredPortType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.docretrieve.adapter.proxy.service.AdapterDocRetrieveSecuredServicePortDescriptor;
+import gov.hhs.fha.nhinc.messaging.client.CONNECTCXFClientFactory;
+import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
+import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
-import javax.xml.ws.Service;
-import javax.xml.namespace.QName;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -44,13 +46,7 @@ import org.apache.commons.logging.LogFactory;
  * @author Neil Webb, Les Westberg
  */
 public class AdapterDocRetrieveProxyWebServiceSecuredImpl implements AdapterDocRetrieveProxy {
-    private static Service cachedService = null;
-    private static final String NAMESPACE_URI = "urn:gov:hhs:fha:nhinc:adapterdocretrievesecured";
-    private static final String SERVICE_LOCAL_PART = "AdapterDocRetrieveSecured";
-    private static final String PORT_LOCAL_PART = "AdapterDocRetrieveSecuredPortSoap";
-    private static final String WSDL_FILE = "AdapterDocRetrieveSecured.wsdl";
-    private static final String WS_ADDRESSING_ACTION = NAMESPACE_URI + ":"
-            + "RespondingGateway_CrossGatewayRetrieveSecuredRequestMessage";
+
     private Log log = null;
     private WebServiceProxyHelper oProxyHelper = new WebServiceProxyHelper();
 
@@ -86,15 +82,19 @@ public class AdapterDocRetrieveProxyWebServiceSecuredImpl implements AdapterDocR
         try {
             if (request != null) {
                 log.debug("Before target system URL look up.");
-                              
+
                 url = oProxyHelper.getAdapterEndPointFromConnectionManager(sServiceName);
                 log.debug("After target system URL look up. URL for service: " + sServiceName + " is: " + url);
 
                 if (NullChecker.isNotNullish(url)) {
-                    AdapterDocRetrieveSecuredPortType port = getPort(url, NhincConstants.DOC_RETRIEVE_ACTION,
-                            WS_ADDRESSING_ACTION, assertion);
-                    response = (RetrieveDocumentSetResponseType) oProxyHelper.invokePort(port,
-                            AdapterDocRetrieveSecuredPortType.class, "respondingGatewayCrossGatewayRetrieve", request);
+
+                    ServicePortDescriptor<AdapterDocRetrieveSecuredPortType> portDescriptor = new AdapterDocRetrieveSecuredServicePortDescriptor();
+
+                    CONNECTClient<AdapterDocRetrieveSecuredPortType> client = getCONNECTClientSecured(portDescriptor, url,
+                            assertion);
+
+                    response = (RetrieveDocumentSetResponseType) client.invokePort(AdapterDocRetrieveSecuredPortType.class,
+                            "respondingGatewayCrossGatewayRetrieve", request);
                 } else {
                     log.error("Failed to call the web service (" + sServiceName + ").  The URL is null.");
                 }
@@ -109,44 +109,9 @@ public class AdapterDocRetrieveProxyWebServiceSecuredImpl implements AdapterDocR
         return response;
     }
 
-    /**
-     * Retrieve the service class for this web service.
-     * 
-     * @return The service class for this web service.
-     */
-    protected Service getService() {
-        if (cachedService == null) {
-            try {
-                cachedService = oProxyHelper.createService(WSDL_FILE, NAMESPACE_URI, SERVICE_LOCAL_PART);
-            } catch (Throwable t) {
-                log.error("Error creating service: " + t.getMessage(), t);
-            }
-        }
-        return cachedService;
-    }
+    protected CONNECTClient<AdapterDocRetrieveSecuredPortType> getCONNECTClientSecured(
+            ServicePortDescriptor<AdapterDocRetrieveSecuredPortType> portDescriptor, String url, AssertionType assertion) {
 
-    /**
-     * This method retrieves and initializes the port.
-     * 
-     * @param url The URL for the web service.
-     * @param serviceAction The action for the web service.
-     * @param wsAddressingAction The action assigned to the input parameter for the web service operation.
-     * @param assertion The assertion information for the web service
-     * @return The port object for the web service.
-     */
-    protected AdapterDocRetrieveSecuredPortType getPort(String url, String serviceAction, String wsAddressingAction,
-            AssertionType assertion) {
-        AdapterDocRetrieveSecuredPortType port = null;
-        Service service = getService();
-        if (service != null) {
-            log.debug("Obtained service - creating port.");
-
-            port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), AdapterDocRetrieveSecuredPortType.class);
-            oProxyHelper.initializeSecurePort((javax.xml.ws.BindingProvider) port, url, serviceAction,
-                    wsAddressingAction, assertion);
-        } else {
-            log.error("Unable to obtain serivce - no port created.");
-        }
-        return port;
+        return CONNECTCXFClientFactory.getInstance().getCONNECTClientSecured(portDescriptor, url, assertion);
     }
 }
