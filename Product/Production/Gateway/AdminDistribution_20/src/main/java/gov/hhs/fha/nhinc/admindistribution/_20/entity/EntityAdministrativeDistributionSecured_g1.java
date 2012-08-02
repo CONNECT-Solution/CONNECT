@@ -49,11 +49,8 @@ public class EntityAdministrativeDistributionSecured_g1 {
 
     public void sendAlertMessage(
             gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewaySendAlertMessageSecuredType body) {
-        // TODO implement this method
-
         AssertionType assertion = extractAssertion(context);
 
-        // TODO implement this method
         getEntityImpl().sendAlertMessage(body, assertion, body.getNhinTargetCommunities());
     }
 
