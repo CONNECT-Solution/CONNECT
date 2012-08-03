@@ -81,7 +81,7 @@
     <wsp:Policy wsu:Id="EntityDocRetrievePolicy">
         <wsp:ExactlyOne>
             <wsp:All>
-                <wsoma:OptimizedMimeSerialization/>
+                <wsoma:OptimizedMimeSerialization wsp:Optional="true"/>
             </wsp:All>
         </wsp:ExactlyOne>
     </wsp:Policy>
