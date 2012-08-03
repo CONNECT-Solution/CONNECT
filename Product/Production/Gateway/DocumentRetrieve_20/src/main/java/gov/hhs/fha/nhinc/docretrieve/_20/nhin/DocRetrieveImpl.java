@@ -37,6 +37,7 @@ import gov.hhs.fha.nhinc.orchestration.AuditTransformer;
 import gov.hhs.fha.nhinc.orchestration.CONNECTInboundOrchestrator;
 import gov.hhs.fha.nhinc.orchestration.PolicyTransformer;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
+import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import javax.xml.ws.WebServiceContext;
@@ -56,7 +57,8 @@ class DocRetrieveImpl {
             WebServiceContext context) {
         log.debug("Entering DocRetrieveImpl.respondingGatewayCrossGatewayRetrieve");
 
-        AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
+        //AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
+        AssertionType assertion = new SAML2AssertionExtractor().extractSamlAssertion(context);
 
         // Extract the message id value from the WS-Addressing Header and place it in the Assertion Class
         if (assertion != null) {
