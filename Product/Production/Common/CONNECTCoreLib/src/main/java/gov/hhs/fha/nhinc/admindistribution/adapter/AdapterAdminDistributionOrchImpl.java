@@ -47,13 +47,10 @@ public class AdapterAdminDistributionOrchImpl {
     }
 
     public void sendAlertMessage(EDXLDistribution body, AssertionType assertion) {
-        log.debug("Begin sendAlertMessage");
-
-        log.info("Recieved Alert Message");
+        log.info("Received Alert Message");
         log.info(body.getCombinedConfidentiality());
         log.info("Time Sent: " + body.getDateTimeSent());
         log.info("Sender Id: " + body.getSenderID());
         log.info("Keyword: " + body.getKeyword().toString());
-
     }
 }

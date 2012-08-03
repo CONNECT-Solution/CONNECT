@@ -29,6 +29,8 @@ package gov.hhs.fha.nhinc.admindistribution.adapter;
 import javax.jws.WebService;
 import javax.xml.ws.BindingType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
+
 import javax.annotation.Resource;
 import javax.xml.ws.WebServiceContext;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
@@ -44,7 +46,7 @@ public class AdapterAdministrativeDistributionSecured {
     private WebServiceContext context;
 
     protected AssertionType extractAssertion(WebServiceContext context) {
-        return SamlTokenExtractor.GetAssertion(context);
+        return new SAML2AssertionExtractor().extractSamlAssertion(context);
     }
 
     public void sendAlertMessage(

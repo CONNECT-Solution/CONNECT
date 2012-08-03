@@ -26,19 +26,21 @@
  */
 package gov.hhs.fha.nhinc.admindistribution.adapter.proxy;
 
-import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.adapteradmindistribution.AdapterAdministrativeDistributionPortType;
 import gov.hhs.fha.nhinc.admindistribution.AdminDistributionHelper;
+import gov.hhs.fha.nhinc.admindistribution.adapter.proxy.service.AdapterAdminDistributionUnsecuredServicePortDescriptor;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewaySendAlertMessageType;
+import gov.hhs.fha.nhinc.messaging.client.CONNECTCXFClientFactory;
+import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
+import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADAPTER_API_LEVEL;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
-import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
-import javax.xml.namespace.QName;
-import javax.xml.ws.Service;
+import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * 
@@ -46,23 +48,26 @@ import javax.xml.ws.Service;
  */
 public class AdapterAdminDistributionProxyWebServiceUnsecuredImpl implements AdapterAdminDistributionProxy {
 
-    private static Service cachedService = null;
-    private static final String NAMESPACE_URI = "urn:gov:hhs:fha:nhinc:adapteradmindistribution";
-    private static final String SERVICE_LOCAL_PART = "Adapter_AdministrativeDistribution";
-    private static final String PORT_LOCAL_PART = "Adapter_AdministrativeDistribution_PortType";
-    private static final String WSDL_FILE = "AdapterAdminDist.wsdl";
-    private static final String WS_ADDRESSING_ACTION = NAMESPACE_URI + ":SendAlertMessage_Message";
     private Log log = null;
-    private WebServiceProxyHelper oProxyHelper = new WebServiceProxyHelper();
     private AdminDistributionHelper adminDistributionHelper;
 
     public AdapterAdminDistributionProxyWebServiceUnsecuredImpl() {
         log = createLogger();
-        adminDistributionHelper = new AdminDistributionHelper(oProxyHelper);
+        adminDistributionHelper = getHelper();
     }
 
     protected Log createLogger() {
         return LogFactory.getLog(getClass());
+    }
+
+    protected AdminDistributionHelper getHelper() {
+        return new AdminDistributionHelper();
+    }
+
+    protected CONNECTClient<AdapterAdministrativeDistributionPortType> getCONNECTClientUnsecured(
+            ServicePortDescriptor<AdapterAdministrativeDistributionPortType> portDescriptor, String url, AssertionType assertion) {
+
+        return CONNECTCXFClientFactory.getInstance().getCONNECTClientUnsecured(portDescriptor, url, assertion);
     }
 
     public void sendAlertMessage(EDXLDistribution body, AssertionType assertion) {
@@ -71,17 +76,20 @@ public class AdapterAdminDistributionProxyWebServiceUnsecuredImpl implements Ada
                 ADAPTER_API_LEVEL.LEVEL_a0);
 
         if (NullChecker.isNotNullish(url)) {
-
-            AdapterAdministrativeDistributionPortType port = getPort(url, WS_ADDRESSING_ACTION, assertion);
-            RespondingGatewaySendAlertMessageType message = new RespondingGatewaySendAlertMessageType();
-
-            message.setEDXLDistribution(body);
-            message.setAssertion(assertion);
             try {
-                oProxyHelper.invokePort(port, AdapterAdministrativeDistributionPortType.class, "sendAlertMessage",
+
+                RespondingGatewaySendAlertMessageType message = new RespondingGatewaySendAlertMessageType();
+                message.setEDXLDistribution(body);
+                message.setAssertion(assertion);
+                
+                ServicePortDescriptor<AdapterAdministrativeDistributionPortType> portDescriptor = new AdapterAdminDistributionUnsecuredServicePortDescriptor();
+
+                CONNECTClient<AdapterAdministrativeDistributionPortType> client = getCONNECTClientUnsecured(portDescriptor, url, assertion);
+
+                client.invokePort(AdapterAdministrativeDistributionPortType.class, "sendAlertMessage",
                         message);
             } catch (Exception ex) {
-                log.error("Unable to send message: " + ex.getMessage());
+                log.error("Unable to send message: " + ex.getMessage(), ex);
             }
         } else {
             log.error("Failed to call the web service (" + NhincConstants.ADAPTER_ADMIN_DIST_SERVICE_NAME
@@ -89,40 +97,4 @@ public class AdapterAdminDistributionProxyWebServiceUnsecuredImpl implements Ada
         }
     }
 
-    protected AdapterAdministrativeDistributionPortType getPort(String url, String wsAddressingAction,
-            AssertionType assertion) {
-        AdapterAdministrativeDistributionPortType port = null;
-        Service service = getService();
-        if (service != null) {
-            log.debug("Obtained service - creating port.");
-
-            port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART),
-                    AdapterAdministrativeDistributionPortType.class);
-            oProxyHelper
-                    .initializeUnsecurePort((javax.xml.ws.BindingProvider) port, url, wsAddressingAction, assertion);
-        } else {
-            log.error("Unable to obtain serivce - no port created.");
-        }
-        return port;
-    }
-
-    protected AdminDistributionHelper getHelper() {
-        return adminDistributionHelper;
-    }
-
-    /**
-     * Retrieve the service class for this web service.
-     * 
-     * @return The service class for this web service.
-     */
-    protected Service getService() {
-        if (cachedService == null) {
-            try {
-                cachedService = oProxyHelper.createService(WSDL_FILE, NAMESPACE_URI, SERVICE_LOCAL_PART);
-            } catch (Throwable t) {
-                log.error("Error creating service: " + t.getMessage(), t);
-            }
-        }
-        return cachedService;
-    }
 }
