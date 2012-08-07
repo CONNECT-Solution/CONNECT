@@ -16,12 +16,11 @@ import org.apache.log4j.Logger;
 import org.w3c.dom.Element;
 
 /**
- * This class is used to extract the AssertionType from Saml2Assertion in the ws
- * security header. This AssertionType is provided to the responding HIO for
- * using the information for authorization.
+ * This class is used to extract the AssertionType from Saml2Assertion in the ws security header. This AssertionType is
+ * provided to the responding HIO for using the information for authorization.
  * 
  * @author mweaver
- *
+ * 
  */
 public class SAML2AssertionExtractor {
 
@@ -30,32 +29,36 @@ public class SAML2AssertionExtractor {
     /**
      * This method is used to extract the saml assertion information.
      * 
-     * @param context
-     *            context
+     * @param context context
      * @return AssertionType
      */
     public final AssertionType extractSamlAssertion(final WebServiceContext context) {
         LOGGER.debug("Executing Saml2AssertionExtractor.extractSamlAssertion()...");
         AssertionType target = null;
-        
+
         MessageContext mContext = (MessageContext) context.getMessageContext();
-        
-        @SuppressWarnings("unchecked")
-        List<Header> headers = (List<Header>) mContext.get(org.apache.cxf.headers.Header.HEADER_LIST);
-        
-        SoapHeader header = (SoapHeader) headers.get(0);
+        SoapHeader header = getSecuritySoapHeader(mContext);
+
         Object obj = header.getObject();
         Element element = (Element) obj;
-        
+
         SAMLExtractorDOMFactory factory = new SAMLExtractorDOMFactory();
         SAMLExtractorDOM extractor = factory.getExtractor();
         target = extractor.extractSAMLAssertion(element);
-        
+
         return target;
     }
 
+    private final SoapHeader getSecuritySoapHeader(MessageContext mContext) {
+        @SuppressWarnings("unchecked")
+        List<Header> headers = (List<Header>) mContext.get(org.apache.cxf.headers.Header.HEADER_LIST);
 
+        for (Header header : headers) {
+            if (header.getName().getLocalPart().equalsIgnoreCase("Security")) {
+                return (SoapHeader) header;
+            }
+        }
 
-
-
+        return null;
+    }
 }
