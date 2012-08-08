@@ -11,12 +11,12 @@
 
 	<!-- NHIN HIEM Subscribe -->
 	<!-- No-op Implementation -->
-	<bean class="gov.hhs.fha.nhinc.nhinhiem.proxy.subscribe.NhinHiemSubscribeNoOpImpl" id="nhinhiemsubscribenoop" name="nhinhiemsubscribenoop"> 
+	<bean class="gov.hhs.fha.nhinc.subscribe.nhin.proxy.NhinHiemSubscribeNoOpImpl" id="nhinhiemsubscribenoop" name="nhinhiemsubscribenoop"> 
 		<meta key="impltype" value="noop"/>
 	</bean> 
 
 	<!-- Secured web service Implementation -->
-    <bean class="gov.hhs.fha.nhinc.nhinhiem.proxy.subscribe.NhinHiemSubscribeWebServiceProxy" id="nhinhiemsubscribe" name="nhinhiemsubscribewssecured"> 
+    <bean class="gov.hhs.fha.nhinc.subscribe.nhin.proxy.NhinHiemSubscribeWebServiceProxy" id="nhinhiemsubscribe" name="nhinhiemsubscribewssecured"> 
 		<meta key="impltype" value="wssecured"/>
 		<meta key="default" value="true"/>
 	</bean> 
@@ -24,12 +24,12 @@
 	
 	<!-- NHIN HIEM Notify -->
 	<!-- No-op Implementation -->
-	<bean class="gov.hhs.fha.nhinc.nhinhiem.proxy.notify.NhinHiemNotifyNoOpImpl" id="nhinhiemnotifynoop" name="nhinhiemnotifynoop"> 
+	<bean class="gov.hhs.fha.nhinc.notify.nhin.proxy.NhinHiemNotifyNoOpImpl" id="nhinhiemnotifynoop" name="nhinhiemnotifynoop"> 
 		<meta key="impltype" value="noop"/>
 	</bean> 
 
 	<!-- Secured web service Implementation -->
-    <bean class="gov.hhs.fha.nhinc.nhinhiem.proxy.notify.NhinHiemNotifyWebServiceProxy" id="nhinhiemnotify" name="nhinhiemnotifywssecured"> 
+    <bean class="gov.hhs.fha.nhinc.notify.nhin.proxy.NhinHiemNotifyWebServiceProxy" id="nhinhiemnotify" name="nhinhiemnotifywssecured"> 
 		<meta key="impltype" value="wssecured"/>
 		<meta key="default" value="true"/>
 	</bean> 

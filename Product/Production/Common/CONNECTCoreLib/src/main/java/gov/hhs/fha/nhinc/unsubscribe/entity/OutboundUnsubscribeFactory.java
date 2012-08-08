@@ -24,44 +24,29 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
-package gov.hhs.fha.nhinc.hiem.dte.marshallers;
+package gov.hhs.fha.nhinc.unsubscribe.entity;
 
-import org.oasis_open.docs.wsn.b_2.Subscribe;
-import org.oasis_open.docs.wsn.b_2.SubscribeResponse;
-import org.w3c.dom.Element;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.orchestration.OrchestrationContextBuilder;
 
-/**
- * 
- * @author rayj
- */
-public class SubscribeMarshaller {
+public class OutboundUnsubscribeFactory {
 
-    private static final String SubscribeContextPath = "org.oasis_open.docs.wsn.b_2";
+    private static OutboundUnsubscribeFactory INSTANCE = new OutboundUnsubscribeFactory();
 
-    /**
-     * Return the marshalled Subscribe Object.
-     * @param object The object to be marshalled
-     * @return the object in Element format
-     */
-    public Element marshalSubscribe(Subscribe object) {
-        return new Marshaller().marshal(object, SubscribeContextPath);
+    private OutboundUnsubscribeFactory() {
     }
 
-    /**
-     * Return the unmarshalled Subscribe Object.
-     * @param element The element to unmarshal
-     * @return The Subscribe object from the element
-     */
-    public Subscribe unmarshalSubscribe(Element element) {
-        return (Subscribe) new Marshaller().unmarshal(element, SubscribeContextPath);
+    public OrchestrationContextBuilder createOrchestrationContextBuilder(NhincConstants.GATEWAY_API_LEVEL apiLevel) {
+ 		/*switch (apiLevel) {
+        case LEVEL_g0:
+            return new OutboundDocSubmissionOrchestrationContextBuilder_g0();
+        default:*/
+            return new OutboundUnsubscribeOrchestrationContextBuilder_g0();
+        //}
     }
-    
-    /**
-     * Return the unmarshalled SubscribeResponse Object.
-     * @param element The element to unmarshal
-     * @return The SubscribeResponse object from the element
-     */
-    public SubscribeResponse unmarshalSubscribeResponse(Element element){
-    	return (SubscribeResponse) new Marshaller().unmarshal(element, SubscribeContextPath);
+
+    public static OutboundUnsubscribeFactory getInstance() {
+        return INSTANCE;
     }
+
 }

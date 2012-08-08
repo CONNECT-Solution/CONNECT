@@ -24,45 +24,41 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
-package gov.hhs.fha.nhinc.hiem.dte;
+package gov.hhs.fha.nhinc.notify.entity;
 
-import gov.hhs.fha.nhinc.hiem.dte.marshallers.NotificationMessageMarshaller;
-import gov.hhs.fha.nhinc.hiem.dte.marshallers.SubscriptionReferenceMarshaller;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.orchestration.OrchestrationContextBuilder;
 
-import org.oasis_open.docs.wsn.b_2.NotificationMessageHolderType;
-import org.oasis_open.docs.wsn.b_2.Notify;
-import org.w3._2005._08.addressing.EndpointReferenceType;
-import org.w3c.dom.Element;
+public class OutboundNotifyFactory {
 
-/**
- * 
- * @author rayj
- */
-public class NotifyBuilder {
+    private static OutboundNotifyFactory instance = new OutboundNotifyFactory();
 
     /**
-     * this is intended to be used to build an "outbound" notification message based on an "inbound" notify and matching
-     * subscribe. This includes updating the notify with the subscribe's subscription reference and wrapping the
-     * notification message in a notify
-     * 
-     * @param notificationMessage
-     * @param subscribe
+     * Generic constructor.
+     */
+    private OutboundNotifyFactory() {
+    }
+
+    /**
+     * Returns the proper OrchestrationContextBuilder based on the API level.
+     * @param apiLevel the API level for which to create the context
      * @return
      */
-    public Notify buildNotifyFromSubscribe(Element notificationMessageElement, Element subscriptionReferenceElement) {
-        NotificationMessageMarshaller notificationMessageMarshaller = new NotificationMessageMarshaller();
-        NotificationMessageHolderType notificationMessage = notificationMessageMarshaller
-                .unmarshal(notificationMessageElement);
-        notificationMessage.setSubscriptionReference(null);
-
-        SubscriptionReferenceMarshaller subscriptionReferenceMarshaller = new SubscriptionReferenceMarshaller();
-        EndpointReferenceType subscriptionReference = subscriptionReferenceMarshaller
-                .unmarshal(subscriptionReferenceElement);
-        notificationMessage.setSubscriptionReference(subscriptionReference);
-
-        Notify notify = new Notify();
-        notify.getNotificationMessage().add(notificationMessage);
-
-        return notify;
+    public OrchestrationContextBuilder createOrchestrationContextBuilder(NhincConstants.GATEWAY_API_LEVEL apiLevel) {
+ 		/*switch (apiLevel) {
+        case LEVEL_g0:
+            return new OutboundDocSubmissionOrchestrationContextBuilder_g0();
+        default:*/
+            return new OutboundNotifyOrchestrationContextBuilder_g0();
+        //}
     }
+
+    /**
+     * Returns an instance of the OutboundNotifyFactory.
+     * @return the instance
+     */
+    public static OutboundNotifyFactory getInstance() {
+        return instance;
+    }
+
 }

@@ -24,44 +24,51 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
-package gov.hhs.fha.nhinc.hiem.dte.marshallers;
+package gov.hhs.fha.nhinc.notify.entity;
 
-import org.oasis_open.docs.wsn.b_2.Subscribe;
-import org.oasis_open.docs.wsn.b_2.SubscribeResponse;
-import org.w3c.dom.Element;
+import gov.hhs.fha.nhinc.notify.nhin.proxy.NhinHiemNotifyProxy;
+import gov.hhs.fha.nhinc.notify.nhin.proxy.NhinHiemNotifyProxyObjectFactory;
+import gov.hhs.fha.nhinc.orchestration.Orchestratable;
+import gov.hhs.fha.nhinc.orchestration.OrchestrationStrategy;
 
-/**
- * 
- * @author rayj
- */
-public class SubscribeMarshaller {
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
-    private static final String SubscribeContextPath = "org.oasis_open.docs.wsn.b_2";
+class OutboundNotifyStrategyImpl_g0 implements OrchestrationStrategy {
 
-    /**
-     * Return the marshalled Subscribe Object.
-     * @param object The object to be marshalled
-     * @return the object in Element format
-     */
-    public Element marshalSubscribe(Subscribe object) {
-        return new Marshaller().marshal(object, SubscribeContextPath);
+    private static Log log = LogFactory.getLog(OutboundNotifyStrategyImpl_g0.class);
+
+    public OutboundNotifyStrategyImpl_g0() {
     }
 
-    /**
-     * Return the unmarshalled Subscribe Object.
-     * @param element The element to unmarshal
-     * @return The Subscribe object from the element
-     */
-    public Subscribe unmarshalSubscribe(Element element) {
-        return (Subscribe) new Marshaller().unmarshal(element, SubscribeContextPath);
+    protected Log getLogger() {
+        return log;
     }
     
-    /**
-     * Return the unmarshalled SubscribeResponse Object.
-     * @param element The element to unmarshal
-     * @return The SubscribeResponse object from the element
-     */
-    public SubscribeResponse unmarshalSubscribeResponse(Element element){
-    	return (SubscribeResponse) new Marshaller().unmarshal(element, SubscribeContextPath);
+    protected NhinHiemNotifyProxy getNhinNotifyProxy() {
+        return new NhinHiemNotifyProxyObjectFactory().getNhinHiemNotifyProxy();
+    }
+
+    @Override
+    public void execute(Orchestratable message) {
+        if (message instanceof OutboundNotifyOrchestratable) {
+            execute((OutboundNotifyOrchestratable) message);
+        } else {
+            getLogger().error("Not an OutboundDocSubmissionOrchestratable.");
+        }
+    }
+
+    public void execute(OutboundNotifyOrchestratable message) {
+        getLogger().debug("Begin OutboundDocSubmissionOrchestratableImpl_g0.process");
+
+        NhinHiemNotifyProxy nhincNotify = getNhinNotifyProxy();
+        try {
+        	nhincNotify.notify(message.getRequest(), message.getReferenceParameters(),
+        			message.getAssertion(), message.getTarget());
+		} catch (Exception e) {
+			log.error("Failure to process nhin Subscribe message:" + e.toString());
+		}
+
+        getLogger().debug("End OutboundDocSubmissionOrchestratableImpl_g0.process");
     }
 }

@@ -24,45 +24,19 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
-package gov.hhs.fha.nhinc.hiem.dte;
+package gov.hhs.fha.nhinc.notify.nhin.proxy;
 
-import gov.hhs.fha.nhinc.hiem.dte.marshallers.NotificationMessageMarshaller;
-import gov.hhs.fha.nhinc.hiem.dte.marshallers.SubscriptionReferenceMarshaller;
-
-import org.oasis_open.docs.wsn.b_2.NotificationMessageHolderType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+import gov.hhs.fha.nhinc.hiem.consumerreference.ReferenceParametersElements;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import org.oasis_open.docs.wsn.b_2.Notify;
-import org.w3._2005._08.addressing.EndpointReferenceType;
-import org.w3c.dom.Element;
 
 /**
  * 
- * @author rayj
+ * @author jhoppesc
  */
-public class NotifyBuilder {
+public interface NhinHiemNotifyProxy {
 
-    /**
-     * this is intended to be used to build an "outbound" notification message based on an "inbound" notify and matching
-     * subscribe. This includes updating the notify with the subscribe's subscription reference and wrapping the
-     * notification message in a notify
-     * 
-     * @param notificationMessage
-     * @param subscribe
-     * @return
-     */
-    public Notify buildNotifyFromSubscribe(Element notificationMessageElement, Element subscriptionReferenceElement) {
-        NotificationMessageMarshaller notificationMessageMarshaller = new NotificationMessageMarshaller();
-        NotificationMessageHolderType notificationMessage = notificationMessageMarshaller
-                .unmarshal(notificationMessageElement);
-        notificationMessage.setSubscriptionReference(null);
-
-        SubscriptionReferenceMarshaller subscriptionReferenceMarshaller = new SubscriptionReferenceMarshaller();
-        EndpointReferenceType subscriptionReference = subscriptionReferenceMarshaller
-                .unmarshal(subscriptionReferenceElement);
-        notificationMessage.setSubscriptionReference(subscriptionReference);
-
-        Notify notify = new Notify();
-        notify.getNotificationMessage().add(notificationMessage);
-
-        return notify;
-    }
+    public void notify(Notify notifyElement,  ReferenceParametersElements referenceParameters,
+    		AssertionType assertion, NhinTargetSystemType target);
 }
