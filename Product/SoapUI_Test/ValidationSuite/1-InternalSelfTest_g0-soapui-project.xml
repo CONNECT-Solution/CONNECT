@@ -5058,9 +5058,9 @@ if(gatewayBakFile.exists()) {
                      <!--Optional:-->
                      <urn1:conditions>
                         <!--Optional:-->
-                        <urn1:notBefore>01/01/2001 01:00:00</urn1:notBefore>
+                        <urn1:notBefore>2009-04-16T13:10:39.093Z</urn1:notBefore>
                         <!--Optional:-->
-                        <urn1:notOnOrAfter>05/06/2009 22:00:17</urn1:notOnOrAfter>
+                        <urn1:notOnOrAfter>2009-12-31T12:00:00.000Z</urn1:notOnOrAfter>
                      </urn1:conditions>
                      <!--Optional:-->
                      <urn1:accessConsentPolicy>urn:oid:1.2.3.4</urn1:accessConsentPolicy>
@@ -5081,8 +5081,6 @@ if(gatewayBakFile.exists()) {
                <!--Optional:-->
                <urn1:signatureValue>cid:175264679488</urn1:signatureValue>
             </urn1:samlSignature>
-            <!--Optional:-->
-            <urn1:asyncMessageId>?</urn1:asyncMessageId>
          </urn:assertion>
          <urn:nhinTargetSystem>
             <!--You have a CHOICE of the next 3 items at this level-->

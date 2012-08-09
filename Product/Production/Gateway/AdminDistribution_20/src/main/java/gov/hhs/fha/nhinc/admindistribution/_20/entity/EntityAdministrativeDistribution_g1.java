@@ -41,7 +41,6 @@ import javax.xml.ws.soap.Addressing;
 public class EntityAdministrativeDistribution_g1 {
 
     public void sendAlertMessage(gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewaySendAlertMessageType body) {
-        // TODO implement this method
         getEntityImpl().sendAlertMessage(body, body.getAssertion(), body.getNhinTargetCommunities());
     }
 

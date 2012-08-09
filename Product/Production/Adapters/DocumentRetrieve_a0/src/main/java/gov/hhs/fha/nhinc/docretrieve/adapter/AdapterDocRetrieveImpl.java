@@ -13,11 +13,11 @@ package gov.hhs.fha.nhinc.docretrieve.adapter;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import javax.xml.ws.WebServiceContext;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
-import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayRetrieveRequestType;
+import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
 
 /**
  * 
@@ -67,7 +67,7 @@ public class AdapterDocRetrieveImpl {
 
         AssertionType assertion = null;
         if (context != null) {
-            assertion = SamlTokenExtractor.GetAssertion(context);
+            assertion = new SAML2AssertionExtractor().extractSamlAssertion(context);
         } else {
             assertion = new AssertionType();
         }

@@ -26,12 +26,10 @@
  */
 package gov.hhs.fha.nhinc.admindistribution.passthru.proxy;
 
-import gov.hhs.fha.nhinc.admindistribution.PassthruAdminDistributionHelper;
+import gov.hhs.fha.nhinc.admindistribution.AdminDistributionHelper;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
-import gov.hhs.fha.nhinc.nhincadmindistribution.NhincAdminDistPortType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 
 import org.jmock.Expectations;
@@ -64,31 +62,25 @@ public class NhincAdminDistUnsecuredWebserviceImplTest {
 
     @Test
     public void testSendAlertMessage() throws Exception {
-        final PassthruAdminDistributionHelper mockHelper = context.mock(PassthruAdminDistributionHelper.class);
-
-        final WebServiceProxyHelper mockWebServiceProxyHelper = context.mock(WebServiceProxyHelper.class);
+        final AdminDistributionHelper mockHelper = context.mock(AdminDistributionHelper.class);
 
         EDXLDistribution body = null;
         AssertionType assertion = null;
         NhinTargetSystemType target = null;
 
-        PassthruAdminDistributionProxyWebServiceUnsecuredImpl instance = new PassthruAdminDistributionProxyWebServiceUnsecuredImpl(
-                mockWebServiceProxyHelper, mockHelper);
+        PassthruAdminDistributionProxyWebServiceUnsecuredImpl instance = new PassthruAdminDistributionProxyWebServiceUnsecuredImpl() {
+            @Override
+            protected AdminDistributionHelper getAdminDistributionHelper() {
+                return mockHelper;
+            }
+        };
 
         context.checking(new Expectations() {
-
             {
-
                 allowing(mockHelper).getLocalCommunityId();
                 allowing(mockHelper).getUrl(with(any(String.class)), with(any(String.class)),
                         with(any(NhincConstants.GATEWAY_API_LEVEL.class)));
-                will(returnValue("http://someurl/"));
-
-                allowing(mockHelper).getUnsecuredPort(with(any(String.class)), with(any(String.class)),
-                        with(any(AssertionType.class)), with(any(NhincConstants.GATEWAY_API_LEVEL.class)));
-
-                allowing(mockWebServiceProxyHelper).invokePort(with(any(Object.class)),
-                        with(NhincAdminDistPortType.class), with("sendAlertMessage"), with(any(String.class)));
+                will(returnValue(null));
 
             }
         });

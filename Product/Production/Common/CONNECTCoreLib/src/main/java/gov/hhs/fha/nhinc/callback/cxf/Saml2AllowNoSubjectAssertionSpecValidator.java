@@ -33,10 +33,15 @@ import org.opensaml.xml.validation.ValidationException;
 
 /**
  * Checks {@link org.opensaml.saml2.core.Assertion} for Spec compliance.  This validator relaxes the rules by not
- * checking for the existence of Subject when the Assertion contains AttributeStatements.
+ * checking for the existence of Subject when the Assertion contains AttributeStatements.  This is required for
+ * interoperability with previous CONNECT gateways.
  */
-public class RelaxedAssertionSpecValidator extends AssertionSpecValidator {
+public class Saml2AllowNoSubjectAssertionSpecValidator extends AssertionSpecValidator {
 
+    public Saml2AllowNoSubjectAssertionSpecValidator() {
+        super();       
+    }
+    
     /**
      * Checks that the Subject element is present when required, but does not check for the existence of Subject when
      * the Assertion contains AttributeStatements.
