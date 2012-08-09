@@ -33,7 +33,13 @@ import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import ihe.iti.xds_b._2007.RespondingGatewayRetrievePortType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
+import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
+import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.docrepository.DocumentProcessHelper;
+import gov.hhs.fha.nhinc.docretrieve.nhin.proxy.description.NhinDocRetrieveServicePortDescriptor;
 import gov.hhs.fha.nhinc.gateway.aggregator.document.DocumentConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
 import gov.hhs.fha.nhinc.perfrepo.PerformanceManager;
@@ -106,8 +112,13 @@ public class NhinDocRetrieveProxyWebServiceSecuredImpl implements NhinDocRetriev
                 log.debug("After target system URL look up. URL for service: " + sServiceName + " is: " + url);
 
                 if (NullChecker.isNotNullish(url)) {
-                    RespondingGatewayRetrievePortType port = getPort(url, NhincConstants.DOC_RETRIEVE_ACTION,
-                            WS_ADDRESSING_ACTION, assertion);
+                    /*RespondingGatewayRetrievePortType port = getPort(url, NhincConstants.DOC_RETRIEVE_ACTION,
+                          //  WS_ADDRESSING_ACTION, assertion);*/
+                    
+                    ServicePortDescriptor<RespondingGatewayRetrievePortType> portDescriptor = getServicePortDescriptor(NhincConstants.GATEWAY_API_LEVEL.LEVEL_g0);
+                    
+                    CONNECTClient<RespondingGatewayRetrievePortType> client = CONNECTClientFactory.getInstance()
+                            .getCONNECTClientSecured(portDescriptor, url, assertion);
 
                     // Log the start of the performance record
                     String targetHomeCommunityId = HomeCommunityMap.getCommunityIdFromTargetSystem(targetSystem);
@@ -116,9 +127,12 @@ public class NhinDocRetrieveProxyWebServiceSecuredImpl implements NhinDocRetriev
                             NhincConstants.DOC_RETRIEVE_SERVICE_NAME, NhincConstants.AUDIT_LOG_NHIN_INTERFACE,
                             NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, targetHomeCommunityId);
 
-                    response = (RetrieveDocumentSetResponseType) oProxyHelper.invokePort(port,
-                            RespondingGatewayRetrievePortType.class, "respondingGatewayCrossGatewayRetrieve", request);
-
+                    /*response = (RetrieveDocumentSetResponseType) oProxyHelper.invokePort(port,
+                            RespondingGatewayRetrievePortType.class, "respondingGatewayCrossGatewayRetrieve", request);*/
+                    
+                     response = (RetrieveDocumentSetResponseType) client.invokePort(RespondingGatewayRetrievePortType.class,
+                             "respondingGatewayCrossGatewayRetrieve", request);
+                     
                     // Log the end of the performance record
                     Timestamp stoptime = new Timestamp(System.currentTimeMillis());
                     PerformanceManager.getPerformanceManagerInstance().logPerformanceStop(logId, starttime, stoptime);
@@ -154,7 +168,7 @@ public class NhinDocRetrieveProxyWebServiceSecuredImpl implements NhinDocRetriev
      * 
      * @return The service class for this web service.
      */
-    protected Service getService() {
+   /* protected Service getService() {
         if (cachedService == null) {
             try {
                 cachedService = oProxyHelper.createService(WSDL_FILE, NAMESPACE_URI, SERVICE_LOCAL_PART);
@@ -163,7 +177,7 @@ public class NhinDocRetrieveProxyWebServiceSecuredImpl implements NhinDocRetriev
             }
         }
         return cachedService;
-    }
+    }*/
 
     /**
      * This method retrieves and initializes the port.
@@ -174,7 +188,7 @@ public class NhinDocRetrieveProxyWebServiceSecuredImpl implements NhinDocRetriev
      * @param assertion The assertion information for the web service
      * @return The port object for the web service.
      */
-    protected RespondingGatewayRetrievePortType getPort(String url, String serviceAction, String wsAddressingAction,
+   /*protected RespondingGatewayRetrievePortType getPort(String url, String serviceAction, String wsAddressingAction,
             AssertionType assertion) {
         RespondingGatewayRetrievePortType port = null;
         Service service = getService();
@@ -188,5 +202,15 @@ public class NhinDocRetrieveProxyWebServiceSecuredImpl implements NhinDocRetriev
             log.error("Unable to obtain serivce - no port created.");
         }
         return port;
+    }*/
+    
+    public ServicePortDescriptor<RespondingGatewayRetrievePortType> getServicePortDescriptor(
+            NhincConstants.GATEWAY_API_LEVEL apiLevel) {
+        switch (apiLevel) {
+        case LEVEL_g0:
+            return new NhinDocRetrieveServicePortDescriptor();
+        default:
+            return new NhinDocRetrieveServicePortDescriptor();
+        }
     }
 }

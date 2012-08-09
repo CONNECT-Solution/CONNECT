@@ -29,6 +29,9 @@ package gov.hhs.fha.nhinc.docretrieve.passthru.proxy;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.fail;
+import gov.hhs.fha.nhinc.messaging.client.CONNECTCXFClient;
+import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
+import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 
@@ -46,7 +49,10 @@ import org.junit.runner.RunWith;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+import gov.hhs.fha.nhinc.docretrieve.passthru.proxy.description.PassthruDocRetrieveSecuredServicePortDescriptor;
+import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.nhincproxydocretrieve.NhincProxyDocRetrievePortType;
 import gov.hhs.fha.nhinc.nhincproxydocretrievesecured.NhincProxyDocRetrieveSecuredPortType;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 
@@ -115,41 +121,7 @@ public class PassthruDocRetrieveProxyWebServiceSecuredImplTest {
         }
     }
 
-    @Test
-    public void testGetPortNullService() {
-        try {
-            PassthruDocRetrieveProxyWebServiceSecuredImpl sut = new PassthruDocRetrieveProxyWebServiceSecuredImpl() {
-                @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-
-                @Override
-                protected WebServiceProxyHelper createWebServiceProxyHelper() {
-                    return mockWebServiceProxyHelper;
-                }
-
-                @Override
-                protected Service getService() {
-                    return null;
-                }
-            };
-            context.checking(new Expectations() {
-                {
-                    allowing(mockLog).debug(with(any(String.class)));
-                    oneOf(mockLog).error("Unable to obtain serivce - no port created.");
-                }
-            });
-            String url = "url";
-            String wsAddressingAction = "";
-            NhincProxyDocRetrieveSecuredPortType port = sut.getPort(url, wsAddressingAction, mockAssertion);
-            assertNull("Port was not null", port);
-        } catch (Throwable t) {
-            System.out.println("Error running testGetPortNullService test: " + t.getMessage());
-            t.printStackTrace();
-            fail("Error running testGetPortNullService test: " + t.getMessage());
-        }
-    }
+   
 
     @Test
     public void testRespondingGatewayCrossGatewayRetrieveHappy() {
@@ -166,11 +138,20 @@ public class PassthruDocRetrieveProxyWebServiceSecuredImplTest {
                     return "url";
                 }
 
+            };
+            final CONNECTClient<NhincProxyDocRetrieveSecuredPortType> mockClient = new CONNECTClient<NhincProxyDocRetrieveSecuredPortType>() {
                 @Override
-                public Object invokePort(Object portObject, Class portClass, String methodName, Object operationInput)
-                        throws Exception {
+                public NhincProxyDocRetrieveSecuredPortType getPort() {
+                    // TODO Auto-generated method stub
+                    return null;
+                }
+
+                @Override
+                public Object invokePort(Class<NhincProxyDocRetrieveSecuredPortType> portClass, String methodName,
+                        Object operationInput) throws Exception {
                     return mockResponse;
                 }
+                
             };
             PassthruDocRetrieveProxyWebServiceSecuredImpl webProxy = new PassthruDocRetrieveProxyWebServiceSecuredImpl() {
                 @Override
@@ -182,12 +163,13 @@ public class PassthruDocRetrieveProxyWebServiceSecuredImplTest {
                 protected WebServiceProxyHelper createWebServiceProxyHelper() {
                     return wsProxyHelper;
                 }
-
+                           
                 @Override
-                protected NhincProxyDocRetrieveSecuredPortType getPort(String url, String wsAddressingAction,
-                        AssertionType assertion) {
-                    return mockPort;
+                protected CONNECTClient<NhincProxyDocRetrieveSecuredPortType> getClient(String url, AssertionType assertion){
+                    return mockClient;
                 }
+                
+               
             };
             context.checking(new Expectations() {
                 {
@@ -195,7 +177,8 @@ public class PassthruDocRetrieveProxyWebServiceSecuredImplTest {
                     allowing(mockLog).debug(with(any(String.class)));
                 }
             });
-            RetrieveDocumentSetResponseType response = webProxy.respondingGatewayCrossGatewayRetrieve(
+            
+           RetrieveDocumentSetResponseType response = webProxy.respondingGatewayCrossGatewayRetrieve(
                     mockDockRetrieveRequest, mockAssertion, mockTargetSystem);
             assertNotNull("RetrieveDocumentSetResponseType was null", response);
         } catch (Throwable t) {
@@ -208,6 +191,7 @@ public class PassthruDocRetrieveProxyWebServiceSecuredImplTest {
     @Test
     public void testRespondingGatewayCrossGatewayRetrieveNullUrl() {
         try {
+            final RetrieveDocumentSetResponseType mockResponse = context.mock(RetrieveDocumentSetResponseType.class);
             final WebServiceProxyHelper wsProxyHelper = new WebServiceProxyHelper() {
                 @Override
                 protected Log createLogger() {
@@ -219,6 +203,22 @@ public class PassthruDocRetrieveProxyWebServiceSecuredImplTest {
                     return null;
                 }
             };
+            
+            final CONNECTClient<NhincProxyDocRetrieveSecuredPortType> mockClient = new CONNECTClient<NhincProxyDocRetrieveSecuredPortType>() {
+                @Override
+                public NhincProxyDocRetrieveSecuredPortType getPort() {
+                    // TODO Auto-generated method stub
+                    return null;
+                }
+
+                @Override
+                public Object invokePort(Class<NhincProxyDocRetrieveSecuredPortType> portClass, String methodName,
+                        Object operationInput) throws Exception {
+                    return mockResponse;
+                }
+                
+            };
+            
             PassthruDocRetrieveProxyWebServiceSecuredImpl webProxy = new PassthruDocRetrieveProxyWebServiceSecuredImpl() {
                 @Override
                 protected Log createLogger() {
@@ -231,9 +231,8 @@ public class PassthruDocRetrieveProxyWebServiceSecuredImplTest {
                 }
 
                 @Override
-                protected NhincProxyDocRetrieveSecuredPortType getPort(String url, String wsAddressingAction,
-                        AssertionType assertion) {
-                    return mockPort;
+                protected CONNECTClient<NhincProxyDocRetrieveSecuredPortType> getClient(String url, AssertionType assertion){
+                    return mockClient;
                 }
             };
             context.checking(new Expectations() {
@@ -278,6 +277,22 @@ public class PassthruDocRetrieveProxyWebServiceSecuredImplTest {
                     return mockResponse;
                 }
             };
+            
+            final CONNECTClient<NhincProxyDocRetrieveSecuredPortType> mockClient = new CONNECTClient<NhincProxyDocRetrieveSecuredPortType>() {
+                @Override
+                public NhincProxyDocRetrieveSecuredPortType getPort() {
+                    // TODO Auto-generated method stub
+                    return null;
+                }
+
+                @Override
+                public Object invokePort(Class<NhincProxyDocRetrieveSecuredPortType> portClass, String methodName,
+                        Object operationInput) throws Exception {
+                    return mockResponse;
+                }
+                
+            };
+            
             PassthruDocRetrieveProxyWebServiceSecuredImpl webProxy = new PassthruDocRetrieveProxyWebServiceSecuredImpl() {
                 @Override
                 protected Log createLogger() {
@@ -290,10 +305,10 @@ public class PassthruDocRetrieveProxyWebServiceSecuredImplTest {
                 }
 
                 @Override
-                protected NhincProxyDocRetrieveSecuredPortType getPort(String url, String wsAddressingAction,
-                        AssertionType assertion) {
-                    return mockPort;
+                protected CONNECTClient<NhincProxyDocRetrieveSecuredPortType> getClient(String url, AssertionType assertion){
+                    return mockClient;
                 }
+                
             };
             context.checking(new Expectations() {
                 {
@@ -315,6 +330,7 @@ public class PassthruDocRetrieveProxyWebServiceSecuredImplTest {
     @Test
     public void testRespondingGatewayCrossGatewayRetrieveException() {
         try {
+            final RetrieveDocumentSetResponseType mockResponse = context.mock(RetrieveDocumentSetResponseType.class);
             final WebServiceProxyHelper wsProxyHelper = new WebServiceProxyHelper() {
                 @Override
                 protected Log createLogger() {
@@ -332,6 +348,22 @@ public class PassthruDocRetrieveProxyWebServiceSecuredImplTest {
                     throw new IllegalArgumentException("Thrown Exception");
                 }
             };
+            
+            final CONNECTClient<NhincProxyDocRetrieveSecuredPortType> mockClient = new CONNECTClient<NhincProxyDocRetrieveSecuredPortType>() {
+                @Override
+                public NhincProxyDocRetrieveSecuredPortType getPort() {
+                    // TODO Auto-generated method stub
+                    return null;
+                }
+
+                @Override
+                public Object invokePort(Class<NhincProxyDocRetrieveSecuredPortType> portClass, String methodName,
+                        Object operationInput) throws Exception {
+                    throw new IllegalArgumentException("Thrown Exception");
+                }
+                
+            };
+            
             PassthruDocRetrieveProxyWebServiceSecuredImpl webProxy = new PassthruDocRetrieveProxyWebServiceSecuredImpl() {
                 @Override
                 protected Log createLogger() {
@@ -344,9 +376,8 @@ public class PassthruDocRetrieveProxyWebServiceSecuredImplTest {
                 }
 
                 @Override
-                protected NhincProxyDocRetrieveSecuredPortType getPort(String url, String wsAddressingAction,
-                        AssertionType assertion) {
-                    return mockPort;
+                protected CONNECTClient<NhincProxyDocRetrieveSecuredPortType> getClient(String url, AssertionType assertion){
+                    return mockClient;
                 }
             };
             context.checking(new Expectations() {

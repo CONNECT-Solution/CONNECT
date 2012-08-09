@@ -8,6 +8,7 @@ package gov.hhs.fha.nhinc.docretrieve._30.entity;
 
 import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
 import gov.hhs.fha.nhinc.docretrieve.entity.OutboundDocRetrieveAggregator_a0;
 import gov.hhs.fha.nhinc.docretrieve.entity.OutboundDocRetrieveAuditTransformer_a0;
 import gov.hhs.fha.nhinc.docretrieve.entity.OutboundDocRetrieveDelegate;
@@ -21,7 +22,6 @@ import gov.hhs.fha.nhinc.orchestration.NhinAggregator;
 import gov.hhs.fha.nhinc.orchestration.OutboundDelegate;
 import gov.hhs.fha.nhinc.orchestration.PolicyTransformer;
 import gov.hhs.fha.nhinc.perfrepo.PerformanceManager;
-import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import java.sql.Timestamp;
@@ -84,7 +84,7 @@ public class EntityDocRetreiveImpl {
     private AssertionType getAssertion(WebServiceContext context, AssertionType oAssertionIn) {
         AssertionType assertion = null;
         if (oAssertionIn == null) {
-            assertion = SamlTokenExtractor.GetAssertion(context);
+            assertion = new SAML2AssertionExtractor().extractSamlAssertion(context);
         } else {
             assertion = oAssertionIn;
         }

@@ -28,8 +28,9 @@ package gov.hhs.fha.nhinc.admindistribution._10.passthru;
 
 import gov.hhs.fha.nhinc.admindistribution.passthru.PassthruAdminDistributionOrchImpl;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
+
 import javax.annotation.Resource;
 import javax.jws.WebService;
 import javax.xml.ws.BindingType;
@@ -56,7 +57,7 @@ public class NhincAdminDistSecured {
     }
 
     protected AssertionType extractAssertion(WebServiceContext context) {
-        return SamlTokenExtractor.GetAssertion(context);
+        return new SAML2AssertionExtractor().extractSamlAssertion(context);
     }
 
     public PassthruAdminDistributionOrchImpl getNhincImpl() {

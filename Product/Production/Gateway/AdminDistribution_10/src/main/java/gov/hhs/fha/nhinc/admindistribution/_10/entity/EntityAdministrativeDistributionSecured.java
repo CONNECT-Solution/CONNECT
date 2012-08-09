@@ -28,7 +28,8 @@ package gov.hhs.fha.nhinc.admindistribution._10.entity;
 
 import gov.hhs.fha.nhinc.admindistribution.entity.EntityAdminDistributionOrchImpl;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
+import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
+
 import javax.annotation.Resource;
 import javax.jws.WebService;
 import javax.xml.ws.BindingType;
@@ -48,16 +49,13 @@ public class EntityAdministrativeDistributionSecured {
 
     public void sendAlertMessage(
             gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewaySendAlertMessageSecuredType body) {
-        // TODO implement this method
-
         AssertionType assertion = extractAssertion(context);
 
-        // TODO implement this method
         getEntityImpl().sendAlertMessage(body, assertion, body.getNhinTargetCommunities());
     }
 
     protected AssertionType extractAssertion(WebServiceContext context) {
-        return SamlTokenExtractor.GetAssertion(context);
+        return new SAML2AssertionExtractor().extractSamlAssertion(context);
     }
 
     protected EntityAdminDistributionOrchImpl getEntityImpl() {

@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- This wsdl file is for an XDS.b Document Registry Actor -->
 <definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
-  xmlns:edxlde="urn:oasis:names:tc:emergency:EDXL:DE:1.0"
+    xmlns:edxlde="urn:oasis:names:tc:emergency:EDXL:DE:1.0"
     xmlns="http://schemas.xmlsoap.org/wsdl/" 
     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
     xmlns:wsoma="http://schemas.xmlsoap.org/ws/2004/09/policy/optimizedmimeserialization"
     xmlns:nccommonentity="urn:gov:hhs:fha:nhinc:common:nhinccommonentity"
     targetNamespace="urn:gov:hhs:fha:nhinc:entityadmindistribution"
-  xmlns:tns="urn:gov:hhs:fha:nhinc:entityadmindistribution"
+    xmlns:tns="urn:gov:hhs:fha:nhinc:entityadmindistribution"
     xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/"
     xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" 
-    xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy" 
+    xmlns:sp="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702" 
     xmlns:sc="http://schemas.sun.com/2006/03/wss/server" 
     xmlns:wspp="http://java.sun.com/xml/ns/wsit/policy"
     xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy"
@@ -46,16 +46,13 @@
     </binding>
     <service name="AdministrativeDistributionSecured_Service">
         <port name="AdministrativeDistributionSecured_PortType" binding="tns:AdministrativeDistributionSecured_Binding_Soap12">
-            <soap12:address location="https://localhost:${HttpsDefaultPort}/NhinConnect/AdministrativeDistributionSecured"/>
+            <soap12:address location="https://localhost:${HttpsDefaultPort}/Gateway/AdminDistribution/2_0/AdministrativeDistributionSecured_Service"/>
         </port>
     </service>
 
     <wsp:Policy wsu:Id="Entity_AdminDist_SoapPolicy">
         <wsp:ExactlyOne>
             <wsp:All>
-                <wsoma:OptimizedMimeSerialization/>
-                <sc:KeyStore wspp:visibility="private" aliasSelector="gov.hhs.fha.nhinc.callback.KeyStoreServerAliasSelector" callbackHandler="gov.hhs.fha.nhinc.callback.KeyStoreCallbackHandler"/>
-                <sc:TrustStore wspp:visibility="private" callbackHandler="gov.hhs.fha.nhinc.callback.TrustStoreCallbackHandler"/>
                 <sp:TransportBinding>
                     <wsp:Policy>
                         <sp:TransportToken>
@@ -102,14 +99,14 @@
     <wsp:Policy wsu:Id="Entity_AdminDist_Binding_Soap_Input_Policy">
         <wsp:ExactlyOne>
             <wsp:All>
-                <wsoma:OptimizedMimeSerialization/>
+                <wsoma:OptimizedMimeSerialization wsp:Optional="true"/>
             </wsp:All>
         </wsp:ExactlyOne>
     </wsp:Policy>
     <wsp:Policy wsu:Id="Entity_AdminDist_Binding_Soap_Output_Policy">
         <wsp:ExactlyOne>
             <wsp:All>
-                <wsoma:OptimizedMimeSerialization/>
+                <wsoma:OptimizedMimeSerialization wsp:Optional="true"/>
             </wsp:All>
         </wsp:ExactlyOne>
     </wsp:Policy>

@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- This wsdl file is for an XDS.b Document Registry Actor -->
 <definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
-  xmlns:edxlde="urn:oasis:names:tc:emergency:EDXL:DE:1.0"
+    xmlns:edxlde="urn:oasis:names:tc:emergency:EDXL:DE:1.0"
 	xmlns="http://schemas.xmlsoap.org/wsdl/" 
 	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
 	xmlns:nccommonentity="urn:gov:hhs:fha:nhinc:common:nhinccommonentity"
 	targetNamespace="urn:gov:hhs:fha:nhinc:entityadmindistribution"
-  xmlns:tns="urn:gov:hhs:fha:nhinc:entityadmindistribution"
+    xmlns:tns="urn:gov:hhs:fha:nhinc:entityadmindistribution"
 	xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/"
 	xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" 
-        xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy"
-        xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
-        xmlns:wsoma="http://schemas.xmlsoap.org/ws/2004/09/policy/optimizedmimeserialization"
+    xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy"
+    xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
+    xmlns:wsoma="http://schemas.xmlsoap.org/ws/2004/09/policy/optimizedmimeserialization"
 	name="EntityAdministrativeDistribution">
     <documentation>NHIN Administrative Distribution wsdl</documentation>
     <types>
@@ -48,7 +48,7 @@
     <wsp:Policy wsu:Id="Entity_AdminDist_SoapPolicy">
         <wsp:ExactlyOne>
             <wsp:All>
-                <wsoma:OptimizedMimeSerialization/>
+                <wsoma:OptimizedMimeSerialization wsp:Optional="true"/>
             </wsp:All>
         </wsp:ExactlyOne>
     </wsp:Policy>
