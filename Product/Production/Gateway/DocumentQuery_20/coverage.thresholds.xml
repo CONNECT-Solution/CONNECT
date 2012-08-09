@@ -22,7 +22,7 @@
               linesexecuted="0"/>
    <threshold branchcount="2" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.docquery._20.nhin.DocQueryImpl"
-              linecount="10"
+              linecount="12"
               linerate="80"
               linesexecuted="0"/>
    <threshold branchcount="4" branchrate="80" branchsexecuted="0"

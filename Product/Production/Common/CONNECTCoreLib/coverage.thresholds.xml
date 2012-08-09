@@ -60,16 +60,11 @@
               linecount="27"
               linerate="80"
               linesexecuted="0.05"/>
-   <threshold branchcount="8" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.admindistribution.PassthruAdminDistributionHelper"
-              linecount="32"
-              linerate="80"
-              linesexecuted="0"/>
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.admindistribution.adapter.AdapterAdminDistributionOrchImpl"
-              linecount="12"
+              linecount="11"
               linerate="80"
-              linesexecuted="0.12"/>
+              linesexecuted="0.11"/>
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.admindistribution.adapter.proxy.AdapterAdminDistributionProxy"
               linecount="0"
@@ -90,14 +85,24 @@
               linecount="6"
               linerate="80"
               linesexecuted="0"/>
-   <threshold branchcount="6" branchrate="80" branchsexecuted="0"
+   <threshold branchcount="2" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.admindistribution.adapter.proxy.AdapterAdminDistributionProxyWebServiceSecuredImpl"
-              linecount="40"
+              linecount="22"
               linerate="80"
               linesexecuted="0"/>
-   <threshold branchcount="6" branchrate="80" branchsexecuted="0"
+   <threshold branchcount="2" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.admindistribution.adapter.proxy.AdapterAdminDistributionProxyWebServiceUnsecuredImpl"
-              linecount="37"
+              linecount="22"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.admindistribution.adapter.proxy.service.AdapterAdminDistributionSecuredServicePortDescriptor"
+              linecount="7"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.admindistribution.adapter.proxy.service.AdapterAdminDistributionUnsecuredServicePortDescriptor"
+              linecount="7"
               linerate="80"
               linesexecuted="0"/>
    <threshold branchcount="14" branchrate="80" branchsexecuted="0"
@@ -170,14 +175,54 @@
               linecount="3"
               linerate="80"
               linesexecuted="0"/>
-   <threshold branchcount="6" branchrate="80" branchsexecuted="0"
+   <threshold branchcount="4" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.admindistribution.entity.proxy.EntityAdminDistributionProxyWebServiceSecuredImpl"
-              linecount="45"
+              linecount="27"
               linerate="80"
               linesexecuted="0"/>
-   <threshold branchcount="6" branchrate="80" branchsexecuted="0"
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.admindistribution.entity.proxy.EntityAdminDistributionProxyWebServiceSecuredImpl$1"
+              linecount="1"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="4" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.admindistribution.entity.proxy.EntityAdminDistributionProxyWebServiceUnsecuredImpl"
-              linecount="39"
+              linecount="27"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.admindistribution.entity.proxy.EntityAdminDistributionProxyWebServiceUnsecuredImpl$1"
+              linecount="1"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.admindistribution.entity.proxy.service.EntityAdminDistributionG0SecuredServicePortDescriptor"
+              linecount="2"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.admindistribution.entity.proxy.service.EntityAdminDistributionG0UnsecuredServicePortDescriptor"
+              linecount="2"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.admindistribution.entity.proxy.service.EntityAdminDistributionG1SecuredServicePortDescriptor"
+              linecount="2"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.admindistribution.entity.proxy.service.EntityAdminDistributionG1UnsecuredServicePortDescriptor"
+              linecount="2"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.admindistribution.entity.proxy.service.EntityAdminDistributionSecuredServicePortDescriptor"
+              linecount="6"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.admindistribution.entity.proxy.service.EntityAdminDistributionUnsecuredServicePortDescriptor"
+              linecount="6"
               linerate="80"
               linesexecuted="0"/>
    <threshold branchcount="12" branchrate="80" branchsexecuted="0.1"
@@ -200,14 +245,29 @@
               linecount="4"
               linerate="80"
               linesexecuted="0"/>
-   <threshold branchcount="8" branchrate="80" branchsexecuted="0"
+   <threshold branchcount="4" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.admindistribution.nhin.proxy.NhinAdminDistributionProxyWebServiceSecuredImpl"
-              linecount="47"
+              linecount="23"
               linerate="80"
               linesexecuted="0"/>
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.admindistribution.nhin.proxy.NhinAdminDistributionProxyWebServiceSecuredImpl$1"
               linecount="1"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.admindistribution.nhin.proxy.service.NhinAdminDistributionG0ServicePortDescriptor"
+              linecount="2"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.admindistribution.nhin.proxy.service.NhinAdminDistributionG1ServicePortDescriptor"
+              linecount="2"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.admindistribution.nhin.proxy.service.NhinAdminDistributionServicePortDescriptor"
+              linecount="6"
               linerate="80"
               linesexecuted="0"/>
    <threshold branchcount="2" branchrate="80" branchsexecuted="0.01"
@@ -235,16 +295,56 @@
               linecount="3"
               linerate="80"
               linesexecuted="0"/>
-   <threshold branchcount="2" branchrate="80" branchsexecuted="0.01"
+   <threshold branchcount="4" branchrate="80" branchsexecuted="0.01"
               class="gov.hhs.fha.nhinc.admindistribution.passthru.proxy.PassthruAdminDistributionProxyWebServiceSecuredImpl"
-              linecount="28"
+              linecount="24"
               linerate="80"
-              linesexecuted="0.2"/>
-   <threshold branchcount="2" branchrate="80" branchsexecuted="0.01"
+              linesexecuted="0.1"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.admindistribution.passthru.proxy.PassthruAdminDistributionProxyWebServiceSecuredImpl$1"
+              linecount="1"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="4" branchrate="80" branchsexecuted="0.01"
               class="gov.hhs.fha.nhinc.admindistribution.passthru.proxy.PassthruAdminDistributionProxyWebServiceUnsecuredImpl"
               linecount="25"
               linerate="80"
-              linesexecuted="0.18"/>
+              linesexecuted="0.1"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.admindistribution.passthru.proxy.PassthruAdminDistributionProxyWebServiceUnsecuredImpl$1"
+              linecount="1"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.admindistribution.passthru.proxy.service.PassthruAdminDistributionG0SecuredServicePortDescriptor"
+              linecount="2"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.admindistribution.passthru.proxy.service.PassthruAdminDistributionG0UnsecuredServicePortDescriptor"
+              linecount="2"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.admindistribution.passthru.proxy.service.PassthruAdminDistributionG1SecuredServicePortDescriptor"
+              linecount="2"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.admindistribution.passthru.proxy.service.PassthruAdminDistributionG1UnsecuredServicePortDescriptor"
+              linecount="2"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.admindistribution.passthru.proxy.service.PassthruAdminDistributionSecuredServicePortDescriptor"
+              linecount="6"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.admindistribution.passthru.proxy.service.PassthruAdminDistributionUnsecuredServicePortDescriptor"
+              linecount="6"
+              linerate="80"
+              linesexecuted="0"/>
    <threshold branchcount="14" branchrate="80" branchsexecuted="0.13"
               class="gov.hhs.fha.nhinc.async.AddressingHeaderCreator"
               linecount="49"
@@ -390,6 +490,11 @@
               linecount="120"
               linerate="80"
               linesexecuted="0"/>
+   <threshold branchcount="8" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.callback.cxf.CONNECTSamlAssertionValidator"
+              linecount="36"
+              linerate="80"
+              linesexecuted="0"/>
    <threshold branchcount="6" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.callback.cxf.CXFPasswordCallbackHandler"
               linecount="12"
@@ -405,14 +510,14 @@
               linecount="18"
               linerate="80"
               linesexecuted="0"/>
-   <threshold branchcount="212" branchrate="80" branchsexecuted="0"
+   <threshold branchcount="206" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.callback.cxf.EndorsingSupportingTokensInterceptor"
-              linecount="428"
+              linecount="404"
               linerate="80"
               linesexecuted="0"/>
    <threshold branchcount="26" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.callback.cxf.RelaxedAssertionSpecValidator"
-              linecount="8"
+              class="gov.hhs.fha.nhinc.callback.cxf.Saml2AllowNoSubjectAssertionSpecValidator"
+              linecount="9"
               linerate="80"
               linesexecuted="0"/>
    <threshold branchcount="28" branchrate="80" branchsexecuted="0"
@@ -640,9 +745,9 @@
               linecount="183"
               linerate="80"
               linesexecuted="1.67"/>
-   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+   <threshold branchcount="4" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor"
-              linecount="13"
+              linecount="18"
               linerate="80"
               linesexecuted="0"/>
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
@@ -825,14 +930,24 @@
               linecount="3"
               linerate="80"
               linesexecuted="0"/>
-   <threshold branchcount="10" branchrate="80" branchsexecuted="0"
+   <threshold branchcount="6" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.docretrieve.adapter.proxy.AdapterDocRetrieveProxyWebServiceSecuredImpl"
-              linecount="38"
+              linecount="25"
               linerate="80"
               linesexecuted="0"/>
-   <threshold branchcount="10" branchrate="80" branchsexecuted="0"
+   <threshold branchcount="6" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.docretrieve.adapter.proxy.AdapterDocRetrieveProxyWebServiceUnsecuredImpl"
-              linecount="41"
+              linecount="28"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.docretrieve.adapter.proxy.service.AdapterDocRetrieveSecuredServicePortDescriptor"
+              linecount="7"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.docretrieve.adapter.proxy.service.AdapterDocRetrieveUnsecuredServicePortDescriptor"
+              linecount="7"
               linerate="80"
               linesexecuted="0"/>
    <threshold branchcount="12" branchrate="80" branchsexecuted="0"
@@ -945,14 +1060,24 @@
               linecount="3"
               linerate="80"
               linesexecuted="0"/>
-   <threshold branchcount="6" branchrate="80" branchsexecuted="0"
+   <threshold branchcount="2" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.docretrieve.entity.proxy.EntityDocRetrieveProxyWebServiceSecuredImpl"
-              linecount="51"
+              linecount="30"
               linerate="80"
               linesexecuted="0"/>
-   <threshold branchcount="6" branchrate="80" branchsexecuted="0"
+   <threshold branchcount="2" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.docretrieve.entity.proxy.EntityDocRetrieveProxyWebServiceUnsecuredImpl"
-              linecount="49"
+              linecount="31"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.docretrieve.entity.proxy.service.EntityDocRetrieveSecuredServicePortDescriptor"
+              linecount="7"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.docretrieve.entity.proxy.service.EntityDocRetrieveUnsecuredServicePortDescriptor"
+              linecount="7"
               linerate="80"
               linesexecuted="0"/>
    <threshold branchcount="4" branchrate="80" branchsexecuted="0.02"
@@ -1025,9 +1150,19 @@
               linecount="3"
               linerate="80"
               linesexecuted="0"/>
-   <threshold branchcount="12" branchrate="80" branchsexecuted="0"
+   <threshold branchcount="10" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.docretrieve.nhin.proxy.NhinDocRetrieveProxyWebServiceSecuredImpl"
-              linecount="54"
+              linecount="44"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.docretrieve.nhin.proxy.NhinDocRetrieveProxyWebServiceSecuredImpl$1"
+              linecount="1"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.docretrieve.nhin.proxy.description.NhinDocRetrieveServicePortDescriptor"
+              linecount="7"
               linerate="80"
               linesexecuted="0"/>
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
@@ -1060,16 +1195,26 @@
               linecount="3"
               linerate="80"
               linesexecuted="0.02"/>
-   <threshold branchcount="10" branchrate="80" branchsexecuted="0.06"
+   <threshold branchcount="6" branchrate="80" branchsexecuted="0.05"
               class="gov.hhs.fha.nhinc.docretrieve.passthru.proxy.PassthruDocRetrieveProxyWebServiceSecuredImpl"
-              linecount="45"
+              linecount="34"
               linerate="80"
-              linesexecuted="0.33"/>
-   <threshold branchcount="10" branchrate="80" branchsexecuted="0.06"
+              linesexecuted="0.27"/>
+   <threshold branchcount="6" branchrate="80" branchsexecuted="0.05"
               class="gov.hhs.fha.nhinc.docretrieve.passthru.proxy.PassthruDocRetrieveProxyWebServiceUnsecuredImpl"
-              linecount="46"
+              linecount="34"
               linerate="80"
-              linesexecuted="0.34"/>
+              linesexecuted="0.28"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.docretrieve.passthru.proxy.description.PassthruDocRetrieveSecuredServicePortDescriptor"
+              linecount="7"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.docretrieve.passthru.proxy.description.passthruDocRetrievea0ServicePortDescriptor"
+              linecount="7"
+              linerate="80"
+              linesexecuted="0"/>
    <threshold branchcount="4" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.dte.WebServiceContextHelper"
               linecount="24"
@@ -1609,22 +1754,22 @@
               class="gov.hhs.fha.nhinc.messaging.client.CONNECTCXFClient"
               linecount="7"
               linerate="80"
-              linesexecuted="0.04"/>
+              linesexecuted="0"/>
    <threshold branchcount="2" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.messaging.client.CONNECTCXFClientFactory"
               linecount="11"
               linerate="80"
-              linesexecuted="0.04"/>
+              linesexecuted="0"/>
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.messaging.client.CONNECTCXFClientSecured"
               linecount="9"
               linerate="80"
-              linesexecuted="0.01"/>
+              linesexecuted="0"/>
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.messaging.client.CONNECTCXFClientUnsecured"
               linecount="4"
               linerate="80"
-              linesexecuted="0.01"/>
+              linesexecuted="0"/>
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.messaging.client.CONNECTClient"
               linecount="9"
@@ -1634,7 +1779,7 @@
               class="gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory"
               linecount="2"
               linerate="80"
-              linesexecuted="0.02"/>
+              linesexecuted="0"/>
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.messaging.service.BaseServiceEndpoint"
               linecount="5"
@@ -1689,12 +1834,12 @@
               class="gov.hhs.fha.nhinc.messaging.service.port.CXFServicePortBuilder"
               linecount="9"
               linerate="80"
-              linesexecuted="0.04"/>
+              linesexecuted="0"/>
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.messaging.service.port.CXFServicePortBuilderWithAddressing"
               linecount="5"
               linerate="80"
-              linesexecuted="0.02"/>
+              linesexecuted="0"/>
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.messaging.service.port.ServicePortBuilder"
               linecount="0"
@@ -3009,22 +3154,22 @@
               class="gov.hhs.fha.nhinc.patientdiscovery.entity.proxy.EntityPatientDiscoveryProxyWebServiceSecuredImpl"
               linecount="38"
               linerate="80"
-              linesexecuted="0.28"/>
+              linesexecuted="0.31"/>
    <threshold branchcount="6" branchrate="80" branchsexecuted="0.06"
               class="gov.hhs.fha.nhinc.patientdiscovery.entity.proxy.EntityPatientDiscoveryProxyWebServiceUnsecuredImpl"
               linecount="38"
               linerate="80"
-              linesexecuted="0.28"/>
+              linesexecuted="0.31"/>
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.patientdiscovery.entity.proxy.service.EntityPatientDiscoverySecuredServicePortDescriptor"
               linecount="7"
               linerate="80"
-              linesexecuted="0.02"/>
+              linesexecuted="0"/>
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.patientdiscovery.entity.proxy.service.EntityPatientDiscoveryServicePortDescriptor"
               linecount="7"
               linerate="80"
-              linesexecuted="0.02"/>
+              linesexecuted="0"/>
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.patientdiscovery.nhin.AbstractServicePropertyAccessor"
               linecount="17"
@@ -3830,11 +3975,11 @@
               linecount="103"
               linerate="80"
               linesexecuted="0.46"/>
-   <threshold branchcount="112" branchrate="80" branchsexecuted="0.15"
+   <threshold branchcount="112" branchrate="80" branchsexecuted="0.13"
               class="gov.hhs.fha.nhinc.saml.extraction.SamlTokenCreator"
               linecount="119"
               linerate="80"
-              linesexecuted="0.31"/>
+              linesexecuted="0.3"/>
    <threshold branchcount="168" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor"
               linecount="308"

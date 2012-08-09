@@ -79,7 +79,7 @@
               class="gov.hhs.fha.nhinc.docquery.entity.EntityDocQueryOrchImpl"
               linecount="250"
               linerate="80"
-              linesexecuted="1.02"/>
+              linesexecuted="1"/>
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.docquery.entity.EntityDocQueryOrchImpl$1"
               linecount="1"
