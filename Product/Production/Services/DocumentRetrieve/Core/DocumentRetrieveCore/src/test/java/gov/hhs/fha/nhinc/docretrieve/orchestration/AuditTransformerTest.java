@@ -24,30 +24,71 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
-package gov.hhs.fha.nhinc.docretrieve.entity;
+package gov.hhs.fha.nhinc.docretrieve.orchestration;
 
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.orchestration.OrchestrationContextBuilder;
+import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
+import gov.hhs.fha.nhinc.orchestration.AuditTransformer;
+import gov.hhs.fha.nhinc.orchestration.Orchestratable;
 
-public class OutboundDocRetrieveFactory {
+import org.junit.After;
+import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import static org.junit.Assert.*;
 
-    private static OutboundDocRetrieveFactory INSTANCE = new OutboundDocRetrieveFactory();
+/**
+ * 
+ * @author mweaver
+ */
+public class AuditTransformerTest {
 
-    private OutboundDocRetrieveFactory() {
+    public AuditTransformerTest() {
     }
 
-    public OrchestrationContextBuilder createOrchestrationContextBuilder(NhincConstants.GATEWAY_API_LEVEL apiLevel) {
-        switch (apiLevel) {
-        case LEVEL_g0:
-            return new OutboundDocRetrieveOrchestrationContextBuilder_g0();
-        case LEVEL_g1:
-            return new OutboundDocRetrieveOrchestrationContextBuilder_g1();
-        default:
+    @BeforeClass
+    public static void setUpClass() throws Exception {
+    }
+
+    @AfterClass
+    public static void tearDownClass() throws Exception {
+    }
+
+    @Before
+    public void setUp() {
+    }
+
+    @After
+    public void tearDown() {
+    }
+
+    /**
+     * Test of transform method, of class AuditTransformer.
+     */
+    @Test
+    public void testTransformRequestInterface() {
+        Orchestratable message = null;
+        AuditTransformer instance = new AuditTransformerImpl();
+        instance.transformRequest(message);
+        // we are just testing that the interface is good, so this test should suffice
+    }
+
+    @Test
+    public void testTransformResponseInterface() {
+        Orchestratable message = null;
+        AuditTransformer instance = new AuditTransformerImpl();
+        instance.transformResponse(message);
+        // we are just testing that the interface is good, so this test should suffice
+    }
+
+    public class AuditTransformerImpl implements AuditTransformer {
+
+        public LogEventRequestType transformRequest(Orchestratable message) {
             return null;
         }
-    }
 
-    public static OutboundDocRetrieveFactory getInstance() {
-        return INSTANCE;
+        public LogEventRequestType transformResponse(Orchestratable message) {
+            return null;
+        }
     }
 }

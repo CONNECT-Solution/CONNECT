@@ -31,7 +31,7 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.orchestration.Orchestratable;
 import gov.hhs.fha.nhinc.orchestration.OrchestrationContext;
 import gov.hhs.fha.nhinc.orchestration.OrchestrationContextBuilder;
-import gov.hhs.fha.nhinc.orchestration.OrchestrationContextFactoryImpl;
+import gov.hhs.fha.nhinc.docretrieve.orchestration.OrchestrationContextFactory;
 import gov.hhs.fha.nhinc.orchestration.OutboundDelegate;
 import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratable;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
@@ -74,7 +74,7 @@ public class OutboundDocRetrieveDelegate implements OutboundDelegate {
 			OutboundDocRetrieveOrchestratable message) {
 		OutboundOrchestratable resp = null;
 		try {
-			OutboundDocRetrieveContextBuilder contextBuilder = (OutboundDocRetrieveContextBuilder) OrchestrationContextFactoryImpl
+			OutboundDocRetrieveContextBuilder contextBuilder = (OutboundDocRetrieveContextBuilder) OrchestrationContextFactory
 					.getInstance()
 					.getBuilder(message.getTarget().getHomeCommunity(),
 							NhincConstants.NHIN_SERVICE_NAMES.DOCUMENT_RETRIEVE);
