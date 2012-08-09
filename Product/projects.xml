@@ -91,6 +91,13 @@
         <should.build>true</should.build>
         <should.deploy>true</should.deploy>
     </project>
+	<project>
+        <name>DocumentRetrieveCore</name>
+        <directory>/Production/Services/DocumentRetrieve/Core/DocumentRetrieveCore</directory>
+        <dist.type>jar</dist.type>
+        <should.build>true</should.build>
+        <should.deploy>true</should.deploy>
+    </project>
     <project>
         <name>DocumentRetrieve_20</name>
         <directory>/Production/Gateway/DocumentRetrieve_20</directory>

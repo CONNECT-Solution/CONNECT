@@ -27,14 +27,15 @@
 package gov.hhs.fha.nhinc.docretrieve.nhin;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.orchestration.InboundDelegate;
-import gov.hhs.fha.nhinc.orchestration.AdapterDelegateTest;
+import gov.hhs.fha.nhinc.docretrieve.nhin.InboundDocRetrieveOrchestratable;
+import gov.hhs.fha.nhinc.docretrieve.orchestration.AdapterDelegateTest;
+import gov.hhs.fha.nhinc.docretrieve.orchestration.AuditTransformerTest;
+import gov.hhs.fha.nhinc.docretrieve.orchestration.InboundAggregatorTest;
+import gov.hhs.fha.nhinc.docretrieve.orchestration.PolicyTransformerTest;
 import gov.hhs.fha.nhinc.orchestration.AuditTransformer;
-import gov.hhs.fha.nhinc.orchestration.AuditTransformerTest;
+import gov.hhs.fha.nhinc.orchestration.InboundDelegate;
 import gov.hhs.fha.nhinc.orchestration.NhinAggregator;
-import gov.hhs.fha.nhinc.orchestration.InboundAggregatorTest;
 import gov.hhs.fha.nhinc.orchestration.PolicyTransformer;
-import gov.hhs.fha.nhinc.orchestration.PolicyTransformerTest;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
