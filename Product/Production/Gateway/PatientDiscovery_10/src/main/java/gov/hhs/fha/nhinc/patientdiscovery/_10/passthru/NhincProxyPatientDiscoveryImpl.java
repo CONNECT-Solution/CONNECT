@@ -27,8 +27,8 @@
 package gov.hhs.fha.nhinc.patientdiscovery._10.passthru;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
 import gov.hhs.fha.nhinc.patientdiscovery.passthru.NhincPatientDiscoveryOrchImpl;
-import gov.hhs.fha.nhinc.service.WebServiceHelper;
 
 import javax.xml.ws.WebServiceContext;
 
@@ -42,7 +42,7 @@ import org.hl7.v3.ProxyPRPAIN201305UVProxySecuredRequestType;
  * 
  * @author jhoppesc
  */
-public class NhincProxyPatientDiscoveryImpl extends WebServiceHelper {
+public class NhincProxyPatientDiscoveryImpl {
 
     private Log log = null;
 
@@ -58,11 +58,6 @@ public class NhincProxyPatientDiscoveryImpl extends WebServiceHelper {
         return new NhincPatientDiscoveryOrchImpl();
     }
 
-    protected void loadAssertion(AssertionType assertion, WebServiceContext wsContext) throws Exception {
-        String messageId = getMessageId(wsContext);
-        populateAssertionWithMessageId(assertion, messageId);
-    }
-
     public PRPAIN201306UV02 proxyPRPAIN201305UV(ProxyPRPAIN201305UVProxyRequestType request, WebServiceContext context) {
         log.info("Entering NhincProxyPatientDiscoveryImpl.proxyPRPAIN201305UV");
         PRPAIN201306UV02 response = null;
@@ -74,7 +69,7 @@ public class NhincProxyPatientDiscoveryImpl extends WebServiceHelper {
             if (processor != null) {
                 try {
                     AssertionType assertion = request.getAssertion();
-                    loadAssertion(assertion, context);
+
                     ProxyPRPAIN201305UVProxySecuredRequestType secureRequest = new ProxyPRPAIN201305UVProxySecuredRequestType();
                     secureRequest.setPRPAIN201305UV02(request.getPRPAIN201305UV02());
                     secureRequest.setNhinTargetSystem(request.getNhinTargetSystem());
@@ -103,9 +98,7 @@ public class NhincProxyPatientDiscoveryImpl extends WebServiceHelper {
         NhincPatientDiscoveryOrchImpl processor = getNhincPatientDiscoveryProcessor();
         if (processor != null) {
             try {
-
-                AssertionType assertion = getSamlAssertion(context);
-                loadAssertion(assertion, context);
+                AssertionType assertion = new SAML2AssertionExtractor().extractSamlAssertion(context);
 
                 response = processor.proxyPRPAIN201305UV(request, assertion);
             } catch (Exception ex) {
