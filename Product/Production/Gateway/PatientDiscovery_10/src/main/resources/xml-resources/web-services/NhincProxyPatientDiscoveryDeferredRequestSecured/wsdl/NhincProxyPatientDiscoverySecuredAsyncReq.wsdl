@@ -69,7 +69,6 @@
   <wsp:Policy wsu:Id="NhincPatientDiscoveryProxy_Binding_SoapPolicy">
     <wsp:ExactlyOne>
       <wsp:All>
-        <!-- <wsaws:UsingAddressing xmlns:wsaws="http://www.w3.org/2006/05/addressing/wsdl"/> -->
         <sp:TransportBinding>
           <wsp:Policy>
             <sp:TransportToken>
