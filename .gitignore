@@ -23,4 +23,4 @@ Product/Install/deploy.application.list.xml
 Product/Install/local.install.properties
 Product/Install/.backup*/
 Product/PmdReport/
-
+CheckstyleReport/

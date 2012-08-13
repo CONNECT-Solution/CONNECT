@@ -27,6 +27,14 @@
 package gov.hhs.fha.nhinc.hiem.processor.common;
 
 import gov.hhs.fha.nhinc.subscription.repository.data.HiemSubscriptionItem;
+
+import java.io.StringWriter;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.oasis_open.docs.wsn.b_2.Subscribe;
 
 /**
@@ -35,6 +43,8 @@ import org.oasis_open.docs.wsn.b_2.Subscribe;
  * @author Neil Webb
  */
 public class SubscriptionItemUtil {
+	private static Log log = LogFactory.getLog(SubscriptionItemUtil.class);
+	
     /**
      * Create a subscription item from subscription info
      * 
@@ -47,17 +57,14 @@ public class SubscriptionItemUtil {
      * @param targets Optional NHIN targets if this is a targeted entity subscribe
      * @return Subscription item
      */
-    public HiemSubscriptionItem createSubscriptionItem(Subscribe subscribe, String rawSubscribeXml,
+    public HiemSubscriptionItem createSubscriptionItem(Subscribe subscribe,
             String parentSubscriptionReferenceXML, String consumer, String producer, String targets) {
         HiemSubscriptionItem subscriptionItem = null;
         if (subscribe != null) {
             subscriptionItem = new HiemSubscriptionItem();
-
-            if (rawSubscribeXml != null) {
-                subscriptionItem.setSubscribeXML(rawSubscribeXml);
-            } else {
-                subscriptionItem.setSubscribeXML(marshalSubscribe(subscribe));
-            }
+            
+            subscriptionItem.setSubscribeXML(marshalSubscribe(subscribe));
+            
             subscriptionItem.setSubscriptionReferenceXML(extractSubscriptionReference(subscribe));
             subscriptionItem.setRootTopic(extractRootTopic(subscribe));
             subscriptionItem.setParentSubscriptionReferenceXML(parentSubscriptionReferenceXML);
@@ -71,7 +78,16 @@ public class SubscriptionItemUtil {
     private String marshalSubscribe(Subscribe subscribe) {
         String subscribeXml = null;
         if (subscribe != null) {
-            // TODO: Finish
+        	// write it out as XML
+            JAXBContext jaxbContext;
+			try {
+				jaxbContext = JAXBContext.newInstance(Subscribe.class);
+	            StringWriter writer = new StringWriter();
+	            jaxbContext.createMarshaller().marshal(subscribe, writer);
+	        	subscribeXml = writer.toString();
+			} catch (JAXBException e) {
+				log.error("Failed to marshal Subscribe Object:" + e.getErrorCode());
+			}
         }
         return subscribeXml;
     }

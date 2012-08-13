@@ -73,8 +73,11 @@ public class OrchestrationContextFactoryImpl extends AbstractOrchestrationContex
         case ADMINISTRATIVE_DISTRIBUTION:
             return OutboundAdminDistributionFactory.getInstance().createOrchestrationContextBuilder(apiLevel);
         case HIEM_SUBSCRIBE:
+        	return OutboundSubscribeFactory.getInstance().createOrchestrationContextBuilder(apiLevel);
         case HIEM_NOTIFY:
+        	return OutboundNotifyFactory.getInstance().createOrchestrationContextBuilder(apiLevel);
         case HIEM_UNSUBSCRIBE:
+        	return OutboundUnsubscribeFactory.getInstance().createOrchestrationContextBuilder(apiLevel);
         }
 
         /*

@@ -247,6 +247,18 @@ public class SoapUtil {
             }
             port.setOutboundHeaders(newHeaders);
         }
+        
+        if (headers != null) {
+            // This introduces a chance of duplicate elements
+            newHeaders.addAll(headers);
+            // Casting to LinkedHashSet to remove duplicates and retain order
+            // then cast back to List<Headers>
+            Set<Header> oSet = new LinkedHashSet<Header>(newHeaders);
+            newHeaders.clear();
+            newHeaders.addAll(oSet);
+        }
+        port.setOutboundHeaders(newHeaders);
+        
     }
 
     private boolean validateHeader(String headerName) {

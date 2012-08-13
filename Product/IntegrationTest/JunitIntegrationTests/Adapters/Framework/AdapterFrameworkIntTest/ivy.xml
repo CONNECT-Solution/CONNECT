@@ -31,9 +31,6 @@
   </configurations>
 
   <dependencies>
-    <!-- To find dependency params use http://www.mavensearch.net/ to find the XML descriptor.
-         then org=groupId, name=artifactId, rev=version
--->
 	<dependency name="AdapterDocumentRepository" rev="latest.integration">
 		<exclude module="AdapterDocumentRepository"/>
 	</dependency>

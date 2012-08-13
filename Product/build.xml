@@ -42,7 +42,7 @@
     <target name="clean" description="Clean all projects: run ant help for more info..." depends="clean.ivy.cache, quick.clean">
         <call target="junit.clean" />
         <call target="coverage.clean" />
-        <call target="checkstyle.clean" />
+        <call target="static.analysis.clean" />
         <var name="do-to-target" value="just.clean" />
         <antcall target="do-to-projects" />
     </target>
@@ -51,7 +51,7 @@
         <property name="skip.ivy.clean" value="true"/>
         <call target="junit.clean" />
         <call target="coverage.clean" />
-        <call target="checkstyle.clean" />
+        <call target="static.analysis.clean" />
         <var name="do-to-target" value="just.quick.clean" />
         <antcall target="do-to-projects" />
     </target>

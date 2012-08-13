@@ -26,10 +26,16 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery._10.entity;
 
+import javax.xml.ws.WebServiceContext;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
+import org.hl7.v3.RespondingGatewayPRPAIN201306UV02ResponseType;
+
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
 import gov.hhs.fha.nhinc.gateway.servlet.InitServlet;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.patientdiscovery.entity.EntityPatientDiscoveryOrchImpl;
 import gov.hhs.fha.nhinc.perfrepo.PerformanceManager;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
@@ -43,8 +49,9 @@ import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 import org.hl7.v3.RespondingGatewayPRPAIN201306UV02ResponseType;
 
+
 /**
- * 
+ *
  * @author shawc
  */
 public class EntityPatientDiscoveryImpl {
@@ -86,19 +93,7 @@ public class EntityPatientDiscoveryImpl {
 
             EntityPatientDiscoveryOrchImpl processor = getEntityPatientDiscoveryProcessor();
             if (processor != null) {
-
-                // Log the start of the performance record
-                String homeCommunityId = getLocalHomeCommunityId();
-                Timestamp starttime = new Timestamp(System.currentTimeMillis());
-                Long logId = getPerformanceManager().logPerformanceStart(starttime,
-                        NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE,
-                        NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, homeCommunityId);
-
                 response = processor.respondingGatewayPRPAIN201305UV02(request, assertion);
-
-                // Log the end of the performance record
-                Timestamp stoptime = new Timestamp(System.currentTimeMillis());
-                getPerformanceManager().logPerformanceStop(logId, starttime, stoptime);
             } else {
                 log.error("The EntityPatientDiscoveryProcessor was null.");
             }
@@ -124,20 +119,8 @@ public class EntityPatientDiscoveryImpl {
         } else {
             EntityPatientDiscoveryOrchImpl processor = getEntityPatientDiscoveryProcessor();
             if (processor != null) {
-
-                // Log the start of the performance record
-                String homeCommunityId = getLocalHomeCommunityId();
-                Timestamp starttime = new Timestamp(System.currentTimeMillis());
-                Long logId = getPerformanceManager().logPerformanceStart(starttime,
-                        NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE,
-                        NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, homeCommunityId);
-
                 response = processor.respondingGatewayPRPAIN201305UV02(respondingGatewayPRPAIN201305UV02Request,
                         respondingGatewayPRPAIN201305UV02Request.getAssertion());
-
-                // Log the end of the performance record
-                Timestamp stoptime = new Timestamp(System.currentTimeMillis());
-                getPerformanceManager().logPerformanceStop(logId, starttime, stoptime);
             } else {
                 log.warn("EntityPatientDiscoveryProcessor was null.");
             }
