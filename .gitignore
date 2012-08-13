@@ -2,6 +2,7 @@
 .project
 .settings
 .metadata
+*.log
 .externalToolBuilders/
 build/
 dist/
@@ -15,13 +16,11 @@ ivy-cache/
 ivy-project-cache/
 target/
 Product/NHINC/
-Product/ci.log
 Product/Production/Common/Properties/Dev/test*.properties
 Product/Production/Common/CONNECTCoreLib/*test*.properties
 Product/Production/Common/CONNECTCoreLib/testMPI.xml
 Product/Install/deploy.application.list.xml
 Product/Install/local.install.properties
-Product/Install/install.debug.log
 Product/Install/.backup*/
 Product/PmdReport/
 
