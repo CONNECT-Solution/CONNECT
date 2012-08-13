@@ -19,11 +19,16 @@
         <!-- Add classes from other projects like so...-->
         <pathelement path="${project.CONNECTCommonTypesLib.build.classes.dir}" />
         <pathelement path="${project.CONNECTCoreLib.build.classes.dir}" />
+        <pathelement path="${project.DocumentRetrieveCore.build.classes.dir}" />
     </path>
 
     <!-- Add project dependencies here, these projects will be built first... -->
     <path id="build.project.dependencies">
         <filelist dir="${root.project.directory.path}">
+            <file name="${project.CONNECTCoreLib.build.file}" />
+        </filelist>
+        <filelist dir="${root.project.directory.path}">
+            <file name="${project.DocumentRetrieveCore.build.file}" />
         </filelist>
     </path>
 
@@ -32,6 +37,7 @@
     <property name="core.lib" location="../../Common/CONNECTCoreLib/dist/debug" />
     <property name="common.lib" location="../../Common/CONNECTCommonTypesLib/dist/debug" />
     <property name="opensaml.home" location="../../../../ThirdParty/openSAML" />
+    <property name ="core.docretrieve" location="../../Services/DocumentRetrieve/Core/DocumentRetrieveCore/dist/debug"/>
 
     <path id="war.libs">
         <fileset dir="${cxf.home}">
@@ -77,6 +83,10 @@
 
         <filelist dir="${common.lib}">
             <file name="CONNECTCommonTypesLib.jar" />
+        </filelist>
+
+        <filelist dir="${core.docretrieve}">
+            <file name="DocumentRetrieveCore.jar" />
         </filelist>
     </path>
 

@@ -493,7 +493,7 @@
                   <urn1:displayName>?</urn1:displayName>
                   <urn1:originalText>?</urn1:originalText>
                   <!--Zero or more repetitions:-->
-                  
+
                </urn1:addressType>
                <urn1:city>?</urn1:city>
                <urn1:country>?</urn1:country>
@@ -522,7 +522,7 @@
                   <urn1:displayName>?</urn1:displayName>
                   <urn1:originalText>?</urn1:originalText>
                   <!--Zero or more repetitions:-->
-                  
+
                </urn1:nameType>
                <urn1:secondNameOrInitials>?</urn1:secondNameOrInitials>
                <urn1:fullName>?</urn1:fullName>
@@ -542,7 +542,7 @@
                   <urn1:displayName>?</urn1:displayName>
                   <urn1:originalText>?</urn1:originalText>
                   <!--Zero or more repetitions:-->
-                  
+
                </urn1:phoneNumberType>
             </urn1:phoneNumber>
             <urn1:secondWitnessAddress>
@@ -554,7 +554,7 @@
                   <urn1:displayName>?</urn1:displayName>
                   <urn1:originalText>?</urn1:originalText>
                   <!--Zero or more repetitions:-->
-                  
+
                </urn1:addressType>
                <urn1:city>?</urn1:city>
                <urn1:country>?</urn1:country>
@@ -573,7 +573,7 @@
                   <urn1:displayName>?</urn1:displayName>
                   <urn1:originalText>?</urn1:originalText>
                   <!--Zero or more repetitions:-->
-                  
+
                </urn1:nameType>
                <urn1:secondNameOrInitials>?</urn1:secondNameOrInitials>
                <urn1:fullName>?</urn1:fullName>
@@ -593,7 +593,7 @@
                   <urn1:displayName>?</urn1:displayName>
                   <urn1:originalText>?</urn1:originalText>
                   <!--Zero or more repetitions:-->
-                  
+
                </urn1:phoneNumberType>
             </urn1:secondWitnessPhone>
             <urn1:SSN>?</urn1:SSN>
@@ -608,7 +608,7 @@
                   <urn1:displayName>?</urn1:displayName>
                   <urn1:originalText>?</urn1:originalText>
                   <!--Zero or more repetitions:-->
-                  
+
                </urn1:addressType>
                <urn1:city>?</urn1:city>
                <urn1:country>?</urn1:country>
@@ -627,7 +627,7 @@
                   <urn1:displayName>?</urn1:displayName>
                   <urn1:originalText>?</urn1:originalText>
                   <!--Zero or more repetitions:-->
-                  
+
                </urn1:nameType>
                <urn1:secondNameOrInitials>?</urn1:secondNameOrInitials>
                <urn1:fullName>?</urn1:fullName>
@@ -647,7 +647,7 @@
                   <urn1:displayName>?</urn1:displayName>
                   <urn1:originalText>?</urn1:originalText>
                   <!--Zero or more repetitions:-->
-                  
+
                </urn1:phoneNumberType>
             </urn1:witnessPhone>
             <urn1:userInfo>
@@ -662,7 +662,7 @@
                      <urn1:displayName>?</urn1:displayName>
                      <urn1:originalText>?</urn1:originalText>
                      <!--Zero or more repetitions:-->
-                     
+
                   </urn1:nameType>
                   <urn1:secondNameOrInitials>?</urn1:secondNameOrInitials>
                   <urn1:fullName>?</urn1:fullName>
@@ -1461,7 +1461,7 @@
          <urn:ProvideAndRegisterDocumentSetRequest>
             <urn2:SubmitObjectsRequest id="123" comment="comme">
                <!--Optional:-->
-  
+
                <urn4:RegistryObjectList>
                   <urn4:ExtrinsicObject id="Document01" mimeType="text/xml" objectType="urn:uuid:7edca82f-054d-47f2-a032-9b2a5b5186c1">
                      <urn4:Slot name="creationTime">
@@ -1665,7 +1665,7 @@
                         </urn4:ValueList>
                      </urn4:Slot>
                   </urn4:Association>
-               </urn4:RegistryObjectList> 
+               </urn4:RegistryObjectList>
 
             </urn2:SubmitObjectsRequest>
             <!--1 or more repetitions:-->
@@ -1707,19 +1707,19 @@ def g0InternalFile = new File(testDirectoryName, "internalConnectionInfo_g0.xml"
 def g0UddiFile = new File(testDirectoryName, "uddiConnectionInfo_g0.xml");
 
 void MoveFile(File sourceFile, File destinationFile, log){
-	
+
 	if(sourceFile.exists())
 			{
 				def reader = sourceFile.newReader();
-				destinationFile.withWriter 
-				{ writer -&gt;       
-					writer &lt;&lt; reader;   
-				}   
+				destinationFile.withWriter
+				{ writer -&gt;
+					writer &lt;&lt; reader;
+				}
 				reader.close();
-			} 
+			}
 			else {
 			   log.info("unable to find source file " + sourceFile);
-			}   
+			}
 }
 
 MoveFile(sourceInternalFile, backupInternalFile, log);
@@ -1737,28 +1737,28 @@ File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml")
 File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
 
 void MoveFile(File sourceFile, File destinationFile, log){
-	
+
 	if(sourceFile.exists())
 			{
 				def reader = sourceFile.newReader();
-				destinationFile.withWriter 
-				{ writer -&gt;       
-					writer &lt;&lt; reader;   
-				}   
+				destinationFile.withWriter
+				{ writer -&gt;
+					writer &lt;&lt; reader;
+				}
 				reader.close();
-			} 
+			}
 			else {
 			   log.info("unable to find source file " + sourceFile);
-			}   
+			}
 }
 
 MoveFile(backupInternalFile, sourceInternalFile, log);
 MoveFile(backupUddiFile, sourceUddiFile, log);
 
-void DeleteFile(File file, log) {  
-			if(file.exists()) {    
+void DeleteFile(File file, log) {
+			if(file.exists()) {
 			   log.info("deleting file " + file);
-			   file.delete(); 
+			   file.delete();
 			} else {
 			   log.info("file not found, skipping delete for " + file);
 			}
@@ -2108,19 +2108,19 @@ def g0InternalFile = new File(testDirectoryName, "internalConnectionInfo_g0.xml"
 def g0UddiFile = new File(testDirectoryName, "uddiConnectionInfo_g0.xml");
 
 void MoveFile(File sourceFile, File destinationFile, log){
-	
+
 	if(sourceFile.exists())
 			{
 				def reader = sourceFile.newReader();
-				destinationFile.withWriter 
-				{ writer -&gt;       
-					writer &lt;&lt; reader;   
-				}   
+				destinationFile.withWriter
+				{ writer -&gt;
+					writer &lt;&lt; reader;
+				}
 				reader.close();
-			} 
+			}
 			else {
 			   log.info("unable to find source file " + sourceFile);
-			}   
+			}
 }
 
 MoveFile(sourceInternalFile, backupInternalFile, log);
@@ -2138,28 +2138,28 @@ File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml")
 File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
 
 void MoveFile(File sourceFile, File destinationFile, log){
-	
+
 	if(sourceFile.exists())
 			{
 				def reader = sourceFile.newReader();
-				destinationFile.withWriter 
-				{ writer -&gt;       
-					writer &lt;&lt; reader;   
-				}   
+				destinationFile.withWriter
+				{ writer -&gt;
+					writer &lt;&lt; reader;
+				}
 				reader.close();
-			} 
+			}
 			else {
 			   log.info("unable to find source file " + sourceFile);
-			}   
+			}
 }
 
 MoveFile(backupInternalFile, sourceInternalFile, log);
 MoveFile(backupUddiFile, sourceUddiFile, log);
 
-void DeleteFile(File file, log) {  
-			if(file.exists()) {    
+void DeleteFile(File file, log) {
+			if(file.exists()) {
 			   log.info("deleting file " + file);
-			   file.delete(); 
+			   file.delete();
 			} else {
 			   log.info("file not found, skipping delete for " + file);
 			}
@@ -2211,7 +2211,6 @@ DeleteFile(backupUddiFile, log);
                </urn:device>
             </urn:sender>
             <urn:controlActProcess classCode="CACT" moodCode="EVN">
-               <code code="PRPA_TE201305UV02" codeSystem="2.16.840.1.113883.1.6"/>
                <urn:authorOrPerformer typeCode="AUT">
                   <urn:assignedDevice>
                      <urn:id root="${#Project#LocalAA}"/>
@@ -2258,8 +2257,6 @@ DeleteFile(backupUddiFile, log);
                <urn1:zipCode>20176</urn1:zipCode>
             </urn1:address>
             <urn1:dateOfBirth>19990627</urn1:dateOfBirth>
-            <urn1:dateOfSignature>20080520</urn1:dateOfSignature>
-            <urn1:expirationDate>20100520</urn1:expirationDate>
             <urn1:explanationNonClaimantSignature>NEEDED</urn1:explanationNonClaimantSignature>
             <urn1:haveSecondWitnessSignature>true</urn1:haveSecondWitnessSignature>
             <urn1:haveSignature>true</urn1:haveSignature>
@@ -2288,7 +2285,6 @@ DeleteFile(backupUddiFile, log);
                   <urn1:code>W</urn1:code>
                </urn1:phoneNumberType>
             </urn1:phoneNumber>
-            <urn1:purposeOfDisclosure>Mental</urn1:purposeOfDisclosure>
             <urn1:secondWitnessAddress>
                <urn1:addressType>
                   <urn1:code>W</urn1:code>
@@ -2362,7 +2358,6 @@ DeleteFile(backupUddiFile, log);
                   <urn1:prefix>Mrs</urn1:prefix>
                </urn1:personName>
                <urn1:userName>wanderson</urn1:userName>
-               <urn1:role>nuse</urn1:role>
                <urn1:org>
                   <urn1:description>Test HCID1</urn1:description>
                   <urn1:homeCommunityId>2.16.840.1.113883.3.337</urn1:homeCommunityId>
@@ -2382,57 +2377,30 @@ DeleteFile(backupUddiFile, log);
             </urn1:userInfo>
             <urn1:authorized>authorized</urn1:authorized>
             <!--Optional:-->
-            <urn1:claimFormRef>claimFormRef</urn1:claimFormRef>
-            <!--Optional:-->
-            <urn1:claimFormRaw>cid:610957193055</urn1:claimFormRaw>
-            <!--Optional:-->
             <urn1:samlAuthnStatement>
-               <!--Optional:-->
-               <urn1:authInstant>authInstant</urn1:authInstant>
-               <!--Optional:-->
-               <urn1:sessionIndex>sessionIndex</urn1:sessionIndex>
-               <!--Optional:-->
-               <urn1:authContextClassRef>authContextClassRef</urn1:authContextClassRef>
-               <!--Optional:-->
-               <urn1:subjectLocalityAddress>subjectLocalityAddress</urn1:subjectLocalityAddress>
-               <!--Optional:-->
-               <urn1:subjectLocalityDNSName>subjectLocalityDNSName</urn1:subjectLocalityDNSName>
+               <urn1:authInstant>2009-04-16T13:15:39Z</urn1:authInstant>
+               <urn1:sessionIndex>987</urn1:sessionIndex>
+               <urn1:authContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:X509</urn1:authContextClassRef>
+               <urn1:subjectLocalityAddress>158.147.185.168</urn1:subjectLocalityAddress>
+               <urn1:subjectLocalityDNSName>cs.myharris.net</urn1:subjectLocalityDNSName>
             </urn1:samlAuthnStatement>
-            <!--Optional:-->
             <urn1:samlAuthzDecisionStatement>
-               <!--Optional:-->
-               <urn1:decision>decision</urn1:decision>
-               <!--Optional:-->
-               <urn1:resource>resource</urn1:resource>
-               <!--Optional:-->
-               <urn1:action>action</urn1:action>
-               <!--Optional:-->
+               <urn1:decision>Permit</urn1:decision>
+               <urn1:resource>https://158.147.185.168:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
+               <urn1:action>TestSaml</urn1:action>
                <urn1:evidence>
-                  <!--Optional:-->
                   <urn1:assertion>
-                     <!--Optional:-->
-                     <urn1:id>5555</urn1:id>
-                     <!--Optional:-->
-                     <urn1:issueInstant>issueInstant</urn1:issueInstant>
-                     <!--Optional:-->
-                     <urn1:version>version</urn1:version>
-                     <!--Optional:-->
-                     <urn1:issuer>issuer</urn1:issuer>
-                     <!--Optional:-->
-                     <urn1:issuerFormat>issuerFormat</urn1:issuerFormat>
-                     <!--Optional:-->
+                     <urn1:id>40df7c0a-ff3e-4b26-baeb-f2910f6d05a9</urn1:id>
+                     <urn1:issueInstant>2009-04-16T13:10:39.093Z</urn1:issueInstant>
+                     <urn1:version>2.0</urn1:version>
+                     <urn1:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn1:issuerFormat>
+                     <urn1:issuer>CN=SAML User,OU=Harris,O=HITS,L=Melbourne,ST=FL,C=US</urn1:issuer>
                      <urn1:conditions>
-                        <!--Optional:-->
-                        <urn1:notBefore>notBefore</urn1:notBefore>
-                        <!--Optional:-->
-                        <urn1:notOnOrAfter>notOnOrAfter</urn1:notOnOrAfter>
+                        <urn1:notBefore>2009-04-16T13:10:39.093Z</urn1:notBefore>
+                        <urn1:notOnOrAfter>2009-12-31T12:00:00.000Z</urn1:notOnOrAfter>
                      </urn1:conditions>
-                     <!--Optional:-->
-                     <urn1:contentReference>contentReference</urn1:contentReference>
-                     <!--Optional:-->
-                     <urn1:contentType>contentType</urn1:contentType>
-                     <!--Optional:-->
-                     <urn1:content>cid:574777349023</urn1:content>
+                     <urn1:accessConsentPolicy>Claim-Ref-1234</urn1:accessConsentPolicy>
+                     <urn1:instanceAccessConsentPolicy>Claim-Instance-1</urn1:instanceAccessConsentPolicy>
                   </urn1:assertion>
                </urn1:evidence>
             </urn1:samlAuthzDecisionStatement>
@@ -2932,8 +2900,6 @@ DeleteFile(backupUddiFile, log);
                <urn1:zipCode>20176</urn1:zipCode>
             </urn1:address>
             <urn1:dateOfBirth>19990627</urn1:dateOfBirth>
-            <urn1:dateOfSignature>20080520</urn1:dateOfSignature>
-            <urn1:expirationDate>20100520</urn1:expirationDate>
             <urn1:explanationNonClaimantSignature>NEEDED</urn1:explanationNonClaimantSignature>
             <urn1:haveSecondWitnessSignature>true</urn1:haveSecondWitnessSignature>
             <urn1:haveSignature>true</urn1:haveSignature>
@@ -2962,7 +2928,6 @@ DeleteFile(backupUddiFile, log);
                   <urn1:code>W</urn1:code>
                </urn1:phoneNumberType>
             </urn1:phoneNumber>
-            <urn1:purposeOfDisclosure>Mental</urn1:purposeOfDisclosure>
             <urn1:secondWitnessAddress>
                <urn1:addressType>
                   <urn1:code>W</urn1:code>
@@ -3036,7 +3001,6 @@ DeleteFile(backupUddiFile, log);
                   <urn1:prefix>Mrs</urn1:prefix>
                </urn1:personName>
                <urn1:userName>wanderson</urn1:userName>
-               <urn1:role>nuse</urn1:role>
                <urn1:org>
                   <urn1:description>Test HCID1</urn1:description>
                   <urn1:homeCommunityId>2.16.840.1.113883.3.337</urn1:homeCommunityId>
@@ -3055,58 +3019,30 @@ DeleteFile(backupUddiFile, log);
                </urn1:roleCoded>
             </urn1:userInfo>
             <urn1:authorized>authorized</urn1:authorized>
-            <!--Optional:-->
-            <urn1:claimFormRef>claimFormRef</urn1:claimFormRef>
-            <!--Optional:-->
-            <urn1:claimFormRaw>cid:610957193055</urn1:claimFormRaw>
-            <!--Optional:-->
             <urn1:samlAuthnStatement>
-               <!--Optional:-->
-               <urn1:authInstant>authInstant</urn1:authInstant>
-               <!--Optional:-->
-               <urn1:sessionIndex>sessionIndex</urn1:sessionIndex>
-               <!--Optional:-->
-               <urn1:authContextClassRef>authContextClassRef</urn1:authContextClassRef>
-               <!--Optional:-->
-               <urn1:subjectLocalityAddress>subjectLocalityAddress</urn1:subjectLocalityAddress>
-               <!--Optional:-->
-               <urn1:subjectLocalityDNSName>subjectLocalityDNSName</urn1:subjectLocalityDNSName>
+               <urn1:authInstant>2009-04-16T13:15:39Z</urn1:authInstant>
+               <urn1:sessionIndex>987</urn1:sessionIndex>
+               <urn1:authContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:X509</urn1:authContextClassRef>
+               <urn1:subjectLocalityAddress>158.147.185.168</urn1:subjectLocalityAddress>
+               <urn1:subjectLocalityDNSName>cs.myharris.net</urn1:subjectLocalityDNSName>
             </urn1:samlAuthnStatement>
-            <!--Optional:-->
             <urn1:samlAuthzDecisionStatement>
-               <!--Optional:-->
-               <urn1:decision>decision</urn1:decision>
-               <!--Optional:-->
-               <urn1:resource>resource</urn1:resource>
-               <!--Optional:-->
-               <urn1:action>action</urn1:action>
-               <!--Optional:-->
+               <urn1:decision>Permit</urn1:decision>
+               <urn1:resource>https://158.147.185.168:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
+               <urn1:action>TestSaml</urn1:action>
                <urn1:evidence>
-                  <!--Optional:-->
                   <urn1:assertion>
-                     <!--Optional:-->
-                     <urn1:id>5555</urn1:id>
-                     <!--Optional:-->
-                     <urn1:issueInstant>issueInstant</urn1:issueInstant>
-                     <!--Optional:-->
-                     <urn1:version>version</urn1:version>
-                     <!--Optional:-->
-                     <urn1:issuer>issuer</urn1:issuer>
-                     <!--Optional:-->
-                     <urn1:issuerFormat>issuerFormat</urn1:issuerFormat>
-                     <!--Optional:-->
+                     <urn1:id>40df7c0a-ff3e-4b26-baeb-f2910f6d05a9</urn1:id>
+                     <urn1:issueInstant>2009-04-16T13:10:39.093Z</urn1:issueInstant>
+                     <urn1:version>2.0</urn1:version>
+                     <urn1:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn1:issuerFormat>
+                     <urn1:issuer>CN=SAML User,OU=Harris,O=HITS,L=Melbourne,ST=FL,C=US</urn1:issuer>
                      <urn1:conditions>
-                        <!--Optional:-->
-                        <urn1:notBefore>notBefore</urn1:notBefore>
-                        <!--Optional:-->
-                        <urn1:notOnOrAfter>notOnOrAfter</urn1:notOnOrAfter>
+                        <urn1:notBefore>2009-04-16T13:10:39.093Z</urn1:notBefore>
+                        <urn1:notOnOrAfter>2009-12-31T12:00:00.000Z</urn1:notOnOrAfter>
                      </urn1:conditions>
-                     <!--Optional:-->
-                     <urn1:contentReference>contentReference</urn1:contentReference>
-                     <!--Optional:-->
-                     <urn1:contentType>contentType</urn1:contentType>
-                     <!--Optional:-->
-                     <urn1:content>cid:574777349023</urn1:content>
+                     <urn1:accessConsentPolicy>Claim-Ref-1234</urn1:accessConsentPolicy>
+                     <urn1:instanceAccessConsentPolicy>Claim-Instance-1</urn1:instanceAccessConsentPolicy>
                   </urn1:assertion>
                </urn1:evidence>
             </urn1:samlAuthzDecisionStatement>
@@ -3449,7 +3385,7 @@ DeleteFile(backupUddiFile, log);
 	<con:testStep name="clear correlations table" type="groovy">
 		<con:settings/>
 		<con:config>
-			<script>context.withSql('PatientCorrelationDB') { sql -&gt; 
+			<script>context.withSql('PatientCorrelationDB') { sql -&gt;
 			sql.execute('delete from ' + context.findProperty('PatientCorrelationTable'))
 			}</script>
 	</con:config>
@@ -3497,7 +3433,6 @@ DeleteFile(backupUddiFile, log);
                </urn:device>
             </urn:sender>
             <urn:controlActProcess classCode="CACT" moodCode="EVN">
-               <code code="PRPA_TE201305UV02" codeSystem="2.16.840.1.113883.1.6"/>
                <urn:authorOrPerformer typeCode="AUT">
                   <urn:assignedDevice>
                      <urn:id root="${#Project#LocalAA}"/>
@@ -3544,8 +3479,6 @@ DeleteFile(backupUddiFile, log);
                <urn1:zipCode>${#Project#ZipCode}</urn1:zipCode>
             </urn1:address>
             <urn1:dateOfBirth>${#Project#DOB}</urn1:dateOfBirth>
-            <urn1:dateOfSignature>${#Project#DateOfSignature}</urn1:dateOfSignature>
-            <urn1:expirationDate>${#Project#ExpirationDate}</urn1:expirationDate>
             <urn1:explanationNonClaimantSignature>NEEDED</urn1:explanationNonClaimantSignature>
             <urn1:haveSecondWitnessSignature>true</urn1:haveSecondWitnessSignature>
             <urn1:haveSignature>true</urn1:haveSignature>
@@ -3574,7 +3507,6 @@ DeleteFile(backupUddiFile, log);
                   <urn1:code>W</urn1:code>
                </urn1:phoneNumberType>
             </urn1:phoneNumber>
-            <urn1:purposeOfDisclosure>${#Project#PurposeOfDisclosure}</urn1:purposeOfDisclosure>
             <urn1:secondWitnessAddress>
                <urn1:addressType>
                   <urn1:code>W</urn1:code>
@@ -3647,7 +3579,6 @@ DeleteFile(backupUddiFile, log);
                   <urn1:prefix>Mrs</urn1:prefix>
                </urn1:personName>
                <urn1:userName>wanderson</urn1:userName>
-               <urn1:role>nurse</urn1:role>
                <urn1:org>
                   <urn1:description>${#Project#LocalHCDescription}</urn1:description>
                   <urn1:homeCommunityId>${#Project#LocalHCID}</urn1:homeCommunityId>
@@ -3707,9 +3638,8 @@ DeleteFile(backupUddiFile, log);
                <urn1:name>${#Project#RemoteHCDescription}</urn1:name>
                </urn1:homeCommunity>
             </urn1:nhinTargetCommunity>
-         </urn:NhinTargetCommunities> 
+         </urn:NhinTargetCommunities>
       </urn:RespondingGateway_PRPA_IN201305UV02Request>
-      <urn:PIXConsumer_PRPA_IN201305UVRequest/>
    </soapenv:Body>
 </soapenv:Envelope>]]></con:request>
 	<con:assertion type="SOAP Response"/>
@@ -3754,7 +3684,7 @@ DeleteFile(backupUddiFile, log);
 <con:testStep name="count correlations (1)" type="groovy">
 	<con:settings/>
 	<con:config>
-		<script>context.withSql('PatientCorrelationDB') { sql -&gt; 
+		<script>context.withSql('PatientCorrelationDB') { sql -&gt;
 		assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('PatientCorrelationTable'))[0]
 		}</script>
 </con:config>
@@ -3827,7 +3757,7 @@ DeleteFile(backupUddiFile, log);
 <con:testStep name="Clear Correlation Table &amp; Add Correlation" type="groovy">
 	<con:settings/>
 	<con:config>
-		<script>context.withSql('PatientCorrelationDB') { sql -&gt; 
+		<script>context.withSql('PatientCorrelationDB') { sql -&gt;
 		def table = context.findProperty('PatientCorrelationTable')
 
 		sql.execute('delete from ' + table)
@@ -3836,7 +3766,7 @@ DeleteFile(backupUddiFile, log);
 		def localPatientID = context.findProperty("LocalPatientID")
 		def remoteAA = context.findProperty( "RemoteAA" )
 		def remotePatientID = context.findProperty("RemotePatientID")
-		def insertSql = "insert into " + table + " (correlationId, PatientAssigningAuthorityId, PatientId, CorrelatedPatientAssignAuthId, CorrelatedPatientId) " + 
+		def insertSql = "insert into " + table + " (correlationId, PatientAssigningAuthorityId, PatientId, CorrelatedPatientAssignAuthId, CorrelatedPatientId) " +
 		"values (1, ?, ?, ?, ?)"
 		sql.executeUpdate(insertSql, [localAA, localPatientID, remoteAA, remotePatientID])
 		}</script>
@@ -3845,14 +3775,14 @@ DeleteFile(backupUddiFile, log);
 <con:testStep name="Clear AA Mapping Table &amp; Add Mapping" type="groovy">
 	<con:settings/>
 	<con:config>
-		<script>context.withSql('AAMappingDB') { sql -&gt; 
+		<script>context.withSql('AAMappingDB') { sql -&gt;
 		def table = context.findProperty('AAMappingTable')
 
 		sql.execute('delete from ' + table)
 
 		def remoteAA = context.findProperty( "RemoteAA" )
 		def remoteHCID = context.findProperty("RemoteHCID")
-		def insertSql = "insert into " + table + " (id, assigningauthorityid, homecommunityid) " + 
+		def insertSql = "insert into " + table + " (id, assigningauthorityid, homecommunityid) " +
 		"values (1, ?, ?)"
 		sql.executeUpdate(insertSql, [remoteAA, remoteHCID])
 		}</script>
@@ -3915,8 +3845,6 @@ DeleteFile(backupUddiFile, log);
                <urn3:zipCode>AddrZip</urn3:zipCode>
             </urn3:address>
             <urn3:dateOfBirth xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">06/04/1959 05:21:00</urn3:dateOfBirth>
-            <!-- urn3:dateOfSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#sigDate}</urn3:dateOfSignature -->
-            <!-- urn3:expirationDate xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#expireDate}</urn3:expirationDate -->
             <urn3:explanationNonClaimantSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">Electronic</urn3:explanationNonClaimantSignature>
             <urn3:haveSecondWitnessSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn3:haveSecondWitnessSignature>
             <urn3:haveSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn3:haveSignature>
@@ -4083,8 +4011,6 @@ DeleteFile(backupUddiFile, log);
                <urn3:displayName>Use or disclosure of Psychotherapy Notes</urn3:displayName>
                <urn3:originalText>Use or disclosure of Psychotherapy Notes</urn3:originalText>
             </urn3:purposeOfDisclosureCoded>
-            <!-- urn3:claimFormRef>Ref-Clm-123</urn3:claimFormRef -->
-            <!-- urn3:claimFormRaw>YWVvbGlhbQ==</urn3:claimFormRaw -->
             <urn3:samlAuthnStatement xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <urn3:authInstant>2009-04-16T13:15:39Z</urn3:authInstant>
                <urn3:sessionIndex>987</urn3:sessionIndex>
@@ -4505,19 +4431,19 @@ def g0InternalFile = new File(testDirectoryName, "internalConnectionInfo_g0.xml"
 def g0UddiFile = new File(testDirectoryName, "uddiConnectionInfo_g0.xml");
 
 void MoveFile(File sourceFile, File destinationFile, log){
-	
+
 	if(sourceFile.exists())
 			{
 				def reader = sourceFile.newReader();
-				destinationFile.withWriter 
-				{ writer -&gt;       
-					writer &lt;&lt; reader;   
-				}   
+				destinationFile.withWriter
+				{ writer -&gt;
+					writer &lt;&lt; reader;
+				}
 				reader.close();
-			} 
+			}
 			else {
 			   log.info("unable to find source file " + sourceFile);
-			}   
+			}
 }
 
 MoveFile(sourceInternalFile, backupInternalFile, log);
@@ -4535,28 +4461,28 @@ File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml")
 File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
 
 void MoveFile(File sourceFile, File destinationFile, log){
-	
+
 	if(sourceFile.exists())
 			{
 				def reader = sourceFile.newReader();
-				destinationFile.withWriter 
-				{ writer -&gt;       
-					writer &lt;&lt; reader;   
-				}   
+				destinationFile.withWriter
+				{ writer -&gt;
+					writer &lt;&lt; reader;
+				}
 				reader.close();
-			} 
+			}
 			else {
 			   log.info("unable to find source file " + sourceFile);
-			}   
+			}
 }
 
 MoveFile(backupInternalFile, sourceInternalFile, log);
 MoveFile(backupUddiFile, sourceUddiFile, log);
 
-void DeleteFile(File file, log) {  
-			if(file.exists()) {    
+void DeleteFile(File file, log) {
+			if(file.exists()) {
 			   log.info("deleting file " + file);
-			   file.delete(); 
+			   file.delete();
 			} else {
 			   log.info("file not found, skipping delete for " + file);
 			}
@@ -4637,7 +4563,7 @@ DeleteFile(backupUddiFile, log);
 <con:testStep name="Clear Subscription Table" type="groovy">
 	<con:settings/>
 	<con:config>
-		<script>context.withSql('SubscriptionDB') { sql -&gt; 
+		<script>context.withSql('SubscriptionDB') { sql -&gt;
 		sql.execute('delete from ' + context.findProperty('SubscriptionTable'))
 		}</script>
 </con:config>
@@ -4916,7 +4842,7 @@ DeleteFile(backupUddiFile, log);
 </con:testStep>
 <con:testStep name="Count Subscriptions" type="groovy">
 	<con:settings/>
-	<con:config><script>context.withSql('SubscriptionDB') { sql -&gt; 
+	<con:config><script>context.withSql('SubscriptionDB') { sql -&gt;
 		assert 2 &lt;= sql.firstRow('select count(*) from ' + context.findProperty('SubscriptionTable'))[0]
 		}</script></con:config>
 </con:testStep>
@@ -4958,7 +4884,7 @@ throw new RuntimeException('Unable to locate master/gateway.properties')
 
 <con:testCase failOnError="true" failTestCaseOnErrors="true" id="7a122f59-3714-4aa2-adef-840ecca7185f" keepSession="false" maxResults="0" name="Notify" searchProperties="true">
 	<con:settings/>
-	
+
 	<con:testStep name="Backup gateway.properties file" type="groovy">
 		<con:settings/>
 		<con:config>
@@ -5004,7 +4930,7 @@ throw new RuntimeException('Unable to locate master/gateway.properties')
 </con:testStep><con:testStep name="Clear Subscription Table" type="groovy">
 	<con:settings/>
 	<con:config>
-		<script>context.withSql('SubscriptionDB') { sql -&gt; 
+		<script>context.withSql('SubscriptionDB') { sql -&gt;
 		sql.execute('delete from ' + context.findProperty('SubscriptionTable'))
 		}</script>
 </con:config>
@@ -5632,14 +5558,14 @@ throw new RuntimeException('Unable to locate master/gateway.properties')
 <con:testStep name="Clear Subscription Table &amp; Add Sub" type="groovy">
 	<con:settings/>
 	<con:config>
-		<script>context.withSql('SubscriptionDB') { sql -&gt; 
+		<script>context.withSql('SubscriptionDB') { sql -&gt;
 		def table = context.findProperty('SubscriptionTable')
 
 		sql.execute('delete from ' + table)
 
 		def unsubSubscriptionID = context.findProperty( "UnSubscriptionID" )
 		def startDate = Date.parse("yyyy-MM-dd'T'HH:mm:ss'Z'", context.findProperty("startDate"))
-		def insertSql = "insert into " + table + " (id, Subscriptionid, RootTopic, Consumer, Producer, CreationDate) " + 
+		def insertSql = "insert into " + table + " (id, Subscriptionid, RootTopic, Consumer, Producer, CreationDate) " +
 		"values (1, ?, 'SomeTopic', 'nhin', 'gateway', ?)"
 		sql.executeUpdate(insertSql, [unsubSubscriptionID, startDate])
 		}</script>
@@ -5912,7 +5838,7 @@ throw new RuntimeException('Unable to locate master/gateway.properties')
 <con:testStep name="Count Subscriptions (0)" type="groovy">
 	<con:settings/>
 	<con:config>
-		<script>context.withSql('SubscriptionDB') { sql -&gt; 
+		<script>context.withSql('SubscriptionDB') { sql -&gt;
 		assert 0 == sql.firstRow('select count(*) from ' + context.findProperty('SubscriptionTable'))[0]
 		}</script>
 </con:config>
@@ -6189,7 +6115,7 @@ throw new RuntimeException('Unable to locate master/gateway.properties')
          <urn:ProvideAndRegisterDocumentSetRequest>
             <urn2:SubmitObjectsRequest id="123" comment="comme">
                <!--Optional:-->
-  
+
                <urn4:RegistryObjectList>
                   <urn4:ExtrinsicObject id="Document01" mimeType="text/xml" objectType="urn:uuid:7edca82f-054d-47f2-a032-9b2a5b5186c1">
                      <urn4:Slot name="creationTime">
@@ -6393,7 +6319,7 @@ throw new RuntimeException('Unable to locate master/gateway.properties')
                         </urn4:ValueList>
                      </urn4:Slot>
                   </urn4:Association>
-               </urn4:RegistryObjectList> 
+               </urn4:RegistryObjectList>
 
             </urn2:SubmitObjectsRequest>
             <!--1 or more repetitions:-->
@@ -6435,19 +6361,19 @@ def g0InternalFile = new File(testDirectoryName, "internalConnectionInfo_g0.xml"
 def g0UddiFile = new File(testDirectoryName, "uddiConnectionInfo_g0.xml");
 
 void MoveFile(File sourceFile, File destinationFile, log){
-	
+
 	if(sourceFile.exists())
 			{
 				def reader = sourceFile.newReader();
-				destinationFile.withWriter 
-				{ writer -&gt;       
-					writer &lt;&lt; reader;   
-				}   
+				destinationFile.withWriter
+				{ writer -&gt;
+					writer &lt;&lt; reader;
+				}
 				reader.close();
-			} 
+			}
 			else {
 			   log.info("unable to find source file " + sourceFile);
-			}   
+			}
 }
 
 MoveFile(sourceInternalFile, backupInternalFile, log);
@@ -6465,28 +6391,28 @@ File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml")
 File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
 
 void MoveFile(File sourceFile, File destinationFile, log){
-	
+
 	if(sourceFile.exists())
 			{
 				def reader = sourceFile.newReader();
-				destinationFile.withWriter 
-				{ writer -&gt;       
-					writer &lt;&lt; reader;   
-				}   
+				destinationFile.withWriter
+				{ writer -&gt;
+					writer &lt;&lt; reader;
+				}
 				reader.close();
-			} 
+			}
 			else {
 			   log.info("unable to find source file " + sourceFile);
-			}   
+			}
 }
 
 MoveFile(backupInternalFile, sourceInternalFile, log);
 MoveFile(backupUddiFile, sourceUddiFile, log);
 
-void DeleteFile(File file, log) {  
-			if(file.exists()) {    
+void DeleteFile(File file, log) {
+			if(file.exists()) {
 			   log.info("deleting file " + file);
-			   file.delete(); 
+			   file.delete();
 			} else {
 			   log.info("file not found, skipping delete for " + file);
 			}
@@ -6880,19 +6806,19 @@ def g0InternalFile = new File(testDirectoryName, "internalConnectionInfo_g0.xml"
 def g0UddiFile = new File(testDirectoryName, "uddiConnectionInfo_g0.xml");
 
 void MoveFile(File sourceFile, File destinationFile, log){
-	
+
 	if(sourceFile.exists())
 			{
 				def reader = sourceFile.newReader();
-				destinationFile.withWriter 
-				{ writer -&gt;       
-					writer &lt;&lt; reader;   
-				}   
+				destinationFile.withWriter
+				{ writer -&gt;
+					writer &lt;&lt; reader;
+				}
 				reader.close();
-			} 
+			}
 			else {
 			   log.info("unable to find source file " + sourceFile);
-			}   
+			}
 }
 
 MoveFile(sourceInternalFile, backupInternalFile, log);
@@ -6910,28 +6836,28 @@ File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml")
 File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
 
 void MoveFile(File sourceFile, File destinationFile, log){
-	
+
 	if(sourceFile.exists())
 			{
 				def reader = sourceFile.newReader();
-				destinationFile.withWriter 
-				{ writer -&gt;       
-					writer &lt;&lt; reader;   
-				}   
+				destinationFile.withWriter
+				{ writer -&gt;
+					writer &lt;&lt; reader;
+				}
 				reader.close();
-			} 
+			}
 			else {
 			   log.info("unable to find source file " + sourceFile);
-			}   
+			}
 }
 
 MoveFile(backupInternalFile, sourceInternalFile, log);
 MoveFile(backupUddiFile, sourceUddiFile, log);
 
-void DeleteFile(File file, log) {  
-			if(file.exists()) {    
+void DeleteFile(File file, log) {
+			if(file.exists()) {
 			   log.info("deleting file " + file);
-			   file.delete(); 
+			   file.delete();
 			} else {
 			   log.info("file not found, skipping delete for " + file);
 			}
@@ -6963,82 +6889,82 @@ DeleteFile(backupUddiFile, log);
 </con:testSuite>
 <con:requirements/>
 <con:properties>
-	
+
 	<con:property><con:name>AAMappingDB</con:name><con:value>assigningauthoritydb</con:value></con:property>
 
 
-	
-	
-	
+
+
+
 	<con:property><con:name>AAMappingTable</con:name><con:value>aa_to_home_community_mapping</con:value></con:property><con:property><con:name>AsyncMsgDB</con:name><con:value>asyncmsgs</con:value></con:property><con:property><con:name>AsyncMsgTable</con:name><con:value>asyncmsgrepo</con:value></con:property><con:property><con:name>AuditRepoDB</con:name><con:value>auditrepo</con:value></con:property><con:property><con:name>AuditRepoTable</con:name><con:value>auditrepository</con:value></con:property>
-	
-	
-	
+
+
+
 	<con:property><con:name>BirthTime</con:name><con:value>19630804</con:value></con:property><con:property><con:name>City</con:name><con:value>Melbourne</con:value></con:property><con:property><con:name>Country</con:name><con:value>US</con:value></con:property>
-	
-	
-	
-	
-	
+
+
+
+
+
 	<con:property><con:name>DateOfSignature</con:name><con:value>20080520</con:value></con:property><con:property><con:name>DBHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>DBPass</con:name><con:value>nhincpass</con:value></con:property>
-	
-	
 
 
-	
-	
+
+
+
+
 
 
 	<con:property><con:name>DBPort</con:name><con:value>3306</con:value></con:property><con:property><con:name>DBUser</con:name><con:value>nhincuser</con:value></con:property><con:property><con:name>DeferredPatientDiscoveryReqMessageID</con:name><con:value>uuid:6666666666.66666.666.66</con:value></con:property><con:property><con:name>DOB</con:name><con:value>19800516</con:value></con:property><con:property><con:name>DQDocID</con:name><con:value>1.123401.55555</con:value></con:property><con:property><con:name>DQPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>DRDocID</con:name><con:value>1.123407.777777</con:value></con:property><con:property><con:name>DRRepoID</con:name><con:value>1</con:value></con:property>
-	
-	
-	
-	
-	
+
+
+
+
+
 
 	<con:property><con:name>DynamicDQDocID</con:name><con:value>103.8.9284320.020.3590.75^1266324032288</con:value></con:property><con:property><con:name>Endpoint-DocQuery</con:name><con:value>http://localhost:8080/Gateway/DocumentQuery/2_0/EntityService/EntityDocQueryUnsecured</con:value></con:property><con:property><con:name>Endpoint-DocRetrieve</con:name><con:value>http://localhost:8080/Gateway/DocumentRetrieve/2_0/EntityService/EntityDocRetrieve</con:value></con:property><con:property><con:name>Endpoint-DSDeferredResp</con:name><con:value>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionDeferredResponseUnsecured</con:value></con:property>
-	
-	
-	<con:property><con:name>Endpoint-EntityAdminDist</con:name><con:value>http://localhost:8080/Gateway/AdminDistribution/1_0/AdministrativeDistribution_Service</con:value></con:property><con:property><con:name>Endpoint-EntityXDRRequest</con:name><con:value>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionDeferredRequestUnsecured</con:value></con:property><con:property><con:name>Endpoint-Notify</con:name><con:value>http://localhost:8080/Gateway/HIEM/2_0/EntityNotificationConsumer</con:value></con:property><con:property><con:name>Endpoint-PatientDiscovery</con:name><con:value>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityPatientDiscovery</con:value></con:property>
-	
-	
-	
-	
 
-	
+
+	<con:property><con:name>Endpoint-EntityAdminDist</con:name><con:value>http://localhost:8080/Gateway/AdminDistribution/1_0/AdministrativeDistribution_Service</con:value></con:property><con:property><con:name>Endpoint-EntityXDRRequest</con:name><con:value>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionDeferredRequestUnsecured</con:value></con:property><con:property><con:name>Endpoint-Notify</con:name><con:value>http://localhost:8080/Gateway/HIEM/2_0/EntityNotificationConsumer</con:value></con:property><con:property><con:name>Endpoint-PatientDiscovery</con:name><con:value>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityPatientDiscovery</con:value></con:property>
+
+
+
+
+
+
 	<con:property><con:name>Endpoint-PatientDiscoveryAsyncReq</con:name><con:value>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityService/EntityPatientDiscoveryDeferredRequestUnsecured</con:value></con:property><con:property><con:name>Endpoint-PatientDiscoveryAsyncResp</con:name><con:value>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityService/EntityPatientDiscoveryDeferredResponseUnsecured</con:value></con:property><con:property><con:name>Endpoint-Subscribe</con:name><con:value>http://localhost:8080/Gateway/HIEM/2_0/EntityNotificationProducer</con:value></con:property><con:property><con:name>Endpoint-Unsubscribe</con:name><con:value>http://localhost:8080/Gateway/HIEM/2_0/EntitySubscriptionManager</con:value></con:property>
-	
+
 
 
 	<con:property><con:name>Endpoint-XDREntity</con:name><con:value>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionUnsecured</con:value></con:property><con:property><con:name>ExpirationDate</con:name><con:value>20100520</con:value></con:property>
-	
-	
-	
-	
+
+
+
+
 
 
 	<con:property><con:name>FamilyName</con:name><con:value>Younger</con:value></con:property>
 
 
-	
-	
-	
-	
-	
-	<con:property><con:name>Gender</con:name><con:value>M</con:value></con:property><con:property><con:name>GivenName</con:name><con:value>Gallow</con:value></con:property><con:property><con:name>LocalAA</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalHCDescription</con:name><con:value>InternalTest1</con:value></con:property>
-	
-	
-	<con:property><con:name>LocalHCID</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>NotificationEndpoint</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/NotificationConsumerService/HiemNotify</con:value></con:property><con:property><con:name>NotifySubscriptionID</con:name><con:value>ea58ddb5-991f-4b3a-ba0e-5e6d0c2251f9</con:value></con:property><con:property><con:name>NotifySubscriptionManagerEndpointAddress</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/SubscriptionManagerService/HiemUnsubscribe</con:value></con:property><con:property><con:name>PatientCorrelationDB</con:name><con:value>patientcorrelationdb</con:value></con:property><con:property><con:name>PatientCorrelationTable</con:name><con:value>correlatedidentifiers</con:value></con:property><con:property><con:name>PurposeOfDisclosure</con:name><con:value>Mental</con:value></con:property><con:property><con:name>RemoteAA</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemoteHCDescription</con:name><con:value>InternalTest2</con:value></con:property>
-	
-	
-	
-	
-	<con:property><con:name>RemoteHCID</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemotePatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>SSN</con:name><con:value>123456789</con:value></con:property><con:property><con:name>State</con:name><con:value>FL</con:value></con:property><con:property><con:name>StreetAddress</con:name><con:value>123 Johnson Rd</con:value></con:property><con:property><con:name>SubjectID</con:name><con:value>1111</con:value></con:property><con:property><con:name>SubscribePatientID</con:name><con:value>D123401</con:value></con:property>
-	
 
-	
-	
-	
+
+
+
+
+	<con:property><con:name>Gender</con:name><con:value>M</con:value></con:property><con:property><con:name>GivenName</con:name><con:value>Gallow</con:value></con:property><con:property><con:name>LocalAA</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalHCDescription</con:name><con:value>InternalTest1</con:value></con:property>
+
+
+	<con:property><con:name>LocalHCID</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>NotificationEndpoint</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/NotificationConsumerService/HiemNotify</con:value></con:property><con:property><con:name>NotifySubscriptionID</con:name><con:value>ea58ddb5-991f-4b3a-ba0e-5e6d0c2251f9</con:value></con:property><con:property><con:name>NotifySubscriptionManagerEndpointAddress</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/SubscriptionManagerService/HiemUnsubscribe</con:value></con:property><con:property><con:name>PatientCorrelationDB</con:name><con:value>patientcorrelationdb</con:value></con:property><con:property><con:name>PatientCorrelationTable</con:name><con:value>correlatedidentifiers</con:value></con:property><con:property><con:name>PurposeOfDisclosure</con:name><con:value>Mental</con:value></con:property><con:property><con:name>RemoteAA</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemoteHCDescription</con:name><con:value>InternalTest2</con:value></con:property>
+
+
+
+
+	<con:property><con:name>RemoteHCID</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemotePatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>SSN</con:name><con:value>123456789</con:value></con:property><con:property><con:name>State</con:name><con:value>FL</con:value></con:property><con:property><con:name>StreetAddress</con:name><con:value>123 Johnson Rd</con:value></con:property><con:property><con:name>SubjectID</con:name><con:value>1111</con:value></con:property><con:property><con:name>SubscribePatientID</con:name><con:value>D123401</con:value></con:property>
+
+
+
+
+
 	<con:property><con:name>SubscriptionDB</con:name><con:value>subscriptionrepository</con:value></con:property><con:property><con:name>SubscriptionEndpoint</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/NotificationProducerService/HiemSubscription</con:value></con:property><con:property><con:name>SubscriptionManagerEndpointAddress</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/SubscriptionManagerService/HiemUnsubscribe</con:value></con:property><con:property><con:name>SubscriptionTable</con:name><con:value>subscription</con:value></con:property><con:property><con:name>UniquePatientId</con:name><con:value>1111^^^&amp;amp;1.1&amp;amp;ISO</con:value></con:property><con:property><con:name>UnSubscriptionID</con:name><con:value>3e74139f-5271-4db1-98c0-88748fa3e4e3</con:value></con:property><con:property><con:name>ZipCode</con:name><con:value>12345</con:value></con:property></con:properties>
 <con:afterLoadScript>def propertiesFilename = project.path[0..(project.path.size()-4)] + 'properties'
 	def propertiesFile = new File(propertiesFilename)
@@ -7057,7 +6983,7 @@ afterRun: { testRunner, runContext -&gt; },
 afterStep: { testRunner, runContext, result -&gt; },
 beforeStep: { testRunner, runContext -&gt; },
 beforeStep: { testRunner, runContext, testStep -&gt; },
-beforeRun: { testRunner, runContext -&gt; 
+beforeRun: { testRunner, runContext -&gt;
 use (org.codehaus.groovy.runtime.TimeCategory) {
 def startDate = 5.minutes.ago
 def endDate = 5.minutes.from.now
@@ -7071,7 +6997,7 @@ runContext.testCase.setPropertyValue("endDate", endDate.format(df))
 runContext.testCase.setPropertyValue("sigDate", startDate.format(dfSig))
 runContext.testCase.setPropertyValue("expireDate", expireDate.format(df))
 }
-}   
+}
 ] as com.eviware.soapui.model.testsuite.TestRunListener
 
 project.testSuiteList*.testCaseList.flatten()*.addTestRunListener(testRunListener)
