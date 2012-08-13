@@ -27,8 +27,8 @@
 package gov.hhs.fha.nhinc.hiem.dte;
 
 import gov.hhs.fha.nhinc.hiem.dte.marshallers.NotificationMessageMarshaller;
-import gov.hhs.fha.nhinc.hiem.dte.marshallers.NotifyMarshaller;
 import gov.hhs.fha.nhinc.hiem.dte.marshallers.SubscriptionReferenceMarshaller;
+
 import org.oasis_open.docs.wsn.b_2.NotificationMessageHolderType;
 import org.oasis_open.docs.wsn.b_2.Notify;
 import org.w3._2005._08.addressing.EndpointReferenceType;
@@ -49,7 +49,7 @@ public class NotifyBuilder {
      * @param subscribe
      * @return
      */
-    public Element buildNotifyFromSubscribe(Element notificationMessageElement, Element subscriptionReferenceElement) {
+    public Notify buildNotifyFromSubscribe(Element notificationMessageElement, Element subscriptionReferenceElement) {
         NotificationMessageMarshaller notificationMessageMarshaller = new NotificationMessageMarshaller();
         NotificationMessageHolderType notificationMessage = notificationMessageMarshaller
                 .unmarshal(notificationMessageElement);
@@ -63,9 +63,6 @@ public class NotifyBuilder {
         Notify notify = new Notify();
         notify.getNotificationMessage().add(notificationMessage);
 
-        NotifyMarshaller notifyMarshaller = new NotifyMarshaller();
-        Element notifyElement = notifyMarshaller.marshal(notify);
-
-        return notifyElement;
+        return notify;
     }
 }

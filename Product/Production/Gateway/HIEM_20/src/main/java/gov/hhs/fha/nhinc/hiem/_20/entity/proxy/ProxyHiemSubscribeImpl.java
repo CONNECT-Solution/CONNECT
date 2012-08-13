@@ -26,22 +26,17 @@
  */
 package gov.hhs.fha.nhinc.hiem._20.entity.proxy;
 
+import gov.hhs.fha.nhinc.common.nhinccommonproxy.SubscribeRequestSecuredType;
+import gov.hhs.fha.nhinc.common.nhinccommonproxy.SubscribeRequestType;
+import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
+import gov.hhs.fha.nhinc.subscribe.nhin.proxy.NhinHiemSubscribeProxy;
+import gov.hhs.fha.nhinc.subscribe.nhin.proxy.NhinHiemSubscribeProxyObjectFactory;
+
 import javax.xml.ws.WebServiceContext;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.oasis_open.docs.wsn.b_2.SubscribeResponse;
-import org.w3c.dom.Element;
-
-import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
-import gov.hhs.fha.nhinc.common.nhinccommonproxy.SubscribeRequestSecuredType;
-import gov.hhs.fha.nhinc.common.nhinccommonproxy.SubscribeRequestType;
-import gov.hhs.fha.nhinc.hiem.dte.SoapUtil;
-import gov.hhs.fha.nhinc.hiem.dte.marshallers.SubscribeResponseMarshaller;
-import gov.hhs.fha.nhinc.nhinhiem.proxy.subscribe.NhinHiemSubscribeProxy;
-import gov.hhs.fha.nhinc.nhinhiem.proxy.subscribe.NhinHiemSubscribeProxyObjectFactory;
-import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
-import gov.hhs.fha.nhinc.xmlCommon.XmlUtility;
 
 /**
  *
@@ -56,45 +51,14 @@ public class ProxyHiemSubscribeImpl {
         log.debug("Entering ProxyHiemSubscribeImpl.subscribe...");
         SubscribeResponse resp = null;
 
-        Element subscribeElement = new SoapUtil().extractFirstElement(context, "subscribeSoapMessage", "Subscribe");
-
-        // Audit the Audit Log Query Request Message sent on the Nhin Interface
-        audit(subscribeRequest);
-
         NhinHiemSubscribeProxyObjectFactory hiemSubscribeFactory = new NhinHiemSubscribeProxyObjectFactory();
         NhinHiemSubscribeProxy proxy = hiemSubscribeFactory.getNhinHiemSubscribeProxy();
 
-        Element responseElement = proxy.subscribe(subscribeElement, subscribeRequest.getAssertion(),
+        resp = proxy.subscribe(subscribeRequest.getSubscribe(), subscribeRequest.getAssertion(),
                 subscribeRequest.getNhinTargetSystem());
 
-        SubscribeResponseMarshaller responseMarshaller = new SubscribeResponseMarshaller();
-        resp = responseMarshaller.unmarshal(responseElement);
-        log.debug("Exiting ProxyHiemSubscribeImpl.subscribe...");
+       log.debug("Exiting ProxyHiemSubscribeImpl.subscribe...");
         return resp;
-    }
-
-    private AcknowledgementType audit(SubscribeRequestType subscribeRequest) {
-        AcknowledgementType ack = null;
-        // ConfigurationManager config = new ConfigurationManager();
-        // if (config.isAuditEnabled()) {
-        //
-        // AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
-        //
-        // // Fix namespace issue
-        // gov.hhs.fha.nhinc.common.nhinccommoninternalorch.SubscribeRequestType message = new
-        // gov.hhs.fha.nhinc.common.nhinccommoninternalorch.SubscribeRequestType();
-        // message.setAssertion(subscribeRequest.getAssertion());
-        // message.setSubscribe(subscribeRequest.getSubscribe());
-        //
-        // LogEventRequestType auditLogMsg = auditLogger.logNhinSubscribeRequest(message,
-        // NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
-        //
-        // AuditRepositoryProxyObjectFactory auditRepoFactory = new AuditRepositoryProxyObjectFactory();
-        // AuditRepositoryProxy proxy = auditRepoFactory.getAuditRepositoryProxy();
-        // ack = proxy.auditLog(auditLogMsg);
-        // }
-
-        return ack;
     }
 
     public SubscribeResponse subscribe(SubscribeRequestSecuredType subscribeRequest, WebServiceContext context)
@@ -102,46 +66,14 @@ public class ProxyHiemSubscribeImpl {
         log.debug("Entering Secured ProxyHiemSubscribeImpl.subscribe...");
         SubscribeResponse resp = null;
 
-        Element subscribeElement = new SoapUtil().extractFirstElement(context, "subscribeSoapMessage", "Subscribe");
-
-        // Audit the Audit Log Query Request Message sent on the Nhin Interface
-        audit(subscribeRequest);
-
         NhinHiemSubscribeProxyObjectFactory hiemSubscribeFactory = new NhinHiemSubscribeProxyObjectFactory();
         NhinHiemSubscribeProxy proxy = hiemSubscribeFactory.getNhinHiemSubscribeProxy();
 
-        Element responseElement = proxy.subscribe(subscribeElement, SamlTokenExtractor.GetAssertion(context),
+        resp = proxy.subscribe(subscribeRequest.getSubscribe(), SamlTokenExtractor.GetAssertion(context),
                 subscribeRequest.getNhinTargetSystem());
-
-        SubscribeResponseMarshaller responseMarshaller = new SubscribeResponseMarshaller();
-        resp = responseMarshaller.unmarshal(responseElement);
-        log.debug("Response = " + XmlUtility.serializeElementIgnoreFaults(responseElement));
 
         log.debug("Exiting Secured ProxyHiemSubscribeImpl.subscribe...");
         return resp;
     }
 
-    private AcknowledgementType audit(SubscribeRequestSecuredType subscribeRequest) {
-        AcknowledgementType ack = null;
-        // ConfigurationManager config = new ConfigurationManager();
-        // if (config.isAuditEnabled()) {
-        //
-        // AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
-        //
-        // // Fix namespace issue
-        // gov.hhs.fha.nhinc.common.nhinccommoninternalorch.SubscribeRequestType message = new
-        // gov.hhs.fha.nhinc.common.nhinccommoninternalorch.SubscribeRequestType();
-        // message.setAssertion(subscribeRequest.getAssertion());
-        // message.setSubscribe(subscribeRequest.getSubscribe());
-        //
-        // LogEventRequestType auditLogMsg = auditLogger.logNhinSubscribeRequest(message,
-        // NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
-        //
-        // AuditRepositoryProxyObjectFactory auditRepoFactory = new AuditRepositoryProxyObjectFactory();
-        // AuditRepositoryProxy proxy = auditRepoFactory.getAuditRepositoryProxy();
-        // ack = proxy.auditLog(auditLogMsg);
-        // }
-
-        return ack;
-    }
 }

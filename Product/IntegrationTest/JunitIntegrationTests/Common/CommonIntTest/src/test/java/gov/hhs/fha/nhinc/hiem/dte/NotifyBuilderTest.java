@@ -4,13 +4,17 @@
  */
 package gov.hhs.fha.nhinc.hiem.dte;
 
+import static org.junit.Assert.assertNotNull;
 import gov.hhs.fha.nhinc.xmlCommon.XmlUtility;
-import gov.hhs.fha.nhinc.xmlCommon.XpathHelper;
+
+import java.util.List;
+
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.oasis_open.docs.wsn.b_2.NotificationMessageHolderType;
+import org.oasis_open.docs.wsn.b_2.Notify;
 import org.w3c.dom.Element;
-import static org.junit.Assert.*;
 
 /**
  *
@@ -52,17 +56,15 @@ public class NotifyBuilderTest {
         Element notificationMessage = XmlUtility.convertXmlToElement(notificationMessageXml);
 
         NotifyBuilder builder = new NotifyBuilder();
-        Element builtNotify = builder.buildNotifyFromSubscribe(notificationMessage, subscriptionReference);
-
+        Notify builtNotify = builder.buildNotifyFromSubscribe(notificationMessage, subscriptionReference);
+        
         assertNotNull(builtNotify);
-        assertEquals("Notify", builtNotify.getLocalName());
-
-        Element builtNotificationMessage = XmlUtility.getSingleChildElement(builtNotify, "http://docs.oasis-open.org/wsn/b-2", "NotificationMessage");
+        
+        List<NotificationMessageHolderType> builtNotificationMessage = builtNotify.getNotificationMessage();
         assertNotNull(builtNotificationMessage);
-        assertNotNull(XmlUtility.getSingleChildElement(builtNotificationMessage, "http://docs.oasis-open.org/wsn/b-2", "Topic"));
-        assertNotNull(XmlUtility.getSingleChildElement(builtNotificationMessage, "http://docs.oasis-open.org/wsn/b-2", "Message"));
-
-        Element builtSubscriptionReference = XmlUtility.getSingleChildElement(builtNotificationMessage, "http://docs.oasis-open.org/wsn/b-2", "SubscriptionReference");
-        assertNotNull(builtSubscriptionReference);
+        
+        assertNotNull(builtNotificationMessage.get(0).getTopic());
+        assertNotNull(builtNotificationMessage.get(0).getMessage());
+        assertNotNull(builtNotificationMessage.get(0).getSubscriptionReference());
     }
 }

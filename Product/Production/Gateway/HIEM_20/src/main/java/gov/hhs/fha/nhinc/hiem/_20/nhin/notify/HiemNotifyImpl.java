@@ -26,19 +26,6 @@
  */
 package gov.hhs.fha.nhinc.hiem._20.nhin.notify;
 
-import java.io.ByteArrayOutputStream;
-
-import javax.xml.soap.SOAPMessage;
-import javax.xml.ws.WebServiceContext;
-import javax.xml.ws.handler.MessageContext;
-
-import oasis.names.tc.xacml._2_0.context.schema.os.DecisionType;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.oasis_open.docs.wsn.b_2.Notify;
-import org.w3c.dom.Element;
-
 import gov.hhs.fha.nhinc.auditrepository.AuditRepositoryLogger;
 import gov.hhs.fha.nhinc.auditrepository.nhinc.proxy.AuditRepositoryProxy;
 import gov.hhs.fha.nhinc.auditrepository.nhinc.proxy.AuditRepositoryProxyObjectFactory;
@@ -48,13 +35,22 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyResponseType;
 import gov.hhs.fha.nhinc.hiem.dte.SoapUtil;
-import gov.hhs.fha.nhinc.hiem.processor.nhin.NhinNotifyProcessor;
+import gov.hhs.fha.nhinc.notify.nhin.NhinNotifyProcessor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.policyengine.PolicyEngineChecker;
 import gov.hhs.fha.nhinc.policyengine.adapter.proxy.PolicyEngineProxy;
 import gov.hhs.fha.nhinc.policyengine.adapter.proxy.PolicyEngineProxyObjectFactory;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
+
+import javax.xml.ws.WebServiceContext;
+
+import oasis.names.tc.xacml._2_0.context.schema.os.DecisionType;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.oasis_open.docs.wsn.b_2.Notify;
+import org.w3c.dom.Element;
 
 /**
  *
@@ -135,31 +131,5 @@ public class HiemNotifyImpl {
 
         log.debug("Finished HiemNotifyImpl.checkPolicy - valid: " + policyIsValid);
         return policyIsValid;
-    }
-
-    private static String extractSoapMessage(WebServiceContext context, String attributeName) {
-        String extractedMessage = null;
-        @SuppressWarnings("unchecked")
-        MessageContext msgContext = context.getMessageContext();
-        if (msgContext != null) {
-            javax.servlet.http.HttpServletRequest servletRequest = (javax.servlet.http.HttpServletRequest) msgContext
-                    .get(MessageContext.SERVLET_REQUEST);
-            SOAPMessage soapMessage = (SOAPMessage) servletRequest.getAttribute(attributeName);
-            if (soapMessage != null) {
-                log.debug("******** Attempting to write out SOAP message *************");
-                try {
-                    ByteArrayOutputStream bos = new ByteArrayOutputStream();
-                    soapMessage.writeTo(bos);
-                    extractedMessage = new String(bos.toByteArray());
-                    log.debug("Extracted soap message: " + extractedMessage);
-                } catch (Throwable t) {
-                    log.debug("Exception writing out the message");
-                    t.printStackTrace();
-                }
-            } else {
-                log.debug("SOAPMessage was null");
-            }
-        }
-        return extractedMessage;
     }
 }

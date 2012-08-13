@@ -27,6 +27,7 @@
 package gov.hhs.fha.nhinc.hiem.dte.marshallers;
 
 import org.oasis_open.docs.wsn.b_2.Subscribe;
+import org.oasis_open.docs.wsn.b_2.SubscribeResponse;
 import org.w3c.dom.Element;
 
 /**
@@ -37,11 +38,30 @@ public class SubscribeMarshaller {
 
     private static final String SubscribeContextPath = "org.oasis_open.docs.wsn.b_2";
 
+    /**
+     * Return the marshalled Subscribe Object.
+     * @param object The object to be marshalled
+     * @return the object in Element format
+     */
     public Element marshalSubscribe(Subscribe object) {
         return new Marshaller().marshal(object, SubscribeContextPath);
     }
 
+    /**
+     * Return the unmarshalled Subscribe Object.
+     * @param element The element to unmarshal
+     * @return The Subscribe object from the element
+     */
     public Subscribe unmarshalSubscribe(Element element) {
         return (Subscribe) new Marshaller().unmarshal(element, SubscribeContextPath);
+    }
+    
+    /**
+     * Return the unmarshalled SubscribeResponse Object.
+     * @param element The element to unmarshal
+     * @return The SubscribeResponse object from the element
+     */
+    public SubscribeResponse unmarshalSubscribeResponse(Element element){
+    	return (SubscribeResponse) new Marshaller().unmarshal(element, SubscribeContextPath);
     }
 }

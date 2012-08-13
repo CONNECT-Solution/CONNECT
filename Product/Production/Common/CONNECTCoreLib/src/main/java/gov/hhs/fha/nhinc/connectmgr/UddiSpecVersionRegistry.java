@@ -164,6 +164,17 @@ public class UddiSpecVersionRegistry {
     		DRSpecToApiMap.put(UDDI_SPEC_VERSION.SPEC_3_0, GATEWAY_API_LEVEL.LEVEL_g1);
     		specToApiMap.put(NhincConstants.NHIN_SERVICE_NAMES.DOCUMENT_RETRIEVE, DRSpecToApiMap);
     		
+    		// HIEM Subscribe
+    		HashMap<GATEWAY_API_LEVEL, ArrayList<UDDI_SPEC_VERSION>> SuApiToSpecMap = new HashMap<GATEWAY_API_LEVEL, ArrayList<UDDI_SPEC_VERSION>>();
+    		ArrayList<UDDI_SPEC_VERSION> Su0SpecVersions = new ArrayList<UDDI_SPEC_VERSION>();
+    		Su0SpecVersions.add(UDDI_SPEC_VERSION.SPEC_2_0);
+    		SuApiToSpecMap.put(GATEWAY_API_LEVEL.LEVEL_g0, Su0SpecVersions);
+    		apiToSpecMap.put(NhincConstants.NHIN_SERVICE_NAMES.HIEM_SUBSCRIBE, SuApiToSpecMap);
+    		
+    		HashMap<UDDI_SPEC_VERSION, GATEWAY_API_LEVEL> SuSpecToApiMap = new HashMap<UDDI_SPEC_VERSION, GATEWAY_API_LEVEL>();
+    		SuSpecToApiMap.put(UDDI_SPEC_VERSION.SPEC_2_0, GATEWAY_API_LEVEL.LEVEL_g0);
+    		specToApiMap.put(NhincConstants.NHIN_SERVICE_NAMES.HIEM_SUBSCRIBE, SuSpecToApiMap);
+    		
     		// HIEM Notify
     		HashMap<GATEWAY_API_LEVEL, ArrayList<UDDI_SPEC_VERSION>> NOApiToSpecMap = new HashMap<GATEWAY_API_LEVEL, ArrayList<UDDI_SPEC_VERSION>>();
     		ArrayList<UDDI_SPEC_VERSION> NO0SpecVersions = new ArrayList<UDDI_SPEC_VERSION>();
@@ -174,6 +185,17 @@ public class UddiSpecVersionRegistry {
     		HashMap<UDDI_SPEC_VERSION, GATEWAY_API_LEVEL> NOSpecToApiMap = new HashMap<UDDI_SPEC_VERSION, GATEWAY_API_LEVEL>();
     		NOSpecToApiMap.put(UDDI_SPEC_VERSION.SPEC_2_0, GATEWAY_API_LEVEL.LEVEL_g0);
     		specToApiMap.put(NhincConstants.NHIN_SERVICE_NAMES.HIEM_NOTIFY, NOSpecToApiMap);
+    		
+    		// HIEM Unsubscribe
+    		HashMap<GATEWAY_API_LEVEL, ArrayList<UDDI_SPEC_VERSION>> UnApiToSpecMap = new HashMap<GATEWAY_API_LEVEL, ArrayList<UDDI_SPEC_VERSION>>();
+    		ArrayList<UDDI_SPEC_VERSION> Un0SpecVersions = new ArrayList<UDDI_SPEC_VERSION>();
+    		Un0SpecVersions.add(UDDI_SPEC_VERSION.SPEC_2_0);
+    		UnApiToSpecMap.put(GATEWAY_API_LEVEL.LEVEL_g0, Un0SpecVersions);
+    		apiToSpecMap.put(NhincConstants.NHIN_SERVICE_NAMES.HIEM_NOTIFY, UnApiToSpecMap);
+    		
+    		HashMap<UDDI_SPEC_VERSION, GATEWAY_API_LEVEL> UnSpecToApiMap = new HashMap<UDDI_SPEC_VERSION, GATEWAY_API_LEVEL>();
+    		UnSpecToApiMap.put(UDDI_SPEC_VERSION.SPEC_2_0, GATEWAY_API_LEVEL.LEVEL_g0);
+    		specToApiMap.put(NhincConstants.NHIN_SERVICE_NAMES.HIEM_NOTIFY, UnSpecToApiMap);
     	}
     	
     	public HashMap<GATEWAY_API_LEVEL, ArrayList<UDDI_SPEC_VERSION>> getAPIToSpecMapping(NhincConstants.NHIN_SERVICE_NAMES serviceName) {

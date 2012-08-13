@@ -27,19 +27,22 @@
 package gov.hhs.fha.nhinc.orchestration;
 
 import gov.hhs.fha.nhinc.admindistribution.entity.OutboundAdminDistributionFactory;
-import gov.hhs.fha.nhinc.docquery.entity.OutboundDocQueryFactory;
-import gov.hhs.fha.nhinc.patientdiscovery.entity.OutboundPatientDiscoveryFactory;
-import gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.request.OutboundPatientDiscoveryDeferredRequestFactory;
-import gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.response.OutboundPatientDiscoveryDeferredResponseFactory;
-import gov.hhs.fha.nhinc.docretrieve.entity.OutboundDocRetrieveFactory;
-import gov.hhs.fha.nhinc.docretrieve.nhin.InboundDocRetrieveFactory;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.connectmgr.AdapterEndpointManager;
 import gov.hhs.fha.nhinc.connectmgr.NhinEndpointManager;
+import gov.hhs.fha.nhinc.docquery.entity.OutboundDocQueryFactory;
+import gov.hhs.fha.nhinc.docretrieve.entity.OutboundDocRetrieveFactory;
+import gov.hhs.fha.nhinc.docretrieve.nhin.InboundDocRetrieveFactory;
 import gov.hhs.fha.nhinc.docsubmission.entity.OutboundDocSubmissionFactory;
 import gov.hhs.fha.nhinc.docsubmission.entity.deferred.request.OutboundDocSubmissionDeferredRequestFactory;
 import gov.hhs.fha.nhinc.docsubmission.entity.deferred.response.OutboundDocSubmissionDeferredResponseFactory;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.notify.entity.OutboundNotifyFactory;
+import gov.hhs.fha.nhinc.patientdiscovery.entity.OutboundPatientDiscoveryFactory;
+import gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.request.OutboundPatientDiscoveryDeferredRequestFactory;
+import gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.response.OutboundPatientDiscoveryDeferredResponseFactory;
+import gov.hhs.fha.nhinc.subscribe.entity.OutboundSubscribeFactory;
+import gov.hhs.fha.nhinc.unsubscribe.entity.OutboundUnsubscribeFactory;
 
 public class OrchestrationContextFactory {
 
@@ -93,8 +96,11 @@ public class OrchestrationContextFactory {
         case ADMINISTRATIVE_DISTRIBUTION:
             return OutboundAdminDistributionFactory.getInstance().createOrchestrationContextBuilder(apiLevel);
         case HIEM_SUBSCRIBE:
+        	return OutboundSubscribeFactory.getInstance().createOrchestrationContextBuilder(apiLevel);
         case HIEM_NOTIFY:
+        	return OutboundNotifyFactory.getInstance().createOrchestrationContextBuilder(apiLevel);
         case HIEM_UNSUBSCRIBE:
+        	return OutboundUnsubscribeFactory.getInstance().createOrchestrationContextBuilder(apiLevel);
         }
 
         /*

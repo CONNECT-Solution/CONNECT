@@ -56,7 +56,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyResponseType;
 import gov.hhs.fha.nhinc.dte.WebServiceContextHelper;
-import gov.hhs.fha.nhinc.hiem.processor.nhin.NhinSubscribeProcessor;
+import gov.hhs.fha.nhinc.subscribe.nhin.NhinSubscribeProcessor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.policyengine.PolicyEngineChecker;
