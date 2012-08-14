@@ -53,6 +53,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.connectmgr.AdapterEndpointManager;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
+import gov.hhs.fha.nhinc.logging.transaction.TransactionHandler;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADAPTER_API_LEVEL;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
@@ -588,6 +589,9 @@ public class WebServiceProxyHelper {
             log.warn("WS-Addressing information is unavailable, relying on wsdl policy");
         }
 
+        
+        port.getBinding().getHandlerChain().add(new TransactionHandler());
+        
         log.info("end initializePort");
     }
 

@@ -47,87 +47,89 @@ import gov.hhs.fha.nhinc.async.AddressingHeaderCreator;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 
 /**
- *
+ * 
  * @author rayj
  */
 public class SOAPHeaderHandler implements SOAPHandler<SOAPMessageContext> {
 
-	private static Log log = LogFactory.getLog(SOAPHeaderHandler.class);
-	private static final String WSA_NS = "http://www.w3.org/2005/08/addressing";
-	private static final String MESSAGE_ID_CONTEXT = "com.sun.xml.ws.addressing.response.messageID";
-	private static final String MESSAGE_ID = "MessageID";
+    private static Log log = LogFactory.getLog(SOAPHeaderHandler.class);
+    private static final String WSA_NS = "http://www.w3.org/2005/08/addressing";
+    private static final String MESSAGE_ID_CONTEXT = "com.sun.xml.ws.addressing.response.messageID";
+    private static final String MESSAGE_ID = "MessageID";
 
     public Set<QName> getHeaders() {
-		log.debug("SoapHeaderHandler.getHeaders");
-		return Collections.emptySet();
-	}
+        log.debug("SoapHeaderHandler.getHeaders");
+        return Collections.emptySet();
+    }
 
     public boolean handleMessage(SOAPMessageContext messageContext) {
-		log.debug("Entering SOAPHeaderHandler.handleMessage");
+        log.debug("Entering SOAPHeaderHandler.handleMessage");
         Boolean isOutboundMessage = (Boolean) messageContext.get(MessageContext.MESSAGE_OUTBOUND_PROPERTY);
-		try {
-			SOAPMessage oMessage = messageContext.getMessage();
-			SOAPHeader oHeader = oMessage.getSOAPHeader();
+        try {
+            SOAPMessage oMessage = messageContext.getMessage();
+            SOAPHeader oHeader = oMessage.getSOAPHeader();
             if (isOutboundMessage.booleanValue() && (messageContext.containsKey(MESSAGE_ID_CONTEXT) != true)) {
-				adjustMessageId(messageContext, oHeader);
-			} else {
+                adjustMessageId(messageContext, oHeader);
+            } else {
                 log.debug("Will not adjust messageID on inbound request");
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-		return true;
-	}
+        return true;
+    }
 
     private void adjustMessageId(SOAPMessageContext messageContext, SOAPHeader oHeader) throws SOAPException {
-		// Override the Message Id field
-		String messageId = null;
-		messageId = (String) messageContext.get(MESSAGE_ID_CONTEXT);
-		if (NullChecker.isNullish(messageId)) {
+        // Override the Message Id field
+        String messageId = null;
+        messageId = (String) messageContext.get(MESSAGE_ID_CONTEXT);
+        if (NullChecker.isNullish(messageId)) {
             messageId = AddressingHeaderCreator.generateMessageId();
-		} else if (illegalUUID(messageId, "uuid:")) {
-			messageId = "urn:" + messageId;
-		} else if (legalMessageId(messageId) == false){
-			messageId = "urn:uuid:" + messageId;
- 		}
+        } else if (illegalUUID(messageId, "uuid:")) {
+            messageId = "urn:" + messageId;
+        } else if (legalMessageId(messageId) == false) {
+            messageId = "urn:uuid:" + messageId;
+        }
 
-		// Steps that need to be performed
-		SOAPElement oMessageIdElem = getFirstChild(oHeader, MESSAGE_ID, WSA_NS);
-		if (oMessageIdElem != null) {
-			oMessageIdElem.setTextContent(messageId);
-		} else {
-			SOAPFactory soapFactory = SOAPFactory.newInstance();
-			oMessageIdElem = soapFactory.createElement(MESSAGE_ID, "", WSA_NS);
-			oMessageIdElem.setTextContent(messageId);
-			oHeader.addChildElement(oMessageIdElem);
-		}
-	}
+        // Steps that need to be performed
+        SOAPElement oMessageIdElem = getFirstChild(oHeader, MESSAGE_ID, WSA_NS);
+        if (oMessageIdElem != null) {
+            oMessageIdElem.setTextContent(messageId);
+        } else {
+            SOAPFactory soapFactory = SOAPFactory.newInstance();
+            oMessageIdElem = soapFactory.createElement(MESSAGE_ID, "", WSA_NS);
+            oMessageIdElem.setTextContent(messageId);
+            oHeader.addChildElement(oMessageIdElem);
+        }
+    }
 
-	private SOAPElement getFirstChild(SOAPHeader header, String name, String ns) {
-		SOAPElement result = null;
-		QName qname = new QName(ns, name);
-		Iterator iter = header.getChildElements(qname);
-		if (iter.hasNext()) {
-			result = (SOAPElement) iter.next();
-		}
-		return result;
-	}
+    private SOAPElement getFirstChild(SOAPHeader header, String name, String ns) {
+        SOAPElement result = null;
+        if (header != null) {
+            QName qname = new QName(ns, name);
+            Iterator iter = header.getChildElements(qname);
+            if (iter.hasNext()) {
+                result = (SOAPElement) iter.next();
+            }
+        }
+        return result;
+    }
 
-	private boolean illegalUUID(String messageId, String illegalPrefix) {
-		return messageId.trim().startsWith(illegalPrefix);
-	}
+    private boolean illegalUUID(String messageId, String illegalPrefix) {
+        return messageId.trim().startsWith(illegalPrefix);
+    }
 
-	private boolean legalMessageId(String messageId) {
-		return messageId.trim().startsWith("urn:uuid:");
-	}
+    private boolean legalMessageId(String messageId) {
+        return messageId.trim().startsWith("urn:uuid:");
+    }
 
     public boolean handleFault(SOAPMessageContext context) {
-		log.warn("SoapHeaderHandler.handleFault");
-		return true;
-	}
+        log.warn("SoapHeaderHandler.handleFault");
+        return true;
+    }
 
     public void close(MessageContext context) {
-		log.debug("SoapHeaderHandler.close");
-	}
+        log.debug("SoapHeaderHandler.close");
+    }
 }

@@ -72,12 +72,15 @@ public class WebServiceProxyHelperIntializePortTest extends AbstractWebServicePr
 
                 allowing(mockPort).getRequestContext();
                 will(returnValue(mockRequestContext));
+                
+                allowing(mockPort).getBinding();    
 
                 ignoring(mockRequestContext).put(with(any(String.class)), with(any(Object.class)));
 
                 allowing(mockRequestContext).get(WebServiceProxyHelper.KEY_URL);
                 will(returnValue("http://www.someurlnew.com"));
 
+            
                 allowing(mockRequestContext).containsKey(WebServiceProxyHelper.KEY_URL);
                 will(returnValue(true));
             }
@@ -115,6 +118,8 @@ public class WebServiceProxyHelperIntializePortTest extends AbstractWebServicePr
 
                 allowing(mockRequestContext).containsKey(WebServiceProxyHelper.KEY_URL);
                 will(returnValue(true));
+                
+                allowing(mockPort).getBinding();
 
                 oneOf(mockPort).setOutboundHeaders(with(any(List.class)));
 
@@ -296,7 +301,7 @@ public class WebServiceProxyHelperIntializePortTest extends AbstractWebServicePr
                 ignoring(mockLog).debug(with(any(String.class)));
                 ignoring(mockLog).isInfoEnabled();
                 allowing(mockPort).getRequestContext();
-
+                allowing(mockPort).getBinding();
             }
         });
 

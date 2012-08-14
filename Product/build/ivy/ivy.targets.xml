@@ -4,6 +4,7 @@
     <dirname property="ivy.targets.basedir" file="${ant.file.ivy.targets}"/>
     <property name="ivy.targets.thirdparty.dir" location="${ivy.targets.basedir}/../../../ThirdParty"/>
 
+	
     <taskdef resource="org/apache/ivy/ant/antlib.xml" uri="antlib:org.apache.ivy.ant">
       <classpath>
         <fileset dir="${ivy.targets.thirdparty.dir}/AntExtraLibs">
@@ -12,6 +13,7 @@
       </classpath>
     </taskdef>
     <import file="ivy.properties.xml" />
+    
     <ivy:settings file="${ivy.settings.dir}/ivysettings.xml" />
 
     <target name="ivy.help">
@@ -42,6 +44,9 @@ ivy.clean-cache - will delete the cache.
     </target>
 
     <target name="ivy.resolve">
+	
+	<ivy:resolve file="ivy.xml" />
+		<!--
         <echo message="check if out of date-> ivy.xml to ${build.classes.dir}" level="info"/>
 
         <outofdate verbose="true">
@@ -59,6 +64,7 @@ ivy.clean-cache - will delete the cache.
                 <call target="ivy.re-resolve" />
             </sequential>
         </outofdate>
+-->
     </target>
 
     <target name="ivy.report" depends="ivy.resolve" description="--> generates a report of dependencies">

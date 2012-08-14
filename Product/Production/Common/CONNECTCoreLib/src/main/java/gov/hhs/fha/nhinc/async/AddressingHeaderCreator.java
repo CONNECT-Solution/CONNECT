@@ -26,6 +26,9 @@
  */
 package gov.hhs.fha.nhinc.async;
 
+import gov.hhs.fha.nhinc.logging.transaction.TransactionIdMap;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -37,14 +40,16 @@ import org.w3c.dom.Element;
 import com.sun.xml.ws.api.message.Header;
 import com.sun.xml.ws.api.message.Headers;
 
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-
 /**
  * This class manages the creation of the header section of the soap message
  * that defines WS-Addressing.
  */
 public class AddressingHeaderCreator {
     private static String UUID_TAG = "urn:uuid:";
+    
+    private static final String TRANSACTION_NS = "http://connectopensource.org/transaction/";
+    private static final String TRANSACTION_NAME = "TransactionID";
+    
 
 	private final Log log = LogFactory.getLog(getClass());
 
@@ -110,6 +115,12 @@ public class AddressingHeaderCreator {
 
 		if (messageId != null) {
 			headers.add(buildHeaderMessageId());
+			
+			String transactionId = TransactionIdMap.getInstance().getTransactionId(messageId);
+			if (transactionId != null) {
+			    headers.add(buildTransactionId(transactionId));
+			}
+			
 		}
 		if (relatesToIds != null) {
 			buildHeaderRelatesTo(relatesToIds, headers);
@@ -118,7 +129,9 @@ public class AddressingHeaderCreator {
 		return headers;
 	}
 
-	void buildHeaderRelatesTo(List<String> relatesToIds, List<Header> headers) {
+	
+
+    void buildHeaderRelatesTo(List<String> relatesToIds, List<Header> headers) {
 		// The RelatesTo header is an optional but potentially repeating element
 		for (String id : relatesToIds) {
 			log.debug("Set WS-Addressing <RelatesTo> " + id);
@@ -186,6 +199,19 @@ public class AddressingHeaderCreator {
 		return header;
 	}
 
+	
+	/**
+     * @param transactionId
+     * @return
+     */
+    Header buildTransactionId(String transactionId) {
+        Element element = elementBuilder.buildElement(
+                TRANSACTION_NS, TRANSACTION_NAME, transactionId, false);
+
+        Header header = Headers.create(element);
+        return header;
+    }
+	
 	 /**
      * @param messageId
      * @return
