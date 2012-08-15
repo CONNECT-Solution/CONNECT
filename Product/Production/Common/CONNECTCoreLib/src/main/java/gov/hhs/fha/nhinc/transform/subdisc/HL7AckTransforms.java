@@ -27,9 +27,19 @@
 package gov.hhs.fha.nhinc.transform.subdisc;
 
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
-import org.hl7.v3.*;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.hl7.v3.AcknowledgementDetailType;
+import org.hl7.v3.CE;
+import org.hl7.v3.EDExplicit;
+import org.hl7.v3.II;
+import org.hl7.v3.MCCIIN000002UV01;
+import org.hl7.v3.MCCIMT000200UV01Acknowledgement;
+import org.hl7.v3.MCCIMT000200UV01AcknowledgementDetail;
+import org.hl7.v3.MCCIMT000200UV01TargetMessage;
+import org.hl7.v3.PRPAIN201305UV02;
+import org.hl7.v3.PRPAIN201306UV02;
 
 /**
  * 
@@ -69,7 +79,8 @@ public class HL7AckTransforms {
                     && request.getReceiver().get(0).getDevice() != null
                     && request.getReceiver().get(0).getDevice().getAsAgent() != null
                     && request.getReceiver().get(0).getDevice().getAsAgent().getValue() != null
-                    && request.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization() != null
+                    && request.getReceiver().get(0).getDevice().getAsAgent().getValue()
+                    		.getRepresentedOrganization() != null
                     && request.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization()
                             .getValue() != null
                     && NullChecker.isNotNullish(request.getReceiver().get(0).getDevice().getAsAgent().getValue()
@@ -88,7 +99,8 @@ public class HL7AckTransforms {
                     && request.getSender().getDevice().getAsAgent() != null
                     && request.getSender().getDevice().getAsAgent().getValue() != null
                     && request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization() != null
-                    && request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue() != null
+                    && request.getSender().getDevice().getAsAgent().getValue()
+                    		.getRepresentedOrganization().getValue() != null
                     && NullChecker.isNotNullish(request.getSender().getDevice().getAsAgent().getValue()
                             .getRepresentedOrganization().getValue().getId())
                     && request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue()
@@ -132,7 +144,8 @@ public class HL7AckTransforms {
                     && request.getReceiver().get(0).getDevice() != null
                     && request.getReceiver().get(0).getDevice().getAsAgent() != null
                     && request.getReceiver().get(0).getDevice().getAsAgent().getValue() != null
-                    && request.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization() != null
+                    && request.getReceiver().get(0).getDevice().getAsAgent().getValue()
+                    		.getRepresentedOrganization() != null
                     && request.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization()
                             .getValue() != null
                     && NullChecker.isNotNullish(request.getReceiver().get(0).getDevice().getAsAgent().getValue()
@@ -151,7 +164,8 @@ public class HL7AckTransforms {
                     && request.getSender().getDevice().getAsAgent() != null
                     && request.getSender().getDevice().getAsAgent().getValue() != null
                     && request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization() != null
-                    && request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue() != null
+                    && request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization()
+                    		.getValue() != null
                     && NullChecker.isNotNullish(request.getSender().getDevice().getAsAgent().getValue()
                             .getRepresentedOrganization().getValue().getId())
                     && request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue()
@@ -160,6 +174,52 @@ public class HL7AckTransforms {
                             .getRepresentedOrganization().getValue().getId().get(0).getRoot())) {
                 receiverOID = request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization()
                         .getValue().getId().get(0).getRoot();
+            }
+
+            // Create the ack message
+            ack = HL7AckTransforms.createAckMessage(null, msgId, ACK_TYPE_CODE_ERROR, ackMsgText, senderOID,
+                    receiverOID);
+        }
+
+        return ack;
+    }
+    
+    /**
+     * Create acknowledgement error message from patient discovery request that does not cross the nhin.
+     * 
+     * @param request
+     * @param ackMsgText
+     * @return ackMsg
+     */
+    public static MCCIIN000002UV01 createAckErrorFrom201305Initiator(PRPAIN201305UV02 request, String ackMsgText) {
+        MCCIIN000002UV01 ack = new MCCIIN000002UV01();
+        II msgId = new II();
+        String senderOID = null;
+        String receiverOID = null;
+
+        if (request != null) {
+            // Extract the message id
+            if (request.getId() != null) {
+                msgId = request.getId();
+            }
+
+            // Set the receiver OID to the sender OID from the original message
+            if (request.getSender() != null
+                    && request.getSender().getDevice() != null
+                    && request.getSender().getDevice().getAsAgent() != null
+                    && request.getSender().getDevice().getAsAgent().getValue() != null
+                    && request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization() != null
+                    && request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization()
+                    		.getValue() != null
+                    && NullChecker.isNotNullish(request.getSender().getDevice().getAsAgent().getValue()
+                            .getRepresentedOrganization().getValue().getId())
+                    && request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue()
+                            .getId().get(0) != null
+                    && NullChecker.isNotNullish(request.getSender().getDevice().getAsAgent().getValue()
+                            .getRepresentedOrganization().getValue().getId().get(0).getRoot())) {
+            	senderOID = request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization()
+                        .getValue().getId().get(0).getRoot();
+            	receiverOID = senderOID;
             }
 
             // Create the ack message
@@ -195,7 +255,8 @@ public class HL7AckTransforms {
                     && request.getReceiver().get(0).getDevice() != null
                     && request.getReceiver().get(0).getDevice().getAsAgent() != null
                     && request.getReceiver().get(0).getDevice().getAsAgent().getValue() != null
-                    && request.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization() != null
+                    && request.getReceiver().get(0).getDevice().getAsAgent().getValue()
+                    		.getRepresentedOrganization() != null
                     && request.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization()
                             .getValue() != null
                     && NullChecker.isNotNullish(request.getReceiver().get(0).getDevice().getAsAgent().getValue()
@@ -214,7 +275,8 @@ public class HL7AckTransforms {
                     && request.getSender().getDevice().getAsAgent() != null
                     && request.getSender().getDevice().getAsAgent().getValue() != null
                     && request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization() != null
-                    && request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue() != null
+                    && request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization()
+                    		.getValue() != null
                     && NullChecker.isNotNullish(request.getSender().getDevice().getAsAgent().getValue()
                             .getRepresentedOrganization().getValue().getId())
                     && request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue()
@@ -258,7 +320,8 @@ public class HL7AckTransforms {
                     && request.getReceiver().get(0).getDevice() != null
                     && request.getReceiver().get(0).getDevice().getAsAgent() != null
                     && request.getReceiver().get(0).getDevice().getAsAgent().getValue() != null
-                    && request.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization() != null
+                    && request.getReceiver().get(0).getDevice().getAsAgent().getValue()
+                    		.getRepresentedOrganization() != null
                     && request.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization()
                             .getValue() != null
                     && NullChecker.isNotNullish(request.getReceiver().get(0).getDevice().getAsAgent().getValue()
@@ -277,7 +340,8 @@ public class HL7AckTransforms {
                     && request.getSender().getDevice().getAsAgent() != null
                     && request.getSender().getDevice().getAsAgent().getValue() != null
                     && request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization() != null
-                    && request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue() != null
+                    && request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization()
+                    		.getValue() != null
                     && NullChecker.isNotNullish(request.getSender().getDevice().getAsAgent().getValue()
                             .getRepresentedOrganization().getValue().getId())
                     && request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue()
@@ -325,7 +389,8 @@ public class HL7AckTransforms {
         ackMsg.setITSVersion(HL7Constants.ITS_VERSION);
         ackMsg.setId(HL7MessageIdGenerator.GenerateHL7MessageId(localDeviceId));
         ackMsg.setCreationTime(HL7DataTransformHelper.CreationTimeFactory());
-        ackMsg.setInteractionId(HL7DataTransformHelper.IIFactory(HL7Constants.INTERACTION_ID_ROOT, "MCCIIN000002UV01"));
+        ackMsg.setInteractionId(HL7DataTransformHelper
+        		.IIFactory(HL7Constants.INTERACTION_ID_ROOT, "MCCIIN000002UV01"));
         ackMsg.setProcessingCode(HL7DataTransformHelper.CSFactory("T"));
         ackMsg.setProcessingModeCode(HL7DataTransformHelper.CSFactory("T"));
         ackMsg.setAcceptAckCode(HL7DataTransformHelper.CSFactory("NE"));
