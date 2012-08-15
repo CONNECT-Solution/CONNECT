@@ -218,8 +218,8 @@ public class NhinHiemSubscribeWebServiceProxy implements NhinHiemSubscribeProxy 
                 oPort = oService.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), NotificationProducer.class);
 
                 // Initialize secured port
-                getWebServiceProxyHelper().initializeSecurePort((BindingProvider) oPort, url,
-                        NhincConstants.SUBSCRIBE_ACTION, WS_ADDRESSING_ACTION, assertIn);
+//                getWebServiceProxyHelper().initializeSecurePort((BindingProvider) oPort, url,
+//                        NhincConstants.SUBSCRIBE_ACTION, WS_ADDRESSING_ACTION, assertIn);
             } else {
                 log.error("Unable to obtain service - no port created.");
             }

@@ -81,12 +81,10 @@ public class AdapterDocSubmissionDeferredRequestProxyWebServiceSecuredImplTest {
 
     class CONNECTClientMock extends CONNECTClient<AdapterXDRRequestSecuredPortType> {
 
-        @Override
         public AdapterXDRRequestSecuredPortType getPort() {
             return null;
         }
 
-        @Override
         public Object invokePort(Class<AdapterXDRRequestSecuredPortType> portClass, String methodName, Object operationInput)
                 throws Exception {
             XDRAcknowledgementType response = new XDRAcknowledgementType();
@@ -116,17 +114,14 @@ public class AdapterDocSubmissionDeferredRequestProxyWebServiceSecuredImplTest {
         final Service mockService = mockery.mock(Service.class);
         final CONNECTClient<AdapterXDRRequestSecuredPortType> mockClient= new CONNECTClientMock();
         final WebServiceProxyHelper proxyHelper = new WebServiceProxyHelper() {
-            @Override
             protected Log createLogger() {
                 return mockLogger;
             }
 
-            @Override
             public String getEndPointFromConnectionManagerByAdapterAPILevel(String sServiceName, ADAPTER_API_LEVEL level) {
                 return "url";
             }
 
-            @Override
             public Object invokePort(Object portObject, Class portClass, String methodName, Object operationInput)
                     throws Exception {
                 XDRAcknowledgementType response = new XDRAcknowledgementType();
@@ -136,13 +131,11 @@ public class AdapterDocSubmissionDeferredRequestProxyWebServiceSecuredImplTest {
                 return response;
             }
 
-            @Override
             public void initializeSecurePort(BindingProvider port, String url, String serviceAction,
                     String wsAddressingAction, AssertionType assertion) {
 
             }
 
-            @Override
             public Service createService(String wsdlFile, String namespaceURI, String serviceLocalPart)
                     throws MalformedURLException {
                 return mockService;
@@ -150,17 +143,14 @@ public class AdapterDocSubmissionDeferredRequestProxyWebServiceSecuredImplTest {
         };
 
         AdapterDocSubmissionDeferredRequestProxyWebServiceSecuredImpl adapterXDRRequestWebServiceProxy = new AdapterDocSubmissionDeferredRequestProxyWebServiceSecuredImpl() {
-            @Override
             protected Log createLogger() {
                 return mockLogger;
             }
 
-            @Override
             protected WebServiceProxyHelper createWebServiceProxyHelper() {
                 return proxyHelper;
             }
 
-            @Override
             protected CONNECTClient<AdapterXDRRequestSecuredPortType> getCONNECTClientSecured(
                     ServicePortDescriptor<AdapterXDRRequestSecuredPortType> portDescriptor, String url,
                     AssertionType assertion) {
@@ -201,17 +191,14 @@ public class AdapterDocSubmissionDeferredRequestProxyWebServiceSecuredImplTest {
         final Service mockService = mockery.mock(Service.class);
         final CONNECTClient<AdapterXDRRequestSecuredPortType> mockClient= new CONNECTClientMock();
         final WebServiceProxyHelper proxyHelper = new WebServiceProxyHelper() {
-            @Override
             protected Log createLogger() {
                 return mockLogger;
             }
 
-            @Override
             public String getEndPointFromConnectionManagerByAdapterAPILevel(String sServiceName, ADAPTER_API_LEVEL level) {
                 return "url";
             }
 
-            @Override
             public Object invokePort(Object portObject, Class portClass, String methodName, Object operationInput)
                     throws Exception {
                 XDRAcknowledgementType response = new XDRAcknowledgementType();
@@ -221,13 +208,11 @@ public class AdapterDocSubmissionDeferredRequestProxyWebServiceSecuredImplTest {
                 return response;
             }
 
-            @Override
             public void initializeSecurePort(BindingProvider port, String url, String serviceAction,
                     String wsAddressingAction, AssertionType assertion) {
 
             }
 
-            @Override
             public Service createService(String wsdlFile, String namespaceURI, String serviceLocalPart)
                     throws MalformedURLException {
                 return mockService;
@@ -235,17 +220,14 @@ public class AdapterDocSubmissionDeferredRequestProxyWebServiceSecuredImplTest {
         };
 
         AdapterDocSubmissionDeferredRequestProxyWebServiceSecuredImpl adapterXDRRequestWebServiceProxy = new AdapterDocSubmissionDeferredRequestProxyWebServiceSecuredImpl() {
-            @Override
             protected Log createLogger() {
                 return mockLogger;
             }
 
-            @Override
             protected WebServiceProxyHelper createWebServiceProxyHelper() {
                 return proxyHelper;
             }
 
-            @Override
             protected CONNECTClient<AdapterXDRRequestSecuredPortType> getCONNECTClientSecured(
                     ServicePortDescriptor<AdapterXDRRequestSecuredPortType> portDescriptor, String url,
                     AssertionType assertion) {

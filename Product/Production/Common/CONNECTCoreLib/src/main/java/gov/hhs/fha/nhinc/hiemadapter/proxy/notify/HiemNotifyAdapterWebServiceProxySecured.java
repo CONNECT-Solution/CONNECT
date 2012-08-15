@@ -126,8 +126,8 @@ public class HiemNotifyAdapterWebServiceProxySecured implements HiemNotifyAdapte
                         AdapterNotificationConsumerPortSecureType.class);
 
                 // Initialize secured port
-                getWebServiceProxyHelper().initializeSecurePort((BindingProvider) oPort, url,
-                        NhincConstants.HIEM_NOTIFY_ADAPTER_SERVICE_SECURED_NAME, WS_ADDRESSING_ACTION, assertIn);
+//                getWebServiceProxyHelper().initializeSecurePort((BindingProvider) oPort, url,
+//                        NhincConstants.HIEM_NOTIFY_ADAPTER_SERVICE_SECURED_NAME, WS_ADDRESSING_ACTION, assertIn);
             } else {
                 log.error("Unable to obtain service - no port created.");
             }

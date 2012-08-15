@@ -129,8 +129,8 @@ public class HiemUnsubscribeAdapterWebServiceProxySecured implements HiemUnsubsc
                         AdapterSubscriptionManagerPortSecuredType.class);
 
                 // Initialize secured port
-                getWebServiceProxyHelper().initializeSecurePort((BindingProvider) oPort, url,
-                        NhincConstants.HIEM_NOTIFY_ENTITY_SERVICE_NAME_SECURED, null, assertIn);
+//                getWebServiceProxyHelper().initializeSecurePort((BindingProvider) oPort, url,
+//                        NhincConstants.HIEM_NOTIFY_ENTITY_SERVICE_NAME_SECURED, null, assertIn);
             } else {
                 log.error("Unable to obtain service - no port created.");
             }

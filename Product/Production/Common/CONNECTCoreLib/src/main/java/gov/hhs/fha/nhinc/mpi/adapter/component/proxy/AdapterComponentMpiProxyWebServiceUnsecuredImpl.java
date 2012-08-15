@@ -145,8 +145,8 @@ public class AdapterComponentMpiProxyWebServiceUnsecuredImpl implements AdapterC
             log.debug("Obtained service - creating port.");
 
             port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), AdapterComponentMpiPortType.class);
-            oProxyHelper
-                    .initializeUnsecurePort((javax.xml.ws.BindingProvider) port, url, wsAddressingAction, assertion);
+//            oProxyHelper
+//                    .initializeUnsecurePort((javax.xml.ws.BindingProvider) port, url, wsAddressingAction, assertion);
         } else {
             log.error("Unable to obtain serivce - no port created.");
         }

@@ -104,8 +104,8 @@ public abstract class UDDIFindBusinessProxyBase {
                 oPort = oService.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), UDDIInquiryPortType.class);
 
                 // Load in the correct UDDI endpoint URL address.
-                getWebServiceProxyHelper().initializeUnsecurePort((BindingProvider) oPort, m_sUDDIInquiryEndpointURL,
-                        null, null);
+//                getWebServiceProxyHelper().initializeUnsecurePort((BindingProvider) oPort, m_sUDDIInquiryEndpointURL,
+//                        null, null);
             } else {
                 log.error("Unable to obtain serivce - no port created.");
             }

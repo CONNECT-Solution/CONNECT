@@ -93,8 +93,8 @@ public class AdapterDocSubmissionDeferredRequestProxyWebServiceSecuredImpl imple
                 CONNECTClient<AdapterXDRRequestSecuredPortType> client = getCONNECTClientSecured(portDescriptor,
                         destURL, assertion);
 
-                response = (XDRAcknowledgementType) client.invokePort(AdapterXDRRequestSecuredPortType.class,
-                        "provideAndRegisterDocumentSetBRequest", wsRequest);
+//                response = (XDRAcknowledgementType) client.invokePort(AdapterXDRRequestSecuredPortType.class,
+//                        "provideAndRegisterDocumentSetBRequest", wsRequest);
             } else {
                 log.error("Failed to call the web service (" + serviceName + ").  The URL is null.");
             }
