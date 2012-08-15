@@ -56,6 +56,7 @@ import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import org.w3c.dom.*;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import javax.security.auth.x500.X500Principal;
@@ -653,20 +654,21 @@ public class SamlCallbackHandler implements CallbackHandler {
             String action = tokenVals.get(NhincConstants.ACTION_PROP).toString();
             NHIN_SERVICE_NAMES serviceName = AddressingActionToServiceNameMapping.get(action);
 
-            NhinEndpointManager nem = new NhinEndpointManager();
-            NhincConstants.GATEWAY_API_LEVEL apiLevel = nem.getApiVersion(hcid, serviceName);
-
-            // if we are using the 2010 specs, ask the proxy which name to use.
-            Element purpose = null;
-            if (apiLevel == GATEWAY_API_LEVEL.LEVEL_g0) {
-                PurposeUseProxyObjectFactory purposeFactory = new PurposeUseProxyObjectFactory();
-                PurposeUseProxy purposeUse = purposeFactory.getPurposeUseProxy();
-
-                purpose = createPurposeUseElement(document, purposeUse.createPurposeUseElement(tokenVals));
-            } else if (apiLevel == GATEWAY_API_LEVEL.LEVEL_g1) { // if we are using the 2011 specs, always use purpose
-                                                                 // of.
-                purpose = createPurposeUseElement(document, false);
+            NhincConstants.GATEWAY_API_LEVEL apiLevel = null;
+            boolean purposeFor = false;
+            
+            if (serviceName != null && hcid != null) {
+                NhinEndpointManager nem = new NhinEndpointManager();
+                apiLevel = nem.getApiVersion(hcid, serviceName);
+                
+                if (GATEWAY_API_LEVEL.LEVEL_g0 == apiLevel) {
+                    PurposeUseProxyObjectFactory purposeFactory = new PurposeUseProxyObjectFactory();
+                    PurposeUseProxy purposeUse = purposeFactory.getPurposeUseProxy();
+                    purposeFor = purposeUse.createPurposeUseElement(tokenVals);
+                }
             }
+                
+            Element purpose = createPurposeUseElement(document, purposeFor);
 
             elemPFUAttr.appendChild(purpose);
 
