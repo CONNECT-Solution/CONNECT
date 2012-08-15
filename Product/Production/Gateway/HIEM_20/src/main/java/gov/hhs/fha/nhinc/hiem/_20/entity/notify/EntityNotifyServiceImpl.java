@@ -49,23 +49,53 @@ public class EntityNotifyServiceImpl {
     private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory
             .getLog(EntityNotifyServiceImpl.class);
 
+    /**
+     * Returns the performance manager.
+     * @return the instance
+     */
+    protected PerformanceManager getPerformanceManager(){
+    	return PerformanceManager.getPerformanceManagerInstance();
+    }
+    
+    /**
+     * Return a new SoapUtil instance.
+     * @return the instance
+     */
+    protected SoapUtil getSoapUtil(){
+    	return new SoapUtil();
+    }
+    
+    /**
+     * Return the notify processor.
+     * @return the processor
+     */
+    protected EntityNotifyProcessor getEntityNotifyProcessor(){
+    	return new EntityNotifyProcessor();
+    }
+    
+    /**
+     * The implementation of the Entity notify interface.
+     * @param notifyRequest the request to send
+     * @param context the contect of the request
+     * @return an acknowledgment
+     */
     public AcknowledgementType notify(NotifyRequestType notifyRequest, WebServiceContext context) {
         log.debug("EntityNotifyServiceImpl.notify");
         AcknowledgementType ack = new AcknowledgementType();
 
         try {
             // Log the start of the entity performance record
-            PerformanceManager.getPerformanceManagerInstance().logPerformanceStart(
+        	getPerformanceManager().logPerformanceStart(
                     NhincConstants.HIEM_NOTIFY_ENTITY_SERVICE_NAME, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE,
                     NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, HomeCommunityMap.getLocalHomeCommunityId());
 
-            String rawNotifyXml = new SoapUtil().extractSoapMessage(context, "notifySoapMessage");
+            String rawNotifyXml = getSoapUtil().extractSoapMessage(context, "notifySoapMessage");
 
-            EntityNotifyProcessor processor = new EntityNotifyProcessor();
+            EntityNotifyProcessor processor = getEntityNotifyProcessor();
             processor.processNotify(notifyRequest.getNotify(), notifyRequest.getAssertion(), rawNotifyXml);
 
             // Log the end of the entity performance record
-            PerformanceManager.getPerformanceManagerInstance().logPerformanceStop(
+            getPerformanceManager().logPerformanceStop(
                     NhincConstants.HIEM_NOTIFY_ENTITY_SERVICE_NAME, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE,
                     NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, HomeCommunityMap.getLocalHomeCommunityId());
         } catch (Throwable t) {
@@ -75,22 +105,29 @@ public class EntityNotifyServiceImpl {
         return ack;
     }
 
+    /**
+     * The implementation of the Entity notify interface.
+     * @param notifyRequest the request to send
+     * @param context the contect of the request
+     * @return an acknowledgment
+     */
     public AcknowledgementType notify(Notify notifyRequest, WebServiceContext context) {
         log.debug("EntityNotifyServiceImpl.notify");
         AcknowledgementType ack = new AcknowledgementType();
 
         try {
             // Log the start of the entity performance record
-            PerformanceManager.getPerformanceManagerInstance().logPerformanceStart(
+        	getPerformanceManager().logPerformanceStart(
                     NhincConstants.HIEM_NOTIFY_ENTITY_SERVICE_NAME, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE,
                     NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, HomeCommunityMap.getLocalHomeCommunityId());
-            String rawNotifyXml = new SoapUtil().extractSoapMessage(context, "notifySoapMessage");
+            
+            String rawNotifyXml = getSoapUtil().extractSoapMessage(context, "notifySoapMessage");
 
-            EntityNotifyProcessor processor = new EntityNotifyProcessor();
+            EntityNotifyProcessor processor = getEntityNotifyProcessor();
             processor.processNotify(notifyRequest, SamlTokenExtractor.GetAssertion(context), rawNotifyXml);
 
             // Log the end of the entity performance record
-            PerformanceManager.getPerformanceManagerInstance().logPerformanceStop(
+            getPerformanceManager().logPerformanceStop(
                     NhincConstants.HIEM_NOTIFY_ENTITY_SERVICE_NAME, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE,
                     NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, HomeCommunityMap.getLocalHomeCommunityId());
         } catch (Throwable t) {

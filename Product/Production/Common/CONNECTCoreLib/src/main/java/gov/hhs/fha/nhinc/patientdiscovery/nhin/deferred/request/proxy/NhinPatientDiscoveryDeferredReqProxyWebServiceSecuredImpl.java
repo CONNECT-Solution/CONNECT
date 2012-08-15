@@ -141,21 +141,21 @@ public class NhinPatientDiscoveryDeferredReqProxyWebServiceSecuredImpl implement
                 } else {
                     ackMessage = "Failed to call the web service ("
                             + NhincConstants.PATIENT_DISCOVERY_DEFERRED_REQ_SERVICE_NAME + ").  The URL is null.";
-                    response = HL7AckTransforms.createAckErrorFrom201305(request, ackMessage);
+                    response = HL7AckTransforms.createAckErrorFrom201305Initiator(request, ackMessage);
                     log.error(ackMessage);
                 }
             } else {
                 ackMessage = "Failed to call the web service ("
                         + NhincConstants.PATIENT_DISCOVERY_DEFERRED_REQ_SERVICE_NAME
                         + ").  The input parameter is null.";
-                response = HL7AckTransforms.createAckErrorFrom201305(request, ackMessage);
+                response = HL7AckTransforms.createAckErrorFrom201305Initiator(request, ackMessage);
                 log.error(ackMessage);
             }
         } catch (Exception e) {
             ackMessage = "Failed to call the web service ("
                     + NhincConstants.PATIENT_DISCOVERY_DEFERRED_REQ_SERVICE_NAME
                     + ").  An unexpected exception occurred.";
-            response = HL7AckTransforms.createAckErrorFrom201305(request, ackMessage);
+            response = HL7AckTransforms.createAckErrorFrom201305Initiator(request, ackMessage);
             log.error(ackMessage + "  Exception: " + e.getMessage(), e);
         }
 
