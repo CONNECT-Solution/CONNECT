@@ -32,37 +32,26 @@ import javax.xml.namespace.QName;
 import javax.xml.ws.BindingProvider;
 import javax.xml.ws.Service;
 
-import oasis.names.tc.xacml._2_0.context.schema.os.DecisionType;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.oasis_open.docs.wsn.b_2.Unsubscribe;
 import org.oasis_open.docs.wsn.b_2.UnsubscribeResponse;
 import org.oasis_open.docs.wsn.bw_2.SubscriptionManager;
 import org.oasis_open.docs.wsn.bw_2.UnableToDestroySubscriptionFault;
-import org.w3c.dom.Element;
+import org.oasis_open.docs.wsrf.rw_2.ResourceUnknownFault;
 
 import com.sun.xml.ws.api.message.Header;
 import com.sun.xml.ws.developer.WSBindingProvider;
 
-import gov.hhs.fha.nhinc.common.eventcommon.UnsubscribeEventType;
-import gov.hhs.fha.nhinc.common.eventcommon.UnsubscribeMessageType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyResponseType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.hiem.consumerreference.ReferenceParametersElements;
 import gov.hhs.fha.nhinc.hiem.dte.SoapUtil;
-import gov.hhs.fha.nhinc.hiem.dte.marshallers.WsntUnsubscribeMarshaller;
-import gov.hhs.fha.nhinc.hiem.dte.marshallers.WsntUnsubscribeResponseMarshaller;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.nhinclib.NullChecker;
-import gov.hhs.fha.nhinc.policyengine.PolicyEngineChecker;
-import gov.hhs.fha.nhinc.policyengine.adapter.proxy.PolicyEngineProxy;
-import gov.hhs.fha.nhinc.policyengine.adapter.proxy.PolicyEngineProxyObjectFactory;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
+
 
 /**
  *
@@ -82,8 +71,8 @@ public class NhinHiemUnsubscribeWebServiceProxy implements NhinHiemUnsubscribePr
     private static final String UNSUBSCRIBE_SERVICE = "unsubscribe";
 
     @Override
-    public UnsubscribeResponse unsubscribe(Unsubscribe unsubscribe, 
-    		ReferenceParametersElements referenceParametersElements, AssertionType assertion, 
+    public UnsubscribeResponse unsubscribe(Unsubscribe unsubscribe,
+    		ReferenceParametersElements referenceParametersElements, AssertionType assertion,
     		NhinTargetSystemType target) throws ResourceUnknownFault,
     		UnableToDestroySubscriptionFault, Exception {
         SubscriptionManager port = getPort(target, assertion);
@@ -105,38 +94,6 @@ public class NhinHiemUnsubscribeWebServiceProxy implements NhinHiemUnsubscribePr
             }
         }
         return response;
-    }
-
-    /**
-     * @param unsubscribe
-     * @param assertion
-     * @return
-     */
-    private boolean checkPolicy(Unsubscribe unsubscribe, AssertionType assertion) {
-        log.debug("In NhinHiemSubscribeWebServiceProxy.checkPolicy");
-        boolean policyIsValid = false;
-
-        UnsubscribeEventType policyCheckReq = new UnsubscribeEventType();
-        policyCheckReq.setDirection(NhincConstants.POLICYENGINE_OUTBOUND_DIRECTION);
-        UnsubscribeMessageType request = new UnsubscribeMessageType();
-        request.setAssertion(assertion);
-        request.setUnsubscribe(unsubscribe);
-        policyCheckReq.setMessage(request);
-
-        PolicyEngineChecker policyChecker = new PolicyEngineChecker();
-        CheckPolicyRequestType policyReq = policyChecker.checkPolicyUnsubscribe(policyCheckReq);
-        policyReq.setAssertion(assertion);
-        PolicyEngineProxyObjectFactory policyEngFactory = new PolicyEngineProxyObjectFactory();
-        PolicyEngineProxy policyProxy = policyEngFactory.getPolicyEngineProxy();
-        CheckPolicyResponseType policyResp = policyProxy.checkPolicy(policyReq, assertion);
-
-        if (policyResp.getResponse() != null && NullChecker.isNotNullish(policyResp.getResponse().getResult())
-                && policyResp.getResponse().getResult().get(0).getDecision() == DecisionType.PERMIT) {
-            policyIsValid = true;
-        }
-
-        log.debug("Finished NhinHiemUnsubscribeWebServiceProxy.checkPolicy - valid: " + policyIsValid);
-        return policyIsValid;
     }
 
     private SubscriptionManager getPort(NhinTargetSystemType target, AssertionType assertion) {

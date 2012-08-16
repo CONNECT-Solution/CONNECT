@@ -28,26 +28,29 @@ package gov.hhs.fha.nhinc.orchestration;
 
 import gov.hhs.fha.nhinc.admindistribution.entity.OutboundAdminDistributionFactory;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
-import gov.hhs.fha.nhinc.connectmgr.AdapterEndpointManager;
 import gov.hhs.fha.nhinc.connectmgr.NhinEndpointManager;
-/*import gov.hhs.fha.nhinc.docretrieve.entity.OutboundDocRetrieveFactory;
-import gov.hhs.fha.nhinc.docretrieve.nhin.InboundDocRetrieveFactory;*/
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.notify.entity.OutboundNotifyFactory;
 import gov.hhs.fha.nhinc.patientdiscovery.entity.OutboundPatientDiscoveryFactory;
 import gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.request.OutboundPatientDiscoveryDeferredRequestFactory;
 import gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.response.OutboundPatientDiscoveryDeferredResponseFactory;
+import gov.hhs.fha.nhinc.subscribe.entity.OutboundSubscribeFactory;
+import gov.hhs.fha.nhinc.unsubscribe.entity.OutboundUnsubscribeFactory;
+/*import gov.hhs.fha.nhinc.docretrieve.entity.OutboundDocRetrieveFactory;
+import gov.hhs.fha.nhinc.docretrieve.nhin.InboundDocRetrieveFactory;*/
 
-public class OrchestrationContextFactoryImpl extends AbstractOrchestrationContextFactory{
+public class OrchestrationContextFactory extends AbstractOrchestrationContextFactory{
 
-    private static OrchestrationContextFactoryImpl INSTANCE = new OrchestrationContextFactoryImpl();
+    private static OrchestrationContextFactory INSTANCE = new OrchestrationContextFactory();
 
-    private OrchestrationContextFactoryImpl() {
+    private OrchestrationContextFactory() {
     }
 
-    public static OrchestrationContextFactoryImpl getInstance() {
+    public static OrchestrationContextFactory getInstance() {
         return INSTANCE;
     }
 
+    @Override
     public OrchestrationContextBuilder getBuilder(HomeCommunityType homeCommunityType,
             NhincConstants.NHIN_SERVICE_NAMES serviceName) {
         NhinEndpointManager nem = new NhinEndpointManager();
@@ -56,7 +59,7 @@ public class OrchestrationContextFactoryImpl extends AbstractOrchestrationContex
         return getBuilder(apiLevel, serviceName);
     }
 
-   
+
 
     private OrchestrationContextBuilder getBuilder(NhincConstants.GATEWAY_API_LEVEL apiLevel,
             NhincConstants.NHIN_SERVICE_NAMES serviceName) {
@@ -88,5 +91,5 @@ public class OrchestrationContextFactoryImpl extends AbstractOrchestrationContex
         return null;
     }
 
-   
+
 }

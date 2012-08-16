@@ -1,30 +1,50 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
- * All rights reserved. 
+ * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * All rights reserved.
  *
- * Redistribution and use in source and binary forms, with or without 
- * modification, are permitted provided that the following conditions are met: 
- *     * Redistributions of source code must retain the above 
- *       copyright notice, this list of conditions and the following disclaimer. 
- *     * Redistributions in binary form must reproduce the above copyright 
- *       notice, this list of conditions and the following disclaimer in the documentation 
- *       and/or other materials provided with the distribution. 
- *     * Neither the name of the United States Government nor the 
- *       names of its contributors may be used to endorse or promote products 
- *       derived from this software without specific prior written permission. 
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *     * Redistributions of source code must retain the above
+ *       copyright notice, this list of conditions and the following disclaimer.
+ *     * Redistributions in binary form must reproduce the above copyright
+ *       notice, this list of conditions and the following disclaimer in the documentation
+ *       and/or other materials provided with the distribution.
+ *     * Neither the name of the United States Government nor the
+ *       names of its contributors may be used to endorse or promote products
+ *       derived from this software without specific prior written permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
- * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
- * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY 
- * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES 
- * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
- * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND 
- * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
- * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package gov.hhs.fha.nhinc.subscribe.entity;
+
+import java.io.StringWriter;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import javax.xml.ws.wsaddressing.W3CEndpointReference;
+
+import oasis.names.tc.xacml._2_0.context.schema.os.DecisionType;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.oasis_open.docs.wsn.b_2.Subscribe;
+import org.oasis_open.docs.wsn.b_2.SubscribeResponse;
+import org.oasis_open.docs.wsn.bw_2.SubscribeCreationFailedFault;
+import org.oasis_open.docs.wsrf.rw_2.ResourceUnknownFault;
+import org.w3._2005._08.addressing.EndpointReferenceType;
+import org.w3c.dom.Element;
 
 import gov.hhs.fha.nhinc.auditrepository.AuditRepositoryLogger;
 import gov.hhs.fha.nhinc.auditrepository.nhinc.proxy.AuditRepositoryProxy;
@@ -48,42 +68,24 @@ import gov.hhs.fha.nhinc.policyengine.adapter.proxy.PolicyEngineProxy;
 import gov.hhs.fha.nhinc.policyengine.adapter.proxy.PolicyEngineProxyObjectFactory;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
+import gov.hhs.fha.nhinc.subscribe.entity.OutboundSubscribeDelegate;
+import gov.hhs.fha.nhinc.subscribe.entity.OutboundSubscribeOrchestratable;
 import gov.hhs.fha.nhinc.subscription.repository.data.HiemSubscriptionItem;
 import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
 import gov.hhs.fha.nhinc.xmlCommon.XmlUtility;
 
-import java.io.StringWriter;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-import javax.xml.ws.wsaddressing.W3CEndpointReference;
-
-import oasis.names.tc.xacml._2_0.context.schema.os.DecisionType;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.oasis_open.docs.wsn.b_2.Subscribe;
-import org.oasis_open.docs.wsn.b_2.SubscribeResponse;
-import org.oasis_open.docs.wsn.bw_2.ResourceUnknownFault;
-import org.oasis_open.docs.wsn.bw_2.SubscribeCreationFailedFault;
-import org.w3._2005._08.addressing.EndpointReferenceType;
-import org.w3c.dom.Element;
-
 public class EntitySubscribeOrchImpl {
 
 		private static Log log = LogFactory.getLog(EntitySubscribeOrchImpl.class);
-		
+
 		public EntitySubscribeOrchImpl(){
 			log = getLogger();
 		}
-		
+
 		protected Log getLogger() {
 	        return log;
 	    }
-		
+
 		/**
 		 * This method performs the entity orchestration for a subscribe at the entity.
 		 * @param subscribe - This request
@@ -94,26 +96,26 @@ public class EntitySubscribeOrchImpl {
 		 * @throws ResourceUnknownFault
 		 */
 		public SubscribeResponse processSubscribe(Subscribe subscribe, AssertionType assertion,
-	            NhinTargetCommunitiesType targetCommunities) throws SubscribeCreationFailedFault, 
+	            NhinTargetCommunitiesType targetCommunities) throws SubscribeCreationFailedFault,
 	            ResourceUnknownFault {
 	        SubscribeResponse response = null;
 
 	        auditRequestFromAdapter(subscribe, assertion);
-	        
-	        
+
+
 	        //save parent subscription
 	        EndpointReferenceType parentSubscriptionReference = storeSubscription(subscribe, assertion,
 	                targetCommunities);
-	        
+
 	        //update parent subscription
 	        updateSubscribeNotificationConsumerEndpointAddress(subscribe);
-	        
+
 	        for(NhinTargetCommunityType targetCommunity: targetCommunities.getNhinTargetCommunity()){
 		        if(isPolicyValid(subscribe, assertion)){
 		        	log.info("Policy check successful");
 		            //send request to nhin proxy
 		        	response = getResponseFromTarget(subscribe, assertion, targetCommunity);
-		        	
+
 		            //save child subscription
 		        	if (response != null) {
 		        		storeChildSubscription(subscribe, response, parentSubscriptionReference);
@@ -123,11 +125,11 @@ public class EntitySubscribeOrchImpl {
 		            response = createFailedPolicyCheckResponse();
 		        }
 	        }
-	        
+
 	        //Return the parent subscription reference to the adapter
 	        response = new SubscribeResponse();
 	        response.setSubscriptionReference(parentSubscriptionReference);
-	        
+
 	        auditResponseToAdapter(response, assertion);
 	        return response;
 	    }
@@ -145,7 +147,7 @@ public class EntitySubscribeOrchImpl {
 		private void auditRequestFromAdapter(Subscribe subscribe,
 		        AssertionType assertion) {
 			log.debug("In EntitysubscribeOrchImpl.auditInputMessage");
-	        
+
 	        try {
 	            AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
 
@@ -165,7 +167,7 @@ public class EntitySubscribeOrchImpl {
 	            log.error("Error logging subscribe message: " + t.getMessage(), t);
 	        }
 	    }
-		
+
 		/**
 		 * Audit the request to the adapter.
 		 * @param response The response to be audited
@@ -192,7 +194,7 @@ public class EntitySubscribeOrchImpl {
 	            log.error("Error logging subscribe response message: " + t.getMessage(), t);
 	        }
 	    }
-		
+
 		/**
 		 * Send subscription response to target.
 		 * @param request The subscribe to send.
@@ -218,24 +220,24 @@ public class EntitySubscribeOrchImpl {
 
 	        return nhinResponse;
 	    }
-		
+
 		private SubscribeResponse sendToNhinProxy(
 	            Subscribe subscribe, AssertionType assertion, NhinTargetCommunityType nhinTargetCommunity) {
 
 			NhinTargetSystemType nhinTargetSystem = new NhinTargetSystemType();
 			nhinTargetSystem.setHomeCommunity(nhinTargetCommunity.getHomeCommunity());
-			
+
 	        OutboundSubscribeDelegate dsDelegate = getOutboundSubscribeDelegate();
 	        OutboundSubscribeOrchestratable dsOrchestratable = createOrchestratable(dsDelegate, subscribe, assertion, nhinTargetSystem);
 	        SubscribeResponse response = ((OutboundSubscribeOrchestratable) dsDelegate.process(dsOrchestratable)).getResponse();
 
 	     	return response;
 	    }
-		
+
 		protected OutboundSubscribeDelegate getOutboundSubscribeDelegate() {
 	        return new OutboundSubscribeDelegate();
 	    }
-		
+
 		private OutboundSubscribeOrchestratable createOrchestratable(
 	            OutboundSubscribeDelegate delegate, Subscribe request, AssertionType assertion,
 	            NhinTargetSystemType nhinTargetSystem) {
@@ -247,7 +249,7 @@ public class EntitySubscribeOrchImpl {
 
 	        return dsOrchestratable;
 	    }
-		
+
 		/**
 		 * Check if policy for message is valid.
 		 * @param subscribe The message to be checked.
@@ -281,7 +283,7 @@ public class EntitySubscribeOrchImpl {
 	        log.debug("Finished NhinHiemSubscribeWebServiceProxy.checkPolicy - valid: " + policyIsValid);
 	        return policyIsValid;
 		}
-		
+
 		/**
 		 * Check if there is a valid target to send the request to.
 		 * @param targetCommunities The communities object to check for targets
@@ -298,13 +300,13 @@ public class EntitySubscribeOrchImpl {
 
 	        return false;
 	    }
-		
+
 		protected EndpointReferenceType storeSubscription(Subscribe subscribe,
 	            AssertionType assertion, NhinTargetCommunitiesType targetCommunitites) {
 	        EndpointReferenceType subscriptionReference = null;
 
 	        String targetCommunitiesXml = serializeTargetCommunities(targetCommunitites);
-	        
+
 	        SubscriptionItemUtil subscriptionItemUtil = new SubscriptionItemUtil();
 	        HiemSubscriptionItem subscriptionItem = subscriptionItemUtil.createSubscriptionItem(subscribe,
 	                null, HiemProcessorConstants.CONSUMER_ADAPTER, HiemProcessorConstants.PRODUCER_GATEWAY,
@@ -313,7 +315,7 @@ public class EntitySubscribeOrchImpl {
 	        subscriptionReference = storage.storeSubscriptionItem(subscriptionItem);
 	        return subscriptionReference;
 	    }
-		
+
 		protected void storeChildSubscription(Subscribe subscribe, SubscribeResponse response,
 	            EndpointReferenceType parentSubscriptionReference) {
 			//******Convert Parent Reference to XML
@@ -321,7 +323,7 @@ public class EntitySubscribeOrchImpl {
 	        if (parentSubscriptionReference != null) {
 	        	parentSubscriptionReferenceXml = serializeEndpointReferenceType(parentSubscriptionReference);
 	        }
-	        
+
 	        //******Convert Subscription Reference (response) to XML
             String childSubscriptionReference = null;
 
@@ -338,7 +340,7 @@ public class EntitySubscribeOrchImpl {
             } else {
                 log.error("Subscription reference was null");
             }
-            
+
             //******Convert Subscription (subscribe) to XML
             String childSubscribeXml;
             try {
@@ -348,9 +350,9 @@ public class EntitySubscribeOrchImpl {
             } catch (Exception ex) {
                 log.error("failed to process subscribe xml", ex);
                 childSubscribeXml = null;
-            }    
-       
-	        
+            }
+
+
 			HiemSubscriptionItem subscriptionItem = new HiemSubscriptionItem();
 	        subscriptionItem.setSubscriptionReferenceXML(childSubscriptionReference);
 	        subscriptionItem.setParentSubscriptionReferenceXML(parentSubscriptionReferenceXml);
@@ -361,7 +363,7 @@ public class EntitySubscribeOrchImpl {
 	        SubscriptionStorage storage = new SubscriptionStorage();
 	        storage.storeExternalSubscriptionItem(subscriptionItem);
 	    }
-		
+
 	    protected String serializeTargetCommunities(NhinTargetCommunitiesType targetCommunitites) {
 	        String targetCommunitiesXml = null;
 	        if (targetCommunitites != null) {
@@ -381,7 +383,7 @@ public class EntitySubscribeOrchImpl {
 	        }
 	        return targetCommunitiesXml;
 	    }
-	    
+
 	    protected String serializeEndpointReferenceType(EndpointReferenceType endpointRefernece) {
 	        String endpointReferenceXml = null;
 	        if (endpointRefernece != null) {
@@ -401,17 +403,17 @@ public class EntitySubscribeOrchImpl {
 	        }
 	        return endpointReferenceXml;
 	    }
-	    
+
 	    protected void updateSubscribeNotificationConsumerEndpointAddress(Subscribe subscribe) {
 	        try {
 	            String notificationConsumerEndpointAddress = PropertyAccessor.getInstance().getProperty("gateway",
 	                    "NotificationConsumerEndpointAddress");
-	            subscribe.getConsumerReference().getAddress().setValue(notificationConsumerEndpointAddress);	         
+	            subscribe.getConsumerReference().getAddress().setValue(notificationConsumerEndpointAddress);
 	        } catch (PropertyAccessException ex) {
 	            log.error("Error retrieving the notification consumer endpoint address: " + ex.getMessage(), ex);
 	        }
 	    }
-	    
+
 	    protected Object getSubscriptionReference(SubscribeResponse subscribeResponse) {
 	        Object o = null;
 	        if (subscribeResponse != null) {
@@ -447,7 +449,7 @@ public class EntitySubscribeOrchImpl {
 	        }
 	        return o;
 	    }
-	    
+
 	    protected String serializeW3CEndpointReference(W3CEndpointReference endpointRefernece) {
 	        String endpointReferenceXml = null;
 	        if (endpointRefernece != null) {

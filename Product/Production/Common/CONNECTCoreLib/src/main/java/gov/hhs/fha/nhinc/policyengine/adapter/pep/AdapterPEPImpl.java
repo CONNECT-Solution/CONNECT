@@ -1,44 +1,30 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
- * All rights reserved. 
+ * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * All rights reserved.
  *
- * Redistribution and use in source and binary forms, with or without 
- * modification, are permitted provided that the following conditions are met: 
- *     * Redistributions of source code must retain the above 
- *       copyright notice, this list of conditions and the following disclaimer. 
- *     * Redistributions in binary form must reproduce the above copyright 
- *       notice, this list of conditions and the following disclaimer in the documentation 
- *       and/or other materials provided with the distribution. 
- *     * Neither the name of the United States Government nor the 
- *       names of its contributors may be used to endorse or promote products 
- *       derived from this software without specific prior written permission. 
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *     * Redistributions of source code must retain the above
+ *       copyright notice, this list of conditions and the following disclaimer.
+ *     * Redistributions in binary form must reproduce the above copyright
+ *       notice, this list of conditions and the following disclaimer in the documentation
+ *       and/or other materials provided with the distribution.
+ *     * Neither the name of the United States Government nor the
+ *       names of its contributors may be used to endorse or promote products
+ *       derived from this software without specific prior written permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
- * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
- * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY 
- * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES 
- * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
- * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND 
- * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
- * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package gov.hhs.fha.nhinc.policyengine.adapter.pep;
-
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyResponseType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.RetrievePtConsentByPtDocIdRequestType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.RetrievePtConsentByPtDocIdResponseType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.RetrievePtConsentByPtIdRequestType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.RetrievePtConsentByPtIdResponseType;
-import gov.hhs.fha.nhinc.policyengine.adapter.pdp.proxy.AdapterPDPProxy;
-import gov.hhs.fha.nhinc.policyengine.adapter.pdp.proxy.AdapterPDPProxyObjectFactory;
-import gov.hhs.fha.nhinc.policyengine.adapter.pip.proxy.AdapterPIPProxy;
-import gov.hhs.fha.nhinc.policyengine.adapter.pip.proxy.AdapterPIPProxyObjectFactory;
-import gov.hhs.fha.nhinc.properties.PropertyAccessException;
-import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -72,6 +58,20 @@ import com.sun.identity.xacml.context.Resource;
 import com.sun.identity.xacml.context.Response;
 import com.sun.identity.xacml.context.Result;
 import com.sun.identity.xacml.context.Subject;
+
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
+import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyResponseType;
+import gov.hhs.fha.nhinc.common.nhinccommonadapter.RetrievePtConsentByPtDocIdRequestType;
+import gov.hhs.fha.nhinc.common.nhinccommonadapter.RetrievePtConsentByPtDocIdResponseType;
+import gov.hhs.fha.nhinc.common.nhinccommonadapter.RetrievePtConsentByPtIdRequestType;
+import gov.hhs.fha.nhinc.common.nhinccommonadapter.RetrievePtConsentByPtIdResponseType;
+import gov.hhs.fha.nhinc.policyengine.adapter.pdp.proxy.AdapterPDPProxy;
+import gov.hhs.fha.nhinc.policyengine.adapter.pdp.proxy.AdapterPDPProxyObjectFactory;
+import gov.hhs.fha.nhinc.policyengine.adapter.pip.proxy.AdapterPIPProxy;
+import gov.hhs.fha.nhinc.policyengine.adapter.pip.proxy.AdapterPIPProxyObjectFactory;
+import gov.hhs.fha.nhinc.properties.PropertyAccessException;
+import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 
 /**
  * This class implements the policy engine PEP (Policy Enforcement Point).
@@ -132,7 +132,7 @@ public class AdapterPEPImpl {
     /**
      * Given a request to check the access policy, this service will interface with the PDP to determine if access is to
      * be granted or denied.
-     * 
+     *
      * @param checkPolicyRequest The xacml request to check defined policy
      * @return The xacml response which contains the access decision
      */
@@ -192,7 +192,7 @@ public class AdapterPEPImpl {
 
     /**
      * Creates a check policy response message containing the decision declaration
-     * 
+     *
      * @param value The declared decision, should be an enumerattion provided through DecisionType
      * @return The generated check policy response message
      */
@@ -207,8 +207,8 @@ public class AdapterPEPImpl {
     }
 
     /**
-     * The PDP (Policy Decision Point) request document is a XACML XML document based on the XSPA profile
-     * 
+     * The PDP (Policy Decision Point) request document is a XACML XML document based on the XSPA profile.
+     *
      * @param checkPolicyRequest The xacml request to check defined policy
      * @return The PDP compatible request document
      */
@@ -481,8 +481,9 @@ public class AdapterPEPImpl {
     }
 
     private List<Attribute> removeEmptyItems(List<Attribute> attrs) {
-        if (attrs == null)
+        if (attrs == null) {
             return attrs;
+        }
         for (Iterator<Attribute> i = attrs.iterator(); i.hasNext();) {
             Attribute attr = i.next();
             if (attr != null) {
@@ -498,7 +499,7 @@ public class AdapterPEPImpl {
 
     /**
      * Creates the new XSPA attributes which originate from the incoming XACML request Subject attributes
-     * 
+     *
      * @param checkPolicyRequest The incoming XACML request
      * @param xacmlId The Attribute Id for the XACML request Subject attribute
      * @param xspaId The Attribute Id to give to the generated XSPA attribute
@@ -537,7 +538,7 @@ public class AdapterPEPImpl {
 
     /**
      * Creates the new XSPA attributes which originate from the incoming XACML request Resource attributes
-     * 
+     *
      * @param checkPolicyRequest The incoming XACML request
      * @param xacmlId The Attribute Id for the XACML request Resource attribute
      * @param xspaId The Attribute Id to give to the generated XSPA attribute
@@ -576,7 +577,7 @@ public class AdapterPEPImpl {
 
     /**
      * Creates the new XSPA attributes which originate from the incoming XACML request Action attributes
-     * 
+     *
      * @param checkPolicyRequest The incoming XACML request
      * @param xacmlId The Attribute Id for the XACML request Action attribute
      * @param xspaId The Attribute Id to give to the generated XSPA attribute
@@ -613,7 +614,7 @@ public class AdapterPEPImpl {
 
     /**
      * Creates the new XSPA attributes by extracting the information from the XACML atributes
-     * 
+     *
      * @param xacmlAttrs The Attributes from the incoming XACML request
      * @param xacmlId The Attribute Id for the XACML request attribute
      * @param xspaId The Attribute Id to give to the generated XSPA attribute
@@ -676,7 +677,7 @@ public class AdapterPEPImpl {
     /**
      * Creates the XSPA Attributes for the environment locality based upon a lookup of the gateway property for home
      * community
-     * 
+     *
      * @return The XSPA Attributes containing the determined home community
      */
     private List<Attribute> createEnvLocAttrs() {
@@ -710,7 +711,7 @@ public class AdapterPEPImpl {
 
     /**
      * Creates the XSPA Attributes for the patient status
-     * 
+     *
      * @param userRoleList The listing of user roles
      * @param purposeList The listing of purpose for use codes
      * @return The XSPA Attributes containing the determined consent status (Yes - optIn, No -optOut)
@@ -742,7 +743,7 @@ public class AdapterPEPImpl {
 
     /**
      * Determines the opt-in/opt-out status of these patients as identified by the user's role code and purpose for use
-     * 
+     *
      * @param userRoleList The listing of user roles
      * @param purposeList The listing of purpose for use codes
      * @return The listing of matching consent status (Yes - optIn, No -optOut)
@@ -778,7 +779,7 @@ public class AdapterPEPImpl {
 
     /**
      * Creates the XSPA Attributes for the document opt-in status
-     * 
+     *
      * @param documentIdList The listing of document ids used to determine opt-in status
      * @param communityIds The listing of community ids used to determine opt-in status
      * @param repositoryIds The listing of repository ids used to determine opt-in status
@@ -815,7 +816,7 @@ public class AdapterPEPImpl {
 
     /**
      * Determines the opt-in/opt-out status as identified by the documet ids
-     * 
+     *
      * @param documentIds The listing of document ids used to determine opt-in status
      * @param communityIds The listing of community ids used to determine opt-in status
      * @param repositoryIds The listing of repository ids used to determine opt-in status
@@ -864,7 +865,7 @@ public class AdapterPEPImpl {
 
     /**
      * Creates the XSPA Attributes for the patient status
-     * 
+     *
      * @param resourceIdList The listing of patient ids
      * @param assigningAuthList The listing of matching assigning authorities
      * @param assertion Assertion
@@ -898,7 +899,7 @@ public class AdapterPEPImpl {
 
     /**
      * Determines the opt-in/opt-out status of these patients as identified by their patient ids
-     * 
+     *
      * @param resourceIds The listing of patient ids
      * @param assigningAuths The listing of matching assigning authorities
      * @param assertion Assertion
@@ -942,7 +943,7 @@ public class AdapterPEPImpl {
 
     /**
      * Determines the action to give to the XSPA action attribute as mapped from the XACML Action Attribute
-     * 
+     *
      * @param extractedVals The listing of the XACML actions
      * @return The listing of the matching XSPA actions
      */
@@ -960,7 +961,7 @@ public class AdapterPEPImpl {
 
     /**
      * This method creates a default Attribute for the given XSPA identifier.
-     * 
+     *
      * @param xspaId The Attribute Id to give to the generated XSPA attribute
      * @param value The value to set within the default attribute created
      * @return The listing of the generated XSPA attributes

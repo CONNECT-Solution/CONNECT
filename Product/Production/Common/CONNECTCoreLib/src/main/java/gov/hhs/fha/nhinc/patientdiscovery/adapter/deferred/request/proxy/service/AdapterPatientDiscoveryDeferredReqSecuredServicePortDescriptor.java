@@ -87,14 +87,14 @@ import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 
 /**
  * @author dharley
- * 
+ *
  */
 public class AdapterPatientDiscoveryDeferredReqSecuredServicePortDescriptor implements
         ServicePortDescriptor<AdapterPatientDiscoverySecuredAsyncReqPortType> {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getNamespaceUri()
      */
     @Override
@@ -104,7 +104,7 @@ public class AdapterPatientDiscoveryDeferredReqSecuredServicePortDescriptor impl
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getServiceLocalPart()
      */
     @Override
@@ -114,7 +114,7 @@ public class AdapterPatientDiscoveryDeferredReqSecuredServicePortDescriptor impl
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getPortLocalPart()
      */
     @Override
@@ -124,7 +124,7 @@ public class AdapterPatientDiscoveryDeferredReqSecuredServicePortDescriptor impl
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getWSDLFileName()
      */
     @Override
@@ -134,7 +134,7 @@ public class AdapterPatientDiscoveryDeferredReqSecuredServicePortDescriptor impl
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getWSAddressingAction()
      */
     @Override
@@ -144,7 +144,7 @@ public class AdapterPatientDiscoveryDeferredReqSecuredServicePortDescriptor impl
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getPortClass()
      */
     @Override

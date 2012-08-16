@@ -13,10 +13,19 @@ import org.joda.time.DateTime;
  */
 public interface CallbackProperties {
 
+	/**
+	 * @return AssertionIssuerFormat
+	 */
 	public abstract String getAssertionIssuerFormat();
 
+	/**
+	 * @return The Issuer
+	 */
 	public abstract String getIssuer();
 
+	/**
+	 * @return The Username
+	 */
 	public abstract String getUsername();
 
 	public abstract String getAuthenicationContextClass();

@@ -1,9 +1,7 @@
 /**
- * 
+ *
  */
 package gov.hhs.fha.nhinc.callback.openSAML;
-
-import gov.hhs.fha.nhinc.callback.SamlConstants;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,16 +12,22 @@ import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormatter;
 import org.joda.time.format.ISODateTimeFormat;
 
+import gov.hhs.fha.nhinc.callback.SamlConstants;
+
 /**
  * @author bhumphrey
- * 
+ *
  */
 public class CallbackMapProperties implements CallbackProperties {
 
-	private Map<Object, Object> map = new HashMap<Object, Object>();
+	private final Map<Object, Object> map = new HashMap<Object, Object>();
 	private static final DateTimeFormatter XML_DATE_TIME_FORMAT = ISODateTimeFormat
 			.dateTimeParser();
 
+	/**
+	 * Puts the properties into the callback map.
+	 * @param properties
+	 */
 	public CallbackMapProperties(Map<Object, Object> properties) {
 		map.putAll(properties);
 	}
@@ -171,7 +175,7 @@ public class CallbackMapProperties implements CallbackProperties {
 	 * @see gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties#getEvidenceAccessConstent()
 	 */
 	@Override
-	public List getEvidenceAccessConstent() {
+	public List<Object> getEvidenceAccessConstent() {
 		return getNullSafeList(SamlConstants.EVIDENCE_ACCESS_CONSENT_PROP);
 	}
 
@@ -179,10 +183,10 @@ public class CallbackMapProperties implements CallbackProperties {
 	 * @see gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties#getEvidenceInstanctAccessConsent()
 	 */
 	@Override
-	public List getEvidenceInstantAccessConsent() {
+	public List<Object> getEvidenceInstantAccessConsent() {
 		return getNullSafeList(SamlConstants.EVIDENCE_INST_ACCESS_CONSENT_PROP);
 	}
-	
+
 	/* (non-Javadoc)
      * @see gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties#getEvidenceSubject()
      */
@@ -308,7 +312,7 @@ public class CallbackMapProperties implements CallbackProperties {
 		}
 		return nameConstruct.toString();
 	}
-	
+
 	private Boolean getNullSafeBoolean(final String property,
 			Boolean defaultValue) {
 		Boolean value = defaultValue;
@@ -343,28 +347,19 @@ public class CallbackMapProperties implements CallbackProperties {
 		return value;
 	}
 
-	private List getNullSafeList(final String property) {
-		List list = null;
+	private List<Object> getNullSafeList(final String property) {
+		List<Object> list = null;
 		if (map.containsKey(property) && map.get(property) != null) {
 			Object value = map.get(property);
 			if (value instanceof List<?>) {
-				list = (List) value;
+				list = (List<Object>) value;
 			} else {
-				list = new ArrayList();
+				list = new ArrayList<Object>();
 				list.add(value);
 			}
 		}
 
 		return list;
-	}
-
-	private String validate(final String value, List<String> validValues,
-			final String defaultValue) {
-		String validValue = defaultValue;
-		if (validValues.contains(value.trim())) {
-			validValue = value;
-		}
-		return validValue;
 	}
 
 }

@@ -10,9 +10,10 @@
         </not>
     </condition>
 
-    <target name="ci" depends="clean, dist, unittest.run, checkstyle.style"/>
-    <target name="dev.ci" depends="quick.clean, quick.package.create, unittest.run, checkstyle.style"/>
-    <target name="dev.quick" depends="quick.clean, quick.package.create"/>
+    <target name="ci" depends="clean, static.analysis, dist, unittest.run"/>
+    <target name="dev.ci" depends="quick.clean, static.analysis, quick.package.create, unittest.run"/>
+    <target name="dev" depends="quick.clean, quick.package.create"/>
+    <target name="dev.test" depends="quick.clean, quick.package.create, unittest.run"/>
 
     <target name="coverage.bless" description="Will take all existing coverage failures and enter them as exceptions in each project's coverage.thresholds.xml file.">
         <var name="do-to-target" value="coverage.bless" />
@@ -42,7 +43,7 @@
     <target name="clean" description="Clean all projects: run ant help for more info..." depends="clean.ivy.cache, quick.clean">
         <call target="junit.clean" />
         <call target="coverage.clean" />
-        <call target="static.analysis.clean" />
+        <call target="checkstyle.clean" />
         <var name="do-to-target" value="just.clean" />
         <antcall target="do-to-projects" />
     </target>
@@ -51,7 +52,7 @@
         <property name="skip.ivy.clean" value="true"/>
         <call target="junit.clean" />
         <call target="coverage.clean" />
-        <call target="static.analysis.clean" />
+        <call target="checkstyle.clean" />
         <var name="do-to-target" value="just.quick.clean" />
         <antcall target="do-to-projects" />
     </target>

@@ -26,14 +26,14 @@
  */
 package gov.hhs.fha.nhinc.unsubscribe.nhin.proxy;
 
+import org.oasis_open.docs.wsn.b_2.Unsubscribe;
+import org.oasis_open.docs.wsn.b_2.UnsubscribeResponse;
+import org.oasis_open.docs.wsn.bw_2.UnableToDestroySubscriptionFault;
+import org.oasis_open.docs.wsrf.rw_2.ResourceUnknownFault;
+
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.hiem.consumerreference.ReferenceParametersElements;
-
-import org.oasis_open.docs.wsn.b_2.Unsubscribe;
-import org.oasis_open.docs.wsn.b_2.UnsubscribeResponse;
-import org.oasis_open.docs.wsn.bw_2.ResourceUnknownFault;
-import org.oasis_open.docs.wsn.bw_2.UnableToDestroySubscriptionFault;
 
 /**
  *
