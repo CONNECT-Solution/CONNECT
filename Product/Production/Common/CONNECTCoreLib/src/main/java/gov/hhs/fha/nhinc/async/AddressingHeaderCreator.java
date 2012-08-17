@@ -144,7 +144,7 @@ public class AddressingHeaderCreator {
 				messageId);
 	}
 
-	Header buildHeaderReplyTo() {
+	protected Header buildHeaderReplyTo() {
 		// The optional ReplyTo header contains the Address element
 
 		Element elemReplyTo = elementBuilder.buildElement(

@@ -80,7 +80,7 @@ public class AsyncHeaderCreatorTest {
                     } else if ("ReplyTo".equals(elemTag)) {
                         assertEquals(addrAnon, hdr.getStringContent());
                     } else if ("MessageID".equals(elemTag)) {
-                        assertEquals(messageId, hdr.getStringContent());
+                        assertEquals("urn:uuid:" + messageId, hdr.getStringContent());
                     } else if ("RelatesTo".equals(elemTag)) {
                         assertEquals(relatesToId, hdr.getStringContent());
                     } else {
@@ -127,7 +127,7 @@ public class AsyncHeaderCreatorTest {
                     } else if ("ReplyTo".equals(elemTag)) {
                         assertEquals(addrAnon, hdr.getStringContent());
                     } else if ("MessageID".equals(elemTag)) {
-                        assertEquals(messageId, hdr.getStringContent());
+                        assertEquals("urn:uuid:" + messageId, hdr.getStringContent());
                     } else if ("RelatesTo".equals(elemTag)) {
                         assertTrue(hdr.getStringContent().startsWith("TestRelatesToId_"));
                     } else {
@@ -169,7 +169,7 @@ public class AsyncHeaderCreatorTest {
                     } else if ("ReplyTo".equals(elemTag)) {
                         assertEquals(addrAnon, hdr.getStringContent());
                     } else if ("MessageID".equals(elemTag)) {
-                        assertEquals(messageId, hdr.getStringContent());
+                        assertEquals("urn:uuid:" + messageId, hdr.getStringContent());
                     } else {
                         fail("Unknown header element tag: " + elemTag);
                     }
@@ -257,7 +257,7 @@ public class AsyncHeaderCreatorTest {
                     } else if ("ReplyTo".equals(elemTag)) {
                         assertEquals(addrAnon, hdr.getStringContent());
                     } else if ("MessageID".equals(elemTag)) {
-                        assertEquals(messageId, hdr.getStringContent());
+                        assertEquals("urn:uuid:" + messageId, hdr.getStringContent());
                     } else if ("RelatesTo".equals(elemTag)) {
                         assertEquals(relatesToId, hdr.getStringContent());
                     } else {
@@ -305,7 +305,7 @@ public class AsyncHeaderCreatorTest {
                     } else if ("ReplyTo".equals(elemTag)) {
                         assertEquals(addrAnon, hdr.getStringContent());
                     } else if ("MessageID".equals(elemTag)) {
-                        assertEquals(messageId, hdr.getStringContent());
+                        assertEquals("urn:uuid:" + messageId, hdr.getStringContent());
                     } else if ("RelatesTo".equals(elemTag)) {
                         assertEquals(relatesToId, hdr.getStringContent());
                     } else {

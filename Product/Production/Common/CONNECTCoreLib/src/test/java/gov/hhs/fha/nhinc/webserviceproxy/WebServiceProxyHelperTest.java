@@ -7,8 +7,11 @@
 package gov.hhs.fha.nhinc.webserviceproxy;
 
 import com.sun.xml.ws.api.message.Header;
+import com.sun.xml.ws.api.message.Headers;
 import com.sun.xml.ws.developer.WSBindingProvider;
+import gov.hhs.fha.nhinc.async.AddressingHeaderCreator;
 import gov.hhs.fha.nhinc.async.AsyncHeaderCreator;
+import gov.hhs.fha.nhinc.async.ElementBuilder;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
@@ -38,6 +41,7 @@ import org.jmock.integration.junit4.JMock;
 import org.jmock.integration.junit4.JUnit4Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.runner.RunWith;
+import org.w3c.dom.Element;
 
 /**
  *
@@ -2378,22 +2382,24 @@ public class WebServiceProxyHelperTest
             }
 
             @Override
-            protected AsyncHeaderCreator getAsyncHeaderCreator()
+            protected AddressingHeaderCreator getAddressingHeaderCreator(
+                    String url, String wsAddressingAction,
+                    String messageId, List<String> allRelatesTo)
             {
-                return new AsyncHeaderCreator()
+                return new AddressingHeaderCreator(url, wsAddressingAction,
+                        messageId, allRelatesTo)
                 {
-
                     @Override
-                    public List createOutboundHeaders(String url, String action,
-                            String messageId, List<String> relatesToIds)
-                    {
+                    protected Header buildHeaderReplyTo(){
+                        ElementBuilder eBuilder = ElementBuilder.newInstance();
+                        Element elemReplyTo = eBuilder.buildElement(
+				NhincConstants.WS_ADDRESSING_URL,
+				NhincConstants.WS_SOAP_HEADER_REPLYTO, "Test_ReplyTo",
+                                true);
 
-                        List headers = new ArrayList();
-                        headers.add(url);
-                        headers.add(action);
-                        headers.add(messageId);
-                        headers.addAll(relatesToIds);
-                        return headers;
+                        Header replyToHdr = Headers.create(elemReplyTo);
+
+                        return replyToHdr;
                     }
                 };
             }
@@ -2415,13 +2421,20 @@ public class WebServiceProxyHelperTest
         };
 
         AssertionType oAssertion = new AssertionType();
-        List returnedHeaders = oHelper.getWSAddressingHeaders("Test_URL", "Test_ws_action", oAssertion);
-        assertEquals("Number of created Headers is invalid.", 5, returnedHeaders.size());
-        assertTrue("Test_URL header not found", returnedHeaders.contains("Test_URL"));
-        assertTrue("Test_ws_action header not found", returnedHeaders.contains("Test_ws_action"));
-        assertTrue("Test_Message_Id header not found", returnedHeaders.contains("Test_Message_Id"));
-        assertTrue("Test_Relates_1 header not found", returnedHeaders.contains("Test_Relates_1"));
-        assertTrue("Test_Relates_2 header not found", returnedHeaders.contains("Test_Relates_2"));
+        List<Header> returnedHeaders = oHelper.getWSAddressingHeaders("Test_URL", "Test_ws_action", oAssertion);
+        List<String> headerContent = new ArrayList<String>();
+
+        for(Header header : returnedHeaders){
+            headerContent.add(header.getStringContent());
+        }
+        
+        assertEquals("Number of created Headers is invalid.", 6, returnedHeaders.size());
+        assertTrue("Test_URL header not found", headerContent.contains("Test_URL"));
+        assertTrue("Test_ws_action header not found", headerContent.contains("Test_ws_action"));
+        assertTrue("Test_Message_Id header not found.", headerContent.contains("urn:uuid:Test_Message_Id"));
+        assertTrue("Test_Relates_1 header not found", headerContent.contains("Test_Relates_1"));
+        assertTrue("Test_Relates_2 header not found", headerContent.contains("Test_Relates_2"));
+        assertTrue("Test_ReplyTo header not found", headerContent.contains("Test_ReplyTo"));
     }
     // The following commented tests came from ServiceUtilTest.java when the methods
     // from ServiceUtil were moved into the WebServiceProxyHelper.java class.  They

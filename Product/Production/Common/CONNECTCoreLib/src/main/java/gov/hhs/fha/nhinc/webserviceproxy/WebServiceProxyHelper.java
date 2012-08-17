@@ -337,15 +337,6 @@ public class WebServiceProxyHelper {
     }
 
     /**
-     * This method returns an instance of the AsyncHeaderCreator class.  This method
-     * is here to facilitate mock unit testing.
-     * @return instance of the AsyncHeaderCreator
-     */
-    protected AsyncHeaderCreator getAsyncHeaderCreator() {
-        return new AsyncHeaderCreator();
-    }
-
-    /**
      * This method retrieves the message identifier stored in the assertion
      * If the message ID is null or empty, this method will generate a new UUID
      * to use for the message ID.
@@ -419,6 +410,21 @@ public class WebServiceProxyHelper {
     }
 
     /**
+     * This method returns an instance of the AddressingHeaderCreator.
+     * The method is here to facilitate mock unit testing.
+     * @param url
+     * @param wsAddressingAction
+     * @param messageId
+     * @param allRelatesTo
+     * @return a AddressingHeaderCreator
+     */
+    protected AddressingHeaderCreator getAddressingHeaderCreator(String url,
+            String wsAddressingAction, String messageId,
+            List<String> allRelatesTo){
+        return new AddressingHeaderCreator(url, wsAddressingAction,
+                messageId, allRelatesTo);
+    }
+    /**
      * This method gset the WS-Addressing headers to be initialized on the port
      * @param url The endpoint url defining <To>
      * @param wsAddressingAction The action defining <Action>
@@ -431,8 +437,8 @@ public class WebServiceProxyHelper {
        String messageId = getMessageId(assertion);
         List<String> allRelatesTo = getRelatesTo(assertion);
 
-        AddressingHeaderCreator hdrCreator = new AddressingHeaderCreator(url, wsAddressingAction, messageId,
-                allRelatesTo);
+        AddressingHeaderCreator hdrCreator = getAddressingHeaderCreator(url,
+                wsAddressingAction, messageId, allRelatesTo);
 
         List<Header> createdHeaders = hdrCreator.build();
 
