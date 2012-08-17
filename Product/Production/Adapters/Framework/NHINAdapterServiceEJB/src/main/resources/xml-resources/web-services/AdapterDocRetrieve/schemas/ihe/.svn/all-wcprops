@@ -1,0 +1,17 @@
+K 25
+svn:wc:ra_dav:version-url
+V 221
+/svn/main/!svn/ver/70/trunk/Partners/Conemaugh/CONNECT_Code_Donations/CONNECTv33_Compatible/Document_Assembler/Source_Code/NHINAdapterServiceEJB/src/main/resources/xml-resources/web-services/AdapterDocRetrieve/schemas/ihe
+END
+auditmessage.xsd
+K 25
+svn:wc:ra_dav:version-url
+V 238
+/svn/main/!svn/ver/70/trunk/Partners/Conemaugh/CONNECT_Code_Donations/CONNECTv33_Compatible/Document_Assembler/Source_Code/NHINAdapterServiceEJB/src/main/resources/xml-resources/web-services/AdapterDocRetrieve/schemas/ihe/auditmessage.xsd
+END
+XDS.b_DocumentRepository.xsd
+K 25
+svn:wc:ra_dav:version-url
+V 250
+/svn/main/!svn/ver/70/trunk/Partners/Conemaugh/CONNECT_Code_Donations/CONNECTv33_Compatible/Document_Assembler/Source_Code/NHINAdapterServiceEJB/src/main/resources/xml-resources/web-services/AdapterDocRetrieve/schemas/ihe/XDS.b_DocumentRepository.xsd
+END
