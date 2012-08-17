@@ -27,7 +27,6 @@
 package gov.hhs.fha.nhinc.docsubmission._20.nhin.deferred.response;
 
 import javax.annotation.Resource;
-import javax.jws.HandlerChain;
 import javax.jws.WebService;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;

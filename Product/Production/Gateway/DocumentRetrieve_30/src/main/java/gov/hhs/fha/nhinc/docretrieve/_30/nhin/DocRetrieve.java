@@ -6,10 +6,9 @@
  */
 package gov.hhs.fha.nhinc.docretrieve._30.nhin;
 
-import javax.jws.HandlerChain;
+import javax.annotation.Resource;
 import javax.jws.WebService;
 import javax.xml.ws.BindingType;
-import javax.annotation.Resource;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
 
@@ -24,6 +23,11 @@ public class DocRetrieve {
     @Resource
     private WebServiceContext context;
 
+    /**
+     * The web service implementation for Document Retrieve.
+     * @param body the message of the request
+     * @return the document set of the retrieve
+     */
     public ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(
             ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType body) {
         return (new DocRetrieveImpl().respondingGatewayCrossGatewayRetrieve(body, context));

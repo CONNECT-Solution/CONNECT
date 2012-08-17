@@ -26,10 +26,9 @@
  */
 package gov.hhs.fha.nhinc.docsubmission._20.nhin;
 
-import javax.jws.HandlerChain;
+import javax.annotation.Resource;
 import javax.jws.WebService;
 import javax.xml.ws.BindingType;
-import javax.annotation.Resource;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
 

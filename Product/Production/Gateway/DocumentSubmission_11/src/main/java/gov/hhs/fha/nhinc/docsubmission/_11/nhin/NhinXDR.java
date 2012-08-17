@@ -26,10 +26,9 @@
  */
 package gov.hhs.fha.nhinc.docsubmission._11.nhin;
 
-import javax.jws.HandlerChain;
+import javax.annotation.Resource;
 import javax.jws.WebService;
 import javax.xml.ws.BindingType;
-import javax.annotation.Resource;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
 
@@ -44,11 +43,21 @@ public class NhinXDR {
     @Resource
     private WebServiceContext context;
 
+    /**
+     * The web service implementation for Document Submission.
+     * @param body The message of the request
+     * @return a registry response
+     */
     public oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType documentRepositoryProvideAndRegisterDocumentSetB(
             ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType body) {
         return new NhinDocSubmissionImpl().documentRepositoryProvideAndRegisterDocumentSetB(body, context);
     }
 
+    /**
+     * The web service implementation for Document Submission.
+     * @param body the message of the request
+     * @return a retrieved document
+     */
     public ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType documentRepositoryRetrieveDocumentSet(
             ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType body) {
         throw new UnsupportedOperationException("Not implemented yet.");

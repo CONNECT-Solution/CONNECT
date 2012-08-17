@@ -26,10 +26,9 @@
  */
 package gov.hhs.fha.nhinc.docquery._20.nhin;
 
-import javax.jws.HandlerChain;
+import javax.annotation.Resource;
 import javax.jws.WebService;
 import javax.xml.ws.BindingType;
-import javax.annotation.Resource;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
 
@@ -45,7 +44,13 @@ public class DocQuery
     @Resource
     private WebServiceContext context;
 
-    public oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse respondingGatewayCrossGatewayQuery(oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest body)
+    /**
+     * The web service implementation for Document Query.
+     * @param body the body of the request
+     * @return the query response for the document query
+     */
+    public oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse respondingGatewayCrossGatewayQuery(
+    		oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest body)
     {
         return new DocQueryImpl().respondingGatewayCrossGatewayQuery(body, context);
     }
