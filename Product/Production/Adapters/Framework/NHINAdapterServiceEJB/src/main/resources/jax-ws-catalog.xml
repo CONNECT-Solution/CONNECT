@@ -1,9 +1,4 @@
-/*
- * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
- *  
- * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
- *  
- */
+<!--
 /*
  * Copyright (c) 2011, Conemaugh Valley Memorial Hospital
  *
@@ -28,24 +23,11 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
-package gov.hhs.fha.nhinc.template;
-
-import gov.hhs.fha.nhinc.template.model.CdaTemplate;
-import java.util.List;
-
-/**
- *
- * @author kim
- */
-public interface TemplateManager {
-
-   public List<CdaTemplate> getSectionTemplatesForDocument(String loincCode, boolean active);
-
-   public List<CdaTemplate> getModuleTemplatesForSection(int id, boolean active);
-
-   public CdaTemplate getTemplateForDocument(String loincCode);
-
-   public List<CdaTemplate> getTemplates();
-}
+-->
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <system systemId="file:/C:/projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/BOSServiceEndpointProvider.wsdl" uri="wsdl/BOSServiceEndpointProvider.wsdl"/>
+    <system systemId="file:/C:/projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/DocumentManager.wsdl" uri="wsdl/DocumentManager.wsdl"/>
+    <system systemId="file:/C:/projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/DocumentAssembly.wsdl" uri="wsdl/DocumentAssembly.wsdl"/>
+</catalog>
 
