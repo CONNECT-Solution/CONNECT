@@ -35,7 +35,7 @@
     </wsdl:binding>
     <wsdl:service name="AdapterPatientDiscoverySecuredAsyncReqError">
         <wsdl:port name="AdapterPatientDiscoverySecuredAsyncReqErrorPortSoap" binding="tns:AdapterPatientDiscoverySecuredAsyncReqErrorBindingSoap">
-            <soap12:address location="http://localhost/NhinConnect/AdapterPatientDiscoverySecuredAsyncReqError"/>
+            <soap12:address location="https://localhost:${DefaultHTTPPort}/Adapter/PatientDiscovery/A_0/AdapterPatientDiscoveryDeferredRequestErrorSecured"/>
         </wsdl:port>
     </wsdl:service>
     <wsp:Policy wsu:Id="Adapter_PatientDiscovery_SoapPolicy">
