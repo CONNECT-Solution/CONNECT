@@ -1,10 +1,4 @@
 /*
- * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
- *  
- * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
- *  
- */
-/*
  * Copyright (c) 2011, Conemaugh Valley Memorial Hospital
  *
  * This source is subject to the Conemaugh public license.  Please see the
@@ -28,32 +22,51 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package gov.hhs.fha.nhinc.assemblymanager.dao;
 
-import gov.hhs.fha.nhinc.assemblymanager.AssemblyConstants;
-import gov.hhs.fha.nhinc.assemblymanager.dao.persistence.PersistentServiceFactory;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.PersistenceContext;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+package gov.hhs.fha.nhinc.assemblymanager.properties;
 
 /**
  *
- * @author kim
+ * @author A22387
  */
-public class QueryDAO {
+public class PropertiesException extends Exception
+{
+    /**
+     * Default Constructor
+     */
+    public PropertiesException()
+    {
+        super();
+    }
 
-   protected static Log log = LogFactory.getLog(QueryDAO.class);
+    /**
+     * Create an excetption with a message
+     *
+     * @param sMessage A message about the exception
+     */
+    public PropertiesException(String sMessage)
+    {
+        super(sMessage);
+    }
 
-   //@PersistenceContext(unitName="docassemblyPU")
-   //protected EntityManagerFactory emf;
-   private static PersistentServiceFactory factory = null;
+    /**
+     * Create an exception with a message and the root cause
+     *
+     * @param sMessage A message about the exception
+     * @param oRootCause The root cause of the exception
+     */
+    public PropertiesException(String sMessage, Throwable oRootCause)
+    {
+        super(sMessage, oRootCause);
+    }
 
-   public QueryDAO() {
-      factory = PersistentServiceFactory.getInstance(AssemblyConstants.DAS_PU_VALUE);
-   }
-
-   public PersistentServiceFactory getFactory() {
-      return factory;
-   }
+    /**
+     * Create an exception with the root cause
+     *
+     * @param oRootCause The root cause of the exception
+     */
+    public PropertiesException(Throwable oRootCause)
+    {
+        super(oRootCause);
+    }
 }

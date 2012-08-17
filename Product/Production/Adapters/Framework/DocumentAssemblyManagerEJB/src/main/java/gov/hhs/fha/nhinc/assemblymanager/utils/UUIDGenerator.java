@@ -28,12 +28,10 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package gov.hhs.fha.nhinc.assemblymanager.dao;
 
-import gov.hhs.fha.nhinc.assemblymanager.AssemblyConstants;
-import gov.hhs.fha.nhinc.assemblymanager.dao.persistence.PersistentServiceFactory;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.PersistenceContext;
+package gov.hhs.fha.nhinc.assemblymanager.utils;
+
+import java.util.UUID;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -41,19 +39,21 @@ import org.apache.commons.logging.LogFactory;
  *
  * @author kim
  */
-public class QueryDAO {
+public class UUIDGenerator {
+    private static Log log = LogFactory.getLog(UUIDGenerator.class);
 
-   protected static Log log = LogFactory.getLog(QueryDAO.class);
+    public static String generateRandomUUID() {
+        //java.rmi.server.UID uid = new java.rmi.server.UID();
+        UUID uid = UUID.randomUUID();
+        log.debug("generated document id=" + uid.toString());
+        return uid.toString();
+    }
 
-   //@PersistenceContext(unitName="docassemblyPU")
-   //protected EntityManagerFactory emf;
-   private static PersistentServiceFactory factory = null;
+    public static String generateUUIDFromString(String idVal)
+    {
+        byte[] uuid1 = idVal.getBytes();
+        UUID uid = UUID.nameUUIDFromBytes(uuid1);
 
-   public QueryDAO() {
-      factory = PersistentServiceFactory.getInstance(AssemblyConstants.DAS_PU_VALUE);
-   }
-
-   public PersistentServiceFactory getFactory() {
-      return factory;
-   }
+        return uid.toString();
+    }
 }

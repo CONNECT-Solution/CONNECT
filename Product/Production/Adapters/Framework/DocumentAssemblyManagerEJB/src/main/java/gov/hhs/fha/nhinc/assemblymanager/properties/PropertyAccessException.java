@@ -28,32 +28,52 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package gov.hhs.fha.nhinc.assemblymanager.dao;
-
-import gov.hhs.fha.nhinc.assemblymanager.AssemblyConstants;
-import gov.hhs.fha.nhinc.assemblymanager.dao.persistence.PersistentServiceFactory;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.PersistenceContext;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+package gov.hhs.fha.nhinc.assemblymanager.properties;
 
 /**
- *
- * @author kim
+ * This exception is thrown when an error occurs accessing properties.
+ * 
+ * @author Les Westberg
  */
-public class QueryDAO {
+public class PropertyAccessException extends Exception
+{
+    /**
+     * Default constructor.
+     */
+    public PropertyAccessException()
+    {
+        super();
+    }
+    
+    /**
+     * Constructor with an envloping exception.
+     * 
+     * @param e  The exception that caused this one.
+     */
+    public PropertyAccessException(Exception e)
+    {
+        super(e);
+    }
 
-   protected static Log log = LogFactory.getLog(QueryDAO.class);
+    /**
+     * Constructor with the given exception and message.
+     * 
+     * @param sMessage The message to place in the exception.
+     * @param e The exception that triggered this one.
+     */
+    public PropertyAccessException(String sMessage, Exception e)
+    {
+        super(sMessage, e);
+    }
 
-   //@PersistenceContext(unitName="docassemblyPU")
-   //protected EntityManagerFactory emf;
-   private static PersistentServiceFactory factory = null;
-
-   public QueryDAO() {
-      factory = PersistentServiceFactory.getInstance(AssemblyConstants.DAS_PU_VALUE);
-   }
-
-   public PersistentServiceFactory getFactory() {
-      return factory;
-   }
+    /**
+     * Constructor with a given message.
+     * 
+     * @param sMessage The message for the exception.
+     */
+    public PropertyAccessException(String sMessage)
+    {
+        super(sMessage);
+    }
+    
 }
