@@ -1,9 +1,4 @@
-/*
- * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
- *  
- * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
- *  
- */
+<!--
 /*
  * Copyright (c) 2011, Conemaugh Valley Memorial Hospital
  *
@@ -28,32 +23,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package gov.hhs.fha.nhinc.assemblymanager.dao;
+-->
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <system systemId="file:/C:/projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/AdapterCommonDataLayer.wsdl" uri="wsdl/AdapterCommonDataLayer.wsdl"/>
+</catalog>
 
-import gov.hhs.fha.nhinc.assemblymanager.AssemblyConstants;
-import gov.hhs.fha.nhinc.assemblymanager.dao.persistence.PersistentServiceFactory;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.PersistenceContext;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
-/**
- *
- * @author kim
- */
-public class QueryDAO {
-
-   protected static Log log = LogFactory.getLog(QueryDAO.class);
-
-   //@PersistenceContext(unitName="docassemblyPU")
-   //protected EntityManagerFactory emf;
-   private static PersistentServiceFactory factory = null;
-
-   public QueryDAO() {
-      factory = PersistentServiceFactory.getInstance(AssemblyConstants.DAS_PU_VALUE);
-   }
-
-   public PersistentServiceFactory getFactory() {
-      return factory;
-   }
-}

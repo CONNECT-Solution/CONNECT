@@ -1,10 +1,4 @@
 /*
- * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
- *  
- * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
- *  
- */
-/*
  * Copyright (c) 2011, Conemaugh Valley Memorial Hospital
  *
  * This source is subject to the Conemaugh public license.  Please see the
@@ -28,32 +22,53 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package gov.hhs.fha.nhinc.assemblymanager.dao;
 
-import gov.hhs.fha.nhinc.assemblymanager.AssemblyConstants;
-import gov.hhs.fha.nhinc.assemblymanager.dao.persistence.PersistentServiceFactory;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.PersistenceContext;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+package gov.hhs.fha.nhinc.assemblymanager.utils;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
 
 /**
  *
- * @author kim
+ * @author A22387
  */
-public class QueryDAO {
+public class JAXBUtil
+{
 
-   protected static Log log = LogFactory.getLog(QueryDAO.class);
+    private static JAXBUtil instance = null;
+    private static JAXBContext jcOrgHl7V3 = null;
+    private static JAXBContext jcIHE = null;
 
-   //@PersistenceContext(unitName="docassemblyPU")
-   //protected EntityManagerFactory emf;
-   private static PersistentServiceFactory factory = null;
+    protected JAXBUtil()
+    {
+        // Exists only to defeat instantiation
+    }
 
-   public QueryDAO() {
-      factory = PersistentServiceFactory.getInstance(AssemblyConstants.DAS_PU_VALUE);
-   }
+    public static synchronized JAXBUtil getInstance()
+    {
+        if(instance == null)
+        {
+            instance = new JAXBUtil();
+        }
+        return instance;
+    }
 
-   public PersistentServiceFactory getFactory() {
-      return factory;
-   }
+    public JAXBContext getJAXBContextOrg() throws JAXBException
+    {
+        if (jcOrgHl7V3 == null)
+        {
+            jcOrgHl7V3 = JAXBContext.newInstance("org.hl7.v3");
+        }
+        return jcOrgHl7V3;
+    }
+
+    public JAXBContext getJAXBContextIHE() throws JAXBException
+    {
+        if (jcIHE == null)
+        {
+            jcIHE = JAXBContext.newInstance("ihe.iti.xds_b._2007");
+        }
+        return jcIHE;
+    }
+
 }
