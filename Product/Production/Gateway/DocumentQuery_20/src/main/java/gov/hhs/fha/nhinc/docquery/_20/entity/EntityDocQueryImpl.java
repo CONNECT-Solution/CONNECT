@@ -30,11 +30,11 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayQueryRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayQuerySecuredRequestType;
+import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
 import gov.hhs.fha.nhinc.docquery.entity.EntityDocQueryOrchImpl;
 import gov.hhs.fha.nhinc.gateway.servlet.InitServlet;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.perfrepo.PerformanceManager;
-import gov.hhs.fha.nhinc.service.WebServiceHelper;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import java.sql.Timestamp;
 import javax.xml.ws.WebServiceContext;
@@ -55,13 +55,9 @@ class EntityDocQueryImpl {
         return ((log != null) ? log : LogFactory.getLog(getClass()));
     }
 
-    protected WebServiceHelper createWebServiceHelper() {
-        return new WebServiceHelper();
-    }
-
+    
     public AdhocQueryResponse respondingGatewayCrossGatewayQuerySecured(RespondingGatewayCrossGatewayQuerySecuredRequestType request, WebServiceContext context) {
         log.info("Begin respondingGatewayCrossGatewayQuerySecured(RespondingGatewayCrossGatewayQuerySecuredRequestType, WebServiceContext)");
-        WebServiceHelper oHelper = createWebServiceHelper();
         EntityDocQueryOrchImpl implOrch = createEntityDocQueryOrchImpl();
         AdhocQueryResponse response = null;
 
@@ -75,8 +71,10 @@ class EntityDocQueryImpl {
                 Timestamp starttime = new Timestamp(System.currentTimeMillis());
                 Long logId = PerformanceManager.getPerformanceManagerInstance().logPerformanceStart(starttime, NhincConstants.DOC_QUERY_SERVICE_NAME, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, homeCommunityId);
 
-                response = (AdhocQueryResponse) oHelper.invokeSecureWebService(implOrch, implOrch.getClass(), "respondingGatewayCrossGatewayQuery", adhocQueryRequest, targets, context);
+                response = implOrch.respondingGatewayCrossGatewayQuery( adhocQueryRequest, new SAML2AssertionExtractor().extractSamlAssertion(context), targets);
 
+                
+                
                 // Log the end of the performance record
                 Timestamp stoptime = new Timestamp(System.currentTimeMillis());
                 PerformanceManager.getPerformanceManagerInstance().logPerformanceStop(logId, starttime, stoptime);
@@ -92,7 +90,6 @@ class EntityDocQueryImpl {
 
     AdhocQueryResponse respondingGatewayCrossGatewayQueryUnsecured(RespondingGatewayCrossGatewayQueryRequestType request, WebServiceContext context) {
         log.info("Begin respondingGatewayCrossGatewayQueryUnsecured(RespondingGatewayCrossGatewayQuerySecuredRequestType, WebServiceContext)");
-        WebServiceHelper oHelper = createWebServiceHelper();
         EntityDocQueryOrchImpl implOrch = createEntityDocQueryOrchImpl();
         AdhocQueryResponse response = null;
 
@@ -101,7 +98,7 @@ class EntityDocQueryImpl {
                 AdhocQueryRequest adhocQueryRequest = request.getAdhocQueryRequest();
                 NhinTargetCommunitiesType targets = request.getNhinTargetCommunities();
                 AssertionType assertIn = request.getAssertion();
-                response = (AdhocQueryResponse) oHelper.invokeUnsecureWebService(implOrch, implOrch.getClass(), "respondingGatewayCrossGatewayQuery", adhocQueryRequest, assertIn, targets, context);
+                response = implOrch.respondingGatewayCrossGatewayQuery( adhocQueryRequest, assertIn, targets);
             } else {
                 log.error("Failed to call the web orchestration (" + implOrch.getClass() + ".respondingGatewayCrossGatewayQuery).  The input parameter is null.");
             }

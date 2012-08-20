@@ -26,19 +26,19 @@
  */
 package gov.hhs.fha.nhinc.docsubmission._20.entity;
 
-import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.UrlInfoType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType;
-import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
 import gov.hhs.fha.nhinc.docsubmission.entity.EntityDocSubmissionOrchImpl;
 import gov.hhs.fha.nhinc.jaxws.WebServiceHeaderExtractor;
-import gov.hhs.fha.nhinc.service.WebServiceHelper;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
+
 import javax.xml.ws.WebServiceContext;
+
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -54,10 +54,7 @@ class EntityDocSubmissionImpl_g1 {
         return ((log != null) ? log : LogFactory.getLog(getClass()));
     }
 
-    protected WebServiceHelper createWebServiceHelper() {
-        return new WebServiceHelper();
-    }
-
+  
     public RegistryResponseType provideAndRegisterDocumentSetB(
             RespondingGatewayProvideAndRegisterDocumentSetRequestType body, WebServiceContext context) {
         return provideAndRegisterDocumentSetB(body.getProvideAndRegisterDocumentSetRequest(), body.getAssertion(),

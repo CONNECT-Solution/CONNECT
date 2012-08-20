@@ -96,7 +96,7 @@ public class HiemSubscribeAdapterWebServiceProxy implements HiemSubscribeAdapter
                         AdapterNotificationProducerPortType.class);
 
                 // Initialize secured port
-                getWebServiceProxyHelper().initializeUnsecurePort((BindingProvider) oPort, url, null, assertIn);
+//                getWebServiceProxyHelper().initializeUnsecurePort((BindingProvider) oPort, url, null, assertIn);
             } else {
                 log.error("Unable to obtain service - no port created.");
             }

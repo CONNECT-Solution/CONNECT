@@ -113,8 +113,8 @@ public class HiemNotifyAdapterWebServiceProxy implements HiemNotifyAdapterProxy 
                         AdapterNotificationConsumerPortType.class);
 
                 // Initialize unsecured port
-                getWebServiceProxyHelper().initializeUnsecurePort((BindingProvider) oPort, url, WS_ADDRESSING_ACTION,
-                        assertIn);
+//                getWebServiceProxyHelper().initializeUnsecurePort((BindingProvider) oPort, url, WS_ADDRESSING_ACTION,
+//                        assertIn);
             } else {
                 log.error("Unable to obtain service - no port created.");
             }

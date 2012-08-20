@@ -38,7 +38,7 @@ import gov.hhs.fha.nhinc.saml.extraction.SamlTokenCreator;
 import java.util.Map;
 import javax.xml.ws.BindingProvider;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
-import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
+import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
 import javax.xml.ws.WebServiceContext;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 import org.hl7.v3.PRPAIN201305UV02;
@@ -83,7 +83,7 @@ public class AdapterMpiImpl {
 
         AssertionType assertion = null;
         if ((bIsSecure) && (context != null)) {
-            assertion = SamlTokenExtractor.GetAssertion(context);
+            assertion = new SAML2AssertionExtractor().extractSamlAssertion(context);
         } else {
             assertion = new AssertionType();
         }
