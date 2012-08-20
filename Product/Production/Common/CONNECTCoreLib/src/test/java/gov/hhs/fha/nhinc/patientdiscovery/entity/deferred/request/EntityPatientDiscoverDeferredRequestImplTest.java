@@ -84,7 +84,7 @@ public class EntityPatientDiscoverDeferredRequestImplTest {
     public void testProcessPatientDiscoveryAsyncReq() {
         System.out.println("testProcessPatientDiscoveryAsyncReq");
 
-        EntityPatientDiscoveryDeferredRequestOrchImpl instance = new EntityPatientDiscoveryDeferredRequestOrchImpl() {
+        EntityPatientDiscoveryDeferredRequestOrch instance = new EntityPatientDiscoveryDeferredRequestOrchImpl() {
 
             @Override
             protected List<UrlInfo> getTargetEndpoints(NhinTargetCommunitiesType targetCommunities) {
@@ -195,7 +195,7 @@ public class EntityPatientDiscoverDeferredRequestImplTest {
     public void testProcessPatientDiscoveryAsyncReqNoTargets() {
         System.out.println("testProcessPatientDiscoveryAsyncReqNoTargets");
 
-        EntityPatientDiscoveryDeferredRequestOrchImpl instance = new EntityPatientDiscoveryDeferredRequestOrchImpl() {
+        EntityPatientDiscoveryDeferredRequestOrch instance = new EntityPatientDiscoveryDeferredRequestOrchImpl() {
 
             @Override
             protected List<UrlInfo> getTargetEndpoints(NhinTargetCommunitiesType targetCommunities) {
@@ -299,7 +299,7 @@ public class EntityPatientDiscoverDeferredRequestImplTest {
     public void testProcessPatientDiscoveryAsyncReqPolicyFailed() {
         System.out.println("testProcessPatientDiscoveryAsyncReqPolicyFailed");
 
-        EntityPatientDiscoveryDeferredRequestOrchImpl instance = new EntityPatientDiscoveryDeferredRequestOrchImpl() {
+        EntityPatientDiscoveryDeferredRequestOrch instance = new EntityPatientDiscoveryDeferredRequestOrchImpl() {
 
             @Override
             protected List<UrlInfo> getTargetEndpoints(NhinTargetCommunitiesType targetCommunities) {

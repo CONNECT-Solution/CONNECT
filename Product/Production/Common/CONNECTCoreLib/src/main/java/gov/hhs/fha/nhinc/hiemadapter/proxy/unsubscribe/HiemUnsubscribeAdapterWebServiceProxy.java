@@ -118,7 +118,7 @@ public class HiemUnsubscribeAdapterWebServiceProxy implements HiemUnsubscribeAda
                         AdapterSubscriptionManagerPortType.class);
 
                 // Initialize secured port
-                getWebServiceProxyHelper().initializeUnsecurePort((BindingProvider) oPort, url, null, assertIn);
+//                getWebServiceProxyHelper().initializeUnsecurePort((BindingProvider) oPort, url, null, assertIn);
             } else {
                 log.error("Unable to obtain service - no port created.");
             }

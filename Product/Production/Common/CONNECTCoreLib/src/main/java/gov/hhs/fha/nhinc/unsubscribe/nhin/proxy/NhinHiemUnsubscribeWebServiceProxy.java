@@ -123,8 +123,8 @@ public class NhinHiemUnsubscribeWebServiceProxy implements NhinHiemUnsubscribePr
                 oPort = oService.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), SubscriptionManager.class);
 
                 // Initialize secured port
-                getWebServiceProxyHelper().initializeSecurePort((BindingProvider) oPort, url,
-                        NhincConstants.UNSUBSCRIBE_ACTION, WS_ADDRESSING_ACTION, assertIn);
+//                getWebServiceProxyHelper().initializeSecurePort((BindingProvider) oPort, url,
+//                        NhincConstants.UNSUBSCRIBE_ACTION, WS_ADDRESSING_ACTION, assertIn);
             } else {
                 log.error("Unable to obtain service - no port created.");
             }

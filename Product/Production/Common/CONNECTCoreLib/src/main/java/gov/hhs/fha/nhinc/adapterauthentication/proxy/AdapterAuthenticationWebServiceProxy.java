@@ -91,7 +91,7 @@ public class AdapterAuthenticationWebServiceProxy implements AdapterAuthenticati
             String url = getUrl(ADAPTER_AUTH_SERVICE_NAME);
 
             port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), AdapterAuthenticationPortType.class);
-            proxyHelper.initializeUnsecurePort((javax.xml.ws.BindingProvider) port, url, null, null);
+        //    proxyHelper.initializeUnsecurePort((javax.xml.ws.BindingProvider) port, url, null, null);
         } else {
             log.error("Unable to obtain serivce - no port created.");
         }

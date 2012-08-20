@@ -30,7 +30,6 @@ package gov.hhs.fha.nhinc.notify.nhin.proxy;
 import java.util.List;
 
 import javax.xml.namespace.QName;
-import javax.xml.ws.BindingProvider;
 import javax.xml.ws.Service;
 
 import oasis.names.tc.xacml._2_0.context.schema.os.DecisionType;
@@ -39,7 +38,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.oasis_open.docs.wsn.b_2.Notify;
 import org.oasis_open.docs.wsn.bw_2.NotificationConsumer;
-import org.w3c.dom.Element;
 
 import com.sun.xml.ws.api.message.Header;
 import com.sun.xml.ws.developer.WSBindingProvider;
@@ -57,14 +55,12 @@ import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.hiem.consumerreference.ReferenceParametersElements;
 import gov.hhs.fha.nhinc.hiem.dte.SoapUtil;
-import gov.hhs.fha.nhinc.hiem.dte.marshallers.WsntSubscribeMarshaller;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.policyengine.PolicyEngineChecker;
 import gov.hhs.fha.nhinc.policyengine.adapter.proxy.PolicyEngineProxy;
 import gov.hhs.fha.nhinc.policyengine.adapter.proxy.PolicyEngineProxyObjectFactory;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
-import gov.hhs.fha.nhinc.xmlCommon.XmlUtility;
 
 /**
  *
@@ -145,8 +141,8 @@ public class NhinHiemNotifyWebServiceProxy implements NhinHiemNotifyProxy {
                 oPort = oService.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), NotificationConsumer.class);
 
                 // Initialize secured port
-                getWebServiceProxyHelper().initializeSecurePort((BindingProvider) oPort, url,
-                        NhincConstants.SUBSCRIBE_ACTION, null, assertion);
+//                getWebServiceProxyHelper().initializeSecurePort((BindingProvider) oPort, url,
+//                        NhincConstants.SUBSCRIBE_ACTION, null, assertIn);
             } else {
                 log.error("Unable to obtain service - no port created.");
             }
