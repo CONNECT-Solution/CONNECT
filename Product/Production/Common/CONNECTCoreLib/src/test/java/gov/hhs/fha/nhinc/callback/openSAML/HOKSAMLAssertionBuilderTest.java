@@ -7,10 +7,9 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 
 import java.math.BigInteger;
+import java.security.InvalidKeyException;
 import java.security.KeyPairGenerator;
 import java.security.KeyStore;
-import java.security.KeyStore.PrivateKeyEntry;
-import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
 import java.security.Principal;
@@ -36,7 +35,6 @@ import org.joda.time.DateTime;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.opensaml.saml2.core.AuthnStatement;
-import org.opensaml.xml.signature.impl.X509CertificateBuilder;
 import org.w3c.dom.Element;
 
 /**

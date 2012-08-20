@@ -31,8 +31,8 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.UrlInfoType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType;
+import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
 import gov.hhs.fha.nhinc.docsubmission.entity.EntityDocSubmissionOrchImpl;
-import gov.hhs.fha.nhinc.service.WebServiceHelper;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import javax.xml.ws.WebServiceContext;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
@@ -51,14 +51,10 @@ class EntityDocSubmissionImpl {
         return ((log != null) ? log : LogFactory.getLog(getClass()));
     }
 
-    protected WebServiceHelper createWebServiceHelper() {
-        return new WebServiceHelper();
-    }
 
     RegistryResponseType provideAndRegisterDocumentSetBUnsecured(
             RespondingGatewayProvideAndRegisterDocumentSetRequestType request, WebServiceContext context) {
         log.info("Begin EntityDocSubmissionImpl.provideAndRegisterDocumentSetBUnsecured(RespondingGatewayProvideAndRegisterDocumentSetRequestType, WebServiceContext)");
-        WebServiceHelper oHelper = createWebServiceHelper();
         EntityDocSubmissionOrchImpl implOrch = createEntityDocSubmissionOrchImpl();
         RegistryResponseType response = null;
 
@@ -67,9 +63,8 @@ class EntityDocSubmissionImpl {
                 ProvideAndRegisterDocumentSetRequestType msg = request.getProvideAndRegisterDocumentSetRequest();
                 NhinTargetCommunitiesType targets = request.getNhinTargetCommunities();
                 AssertionType assertIn = request.getAssertion();
-                UrlInfoType urlInfo = request.getUrl();
-                response = (RegistryResponseType) oHelper.invokeUnsecureWebService(implOrch, implOrch.getClass(),
-                        "provideAndRegisterDocumentSetB", msg, assertIn, targets, urlInfo, context);
+                UrlInfoType urlInfo = request.getUrl();  
+                response = implOrch.provideAndRegisterDocumentSetB( msg, assertIn, targets, urlInfo);
             } else {
                 log.error("Failed to call the web orchestration (" + implOrch.getClass()
                         + ".provideAndRegisterDocumentSetB).  The input parameter is null.");
@@ -87,7 +82,6 @@ class EntityDocSubmissionImpl {
     RegistryResponseType provideAndRegisterDocumentSetBSecured(
             RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request, WebServiceContext context) {
         log.info("Begin EntityDocSubmissionImpl.provideAndRegisterDocumentSetBSecured(RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType, WebServiceContext)");
-        WebServiceHelper oHelper = createWebServiceHelper();
         EntityDocSubmissionOrchImpl implOrch = createEntityDocSubmissionOrchImpl();
         RegistryResponseType response = null;
 
@@ -96,8 +90,8 @@ class EntityDocSubmissionImpl {
                 ProvideAndRegisterDocumentSetRequestType msg = request.getProvideAndRegisterDocumentSetRequest();
                 NhinTargetCommunitiesType targets = request.getNhinTargetCommunities();
                 UrlInfoType urlInfo = request.getUrl();
-                response = (RegistryResponseType) oHelper.invokeSecureWebService(implOrch, implOrch.getClass(),
-                        "provideAndRegisterDocumentSetB", msg, targets, urlInfo, context);
+                SAML2AssertionExtractor extractor = new SAML2AssertionExtractor();
+                response = implOrch.provideAndRegisterDocumentSetB( msg, extractor.extractSamlAssertion(context), targets, urlInfo);
             } else {
                 log.error("Failed to call the web orchestration (" + implOrch.getClass()
                         + ".provideAndRegisterDocumentSetB).  The input parameter is null.");

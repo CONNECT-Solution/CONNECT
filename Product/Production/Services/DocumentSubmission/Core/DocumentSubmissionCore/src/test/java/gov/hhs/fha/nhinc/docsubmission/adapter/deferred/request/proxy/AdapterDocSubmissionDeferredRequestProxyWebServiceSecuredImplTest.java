@@ -113,44 +113,13 @@ public class AdapterDocSubmissionDeferredRequestProxyWebServiceSecuredImplTest {
         mockery.mock(AdapterXDRRequestSecuredPortType.class);
         final Service mockService = mockery.mock(Service.class);
         final CONNECTClient<AdapterXDRRequestSecuredPortType> mockClient= new CONNECTClientMock();
-        final WebServiceProxyHelper proxyHelper = new WebServiceProxyHelper() {
-            protected Log createLogger() {
-                return mockLogger;
-            }
-
-            public String getEndPointFromConnectionManagerByAdapterAPILevel(String sServiceName, ADAPTER_API_LEVEL level) {
-                return "url";
-            }
-
-            public Object invokePort(Object portObject, Class portClass, String methodName, Object operationInput)
-                    throws Exception {
-                XDRAcknowledgementType response = new XDRAcknowledgementType();
-                RegistryResponseType regResp = new RegistryResponseType();
-                regResp.setStatus(NhincConstants.XDR_ACK_STATUS_MSG);
-                response.setMessage(regResp);
-                return response;
-            }
-
-            public void initializeSecurePort(BindingProvider port, String url, String serviceAction,
-                    String wsAddressingAction, AssertionType assertion) {
-
-            }
-
-            public Service createService(String wsdlFile, String namespaceURI, String serviceLocalPart)
-                    throws MalformedURLException {
-                return mockService;
-            }
-        };
-
+       
         AdapterDocSubmissionDeferredRequestProxyWebServiceSecuredImpl adapterXDRRequestWebServiceProxy = new AdapterDocSubmissionDeferredRequestProxyWebServiceSecuredImpl() {
             protected Log createLogger() {
                 return mockLogger;
             }
 
-            protected WebServiceProxyHelper createWebServiceProxyHelper() {
-                return proxyHelper;
-            }
-
+         
             protected CONNECTClient<AdapterXDRRequestSecuredPortType> getCONNECTClientSecured(
                     ServicePortDescriptor<AdapterXDRRequestSecuredPortType> portDescriptor, String url,
                     AssertionType assertion) {
@@ -190,44 +159,13 @@ public class AdapterDocSubmissionDeferredRequestProxyWebServiceSecuredImplTest {
         mockery.mock(AdapterXDRRequestSecuredPortType.class);
         final Service mockService = mockery.mock(Service.class);
         final CONNECTClient<AdapterXDRRequestSecuredPortType> mockClient= new CONNECTClientMock();
-        final WebServiceProxyHelper proxyHelper = new WebServiceProxyHelper() {
-            protected Log createLogger() {
-                return mockLogger;
-            }
-
-            public String getEndPointFromConnectionManagerByAdapterAPILevel(String sServiceName, ADAPTER_API_LEVEL level) {
-                return "url";
-            }
-
-            public Object invokePort(Object portObject, Class portClass, String methodName, Object operationInput)
-                    throws Exception {
-                XDRAcknowledgementType response = new XDRAcknowledgementType();
-                RegistryResponseType regResp = new RegistryResponseType();
-                regResp.setStatus(NhincConstants.XDR_ACK_STATUS_MSG);
-                response.setMessage(regResp);
-                return response;
-            }
-
-            public void initializeSecurePort(BindingProvider port, String url, String serviceAction,
-                    String wsAddressingAction, AssertionType assertion) {
-
-            }
-
-            public Service createService(String wsdlFile, String namespaceURI, String serviceLocalPart)
-                    throws MalformedURLException {
-                return mockService;
-            }
-        };
-
+       
         AdapterDocSubmissionDeferredRequestProxyWebServiceSecuredImpl adapterXDRRequestWebServiceProxy = new AdapterDocSubmissionDeferredRequestProxyWebServiceSecuredImpl() {
             protected Log createLogger() {
                 return mockLogger;
             }
 
-            protected WebServiceProxyHelper createWebServiceProxyHelper() {
-                return proxyHelper;
-            }
-
+       
             protected CONNECTClient<AdapterXDRRequestSecuredPortType> getCONNECTClientSecured(
                     ServicePortDescriptor<AdapterXDRRequestSecuredPortType> portDescriptor, String url,
                     AssertionType assertion) {
