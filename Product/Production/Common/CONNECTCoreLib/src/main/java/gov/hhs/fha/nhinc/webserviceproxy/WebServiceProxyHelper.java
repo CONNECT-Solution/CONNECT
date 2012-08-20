@@ -482,125 +482,16 @@ public class WebServiceProxyHelper {
         //((WSBindingProvider) port).setOutboundHeaders(createdHeaders);
     }
 
-    /**
-     * This method initializes the port and sets various values that are required for processing - like timeout, URL,
-     * etc. This should not be used in any new code it was only placed here as a stop gap during refactor for old code.
-     * After the refactor this should not be used at all.
-     *
-     * @param port The port to be initialized.
-     * @param url The URL to be assigned to the port.
-     * @deprecated
-     */
-    @Deprecated
-    public void initializePort(BindingProvider port, String url) {
-        initializePort(false, port, url, null, null, null);
-    }
+  
+   
 
-    /**
-     * This method initializes the port for an unsecured interface call and sets various values that are required for
-     * processing - like timeout, URL, etc.
-     *
-     * @param port The port to be initialized.
-     * @param url The URL of the web service to be assigned to the port.
-     * @param wsAddressingAction The WS-Addressing action associated with this web service call. If this is null, the
-     *            construction of the WS-Address header will depend on wsdl policy statements.
-     * @param assertion The assertion information.
-     */
-    public void initializeUnsecurePort(BindingProvider port, String url, String wsAddressingAction,
-            AssertionType assertion) {
-        initializePort(false, port, url, null, wsAddressingAction, assertion);
-    }
+   
 
-    /**
-     * This method initializes the port for an secure interface call and sets various values that are required for
-     * processing - like timeout, URL, etc.
-     *
-     * @param port The port to be initialized.
-     * @param url The URL of the web service to be assigned to the port.
-     * @param serviceAction The action for the web service.
-     * @param wsAddressingAction The WS-Addressing action associated with this web service call. If this is null, the
-     *            construction of the WS-Address header will depend on wsdl policy statements.
-     * @param assertion The assertion information.
-     */
-    public void initializeSecurePort(BindingProvider port, String url, String serviceAction, String wsAddressingAction,
-            AssertionType assertion) {
-        initializePort(true, port, url, serviceAction, wsAddressingAction, assertion);
-    }
+   
 
-    /**
-     * This method initializes the port and sets various values that are required for processing - like timeout, URL,
-     * etc.
-     *
-     * @param port The port to be initialized.
-     * @param url The URL of the web service to be assigned to the port.
-     * @param serviceAction The action for the web service.
-     * @param wsAddressingAction The WS-Addressing action associated with this web service call. If this is null, the
-     *            construction of the WS-Address header will depend on wsdl policy statements.
-     * @param assertion The assertion information containing the SAML assertion to be assigned to the message.
-     * @deprecated
-     */
-    @Deprecated
-    public void initializePort(BindingProvider port, String url, String serviceAction, String wsAddressingAction,
-            AssertionType assertion) {
-        boolean bIsSecure = true;
-        if (assertion == null) {
-            bIsSecure = false;
-        }
+    
 
-        initializePort(bIsSecure, port, url, serviceAction, wsAddressingAction, assertion);
-    }
-
-    /**
-     * This method initializes the port and sets various values that are required for processing - like timeout, URL,
-     * etc.
-     *
-     * @param isSecure If TRUE set this up as a secure call.
-     * @param port The port to be initialized.
-     * @param url The URL of the web service to be assigned to the port.
-     * @param serviceAction The action for the web service.
-     * @param wsAddressingAction The WS-Addressing action associated with this web service call. If this is null, the
-     *            construction of the WS-Address header will depend on wsdl policy statements.
-     * @param assertion The assertion information containing the SAML assertion to be assigned to the message.
-     */
-    private void initializePort(boolean isSecure, BindingProvider port, String url, String serviceAction,
-            String wsAddressingAction, AssertionType assertion) {
-        log.info("begin initializePort");
-
-        validateInitializePort(isSecure, port, url, serviceAction, assertion);
-
-        setPortUrl(port, url);
-
-        setPortTimeout(port);
-
-        if (isSecure) {
-            setSAMLForPort(port, serviceAction, assertion);
-        }
-
-        // Create the WS-Addressing Headers - action must be supplied
-        // -----------------------------------------------------------
-        if (wsAddressingAction != null) {
-            setOutboundHeaders(port, wsAddressingAction, assertion);
-        } else {
-            if (assertion != null && (NullChecker.isNotNullish(assertion.getMessageId()))
-                    && !hasProperMessageIDPrefix(assertion.getMessageId())) {
-                fixMessageIDPrefix(assertion);
-            }
-            log.warn("WS-Addressing information is unavailable, relying on wsdl policy");
-        }
-
-        log.info("end initializePort");
-    }
-
-    /**
-     * @param port
-     * @param url
-     * @param wsAddressingAction
-     * @param assertion
-     */
-    private void setOutboundHeaders(BindingProvider port, String wsAddressingAction, AssertionType assertion) {
-        List<Header> createdHeaders = createWSAddressingHeaders(port, wsAddressingAction, assertion);
-        setOutboundHeaders(port, createdHeaders);
-    }
+    
 
     public List<Header> createWSAddressingHeaders(BindingProvider port, String wsAddressingAction,
             AssertionType assertion) {
@@ -618,28 +509,8 @@ public class WebServiceProxyHelper {
         return url;
     }
 
-    /**
-     * @param url
-     * @param serviceAction
-     * @param assertion
-     * @param requestContext
-     */
-    private void setSAMLForPort(BindingProvider port, String serviceAction, AssertionType assertion) {
-        SamlTokenCreator oTokenCreator = getSamlTokenCreator();
-        String url = getUrlFormPort(port);
-        Map samlRequestContext = createSamlRequestContext(oTokenCreator, assertion, url, serviceAction);
-        setSAMLRequestContext(port, samlRequestContext);
-    }
-
-    /**
-     * @param port
-     * @param samlRequestContext
-     */
-    private void setSAMLRequestContext(BindingProvider port, Map samlRequestContext) {
-        Map<String, Object> requestContext = getRequestContextFromPort(port);
-        requestContext.putAll(samlRequestContext);
-    }
-
+   
+   
     /**
      * Sets the webservice port request timeout for the given serviceName webservice request timeouts are set in
      * gateway.properties as ServiceName.webserviceproxy.request.timeout=xxxxx where ServiceName is specified in
@@ -671,83 +542,10 @@ public class WebServiceProxyHelper {
         }
     }
 
-    /**
-     * The com.sun.xml.ws.request.timeout corresponds to the socket read timeout, and so is the amount of time the
-     * client will wait for an http response to be written to the socket
-     *
-     * The com.sun.xml.ws.connect.timeout corresponds to the time the client/server will wait for the http request to be
-     * completely written to the socket. This can generally be around 10 seconds except for xdr, which may require a
-     * large connect timeout to send/push a large doc in http request
-     *
-     * @param port
-     * @param url
-     * @param requestContext
-     */
-    private void setPortTimeout(BindingProvider port) {
-        Map<String, Object> requestContext = getRequestContextFromPort(port);
+   
+   
 
-        int timeout = getTimeout();
-
-        if (log.isInfoEnabled()) {
-            String url = (String) requestContext.get(KEY_URL);
-            log.info("initializing port [url=" + url + "][timeout=" + timeout + "][port=" + port.toString() + "]");
-        }
-
-        if (timeout > 0) {
-            log.debug("setting timeout " + timeout);
-            requestContext.put(KEY_CONNECT_TIMEOUT, timeout);
-            requestContext.put(KEY_REQUEST_TIMEOUT, timeout);
-        } else {
-            log.warn("port timeout not set.  This may lead to undesirable behavior under heavy load");
-        }
-    }
-
-    /**
-     * @param url
-     * @param port
-     * @param url
-     * @param requestContext
-     */
-    private void setPortUrl(BindingProvider port, String url) {
-        Map<String, Object> requestContext = getRequestContextFromPort(port);
-
-        log.debug("setting url " + url);
-
-        if ((requestContext.containsKey(KEY_URL)) && (NullChecker.isNotNullish((String) requestContext.get(KEY_URL)))) {
-            log.info("fyi: url was already set [" + requestContext.get(KEY_URL) + "], however, will re-set it");
-        }
-        requestContext.put(KEY_URL, url);
-    }
-
-    /**
-     * @param isSecure
-     * @param port
-     * @param url
-     * @param serviceAction
-     * @param assertion
-     */
-    private void validateInitializePort(boolean isSecure, BindingProvider port, String url, String serviceAction,
-            AssertionType assertion) {
-        if (port == null) {
-            throw new RuntimeException("Unable to initialize port (port null)");
-        }
-        if (NullChecker.isNullish(url)) {
-            throw new RuntimeException("Unable to initialize port (url null)");
-        }
-        if ((isSecure) && (assertion == null)) {
-            throw new RuntimeException("Unable to initialize secure port (assertion null)");
-        }
-        if ((isSecure) && (NullChecker.isNullish(serviceAction))) {
-            throw new RuntimeException("Unable to initialize secure port (serviceAction null)");
-        }
-
-        Map<String, Object> requestContext = getRequestContextFromPort(port);
-        if (requestContext == null) {
-            throw new RuntimeException("Unable to retrieve request context from the port.");
-        }
-
-    }
-
+   
     /**
      * This method will return the reflection method object for the given class and methodName.
      *

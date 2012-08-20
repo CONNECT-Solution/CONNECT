@@ -111,4 +111,5 @@ public class AdapterMpiProxyWebServiceSecuredImpl implements AdapterMpiProxy {
 
         return response;
     }
+
 }

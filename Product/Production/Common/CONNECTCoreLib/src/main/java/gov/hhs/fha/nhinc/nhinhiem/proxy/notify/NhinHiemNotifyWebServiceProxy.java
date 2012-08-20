@@ -144,8 +144,8 @@ public class NhinHiemNotifyWebServiceProxy implements NhinHiemNotifyProxy {
                 oPort = oService.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), NotificationConsumer.class);
 
                 // Initialize secured port
-                getWebServiceProxyHelper().initializeSecurePort((BindingProvider) oPort, url,
-                        NhincConstants.SUBSCRIBE_ACTION, null, assertIn);
+//                getWebServiceProxyHelper().initializeSecurePort((BindingProvider) oPort, url,
+//                        NhincConstants.SUBSCRIBE_ACTION, null, assertIn);
             } else {
                 log.error("Unable to obtain service - no port created.");
             }

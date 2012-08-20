@@ -120,6 +120,7 @@ public class AdapterMpiProxyWebServiceUnsecuredImpl implements AdapterMpiProxy {
 					+ e.getMessage(), e);
 		}
 
+
 		return response;
 	}
 }
