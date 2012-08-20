@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <handler-config xmlns="http://java.sun.com/xml/ns/javaee">
-  <handler-chains>
-  <handler-chain>
-    <handler>
-      <handler-class>gov.hhs.fha.nhinc.hiem._20.entity.subscribe.EntitySubscribeSoapHeaderHandler</handler-class>
-    </handler>
-  </handler-chain>
-</handler-chains>
+    <handler-chains>
+        <handler-chain>
+            <handler>
+                <handler-class>gov.hhs.fha.nhinc.hiem._20.entity.subscribe.EntitySubscribeSoapHeaderHandler</handler-class>
+            </handler>
+            <handler>
+                <handler-name>PerformanceLogHandler</handler-name>
+                <handler-class>gov.hhs.fha.nhinc.perfrepo.PerformanceLogHandler</handler-class>
+            </handler>
+        </handler-chain>
+    </handler-chains>
 </handler-config>

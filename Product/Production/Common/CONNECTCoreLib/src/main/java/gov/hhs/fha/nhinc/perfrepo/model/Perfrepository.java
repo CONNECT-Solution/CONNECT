@@ -36,15 +36,20 @@ import java.sql.Timestamp;
 public class Perfrepository implements Serializable {
 
     private Long id;
-    private Timestamp starttime;
-    private Timestamp stoptime;
-    private Long duration;
+    private Timestamp time;
     private String servicetype;
     private String messagetype;
     private String direction;
     private String communityid;
     private Integer status;
-
+    
+    private String version;
+    private String payloadType;
+    private String size;
+    private String correlationId;
+    private String otherCommunityId;
+    private String errorCode;
+    
     /**
      * @return id
      */
@@ -59,48 +64,8 @@ public class Perfrepository implements Serializable {
         this.id = id;
     }
 
-    /**
-     * @return starttime
-     */
-    public Timestamp getStarttime() {
-        return starttime;
-    }
-
-    /**
-     * @param starttime new value for starttime
-     */
-    public void setStarttime(Timestamp starttime) {
-        this.starttime = starttime;
-    }
-
-    /**
-     * @return stoptime
-     */
-    public Timestamp getStoptime() {
-        return stoptime;
-    }
-
-    /**
-     * @param stoptime new value for stoptime
-     */
-    public void setStoptime(Timestamp stoptime) {
-        this.stoptime = stoptime;
-    }
-
-    /**
-     * @return duration
-     */
-    public Long getDuration() {
-        return duration;
-    }
-
-    /**
-     * @param duration new value for duration
-     */
-    public void setDuration(Long duration) {
-        this.duration = duration;
-    }
-
+   
+   
     /**
      * @return servicetype
      */
@@ -169,6 +134,68 @@ public class Perfrepository implements Serializable {
      */
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public String getMessageVersion() {
+        return version;
+    }
+
+    public void setMessageVersion(String messageVersion) {
+        this.version = messageVersion;
+    }
+
+    public String getPayLoadType() {
+        return payloadType;
+    }
+
+    public void setPayLoadType(String payLoadType) {
+        this.payloadType = payLoadType;
+    }
+
+    public String getPayLoadSize() {
+        return size;
+    }
+
+    public void setPayLoadSize(String payLoadSize) {
+        this.size = payLoadSize;
+    }
+
+    public String getCorrelationId() {
+        return correlationId;
+    }
+
+    public void setCorrelationId(String correlationId) {
+        this.correlationId = correlationId;
+    }
+
+    public String getOtherCommunityId() {
+        return otherCommunityId;
+    }
+
+    public void setOtherCommunityId(String otherCommunityId) {
+        this.otherCommunityId = otherCommunityId;
+    }
+
+    public String getErrorCode() {
+        return errorCode;
+    }
+
+    public void setErrorCode(String errorCode) {
+        this.errorCode = errorCode;
+    }
+
+    /**
+     * @return the time
+     */
+    public Timestamp getTime() {
+        return time;
+    }
+
+    /**
+     * @param time the time to set
+     */
+    public void setTime(Timestamp time) {
+        this.time = time;
     }
 
 }

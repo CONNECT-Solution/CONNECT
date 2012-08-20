@@ -26,20 +26,27 @@
  */
 package gov.hhs.fha.nhinc.transform.audit;
 
+import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
+import gov.hhs.fha.nhinc.common.hiemauditlog.LogNhinUnsubscribeRequestType;
+import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
+import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
+
+import java.io.ByteArrayOutputStream;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBElement;
+import javax.xml.bind.Marshaller;
+import javax.xml.namespace.QName;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.oasis_open.docs.wsn.b_2.ObjectFactory;
+import org.oasis_open.docs.wsn.b_2.Unsubscribe;
+
 import com.services.nhinc.schema.auditmessage.AuditMessageType;
 import com.services.nhinc.schema.auditmessage.AuditSourceIdentificationType;
 import com.services.nhinc.schema.auditmessage.CodedValueType;
 import com.services.nhinc.schema.auditmessage.ParticipantObjectIdentificationType;
-import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import gov.hhs.fha.nhinc.common.hiemauditlog.LogNhinUnsubscribeRequestType;
-import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
-import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
-import java.io.ByteArrayOutputStream;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBElement;
-import javax.xml.bind.Marshaller;
 
 /**
  * Transforms for unsubscribe messages
@@ -110,12 +117,14 @@ public class UnsubscribeTransforms {
         // Fill in the message field with the contents of the event message
         try {
             JAXBContextHandler oHandler = new JAXBContextHandler();
-            JAXBContext jc = oHandler.getJAXBContext("gov.hhs.fha.nhinc.common.subscription");
+            JAXBContext jc = oHandler.getJAXBContext("http://docs.oasis-open.org/wsn/b-2");
             Marshaller marshaller = jc.createMarshaller();
             ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
             baOutStrm.reset();
-            gov.hhs.fha.nhinc.common.subscription.ObjectFactory factory = new gov.hhs.fha.nhinc.common.subscription.ObjectFactory();
-            JAXBElement oJaxbElement = factory.createUnsubscribe(message.getMessage().getUnsubscribe());
+            
+            JAXBElement<Unsubscribe> oJaxbElement = new JAXBElement<Unsubscribe>(
+            		new QName("http://docs.oasis-open.org/wsn/b-2", "Unsubscribe"), Unsubscribe.class , 
+            		message.getMessage().getUnsubscribe());
             baOutStrm.close();
             marshaller.marshal(oJaxbElement, baOutStrm);
             log.debug("Done marshalling the message.");

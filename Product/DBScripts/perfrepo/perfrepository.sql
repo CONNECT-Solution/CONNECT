@@ -14,7 +14,13 @@ CREATE TABLE perfrepo.perfrepository (
   direction VARCHAR(10) NULL,
   communityid VARCHAR(255) NULL,
   status INT NULL DEFAULT 0,
-  PRIMARY KEY (id),
+  version VARCHAR(10),
+  size VARCHAR(10),
+  payloadtype VARCHAR(10),
+  correlationid VARCHAR(255),
+  othercommunityid VARCHAR(255),
+  errorcode VARCHAR(10),
+ PRIMARY KEY (id),
   UNIQUE INDEX id_UNIQUE (id ASC) )
 COMMENT = 'Performance Monitor Repository';
 

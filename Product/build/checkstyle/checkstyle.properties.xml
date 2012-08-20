@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project name="checkstyle.properties">
-  <property name="checkstyle.report.dir.path" value="CheckstyleReport"/>
-  <property name="checkstyle.report.file.name" value="CheckstyleReport.xml"/>
-	<property name="checkstyle.report.file.path" value="${checkstyle.report.dir.path}/${checkstyle.report.file.name}"/>
-	<property name="checkstyle.configuration.file.path" value="${root.project.directory.path}/checkstyle.settings.xml"/>
-  <property name="checkstyle.xsl.file.path" value="${root.project.directory.path}/build/checkstyle/checkstyle-noframes-sorted.xsl"/>
-	<property name="checkstyle.src.dir" value="${root.project.directory.path}/Production"/>
-</project>

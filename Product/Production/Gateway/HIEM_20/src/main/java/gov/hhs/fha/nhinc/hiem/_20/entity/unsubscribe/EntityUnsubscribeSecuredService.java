@@ -45,7 +45,7 @@ public class EntityUnsubscribeSecuredService {
     private WebServiceContext context;
 
     public org.oasis_open.docs.wsn.b_2.UnsubscribeResponse unsubscribe(
-            org.oasis_open.docs.wsn.b_2.Unsubscribe unsubscribeRequestSecured) throws
+            org.oasis_open.docs.wsn.b_2.Unsubscribe unsubscribeRequestSecured) throws ResourceUnknownFault,
             UnableToDestroySubscriptionFault, Exception {
         return new EntityUnsubscribeServiceImpl().unsubscribe(unsubscribeRequestSecured, context);
     }

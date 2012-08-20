@@ -927,9 +927,13 @@ public class Page2 extends AbstractPageBean {
         }
 
         InputStream xsl = getExternalContext().getResourceAsStream("/WEB-INF/CCD.xsl");
-
+		InputStream xml = new ByteArrayInputStream(document.getBytes());
+		
         String html = convertXMLToHTML(new ByteArrayInputStream(document.getBytes()), xsl);
 
+		xsl.close();
+		xml.close();
+		
         log.debug("HTML PAGE: " + html);
 
         if (html == null || html.isEmpty()) {

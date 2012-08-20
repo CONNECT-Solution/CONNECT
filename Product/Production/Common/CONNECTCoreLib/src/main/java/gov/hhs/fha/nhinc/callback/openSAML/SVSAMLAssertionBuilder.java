@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package gov.hhs.fha.nhinc.callback.openSAML;
 
@@ -11,11 +11,9 @@ import org.w3c.dom.Element;
  */
 public class SVSAMLAssertionBuilder extends SAMLAssertionBuilder {
 
-	/**
-	 * @param properties
-	 */
+
 	SVSAMLAssertionBuilder() {
-		
+
 	}
 
 	/* (non-Javadoc)

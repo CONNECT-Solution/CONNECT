@@ -29,7 +29,7 @@ package gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.request;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.orchestration.Orchestratable;
 import gov.hhs.fha.nhinc.orchestration.OrchestrationContextBuilder;
-import gov.hhs.fha.nhinc.orchestration.OrchestrationContextFactoryImpl;
+import gov.hhs.fha.nhinc.orchestration.OrchestrationContextFactory;
 import gov.hhs.fha.nhinc.orchestration.OutboundDelegate;
 import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratable;
 
@@ -58,7 +58,7 @@ public class OutboundPatientDiscoveryDeferredRequestDelegate implements Outbound
             getLogger().debug("processing PD Deferred Request orchestratable ");
             OutboundPatientDiscoveryDeferredRequestOrchestratable pdMessage = (OutboundPatientDiscoveryDeferredRequestOrchestratable) message;
 
-            OrchestrationContextBuilder contextBuilder = OrchestrationContextFactoryImpl.getInstance().getBuilder(
+            OrchestrationContextBuilder contextBuilder = OrchestrationContextFactory.getInstance().getBuilder(
                     pdMessage.getTarget().getHomeCommunity(), NhincConstants.NHIN_SERVICE_NAMES.PATIENT_DISCOVERY_DEFERRED_REQUEST);
 
             if (contextBuilder instanceof OutboundPatientDiscoveryDeferredRequestOrchestrationContextBuilder_g0) {

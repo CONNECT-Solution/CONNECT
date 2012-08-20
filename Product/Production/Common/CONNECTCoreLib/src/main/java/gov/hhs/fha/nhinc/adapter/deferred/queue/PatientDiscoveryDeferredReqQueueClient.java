@@ -26,6 +26,9 @@
  */
 package gov.hhs.fha.nhinc.adapter.deferred.queue;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import gov.hhs.fha.nhinc.adapter.deferred.queue.service.AdapterPatientDiscoveryDeferredReqQueueProcessServicePortDescriptor;
 import gov.hhs.fha.nhinc.adapterpatientdiscoveryreqqueueprocess.AdapterPatientDiscoveryDeferredReqQueueProcessPortType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
@@ -39,11 +42,8 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 /**
- * 
+ *
  * @author richard.ettema
  */
 public class PatientDiscoveryDeferredReqQueueClient {
@@ -62,7 +62,7 @@ public class PatientDiscoveryDeferredReqQueueClient {
 
     /**
      * Send queue process request for a deferred patient discovery queue record
-     * 
+     *
      * @param messageId
      * @return queue process response
      */
@@ -79,11 +79,13 @@ public class PatientDiscoveryDeferredReqQueueClient {
             String endpointURL = getUrl(SERVICE_NAME);
 
             if (NullChecker.isNotNullish(endpointURL)) {
-                ServicePortDescriptor<AdapterPatientDiscoveryDeferredReqQueueProcessPortType> portDescriptor = new AdapterPatientDiscoveryDeferredReqQueueProcessServicePortDescriptor();
+                ServicePortDescriptor<AdapterPatientDiscoveryDeferredReqQueueProcessPortType> portDescriptor =
+                        new AdapterPatientDiscoveryDeferredReqQueueProcessServicePortDescriptor();
                 CONNECTClient<AdapterPatientDiscoveryDeferredReqQueueProcessPortType> client = CONNECTClientFactory
                         .getInstance().getCONNECTClientUnsecured(portDescriptor, endpointURL, null);
 
-                PatientDiscoveryDeferredReqQueueProcessRequestType request = new PatientDiscoveryDeferredReqQueueProcessRequestType();
+                PatientDiscoveryDeferredReqQueueProcessRequestType request =
+                        new PatientDiscoveryDeferredReqQueueProcessRequestType();
                 request.setMessageId(messageId);
                 response = (PatientDiscoveryDeferredReqQueueProcessResponseType) client.invokePort(
                         AdapterPatientDiscoveryDeferredReqQueueProcessPortType.class,

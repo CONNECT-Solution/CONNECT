@@ -100,7 +100,6 @@ public class HOKSAMLAssertionBuilderTest {
 
             @Override
             public X509Certificate getDefaultCertificate() throws Exception {
-                // TODO Auto-generated method stub
                 return new X509Certificate() {
 
                     @Override

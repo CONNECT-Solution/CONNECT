@@ -32,6 +32,7 @@ import javax.jws.WebService;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 
+import gov.hhs.fha.nhinc.nhincproxysubscriptionmanagement.ResourceUnknownFault;
 import gov.hhs.fha.nhinc.nhincproxysubscriptionmanagement.UnableToDestroySubscriptionFault;
 
 /**
@@ -47,7 +48,7 @@ public class ProxyHiemUnsubscribeSecured {
 
     public org.oasis_open.docs.wsn.b_2.UnsubscribeResponse unsubscribe(
             gov.hhs.fha.nhinc.common.nhinccommonproxy.UnsubscribeRequestSecuredType unsubscribeRequestSecured)
-            throws UnableToDestroySubscriptionFault, Exception {
+            throws ResourceUnknownFault, UnableToDestroySubscriptionFault, Exception {
         return new ProxyHiemUnsubscribeImpl().unsubscribe(unsubscribeRequestSecured, context);
     }
 

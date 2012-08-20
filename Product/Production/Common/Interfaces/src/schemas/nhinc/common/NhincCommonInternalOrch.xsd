@@ -79,7 +79,7 @@
 
     <xsd:complexType name="UnsubscribeRequestType" >
         <xsd:sequence>
-            <xsd:element ref="ncsub:Unsubscribe"/>
+            <xsd:element ref="wsnt:Unsubscribe"/>
             <xsd:element name="assertion" type="nccommon:AssertionType" />
         </xsd:sequence>
     </xsd:complexType>

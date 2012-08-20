@@ -45,7 +45,7 @@ layer of abstraction
     <import file="soapui/soapui.targets.xml"/>
     <import file="corbertura/corbertura.targets.xml"/>
     <import file="${build.targets.basedir.location}/../Install/deploy.xml"/>
-    <import file="checkstyle/checkstyle.targets.xml"/>
+    <import file="static.analysis/static.analysis.targets.xml"/>
     <import file="licensetool/license.targets.xml"/>
 
     <property name="calling.anttarget.from.netbeans" value="false"/>
@@ -274,8 +274,9 @@ layer of abstraction
         <call target="coverage.instrument.package"/>
     </target>
 
-    <target name="checkstyle">
-        <call target="checkstyle.style"/>
+    <target name="static.analysis" depends="static.analysis.clean">
+        <call target="checkstyle"/>
+        <call target="pmd"/>
     </target>
 
     <target name="scratch.files">

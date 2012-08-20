@@ -260,6 +260,7 @@ public class NhincConstants {
     public static final String AUDIT_LOG_INBOUND_DIRECTION = "Inbound";
     public static final String AUDIT_LOG_OUTBOUND_DIRECTION = "Outbound";
     public static final String AUDIT_LOG_ENTITY_INTERFACE = "Entity";
+    public static final String AUDIT_LOG_PROXY_INTERFACE = "Proxy";
     public static final String AUDIT_LOG_NHIN_INTERFACE = "Nhin";
     public static final String AUDIT_LOG_ADAPTER_INTERFACE = "Adapter";
     public static final String AUDIT_LOG_DEFERRED_TYPE = "Deferred";
@@ -413,6 +414,7 @@ public class NhincConstants {
     public static final String NHINC_PATIENT_DISCOVERY_ASYNC_REQ_SERVICE_NAME = "servicePatientDiscoveryAsyncReq";
     public static final String NHINC_PATIENT_DISCOVERY_ASYNC_RESP_SERVICE_NAME = "servicePatientDiscoveryAsyncResp";
     public static final String PATIENT_DISCOVERY_SERVICE_NAME = "PatientDiscovery";
+    public static final String PATIENT_DISCOVERY_DEFERRED_SERVICE_NAME = "DeferredPatientDiscovery";
     public static final String PATIENT_DISCOVERY_DEFERRED_REQ_SERVICE_NAME = "PatientDiscoveryDeferredReq";
     public static final String PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME = "PatientDiscoveryDeferredResp";
     public static final String PATIENT_DISCOVERY_SERVICE_PASSTHRU_PROPERTY = "patientDiscoveryPassthrough";

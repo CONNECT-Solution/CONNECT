@@ -232,26 +232,24 @@
                                         <param name="actualBranchrate" path="@actualBrnchRate" />
                                         <actions>
                                             <var name="branchrate" value="@{branchrate}" />
+                                            <converttopercent name="branchrate.percent" value="${branchrate}"/>
                                             <var name="linerate" value="@{linerate}" />
+                                            <converttopercent name="linerate.percent" value="${linerate}"/>
                                             <var name="class" value="@{class}" />
                                             <var name="actualLineRate" value="@{actualLinerate}" />
                                             <var name="actualBrnchRate" value="@{actualBranchrate}" />
                                             <if>
-                                                <compare less="${linerate}" greater="${actualLineRate}" />
+                                                <compare less="${linerate.percent}" greater="${actualLineRate}" />
                                                 <then>
                                                     <property name="coverage.failures" value="true"/>
-                                                    <converttopercent name="current.linerate.percent" value="${linerate}"/>
-                                                    <converttopercent name="actual.linerate.percent" value="${actualLineRate}"/>
-                                                    <echo message="Project ${project.name}, Class @{class} failed check. Line coverage rate of ${linerate} % is below ${actualLineRate}%."/>
+                                                    <echo message="Project ${project.name}, Class @{class} failed check. Line coverage rate of ${linerate.percent} % is below ${actualLineRate}%."/>
                                                 </then>
                                             </if>
                                             <if>
-                                                <compare less="${branchrate}" greater="${actualBrnchRate}" />
+                                                <compare less="${branchrate.percent}" greater="${actualBrnchRate}" />
                                                 <then>
                                                     <property name="coverage.failures" value="true"/>
-                                                    <converttopercent name="current.branchrate.percent" value="${branchrate}"/>
-                                                    <converttopercent name="actaul.branchrate.percent" value="${actualBrnchRate}"/>
-                                                    <echo message="Project ${project.name}, Class @{class} failed check. Branch coverage rate of ${branchrate}% is below ${actualBrnchRate}%."/>
+                                                    <echo message="Project ${project.name}, Class @{class} failed check. Branch coverage rate of ${branchrate.percent}% is below ${actualBrnchRate}%."/>
                                                 </then>
                                             </if>
                                         </actions>

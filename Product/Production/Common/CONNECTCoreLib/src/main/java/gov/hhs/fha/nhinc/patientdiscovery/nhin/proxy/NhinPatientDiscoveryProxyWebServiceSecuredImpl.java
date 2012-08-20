@@ -47,13 +47,13 @@ import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
 
 /**
- * 
+ *
  * @author jhoppesc
  */
 public class NhinPatientDiscoveryProxyWebServiceSecuredImpl implements NhinPatientDiscoveryProxy {
 
     private Log log = null;
-    private WebServiceProxyHelper oProxyHelper = new WebServiceProxyHelper();
+    private final WebServiceProxyHelper oProxyHelper = new WebServiceProxyHelper();
 
     /**
      * Default constructor.
@@ -64,13 +64,14 @@ public class NhinPatientDiscoveryProxyWebServiceSecuredImpl implements NhinPatie
 
     /**
      * Creates the log object for logging.
-     * 
+     *
      * @return The log object.
      */
     protected Log createLogger() {
         return ((log != null) ? log : LogFactory.getLog(getClass()));
     }
 
+    @Override
     public PRPAIN201306UV02 respondingGatewayPRPAIN201305UV02(PRPAIN201305UV02 request, AssertionType assertion,
             NhinTargetSystemType target) throws Exception {
         PRPAIN201306UV02 response = new PRPAIN201306UV02();
@@ -107,11 +108,6 @@ public class NhinPatientDiscoveryProxyWebServiceSecuredImpl implements NhinPatie
 
                     response = (PRPAIN201306UV02) client.invokePort(RespondingGatewayPortType.class,
                             "respondingGatewayPRPAIN201305UV02", request);
-
-                    // Log the end of the performance record
-                    Timestamp stoptime = new Timestamp(System.currentTimeMillis());
-                    PerformanceManager.getPerformanceManagerInstance().logPerformanceStop(logId, starttime, stoptime);
-
                 } else {
                     log.error("Failed to call the web service (" + NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME
                             + ").  The URL is null.");
@@ -130,5 +126,4 @@ public class NhinPatientDiscoveryProxyWebServiceSecuredImpl implements NhinPatie
 
         return response;
     }
-
 }

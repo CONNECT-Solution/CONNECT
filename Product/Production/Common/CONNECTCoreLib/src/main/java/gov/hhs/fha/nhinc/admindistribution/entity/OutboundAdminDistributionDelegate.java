@@ -54,7 +54,7 @@ public class OutboundAdminDistributionDelegate implements OutboundDelegate {
             getLogger().debug("processing AD orchectratable ");
             OutboundAdminDistributionOrchestratable adMessage = (OutboundAdminDistributionOrchestratable) message;
 
-            OrchestrationContextBuilder contextBuilder = OrchestrationContextFactoryImpl.getInstance().getBuilder(
+            OrchestrationContextBuilder contextBuilder = OrchestrationContextFactory.getInstance().getBuilder(
                     adMessage.getTarget().getHomeCommunity(), NhincConstants.NHIN_SERVICE_NAMES.ADMINISTRATIVE_DISTRIBUTION);
 
             if (contextBuilder instanceof OutboundAdminDistributionOrchestrationContextBuilder_g0) {

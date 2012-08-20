@@ -1,10 +1,14 @@
 /*
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
- *  
+ *
  * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
- *  
+ *
  */
 package gov.hhs.fha.nhinc.docretrieve._30.entity;
+
+import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
+
+import javax.xml.ws.WebServiceContext;
 
 import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
@@ -16,7 +20,6 @@ import gov.hhs.fha.nhinc.docretrieve.entity.OutboundDocRetrieveOrchestratable;
 import gov.hhs.fha.nhinc.docretrieve.entity.OutboundDocRetrieveOrchestratableImpl;
 import gov.hhs.fha.nhinc.docretrieve.entity.OutboundDocRetrieveOrchestratorImpl;
 import gov.hhs.fha.nhinc.docretrieve.entity.OutboundDocRetrievePolicyTransformer_a0;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.orchestration.AuditTransformer;
 import gov.hhs.fha.nhinc.orchestration.NhinAggregator;
 import gov.hhs.fha.nhinc.orchestration.OutboundDelegate;
@@ -28,7 +31,7 @@ import java.sql.Timestamp;
 import javax.xml.ws.WebServiceContext;
 
 /**
- * 
+ *
  * @author dunnek
  */
 public class EntityDocRetreiveImpl {
@@ -50,7 +53,7 @@ public class EntityDocRetreiveImpl {
 
     /**
      * Entity inbound respondingGatewayCrossGatewayRetrieve
-     * 
+     *
      * @param body
      * @param assertion
      * @return
@@ -58,26 +61,14 @@ public class EntityDocRetreiveImpl {
     public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(
             ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType body, AssertionType assertion) {
 
-        // Log the start of the performance record
-        String homeCommunityId = HomeCommunityMap.getLocalHomeCommunityId();
-        Timestamp starttime = new Timestamp(System.currentTimeMillis());
-        Long logId = PerformanceManager.getPerformanceManagerInstance().logPerformanceStart(starttime,
-                NhincConstants.DOC_RETRIEVE_SERVICE_NAME, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE,
-                NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, homeCommunityId);
-
         PolicyTransformer pt = new OutboundDocRetrievePolicyTransformer_a0();
         AuditTransformer at = new OutboundDocRetrieveAuditTransformer_a0();
         OutboundDelegate nd = new OutboundDocRetrieveDelegate();
         NhinAggregator na = new OutboundDocRetrieveAggregator_a0();
-        OutboundDocRetrieveOrchestratable EntityDROrchImpl = new OutboundDocRetrieveOrchestratableImpl(body,
-                assertion, pt, at, nd, na, null);
+        OutboundDocRetrieveOrchestratable EntityDROrchImpl = new OutboundDocRetrieveOrchestratableImpl(body, assertion,
+                pt, at, nd, na, null);
         OutboundDocRetrieveOrchestratorImpl oOrchestrator = new OutboundDocRetrieveOrchestratorImpl();
         oOrchestrator.process(EntityDROrchImpl);
-
-        // Log the end of the performance record
-        Timestamp stoptime = new Timestamp(System.currentTimeMillis());
-        PerformanceManager.getPerformanceManagerInstance().logPerformanceStop(logId, starttime, stoptime);
-
         return EntityDROrchImpl.getResponse();
     }
 

@@ -72,7 +72,7 @@ public class AuditRepositoryOrchImpl {
     private static String logStatus = "";
 
     /**
-     * constructor
+     * constructor.
      */
     public AuditRepositoryOrchImpl() {
         log.debug("AuditRepositoryOrchImpl Initialized");
@@ -80,9 +80,10 @@ public class AuditRepositoryOrchImpl {
 
     /**
      * This method is the actual implementation method for AuditLogMgr Service to Log the AuditEvents and responses the
-     * status of logging
+     * status of logging.
      * 
      * @param mess
+     * @param assertion
      * @return gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType
      */
     public AcknowledgementType logAudit(LogEventSecureRequestType mess, AssertionType assertion) {

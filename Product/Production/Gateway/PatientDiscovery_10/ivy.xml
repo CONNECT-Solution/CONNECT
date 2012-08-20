@@ -8,11 +8,7 @@
         <conf name="compile" extends="runtime" description="libraries we will need to compile the project (example: j2ee.jar)" />
         <conf name="test" description="what we need to run unit tests" />
     </configurations>
-
-    <dependencies>
-        <!-- To find dependency params use http://www.mavensearch.net/ to find the XML descriptor. then org=groupId, name=artifactId, 
-            rev=version -->
-
+  <dependencies>
         <!-- Project dependencies -->
         <dependency name="CONNECTCoreLib" rev="latest.integration">
             <exclude module="CONNECTCoreLib" />
