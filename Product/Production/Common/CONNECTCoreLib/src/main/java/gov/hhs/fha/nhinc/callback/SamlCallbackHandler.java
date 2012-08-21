@@ -34,6 +34,11 @@ import java.security.NoSuchAlgorithmException;
 import java.security.UnrecoverableKeyException;
 import java.security.cert.CertificateException;
 import gov.hhs.fha.nhinc.callback.purposeuse.*;
+import gov.hhs.fha.nhinc.connectmgr.NhinEndpointManager;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants.NHIN_SERVICE_NAMES;
+import gov.hhs.fha.nhinc.util.AddressingActionToServiceNameMapping;
 
 import java.util.*;
 import java.security.KeyStore;
@@ -51,6 +56,7 @@ import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import org.w3c.dom.*;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import javax.security.auth.x500.X500Principal;
@@ -68,7 +74,7 @@ public class SamlCallbackHandler implements CallbackHandler {
     private static Log log = LogFactory.getLog(SamlCallbackHandler.class);
     // Valid Evidence Assertion versions
     private static final String ASSERTION_VERSION_2_0 = "2.0";
-    private static final String[] VALID_ASSERTION_VERSION_ARRAY = {ASSERTION_VERSION_2_0 };
+    private static final String[] VALID_ASSERTION_VERSION_ARRAY = {ASSERTION_VERSION_2_0};
     private static final List<String> VALID_ASSERTION_VERSION_LIST = Collections.unmodifiableList(Arrays
             .asList(VALID_ASSERTION_VERSION_ARRAY));
     // Valid Authorization Decision values
@@ -76,7 +82,7 @@ public class SamlCallbackHandler implements CallbackHandler {
     private static final String AUTHZ_DECISION_DENY = "Deny";
     private static final String AUTHZ_DECISION_INDETERMINATE = "Indeterminate";
     private static final String[] VALID_AUTHZ_DECISION_ARRAY = {AUTHZ_DECISION_PERMIT, AUTHZ_DECISION_DENY,
-            AUTHZ_DECISION_INDETERMINATE };
+            AUTHZ_DECISION_INDETERMINATE};
     private static final List<String> VALID_AUTHZ_DECISION_LIST = Collections.unmodifiableList(Arrays
             .asList(VALID_AUTHZ_DECISION_ARRAY));
     // Authorization Decision Action is always set to Execute
@@ -93,7 +99,7 @@ public class SamlCallbackHandler implements CallbackHandler {
     private static final String PERSISTENT_NAME_ID = "urn:oasis:names:tc:SAML:1.1:nameid-format:persistent";
     private static final String TRANSIENT_NAME_ID = "urn:oasis:names:tc:SAML:1.1:nameid-format:transient";
     private static final String[] VALID_NAME_ID_ARRAY = {UNSPECIFIED_NAME_ID, EMAIL_NAME_ID, X509_NAME_ID,
-            WINDOWS_NAME_ID, KERBEROS_NAME_ID, ENTITY_NAME_ID, PERSISTENT_NAME_ID, TRANSIENT_NAME_ID };
+            WINDOWS_NAME_ID, KERBEROS_NAME_ID, ENTITY_NAME_ID, PERSISTENT_NAME_ID, TRANSIENT_NAME_ID};
     private static final List<String> VALID_NAME_LIST = Collections
             .unmodifiableList(Arrays.asList(VALID_NAME_ID_ARRAY));
     // Valid Context Class references
@@ -116,7 +122,7 @@ public class SamlCallbackHandler implements CallbackHandler {
             INTERNET_PASSWORD_AUTHN_CNTX_CLS, PASSWORD_AUTHN_CNTX_CLS, PASSWORD_TRANS_AUTHN_CNTX_CLS,
             KERBEROS_AUTHN_CNTX_CLS, PREVIOUS_AUTHN_CNTX_CLS, REMOTE_AUTHN_CNTX_CLS, TLS_AUTHN_CNTX_CLS,
             X509_AUTHN_CNTX_CLS, PGP_AUTHN_CNTX_CLS, SPKI_AUTHN_CNTX_CLS, DIG_SIGN_AUTHN_CNTX_CLS,
-            UNSPECIFIED_AUTHN_CNTX_CLS };
+            UNSPECIFIED_AUTHN_CNTX_CLS};
     private static final List<String> VALID_AUTHN_CNTX_CLS_LIST = Collections.unmodifiableList(Arrays
             .asList(VALID_AUTHN_CNTX_CLS_ARRAY));
     private static final String AUTHN_SESSION_INDEX = "123456";
@@ -129,12 +135,8 @@ public class SamlCallbackHandler implements CallbackHandler {
     protected HashMap<Object, Object> tokenVals = new HashMap<Object, Object>();
     private KeyStore keyStore;
     private KeyStore trustStore;
-    private static Element svAssertion;
-    private static Element hokAssertion20;
     private static HashMap<String, String> factoryVersionMap = new HashMap<String, String>();
     private static final String ID_PREFIX = "_";
-
-    private static final String PURPOSE_FOR_USE_DEPRECATED_ENABLED = "purposeForUseEnabled";
 
     static {
         // WORKAROUND NEEDED IN METRO1.4. TO BE REMOVED LATER.
@@ -183,10 +185,8 @@ public class SamlCallbackHandler implements CallbackHandler {
                 log.debug("=============== Completed Print properties =============");
                 if (samlCallback.getConfirmationMethod().equals(SAMLCallback.HOK_ASSERTION_TYPE)) {
                     samlCallback.setAssertionElement(createHOKSAMLAssertion20());
-                    hokAssertion20 = samlCallback.getAssertionElement();
                 } else if (samlCallback.getConfirmationMethod().equals(SAMLCallback.SV_ASSERTION_TYPE)) {
                     samlCallback.setAssertionElement(createSVSAMLAssertion20());
-                    svAssertion = samlCallback.getAssertionElement();
                 } else {
                     log.error("Unknown SAML Assertion Type: " + samlCallback.getConfirmationMethod());
                     throw new UnsupportedCallbackException(null, "SAML Assertion Type is not matched:"
@@ -331,10 +331,10 @@ public class SamlCallbackHandler implements CallbackHandler {
     }
 
     /**
-     * Both the Issuer and the Subject elements have a NameID element which is formed through this method. 
-     * Currently default data is used to specify the required Issuer information. However, the Subject information
-     * is defined based on the stored value of the userid. If this is a legal X509 structute the NameId is
-     * constructed in that format, if not it is constructed as an "Unspecified" format.
+     * Both the Issuer and the Subject elements have a NameID element which is formed through this method. Currently
+     * default data is used to specify the required Issuer information. However, the Subject information is defined
+     * based on the stored value of the userid. If this is a legal X509 structute the NameId is constructed in that
+     * format, if not it is constructed as an "Unspecified" format.
      * 
      * @param factory The factory object used to assist in the construction of the SAML Assertion token
      * @param assId Identifies this as default usage case or one with declared value.
@@ -377,7 +377,6 @@ public class SamlCallbackHandler implements CallbackHandler {
         return nmId;
     }
 
-   
     /**
      * Creates the authentication statement, the attribute statements, and the authorization decision statements for
      * placement in the SAML Assertion.
@@ -647,12 +646,33 @@ public class SamlCallbackHandler implements CallbackHandler {
             // Add the Purpose Of/For Use Attribute Value
             List attributeValues4 = new ArrayList();
             final Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
-            final Element elemPFUAttr = document.createElementNS("urn:oasis:names:tc:SAML:2.0:assertion", "AttibuteValue");
+            final Element elemPFUAttr = document.createElementNS("urn:oasis:names:tc:SAML:2.0:assertion",
+                    "AttibuteValue");
 
-            PurposeUseProxyObjectFactory purposeFactory = new PurposeUseProxyObjectFactory();
-            PurposeUseProxy purposeUse = purposeFactory.getPurposeUseProxy();
-             
-            Element purpose = createPurposeUseElement(document, purposeUse.createPurposeUseElement(tokenVals));
+            // determine 2010 vs 2011 spec version
+            GATEWAY_API_LEVEL apiLevel = (GATEWAY_API_LEVEL)tokenVals.get(NhincConstants.TARGET_API_LEVEL);
+            String hcid = (String)tokenVals.get(NhincConstants.WS_SOAP_TARGET_HOME_COMMUNITY_ID);
+            String action = (String)tokenVals.get(NhincConstants.ACTION_PROP);
+            NHIN_SERVICE_NAMES serviceName = null;
+            try {
+                serviceName = NHIN_SERVICE_NAMES.fromValueString(action);//AddressingActionToServiceNameMapping.get(action);
+            } catch  (IllegalArgumentException exc) {
+                // Do nothing, this isnt an NHIN service.
+            }
+            boolean purposeFor = false;
+            
+            if (apiLevel == null && serviceName != null && hcid != null) {
+                NhinEndpointManager nem = new NhinEndpointManager();
+                apiLevel = nem.getApiVersion(hcid, serviceName);
+            }
+            
+            if (GATEWAY_API_LEVEL.LEVEL_g0 == apiLevel) {
+                PurposeUseProxyObjectFactory purposeFactory = new PurposeUseProxyObjectFactory();
+                PurposeUseProxy purposeUse = purposeFactory.getPurposeUseProxy();
+                purposeFor = purposeUse.createPurposeUseElement(tokenVals);
+            }
+                
+            Element purpose = createPurposeUseElement(document, purposeFor);
 
             elemPFUAttr.appendChild(purpose);
 
@@ -709,11 +729,10 @@ public class SamlCallbackHandler implements CallbackHandler {
     }
 
     /**
-     * Creates the Evidence element.
-     * The Evidence element encompasses the Assertion defining the
-     * authorization form needed in cases where evidence of authorization to
-     * access the medical records must be provided along with the message request
-
+     * Creates the Evidence element. The Evidence element encompasses the Assertion defining the authorization form
+     * needed in cases where evidence of authorization to access the medical records must be provided along with the
+     * message request
+     * 
      * @return
      * @throws SAMLException
      * @throws XWSSecurityException
@@ -1134,6 +1153,7 @@ public class SamlCallbackHandler implements CallbackHandler {
 
     /**
      * Creates the purposeOfUse/purposeForUse element.
+     * 
      * @param document The document for which this element is to be added
      * @param purposeForUseEnabled true if purposeForUse should be used
      * @return the created element
@@ -1144,7 +1164,7 @@ public class SamlCallbackHandler implements CallbackHandler {
             purposeAttributeValueName = "hl7:PurposeForUse";
         }
 
-        Element element =  document.createElementNS(HL7_NS, purposeAttributeValueName);
+        Element element = document.createElementNS(HL7_NS, purposeAttributeValueName);
         return element;
     }
 }

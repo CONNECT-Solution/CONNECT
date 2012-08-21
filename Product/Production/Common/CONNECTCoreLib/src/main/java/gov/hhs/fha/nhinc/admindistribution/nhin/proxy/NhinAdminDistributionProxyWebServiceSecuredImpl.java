@@ -86,6 +86,7 @@ public class NhinAdminDistributionProxyWebServiceSecuredImpl implements NhinAdmi
 
             SamlTokenCreator tokenCreator = new SamlTokenCreator();
             Map requestContext = tokenCreator.CreateRequestContext(assertion, url, NhincConstants.ADMIN_DIST_ACTION);
+            requestContext.put(NhincConstants.TARGET_API_LEVEL, apiLevel);
 
             ((BindingProvider) port).getRequestContext().putAll(requestContext);
 

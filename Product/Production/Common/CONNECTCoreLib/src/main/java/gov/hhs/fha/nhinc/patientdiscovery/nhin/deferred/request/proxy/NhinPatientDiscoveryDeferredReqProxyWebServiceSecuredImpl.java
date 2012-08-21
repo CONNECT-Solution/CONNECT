@@ -131,7 +131,7 @@ public class NhinPatientDiscoveryDeferredReqProxyWebServiceSecuredImpl implement
 
                 if (NullChecker.isNotNullish(url)) {
                     RespondingGatewayDeferredRequestPortType port = getPort(url,
-                            NhincConstants.PATIENT_DISCOVERY_ACTION, WS_ADDRESSING_ACTION, assertion);
+                            NhincConstants.PATIENT_DISCOVERY_DEFERRED_REQ_SERVICE_NAME, WS_ADDRESSING_ACTION, assertion);
                     WebServiceProxyHelper wsHelper = new WebServiceProxyHelper();
                     wsHelper.addTargetCommunity(((BindingProvider)port), target);
 

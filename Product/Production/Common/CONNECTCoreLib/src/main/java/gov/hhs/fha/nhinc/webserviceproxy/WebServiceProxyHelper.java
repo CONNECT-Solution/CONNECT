@@ -357,7 +357,7 @@ public class WebServiceProxyHelper {
      * @param port The port containing the request context.
      * @return The request context.
      */
-    protected Map<String, Object> getRequestContextFromPort(BindingProvider port) {
+    public Map<String, Object> getRequestContextFromPort(BindingProvider port) {
         return port.getRequestContext();
     }
 
@@ -524,9 +524,9 @@ public class WebServiceProxyHelper {
      *            construction of the WS-Address header will depend on wsdl policy statements.
      * @param assertion The assertion information.
      */
-    public void initializeSecurePort(BindingProvider port, String url, String serviceAction, String wsAddressingAction,
+    public void initializeSecurePort(BindingProvider port, String url, String serviceName, String wsAddressingAction,
             AssertionType assertion) {
-        initializePort(true, port, url, serviceAction, wsAddressingAction, assertion);
+        initializePort(true, port, url, serviceName, wsAddressingAction, assertion);
     }
 
     /**
@@ -535,21 +535,21 @@ public class WebServiceProxyHelper {
      *
      * @param port The port to be initialized.
      * @param url The URL of the web service to be assigned to the port.
-     * @param serviceAction The action for the web service.
+     * @param serviceName The action for the web service.
      * @param wsAddressingAction The WS-Addressing action associated with this web service call. If this is null, the
      *            construction of the WS-Address header will depend on wsdl policy statements.
      * @param assertion The assertion information containing the SAML assertion to be assigned to the message.
      * @deprecated
      */
     @Deprecated
-    public void initializePort(BindingProvider port, String url, String serviceAction, String wsAddressingAction,
+    public void initializePort(BindingProvider port, String url, String serviceName, String wsAddressingAction,
             AssertionType assertion) {
         boolean bIsSecure = true;
         if (assertion == null) {
             bIsSecure = false;
         }
 
-        initializePort(bIsSecure, port, url, serviceAction, wsAddressingAction, assertion);
+        initializePort(bIsSecure, port, url, serviceName, wsAddressingAction, assertion);
     }
 
     /**
@@ -559,23 +559,23 @@ public class WebServiceProxyHelper {
      * @param isSecure If TRUE set this up as a secure call.
      * @param port The port to be initialized.
      * @param url The URL of the web service to be assigned to the port.
-     * @param serviceAction The action for the web service.
+     * @param serviceName The action for the web service.
      * @param wsAddressingAction The WS-Addressing action associated with this web service call. If this is null, the
      *            construction of the WS-Address header will depend on wsdl policy statements.
      * @param assertion The assertion information containing the SAML assertion to be assigned to the message.
      */
-    private void initializePort(boolean isSecure, BindingProvider port, String url, String serviceAction,
+    private void initializePort(boolean isSecure, BindingProvider port, String url, String serviceName,
             String wsAddressingAction, AssertionType assertion) {
         log.info("begin initializePort");
 
-        validateInitializePort(isSecure, port, url, serviceAction, assertion);
+        validateInitializePort(isSecure, port, url, serviceName, assertion);
 
         setPortUrl(port, url);
 
         setPortTimeout(port);
 
         if (isSecure) {
-            setSAMLForPort(port, serviceAction, assertion);
+            setSAMLForPort(port, serviceName, assertion);
         }
 
         // Create the WS-Addressing Headers - action must be supplied
@@ -630,6 +630,7 @@ public class WebServiceProxyHelper {
         SamlTokenCreator oTokenCreator = getSamlTokenCreator();
         String url = getUrlFormPort(port);
         Map samlRequestContext = createSamlRequestContext(oTokenCreator, assertion, url, serviceAction);
+        
         setSAMLRequestContext(port, samlRequestContext);
     }
 

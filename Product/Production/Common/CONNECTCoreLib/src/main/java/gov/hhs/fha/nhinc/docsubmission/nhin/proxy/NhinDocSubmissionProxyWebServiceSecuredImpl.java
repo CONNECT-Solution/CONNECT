@@ -74,7 +74,7 @@ public class NhinDocSubmissionProxyWebServiceSecuredImpl implements NhinDocSubmi
 
     protected void initializeSecurePort(DocumentRepositoryXDRPortType port, String url, String wsAddressingAction,
             AssertionType assertion) {
-        proxyHelper.initializeSecurePort((javax.xml.ws.BindingProvider) port, url, NhincConstants.XDR_ACTION,
+        proxyHelper.initializeSecurePort((javax.xml.ws.BindingProvider) port, url, NhincConstants.NHINC_XDR_SERVICE_NAME,
                 wsAddressingAction, assertion);
     }
 

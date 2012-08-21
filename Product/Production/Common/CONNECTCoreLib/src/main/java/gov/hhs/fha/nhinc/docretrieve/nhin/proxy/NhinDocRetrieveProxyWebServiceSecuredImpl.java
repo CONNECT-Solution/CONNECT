@@ -117,7 +117,7 @@ public class NhinDocRetrieveProxyWebServiceSecuredImpl implements NhinDocRetriev
                     }
                 }
                 if (NullChecker.isNotNullish(url)) {
-                    RespondingGatewayRetrievePortType port = getPort(url, NhincConstants.DOC_RETRIEVE_ACTION,
+                    RespondingGatewayRetrievePortType port = getPort(url, NhincConstants.DOC_RETRIEVE_SERVICE_NAME,
                             WS_ADDRESSING_ACTION, assertion);
                     WebServiceProxyHelper wsHelper = new WebServiceProxyHelper();
                     wsHelper.addTargetCommunity(((BindingProvider)port), targetSystem);
