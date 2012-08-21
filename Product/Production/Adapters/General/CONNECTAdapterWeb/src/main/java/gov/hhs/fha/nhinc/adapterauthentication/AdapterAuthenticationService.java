@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.adapterauthentication;
 
+import gov.hhs.fha.nhinc.common.nhinccommonadapter.AuthenticateUserRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AuthenticateUserResponseType;
 import javax.jws.WebService;
 import javax.xml.ws.BindingType;
@@ -50,8 +51,7 @@ public class AdapterAuthenticationService {
      * @return The response which indicates if an authentication service is implemented and if so the resulting token
      *         identifier
      */
-    public gov.hhs.fha.nhinc.common.nhinccommonadapter.AuthenticateUserResponseType authenticateUser(
-            gov.hhs.fha.nhinc.common.nhinccommonadapter.AuthenticateUserRequestType authenticateUserRequest) {
+    public AuthenticateUserResponseType authenticateUser(AuthenticateUserRequestType authenticateUserRequest) {
         AuthenticateUserResponseType authResp = new AuthenticateUserResponseType();
 
         AdapterAuthenticationImpl adapterAuthImpl = new AdapterAuthenticationImpl();
