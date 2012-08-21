@@ -28,11 +28,6 @@ package gov.hhs.fha.nhinc.docsubmission.nhin.deferred.request.proxy11;
 
 import ihe.iti.xdr._2007.XDRDeferredRequestPortType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
-
-import java.util.HashMap;
-
-import javax.xml.ws.Service;
-
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
@@ -64,6 +59,9 @@ public class NhinDocSubmissionDeferredRequestProxyWebServiceSecuredImpl implemen
         oProxyHelper = createWebServiceProxyHelper();
     }
 
+    /**
+     * @return the logging object
+     */
     protected Log createLogger() {
         return LogFactory.getLog(getClass());
     }
@@ -82,6 +80,7 @@ public class NhinDocSubmissionDeferredRequestProxyWebServiceSecuredImpl implemen
                 assertion);
     }
 
+    @Override
     public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest11(
             ProvideAndRegisterDocumentSetRequestType request, AssertionType assertion, NhinTargetSystemType targetSystem) {
         log.debug("Begin provideAndRegisterDocumentSetBAsyncRequest");

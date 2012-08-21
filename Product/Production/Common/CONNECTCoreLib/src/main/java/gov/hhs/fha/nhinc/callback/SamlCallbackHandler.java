@@ -1,63 +1,91 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
- * All rights reserved. 
+ * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * All rights reserved.
  *
- * Redistribution and use in source and binary forms, with or without 
- * modification, are permitted provided that the following conditions are met: 
- *     * Redistributions of source code must retain the above 
- *       copyright notice, this list of conditions and the following disclaimer. 
- *     * Redistributions in binary form must reproduce the above copyright 
- *       notice, this list of conditions and the following disclaimer in the documentation 
- *       and/or other materials provided with the distribution. 
- *     * Neither the name of the United States Government nor the 
- *       names of its contributors may be used to endorse or promote products 
- *       derived from this software without specific prior written permission. 
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *     * Redistributions of source code must retain the above
+ *       copyright notice, this list of conditions and the following disclaimer.
+ *     * Redistributions in binary form must reproduce the above copyright
+ *       notice, this list of conditions and the following disclaimer in the documentation
+ *       and/or other materials provided with the distribution.
+ *     * Neither the name of the United States Government nor the
+ *       names of its contributors may be used to endorse or promote products
+ *       derived from this software without specific prior written permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
- * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
- * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY 
- * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES 
- * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
- * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND 
- * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
- * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package gov.hhs.fha.nhinc.callback;
 
-import com.sun.org.apache.xml.internal.security.keys.KeyInfo;
-import com.sun.xml.wss.XWSSecurityException;
-import java.io.*;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.security.KeyStore;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
-import java.security.UnrecoverableKeyException;
-import java.security.cert.CertificateException;
-import java.util.*;
-import java.security.KeyStore;
 import java.security.PrivateKey;
 import java.security.PublicKey;
-import java.security.cert.X509Certificate;
+import java.security.UnrecoverableKeyException;
 import java.security.cert.Certificate;
+import java.security.cert.CertificateException;
+import java.security.cert.X509Certificate;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Enumeration;
+import java.util.GregorianCalendar;
+import java.util.HashMap;
+import java.util.List;
+import java.util.TimeZone;
+import java.util.UUID;
+
 import javax.security.auth.callback.Callback;
 import javax.security.auth.callback.CallbackHandler;
 import javax.security.auth.callback.UnsupportedCallbackException;
-import com.sun.xml.wss.impl.callback.*;
-import com.sun.xml.wss.saml.*;
+import javax.xml.datatype.DatatypeConfigurationException;
+import javax.xml.datatype.DatatypeFactory;
+import javax.xml.datatype.XMLGregorianCalendar;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
+import com.sun.org.apache.xml.internal.security.keys.KeyInfo;
+import com.sun.xml.wss.XWSSecurityException;
+import com.sun.xml.wss.impl.callback.SAMLCallback;
+import com.sun.xml.wss.impl.callback.SignatureKeyCallback;
+import com.sun.xml.wss.saml.Assertion;
+import com.sun.xml.wss.saml.AuthnContext;
+import com.sun.xml.wss.saml.AuthnDecisionStatement;
+import com.sun.xml.wss.saml.AuthnStatement;
+import com.sun.xml.wss.saml.Conditions;
+import com.sun.xml.wss.saml.Evidence;
+import com.sun.xml.wss.saml.NameID;
+import com.sun.xml.wss.saml.SAMLAssertionFactory;
+import com.sun.xml.wss.saml.SAMLException;
+import com.sun.xml.wss.saml.Subject;
+import com.sun.xml.wss.saml.SubjectConfirmation;
+import com.sun.xml.wss.saml.SubjectConfirmationData;
+import com.sun.xml.wss.saml.SubjectLocality;
+
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
-import javax.xml.datatype.DatatypeConfigurationException;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import org.w3c.dom.*;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import javax.security.auth.x500.X500Principal;
-import javax.xml.datatype.DatatypeFactory;
-import javax.xml.datatype.XMLGregorianCalendar;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 /**
  * This class implements the CallbackHandler which is invoked upon sending a message requiring the SAML Assertion Token.
@@ -123,10 +151,9 @@ public class SamlCallbackHandler implements CallbackHandler {
     private static final String HL7_NS = "urn:hl7-org:v3";
     private static final int DEFAULT_NAME = 0;
     private static final int PRIMARY_NAME = 1;
-    private HashMap<Object, Object> tokenVals = new HashMap<Object, Object>();
+    private final HashMap<Object, Object> tokenVals = new HashMap<Object, Object>();
     private KeyStore keyStore;
     private KeyStore trustStore;
-    private static Element svAssertion;
     private static Element hokAssertion20;
     private static HashMap<String, String> factoryVersionMap = new HashMap<String, String>();
     private static final String ID_PREFIX = "_";
@@ -137,6 +164,7 @@ public class SamlCallbackHandler implements CallbackHandler {
         // WORKAROUND NEEDED IN METRO1.4. TO BE REMOVED LATER.
         javax.net.ssl.HttpsURLConnection.setDefaultHostnameVerifier(new javax.net.ssl.HostnameVerifier() {
 
+            @Override
             public boolean verify(String hostname, javax.net.ssl.SSLSession sslSession) {
                 return true;
             }
@@ -147,7 +175,7 @@ public class SamlCallbackHandler implements CallbackHandler {
 
     /**
      * Constructs the callback handler and initializes the keystore and truststore references to the security
-     * certificates
+     * certificates.
      */
     public SamlCallbackHandler() {
         log.debug("SamlCallbackHandler Constructor -- Begin");
@@ -166,11 +194,12 @@ public class SamlCallbackHandler implements CallbackHandler {
      * This is the invoked implementation to handle the SAML Token creation upon notification of an outgoing message
      * needing SAML. Based on the type of confirmation method detected on the Callbace it creates either a
      * "Sender Vouches: or a "Holder-ok_Key" variant of the SAML Assertion.
-     * 
+     *
      * @param callbacks The SAML Callback
-     * @throws java.io.IOException
-     * @throws javax.security.auth.callback.UnsupportedCallbackException
+     * @throws IOException IO Exception
+     * @throws UnsupportedCallbackException UnsupportedCallbackException
      */
+    @Override
     public void handle(Callback[] callbacks) throws IOException, UnsupportedCallbackException {
         log.debug(" **********************************  Handle SAML Callback Begin  **************************");
         for (int i = 0; i < callbacks.length; i++) {
@@ -185,7 +214,7 @@ public class SamlCallbackHandler implements CallbackHandler {
                     hokAssertion20 = samlCallback.getAssertionElement();
                 } else if (samlCallback.getConfirmationMethod().equals(SAMLCallback.SV_ASSERTION_TYPE)) {
                     samlCallback.setAssertionElement(createSVSAMLAssertion20());
-                    svAssertion = samlCallback.getAssertionElement();
+                    samlCallback.getAssertionElement();
                 } else {
                     log.error("Unknown SAML Assertion Type: " + samlCallback.getConfirmationMethod());
                     throw new UnsupportedCallbackException(null, "SAML Assertion Type is not matched:"
@@ -201,7 +230,7 @@ public class SamlCallbackHandler implements CallbackHandler {
 
     /**
      * Currently not Used. Creates the "Sender Vouches" variant of the SAML Assertion token.
-     * 
+     *
      * @return The Assertion element
      */
     private Element createSVSAMLAssertion20() {
@@ -248,7 +277,7 @@ public class SamlCallbackHandler implements CallbackHandler {
 
     /**
      * Creates the "Holder-of-Key" variant of the SAML Assertion token.
-     * 
+     *
      * @return The Assertion element
      */
     private Element createHOKSAMLAssertion20() {
@@ -342,7 +371,7 @@ public class SamlCallbackHandler implements CallbackHandler {
      * default data is used to specify the required Issuer information. However, the Subject information is defined
      * based on the stored value of the userid. If this is a legal X509 structute the NameId is constructed in that
      * format, if not it is constructed as an "Unspecified" format.
-     * 
+     *
      * @param factory The factory object used to assist in the construction of the SAML Assertion token
      * @param assId Identifies this as default usage case or one with declared value.
      * @return The constructed NameID element
@@ -368,7 +397,6 @@ public class SamlCallbackHandler implements CallbackHandler {
         } else {
             String x509Name = "UID=" + tokenVals.get(SamlConstants.USER_NAME_PROP).toString();
             try {
-                X500Principal prin = new X500Principal(x509Name);
                 nmId = factory.createNameID(x509Name, null, X509_NAME_ID);
                 log.debug("Create X509 name: " + x509Name);
             } catch (IllegalArgumentException iae) {
@@ -384,19 +412,10 @@ public class SamlCallbackHandler implements CallbackHandler {
         return nmId;
     }
 
-    /*
-     * public boolean isValidEmailAddress(String address) { log.debug("SamlCallbackHandler.isValidEmailAddress() " +
-     * address + " -- Begin"); boolean retBool = false; if (address != null && address.length() > 0) { try {
-     * InternetAddress emailAddr = new InternetAddress(address, true); String[] tokens = address.split("@"); if
-     * (tokens.length == 2 && tokens[0].trim().length() > 0 && tokens[1].trim().length() > 0) { retBool = true; } else {
-     * log.debug("Address does not follow the form 'local-part@domain'"); } } catch (AddressException ex) { // address
-     * does not comply with RFC822 log.debug("Address is not of the RFC822 format"); } }
-     * log.debug("SamlCallbackHandler.isValidEmailAddress() " + retBool + " -- End"); return retBool; }
-     */
     /**
      * Creates the authentication statement, the attribute statements, and the authorization decision statements for
      * placement in the SAML Assertion.
-     * 
+     *
      * @param factory The factory object used to assist in the construction of the SAML Assertion token
      * @param issueInstant The calendar representing the time of Assertion issuance
      * @return A listing of all statements
@@ -469,7 +488,7 @@ public class SamlCallbackHandler implements CallbackHandler {
         }
 
         // Create Authentication statement
-        AuthnStatement authState = (com.sun.xml.wss.saml.assertion.saml20.jaxb20.AuthnStatement) factory
+        AuthnStatement authState = factory
                 .createAuthnStatement(issueInstant, subjLoc, authnContext, sessionIndex, null);
 
         if (authState != null) {
@@ -541,11 +560,11 @@ public class SamlCallbackHandler implements CallbackHandler {
     }
 
     /**
-     * Creates the Attribute statements for UserName, UserOrganization, UserRole, and PurposeOfUse
-     * 
+     * Creates the Attribute statements for UserName, UserOrganization, UserRole, and PurposeOfUse.
+     *
      * @param factory The factory object used to assist in the construction of the SAML Assertion token
      * @return The listing of all Attribute statements
-     * @throws com.sun.xml.wss.saml.SAMLException
+     * @throws SAMLException a SAML Exception
      */
     private List addAssertStatements(SAMLAssertionFactory factory) throws SAMLException {
 
@@ -564,7 +583,8 @@ public class SamlCallbackHandler implements CallbackHandler {
                 && tokenVals.get(SamlConstants.USER_MIDDLE_PROP) != null) {
             nameConstruct.append(tokenVals.get(SamlConstants.USER_MIDDLE_PROP).toString() + " ");
         }
-        if (tokenVals.containsKey(SamlConstants.USER_LAST_PROP) && tokenVals.get(SamlConstants.USER_LAST_PROP) != null) {
+        if (tokenVals.containsKey(SamlConstants.USER_LAST_PROP)
+                && tokenVals.get(SamlConstants.USER_LAST_PROP) != null) {
             nameConstruct.append(tokenVals.get(SamlConstants.USER_LAST_PROP).toString() + " ");
         }
         if (nameConstruct.length() > 0) {
@@ -691,7 +711,8 @@ public class SamlCallbackHandler implements CallbackHandler {
             }
             if (tokenVals.containsKey(SamlConstants.PURPOSE_SYST_NAME_PROP)
                     && tokenVals.get(SamlConstants.PURPOSE_SYST_NAME_PROP) != null) {
-                log.debug("Purpose Code System Name: " + tokenVals.get(SamlConstants.PURPOSE_SYST_NAME_PROP).toString());
+                log.debug("Purpose Code System Name: "
+                    + tokenVals.get(SamlConstants.PURPOSE_SYST_NAME_PROP).toString());
                 purpose.setAttribute(SamlConstants.CE_CODESYSNAME_ID,
                         tokenVals.get(SamlConstants.PURPOSE_SYST_NAME_PROP).toString());
             }
@@ -728,16 +749,16 @@ public class SamlCallbackHandler implements CallbackHandler {
     }
 
     /**
-     * Returns boolean condition on whether PurposeForUse is enabled
-     * 
+     * Returns boolean condition on whether PurposeForUse is enabled.
+     *
      * @return The PurposeForUse enabled setting
      */
     private boolean isPurposeForUseEnabled() {
         boolean match = false;
         try {
             // Use CONNECT utility class to access gateway.properties
-            String purposeForUseEnabled = PropertyAccessor.getInstance().getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
-                    PURPOSE_FOR_USE_DEPRECATED_ENABLED);
+            String purposeForUseEnabled = PropertyAccessor.getInstance().getProperty(
+                    NhincConstants.GATEWAY_PROPERTY_FILE, PURPOSE_FOR_USE_DEPRECATED_ENABLED);
             if (purposeForUseEnabled != null && purposeForUseEnabled.equalsIgnoreCase("true")) {
                 match = true;
             }
@@ -751,8 +772,8 @@ public class SamlCallbackHandler implements CallbackHandler {
 
     /**
      * Creates the Evidence element that encompasses the Assertion defining the authorization form needed in cases where
-     * evidence of authorization to access the medical records must be provided along with the message request
-     * 
+     * evidence of authorization to access the medical records must be provided along with the message request.
+     *
      * @param factory The factory object used to assist in the construction of the SAML Assertion token
      * @param issueInstant The calendar representing the time of Assertion issuance
      * @return The Evidence element
@@ -760,9 +781,9 @@ public class SamlCallbackHandler implements CallbackHandler {
      */
     private Evidence createEvidence() throws SAMLException, XWSSecurityException {
         log.debug("SamlCallbackHandler.createEvidence() -- Begin");
-        Boolean defaultInstant=false;
-        Boolean defaultBefore=false;
-        Boolean defaultAfter=false;
+        Boolean defaultInstant = false;
+        Boolean defaultBefore = false;
+        Boolean defaultAfter = false;
 
         String evAssertVersion = ASSERTION_VERSION_2_0;
         if ((tokenVals.containsKey(SamlConstants.EVIDENCE_VERSION_PROP) && tokenVals
@@ -812,7 +833,7 @@ public class SamlCallbackHandler implements CallbackHandler {
                 }
             } else {
                 log.debug("Defaulting Authentication instant to current time");
-                defaultInstant=true;
+                defaultInstant = true;
             }
 
             NameID evIssuerId = null;
@@ -843,7 +864,7 @@ public class SamlCallbackHandler implements CallbackHandler {
                 beginValidTime = createCal(tokenVals.get(SamlConstants.EVIDENCE_CONDITION_NOT_BEFORE_PROP).toString());
             } else {
                 log.debug("Defaulting Evidence NotBefore condition to: current time");
-                defaultBefore=true;
+                defaultBefore = true;
             }
 
             GregorianCalendar endValidTime = calendarFactory();
@@ -852,12 +873,12 @@ public class SamlCallbackHandler implements CallbackHandler {
                 endValidTime = createCal(tokenVals.get(SamlConstants.EVIDENCE_CONDITION_NOT_AFTER_PROP).toString());
             } else {
                 log.debug("Defaulting Evidence NotAfter condition to: current time");
-                defaultAfter=true;
+                defaultAfter = true;
             }
 
             if (defaultInstant && defaultBefore && defaultAfter) {
                 log.warn("Begin, End, and Instant time all defaulted to current time.  Set end time to future.");
-                endValidTime.set(Calendar.MINUTE, endValidTime.get(Calendar.MINUTE)+5);
+                endValidTime.set(Calendar.MINUTE, endValidTime.get(Calendar.MINUTE) + 5);
             }
             if (beginValidTime.after(endValidTime)) {
                 // set beginning time to now
@@ -883,7 +904,7 @@ public class SamlCallbackHandler implements CallbackHandler {
 
     /**
      * Creates a calendar object representing the time given.
-     * 
+     *
      * @param time following the UTC format as specified by the XML Schema type (dateTime) or for backward compatibility
      *            following the simple date form MM/dd/yyyy HH:mm:ss
      * @return The calendar object representing the given time
@@ -917,7 +938,7 @@ public class SamlCallbackHandler implements CallbackHandler {
     /**
      * Creates the Attribute Statements needed for the Evidence element. These include the Attributes for the Access
      * Consent Policy and the Instance Access Consent Policy
-     * 
+     *
      * @param factory The factory object used to assist in the construction of the SAML Assertion token
      * @return The listing of the attribute statements for the Evidence element
      * @throws com.sun.xml.wss.saml.SAMLException
@@ -938,8 +959,9 @@ public class SamlCallbackHandler implements CallbackHandler {
             log.debug("No Access Consent found for Evidence");
         }
 
-        if (!attributeValues1.isEmpty())
+        if (!attributeValues1.isEmpty()) {
             attributes.add(factory.createAttribute("AccessConsentPolicy", NHIN_NS, attributeValues1));
+        }
 
         // Set the Instance Access Consent
         List attributeValues2 = new ArrayList();
@@ -952,14 +974,16 @@ public class SamlCallbackHandler implements CallbackHandler {
             log.debug("No Instance Access Consent found for Evidence");
         }
 
-        if (!attributeValues2.isEmpty())
+        if (!attributeValues2.isEmpty()) {
             attributes.add(factory.createAttribute("InstanceAccessConsentPolicy", NHIN_NS, attributeValues2));
+        }
 
         if (!attributes.isEmpty()) {
             statements.add(factory.createAttributeStatement(attributes));
-        } else
+        } else {
             throw new SAMLException(
                     "At least one AccessConsentPolicy or InstanceAccessConsentPolicy must be provided in the AuthorizationDecisionStatement:Evidence:AttributeStatement");
+        }
 
         log.debug("SamlCallbackHandler.createEvidenceStatements() -- End");
         return statements;
@@ -967,8 +991,8 @@ public class SamlCallbackHandler implements CallbackHandler {
 
     /**
      * Initializes the keystore access using the system properties defined in the domain.xml javax.net.ssl.keyStore and
-     * javax.net.ssl.keyStorePassword
-     * 
+     * javax.net.ssl.keyStorePassword.
+     *
      * @throws java.io.IOException
      */
     private void initKeyStore() throws IOException {
@@ -1021,8 +1045,8 @@ public class SamlCallbackHandler implements CallbackHandler {
 
     /**
      * Initializes the truststore access using the system properties defined in the domain.xml javax.net.ssl.trustStore
-     * and javax.net.ssl.trustStorePassword
-     * 
+     * and javax.net.ssl.trustStorePassword.
+     *
      * @throws java.io.IOException
      */
     private void initTrustStore() throws IOException {
@@ -1076,22 +1100,22 @@ public class SamlCallbackHandler implements CallbackHandler {
     /**
      * Finds the X509 certificate in the keystore with the client alias as defined in the domain.xml system property
      * CLIENT_KEY_ALIAS and establishes the private key on the SignatureKeyCallback request using this certificate.
-     * 
+     *
      * @param request The SignatureKeyCallback request object
      * @throws java.io.IOException
      */
     private void getDefaultPrivKeyCert(SignatureKeyCallback.DefaultPrivKeyCertRequest request) throws IOException {
         log.debug("SamlCallbackHandler.getDefaultPrivKeyCert() -- Begin");
         String uniqueAlias = null;
-        String client_key_alias = System.getProperty("CLIENT_KEY_ALIAS");
-        if (client_key_alias != null) {
+        String clientKeyAlias = System.getProperty("CLIENT_KEY_ALIAS");
+        if (clientKeyAlias != null) {
             String password = System.getProperty("javax.net.ssl.keyStorePassword");
             if (password != null) {
                 try {
                     Enumeration aliases = keyStore.aliases();
                     while (aliases.hasMoreElements()) {
                         String currentAlias = (String) aliases.nextElement();
-                        if (currentAlias.equals(client_key_alias)) {
+                        if (currentAlias.equals(clientKeyAlias)) {
                             if (keyStore.isKeyEntry(currentAlias)) {
                                 Certificate thisCertificate = keyStore.getCertificate(currentAlias);
                                 if (thisCertificate != null) {
@@ -1135,8 +1159,8 @@ public class SamlCallbackHandler implements CallbackHandler {
     }
 
     /**
-     * Creates a calendar instance set to the current system time in GMT
-     * 
+     * Creates a calendar instance set to the current system time in GMT.
+     *
      * @return The calendar instance
      */
     private GregorianCalendar calendarFactory() {

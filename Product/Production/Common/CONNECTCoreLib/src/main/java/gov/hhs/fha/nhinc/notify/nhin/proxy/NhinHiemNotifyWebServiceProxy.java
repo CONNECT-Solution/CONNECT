@@ -26,7 +26,6 @@
  */
 package gov.hhs.fha.nhinc.notify.nhin.proxy;
 
-
 import java.util.List;
 
 import javax.xml.namespace.QName;
@@ -80,8 +79,8 @@ public class NhinHiemNotifyWebServiceProxy implements NhinHiemNotifyProxy {
     private static final String WS_ADDRESSING_ACTION = "http://docs.oasis-open.org/wsn/bw-2/NotificationConsumer/Notify";
 
     @Override
-    public void notify(Notify notify, ReferenceParametersElements referenceParametersElements,
-            AssertionType assertion, NhinTargetSystemType target) {
+    public void notify(Notify notify, ReferenceParametersElements referenceParametersElements, AssertionType assertion,
+            NhinTargetSystemType target) {
         String url = null;
 
         auditInputMessage(notify, assertion);
@@ -141,8 +140,8 @@ public class NhinHiemNotifyWebServiceProxy implements NhinHiemNotifyProxy {
                 oPort = oService.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), NotificationConsumer.class);
 
                 // Initialize secured port
-//                getWebServiceProxyHelper().initializeSecurePort((BindingProvider) oPort, url,
-//                        NhincConstants.SUBSCRIBE_ACTION, null, assertIn);
+                // getWebServiceProxyHelper().initializeSecurePort((BindingProvider) oPort, url,
+                // NhincConstants.SUBSCRIBE_ACTION, null, assertIn);
             } else {
                 log.error("Unable to obtain service - no port created.");
             }
@@ -185,7 +184,8 @@ public class NhinHiemNotifyWebServiceProxy implements NhinHiemNotifyProxy {
         try {
             AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
 
-            gov.hhs.fha.nhinc.common.nhinccommoninternalorch.NotifyRequestType message = new gov.hhs.fha.nhinc.common.nhinccommoninternalorch.NotifyRequestType();
+            gov.hhs.fha.nhinc.common.nhinccommoninternalorch.NotifyRequestType message =
+                    new gov.hhs.fha.nhinc.common.nhinccommoninternalorch.NotifyRequestType();
             message.setAssertion(assertion);
             message.setNotify(notify);
 

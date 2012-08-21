@@ -9,6 +9,9 @@ package gov.hhs.fha.nhinc.callback.openSAML;
  */
 public class SAMLAssertionBuilderFactoryImpl implements SAMLAssertionBuilderFactory {
 
+	/* (non-Javadoc)
+	 * @see gov.hhs.fha.nhinc.callback.openSAML.SAMLAssertionBuilderFactory#getBuilder(java.lang.String)
+	 */
 	@Override
 	public SAMLAssertionBuilder getBuilder(final String confirmationMethod) {
 		SAMLAssertionBuilder builder = null;

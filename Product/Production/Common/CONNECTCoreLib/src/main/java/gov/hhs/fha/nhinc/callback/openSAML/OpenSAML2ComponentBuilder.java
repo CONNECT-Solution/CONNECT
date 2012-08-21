@@ -1,15 +1,11 @@
 /**
- * 
+ *
  */
 package gov.hhs.fha.nhinc.callback.openSAML;
 
-import gov.hhs.fha.nhinc.callback.SamlConstants;
-
 import java.security.PrivateKey;
 import java.security.PublicKey;
-import java.security.cert.CertificateEncodingException;
 import java.security.cert.X509Certificate;
-import java.security.interfaces.RSAPublicKey;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -50,61 +46,51 @@ import org.opensaml.xml.schema.XSAny;
 import org.opensaml.xml.schema.XSString;
 import org.opensaml.xml.schema.impl.XSAnyBuilder;
 import org.opensaml.xml.schema.impl.XSStringBuilder;
-import org.opensaml.xml.security.SecurityConfiguration;
-import org.opensaml.xml.security.credential.BasicCredential;
-import org.opensaml.xml.security.credential.Credential;
-import org.opensaml.xml.security.keyinfo.KeyInfoGenerator;
-import org.opensaml.xml.security.keyinfo.KeyInfoGeneratorFactory;
-import org.opensaml.xml.security.keyinfo.KeyInfoGeneratorManager;
 import org.opensaml.xml.security.keyinfo.KeyInfoHelper;
-import org.opensaml.xml.security.keyinfo.NamedKeyInfoGeneratorManager;
 import org.opensaml.xml.security.x509.BasicX509Credential;
-import org.opensaml.xml.signature.Exponent;
 import org.opensaml.xml.signature.KeyInfo;
-import org.opensaml.xml.signature.KeyValue;
-import org.opensaml.xml.signature.Modulus;
-import org.opensaml.xml.signature.RSAKeyValue;
 import org.opensaml.xml.signature.Signature;
 import org.opensaml.xml.signature.SignatureConstants;
-import org.opensaml.xml.signature.impl.KeyInfoBuilder;
+
+import gov.hhs.fha.nhinc.callback.SamlConstants;
 
 /**
  * @author bhumphrey
- * 
+ *
  */
 public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
 
-	private SAMLObjectBuilder<AuthnStatement> authnStatementBuilder;
+	private final SAMLObjectBuilder<AuthnStatement> authnStatementBuilder;
 
-	private SAMLObjectBuilder<AuthnContext> authnContextBuilder;
+	private final SAMLObjectBuilder<AuthnContext> authnContextBuilder;
 
-	private SAMLObjectBuilder<AuthnContextClassRef> authnContextClassRefBuilder;
+	private final SAMLObjectBuilder<AuthnContextClassRef> authnContextClassRefBuilder;
 
-	private SAMLObjectBuilder<AttributeStatement> attributeStatementBuilder;
+	private final SAMLObjectBuilder<AttributeStatement> attributeStatementBuilder;
 
-	private SAMLObjectBuilder<Attribute> attributeBuilder;
+	private final SAMLObjectBuilder<Attribute> attributeBuilder;
 	private static final String X509_NAME_ID = "urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName";
 	private static final String DEFAULT_ISSUER_VALUE = "CN=SAML User,OU=SU,O=SAML User,L=Los Angeles,ST=CA,C=US";
 
-	private SAMLObjectBuilder<Assertion> assertionBuilder;
+	private final SAMLObjectBuilder<Assertion> assertionBuilder;
 
-	private SAMLObjectBuilder<NameID> nameIdBuilder;
+	private final SAMLObjectBuilder<NameID> nameIdBuilder;
 
-	private SAMLObjectBuilder<Conditions> conditionsBuilder;
+	private final SAMLObjectBuilder<Conditions> conditionsBuilder;
 
-	private SAMLObjectBuilder<Action> actionElementBuilder;
+	private final SAMLObjectBuilder<Action> actionElementBuilder;
 
-	private SAMLObjectBuilder<AuthzDecisionStatement> authorizationDecisionStatementBuilder;
+	private final SAMLObjectBuilder<AuthzDecisionStatement> authorizationDecisionStatementBuilder;
 
-	private SAMLObjectBuilder<AudienceRestriction> audienceRestrictionBuilder;
+	private final SAMLObjectBuilder<AudienceRestriction> audienceRestrictionBuilder;
 
-	private SAMLObjectBuilder<Audience> audienceBuilder;
+	private final SAMLObjectBuilder<Audience> audienceBuilder;
 
-	private XSStringBuilder stringBuilder;
+	private final XSStringBuilder stringBuilder;
 
-	private SAMLObjectBuilder<Evidence> evidenceBuilder;
+	private final SAMLObjectBuilder<Evidence> evidenceBuilder;
 
-	private XSAnyBuilder xsAnyBuilder;
+	private final XSAnyBuilder xsAnyBuilder;
 
 	private static SAMLObjectBuilder<SubjectLocality> subjectLocalityBuilder;
 
@@ -169,7 +155,6 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
 			try {
 				INSTANCE = new OpenSAML2ComponentBuilder();
 			} catch (ConfigurationException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 				INSTANCE = null;
 			}
@@ -183,9 +168,11 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
 	}
 
 	/**
-	 * @return
+	 * Create Authentication Statements.
+	 * @return an Authn Statement
 	 */
-	public AuthnStatement createAuthenicationStatements(String cntxCls,
+	@Override
+    public AuthnStatement createAuthenicationStatements(String cntxCls,
 			String sessionIndex, DateTime authInstant, String inetAddr,
 			String dnsName) {
 
@@ -226,7 +213,7 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
 		//DecisionTypeEnumeration decision = DecisionTypeEnumeration.DENY;
 		// todo: use decisionTxt to set decision
 		DecisionTypeEnumeration decision = DecisionTypeEnumeration.PERMIT;
-		
+
 		authDecision.setDecision(decision);
 
 		Action actionElement = actionElementBuilder.buildObject();
@@ -283,24 +270,24 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
 		return createIssuer(X509_NAME_ID, DEFAULT_ISSUER_VALUE);
 	}
 
-	
+
 
 	/**
-	 * @param certificate 
+	 * @param certificate
 	 * @return
 	 * @throws Exception
 	 */
 	public Subject createSubject(String x509Name, X509Certificate certificate, PublicKey publicKey) throws Exception {
 		Subject subject = (org.opensaml.saml2.core.Subject) createOpenSAMLObject(Subject.DEFAULT_ELEMENT_NAME);
 		subject.setNameID(createNameID(X509_NAME_ID, x509Name));
-		
+
 		SubjectConfirmationData subjectConfirmationData = createSubjectConfirmationData(certificate, publicKey);
 		SubjectConfirmation subjectConfirmation = createHoKConfirmation(subjectConfirmationData);
 		subject.getSubjectConfirmations().add(subjectConfirmation);
 		return subject;
 	}
 
-	
+
 	private SubjectConfirmation createHoKConfirmation(
 			SubjectConfirmationData subjectConfirmationData) throws Exception {
 		SubjectConfirmation subjectConfirmation = (SubjectConfirmation) createOpenSAMLObject(SubjectConfirmation.DEFAULT_ELEMENT_NAME);
@@ -310,9 +297,9 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
 
 		return subjectConfirmation;
 	}
-	
-	
-	
+
+
+
 
 	private SubjectConfirmationData createSubjectConfirmationData(X509Certificate certificate, PublicKey publicKey) throws Exception {
         SubjectConfirmationData subjectConfirmationData = (SubjectConfirmationData) createOpenSAMLObject(SubjectConfirmationData.DEFAULT_ELEMENT_NAME);
@@ -320,20 +307,20 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
         subjectConfirmationData.getUnknownXMLObjects().add(getKeyInfo(certificate, publicKey));
         return subjectConfirmationData;
 	}
-	
+
 	public KeyInfo getKeyInfo(X509Certificate certificate, PublicKey publicKey) throws Exception {
 	            KeyInfo ki= (KeyInfo)createOpenSAMLObject(KeyInfo.DEFAULT_ELEMENT_NAME);
-        
+
         BasicX509Credential credential = new BasicX509Credential();
-        credential.setEntityCertificate(certificate); 
-        
-     	KeyInfoHelper.addPublicKey(ki, publicKey); 
+        credential.setEntityCertificate(certificate);
+
+     	KeyInfoHelper.addPublicKey(ki, publicKey);
         //KeyInfoHelper.addCertificate(ki, certificate);
         return ki;
 	}
 
-	
-	
+
+
 	public PublicKey getPublicKey() throws Exception {
 		CertificateManager cm = CertificateManagerImpl.getInstance();
 
@@ -521,7 +508,7 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
         return attributeValue;
     }
 
-	
+
 
 	public Attribute createPatientIDAttribute(String patientId) {
 		return createAttribute(null, SamlConstants.PATIENT_ID_ATTR, null,
@@ -552,7 +539,7 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
 	 * @param certificate
 	 * @param privateKey
 	 * @throws Exception
-	 * 
+	 *
 	 */
 	public Signature createSignature(X509Certificate certificate,
 			PrivateKey privateKey, PublicKey publicKey) throws Exception {
@@ -588,7 +575,7 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
 		statements.addAll(createAttributeStatement(Arrays.asList(attribute)));
 		return statements;
 	}
-	
+
 	/**
 	 * PurposeForUse attribute statements.
 	 * @param purposeCode
@@ -606,7 +593,7 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
 		statements.addAll(createAttributeStatement(Arrays.asList(attribute)));
 		return statements;
 	}
-	
+
 	public Attribute createPurposeOfUseAttribute(String purposeCode,
 				String purposeSystem, String purposeSystemName,
 				String purposeDisplay) {

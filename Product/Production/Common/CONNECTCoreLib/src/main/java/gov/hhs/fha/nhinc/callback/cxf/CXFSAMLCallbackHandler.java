@@ -1,13 +1,7 @@
 /**
- * 
+ *
  */
 package gov.hhs.fha.nhinc.callback.cxf;
-
-import gov.hhs.fha.nhinc.callback.openSAML.CallbackMapProperties;
-import gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties;
-import gov.hhs.fha.nhinc.callback.openSAML.HOKSAMLAssertionBuilder;
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.saml.extraction.SamlTokenCreator;
 
 import java.io.IOException;
 
@@ -22,9 +16,15 @@ import org.apache.cxf.phase.PhaseInterceptorChain;
 import org.apache.ws.security.saml.ext.SAMLCallback;
 import org.opensaml.common.SAMLVersion;
 
+import gov.hhs.fha.nhinc.callback.openSAML.CallbackMapProperties;
+import gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties;
+import gov.hhs.fha.nhinc.callback.openSAML.HOKSAMLAssertionBuilder;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.saml.extraction.SamlTokenCreator;
+
 /**
  * @author mweaver
- * 
+ *
  */
 public class CXFSAMLCallbackHandler implements CallbackHandler {
 
@@ -34,10 +34,10 @@ public class CXFSAMLCallbackHandler implements CallbackHandler {
 
     public CXFSAMLCallbackHandler() {
     }
-    
+
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see javax.security.auth.callback.CallbackHandler#handle(javax.security.auth.callback.Callback[])
      */
     @Override
@@ -47,7 +47,7 @@ public class CXFSAMLCallbackHandler implements CallbackHandler {
             if (callback instanceof SAMLCallback) {
 
                 try {
-                    
+
                     Message message = PhaseInterceptorChain.getCurrentMessage();
 
                     Object obj = message.get("assertion");
@@ -60,13 +60,14 @@ public class CXFSAMLCallbackHandler implements CallbackHandler {
                     SAMLCallback oSAMLCallback = (SAMLCallback) callback;
 
                     oSAMLCallback.setSamlVersion(SAMLVersion.VERSION_20);
-             
+
                     SamlTokenCreator creator = new SamlTokenCreator();
-                    
-                    CallbackProperties properties = new CallbackMapProperties(creator.CreateRequestContext(custAssertion, null, null));
-                    
+
+                    CallbackProperties properties = new CallbackMapProperties(creator.CreateRequestContext(
+                            custAssertion, null, null));
+
                     HOKSAMLAssertionBuilder builder = new HOKSAMLAssertionBuilder();
-                     
+
                     oSAMLCallback.setAssertionElement(builder.build(properties));
                 } catch (Exception e) {
                     log.error("failed to create saml", e);
@@ -74,5 +75,5 @@ public class CXFSAMLCallbackHandler implements CallbackHandler {
             }
         }
         log.debug("CXFSAMLCallbackHandler.handle end");
-    } 
+    }
 }

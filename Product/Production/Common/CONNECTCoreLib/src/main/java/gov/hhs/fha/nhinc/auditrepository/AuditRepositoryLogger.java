@@ -1,30 +1,43 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
- * All rights reserved. 
+ * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * All rights reserved.
  *
- * Redistribution and use in source and binary forms, with or without 
- * modification, are permitted provided that the following conditions are met: 
- *     * Redistributions of source code must retain the above 
- *       copyright notice, this list of conditions and the following disclaimer. 
- *     * Redistributions in binary form must reproduce the above copyright 
- *       notice, this list of conditions and the following disclaimer in the documentation 
- *       and/or other materials provided with the distribution. 
- *     * Neither the name of the United States Government nor the 
- *       names of its contributors may be used to endorse or promote products 
- *       derived from this software without specific prior written permission. 
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *     * Redistributions of source code must retain the above
+ *       copyright notice, this list of conditions and the following disclaimer.
+ *     * Redistributions in binary form must reproduce the above copyright
+ *       notice, this list of conditions and the following disclaimer in the documentation
+ *       and/or other materials provided with the distribution.
+ *     * Neither the name of the United States Government nor the
+ *       names of its contributors may be used to endorse or promote products
+ *       derived from this software without specific prior written permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
- * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
- * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY 
- * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES 
- * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
- * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND 
- * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
- * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package gov.hhs.fha.nhinc.auditrepository;
+
+import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
+import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.hl7.v3.MCCIIN000002UV01;
+import org.hl7.v3.PRPAIN201305UV02;
+import org.hl7.v3.PRPAIN201306UV02;
+import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
+import org.hl7.v3.RespondingGatewayPRPAIN201306UV02RequestType;
+import org.hl7.v3.RespondingGatewayPRPAIN201306UV02ResponseType;
 
 import gov.hhs.fha.nhinc.common.auditlog.AdhocQueryMessageType;
 import gov.hhs.fha.nhinc.common.auditlog.AdhocQueryResponseMessageType;
@@ -78,33 +91,19 @@ import gov.hhs.fha.nhinc.transform.audit.UnsubscribeTransforms;
 import gov.hhs.fha.nhinc.transform.audit.XDRTransforms;
 import gov.hhs.healthit.nhin.DocQueryAcknowledgementType;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
-import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
-import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
-import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
-import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
-import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.hl7.v3.MCCIIN000002UV01;
-import org.hl7.v3.PRPAIN201305UV02;
-import org.hl7.v3.PRPAIN201306UV02;
-import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
-import org.hl7.v3.RespondingGatewayPRPAIN201306UV02RequestType;
-import org.hl7.v3.RespondingGatewayPRPAIN201306UV02ResponseType;
 
 /**
- * 
+ *
  * @author Jon Hoppesch
  */
 public class AuditRepositoryLogger {
 
     private static Log log = LogFactory.getLog(AuditRepositoryLogger.class);
-    private PatientDiscoveryTransforms pdAuditTransformer = new PatientDiscoveryTransforms();
-    private XDRTransforms xdrAuditTransformer = new XDRTransforms();
-    private AdminDistTransforms adAuditTransformer = new AdminDistTransforms();
+    private final PatientDiscoveryTransforms pdAuditTransformer = new PatientDiscoveryTransforms();
+    private final XDRTransforms xdrAuditTransformer = new XDRTransforms();
+    private final AdminDistTransforms adAuditTransformer = new AdminDistTransforms();
     private boolean serviceEnabled = false;
-    private DocumentQueryTransforms dqAuditTransforms = new DocumentQueryTransforms();
+    private final DocumentQueryTransforms dqAuditTransforms = new DocumentQueryTransforms();
     NotifyTransforms transformLib = new NotifyTransforms();
 
     public AuditRepositoryLogger() {
@@ -122,7 +121,7 @@ public class AuditRepositoryLogger {
 
     /**
      * This method will create the generic Audit Log Message from a NHIN Patient Discovery Request
-     * 
+     *
      * @param message The Patient Discovery Request message to be audit logged.
      * @param assertion The Assertion Class containing SAML information
      * @param direction The direction this message is going (Inbound or Outbound)
@@ -143,7 +142,7 @@ public class AuditRepositoryLogger {
 
     /**
      * This method will create the generic Audit Log Message from a NHIN Patient Discovery Request
-     * 
+     *
      * @param message The Patient Discovery Request message to be audit logged.
      * @param assertion The Assertion Class containing SAML information
      * @param direction The direction this message is going (Inbound or Outbound)
@@ -166,7 +165,7 @@ public class AuditRepositoryLogger {
 
     /**
      * This method will create the generic Audit Log Message from a NHIN Patient Discovery Response
-     * 
+     *
      * @param message The Patient Discovery Response message to be audit logged.
      * @param assertion The Assertion Class containing SAML information
      * @param direction The direction this message is going (Inbound or Outbound)
@@ -189,7 +188,7 @@ public class AuditRepositoryLogger {
 
     /**
      * This method will create the generic Audit Log Message from an Adapter Patient Discovery Request
-     * 
+     *
      * @param message The Patient Discovery Request message to be audit logged.
      * @param assertion The Assertion Class containing SAML information
      * @param direction The direction this message is going (Inbound or Outbound)
@@ -212,7 +211,7 @@ public class AuditRepositoryLogger {
 
     /**
      * This method will create the generic Audit Log Message from an Adapter Patient Discovery Response
-     * 
+     *
      * @param message The Patient Discovery Response message to be audit logged.
      * @param assertion The Assertion Class containing SAML information
      * @param direction The direction this message is going (Inbound or Outbound)
@@ -235,7 +234,7 @@ public class AuditRepositoryLogger {
 
     /**
      * This method will create the generic Audit Log Message from an Entity Patient Discovery Request
-     * 
+     *
      * @param message The Patient Discovery Request message to be audit logged.
      * @param assertion The Assertion Class containing SAML information
      * @param direction The direction this message is going (Inbound or Outbound)
@@ -258,7 +257,7 @@ public class AuditRepositoryLogger {
 
     /**
      * This method will create the generic Audit Log Message from an Entity Patient Discovery Response
-     * 
+     *
      * @param message The Patient Discovery Response message to be audit logged.
      * @param assertion The Assertion Class containing SAML information
      * @param direction The direction this message is going (Inbound or Outbound)
@@ -281,7 +280,7 @@ public class AuditRepositoryLogger {
 
     /**
      * This method will create the generic Audit Log Message from an Entity Patient Discovery Async Response
-     * 
+     *
      * @param message The Patient Discovery Async Response message to be audit logged.
      * @param assertion The Assertion Class containing SAML information
      * @param direction The direction this message is going (Inbound or Outbound)
@@ -350,7 +349,7 @@ public class AuditRepositoryLogger {
 
     /**
      * This method will create the generic Audit Log Message from a document query request
-     * 
+     *
      * @param message The Document Query Request message to be audit logged.
      * @param direction The direction this message is going (Inbound or Outbound)
      * @param _interface The interface this message is being received/sent on (Entity, Adapter, or Nhin)
@@ -363,7 +362,7 @@ public class AuditRepositoryLogger {
 
     /**
      * This method will create the generic Audit Log Message from a document query request
-     * 
+     *
      * @param message The Document Query Request message to be audit logged.
      * @param direction The direction this message is going (Inbound or Outbound)
      * @param _interface The interface this message is being received/sent on (Entity, Adapter, or Nhin)
@@ -390,7 +389,7 @@ public class AuditRepositoryLogger {
 
     /**
      * This method will create the generic Audit Log Message from a document query response
-     * 
+     *
      * @param message The Document Query Response message to be audit logged.
      * @param direction The direction this message is going (Inbound or Outbound)
      * @param _interface The interface this message is being received/sent on (Entity, Adapter, or Nhin)
@@ -403,7 +402,7 @@ public class AuditRepositoryLogger {
 
     /**
      * This method will create the generic Audit Log Message from a document query response
-     * 
+     *
      * @param message The Document Query Response message to be audit logged.
      * @param direction The direction this message is going (Inbound or Outbound)
      * @param _interface The interface this message is being received/sent on (Entity, Adapter, or Nhin)
@@ -429,7 +428,7 @@ public class AuditRepositoryLogger {
     }
 
     /**
-     * 
+     *
      * @param acknowledgement
      * @param assertion
      * @param direction
@@ -443,7 +442,7 @@ public class AuditRepositoryLogger {
     }
 
     /**
-     * 
+     *
      * @param acknowledgement
      * @param assertion
      * @param direction
@@ -467,7 +466,7 @@ public class AuditRepositoryLogger {
 
     /**
      * This method will create the generic Audit Log Message from a document retrieve request
-     * 
+     *
      * @param message The Document Retrieve Request message to be audit logged.
      * @param direction The direction this message is going (Inbound or Outbound)
      * @param _interface The interface this message is being received/sent on (Entity, Adapter, or Nhin)
@@ -480,7 +479,7 @@ public class AuditRepositoryLogger {
 
     /**
      * This method will create the generic Audit Log Message from a document retrieve request
-     * 
+     *
      * @param message The Document Retrieve Request message to be audit logged.
      * @param direction The direction this message is going (Inbound or Outbound)
      * @param _interface The interface this message is being received/sent on (Entity, Adapter, or Nhin)
@@ -507,7 +506,7 @@ public class AuditRepositoryLogger {
 
     /**
      * This method will create the generic Audit Log Message from a document retrieve response
-     * 
+     *
      * @param message The Document Retrieve Response message to be audit logged.
      * @param direction The direction this message is going (Inbound or Outbound)
      * @param _interface The interface this message is being received/sent on (Entity, Adapter, or Nhin)
@@ -520,7 +519,7 @@ public class AuditRepositoryLogger {
 
     /**
      * This method will create the generic Audit Log Message from a document retrieve response
-     * 
+     *
      * @param message The Document Retrieve Response message to be audit logged.
      * @param direction The direction this message is going (Inbound or Outbound)
      * @param _interface The interface this message is being received/sent on (Entity, Adapter, or Nhin)
@@ -547,7 +546,7 @@ public class AuditRepositoryLogger {
 
     /**
      * This method will create the generic Audit Log Message from an audit query request
-     * 
+     *
      * @param message The Audit Query Request message to be audit logged.
      * @param direction The direction this message is going (Inbound or Outbound)
      * @param _interface The interface this message is being received/sent on (Entity, Adapter, or Nhin)
@@ -573,7 +572,7 @@ public class AuditRepositoryLogger {
 
     /**
      * This method will create the generic Audit Log Message from an audit query response
-     * 
+     *
      * @param message The Audit Query Response message to be audit logged.
      * @param direction The direction this message is going (Inbound or Outbound)
      * @param _interface The interface this message is being received/sent on (Entity, Adapter, or Nhin)
@@ -599,7 +598,7 @@ public class AuditRepositoryLogger {
 
     /**
      * This method will create the generic Audit Log Message from a Nhin Subscribe request
-     * 
+     *
      * @param message The Nhin Subscribe Request message to be audit logged.
      * @param direction The direction this message is going (Inbound or Outbound)
      * @param _interface The interface this message is being received/sent on (Entity, Adapter, or Nhin)
@@ -625,7 +624,7 @@ public class AuditRepositoryLogger {
 
     /**
      * This method will create the generic Audit Log Message from a Nhin notify request
-     * 
+     *
      * @param message The Nhin Notify Request message to be audit logged.
      * @param direction The direction this message is going (Inbound or Outbound)
      * @param _interface The interface this message is being received/sent on (Entity, Adapter, or Nhin)
@@ -650,7 +649,7 @@ public class AuditRepositoryLogger {
 
     /**
      * This method will create the generic Audit Log Message from a Nhin unsubscribe request
-     * 
+     *
      * @param message The Nhin Unsubscribe Request message to be audit logged.
      * @param direction The direction this message is going (Inbound or Outbound)
      * @param _interface The interface this message is being received/sent on (Entity, Adapter, or Nhin)
@@ -677,7 +676,7 @@ public class AuditRepositoryLogger {
 
     /**
      * This method will create the generic Audit Log Message from an unsubscribe response
-     * 
+     *
      * @param message The Unsubscribe Response message to be audit logged.
      * @param direction The direction this message is going (Inbound or Outbound)
      * @param _interface The interface this message is being received/sent on (Entity, Adapter, or Nhin)
@@ -705,7 +704,7 @@ public class AuditRepositoryLogger {
 
     /**
      * This method will create the generic Audit Log Message from a subscribe response
-     * 
+     *
      * @param message The Subscribe Response message to be audit logged.
      * @param direction The direction this message is going (Inbound or Outbound)
      * @param _interface The interface this message is being received/sent on (Entity, Adapter, or Nhin)
@@ -733,7 +732,7 @@ public class AuditRepositoryLogger {
 
     /**
      * This method will create the generic Audit Log Message from an entity document subscribe request
-     * 
+     *
      * @param message The Entity Document Subscribe Request message to be audit logged.
      * @param direction The direction this message is going (Inbound or Outbound)
      * @param _interface The interface this message is being received/sent on (Entity, Adapter, or Nhin)
@@ -759,7 +758,7 @@ public class AuditRepositoryLogger {
 
     /**
      * This method will create the generic Audit Log Message from an entity CDC subscribe request
-     * 
+     *
      * @param message The Entity CDC Subscribe Request message to be audit logged.
      * @param direction The direction this message is going (Inbound or Outbound)
      * @param _interface The interface this message is being received/sent on (Entity, Adapter, or Nhin)
@@ -785,7 +784,7 @@ public class AuditRepositoryLogger {
 
     /**
      * This method will create the generic Audit Log Message from an entity document notify request
-     * 
+     *
      * @param message The Entity Document Notify Request message to be audit logged.
      * @param direction The direction this message is going (Inbound or Outbound)
      * @param _interface The interface this message is being received/sent on (Entity, Adapter, or Nhin)
@@ -811,7 +810,7 @@ public class AuditRepositoryLogger {
 
     /**
      * This method will create the generic Audit Log Message from an entity CDC notify request
-     * 
+     *
      * @param message The Entity CDC Notify Request message to be audit logged.
      * @param direction The direction this message is going (Inbound or Outbound)
      * @param _interface The interface this message is being received/sent on (Entity, Adapter, or Nhin)
@@ -837,7 +836,7 @@ public class AuditRepositoryLogger {
 
     /**
      * This method will create the generic Audit Log Message from an entity notify response
-     * 
+     *
      * @param message The Entity Notify Response message to be audit logged.
      * @param direction The direction this message is going (Inbound or Outbound)
      * @param _interface The interface this message is being received/sent on (Entity, Adapter, or Nhin)
@@ -930,7 +929,7 @@ public class AuditRepositoryLogger {
 
     /**
      * This method will create the generic Audit Log Message from an entity unsubscribe request
-     * 
+     *
      * @param message The Entity Unsubscribe Request message to be audit logged.
      * @param direction The direction this message is going (Inbound or Outbound)
      * @param _interface The interface this message is being received/sent on (Entity, Adapter, or Nhin)
@@ -960,7 +959,7 @@ public class AuditRepositoryLogger {
     }
 
     /**
-     * 
+     *
      * @param acknowledgement
      * @param assertion
      * @param direction
@@ -999,7 +998,7 @@ public class AuditRepositoryLogger {
 
     /**
      * This method will create the generic Audit Log Message from an Entity Patient Discovery Response
-     * 
+     *
      * @param message The Patient Discovery Response message to be audit logged.
      * @param assertion The Assertion Class containing SAML information
      * @param direction The direction this message is going (Inbound or Outbound)

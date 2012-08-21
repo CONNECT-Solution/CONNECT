@@ -35,7 +35,8 @@ import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
  * @author akong
  *
  */
-public class NhinDocSubmissionDeferredRequestServicePortDescriptor implements ServicePortDescriptor<XDRDeferredRequestPortType> {
+public class NhinDocSubmissionDeferredRequestServicePortDescriptor implements
+        ServicePortDescriptor<XDRDeferredRequestPortType> {
 
     private static final String NAMESPACE_URI = "urn:ihe:iti:xdr:2007";
     private static final String SERVICE_LOCAL_PART = "XDRDeferredRequest_Service";
@@ -43,7 +44,9 @@ public class NhinDocSubmissionDeferredRequestServicePortDescriptor implements Se
     private static final String WSDL_FILE_NAME = "NhinXDRDeferredRequest.wsdl";
     private static final String WS_ADDRESSING_ACTION = "urn:ihe:iti:xdr:2007:Deferred:XDRRequestInputMessage";
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     *
      * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getNamespaceUri()
      */
     @Override
@@ -51,7 +54,9 @@ public class NhinDocSubmissionDeferredRequestServicePortDescriptor implements Se
         return NAMESPACE_URI;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     *
      * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getServiceLocalPart()
      */
     @Override
@@ -59,7 +64,9 @@ public class NhinDocSubmissionDeferredRequestServicePortDescriptor implements Se
         return SERVICE_LOCAL_PART;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     *
      * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getPortLocalPart()
      */
     @Override
@@ -67,7 +74,9 @@ public class NhinDocSubmissionDeferredRequestServicePortDescriptor implements Se
         return PORT_LOCAL_PART;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     *
      * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getWSDLFileName()
      */
     @Override
@@ -75,7 +84,9 @@ public class NhinDocSubmissionDeferredRequestServicePortDescriptor implements Se
         return WSDL_FILE_NAME;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     *
      * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getWSAddressingAction()
      */
     @Override
@@ -83,7 +94,9 @@ public class NhinDocSubmissionDeferredRequestServicePortDescriptor implements Se
         return WS_ADDRESSING_ACTION;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     *
      * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getPortClass()
      */
     @Override

@@ -83,7 +83,6 @@ public class AsyncMessageProcessHelper {
         statusToDirectionMap.put(AsyncMsgRecordDao.QUEUE_STATUS_RSPSELECT, AsyncMsgRecordDao.QUEUE_DIRECTION_INBOUND);
     }
 
-
     /**
      * Creates the log.
      */
