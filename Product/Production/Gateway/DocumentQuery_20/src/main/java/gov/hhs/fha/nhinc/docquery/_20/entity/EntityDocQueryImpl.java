@@ -50,7 +50,7 @@ import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
->>>>>>> 15bcd66af950f2d1a668d59208ac3e418a28116f
+
 
 class EntityDocQueryImpl {
 
