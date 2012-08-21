@@ -27,28 +27,48 @@
 package gov.hhs.fha.nhinc.adapterauthentication.proxy;
 
 import gov.hhs.fha.nhinc.adapterauthentication.AdapterAuthenticationPortType;
+import gov.hhs.fha.nhinc.adapterauthentication.proxy.service.AdapterAuthenticationServicePortDescriptor;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AuthenticateUserRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AuthenticateUserResponseType;
-import gov.hhs.fha.nhinc.adapterauthentication.AdapterAuthenticationException;
+import gov.hhs.fha.nhinc.messaging.client.CONNECTCXFClientFactory;
+import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
+import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
-import javax.xml.namespace.QName;
-import javax.xml.ws.Service;
 
 /**
  * This is the concrete implementation for the Web based call to the AdapterAuthentication.
  */
 public class AdapterAuthenticationWebServiceProxy implements AdapterAuthenticationProxy {
 
-    private static Log log = LogFactory.getLog(AdapterAuthenticationWebServiceProxy.class);
+    private static Log log = null;
     private static String ADAPTER_AUTH_SERVICE_NAME = "adapterauthentication";
-    private static final String NAMESPACE_URI = "urn:gov:hhs:fha:nhinc:adapterauthentication";
-    private static final String SERVICE_LOCAL_PART = "AdapterAuthentication_Service";
-    private static final String PORT_LOCAL_PART = "AdapterAuthentication_Port";
-    private static final String WSDL_FILE = "AdapterAuthentication.wsdl";
-    private static Service cachedService = null;
-    private WebServiceProxyHelper proxyHelper = new WebServiceProxyHelper();
+    private WebServiceProxyHelper proxyHelper = null;
+
+    public AdapterAuthenticationWebServiceProxy() {
+        if (log == null) {
+            log = createLogger();
+        }
+        proxyHelper = createWebServiceProxyHelper();
+    }
+
+    protected Log createLogger() {
+        return LogFactory.getLog(getClass());
+    }
+
+    protected WebServiceProxyHelper createWebServiceProxyHelper() {
+        return new WebServiceProxyHelper();
+    }
+
+    protected CONNECTClient<AdapterAuthenticationPortType> getCONNECTClientUnsecured(
+            ServicePortDescriptor<AdapterAuthenticationPortType> portDescriptor, String url, AssertionType assertion) {
+
+        return CONNECTCXFClientFactory.getInstance().getCONNECTClientUnsecured(portDescriptor, url, assertion);
+    }
 
     /**
      * Given a request to authenticate a user, this service will determine if this is an identifiable user within
@@ -61,11 +81,26 @@ public class AdapterAuthenticationWebServiceProxy implements AdapterAuthenticati
     public AuthenticateUserResponseType authenticateUser(AuthenticateUserRequestType authenticateUserRequest) {
 
         log.debug("Begin authenticateUser");
-        AuthenticateUserResponseType authResp = new AuthenticateUserResponseType();
+        AuthenticateUserResponseType authResp = null;
 
         try {
-            AdapterAuthenticationPortType authPort = getAdapterAuthenticationPort();
-            authResp = authPort.authenticateUser(authenticateUserRequest);
+            String url = proxyHelper.getAdapterEndPointFromConnectionManager(ADAPTER_AUTH_SERVICE_NAME);
+
+            if (NullChecker.isNotNullish(url)) {
+
+                if (authenticateUserRequest == null) {
+                    log.error("Request was null");
+                } else {
+                    ServicePortDescriptor<AdapterAuthenticationPortType> portDescriptor = new AdapterAuthenticationServicePortDescriptor();
+                    CONNECTClient<AdapterAuthenticationPortType> client = getCONNECTClientUnsecured(portDescriptor,
+                            url, null);
+
+                    authResp = (AuthenticateUserResponseType) client.invokePort(AdapterAuthenticationPortType.class,
+                            "authenticateUser", authenticateUserRequest);
+                }
+            } else {
+                log.error("Failed to call the web service (" + ADAPTER_AUTH_SERVICE_NAME + ").  The URL is null.");
+            }
         } catch (Exception ex) {
             String message = "Error occurred calling AdapterAuthenticationWebServiceProxy.authenticateUser.  Error: "
                     + ex.getMessage();
@@ -75,55 +110,5 @@ public class AdapterAuthenticationWebServiceProxy implements AdapterAuthenticati
 
         log.debug("End authenticateUser");
         return authResp;
-    }
-
-    /**
-     * Return a handle to the AdapterAuthentication web service.
-     * 
-     * @return The handle to the Adapter Authentication port web service.
-     */
-    private AdapterAuthenticationPortType getAdapterAuthenticationPort() throws AdapterAuthenticationException {
-        AdapterAuthenticationPortType port = null;
-        Service service = getService();
-        if (service != null) {
-            log.debug("Obtained service - creating port.");
-
-            String url = getUrl(ADAPTER_AUTH_SERVICE_NAME);
-
-            port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), AdapterAuthenticationPortType.class);
-        //    proxyHelper.initializeUnsecurePort((javax.xml.ws.BindingProvider) port, url, null, null);
-        } else {
-            log.error("Unable to obtain serivce - no port created.");
-        }
-
-        return port;
-    }
-
-    /**
-     * Retrieve the service class for this web service.
-     * 
-     * @return The service class for this web service.
-     */
-    protected Service getService() {
-        if (cachedService == null) {
-            try {
-                cachedService = proxyHelper.createService(WSDL_FILE, NAMESPACE_URI, SERVICE_LOCAL_PART);
-            } catch (Throwable t) {
-                log.error("Error creating service: " + t.getMessage(), t);
-            }
-        }
-        return cachedService;
-    }
-
-    protected String getUrl(String serviceName) {
-        String result = "";
-        try {
-            result = proxyHelper.getUrlLocalHomeCommunity(serviceName);
-        } catch (Exception ex) {
-            log.warn("Unable to retreive url for service: " + serviceName);
-            log.warn("Error: " + ex.getMessage(), ex);
-        }
-
-        return result;
     }
 }

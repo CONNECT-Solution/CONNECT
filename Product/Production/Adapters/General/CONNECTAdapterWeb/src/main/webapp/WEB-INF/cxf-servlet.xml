@@ -84,5 +84,26 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
         endpointName="tns:AdapterComponentRedactionEnginePortTypeBindingPort" implementor="gov.hhs.fha.nhinc.redactionengine.adapter.AdapterComponentRedactionEngine"
         wsdlLocation="/WEB-INF/wsdl/AdapterComponentRedactionEngine/AdapterComponentRedactionEngine.wsdl">
     </jaxws:endpoint>
+    
+    <!-- Deferred Queue Manager -->   
+    
+    <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:deferredqueuemanager" id="DeferredQueueManager"
+        address="/DeferredQueueManager" serviceName="tns:DeferredQueueManager" endpointName="tns:DeferredQueueManagerPort"
+        implementor="gov.hhs.fha.nhinc.adapter.deferred.queue.DeferredQueueManager" wsdlLocation="/WEB-INF/wsdl/DeferredQueueManager/DeferredQueueManager.wsdl">
+    </jaxws:endpoint>
+    
+    <!-- Adapter Authentication Service -->
+    
+    <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adapterauthentication" id="AdapterAuthenticationService"
+        address="/AdapterAuthentication" serviceName="tns:AdapterAuthentication" endpointName="tns:AdapterAuthenticationPortSoap"
+        implementor="gov.hhs.fha.nhinc.adapterauthentication.AdapterAuthenticationService" wsdlLocation="/WEB-INF/wsdl/AdapterAuthenticationService/AdapterAuthentication.wsdl">
+    </jaxws:endpoint>
+            
+    <!-- Entity Performance Log Query -->
+    
+    <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:entityperformancelogquery" id="EntityPerformanceLogQuery"
+        address="/EntityPerformanceLogQuery" serviceName="tns:EntityPerformanceLogQuery" endpointName="tns:EntityPerformanceLogQueryPort"
+        implementor="gov.hhs.fha.nhinc.performancequery.entity.EntityPerformanceLogQuery" wsdlLocation="/WEB-INF/wsdl/EntityPerformanceLogQuery/EntityPerformanceLogQuery.wsdl">
+    </jaxws:endpoint>
 
 </beans>
