@@ -46,7 +46,6 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.orchestration.Orchestratable;
 import gov.hhs.fha.nhinc.orchestration.OrchestrationContext;
 import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratable;
-import gov.hhs.fha.nhinc.patientdiscovery.entity.OutboundPatientDiscoveryOrchestratable;
 
 public class OutboundDocSubmissionDelegateTest {
 
@@ -133,7 +132,7 @@ public class OutboundDocSubmissionDelegateTest {
     public void testOrchestration_UnknownOrchestratable() {
         allowAnyMockLogging();
 
-        OutboundPatientDiscoveryOrchestratable wrongOrchestratable = new OutboundPatientDiscoveryOrchestratable();
+        TestOrchestratable wrongOrchestratable = new TestOrchestratable();
         OutboundDocSubmissionDelegate delegate = createOutboundDocSubmissionDelegate();
         Orchestratable response = delegate.process(wrongOrchestratable);
 

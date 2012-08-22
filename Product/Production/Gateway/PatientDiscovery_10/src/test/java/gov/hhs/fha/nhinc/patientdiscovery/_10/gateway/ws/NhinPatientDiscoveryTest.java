@@ -28,11 +28,9 @@ package gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
-import ihe.iti.xcpd._2009.PRPAIN201305UV02Fault;
 import gov.hhs.fha.nhinc.patientdiscovery.NhinPatientDiscoveryImpl;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryException;
-import gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.NhinPatientDiscovery;
-import gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.PatientDiscoveryServiceFactory;
+import ihe.iti.xcpd._2009.PRPAIN201305UV02Fault;
 
 import javax.xml.ws.WebServiceContext;
 

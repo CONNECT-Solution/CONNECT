@@ -42,6 +42,13 @@
         <should.build>true</should.build>
         <should.deploy>true</should.deploy>
     </project>
+	<project>
+        <name>PatientDiscoveryCore</name>
+        <directory>/Production/Services/PatientDiscovery/Core/PatientDiscoveryCore</directory>
+        <dist.type>jar</dist.type>
+        <should.build>true</should.build>
+        <should.deploy>true</should.deploy>
+    </project>
     <project>
         <name>PatientDiscovery_10</name>
         <directory>/Production/Gateway/PatientDiscovery_10</directory>

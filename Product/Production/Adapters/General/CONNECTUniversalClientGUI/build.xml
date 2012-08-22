@@ -7,6 +7,16 @@
     <property name="deploy.isDeployable" value="true" />
     <property name="deploy.type" value="war" />
 
+	<property name="cxf.home" location="../../../../../ThirdParty/CXF" />
+    <property name="spring.home" location="../../../../../ThirdParty/SpringFramework" />
+    <property name="core.lib" location="../../Common/CONNECTCoreLib/dist/debug" />
+    <property name="common.lib" location="../../Common/CONNECTCommonTypesLib/dist/debug" />
+    <property name="opensaml.home" location="../../../../../ThirdParty/openSAML" />
+    <property name="core.docquery" location="../../Services/DocumentQuery/Core/DocumentQueryCore/dist/debug" />
+    <property name="core.docretrieve" location="../../Services/DocumentRetrieve/Core/DocumentRetrieveCore/dist/debug" />
+   <property name="core.patientdiscovery"
+              location="../../Services/PatientDiscovery/Core/PatientDiscoveryCore/dist/debug" />
+
     <!-- Please make sure that this goes up to the correct directory -->
     <import file="../../../../build/build.targets.xml" />
 
@@ -17,6 +27,7 @@
         <!-- Add classes from other projects like so...-->
         <pathelement path="${project.CONNECTCommonTypesLib.build.classes.dir}" />
         <pathelement path="${project.CONNECTCoreLib.build.classes.dir}" />
+		<pathelement path="${project.PatientDiscoveryCore.build.classes.dir}" />
         <pathelement path="${project.DocumentQueryCore.build.classes.dir}" />
         <pathelement path="${project.DocumentRetrieveCore.build.classes.dir}" />
 
@@ -35,15 +46,13 @@
         <filelist dir="${core.docretrieve}">
             <file name="DocumentRetrieveCore.jar" />
         </filelist>
+	  <filelist dir="${core.patientdiscovery}">
+	                <file name="PatientDiscoveryCore.jar" />
+	            </filelist>
+
     </path>
 
-    <property name="cxf.home" location="../../../../../ThirdParty/CXF" />
-    <property name="spring.home" location="../../../../../ThirdParty/SpringFramework" />
-    <property name="core.lib" location="../../Common/CONNECTCoreLib/dist/debug" />
-    <property name="common.lib" location="../../Common/CONNECTCommonTypesLib/dist/debug" />
-    <property name="opensaml.home" location="../../../../../ThirdParty/openSAML" />
-    <property name="core.docquery" location="../../Services/DocumentQuery/Core/DocumentQueryCore/dist/debug" />
-    <property name="core.docretrieve" location="../../Services/DocumentRetrieve/Core/DocumentRetrieveCore/dist/debug" />
+    
     <path id="war.libs">
         <fileset refid="classpath.runtime" />
         <fileset dir="${cxf.home}">

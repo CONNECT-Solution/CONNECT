@@ -41,12 +41,12 @@ import org.junit.Test;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+import gov.hhs.fha.nhinc.docsubmission.entity.TestOrchestratable;
 import gov.hhs.fha.nhinc.docsubmission.orchestration.OrchestrationContextFactory;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.orchestration.Orchestratable;
 import gov.hhs.fha.nhinc.orchestration.OrchestrationContext;
 import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratable;
-import gov.hhs.fha.nhinc.patientdiscovery.entity.OutboundPatientDiscoveryOrchestratable;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 
 /**
@@ -132,19 +132,6 @@ public class OutboundDocSubmissionDeferredResponseDelegateTest {
 
         OutboundDocSubmissionDeferredResponseDelegate delegate = createOutboundDocSubmissionDeferredResponseDelegate();
         Orchestratable response = delegate.process(null);
-
-        context.assertIsSatisfied();
-        assertNull(response);
-    }
-
-    @Test
-    public void testOrchestration_UnknownOrchestratable() {
-        allowAnyMockLogging();
-
-        OutboundPatientDiscoveryOrchestratable wrongOrchestratable = new OutboundPatientDiscoveryOrchestratable();
-        OutboundDocSubmissionDeferredResponseDelegate delegate = createOutboundDocSubmissionDeferredResponseDelegate();
-        Orchestratable response = delegate
-                .process(wrongOrchestratable);
 
         context.assertIsSatisfied();
         assertNull(response);
