@@ -14,13 +14,6 @@
         <should.build>true</should.build>
         <should.deploy>true</should.deploy>
     </project>
-        <project>
-        <name>PatientDiscoveryCore</name>
-        <directory>/Production/Services/PatientDiscovery/Core/PatientDiscoveryCore</directory>
-        <dist.type>jar</dist.type>
-        <should.build>true</should.build>
-        <should.deploy>true</should.deploy>
-    </project>
     <project>
         <name>DocumentSubmissionCore</name>
         <directory>/Production/Services/DocumentSubmission/Core/DocumentSubmissionCore</directory>
@@ -46,6 +39,13 @@
         <name>CONNECTGatewayWeb</name>
         <directory>/Production/Gateway/CONNECTGatewayWeb</directory>
         <dist.type>war</dist.type>
+        <should.build>true</should.build>
+        <should.deploy>true</should.deploy>
+    </project>
+	<project>
+        <name>PatientDiscoveryCore</name>
+        <directory>/Production/Services/PatientDiscovery/Core/PatientDiscoveryCore</directory>
+        <dist.type>jar</dist.type>
         <should.build>true</should.build>
         <should.deploy>true</should.deploy>
     </project>
