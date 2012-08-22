@@ -4,7 +4,7 @@
   <context-root>/CONNECTUniversalClientGUI</context-root>
   <class-loader delegate="true"/>
   <jsp-config>
-    <property name="keepgenerated" value="true">
+    <property name="keepgenerated" value="false">
       <description>Keep a copy of the generated servlet class' java code.</description>
     </property>
   </jsp-config>

@@ -36,6 +36,7 @@ import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import gov.hhs.fha.nhinc.patientdiscovery.entity.proxy.EntityPatientDiscoveryProxyWebServiceUnsecuredImpl;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201305Transforms;
@@ -66,8 +67,7 @@ public class PatientDiscoveryClient {
     private static final String SERVICE_NAME = NhincConstants.ENTITY_PATIENT_DISCOVERY_SERVICE_NAME;
 
     private static Log log = null;
-    private static Service cachedService = null;
-    private WebServiceProxyHelper oProxyHelper = new WebServiceProxyHelper();
+   
 
     private Log getLog() {
         if (log == null) {
@@ -116,10 +116,9 @@ public class PatientDiscoveryClient {
 
             String url = getEndpointURL();
             if (NullChecker.isNotNullish(url)) {
-                ServicePortDescriptor<EntityPatientDiscoveryPortType> portDescriptor = new EntityPatientDiscoveryServicePortDescriptor();
-                CONNECTClient<EntityPatientDiscoveryPortType> client = CONNECTClientFactory.getInstance()
-                        .getCONNECTClientSecured(portDescriptor, url, assertion);
-                client.invokePort(EntityPatientDiscoveryPortType.class, "respondingGatewayPRPAIN201305UV02", request);
+             
+            	EntityPatientDiscoveryProxyWebServiceUnsecuredImpl instance = new EntityPatientDiscoveryProxyWebServiceUnsecuredImpl();
+                instance.respondingGatewayPRPAIN201305UV02(request201305, assertion, request.getNhinTargetCommunities());
             } else {
                 log.error("Error getting URL for: " + SERVICE_NAME + "url is null");
             }
