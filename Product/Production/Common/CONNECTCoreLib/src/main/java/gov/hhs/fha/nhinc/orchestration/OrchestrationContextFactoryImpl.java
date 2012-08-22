@@ -28,14 +28,8 @@ package gov.hhs.fha.nhinc.orchestration;
 
 import gov.hhs.fha.nhinc.admindistribution.entity.OutboundAdminDistributionFactory;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
-import gov.hhs.fha.nhinc.connectmgr.AdapterEndpointManager;
 import gov.hhs.fha.nhinc.connectmgr.NhinEndpointManager;
-/*import gov.hhs.fha.nhinc.docretrieve.entity.OutboundDocRetrieveFactory;
-import gov.hhs.fha.nhinc.docretrieve.nhin.InboundDocRetrieveFactory;*/
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.patientdiscovery.entity.OutboundPatientDiscoveryFactory;
-import gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.request.OutboundPatientDiscoveryDeferredRequestFactory;
-import gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.response.OutboundPatientDiscoveryDeferredResponseFactory;
 
 public class OrchestrationContextFactoryImpl extends AbstractOrchestrationContextFactory{
 
@@ -48,6 +42,7 @@ public class OrchestrationContextFactoryImpl extends AbstractOrchestrationContex
         return INSTANCE;
     }
 
+    @Override
     public OrchestrationContextBuilder getBuilder(HomeCommunityType homeCommunityType,
             NhincConstants.NHIN_SERVICE_NAMES serviceName) {
         NhinEndpointManager nem = new NhinEndpointManager();
@@ -62,14 +57,6 @@ public class OrchestrationContextFactoryImpl extends AbstractOrchestrationContex
             NhincConstants.NHIN_SERVICE_NAMES serviceName) {
 
         switch (serviceName) {
-        case PATIENT_DISCOVERY:
-            return OutboundPatientDiscoveryFactory.getInstance().createOrchestrationContextBuilder(apiLevel);
-        case PATIENT_DISCOVERY_DEFERRED_REQUEST:
-            return OutboundPatientDiscoveryDeferredRequestFactory.getInstance().createOrchestrationContextBuilder(
-                    apiLevel);
-        case PATIENT_DISCOVERY_DEFERRED_RESPONSE:
-            return OutboundPatientDiscoveryDeferredResponseFactory.getInstance().createOrchestrationContextBuilder(
-                    apiLevel);
         case ADMINISTRATIVE_DISTRIBUTION:
             return OutboundAdminDistributionFactory.getInstance().createOrchestrationContextBuilder(apiLevel);
         case HIEM_SUBSCRIBE:
@@ -77,10 +64,7 @@ public class OrchestrationContextFactoryImpl extends AbstractOrchestrationContex
         case HIEM_UNSUBSCRIBE:
         }
 
-        /*
-         * if (NhincConstants.ADAPTER_DOC_RETRIEVE_SERVICE_NAME.equals(serviceName)) { return
-         * InboundDocRetrieveFactory.getInstance().createOrchestrationContextBuilder(apiLevel);
-         */
+       
 
         return null;
     }
