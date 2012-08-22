@@ -26,18 +26,14 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws;
 
-import ihe.iti.xcpd._2009.PRPAIN201305UV02Fault;
-import gov.hhs.fha.nhinc.adaptermpi.FindCandidatesSecuredFault;
-import gov.hhs.fha.nhinc.hiem.processor.faults.SoapFaultFactory;
 import gov.hhs.fha.nhinc.patientdiscovery.NhinPatientDiscoveryImpl;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryException;
 import gov.hhs.healthit.nhin.PatientDiscoveryFaultType;
+import ihe.iti.xcpd._2009.PRPAIN201305UV02Fault;
 
-import javax.jws.HandlerChain;
-import javax.jws.WebService;
-import javax.xml.soap.SOAPFactory;
-import javax.xml.ws.BindingType;
 import javax.annotation.Resource;
+import javax.jws.WebService;
+import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
 

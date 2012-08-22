@@ -1,0 +1,19 @@
+***************
+*** 27,34 ****
+  package gov.hhs.fha.nhinc.patientdiscovery;
+  
+  import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+  import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+- import gov.hhs.fha.nhinc.patientdiscovery.nhin.GenericFactory;
+  import gov.hhs.fha.nhinc.patientdiscovery.nhin.NhinPatientDiscoveryOrchImpl;
+  import gov.hhs.fha.nhinc.patientdiscovery.nhin.InboundPatientDiscoveryOrchestration;
+  import gov.hhs.fha.nhinc.perfrepo.PerformanceManager;
+--- 27,34 ----
+  package gov.hhs.fha.nhinc.patientdiscovery;
+  
+  import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
++ import gov.hhs.fha.nhinc.generic.GenericFactory;
+  import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+  import gov.hhs.fha.nhinc.patientdiscovery.nhin.NhinPatientDiscoveryOrchImpl;
+  import gov.hhs.fha.nhinc.patientdiscovery.nhin.InboundPatientDiscoveryOrchestration;
+  import gov.hhs.fha.nhinc.perfrepo.PerformanceManager;

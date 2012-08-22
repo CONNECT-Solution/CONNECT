@@ -30,10 +30,10 @@ import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
+import gov.hhs.fha.nhinc.generic.GenericFactory;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.response.EntityPatientDiscoveryDeferredResponseOrch;
 import gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.response.EntityPatientDiscoveryDeferredResponseOrchFactory;
-import gov.hhs.fha.nhinc.patientdiscovery.nhin.GenericFactory;
 
 import java.util.List;
 

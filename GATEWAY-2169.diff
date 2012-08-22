@@ -1,0 +1,319 @@
+diff --git a/Product/DBScripts/deploy.bat b/Product/DBScripts/deploy.bat
+deleted file mode 100644
+index 5b57999..0000000
+--- a/Product/DBScripts/deploy.bat
++++ /dev/null
+@@ -1,18 +0,0 @@
+-FOR /F "TOKENS=1 DELIMS=," %%A IN ('cd') DO set BaseDir=%%A
+-
+-IF EXIST ..\..\Build\Packages\Ant\Ant\bin\ant.bat. (
+-    cd ..\..
+-    FOR /F "TOKENS=1 DELIMS=," %%A IN ('cd') DO set CodeLineDir=%%A
+-    set ANT_HOME=%CodeLineDir%\Build\Packages\Ant\Ant
+-) ELSE (
+-    set ANT_HOME=%BaseDir%\Ant
+-)
+-
+-cd %BaseDir%
+-set ANT_OPTS=-Xmx512m -XX:MaxPermSize=256m
+-set JAVA_HOME=C:\Java\jdk1.6.0_16
+-set PATH=%SystemRoot%\system32;%SystemRoot%;%SystemRoot%\System32\Wbem;%JAVA_HOME%\bin;%ANT_HOME%\bin;
+-
+-ant -buildfile deploy.xml %*
+-
+-exit /B %ERRORLEVEL%
+\ No newline at end of file
+diff --git a/Product/DBScripts/deploy.xml b/Product/DBScripts/deploy.xml
+deleted file mode 100644
+index e16ab4e..0000000
+--- a/Product/DBScripts/deploy.xml
++++ /dev/null
+@@ -1,71 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<project basedir="." default="deploy" name="NHINC.database.deploy">
+-    
+-    <import file="properties.xml" />
+-    <taskdef resource="net/sf/antcontrib/antcontrib.properties" />
+-    
+-    <taskdef resource="org/apache/ivy/ant/antlib.xml" uri="antlib:org.apache.ivy.ant" />
+-    
+-    <taskdef name="xmltask" classname="com.oopsconsultancy.xmltask.ant.XmlTask">
+-    	<classpath>
+-    		<pathelement location="${ant.library.dir}/xmltask-v1.15.1.jar" />
+-    	</classpath>
+-    </taskdef>
+-    
+-    <taskdef name="largeproperty" classname="com.agilex.ant.LargeProperty">
+-    	<classpath>
+-    		<pathelement location="${ant.library.dir}/agilex-ant-tasks.jar" />
+-    	</classpath>
+-    </taskdef>
+-    
+-    <taskdef name="for" classname="net.sf.antcontrib.logic.ForTask" />
+-    
+-    <target name="deploy">
+-    	<echo>
+-    		Please choose a target:
+-    		database.drop
+-    		database.create
+-    		database.recreate
+-    		database.populateWithTestData
+-    		database.recreateTestDatabase
+-    	</echo>
+-    </target>
+-    
+-    <target name="database.populate.test.data">
+-      <execsql file="${basedir}/nhincdb/populateTestData.sql"/>
+-    </target>
+-
+-    <target name="database.alter">
+-
+-    </target>
+-    
+-    <target name="database.drop">
+-    	<execsql file="${basedir}/nhincdb/dropall.sql"/>
+-    </target>
+-    
+-    <target name="database.create">
+-    	<execsql file="${basedir}/nhincdb/nhincdb.sql"/>
+-    </target>
+-    
+-    <target name="database.recreate">
+-    	<runtarget target="database.drop"/>
+-    	<runtarget target="database.create"/>
+-    </target>
+-    
+-    <target name="database.recreateTestDatabase">
+-    	<runtarget target="database.recreate"/>
+-      <runtarget target="database.populate.test.data"/>
+-    </target>
+-    
+-    <macrodef name="execsql">
+-        <attribute name="file" />
+-        <sequential>
+-            <sql classpath="${database.jdbc.driver.classpath}"
+-                driver="${database.jdbc.driver}"
+-                src="@{file}"
+-                url="${database.url}"
+-                userid="${database.admin.username}"
+-                password="${database.admin.password}" />
+-        </sequential>
+-    </macrodef>
+-</project>
+\ No newline at end of file
+diff --git a/Product/DBScripts/properties.xml b/Product/DBScripts/properties.xml
+deleted file mode 100644
+index 8594b31..0000000
+--- a/Product/DBScripts/properties.xml
++++ /dev/null
+@@ -1,10 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<project name="NHINC.Database.Deploy.Properties">
+-  <property environment="env"/>
+-  <property name="database.admin.username"        value="root"/>
+-  <property name="database.admin.password"        value="passw0rd"/>
+-    
+-  <property name="database.url"                   value="jdbc:mysql://localhost:3306?autoReconnect=true"/>
+-  <property name="database.jdbc.driver"           value="com.mysql.jdbc.Driver"/>
+-  <property name="database.jdbc.driver.classpath" value="${env.NHINC_THIRDPARTY_DIR}/MySQLDB/mysql-connector-java-5.1.8-bin.jar"/>
+-</project>
+diff --git a/Product/Production/Common/CONNECTCoreLib/src/main/java/gov/hhs/fha/nhinc/perfrepo/PerformanceManager.java b/Product/Production/Common/CONNECTCoreLib/src/main/java/gov/hhs/fha/nhinc/perfrepo/PerformanceManager.java
+index 3b4793f..a52a2ff 100644
+--- a/Product/Production/Common/CONNECTCoreLib/src/main/java/gov/hhs/fha/nhinc/perfrepo/PerformanceManager.java
++++ b/Product/Production/Common/CONNECTCoreLib/src/main/java/gov/hhs/fha/nhinc/perfrepo/PerformanceManager.java
+@@ -74,21 +74,47 @@ public class PerformanceManager {
+     /**
+      * Log new performance repository log record with initial start time
+      * 
+-     * @param starttime
++     * @param time
++     * @param servicetype
++     * @param messagetype
++     * @param direction
++     * @param communityid
++     * @return Long - Generated id from SQL INSERT
++     */
++    public Long logPerformanceStart(final Timestamp time, final String servicetype, final String messagetype,
++            final String direction, final String communityid) {
++        log.debug("PerformanceManager.logPerformanceStart() - Begin");
++
++        Long newId = null;
++
++        if (PerformanceManager.IsPerfMonitorEnabled()) {
++            newId = createPerformanceRecord(time, servicetype, messagetype, direction, communityid, null, null, null, null, null);
++        } else {
++            log.info("PerformanceManager.logPerformanceStart() - Performance Monitor is Disabled");
++        }
++
++        log.debug("PerformanceManager.logPerformanceStart() - End");
++
++        return newId;
++    }
++    /**
++     * Log new performance repository log record with initial start time
++     * 
++     * @param time
+      * @param servicetype
+      * @param messagetype
+      * @param direction
+      * @param communityid
+      * @return Long - Generated id from SQL INSERT
+      */
+-    public Long logPerformanceStart(final Timestamp starttime, final String servicetype, final String messagetype,
++    public Long logPerformanceStop(final Timestamp time, final String servicetype, final String messagetype,
+             final String direction, final String communityid) {
+         log.debug("PerformanceManager.logPerformanceStart() - Begin");
+ 
+         Long newId = null;
+ 
+         if (PerformanceManager.IsPerfMonitorEnabled()) {
+-            newId = createPerformanceRecord(starttime, servicetype, messagetype, direction, communityid, null, null, null, null, null);
++            newId = createPerformanceRecord(time, servicetype, messagetype, direction, communityid, null, null, null, null, null);
+         } else {
+             log.info("PerformanceManager.logPerformanceStart() - Performance Monitor is Disabled");
+         }
+@@ -98,12 +124,12 @@ public class PerformanceManager {
+         return newId;
+     }
+ 
+-    private Long createPerformanceRecord(final Timestamp starttime, final String servicetype, final String messagetype,
++    private Long createPerformanceRecord(final Timestamp time, final String servicetype, final String messagetype,
+             final String direction, final String communityid,final String correlationId,final String errorCode,
+             final String messageVersion,final String payLoadSize, final String payLoadType) {
+         Long newId = null;
+         Perfrepository perfRecord = new Perfrepository();
+-        perfRecord.setStarttime(starttime);
++        perfRecord.setTime(time);
+         perfRecord.setServicetype(servicetype);
+         perfRecord.setMessagetype(messagetype);
+         perfRecord.setDirection(direction);
+@@ -130,6 +156,7 @@ public class PerformanceManager {
+      * @param starttime
+      * @param stoptime
+      * @param status
++     * @deprecated
+      * @return Long - Calculated duration in milliseconds
+      */
+     public Long logPerformanceStop(Long id, Timestamp starttime, Timestamp stoptime) {
+@@ -153,9 +180,9 @@ public class PerformanceManager {
+                     log.warn("PerformanceManager.logPerformanceStop() - ERROR Calculating Performance Duration - starttime and/or stoptime null");
+                 }
+ 
+-                perfRecord.setStoptime(stoptime);
+-                perfRecord.setDuration(duration);
+-                perfRecord.setStatus(status);
++//                perfRecord.setStoptime(stoptime);
++//                perfRecord.setDuration(duration);
++//                perfRecord.setStatus(status);
+ 
+                 if (!PerfrepositoryDao.getPerfrepositoryDaoInstance().updatePerfrepository(perfRecord)) {
+                     status = -1;
+diff --git a/Product/Production/Common/CONNECTCoreLib/src/main/java/gov/hhs/fha/nhinc/perfrepo/model/Perfrepository.java b/Product/Production/Common/CONNECTCoreLib/src/main/java/gov/hhs/fha/nhinc/perfrepo/model/Perfrepository.java
+index 922cd51..6558745 100644
+--- a/Product/Production/Common/CONNECTCoreLib/src/main/java/gov/hhs/fha/nhinc/perfrepo/model/Perfrepository.java
++++ b/Product/Production/Common/CONNECTCoreLib/src/main/java/gov/hhs/fha/nhinc/perfrepo/model/Perfrepository.java
+@@ -36,9 +36,7 @@ import java.sql.Timestamp;
+ public class Perfrepository implements Serializable {
+ 
+     private Long id;
+-    private Timestamp starttime;
+-    private Timestamp stoptime;
+-    private Long duration;
++    private Timestamp time;
+     private String servicetype;
+     private String messagetype;
+     private String direction;
+@@ -66,48 +64,8 @@ public class Perfrepository implements Serializable {
+         this.id = id;
+     }
+ 
+-    /**
+-     * @return starttime
+-     */
+-    public Timestamp getStarttime() {
+-        return starttime;
+-    }
+-
+-    /**
+-     * @param starttime new value for starttime
+-     */
+-    public void setStarttime(Timestamp starttime) {
+-        this.starttime = starttime;
+-    }
+-
+-    /**
+-     * @return stoptime
+-     */
+-    public Timestamp getStoptime() {
+-        return stoptime;
+-    }
+-
+-    /**
+-     * @param stoptime new value for stoptime
+-     */
+-    public void setStoptime(Timestamp stoptime) {
+-        this.stoptime = stoptime;
+-    }
+-
+-    /**
+-     * @return duration
+-     */
+-    public Long getDuration() {
+-        return duration;
+-    }
+-
+-    /**
+-     * @param duration new value for duration
+-     */
+-    public void setDuration(Long duration) {
+-        this.duration = duration;
+-    }
+-
++   
++   
+     /**
+      * @return servicetype
+      */
+@@ -226,4 +184,18 @@ public class Perfrepository implements Serializable {
+         this.errorCode = errorCode;
+     }
+ 
++    /**
++     * @return the time
++     */
++    public Timestamp getTime() {
++        return time;
++    }
++
++    /**
++     * @param time the time to set
++     */
++    public void setTime(Timestamp time) {
++        this.time = time;
++    }
++
+ }
+diff --git a/Product/Production/Common/CONNECTCoreLib/src/main/resources/perfrepository.hbm.xml b/Product/Production/Common/CONNECTCoreLib/src/main/resources/perfrepository.hbm.xml
+index ba206fc..c707b97 100644
+--- a/Product/Production/Common/CONNECTCoreLib/src/main/resources/perfrepository.hbm.xml
++++ b/Product/Production/Common/CONNECTCoreLib/src/main/resources/perfrepository.hbm.xml
+@@ -12,9 +12,7 @@
+     <id name="id">
+       <generator class="native"/>
+     </id>
+-    <property column="starttime" name="starttime"/>
+-    <property column="stoptime" name="stoptime"/>
+-    <property column="duration" name="duration"/>
++    <property column="time" name="stime"/>
+     <property column="servicetype" name="servicetype"/>
+     <property column="messagetype" name="messagetype"/>
+     <property column="direction" name="direction"/>
+@@ -24,7 +22,7 @@
+     <property column="version" name="version"/>
+     <proprety column="payloadtype" name="payloadType"
+     <property column=size name="size"/>
+-   <property column="correlationid" name="correlationId"/>
++    <property column="correlationid" name="correlationId"/>
+     <property column="othercommunityid" name="otherCommunityId"/>
+     <property column="errorcode" name="errorCode"/>
+   </class>

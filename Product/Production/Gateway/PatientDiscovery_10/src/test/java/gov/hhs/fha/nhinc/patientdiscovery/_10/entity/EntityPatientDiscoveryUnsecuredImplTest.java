@@ -26,12 +26,16 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery._10.entity;
 
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.fail;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
-import gov.hhs.fha.nhinc.patientdiscovery._10.entity.EntityPatientDiscoveryImpl;
 import gov.hhs.fha.nhinc.patientdiscovery.entity.EntityPatientDiscoveryOrchImpl;
 import gov.hhs.fha.nhinc.perfrepo.PerformanceManager;
+
 import java.sql.Timestamp;
+
 import org.apache.commons.logging.Log;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
@@ -41,10 +45,9 @@ import org.jmock.Mockery;
 import org.jmock.integration.junit4.JMock;
 import org.jmock.integration.junit4.JUnit4Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
-import org.junit.Test;
 import org.junit.Ignore;
+import org.junit.Test;
 import org.junit.runner.RunWith;
-import static org.junit.Assert.*;
 
 /**
  * 

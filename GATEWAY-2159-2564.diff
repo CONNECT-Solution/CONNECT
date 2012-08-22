@@ -1,0 +1,261 @@
+diff --git a/Product/Production/Common/CONNECTCoreLib/src/main/java/gov/hhs/fha/nhinc/logging/transaction/TransactionHandler.java b/Product/Production/Common/CONNECTCoreLib/src/main/java/gov/hhs/fha/nhinc/logging/transaction/TransactionHandler.java
+new file mode 100644
+index 0000000..8239f9f
+--- /dev/null
++++ b/Product/Production/Common/CONNECTCoreLib/src/main/java/gov/hhs/fha/nhinc/logging/transaction/TransactionHandler.java
+@@ -0,0 +1,132 @@
++/**
++ * 
++ */
++package gov.hhs.fha.nhinc.logging.transaction;
++
++import java.util.HashSet;
++import java.util.Iterator;
++import java.util.Set;
++
++import javax.xml.namespace.QName;
++import javax.xml.soap.SOAPElement;
++import javax.xml.soap.SOAPEnvelope;
++import javax.xml.soap.SOAPException;
++import javax.xml.soap.SOAPHeader;
++import javax.xml.soap.SOAPMessage;
++import javax.xml.soap.SOAPPart;
++import javax.xml.ws.handler.MessageContext;
++import javax.xml.ws.handler.soap.SOAPHandler;
++import javax.xml.ws.handler.soap.SOAPMessageContext;
++
++import org.apache.commons.logging.Log;
++import org.apache.commons.logging.LogFactory;
++import org.apache.log4j.MDC;
++
++/**
++ * @author bhumphrey
++ * 
++ */
++public class TransactionHandler implements SOAPHandler<SOAPMessageContext> {
++
++    /**
++     * <txn:TransactionID xmlns:txn="http://www.w3schools.com/transaction/">SOME-UUID</txn:TransactionID>
++     */
++    private static final QName TRANSACTION_QNAME = new QName("http://www.w3schools.com/transaction/", "TransactionID");
++    private static Log log = LogFactory.getLog(TransactionHandler.class);
++    private static final String WSA_NS = "http://www.w3.org/2005/08/addressing";
++    private static final String MESSAGE_ID = "MessageID";
++
++    /*
++     * (non-Javadoc)
++     * 
++     * @see javax.xml.ws.handler.Handler#handleMessage(javax.xml.ws.handler.MessageContext)
++     */
++    @Override
++    public boolean handleMessage(SOAPMessageContext context) {
++
++        String messageId;
++        String transactionId;
++
++        SOAPMessage soapMessage = context.getMessage();
++        SOAPPart soapPart = soapMessage.getSOAPPart();
++        SOAPEnvelope soapEnvelope;
++        try {
++            soapEnvelope = soapPart.getEnvelope();
++            SOAPHeader soapHeader = soapEnvelope.getHeader();
++
++            SOAPElement messageIdElement = getFirstChild(soapHeader, WSA_NS, MESSAGE_ID);
++            if (messageIdElement != null) {
++                messageId = messageIdElement.getTextContent();
++
++                MDC.put("message-id", messageId);
++
++                SOAPElement transactionIdElement = getFirstChild(soapHeader, TRANSACTION_QNAME);
++                if (transactionIdElement != null) {
++                    transactionId = transactionIdElement.getTextContent();
++                } else {
++                    transactionId = TransactionIdMap.getInstance().getTransactionId(messageId);
++                }
++                    
++
++                log.info("found transaction-id " + transactionId + "for message id" + messageId);
++                
++                MDC.put("transaction-id", transactionId);
++                TransactionIdMap.getInstance().storeTransactionId(messageId, transactionId);
++
++            }
++
++        } catch (SOAPException e) {
++            log.error(e);
++        }
++
++        return true;
++    }
++
++    private SOAPElement getFirstChild(SOAPHeader header, String ns, String name) {
++        QName qname = new QName(ns, name);
++        return getFirstChild(header, qname);
++    }
++
++    private SOAPElement getFirstChild(SOAPHeader header, QName qname) {
++        SOAPElement result = null;
++        Iterator iter = header.getChildElements(qname);
++        if (iter.hasNext()) {
++            result = (SOAPElement) iter.next();
++        }
++        return result;
++    }
++
++    /*
++     * (non-Javadoc)
++     * 
++     * @see javax.xml.ws.handler.Handler#handleFault(javax.xml.ws.handler.MessageContext)
++     */
++    @Override
++    public boolean handleFault(SOAPMessageContext context) {
++        log.warn("TransactionHandler.handleFault");
++        return true;
++    }
++
++    /*
++     * (non-Javadoc)
++     * 
++     * @see javax.xml.ws.handler.Handler#close(javax.xml.ws.handler.MessageContext)
++     */
++    @Override
++    public void close(MessageContext context) {
++        log.debug("TransactionHandler.close");
++    }
++
++    /*
++     * (non-Javadoc)
++     * 
++     * @see javax.xml.ws.handler.soap.SOAPHandler#getHeaders()
++     */
++    @Override
++    public Set<QName> getHeaders() {
++        Set<QName> headers = new HashSet<QName>();
++        headers.add(TRANSACTION_QNAME);
++        return headers;
++    }
++
++}
+diff --git a/Product/Production/Common/CONNECTCoreLib/src/main/java/gov/hhs/fha/nhinc/logging/transaction/TransactionIdMap.java b/Product/Production/Common/CONNECTCoreLib/src/main/java/gov/hhs/fha/nhinc/logging/transaction/TransactionIdMap.java
+new file mode 100644
+index 0000000..1cbb163
+--- /dev/null
++++ b/Product/Production/Common/CONNECTCoreLib/src/main/java/gov/hhs/fha/nhinc/logging/transaction/TransactionIdMap.java
+@@ -0,0 +1,36 @@
++/**
++ * 
++ */
++package gov.hhs.fha.nhinc.logging.transaction;
++
++
++import java.util.HashMap;
++import java.util.Map;
++
++/**
++ * @author bhumphrey
++ *
++ */
++public class TransactionIdMap {
++    
++    private  Map<String, String> internalMap;
++    private static TransactionIdMap INSTANCE = new TransactionIdMap();
++    
++    private TransactionIdMap() {
++        internalMap = new HashMap<String, String>();
++    }
++    
++    public static TransactionIdMap getInstance() {
++        return INSTANCE;
++    }
++    
++    
++    public String getTransactionId(String messageId) {
++        return internalMap.get(messageId);
++    }
++    
++    public void storeTransactionId(String messageId, String transactionId) {
++        internalMap.put(messageId, transactionId);
++    }
++
++}
+diff --git a/Product/Production/Common/CONNECTCoreLib/src/main/java/handler-chain.xml b/Product/Production/Common/CONNECTCoreLib/src/main/java/handler-chain.xml
+index d63c7a4..4758e99 100644
+--- a/Product/Production/Common/CONNECTCoreLib/src/main/java/handler-chain.xml
++++ b/Product/Production/Common/CONNECTCoreLib/src/main/java/handler-chain.xml
+@@ -10,5 +10,9 @@
+             <javaee:handler-name>SoapHeaderHandler</javaee:handler-name>
+             <javaee:handler-class>gov.hhs.fha.nhinc.callback.SOAPHeaderHandler</javaee:handler-class>
+         </javaee:handler>
++        <javaee:handler>
++            <javaee:handler-name>TransactionHandler</javaee:handler-name>
++            <javaee:handler-class>gov.hhs.fha.nhinc.logging.transaction.TransactionHandler</javaee:handler-class>
++        </javaee:handler>
+     </javaee:handler-chain>
+ </javaee:handler-chains>
+\ No newline at end of file
+diff --git a/Product/Production/Common/CONNECTCoreLib/src/test/java/gov/hhs/fha/nhinc/logging/transaction/TransactionIdMapTest.java b/Product/Production/Common/CONNECTCoreLib/src/test/java/gov/hhs/fha/nhinc/logging/transaction/TransactionIdMapTest.java
+new file mode 100644
+index 0000000..96b6eb6
+--- /dev/null
++++ b/Product/Production/Common/CONNECTCoreLib/src/test/java/gov/hhs/fha/nhinc/logging/transaction/TransactionIdMapTest.java
+@@ -0,0 +1,45 @@
++/**
++ * 
++ */
++package gov.hhs.fha.nhinc.logging.transaction;
++
++import static org.junit.Assert.*;
++
++
++import org.junit.Before;
++import org.junit.Test;
++
++/**
++ * @author bhumphrey
++ *
++ */
++public class TransactionIdMapTest {
++    
++    @Before
++    public void setupMap() {
++        TransactionIdMap.getInstance().storeTransactionId("AAAA-AAAA-AAAA-AAAA", "ZZZZ-ZZZZ-ZZZZ-ZZZZ");
++        TransactionIdMap.getInstance().storeTransactionId("BBBB-BBBB-BBBB-BBBB", "ZZZZ-ZZZZ-ZZZZ-ZZZZ");
++        TransactionIdMap.getInstance().storeTransactionId("CCCC-CCCC-CCCC-CCCC", "YYYY-YYYY-YYYY-YYYY");
++        
++    }
++    
++    @Test
++    public void simpleMapping() {
++        assertEquals("'AAAA-AAAA-AAAA-AAAA' has transaction id of 'ZZZZ-ZZZZ-ZZZZ-ZZZZ'", "ZZZZ-ZZZZ-ZZZZ-ZZZZ", TransactionIdMap.getInstance().getTransactionId("AAAA-AAAA-AAAA-AAAA"));
++    }
++    
++    @Test
++    public void noTransactionMapping() {
++        assertNull("'DDDD-DDDD-DDDD-DDDD' isn't part of a transaction", TransactionIdMap.getInstance().getTransactionId("DDDD-DDDD-DDDD-DDDD"));
++    }
++    
++    
++    @Test
++    public void transactionIdResuse() {
++        TransactionIdMap.getInstance().storeTransactionId("AAAA-AAAA-AAAA-AAAA", "XXXX-XXXX-XXXX-XXXX");
++        assertEquals("'AAAA-AAAA-AAAA-AAAA' has transaction id of 'XXXX-XXXX-XXXX-XXXX'", "XXXX-XXXX-XXXX-XXXX", TransactionIdMap.getInstance().getTransactionId("AAAA-AAAA-AAAA-AAAA"));
++    }
++
++    
++
++}
+diff --git a/Product/Production/Gateway/DocumentSubmission_20/src/main/java/handler-chain.xml b/Product/Production/Gateway/DocumentSubmission_20/src/main/java/handler-chain.xml
+index c3e8f2a..876a5b7 100644
+--- a/Product/Production/Gateway/DocumentSubmission_20/src/main/java/handler-chain.xml
++++ b/Product/Production/Gateway/DocumentSubmission_20/src/main/java/handler-chain.xml
+@@ -19,5 +19,9 @@
+             <javaee:handler-name>PerformanceLogHandler</javaee:handler-name>
+             <javaee:handler-class>gov.hhs.fha.nhinc.perfrepo.PerformanceLogHandler</javaee:handler-class>
+         </javaee:handler>
++          <javaee:handler>
++            <javaee:handler-name>TransactionHandler</javaee:handler-name>
++            <javaee:handler-class>gov.hhs.fha.nhinc.logging.transaction.TransactionHandler</javaee:handler-class>
++        </javaee:handler>
+     </javaee:handler-chain>
+ </javaee:handler-chains>
+\ No newline at end of file

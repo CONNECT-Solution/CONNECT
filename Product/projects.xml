@@ -14,6 +14,13 @@
         <should.build>true</should.build>
         <should.deploy>true</should.deploy>
     </project>
+        <project>
+        <name>PatientDiscoveryCore</name>
+        <directory>/Production/Services/PatientDiscovery/Core/PatientDiscoveryCore</directory>
+        <dist.type>jar</dist.type>
+        <should.build>true</should.build>
+        <should.deploy>true</should.deploy>
+    </project>
     <project>
         <name>DocumentSubmissionCore</name>
         <directory>/Production/Services/DocumentSubmission/Core/DocumentSubmissionCore</directory>

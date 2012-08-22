@@ -30,11 +30,12 @@ import gov.hhs.fha.nhinc.patientdiscovery._10.entity.EntityPatientDiscoveryImpl;
 
 import javax.jws.WebService;
 import javax.xml.ws.BindingType;
-import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
-import org.hl7.v3.RespondingGatewayPRPAIN201306UV02ResponseType;
 import javax.xml.ws.soap.Addressing;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
+import org.hl7.v3.RespondingGatewayPRPAIN201306UV02ResponseType;
 
 /**
  * 
