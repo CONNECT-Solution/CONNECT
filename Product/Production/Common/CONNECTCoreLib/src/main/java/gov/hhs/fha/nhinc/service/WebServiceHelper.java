@@ -30,7 +30,6 @@ import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.nhinclib.LoggingContextHelper;
-import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
 import java.lang.reflect.InvocationTargetException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -390,63 +389,7 @@ public class WebServiceHelper {
         return oResponse;
     }
 
-    /**
-     * This method will establish the context logging, create the Assertion object including SAML information and the
-     * WS-Addressing messageId from the relatesTo information, invoke the orchestration method, and then clear the
-     * logging context.
-     * 
-     * @param webOrchObject The instance of the web orchestrator
-     * @param webOrchClass The class for the web orchestrator
-     * @param methodName The web orchestrator method to call
-     * @param operationInput The parameters for the web orchestrator method
-     * @param context The web service context used to initialize the assertion
-     * @return The response object from the web orchestrator invocation
-     * @throws Exception Any exceptions are passed back up.
-     */
-    public Object invokeSecureDeferredResponseWebService(Object webOrchObject, Class webOrchClass, String methodName,
-            Object operationInput, WebServiceContext context) throws Exception {
-
-        Object oResponse = null;
-
-        try {
-            getLoggingContextHelper().setContext(context);
-
-            // Collect assertion
-            AssertionType assertion = getSamlAssertion(context);
-
-            // Extract the relatesTo values from the WS-Addressing Header
-            List<String> contextRelatesTo = getRelatesToList(context);
-
-            // place the first one from the list into the Assertion Class as the message id
-            if (contextRelatesTo != null && !contextRelatesTo.isEmpty()) {
-                log.debug("Setting messageId to first relatesToId: " + contextRelatesTo.get(0));
-                String messageId = contextRelatesTo.get(0);
-                populateAssertionWithMessageId(assertion, messageId);
-            }
-
-            Method oMethod = getMethod(webOrchClass, methodName);
-
-            oResponse = invokeTheMethod2(oMethod, webOrchObject, operationInput, assertion);
-
-        } catch (IllegalArgumentException e) {
-            String sErrorMessage = "The method was called with incorrect arguments. " + "Exception: " + e.getMessage();
-            log.error(sErrorMessage, e);
-            throw e;
-        } catch (Exception e) {
-            // As near as we can tell based on the way we are using this, I do not
-            // believe there is any other exception we will see - but we want to
-            // log them if we see them.
-            // ---------------------------------------------------------------------
-            String sErrorMessage = "An unexpected exception occurred of type: " + e.getClass().getCanonicalName()
-                    + ". Exception: " + e.getMessage();
-            log.error(sErrorMessage, e);
-            throw e;
-
-        } finally {
-            getLoggingContextHelper().clearContext();
-        }
-        return oResponse;
-    }
+   
 
     /**
      * This method will establish the context logging, create the WS-Addressing messageId from the relatesTo
@@ -502,17 +445,7 @@ public class WebServiceHelper {
         return oResponse;
     }
 
-    /**
-     * Extracts the SAML information from the context to populate the Assertion object
-     * 
-     * @param context The web service context used to initialize the assertion
-     * @return The assertion object populated with SAML information
-     */
-    protected AssertionType getSamlAssertion(WebServiceContext context) {
-        AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
-        log.debug("Initializing the SAML assertion information: " + assertion);
-        return assertion;
-    }
+    
 
     /**
      * Extracts the message id from the web service context

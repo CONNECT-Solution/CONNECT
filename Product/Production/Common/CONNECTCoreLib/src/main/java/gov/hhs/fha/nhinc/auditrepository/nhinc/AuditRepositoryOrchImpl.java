@@ -26,17 +26,24 @@
  */
 package gov.hhs.fha.nhinc.auditrepository.nhinc;
 
+import gov.hhs.fha.nhinc.common.auditlog.LogEventSecureRequestType;
+import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommonadapter.FindCommunitiesAndAuditEventsResponseType;
+import gov.hhs.fha.nhinc.hibernate.AuditRepositoryDAO;
+import gov.hhs.fha.nhinc.hibernate.AuditRepositoryRecord;
+import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
+
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+import java.sql.Blob;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Locale;
-
-import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
-import java.sql.Blob;
-import java.text.SimpleDateFormat;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
@@ -46,21 +53,15 @@ import javax.xml.datatype.XMLGregorianCalendar;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
 import org.hibernate.Hibernate;
 
-import gov.hhs.fha.nhinc.hibernate.AuditRepositoryDAO;
-import gov.hhs.fha.nhinc.hibernate.AuditRepositoryRecord;
-import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.FindCommunitiesAndAuditEventsResponseType;
-
-import com.services.nhinc.schema.auditmessage.*;
+import com.services.nhinc.schema.auditmessage.AuditMessageType;
 import com.services.nhinc.schema.auditmessage.AuditMessageType.ActiveParticipant;
-import gov.hhs.fha.nhinc.common.auditlog.LogEventSecureRequestType;
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
-import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
-import javax.xml.ws.WebServiceContext;
+import com.services.nhinc.schema.auditmessage.AuditSourceIdentificationType;
+import com.services.nhinc.schema.auditmessage.EventIdentificationType;
+import com.services.nhinc.schema.auditmessage.FindAuditEventsResponseType;
+import com.services.nhinc.schema.auditmessage.FindAuditEventsType;
+import com.services.nhinc.schema.auditmessage.ParticipantObjectIdentificationType;
 
 /**
  * 
