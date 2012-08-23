@@ -27,7 +27,6 @@
 package gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws;
 
 import static org.junit.Assert.assertNotNull;
-import gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.PatientDiscoveryServiceFactoryImpl;
 
 import org.junit.Test;
 

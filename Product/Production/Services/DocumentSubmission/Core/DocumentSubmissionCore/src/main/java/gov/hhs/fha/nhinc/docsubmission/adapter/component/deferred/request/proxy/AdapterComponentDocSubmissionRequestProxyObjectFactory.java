@@ -70,7 +70,7 @@ public class AdapterComponentDocSubmissionRequestProxyObjectFactory extends Comp
      * @return An instance of the AdapterPatientDiscoveryProxy class.
      */
     public AdapterComponentDocSubmissionRequestProxy getAdapterComponentDocSubmissionRequestProxy() {
-        return getBean(BEAN_NAME, AdapterComponentDocSubmissionRequestProxy.class);
+        return (AdapterComponentDocSubmissionRequestProxy) getBean(BEAN_NAME, AdapterComponentDocSubmissionRequestProxy.class);
     }
 
 }

@@ -29,6 +29,10 @@ package gov.hhs.fha.nhinc.patientdiscovery._10.entity;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.fail;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
+import gov.hhs.fha.nhinc.patientdiscovery.entity.EntityPatientDiscoveryOrchImpl;
+import gov.hhs.fha.nhinc.perfrepo.PerformanceManager;
 
 import java.sql.Timestamp;
 
@@ -44,11 +48,6 @@ import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
-import gov.hhs.fha.nhinc.patientdiscovery.entity.EntityPatientDiscoveryOrchImpl;
-import gov.hhs.fha.nhinc.perfrepo.PerformanceManager;
 
 /**
  * 

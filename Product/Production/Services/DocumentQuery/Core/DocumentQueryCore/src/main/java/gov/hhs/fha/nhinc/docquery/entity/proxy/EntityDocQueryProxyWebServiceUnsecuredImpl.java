@@ -87,7 +87,7 @@ public class EntityDocQueryProxyWebServiceUnsecuredImpl implements EntityDocQuer
                 ServicePortDescriptor<EntityDocQueryPortType> portDescriptor = getServicePortDescriptor(NhincConstants.ADAPTER_API_LEVEL.LEVEL_a0);
 
                 CONNECTClient<EntityDocQueryPortType> client = CONNECTClientFactory.getInstance()
-                        .getCONNECTClientSecured(portDescriptor, url, assertion);
+                        .getCONNECTClientUnsecured(portDescriptor, url, assertion);
 
                 RespondingGatewayCrossGatewayQueryRequestType request = new RespondingGatewayCrossGatewayQueryRequestType();
                 request.setAdhocQueryRequest(msg);

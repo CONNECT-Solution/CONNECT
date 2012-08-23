@@ -39,14 +39,18 @@ import org.jmock.integration.junit4.JUnit4Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.Test;
 
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.docsubmission.orchestration.OrchestrationContextFactory;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.orchestration.AuditTransformer;
+import gov.hhs.fha.nhinc.orchestration.NhinAggregator;
 import gov.hhs.fha.nhinc.orchestration.Orchestratable;
 import gov.hhs.fha.nhinc.orchestration.OrchestrationContext;
+import gov.hhs.fha.nhinc.orchestration.OutboundDelegate;
 import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratable;
-import gov.hhs.fha.nhinc.patientdiscovery.entity.OutboundPatientDiscoveryOrchestratable;
+import gov.hhs.fha.nhinc.orchestration.PolicyTransformer;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 
 /**
@@ -132,19 +136,6 @@ public class OutboundDocSubmissionDeferredRequestDelegateTest {
 
         OutboundDocSubmissionDeferredRequestDelegate delegate = createOutboundDocSubmissionDeferredRequestDelegate();
         Orchestratable response = delegate.process(null);
-
-        context.assertIsSatisfied();
-        assertNull(response);
-    }
-
-    @Test
-    public void testOrchestration_UnknownOrchestratable() {
-        allowAnyMockLogging();
-
-        OutboundPatientDiscoveryOrchestratable wrongOrchestratable = new OutboundPatientDiscoveryOrchestratable();
-        OutboundDocSubmissionDeferredRequestDelegate delegate = createOutboundDocSubmissionDeferredRequestDelegate();
-        Orchestratable response = delegate
-                .process(wrongOrchestratable);
 
         context.assertIsSatisfied();
         assertNull(response);

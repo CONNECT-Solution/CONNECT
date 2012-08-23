@@ -31,13 +31,6 @@ import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.connectmgr.NhinEndpointManager;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.notify.entity.OutboundNotifyFactory;
-import gov.hhs.fha.nhinc.patientdiscovery.entity.OutboundPatientDiscoveryFactory;
-import gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.request.OutboundPatientDiscoveryDeferredRequestFactory;
-import gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.response.OutboundPatientDiscoveryDeferredResponseFactory;
-import gov.hhs.fha.nhinc.subscribe.entity.OutboundSubscribeFactory;
-import gov.hhs.fha.nhinc.unsubscribe.entity.OutboundUnsubscribeFactory;
-/*import gov.hhs.fha.nhinc.docretrieve.entity.OutboundDocRetrieveFactory;
-import gov.hhs.fha.nhinc.docretrieve.nhin.InboundDocRetrieveFactory;*/
 
 public class OrchestrationContextFactory extends AbstractOrchestrationContextFactory{
 
@@ -65,28 +58,11 @@ public class OrchestrationContextFactory extends AbstractOrchestrationContextFac
             NhincConstants.NHIN_SERVICE_NAMES serviceName) {
 
         switch (serviceName) {
-        case PATIENT_DISCOVERY:
-            return OutboundPatientDiscoveryFactory.getInstance().createOrchestrationContextBuilder(apiLevel);
-        case PATIENT_DISCOVERY_DEFERRED_REQUEST:
-            return OutboundPatientDiscoveryDeferredRequestFactory.getInstance().createOrchestrationContextBuilder(
-                    apiLevel);
-        case PATIENT_DISCOVERY_DEFERRED_RESPONSE:
-            return OutboundPatientDiscoveryDeferredResponseFactory.getInstance().createOrchestrationContextBuilder(
-                    apiLevel);
         case ADMINISTRATIVE_DISTRIBUTION:
             return OutboundAdminDistributionFactory.getInstance().createOrchestrationContextBuilder(apiLevel);
-        case HIEM_SUBSCRIBE:
-        	return OutboundSubscribeFactory.getInstance().createOrchestrationContextBuilder(apiLevel);
-        case HIEM_NOTIFY:
-        	return OutboundNotifyFactory.getInstance().createOrchestrationContextBuilder(apiLevel);
-        case HIEM_UNSUBSCRIBE:
-        	return OutboundUnsubscribeFactory.getInstance().createOrchestrationContextBuilder(apiLevel);
+     
         }
-
-        /*
-         * if (NhincConstants.ADAPTER_DOC_RETRIEVE_SERVICE_NAME.equals(serviceName)) { return
-         * InboundDocRetrieveFactory.getInstance().createOrchestrationContextBuilder(apiLevel);
-         */
+       
 
         return null;
     }

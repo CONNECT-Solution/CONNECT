@@ -28,6 +28,7 @@
 package universalclientgui;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayQueryRequestType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
@@ -101,11 +102,6 @@ public class DocumentQueryClient {
                 EntityDocQueryProxyWebServiceUnsecuredImpl instance = new EntityDocQueryProxyWebServiceUnsecuredImpl();
                 AdhocQueryResponse response = instance.respondingGatewayCrossGatewayQuery(
                         request.getAdhocQueryRequest(), request.getAssertion(), request.getNhinTargetCommunities());
-
-                /*
-                 * AdhocQueryResponse response = (AdhocQueryResponse) oProxyHelper.invokePort(port,
-                 * EntityDocQueryPortType.class, "respondingGatewayCrossGatewayQuery", request);
-                 */
 
                 return convertAdhocQueryResponseToDocInfoBO(response);
             } else {
@@ -191,23 +187,17 @@ public class DocumentQueryClient {
         AssertionCreator assertionCreator = new AssertionCreator();
 
         request.setAssertion(assertionCreator.createAssertion());
-
+        
+        NhinTargetCommunitiesType targetCommunities = new NhinTargetCommunitiesType();
+        request.setNhinTargetCommunities(targetCommunities);
+        
         return request;
     }
-
+    
     protected String getUrl() throws ConnectionManagerException {
         return ConnectionManagerCache.getInstance().getInternalEndpointURLByServiceName(SERVICE_NAME);
     }
-
-    /**
-     * Retrieve the service class for this web service.
-     * 
-     * @return The service class for this web service.
-     */
    
-
-   
-
     /**
      * 
      * @param response

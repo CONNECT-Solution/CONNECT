@@ -58,21 +58,17 @@ import org.apache.commons.logging.LogFactory;
 public class DocumentRetrieveClient {
     private static Log log = LogFactory.getLog(DocumentRetrieveClient.class);;
     private static final String SERVICE_NAME = NhincConstants.ENTITY_DOC_RETRIEVE_PROXY_SERVICE_NAME;
-    
 
     public String retriveDocument(DocumentInformation documentInformation) {
         try {
             String url = getUrl();
             if (NullChecker.isNotNullish(url)) {
-               // EntityDocRetrievePortType port = getPort(url, WS_ADDRESSING_ACTION, null);
-
                 RespondingGatewayCrossGatewayRetrieveRequestType request = createCrossGatewayRetrieveRequest(documentInformation);
 
-              /*  RetrieveDocumentSetResponseType response = (RetrieveDocumentSetResponseType) oProxyHelper.invokePort(
-                        port, EntityDocRetrievePortType.class, "respondingGatewayCrossGatewayRetrieve", request);*/
-                
                 EntityDocRetrieveProxyWebServiceUnsecuredImpl instance = new EntityDocRetrieveProxyWebServiceUnsecuredImpl();
-                RetrieveDocumentSetResponseType response = instance.respondingGatewayCrossGatewayRetrieve(request.getRetrieveDocumentSetRequest(), request.getAssertion(), request.getNhinTargetCommunities());
+                RetrieveDocumentSetResponseType response = instance.respondingGatewayCrossGatewayRetrieve(
+                        request.getRetrieveDocumentSetRequest(), request.getAssertion(),
+                        request.getNhinTargetCommunities());
 
                 return extractDocument(response);
             } else {
@@ -99,10 +95,6 @@ public class DocumentRetrieveClient {
                 documentInXmlFormat = new String(documentResponse.getDocument());
             }
         }
-
-        // log.debug("Document: " + documentInXmlFormat);
-
-        // convertXMLToHTML(documentInXmlFormat, null);
 
         return documentInXmlFormat;
     }
@@ -155,7 +147,5 @@ public class DocumentRetrieveClient {
     protected String getUrl() throws ConnectionManagerException {
         return ConnectionManagerCache.getInstance().getInternalEndpointURLByServiceName(SERVICE_NAME);
     }
-
-   
 
 }
