@@ -28,8 +28,6 @@ package gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
-import gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.NhincProxyPatientDiscoverySecuredAsyncResp;
-import gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.PatientDiscoveryServiceFactory;
 import gov.hhs.fha.nhinc.patientdiscovery._10.passthru.deferred.response.NhincProxyPatientDiscoveryAsyncRespImpl;
 
 import javax.xml.ws.WebServiceContext;

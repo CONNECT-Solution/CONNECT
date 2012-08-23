@@ -29,9 +29,9 @@ package gov.hhs.fha.nhinc.patientdiscovery._10.entity.deferred.request;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
+import gov.hhs.fha.nhinc.generic.GenericFactory;
 import gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.request.EntityPatientDiscoveryDeferredRequestOrch;
 import gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.request.EntityPatientDiscoveryDeferredRequestOrchFactory;
-import gov.hhs.fha.nhinc.patientdiscovery.nhin.GenericFactory;
 
 import javax.xml.ws.WebServiceContext;
 

@@ -13,6 +13,8 @@
     <property name="core.lib" location="../../Common/CONNECTCoreLib/dist/debug" />
     <property name="common.lib" location="../../Common/CONNECTCommonTypesLib/dist/debug" />
     <property name="opensaml.home" location="../../../../ThirdParty/openSAML" />
+    <property name="core.patientdiscovery"
+              location="../../Services/PatientDiscovery/Core/PatientDiscoveryCore/dist/debug" />
 
     <!-- Please make sure that this goes up to the correct directory -->
     <import file="../../../build/build.targets.xml" />
@@ -24,12 +26,16 @@
         <!-- Add classes from other projects like so...-->
         <pathelement path="${project.CONNECTCommonTypesLib.build.classes.dir}" />
         <pathelement path="${project.CONNECTCoreLib.build.classes.dir}" />
+        <pathelement path="${project.PatientDiscoveryCore.build.classes.dir}" />
     </path>
 
     <!-- Add project dependencies here, these projects will be built first... -->
     <path id="build.project.dependencies">
         <filelist dir="${root.project.directory.path}">
             <file name="${project.CONNECTCoreLib.build.file}" />
+        </filelist>
+        <filelist dir="${root.project.directory.path}">
+            <file name="${project.PatientDiscoveryCore.build.file}" />
         </filelist>
     </path>
 
@@ -74,6 +80,11 @@
         <filelist dir="${common.lib}">
             <file name="CONNECTCommonTypesLib.jar" />
         </filelist>
+        <path id="war.libs">
+            <filelist dir="${core.patientdiscovery}">
+                <file name="PatientDiscoveryCore.jar" />
+            </filelist>
+        </path>
     </path>
 
 </project>

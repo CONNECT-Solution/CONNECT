@@ -28,39 +28,66 @@
 package gov.hhs.fha.nhinc.messaging.service.decorator;
 
 import gov.hhs.fha.nhinc.messaging.service.ServiceEndpoint;
-import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import gov.hhs.fha.nhinc.properties.PropertyAccessException;
+import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 
-import java.util.Map;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.apache.cxf.endpoint.Client;
+import org.apache.cxf.frontend.ClientProxy;
+import org.apache.cxf.transport.http.HTTPConduit;
+import org.apache.cxf.transports.http.configuration.HTTPClientPolicy;
 
 /**
  * @author bhumphrey
  * @param <T>
- *
+ * 
  */
 public class TimeoutServiceEndpointDecorator<T> extends ServiceEndpointDecorator<T> {
+    public static final String CONFIG_KEY_TIMEOUT = "webserviceproxy.timeout";
 
-    public static final String KEY_CONNECT_TIMEOUT = "com.sun.xml.ws.connect.timeout";
-    public static final String KEY_REQUEST_TIMEOUT = "com.sun.xml.ws.request.timeout";
-    private int connectTimeout;
-    private int requestTimeout;
-    
+    private static Log log = LogFactory.getLog(TimeoutServiceEndpointDecorator.class);
+
     /**
-     * @param decoratored
+     * @param decorated
      */
-    public TimeoutServiceEndpointDecorator(ServiceEndpoint<T> decoratoredEndpoint) {
-        super(decoratoredEndpoint);
-        
-        WebServiceProxyHelper proxyHelper = new WebServiceProxyHelper();
-        this.connectTimeout = proxyHelper.getTimeout();
-        this.requestTimeout = proxyHelper.getTimeout();;
+    public TimeoutServiceEndpointDecorator(ServiceEndpoint<T> decoratedEndpoint) {
+        super(decoratedEndpoint);
     }
 
     @Override
     public void configure() {
         super.configure();
-        Map<String, Object> requestContext = ((javax.xml.ws.BindingProvider)getPort()).getRequestContext();
-        requestContext.put(KEY_CONNECT_TIMEOUT, connectTimeout);
-        requestContext.put(KEY_REQUEST_TIMEOUT, requestTimeout);
+        Client client = ClientProxy.getClient(getPort());
+        HTTPConduit conduit = (HTTPConduit) client.getConduit();
+
+        HTTPClientPolicy httpClientPolicy = conduit.getClient();
+        if (httpClientPolicy == null) {
+            httpClientPolicy = new HTTPClientPolicy();
+        }
+        int timeout = getTimeoutFromConfig();
+        httpClientPolicy.setReceiveTimeout(timeout);
+        httpClientPolicy.setConnectionTimeout(timeout);
+
+        conduit.setClient(httpClientPolicy);
     }
-    
+
+    private int getTimeoutFromConfig() {
+        int timeout = 0;
+        try {
+            String sValue = PropertyAccessor.getInstance().getProperty(CONFIG_KEY_TIMEOUT);
+            if (NullChecker.isNotNullish(sValue)) {
+                timeout = Integer.parseInt(sValue);
+            }
+        } catch (PropertyAccessException ex) {
+            log.warn("Error occurred reading property value from config file (" + CONFIG_KEY_TIMEOUT
+                    + ").  Exception: " + ex.toString());
+        } catch (NumberFormatException nfe) {
+            log.warn("Error occurred converting property value: " + CONFIG_KEY_TIMEOUT + ".  Exception: "
+                    + nfe.toString());
+        }
+        return timeout;
+    }
+
 }
