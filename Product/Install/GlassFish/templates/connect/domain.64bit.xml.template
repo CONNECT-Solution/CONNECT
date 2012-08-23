@@ -202,6 +202,7 @@
         <jvm-options>-Dlog4j.configuration=file:${com.sun.aas.instanceRoot}/config/log4j.properties</jvm-options>
         <jvm-options>-Dwsdl.path=file:${com.sun.aas.instanceRoot}/config/nhin/wsdl/</jvm-options>
         <jvm-options>-Dnhinc.properties.dir=${com.sun.aas.instanceRoot}/config/nhin</jvm-options>
+	<jvm-options>-Dcom.sun.xml.ws.api.message.Message.prefix=urn:uuid:</jvm-options>
       </java-config>
       <thread-pools>
         <thread-pool thread-pool-id="thread-pool-1" min-thread-pool-size="0" max-thread-pool-size="200" idle-thread-timeout-in-seconds="120" num-work-queues="1"/>
