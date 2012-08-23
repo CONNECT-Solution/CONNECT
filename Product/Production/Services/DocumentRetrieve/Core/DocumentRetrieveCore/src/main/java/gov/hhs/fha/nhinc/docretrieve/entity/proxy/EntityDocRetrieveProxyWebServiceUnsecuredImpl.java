@@ -67,7 +67,7 @@ public class EntityDocRetrieveProxyWebServiceUnsecuredImpl implements EntityDocR
             AssertionType assertion, NhinTargetCommunitiesType targets) {
         RetrieveDocumentSetResponseType response = null;
 
-        String serviceName = NhincConstants.ENTITY_DOC_RETRIEVE_SERVICE_NAME;
+        String serviceName = NhincConstants.ENTITY_DOC_RETRIEVE_PROXY_SERVICE_NAME;
         String url = this.getUrl(serviceName);
         if (NullChecker.isNotNullish(url)) {
             RespondingGatewayCrossGatewayRetrieveRequestType message = new RespondingGatewayCrossGatewayRetrieveRequestType();

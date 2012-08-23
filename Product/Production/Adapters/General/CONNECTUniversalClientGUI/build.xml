@@ -6,16 +6,15 @@
     <property name="unittest.hasTests" value="false" />
     <property name="deploy.isDeployable" value="true" />
     <property name="deploy.type" value="war" />
-
-	<property name="cxf.home" location="../../../../../ThirdParty/CXF" />
+    
+    <property name="cxf.home" location="../../../../../ThirdParty/CXF" />
     <property name="spring.home" location="../../../../../ThirdParty/SpringFramework" />
-    <property name="core.lib" location="../../Common/CONNECTCoreLib/dist/debug" />
-    <property name="common.lib" location="../../Common/CONNECTCommonTypesLib/dist/debug" />
+    <property name="core.lib" location="../../../Common/CONNECTCoreLib/dist/debug" />
+    <property name="common.lib" location="../../../Common/CONNECTCommonTypesLib/dist/debug" />
     <property name="opensaml.home" location="../../../../../ThirdParty/openSAML" />
-    <property name="core.docquery" location="../../Services/DocumentQuery/Core/DocumentQueryCore/dist/debug" />
-    <property name="core.docretrieve" location="../../Services/DocumentRetrieve/Core/DocumentRetrieveCore/dist/debug" />
-   <property name="core.patientdiscovery"
-              location="../../Services/PatientDiscovery/Core/PatientDiscoveryCore/dist/debug" />
+    <property name="core.docquery" location="../../../Services/DocumentQuery/Core/DocumentQueryCore/dist/debug" />
+    <property name="core.docretrieve" location="../../../Services/DocumentRetrieve/Core/DocumentRetrieveCore/dist/debug" />
+    <property name="core.patientdiscovery" location="../../../Services/PatientDiscovery/Core/PatientDiscoveryCore/dist/debug" />
 
     <!-- Please make sure that this goes up to the correct directory -->
     <import file="../../../../build/build.targets.xml" />
@@ -46,15 +45,13 @@
         <filelist dir="${core.docretrieve}">
             <file name="DocumentRetrieveCore.jar" />
         </filelist>
-	  <filelist dir="${core.patientdiscovery}">
-	                <file name="PatientDiscoveryCore.jar" />
-	            </filelist>
-
+	    <filelist dir="${core.patientdiscovery}">
+	        <file name="PatientDiscoveryCore.jar" />
+        </filelist>
     </path>
 
     
     <path id="war.libs">
-        <fileset refid="classpath.runtime" />
         <fileset dir="${cxf.home}">
             <include name="cxf-2.6.0.jar" />
             <include name="commons-logging-1.1.1.jar" />
@@ -82,9 +79,37 @@
             <include name="commons-lang-2.6.jar" />
             <include name="commons-collections-3.2.1.jar" />
         </fileset>
+
+        <fileset refid="classpath.runtime" />
+
         <filelist dir="${opensaml.home}">
             <file name="slf4j-api-1.6.4.jar" />
             <file name="esapi-2.0.1.jar" />
         </filelist>
+
+        <filelist dir="${spring.home}">
+            <file name="spring.jar" />
+        </filelist>
+
+        <filelist dir="${core.lib}">
+            <file name="CONNECTCoreLib.jar" />
+        </filelist>
+
+        <filelist dir="${common.lib}">
+            <file name="CONNECTCommonTypesLib.jar" />
+        </filelist>
+
+        <filelist dir="${core.docquery}">
+            <file name="DocumentQueryCore.jar" />
+        </filelist>
+
+        <filelist dir="${core.docretrieve}">
+            <file name="DocumentRetrieveCore.jar" />
+        </filelist>
+        
+        <filelist dir="${core.patientdiscovery}">
+            <file name="PatientDiscoveryCore.jar" />
+        </filelist>
     </path>
+    
 </project>

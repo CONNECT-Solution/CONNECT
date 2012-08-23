@@ -32,8 +32,8 @@
         <name>CONNECTCommonWeb</name>
         <directory>/Production/Common/CONNECTCommonWeb</directory>
         <dist.type>war</dist.type>
-        <should.build>false</should.build>
-        <should.deploy>false</should.deploy>
+        <should.build>true</should.build>
+        <should.deploy>true</should.deploy>
     </project>
     <project>
         <name>CONNECTGatewayWeb</name>
@@ -68,35 +68,35 @@
         <directory>/Production/Gateway/DocumentQuery_20</directory>
         <dist.type>war</dist.type>
         <should.build>true</should.build>
-        <should.deploy>false</should.deploy>
+        <should.deploy>true</should.deploy>
     </project>
     <project>
         <name>DocumentSubmission_11</name>
         <directory>/Production/Gateway/DocumentSubmission_11</directory>
         <dist.type>war</dist.type>
         <should.build>true</should.build>
-        <should.deploy>false</should.deploy>
+        <should.deploy>true</should.deploy>
     </project>
     <project>
         <name>DocumentSubmission_20</name>
         <directory>/Production/Gateway/DocumentSubmission_20</directory>
         <dist.type>war</dist.type>
         <should.build>true</should.build>
-        <should.deploy>false</should.deploy>
+        <should.deploy>true</should.deploy>
     </project> 
     <project>
         <name>DocumentSubmission_a0</name>
         <directory>/Production/Adapters/DocumentSubmission_a0</directory>
         <dist.type>war</dist.type>
         <should.build>true</should.build>
-        <should.deploy>false</should.deploy>
+        <should.deploy>true</should.deploy>
     </project>
     <project>
         <name>DocumentQuery_a0</name>
         <directory>/Production/Adapters/DocumentQuery_a0</directory>
         <dist.type>war</dist.type>
         <should.build>true</should.build>
-        <should.deploy>false</should.deploy>
+        <should.deploy>true</should.deploy>
     </project>
 	<project>
         <name>DocumentRetrieveCore</name>
@@ -117,14 +117,14 @@
         <directory>/Production/Gateway/DocumentRetrieve_30</directory>
         <dist.type>war</dist.type>
         <should.build>true</should.build>
-        <should.deploy>false</should.deploy>
+        <should.deploy>true</should.deploy>
     </project>
     <project>
         <name>DocumentRetrieve_a0</name>
         <directory>/Production/Adapters/DocumentRetrieve_a0</directory>
         <dist.type>war</dist.type>
         <should.build>true</should.build>
-        <should.deploy>false</should.deploy>
+        <should.deploy>true</should.deploy>
     </project>
 
     <project>
@@ -132,21 +132,21 @@
         <directory>/Production/Gateway/AdminDistribution_10</directory>
         <dist.type>war</dist.type>
         <should.build>true</should.build>
-        <should.deploy>false</should.deploy>
+        <should.deploy>true</should.deploy>
     </project>
     <project>
         <name>AdminDistribution_20</name>
         <directory>/Production/Gateway/AdminDistribution_20</directory>
         <dist.type>war</dist.type>
         <should.build>true</should.build>
-        <should.deploy>false</should.deploy>
+        <should.deploy>true</should.deploy>
     </project>
     <project>
         <name>AdminDistribution_a0</name>
         <directory>/Production/Adapters/AdminDistribution_a0/</directory>
         <dist.type>war</dist.type>
         <should.build>true</should.build>
-        <should.deploy>false</should.deploy>
+        <should.deploy>true</should.deploy>
     </project>
 
     <project>
@@ -195,7 +195,7 @@
         <name>CONNECTDeferredQueueManagerGUI</name>
         <directory>/Production/Adapters/General/CONNECTDeferredQueueManagerGUI</directory>
         <dist.type>war</dist.type>
-        <should.build>false</should.build>
+        <should.build>true</should.build>
         <should.deploy>false</should.deploy>
     </project>
     <project>
@@ -203,7 +203,7 @@
         <directory>/Production/Adapters/General/CONNECTUniversalClientGUI</directory>
         <dist.type>war</dist.type>
         <should.build>true</should.build>
-        <should.deploy>true</should.deploy>
+        <should.deploy>false</should.deploy>
     </project>
     <project>
         <name>AdapterDocRepository2Soap12Web</name>

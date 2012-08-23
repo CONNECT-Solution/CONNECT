@@ -390,7 +390,6 @@ public class NhincConstants {
     public static final String ADAPTER_XDS_REP_SERVICE_NAME = "adapterxdsbdocrepositorysoap12";
     public static final String ENTITY_DOC_RETRIEVE_PROXY_SERVICE_NAME = "entitydocretrieveproxy";
     public static final String ENTITY_DOC_RETRIEVE_SECURED_SERVICE_NAME = "entitydocretrievesecured";
-    public static final String ENTITY_DOC_RETRIEVE_SERVICE_NAME = "entitydocretrieve";
     public static final String NHINC_PROXY_DOC_RETRIEVE_SERVICE_NAME = "nhincproxydocretrieve";
     public static final String NHINC_PROXY_DOC_RETRIEVE_SECURED_SERVICE_NAME = "nhincproxydocretrievesecured";
     public static final String DOC_RETRIEVE_SERVICE_NAME = "RetrieveDocuments";

@@ -2,6 +2,7 @@
 .project
 .settings
 .metadata
+.DS_Store
 *.log
 .externalToolBuilders/
 build/
