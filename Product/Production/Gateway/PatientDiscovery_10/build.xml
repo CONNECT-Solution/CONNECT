@@ -80,11 +80,9 @@
         <filelist dir="${common.lib}">
             <file name="CONNECTCommonTypesLib.jar" />
         </filelist>
-        <path id="war.libs">
-            <filelist dir="${core.patientdiscovery}">
-                <file name="PatientDiscoveryCore.jar" />
-            </filelist>
-        </path>
+        <filelist dir="${core.patientdiscovery}">
+            <file name="PatientDiscoveryCore.jar" />
+        </filelist>
     </path>
 
 </project>
