@@ -242,9 +242,6 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
 		}
 		String sessionIndex = properties.getAuthenicationSessionIndex();
 
-		if (sessionIndex == null) {
-			sessionIndex = AUTHN_SESSION_INDEX;
-		}
 		log.debug("Setting Authentication session index to: " + sessionIndex);
 
 		DateTime authInstant = properties.getAuthenicationInstant();
