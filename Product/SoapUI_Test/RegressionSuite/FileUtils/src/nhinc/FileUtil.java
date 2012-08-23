@@ -137,6 +137,7 @@ class FileUtils{
 	}
 	
 	public static void UpdateProperty(String directory, String filename, String propertyKey, String propertyValue, WsdlTestRunContext context, Logger log) {
+		FileWriter fwPropFile = null;
 		try{
 		log.info("begin UpdateProperty; directory='" + directory + "';filename='" + filename + "';key='" + propertyKey + "';value='" + propertyValue + "';");
 	
@@ -151,12 +152,17 @@ class FileUtils{
 
 		properties.setProperty(propertyKey, propertyValue);
 
-		FileWriter fwPropFile = new FileWriter(filename);
 		fwPropFile = new FileWriter(file);
 		properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
 		properties = null;
 		} catch (IOException e){
 			log.error(e.getMessage());
+		} finally {
+			try {
+				fwPropFile.close();
+			} catch (IOException e) {
+				log.error(e.getMessage());
+			}
 		}
 	}
 	
