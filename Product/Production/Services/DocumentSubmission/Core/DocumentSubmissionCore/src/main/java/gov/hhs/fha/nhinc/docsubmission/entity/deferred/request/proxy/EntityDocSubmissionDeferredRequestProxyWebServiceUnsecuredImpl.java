@@ -26,6 +26,12 @@
  */
 package gov.hhs.fha.nhinc.docsubmission.entity.deferred.request.proxy;
 
+import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.UrlInfoType;
@@ -38,11 +44,6 @@ import gov.hhs.fha.nhinc.nhincentityxdr.async.request.EntityXDRAsyncRequestPortT
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
-import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
-import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 /**
  *
@@ -73,6 +74,7 @@ public class EntityDocSubmissionDeferredRequestProxyWebServiceUnsecuredImpl impl
                 assertion);
     }
 
+    @Override
     public XDRAcknowledgementType provideAndRegisterDocumentSetBAsyncRequest(
             ProvideAndRegisterDocumentSetRequestType request, AssertionType assertion,
             NhinTargetCommunitiesType targets, UrlInfoType urlInfo) {
@@ -89,7 +91,8 @@ public class EntityDocSubmissionDeferredRequestProxyWebServiceUnsecuredImpl impl
             } else if (targets == null) {
                 log.error("targets was null");
             } else {
-                RespondingGatewayProvideAndRegisterDocumentSetRequestType msg = new RespondingGatewayProvideAndRegisterDocumentSetRequestType();
+                RespondingGatewayProvideAndRegisterDocumentSetRequestType msg =
+                        new RespondingGatewayProvideAndRegisterDocumentSetRequestType();
                 msg.setProvideAndRegisterDocumentSetRequest(request);
                 msg.setAssertion(assertion);
                 msg.setNhinTargetCommunities(targets);
@@ -98,7 +101,8 @@ public class EntityDocSubmissionDeferredRequestProxyWebServiceUnsecuredImpl impl
                     msg.setUrl(urlInfo);
                 }
 
-                ServicePortDescriptor<EntityXDRAsyncRequestPortType> portDescriptor = new EntityDocSubmissionDeferredRequestServicePortDescriptor();
+                ServicePortDescriptor<EntityXDRAsyncRequestPortType> portDescriptor =
+                        new EntityDocSubmissionDeferredRequestServicePortDescriptor();
                 CONNECTClient<EntityXDRAsyncRequestPortType> client = getCONNECTClientUnsecured(portDescriptor, url,
                         assertion);
 
