@@ -254,6 +254,11 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
         log.debug("Executing Saml2AssertionExtractor.populateAuthzDecisionStatement()...");
 
         List<AuthzDecisionStatement> saml2AuthzDecisionStatements = saml2Assertion.getAuthzDecisionStatements();
+        if (saml2AuthzDecisionStatements == null || saml2AuthzDecisionStatements.isEmpty()) {
+            target.setSamlAuthzDecisionStatement(null);
+            return;
+        }
+    
         AuthzDecisionStatement saml2AuthzDecisionStatement = saml2AuthzDecisionStatements.get(0);
 
         SamlAuthzDecisionStatementType targetAuthzDecisionStatement = new SamlAuthzDecisionStatementType();
