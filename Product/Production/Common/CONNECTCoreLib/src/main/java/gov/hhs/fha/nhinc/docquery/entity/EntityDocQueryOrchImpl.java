@@ -558,8 +558,26 @@ public class EntityDocQueryOrchImpl {
             orchResponse_g0 = (OutboundDocQueryOrchestratable_a0) dqexecutor.getFinalResponse();
             response = orchResponse_g0.getCumulativeResponse();
         } else {
-            log.debug("No callable requests were sent out.  Setting response to failure.");
-            response.setStatus(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_FAILURE);
+            log.debug("No callable requests were sent out.  " +
+                    "Setting response to failure.");
+            response.setStatus(DocumentConstants.
+                    XDS_QUERY_RESPONSE_STATUS_FAILURE);
+            
+            if(response.getRegistryErrorList() == null){
+                RegistryErrorList regErrList = createErrorListWithError(
+                    DocumentConstants.XDS_RETRIEVE_ERRORCODE_REPOSITORY_ERROR,
+                    "Unable to find any callable targets.");
+                response.setRegistryErrorList(regErrList);
+            }else {
+                RegistryError regErr = new RegistryError();
+                regErr.setCodeContext("Unable to find any callable targets.");
+                regErr.setErrorCode(DocumentConstants.
+                        XDS_RETRIEVE_ERRORCODE_REPOSITORY_ERROR);
+                regErr.setSeverity(NhincConstants.
+                        XDS_REGISTRY_ERROR_SEVERITY_ERROR);
+                response.getRegistryErrorList().getRegistryError().
+                        add(regErr);  
+            }
         }
 
         // add any errors from policyErrList to response
@@ -596,6 +614,22 @@ public class EntityDocQueryOrchImpl {
         } else {
             log.debug("No callable requests were sent out.  Setting response to failure.");
             response.setStatus(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_FAILURE);
+
+            if(response.getRegistryErrorList() == null){
+                RegistryErrorList regErrList = createErrorListWithError(
+                    DocumentConstants.XDS_RETRIEVE_ERRORCODE_REPOSITORY_ERROR,
+                    "Unable to find any callable targets.");
+                response.setRegistryErrorList(regErrList);
+            }else {
+                RegistryError regErr = new RegistryError();
+                regErr.setCodeContext("Unable to find any callable targets.");
+                regErr.setErrorCode(DocumentConstants.
+                        XDS_RETRIEVE_ERRORCODE_REPOSITORY_ERROR);
+                regErr.setSeverity(NhincConstants.
+                        XDS_REGISTRY_ERROR_SEVERITY_ERROR);
+                response.getRegistryErrorList().getRegistryError().
+                        add(regErr);
+            }
         }
 
         // add any errors from policyErrList to response
