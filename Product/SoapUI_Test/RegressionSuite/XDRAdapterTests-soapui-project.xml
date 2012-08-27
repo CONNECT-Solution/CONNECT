@@ -1,7 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project abortOnError="false" name="XDRAdapter-Tests" resourceRoot="" runType="SEQUENTIAL" soapui-version="3.6" xmlns:con="http://eviware.com/soapui/config">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><con:soapui-project xmlns:con="http://eviware.com/soapui/config" abortOnError="false" name="XDRAdapter-Tests" resourceRoot="" runType="SEQUENTIAL" soapui-version="3.6">
 	<con:settings/>
-	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincadapterxdr}AdapterXDR_Binding" definition="c:\glassfish-2.1.1\domains\domain1\config\nhin\wsdl\AdapterComponentXDR.wsdl" name="AdapterXDR_Binding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincadapterxdr}AdapterXDR_Binding" definition="WSDL path not set.  #AdapterComponentXDR.wsdl" name="AdapterXDR_Binding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
 		<con:settings/>
 		
 		<con:endpoints>
@@ -656,7 +655,7 @@
 			<con:settings/>
 			<con:testStep name="Success" type="request">
 				<con:settings/>
-				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
 					<con:interface>AdapterXDR_Binding</con:interface>
 					<con:operation>ProvideAndRegisterDocumentSetb</con:operation>
 					<con:request incomingWss="" name="Success" outgoingWss="" wssPasswordType="">
@@ -1102,7 +1101,7 @@
 								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
 							</con:configuration>
 						</con:assertion>
-						<con:wsaConfig action="tns:ProvideAndRegisterDocumentSet-b" mustUnderstand="NONE" version="200508"/>
+						<con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="tns:ProvideAndRegisterDocumentSet-b" mustUnderstand="NONE" version="200508"/>
 						<con:wsrmConfig version="1.2"/>
 					</con:request>
 				</con:config>
@@ -1110,29 +1109,30 @@
 			<con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-07-19T23:02:11Z</con:value>
+					<con:value>2012-08-24T23:04:41Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-07-19T23:12:11Z</con:value>
+					<con:value>2012-08-24T23:14:41Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>07/19/2012 23:02:11</con:value>
+					<con:value>08/24/2012 23:04:41</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-08-18T00:00:00Z</con:value>
+					<con:value>2012-09-23T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
-			<con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
+			<con:tearDownScript>import nhinc.FileUtils;
+FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 		</con:testCase>
 		<con:testCase failOnError="true" failTestCaseOnErrors="true" id="c10d34ef-1d48-4356-a6f5-ff50fb09c49a" keepSession="false" maxResults="0" name="Success - Multiple Documents" searchProperties="true">
 			<con:settings/>
 			<con:testStep name="Success - Multiple Documents" type="request">
 				<con:settings/>
-				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
 					<con:interface>AdapterXDR_Binding</con:interface>
 					<con:operation>ProvideAndRegisterDocumentSetb</con:operation>
 					<con:request incomingWss="" name="Success - Multiple Documents" outgoingWss="" wssPasswordType="">
@@ -1645,19 +1645,19 @@
 			<con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-07-19T23:02:11Z</con:value>
+					<con:value>2012-08-24T23:04:41Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-07-19T23:12:11Z</con:value>
+					<con:value>2012-08-24T23:14:41Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>07/19/2012 23:02:11</con:value>
+					<con:value>08/24/2012 23:04:41</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-08-18T00:00:00Z</con:value>
+					<con:value>2012-09-23T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -1667,11 +1667,11 @@
 			<con:settings/>
 			<con:testStep name="Failure - XDSUnknownPatientId" type="request">
 				<con:settings/>
-				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
 					<con:interface>AdapterXDR_Binding</con:interface>
 					<con:operation>ProvideAndRegisterDocumentSetb</con:operation>
 					<con:request incomingWss="" name="Failure - XDSUnknownPatientId" outgoingWss="" wssPasswordType="">
-						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
+						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting></con:settings>
 						<con:encoding>UTF-8</con:encoding>
 						<con:endpoint>${#Project#Endpoint-Adapter}</con:endpoint>
 						<con:request><![CDATA[
@@ -2148,19 +2148,19 @@
 			<con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-07-19T23:02:11Z</con:value>
+					<con:value>2012-08-24T23:04:42Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-07-19T23:12:11Z</con:value>
+					<con:value>2012-08-24T23:14:42Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>07/19/2012 23:02:11</con:value>
+					<con:value>08/24/2012 23:04:42</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-08-18T00:00:00Z</con:value>
+					<con:value>2012-09-23T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -2170,11 +2170,11 @@
 			<con:settings/>
 			<con:testStep name="Failure - XDSPatientIdDoesNotMatch" type="request">
 				<con:settings/>
-				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
 					<con:interface>AdapterXDR_Binding</con:interface>
 					<con:operation>ProvideAndRegisterDocumentSetb</con:operation>
 					<con:request incomingWss="" name="Failure - XDSPatientIdDoesNotMatch" outgoingWss="" wssPasswordType="">
-						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
+						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting></con:settings>
 						<con:encoding>UTF-8</con:encoding>
 						<con:endpoint>${#Project#Endpoint-Adapter}</con:endpoint>
 						<con:request><![CDATA[
@@ -2709,19 +2709,19 @@
 			<con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-07-19T23:02:11Z</con:value>
+					<con:value>2012-08-24T23:04:42Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-07-19T23:12:11Z</con:value>
+					<con:value>2012-08-24T23:14:42Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>07/19/2012 23:02:11</con:value>
+					<con:value>08/24/2012 23:04:42</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-08-18T00:00:00Z</con:value>
+					<con:value>2012-09-23T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -2731,11 +2731,11 @@
 			<con:settings/>
 			<con:testStep name="Failure - XDSMissingDocumentMetadata" type="request">
 				<con:settings/>
-				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
 					<con:interface>AdapterXDR_Binding</con:interface>
 					<con:operation>ProvideAndRegisterDocumentSetb</con:operation>
 					<con:request incomingWss="" name="Failure - XDSMissingDocumentMetadata" outgoingWss="" wssPasswordType="">
-						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
+						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting></con:settings>
 						<con:encoding>UTF-8</con:encoding>
 						<con:endpoint>${#Project#Endpoint-Adapter}</con:endpoint>
 						<con:request><![CDATA[
@@ -3211,19 +3211,19 @@
 			<con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-07-19T23:02:11Z</con:value>
+					<con:value>2012-08-24T23:04:42Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-07-19T23:12:11Z</con:value>
+					<con:value>2012-08-24T23:14:42Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>07/19/2012 23:02:11</con:value>
+					<con:value>08/24/2012 23:04:42</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-08-18T00:00:00Z</con:value>
+					<con:value>2012-09-23T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -3233,11 +3233,11 @@
 			<con:settings/>
 			<con:testStep name="Failure - XDSMissingDocument" type="request">
 				<con:settings/>
-				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
 					<con:interface>AdapterXDR_Binding</con:interface>
 					<con:operation>ProvideAndRegisterDocumentSetb</con:operation>
 					<con:request incomingWss="" name="Failure - XDSMissingDocument" outgoingWss="" wssPasswordType="">
-						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
+						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting></con:settings>
 						<con:encoding>UTF-8</con:encoding>
 						<con:endpoint>${#Project#Endpoint-Adapter}</con:endpoint>
 						<con:request><![CDATA[
@@ -3503,19 +3503,19 @@
 			<con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-07-19T23:02:11Z</con:value>
+					<con:value>2012-08-24T23:04:42Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-07-19T23:12:11Z</con:value>
+					<con:value>2012-08-24T23:14:42Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>07/19/2012 23:02:11</con:value>
+					<con:value>08/24/2012 23:04:42</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-08-18T00:00:00Z</con:value>
+					<con:value>2012-09-23T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -3525,11 +3525,11 @@
 			<con:settings/>
 			<con:testStep name="Multiple Failure Messages" type="request">
 				<con:settings/>
-				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
 					<con:interface>AdapterXDR_Binding</con:interface>
 					<con:operation>ProvideAndRegisterDocumentSetb</con:operation>
 					<con:request incomingWss="" name="Multiple Failure Messages" outgoingWss="" wssPasswordType="">
-						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
+						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting></con:settings>
 						<con:encoding>UTF-8</con:encoding>
 						<con:endpoint>${#Project#Endpoint-Adapter}</con:endpoint>
 						<con:request><![CDATA[
@@ -4028,19 +4028,19 @@
 			<con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-07-19T23:02:11Z</con:value>
+					<con:value>2012-08-24T23:04:42Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-07-19T23:12:11Z</con:value>
+					<con:value>2012-08-24T23:14:42Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>07/19/2012 23:02:11</con:value>
+					<con:value>08/24/2012 23:04:42</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-08-18T00:00:00Z</con:value>
+					<con:value>2012-09-23T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -4156,7 +4156,7 @@
 if (propertiesFile.exists()) {
 	def props = new Properties()
 	props.load(new FileReader(propertiesFile))
-	props.each { key, value ->
+	props.each { key, value -&gt;
 	    project.setPropertyValue(key, value)
 	}
 }
@@ -4164,11 +4164,11 @@ if (propertiesFile.exists()) {
 
 TimeZone.setDefault(TimeZone.getTimeZone("UTC"))
 def testRunListener = [
-  afterRun: { testRunner, runContext -> },
-  afterStep: { testRunner, runContext, result -> },
-  beforeStep: { testRunner, runContext -> },
-  beforeStep: { testRunner, runContext, testStep -> },
-  beforeRun: { testRunner, runContext -> 
+  afterRun: { testRunner, runContext -&gt; },
+  afterStep: { testRunner, runContext, result -&gt; },
+  beforeStep: { testRunner, runContext -&gt; },
+  beforeStep: { testRunner, runContext, testStep -&gt; },
+  beforeRun: { testRunner, runContext -&gt; 
     use (org.codehaus.groovy.runtime.TimeCategory) {
       def startDate = 5.minutes.ago
       def endDate = 5.minutes.from.now
@@ -4189,7 +4189,7 @@ project.testSuiteList*.testCaseList.flatten()*.addTestRunListener(testRunListene
 
 
 
-com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.findProperty = { propertyName ->
+com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.findProperty = { propertyName -&gt;
     return delegate.getProperty(propertyName) ?:
                 delegate.testCase.getPropertyValue(propertyName) ?:
                 delegate.testCase.testSuite.getPropertyValue(propertyName) ?:
