@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><con:soapui-project xmlns:con="http://eviware.com/soapui/config" abortOnError="false" name="NHINCPatientDiscoveryMAA" resourceRoot="" runType="SEQUENTIAL" soapui-version="3.5.1">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><con:soapui-project xmlns:con="http://eviware.com/soapui/config" abortOnError="false" name="NHINCPatientDiscoveryMAA" resourceRoot="" runType="SEQUENTIAL" soapui-version="3.6">
 	<con:settings/>
 	<con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxypatientdiscovery}NhincProxyPatientDiscoveryBinding" definition="WSDL path not set.  #NhincProxyPatientDiscovery.wsdl" name="NhincProxyPatientDiscoveryBinding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
 		<con:settings/>
@@ -329,8 +329,9 @@ exists( //ns3:PRPA_IN201306UV02/ns3:controlActProcess)</path>
 			</con:request>
 		</con:config>
 	</con:testStep>
-	<con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
-	<con:properties><con:property><con:name>startDate</con:name><con:value>2012-02-24T21:11:18Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2012-02-24T21:21:18Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>02/24/2012 21:11:18</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2012-03-25T00:00:00Z</con:value></con:property></con:properties>
+	<con:tearDownScript>import nhinc.FileUtils;
+FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
+	<con:properties><con:property><con:name>startDate</con:name><con:value>2012-08-24T23:11:13Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2012-08-24T23:21:13Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>08/24/2012 23:11:13</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2012-09-23T00:00:00Z</con:value></con:property></con:properties>
 </con:testCase>
 <con:properties/>
 </con:testSuite>

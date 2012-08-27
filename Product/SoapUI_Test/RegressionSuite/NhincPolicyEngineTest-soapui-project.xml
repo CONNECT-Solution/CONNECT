@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project abortOnError="false" name="NhincPolicyEngineTest" resourceRoot="" runType="SEQUENTIAL" soapui-version="3.6" xmlns:con="http://eviware.com/soapui/config">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><con:soapui-project xmlns:con="http://eviware.com/soapui/config" abortOnError="false" name="NhincPolicyEngineTest" resourceRoot="" runType="SEQUENTIAL" soapui-version="3.6">
 	<con:settings>
 		<con:setting id="com.eviware.soapui.impl.wsdl.actions.iface.tools.soapui.TestRunnerAction@values-local"><![CDATA[
 			<xml-fragment xmlns:con="http://eviware.com/soapui/config">
@@ -24,7 +23,7 @@
   <con:entry key="Add Settings" value="false"/>
 </xml-fragment>]]></con:setting>
 	</con:settings>
-	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxydocquery}NhincProxyDocQueryBindingSoap" definition="c:\glassfish-2.1.1\domains\domain1\config\nhin\wsdl\NhincProxyDocQuery.wsdl" name="NhincProxyDocQueryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxydocquery}NhincProxyDocQueryBindingSoap" definition="WSDL path not set.  #NhincProxyDocQuery.wsdl" name="NhincProxyDocQueryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
 		<con:settings/>
 		
 		<con:endpoints>
@@ -38,7 +37,7 @@
 			<con:settings/>
 		</con:operation>
 	</con:interface>
-	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxydocretrieve}NhincProxyDocRetrieveBindingSoap" definition="c:\glassfish-2.1.1\domains\domain1\config\nhin\wsdl\NhincProxyDocRetrieve.wsdl" name="NhincProxyDocRetrieveBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxydocretrieve}NhincProxyDocRetrieveBindingSoap" definition="WSDL path not set.  #NhincProxyDocRetrieve.wsdl" name="NhincProxyDocRetrieveBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
 		<con:settings/>
 		
 		<con:endpoints>
@@ -54,7 +53,7 @@
 	</con:interface>
 	
 	
-	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxynotificationconsumer}NhincProxyNotificationConsumerBindingSoap" definition="c:\glassfish-2.1.1\domains\domain1\config\nhin\wsdl\NhincProxyNotificationConsumer.wsdl" name="NhincProxyNotificationConsumerBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxynotificationconsumer}NhincProxyNotificationConsumerBindingSoap" definition="WSDL path not set.  #NhincProxyNotificationConsumer.wsdl" name="NhincProxyNotificationConsumerBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
 		<con:settings/>
 		
 		<con:endpoints>
@@ -68,7 +67,7 @@
 			<con:settings/>
 		</con:operation>
 	</con:interface>
-	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxysubscriptionmanagement}NhincProxyNotificationProducerBindingSoap" definition="c:\glassfish-2.1.1\domains\domain1\config\nhin\wsdl\NhincProxySubscriptionManagement.wsdl" name="NhincProxyNotificationProducerBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxysubscriptionmanagement}NhincProxyNotificationProducerBindingSoap" definition="WSDL path not set.  #NhincProxySubscriptionManagement.wsdl" name="NhincProxyNotificationProducerBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
 		<con:settings/>
 		
 		<con:endpoints>
@@ -85,7 +84,7 @@
 			<con:settings/>
 		</con:operation>
 	</con:interface>
-	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxysubscriptionmanagement}NhincProxySubscriptionManagerBindingSoap" definition="c:\glassfish-2.1.1\domains\domain1\config\nhin\wsdl\NhincProxySubscriptionManagement.wsdl" name="NhincProxySubscriptionManagerBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxysubscriptionmanagement}NhincProxySubscriptionManagerBindingSoap" definition="WSDL path not set.  #NhincProxySubscriptionManagement.wsdl" name="NhincProxySubscriptionManagerBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
 		<con:settings/>
 		
 		<con:endpoints>
@@ -99,7 +98,7 @@
 			<con:settings/>
 		</con:operation>
 	</con:interface>
-	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:adapternotificationconsumer}AdapterNotificationConsumerBindingSoap" definition="c:\glassfish-2.1.1\domains\domain1\config\nhin\wsdl\AdapterNotificationConsumer.wsdl" name="AdapterNotificationConsumerBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:adapternotificationconsumer}AdapterNotificationConsumerBindingSoap" definition="WSDL path not set.  #AdapterNotificationConsumer.wsdl" name="AdapterNotificationConsumerBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
 		<con:settings/>
 		
 		<con:endpoints>
@@ -115,7 +114,7 @@
 			<con:settings/>
 		</con:operation>
 	</con:interface>
-	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement}EntitySubscriptionManagerBindingSoap" definition="c:\glassfish-2.1.1\domains\domain1\config\nhin\wsdl\EntitySubscriptionManagement.wsdl" name="EntitySubscriptionManagerBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement}EntitySubscriptionManagerBindingSoap" definition="WSDL path not set.  #EntitySubscriptionManagement.wsdl" name="EntitySubscriptionManagerBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
 		<con:settings/>
 		
 		<con:endpoints>
@@ -127,7 +126,7 @@
 			<con:settings/>
 		</con:operation>
 	</con:interface>
-	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:adapterpolicyengine}AdapterPolicyEngineBindingSoap" definition="c:\glassfish-2.1.1\domains\domain1\config\nhin\wsdl\AdapterPolicyEngine.wsdl" name="AdapterPolicyEngineBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:adapterpolicyengine}AdapterPolicyEngineBindingSoap" definition="WSDL path not set.  #AdapterPolicyEngine.wsdl" name="AdapterPolicyEngineBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
 		<con:settings/>
 		
 		<con:endpoints>
@@ -146,14 +145,14 @@
 			<con:settings/>
 			<con:testStep name="Intialize Configurations" type="groovy">
 				<con:settings/>
-				<con:config>
-					<script>FileUtils.InitializeNHINCProperties(context, log);
-					</script>
-				</con:config>
+				<con:config><script>import nhinc.FileUtils;
+FileUtils.InitializeNHINCProperties(context, log);
+					</script></con:config>
 			</con:testStep>
 			<con:testStep name="ModifyInterrnalConnectionInfo" type="groovy">
 				<con:settings/>
-				<con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+				<con:config><script>import nhinc.FileUtils;
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 
 //def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
@@ -176,11 +175,11 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
 			</con:testStep>
 			<con:testStep name="Document Query" type="request">
 				<con:settings/>
-				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
 					<con:interface>NhincProxyDocQueryBindingSoap</con:interface>
 					<con:operation>RespondingGateway_CrossGatewayQuery</con:operation>
 					<con:request name="Document Query">
-						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
+						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting></con:settings>
 						<con:encoding>UTF-8</con:encoding>
 						<con:endpoint>${#Project#Endpoint-DocQuery}</con:endpoint>
 						<con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn3="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
@@ -464,7 +463,7 @@ log.info documentID + " " + msgDocID</scriptText>
 			</con:testStep>
 			<con:testStep name="Policy Engine Mock" type="mockresponse">
 				<con:settings/>
-				<con:config startStep="Document Query" xsi:type="con:MockResponseStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" startStep="Document Query" xsi:type="con:MockResponseStep">
 					<con:interface>AdapterPolicyEngineBindingSoap</con:interface>
 					<con:operation>CheckPolicy</con:operation>
 					<con:path>/mockPolicyEngine</con:path>
@@ -502,19 +501,19 @@ declare namespace ns18='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
 			<con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-02-24T20:55:29Z</con:value>
+					<con:value>2012-08-24T23:09:27Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-02-24T21:05:29Z</con:value>
+					<con:value>2012-08-24T23:19:27Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>02/24/2012 20:55:29</con:value>
+					<con:value>08/24/2012 23:09:27</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-03-25T00:00:00Z</con:value>
+					<con:value>2012-09-23T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>FullPatientID</con:name>
@@ -522,20 +521,21 @@ declare namespace ns18='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
-			<con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
+			<con:tearDownScript>import nhinc.FileUtils;
+FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 		</con:testCase>
 		<con:testCase failOnError="true" failTestCaseOnErrors="true" id="5c8330cc-e382-4dad-9c68-716bf8595ae1" keepSession="false" maxResults="0" name="Document Retrieve" searchProperties="true">
 			<con:settings/>
 			<con:testStep name="Intialize Configurations" type="groovy">
 				<con:settings/>
-				<con:config>
-					<script>FileUtils.InitializeNHINCProperties(context, log);
-					</script>
-				</con:config>
+				<con:config><script>import nhinc.FileUtils;
+FileUtils.InitializeNHINCProperties(context, log);
+					</script></con:config>
 			</con:testStep>
 			<con:testStep name="ModifyInterrnalConnectionInfo" type="groovy">
 				<con:settings/>
-				<con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+				<con:config><script>import nhinc.FileUtils;
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 
 //def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
@@ -555,13 +555,13 @@ FileUtils.CreateOrUpdateConnection("internalConnectionInfo.xml", destConfigFileL
 			</con:testStep>
 			<con:testStep name="Document Retrieve" type="request">
 				<con:settings/>
-				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
 					<con:interface>NhincProxyDocRetrieveBindingSoap</con:interface>
 					<con:operation>RespondingGateway_CrossGatewayRetrieve</con:operation>
 					<con:request name="Document Retrieve">
 						<con:settings>
 							<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@expand-mtom-attachments">true</con:setting>
-						<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
+						<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting></con:settings>
 						<con:encoding>UTF-8</con:encoding>
 						<con:endpoint>${#Project#Endpoint-DocRetrieve}</con:endpoint>
 						<con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:ihe:iti:xds-b:2007" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
@@ -822,7 +822,7 @@ FileUtils.CreateOrUpdateConnection("internalConnectionInfo.xml", destConfigFileL
 			</con:testStep>
 			<con:testStep name="Policy Engine Mock" type="mockresponse">
 				<con:settings/>
-				<con:config startStep="Document Retrieve" xsi:type="con:MockResponseStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" startStep="Document Retrieve" xsi:type="con:MockResponseStep">
 					<con:interface>AdapterPolicyEngineBindingSoap</con:interface>
 					<con:operation>CheckPolicy</con:operation>
 					<con:path>/mockPolicyEngine</con:path>
@@ -864,19 +864,19 @@ declare namespace ns18='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
 				</con:property>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-02-24T20:55:30Z</con:value>
+					<con:value>2012-08-24T23:09:29Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-02-24T21:05:30Z</con:value>
+					<con:value>2012-08-24T23:19:29Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>02/24/2012 20:55:30</con:value>
+					<con:value>08/24/2012 23:09:29</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-03-25T00:00:00Z</con:value>
+					<con:value>2012-09-23T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>CorrectedLocalHCID</con:name>
@@ -884,7 +884,8 @@ declare namespace ns18='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
-			<con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
+			<con:tearDownScript>import nhinc.FileUtils;
+FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 		</con:testCase>
 		<con:testCase disabled="true" failOnError="true" failTestCaseOnErrors="true" id="9a79dfe1-b58c-45b1-9e33-d1d33e234bd3" keepSession="false" maxResults="0" name="Subscribe" searchProperties="true">
 			<con:settings/>
@@ -897,7 +898,7 @@ declare namespace ns18='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
 			</con:testStep>
 			<con:testStep name="Test Case Properties" type="properties">
 				<con:settings/>
-				<con:config createMissingOnLoad="true" discardValuesOnSave="true" saveFirst="true" xsi:type="con:PropertiesStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" createMissingOnLoad="true" discardValuesOnSave="true" saveFirst="true" xsi:type="con:PropertiesStep">
 					<con:source>C:/git/Product/SoapUI_Test/RegressionSuite/NhincPolicyEngineTest-soapui-project.properties</con:source>
 					<con:properties>
 						<con:property>
@@ -1135,9 +1136,9 @@ if(myFile.exists())
 {
     new File(GatewayPropFileBak).withWriter 
     { 
-        file -> new File(GatewayPropFile).eachLine 
+        file -&gt; new File(GatewayPropFile).eachLine 
         { 
-            line -> file.writeLine(line)  
+            line -&gt; file.writeLine(line)  
         }
     }
 }
@@ -1160,7 +1161,7 @@ void UpdateProperty(String directory, String filename, String propertyKey, Strin
    properties.load(frPropFile);
    properties.setProperty(propertyKey, propertyValue);
    FileOutputStream fwPropFile = new FileOutputStream(file);
-   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
+   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy-&gt;UpdateProperty");
    properties = null;
 }
 
@@ -1250,7 +1251,7 @@ clearTable(host, port, db, user, pass, table);
 			</con:testStep>
 			<con:testStep name="set subscribe properties" type="transfer">
 				<con:settings/>
-				<con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:PropertyTransfersStep">
 					<con:transfers entitize="false" failOnError="true" ignoreEmpty="false" setNullOnMissingSource="true" transferChildNodes="false" transferTextContent="true" transferToAll="false" useXQuery="false">
 						<con:name>endpointTransfer</con:name>
 						<con:sourceType>Endpoint-Subscribe</con:sourceType>
@@ -1355,7 +1356,7 @@ declare namespace urn1='urn:gov:hhs:fha:nhinc:common:nhinccommon';
 			</con:testStep>
 			<con:testStep name="Subscribe" type="request">
 				<con:settings/>
-				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
 					<con:interface>NhincProxyNotificationProducerBindingSoap</con:interface>
 					<con:operation>Subscribe</con:operation>
 					<con:request name="Subscribe">
@@ -1625,7 +1626,7 @@ assert holder["//ns4:SubscribeResponse[1]/ns4:SubscriptionReference[1]/ns3:Refer
 			</con:testStep>
 			<con:testStep name="Policy Engine Mock" type="mockresponse">
 				<con:settings/>
-				<con:config startStep="Subscribe" xsi:type="con:MockResponseStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" startStep="Subscribe" xsi:type="con:MockResponseStep">
 					<con:interface>AdapterPolicyEngineBindingSoap</con:interface>
 					<con:operation>CheckPolicy</con:operation>
 					<con:path>/mockPolicyEngine</con:path>
@@ -1676,9 +1677,9 @@ if(myFile.exists())
 {
     new File(GatewayPropFile).withWriter 
     { 
-        file -> new File(GatewayPropFileBak).eachLine 
+        file -&gt; new File(GatewayPropFileBak).eachLine 
         { 
-            line -> file.writeLine(line)  
+            line -&gt; file.writeLine(line)  
         }
     }
     myFile.delete();
@@ -1707,7 +1708,7 @@ int countRows(host, port, dbName, user, password, table, unsubSubscriptionID, st
    def sqlConnect = 'jdbc:mysql://' + host + ':' + port + '/' + dbName;
    def sql = Sql.newInstance(sqlConnect, user, password, "com.mysql.jdbc.Driver");
    def count = 0;
-   sql.eachRow("select count(*) from " + table) { row ->
+   sql.eachRow("select count(*) from " + table) { row -&gt;
 	count = row[0];
    }
    return count;
@@ -1747,7 +1748,7 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, InitiatingHCID, "poli
 			</con:testStep>
 			<con:testStep disabled="true" name="Test Case Properties" type="properties">
 				<con:settings/>
-				<con:config createMissingOnLoad="true" discardValuesOnSave="true" saveFirst="true" xsi:type="con:PropertiesStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" createMissingOnLoad="true" discardValuesOnSave="true" saveFirst="true" xsi:type="con:PropertiesStep">
 					<con:source>C:/git/Product/SoapUI_Test/RegressionSuite/NhincPolicyEngineTest-soapui-project.properties</con:source>
 					<con:properties>
 						<con:property>
@@ -2063,7 +2064,7 @@ groovyUtils.setPropertyValue( "Test Case Properties", "NotifySubscriptionID", su
 log.info subscriptionID;</script>
 				</con:config>
 			</con:testStep>
-			<con:testStep name="Count Subscriptions (>0)" type="groovy">
+			<con:testStep name="Count Subscriptions (&gt;0)" type="groovy">
 				<con:settings/>
 				<con:config>
 					<script>import groovy.sql.Sql;
@@ -2084,19 +2085,19 @@ int countRows(host, port, dbName, user, password, table, unsubSubscriptionID, st
    def sqlConnect = 'jdbc:mysql://' + host + ':' + port + '/' + dbName;
    def sql = Sql.newInstance(sqlConnect, user, password, "com.mysql.jdbc.Driver");
    def count = 0;
-   sql.eachRow("select count(*) from " + table) { row ->
+   sql.eachRow("select count(*) from " + table) { row -&gt;
 	count = row[0];
    }
    return count;
 }
 
 def count = countRows(host, port, db, user, pass, table, unsubSubscriptionID, startDate);
-assert count > 0;</script>
+assert count &gt; 0;</script>
 				</con:config>
 			</con:testStep>
 			<con:testStep name="set notify properties" type="transfer">
 				<con:settings/>
-				<con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:PropertyTransfersStep">
 					<con:transfers entitize="false" failOnError="true" ignoreEmpty="false" setNullOnMissingSource="true" transferChildNodes="false" transferTextContent="true" transferToAll="false" useXQuery="false">
 						<con:name>endpointTransfer</con:name>
 						<con:sourceType>Endpoint-Notify</con:sourceType>
@@ -2233,7 +2234,7 @@ declare namespace urn1='urn:gov:hhs:fha:nhinc:common:nhinccommon';
 			</con:testStep>
 			<con:testStep name="Notify" type="request">
 				<con:settings/>
-				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
 					<con:interface>NhincProxyNotificationConsumerBindingSoap</con:interface>
 					<con:operation>Notify</con:operation>
 					<con:request name="Notify">
@@ -2496,7 +2497,7 @@ declare namespace urn1='urn:gov:hhs:fha:nhinc:common:nhinccommon';
 			</con:testStep>
 			<con:testStep name="Policy Engine Mock" type="mockresponse">
 				<con:settings/>
-				<con:config startStep="Notify" xsi:type="con:MockResponseStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" startStep="Notify" xsi:type="con:MockResponseStep">
 					<con:interface>AdapterPolicyEngineBindingSoap</con:interface>
 					<con:operation>CheckPolicy</con:operation>
 					<con:path>/mockPolicyEngine</con:path>
@@ -2561,7 +2562,7 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, InitiatingHCID, "poli
 			</con:testStep>
 			<con:testStep name="Test Case Properties" type="properties">
 				<con:settings/>
-				<con:config createMissingOnLoad="true" discardValuesOnSave="true" saveFirst="true" xsi:type="con:PropertiesStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" createMissingOnLoad="true" discardValuesOnSave="true" saveFirst="true" xsi:type="con:PropertiesStep">
 					<con:source>C:/git/Product/SoapUI_Test/RegressionSuite/NhincPolicyEngineTest-soapui-project.properties</con:source>
 					<con:properties>
 						<con:property>
@@ -2795,9 +2796,9 @@ if(myFile.exists())
 {
     new File(GatewayPropFileBak).withWriter 
     { 
-        file -> new File(GatewayPropFile).eachLine 
+        file -&gt; new File(GatewayPropFile).eachLine 
         { 
-            line -> file.writeLine(line)  
+            line -&gt; file.writeLine(line)  
         }
     }
 }
@@ -2820,7 +2821,7 @@ void UpdateProperty(String directory, String filename, String propertyKey, Strin
    properties.load(frPropFile);
    properties.setProperty(propertyKey, propertyValue);
    FileOutputStream fwPropFile = new FileOutputStream(file);
-   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
+   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy-&gt;UpdateProperty");
    properties = null;
 }
 
@@ -2939,7 +2940,7 @@ int countRows(host, port, dbName, user, password, table, unsubSubscriptionID, st
    def sqlConnect = 'jdbc:mysql://' + host + ':' + port + '/' + dbName;
    def sql = Sql.newInstance(sqlConnect, user, password, "com.mysql.jdbc.Driver");
    def count = 0;
-   sql.eachRow("select count(*) from " + table) { row ->
+   sql.eachRow("select count(*) from " + table) { row -&gt;
 	count = row[0];
    }
    return count;
@@ -2951,7 +2952,7 @@ assert count == 1;</script>
 			</con:testStep>
 			<con:testStep name="set unsubscribe properties" type="transfer">
 				<con:settings/>
-				<con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:PropertyTransfersStep">
 					<con:transfers entitize="false" failOnError="true" ignoreEmpty="false" setNullOnMissingSource="true" transferChildNodes="false" transferTextContent="true" transferToAll="false" useXQuery="false">
 						<con:name>endpointTransfer</con:name>
 						<con:sourceType>Endpoint-Unsubscribe</con:sourceType>
@@ -3084,7 +3085,7 @@ declare namespace urn2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
 			</con:testStep>
 			<con:testStep name="Unsubscribe" type="request">
 				<con:settings/>
-				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
 					<con:interface>NhincProxySubscriptionManagerBindingSoap</con:interface>
 					<con:operation>Unsubscribe</con:operation>
 					<con:request name="Unsubscribe">
@@ -3335,7 +3336,7 @@ declare namespace urn2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
 			</con:testStep>
 			<con:testStep name="Policy Engine Mock" type="mockresponse">
 				<con:settings/>
-				<con:config startStep="Unsubscribe" xsi:type="con:MockResponseStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" startStep="Unsubscribe" xsi:type="con:MockResponseStep">
 					<con:interface>AdapterPolicyEngineBindingSoap</con:interface>
 					<con:operation>CheckPolicy</con:operation>
 					<con:path>/mockPolicyEngine</con:path>
@@ -3386,9 +3387,9 @@ if(myFile.exists())
 {
     new File(GatewayPropFile).withWriter 
     { 
-        file -> new File(GatewayPropFileBak).eachLine 
+        file -&gt; new File(GatewayPropFileBak).eachLine 
         { 
-            line -> file.writeLine(line)  
+            line -&gt; file.writeLine(line)  
         }
     }
     myFile.delete();
@@ -3417,7 +3418,7 @@ int countRows(host, port, dbName, user, password, table, unsubSubscriptionID, st
    def sqlConnect = 'jdbc:mysql://' + host + ':' + port + '/' + dbName;
    def sql = Sql.newInstance(sqlConnect, user, password, "com.mysql.jdbc.Driver");
    def count = 0;
-   sql.eachRow("select count(*) from " + table) { row ->
+   sql.eachRow("select count(*) from " + table) { row -&gt;
 	count = row[0];
    }
    return count;
@@ -3639,7 +3640,7 @@ def propertiesFile = new File(propertiesFilename)
 if (propertiesFile.exists()) {
 	def props = new Properties()
 	props.load(new FileReader(propertiesFile))
-	props.each { key, value ->
+	props.each { key, value -&gt;
 	    project.setPropertyValue(key, value)
 	}
 }
@@ -3647,11 +3648,11 @@ if (propertiesFile.exists()) {
 
 TimeZone.setDefault(TimeZone.getTimeZone("UTC"))
 def testRunListener = [
-  afterRun: { testRunner, runContext -> },
-  afterStep: { testRunner, runContext, result -> },
-  beforeStep: { testRunner, runContext -> },
-  beforeStep: { testRunner, runContext, testStep -> },
-  beforeRun: { testRunner, runContext -> 
+  afterRun: { testRunner, runContext -&gt; },
+  afterStep: { testRunner, runContext, result -&gt; },
+  beforeStep: { testRunner, runContext -&gt; },
+  beforeStep: { testRunner, runContext, testStep -&gt; },
+  beforeRun: { testRunner, runContext -&gt; 
     use (org.codehaus.groovy.runtime.TimeCategory) {
       def startDate = 5.minutes.ago
       def endDate = 5.minutes.from.now
@@ -3672,14 +3673,14 @@ project.testSuiteList*.testCaseList.flatten()*.addTestRunListener(testRunListene
 
 
 
-com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.findProperty = { propertyName ->
+com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.findProperty = { propertyName -&gt;
     return delegate.getProperty(propertyName) ?:
                 delegate.testCase.getPropertyValue(propertyName) ?:
                 delegate.testCase.testSuite.getPropertyValue(propertyName) ?:
                 delegate.testCase.testSuite.project.getPropertyValue(propertyName)
 }
 
-com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.withSql = { dbOrPropertyName, block ->
+com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.withSql = { dbOrPropertyName, block -&gt;
   def dbName = delegate.findProperty(dbOrPropertyName) ?: dbOrPropertyName
   def host = delegate.findProperty('DBHost')
   def port = delegate.findProperty('DBPort')
