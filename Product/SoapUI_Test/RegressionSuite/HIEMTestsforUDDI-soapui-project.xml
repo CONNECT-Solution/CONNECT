@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><con:soapui-project xmlns:con="http://eviware.com/soapui/config" abortOnError="false" name="HIEMTestsforUDDI" resourceRoot="" runType="SEQUENTIAL" soapui-version="3.5.1">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><con:soapui-project xmlns:con="http://eviware.com/soapui/config" abortOnError="false" name="HIEMTestsforUDDI" resourceRoot="" runType="SEQUENTIAL" soapui-version="3.6">
 	<con:settings/>
 	<con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement}EntityNotificationProducerBindingSoap" definition="WSDL path not set.  #EntitySubscriptionManagement.wsdl" name="EntityNotificationProducerBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
 		<con:settings/>
@@ -26,7 +26,8 @@
 			
 			<con:testStep name="Copy HIEM-uddiConnectionInfo" type="groovy">
 				<con:settings/>
-				<con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+				<con:config><script>import nhinc.FileUtils;
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
 def testCase = testRunner.getTestCase()
 def testSuite = testCase.getTestSuite()
 def project = testSuite.getProject()
@@ -352,34 +353,36 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
 			<con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-02-27T01:57:26Z</con:value>
+					<con:value>2012-08-24T23:14:50Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-02-27T02:07:26Z</con:value>
+					<con:value>2012-08-24T23:24:50Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>02/27/2012 01:57:26</con:value>
+					<con:value>08/24/2012 23:14:50</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-03-28T00:00:00Z</con:value>
+					<con:value>2012-09-23T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>date</con:name>
-					<con:value>03/28/2012 00:00:00</con:value>
+					<con:value>09/23/2012 00:00:00</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
-			<con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
+			<con:tearDownScript>import nhinc.FileUtils;
+FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 		</con:testCase>
 		<con:testCase failOnError="true" failTestCaseOnErrors="true" id="05035f21-82e4-4d62-8775-f29f884056e0" keepSession="false" maxResults="0" name="1 HCID in the target XML" searchProperties="true">
 			<con:settings/>
 			
 			<con:testStep name="Copy HIEM-uddiConnectionInfo" type="groovy">
 				<con:settings/>
-				<con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+				<con:config><script>import nhinc.FileUtils;
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
 def testCase = testRunner.getTestCase()
 def testSuite = testCase.getTestSuite()
 def project = testSuite.getProject()
@@ -698,34 +701,36 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
 			<con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-02-27T01:57:28Z</con:value>
+					<con:value>2012-08-24T23:14:53Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-02-27T02:07:28Z</con:value>
+					<con:value>2012-08-24T23:24:53Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>02/27/2012 01:57:28</con:value>
+					<con:value>08/24/2012 23:14:53</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-03-28T00:00:00Z</con:value>
+					<con:value>2012-09-23T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>date</con:name>
-					<con:value>03/28/2012 00:00:00</con:value>
+					<con:value>09/23/2012 00:00:00</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
-			<con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
+			<con:tearDownScript>import nhinc.FileUtils;
+FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 		</con:testCase>
 		<con:testCase failOnError="true" failTestCaseOnErrors="true" id="0c5608e8-44d7-4cdb-9129-1433ee670322" keepSession="false" maxResults="0" name="1 non-existant HCID in the target XML" searchProperties="true">
 			<con:settings/>
 			
 			<con:testStep name="Copy HIEM-uddiConnectionInfo" type="groovy">
 				<con:settings/>
-				<con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+				<con:config><script>import nhinc.FileUtils;
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
 def testCase = testRunner.getTestCase()
 def testSuite = testCase.getTestSuite()
 def project = testSuite.getProject()
@@ -1043,34 +1048,36 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
 			<con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-02-27T01:57:30Z</con:value>
+					<con:value>2012-08-24T23:14:54Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-02-27T02:07:30Z</con:value>
+					<con:value>2012-08-24T23:24:54Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>02/27/2012 01:57:30</con:value>
+					<con:value>08/24/2012 23:14:54</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-03-28T00:00:00Z</con:value>
+					<con:value>2012-09-23T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>date</con:name>
-					<con:value>03/28/2012 00:00:00</con:value>
+					<con:value>09/23/2012 00:00:00</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
-			<con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
+			<con:tearDownScript>import nhinc.FileUtils;
+FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 		</con:testCase>
 		<con:testCase failOnError="true" failTestCaseOnErrors="true" id="cce5617d-5103-41fa-816a-192454f45d24" keepSession="false" maxResults="0" name="Empty target XML" searchProperties="true">
 			<con:settings/>
 			
 			<con:testStep name="Copy HIEM-uddiConnectionInfo" type="groovy">
 				<con:settings/>
-				<con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+				<con:config><script>import nhinc.FileUtils;
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
 def testCase = testRunner.getTestCase()
 def testSuite = testCase.getTestSuite()
 def project = testSuite.getProject()
@@ -1379,34 +1386,36 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
 			<con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-02-27T01:57:30Z</con:value>
+					<con:value>2012-08-24T23:14:55Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-02-27T02:07:30Z</con:value>
+					<con:value>2012-08-24T23:24:55Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>02/27/2012 01:57:30</con:value>
+					<con:value>08/24/2012 23:14:55</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-03-28T00:00:00Z</con:value>
+					<con:value>2012-09-23T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>date</con:name>
-					<con:value>03/28/2012 00:00:00</con:value>
+					<con:value>09/23/2012 00:00:00</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
-			<con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
+			<con:tearDownScript>import nhinc.FileUtils;
+FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 		</con:testCase>
 		<con:testCase failOnError="true" failTestCaseOnErrors="true" id="4715b1a1-7dc8-408b-b60d-980a666e658f" keepSession="false" maxResults="0" name="1 region (VA ) - 4.4, 5.5, 7.7 and not 1.1" searchProperties="true">
 			<con:settings/>
 			
 			<con:testStep name="Copy HIEM-uddiConnectionInfo" type="groovy">
 				<con:settings/>
-				<con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+				<con:config><script>import nhinc.FileUtils;
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
 def testCase = testRunner.getTestCase()
 def testSuite = testCase.getTestSuite()
 def project = testSuite.getProject()
@@ -1725,34 +1734,36 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
 			<con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-02-27T01:57:35Z</con:value>
+					<con:value>2012-08-24T23:15:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-02-27T02:07:35Z</con:value>
+					<con:value>2012-08-24T23:25:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>02/27/2012 01:57:35</con:value>
+					<con:value>08/24/2012 23:15:00</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-03-28T00:00:00Z</con:value>
+					<con:value>2012-09-23T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>date</con:name>
-					<con:value>03/28/2012 00:00:00</con:value>
+					<con:value>09/23/2012 00:00:00</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
-			<con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
+			<con:tearDownScript>import nhinc.FileUtils;
+FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 		</con:testCase>
 		<con:testCase failOnError="true" failTestCaseOnErrors="true" id="b7923c2a-ecb2-4679-a62a-4f5dced5ccaa" keepSession="false" maxResults="0" name="1 region (FL ) - 6.6 and 7.7" searchProperties="true">
 			<con:settings/>
 			
 			<con:testStep name="Copy HIEM-uddiConnectionInfo" type="groovy">
 				<con:settings/>
-				<con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+				<con:config><script>import nhinc.FileUtils;
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
 def testCase = testRunner.getTestCase()
 def testSuite = testCase.getTestSuite()
 def project = testSuite.getProject()
@@ -2071,34 +2082,36 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
 			<con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-02-27T01:57:40Z</con:value>
+					<con:value>2012-08-24T23:15:03Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-02-27T02:07:40Z</con:value>
+					<con:value>2012-08-24T23:25:03Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>02/27/2012 01:57:40</con:value>
+					<con:value>08/24/2012 23:15:03</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-03-28T00:00:00Z</con:value>
+					<con:value>2012-09-23T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>date</con:name>
-					<con:value>03/28/2012 00:00:00</con:value>
+					<con:value>09/23/2012 00:00:00</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
-			<con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
+			<con:tearDownScript>import nhinc.FileUtils;
+FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 		</con:testCase>
 		<con:testCase failOnError="true" failTestCaseOnErrors="true" id="fb9b8f61-8655-49ff-bc4b-7eea78d13957" keepSession="false" maxResults="0" name="1 region (GA ) - 7.7" searchProperties="true">
 			<con:settings/>
 			
 			<con:testStep name="Copy HIEM-uddiConnectionInfo" type="groovy">
 				<con:settings/>
-				<con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+				<con:config><script>import nhinc.FileUtils;
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
 def testCase = testRunner.getTestCase()
 def testSuite = testCase.getTestSuite()
 def project = testSuite.getProject()
@@ -2418,34 +2431,36 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
 			<con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-02-27T01:57:42Z</con:value>
+					<con:value>2012-08-24T23:15:06Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-02-27T02:07:42Z</con:value>
+					<con:value>2012-08-24T23:25:06Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>02/27/2012 01:57:42</con:value>
+					<con:value>08/24/2012 23:15:06</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-03-28T00:00:00Z</con:value>
+					<con:value>2012-09-23T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>date</con:name>
-					<con:value>03/28/2012 00:00:00</con:value>
+					<con:value>09/23/2012 00:00:00</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
-			<con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
+			<con:tearDownScript>import nhinc.FileUtils;
+FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 		</con:testCase>
 		<con:testCase failOnError="true" failTestCaseOnErrors="true" id="decf37f2-4b60-4780-b42e-f49aa8f1137c" keepSession="false" maxResults="0" name="1 non-existant region (MA ) - none" searchProperties="true">
 			<con:settings/>
 			
 			<con:testStep name="Copy HIEM-uddiConnectionInfo" type="groovy">
 				<con:settings/>
-				<con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+				<con:config><script>import nhinc.FileUtils;
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
 def testCase = testRunner.getTestCase()
 def testSuite = testCase.getTestSuite()
 def project = testSuite.getProject()
@@ -2765,34 +2780,36 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
 			<con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-02-27T01:57:43Z</con:value>
+					<con:value>2012-08-24T23:15:07Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-02-27T02:07:43Z</con:value>
+					<con:value>2012-08-24T23:25:07Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>02/27/2012 01:57:43</con:value>
+					<con:value>08/24/2012 23:15:07</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-03-28T00:00:00Z</con:value>
+					<con:value>2012-09-23T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>date</con:name>
-					<con:value>03/28/2012 00:00:00</con:value>
+					<con:value>09/23/2012 00:00:00</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
-			<con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
+			<con:tearDownScript>import nhinc.FileUtils;
+FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 		</con:testCase>
 		<con:testCase failOnError="true" failTestCaseOnErrors="true" id="790d95a6-f7c4-4845-843e-0b784ff5abe4" keepSession="false" maxResults="0" name="1 region (GA) and 1 HCID (4.4) - 4.4 and 7.7" searchProperties="true">
 			<con:settings/>
 			
 			<con:testStep name="Copy HIEM-uddiConnectionInfo" type="groovy">
 				<con:settings/>
-				<con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+				<con:config><script>import nhinc.FileUtils;
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
 def testCase = testRunner.getTestCase()
 def testSuite = testCase.getTestSuite()
 def project = testSuite.getProject()
@@ -3112,34 +3129,36 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
 			<con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-02-27T01:57:44Z</con:value>
+					<con:value>2012-08-24T23:15:08Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-02-27T02:07:44Z</con:value>
+					<con:value>2012-08-24T23:25:08Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>02/27/2012 01:57:44</con:value>
+					<con:value>08/24/2012 23:15:08</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-03-28T00:00:00Z</con:value>
+					<con:value>2012-09-23T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>date</con:name>
-					<con:value>03/28/2012 00:00:00</con:value>
+					<con:value>09/23/2012 00:00:00</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
-			<con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
+			<con:tearDownScript>import nhinc.FileUtils;
+FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 		</con:testCase>
 		<con:testCase failOnError="true" failTestCaseOnErrors="true" id="a257b1f6-f1ff-4039-a592-27c6010d66bb" keepSession="false" maxResults="0" name="1 region (GA) and 1 HCID (7.7) from the same region" searchProperties="true">
 			<con:settings/>
 			
 			<con:testStep name="Copy HIEM-uddiConnectionInfo" type="groovy">
 				<con:settings/>
-				<con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+				<con:config><script>import nhinc.FileUtils;
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
 def testCase = testRunner.getTestCase()
 def testSuite = testCase.getTestSuite()
 def project = testSuite.getProject()
@@ -3458,34 +3477,36 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
 			<con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-02-27T01:57:46Z</con:value>
+					<con:value>2012-08-24T23:15:10Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-02-27T02:07:46Z</con:value>
+					<con:value>2012-08-24T23:25:10Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>02/27/2012 01:57:46</con:value>
+					<con:value>08/24/2012 23:15:10</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-03-28T00:00:00Z</con:value>
+					<con:value>2012-09-23T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>date</con:name>
-					<con:value>03/28/2012 00:00:00</con:value>
+					<con:value>09/23/2012 00:00:00</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
-			<con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
+			<con:tearDownScript>import nhinc.FileUtils;
+FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 		</con:testCase>
 		<con:testCase failOnError="true" failTestCaseOnErrors="true" id="96c83163-24d5-469c-94f0-b77b787a7d3e" keepSession="false" maxResults="0" name="2 regions ( GA and FL )" searchProperties="true">
 			<con:settings/>
 			
 			<con:testStep name="Copy HIEM-uddiConnectionInfo" type="groovy">
 				<con:settings/>
-				<con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+				<con:config><script>import nhinc.FileUtils;
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
 def testCase = testRunner.getTestCase()
 def testSuite = testCase.getTestSuite()
 def project = testSuite.getProject()
@@ -3804,34 +3825,36 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
 			<con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-02-27T01:57:48Z</con:value>
+					<con:value>2012-08-24T23:15:12Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-02-27T02:07:48Z</con:value>
+					<con:value>2012-08-24T23:25:12Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>02/27/2012 01:57:48</con:value>
+					<con:value>08/24/2012 23:15:12</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-03-28T00:00:00Z</con:value>
+					<con:value>2012-09-23T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>date</con:name>
-					<con:value>03/28/2012 00:00:00</con:value>
+					<con:value>09/23/2012 00:00:00</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
-			<con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
+			<con:tearDownScript>import nhinc.FileUtils;
+FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 		</con:testCase>
 		<con:testCase failOnError="true" failTestCaseOnErrors="true" id="4dde52c1-6b2a-457e-836b-81b2bf97f3de" keepSession="false" maxResults="0" name="1 region ( FL ) + 2HCID - 4.4, 6.6 and 7.7" searchProperties="true">
 			<con:settings/>
 			
 			<con:testStep name="Copy HIEM-uddiConnectionInfo" type="groovy">
 				<con:settings/>
-				<con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+				<con:config><script>import nhinc.FileUtils;
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
 def testCase = testRunner.getTestCase()
 def testSuite = testCase.getTestSuite()
 def project = testSuite.getProject()
@@ -4159,34 +4182,36 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
 			<con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-02-27T01:57:51Z</con:value>
+					<con:value>2012-08-24T23:15:14Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-02-27T02:07:51Z</con:value>
+					<con:value>2012-08-24T23:25:14Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>02/27/2012 01:57:51</con:value>
+					<con:value>08/24/2012 23:15:14</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-03-28T00:00:00Z</con:value>
+					<con:value>2012-09-23T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>date</con:name>
-					<con:value>03/28/2012 00:00:00</con:value>
+					<con:value>09/23/2012 00:00:00</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
-			<con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
+			<con:tearDownScript>import nhinc.FileUtils;
+FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 		</con:testCase>
 		<con:testCase failOnError="true" failTestCaseOnErrors="true" id="5f73c5a0-af6e-42f3-a60b-a916f0d40cab" keepSession="false" maxResults="0" name="1 region ( VA ) +  1HCID (4.4 ) in the same region - 1.1, 4.4, 5.5, 7.7" searchProperties="true">
 			<con:settings/>
 			
 			<con:testStep name="Copy HIEM-uddiConnectionInfo" type="groovy">
 				<con:settings/>
-				<con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+				<con:config><script>import nhinc.FileUtils;
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
 def testCase = testRunner.getTestCase()
 def testSuite = testCase.getTestSuite()
 def project = testSuite.getProject()
@@ -4508,27 +4533,28 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
 			<con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-02-27T01:57:56Z</con:value>
+					<con:value>2012-08-24T23:15:17Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-02-27T02:07:56Z</con:value>
+					<con:value>2012-08-24T23:25:17Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>02/27/2012 01:57:56</con:value>
+					<con:value>08/24/2012 23:15:17</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-03-28T00:00:00Z</con:value>
+					<con:value>2012-09-23T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>date</con:name>
-					<con:value>03/28/2012 00:00:00</con:value>
+					<con:value>09/23/2012 00:00:00</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
-			<con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
+			<con:tearDownScript>import nhinc.FileUtils;
+FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 		</con:testCase>
 		<con:properties/>
 		<con:reportParameters/>
