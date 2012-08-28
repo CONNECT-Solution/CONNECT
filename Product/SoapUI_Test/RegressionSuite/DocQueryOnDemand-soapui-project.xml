@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project name="DocQueryOnDemand" resourceRoot="" soapui-version="3.5.1" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitydocquery}EntityDocQueryBindingSoap" definition="file:/C:/glassfish-2.1.1/domains/domain1/config/nhin/wsdl/EntityDocQuery.wsdl" name="EntityDocQueryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<con:soapui-project abortOnError="false" name="DocQueryOnDemand" resourceRoot="" runType="SEQUENTIAL" soapui-version="3.5.1" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitydocquery}EntityDocQueryBindingSoap" definition="WSDL path not set.  #EntityDocQuery.wsdl" name="EntityDocQueryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 
 		<con:endpoints>
@@ -8,7 +8,7 @@
 		<con:operation action="urn:RespondingGateway_CrossGatewayQuery" anonymous="optional" bindingOperationName="RespondingGateway_CrossGatewayQuery" inputName="RespondingGateway_CrossGatewayQueryRequest" isOneWay="false" name="RespondingGateway_CrossGatewayQuery" outputName="RespondingGateway_CrossGatewayQueryResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
 			<con:settings/>
 		</con:operation>
-	</con:interface><con:testSuite name="DQ_OnDemand TestSuite"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="DQ - XDSDocEntryType Not Set" searchProperties="true" id="3d470289-6e05-42e3-a764-0ab85e2a0115">
+	</con:interface><con:testSuite name="DQ_OnDemand TestSuite"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase failOnError="true" failTestCaseOnErrors="true" id="3d470289-6e05-42e3-a764-0ab85e2a0115" keepSession="false" maxResults="0" name="DQ - XDSDocEntryType Not Set" searchProperties="true">
 			<con:settings/>
 			<con:testStep name="Backup gateway.properties file" type="groovy">
 				<con:settings/>
@@ -418,19 +418,19 @@ throw new RuntimeException('Unable to locate master/gateway.properties')
 }</con:tearDownScript><con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-04-23T23:51:45Z</con:value>
+		<con:value>2012-08-23T20:31:06Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-04-24T00:01:45Z</con:value>
+		<con:value>2012-08-23T20:41:06Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>04/23/2012 23:51:45</con:value>
+		<con:value>08/23/2012 20:31:06</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-05-23T00:00:00Z</con:value>
+		<con:value>2012-09-22T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
@@ -438,7 +438,7 @@ throw new RuntimeException('Unable to locate master/gateway.properties')
 	</con:property>
 </con:properties>
 <con:reportParameters/>
-</con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="DQ - XDSDocEntryType Both Set" searchProperties="true" id="e93efc20-e457-41b1-bc30-1ae881a50c88">
+</con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" id="e93efc20-e457-41b1-bc30-1ae881a50c88" keepSession="false" maxResults="0" name="DQ - XDSDocEntryType Both Set" searchProperties="true">
 	<con:settings/>
 	<con:testStep name="Backup gateway.properties file" type="groovy">
 		<con:settings/>
@@ -853,19 +853,19 @@ throw new RuntimeException('Unable to locate master/gateway.properties')
 }</con:tearDownScript><con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-04-23T23:29:27Z</con:value>
+		<con:value>2012-08-23T20:31:13Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-04-23T23:39:27Z</con:value>
+		<con:value>2012-08-23T20:41:13Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>04/23/2012 23:29:27</con:value>
+		<con:value>08/23/2012 20:31:13</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-05-23T00:00:00Z</con:value>
+		<con:value>2012-09-22T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
@@ -873,7 +873,7 @@ throw new RuntimeException('Unable to locate master/gateway.properties')
 	</con:property>
 </con:properties>
 <con:reportParameters/>
-</con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="DQ - XDSDocEntryType Stable Set" searchProperties="true" id="43eecadd-e438-4bc4-9104-def8175208d3">
+</con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" id="43eecadd-e438-4bc4-9104-def8175208d3" keepSession="false" maxResults="0" name="DQ - XDSDocEntryType Stable Set" searchProperties="true">
 	<con:settings/>
 	<con:testStep name="Backup gateway.properties file" type="groovy">
 		<con:settings/>
@@ -1288,19 +1288,19 @@ throw new RuntimeException('Unable to locate master/gateway.properties')
 }</con:tearDownScript><con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-04-23T23:29:27Z</con:value>
+		<con:value>2012-08-23T20:31:21Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-04-23T23:39:27Z</con:value>
+		<con:value>2012-08-23T20:41:21Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>04/23/2012 23:29:27</con:value>
+		<con:value>08/23/2012 20:31:21</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-05-23T00:00:00Z</con:value>
+		<con:value>2012-09-22T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
@@ -1308,7 +1308,7 @@ throw new RuntimeException('Unable to locate master/gateway.properties')
 	</con:property>
 </con:properties>
 <con:reportParameters/>
-</con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="DQ - XDSDocEntryTypeDynamic Set" searchProperties="true" id="33eea53f-a086-4f7f-983e-836a61570958">
+</con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" id="33eea53f-a086-4f7f-983e-836a61570958" keepSession="false" maxResults="0" name="DQ - XDSDocEntryTypeDynamic Set" searchProperties="true">
 	<con:settings/>
 	<con:testStep name="Backup gateway.properties file" type="groovy">
 		<con:settings/>
@@ -1723,19 +1723,19 @@ throw new RuntimeException('Unable to locate master/gateway.properties')
 }</con:tearDownScript><con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-04-23T23:29:27Z</con:value>
+		<con:value>2012-08-23T20:31:27Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-04-23T23:39:27Z</con:value>
+		<con:value>2012-08-23T20:41:27Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>04/23/2012 23:29:27</con:value>
+		<con:value>08/23/2012 20:31:27</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-05-23T00:00:00Z</con:value>
+		<con:value>2012-09-22T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
@@ -1743,7 +1743,7 @@ throw new RuntimeException('Unable to locate master/gateway.properties')
 	</con:property>
 </con:properties>
 <con:reportParameters/>
-</con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="DQ - Both Set, Invalid Creation Time To" searchProperties="true" id="55b5cf21-0e94-47c4-97c7-59f78de998f1">
+</con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" id="55b5cf21-0e94-47c4-97c7-59f78de998f1" keepSession="false" maxResults="0" name="DQ - Both Set, Invalid Creation Time To" searchProperties="true">
 	<con:settings/>
 	<con:testStep name="Backup gateway.properties file" type="groovy">
 		<con:settings/>
@@ -2163,19 +2163,19 @@ throw new RuntimeException('Unable to locate master/gateway.properties')
 }</con:tearDownScript><con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-04-23T23:29:27Z</con:value>
+		<con:value>2012-08-23T20:31:37Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-04-23T23:39:27Z</con:value>
+		<con:value>2012-08-23T20:41:37Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>04/23/2012 23:29:27</con:value>
+		<con:value>08/23/2012 20:31:37</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-05-23T00:00:00Z</con:value>
+		<con:value>2012-09-22T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
@@ -2183,7 +2183,7 @@ throw new RuntimeException('Unable to locate master/gateway.properties')
 	</con:property>
 </con:properties>
 <con:reportParameters/>
-</con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="DQ - Both Set, Invalid Creation Time From" searchProperties="true" id="c55214a4-bdd5-46c5-8d4d-4f58363b9ebf">
+</con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" id="c55214a4-bdd5-46c5-8d4d-4f58363b9ebf" keepSession="false" maxResults="0" name="DQ - Both Set, Invalid Creation Time From" searchProperties="true">
 	<con:settings/>
 	<con:testStep name="Backup gateway.properties file" type="groovy">
 		<con:settings/>
@@ -2603,19 +2603,19 @@ throw new RuntimeException('Unable to locate master/gateway.properties')
 }</con:tearDownScript><con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-04-23T23:29:27Z</con:value>
+		<con:value>2012-08-23T20:31:46Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-04-23T23:39:27Z</con:value>
+		<con:value>2012-08-23T20:41:46Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>04/23/2012 23:29:27</con:value>
+		<con:value>08/23/2012 20:31:46</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-05-23T00:00:00Z</con:value>
+		<con:value>2012-09-22T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
