@@ -1,4 +1,4 @@
-/*
+/**
  * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
@@ -24,13 +24,21 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.orchestration;
+package gov.hhs.fha.nhinc.servicename.orchestration;
 
+import gov.hhs.fha.nhinc.admindistribution.entity.OutboundAdminDistributionFactory;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.connectmgr.NhinEndpointManager;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants.NHIN_SERVICE_NAMES;
+import gov.hhs.fha.nhinc.orchestration.AbstractOrchestrationContextFactory;
+import gov.hhs.fha.nhinc.orchestration.OrchestrationContextBuilder;
 
-public class OrchestrationContextFactory extends AbstractOrchestrationContextFactory{
+/**
+ * @author zmelnick
+ *
+ */
+public class OrchestrationContextFactory extends AbstractOrchestrationContextFactory {
 
     private static OrchestrationContextFactory INSTANCE = new OrchestrationContextFactory();
 
@@ -41,19 +49,23 @@ public class OrchestrationContextFactory extends AbstractOrchestrationContextFac
         return INSTANCE;
     }
 
-    @Override
-    public OrchestrationContextBuilder getBuilder(HomeCommunityType homeCommunityType,
-            NhincConstants.NHIN_SERVICE_NAMES serviceName) {
+    /* (non-Javadoc)
+     * @see gov.hhs.fha.nhinc.orchestration.AbstractOrchestrationContextFactory#getBuilder(gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType, gov.hhs.fha.nhinc.nhinclib.NhincConstants.NHIN_SERVICE_NAMES)
+     */
+    public OrchestrationContextBuilder getBuilder(HomeCommunityType homeCommunityType, NHIN_SERVICE_NAMES serviceName) {
         NhinEndpointManager nem = new NhinEndpointManager();
-        NhincConstants.GATEWAY_API_LEVEL apiLevel = nem.getApiVersion(homeCommunityType.getHomeCommunityId(),
+        GATEWAY_API_LEVEL apiLevel = nem.getApiVersion(homeCommunityType.getHomeCommunityId(),
                 serviceName);
         return getBuilder(apiLevel, serviceName);
     }
-
-    private OrchestrationContextBuilder getBuilder(NhincConstants.GATEWAY_API_LEVEL apiLevel,
-            NhincConstants.NHIN_SERVICE_NAMES serviceName) {
-        return null;
+    
+    private OrchestrationContextBuilder getBuilder(GATEWAY_API_LEVEL apiLevel,
+            NHIN_SERVICE_NAMES serviceName) {
+        if (serviceName == NHIN_SERVICE_NAMES.ADMINISTRATIVE_DISTRIBUTION) {
+            return OutboundAdminDistributionFactory.getInstance().createOrchestrationContextBuilder(apiLevel);
+        } else {
+            return null;
+        }
     }
-
 
 }
