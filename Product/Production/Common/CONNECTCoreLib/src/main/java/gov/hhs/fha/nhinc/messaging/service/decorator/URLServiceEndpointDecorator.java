@@ -53,5 +53,6 @@ public class URLServiceEndpointDecorator<T> extends ServiceEndpointDecorator<T> 
         super.configure();
         Map<String, Object> requestContext = ((javax.xml.ws.BindingProvider) getPort()).getRequestContext();
         requestContext.put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
+        
     }
 }

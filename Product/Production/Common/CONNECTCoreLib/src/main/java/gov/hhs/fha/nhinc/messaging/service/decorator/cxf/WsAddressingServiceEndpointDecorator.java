@@ -146,7 +146,7 @@ public class WsAddressingServiceEndpointDecorator<T> extends ServiceEndpointDeco
         String newContentType = "";
         for (int i = 0; i < contentTypeValues.length; i++) {
             if (!contentTypeValues[i].trim().startsWith("action")) {
-                newContentType = contentType.concat(contentTypeValues[i]);
+                newContentType = newContentType.concat(contentTypeValues[i]);
             }
         }
 

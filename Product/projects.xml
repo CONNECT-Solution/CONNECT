@@ -5,28 +5,28 @@
         <directory>/Production/Common/CONNECTCommonTypesLib</directory>
         <dist.type>jar</dist.type>
         <should.build>true</should.build>
-        <should.deploy>true</should.deploy>
+        <should.deploy>false</should.deploy>
     </project>
     <project>
         <name>CONNECTCoreLib</name>
         <directory>/Production/Common/CONNECTCoreLib</directory>
         <dist.type>jar</dist.type>
         <should.build>true</should.build>
-        <should.deploy>true</should.deploy>
+        <should.deploy>false</should.deploy>
     </project>
     <project>
         <name>DocumentSubmissionCore</name>
         <directory>/Production/Services/DocumentSubmission/Core/DocumentSubmissionCore</directory>
         <dist.type>jar</dist.type>
         <should.build>true</should.build>
-        <should.deploy>true</should.deploy>
+        <should.deploy>false</should.deploy>
     </project>
     <project>
         <name>DocumentQueryCore</name>
         <directory>/Production/Services/DocumentQuery/Core/DocumentQueryCore</directory>
         <dist.type>jar</dist.type>
         <should.build>true</should.build>
-        <should.deploy>true</should.deploy>
+        <should.deploy>false</should.deploy>
     </project>
     <project>
         <name>CONNECTCommonWeb</name>
@@ -47,7 +47,7 @@
         <directory>/Production/Services/PatientDiscovery/Core/PatientDiscoveryCore</directory>
         <dist.type>jar</dist.type>
         <should.build>true</should.build>
-        <should.deploy>true</should.deploy>
+        <should.deploy>false</should.deploy>
     </project>
     <project>
         <name>PatientDiscovery_10</name>
@@ -103,7 +103,7 @@
         <directory>/Production/Services/DocumentRetrieve/Core/DocumentRetrieveCore</directory>
         <dist.type>jar</dist.type>
         <should.build>true</should.build>
-        <should.deploy>true</should.deploy>
+        <should.deploy>false</should.deploy>
     </project>
     <project>
         <name>DocumentRetrieve_20</name>
@@ -154,7 +154,7 @@
         <directory>/Production/Gateway/HIEM_20/</directory>
         <dist.type>war</dist.type>
         <should.build>false</should.build>
-        <should.deploy>false</should.deploy>
+        <should.deploy>true</should.deploy>
     </project>
     <project>
         <name>CONNECTAdapterWeb</name>
@@ -202,7 +202,7 @@
         <name>CONNECTUniversalClientGUI</name>
         <directory>/Production/Adapters/General/CONNECTUniversalClientGUI</directory>
         <dist.type>war</dist.type>
-        <should.build>true</should.build>
+        <should.build>false</should.build>
         <should.deploy>false</should.deploy>
     </project>
     <project>

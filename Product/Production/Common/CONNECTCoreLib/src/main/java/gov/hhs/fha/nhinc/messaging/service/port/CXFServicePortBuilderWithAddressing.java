@@ -10,7 +10,7 @@ import org.apache.cxf.ws.addressing.WSAddressingFeature;
  * @author mweaver
  *
  */
-public class CXFServicePortBuilderWithAddressing<T> extends CXFServicePortBuilder<T> {
+public class CXFServicePortBuilderWithAddressing<T> extends CachingCXFServicePortBuilder<T> {
 
     /**
      * @param portDescriptor

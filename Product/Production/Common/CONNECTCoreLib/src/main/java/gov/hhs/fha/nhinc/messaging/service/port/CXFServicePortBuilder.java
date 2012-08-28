@@ -31,29 +31,26 @@ import org.apache.cxf.jaxws.JaxWsProxyFactoryBean;
 
 /**
  * @author akong
- *
+ * 
  */
 public class CXFServicePortBuilder<T> implements ServicePortBuilder<T> {
 
-    private Class<T> serviceEndpointClass; 
-     
-    
+    protected Class<T> serviceEndpointClass;
+
     public CXFServicePortBuilder(ServicePortDescriptor<T> portDescriptor) {
         super();
-        this.serviceEndpointClass = portDescriptor.getPortClass();        
+        this.serviceEndpointClass = portDescriptor.getPortClass();
     }
-    
+
     protected void configureJaxWsProxyFactory(JaxWsProxyFactoryBean factory) {
         factory.setServiceClass(serviceEndpointClass);
         factory.setBindingId("http://www.w3.org/2003/05/soap/bindings/HTTP/");
     }
-    
+
     @SuppressWarnings("unchecked")
     public T createPort() {
-               
         JaxWsProxyFactoryBean clientFactory = new JaxWsProxyFactoryBean();
         configureJaxWsProxyFactory(clientFactory);
-                
         return (T) clientFactory.create();
     }
 }

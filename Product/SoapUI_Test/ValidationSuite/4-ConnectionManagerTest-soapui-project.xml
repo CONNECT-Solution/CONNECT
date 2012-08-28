@@ -13,15 +13,7 @@
 				<con:encoding>UTF-8</con:encoding>
 				<con:endpoint>${#Project#Endpoint-ConnectionManager}</con:endpoint>
 				<con:request>
-					<![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo">
-   <soap:Header/>
-   <soap:Body>
-      <urn:EmptyParameter>
-         <!--Optional:-->
-         <urn:emptyParam>?</urn:emptyParam>
-      </urn:EmptyParameter>
-   </soap:Body>
-</soap:Envelope>]]></con:request>
+					<![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo"><soap:Header/><soap:Body><urn:ForceRefreshInternalConnectCacheRequest>?</urn:ForceRefreshInternalConnectCacheRequest></soap:Body></soap:Envelope>]]></con:request>
 				<con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager/NhincComponentConnectionManagerPortType/ForceRefreshInternalConnectCacheRequest" mustUnderstand="NONE" version="200508"/>
 			</con:call>
 		</con:operation>
@@ -32,15 +24,7 @@
 				<con:encoding>UTF-8</con:encoding>
 				<con:endpoint>${#Project#Endpoint-ConnectionManager}</con:endpoint>
 				<con:request>
-					<![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo">
-   <soap:Header/>
-   <soap:Body>
-      <urn:EmptyParameter>
-         <!--Optional:-->
-         <urn:emptyParam>?</urn:emptyParam>
-      </urn:EmptyParameter>
-   </soap:Body>
-</soap:Envelope>]]></con:request>
+					<![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo"><soap:Header/><soap:Body><urn:ForceRefreshUDDICacheRequest>?</urn:ForceRefreshUDDICacheRequest></soap:Body></soap:Envelope>]]></con:request>
 				<con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager/NhincComponentConnectionManagerPortType/ForceRefreshUDDICacheRequest" mustUnderstand="NONE" version="200508"/>
 			</con:call>
 		</con:operation>
@@ -70,15 +54,7 @@
 				<con:encoding>UTF-8</con:encoding>
 				<con:endpoint>${#Project#Endpoint-ConnectionManager}</con:endpoint>
 				<con:request>
-					<![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo">
-   <soap:Header/>
-   <soap:Body>
-      <urn:EmptyParameter>
-         <!--Optional:-->
-         <urn:emptyParam>?</urn:emptyParam>
-      </urn:EmptyParameter>
-   </soap:Body>
-</soap:Envelope>]]></con:request>
+					<![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo"><soap:Header/><soap:Body><urn:GetAllBusinessEntitiesRequest>?</urn:GetAllBusinessEntitiesRequest></soap:Body></soap:Envelope>]]></con:request>
 				<con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager/NhincComponentConnectionManagerPortType/GetAllBusinessEntitiesRequest" mustUnderstand="NONE" version="200508"/>
 			</con:call>
 		</con:operation>
@@ -105,12 +81,7 @@
 				<con:encoding>UTF-8</con:encoding>
 				<con:endpoint>${#Project#Endpoint-ConnectionManager}</con:endpoint>
 				<con:request>
-					<![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo">
-   <soap:Header/>
-   <soap:Body>
-      <urn:HomeCommunityId>?</urn:HomeCommunityId>
-   </soap:Body>
-</soap:Envelope>]]></con:request>
+					<![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo"><soap:Header/><soap:Body><urn:GetAssigningAuthoritiesByHomeCommunityRequest>2.2</urn:GetAssigningAuthoritiesByHomeCommunityRequest></soap:Body></soap:Envelope>]]></con:request>
 				<con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager/NhincComponentConnectionManagerPortType/GetAssigningAuthoritiesByHomeCommunityRequest" mustUnderstand="NONE" version="200508"/>
 			</con:call>
 		</con:operation>
@@ -121,12 +92,7 @@
 				<con:encoding>UTF-8</con:encoding>
 				<con:endpoint>${#Project#Endpoint-ConnectionManager}</con:endpoint>
 				<con:request>
-					<![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo">
-   <soap:Header/>
-   <soap:Body>
-      <urn:HomeCommunityId>?</urn:HomeCommunityId>
-   </soap:Body>
-</soap:Envelope>]]></con:request>
+					<![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo"><soap:Header/><soap:Body><urn:GetBusinessEntityRequest>1.1</urn:GetBusinessEntityRequest></soap:Body></soap:Envelope>]]></con:request>
 				<con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager/NhincComponentConnectionManagerPortType/GetBusinessEntityRequest" mustUnderstand="NONE" version="200508"/>
 			</con:call>
 		</con:operation>
@@ -156,15 +122,7 @@
 				<con:encoding>UTF-8</con:encoding>
 				<con:endpoint>${#Project#Endpoint-ConnectionManager}</con:endpoint>
 				<con:request>
-					<![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo">
-   <soap:Header/>
-   <soap:Body>
-      <urn:HomeCommunityIdListType>
-         <!--1 or more repetitions:-->
-         <urn:HomeCommunityId>?</urn:HomeCommunityId>
-      </urn:HomeCommunityIdListType>
-   </soap:Body>
-</soap:Envelope>]]></con:request>
+					<![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo"><soap:Header/><soap:Body><urn:GetBusinessEntitySetRequest><urn:homeCommunityId>1.1</urn:homeCommunityId></urn:GetBusinessEntitySetRequest></soap:Body></soap:Envelope>]]></con:request>
 				<con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager/NhincComponentConnectionManagerPortType/GetBusinessEntitySetRequest" mustUnderstand="NONE" version="200508"/>
 			</con:call>
 		</con:operation>
@@ -315,6 +273,7 @@
 			</con:call>
 		</con:operation>
 	</con:interface>
+	
 	<con:testSuite name="ConnectionManager TestSuite">
 		<con:settings/>
 		<con:runType>SEQUENTIAL</con:runType>
@@ -331,21 +290,17 @@
 				</con:settings>
 				<con:encoding>UTF-8</con:encoding>
 				<con:endpoint>${#Project#Endpoint-ConnectionManager}</con:endpoint>
-				<con:request>
-					<![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo">
+				<con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo">
    <soap:Header/>
    <soap:Body>
-      <urn:EmptyParameter>
-         <!--Optional:-->
-         <urn:emptyParam>?</urn:emptyParam>
-      </urn:EmptyParameter>
+      <urn:ForceRefreshInternalConnectCacheRequest>?</urn:ForceRefreshInternalConnectCacheRequest>
    </soap:Body>
 </soap:Envelope>]]></con:request>
 				<con:assertion type="SOAP Fault Assertion"/>
 				<con:assertion type="XPath Match">
 					<con:configuration>
 						<path>declare namespace ns2='urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo';
-//ns2:SuccessOrFail[1]/ns2:success</path>
+//ns2:ForceRefreshInternalConnectCacheResponse/ns2:success</path>
 						<content>true</content>
 						<allowWildcards>false</allowWildcards>
 						<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
@@ -373,21 +328,17 @@
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
 		<con:endpoint>${#Project#Endpoint-ConnectionManager}</con:endpoint>
-		<con:request>
-			<![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo">
+		<con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo">
    <soap:Header/>
    <soap:Body>
-      <urn:EmptyParameter>
-         <!--Optional:-->
-         <urn:emptyParam>?</urn:emptyParam>
-      </urn:EmptyParameter>
+      <urn:ForceRefreshUDDICacheRequest>?</urn:ForceRefreshUDDICacheRequest>
    </soap:Body>
 </soap:Envelope>]]></con:request>
 		<con:assertion type="SOAP Fault Assertion"/>
 		<con:assertion type="XPath Match">
 			<con:configuration>
 				<path>declare namespace ns2='urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo';
-//ns2:SuccessOrFail[1]/ns2:success</path>
+//ns2:ForceRefreshUDDICacheResponse/ns2:success</path>
 				<content>true</content>
 				<allowWildcards>false</allowWildcards>
 				<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
@@ -415,8 +366,7 @@
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
 		<con:endpoint>${#Project#Endpoint-ConnectionManager}</con:endpoint>
-		<con:request>
-			<![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo">
+		<con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo">
    <soap:Header/>
    <soap:Body>
       <urn:GetAdapterEndpointURLRequest>
@@ -457,21 +407,17 @@
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
 		<con:endpoint>${#Project#Endpoint-ConnectionManager}</con:endpoint>
-		<con:request>
-			<![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo">
+		<con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo">
    <soap:Header/>
    <soap:Body>
-      <urn:EmptyParameter>
-         <!--Optional:-->
-         <urn:emptyParam>?</urn:emptyParam>
-      </urn:EmptyParameter>
+      <urn:GetAllBusinessEntitiesRequest>?</urn:GetAllBusinessEntitiesRequest>
    </soap:Body>
 </soap:Envelope>]]></con:request>
 		<con:assertion type="SOAP Fault Assertion"/>
 		<con:assertion name="XPath Match (Count)" type="XPath Match">
 			<con:configuration>
-				<path>declare namespace ns5='urn:uddi-org:api_v3';
-count(//ns5:businessDetail/ns5:businessEntity)</path>
+				<path>declare namespace ns3='urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo'; declare namespace ns4='urn:uddi-org:api_v3';
+count(//ns3:GetAllBusinessEntitiesResponse/ns4:businessEntity)</path>
 				<content>2</content>
 				<allowWildcards>false</allowWildcards>
 				<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
@@ -499,8 +445,7 @@ count(//ns5:businessDetail/ns5:businessEntity)</path>
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
 		<con:endpoint>${#Project#Endpoint-ConnectionManager}</con:endpoint>
-		<con:request>
-			<![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo">
+		<con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo">
    <soap:Header/>
    <soap:Body>
       <urn:GetAllBusinessEntitySetByServiceNameRequest>QueryForDocuments</urn:GetAllBusinessEntitySetByServiceNameRequest>
@@ -549,11 +494,10 @@ declare namespace ns5='urn:uddi-org:api_v3';
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
 		<con:endpoint>${#Project#Endpoint-ConnectionManager}</con:endpoint>
-		<con:request>
-			<![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo">
+		<con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo">
    <soap:Header/>
    <soap:Body>
-      <urn:HomeCommunityId>2.2</urn:HomeCommunityId>
+      <urn:GetAssigningAuthoritiesByHomeCommunityRequest>2.2</urn:GetAssigningAuthoritiesByHomeCommunityRequest>
    </soap:Body>
 </soap:Envelope>]]></con:request>
 		<con:assertion type="SOAP Fault Assertion"/>
@@ -588,18 +532,17 @@ declare namespace ns5='urn:uddi-org:api_v3';
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
 		<con:endpoint>${#Project#Endpoint-ConnectionManager}</con:endpoint>
-		<con:request>
-			<![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo">
+		<con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo">
    <soap:Header/>
    <soap:Body>
-      <urn:HomeCommunityId>1.1</urn:HomeCommunityId>
+      <urn:GetBusinessEntityRequest>1.1</urn:GetBusinessEntityRequest>
    </soap:Body>
 </soap:Envelope>]]></con:request>
 		<con:assertion type="SOAP Fault Assertion"/>
 		<con:assertion name="XPath Match (Count)" type="XPath Match">
 			<con:configuration>
-				<path>declare namespace ns5='urn:uddi-org:api_v3';
-count(//ns5:businessEntity)</path>
+				<path>declare namespace ns3='urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo';
+count(//ns3:GetBusinessEntityResponse)</path>
 				<content>1</content>
 				<allowWildcards>false</allowWildcards>
 				<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
@@ -607,8 +550,8 @@ count(//ns5:businessEntity)</path>
 		</con:assertion>
 		<con:assertion name="XPath Match (HCID)" type="XPath Match">
 			<con:configuration>
-				<path>declare namespace ns5='urn:uddi-org:api_v3';
-//ns5:businessEntity[1]/ns5:identifierBag[1]/ns5:keyedReference[1]/@keyValue</path>
+				<path>declare namespace ns3='urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo'; declare namespace ns5='urn:uddi-org:api_v3';
+//ns3:GetBusinessEntityResponse/ns5:identifierBag[1]/ns5:keyedReference[1]/@keyValue</path>
 				<content>1.1</content>
 				<allowWildcards>false</allowWildcards>
 				<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
@@ -636,8 +579,7 @@ count(//ns5:businessEntity)</path>
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
 		<con:endpoint>${#Project#Endpoint-ConnectionManager}</con:endpoint>
-		<con:request>
-			<![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo">
+		<con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo">
    <soap:Header/>
    <soap:Body>
       <urn:GetBusinessEntityByServiceNameRequest>
@@ -649,8 +591,8 @@ count(//ns5:businessEntity)</path>
 		<con:assertion type="SOAP Fault Assertion"/>
 		<con:assertion type="XPath Match">
 			<con:configuration>
-				<path>declare namespace ns5='urn:uddi-org:api_v3';
-//ns5:businessEntity[1]/ns5:identifierBag[1]/ns5:keyedReference[1]/@keyValue</path>
+				<path>declare namespace ns3='urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo'; declare namespace ns5='urn:uddi-org:api_v3';
+//ns3:GetBusinessEntityByServiceNameResponse/ns5:identifierBag[1]/ns5:keyedReference[1]/@keyValue</path>
 				<content>2.2</content>
 				<allowWildcards>false</allowWildcards>
 				<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
@@ -678,21 +620,19 @@ count(//ns5:businessEntity)</path>
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
 		<con:endpoint>${#Project#Endpoint-ConnectionManager}</con:endpoint>
-		<con:request>
-			<![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo">
+		<con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo">
    <soap:Header/>
    <soap:Body>
-      <urn:HomeCommunityIdListType>
-         <!--1 or more repetitions:-->
-         <urn:HomeCommunityId>1.1</urn:HomeCommunityId>
-         </urn:HomeCommunityIdListType>
+      <urn:GetBusinessEntitySetRequest>
+         <urn:homeCommunityId>1.1</urn:homeCommunityId>
+      </urn:GetBusinessEntitySetRequest>
    </soap:Body>
 </soap:Envelope>]]></con:request>
 		<con:assertion type="SOAP Fault Assertion"/>
 		<con:assertion name="XPath Match (Count)" type="XPath Match">
 			<con:configuration>
-				<path>declare namespace ns5='urn:uddi-org:api_v3';
-count(//ns5:businessDetail/ns5:businessEntity)</path>
+				<path>declare namespace ns3='urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo'; declare namespace ns4='urn:uddi-org:api_v3';
+count(//ns3:GetBusinessEntitySetResponse/ns4:businessEntity)</path>
 				<content>1</content>
 				<allowWildcards>false</allowWildcards>
 				<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
@@ -729,8 +669,7 @@ count(//ns5:businessDetail/ns5:businessEntity)</path>
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
 		<con:endpoint>${#Project#Endpoint-ConnectionManager}</con:endpoint>
-		<con:request>
-			<![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo">
+		<con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo">
    <soap:Header/>
    <soap:Body>
       <urn:GetBusinessEntitySetByServiceNameRequest>
@@ -783,8 +722,7 @@ declare namespace ns5='urn:uddi-org:api_v3';
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
 		<con:endpoint>${#Project#Endpoint-ConnectionManager}</con:endpoint>
-		<con:request>
-			<![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo">
+		<con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo">
    <soap:Header/>
    <soap:Body>
       <urn:GetDefaultEndpointURLByServiceNameRequest>
@@ -797,7 +735,7 @@ declare namespace ns5='urn:uddi-org:api_v3';
 		<con:assertion type="XPath Match">
 			<con:configuration>
 				<path>declare namespace ns2='urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo';
-//ns2:EndpointURL[1]</path>
+//ns2:GetDefaultEndpointURLByServiceNameResponse</path>
 				<content>https://localhost:8181/Gateway/AdminDistribution/2_0/NhinService/NhinAdminDist</content>
 				<allowWildcards>false</allowWildcards>
 				<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
@@ -825,12 +763,11 @@ declare namespace ns5='urn:uddi-org:api_v3';
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
 		<con:endpoint>${#Project#Endpoint-ConnectionManager}</con:endpoint>
-		<con:request>
-			<![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+		<con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soap:Header/>
    <soap:Body>
       <urn:GetEndpointURLFromNhinTargetRequest>
-         <urn:NhinTargetSystem>            
+         <urn:NhinTargetSystem>
             <urn1:homeCommunity>
                <urn1:description>?</urn1:description>
                <urn1:homeCommunityId>1.1</urn1:homeCommunityId>
@@ -845,7 +782,7 @@ declare namespace ns5='urn:uddi-org:api_v3';
 		<con:assertion type="XPath Match">
 			<con:configuration>
 				<path>declare namespace ns2='urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo';
-//ns2:EndpointURL</path>
+//ns2:GetEndpointURLFromNhinTargetResponse</path>
 				<content>https://localhost:8181/Gateway/AdminDistribution/2_0/NhinService/NhinAdminDist</content>
 				<allowWildcards>false</allowWildcards>
 				<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
@@ -873,8 +810,7 @@ declare namespace ns5='urn:uddi-org:api_v3';
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
 		<con:endpoint>${#Project#Endpoint-ConnectionManager}</con:endpoint>
-		<con:request>
-			<![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+		<con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
    <soap:Header/>
    <soap:Body>
       <urn:GetEndpointURLFromNhinTargetCommunitiesRequest>
@@ -937,8 +873,7 @@ declare namespace ns3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
 		<con:endpoint>${#Project#Endpoint-ConnectionManager}</con:endpoint>
-		<con:request>
-			<![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo">
+		<con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo">
    <soap:Header/>
    <soap:Body>
       <urn:AssigningAuthorityId>2.2</urn:AssigningAuthorityId>
@@ -948,7 +883,7 @@ declare namespace ns3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
 		<con:assertion type="XPath Match">
 			<con:configuration>
 				<path>declare namespace ns2='urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo';
-//ns2:HomeCommunityId</path>
+//ns2:GetHomeCommunityByAssigningAuthorityResponse</path>
 				<content>2.2</content>
 				<allowWildcards>false</allowWildcards>
 				<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
@@ -976,8 +911,7 @@ declare namespace ns3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
 		<con:endpoint>${#Project#Endpoint-ConnectionManager}</con:endpoint>
-		<con:request>
-			<![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo">
+		<con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo">
    <soap:Header/>
    <soap:Body>
       <urn:ServiceName>QueryForDocuments</urn:ServiceName>
@@ -987,7 +921,7 @@ declare namespace ns3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
 		<con:assertion type="XPath Match">
 			<con:configuration>
 				<path>declare namespace ns2='urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo';
-//ns2:EndpointURL[1]</path>
+//ns2:GetInternalEndpointURLByServiceNameResponse</path>
 				<content>https://localhost:8181/Gateway/DocumentQuery/2_0/NhinService/RespondingGateway_Query_Service/DocQuery</content>
 				<allowWildcards>false</allowWildcards>
 				<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>

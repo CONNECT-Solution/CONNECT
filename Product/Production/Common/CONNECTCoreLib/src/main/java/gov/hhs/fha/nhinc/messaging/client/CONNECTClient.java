@@ -40,10 +40,10 @@ import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
  */
 public abstract class CONNECTClient<T> {
 
-    private WebServiceProxyHelper proxyHelper = null;
+    private  WebServiceProxyHelper proxyHelper;
     
     protected CONNECTClient() {
-        this.proxyHelper = new WebServiceProxyHelper();       
+        proxyHelper = new WebServiceProxyHelper();
     }
     
     public abstract T getPort();
