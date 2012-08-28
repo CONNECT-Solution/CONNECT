@@ -212,13 +212,6 @@
         <should.deploy>false</should.deploy>
     </project>
     <project>
-        <name>AdapterDocRepository2Soap12Web</name>
-        <directory>/Production/Adapters/General/AdapterDocRepository2Soap12Web</directory>
-        <dist.type>war</dist.type>
-        <should.build>false</should.build>
-        <should.deploy>false</should.deploy>
-    </project>
-    <project>
         <name>FileTrasnferTimer</name>
         <directory>/Production/Adapters/GenericFileTransfer/FileTrasnferTimer</directory>
         <dist.type>jar</dist.type>
