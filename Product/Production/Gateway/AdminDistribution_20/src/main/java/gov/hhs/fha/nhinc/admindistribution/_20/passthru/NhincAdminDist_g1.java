@@ -26,7 +26,7 @@
  */
 package gov.hhs.fha.nhinc.admindistribution._20.passthru;
 
-import javax.jws.HandlerChain;
+
 import javax.jws.WebService;
 import javax.xml.ws.BindingType;
 
@@ -39,7 +39,6 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
  */
 @WebService(serviceName = "NhincAdminDistService", portName = "NhincAdminDist_PortType", endpointInterface = "gov.hhs.fha.nhinc.nhincadmindistribution.NhincAdminDistPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:nhincadmindistribution", wsdlLocation = "WEB-INF/wsdl/NhincProxyAdminDist/NhincAdminDist_g1.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
-@HandlerChain(file="../../../../../../../handler-chain.xml")
 public class NhincAdminDist_g1 {
 
     public void sendAlertMessage(gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewaySendAlertMessageType body) {

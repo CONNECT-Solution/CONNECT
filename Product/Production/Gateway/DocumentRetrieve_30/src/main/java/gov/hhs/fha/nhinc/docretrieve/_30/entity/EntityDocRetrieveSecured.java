@@ -7,7 +7,6 @@
 package gov.hhs.fha.nhinc.docretrieve._30.entity;
 
 import javax.annotation.Resource;
-import javax.jws.HandlerChain;
 import javax.jws.WebService;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;

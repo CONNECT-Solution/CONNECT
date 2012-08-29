@@ -27,7 +27,6 @@
 package gov.hhs.fha.nhinc.docsubmission._11.passthru.deferred.response;
 
 import javax.annotation.Resource;
-import javax.jws.HandlerChain;
 import javax.jws.WebService;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
@@ -40,7 +39,6 @@ import javax.xml.ws.soap.Addressing;
 @WebService(serviceName = "ProxyXDRAsyncResponse_Service", portName = "ProxyXDRAsyncResponse_Port", endpointInterface = "gov.hhs.fha.nhinc.nhincproxyxdr.async.response.ProxyXDRAsyncResponsePortType", targetNamespace = "urn:gov:hhs:fha:nhinc:nhincproxyxdr:async:response", wsdlLocation = "WEB-INF/wsdl/PassthruDocSubmissionDeferredResponseUnsecured/NhincProxyXDRResponse.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 @Addressing(enabled = true)
-@HandlerChain(file = "../../../../../../../../../handler-chain.xml")
 public class PassthruDocSubmissionDeferredResponseUnsecured {
     @Resource
     private WebServiceContext context;
