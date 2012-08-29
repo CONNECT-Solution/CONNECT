@@ -170,10 +170,14 @@ public class UddiSpecVersionRegistry {
     		NO0SpecVersions.add(UDDI_SPEC_VERSION.SPEC_2_0);
     		NOApiToSpecMap.put(GATEWAY_API_LEVEL.LEVEL_g0, NO0SpecVersions);
     		apiToSpecMap.put(NhincConstants.NHIN_SERVICE_NAMES.HIEM_NOTIFY, NOApiToSpecMap);
+    		apiToSpecMap.put(NhincConstants.NHIN_SERVICE_NAMES.HIEM_SUBSCRIBE, NOApiToSpecMap);
+    		apiToSpecMap.put(NhincConstants.NHIN_SERVICE_NAMES.HIEM_UNSUBSCRIBE, NOApiToSpecMap);
     		
     		HashMap<UDDI_SPEC_VERSION, GATEWAY_API_LEVEL> NOSpecToApiMap = new HashMap<UDDI_SPEC_VERSION, GATEWAY_API_LEVEL>();
     		NOSpecToApiMap.put(UDDI_SPEC_VERSION.SPEC_2_0, GATEWAY_API_LEVEL.LEVEL_g0);
     		specToApiMap.put(NhincConstants.NHIN_SERVICE_NAMES.HIEM_NOTIFY, NOSpecToApiMap);
+    		specToApiMap.put(NhincConstants.NHIN_SERVICE_NAMES.HIEM_SUBSCRIBE, NOSpecToApiMap);
+    		specToApiMap.put(NhincConstants.NHIN_SERVICE_NAMES.HIEM_UNSUBSCRIBE, NOSpecToApiMap);
     	}
     	
     	public HashMap<GATEWAY_API_LEVEL, ArrayList<UDDI_SPEC_VERSION>> getAPIToSpecMapping(NhincConstants.NHIN_SERVICE_NAMES serviceName) {

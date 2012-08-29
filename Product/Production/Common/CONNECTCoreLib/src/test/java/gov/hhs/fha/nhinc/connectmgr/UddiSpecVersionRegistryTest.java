@@ -96,7 +96,7 @@ public class UddiSpecVersionRegistryTest {
 	public void testGetSupportedSpecsUnusedService() {
 		GATEWAY_API_LEVEL api = GATEWAY_API_LEVEL.LEVEL_g1;
 		ArrayList<UDDI_SPEC_VERSION> list = UddiSpecVersionRegistry.getInstance().getSupportedSpecs(api, NHIN_SERVICE_NAMES.HIEM_SUBSCRIBE);
-		assertTrue(list.isEmpty());
+		assertTrue(list == null);
 	}
 	
 	@Test

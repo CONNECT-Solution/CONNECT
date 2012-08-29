@@ -228,6 +228,7 @@
         <jvm-options>-Dcom.sun.enterprise.security.httpsOutboundKeyAlias=gateway</jvm-options>
         <jvm-options>-DSERVER_KEY_ALIAS=gateway</jvm-options>
         <jvm-options>-DCLIENT_KEY_ALIAS=gateway</jvm-options>
+	<jvm-options>-Dcom.sun.xml.ws.api.message.Message.prefix=urn:uuid:</jvm-options>
       </java-config>
       <thread-pools>
         <thread-pool idle-thread-timeout-in-seconds="120" max-thread-pool-size="200" min-thread-pool-size="0" num-work-queues="1" thread-pool-id="thread-pool-1"/>

@@ -73,22 +73,9 @@ public class NhinDocSubmissionProxyWebServiceSecuredImpl implements NhinDocSubmi
     }
 
     protected void initializeSecurePort(DocumentRepositoryXDRPortType port, String url, String wsAddressingAction,
-            AssertionType assertion, NhincConstants.GATEWAY_API_LEVEL apiLevel) {
-        
-        switch (apiLevel) {
-        case LEVEL_g0:
-            proxyHelper.initializeSecurePort((javax.xml.ws.BindingProvider) port, url, WS_ADDRESSING_ACTION_G0,
-                    wsAddressingAction, assertion);
-            break;
-        case LEVEL_g1:
-            proxyHelper.initializeSecurePort((javax.xml.ws.BindingProvider) port, url, WS_ADDRESSING_ACTION_G1,
-                    wsAddressingAction, assertion);
-            break;
-        default:
-            proxyHelper.initializeSecurePort((javax.xml.ws.BindingProvider) port, url, WS_ADDRESSING_ACTION_G1,
-                    wsAddressingAction, assertion);
-        }
-        
+            AssertionType assertion) {
+        proxyHelper.initializeSecurePort((javax.xml.ws.BindingProvider) port, url, NhincConstants.NHINC_XDR_SERVICE_NAME,
+                wsAddressingAction, assertion);
     }
 
     /**
@@ -120,7 +107,7 @@ public class NhinDocSubmissionProxyWebServiceSecuredImpl implements NhinDocSubmi
             log.debug("Obtained service - creating port.");
 
             port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), DocumentRepositoryXDRPortType.class);
-            initializeSecurePort(port, url, wsAddressingAction, assertion, apiLevel);
+            initializeSecurePort(port, url, wsAddressingAction, assertion);
         } else {
             log.error("Unable to obtain service - no port created.");
         }
