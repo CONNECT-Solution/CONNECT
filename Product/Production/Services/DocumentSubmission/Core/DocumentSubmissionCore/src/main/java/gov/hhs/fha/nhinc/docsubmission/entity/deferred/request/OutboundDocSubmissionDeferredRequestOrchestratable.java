@@ -112,10 +112,6 @@ public class OutboundDocSubmissionDeferredRequestOrchestratable implements Outbo
         return NhincConstants.NHINC_XDR_REQUEST_SERVICE_NAME;
     }
 
-    public boolean isEnabled() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
     public boolean isPassthru() {
         throw new UnsupportedOperationException("Not supported yet.");
     }

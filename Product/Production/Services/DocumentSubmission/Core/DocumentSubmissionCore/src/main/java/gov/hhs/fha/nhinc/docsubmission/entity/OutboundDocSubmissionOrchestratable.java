@@ -111,10 +111,6 @@ public class OutboundDocSubmissionOrchestratable implements OutboundOrchestratab
         return NhincConstants.NHINC_XDR_SERVICE_NAME;
     }
 
-    public boolean isEnabled() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
     public boolean isPassthru() {
         throw new UnsupportedOperationException("Not supported yet.");
     }

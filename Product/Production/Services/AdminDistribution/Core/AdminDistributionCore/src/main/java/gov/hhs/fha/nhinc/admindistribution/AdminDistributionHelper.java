@@ -153,11 +153,7 @@ public class AdminDistributionHelper {
     public boolean isInPassThroughMode() {
         return readBooleanGatewayProperty(NhincConstants.NHIN_ADMIN_DIST_SERVICE_PASSTHRU_PROPERTY);
     }
-
-    public boolean isServiceEnabled() {
-        return readBooleanGatewayProperty(NhincConstants.NHIN_ADMIN_DIST_SERVICE_ENABLED);
-    }
-
+    
     public boolean readBooleanGatewayProperty(String propertyName) {
         boolean result = false;
         try {

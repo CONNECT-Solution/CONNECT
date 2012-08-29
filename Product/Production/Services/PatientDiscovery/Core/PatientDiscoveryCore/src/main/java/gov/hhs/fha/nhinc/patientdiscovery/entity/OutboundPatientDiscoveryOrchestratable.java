@@ -109,10 +109,6 @@ public class OutboundPatientDiscoveryOrchestratable implements OutboundOrchestra
         return request;
     }
 
-    public boolean isEnabled() {
-        return true;
-    }
-
     public boolean isPassthru() {
         return false;
     }

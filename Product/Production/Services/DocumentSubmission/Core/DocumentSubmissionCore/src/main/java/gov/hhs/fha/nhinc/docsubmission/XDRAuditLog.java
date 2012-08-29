@@ -57,8 +57,7 @@ public class XDRAuditLog {
     }
 
     public AcknowledgementType auditProxyRequest(
-            gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request,
-            AssertionType assertion) {
+            RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request, AssertionType assertion) {
         AcknowledgementType ack = new AcknowledgementType();
         if (request == null) {
             log.error("Unable to create an audit log record for the proxy. The incomming request was null.");

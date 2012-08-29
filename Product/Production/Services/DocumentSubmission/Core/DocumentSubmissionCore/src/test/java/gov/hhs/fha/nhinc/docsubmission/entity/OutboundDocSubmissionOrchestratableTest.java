@@ -57,13 +57,6 @@ public class OutboundDocSubmissionOrchestratableTest {
     }
     
     @Test(expected=UnsupportedOperationException.class)
-    public void testIsEnabled() throws UnsupportedOperationException {
-        OutboundDocSubmissionOrchestratable orchestratable = createOutboundDocSubmissionOrchestratable();
-        
-        orchestratable.isEnabled();
-    }
-    
-    @Test(expected=UnsupportedOperationException.class)
     public void testIsPassthru() throws UnsupportedOperationException {
         OutboundDocSubmissionOrchestratable orchestratable = createOutboundDocSubmissionOrchestratable();
         

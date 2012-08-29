@@ -91,17 +91,6 @@ public class NhinDocRetrieveOrchestratableTest {
     }
 
     /**
-     * Test of isEnabled method, of class NhinDocRetrieveOrchestratable.
-     */
-    @Test
-    public void testIsEnabled() {
-        InboundDocRetrieveOrchestratable instance = new NhinDocRetrieveOrchestratableImpl();
-        boolean expResult = true;
-        boolean result = instance.isEnabled();
-        assertEquals(expResult, result);
-    }
-
-    /**
      * Test of isPassthru method, of class NhinDocRetrieveOrchestratable.
      */
     @Test
