@@ -136,10 +136,6 @@ public class OutboundDocQueryOrchestratable implements OutboundOrchestratableMes
         return request;
     }
 
-    public boolean isEnabled() {
-        return true;
-    }
-
     public boolean isPassthru() {
         return false;
     }

@@ -136,18 +136,6 @@ public class OutboundDocRetrieveOrchestratableTest {
     }
 
     /**
-     * Test of isEnabled method, of class OutboundDocRetrieveOrchestratable.
-     */
-    @Test
-    public void testIsEnabled() {
-        System.out.println("isEnabled");
-        OutboundDocRetrieveOrchestratable instance = new OutboundDocRetrieveOrchestratable();
-        boolean expResult = true;
-        boolean result = instance.isEnabled();
-        assertEquals(expResult, result);
-    }
-
-    /**
      * Test of isPassthru method, of class OutboundDocRetrieveOrchestratable.
      */
     @Test

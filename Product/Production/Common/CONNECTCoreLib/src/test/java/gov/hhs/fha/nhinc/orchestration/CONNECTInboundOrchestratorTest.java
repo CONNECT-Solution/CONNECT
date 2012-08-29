@@ -78,7 +78,6 @@ public class CONNECTInboundOrchestratorTest {
     @Test
     public void testGetLogger() {
         CONNECTInboundOrchestrator instance = new CONNECTInboundOrchestrator();
-        Log expResult = null;
         Log result = instance.getLogger();
         try {
             result.info("testing CONNECTNhinOrchestrator getLogger()");
@@ -108,10 +107,6 @@ public class CONNECTInboundOrchestratorTest {
         public InboundDelegate getAdapterDelegate() {
             AdapterDelegateTest test = new AdapterDelegateTest();
             return test.new AdapterDelegateImpl();
-        }
-
-        public boolean isEnabled() {
-            return true;
         }
 
         public boolean isPassthru() {

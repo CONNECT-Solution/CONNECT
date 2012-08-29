@@ -112,10 +112,6 @@ public class OutboundPatientDiscoveryDeferredRequestOrchestratable implements Ou
         return NhincConstants.PATIENT_DISCOVERY_DEFERRED_REQ_SERVICE_NAME;
     }
 
-    public boolean isEnabled() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
     public boolean isPassthru() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
