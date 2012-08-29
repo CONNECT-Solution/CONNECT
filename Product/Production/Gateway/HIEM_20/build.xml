@@ -19,6 +19,7 @@
 		<!-- Add classes from other projects like so...-->
 		<pathelement path="${project.CONNECTCommonTypesLib.build.classes.dir}" />
 		<pathelement path="${project.CONNECTCoreLib.build.classes.dir}" />
+		<pathelement path="${project.HIEMCore.build.classes.dir}" />
     
 	</path>
 
@@ -26,6 +27,9 @@
 	<path id="build.project.dependencies">
 		<filelist dir="${root.project.directory.path}">
 		</filelist>
+		<filelist dir="${root.project.directory.path}">
+            <file name="${project.HIEMCore.build.file}" />
+        </filelist>
 	</path>
 
 	<path id="war.libs"/>
