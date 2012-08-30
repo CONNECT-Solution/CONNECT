@@ -1,6 +1,12 @@
 /*
  * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
  * All rights reserved. 
+ * Copyright (c) 2011, Conemaugh Valley Memorial Hospital
+ 
+ * This source is subject to the Conemaugh public license.  Please see the
+ * license.txt file for more information.
+ *
+ * All other rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without 
  * modification, are permitted provided that the following conditions are met: 
@@ -41,9 +47,13 @@ public class SamlConstants {
     public static final String USER_FIRST_PROP = "userFirstName";
     public static final String USER_MIDDLE_PROP = "userMiddleName";
     public static final String USER_LAST_PROP = "userLastName";
+    public static final String USER_FULL_NAME_PROP = "userFillName";
     public static final String USER_NAME_PROP = "userName";
     public static final String USER_ORG_PROP = "userOrganization";
     public static final String USER_ORG_ID_PROP = "userOrganizationID";
+    public static final String USER_ORG_X509_NAME = "userOrganizationX509Name";
+    public static final String HOME_COMMUNITY_ID_PROP = "localHomeCommunityId";
+    public static final String HOME_COMMUNITY_DESCRIPTION_PROP = "localHomeCommunityDescription";
     public static final String HOME_COM_PROP = "homeCommunity";
     public static final String PATIENT_ID_PROP = "patientID";
     public static final String USER_CODE_PROP = "userRoleCode";
@@ -68,12 +78,16 @@ public class SamlConstants {
     public static final String EVIDENCE_CONDITION_NOT_AFTER_PROP = "evidenceConditionNotAfter";
     public static final String EVIDENCE_ACCESS_CONSENT_PROP = "evidenceAccessConsent";
     public static final String EVIDENCE_INST_ACCESS_CONSENT_PROP = "evidenceInstanceAccessConsent";
+    public static final String EVIDENCE_RESOURCE_PROP = "evidenceResourcecProp";
+    public static final String EVIDENCE_DECISION_PROP = "evidenceDecisionProp";
+    public static final String SAML_VALID_INTERVAL_PROP = "samlValidInterval";
     public static final String AUDIT_QUERY_ACTION = "queryAuditLog";
     public static final String NOTIFY_ACTION = "notify";
     public static final String SUBSCRIBE_ACTION = "subscribe";
     public static final String UNSUBSCRIBE_ACTION = "unsubscribe";
     public static final String DOC_QUERY_ACTION = "queryDocuments";
     public static final String DOC_RETRIEVE_ACTION = "retrieveDocuments";
+    public static final String SUBJECT_DISCOVERY_ACTION = "subjectDiscovery";
     public static final String PATIENT_DISCOVERY_ACTION = "patientDiscovery";
     public static final String ADAPTER_XDR_ACTION = "adapterXDRSecured";
     public static final String ADAPTER_XDRREQUEST_SECURED_ACTION = "adapterXDRRequestSecured";
@@ -99,5 +113,5 @@ public class SamlConstants {
     public static final String CE_CODESYS_ID = "codeSystem";
     public static final String CE_CODESYSNAME_ID = "codeSystemName";
     public static final String CE_DISPLAYNAME_ID = "displayName";
-
+    public static final String OID_TAG ="urn:oid:";
 }

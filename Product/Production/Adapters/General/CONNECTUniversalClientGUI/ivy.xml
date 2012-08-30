@@ -31,6 +31,10 @@
   </configurations>
 
   <dependencies>
+    <!-- To find dependency params use http://www.mavensearch.net/ to find the XML descriptor.
+                 then org=groupId, name=artifactId, rev=version
+    -->
+
     <!-- Project dependencies -->
 
     <!-- compile time jars -->
@@ -53,6 +57,7 @@
 	<dependency org="org.json" name="json" rev="20090211"  conf="runtime->default" transitive="false" /> 
     <dependency org="jsf" name="jsf-extensions-common-0.1" rev="0.1" conf="runtime->default" transitive="false" /> 
     <dependency org="jsf" name="jsf-extensions-dynamic-faces-0.1" rev="0.1" conf="runtime->default" transitive="false" /> 
+	<dependency org="bcprov" name="bcprov-jdk14-135" rev="1.0"  conf="runtime->default" transitive="false" />
 
     <!-- jars for test only -->
 
