@@ -15,13 +15,13 @@
 	<description>Beans included in this file: {adapterauthentication}</description>
 
 	<!-- Default AdapterAuthentication to indicate no authentication is implemented -->
-	<bean class="gov.hhs.fha.nhinc.adapterauthentication.proxy.AdapterAuthenticationProxyNoOpImpl" id="adapterauthentication" name="adapterauthenticationnoop"> 
+	<bean class="gov.hhs.fha.nhinc.adapterauthentication.proxy.AdapterAuthenticationProxyNoOpImpl" id="adapterauthenticationnoop" name="adapterauthenticationnoop"> 
 		<meta key="impltype" value="noop"/>
 		<meta key="default" value="true"/>
 	</bean> 
 
 	<!-- AdapterAuthentication java implementation Uses the OpenSSO authentication services -->
-	<bean class="gov.hhs.fha.nhinc.adapterauthentication.proxy.AdapterAuthenticationJavaProxy" id="adapterauthenticationjava" name="adapterauthenticationjava"> 
+	<bean class="gov.hhs.fha.nhinc.adapterauthentication.proxy.AdapterAuthenticationJavaProxy" id="adapterauthentication" name="adapterauthenticationjava"> 
 		<meta key="impltype" value="java"/>
 	</bean> 
 

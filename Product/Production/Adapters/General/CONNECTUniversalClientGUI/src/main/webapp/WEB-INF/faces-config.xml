@@ -76,4 +76,11 @@
         <managed-bean-class>universalclientgui.SearchData</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
+    <managed-bean>
+        <managed-bean-name>Page3</managed-bean-name>
+        <managed-bean-class>universalclientgui.Page3</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
 </faces-config>
+
+

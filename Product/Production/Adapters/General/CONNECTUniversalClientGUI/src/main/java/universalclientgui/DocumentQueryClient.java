@@ -1,6 +1,12 @@
 /*
  * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
  * All rights reserved. 
+ * Copyright (c) 2011, Conemaugh Valley Memorial Hospital
+ 
+ This source is subject to the Conemaugh public license.  Please see the
+ * license.txt file for more information.
+ *
+ * All other rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without 
  * modification, are permitted provided that the following conditions are met: 
@@ -28,13 +34,15 @@
 package universalclientgui;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayQueryRequestType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
+import gov.hhs.fha.nhinc.entitydocquery.EntityDocQuery;
 import gov.hhs.fha.nhinc.entitydocquery.EntityDocQueryPortType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
+import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.util.format.UTCDateUtil;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -52,11 +60,10 @@ import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.ValueListType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.ExtrinsicObjectType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.LocalizedStringType;
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
+import gov.hhs.fha.nhinc.saml.creation.SAMLAssertionCreator;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
-import javax.xml.namespace.QName;
-import javax.xml.ws.Service;
 
 /**
  *
@@ -64,68 +71,90 @@ import javax.xml.ws.Service;
  */
 public class DocumentQueryClient {
 
+    private static final String PROPERTY_FILE_NAME = "gateway";
+    private static final String PROPERTY_LOCAL_HOME_COMMUNITY = "localHomeCommunityId";
     private static Log log = LogFactory.getLog(DocumentQueryClient.class);
+    private static EntityDocQuery service = new EntityDocQuery();
     private static final String HOME_ID = "urn:oid:2.16.840.1.113883.3.200";
     private static final String ID = "urn:uuid:14d4debf-8f97-4251-9a74-a90016b0af0d";
     private static final String PATIENT_ID_SLOT_NAME = "$XDSDocumentEntryPatientId";
     private static final String DOCUMENT_STATUS_SLOT_NAME = "$XDSDocumentEntryStatus";
-    private static final String CREATION_TIME_FROM_SLOT_NAME = "$XDSDocumentEntryCreationTimeFrom";
-    private static final String CREATION_TIME_TO_SLOT_NAME = "$XDSDocumentEntryCreationTimeTo";
-    private static final String DOCUMENT_STATUS_APPROVED = "('urn:oasis:names:tc:ebxml-regrep:StatusType:Approved')";
+//    private static final String CREATION_TIME_FROM_SLOT_NAME = "$XDSDocumentEntryCreationTimeFrom";
+//    private static final String CREATION_TIME_TO_SLOT_NAME = "$XDSDocumentEntryCreationTimeTo";
+    public static final String EBXML_DOCENTRY_SERVICE_START_TIME_FROM = "$XDSDocumentEntryServiceStartTimeFrom";
+    public static final String EBXML_DOCENTRY_SERVICE_START_TIME_TO = "$XDSDocumentEntryServiceStartTimeTo";
+    public static final String EBXML_DOCENTRY_SERVICE_STOP_TIME_FROM = "$XDSDocumentEntryServiceStopTimeFrom";
+    public static final String EBXML_DOCENTRY_SERVICE_STOP_TIME_TO = "$XDSDocumentEntryServiceStopTimeTo";
+     public static final String EBXML_DOCENTRY_CLASS_CODE = "$XDSDocumentEntryClassCode";
+    //private static final String HL7_DATE_FORMAT = "yyyyMMddHHmmssZ";
     private static final String HL7_DATE_FORMAT = "yyyyMMddHHmmss";
     private static final String REGULAR_DATE_FORMAT = "MM/dd/yyyy";
-    
-    private static Service cachedService = null;
-    private static final String NAMESPACE_URI = "urn:gov:hhs:fha:nhinc:entitydocquery";
-    private static final String SERVICE_LOCAL_PART = "EntityDocQuery";
-    private static final String PORT_LOCAL_PART = "EntityDocQueryPortSoap";
-    private static final String WSDL_FILE = "EntityDocQuery.wsdl";
-    private static final String WS_ADDRESSING_ACTION = "urn:RespondingGateway_CrossGatewayQuery";
-    private static final String SERVICE_NAME = NhincConstants.ENTITY_DOC_QUERY_PROXY_SERVICE_NAME;
-    private WebServiceProxyHelper oProxyHelper = new WebServiceProxyHelper();
 
     /**
-     *
+     * 
      * @param patientSearchData
      * @param creationFromDate
      * @param creationToDate
      * @return
      */
-    public List<DocumentInformation> retrieveDocumentsInformation(PatientSearchData patientSearchData, Date creationFromDate, Date creationToDate) {
+    public List<DocumentInformation> retrieveDocumentsInformation(PatientSearchData patientSearchData, Date serviceTimeFromDate, Date serviceTimeToDate, List<String> targetCommunities,  List<String> docTypes) {
 
-        String url;
-        try {
-            url = getUrl();
-            if (NullChecker.isNotNullish(url)) {
-                EntityDocQueryPortType port = getPort(url, WS_ADDRESSING_ACTION, null);
+        EntityDocQueryPortType port = getPort(getEntityDocumentQueryProxyAddress());
 
-                RespondingGatewayCrossGatewayQueryRequestType request = createAdhocQueryRequest(patientSearchData,
-                        creationFromDate, creationToDate);
+        RespondingGatewayCrossGatewayQueryRequestType request = createAdhocQueryRequest(patientSearchData, serviceTimeFromDate, serviceTimeToDate, docTypes);
 
-                AdhocQueryResponse response = (AdhocQueryResponse) oProxyHelper.invokePort(port,
-                        EntityDocQueryPortType.class, "respondingGatewayCrossGatewayQuery", request);
 
-                return convertAdhocQueryResponseToDocInfoBO(response);
-            } else {
-                log.error("Error getting URL for " + SERVICE_NAME);
-            }
-        } catch (Exception ex) {
-            log.error("Error calling respondingGatewayCrossGatewayQuery: " + ex.getMessage(), ex);
+        //check to see if user specified a targeted gateway for the PD request
+        if (targetCommunities != null && !targetCommunities.isEmpty())
+        {
+
+            log.debug("A target community has been requested.  Sending Doc Query request to the following communities: ");
+
+            //decalare target communities parameter
+            NhinTargetCommunitiesType targetType = null;
+
+            //set parameter equal to the oid value entered by user
+            Page2 pageTwoInstance = new Page2();
+            targetType = pageTwoInstance.createNhinTargetCommunities(targetCommunities);
+
+            //set the Target Communities value in the Entitiy DQ request and target only that gateway
+            request.setNhinTargetCommunities(targetType);
         }
-        return null;
+        
+        AdhocQueryResponse response = port.respondingGatewayCrossGatewayQuery(request);
+
+        return convertAdhocQueryResponseToDocInfoBO(response);
     }
 
+    private SlotType1 createStatusTypeSlot()
+    {
+        SlotType1 slot = new SlotType1();
+        RegistryResponseType responseType = new RegistryResponseType();
+        responseType.setStatus("('urn:oasis:names:tc:ebxml-regrep:StatusType:Approved','urn:ihe:iti:2010:StatusType:DeferredCreation')");
+
+        ValueListType valueList = new ValueListType();
+
+        valueList.getValue().add("('urn:oasis:names:tc:ebxml-regrep:StatusType:Approved','urn:ihe:iti:2010:StatusType:DeferredCreation')");
+
+        slot.setName(DOCUMENT_STATUS_SLOT_NAME);
+        slot.setValueList(valueList);
+
+
+        return slot;
+    }
     /**
-     *
+     * 
      * @param patientSearchData
      * @param creationFromDate
      * @param creationToDate
      * @return
      */
-    private RespondingGatewayCrossGatewayQueryRequestType createAdhocQueryRequest(PatientSearchData patientSearchData, Date creationFromDate, Date creationToDate) {
+    private RespondingGatewayCrossGatewayQueryRequestType createAdhocQueryRequest(PatientSearchData patientSearchData, Date serviceTimeFromDate, Date serviceTimeToDate, List<String> docTypes) {
         AdhocQueryType adhocQuery = new AdhocQueryType();
         adhocQuery.setHome(HOME_ID);
         adhocQuery.setId(ID);
+
+
 
         // Set patient id
         SlotType1 patientIDSlot = new SlotType1();
@@ -133,46 +162,98 @@ public class DocumentQueryClient {
 
         ValueListType valueList = new ValueListType();
 
-        StringBuilder universalPatientID = new StringBuilder();
-        universalPatientID.append(patientSearchData.getPatientId());
-        universalPatientID.append("^^^&");
-        universalPatientID.append(patientSearchData.getAssigningAuthorityID());
-        universalPatientID.append("&ISO");
+        String uniquePatientId = patientSearchData.getPatientId() +"^^^&" + patientSearchData.getAssigningAuthorityID() + "&ISO";
 
-        valueList.getValue().add(universalPatientID.toString());
+        valueList.getValue().add(uniquePatientId);
 
-        // Populate $XDSDocumentEntryStatus slot to address Gateway-166
+        //valueList.getValue().add("D123401^^^&1.1&ISO");
+
         patientIDSlot.setValueList(valueList);
         adhocQuery.getSlot().add(patientIDSlot);
 
-        SlotType1 documentEntryStatusSlot = new SlotType1();
-        documentEntryStatusSlot.setName(DOCUMENT_STATUS_SLOT_NAME);
-        ValueListType valueEntryStatusList = new ValueListType();
-        valueEntryStatusList.getValue().add(DOCUMENT_STATUS_APPROVED);
-        documentEntryStatusSlot.setValueList(valueEntryStatusList);
-        adhocQuery.getSlot().add(documentEntryStatusSlot);
+        //check to see if values from the calendar controls are null
+        if (serviceTimeFromDate != null && serviceTimeToDate !=null)
+        {
+            //Set Service Start Time FROM Value
+            SlotType1 serviceStartTimeFromSlot = new SlotType1();
+            serviceStartTimeFromSlot.setName(EBXML_DOCENTRY_SERVICE_START_TIME_FROM);
 
-        // Set Creation From Date
-        SlotType1 creationStartTimeSlot = new SlotType1();
-        creationStartTimeSlot.setName(CREATION_TIME_FROM_SLOT_NAME);
+            ValueListType serviceStartTimeFromValueList = new ValueListType();
 
-        ValueListType creationStartTimeValueList = new ValueListType();
+            serviceStartTimeFromValueList.getValue().add(formatDate(serviceTimeFromDate, HL7_DATE_FORMAT));
+            serviceStartTimeFromSlot.setValueList(serviceStartTimeFromValueList);
+            adhocQuery.getSlot().add(serviceStartTimeFromSlot);
 
-        creationStartTimeValueList.getValue().add(formatDate(creationFromDate, HL7_DATE_FORMAT));
+            //Set Service Start Time TO Value
+            SlotType1 serviceStartTimeToSlot = new SlotType1();
+            serviceStartTimeToSlot.setName(EBXML_DOCENTRY_SERVICE_START_TIME_TO);
 
-        creationStartTimeSlot.setValueList(creationStartTimeValueList);
-        adhocQuery.getSlot().add(creationStartTimeSlot);
+            ValueListType serviceStartTimeToValueList = new ValueListType();
+
+            serviceStartTimeToValueList.getValue().add(formatDate(serviceTimeToDate, HL7_DATE_FORMAT));
+            serviceStartTimeToSlot.setValueList(serviceStartTimeToValueList);
+            adhocQuery.getSlot().add(serviceStartTimeToSlot);
+        }
+
+        
+
+        //if user selected doc types, create class code slot
+        if (!docTypes.isEmpty())
+        {
+            
+            //Set Entry Class Codes (document types)
+            SlotType1 classCodeSlot = new SlotType1();
+            classCodeSlot.setName(EBXML_DOCENTRY_CLASS_CODE);
+
+            ValueListType classCodeValueList = new ValueListType();
+
+            //loop through list of doc types and build slot value
+            StringBuffer docTypeBuffer = new StringBuffer();
+            docTypeBuffer.append("(");
+
+            for (int x=0; x<docTypes.size();x++)
+            {
+                log.debug("Splitting entry #" + String.valueOf(x) + ": " + (docTypes.get(x).trim().split("\\s"))[0].trim());
+
+                docTypeBuffer.append("'" + (docTypes.get(x).trim().split("\\s"))[0].trim() + "^^2.16.840.1.113883.6.1" + "'");
+
+                if(x!=docTypes.size() - 1)
+                    docTypeBuffer.append(",");
+
+            }
+
+            docTypeBuffer.append(")");
+
+            log.debug("Class Code value to be added to Adhoc Query = " + docTypeBuffer.toString());
+
+            classCodeValueList.getValue().add(docTypeBuffer.toString());
+            classCodeSlot.setValueList(classCodeValueList);
+            adhocQuery.getSlot().add(classCodeSlot);
+        }
+
+        //Set Creation From Date
+  //      SlotType1 creationStartTimeSlot = new SlotType1();
+   //     creationStartTimeSlot.setName(CREATION_TIME_FROM_SLOT_NAME);
+
+ //       ValueListType creationStartTimeValueList = new ValueListType();
+
+ //       creationStartTimeValueList.getValue().add(formatDate(creationFromDate, HL7_DATE_FORMAT));
+
+//        creationStartTimeSlot.setValueList(creationStartTimeValueList);
+ //       adhocQuery.getSlot().add(creationStartTimeSlot);
 
         // Set Creation To Date
-        SlotType1 creationEndTimeSlot = new SlotType1();
-        creationEndTimeSlot.setName(CREATION_TIME_TO_SLOT_NAME);
+   //     SlotType1 creationEndTimeSlot = new SlotType1();
+   //     creationEndTimeSlot.setName(CREATION_TIME_TO_SLOT_NAME);
 
-        ValueListType creationEndTimeSlotValueList = new ValueListType();
+ //       ValueListType creationEndTimeSlotValueList = new ValueListType();
 
-        creationEndTimeSlotValueList.getValue().add(formatDate(creationToDate, HL7_DATE_FORMAT));
+  //      creationEndTimeSlotValueList.getValue().add(formatDate(creationToDate, HL7_DATE_FORMAT));
 
-        creationEndTimeSlot.setValueList(creationEndTimeSlotValueList);
-        adhocQuery.getSlot().add(creationEndTimeSlot);
+  //      creationEndTimeSlot.setValueList(creationEndTimeSlotValueList);
+  //      adhocQuery.getSlot().add(creationEndTimeSlot);
+
+        adhocQuery.getSlot().add(createStatusTypeSlot());
 
         ResponseOptionType responseOption = new ResponseOptionType();
         responseOption.setReturnType("LeafClass");
@@ -185,55 +266,66 @@ public class DocumentQueryClient {
         RespondingGatewayCrossGatewayQueryRequestType request = new RespondingGatewayCrossGatewayQueryRequestType();
         request.setAdhocQueryRequest(adhocQueryRequest);
 
-        AssertionCreator assertionCreator = new AssertionCreator();
-
-        request.setAssertion(assertionCreator.createAssertion());
+        // Add Assertions
+        AuthenticatedUserInfo authenticationInfo = Page1.getAuthenticationInfo();
+        AssertionType assertions = authenticationInfo.getAssertions();
+        request.setAssertion(assertions);
 
         return request;
     }
 
-    protected String getUrl() throws ConnectionManagerException {
-        return ConnectionManagerCache.getInstance().getInternalEndpointURLByServiceName(SERVICE_NAME);
+    /**
+     *
+     * @return
+     */
+    private String getEntityDocumentQueryProxyAddress() {
+        String endpointAddress = null;
+
+        try {
+            // Lookup home community id
+            String homeCommunity = getHomeCommunityId();
+            // Get endpoint url
+        //    endpointAddress = ConnectionManagerCache.getEndpointURLByServiceName(homeCommunity, NhincConstants.ENTITY_DOC_QUERY_PROXY_SERVICE_NAME);
+            endpointAddress = ConnectionManagerCache.getInstance().getDefaultEndpointURLByServiceName(homeCommunity, NhincConstants.ENTITY_DOC_QUERY_PROXY_SERVICE_NAME);
+            log.debug("Doc Query endpoint address: " + endpointAddress);
+        } catch (PropertyAccessException pae) {
+            log.error("Exception encountered retrieving the local home community: " + pae.getMessage(), pae);
+        } catch (ConnectionManagerException cme) {
+            log.error("Exception encountered retrieving the entity doc query connection endpoint address: " + cme.getMessage(), cme);
+        }
+        return endpointAddress;
     }
 
     /**
-     * Retrieve the service class for this web service.
-     *
-     * @return The service class for this web service.
+     * 
+     * @param url
+     * @return
      */
-    protected Service getService() {
-        if (cachedService == null) {
-            try {
-                cachedService = oProxyHelper.createService(WSDL_FILE, NAMESPACE_URI, SERVICE_LOCAL_PART);
-            } catch (Throwable t) {
-                log.error("Error creating service: " + t.getMessage(), t);
-            }
+    private EntityDocQueryPortType getPort(String url) {
+        if (service == null) {
+            service = new EntityDocQuery();
         }
-        return cachedService;
-    }
 
-    /**
-     * This method retrieves and initializes the port.
-     *
-     * @param url The URL for the web service.
-     * @return The port object for the web service.
-     */
-    protected EntityDocQueryPortType getPort(String url, String wsAddressingAction, AssertionType assertion) {
-        EntityDocQueryPortType port = null;
-        Service service = getService();
-        if (service != null) {
-            log.debug("Obtained service - creating port.");
+        EntityDocQueryPortType port = service.getEntityDocQueryPortSoap();
 
-            port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), EntityDocQueryPortType.class);
-            oProxyHelper.initializeUnsecurePort((javax.xml.ws.BindingProvider) port, url, wsAddressingAction, assertion);
-        } else {
-            log.error("Unable to obtain serivce - no port created.");
-        }
+        ((javax.xml.ws.BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
+
+
         return port;
     }
 
     /**
+     * Retrieve the local home community id
      *
+     * @return Local home community id
+     * @throws gov.hhs.fha.nhinc.properties.PropertyAccessException
+     */
+    private String getHomeCommunityId() throws PropertyAccessException {
+        return PropertyAccessor.getInstance().getProperty(PROPERTY_FILE_NAME, PROPERTY_LOCAL_HOME_COMMUNITY);
+    }
+
+    /**
+     * 
      * @param response
      * @return
      */
@@ -264,6 +356,7 @@ public class DocumentQueryClient {
                     if (extrinsicObject != null) {
                         docInfo.setTitle(extractDocumentTitle(extrinsicObject));
                         docInfo.setDocumentType(extractDocumentType(extrinsicObject));
+                        docInfo.setDocumentLOINC(extractDocumentLOINC(extrinsicObject));
                         String creationTime = extractCreationTime(extrinsicObject);
                         docInfo.setCreationDate(formatDate(creationTime, REGULAR_DATE_FORMAT));
                         docInfo.setInstitution(extractInstitution(extrinsicObject));
@@ -279,7 +372,8 @@ public class DocumentQueryClient {
         return documentInfoList;
     }
 
-    private String extractRespositoryUniqueID(ExtrinsicObjectType extrinsicObject) {
+    private String extractRespositoryUniqueID(ExtrinsicObjectType extrinsicObject)
+    {
         return extractSingleSlotValue(extrinsicObject, "repositoryUniqueId");
     }
 
@@ -288,6 +382,13 @@ public class DocumentQueryClient {
 
         String documentTypeCode = classification.getName().getLocalizedString().get(0).getValue();
         return documentTypeCode;
+    }
+
+    private String extractDocumentLOINC(ExtrinsicObjectType extrinsicObject) {
+        ClassificationType classification = extractClassification(extrinsicObject, "urn:uuid:41a5887f-8865-4c09-adf7-e362475b143a");
+
+        String documentLoincCode = classification.getNodeRepresentation();
+        return documentLoincCode;
     }
 
     private String extractDocumentTitle(ExtrinsicObjectType extrinsicObject) {
@@ -381,13 +482,36 @@ public class DocumentQueryClient {
     }
 
     /**
+     * 
+     * @param dateString
+     * @param inputFormat
+     * @param outputFormat
+     * @return
+     */
+    
+//    private String formatDate(String dateString, String inputFormat, String outputFormat) {
+//        SimpleDateFormat inputFormatter = new SimpleDateFormat(inputFormat);
+//        SimpleDateFormat outputFormatter = new SimpleDateFormat(outputFormat);
+//
+//        Date date = null;
+//
+//        try {
+//            date = inputFormatter.parse(dateString);
+//        } catch (ParseException ex) {
+//            Logger.getLogger(DocumentQueryClient.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//
+//        return outputFormatter.format(date);
+//    }
+
+    /**
      * Format date in the String format using UTCDateUtil class.
      *
      * @param dateString
      * @param outputFormat
      * @return
      */
-    private String formatDate(String dateString, String outputFormat) {
+    private String formatDate(String dateString, String outputFormat){
         UTCDateUtil dateUtil = new UTCDateUtil();
 
         Date date = dateUtil.parseUTCDateOptionalTimeZone(dateString);
@@ -398,6 +522,7 @@ public class DocumentQueryClient {
     }
 
     private String formatDate(Date date, String format) {
+
         SimpleDateFormat formatter = new SimpleDateFormat(format);
         return formatter.format(date);
     }
