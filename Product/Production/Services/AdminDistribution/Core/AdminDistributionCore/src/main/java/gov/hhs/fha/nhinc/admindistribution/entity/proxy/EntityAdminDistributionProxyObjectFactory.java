@@ -33,7 +33,7 @@ import gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory;
  * @author dunnek
  */
 public class EntityAdminDistributionProxyObjectFactory extends ComponentProxyObjectFactory {
-    private static final String CONFIG_FILE_NAME = "EntityAdminDistProxyConfig.xml";
+    private static final String CONFIG_FILE_NAME = "AdminDistProxyConfig.xml";
     private static final String BEAN_NAME_ADMIN_DISTRIBUTION = "entityadmindist";
 
     protected String getConfigFileName() {

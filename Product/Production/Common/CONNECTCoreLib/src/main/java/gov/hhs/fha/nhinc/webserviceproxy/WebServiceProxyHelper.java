@@ -43,8 +43,6 @@ import javax.xml.ws.Service;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.sun.xml.ws.api.message.Header;
-import com.sun.xml.ws.developer.WSBindingProvider;
 
 import gov.hhs.fha.nhinc.async.AddressingHeaderCreator;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
@@ -451,40 +449,7 @@ public class WebServiceProxyHelper {
         return allRelatesTo;
     }
 
-    /**
-     * This method gset the WS-Addressing headers to be initialized on the port
-     *
-     * @param url The endpoint url defining <To>
-     * @param wsAddressingAction The action defining <Action>
-     * @param assertion The assertion whic contains the messageId and the relatesTo identifiers
-     * @return The list of WS-Addressing headers
-     */
-    protected List<Header> getWSAddressingHeaders(String url, String wsAddressingAction, AssertionType assertion) {
-
-        String messageId = getMessageId(assertion);
-        List<String> allRelatesTo = getRelatesTo(assertion);
-
-        AddressingHeaderCreator hdrCreator = new AddressingHeaderCreator(url, wsAddressingAction, messageId,
-                allRelatesTo);
-
-        List<Header> createdHeaders = hdrCreator.build();
-
-        return createdHeaders;
-    }
-
-    /**
-     * This method sets the provided WS-Addressing headers to the outbound headers on the port
-     *
-     * @param port The port to be initialized
-     * @param createdHeaders The listing of WS-Addressing headers.
-     */
-    protected void setOutboundHeaders(BindingProvider port, List<Header> createdHeaders) {
-        //((WSBindingProvider) port).setOutboundHeaders(createdHeaders);
-    }
-
-  
    
-
    
 
    
@@ -493,11 +458,6 @@ public class WebServiceProxyHelper {
 
     
 
-    public List<Header> createWSAddressingHeaders(BindingProvider port, String wsAddressingAction,
-            AssertionType assertion) {
-        String url = getUrlFormPort(port);
-        return getWSAddressingHeaders(url, wsAddressingAction, assertion);
-    }
 
     /**
      * @param port
