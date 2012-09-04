@@ -48,7 +48,7 @@ import gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory;
  * @author Jon Hoppesch
  */
 public class AdapterPatientDiscoveryAsyncReqQueueProxyObjectFactory extends ComponentProxyObjectFactory {
-    private static final String CONFIG_FILE_NAME = "AdapterPatientDiscoveryAsyncReqQueueProxyConfig.xml";
+    private static final String CONFIG_FILE_NAME = "PatientDiscoveryDeferredRequestProxyConfig.xml";
     private static final String BEAN_NAME = "adapterpatientdiscoveryasyncreqqueue";
 
     /**

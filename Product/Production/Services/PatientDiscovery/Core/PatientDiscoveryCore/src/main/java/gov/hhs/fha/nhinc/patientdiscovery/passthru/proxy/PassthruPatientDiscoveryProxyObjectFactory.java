@@ -49,7 +49,7 @@ import gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory;
  */
 public class PassthruPatientDiscoveryProxyObjectFactory extends ComponentProxyObjectFactory {
 
-    private static final String CONFIG_FILE_NAME = "NhincPatientDiscoveryProxyConfig.xml";
+    private static final String CONFIG_FILE_NAME = "PatientDiscoveryProxyConfig.xml";
     private static final String BEAN_NAME_PATIENT_DISCOVERY = "nhincproxypatientdiscovery";
 
     /**

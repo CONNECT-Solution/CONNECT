@@ -47,7 +47,7 @@ import gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory;
  * @author Les Westberg
  */
 public class AdapterMpiProxyObjectFactory extends ComponentProxyObjectFactory {
-    private static final String CONFIG_FILE_NAME = "AdapterMpiProxyConfig.xml";
+    private static final String CONFIG_FILE_NAME = "AdapterMpiConfig.xml";
     private static final String BEAN_NAME_MPI = "adaptermpi";
 
     /**
