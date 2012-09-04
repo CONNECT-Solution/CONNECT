@@ -33,7 +33,7 @@ import gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory;
  * @author dunnek
  */
 public class NhinDocSubmissionProxyObjectFactory extends ComponentProxyObjectFactory {
-    private static final String CONFIG_FILE_NAME = "NhinXDRProxyConfig.xml";
+    private static final String CONFIG_FILE_NAME = "DocumentSubmissionProxyConfig.xml";
     private static final String BEAN_NAME = "nhinxdr";
 
     protected String getConfigFileName() {
