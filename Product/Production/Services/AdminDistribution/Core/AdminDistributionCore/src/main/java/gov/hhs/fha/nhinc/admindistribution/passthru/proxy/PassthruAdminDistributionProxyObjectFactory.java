@@ -33,7 +33,7 @@ import gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory;
  * @author dunnek
  */
 public class PassthruAdminDistributionProxyObjectFactory extends ComponentProxyObjectFactory {
-    private static final String CONFIG_FILE_NAME = "NhincAdminDistProxyConfig.xml";
+    private static final String CONFIG_FILE_NAME = "AdminDistProxyConfig.xml";
     private static final String BEAN_NAME = "nhincadmindist";
 
     /* (non-Javadoc)

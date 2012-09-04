@@ -34,7 +34,7 @@ import gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory;
  */
 public class NhinAdminDistributionProxyObjectFactory extends ComponentProxyObjectFactory {
 
-    private static final String CONFIG_FILE_NAME = "NhinAdminDistProxyConfig.xml";
+    private static final String CONFIG_FILE_NAME = "AdminDistProxyConfig.xml";
     private static final String BEAN_NAME_NHIN_ADMIN_DIST = "nhinadmindist";
 
     protected String getConfigFileName() {
