@@ -29,17 +29,17 @@
   <property name="deployment.restore.configuration" value="false"/>
   <property name="deployment.binaries.dir" value="${deployment.dir}/nhinc"/>
   <property name="deployment.interfaces.dir" value="${deployment.dir}/Interfaces"/>
-  
+
   <condition property="deployment.domain.template.file.path" value="${script.root.directory}/GlassFish/templates/connect/domain.selfsigned.xml.template">
     <os arch="x86"/>
   </condition>
-  
+
   <condition property="deployment.domain.template.file.path" value="${script.root.directory}/GlassFish/templates/connect/domain.64bit.xml.template">
     <os arch="amd64"/>
   </condition>
-  
+
   <property name="deployment.environment.configuration.dir.name" value="Dev"/>
-    
+
   <property name="deployment.glassfish.admin.port" value="4848"/>
   <property name="deployment.glassfish.instance.port" value="8080"/>
 
@@ -47,9 +47,9 @@
 
   <property name="deployment.glassfish.domain.name" value="domain1"/>
   <property name="deployment.glassfish.domain.home" value="${glassfish.home}/domains/${deployment.glassfish.domain.name}"/>
-  <property name="deployment.glassfish.domain.config.home" value="${glassfish.home}/domains/${deployment.glassfish.domain.name}/config"/>
+  <property name="deployment.glassfish.domain.config.home" value="${glassfish.home}/glassfish/domains/${deployment.glassfish.domain.name}/config"/>
 
   <property name="deployment.glassfish.server.username" value="admin"/>
   <property name="deployment.glassfish.server.admin.password" value="adminadmin"/>
-  
+
 </project>
