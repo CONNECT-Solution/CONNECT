@@ -47,7 +47,7 @@ import gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory;
  * @author Neil Webb
  */
 public class NhinDocRetrieveProxyObjectFactory extends ComponentProxyObjectFactory {
-    private static final String CONFIG_FILE_NAME = "NhinDocRetrieveProxyConfig.xml";
+    private static final String CONFIG_FILE_NAME = "DocumentRetrieveProxyConfig.xml";
     private static final String BEAN_NAME = "nhindocretrieve";
 
     /**

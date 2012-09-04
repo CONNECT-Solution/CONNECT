@@ -34,7 +34,7 @@ import gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory;
  */
 public class PassthruDocRetrieveProxyObjectFactory extends ComponentProxyObjectFactory {
 
-    private static final String CONFIG_FILE_NAME = "PassthruDocRetrieveProxyConfig.xml";
+    private static final String CONFIG_FILE_NAME = "DocumentRetrieveProxyConfig.xml";
     private static final String BEAN_NAME = "passthrudocretrieve";
 
     protected String getConfigFileName() {
