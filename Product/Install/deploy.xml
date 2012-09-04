@@ -467,13 +467,18 @@
     </target>
 
     <target name="-restore.glassfish.domain.certificates">
-        <copy todir="${deployment.glassfish.domain.config.home}" overwrite="true" verbose="true">
-            <fileset dir="${deployment.certificate.home}">
-                <include name="*.jks" />
-                <include name="*.db" />
-                <include name="*.cfg" />
-            </fileset>
-        </copy>
+        <if>
+            <available file="${deployment.certificate.home}/gateway.jks" type="file" />
+            <then>
+                <copy todir="${deployment.glassfish.domain.config.home}" overwrite="true" verbose="true">
+                    <fileset dir="${deployment.certificate.home}">
+                        <include name="*.jks" />
+                        <include name="*.db" />
+                        <include name="*.cfg" />
+                    </fileset>
+                </copy>
+            </then>
+        </if>
     </target>
 
     <target name="-uncomment.domain.config">
