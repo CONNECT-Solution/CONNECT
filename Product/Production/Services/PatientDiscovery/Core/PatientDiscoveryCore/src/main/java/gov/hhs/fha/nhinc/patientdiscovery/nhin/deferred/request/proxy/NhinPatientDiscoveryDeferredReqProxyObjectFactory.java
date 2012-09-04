@@ -33,7 +33,7 @@ import gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory;
  */
 public class NhinPatientDiscoveryDeferredReqProxyObjectFactory extends ComponentProxyObjectFactory {
 
-    private static final String CONFIG_FILE_NAME = "NhinPatientDiscoveryAsyncReqProxyConfig.xml";
+    private static final String CONFIG_FILE_NAME = "PatientDiscoveryDeferredRequestProxyConfig.xml";
     private static final String BEAN_NAME = "nhinpatientdiscoveryasyncreq";
 
     /**

@@ -50,7 +50,7 @@ import gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory;
  */
 public class AdapterPatientDiscoveryProxyObjectFactory extends ComponentProxyObjectFactory implements
         GenericFactory<AdapterPatientDiscoveryProxy> {
-    private static final String CONFIG_FILE_NAME = "AdapterPatientDiscoveryProxyConfig.xml";
+    private static final String CONFIG_FILE_NAME = "PatientDiscoveryProxyConfig.xml";
     private static final String BEAN_NAME_MPI = "adapterpatientdiscovery";
 
     /**

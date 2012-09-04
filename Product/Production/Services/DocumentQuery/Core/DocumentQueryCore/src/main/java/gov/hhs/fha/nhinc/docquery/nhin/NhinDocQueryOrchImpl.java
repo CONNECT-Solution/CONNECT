@@ -83,24 +83,18 @@ public class NhinDocQueryOrchImpl {
                 NhincConstants.AUDIT_LOG_NHIN_INTERFACE, requestCommunityID);
 
         // AssignProcessFlag: 'true' = $GetPropertyOut.GetPropertyResponse/propacc:propertyValue
-        // Check if the AdhocQuery Service is enabled
-        if (isServiceEnabled()) {
-            // Get local home community id for adapter audit log
-            String homeCommunityId = HomeCommunityMap.getLocalHomeCommunityId();
-            // Check to see if in adapter pass through mode for this service
-            if (isInPassThroughMode()) {
-                log.info("Passthrough mode is enabled, sending message to the Adapter");
-                resp = forwardToAgency(crossGatewayQueryRequest, homeCommunityId);
-            } else {
-                resp = queryInternalDocRegistry(crossGatewayQueryRequest, homeCommunityId);
-            }
+        // Get local home community id for adapter audit log
+        String homeCommunityId = HomeCommunityMap.getLocalHomeCommunityId();
+        // Check to see if in adapter pass through mode for this service
+        if (isInPassThroughMode()) {
+            log.info("Passthrough mode is enabled, sending message to the Adapter");
+            resp = forwardToAgency(crossGatewayQueryRequest, homeCommunityId);
         } else {
-            log.warn("Document Query Service is disabled");
-
-            // AssignEmptyResponse
-            resp.setTotalResultCount(NhincConstants.NHINC_ADHOC_QUERY_NO_RESULT_COUNT);
-            resp.setStatus(NhincConstants.NHINC_ADHOC_QUERY_SUCCESS_RESPONSE);
+            resp = queryInternalDocRegistry(crossGatewayQueryRequest, homeCommunityId);
         }
+        // AssignEmptyResponse
+        resp.setTotalResultCount(NhincConstants.NHINC_ADHOC_QUERY_NO_RESULT_COUNT);
+        resp.setStatus(NhincConstants.NHINC_ADHOC_QUERY_SUCCESS_RESPONSE);
 
         // create an audit record for the response
         auditAdhocQueryResponse(resp, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION,
@@ -160,27 +154,6 @@ public class NhinDocQueryOrchImpl {
     }
 
     /**
-     * Checks the gateway.properties file to see if the DOCUMENT_QUERY_SERVICE is enabled.
-     *
-     * Replaces the BPEL logic: AssignServiceDocQueryPropInput InvokeDocQueryEnabledProp
-     *
-     * @return Returns true if the DOCUMENT_QUERY_SERVICE is enabled in the properties file.
-     */
-    private boolean isServiceEnabled() {
-        boolean serviceEnabled = false;
-        try {
-            serviceEnabled = PropertyAccessor.getInstance().getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE,
-                    NhincConstants.NHINC_DOCUMENT_QUERY_SERVICE_NAME);
-        } catch (PropertyAccessException ex) {
-            log.error("Error: Failed to retrieve " + NhincConstants.NHINC_DOCUMENT_QUERY_SERVICE_NAME
-                    + " from property file: " + NhincConstants.GATEWAY_PROPERTY_FILE);
-            log.error(ex.getMessage());
-        }
-
-        return serviceEnabled;
-    }
-
-    /**
      * Checks to see if the query should be handled internally or passed through to an adapter.
      *
      * @return Returns true if the documentQueryPassthrough property of the gateway.properties file is true.
@@ -211,8 +184,8 @@ public class NhinDocQueryOrchImpl {
         AdhocQueryResponse resp = new AdhocQueryResponse();
 
         // Audit the Audit Log Query Request Message sent to the Adapter Interface
-        auditAdhocQueryRequest(adhocQueryRequestMsg,
-                NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE, communityID);
+        auditAdhocQueryRequest(adhocQueryRequestMsg, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION,
+                NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE, communityID);
 
         gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayQueryRequestType crossGatewayQueryEventsRequest = new gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayQueryRequestType();
         crossGatewayQueryEventsRequest.setAssertion(adhocQueryRequestMsg.getAssertion());

@@ -48,7 +48,7 @@ import gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory;
  * @author Jon Hoppesch, Les Westberg
  */
 public class AdapterComponentDocSubmissionRequestProxyObjectFactory extends ComponentProxyObjectFactory {
-    private static final String CONFIG_FILE_NAME = "AdapterComponentDocSubmissionRequestProxyConfig.xml";
+    private static final String CONFIG_FILE_NAME = "DocumentSubmissionDefferedRequestProxyConfig.xml";
     private static final String BEAN_NAME = "adaptercomponentdocsubmissionrequest";
 
     /**

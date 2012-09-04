@@ -36,7 +36,7 @@ import gov.hhs.fha.nhinc.properties.PropertyAccessor;
  * @author dunnek
  */
 public class RoutingObjectFactory {
-    private static final String CONFIG_FILE_NAME = "NhinXDRRoutingProxyConfig.xml";
+    private static final String CONFIG_FILE_NAME = "DocumentSubmissionProxyConfig.xml";
 
     public static final String BEAN_REFERENCE_IMPLEMENTATION = "reference";
 

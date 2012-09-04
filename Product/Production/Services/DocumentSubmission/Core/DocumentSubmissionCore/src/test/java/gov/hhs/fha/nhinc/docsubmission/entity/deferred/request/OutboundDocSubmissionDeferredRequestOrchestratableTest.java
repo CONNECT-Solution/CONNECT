@@ -60,13 +60,6 @@ public class OutboundDocSubmissionDeferredRequestOrchestratableTest {
     }
     
     @Test(expected=UnsupportedOperationException.class)
-    public void testIsEnabled() throws UnsupportedOperationException {
-        OutboundDocSubmissionDeferredRequestOrchestratable orchestratable = createOutboundDocSubmissionDeferredRequestOrchestratable();
-        
-        orchestratable.isEnabled();
-    }
-    
-    @Test(expected=UnsupportedOperationException.class)
     public void testIsPassthru() throws UnsupportedOperationException {
         OutboundDocSubmissionDeferredRequestOrchestratable orchestratable = createOutboundDocSubmissionDeferredRequestOrchestratable();
         

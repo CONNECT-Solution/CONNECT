@@ -35,7 +35,7 @@ import gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory;
  * @author Neil Webb
  */
 public class EntityPatientDiscoveryProxyObjectFactory extends ComponentProxyObjectFactory {
-    private static final String CONFIG_FILE_NAME = "EntityPatientDiscoveryProxyConfig.xml";
+    private static final String CONFIG_FILE_NAME = "PatientDiscoveryProxyConfig.xml";
     private static final String BEAN_NAME_ENTITY_PATIENT_DISCOVERY = "entitypatientdiscovery";
 
     protected String getConfigFileName() {

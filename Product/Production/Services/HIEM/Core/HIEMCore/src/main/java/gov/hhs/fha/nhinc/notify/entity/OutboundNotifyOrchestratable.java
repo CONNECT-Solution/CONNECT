@@ -171,14 +171,6 @@ public class OutboundNotifyOrchestratable implements OutboundOrchestratable {
     }
 
 	/**
-	 * Check if service is enabled.
-	 * @return a boolean true if enabled
-	 */
-    public boolean isEnabled() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    /**
      * Check if pass thru mode is enabled.
      * @return a boolean true if in passthru
      */

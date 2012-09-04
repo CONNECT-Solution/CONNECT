@@ -109,10 +109,6 @@ public class CONNECTOutboundOrchestratorTest {
             return test.new NhinDelegateImpl();
         }
 
-        public boolean isEnabled() {
-            return true;
-        }
-
         public boolean isPassthru() {
             return true;
         }

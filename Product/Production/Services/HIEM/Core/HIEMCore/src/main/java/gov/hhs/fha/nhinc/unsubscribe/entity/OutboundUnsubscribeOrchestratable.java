@@ -119,10 +119,6 @@ public class OutboundUnsubscribeOrchestratable implements OutboundOrchestratable
         return NhincConstants.NHINC_XDR_SERVICE_NAME;
     }
 
-    public boolean isEnabled() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
     public boolean isPassthru() {
         throw new UnsupportedOperationException("Not supported yet.");
     }

@@ -33,7 +33,7 @@ import gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory;
  */
 public class EntityDocSubmissionDeferredResponseProxyObjectFactory extends ComponentProxyObjectFactory {
 
-    private static final String CONFIG_FILE_NAME = "EntityXDRAsyncRespProxyConfig.xml";
+    private static final String CONFIG_FILE_NAME = "DocumentSubmissionDefferedResponseProxyConfig.xml";
     private static final String BEAN_NAME = "entityxdrasyncresp";
 
     protected String getConfigFileName() {

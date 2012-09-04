@@ -34,7 +34,7 @@ import gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory;
  */
 public class AdapterPatientDiscoveryDeferredReqErrorProxyObjectFactory extends ComponentProxyObjectFactory implements
         GenericFactory<AdapterPatientDiscoveryDeferredReqErrorProxy> {
-    private static final String CONFIG_FILE_NAME = "AdapterPatientDiscoveryAsyncReqErrorProxyConfig.xml";
+    private static final String CONFIG_FILE_NAME = "PatientDiscoveryDeferredRequestProxyConfig.xml";
     private static final String BEAN_NAME = "adapterpatientdiscoveryasyncreqerror";
 
     protected String getConfigFileName() {

@@ -90,10 +90,6 @@ public class OutboundOrchestratableTest {
             return null;
         }
 
-        public boolean isEnabled() {
-            return true;
-        }
-
         public boolean isPassthru() {
             return false;
         }

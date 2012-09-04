@@ -7,7 +7,7 @@
 	The beans available in this file must be identified in the "description" element for the Spring configuration application. Beans are listed between braces 
 	in the description separated with a comma like the following sample: {somebean,anotherbean}
 -->
-	<description>Beans included in this file: {adapterdocsubmission,adaptercomponentdocsubmission,passthrudocsubmission}</description>
+	<description>Beans included in this file: {adapterdocsubmission,adaptercomponentdocsubmission,passthrudocsubmission,entitydocsubmission,nhinxdr,reference,chiep}</description>
 
 	<!-- adapterdocsubmission -->
 	<!-- No-op Implementation -->
@@ -75,6 +75,51 @@
 	<!-- Unsecured web service Implementation -->
 	<bean class="gov.hhs.fha.nhinc.docsubmission.passthru.proxy.PassthruDocSubmissionProxyWebServiceUnsecuredImpl" id="passthrudocsubmissionwsunsecured" name="passthrudocsubmissionwsunsecured"> 
 		<meta key="impltype" value="wsunsecured"/>
+	</bean>
+	
+	<!-- Beans defined for entitydocsubmission -->
+
+    <!-- No-op Implementation -->
+	<bean class="gov.hhs.fha.nhinc.docsubmission.entity.proxy.EntityDocSubmissionProxyNoOpImpl" id="entitydocsubmissionnoop" name="entitydocsubmissionnoop"> 
+		<meta key="impltype" value="noop"/>
 	</bean> 
+
+	<!-- Java Implementation -->
+	<bean class="gov.hhs.fha.nhinc.docsubmission.entity.proxy.EntityDocSubmissionProxyJavaImpl" id="entitydocsubmissionjava" name="entitydocsubmissionjava"> 
+		<meta key="impltype" value="java"/>
+	</bean> 
+
+	<!-- Secured web service Implementation -->
+    <bean class="gov.hhs.fha.nhinc.docsubmission.entity.proxy.EntityDocSubmissionProxyWebServiceSecuredImpl" id="entitydocsubmission" name="entitydocsubmissionwssecured"> 
+		<meta key="impltype" value="wssecured"/>
+		<meta key="default" value="true"/>
+	</bean> 
+
+	<!-- Unsecured web service Implementation -->
+	<bean class="gov.hhs.fha.nhinc.docsubmission.entity.proxy.EntityDocSubmissionProxyWebServiceUnsecuredImpl" id="entitydocsubmissionwsunsecured" name="entitydocsubmissionwsunsecured"> 
+		<meta key="impltype" value="wsunsecured"/>
+	</bean>
+
+    <!-- Beans defined for nhinxdr -->
+
+    <!-- No-op Implementation -->
+	<bean class="gov.hhs.fha.nhinc.docsubmission.nhin.proxy.NhinDocSubmissionProxyNoOpImpl" id="nhinxdrnoop" name="nhinxdrnoop"> 
+		<meta key="impltype" value="noop"/>
+	</bean> 
+
+	<!-- Secured web service Implementation -->
+    <bean class="gov.hhs.fha.nhinc.docsubmission.nhin.proxy.NhinDocSubmissionProxyWebServiceSecuredImpl" id="nhinxdr" name="nhinxdrwssecured"> 
+		<meta key="impltype" value="wssecured"/>
+		<meta key="default" value="true"/>
+	</bean>
+    
+	<!-- Beans dedined : reference,chiep -->
+	
+    <!-- Reference implementation -->
+     <bean id="reference" class="gov.hhs.fha.nhinc.docsubmission.adapter.component.routing.ConnectReference"> 
+	</bean> 
+     
+     <bean id="chiep" class="gov.hhs.fha.nhinc.docsubmission.adapter.component.routing.CHiep"> 
+	</bean>   	
 
 </beans>

@@ -54,25 +54,6 @@ public class NhinDocSubmissionUtils {
     }
 
     /**
-     * Checks the gateway.properties file to see if a specified Patient Discovery Service is enabled.
-     * @param serviceName the service name
-     * @return Returns true if a specified Patient Discovery Service is enabled in the properties file.
-     */
-    public boolean isServiceEnabled(String serviceName) {
-        boolean serviceEnabled = false;
-        try {
-            serviceEnabled = PropertyAccessor.getInstance().
-                    getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE, serviceName);
-        } catch (PropertyAccessException ex) {
-            log.error("Error: Failed to retrieve " + serviceName + " from property file: "
-                    + NhincConstants.GATEWAY_PROPERTY_FILE);
-            log.error(ex.getMessage());
-        }
-
-        return serviceEnabled;
-    }
-
-    /**
      * Checks to see if the query should be handled internally or passed through to an adapter.
      * @param passThruProperty the passthough property
      * @return Returns true if the pass through property for a specified Patient Discovery Service in the

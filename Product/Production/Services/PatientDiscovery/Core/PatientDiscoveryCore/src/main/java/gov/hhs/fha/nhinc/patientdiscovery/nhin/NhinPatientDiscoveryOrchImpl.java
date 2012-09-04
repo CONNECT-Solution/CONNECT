@@ -26,6 +26,11 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery.nhin;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.hl7.v3.PRPAIN201305UV02;
+import org.hl7.v3.PRPAIN201306UV02;
+
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.generic.GenericFactory;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
@@ -34,11 +39,6 @@ import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryException;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryProcessor;
 import gov.hhs.fha.nhinc.patientdiscovery.adapter.proxy.AdapterPatientDiscoveryProxy;
 import gov.hhs.fha.nhinc.properties.ServicePropertyAccessor;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.hl7.v3.PRPAIN201305UV02;
-import org.hl7.v3.PRPAIN201306UV02;
 
 /**
  *
@@ -79,11 +79,7 @@ public class NhinPatientDiscoveryOrchImpl implements InboundPatientDiscoveryOrch
 
         PRPAIN201306UV02 response = new PRPAIN201306UV02();
 
-        // Check if the Patient Discovery Service is enabled
-        if (isServiceEnabled()) {
-
-            response = auditAndProcess(body, assertion, auditLogger);
-        }
+        response = auditAndProcess(body, assertion, auditLogger);
 
         // Send response back to the initiating Gateway
         log.debug("Exiting NhinPatientDiscoveryImpl.respondingGatewayPRPAIN201305UV02");
@@ -143,15 +139,6 @@ public class NhinPatientDiscoveryOrchImpl implements InboundPatientDiscoveryOrch
         adapterResp = patientDiscoveryProcessor.process201305(body, assertion);
         auditLogger.auditAdapter201306(adapterResp, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
         return adapterResp;
-    }
-
-    /**
-     * Checks the gateway.properties file to see if the Patient Discovery Service is enabled.
-     *
-     * @return Returns true if the servicePatientDiscovery is enabled in the properties file.
-     */
-    protected boolean isServiceEnabled() {
-        return servicePropertyAccessor.isServiceEnabled();
     }
 
     /**

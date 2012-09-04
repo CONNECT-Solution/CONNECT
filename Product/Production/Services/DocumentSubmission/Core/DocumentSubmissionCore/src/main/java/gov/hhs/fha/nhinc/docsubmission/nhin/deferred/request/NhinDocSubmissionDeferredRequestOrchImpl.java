@@ -45,7 +45,6 @@ import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 
-
 public class NhinDocSubmissionDeferredRequestOrchImpl {
 
     public static final String XDR_POLICY_ERROR = "CONNECTPolicyCheckFailed";
@@ -58,22 +57,17 @@ public class NhinDocSubmissionDeferredRequestOrchImpl {
 
         auditRequestFromNhin(body, assertion);
 
-        if (isServiceEnabled()) {
-            if (!(isInPassThroughMode())) {
-                String localHCID = getLocalHCID();
-                if (isPolicyValid(body, assertion, localHCID)) {
-                    getLogger().debug("Policy Check Succeeded");
-                    response = sendToAdapter(body, assertion);
-                } else {
-                    getLogger().error("Policy Check Failed");
-                    response = sendErrorToAdapter(body, assertion, "Policy Check Failed");
-                }
-            } else {
+        if (!(isInPassThroughMode())) {
+            String localHCID = getLocalHCID();
+            if (isPolicyValid(body, assertion, localHCID)) {
+                getLogger().debug("Policy Check Succeeded");
                 response = sendToAdapter(body, assertion);
+            } else {
+                getLogger().error("Policy Check Failed");
+                response = sendErrorToAdapter(body, assertion, "Policy Check Failed");
             }
         } else {
-            getLogger().warn("Document Submission Request Service is not enabled");
-            response = sendErrorToAdapter(body, assertion, "Policy Check Failed");
+            response = sendToAdapter(body, assertion);
         }
 
         auditResponseToNhin(response, assertion);
@@ -96,8 +90,7 @@ public class NhinDocSubmissionDeferredRequestOrchImpl {
                 NhincConstants.POLICYENGINE_INBOUND_DIRECTION);
     }
 
-    private XDRAcknowledgementType sendToAdapter(ProvideAndRegisterDocumentSetRequestType body,
-            AssertionType assertion) {
+    private XDRAcknowledgementType sendToAdapter(ProvideAndRegisterDocumentSetRequestType body, AssertionType assertion) {
 
         AdapterDocSubmissionDeferredRequestProxy proxy = getAdapterDocSubmissionDeferredRequestProxy();
         XDRAcknowledgementType response = proxy.provideAndRegisterDocumentSetBRequest(body, assertion);
@@ -118,7 +111,7 @@ public class NhinDocSubmissionDeferredRequestOrchImpl {
         getXDRAuditLogger().auditNhinXDR(request, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
     }
 
-    private void auditResponseToNhin(XDRAcknowledgementType response,  AssertionType assertion) {
+    private void auditResponseToNhin(XDRAcknowledgementType response, AssertionType assertion) {
         getXDRAuditLogger().auditAcknowledgement(response, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION,
                 NhincConstants.XDR_REQUEST_ACTION);
     }
@@ -163,23 +156,22 @@ public class NhinDocSubmissionDeferredRequestOrchImpl {
     }
 
     protected AdapterDocSubmissionDeferredRequestProxy getAdapterDocSubmissionDeferredRequestProxy() {
-        return new AdapterDocSubmissionDeferredRequestProxyObjectFactory().getAdapterDocSubmissionDeferredRequestProxy();
+        return new AdapterDocSubmissionDeferredRequestProxyObjectFactory()
+                .getAdapterDocSubmissionDeferredRequestProxy();
     }
 
     protected AdapterDocSubmissionDeferredRequestErrorProxy getAdapterDocSubmissionDeferredRequestErrorProxy() {
-        return new AdapterDocSubmissionDeferredRequestErrorProxyObjectFactory().getAdapterDocSubmissionDeferredRequestErrorProxy();
+        return new AdapterDocSubmissionDeferredRequestErrorProxyObjectFactory()
+                .getAdapterDocSubmissionDeferredRequestErrorProxy();
     }
 
     protected NhinDocSubmissionUtils getNhinDocSubmissionUtils() {
         return NhinDocSubmissionUtils.getInstance();
     }
 
-    protected boolean isServiceEnabled() {
-        return getNhinDocSubmissionUtils().isServiceEnabled(NhincConstants.DOC_SUBMISSION_DEFERRED_REQ_SERVICE_PROP);
-    }
-
     protected boolean isInPassThroughMode() {
-        return getNhinDocSubmissionUtils().isInPassThroughMode(NhincConstants.DOC_SUBMISSION_DEFERRED_REQ_PASSTHRU_PROP);
+        return getNhinDocSubmissionUtils()
+                .isInPassThroughMode(NhincConstants.DOC_SUBMISSION_DEFERRED_REQ_PASSTHRU_PROP);
     }
 
 }

@@ -39,10 +39,6 @@ import gov.hhs.fha.nhinc.orchestration.PolicyTransformer;
  */
 public class TestOrchestratable implements OutboundOrchestratable{
 
-    public boolean isEnabled() {
-        return false;
-    }
-
     public boolean isPassthru() {
         return false;
     }
