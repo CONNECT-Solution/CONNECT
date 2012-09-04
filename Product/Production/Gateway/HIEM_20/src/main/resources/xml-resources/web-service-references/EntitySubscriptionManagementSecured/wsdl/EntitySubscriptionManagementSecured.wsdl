@@ -63,7 +63,7 @@
     xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy"
     xmlns:wspp="http://java.sun.com/xml/ns/wsit/policy"
     xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
-    xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy"
+    xmlns:sp="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702"
     xmlns:sc="http://schemas.sun.com/2006/03/wss/server">
     <wsdl:import namespace="http://docs.oasis-open.org/wsrf/rw-2" 
                location="rw-2.wsdl"/>
@@ -201,7 +201,7 @@
         </wsdl:operation>
     </wsdl:portType>
     
-    <wsdl:binding name="EntityNotificationProducerSecuredBindingSoap12" 
+    <wsdl:binding name="EntityNotificationProducerSecuredBindingSoap" 
                 type="tns:EntityNotificationProducerSecuredPortType">
         <wsp:PolicyReference URI="#EntityNotificationProducerSecuredPortType_SoapPolicy"/>
         <soap:binding style="document" 
@@ -266,7 +266,7 @@
         </wsdl:operation>
     </wsdl:binding>
     
-    <wsdl:binding name="EntitySubscriptionManagerSecuredBindingSoap12" 
+    <wsdl:binding name="EntitySubscriptionManagerSecuredBindingSoap" 
                 type="tns:EntitySubscriptionManagerSecuredPortType">
         <soap:binding style="document" 
                   transport="http://schemas.xmlsoap.org/soap/http"/>
@@ -290,17 +290,16 @@
         </wsdl:operation>
     </wsdl:binding>
     <wsdl:service name="EntityNotificationProducerSecured">
-        <wsdl:port name="EntityNotificationProducerSecuredPortSoap12" 
-               binding="tns:EntityNotificationProducerSecuredBindingSoap12">
-            <soap:address 
-         location="https://localhost:${HttpsDefaultPort}/NhinConnect/EntityNotificationProducerSecured"/>
+        <wsdl:port name="EntityNotificationProducerSecuredPortSoap" 
+               binding="tns:EntityNotificationProducerSecuredBindingSoap">
+            <soap:address location="https://localhost:${HttpsDefaultPort}/Gateway/HIEM/2_0/EntityNotificationProducerSecured"/>
         </wsdl:port>
     </wsdl:service>
     <wsdl:service name="EntitySubscriptionManagerSecured">
-        <wsdl:port name="EntitySubscriptionManagerSecuredPortSoap12" 
-               binding="tns:EntitySubscriptionManagerSecuredBindingSoap12">
+        <wsdl:port name="EntitySubscriptionManagerSecuredPortSoap" 
+               binding="tns:EntitySubscriptionManagerSecuredBindingSoap">
             <soap:address 
-         location="https://localhost:${HttpsDefaultPort}/NhinConnect/EntitySubscriptionManagerSecured"/>
+         location="https://localhost:${HttpsDefaultPort}/Gateway/HIEM/2_0/EntitySubscriptionManagerSecured"/>
         </wsdl:port>
     </wsdl:service>
     <plnk:partnerLinkType name="EntityNotificationProducer">
@@ -328,13 +327,6 @@
    <wsp:Policy wsu:Id="Subscription_Binding_SoapPolicy">
         <wsp:ExactlyOne>
             <wsp:All>
-                <wsaw:UsingAddressing xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"/>
-                
-                <sc:KeyStore wspp:visibility="private"
-                     aliasSelector="gov.hhs.fha.nhinc.callback.KeyStoreServerAliasSelector" 
-                     callbackHandler="gov.hhs.fha.nhinc.callback.KeyStoreCallbackHandler"/>
-                <sc:TrustStore wspp:visibility="private"
-                       callbackHandler="gov.hhs.fha.nhinc.callback.TrustStoreCallbackHandler"/>
                 <sp:TransportBinding>
                     <wsp:Policy>
                         <sp:TransportToken>
@@ -384,13 +376,6 @@
    <wsp:Policy wsu:Id="EntityNotificationProducerSecuredPortType_SoapPolicy">
         <wsp:ExactlyOne>
             <wsp:All>
-                <wsaw:UsingAddressing xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"/>
-                
-                <sc:KeyStore wspp:visibility="private"
-                     aliasSelector="gov.hhs.fha.nhinc.callback.KeyStoreServerAliasSelector" 
-                     callbackHandler="gov.hhs.fha.nhinc.callback.KeyStoreCallbackHandler"/>
-                <sc:TrustStore wspp:visibility="private"
-                       callbackHandler="gov.hhs.fha.nhinc.callback.TrustStoreCallbackHandler"/>
                 <sp:TransportBinding>
                     <wsp:Policy>
                         <sp:TransportToken>

@@ -27,6 +27,12 @@
 
 package gov.hhs.fha.nhinc.messaging.service.decorator.cxf;
 
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.messaging.service.ServiceEndpoint;
+import gov.hhs.fha.nhinc.messaging.service.decorator.ServiceEndpointDecorator;
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import gov.hhs.fha.nhinc.wsa.WSAHeaderHelper;
+
 import javax.xml.ws.BindingProvider;
 
 import org.apache.commons.logging.Log;
@@ -35,17 +41,10 @@ import org.apache.cxf.endpoint.Client;
 import org.apache.cxf.frontend.ClientProxy;
 import org.apache.cxf.transport.http.HTTPConduit;
 import org.apache.cxf.transports.http.configuration.HTTPClientPolicy;
-import org.apache.cxf.ws.addressing.impl.AddressingPropertiesImpl;
-
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.messaging.service.ServiceEndpoint;
-import gov.hhs.fha.nhinc.messaging.service.decorator.ServiceEndpointDecorator;
-import gov.hhs.fha.nhinc.nhinclib.NullChecker;
-import gov.hhs.fha.nhinc.wsa.WSAHeaderHelper;
-
 import org.apache.cxf.ws.addressing.AttributedURIType;
 import org.apache.cxf.ws.addressing.JAXWSAConstants;
 import org.apache.cxf.ws.addressing.RelatesToType;
+import org.apache.cxf.ws.addressing.impl.AddressingPropertiesImpl;
 
 /**
  * @author akong and young weezy
@@ -62,11 +61,11 @@ public class WsAddressingServiceEndpointDecorator<T> extends ServiceEndpointDeco
     /**
      * 
      * @param decoratoredEndpoint
-     * @param url
+     * @param wsAddressingTo
      * @param wsAddressingAction
      * @param assertion
      */
-    public WsAddressingServiceEndpointDecorator(ServiceEndpoint<T> decoratoredEndpoint, String url,
+    public WsAddressingServiceEndpointDecorator(ServiceEndpoint<T> decoratoredEndpoint, String wsAddressingTo,
             String wsAddressingAction, AssertionType assertion) {
         super(decoratoredEndpoint);
         log = createLogger();
@@ -77,12 +76,10 @@ public class WsAddressingServiceEndpointDecorator<T> extends ServiceEndpointDeco
         maps = new AddressingPropertiesImpl();
 
         AttributedURIType to = new AttributedURIType();
-        log.debug("Setting wsa:To - " + url);
-        to.setValue(url);
+        to.setValue(wsAddressingTo);
         maps.setTo(to);
 
         AttributedURIType action = new AttributedURIType();
-        log.debug("Setting wsa:Action - " + wsAddressingAction);
         action.setValue(wsAddressingAction);
         maps.setAction(action);
 
@@ -102,18 +99,15 @@ public class WsAddressingServiceEndpointDecorator<T> extends ServiceEndpointDeco
 
         if (sRelatesTo != null) {
             RelatesToType relatesTo = new RelatesToType();
-            log.debug("Setting wsa:RelatesTo - " + sRelatesTo);
             relatesTo.setValue(sRelatesTo);
             maps.setRelatesTo(relatesTo);
         }
 
         AttributedURIType messageId = new AttributedURIType();
-        log.debug("Setting wsa:MessageId - " + sMessageId);
         messageId.setValue(sMessageId);
         maps.setMessageID(messageId);
 
-        log.debug("Setting wsa attributes on the request context.");
-        bindingProviderPort.getRequestContext().put(JAXWSAConstants.CLIENT_ADDRESSING_PROPERTIES, maps);
+        bindingProviderPort.getRequestContext().put(JAXWSAConstants.CLIENT_ADDRESSING_PROPERTIES, maps);        
     }
 
     protected Log createLogger() {

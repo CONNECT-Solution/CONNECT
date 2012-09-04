@@ -39,12 +39,14 @@ public class SAML2AssertionExtractor {
         MessageContext mContext = (MessageContext) context.getMessageContext();
         SoapHeader header = getSecuritySoapHeader(mContext);
 
-        Object obj = header.getObject();
-        Element element = (Element) obj;
+        if (header != null) {
+            Object obj = header.getObject();
+            Element element = (Element) obj;
 
-        SAMLExtractorDOMFactory factory = new SAMLExtractorDOMFactory();
-        SAMLExtractorDOM extractor = factory.getExtractor();
-        target = extractor.extractSAMLAssertion(element);
+            SAMLExtractorDOMFactory factory = new SAMLExtractorDOMFactory();
+            SAMLExtractorDOM extractor = factory.getExtractor();
+            target = extractor.extractSAMLAssertion(element);
+        }
 
         return target;
     }

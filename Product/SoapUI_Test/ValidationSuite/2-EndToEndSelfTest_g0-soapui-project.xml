@@ -3883,7 +3883,6 @@ DeleteFile(backupUddiFile, log);
                   <urn3:originalText>phoneCode</urn3:originalText>
                </urn3:phoneNumberType>
             </urn3:phoneNumber>
-            <!-- urn3:purposeOfDisclosure xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">TREATMENT</urn3:purposeOfDisclosure -->
             <urn3:secondWitnessAddress xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <urn3:addressType>
                   <urn3:code>AddrCode</urn3:code>
@@ -3988,7 +3987,6 @@ DeleteFile(backupUddiFile, log);
                   <urn3:fullName>Kasrl S. Skagerberg</urn3:fullName>
                </urn3:personName>
                <urn3:userName>kskagerberg</urn3:userName>
-               <!-- urn3:role>Pharmacy</urn3:role -->
                <urn3:org>
                   <urn3:description>${#Project#LocalHCDescription}</urn3:description>
                   <urn3:homeCommunityId>${#Project#LocalHCID}</urn3:homeCommunityId>
@@ -4606,9 +4604,7 @@ DeleteFile(backupUddiFile, log);
                <nccommon:streetAddress>AddrStreet</nccommon:streetAddress>
                <nccommon:zipCode>AddrZip</nccommon:zipCode>
             </nccommon:address>
-            <nccommon:dateOfBirth xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">06/04/1959 05:21:00</nccommon:dateOfBirth>
-            <nccommon:dateOfSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#sigDate}</nccommon:dateOfSignature>
-            <nccommon:expirationDate xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#expDate}</nccommon:expirationDate>
+            <nccommon:dateOfBirth xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">06/04/1959 05:21:00</nccommon:dateOfBirth>            
             <nccommon:explanationNonClaimantSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">Electronic</nccommon:explanationNonClaimantSignature>
             <nccommon:haveSecondWitnessSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</nccommon:haveSecondWitnessSignature>
             <nccommon:haveSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</nccommon:haveSignature>
@@ -4646,7 +4642,6 @@ DeleteFile(backupUddiFile, log);
                   <nccommon:originalText>phoneCode</nccommon:originalText>
                </nccommon:phoneNumberType>
             </nccommon:phoneNumber>
-            <nccommon:purposeOfDisclosure xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">TREATMENT</nccommon:purposeOfDisclosure>
             <nccommon:secondWitnessAddress xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <nccommon:addressType>
                   <nccommon:code>AddrCode</nccommon:code>
@@ -4751,7 +4746,6 @@ DeleteFile(backupUddiFile, log);
                   <nccommon:fullName>Kasrl S. Skagerberg</nccommon:fullName>
                </nccommon:personName>
                <nccommon:userName>kskagerb</nccommon:userName>
-               <nccommon:role>Pharmacy</nccommon:role>
                <nccommon:org>
                   <nccommon:description>${#Project#RemoteHCDescription}</nccommon:description>
                   <nccommon:homeCommunityId>${#Project#RemoteHCID}</nccommon:homeCommunityId>
@@ -4975,8 +4969,6 @@ throw new RuntimeException('Unable to locate master/gateway.properties')
                <nccommon:zipCode>AddrZip</nccommon:zipCode>
             </nccommon:address>
             <nccommon:dateOfBirth xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">06/04/1959 05:21:00</nccommon:dateOfBirth>
-            <nccommon:dateOfSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#sigDate}</nccommon:dateOfSignature>
-            <nccommon:expirationDate xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#expDate}</nccommon:expirationDate>
             <nccommon:explanationNonClaimantSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">Electronic</nccommon:explanationNonClaimantSignature>
             <nccommon:haveSecondWitnessSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</nccommon:haveSecondWitnessSignature>
             <nccommon:haveSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</nccommon:haveSignature>
@@ -5014,7 +5006,6 @@ throw new RuntimeException('Unable to locate master/gateway.properties')
                   <nccommon:originalText>phoneCode</nccommon:originalText>
                </nccommon:phoneNumberType>
             </nccommon:phoneNumber>
-            <nccommon:purposeOfDisclosure xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">TREATMENT</nccommon:purposeOfDisclosure>
             <nccommon:secondWitnessAddress xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <nccommon:addressType>
                   <nccommon:code>AddrCode</nccommon:code>
@@ -5119,7 +5110,6 @@ throw new RuntimeException('Unable to locate master/gateway.properties')
                   <nccommon:fullName>Kasrl S. Skagerberg</nccommon:fullName>
                </nccommon:personName>
                <nccommon:userName>kskagerb</nccommon:userName>
-               <nccommon:role>Pharmacy</nccommon:role>
                <nccommon:org>
                   <nccommon:description>${#Project#RemoteHCDescription}</nccommon:description>
                   <nccommon:homeCommunityId>${#Project#RemoteHCID}</nccommon:homeCommunityId>
@@ -5254,8 +5244,6 @@ testRunner.testCase.testSuite.project.setPropertyValue( "NotifySubscriptionID", 
                <urn4:zipCode>AddrZip</urn4:zipCode>
             </urn4:address>
             <urn4:dateOfBirth>06/04/1959 05:21:00</urn4:dateOfBirth>
-            <urn4:dateOfSignature>${#Project#sigDate}</urn4:dateOfSignature>
-            <urn4:expirationDate>${#Project#expireDate}</urn4:expirationDate>
             <urn4:explanationNonClaimantSignature>Electronic</urn4:explanationNonClaimantSignature>
             <urn4:haveSecondWitnessSignature>false</urn4:haveSecondWitnessSignature>
             <urn4:haveSignature>false</urn4:haveSignature>
@@ -5293,7 +5281,6 @@ testRunner.testCase.testSuite.project.setPropertyValue( "NotifySubscriptionID", 
                   <urn4:originalText>phoneCode</urn4:originalText>
                </urn4:phoneNumberType>
             </urn4:phoneNumber>
-            <urn4:purposeOfDisclosure>TREATMENT</urn4:purposeOfDisclosure>
             <urn4:secondWitnessAddress>
                <urn4:addressType>
                   <urn4:code>AddrCode</urn4:code>
@@ -5398,7 +5385,6 @@ testRunner.testCase.testSuite.project.setPropertyValue( "NotifySubscriptionID", 
                   <urn4:fullName>Kasrl S. Skagerberg</urn4:fullName>
                </urn4:personName>
                <urn4:userName>kskagerb</urn4:userName>
-               <urn4:role>Pharmacy</urn4:role>
                <urn4:org>
                   <urn4:description>${#Project#LocalHCDescription}</urn4:description>
                   <urn4:homeCommunityId>${#Project#LocalHCID}</urn4:homeCommunityId>
@@ -5610,8 +5596,6 @@ throw new RuntimeException('Unable to locate master/gateway.properties')
                <nccommon:zipCode>AddrZip</nccommon:zipCode>
             </nccommon:address>
             <nccommon:dateOfBirth xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">06/04/1959 05:21:00</nccommon:dateOfBirth>
-            <nccommon:dateOfSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#sigDate}</nccommon:dateOfSignature>
-            <nccommon:expirationDate xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#expDate}</nccommon:expirationDate>
             <nccommon:explanationNonClaimantSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">Electronic</nccommon:explanationNonClaimantSignature>
             <nccommon:haveSecondWitnessSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</nccommon:haveSecondWitnessSignature>
             <nccommon:haveSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</nccommon:haveSignature>
@@ -5649,7 +5633,6 @@ throw new RuntimeException('Unable to locate master/gateway.properties')
                   <nccommon:originalText>phoneCode</nccommon:originalText>
                </nccommon:phoneNumberType>
             </nccommon:phoneNumber>
-            <nccommon:purposeOfDisclosure xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">TREATMENT</nccommon:purposeOfDisclosure>
             <nccommon:secondWitnessAddress xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <nccommon:addressType>
                   <nccommon:code>AddrCode</nccommon:code>
@@ -5754,7 +5737,6 @@ throw new RuntimeException('Unable to locate master/gateway.properties')
                   <nccommon:fullName>Kasrl S. Skagerberg</nccommon:fullName>
                </nccommon:personName>
                <nccommon:userName>kskagerb</nccommon:userName>
-               <nccommon:role>Pharmacy</nccommon:role>
                <nccommon:org>
                   <nccommon:description>${#Project#RemoteHCDescription}</nccommon:description>
                   <nccommon:homeCommunityId>${#Project#RemoteHCID}</nccommon:homeCommunityId>
@@ -5880,8 +5862,6 @@ testRunner.testCase.testSuite.project.setPropertyValue( "UnSubscriptionID", subI
                <nccommon:zipCode>AddrZip</nccommon:zipCode>
             </nccommon:address>
             <nccommon:dateOfBirth xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">06/04/1959 05:21:00</nccommon:dateOfBirth>
-            <nccommon:dateOfSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#sigDate}</nccommon:dateOfSignature>
-            <nccommon:expirationDate xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#expireDate}</nccommon:expirationDate>
             <nccommon:explanationNonClaimantSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">Electronic</nccommon:explanationNonClaimantSignature>
             <nccommon:haveSecondWitnessSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</nccommon:haveSecondWitnessSignature>
             <nccommon:haveSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</nccommon:haveSignature>
@@ -5919,7 +5899,6 @@ testRunner.testCase.testSuite.project.setPropertyValue( "UnSubscriptionID", subI
                   <nccommon:originalText>phoneCode</nccommon:originalText>
                </nccommon:phoneNumberType>
             </nccommon:phoneNumber>
-            <nccommon:purposeOfDisclosure xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">TREATMENT</nccommon:purposeOfDisclosure>
             <nccommon:secondWitnessAddress xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <nccommon:addressType>
                   <nccommon:code>AddrCode</nccommon:code>
@@ -6024,7 +6003,6 @@ testRunner.testCase.testSuite.project.setPropertyValue( "UnSubscriptionID", subI
                   <nccommon:fullName>Kasrl S. Skagerberg</nccommon:fullName>
                </nccommon:personName>
                <nccommon:userName>kskagerb</nccommon:userName>
-               <nccommon:role>Pharmacy</nccommon:role>
                <nccommon:org>
                   <nccommon:description>${#Project#RemoteHCDescription}</nccommon:description>
                   <nccommon:homeCommunityId>${#Project#RemoteHCID}</nccommon:homeCommunityId>
@@ -6076,9 +6054,6 @@ testRunner.testCase.testSuite.project.setPropertyValue( "UnSubscriptionID", subI
                </nccommon:evidence>
             </nccommon:samlAuthzDecisionStatement>
          </urn:assertion>
-         <urn:nhinTargetSystem>
-            <urn2:url>${#Project#SubscriptionManagerEndpointAddress}</urn2:url>
-         </urn:nhinTargetSystem>
       </urn:UnsubscribeRequest>
    </soapenv:Body>
 </soapenv:Envelope>]]></con:request>

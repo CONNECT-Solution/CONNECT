@@ -27,8 +27,6 @@
 
 package gov.hhs.fha.nhinc.messaging.client;
 
-import java.util.HashMap;
-
 import gov.hhs.fha.nhinc.messaging.client.CONNECTCXFClientUnsecured;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
@@ -40,11 +38,16 @@ import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
  */
 public class CONNECTCXFClientFactory extends CONNECTClientFactory {
 
-    private static HashMap<String, Object> clientHashMap = new HashMap<String, Object>();
-
     public <T> CONNECTClient<T> getCONNECTClientSecured(ServicePortDescriptor<T> portDescriptor, String url,
             AssertionType assertion) {
         CONNECTCXFClientSecured<T> client = new CONNECTCXFClientSecured<T>(portDescriptor, url, assertion);
+
+        return client;
+    }
+    
+    public <T> CONNECTClient<T> getCONNECTClientSecured(ServicePortDescriptor<T> portDescriptor, String url,
+            AssertionType assertion, String wsAddressingTo) {
+        CONNECTCXFClientSecured<T> client = new CONNECTCXFClientSecured<T>(portDescriptor, url, assertion, wsAddressingTo);
 
         return client;
     }

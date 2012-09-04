@@ -36,7 +36,8 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyResponseType;
-import gov.hhs.fha.nhinc.hiem.consumerreference.ReferenceParametersElements;
+import gov.hhs.fha.nhinc.common.nhinccommoninternalorch.NotifyRequestType;
+import gov.hhs.fha.nhinc.hiem.consumerreference.SoapMessageElements;
 import gov.hhs.fha.nhinc.hiem.consumerreference.ReferenceParametersHelper;
 import gov.hhs.fha.nhinc.hiem.dte.NotifyBuilder;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
@@ -69,335 +70,316 @@ import org.xml.sax.InputSource;
 
 public class EntityNotifyOrchImpl {
 
-		private static Log log = LogFactory.getLog(EntityNotifyOrchImpl.class);
+    private static Log log = LogFactory.getLog(EntityNotifyOrchImpl.class);
 
-		/**
-		 * Generic constructor.
-		 */
-		public EntityNotifyOrchImpl(){
-			log = getLogger();
-		}
+    /**
+     * Generic constructor.
+     */
+    public EntityNotifyOrchImpl() {
+        log = getLogger();
+    }
 
-		/**
-		 * Return the logger.
-		 * @return the logger
-		 */
-		protected Log getLogger() {
-	        return log;
-	    }
+    /**
+     * Return the logger.
+     * 
+     * @return the logger
+     */
+    protected Log getLogger() {
+        return log;
+    }
 
-		/**
-		 * This method performs the entity orchestration for an notify at the entity.
-		 * @param notify - This request
-		 * @param assertion - The assertion of the message
-		 * @param rawNotifyXml - The target of the request
-		 * @throws Exception 
-		 */
-		public void processNotify(Notify notify, AssertionType assertion, String rawNotifyXml) 
-				throws Exception {
+    /**
+     * This method performs the entity orchestration for an notify at the entity.
+     * 
+     * @param notify - This request
+     * @param assertion - The assertion of the message
+     * @param rawNotifyXml - The target of the request
+     * @throws Exception
+     */
+    public void processNotify(Notify notify, AssertionType assertion, String rawNotifyXml) throws Exception {
 
-	        auditRequestFromAdapter(notify, assertion);
-	        
-	        log.debug("Received Notify: " + rawNotifyXml);
-	        if (assertion == null) {
-	            log.warn("EntityNotifyProcessor.processNotify - " 
-	            		+ "The assertion was null for the entity notify message");
-	        } else {
-	            log.warn("EntityNotifyProcessor.processNotify - " 
-	            		+ "The assertion was not null for the entity notify message");
-	        }
+        auditRequestFromAdapter(notify, assertion);
 
-	        NodeList notificationMessageNodes = getNotificationMessageNodes(rawNotifyXml);
-	        if (notificationMessageNodes != null) {
-	            for (int i = 0; i < notificationMessageNodes.getLength(); i++) {
-	                try {
-	                    Node notificationMessageNode = notificationMessageNodes.item(i);
-	                    processSingleNotify(notificationMessageNode, assertion, rawNotifyXml);
-	                } catch (XPathExpressionException ex) {
-	                    log.error("failed to process notify", ex);
-	                }
-	            }
-	        }
-	        
-	        //auditResponseToAdapter(response, assertion);
-	    }
+        log.debug("Received Notify: " + rawNotifyXml);
 
-		private void processSingleNotify(Node notificationMessageNode, AssertionType assertion, String rawNotifyXml)
-	            throws XPathExpressionException {
-	        if (assertion == null) {
-	            log.warn("EntityNotifyProcessor.processSingleNotify - " 
-	            		+ "The assertion was null for the entity notify message");
-	        } else {
-	            log.info("EntityNotifyProcessor.processSingleNotify - "
-	            		+ "The assertion was not null for the entity notify message");
-	        }
-	       
-	        if (notificationMessageNode != null) {
-	            String nodeName = notificationMessageNode.getLocalName();
-	            log.debug("Node name: " + nodeName);
-	            if (notificationMessageNode instanceof Element) {
-	                Element notificationMessageElement = (Element) notificationMessageNode;
-	                HiemSubscriptionRepositoryService service = new HiemSubscriptionRepositoryService();
-	                try {
-	                    //TODO: Switch producer to "adapter" when NHIN Subscribe supports forwarding subscription 
-	                	// to an adapter
-	                    List<HiemSubscriptionItem> subscriptions = service.RetrieveByNotificationMessage(
-	                            notificationMessageElement, "gateway");
-	                    if (subscriptions != null) {
-	                        log.info("found " + subscriptions.size() + " matching subscriptions");
+        NodeList notificationMessageNodes = getNotificationMessageNodes(rawNotifyXml);
+        if (notificationMessageNodes != null) {
+            for (int i = 0; i < notificationMessageNodes.getLength(); i++) {
+                try {
+                    Node notificationMessageNode = notificationMessageNodes.item(i);
+                    processSingleNotify(notificationMessageNode, assertion);
+                } catch (XPathExpressionException ex) {
+                    log.error("failed to process notify", ex);
+                }
+            }
+        }
 
-	                        for (HiemSubscriptionItem subscription : subscriptions) {
-	                            log.info("processing subscription.  SubscriptionReference=["
-	                                    + subscription.getSubscriptionReferenceXML() + "]");
-	                            if (subscription.getParentSubscriptionReferenceXML() != null) {
-	                                log.info("has parent - retrieving [" + subscription
-	                                		.getParentSubscriptionReferenceXML()
-	                                        + "]");
-	                                subscription = service.retrieveByLocalSubscriptionReference(subscription
-	                                        .getParentSubscriptionReferenceXML());
-	                            }
-	                            String endpoint = findNotifyEndpoint(subscription);
-	                            log.info("endpoint=" + endpoint);
+        // auditResponseToAdapter(response, assertion);
+    }
 
-	                            log.debug("extracting reference parameters from consumer reference");
-	                            ReferenceParametersHelper referenceParametersHelper = 
-	                            		new ReferenceParametersHelper();
-	                            ReferenceParametersElements referenceParametersElements = referenceParametersHelper
-	                                    .createReferenceParameterElementsFromConsumerReference(subscription
-	                                            .getSubscribeXML());
-	                            log.debug("extracted reference parameters from consumer reference");
+    private void processSingleNotify(Node notificationMessageNode, AssertionType assertion)
+            throws XPathExpressionException {
 
-	                            NhinTargetSystemType targetSystem = new NhinTargetSystemType();
-	                            targetSystem.setUrl(endpoint);
+        if (notificationMessageNode != null) {
+            String nodeName = notificationMessageNode.getLocalName();
+            log.debug("Node name: " + nodeName);
+            if (notificationMessageNode instanceof Element) {
+                Element notificationMessageElement = (Element) notificationMessageNode;
+                HiemSubscriptionRepositoryService serviceDAO = new HiemSubscriptionRepositoryService();
+                try {
+                    // TODO: Switch producer to "adapter" when NHIN Subscribe supports forwarding subscription
+                    // to an adapter
+                    List<HiemSubscriptionItem> subscriptions = serviceDAO.RetrieveByNotificationMessage(
+                            notificationMessageElement, "gateway");
+                    if (subscriptions != null) {
+                        log.info("found " + subscriptions.size() + " matching subscriptions");
 
-	                            log.debug("building notify");
-	                            Element subscriptionReferenceElement = null;
-	                            try {
-	                                subscriptionReferenceElement = XmlUtility.convertXmlToElement(subscription
-	                                        .getSubscriptionReferenceXML());
-	                            } catch (Exception ex) {
-	                                Logger.getLogger(EntityNotifyOrchImpl.class.getName())
-	                                	.log(Level.SEVERE, null, ex);
-	                            }
-	                            NotifyBuilder builder = new NotifyBuilder();
-	                            Notify notifyElement = builder.buildNotifyFromSubscribe(notificationMessageElement,
-	                                    subscriptionReferenceElement);
+                        for (HiemSubscriptionItem subscription : subscriptions) {
+                            String subscriptionRef = subscription.getSubscriptionReferenceXML();
+                            String parentSubscriptionRef = subscription.getParentSubscriptionReferenceXML();
+                            
+                            log.info("processing subscription.  SubscriptionReference=[" + subscriptionRef + "]");
+                            if (parentSubscriptionRef != null) {
+                                log.info("has parent - retrieving [" + parentSubscriptionRef + "]");
+                                subscription = serviceDAO.retrieveByLocalSubscriptionReference(parentSubscriptionRef);
+                            }
+                            String endpoint = findNotifyEndpoint(subscription);
+                            log.info("endpoint=" + endpoint);
 
-	                            sendRequestToTarget(notifyElement, referenceParametersElements, 
-	                            		assertion, targetSystem);
-	                        }
-	                    }
-	                } catch (SubscriptionRepositoryException ex) {
-	                    log.error("Error collecting subscription records: " + ex.getMessage(), ex);
-	                }
-	            }
-	        }
-	    }
+                            log.debug("extracting reference parameters from consumer reference");
+                            ReferenceParametersHelper referenceParametersHelper = new ReferenceParametersHelper();
+                            SoapMessageElements referenceParametersElements = referenceParametersHelper
+                                    .createReferenceParameterElementsFromConsumerReference(subscription
+                                            .getSubscribeXML());
+                            log.debug("extracted reference parameters from consumer reference");
 
-	    private String findNotifyEndpoint(HiemSubscriptionItem subscription) {
-	        log.debug("Begin findNotifyEndpoint");
-	        String endpoint = "";
-	        if (subscription != null) {
-	            String rawSubscribeXml = subscription.getSubscribeXML();
-	            if (rawSubscribeXml != null) {
-	                try {
-	                    String xpathQuery = "//*[local-name()='Subscribe']/*[local-name()='ConsumerReference']" 
-	                    		+ "/*[local-name()='Address']";
-	                    Node addressNode = XmlUtility.performXpathQuery(rawSubscribeXml, xpathQuery);
-	                    if (addressNode != null) {
-	                        endpoint = XmlUtility.getNodeValue(addressNode);
-	                        log.debug("Endpoint extracted from subscribe message: " + endpoint);
-	                    }
-	                } catch (XPathExpressionException ex) {
-	                    log.error("Error extracting the endpoint from a subscribe message: " + ex.getMessage(), ex);
-	                }
-	            }
-	        }
-	        log.debug("End findNotifyEndpoint");
-	        return endpoint;
-	    }
+                            NhinTargetSystemType targetSystem = new NhinTargetSystemType();
+                            targetSystem.setUrl(endpoint);
 
-	    private NodeList getNotificationMessageNodes(String rawNotifyXml) {
-	        NodeList msgNodes = null;
-	        try {
-	            javax.xml.xpath.XPathFactory factory = javax.xml.xpath.XPathFactory.newInstance();
-	            javax.xml.xpath.XPath xpath = factory.newXPath();
-	            InputSource inputSource = new InputSource(new ByteArrayInputStream(rawNotifyXml.getBytes()));
-	            log.debug("About to perform notification message node xpath query");
+                            log.debug("building notify");
+                            Element subscriptionReferenceElement = null;
+                            try {
+                                subscriptionReferenceElement = XmlUtility.convertXmlToElement(subscription
+                                        .getSubscriptionReferenceXML());
+                            } catch (Exception ex) {
+                                Logger.getLogger(EntityNotifyOrchImpl.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                            NotifyBuilder builder = new NotifyBuilder();
+                            Notify notifyElement = builder.buildNotifyFromSubscribe(notificationMessageElement,
+                                    subscriptionReferenceElement);
 
-	            msgNodes = (NodeList) xpath.evaluate(
-	            		"//*[local-name()='Notify']/*[local-name()='NotificationMessage']",
-	                    inputSource, XPathConstants.NODESET);
-	            if ((msgNodes != null) && (msgNodes.getLength() > 0)) {
-	                log.debug("Message node list was not null/empty");
-	                for (int i = 0; i < msgNodes.getLength(); i++) {
-	                    Node childNode = msgNodes.item(i);
-	                    if (childNode != null) {
-	                        String nodeName = childNode.getLocalName();
-	                        log.debug("Node name: " + nodeName);
-	                    }
-	                }
-	            } else {
-	                log.debug("Message node or first child was null");
-	            }
-	        } catch (XPathExpressionException ex) {
-	            log.error(
-	                    "XPathExpressionException exception encountered loading the notify message body: "
-	                            + ex.getMessage(), ex);
-	        }
-	        return msgNodes;
-	    }
+                            sendRequestToTarget(notifyElement, referenceParametersElements, assertion, targetSystem);
+                        }
+                    }
+                } catch (SubscriptionRepositoryException ex) {
+                    log.error("Error collecting subscription records: " + ex.getMessage(), ex);
+                }
+            }
+        }
+    }
 
-		/**
-		 * Audit the request from the adapter.
-		 * @param request The request to be audited
-		 * @param assertion The assertion to be audited
-		 */
-		private void auditRequestFromAdapter(Notify request,
-		        AssertionType assertion) {
-			log.debug("In EntitysubscribeOrchImpl.auditInputMessage");
-	        
-	        try {
-	            AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
+    private String findNotifyEndpoint(HiemSubscriptionItem subscription) {
+        log.debug("Begin findNotifyEndpoint");
+        String endpoint = "";
+        if (subscription != null) {
+            String rawSubscribeXml = subscription.getSubscribeXML();
+            if (rawSubscribeXml != null) {
+                try {
+                    String xpathQuery = "//*[local-name()='Subscribe']/*[local-name()='ConsumerReference']"
+                            + "/*[local-name()='Address']";
+                    Node addressNode = XmlUtility.performXpathQuery(rawSubscribeXml, xpathQuery);
+                    if (addressNode != null) {
+                        endpoint = XmlUtility.getNodeValue(addressNode);
+                        log.debug("Endpoint extracted from subscribe message: " + endpoint);
+                    }
+                } catch (XPathExpressionException ex) {
+                    log.error("Error extracting the endpoint from a subscribe message: " + ex.getMessage(), ex);
+                }
+            }
+        }
+        log.debug("End findNotifyEndpoint");
+        return endpoint;
+    }
 
-	            gov.hhs.fha.nhinc.common.nhinccommoninternalorch.NotifyRequestType message = 
-	            		new gov.hhs.fha.nhinc.common.nhinccommoninternalorch.NotifyRequestType();
-	            message.setAssertion(assertion);
-	            message.setNotify(request);
+    private NodeList getNotificationMessageNodes(String rawNotifyXml) {
+        NodeList msgNodes = null;
+        try {
+            javax.xml.xpath.XPathFactory factory = javax.xml.xpath.XPathFactory.newInstance();
+            javax.xml.xpath.XPath xpath = factory.newXPath();
+            InputSource inputSource = new InputSource(new ByteArrayInputStream(rawNotifyXml.getBytes()));
+            log.debug("About to perform notification message node xpath query");
 
-	            LogEventRequestType auditLogMsg = auditLogger.logNhinNotifyRequest(message,
-	                    NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE);
+            msgNodes = (NodeList) xpath.evaluate("//*[local-name()='Notify']/*[local-name()='NotificationMessage']",
+                    inputSource, XPathConstants.NODESET);
+            if ((msgNodes != null) && (msgNodes.getLength() > 0)) {
+                log.debug("Message node list was not null/empty");
+                for (int i = 0; i < msgNodes.getLength(); i++) {
+                    Node childNode = msgNodes.item(i);
+                    if (childNode != null) {
+                        String nodeName = childNode.getLocalName();
+                        log.debug("Node name: " + nodeName);
+                    }
+                }
+            } else {
+                log.debug("Message node or first child was null");
+            }
+        } catch (XPathExpressionException ex) {
+            log.error(
+                    "XPathExpressionException exception encountered loading the notify message body: "
+                            + ex.getMessage(), ex);
+        }
+        return msgNodes;
+    }
 
-	            if (auditLogMsg != null) {
-	                AuditRepositoryProxyObjectFactory auditRepoFactory = new AuditRepositoryProxyObjectFactory();
-	                AuditRepositoryProxy proxy = auditRepoFactory.getAuditRepositoryProxy();
-	                proxy.auditLog(auditLogMsg, assertion);
-	            }
-	        } catch (Throwable t) {
-	            log.error("Error logging subscribe message: " + t.getMessage(), t);
-	        }
-	    }
+    /**
+     * Audit the request from the adapter.
+     * 
+     * @param request The request to be audited
+     * @param assertion The assertion to be audited
+     */
+    private void auditRequestFromAdapter(Notify request, AssertionType assertion) {
+        log.debug("In EntitysubscribeOrchImpl.auditInputMessage");
 
-		/**
-		 * Send subscription response to target.
-		 * @param request The subscribe to send.
-		 * @param assertion The assertion to send
-		 * @param targetCommunitites The targets to be sent to
-		 * @return the response from the foreign entity
-		 */
-		private void sendRequestToTarget(
-				Notify request, ReferenceParametersElements referenceParameters,
-				AssertionType assertion, NhinTargetSystemType targetSystem) {
-			if (isPolicyValid(request, assertion)) {
-	        	log.info("Policy check successful");
-	            //send request to nhin proxy
-	        	try {
-	                sendToNhinProxy(request, referenceParameters, assertion, targetSystem);
-	            } catch (Exception e) {
-	                //TODO nhinResponse = createFailedNhinSendResponse(hcid);
-	            	String hcid = targetSystem.getHomeCommunity().getHomeCommunityId();
-	                log.error("Fault encountered while trying to send message to the nhin " + hcid, e);
-	            }
-	        } else {
-	            log.error("Failed policy check.  Sending error response.");
-	        }
-	    }
+        try {
+            AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
 
-		/**
-		 * Sends the request to the nhin proxy.
-		 * @param request the request to be sent
-		 * @param referenceParameters the reference parameters to be used
-		 * @param assertion the assertion to be used
-		 * @param nhinTargetSystem the nhin target system to be used
-		 */
-		private void sendToNhinProxy(
-	            Notify request, ReferenceParametersElements referenceParameters,
-	            AssertionType assertion, NhinTargetSystemType nhinTargetSystem) {
-			
-	        OutboundNotifyDelegate dsDelegate = getOutboundNotifyDelegate();
-	        OutboundNotifyOrchestratable dsOrchestratable = createOrchestratable(dsDelegate, request, 
-	        		referenceParameters, assertion, nhinTargetSystem);
-	        dsDelegate.process(dsOrchestratable);
-	    }
+            NotifyRequestType message = new NotifyRequestType();
+            message.setAssertion(assertion);
+            message.setNotify(request);
 
-		/**
-		 * Returns the OutboundNotifyDelegate.
-		 * @return the OutboundNotifyDelegate
-		 */
-		protected OutboundNotifyDelegate getOutboundNotifyDelegate() {
-	        return new OutboundNotifyDelegate();
-	    }
+            LogEventRequestType auditLogMsg = auditLogger.logNhinNotifyRequest(message,
+                    NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE);
 
-		/**
-		 * Create a notify orchestratable.
-		 * @param delegate The delegate to be used by the orchestratable
-		 * @param request The request to be added to the orchestrtable
-		 * @param referenceParameters The reference parameters to be added to the orchestratable
-		 * @param assertion The assertion to be added to the orchestratable
-		 * @param nhinTargetSystem The target system to be added to the orchestratable
-		 * @return the orchestratable object
-		 */
-		private OutboundNotifyOrchestratable createOrchestratable(
-	            OutboundNotifyDelegate delegate, Notify request, ReferenceParametersElements referenceParameters,
-	            AssertionType assertion, NhinTargetSystemType nhinTargetSystem) {
+            if (auditLogMsg != null) {
+                AuditRepositoryProxyObjectFactory auditRepoFactory = new AuditRepositoryProxyObjectFactory();
+                AuditRepositoryProxy proxy = auditRepoFactory.getAuditRepositoryProxy();
+                proxy.auditLog(auditLogMsg, assertion);
+            }
+        } catch (Throwable t) {
+            log.error("Error logging subscribe message: " + t.getMessage(), t);
+        }
+    }
 
-	        OutboundNotifyOrchestratable dsOrchestratable = new OutboundNotifyOrchestratable(delegate);
-	        dsOrchestratable.setAssertion(assertion);
-	        dsOrchestratable.setRequest(request);
-	        dsOrchestratable.setReferenceParameters(referenceParameters);
-	        dsOrchestratable.setTarget(nhinTargetSystem);
+    /**
+     * Send subscription response to target.
+     * 
+     * @param request The subscribe to send.
+     * @param assertion The assertion to send
+     * @param targetCommunitites The targets to be sent to
+     * @return the response from the foreign entity
+     */
+    private void sendRequestToTarget(Notify request, SoapMessageElements referenceParameters,
+            AssertionType assertion, NhinTargetSystemType targetSystem) {
+        if (isPolicyValid(request, assertion)) {
+            log.info("Policy check successful");
+            // send request to nhin proxy
+            try {
+                sendToNhinProxy(request, referenceParameters, assertion, targetSystem);
+            } catch (Exception e) {
+                // TODO nhinResponse = createFailedNhinSendResponse(hcid);
+                String hcid = targetSystem.getHomeCommunity().getHomeCommunityId();
+                log.error("Fault encountered while trying to send message to the nhin " + hcid, e);
+            }
+        } else {
+            log.error("Failed policy check.  Sending error response.");
+        }
+    }
 
-	        return dsOrchestratable;
-	    }
+    /**
+     * Sends the request to the nhin proxy.
+     * 
+     * @param request the request to be sent
+     * @param referenceParameters the reference parameters to be used
+     * @param assertion the assertion to be used
+     * @param nhinTargetSystem the nhin target system to be used
+     */
+    private void sendToNhinProxy(Notify request, SoapMessageElements referenceParameters,
+            AssertionType assertion, NhinTargetSystemType nhinTargetSystem) {
 
-		/**
-		 * Check if policy for message is valid.
-		 * @param notify The message to be checked.
-		 * @param assertion The assertion to be checked.
-		 * @return
-		 */
-		private boolean isPolicyValid(Notify notifyRequest,
-				AssertionType assertion) {
-			log.debug("In HiemNotifyImpl.checkPolicy");
-	        boolean policyIsValid = false;
+        OutboundNotifyDelegate dsDelegate = getOutboundNotifyDelegate();
+        OutboundNotifyOrchestratable dsOrchestratable = createOrchestratable(dsDelegate, request, referenceParameters,
+                assertion, nhinTargetSystem);
+        dsDelegate.process(dsOrchestratable);
+    }
 
-	        NotifyEventType policyCheckReq = new NotifyEventType();
-	        policyCheckReq.setDirection(NhincConstants.POLICYENGINE_INBOUND_DIRECTION);
-	        gov.hhs.fha.nhinc.common.eventcommon.NotifyMessageType request = 
-	        		new gov.hhs.fha.nhinc.common.eventcommon.NotifyMessageType();
-	        request.setAssertion(assertion);
-	        request.setNotify(notifyRequest);
-	        policyCheckReq.setMessage(request);
+    /**
+     * Returns the OutboundNotifyDelegate.
+     * 
+     * @return the OutboundNotifyDelegate
+     */
+    protected OutboundNotifyDelegate getOutboundNotifyDelegate() {
+        return new OutboundNotifyDelegate();
+    }
 
-	        PolicyEngineChecker policyChecker = new PolicyEngineChecker();
-	        CheckPolicyRequestType policyReq = policyChecker.checkPolicyNotify(policyCheckReq);
-	        PolicyEngineProxyObjectFactory policyEngFactory = new PolicyEngineProxyObjectFactory();
-	        PolicyEngineProxy policyProxy = policyEngFactory.getPolicyEngineProxy();
-	        CheckPolicyResponseType policyResp = policyProxy.checkPolicy(policyReq, assertion);
+    /**
+     * Create a notify orchestratable.
+     * 
+     * @param delegate The delegate to be used by the orchestratable
+     * @param request The request to be added to the orchestrtable
+     * @param referenceParameters The reference parameters to be added to the orchestratable
+     * @param assertion The assertion to be added to the orchestratable
+     * @param nhinTargetSystem The target system to be added to the orchestratable
+     * @return the orchestratable object
+     */
+    private OutboundNotifyOrchestratable createOrchestratable(OutboundNotifyDelegate delegate, Notify request,
+            SoapMessageElements referenceParameters, AssertionType assertion,
+            NhinTargetSystemType nhinTargetSystem) {
 
-	        if (policyResp.getResponse() != null && NullChecker.isNotNullish(policyResp.getResponse().getResult())
-	                && policyResp.getResponse().getResult().get(0).getDecision() == DecisionType.PERMIT) {
-	            policyIsValid = true;
-	        }
+        OutboundNotifyOrchestratable dsOrchestratable = new OutboundNotifyOrchestratable(delegate);
+        dsOrchestratable.setAssertion(assertion);
+        dsOrchestratable.setRequest(request);
+        dsOrchestratable.setReferenceParameters(referenceParameters);
+        dsOrchestratable.setTarget(nhinTargetSystem);
 
-	        log.debug("Finished HiemNotifyImpl.checkPolicy - valid: " + policyIsValid);
-	        return policyIsValid;
-		}
+        return dsOrchestratable;
+    }
 
-		/**
-		 * Check if there is a valid target to send the request to.
-		 * @param targetCommunity The community object to check for targets
-		 * @return true if there is a valid target
-		 */
-		protected boolean hasNhinTargetHomeCommunityId(
-	            NhinTargetCommunityType targetCommunity) {
+    /**
+     * Check if policy for message is valid.
+     * 
+     * @param notify The message to be checked.
+     * @param assertion The assertion to be checked.
+     * @return
+     */
+    private boolean isPolicyValid(Notify notifyRequest, AssertionType assertion) {
+        log.debug("In HiemNotifyImpl.checkPolicy");
+        boolean policyIsValid = false;
 
-	        if (targetCommunity != null
-	        		&& targetCommunity.getHomeCommunity() != null
-	                && NullChecker.isNotNullish(targetCommunity.getHomeCommunity().getHomeCommunityId())) {
-	            return true;
-	        }
+        NotifyEventType policyCheckReq = new NotifyEventType();
+        policyCheckReq.setDirection(NhincConstants.POLICYENGINE_INBOUND_DIRECTION);
+        gov.hhs.fha.nhinc.common.eventcommon.NotifyMessageType request = new gov.hhs.fha.nhinc.common.eventcommon.NotifyMessageType();
+        request.setAssertion(assertion);
+        request.setNotify(notifyRequest);
+        policyCheckReq.setMessage(request);
 
-	        return false;
-	    }
+        PolicyEngineChecker policyChecker = new PolicyEngineChecker();
+        CheckPolicyRequestType policyReq = policyChecker.checkPolicyNotify(policyCheckReq);
+        PolicyEngineProxyObjectFactory policyEngFactory = new PolicyEngineProxyObjectFactory();
+        PolicyEngineProxy policyProxy = policyEngFactory.getPolicyEngineProxy();
+        CheckPolicyResponseType policyResp = policyProxy.checkPolicy(policyReq, assertion);
+
+        if (policyResp.getResponse() != null && NullChecker.isNotNullish(policyResp.getResponse().getResult())
+                && policyResp.getResponse().getResult().get(0).getDecision() == DecisionType.PERMIT) {
+            policyIsValid = true;
+        }
+
+        log.debug("Finished HiemNotifyImpl.checkPolicy - valid: " + policyIsValid);
+        return policyIsValid;
+    }
+
+    /**
+     * Check if there is a valid target to send the request to.
+     * 
+     * @param targetCommunity The community object to check for targets
+     * @return true if there is a valid target
+     */
+    protected boolean hasNhinTargetHomeCommunityId(NhinTargetCommunityType targetCommunity) {
+
+        if (targetCommunity != null && targetCommunity.getHomeCommunity() != null
+                && NullChecker.isNotNullish(targetCommunity.getHomeCommunity().getHomeCommunityId())) {
+            return true;
+        }
+
+        return false;
+    }
 }

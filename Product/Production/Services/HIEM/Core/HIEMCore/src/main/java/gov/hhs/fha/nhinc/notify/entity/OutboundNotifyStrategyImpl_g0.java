@@ -66,7 +66,7 @@ class OutboundNotifyStrategyImpl_g0 implements OrchestrationStrategy {
         	nhincNotify.notify(message.getRequest(), message.getReferenceParameters(),
         			message.getAssertion(), message.getTarget());
 		} catch (Exception e) {
-			log.error("Failure to process nhin Subscribe message:" + e.toString());
+			log.error("Failure to process nhin Subscribe message.", e);
 		}
 
         getLogger().debug("End OutboundDocSubmissionOrchestratableImpl_g0.process");
