@@ -344,23 +344,23 @@
 			<con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-02-25T04:25:27Z</con:value>
+					<con:value>2012-08-24T16:54:06Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-02-25T04:35:27Z</con:value>
+					<con:value>2012-08-24T17:04:06Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>02/25/2012 04:25:27</con:value>
+					<con:value>08/24/2012 16:54:06</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-03-26T00:00:00Z</con:value>
+					<con:value>2012-09-23T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
-			<con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
+			<con:tearDownScript/>
 		</con:testCase>
 		<con:testCase failOnError="true" failTestCaseOnErrors="true" id="276bc324-fade-4c00-a205-45dd1d24092a" keepSession="false" maxResults="0" name="DocumentQueryTest" searchProperties="true">
 			<con:settings/>
@@ -643,7 +643,7 @@
 								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
 							</con:configuration>
 						</con:assertion>
-						<con:wsaConfig mustUnderstand="NONE" version="200508"/>
+						<con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
 						<con:wsrmConfig version="1.2"/>
 					</con:request>
 				</con:config>
@@ -709,11 +709,10 @@ count(//ns4:AdhocQueryResponse[1]/ns2:RegistryObjectList[1]/ns2:ExtrinsicObject)
 					<con:interface>DocumentRegistry_Binding_Soap</con:interface>
 					<con:operation>DocumentRegistry_RegistryStoredQuery</con:operation>
 					<con:request name="QueryByDocUniqueId">
-						<con:settings/>
+						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting></con:settings>
 						<con:encoding>UTF-8</con:encoding>
 						<con:endpoint>${#Project#Endpoint-DocRegistry}</con:endpoint>
-						<con:request><![CDATA[
-							<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0">
+						<con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0">
    <soapenv:Header/>
    <soapenv:Body projectName="DocRegistryAndRepository" testCase="DocumentQueryTest">
       <urn:AdhocQueryRequest id="?" comment="?" federated="false" federation="?" startIndex="0" maxResults="-1">
@@ -724,6 +723,11 @@ count(//ns4:AdhocQueryResponse[1]/ns2:RegistryObjectList[1]/ns2:ExtrinsicObject)
                   <urn1:Value>2.1.11111.1.1</urn1:Value>
                </urn1:ValueList>
             </urn1:Slot>
+            <urn1:Slot name="$XDSDocumentEntryPatientId">
+               <urn1:ValueList>
+                  <urn1:Value>12344321dqtst^^^&amp;1.3.6.1.4.1.21367.2005.3.7&amp;ISO</urn1:Value>
+               </urn1:ValueList>
+            </urn1:Slot>
          </urn1:AdhocQuery>
       </urn:AdhocQueryRequest>
    </soapenv:Body>
@@ -783,7 +787,7 @@ declare namespace ns4='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 								<ignoreNamspaceDifferences>true</ignoreNamspaceDifferences>
 							</con:configuration>
 						</con:assertion>
-						<con:wsaConfig mustUnderstand="NONE" version="200508"/>
+						<con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
 						<con:wsrmConfig version="1.2"/>
 					</con:request>
 				</con:config>
@@ -794,11 +798,10 @@ declare namespace ns4='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 					<con:interface>DocumentRegistry_Binding_Soap</con:interface>
 					<con:operation>DocumentRegistry_RegistryStoredQuery</con:operation>
 					<con:request name="QueryByEventCode">
-						<con:settings/>
+						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting></con:settings>
 						<con:encoding>UTF-8</con:encoding>
 						<con:endpoint>${#Project#Endpoint-DocRegistry}</con:endpoint>
-						<con:request><![CDATA[
-							<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0">
+						<con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0">
    <soapenv:Header/>
    <soapenv:Body projectName="DocRegistryAndRepository" testCase="DocumentQueryTest">
       <urn:AdhocQueryRequest id="?" comment="?" federated="false" federation="?" startIndex="0" maxResults="-1">
@@ -807,6 +810,11 @@ declare namespace ns4='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
             <urn1:Slot name="$XDSDocumentEntryEventCodeList">
                <urn1:ValueList>
                   <urn1:Value>DocQueryTestEventCodeValue</urn1:Value>
+               </urn1:ValueList>
+            </urn1:Slot>
+            <urn1:Slot name="$XDSDocumentEntryPatientId">
+               <urn1:ValueList>
+                  <urn1:Value>12344321dqtst^^^&amp;1.3.6.1.4.1.21367.2005.3.7&amp;ISO</urn1:Value>
                </urn1:ValueList>
             </urn1:Slot>
          </urn1:AdhocQuery>
@@ -868,7 +876,7 @@ declare namespace ns4='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 								<ignoreNamspaceDifferences>true</ignoreNamspaceDifferences>
 							</con:configuration>
 						</con:assertion>
-						<con:wsaConfig mustUnderstand="NONE" version="200508"/>
+						<con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
 						<con:wsrmConfig version="1.2"/>
 					</con:request>
 				</con:config>
@@ -879,11 +887,10 @@ declare namespace ns4='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 					<con:interface>DocumentRegistry_Binding_Soap</con:interface>
 					<con:operation>DocumentRegistry_RegistryStoredQuery</con:operation>
 					<con:request name="QueryByEventCodeAndScheme">
-						<con:settings/>
+						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting></con:settings>
 						<con:encoding>UTF-8</con:encoding>
 						<con:endpoint>${#Project#Endpoint-DocRegistry}</con:endpoint>
-						<con:request><![CDATA[
-							<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0">
+						<con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0">
    <soapenv:Header/>
    <soapenv:Body projectName="DocRegistryAndRepository" testCase="DocumentQueryTest">
       <urn:AdhocQueryRequest id="?" comment="?" federated="false" federation="?" startIndex="0" maxResults="-1">
@@ -892,6 +899,11 @@ declare namespace ns4='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
             <urn1:Slot name="$XDSDocumentEntryEventCodeList">
                <urn1:ValueList>
                   <urn1:Value>DocQueryTestEventCodeValue</urn1:Value>
+               </urn1:ValueList>
+            </urn1:Slot>
+            <urn1:Slot name="$XDSDocumentEntryPatientId">
+               <urn1:ValueList>
+                  <urn1:Value>12344321dqtst^^^&amp;1.3.6.1.4.1.21367.2005.3.7&amp;ISO</urn1:Value>
                </urn1:ValueList>
             </urn1:Slot>
             <urn1:Slot name="$XDSDocumentEntryEventCodeListScheme">
@@ -958,7 +970,7 @@ declare namespace ns4='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 								<ignoreNamspaceDifferences>true</ignoreNamspaceDifferences>
 							</con:configuration>
 						</con:assertion>
-						<con:wsaConfig mustUnderstand="NONE" version="200508"/>
+						<con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
 						<con:wsrmConfig version="1.2"/>
 					</con:request>
 				</con:config>
@@ -969,11 +981,10 @@ declare namespace ns4='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 					<con:interface>DocumentRegistry_Binding_Soap</con:interface>
 					<con:operation>DocumentRegistry_RegistryStoredQuery</con:operation>
 					<con:request name="QueryNoResults">
-						<con:settings/>
+						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting></con:settings>
 						<con:encoding>UTF-8</con:encoding>
 						<con:endpoint>${#Project#Endpoint-DocRegistry}</con:endpoint>
-						<con:request><![CDATA[
-							<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0">
+						<con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0">
    <soapenv:Header/>
    <soapenv:Body projectName="DocRegistryAndRepository" testCase="DocumentQueryTest">
       <urn:AdhocQueryRequest id="?" comment="?" federated="false" federation="?" startIndex="0" maxResults="-1">
@@ -1003,7 +1014,7 @@ count(//ns4:AdhocQueryResponse[1]/ns2:RegistryObjectList[1]/ns2:ExtrinsicObject)
 								<ignoreNamspaceDifferences>true</ignoreNamspaceDifferences>
 							</con:configuration>
 						</con:assertion>
-						<con:wsaConfig mustUnderstand="NONE" version="200508"/>
+						<con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
 						<con:wsrmConfig version="1.2"/>
 					</con:request>
 				</con:config>
@@ -1029,23 +1040,23 @@ count(//ns4:AdhocQueryResponse[1]/ns2:RegistryObjectList[1]/ns2:ExtrinsicObject)
 			<con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2010-05-14T00:00:00Z</con:value>
+					<con:value>2012-08-24T16:54:23Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2010-05-14T17:49:10Z</con:value>
+					<con:value>2012-08-24T17:04:23Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>05/14/2010 00:00:00</con:value>
+					<con:value>08/24/2012 16:54:23</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2010-06-13T00:00:00Z</con:value>
+					<con:value>2012-09-23T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
-			<con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
+			<con:tearDownScript/>
 		</con:testCase>
 		<con:properties/>
 		<con:reportParameters/>
