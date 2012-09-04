@@ -40,7 +40,7 @@ import javax.xml.ws.soap.Addressing;
 @WebService(serviceName = "NhincProxyPatientDiscoverySecuredAsyncResp", portName = "NhincProxyPatientDiscoverySecuredAsyncRespPortType", endpointInterface = "gov.hhs.fha.nhinc.nhincproxypatientdiscoverysecuredasyncresp.NhincProxyPatientDiscoverySecuredAsyncRespPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:nhincproxypatientdiscoverysecuredasyncresp", wsdlLocation = "WEB-INF/wsdl/NhincProxyPatientDiscoverySecuredAsyncResp/NhincProxyPatientDiscoverySecuredAsyncResp.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 @Addressing(enabled = true)
-@HandlerChain(file="../../../../../../../../handler-chain.xml")
+//@HandlerChain(file="handler-chain.xml")
 public class NhincProxyPatientDiscoverySecuredAsyncResp extends PatientDiscoveryBase {
     @Resource
     private WebServiceContext context;

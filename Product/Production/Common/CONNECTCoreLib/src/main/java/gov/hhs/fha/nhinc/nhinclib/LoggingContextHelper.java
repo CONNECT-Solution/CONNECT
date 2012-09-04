@@ -26,7 +26,8 @@
  */
 package gov.hhs.fha.nhinc.nhinclib;
 
-import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
+
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 import javax.xml.ws.WebServiceContext;
@@ -82,8 +83,11 @@ public class LoggingContextHelper {
     protected String generateLoggingContextId(WebServiceContext webServiceContext) {
 
         StringBuffer buffer = new StringBuffer();
-        String messageId = AsyncMessageIdExtractor.GetAsyncMessageId(webServiceContext);
-        List<String> allRelatesToIds = AsyncMessageIdExtractor.GetAsyncRelatesTo(webServiceContext);
+        
+        
+        
+        String messageId = ""; //AsyncMessageIdExtractor.GetAsyncMessageId(webServiceContext);
+        List<String> allRelatesToIds = Collections.EMPTY_LIST; // AsyncMessageIdExtractor.GetAsyncRelatesTo(webServiceContext);
         if (messageId != null) {
             buffer.append(messageId);
         }

@@ -36,9 +36,6 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
         <jaxws:inInterceptors>
             <ref bean="securityInInterceptor" />
         </jaxws:inInterceptors>
-        <jaxws:handlers>
-            <ref bean="SOAPHeaderHandler" />
-        </jaxws:handlers>
     </jaxws:endpoint>
 
     <!-- Entity services -->
@@ -55,9 +52,6 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
         <jaxws:inInterceptors>
             <ref bean="securityInInterceptor" />
         </jaxws:inInterceptors>
-        <jaxws:handlers>
-            <ref bean="SOAPHeaderHandler" />
-        </jaxws:handlers>
     </jaxws:endpoint>
 
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:entitypatientdiscovery" id="EntityPatientDiscovery"
@@ -79,9 +73,6 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
         <jaxws:inInterceptors>
             <ref bean="securityInInterceptor" />
         </jaxws:inInterceptors>
-        <jaxws:handlers>
-            <ref bean="SOAPHeaderHandler" />
-        </jaxws:handlers>
     </jaxws:endpoint>
 
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:nhincproxypatientdiscovery" id="NhincProxyPatientDiscovery"
@@ -110,9 +101,6 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
         <jaxws:inInterceptors>
             <ref bean="securityInInterceptor" />
         </jaxws:inInterceptors>
-        <jaxws:handlers>
-            <ref bean="SOAPHeaderHandler" />
-        </jaxws:handlers>
     </jaxws:endpoint>
 
     <!-- Entity services -->
@@ -129,9 +117,6 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
         <jaxws:inInterceptors>
             <ref bean="securityInInterceptor" />
         </jaxws:inInterceptors>
-        <jaxws:handlers>
-            <ref bean="SOAPHeaderHandler" />
-        </jaxws:handlers>
     </jaxws:endpoint>
 
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:entitypatientdiscoveryasyncreq" id="EntityPatientDiscoveryAsyncReq"
@@ -155,9 +140,6 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
         <jaxws:inInterceptors>
             <ref bean="securityInInterceptor" />
         </jaxws:inInterceptors>
-        <jaxws:handlers>
-            <ref bean="SOAPHeaderHandler" />
-        </jaxws:handlers>
     </jaxws:endpoint>
 
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:nhincproxypatientdiscoveryasyncreq" id="NhincProxyPatientDiscoveryAsyncReq"
@@ -188,9 +170,6 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
         <jaxws:inInterceptors>
             <ref bean="securityInInterceptor" />
         </jaxws:inInterceptors>
-        <jaxws:handlers>
-            <ref bean="SOAPHeaderHandler" />
-        </jaxws:handlers>
     </jaxws:endpoint>
 
     <!-- Entity services -->
@@ -207,9 +186,6 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
         <jaxws:inInterceptors>
             <ref bean="securityInInterceptor" />
         </jaxws:inInterceptors>
-        <jaxws:handlers>
-            <ref bean="SOAPHeaderHandler" />
-        </jaxws:handlers>
     </jaxws:endpoint>
 
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:entitypatientdiscoveryasyncresp" id="EntityPatientDiscoveryAsyncResp"
@@ -238,10 +214,6 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
         <jaxws:inInterceptors>
             <ref bean="securityInInterceptor" />
         </jaxws:inInterceptors>
-        <jaxws:handlers>
-            <ref bean="SOAPHeaderHandler" />
-        </jaxws:handlers>
     </jaxws:endpoint>
 
-    <bean id="SOAPHeaderHandler" class="gov.hhs.fha.nhinc.callback.SOAPHeaderHandler" />
 </beans>

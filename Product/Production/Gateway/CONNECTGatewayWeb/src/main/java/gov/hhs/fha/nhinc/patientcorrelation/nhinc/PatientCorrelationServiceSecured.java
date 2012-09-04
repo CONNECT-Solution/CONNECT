@@ -26,20 +26,18 @@
  */
 package gov.hhs.fha.nhinc.patientcorrelation.nhinc;
 
-import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
+import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
 
 import javax.annotation.Resource;
-
 import javax.jws.WebService;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 
-import org.hl7.v3.RetrievePatientCorrelationsSecuredRequestType;
-import org.hl7.v3.RetrievePatientCorrelationsSecuredResponseType;
 import org.hl7.v3.AddPatientCorrelationSecuredRequestType;
 import org.hl7.v3.AddPatientCorrelationSecuredResponseType;
+import org.hl7.v3.RetrievePatientCorrelationsSecuredRequestType;
+import org.hl7.v3.RetrievePatientCorrelationsSecuredResponseType;
 
 /**
  * 
@@ -65,25 +63,15 @@ public class PatientCorrelationServiceSecured {
 
     public RetrievePatientCorrelationsSecuredResponseType retrievePatientCorrelations(
             RetrievePatientCorrelationsSecuredRequestType request) {
-        AssertionType assertion = createAssertion(context);
+        AssertionType assertion = SAML2AssertionExtractor.getInstance().extractSamlAssertion(context);
         return service.retrievePatientCorrelations(request, assertion);
     }
 
     public AddPatientCorrelationSecuredResponseType addPatientCorrelation(
             AddPatientCorrelationSecuredRequestType request) {
-        AssertionType assertion = createAssertion(context);
+        AssertionType assertion = SAML2AssertionExtractor.getInstance().extractSamlAssertion(context);
         return service.addPatientCorrelation(request, assertion);
     }
 
-    private AssertionType createAssertion(WebServiceContext context) {
-        AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
-
-        // Extract the message id value from the WS-Addressing Header and place
-        // it in the Assertion Class
-        if (assertion != null) {
-            assertion.setMessageId(AsyncMessageIdExtractor.GetAsyncMessageId(context));
-        }
-
-        return assertion;
-    }
+   
 }

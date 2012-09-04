@@ -82,7 +82,7 @@ public class NhinPatientDiscoveryServiceTest {
         NhinPatientDiscoveryImpl service = new NhinPatientDiscoveryImpl(mockAuditLogger, orchestrationFactory) {
 
             @Override
-            protected AssertionType extractSamlAssertion(WebServiceContext context) {
+            protected AssertionType extractAssertion(WebServiceContext context) {
                 return mockAssertion;
             }
             

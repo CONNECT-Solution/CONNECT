@@ -31,6 +31,8 @@ import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 
 import java.io.File;
 import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.Properties;
@@ -50,6 +52,22 @@ public class PropertyFileDAO {
 
     PropertyFileDAO() {
         
+    }
+    
+    public void loadPropertyFile(InputStream inStream, String propertyFileName) throws PropertyAccessException {
+        if (inStream == null) {
+            throw new PropertyAccessException("Failed to open property file:'" + propertyFileName + "'.  "
+                    + "File does not exist.");
+        }
+        
+        Properties properties = new Properties();
+        try {
+            properties.load(inStream);
+        } catch (IOException e) {
+            String sMessage = "Failed to load property file.  Error: " + e.getMessage();
+            throw new PropertyAccessException(sMessage, e);
+        }
+        propertyFilesHashmap.put(propertyFileName, properties);
     }
     
     public void loadPropertyFile(File propertyFile, String propertyFileName) throws PropertyAccessException {                       

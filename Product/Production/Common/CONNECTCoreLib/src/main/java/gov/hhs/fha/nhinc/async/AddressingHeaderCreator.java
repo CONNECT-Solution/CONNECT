@@ -24,43 +24,25 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws;
+package gov.hhs.fha.nhinc.async;
 
-import javax.annotation.Resource;
-import javax.jws.HandlerChain;
-import javax.jws.WebService;
-import javax.xml.ws.BindingType;
-import javax.xml.ws.WebServiceContext;
+import java.util.UUID;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
- * 
- * @author Neil Webb
+ * This class manages the creation of the header section of the soap message
+ * that defines WS-Addressing.
  */
-@WebService(serviceName = "NhincProxyPatientDiscoverySecured", portName = "NhincProxyPatientDiscoverySecuredPort", endpointInterface = "gov.hhs.fha.nhinc.nhincproxypatientdiscoverysecured.NhincProxyPatientDiscoverySecuredPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:nhincproxypatientdiscoverysecured", wsdlLocation = "WEB-INF/wsdl/NhincProxyPatientDiscoverySecured/NhincProxyPatientDiscoverySecured.wsdl")
-@BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
-//@HandlerChain(file="handler-chain.xml")
-public class NhincProxyPatientDiscoverySecured extends PatientDiscoveryBase {
+public class AddressingHeaderCreator {
+    private static String UUID_TAG = "urn:uuid:";
 
-    @Resource
-    private WebServiceContext context;
+	private final Log log = LogFactory.getLog(getClass());
 
-    public NhincProxyPatientDiscoverySecured() {
-        super();
+	
+
+    public static String generateMessageId() {
+        return UUID_TAG + UUID.randomUUID().toString();
     }
-
-    public NhincProxyPatientDiscoverySecured(PatientDiscoveryServiceFactory serviceFactory) {
-        super(serviceFactory);
-    }
-
-    public org.hl7.v3.PRPAIN201306UV02 proxyPRPAIN201305UV(
-            org.hl7.v3.ProxyPRPAIN201305UVProxySecuredRequestType proxyPRPAIN201305UVProxyRequest) {
-
-        return getServiceFactory().getNhincProxyPatientDiscoveryImpl().proxyPRPAIN201305UV(
-                proxyPRPAIN201305UVProxyRequest, getWebServiceContext());
-    }
-
-    protected WebServiceContext getWebServiceContext() {
-        return context;
-    }
-
 }

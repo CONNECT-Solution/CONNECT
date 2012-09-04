@@ -47,7 +47,7 @@ import org.hl7.v3.RespondingGatewayPRPAIN201306UV02ResponseType;
 @WebService(serviceName = "EntityPatientDiscoverySecured", portName = "EntityPatientDiscoverySecuredPortSoap", endpointInterface = "gov.hhs.fha.nhinc.entitypatientdiscoverysecured.EntityPatientDiscoverySecuredPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:entitypatientdiscoverysecured", wsdlLocation = "WEB-INF/wsdl/EntityPatientDiscoverySecured/EntityPatientDiscoverySecured.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 @Addressing(enabled = true)
-@HandlerChain(file="../../../../../../../../handler-chain.xml")
+//@HandlerChain(file="handler-chain.xml")
 public class EntityPatientDiscoverySecured extends PatientDiscoveryBase {
     private static final Log log = LogFactory.getLog(EntityPatientDiscoverySecured.class);
 

@@ -41,7 +41,7 @@ import gov.hhs.fha.nhinc.patientdiscovery._10.entity.deferred.request.EntityPati
 @WebService(serviceName = "EntityPatientDiscoveryAsyncReq", portName = "EntityPatientDiscoveryAsyncReqPortSoap", endpointInterface = "gov.hhs.fha.nhinc.entitypatientdiscoveryasyncreq.EntityPatientDiscoveryAsyncReqPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:entitypatientdiscoveryasyncreq", wsdlLocation = "WEB-INF/wsdl/EntityPatientDiscoveryDeferredRequestUnsecured/EntityPatientDiscoveryAsyncReq.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 @Addressing(enabled = true)
-@HandlerChain(file="../../../../../../../../handler-chain.xml")
+//@HandlerChain(file="handler-chain.xml")
 public class EntityPatientDiscoveryDeferredRequestUnsecured extends PatientDiscoveryBase {
 
     @Resource

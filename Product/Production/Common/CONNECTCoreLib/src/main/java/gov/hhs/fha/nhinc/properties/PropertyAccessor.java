@@ -285,10 +285,10 @@ public class PropertyAccessor implements IPropertyAcessor {
      *             property file for some reason.
      */
     private synchronized void loadPropertyFile(String propertyFile) throws PropertyAccessException {
-        String propFilePathAndName = fileUtilities.getPropertyFileLocation(propertyFile);
+    //    String propFilePathAndName = fileUtilities.getPropertyFileLocation(propertyFile);
                
-        File propertyFileLocation = new File(propFilePathAndName);        
-        propertyFileDAO.loadPropertyFile(propertyFileLocation, propertyFile);
+      //  File propertyFileLocation = new File(propFilePathAndName);        
+        propertyFileDAO.loadPropertyFile(Thread.currentThread().getContextClassLoader().getResourceAsStream(propertyFile), propertyFile);
             
         String cacheRefreshDuration = propertyFileDAO.getProperty(propertyFile, CACHE_REFRESH_DURATION);
         refreshHandler.addRefreshInfo(propertyFile, cacheRefreshDuration);

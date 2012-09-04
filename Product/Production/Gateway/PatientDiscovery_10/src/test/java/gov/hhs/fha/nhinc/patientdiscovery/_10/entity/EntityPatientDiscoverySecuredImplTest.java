@@ -118,29 +118,29 @@ public class EntityPatientDiscoverySecuredImplTest {
         }
     }
 
-    @Test
-    public void testExtractAssertion() {
-        try {
-            EntityPatientDiscoveryImpl pdSecuredImpl = new EntityPatientDiscoveryImpl() {
-                @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-
-                @Override
-                protected AssertionType extractAssertion(WebServiceContext context) {
-                    return mockAssertion;
-                }
-            };
-
-            AssertionType assertion = pdSecuredImpl.extractAssertion(mockWebServiceContext);
-            assertNotNull("AssertionType was null", assertion);
-        } catch (Throwable t) {
-            System.out.println("Error running testExtractAssertion: " + t.getMessage());
-            t.printStackTrace();
-            fail("Error running testExtractAssertion: " + t.getMessage());
-        }
-    }
+//    @Test
+//    public void testExtractAssertion() {
+//        try {
+//            EntityPatientDiscoveryImpl pdSecuredImpl = new EntityPatientDiscoveryImpl() {
+//                @Override
+//                protected Log createLogger() {
+//                    return mockLog;
+//                }
+//
+//                @Override
+//                protected AssertionType extractAssertion(WebServiceContext context) {
+//                    return mockAssertion;
+//                }
+//            };
+//
+//            AssertionType assertion = pdSecuredImpl.extractAssertion(mockWebServiceContext);
+//            assertNotNull("AssertionType was null", assertion);
+//        } catch (Throwable t) {
+//            System.out.println("Error running testExtractAssertion: " + t.getMessage());
+//            t.printStackTrace();
+//            fail("Error running testExtractAssertion: " + t.getMessage());
+//        }
+//    }
 
     @Test
     public void testRespondingGatewayPRPAIN201305UV02Happy() {

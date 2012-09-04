@@ -27,15 +27,14 @@
 package gov.hhs.fha.nhinc.mpi.adapter.component;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
+
 import javax.xml.ws.WebServiceContext;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.hl7.v3.PRPAIN201306UV02;
 import org.hl7.v3.PRPAIN201305UV02;
-import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
-import javax.xml.ws.BindingProvider;
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
-import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
+import org.hl7.v3.PRPAIN201306UV02;
 
 /**
  * This class is the implementation of the AdapterComponentMpi. It performs any web service specific stuff necessary and
@@ -61,7 +60,7 @@ public class AdapterComponentMpiImpl {
 
         AssertionType assertion = null;
         if ((bIsSecure) && (context != null)) {
-            assertion = new SAML2AssertionExtractor().extractSamlAssertion(context);
+            assertion = SAML2AssertionExtractor.getInstance().extractSamlAssertion(context);
         } else {
             assertion = new AssertionType();
         }
