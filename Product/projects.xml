@@ -172,8 +172,8 @@
         <name>CONNECTAdapterWeb</name>
         <directory>/Production/Adapters/General/CONNECTAdapterWeb</directory>
         <dist.type>war</dist.type>
-        <should.build>false</should.build>
-        <should.deploy>fakse</should.deploy>
+        <should.build>true</should.build>
+        <should.deploy>true</should.deploy>
     </project>
     <project>
         <name>FTAConfigManager</name>
