@@ -77,7 +77,7 @@ public class HiemSubscribeImpl {
         Element soapMessage = extractSoapMessage(context);
 
         NhinSubscribeProcessor subscribeProcessor = new NhinSubscribeProcessor();
-        AssertionType assertion = new SAML2AssertionExtractor().extractSamlAssertion(context);
+        AssertionType assertion = SAML2AssertionExtractor.getInstance().extractSamlAssertion(context);
 
         // Audit the input message
         auditInputMessage(subscribeRequest, assertion);

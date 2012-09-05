@@ -70,7 +70,7 @@ public class EntityNotifyServiceImpl {
         try {
             String rawNotifyXml = new SoapUtil().extractSoapMessage(context, NhincConstants.HTTP_REQUEST_ATTRIBUTE_SOAPMESSAGE);
             EntityNotifyOrchImpl processor = new EntityNotifyOrchImpl();
-            processor.processNotify(notifyRequest, new SAML2AssertionExtractor().extractSamlAssertion(context), rawNotifyXml);
+            processor.processNotify(notifyRequest, SAML2AssertionExtractor.getInstance().extractSamlAssertion(context), rawNotifyXml);
         } catch (Throwable t) {
             log.error("Exception encountered processing notify message: " + t.getMessage(), t);
         }

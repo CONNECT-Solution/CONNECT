@@ -67,7 +67,7 @@ public class AdapterDocRetrieveImpl {
 
         AssertionType assertion = null;
         if (context != null) {
-            assertion = new SAML2AssertionExtractor().extractSamlAssertion(context);
+            assertion = SAML2AssertionExtractor.getInstance().extractSamlAssertion(context);
         } else {
             assertion = new AssertionType();
         }

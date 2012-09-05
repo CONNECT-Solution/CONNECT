@@ -69,7 +69,7 @@ public class ProxyHiemSubscribeImpl {
         NhinHiemSubscribeProxyObjectFactory hiemSubscribeFactory = new NhinHiemSubscribeProxyObjectFactory();
         NhinHiemSubscribeProxy proxy = hiemSubscribeFactory.getNhinHiemSubscribeProxy();
 
-        resp = proxy.subscribe(subscribeRequest.getSubscribe(), new SAML2AssertionExtractor().extractSamlAssertion(context),
+        resp = proxy.subscribe(subscribeRequest.getSubscribe(), SAML2AssertionExtractor.getInstance().extractSamlAssertion(context),
                 subscribeRequest.getNhinTargetSystem());
 
         log.debug("Exiting Secured ProxyHiemSubscribeImpl.subscribe...");

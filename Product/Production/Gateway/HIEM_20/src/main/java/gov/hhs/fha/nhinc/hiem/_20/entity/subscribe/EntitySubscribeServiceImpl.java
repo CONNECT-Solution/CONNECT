@@ -86,7 +86,7 @@ public class EntitySubscribeServiceImpl {
             UnsupportedPolicyRequestFault {
         log.debug("In subscribe");
 
-        AssertionType assertion = new SAML2AssertionExtractor().extractSamlAssertion(context);
+        AssertionType assertion = SAML2AssertionExtractor.getInstance().extractSamlAssertion(context);
 
         Subscribe subscribe = subscribeRequest.getSubscribe();
         NhinTargetCommunitiesType targetCommunitites = subscribeRequest.getNhinTargetCommunities();

@@ -84,7 +84,7 @@ public class HiemUnsubscribeImpl {
 
         SoapMessageElements soapHeaderElements = new SoapHeaderHelper().getSoapHeaderElements(context);
 
-        AssertionType assertion = new SAML2AssertionExtractor().extractSamlAssertion(context);
+        AssertionType assertion = SAML2AssertionExtractor.getInstance().extractSamlAssertion(context);
 
         HiemSubscriptionRepositoryService repo = new HiemSubscriptionRepositoryService();
         HiemSubscriptionItem subscriptionItem = null;

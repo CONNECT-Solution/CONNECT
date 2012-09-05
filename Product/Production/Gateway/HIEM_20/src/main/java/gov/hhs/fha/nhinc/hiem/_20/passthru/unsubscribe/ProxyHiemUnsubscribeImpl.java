@@ -82,7 +82,7 @@ public class ProxyHiemUnsubscribeImpl {
     	log.debug("Entering ProxyHiemUnsubscribeImpl.unsubscribe...");
         Unsubscribe unsubscribe = unsubscribeRequest.getUnsubscribe();
         NhinTargetSystemType target = unsubscribeRequest.getNhinTargetSystem();
-        AssertionType assertion = new SAML2AssertionExtractor().extractSamlAssertion(context);
+        AssertionType assertion = SAML2AssertionExtractor.getInstance().extractSamlAssertion(context);
         
         SoapMessageElements soapHeaderElements = new SoapHeaderHelper().getSoapHeaderElements(context);
         

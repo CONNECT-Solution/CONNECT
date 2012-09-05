@@ -26,13 +26,12 @@
  */
 package gov.hhs.fha.nhinc.docretrieve._20.passthru;
 
-import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayCrossGatewayRetrieveRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayCrossGatewayRetrieveSecuredRequestType;
-import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
 import gov.hhs.fha.nhinc.docretrieve._20.ResponseScrubber;
 import gov.hhs.fha.nhinc.docretrieve.passthru.NhincProxyDocRetrieveOrchImpl;
+import gov.hhs.fha.nhinc.messaging.server.BaseService;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 
 import javax.xml.ws.WebServiceContext;
@@ -45,7 +44,7 @@ import org.apache.commons.logging.LogFactory;
  * 
  * @author Neil Webb
  */
-public class NhincProxyDocRetrieveImpl {
+public class NhincProxyDocRetrieveImpl extends BaseService {
 
     private static Log log = LogFactory.getLog(NhincProxyDocRetrieveImpl.class);
 
@@ -80,21 +79,5 @@ public class NhincProxyDocRetrieveImpl {
         }
         ResponseScrubber rs = new ResponseScrubber();
         return rs.Scrub(response);
-    }
-
-    private AssertionType getAssertion(WebServiceContext context, AssertionType oAssertionIn) {
-        AssertionType assertion = null;
-        if (oAssertionIn == null) {
-            assertion = new SAML2AssertionExtractor().extractSamlAssertion(context);
-        } else {
-            assertion = oAssertionIn;
-        }
-
-        // Extract the message id value from the WS-Addressing Header and place it in the Assertion Class
-        if (assertion != null) {
-            assertion.setMessageId(AsyncMessageIdExtractor.GetAsyncMessageId(context));
-        }
-
-        return assertion;
     }
 }

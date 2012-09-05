@@ -18,8 +18,8 @@
         <name>CONNECTCommonWeb</name>
         <directory>/Production/Common/CONNECTCommonWeb</directory>
         <dist.type>war</dist.type>
-        <should.build>false</should.build>
-        <should.deploy>false</should.deploy>
+        <should.build>true</should.build>
+        <should.deploy>true</should.deploy>
     </project>
     <project>
         <name>CONNECTGatewayWeb</name>
@@ -53,127 +53,127 @@
         <name>DocumentQueryCore</name>
         <directory>/Production/Services/DocumentQuery/Core/DocumentQueryCore</directory>
         <dist.type>jar</dist.type>
-        <should.build>false</should.build>
+        <should.build>true</should.build>
         <should.deploy>false</should.deploy>
     </project>
     <project>
         <name>DocumentQuery_20</name>
         <directory>/Production/Gateway/DocumentQuery_20</directory>
         <dist.type>war</dist.type>
-        <should.build>false</should.build>
-        <should.deploy>false</should.deploy>
+        <should.build>true</should.build>
+        <should.deploy>true</should.deploy>
     </project>
     <project>
         <name>DocumentSubmissionCore</name>
         <directory>/Production/Services/DocumentSubmission/Core/DocumentSubmissionCore</directory>
         <dist.type>jar</dist.type>
-        <should.build>false</should.build>
+        <should.build>true</should.build>
         <should.deploy>false</should.deploy>
     </project>
     <project>
         <name>DocumentSubmission_11</name>
         <directory>/Production/Gateway/DocumentSubmission_11</directory>
         <dist.type>war</dist.type>
-        <should.build>false</should.build>
-        <should.deploy>false</should.deploy>
+        <should.build>true</should.build>
+        <should.deploy>true</should.deploy>
     </project>
     <project>
         <name>DocumentSubmission_20</name>
         <directory>/Production/Gateway/DocumentSubmission_20</directory>
         <dist.type>war</dist.type>
-        <should.build>false</should.build>
-        <should.deploy>false</should.deploy>
+        <should.build>true</should.build>
+        <should.deploy>true</should.deploy>
     </project> 
     <project>
         <name>DocumentSubmission_a0</name>
         <directory>/Production/Adapters/DocumentSubmission_a0</directory>
         <dist.type>war</dist.type>
-        <should.build>false</should.build>
-        <should.deploy>false</should.deploy>
+        <should.build>true</should.build>
+        <should.deploy>true</should.deploy>
     </project>
     <project>
         <name>DocumentQuery_a0</name>
         <directory>/Production/Adapters/DocumentQuery_a0</directory>
         <dist.type>war</dist.type>
-        <should.build>false</should.build>
-        <should.deploy>false</should.deploy>
+        <should.build>true</should.build>
+        <should.deploy>true</should.deploy>
     </project>
     <project>
         <name>DocumentRetrieveCore</name>
         <directory>/Production/Services/DocumentRetrieve/Core/DocumentRetrieveCore</directory>
         <dist.type>jar</dist.type>
-        <should.build>false</should.build>
+        <should.build>true</should.build>
         <should.deploy>false</should.deploy>
     </project>
     <project>
         <name>DocumentRetrieve_20</name>
         <directory>/Production/Gateway/DocumentRetrieve_20</directory>
         <dist.type>war</dist.type>
-        <should.build>false</should.build>
-        <should.deploy>false</should.deploy>
+        <should.build>true</should.build>
+        <should.deploy>true</should.deploy>
     </project>
     <project>
         <name>DocumentRetrieve_30</name>
         <directory>/Production/Gateway/DocumentRetrieve_30</directory>
         <dist.type>war</dist.type>
-        <should.build>false</should.build>
-        <should.deploy>false</should.deploy>
+        <should.build>true</should.build>
+        <should.deploy>true</should.deploy>
     </project>
     <project>
         <name>DocumentRetrieve_a0</name>
         <directory>/Production/Adapters/DocumentRetrieve_a0</directory>
         <dist.type>war</dist.type>
-        <should.build>false</should.build>
-        <should.deploy>false</should.deploy>
+        <should.build>true</should.build>
+        <should.deploy>true</should.deploy>
     </project>
     <project>
         <name>AdminDistributionCore</name>
         <directory>/Production/Services/AdminDistribution/Core/AdminDistributionCore</directory>
         <dist.type>jar</dist.type>
-        <should.build>false</should.build>
+        <should.build>true</should.build>
         <should.deploy>false</should.deploy>
     </project>
     <project>
         <name>AdminDistribution_10</name>
         <directory>/Production/Gateway/AdminDistribution_10</directory>
         <dist.type>war</dist.type>
-        <should.build>false</should.build>
-        <should.deploy>false</should.deploy>
+        <should.build>true</should.build>
+        <should.deploy>true</should.deploy>
     </project>
     <project>
         <name>AdminDistribution_20</name>
         <directory>/Production/Gateway/AdminDistribution_20</directory>
         <dist.type>war</dist.type>
-        <should.build>false</should.build>
-        <should.deploy>false</should.deploy>
+        <should.build>true</should.build>
+        <should.deploy>true</should.deploy>
     </project>
     <project>
         <name>AdminDistribution_a0</name>
         <directory>/Production/Adapters/AdminDistribution_a0/</directory>
         <dist.type>war</dist.type>
-        <should.build>false</should.build>
-        <should.deploy>false</should.deploy>
+        <should.build>true</should.build>
+        <should.deploy>true</should.deploy>
     </project>
     <project>
         <name>HIEMCore</name>
         <directory>/Production/Services/HIEM/Core/HIEMCore</directory>
         <dist.type>jar</dist.type>
-        <should.build>false</should.build>
+        <should.build>true</should.build>
         <should.deploy>false</should.deploy>
     </project>
     <project>
         <name>HIEM_20</name>
         <directory>/Production/Gateway/HIEM_20/</directory>
         <dist.type>war</dist.type>
-        <should.build>false</should.build>
-        <should.deploy>false</should.deploy>
+        <should.build>true</should.build>
+        <should.deploy>true</should.deploy>
     </project>
     <project>
         <name>CONNECTAdapterWeb</name>
         <directory>/Production/Adapters/General/CONNECTAdapterWeb</directory>
         <dist.type>war</dist.type>
-        <should.build>false</should.build>
-        <should.deploy>fakse</should.deploy>
+        <should.build>true</should.build>
+        <should.deploy>true</should.deploy>
     </project>
     <project>
         <name>FTAConfigManager</name>
@@ -207,14 +207,14 @@
         <name>CONNECTDeferredQueueManagerGUI</name>
         <directory>/Production/Adapters/General/CONNECTDeferredQueueManagerGUI</directory>
         <dist.type>war</dist.type>
-        <should.build>false</should.build>
+        <should.build>true</should.build>
         <should.deploy>false</should.deploy>
     </project>
     <project>
         <name>CONNECTUniversalClientGUI</name>
         <directory>/Production/Adapters/General/CONNECTUniversalClientGUI</directory>
         <dist.type>war</dist.type>
-        <should.build>false</should.build>
+        <should.build>true</should.build>
         <should.deploy>false</should.deploy>
     </project>
     <project>

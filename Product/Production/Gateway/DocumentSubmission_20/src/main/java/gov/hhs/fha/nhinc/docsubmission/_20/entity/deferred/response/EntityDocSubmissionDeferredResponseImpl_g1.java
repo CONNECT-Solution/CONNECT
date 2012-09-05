@@ -74,8 +74,7 @@ public class EntityDocSubmissionDeferredResponseImpl_g1 {
     protected AssertionType extractAssertionFromContext(WebServiceContext context, AssertionType oAssertionIn) {
         AssertionType assertion = null;
         if (oAssertionIn == null) {
-            SAML2AssertionExtractor extractor = new SAML2AssertionExtractor();
-            assertion = extractor.extractSamlAssertion(context);           
+            assertion = SAML2AssertionExtractor.getInstance().extractSamlAssertion(context);           
         } else {
             assertion = oAssertionIn;
         }

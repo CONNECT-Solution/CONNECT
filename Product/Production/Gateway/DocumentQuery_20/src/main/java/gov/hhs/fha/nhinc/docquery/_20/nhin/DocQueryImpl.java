@@ -26,13 +26,15 @@
  */
 package gov.hhs.fha.nhinc.docquery._20.nhin;
 
-import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
 import gov.hhs.fha.nhinc.docquery.nhin.NhinDocQueryOrchImpl;
+import gov.hhs.fha.nhinc.messaging.server.BaseService;
+
 import javax.xml.ws.WebServiceContext;
+
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -40,7 +42,7 @@ import org.apache.commons.logging.LogFactory;
  *
  * @author Neil Webb
  */
-public class DocQueryImpl
+public class DocQueryImpl extends BaseService
 {
     private Log log = null;
 
@@ -56,14 +58,8 @@ public class DocQueryImpl
 
     public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest body, WebServiceContext context) {
         log.debug("Entering DocQueryImpl.respondingGatewayCrossGatewayQuery");
-        
-        SAML2AssertionExtractor extractor = new SAML2AssertionExtractor();
-        AssertionType assertion = extractor.extractSamlAssertion(context);
-
-        if (assertion != null) {
-            AsyncMessageIdExtractor msgIdExtractor = new AsyncMessageIdExtractor();
-            assertion.setMessageId(msgIdExtractor.GetAsyncMessageId(context));
-        }
+                
+        AssertionType assertion = getAssertion(context, null);
 
         return new NhinDocQueryOrchImpl().respondingGatewayCrossGatewayQuery(body, assertion);
     }

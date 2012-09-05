@@ -57,7 +57,7 @@ public class NhincAdminDistSecured_g1 {
     }
 
     protected AssertionType extractAssertion(WebServiceContext context) {
-        return new SAML2AssertionExtractor().extractSamlAssertion(context);
+        return SAML2AssertionExtractor.getInstance().extractSamlAssertion(context);
     }
 
     public PassthruAdminDistributionOrchImpl getNhincImpl() {

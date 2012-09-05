@@ -26,14 +26,6 @@
  */
 package gov.hhs.fha.nhinc.docquery._20.entity;
 
-import javax.xml.ws.WebServiceContext;
-
-import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
-import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayQueryRequestType;
@@ -44,10 +36,14 @@ import gov.hhs.fha.nhinc.gateway.servlet.InitServlet;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.perfrepo.PerformanceManager;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
+
 import java.sql.Timestamp;
+
 import javax.xml.ws.WebServiceContext;
+
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -78,10 +74,8 @@ class EntityDocQueryImpl {
                 Timestamp starttime = new Timestamp(System.currentTimeMillis());
                 Long logId = PerformanceManager.getPerformanceManagerInstance().logPerformanceStart(starttime, NhincConstants.DOC_QUERY_SERVICE_NAME, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, homeCommunityId);
 
-                response = implOrch.respondingGatewayCrossGatewayQuery( adhocQueryRequest, new SAML2AssertionExtractor().extractSamlAssertion(context), targets);
-
-                
-                
+                response = implOrch.respondingGatewayCrossGatewayQuery( adhocQueryRequest, SAML2AssertionExtractor.getInstance().extractSamlAssertion(context), targets);
+               
                 // Log the end of the performance record
                 Timestamp stoptime = new Timestamp(System.currentTimeMillis());
                 PerformanceManager.getPerformanceManagerInstance().logPerformanceStop(logId, starttime, stoptime);
