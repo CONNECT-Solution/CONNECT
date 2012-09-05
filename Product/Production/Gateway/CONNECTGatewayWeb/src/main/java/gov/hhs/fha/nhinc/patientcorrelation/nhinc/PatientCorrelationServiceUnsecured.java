@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.patientcorrelation.nhinc;
 
+import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
 
@@ -83,7 +84,7 @@ public class PatientCorrelationServiceUnsecured {
     }
 
   private String createMessageId(WebServiceContext context) {
-        return "";//AsyncMessageIdExtractor.GetAsyncMessageId(context);
+        return AsyncMessageIdExtractor.GetAsyncMessageId(context);
     }
 
 }

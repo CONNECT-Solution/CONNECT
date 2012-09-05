@@ -73,5 +73,4 @@ public class PatientCorrelationServiceSecured {
         return service.addPatientCorrelation(request, assertion);
     }
 
-   
 }

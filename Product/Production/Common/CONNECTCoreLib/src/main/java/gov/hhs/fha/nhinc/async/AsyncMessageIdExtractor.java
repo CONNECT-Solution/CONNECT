@@ -53,13 +53,14 @@ public class AsyncMessageIdExtractor {
             for (Header header : headers) {
                 if (header.getName().getLocalPart().equalsIgnoreCase(NhincConstants.HEADER_MESSAGEID)) {
                     //messageId = header.getStringContent();
+
                 }
             }
         }
 
         if (messageId == null) {
             messageId = AddressingHeaderCreator.generateMessageId();
-        }
+       }
         return messageId;
     }
 
