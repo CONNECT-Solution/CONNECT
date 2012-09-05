@@ -116,9 +116,6 @@
 			<zipfileset dir="${root.project.directory.path}/SoapUI_Test/RegressionSuite" prefix="RegressionSuite">
                 <include name="*"/>
             </zipfileset>
-            <zipfileset dir="${root.project.directory.path}/SoapUI_Test/RegressionSuite/FileUtils/dist" prefix="RegressionSuite">
-                <include name="*.jar"/>
-            </zipfileset>
         </zip>
         <delete file="${release.info.tempfile}"/>
         <delete dir="${install.scripts.staging.dir}"/>

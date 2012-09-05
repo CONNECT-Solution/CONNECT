@@ -12,7 +12,6 @@
 
 <target name="init">
     <mkdir dir="build/classes" />
-    <mkdir dir="dist" />
 </target>
 
 <target name="compile" depends="init">
@@ -20,7 +19,7 @@
 </target>
 
 <target name="jar" depends="compile">
-        <jar destfile="dist/${ant.project.name}.jar" basedir="build/classes">
+        <jar destfile="../${ant.project.name}.jar" basedir="build/classes">
             <manifest>
                 <attribute name="Main-Class" value="${main-class}"/>
             </manifest>
@@ -33,24 +32,23 @@
 
 <target name="clean">
     <delete dir="build" />
-    <delete dir="dist" />
 </target>
 
 <target name="just.quick.clean">
 	<delete dir="build" />
-    <delete dir="dist" />
+    <delete file="../${ant.project.name}.jar" />
 </target>
 
 <target name="just.clean">
 	<delete dir="build" />
-    <delete dir="dist" />
+    <delete file="../${ant.project.name}.jar" />
 </target>
 
 <target name="package.create" depends="jar">
 	<java fork="true" classname="${main-class}">
             <classpath>
                 <path refid="classpath"/>
-                <path location="dist/${ant.project.name}.jar"/>
+                <path location="../${ant.project.name}.jar"/>
             </classpath>
     </java>
 </target>
@@ -59,7 +57,7 @@
 	<java fork="true" classname="${main-class}">
             <classpath>
                 <path refid="classpath"/>
-                <path location="dist/${ant.project.name}.jar"/>
+                <path location="../${ant.project.name}.jar"/>
             </classpath>
     </java>
 </target>
