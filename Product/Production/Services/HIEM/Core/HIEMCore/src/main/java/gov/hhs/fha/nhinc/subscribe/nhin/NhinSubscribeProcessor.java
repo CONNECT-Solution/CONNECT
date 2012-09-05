@@ -47,8 +47,8 @@ import gov.hhs.fha.nhinc.hiem.dte.marshallers.SubscribeResponseMarshaller;
 import gov.hhs.fha.nhinc.hiem.processor.common.HiemProcessorConstants;
 import gov.hhs.fha.nhinc.hiem.processor.faults.ConfigurationException;
 import gov.hhs.fha.nhinc.hiem.processor.faults.SoapFaultFactory;
-import gov.hhs.fha.nhinc.hiemadapter.proxy.subscribe.HiemSubscribeAdapterProxy;
-import gov.hhs.fha.nhinc.hiemadapter.proxy.subscribe.HiemSubscribeAdapterProxyObjectFactory;
+import gov.hhs.fha.nhinc.subscribe.adapter.proxy.HiemSubscribeAdapterProxy;
+import gov.hhs.fha.nhinc.subscribe.adapter.proxy.HiemSubscribeAdapterProxyObjectFactory;
 import gov.hhs.fha.nhinc.subscription.repository.roottopicextractor.RootTopicExtractor;
 import gov.hhs.fha.nhinc.xmlCommon.XmlUtility;
 

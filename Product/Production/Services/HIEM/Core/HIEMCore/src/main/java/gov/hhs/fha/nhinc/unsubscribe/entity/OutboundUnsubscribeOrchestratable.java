@@ -28,7 +28,7 @@ package gov.hhs.fha.nhinc.unsubscribe.entity;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
-import gov.hhs.fha.nhinc.hiem.consumerreference.ReferenceParametersElements;
+import gov.hhs.fha.nhinc.hiem.consumerreference.SoapMessageElements;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.orchestration.AuditTransformer;
 import gov.hhs.fha.nhinc.orchestration.NhinAggregator;
@@ -45,7 +45,7 @@ public class OutboundUnsubscribeOrchestratable implements OutboundOrchestratable
     private AssertionType assertion = null;
     private OutboundDelegate nhinDelegate = null;
     private Unsubscribe request = null;
-    private ReferenceParametersElements referenceParameters = null;
+    private SoapMessageElements referenceParameters = null;
     private UnsubscribeResponse response = null;
 
     public OutboundUnsubscribeOrchestratable(OutboundDelegate delegate) {
@@ -53,7 +53,7 @@ public class OutboundUnsubscribeOrchestratable implements OutboundOrchestratable
     }
 
     public OutboundUnsubscribeOrchestratable(OutboundDelegate delegate,
-    		Unsubscribe request, ReferenceParametersElements referenceParameters, NhinTargetSystemType target, AssertionType assertion) {
+    		Unsubscribe request, SoapMessageElements referenceParameters, NhinTargetSystemType target, AssertionType assertion) {
         this(delegate);
         this.assertion = assertion;
         this.request = request;
@@ -91,11 +91,11 @@ public class OutboundUnsubscribeOrchestratable implements OutboundOrchestratable
         this.request = request;
     }
 
-    public ReferenceParametersElements getReferenceParameters() {
+    public SoapMessageElements getReferenceParameters() {
 		return referenceParameters;
 	}
 
-	public void setReferenceParameters(ReferenceParametersElements referenceParameters) {
+	public void setReferenceParameters(SoapMessageElements referenceParameters) {
 		this.referenceParameters = referenceParameters;
 	}
 

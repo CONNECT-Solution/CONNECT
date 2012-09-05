@@ -51,7 +51,7 @@ import gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory;
 public class PassthruPatientDiscoveryDeferredRespProxyObjectFactory extends ComponentProxyObjectFactory implements
         GenericFactory<PassthruPatientDiscoveryDeferredRespProxy> {
 
-    private static final String CONFIG_FILE_NAME = "PatientDiscoveryDeferedResponseProxyConfig.xml";
+    private static final String CONFIG_FILE_NAME = "PatientDiscoveryDeferredResponseProxyConfig.xml";
     private static final String BEAN_NAME = "passthrupatientdiscoverydeferredresp";
 
     protected String getConfigFileName() {

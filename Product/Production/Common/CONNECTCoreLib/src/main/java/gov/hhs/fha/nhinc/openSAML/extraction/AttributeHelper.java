@@ -37,7 +37,7 @@ public class AttributeHelper {
      * @param codeId Identifies which coded element this is parsing
      */
     public CeType extractNhinCodedElement(Attribute attrib, String codeId) {
-        log.debug("Entering SamlTokenExtractor.extractNhinCodedElement...");
+        log.debug("Entering AttributeHelper.extractNhinCodedElement...");
 
         CeType ce = new CeType();
         ce.setCode("");
@@ -110,7 +110,7 @@ public class AttributeHelper {
             log.error("Attributes for " + codeId + " are invalid: " + attrVals);
         }
 
-        log.debug("Exiting SamlTokenExtractor.extractNhinCodedElement...");
+        log.debug("Exiting AttributeHelper.extractNhinCodedElement...");
         return ce;
     }
 
@@ -157,7 +157,7 @@ public class AttributeHelper {
      * @param assertOut The Assertion element being written to
      */
     public void extractNameParts(Attribute attrib, AssertionType assertOut) {
-        log.debug("Entering SamlTokenExtractor.extractNameParts...");
+        log.debug("Entering AttributeHelper.extractNameParts...");
 
         // Assumption is that before the 1st space reflects the first name,
         // after the last space is the last name, anything between is the middle name
@@ -215,7 +215,7 @@ public class AttributeHelper {
             log.error("User Name attribute is empty: " + attrVals);
         }
 
-        log.debug("SamlTokenExtractor.extractNameParts() -- End");
+        log.debug("AttributeHelper.extractNameParts() -- End");
     }
 
 }

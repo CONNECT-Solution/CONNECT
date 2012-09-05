@@ -30,7 +30,7 @@ import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterProvideAndRegisterDocumentSetRequestType;
-import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
+import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import gov.hhs.fha.nhinc.docsubmission.adapter.component.AdapterComponentDocSubmissionOrchImpl;
 import javax.xml.ws.WebServiceContext;
@@ -59,7 +59,7 @@ public class AdapterComponentDocSubmissionImpl {
     private AssertionType getAssertion(WebServiceContext context, AssertionType oAssertionIn) {
         AssertionType assertion = null;
         if (oAssertionIn == null) {
-            assertion = SamlTokenExtractor.GetAssertion(context);
+            assertion = new SAML2AssertionExtractor().extractSamlAssertion(context);
         } else {
             assertion = oAssertionIn;
         }

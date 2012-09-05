@@ -69,8 +69,6 @@ public class AuditRepositorySecuredImpl {
             AuditRepositoryOrchImpl processor = getAuditRepositoryOrchImpl();
             if (processor != null) {
                 try {
-                    
-                    
                     AssertionType assertion = SAML2AssertionExtractor.getInstance().extractSamlAssertion(context);
                     loadAssertion(assertion, context);
 

@@ -28,7 +28,7 @@ package gov.hhs.fha.nhinc.unsubscribe.entity;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
-import gov.hhs.fha.nhinc.hiem.consumerreference.ReferenceParametersElements;
+import gov.hhs.fha.nhinc.hiem.consumerreference.SoapMessageElements;
 import gov.hhs.fha.nhinc.orchestration.OrchestrationContext;
 import gov.hhs.fha.nhinc.orchestration.OrchestrationContextBuilder;
 import gov.hhs.fha.nhinc.orchestration.OutboundDelegate;
@@ -43,7 +43,7 @@ public abstract class OutboundUnsubscribeOrchestrationContextBuilder implements 
     private AssertionType assertionType;
     private OutboundDelegate nhinDelegate;
     private Unsubscribe request;
-    private ReferenceParametersElements referenceParameters;
+    private SoapMessageElements referenceParameters;
     private NhinTargetSystemType target;
 
     public abstract OrchestrationContext build();
@@ -84,11 +84,11 @@ public abstract class OutboundUnsubscribeOrchestrationContextBuilder implements 
         this.request = request;
     }
     
-    public ReferenceParametersElements getReferenceParameters() {
+    public SoapMessageElements getReferenceParameters() {
 		return referenceParameters;
 	}
 
-	public void setReferenceParameters(ReferenceParametersElements referenceParameters) {
+	public void setReferenceParameters(SoapMessageElements referenceParameters) {
 		this.referenceParameters = referenceParameters;
 	}
 

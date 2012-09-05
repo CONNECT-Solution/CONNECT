@@ -29,7 +29,7 @@ public class SAML2AssertionExtractor {
     private static SAML2AssertionExtractor INSTANCE = null;
 
     private SAMLExtractorDOM extractor;
-    
+
     SAML2AssertionExtractor() {
         SAMLExtractorDOMFactory factory = new SAMLExtractorDOMFactory();
         extractor = factory.getExtractor();
@@ -53,14 +53,19 @@ public class SAML2AssertionExtractor {
         LOGGER.debug("Executing Saml2AssertionExtractor.extractSamlAssertion()...");
         AssertionType target = null;
 
+        if ( context == null) {
+            return null;
+        }
+        
         MessageContext mContext = (MessageContext) context.getMessageContext();
         SoapHeader header = getSecuritySoapHeader(mContext);
 
-        Object obj = header.getObject();
-        Element element = (Element) obj;
+        if (header != null) {
+            Object obj = header.getObject();
+            Element element = (Element) obj;
 
-      
-        target = extractor.extractSAMLAssertion(element);
+            target = extractor.extractSAMLAssertion(element);
+        }
 
         return target;
     }

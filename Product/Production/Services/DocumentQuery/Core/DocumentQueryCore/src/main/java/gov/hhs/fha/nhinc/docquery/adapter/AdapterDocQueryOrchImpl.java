@@ -26,8 +26,6 @@
  */
 package gov.hhs.fha.nhinc.docquery.adapter;
 
-import javax.jws.HandlerChain;
-
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
@@ -48,7 +46,6 @@ import gov.hhs.fha.nhinc.redactionengine.adapter.proxy.AdapterRedactionEnginePro
  *
  * @author jhoppesc
  */
-@HandlerChain(file = "../../../../../handler-chain.xml")
 public class AdapterDocQueryOrchImpl {
     private Log log = null;
     private static final String ERROR_CODE_CONTEXT = AdapterDocQueryOrchImpl.class.getName();

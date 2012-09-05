@@ -68,7 +68,7 @@ class OutboundSubscribeStrategyImpl_g0 implements OrchestrationStrategy {
 			response = nhincSubscribe.subscribe(message.getRequest(),
 			        message.getAssertion(), message.getTarget());
 		} catch (Exception e) {
-			log.error("Failure to process nhin Subscribe message:" + e.toString());
+			log.error("Failure to process nhin Subscribe message.", e);
 		}
         message.setResponse(response);
 

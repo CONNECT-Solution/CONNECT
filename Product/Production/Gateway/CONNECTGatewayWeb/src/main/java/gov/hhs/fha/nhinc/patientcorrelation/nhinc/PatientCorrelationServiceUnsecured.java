@@ -82,9 +82,7 @@ public class PatientCorrelationServiceUnsecured {
         return service.addPatientCorrelation(addPatientCorrelationRequest, assertionType);
     }
 
-  
-
-    private String createMessageId(WebServiceContext context) {
+  private String createMessageId(WebServiceContext context) {
         return "";//AsyncMessageIdExtractor.GetAsyncMessageId(context);
     }
 

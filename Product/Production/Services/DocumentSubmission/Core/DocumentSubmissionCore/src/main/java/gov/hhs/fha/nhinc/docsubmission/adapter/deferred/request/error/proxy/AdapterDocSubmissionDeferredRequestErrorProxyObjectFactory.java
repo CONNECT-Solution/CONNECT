@@ -29,7 +29,7 @@ package gov.hhs.fha.nhinc.docsubmission.adapter.deferred.request.error.proxy;
 import gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory;
 
 public class AdapterDocSubmissionDeferredRequestErrorProxyObjectFactory extends ComponentProxyObjectFactory {
-    private static final String CONFIG_FILE_NAME = "DocumentSubmissionDefferedRequestProxyConfig.xml";
+    private static final String CONFIG_FILE_NAME = "DocumentSubmissionDeferredRequestProxyConfig.xml";
     private static final String BEAN_NAME = "adapterxdrrequesterror";
 
     protected String getConfigFileName() {

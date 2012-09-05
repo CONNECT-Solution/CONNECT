@@ -33,7 +33,7 @@ import org.oasis_open.docs.wsrf.rw_2.ResourceUnknownFault;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
-import gov.hhs.fha.nhinc.hiem.consumerreference.ReferenceParametersElements;
+import gov.hhs.fha.nhinc.hiem.consumerreference.SoapMessageElements;
 
 /**
  *
@@ -41,7 +41,7 @@ import gov.hhs.fha.nhinc.hiem.consumerreference.ReferenceParametersElements;
  */
 public interface NhinHiemUnsubscribeProxy {
 
-    public UnsubscribeResponse unsubscribe(Unsubscribe unsubscribeElement, ReferenceParametersElements referenceParametersElements,
+    public UnsubscribeResponse unsubscribe(Unsubscribe unsubscribeElement, SoapMessageElements referenceParametersElements,
             AssertionType assertion, NhinTargetSystemType target) throws ResourceUnknownFault,
             UnableToDestroySubscriptionFault, Exception;
 }

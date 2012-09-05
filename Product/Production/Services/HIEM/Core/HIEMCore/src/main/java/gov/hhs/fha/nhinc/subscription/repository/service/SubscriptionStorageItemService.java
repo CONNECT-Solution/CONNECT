@@ -26,7 +26,7 @@
  */
 package gov.hhs.fha.nhinc.subscription.repository.service;
 
-import gov.hhs.fha.nhinc.hiem.consumerreference.ReferenceParametersElements;
+import gov.hhs.fha.nhinc.hiem.consumerreference.SoapMessageElements;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.subscription.repository.dao.SubscriptionStorageItemDao;
 import gov.hhs.fha.nhinc.subscription.repository.data.SubscriptionStorageItem;
@@ -104,7 +104,7 @@ public class SubscriptionStorageItemService {
     }
 
     public SubscriptionStorageItem retrieveByLocalSubscriptionReferenceParameters(
-            ReferenceParametersElements referenceParametersElements) throws SubscriptionRepositoryException {
+            SoapMessageElements referenceParametersElements) throws SubscriptionRepositoryException {
         SubscriptionStorageItem subscriptionItem = null;
         String subscriptionId = SubscriptionIdHelper
                 .extractSubscriptionIdFromReferenceParametersElements(referenceParametersElements);

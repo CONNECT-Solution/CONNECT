@@ -26,12 +26,10 @@
  */
 package gov.hhs.fha.nhinc.admindistribution.adapter;
 
+import javax.annotation.Resource;
 import javax.jws.WebService;
 import javax.xml.ws.BindingType;
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import javax.annotation.Resource;
 import javax.xml.ws.WebServiceContext;
-import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
 
 /**
  * 

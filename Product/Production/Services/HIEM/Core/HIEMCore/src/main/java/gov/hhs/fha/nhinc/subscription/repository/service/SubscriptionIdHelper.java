@@ -26,7 +26,7 @@
  */
 package gov.hhs.fha.nhinc.subscription.repository.service;
 
-import gov.hhs.fha.nhinc.hiem.consumerreference.ReferenceParametersElements;
+import gov.hhs.fha.nhinc.hiem.consumerreference.SoapMessageElements;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.xmlCommon.XmlUtility;
 import gov.hhs.fha.nhinc.xmlCommon.XpathHelper;
@@ -78,7 +78,7 @@ public class SubscriptionIdHelper {
     // todo: move "subscriptionid" magic definition somewhere central - allow for the implementation of subscription id
     // to change without having to trace changes
     public static String extractSubscriptionIdFromReferenceParametersElements(
-            ReferenceParametersElements referenceParametersElements) {
+            SoapMessageElements referenceParametersElements) {
         log.debug("Begin extractSubscriptionIdFromReferenceParametersElements");
         String subscriptionId = null;
         if (referenceParametersElements != null) {

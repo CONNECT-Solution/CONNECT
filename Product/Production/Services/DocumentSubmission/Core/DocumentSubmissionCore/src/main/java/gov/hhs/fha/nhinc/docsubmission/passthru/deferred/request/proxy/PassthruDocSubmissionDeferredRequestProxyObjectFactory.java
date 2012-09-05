@@ -34,7 +34,7 @@ import gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory;
  */
 public class PassthruDocSubmissionDeferredRequestProxyObjectFactory extends ComponentProxyObjectFactory {
 
-    private static final String CONFIG_FILE_NAME = "DocumentSubmissionDefferedRequestProxyConfig.xml";
+    private static final String CONFIG_FILE_NAME = "DocumentSubmissionDeferredRequestProxyConfig.xml";
     private static final String BEAN_NAME = "passthruxdrasyncreq";
 
     protected String getConfigFileName() {

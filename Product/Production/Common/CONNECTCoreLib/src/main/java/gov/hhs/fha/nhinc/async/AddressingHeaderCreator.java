@@ -28,19 +28,12 @@ package gov.hhs.fha.nhinc.async;
 
 import java.util.UUID;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 /**
  * This class manages the creation of the header section of the soap message
  * that defines WS-Addressing.
  */
 public class AddressingHeaderCreator {
     private static String UUID_TAG = "urn:uuid:";
-
-	private final Log log = LogFactory.getLog(getClass());
-
-	
 
     public static String generateMessageId() {
         return UUID_TAG + UUID.randomUUID().toString();

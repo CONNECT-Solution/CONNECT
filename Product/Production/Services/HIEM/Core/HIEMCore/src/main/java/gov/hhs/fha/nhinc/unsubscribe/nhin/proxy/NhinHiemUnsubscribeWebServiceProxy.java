@@ -26,11 +26,17 @@
  */
 package gov.hhs.fha.nhinc.unsubscribe.nhin.proxy;
 
-import java.util.List;
-
-import javax.xml.namespace.QName;
-import javax.xml.ws.BindingProvider;
-import javax.xml.ws.Service;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
+import gov.hhs.fha.nhinc.hiem.consumerreference.ReferenceParametersHelper;
+import gov.hhs.fha.nhinc.hiem.consumerreference.SoapMessageElements;
+import gov.hhs.fha.nhinc.messaging.client.CONNECTCXFClientFactory;
+import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
+import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import gov.hhs.fha.nhinc.unsubscribe.nhin.proxy.service.NhinHiemUnsubscribeServicePortDescriptor;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -40,116 +46,58 @@ import org.oasis_open.docs.wsn.bw_2.SubscriptionManager;
 import org.oasis_open.docs.wsn.bw_2.UnableToDestroySubscriptionFault;
 import org.oasis_open.docs.wsrf.rw_2.ResourceUnknownFault;
 
-import com.sun.xml.ws.api.message.Header;
-import com.sun.xml.ws.developer.WSBindingProvider;
-
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
-import gov.hhs.fha.nhinc.hiem.consumerreference.ReferenceParametersElements;
-import gov.hhs.fha.nhinc.hiem.dte.SoapUtil;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
-
-
 /**
- *
+ * 
  * @author rayj
  */
 public class NhinHiemUnsubscribeWebServiceProxy implements NhinHiemUnsubscribeProxy {
 
     private static Log log = LogFactory.getLog(NhinHiemUnsubscribeWebServiceProxy.class);
 
-    private static Service cachedService = null;
-    private static WebServiceProxyHelper oProxyHelper = null;
-    private static final String NAMESPACE_URI = "http://docs.oasis-open.org/wsn/bw-2";
-    private static final String SERVICE_LOCAL_PART = "SubscriptionManagerService";
-    private static final String PORT_LOCAL_PART = "SubscriptionManagerPort";
-    private static final String WS_ADDRESSING_ACTION = "http://docs.oasis-open.org/wsn/bw-2/SubscriptionManager/UnsubscribeRequest";
-    private static final String WSDL_FILE = "NhinSubscription.wsdl";
-    private static final String UNSUBSCRIBE_SERVICE = "unsubscribe";
+    protected CONNECTClient<SubscriptionManager> getCONNECTClientSecured(
+            ServicePortDescriptor<SubscriptionManager> portDescriptor, String url, AssertionType assertion,
+            String wsAddressingTo) {
+
+        return CONNECTCXFClientFactory.getInstance().getCONNECTClientSecured(portDescriptor, url, assertion,
+                wsAddressingTo);
+    }
 
     @Override
-    public UnsubscribeResponse unsubscribe(Unsubscribe unsubscribe,
-    		ReferenceParametersElements referenceParametersElements, AssertionType assertion,
-    		NhinTargetSystemType target) throws ResourceUnknownFault,
-    		UnableToDestroySubscriptionFault, Exception {
-        SubscriptionManager port = getPort(target, assertion);
+    public UnsubscribeResponse unsubscribe(Unsubscribe unsubscribe, SoapMessageElements referenceParametersElements,
+            AssertionType assertion, NhinTargetSystemType target) throws ResourceUnknownFault,
+            UnableToDestroySubscriptionFault, Exception {
+
         UnsubscribeResponse response = null;
 
-        if (port != null) {
-            log.debug("attaching reference parameter headers");
-            SoapUtil soapUtil = new SoapUtil();
-            List<Header> headers = oProxyHelper.createWSAddressingHeaders((WSBindingProvider) port,
-                    WS_ADDRESSING_ACTION, assertion);
-            soapUtil.attachReferenceParameterElements((WSBindingProvider) port, referenceParametersElements, headers);
-            log.debug("invoking unsubscribe invokePort");
-            try {
-                response = (UnsubscribeResponse) oProxyHelper.invokePort(port, port.getClass(),
-                        UNSUBSCRIBE_SERVICE, unsubscribe);
-            } catch (Exception e) {
-                log.error("Exception: " + e.getMessage());
-                throw e;
-            }
-        }
-        return response;
-    }
-
-    private SubscriptionManager getPort(NhinTargetSystemType target, AssertionType assertion) {
-        String url = null;
-        if (target != null) {
-            try {
-                url = ConnectionManagerCache.getInstance().getEndpointURLFromNhinTarget(target,
-                        NhincConstants.HIEM_SUBSCRIPTION_MANAGER_SERVICE_NAME);
-            } catch (ConnectionManagerException ex) {
+        try {
+            String url = ConnectionManagerCache.getInstance().getEndpointURLFromNhinTarget(target,
+                    NhincConstants.HIEM_SUBSCRIPTION_MANAGER_SERVICE_NAME);
+            if (NullChecker.isNullish(url)) {
                 log.error("Error: Failed to retrieve url for service: "
                         + NhincConstants.HIEM_SUBSCRIPTION_MANAGER_SERVICE_NAME);
-                log.error(ex.getMessage());
-            }
-        } else {
-            log.error("Target system passed into the proxy is null");
-        }
-        return getPort(url, assertion);
-    }
-
-    protected SubscriptionManager getPort(String url, AssertionType assertIn) {
-        SubscriptionManager oPort = null;
-        try {
-            Service oService = getService(WSDL_FILE, NAMESPACE_URI, SERVICE_LOCAL_PART);
-
-            if (oService != null) {
-                log.debug("subscribe() Obtained service - creating port.");
-                oPort = oService.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), SubscriptionManager.class);
-
-                // Initialize secured port
-//                getWebServiceProxyHelper().initializeSecurePort((BindingProvider) oPort, url,
-//                        NhincConstants.UNSUBSCRIBE_ACTION, WS_ADDRESSING_ACTION, assertIn);
+            } else if (target == null) {
+                log.error("Target system passed into the proxy is null");
             } else {
-                log.error("Unable to obtain service - no port created.");
-            }
-        } catch (Throwable t) {
-            log.error("Error creating service: " + t.getMessage(), t);
-        }
-        return oPort;
-    }
 
-    private WebServiceProxyHelper getWebServiceProxyHelper() {
-        if (oProxyHelper == null) {
-            oProxyHelper = new WebServiceProxyHelper();
-        }
-        return oProxyHelper;
-    }
+                String wsAddressingTo = ReferenceParametersHelper.getWsAddressingTo(referenceParametersElements);
+                if (wsAddressingTo == null) {
+                    wsAddressingTo = url;
+                }
 
-    private Service getService(String wsdl, String uri, String service) {
-        if (cachedService == null) {
-            try {
-                cachedService = getWebServiceProxyHelper().createService(wsdl, uri, service);
-            } catch (Throwable t) {
-                log.error("Error creating service: " + t.getMessage(), t);
+                ServicePortDescriptor<SubscriptionManager> portDescriptor = new NhinHiemUnsubscribeServicePortDescriptor();
+
+                CONNECTClient<SubscriptionManager> client = getCONNECTClientSecured(portDescriptor, url, assertion,
+                        wsAddressingTo);
+
+                response = (UnsubscribeResponse) client.invokePort(SubscriptionManager.class, "unsubscribe",
+                        unsubscribe);
             }
+
+        } catch (Exception ex) {
+            log.error("Failed to send unsubscribe to remote gateway.", ex);
         }
-        return cachedService;
+
+        return response;
     }
 
 }

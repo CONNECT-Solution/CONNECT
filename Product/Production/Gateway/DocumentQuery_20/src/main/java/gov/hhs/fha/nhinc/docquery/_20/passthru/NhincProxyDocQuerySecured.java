@@ -27,7 +27,6 @@
 package gov.hhs.fha.nhinc.docquery._20.passthru;
 
 import javax.annotation.Resource;
-import javax.jws.HandlerChain;
 import javax.jws.WebService;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
@@ -40,7 +39,6 @@ import javax.xml.ws.soap.Addressing;
 @WebService(serviceName = "NhincProxyDocQuerySecured", portName = "NhincProxyDocQuerySecuredPortSoap", endpointInterface = "gov.hhs.fha.nhinc.nhincproxydocquerysecured.NhincProxyDocQuerySecuredPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:nhincproxydocquerysecured", wsdlLocation = "WEB-INF/wsdl/NhincProxyDocQuerySecured/NhincProxyDocQuerySecured.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 @Addressing(enabled=true)
-@HandlerChain(file="../../../../../../../handler-chain.xml")
 public class NhincProxyDocQuerySecured {
 
     @Resource
