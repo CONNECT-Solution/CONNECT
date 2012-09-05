@@ -26,19 +26,20 @@
  */
 package gov.hhs.fha.nhinc.docsubmission.adapter;
 
-import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterProvideAndRegisterDocumentSetRequestType;
-import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
+import gov.hhs.fha.nhinc.messaging.server.BaseService;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
+
 import javax.xml.ws.WebServiceContext;
+
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 /**
  * 
  * @author JHOPPESC
  */
-public class AdapterDocSubmissionImpl {
+public class AdapterDocSubmissionImpl extends BaseService {
 
     public RegistryResponseType provideAndRegisterDocumentSetb(ProvideAndRegisterDocumentSetRequestType body,
             WebServiceContext context) {
@@ -54,21 +55,4 @@ public class AdapterDocSubmissionImpl {
         return new AdapterDocSubmissionOrchImpl().provideAndRegisterDocumentSetB(
                 body.getProvideAndRegisterDocumentSetRequest(), assertion);
     }
-
-    private AssertionType getAssertion(WebServiceContext context, AssertionType oAssertionIn) {
-        AssertionType assertion = null;
-        if (oAssertionIn == null) {
-            assertion = new SAML2AssertionExtractor().extractSamlAssertion(context);
-        } else {
-            assertion = oAssertionIn;
-        }
-
-        // Extract the message id value from the WS-Addressing Header and place it in the Assertion Class
-        if (assertion != null) {
-            assertion.setMessageId(AsyncMessageIdExtractor.GetAsyncMessageId(context));
-        }
-
-        return assertion;
-    }
-
 }

@@ -26,27 +26,26 @@
  */
 package gov.hhs.fha.nhinc.docsubmission._11.passthru;
 
-import javax.xml.ws.WebServiceContext;
-
-import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
-
-import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType;
-import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
 import gov.hhs.fha.nhinc.docsubmission.passthru.PassthruDocSubmissionOrchImpl;
+import gov.hhs.fha.nhinc.messaging.server.BaseService;
+
+import javax.xml.ws.WebServiceContext;
+
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 /**
  *
  * @author dunnek
  */
-public class PassthruDocSubmissionImpl {
+public class PassthruDocSubmissionImpl extends BaseService {
 
     public RegistryResponseType provideAndRegisterDocumentSetB(
             RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType body, WebServiceContext context) {
         // Create an assertion class from the contents of the SAML token
-        AssertionType assertion = extractAssertionFromContext(context, null);
+        AssertionType assertion = getAssertion(context, null);
 
         return new PassthruDocSubmissionOrchImpl().provideAndRegisterDocumentSetB(
                 body.getProvideAndRegisterDocumentSetRequest(), assertion, body.getNhinTargetSystem());
@@ -54,26 +53,9 @@ public class PassthruDocSubmissionImpl {
 
     public RegistryResponseType provideAndRegisterDocumentSetB(
             RespondingGatewayProvideAndRegisterDocumentSetRequestType body, WebServiceContext context) {
-        AssertionType assertion = extractAssertionFromContext(context, body.getAssertion());
+        AssertionType assertion = getAssertion(context, body.getAssertion());
 
         return new PassthruDocSubmissionOrchImpl().provideAndRegisterDocumentSetB(
                 body.getProvideAndRegisterDocumentSetRequest(), assertion, body.getNhinTargetSystem());
     }
-
-    protected AssertionType extractAssertionFromContext(WebServiceContext context, AssertionType oAssertionIn) {
-        AssertionType assertion = null;
-        if (oAssertionIn == null) {
-            SAML2AssertionExtractor extractor = new SAML2AssertionExtractor();
-            assertion = extractor.extractSamlAssertion(context);
-        } else {
-            assertion = oAssertionIn;
-        }
-        // Extract the message id value from the WS-Addressing Header and place it in the Assertion Class
-        if (assertion != null) {
-            assertion.setMessageId(AsyncMessageIdExtractor.GetAsyncMessageId(context));
-        }
-
-        return assertion;
-    }
-
 }

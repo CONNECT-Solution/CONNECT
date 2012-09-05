@@ -70,7 +70,7 @@ public class ProxyHiemNotifyImpl {
         NhinHiemNotifyProxyObjectFactory hiemNotifyFactory = new NhinHiemNotifyProxyObjectFactory();
         NhinHiemNotifyProxy proxy = hiemNotifyFactory.getNhinHiemNotifyProxy();
 
-        proxy.notify(notify, soapHeaderElements, new SAML2AssertionExtractor().extractSamlAssertion(context),
+        proxy.notify(notify, soapHeaderElements, SAML2AssertionExtractor.getInstance().extractSamlAssertion(context),
                 notifyRequest.getNhinTargetSystem());
         log.debug("Exiting ProxyHiemNotifyImpl.notify...");
     }

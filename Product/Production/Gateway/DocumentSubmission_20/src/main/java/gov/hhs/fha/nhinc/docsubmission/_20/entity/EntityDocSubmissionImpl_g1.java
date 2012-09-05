@@ -64,7 +64,7 @@ class EntityDocSubmissionImpl_g1 {
     public RegistryResponseType provideAndRegisterDocumentSetB(
             RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType body, WebServiceContext context) {
         
-        AssertionType assertion = new SAML2AssertionExtractor().extractSamlAssertion(context);
+        AssertionType assertion = SAML2AssertionExtractor.getInstance().extractSamlAssertion(context);
         
         return provideAndRegisterDocumentSetB(body.getProvideAndRegisterDocumentSetRequest(),
                 assertion, body.getNhinTargetCommunities(), body.getUrl());

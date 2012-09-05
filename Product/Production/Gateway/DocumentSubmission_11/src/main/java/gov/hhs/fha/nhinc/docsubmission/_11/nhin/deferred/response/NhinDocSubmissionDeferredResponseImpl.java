@@ -53,8 +53,8 @@ public class NhinDocSubmissionDeferredResponseImpl {
      */
     public XDRAcknowledgementType provideAndRegisterDocumentSetBResponse(RegistryResponseType body,
             WebServiceContext context) {
-        SAML2AssertionExtractor extractor = new SAML2AssertionExtractor();
-        AssertionType assertion = extractor.extractSamlAssertion(context);
+
+        AssertionType assertion = SAML2AssertionExtractor.getInstance().extractSamlAssertion(context);
 
         if (assertion != null) {
             AsyncMessageIdExtractor msgIdExtractor = new AsyncMessageIdExtractor();

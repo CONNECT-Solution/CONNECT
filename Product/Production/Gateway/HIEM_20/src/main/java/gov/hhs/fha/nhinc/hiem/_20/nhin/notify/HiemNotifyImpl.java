@@ -70,7 +70,7 @@ public class HiemNotifyImpl {
         try {
             // String rawSoapMessage = extractSoapMessage(context, "notifySoapMessage");
             NhinNotifyProcessor notifyProcessor = new NhinNotifyProcessor();
-            AssertionType assertion = new SAML2AssertionExtractor().extractSamlAssertion(context);
+            AssertionType assertion = SAML2AssertionExtractor.getInstance().extractSamlAssertion(context);
             auditInputMessage(notifyRequest, assertion);
             if (checkPolicy(notifyRequest, assertion)) {
                 notifyProcessor.processNhinNotify(soapMessage, assertion);

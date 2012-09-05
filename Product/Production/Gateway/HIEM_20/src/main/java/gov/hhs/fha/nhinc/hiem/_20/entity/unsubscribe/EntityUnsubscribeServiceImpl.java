@@ -74,7 +74,7 @@ public class EntityUnsubscribeServiceImpl {
             throws gov.hhs.fha.nhinc.entitysubscriptionmanagementsecured.UnableToDestroySubscriptionFault, Exception {
         UnsubscribeResponse response = null;
         try {            
-            AssertionType assertion = new SAML2AssertionExtractor().extractSamlAssertion(context);
+            AssertionType assertion = SAML2AssertionExtractor.getInstance().extractSamlAssertion(context);
             String subscriptionId = getSubscriptionId(context);
 
             EntityUnsubscribeOrchImpl processor = new EntityUnsubscribeOrchImpl();

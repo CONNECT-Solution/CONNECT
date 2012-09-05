@@ -26,21 +26,19 @@
  */
 package gov.hhs.fha.nhinc.docsubmission._11.nhin.deferred.request;
 
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.docsubmission.nhin.deferred.request.NhinDocSubmissionDeferredRequestOrchImpl;
+import gov.hhs.fha.nhinc.messaging.server.BaseService;
+import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 
 import javax.xml.ws.WebServiceContext;
-
-import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
-import gov.hhs.fha.nhinc.docsubmission.nhin.deferred.request.NhinDocSubmissionDeferredRequestOrchImpl;
-import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 
 /**
  *
  * @author patlollav
  */
-public class NhinDocSubmissionDeferredRequestImpl {
+public class NhinDocSubmissionDeferredRequestImpl extends BaseService {
 
     /**
      *
@@ -50,13 +48,8 @@ public class NhinDocSubmissionDeferredRequestImpl {
      */
     public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(ProvideAndRegisterDocumentSetRequestType body,
             WebServiceContext context) {
-        SAML2AssertionExtractor extractor = new SAML2AssertionExtractor();
-        AssertionType assertion = extractor.extractSamlAssertion(context);
 
-        if (assertion != null) {
-            AsyncMessageIdExtractor msgIdExtractor = new AsyncMessageIdExtractor();
-            assertion.setMessageId(msgIdExtractor.GetAsyncMessageId(context));
-        }
+        AssertionType assertion = getAssertion(context, null);
 
         return new NhinDocSubmissionDeferredRequestOrchImpl().provideAndRegisterDocumentSetBRequest(body, assertion);
     }

@@ -26,14 +26,15 @@
  */
 package gov.hhs.fha.nhinc.docsubmission.adapter.deferred.request.error;
 
-import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterProvideAndRegisterDocumentSetRequestErrorSecuredType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterProvideAndRegisterDocumentSetRequestErrorType;
-import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
+import gov.hhs.fha.nhinc.messaging.server.BaseService;
+import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
+
 import javax.xml.ws.WebServiceContext;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -41,7 +42,7 @@ import org.apache.commons.logging.LogFactory;
  * 
  * @author JHOPPESC
  */
-public class AdapterXDRSecuredRequestErrorImpl {
+public class AdapterXDRSecuredRequestErrorImpl extends BaseService {
     private Log log = null;
 
     public AdapterXDRSecuredRequestErrorImpl() {
@@ -89,21 +90,6 @@ public class AdapterXDRSecuredRequestErrorImpl {
 
         log.debug("End AdapterXDRSecuredRequestErrorImpl.provideAndRegisterDocumentSetBRequestError(unsecured)");
         return response;
-    }
-
-    protected AssertionType getAssertion(WebServiceContext context, AssertionType oAssertionIn) {
-        AssertionType assertion = null;
-        if (oAssertionIn == null) {
-            assertion = new SAML2AssertionExtractor().extractSamlAssertion(context);
-        } else {
-            assertion = oAssertionIn;
-        }
-        // Extract the message id value from the WS-Addressing Header and place it in the Assertion Class
-        if (assertion != null) {
-            assertion.setMessageId(AsyncMessageIdExtractor.GetAsyncMessageId(context));
-        }
-
-        return assertion;
     }
 
     protected XDRAcknowledgementType provideAndRegisterDocumentSetBRequestError(

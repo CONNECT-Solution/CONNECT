@@ -45,7 +45,7 @@ public class AdapterAdministrativeDistributionSecured {
     private WebServiceContext context;
 
     protected AssertionType extractAssertion(WebServiceContext context) {
-        return new SAML2AssertionExtractor().extractSamlAssertion(context);
+        return SAML2AssertionExtractor.getInstance().extractSamlAssertion(context);
     }
 
     public void sendAlertMessage(

@@ -6,13 +6,7 @@
  */
 package gov.hhs.fha.nhinc.docretrieve._30.entity;
 
-import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
-
-import javax.xml.ws.WebServiceContext;
-
-import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
 import gov.hhs.fha.nhinc.docretrieve.entity.OutboundDocRetrieveAggregator_a0;
 import gov.hhs.fha.nhinc.docretrieve.entity.OutboundDocRetrieveAuditTransformer_a0;
 import gov.hhs.fha.nhinc.docretrieve.entity.OutboundDocRetrieveDelegate;
@@ -20,21 +14,20 @@ import gov.hhs.fha.nhinc.docretrieve.entity.OutboundDocRetrieveOrchestratable;
 import gov.hhs.fha.nhinc.docretrieve.entity.OutboundDocRetrieveOrchestratableImpl;
 import gov.hhs.fha.nhinc.docretrieve.entity.OutboundDocRetrieveOrchestratorImpl;
 import gov.hhs.fha.nhinc.docretrieve.entity.OutboundDocRetrievePolicyTransformer_a0;
+import gov.hhs.fha.nhinc.messaging.server.BaseService;
 import gov.hhs.fha.nhinc.orchestration.AuditTransformer;
 import gov.hhs.fha.nhinc.orchestration.NhinAggregator;
 import gov.hhs.fha.nhinc.orchestration.OutboundDelegate;
 import gov.hhs.fha.nhinc.orchestration.PolicyTransformer;
-import gov.hhs.fha.nhinc.perfrepo.PerformanceManager;
-import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
-import java.sql.Timestamp;
+
 import javax.xml.ws.WebServiceContext;
 
 /**
  *
  * @author dunnek
  */
-public class EntityDocRetreiveImpl {
+public class EntityDocRetreiveImpl extends BaseService {
 
     public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(
             ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType body, final WebServiceContext context) {
@@ -70,21 +63,5 @@ public class EntityDocRetreiveImpl {
         OutboundDocRetrieveOrchestratorImpl oOrchestrator = new OutboundDocRetrieveOrchestratorImpl();
         oOrchestrator.process(EntityDROrchImpl);
         return EntityDROrchImpl.getResponse();
-    }
-
-    private AssertionType getAssertion(WebServiceContext context, AssertionType oAssertionIn) {
-        AssertionType assertion = null;
-        if (oAssertionIn == null) {
-            assertion = new SAML2AssertionExtractor().extractSamlAssertion(context);
-        } else {
-            assertion = oAssertionIn;
-        }
-
-        // Extract the message id value from the WS-Addressing Header and place it in the Assertion Class
-        if (assertion != null) {
-            assertion.setMessageId(AsyncMessageIdExtractor.GetAsyncMessageId(context));
-        }
-
-        return assertion;
     }
 }

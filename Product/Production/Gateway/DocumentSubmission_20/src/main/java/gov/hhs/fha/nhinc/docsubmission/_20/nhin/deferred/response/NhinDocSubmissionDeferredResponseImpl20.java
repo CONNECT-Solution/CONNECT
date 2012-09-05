@@ -54,7 +54,7 @@ public class NhinDocSubmissionDeferredResponseImpl20
      */
     public RegistryResponseType provideAndRegisterDocumentSetBResponse(RegistryResponseType body, WebServiceContext context)
     {
-       SAML2AssertionExtractor extractor = new SAML2AssertionExtractor();
+       SAML2AssertionExtractor extractor = SAML2AssertionExtractor.getInstance();
        AssertionType assertion = extractor.extractSamlAssertion(context);
 
        if (assertion != null) {
