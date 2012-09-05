@@ -114,7 +114,7 @@
                 <include name="*.jar"/>
             </zipfileset>
 			<zipfileset dir="${root.project.directory.path}/SoapUI_Test/RegressionSuite" prefix="RegressionSuite">
-                <include name="*"/>
+                <include name="*.*"/>
             </zipfileset>
         </zip>
         <delete file="${release.info.tempfile}"/>
