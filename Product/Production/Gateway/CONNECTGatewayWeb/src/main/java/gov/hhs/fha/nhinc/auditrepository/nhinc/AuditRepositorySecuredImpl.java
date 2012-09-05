@@ -34,8 +34,9 @@ import gov.hhs.fha.nhinc.auditrepository.nhinc.AuditRepositoryOrchImpl;
 import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
 import gov.hhs.fha.nhinc.common.auditlog.LogEventSecureRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.FindCommunitiesAndAuditEventsResponseType;
+import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
+
 import com.services.nhinc.schema.auditmessage.FindAuditEventsType;
-import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
 
 public class AuditRepositorySecuredImpl {
 
@@ -67,7 +68,7 @@ public class AuditRepositorySecuredImpl {
             AuditRepositoryOrchImpl processor = getAuditRepositoryOrchImpl();
             if (processor != null) {
                 try {
-                    AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
+                    AssertionType assertion = new SAML2AssertionExtractor().extractSamlAssertion(context);
                     loadAssertion(assertion, context);
 
                     response = processor.logAudit(mess, assertion);
@@ -95,7 +96,7 @@ public class AuditRepositorySecuredImpl {
             AuditRepositoryOrchImpl processor = getAuditRepositoryOrchImpl();
             if (processor != null) {
                 try {
-                    AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
+                    AssertionType assertion = new SAML2AssertionExtractor().extractSamlAssertion(context);
                     loadAssertion(assertion, context);
 
                     response = processor.findAudit(query, assertion);

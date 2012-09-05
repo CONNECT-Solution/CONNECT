@@ -28,7 +28,7 @@ package gov.hhs.fha.nhinc.patientcorrelation.nhinc;
 
 import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
+import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
 
 import javax.annotation.Resource;
 import javax.jws.WebService;
@@ -84,7 +84,7 @@ public class PatientCorrelationServiceUnsecured {
     }
 
     private AssertionType createAssertion(WebServiceContext context) {
-        AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
+        AssertionType assertion = new SAML2AssertionExtractor().extractSamlAssertion(context);
 
         // Extract the message id value from the WS-Addressing Header and place
         // it in the Assertion Class

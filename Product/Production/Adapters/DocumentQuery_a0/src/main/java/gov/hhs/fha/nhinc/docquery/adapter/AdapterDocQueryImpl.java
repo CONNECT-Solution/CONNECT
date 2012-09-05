@@ -9,7 +9,7 @@ package gov.hhs.fha.nhinc.docquery.adapter;
 import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayQueryRequestType;
-import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
+import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
 import javax.xml.ws.WebServiceContext;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
@@ -23,9 +23,6 @@ import org.apache.commons.logging.LogFactory;
 public class AdapterDocQueryImpl {
 
     private Log log = null;
-    private static final String ERROR_CODE_CONTEXT = AdapterDocQueryImpl.class.getName();
-    private static final String ERROR_VALUE = "Input has null value";
-    private static final String ERROR_SEVERITY = "Error";
 
     public AdapterDocQueryImpl() {
         log = createLogger();
@@ -61,7 +58,7 @@ public class AdapterDocQueryImpl {
     private AssertionType getAssertion(WebServiceContext context, AssertionType oAssertionIn) {
         AssertionType assertion = null;
         if (oAssertionIn == null) {
-            assertion = SamlTokenExtractor.GetAssertion(context);
+            assertion = new SAML2AssertionExtractor().extractSamlAssertion(context);
         } else {
             assertion = oAssertionIn;
         }

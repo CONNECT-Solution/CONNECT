@@ -10,7 +10,7 @@
 	<description>Beans included in this file: {auditrepository}</description>
 
 	<!-- No-op Implementation -->
-	<bean class="gov.hhs.fha.nhinc.auditrepository.nhinc.proxy.AuditRepositoryProxyNoOpImpl" id="auditrepositorynoop" name="auditrepositorynoop"> 
+	<bean class="gov.hhs.fha.nhinc.auditrepository.nhinc.proxy.AuditRepositoryProxyNoOpImpl" id="auditrepository" name="auditrepositorynoop"> 
 		<meta key="impltype" value="noop"/>
 	</bean> 
 
@@ -20,7 +20,7 @@
 	</bean> 
 
 	<!-- Secured web service Implementation -->
-    <bean class="gov.hhs.fha.nhinc.auditrepository.nhinc.proxy.AuditRepositoryProxyWebServiceSecuredImpl" id="auditrepository" name="auditrepositorywssecured"> 
+    <bean class="gov.hhs.fha.nhinc.auditrepository.nhinc.proxy.AuditRepositoryProxyWebServiceSecuredImpl" id="auditrepositorywssecured" name="auditrepositorywssecured"> 
 		<meta key="impltype" value="wssecured"/>
 		<meta key="default" value="true"/>
 	</bean> 

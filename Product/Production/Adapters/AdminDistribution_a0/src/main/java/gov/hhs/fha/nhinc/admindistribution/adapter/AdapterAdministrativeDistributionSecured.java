@@ -33,7 +33,6 @@ import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
 
 import javax.annotation.Resource;
 import javax.xml.ws.WebServiceContext;
-import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
 
 /**
  * 
