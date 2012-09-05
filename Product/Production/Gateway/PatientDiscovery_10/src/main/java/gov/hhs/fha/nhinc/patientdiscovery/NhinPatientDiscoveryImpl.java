@@ -27,8 +27,8 @@
 package gov.hhs.fha.nhinc.patientdiscovery;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
 import gov.hhs.fha.nhinc.generic.GenericFactory;
+import gov.hhs.fha.nhinc.messaging.server.BaseService;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.patientdiscovery.nhin.InboundPatientDiscoveryOrchestration;
 import gov.hhs.fha.nhinc.perfrepo.PerformanceManager;
@@ -47,7 +47,7 @@ import org.hl7.v3.PRPAIN201306UV02;
  * 
  * @author jhoppesc
  */
-public class NhinPatientDiscoveryImpl {
+public class NhinPatientDiscoveryImpl extends BaseService {
 
     private static Log log = LogFactory.getLog(NhinPatientDiscoveryImpl.class);
 
@@ -68,7 +68,7 @@ public class NhinPatientDiscoveryImpl {
             throws PatientDiscoveryException {
         log.debug("Entering NhinPatientDiscoveryImpl.respondingGatewayPRPAIN201305UV02");
 
-        AssertionType assertion = extractSamlAssertion(context);
+        AssertionType assertion = extractAssertion(context);
 
         start(body);
 
@@ -83,10 +83,7 @@ public class NhinPatientDiscoveryImpl {
 
     }
     
-    protected AssertionType extractSamlAssertion(WebServiceContext context) {
-        return new SAML2AssertionExtractor().extractSamlAssertion(context);
-    }
-
+ 
     private void stop() {
 
         // Log the end of the nhin performance record

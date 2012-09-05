@@ -27,7 +27,7 @@
 package gov.hhs.fha.nhinc.patientdiscovery.adapter;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
+import gov.hhs.fha.nhinc.messaging.server.BaseService;
 
 import javax.xml.ws.WebServiceContext;
 
@@ -41,7 +41,7 @@ import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
  * 
  * @author jhoppesc, Les Westberg
  */
-public class AdapterPatientDiscoveryImpl {
+public class AdapterPatientDiscoveryImpl extends BaseService {
     private static Log log = LogFactory.getLog(AdapterPatientDiscoveryImpl.class);
 
     /**
@@ -59,7 +59,7 @@ public class AdapterPatientDiscoveryImpl {
 
         AssertionType assertion = null;
         if ((bIsSecure) && (context != null)) {
-            assertion = new SAML2AssertionExtractor().extractSamlAssertion(context);
+            assertion = extractAssertion(context);
         } else {
             assertion = new AssertionType();
         }

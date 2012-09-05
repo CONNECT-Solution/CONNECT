@@ -24,6 +24,7 @@
 		<filelist dir="${root.project.directory.path}">
       <file name="${project.CONNECTCommonTypesLib.build.file}" />
 		</filelist>
+	    
 	</path>
 
 </project>

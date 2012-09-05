@@ -26,9 +26,13 @@
  */
 package gov.hhs.fha.nhinc.transform.subdisc;
 
-import org.hl7.v3.*;
 import javax.xml.bind.JAXBElement;
-import java.util.ArrayList;
+
+import org.hl7.v3.PRPAIN201309UV02;
+import org.hl7.v3.PRPAIN201309UV02QUQIMT021001UV01ControlActProcess;
+import org.hl7.v3.PRPAMT201307UV02ParameterList;
+import org.hl7.v3.PRPAMT201307UV02PatientIdentifier;
+import org.hl7.v3.PRPAMT201307UV02QueryByParameter;
 
 /**
  * 

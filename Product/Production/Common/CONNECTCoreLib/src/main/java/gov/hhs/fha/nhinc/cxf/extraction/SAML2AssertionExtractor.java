@@ -26,6 +26,23 @@ public class SAML2AssertionExtractor {
 
     private static final Logger LOGGER = Logger.getLogger(SAML2AssertionExtractor.class);
 
+    private static SAML2AssertionExtractor INSTANCE = null;
+
+    private SAMLExtractorDOM extractor;
+    
+    SAML2AssertionExtractor() {
+        SAMLExtractorDOMFactory factory = new SAMLExtractorDOMFactory();
+        extractor = factory.getExtractor();
+    }
+
+    public static SAML2AssertionExtractor getInstance() {
+        if (INSTANCE == null) {
+            INSTANCE = new SAML2AssertionExtractor();
+
+        }
+        return INSTANCE;
+    }
+
     /**
      * This method is used to extract the saml assertion information.
      * 
@@ -42,8 +59,7 @@ public class SAML2AssertionExtractor {
         Object obj = header.getObject();
         Element element = (Element) obj;
 
-        SAMLExtractorDOMFactory factory = new SAMLExtractorDOMFactory();
-        SAMLExtractorDOM extractor = factory.getExtractor();
+      
         target = extractor.extractSAMLAssertion(element);
 
         return target;

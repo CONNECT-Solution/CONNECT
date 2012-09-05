@@ -98,7 +98,7 @@ public class NhincProxyPatientDiscoveryImpl {
         NhincPatientDiscoveryOrchImpl processor = getNhincPatientDiscoveryProcessor();
         if (processor != null) {
             try {
-                AssertionType assertion = new SAML2AssertionExtractor().extractSamlAssertion(context);
+                AssertionType assertion = SAML2AssertionExtractor.getInstance().extractSamlAssertion(context);
 
                 response = processor.proxyPRPAIN201305UV(request, assertion);
             } catch (Exception ex) {

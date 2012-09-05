@@ -29,16 +29,33 @@ package gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.PRPAIN201309UV;
 //import com.sun.org.apache.bcel.internal.classfile.ConstantString;
 import gov.hhs.fha.nhinc.common.nhinccommon.QualifiedSubjectIdentifierType;
 import gov.hhs.fha.nhinc.common.patientcorrelationfacade.RetrievePatientCorrelationsRequestType;
-import gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.PRPAIN201309UV.helpers.*;
-
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.PRPAIN201309UV.helpers.AssigningAuthorityHomeCommunityMappingHelper;
+import gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.PRPAIN201309UV.helpers.CDHelper;
+import gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.PRPAIN201309UV.helpers.CSHelper;
+import gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.PRPAIN201309UV.helpers.Constants;
+import gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.PRPAIN201309UV.helpers.CreationTimeHelper;
+import gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.PRPAIN201309UV.helpers.IIHelper;
+import gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.PRPAIN201309UV.helpers.InteractionIdHelper;
+import gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.PRPAIN201309UV.helpers.SemanticsTextHelper;
+import gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.PRPAIN201309UV.helpers.SenderReceiverHelper;
+import gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.PRPAIN201309UV.helpers.UniqueIdHelper;
+
 import java.util.List;
-import org.hl7.v3.*;
-import java.util.Calendar;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
+
 import javax.xml.bind.JAXBElement;
+
+import org.hl7.v3.COCTMT090100UV01AssignedPerson;
+import org.hl7.v3.II;
+import org.hl7.v3.PRPAIN201309UV02;
+import org.hl7.v3.PRPAIN201309UV02QUQIMT021001UV01ControlActProcess;
+import org.hl7.v3.PRPAMT201307UV02DataSource;
+import org.hl7.v3.PRPAMT201307UV02ParameterList;
+import org.hl7.v3.PRPAMT201307UV02PatientIdentifier;
+import org.hl7.v3.PRPAMT201307UV02QueryByParameter;
+import org.hl7.v3.QUQIMT021001UV01AuthorOrPerformer;
+import org.hl7.v3.XActMoodIntentEvent;
+import org.hl7.v3.XParticipationAuthorPerformer;
 
 /**
  * 

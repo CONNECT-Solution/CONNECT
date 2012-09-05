@@ -26,29 +26,22 @@
  */
 package gov.hhs.fha.nhinc.mpi.adapter;
 
-import gov.hhs.fha.nhinc.adaptermpi.AdapterMpiSecuredPortType;
-import gov.hhs.fha.nhinc.adaptermpi.AdapterMpiSecuredService;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.messaging.server.BaseService;
+
+import javax.xml.ws.WebServiceContext;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.hl7.v3.PRPAIN201306UV02;
-
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.saml.extraction.SamlTokenCreator;
-import java.util.Map;
-import javax.xml.ws.BindingProvider;
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
-import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
-import javax.xml.ws.WebServiceContext;
-import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 import org.hl7.v3.PRPAIN201305UV02;
+import org.hl7.v3.PRPAIN201306UV02;
 
 /**
  * 
  * @author Jon Hoppesch
  */
 
-public class AdapterMpiImpl {
+public class AdapterMpiImpl extends BaseService {
     private static Log log = LogFactory.getLog(AdapterMpiImpl.class);
 
     /**
@@ -83,7 +76,7 @@ public class AdapterMpiImpl {
 
         AssertionType assertion = null;
         if ((bIsSecure) && (context != null)) {
-            assertion = new SAML2AssertionExtractor().extractSamlAssertion(context);
+            assertion = extractAssertion(context);
         } else {
             assertion = new AssertionType();
         }

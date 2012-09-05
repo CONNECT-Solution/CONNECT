@@ -26,13 +26,9 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery._10.deferred.response;
 
-import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
-import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import gov.hhs.fha.nhinc.messaging.server.BaseService;
 import gov.hhs.fha.nhinc.patientdiscovery.nhin.deferred.response.NhinPatientDiscoveryDeferredRespOrchFactory;
-
-import java.util.List;
 
 import javax.xml.ws.WebServiceContext;
 
@@ -45,21 +41,12 @@ import org.hl7.v3.PRPAIN201306UV02;
  * 
  * @author JHOPPESC
  */
-public class NhinPatientDiscoveryAsyncRespImpl {
+public class NhinPatientDiscoveryAsyncRespImpl  extends BaseService {
 
     private static Log log = LogFactory.getLog(NhinPatientDiscoveryAsyncRespImpl.class);
 
     public MCCIIN000002UV01 respondingGatewayPRPAIN201306UV02(PRPAIN201306UV02 body, WebServiceContext context) {
-        AssertionType assertion = new SAML2AssertionExtractor().extractSamlAssertion(context);
-
-        // Extract the message id value from the WS-Addressing Header and place it in the Assertion Class
-        if (assertion != null) {
-            assertion.setMessageId(AsyncMessageIdExtractor.GetAsyncMessageId(context));
-            List<String> relatesToList = AsyncMessageIdExtractor.GetAsyncRelatesTo(context);
-            if (NullChecker.isNotNullish(relatesToList)) {
-                assertion.getRelatesToList().add(AsyncMessageIdExtractor.GetAsyncRelatesTo(context).get(0));
-            }
-        }
+        AssertionType assertion = extractAssertion(context);
 
         return NhinPatientDiscoveryDeferredRespOrchFactory.getInstance().create()
                 .respondingGatewayPRPAIN201306UV02Orch(body, assertion);

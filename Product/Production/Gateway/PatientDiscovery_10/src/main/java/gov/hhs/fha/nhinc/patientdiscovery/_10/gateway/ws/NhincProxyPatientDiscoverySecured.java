@@ -38,7 +38,8 @@ import javax.xml.ws.WebServiceContext;
  */
 @WebService(serviceName = "NhincProxyPatientDiscoverySecured", portName = "NhincProxyPatientDiscoverySecuredPort", endpointInterface = "gov.hhs.fha.nhinc.nhincproxypatientdiscoverysecured.NhincProxyPatientDiscoverySecuredPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:nhincproxypatientdiscoverysecured", wsdlLocation = "WEB-INF/wsdl/NhincProxyPatientDiscoverySecured/NhincProxyPatientDiscoverySecured.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
-@HandlerChain(file="../../../../../../../../handler-chain.xml")
+//@HandlerChain(file="../../../../../../../../handler-chain.xml")
+
 public class NhincProxyPatientDiscoverySecured extends PatientDiscoveryBase {
 
     @Resource
