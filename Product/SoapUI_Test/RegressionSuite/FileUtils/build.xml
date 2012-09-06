@@ -32,6 +32,8 @@
 
 <target name="copy.deployable.artifacts"/>
 
+<target name="just.unittest.run"/>
+
 <target name="clean">
     <delete dir="build" />
 </target>
