@@ -9,19 +9,21 @@
 -->
 	<description>Beans included in this file: {adapterredactionengine}</description>
 
+    <alias alias="adapterredactionengine" name="adapterredactionenginenoop" />
+
 	<!-- No-op Implementation -->
-	<bean class="gov.hhs.fha.nhinc.redactionengine.adapter.proxy.AdapterRedactionEngineProxyNoOpImpl" id="adapterredactionengine" name="adapterredactionenginenoop"> 
+	<bean lazy-init="true" class="gov.hhs.fha.nhinc.redactionengine.adapter.proxy.AdapterRedactionEngineProxyNoOpImpl" id="adapterredactionenginenoop" name="adapterredactionenginenoop"> 
 		<!--<meta key="impltype" value="noop"/>
 		<meta key="default" value="true"/>-->
 	</bean> 
 
 	<!-- Java Implementation -->
-	<bean class="gov.hhs.fha.nhinc.redactionengine.adapter.proxy.AdapterRedactionEngineProxyJavaImpl" id="adapterredactionenginejava" name="adapterredactionenginejava"> 
+	<bean lazy-init="true" class="gov.hhs.fha.nhinc.redactionengine.adapter.proxy.AdapterRedactionEngineProxyJavaImpl" id="adapterredactionenginejava" name="adapterredactionenginejava"> 
 		<!--<meta key="impltype" value="java"/>-->
 	</bean> 
 
 	<!-- Unsecured web service Implementation -->
-	<bean class="gov.hhs.fha.nhinc.redactionengine.adapter.proxy.AdapterRedactionEngineProxyWebServiceUnsecuredImpl" id="adapterredactionenginewsunsecured" name="adapterredactionenginewsunsecured"> 
+	<bean lazy-init="true" class="gov.hhs.fha.nhinc.redactionengine.adapter.proxy.AdapterRedactionEngineProxyWebServiceUnsecuredImpl" id="adapterredactionenginewsunsecured" name="adapterredactionenginewsunsecured"> 
 		<!--<meta key="impltype" value="wsunsecured"/>-->
 	</bean> 
 

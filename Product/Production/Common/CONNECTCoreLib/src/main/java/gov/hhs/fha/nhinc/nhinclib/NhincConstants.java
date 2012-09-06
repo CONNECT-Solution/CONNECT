@@ -109,7 +109,6 @@ public class NhincConstants {
     public static final String GATEWAY_PROPERTY_FILE = "gateway";
     public static final String HOME_COMMUNITY_ID_PROPERTY = "localHomeCommunityId";
     public static final String NHINC_PROPERTIES_DIR = "NHINC_PROPERTIES_DIR";
-    public static final String SPRING_CONFIG_FILE = "ComponentProxyConfig.xml";
     public static final String INTERNAL_CONNECTION_INFO = "InternalConnectionInfo2.xml";
     public static final String UDDI_CONNECTION_INFO = "";
     public static final String ADAPTER_PROPERTY_FILE_NAME = "adapter";

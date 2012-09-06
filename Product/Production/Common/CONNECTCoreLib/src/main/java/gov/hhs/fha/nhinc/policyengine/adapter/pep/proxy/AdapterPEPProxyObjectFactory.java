@@ -33,7 +33,7 @@ import gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory;
  * 
  */
 public class AdapterPEPProxyObjectFactory extends ComponentProxyObjectFactory {
-    private static final String CONFIG_FILE_NAME = "AdapterPEPConfig.xml";
+    private static final String CONFIG_FILE_NAME = "PolicyEngineProxyConfig.xml";
     private static final String BEAN_NAME_ADAPTER_PEP = "adapterpep";
 
     protected String getConfigFileName() {
