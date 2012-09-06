@@ -144,14 +144,15 @@
                 <exec dir="${glassfish.home}/bin" executable="cmd.exe" spawn="true" os="${os.name}" failonerror="false">
                     <arg line="/c asadmin.bat --user ${deployment.glassfish.server.username} --passwordfile ${deploy.glassfish.password.file.path} start-domain ${deployment.glassfish.domain.name}" />
                 </exec>
+            	<echo>Sleep ...</echo>
+            	<sleep seconds="60" />
+            	<echo>Awake ...</echo>
             </sequential>
         </parallel>
     </target>
 
     <target name="-deploy.glassfish.start.server.notwin" depends="-deploy.glassfish.asadmin" unless="win">
-        <exec executable="${ASADMIN}">
-            <arg line="--user ${deployment.glassfish.server.username} --passwordfile ${deploy.glassfish.password.file.path} start-domain ${deployment.glassfish.domain.name}" />
-        </exec>
+
     </target>
 
     <target name="deploy.glassfish.stop.server" depends="-deploy.glassfish.asadmin">

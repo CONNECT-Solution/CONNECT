@@ -26,7 +26,9 @@
  */
 package gov.hhs.fha.nhinc.docquery._20.nhin;
 
+import javax.jws.WebMethod;
 import javax.jws.WebService;
+import javax.xml.ws.Action;
 import javax.xml.ws.BindingType;
 import javax.annotation.Resource;
 import javax.xml.ws.WebServiceContext;
@@ -36,7 +38,9 @@ import javax.xml.ws.soap.Addressing;
  *
  * @author Neil Webb
  */
-@WebService(serviceName = "RespondingGateway_Query_Service", portName = "RespondingGateway_Query_Port_Soap", endpointInterface = "ihe.iti.xds_b._2007.RespondingGatewayQueryPortType", targetNamespace = "urn:ihe:iti:xds-b:2007", wsdlLocation = "WEB-INF/wsdl/DocQuery/NhinDocQuery.wsdl")
+@WebService(serviceName = "RespondingGateway_Query_Service", portName = "RespondingGateway_Query_Port_Soap", 
+endpointInterface = "ihe.iti.xds_b._2007.RespondingGatewayQueryPortType", targetNamespace = "urn:ihe:iti:xds-b:2007", 
+wsdlLocation = "WEB-INF/wsdl/DocQuery/NhinDocQuery.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 @Addressing(enabled=true)
 public class DocQuery
@@ -44,7 +48,10 @@ public class DocQuery
     @Resource
     private WebServiceContext context;
 
-    public oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse respondingGatewayCrossGatewayQuery(oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest body)
+    @WebMethod(action = "urn:ihe:iti:2007:CrossGatewayQuery")
+    @Action(input = "RespondingGateway_CrossGatewayQueryRequest")
+    public oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse respondingGatewayCrossGatewayQuery(
+    		oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest body)
     {
         return new DocQueryImpl().respondingGatewayCrossGatewayQuery(body, context);
     }

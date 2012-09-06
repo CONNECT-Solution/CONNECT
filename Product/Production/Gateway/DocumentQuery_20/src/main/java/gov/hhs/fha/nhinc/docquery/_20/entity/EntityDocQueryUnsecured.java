@@ -28,6 +28,7 @@ package gov.hhs.fha.nhinc.docquery._20.entity;
 
 import javax.annotation.Resource;
 import javax.jws.WebService;
+import javax.xml.ws.Action;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
@@ -36,7 +37,10 @@ import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayQueryRequestType;
 
-@WebService(serviceName = "EntityDocQuery", portName = "EntityDocQueryPortSoap", endpointInterface = "gov.hhs.fha.nhinc.entitydocquery.EntityDocQueryPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:entitydocquery", wsdlLocation = "WEB-INF/wsdl/EntityDocQueryUnsecured/EntityDocQuery.wsdl")
+@WebService(serviceName = "EntityDocQuery", portName = "EntityDocQueryPortSoap", 
+endpointInterface = "gov.hhs.fha.nhinc.entitydocquery.EntityDocQueryPortType", 
+targetNamespace = "urn:gov:hhs:fha:nhinc:entitydocquery", 
+wsdlLocation = "WEB-INF/wsdl/EntityDocQueryUnsecured/EntityDocQuery.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 @Addressing(enabled=true)
 public class EntityDocQueryUnsecured
