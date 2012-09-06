@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package gov.hhs.fha.nhinc.cxf.extraction;
 
@@ -24,7 +24,16 @@ import org.w3c.dom.Element;
  */
 public class SAML2AssertionExtractor {
 
-    private static final Logger LOGGER = Logger.getLogger(SAML2AssertionExtractor.class);
+    private static Logger LOGGER = null;
+
+    /**
+     * Creates a new instance of SAML2AssertionExtractor.
+     */
+    public SAML2AssertionExtractor() {
+        if (null == LOGGER) {
+            LOGGER = Logger.getLogger(SAML2AssertionExtractor.class);
+        }
+    }
 
     /**
      * This method is used to extract the saml assertion information.

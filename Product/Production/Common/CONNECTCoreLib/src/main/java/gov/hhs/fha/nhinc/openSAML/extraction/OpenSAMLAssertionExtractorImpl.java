@@ -3,6 +3,21 @@
  */
 package gov.hhs.fha.nhinc.openSAML.extraction;
 
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.CeType;
+import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
+import gov.hhs.fha.nhinc.common.nhinccommon.PersonNameType;
+import gov.hhs.fha.nhinc.common.nhinccommon.SamlAuthnStatementType;
+import gov.hhs.fha.nhinc.common.nhinccommon.SamlAuthzDecisionStatementEvidenceAssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.SamlAuthzDecisionStatementEvidenceConditionsType;
+import gov.hhs.fha.nhinc.common.nhinccommon.SamlAuthzDecisionStatementEvidenceType;
+import gov.hhs.fha.nhinc.common.nhinccommon.SamlAuthzDecisionStatementType;
+import gov.hhs.fha.nhinc.common.nhinccommon.SamlSignatureKeyInfoType;
+import gov.hhs.fha.nhinc.common.nhinccommon.SamlSignatureType;
+import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
+import gov.hhs.fha.nhinc.cxf.extraction.SAMLExtractorDOM;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -30,24 +45,9 @@ import org.opensaml.xml.util.AttributeMap;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommon.CeType;
-import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
-import gov.hhs.fha.nhinc.common.nhinccommon.PersonNameType;
-import gov.hhs.fha.nhinc.common.nhinccommon.SamlAuthnStatementType;
-import gov.hhs.fha.nhinc.common.nhinccommon.SamlAuthzDecisionStatementEvidenceAssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommon.SamlAuthzDecisionStatementEvidenceConditionsType;
-import gov.hhs.fha.nhinc.common.nhinccommon.SamlAuthzDecisionStatementEvidenceType;
-import gov.hhs.fha.nhinc.common.nhinccommon.SamlAuthzDecisionStatementType;
-import gov.hhs.fha.nhinc.common.nhinccommon.SamlSignatureKeyInfoType;
-import gov.hhs.fha.nhinc.common.nhinccommon.SamlSignatureType;
-import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
-import gov.hhs.fha.nhinc.cxf.extraction.SAMLExtractorDOM;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-
 /**
  * @author mweaver
- *
+ * 
  */
 public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
     private static final Logger log = Logger.getLogger(OpenSAMLAssertionExtractorImpl.class);
@@ -56,13 +56,16 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
 
     /**
      * This method is used to extract the SAML assertion information.
-     *
+     * 
      * @param Element element
      * @return AssertionType
      */
     public final AssertionType extractSAMLAssertion(final Element element) {
 
         log.debug("Executing Saml2AssertionExtractor.extractSamlAssertion()...");
+        if (null == element) {
+            return null;
+        }
         Assertion saml2Assertion = extractSaml2Assertion(element);
 
         AssertionType target = initializeAssertion();
@@ -81,7 +84,7 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
 
     /**
      * This method is used extract the saml2Assertion from Context.
-     *
+     * 
      * @param context context
      * @return saml2 assertion from context
      */
@@ -103,7 +106,7 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
 
     /**
      * This method is used to populate the Attribute Statement.
-     *
+     * 
      * @param saml2Assertion saml2 assertion
      * @param target target assertion
      */
@@ -198,7 +201,7 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
 
     /**
      * This method is used to populate the Authentication Statement Information.
-     *
+     * 
      * @param saml2Assertion saml2 assertion
      * @param target target assertion
      */
@@ -206,6 +209,9 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
 
         log.debug("Executing Saml2AssertionExtractor.populateAuthenticationStatement()...");
         SamlAuthnStatementType samlAuthnStatement = new SamlAuthnStatementType();
+        if (null == saml2Assertion.getAuthnStatements() || saml2Assertion.getAuthnStatements().size() == 0) {
+            return;
+        }
         AuthnStatement source = saml2Assertion.getAuthnStatements().get(0);
         samlAuthnStatement.setAuthInstant(source.getAuthnInstant().toString());
         samlAuthnStatement.setSessionIndex(source.getSessionIndex());
@@ -223,7 +229,7 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
 
     /**
      * This method is used to populate the Subject Information into the target assertion.
-     *
+     * 
      * @param saml2Assertion saml2 assertion
      * @param target target assertion
      */
@@ -231,6 +237,9 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
         log.debug("Executing Saml2AssertionExtractor.populateSubject()...");
 
         Subject subject = saml2Assertion.getSubject();
+        if (null == subject) {
+            return;
+        }
         NameID name = subject.getNameID();
         if (X509_FORMAT.equals(name.getFormat())) {
             log.warn("Subject name format is not X509!");
@@ -242,7 +251,7 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
 
     /**
      * This method is used to populate the Authorization Decision Statement Information.
-     *
+     * 
      * @param saml2Assertion saml2 assertion
      * @param target target assertion
      */
@@ -254,6 +263,9 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
         log.debug("Executing Saml2AssertionExtractor.populateAuthzDecisionStatement()...");
 
         List<AuthzDecisionStatement> saml2AuthzDecisionStatements = saml2Assertion.getAuthzDecisionStatements();
+        if (null == saml2AuthzDecisionStatements || 0 == saml2AuthzDecisionStatements.size()) {
+            return;
+        }
         AuthzDecisionStatement saml2AuthzDecisionStatement = saml2AuthzDecisionStatements.get(0);
 
         SamlAuthzDecisionStatementType targetAuthzDecisionStatement = new SamlAuthzDecisionStatementType();
@@ -284,12 +296,14 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
         List<Attribute> saml2EvidenceAttributes = saml2EvidenceAttributeStatement.getAttributes();
 
         for (Attribute saml2EvidenceAttribute : saml2EvidenceAttributes) {
-            if (saml2EvidenceAttribute.getName().equals(ACCESS_CONSENT_POLICY_ATTRIBUTE_NAME)) {
+            if (saml2EvidenceAttribute.getName().equals(ACCESS_CONSENT_POLICY_ATTRIBUTE_NAME)
+                    && saml2EvidenceAttribute.getAttributeValues().size() > 0) {
                 XMLObject xmlObject = saml2EvidenceAttribute.getAttributeValues().get(0);
                 String accessConsent = xmlObject.getDOM().getTextContent();
 
                 targetEvidenceAssertion.getAccessConsentPolicy().add(accessConsent);
-            } else if (saml2EvidenceAttribute.getName().equals(INSTANCE_ACCESS_CONSENT_POLICY_ATTRIBUTE_NAME)) {
+            } else if (saml2EvidenceAttribute.getName().equals(INSTANCE_ACCESS_CONSENT_POLICY_ATTRIBUTE_NAME)
+                    && saml2EvidenceAttribute.getAttributeValues().size() > 0) {
                 XMLObject xmlObject = saml2EvidenceAttribute.getAttributeValues().get(0);
                 String instanceAccessConsent = xmlObject.getDOM().getTextContent();
 
@@ -317,7 +331,7 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
 
     /**
      * This method is used to construct HL7 PurposeOfUse Attribute, and adds it to the Assertion.
-     *
+     * 
      * @param attribute attribute
      * @param target target assertion
      */
@@ -367,7 +381,7 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
     /**
      * Initializes the assertion object to contain empty strings for all values. These are overwritten in the extraction
      * process with real values if they are available
-     *
+     * 
      * @param assertOut The Assertion element being written to
      */
     private AssertionType initializeAssertion() {
@@ -457,7 +471,7 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
 
     /**
      * This method is used to construct HL7 Subject Role Attribute, and adds it to the Assertion.
-     *
+     * 
      * @param attribute attribute
      * @param target target assertion
      */

@@ -1,39 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project  name="AdminDistributionGateway_10" basedir="." default="package.create">
 
-	<property name="dist.type" value="war" />
-	<property name="webtest.hasTests" value="false" />
-	<property name="coverage.isneeded" value="true" />
-	<property name="unittest.hasTests" value="true" />
-	<property name="deploy.isDeployable" value="true"/>
-	<property name="deploy.type" value="war" />
-	<property name="copy.wsdl.to.webinf" value="true" />
+    <property name="dist.type" value="war" />
+    <property name="webtest.hasTests" value="false" />
+    <property name="coverage.isneeded" value="true" />
+    <property name="unittest.hasTests" value="true" />
+    <property name="deploy.isDeployable" value="true"/>
+    <property name="deploy.type" value="war" />
+    <property name="copy.wsdl.to.webinf" value="true" />
 
-	<!-- Please make sure that this goes up to the correct directory -->
-	<import file="../../../build/build.targets.xml" />
+    <!-- Please make sure that this goes up to the correct directory -->
+    <import file="../../../build/build.targets.xml" />
 
-	<path id="build.classpath">
-		<fileset refid="classpath.compile" />
-		<fileset refid="classpath.runtime" />
+    <path id="build.classpath">
+        <fileset refid="classpath.compile" />
+        <fileset refid="classpath.runtime" />
 
-		<!-- Add classes from other projects like so...-->
-		<pathelement path="${project.CONNECTCommonTypesLib.build.classes.dir}" />
-		<pathelement path="${project.CONNECTCoreLib.build.classes.dir}" />
-    
-	</path>
+        <!-- Add classes from other projects like so...-->
+        <pathelement path="${project.CONNECTCommonTypesLib.build.classes.dir}" />
+        <pathelement path="${project.CONNECTCoreLib.build.classes.dir}" />
 
-	<!-- Add project dependencies here, these projects will be built first... -->
-	<path id="build.project.dependencies">
-		<filelist dir="${root.project.directory.path}">
-		</filelist>
-	</path>
+    </path>
+
+    <!-- Add project dependencies here, these projects will be built first... -->
+    <path id="build.project.dependencies">
+        <filelist dir="${root.project.directory.path}">
+        </filelist>
+    </path>
 
     <property name="cxf.home" location="../../../../ThirdParty/CXF" />
         <property name="spring.home" location="../../../../ThirdParty/SpringFramework" />
         <property name="core.lib" location="../../Common/CONNECTCoreLib/dist/debug" />
         <property name="common.lib" location="../../Common/CONNECTCommonTypesLib/dist/debug" />
         <property name="opensaml.home" location="../../../../ThirdParty/openSAML" />
-        
+
         <path id="war.libs">
             <fileset dir="${cxf.home}">
                 <include name="cxf-2.6.0.jar" />
@@ -49,7 +49,7 @@
                 <include name="FastInfoset-1.2.9.jar" />
                 <include name="xalan-2.7.1.jar" />
                 <include name="serializer-2.7.1.jar" />
-                <include name="wss4j-1.6.5.jar" />
+                <include name="wss4j-1.6.6.jar" />
                 <include name="xmlsec-1.5.1.jar" />
                 <include name="ehcache-core-2.5.1.jar" />
                 <include name="joda-time-1.6.2.jar" />

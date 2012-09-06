@@ -27,12 +27,12 @@
     <dependency org="commons-logging" name="commons-logging" rev="1.1.1" conf="compile->default" transitive="false" />
     <dependency org="mysql" name="mysql-connector-java" rev="5.1.10" conf="compile->default" transitive="false" />
     <dependency org="OpenSSO" name="openssoclientsdk" rev="1.0" conf="compile->default" transitive="false" />
-   
+
     <dependency org="openSAML" name="joda-time-1.6.2" rev="1.6.2" conf="compile->default" transitive="false" />
     <dependency org="openSAML" name="opensaml-2.5.3" rev="2.5.3" conf="compile->default" transitive="false" />
     <dependency org="openSAML" name="xmlsec-1.4.5" rev="1.4.5" conf="compile->default" transitive="false" />
     <dependency org="openSAML" name="xmltooling-1.3.4" rev="1.3.4" conf="compile->default" transitive="false" />
-    <dependency org="CXF" name="wss4j-1.6.5" rev="1.6.5" conf="compile->default" transitive="false" />
+    <dependency org="CXF" name="wss4j-1.6.6" rev="1.6.6" conf="compile->default" transitive="false" />
     <dependency org="CXF" name="cxf-2.6.0" rev="2.6.0" conf="compile->default" transitive="false" />
     <dependency org="CXF" name="neethi-3.0.2" rev="3.0.2" conf="compile->default" transitive="false" />
     <dependency org="CXF" name="commons-lang-2.6" rev="2.6.0" conf="compile->default" transitive="false" />
@@ -41,7 +41,7 @@
     <dependency org="commons-collections" name="commons-collections" rev="2.1.1" conf="runtime->default" transitive="false" />
     <dependency org="commons-logging" name="commons-logging" rev="1.1.1" conf="runtime->default" transitive="false" />
     <dependency org="log4j" name="log4j" rev="1.2.15" conf="runtime->default" transitive="false" />
-  
+
     <dependency org="org.glassfish.metro" name="webservices-rt" rev="2.1.1" conf="runtime->default" transitive="false" />
     <dependency org="com.thoughtworks.xstream" name="xstream" rev="1.3.1" conf="runtime->default" transitive="false" />
     <dependency org="com.thoughtworks.xstream" name="xstream-distribution" rev="1.3.1" conf="runtime->default" transitive="false" />
@@ -62,12 +62,12 @@
     <dependency org="org.jmock" name="jmock-junit4" rev="2.5.1" conf="test->default" />
     <dependency org="jmock" name="hamcrest-core-1.1" rev="1.1" conf="test->default" />
     <dependency org="jmock" name="hamcrest-library-1.1" rev="1.1" conf="test->default" />
-    
+
     <dependency org="log4j" name="slf4j-log4j12-1.6.4" rev="1.6.4" conf="test->default"  />
     <dependency org="log4j" name="log4j" rev="1.2.15" conf="test->default" transitive="false"/>
- 
-  
-   
+
+
+
     <dependency org="openSAML" name="bcprov-jdk15-1.46" rev="1.46" conf="test->default" />
     <dependency org="openSAML" name="commons-codec-1.3" rev="1.3" conf="test->default" />
     <dependency org="openSAML" name="commons-collections-3.2.1" rev="3.2.1" conf="test->default" />
