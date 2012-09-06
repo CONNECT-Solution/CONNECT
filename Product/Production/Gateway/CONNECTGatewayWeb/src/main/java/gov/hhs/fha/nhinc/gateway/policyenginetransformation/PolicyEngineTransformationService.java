@@ -26,8 +26,11 @@
  */
 package gov.hhs.fha.nhinc.gateway.policyenginetransformation;
 
-import javax.jws.WebService;
+import gov.hhs.fha.nhinc.common.eventcommon.SubjectAddedEventType;
+import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
 import gov.hhs.fha.nhinc.transform.policy.PolicyEngineTransformer;
+
+import javax.jws.WebService;
 import javax.xml.ws.BindingType;
 
 /**
@@ -43,6 +46,13 @@ public class PolicyEngineTransformationService {
         return new PolicyEngineTransformer().transformAdhocQueryToCheckPolicy(transformAdhocQueryToCheckPolicyRequest);
     }
 
+    
+    public gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType transformSubjectRevisedToCheckPolicy(
+            gov.hhs.fha.nhinc.common.eventcommon.SubjectRevisedEventType transformSubjectRevisedToCheckPolicyRequest
+        ) {
+        throw new UnsupportedOperationException("Not implemented.");
+    }
+    
     public gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType transformAdhocQueryResultToCheckPolicy(
             gov.hhs.fha.nhinc.common.eventcommon.AdhocQueryResultEventType transformAdhocQueryResultToCheckPolicyRequest) {
         throw new UnsupportedOperationException("Not implemented.");
@@ -79,6 +89,11 @@ public class PolicyEngineTransformationService {
     public gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType transformNotifyToCheckPolicy(
             gov.hhs.fha.nhinc.common.eventcommon.NotifyEventType transformNotifyToCheckPolicyRequest) {
         return new PolicyEngineTransformer().transformNotifyToCheckPolicy(transformNotifyToCheckPolicyRequest);
+    }
+
+    public CheckPolicyRequestType transformSubjectAddedToCheckPolicy(        
+            SubjectAddedEventType transformSubjectAddedToCheckPolicyRequest) {
+        throw new UnsupportedOperationException("Not implemented.");
     }
 
 }
