@@ -9,24 +9,26 @@
 -->
 	<description>Beans included in this file: {auditrepository}</description>
 
+    <alias alias="auditrepository" name="auditrepositorywssecured" />
+
 	<!-- No-op Implementation -->
-	<bean class="gov.hhs.fha.nhinc.auditrepository.nhinc.proxy.AuditRepositoryProxyNoOpImpl" id="auditrepositorynoop" name="auditrepositorynoop"> 
+	<bean lazy-init="true" class="gov.hhs.fha.nhinc.auditrepository.nhinc.proxy.AuditRepositoryProxyNoOpImpl" id="auditrepositorynoop" name="auditrepositorynoop"> 
 		<meta key="impltype" value="noop"/>
 	</bean> 
 
 	<!-- Java Implementation -->
-	<bean class="gov.hhs.fha.nhinc.auditrepository.nhinc.proxy.AuditRepositoryProxyJavaImpl" id="auditrepositoryjava" name="auditrepositoryjava"> 
+	<bean lazy-init="true" class="gov.hhs.fha.nhinc.auditrepository.nhinc.proxy.AuditRepositoryProxyJavaImpl" id="auditrepositoryjava" name="auditrepositoryjava"> 
 		<meta key="impltype" value="java"/>
 	</bean> 
 
 	<!-- Secured web service Implementation -->
-    <bean class="gov.hhs.fha.nhinc.auditrepository.nhinc.proxy.AuditRepositoryProxyWebServiceSecuredImpl" id="auditrepository" name="auditrepositorywssecured"> 
+    <bean lazy-init="true" class="gov.hhs.fha.nhinc.auditrepository.nhinc.proxy.AuditRepositoryProxyWebServiceSecuredImpl" id="auditrepositorywssecured" name="auditrepositorywssecured"> 
 		<meta key="impltype" value="wssecured"/>
 		<meta key="default" value="true"/>
 	</bean> 
 
 	<!-- Unsecured web service Implementation -->
-	<bean class="gov.hhs.fha.nhinc.auditrepository.nhinc.proxy.AuditRepositoryProxyWebServiceUnsecuredImpl" id="auditrepositorywsunsecured" name="auditrepositorywsunsecured"> 
+	<bean lazy-init="true" class="gov.hhs.fha.nhinc.auditrepository.nhinc.proxy.AuditRepositoryProxyWebServiceUnsecuredImpl" id="auditrepositorywsunsecured" name="auditrepositorywsunsecured"> 
 		<meta key="impltype" value="wsunsecured"/>
 	</bean> 
 

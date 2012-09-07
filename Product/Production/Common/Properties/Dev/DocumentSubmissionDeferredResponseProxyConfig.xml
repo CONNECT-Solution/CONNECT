@@ -9,114 +9,138 @@
 -->
 	<description>Beans included in this file: {adaptercomponentdocsubmissionresponse,adapterxdrresponse,entityxdrasyncresp,nhinxdrresponse,nhinxdrresponse20,passthruxdrasyncresp}</description>
 
+    <!-- Beans defined for adaptercomponentdocsubmissionresponse -->
+
+    <alias alias="adaptercomponentdocsubmissionresponse" name="adaptercomponentdocsubmissionresponsewsunsecured" />
+
 	<!-- No-op Implementation -->
-	<bean class="gov.hhs.fha.nhinc.docsubmission.adapter.component.deferred.response.proxy.AdapterComponentDocSubmissionResponseProxyNoOpImpl" id="adaptercomponentdocsubmissionresponsenoop" name="adaptercomponentdocsubmissionresponsenoop"> 
+	<bean lazy-init="true" class="gov.hhs.fha.nhinc.docsubmission.adapter.component.deferred.response.proxy.AdapterComponentDocSubmissionResponseProxyNoOpImpl" id="adaptercomponentdocsubmissionresponsenoop" name="adaptercomponentdocsubmissionresponsenoop"> 
 		<meta key="impltype" value="noop"/>
 	</bean> 
 
 	<!-- Java Implementation -->
-	<bean class="gov.hhs.fha.nhinc.docsubmission.adapter.component.deferred.response.proxy.AdapterComponentDocSubmissionResponseProxyJavaImpl" id="adaptercomponentdocsubmissionresponsejava" name="adaptercomponentdocsubmissionresponsejava"> 
+	<bean lazy-init="true" class="gov.hhs.fha.nhinc.docsubmission.adapter.component.deferred.response.proxy.AdapterComponentDocSubmissionResponseProxyJavaImpl" id="adaptercomponentdocsubmissionresponsejava" name="adaptercomponentdocsubmissionresponsejava"> 
 		<meta key="impltype" value="java"/>
 	</bean> 
 
 	<!-- Unsecured web service Implementation -->
-	<bean class="gov.hhs.fha.nhinc.docsubmission.adapter.component.deferred.response.proxy.AdapterComponentDocSubmissionResponseProxyWebServiceUnsecuredImpl" id="adaptercomponentdocsubmissionresponse" name="adaptercomponentdocsubmissionresponsewsunsecured"> 
+	<bean lazy-init="true" class="gov.hhs.fha.nhinc.docsubmission.adapter.component.deferred.response.proxy.AdapterComponentDocSubmissionResponseProxyWebServiceUnsecuredImpl" id="adaptercomponentdocsubmissionresponsewsunsecured" name="adaptercomponentdocsubmissionresponsewsunsecured"> 
 		<meta key="impltype" value="wsunsecured"/>
 		<meta key="default" value="true"/>
 	</bean>
+
+
 
     <!-- Beans defined for adapterxdrresponse -->
     
+    <alias alias="adapterxdrresponse" name="adapterxdrresponsewssecured" />
+    
     <!-- No-op Implementation -->
-	<bean class="gov.hhs.fha.nhinc.docsubmission.adapter.deferred.response.proxy.AdapterDocSubmissionDeferredResponseProxyNoOpImpl" id="adapterxdrresponsenoop" name="adapterxdrresponsenoop"> 
+	<bean lazy-init="true" class="gov.hhs.fha.nhinc.docsubmission.adapter.deferred.response.proxy.AdapterDocSubmissionDeferredResponseProxyNoOpImpl" id="adapterxdrresponsenoop" name="adapterxdrresponsenoop"> 
 		<meta key="impltype" value="noop"/>
 	</bean> 
 
 	<!-- Java Implementation -->
-	<bean class="gov.hhs.fha.nhinc.docsubmission.adapter.deferred.response.proxy.AdapterDocSubmissionDeferredResponseProxyJavaImpl" id="adapterxdrresponsejava" name="adapterxdrresponsejava"> 
+	<bean lazy-init="true" class="gov.hhs.fha.nhinc.docsubmission.adapter.deferred.response.proxy.AdapterDocSubmissionDeferredResponseProxyJavaImpl" id="adapterxdrresponsejava" name="adapterxdrresponsejava"> 
 		<meta key="impltype" value="java"/>
 	</bean> 
 
 	<!-- Secured web service Implementation -->
-    <bean class="gov.hhs.fha.nhinc.docsubmission.adapter.deferred.response.proxy.AdapterDocSubmissionDeferredResponseProxyWebServiceSecuredImpl" id="adapterxdrresponse" name="adapterxdrresponsewssecured"> 
+    <bean lazy-init="true" class="gov.hhs.fha.nhinc.docsubmission.adapter.deferred.response.proxy.AdapterDocSubmissionDeferredResponseProxyWebServiceSecuredImpl" id="adapterxdrresponsewssecured" name="adapterxdrresponsewssecured"> 
 		<meta key="impltype" value="wssecured"/>
 		<meta key="default" value="true"/>
 	</bean> 
 
 	<!-- Unsecured web service Implementation -->
-	<bean class="gov.hhs.fha.nhinc.docsubmission.adapter.deferred.response.proxy.AdapterDocSubmissionDeferredResponseProxyWebServiceUnsecuredImpl" id="adapterxdrresponsewsunsecured" name="adapterxdrresponsewsunsecured"> 
+	<bean lazy-init="true" class="gov.hhs.fha.nhinc.docsubmission.adapter.deferred.response.proxy.AdapterDocSubmissionDeferredResponseProxyWebServiceUnsecuredImpl" id="adapterxdrresponsewsunsecured" name="adapterxdrresponsewsunsecured"> 
 		<meta key="impltype" value="wsunsecured"/>
 	</bean> 
+
+
 
     <!-- Beans defined for entityxdrasyncresp -->
+
+    <alias alias="entityxdrasyncresp" name="entityxdrasyncrespwssecured" />
 	
     <!-- No-op Implementation -->
-	<bean class="gov.hhs.fha.nhinc.docsubmission.entity.deferred.response.proxy.EntityDocSubmissionDeferredResponseProxyNoOpImpl" id="entityxdrasyncrespnoop" name="entityxdrasyncrespnoop"> 
+	<bean lazy-init="true" class="gov.hhs.fha.nhinc.docsubmission.entity.deferred.response.proxy.EntityDocSubmissionDeferredResponseProxyNoOpImpl" id="entityxdrasyncrespnoop" name="entityxdrasyncrespnoop"> 
 		<meta key="impltype" value="noop"/>
 	</bean> 
 
 	<!-- Java Implementation -->
-	<bean class="gov.hhs.fha.nhinc.docsubmission.entity.deferred.response.proxy.EntityDocSubmissionDeferredResponseProxyJavaImpl" id="entityxdrasyncrespjava" name="entityxdrasyncrespjava"> 
+	<bean lazy-init="true" class="gov.hhs.fha.nhinc.docsubmission.entity.deferred.response.proxy.EntityDocSubmissionDeferredResponseProxyJavaImpl" id="entityxdrasyncrespjava" name="entityxdrasyncrespjava"> 
 		<meta key="impltype" value="java"/>
 	</bean> 
 
 	<!-- Secured web service Implementation -->
-    <bean class="gov.hhs.fha.nhinc.docsubmission.entity.deferred.response.proxy.EntityDocSubmissionDeferredResponseProxyWebServiceSecuredImpl" id="entityxdrasyncresp" name="entityxdrasyncrespwssecured"> 
+    <bean lazy-init="true" class="gov.hhs.fha.nhinc.docsubmission.entity.deferred.response.proxy.EntityDocSubmissionDeferredResponseProxyWebServiceSecuredImpl" id="entityxdrasyncrespwssecured" name="entityxdrasyncrespwssecured"> 
 		<meta key="impltype" value="wssecured"/>
 		<meta key="default" value="true"/>
 	</bean> 
 
 	<!-- Unsecured web service Implementation -->
-	<bean class="gov.hhs.fha.nhinc.docsubmission.entity.deferred.response.proxy.EntityDocSubmissionDeferredResponseProxyWebServiceUnsecuredImpl" id="entityxdrasyncrespwsunsecured" name="entityxdrasyncrespwsunsecured"> 
+	<bean lazy-init="true" class="gov.hhs.fha.nhinc.docsubmission.entity.deferred.response.proxy.EntityDocSubmissionDeferredResponseProxyWebServiceUnsecuredImpl" id="entityxdrasyncrespwsunsecured" name="entityxdrasyncrespwsunsecured"> 
 		<meta key="impltype" value="wsunsecured"/>
 	</bean> 
 	
+	
+	
 	<!-- Beans defined for nhinxdrresponse11 -->
+	
+	<alias alias="nhinxdrresponse" name="nhinxdrresponsewssecured" />
+	
 	<!-- No-op Implementation -->
-	<bean class="gov.hhs.fha.nhinc.docsubmission.nhin.deferred.response.proxy11.NhinDocSubmissionDeferredResponseProxyNoOpImpl" id="nhinxdrresponsenoop" name="nhinxdrresponsenoop"> 
+	<bean lazy-init="true" class="gov.hhs.fha.nhinc.docsubmission.nhin.deferred.response.proxy11.NhinDocSubmissionDeferredResponseProxyNoOpImpl" id="nhinxdrresponsenoop" name="nhinxdrresponsenoop"> 
 		<meta key="impltype" value="noop"/>
 	</bean> 
 
 	<!-- Secured web service Implementation -->
-    <bean class="gov.hhs.fha.nhinc.docsubmission.nhin.deferred.response.proxy11.NhinDocSubmissionDeferredResponseProxyWebServiceSecuredImpl" id="nhinxdrresponse" name="nhinxdrresponsewssecured"> 
+    <bean lazy-init="true" class="gov.hhs.fha.nhinc.docsubmission.nhin.deferred.response.proxy11.NhinDocSubmissionDeferredResponseProxyWebServiceSecuredImpl" id="nhinxdrresponsewssecured" name="nhinxdrresponsewssecured"> 
 		<meta key="impltype" value="wssecured"/>
 		<meta key="default" value="true"/>
 	</bean>
+	
+	
 	
 	<!-- Beans defined for nhinxdrresponse20 -->
+	
+	<alias alias="nhinxdrresponse20" name="nhinxdrresponse20wssecured" />
 
     <!-- No-op Implementation -->
-	<bean class="gov.hhs.fha.nhinc.docsubmission.nhin.deferred.response.proxy20.NhinDocSubmissionDeferredResponseProxyNoOpImpl" id="nhinxdrresponse20noop" name="nhinxdrresponse20noop"> 
+	<bean lazy-init="true" class="gov.hhs.fha.nhinc.docsubmission.nhin.deferred.response.proxy20.NhinDocSubmissionDeferredResponseProxyNoOpImpl" id="nhinxdrresponse20noop" name="nhinxdrresponse20noop"> 
 		<meta key="impltype" value="noop"/>
 	</bean> 
 
 	<!-- Secured web service Implementation -->
-    <bean class="gov.hhs.fha.nhinc.docsubmission.nhin.deferred.response.proxy20.NhinDocSubmissionDeferredResponseProxyWebServiceSecuredImpl" id="nhinxdrresponse20" name="nhinxdrresponse20wssecured"> 
+    <bean lazy-init="true" class="gov.hhs.fha.nhinc.docsubmission.nhin.deferred.response.proxy20.NhinDocSubmissionDeferredResponseProxyWebServiceSecuredImpl" id="nhinxdrresponse20wssecured" name="nhinxdrresponse20wssecured"> 
 		<meta key="impltype" value="wssecured"/>
 		<meta key="default" value="true"/>
 	</bean>
 	
+	
+	
 	<!-- Beans defined for passthruxdrasyncresp -->
+	
+	<alias alias="passthruxdrasyncresp" name="passthruxdrasyncrespjava" />
 
     <!-- No-op Implementation -->
-	<bean class="gov.hhs.fha.nhinc.docsubmission.passthru.deferred.response.proxy.PassthruDocSubmissionDeferredResponseProxyNoOpImpl" id="passthruxdrasyncrespnoop" name="passthruxdrasyncrespnoop"> 
+	<bean lazy-init="true" class="gov.hhs.fha.nhinc.docsubmission.passthru.deferred.response.proxy.PassthruDocSubmissionDeferredResponseProxyNoOpImpl" id="passthruxdrasyncrespnoop" name="passthruxdrasyncrespnoop"> 
 		<meta key="impltype" value="noop"/>
 	</bean> 
 
 	<!-- Java Implementation -->
-	<bean class="gov.hhs.fha.nhinc.docsubmission.passthru.deferred.response.proxy.PassthruDocSubmissionDeferredResponseProxyJavaImpl" id="passthruxdrasyncresp" name="passthruxdrasyncrespjava"> 
+	<bean lazy-init="true" class="gov.hhs.fha.nhinc.docsubmission.passthru.deferred.response.proxy.PassthruDocSubmissionDeferredResponseProxyJavaImpl" id="passthruxdrasyncrespjava" name="passthruxdrasyncrespjava"> 
 		<meta key="impltype" value="java"/>
 		<meta key="default" value="true"/>
 	</bean> 
     
-	
 	<!-- Secured web service Implementation -->
-    <bean class="gov.hhs.fha.nhinc.docsubmission.passthru.deferred.response.proxy.PassthruDocSubmissionDeferredResponseProxyWebServiceSecuredImpl" id="passthruxdrasyncrespwssecured" name="passthruxdrasyncrespwssecured"> 
+    <bean lazy-init="true" class="gov.hhs.fha.nhinc.docsubmission.passthru.deferred.response.proxy.PassthruDocSubmissionDeferredResponseProxyWebServiceSecuredImpl" id="passthruxdrasyncrespwssecured" name="passthruxdrasyncrespwssecured"> 
 		<meta key="impltype" value="wssecured"/>
 	</bean> 
 
 	<!-- Unsecured web service Implementation -->
-	<bean class="gov.hhs.fha.nhinc.docsubmission.passthru.deferred.response.proxy.PassthruDocSubmissionDeferredResponseProxyWebServiceUnsecuredImpl" id="passthruxdrasyncrespwsunsecured" name="passthruxdrasyncrespwsunsecured"> 
+	<bean lazy-init="true" class="gov.hhs.fha.nhinc.docsubmission.passthru.deferred.response.proxy.PassthruDocSubmissionDeferredResponseProxyWebServiceUnsecuredImpl" id="passthruxdrasyncrespwsunsecured" name="passthruxdrasyncrespwsunsecured"> 
 		<meta key="impltype" value="wsunsecured"/>
 	</bean>  	
 

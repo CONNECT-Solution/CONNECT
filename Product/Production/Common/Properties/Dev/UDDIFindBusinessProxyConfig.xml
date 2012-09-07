@@ -7,6 +7,8 @@
     in the description separated with a comma like the following sample: {somebean,anotherbean}
 -->
     <description>Beans included in this file: {uddifindbusiness}</description>
+    
+    <alias alias="uddifindbusiness" name="uddifindbusinesshp" />
 
     <!-- No-op Implementation -->
     <bean class="gov.hhs.fha.nhinc.connectmgr.uddi.proxy.UDDIFindBusinessProxyNoOpImpl" id="uddifindbusinessnoop" name="uddifindbusinessnoop"> 
@@ -14,7 +16,7 @@
     </bean> 
 
     <!-- Java HP Implementation -->
-    <bean class="gov.hhs.fha.nhinc.connectmgr.uddi.proxy.UDDIFindBusinessProxyHPImpl" id="uddifindbusiness" name="uddifindbusinesshp"> 
+    <bean class="gov.hhs.fha.nhinc.connectmgr.uddi.proxy.UDDIFindBusinessProxyHPImpl" id="uddifindbusinesshp" name="uddifindbusinesshp"> 
         <meta key="impltype" value="java"/>
     </bean> 
 
