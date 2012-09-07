@@ -28,12 +28,14 @@ package gov.hhs.fha.nhinc.auditrepository.nhinc;
 
 
 import javax.annotation.Resource;
+import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 
 /**
  * 
  * @author Neil Webb
  */
+@BindingType(value = "http://www.w3.org/2003/05/soap/bindings/HTTP/")
 public class AuditRepository implements gov.hhs.fha.nhinc.nhinccomponentauditrepository.AuditRepositoryManagerSecuredPortType {
     @Resource
     private WebServiceContext context;

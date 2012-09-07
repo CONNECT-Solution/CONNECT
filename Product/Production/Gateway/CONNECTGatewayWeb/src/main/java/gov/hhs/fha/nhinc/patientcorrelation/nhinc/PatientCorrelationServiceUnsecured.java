@@ -44,6 +44,7 @@ import org.hl7.v3.RetrievePatientCorrelationsResponseType;
  * 
  * @author jhoppesc
  */
+@BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 public class PatientCorrelationServiceUnsecured implements gov.hhs.fha.nhinc.nhinccomponentpatientcorrelation.PatientCorrelationPortType {
     @Resource
     private WebServiceContext context;
