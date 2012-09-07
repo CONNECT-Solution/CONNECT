@@ -78,17 +78,18 @@
         <move todir="${glassfish.install.dir}">
             <fileset dir="${temp.dir}/glassfish3" />
         </move>
-        <chmod file="${glassfish.install.dir}/bin/asadmin" perm="ugo+rx" />
+        <chmod file="${glassfish.install.dir}/glassfish/bin/asadmin" perm="ugo+rx">
+            <fileset dir="${glassfish.install.dir}">
+                <include name="**/bin/asadmin" />
+            </fileset>
+        </chmod>
         <copy file="${basedir}/GlassFish/templates/connect/domain.selfsigned.xml.template" tofile="${temp.dir}/domain.selfsigned.xml.template" overwrite="true" />
         <replace file="${temp.dir}/domain.selfsigned.xml.template" token="gateway" value="${cert.keystore.name}" />
-        <!--replace file="${temp.dir}/domain.selfsigned.xml.template" value="file:${glassfish.install.dir}/glassfish/domains/domain1">
-            <replacetoken><![CDATA[${com.sun.aas.instanceRootURI}]]></replacetoken>
-        </replace-->
         <delete dir="${glassfish.install.dir}/glassfish/domains/domain1" />
         <echo message="creating CONNECT glassfish domain." />
         <ant antfile="${basedir}/deploy.xml" dir="${basedir}" target="recreate.glassfish.domain">
             <property name="deployment.domain.template.file.path" value="${temp.dir}/domain.selfsigned.xml.template" />
-            <property name="glassfish.home" value="${glassfish.install.dir}" />
+            <property name="glassfish.home" value="${glassfish.install.dir}/glassfish" />
             <property name="use.non.defaults" value="true" />
             <property name="source.install" value="true" />
         </ant>
@@ -158,7 +159,7 @@ FLUSH PRIVILEGES;
         <ant antfile="${basedir}/../build.xml" dir="${basedir}/..">
             <target name="clean" />
             <target name="package.create" />
-            <property name="as.home" value="${glassfish.install.dir}" />
+            <property name="as.home" value="${glassfish.install.dir}/glassfish" />
             <property name="source.install" value="true" />
         </ant>
     </target>
@@ -166,14 +167,14 @@ FLUSH PRIVILEGES;
     <target name="deploy.connect" unless="skip.deploy">
         <echo message="deploying CONNECT." />
         <ant antfile="${basedir}/../build.xml" dir="${basedir}/.." target="deploy">
-            <property name="glassfish.home" value="${glassfish.install.dir}" />
+            <property name="glassfish.home" value="${glassfish.install.dir}/glassfish" />
         </ant>
     </target>
 
     <target name="deploy.connect.binary" unless="skip.deploy">
         <echo message="deploying CONNECT for binary scenario." />
         <ant antfile="${basedir}/deploy.xml" dir="${basedir}" target="deploy">
-            <property name="glassfish.home" value="${glassfish.install.dir}" />
+            <property name="glassfish.home" value="${glassfish.install.dir}/glassfish" />
             <property name="deployment.dir" value="${basedir}" />
         </ant>
     </target>

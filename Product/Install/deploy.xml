@@ -58,12 +58,6 @@
         <antcall target="undeploy.from.production" />
     </target>
 
-    <target name="foo">
-        <runtarget target="deploy.glassfish.stop.server" />
-        <run-validationsuite-mod jarfile="SetValidationSuiteWsdlPath.jar" />
-        <runtarget target="deploy.glassfish.start.server" />
-    </target>
-
     <target name="deploy.to.production">
         <runtarget target="deploy.glassfish.stop.server" />
         <if>
@@ -482,12 +476,17 @@
     </target>
 
     <target name="-uncomment.domain.config">
-        <xmltask source="${deployment.glassfish.domain.config.home}/domain.xml" dest="${deployment.glassfish.domain.config.home}/domain.xml" preserveType="true">
-            <xmlcatalog id="dtds">
-                <dtd publicId="-//Sun Microsystems Inc.//DTD Application Server 9.1 Domain//EN" location="${glassfish.home}/glassfish/domains/domain1/lib/dtds/sun-domain_1_3.dtd" />
-            </xmlcatalog>
-            <uncomment path="/domain/configs/config/java-config/comment()[1]" />
-        </xmltask>
+        <if>
+            <available file="${deployment.glassfish.domain.config.home}/domain.xml" type="file" />
+            <then>
+                <xmltask source="${deployment.glassfish.domain.config.home}/domain.xml" dest="${deployment.glassfish.domain.config.home}/domain.xml" preserveType="true">
+                    <xmlcatalog id="dtds">
+                        <dtd publicId="-//Sun Microsystems Inc.//DTD Application Server 9.1 Domain//EN" location="${glassfish.home}/glassfish/domains/domain1/lib/dtds/sun-domain_1_3.dtd" />
+                    </xmlcatalog>
+                    <uncomment path="/domain/configs/config/java-config/comment()[1]" />
+                </xmltask>
+            </then>
+        </if>
     </target>
 
     <target name="add.profiler.domain.config">
