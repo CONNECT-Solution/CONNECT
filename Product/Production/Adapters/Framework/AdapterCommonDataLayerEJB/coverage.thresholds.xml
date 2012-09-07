@@ -67,7 +67,7 @@
               linesexecuted="0"/>
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.adapter.commondatalayer.mappers.constants.AdapterCommonDataLayerConstants"
-              linecount="23"
+              linecount="22"
               linerate="80"
               linesexecuted="0"/>
    <threshold branchcount="48" branchrate="80" branchsexecuted="0"

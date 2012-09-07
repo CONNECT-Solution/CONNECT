@@ -104,6 +104,18 @@
 	<wsdl:message name="FindPatientsResponse">
 		<wsdl:part name="output" element="hl7:FindPatients_PRPA_MT201310UV02Response"/>
 	</wsdl:message>
+	<wsdl:message name="FindDocumentRequest">
+		<wsdl:part name="param0" element="hl7:FindDocument_RCMR_IN000031UV01Request"/>
+	</wsdl:message>
+	<wsdl:message name="FindDocumentResponse">
+		<wsdl:part name="output" element="hl7:FindDocument_RCMR_IN000032UV01Response"/>
+	</wsdl:message>	
+	<wsdl:message name="FindDocumentWithContentRequest">
+		<wsdl:part name="param0" element="hl7:FindDocumentWithContent_RCMR_IN000031UV01Request"/>
+	</wsdl:message>
+	<wsdl:message name="FindDocumentWithContentResponse">
+		<wsdl:part name="output" element="hl7:FindDocumentWithContent_RCMR_IN000032UV01Response"/>
+	</wsdl:message>	
 	<wsdl:portType name="CommonDataLayerPortType">
 		<wsdl:operation name="GetEncounters">
 			<wsdl:input message="tns:GetEncountersRequest"/>
@@ -168,6 +180,14 @@
 		<wsdl:operation name="FindPatients">
 			<wsdl:input message="tns:FindPatientsRequest"/>
 			<wsdl:output message="tns:FindPatientsResponse"/>
+		</wsdl:operation>		
+		<wsdl:operation name="FindDocument">
+			<wsdl:input message="tns:FindDocumentRequest"/>
+			<wsdl:output message="tns:FindDocumentResponse"/>
+		</wsdl:operation>		
+		<wsdl:operation name="FindDocumentWithContent">
+			<wsdl:input message="tns:FindDocumentWithContentRequest"/>
+			<wsdl:output message="tns:FindDocumentWithContentResponse"/>
 		</wsdl:operation>
 	</wsdl:portType>
 	<wsdl:binding name="CommonDataLayerPortTypeBinding" type="tns:CommonDataLayerPortType">
@@ -309,6 +329,24 @@
 		</wsdl:operation>
 		<wsdl:operation name="FindPatients">
 			<soap:operation soapAction="urn:FindPatients" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>		
+		<wsdl:operation name="FindDocument">
+			<soap:operation soapAction="urn:FindDocument" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>		
+		<wsdl:operation name="FindDocumentWithContent">
+			<soap:operation soapAction="urn:FindDocumentWithContent" style="document"/>
 			<wsdl:input>
 				<soap:body use="literal"/>
 			</wsdl:input>
