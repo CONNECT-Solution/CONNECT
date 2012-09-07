@@ -429,18 +429,19 @@
 	        </filelist>
 	    </path>
 		
-		<copy todir=".ant-deploy-staging/lib" flatten="true" overwrite="true">
+		<copy todir=".ant-deploy-staging" flatten="true" overwrite="true">
 			<path refid="ear.libs" />									
 		</copy>
-		<foreach param="file.name" target="-ear.add.jar">
+		<!--foreach param="file.name" target="-ear.add.jar">
 	 		<path refid="ear.libs" />
-	 	</foreach>
+	 	</foreach-->
 			
 		 <xmltask source="${basedir}/projects.xml">
             <call path="/projects/project">
                 <param name="project.name" path="name/text()" />
                 <param name="project.directory" path="directory/text()" />
                 <param name="should.deploy" path="should.deploy/text()" />
+            	<param name="context.root" path="context.root/text()" />
             	<param name="dist.type" path="dist.type/text()" />
                 <actions>
                     <if>
@@ -452,7 +453,7 @@
                         	<replace file=".ant-deploy-staging/META-INF/application.xml">
                         	  <replacetoken><![CDATA[</application>]]></replacetoken>
                         	  <replacevalue><![CDATA[    <module><web><web-uri>@{project.name}.war</web-uri>
-                        	  	<context-root>@{project.name}</context-root></web></module>                        	  
+                        	  	<context-root>@{context.root}</context-root></web></module>                        	  
 </application>]]></replacevalue>
                         	</replace>
                         </then>

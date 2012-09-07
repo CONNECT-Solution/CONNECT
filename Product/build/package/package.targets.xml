@@ -72,6 +72,24 @@
 				<jar destfile="${dist.file}" compress="true" basedir="${build.dist.root}" manifest="${build.dist.manifest.file}" excludes="**/*.flag"/>
 			</case>
 			<case value="war">
+				<!-- Create a flat list of required jar files -->
+				<pathconvert property="libs.project" pathsep=" ">
+					<mapper>
+					  <chainedmapper>
+				        <!-- remove absolute path -->
+						<flattenmapper />
+					 
+				        <!-- add lib/ prefix -->
+						<!-- globmapper from="*" to="lib/*" / -->
+					  </chainedmapper>
+					</mapper>
+					 
+				    <path refid="ear.libs" />
+				</pathconvert>
+				
+				<manifest file="${build.dist.manifest.file}" mode="update">
+					<attribute name="Class-Path" value="${libs.project}" />
+				</manifest>
 				<mkdir dir="${build.war.lib.dir}" />
 				<for param="war.lib">
 					<path refid="war.libs" />

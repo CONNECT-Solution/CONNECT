@@ -46,7 +46,7 @@
             <available file="${glassfish.zip.file}" type="file" />
         </not>
         <then>
-            <get src="http://download.java.net/glassfish/3.1.1/release/glassfish-3.1.1-web.zip" dest="${glassfish.zip.file}" />
+            <get src="http://download.java.net/glassfish/3.1.1/release/glassfish-3.1.1.zip" dest="${glassfish.zip.file}" />
         </then>
     </if>
 

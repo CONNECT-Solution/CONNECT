@@ -35,6 +35,9 @@
     <property name="opensaml.home" location="../../../../ThirdParty/openSAML" />
 
     <path id="war.libs">
+    </path>
+	
+    <path id="ear.libs">
         <fileset dir="${cxf.home}">
             <include name="cxf-2.6.0.jar" />
             <include name="commons-logging-1.1.1.jar" />
