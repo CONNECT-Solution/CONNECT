@@ -38,7 +38,6 @@ import javax.xml.ws.soap.Addressing;
 
 @Addressing(enabled = true)
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
-
 public class NhinPatientDiscoveryAsyncReq extends PatientDiscoveryBase implements ihe.iti.xcpd._2009.RespondingGatewayDeferredRequestPortType {
     @Resource
     private WebServiceContext context;

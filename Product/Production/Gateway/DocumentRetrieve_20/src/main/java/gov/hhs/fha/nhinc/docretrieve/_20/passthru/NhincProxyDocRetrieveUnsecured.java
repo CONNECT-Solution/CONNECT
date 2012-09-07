@@ -27,7 +27,6 @@
 package gov.hhs.fha.nhinc.docretrieve._20.passthru;
 
 import javax.annotation.Resource;
-import javax.jws.WebService;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
@@ -36,10 +35,10 @@ import javax.xml.ws.soap.Addressing;
  * 
  * @author Neil Webb
  */
-@WebService(serviceName = "NhincProxyDocRetrieve", portName = "NhincProxyDocRetrievePortSoap", endpointInterface = "gov.hhs.fha.nhinc.nhincproxydocretrieve.NhincProxyDocRetrievePortType", targetNamespace = "urn:gov:hhs:fha:nhinc:nhincproxydocretrieve", wsdlLocation = "WEB-INF/wsdl/NhincProxyDocRetrieveUnsecured/NhincProxyDocRetrieve.wsdl")
+
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 @Addressing(enabled = true)
-public class NhincProxyDocRetrieveUnsecured {
+public class NhincProxyDocRetrieveUnsecured implements gov.hhs.fha.nhinc.nhincproxydocretrieve.NhincProxyDocRetrievePortType {
     @Resource
     private WebServiceContext context;
 

@@ -31,9 +31,6 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
         address="/GatewayService/AuditRepositoryManagerSecuredService" 
         implementor="gov.hhs.fha.nhinc.auditrepository.nhinc.AuditRepository"
         >
- <jaxws:serviceFactory>
-            <ref bean="jaxws-service-factory"/>
-        </jaxws:serviceFactory>
         <jaxws:properties>
             <entry key="ws-security.callback-handler" value="gov.hhs.fha.nhinc.callback.cxf.CXFSAMLCallbackHandler" />
             <entry key="ws-security.signature.properties" value="keystore.properties" />

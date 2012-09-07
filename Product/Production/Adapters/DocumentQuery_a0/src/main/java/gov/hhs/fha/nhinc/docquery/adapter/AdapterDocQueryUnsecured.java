@@ -12,7 +12,6 @@
 package gov.hhs.fha.nhinc.docquery.adapter;
 
 import javax.annotation.Resource;
-import javax.jws.WebService;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 
@@ -20,9 +19,9 @@ import javax.xml.ws.WebServiceContext;
  * 
  * @author jhoppesc
  */
-@WebService(serviceName = "AdapterDocQuery", portName = "AdapterDocQueryPortSoap", endpointInterface = "gov.hhs.fha.nhinc.adapterdocquery.AdapterDocQueryPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:adapterdocquery", wsdlLocation = "WEB-INF/wsdl/AdapterDocQueryUnsecured/AdapterDocQuery.wsdl")
+
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
-public class AdapterDocQueryUnsecured {
+public class AdapterDocQueryUnsecured implements gov.hhs.fha.nhinc.adapterdocquery.AdapterDocQueryPortType {
     @Resource
     private WebServiceContext context;
 

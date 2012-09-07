@@ -27,7 +27,6 @@
 package gov.hhs.fha.nhinc.docretrieve._20.entity;
 
 import javax.annotation.Resource;
-import javax.jws.WebService;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
@@ -36,10 +35,10 @@ import javax.xml.ws.soap.Addressing;
  * 
  * @author Sai Valluripalli
  */
-@WebService(serviceName = "EntityDocRetrieveSecured", portName = "EntityDocRetrieveSecuredPortSoap", endpointInterface = "gov.hhs.fha.nhinc.entitydocretrievesecured.EntityDocRetrieveSecuredPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:entitydocretrievesecured", wsdlLocation = "WEB-INF/wsdl/EntityDocRetrieveSecured/EntityDocRetrieveSecured.wsdl")
+
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 @Addressing(enabled = true)
-public class EntityDocRetrieveSecured {
+public class EntityDocRetrieveSecured implements gov.hhs.fha.nhinc.entitydocretrievesecured.EntityDocRetrieveSecuredPortType {
 
     @Resource
     private WebServiceContext context;
