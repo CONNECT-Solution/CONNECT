@@ -41,9 +41,8 @@ import org.hl7.v3.PRPAIN201306UV02;
  * 
  * @author Sai Valluripalli
  */
-@WebService(serviceName = "AdapterComponentMpiSecuredService", portName = "AdapterComponentMpiSecuredPort", endpointInterface = "gov.hhs.fha.nhinc.adaptercomponentmpi.AdapterComponentMpiSecuredPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:adaptercomponentmpi", wsdlLocation = "WEB-INF/wsdl/AdapterComponentMpiSecured/AdapterComponentSecuredMpi.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
-public class AdapterComponentMpiSecured {
+public class AdapterComponentMpiSecured implements gov.hhs.fha.nhinc.adaptercomponentmpi.AdapterComponentMpiSecuredPortType {
     @Resource
     private WebServiceContext context;
 

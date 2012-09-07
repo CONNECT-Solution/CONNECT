@@ -79,17 +79,17 @@ public class CertificateManagerImpl implements CertificateManager {
         String storeLoc = System.getProperty("javax.net.ssl.keyStore");
 
         if (storeType == null) {
-            log.error("javax.net.ssl.keyStoreType is not defined in domain.xml");
+            log.error("javax.net.ssl.keyStoreType is not defined");
             log.warn("Default to JKS keyStoreType");
             storeType = "JKS";
         }
         if (password == null || storeLoc == null) {
-            log.error("Store password or store location not defined in domain.xml");
+            log.error("Store password or store location not defined");
             log.error("Please define javax.net.ssl.keyStorePassword and javax.net.ssl.keyStore");
         }
 
         if ("JKS".equals(storeType) && storeLoc == null) {
-            log.error("javax.net.ssl.keyStore is not defined in domain.xml");
+            log.error("javax.net.ssl.keyStore is not defined");
         } else {
             try {
                 keyStore = KeyStore.getInstance(storeType);

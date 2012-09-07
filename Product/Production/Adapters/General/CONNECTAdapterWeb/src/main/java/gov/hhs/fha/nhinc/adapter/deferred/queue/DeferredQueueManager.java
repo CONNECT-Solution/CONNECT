@@ -46,10 +46,9 @@ import org.apache.commons.logging.LogFactory;
  * 
  * @author richard.ettema
  */
-@WebService(serviceName = "DeferredQueueManager", portName = "DeferredQueueManagerPort", endpointInterface = "gov.hhs.fha.nhinc.deferredqueuemanager.DeferredQueueManagerPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:deferredqueuemanager", wsdlLocation = "WEB-INF/wsdl/DeferredQueueManager/DeferredQueueManager.wsdl")
-@BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
+
 @Addressing(enabled = true, required = true)
-public class DeferredQueueManager {
+public class DeferredQueueManager implements gov.hhs.fha.nhinc.deferredqueuemanager.DeferredQueueManagerPortType {
 
     private static Log log = LogFactory.getLog(DeferredQueueManager.class);
 

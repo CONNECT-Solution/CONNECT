@@ -37,9 +37,7 @@ import javax.xml.ws.BindingType;
  * 
  * @author Neil Webb
  */
-@WebService(serviceName = "NhincComponentInternalPolicyEngineTransformService", portName = "NhincInternalComponentPolicyEngineTransformPort", endpointInterface = "gov.hhs.fha.nhinc.nhincinternalcomponentpolicyenginetransform.NhincInternalComponentPolicyEngineTransformPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:nhincinternalcomponentpolicyenginetransform", wsdlLocation = "WEB-INF/wsdl/PolicyEngineTransformationService/NhincComponentInternalPolicyEngineTransform.wsdl")
-@BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
-public class PolicyEngineTransformationService {
+public class PolicyEngineTransformationService implements gov.hhs.fha.nhinc.nhincinternalcomponentpolicyenginetransform.NhincInternalComponentPolicyEngineTransformPortType {
 
     public gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType transformAdhocQueryToCheckPolicy(
             gov.hhs.fha.nhinc.common.eventcommon.AdhocQueryRequestEventType transformAdhocQueryToCheckPolicyRequest) {

@@ -27,7 +27,6 @@
 package gov.hhs.fha.nhinc.patientdiscovery.adapter;
 
 import javax.annotation.Resource;
-import javax.jws.WebService;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 
@@ -36,9 +35,8 @@ import javax.xml.ws.WebServiceContext;
  * 
  * @author Les Westberg
  */
-@WebService(serviceName = "AdapterPatientDiscovery", portName = "AdapterPatientDiscoveryPortSoap", endpointInterface = "gov.hhs.fha.nhinc.adapterpatientdiscovery.AdapterPatientDiscoveryPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:adapterpatientdiscovery", wsdlLocation = "WEB-INF/wsdl/AdapterPatientDiscovery/AdapterPatientDiscovery.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
-public class AdapterPatientDiscovery {
+public class AdapterPatientDiscovery implements gov.hhs.fha.nhinc.adapterpatientdiscovery.AdapterPatientDiscoveryPortType {
     @Resource
     private WebServiceContext context;
 

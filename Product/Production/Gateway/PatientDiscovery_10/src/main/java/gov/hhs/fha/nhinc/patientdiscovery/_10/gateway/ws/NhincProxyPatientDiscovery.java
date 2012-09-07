@@ -27,7 +27,6 @@
 package gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws;
 
 import javax.annotation.Resource;
-import javax.jws.WebService;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 
@@ -35,9 +34,9 @@ import javax.xml.ws.WebServiceContext;
  * 
  * @author mflynn02
  */
-@WebService(serviceName = "NhincProxyPatientDiscovery", portName = "NhincProxyPatientDiscoveryPort", endpointInterface = "gov.hhs.fha.nhinc.nhincproxypatientdiscovery.NhincProxyPatientDiscoveryPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:nhincproxypatientdiscovery", wsdlLocation = "WEB-INF/wsdl/NhincProxyPatientDiscovery/NhincProxyPatientDiscovery.wsdl")
+
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
-public class NhincProxyPatientDiscovery extends PatientDiscoveryBase {
+public class NhincProxyPatientDiscovery extends PatientDiscoveryBase implements gov.hhs.fha.nhinc.nhincproxypatientdiscovery.NhincProxyPatientDiscoveryPortType{
 
     @Resource
     private WebServiceContext context;

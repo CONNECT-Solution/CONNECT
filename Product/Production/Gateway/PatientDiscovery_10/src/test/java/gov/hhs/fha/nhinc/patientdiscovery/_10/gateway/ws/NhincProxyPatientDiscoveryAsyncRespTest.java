@@ -85,19 +85,7 @@ public class NhincProxyPatientDiscoveryAsyncRespTest {
 
     }
 
-    @Test
-    public void verifyWebServiceAnnotation() {
-        WebService webServiceAnnotation = NhincProxyPatientDiscoveryAsyncResp.class.getAnnotation(WebService.class);
-        assertEquals("NhincProxyPatientDiscoveryAsyncRespPortType", webServiceAnnotation.portName());
-        assertEquals("NhincProxyPatientDiscoveryAsyncResp", webServiceAnnotation.serviceName());
-        assertEquals(
-                "gov.hhs.fha.nhinc.nhincproxypatientdiscoveryasyncresp.NhincProxyPatientDiscoveryAsyncRespPortType",
-                webServiceAnnotation.endpointInterface());
-        assertEquals("urn:gov:hhs:fha:nhinc:nhincproxypatientdiscoveryasyncresp",
-                webServiceAnnotation.targetNamespace());
-        assertEquals("WEB-INF/wsdl/NhincProxyPatientDiscoveryAsyncResp/NhincProxyPatientDiscoveryAsyncResp.wsdl",
-                webServiceAnnotation.wsdlLocation());
-    }
+    
 
     @Test
     public void verifyAddressingIsEnabled() {

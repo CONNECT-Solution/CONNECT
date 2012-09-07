@@ -26,20 +26,19 @@
  */
 package gov.hhs.fha.nhinc.mpi.adapter.component;
 
-import javax.jws.WebService;
+import javax.annotation.Resource;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
-import javax.annotation.Resource;
-import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
+
 import org.hl7.v3.PRPAIN201306UV02;
+import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 
 /**
  * 
  * @author Sai Valluripalli
  */
-@WebService(serviceName = "AdapterComponentMpiService", portName = "AdapterComponentMpiPort", endpointInterface = "gov.hhs.fha.nhinc.adaptercomponentmpi.AdapterComponentMpiPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:adaptercomponentmpi", wsdlLocation = "WEB-INF/wsdl/AdapterComponentMpi/AdapterComponentMpi.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
-public class AdapterComponentMpi {
+public class AdapterComponentMpi implements gov.hhs.fha.nhinc.adaptercomponentmpi.AdapterComponentMpiPortType {
     @Resource
     private WebServiceContext context;
 

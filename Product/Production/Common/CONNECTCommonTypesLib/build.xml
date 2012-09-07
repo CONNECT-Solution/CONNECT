@@ -61,6 +61,8 @@
       <exclude name="uddi_vs_v3_portType.wsdl" />
       <exclude name="uddi_vscache_v3_binding.wsdl" />
       <exclude name="uddi_vscache_v3_portType.wsdl" />
+      <!-- not WS-I Basic -->
+      <exclude name="DoDConnector.wsdl" />
     </fileset>
   </path>
 
@@ -169,13 +171,16 @@
               <basename property="file.basename" file="@{wsdl.file.path}" suffix=".wsdl"/>
               <java classname="org.apache.cxf.tools.wsdlto.WSDLToJava" fork="true">
 				 <arg value="-client"/>
-				 <arg value="-noAddressBinding"/>
-				 <arg value="-dns"/>
+                 <arg value="-wsdlLocation"/>
+                 <arg value="META-INF/wsdl/${wsdl.file}"/>                          
+                 <arg value="-noAddressBinding"/>
+                 <arg value="-dns"/>
 				 <arg value="false"/>
 				 <arg value="-verbose"/>
-				 <arg value="-d"/>
-				 <arg value="${build.generated.dir}"/>
-				 <arg value="@{wsdl.file.path}"/>
+				 <arg value="-mark-generated"/>
+                 <arg value="-d"/>
+                 <arg value="${build.generated.dir}"/>
+             	 <arg value="@{wsdl.file.path}"/>
 				 <classpath>
 					<path refid="cxf.classpath"/>
 				 </classpath>
