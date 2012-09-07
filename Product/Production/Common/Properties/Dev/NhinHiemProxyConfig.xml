@@ -10,26 +10,32 @@
 	<description>Beans included in this file: {nhinhiemsubscribe,nhinhiemnotify}</description>
 
 	<!-- NHIN HIEM Subscribe -->
+	
+	<alias alias="nhinhiemsubscribe" name="nhinhiemsubscribewssecured" />
+	
 	<!-- No-op Implementation -->
-	<bean class="gov.hhs.fha.nhinc.subscribe.nhin.proxy.NhinHiemSubscribeNoOpImpl" id="nhinhiemsubscribenoop" name="nhinhiemsubscribenoop"> 
+	<bean lazy-init="true" class="gov.hhs.fha.nhinc.subscribe.nhin.proxy.NhinHiemSubscribeNoOpImpl" id="nhinhiemsubscribenoop" name="nhinhiemsubscribenoop"> 
 		<meta key="impltype" value="noop"/>
 	</bean> 
 
 	<!-- Secured web service Implementation -->
-    <bean class="gov.hhs.fha.nhinc.subscribe.nhin.proxy.NhinHiemSubscribeWebServiceProxy" id="nhinhiemsubscribe" name="nhinhiemsubscribewssecured"> 
+    <bean lazy-init="true" class="gov.hhs.fha.nhinc.subscribe.nhin.proxy.NhinHiemSubscribeWebServiceProxy" id="nhinhiemsubscribewssecured" name="nhinhiemsubscribewssecured"> 
 		<meta key="impltype" value="wssecured"/>
 		<meta key="default" value="true"/>
 	</bean> 
 
 	
 	<!-- NHIN HIEM Notify -->
+	
+	<alias alias="nhinhiemnotify" name="nhinhiemnotifywssecured" />
+	
 	<!-- No-op Implementation -->
-	<bean class="gov.hhs.fha.nhinc.notify.nhin.proxy.NhinHiemNotifyNoOpImpl" id="nhinhiemnotifynoop" name="nhinhiemnotifynoop"> 
+	<bean lazy-init="true" class="gov.hhs.fha.nhinc.notify.nhin.proxy.NhinHiemNotifyNoOpImpl" id="nhinhiemnotifynoop" name="nhinhiemnotifynoop"> 
 		<meta key="impltype" value="noop"/>
 	</bean> 
 
 	<!-- Secured web service Implementation -->
-    <bean class="gov.hhs.fha.nhinc.notify.nhin.proxy.NhinHiemNotifyWebServiceProxy" id="nhinhiemnotify" name="nhinhiemnotifywssecured"> 
+    <bean lazy-init="true" class="gov.hhs.fha.nhinc.notify.nhin.proxy.NhinHiemNotifyWebServiceProxy" id="nhinhiemnotifywssecured" name="nhinhiemnotifywssecured"> 
 		<meta key="impltype" value="wssecured"/>
 		<meta key="default" value="true"/>
 	</bean> 

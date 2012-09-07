@@ -165,8 +165,8 @@
         <name>HIEM_20</name>
         <directory>/Production/Gateway/HIEM_20/</directory>
         <dist.type>war</dist.type>
-        <should.build>true</should.build>
-        <should.deploy>true</should.deploy>
+        <should.build>false</should.build>
+        <should.deploy>false</should.deploy>
     </project>
     <project>
         <name>CONNECTAdapterWeb</name>

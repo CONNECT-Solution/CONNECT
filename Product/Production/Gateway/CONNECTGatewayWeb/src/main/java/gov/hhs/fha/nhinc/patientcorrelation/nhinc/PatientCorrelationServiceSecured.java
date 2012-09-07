@@ -43,9 +43,8 @@ import org.hl7.v3.RetrievePatientCorrelationsSecuredResponseType;
  * 
  * @author Sai Valluripalli
  */
-@WebService(serviceName = "PatientCorrelationServiceSecured", portName = "PatientCorrelationSecuredPort", endpointInterface = "gov.hhs.fha.nhinc.nhinccomponentpatientcorrelation.PatientCorrelationSecuredPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:nhinccomponentpatientcorrelation", wsdlLocation = "WEB-INF/wsdl/PatientCorrelationServiceSecured/NhincComponentPatientCorrelationSecured.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
-public class PatientCorrelationServiceSecured {
+public class PatientCorrelationServiceSecured implements gov.hhs.fha.nhinc.nhinccomponentpatientcorrelation.PatientCorrelationSecuredPortType {
 
     @Resource
     private WebServiceContext context;

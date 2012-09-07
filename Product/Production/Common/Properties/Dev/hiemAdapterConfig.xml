@@ -9,6 +9,8 @@
 	in the description separated with a comma like the following sample: {somebean,anotherbean}
 -->
 	<description>Beans included in this file: {hiemsubscribeadapter,hiemnotifyadapter,hiemunsubscribeadapter}</description>
+	
+	<alias alias="hiemsubscribeadapter" name="hiemsubscribeadapterwsunsecured" />
 
 	<!-- No-op Implementation -->
 	<bean class="gov.hhs.fha.nhinc.subscribe.adapter.proxy.HiemSubscribeAdapterNoOpImpl" id="hiemsubscribeadapternoop" name="hiemsubscribeadapternoop"> 
@@ -21,15 +23,17 @@
 	</bean> 
 
 	<!-- Unsecured web service Implementation -->
-	<bean class="gov.hhs.fha.nhinc.subscribe.adapter.proxy.HiemSubscribeAdapterWebServiceProxy" id="hiemsubscribeadapter" name="hiemsubscribeadapterwsunsecured"> 
+	<bean class="gov.hhs.fha.nhinc.subscribe.adapter.proxy.HiemSubscribeAdapterWebServiceProxy" id="hiemsubscribeadapterwsunsecured" name="hiemsubscribeadapterwsunsecured"> 
 		<meta key="impltype" value="wsunsecured"/>
 		<meta key="default" value="true"/>
 	</bean> 
 
   	<!-- ******************************************************************** -->
+  	
+  	<alias alias="hiemnotifyadapter" name="hiemnotifyadapternoop" />
 
 	<!-- No-op Implementation -->
-	<bean class="gov.hhs.fha.nhinc.notify.adapter.proxy.HiemNotifyAdapterNoOpImpl" id="hiemnotifyadapter" name="hiemnotifyadapternoop"> 
+	<bean class="gov.hhs.fha.nhinc.notify.adapter.proxy.HiemNotifyAdapterNoOpImpl" id="hiemnotifyadapternoop" name="hiemnotifyadapternoop"> 
 		<meta key="impltype" value="noop"/>
 	</bean> 
 
@@ -45,6 +49,8 @@
 	</bean> 
 
   	<!-- ******************************************************************** -->
+  	
+  	<alias alias="hiemunsubscribeadapter" name="hiemunsubscribeadapterwsunsecured" />
 
 	<!-- No-op Implementation -->
 	<bean class="gov.hhs.fha.nhinc.unsubscribe.adapter.proxy.HiemUnsubscribeAdapterNoOpImpl" id="hiemunsubscribeadapternoop" name="hiemunsubscribeadapternoop"> 
@@ -57,7 +63,7 @@
 	</bean> 
 
 	<!-- Unsecured web service Implementation -->
-	<bean class="gov.hhs.fha.nhinc.unsubscribe.adapter.proxy.HiemUnsubscribeAdapterWebServiceProxy" id="hiemunsubscribeadapter" name="hiemunsubscribeadapterwsunsecured"> 
+	<bean class="gov.hhs.fha.nhinc.unsubscribe.adapter.proxy.HiemUnsubscribeAdapterWebServiceProxy" id="hiemunsubscribeadapterwsunsecured" name="hiemunsubscribeadapterwsunsecured"> 
 		<meta key="impltype" value="wsunsecured"/>
 		<meta key="default" value="true"/>
 	</bean> 

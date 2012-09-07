@@ -35,9 +35,9 @@ import javax.xml.ws.WebServiceContext;
  * 
  * @author Sai Valluripalli
  */
-@WebService(serviceName = "AdapterPEP", portName = "AdapterPEPPortSoap", endpointInterface = "gov.hhs.fha.nhinc.adapterpep.AdapterPEPPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:adapterpep", wsdlLocation = "WEB-INF/wsdl/AdapterPEPService/AdapterPEP.wsdl")
+
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
-public class AdapterPEPService {
+public class AdapterPEPService implements gov.hhs.fha.nhinc.adapterpep.AdapterPEPPortType {
     @Resource
     private WebServiceContext context;
 
