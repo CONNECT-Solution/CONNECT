@@ -77,7 +77,7 @@ public class WebServiceProxyHelper {
      *
      * @return The logger object.
      */
-    private Log createLogger() {
+    protected Log createLogger() {
         return ((log != null) ? log : LogFactory.getLog(getClass()));
     }
 

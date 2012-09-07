@@ -28,7 +28,7 @@ public class CallbackMapProperties implements CallbackProperties {
 	 * Puts the properties into the callback map.
 	 * @param properties
 	 */
-	public CallbackMapProperties(Map<Object, Object> properties) {
+	public CallbackMapProperties(Map<?, Object> properties) {
 		map.putAll(properties);
 	}
 
