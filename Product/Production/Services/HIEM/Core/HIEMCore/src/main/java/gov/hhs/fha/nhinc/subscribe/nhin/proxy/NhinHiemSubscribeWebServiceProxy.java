@@ -26,23 +26,15 @@
  */
 package gov.hhs.fha.nhinc.subscribe.nhin.proxy;
 
-//import java.lang.reflect.InvocationTargetException;
-
-import gov.hhs.fha.nhinc.auditrepository.AuditRepositoryLogger;
-import gov.hhs.fha.nhinc.auditrepository.nhinc.proxy.AuditRepositoryProxy;
-import gov.hhs.fha.nhinc.auditrepository.nhinc.proxy.AuditRepositoryProxyObjectFactory;
-import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
+import gov.hhs.fha.nhinc.messaging.client.CONNECTCXFClientFactory;
+import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
+import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
-import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
-
-import javax.xml.namespace.QName;
-import javax.xml.ws.BindingProvider;
-import javax.xml.ws.Service;
+import gov.hhs.fha.nhinc.subscribe.nhin.proxy.service.NhinHiemSubscribeServicePortDescriptor;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -51,146 +43,45 @@ import org.oasis_open.docs.wsn.b_2.SubscribeResponse;
 import org.oasis_open.docs.wsn.bw_2.NotificationProducer;
 
 /**
- *
+ * 
  * @author Jon Hoppesch
  */
 public class NhinHiemSubscribeWebServiceProxy implements NhinHiemSubscribeProxy {
 
     private static Log log = LogFactory.getLog(NhinHiemSubscribeWebServiceProxy.class);
 
-    private static Service cachedService = null;
-    private static WebServiceProxyHelper oProxyHelper = null;
-    private static final String NAMESPACE_URI = "http://docs.oasis-open.org/wsn/bw-2";
-    private static final String SERVICE_LOCAL_PART = "NotificationProducerService";
-    private static final String PORT_LOCAL_PART = "NotificationProducerPort";
-    private static final String WSDL_FILE = "NhinSubscription.wsdl";
-    private static final String WS_ADDRESSING_ACTION = "http://docs.oasis-open.org/wsn/bw-2/NotificationProducer/SubscribeRequest";
-    private static final String SUBSCRIBE_SERVICE = "subscribe";
+    protected CONNECTClient<NotificationProducer> getCONNECTClientSecured(
+            ServicePortDescriptor<NotificationProducer> portDescriptor, String url, AssertionType assertion) {
 
+        return CONNECTCXFClientFactory.getInstance().getCONNECTClientSecured(portDescriptor, url, assertion);
+    }
 
     @Override
     public SubscribeResponse subscribe(Subscribe subscribe, AssertionType assertion, NhinTargetSystemType target)
             throws Exception {
         SubscribeResponse response = null;
-        String url = null;
 
-        log.debug("In NhinSubscribeWebserviceProxy.subscribe()");
+        try {
+            String url = ConnectionManagerCache.getInstance().getEndpointURLFromNhinTarget(target,
+                    NhincConstants.HIEM_SUBSCRIBE_SERVICE_NAME);
 
-        auditInputMessage(subscribe, assertion);
+            if (NullChecker.isNullish(url)) {
+                log.error("The URL for service: " + NhincConstants.HIEM_SUBSCRIBE_SERVICE_NAME + " is null");
+            } else if (target == null) {
+                log.error("Target system passed into the proxy is null");
+            } else {
+                ServicePortDescriptor<NotificationProducer> portDescriptor = new NhinHiemSubscribeServicePortDescriptor();
 
-        if (target != null) {
-            try {
-                url = ConnectionManagerCache.getInstance().getEndpointURLFromNhinTarget(target,
-                        NhincConstants.HIEM_SUBSCRIBE_SERVICE_NAME);
-            } catch (ConnectionManagerException ex) {
-                log.error("Error: Failed to retrieve url for service: " + NhincConstants.HIEM_SUBSCRIBE_SERVICE_NAME);
-                log.error(ex.getMessage());
+                CONNECTClient<NotificationProducer> client = getCONNECTClientSecured(portDescriptor, url, assertion);
+
+                response = (SubscribeResponse) client.invokePort(NotificationProducer.class, "subscribe", subscribe);
             }
-        } else {
-            log.error("Target system passed into the proxy is null");
+
+        } catch (Exception ex) {
+            log.error("Error sending subscribe to remote gateway.", ex);
         }
 
-        if (NullChecker.isNotNullish(url)) {
-            NotificationProducer port = getPort(url, assertion);
-            
-                try {
-                    response = (SubscribeResponse) oProxyHelper.invokePort(port, NotificationProducer.class,
-                            SUBSCRIBE_SERVICE, subscribe);
-                } catch (Exception e) {
-                    log.error("Exception: " + e.getMessage());
-                    throw e;
-                }
-                    
-                auditResponseMessage(response, assertion);           
-        } else {
-            log.error("The URL for service: " + NhincConstants.HIEM_SUBSCRIBE_SERVICE_NAME + " is null");
-        }
-
-        log.debug("Exit NhinSubscribeWebserviceProxy.subscribe()");
         return response;
     }
 
-    private void auditInputMessage(Subscribe subscribe, AssertionType assertion) {
-        log.debug("In NhinHiemSubscribeWebServiceProxy.auditInputMessage");
-        
-        try {
-            AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
-
-            gov.hhs.fha.nhinc.common.nhinccommoninternalorch.SubscribeRequestType message = new gov.hhs.fha.nhinc.common.nhinccommoninternalorch.SubscribeRequestType();
-            message.setAssertion(assertion);
-            message.setSubscribe(subscribe);
-
-            LogEventRequestType auditLogMsg = auditLogger.logNhinSubscribeRequest(message,
-                    NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
-
-            if (auditLogMsg != null) {
-                AuditRepositoryProxyObjectFactory auditRepoFactory = new AuditRepositoryProxyObjectFactory();
-                AuditRepositoryProxy proxy = auditRepoFactory.getAuditRepositoryProxy();
-                proxy.auditLog(auditLogMsg, assertion);
-            }
-        } catch (Throwable t) {
-            log.error("Error logging subscribe message: " + t.getMessage(), t);
-        }
-    }
-
-    private void auditResponseMessage(SubscribeResponse response, AssertionType assertion) {
-        log.debug("In NhinHiemSubscribeWebServiceProxy.auditResponseMessage");
-        try {
-            AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
-
-            gov.hhs.fha.nhinc.common.hiemauditlog.SubscribeResponseMessageType message = new gov.hhs.fha.nhinc.common.hiemauditlog.SubscribeResponseMessageType();
-            message.setAssertion(assertion);
-            message.setSubscribeResponse(response);
-
-            LogEventRequestType auditLogMsg = auditLogger.logSubscribeResponse(message,
-                    NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
-
-            if (auditLogMsg != null) {
-                AuditRepositoryProxyObjectFactory auditRepoFactory = new AuditRepositoryProxyObjectFactory();
-                AuditRepositoryProxy proxy = auditRepoFactory.getAuditRepositoryProxy();
-                proxy.auditLog(auditLogMsg, assertion);
-            }
-        } catch (Throwable t) {
-            log.error("Error logging subscribe response message: " + t.getMessage(), t);
-        }
-    }
-
-    protected NotificationProducer getPort(String url, AssertionType assertIn) {
-        NotificationProducer oPort = null;
-        try {
-            Service oService = getService(WSDL_FILE, NAMESPACE_URI, SERVICE_LOCAL_PART);
-
-            if (oService != null) {
-                log.debug("subscribe() Obtained service - creating port.");
-                oPort = oService.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), NotificationProducer.class);
-
-                // Initialize secured port
-//                getWebServiceProxyHelper().initializeSecurePort((BindingProvider) oPort, url,
-//                        NhincConstants.SUBSCRIBE_ACTION, WS_ADDRESSING_ACTION, assertIn);
-            } else {
-                log.error("Unable to obtain service - no port created.");
-            }
-        } catch (Throwable t) {
-            log.error("Error creating service: " + t.getMessage(), t);
-        }
-        return oPort;
-    }
-
-    private WebServiceProxyHelper getWebServiceProxyHelper() {
-        if (oProxyHelper == null) {
-            oProxyHelper = new WebServiceProxyHelper();
-        }
-        return oProxyHelper;
-    }
-
-    private Service getService(String wsdl, String uri, String service) {
-        if (cachedService == null) {
-            try {
-                cachedService = getWebServiceProxyHelper().createService(wsdl, uri, service);
-            } catch (Throwable t) {
-                log.error("Error creating service: " + t.getMessage(), t);
-            }
-        }
-        return cachedService;
-    }
 }

@@ -66,7 +66,7 @@ public class PassthruDocSubmissionDeferredRequestImpl_g1 {
     protected AssertionType extractAssertionFromContext(WebServiceContext context, AssertionType oAssertionIn) {
         AssertionType assertion = null;
         if (oAssertionIn == null) {            
-            SAML2AssertionExtractor extractor = new SAML2AssertionExtractor();
+            SAML2AssertionExtractor extractor = SAML2AssertionExtractor.getInstance();
             assertion = extractor.extractSamlAssertion(context);
         } else {
             assertion = oAssertionIn;

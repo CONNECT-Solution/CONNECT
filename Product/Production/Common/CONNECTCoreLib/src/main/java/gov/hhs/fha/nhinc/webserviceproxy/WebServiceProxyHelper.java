@@ -40,6 +40,7 @@ import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADAPTER_API_LEVEL;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
+import gov.hhs.fha.nhinc.properties.IPropertyAcessor;
 
 /**
  * This class is used as a helper in each of the Web Service Proxies. Since the bulk of the work being done in each web
@@ -58,6 +59,17 @@ public class WebServiceProxyHelper {
         log = createLogger();
         properties = WebServiceProxyHelperProperties.getInstance();
 
+    }
+
+    /**
+     * DI constructor.
+     *
+     * @param log
+     * @param propertyAccessor
+     */
+    public WebServiceProxyHelper(Log log, IPropertyAcessor propertyAccessor) {
+        this.log = log;
+        properties = new WebServiceProxyHelperProperties(propertyAccessor);
     }
 
     /**

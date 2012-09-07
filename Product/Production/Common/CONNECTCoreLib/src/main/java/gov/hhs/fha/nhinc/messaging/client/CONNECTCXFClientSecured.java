@@ -40,27 +40,33 @@ import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
  * 
  */
 public class CONNECTCXFClientSecured<T> extends CONNECTCXFClient<T> {
-
-   
+    
     CONNECTCXFClientSecured(ServicePortDescriptor<T> portDescriptor, String url, AssertionType assertion) {
         super(portDescriptor, url, assertion, new CXFServicePortBuilderWithAddressing<T>(portDescriptor));
-        serviceEndpoint = new SAMLServiceEndpointDecorator<T>(serviceEndpoint, assertion);
-
-        serviceEndpoint = new TLSClientServiceEndpointDecorator<T>(serviceEndpoint);
-        serviceEndpoint = new SecurityOutInterceptorServiceEndpointDecorator<T>(serviceEndpoint);
-
         
-        String wsAddressingAction = portDescriptor.getWSAddressingAction();
+        decorateEndpoint(assertion, url, portDescriptor.getWSAddressingAction());
+          
+        serviceEndpoint.configure();
+    }
+    
+    CONNECTCXFClientSecured(ServicePortDescriptor<T> portDescriptor, String url, AssertionType assertion, String wsAddressingTo) {
+        super(portDescriptor, url, assertion, new CXFServicePortBuilderWithAddressing<T>(portDescriptor));
         
-        // CXF specific decorator configuration
-        serviceEndpoint = new WsAddressingServiceEndpointDecorator<T>(serviceEndpoint, url, wsAddressingAction,
-                assertion);
-        
+        decorateEndpoint(assertion, wsAddressingTo, portDescriptor.getWSAddressingAction());
+                
         serviceEndpoint.configure();
     }
 
     public T getPort() {
         return serviceEndpoint.getPort();
+    }
+    
+    private void decorateEndpoint(AssertionType assertion, String wsAddressingTo, String wsAddressingAction) {
+        serviceEndpoint = new SAMLServiceEndpointDecorator<T>(serviceEndpoint, assertion);
+        serviceEndpoint = new TLSClientServiceEndpointDecorator<T>(serviceEndpoint);
+        serviceEndpoint = new SecurityOutInterceptorServiceEndpointDecorator<T>(serviceEndpoint);               
+        serviceEndpoint = new WsAddressingServiceEndpointDecorator<T>(serviceEndpoint, wsAddressingTo, wsAddressingAction,
+                assertion);
     }
 
 }

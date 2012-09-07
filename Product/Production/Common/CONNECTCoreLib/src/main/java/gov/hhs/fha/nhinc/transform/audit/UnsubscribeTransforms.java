@@ -117,7 +117,8 @@ public class UnsubscribeTransforms {
         // Fill in the message field with the contents of the event message
         try {
             JAXBContextHandler oHandler = new JAXBContextHandler();
-            JAXBContext jc = oHandler.getJAXBContext("http://docs.oasis-open.org/wsn/b-2");
+            JAXBContext jc = oHandler.getJAXBContext("org.oasis_open.docs.wsn.b_2");
+            
             Marshaller marshaller = jc.createMarshaller();
             ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
             baOutStrm.reset();

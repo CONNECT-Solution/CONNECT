@@ -31,7 +31,7 @@ import gov.hhs.fha.nhinc.common.subscription.SubscriptionItemsType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 //import gov.hhs.fha.nhinc.hiem.dte.EndpointReferenceMarshaller;
-import gov.hhs.fha.nhinc.hiem.consumerreference.ReferenceParametersElements;
+import gov.hhs.fha.nhinc.hiem.consumerreference.SoapMessageElements;
 import gov.hhs.fha.nhinc.hiem.dte.marshallers.EndpointReferenceMarshaller;
 import gov.hhs.fha.nhinc.hiem.dte.marshallers.NotificationMessageMarshaller;
 import gov.hhs.fha.nhinc.hiem.dte.marshallers.SubscriptionReferenceMarshaller;
@@ -145,7 +145,7 @@ public class HiemSubscriptionRepositoryService {
     }
 
     public HiemSubscriptionItem retrieveByLocalSubscriptionReferenceParameters(
-            ReferenceParametersElements referenceParametersElements) throws SubscriptionRepositoryException {
+            SoapMessageElements referenceParametersElements) throws SubscriptionRepositoryException {
         HiemSubscriptionItem subscriptionItem = null;
         SubscriptionStorageItemService storageService = new SubscriptionStorageItemService();
         SubscriptionStorageItem storageItem = storageService
@@ -155,6 +155,19 @@ public class HiemSubscriptionRepositoryService {
         }
         return subscriptionItem;
     }
+    
+    
+    public HiemSubscriptionItem retrieveBySubscriptionId(String subscriptionId) throws SubscriptionRepositoryException {
+        HiemSubscriptionItem subscriptionItem = null;
+        SubscriptionStorageItemService storageService = new SubscriptionStorageItemService();        
+        List<SubscriptionStorageItem> storageItemList = storageService.findBySubscriptionId(subscriptionId);
+        if (NullChecker.isNotNullish(storageItemList)) {
+            subscriptionItem = loadDataObject(storageItemList.get(0));
+        }
+        return subscriptionItem;
+    }
+    
+    
 
     public HiemSubscriptionItem retrieveByLocalSubscriptionReference(String subscriptionReferenceXML)
             throws SubscriptionRepositoryException {

@@ -26,13 +26,11 @@
  */
 package gov.hhs.fha.nhinc.docsubmission._20.passthru;
 
-import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType;
 import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
 import gov.hhs.fha.nhinc.docsubmission.passthru.PassthruDocSubmissionOrchImpl;
-import gov.hhs.fha.nhinc.jaxws.WebServiceHeaderExtractor;
 
 import javax.xml.ws.WebServiceContext;
 
@@ -46,9 +44,8 @@ public class PassthruDocSubmissionImpl_g1 {
 
     public RegistryResponseType provideAndRegisterDocumentSetB(
             RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType body, WebServiceContext context) {
-        // Create an assertion class from the contents of the SAML token
-        WebServiceHeaderExtractor extractor = new WebServiceHeaderExtractor();
-        AssertionType assertion = extractor.extractAssertionFromContext(context);
+        
+        AssertionType assertion = SAML2AssertionExtractor.getInstance().extractSamlAssertion(context);
 
         return new PassthruDocSubmissionOrchImpl().provideAndRegisterDocumentSetB(
                 body.getProvideAndRegisterDocumentSetRequest(), assertion, body.getNhinTargetSystem());

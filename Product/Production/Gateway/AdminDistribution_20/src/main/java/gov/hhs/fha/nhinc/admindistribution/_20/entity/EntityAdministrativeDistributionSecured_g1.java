@@ -36,10 +36,6 @@ import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
 
-import gov.hhs.fha.nhinc.admindistribution.entity.EntityAdminDistributionOrchImpl;
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
-
 /**
  * 
  * @author dunnek
@@ -59,7 +55,7 @@ public class EntityAdministrativeDistributionSecured_g1 {
     }
 
     protected AssertionType extractAssertion(WebServiceContext context) {
-        return new SAML2AssertionExtractor().extractSamlAssertion(context);
+        return SAML2AssertionExtractor.getInstance().extractSamlAssertion(context);
     }
 
     protected EntityAdminDistributionOrchImpl getEntityImpl() {

@@ -30,7 +30,6 @@ import gov.hhs.fha.nhinc.adaptermpi.FindCandidatesSecuredFault;
 import gov.hhs.healthit.nhin.PatientDiscoveryFaultType;
 
 import javax.annotation.Resource;
-import javax.jws.WebService;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 
@@ -42,9 +41,8 @@ import org.hl7.v3.PRPAIN201306UV02;
  * 
  * @author Sai Valluripalli, Les Westberg
  */
-@WebService(serviceName = "AdapterMpiSecuredService", portName = "AdapterMpiSecuredPortType", endpointInterface = "gov.hhs.fha.nhinc.adaptermpi.AdapterMpiSecuredPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:adaptermpi", wsdlLocation = "WEB-INF/wsdl/AdapterMpiSecured/AdapterMpiSecured.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
-public class AdapterMpiSecured {
+public class AdapterMpiSecured implements gov.hhs.fha.nhinc.adaptermpi.AdapterMpiSecuredPortType {
     @Resource
     private WebServiceContext context;
 

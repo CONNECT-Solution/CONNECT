@@ -36,7 +36,7 @@ class DocRetrieveImpl {
             WebServiceContext context) {
         log.debug("Entering DocRetrieveImpl.respondingGatewayCrossGatewayRetrieve");
 
-        AssertionType assertion = new SAML2AssertionExtractor().extractSamlAssertion(context);
+        AssertionType assertion = SAML2AssertionExtractor.getInstance().extractSamlAssertion(context);
 
         // Extract the message id value from the WS-Addressing Header and place it in the Assertion Class
         if (assertion != null) {

@@ -28,7 +28,7 @@ package gov.hhs.fha.nhinc.notify.entity;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
-import gov.hhs.fha.nhinc.hiem.consumerreference.ReferenceParametersElements;
+import gov.hhs.fha.nhinc.hiem.consumerreference.SoapMessageElements;
 import gov.hhs.fha.nhinc.orchestration.OrchestrationContext;
 import gov.hhs.fha.nhinc.orchestration.OrchestrationContextBuilder;
 import gov.hhs.fha.nhinc.orchestration.OutboundDelegate;
@@ -43,7 +43,7 @@ public abstract class OutboundNotifyOrchestrationContextBuilder implements Orche
     private AssertionType assertionType;
     private OutboundDelegate nhinDelegate;
     private Notify request;
-    private ReferenceParametersElements referenceParameters;
+    private SoapMessageElements referenceParameters;
     private NhinTargetSystemType target;
 
     public abstract OrchestrationContext build();
@@ -83,11 +83,11 @@ public abstract class OutboundNotifyOrchestrationContextBuilder implements Orche
         this.request = request;
     }
     
-    public ReferenceParametersElements getReferenceParameters() {
+    public SoapMessageElements getReferenceParameters() {
 		return referenceParameters;
 	}
 
-	public void setReferenceParameters(ReferenceParametersElements referenceParameters) {
+	public void setReferenceParameters(SoapMessageElements referenceParameters) {
 		this.referenceParameters = referenceParameters;
 	}
 

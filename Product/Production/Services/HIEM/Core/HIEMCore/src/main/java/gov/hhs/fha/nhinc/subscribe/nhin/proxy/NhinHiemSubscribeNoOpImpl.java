@@ -26,9 +26,6 @@
  */
 package gov.hhs.fha.nhinc.subscribe.nhin.proxy;
 
-import org.oasis_open.docs.wsn.bw_2.UnableToDestroySubscriptionFault;
-import org.w3c.dom.Element;
-
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 

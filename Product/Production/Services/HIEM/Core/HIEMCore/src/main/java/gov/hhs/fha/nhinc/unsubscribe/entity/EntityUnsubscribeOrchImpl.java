@@ -51,7 +51,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyResponseType;
-import gov.hhs.fha.nhinc.hiem.consumerreference.ReferenceParametersElements;
+import gov.hhs.fha.nhinc.hiem.consumerreference.SoapMessageElements;
 import gov.hhs.fha.nhinc.hiem.consumerreference.ReferenceParametersHelper;
 import gov.hhs.fha.nhinc.hiem.dte.TargetBuilder;
 import gov.hhs.fha.nhinc.hiem.processor.faults.SubscriptionManagerSoapFaultFactory;
@@ -86,7 +86,7 @@ public class EntityUnsubscribeOrchImpl {
 		 * @throws UnableToDestroySubscriptionFault
 		 */
 		public UnsubscribeResponse processUnsubscribe(Unsubscribe unsubscribe,
-				ReferenceParametersElements referenceParameters, AssertionType assertion)
+				String subscriptionId, AssertionType assertion)
 				throws UnableToDestroySubscriptionFault, Exception {
 			UnsubscribeResponse response = null;
 
@@ -97,7 +97,8 @@ public class EntityUnsubscribeOrchImpl {
 	        HiemSubscriptionItem subscriptionItem = null;
 	        try {
 	            log.debug("lookup subscription by reference parameters");
-	            subscriptionItem = repo.retrieveByLocalSubscriptionReferenceParameters(referenceParameters);
+	            subscriptionItem = repo.retrieveBySubscriptionId(subscriptionId);
+	            
 	            log.debug("subscriptionItem isnull? = " + (subscriptionItem == null));
 	        } catch (SubscriptionRepositoryException ex) {
 	            log.error(ex);
@@ -159,7 +160,7 @@ public class EntityUnsubscribeOrchImpl {
 		            }
 
 		            ReferenceParametersHelper referenceParametersHelper = new ReferenceParametersHelper();
-		            ReferenceParametersElements referenceParametersElements = referenceParametersHelper
+		            SoapMessageElements referenceParametersElements = referenceParametersHelper
 		                    .createReferenceParameterElementsFromSubscriptionReference(childSubscriptionItem
 		                            .getSubscriptionReferenceXML());
 		            log.debug("extracted " + referenceParametersElements.getElements().size() + " element(s)");
@@ -250,7 +251,7 @@ public class EntityUnsubscribeOrchImpl {
 		 * @return the response from the foreign entity
 		 */
 		private UnsubscribeResponse getResponseFromTarget(
-				Unsubscribe request, ReferenceParametersElements referenceParameters,
+				Unsubscribe request, SoapMessageElements referenceParameters,
 				AssertionType assertion, NhinTargetSystemType targetSystem) {
 			UnsubscribeResponse nhinResponse = new UnsubscribeResponse();
 		    if(isPolicyValid(request, assertion)){
@@ -272,7 +273,7 @@ public class EntityUnsubscribeOrchImpl {
 	    }
 
 		private UnsubscribeResponse sendToNhinProxy(
-	            Unsubscribe request, ReferenceParametersElements referenceParameters,
+	            Unsubscribe request, SoapMessageElements referenceParameters,
 	            AssertionType assertion, NhinTargetSystemType nhinTargetSystem) {
 
 	        OutboundUnsubscribeDelegate dsDelegate = getOutboundUnsubscribeDelegate();
@@ -290,7 +291,7 @@ public class EntityUnsubscribeOrchImpl {
 
 		private OutboundUnsubscribeOrchestratable createOrchestratable(
 	            OutboundUnsubscribeDelegate delegate, Unsubscribe request,
-	            ReferenceParametersElements referenceParameters, AssertionType assertion,
+	            SoapMessageElements referenceParameters, AssertionType assertion,
 	            NhinTargetSystemType nhinTargetSystem) {
 
 	        OutboundUnsubscribeOrchestratable dsOrchestratable = new OutboundUnsubscribeOrchestratable(delegate);

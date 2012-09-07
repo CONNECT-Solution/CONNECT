@@ -55,6 +55,8 @@ public class AuditDataTransformHelper {
 
     private static Log log = LogFactory.getLog(AuditDataTransformHelper.class);
 
+    private static String ipAddr = null;
+
     /**
      * Create the <code>EventIdentificationType</code> for an audit log record.
      * 
@@ -166,13 +168,14 @@ public class AuditDataTransformHelper {
     public static AuditMessageType.ActiveParticipant createActiveParticipantFromUser(UserType userInfo,
             Boolean userIsReq) {
         AuditMessageType.ActiveParticipant participant = new AuditMessageType.ActiveParticipant();
-        String ipAddr = null;
 
-        try {
-            ipAddr = InetAddress.getLocalHost().getHostAddress();
-        } catch (UnknownHostException ex) {
-            log.error("UnknownHostException thrown getting local host address.", ex);
-            throw new RuntimeException();
+        if (ipAddr == null) {
+            try {
+                ipAddr = InetAddress.getLocalHost().getHostAddress();
+            } catch (UnknownHostException ex) {
+                log.error("UnknownHostException thrown getting local host address.", ex);
+                throw new RuntimeException();
+            }
         }
 
         // Set the User Id
@@ -229,13 +232,14 @@ public class AuditDataTransformHelper {
     public static AuditMessageType.ActiveParticipant createActiveParticipant(String userId, String altUserId,
             String userName, Boolean userIsReq) {
         AuditMessageType.ActiveParticipant participant = new AuditMessageType.ActiveParticipant();
-        String ipAddr = null;
 
-        try {
-            ipAddr = InetAddress.getLocalHost().getHostAddress();
-        } catch (UnknownHostException ex) {
-            log.error("UnknownHostException thrown getting local host address.", ex);
-            throw new RuntimeException();
+        if (ipAddr == null) {
+            try {
+                ipAddr = InetAddress.getLocalHost().getHostAddress();
+            } catch (UnknownHostException ex) {
+                log.error("UnknownHostException thrown getting local host address.", ex);
+                throw new RuntimeException();
+            }
         }
 
         // Set the User Id

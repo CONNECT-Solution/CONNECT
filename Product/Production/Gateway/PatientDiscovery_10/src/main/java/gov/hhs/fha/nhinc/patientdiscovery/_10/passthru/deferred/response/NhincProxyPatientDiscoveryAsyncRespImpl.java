@@ -26,14 +26,11 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery._10.passthru.deferred.response;
 
-import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
-import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.patientdiscovery.passthru.deferred.response.PassthruPatientDiscoveryDeferredRespOrchImpl;
-
-import java.util.List;
+import gov.hhs.fha.nhinc.messaging.server.BaseService;
 
 import javax.xml.ws.WebServiceContext;
 
@@ -47,7 +44,7 @@ import org.hl7.v3.ProxyPRPAIN201306UVProxySecuredRequestType;
  * 
  * @author JHOPPESC
  */
-public class NhincProxyPatientDiscoveryAsyncRespImpl {
+public class NhincProxyPatientDiscoveryAsyncRespImpl extends BaseService {
 
     private Log log = null;
 
@@ -101,24 +98,6 @@ public class NhincProxyPatientDiscoveryAsyncRespImpl {
         return response;
     }
 
-    private AssertionType getAssertion(WebServiceContext context, AssertionType oAssertionIn) {
-        AssertionType assertion = null;
-        if (oAssertionIn == null) {
-            assertion = new SAML2AssertionExtractor().extractSamlAssertion(context);
-        } else {
-            assertion = oAssertionIn;
-        }
-
-        // Extract the message id value from the WS-Addressing Header and place it in the Assertion Class
-        if (assertion != null) {
-            assertion.setMessageId(AsyncMessageIdExtractor.GetAsyncMessageId(context));
-            List<String> relatesToList = AsyncMessageIdExtractor.GetAsyncRelatesTo(context);
-            if (NullChecker.isNotNullish(relatesToList)) {
-                assertion.getRelatesToList().add(AsyncMessageIdExtractor.GetAsyncRelatesTo(context).get(0));
-            }
-        }
-
-        return assertion;
-    }
+ 
 
 }

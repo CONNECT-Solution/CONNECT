@@ -28,13 +28,13 @@ package gov.hhs.fha.nhinc.notify.nhin.proxy;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
-import gov.hhs.fha.nhinc.hiem.consumerreference.ReferenceParametersElements;
+import gov.hhs.fha.nhinc.hiem.consumerreference.SoapMessageElements;
 
 import org.oasis_open.docs.wsn.b_2.Notify;
 
 public class NhinHiemNotifyNoOpImpl implements NhinHiemNotifyProxy {
 
-    public void notify(Notify notifyElement, ReferenceParametersElements referenceParametersElements,
+    public void notify(Notify notifyElement, SoapMessageElements referenceParametersElements,
             AssertionType assertion, NhinTargetSystemType target) {
         // Do nothing
 

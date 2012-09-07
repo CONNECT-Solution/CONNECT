@@ -27,8 +27,6 @@
 package gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws;
 
 import javax.annotation.Resource;
-import javax.jws.HandlerChain;
-import javax.jws.WebService;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
@@ -37,11 +35,9 @@ import javax.xml.ws.soap.Addressing;
  * 
  * @author JHOPPESC
  */
-@WebService(serviceName = "NhincProxyPatientDiscoverySecuredAsyncResp", portName = "NhincProxyPatientDiscoverySecuredAsyncRespPortType", endpointInterface = "gov.hhs.fha.nhinc.nhincproxypatientdiscoverysecuredasyncresp.NhincProxyPatientDiscoverySecuredAsyncRespPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:nhincproxypatientdiscoverysecuredasyncresp", wsdlLocation = "WEB-INF/wsdl/NhincProxyPatientDiscoverySecuredAsyncResp/NhincProxyPatientDiscoverySecuredAsyncResp.wsdl")
-@BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 @Addressing(enabled = true)
-@HandlerChain(file="../../../../../../../../handler-chain.xml")
-public class NhincProxyPatientDiscoverySecuredAsyncResp extends PatientDiscoveryBase {
+@BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
+public class NhincProxyPatientDiscoverySecuredAsyncResp extends PatientDiscoveryBase implements gov.hhs.fha.nhinc.nhincproxypatientdiscoverysecuredasyncresp.NhincProxyPatientDiscoverySecuredAsyncRespPortType {
     @Resource
     private WebServiceContext context;
 

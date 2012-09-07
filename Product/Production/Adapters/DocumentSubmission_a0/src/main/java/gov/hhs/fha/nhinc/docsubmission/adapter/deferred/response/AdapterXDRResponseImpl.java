@@ -87,7 +87,7 @@ public class AdapterXDRResponseImpl {
     private AssertionType getAssertion(WebServiceContext context, AssertionType oAssertionIn) {
         AssertionType assertion = null;
         if (oAssertionIn == null) {
-            assertion = new SAML2AssertionExtractor().extractSamlAssertion(context);
+            assertion = SAML2AssertionExtractor.getInstance().extractSamlAssertion(context);
         } else {
             assertion = oAssertionIn;
         }

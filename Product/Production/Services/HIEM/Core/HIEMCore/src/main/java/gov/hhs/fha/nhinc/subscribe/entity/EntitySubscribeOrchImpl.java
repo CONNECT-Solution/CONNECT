@@ -42,7 +42,6 @@ import org.apache.commons.logging.LogFactory;
 import org.oasis_open.docs.wsn.b_2.Subscribe;
 import org.oasis_open.docs.wsn.b_2.SubscribeResponse;
 import org.oasis_open.docs.wsn.bw_2.SubscribeCreationFailedFault;
-import org.oasis_open.docs.wsrf.rw_2.ResourceUnknownFault;
 import org.w3._2005._08.addressing.EndpointReferenceType;
 import org.w3c.dom.Element;
 
@@ -96,8 +95,7 @@ public class EntitySubscribeOrchImpl {
 		 * @throws ResourceUnknownFault
 		 */
 		public SubscribeResponse processSubscribe(Subscribe subscribe, AssertionType assertion,
-	            NhinTargetCommunitiesType targetCommunities) throws SubscribeCreationFailedFault,
-	            ResourceUnknownFault {
+	            NhinTargetCommunitiesType targetCommunities) throws SubscribeCreationFailedFault {
 	        SubscribeResponse response = null;
 
 	        auditRequestFromAdapter(subscribe, assertion);

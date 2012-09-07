@@ -28,26 +28,26 @@ package gov.hhs.fha.nhinc.notify.nhin;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.hiem.configuration.ConfigurationManager;
-//import gov.hhs.fha.nhinc.hiem.dte.marshallers.MarshallerHelper;
-import gov.hhs.fha.nhinc.hiem.consumerreference.ReferenceParametersElements;
+import gov.hhs.fha.nhinc.hiem.consumerreference.SoapHeaderHelper;
+import gov.hhs.fha.nhinc.hiem.consumerreference.SoapMessageElements;
 import gov.hhs.fha.nhinc.hiem.consumerreference.ReferenceParametersHelper;
-import gov.hhs.fha.nhinc.hiem.processor.common.HiemProcessorConstants;
-import gov.hhs.fha.nhinc.hiemadapter.proxy.notify.HiemNotifyAdapterProxy;
-import gov.hhs.fha.nhinc.hiemadapter.proxy.notify.HiemNotifyAdapterProxyObjectFactory;
-//import gov.hhs.fha.nhinc.nhincsubscription.NhincNotificationConsumerService;
-//import gov.hhs.fha.nhinc.nhincsubscription.NotificationConsumer;
-import gov.hhs.fha.nhinc.xmlCommon.XmlUtility;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.oasis_open.docs.wsn.b_2.Notify;
-import org.w3c.dom.Element;
 import gov.hhs.fha.nhinc.hiem.dte.Namespaces;
 import gov.hhs.fha.nhinc.hiem.dte.marshallers.NotificationMessageMarshaller;
 import gov.hhs.fha.nhinc.hiem.dte.marshallers.NotifyMarshaller;
+import gov.hhs.fha.nhinc.hiem.processor.common.HiemProcessorConstants;
+import gov.hhs.fha.nhinc.notify.adapter.proxy.HiemNotifyAdapterProxy;
+import gov.hhs.fha.nhinc.notify.adapter.proxy.HiemNotifyAdapterProxyObjectFactory;
 import gov.hhs.fha.nhinc.subscription.repository.data.HiemSubscriptionItem;
-import org.oasis_open.docs.wsn.b_2.NotificationMessageHolderType;
 import gov.hhs.fha.nhinc.subscription.repository.service.HiemSubscriptionRepositoryService;
+import gov.hhs.fha.nhinc.xmlCommon.XmlUtility;
+
 import java.util.List;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.oasis_open.docs.wsn.b_2.NotificationMessageHolderType;
+import org.oasis_open.docs.wsn.b_2.Notify;
+import org.w3c.dom.Element;
 
 /**
  * 
@@ -71,20 +71,17 @@ public class NhinNotifyProcessor {
         Element notify = XmlUtility.getSingleChildElement(soapMessage, Namespaces.WSNT, "Notify");
 
         try {
-
             ConfigurationManager config = new ConfigurationManager();
             String serviceMode = config.getNotificationServiceMode();
 
             if (HiemProcessorConstants.HIEM_SERVICE_MODE_PASSTHROUGH.equals(serviceMode)) {
                 log.debug("In passthrough mode");
 
-                log.debug("extracting reference parameters from soap header");
-                ReferenceParametersHelper referenceParametersHelper = new ReferenceParametersHelper();
-                ReferenceParametersElements referenceParametersElements = referenceParametersHelper
-                        .createReferenceParameterElementsFromSoapMessage(soapMessage);
-                log.debug("extracted reference parameters from soap header");
+                SoapHeaderHelper soapHeaderHelper = new SoapHeaderHelper();
+                SoapMessageElements soapHeaderElements = soapHeaderHelper
+                        .getSoapHeaderElementsFromSoapMessage(soapMessage);
 
-                forwardToAgency(notify, referenceParametersElements, assertion);
+                forwardToAgency(notify, soapHeaderElements, assertion);
             } else if (HiemProcessorConstants.HIEM_SERVICE_MODE_NOT_SUPPORTED.equals(serviceMode)) {
                 log.debug("Notfications are not supported");
                 // TODO: Figure out how to create this fault and throw it
@@ -137,17 +134,19 @@ public class NhinNotifyProcessor {
                     for (HiemSubscriptionItem subscriptionItem : subscriptionItems) {
                         log.debug("extracting reference parameters from subscribe consumer reference");
                         ReferenceParametersHelper referenceParametersHelper = new ReferenceParametersHelper();
-                        ReferenceParametersElements referenceParametersElements = referenceParametersHelper
+                        SoapMessageElements referenceParametersElements = referenceParametersHelper
                                 .createReferenceParameterElementsFromSubscriptionReference(subscriptionItem
                                         .getSubscribeXML());
                         log.debug("extracted reference parameters from subscribe consumer reference");
 
                         Notify adapterNotify = createAdapterNotify(notificationMessage, assertion, subscriptionItem);
                         Element adapterNotifyElement = marshaller.marshal(adapterNotify);
+
                         HiemNotifyAdapterProxyObjectFactory adapterFactory = new HiemNotifyAdapterProxyObjectFactory();
                         HiemNotifyAdapterProxy adapterProxy = adapterFactory.getHiemNotifyAdapterProxy();
                         Element responseElement = adapterProxy.notify(adapterNotifyElement,
                                 referenceParametersElements, assertion, null);
+
                         if (responseElement != null) {
                             if (log.isDebugEnabled()) {
                                 log.debug("Adapter notify response: "
@@ -184,13 +183,13 @@ public class NhinNotifyProcessor {
         // TODO: Call policy check
     }
 
-    private void forwardToAgency(Element notify, ReferenceParametersElements referenceParametersElements,
+    private void forwardToAgency(Element notify, SoapMessageElements referenceParametersElements,
             AssertionType assertion) {
-        HiemNotifyAdapterProxyObjectFactory adapterFactory = new HiemNotifyAdapterProxyObjectFactory();
-        HiemNotifyAdapterProxy adapterProxy = adapterFactory.getHiemNotifyAdapterProxy();
-
         try {
-            Element resp = adapterProxy.notify(notify, referenceParametersElements, assertion, null);
+            HiemNotifyAdapterProxyObjectFactory adapterFactory = new HiemNotifyAdapterProxyObjectFactory();
+            HiemNotifyAdapterProxy adapterProxy = adapterFactory.getHiemNotifyAdapterProxy();
+
+            adapterProxy.notify(notify, referenceParametersElements, assertion, null);
         } catch (Exception ex) {
             log.error("adapterProxy.notify threw exception", ex);
         }

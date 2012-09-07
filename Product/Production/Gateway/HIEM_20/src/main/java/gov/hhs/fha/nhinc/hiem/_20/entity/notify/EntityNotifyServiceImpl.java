@@ -28,9 +28,10 @@ package gov.hhs.fha.nhinc.hiem._20.entity.notify;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.NotifyRequestType;
+import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
 import gov.hhs.fha.nhinc.hiem.dte.SoapUtil;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.notify.entity.EntityNotifyOrchImpl;
-import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
 
 import javax.xml.ws.WebServiceContext;
 
@@ -51,7 +52,7 @@ public class EntityNotifyServiceImpl {
         AcknowledgementType ack = new AcknowledgementType();
 
         try {
-            String rawNotifyXml = new SoapUtil().extractSoapMessage(context, "notifySoapMessage");
+            String rawNotifyXml = new SoapUtil().extractSoapMessage(context, NhincConstants.HTTP_REQUEST_ATTRIBUTE_SOAPMESSAGE);
 
             EntityNotifyOrchImpl processor = new EntityNotifyOrchImpl();
             processor.processNotify(notifyRequest.getNotify(), notifyRequest.getAssertion(), rawNotifyXml);
@@ -67,9 +68,9 @@ public class EntityNotifyServiceImpl {
         AcknowledgementType ack = new AcknowledgementType();
 
         try {
-            String rawNotifyXml = new SoapUtil().extractSoapMessage(context, "notifySoapMessage");
+            String rawNotifyXml = new SoapUtil().extractSoapMessage(context, NhincConstants.HTTP_REQUEST_ATTRIBUTE_SOAPMESSAGE);
             EntityNotifyOrchImpl processor = new EntityNotifyOrchImpl();
-            processor.processNotify(notifyRequest, SamlTokenExtractor.GetAssertion(context), rawNotifyXml);
+            processor.processNotify(notifyRequest, SAML2AssertionExtractor.getInstance().extractSamlAssertion(context), rawNotifyXml);
         } catch (Throwable t) {
             log.error("Exception encountered processing notify message: " + t.getMessage(), t);
         }

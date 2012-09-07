@@ -34,18 +34,19 @@ import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegi
 import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType;
 import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
 import gov.hhs.fha.nhinc.docsubmission.passthru.deferred.request.PassthruDocSubmissionDeferredRequestOrchImpl;
+import gov.hhs.fha.nhinc.messaging.server.BaseService;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 
 /**
  *
  * @author Neil Webb
  */
-public class PassthruDocSubmissionDeferredRequestImpl {
+public class PassthruDocSubmissionDeferredRequestImpl extends BaseService {
 
     public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(
             RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType provideAndRegisterRequestRequest,
             WebServiceContext context) {
-        AssertionType assertion = extractAssertionFromContext(context, null);
+        AssertionType assertion = getAssertion(context, null);
 
         return new PassthruDocSubmissionDeferredRequestOrchImpl().provideAndRegisterDocumentSetBRequest(
                 provideAndRegisterRequestRequest.getProvideAndRegisterDocumentSetRequest(), assertion,
@@ -55,28 +56,11 @@ public class PassthruDocSubmissionDeferredRequestImpl {
     public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(
             RespondingGatewayProvideAndRegisterDocumentSetRequestType provideAndRegisterRequestRequest,
             WebServiceContext context) {
-        AssertionType assertion = extractAssertionFromContext(context, provideAndRegisterRequestRequest.getAssertion());
+        AssertionType assertion = getAssertion(context, provideAndRegisterRequestRequest.getAssertion());
 
         return new PassthruDocSubmissionDeferredRequestOrchImpl().provideAndRegisterDocumentSetBRequest(
                 provideAndRegisterRequestRequest.getProvideAndRegisterDocumentSetRequest(), assertion,
                 provideAndRegisterRequestRequest.getNhinTargetSystem());
 
     }
-
-    protected AssertionType extractAssertionFromContext(WebServiceContext context, AssertionType oAssertionIn) {
-        AssertionType assertion = null;
-        if (oAssertionIn == null) {
-            SAML2AssertionExtractor extractor = new SAML2AssertionExtractor();
-            assertion = extractor.extractSamlAssertion(context);
-        } else {
-            assertion = oAssertionIn;
-        }
-        // Extract the message id value from the WS-Addressing Header and place it in the Assertion Class
-        if (assertion != null) {
-            assertion.setMessageId(AsyncMessageIdExtractor.GetAsyncMessageId(context));
-        }
-
-        return assertion;
-    }
-
 }

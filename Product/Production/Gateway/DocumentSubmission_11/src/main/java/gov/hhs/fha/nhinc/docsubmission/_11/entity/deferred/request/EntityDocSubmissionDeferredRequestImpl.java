@@ -27,12 +27,13 @@
 package gov.hhs.fha.nhinc.docsubmission._11.entity.deferred.request;
 
 import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
-import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType;
-import javax.xml.ws.WebServiceContext;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType;
+import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
 import gov.hhs.fha.nhinc.docsubmission.entity.deferred.request.EntityDocSubmissionDeferredRequestOrchImpl;
-import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
+
+import javax.xml.ws.WebServiceContext;
 
 /**
  * 
@@ -71,7 +72,7 @@ public class EntityDocSubmissionDeferredRequestImpl {
     protected AssertionType extractAssertionFromContext(WebServiceContext context, AssertionType oAssertionIn) {
         AssertionType assertion = null;
         if (oAssertionIn == null) {
-            assertion = SamlTokenExtractor.GetAssertion(context);
+            assertion = SAML2AssertionExtractor.getInstance().extractSamlAssertion(context);
         } else {
             assertion = oAssertionIn;
         }

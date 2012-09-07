@@ -28,7 +28,7 @@ package gov.hhs.fha.nhinc.patientcorrelation.nhinc;
 
 import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
+import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
 
 import javax.annotation.Resource;
 import javax.jws.WebService;
@@ -44,9 +44,7 @@ import org.hl7.v3.RetrievePatientCorrelationsResponseType;
  * 
  * @author jhoppesc
  */
-@WebService(serviceName = "PatientCorrelationService", portName = "PatientCorrelationPort", endpointInterface = "gov.hhs.fha.nhinc.nhinccomponentpatientcorrelation.PatientCorrelationPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:nhinccomponentpatientcorrelation", wsdlLocation = "WEB-INF/wsdl/PatientCorrelationServiceUnsecured/NhincComponentPatientCorrelation.wsdl")
-@BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
-public class PatientCorrelationServiceUnsecured {
+public class PatientCorrelationServiceUnsecured implements gov.hhs.fha.nhinc.nhinccomponentpatientcorrelation.PatientCorrelationPortType {
     @Resource
     private WebServiceContext context;
 
@@ -64,7 +62,7 @@ public class PatientCorrelationServiceUnsecured {
 
     public RetrievePatientCorrelationsResponseType retrievePatientCorrelations(
             RetrievePatientCorrelationsRequestType retrievePatientCorrelationsRequest) {
-        AssertionType assertionType = createAssertion(context);
+        AssertionType assertionType = SAML2AssertionExtractor.getInstance().extractSamlAssertion(context);
 
         if (retrievePatientCorrelationsRequest != null && retrievePatientCorrelationsRequest.getAssertion() != null) {
             retrievePatientCorrelationsRequest.getAssertion().setMessageId(createMessageId(context));
@@ -74,7 +72,7 @@ public class PatientCorrelationServiceUnsecured {
 
     public AddPatientCorrelationResponseType addPatientCorrelation(
             AddPatientCorrelationRequestType addPatientCorrelationRequest) {
-        AssertionType assertionType = createAssertion(context);
+        AssertionType assertionType = SAML2AssertionExtractor.getInstance().extractSamlAssertion(context);
 
         if (addPatientCorrelationRequest != null && addPatientCorrelationRequest.getAssertion() != null) {
             addPatientCorrelationRequest.getAssertion().setMessageId(createMessageId(context));
@@ -83,19 +81,7 @@ public class PatientCorrelationServiceUnsecured {
         return service.addPatientCorrelation(addPatientCorrelationRequest, assertionType);
     }
 
-    private AssertionType createAssertion(WebServiceContext context) {
-        AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
-
-        // Extract the message id value from the WS-Addressing Header and place
-        // it in the Assertion Class
-        if (assertion != null) {
-            assertion.setMessageId(AsyncMessageIdExtractor.GetAsyncMessageId(context));
-        }
-
-        return assertion;
-    }
-
-    private String createMessageId(WebServiceContext context) {
+  private String createMessageId(WebServiceContext context) {
         return AsyncMessageIdExtractor.GetAsyncMessageId(context);
     }
 

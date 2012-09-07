@@ -90,8 +90,9 @@ class EntityDocSubmissionImpl {
                 ProvideAndRegisterDocumentSetRequestType msg = request.getProvideAndRegisterDocumentSetRequest();
                 NhinTargetCommunitiesType targets = request.getNhinTargetCommunities();
                 UrlInfoType urlInfo = request.getUrl();
-                SAML2AssertionExtractor extractor = new SAML2AssertionExtractor();
-                response = implOrch.provideAndRegisterDocumentSetB( msg, extractor.extractSamlAssertion(context), targets, urlInfo);
+                
+                AssertionType assertion = SAML2AssertionExtractor.getInstance().extractSamlAssertion(context);
+                response = implOrch.provideAndRegisterDocumentSetB( msg, assertion, targets, urlInfo);
             } else {
                 log.error("Failed to call the web orchestration (" + implOrch.getClass()
                         + ".provideAndRegisterDocumentSetB).  The input parameter is null.");

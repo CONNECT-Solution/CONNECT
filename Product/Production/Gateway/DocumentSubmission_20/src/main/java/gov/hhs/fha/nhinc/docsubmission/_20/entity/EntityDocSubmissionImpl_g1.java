@@ -31,8 +31,8 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.UrlInfoType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType;
+import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
 import gov.hhs.fha.nhinc.docsubmission.entity.EntityDocSubmissionOrchImpl;
-import gov.hhs.fha.nhinc.jaxws.WebServiceHeaderExtractor;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 
 import javax.xml.ws.WebServiceContext;
@@ -63,11 +63,11 @@ class EntityDocSubmissionImpl_g1 {
 
     public RegistryResponseType provideAndRegisterDocumentSetB(
             RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType body, WebServiceContext context) {
-
-        WebServiceHeaderExtractor extractor = new WebServiceHeaderExtractor();
-
+        
+        AssertionType assertion = SAML2AssertionExtractor.getInstance().extractSamlAssertion(context);
+        
         return provideAndRegisterDocumentSetB(body.getProvideAndRegisterDocumentSetRequest(),
-                extractor.extractAssertionFromContext(context), body.getNhinTargetCommunities(), body.getUrl());
+                assertion, body.getNhinTargetCommunities(), body.getUrl());
     }
 
     RegistryResponseType provideAndRegisterDocumentSetB(ProvideAndRegisterDocumentSetRequestType request,

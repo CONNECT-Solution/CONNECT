@@ -29,13 +29,13 @@
     <property name="sql.scripts.dir" value="${basedir}/../DBScripts/nhincdb" />
     <property name="thirdparty.dir" value="../../ThirdParty" />
     <property name="mysql.executable" value="mysql" />
-    <property name="glassfish.zip.file" value="${temp.dir}/glassfish-3.1.1-web.zip" />
+    <property name="glassfish.zip.file" value="${temp.dir}/glassfish-3.1.1.zip" />
 
     <mkdir dir="${temp.dir}" />
     <delete>
         <fileset dir="${temp.dir}">
             <include name="**/*" />
-            <exclude name="glassfish-3.1.1-web.zip" />
+            <exclude name="glassfish-3.1.1.zip" />
         </fileset>
     </delete>
 
@@ -46,7 +46,7 @@
             <available file="${glassfish.zip.file}" type="file" />
         </not>
         <then>
-            <get src="http://download.java.net/glassfish/3.1.1/release/glassfish-3.1.1-web.zip" dest="${glassfish.zip.file}" />
+            <get src="http://download.java.net/glassfish/3.1.1/release/glassfish-3.1.1.zip" dest="${glassfish.zip.file}" />
         </then>
     </if>
 
@@ -66,7 +66,7 @@
         <delete>
             <fileset dir="${temp.dir}">
                 <include name="**/*" />
-                <exclude name="glassfish-3.1.1-web.zip" />
+                <exclude name="glassfish-3.1.1.zip" />
             </fileset>
         </delete>
     </target>

@@ -28,7 +28,7 @@ package gov.hhs.fha.nhinc.notify.entity;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
-import gov.hhs.fha.nhinc.hiem.consumerreference.ReferenceParametersElements;
+import gov.hhs.fha.nhinc.hiem.consumerreference.SoapMessageElements;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.orchestration.AuditTransformer;
 import gov.hhs.fha.nhinc.orchestration.NhinAggregator;
@@ -43,7 +43,7 @@ public class OutboundNotifyOrchestratable implements OutboundOrchestratable {
     protected NhinTargetSystemType target = null;
     private AssertionType assertion = null;
     private OutboundDelegate nhinDelegate = null;
-    private ReferenceParametersElements referenceParameters = null;
+    private SoapMessageElements referenceParameters = null;
     private Notify request = null;
 
     /**
@@ -63,7 +63,7 @@ public class OutboundNotifyOrchestratable implements OutboundOrchestratable {
      * @param assertion the assertion to be used
      */
     public OutboundNotifyOrchestratable(OutboundDelegate delegate,
-    		Notify request, ReferenceParametersElements referenceParameters,
+    		Notify request, SoapMessageElements referenceParameters,
     		NhinTargetSystemType target, AssertionType assertion) {
         this(delegate);
         this.assertion = assertion;
@@ -150,7 +150,7 @@ public class OutboundNotifyOrchestratable implements OutboundOrchestratable {
      * Getter for reference parameters.
      * @return reference parameters
      */
-    public ReferenceParametersElements getReferenceParameters() {
+    public SoapMessageElements getReferenceParameters() {
 		return referenceParameters;
 	}
 
@@ -158,7 +158,7 @@ public class OutboundNotifyOrchestratable implements OutboundOrchestratable {
      * Setter for reference parameters.
      * @param referenceParameters the ReferenceParametersElements to be used
      */
-	public void setReferenceParameters(ReferenceParametersElements referenceParameters) {
+	public void setReferenceParameters(SoapMessageElements referenceParameters) {
 		this.referenceParameters = referenceParameters;
 	}
 

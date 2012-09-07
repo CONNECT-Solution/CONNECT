@@ -56,7 +56,7 @@ public class OutboundUnsubscribeDelegate implements OutboundDelegate {
 
             //Unsubscribe does not get sent based on UDDI or spec version
             OutboundUnsubscribeOrchestrationContextBuilder_g0 contextBuilder = new OutboundUnsubscribeOrchestrationContextBuilder_g0();
-            ((OutboundUnsubscribeOrchestrationContextBuilder_g0) contextBuilder).init(message);
+            ((OutboundUnsubscribeOrchestrationContextBuilder_g0) contextBuilder).init(dsMessage);
             
             return (OutboundOrchestratable) contextBuilder.build().execute();
         }

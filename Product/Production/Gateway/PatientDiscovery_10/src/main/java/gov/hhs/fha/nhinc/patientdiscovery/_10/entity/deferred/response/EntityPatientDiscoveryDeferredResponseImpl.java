@@ -26,16 +26,13 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery._10.entity.deferred.response;
 
-import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
 import gov.hhs.fha.nhinc.generic.GenericFactory;
-import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.response.EntityPatientDiscoveryDeferredResponseOrch;
 import gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.response.EntityPatientDiscoveryDeferredResponseOrchFactory;
-
-import java.util.List;
+import gov.hhs.fha.nhinc.messaging.server.BaseService;
 
 import javax.xml.ws.WebServiceContext;
 
@@ -50,7 +47,7 @@ import org.hl7.v3.RespondingGatewayPRPAIN201306UV02SecuredRequestType;
  * 
  * @author Neil Webb
  */
-public class EntityPatientDiscoveryDeferredResponseImpl {
+public class EntityPatientDiscoveryDeferredResponseImpl extends BaseService {
     private Log log = null;
 
     private GenericFactory<EntityPatientDiscoveryDeferredResponseOrch> orchestrationFactory;
@@ -98,23 +95,5 @@ public class EntityPatientDiscoveryDeferredResponseImpl {
         return response;
     }
 
-    private AssertionType getAssertion(WebServiceContext context, AssertionType oAssertionIn) {
-        AssertionType assertion = null;
-        if (oAssertionIn == null) {
-            assertion = new SAML2AssertionExtractor().extractSamlAssertion(context);
-        } else {
-            assertion = oAssertionIn;
-        }
-
-        // Extract the message id value from the WS-Addressing Header and place it in the Assertion Class
-        if (assertion != null) {
-            assertion.setMessageId(AsyncMessageIdExtractor.GetAsyncMessageId(context));
-            List<String> relatesToList = AsyncMessageIdExtractor.GetAsyncRelatesTo(context);
-            if (NullChecker.isNotNullish(relatesToList)) {
-                assertion.getRelatesToList().addAll(relatesToList);
-            }
-        }
-
-        return assertion;
-    }
+   
 }

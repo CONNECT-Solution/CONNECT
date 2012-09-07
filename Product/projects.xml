@@ -166,7 +166,7 @@
         <directory>/Production/Gateway/HIEM_20/</directory>
         <dist.type>war</dist.type>
         <should.build>false</should.build>
-        <should.deploy>true</should.deploy>
+        <should.deploy>false</should.deploy>
     </project>
     <project>
         <name>CONNECTAdapterWeb</name>
@@ -214,7 +214,7 @@
         <name>CONNECTUniversalClientGUI</name>
         <directory>/Production/Adapters/General/CONNECTUniversalClientGUI</directory>
         <dist.type>war</dist.type>
-        <should.build>false</should.build>
+        <should.build>true</should.build>
         <should.deploy>false</should.deploy>
     </project>
     <project>

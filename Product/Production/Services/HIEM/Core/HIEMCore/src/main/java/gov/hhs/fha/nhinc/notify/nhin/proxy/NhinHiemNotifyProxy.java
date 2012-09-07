@@ -27,7 +27,7 @@
 package gov.hhs.fha.nhinc.notify.nhin.proxy;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
-import gov.hhs.fha.nhinc.hiem.consumerreference.ReferenceParametersElements;
+import gov.hhs.fha.nhinc.hiem.consumerreference.SoapMessageElements;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import org.oasis_open.docs.wsn.b_2.Notify;
 
@@ -37,6 +37,6 @@ import org.oasis_open.docs.wsn.b_2.Notify;
  */
 public interface NhinHiemNotifyProxy {
 
-    public void notify(Notify notifyElement,  ReferenceParametersElements referenceParameters,
+    public void notify(Notify notifyElement,  SoapMessageElements referenceParameters,
     		AssertionType assertion, NhinTargetSystemType target);
 }

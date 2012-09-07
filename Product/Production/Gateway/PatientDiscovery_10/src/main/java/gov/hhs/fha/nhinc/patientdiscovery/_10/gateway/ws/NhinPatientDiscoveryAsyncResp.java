@@ -38,10 +38,9 @@ import org.hl7.v3.PRPAIN201306UV02;
  *
  * @author JHOPPESC
  */
-@WebService(serviceName = "RespondingGatewayDeferredResp_Service", portName = "RespondingGatewayDeferredResponse_Port", endpointInterface = "ihe.iti.xcpd._2009.RespondingGatewayDeferredResponsePortType", targetNamespace = "urn:ihe:iti:xcpd:2009", wsdlLocation = "WEB-INF/wsdl/NhinPatientDiscoveryAsyncResp/NhinPatientDiscoveryDeferredResponse.wsdl")
-@BindingType(value = "http://www.w3.org/2003/05/soap/bindings/HTTP/")
-@Addressing(enabled = true)
-public class NhinPatientDiscoveryAsyncResp extends PatientDiscoveryBase {
+
+@BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
+public class NhinPatientDiscoveryAsyncResp extends PatientDiscoveryBase implements ihe.iti.xcpd._2009.RespondingGatewayDeferredResponsePortType {
     @Resource
     private WebServiceContext context;
 
