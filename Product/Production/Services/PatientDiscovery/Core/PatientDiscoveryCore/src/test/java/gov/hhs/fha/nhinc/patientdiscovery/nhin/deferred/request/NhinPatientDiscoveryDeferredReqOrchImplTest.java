@@ -79,8 +79,7 @@ public class NhinPatientDiscoveryDeferredReqOrchImplTest {
         }
     };
 
-    protected NhinPatientDiscoveryDeferredReqOrch buildOrchestrationForTest(final boolean serviceEnabled,
-            final boolean passThrough) {
+    protected NhinPatientDiscoveryDeferredReqOrch buildOrchestrationForTest(final boolean passThrough) {
         NhinPatientDiscoveryDeferredReqOrch impl = new NhinPatientDiscoveryDeferredReqOrchImpl(
                 new ServicePropertyAccessor() {
                     @Override
@@ -93,7 +92,7 @@ public class NhinPatientDiscoveryDeferredReqOrchImplTest {
 
     @Test
     public void notPassThroughPolicyCheckPasses() {
-        NhinPatientDiscoveryDeferredReqOrch instance = buildOrchestrationForTest(true, false);
+        NhinPatientDiscoveryDeferredReqOrch instance = buildOrchestrationForTest(false);
 
         final AssertionType assertion = null;
         final MCCIIN000002UV01 expectedResponse = new MCCIIN000002UV01();
@@ -126,7 +125,7 @@ public class NhinPatientDiscoveryDeferredReqOrchImplTest {
 
     @Test
     public void notPassThroughPolicyCheckFails() {
-        NhinPatientDiscoveryDeferredReqOrch instance = buildOrchestrationForTest(true, false);
+        NhinPatientDiscoveryDeferredReqOrch instance = buildOrchestrationForTest(false);
 
         final AssertionType assertion = null;
         final MCCIIN000002UV01 expectedResponse = new MCCIIN000002UV01();
@@ -161,7 +160,7 @@ public class NhinPatientDiscoveryDeferredReqOrchImplTest {
 
     @Test
     public void passThroughPolicy() {
-        NhinPatientDiscoveryDeferredReqOrch instance = buildOrchestrationForTest(true, true);
+        NhinPatientDiscoveryDeferredReqOrch instance = buildOrchestrationForTest(true);
 
         final AssertionType assertion = null;
         final MCCIIN000002UV01 expectedResponse = new MCCIIN000002UV01();
