@@ -26,15 +26,6 @@ public class SAML2AssertionExtractor {
 
     private static Logger LOGGER = null;
 
-    /**
-     * Creates a new instance of SAML2AssertionExtractor.
-     */
-    public SAML2AssertionExtractor() {
-        if (null == LOGGER) {
-            LOGGER = Logger.getLogger(SAML2AssertionExtractor.class);
-        }
-    }
-
     private static SAML2AssertionExtractor INSTANCE = null;
 
     private SAMLExtractorDOM extractor;
