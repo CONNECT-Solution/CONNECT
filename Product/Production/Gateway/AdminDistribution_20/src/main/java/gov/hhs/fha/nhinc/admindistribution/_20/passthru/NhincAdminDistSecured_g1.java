@@ -33,6 +33,7 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 
 import javax.annotation.Resource;
 import javax.xml.ws.BindingType;
+import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
 
 /**
