@@ -82,15 +82,33 @@
  */
 package gov.hhs.fha.nhinc.openSAML.extraction;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.fail;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.CeType;
+import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
+import gov.hhs.fha.nhinc.common.nhinccommon.PersonNameType;
+import gov.hhs.fha.nhinc.common.nhinccommon.SamlAuthnStatementType;
+import gov.hhs.fha.nhinc.common.nhinccommon.SamlAuthzDecisionStatementEvidenceAssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.SamlAuthzDecisionStatementEvidenceConditionsType;
+import gov.hhs.fha.nhinc.common.nhinccommon.SamlAuthzDecisionStatementEvidenceType;
+import gov.hhs.fha.nhinc.common.nhinccommon.SamlAuthzDecisionStatementType;
+import gov.hhs.fha.nhinc.common.nhinccommon.SamlIssuerType;
+import gov.hhs.fha.nhinc.common.nhinccommon.SamlSignatureKeyInfoType;
+import gov.hhs.fha.nhinc.common.nhinccommon.SamlSignatureType;
+import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
 
 import java.io.File;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.apache.ws.security.saml.ext.OpenSAMLUtil;
-import org.junit.Assert;
 import org.junit.Test;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -100,30 +118,123 @@ import org.w3c.dom.Element;
  * 
  */
 public class OpenSAMLAssertionExtractorImplTest {
-
+    
     private final OpenSAMLAssertionExtractorImpl openSAMLAssertionExtractorImpl = new OpenSAMLAssertionExtractorImpl();
-    private static final File TEST_SAML_DIR = new File(System.getProperty("product.dir") + File.separator
-            + "Production" + File.separator + "Common" + File.separator + "CONNECTCoreLib" + File.separator + "src"
-            + File.separator + "test" + File.separator + "resources" + File.separator + "testing_saml");
-
     static {
         OpenSAMLUtil.initSamlEngine();
     }
 
+    /**
+     * When the SAML file is null, assertion extracted will be null.
+     * @throws Exception on error.
+     */
     @Test
     public void testNullAssertionElement() throws Exception {
-        Assert.assertNull(openSAMLAssertionExtractorImpl.extractSAMLAssertion(null));
+        assertNull(openSAMLAssertionExtractorImpl.extractSAMLAssertion(null));
     }
 
+    /**
+     * Tests SAML Assertion populated with all possible Assertion elements and attributes, verify they are populated.
+     * @throws Exception on error.
+     */
     @Test
     public void testCompleteSamlAssertion() throws Exception {
-        AssertionType assertionType = openSAMLAssertionExtractorImpl
-                .extractSAMLAssertion(getElementForSamlFile("complete_saml.xml"));
-        Assert.assertNotNull(assertionType);
-        Assert.assertNotNull(assertionType.getSamlAuthzDecisionStatement());
-        Assert.assertEquals("Permit", assertionType.getSamlAuthzDecisionStatement().getDecision());
+        
+        AssertionType assertionType = openSAMLAssertionExtractorImpl.extractSAMLAssertion(getElementForSamlFile(
+                File.separator + "testing_saml" + File.separator + "complete_saml.xml"));
+        assertNotNull(assertionType);
+
+        verifyHomeCommunity(assertionType.getHomeCommunity(), "2.16.840.1.113883.3.424", null);
+        verifyIssuer(assertionType.getSamlIssuer());        
+        verifyDecisionStatement(assertionType.getSamlAuthzDecisionStatement());        
+        verifyUser(assertionType.getUserInfo());        
+        verifyAuthnStatement(assertionType.getSamlAuthnStatement());        
+        verifyUniquePatientId(assertionType.getUniquePatientId());
+        verifyCeType(assertionType.getPurposeOfDisclosureCoded(), "OPERATIONS", "2.16.840.1.113883.3.18.7.1",
+                "nhin-purpose", "Healthcare Operations");
+        verifySignature(assertionType.getSamlSignature());
+    }
+     
+    private void verifyIssuer(SamlIssuerType issuer) {
+        assertEquals("CN=SAML User,OU=SU,O=SAML User,L=Los Angeles,ST=CA,C=US", issuer.getIssuer());
+        assertEquals("urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName", issuer.getIssuerFormat());        
+    }
+    
+    private void verifyHomeCommunity(HomeCommunityType homeCommunity, String id, String name) {
+        assertEquals(id, homeCommunity.getHomeCommunityId());
+        assertEquals(name, homeCommunity.getName());        
+    }
+    
+    private void verifyUniquePatientId(List<String> uniquePatientId) {
+        assertEquals(1, uniquePatientId.size());
+        assertEquals("RI1.101.00043^^^&2.16.840.1.113883.3.424&ISO", uniquePatientId.get(0));        
     }
 
+    private void verifyAuthnStatement(SamlAuthnStatementType statement) {
+        assertEquals("urn:oasis:names:tc:SAML:2.0:ac:classes:X509", statement.getAuthContextClassRef());
+        assertEquals("2010-05-01T02:09:01.089Z", statement.getAuthInstant());
+        assertEquals("123456", statement.getSessionIndex());
+        assertEquals(null, statement.getSubjectLocalityAddress());
+        assertEquals(null, statement.getSubjectLocalityDNSName());
+    }
+    
+    private void verifyDecisionStatement(SamlAuthzDecisionStatementType decisionStatement) {
+
+        assertNotNull(decisionStatement); 
+        
+        // verify decision statement
+        assertEquals("Permit", decisionStatement.getDecision());
+        assertEquals("https://nhinri1c23.aegis.net:8181/NhinConnect/EntityPatientDiscoverySecured",
+                decisionStatement.getResource());
+        assertEquals("Execute", decisionStatement.getAction());
+
+        // verify decision statement evidence
+        SamlAuthzDecisionStatementEvidenceType evidence = decisionStatement.getEvidence();
+        SamlAuthzDecisionStatementEvidenceAssertionType evidenceAssertion = evidence.getAssertion();
+        assertEquals("759724ff-e9ce-4a7f-a55b-fc41ffe21a75", evidenceAssertion.getId());
+        assertEquals("2010-05-01T02:09:01.104Z", evidenceAssertion.getIssueInstant());
+        assertEquals("2.0", evidenceAssertion.getVersion());
+        assertEquals("CN=SAML User,OU=SU,O=SAML User,L=Los Angeles,ST=CA,C=US", evidenceAssertion.getIssuer());
+        assertEquals("urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName", evidenceAssertion.getIssuerFormat());
+        
+        SamlAuthzDecisionStatementEvidenceConditionsType evidenceConditions = evidenceAssertion.getConditions();
+        assertEquals("2010-05-01T02:09:01.104Z", evidenceConditions.getNotBefore());
+        assertEquals("2010-05-01T02:09:01.104Z", evidenceConditions.getNotOnOrAfter());
+
+    }
+    
+    private void verifyUser(UserType user) {
+
+        verifyHomeCommunity(user.getOrg(), "2.16.840.1.113883.3.424", "2.16.840.1.113883.3.424");
+        
+        PersonNameType personName = user.getPersonName();
+        assertEquals("Testcase", personName.getFamilyName());
+        assertEquals("Interop\n                IT Testcase", personName.getFullName());
+        assertEquals("Interop", personName.getGivenName());
+        assertEquals("IT", personName.getSecondNameOrInitials());
+        assertNull(personName.getNameType());
+        assertNull(personName.getPrefix());
+        assertNull(personName.getSuffix());
+
+        verifyCeType(user.getRoleCoded(), "46255001", "2.16.840.1.113883.6.96", "SNOMED_CT", "Pharmacist");
+        assertEquals("UID=Scenario 45 PDR-5.7", user.getUserName());        
+    }
+
+    private void verifyCeType(CeType ceType, String code, String codeSystem, String codeSystemName, 
+            String displayName) {
+        assertEquals(code, ceType.getCode());
+        assertEquals(codeSystem, ceType.getCodeSystem());
+        assertEquals(codeSystemName, ceType.getCodeSystemName());
+        assertEquals(displayName, ceType.getDisplayName());
+    }
+    
+    private void verifySignature(SamlSignatureType signature) {                
+        assertNotNull(signature.getSignatureValue());
+        SamlSignatureKeyInfoType keyInfo = signature.getKeyInfo();
+        assertNotNull(keyInfo.getRsaKeyValueExponent());
+        assertNotNull(keyInfo.getRsaKeyValueModulus());        
+    }
+    
     private Element getElementForSamlFile(String samlFileName) throws Exception {
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
         documentBuilderFactory.setNamespaceAware(true);
@@ -133,7 +244,13 @@ public class OpenSAMLAssertionExtractorImplTest {
     }
 
     private File getSamlFile(String samlFileName) {
-        return new File(TEST_SAML_DIR.getAbsolutePath() + File.separator + samlFileName);
+        URI uri = null;
+        try {
+            uri = this.getClass().getResource(samlFileName).toURI();
+        } catch (URISyntaxException e) {
+            fail("Could not build URI for filepath. " + e.getMessage());
+        }
+        return new File(uri);        
     }
 
 }

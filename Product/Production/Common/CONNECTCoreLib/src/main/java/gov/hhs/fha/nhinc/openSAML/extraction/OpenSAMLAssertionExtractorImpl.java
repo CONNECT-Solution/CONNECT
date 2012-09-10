@@ -12,6 +12,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.SamlAuthzDecisionStatementEvidenceAs
 import gov.hhs.fha.nhinc.common.nhinccommon.SamlAuthzDecisionStatementEvidenceConditionsType;
 import gov.hhs.fha.nhinc.common.nhinccommon.SamlAuthzDecisionStatementEvidenceType;
 import gov.hhs.fha.nhinc.common.nhinccommon.SamlAuthzDecisionStatementType;
+import gov.hhs.fha.nhinc.common.nhinccommon.SamlIssuerType;
 import gov.hhs.fha.nhinc.common.nhinccommon.SamlSignatureKeyInfoType;
 import gov.hhs.fha.nhinc.common.nhinccommon.SamlSignatureType;
 import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
@@ -28,7 +29,6 @@ import org.apache.cxf.common.util.StringUtils;
 import org.apache.log4j.Logger;
 import org.apache.ws.security.WSSecurityException;
 import org.apache.ws.security.saml.ext.OpenSAMLUtil;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Assertion;
 import org.opensaml.saml2.core.Attribute;
 import org.opensaml.saml2.core.AttributeStatement;
@@ -43,13 +43,13 @@ import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.schema.XSAny;
 import org.opensaml.xml.util.AttributeMap;
 import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
 
 /**
  * @author mweaver
  * 
  */
 public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
+    
     private static final Logger log = Logger.getLogger(OpenSAMLAssertionExtractorImpl.class);
     private static final String EMPTY_STRING = "";
     private static final String X509_FORMAT = "urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName";
@@ -69,6 +69,8 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
         Assertion saml2Assertion = extractSaml2Assertion(element);
 
         AssertionType target = initializeAssertion();
+        // Populate Issuer
+        populateIssuer(saml2Assertion, target);
         // Populate the Subject Information
         populateSubject(saml2Assertion, target);
         // Populate the Authentication Statement Information.
@@ -84,17 +86,13 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
 
     /**
      * This method is used extract the saml2Assertion from Context.
-     * 
      * @param context context
      * @return saml2 assertion from context
      */
-    @SuppressWarnings("unchecked")
     private Assertion extractSaml2Assertion(final Element element) {
         Assertion assertion = null;
-        NodeList list = element.getElementsByTagNameNS(SAMLConstants.SAML20_NS, Assertion.DEFAULT_ELEMENT_LOCAL_NAME);
-        Element el = (Element) list.item(0);
         try {
-            XMLObject xmlObj = OpenSAMLUtil.fromDom(el);
+            XMLObject xmlObj = OpenSAMLUtil.fromDom(element);
             if (xmlObj instanceof org.opensaml.saml2.core.Assertion) {
                 assertion = (Assertion) xmlObj;
             }
@@ -102,6 +100,12 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
             log.error("error extracting SAML assertion", e);
         }
         return assertion;
+    }
+    
+    private void populateIssuer(final Assertion saml2Assertion, final AssertionType target) {        
+        target.setSamlIssuer(new SamlIssuerType());
+        target.getSamlIssuer().setIssuer(saml2Assertion.getIssuer().getValue());
+        target.getSamlIssuer().setIssuerFormat(saml2Assertion.getIssuer().getFormat());        
     }
 
     /**
@@ -196,7 +200,7 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
     }
 
     private String getAttributeValue(Attribute attribute) {
-        return attribute.getAttributeValues().get(0).getDOM().getTextContent();
+        return attribute.getAttributeValues().get(0).getDOM().getTextContent().trim();
     }
 
     /**
@@ -291,6 +295,11 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
         SamlAuthzDecisionStatementEvidenceAssertionType targetEvidenceAssertion = new SamlAuthzDecisionStatementEvidenceAssertionType();
         targetEvidence.setAssertion(targetEvidenceAssertion);
 
+        // Translate Evidence Assertion Attributes
+        targetEvidenceAssertion.setId(saml2EvidenceAssertion.getID());
+        targetEvidenceAssertion.setIssueInstant(saml2EvidenceAssertion.getIssueInstant().toString());
+        targetEvidenceAssertion.setVersion(saml2EvidenceAssertion.getVersion().toString());
+        
         // Translate Evidence Attribute Statement
         AttributeStatement saml2EvidenceAttributeStatement = saml2EvidenceAssertion.getAttributeStatements().get(0);
         List<Attribute> saml2EvidenceAttributes = saml2EvidenceAttributeStatement.getAttributes();
@@ -340,41 +349,10 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
         log.debug("Executing Saml2AssertionExtractor.populatePurposeOfUseAttribute...");
 
         XMLObject purposeOfUseAttribute = attribute.getAttributeValues().get(0);
-        AttributeMap attributeMap = ((XSAny) purposeOfUseAttribute.getOrderedChildren().get(0)).getUnknownAttributes();
-
-        String code = "";
-        String codeSystem = "";
-        String codeSystemName = "";
-        String displayName = "";
-
-        for (Map.Entry<QName, String> entry : attributeMap.entrySet()) {
-            QName key = entry.getKey();
-            if (NhincConstants.HL7_NS.equals(key.getNamespaceURI())) {
-                // Validate PurposeOfUse Code
-                if (key.getLocalPart().equals(NhincConstants.CE_CODE)) {
-                    code = String.valueOf(entry.getValue());
-                }
-                // Validate the code system
-                if (key.getLocalPart().equals(NhincConstants.CE_CODESYSTEM)) {
-                    codeSystem = String.valueOf(entry.getValue());
-                }
-                // Validate the code system name
-                if (key.getLocalPart().equals(NhincConstants.CE_CODESYSTEM_NAME)) {
-                    codeSystemName = String.valueOf(entry.getValue());
-                }
-                // Validate the code system name
-                if (key.getLocalPart().equals(NhincConstants.CE_DISPLAYNAME)) {
-                    displayName = String.valueOf(entry.getValue());
-                }
-            }
-        }
-
         CeType purposeOfUse = new CeType();
-        purposeOfUse.setCode(code);
-        purposeOfUse.setCodeSystem(codeSystem);
-        purposeOfUse.setCodeSystemName(codeSystemName);
-        purposeOfUse.setDisplayName(displayName);
+        populateCeType(purposeOfUseAttribute, purposeOfUse);
         target.setPurposeOfDisclosureCoded(purposeOfUse);
+
         log.debug("end populatePurposeOfUseAttribute()");
     }
 
@@ -479,8 +457,15 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
 
         log.debug("Executing Saml2AssertionExtractor.populateSubjectRole...");
 
-        XMLObject subjRoleAttribute = attribute.getAttributeValues().get(0);
-        AttributeMap attributeMap = ((XSAny) subjRoleAttribute.getOrderedChildren().get(0)).getUnknownAttributes();
+        XMLObject subjRoleAttribute = attribute.getAttributeValues().get(0);        
+        populateCeType(subjRoleAttribute, target.getUserInfo().getRoleCoded());
+
+        log.debug("end populateSubjectRole()");
+    }
+    
+    private void populateCeType(XMLObject attribute, CeType ceType) {
+
+        AttributeMap attributeMap = ((XSAny) attribute.getOrderedChildren().get(0)).getUnknownAttributes();
 
         String code = "";
         String codeSystem = "";
@@ -489,32 +474,26 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
 
         for (Map.Entry<QName, String> entry : attributeMap.entrySet()) {
             QName key = entry.getKey();
-            if (key.getNamespaceURI().equals(NhincConstants.HL7_NS)) {
-                // Validate Code
-                if (key.getLocalPart().equals(NhincConstants.CE_CODE)) {
-                    code = String.valueOf(entry.getValue());
-                }
-                // Validate Code System
-                if (key.getLocalPart().equals(NhincConstants.CE_CODESYSTEM)) {
-                    codeSystem = String.valueOf(entry.getValue());
-                }
-                // Validate CodeSystem Name
-                if (key.getLocalPart().equals(NhincConstants.CE_CODESYSTEM_NAME)) {
-                    codeSystemName = String.valueOf(entry.getValue());
-                }
-                // Validate the display Name
-                if (key.getLocalPart().equals(NhincConstants.CE_DISPLAYNAME)) {
-                    displayName = String.valueOf(entry.getValue());
-                }
+            switch (key.getLocalPart()) {
+            case NhincConstants.CE_CODE:
+                code = String.valueOf(entry.getValue());
+                break;
+            case NhincConstants.CE_CODESYSTEM:
+                codeSystem = String.valueOf(entry.getValue());
+                break;
+            case NhincConstants.CE_CODESYSTEM_NAME:
+                codeSystemName = String.valueOf(entry.getValue());
+                break;
+            case NhincConstants.CE_DISPLAYNAME:
+                displayName = String.valueOf(entry.getValue());
+                break;
             }
         }
-
-        CeType role = target.getUserInfo().getRoleCoded();
-        role.setCode(code);
-        role.setCodeSystem(codeSystem);
-        role.setCodeSystemName(codeSystemName);
-        role.setDisplayName(displayName);
-
-        log.debug("end populateSubjectRole()");
+        
+        ceType.setCode(code);
+        ceType.setCodeSystem(codeSystem);
+        ceType.setCodeSystemName(codeSystemName);
+        ceType.setDisplayName(displayName);
     }
+    
 }
