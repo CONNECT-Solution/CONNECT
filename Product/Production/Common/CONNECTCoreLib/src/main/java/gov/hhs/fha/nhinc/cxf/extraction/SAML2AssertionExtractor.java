@@ -24,7 +24,7 @@ import org.w3c.dom.Element;
  */
 public class SAML2AssertionExtractor {
 
-    private static Logger LOGGER = null;
+    private static final Logger LOGGER = Logger.getLogger(SAML2AssertionExtractor.class);
 
     private static SAML2AssertionExtractor INSTANCE = null;
 
@@ -38,7 +38,6 @@ public class SAML2AssertionExtractor {
     public static SAML2AssertionExtractor getInstance() {
         if (INSTANCE == null) {
             INSTANCE = new SAML2AssertionExtractor();
-
         }
         return INSTANCE;
     }
