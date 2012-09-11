@@ -40,10 +40,9 @@ import javax.xml.ws.soap.Addressing;
  * 
  * @author dunnek
  */
-@WebService(serviceName = "AdministrativeDistributionSecured_Service", portName = "AdministrativeDistributionSecured_PortType", endpointInterface = "gov.hhs.fha.nhinc.entityadmindistribution.AdministrativeDistributionSecuredPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:entityadmindistribution", wsdlLocation = "WEB-INF/wsdl/EntityAdministrativeDistributionSecured/EntityAdminDistSecured.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 @Addressing(enabled = true)
-public class EntityAdministrativeDistributionSecured {
+public class EntityAdministrativeDistributionSecured implements gov.hhs.fha.nhinc.entityadmindistribution.AdministrativeDistributionSecuredPortType {
     @Resource
     private WebServiceContext context;
 

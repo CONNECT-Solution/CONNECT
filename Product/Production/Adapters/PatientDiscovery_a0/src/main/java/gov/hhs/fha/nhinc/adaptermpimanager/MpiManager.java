@@ -26,16 +26,14 @@
  */
 package gov.hhs.fha.nhinc.adaptermpimanager;
 
-import javax.jws.WebService;
 import javax.xml.ws.BindingType;
 
 /**
  * 
  * @author Sai Valluripalli
  */
-@WebService(serviceName = "AdapterMpiManagerService", portName = "AdapterMpiManagerPortTypeBindingPort", endpointInterface = "gov.hhs.fha.nhinc.adaptermpimanager.AdapterMpiManagerPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:adaptermpimanager", wsdlLocation = "WEB-INF/wsdl/MpiManager/AdapterMpiManager.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
-public class MpiManager {
+public class MpiManager implements gov.hhs.fha.nhinc.adaptermpimanager.AdapterMpiManagerPortType {
 
     public org.hl7.v3.MCCIIN000002UV01 addPatient(org.hl7.v3.PRPAIN201301UV02 addPatientRequest) {
         org.hl7.v3.MCCIIN000002UV01 result;

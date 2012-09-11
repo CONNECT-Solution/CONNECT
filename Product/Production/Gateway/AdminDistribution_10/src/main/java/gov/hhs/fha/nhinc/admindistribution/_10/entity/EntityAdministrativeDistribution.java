@@ -36,10 +36,10 @@ import gov.hhs.fha.nhinc.admindistribution.entity.EntityAdminDistributionOrchImp
  * 
  * @author dunnek
  */
-@WebService(serviceName = "AdministrativeDistribution_Service", portName = "AdministrativeDistribution_PortType", endpointInterface = "gov.hhs.fha.nhinc.entityadmindistribution.AdministrativeDistributionPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:entityadmindistribution", wsdlLocation = "WEB-INF/wsdl/EntityAdministrativeDistribution/EntityAdminDist.wsdl")
+
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 @Addressing(enabled = true)
-public class EntityAdministrativeDistribution {
+public class EntityAdministrativeDistribution implements gov.hhs.fha.nhinc.entityadmindistribution.AdministrativeDistributionPortType {
 
     public void sendAlertMessage(gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewaySendAlertMessageType body) {
         getEntityImpl().sendAlertMessage(body, body.getAssertion(), body.getNhinTargetCommunities());

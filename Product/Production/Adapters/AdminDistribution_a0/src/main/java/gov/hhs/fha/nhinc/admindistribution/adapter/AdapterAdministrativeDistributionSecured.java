@@ -26,7 +26,6 @@
  */
 package gov.hhs.fha.nhinc.admindistribution.adapter;
 
-import javax.jws.WebService;
 import javax.xml.ws.BindingType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
@@ -38,9 +37,9 @@ import javax.xml.ws.WebServiceContext;
  * 
  * @author dunnek
  */
-@WebService(serviceName = "Adapter_AdministrativeDistributionSecured", portName = "Adapter_AdministrativeDistributionSecured_PortType", endpointInterface = "gov.hhs.fha.nhinc.adapteradmindistribution.AdapterAdministrativeDistributionSecuredPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:adapteradmindistribution", wsdlLocation = "WEB-INF/wsdl/AdapterAdministrativeDistributionSecured/AdapterAdminDistSecured.wsdl")
+
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
-public class AdapterAdministrativeDistributionSecured {
+public class AdapterAdministrativeDistributionSecured implements gov.hhs.fha.nhinc.adapteradmindistribution.AdapterAdministrativeDistributionSecuredPortType {
     @Resource
     private WebServiceContext context;
 

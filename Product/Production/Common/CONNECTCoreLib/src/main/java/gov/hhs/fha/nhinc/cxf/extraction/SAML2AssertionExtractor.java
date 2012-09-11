@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package gov.hhs.fha.nhinc.cxf.extraction;
 
@@ -38,7 +38,6 @@ public class SAML2AssertionExtractor {
     public static SAML2AssertionExtractor getInstance() {
         if (INSTANCE == null) {
             INSTANCE = new SAML2AssertionExtractor();
-
         }
         return INSTANCE;
     }
