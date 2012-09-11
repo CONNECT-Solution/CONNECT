@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project name="DocQueryFanoutTestTarget" resourceRoot="" soapui-version="3.5.1" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config">
+<con:soapui-project abortOnError="false" name="DocQueryFanoutTestTarget" resourceRoot="" runType="SEQUENTIAL" soapui-version="3.5.1" xmlns:con="http://eviware.com/soapui/config">
 	<con:settings/>
-	<con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="EntityDocQueryBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:entitydocquery}EntityDocQueryBindingSoap" soapVersion="1_2" anonymous="optional" definition="WSDL path not set.  #EntityDocQuery.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitydocquery}EntityDocQueryBindingSoap" definition="WSDL path not set.  #EntityDocQuery.wsdl" name="EntityDocQueryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 		<con:endpoints>
 			<con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/DocumentQuery/2_0/EntityService/EntityDocQueryUnsecured</con:endpoint>
 		</con:endpoints>
-		<con:operation isOneWay="false" action="urn:RespondingGateway_CrossGatewayQuery" name="RespondingGateway_CrossGatewayQuery" bindingOperationName="RespondingGateway_CrossGatewayQuery" type="Request-Response" outputName="RespondingGateway_CrossGatewayQueryResponse" inputName="RespondingGateway_CrossGatewayQueryRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional">
+		<con:operation action="urn:RespondingGateway_CrossGatewayQuery" anonymous="optional" bindingOperationName="RespondingGateway_CrossGatewayQuery" inputName="RespondingGateway_CrossGatewayQueryRequest" isOneWay="false" name="RespondingGateway_CrossGatewayQuery" outputName="RespondingGateway_CrossGatewayQueryResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
 			<con:settings/>
 		</con:operation>
 	</con:interface>
 	<con:testSuite name="DQ_UDDI_Target TestSuite">
 		<con:settings/>
 		<con:runType>SEQUENTIAL</con:runType>
-		<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Target with no DQ Service but 3 Correlations" searchProperties="true" id="4e679453-a1a1-4bdf-9e0b-beb70425b7a7">
+		<con:testCase failOnError="true" failTestCaseOnErrors="true" id="4e679453-a1a1-4bdf-9e0b-beb70425b7a7" keepSession="false" maxResults="0" name="Target with no DQ Service but 3 Correlations" searchProperties="true">
 			<con:settings/>
 
 			<con:testStep name="Copy uddiConnectionInfo" type="groovy">
 				<con:settings/>
-				<con:config>
-					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+				<con:config><script>import nhinc.FileUtils;
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
 						def testCase = testRunner.getTestCase()
 						def testSuite = testCase.getTestSuite()
 						def project = testSuite.getProject()
@@ -34,8 +34,7 @@
 
 						log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-						FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</script>
-				</con:config>
+						FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</script></con:config>
 			</con:testStep>
 			<con:testStep name="update config" type="groovy">
 				<con:settings/>
@@ -133,10 +132,10 @@
 		}</script>
 </con:config>
 </con:testStep>
-<con:testStep type="groovy" name="Add Service in UDDI for HCIDs">
+<con:testStep name="Add Service in UDDI for HCIDs" type="groovy">
 	<con:settings/>
-	<con:config>
-		<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+	<con:config><script>import nhinc.FileUtils;
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 
 			def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 			def NHINGatewayHost = context.findProperty("NHINGatewayHost");
@@ -146,8 +145,7 @@
 			def remoteHCID3 = context.findProperty( "UDDIhcid4" );
 
 			FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, remoteHCID2, "QueryForDocuments", dQURL, "2.0", context, log)
-			FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, remoteHCID3, "QueryForDocuments", dQURL, "2.0", context, log)</script>
-	</con:config>
+			FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, remoteHCID3, "QueryForDocuments", dQURL, "2.0", context, log)</script></con:config>
 </con:testStep>
 <con:testStep name="Document Query" type="request">
 	<con:settings/>
@@ -464,19 +462,19 @@ MoveFile(sourceUddiFile, backupUddiFile, log);</con:setupScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-05-14T02:25:13Z</con:value>
+		<con:value>2012-08-23T20:22:26Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-05-14T02:35:13Z</con:value>
+		<con:value>2012-08-23T20:32:26Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>05/14/2012 02:25:13</con:value>
+		<con:value>08/23/2012 20:22:26</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-06-13T00:00:00Z</con:value>
+		<con:value>2012-09-22T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
@@ -484,7 +482,8 @@ MoveFile(sourceUddiFile, backupUddiFile, log);</con:setupScript>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
-<con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);
+<con:tearDownScript>import nhinc.FileUtils;
+FileUtils.restoreToMasterConfiguration(context, log);
 
 	def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 
@@ -525,13 +524,13 @@ log.info("file not found, skipping delete for " + file);
 DeleteFile(backupInternalFile, log);
 DeleteFile(backupUddiFile, log);</con:tearDownScript>
 </con:testCase>
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="2 Targets (1 with no DQ Service) but 3 Correlations" searchProperties="true" id="9324f41a-5d01-4528-9520-206957d72ffc">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" id="9324f41a-5d01-4528-9520-206957d72ffc" keepSession="false" maxResults="0" name="2 Targets (1 with no DQ Service) but 3 Correlations" searchProperties="true">
 	<con:settings/>
 
 	<con:testStep name="Copy uddiConnectionInfo" type="groovy">
 		<con:settings/>
-		<con:config>
-			<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+		<con:config><script>import nhinc.FileUtils;
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
 				def testCase = testRunner.getTestCase()
 				def testSuite = testCase.getTestSuite()
 				def project = testSuite.getProject()
@@ -546,8 +545,7 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 
 				log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-				FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</script>
-		</con:config>
+				FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</script></con:config>
 	</con:testStep>
 	<con:testStep name="update config" type="groovy">
 		<con:settings/>
@@ -645,10 +643,10 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 		}</script>
 </con:config>
 </con:testStep>
-<con:testStep type="groovy" name="Add Service in UDDI for HCIDs">
+<con:testStep name="Add Service in UDDI for HCIDs" type="groovy">
 	<con:settings/>
-	<con:config>
-		<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+	<con:config><script>import nhinc.FileUtils;
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 
 			def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 			def NHINGatewayHost = context.findProperty("NHINGatewayHost");
@@ -658,8 +656,7 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 			def remoteHCID3 = context.findProperty( "UDDIhcid4" );
 
 			FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, remoteHCID2, "QueryForDocuments", dQURL, "2.0", context, log)
-			FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, remoteHCID3, "QueryForDocuments", dQURL, "2.0", context, log)</script>
-	</con:config>
+			FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, remoteHCID3, "QueryForDocuments", dQURL, "2.0", context, log)</script></con:config>
 </con:testStep>
 <con:testStep name="Document Query" type="request">
 	<con:settings/>
@@ -991,19 +988,19 @@ MoveFile(sourceUddiFile, backupUddiFile, log);</con:setupScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-05-14T02:34:34Z</con:value>
+		<con:value>2012-08-23T20:24:40Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-05-14T02:44:34Z</con:value>
+		<con:value>2012-08-23T20:34:40Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>05/14/2012 02:34:34</con:value>
+		<con:value>08/23/2012 20:24:40</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-06-13T00:00:00Z</con:value>
+		<con:value>2012-09-22T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
@@ -1011,15 +1008,55 @@ MoveFile(sourceUddiFile, backupUddiFile, log);</con:setupScript>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
-<con:tearDownScript/>
+<con:tearDownScript>import nhinc.FileUtils;
+FileUtils.restoreToMasterConfiguration(context, log);
+
+	def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
+
+	File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
+	File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
+
+	File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml");
+	File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
+
+	void MoveFile(File sourceFile, File destinationFile, log){
+
+	if(sourceFile.exists())
+	{
+	def reader = sourceFile.newReader();
+	destinationFile.withWriter 
+	{ writer ->       
+writer &lt;&lt; reader;   
+}   
+reader.close();
+} 
+else {
+log.info("unable to find source file " + sourceFile);
+}   
+}
+
+MoveFile(backupInternalFile, sourceInternalFile, log);
+MoveFile(backupUddiFile, sourceUddiFile, log);
+
+void DeleteFile(File file, log) {  
+if(file.exists()) {    
+log.info("deleting file " + file);
+file.delete(); 
+} else {
+log.info("file not found, skipping delete for " + file);
+}
+}
+
+DeleteFile(backupInternalFile, log);
+DeleteFile(backupUddiFile, log);</con:tearDownScript>
 </con:testCase>
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Target with no DQ Service and No Correlations" searchProperties="true" id="70151a65-365f-46fa-a1f8-f2d08e3fd5e3">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" id="70151a65-365f-46fa-a1f8-f2d08e3fd5e3" keepSession="false" maxResults="0" name="Target with no DQ Service and No Correlations" searchProperties="true">
 			<con:settings/>
 
 			<con:testStep name="Copy uddiConnectionInfo" type="groovy">
 				<con:settings/>
-				<con:config>
-					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+				<con:config><script>import nhinc.FileUtils;
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
 						def testCase = testRunner.getTestCase()
 						def testSuite = testCase.getTestSuite()
 						def project = testSuite.getProject()
@@ -1034,8 +1071,7 @@ MoveFile(sourceUddiFile, backupUddiFile, log);</con:setupScript>
 
 						log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-						FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</script>
-				</con:config>
+						FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</script></con:config>
 			</con:testStep>
 			<con:testStep name="update config" type="groovy">
 				<con:settings/>
@@ -1428,19 +1464,19 @@ MoveFile(sourceUddiFile, backupUddiFile, log);</con:setupScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-05-14T02:38:06Z</con:value>
+		<con:value>2012-08-23T20:26:17Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-05-14T02:48:06Z</con:value>
+		<con:value>2012-08-23T20:36:17Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>05/14/2012 02:38:06</con:value>
+		<con:value>08/23/2012 20:26:17</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-06-13T00:00:00Z</con:value>
+		<con:value>2012-09-22T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
@@ -1448,7 +1484,8 @@ MoveFile(sourceUddiFile, backupUddiFile, log);</con:setupScript>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
-<con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);
+<con:tearDownScript>import nhinc.FileUtils;
+FileUtils.restoreToMasterConfiguration(context, log);
 
 	def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 
@@ -1488,13 +1525,13 @@ log.info("file not found, skipping delete for " + file);
 
 DeleteFile(backupInternalFile, log);
 DeleteFile(backupUddiFile, log);</con:tearDownScript>
-</con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Target with no DQ Service with 1 Matching Correlation" searchProperties="true" id="048c641d-b668-4521-b0a1-e518d4ed86e6">
+</con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" id="048c641d-b668-4521-b0a1-e518d4ed86e6" keepSession="false" maxResults="0" name="Target with no DQ Service with 1 Matching Correlation" searchProperties="true">
 			<con:settings/>
 
 			<con:testStep name="Copy uddiConnectionInfo" type="groovy">
 				<con:settings/>
-				<con:config>
-					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+				<con:config><script>import nhinc.FileUtils;
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
 						def testCase = testRunner.getTestCase()
 						def testSuite = testCase.getTestSuite()
 						def project = testSuite.getProject()
@@ -1509,8 +1546,7 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 
 						log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-						FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</script>
-				</con:config>
+						FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</script></con:config>
 			</con:testStep>
 			<con:testStep name="update config" type="groovy">
 				<con:settings/>
@@ -1601,10 +1637,10 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 		}</script>
 </con:config>
 </con:testStep>
-<con:testStep type="groovy" name="Add Service in UDDI for HCIDs">
+<con:testStep name="Add Service in UDDI for HCIDs" type="groovy">
 	<con:settings/>
-	<con:config>
-		<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+	<con:config><script>import nhinc.FileUtils;
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 
 			def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 			def NHINGatewayHost = context.findProperty("NHINGatewayHost");
@@ -1614,8 +1650,7 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 			def remoteHCID3 = context.findProperty( "UDDIhcid4" );
 
 			FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, remoteHCID2, "QueryForDocuments", dQURL, "2.0", context, log)
-			FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, remoteHCID3, "QueryForDocuments", dQURL, "2.0", context, log)</script>
-	</con:config>
+			FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, remoteHCID3, "QueryForDocuments", dQURL, "2.0", context, log)</script></con:config>
 </con:testStep>
 <con:testStep name="Document Query" type="request">
 	<con:settings/>
@@ -1932,19 +1967,19 @@ MoveFile(sourceUddiFile, backupUddiFile, log);</con:setupScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-05-14T02:39:16Z</con:value>
+		<con:value>2012-08-23T20:27:01Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-05-14T02:49:16Z</con:value>
+		<con:value>2012-08-23T20:37:01Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>05/14/2012 02:39:16</con:value>
+		<con:value>08/23/2012 20:27:01</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-06-13T00:00:00Z</con:value>
+		<con:value>2012-09-22T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
@@ -1952,7 +1987,8 @@ MoveFile(sourceUddiFile, backupUddiFile, log);</con:setupScript>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
-<con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);
+<con:tearDownScript>import nhinc.FileUtils;
+FileUtils.restoreToMasterConfiguration(context, log);
 
 	def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 
