@@ -47,7 +47,7 @@
 
   <property name="deployment.glassfish.domain.name" value="domain1"/>
   <property name="deployment.glassfish.domain.home" value="${glassfish.home}/domains/${deployment.glassfish.domain.name}"/>
-  <property name="deployment.glassfish.domain.config.home" value="${glassfish.home}/glassfish/domains/${deployment.glassfish.domain.name}/config"/>
+  <property name="deployment.glassfish.domain.config.home" value="${glassfish.home}/domains/${deployment.glassfish.domain.name}/config"/>
 
   <property name="deployment.glassfish.server.username" value="admin"/>
   <property name="deployment.glassfish.server.admin.password" value="adminadmin"/>
