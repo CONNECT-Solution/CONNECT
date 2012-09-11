@@ -17,7 +17,7 @@
 
     <property name="single.test" value="Test"/>
 
-    <property name="debug.suspend" value="y"/>
+    <property name="debug.suspend" value="n"/>
     <property name="debug.port" value="8000"/>
 
     <fileset id="junitrun.tests" dir="${unittest.source.dir}">
