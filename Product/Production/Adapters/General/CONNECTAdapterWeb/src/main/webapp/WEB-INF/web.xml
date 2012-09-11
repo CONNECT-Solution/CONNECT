@@ -1,129 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
     <servlet>
-        <servlet-name>DocumentRegistryService</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.docregistry.adapter.DocumentRegistryService</servlet-class>
+        <servlet-name>cxf</servlet-name>
+            <servlet-class>org.apache.cxf.transport.servlet.CXFServlet</servlet-class>
+            <load-on-startup>1</load-on-startup>
     </servlet>
+    
     <servlet-mapping>
-        <servlet-name>DocumentRegistryService</servlet-name>
-        <url-pattern>/DocumentRegistry_Service</url-pattern>
-    </servlet-mapping>
+            <servlet-name>cxf</servlet-name>
+            <url-pattern>/*</url-pattern>
+        </servlet-mapping>
 
-    <servlet>
-        <servlet-name>DocumentRepositoryService</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.docrepository.adapter.DocumentRepositoryService</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>DocumentRepositoryService</servlet-name>
-        <url-pattern>/DocumentRepository_Service</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>AdapterDocProvideAndRegisterservice</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.docprovideandregister.AdapterDocProvideAndRegisterservice</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>AdapterDocProvideAndRegisterservice</servlet-name>
-        <url-pattern>/AdapterDocProvideAndRegisterservice</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>AdapterAuthenticationService</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.adapterauthentication.AdapterAuthenticationService</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>AdapterAuthenticationService</servlet-name>
-        <url-pattern>/AdapterAuthentication</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>AdapterPolicyEngine</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.policyengine.adapter.AdapterPolicyEngine</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>AdapterPolicyEngine</servlet-name>
-        <url-pattern>/AdapterProxyService/AdapterPolicyEngine</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>AdapterPolicyEngineSecured</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.policyengine.adapter.AdapterPolicyEngineSecured</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>AdapterPolicyEngineSecured</servlet-name>
-        <url-pattern>/AdapterPolicyEngineSecured</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>AdapterPolicyEngineOrchestrator</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.policyengine.adapter.component.AdapterPolicyEngineOrchestrator</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>AdapterPolicyEngineOrchestrator</servlet-name>
-        <url-pattern>/AdapterPolicyEngineOrchestrator</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>AdapterPEPService</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.policyengine.adapter.pep.AdapterPEPService</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>AdapterPEPService</servlet-name>
-        <url-pattern>/AdapterPEP</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>AdapterPIPService</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.policyengine.adapter.pip.AdapterPIPService</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>AdapterPIPService</servlet-name>
-        <url-pattern>/AdapterPIP</url-pattern>
-    </servlet-mapping>
-
-
-
-    <servlet>
-        <servlet-name>DeferredQueueManager</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.adapter.deferred.queue.DeferredQueueManager</servlet-class>
-        <load-on-startup>1</load-on-startup>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>DeferredQueueManager</servlet-name>
-        <url-pattern>/DeferredQueueManager</url-pattern>
-    </servlet-mapping>
-
-
-
-    <servlet>
-        <servlet-name>EntityPerformanceLogQuery</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.performancequery.entity.EntityPerformanceLogQuery</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>EntityPerformanceLogQuery</servlet-name>
-        <url-pattern>/EntityPerformanceLogQuery</url-pattern>
-    </servlet-mapping>
-
- 
-  
-    <security-constraint>
-        <web-resource-collection>
-            <web-resource-name>AdapterPolicyEngineSecured</web-resource-name>
-            <url-pattern>/AdapterPolicyEngineSecured</url-pattern>
-        </web-resource-collection>
-        <user-data-constraint>
-            <transport-guarantee>CONFIDENTIAL</transport-guarantee>
-        </user-data-constraint>
-    </security-constraint>
-
-    <login-config>
-        <auth-method>CLIENT-CERT</auth-method>
-        <realm-name>certificate</realm-name>
-    </login-config>
     <session-config>
-        <session-timeout>
-            30
-        </session-timeout>
+        <session-timeout>30</session-timeout>
     </session-config>
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>

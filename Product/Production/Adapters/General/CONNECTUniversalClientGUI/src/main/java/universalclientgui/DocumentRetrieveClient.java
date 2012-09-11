@@ -33,6 +33,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayRetrieveRequestType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
+import gov.hhs.fha.nhinc.docretrieve.entity.proxy.EntityDocRetrieveProxyWebServiceUnsecuredImpl;
 import gov.hhs.fha.nhinc.entitydocretrieve.EntityDocRetrievePortType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
@@ -56,25 +57,18 @@ import org.apache.commons.logging.LogFactory;
  */
 public class DocumentRetrieveClient {
     private static Log log = LogFactory.getLog(DocumentRetrieveClient.class);;
-    private static Service cachedService = null;
-    private static final String NAMESPACE_URI = "urn:gov:hhs:fha:nhinc:entitydocretrieve";
-    private static final String SERVICE_LOCAL_PART = "EntityDocRetrieve";
-    private static final String PORT_LOCAL_PART = "EntityDocRetrievePortSoap";
-    private static final String WSDL_FILE = "EntityDocRetrieve.wsdl";
-    private static final String WS_ADDRESSING_ACTION = "urn:RespondingGateway_CrossGatewayRetrieve";
     private static final String SERVICE_NAME = NhincConstants.ENTITY_DOC_RETRIEVE_PROXY_SERVICE_NAME;
-    private WebServiceProxyHelper oProxyHelper = new WebServiceProxyHelper();
 
     public String retriveDocument(DocumentInformation documentInformation) {
         try {
             String url = getUrl();
             if (NullChecker.isNotNullish(url)) {
-                EntityDocRetrievePortType port = getPort(url, WS_ADDRESSING_ACTION, null);
-
                 RespondingGatewayCrossGatewayRetrieveRequestType request = createCrossGatewayRetrieveRequest(documentInformation);
 
-                RetrieveDocumentSetResponseType response = (RetrieveDocumentSetResponseType) oProxyHelper.invokePort(
-                        port, EntityDocRetrievePortType.class, "respondingGatewayCrossGatewayRetrieve", request);
+                EntityDocRetrieveProxyWebServiceUnsecuredImpl instance = new EntityDocRetrieveProxyWebServiceUnsecuredImpl();
+                RetrieveDocumentSetResponseType response = instance.respondingGatewayCrossGatewayRetrieve(
+                        request.getRetrieveDocumentSetRequest(), request.getAssertion(),
+                        request.getNhinTargetCommunities());
 
                 return extractDocument(response);
             } else {
@@ -101,10 +95,6 @@ public class DocumentRetrieveClient {
                 documentInXmlFormat = new String(documentResponse.getDocument());
             }
         }
-
-        // log.debug("Document: " + documentInXmlFormat);
-
-        // convertXMLToHTML(documentInXmlFormat, null);
 
         return documentInXmlFormat;
     }
@@ -156,42 +146,6 @@ public class DocumentRetrieveClient {
 
     protected String getUrl() throws ConnectionManagerException {
         return ConnectionManagerCache.getInstance().getInternalEndpointURLByServiceName(SERVICE_NAME);
-    }
-
-    /**
-     * Retrieve the service class for this web service.
-     *
-     * @return The service class for this web service.
-     */
-    protected Service getService() {
-        if (cachedService == null) {
-            try {
-                cachedService = oProxyHelper.createService(WSDL_FILE, NAMESPACE_URI, SERVICE_LOCAL_PART);
-            } catch (Throwable t) {
-                log.error("Error creating service: " + t.getMessage(), t);
-            }
-        }
-        return cachedService;
-    }
-
-    /**
-     * This method retrieves and initializes the port.
-     *
-     * @param url The URL for the web service.
-     * @return The port object for the web service.
-     */
-    protected EntityDocRetrievePortType getPort(String url, String wsAddressingAction, AssertionType assertion) {
-        EntityDocRetrievePortType port = null;
-        Service service = getService();
-        if (service != null) {
-            log.debug("Obtained service - creating port.");
-
-            port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), EntityDocRetrievePortType.class);
-            oProxyHelper.initializeUnsecurePort((javax.xml.ws.BindingProvider) port, url, wsAddressingAction, assertion);
-        } else {
-            log.error("Unable to obtain serivce - no port created.");
-        }
-        return port;
     }
 
 }

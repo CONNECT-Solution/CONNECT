@@ -30,28 +30,19 @@ import gov.hhs.fha.nhinc.adaptermpi.FindCandidatesSecuredFault;
 import gov.hhs.healthit.nhin.PatientDiscoveryFaultType;
 
 import javax.annotation.Resource;
-import javax.jws.WebService;
-import javax.xml.namespace.QName;
-import javax.xml.soap.SOAPConstants;
-import javax.xml.soap.SOAPException;
-import javax.xml.soap.SOAPFactory;
-import javax.xml.soap.SOAPFault;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
-import javax.xml.ws.soap.SOAPFaultException;
 
-import org.hl7.v3.PRPAIN201306UV02;
 import org.hl7.v3.PRPAIN201305UV02;
-import org.springframework.remoting.soap.SoapFaultException;
+import org.hl7.v3.PRPAIN201306UV02;
 
 /**
  * This class is the implementation of the Secured AdapterMPI service.
  * 
  * @author Sai Valluripalli, Les Westberg
  */
-@WebService(serviceName = "AdapterMpiSecuredService", portName = "AdapterMpiSecuredPortType", endpointInterface = "gov.hhs.fha.nhinc.adaptermpi.AdapterMpiSecuredPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:adaptermpi", wsdlLocation = "WEB-INF/wsdl/AdapterMpiSecured/AdapterMpiSecured.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
-public class AdapterMpiSecured {
+public class AdapterMpiSecured implements gov.hhs.fha.nhinc.adaptermpi.AdapterMpiSecuredPortType {
     @Resource
     private WebServiceContext context;
 

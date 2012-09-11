@@ -26,10 +26,7 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertSame;
-import gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.NhincProxyPatientDiscovery;
-import gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.PatientDiscoveryServiceFactory;
+import static org.junit.Assert.*;
 import gov.hhs.fha.nhinc.patientdiscovery._10.passthru.NhincProxyPatientDiscoveryImpl;
 
 import javax.xml.ws.WebServiceContext;

@@ -33,7 +33,7 @@ import gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory;
  * @author rayj
  */
 public class AdapterComponentDocRepositoryProxyObjectFactory extends ComponentProxyObjectFactory {
-    private static final String CONFIG_FILE_NAME = "AdapterDocumentRepositoryProxyConfig.xml";
+    private static final String CONFIG_FILE_NAME = "DocumentRetrieveProxyConfig.xml";
     private static final String BEAN_NAME = "adapterdocumentrepository";
 
     protected String getConfigFileName() {

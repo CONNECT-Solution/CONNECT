@@ -26,14 +26,16 @@
  */
 package gov.hhs.fha.nhinc.docquery._20.passthru;
 
-import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayCrossGatewayQueryRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayCrossGatewayQuerySecuredRequestType;
 import gov.hhs.fha.nhinc.docquery.passthru.PassthruDocQueryOrchImpl;
-import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
+import gov.hhs.fha.nhinc.messaging.server.BaseService;
+
 import javax.xml.ws.WebServiceContext;
+
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -42,7 +44,7 @@ import org.apache.commons.logging.LogFactory;
  *
  * @author Neil Webb
  */
-public class NhincProxyDocQueryImpl {
+public class NhincProxyDocQueryImpl extends BaseService {
 
     private static Log log = LogFactory.getLog(NhincProxyDocQueryImpl.class);
 
@@ -55,25 +57,8 @@ public class NhincProxyDocQueryImpl {
     public AdhocQueryResponse respondingGatewayCrossGatewayQuery(RespondingGatewayCrossGatewayQuerySecuredRequestType body, WebServiceContext context) {
         log.debug("NhincProxyDocQueryImpl.respondingGatewayCrossGatewayQuery(secured)");
 
-        AssertionType assertion = getAssertion (context, null);
+        AssertionType assertion = getAssertion(context, null);
         
         return new PassthruDocQueryOrchImpl().respondingGatewayCrossGatewayQuery(body.getAdhocQueryRequest(), assertion, body.getNhinTargetSystem());
     }
-
-    private AssertionType getAssertion(WebServiceContext context, AssertionType oAssertionIn) {
-        AssertionType assertion = null;
-        if (oAssertionIn == null) {
-            assertion = SamlTokenExtractor.GetAssertion(context);
-        } else {
-            assertion = oAssertionIn;
-        }
-
-        // Extract the message id value from the WS-Addressing Header and place it in the Assertion Class
-        if (assertion != null) {
-            assertion.setMessageId(AsyncMessageIdExtractor.GetAsyncMessageId(context));
-        }
-
-        return assertion;
-    }
-
 }

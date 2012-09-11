@@ -29,11 +29,12 @@ package gov.hhs.fha.nhinc.docsubmission._20.passthru.deferred.request;
 import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetRequestType;
-import javax.xml.ws.WebServiceContext;
 import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType;
+import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
 import gov.hhs.fha.nhinc.docsubmission.passthru.deferred.request.PassthruDocSubmissionDeferredRequestOrchImpl;
-import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
+
+import javax.xml.ws.WebServiceContext;
 
 /**
  * 
@@ -64,8 +65,9 @@ public class PassthruDocSubmissionDeferredRequestImpl_g1 {
 
     protected AssertionType extractAssertionFromContext(WebServiceContext context, AssertionType oAssertionIn) {
         AssertionType assertion = null;
-        if (oAssertionIn == null) {
-            assertion = SamlTokenExtractor.GetAssertion(context);
+        if (oAssertionIn == null) {            
+            SAML2AssertionExtractor extractor = SAML2AssertionExtractor.getInstance();
+            assertion = extractor.extractSamlAssertion(context);
         } else {
             assertion = oAssertionIn;
         }

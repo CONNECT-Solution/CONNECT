@@ -26,18 +26,16 @@
  */
 package gov.hhs.fha.nhinc.hiem._20.entity.notify;
 
-import javax.jws.WebService;
 import javax.annotation.Resource;
-import javax.xml.ws.WebServiceContext;
-import javax.jws.HandlerChain;
+import javax.jws.WebService;
 import javax.xml.ws.BindingType;
+import javax.xml.ws.WebServiceContext;
 
 /**
  * 
  * @author Sai Valluripalli
  */
 @WebService(serviceName = "EntityNotificationConsumerSecured", portName = "EntityNotificationConsumerSecuredPortSoap", endpointInterface = "gov.hhs.fha.nhinc.entitynotificationconsumersecured.EntityNotificationConsumerSecuredPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:entitynotificationconsumersecured", wsdlLocation = "WEB-INF/wsdl/EntityNotifySecured/EntityNotificationConsumerSecured.wsdl")
-@HandlerChain(file = "EntityNotifySoapHeaderHandler.xml")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 public class EntityNotifySecured {
     @Resource

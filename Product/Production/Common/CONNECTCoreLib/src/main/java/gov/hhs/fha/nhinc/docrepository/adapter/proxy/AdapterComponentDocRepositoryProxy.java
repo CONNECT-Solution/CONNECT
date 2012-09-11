@@ -26,7 +26,9 @@
  */
 package gov.hhs.fha.nhinc.docrepository.adapter.proxy;
 
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 
@@ -37,5 +39,8 @@ import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 public interface AdapterComponentDocRepositoryProxy {
     public RetrieveDocumentSetResponseType retrieveDocument(
             RetrieveDocumentSetRequestType retrieveDocumentSetRequestType, AssertionType assertion);
+
+    public RegistryResponseType provideAndRegisterDocumentSet(ProvideAndRegisterDocumentSetRequestType body,
+            AssertionType assertion);
 
 }

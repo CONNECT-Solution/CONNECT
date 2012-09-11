@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<thresholds>
+    <threshold branchcount="4" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.docretrieve.DocRetrieveAuditLog"
+              linecount="43"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="2" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.docretrieve.adapter.AdapterDocRetrieveOrchImpl"
+              linecount="38"
+              linerate="80"
+              linesexecuted="0.04"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.docretrieve.adapter.proxy.AdapterDocRetrieveProxy"
+              linecount="0"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="2" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.docretrieve.adapter.proxy.AdapterDocRetrieveProxyJavaImpl"
+              linecount="10"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.docretrieve.adapter.proxy.AdapterDocRetrieveProxyNoOpImpl"
+              linecount="2"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.docretrieve.adapter.proxy.AdapterDocRetrieveProxyObjectFactory"
+              linecount="3"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="10" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.docretrieve.adapter.proxy.AdapterDocRetrieveProxyWebServiceSecuredImpl"
+              linecount="38"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="10" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.docretrieve.adapter.proxy.AdapterDocRetrieveProxyWebServiceUnsecuredImpl"
+              linecount="41"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="12" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.docretrieve.entity.DocRetrieveSender"
+              linecount="71"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="18" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.docretrieve.entity.EntityDocRetrieveOrchImpl"
+              linecount="108"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.docretrieve.entity.EntityDocRetrieveOrchestratableImpl_a0"
+              linecount="8"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="30" branchrate="80" branchsexecuted="0.01"
+              class="gov.hhs.fha.nhinc.docretrieve.entity.OutboundDocRetrieveAggregator_a0"
+              linecount="32"
+              linerate="80"
+              linesexecuted="0.06"/>
+   <threshold branchcount="4" branchrate="80" branchsexecuted="0.02"
+              class="gov.hhs.fha.nhinc.docretrieve.entity.OutboundDocRetrieveAuditTransformer_a0"
+              linecount="23"
+              linerate="80"
+              linesexecuted="0.21"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.docretrieve.entity.OutboundDocRetrieveContextBuilder"
+              linecount="0"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="8" branchrate="80" branchsexecuted="0.03"
+              class="gov.hhs.fha.nhinc.docretrieve.entity.OutboundDocRetrieveDelegate"
+              linecount="42"
+              linerate="80"
+              linesexecuted="0.23"/>
+   <threshold branchcount="2" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.docretrieve.entity.OutboundDocRetrieveFactory"
+              linecount="8"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.docretrieve.entity.OutboundDocRetrieveFactory$1"
+              linecount="1"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.docretrieve.entity.OutboundDocRetrieveOrchestratable"
+              linecount="48"
+              linerate="80"
+              linesexecuted="0.42"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.docretrieve.entity.OutboundDocRetrieveOrchestratableImpl"
+              linecount="5"
+              linerate="80"
+              linesexecuted="0.05"/>
+   <threshold branchcount="2" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.docretrieve.entity.OutboundDocRetrieveOrchestrationContextBuilder_g0"
+              linecount="34"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="2" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.docretrieve.entity.OutboundDocRetrieveOrchestrationContextBuilder_g1"
+              linecount="34"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="2" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.docretrieve.entity.OutboundDocRetrieveOrchestratorImpl"
+              linecount="20"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="4" branchrate="80" branchsexecuted="0.01"
+              class="gov.hhs.fha.nhinc.docretrieve.entity.OutboundDocRetrievePolicyTransformer_a0"
+              linecount="17"
+              linerate="80"
+              linesexecuted="0.04"/>
+   <threshold branchcount="10" branchrate="80" branchsexecuted="0.01"
+              class="gov.hhs.fha.nhinc.docretrieve.entity.OutboundDocRetrieveStrategyBase"
+              linecount="41"
+              linerate="80"
+              linesexecuted="0.06"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.docretrieve.entity.OutboundDocRetrieveStrategyImpl_g0"
+              linecount="8"
+              linerate="80"
+              linesexecuted="0.04"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.docretrieve.entity.OutboundDocRetrieveStrategyImpl_g1"
+              linecount="8"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.docretrieve.entity.proxy.EntityDocRetrieveProxy"
+              linecount="0"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.docretrieve.entity.proxy.EntityDocRetrieveProxyJavaImpl"
+              linecount="13"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.docretrieve.entity.proxy.EntityDocRetrieveProxyNoOpImpl"
+              linecount="7"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.docretrieve.entity.proxy.EntityDocRetrieveProxyObjectFactory"
+              linecount="3"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="6" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.docretrieve.entity.proxy.EntityDocRetrieveProxyWebServiceSecuredImpl"
+              linecount="51"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="6" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.docretrieve.entity.proxy.EntityDocRetrieveProxyWebServiceUnsecuredImpl"
+              linecount="49"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="4" branchrate="80" branchsexecuted="0.02"
+              class="gov.hhs.fha.nhinc.docretrieve.nhin.InboundDocRetrieveAuditTransformer_g0"
+              linecount="23"
+              linerate="80"
+              linesexecuted="0.22"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.docretrieve.nhin.InboundDocRetrieveContextBuilder"
+              linecount="0"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="6" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.docretrieve.nhin.InboundDocRetrieveDelegate"
+              linecount="34"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="2" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.docretrieve.nhin.InboundDocRetrieveFactory"
+              linecount="6"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.docretrieve.nhin.InboundDocRetrieveFactory$1"
+              linecount="1"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.docretrieve.nhin.InboundDocRetrieveOrchestratable"
+              linecount="32"
+              linerate="80"
+              linesexecuted="0.27"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.docretrieve.nhin.InboundDocRetrieveOrchestratableImpl"
+              linecount="12"
+              linerate="80"
+              linesexecuted="0.12"/>
+   <threshold branchcount="2" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.docretrieve.nhin.InboundDocRetrieveOrchestrationContextBuilder"
+              linecount="26"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="4" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.docretrieve.nhin.InboundDocRetrievePolicyTransformer_g0"
+              linecount="15"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.docretrieve.nhin.InboundDocRetrieveStrategy"
+              linecount="0"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="10" branchrate="80" branchsexecuted="0.01"
+              class="gov.hhs.fha.nhinc.docretrieve.nhin.InboundDocRetrieveStrategyImpl"
+              linecount="45"
+              linerate="80"
+              linesexecuted="0.08"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.docretrieve.nhin.proxy.NhinDocRetrieveProxy"
+              linecount="0"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.docretrieve.nhin.proxy.NhinDocRetrieveProxyNoOpImpl"
+              linecount="2"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.docretrieve.nhin.proxy.NhinDocRetrieveProxyObjectFactory"
+              linecount="3"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="12" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.docretrieve.nhin.proxy.NhinDocRetrieveProxyWebServiceSecuredImpl"
+              linecount="54"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.docretrieve.passthru.NhincProxyDocRetrieveOrchImpl"
+              linecount="14"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.docretrieve.passthru.OutboundPassthruDocRetrieveOrchestratorImpl"
+              linecount="4"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.docretrieve.passthru.proxy.PassthruDocRetrieveProxy"
+              linecount="0"
+              linerate="80"
+              linesexecuted="0"/>
+   <threshold branchcount="2" branchrate="80" branchsexecuted="0.02"
+              class="gov.hhs.fha.nhinc.docretrieve.passthru.proxy.PassthruDocRetrieveProxyJavaImpl"
+              linecount="13"
+              linerate="80"
+              linesexecuted="0.11"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.docretrieve.passthru.proxy.PassthruDocRetrieveProxyNoOpImpl"
+              linecount="7"
+              linerate="80"
+              linesexecuted="0.06"/>
+   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+              class="gov.hhs.fha.nhinc.docretrieve.passthru.proxy.PassthruDocRetrieveProxyObjectFactory"
+              linecount="3"
+              linerate="80"
+              linesexecuted="0.02"/>
+   <threshold branchcount="10" branchrate="80" branchsexecuted="0.06"
+              class="gov.hhs.fha.nhinc.docretrieve.passthru.proxy.PassthruDocRetrieveProxyWebServiceSecuredImpl"
+              linecount="45"
+              linerate="80"
+              linesexecuted="0.33"/>
+   <threshold branchcount="10" branchrate="80" branchsexecuted="0.06"
+              class="gov.hhs.fha.nhinc.docretrieve.passthru.proxy.PassthruDocRetrieveProxyWebServiceUnsecuredImpl"
+              linecount="46"
+              linerate="80"
+              linesexecuted="0.34"/>
+</thresholds>

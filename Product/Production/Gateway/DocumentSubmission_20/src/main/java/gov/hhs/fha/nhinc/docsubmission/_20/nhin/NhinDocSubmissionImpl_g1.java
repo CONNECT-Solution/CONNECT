@@ -28,11 +28,13 @@ package gov.hhs.fha.nhinc.docsubmission._20.nhin;
 
 import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
 import gov.hhs.fha.nhinc.docsubmission.nhin.NhinDocSubmissionOrchImpl;
-import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
-import javax.xml.ws.WebServiceContext;
-import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
+
+import javax.xml.ws.WebServiceContext;
+
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 /**
  * 
@@ -42,7 +44,8 @@ public class NhinDocSubmissionImpl_g1 {
 
     public RegistryResponseType documentRepositoryProvideAndRegisterDocumentSetB(
             ProvideAndRegisterDocumentSetRequestType body, WebServiceContext context) {
-        AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
+        SAML2AssertionExtractor extractor = SAML2AssertionExtractor.getInstance();
+        AssertionType assertion = extractor.extractSamlAssertion(context);
 
         if (assertion != null) {
             AsyncMessageIdExtractor msgIdExtractor = new AsyncMessageIdExtractor();

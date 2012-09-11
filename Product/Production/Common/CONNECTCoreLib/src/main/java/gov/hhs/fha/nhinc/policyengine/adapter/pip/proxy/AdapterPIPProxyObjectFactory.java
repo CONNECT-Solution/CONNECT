@@ -34,7 +34,7 @@ import gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory;
  * @author Les westberg
  */
 public class AdapterPIPProxyObjectFactory extends ComponentProxyObjectFactory {
-    private static final String CONFIG_FILE_NAME = "AdapterPIPConfig.xml";
+    private static final String CONFIG_FILE_NAME = "PolicyEngineProxyConfig.xml";
     private static final String BEAN_NAME_ADAPTER_PIP = "adapterpip";
 
     protected String getConfigFileName() {

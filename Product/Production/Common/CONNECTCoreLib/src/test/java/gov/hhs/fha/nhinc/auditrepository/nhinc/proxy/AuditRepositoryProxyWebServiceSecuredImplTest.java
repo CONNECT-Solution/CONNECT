@@ -74,27 +74,4 @@ public class AuditRepositoryProxyWebServiceSecuredImplTest {
         }
     }
 
-    @Test
-    public void testGetService() {
-        try {
-            AuditRepositoryProxyWebServiceSecuredImpl sut = new AuditRepositoryProxyWebServiceSecuredImpl() {
-                @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-
-                @Override
-                protected Service getService() {
-                    return mockService;
-                }
-            };
-            Service service = sut.getService();
-            assertNotNull("Service was null", service);
-        } catch (Throwable t) {
-            System.out.println("Error running testGetService test: " + t.getMessage());
-            t.printStackTrace();
-            fail("Error running testGetService test: " + t.getMessage());
-        }
-    }
-
 }

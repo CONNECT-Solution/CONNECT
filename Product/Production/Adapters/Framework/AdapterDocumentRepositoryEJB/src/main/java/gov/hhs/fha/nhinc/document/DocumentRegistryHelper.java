@@ -1,99 +1,74 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
- * All rights reserved. 
+ * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * All rights reserved.
  *
- * Redistribution and use in source and binary forms, with or without 
- * modification, are permitted provided that the following conditions are met: 
- *     * Redistributions of source code must retain the above 
- *       copyright notice, this list of conditions and the following disclaimer. 
- *     * Redistributions in binary form must reproduce the above copyright 
- *       notice, this list of conditions and the following disclaimer in the documentation 
- *       and/or other materials provided with the distribution. 
- *     * Neither the name of the United States Government nor the 
- *       names of its contributors may be used to endorse or promote products 
- *       derived from this software without specific prior written permission. 
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *     * Redistributions of source code must retain the above
+ *       copyright notice, this list of conditions and the following disclaimer.
+ *     * Redistributions in binary form must reproduce the above copyright
+ *       notice, this list of conditions and the following disclaimer in the documentation
+ *       and/or other materials provided with the distribution.
+ *     * Neither the name of the United States Government nor the
+ *       names of its contributors may be used to endorse or promote products
+ *       derived from this software without specific prior written permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
- * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
- * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY 
- * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES 
- * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
- * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND 
- * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
- * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package gov.hhs.fha.nhinc.document;
 
-import gov.hhs.fha.nhinc.nhinclib.NullChecker;
-
-import gov.hhs.fha.nhinc.properties.PropertyAccessor;
-
 import java.text.SimpleDateFormat;
-
 import java.util.ArrayList;
-
 import java.util.Date;
-
 import java.util.List;
-
 import java.util.UUID;
 
 import javax.xml.bind.JAXBElement;
 
-import org.apache.commons.logging.Log;
-
-import org.apache.commons.logging.LogFactory;
-
-import gov.hhs.fha.nhinc.repository.model.Document;
-
-import gov.hhs.fha.nhinc.repository.model.DocumentQueryParams;
-
-import gov.hhs.fha.nhinc.repository.model.EventCode;
-
-import gov.hhs.fha.nhinc.repository.model.ExtraSlot;
-
-import gov.hhs.fha.nhinc.repository.service.DocumentService;
-
-import gov.hhs.fha.nhinc.repository.util.DocumentLoadUtil;
-
-import gov.hhs.fha.nhinc.util.StringUtil;
-
-import gov.hhs.fha.nhinc.util.format.PatientIdFormatUtil;
-
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.AdhocQueryType;
-
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.ClassificationType;
-
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.ExternalIdentifierType;
-
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.ExtrinsicObjectType;
-
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.IdentifiableType;
-
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.InternationalStringType;
-
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.LocalizedStringType;
-
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryObjectListType;
-
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1;
-
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.ValueListType;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import gov.hhs.fha.nhinc.properties.PropertyAccessor;
+import gov.hhs.fha.nhinc.repository.model.Document;
+import gov.hhs.fha.nhinc.repository.model.DocumentQueryParams;
+import gov.hhs.fha.nhinc.repository.model.EventCode;
+import gov.hhs.fha.nhinc.repository.model.ExtraSlot;
+import gov.hhs.fha.nhinc.repository.service.DocumentService;
+import gov.hhs.fha.nhinc.repository.util.DocumentLoadUtil;
+import gov.hhs.fha.nhinc.util.StringUtil;
+import gov.hhs.fha.nhinc.util.format.PatientIdFormatUtil;
+
 /**
- * 
+ *
  * Helper class for performing document registry operations
- * 
- * 
- * 
+ *
+ *
+ *
  * @author Neil Webb
  */
 
-public class DocumentRegistryHelper
-
-{
+public class DocumentRegistryHelper {
 
     private static Log log = LogFactory.getLog(DocumentRegistryHelper.class);
 
@@ -213,9 +188,7 @@ public class DocumentRegistryHelper
     private static final String PROPERTY_FILE_KEY_HOME_COMMUNITY = "localHomeCommunityId";
 
     public oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse documentRegistryRegistryStoredQuery(
-            oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest body)
-
-    {
+            oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest body) {
 
         oasis.names.tc.ebxml_regrep.xsd.query._3.ObjectFactory queryObjFact = new oasis.names.tc.ebxml_regrep.xsd.query._3.ObjectFactory();
 
@@ -249,9 +222,7 @@ public class DocumentRegistryHelper
 
         String sRepositoryId = null;
 
-        if (body != null)
-
-        {
+        if (body != null) {
 
             AdhocQueryType adhocQuery = body.getAdhocQuery();
 
@@ -333,17 +304,13 @@ public class DocumentRegistryHelper
 
     }
 
-    private String extractPatientIdentifier(List<SlotType1> slots)
-
-    {
+    private String extractPatientIdentifier(List<SlotType1> slots) {
 
         String patientId = null;
 
         List<String> slotValues = extractSlotValues(slots, EBXML_DOCENTRY_PATIENT_ID);
 
-        if ((slotValues != null) && (!slotValues.isEmpty()))
-
-        {
+        if ((slotValues != null) && (!slotValues.isEmpty())) {
 
             String formattedPatientId = slotValues.get(0);
 
@@ -355,23 +322,17 @@ public class DocumentRegistryHelper
 
     }
 
-    private List<String> extractClassCodes(List<SlotType1> slots)
-
-    {
+    private List<String> extractClassCodes(List<SlotType1> slots) {
 
         List<String> classCodes = null;
 
         List<String> slotValues = extractSlotValues(slots, EBXML_DOCENTRY_CLASS_CODE);
 
-        if ((slotValues != null) && (!slotValues.isEmpty()))
-
-        {
+        if ((slotValues != null) && (!slotValues.isEmpty())) {
 
             classCodes = new ArrayList<String>();
 
-            for (String slotValue : slotValues)
-
-            {
+            for (String slotValue : slotValues) {
 
                 parseParamFormattedString(slotValue, classCodes);
 
@@ -383,17 +344,13 @@ public class DocumentRegistryHelper
 
     }
 
-    private String extractClassCodeScheme(List<SlotType1> slots)
-
-    {
+    private String extractClassCodeScheme(List<SlotType1> slots) {
 
         String classCodeScheme = null;
 
         List<String> slotValues = extractSlotValues(slots, EBXML_DOCENTRY_CLASS_CODE_SCHEME);
 
-        if ((slotValues != null) && (!slotValues.isEmpty()))
-
-        {
+        if ((slotValues != null) && (!slotValues.isEmpty())) {
 
             classCodeScheme = slotValues.get(0);
 
@@ -403,17 +360,13 @@ public class DocumentRegistryHelper
 
     }
 
-    private Date extractCreationTimeFrom(List<SlotType1> slots)
-
-    {
+    private Date extractCreationTimeFrom(List<SlotType1> slots) {
 
         Date creationTimeFrom = null;
 
         List<String> slotValues = extractSlotValues(slots, EBXML_DOCENTRY_CREATION_TIME_FROM);
 
-        if ((slotValues != null) && (!slotValues.isEmpty()))
-
-        {
+        if ((slotValues != null) && (!slotValues.isEmpty())) {
 
             creationTimeFrom = parseCreationDate(slotValues.get(0));
 
@@ -423,17 +376,13 @@ public class DocumentRegistryHelper
 
     }
 
-    private Date extractCreationTimeTo(List<SlotType1> slots)
-
-    {
+    private Date extractCreationTimeTo(List<SlotType1> slots) {
 
         Date creationTimeTo = null;
 
         List<String> slotValues = extractSlotValues(slots, EBXML_DOCENTRY_CREATION_TIME_TO);
 
-        if ((slotValues != null) && (!slotValues.isEmpty()))
-
-        {
+        if ((slotValues != null) && (!slotValues.isEmpty())) {
 
             creationTimeTo = parseCreationDate(slotValues.get(0));
 
@@ -443,17 +392,13 @@ public class DocumentRegistryHelper
 
     }
 
-    private Date extractServiceStartTimeFrom(List<SlotType1> slots)
-
-    {
+    private Date extractServiceStartTimeFrom(List<SlotType1> slots) {
 
         Date serviceStartTimeFrom = null;
 
         List<String> slotValues = extractSlotValues(slots, EBXML_DOCENTRY_SERVICE_START_TIME_FROM);
 
-        if ((slotValues != null) && (!slotValues.isEmpty()))
-
-        {
+        if ((slotValues != null) && (!slotValues.isEmpty())) {
 
             serviceStartTimeFrom = parseCreationDate(slotValues.get(0));
 
@@ -463,17 +408,13 @@ public class DocumentRegistryHelper
 
     }
 
-    private Date extractServiceStartTimeTo(List<SlotType1> slots)
-
-    {
+    private Date extractServiceStartTimeTo(List<SlotType1> slots) {
 
         Date serviceStartTimeTo = null;
 
         List<String> slotValues = extractSlotValues(slots, EBXML_DOCENTRY_SERVICE_START_TIME_TO);
 
-        if ((slotValues != null) && (!slotValues.isEmpty()))
-
-        {
+        if ((slotValues != null) && (!slotValues.isEmpty())) {
 
             serviceStartTimeTo = parseCreationDate(slotValues.get(0));
 
@@ -483,17 +424,13 @@ public class DocumentRegistryHelper
 
     }
 
-    private Date extractServiceStopTimeFrom(List<SlotType1> slots)
-
-    {
+    private Date extractServiceStopTimeFrom(List<SlotType1> slots) {
 
         Date serviceStopTimeFrom = null;
 
         List<String> slotValues = extractSlotValues(slots, EBXML_DOCENTRY_SERVICE_STOP_TIME_FROM);
 
-        if ((slotValues != null) && (!slotValues.isEmpty()))
-
-        {
+        if ((slotValues != null) && (!slotValues.isEmpty())) {
 
             serviceStopTimeFrom = parseCreationDate(slotValues.get(0));
 
@@ -503,17 +440,13 @@ public class DocumentRegistryHelper
 
     }
 
-    private Date extractServiceStopTimeTo(List<SlotType1> slots)
-
-    {
+    private Date extractServiceStopTimeTo(List<SlotType1> slots) {
 
         Date serviceStopTimeTo = null;
 
         List<String> slotValues = extractSlotValues(slots, EBXML_DOCENTRY_SERVICE_STOP_TIME_TO);
 
-        if ((slotValues != null) && (!slotValues.isEmpty()))
-
-        {
+        if ((slotValues != null) && (!slotValues.isEmpty())) {
 
             serviceStopTimeTo = parseCreationDate(slotValues.get(0));
 
@@ -523,23 +456,17 @@ public class DocumentRegistryHelper
 
     }
 
-    private List<String> extractStatuses(List<SlotType1> slots)
-
-    {
+    private List<String> extractStatuses(List<SlotType1> slots) {
 
         List<String> statuses = null;
 
         List<String> slotValues = extractSlotValues(slots, EBXML_DOCENTRY_STATUS);
 
-        if ((slotValues != null) && (!slotValues.isEmpty()))
-
-        {
+        if ((slotValues != null) && (!slotValues.isEmpty())) {
 
             statuses = new ArrayList<String>();
 
-            for (String slotValue : slotValues)
-
-            {
+            for (String slotValue : slotValues) {
 
                 parseParamFormattedString(slotValue, statuses);
 
@@ -552,21 +479,19 @@ public class DocumentRegistryHelper
     }
 
     /**
-     * 
+     *
      * Extract the document ID from the slots, if it exists and put it into
-     * 
+     *
      * the array.
-     * 
-     * 
-     * 
+     *
+     *
+     *
      * @param slots The slots to be searched.
-     * 
+     *
      * @return The document ID in a list if it is found.
      */
 
-    private List<String> extractDocumentId(List<SlotType1> slots)
-
-    {
+    private List<String> extractDocumentId(List<SlotType1> slots) {
 
         List<String> documentIds = null;
 
@@ -574,9 +499,7 @@ public class DocumentRegistryHelper
 
         List<String> slotValues = extractSlotValues(slots, NHINC_CUSTOM_DOCUMENT_ID);
 
-        if ((slotValues != null) && (!slotValues.isEmpty()))
-
-        {
+        if ((slotValues != null) && (!slotValues.isEmpty())) {
 
             // We should only have one - so use the first one.
 
@@ -595,27 +518,23 @@ public class DocumentRegistryHelper
     }
 
     /**
-     * 
+     *
      * Extract the repository ID from the slots
-     * 
-     * 
-     * 
+     *
+     *
+     *
      * @param slots The slots to be searched.
-     * 
+     *
      * @return The repository Id.
      */
 
-    private String extractRepositoryId(List<SlotType1> slots)
-
-    {
+    private String extractRepositoryId(List<SlotType1> slots) {
 
         String repositoryId = null;
 
         List<String> slotValues = extractSlotValues(slots, NHINC_CUSTOM_REPOSITORY_ID);
 
-        if ((slotValues != null) && (!slotValues.isEmpty()))
-
-        {
+        if ((slotValues != null) && (!slotValues.isEmpty())) {
 
             // We should only have one - so use the first one.
 
@@ -632,23 +551,15 @@ public class DocumentRegistryHelper
     }
 
     private void loadResponseMessage(oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse response,
-            List<Document> docs)
+            List<Document> docs) {
 
-    {
-
-        if (docs != null &&
-
-        docs.size() > 0)
-
-        {
+        if (docs != null && docs.size() > 0) {
 
             response.setStatus(XDS_QUERY_RESPONSE_STATUS_SUCCESS);
 
         }
 
-        else
-
-        {
+        else {
 
             response.setStatus(XDS_QUERY_RESPONSE_STATUS_FAILURE);
 
@@ -664,9 +575,7 @@ public class DocumentRegistryHelper
 
         String homeCommunityId = retrieveHomeCommunityId();
 
-        if ((docs != null) && (!docs.isEmpty()))
-
-        {
+        if ((docs != null) && (!docs.isEmpty())) {
 
             List<JAXBElement<? extends IdentifiableType>> olRegObjs = regObjList.getIdentifiable();
 
@@ -679,9 +588,7 @@ public class DocumentRegistryHelper
 
             ArrayList<JAXBElement<? extends IdentifiableType>> olAssoc = new ArrayList<JAXBElement<? extends IdentifiableType>>();
 
-            for (Document doc : docs)
-
-            {
+            for (Document doc : docs) {
 
                 ExtrinsicObjectType oExtObj = new ExtrinsicObjectType();
 
@@ -712,9 +619,7 @@ public class DocumentRegistryHelper
                 String sDocumentId = ""; // need to keep a handle to this to be
                                          // used later...
 
-                if (NullChecker.isNotNullish(doc.getDocumentUniqueId()))
-
-                {
+                if (NullChecker.isNotNullish(doc.getDocumentUniqueId())) {
 
                     sDocumentId = doc.getDocumentUniqueId();
 
@@ -758,9 +663,7 @@ public class DocumentRegistryHelper
 
                 // -------------
 
-                if (NullChecker.isNotNullish(doc.getAuthorPerson()))
-
-                {
+                if (NullChecker.isNotNullish(doc.getAuthorPerson())) {
 
                     SlotType1 oSlot = CreateSingleValueSlot(EBXML_RESPONSE_AUTHOR_PERSON_SLOTNAME,
 
@@ -776,9 +679,7 @@ public class DocumentRegistryHelper
 
                 // ------------------
 
-                if (NullChecker.isNotNullish(doc.getAuthorInstitution()))
-
-                {
+                if (NullChecker.isNotNullish(doc.getAuthorInstitution())) {
 
                     SlotType1 oSlot = CreateSingleValueSlot(EBXML_RESPONSE_AUTHOR_INSTITUTION_SLOTNAME,
 
@@ -794,9 +695,7 @@ public class DocumentRegistryHelper
 
                 // ------------
 
-                if (NullChecker.isNotNullish(doc.getAuthorRole()))
-
-                {
+                if (NullChecker.isNotNullish(doc.getAuthorRole())) {
 
                     SlotType1 oSlot = CreateSingleValueSlot(EBXML_RESPONSE_AUTHOR_ROLE_SLOTNAME,
 
@@ -812,9 +711,7 @@ public class DocumentRegistryHelper
 
                 // ----------------
 
-                if (NullChecker.isNotNullish(doc.getAuthorSpecialty()))
-
-                {
+                if (NullChecker.isNotNullish(doc.getAuthorSpecialty())) {
 
                     SlotType1 oSlot = CreateSingleValueSlot(EBXML_RESPONSE_AUTHOR_SPECIALTY_SLOTNAME,
 
@@ -826,9 +723,7 @@ public class DocumentRegistryHelper
 
                 }
 
-                if (bHasAuthorData)
-
-                {
+                if (bHasAuthorData) {
 
                     olClassifications.add(oClassification);
 
@@ -840,9 +735,7 @@ public class DocumentRegistryHelper
 
                 // ---------------------
 
-                if (NullChecker.isNotNullish(doc.getAvailablityStatus()))
-
-                {
+                if (NullChecker.isNotNullish(doc.getAvailablityStatus())) {
 
                     oExtObj.setStatus(doc.getAvailablityStatus());
 
@@ -861,9 +754,7 @@ public class DocumentRegistryHelper
 
                         sDocumentUUID);
 
-                if (classCodeClassification != null)
-
-                {
+                if (classCodeClassification != null) {
 
                     olClassifications.add(classCodeClassification);
 
@@ -875,9 +766,7 @@ public class DocumentRegistryHelper
 
                 // ---------
 
-                if (NullChecker.isNotNullish(doc.getComments()))
-
-                {
+                if (NullChecker.isNotNullish(doc.getComments())) {
 
                     InternationalStringType oComments = CreateSingleValueInternationalStringType(doc.getComments());
 
@@ -899,9 +788,7 @@ public class DocumentRegistryHelper
 
                         sDocumentUUID);
 
-                if (confidentialityCodeClassification != null)
-
-                {
+                if (confidentialityCodeClassification != null) {
 
                     olClassifications.add(confidentialityCodeClassification);
 
@@ -913,9 +800,7 @@ public class DocumentRegistryHelper
 
                 // --------------
 
-                if (doc.getCreationTime() != null)
-
-                {
+                if (doc.getCreationTime() != null) {
 
                     SlotType1 oSlot = CreateSingleValueSlot(EBXML_RESPONSE_CREATIONTIME_SLOTNAME,
 
@@ -931,13 +816,9 @@ public class DocumentRegistryHelper
 
                 // ----------------
 
-                if ((doc.getEventCodes() != null) && (!doc.getEventCodes().isEmpty()))
+                if ((doc.getEventCodes() != null) && (!doc.getEventCodes().isEmpty())) {
 
-                {
-
-                    for (EventCode eventCode : doc.getEventCodes())
-
-                    {
+                    for (EventCode eventCode : doc.getEventCodes()) {
 
                         ClassificationType eventCodeClassification = createClassificationFromCodedData(
                                 eventCode.getEventCode(), eventCode.getEventCodeScheme(),
@@ -947,9 +828,7 @@ public class DocumentRegistryHelper
 
                                 sDocumentUUID);
 
-                        if (eventCodeClassification != null)
-
-                        {
+                        if (eventCodeClassification != null) {
 
                             olClassifications.add(eventCodeClassification);
 
@@ -972,9 +851,7 @@ public class DocumentRegistryHelper
 
                         sDocumentUUID);
 
-                if (formatCodeClassification != null)
-
-                {
+                if (formatCodeClassification != null) {
 
                     olClassifications.add(formatCodeClassification);
 
@@ -986,9 +863,7 @@ public class DocumentRegistryHelper
 
                 // ----------
 
-                if (NullChecker.isNotNullish(doc.getHash()))
-
-                {
+                if (NullChecker.isNotNullish(doc.getHash())) {
 
                     SlotType1 oSlot = CreateSingleValueSlot(EBXML_RESPONSE_HASH_SLOTNAME,
 
@@ -1011,9 +886,7 @@ public class DocumentRegistryHelper
 
                         sDocumentUUID);
 
-                if (healthcareFacilityTypeCodeClassification != null)
-
-                {
+                if (healthcareFacilityTypeCodeClassification != null) {
 
                     olClassifications.add(healthcareFacilityTypeCodeClassification);
 
@@ -1027,25 +900,19 @@ public class DocumentRegistryHelper
 
                 List<String> intendedRecipients = new ArrayList<String>();
 
-                if (NullChecker.isNotNullish(doc.getIntendedRecipientPerson()))
-
-                {
+                if (NullChecker.isNotNullish(doc.getIntendedRecipientPerson())) {
 
                     intendedRecipients.add(doc.getIntendedRecipientPerson());
 
                 }
 
-                else if (NullChecker.isNotNullish(doc.getIntendedRecipientOrganization()))
-
-                {
+                else if (NullChecker.isNotNullish(doc.getIntendedRecipientOrganization())) {
 
                     intendedRecipients.add(doc.getIntendedRecipientOrganization());
 
                 }
 
-                if (!intendedRecipients.isEmpty())
-
-                {
+                if (!intendedRecipients.isEmpty()) {
 
                     String[] intendedRecipientArray = intendedRecipients.toArray(new String[intendedRecipients.size()]);
 
@@ -1062,9 +929,7 @@ public class DocumentRegistryHelper
 
                 // ---------------
 
-                if (NullChecker.isNotNullish(doc.getLanguageCode()))
-
-                {
+                if (NullChecker.isNotNullish(doc.getLanguageCode())) {
 
                     SlotType1 oSlot = CreateSingleValueSlot(EBXML_RESPONSE_LANGUAGECODE_SLOTNAME,
 
@@ -1080,9 +945,7 @@ public class DocumentRegistryHelper
 
                 // ------------------------
 
-                if (NullChecker.isNotNullish(doc.getLegalAuthenticator()))
-
-                {
+                if (NullChecker.isNotNullish(doc.getLegalAuthenticator())) {
 
                     SlotType1 oSlot = CreateSingleValueSlot(EBXML_RESPONSE_LEGALAUTHENTICATOR_SLOTNAME,
 
@@ -1098,9 +961,7 @@ public class DocumentRegistryHelper
 
                 // ----------
 
-                if (NullChecker.isNotNullish(doc.getMimeType()))
-
-                {
+                if (NullChecker.isNotNullish(doc.getMimeType())) {
 
                     oExtObj.setMimeType(doc.getMimeType());
 
@@ -1112,9 +973,7 @@ public class DocumentRegistryHelper
 
                 // -----------
 
-                if (NullChecker.isNotNullish(doc.getPatientId()))
-
-                {
+                if (NullChecker.isNotNullish(doc.getPatientId())) {
 
                     String formattedPatientId = PatientIdFormatUtil.hl7EncodePatientId(doc.getPatientId(),
                             homeCommunityId);
@@ -1150,9 +1009,7 @@ public class DocumentRegistryHelper
 
                         sDocumentUUID);
 
-                if (practiceSettingCodeClassification != null)
-
-                {
+                if (practiceSettingCodeClassification != null) {
 
                     olClassifications.add(practiceSettingCodeClassification);
 
@@ -1164,9 +1021,7 @@ public class DocumentRegistryHelper
 
                 // -------------------
 
-                if (doc.getServiceStartTime() != null)
-
-                {
+                if (doc.getServiceStartTime() != null) {
 
                     SlotType1 oSlot = CreateSingleValueSlot(EBXML_RESPONSE_SERVICESTARTTIME_SLOTNAME,
 
@@ -1182,9 +1037,7 @@ public class DocumentRegistryHelper
 
                 // ------------------
 
-                if (doc.getServiceStopTime() != null)
-
-                {
+                if (doc.getServiceStopTime() != null) {
 
                     SlotType1 oSlot = CreateSingleValueSlot(EBXML_RESPONSE_SERVICESTOPTIME_SLOTNAME,
 
@@ -1200,9 +1053,7 @@ public class DocumentRegistryHelper
 
                 // -----
 
-                if ((doc.getSize() != null) && (doc.getSize().intValue() > 0))
-
-                {
+                if ((doc.getSize() != null) && (doc.getSize().intValue() > 0)) {
 
                     SlotType1 oSlot = CreateSingleValueSlot(EBXML_RESPONSE_SIZE_SLOTNAME,
 
@@ -1218,9 +1069,7 @@ public class DocumentRegistryHelper
 
                 // ------------------
 
-                if (NullChecker.isNotNullish(doc.getSourcePatientId()))
-
-                {
+                if (NullChecker.isNotNullish(doc.getSourcePatientId())) {
 
                     SlotType1 oSlot = CreateSingleValueSlot(EBXML_RESPONSE_SOURCEPATIENTID_SLOTNAME,
 
@@ -1238,49 +1087,37 @@ public class DocumentRegistryHelper
 
                 List<String> sourcePatientInfoValues = new ArrayList<String>();
 
-                if (NullChecker.isNotNullish(doc.getPid3()))
-
-                {
+                if (NullChecker.isNotNullish(doc.getPid3())) {
 
                     sourcePatientInfoValues.add("PID-3|" + doc.getPid3());
 
                 }
 
-                if (NullChecker.isNotNullish(doc.getPid5()))
-
-                {
+                if (NullChecker.isNotNullish(doc.getPid5())) {
 
                     sourcePatientInfoValues.add("PID-5|" + doc.getPid5());
 
                 }
 
-                if (NullChecker.isNotNullish(doc.getPid7()))
-
-                {
+                if (NullChecker.isNotNullish(doc.getPid7())) {
 
                     sourcePatientInfoValues.add("PID-7|" + doc.getPid7());
 
                 }
 
-                if (NullChecker.isNotNullish(doc.getPid8()))
-
-                {
+                if (NullChecker.isNotNullish(doc.getPid8())) {
 
                     sourcePatientInfoValues.add("PID-8|" + doc.getPid8());
 
                 }
 
-                if (NullChecker.isNotNullish(doc.getPid11()))
-
-                {
+                if (NullChecker.isNotNullish(doc.getPid11())) {
 
                     sourcePatientInfoValues.add("PID-11|" + doc.getPid11());
 
                 }
 
-                if (!sourcePatientInfoValues.isEmpty())
-
-                {
+                if (!sourcePatientInfoValues.isEmpty()) {
 
                     String[] sourcePatientInfoValuesArray = sourcePatientInfoValues
                             .toArray(new String[sourcePatientInfoValues.size()]);
@@ -1299,13 +1136,9 @@ public class DocumentRegistryHelper
 
                 // ----------
 
-                if ((doc.getExtraSlots() != null) && (!doc.getExtraSlots().isEmpty()))
+                if ((doc.getExtraSlots() != null) && (!doc.getExtraSlots().isEmpty())) {
 
-                {
-
-                    for (ExtraSlot extraSlot : doc.getExtraSlots())
-
-                    {
+                    for (ExtraSlot extraSlot : doc.getExtraSlots()) {
 
                         SlotType1 oSlot = CreateSingleValueSlot(
 
@@ -1325,9 +1158,7 @@ public class DocumentRegistryHelper
 
                 // -------
 
-                if (NullChecker.isNotNullish(doc.getDocumentTitle()))
-
-                {
+                if (NullChecker.isNotNullish(doc.getDocumentTitle())) {
 
                     InternationalStringType oTitle = CreateSingleValueInternationalStringType(doc.getDocumentTitle());
 
@@ -1348,9 +1179,7 @@ public class DocumentRegistryHelper
 
                         sDocumentUUID);
 
-                if (typeCodeClassification != null)
-
-                {
+                if (typeCodeClassification != null) {
 
                     olClassifications.add(typeCodeClassification);
 
@@ -1362,25 +1191,16 @@ public class DocumentRegistryHelper
 
                 // ----
 
-                if (NullChecker.isNotNullish(doc.getDocumentUri()))
-
-                {
+                if (NullChecker.isNotNullish(doc.getDocumentUri())) {
 
                     SlotType1 oSlot = null;
 
                     String documentUri = doc.getDocumentUri();
-
-                    if (documentUri.length() <= EBXML_RESPONSE_URI_LINE_LENGTH)
-
-                    {
-
+                    if (documentUri.length() <= EBXML_RESPONSE_URI_LINE_LENGTH) {
                         oSlot = CreateSingleValueSlot(EBXML_RESPONSE_URI_SLOTNAME, documentUri);
-
                     }
 
-                    else
-
-                    {
+                    else {
 
                         int iStart = 0;
 
@@ -1392,29 +1212,21 @@ public class DocumentRegistryHelper
 
                         String saURIPart[] = null;
 
-                        if ((iTotalLen % EBXML_RESPONSE_URI_LINE_LENGTH) == 0)
-
-                        {
+                        if ((iTotalLen % EBXML_RESPONSE_URI_LINE_LENGTH) == 0) {
 
                             saURIPart = new String[iTotalLen / EBXML_RESPONSE_URI_LINE_LENGTH];
 
                         }
 
-                        else
-
-                        {
+                        else {
 
                             saURIPart = new String[iTotalLen / EBXML_RESPONSE_URI_LINE_LENGTH + 1];
 
                         }
 
-                        while (iStart < iTotalLen)
+                        while (iStart < iTotalLen) {
 
-                        {
-
-                            if ((iStart + EBXML_RESPONSE_URI_LINE_LENGTH) > iTotalLen)
-
-                            {
+                            if ((iStart + EBXML_RESPONSE_URI_LINE_LENGTH) > iTotalLen) {
 
                                 saURIPart[iIndex - 1] = iIndex + "|" + sURI.substring(iStart, iTotalLen);
 
@@ -1422,9 +1234,7 @@ public class DocumentRegistryHelper
 
                             }
 
-                            else
-
-                            {
+                            else {
 
                                 saURIPart[iIndex - 1] = iIndex + "|"
                                         + sURI.substring(iStart, iStart + EBXML_RESPONSE_URI_LINE_LENGTH);
@@ -1443,9 +1253,7 @@ public class DocumentRegistryHelper
 
                     } // else
 
-                    if (oSlot != null)
-
-                    {
+                    if (oSlot != null) {
 
                         olSlot.add(oSlot);
 
@@ -1455,9 +1263,7 @@ public class DocumentRegistryHelper
 
                 }
 
-                if (bHaveData)
-
-                {
+                if (bHaveData) {
 
                     // Home community ID
 
@@ -1485,9 +1291,7 @@ public class DocumentRegistryHelper
 
             // ---------------------------------------------------
 
-            if (olObjRef.size() > 0)
-
-            {
+            if (olObjRef.size() > 0) {
 
                 olRegObjs.addAll(olObjRef);
 
@@ -1497,9 +1301,7 @@ public class DocumentRegistryHelper
 
             // ---------------------------------------------------
 
-            if (olAssoc.size() > 0)
-
-            {
+            if (olAssoc.size() > 0) {
 
                 olRegObjs.addAll(olAssoc);
 
@@ -1510,24 +1312,22 @@ public class DocumentRegistryHelper
     }
 
     /**
-     * 
+     *
      * This method creates a classification from a coded item.
-     * 
-     * 
-     * 
+     *
+     *
+     *
      * @param oCoded The coded to be transformed.
-     * 
+     *
      * @param sClassificationScheme The classification scheme value.
-     * 
+     *
      * @param sDocumentId The document ID for the document associated with this classificaation.
-     * 
+     *
      * @return The classification created based on the information in the coded.
      */
 
     private ClassificationType createClassificationFromCodedData(String code, String codeScheme,
-            String codeDisplayName, String sClassificationScheme, String sDocumentId)
-
-    {
+            String codeDisplayName, String sClassificationScheme, String sDocumentId) {
 
         log.debug("DocumentRegistryHelper.CreateClassificationFromCodedData() -- Begin");
 
@@ -1549,9 +1349,7 @@ public class DocumentRegistryHelper
 
         // -----
 
-        if (NullChecker.isNotNullish(code))
-
-        {
+        if (NullChecker.isNotNullish(code)) {
 
             oClassification.setNodeRepresentation(code);
 
@@ -1563,9 +1361,7 @@ public class DocumentRegistryHelper
 
         // ------------
 
-        if (NullChecker.isNotNullish(codeScheme))
-
-        {
+        if (NullChecker.isNotNullish(codeScheme)) {
 
             SlotType1 oSlot = CreateSingleValueSlot(EBXML_RESPONSE_CODE_CODESCHEME_SLOTNAME,
 
@@ -1581,9 +1377,7 @@ public class DocumentRegistryHelper
 
         // ------------
 
-        if (NullChecker.isNotNullish(codeDisplayName))
-
-        {
+        if (NullChecker.isNotNullish(codeDisplayName)) {
 
             InternationalStringType oDisplayName = CreateSingleValueInternationalStringType(codeDisplayName);
 
@@ -1593,17 +1387,13 @@ public class DocumentRegistryHelper
 
         }
 
-        if (bHasCode)
-
-        {
+        if (bHasCode) {
 
             return oClassification;
 
         }
 
-        else
-
-        {
+        else {
 
             log.debug("DocumentRegistryHelper.CreateClassificationFromCodedData() -- End");
 
@@ -1613,24 +1403,19 @@ public class DocumentRegistryHelper
 
     }
 
-    private String retrieveHomeCommunityId()
-
-    {
+    private String retrieveHomeCommunityId() {
 
         String homeCommunityId = null;
 
-        try
-
-        {
+        try {
 
             homeCommunityId = "urn:oid:"
-                    + PropertyAccessor.getInstance().getProperty(PROPERTY_FILE_NAME_GATEWAY, PROPERTY_FILE_KEY_HOME_COMMUNITY);
+                    + PropertyAccessor.getInstance().getProperty(PROPERTY_FILE_NAME_GATEWAY,
+                            PROPERTY_FILE_KEY_HOME_COMMUNITY);
 
         }
 
-        catch (Throwable t)
-
-        {
+        catch (Throwable t) {
 
             log.error("Error retrieving the home community id: " + t.getMessage(), t);
 
@@ -1640,31 +1425,15 @@ public class DocumentRegistryHelper
 
     }
 
-    private List<String> extractSlotValues(List<SlotType1> slots, String slotName)
-
-    {
+    private List<String> extractSlotValues(List<SlotType1> slots, String slotName) {
 
         List<String> returnValues = null;
 
-        for (SlotType1 slot : slots)
+        for (SlotType1 slot : slots) {
 
-        {
-
-            if ((slot.getName() != null) &&
-
-            (slot.getName().length() > 0) &&
-
-            (slot.getValueList() != null) &&
-
-            (slot.getValueList().getValue() != null) &&
-
-            (slot.getValueList().getValue().size() > 0))
-
-            {
-
-                if (slot.getName().equals(slotName))
-
-                {
+            if ((slot.getName() != null) && (slot.getName().length() > 0) && (slot.getValueList() != null)
+                    && (slot.getValueList().getValue() != null) && (slot.getValueList().getValue().size() > 0)) {
+                if (slot.getName().equals(slotName)) {
 
                     ValueListType valueListType = slot.getValueList();
 
@@ -1672,9 +1441,7 @@ public class DocumentRegistryHelper
 
                     returnValues = new ArrayList<String>();
 
-                    for (String slotValue : slotValues)
-
-                    {
+                    for (String slotValue : slotValues) {
 
                         returnValues.add(slotValue);
 
@@ -1690,25 +1457,17 @@ public class DocumentRegistryHelper
 
     }
 
-    public void parseParamFormattedString(String paramFormattedString, List<String> resultCollection)
+    public void parseParamFormattedString(String paramFormattedString, List<String> resultCollection) {
 
-    {
+        if ((paramFormattedString != null) && (resultCollection != null)) {
 
-        if ((paramFormattedString != null) && (resultCollection != null))
-
-        {
-
-            if (paramFormattedString.startsWith("("))
-
-            {
+            if (paramFormattedString.startsWith("(")) {
 
                 String working = paramFormattedString.substring(1);
 
                 int endIndex = working.indexOf(")");
 
-                if (endIndex != -1)
-
-                {
+                if (endIndex != -1) {
 
                     working = working.substring(0, endIndex);
 
@@ -1716,280 +1475,133 @@ public class DocumentRegistryHelper
 
                 String[] multiValueString = working.split(",");
 
-                if (multiValueString != null)
+                if (multiValueString != null) {
 
-                {
-
-                    for (int i = 0; i < multiValueString.length; i++)
-
-                    {
+                    for (int i = 0; i < multiValueString.length; i++) {
 
                         String singleValue = multiValueString[i];
 
-                        if (singleValue != null)
-
-                        {
-
+                        if (singleValue != null) {
                             singleValue = singleValue.trim();
-
                         }
-
-                        if (singleValue.startsWith("'"))
-
-                        {
-
+                        if (singleValue.startsWith("'")) {
                             singleValue = singleValue.substring(1);
-
                             int endTickIndex = singleValue.indexOf("'");
-
-                            if (endTickIndex != -1)
-
-                            {
-
+                            if (endTickIndex != -1) {
                                 singleValue = singleValue.substring(0, endTickIndex);
-
                             }
-
                         }
-
                         resultCollection.add(singleValue);
-
-                        if (log.isDebugEnabled())
-
-                        {
-
+                        if (log.isDebugEnabled()) {
                             log.debug("Added single value: " + singleValue + " to query parameters");
-
                         }
-
                     }
-
                 }
-
-            }
-
-            else
-
-            {
-
+            } else {
                 resultCollection.add(paramFormattedString);
-
-                if (log.isDebugEnabled())
-
-                {
-
+                if (log.isDebugEnabled()) {
                     log.debug("No wrapper on status - adding status: " + paramFormattedString + " to query parameters");
-
                 }
-
             }
-
         }
-
     }
 
-    protected Date parseCreationDate(String dateString)
+    protected Date parseCreationDate(String dateString) {
+        return parseDate(dateString, DATE_FORMAT_FULL);
+    }
 
-    {
-
+    protected Date parseServiceDate(String dateString) {
         return parseDate(dateString, DATE_FORMAT_FULL);
 
     }
 
-    protected Date parseServiceDate(String dateString)
-
-    {
-
-        return parseDate(dateString, DATE_FORMAT_FULL);
-
-    }
-
-    private Date parseDate(String dateString, String dateFormat)
-
-    {
-
+    private Date parseDate(String dateString, String dateFormat) {
         Date parsed = null;
-
-        if ((dateString != null) && (dateFormat != null))
-
-        {
-
-            try
-
-            {
-
+        if ((dateString != null) && (dateFormat != null)) {
+            try {
                 String formatString = DocumentLoadUtil.prepareDateFormatString(dateFormat, dateString);
-
                 parsed = new SimpleDateFormat(formatString).parse(dateString);
-
-            }
-
-            catch (Throwable t)
-
-            {
-
+            } catch (Throwable t) {
                 log.warn("Error parsing '" + dateString + "' using format: '" + dateFormat + "'", t);
-
             }
-
         }
-
         return parsed;
-
     }
 
-    protected String formatCreationDate(Date sourceDate)
-
-    {
-
+    protected String formatCreationDate(Date sourceDate) {
         return formatDate(sourceDate, DATE_FORMAT_CREATION);
-
     }
 
-    protected String formatServiceDate(Date sourceDate)
-
-    {
-
+    protected String formatServiceDate(Date sourceDate) {
         return formatDate(sourceDate, DATE_FORMAT_SERVICE);
-
     }
 
-    private String formatDate(Date sourceDate, String formatString)
-
-    {
-
+    private String formatDate(Date sourceDate, String formatString){
         String formatted = "";
-
-        if ((sourceDate != null) && (formatString != null))
-
-        {
-
+        if ((sourceDate != null) && (formatString != null)){
             try
-
             {
-
                 formatted = new SimpleDateFormat(formatString).format(sourceDate);
-
             }
-
             catch (Throwable t)
-
             {
-
                 log.warn("Failed to format a date (" + sourceDate.toString()
                         + ") to a formatted string using the format '" + formatString + "': " + t.getMessage(), t);
-
             }
-
         }
-
         return formatted;
-
     }
 
     /**
-     * 
      * This method creates a Slot containing a single value.
-     * 
-     * 
-     * 
+     *
      * @param sSlotName The name of the slot.
-     * 
      * @param sSlotValue The value for the slot.
-     * 
      * @return The SlotType1 object containing the data passed in.
      */
-
-    private SlotType1 CreateSingleValueSlot(String sSlotName, String sSlotValue)
-
-    {
-
+    private SlotType1 CreateSingleValueSlot(String sSlotName, String sSlotValue) {
         log.debug("DocumentRegistryHelper.CreateSingleValueSlot() -- Begin");
-
         String saSlotValue[] = new String[1];
-
         saSlotValue[0] = sSlotValue;
-
         log.debug("DocumentRegistryHelper.CreateSingleValueSlot() -- End");
-
         return CreateMultiValueSlot(sSlotName, saSlotValue);
-
     }
 
     /**
-     * 
      * This method creates a Slot containing a single value.
-     * 
-     * 
-     * 
+     *
      * @param sSlotName The name of the slot.
-     * 
      * @param saSlotValue The array of values for the slot.
-     * 
      * @return The SlotType1 object containing the data passed in.
      */
-
-    private SlotType1 CreateMultiValueSlot(String sSlotName, String[] saSlotValue)
-
-    {
-
+    private SlotType1 CreateMultiValueSlot(String sSlotName, String[] saSlotValue) {
         log.debug("DocumentRegistryHelper.CreateMultiValueSlot() -- Begin");
-
         SlotType1 oSlot = new SlotType1();
-
         oSlot.setName(sSlotName);
-
         ValueListType oValueList = new ValueListType();
-
         oSlot.setValueList(oValueList);
-
         List<String> olValue = oValueList.getValue();
-
-        for (int i = 0; i < saSlotValue.length; i++)
-
-        {
-
+        for (int i = 0; i < saSlotValue.length; i++) {
             olValue.add(saSlotValue[i]);
-
         }
-
         log.debug("DocumentRegistryHelper.CreateMultiValueSlot() -- End");
-
         return oSlot;
-
     }
 
     /**
-     * 
      * This method creates an InternationalStringType with a single value.
-     * 
-     * 
-     * 
+     *
      * @param sLocStrValue The value to be placed in the string.
-     * 
      * @return The InternationStringType that is being returned.
      */
-
-    private InternationalStringType CreateSingleValueInternationalStringType(String sLocStrValue)
-
-    {
-
+    private InternationalStringType CreateSingleValueInternationalStringType(String sLocStrValue) {
         log.debug("DocumentTransforms.CreateSingleValueInternationalStringType() -- Begin");
-
         InternationalStringType oName = new InternationalStringType();
-
         List<LocalizedStringType> olLocStr = oName.getLocalizedString();
-
         LocalizedStringType oNameLocStr = new LocalizedStringType();
-
         olLocStr.add(oNameLocStr);
-
         oNameLocStr.setValue(sLocStrValue);
-
         log.debug("DocumentTransforms.CreateSingleValueInternationalStringType() -- End");
-
         return oName;
-
     }
-
 }

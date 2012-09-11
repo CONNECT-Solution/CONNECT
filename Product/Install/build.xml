@@ -1,152 +1,122 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="CONNECT.Automated.Installer" default="install" basedir=".">
 
-    <record name="install.debug.log" append="false" loglevel="debug"/>
+    <record name="install.debug.log" append="false" loglevel="debug" />
 
-    <tstamp/>
+    <tstamp />
 
-    <dirname property="CONNECT.Automated.Installer.basedir" file="${ant.file.CONNECT.Automated.Installer}"/>
-    <property name="CONNECT.Automated.Installer.thirdparty.dir" location="${CONNECT.Automated.Installer.basedir}/../../ThirdParty"/>
+    <dirname property="CONNECT.Automated.Installer.basedir" file="${ant.file.CONNECT.Automated.Installer}" />
+    <property name="CONNECT.Automated.Installer.thirdparty.dir" location="${CONNECT.Automated.Installer.basedir}/../../ThirdParty" />
 
     <taskdef resource="net/sf/antcontrib/antlib.xml">
         <classpath>
             <fileset dir="${CONNECT.Automated.Installer.thirdparty.dir}/AntExtraLibs">
-                <include name="ant-contrib-*.jar"/>
+                <include name="ant-contrib-*.jar" />
             </fileset>
         </classpath>
     </taskdef>
 
-    <property environment="env"/>
-    <property name="properties.file" value="${CONNECT.Automated.Installer.basedir}/local.install.properties"/>
+    <property environment="env" />
+    <property name="properties.file" value="${CONNECT.Automated.Installer.basedir}/local.install.properties" />
 
-    <available file="${properties.file}" type="file" property="properties.file.exists"/>
-    <fail unless="properties.file.exists" message="Did not find properties file ${properties.file}"/>
+    <available file="${properties.file}" type="file" property="properties.file.exists" />
+    <fail unless="properties.file.exists" message="Did not find properties file ${properties.file}" />
 
-    <property file="${properties.file}"/>
-    <property name="glassfish.install.dir" value="${glassfish.install.dir.root}/${glassfish.install.dir.name}"/>
-    <property name="temp.dir" value="${basedir}/.installer.temp"/>
-    <property name="glassfish.install.ant.script" value="${glassfish.install.dir}/setup.xml"/>
-    <property name="metro.install.ant.script" value="${temp.dir}/metro/metro-on-glassfish.xml"/>
-    <property name="sql.scripts.dir" value="${basedir}/../DBScripts/nhincdb"/>
-    <property name="thirdparty.dir" value="../../ThirdParty"/>
-    <property name="mysql.executable" value="mysql"/>
+    <property file="${properties.file}" />
+    <property name="glassfish.install.dir" value="${glassfish.install.dir.root}/${glassfish.install.dir.name}" />
+    <property name="temp.dir" value="${basedir}/.installer.temp" />
+    <property name="glassfish.install.ant.script" value="${glassfish.install.dir}/setup.xml" />
+    <property name="sql.scripts.dir" value="${basedir}/../DBScripts/nhincdb" />
+    <property name="thirdparty.dir" value="../../ThirdParty" />
+    <property name="mysql.executable" value="mysql" />
+    <property name="glassfish.zip.file" value="${temp.dir}/glassfish-3.1.1.zip" />
 
-    <delete dir="${temp.dir}"/>
-    <mkdir dir="${temp.dir}"/>
+    <mkdir dir="${temp.dir}" />
+    <delete>
+        <fileset dir="${temp.dir}">
+            <include name="**/*" />
+            <exclude name="glassfish-3.1.1.zip" />
+        </fileset>
+    </delete>
 
-    <available file="${glassfish.install.dir}" type="dir" property="glassfish.install.dir.exists"/>
+    <available file="${glassfish.install.dir}" type="dir" property="glassfish.install.dir.exists" />
 
-    <target name="determine.os">
-        <condition property="is.mac">
-            <os family="mac"/>
-        </condition>
-        <condition property="is.windows">
-            <os family="windows"/>
-        </condition>
-        <condition property="is.linux">
-            <os family="unix"/>
-        </condition>
-    </target>
+    <if>
+        <not>
+            <available file="${glassfish.zip.file}" type="file" />
+        </not>
+        <then>
+            <get src="http://download.java.net/glassfish/3.1.1/release/glassfish-3.1.1.zip" dest="${glassfish.zip.file}" />
+        </then>
+    </if>
 
-    <target name="setup" depends="setup.for.mac, setup.for.windows, setup.for.linux">
-        <property name="metro.zip.file" value="${temp.dir}/metro-2.1.1.zip"/>
-        <get src="https://developer.connectopensource.org/download/attachments/20316168/metro-2.1.1.zip" dest="${metro.zip.file}"/>
-    </target>
+    <target name="install" depends="backup.glassfish.install.dir, install.glassfish, install.databases, build.connect, deploy.connect, cleanup" />
 
-    <target name="setup.for.mac" if="is.mac">
-        <property name="glassfish.zip.file" value="${temp.dir}/glassfish-2.1.1.mac.zip"/>
-        <get src="https://developer.connectopensource.org/download/attachments/20316168/glassfish-2.1.1.mac.zip" dest="${glassfish.zip.file}"/>
-    </target>
-
-    <target name="setup.for.linux" if="is.linux" unless="is.mac">
-        <property name="glassfish.zip.file" value="${temp.dir}/glassfish-2.1.1.linux.zip"/>
-        <get src="https://developer.connectopensource.org/download/attachments/20316168/glassfish-2.1.1.linux.zip" dest="${glassfish.zip.file}"/>
-    </target>
-
-    <target name="setup.for.windows"  if="is.windows">
-        <property name="glassfish.zip.file" value="${temp.dir}/glassfish-2.1.1.windows.zip"/>
-        <get src="https://developer.connectopensource.org/download/attachments/20316168/glassfish-2.1.1.windows.zip" dest="${glassfish.zip.file}"/>
-    </target>
+    <target name="install-binary" depends="backup.glassfish.install.dir, install.glassfish, install.databases, deploy.connect.binary, cleanup" />
 
     <target name="backup.glassfish.install.dir" if="glassfish.install.dir.exists" unless="skip.backup">
-        <echo message="WARNING: glassfish appears to already be installed at ${glassfish.install.dir}...backing up."/>
-        <copy todir="${glassfish.install.dir.root}/.backup.${glassfish.install.dir.name}.${DSTAMP}_${TSTAMP}">
-            <fileset dir="${glassfish.install.dir}"/>
+        <property name="backup.dir" value="${glassfish.install.dir.root}/.backup.${glassfish.install.dir.name}.${DSTAMP}_${TSTAMP}" />
+        <echo message="WARNING: glassfish appears to already be installed at ${glassfish.install.dir}...backing up to ${backup.dir}." />
+        <copy todir="${backup.dir}">
+            <fileset dir="${glassfish.install.dir}" />
         </copy>
     </target>
-
-    <target name="install" depends="determine.os, setup, backup.glassfish.install.dir, install.glassfish.with.metro, install.databases, build.connect, deploy.connect, cleanup"/>
-
-    <target name="install-binary" depends="determine.os, setup, backup.glassfish.install.dir, install.glassfish.with.metro, install.databases, deploy.connect.binary, cleanup"/>
 
     <target name="cleanup">
-        <delete dir="${temp.dir}"/>
+        <delete>
+            <fileset dir="${temp.dir}">
+                <include name="**/*" />
+                <exclude name="glassfish-3.1.1.zip" />
+            </fileset>
+        </delete>
     </target>
 
-    <target name="install.glassfish.with.metro">
-        <echo message="installing glassfish."/>
-        <delete dir="${glassfish.install.dir}"/>
-        <unzip src="${glassfish.zip.file}" dest="${temp.dir}"/>
+    <target name="install.glassfish">
+        <echo message="installing glassfish." />
+        <delete dir="${glassfish.install.dir}" />
+        <unzip src="${glassfish.zip.file}" dest="${temp.dir}" />
         <move todir="${glassfish.install.dir}">
-            <fileset dir="${temp.dir}/glassfish"/>
+            <fileset dir="${temp.dir}/glassfish3" />
         </move>
-        <replace file="${glassfish.install.ant.script}">
-            <replacetoken><![CDATA[<contains string="${targeted.java.version}" substring="1.5"/>
-         <contains string="${targeted.java.version}" substring="1.6"/>]]></replacetoken>
-            <replacevalue><![CDATA[<contains string="${targeted.java.version}" substring="1.7"/>]]></replacevalue>
-        </replace>
-        <replace file="${glassfish.install.ant.script}" token="requires JDK 1.5 or higher" value="requires JDK 1.7"/>
-        <replace file="${glassfish.install.ant.script}">
-            <replacetoken><![CDATA[Current Java Version ${java.version}]]></replacetoken>
-            <replacevalue><![CDATA[Current Local Java Home ${local.java.home}, Current Java Version ${java.version}]]></replacevalue>
-        </replace>
-        <if>
-            <istrue value="${is.windows}"/>
-            <then>
-                <ant antfile="${glassfish.install.ant.script}" dir="${glassfish.install.dir}"/>
-            </then>
-            <else>
-                <ant antfile="${glassfish.install.ant.script}" dir="${glassfish.install.dir}">
-                    <property name="java.home" value="${env.JAVA_HOME}"/>
-                    <property name="local.java.home" value="${env.JAVA_HOME}"/>
-                </ant>
-            </else>
-        </if>
-        <echo message="installing metro 2.1 into glassfish."/>
-        <unzip src="${metro.zip.file}" dest="${temp.dir}"/>
-        <ant antfile="${metro.install.ant.script}" dir="${temp.dir}/metro" target="install">
-            <property name="as.home" value="${glassfish.install.dir}"/>
+        <chmod file="${glassfish.install.dir}/glassfish/bin/asadmin" perm="ugo+rx">
+            <fileset dir="${glassfish.install.dir}">
+                <include name="**/bin/asadmin" />
+            </fileset>
+        </chmod>
+        <copy file="${basedir}/GlassFish/templates/connect/domain.selfsigned.xml.template" tofile="${temp.dir}/domain.selfsigned.xml.template" overwrite="true" />
+        <replace file="${temp.dir}/domain.selfsigned.xml.template" token="gateway" value="${cert.keystore.name}" />
+        <delete dir="${glassfish.install.dir}/glassfish/domains/domain1" />
+        <echo message="creating CONNECT glassfish domain." />
+        <ant antfile="${basedir}/deploy.xml" dir="${basedir}" target="recreate.glassfish.domain">
+            <property name="deployment.domain.template.file.path" value="${temp.dir}/domain.selfsigned.xml.template" />
+            <property name="glassfish.home" value="${glassfish.install.dir}/glassfish" />
+            <property name="use.non.defaults" value="true" />
+            <property name="source.install" value="true" />
         </ant>
-        <copy file="${basedir}/GlassFish/templates/connect/domain.selfsigned.xml.template" tofile="${temp.dir}/domain.selfsigned.xml.template" overwrite="true"/>
-        <echo message="creating self-signed certificates and trustores/keystores for glassfish."/>
+        <antcall target="create.certs" />
+    </target>
+
+    <target name="create.certs">
+        <echo message="creating self-signed certificates and trustores/keystores for glassfish." />
         <exec failonerror="true" executable="keytool" dir="${temp.dir}">
-            <arg line="-v -genkey -keyalg ${cert.key.algorithm} -keysize ${cert.key.size} -keystore ${cert.keystore.name}.jks -keypass ${cert.keypass} -storepass ${cert.storepass} -validity ${cert.validity.length} -alias ${cert.keystore.name} -dname &quot;cn=${cert.cn}&quot;"/>
+            <arg line="-v -genkey -keyalg ${cert.key.algorithm} -keysize ${cert.key.size} -keystore ${cert.keystore.name}.jks -keypass ${cert.keypass} -storepass ${cert.storepass} -validity ${cert.validity.length} -alias ${cert.keystore.name} -dname &quot;cn=${cert.cn}&quot;" />
         </exec>
         <exec failonerror="true" executable="keytool" dir="${temp.dir}">
-            <arg line="-v -export -rfc -alias ${cert.keystore.name} -file ${cert.cn}.cer -keystore ${cert.keystore.name}.jks -keypass ${cert.keypass} -storepass ${cert.storepass}"/>
+            <arg line="-v -export -rfc -alias ${cert.keystore.name} -file ${cert.cn}.cer -keystore ${cert.keystore.name}.jks -keypass ${cert.keypass} -storepass ${cert.storepass}" />
         </exec>
         <exec failonerror="true" executable="keytool" dir="${temp.dir}">
-            <arg line="-v -import -keypass ${cert.keypass} -noprompt -trustcacerts -alias ${cert.cn} -file ${cert.cn}.cer -keystore ${cert.store.name}.jks -storepass ${cert.storepass}"/>
+            <arg line="-v -import -keypass ${cert.keypass} -noprompt -trustcacerts -alias ${cert.cn} -file ${cert.cn}.cer -keystore ${cert.store.name}.jks -storepass ${cert.storepass}" />
         </exec>
-        <copy todir="${glassfish.install.dir}/domains/domain1/config" overwrite="true">
+        <copy todir="${glassfish.install.dir}/glassfish/domains/domain1/config" overwrite="true">
             <fileset dir="${temp.dir}">
-                <include name="${cert.keystore.name}.jks"/>
-                <include name="${cert.store.name}.jks"/>
+                <include name="${cert.keystore.name}.jks" />
+                <include name="${cert.store.name}.jks" />
             </fileset>
         </copy>
-        <copy file="${basedir}/GlassFish/templates/connect/domain.selfsigned.xml.template" tofile="${temp.dir}/domain.selfsigned.xml.template" overwrite="true"/>
-        <replace file="${temp.dir}/domain.selfsigned.xml.template" token="gateway" value="${cert.keystore.name}"/>
-        <echo message="creating CONNECT glassfish domain."/>
-        <ant antfile="${basedir}/deploy.xml" dir="${basedir}" target="recreate.glassfish.domain">
-            <property name="deployment.domain.template.file.path" value="${temp.dir}/domain.selfsigned.xml.template"/>
-            <property name="glassfish.home" value="${glassfish.install.dir}"/>
-            <property name="use.non.defaults" value="true"/>
-            <property name="source.install" value="true"/>
-        </ant>
     </target>
 
     <target name="install.databases">
-        <echo message="installing MySQL databases and connection users."/>
+        <echo message="installing MySQL databases and connection users." />
         <exec failonerror="true" executable="${mysql.executable}" dir="${sql.scripts.dir}" input="${sql.scripts.dir}/dropall.sql">
             <arg value="-v" />
             <arg value="-uroot" />
@@ -162,7 +132,7 @@
             <arg value="-uroot" />
             <arg value="-p${mysql.system.password}" />
         </exec>
-        <echo file="${temp.dir}/show.databases.sql" message="SHOW DATABASES;"/>
+        <echo file="${temp.dir}/show.databases.sql" message="SHOW DATABASES;" />
         <exec failonerror="true" executable="${mysql.executable}" dir="${temp.dir}" input="${temp.dir}/show.databases.sql">
             <arg value="-v" />
             <arg value="-uroot" />
@@ -181,31 +151,31 @@ FLUSH PRIVILEGES;
             <arg value="-unhincuser" />
             <arg value="-pnhincpass" />
         </exec>
-        <echo message="databases are successfully installed."/>
+        <echo message="databases are successfully installed." />
     </target>
 
     <target name="build.connect" unless="skip.build">
-        <echo message="building CONNECT."/>
+        <echo message="building CONNECT." />
         <ant antfile="${basedir}/../build.xml" dir="${basedir}/..">
-            <target name="clean"/>
-            <target name="package.create"/>
-            <property name="as.home" value="${glassfish.install.dir}"/>
-            <property name="source.install" value="true"/>
+            <target name="clean" />
+            <target name="package.create" />
+            <property name="as.home" value="${glassfish.install.dir}/glassfish" />
+            <property name="source.install" value="true" />
         </ant>
     </target>
 
     <target name="deploy.connect" unless="skip.deploy">
-        <echo message="deploying CONNECT."/>
+        <echo message="deploying CONNECT." />
         <ant antfile="${basedir}/../build.xml" dir="${basedir}/.." target="deploy">
-            <property name="glassfish.home" value="${glassfish.install.dir}"/>
+            <property name="glassfish.home" value="${glassfish.install.dir}/glassfish" />
         </ant>
     </target>
 
     <target name="deploy.connect.binary" unless="skip.deploy">
-        <echo message="deploying CONNECT for binary scenario."/>
+        <echo message="deploying CONNECT for binary scenario." />
         <ant antfile="${basedir}/deploy.xml" dir="${basedir}" target="deploy">
-            <property name="glassfish.home" value="${glassfish.install.dir}"/>
-            <property name="deployment.dir" value="${basedir}"/>
+            <property name="glassfish.home" value="${glassfish.install.dir}/glassfish" />
+            <property name="deployment.dir" value="${basedir}" />
         </ant>
     </target>
 

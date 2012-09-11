@@ -57,16 +57,6 @@ public class AuditRepositoryProxyJavaImpl implements AuditRepositoryProxy {
     }
 
     /**
-     * Performs a query to the audit repository.
-     * 
-     * @param request Audit query search criteria.
-     * @return List of Audit records that match the search criteria along with a list of referenced communities.
-     */
-    public FindCommunitiesAndAuditEventsResponseType auditQuery(FindCommunitiesAndAuditEventsRequestType request) {
-        return getAuditRepositoryOrchImpl().findAudit(request.getFindAuditEvents(), request.getAssertion());
-    }
-
-    /**
      * Logs an audit record to the audit repository.
      * 
      * @param request Audit record

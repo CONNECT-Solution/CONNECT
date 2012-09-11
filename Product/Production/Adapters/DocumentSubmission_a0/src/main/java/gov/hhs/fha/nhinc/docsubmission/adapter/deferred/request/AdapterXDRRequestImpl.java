@@ -26,13 +26,14 @@
  */
 package gov.hhs.fha.nhinc.docsubmission.adapter.deferred.request;
 
-import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterProvideAndRegisterDocumentSetRequestType;
-import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
+import gov.hhs.fha.nhinc.messaging.server.BaseService;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
+
 import javax.xml.ws.WebServiceContext;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -40,7 +41,7 @@ import org.apache.commons.logging.LogFactory;
  * 
  * @author dunnek
  */
-public class AdapterXDRRequestImpl {
+public class AdapterXDRRequestImpl extends BaseService {
     private Log log = null;
 
     public AdapterXDRRequestImpl() {
@@ -66,7 +67,7 @@ public class AdapterXDRRequestImpl {
         }
         assertion = getAssertion(context, assertion);
 
-        response = provideAndRegisterDocumentSetBRequest(request, url, assertion);
+        response = provideAndRegisterDocumentSetBRequest(request, assertion);
         log.debug("End AdapterXDRRequestImpl.provideAndRegisterDocumentSetBRequest(unsecure)");
         return response;
     }
@@ -78,37 +79,20 @@ public class AdapterXDRRequestImpl {
         XDRAcknowledgementType response = null;
 
         ProvideAndRegisterDocumentSetRequestType request = null;
-        String url = null;
         AssertionType assertion = null;
         if (body != null) {
             request = body.getProvideAndRegisterDocumentSetRequest();
-            url = body.getUrl();
         }
         assertion = getAssertion(context, assertion);
 
-        response = provideAndRegisterDocumentSetBRequest(request, url, assertion);
+        response = provideAndRegisterDocumentSetBRequest(request, assertion);
         log.debug("End AdapterXDRRequestImpl.provideAndRegisterDocumentSetBRequest(secure)");
         return response;
     }
 
-    protected AssertionType getAssertion(WebServiceContext context, AssertionType oAssertionIn) {
-        AssertionType assertion = null;
-        if (oAssertionIn == null) {
-            assertion = SamlTokenExtractor.GetAssertion(context);
-        } else {
-            assertion = oAssertionIn;
-        }
-        // Extract the message id value from the WS-Addressing Header and place it in the Assertion Class
-        if (assertion != null) {
-            assertion.setMessageId(AsyncMessageIdExtractor.GetAsyncMessageId(context));
-        }
-
-        return assertion;
-    }
-
     protected XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(
-            ProvideAndRegisterDocumentSetRequestType request, String url, AssertionType assertion) {
-        return new AdapterDocSubmissionDeferredRequestOrchImpl().provideAndRegisterDocumentSetBRequest(request, url,
+            ProvideAndRegisterDocumentSetRequestType request, AssertionType assertion) {
+        return new AdapterDocSubmissionDeferredRequestOrchImpl().provideAndRegisterDocumentSetBRequest(request,
                 assertion);
     }
 }

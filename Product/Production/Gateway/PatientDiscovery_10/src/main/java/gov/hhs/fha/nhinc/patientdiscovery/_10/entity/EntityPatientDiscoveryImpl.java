@@ -34,17 +34,21 @@ import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 import org.hl7.v3.RespondingGatewayPRPAIN201306UV02ResponseType;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
 import gov.hhs.fha.nhinc.gateway.servlet.InitServlet;
 import gov.hhs.fha.nhinc.patientdiscovery.entity.EntityPatientDiscoveryOrchImpl;
 import gov.hhs.fha.nhinc.perfrepo.PerformanceManager;
-import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
+import gov.hhs.fha.nhinc.messaging.server.BaseService;
+
+import java.sql.Timestamp;
+
 
 /**
  *
  * @author shawc
  */
-public class EntityPatientDiscoveryImpl {
+public class EntityPatientDiscoveryImpl extends BaseService {
 
     private Log log = null;
 
@@ -93,9 +97,7 @@ public class EntityPatientDiscoveryImpl {
         return response;
     }
 
-    protected String getLocalHomeCommunityId() {
-        return HomeCommunityMap.getLocalHomeCommunityId();
-    }
+   
 
     public RespondingGatewayPRPAIN201306UV02ResponseType respondingGatewayPRPAIN201305UV02(
             RespondingGatewayPRPAIN201305UV02RequestType respondingGatewayPRPAIN201305UV02Request) {
@@ -121,7 +123,5 @@ public class EntityPatientDiscoveryImpl {
         return response;
     }
 
-    protected AssertionType extractAssertion(WebServiceContext context) {
-        return SamlTokenExtractor.GetAssertion(context);
-    }
+  
 }

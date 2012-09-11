@@ -57,18 +57,27 @@ public class SOAPHeaderHandler implements SOAPHandler<SOAPMessageContext> {
 	private static final String MESSAGE_ID_CONTEXT = "com.sun.xml.ws.addressing.response.messageID";
 	private static final String MESSAGE_ID = "MessageID";
 
+
+    /* (non-Javadoc)
+     * @see javax.xml.ws.handler.soap.SOAPHandler#getHeaders()
+     */
+    @Override
     public Set<QName> getHeaders() {
 		log.debug("SoapHeaderHandler.getHeaders");
 		return Collections.emptySet();
 	}
 
+    /* (non-Javadoc)
+     * @see javax.xml.ws.handler.Handler#handleMessage(javax.xml.ws.handler.MessageContext)
+     */
+    @Override
     public boolean handleMessage(SOAPMessageContext messageContext) {
 		log.debug("Entering SOAPHeaderHandler.handleMessage");
         Boolean isOutboundMessage = (Boolean) messageContext.get(MessageContext.MESSAGE_OUTBOUND_PROPERTY);
 		try {
 			SOAPMessage oMessage = messageContext.getMessage();
 			SOAPHeader oHeader = oMessage.getSOAPHeader();
-            if (isOutboundMessage.booleanValue() && (messageContext.containsKey(MESSAGE_ID_CONTEXT) != true)) {
+            if (isOutboundMessage.booleanValue() && (!messageContext.containsKey(MESSAGE_ID_CONTEXT))) {
 				adjustMessageId(messageContext, oHeader);
 			} else {
                 log.debug("Will not adjust messageID on inbound request");
@@ -88,7 +97,7 @@ public class SOAPHeaderHandler implements SOAPHandler<SOAPMessageContext> {
             messageId = AddressingHeaderCreator.generateMessageId();
 		} else if (illegalUUID(messageId, "uuid:")) {
 			messageId = "urn:" + messageId;
-		} else if (legalMessageId(messageId) == false){
+		} else if (!legalMessageId(messageId)) {
 			messageId = "urn:uuid:" + messageId;
  		}
 
@@ -104,7 +113,7 @@ public class SOAPHeaderHandler implements SOAPHandler<SOAPMessageContext> {
 		}
 	}
 
-	private SOAPElement getFirstChild(SOAPHeader header, String name, String ns) {
+	protected SOAPElement getFirstChild(SOAPHeader header, String name, String ns) {
 		SOAPElement result = null;
 		QName qname = new QName(ns, name);
 		Iterator iter = header.getChildElements(qname);
@@ -122,11 +131,13 @@ public class SOAPHeaderHandler implements SOAPHandler<SOAPMessageContext> {
 		return messageId.trim().startsWith("urn:uuid:");
 	}
 
+    @Override
     public boolean handleFault(SOAPMessageContext context) {
 		log.warn("SoapHeaderHandler.handleFault");
 		return true;
 	}
 
+    @Override
     public void close(MessageContext context) {
 		log.debug("SoapHeaderHandler.close");
 	}

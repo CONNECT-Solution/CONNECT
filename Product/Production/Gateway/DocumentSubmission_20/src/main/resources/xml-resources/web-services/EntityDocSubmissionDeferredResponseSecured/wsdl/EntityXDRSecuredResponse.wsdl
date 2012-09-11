@@ -11,7 +11,7 @@
              xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
              xmlns:wsaws="http://www.w3.org/2005/08/addressing"
              xmlns:wsoma="http://schemas.xmlsoap.org/ws/2004/09/policy/optimizedmimeserialization"
-             xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy"
+             xmlns:sp="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702"
              xmlns:sc="http://schemas.sun.com/2006/03/wss/server"
              xmlns:wspp="http://java.sun.com/xml/ns/wsit/policy"
              xmlns:xsd="http://www.w3.org/2001/XMLSchema"
@@ -48,7 +48,6 @@
         <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
         <wsp:PolicyReference URI="#RespondingGateway_XDR_Binding_SoapPolicy"/>
         <operation name="ProvideAndRegisterDocumentSet-bAsyncResponse">
-            <soap:operation soapAction="tns:ProvideAndRegisterDocumentSet-bAsyncResponse"/>
             <input>
                 <soap:body use="literal"/>
                 <wsp:PolicyReference URI="#RespondingGateway_XDR_Binding_Soap_Input_Policy"/>
@@ -61,15 +60,12 @@
     </binding>
     <service name="EntityXDRSecuredAsyncResponse_Service">
         <port name="EntityXDRSecuredAsyncResponse_Port" binding="tns:EntityXDRSecuredAsyncResponse_Binding">
-            <soap:address location="https://localhost:${HttpsDefaultPort}/EntityService/EntityXDRSecuredAsyncResponse"/>
+            <soap:address location="https://localhost:${HttpsDefaultPort}/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionDeferredResponseSecured"/>
         </port>
     </service>
     <wsp:Policy wsu:Id="RespondingGateway_XDR_Binding_SoapPolicy">
         <wsp:ExactlyOne>
             <wsp:All>
-                <wsoma:OptimizedMimeSerialization/>
-                <sc:KeyStore wspp:visibility="private" aliasSelector="gov.hhs.fha.nhinc.callback.KeyStoreServerAliasSelector" callbackHandler="gov.hhs.fha.nhinc.callback.KeyStoreCallbackHandler"/>
-                <sc:TrustStore wspp:visibility="private" callbackHandler="gov.hhs.fha.nhinc.callback.TrustStoreCallbackHandler"/>
                 <sp:TransportBinding>
                     <wsp:Policy>
                         <sp:TransportToken>
@@ -116,14 +112,14 @@
     <wsp:Policy wsu:Id="RespondingGateway_XDR_Binding_Soap_Input_Policy">
         <wsp:ExactlyOne>
             <wsp:All>
-                <wsoma:OptimizedMimeSerialization/>
+                <wsoma:OptimizedMimeSerialization wsp:Optional="true"/>
             </wsp:All>
         </wsp:ExactlyOne>
     </wsp:Policy>
     <wsp:Policy wsu:Id="RespondingGateway_XDR_Binding_Soap_Output_Policy">
         <wsp:ExactlyOne>
             <wsp:All>
-                <wsoma:OptimizedMimeSerialization/>
+                <wsoma:OptimizedMimeSerialization wsp:Optional="true"/>
             </wsp:All>
         </wsp:ExactlyOne>
     </wsp:Policy>

@@ -1,645 +1,637 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project basedir="." name="nhinc.deployment" default="deploy">
 
-  <dirname property="nhinc.deployment.basedir" file="${ant.file.nhinc.deployment}"/>
-  <property name="nhinc.deployment.thirdparty.dir" location="${nhinc.deployment.basedir}/../../ThirdParty"/>
-  <property name="nhinc.deployment.properties.dir" value="${nhinc.deployment.basedir}/../Production/Common/Properties/Dev"/>
-  <property name="deployment.config.home" value="${glassfish.home}/domains/domain1/config/nhin"/>
+    <dirname property="nhinc.deployment.basedir" file="${ant.file.nhinc.deployment}" />
+    <property name="nhinc.deployment.thirdparty.dir" location="${nhinc.deployment.basedir}/../../ThirdParty" />
+    <property name="nhinc.deployment.properties.dir" value="${nhinc.deployment.basedir}/../Production/Common/Properties/Dev" />
+    <property name="deployment.config.home" value="${glassfish.home}/glassfish/domains/domain1/config/nhin" />
 
-  <taskdef resource="net/sf/antcontrib/antlib.xml">
-     <classpath>
-        <fileset dir="${nhinc.deployment.thirdparty.dir}/AntExtraLibs">
-          <include name="ant-contrib-*.jar"/>
-        </fileset>
-      </classpath>
-  </taskdef>
+    <taskdef resource="net/sf/antcontrib/antlib.xml">
+        <classpath>
+            <fileset dir="${nhinc.deployment.thirdparty.dir}/AntExtraLibs">
+                <include name="ant-contrib-*.jar" />
+            </fileset>
+        </classpath>
+    </taskdef>
 
-  <taskdef name="xmltask" classname="com.oopsconsultancy.xmltask.ant.XmlTask">
-     <classpath>
-        <fileset dir="${nhinc.deployment.thirdparty.dir}/AntExtraLibs">
-          <include name="xmltask-*.jar"/>
-        </fileset>
-      </classpath>
-  </taskdef>
+    <taskdef name="xmltask" classname="com.oopsconsultancy.xmltask.ant.XmlTask">
+        <classpath>
+            <fileset dir="${nhinc.deployment.thirdparty.dir}/AntExtraLibs">
+                <include name="xmltask-*.jar" />
+            </fileset>
+        </classpath>
+    </taskdef>
 
-  <import file="settings.xml" />
+    <import file="settings.xml" />
 
-  <taskdef resource="com/sun/tools/appserver/antlib.xml">
-    <classpath>
-      <pathelement location="${glassfish.home}/lib/sun-appserv-ant.jar"/>
-      <pathelement location="${glassfish.home}/jbi/lib/jbi-ant-tasks.jar"/>
-      <pathelement location="${glassfish.home}/javadb/lib/derby.jar"/>
+    <target name="-deploy.setup.init" description="Set up the OS version">
+        <tstamp>
+            <format property="start.time" pattern="MM/dd/yyyy hh:mm aa" />
+        </tstamp>
+        <condition property="windows">
+            <os family="windows" />
+        </condition>
+        <condition property="unix">
+            <os family="unix" />
+        </condition>
+    </target>
 
-      <pathelement location="${glassfish.home}/jbi/lib/jbi-admin-cli.jar"/>
-      <pathelement location="${glassfish.home}/jbi/lib/jbi-admin-common.jar"/>
-      <pathelement location="${glassfish.home}/lib/appserv-rt.jar"/>
-      <pathelement location="${glassfish.home}/lib/appserv-ext.jar"/>
-      <pathelement location="${glassfish.home}/lib/javaee.jar"/>
-      <pathelement location="${glassfish.home}/lib/appserv-se.jar"/>
-      <pathelement location="${glassfish.home}/lib/admin-cli.jar"/>
-      <pathelement location="${glassfish.home}/lib/appserv-admin.jar"/>
-      <pathelement location="${glassfish.home}/lib/install/applications/jmsra/imqjmsra.jar"/>
-    </classpath>
-  </taskdef>
+    <target name="-deploy.set.env" depends="-deploy.setup.init" />
 
-  <target name="-deploy.setup.init" description="Set up the OS version">
-    <tstamp>
-      <format property="start.time" pattern="MM/dd/yyyy hh:mm aa"/>
-    </tstamp>
-    <condition property="windows">
-      <os family="windows" />
-    </condition>
-    <condition property="unix">
-      <os family="unix" />
-    </condition>
-  </target>
-
-  <target name="-deploy.set.env" depends="-deploy.setup.init"/>
-
-  <!--
+    <!--
  These properties should be defined in project build.xml files:
- 
+
  <property name="deploy.type" value="ejb" description="options:['war', 'ejb', 'shared']" />
  -->
 
-  <target name="-deploy.create.glassfish.password.file" unless="deploy.glassfish.password.file.path">
-    <tempfile prefix="glassfish" property="deploy.glassfish.password.file.path" destdir="${java.io.tmpdir}" deleteonexit="true"/>
-    <echo message="AS_ADMIN_PASSWORD=${deployment.glassfish.server.admin.password}" file="${deploy.glassfish.password.file.path}"/>
-    <echo message="deploy.glassfish.password.file.path: ${deploy.glassfish.password.file.path}"/>
-  </target>
+    <target name="-deploy.create.glassfish.password.file" unless="deploy.glassfish.password.file.path">
+        <tempfile prefix="glassfish" property="deploy.glassfish.password.file.path" destdir="${java.io.tmpdir}" deleteonexit="true" />
+        <echo message="AS_ADMIN_PASSWORD=${deployment.glassfish.server.admin.password}" file="${deploy.glassfish.password.file.path}" />
+        <echo message="deploy.glassfish.password.file.path: ${deploy.glassfish.password.file.path}" />
+    </target>
 
-  <target name="deploy">
-    <antcall target="deploy.to.production" />
-  </target>
+    <target name="deploy">
+        <antcall target="deploy.to.production" />
+    </target>
 
-  <target name="undeploy">
-    <antcall target="undeploy.from.production" />
-  </target>
+    <target name="undeploy">
+        <antcall target="undeploy.from.production" />
+    </target>
 
-  <target name="deploy.to.production">
-    <runtarget target="deploy.glassfish.stop.server"/>
-    <if>
-      <not>
-        <isset property="just.deploy" />
-      </not>
-      <then>
-        <runtarget target="deploy.nhinc.configuration.to.glassfish"/>
-        <runtarget target="deploy.nhinc.interfaces.to.glassfish"/>
-      </then>
-    </if>
-    <runtarget target="delete.common.jars"/>
-    <runtarget target="deploy.thirdparty.libs"/>
-    <runtarget target="deploy.shared.libs.to.glassfish"/>
-    <runtarget target="deploy.glassfish.start.server"/>
-    <runtarget target="deploy.wars.to.glassfish"/>
-    <runtarget target="deploy.ejbs.to.glassfish"/>
-    <run-validationsuite-mod jarfile="SetValidationSuiteWsdlPath.jar"/>
-    <if>
-      <isset property="stop.glassfish.after.deploy"/>
-      <then>
-        <runtarget target="deploy.glassfish.stop.server"/>
-      </then>
-    </if>
-  </target>
-  
-  <target name="deploy.thirdparty.libs">
-      <delete file="${glassfish.home}/lib/asm-3.1.jar"/>
-	  <copy todir="${glassfish.home}/lib" overwrite="true" flatten="true">
-		<fileset dir="${nhinc.deployment.thirdparty.dir}">
-		    <include name="C3PO/*.jar"/>
-		    <include name="log4j/*.jar"/>
-		    <include name="HibernateLibraries/*.jar"/>
-		    <include name="MySQLDB/*.jar"/>
-		    <include name="XStream/*.jar"/>
-		    <include name="XStream/*.txt"/>
-		    <include name="SpringFramework/*.jar"/>
-		    <include name="Xerces/*.jar"/>
-		    <include name="OpenSSO/*.jar"/>
-		</fileset>
-	  </copy>
-  </target>
+    <target name="deploy.to.production">
+        <runtarget target="deploy.glassfish.stop.server" />
+        <if>
+            <not>
+                <isset property="just.deploy" />
+            </not>
+            <then>
+                <runtarget target="deploy.nhinc.configuration.to.glassfish" />
+                <runtarget target="deploy.nhinc.interfaces.to.glassfish" />
+            </then>
+        </if>
+        <runtarget target="delete.common.jars" />
+        <runtarget target="deploy.thirdparty.libs" />
+        <runtarget target="deploy.shared.libs.to.glassfish" />
+        <runtarget target="deploy.glassfish.start.server" />
+        <runtarget target="deploy.wars.to.glassfish" />
+        <runtarget target="deploy.ejbs.to.glassfish" />
+        <run-validationsuite-mod jarfile="SetValidationSuiteWsdlPath.jar" />
+        <if>
+            <isset property="stop.glassfish.after.deploy" />
+            <then>
+                <runtarget target="deploy.glassfish.stop.server" />
+            </then>
+        </if>
+    </target>
 
-  <target name="undeploy.from.production">
-    <runtarget target="deploy.glassfish.start.server"/>
-    <runtarget target="undeploy.wars.from.glassfish"/>
-    <runtarget target="undeploy.ejbs.from.glassfish"/>
+    <target name="deploy.thirdparty.libs">
+        <delete file="${glassfish.home}/glassfish/domains/domain1/lib/asm-3.1.jar" />
+        <copy todir="${glassfish.home}/glassfish/domains/domain1/lib" overwrite="true" flatten="true">
+            <fileset dir="${nhinc.deployment.thirdparty.dir}">
+                <include name="C3PO/*.jar" />
+                <include name="log4j/*.jar" />
+                <include name="HibernateLibraries/*.jar" />
+                <include name="MySQLDB/*.jar" />
+                <include name="XStream/*.jar" />
+                <include name="XStream/*.txt" />
+                <include name="SpringFramework/*.jar" />
+                <include name="Xerces/*.jar" />
+                <include name="OpenSSO/*.jar" />
+            </fileset>
+        </copy>
+    </target>
 
-    <runtarget target="deploy.glassfish.stop.server"/>
-    <runtarget target="undeploy.shared.libs.from.glassfish"/>
-  </target>
+    <target name="undeploy.from.production">
+        <runtarget target="deploy.glassfish.start.server" />
+        <runtarget target="undeploy.wars.from.glassfish" />
+        <runtarget target="undeploy.ejbs.from.glassfish" />
 
-  <target name="-deploy.init">
-    <condition property="win">
-      <and>
-        <os family="Windows"/>
-      </and>
-    </condition>
-  </target>
+        <runtarget target="deploy.glassfish.stop.server" />
+        <runtarget target="undeploy.shared.libs.from.glassfish" />
+    </target>
 
-  <target name="-deploy.glassfish.asadmin" depends="-deploy.create.glassfish.password.file">
-    <condition property="ASADMIN" value="${glassfish.home}/bin/asadmin">
-      <os family="Unix" />
-    </condition>
-    <condition property="ASADMIN" value="${glassfish.home}/bin/asadmin.bat">
-      <os family="Windows" />
-    </condition>
-    <property name="deploy.glassfish.password.file.path" value="${glassfish.home}/domains/${deployment.glassfish.domain.name}/config/domain-passwords" />
-  </target>
+    <target name="-deploy.init">
+        <condition property="win">
+            <and>
+                <os family="Windows" />
+            </and>
+        </condition>
+    </target>
 
-  <target name="deploy.glassfish.start.server" depends="-deploy.init,-deploy.glassfish.start.server.win,-deploy.glassfish.start.server.notwin">
-    <echo message="Appserver is starting up ... please wait"/>
-    <sleep seconds="60"/>
-  </target>
+    <target name="-deploy.glassfish.asadmin" depends="-deploy.create.glassfish.password.file">
+        <condition property="ASADMIN" value="${glassfish.home}/bin/asadmin">
+            <os family="Unix" />
+        </condition>
+        <condition property="ASADMIN" value="${glassfish.home}/bin/asadmin.bat">
+            <os family="Windows" />
+        </condition>
+        <property name="deploy.glassfish.password.file.path" value="${glassfish.home}/glassfish/domains/${deployment.glassfish.domain.name}/config/domain-passwords" />
+    </target>
 
-  <target name="-deploy.glassfish.start.server.win" depends="-deploy.glassfish.asadmin" if="win">
-    <parallel>
-      <sequential>
-        <exec dir="${glassfish.home}/bin" executable="cmd.exe" spawn="true" os="${os.name}" failonerror="false" >
-          <arg line="/c asadmin.bat start-domain --passwordfile ${deploy.glassfish.password.file.path} --user ${deployment.glassfish.server.username} ${deployment.glassfish.domain.name}"/>
+    <target name="deploy.glassfish.start.server" depends="-deploy.init,-deploy.glassfish.start.server.win,-deploy.glassfish.start.server.notwin">
+        <echo message="Appserver is starting up ... please wait" />
+    </target>
+
+    <target name="-deploy.glassfish.start.server.win" depends="-deploy.glassfish.asadmin" if="win">
+        <parallel>
+            <sequential>
+                <exec dir="${glassfish.home}/bin" executable="cmd.exe" spawn="true" os="${os.name}" failonerror="false">
+                    <arg line="/c asadmin.bat --user ${deployment.glassfish.server.username} --passwordfile ${deploy.glassfish.password.file.path} start-domain ${deployment.glassfish.domain.name}" />
+                </exec>
+            </sequential>
+        </parallel>
+    </target>
+
+    <target name="-deploy.glassfish.start.server.notwin" depends="-deploy.glassfish.asadmin" unless="win">
+        <exec executable="${ASADMIN}">
+            <arg line="--user ${deployment.glassfish.server.username} --passwordfile ${deploy.glassfish.password.file.path} start-domain ${deployment.glassfish.domain.name}" />
         </exec>
-      </sequential>
-    </parallel>
-  </target>
+    </target>
 
-  <target name="-deploy.glassfish.start.server.notwin" depends="-deploy.glassfish.asadmin" unless="win">
-    <exec executable="${ASADMIN}">
-      <arg line="start-domain --user ${deployment.glassfish.server.username} --passwordfile ${deploy.glassfish.password.file.path} ${deployment.glassfish.domain.name}"/>
-    </exec>     
-  </target>
+    <target name="deploy.glassfish.stop.server" depends="-deploy.glassfish.asadmin">
+        <exec executable="${ASADMIN}">
+            <arg line="--user ${deployment.glassfish.server.username} --passwordfile ${deploy.glassfish.password.file.path} stop-domain ${deployment.glassfish.domain.name}" />
+        </exec>
+    </target>
 
-  <target name="deploy.glassfish.stop.server" depends="-deploy.glassfish.asadmin">
-    <exec executable="${ASADMIN}">
-      <arg line="stop-domain ${deployment.glassfish.domain.name}"/>
-    </exec> 
-  </target>
+    <target name="deploy.ejbs.to.glassfish">
+        <var name="target" value="deploy.ejb.to.glassfish" />
+        <runtarget target="target.to.call.on.ejbs" />
+    </target>
 
-  <target name="deploy.ejbs.to.glassfish">
-    <var name="target" value="deploy.ejb.to.glassfish"/>
-    <runtarget target="target.to.call.on.ejbs"/>
-  </target>
+    <target name="undeploy.ejbs.from.glassfish">
+        <var name="target" value="undeploy.ejb.from.glassfish" />
+        <runtarget target="target.to.call.on.ejbs" />
+    </target>
 
-  <target name="undeploy.ejbs.from.glassfish">
-    <var name="target" value="undeploy.ejb.from.glassfish"/>
-    <runtarget target="target.to.call.on.ejbs"/>
-  </target>
-
-  <target name="target.to.call.on.ejbs">
-    <xmltask source="${deploy.application.list.file.path}">
-      <call path="/applications/ejbs/ejb">
-        <param name="ejb.name" path="name/text()" />
-        <param name="should.deploy" path="should.deploy/text()" />
-        <actions>
-            <if>
-                <istrue value="@{should.deploy}" />
-                <then>
-                  <if>
-                    <not>
-                      <isset property="deploy.exclude.ejb.@{ejb.name}"/>
-                    </not>
-                    <then>
-                      <echo message="ejb '@{ejb.name}' will be deployed."/>
-                      <var name="deployment.glassfish.ejb.file.path" value="${deployment.binaries.dir}/@{ejb.name}.jar"/>
-                      <var name="deployment.glassfish.ejb.name" value="@{ejb.name}"/>
-                      <runtarget target="${target}"/>
-                    </then>
-                    <else>
-                      <echo message="ejb '@{ejb.name}' will not be deployed."/>
-                    </else>
-                  </if>
-                </then>
-                <else>
-                  <echo message="ejb '@{ejb.name}' will not be deployed."/>
-                </else>
-            </if>
-        </actions>
-      </call>
-    </xmltask>
-  </target>
-
-  <target name="deploy.wars.to.glassfish">
-    <var name="target" value="deploy.war.to.glassfish"/>
-    <runtarget target="target.to.call.on.wars"/>
-  </target>
-
-  <target name="undeploy.wars.from.glassfish">
-    <var name="target" value="undeploy.war.from.glassfish"/>
-    <runtarget target="target.to.call.on.wars"/>
-  </target>
-
-  <target name="target.to.call.on.wars">
-    <xmltask source="${deploy.application.list.file.path}">
-      <call path="/applications/wars/war">
-        <param name="war.name" path="name/text()" />
-        <param name="should.deploy" path="should.deploy/text()" />
-        <actions>
-            <if>
-                <istrue value="@{should.deploy}" />
-                <then>
-                  <if>
-                      <not>
-                          <isset property="deploy.exclude.war.@{war.name}"/>
-                      </not>
-                      <then>
-                         <echo message="war '@{war.name}' will be deployed."/>
-                          <if>
-                            <istrue value="${source.install}" />
-                            <then>
-                              <propertycopy override="true" name="deployment.glassfish.war.file.path" from="project.@{war.name}.dist.file" />
-                            </then>
-                            <else>
-                            <var name="deployment.glassfish.war.file.path" value="${deployment.binaries.dir}/@{war.name}.war"/>
-                            </else>
-                          </if>
-                         <var name="deployment.glassfish.war.name" value="@{war.name}"/>
-                         <runtarget target="${target}"/>
-                      </then>
-                      <else>
-                        <echo message="war '@{war.name}' will not be deployed."/>
-                      </else>
-                    </if>
-                </then>
-                <else>
-                  <echo message="war '@{war.name}' will not be deployed."/>
-                </else>
-            </if>
-        </actions>
-      </call>
-    </xmltask>
-  </target>
-
-  <target name="deploy.shared.libs.to.glassfish">
-    <var name="target" value="deploy.shared.lib.to.glassfish"/>
-    <runtarget target="target.to.call.on.shared.libs"/>
-  </target>
-
-  <target name="undeploy.shared.libs.from.glassfish">
-    <var name="target" value="undeploy.shared.lib.from.glassfish"/>
-    <runtarget target="target.to.call.on.shared.libs"/>
-  </target>
-
-  <target name="target.to.call.on.shared.libs">
-    <xmltask source="${deploy.application.list.file.path}">
-      <call path="/applications/shared/lib">
-        <param name="shared.name" path="name/text()" />
-        <param name="should.deploy" path="should.deploy/text()" />
-        <actions>
-            <if>
-                <istrue value="@{should.deploy}" />
-                <then>
-                  <if>
-                    <not>
-                      <isset property="deploy.exclude.lib.@{shared.name}"/>
-                    </not>
-                    <then>
-                      <echo message="shared lib '@{shared.name}' will be deployed."/>
-                      <if>
-                        <istrue value="${source.install}" />
+    <target name="target.to.call.on.ejbs">
+        <xmltask source="${deploy.application.list.file.path}">
+            <call path="/applications/ejbs/ejb">
+                <param name="ejb.name" path="name/text()" />
+                <param name="should.deploy" path="should.deploy/text()" />
+                <actions>
+                    <if>
+                        <istrue value="@{should.deploy}" />
                         <then>
-                          <propertycopy override="true" name="deployment.glassfish.shared.lib.file.path" from="project.@{shared.name}.dist.file" />
+                            <if>
+                                <not>
+                                    <isset property="deploy.exclude.ejb.@{ejb.name}" />
+                                </not>
+                                <then>
+                                    <echo message="ejb '@{ejb.name}' will be deployed." />
+                                    <var name="deployment.glassfish.ejb.file.path" value="${deployment.binaries.dir}/@{ejb.name}.jar" />
+                                    <var name="deployment.glassfish.ejb.name" value="@{ejb.name}" />
+                                    <runtarget target="${target}" />
+                                </then>
+                                <else>
+                                    <echo message="ejb '@{ejb.name}' will not be deployed." />
+                                </else>
+                            </if>
                         </then>
                         <else>
-                          <var name="deployment.glassfish.shared.lib.file.path" value="${deployment.binaries.dir}/@{shared.name}.jar"/>
+                            <echo message="ejb '@{ejb.name}' will not be deployed." />
                         </else>
-                      </if>
-                      <runtarget target="${target}"/>
-                    </then>
-                    <else>
-                      <echo message="shared lib '@{shared.name}' will not be deployed."/>
-                    </else>
-                  </if>
-                </then>
-                <else>
-                  <echo message="shared lib '@{shared.name}' will not be deployed."/>
-                </else>
-            </if>
-        </actions>
-      </call>
-    </xmltask>
-  </target>
+                    </if>
+                </actions>
+            </call>
+        </xmltask>
+    </target>
 
-  <target name="deploy.executables">
-    <var name="target" value="deploy.executable"/>
-    <runtarget target="target.to.call.on.executables"/>
-  </target>
+    <target name="deploy.wars.to.glassfish">
+        <var name="target" value="deploy.war.to.glassfish" />
+        <runtarget target="target.to.call.on.wars" />
+    </target>
 
-  <target name="target.to.call.on.executables">
-    <xmltask source="${deploy.application.list.file.path}">
-      <call path="/applications/execs/executable">
-        <param name="shared.name" path="name/text()" />
-        <param name="should.deploy" path="should.deploy/text()" />
-        <actions>
-            <if>
-                <istrue value="@{should.deploy}" />
-                <then>
-                  <if>
-                    <not>
-                      <isset property="deploy.exclude.lib.@{shared.name}"/>
-                    </not>
-                    <then>
-                      <echo message="executable '@{shared.name}' will be deployed."/>
-                      <var name="deployment.executable.file.path" value="${deployment.binaries.dir}/@{shared.name}.jar"/>
-                      <runtarget target="${target}"/>
-                    </then>
-                    <else>
-                      <echo message="executable '@{shared.name}' will not be deployed."/>
-                    </else>
-                  </if>
-                </then>
-                <else>
-                  <echo message="executable '@{shared.name}' will not be deployed."/>
-                </else>
-            </if>
-        </actions>
-      </call>
-    </xmltask>
-  </target>
+    <target name="undeploy.wars.from.glassfish">
+        <var name="target" value="undeploy.war.from.glassfish" />
+        <runtarget target="target.to.call.on.wars" />
+    </target>
 
-  <target name="copy.artifacts.to.development">
-    <mkdir dir="${deployment.binaries.dir}" />
-    <copy todir="${deployment.binaries.dir}" file="${dist.file}" overwrite="true"/>
-  </target>
+    <target name="target.to.call.on.wars">
+        <xmltask source="${deploy.application.list.file.path}">
+            <call path="/applications/wars/war">
+                <param name="war.name" path="name/text()" />
+                <param name="should.deploy" path="should.deploy/text()" />
+                <actions>
+                    <if>
+                        <istrue value="@{should.deploy}" />
+                        <then>
+                            <if>
+                                <not>
+                                    <isset property="deploy.exclude.war.@{war.name}" />
+                                </not>
+                                <then>
+                                    <echo message="war '@{war.name}' will be deployed." />
+                                    <if>
+                                        <istrue value="${source.install}" />
+                                        <then>
+                                            <propertycopy override="true" name="deployment.glassfish.war.file.path" from="project.@{war.name}.dist.file" />
+                                        </then>
+                                        <else>
+                                            <var name="deployment.glassfish.war.file.path" value="${deployment.binaries.dir}/@{war.name}.war" />
+                                        </else>
+                                    </if>
+                                    <var name="deployment.glassfish.war.name" value="@{war.name}" />
+                                    <runtarget target="${target}" />
+                                </then>
+                                <else>
+                                    <echo message="war '@{war.name}' will not be deployed." />
+                                </else>
+                            </if>
+                        </then>
+                        <else>
+                            <echo message="war '@{war.name}' will not be deployed." />
+                        </else>
+                    </if>
+                </actions>
+            </call>
+        </xmltask>
+    </target>
 
-  <target name="deploy.ejb.to.glassfish" depends="-deploy.create.glassfish.password.file, -deploy.glassfish.asadmin">
-    <exec executable="${ASADMIN}">
-      <arg line="deploy --passwordfile ${deploy.glassfish.password.file.path} --port ${deployment.glassfish.admin.port} --host ${deployment.glassfish.server} --user ${deployment.glassfish.server.username} ${deployment.glassfish.ejb.file.path}"/>
-    </exec>
-  </target>
+    <target name="deploy.shared.libs.to.glassfish">
+        <var name="target" value="deploy.shared.lib.to.glassfish" />
+        <runtarget target="target.to.call.on.shared.libs" />
+    </target>
 
-  <target name="undeploy.ejb.from.glassfish" depends="-deploy.create.glassfish.password.file, -deploy.glassfish.asadmin">
-    <exec executable="${ASADMIN}">
-      <arg line="undeploy --passwordfile ${deploy.glassfish.password.file.path} --port ${deployment.glassfish.admin.port} --host ${deployment.glassfish.server} --user ${deployment.glassfish.server.username} ${deployment.glassfish.ejb.name}"/>
-    </exec>
-  </target>
+    <target name="undeploy.shared.libs.from.glassfish">
+        <var name="target" value="undeploy.shared.lib.from.glassfish" />
+        <runtarget target="target.to.call.on.shared.libs" />
+    </target>
 
-  <target name="deploy.war.to.glassfish" depends="-deploy.create.glassfish.password.file, -deploy.glassfish.asadmin">
-    <exec executable="${ASADMIN}">
-      <arg line="deploy --passwordfile ${deploy.glassfish.password.file.path} --port ${deployment.glassfish.admin.port} --host ${deployment.glassfish.server} --user ${deployment.glassfish.server.username} ${deployment.glassfish.war.file.path}"/>
-    </exec>
-  </target>
+    <target name="target.to.call.on.shared.libs">
+        <xmltask source="${deploy.application.list.file.path}">
+            <call path="/applications/shared/lib">
+                <param name="shared.name" path="name/text()" />
+                <param name="should.deploy" path="should.deploy/text()" />
+                <actions>
+                    <if>
+                        <istrue value="@{should.deploy}" />
+                        <then>
+                            <if>
+                                <not>
+                                    <isset property="deploy.exclude.lib.@{shared.name}" />
+                                </not>
+                                <then>
+                                    <echo message="shared lib '@{shared.name}' will be deployed." />
+                                    <if>
+                                        <istrue value="${source.install}" />
+                                        <then>
+                                            <propertycopy override="true" name="deployment.glassfish.shared.lib.file.path" from="project.@{shared.name}.dist.file" />
+                                        </then>
+                                        <else>
+                                            <var name="deployment.glassfish.shared.lib.file.path" value="${deployment.binaries.dir}/@{shared.name}.jar" />
+                                        </else>
+                                    </if>
+                                    <runtarget target="${target}" />
+                                </then>
+                                <else>
+                                    <echo message="shared lib '@{shared.name}' will not be deployed." />
+                                </else>
+                            </if>
+                        </then>
+                        <else>
+                            <echo message="shared lib '@{shared.name}' will not be deployed." />
+                        </else>
+                    </if>
+                </actions>
+            </call>
+        </xmltask>
+    </target>
 
-  <target name="undeploy.war.from.glassfish" depends="-deploy.create.glassfish.password.file, -deploy.glassfish.asadmin">
-    <exec executable="${ASADMIN}">
-      <arg line="undeploy --passwordfile ${deploy.glassfish.password.file.path} --port ${deployment.glassfish.admin.port} --host ${deployment.glassfish.server} --user ${deployment.glassfish.server.username} ${deployment.glassfish.war.name}"/>
-    </exec>
-  </target>
+    <target name="deploy.executables">
+        <var name="target" value="deploy.executable" />
+        <runtarget target="target.to.call.on.executables" />
+    </target>
 
-  <target name="deploy.shared.lib.to.glassfish">
-    <copy file="${deployment.glassfish.shared.lib.file.path}" todir="${glassfish.home}/lib" overwrite="true" />
-  </target>
+    <target name="target.to.call.on.executables">
+        <xmltask source="${deploy.application.list.file.path}">
+            <call path="/applications/execs/executable">
+                <param name="shared.name" path="name/text()" />
+                <param name="should.deploy" path="should.deploy/text()" />
+                <actions>
+                    <if>
+                        <istrue value="@{should.deploy}" />
+                        <then>
+                            <if>
+                                <not>
+                                    <isset property="deploy.exclude.lib.@{shared.name}" />
+                                </not>
+                                <then>
+                                    <echo message="executable '@{shared.name}' will be deployed." />
+                                    <var name="deployment.executable.file.path" value="${deployment.binaries.dir}/@{shared.name}.jar" />
+                                    <runtarget target="${target}" />
+                                </then>
+                                <else>
+                                    <echo message="executable '@{shared.name}' will not be deployed." />
+                                </else>
+                            </if>
+                        </then>
+                        <else>
+                            <echo message="executable '@{shared.name}' will not be deployed." />
+                        </else>
+                    </if>
+                </actions>
+            </call>
+        </xmltask>
+    </target>
 
-  <target name="undeploy.shared.lib.from.glassfish">
-    <basename property="deployment.glassfish.shared.lib.file.name" file="${deployment.glassfish.shared.lib.file.path}"/>
-    <delete file="${glassfish.home}/lib/${deployment.glassfish.shared.lib.file.name}" />
-  </target>
+    <target name="copy.artifacts.to.development">
+        <mkdir dir="${deployment.binaries.dir}" />
+        <copy todir="${deployment.binaries.dir}" file="${dist.file}" overwrite="true" />
+    </target>
 
-  <target name="deploy.executable">
-    <mkdir dir="${deployment.executables.home}"/>
-    <copy file="${deployment.executable.file.path}" todir="deployment.executables.home" overwrite="true" />
-  </target>
-
-  <target name="-delete.glassfish.domain" depends="-deploy.glassfish.asadmin" unless="win">
-    <if>
-      <available file="${deployment.glassfish.domain.home}" type="dir"/>
-      <then>
-        <runtarget target="deploy.glassfish.stop.server"/>
-        <exec executable="${ASADMIN}">
-          <arg line="delete-domain ${deployment.glassfish.domain.name}"/>
+    <target name="deploy.ejb.to.glassfish" depends="-deploy.create.glassfish.password.file, -deploy.glassfish.asadmin">
+        <exec executable="${ASADMIN}" failonerror="true">
+            <arg line="--passwordfile ${deploy.glassfish.password.file.path} --port ${deployment.glassfish.admin.port} --host ${deployment.glassfish.server} --user ${deployment.glassfish.server.username} deploy --force ${deployment.glassfish.ejb.file.path}" />
         </exec>
-      </then>
-    </if>
-  </target>
+    </target>
 
-  <target name="-create.glassfish.domain" depends="-deploy.set.env,-deploy.create.glassfish.password.file, -deploy.glassfish.asadmin">
-    <propertyregex property="deploy.glassfish.domain.template" input="${deployment.domain.template.file.path}" regexp="\\" replace="/" defaultValue="${deployment.domain.template.file.path}"/>
-    <property name="deploy.glassfish.domain.template.path" location="${deploy.glassfish.domain.template}"/>
-    <exec executable="${ASADMIN}">
-      <arg line="create-domain --template ${deploy.glassfish.domain.template.path} --echo=true --passwordfile ${deploy.glassfish.password.file.path} --user ${deployment.glassfish.server.username} --adminport ${deployment.glassfish.admin.port} --savemasterpassword=true ${deployment.glassfish.domain.name}"/>
-    </exec>
-  </target>
+    <target name="undeploy.ejb.from.glassfish" depends="-deploy.create.glassfish.password.file, -deploy.glassfish.asadmin">
+        <exec executable="${ASADMIN}" failonerror="true">
+            <arg line="--passwordfile ${deploy.glassfish.password.file.path} --port ${deployment.glassfish.admin.port} --host ${deployment.glassfish.server} --user ${deployment.glassfish.server.username} undeploy ${deployment.glassfish.ejb.name}" />
+        </exec>
+    </target>
 
-  <target name="-backup.glassfish.domain.configuration">
-    <if>
-      <istrue value="${deployment.restore.configuration}"/>
-      <then>
-        <copy todir="${deployment.dir}/backup" verbose="true" overwrite="true" failonerror="false">
-          <filelist dir="${deployment.glassfish.domain.config.home}">
-            <file name="log4j.properties"/>
-            <file name="mpi.xml"/>
-          </filelist>
+    <target name="deploy.war.to.glassfish" depends="-deploy.create.glassfish.password.file, -deploy.glassfish.asadmin">
+        <exec executable="${ASADMIN}" failonerror="true">
+            <env key="AS_ADMIN_READTIMEOUT" value="1200000" />
+            <arg line="--passwordfile ${deploy.glassfish.password.file.path} --port ${deployment.glassfish.admin.port} --host ${deployment.glassfish.server} --user ${deployment.glassfish.server.username} deploy --force ${deployment.glassfish.war.file.path}" />
+        </exec>
+    </target>
+
+    <target name="undeploy.war.from.glassfish" depends="-deploy.create.glassfish.password.file, -deploy.glassfish.asadmin">
+        <exec executable="${ASADMIN}" failonerror="true">
+            <arg line="--passwordfile ${deploy.glassfish.password.file.path} --port ${deployment.glassfish.admin.port} --host ${deployment.glassfish.server} --user ${deployment.glassfish.server.username} undeploy ${deployment.glassfish.war.name}" />
+        </exec>
+    </target>
+
+    <target name="deploy.shared.lib.to.glassfish">
+        <copy file="${deployment.glassfish.shared.lib.file.path}" todir="${glassfish.home}/glassfish/domains/domain1/lib" overwrite="true" />
+    </target>
+
+    <target name="undeploy.shared.lib.from.glassfish">
+        <basename property="deployment.glassfish.shared.lib.file.name" file="${deployment.glassfish.shared.lib.file.path}" />
+        <delete file="${glassfish.home}/glassfish/domains/domain1/lib/${deployment.glassfish.shared.lib.file.name}" />
+    </target>
+
+    <target name="deploy.executable">
+        <mkdir dir="${deployment.executables.home}" />
+        <copy file="${deployment.executable.file.path}" todir="deployment.executables.home" overwrite="true" />
+    </target>
+
+    <target name="-delete.glassfish.domain" depends="-deploy.glassfish.asadmin" unless="win">
+        <if>
+            <available file="${deployment.glassfish.domain.home}" type="dir" />
+            <then>
+                <runtarget target="deploy.glassfish.stop.server" />
+                <exec executable="${ASADMIN}">
+                    <arg line="delete-domain ${deployment.glassfish.domain.name}" />
+                </exec>
+            </then>
+        </if>
+    </target>
+
+    <target name="-create.glassfish.domain" depends="-deploy.set.env,-deploy.create.glassfish.password.file, -deploy.glassfish.asadmin">
+        <propertyregex property="deploy.glassfish.domain.template" input="${deployment.domain.template.file.path}" regexp="\\" replace="/" defaultValue="${deployment.domain.template.file.path}" />
+        <property name="deploy.glassfish.domain.template.path" location="${deploy.glassfish.domain.template}" />
+        <exec executable="${ASADMIN}">
+            <arg line="--echo --passwordfile ${deploy.glassfish.password.file.path} --user ${deployment.glassfish.server.username} create-domain --template ${deploy.glassfish.domain.template.path} --adminport ${deployment.glassfish.admin.port} --savemasterpassword=true ${deployment.glassfish.domain.name}" />
+        </exec>
+    </target>
+
+    <target name="-backup.glassfish.domain.configuration">
+        <if>
+            <istrue value="${deployment.restore.configuration}" />
+            <then>
+                <copy todir="${deployment.dir}/backup" verbose="true" overwrite="true" failonerror="false">
+                    <filelist dir="${deployment.glassfish.domain.config.home}">
+                        <file name="log4j.properties" />
+                        <file name="mpi.xml" />
+                    </filelist>
+                </copy>
+            </then>
+        </if>
+    </target>
+
+    <target name="-backup.glassfish.domain.certificates">
+        <copy todir="${deployment.certificate.home}" verbose="true" overwrite="true">
+            <fileset dir="${deployment.glassfish.domain.config.home}" erroronmissingdir="false">
+                <include name="*.jks" />
+                <include name="*.db" />
+                <include name="*.cfg" />
+            </fileset>
         </copy>
-      </then>
-    </if>    
-  </target>
+    </target>
 
-  <target name="-backup.glassfish.domain.certificates">
-    <copy todir="${deployment.certificate.home}" verbose="true" overwrite="true">
-      <fileset dir="${deployment.glassfish.domain.config.home}" erroronmissingdir="false">
-        <include name="*.jks"/>
-        <include name="*.db"/>
-        <include name="*.cfg"/>
-      </fileset>
-    </copy>
-  </target>
+    <target name="-configure.glassfish.domain">
+        <copy todir="${deployment.glassfish.domain.config.home}" verbose="true" overwrite="false">
+            <filelist dir="${nhinc.deployment.properties.dir}">
+                <file name="log4j.properties" />
+                <file name="mpi.xml" />
+            </filelist>
+        </copy>
 
-  <target name="-configure.glassfish.domain">
-    <copy todir="${deployment.glassfish.domain.config.home}" verbose="true" overwrite="false">
-      <filelist dir="${nhinc.deployment.properties.dir}">
-        <file name="log4j.properties"/>
-        <file name="mpi.xml"/>
-      </filelist>
-    </copy>
+        <if>
+            <istrue value="${deployment.restore.configuration}" />
+            <then>
+                <runtarget target="-restore.glassfish.domain.configuration" />
+            </then>
+        </if>
+    </target>
 
-    <if>
-      <istrue value="${deployment.restore.configuration}"/>
-      <then>
-        <runtarget target="-restore.glassfish.domain.configuration"/>
-      </then>
-    </if>    
-  </target>
+    <target name="-restore.glassfish.domain.configuration">
+        <copy todir="${deployment.glassfish.domain.config.home}" verbose="true" overwrite="true">
+            <filelist dir="${deployment.dir}/backup">
+                <file name="log4j.properties" />
+                <file name="mpi.xml" />
+            </filelist>
+        </copy>
+    </target>
 
-  <target name="-restore.glassfish.domain.configuration">
-    <copy todir="${deployment.glassfish.domain.config.home}" verbose="true" overwrite="true">
-      <filelist dir="${deployment.dir}/backup">
-        <file name="log4j.properties"/>
-        <file name="mpi.xml"/>
-      </filelist>
-    </copy>
-  </target>
+    <target name="deploy.nhinc.configuration.to.glassfish">
+        <copy todir="${deployment.config.home}" verbose="true" overwrite="true">
+            <fileset dir="${nhinc.deployment.properties.dir}" />
+        </copy>
+    </target>
 
-  <target name="deploy.nhinc.configuration.to.glassfish">
-    <copy todir="${deployment.config.home}" verbose="true" overwrite="true">
-      <fileset dir="${nhinc.deployment.properties.dir}"/>
-    </copy>
-  </target>
+    <target name="deploy.nhinc.interfaces.to.glassfish">
+        <copy todir="${deployment.glassfish.domain.config.home}/nhin" verbose="true" overwrite="true">
+            <fileset dir="${deployment.interfaces.dir}" />
+        </copy>
+    </target>
 
-  <target name="deploy.nhinc.interfaces.to.glassfish">
-    <copy todir="${deployment.glassfish.domain.config.home}/nhin" verbose="true" overwrite="true">
-      <fileset dir="${deployment.interfaces.dir}"/>
-    </copy>
-  </target>
+    <target name="-restore.glassfish.domain.certificates">
+        <if>
+            <available file="${deployment.certificate.home}/gateway.jks" type="file" />
+            <then>
+                <copy todir="${deployment.glassfish.domain.config.home}" overwrite="true" verbose="true">
+                    <fileset dir="${deployment.certificate.home}">
+                        <include name="*.jks" />
+                        <include name="*.db" />
+                        <include name="*.cfg" />
+                    </fileset>
+                </copy>
+            </then>
+        </if>
+    </target>
 
-  <target name="-restore.glassfish.domain.certificates">
-    <copy todir="${deployment.glassfish.domain.config.home}" overwrite="true" verbose="true">
-      <fileset dir="${deployment.certificate.home}">
-        <include name="*.jks"/>
-        <include name="*.db"/>
-        <include name="*.cfg"/>
-      </fileset>
-    </copy>
-  </target>
+    <target name="-uncomment.domain.config">
+        <if>
+            <available file="${deployment.glassfish.domain.config.home}/domain.xml" type="file" />
+            <then>
+                <xmltask source="${deployment.glassfish.domain.config.home}/domain.xml" dest="${deployment.glassfish.domain.config.home}/domain.xml" preserveType="true">
+                    <xmlcatalog id="dtds">
+                        <dtd publicId="-//Sun Microsystems Inc.//DTD Application Server 9.1 Domain//EN" location="${glassfish.home}/glassfish/domains/domain1/lib/dtds/sun-domain_1_3.dtd" />
+                    </xmlcatalog>
+                    <uncomment path="/domain/configs/config/java-config/comment()[1]" />
+                </xmltask>
+            </then>
+        </if>
+    </target>
 
-  <target name="-uncomment.domain.config">    
-    <xmltask source="${deployment.glassfish.domain.config.home}/domain.xml" dest="${deployment.glassfish.domain.config.home}/domain.xml" preserveType="true">
-      <xmlcatalog id="dtds">
-        <dtd publicId="-//Sun Microsystems Inc.//DTD Application Server 9.1 Domain//EN" location="${glassfish.home}/lib/dtds/sun-domain_1_3.dtd"/>
-      </xmlcatalog>    
-      <uncomment path="/domain/configs/config/java-config/comment()[1]"/>
-    </xmltask>   
-  </target>
-
-  <target name="add.profiler.domain.config">    
-    <xmltask source="${deployment.glassfish.domain.config.home}/domain.xml" dest="${deployment.glassfish.domain.config.home}/domain.xml" preserveType="true" outputter="simple:3">
-      <xmlcatalog id="dtds">
-        <dtd publicId="-//Sun Microsystems Inc.//DTD Application Server 9.1 Domain//EN" location="${glassfish.home}/lib/dtds/sun-domain_1_3.dtd"/>
-      </xmlcatalog>          
-      <insert path="/domain/configs/config/java-config/child::node()[1]" position="before"> 
-        <![CDATA[ 
+    <target name="add.profiler.domain.config">
+        <xmltask source="${deployment.glassfish.domain.config.home}/domain.xml" dest="${deployment.glassfish.domain.config.home}/domain.xml" preserveType="true" outputter="simple:3">
+            <xmlcatalog id="dtds">
+                <dtd publicId="-//Sun Microsystems Inc.//DTD Application Server 9.1 Domain//EN" location="${glassfish.home}/glassfish/domains/domain1/lib/dtds/sun-domain_1_3.dtd" />
+            </xmlcatalog>
+            <insert path="/domain/configs/config/java-config/child::node()[1]" position="before">
+                <![CDATA[
 <profiler name="YourKit Java Profiler 9.0.2" enabled="true">
-<jvm-options>-agentpath:${profiler.executables.home}\bin\win32\yjpagent.dll=disablestacktelemetry,disableexceptiontelemetry,builtinprobes=none,delay=10000,sessionname=SunServer</jvm-options>
-<jvm-options>-Dcom.sun.enterprise.server.ss.ASQuickStartup=false</jvm-options>
-</profiler> 
-]]> 
+                <jvm-options>-agentpath:${profiler.executables.home}\bin\win32\yjpagent.dll=disablestacktelemetry,disableexceptiontelemetry,builtinprobes=none,delay=10000,sessionname=SunServer</jvm-options>
+                <jvm-options>-Dcom.sun.enterprise.server.ss.ASQuickStartup=false</jvm-options>
+            </profiler>
+]]>
       </insert>
-    </xmltask>   
-  </target>
+    </xmltask>
+</target>
 
-  <target name="delete.common.jars">
+<target name="delete.common.jars">
     <if>
-      <available file="${glassfish.home}/lib/CONNECTCommonTypesLib.jar" type="file"/>
-      <then>
-        <delete>
-          <fileset dir="${glassfish.home}/lib" includes="CONNECT*.jar"/>
-        </delete>
-      </then>
+        <available file="${glassfish.home}/glassfish/domains/domain1/lib/CONNECTCommonTypesLib.jar" type="file" />
+        <then>
+            <delete>
+                <fileset dir="${glassfish.home}/glassfish/domains/domain1/lib" includes="CONNECT*.jar" />
+            </delete>
+        </then>
     </if>
     <if>
-      <available file="${glassfish.home}/lib/NhincCommonTypesLib.jar" type="file"/>
-      <then>
-        <delete>
-          <fileset dir="${glassfish.home}/lib" includes="Nhinc*.jar"/>
-        </delete>
-      </then>
-    </if>    
-  </target>
+        <available file="${glassfish.home}/glassfish/domains/domain1/lib/NhincCommonTypesLib.jar" type="file" />
+        <then>
+            <delete>
+                <fileset dir="${glassfish.home}/glassfish/domains/domain1/lib" includes="Nhinc*.jar" />
+            </delete>
+        </then>
+    </if>
+</target>
 
-  <target name="-verify.win.sw" if="windows">
+<target name="-verify.win.sw" if="windows">
     <if>
-      <available file="${glassfish.home}/bin/asadmin.bat" type="file"/>
-      <then/>
-      <else>
-        <fail message="AS_HOME environment variable is not set. 
-            Please create AS_HOME environment variable  pointing to GlassFish Installation folder."/>
-      </else>
-    </if>    
-  </target>
+        <available file="${glassfish.home}/bin/asadmin.bat" type="file" />
+        <then />
+        <else>
+            <fail message="AS_HOME environment variable is not set.
+            Please create AS_HOME environment variable  pointing to GlassFish Installation folder." />
+        </else>
+    </if>
+</target>
 
-  <target name="-verify.nonwin.sw" if="unix">
+<target name="-verify.nonwin.sw" if="unix">
     <if>
-      <available file="${glassfish.home}/bin/asadmin.sh" type="file"/>
-      <then/>
-      <else>
-        <fail message="AS_HOME environment variable is not set. 
-              Please create AS_HOME environment variable  pointing to GlassFish Installation folder."/>
-      </else>
-    </if>    
-  </target>
+        <available file="${glassfish.home}/bin/asadmin.sh" type="file" />
+        <then />
+        <else>
+            <fail message="AS_HOME environment variable is not set.
+              Please create AS_HOME environment variable  pointing to GlassFish Installation folder." />
+        </else>
+    </if>
+</target>
 
-  <target name="verify.pre.req.software" depends="-deploy.setup.init,-verify.nonwin.sw, -verify.win.sw">
+<target name="verify.pre.req.software" depends="-deploy.setup.init,-verify.nonwin.sw, -verify.win.sw">
     <if>
-      <available file="${env.JAVA_HOME}/bin/java.exe" type="file"/>
-      <then/>
-      <else>
-        <fail message="JAVA_HOME environment variable is not set. 
-            Please create JAVA_HOME environment variable pointing to JRE1.6.0.16"/>
-      </else>
+        <available file="${env.JAVA_HOME}/bin/java.exe" type="file" />
+        <then />
+        <else>
+            <fail message="JAVA_HOME environment variable is not set.
+            Please create JAVA_HOME environment variable pointing to JRE1.6.0.16" />
+        </else>
     </if>
     <if>
-      <available file="${glassfish.home}/lib/webservices-rt_l10n.jar" type="file"/>
-      <then/>
-      <else>
-        <fail message="Metro is not installed.
-            Please install Metro and try again."/>
-      </else>
+        <available file="${glassfish.home}/glassfish/domains/domain1/lib/webservices-rt_l10n.jar" type="file" />
+        <then />
+        <else>
+            <fail message="Metro is not installed.
+            Please install Metro and try again." />
+        </else>
     </if>
     <if>
-      <available file="${glassfish.home}/lib/c3p0-0.9.1.2.jar" type="file"/>
-      <then/>
-      <else>
-        <fail message="C3PO Jar file are missing. Please copy $NHINC_THIRDPARTY_DIR\C3PO\*.jar to AS_HOME\lib\."/>
-      </else>
+        <available file="${glassfish.home}/glassfish/domains/domain1/lib/c3p0-0.9.1.2.jar" type="file" />
+        <then />
+        <else>
+            <fail message="C3PO Jar file are missing. Please copy $NHINC_THIRDPARTY_DIR\C3PO\*.jar to AS_HOME\lib\." />
+        </else>
     </if>
     <if>
-      <available file="${glassfish.home}/lib/log4j-1.2.15.jar" type="file"/>
-      <then/>
-      <else>
-        <fail message="log4j Jar files are missing. Please copy $NHINC_THIRDPARTY_DIR\log4j\*.jar to AS_HOME\lib\."/>
-      </else>
-    </if>    
+        <available file="${glassfish.home}/glassfish/domains/domain1/lib/log4j-1.2.15.jar" type="file" />
+        <then />
+        <else>
+            <fail message="log4j Jar files are missing. Please copy $NHINC_THIRDPARTY_DIR\log4j\*.jar to AS_HOME\lib\." />
+        </else>
+    </if>
     <if>
-      <available file="${glassfish.home}/lib/hibernate3.jar" type="file"/>
-      <then/>
-      <else>
-        <fail message="Hibernate Jar files are missing. Please copy $NHINC_THIRDPARTY_DIR\HibernateLibraries\*.jar to AS_HOME\lib\."/>
-      </else>
-    </if>   
+        <available file="${glassfish.home}/glassfish/domains/domain1/lib/hibernate3.jar" type="file" />
+        <then />
+        <else>
+            <fail message="Hibernate Jar files are missing. Please copy $NHINC_THIRDPARTY_DIR\HibernateLibraries\*.jar to AS_HOME\lib\." />
+        </else>
+    </if>
     <if>
-      <available file="${glassfish.home}/lib/mysql-connector-java-5.1.8-bin.jar" type="file"/>
-      <then/>
-      <else>
-        <fail message="MYSQLDB Jar files are missing. Please copy $NHINC_THIRDPARTY_DIR\MYSQLDB\*.jar to AS_HOME\lib\."/>
-      </else>
-    </if>   
+        <available file="${glassfish.home}/glassfish/domains/domain1/lib/mysql-connector-java-5.1.8-bin.jar" type="file" />
+        <then />
+        <else>
+            <fail message="MYSQLDB Jar files are missing. Please copy $NHINC_THIRDPARTY_DIR\MYSQLDB\*.jar to AS_HOME\lib\." />
+        </else>
+    </if>
     <if>
-      <available file="${glassfish.home}/lib/xstream-1.3.jar" type="file"/>
-      <then/>
-      <else>
-        <fail message="XStream Jar files are missing. Please copy $NHINC_THIRDPARTY_DIR\XStream\*.jar to AS_HOME\lib\."/>
-      </else>
-    </if>  
+        <available file="${glassfish.home}/glassfish/domains/domain1/lib/xstream-1.3.jar" type="file" />
+        <then />
+        <else>
+            <fail message="XStream Jar files are missing. Please copy $NHINC_THIRDPARTY_DIR\XStream\*.jar to AS_HOME\lib\." />
+        </else>
+    </if>
     <if>
-      <available file="${glassfish.home}/lib/spring.jar" type="file"/>
-      <then/>
-      <else>
-        <fail message="SpringFramework Jar files are missing. Please copy $NHINC_THIRDPARTY_DIR\SpringFramework\*.jar to AS_HOME\lib\."/>
-      </else>
-    </if>  
+        <available file="${glassfish.home}/glassfish/domains/domain1/lib/spring.jar" type="file" />
+        <then />
+        <else>
+            <fail message="SpringFramework Jar files are missing. Please copy $NHINC_THIRDPARTY_DIR\SpringFramework\*.jar to AS_HOME\lib\." />
+        </else>
+    </if>
     <if>
-      <available file="${glassfish.home}/lib/xercesImpl.jar" type="file"/>
-      <then/>
-      <else>
-        <fail message="Xerces Jar files are missing. Please copy $NHINC_THIRDPARTY_DIR\Xerces\*.jar to AS_HOME\lib\."/>
-      </else>
-    </if>  
-  </target>
+        <available file="${glassfish.home}/glassfish/domains/domain1/lib/xercesImpl.jar" type="file" />
+        <then />
+        <else>
+            <fail message="Xerces Jar files are missing. Please copy $NHINC_THIRDPARTY_DIR\Xerces\*.jar to AS_HOME\lib\." />
+        </else>
+    </if>
+</target>
 
-  <target name="recreate.glassfish.domain">
-    <runtarget target="-backup.glassfish.domain.configuration"/>
-    <runtarget target="-backup.glassfish.domain.certificates"/>
-    <runtarget target="-delete.glassfish.domain"/>
-    <runtarget target="-create.glassfish.domain"/>
-    <runtarget target="-configure.glassfish.domain"/>
-    <runtarget target="-restore.glassfish.domain.certificates"/>
-    <runtarget target="-uncomment.domain.config"/>
-  
-  
-  </target>
-  
-  <macrodef name="run-validationsuite-mod">
-    <attribute name="jarfile"/>
+<target name="recreate.glassfish.domain">
+    <runtarget target="-backup.glassfish.domain.configuration" />
+    <runtarget target="-backup.glassfish.domain.certificates" />
+    <runtarget target="-delete.glassfish.domain" />
+    <runtarget target="-create.glassfish.domain" />
+    <runtarget target="-configure.glassfish.domain" />
+    <runtarget target="-restore.glassfish.domain.certificates" />
+    <runtarget target="-uncomment.domain.config" />
+
+
+</target>
+
+<macrodef name="run-validationsuite-mod">
+    <attribute name="jarfile" />
     <sequential>
         <mkdir dir="${deployment.config.home}/master" />
         <copy todir="${deployment.config.home}/master" verbose="true" overwrite="true">
-            <filelist dir="${nhinc.deployment.properties.dir}" >
+            <filelist dir="${nhinc.deployment.properties.dir}">
                 <file name="gateway.properties" />
                 <file name="adapter.properties" />
                 <file name="PCConfiguration.xml" />
@@ -649,9 +641,9 @@
             </filelist>
         </copy>
         <java jar="${deployment.dir}/ValidationSuite/@{jarfile}" fork="true" dir="${deployment.dir}/ValidationSuite">
-            <sysproperty key="AS_HOME" value="${glassfish.home}"/>
+            <sysproperty key="AS_HOME" value="${glassfish.home}/glassfish" />
         </java>
     </sequential>
-  </macrodef>
-  
+</macrodef>
+
 </project>

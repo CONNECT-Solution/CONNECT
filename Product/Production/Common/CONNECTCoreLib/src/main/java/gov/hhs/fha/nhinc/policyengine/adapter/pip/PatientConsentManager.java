@@ -26,30 +26,29 @@
  */
 package gov.hhs.fha.nhinc.policyengine.adapter.pip;
 
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.FineGrainedPolicyMetadataType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.BinaryDocumentPolicyCriteriaType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.BinaryDocumentPolicyCriterionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.BinaryDocumentStoreActionType;
-import gov.hhs.fha.nhinc.properties.PropertyAccessException;
-import org.hl7.v3.POCDMT000040ClinicalDocument;
-import java.util.List;
-import javax.xml.bind.JAXBElement;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import gov.hhs.fha.nhinc.common.nhinccommonadapter.FineGrainedPolicyMetadataType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.PatientPreferencesType;
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
+import gov.hhs.fha.nhinc.docregistry.adapter.proxy.AdapterComponentDocRegistryProxy;
+import gov.hhs.fha.nhinc.docregistry.adapter.proxy.AdapterComponentDocRegistryProxyObjectFactory;
+import gov.hhs.fha.nhinc.docrepository.adapter.proxy.AdapterComponentDocRepositoryProxy;
+import gov.hhs.fha.nhinc.docrepository.adapter.proxy.AdapterComponentDocRepositoryProxyObjectFactory;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
-import ihe.iti.xds_b._2007.DocumentRegistryService;
-import ihe.iti.xds_b._2007.DocumentRegistryPortType;
-import ihe.iti.xds_b._2007.DocumentRepositoryPortType;
-import ihe.iti.xds_b._2007.DocumentRepositoryService;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType.DocumentRequest;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType.DocumentResponse;
+
 import java.util.ArrayList;
+import java.util.List;
+
+import javax.xml.bind.JAXBElement;
+
 import oasis.names.tc.ebxml_regrep.xsd.lcm._3.SubmitObjectsRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
@@ -57,9 +56,12 @@ import oasis.names.tc.ebxml_regrep.xsd.rim._3.ExternalIdentifierType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.ExtrinsicObjectType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.IdentifiableType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
-
 import oasis.names.tc.xacml._2_0.policy.schema.os.PolicyType;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.II;
+import org.hl7.v3.POCDMT000040ClinicalDocument;
 
 /**
  * This class manages the patient consent form. It stores or retrieves the patient consent document from the repository.
@@ -69,101 +71,8 @@ import org.hl7.v3.II;
 public class PatientConsentManager {
 
     private static Log log = LogFactory.getLog(PatientConsentManager.class);
-    private static DocumentRegistryService oDocRegService = null;
-    private static DocumentRepositoryService oDocRepService = null;
-    private static final String ADAPTER_PROPFILE_NAME = "adapter";
-    private static final String XDS_HC_VALUE = "XDSbHomeCommunityId";
     private static final String XACML_MIME_TYPE = "text/xml";
     private static final String PDF_MIME_TYPE = "application/pdf";
-
-    /**
-     * Return a handle to the document registry port.
-     * 
-     * @return The handle to the document registry port web service.
-     */
-    public DocumentRegistryPortType getDocumentRegistryPort() throws AdapterPIPException {
-        DocumentRegistryPortType oDocRegistryPort = null;
-
-        try {
-            if (oDocRegService == null) {
-                oDocRegService = new DocumentRegistryService();
-            }
-
-            oDocRegistryPort = oDocRegService.getDocumentRegistryPortSoap();
-
-            // Get the real endpoint URL for this service.
-            // --------------------------------------------
-            String sEndpointURL = "";
-            String xdsHomeCommunityId = PropertyAccessor.getInstance().getProperty(ADAPTER_PROPFILE_NAME, XDS_HC_VALUE);
-            if (xdsHomeCommunityId != null && !xdsHomeCommunityId.equals("")) {
-                sEndpointURL = ConnectionManagerCache.getInstance().getDefaultEndpointURLByServiceName(xdsHomeCommunityId,
-                        CDAConstants.DOC_REGISTRY_SERVICE_NAME);
-            } else {
-                sEndpointURL = ConnectionManagerCache.getInstance().getInternalEndpointURLByServiceName(
-                        CDAConstants.DOC_REGISTRY_SERVICE_NAME);
-            }
-
-            if ((sEndpointURL == null) || (sEndpointURL.length() <= 0)) {
-                String sErrorMessage = "Failed to retrieve the Endpoint URL for service: '"
-                        + CDAConstants.DOC_REGISTRY_SERVICE_NAME + "'.  " + "Setting this to: '" + sEndpointURL + "'";
-                log.warn(sErrorMessage);
-            }
-            ((javax.xml.ws.BindingProvider) oDocRegistryPort).getRequestContext().put(
-                    javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, sEndpointURL);
-        } catch (Exception e) {
-            String sErrorMessage = "Failed to retrieve a handle to the Document Registry web service.  Error: "
-                    + e.getMessage();
-            log.error(sErrorMessage, e);
-            throw new AdapterPIPException(sErrorMessage, e);
-        }
-
-        return oDocRegistryPort;
-    }
-
-    /**
-     * Return a handle to the document repository port.
-     * 
-     * @return The handle to the document registry port web service.
-     */
-    private DocumentRepositoryPortType getDocumentRepositoryPort() throws AdapterPIPException {
-        DocumentRepositoryPortType oDocRepositoryPort = null;
-
-        try {
-            if (oDocRepService == null) {
-                oDocRepService = new DocumentRepositoryService();
-            }
-
-            // oDocRepositoryPort = oDocRepService.getDocumentRepositoryPortSoap();
-            oDocRepositoryPort = oDocRepService.getDocumentRepositoryPortSoap();
-
-            // Get the real endpoint URL for this service.
-            // --------------------------------------------
-            String sEndpointURL = "";
-            String xdsHomeCommunityId = PropertyAccessor.getInstance().getProperty(ADAPTER_PROPFILE_NAME, XDS_HC_VALUE);
-            if (xdsHomeCommunityId != null && !xdsHomeCommunityId.equals("")) {
-                sEndpointURL = ConnectionManagerCache.getInstance().getDefaultEndpointURLByServiceName(xdsHomeCommunityId,
-                        CDAConstants.DOC_REPOSITORY_SERVICE_NAME);
-            } else {
-                sEndpointURL = ConnectionManagerCache.getInstance().getInternalEndpointURLByServiceName(
-                        CDAConstants.DOC_REPOSITORY_SERVICE_NAME);
-            }
-
-            if ((sEndpointURL == null) || (sEndpointURL.length() <= 0)) {
-                String sErrorMessage = "Failed to retrieve the Endpoint URL for service: '"
-                        + CDAConstants.DOC_REPOSITORY_SERVICE_NAME + "'.  " + "Setting this to: '" + sEndpointURL + "'";
-                log.warn(sErrorMessage);
-            }
-            ((javax.xml.ws.BindingProvider) oDocRepositoryPort).getRequestContext().put(
-                    javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, sEndpointURL);
-        } catch (Exception e) {
-            String sErrorMessage = "Failed to retrieve a handle to the Document Repository web service.  Error: "
-                    + e.getMessage();
-            log.error(sErrorMessage, e);
-            throw new AdapterPIPException(sErrorMessage, e);
-        }
-
-        return oDocRepositoryPort;
-    }
 
     /**
      * This method saves the patient consent information to the document repository. It will overwrite anything that is
@@ -260,6 +169,29 @@ public class PatientConsentManager {
         log.info("------ End PatientConsentManager.storePatientConsent() ------");
     }
 
+    protected AdhocQueryResponse invokeDocRegistryStoredQuery(AdhocQueryRequest request) {
+        AdapterComponentDocRegistryProxyObjectFactory factory = new AdapterComponentDocRegistryProxyObjectFactory();
+        AdapterComponentDocRegistryProxy proxy = factory.getAdapterComponentDocRegistryProxy();
+
+        return proxy.registryStoredQuery(request, null);
+    }
+
+    protected RegistryResponseType invokeDocRepositoryProvideAndRegisterDocumentSetB(
+            ProvideAndRegisterDocumentSetRequestType request) {
+        AdapterComponentDocRepositoryProxyObjectFactory factory = new AdapterComponentDocRepositoryProxyObjectFactory();
+        AdapterComponentDocRepositoryProxy proxy = factory.getAdapterDocumentRepositoryProxy();
+
+        return proxy.provideAndRegisterDocumentSet(request, null);
+    }
+
+    protected RetrieveDocumentSetResponseType invokeDocRepositoryRetrieveDocumentSet(
+            RetrieveDocumentSetRequestType request) {
+        AdapterComponentDocRepositoryProxyObjectFactory factory = new AdapterComponentDocRepositoryProxyObjectFactory();
+        AdapterComponentDocRepositoryProxy proxy = factory.getAdapterDocumentRepositoryProxy();
+
+        return proxy.retrieveDocument(request, null);
+    }
+
     /**
      * This method stores the patient preference document to the repository.
      * 
@@ -315,9 +247,9 @@ public class PatientConsentManager {
         SubmitObjectsRequest oSubmitObjectRequest = oPatConsentDocBuilderHelper.createSubmitObjectRequest(
                 sTargetObject, sHomeCommunityId, sUniqueDocumentId, sMimeType, oPtPref);
         oRequest.setSubmitObjectsRequest(oSubmitObjectRequest);
-        DocumentRepositoryPortType oDocRepositoryPort = getDocumentRepositoryPort();
-        RegistryResponseType oRegistryResponse = oDocRepositoryPort
-                .documentRepositoryProvideAndRegisterDocumentSetB(oRequest);
+
+        RegistryResponseType oRegistryResponse = invokeDocRepositoryProvideAndRegisterDocumentSetB(oRequest);
+
         if (oRegistryResponse != null && oRegistryResponse.getStatus() != null
                 && !oRegistryResponse.getStatus().equals("")) {
             log.info("Patient Consent Document saved to repository Successfully");
@@ -357,11 +289,9 @@ public class PatientConsentManager {
             String sUniqueDocumentId, String sMimeType) throws AdapterPIPException {
         log.info("--------------- Begin checkCPPMetaFromRepositoryUsingXDSb ---------------");
         String sTargetObject = "";
-        DocumentRegistryPortType oDocRegistryPort = getDocumentRegistryPort();
 
-        AdhocQueryResponse oResponse = null;
         AdhocQueryRequest oRequest = new QueryUtil().createAdhocQueryRequest(sPatientId, sAssigningAuthority);
-        oResponse = oDocRegistryPort.documentRegistryRegistryStoredQuery(oRequest);
+        AdhocQueryResponse oResponse = invokeDocRegistryStoredQuery(oRequest);
 
         if (oResponse != null && oResponse.getRegistryObjectList() != null
                 && oResponse.getRegistryObjectList().getIdentifiable() != null
@@ -480,12 +410,8 @@ public class PatientConsentManager {
         log.debug("Begin PatientConsentManager.retrievePtIdFromDocumentId()..");
         String sPatientId = "";
 
-        DocumentRegistryPortType oDocRegistryPort = getDocumentRegistryPort();
-
-        AdhocQueryResponse oResponse = null;
         AdhocQueryRequest oRequest = new QueryUtil().createPatientIdQuery(sDocumentUniqueId, sRepositoryId);
-
-        oResponse = oDocRegistryPort.documentRegistryRegistryStoredQuery(oRequest);
+        AdhocQueryResponse oResponse = invokeDocRegistryStoredQuery(oRequest);
 
         sPatientId = new QueryUtil().extractPatientId(oResponse);
 
@@ -642,18 +568,21 @@ public class PatientConsentManager {
      */
     private List<DocumentRequest> retrieveCPPDocIdentifiers(String sPatientId, String sAssigningAuthority)
             throws AdapterPIPException {
-        QueryUtil queryUtil = new QueryUtil();
+        try {
+            QueryUtil queryUtil = new QueryUtil();
 
-        DocumentRegistryPortType oDocRegistryPort = getDocumentRegistryPort();
+            AdhocQueryRequest oRequest = queryUtil.createAdhocQueryRequest(sPatientId, sAssigningAuthority);
+            AdhocQueryResponse oResponse = invokeDocRegistryStoredQuery(oRequest);
 
-        AdhocQueryResponse oResponse = null;
-        AdhocQueryRequest oRequest = queryUtil.createAdhocQueryRequest(sPatientId, sAssigningAuthority);
+            List<DocumentRequest> olDocReq = queryUtil.createDocumentRequest(oResponse);
 
-        oResponse = oDocRegistryPort.documentRegistryRegistryStoredQuery(oRequest);
-
-        List<DocumentRequest> olDocReq = queryUtil.createDocumentRequest(oResponse);
-
-        return olDocReq;
+            return olDocReq;
+        } catch (Exception ex) {
+            String message = "Error occurred calling PatientConsentManager.retrieveCPPDocIdentifiers.  Error: "
+                    + ex.getMessage();
+            log.error(message, ex);
+            throw new AdapterPIPException(message, ex);
+        }
     }
 
     /**
@@ -667,13 +596,10 @@ public class PatientConsentManager {
     private void retrieveCPPDoc(DocumentRequest oDocRequest, CPPDocumentInfo oCPPDocInfo) throws AdapterPIPException {
         String sPrefDoc = "";
 
-        DocumentRepositoryPortType oDocRepositoryPort = getDocumentRepositoryPort();
-
         RetrieveDocumentSetRequestType oRequest = new RetrieveDocumentSetRequestType();
         oRequest.getDocumentRequest().add(oDocRequest);
 
-        RetrieveDocumentSetResponseType oResponse = null;
-        oResponse = oDocRepositoryPort.documentRepositoryRetrieveDocumentSet(oRequest);
+        RetrieveDocumentSetResponseType oResponse = invokeDocRepositoryRetrieveDocumentSet(oRequest);
 
         if (oResponse != null) {
             sPrefDoc = extractFineGrainedPrefDoc(oDocRequest, oResponse);

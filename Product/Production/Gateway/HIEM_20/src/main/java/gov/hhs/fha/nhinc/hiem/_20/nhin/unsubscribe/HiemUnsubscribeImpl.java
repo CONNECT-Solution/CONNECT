@@ -26,6 +26,27 @@
  */
 package gov.hhs.fha.nhinc.hiem._20.nhin.unsubscribe;
 
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
+import gov.hhs.fha.nhinc.hiem.configuration.ConfigurationManager;
+import gov.hhs.fha.nhinc.hiem.consumerreference.SoapHeaderHelper;
+import gov.hhs.fha.nhinc.hiem.consumerreference.SoapMessageElements;
+import gov.hhs.fha.nhinc.hiem.consumerreference.ReferenceParametersHelper;
+import gov.hhs.fha.nhinc.hiem.dte.TargetBuilder;
+import gov.hhs.fha.nhinc.hiem.dte.marshallers.WsntUnsubscribeMarshaller;
+import gov.hhs.fha.nhinc.hiem.dte.marshallers.WsntUnsubscribeResponseMarshaller;
+import gov.hhs.fha.nhinc.hiem.processor.faults.ConfigurationException;
+import gov.hhs.fha.nhinc.hiem.processor.faults.SubscriptionManagerSoapFaultFactory;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import gov.hhs.fha.nhinc.subscription.repository.data.HiemSubscriptionItem;
+import gov.hhs.fha.nhinc.subscription.repository.service.HiemSubscriptionRepositoryService;
+import gov.hhs.fha.nhinc.subscription.repository.service.SubscriptionRepositoryException;
+import gov.hhs.fha.nhinc.unsubscribe.adapter.proxy.HiemUnsubscribeAdapterProxy;
+import gov.hhs.fha.nhinc.unsubscribe.adapter.proxy.HiemUnsubscribeAdapterProxyObjectFactory;
+import gov.hhs.fha.nhinc.xmlCommon.XmlUtility;
+
 import java.util.List;
 
 import javax.xml.ws.WebServiceContext;
@@ -35,29 +56,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.oasis_open.docs.wsn.b_2.Unsubscribe;
 import org.oasis_open.docs.wsn.b_2.UnsubscribeResponse;
-import org.oasis_open.docs.wsn.bw_2.ResourceUnknownFault;
 import org.oasis_open.docs.wsn.bw_2.UnableToDestroySubscriptionFault;
 import org.w3c.dom.Element;
-
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
-import gov.hhs.fha.nhinc.hiem.configuration.ConfigurationManager;
-import gov.hhs.fha.nhinc.hiem.consumerreference.ReferenceParametersElements;
-import gov.hhs.fha.nhinc.hiem.consumerreference.ReferenceParametersHelper;
-import gov.hhs.fha.nhinc.hiem.dte.TargetBuilder;
-import gov.hhs.fha.nhinc.hiem.dte.marshallers.WsntUnsubscribeMarshaller;
-import gov.hhs.fha.nhinc.hiem.dte.marshallers.WsntUnsubscribeResponseMarshaller;
-import gov.hhs.fha.nhinc.hiem.processor.faults.ConfigurationException;
-import gov.hhs.fha.nhinc.hiem.processor.faults.SubscriptionManagerSoapFaultFactory;
-import gov.hhs.fha.nhinc.hiemadapter.proxy.unsubscribe.HiemUnsubscribeAdapterProxy;
-import gov.hhs.fha.nhinc.hiemadapter.proxy.unsubscribe.HiemUnsubscribeAdapterProxyObjectFactory;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.nhinclib.NullChecker;
-import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
-import gov.hhs.fha.nhinc.subscription.repository.data.HiemSubscriptionItem;
-import gov.hhs.fha.nhinc.subscription.repository.service.HiemSubscriptionRepositoryService;
-import gov.hhs.fha.nhinc.subscription.repository.service.SubscriptionRepositoryException;
-import gov.hhs.fha.nhinc.xmlCommon.XmlUtility;
 
 /**
  *
@@ -68,8 +68,7 @@ public class HiemUnsubscribeImpl {
     private static Log log = LogFactory.getLog(HiemUnsubscribeImpl.class);
 
     public UnsubscribeResponse unsubscribe(Unsubscribe unsubscribeRequest, WebServiceContext context)
-            throws UnableToDestroySubscriptionFault, ResourceUnknownFault {
-
+            throws UnableToDestroySubscriptionFault {
         UnsubscribeResponse response;
         try {
             response = unsubscribeOps(unsubscribeRequest, context);
@@ -80,27 +79,20 @@ public class HiemUnsubscribeImpl {
     }
 
     private UnsubscribeResponse unsubscribeOps(Unsubscribe unsubscribeRequest, WebServiceContext context)
-            throws UnableToDestroySubscriptionFault, ResourceUnknownFault {
+            throws UnableToDestroySubscriptionFault, Exception {
         log.debug("Entering HiemUnsubscribeImpl.unsubscribe");
 
-        log.debug("extracting reference parameters from soap header");
-        ReferenceParametersHelper referenceParametersHelper = new ReferenceParametersHelper();
-        ReferenceParametersElements referenceParametersElements = referenceParametersHelper
-                .createReferenceParameterElements(context, NhincConstants.HIEM_UNSUBSCRIBE_SOAP_HDR_ATTR_TAG);
-        log.debug("extracted reference parameters from soap header");
+        SoapMessageElements soapHeaderElements = new SoapHeaderHelper().getSoapHeaderElements(context);
 
-        log.debug("extracting assertion");
-        AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
-        log.debug("extracted assertion");
+        AssertionType assertion = SAML2AssertionExtractor.getInstance().extractSamlAssertion(context);
 
-        // retrieve by consumer reference
         HiemSubscriptionRepositoryService repo = new HiemSubscriptionRepositoryService();
         HiemSubscriptionItem subscriptionItem = null;
         try {
-            subscriptionItem = repo.retrieveByLocalSubscriptionReferenceParameters(referenceParametersElements);
+            subscriptionItem = repo.retrieveByLocalSubscriptionReferenceParameters(soapHeaderElements);
         } catch (SubscriptionRepositoryException ex) {
             log.error(ex);
-            throw new SubscriptionManagerSoapFaultFactory().getErrorDuringSubscriptionRetrieveFault(ex);
+            throw new SubscriptionManagerSoapFaultFactory().getGenericProcessingExceptionFault(ex);
         }
 
         if (subscriptionItem == null) {
@@ -123,7 +115,7 @@ public class HiemUnsubscribeImpl {
             }
         } else if (isForwardUnsubscribeToAdapter()) {
             log.debug("forward unsubscribe to adapter");
-            forwardUnsubscribeToAdapter(unsubscribeRequest, referenceParametersElements, assertion);
+            forwardUnsubscribeToAdapter(unsubscribeRequest, soapHeaderElements, assertion);
         } else {
         }
 
@@ -163,7 +155,7 @@ public class HiemUnsubscribeImpl {
     }
 
     private void forwardUnsubscribeToAdapter(Unsubscribe parentUnsubscribe,
-            ReferenceParametersElements parentReferenceParametersElements, AssertionType parentAssertion)
+            SoapMessageElements parentReferenceParametersElements, AssertionType parentAssertion)
                     throws UnableToDestroySubscriptionFault {
         // try {
         log.debug("forwarding unsubscribe to adapter");
@@ -222,7 +214,7 @@ public class HiemUnsubscribeImpl {
 
             log.debug("extracting reference parameters from subscription reference");
             ReferenceParametersHelper referenceParametersHelper = new ReferenceParametersHelper();
-            ReferenceParametersElements referenceParametersElements = referenceParametersHelper
+            SoapMessageElements referenceParametersElements = referenceParametersHelper
                     .createReferenceParameterElementsFromSubscriptionReference(childSubscriptionItem
                             .getSubscriptionReferenceXML());
             log.debug("extracted " + referenceParametersElements.getElements().size() + " element(s)");

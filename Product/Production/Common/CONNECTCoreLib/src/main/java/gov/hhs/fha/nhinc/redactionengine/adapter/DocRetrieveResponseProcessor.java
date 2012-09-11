@@ -27,6 +27,8 @@
 package gov.hhs.fha.nhinc.redactionengine.adapter;
 
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.PatientPreferencesType;
+import gov.hhs.fha.nhinc.docregistry.adapter.proxy.AdapterComponentDocRegistryProxy;
+import gov.hhs.fha.nhinc.docregistry.adapter.proxy.AdapterComponentDocRegistryProxyObjectFactory;
 import gov.hhs.fha.nhinc.policyengine.adapter.pip.PatientConsentManager;
 import gov.hhs.fha.nhinc.policyengine.adapter.pip.QueryUtil;
 import ihe.iti.xds_b._2007.DocumentRegistryPortType;
@@ -198,7 +200,10 @@ public class DocRetrieveResponseProcessor {
      * @throws Exception
      */
     protected AdhocQueryResponse getAdhocQueryResponse(AdhocQueryRequest oRequest) throws Exception {
-        return getDocumentRegistryPort().documentRegistryRegistryStoredQuery(oRequest);
+        AdapterComponentDocRegistryProxyObjectFactory factory = new AdapterComponentDocRegistryProxyObjectFactory();
+        AdapterComponentDocRegistryProxy proxy = factory.getAdapterComponentDocRegistryProxy();
+
+        return proxy.registryStoredQuery(oRequest, null);
     }
 
     /**
@@ -365,24 +370,6 @@ public class DocRetrieveResponseProcessor {
         }
         log.debug("End getUniqueIdIdentifier - result: " + aUniqueIdIdentifier);
         return aUniqueIdIdentifier;
-    }
-
-    /**
-     * Return a handle to the document registry port.
-     * 
-     * @return The handle to the document registry port web service.
-     */
-    protected DocumentRegistryPortType getDocumentRegistryPort() throws Exception {
-        return getPatientConsentManager().getDocumentRegistryPort();
-    }
-
-    /**
-     * This method returns PatientConsentManager instance
-     * 
-     * @return PatientConsentManager
-     */
-    protected PatientConsentManager getPatientConsentManager() {
-        return new PatientConsentManager();
     }
 
     /**

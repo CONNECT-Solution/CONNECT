@@ -26,9 +26,10 @@
  */
 package gov.hhs.fha.nhinc.adapterauthentication;
 
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.AuthenticateUserResponseType;
-import javax.jws.WebService;
 import javax.xml.ws.BindingType;
+
+import gov.hhs.fha.nhinc.common.nhinccommonadapter.AuthenticateUserRequestType;
+import gov.hhs.fha.nhinc.common.nhinccommonadapter.AuthenticateUserResponseType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -36,9 +37,8 @@ import org.apache.commons.logging.LogFactory;
  * 
  * @author Sai Valluripalli
  */
-@WebService(serviceName = "AdapterAuthentication", portName = "AdapterAuthenticationPortSoap", endpointInterface = "gov.hhs.fha.nhinc.adapterauthentication.AdapterAuthenticationPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:adapterauthentication", wsdlLocation = "WEB-INF/wsdl/AdapterAuthenticationService/AdapterAuthentication.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
-public class AdapterAuthenticationService {
+public class AdapterAuthenticationService implements gov.hhs.fha.nhinc.adapterauthentication.AdapterAuthenticationPortType{
 
     private static Log log = LogFactory.getLog(AdapterAuthenticationService.class);
 
@@ -50,8 +50,7 @@ public class AdapterAuthenticationService {
      * @return The response which indicates if an authentication service is implemented and if so the resulting token
      *         identifier
      */
-    public gov.hhs.fha.nhinc.common.nhinccommonadapter.AuthenticateUserResponseType authenticateUser(
-            gov.hhs.fha.nhinc.common.nhinccommonadapter.AuthenticateUserRequestType authenticateUserRequest) {
+    public AuthenticateUserResponseType authenticateUser(AuthenticateUserRequestType authenticateUserRequest) {
         AuthenticateUserResponseType authResp = new AuthenticateUserResponseType();
 
         AdapterAuthenticationImpl adapterAuthImpl = new AdapterAuthenticationImpl();

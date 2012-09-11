@@ -1627,24 +1627,7 @@
                     <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="adapterredactionengine" keyValue="adapterredactionengine"/>
                 </categoryBag>
             </businessService>
-			
-			<!--  Provide and Register Document  -->
-
-            <businessService serviceKey="uddi:nhincnode:docprovideandregister">
-                <name xml:lang="en">docprovideandregister</name>
-                <bindingTemplates>
-                    <bindingTemplate bindingKey="uddi:nhincnode:docprovideandregister" serviceKey="uddi:nhincnode:docprovideandregister">
-                        <accessPoint useType="endPoint">http://localhost:8080/CONNECTAdapter/AdapterDocProvideAndRegisterservice</accessPoint>
-                        <categoryBag>
-                            <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/> 
-                        </categoryBag>
-                    </bindingTemplate>
-                </bindingTemplates>
-                <categoryBag>
-                    <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="docprovideandregister" keyValue="docprovideandregister"/>
-                </categoryBag>
-            </businessService>
-			
+						
 			<!--  Deferred Queue Manager  -->
 
             <businessService serviceKey="uddi:nhincnode:deferredqueuemanager">

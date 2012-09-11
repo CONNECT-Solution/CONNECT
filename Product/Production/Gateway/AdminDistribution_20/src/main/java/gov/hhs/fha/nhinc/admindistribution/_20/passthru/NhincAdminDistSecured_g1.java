@@ -26,27 +26,24 @@
  */
 package gov.hhs.fha.nhinc.admindistribution._20.passthru;
 
+import gov.hhs.fha.nhinc.admindistribution.passthru.PassthruAdminDistributionOrchImpl;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+
 import javax.annotation.Resource;
-import javax.jws.HandlerChain;
-import javax.jws.WebService;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
-
-import gov.hhs.fha.nhinc.admindistribution.passthru.PassthruAdminDistributionOrchImpl;
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
 
 /**
  * 
  * @author dunnek
  */
-@WebService(serviceName = "NhincAdminDistSecuredService", portName = "NhincAdminDistSecured_PortType", endpointInterface = "gov.hhs.fha.nhinc.nhincadmindistribution.NhincAdminDistSecuredPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:nhincadmindistribution", wsdlLocation = "WEB-INF/wsdl/NhincAdminDistSecured/NhincAdminDistSecured_g1.wsdl")
+
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
-@Addressing(enabled = true)
-@HandlerChain(file="../../../../../../../handler-chain.xml")
-public class NhincAdminDistSecured_g1 {
+@Addressing(enabled = true) 
+public class NhincAdminDistSecured_g1 implements gov.hhs.fha.nhinc.nhincadmindistribution.NhincAdminDistSecuredPortType {
     @Resource
     private WebServiceContext context;
 
@@ -59,7 +56,7 @@ public class NhincAdminDistSecured_g1 {
     }
 
     protected AssertionType extractAssertion(WebServiceContext context) {
-        return SamlTokenExtractor.GetAssertion(context);
+        return SAML2AssertionExtractor.getInstance().extractSamlAssertion(context);
     }
 
     public PassthruAdminDistributionOrchImpl getNhincImpl() {

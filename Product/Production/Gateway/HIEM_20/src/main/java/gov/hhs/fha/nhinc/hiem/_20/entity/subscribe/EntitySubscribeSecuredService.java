@@ -31,7 +31,6 @@ import gov.hhs.fha.nhinc.entitysubscriptionmanagementsecured.InvalidMessageConte
 import gov.hhs.fha.nhinc.entitysubscriptionmanagementsecured.InvalidProducerPropertiesExpressionFault;
 import gov.hhs.fha.nhinc.entitysubscriptionmanagementsecured.InvalidTopicExpressionFault;
 import gov.hhs.fha.nhinc.entitysubscriptionmanagementsecured.NotifyMessageNotSupportedFault;
-import gov.hhs.fha.nhinc.entitysubscriptionmanagementsecured.ResourceUnknownFault;
 import gov.hhs.fha.nhinc.entitysubscriptionmanagementsecured.SubscribeCreationFailedFault;
 import gov.hhs.fha.nhinc.entitysubscriptionmanagementsecured.TopicExpressionDialectUnknownFault;
 import gov.hhs.fha.nhinc.entitysubscriptionmanagementsecured.TopicNotSupportedFault;
@@ -41,7 +40,6 @@ import gov.hhs.fha.nhinc.entitysubscriptionmanagementsecured.UnsupportedPolicyRe
 import javax.jws.WebService;
 import javax.annotation.Resource;
 import javax.xml.ws.WebServiceContext;
-import javax.jws.HandlerChain;
 import javax.xml.ws.BindingType;
 
 /**
@@ -50,7 +48,6 @@ import javax.xml.ws.BindingType;
  */
 @WebService(serviceName = "EntityNotificationProducerSecured", portName = "EntityNotificationProducerSecuredPortSoap", endpointInterface = "gov.hhs.fha.nhinc.entitysubscriptionmanagementsecured.EntityNotificationProducerSecuredPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:entitysubscriptionmanagementsecured", wsdlLocation = "WEB-INF/wsdl/EntitySubscribeSecuredService/EntitySubscriptionManagementSecured.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
-@HandlerChain(file = "EntitySubscribeSoapHeaderHandler.xml")
 public class EntitySubscribeSecuredService {
     @Resource
     private WebServiceContext context;
@@ -62,7 +59,7 @@ public class EntitySubscribeSecuredService {
 
     public org.oasis_open.docs.wsn.b_2.SubscribeResponse subscribe(
             gov.hhs.fha.nhinc.common.nhinccommonentity.SubscribeRequestSecuredType subscribeRequestSecured)
-            throws UnrecognizedPolicyRequestFault, InvalidProducerPropertiesExpressionFault, ResourceUnknownFault,
+            throws UnrecognizedPolicyRequestFault, InvalidProducerPropertiesExpressionFault,
             NotifyMessageNotSupportedFault, TopicNotSupportedFault, InvalidTopicExpressionFault,
             SubscribeCreationFailedFault, UnsupportedPolicyRequestFault, UnacceptableInitialTerminationTimeFault,
             InvalidMessageContentExpressionFault, InvalidFilterFault, TopicExpressionDialectUnknownFault {

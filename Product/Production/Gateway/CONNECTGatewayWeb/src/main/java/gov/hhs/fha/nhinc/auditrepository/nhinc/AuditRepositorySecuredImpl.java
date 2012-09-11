@@ -26,16 +26,18 @@
  */
 package gov.hhs.fha.nhinc.auditrepository.nhinc;
 
+import gov.hhs.fha.nhinc.common.auditlog.LogEventSecureRequestType;
+import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommonadapter.FindCommunitiesAndAuditEventsResponseType;
+import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
+
 import javax.xml.ws.WebServiceContext;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import gov.hhs.fha.nhinc.auditrepository.nhinc.AuditRepositoryOrchImpl;
-import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
-import gov.hhs.fha.nhinc.common.auditlog.LogEventSecureRequestType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.FindCommunitiesAndAuditEventsResponseType;
+
 import com.services.nhinc.schema.auditmessage.FindAuditEventsType;
-import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
 
 public class AuditRepositorySecuredImpl {
 
@@ -67,7 +69,7 @@ public class AuditRepositorySecuredImpl {
             AuditRepositoryOrchImpl processor = getAuditRepositoryOrchImpl();
             if (processor != null) {
                 try {
-                    AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
+                    AssertionType assertion = SAML2AssertionExtractor.getInstance().extractSamlAssertion(context);
                     loadAssertion(assertion, context);
 
                     response = processor.logAudit(mess, assertion);
@@ -95,7 +97,7 @@ public class AuditRepositorySecuredImpl {
             AuditRepositoryOrchImpl processor = getAuditRepositoryOrchImpl();
             if (processor != null) {
                 try {
-                    AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
+                    AssertionType assertion = SAML2AssertionExtractor.getInstance().extractSamlAssertion(context);
                     loadAssertion(assertion, context);
 
                     response = processor.findAudit(query, assertion);

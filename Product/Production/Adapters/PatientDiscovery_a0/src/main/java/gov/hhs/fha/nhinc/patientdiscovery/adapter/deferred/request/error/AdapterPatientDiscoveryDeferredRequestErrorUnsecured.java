@@ -35,9 +35,8 @@ import javax.xml.ws.WebServiceContext;
  * 
  * @author JHOPPESC
  */
-@WebService(serviceName = "AdapterPatientDiscoveryAsyncReqError", portName = "AdapterPatientDiscoveryAsyncReqErrorPortSoap", endpointInterface = "gov.hhs.fha.nhinc.adapterpatientdiscoveryasyncreqerror.AdapterPatientDiscoveryAsyncReqErrorPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:adapterpatientdiscoveryasyncreqerror", wsdlLocation = "WEB-INF/wsdl/AdapterPatientDiscoveryDeferredRequestErrorUnsecured/AdapterPatientDiscoveryAsyncReqError.wsdl")
-@BindingType(value = "http://www.w3.org/2003/05/soap/bindings/HTTP/")
-public class AdapterPatientDiscoveryDeferredRequestErrorUnsecured {
+@BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
+public class AdapterPatientDiscoveryDeferredRequestErrorUnsecured implements gov.hhs.fha.nhinc.adapterpatientdiscoveryasyncreqerror.AdapterPatientDiscoveryAsyncReqErrorPortType {
     @Resource
     private WebServiceContext context;
 
