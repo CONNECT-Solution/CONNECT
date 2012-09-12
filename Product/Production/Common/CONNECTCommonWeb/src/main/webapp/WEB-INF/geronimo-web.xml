@@ -5,7 +5,7 @@
 
         <sys:moduleId>
             <sys:groupId>CONNECT</sys:groupId>
-            <sys:artifactId>PatientDiscovery_10</sys:artifactId>
+            <sys:artifactId>CommonWeb</sys:artifactId>
             <sys:version>1.0</sys:version>
             <sys:type>war</sys:type>
         </sys:moduleId>
@@ -16,6 +16,6 @@
 
     </sys:environment> 
     
-    <context-root>Gateway/PatientDiscovery/1_0</context-root>
+    <context-root>CONNECTCommon</context-root>
    
 </web-app>
