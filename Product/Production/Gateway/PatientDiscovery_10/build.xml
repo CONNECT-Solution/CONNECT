@@ -59,7 +59,7 @@
         <fileset dir="${cxf.home}">         
             <include name="xalan-2.7.1.jar" />
             <include name="serializer-2.7.1.jar" />
-            <include name="wss4j-1.6.6.jar" />
+            <include name="wss4j-1.6.5.jar" />
             <include name="xmlsec-1.5.1.jar" />
             <include name="ehcache-core-2.5.1.jar" />
             

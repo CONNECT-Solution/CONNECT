@@ -40,14 +40,14 @@
         <directory>/Production/Gateway/PatientDiscovery_10</directory>
         <dist.type>war</dist.type>
         <should.build>true</should.build>
-        <should.deploy>true</should.deploy>
+        <should.deploy>false</should.deploy>
     </project>
     <project>
         <name>PatientDiscovery_a0</name>
         <directory>/Production/Adapters/PatientDiscovery_a0</directory>
         <dist.type>war</dist.type>
         <should.build>true</should.build>
-        <should.deploy>true</should.deploy>
+        <should.deploy>false</should.deploy>
     </project>
     <project>
         <name>DocumentQueryCore</name>

@@ -1,5 +1,5 @@
 /**
- *
+ * 
  */
 package gov.hhs.fha.nhinc.cxf.extraction;
 
@@ -38,6 +38,7 @@ public class SAML2AssertionExtractor {
     public static SAML2AssertionExtractor getInstance() {
         if (INSTANCE == null) {
             INSTANCE = new SAML2AssertionExtractor();
+
         }
         return INSTANCE;
     }
@@ -52,10 +53,10 @@ public class SAML2AssertionExtractor {
         LOGGER.debug("Executing Saml2AssertionExtractor.extractSamlAssertion()...");
         AssertionType target = null;
 
-        if ( context == null) {
+        if (context == null) {
             return null;
         }
-        
+
         MessageContext mContext = (MessageContext) context.getMessageContext();
         SoapHeader header = getSecuritySoapHeader(mContext);
 
@@ -73,9 +74,11 @@ public class SAML2AssertionExtractor {
         @SuppressWarnings("unchecked")
         List<Header> headers = (List<Header>) mContext.get(org.apache.cxf.headers.Header.HEADER_LIST);
 
-        for (Header header : headers) {
-            if (header.getName().getLocalPart().equalsIgnoreCase("Security")) {
-                return (SoapHeader) header;
+        if (headers != null) {
+            for (Header header : headers) {
+                if (header.getName().getLocalPart().equalsIgnoreCase("Security")) {
+                    return (SoapHeader) header;
+                }
             }
         }
 

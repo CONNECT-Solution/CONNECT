@@ -68,6 +68,7 @@
                  <include name="commons-collections-3.2.1.jar" />
              
              </fileset>
+
         <filelist dir="${opensaml.home}">
             <file name="slf4j-api-1.6.4.jar" />
             <file name="esapi-2.0.1.jar" />

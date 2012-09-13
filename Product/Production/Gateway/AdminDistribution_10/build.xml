@@ -20,6 +20,7 @@
         <pathelement path="${project.CONNECTCommonTypesLib.build.classes.dir}" />
         <pathelement path="${project.CONNECTCoreLib.build.classes.dir}" />
         <pathelement path="${project.AdminDistributionCore.build.classes.dir}" />
+
     </path>
 
     <!-- Add project dependencies here, these projects will be built first... -->
