@@ -29,12 +29,6 @@ package gov.hhs.fha.nhinc.docsubmission.entity.deferred.response;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
-import gov.hhs.fha.nhinc.gateway.aggregator.document.DocumentConstants;
-import gov.hhs.fha.nhinc.orchestration.OrchestrationStrategy;
-import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 import org.apache.commons.logging.Log;
@@ -43,6 +37,12 @@ import org.jmock.Mockery;
 import org.jmock.integration.junit4.JUnit4Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.Test;
+
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+import gov.hhs.fha.nhinc.gateway.aggregator.document.DocumentConstants;
+import gov.hhs.fha.nhinc.orchestration.OrchestrationStrategy;
+import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 
 /**
  * @author akong
@@ -152,10 +152,12 @@ public class OutboundDocSubmissionDeferredResponseStrategyTest {
 
     private OutboundDocSubmissionDeferredResponseStrategyImpl_g0 createOutboundDocSubmissionDeferredResponseStrategyImpl_g0() {
         return new OutboundDocSubmissionDeferredResponseStrategyImpl_g0() {
+            @Override
             protected Log getLogger() {
                 return mockLog;
             }
 
+            @Override
             protected gov.hhs.fha.nhinc.docsubmission.nhin.deferred.response.proxy11.NhinDocSubmissionDeferredResponseProxy getNhinDocSubmissionDeferredResponseProxy() {
                 return mockProxy11;
             }
@@ -164,10 +166,12 @@ public class OutboundDocSubmissionDeferredResponseStrategyTest {
 
     private OutboundDocSubmissionDeferredResponseStrategyImpl_g1 createOutboundDocSubmissionDeferredResponseStrategyImpl_g1() {
         return new OutboundDocSubmissionDeferredResponseStrategyImpl_g1() {
+            @Override
             protected Log getLogger() {
                 return mockLog;
             }
 
+            @Override
             protected gov.hhs.fha.nhinc.docsubmission.nhin.deferred.response.proxy20.NhinDocSubmissionDeferredResponseProxy getNhinDocSubmissionDeferredResponseProxy() {
                 return mockProxy20;
             }

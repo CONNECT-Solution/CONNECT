@@ -27,7 +27,6 @@
 package gov.hhs.fha.nhinc.docsubmission.adapter.deferred.request.proxy.service;
 
 import gov.hhs.fha.nhinc.adapterxdrrequest.AdapterXDRRequestPortType;
-import gov.hhs.fha.nhinc.adapterxdrrequestsecured.AdapterXDRRequestSecuredPortType;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 
 /**

@@ -26,8 +26,6 @@
  */
 package gov.hhs.fha.nhinc.async;
 
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,19 +34,21 @@ import javax.xml.ws.handler.MessageContext;
 
 import org.apache.cxf.headers.Header;
 
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+
 /**
  *
  * @author JHOPPESC
  */
 public class AsyncMessageIdExtractor {
-   
-    
+
+
     public static String GetAsyncMessageId(WebServiceContext context) {
         String messageId = null;
 
         MessageContext mContext = context.getMessageContext();
         if (context != null && mContext != null) {
-            List<Header> headers = (List<Header>) mContext.get(org.apache.cxf.headers.Header.HEADER_LIST);
+            List<Header> headers = (List<Header>) mContext.get(Header.HEADER_LIST);
 
             for (Header header : headers) {
                 if (header.getName().getLocalPart().equalsIgnoreCase(NhincConstants.HEADER_MESSAGEID)) {
@@ -67,10 +67,10 @@ public class AsyncMessageIdExtractor {
     public static List<String> GetAsyncRelatesTo(WebServiceContext context) {
         List<String> relatesToId = new ArrayList<String>();
 
-        
+
         MessageContext mContext = context.getMessageContext();
         if (context != null && mContext != null) {
-            List<Header> headers = (List<Header>) mContext.get(org.apache.cxf.headers.Header.HEADER_LIST);
+            List<Header> headers = (List<Header>) mContext.get(Header.HEADER_LIST);
 
             for (Header header : headers) {
                 if (header.getName().getLocalPart().equalsIgnoreCase( NhincConstants.HEADER_RELATESTO)) {
@@ -78,7 +78,7 @@ public class AsyncMessageIdExtractor {
                 }
             }
         }
-        
+
         return relatesToId;
     }
 }

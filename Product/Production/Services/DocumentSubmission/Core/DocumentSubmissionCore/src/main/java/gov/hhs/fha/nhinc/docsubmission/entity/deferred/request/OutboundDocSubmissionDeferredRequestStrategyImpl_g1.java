@@ -27,14 +27,14 @@
 
 package gov.hhs.fha.nhinc.docsubmission.entity.deferred.request;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import gov.hhs.fha.nhinc.docsubmission.nhin.deferred.request.proxy20.NhinDocSubmissionDeferredRequestProxy;
 import gov.hhs.fha.nhinc.docsubmission.nhin.deferred.request.proxy20.NhinDocSubmissionDeferredRequestProxyObjectFactory;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.orchestration.Orchestratable;
 import gov.hhs.fha.nhinc.orchestration.OrchestrationStrategy;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 /**
  *
@@ -54,7 +54,7 @@ public class OutboundDocSubmissionDeferredRequestStrategyImpl_g1 implements Orch
     protected NhinDocSubmissionDeferredRequestProxy getNhinDocSubmissionDeferredRequestProxy() {
         return new NhinDocSubmissionDeferredRequestProxyObjectFactory().getNhinDocSubmissionDeferredRequestProxy();
     }
-    
+
     @Override
     public void execute(Orchestratable message) {
         if (message instanceof OutboundDocSubmissionDeferredRequestOrchestratable) {
