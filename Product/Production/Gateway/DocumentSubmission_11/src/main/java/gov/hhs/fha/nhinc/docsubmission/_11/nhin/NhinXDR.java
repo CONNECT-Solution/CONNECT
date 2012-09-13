@@ -27,7 +27,6 @@
 package gov.hhs.fha.nhinc.docsubmission._11.nhin;
 
 import javax.annotation.Resource;
-import javax.jws.WebService;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
@@ -36,10 +35,9 @@ import javax.xml.ws.soap.Addressing;
  *
  * @author dunnek
  */
-@WebService(serviceName = "DocumentRepositoryXDR_Service", portName = "DocumentRepositoryXDR_Port_Soap", endpointInterface = "ihe.iti.xdr._2007.DocumentRepositoryXDRPortType", targetNamespace = "urn:ihe:iti:xdr:2007", wsdlLocation = "WEB-INF/wsdl/NhinXDR/NhinXDR.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 @Addressing(enabled = true)
-public class NhinXDR {
+public class NhinXDR implements ihe.iti.xdr._2007.DocumentRepositoryXDRPortType {
     @Resource
     private WebServiceContext context;
 
