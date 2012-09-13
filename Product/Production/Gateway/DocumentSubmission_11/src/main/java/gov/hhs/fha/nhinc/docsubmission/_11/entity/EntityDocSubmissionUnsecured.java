@@ -27,17 +27,17 @@
 package gov.hhs.fha.nhinc.docsubmission._11.entity;
 
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetRequestType;
+
 import javax.annotation.Resource;
-import javax.jws.WebService;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
+
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
-@WebService(serviceName = "EntityXDR_Service", portName = "EntityXDR_Port", endpointInterface = "gov.hhs.fha.nhinc.nhincentityxdr.EntityXDRPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:nhincentityxdr", wsdlLocation = "WEB-INF/wsdl/EntityDocSubmissionUnsecured/EntityXDR.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 @Addressing(enabled = true)
-public class EntityDocSubmissionUnsecured {
+public class EntityDocSubmissionUnsecured implements gov.hhs.fha.nhinc.nhincentityxdr.EntityXDRPortType {
 
     @Resource
     private WebServiceContext context;

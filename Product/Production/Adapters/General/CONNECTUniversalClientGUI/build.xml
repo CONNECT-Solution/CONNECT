@@ -6,7 +6,7 @@
     <property name="unittest.hasTests" value="false" />
     <property name="deploy.isDeployable" value="true" />
     <property name="deploy.type" value="war" />
-
+    
     <property name="cxf.home" location="../../../../../ThirdParty/CXF" />
     <property name="spring.home" location="../../../../../ThirdParty/SpringFramework" />
     <property name="core.lib" location="../../../Common/CONNECTCoreLib/dist/debug" />
@@ -26,7 +26,7 @@
         <!-- Add classes from other projects like so...-->
         <pathelement path="${project.CONNECTCommonTypesLib.build.classes.dir}" />
         <pathelement path="${project.CONNECTCoreLib.build.classes.dir}" />
-        <pathelement path="${project.PatientDiscoveryCore.build.classes.dir}" />
+		<pathelement path="${project.PatientDiscoveryCore.build.classes.dir}" />
         <pathelement path="${project.DocumentQueryCore.build.classes.dir}" />
         <pathelement path="${project.DocumentRetrieveCore.build.classes.dir}" />
 
@@ -45,12 +45,12 @@
         <filelist dir="${core.docretrieve}">
             <file name="DocumentRetrieveCore.jar" />
         </filelist>
-        <filelist dir="${core.patientdiscovery}">
-            <file name="PatientDiscoveryCore.jar" />
+	    <filelist dir="${core.patientdiscovery}">
+	        <file name="PatientDiscoveryCore.jar" />
         </filelist>
     </path>
 
-
+    
     <path id="war.libs">
         <fileset dir="${cxf.home}">
             <include name="cxf-2.6.0.jar" />
@@ -66,7 +66,7 @@
             <include name="FastInfoset-1.2.9.jar" />
             <include name="xalan-2.7.1.jar" />
             <include name="serializer-2.7.1.jar" />
-            <include name="wss4j-1.6.6.jar" />
+            <include name="wss4j-1.6.5.jar" />
             <include name="xmlsec-1.5.1.jar" />
             <include name="ehcache-core-2.5.1.jar" />
             <include name="joda-time-1.6.2.jar" />
@@ -106,10 +106,10 @@
         <filelist dir="${core.docretrieve}">
             <file name="DocumentRetrieveCore.jar" />
         </filelist>
-
+        
         <filelist dir="${core.patientdiscovery}">
             <file name="PatientDiscoveryCore.jar" />
         </filelist>
     </path>
-
+    
 </project>

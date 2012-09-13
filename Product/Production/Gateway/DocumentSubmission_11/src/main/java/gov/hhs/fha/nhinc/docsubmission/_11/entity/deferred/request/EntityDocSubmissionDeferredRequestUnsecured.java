@@ -27,7 +27,6 @@
 package gov.hhs.fha.nhinc.docsubmission._11.entity.deferred.request;
 
 import javax.annotation.Resource;
-import javax.jws.WebService;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
@@ -36,10 +35,9 @@ import javax.xml.ws.soap.Addressing;
  * 
  * @author jhoppesc
  */
-@WebService(serviceName = "EntityXDRAsyncRequest_Service", portName = "EntityXDRAsyncRequest_Port", endpointInterface = "gov.hhs.fha.nhinc.nhincentityxdr.async.request.EntityXDRAsyncRequestPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:nhincentityxdr:async:request", wsdlLocation = "WEB-INF/wsdl/EntityDocSubmissionDeferredRequestUnsecured/EntityXDRRequest.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 @Addressing(enabled = true)
-public class EntityDocSubmissionDeferredRequestUnsecured {
+public class EntityDocSubmissionDeferredRequestUnsecured implements gov.hhs.fha.nhinc.nhincentityxdr.async.request.EntityXDRAsyncRequestPortType {
     @Resource
     private WebServiceContext context;
 

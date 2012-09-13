@@ -85,7 +85,6 @@
     </target>
 
     <target name="deploy.thirdparty.libs">
-        <delete file="${glassfish.home}/domains/domain1/lib/asm-3.1.jar" />
         <copy todir="${glassfish.home}/domains/domain1/lib" overwrite="true" flatten="true">
             <fileset dir="${nhinc.deployment.thirdparty.dir}">
                 <include name="C3PO/*.jar" />
@@ -100,6 +99,7 @@
                 <include name="CXF/*.jar" />
             </fileset>
         </copy>
+        <delete file="${glassfish.home}/domains/domain1/lib/asm-3.3.1.jar" />
     </target>
 
     <target name="undeploy.from.production">

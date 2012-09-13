@@ -36,10 +36,9 @@ import javax.xml.ws.soap.Addressing;
  *
  * @author JHOPPESC
  */
-@WebService(serviceName = "XDRDeferredResponse_Service", portName = "XDRDeferredResponse_Port_Soap", endpointInterface = "ihe.iti.xdr._2007.XDRDeferredResponsePortType", targetNamespace = "urn:ihe:iti:xdr:2007", wsdlLocation = "WEB-INF/wsdl/NhinXDRResponse/NhinXDRDeferredResponse.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 @Addressing(enabled = true)
-public class NhinXDRResponse {
+public class NhinXDRResponse implements ihe.iti.xdr._2007.XDRDeferredResponsePortType {
     @Resource
     private WebServiceContext context;
 
