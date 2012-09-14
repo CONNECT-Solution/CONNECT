@@ -35,6 +35,7 @@
 	<property name="spring.home" location="../../../../ThirdParty/SpringFramework" />
 	<property name="core.lib" location="../../Common/CONNECTCoreLib/dist/debug" />
 	<property name="common.lib" location="../../Common/CONNECTCommonTypesLib/dist/debug" />
+	<property name="properties.lib" location="../../Common/CONNECTPropertiesLib/dist/debug" />
 	<property name="opensaml.home" location="../../../../ThirdParty/openSAML" />
 	<property name="core.docquery" location="../../Services/DocumentQuery/Core/DocumentQueryCore/dist/debug" />
 
@@ -89,6 +90,8 @@
 			<file name="CONNECTCommonTypesLib.jar" />
 		</filelist>
 
-
+		<filelist dir="${properties.lib}">
+			<file name="CONNECTPropertiesLib.jar" />
+		</filelist>
 	</path>
 </project>

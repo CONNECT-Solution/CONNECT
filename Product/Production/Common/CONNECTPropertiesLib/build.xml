@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project basedir="." default="package.create" name="CONNECTPropertiesLib">
+
+  <dirname property="CONNECTPropertiesLib.basedir" file="${ant.file.CONNECTPropertiesLib}"/>
+  <property name="CONNECTPropertiesLib.thirdparty.dir" location="${CONNECTPropertiesLib.basedir}/../../../../ThirdParty"/>
+
+  <property name="dist.type" value="jar" />
+  <property name="coverage.isneeded" value="false" />
+  <property name="unittest.hasTests" value="false" />
+  <property name="deploy.type" value="shared" />
+  <property name="deploy.isDeployable" value="true"/>
+
+  <!-- Please make sure that this goes up to the correct directory -->
+  <import file="../../../build/build.targets.xml" />
+
+  <path id="properties.list">
+    <!-- You can add more or less wsld files here... -->
+    <fileset dir="../Properties/Dev">
+      <include name="*" />
+    </fileset>
+  </path>
+  
+  <target name="just.quick.clean">
+    <delete dir="${build.dir.root}" failonerror="true" />
+    <delete dir="${dist.root.dir}" failonerror="true" />
+  </target>
+
+  <target name="just.clean" depends="just.quick.clean">
+  </target>
+
+  <target name="-compile.source">
+    <echo message="compile.source for ${project.name}" level="info"/>
+    <copy todir="${build.dist.root}" overwrite="true">
+        <path refid="properties.list" />
+    </copy>
+  </target>
+
+  <target name="-quick.compile.source">
+    <echo message="quick compile.source for ${project.name}" level="info"/>
+    <mkdir dir="${build.classes.dir}" />
+    <call target="copy.util.src"/>
+    <javac srcdir="${build.generated.dir}" destdir="${build.classes.dir}"/>
+  </target> 
+  
+  <target name="-package.create">
+	<mkdir dir="${dist.dir}" />
+	<call target="-package.recreate" />
+  </target>
+  
+	<target name="-package.recreate">
+		<echo message="Creating package ${dist.file}..." level="info"/>
+		<echo> ${build.dist.root} </echo>
+		<delete file="${dist.file}" />
+		<mkdir dir="${build.dist.meta-inf.dir}" />
+	
+		<manifest file="${build.dist.manifest.file}" mode="update">
+			<attribute name="Implementation-Vendor" value="connectopensource.org" />
+			<attribute name="Implementation-Title" value="NHIN CONNECT" />
+			<attribute name="Implementation-Version" value="${ProductVersion}" />
+			<attribute name="Specification-Version" value="${ProductVersion}" />
+		</manifest>
+
+		<mkdir dir="${build.jar.lib.dir}" />
+		<jar destfile="${dist.file}" compress="true" basedir="${build.dist.root}" manifest="${build.dist.manifest.file}" excludes="**/*.flag"/>
+			
+	</target>
+  
+</project>

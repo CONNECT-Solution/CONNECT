@@ -380,7 +380,9 @@
 	    <property name="spring.home" location="../ThirdParty/SpringFramework" />
 	    <property name="core.lib" location="Production/Common/CONNECTCoreLib/dist/debug" />
 	    <property name="common.lib" location="Production/Common/CONNECTCommonTypesLib/dist/debug" />
-	    <property name="opensaml.home" location="../ThirdParty/openSAML" />
+		<property name="properties.lib" location="Production/Common/CONNECTPropertiesLib/dist/debug" />
+			    
+		<property name="opensaml.home" location="../ThirdParty/openSAML" />
 		
 		<path id="ear.libs">
 	        <fileset dir="${cxf.home}">
@@ -426,6 +428,10 @@
 
 	        <filelist dir="${common.lib}">
 	            <file name="CONNECTCommonTypesLib.jar" />
+	        </filelist>
+			
+			<filelist dir="${properties.lib}">
+	            <file name="CONNECTPropertiesLib.jar" />
 	        </filelist>
 	    </path>
 		

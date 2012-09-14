@@ -72,6 +72,9 @@
 				<jar destfile="${dist.file}" compress="true" basedir="${build.dist.root}" manifest="${build.dist.manifest.file}" excludes="**/*.flag"/>
 			</case>
 			<case value="war">
+				<path id="ear.properties">
+					<pathelement path="CONNECTPropertiesLib.jar" />
+				</path>
 				<!-- Create a flat list of required jar files -->
 				<pathconvert property="libs.project" pathsep=" ">
 					<mapper>
@@ -85,6 +88,8 @@
 					</mapper>
 					 
 				    <path refid="ear.libs" />
+					<path refid="ear.properties" />
+					
 				</pathconvert>
 				
 				<manifest file="${build.dist.manifest.file}" mode="update">
@@ -111,9 +116,7 @@
 				<copy todir=".ant-deploy-staging/lib" flatten="true" overwrite="true">
 					<path refid="ear.libs" />									
 				</copy>
-				<echo>This is build.dist.meta-inf.dir: ${build.dist.meta-inf.dir}</echo>
-				<echo>This is build.dist.root: ${build.dist.root}</echo>
-												
+																
 				<ear compress="true" destfile=".ant-deploy-ear/CONNECT.ear" manifest="${build.dist.manifest.file}" appxml=".ant-deploy-staging/META-INF/application.xml">
 					<path refid="ear.files" />
 					<fileset dir=".ant-deploy-staging">
