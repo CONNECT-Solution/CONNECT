@@ -183,7 +183,7 @@ layer of abstraction
         <call target="just.quick.source.compile"/>
     </target>
 
-    <target name="just.source.compile" description="Compile the project, does not call dependent targets..." depends="ivy.resolve">
+    <target name="just.source.compile" description="Compile the project, does not call dependent targets...">
         <call target="ivy.resolve"/>
         <call target="-compile.source"/>
         <call target="coverage.instrument.classes" />
