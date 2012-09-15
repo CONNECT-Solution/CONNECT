@@ -1,0 +1,8 @@
+Manifest-Version: 1.0
+Ant-Version: Apache Ant 1.7.1
+Created-By: 23.2-b09 (Oracle Corporation)
+Implementation-Vendor: connectopensource.org
+Implementation-Title: NHIN CONNECT
+Implementation-Version: ${ProductVersion}
+Specification-Version: ${ProductVersion}
+
