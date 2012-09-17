@@ -30,6 +30,8 @@ import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 
 import java.io.File;
+import java.net.URISyntaxException;
+import java.net.URL;
 
 import javax.xml.bind.JAXBException;
 import org.apache.commons.logging.Log;
@@ -63,22 +65,20 @@ public class UddiConnectionInfoDAOFileImpl extends ConnectionManagerDAOBase impl
         log = getLogger();
 
         String fileName = getUddiConnectionFileLocation();
+
+        URL url = this.getClass().getClassLoader().getResource(fileName);
         log.debug("Reading UddiConnectionInfo from file: " + fileName);
-        file = new File(fileName);
+        try {
+			file = new File(url.toURI());
+		} catch (URISyntaxException e) {
+			log.error("Could not retrieve file:"+ fileName);
+			e.printStackTrace();
+		}
     }
 
     public String getUddiConnectionFileLocation() {
         if (fileLocation == null) {
-            String sValue = PropertyAccessor.getInstance().getPropertyFileLocation();
-            if ((sValue != null) && (sValue.length() > 0)) {
-                if (sValue.endsWith(File.separator)) {
-                    fileLocation = sValue + UDDI_XML_FILE_NAME;
-                } else {
-                    fileLocation = sValue + File.separator + UDDI_XML_FILE_NAME;
-                }
-            } else {
-                failedToLoadEnvVar = true;
-            }
+            fileLocation = UDDI_XML_FILE_NAME;
         }
 
         return fileLocation;
@@ -128,6 +128,14 @@ public class UddiConnectionInfoDAOFileImpl extends ConnectionManagerDAOBase impl
     }
 
     public void setFileName(String fileName) {
-        file = new File(fileName);
+
+        URL url = this.getClass().getClassLoader().getResource(fileName);
+        log.debug("Reading UddiConnectionInfo from file: " + fileName);
+        try {
+			file = new File(url.toURI());
+		} catch (URISyntaxException e) {
+			log.error("Could not retrieve file:"+ fileName);
+			e.printStackTrace();
+		}
     }
 }

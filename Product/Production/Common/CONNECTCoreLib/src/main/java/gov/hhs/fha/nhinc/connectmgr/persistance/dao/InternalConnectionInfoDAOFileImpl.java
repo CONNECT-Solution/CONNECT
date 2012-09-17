@@ -27,11 +27,13 @@
 package gov.hhs.fha.nhinc.connectmgr.persistance.dao;
 
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
-import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 
 import java.io.File;
+import java.net.URISyntaxException;
+import java.net.URL;
 
 import javax.xml.bind.JAXBException;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.uddi.api_v3.BusinessDetail;
@@ -63,25 +65,23 @@ public class InternalConnectionInfoDAOFileImpl extends ConnectionManagerDAOBase 
     InternalConnectionInfoDAOFileImpl() {
         log = getLogger();
 
+        //Changed to get file from class-path
         String fileName = getInternalConnectionFileLocation();
+        URL url = this.getClass().getClassLoader().getResource(fileName);
+        
         log.debug("Reading InternalConnectionInfo from file: " + fileName);
-        file = new File(fileName);
+        try {
+			file = new File(url.toURI());
+		} catch (URISyntaxException e) {
+			log.error("Could not retrieve file:"+ fileName);
+			e.printStackTrace();
+		}
     }
 
     public String getInternalConnectionFileLocation() {
         if (fileLocation == null) {
-            String sValue = PropertyAccessor.getInstance().getPropertyFileLocation();
-            if ((sValue != null) && (sValue.length() > 0)) {
-                if (sValue.endsWith(File.separator)) {
-                    fileLocation = sValue + INTERNAL_XML_FILE_NAME;
-                } else {
-                    fileLocation = sValue + File.separator + INTERNAL_XML_FILE_NAME;
-                }
-            } else {
-                failedToLoadEnvVar = true;
-            }
+            fileLocation = INTERNAL_XML_FILE_NAME;
         }
-
         return fileLocation;
     }
 
@@ -129,6 +129,14 @@ public class InternalConnectionInfoDAOFileImpl extends ConnectionManagerDAOBase 
     }
 
     public void setFileName(String fileName) {
-        file = new File(fileName);
+
+        URL url = this.getClass().getClassLoader().getResource(fileName);
+        log.debug("Reading InternalConnectionInfo from file: " + fileName);
+        try {
+			file = new File(url.toURI());
+		} catch (URISyntaxException e) {
+			log.error("Could not retrieve file:"+ fileName);
+			e.printStackTrace();
+		}
     }
 }
