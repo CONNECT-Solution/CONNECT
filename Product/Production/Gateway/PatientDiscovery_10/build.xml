@@ -8,6 +8,7 @@
     <property name="deploy.isDeployable" value="true" />
     <property name="deploy.type" value="war" />
     <property name="copy.wsdl.to.webinf" value="true" />
+    <property name="copy.schemas.to.webinf" value="true" />
     <property name="cxf.home" location="../../../../ThirdParty/CXF" />
     <property name="spring.home" location="../../../../ThirdParty/SpringFramework" />
     <property name="core.lib" location="../../Common/CONNECTCoreLib/dist/debug" />
@@ -15,6 +16,8 @@
     <property name="opensaml.home" location="../../../../ThirdParty/openSAML" />
     <property name="core.patientdiscovery"
               location="../../Services/PatientDiscovery/Core/PatientDiscoveryCore/dist/debug" />
+    <property name="wsdl.dir" location="../../Common/Interfaces/src/wsdl" />   
+    <property name="schema.dir" location="../../Common/Interfaces/src/schemas" />       
 
     <!-- Please make sure that this goes up to the correct directory -->
     <import file="../../../build/build.targets.xml" />
@@ -85,6 +88,26 @@
         <filelist dir="${core.patientdiscovery}">
             <file name="PatientDiscoveryCore.jar" />
         </filelist>
+    </path>
+    
+    <path id="wsdl.list">
+        <filelist dir="${wsdl.dir}">
+            <file name="NhinPatientDiscovery.wsdl" />
+            <file name="EntityPatientDiscoverySecured.wsdl" />
+            <file name="EntityPatientDiscovery.wsdl" />
+            <file name="NhincProxyPatientDiscoverySecured.wsdl" />
+            <file name="NhincProxyPatientDiscovery.wsdl" />
+            <file name="NhinPatientDiscoveryDeferredRequest.wsdl" />
+            <file name="EntityPatientDiscoverySecuredAsyncReq.wsdl" />
+            <file name="EntityPatientDiscoveryAsyncReq.wsdl" />
+            <file name="NhincProxyPatientDiscoverySecuredAsyncReq.wsdl" />
+            <file name="NhincProxyPatientDiscoveryAsyncReq.wsdl" />
+            <file name="NhinPatientDiscoveryDeferredResponse.wsdl" />
+            <file name="EntityPatientDiscoverySecuredAsyncResp.wsdl" />
+            <file name="EntityPatientDiscoveryAsyncResp.wsdl" />
+            <file name="NhincProxyPatientDiscoveryAsyncResp.wsdl" />
+            <file name="NhincProxyPatientDiscoverySecuredAsyncResp.wsdl" />
+        </filelist>    
     </path>
 
 </project>
