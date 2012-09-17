@@ -78,7 +78,7 @@ public class PassthruDocSubmissionDeferredResponseImpl {
             assertion.setMessageId(AsyncMessageIdExtractor.GetAsyncMessageId(context));
             List<String> relatesToList = AsyncMessageIdExtractor.GetAsyncRelatesTo(context);
             if (NullChecker.isNotNullish(relatesToList)) {
-                assertion.getRelatesToList().add(AsyncMessageIdExtractor.GetAsyncRelatesTo(context).get(0));
+                assertion.getRelatesToList().addAll(relatesToList);
             }
         }
 

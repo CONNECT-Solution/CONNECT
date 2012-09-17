@@ -3,8 +3,12 @@
  */
 package gov.hhs.fha.nhinc.messaging.server;
 
+import java.util.List;
+
+import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 
 import javax.xml.ws.WebServiceContext;
@@ -23,19 +27,19 @@ public abstract class BaseService {
             assertion = oAssertionIn;
         }
 
-//      // Extract the message id value from the WS-Addressing Header and place it in the Assertion Class
-//      if (assertion != null) {
-//          assertion.setMessageId(AsyncMessageIdExtractor.GetAsyncMessageId(context));
-//      }
+      // Extract the message id value from the WS-Addressing Header and place it in the Assertion Class
+      if (assertion != null) {
+          assertion.setMessageId(AsyncMessageIdExtractor.GetAsyncMessageId(context));
+      }
         
         
-//      // Extract the relates-to value from the WS-Addressing Header and place it in the Assertion Class
-//      if (assertion != null) {
-//          List<String> relatesToList = AsyncMessageIdExtractor.GetAsyncRelatesTo(context);
-//          if (NullChecker.isNotNullish(relatesToList)) {
-//              assertion.getRelatesToList().add(AsyncMessageIdExtractor.GetAsyncRelatesTo(context).get(0));
-//          }
-//      }
+      // Extract the relates-to value from the WS-Addressing Header and place it in the Assertion Class
+      if (assertion != null) {
+          List<String> relatesToList = AsyncMessageIdExtractor.GetAsyncRelatesTo(context);
+          if (NullChecker.isNotNullish(relatesToList)) {
+              assertion.getRelatesToList().add(AsyncMessageIdExtractor.GetAsyncRelatesTo(context).get(0));
+          }
+      }
 
 
         return assertion;

@@ -7,6 +7,7 @@
 	<path id="ear.libs" />
 	<path id="jar.libs" />
 	<path id="jar.files" />
+	<path id="wsdl.list" />
 
 	<property name="dist.root.dir" value="${project.dir}/dist" />
 	<property name="dist.dir" value="${dist.root.dir}/${build.config}" />

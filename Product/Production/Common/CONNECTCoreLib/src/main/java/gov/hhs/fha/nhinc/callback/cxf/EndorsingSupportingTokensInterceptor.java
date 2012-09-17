@@ -100,7 +100,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 /**
- * 
+ *
  */
 public class EndorsingSupportingTokensInterceptor extends WSS4JInInterceptor {
     public static final String PROPERTIES_CACHE = "ws-security.properties.cache";
@@ -108,7 +108,7 @@ public class EndorsingSupportingTokensInterceptor extends WSS4JInInterceptor {
     private static final Logger LOG = LogUtils.getL7dLogger(EndorsingSupportingTokensInterceptor.class);
 
     /**
-     * 
+     *
      */
     public EndorsingSupportingTokensInterceptor() {
         super(true);
@@ -118,7 +118,7 @@ public class EndorsingSupportingTokensInterceptor extends WSS4JInInterceptor {
     public void handleMessage(SoapMessage msg) throws Fault {
         super.handleMessage(msg);
     }
-    
+
     protected static Map<Object, Properties> getPropertiesCache(SoapMessage message) {
         EndpointInfo info = message.getExchange().get(Endpoint.class).getEndpointInfo();
         synchronized (info) {
