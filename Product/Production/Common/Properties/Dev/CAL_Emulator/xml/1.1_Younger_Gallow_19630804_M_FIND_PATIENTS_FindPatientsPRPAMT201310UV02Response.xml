@@ -1,0 +1,26 @@
+		<ns3:FindPatients_PRPA_MT201310UV02Response xmlns="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:ns2="urn:gov:hhs:fha:nhinc:common:patientcorrelationfacade" xmlns:ns3="urn:hl7-org:v3" xmlns:ns4="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+			<ns3:subject classCode="PAT">
+				<ns3:id extension="D123401" root="1.1"/>
+				<ns3:patientPerson>
+					<ns3:name use="P">
+						<ns3:family partType="FAM">Younger</ns3:family>
+						<ns3:given partType="GIV">Gallow</ns3:given>
+					</ns3:name>
+					<ns3:telecom value="tel:+1-888-555-1234"/>
+					<ns3:administrativeGenderCode code="M"/>
+					<ns3:birthTime value="19630804"/>
+					<ns3:addr use="HP">
+						<ns3:streetAddressLine></ns3:streetAddressLine>
+						<ns3:city>LEESBURG</ns3:city>
+						<ns3:state>VA</ns3:state>
+						<ns3:postalCode>20176</ns3:postalCode>
+					</ns3:addr>
+					<ns3:asOtherIDs classCode="CIT">
+						<ns3:id extension="999123401" root="2.16.840.1.113883.4.1"/>
+						<ns3:scopingOrganization determinerCode="INSTANCE" classCode="ORG">
+							<ns3:id root="2.16.840.1.113883.4.1"/>
+						</ns3:scopingOrganization>
+					</ns3:asOtherIDs>
+				</ns3:patientPerson>
+			</ns3:subject>
+		</ns3:FindPatients_PRPA_MT201310UV02Response>
