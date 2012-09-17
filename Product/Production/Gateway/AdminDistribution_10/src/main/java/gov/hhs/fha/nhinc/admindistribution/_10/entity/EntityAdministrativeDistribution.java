@@ -26,14 +26,13 @@
  */
 package gov.hhs.fha.nhinc.admindistribution._10.entity;
 
-import javax.jws.WebService;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.soap.Addressing;
 
 import gov.hhs.fha.nhinc.admindistribution.entity.EntityAdminDistributionOrchImpl;
 
 /**
- * 
+ *
  * @author dunnek
  */
 
@@ -41,6 +40,7 @@ import gov.hhs.fha.nhinc.admindistribution.entity.EntityAdminDistributionOrchImp
 @Addressing(enabled = true)
 public class EntityAdministrativeDistribution implements gov.hhs.fha.nhinc.entityadmindistribution.AdministrativeDistributionPortType {
 
+    @Override
     public void sendAlertMessage(gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewaySendAlertMessageType body) {
         getEntityImpl().sendAlertMessage(body, body.getAssertion(), body.getNhinTargetCommunities());
     }
