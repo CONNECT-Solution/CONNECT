@@ -26,8 +26,6 @@
  */
 package gov.hhs.fha.nhinc.async;
 
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,6 +35,8 @@ import javax.xml.ws.handler.MessageContext;
 import org.apache.cxf.binding.soap.SoapHeader;
 import org.apache.cxf.headers.Header;
 import org.w3c.dom.Element;
+
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 
 /**
  * 
@@ -49,7 +49,7 @@ public class AsyncMessageIdExtractor {
 
         MessageContext mContext = context.getMessageContext();
         if (context != null && mContext != null) {
-            List<Header> headers = (List<Header>) mContext.get(org.apache.cxf.headers.Header.HEADER_LIST);
+            List<Header> headers = (List<Header>) mContext.get(Header.HEADER_LIST);
 
             if (headers != null) {
                 for (Header header : headers) {
@@ -72,7 +72,7 @@ public class AsyncMessageIdExtractor {
 
         MessageContext mContext = context.getMessageContext();
         if (context != null && mContext != null) {
-            List<Header> headers = (List<Header>) mContext.get(org.apache.cxf.headers.Header.HEADER_LIST);
+            List<Header> headers = (List<Header>) mContext.get(Header.HEADER_LIST);
 
             if (headers != null) {
                 for (Header header : headers) {
