@@ -92,10 +92,10 @@
 	<wsdl:message name="GetOrdersResponse">
 		<wsdl:part name="output" element="hl7:CareRecord_QUPC_IN043200UV01Response"/>
 	</wsdl:message>
-	<wsdl:message name="GetPatienInfoRequest">
+	<wsdl:message name="GetPatientInfoRequest">
 		<wsdl:part name="param0" element="hl7:PatientDemographics_PRPA_IN201307UV02Request"/>
 	</wsdl:message>
-	<wsdl:message name="GetPatienInfoResponse">
+	<wsdl:message name="GetPatientInfoResponse">
 		<wsdl:part name="output" element="hl7:PatientDemographics_PRPA_MT201303UV02Response"/>
 	</wsdl:message>
 	<wsdl:message name="FindPatientsRequest">
@@ -104,6 +104,18 @@
 	<wsdl:message name="FindPatientsResponse">
 		<wsdl:part name="output" element="hl7:FindPatients_PRPA_MT201310UV02Response"/>
 	</wsdl:message>
+	<wsdl:message name="FindDocumentRequest">
+		<wsdl:part name="param0" element="hl7:FindDocument_RCMR_IN000031UV01Request"/>
+	</wsdl:message>
+	<wsdl:message name="FindDocumentResponse">
+		<wsdl:part name="output" element="hl7:FindDocument_RCMR_IN000032UV01Response"/>
+	</wsdl:message>	
+	<wsdl:message name="FindDocumentWithContentRequest">
+		<wsdl:part name="param0" element="hl7:FindDocumentWithContent_RCMR_IN000031UV01Request"/>
+	</wsdl:message>
+	<wsdl:message name="FindDocumentWithContentResponse">
+		<wsdl:part name="output" element="hl7:FindDocumentWithContent_RCMR_IN000032UV01Response"/>
+	</wsdl:message>	
 	<wsdl:portType name="CommonDataLayerPortType">
 		<wsdl:operation name="GetEncounters">
 			<wsdl:input message="tns:GetEncountersRequest"/>
@@ -161,13 +173,21 @@
 			<wsdl:input message="tns:GetOrdersRequest"/>
 			<wsdl:output message="tns:GetOrdersResponse"/>
 		</wsdl:operation>
-		<wsdl:operation name="GetPatienInfo">
-			<wsdl:input message="tns:GetPatienInfoRequest"/>
-			<wsdl:output message="tns:GetPatienInfoResponse"/>
+		<wsdl:operation name="GetPatientInfo">
+			<wsdl:input message="tns:GetPatientInfoRequest"/>
+			<wsdl:output message="tns:GetPatientInfoResponse"/>
 		</wsdl:operation>
 		<wsdl:operation name="FindPatients">
 			<wsdl:input message="tns:FindPatientsRequest"/>
 			<wsdl:output message="tns:FindPatientsResponse"/>
+		</wsdl:operation>		
+		<wsdl:operation name="FindDocument">
+			<wsdl:input message="tns:FindDocumentRequest"/>
+			<wsdl:output message="tns:FindDocumentResponse"/>
+		</wsdl:operation>		
+		<wsdl:operation name="FindDocumentWithContent">
+			<wsdl:input message="tns:FindDocumentWithContentRequest"/>
+			<wsdl:output message="tns:FindDocumentWithContentResponse"/>
 		</wsdl:operation>
 	</wsdl:portType>
 	<wsdl:binding name="CommonDataLayerPortTypeBinding" type="tns:CommonDataLayerPortType">
@@ -298,8 +318,8 @@
 				<soap:body use="literal"/>
 			</wsdl:output>
 		</wsdl:operation>
-		<wsdl:operation name="GetPatienInfo">
-			<soap:operation soapAction="urn:GetPatienInfo" style="document"/>
+		<wsdl:operation name="GetPatientInfo">
+			<soap:operation soapAction="urn:GetPatientInfo" style="document"/>
 			<wsdl:input>
 				<soap:body use="literal"/>
 			</wsdl:input>
@@ -309,6 +329,24 @@
 		</wsdl:operation>
 		<wsdl:operation name="FindPatients">
 			<soap:operation soapAction="urn:FindPatients" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>		
+		<wsdl:operation name="FindDocument">
+			<soap:operation soapAction="urn:FindDocument" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>		
+		<wsdl:operation name="FindDocumentWithContent">
+			<soap:operation soapAction="urn:FindDocumentWithContent" style="document"/>
 			<wsdl:input>
 				<soap:body use="literal"/>
 			</wsdl:input>

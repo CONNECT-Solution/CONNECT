@@ -1,32 +1,32 @@
 /*
- * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
- *  
- * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
- *  
- */
-/*
- * Copyright (c) 2011, Conemaugh Valley Memorial Hospital
+ * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
+ * All rights reserved.
  *
+ * Copyright (c) 2011, Conemaugh Valley Memorial Hospital *
  * This source is subject to the Conemaugh public license.  Please see the
  * license.txt file for more information.
  *
- * All other rights reserved.
+ * Redistribution and use in source and binary forms, with or without 
+ * modification, are permitted provided that the following conditions are met: 
+ *     * Redistributions of source code must retain the above 
+ *       copyright notice, this list of conditions and the following disclaimer. 
+ *     * Redistributions in binary form must reproduce the above copyright 
+ *       notice, this list of conditions and the following disclaimer in the documentation 
+ *       and/or other materials provided with the distribution. 
+ *     * Neither the name of the United States Government nor the 
+ *       names of its contributors may be used to endorse or promote products 
+ *       derived from this software without specific prior written permission. 
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND
- * CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING,
- * BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND
- * FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT
- * SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY
- * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE
- * GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
- * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- *
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
+ * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY 
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES 
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND 
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
 package gov.hhs.fha.nhinc.adapter.commondatalayer.mappers;
 
@@ -35,7 +35,6 @@ import gov.hhs.fha.nhinc.adapter.commondatalayer.mappers.exceptions.SimpleErrorH
 import org.hl7.v3.CareRecordQUPCIN043200UV01ResponseType;
 import org.hl7.v3.PatientDemographicsPRPAMT201303UV02ResponseType;
 import org.hl7.v3.FindPatientsPRPAMT201310UV02ResponseType;
-//import org.hl7.v3.ProviderDetailsPRPMIN306011UV01ResponseType;
 import org.hl7.v3.FindDocumentRCMRIN000032UV01ResponseType;
 import org.hl7.v3.FindDocumentWithContentRCMRIN000032UV01ResponseType;
 import java.io.*;
@@ -45,13 +44,13 @@ import javax.xml.bind.*;
 import javax.xml.parsers.*;
 import org.xml.sax.XMLReader;
 import org.xml.sax.InputSource;
+import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
 
 /**
- *
+ * 
  * @author kim
  */
-public class StaticUtil
-{
+public class StaticUtil {
     private static String dataPath = AdapterCommonDataLayerConstants.EMULATOR_DATA_LOCATION;
     private static Log logger = LogFactory.getLog(StaticUtil.class);
 
@@ -152,41 +151,6 @@ public class StaticUtil
 
     }
 
-    public static FindDocumentRCMRIN000032UV01ResponseType createFindDocumentResponse(String patientID, String receiverOID)
-    {
-        FindDocumentRCMRIN000032UV01ResponseType response = new FindDocumentRCMRIN000032UV01ResponseType();
-        response = null;
-
-        // Get FIND_DOCUMENT_TAG from the properties file
-        String findDocumentTag = AdapterCommonDataLayerConstants.EMULATOR_FIND_DOCUMENT_TAG;
-
-        // Get FIND_DOCUMENT_RESPONSE_TYPE fro the properties file
-        String findDocumentResponseType = AdapterCommonDataLayerConstants.EMULATOR_FIND_DOCUMENT_RESPONSE_TYPE;
-
-        String dataFile = _getResponseFile(receiverOID, patientID, null, null, null, null, null, findDocumentTag, findDocumentResponseType);
-
-        try
-        {
-            org.hl7.v3.ObjectFactory obf = new org.hl7.v3.ObjectFactory();
-            JAXBElement element = _getDataFromFile(dataFile);
-            JAXBElement<FindDocumentRCMRIN000032UV01ResponseType> crr = obf.createFindDocumentRCMRIN000032UV01Response((FindDocumentRCMRIN000032UV01ResponseType)element.getValue());
-            logger.debug("Response of type " + crr.getClass().getName() + " has been created from Emulated Data File");
-
-            //set response equal to Find Document created from Object Factory
-            response = crr.getValue();
-
-            logger.debug("Response Creation Successful for : " + crr.getClass().getName());
-
-        }
-        catch (Exception ex)
-        {
-            logger.error("Error extracting data from " + dataFile + "--" + ex);
-        }
-
-        return response;
-
-    }
-
     public static FindDocumentWithContentRCMRIN000032UV01ResponseType createFindDocumentWithContentResponse(String patientID, String receiverOID)
     {
 
@@ -222,39 +186,6 @@ public class StaticUtil
         return response;
     }
 
-   /* public static ProviderDetailsPRPMIN306011UV01ResponseType createFindProvidersResponse(String providerID, String receiverOID)
-    {
-        ProviderDetailsPRPMIN306011UV01ResponseType response = new ProviderDetailsPRPMIN306011UV01ResponseType();
-        response = null;
-
-        // Get FIND_PROVIDERS_TAG from the properties file
-        String findProvidersTag = AdapterCommonDataLayerConstants.EMULATOR_FIND_PROVIDERS_TAG;
-
-        // Get FIND_PROVIDERS_RESPONSE_TYPE from the properties file
-        String findProvidersResponseType = AdapterCommonDataLayerConstants.EMULATOR_FIND_PROVIDERS_RESPONSE_TYPE;
-
-        String dataFile = _getResponseFile(receiverOID, null, null, null, null, null, providerID, findProvidersTag, findProvidersResponseType);
-
-        try
-        {
-            org.hl7.v3.ObjectFactory obf = new org.hl7.v3.ObjectFactory();
-            JAXBElement element = _getDataFromFile(dataFile);
-            JAXBElement<ProviderDetailsPRPMIN306011UV01ResponseType> crr = obf.createProviderDetailsPRPMIN306011UV01Response((ProviderDetailsPRPMIN306011UV01ResponseType)element.getValue());
-            logger.debug("Response of type "  + crr.getClass().getName() + " has been created from Emulated Data File");
-
-            //set response equal to Care Record created from Object Factory
-            response = crr.getValue();
-
-            logger.debug("Response Creation Successful for: " + crr.getClass().getName());
-        }
-        catch (Exception ex)
-        {
-            logger.error("Error extracting data from " + dataFile + "--" + ex);
-        }
-
-        return response;
-    }
-*/
     private static String _getResponseFile(String receiverOID, String patientID, String lastName, String firstName, String gender, String dob, String providerID, String tag, String responseType)
     {
         String dataFile = null;
@@ -400,7 +331,7 @@ public class StaticUtil
             BufferedReader br = new BufferedReader(new InputStreamReader(fis));
             StringBuilder sb = new StringBuilder();
 
-            for(;;)
+            while(true)
             {
                 //read line of xml file
                 String line = br.readLine();
@@ -417,8 +348,9 @@ public class StaticUtil
             String tempString = sb.toString();
 
             //get JAXBContext instance
-            JAXBContext jContext = JAXBUtil.getInstance().getJAXBContextOrg();
-
+            JAXBContextHandler jch = new JAXBContextHandler();
+            JAXBContext jContext = jch.getJAXBContext("org.hl7.v3");
+            
             //create unmarshaller
             Unmarshaller unmarshaller = jContext.createUnmarshaller();
             UnmarshallerHandler umh = unmarshaller.getUnmarshallerHandler();
