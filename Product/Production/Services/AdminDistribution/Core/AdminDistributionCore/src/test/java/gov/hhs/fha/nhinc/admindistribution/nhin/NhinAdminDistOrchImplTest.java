@@ -143,7 +143,6 @@ public class NhinAdminDistOrchImplTest {
     @Test
     public void testSendAlertMessage_NoSleep() {
 
-        System.out.println("testSendAlertMessage_NoSleep");
         final Log mockLogger = context.mock(Log.class);
         final AdapterAdminDistributionProxy mockAdapter = context.mock(AdapterAdminDistributionProxy.class);
         final AdminDistributionAuditLogger mockAuditLogger = context.mock(AdminDistributionAuditLogger.class);

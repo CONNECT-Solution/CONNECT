@@ -28,17 +28,16 @@ package gov.hhs.fha.nhinc.admindistribution._10.entity;
 
 import javax.xml.ws.WebServiceContext;
 
-import org.junit.Before;
-import org.junit.Test;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
+import org.junit.Before;
+import org.junit.Test;
 
-import gov.hhs.fha.nhinc.admindistribution._10.entity.EntityAdministrativeDistributionSecured;
 import gov.hhs.fha.nhinc.admindistribution.entity.EntityAdminDistributionOrchImpl;
-import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewaySendAlertMessageSecuredType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
+import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewaySendAlertMessageSecuredType;
 
 /**
  *
@@ -72,7 +71,6 @@ public class EntityAdministrativeDistributionSecuredTest {
 
         final AssertionType assertion = new AssertionType();
         final EntityAdminDistributionOrchImpl mockImpl = context.mock(EntityAdminDistributionOrchImpl.class);
-        final NhinTargetCommunitiesType targets = new NhinTargetCommunitiesType();
 
         EntityAdministrativeDistributionSecured instance = new EntityAdministrativeDistributionSecured() {
             @Override
@@ -80,6 +78,7 @@ public class EntityAdministrativeDistributionSecuredTest {
                 return assertion;
             }
 
+            @Override
             protected EntityAdminDistributionOrchImpl getEntityImpl() {
                 return mockImpl;
             }

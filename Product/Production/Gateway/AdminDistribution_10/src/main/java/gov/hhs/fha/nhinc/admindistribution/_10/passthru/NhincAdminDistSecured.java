@@ -26,19 +26,18 @@
  */
 package gov.hhs.fha.nhinc.admindistribution._10.passthru;
 
+import javax.annotation.Resource;
+import javax.xml.ws.BindingType;
+import javax.xml.ws.WebServiceContext;
+import javax.xml.ws.soap.Addressing;
+
 import gov.hhs.fha.nhinc.admindistribution.passthru.PassthruAdminDistributionOrchImpl;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 
-import javax.annotation.Resource;
-import javax.jws.WebService;
-import javax.xml.ws.BindingType;
-import javax.xml.ws.WebServiceContext;
-import javax.xml.ws.soap.Addressing;
-
 /**
- * 
+ *
  * @author dunnek
  */
 
@@ -48,6 +47,7 @@ public class NhincAdminDistSecured implements gov.hhs.fha.nhinc.nhincadmindistri
     @Resource
     private WebServiceContext context;
 
+    @Override
     public void sendAlertMessage(
             gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewaySendAlertMessageSecuredType body) {
         AssertionType assertion = extractAssertion(context);
