@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request;
 
+import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
 
@@ -65,11 +66,11 @@ public class AdapterPatientDiscoveryDeferredRequestImpl {
         } else {
             assertion = oAssertionIn;
         }
-//
-//        // Extract the message id value from the WS-Addressing Header and place it in the Assertion Class
-//        if (assertion != null) {
-//            assertion.setMessageId(AsyncMessageIdExtractor.GetAsyncMessageId(context));
-//        }
+
+        // Extract the message id value from the WS-Addressing Header and place it in the Assertion Class
+        if (assertion != null) {
+            assertion.setMessageId(AsyncMessageIdExtractor.GetAsyncMessageId(context));
+        }
 
         return assertion;
     }

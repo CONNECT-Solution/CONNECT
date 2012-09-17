@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery._10.deferred.request;
 
+import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
 import gov.hhs.fha.nhinc.patientdiscovery.nhin.deferred.request.NhinPatientDiscoveryDeferredReqOrchFactory;
@@ -48,10 +49,10 @@ public class NhinPatientDiscoveryAsyncReqImpl {
     public MCCIIN000002UV01 respondingGatewayPRPAIN201305UV02(PRPAIN201305UV02 request, WebServiceContext context) {
         AssertionType assertion = SAML2AssertionExtractor.getInstance().extractSamlAssertion(context);
 
-//        // Extract the message id value from the WS-Addressing Header and place it in the Assertion Class
-//        if (assertion != null) {
-//            assertion.setMessageId(AsyncMessageIdExtractor.GetAsyncMessageId(context));
-//        }
+        // Extract the message id value from the WS-Addressing Header and place it in the Assertion Class
+        if (assertion != null) {
+            assertion.setMessageId(AsyncMessageIdExtractor.GetAsyncMessageId(context));
+        }
 
         MCCIIN000002UV01 resp = NhinPatientDiscoveryDeferredReqOrchFactory.getInstance().create()
                 .respondingGatewayPRPAIN201305UV02(request, assertion);
