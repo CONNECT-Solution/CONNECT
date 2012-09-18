@@ -51,7 +51,7 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.log4j.MDC;
 
 /**
- * @author bhumphrey
+ * @author bhumphrey/jasonasmith
  * 
  */
 public class TransactionHandler implements SOAPHandler<SOAPMessageContext> {
@@ -64,6 +64,10 @@ public class TransactionHandler implements SOAPHandler<SOAPMessageContext> {
     private static final String WSA_NS = "http://www.w3.org/2005/08/addressing";
     private static final String MESSAGE_ID = "MessageID";
     private static final String REPLYTO_ID = "ReplyTo";
+     
+    protected Log getLogger(){
+    	return log;
+    }
     
     /*
      * (non-Javadoc)
@@ -87,51 +91,46 @@ public class TransactionHandler implements SOAPHandler<SOAPMessageContext> {
             
             if (messageIdElement != null) {
             	messageId = messageIdElement.getTextContent();
-                log.debug("TransactionHandler.handleMessage() messageId= " +messageId);
+                getLogger().debug("TransactionHandler.handleMessage() messageId= " +messageId);
                 
                 SOAPElement transactionIdElement = getFirstChild(soapHeader, TRANSACTION_QNAME);
                 
                 //Checks if TransactionID is included in message as TransactionID element
                 if (transactionIdElement != null) {
                     transactionId = transactionIdElement.getTextContent();
-                    log.debug("TransactionHandler TransactionId found: " + transactionId);
-                    if(TransactionDAO.getTransactionDAOInstance().getTransactionId(messageId) == null){
+                    getLogger().debug("TransactionHandler TransactionId found: " + transactionId);
+                    if(getTransactionId(messageId) == null){
                     	createTransactionRecord(messageId,transactionId);
                     }//else transactionId is already persisted
                 } 
                 
                 //Checks if the Reply-To value in the message has a transactionID
                 if(NullChecker.isNullish(transactionId)){
-                	log.debug("TransactionHandler.handleMessage() Looking up on ReplyTo");
+                	getLogger().debug("TransactionHandler.handleMessage() Looking up on ReplyTo");
                 	SOAPElement replyToIdElement = getFirstChild(soapHeader, WSA_NS, REPLYTO_ID);
                 	if(replyToIdElement != null){
                 		replyToId = replyToIdElement.getTextContent();
-                		log.debug("TransactionHandler.handleMessage() ReplyTo: " + replyToId);
+                		getLogger().debug("TransactionHandler.handleMessage() ReplyTo: " + replyToId);
                 		if(NullChecker.isNotNullish(replyToId)){
-                			transactionId = TransactionDAO.getTransactionDAOInstance().
-                					getTransactionId(replyToId);
+                			transactionId = getTransactionId(replyToId);
                 			if(NullChecker.isNotNullish(transactionId)){
                             	createTransactionRecord(messageId,transactionId);
                             }//else transactionId is already persisted
                 		}
                 	}
+                }
+                
                 //Finally, checks if transactionID is in the database
-                } else {
-                	transactionId = TransactionDAO.getTransactionDAOInstance().getTransactionId(messageId);     
+                if(NullChecker.isNullish(transactionId)){
+                	transactionId = getTransactionId(messageId);     
                 }
-                    
-                if(NullChecker.isNotNullish(transactionId)){
-                	log.info("found transaction-id " + transactionId + "for message id: " + messageId);
-                	MDC.put("message-id", messageId);
-                	MDC.put("transaction-id", transactionId); 
-                }else {
-                	log.info("no transaction-id for message id: " + messageId);
-                }
+                
+                enableMdcLogging(transactionId, messageId);
 
             }
 
         } catch (SOAPException e) {
-            log.error(e);
+            getLogger().error(e);
         }
     	return true;
     }
@@ -141,7 +140,7 @@ public class TransactionHandler implements SOAPHandler<SOAPMessageContext> {
     * @param messageId
     * @param transactionId
     */
-    private void createTransactionRecord(String messageId, String transactionId){
+    protected void createTransactionRecord(String messageId, String transactionId){
     	if(NullChecker.isNotNullish(messageId) && NullChecker.isNotNullish(transactionId)){
     		TransactionRepo transRepo = new TransactionRepo();
     		Long newId = null;
@@ -152,11 +151,36 @@ public class TransactionHandler implements SOAPHandler<SOAPMessageContext> {
     	
     		if(TransactionDAO.getTransactionDAOInstance().insertIntoTransactionRepo(transRepo)){
     			newId = transRepo.getId();
-    			log.info("TransactionHandler.createTransactionId() - New Transaction Log Id = " + newId);
+    			getLogger().info("TransactionHandler.createTransactionId() - New Transaction Log Id = " + newId);
     		}else{
-    			log.warn("TransactionHandler.createTransactionId() - ERROR Inserting New Record.");
+    			getLogger().warn("TransactionHandler.createTransactionId() - ERROR Inserting New Record.");
     		}
     	}
+    }
+    
+    /**
+     * Looks up transaction ID using the TransactionDAO.
+     * @param id
+     * @return
+     */
+    protected String getTransactionId(String id){
+    	return TransactionDAO.getTransactionDAOInstance().
+				getTransactionId(id);
+    }
+    
+    /**
+     * Enables MDC logging if the transaction ID is found.
+     * @param transactionId
+     * @param messageId
+     */
+    protected void enableMdcLogging(String transactionId, String messageId){
+    	if(NullChecker.isNotNullish(transactionId)){
+        	getLogger().info("found transaction-id " + transactionId + "for message id: " + messageId);
+        	MDC.put("message-id", messageId);
+        	MDC.put("transaction-id", transactionId);
+        }else {
+        	getLogger().info("no transaction-id for message id: " + messageId);
+        }
     }
 
     private SOAPElement getFirstChild(SOAPHeader header, String ns, String name) {
@@ -191,7 +215,7 @@ public class TransactionHandler implements SOAPHandler<SOAPMessageContext> {
      */
     @Override
     public boolean handleFault(SOAPMessageContext context) {
-        log.warn("TransactionHandler.handleFault");
+        getLogger().warn("TransactionHandler.handleFault");
         return true;
     }
 
@@ -202,7 +226,7 @@ public class TransactionHandler implements SOAPHandler<SOAPMessageContext> {
      */
     @Override
     public void close(MessageContext context) {
-        log.debug("TransactionHandler.close");
+        getLogger().debug("TransactionHandler.close");
     }
 
     /*
