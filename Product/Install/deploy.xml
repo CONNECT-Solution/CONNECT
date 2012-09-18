@@ -113,13 +113,10 @@
     </target>
 
     <target name="-deploy.glassfish.start.server.win" depends="-deploy.glassfish.asadmin" if="win">
-        <parallel>
-            <sequential>
-                <exec dir="${glassfish.home}/bin" executable="cmd.exe" spawn="true" os="${os.name}" failonerror="false">
-                    <arg line="/c asadmin.bat --user ${deployment.glassfish.server.username} --passwordfile ${deploy.glassfish.password.file.path} start-domain ${deployment.glassfish.domain.name}" />
-                </exec>
-            </sequential>
-        </parallel>
+        <exec dir="${glassfish.home}/bin" executable="cmd.exe" spawn="false" os="${os.name}" failonerror="true">
+            <arg line="/c asadmin.bat --user ${deployment.glassfish.server.username} --passwordfile ${deploy.glassfish.password.file.path} start-domain ${deployment.glassfish.domain.name}" />
+        </exec>
+        <sleep minutes="1" />
     </target>
 
     <target name="-deploy.glassfish.start.server.notwin" depends="-deploy.glassfish.asadmin" unless="win">

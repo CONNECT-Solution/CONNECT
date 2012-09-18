@@ -41,7 +41,6 @@ import org.junit.Test;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
-import gov.hhs.fha.nhinc.docsubmission.entity.TestOrchestratable;
 import gov.hhs.fha.nhinc.docsubmission.orchestration.OrchestrationContextFactory;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.orchestration.Orchestratable;
@@ -194,6 +193,7 @@ public class OutboundDocSubmissionDeferredResponseDelegateTest {
         });
 
         return new OutboundDocSubmissionDeferredResponseOrchestrationContextBuilder_g0() {
+            @Override
             public OrchestrationContext build() {
                 return mockOrchestrationContext;
             }
@@ -219,6 +219,7 @@ public class OutboundDocSubmissionDeferredResponseDelegateTest {
         });
 
         return new OutboundDocSubmissionDeferredResponseOrchestrationContextBuilder_g1() {
+            @Override
             public OrchestrationContext build() {
                 return mockOrchestrationContext;
             }
@@ -251,10 +252,12 @@ public class OutboundDocSubmissionDeferredResponseDelegateTest {
 
     private OutboundDocSubmissionDeferredResponseDelegate createOutboundDocSubmissionDeferredResponseDelegate() {
         return new OutboundDocSubmissionDeferredResponseDelegate() {
+            @Override
             protected Log getLogger() {
                 return mockLog;
             }
 
+            @Override
             protected OrchestrationContextFactory getOrchestrationContextFactory() {
                 return mockContextFactory;
             }

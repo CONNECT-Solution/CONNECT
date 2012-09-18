@@ -29,9 +29,6 @@ package gov.hhs.fha.nhinc.docsubmission.adapter.deferred.request.proxy;
 import static org.junit.Assert.assertEquals;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 
-import java.net.MalformedURLException;
-
-import javax.xml.ws.BindingProvider;
 import javax.xml.ws.Service;
 
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
@@ -51,8 +48,6 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADAPTER_API_LEVEL;
-import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 
 /**
@@ -81,10 +76,12 @@ public class AdapterDocSubmissionDeferredRequestProxyWebServiceSecuredImplTest {
 
     class CONNECTClientMock extends CONNECTClient<AdapterXDRRequestSecuredPortType> {
 
+        @Override
         public AdapterXDRRequestSecuredPortType getPort() {
             return null;
         }
 
+        @Override
         public Object invokePort(Class<AdapterXDRRequestSecuredPortType> portClass, String methodName, Object operationInput)
                 throws Exception {
             XDRAcknowledgementType response = new XDRAcknowledgementType();
@@ -111,15 +108,17 @@ public class AdapterDocSubmissionDeferredRequestProxyWebServiceSecuredImplTest {
 
         final Log mockLogger = mockery.mock(Log.class);
         mockery.mock(AdapterXDRRequestSecuredPortType.class);
-        final Service mockService = mockery.mock(Service.class);
+        mockery.mock(Service.class);
         final CONNECTClient<AdapterXDRRequestSecuredPortType> mockClient= new CONNECTClientMock();
-       
+
         AdapterDocSubmissionDeferredRequestProxyWebServiceSecuredImpl adapterXDRRequestWebServiceProxy = new AdapterDocSubmissionDeferredRequestProxyWebServiceSecuredImpl() {
+            @Override
             protected Log createLogger() {
                 return mockLogger;
             }
 
-         
+
+            @Override
             protected CONNECTClient<AdapterXDRRequestSecuredPortType> getCONNECTClientSecured(
                     ServicePortDescriptor<AdapterXDRRequestSecuredPortType> portDescriptor, String url,
                     AssertionType assertion) {
@@ -157,15 +156,17 @@ public class AdapterDocSubmissionDeferredRequestProxyWebServiceSecuredImplTest {
 
         final Log mockLogger = mockery.mock(Log.class);
         mockery.mock(AdapterXDRRequestSecuredPortType.class);
-        final Service mockService = mockery.mock(Service.class);
+        mockery.mock(Service.class);
         final CONNECTClient<AdapterXDRRequestSecuredPortType> mockClient= new CONNECTClientMock();
-       
+
         AdapterDocSubmissionDeferredRequestProxyWebServiceSecuredImpl adapterXDRRequestWebServiceProxy = new AdapterDocSubmissionDeferredRequestProxyWebServiceSecuredImpl() {
+            @Override
             protected Log createLogger() {
                 return mockLogger;
             }
 
-       
+
+            @Override
             protected CONNECTClient<AdapterXDRRequestSecuredPortType> getCONNECTClientSecured(
                     ServicePortDescriptor<AdapterXDRRequestSecuredPortType> portDescriptor, String url,
                     AssertionType assertion) {
