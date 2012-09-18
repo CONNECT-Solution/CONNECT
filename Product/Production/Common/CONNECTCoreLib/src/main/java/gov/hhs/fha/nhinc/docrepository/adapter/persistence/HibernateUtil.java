@@ -33,6 +33,7 @@ import org.hibernate.cfg.Configuration;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import java.io.File;
+import java.net.URL;
 
 /**
  * Utility to obtain hibernate connections.
@@ -47,7 +48,7 @@ public class HibernateUtil {
     static {
         try {
             // Create the SessionFactory from hibernate.cfg.xml
-            sessionFactory = new Configuration().configure(getConfigFile()).buildSessionFactory();
+            sessionFactory = new Configuration().configure(getConfigURL()).buildSessionFactory();
         } catch (Throwable ex) {
             // Make sure you log the exception, as it might be swallowed
             log.error("Initial SessionFactory creation failed." + ex);
@@ -59,6 +60,26 @@ public class HibernateUtil {
         return sessionFactory;
     }
 
+    /**
+     * Look up the hibernate file's URL.
+     * @return the URL of the file
+     */
+    private static URL getConfigURL() {
+        URL result = null;
+
+        try {
+            result = HibernateAccessor.getInstance().getHibernateURL(NhincConstants.HIBERNATE_DOCUMENT_REPOSITORY);
+        } catch (Exception ex) {
+            log.error("Unable to load " + NhincConstants.HIBERNATE_DOCUMENT_REPOSITORY + " " + ex.getMessage(), ex);
+        }
+
+        return result;
+    }
+    
+    /**
+     * Get the hibernate file based on file path location.
+     * @return the hibernate File
+     */
     private static File getConfigFile() {
         File result = null;
 
