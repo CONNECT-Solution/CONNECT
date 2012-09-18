@@ -2169,7 +2169,7 @@ void DeleteFile(File file, log) {
 DeleteFile(backupInternalFile, log);
 DeleteFile(backupUddiFile, log);
 </con:tearDownScript><con:properties><con:property><con:name>startDate</con:name><con:value>2012-02-27T16:37:16Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2012-02-27T16:47:16Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>02/27/2012 16:37:16</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2012-03-28T00:00:00Z</con:value></con:property></con:properties></con:testCase>
-<con:testCase failOnError="true" failTestCaseOnErrors="true" id="6ab33784-c36e-403f-82f4-b0722a9fc4fc" keepSession="false" maxResults="0" name="Patient Discovery Deferred Req" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" id="6ab33784-c36e-403f-82f4-b0722a9fc4fc" keepSession="false" maxResults="0" name="Patient Discovery Deferred Req" searchProperties="true" disabled="true">
   <con:settings/>
   <con:testStep name="Patient Discovery Deferred Req" type="request">
     <con:settings/>
@@ -2764,7 +2764,7 @@ DeleteFile(backupUddiFile, log);
 
 
 
-<con:testCase failOnError="true" failTestCaseOnErrors="true" id="a873f53b-f81b-4529-b866-ccad8f7a0e4a" keepSession="false" maxResults="0" name="Patient Discovery Deferred Resp" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" id="a873f53b-f81b-4529-b866-ccad8f7a0e4a" keepSession="false" maxResults="0" name="Patient Discovery Deferred Resp" searchProperties="true" disabled="true">
   <con:settings/>
   <con:testStep name="Patient Discovery Deferred Resp" type="request">
     <con:settings/>
@@ -3381,7 +3381,7 @@ DeleteFile(backupUddiFile, log);
 <con:reportParameters/>
 </con:testCase>
 
-<con:testCase failOnError="true" failTestCaseOnErrors="true" id="db617e16-46c1-4f66-9e29-bac17e0a5a44" keepSession="false" maxResults="0" name="Patient Discovery" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" id="db617e16-46c1-4f66-9e29-bac17e0a5a44" keepSession="false" maxResults="0" name="Patient Discovery" searchProperties="true" disabled="true">
   <con:settings/>
   <con:testStep name="clear correlations table" type="groovy">
     <con:settings/>
@@ -5499,7 +5499,7 @@ throw new RuntimeException('Unable to locate master/gateway.properties')
     </con:property>
   <con:property><con:name>NotifySubscriptionID</con:name><con:value/></con:property></con:properties>
   <con:reportParameters/>
-</con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Unsubscribe" searchProperties="true">
+</con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Unsubscribe" searchProperties="true" disabled="true">
   <con:settings/>
   <con:testStep name="Backup gateway.properties file" type="groovy">
     <con:settings/>
