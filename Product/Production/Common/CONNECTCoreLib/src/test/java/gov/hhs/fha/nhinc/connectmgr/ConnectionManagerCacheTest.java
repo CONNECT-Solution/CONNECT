@@ -67,32 +67,33 @@ public class ConnectionManagerCacheTest {
 
     private static String FL_REGION_VALUE = "US-FL";
 
-	private UddiConnectionInfoDAOFileImpl createUddiConnectionInfoDAO(
-			String filename) {
-		try {
-			URL url = this.getClass().getResource(filename);
-			System.out.println(filename);
-			System.out.println(url);
-			System.out.println(url.toURI());
+    private UddiConnectionInfoDAOFileImpl createUddiConnectionInfoDAO(String filename) {
+        try {
+            URL url = this.getClass().getResource(filename);
 
-			File uddiConnectionFile = new File(url.toURI());
-			UddiConnectionInfoDAOFileImpl uddiDAO = UddiConnectionInfoDAOFileImpl
-					.getInstance();
-			uddiDAO.setFileName(uddiConnectionFile.getAbsolutePath());
+            File uddiConnectionFile = new File(url.toURI());
+            assertTrue("File does not exist: " + uddiConnectionFile, uddiConnectionFile.exists());
+            UddiConnectionInfoDAOFileImpl uddiDAO = UddiConnectionInfoDAOFileImpl.getInstance();
+            uddiDAO.setFileName(uddiConnectionFile.getAbsolutePath());
 
-			return uddiDAO;
-		} catch (URISyntaxException e) {
-			throw new RuntimeException(e);
-		}
-	}
+            return uddiDAO;
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     private InternalConnectionInfoDAOFileImpl createInternalConnectionInfoDAO(String filename) {
-        URL url = this.getClass().getResource(filename);
-        File internalConnectionFile = new File(url.getFile());
-        InternalConnectionInfoDAOFileImpl internalDAO = InternalConnectionInfoDAOFileImpl.getInstance();
-        internalDAO.setFileName(internalConnectionFile.getAbsolutePath());
+        try {
+            URL url = this.getClass().getResource(filename);
+            File internalConnectionFile = new File(url.toURI());
+            assertTrue("File does not exist: " + internalConnectionFile, internalConnectionFile.exists());
+            InternalConnectionInfoDAOFileImpl internalDAO = InternalConnectionInfoDAOFileImpl.getInstance();
+            internalDAO.setFileName(internalConnectionFile.getAbsolutePath());
 
-        return internalDAO;
+            return internalDAO;
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     protected ConnectionManagerCache createConnectionManager_Empty() throws ConnectionManagerException {
@@ -340,13 +341,13 @@ public class ConnectionManagerCacheTest {
             ConnectionManagerCache connectionManager = createConnectionManager();
 
             String url = connectionManager.getDefaultEndpointURLByServiceName(HCID_1, QUERY_FOR_DOCUMENTS_NAME);
-            assertTrue(url.equals(QUERY_FOR_DOCUMENTS_URL));
+            assertEquals(QUERY_FOR_DOCUMENTS_URL, url);
 
             url = connectionManager.getDefaultEndpointURLByServiceName("hcidValue123", QUERY_FOR_DOCUMENTS_NAME);
-            assertTrue(url.equals(""));
+            assertEquals("", url);
 
             url = connectionManager.getDefaultEndpointURLByServiceName(HCID_2, DOC_QUERY_DEFERRED_NAME);
-            assertTrue(url.equals(QUERY_FOR_DOCUMENTS_DEFERRED_URL_22));
+            assertEquals(QUERY_FOR_DOCUMENTS_DEFERRED_URL_22, url);
         } catch (Throwable t) {
             t.printStackTrace();
             fail("Error running testGetEndpointURLByServiceName test: " + t.getMessage());
@@ -359,13 +360,13 @@ public class ConnectionManagerCacheTest {
             ConnectionManagerCache connectionManager = createConnectionManager();
 
             String url = connectionManager.getInternalEndpointURLByServiceName(QUERY_FOR_DOCUMENTS_NAME);
-            assertTrue(url.equals(QUERY_FOR_DOCUMENTS_URL));
+            assertEquals(QUERY_FOR_DOCUMENTS_URL, url);
 
             url = connectionManager.getInternalEndpointURLByServiceName("serviceNameValue123");
-            assertTrue(url.equals(""));
+            assertEquals("", url);
 
             url = connectionManager.getInternalEndpointURLByServiceName(RETRIEVE_DOCUMENTS_NAME);
-            assertTrue(url.equals(""));
+            assertEquals("", url);
         } catch (Throwable t) {
             t.printStackTrace();
             fail("Error running testGetEndpointURLByServiceName test: " + t.getMessage());
