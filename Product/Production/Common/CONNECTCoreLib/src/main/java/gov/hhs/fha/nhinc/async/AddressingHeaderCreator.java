@@ -26,7 +26,6 @@
  */
 package gov.hhs.fha.nhinc.async;
 
-import gov.hhs.fha.nhinc.logging.transaction.TransactionIdMap;
 import gov.hhs.fha.nhinc.logging.transaction.dao.TransactionDAO;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 
