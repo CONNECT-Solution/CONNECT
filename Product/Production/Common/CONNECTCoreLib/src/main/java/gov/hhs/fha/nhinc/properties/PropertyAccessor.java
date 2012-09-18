@@ -56,7 +56,7 @@ public class PropertyAccessor implements IPropertyAcessor {
     
     public static PropertyAccessor getInstance() {
         if (instance == null) {
-            instance = new PropertyAccessor();            
+            instance = new PropertyAccessor();
         }
         return instance;
     }
