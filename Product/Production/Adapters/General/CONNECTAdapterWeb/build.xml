@@ -179,5 +179,24 @@
             <file name="CONNECTCommonTypesLib.jar" />
         </filelist>
     </path>
+    
+    <property name="wsdl.dir" location="${common.home}/Interfaces/src/wsdl" />   
+       <property name="schema.dir" location="${common.home}/Interfaces/src/schemas" />   
+
+       <path id="wsdl.list">
+              <filelist dir="${wsdl.dir}">
+                  <file name="AdapterPolicyEngineSecured.wsdl" />
+                  <file name="AdapterPolicyEngine.wsdl" />
+                  <file name="AdapterPolicyEngineOrchestrator.wsdl" />
+                  <file name="AdapterPEP.wsdl" />
+                  <file name="AdapterPIP.wsdl" />
+                  <file name="AdapterComponentDocRegistry.wsdl" />
+                  <file name="AdapterComponentDocRepository.wsdl" />
+                  <file name="AdapterComponentRedactionEngine.wsdl" />
+                  <file name="DeferredQueueManager.wsdl" />
+                  <file name="AdapterAuthentication.wsdl" />
+                  <file name="EntityPerformanceLogQuery.wsdl" />
+              </filelist>    
+          </path>
 
 </project>

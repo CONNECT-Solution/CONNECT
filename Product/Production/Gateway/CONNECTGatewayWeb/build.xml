@@ -183,5 +183,18 @@
             <file name="CONNECTCommonTypesLib.jar" />
         </filelist>
     </path>
+    
+    <property name="wsdl.dir" location="${common.home}/Interfaces/src/wsdl" />   
+    <property name="schema.dir" location="${common.home}/Interfaces/src/schemas" />   
+
+    <path id="wsdl.list">
+           <filelist dir="${wsdl.dir}">
+               <file name="NhincComponentAuditRepository.wsdl" />
+               <file name="NhincComponentAuditRepositorySecured.wsdl" />
+               <file name="NhincComponentPatientCorrelation.wsdl" />
+               <file name="NhincComponentPatientCorrelationSecured.wsdl" />
+           </filelist>    
+       </path>
+    
 
 </project>
