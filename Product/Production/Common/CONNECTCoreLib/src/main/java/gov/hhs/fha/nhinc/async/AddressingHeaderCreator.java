@@ -27,6 +27,7 @@
 package gov.hhs.fha.nhinc.async;
 
 import gov.hhs.fha.nhinc.logging.transaction.TransactionIdMap;
+import gov.hhs.fha.nhinc.logging.transaction.dao.TransactionDAO;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 
 import java.util.ArrayList;
@@ -116,7 +117,7 @@ public class AddressingHeaderCreator {
 		if (messageId != null) {
 			headers.add(buildHeaderMessageId());
 			
-			String transactionId = TransactionIdMap.getInstance().getTransactionId(messageId);
+			String transactionId = TransactionDAO.getTransactionDAOInstance().getTransactionId(messageId);
 			if (transactionId != null) {
 			    headers.add(buildTransactionId(transactionId));
 			}
