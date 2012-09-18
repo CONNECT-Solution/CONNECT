@@ -10,29 +10,37 @@
     <property name="copy.wsdl.to.webinf" value="true" />
     <property name="core.patientdiscovery"
               location="../../Services/PatientDiscovery/Core/PatientDiscoveryCore/dist/debug" />
+	<property name="dist.type" value="war" />
+	<property name="webtest.hasTests" value="false" />
+	<property name="coverage.isneeded" value="true" />
+	<property name="unittest.hasTests" value="true" />
+	<property name="deploy.isDeployable" value="true" />
+	<property name="deploy.type" value="war" />
+	<property name="copy.wsdl.to.webinf" value="true" />
 
-    <!-- Please make sure that this goes up to the correct directory -->
-    <import file="../../../build/build.targets.xml" />
+    
+	<!-- Please make sure that this goes up to the correct directory -->
+	<import file="../../../build/build.targets.xml" />
 
-    <path id="build.classpath">
-        <fileset refid="classpath.compile" />
-        <fileset refid="classpath.runtime" />
+	<path id="build.classpath">
+		<fileset refid="classpath.compile" />
+		<fileset refid="classpath.runtime" />
 
-        <!-- Add classes from other projects like so...-->
-        <pathelement path="${project.CONNECTCommonTypesLib.build.classes.dir}" />
-        <pathelement path="${project.CONNECTCoreLib.build.classes.dir}" />
-        <pathelement path="${project.PatientDiscoveryCore.build.classes.dir}" />
-    </path>
+		<!-- Add classes from other projects like so...-->
+		<pathelement path="${project.CONNECTCommonTypesLib.build.classes.dir}" />
+		<pathelement path="${project.CONNECTCoreLib.build.classes.dir}" />
+		<pathelement path="${project.PatientDiscoveryCore.build.classes.dir}" />
+	</path>
 
-    <!-- Add project dependencies here, these projects will be built first... -->
-    <path id="build.project.dependencies">
-        <filelist dir="${root.project.directory.path}">
-            <file name="${project.CONNECTCoreLib.build.file}" />
-        </filelist>
-        <filelist dir="${root.project.directory.path}">
-            <file name="${project.PatientDiscoveryCore.build.file}" />
-        </filelist>
-    </path>
+	<!-- Add project dependencies here, these projects will be built first... -->
+	<path id="build.project.dependencies">
+		<filelist dir="${root.project.directory.path}">
+			<file name="${project.CONNECTCoreLib.build.file}" />
+		</filelist>
+		<filelist dir="${root.project.directory.path}">
+			<file name="${project.PatientDiscoveryCore.build.file}" />
+		</filelist>
+	</path>
 
     <property name="thirdparty.home" location="../../../../ThirdParty" />
     <property name="common.home" location="../../Common" />
@@ -47,7 +55,12 @@
     <property name="mysql.home" location="${thirdparty.home}/MySQLDB" />
     <property name="xstream.home" location="${thirdparty.home}/XStream" />
 
-    <path id="war.libs">
+	<path id="war.libs">
+		<filelist dir="${core.patientdiscovery}">
+			<file name="PatientDiscoveryCore.jar" />
+		</filelist>
+	</path>
+	<path id="ear.libs">
         <fileset dir="${cxf.home}">
             <include name="antlr-2.7.7.jar" />
             <include name="asm-3.3.1.jar" />
@@ -189,6 +202,7 @@
         <filelist dir="${core.patientdiscovery}">
             <file name="PatientDiscoveryCore.jar" />
         </filelist>
-    </path>
+
+	</path>
 
 </project>
