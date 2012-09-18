@@ -35,6 +35,7 @@ import gov.hhs.fha.nhinc.connectmgr.persistance.dao.InternalConnectionInfoDAOFil
 import gov.hhs.fha.nhinc.connectmgr.persistance.dao.UddiConnectionInfoDAOFileImpl;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADAPTER_API_LEVEL;
 import java.io.File;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -66,14 +67,24 @@ public class ConnectionManagerCacheTest {
 
     private static String FL_REGION_VALUE = "US-FL";
 
-    private UddiConnectionInfoDAOFileImpl createUddiConnectionInfoDAO(String filename) {
-        URL url = this.getClass().getResource(filename);
-        File uddiConnectionFile = new File(url.getFile());
-        UddiConnectionInfoDAOFileImpl uddiDAO = UddiConnectionInfoDAOFileImpl.getInstance();
-        uddiDAO.setFileName(uddiConnectionFile.getAbsolutePath());
+	private UddiConnectionInfoDAOFileImpl createUddiConnectionInfoDAO(
+			String filename) {
+		try {
+			URL url = this.getClass().getResource(filename);
+			System.out.println(filename);
+			System.out.println(url);
+			System.out.println(url.toURI());
 
-        return uddiDAO;
-    }
+			File uddiConnectionFile = new File(url.toURI());
+			UddiConnectionInfoDAOFileImpl uddiDAO = UddiConnectionInfoDAOFileImpl
+					.getInstance();
+			uddiDAO.setFileName(uddiConnectionFile.getAbsolutePath());
+
+			return uddiDAO;
+		} catch (URISyntaxException e) {
+			throw new RuntimeException(e);
+		}
+	}
 
     private InternalConnectionInfoDAOFileImpl createInternalConnectionInfoDAO(String filename) {
         URL url = this.getClass().getResource(filename);
