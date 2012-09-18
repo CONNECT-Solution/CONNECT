@@ -1,12 +1,15 @@
 <?xml version="1.0"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0                       
-	http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>gov.hhs.fha</groupId>
+        <artifactId>CONNECTCommon</artifactId>
+        <version>1.0.1-SNAPSHOT</version>
+    </parent>
     <modelVersion>4.0.0</modelVersion>
-    <groupId>gov.hhs.fha</groupId>
     <artifactId>CONNECTCoreLib</artifactId>
     <packaging>jar</packaging>
-    <version>1.0-SNAPSHOT</version>
     <name>CONNECT core libraries</name>
     <url>http://maven.apache.org</url>
     <properties>
@@ -166,15 +169,77 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>2.5.1</version>
                 <configuration>
-                    <target>1.7</target>
                     <source>1.7</source>
+                    <target>1.7</target>
+                    <testSource>1.7</testSource>
+                    <testTarget>1.7</testTarget>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>cobertura-maven-plugin</artifactId>
+                <version>2.5.2</version>
+                <configuration>
+                    <instrumentation>
+                        <ignores>
+                            <ignore>com.example.boringcode.*</ignore>
+                        </ignores>
+                        <excludes>
+                            <exclude>com/example/dullcode/**/*.class</exclude>
+                            <exclude>com/example/**/*Test.class</exclude>
+                        </excludes>
+                    </instrumentation>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>clean</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>cobertura-maven-plugin</artifactId>
+                <version>2.5.2</version>
+                <configuration>
+                    <check>
+                        <branchRate>85</branchRate>
+                        <lineRate>85</lineRate>
+                        <haltOnFailure>true</haltOnFailure>
+                        <totalBranchRate>85</totalBranchRate>
+                        <totalLineRate>85</totalLineRate>
+                        <packageLineRate>85</packageLineRate>
+                        <packageBranchRate>85</packageBranchRate>
+                        <!-- <regexes>
+                            <regex>
+                                <pattern>com.example.reallyimportant.*</pattern>
+                                <branchRate>90</branchRate>
+                                <lineRate>80</lineRate>
+                            </regex>
+                            <regex>
+                                <pattern>com.example.boringcode.*</pattern>
+                                <branchRate>40</branchRate>
+                                <lineRate>30</lineRate>
+                            </regex>
+                        </regexes> -->
+                    </check>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>clean</goal>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.12.3</version>
                 <configuration>
+                    <argLine>-XX:-UseSplitVerifier</argLine>
                     <systemProperties>
                         <property>
                             <name>com.sun.aas.instanceRoot</name>

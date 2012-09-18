@@ -29,6 +29,9 @@ package gov.hhs.fha.nhinc.properties;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 
 import java.io.File;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.net.URLDecoder;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -59,9 +62,9 @@ public class HibernateAccessor {
     public synchronized File getHibernateFile(String hibernateFileName) throws PropertyAccessException {
         checkEnvVarSet();
 
-        File result = new File(propertyFileDir + "hibernate" + File.separator + hibernateFileName);
+        File result = new File(propertyFileDir + File.separator + "hibernate" + File.separator + hibernateFileName);
         if (!result.exists()) {
-            throw new PropertyAccessException("Unable to locate " + hibernateFileName);
+            throw new PropertyAccessException("Unable to locate " + result);
         }
         
         return result;
@@ -74,6 +77,15 @@ public class HibernateAccessor {
     private synchronized void loadPropertyFileDir() {
         propertyFileDir = getPropertyAccessor().getPropertyFileLocation();
         if (NullChecker.isNullish(propertyFileDir)) {
+            log.error("Failed to load Hibernate Directory");
+            failedToLoadEnvVar = true;
+            return;
+        }
+        propertyFileDir = URLDecoder.decode(propertyFileDir);
+        File dir = new File(propertyFileDir);
+        propertyFileDir = dir.getAbsolutePath();
+        
+        if (!dir.exists()) {
             log.error("Failed to load Hibernate Directory");
             failedToLoadEnvVar = true;
         }
