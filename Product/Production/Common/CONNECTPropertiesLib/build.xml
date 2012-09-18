@@ -27,9 +27,12 @@
 
   <target name="just.clean" depends="just.quick.clean">
   </target>
-
+  <target name="copy.util.src">
+  </target>
+  
   <target name="-compile.source">
     <echo message="compile.source for ${project.name}" level="info"/>
+	<mkdir dir="${build.generated.dir}" />
     <copy todir="${build.dist.root}" overwrite="true">
         <path refid="properties.list" />
     </copy>
@@ -38,6 +41,7 @@
   <target name="-quick.compile.source">
     <echo message="quick compile.source for ${project.name}" level="info"/>
     <mkdir dir="${build.classes.dir}" />
+	<mkdir dir="${build.generated.dir}" />
     <call target="copy.util.src"/>
     <javac srcdir="${build.generated.dir}" destdir="${build.classes.dir}"/>
   </target> 

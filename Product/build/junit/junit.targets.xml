@@ -48,7 +48,7 @@
 		<if>
 			<istrue value="${webtest.hasTests}" />
 			<then>
-				<junitrun reportfile="${project.dir}/web-test-reports/WebTests.xml" testtype="web" verbose="${debug}" nhinc.properties.dir="${properties.dir}">
+				<junitrun reportfile="${project.dir}/web-test-reports/WebTests.xml" testtype="web" verbose="${debug}" nhinc.properties.dir="${unittest.properties.dir}">
 					<tests>
 						<fileset refid="junitrun.tests" />
 					</tests>
