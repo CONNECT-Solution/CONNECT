@@ -26,59 +26,64 @@
  */
 package gov.hhs.fha.nhinc.async;
 
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.handler.MessageContext;
 
+import org.apache.cxf.binding.soap.SoapHeader;
 import org.apache.cxf.headers.Header;
+import org.w3c.dom.Element;
+
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 
 /**
- *
+ * 
  * @author JHOPPESC
  */
 public class AsyncMessageIdExtractor {
-   
-    
+
     public static String GetAsyncMessageId(WebServiceContext context) {
         String messageId = null;
 
         MessageContext mContext = context.getMessageContext();
         if (context != null && mContext != null) {
-            List<Header> headers = (List<Header>) mContext.get(org.apache.cxf.headers.Header.HEADER_LIST);
+            List<Header> headers = (List<Header>) mContext.get(Header.HEADER_LIST);
 
-            for (Header header : headers) {
-                if (header.getName().getLocalPart().equalsIgnoreCase(NhincConstants.HEADER_MESSAGEID)) {
-                    //messageId = header.getStringContent();
-
+            if (headers != null) {
+                for (Header header : headers) {
+                    if (header.getName().getLocalPart().equalsIgnoreCase(NhincConstants.HEADER_MESSAGEID)) {
+                        Element element = (Element) ((SoapHeader) header).getObject();
+                        messageId = element.getFirstChild().getNodeValue();
+                    }
                 }
             }
         }
 
         if (messageId == null) {
             messageId = AddressingHeaderCreator.generateMessageId();
-       }
+        }
         return messageId;
     }
 
     public static List<String> GetAsyncRelatesTo(WebServiceContext context) {
         List<String> relatesToId = new ArrayList<String>();
 
-        
         MessageContext mContext = context.getMessageContext();
         if (context != null && mContext != null) {
-            List<Header> headers = (List<Header>) mContext.get(org.apache.cxf.headers.Header.HEADER_LIST);
+            List<Header> headers = (List<Header>) mContext.get(Header.HEADER_LIST);
 
-            for (Header header : headers) {
-                if (header.getName().getLocalPart().equalsIgnoreCase( NhincConstants.HEADER_RELATESTO)) {
-                    //relatesToId.add(header.getStringContent());
+            if (headers != null) {
+                for (Header header : headers) {
+                    if (header.getName().getLocalPart().equalsIgnoreCase(NhincConstants.HEADER_RELATESTO)) {
+                        Element element = (Element) ((SoapHeader) header).getObject();
+                        relatesToId.add(element.getFirstChild().getNodeValue());
+                    }
                 }
             }
         }
-        
+
         return relatesToId;
     }
 }

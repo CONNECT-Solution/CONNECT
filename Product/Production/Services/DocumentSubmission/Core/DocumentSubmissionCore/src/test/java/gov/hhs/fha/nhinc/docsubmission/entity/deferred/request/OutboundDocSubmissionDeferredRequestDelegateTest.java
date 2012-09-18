@@ -39,18 +39,13 @@ import org.jmock.integration.junit4.JUnit4Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.Test;
 
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.docsubmission.orchestration.OrchestrationContextFactory;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.orchestration.AuditTransformer;
-import gov.hhs.fha.nhinc.orchestration.NhinAggregator;
 import gov.hhs.fha.nhinc.orchestration.Orchestratable;
 import gov.hhs.fha.nhinc.orchestration.OrchestrationContext;
-import gov.hhs.fha.nhinc.orchestration.OutboundDelegate;
 import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratable;
-import gov.hhs.fha.nhinc.orchestration.PolicyTransformer;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 
 /**
@@ -198,6 +193,7 @@ public class OutboundDocSubmissionDeferredRequestDelegateTest {
         });
 
         return new OutboundDocSubmissionDeferredRequestOrchestrationContextBuilder_g0() {
+            @Override
             public OrchestrationContext build() {
                 return mockOrchestrationContext;
             }
@@ -223,6 +219,7 @@ public class OutboundDocSubmissionDeferredRequestDelegateTest {
         });
 
         return new OutboundDocSubmissionDeferredRequestOrchestrationContextBuilder_g1() {
+            @Override
             public OrchestrationContext build() {
                 return mockOrchestrationContext;
             }
@@ -255,10 +252,12 @@ public class OutboundDocSubmissionDeferredRequestDelegateTest {
 
     private OutboundDocSubmissionDeferredRequestDelegate createOutboundDocSubmissionDeferredRequestDelegate() {
         return new OutboundDocSubmissionDeferredRequestDelegate() {
+            @Override
             protected Log getLogger() {
                 return mockLog;
             }
 
+            @Override
             protected OrchestrationContextFactory getOrchestrationContextFactory() {
                 return mockContextFactory;
             }

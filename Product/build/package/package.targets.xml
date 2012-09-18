@@ -33,6 +33,7 @@
 				<path refid="war.files" />
 				<path refid="ear.libs" />
 				<path refid="ear.files" />
+				<path refid="wsdl.list" />
 				<fileset dir="${build.dist.root}">
 					<include name="**/*" />
 				</fileset>
@@ -99,6 +100,23 @@
 				</for>
 
 				<echo>This is build.dist.manifest.file: ${build.dist.manifest.file}</echo>
+				
+				<for param="wsdl.item">
+					<path refid="wsdl.list" />					
+					<sequential>
+						<copy file="@{wsdl.item}" todir="${build.war.wsdl.dir}" />
+					</sequential>
+				</for>
+				
+				<if>
+					<istrue value="${copy.schemas.to.webinf}"/>
+					<then>
+				        <copy todir="${build.war.schema.dir}">
+					        <fileset dir="${schema.dir}" />
+				        </copy>
+				    </then>
+				</if>        
+									
 				<war compress="true" destfile="${dist.file}" manifest="${build.dist.manifest.file}">
 					<path refid="war.files" />
 					<fileset dir="${build.dist.root}">

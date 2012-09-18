@@ -7,14 +7,16 @@
     <property name="deploy.isDeployable" value="true" />
     <property name="deploy.type" value="war" />
     <property name="copy.wsdl.to.webinf" value="true" />
+    <property name="copy.schemas.to.webinf" value="true" />
     <property name="coverage.isneeded" value="false" />
-    <property name="cxf.home" location="../../../../ThirdParty/CXF" />
-    <property name="spring.home" location="../../../../ThirdParty/SpringFramework" />
-    <property name="core.lib" location="../../Common/CONNECTCoreLib/dist/debug" />
-    <property name="common.lib" location="../../Common/CONNECTCommonTypesLib/dist/debug" />
-    <property name="opensaml.home" location="../../../../ThirdParty/openSAML" />
-    <property name="core.patientdiscovery"
-              location="../../Services/PatientDiscovery/Core/PatientDiscoveryCore/dist/debug" />
+    <property name="core.patientdiscovery" location="../../Services/PatientDiscovery/Core/PatientDiscoveryCore/dist/debug" />
+    
+    <property name="thirdparty.home" location="../../../../ThirdParty" />
+    <property name="common.home" location="../../Common" />
+    
+
+    <property name="wsdl.dir" location="${common.home}/Interfaces/src/wsdl" />   
+    <property name="schema.dir" location="${common.home}/Interfaces/src/schemas" />  
 
     <!-- Please make sure that this goes up to the correct directory -->
     <import file="../../../build/build.targets.xml" />
@@ -35,9 +37,7 @@
         </filelist>
     </path>
 
-    <property name="thirdparty.home" location="../../../../ThirdParty" />
-    <property name="common.home" location="../../Common" />
-
+    
     <property name="cxf.home" location="${thirdparty.home}/CXF" />
     <property name="spring.home" location="${thirdparty.home}/SpringFramework" />
     <property name="core.lib" location="${common.home}/CONNECTCoreLib/dist/debug" />
@@ -193,6 +193,25 @@
                 <filelist dir="${common.lib}">
                     <file name="CONNECTCommonTypesLib.jar" />
                 </filelist>
+    </path>
+    
+    <path id="wsdl.list">
+        <filelist dir="${wsdl.dir}">
+            <file name="AdapterMpiManager.wsdl" />
+            <file name="AdapterMpi.wsdl" />
+            <file name="AdapterMpiSecured.wsdl" />
+            <file name="AdapterComponentMpi.wsdl" />
+            <file name="AdapterComponentSecuredMpi.wsdl" />
+            <file name="AdapterPatientDiscovery.wsdl" />
+            <file name="AdapterPatientDiscoverySecured.wsdl" />
+            <file name="AdapterPatientDiscoveryAsyncReq.wsdl" />
+            <file name="AdapterPatientDiscoverySecuredAsyncReq.wsdl" />
+            <file name="AdapterPatientDiscoveryAsyncResp.wsdl" />
+            <file name="AdapterPatientDiscoverySecuredAsyncResp.wsdl" />
+            <file name="AdapterPatientDiscoveryDeferredReqQueueProcess.wsdl" />
+            <file name="AdapterPatientDiscoveryAsyncReqError.wsdl" />
+            <file name="AdapterPatientDiscoverySecuredAsyncReqError.wsdl" />
+        </filelist>    
     </path>
 
 </project>
