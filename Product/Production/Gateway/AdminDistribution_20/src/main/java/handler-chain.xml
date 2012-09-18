@@ -14,5 +14,9 @@
             <javaee:handler-name>PerformanceLogHandler</javaee:handler-name>
             <javaee:handler-class>gov.hhs.fha.nhinc.perfrepo.PerformanceLogHandler</javaee:handler-class>
         </javaee:handler>
+        <javaee:handler>
+            <javaee:handler-name>TransactionHandler</javaee:handler-name>
+            <javaee:handler-class>gov.hhs.fha.nhinc.logging.transaction.TransactionHandler</javaee:handler-class>
+        </javaee:handler>
     </javaee:handler-chain>
 </javaee:handler-chains> 
