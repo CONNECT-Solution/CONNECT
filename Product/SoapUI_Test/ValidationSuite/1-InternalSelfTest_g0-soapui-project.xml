@@ -1229,7 +1229,7 @@ DeleteFile(backupUddiFile, log);
       </con:properties>
       <con:reportParameters/>
     </con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="0ff296e7-d50a-4917-9f52-e812a4e7e60e" keepSession="false" maxResults="0" name="Patient Discovery Deferred Req" searchProperties="true">
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="0ff296e7-d50a-4917-9f52-e812a4e7e60e" keepSession="false" maxResults="0" name="Patient Discovery Deferred Req" searchProperties="true" disabled="true">
       <con:settings/>
       <con:testStep name="Patient Discovery Deferred Req" type="request">
         <con:settings/>
@@ -1770,7 +1770,7 @@ DeleteFile(backupUddiFile, log);
       </con:properties>
       <con:reportParameters/>
     </con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="adbf725a-b15f-4188-a5f6-da1115f1b6f7" keepSession="false" maxResults="0" name="Patient Discovery Deferred Resp" searchProperties="true">
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="adbf725a-b15f-4188-a5f6-da1115f1b6f7" keepSession="false" maxResults="0" name="Patient Discovery Deferred Resp" searchProperties="true" disabled="true">
       <con:settings/>
       <con:testStep name="Patient Discovery Deferred Resp" type="request">
         <con:settings/>
@@ -2364,7 +2364,7 @@ DeleteFile(backupUddiFile, log);
 
 
 
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="803da81d-206f-441a-841c-31071b9508ae" keepSession="false" maxResults="0" name="Patient Discovery" searchProperties="true">
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="803da81d-206f-441a-841c-31071b9508ae" keepSession="false" maxResults="0" name="Patient Discovery" searchProperties="true" disabled="true">
       <con:settings/>
       <con:testStep name="clear correlations table" type="groovy">
         <con:settings/>
@@ -4410,7 +4410,7 @@ if(gatewayBakFile.exists()) {
       </con:properties>
       <con:reportParameters/>
     </con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="1f230d3f-22ce-4c47-8f2b-8adf701059de" keepSession="false" maxResults="0" name="Unsubscribe" searchProperties="true">
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="1f230d3f-22ce-4c47-8f2b-8adf701059de" keepSession="false" maxResults="0" name="Unsubscribe" searchProperties="true" disabled="true">
       <con:settings/>
       <con:testStep name="Backup gateway.properties file" type="groovy">
         <con:settings/>
