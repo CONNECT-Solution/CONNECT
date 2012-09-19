@@ -14,7 +14,7 @@
     <property name="common.lib" location="../../Common/CONNECTCommonTypesLib/dist/debug" />
     <property name="opensaml.home" location="../../../../ThirdParty/openSAML" />
     <property name="core.hiem"
-                  location="../../Services/HIEM/Core/HIEMCore/dist/debug" />
+                  location="../../Services/HIEMCore/dist/debug" />
 
     <!-- Please make sure that this goes up to the correct directory -->
     <import file="../../../build/build.targets.xml" />

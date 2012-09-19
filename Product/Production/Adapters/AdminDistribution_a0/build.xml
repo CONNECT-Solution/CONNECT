@@ -31,12 +31,12 @@
 		</filelist>
 	</path>
 
-	<property name="cxf.home" location="../../../../ThirdParty/CXF" />
-	<property name="spring.home" location="../../../../ThirdParty/SpringFramework" />
-	<property name="core.lib" location="../../Common/CONNECTCoreLib/dist/debug" />
-	<property name="common.lib" location="../../Common/CONNECTCommonTypesLib/dist/debug" />
-	<property name="opensaml.home" location="../../../../ThirdParty/openSAML" />
-	<property name="core.ad" location="../../Services/AdminDistribution/Core/AdminDistributionCore/dist/debug" />
+    <property name="cxf.home" location="../../../../ThirdParty/CXF" />
+    <property name="spring.home" location="../../../../ThirdParty/SpringFramework" />
+    <property name="core.lib" location="../../Common/CONNECTCoreLib/dist/debug" />
+    <property name="common.lib" location="../../Common/CONNECTCommonTypesLib/dist/debug" />
+    <property name="opensaml.home" location="../../../../ThirdParty/openSAML" />
+    <property name ="core.ad" location="../../Services/AdminDistributionCore/dist/debug"/>
 
 	<path id="war.libs">
 		<filelist dir="${core.ad}">

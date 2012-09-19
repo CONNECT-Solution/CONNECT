@@ -9,15 +9,9 @@
     <property name="deploy.type" value="war" />
     <property name="copy.wsdl.to.webinf" value="true" />
     <property name="core.patientdiscovery"
-              location="../../Services/PatientDiscovery/Core/PatientDiscoveryCore/dist/debug" />
-    <property name="copy.schemas.to.webinf" value="true" />
-    <property name="thirdparty.home" location="../../../../ThirdParty" />
-     <property name="common.home" location="../../Common" />
-    
-    
-    
-    <property name="wsdl.dir" location="${common.home}/Interfaces/src/wsdl" />   
-    <property name="schema.dir" location="${common.home}/Interfaces/src/schemas" />       
+              location="../../Services/PatientDiscoveryCore/dist/debug" />
+    <property name="wsdl.dir" location="../../Common/Interfaces/src/wsdl" />   
+    <property name="schema.dir" location="../../Common/Interfaces/src/schemas" />       
 
     
 	<!-- Please make sure that this goes up to the correct directory -->
