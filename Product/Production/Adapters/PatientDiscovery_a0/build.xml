@@ -14,7 +14,7 @@
     <property name="core.lib" location="../../Common/CONNECTCoreLib/dist/debug" />
     <property name="common.lib" location="../../Common/CONNECTCommonTypesLib/dist/debug" />
     <property name="opensaml.home" location="../../../../ThirdParty/openSAML" />
-    <property name="core.patientdiscovery" location="../../Services/PatientDiscovery/Core/PatientDiscoveryCore/dist/debug" />
+    <property name="core.patientdiscovery" location="../../Services/PatientDiscoveryCore/dist/debug" />
     <property name="wsdl.dir" location="../../Common/Interfaces/src/wsdl" />   
     <property name="schema.dir" location="../../Common/Interfaces/src/schemas" />  
 

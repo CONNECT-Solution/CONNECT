@@ -37,7 +37,7 @@
     <property name="core.lib" location="../../Common/CONNECTCoreLib/dist/debug" />
     <property name="common.lib" location="../../Common/CONNECTCommonTypesLib/dist/debug" />
     <property name="opensaml.home" location="../../../../ThirdParty/openSAML" />
-    <property name ="core.docretrieve" location="../../Services/DocumentRetrieve/Core/DocumentRetrieveCore/dist/debug"/>
+    <property name ="core.docretrieve" location="../../Services/DocumentRetrieveCore/dist/debug"/>
 	
 
     <path id="war.libs">

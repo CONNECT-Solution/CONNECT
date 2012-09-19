@@ -16,6 +16,7 @@
     </properties>
     <modules>
         <module>Common</module>
+        <module>Services</module>
         <module>Utilities</module>
     </modules>
     <build>

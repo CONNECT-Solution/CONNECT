@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<project basedir="." default="package.create" name="AdminDistributionCore">
+<project basedir="." default="package.create" name="DocumentQueryCore">
 
     <property name="dist.type" value="jar" />
     <property name="webtest.hasTests" value="false" />
@@ -9,7 +9,7 @@
     <property name="coverage.isneeded" value="true" />
 
     <!-- Please make sure that this goes up to the correct directory -->
-    <import file="../../../../../build/build.targets.xml" />
+    <import file="../../../build/build.targets.xml" />
 
     <path id="build.classpath">
         <fileset refid="classpath.compile" />

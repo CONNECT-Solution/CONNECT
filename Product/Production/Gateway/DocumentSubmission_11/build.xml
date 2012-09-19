@@ -37,7 +37,7 @@
     <property name="core.lib" location="../../Common/CONNECTCoreLib/dist/debug" />
     <property name="common.lib" location="../../Common/CONNECTCommonTypesLib/dist/debug" />
     <property name="opensaml.home" location="../../../../ThirdParty/openSAML" />
-    <property name ="core.xdr" location="../../Services/DocumentSubmission/Core/DocumentSubmissionCore/dist/debug"/>
+    <property name ="core.xdr" location="../../Services/DocumentSubmissionCore/dist/debug"/>
 
     <path id="war.libs">
         <fileset dir="${cxf.home}">

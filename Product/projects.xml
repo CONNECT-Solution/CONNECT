@@ -30,7 +30,7 @@
     </project>
     <project>
         <name>PatientDiscoveryCore</name>
-        <directory>/Production/Services/PatientDiscovery/Core/PatientDiscoveryCore</directory>
+        <directory>/Production/Services/PatientDiscoveryCore</directory>
         <dist.type>jar</dist.type>
         <should.build>true</should.build>
         <should.deploy>false</should.deploy>
@@ -51,7 +51,7 @@
     </project>
     <project>
         <name>DocumentQueryCore</name>
-        <directory>/Production/Services/DocumentQuery/Core/DocumentQueryCore</directory>
+        <directory>/Production/Services/DocumentQueryCore</directory>
         <dist.type>jar</dist.type>
         <should.build>true</should.build>
         <should.deploy>false</should.deploy>
@@ -65,7 +65,7 @@
     </project>
     <project>
         <name>DocumentSubmissionCore</name>
-        <directory>/Production/Services/DocumentSubmission/Core/DocumentSubmissionCore</directory>
+        <directory>/Production/Services/DocumentSubmissionCore</directory>
         <dist.type>jar</dist.type>
         <should.build>true</should.build>
         <should.deploy>false</should.deploy>
@@ -100,7 +100,7 @@
     </project>
     <project>
         <name>DocumentRetrieveCore</name>
-        <directory>/Production/Services/DocumentRetrieve/Core/DocumentRetrieveCore</directory>
+        <directory>/Production/Services/DocumentRetrieveCore</directory>
         <dist.type>jar</dist.type>
         <should.build>true</should.build>
         <should.deploy>false</should.deploy>
@@ -128,7 +128,7 @@
     </project>
     <project>
         <name>AdminDistributionCore</name>
-        <directory>/Production/Services/AdminDistribution/Core/AdminDistributionCore</directory>
+        <directory>/Production/Services/AdminDistributionCore</directory>
         <dist.type>jar</dist.type>
         <should.build>true</should.build>
         <should.deploy>false</should.deploy>
@@ -156,7 +156,7 @@
     </project>
     <project>
         <name>HIEMCore</name>
-        <directory>/Production/Services/HIEM/Core/HIEMCore</directory>
+        <directory>/Production/Services/HIEMCore</directory>
         <dist.type>jar</dist.type>
         <should.build>true</should.build>
         <should.deploy>false</should.deploy>
