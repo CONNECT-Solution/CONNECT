@@ -7,6 +7,7 @@
     <property name="deploy.isDeployable" value="true" />
     <property name="deploy.type" value="war" />
     <property name="copy.wsdl.to.webinf" value="true" />
+    <property name="copy.schemas.to.webinf" value="true" />
     <property name="coverage.isneeded" value="false" />
 
     <!-- Please make sure that this goes up to the correct directory -->
@@ -181,7 +182,7 @@
     </path>
     
     <property name="wsdl.dir" location="${common.home}/Interfaces/src/wsdl" />   
-       <property name="schema.dir" location="${common.home}/Interfaces/src/schemas" />   
+    <property name="schema.dir" location="${common.home}/Interfaces/src/schemas" />   
 
        <path id="wsdl.list">
               <filelist dir="${wsdl.dir}">

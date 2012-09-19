@@ -26,7 +26,6 @@
  */
 package gov.hhs.fha.nhinc.connectmgr;
 
-import gov.hhs.fha.nhinc.common.nhinccommon.EPRType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunityType;
@@ -364,13 +363,11 @@ public class ConnectionManagerCacheTest {
 
     protected NhinTargetSystemType createNhinTargetSystem() {
         NhinTargetSystemType targetSystem = new NhinTargetSystemType();
-        EPRType eprType = new EPRType();
         EndpointReferenceType endpointReference = new EndpointReferenceType();
         AttributedURIType address = new AttributedURIType();
         address.setValue(NHIN_TARGET_ENDPOINT_URL_VALUE);
         endpointReference.setAddress(address);
-        eprType.setEndpointReference(endpointReference);
-        targetSystem.setEpr(eprType);
+        targetSystem.setEpr(endpointReference);
 
         return targetSystem;
     }

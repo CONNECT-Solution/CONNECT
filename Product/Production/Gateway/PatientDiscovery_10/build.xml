@@ -201,6 +201,7 @@
         <filelist dir="${core.patientdiscovery}">
             <file name="PatientDiscoveryCore.jar" />
         </filelist>
+	</path>
     
     <path id="wsdl.list">
         <filelist dir="${wsdl.dir}">
