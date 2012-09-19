@@ -16,6 +16,7 @@
     </properties>
     <modules>
         <module>Common</module>
+        <module>Utilities</module>
     </modules>
     <build>
         <pluginManagement>
