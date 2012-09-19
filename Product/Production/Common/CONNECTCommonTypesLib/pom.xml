@@ -3,7 +3,7 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0                       http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <groupId>gov.hhs.fha</groupId>
-        <artifactId>CONNECTCommon</artifactId>
+        <artifactId>Common</artifactId>
         <version>1.0.1-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
@@ -48,7 +48,6 @@
                     <exclude>uddi_vscache_v3_portType.wsdl</exclude>
                     <!-- non conforming with WS-I -->
                     <exclude>DoDConnector.wsdl</exclude>
-                    <exclude>NhincComponentConnectionManager.wsdl</exclude>
                 </excludes>
                 <targetPath>META-INF/wsdl/</targetPath>
             </resource>
@@ -59,6 +58,7 @@
                 <artifactId>maven-jaxb22-plugin</artifactId>
                 <version>0.8.2</version>
                 <configuration>
+                	<generateDirectory>${project.build.directory}/generated-sources/</generateDirectory>
                     <schemaDirectory>${basedir}/../Interfaces/src/schemas/</schemaDirectory>
                     <schemaIncludes>
                         <include>nhinc/**/*.xsd</include>
@@ -98,7 +98,7 @@
                         <configuration>
                             <fork>once</fork>
                             <encoding>UTF-8</encoding>
-                            <sourceRoot>${project.build.directory}/generated/cxf</sourceRoot>
+                            <sourceRoot>${project.build.directory}/generated-sources/</sourceRoot>
                             <wsdlRoot>${basedir}/../Interfaces/src/wsdl</wsdlRoot>
                             <includes>
                                 <include>*.wsdl</include>
@@ -123,7 +123,6 @@
                                 <exclude>uddi_vscache_v3_portType.wsdl</exclude>
                                 <!-- non conforming with WS-I -->
                                 <exclude>DoDConnector.wsdl</exclude>
-                                <exclude>NhincComponentConnectionManager.wsdl</exclude>
                             </excludes>
                             <defaultOptions>
                                 <extraargs>
@@ -151,6 +150,13 @@
                     <target>1.7</target>
                     <testSource>1.7</testSource>
                     <testTarget>1.7</testTarget>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <configuration>
+                    <configLocation>${basedir}/../../../../Product/checkstyle.settings.xml</configLocation>
                 </configuration>
             </plugin>
         </plugins>
