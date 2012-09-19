@@ -238,70 +238,7 @@
         <should.build>false</should.build>
         <should.deploy>false</should.deploy>
     </project>
-    <!-- BEGIN Dynamic Document Generation Projects -->
-    <project>
-        <name>AdapterCommonDataLayerEJB</name>
-        <directory>/Production/Adapters/Framework/AdapterCommonDataLayerEJB</directory>
-        <dist.type>jar</dist.type>
-        <should.build>false</should.build>
-        <should.deploy>false</should.deploy>
-    </project>
-    <project>
-        <name>TemplateManager</name>
-        <directory>/Production/Adapters/Framework/TemplateManager</directory>
-        <dist.type>jar</dist.type>
-        <should.build>false</should.build>
-        <should.deploy>false</should.deploy>
-    </project>
-    <project>
-        <name>DocumentAssemblyManagerEJB</name>
-        <directory>/Production/Adapters/Framework/DocumentAssemblyManagerEJB</directory>
-        <dist.type>jar</dist.type>
-        <should.build>false</should.build>
-        <should.deploy>false</should.deploy>
-    </project>
-    <project>
-        <name>AdapterDocumentAssemblyProxyEJB</name>
-        <directory>/Production/Adapters/Framework/AdapterDocumentAssemblyProxyEJB</directory>
-        <dist.type>jar</dist.type>
-        <should.build>false</should.build>
-        <should.deploy>false</should.deploy>
-    </project>
-    <project>
-        <name>AdapterDocumentRepository</name>
-        <directory>/Production/Adapters/Framework/AdapterDocumentRepository</directory>
-        <dist.type>jar</dist.type>
-        <should.build>false</should.build>
-        <should.deploy>false</should.deploy>
-    </project>
-    <project>
-        <name>AdapterDocumentRepositoryEJB</name>
-        <directory>/Production/Adapters/Framework/AdapterDocumentRepositoryEJB</directory>
-        <dist.type>jar</dist.type>
-        <should.build>false</should.build>
-        <should.deploy>false</should.deploy>
-    </project>
-    <project>
-        <name>DocumentManagerEJB</name>
-        <directory>/Production/Adapters/Framework/DocumentManagerEJB</directory>
-        <dist.type>jar</dist.type>
-        <should.build>false</should.build>
-        <should.deploy>false</should.deploy>
-    </project>
-    <project>
-        <name>AdapterMpiEJB</name>
-        <directory>/Production/Adapters/Framework/AdapterMpiEJB</directory>
-        <dist.type>jar</dist.type>
-        <should.build>false</should.build>
-        <should.deploy>false</should.deploy>
-    </project>
-    <project>
-        <name>NHINAdapterServiceEJB</name>
-        <directory>/Production/Adapters/Framework/NHINAdapterServiceEJB</directory>
-        <dist.type>jar</dist.type>
-        <should.build>false</should.build>
-        <should.deploy>false</should.deploy>
-    </project>
+    
     <!--Integration Test -->
     <project>
         <name>AdapterFrameworkIntTest</name>
