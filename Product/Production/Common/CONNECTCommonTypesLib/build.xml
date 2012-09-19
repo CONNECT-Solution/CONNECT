@@ -18,25 +18,27 @@
     <import file="../../../build/build.targets.xml" />
 
     <!-- You can add more or less wsld files here... -->
-    <patternset id="schema.list">
-        <include name="nhinc/**/*.xsd" />
-        <include name="docs.oasis-open.org/**/*.xsd" />
-        <include name="ebRS/**/*.xsd" />
-        <include name="ihe/**/*.xsd" />
-        <include name="nhin/**/*.xsd" />
-        <include name="oasis/**/*.xsd" />
-        <include name="uddi/uddi_v3.xsd" />
-        <include name="uddi/uddi_v3custody.xsd" />
-        <include name="uddi/uddi_v3policy_instanceParms.xsd" />
-        <include name="uddi/uddi_v3subscriptionListener.xsd" />
-        <include name="uddi/uddi_v3subscription.xsd" />
-        <include name="www.w3.org/**/*.xsd" />
-     <!--   <include name="xmlsoap.org/**/*.xsd" /> -->
-        <include name="Endpoint/**/*.xsd" />
-    </patternset>
+    <path id="schema.list">
+        <fileset dir="../Interfaces/src/schemas">
+            <include name="nhinc/**/*.xsd" />
+            <include name="docs.oasis-open.org/**/*.xsd" />
+            <include name="ebRS/**/*.xsd" />
+            <include name="ihe/**/*.xsd" />
+            <include name="nhin/**/*.xsd" />
+            <include name="oasis/**/*.xsd" />
+            <include name="uddi/uddi_v3.xsd" />
+            <include name="uddi/uddi_v3custody.xsd" />
+            <include name="uddi/uddi_v3policy_instanceParms.xsd" />
+            <include name="uddi/uddi_v3subscriptionListener.xsd" />
+            <include name="uddi/uddi_v3subscription.xsd" />
+            <include name="www.w3.org/**/*.xsd" />
+            <!--   <include name="xmlsoap.org/**/*.xsd" /> -->
+            <include name="Endpoint/**/*.xsd" />
+        </fileset>
+    </path>
 
     <path id="cxf.classpath">
-        <pathelement location="${build.generated.dir}"/>
+        <pathelement location="${build.generated.dir}" />
         <fileset dir="${cxf.home}">
             <include name="*.jar" />
         </fileset>
@@ -75,12 +77,16 @@
             </fileset>
         </classpath>
     </taskdef>
-
-    <taskdef name="xjc" classname="com.sun.tools.xjc.XJCTask">
+    <taskdef name="cxfxjc" classname="com.sun.tools.xjc.XJCTask">
         <classpath>
             <pathelement path="${CONNECTCommonTypesLib.thirdparty.dir}/CXF/jaxb-xjc-2.2.5.jar" />
             <pathelement path="${CONNECTCommonTypesLib.thirdparty.dir}/CXF/jaxb-impl-2.2.5.jar" />
-            <pathelement path="${CONNECTCommonTypesLib.thirdparty.dir}/CXF/jaxb-api-2.2.6.jar"/>
+            <pathelement path="${CONNECTCommonTypesLib.thirdparty.dir}/CXF/jaxb-api-2.2.6.jar" />
+            <pathelement path="${CONNECTCommonTypesLib.thirdparty.dir}/CXF/cxf-xjc-runtime-2.6.0.jar" />
+            <pathelement path="${CONNECTCommonTypesLib.thirdparty.dir}/CXF/cxf-xjc-ts-2.6.0.jar" />
+            <pathelement path="${CONNECTCommonTypesLib.thirdparty.dir}/CXF/cxf-xjc-boolean-2.6.0.jar" />
+            <pathelement path="${CONNECTCommonTypesLib.thirdparty.dir}/CXF/cxf-xjc-bug671-2.6.0.jar" />
+            <pathelement path="${CONNECTCommonTypesLib.thirdparty.dir}/CXF/cxf-xjc-dv-2.6.0.jar" />
         </classpath>
     </taskdef>
 
@@ -118,9 +124,11 @@
         <call target="generate.proxies.xjc" />
         <call target="copy.util.src" />
         <javac srcdir="${build.generated.dir}" destdir="${build.classes.dir}" />
-        <copy todir="${build.classes.dir}/META-INF/wsdl" overwrite="true">
+        <!--
+          <copy todir="${build.classes.dir}/META-INF/wsdl" overwrite="true">
             <path refid="wsdl.list" />
-        </copy>
+         </copy>
+         -->
     </target>
 
     <target name="-quick.compile.source">
@@ -141,20 +149,30 @@
     <target name="generate.proxies.xjc">
         <outofdate verbose="true" force="${force.package}">
             <sourcefiles>
-                <fileset dir="../Interfaces/src/schemas">
-                    <patternset refid="schema.list" />
-                </fileset>
+                <path refid="schema.list" />
             </sourcefiles>
             <targetfiles path="${build.dir.root}/compilexjc.flag" />
             <sequential>
-                <xjc destdir="${build.generated.dir}">
+                <cxfxjc destdir="${build.generated.dir}">
                     <arg value="-xmlschema" />
-                    <arg value="-mark-generated"/>
+                    <arg value="-mark-generated" />
                     <schema dir="../Interfaces/src/schemas">
-                        <patternset refid="schema.list" />
+                            <include name="nhinc/**/*.xsd" />
+                            <include name="docs.oasis-open.org/**/*.xsd" />
+                            <include name="ebRS/**/*.xsd" />
+                            <include name="ihe/**/*.xsd" />
+                            <include name="nhin/**/*.xsd" />
+                            <include name="oasis/**/*.xsd" />
+                            <include name="uddi/uddi_v3.xsd" />
+                            <include name="uddi/uddi_v3custody.xsd" />
+                            <include name="uddi/uddi_v3policy_instanceParms.xsd" />
+                            <include name="uddi/uddi_v3subscriptionListener.xsd" />
+                            <include name="uddi/uddi_v3subscription.xsd" />
+                            <include name="www.w3.org/**/*.xsd" />
+                            <!--   <include name="xmlsoap.org/**/*.xsd" /> -->
+                            <include name="Endpoint/**/*.xsd" />
                     </schema>
-                </xjc>
-                <echo file="${build.dir.root}/compilexjc.flag" append="false" />
+                </cxfxjc>
             </sequential>
         </outofdate>
     </target>
@@ -180,10 +198,9 @@
                             <arg value="-dns" />
                             <arg value="false" />
                             <arg value="-verbose" />
-                 <!--
-                           <arg value="-b"/>
-                            <arg value="src/main/resources/org.hl7.v3.xjb"/>
-                  -->
+                         <!--   <arg value="-b" />
+                            <arg value="src/main/resources/org.hl7.v3.xjb" />
+                            -->
                             <arg value="-mark-generated" />
                             <arg value="-d" />
                             <arg value="${build.generated.dir}" />
