@@ -1,13 +1,10 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
                       http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <parent>
-        <groupId>gov.hhs.fha</groupId>
-        <artifactId>Production</artifactId>
-        <version>1.0.1-SNAPSHOT</version>
-    </parent>
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>Common</artifactId>
+    <groupId>gov.hhs.fha</groupId>
+    <artifactId>Product</artifactId>
+    <version>1.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
     <properties>
         <cobertura.check.haltOnFailure>true</cobertura.check.haltOnFailure>
@@ -15,9 +12,7 @@
         <cobertura.totalLineRate>85</cobertura.totalLineRate>
     </properties>
     <modules>
-        <module>CONNECTCommonTypesLib</module>
-        <module>CONNECTCoreLib</module>
-        <module>CONNECTCommonWeb</module>
+        <module>Production</module>
     </modules>
     <build>
         <pluginManagement>
@@ -63,7 +58,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <configLocation>file:${basedir}/../../../Product/checkstyle.settings.xml</configLocation>
+                    <configLocation>checkstyle.settings.xml</configLocation>
                     <enableRulesSummary>false</enableRulesSummary>
                 </configuration>
             </plugin>

@@ -204,25 +204,41 @@
                 <version>2.5.2</version>
                 <configuration>
                     <check>
-                        <branchRate>85</branchRate>
-                        <lineRate>85</lineRate>
                         <haltOnFailure>true</haltOnFailure>
-                        <totalBranchRate>85</totalBranchRate>
-                        <totalLineRate>85</totalLineRate>
-                        <packageLineRate>85</packageLineRate>
-                        <packageBranchRate>85</packageBranchRate>
-                        <!-- <regexes>
+                        <totalBranchRate>22</totalBranchRate>
+                        <totalLineRate>30</totalLineRate>
+                        <regexes>
                             <regex>
-                                <pattern>com.example.reallyimportant.*</pattern>
-                                <branchRate>90</branchRate>
-                                <lineRate>80</lineRate>
+                                <pattern>gov.hhs.fha.nhinc.async.AsyncMessageProcessHelper</pattern>
+                                <lineRate>87</lineRate>
+                                <branchRate>27</branchRate>
+                            </regex>
+                            <regex>
+                                <pattern>gov.hhs.fha.nhinc.transform.policy.ActionHelper</pattern>
+                                <lineRate>75</lineRate>
+                                <branchRate>50</branchRate>
+                            </regex>
+                            <regex>
+                                <pattern>gov.hhs.fha.nhinc.docregistry.adapter.AdapterComponentDocRegistryOrchImpl</pattern>
+                                <lineRate>62</lineRate>
+                                <branchRate>41</branchRate>
+                            </regex>
+                            <regex>
+                                <pattern>gov.hhs.fha.nhinc.redactionengine.adapter.AdapterRedactionEngineOrchImpl</pattern>
+                                <lineRate>90</lineRate>
+                                <branchRate>100</branchRate>
+                            </regex>
+                            <regex>
+                                <pattern>gov.hhs.fha.nhinc.policyengine.adapter.pep.AdapterPEPImpl</pattern>
+                                <lineRate>40</lineRate>
+                                <branchRate>29</branchRate>
                             </regex>
                             <regex>
                                 <pattern>com.example.boringcode.*</pattern>
-                                <branchRate>40</branchRate>
                                 <lineRate>30</lineRate>
+                                <branchRate>40</branchRate>
                             </regex>
-                        </regexes> -->
+                        </regexes>
                     </check>
                 </configuration>
                 <executions>
@@ -233,6 +249,13 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <configuration>
+                    <configLocation>${basedir}/../../../../Product/checkstyle.settings.xml</configLocation>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

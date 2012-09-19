@@ -3,11 +3,11 @@
                       http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <groupId>gov.hhs.fha</groupId>
-        <artifactId>Production</artifactId>
+        <artifactId>Product</artifactId>
         <version>1.0.1-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>Common</artifactId>
+    <artifactId>Production</artifactId>
     <packaging>pom</packaging>
     <properties>
         <cobertura.check.haltOnFailure>true</cobertura.check.haltOnFailure>
@@ -15,9 +15,7 @@
         <cobertura.totalLineRate>85</cobertura.totalLineRate>
     </properties>
     <modules>
-        <module>CONNECTCommonTypesLib</module>
-        <module>CONNECTCoreLib</module>
-        <module>CONNECTCommonWeb</module>
+        <module>Common</module>
     </modules>
     <build>
         <pluginManagement>
@@ -63,7 +61,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <configLocation>file:${basedir}/../../../Product/checkstyle.settings.xml</configLocation>
+                    <configLocation>checkstyle.settings.xml</configLocation>
                     <enableRulesSummary>false</enableRulesSummary>
                 </configuration>
             </plugin>
