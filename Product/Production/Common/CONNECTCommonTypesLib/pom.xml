@@ -22,6 +22,37 @@
         </dependency>
     </dependencies>
     <build>
+        <resources>
+            <resource>
+                <directory>${basedir}/../Interfaces/src/wsdl</directory>
+                <includes>
+                    <include>*.wsdl</include>
+                </includes>
+                <excludes>
+                    <exclude>NhinUddiSubrV3PortType.wsdl</exclude>
+                    <exclude>NhincComponentInternalSubDiscovery201309Orch.wsdl</exclude>
+                    <exclude>rw-2.wsdl</exclude>
+                    <exclude>uddi_api_v3_binding.wsdl</exclude>
+                    <exclude>uddi_api_v3_portType.wsdl</exclude>
+                    <exclude>uddi_custody_v3_binding.wsdl</exclude>
+                    <exclude>uddi_custody_v3_portType.wsdl</exclude>
+                    <exclude>uddi_repl_v3_binding.wsdl</exclude>
+                    <exclude>uddi_repl_v3_portType.wsdl</exclude>
+                    <exclude>uddi_sub_v3_binding.wsdl</exclude>
+                    <exclude>uddi_sub_v3_portType.wsdl</exclude>
+                    <exclude>uddi_subr_v3_binding.wsdl</exclude>
+                    <exclude>uddi_subr_v3_portType.wsdl</exclude>
+                    <exclude>uddi_vs_v3_binding.wsdl</exclude>
+                    <exclude>uddi_vs_v3_portType.wsdl</exclude>
+                    <exclude>uddi_vscache_v3_binding.wsdl</exclude>
+                    <exclude>uddi_vscache_v3_portType.wsdl</exclude>
+                    <!-- non conforming with WS-I -->
+                    <exclude>DoDConnector.wsdl</exclude>
+                    <exclude>NhincComponentConnectionManager.wsdl</exclude>
+                </excludes>
+                <targetPath>META-INF/wsdl/</targetPath>
+            </resource>
+        </resources>
         <plugins>
             <plugin>
                 <groupId>org.jvnet.jaxb2.maven2</groupId>
