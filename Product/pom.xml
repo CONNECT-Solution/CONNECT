@@ -59,6 +59,7 @@
                 </executions>
                 <configuration>
                     <configLocation>checkstyle.settings.xml</configLocation>
+                    <failOnViolation>false</failOnViolation>
                     <enableRulesSummary>false</enableRulesSummary>
                 </configuration>
             </plugin>
