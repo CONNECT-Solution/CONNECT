@@ -28,7 +28,7 @@
         </filelist>
     </path>
 
-    <property name="thirdparty.home" location="./../../../ThirdParty" />
+    <property name="thirdparty.home" location="../../../../ThirdParty" />
     <property name="common.home" location="../../Common" />
 
     <property name="cxf.home" location="${thirdparty.home}/CXF" />
@@ -180,6 +180,6 @@
         <filelist dir="${common.lib}">
             <file name="CONNECTCommonTypesLib.jar" />
         </filelist>
-
+   </path>
 
     </project>
