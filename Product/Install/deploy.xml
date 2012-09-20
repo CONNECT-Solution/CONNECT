@@ -69,6 +69,9 @@
                 <runtarget target="deploy.nhinc.interfaces.to.glassfish" />
             </then>
         </if>
+        <runtarget target="delete.common.jars" />
+        <runtarget target="deploy.thirdparty.libs" />
+        <runtarget target="deploy.shared.libs.to.glassfish" />
         <runtarget target="deploy.glassfish.start.server" />
         <runtarget target="deploy.wars.to.glassfish" />
         <runtarget target="deploy.ejbs.to.glassfish" />
@@ -77,6 +80,53 @@
             <isset property="stop.glassfish.after.deploy" />
             <then>
                 <runtarget target="deploy.glassfish.stop.server" />
+            </then>
+        </if>
+    </target>
+
+    <target name="deploy.thirdparty.libs">
+        <copy todir="${glassfish.home}/domains/domain1/lib" overwrite="true" flatten="true">
+            <fileset dir="${nhinc.deployment.thirdparty.dir}">
+                <include name="C3PO/*.jar" />
+                <include name="log4j/*.jar" />
+                <include name="HibernateLibraries/*.jar" />
+                <include name="MySQLDB/*.jar" />
+                <include name="XStream/*.jar" />
+                <include name="XStream/*.txt" />
+                <include name="SpringFramework/*.jar" />
+                <include name="Xerces/*.jar" />
+                <include name="OpenSSO/*.jar" />
+                <include name="CXF/*.jar" />
+            </fileset>
+        </copy>
+        <delete file="${glassfish.home}/domains/domain1/lib/asm-3.3.1.jar" />
+    </target>
+
+    <target name="deploy.shared.libs.to.glassfish">
+        <var name="target" value="deploy.shared.lib.to.glassfish" />
+        <runtarget target="target.to.call.on.shared.libs" />
+    </target>
+
+    <target name="undeploy.shared.libs.from.glassfish">
+        <var name="target" value="undeploy.shared.lib.from.glassfish" />
+        <runtarget target="target.to.call.on.shared.libs" />
+    </target>
+
+    <target name="delete.common.jars">
+        <if>
+            <available file="${glassfish.home}/domains/domain1/lib/CONNECTCommonTypesLib.jar" type="file" />
+            <then>
+                <delete>
+                    <fileset dir="${glassfish.home}/domains/domain1/lib" includes="CONNECT*.jar" />
+                </delete>
+            </then>
+        </if>
+        <if>
+            <available file="${glassfish.home}/domains/domain1/lib/NhincCommonTypesLib.jar" type="file" />
+            <then>
+                <delete>
+                    <fileset dir="${glassfish.home}/domains/domain1/lib" includes="Nhinc*.jar" />
+                </delete>
             </then>
         </if>
     </target>
@@ -113,13 +163,10 @@
     </target>
 
     <target name="-deploy.glassfish.start.server.win" depends="-deploy.glassfish.asadmin" if="win">
-        <parallel>
-            <sequential>
-                <exec dir="${glassfish.home}/bin" executable="cmd.exe" spawn="true" os="${os.name}" failonerror="false">
-                    <arg line="/c asadmin.bat --user ${deployment.glassfish.server.username} --passwordfile ${deploy.glassfish.password.file.path} start-domain ${deployment.glassfish.domain.name}" />
-                </exec>
-            </sequential>
-        </parallel>
+        <exec dir="${glassfish.home}/bin" executable="cmd.exe" spawn="false" os="${os.name}" failonerror="true">
+            <arg line="/c asadmin.bat --user ${deployment.glassfish.server.username} --passwordfile ${deploy.glassfish.password.file.path} start-domain ${deployment.glassfish.domain.name}" />
+        </exec>
+        <sleep minutes="1" />
     </target>
 
     <target name="-deploy.glassfish.start.server.notwin" depends="-deploy.glassfish.asadmin" unless="win">

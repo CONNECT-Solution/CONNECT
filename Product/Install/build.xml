@@ -90,13 +90,29 @@
             </fileset>
         </chmod>
         <echo message="y" file="${temp.dir}/input" />
-        <exec dir="${glassfish.install.dir}" executable="${glassfish.install.dir}/bin/pkg" input="${temp.dir}/input" />
-        <exec dir="${glassfish.install.dir}" executable="${glassfish.install.dir}/bin/pkg">
-            <arg line="uninstall glassfish-full-profile"/>
-        </exec>
-        <exec dir="${glassfish.install.dir}" executable="${glassfish.install.dir}/bin/pkg" input="${temp.dir}/input">
-            <arg line="uninstall metro"/>
-        </exec>
+        <if>
+            <os family="windows" />
+            <then>
+                <exec dir="${glassfish.install.dir}" executable="cmd.exe" spawn="false" failonerror="true" input="${temp.dir}/input">
+                    <arg line="/c ${glassfish.install.dir}/bin/pkg.bat" />
+                </exec>
+                <exec dir="${glassfish.install.dir}" executable="cmd.exe" spawn="false" failonerror="true" input="${temp.dir}/input">
+                    <arg line="/c ${glassfish.install.dir}/bin/pkg.bat uninstall glassfish-full-profile" />
+                </exec>
+                <exec dir="${glassfish.install.dir}" executable="cmd.exe" spawn="false" failonerror="true" input="${temp.dir}/input">
+                    <arg line="/c ${glassfish.install.dir}/bin/pkg.bat uninstall metro" />
+                </exec>
+            </then>
+            <else>
+                <exec dir="${glassfish.install.dir}" executable="${glassfish.install.dir}/bin/pkg" input="${temp.dir}/input" />
+                <exec dir="${glassfish.install.dir}" executable="${glassfish.install.dir}/bin/pkg">
+                    <arg line="uninstall glassfish-full-profile"/>
+                </exec>
+                <exec dir="${glassfish.install.dir}" executable="${glassfish.install.dir}/bin/pkg" input="${temp.dir}/input">
+                    <arg line="uninstall metro"/>
+                </exec>
+            </else>
+        </if>
         <copy file="${basedir}/GlassFish/templates/connect/domain.selfsigned.xml.template" tofile="${temp.dir}/domain.selfsigned.xml.template" overwrite="true" />
         <replace file="${temp.dir}/domain.selfsigned.xml.template" token="gateway" value="${cert.keystore.name}" />
         <delete dir="${glassfish.install.dir}/glassfish/domains/domain1" />
