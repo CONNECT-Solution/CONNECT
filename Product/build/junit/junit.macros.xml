@@ -79,7 +79,7 @@
 
       <property name="coverage.file" location="${coverage.classes.report.file}"/>
       <property name="cp" refid="@{classpathrefid}"/>
-
+	  
       <var unset="true" name="unittest.failure"/>
       <junitrunner dir="${junit.basedir}" failureproperty="unittest.failure" printSummary="yes" fork="true" showoutput="true" forkmode="once" maxmemory="512m">
         <sysproperty key="basedir" value="${junit.basedir}" />
@@ -95,6 +95,7 @@
           <tests/>
         </batchtest>
         <classpath>
+          <path refid="junitrun.classpath"></path>
           <fileset dir="${junit.macros.thirdparty.dir}/JUnit">
             <include name="junit-*.jar"/>
           </fileset>

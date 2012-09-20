@@ -274,6 +274,9 @@ public class ComponentProxyObjectFactoryTest {
         }
     }
 
+    /* 
+     * This test is no longer valid, as the config files will be in a properties jar and only refreshed on redeploy
+     * 
     @Test
     public void testGetContextRefresh() {
         try {
@@ -331,7 +334,7 @@ public class ComponentProxyObjectFactoryTest {
             t.printStackTrace();
             fail("Error running testGetContextRefresh test: " + t.getMessage());
         }
-    }
+    }*/
 
     @Test
     public void testGetBeanHappy() {

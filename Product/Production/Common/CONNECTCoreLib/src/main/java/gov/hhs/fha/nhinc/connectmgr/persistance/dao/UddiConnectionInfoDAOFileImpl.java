@@ -128,14 +128,6 @@ public class UddiConnectionInfoDAOFileImpl extends ConnectionManagerDAOBase impl
     }
 
     public void setFileName(String fileName) {
-
-        URL url = this.getClass().getClassLoader().getResource(fileName);
-        log.debug("Reading UddiConnectionInfo from file: " + fileName);
-        try {
-			file = new File(url.toURI());
-		} catch (URISyntaxException e) {
-			log.error("Could not retrieve file:"+ fileName);
-			e.printStackTrace();
-		}
+    	file = new File(fileName);
     }
 }
