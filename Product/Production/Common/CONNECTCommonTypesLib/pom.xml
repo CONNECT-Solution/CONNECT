@@ -24,87 +24,32 @@
     <build>
         <resources>
             <resource>
-                <directory>${basedir}/../Interfaces/src/wsdl</directory>
+                <directory>${basedir}/../Interfaces/src/schemas</directory>
+                <targetPath>schemas</targetPath>
                 <includes>
-                    <include>*.wsdl</include>
+                    <include>**/*.xsd</include>
                 </includes>
-                <excludes>
-                    <exclude>NhinUddiSubrV3PortType.wsdl</exclude>
-                    <exclude>NhincComponentInternalSubDiscovery201309Orch.wsdl</exclude>
-                    <exclude>rw-2.wsdl</exclude>
-                    <exclude>uddi_api_v3_binding.wsdl</exclude>
-                    <exclude>uddi_api_v3_portType.wsdl</exclude>
-                    <exclude>uddi_custody_v3_binding.wsdl</exclude>
-                    <exclude>uddi_custody_v3_portType.wsdl</exclude>
-                    <exclude>uddi_repl_v3_binding.wsdl</exclude>
-                    <exclude>uddi_repl_v3_portType.wsdl</exclude>
-                    <exclude>uddi_sub_v3_binding.wsdl</exclude>
-                    <exclude>uddi_sub_v3_portType.wsdl</exclude>
-                    <exclude>uddi_subr_v3_binding.wsdl</exclude>
-                    <exclude>uddi_subr_v3_portType.wsdl</exclude>
-                    <exclude>uddi_vs_v3_binding.wsdl</exclude>
-                    <exclude>uddi_vs_v3_portType.wsdl</exclude>
-                    <exclude>uddi_vscache_v3_binding.wsdl</exclude>
-                    <exclude>uddi_vscache_v3_portType.wsdl</exclude>
-                    <!-- non conforming with WS-I -->
-                    <exclude>DoDConnector.wsdl</exclude>
-                </excludes>
-                <targetPath>META-INF/wsdl/</targetPath>
             </resource>
         </resources>
         <plugins>
-            <plugin>
-                <groupId>org.apache.cxf</groupId>
-                <artifactId>cxf-codegen-plugin</artifactId>
-                <version>${cxf.version}</version>
-                <executions>
-                    <execution>
-                        <phase>generate-sources</phase>
-                        <configuration>
-                            <fork>once</fork>
-                            <encoding>UTF-8</encoding>
-                            <sourceRoot>${project.build.directory}/generated-sources/</sourceRoot>
-                            <wsdlRoot>${basedir}/../Interfaces/src/wsdl</wsdlRoot>
-                            <includes>
-                                <include>*.wsdl</include>
-                            </includes>
-                            <excludes>
-                                <exclude>NhinUddiSubrV3PortType.wsdl</exclude>
-                                <exclude>NhincComponentInternalSubDiscovery201309Orch.wsdl</exclude>
-                                <exclude>rw-2.wsdl</exclude>
-                                <exclude>uddi_api_v3_binding.wsdl</exclude>
-                                <exclude>uddi_api_v3_portType.wsdl</exclude>
-                                <exclude>uddi_custody_v3_binding.wsdl</exclude>
-                                <exclude>uddi_custody_v3_portType.wsdl</exclude>
-                                <exclude>uddi_repl_v3_binding.wsdl</exclude>
-                                <exclude>uddi_repl_v3_portType.wsdl</exclude>
-                                <exclude>uddi_sub_v3_binding.wsdl</exclude>
-                                <exclude>uddi_sub_v3_portType.wsdl</exclude>
-                                <exclude>uddi_subr_v3_binding.wsdl</exclude>
-                                <exclude>uddi_subr_v3_portType.wsdl</exclude>
-                                <exclude>uddi_vs_v3_binding.wsdl</exclude>
-                                <exclude>uddi_vs_v3_portType.wsdl</exclude>
-                                <exclude>uddi_vscache_v3_binding.wsdl</exclude>
-                                <exclude>uddi_vscache_v3_portType.wsdl</exclude>
-                                <!-- non conforming with WS-I -->
-                                <exclude>DoDConnector.wsdl</exclude>
-                            </excludes>
-                            <defaultOptions>
-                                <extraargs>
-                                    <extraarg>-verbose</extraarg>
-                                    <extraarg>-client</extraarg>
-                                    <extraarg>-noAddressBinding</extraarg>
-                                    <extraarg>-dns</extraarg>
-                                    <extraarg>false</extraarg>
-                                </extraargs>
-                            </defaultOptions>
-                        </configuration>
-                        <goals>
-                            <goal>wsdl2java</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
+            <!-- <plugin> <groupId>org.apache.cxf</groupId> <artifactId>cxf-codegen-plugin</artifactId> 
+                <version>${cxf.version}</version> <executions> <execution> <phase>generate-sources</phase> 
+                <configuration> <fork>once</fork> <encoding>UTF-8</encoding> <sourceRoot>${project.build.directory}/generated-sources/</sourceRoot> 
+                <wsdlRoot>${basedir}/../Interfaces/src/wsdl</wsdlRoot> <includes> <include>*.wsdl</include> 
+                </includes> <excludes> <exclude>NhinUddiSubrV3PortType.wsdl</exclude> <exclude>NhincComponentInternalSubDiscovery201309Orch.wsdl</exclude> 
+                <exclude>rw-2.wsdl</exclude> <exclude>uddi_api_v3_binding.wsdl</exclude> 
+                <exclude>uddi_api_v3_portType.wsdl</exclude> <exclude>uddi_custody_v3_binding.wsdl</exclude> 
+                <exclude>uddi_custody_v3_portType.wsdl</exclude> <exclude>uddi_repl_v3_binding.wsdl</exclude> 
+                <exclude>uddi_repl_v3_portType.wsdl</exclude> <exclude>uddi_sub_v3_binding.wsdl</exclude> 
+                <exclude>uddi_sub_v3_portType.wsdl</exclude> <exclude>uddi_subr_v3_binding.wsdl</exclude> 
+                <exclude>uddi_subr_v3_portType.wsdl</exclude> <exclude>uddi_vs_v3_binding.wsdl</exclude> 
+                <exclude>uddi_vs_v3_portType.wsdl</exclude> <exclude>uddi_vscache_v3_binding.wsdl</exclude> 
+                <exclude>uddi_vscache_v3_portType.wsdl</exclude> non conforming with WS-I 
+                <exclude>DoDConnector.wsdl</exclude> </excludes> <defaultOptions> <extraargs> 
+                <extraarg>-verbose</extraarg> <extraarg>-client</extraarg> <extraarg>-noAddressBinding</extraarg> 
+                <extraarg>-dns</extraarg> <extraarg>false</extraarg> </extraargs> </defaultOptions> 
+                </configuration> <goals> <goal>wsdl2java</goal> </goals> </execution> </executions> 
+                </plugin> -->
             <plugin>
                 <groupId>org.jvnet.jaxb2.maven2</groupId>
                 <artifactId>maven-jaxb22-plugin</artifactId>
@@ -162,6 +107,7 @@
         </plugins>
         <pluginManagement>
             <plugins>
+                <!--  TODO: Is this really working? -->
                 <plugin>
                     <groupId>org.eclipse.m2e</groupId>
                     <artifactId>lifecycle-mapping</artifactId>
