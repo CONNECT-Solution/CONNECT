@@ -2,13 +2,13 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <parent>
         <groupId>gov.hhs.fha</groupId>
-        <artifactId>Common</artifactId>
+        <artifactId>Gateway</artifactId>
         <version>1.0.1-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>CONNECTCommonWeb</artifactId>
+    <artifactId>CONNECTGatewayWeb</artifactId>
     <packaging>war</packaging>
-    <name>CONNECTCommonWeb Maven Webapp</name>
+    <name>CONNECT Gateway Web Webapp</name>
     <url>http://maven.apache.org</url>
     <properties>
         <cxf.version>2.6.1</cxf.version>
@@ -43,6 +43,21 @@
                     <groupId>javax.activation</groupId>
                 </exclusion>
             </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>javax</groupId>
+            <artifactId>javaee-api</artifactId>
+            <version>6.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-util</artifactId>
+            <version>7.5.4.v20111024</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.xml.messaging.saaj</groupId>
+            <artifactId>saaj-impl</artifactId>
+            <version>1.3.18</version>
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
@@ -223,7 +238,7 @@
         </dependency>
     </dependencies>
     <build>
-        <finalName>CONNECTCommonWeb</finalName>
+        <finalName>CONNECTGatewayWeb</finalName>
         <plugins>
             <plugin>
                 <artifactId>maven-war-plugin</artifactId>
@@ -232,45 +247,31 @@
                     <packagingExcludes>WEB-INF/classes/xml-resources/**</packagingExcludes>
                     <webResources>
                         <resource>
-                            <directory>${project.build.directory}/classes/xml-resources/web-services/NhincComponentConnectionManager/wsdl/</directory>
+                            <directory>${basedir}/../../Common/Interfaces/src/wsdl</directory>
                             <includes>
                                 <include>*.wsdl</include>
                             </includes>
-                            <targetPath>WEB-INF/wsdl/NhincComponentConnectionManager/</targetPath>
-                        </resource>
-                        <resource>
-                            <directory>${project.build.directory}/classes/xml-resources/web-services/NhincComponentPropAccessor/wsdl/</directory>
-                            <includes>
-                                <include>*.wsdl</include>
-                            </includes>
-                            <targetPath>WEB-INF/wsdl/NhincComponentPropAccessor/</targetPath>
-                        </resource>
-                        <resource>
-                            <directory>${project.build.directory}/classes/xml-resources/web-services/UDDIUpdateManager/wsdl/</directory>
-                            <includes>
-                                <include>*.wsdl</include>
-                            </includes>
-                            <targetPath>WEB-INF/wsdl/UDDIUpdateManager/</targetPath>
-                        </resource>
-                        <resource>
-                            <directory>${project.build.directory}/classes/xml-resources/web-services/NhincComponentConnectionManager/</directory>
-                            <includes>
-                                <include>schemas/**/*.xsd</include>
-                            </includes>
-                            <targetPath>WEB-INF/wsdl/</targetPath>
-                        </resource>
-                        <resource>
-                            <directory>${project.build.directory}/classes/xml-resources/web-services/NhincComponentPropAccessor/</directory>
-                            <includes>
-                                <include>schemas/**/*.xsd</include>
-                            </includes>
-                            <targetPath>WEB-INF/wsdl/</targetPath>
-                        </resource>
-                        <resource>
-                            <directory>${project.build.directory}/classes/xml-resources/web-services/UDDIUpdateManager/</directory>
-                            <includes>
-                                <include>schemas/**/*.xsd</include>
-                            </includes>
+                            <excludes>
+                                <exclude>NhinUddiSubrV3PortType.wsdl</exclude>
+                                <exclude>NhincComponentInternalSubDiscovery201309Orch.wsdl</exclude>
+                                <exclude>rw-2.wsdl</exclude>
+                                <exclude>uddi_api_v3_binding.wsdl</exclude>
+                                <exclude>uddi_api_v3_portType.wsdl</exclude>
+                                <exclude>uddi_custody_v3_binding.wsdl</exclude>
+                                <exclude>uddi_custody_v3_portType.wsdl</exclude>
+                                <exclude>uddi_repl_v3_binding.wsdl</exclude>
+                                <exclude>uddi_repl_v3_portType.wsdl</exclude>
+                                <exclude>uddi_sub_v3_binding.wsdl</exclude>
+                                <exclude>uddi_sub_v3_portType.wsdl</exclude>
+                                <exclude>uddi_subr_v3_binding.wsdl</exclude>
+                                <exclude>uddi_subr_v3_portType.wsdl</exclude>
+                                <exclude>uddi_vs_v3_binding.wsdl</exclude>
+                                <exclude>uddi_vs_v3_portType.wsdl</exclude>
+                                <exclude>uddi_vscache_v3_binding.wsdl</exclude>
+                                <exclude>uddi_vscache_v3_portType.wsdl</exclude>
+                                <!-- non conforming with WS-I -->
+                                <exclude>DoDConnector.wsdl</exclude>
+                            </excludes>
                             <targetPath>WEB-INF/wsdl/</targetPath>
                         </resource>
                     </webResources>
