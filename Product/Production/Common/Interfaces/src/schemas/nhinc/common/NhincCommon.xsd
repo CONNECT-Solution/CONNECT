@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:addr="http://schemas.xmlsoap.org/ws/2004/08/addressing" targetNamespace="urn:gov:hhs:fha:nhinc:common:nhinccommon" elementFormDefault="qualified">
-    <xsd:import namespace="http://schemas.xmlsoap.org/ws/2004/08/addressing" schemaLocation="../../xmlsoap.org/addressing.xsd"/>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:common:nhinccommon" 
+    xmlns:addr="http://www.w3.org/2005/08/addressing" targetNamespace="urn:gov:hhs:fha:nhinc:common:nhinccommon" elementFormDefault="qualified">
+    <xsd:import namespace="http://www.w3.org/2005/08/addressing" schemaLocation="../../www.w3.org/2005/08/addressing/ws-addr.xsd" />
+   
     <xsd:complexType name="QualifiedSubjectIdentifierType">
         <xsd:sequence>
             <xsd:element name="SubjectIdentifier" type="xsd:string"/>
@@ -192,12 +194,14 @@
         </xsd:sequence>
     </xsd:complexType>
     <xsd:element name="User" type="tns:UserType"/>
+    <!-- 
     <xsd:complexType name="EPRType">
         <xsd:sequence>
             <xsd:element name="EndpointReference" type="addr:EndpointReferenceType"/>
         </xsd:sequence>
     </xsd:complexType>
-    <xsd:element name="EPR" type="tns:EPRType"/>
+    -->
+    <xsd:element name="EPR" type="addr:EndpointReferenceType"/>
     <xsd:complexType name="CreateEPRRequestType">
         <xsd:sequence>
             <xsd:element name="endpointURL" type="xsd:string"/>
@@ -210,7 +214,7 @@
     <xsd:element name="CreateEPRRequest" type="tns:CreateEPRRequestType"/>
     <xsd:complexType name="NhinTargetSystemType">
         <xsd:choice>
-            <xsd:element name="epr" type="tns:EPRType"/>
+            <xsd:element name="epr" type="addr:EndpointReferenceType"/>
             <xsd:element name="homeCommunity" type="tns:HomeCommunityType"/>
             <xsd:element name="url" type="xsd:string"/>
         </xsd:choice>
