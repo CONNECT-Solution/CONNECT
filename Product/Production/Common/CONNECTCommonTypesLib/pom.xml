@@ -54,41 +54,6 @@
         </resources>
         <plugins>
             <plugin>
-                <groupId>org.jvnet.jaxb2.maven2</groupId>
-                <artifactId>maven-jaxb22-plugin</artifactId>
-                <version>0.8.2</version>
-                <configuration>
-                	<generateDirectory>${project.build.directory}/generated-sources/</generateDirectory>
-                    <schemaDirectory>${basedir}/../Interfaces/src/schemas/</schemaDirectory>
-                    <schemaIncludes>
-                        <include>nhinc/**/*.xsd</include>
-                        <include>docs.oasis-open.org/**/*.xsd</include>
-                        <include>ebRS/**/*.xsd</include>
-                        <include>ihe/**/*.xsd</include>
-                        <include>nhin/**/*.xsd</include>
-                        <include>oasis/**/*.xsd</include>
-                        <include>uddi/uddi_v3.xsd</include>
-                        <include>uddi/uddi_v3custody.xsd</include>
-                        <include>uddi/uddi_v3policy_instanceParms.xsd</include>
-                        <include>uddi/uddi_v3subscriptionListener.xsd</include>
-                        <include>uddi/uddi_v3subscription.xsd</include>
-                        <include>www.w3.org/**/*.xsd</include>
-                        <include>xmlsoap.org/**/*.xsd</include>
-                        <include>Endpoint/**/*.xsd</include>
-                    </schemaIncludes>
-                    <source>7</source>
-                    <target>7</target>
-                </configuration>
-                <executions>
-                    <execution>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
                 <groupId>org.apache.cxf</groupId>
                 <artifactId>cxf-codegen-plugin</artifactId>
                 <version>${cxf.version}</version>
@@ -136,6 +101,41 @@
                         </configuration>
                         <goals>
                             <goal>wsdl2java</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.jvnet.jaxb2.maven2</groupId>
+                <artifactId>maven-jaxb22-plugin</artifactId>
+                <version>0.8.2</version>
+                <configuration>
+                    <generateDirectory>${project.build.directory}/generated-sources/</generateDirectory>
+                    <schemaDirectory>${basedir}/../Interfaces/src/schemas/</schemaDirectory>
+                    <schemaIncludes>
+                        <include>nhinc/**/*.xsd</include>
+                        <include>docs.oasis-open.org/**/*.xsd</include>
+                        <include>ebRS/**/*.xsd</include>
+                        <include>ihe/**/*.xsd</include>
+                        <include>nhin/**/*.xsd</include>
+                        <include>oasis/**/*.xsd</include>
+                        <include>uddi/uddi_v3.xsd</include>
+                        <include>uddi/uddi_v3custody.xsd</include>
+                        <include>uddi/uddi_v3policy_instanceParms.xsd</include>
+                        <include>uddi/uddi_v3subscriptionListener.xsd</include>
+                        <include>uddi/uddi_v3subscription.xsd</include>
+                        <include>www.w3.org/**/*.xsd</include>
+                        <include>xmlsoap.org/**/*.xsd</include>
+                        <include>Endpoint/**/*.xsd</include>
+                    </schemaIncludes>
+                    <source>7</source>
+                    <target>7</target>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>generate</goal>
                         </goals>
                     </execution>
                 </executions>
