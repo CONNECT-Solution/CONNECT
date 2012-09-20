@@ -1,53 +1,30 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
- * All rights reserved. 
+ * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * All rights reserved.
  *
- * Redistribution and use in source and binary forms, with or without 
- * modification, are permitted provided that the following conditions are met: 
- *     * Redistributions of source code must retain the above 
- *       copyright notice, this list of conditions and the following disclaimer. 
- *     * Redistributions in binary form must reproduce the above copyright 
- *       notice, this list of conditions and the following disclaimer in the documentation 
- *       and/or other materials provided with the distribution. 
- *     * Neither the name of the United States Government nor the 
- *       names of its contributors may be used to endorse or promote products 
- *       derived from this software without specific prior written permission. 
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *     * Redistributions of source code must retain the above
+ *       copyright notice, this list of conditions and the following disclaimer.
+ *     * Redistributions in binary form must reproduce the above copyright
+ *       notice, this list of conditions and the following disclaimer in the documentation
+ *       and/or other materials provided with the distribution.
+ *     * Neither the name of the United States Government nor the
+ *       names of its contributors may be used to endorse or promote products
+ *       derived from this software without specific prior written permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
- * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
- * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY 
- * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES 
- * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
- * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND 
- * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
- * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package gov.hhs.fha.nhinc.patientdiscovery.entity;
-
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
-import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
-import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunityType;
-import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
-import gov.hhs.fha.nhinc.connectmgr.NhinEndpointManager;
-import gov.hhs.fha.nhinc.connectmgr.UrlInfo;
-import gov.hhs.fha.nhinc.gateway.executorservice.ExecutorServiceHelper;
-import gov.hhs.fha.nhinc.gateway.executorservice.NhinCallableRequest;
-import gov.hhs.fha.nhinc.gateway.executorservice.NhinTaskExecutor;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.nhinclib.NullChecker;
-import gov.hhs.fha.nhinc.orchestration.OutboundDelegate;
-import gov.hhs.fha.nhinc.orchestration.OutboundResponseProcessor;
-import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscovery201305Processor;
-import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditLogger;
-import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryPolicyChecker;
-import gov.hhs.fha.nhinc.properties.PropertyAccessor;
-import gov.hhs.fha.nhinc.transform.subdisc.HL7DataTransformHelper;
-import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201306Transforms;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,13 +46,37 @@ import org.hl7.v3.PRPAMT201306UV02QueryByParameter;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 import org.hl7.v3.RespondingGatewayPRPAIN201306UV02ResponseType;
 
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunityType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
+import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
+import gov.hhs.fha.nhinc.connectmgr.NhinEndpointManager;
+import gov.hhs.fha.nhinc.connectmgr.UrlInfo;
+import gov.hhs.fha.nhinc.gateway.executorservice.ExecutorServiceHelper;
+import gov.hhs.fha.nhinc.gateway.executorservice.NhinCallableRequest;
+import gov.hhs.fha.nhinc.gateway.executorservice.NhinTaskExecutor;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import gov.hhs.fha.nhinc.orchestration.OutboundDelegate;
+import gov.hhs.fha.nhinc.orchestration.OutboundResponseProcessor;
+import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscovery201305Processor;
+import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditLogger;
+import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryPolicyChecker;
+import gov.hhs.fha.nhinc.properties.PropertyAccessor;
+import gov.hhs.fha.nhinc.transform.subdisc.HL7DataTransformHelper;
+import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201306Transforms;
+
 /**
  * Orchestrates the Entity (i.e. from Adapter) PatientDiscovery transaction
- * 
+ *
  */
 public class EntityPatientDiscoveryOrchImpl {
 
-    private Log log = LogFactory.getLog(getClass());
+    private final Log log = LogFactory.getLog(getClass());
     private ExecutorService regularExecutor = null;
     private ExecutorService largejobExecutor = null;
 
@@ -118,7 +119,7 @@ public class EntityPatientDiscoveryOrchImpl {
             }
         } catch (Exception e) {
             log.error("Exception occurred while getting responses", e);
-            
+
             // generate error message and add to response
             CommunityPRPAIN201306UV02ResponseType communityResponse = new CommunityPRPAIN201306UV02ResponseType();
             communityResponse.setPRPAIN201306UV02((new HL7PRPA201306Transforms()).createPRPA201306ForErrors(
@@ -135,16 +136,15 @@ public class EntityPatientDiscoveryOrchImpl {
         log.debug("Begin getResponseFromCommunities");
         RespondingGatewayPRPAIN201306UV02ResponseType response = new RespondingGatewayPRPAIN201306UV02ResponseType();
 
-        NhinEndpointManager nem = new NhinEndpointManager();
-        NhincConstants.GATEWAY_API_LEVEL gatewayLevel = nem.getApiVersion(
-                getLocalHomeCommunityId(), NhincConstants.NHIN_SERVICE_NAMES.PATIENT_DISCOVERY);
-               
-        try {                    
-            List<UrlInfo> urlInfoList = getEndpoints(request.getNhinTargetCommunities());                        
+
+        NhincConstants.GATEWAY_API_LEVEL gatewayLevel = getGatewayVersion();
+
+        try {
+            List<UrlInfo> urlInfoList = getEndpoints(request.getNhinTargetCommunities());
             if (NullChecker.isNullish(urlInfoList)) {
                 throw new Exception("No target endpoints were found for the Patient Discovery Request.");
             } else {
-                List<NhinCallableRequest<OutboundPatientDiscoveryOrchestratable>> callableList = 
+                List<NhinCallableRequest<OutboundPatientDiscoveryOrchestratable>> callableList =
                     new ArrayList<NhinCallableRequest<OutboundPatientDiscoveryOrchestratable>>();
                 String transactionId = (UUID.randomUUID()).toString();
 
@@ -161,36 +161,36 @@ public class EntityPatientDiscoveryOrchImpl {
 
                     if (checkPolicy(newRequest, assertion)) {
                         setHomeCommunityIdInRequest(newRequest, urlInfo.getHcid());
-                        
-                        OutboundPatientDiscoveryOrchestratable message = 
-                            createOrchestratable(newRequest.getPRPAIN201305UV02(), assertion, target, gatewayLevel);                       
+
+                        OutboundPatientDiscoveryOrchestratable message =
+                            createOrchestratable(newRequest.getPRPAIN201305UV02(), assertion, target, gatewayLevel);
                         callableList.add(new NhinCallableRequest<OutboundPatientDiscoveryOrchestratable>(message));
 
                         log.debug("Added NhinCallableRequest" + " for hcid=" + target.getHomeCommunity().getHomeCommunityId());
                     } else {
-                        log.debug("Policy Check Failed for homeId=" + urlInfo.getHcid());                        
-                        CommunityPRPAIN201306UV02ResponseType communityResponse = 
+                        log.debug("Policy Check Failed for homeId=" + urlInfo.getHcid());
+                        CommunityPRPAIN201306UV02ResponseType communityResponse =
                             createFailedPolicyCommunityResponseFromRequest(request.getPRPAIN201305UV02(), urlInfo.getHcid());
-                        
+
                         policyErrList.add(communityResponse);
                     }
                 }
                 if (callableList.size() > 0) {
                 log.debug("Executing tasks to concurrently retrieve responses");
-                NhinTaskExecutor<OutboundPatientDiscoveryOrchestratable, OutboundPatientDiscoveryOrchestratable> pdExecutor = 
+                NhinTaskExecutor<OutboundPatientDiscoveryOrchestratable, OutboundPatientDiscoveryOrchestratable> pdExecutor =
                     new NhinTaskExecutor<OutboundPatientDiscoveryOrchestratable, OutboundPatientDiscoveryOrchestratable>(
                         ExecutorServiceHelper.getInstance().checkExecutorTaskIsLarge(callableList.size()) ? largejobExecutor
                                 : regularExecutor, callableList, transactionId);
                 pdExecutor.executeTask();
-                log.debug("Aggregating all responses"); 
-                response = getCumulativeResponse(pdExecutor);               
-               } 
+                log.debug("Aggregating all responses");
+                response = getCumulativeResponse(pdExecutor);
+               }
 
                 addPolicyErrorsToResponse(response, policyErrList);
             }
-        } catch (Exception e) {           
+        } catch (Exception e) {
             log.error("Exception occurred while getting responses from communities", e);
-            
+
             // generate error message and add to response
             CommunityPRPAIN201306UV02ResponseType communityResponse = new CommunityPRPAIN201306UV02ResponseType();
             communityResponse.setPRPAIN201306UV02((new HL7PRPA201306Transforms()).createPRPA201306ForErrors(
@@ -201,16 +201,25 @@ public class EntityPatientDiscoveryOrchImpl {
         log.debug("Exiting getResponseFromCommunities");
         return response;
     }
-        
+
+    /**
+     * @param nem
+     * @return
+     */
+    protected GATEWAY_API_LEVEL getGatewayVersion() {
+        return new NhinEndpointManager().getApiVersion(
+                getLocalHomeCommunityId(), NhincConstants.NHIN_SERVICE_NAMES.PATIENT_DISCOVERY);
+    }
+
     protected NhinTargetSystemType createNhinTargetSystemType(String hcid) {
         NhinTargetSystemType target = new NhinTargetSystemType();
         HomeCommunityType targetCommunity = new HomeCommunityType();
         targetCommunity.setHomeCommunityId(hcid);
         target.setHomeCommunity(targetCommunity);
-        
+
         return target;
     }
-    
+
     protected void setHomeCommunityIdInRequest(RespondingGatewayPRPAIN201305UV02RequestType request, String hcid) {
         if (request.getPRPAIN201305UV02() != null
                 && request.getPRPAIN201305UV02().getReceiver() != null
@@ -221,9 +230,9 @@ public class EntityPatientDiscoveryOrchImpl {
 
             request.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getId().get(0)
                     .setRoot(hcid);
-        }        
+        }
     }
-    
+
     protected OutboundPatientDiscoveryOrchestratable createOrchestratable(PRPAIN201305UV02 message,
             AssertionType assertion, NhinTargetSystemType target, NhincConstants.GATEWAY_API_LEVEL gatewayLevel) {
         OutboundDelegate nd = new OutboundPatientDiscoveryDelegate();
@@ -233,7 +242,7 @@ public class EntityPatientDiscoveryOrchImpl {
 
         return orchestratable;
     }
-    
+
     protected CommunityPRPAIN201306UV02ResponseType createFailedPolicyCommunityResponseFromRequest(PRPAIN201305UV02 message, String hcid) {
         CommunityPRPAIN201306UV02ResponseType communityResponse = new CommunityPRPAIN201306UV02ResponseType();
         NhinTargetCommunityType tc = new NhinTargetCommunityType();
@@ -243,24 +252,24 @@ public class EntityPatientDiscoveryOrchImpl {
         communityResponse.setNhinTargetCommunity(tc);
         communityResponse.setPRPAIN201306UV02((new HL7PRPA201306Transforms())
                 .createPRPA201306ForErrors(message, "Policy Check Failed for homeId="  + hcid));
-        
+
         return communityResponse;
     }
-    
+
     protected RespondingGatewayPRPAIN201306UV02ResponseType getCumulativeResponse(
             NhinTaskExecutor<OutboundPatientDiscoveryOrchestratable, OutboundPatientDiscoveryOrchestratable> dqexecutor) {
-        OutboundPatientDiscoveryOrchestratable orchResponse = (OutboundPatientDiscoveryOrchestratable) dqexecutor
+        OutboundPatientDiscoveryOrchestratable orchResponse = dqexecutor
                 .getFinalResponse();
         return orchResponse.getCumulativeResponse();
     }
-    
+
     protected void addPolicyErrorsToResponse(RespondingGatewayPRPAIN201306UV02ResponseType response,
             List<CommunityPRPAIN201306UV02ResponseType> policyErrList) {
         for (CommunityPRPAIN201306UV02ResponseType policyError : policyErrList) {
             response.getCommunityResponse().add(policyError);
         }
     }
-    
+
     /**
      * Policy Check verification done here....from connect code
      */
@@ -274,7 +283,7 @@ public class EntityPatientDiscoveryOrchImpl {
     /**
      * Create a new RespondingGatewayPRPAIN201305UV02RequestType which has a new PRPAIN201305UV02 cloned from the
      * original
-     * 
+     *
      * @param request
      * @param assertion
      * @param urlInfo
@@ -291,10 +300,12 @@ public class EntityPatientDiscoveryOrchImpl {
         if (new201305.getControlActProcess() != null && new201305.getControlActProcess().getQueryByParameter() != null) {
             PRPAMT201306UV02QueryByParameter queryParams = new201305.getControlActProcess().getQueryByParameter()
                     .getValue();
-            if (queryParams.getResponseModalityCode() == null)
+            if (queryParams.getResponseModalityCode() == null) {
                 queryParams.setResponseModalityCode(HL7DataTransformHelper.CSFactory("R"));
-            if (queryParams.getResponsePriorityCode() == null)
+            }
+            if (queryParams.getResponsePriorityCode() == null) {
                 queryParams.setResponsePriorityCode(HL7DataTransformHelper.CSFactory("I"));
+            }
         }
 
         newRequest.setAssertion(assertion);
@@ -306,10 +317,10 @@ public class EntityPatientDiscoveryOrchImpl {
     /**
      * paul added this to generate a new PRPAIN201305UV02 for every PDClient thread rather than a single
      * PRPAIN201305UV02 for all requests
-     * 
+     *
      * The reason is that otherwise you can get a java.util.ConcurrentModificationException when the PRPAIN201305UV02 is
      * marshalled for audit/policy etc calls in one thread and updated in another thread
-     * 
+     *
      * @param request is original PRPAIN201305UV02
      * @return new PRPAIN201305UV02 object with values set to original
      */
@@ -382,14 +393,21 @@ public class EntityPatientDiscoveryOrchImpl {
 
     protected void auditRequestFromAdapter(RespondingGatewayPRPAIN201305UV02RequestType request,
             AssertionType assertion) {
-        new PatientDiscoveryAuditLogger().auditEntity201305(request, assertion,
+        getNewPatientDiscoveryAuditLogger().auditEntity201305(request, assertion,
                 NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
     }
 
     protected void auditResponseToAdapter(RespondingGatewayPRPAIN201306UV02ResponseType response,
             AssertionType assertion) {
-        new PatientDiscoveryAuditLogger().auditEntity201306(response, assertion,
+        getNewPatientDiscoveryAuditLogger().auditEntity201306(response, assertion,
                 NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
+    }
+
+    /**
+     * @return a new instance of PatientDiscoveryAuditLogger
+     */
+    protected PatientDiscoveryAuditLogger getNewPatientDiscoveryAuditLogger() {
+        return new PatientDiscoveryAuditLogger();
     }
 
 }
