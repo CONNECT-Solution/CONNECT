@@ -25,7 +25,7 @@
         <resources>
             <resource>
                 <directory>${basedir}/../Interfaces/src/schemas</directory>
-                <targetPath>schemas</targetPath>
+                <targetPath>META-INF/schemas</targetPath>
                 <includes>
                     <include>**/*.xsd</include>
                 </includes>
