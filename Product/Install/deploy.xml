@@ -77,6 +77,7 @@
         </if>
         <runtarget target="delete.common.jars" />
         <runtarget target="deploy.thirdparty.libs" />
+    	<runtarget target="deploy.properties.to.glassfish" />
         <runtarget target="deploy.shared.libs.to.glassfish" />
         <runtarget target="deploy.glassfish.start.server" />
         <runtarget target="deploy.ears.to.glassfish" />
@@ -94,7 +95,7 @@
     <target name="deploy.thirdparty.libs">
         <delete file="${glassfish.home}/glassfish/domains/domain1/lib/asm-3.1.jar" />
         <copy todir="${glassfish.home}/glassfish/domains/domain1/lib" overwrite="true" flatten="true">
-            <fileset dir="${nhinc.deployment.thirdparty.dir}">
+            <fileset dir="${nhinc.deployment.properties.dir}">
                 <include name="C3PO/*.jar" />
                 <include name="log4j/*.jar" />
                 <include name="HibernateLibraries/*.jar" />
@@ -104,6 +105,15 @@
                 <include name="SpringFramework/*.jar" />
                 <include name="Xerces/*.jar" />
                 <include name="OpenSSO/*.jar" />
+            </fileset>
+        </copy>
+    </target>
+	
+	<target name="deploy.properties.to.glassfish">
+        <copy todir="${glassfish.home}/glassfish/domains/domain1/lib/classes" overwrite="true" flatten="true">
+            <fileset dir="${nhinc.deployment.thirdparty.dir}">
+                <include name="../*" />
+                <include name="hibernate/*" />
             </fileset>
         </copy>
     </target>
