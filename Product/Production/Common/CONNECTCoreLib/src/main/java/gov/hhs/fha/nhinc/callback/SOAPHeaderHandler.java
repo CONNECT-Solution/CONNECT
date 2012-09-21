@@ -100,7 +100,8 @@ public class SOAPHeaderHandler implements SOAPHandler<SOAPMessageContext> {
             SOAPFactory soapFactory = SOAPFactory.newInstance();
             oMessageIdElem = soapFactory.createElement(MESSAGE_ID, "", WSA_NS);
             oMessageIdElem.setTextContent(messageId);
-            oHeader.addChildElement(oMessageIdElem);
+            if(oHeader != null)
+            	oHeader.addChildElement(oMessageIdElem);
         }
     }
 
