@@ -24,6 +24,11 @@
             <version>${project.parent.version}</version>
         </dependency>
         <dependency>
+            <groupId>gov.hhs.fha</groupId>
+            <artifactId>PatientCorrelationCore</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+        <dependency>
             <groupId>commons-logging</groupId>
             <artifactId>commons-logging</artifactId>
             <version>1.1.1</version>

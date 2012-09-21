@@ -1,125 +1,35 @@
-<?xml version="1.0"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0                       
-    http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                      http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <groupId>gov.hhs.fha</groupId>
-        <artifactId>Common</artifactId>
+        <artifactId>Services</artifactId>
         <version>1.0.1-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>CONNECTCoreLib</artifactId>
+    <artifactId>SharedEngineCore</artifactId>
     <packaging>jar</packaging>
-    <name>CONNECT core libraries</name>
-    <url>http://maven.apache.org</url>
-    <properties>
-        <cxf.version>2.6.1</cxf.version>
-    </properties>
+    <name>CONNECT Shared Engine Core</name>
     <dependencies>
         <dependency>
             <groupId>gov.hhs.fha</groupId>
-            <artifactId>CONNECTCommonTypesLib</artifactId>
-            <version>${parent.version}</version>
+            <artifactId>PolicyEngineCore</artifactId>
+            <version>${project.parent.version}</version>
         </dependency>
         <dependency>
-            <!-- temporary -->
             <groupId>gov.hhs.fha</groupId>
-            <artifactId>AuditRepositoryCore</artifactId>
-            <version>${parent.version}</version>
+            <artifactId>RedactionEngineCore</artifactId>
+            <version>${project.parent.version}</version>
         </dependency>
         <dependency>
-            <!-- temporary -->
             <groupId>gov.hhs.fha</groupId>
-            <artifactId>DocRepositoryCore</artifactId>
-            <version>${parent.version}</version>
-        </dependency>
-        <dependency>
-            <!-- temporary -->
-            <groupId>gov.hhs.fha</groupId>
-            <artifactId>DocRegistryCore</artifactId>
-            <version>${parent.version}</version>
-        </dependency>
-        <dependency>
-            <!-- temporary -->
-            <groupId>gov.hhs.fha</groupId>
-            <artifactId>ConnectionManagerCore</artifactId>
-            <version>${parent.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>commons-collections</groupId>
-            <artifactId>commons-collections</artifactId>
-            <version>3.2.1</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring</artifactId>
-            <version>2.5.6.SEC01</version>
-        </dependency>
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate</artifactId>
-            <version>3.2.5.ga</version>
-        </dependency>
-        <dependency>
-            <groupId>c3p0</groupId>
-            <artifactId>c3p0</artifactId>
-            <version>0.9.1.2</version>
+            <artifactId>CONNECTCoreLib</artifactId>
+            <version>${project.parent.version}</version>
         </dependency>
         <dependency>
             <groupId>commons-logging</groupId>
             <artifactId>commons-logging</artifactId>
             <version>1.1.1</version>
-        </dependency>
-        <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-            <version>1.2.15</version>
-        </dependency>
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>5.1.21</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.cxf</groupId>
-            <artifactId>cxf-api</artifactId>
-            <version>${cxf.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.cxf</groupId>
-            <artifactId>cxf-rt-core</artifactId>
-            <version>${cxf.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.cxf</groupId>
-            <artifactId>cxf-rt-ws-security</artifactId>
-            <version>${cxf.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.cxf</groupId>
-            <artifactId>cxf-rt-frontend-jaxws</artifactId>
-            <version>${cxf.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.ws.security</groupId>
-            <artifactId>wss4j</artifactId>
-            <version>1.6.7</version>
-        </dependency>
-        <dependency>
-            <groupId>com.forgerock.openam</groupId>
-            <artifactId>clientsdk</artifactId>
-            <version>10.0.0</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.opensaml</groupId>
-            <artifactId>opensaml</artifactId>
-            <version>2.5.1-1</version>
-        </dependency>
-        <dependency>
-            <groupId>com.thoughtworks.xstream</groupId>
-            <artifactId>xstream</artifactId>
-            <version>1.4.3</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
@@ -152,12 +62,6 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-    <repositories>
-        <repository>
-            <id>forgerock</id>
-            <url>http://repo.forgerock.org</url>
-        </repository>
-    </repositories>
     <build>
         <resources>
             <resource>
@@ -211,8 +115,8 @@
                 <configuration>
                     <check>
                         <haltOnFailure>true</haltOnFailure>
-                        <totalBranchRate>19</totalBranchRate>
-                        <totalLineRate>27</totalLineRate>
+                        <totalBranchRate>22</totalBranchRate>
+                        <totalLineRate>30</totalLineRate>
                         <regexes>
                             <regex>
                                 <pattern>gov.hhs.fha.nhinc.async.AsyncMessageProcessHelper</pattern>
@@ -260,7 +164,7 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
                 <configuration>
-                    <configLocation>${basedir}/../../../../Product/checkstyle.settings.xml</configLocation>
+                    <configLocation>${basedir}/../../../checkstyle.settings.xml</configLocation>
                 </configuration>
             </plugin>
             <plugin>
