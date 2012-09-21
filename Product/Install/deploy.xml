@@ -238,11 +238,7 @@
         </xmltask>
     </target>
 
-<<<<<<< HEAD
-	<target name="ear.create" description="creates a classpath for all required jar|war files and packages them in ear">
-=======
 	<target name="deploy.ears.to.glassfish" description="creates a classpath for all required jar|war files and packages them in ear">
->>>>>>> 9b2c5c97559fff4a4d8a9cf6b6e3f8cc8605d4c2
 		<!-- clear deployment directory -->
 		<if><available file=".ant-deploy-staging" type="dir" />
 		<then><delete dir=".ant-deploy-staging"/></then>
@@ -263,13 +259,9 @@
 	    <property name="spring.home" location="../ThirdParty/SpringFramework" />
 	    <property name="core.lib" location="Production/Common/CONNECTCoreLib/dist/debug" />
 	    <property name="common.lib" location="Production/Common/CONNECTCommonTypesLib/dist/debug" />
-<<<<<<< HEAD
 		<property name="properties.lib" location="Production/Common/CONNECTPropertiesLib/dist/debug" />
 			    
 		<property name="opensaml.home" location="../ThirdParty/openSAML" />
-=======
-	    <property name="opensaml.home" location="../ThirdParty/openSAML" />
->>>>>>> 9b2c5c97559fff4a4d8a9cf6b6e3f8cc8605d4c2
 		
 		<path id="ear.libs">
 	        <fileset dir="${cxf.home}">
@@ -316,27 +308,15 @@
 	        <filelist dir="${common.lib}">
 	            <file name="CONNECTCommonTypesLib.jar" />
 	        </filelist>
-<<<<<<< HEAD
 			
 			<filelist dir="${properties.lib}">
 	            <file name="CONNECTPropertiesLib.jar" />
 	        </filelist>
-=======
->>>>>>> 9b2c5c97559fff4a4d8a9cf6b6e3f8cc8605d4c2
 	    </path>
 		
 		<copy todir=".ant-deploy-staging" flatten="true" overwrite="true">
 			<path refid="ear.libs" />									
 		</copy>
-<<<<<<< HEAD
-		<!--foreach param="file.name" target="-ear.add.jar">
-	 		<path refid="ear.libs" />
-	 	</foreach-->
-			
-=======
-		
-		<!-- Update application.xml with web modules -->
->>>>>>> 9b2c5c97559fff4a4d8a9cf6b6e3f8cc8605d4c2
 		 <xmltask source="${basedir}/projects.xml">
             <call path="/projects/project">
                 <param name="project.name" path="name/text()" />
@@ -368,15 +348,7 @@
 		
 		<var name="dist.type" value="ear" />
 		<var name="dist.file" value="CONNECT.ear" />
-<<<<<<< HEAD
-		<antcall target="-package.recreate" />		
-	</target>
-	
-	<target name="deploy.ears.to.glassfish" description="creates a classpath for all required jar|war files and packages them in ear">
-		<antcall target="ear.create" />
-=======
-		<antcall target="-package.recreate" />
->>>>>>> 9b2c5c97559fff4a4d8a9cf6b6e3f8cc8605d4c2
+    <antcall target="-package.recreate" />
 		
 		<!-- Call deploy to glassfish target -->
 		<var name="deployment.glassfish.ear.file.path" value=".ant-deploy-ear/CONNECT.ear" />
@@ -385,18 +357,14 @@
 	</target>
 	
 	<target name="deploy.ear.to.glassfish" depends="-deploy.create.glassfish.password.file, -deploy.glassfish.asadmin">
-<<<<<<< HEAD
-       	<exec executable="${ASADMIN}" failonerror="true">
-=======
+
         <echo>--passwordfile ${deploy.glassfish.password.file.path} --port ${deployment.glassfish.admin.port} --host ${deployment.glassfish.server} --user ${deployment.glassfish.server.username} deploy --force ${deployment.glassfish.ear.file.path}</echo>
 		<exec executable="${ASADMIN}" failonerror="true">
->>>>>>> 9b2c5c97559fff4a4d8a9cf6b6e3f8cc8605d4c2
             <env key="AS_ADMIN_READTIMEOUT" value="1200000" />
             <arg line="--passwordfile ${deploy.glassfish.password.file.path} deploy --force ${deployment.glassfish.ear.file.path}" />
         </exec>
     </target>
 	
-<<<<<<< HEAD
 	<target name="undeploy.ears.from.glassfish" depends="-deploy.create.glassfish.password.file, -deploy.glassfish.asadmin">
         <exec executable="${ASADMIN}" failonerror="true">
             <env key="AS_ADMIN_READTIMEOUT" value="1200000" />
@@ -404,8 +372,6 @@
         </exec>
     </target>
 	
-=======
->>>>>>> 9b2c5c97559fff4a4d8a9cf6b6e3f8cc8605d4c2
     <target name="deploy.wars.to.glassfish">
         <var name="target" value="deploy.war.to.glassfish" />
         <runtarget target="target.to.call.on.wars" />

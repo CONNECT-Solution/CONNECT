@@ -90,9 +90,5 @@
 			<file name="CONNECTPropertiesLib.jar" />
 		</filelist>
 	</path>
-        <filelist dir="${common.lib}">
-            <file name="CONNECTCommonTypesLib.jar" />
-        </filelist>        
-    </path>
-
+  
 </project>
