@@ -73,8 +73,10 @@
         <runtarget target="deploy.thirdparty.libs" />
         <runtarget target="deploy.shared.libs.to.glassfish" />
         <runtarget target="deploy.glassfish.start.server" />
+
         <runtarget target="deploy.ears.to.glassfish" />
-    	<!-- runtarget target="deploy.wars.to.glassfish" / -->
+
+    	<!-- runtarget target="deploy.wars.to.glassfish" /-->
         <runtarget target="deploy.ejbs.to.glassfish" />
         <run-validationsuite-mod jarfile="SetValidationSuiteWsdlPath.jar" />
         <if>
@@ -173,7 +175,9 @@
     </target>
 
     <target name="-deploy.glassfish.start.server.notwin" depends="-deploy.glassfish.asadmin" unless="win">
-
+        <exec executable="${ASADMIN}">
+            <arg line="--user ${deployment.glassfish.server.username} --passwordfile ${deploy.glassfish.password.file.path} start-domain ${deployment.glassfish.domain.name}" />
+        </exec>
     </target>
 
     <target name="deploy.glassfish.stop.server" depends="-deploy.glassfish.asadmin">

@@ -182,7 +182,12 @@
             </copy>                     
           </then>
         </if>
-        
+        <if>
+          <isset property="copy.wsdl.to.webinf"/>
+          <then>
+            <runtarget target="copy.wsdl.to.web-inf"/>
+          </then>
+        </if>
         <echo file="${build.dir.root}/copyresource.flag" append="false"/>
       </sequential>
     </outofdate>
@@ -249,6 +254,47 @@
     </if>
   </target>
 
- 
+ <target name="copy.wsdl.to.web-inf">
+    <if>
+      <equals arg1="${dist.type}" arg2="war"/>
+      <then>
+        <var name="copy.wsdl.to" value="WEB-INF/wsdl"/>
+      </then>
+      <else>
+        <var name="copy.wsdl.to" value="META-INF/wsdl"/>
+      </else>
+    </if>
+    <echo message="Copy wsdl and schema files to ${copy.wsdl.to}"/>
+    <for param="wsdl.item">
+      <path>
+        <dirset dir="${source.wsdl.resources.dir}">
+          <include name="**/wsdl"/>
+        </dirset>
+      </path>
+      <sequential>    
+        <var name="wsdl.item" value="@{wsdl.item}" />
+        <propertyregex property="wsdlfile"
+                              input="${wsdl.item}"
+                              regexp="[^\${file.separator}+]+(?=\${file.separator}[^\${file.separator}]+$)"
+                              select="\0"
+                              casesensitive="false"
+                              override="yes" />
+
+        <mkdir dir="${build.dist.root}/${copy.wsdl.to}/${wsdlfile}"/>
+        <mkdir dir="${build.dist.root}/${copy.wsdl.to}/schemas"/>
+
+        <copy todir="${build.dist.root}/${copy.wsdl.to}/${wsdlfile}" overwrite="true" verbose="${debug}">
+          <fileset dir="${source.wsdl.resources.dir}/${wsdlfile}/wsdl">
+            <include name="**/*.wsdl" />
+          </fileset>
+        </copy>
+        <copy todir="${build.dist.root}/${copy.wsdl.to}/schemas" overwrite="true" verbose="${debug}">
+          <fileset dir="${source.wsdl.resources.dir}/${wsdlfile}/schemas">
+            <include name="**/*" />
+          </fileset>
+        </copy>
+      </sequential>
+    </for>
+  </target>
 
 </project>

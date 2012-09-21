@@ -25,10 +25,11 @@
     <!-- Add project dependencies here, these projects will be built first... -->
     <path id="build.project.dependencies">
         <filelist dir="${root.project.directory.path}">
+            <file name="${project.CONNECTCoreLib.build.file}" />
         </filelist>
     </path>
 
-    <property name="thirdparty.home" location="./../../../ThirdParty" />
+    <property name="thirdparty.home" location="../../../../ThirdParty" />
     <property name="common.home" location="../../Common" />
 
     <property name="cxf.home" location="${thirdparty.home}/CXF" />
@@ -40,6 +41,8 @@
     <property name="c3po.home" location="${thirdparty.home}/C3PO" />
     <property name="mysql.home" location="${thirdparty.home}/MySQLDB" />
     <property name="xstream.home" location="${thirdparty.home}/XStream" />
+    
+    <path id="war.libs" />
 
     <path id="ear.libs">
         <fileset dir="${cxf.home}">
@@ -180,6 +183,6 @@
         <filelist dir="${common.lib}">
             <file name="CONNECTCommonTypesLib.jar" />
         </filelist>
-
+   </path>
 
     </project>
