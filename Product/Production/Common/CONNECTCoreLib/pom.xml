@@ -69,12 +69,12 @@
             <artifactId>AdapterAuthenticationCore</artifactId>
             <version>${parent.version}</version>
         </dependency> -->
-        <dependency>
-            <!-- temporary -->
+<!--         <dependency>
+            temporary
             <groupId>gov.hhs.fha</groupId>
             <artifactId>PatientDiscoveryCore</artifactId>
             <version>${parent.version}</version>
-        </dependency>
+        </dependency> -->
         <dependency>
             <groupId>commons-collections</groupId>
             <artifactId>commons-collections</artifactId>
