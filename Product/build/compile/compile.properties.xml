@@ -6,7 +6,7 @@
 	<property name="source.dir" value="${project.dir}/src/main/java" />
 	<property name="source.resources.dir" value="${project.dir}/src/main/resources" />
 	<property name="source.webcontent.dir" value="${project.dir}/src/main/webapp" />
-    <property name="source.xml.resources.dir" value="${source.resources.dir}/xml-resources" />
+	<property name="source.xml.resources.dir" value="${source.resources.dir}/xml-resources" />
     <property name="source.wsdl.resources.dir" value="${source.xml.resources.dir}/web-services" />
 
 	<property name="build.dir.root" value="${project.dir}/build" />

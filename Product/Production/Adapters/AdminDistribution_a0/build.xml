@@ -89,10 +89,13 @@
 		<filelist dir="${common.lib}">
 			<file name="CONNECTCommonTypesLib.jar" />
 		</filelist>
+<<<<<<< HEAD
 		
 		<filelist dir="${properties.lib}">
 			<file name="CONNECTPropertiesLib.jar" />
 		</filelist>
+=======
+>>>>>>> 9b2c5c97559fff4a4d8a9cf6b6e3f8cc8605d4c2
 	</path>
 
 </project>

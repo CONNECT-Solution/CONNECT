@@ -89,7 +89,7 @@
 					</mapper>
 					 
 				    <path refid="ear.libs" />
-					<path refid="ear.properties" />
+  					<path refid="ear.properties" />
 					
 				</pathconvert>
 				
@@ -103,6 +103,8 @@
 						<copy file="@{war.lib}" todir="${build.war.lib.dir}" />
 					</sequential>
 				</for>
+
+				<echo>This is build.dist.manifest.file: ${build.dist.manifest.file}</echo>
 				
 				<for param="wsdl.item">
 					<path refid="wsdl.list" />					
@@ -134,7 +136,9 @@
 				<copy todir=".ant-deploy-staging/lib" flatten="true" overwrite="true">
 					<path refid="ear.libs" />									
 				</copy>
-																
+				<echo>This is build.dist.meta-inf.dir: ${build.dist.meta-inf.dir}</echo>
+				<echo>This is build.dist.root: ${build.dist.root}</echo>
+												
 				<ear compress="true" destfile=".ant-deploy-ear/CONNECT.ear" manifest="${build.dist.manifest.file}" appxml=".ant-deploy-staging/META-INF/application.xml">
 					<path refid="ear.files" />
 					<fileset dir=".ant-deploy-staging">

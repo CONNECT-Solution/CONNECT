@@ -28,17 +28,17 @@
         <name>CONNECTCommonWeb</name>
         <directory>/Production/Common/CONNECTCommonWeb</directory>
         <dist.type>war</dist.type>
-		<context.root>CONNECTCommonWeb</context.root>
-        <should.build>false</should.build>
+    		<context.root>CONNECTCommon</context.root>
+        <should.build>true</should.build>
         <should.deploy>false</should.deploy>
     </project>
     <project>
         <name>CONNECTGatewayWeb</name>
         <directory>/Production/Gateway/CONNECTGatewayWeb</directory>
         <dist.type>war</dist.type>
-		<context.root>CONNECTGatewayWeb</context.root>
-        <should.build>false</should.build>
-        <should.deploy>false</should.deploy>
+		<context.root>CONNECTGateway</context.root>
+        <should.build>true</should.build>
+        <should.deploy>true</should.deploy>
     </project>
     <project>
         <name>PatientDiscoveryCore</name>
@@ -196,7 +196,7 @@
         <name>HIEM_20</name>
         <directory>/Production/Gateway/HIEM_20/</directory>
         <dist.type>war</dist.type>
-		<context.root>Gateway/HIEM/2_0</context.root>
+        <context.root>Gateway/HIEM/2_0</context.root>
         <should.build>true</should.build>
         <should.deploy>false</should.deploy>
     </project>
@@ -204,7 +204,7 @@
         <name>CONNECTAdapterWeb</name>
         <directory>/Production/Adapters/General/CONNECTAdapterWeb</directory>
         <dist.type>war</dist.type>
-		<context.root>CONNECTAdapterWeb</context.root>
+		<context.root>CONNECTAdapter</context.root>
         <should.build>true</should.build>
         <should.deploy>true</should.deploy>
     </project>
@@ -253,7 +253,7 @@
         <directory>/Production/Adapters/General/CONNECTUniversalClientGUI</directory>
         <dist.type>war</dist.type>
 		<context.root>-</context.root>
-        <should.build>true</should.build>
+        <should.build>false</should.build>
         <should.deploy>false</should.deploy>
     </project>
     <project>
@@ -406,7 +406,8 @@
         <name>FileUtils</name>
         <directory>/SoapUI_Test/RegressionSuite/FileUtils</directory>
         <dist.type>jar</dist.type>
-        <should.build>true</should.build>
+        	<context.root>-</context.root>
+        <should.build>false</should.build>
         <should.deploy>false</should.deploy>
     </project>
 </projects>

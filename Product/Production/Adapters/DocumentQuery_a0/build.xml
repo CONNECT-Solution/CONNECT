@@ -93,5 +93,6 @@
 		<filelist dir="${properties.lib}">
 			<file name="CONNECTPropertiesLib.jar" />
 		</filelist>
+
 	</path>
 </project>

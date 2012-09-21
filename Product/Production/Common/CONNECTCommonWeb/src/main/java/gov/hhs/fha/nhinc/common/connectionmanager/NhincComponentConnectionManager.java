@@ -64,9 +64,8 @@ import org.uddi.api_v3.BusinessEntity;
  * 
  * @author akong
  */
-@WebService(serviceName = "NhincComponentConnectionManager", portName = "NhincComponentConnectionManagerPortSoap", endpointInterface = "gov.hhs.fha.nhinc.nhinccomponentconnectionmanager.NhincComponentConnectionManagerPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager", wsdlLocation = "WEB-INF/wsdl/NhincComponentConnectionManager/NhincComponentConnectionManager.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
-public class NhincComponentConnectionManager {
+public class NhincComponentConnectionManager implements gov.hhs.fha.nhinc.nhinccomponentconnectionmanager.NhincComponentConnectionManagerPortType {
 
     private static Log log = null;
 
