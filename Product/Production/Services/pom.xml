@@ -10,11 +10,20 @@
     <artifactId>Services</artifactId>
     <packaging>pom</packaging>
     <modules>
+        <module>AdapterAuthenticationCore</module>
+        <module>AuditRepositoryCore</module>
+        <module>ConnectionManagerCore</module>
+        <module>DocRegistryCore</module>
+        <module>DocRepositoryCore</module>
+        <module>PatientCorrelationCore</module>
+        <module>PolicyEngineCore</module>
+        <module>RedactionEngineCore</module>
         <module>PatientDiscoveryCore</module>
         <module>HIEMCore</module>
         <module>DocumentSubmissionCore</module>
         <module>DocumentRetrieveCore</module>
         <module>DocumentQueryCore</module>
         <module>AdminDistributionCore</module>
+        <module>SharedEngineCore</module>
     </modules>
 </project>
