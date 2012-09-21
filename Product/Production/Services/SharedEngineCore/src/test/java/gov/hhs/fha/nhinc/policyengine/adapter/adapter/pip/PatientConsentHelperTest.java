@@ -24,7 +24,7 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
-package gov.hhs.fha.nhinc.redactionengine.adapter;
+package gov.hhs.fha.nhinc.policyengine.adapter.adapter.pip;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.CeType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.FineGrainedPolicyCriteriaType;
@@ -37,6 +37,8 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.RetrievePtConsentByPtIdRespon
 import gov.hhs.fha.nhinc.policyengine.adapter.pip.AdapterPIPException;
 import gov.hhs.fha.nhinc.policyengine.adapter.pip.AdapterPIPImpl;
 import gov.hhs.fha.nhinc.policyengine.adapter.pip.PatientConsentManager;
+import gov.hhs.fha.nhinc.redactionengine.adapter.PatientConsentHelper;
+
 import org.apache.commons.logging.Log;
 import org.jmock.Expectations;
 import org.jmock.Mockery;

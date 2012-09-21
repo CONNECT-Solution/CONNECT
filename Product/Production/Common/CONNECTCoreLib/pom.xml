@@ -19,7 +19,61 @@
         <dependency>
             <groupId>gov.hhs.fha</groupId>
             <artifactId>CONNECTCommonTypesLib</artifactId>
-            <version>1.0.1-SNAPSHOT</version>
+            <version>${parent.version}</version>
+        </dependency>
+        <dependency>
+            <!-- temporary -->
+            <groupId>gov.hhs.fha</groupId>
+            <artifactId>AuditRepositoryCore</artifactId>
+            <version>${parent.version}</version>
+        </dependency>
+<!--         <dependency>
+            temporary
+            <groupId>gov.hhs.fha</groupId>
+            <artifactId>PatientCorrelationCore</artifactId>
+            <version>${parent.version}</version>
+        </dependency> -->
+        <dependency>
+            <!-- temporary -->
+            <groupId>gov.hhs.fha</groupId>
+            <artifactId>DocRepositoryCore</artifactId>
+            <version>${parent.version}</version>
+        </dependency>
+        <dependency>
+            <!-- temporary -->
+            <groupId>gov.hhs.fha</groupId>
+            <artifactId>DocRegistryCore</artifactId>
+            <version>${parent.version}</version>
+        </dependency>
+        <!-- <dependency>
+            temporary
+            <groupId>gov.hhs.fha</groupId>
+            <artifactId>RedactionEngineCore</artifactId>
+            <version>${parent.version}</version>
+        </dependency> -->
+        <!-- <dependency>
+            temporary
+            <groupId>gov.hhs.fha</groupId>
+            <artifactId>PolicyEngineCore</artifactId>
+            <version>${parent.version}</version>
+        </dependency> -->
+        <dependency>
+            <!-- temporary -->
+            <groupId>gov.hhs.fha</groupId>
+            <artifactId>ConnectionManagerCore</artifactId>
+            <version>${parent.version}</version>
+        </dependency>
+        <!-- <dependency>
+            temporary
+            <groupId>gov.hhs.fha</groupId>
+            <artifactId>AdapterAuthenticationCore</artifactId>
+            <version>${parent.version}</version>
+        </dependency> -->
+        <dependency>
+            <!-- temporary -->
+            <groupId>gov.hhs.fha</groupId>
+            <artifactId>PatientDiscoveryCore</artifactId>
+            <version>${parent.version}</version>
         </dependency>
         <dependency>
             <groupId>commons-collections</groupId>
@@ -187,8 +241,8 @@
                 <configuration>
                     <check>
                         <haltOnFailure>true</haltOnFailure>
-                        <totalBranchRate>22</totalBranchRate>
-                        <totalLineRate>30</totalLineRate>
+                        <totalBranchRate>19</totalBranchRate>
+                        <totalLineRate>27</totalLineRate>
                         <regexes>
                             <regex>
                                 <pattern>gov.hhs.fha.nhinc.async.AsyncMessageProcessHelper</pattern>
