@@ -249,6 +249,38 @@
     </dependencies>
     <build>
         <finalName>CONNECTGatewayWeb</finalName>
+        <resources>
+            <resource>
+                <!-- <directory>${basedir}/src/main/resources/wsdl</directory> -->
+                <directory>${basedir}/../../../Common/Interfaces/src/wsdl</directory>
+                <includes>
+                    <include>EntityPerformanceLogQuery.wsdl</include>
+                    <include>DeferredQueueManager.wsdl</include>
+                </includes>
+                <targetPath>${project.build.directory}/wsdl2java-sources/wsdl</targetPath>
+            </resource>
+            <resource>
+                <directory>${basedir}/src/main/resources</directory>
+                <includes>
+                    <include>**/*.*</include>
+                </includes>
+            </resource>
+        </resources>
+        <testResources>
+            <testResource>
+                <directory>${basedir}/src/test/resources</directory>
+                <includes>
+                    <include>**/*.*</include>
+                </includes>
+            </testResource>
+            <testResource>
+                <filtering>true</filtering>
+                <directory>${basedir}/../../../Common/Properties/Dev</directory>
+                <includes>
+                    <include>**/*.*</include>
+                </includes>
+            </testResource>
+        </testResources>
         <plugins>
             <plugin>
                 <artifactId>maven-war-plugin</artifactId>
