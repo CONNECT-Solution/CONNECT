@@ -90,6 +90,10 @@
                     <include>NhincProxySubscriptionManagementSecured.wsdl</include>
                     <include>NhincProxySubscriptionManagement.wsdl</include>
                     <include>rw-2.wsdl</include>
+                    <include>AdapterNotificationConsumer.wsdl</include>
+                    <include>AdapterNotificationConsumerSecured.wsdl</include>
+                    <include>AdapterSubscriptionManagement.wsdl</include>
+                    <include>AdapterSubscriptionManagementSecured.wsdl</include>
                 </includes>
                 <targetPath>${project.build.directory}/wsdl2java-sources/wsdl</targetPath>
             </resource>
