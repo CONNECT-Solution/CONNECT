@@ -4,6 +4,7 @@
         <name>CONNECTCommonTypesLib</name>
         <directory>/Production/Common/CONNECTCommonTypesLib</directory>
         <dist.type>jar</dist.type>
+		<context.root>-</context.root>
         <should.build>true</should.build>
         <should.deploy>false</should.deploy>
     </project>
@@ -11,6 +12,15 @@
         <name>CONNECTCoreLib</name>
         <directory>/Production/Common/CONNECTCoreLib</directory>
         <dist.type>jar</dist.type>
+		<context.root>-</context.root>
+        <should.build>true</should.build>
+        <should.deploy>false</should.deploy>
+    </project>
+    <project>
+        <name>CONNECTPropertiesLib</name>
+        <directory>/Production/Common/CONNECTPropertiesLib</directory>
+        <dist.type>jar</dist.type>
+		<context.root>-</context.root>
         <should.build>true</should.build>
         <should.deploy>false</should.deploy>
     </project>
@@ -18,20 +28,23 @@
         <name>CONNECTCommonWeb</name>
         <directory>/Production/Common/CONNECTCommonWeb</directory>
         <dist.type>war</dist.type>
-        <should.build>true</should.build>
-        <should.deploy>true</should.deploy>
+		<context.root>CONNECTCommonWeb</context.root>
+        <should.build>false</should.build>
+        <should.deploy>false</should.deploy>
     </project>
     <project>
         <name>CONNECTGatewayWeb</name>
         <directory>/Production/Gateway/CONNECTGatewayWeb</directory>
         <dist.type>war</dist.type>
-        <should.build>true</should.build>
-        <should.deploy>true</should.deploy>
+		<context.root>CONNECTGatewayWeb</context.root>
+        <should.build>false</should.build>
+        <should.deploy>false</should.deploy>
     </project>
     <project>
         <name>PatientDiscoveryCore</name>
         <directory>/Production/Services/PatientDiscovery/Core/PatientDiscoveryCore</directory>
         <dist.type>jar</dist.type>
+		<context.root>-</context.root>
         <should.build>true</should.build>
         <should.deploy>false</should.deploy>
     </project>
@@ -39,6 +52,7 @@
         <name>PatientDiscovery_10</name>
         <directory>/Production/Gateway/PatientDiscovery_10</directory>
         <dist.type>war</dist.type>
+		<context.root>Gateway/PatientDiscovery/1_0</context.root>
         <should.build>true</should.build>
         <should.deploy>false</should.deploy>
     </project>
@@ -46,6 +60,7 @@
         <name>PatientDiscovery_a0</name>
         <directory>/Production/Adapters/PatientDiscovery_a0</directory>
         <dist.type>war</dist.type>
+		<context.root>Adapter/PatientDiscovery/A_0</context.root>
         <should.build>true</should.build>
         <should.deploy>false</should.deploy>
     </project>
@@ -53,6 +68,7 @@
         <name>DocumentQueryCore</name>
         <directory>/Production/Services/DocumentQuery/Core/DocumentQueryCore</directory>
         <dist.type>jar</dist.type>
+		<context.root>-</context.root>
         <should.build>true</should.build>
         <should.deploy>false</should.deploy>
     </project>
@@ -60,6 +76,7 @@
         <name>DocumentQuery_20</name>
         <directory>/Production/Gateway/DocumentQuery_20</directory>
         <dist.type>war</dist.type>
+		<context.root>Gateway/DocumentQuery/2_0</context.root>
         <should.build>true</should.build>
         <should.deploy>true</should.deploy>
     </project>
@@ -67,6 +84,7 @@
         <name>DocumentSubmissionCore</name>
         <directory>/Production/Services/DocumentSubmission/Core/DocumentSubmissionCore</directory>
         <dist.type>jar</dist.type>
+		<context.root>-</context.root>
         <should.build>true</should.build>
         <should.deploy>false</should.deploy>
     </project>
@@ -74,34 +92,39 @@
         <name>DocumentSubmission_11</name>
         <directory>/Production/Gateway/DocumentSubmission_11</directory>
         <dist.type>war</dist.type>
+		<context.root>Gateway/DocumentSubmission/1_1</context.root>
         <should.build>true</should.build>
-        <should.deploy>true</should.deploy>
+        <should.deploy>false</should.deploy>
     </project>
     <project>
         <name>DocumentSubmission_20</name>
         <directory>/Production/Gateway/DocumentSubmission_20</directory>
         <dist.type>war</dist.type>
+		<context.root>Gateway/DocumentSubmission/2_0</context.root>
         <should.build>true</should.build>
-        <should.deploy>true</should.deploy>
+        <should.deploy>false</should.deploy>
     </project> 
     <project>
         <name>DocumentSubmission_a0</name>
         <directory>/Production/Adapters/DocumentSubmission_a0</directory>
         <dist.type>war</dist.type>
+		<context.root>Adapter/DocumentSubmission/A_0</context.root>
         <should.build>true</should.build>
-        <should.deploy>true</should.deploy>
+        <should.deploy>false</should.deploy>
     </project>
     <project>
         <name>DocumentQuery_a0</name>
         <directory>/Production/Adapters/DocumentQuery_a0</directory>
         <dist.type>war</dist.type>
+		<context.root>Adapter/DocumentQuery/A_0</context.root>
         <should.build>true</should.build>
-        <should.deploy>true</should.deploy>
+        <should.deploy>false</should.deploy>
     </project>
     <project>
         <name>DocumentRetrieveCore</name>
         <directory>/Production/Services/DocumentRetrieve/Core/DocumentRetrieveCore</directory>
         <dist.type>jar</dist.type>
+		<context.root>-</context.root>
         <should.build>true</should.build>
         <should.deploy>false</should.deploy>
     </project>
@@ -109,6 +132,7 @@
         <name>DocumentRetrieve_20</name>
         <directory>/Production/Gateway/DocumentRetrieve_20</directory>
         <dist.type>war</dist.type>
+		<context.root>Gateway/DocumentRetrieve/2_0</context.root>
         <should.build>true</should.build>
         <should.deploy>true</should.deploy>
     </project>
@@ -116,6 +140,7 @@
         <name>DocumentRetrieve_30</name>
         <directory>/Production/Gateway/DocumentRetrieve_30</directory>
         <dist.type>war</dist.type>
+		<context.root>Gateway/DocumentRetrieve/3_0</context.root>
         <should.build>true</should.build>
         <should.deploy>true</should.deploy>
     </project>
@@ -123,6 +148,7 @@
         <name>DocumentRetrieve_a0</name>
         <directory>/Production/Adapters/DocumentRetrieve_a0</directory>
         <dist.type>war</dist.type>
+		<context.root>Adapter/DocumentRetrieve/A_0</context.root>
         <should.build>true</should.build>
         <should.deploy>true</should.deploy>
     </project>
@@ -130,6 +156,7 @@
         <name>AdminDistributionCore</name>
         <directory>/Production/Services/AdminDistribution/Core/AdminDistributionCore</directory>
         <dist.type>jar</dist.type>
+		<context.root>-</context.root>
         <should.build>true</should.build>
         <should.deploy>false</should.deploy>
     </project>
@@ -137,27 +164,31 @@
         <name>AdminDistribution_10</name>
         <directory>/Production/Gateway/AdminDistribution_10</directory>
         <dist.type>war</dist.type>
+		<context.root>Gateway/AdminDistribution/1_0</context.root>
         <should.build>true</should.build>
-        <should.deploy>true</should.deploy>
+        <should.deploy>false</should.deploy>
     </project>
     <project>
         <name>AdminDistribution_20</name>
         <directory>/Production/Gateway/AdminDistribution_20</directory>
         <dist.type>war</dist.type>
+		<context.root>Gateway/AdminDistribution/2_0</context.root>
         <should.build>true</should.build>
-        <should.deploy>true</should.deploy>
+        <should.deploy>false</should.deploy>
     </project>
     <project>
         <name>AdminDistribution_a0</name>
         <directory>/Production/Adapters/AdminDistribution_a0/</directory>
         <dist.type>war</dist.type>
+		<context.root>Adapter/AdminDistribution/A_0</context.root>
         <should.build>true</should.build>
-        <should.deploy>true</should.deploy>
+        <should.deploy>false</should.deploy>
     </project>
     <project>
         <name>HIEMCore</name>
         <directory>/Production/Services/HIEM/Core/HIEMCore</directory>
         <dist.type>jar</dist.type>
+		<context.root>-</context.root>
         <should.build>true</should.build>
         <should.deploy>false</should.deploy>
     </project>
@@ -165,13 +196,15 @@
         <name>HIEM_20</name>
         <directory>/Production/Gateway/HIEM_20/</directory>
         <dist.type>war</dist.type>
+		<context.root>Gateway/HIEM/2_0</context.root>
         <should.build>true</should.build>
-        <should.deploy>true</should.deploy>
+        <should.deploy>false</should.deploy>
     </project>
     <project>
         <name>CONNECTAdapterWeb</name>
         <directory>/Production/Adapters/General/CONNECTAdapterWeb</directory>
         <dist.type>war</dist.type>
+		<context.root>CONNECTAdapterWeb</context.root>
         <should.build>true</should.build>
         <should.deploy>true</should.deploy>
     </project>
@@ -179,6 +212,7 @@
         <name>FTAConfigManager</name>
         <directory>/Production/Adapters/GenericFileTransfer/FTAConfigManager</directory>
         <dist.type>jar</dist.type>
+		<context.root>-</context.root>
         <should.build>false</should.build>
         <should.deploy>false</should.deploy>
     </project>
@@ -186,6 +220,7 @@
         <name>FTATransferAdapterEJB</name>
         <directory>/Production/Adapters/GenericFileTransfer/FTATransferAdapterEJB</directory>
         <dist.type>jar</dist.type>
+		<context.root>-</context.root>
         <should.build>false</should.build>
         <should.deploy>false</should.deploy>
     </project>
@@ -193,6 +228,7 @@
         <name>CONNECTAdapterPDPOpenSSO</name>
         <directory>/Production/Adapters/General/CONNECTAdapterPDPOpenSSO</directory>
         <dist.type>jar</dist.type>
+		<context.root>-</context.root>
         <should.build>false</should.build>
         <should.deploy>false</should.deploy>
     </project>
@@ -200,6 +236,7 @@
         <name>CONNECTConsumerPreferencesProfileGUI</name>
         <directory>/Production/Adapters/General/CONNECTConsumerPreferencesProfileGUI</directory>
         <dist.type>war</dist.type>
+		<context.root>-</context.root>
         <should.build>false</should.build>
         <should.deploy>false</should.deploy>
     </project>
@@ -207,13 +244,15 @@
         <name>CONNECTDeferredQueueManagerGUI</name>
         <directory>/Production/Adapters/General/CONNECTDeferredQueueManagerGUI</directory>
         <dist.type>war</dist.type>
-        <should.build>true</should.build>
+		<context.root>-</context.root>
+        <should.build>false</should.build>
         <should.deploy>false</should.deploy>
     </project>
     <project>
         <name>CONNECTUniversalClientGUI</name>
         <directory>/Production/Adapters/General/CONNECTUniversalClientGUI</directory>
         <dist.type>war</dist.type>
+		<context.root>-</context.root>
         <should.build>true</should.build>
         <should.deploy>false</should.deploy>
     </project>
@@ -221,6 +260,7 @@
         <name>FileTrasnferTimer</name>
         <directory>/Production/Adapters/GenericFileTransfer/FileTrasnferTimer</directory>
         <dist.type>jar</dist.type>
+		<context.root>-</context.root>
         <should.build>false</should.build>
         <should.deploy>false</should.deploy>
     </project>
@@ -228,6 +268,7 @@
         <name>FileTransferAdapterEJB</name>
         <directory>/Production/Adapters/GenericFileTransfer/FileTransferAdapterEJB</directory>
         <dist.type>jar</dist.type>
+		<context.root>-</context.root>
         <should.build>false</should.build>
         <should.deploy>false</should.deploy>
     </project>
@@ -235,6 +276,7 @@
         <name>FileTransferAdapterGUI</name>
         <directory>/Production/Adapters/GenericFileTransfer/FileTransferAdapterGUI</directory>
         <dist.type>war</dist.type>
+		<context.root>-</context.root>
         <should.build>false</should.build>
         <should.deploy>false</should.deploy>
     </project>
@@ -243,6 +285,7 @@
         <name>AdapterCommonDataLayerEJB</name>
         <directory>/Production/Adapters/Framework/AdapterCommonDataLayerEJB</directory>
         <dist.type>jar</dist.type>
+		<context.root>-</context.root>
         <should.build>false</should.build>
         <should.deploy>false</should.deploy>
     </project>
@@ -250,6 +293,7 @@
         <name>TemplateManager</name>
         <directory>/Production/Adapters/Framework/TemplateManager</directory>
         <dist.type>jar</dist.type>
+		<context.root>-</context.root>
         <should.build>false</should.build>
         <should.deploy>false</should.deploy>
     </project>
@@ -257,6 +301,7 @@
         <name>DocumentAssemblyManagerEJB</name>
         <directory>/Production/Adapters/Framework/DocumentAssemblyManagerEJB</directory>
         <dist.type>jar</dist.type>
+		<context.root>-</context.root>
         <should.build>false</should.build>
         <should.deploy>false</should.deploy>
     </project>
@@ -264,6 +309,7 @@
         <name>AdapterDocumentAssemblyProxyEJB</name>
         <directory>/Production/Adapters/Framework/AdapterDocumentAssemblyProxyEJB</directory>
         <dist.type>jar</dist.type>
+		<context.root>-</context.root>
         <should.build>false</should.build>
         <should.deploy>false</should.deploy>
     </project>
@@ -271,6 +317,7 @@
         <name>AdapterDocumentRepository</name>
         <directory>/Production/Adapters/Framework/AdapterDocumentRepository</directory>
         <dist.type>jar</dist.type>
+		<context.root>-</context.root>
         <should.build>false</should.build>
         <should.deploy>false</should.deploy>
     </project>
@@ -278,6 +325,7 @@
         <name>AdapterDocumentRepositoryEJB</name>
         <directory>/Production/Adapters/Framework/AdapterDocumentRepositoryEJB</directory>
         <dist.type>jar</dist.type>
+		<context.root>-</context.root>
         <should.build>false</should.build>
         <should.deploy>false</should.deploy>
     </project>
@@ -285,6 +333,7 @@
         <name>DocumentManagerEJB</name>
         <directory>/Production/Adapters/Framework/DocumentManagerEJB</directory>
         <dist.type>jar</dist.type>
+		<context.root>-</context.root>
         <should.build>false</should.build>
         <should.deploy>false</should.deploy>
     </project>
@@ -292,6 +341,7 @@
         <name>AdapterMpiEJB</name>
         <directory>/Production/Adapters/Framework/AdapterMpiEJB</directory>
         <dist.type>jar</dist.type>
+		<context.root>-</context.root>
         <should.build>false</should.build>
         <should.deploy>false</should.deploy>
     </project>
@@ -299,6 +349,7 @@
         <name>NHINAdapterServiceEJB</name>
         <directory>/Production/Adapters/Framework/NHINAdapterServiceEJB</directory>
         <dist.type>jar</dist.type>
+		<context.root>-</context.root>
         <should.build>false</should.build>
         <should.deploy>false</should.deploy>
     </project>
@@ -307,6 +358,7 @@
         <name>AdapterFrameworkIntTest</name>
         <directory>/IntegrationTest/JunitIntegrationTests/Adapters/Framework/AdapterFrameworkIntTest</directory>
         <dist.type>jar</dist.type>
+		<context.root>-</context.root>
         <should.build>false</should.build>
         <should.deploy>false</should.deploy>
     </project>
@@ -314,6 +366,7 @@
         <name>AdapterGeneralIntTest</name>
         <directory>/IntegrationTest/JunitIntegrationTests/Adapters/General/AdapterGeneralIntTest</directory>
         <dist.type>jar</dist.type>
+		<context.root>-</context.root>
         <should.build>false</should.build>
         <should.deploy>false</should.deploy>
     </project>
@@ -321,6 +374,7 @@
         <name>CommonIntTest</name>
         <directory>/IntegrationTest/JunitIntegrationTests/Common/CommonIntTest</directory>
         <dist.type>jar</dist.type>
+		<context.root>-</context.root>
         <should.build>false</should.build>
         <should.deploy>false</should.deploy>
     </project>
@@ -328,6 +382,7 @@
         <name>GatewayIntTest</name>
         <directory>/IntegrationTest/JunitIntegrationTests/Gateway/GatewayIntTest</directory>
         <dist.type>jar</dist.type>
+		<context.root>-</context.root>
         <should.build>false</should.build>
         <should.deploy>false</should.deploy>
     </project>
@@ -335,6 +390,7 @@
         <name>HiemSubscriptionRepositoryIntegrationTest</name>
         <directory>/IntegrationTest/JunitIntegrationTests/Gateway/HiemSubscriptionRepositoryIntegrationTest</directory>
         <dist.type>jar</dist.type>
+		<context.root>-</context.root>
         <should.build>false</should.build>
         <should.deploy>false</should.deploy>
     </project>
@@ -342,6 +398,7 @@
         <name>LoadTest</name>
         <directory>/IntegrationTest/JunitIntegrationTests/Gateway/LoadTest</directory>
         <dist.type>jar</dist.type>
+		<context.root>-</context.root>
         <should.build>false</should.build>
         <should.deploy>false</should.deploy>
     </project>

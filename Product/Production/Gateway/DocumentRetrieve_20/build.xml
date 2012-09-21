@@ -35,11 +35,19 @@
     <property name="cxf.home" location="../../../../ThirdParty/CXF" />
     <property name="spring.home" location="../../../../ThirdParty/SpringFramework" />
     <property name="core.lib" location="../../Common/CONNECTCoreLib/dist/debug" />
-    <property name="common.lib" location="../../Common/CONNECTCommonTypesLib/dist/debug" />
+	<property name="properties.lib" location="../../Common/CONNECTPropertiesLib/dist/debug" />
+	    
+	<property name="common.lib" location="../../Common/CONNECTCommonTypesLib/dist/debug" />
     <property name="opensaml.home" location="../../../../ThirdParty/openSAML" />
     <property name ="core.docretrieve" location="../../Services/DocumentRetrieve/Core/DocumentRetrieveCore/dist/debug"/>
-
+	
     <path id="war.libs">
+    	<filelist dir="${core.docretrieve}">
+    		<file name="DocumentRetrieveCore.jar" />
+	   	</filelist>
+    </path>
+    
+	<path id="ear.libs">
         <fileset dir="${cxf.home}">
             <include name="cxf-2.6.0.jar" />
             <include name="commons-logging-1.1.1.jar" />
@@ -84,9 +92,9 @@
         <filelist dir="${common.lib}">
             <file name="CONNECTCommonTypesLib.jar" />
         </filelist>
-
-        <filelist dir="${core.docretrieve}">
-            <file name="DocumentRetrieveCore.jar" />
+		
+		<filelist dir="${properties.lib}">
+            <file name="CONNECTPropertiesLib.jar" />
         </filelist>
     </path>
 

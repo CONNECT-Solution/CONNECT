@@ -35,15 +35,17 @@ import javax.xml.ws.soap.Addressing;
  *
  * @author JHOPPESC
  */
-
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 @Addressing(enabled=true)
 public class NhincProxyDocQueryUnsecured implements gov.hhs.fha.nhinc.nhincproxydocquery.NhincProxyDocQueryPortType {
     @Resource
     private WebServiceContext context;
-
-    public oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse respondingGatewayCrossGatewayQuery(gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayCrossGatewayQueryRequestType respondingGatewayCrossGatewayQueryRequest) {
-        return new NhincProxyDocQueryImpl().respondingGatewayCrossGatewayQuery(respondingGatewayCrossGatewayQueryRequest, context);
+	
+    public oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse respondingGatewayCrossGatewayQuery(
+    		gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayCrossGatewayQueryRequestType 
+    			respondingGatewayCrossGatewayQueryRequest) {
+        return new NhincProxyDocQueryImpl().respondingGatewayCrossGatewayQuery(
+        		respondingGatewayCrossGatewayQueryRequest, context);
     }
 
 }

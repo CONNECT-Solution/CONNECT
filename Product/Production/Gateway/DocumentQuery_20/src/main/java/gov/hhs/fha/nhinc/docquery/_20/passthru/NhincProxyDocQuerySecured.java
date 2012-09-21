@@ -35,7 +35,6 @@ import javax.xml.ws.soap.Addressing;
  *
  * @author Sai Valluripalli
  */
-
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 @Addressing(enabled=true)
 public class NhincProxyDocQuerySecured implements gov.hhs.fha.nhinc.nhincproxydocquerysecured.NhincProxyDocQuerySecuredPortType {
@@ -43,7 +42,8 @@ public class NhincProxyDocQuerySecured implements gov.hhs.fha.nhinc.nhincproxydo
     @Resource
     private WebServiceContext context;
 
-    public oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse respondingGatewayCrossGatewayQuery(gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayCrossGatewayQuerySecuredRequestType body)
+    public oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse respondingGatewayCrossGatewayQuery(
+    		gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayCrossGatewayQuerySecuredRequestType body)
     {
         return new NhincProxyDocQueryImpl().respondingGatewayCrossGatewayQuery(body, context);
     }

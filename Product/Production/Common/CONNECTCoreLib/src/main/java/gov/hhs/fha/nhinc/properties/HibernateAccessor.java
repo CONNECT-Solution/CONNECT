@@ -29,6 +29,7 @@ package gov.hhs.fha.nhinc.properties;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 
 import java.io.File;
+import java.net.URL;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -65,6 +66,22 @@ public class HibernateAccessor {
         }
         
         return result;
+    }
+    
+    /**
+     * Returns the hibernate configuration file's URL based on classpath lookup.
+     * @param hibernateFileName the hibernate file's name
+     * @return
+     * @throws PropertyAccessException
+     */
+    public synchronized URL getHibernateURL(String hibernateFileName) throws PropertyAccessException {
+        URL url = this.getClass().getClassLoader().getResource(hibernateFileName);
+        
+        if (url == null) {
+            throw new PropertyAccessException("Unable to locate " + hibernateFileName);
+        }
+        
+        return url;
     }
 
     protected PropertyAccessor getPropertyAccessor() {

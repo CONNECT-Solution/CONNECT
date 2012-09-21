@@ -76,6 +76,15 @@ public class PropertyAccessorFileUtilities {
         return propertyFileDirAbsolutePath;
     }
 
+    /**
+     * Returns the fileName with extension.
+     * @param propertyFile The file name
+     * @return
+     */
+    public String getPropertyFileWithExtension(String propertyFile) {
+        return propertyFile + ".properties";
+    }
+    
     public String getPropertyFileLocation(String propertyFile) {
         return propertyFileDirAbsolutePath + propertyFile + ".properties";
     }

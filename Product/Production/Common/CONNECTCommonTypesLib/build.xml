@@ -176,7 +176,7 @@
                  <arg value="-noAddressBinding"/>
                  <arg value="-dns"/>
 				 <arg value="false"/>
-				 <arg value="-verbose"/>
+             	 <arg value="-verbose"/>
 				 <arg value="-mark-generated"/>
                  <arg value="-d"/>
                  <arg value="${build.generated.dir}"/>
