@@ -26,6 +26,8 @@
  */
 package gov.hhs.fha.nhinc.docsubmission.nhin.deferred.request.proxy20;
 
+import javax.xml.ws.BindingProvider;
+
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.docsubmission.nhin.deferred.request.proxy20.service.NhinDocSubmissionDeferredRequestServicePortDescriptor;
@@ -88,6 +90,9 @@ public class NhinDocSubmissionDeferredRequestProxyWebServiceSecuredImpl implemen
 
                 CONNECTClient<XDRDeferredRequest20PortType> client = getCONNECTClientSecured(portDescriptor, url,
                         assertion);
+
+                WebServiceProxyHelper wsHelper = new WebServiceProxyHelper();
+                wsHelper.addTargetCommunity((BindingProvider) client.getPort(), targetSystem);
 
                 response = (RegistryResponseType) client.invokePort(XDRDeferredRequest20PortType.class,
                         "provideAndRegisterDocumentSetBDeferredRequest", request);

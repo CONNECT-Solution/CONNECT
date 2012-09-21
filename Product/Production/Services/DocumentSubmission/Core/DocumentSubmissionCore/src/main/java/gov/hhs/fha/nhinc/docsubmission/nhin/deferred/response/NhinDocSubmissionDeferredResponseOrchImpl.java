@@ -88,8 +88,14 @@ public class NhinDocSubmissionDeferredResponseOrchImpl {
     }
 
     protected XDRAcknowledgementType sendToAdapter(RegistryResponseType body, AssertionType assertion) {
+        
+        auditRequestToAdapter(body, assertion);
+
         AdapterDocSubmissionDeferredResponseProxy proxy = getAdapterDocSubmissionDeferredResponseProxy();
-        return proxy.provideAndRegisterDocumentSetBResponse(body, assertion);
+        XDRAcknowledgementType response = proxy.provideAndRegisterDocumentSetBResponse(body, assertion);
+
+        auditResponseFromAdapter(response, assertion);
+        return response;
     }
 
     private XDRAcknowledgementType createAckResponse() {
@@ -115,12 +121,21 @@ public class NhinDocSubmissionDeferredResponseOrchImpl {
     private void auditRequestFromNhin(RegistryResponseType body, AssertionType assertion) {
         getXDRAuditLogger().auditNhinXDRResponse(body, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
     }
+    
+    private void auditRequestToAdapter(RegistryResponseType body, AssertionType assertion) {
+        getXDRAuditLogger().auditAdapterXDRResponse(body, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
+    }
 
     private void auditResponseToNhin(XDRAcknowledgementType response, AssertionType assertion) {
         getXDRAuditLogger().auditAcknowledgement(response, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION,
                 NhincConstants.XDR_RESPONSE_ACTION);
     }
 
+    private void auditResponseFromAdapter(XDRAcknowledgementType response, AssertionType assertion) {
+        getXDRAuditLogger().auditAdapterAcknowledgement(response, assertion,
+                NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.XDR_RESPONSE_ACTION);
+    }
+    
     protected String getLocalHCID() {
         String localHCID = null;
         try {

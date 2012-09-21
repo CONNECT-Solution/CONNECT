@@ -26,6 +26,8 @@
  */
 package gov.hhs.fha.nhinc.subscribe.nhin.proxy;
 
+import javax.xml.ws.BindingProvider;
+
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
@@ -35,6 +37,7 @@ import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.subscribe.nhin.proxy.service.NhinHiemSubscribeServicePortDescriptor;
+import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -74,6 +77,9 @@ public class NhinHiemSubscribeWebServiceProxy implements NhinHiemSubscribeProxy 
 
                 CONNECTClient<NotificationProducer> client = getCONNECTClientSecured(portDescriptor, url, assertion);
 
+                WebServiceProxyHelper wsHelper = new WebServiceProxyHelper();
+                wsHelper.addTargetCommunity((BindingProvider) client.getPort(), target);
+                
                 response = (SubscribeResponse) client.invokePort(NotificationProducer.class, "subscribe", subscribe);
             }
 

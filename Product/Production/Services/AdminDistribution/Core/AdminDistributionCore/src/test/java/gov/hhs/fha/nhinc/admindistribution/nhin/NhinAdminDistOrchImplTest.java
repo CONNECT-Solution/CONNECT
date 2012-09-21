@@ -122,9 +122,11 @@ public class NhinAdminDistOrchImplTest {
                 never(mockLogger).error(with(any(String.class)));
 
                 allowing(mockAuditLogger).auditNhinAdminDist(body, assertion,
-                        NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
+                        NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
+                        NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
                 allowing(mockAuditLogger).auditNhinAdminDist(body, assertion,
-                        NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
+                        NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION,
+                        NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE);
                 allowing(mockAdapter).sendAlertMessage(body, assertion);
                 will(returnValue(null));
             }
@@ -196,9 +198,11 @@ public class NhinAdminDistOrchImplTest {
                 never(mockLogger).warn(with(any(String.class)));
                 never(mockLogger).error(with(any(String.class)));
                 allowing(mockAuditLogger).auditNhinAdminDist(body, assertion,
-                        NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
+                        NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
+                        NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
                 allowing(mockAuditLogger).auditNhinAdminDist(body, assertion,
-                        NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
+                        NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION,
+                        NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE);
                 allowing(mockAdapter).sendAlertMessage(body, assertion);
                 will(returnValue(null));
             }
@@ -270,7 +274,8 @@ public class NhinAdminDistOrchImplTest {
                 allowing(mockLogger).debug(with(any(String.class)));
                 oneOf(mockLogger).warn(with(any(String.class)));
                 never(mockLogger).error(with(any(String.class)));
-                allowing(mockAuditLogger).auditNhinAdminDist(null, null, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
+                allowing(mockAuditLogger).auditNhinAdminDist(null, null, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
+                        NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
                 allowing(mockAdapter).sendAlertMessage(body, assertion);
                 will(returnValue(null));
             }
@@ -345,7 +350,8 @@ public class NhinAdminDistOrchImplTest {
                 never(mockLogger).error(with(any(String.class)));
 
                 allowing(mockAuditLogger).auditNhinAdminDist(body, assertion,
-                        NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
+                        NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
+                        NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
                 never(mockAdapter).sendAlertMessage(body, assertion);
                 will(returnValue(null));
             }

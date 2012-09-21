@@ -26,6 +26,8 @@
  */
 package gov.hhs.fha.nhinc.unsubscribe.nhin.proxy;
 
+import javax.xml.ws.BindingProvider;
+
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
@@ -37,6 +39,7 @@ import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.unsubscribe.nhin.proxy.service.NhinHiemUnsubscribeServicePortDescriptor;
+import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -89,6 +92,9 @@ public class NhinHiemUnsubscribeWebServiceProxy implements NhinHiemUnsubscribePr
                 CONNECTClient<SubscriptionManager> client = getCONNECTClientSecured(portDescriptor, url, assertion,
                         wsAddressingTo);
 
+                WebServiceProxyHelper wsHelper = new WebServiceProxyHelper();
+                wsHelper.addTargetCommunity((BindingProvider) client.getPort(), target);
+                                
                 response = (UnsubscribeResponse) client.invokePort(SubscriptionManager.class, "unsubscribe",
                         unsubscribe);
             }

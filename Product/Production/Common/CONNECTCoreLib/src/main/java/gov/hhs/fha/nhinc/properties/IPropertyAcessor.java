@@ -28,7 +28,9 @@ package gov.hhs.fha.nhinc.properties;
 
 public interface IPropertyAcessor {
 
-    public abstract String getProperty(String sPropertyName) throws PropertyAccessException;
+    public String getProperty(String sPropertyName) throws PropertyAccessException;
+    
+    public String getProperty(String propertyFile, String propertyName) throws PropertyAccessException;
     
     public boolean getPropertyBoolean(String sPropertName) throws PropertyAccessException;
 

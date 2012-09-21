@@ -43,7 +43,13 @@ public class DocQuery implements ihe.iti.xds_b._2007.RespondingGatewayQueryPortT
     @Resource
     private WebServiceContext context;
 
-    public oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse respondingGatewayCrossGatewayQuery(oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest body)
+    /**
+     * The web service implementation for Document Query.
+     * @param body the body of the request
+     * @return the query response for the document query
+     */
+    public oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse respondingGatewayCrossGatewayQuery(
+    		oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest body)
     {
         return new DocQueryImpl().respondingGatewayCrossGatewayQuery(body, context);
     }

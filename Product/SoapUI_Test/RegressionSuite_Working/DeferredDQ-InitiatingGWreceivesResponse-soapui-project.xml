@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?><con:soapui-project xmlns:con="http://eviware.com/soapui/config" abortOnError="false" name="DeferredDQ-InitiatingGWreceivesResponse" resourceRoot="" runType="SEQUENTIAL" soapui-version="3.5.1">
   <con:settings/>
-  <con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxydocquerydeferredresponse}NhincProxyDocQueryDeferredResponseBindingSoap" definition="WSDL path not set.  #NhincProxyDocQueryDeferredResponse.wsdl" name="NhincProxyDocQueryDeferredResponseBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
+  <con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxydocquerydeferredresponse}NhincProxyDocQueryDeferredResponseBindingSoap" definition="c:\glassfish-2.1.1\domains\domain1\config\nhin\wsdl\NhincProxyDocQueryDeferredResponse.wsdl" name="NhincProxyDocQueryDeferredResponseBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
     <con:settings/>
     
     <con:endpoints>
@@ -202,7 +202,7 @@
       </con:call>
     </con:operation>
   </con:interface>
-  <con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:adapterpolicyengine}AdapterPolicyEngineBindingSoap" definition="WSDL path not set.  #AdapterPolicyEngine.wsdl" name="AdapterPolicyEngineBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
+  <con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:adapterpolicyengine}AdapterPolicyEngineBindingSoap" definition="c:\glassfish-2.1.1\domains\domain1\config\nhin\wsdl\AdapterPolicyEngine.wsdl" name="AdapterPolicyEngineBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
     <con:settings/>
     
     <con:endpoints>
