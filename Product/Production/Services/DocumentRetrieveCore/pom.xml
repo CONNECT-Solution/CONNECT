@@ -16,12 +16,17 @@
         <dependency>
             <groupId>gov.hhs.fha</groupId>
             <artifactId>CONNECTCommonTypesLib</artifactId>
-            <version>1.0.1-SNAPSHOT</version>
+            <version>${project.parent.version}</version>
         </dependency>
         <dependency>
             <groupId>gov.hhs.fha</groupId>
             <artifactId>CONNECTCoreLib</artifactId>
-            <version>1.0.1-SNAPSHOT</version>
+            <version>${project.parent.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>gov.hhs.fha</groupId>
+            <artifactId>SharedEngineCore</artifactId>
+            <version>${project.parent.version}</version>
         </dependency>
         <dependency>
             <groupId>javax</groupId>
@@ -76,6 +81,14 @@
                     <exclude>xml-resources/</exclude>
                 </excludes>
             </resource>
+            <resource>
+                <!-- <directory>${basedir}/src/main/resources/wsdl</directory> -->
+                <directory>${basedir}/../../Common/Interfaces/src/wsdl</directory>
+                <includes>
+                    <include>*DocRetrieve*.wsdl</include>
+                </includes>
+                <targetPath>${project.build.directory}/wsdl2java-sources/wsdl</targetPath>
+            </resource>
         </resources>
         <testResources>
             <testResource>
@@ -93,6 +106,77 @@
             </testResource>
         </testResources>
         <plugins>
+            <plugin>
+                <!-- Used to pull XSD files from the JAR -->
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>unpack-xsd-files</id>
+                        <!-- Using the initialize phase because it is before 
+                            the generate sources phase -->
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>unpack</goal>
+                        </goals>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <!-- Artifact that Holds our custom templates -->
+                                    <groupId>gov.hhs.fha</groupId>
+                                    <artifactId>CONNECTCommonTypesLib</artifactId>
+                                    <version>${parent.version}</version>
+                                    <type>jar</type>
+                                </artifactItem>
+                            </artifactItems>
+                            <includes>schemas/**/*.xsd</includes>
+                            <outputDirectory>${project.build.directory}/wsdl2java-sources/</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.cxf</groupId>
+                <artifactId>cxf-codegen-plugin</artifactId>
+                <version>${cxf.version}</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>gov.hhs.fha</groupId>
+                        <artifactId>CONNECTCommonTypesLib</artifactId>
+                        <version>1.0.1-SNAPSHOT</version>
+                    </dependency>
+                </dependencies>
+                <executions>
+                    <execution>
+                        <phase>process-resources</phase>
+                        <configuration>
+                            <fork>once</fork>
+                            <encoding>UTF-8</encoding>
+                            <sourceRoot>${project.build.directory}/generated-sources/</sourceRoot>
+                            <classesDirectory>${project.build.directory}/wsdl2java-sources/</classesDirectory>
+                            <wsdlRoot>${project.build.directory}/wsdl2java-sources/</wsdlRoot>
+                            <includes>
+                                <include>**/wsdl/*.wsdl</include>
+                            </includes>
+                            <defaultOptions>
+                                <extraargs>
+                                    <extraarg>-verbose</extraarg>
+                                    <extraarg>-client</extraarg>
+                                    <extraarg>-dns</extraarg>
+                                    <extraarg>false</extraarg>
+                                    <extraarg>-noTypes</extraarg>
+                                </extraargs>
+                                <!-- <bindingFiles> <bindingFile>${basedir}/src/main/resources/sun-jaxb.episode</bindingFile> 
+                                    </bindingFiles> -->
+                                <noAddressBinding>true</noAddressBinding>
+                            </defaultOptions>
+                        </configuration>
+                        <goals>
+                            <goal>wsdl2java</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>

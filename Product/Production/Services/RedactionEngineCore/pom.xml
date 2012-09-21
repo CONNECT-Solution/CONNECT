@@ -16,7 +16,7 @@
         <dependency>
             <groupId>gov.hhs.fha</groupId>
             <artifactId>CONNECTCommonTypesLib</artifactId>
-            <version>1.0.1-SNAPSHOT</version>
+            <version>${project.parent.version}</version>
             <exclusions>
                 <exclusion>
                     <artifactId>activation</artifactId>
