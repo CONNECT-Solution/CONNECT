@@ -76,7 +76,7 @@ import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201306Transforms;
  */
 public class EntityPatientDiscoveryOrchImpl {
 
-    private final Log log = LogFactory.getLog(getClass());
+    private final Log log = getLog();
     private ExecutorService regularExecutor = null;
     private ExecutorService largejobExecutor = null;
 
@@ -121,13 +121,23 @@ public class EntityPatientDiscoveryOrchImpl {
             log.error("Exception occurred while getting responses", e);
 
             // generate error message and add to response
-            CommunityPRPAIN201306UV02ResponseType communityResponse = new CommunityPRPAIN201306UV02ResponseType();
-            communityResponse.setPRPAIN201306UV02((new HL7PRPA201306Transforms()).createPRPA201306ForErrors(
-                    request.getPRPAIN201305UV02(), e.getMessage()));
-            response.getCommunityResponse().add(communityResponse);
+            addErrorMessageToResponse(request, response, e);
         }
         log.debug("End respondingGatewayPRPAIN201305UV02");
         return response;
+    }
+
+    /**
+     * @param request
+     * @param response
+     * @param e
+     */
+    protected void addErrorMessageToResponse(RespondingGatewayPRPAIN201305UV02RequestType request,
+            RespondingGatewayPRPAIN201306UV02ResponseType response, Exception e) {
+        CommunityPRPAIN201306UV02ResponseType communityResponse = new CommunityPRPAIN201306UV02ResponseType();
+        communityResponse.setPRPAIN201306UV02((new HL7PRPA201306Transforms()).createPRPA201306ForErrors(
+                request.getPRPAIN201305UV02(), e.getMessage()));
+        response.getCommunityResponse().add(communityResponse);
     }
 
     @SuppressWarnings("static-access")
@@ -191,11 +201,7 @@ public class EntityPatientDiscoveryOrchImpl {
         } catch (Exception e) {
             log.error("Exception occurred while getting responses from communities", e);
 
-            // generate error message and add to response
-            CommunityPRPAIN201306UV02ResponseType communityResponse = new CommunityPRPAIN201306UV02ResponseType();
-            communityResponse.setPRPAIN201306UV02((new HL7PRPA201306Transforms()).createPRPA201306ForErrors(
-                    request.getPRPAIN201305UV02(), e.getMessage()));
-            response.getCommunityResponse().add(communityResponse);
+            addErrorMessageToResponse(request, response, e);
         }
 
         log.debug("Exiting getResponseFromCommunities");
@@ -408,6 +414,14 @@ public class EntityPatientDiscoveryOrchImpl {
      */
     protected PatientDiscoveryAuditLogger getNewPatientDiscoveryAuditLogger() {
         return new PatientDiscoveryAuditLogger();
+    }
+
+    /**
+     * Returns the log. Creates the log if it didn't already exist.
+     * @return the log.
+     */
+    protected Log getLog() {
+        return (log == null)?LogFactory.getLog(getClass()) : log;
     }
 
 }
