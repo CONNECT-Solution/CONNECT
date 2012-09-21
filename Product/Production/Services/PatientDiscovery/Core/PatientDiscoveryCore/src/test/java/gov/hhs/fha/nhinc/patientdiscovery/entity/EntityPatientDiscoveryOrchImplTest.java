@@ -26,12 +26,14 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery.entity;
 
+import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.logging.Log;
+import org.hl7.v3.CommunityPRPAIN201306UV02ResponseType;
 import org.hl7.v3.MCCIMT000100UV01Receiver;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
@@ -174,7 +176,7 @@ public class EntityPatientDiscoveryOrchImplTest {
             }
         });
 
-        assertTrue(response == entityOrchImpl.getResponseFromCommunities(request, assertion));
+        assertSame(response,entityOrchImpl.getResponseFromCommunities(request, assertion));
         context.assertIsSatisfied();
     }
 
@@ -231,6 +233,70 @@ public class EntityPatientDiscoveryOrchImplTest {
 
         assertTrue(testErrorMessage.contains("Policy Check Failed for homeId="));
 
+        context.assertIsSatisfied();
+    }
+
+    @Test
+    public void testRespondingGatewayPRPAIN201305UV02_NullRequest(){
+        RespondingGatewayPRPAIN201305UV02RequestType request = null;
+        AssertionType assertion = context.mock(AssertionType.class);
+        final CommunityPRPAIN201306UV02ResponseType communityResponseError = new CommunityPRPAIN201306UV02ResponseType();
+
+
+
+        EntityPatientDiscoveryOrchImpl entityOrchImpl= new EntityPatientDiscoveryOrchImpl(){
+            @Override
+            protected Log getLog(){
+                return mockLog;
+            }
+
+            @Override
+            protected void addErrorMessageToResponse(RespondingGatewayPRPAIN201305UV02RequestType request,
+            RespondingGatewayPRPAIN201306UV02ResponseType response, Exception e){
+                response.getCommunityResponse().add(0, communityResponseError);
+            }
+        };
+
+        context.checking(new Expectations(){
+            {
+                atLeast(2).of(mockLog).debug(with(any(String.class)));
+                atLeast(1).of(mockLog).error(with(any(String.class)), with(any(Exception.class)));
+            }
+        });
+
+        assertSame(communityResponseError,entityOrchImpl.respondingGatewayPRPAIN201305UV02(request, assertion).getCommunityResponse().get(0));
+        context.assertIsSatisfied();
+    }
+
+
+    @Test
+    public void testRespondingGatewayPRPAIN201305UV02_NullAssertion(){
+        final RespondingGatewayPRPAIN201305UV02RequestType mockRequest = context.mock(RespondingGatewayPRPAIN201305UV02RequestType.class);
+        AssertionType assertion = null;
+        final CommunityPRPAIN201306UV02ResponseType communityResponseError = new CommunityPRPAIN201306UV02ResponseType();
+
+        EntityPatientDiscoveryOrchImpl entityOrchImpl= new EntityPatientDiscoveryOrchImpl(){
+            @Override
+            protected Log getLog(){
+                return mockLog;
+            }
+
+            @Override
+            protected void addErrorMessageToResponse(RespondingGatewayPRPAIN201305UV02RequestType request,
+            RespondingGatewayPRPAIN201306UV02ResponseType response, Exception e){
+                response.getCommunityResponse().add(0, communityResponseError);
+            }
+        };
+
+        context.checking(new Expectations(){
+            {
+                ignoring(mockRequest);
+                atLeast(2).of(mockLog).debug(with(any(String.class)));
+                atLeast(1).of(mockLog).error(with(any(String.class)), with(any(Exception.class)));
+            }
+        });
+
+        assertSame(communityResponseError,entityOrchImpl.respondingGatewayPRPAIN201305UV02(mockRequest, assertion).getCommunityResponse().get(0));
         context.assertIsSatisfied();
     }
 
