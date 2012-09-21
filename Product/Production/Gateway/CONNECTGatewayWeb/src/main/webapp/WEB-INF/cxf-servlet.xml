@@ -22,13 +22,13 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository" id="AuditRepositoryManagerUnsecured"
         address="/GatewayService/AuditRepositoryManagerService" serviceName="tns:AuditRepositoryManagerService"
         endpointName="tns:AuditRepositoryManagerPort" implementor="gov.hhs.fha.nhinc.auditrepository.nhinc.AuditRepositoryUnsecured"
-        wsdlLocation="/WEB-INF/wsdl/AuditRepositoryManagerService/NhincComponentAuditRepository.wsdl">
+        wsdlLocation="classpath:wsdl/NhincComponentAuditRepository.wsdl">
     </jaxws:endpoint>
 
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository" id="AuditRepositoryManagerSecured"
         address="/GatewayService/AuditRepositoryManagerSecuredService" serviceName="tns:AuditRepositoryManagerSecuredService"
         endpointName="tns:AuditRepositoryManagerSecuredPort" implementor="gov.hhs.fha.nhinc.auditrepository.nhinc.AuditRepository"
-        wsdlLocation="/WEB-INF/wsdl/AuditRepository/NhincComponentAuditRepositorySecured.wsdl">
+        wsdlLocation="classpath:wsdl/NhincComponentAuditRepositorySecured.wsdl">
 
         <jaxws:properties>
             <entry key="ws-security.callback-handler" value="gov.hhs.fha.nhinc.callback.cxf.CXFSAMLCallbackHandler" />
@@ -45,13 +45,13 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpatientcorrelation" id="PatientCorrelationUnsecured"
         address="/GatewayService/PatientCorrelationServiceUnsecured" serviceName="tns:PatientCorrelationService"
         endpointName="tns:PatientCorrelationPort" implementor="gov.hhs.fha.nhinc.patientcorrelation.nhinc.PatientCorrelationServiceUnsecured"
-        wsdlLocation="/WEB-INF/wsdl/PatientCorrelationServiceUnsecured/NhincComponentPatientCorrelation.wsdl">
+        wsdlLocation="classpath:wsdl/NhincComponentPatientCorrelation.wsdl">
     </jaxws:endpoint>
 
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpatientcorrelation" id="PatientCorrelationSecured"
         address="/GatewayService/PatientCorrelationServiceSecured" serviceName="tns:PatientCorrelationServiceSecured"
         endpointName="tns:PatientCorrelationSecuredPort" implementor="gov.hhs.fha.nhinc.patientcorrelation.nhinc.PatientCorrelationServiceSecured"
-        wsdlLocation="/WEB-INF/wsdl/PatientCorrelationServiceSecured/NhincComponentPatientCorrelationSecured.wsdl">
+        wsdlLocation="classpath:wsdl/NhincComponentPatientCorrelationSecured.wsdl">
 
         <jaxws:properties>
             <entry key="ws-security.callback-handler" value="gov.hhs.fha.nhinc.callback.cxf.CXFSAMLCallbackHandler" />
