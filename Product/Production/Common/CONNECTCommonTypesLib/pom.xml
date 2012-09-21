@@ -24,46 +24,20 @@
     <build>
         <resources>
             <resource>
-                <directory>${basedir}/../Interfaces/src/schemas</directory>
-                <targetPath>schemas</targetPath>
+                <directory>${basedir}/src/main/resources</directory>
                 <includes>
-                    <include>**/*.xsd</include>
-                </includes>
-            </resource>
-            <resource>
-                <directory>${basedir}/../Interfaces/src/schemas</directory>
-                <targetPath>META-INF/schemas</targetPath>
-                <includes>
-                    <include>**/*.xsd</include>
+                    <include>**/*</include>
                 </includes>
             </resource>
         </resources>
         <plugins>
-            <!-- <plugin> <groupId>org.apache.cxf</groupId> <artifactId>cxf-codegen-plugin</artifactId> 
-                <version>${cxf.version}</version> <executions> <execution> <phase>generate-sources</phase> 
-                <configuration> <fork>once</fork> <encoding>UTF-8</encoding> <sourceRoot>${project.build.directory}/generated-sources/</sourceRoot> 
-                <wsdlRoot>${basedir}/../Interfaces/src/wsdl</wsdlRoot> <includes> <include>*.wsdl</include> 
-                </includes> <excludes> <exclude>NhinUddiSubrV3PortType.wsdl</exclude> <exclude>NhincComponentInternalSubDiscovery201309Orch.wsdl</exclude> 
-                <exclude>rw-2.wsdl</exclude> <exclude>uddi_api_v3_binding.wsdl</exclude> 
-                <exclude>uddi_api_v3_portType.wsdl</exclude> <exclude>uddi_custody_v3_binding.wsdl</exclude> 
-                <exclude>uddi_custody_v3_portType.wsdl</exclude> <exclude>uddi_repl_v3_binding.wsdl</exclude> 
-                <exclude>uddi_repl_v3_portType.wsdl</exclude> <exclude>uddi_sub_v3_binding.wsdl</exclude> 
-                <exclude>uddi_sub_v3_portType.wsdl</exclude> <exclude>uddi_subr_v3_binding.wsdl</exclude> 
-                <exclude>uddi_subr_v3_portType.wsdl</exclude> <exclude>uddi_vs_v3_binding.wsdl</exclude> 
-                <exclude>uddi_vs_v3_portType.wsdl</exclude> <exclude>uddi_vscache_v3_binding.wsdl</exclude> 
-                <exclude>uddi_vscache_v3_portType.wsdl</exclude> non conforming with WS-I 
-                <exclude>DoDConnector.wsdl</exclude> </excludes> <defaultOptions> <extraargs> 
-                <extraarg>-verbose</extraarg> <extraarg>-client</extraarg> <extraarg>-noAddressBinding</extraarg> 
-                <extraarg>-dns</extraarg> <extraarg>false</extraarg> </extraargs> </defaultOptions> 
-                </configuration> <goals> <goal>wsdl2java</goal> </goals> </execution> </executions> 
-                </plugin> -->
             <plugin>
                 <groupId>org.jvnet.jaxb2.maven2</groupId>
                 <artifactId>maven-jaxb22-plugin</artifactId>
                 <version>0.8.2</version>
                 <configuration>
                     <generateDirectory>${project.build.directory}/generated-sources/</generateDirectory>
-                    <schemaDirectory>${basedir}/../Interfaces/src/schemas/</schemaDirectory>
+                    <schemaDirectory>${basedir}/src/main/resources/schemas/</schemaDirectory>
                     <schemaIncludes>
                         <include>nhinc/**/*.xsd</include>
                         <include>docs.oasis-open.org/**/*.xsd</include>
@@ -80,8 +54,8 @@
                         <include>xmlsoap.org/**/*.xsd</include>
                         <include>Endpoint/**/*.xsd</include>
                     </schemaIncludes>
-                    <source>7</source>
-                    <target>7</target>
+                    <source>1.7</source>
+                    <target>1.7</target>
                 </configuration>
                 <executions>
                     <execution>
