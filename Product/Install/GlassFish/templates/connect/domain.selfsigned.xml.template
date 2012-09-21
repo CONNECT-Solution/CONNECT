@@ -130,6 +130,7 @@
         <jvm-options>-Dcom.sun.jbi.httpbc.enableClientAuth=true</jvm-options>
         <jvm-options>-Djavax.net.ssl.keyStorePassword=changeit</jvm-options>
         <jvm-options>-Djavax.net.ssl.trustStorePassword=changeit</jvm-options>
+        <jvm-options>-d64</jvm-options>
         <jvm-options>-Xmx5000m</jvm-options>
         <jvm-options>-Xms5000m</jvm-options>
         <jvm-options>-XX:MaxPermSize=1024m</jvm-options>
