@@ -203,8 +203,8 @@ public class EntityPatientDiscoveryOrchImpl {
     }
 
     /**
-     * @param nem
-     * @return
+     * Returns the Gateway version to use.
+     * @return the Gateway version
      */
     protected GATEWAY_API_LEVEL getGatewayVersion() {
         return new NhinEndpointManager().getApiVersion(

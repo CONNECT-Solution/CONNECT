@@ -288,8 +288,6 @@ public class PDTestUtils {
      */
     private AddressType createValidAddress() {
         AddressType address = new AddressType();
-
-
         address.setAddressType(createCeTypeWithCode("W"));
         address.setCity("Melbourne");
         address.setCountry("US");
