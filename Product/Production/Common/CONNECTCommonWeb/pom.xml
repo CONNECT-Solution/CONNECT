@@ -228,7 +228,29 @@
         </dependency>
     </dependencies>
     <build>
+        <!-- Caution: If <resources> or <testResources> is overridden by 
+            a child POM then all <resource> and <testResouce> elements will need to be 
+            placed within the child POM that overrides the <resourcs> or <testResources> -->
         <resources>
+            <resource>
+                <directory>${basedir}/src/main/resources</directory>
+                <includes>
+                    <include>**/*</include>
+                </includes>
+                <excludes>
+                    <exclude>.gitignore</exclude>
+                    <exclude>xml-resources/</exclude>
+                </excludes>
+            </resource>
+            <!-- <resource>
+                Caution: Defining this resource to copy over the extracted 
+                    wsdls from <directory> into ${project.build.directory}/classes so the resources 
+                    are included within resulting archive
+                <directory>${project.build.directory}/wsdl2java-sources/</directory>
+                <includes>
+                    <include>wsdl/**/*.wsdl</include>
+                </includes>
+            </resource> -->
             <resource>
                 <directory>${basedir}/src/main/resources/wsdl</directory>
                 <includes>
@@ -237,6 +259,21 @@
                 <targetPath>${project.build.directory}/wsdl2java-sources/wsdl</targetPath>
             </resource>
         </resources>
+        <testResources>
+            <testResource>
+                <directory>${basedir}/src/test/resources</directory>
+                <includes>
+                    <include>**/*</include>
+                </includes>
+            </testResource>
+            <testResource>
+                <filtering>true</filtering>
+                <directory>${basedir}/../../Common/Properties/Dev</directory>
+                <includes>
+                    <include>**/*</include>
+                </includes>
+            </testResource>
+        </testResources>
         <finalName>CONNECTCommonWeb</finalName>
         <plugins>
             <plugin>
@@ -288,6 +325,7 @@
                             <sourceRoot>${project.build.directory}/generated-sources/</sourceRoot>
                             <classesDirectory>${project.build.directory}/wsdl2java-sources/</classesDirectory>
                             <wsdlRoot>${project.build.directory}/wsdl2java-sources/</wsdlRoot>
+                            ws
                             <includes>
                                 <include>**/wsdl/*.wsdl</include>
                             </includes>
@@ -299,9 +337,6 @@
                                     <extraarg>false</extraarg>
                                     <extraarg>-noTypes</extraarg>
                                 </extraargs>
-                                <!-- <bindingFiles>
-                                    <bindingFile>${basedir}/src/main/resources/sun-jaxb.episode</bindingFile>
-                                </bindingFiles> -->
                                 <noAddressBinding>true</noAddressBinding>
                             </defaultOptions>
                         </configuration>
@@ -317,7 +352,7 @@
                 <configuration>
                     <packagingExcludes>WEB-INF/classes/xml-resources/**</packagingExcludes>
                     <webResources>
-                        <resource>
+                        <!-- <resource>
                             <directory>${project.build.directory}/wsdl2java-sources/</directory>
                             <includes>
                                 <include>**/*.wsdl</include>
@@ -326,7 +361,7 @@
                                 <include>**/www.w3.org/**/*.xsd</include>
                             </includes>
                             <targetPath>WEB-INF/</targetPath>
-                        </resource>
+                        </resource> -->
                     </webResources>
                 </configuration>
             </plugin>
