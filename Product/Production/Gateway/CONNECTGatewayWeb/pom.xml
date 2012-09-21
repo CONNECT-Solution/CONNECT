@@ -46,6 +46,11 @@
         </dependency>
         <dependency>
             <groupId>gov.hhs.fha</groupId>
+            <artifactId>AuditRepositoryCore</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>gov.hhs.fha</groupId>
             <artifactId>PatientCorrelationCore</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
@@ -251,18 +256,9 @@
         <finalName>CONNECTGatewayWeb</finalName>
         <resources>
             <resource>
-                <!-- <directory>${basedir}/src/main/resources/wsdl</directory> -->
-                <directory>${basedir}/../../../Common/Interfaces/src/wsdl</directory>
-                <includes>
-                    <include>EntityPerformanceLogQuery.wsdl</include>
-                    <include>DeferredQueueManager.wsdl</include>
-                </includes>
-                <targetPath>${project.build.directory}/wsdl2java-sources/wsdl</targetPath>
-            </resource>
-            <resource>
                 <directory>${basedir}/src/main/resources</directory>
                 <includes>
-                    <include>**/*.*</include>
+                    <include>**/*</include>
                 </includes>
             </resource>
         </resources>
@@ -270,14 +266,14 @@
             <testResource>
                 <directory>${basedir}/src/test/resources</directory>
                 <includes>
-                    <include>**/*.*</include>
+                    <include>**/*</include>
                 </includes>
             </testResource>
             <testResource>
                 <filtering>true</filtering>
                 <directory>${basedir}/../../../Common/Properties/Dev</directory>
                 <includes>
-                    <include>**/*.*</include>
+                    <include>**/*</include>
                 </includes>
             </testResource>
         </testResources>
@@ -288,34 +284,6 @@
                 <configuration>
                     <packagingExcludes>WEB-INF/classes/xml-resources/**</packagingExcludes>
                     <webResources>
-                        <resource>
-                            <directory>${basedir}/../../Common/Interfaces/src/wsdl</directory>
-                            <includes>
-                                <include>*.wsdl</include>
-                            </includes>
-                            <excludes>
-                                <exclude>NhinUddiSubrV3PortType.wsdl</exclude>
-                                <exclude>NhincComponentInternalSubDiscovery201309Orch.wsdl</exclude>
-                                <exclude>rw-2.wsdl</exclude>
-                                <exclude>uddi_api_v3_binding.wsdl</exclude>
-                                <exclude>uddi_api_v3_portType.wsdl</exclude>
-                                <exclude>uddi_custody_v3_binding.wsdl</exclude>
-                                <exclude>uddi_custody_v3_portType.wsdl</exclude>
-                                <exclude>uddi_repl_v3_binding.wsdl</exclude>
-                                <exclude>uddi_repl_v3_portType.wsdl</exclude>
-                                <exclude>uddi_sub_v3_binding.wsdl</exclude>
-                                <exclude>uddi_sub_v3_portType.wsdl</exclude>
-                                <exclude>uddi_subr_v3_binding.wsdl</exclude>
-                                <exclude>uddi_subr_v3_portType.wsdl</exclude>
-                                <exclude>uddi_vs_v3_binding.wsdl</exclude>
-                                <exclude>uddi_vs_v3_portType.wsdl</exclude>
-                                <exclude>uddi_vscache_v3_binding.wsdl</exclude>
-                                <exclude>uddi_vscache_v3_portType.wsdl</exclude>
-                                <!-- non conforming with WS-I -->
-                                <exclude>DoDConnector.wsdl</exclude>
-                            </excludes>
-                            <targetPath>WEB-INF/wsdl/</targetPath>
-                        </resource>
                     </webResources>
                 </configuration>
             </plugin>
