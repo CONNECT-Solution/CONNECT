@@ -411,7 +411,7 @@
                 -->
                 
                  <!-- <include name="antlr-2.7.7.jar" /> -->
-                 <!-- <include name="asm-3.3.1.jar" /> -->
+                 <!--<include name="asm-3.3.1.jar" />-->
                   <include name="aopalliance-1.0.jar" />
                   <include name="commons-collections-3.2.1.jar" />
                   <include name="commons-lang-2.6.jar" />
@@ -494,7 +494,7 @@
                   <!-- <include name="antlr-2.7.6.jar" /> -->
                   <!-- <include name="commons-collections-2.1.1.jar" /> -->
                   <include name="jdbc2_0-stdext.jar" />
-                  <!--           <include name="asm-attrs.jar" /> -->
+                  <include name="asm-attrs.jar" />
                   <include name="dom4j-1.6.1.jar" />
                   <include name="jta.jar" />
                   <!--    <include name="ehcache-1.2.3.jar" /> -->
