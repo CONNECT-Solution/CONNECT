@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.redactionengine.adapter;
 
+import gov.hhs.fha.nhinc.redactionengine.adapter.RedactionEngine;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;

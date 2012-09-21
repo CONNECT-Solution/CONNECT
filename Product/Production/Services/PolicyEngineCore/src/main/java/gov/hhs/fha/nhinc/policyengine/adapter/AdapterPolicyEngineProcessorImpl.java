@@ -42,7 +42,7 @@ import org.apache.commons.logging.LogFactory;
  * 
  * @author Les Westberg
  */
-public class AdapterPolicyEngineProcessorImpl {
+public class AdapterPolicyEngineProcessorImpl implements AdapterPolicyEngineProcessor {
     private static Log log = LogFactory.getLog(AdapterPolicyEngineProcessorImpl.class);
 
     /**

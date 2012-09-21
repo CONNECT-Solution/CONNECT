@@ -37,7 +37,7 @@ import org.apache.commons.logging.LogFactory;
  * 
  * @author JHOPPESC
  */
-public class AdapterRedactionEngineOrchImpl {
+public class AdapterRedactionEngineOrchImpl implements AdapterRedactionEngineOrch {
     private Log log = null;
 
     public AdapterRedactionEngineOrchImpl() {
@@ -52,6 +52,7 @@ public class AdapterRedactionEngineOrchImpl {
         return new RedactionEngine();
     }
 
+    @Override
     public AdhocQueryResponse filterAdhocQueryResults(AdhocQueryRequest adhocQueryRequest,
             AdhocQueryResponse adhocQueryResponse) {
         log.debug("Begin filterAdhocQueryResults");
@@ -66,6 +67,7 @@ public class AdapterRedactionEngineOrchImpl {
         return response;
     }
 
+    @Override
     public RetrieveDocumentSetResponseType filterRetrieveDocumentSetResults(
             RetrieveDocumentSetRequestType retrieveDocumentSetRequest,
             RetrieveDocumentSetResponseType retrieveDocumentSetResponse) {

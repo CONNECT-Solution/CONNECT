@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.redactionengine.adapter;
 
+import gov.hhs.fha.nhinc.redactionengine.adapter.RedactionEngine;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
@@ -108,7 +109,7 @@ public class AdapterRedactionEngineOrchImplTest {
     @Test
     public void testFilterAdhocQueryResultsHappy() {
         try {
-            AdapterRedactionEngineOrchImpl javaProxy = new AdapterRedactionEngineOrchImpl() {
+            AdapterRedactionEngineOrch javaProxy = new AdapterRedactionEngineOrchImpl() {
                 @Override
                 protected Log createLogger() {
                     return mockLog;
@@ -144,7 +145,7 @@ public class AdapterRedactionEngineOrchImplTest {
             final AdhocQueryRequest adhocQueryRequest = null;
             final AdhocQueryResponse adhocQueryResponse = null;
 
-            AdapterRedactionEngineOrchImpl javaProxy = new AdapterRedactionEngineOrchImpl() {
+            AdapterRedactionEngineOrch javaProxy = new AdapterRedactionEngineOrchImpl() {
                 @Override
                 protected Log createLogger() {
                     return mockLog;
@@ -177,7 +178,7 @@ public class AdapterRedactionEngineOrchImplTest {
     public void testFilterAdhocQueryResultsNullRedactionEngine() {
         try {
 
-            AdapterRedactionEngineOrchImpl javaProxy = new AdapterRedactionEngineOrchImpl() {
+            AdapterRedactionEngineOrch javaProxy = new AdapterRedactionEngineOrchImpl() {
                 @Override
                 protected Log createLogger() {
                     return mockLog;
@@ -209,7 +210,7 @@ public class AdapterRedactionEngineOrchImplTest {
     @Test
     public void testFilterRetrieveDocumentSetResultsHappy() {
         try {
-            AdapterRedactionEngineOrchImpl javaProxy = new AdapterRedactionEngineOrchImpl() {
+            AdapterRedactionEngineOrch javaProxy = new AdapterRedactionEngineOrchImpl() {
                 @Override
                 protected Log createLogger() {
                     return mockLog;
@@ -246,7 +247,7 @@ public class AdapterRedactionEngineOrchImplTest {
             final RetrieveDocumentSetRequestType retrieveRequest = null;
             final RetrieveDocumentSetResponseType retrieveResponse = null;
 
-            AdapterRedactionEngineOrchImpl javaProxy = new AdapterRedactionEngineOrchImpl() {
+            AdapterRedactionEngineOrch javaProxy = new AdapterRedactionEngineOrchImpl() {
                 @Override
                 protected Log createLogger() {
                     return mockLog;
@@ -280,7 +281,7 @@ public class AdapterRedactionEngineOrchImplTest {
     @Test
     public void testFilterRetrieveDocumentSetResultsNullRedactionEngine() {
         try {
-            AdapterRedactionEngineOrchImpl javaProxy = new AdapterRedactionEngineOrchImpl() {
+            AdapterRedactionEngineOrch javaProxy = new AdapterRedactionEngineOrchImpl() {
                 @Override
                 protected Log createLogger() {
                     return mockLog;
