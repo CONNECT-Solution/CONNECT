@@ -27,7 +27,6 @@
 package gov.hhs.fha.nhinc.docquery._20.entity;
 
 import javax.annotation.Resource;
-import javax.jws.WebService;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
@@ -37,7 +36,6 @@ import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayQuerySecuredRequestType;
 
 
-
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 @Addressing(enabled=true)
 public class EntityDocQuerySecured implements gov.hhs.fha.nhinc.entitydocquery.EntityDocQuerySecuredPortType{
@@ -45,7 +43,8 @@ public class EntityDocQuerySecured implements gov.hhs.fha.nhinc.entitydocquery.E
     @Resource
     private WebServiceContext context;
 
-    public AdhocQueryResponse respondingGatewayCrossGatewayQuery(RespondingGatewayCrossGatewayQuerySecuredRequestType body)
+    public AdhocQueryResponse respondingGatewayCrossGatewayQuery(
+    		RespondingGatewayCrossGatewayQuerySecuredRequestType body)
     {
         AdhocQueryResponse response = null;
 

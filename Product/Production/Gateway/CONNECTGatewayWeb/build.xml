@@ -31,6 +31,7 @@
     </path>
 
 
+
     <property name="thirdparty.home" location="../../../../ThirdParty" />
     <property name="common.home" location="../../Common" />
 
@@ -43,7 +44,8 @@
     <property name="c3po.home" location="${thirdparty.home}/C3PO" />
     <property name="mysql.home" location="${thirdparty.home}/MySQLDB" />
     <property name="xstream.home" location="${thirdparty.home}/XStream" />
-
+    <property name="properties.lib" location="${common.home}/CONNECTPropertiesLib/dist/debug" />
+  	
     <path id="ear.libs">
         <fileset dir="${cxf.home}">
             <include name="antlr-2.7.7.jar" />
@@ -184,6 +186,9 @@
         <filelist dir="${common.lib}">
             <file name="CONNECTCommonTypesLib.jar" />
         </filelist>
+    	<filelist dir="${properties.lib}">
+    		<file name="CONNECTPropertiesLib.jar" />
+    	</filelist>
     </path>
     
     <property name="wsdl.dir" location="${common.home}/Interfaces/src/wsdl" />   

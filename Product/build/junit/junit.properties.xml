@@ -15,6 +15,10 @@
     <property name="unittest.resources.dir" value="${project.dir}/src/test/resources" />
     <property name="build.unittest.classes.dir" value="${build.dir}/test/classes" />
 
+  	<dirname property="junit.properties.basedir" file="${ant.file.junit.properties}"/>
+  	<property name="unittest.properties.dir" location="${junit.properties.basedir}/../../Production/Common/Properties"/>
+
+
     <property name="single.test" value="Test"/>
 
     <property name="debug.suspend" value="n"/>
@@ -35,7 +39,10 @@
         <path refid="build.classpath" />
         <pathelement path="${build.unittest.classes.dir}" />
         <pathelement path="${build.classes.dir}" />
+        	<pathelement path="${unittest.properties.dir}" />
+      		<pathelement path="${unittest.properties.dir}/Dev" />
         <fileset refid="classpath.test" />
     </path>
+
 
 </project>

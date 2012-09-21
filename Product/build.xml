@@ -215,7 +215,10 @@
     </target>
 
     <target name="unittest.run" description="Run the JUnit tests for the projects: run ant help for more info...">
-        <call target="-coverage.product.prep"/>
+    	
+    	<property name="unittest.properties.dir" value="${basedir}/Production/Common/Properties" />
+    	   	
+    	<call target="-coverage.product.prep"/>
         <call target="-unittest.product.prep"/>
         <var name="do-to-target" value="just.unittest.run" />
         <antcall target="do-to-projects" />

@@ -10,6 +10,7 @@
     <property name="copy.schemas.to.webinf" value="true" />
     <property name="coverage.isneeded" value="false" />
     <property name="core.patientdiscovery" location="../../Services/PatientDiscovery/Core/PatientDiscoveryCore/dist/debug" />
+    <property name="properties.lib" location="../../Common/CONNECTPropertiesLib/dist/debug" />
     
     <property name="thirdparty.home" location="../../../../ThirdParty" />
     <property name="common.home" location="../../Common" />
@@ -18,25 +19,24 @@
     <property name="wsdl.dir" location="${common.home}/Interfaces/src/wsdl" />   
     <property name="schema.dir" location="${common.home}/Interfaces/src/schemas" />  
 
-    <!-- Please make sure that this goes up to the correct directory -->
-    <import file="../../../build/build.targets.xml" />
+	<!-- Please make sure that this goes up to the correct directory -->
+	<import file="../../../build/build.targets.xml" />
 
-    <path id="build.classpath">
-        <fileset refid="classpath.compile" />
-        <fileset refid="classpath.runtime" />
+	<path id="build.classpath">
+		<fileset refid="classpath.compile" />
+		<fileset refid="classpath.runtime" />
 
-        <!-- Add classes from other projects like so...-->
-        <pathelement path="${project.CONNECTCommonTypesLib.build.classes.dir}" />
-        <pathelement path="${project.CONNECTCoreLib.build.classes.dir}" />
-        <pathelement path="${project.PatientDiscoveryCore.build.classes.dir}" />
-    </path>
+		<!-- Add classes from other projects like so...-->
+		<pathelement path="${project.CONNECTCommonTypesLib.build.classes.dir}" />
+		<pathelement path="${project.CONNECTCoreLib.build.classes.dir}" />
+		<pathelement path="${project.PatientDiscoveryCore.build.classes.dir}" />
+	</path>
 
-    <!-- Add project dependencies here, these projects will be built first... -->
-    <path id="build.project.dependencies">
-        <filelist dir="${root.project.directory.path}">
-        </filelist>
-    </path>
-
+	<!-- Add project dependencies here, these projects will be built first... -->
+	<path id="build.project.dependencies">
+		<filelist dir="${root.project.directory.path}">
+		</filelist>
+	</path>
     
     <property name="cxf.home" location="${thirdparty.home}/CXF" />
     <property name="spring.home" location="${thirdparty.home}/SpringFramework" />
@@ -193,6 +193,9 @@
                 <filelist dir="${common.lib}">
                     <file name="CONNECTCommonTypesLib.jar" />
                 </filelist>
+                	<filelist dir="${properties.lib}">
+              			<file name="CONNECTPropertiesLib.jar" />
+              		</filelist>
     </path>
     
     <path id="wsdl.list">

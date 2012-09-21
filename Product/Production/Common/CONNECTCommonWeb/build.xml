@@ -41,6 +41,8 @@
     <property name="c3po.home" location="${thirdparty.home}/C3PO" />
     <property name="mysql.home" location="${thirdparty.home}/MySQLDB" />
     <property name="xstream.home" location="${thirdparty.home}/XStream" />
+  	<property name="properties.lib" location="${common.home}/CONNECTPropertiesLib/dist/debug" />
+
     
     <path id="war.libs" />
 
@@ -183,6 +185,10 @@
         <filelist dir="${common.lib}">
             <file name="CONNECTCommonTypesLib.jar" />
         </filelist>
-   </path>
+    	
+    	<filelist dir="${properties.lib}">
+    		<file name="CONNECTPropertiesLib.jar" />
+    	</filelist>
+    </path>
 
     </project>

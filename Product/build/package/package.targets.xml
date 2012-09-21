@@ -73,6 +73,9 @@
 				<jar destfile="${dist.file}" compress="true" basedir="${build.dist.root}" manifest="${build.dist.manifest.file}" excludes="**/*.flag"/>
 			</case>
 			<case value="war">
+				<path id="ear.properties">
+					<pathelement path="CONNECTPropertiesLib.jar" />
+				</path>
 				<!-- Create a flat list of required jar files -->
 				<pathconvert property="libs.project" pathsep=" ">
 					<mapper>
@@ -86,6 +89,8 @@
 					</mapper>
 					 
 				    <path refid="ear.libs" />
+  					<path refid="ear.properties" />
+					
 				</pathconvert>
 				
 				<manifest file="${build.dist.manifest.file}" mode="update">
@@ -117,6 +122,8 @@
 				    </then>
 				</if>        
 									
+
+				<echo>This is build.dist.manifest.file: ${build.dist.manifest.file}</echo>
 				<war compress="true" destfile="${dist.file}" manifest="${build.dist.manifest.file}">
 					<path refid="war.files" />
 					<fileset dir="${build.dist.root}">

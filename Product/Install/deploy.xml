@@ -71,12 +71,11 @@
         </if>
         <runtarget target="delete.common.jars" />
         <runtarget target="deploy.thirdparty.libs" />
+    	<runtarget target="deploy.properties.to.glassfish" />
         <runtarget target="deploy.shared.libs.to.glassfish" />
         <runtarget target="deploy.glassfish.start.server" />
-
         <runtarget target="deploy.ears.to.glassfish" />
-
-    	<!-- runtarget target="deploy.wars.to.glassfish" /-->
+    	<!-- runtarget target="deploy.wars.to.glassfish" / -->
         <runtarget target="deploy.ejbs.to.glassfish" />
         <run-validationsuite-mod jarfile="SetValidationSuiteWsdlPath.jar" />
         <if>
@@ -88,8 +87,9 @@
     </target>
 
     <target name="deploy.thirdparty.libs">
-        <copy todir="${glassfish.home}/domains/domain1/lib" overwrite="true" flatten="true">
-            <fileset dir="${nhinc.deployment.thirdparty.dir}">
+        <delete file="${glassfish.home}/glassfish/domains/domain1/lib/asm-3.1.jar" />
+        <copy todir="${glassfish.home}/glassfish/domains/domain1/lib" overwrite="true" flatten="true">
+            <fileset dir="${nhinc.deployment.properties.dir}">
                 <include name="C3PO/*.jar" />
                 <include name="log4j/*.jar" />
                 <include name="HibernateLibraries/*.jar" />
@@ -133,6 +133,15 @@
             </then>
         </if>
     </target>
+	
+	<target name="deploy.properties.to.glassfish">
+        <copy todir="${glassfish.home}/glassfish/domains/domain1/lib/classes" overwrite="true" flatten="true">
+            <fileset dir="${nhinc.deployment.thirdparty.dir}">
+                <include name="../*" />
+                <include name="hibernate/*" />
+            </fileset>
+        </copy>
+    </target>
 
     <target name="undeploy.from.production">
         <runtarget target="deploy.glassfish.start.server" />
@@ -175,9 +184,9 @@
     </target>
 
     <target name="-deploy.glassfish.start.server.notwin" depends="-deploy.glassfish.asadmin" unless="win">
-        <exec executable="${ASADMIN}">
-            <arg line="--user ${deployment.glassfish.server.username} --passwordfile ${deploy.glassfish.password.file.path} start-domain ${deployment.glassfish.domain.name}" />
-        </exec>
+		<exec executable="${ASADMIN}">
+			<arg line="--user ${deployment.glassfish.server.username} --passwordfile ${deploy.glassfish.password.file.path} start-domain ${deployment.glassfish.domain.name}" />
+		</exec>
     </target>
 
     <target name="deploy.glassfish.stop.server" depends="-deploy.glassfish.asadmin">
@@ -250,7 +259,9 @@
 	    <property name="spring.home" location="../ThirdParty/SpringFramework" />
 	    <property name="core.lib" location="Production/Common/CONNECTCoreLib/dist/debug" />
 	    <property name="common.lib" location="Production/Common/CONNECTCommonTypesLib/dist/debug" />
-	    <property name="opensaml.home" location="../ThirdParty/openSAML" />
+		<property name="properties.lib" location="Production/Common/CONNECTPropertiesLib/dist/debug" />
+			    
+		<property name="opensaml.home" location="../ThirdParty/openSAML" />
 		
 		<path id="ear.libs">
 	        <fileset dir="${cxf.home}">
@@ -297,13 +308,15 @@
 	        <filelist dir="${common.lib}">
 	            <file name="CONNECTCommonTypesLib.jar" />
 	        </filelist>
+			
+			<filelist dir="${properties.lib}">
+	            <file name="CONNECTPropertiesLib.jar" />
+	        </filelist>
 	    </path>
 		
 		<copy todir=".ant-deploy-staging" flatten="true" overwrite="true">
 			<path refid="ear.libs" />									
 		</copy>
-		
-		<!-- Update application.xml with web modules -->
 		 <xmltask source="${basedir}/projects.xml">
             <call path="/projects/project">
                 <param name="project.name" path="name/text()" />
@@ -335,7 +348,7 @@
 		
 		<var name="dist.type" value="ear" />
 		<var name="dist.file" value="CONNECT.ear" />
-		<antcall target="-package.recreate" />
+    <antcall target="-package.recreate" />
 		
 		<!-- Call deploy to glassfish target -->
 		<var name="deployment.glassfish.ear.file.path" value=".ant-deploy-ear/CONNECT.ear" />
@@ -344,10 +357,18 @@
 	</target>
 	
 	<target name="deploy.ear.to.glassfish" depends="-deploy.create.glassfish.password.file, -deploy.glassfish.asadmin">
+
         <echo>--passwordfile ${deploy.glassfish.password.file.path} --port ${deployment.glassfish.admin.port} --host ${deployment.glassfish.server} --user ${deployment.glassfish.server.username} deploy --force ${deployment.glassfish.ear.file.path}</echo>
 		<exec executable="${ASADMIN}" failonerror="true">
             <env key="AS_ADMIN_READTIMEOUT" value="1200000" />
             <arg line="--passwordfile ${deploy.glassfish.password.file.path} deploy --force ${deployment.glassfish.ear.file.path}" />
+        </exec>
+    </target>
+	
+	<target name="undeploy.ears.from.glassfish" depends="-deploy.create.glassfish.password.file, -deploy.glassfish.asadmin">
+        <exec executable="${ASADMIN}" failonerror="true">
+            <env key="AS_ADMIN_READTIMEOUT" value="1200000" />
+            <arg line="--passwordfile ${deploy.glassfish.password.file.path} undeploy CONNECT" />
         </exec>
     </target>
 	

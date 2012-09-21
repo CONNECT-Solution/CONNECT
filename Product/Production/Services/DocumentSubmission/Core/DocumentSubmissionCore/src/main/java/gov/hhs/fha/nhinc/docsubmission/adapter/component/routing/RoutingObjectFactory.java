@@ -27,7 +27,7 @@
 package gov.hhs.fha.nhinc.docsubmission.adapter.component.routing;
 
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.FileSystemXmlApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 
@@ -43,8 +43,7 @@ public class RoutingObjectFactory {
     private static ApplicationContext context = null;
 
     static {
-        context = new
-                FileSystemXmlApplicationContext(PropertyAccessor.getInstance().getPropertyFileURL() + CONFIG_FILE_NAME);
+        context = new ClassPathXmlApplicationContext(CONFIG_FILE_NAME);
     }
 
     public XDRRouting getNhinXDRRouting(String beanName) {

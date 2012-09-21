@@ -31,7 +31,10 @@
 
 package gov.hhs.fha.nhinc.properties;
 
-import java.io.File;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
+import java.io.InputStream;
 import java.util.HashSet;
 import java.util.Properties;
 import java.util.Set;
@@ -43,8 +46,6 @@ import org.jmock.integration.junit4.JUnit4Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.Before;
 import org.junit.Test;
-
-import static org.junit.Assert.*;
 
 /**
  * @author akong
@@ -89,7 +90,7 @@ public class PropertyAccessorTest {
                 allowing(mockFileDAO).getProperties(with(any(String.class)));
                 will(returnValue(returnProperties()));
                 
-                allowing(mockFileDAO).loadPropertyFile(with(any(File.class)), with(any(String.class)));
+                allowing(mockFileDAO).loadPropertyFile(with(any(InputStream.class)), with(any(String.class)));
                 
                 allowing(mockFileDAO).printToLog(with(any(String.class)));
             }
