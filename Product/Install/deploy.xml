@@ -5,6 +5,8 @@
     <property name="nhinc.deployment.thirdparty.dir" location="${nhinc.deployment.basedir}/../../ThirdParty" />
     <property name="nhinc.deployment.properties.dir" value="${nhinc.deployment.basedir}/../Production/Common/Properties/Dev" />
     <property name="deployment.config.home" value="${glassfish.home}/domains/domain1/config/nhin" />
+      
+    <import file="${nhinc.deployment.basedir}/../build/package/package.targets.xml"/>
 
     <taskdef resource="net/sf/antcontrib/antlib.xml">
         <classpath>
@@ -248,8 +250,6 @@
 		<!-- copy jar files to deployment dir/lib -->
 		<property name="cxf.home" location="../ThirdParty/CXF" />
 	    <property name="spring.home" location="../ThirdParty/SpringFramework" />
-	    <property name="core.lib" location="Production/Common/CONNECTCoreLib/dist/debug" />
-	    <property name="common.lib" location="Production/Common/CONNECTCommonTypesLib/dist/debug" />
 	    <property name="opensaml.home" location="../ThirdParty/openSAML" />
 		
 		<path id="ear.libs">
@@ -290,13 +290,11 @@
 	            <file name="spring.jar" />
 	        </filelist>
 
-	        <filelist dir="${core.lib}">
+	        <filelist dir="${deployment.binaries.dir}">
 	            <file name="CONNECTCoreLib.jar" />
-	        </filelist>
-
-	        <filelist dir="${common.lib}">
 	            <file name="CONNECTCommonTypesLib.jar" />
 	        </filelist>
+
 	    </path>
 		
 		<copy todir=".ant-deploy-staging" flatten="true" overwrite="true">
@@ -315,8 +313,14 @@
                     <if>
                         <istrue value="@{should.deploy}"/>
                         <then>
-                        	<var name="project.war" value="${basedir}/@{project.directory}" />
-                        	<antcall target="-ear.copy.war" />
+                        	<var name="project.war" value="@{project.name}.war" />
+                        	<echo>**** copy: ${project.war} </echo>
+							<mkdir dir=".ant-deploy-staging" />
+							<copy todir=".ant-deploy-staging" flatten="true" overwrite="true">
+								<fileset dir="${deployment.binaries.dir}">
+									<include name="${project.war}" />
+								</fileset>
+							</copy>
                         	
                         	<replace file=".ant-deploy-staging/META-INF/application.xml">
                         	  <replacetoken><![CDATA[</application>]]></replacetoken>
@@ -334,7 +338,23 @@
 		<mkdir dir=".ant-deploy-ear"/>
 		
 		<var name="dist.type" value="ear" />
-		<var name="dist.file" value="CONNECT.ear" />
+		<var name="dist.file" value="CONNECT.ear" />		
+		<if>
+            <not>
+                <isset property="build.dist.meta-inf.dir" />
+            </not>
+            <then>
+                <property name="build.dist.meta-inf.dir" value="META-INF" />
+            </then>
+        </if>
+        <if>
+            <not>
+                <isset property="build.dist.manifest.file" />
+            </not>
+            <then>
+                <property name="build.dist.manifest.file" value="${build.dist.meta-inf.dir}/MANIFEST.MF" />
+            </then>
+        </if>
 		<antcall target="-package.recreate" />
 		
 		<!-- Call deploy to glassfish target -->
@@ -342,7 +362,7 @@
 		<antcall target="deploy.ear.to.glassfish" />
 		
 	</target>
-	
+		
 	<target name="deploy.ear.to.glassfish" depends="-deploy.create.glassfish.password.file, -deploy.glassfish.asadmin">
         <echo>--passwordfile ${deploy.glassfish.password.file.path} --port ${deployment.glassfish.admin.port} --host ${deployment.glassfish.server} --user ${deployment.glassfish.server.username} deploy --force ${deployment.glassfish.ear.file.path}</echo>
 		<exec executable="${ASADMIN}" failonerror="true">

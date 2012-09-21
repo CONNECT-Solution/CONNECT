@@ -55,8 +55,16 @@
         <replace file="${install.scripts.staging.dir}/build.xml" token="../../ThirdParty" value="ThirdParty" />
         <replace file="${install.scripts.staging.dir}/deploy.xml" token="../../ThirdParty" value="ThirdParty" />
         <replace file="${install.scripts.staging.dir}/deploy.xml" token="../Production/Common/Properties/Dev" value="Dev" />
+        <replace file="${install.scripts.staging.dir}/deploy.xml" token="../build/package" value="package" />
         <echo file="${release.info.tempfile}">${released.version.name}, ${snapshot_tstamp}</echo>
         <zip zipfile="${dist.artifact.dir}/${dist.zip.filename}">
+            <zipfileset dir="${root.project.directory.path}">
+                <include name="application.template.xml" />
+                <include name="projects.xml" />
+            </zipfileset>
+            <zipfileset dir="${root.project.directory.path}/build/package" prefix="package">
+                <include name="**\*" />
+            </zipfileset>                
             <zipfileset dir="${deployment.dir}">
                 <include name="**\*" />
             </zipfileset>

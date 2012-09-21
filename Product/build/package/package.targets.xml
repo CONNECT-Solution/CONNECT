@@ -140,19 +140,9 @@
 				</ear>
 			</case>
 			<default>
-				<fail message="Tag your it! Packaging ${dist.type}s has not yet been implemented, you can write it..."/>
+				<fail message="Tag you're it! Packaging ${dist.type}s has not yet been implemented, you can write it..."/>
 			</default>
 		</switch>
-	</target>
-	
-	<target name="-ear.copy.war">
-		<echo>**** copy from: ${project.war} </echo>
-		<mkdir dir=".ant-deploy-staging" />
-		<copy todir=".ant-deploy-staging" flatten="true" overwrite="true">
-			<fileset dir="${project.war}">
-				<include name="**/dist/debug/*.war" />
-			</fileset>
-		</copy>
 	</target>
 	
 	<target name="-ear.add.jar">
