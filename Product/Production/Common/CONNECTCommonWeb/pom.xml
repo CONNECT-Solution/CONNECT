@@ -11,7 +11,7 @@
     <name>CONNECT Common Web</name>
     <url>http://maven.apache.org</url>
     <properties>
-        <cxf.version>2.6.1</cxf.version>
+        <skip.unpack>false</skip.unpack>
     </properties>
     <dependencies>
         <dependency>

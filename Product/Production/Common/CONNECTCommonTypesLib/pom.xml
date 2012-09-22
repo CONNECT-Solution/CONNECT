@@ -12,7 +12,7 @@
     <name>CONNECT common types</name>
     <url>http://maven.apache.org</url>
     <properties>
-        <cxf.version>2.6.1</cxf.version>
+        <skip.unpack>true</skip.unpack>
     </properties>
     <dependencies>
         <dependency>
@@ -88,7 +88,7 @@
         </plugins>
         <pluginManagement>
             <plugins>
-                <!--  TODO: Is this really working? -->
+                <!-- TODO: Is this really working? -->
                 <plugin>
                     <groupId>org.eclipse.m2e</groupId>
                     <artifactId>lifecycle-mapping</artifactId>

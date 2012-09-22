@@ -10,9 +10,7 @@
     <artifactId>Common</artifactId>
     <packaging>pom</packaging>
     <properties>
-        <cobertura.check.haltOnFailure>true</cobertura.check.haltOnFailure>
-        <cobertura.totalBranchRate>85</cobertura.totalBranchRate>
-        <cobertura.totalLineRate>85</cobertura.totalLineRate>
+        <skip.unpack>true</skip.unpack>
     </properties>
     <modules>
         <module>Properties</module>

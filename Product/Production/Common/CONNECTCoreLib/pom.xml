@@ -12,6 +12,9 @@
     <packaging>jar</packaging>
     <name>CONNECT Core Library</name>
     <url>http://maven.apache.org</url>
+    <properties>
+        <skip.unpack>false</skip.unpack>
+    </properties>
     <dependencies>
         <dependency>
             <groupId>gov.hhs.fha</groupId>
