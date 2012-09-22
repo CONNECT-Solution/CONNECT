@@ -15,6 +15,7 @@
         <cobertura.totalBranchRate>85</cobertura.totalBranchRate>
         <cobertura.totalLineRate>85</cobertura.totalLineRate>
         <connect.common.properties>Dev</connect.common.properties>
+        <skip.unpack>true</skip.unpack>
     </properties>
     <modules>
         <module>Common</module>
@@ -79,6 +80,7 @@
                             <goal>unpack</goal>
                         </goals>
                         <configuration>
+                            <skip>${skip.unpack}</skip>
                             <artifactItems>
                                 <artifactItem>
                                     <!-- Artifact that Holds our custom templates -->
@@ -101,6 +103,7 @@
                             <goal>unpack</goal>
                         </goals>
                         <configuration>
+                            <skip>${skip.unpack}</skip>
                             <artifactItems>
                                 <artifactItem>
                                     <!-- Artifact that Holds our custom templates -->
@@ -121,11 +124,12 @@
                 <artifactId>cxf-codegen-plugin</artifactId>
                 <version>${cxf.version}</version>
                 <dependencies>
-                    <dependency>
+                    <!-- <dependency>
                         <groupId>gov.hhs.fha</groupId>
                         <artifactId>CONNECTCommonTypesLib</artifactId>
                         <version>1.0.1-SNAPSHOT</version>
-                    </dependency>
+                        <optional>true</optional>
+                    </dependency> -->
                 </dependencies>
                 <executions>
                     <execution>

@@ -26,6 +26,9 @@
         <module>AdminDistributionCore</module>
         <module>SharedEngineCore</module>
     </modules>
+    <properties>
+        <skip.unpack>false</skip.unpack>
+    </properties>
     <dependencies>
         <dependency>
             <groupId>gov.hhs.fha</groupId>
