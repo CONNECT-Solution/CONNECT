@@ -325,7 +325,6 @@
                             <sourceRoot>${project.build.directory}/generated-sources/</sourceRoot>
                             <classesDirectory>${project.build.directory}/wsdl2java-sources/</classesDirectory>
                             <wsdlRoot>${project.build.directory}/wsdl2java-sources/</wsdlRoot>
-                            ws
                             <includes>
                                 <include>**/wsdl/*.wsdl</include>
                             </includes>
