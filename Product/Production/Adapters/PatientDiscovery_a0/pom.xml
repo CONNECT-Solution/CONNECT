@@ -2,17 +2,14 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <parent>
         <groupId>gov.hhs.fha</groupId>
-        <artifactId>Gateway</artifactId>
+        <artifactId>Adapters</artifactId>
         <version>1.0.1-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>CONNECTGatewayWeb</artifactId>
+    <artifactId>PatientDiscovery_a0</artifactId>
     <packaging>war</packaging>
-    <name>CONNECT Gateway Web Webapp</name>
+    <name>CONNECT Adapter - PatientDiscovery_a0</name>
     <url>http://maven.apache.org</url>
-    <properties>
-        <cxf.version>2.6.1</cxf.version>
-    </properties>
     <dependencies>
         <dependency>
             <groupId>gov.hhs.fha</groupId>
@@ -46,17 +43,7 @@
         </dependency>
         <dependency>
             <groupId>gov.hhs.fha</groupId>
-            <artifactId>AuditRepositoryCore</artifactId>
-            <version>${project.parent.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>gov.hhs.fha</groupId>
-            <artifactId>PatientCorrelationCore</artifactId>
-            <version>${project.parent.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>gov.hhs.fha</groupId>
-            <artifactId>PolicyEngineCore</artifactId>
+            <artifactId>PatientDiscoveryCore</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
         <dependency>
@@ -79,6 +66,16 @@
             <artifactId>hibernate</artifactId>
             <version>3.2.5.ga</version>
             <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>asm</groupId>
+                    <artifactId>asm</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>cglib</groupId>
+                    <artifactId>cglib</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>c3p0</groupId>
@@ -253,17 +250,6 @@
         </dependency>
     </dependencies>
     <build>
-        <finalName>CONNECTGatewayWeb</finalName>
-        <plugins>
-            <plugin>
-                <artifactId>maven-war-plugin</artifactId>
-                <version>2.2</version>
-                <configuration>
-                    <packagingExcludes>WEB-INF/classes/xml-resources/**</packagingExcludes>
-                    <webResources>
-                    </webResources>
-                </configuration>
-            </plugin>
-        </plugins>
+        <finalName>PatientDiscovery_10</finalName>
     </build>
 </project>

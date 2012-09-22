@@ -11,5 +11,14 @@
     <packaging>pom</packaging>
     <modules>
         <module>General</module>
+        <module>PatientDiscovery_a0</module>
     </modules>
+    <dependencies>
+        <dependency>
+            <groupId>gov.hhs.fha</groupId>
+            <artifactId>Properties</artifactId>
+            <version>${project.parent.version}</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 </project>

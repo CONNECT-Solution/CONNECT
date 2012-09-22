@@ -10,11 +10,15 @@
     <artifactId>Gateway</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>PatientDiscoveryCore</module>
-        <module>HIEMCore</module>
-        <module>DocumentSubmissionCore</module>
-        <module>DocumentRetrieveCore</module>
-        <module>DocumentQueryCore</module>
-        <module>AdminDistributionCore</module>
+        <module>PatientDiscovery_10</module>
+        <module>CONNECTGatewayWeb</module>
     </modules>
+    <dependencies>
+        <dependency>
+            <groupId>gov.hhs.fha</groupId>
+            <artifactId>Properties</artifactId>
+            <version>${project.parent.version}</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 </project>
