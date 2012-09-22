@@ -6,7 +6,7 @@
         <version>1.0.1-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>PatientDiscovery_a0</artifactId>
+    <artifactId>DocumentSubmission_a0</artifactId>
     <packaging>war</packaging>
     <name>CONNECT Adapter - ${project.artifactId}</name>
     <url>http://maven.apache.org</url>
@@ -43,7 +43,7 @@
         </dependency>
         <dependency>
             <groupId>gov.hhs.fha</groupId>
-            <artifactId>PatientDiscoveryCore</artifactId>
+            <artifactId>DocumentSubmissionCore</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
         <dependency>
