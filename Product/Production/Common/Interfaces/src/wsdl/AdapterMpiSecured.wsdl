@@ -20,7 +20,7 @@
     name="AdapterMpiSecured" targetNamespace="urn:gov:hhs:fha:nhinc:adaptermpi">
     <wsdl:types>
         <xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:adaptermpi">
-            <xsd:import namespace="urn:hl7-org:v3" schemaLocation="../schemas/nhinc/hl7/HL7PatientDiscoveryMessages.xsd"/>
+            <xsd:import schemaLocation="../schemas/HL7V3/NE2008/multicacheschemas/PRPA_IN201305UV02.xsd" namespace="urn:hl7-org:v3"/>
             <xsd:import schemaLocation="../schemas/HL7V3/NE2008/multicacheschemas/PRPA_IN201306UV02.xsd" namespace="urn:hl7-org:v3"/>
             <xsd:import schemaLocation="../schemas/nhin/PatientDiscoveryFault.xsd" namespace="http://www.hhs.gov/healthit/nhin"/>
         </xsd:schema>

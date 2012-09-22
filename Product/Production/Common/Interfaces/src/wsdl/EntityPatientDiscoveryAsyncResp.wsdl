@@ -16,7 +16,7 @@
         <xsd:schema elementFormDefault="qualified"
                 targetNamespace="urn:hl7-org:v3" xmlns:hl7="urn:hl7-org:v3">
       <!-- Include the message schema -->
-            <xsd:include schemaLocation="../schemas/nhinc/hl7/HL7PatientDiscoveryMessages.xsd"/>
+            <xsd:include schemaLocation="../schemas/nhinc/hl7/RespondingGateway_PRPA_IN201306UV02Request.xsd"/>
             <xsd:include schemaLocation="../schemas/HL7V3/NE2008/multicacheschemas/MCCI_IN000002UV01.xsd"/>
         </xsd:schema>  
     </wsdl:types>
