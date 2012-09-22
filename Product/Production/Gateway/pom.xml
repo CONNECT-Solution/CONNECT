@@ -10,6 +10,14 @@
     <artifactId>Gateway</artifactId>
     <packaging>pom</packaging>
     <modules>
+        <module>AdminDistribution_10</module>
+        <module>AdminDistribution_20</module>
+        <module>DocumentQuery_20</module>
+        <module>DocumentRetrieve_20</module>
+        <module>DocumentRetrieve_30</module>
+        <module>DocumentSubmission_11</module>
+        <module>DocumentSubmission_20</module>
+        <module>HIEM_20</module>
         <module>PatientDiscovery_10</module>
         <module>CONNECTGatewayWeb</module>
     </modules>
