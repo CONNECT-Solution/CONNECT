@@ -98,8 +98,8 @@
                 </excludes>
             </resource>
             <resource>
-                <!-- Caution: Defining this resource to copy over the extracted wsdls 
-                    from <directory> into ${project.build.directory}/classes so the resources 
+                <!-- Caution: Defining this resource to copy over the extracted 
+                    wsdls from <directory> into ${project.build.directory}/classes so the resources 
                     are included within resulting archive -->
                 <directory>${project.build.directory}/wsdl2java-sources/</directory>
                 <includes>
@@ -116,5 +116,38 @@
                 <targetPath>${project.build.directory}/wsdl2java-sources/wsdl</targetPath>
             </resource>
         </resources>
+        <plugins>
+            <plugin>
+                <!-- Used to pull gateway.properties file from the shared 
+                    resource JAR -->
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>2.5.1</version>
+                <executions>
+                    <execution>
+                        <id>unpack-test-resources</id>
+                        <!-- Using the initialize phase because it is before 
+                            the generate sources phase -->
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>unpack</goal>
+                        </goals>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <!-- Artifact that Holds our custom templates -->
+                                    <groupId>gov.hhs.fha</groupId>
+                                    <artifactId>Properties</artifactId>
+                                    <version>${project.parent.version}</version>
+                                    <type>jar</type>
+                                </artifactItem>
+                            </artifactItems>
+                            <includes>XDSUniqueIds.properties</includes>
+                            <outputDirectory>${project.build.directory}/test-classes/</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
     </build>
 </project>

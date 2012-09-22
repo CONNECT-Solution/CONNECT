@@ -10,11 +10,8 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>CONNECTCoreLib</artifactId>
     <packaging>jar</packaging>
-    <name>CONNECT core libraries</name>
+    <name>CONNECT Core Library</name>
     <url>http://maven.apache.org</url>
-    <properties>
-        <cxf.version>2.6.1</cxf.version>
-    </properties>
     <dependencies>
         <dependency>
             <groupId>gov.hhs.fha</groupId>
@@ -159,128 +156,5 @@
         </repository>
     </repositories>
     <build>
-        <resources>
-            <resource>
-                <directory>${basedir}/src/main/resources</directory>
-                <includes>
-                    <include>**/*.*</include>
-                </includes>
-            </resource>
-        </resources>
-        <testResources>
-            <testResource>
-                <directory>${basedir}/src/test/resources</directory>
-                <includes>
-                    <include>**/*.*</include>
-                </includes>
-            </testResource>
-            <testResource>
-                <filtering>true</filtering>
-                <directory>${basedir}/../Properties/Dev</directory>
-                <includes>
-                    <include>**/*.*</include>
-                </includes>
-            </testResource>
-        </testResources>
-        <plugins>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>cobertura-maven-plugin</artifactId>
-                <configuration>
-                    <instrumentation>
-                        <ignores>
-                            <ignore>com.example.boringcode.*</ignore>
-                        </ignores>
-                        <excludes>
-                            <exclude>com/example/dullcode/**/*.class</exclude>
-                            <exclude>com/example/**/*Test.class</exclude>
-                        </excludes>
-                    </instrumentation>
-                </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>clean</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>cobertura-maven-plugin</artifactId>
-                <configuration>
-                    <check>
-                        <haltOnFailure>true</haltOnFailure>
-                        <totalBranchRate>19</totalBranchRate>
-                        <totalLineRate>27</totalLineRate>
-                        <regexes>
-                            <regex>
-                                <pattern>gov.hhs.fha.nhinc.async.AsyncMessageProcessHelper</pattern>
-                                <lineRate>87</lineRate>
-                                <branchRate>27</branchRate>
-                            </regex>
-                            <regex>
-                                <pattern>gov.hhs.fha.nhinc.transform.policy.ActionHelper</pattern>
-                                <lineRate>75</lineRate>
-                                <branchRate>50</branchRate>
-                            </regex>
-                            <regex>
-                                <pattern>gov.hhs.fha.nhinc.docregistry.adapter.AdapterComponentDocRegistryOrchImpl</pattern>
-                                <lineRate>62</lineRate>
-                                <branchRate>41</branchRate>
-                            </regex>
-                            <regex>
-                                <pattern>gov.hhs.fha.nhinc.redactionengine.adapter.AdapterRedactionEngineOrchImpl</pattern>
-                                <lineRate>90</lineRate>
-                                <branchRate>100</branchRate>
-                            </regex>
-                            <regex>
-                                <pattern>gov.hhs.fha.nhinc.policyengine.adapter.pep.AdapterPEPImpl</pattern>
-                                <lineRate>40</lineRate>
-                                <branchRate>29</branchRate>
-                            </regex>
-                            <regex>
-                                <pattern>com.example.boringcode.*</pattern>
-                                <lineRate>30</lineRate>
-                                <branchRate>40</branchRate>
-                            </regex>
-                        </regexes>
-                    </check>
-                </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>clean</goal>
-                            <goal>check</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-checkstyle-plugin</artifactId>
-                <configuration>
-                    <configLocation>${basedir}/../../../../Product/checkstyle.settings.xml</configLocation>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.12.3</version>
-                <configuration>
-                    <argLine>-XX:-UseSplitVerifier</argLine>
-                    <systemProperties>
-                        <property>
-                            <name>com.sun.aas.instanceRoot</name>
-                            <value>${project.build.testOutputDirectory}</value>
-                        </property>
-                        <property>
-                            <name>nhinc.properties.dir</name>
-                            <value>${project.build.testOutputDirectory}</value>
-                        </property>
-                    </systemProperties>
-                </configuration>
-            </plugin>
-        </plugins>
     </build>
 </project>

@@ -6,9 +6,9 @@
         <version>1.0.1-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>CONNECTGatewayWeb</artifactId>
+    <artifactId>PatientDiscovery_10</artifactId>
     <packaging>war</packaging>
-    <name>CONNECT Gateway Web Webapp</name>
+    <name>CONNECT Gateway - PatientDiscovery_10</name>
     <url>http://maven.apache.org</url>
     <properties>
         <cxf.version>2.6.1</cxf.version>
@@ -46,17 +46,7 @@
         </dependency>
         <dependency>
             <groupId>gov.hhs.fha</groupId>
-            <artifactId>AuditRepositoryCore</artifactId>
-            <version>${project.parent.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>gov.hhs.fha</groupId>
-            <artifactId>PatientCorrelationCore</artifactId>
-            <version>${project.parent.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>gov.hhs.fha</groupId>
-            <artifactId>PolicyEngineCore</artifactId>
+            <artifactId>PatientDiscoveryCore</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
         <dependency>
@@ -79,6 +69,16 @@
             <artifactId>hibernate</artifactId>
             <version>3.2.5.ga</version>
             <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>asm</groupId>
+                    <artifactId>asm</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>cglib</groupId>
+                    <artifactId>cglib</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>c3p0</groupId>
@@ -253,8 +253,39 @@
         </dependency>
     </dependencies>
     <build>
-        <finalName>CONNECTGatewayWeb</finalName>
+        <finalName>PatientDiscovery_10</finalName>
         <plugins>
+            <plugin>
+                <!-- Used to pull gateway.properties file from the shared 
+                    resource JAR -->
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>2.5.1</version>
+                <executions>
+                    <execution>
+                        <id>unpack-test-resources</id>
+                        <!-- Using the initialize phase because it is before 
+                            the generate sources phase -->
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>unpack</goal>
+                        </goals>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <!-- Artifact that Holds our custom templates -->
+                                    <groupId>gov.hhs.fha</groupId>
+                                    <artifactId>Properties</artifactId>
+                                    <version>${project.parent.version}</version>
+                                    <type>jar</type>
+                                </artifactItem>
+                            </artifactItems>
+                            <includes>AuditRepositoryProxyConfig.xml</includes>
+                            <outputDirectory>${project.build.directory}/test-classes/</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
             <plugin>
                 <artifactId>maven-war-plugin</artifactId>
                 <version>2.2</version>

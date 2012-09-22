@@ -15,6 +15,7 @@
         <cobertura.totalLineRate>85</cobertura.totalLineRate>
     </properties>
     <modules>
+        <module>Properties</module>
         <module>CONNECTCommonTypesLib</module>
         <module>CONNECTCoreLib</module>
         <module>CONNECTCommonWeb</module>
