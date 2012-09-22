@@ -19,31 +19,31 @@
         <dependency>
             <groupId>gov.hhs.fha</groupId>
             <artifactId>CONNECTCommonTypesLib</artifactId>
-            <version>${parent.version}</version>
+            <version>${project.parent.version}</version>
         </dependency>
         <dependency>
             <!-- temporary -->
             <groupId>gov.hhs.fha</groupId>
             <artifactId>AuditRepositoryCore</artifactId>
-            <version>${parent.version}</version>
+            <version>${project.parent.version}</version>
         </dependency>
         <dependency>
             <!-- temporary -->
             <groupId>gov.hhs.fha</groupId>
             <artifactId>DocRepositoryCore</artifactId>
-            <version>${parent.version}</version>
+            <version>${project.parent.version}</version>
         </dependency>
         <dependency>
             <!-- temporary -->
             <groupId>gov.hhs.fha</groupId>
             <artifactId>DocRegistryCore</artifactId>
-            <version>${parent.version}</version>
+            <version>${project.parent.version}</version>
         </dependency>
         <dependency>
             <!-- temporary -->
             <groupId>gov.hhs.fha</groupId>
             <artifactId>ConnectionManagerCore</artifactId>
-            <version>${parent.version}</version>
+            <version>${project.parent.version}</version>
         </dependency>
         <dependency>
             <groupId>commons-collections</groupId>

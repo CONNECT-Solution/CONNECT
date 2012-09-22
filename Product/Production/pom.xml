@@ -150,6 +150,7 @@
                                     <extraarg>-dns</extraarg>
                                     <extraarg>false</extraarg>
                                     <extraarg>-noTypes</extraarg>
+                                    <extraarg>-mark-generated</extraarg>
                                 </extraargs>
                                 <!-- <bindingFiles> <bindingFile>${basedir}/src/main/resources/sun-jaxb.episode</bindingFile> 
                                     </bindingFiles> -->
