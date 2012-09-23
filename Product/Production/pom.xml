@@ -2,9 +2,9 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
                       http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <groupId>gov.hhs.fha</groupId>
+        <groupId>org.connectopensource</groupId>
         <artifactId>Product</artifactId>
-        <version>1.0.1-SNAPSHOT</version>
+        <version>4.0.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>Production</artifactId>
@@ -84,7 +84,7 @@
                             <artifactItems>
                                 <artifactItem>
                                     <!-- Artifact that Holds our custom templates -->
-                                    <groupId>gov.hhs.fha</groupId>
+                                    <groupId>org.connectopensource</groupId>
                                     <artifactId>Properties</artifactId>
                                     <version>${project.parent.version}</version>
                                     <type>jar</type>
@@ -107,7 +107,7 @@
                             <artifactItems>
                                 <artifactItem>
                                     <!-- Artifact that Holds our custom templates -->
-                                    <groupId>gov.hhs.fha</groupId>
+                                    <groupId>org.connectopensource</groupId>
                                     <artifactId>CONNECTCommonTypesLib</artifactId>
                                     <version>${project.parent.version}</version>
                                     <type>jar</type>
@@ -124,12 +124,6 @@
                 <artifactId>cxf-codegen-plugin</artifactId>
                 <version>${cxf.version}</version>
                 <dependencies>
-                    <!-- <dependency>
-                        <groupId>gov.hhs.fha</groupId>
-                        <artifactId>CONNECTCommonTypesLib</artifactId>
-                        <version>1.0.1-SNAPSHOT</version>
-                        <optional>true</optional>
-                    </dependency> -->
                 </dependencies>
                 <executions>
                     <execution>
@@ -216,4 +210,11 @@
             </plugin>
         </plugins>
     </build>
+    <profiles>
+        <profile>
+            <id>site</id>
+            <build></build>
+        </profile>
+    </profiles>
+
 </project>

@@ -2,13 +2,13 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <parent>
         <groupId>org.connectopensource</groupId>
-        <artifactId>Gateway</artifactId>
+        <artifactId>General</artifactId>
         <version>4.0.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>DocumentRetrieve_20</artifactId>
+    <artifactId>CONNECTUniversalClientGUI</artifactId>
     <packaging>war</packaging>
-    <name>CONNECT Gateway - ${project.artifactId}</name>
+    <name>CONNECT Universal Client GUI</name>
     <url>http://maven.apache.org</url>
     <dependencies>
         <dependency>
@@ -43,7 +43,22 @@
         </dependency>
         <dependency>
             <groupId>org.connectopensource</groupId>
+            <artifactId>AdapterAuthenticationCore</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.connectopensource</groupId>
+            <artifactId>DocumentQueryCore</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.connectopensource</groupId>
             <artifactId>DocumentRetrieveCore</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.connectopensource</groupId>
+            <artifactId>PatientDiscoveryCore</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
         <dependency>
@@ -52,14 +67,60 @@
             <version>6.0</version>
         </dependency>
         <dependency>
-            <groupId>org.eclipse.jetty</groupId>
-            <artifactId>jetty-util</artifactId>
-            <version>7.5.4.v20111024</version>
+            <groupId>org.connectopensource.thirdparty.com.sun.jsf</groupId>
+            <artifactId>jsfcl</artifactId>
+            <version>1.0</version>
         </dependency>
         <dependency>
-            <groupId>com.sun.xml.messaging.saaj</groupId>
-            <artifactId>saaj-impl</artifactId>
-            <version>1.3.18</version>
+            <groupId>org.connectopensource.thirdparty.com.sun.jsf</groupId>
+            <artifactId>appbase</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.connectopensource.thirdparty.com.sun.jsf</groupId>
+            <artifactId>dataprovider</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.connectopensource.thirdparty.com.sun.jsf</groupId>
+            <artifactId>errorhandler</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.connectopensource.thirdparty.com.sun.jsf</groupId>
+            <artifactId>webui-jsf</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.connectopensource.thirdparty.com.sun.jsf</groupId>
+            <artifactId>webui-jsf-suntheme</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20090211</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.faces.extensions</groupId>
+            <artifactId>jsf-extensions-dynamic-faces</artifactId>
+            <version>0.2</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.faces.extensions</groupId>
+            <artifactId>jsf-extensions-common</artifactId>
+            <version>0.2</version>
+        </dependency>
+        <dependency>
+            <groupId>com.forgerock.openam</groupId>
+            <artifactId>clientsdk</artifactId>
+            <version>10.0.0</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>asm</groupId>
+            <artifactId>asm</artifactId>
+            <version>3.3.1</version>
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
@@ -104,29 +165,14 @@
             <version>1.6.2</version>
         </dependency>
         <dependency>
-            <groupId>asm</groupId>
-            <artifactId>asm</artifactId>
-            <version>3.3.1</version>
-        </dependency>
-        <dependency>
             <groupId>aopalliance</groupId>
             <artifactId>aopalliance</artifactId>
             <version>1.0</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
-            <artifactId>spring-beans</artifactId>
-            <version>3.0.7.RELEASE</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-context</artifactId>
-            <version>3.0.7.RELEASE</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-core</artifactId>
-            <version>3.0.7.RELEASE</version>
+            <artifactId>spring</artifactId>
+            <version>2.5.6.SEC01</version>
         </dependency>
         <dependency>
             <groupId>com.sun.xml.fastinfoset</groupId>
@@ -214,14 +260,15 @@
             <version>2.0.1</version>
         </dependency>
         <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring</artifactId>
-            <version>2.5.6.SEC01</version>
-        </dependency>
-        <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.7</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>cglib</groupId>
+            <artifactId>cglib-nodep</artifactId>
+            <version>2.1_3</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -252,46 +299,6 @@
     <build>
         <finalName>${project.artifactId}</finalName>
         <plugins>
-            <plugin>
-                <!-- Used to pull gateway.properties file from the shared 
-                    resource JAR -->
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <version>2.5.1</version>
-                <executions>
-                    <execution>
-                        <id>unpack-test-resources</id>
-                        <!-- Using the initialize phase because it is before 
-                            the generate sources phase -->
-                        <phase>initialize</phase>
-                        <goals>
-                            <goal>unpack</goal>
-                        </goals>
-                        <configuration>
-                            <artifactItems>
-                                <artifactItem>
-                                    <!-- Artifact that Holds our custom templates -->
-                                    <groupId>org.connectopensource</groupId>
-                                    <artifactId>Properties</artifactId>
-                                    <version>${project.parent.version}</version>
-                                    <type>jar</type>
-                                </artifactItem>
-                            </artifactItems>
-                            <includes>AuditRepositoryProxyConfig.xml</includes>
-                            <outputDirectory>${project.build.directory}/test-classes/</outputDirectory>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <artifactId>maven-war-plugin</artifactId>
-                <version>2.2</version>
-                <configuration>
-                    <packagingExcludes>WEB-INF/classes/xml-resources/**</packagingExcludes>
-                    <webResources>
-                    </webResources>
-                </configuration>
-            </plugin>
         </plugins>
     </build>
 </project>

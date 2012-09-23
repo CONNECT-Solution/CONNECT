@@ -3,9 +3,9 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0                       
     http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <groupId>gov.hhs.fha</groupId>
+        <groupId>org.connectopensource</groupId>
         <artifactId>Services</artifactId>
-        <version>1.0.1-SNAPSHOT</version>
+        <version>4.0.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>DocumentSubmissionCore</artifactId>
@@ -14,12 +14,12 @@
     <url>http://maven.apache.org</url>
     <dependencies>
         <dependency>
-            <groupId>gov.hhs.fha</groupId>
+            <groupId>org.connectopensource</groupId>
             <artifactId>CONNECTCommonTypesLib</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
         <dependency>
-            <groupId>gov.hhs.fha</groupId>
+            <groupId>org.connectopensource</groupId>
             <artifactId>CONNECTCoreLib</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
@@ -127,7 +127,7 @@
                             <artifactItems>
                                 <artifactItem>
                                     <!-- Artifact that Holds our custom templates -->
-                                    <groupId>gov.hhs.fha</groupId>
+                                    <groupId>org.connectopensource</groupId>
                                     <artifactId>Properties</artifactId>
                                     <version>${project.parent.version}</version>
                                     <type>jar</type>
