@@ -16,7 +16,7 @@
     <documentation>Deferred Queue Manager WSDL</documentation>
     <types>
         <xsd:schema targetNamespace="http://j2ee.netbeans.org/wsdl/DeferredQueueManager">
-            <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:deferredqueuemanager" schemaLocation="../schemas/nhinc/common/DeferredQueueManager.xsd"/>
+            <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:deferredqueuemanager" schemaLocation="classpath:schemas/nhinc/common/DeferredQueueManager.xsd"/>
         </xsd:schema>
     </types>
 

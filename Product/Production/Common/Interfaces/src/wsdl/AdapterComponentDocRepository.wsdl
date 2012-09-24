@@ -24,13 +24,13 @@
       targetNamespace="urn:ihe:iti:xds-b:2007"
       xmlns:ihe="urn:ihe:iti:xds-b:2007">
       <!-- Include the message schema -->
-      <xsd:include schemaLocation="../schemas/ihe/XDS.b_DocumentRepository.xsd"/>
+      <xsd:include schemaLocation="classpath:schemas/ihe/XDS.b_DocumentRepository.xsd"/>
     </xsd:schema>
     <xsd:schema elementFormDefault="qualified"
       targetNamespace="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0"
       xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0">
       <!-- Include the message schema -->
-      <xsd:include schemaLocation="../schemas/ebRS/rs.xsd"/>
+      <xsd:include schemaLocation="classpath:schemas/ebRS/rs.xsd"/>
     </xsd:schema>
     <!-- While no elements are directly used from these schema in the WSDL, 
       they need to be present here in order for
@@ -39,13 +39,13 @@
       targetNamespace="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0"
       xmlns:lcm="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0">
       <!-- Include the message schema -->
-      <xsd:include schemaLocation="../schemas/ebRS/lcm.xsd"/>
+      <xsd:include schemaLocation="classpath:schemas/ebRS/lcm.xsd"/>
     </xsd:schema>
    <xsd:schema elementFormDefault="qualified"
       targetNamespace="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0"
       xmlns:lcm="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0">
       <!-- Include the message schema -->
-      <xsd:include schemaLocation="../schemas/ebRS/rim.xsd"/>
+      <xsd:include schemaLocation="classpath:schemas/ebRS/rim.xsd"/>
     </xsd:schema>
 
     <!--	Importing all schemas within one seems to confuse some parsers 

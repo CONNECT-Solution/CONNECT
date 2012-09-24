@@ -10,8 +10,8 @@
     xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">
     <types>
         <xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:nhinccomponentsubscriptionreferencerepository">
-            <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:subscription" schemaLocation="../schemas/nhinc/common/Subscription.xsd"/>
-            <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommon" schemaLocation="../schemas/nhinc/common/NhincCommon.xsd"/>
+            <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:subscription" schemaLocation="classpath:schemas/nhinc/common/Subscription.xsd"/>
+            <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommon" schemaLocation="classpath:schemas/nhinc/common/NhincCommon.xsd"/>
         </xsd:schema>
     </types>
     <message name="StoreSubscriptionReferenceRequest">

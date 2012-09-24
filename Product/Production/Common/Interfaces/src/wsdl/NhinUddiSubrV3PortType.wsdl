@@ -23,9 +23,9 @@
 		<xsd:schema targetNamespace="urn:uddi-org:subr_v3_portType" 
                     xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 			<xsd:import namespace="urn:uddi-org:api_v3" 
-                        schemaLocation="../schemas/uddi/uddi_v3.xsd"/>
+                        schemaLocation="classpath:schemas/uddi/uddi_v3.xsd"/>
 			<xsd:import namespace="urn:uddi-org:subr_v3" 
-                        schemaLocation="../schemas/uddi/uddi_v3subscriptionListener.xsd"/>
+                        schemaLocation="classpath:schemas/uddi/uddi_v3subscriptionListener.xsd"/>
 		</xsd:schema>
 	</types>
     

@@ -19,7 +19,7 @@
 
     <types>
         <xsd:schema targetNamespace="http://j2ee.netbeans.org/wsdl/AdapterPatientDiscoveryDeferredReqQueueProcess">
-            <xsd:import namespace="urn:gov:hhs:fha:nhinc:gateway:adapterpatientdiscoveryreqqueueprocess" schemaLocation="../schemas/nhinc/gateway/AdapterPatientDiscoveryDeferredReqQueueProcess.xsd"/>
+            <xsd:import namespace="urn:gov:hhs:fha:nhinc:gateway:adapterpatientdiscoveryreqqueueprocess" schemaLocation="classpath:schemas/nhinc/gateway/AdapterPatientDiscoveryDeferredReqQueueProcess.xsd"/>
         </xsd:schema>
     </types>
 

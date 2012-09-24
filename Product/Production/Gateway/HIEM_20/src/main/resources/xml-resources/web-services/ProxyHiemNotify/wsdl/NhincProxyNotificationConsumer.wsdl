@@ -62,7 +62,7 @@
     <wsdl:types>
         <xsd:schema>
             <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" 
-                  schemaLocation="../schemas/nhinc/common/NhincCommonProxy.xsd"/>
+                  schemaLocation="classpath:schemas/nhinc/common/NhincCommonProxy.xsd"/>
         </xsd:schema>
     </wsdl:types>
     

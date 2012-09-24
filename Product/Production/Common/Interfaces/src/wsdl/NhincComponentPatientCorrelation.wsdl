@@ -2,7 +2,7 @@
 <definitions name="PatientCorrelation" targetNamespace="urn:gov:hhs:fha:nhinc:nhinccomponentpatientcorrelation" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpatientcorrelation" xmlns:wsaw="http://www.w3.org/2005/08/addressing" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:ncpc="urn:gov:hhs:fha:nhinc:common:patientcorrelation" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:hl7="urn:hl7-org:v3" xmlns:pc="urn:hl7-org:v3">
 	<types>
 		<xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:nhinccomponentpatientcorrelation">
-			<xsd:import namespace="urn:hl7-org:v3" schemaLocation="../schemas/nhinc/common/PatientCorrelation.xsd"/>
+			<xsd:import namespace="urn:hl7-org:v3" schemaLocation="classpath:schemas/nhinc/common/PatientCorrelation.xsd"/>
 		</xsd:schema>
 	</types>
 	<message name="RetrievePatientCorrelationsRequestMessage">

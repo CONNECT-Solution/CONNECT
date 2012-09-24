@@ -2,8 +2,8 @@
 <definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:nhincinternalcomponentpolicyenginetransform" xmlns:pdte="urn:gov:hhs:fha:nhinc:common:policyenginedte" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:nccommadapt="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" name="NhincInternalComponentPolicyEngineTransform" targetNamespace="urn:gov:hhs:fha:nhinc:nhincinternalcomponentpolicyenginetransform">
 	<types>
 		<xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:nhincinternalcomponentpolicyenginetransform">
-			<xsd:import schemaLocation="../schemas/nhinc/common/PolicyEngineDte.xsd" namespace="urn:gov:hhs:fha:nhinc:common:policyenginedte"/>
-			<xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" schemaLocation="../schemas/nhinc/common/NhincCommonAdapter.xsd"/>
+			<xsd:import schemaLocation="classpath:schemas/nhinc/common/PolicyEngineDte.xsd" namespace="urn:gov:hhs:fha:nhinc:common:policyenginedte"/>
+			<xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" schemaLocation="classpath:schemas/nhinc/common/NhincCommonAdapter.xsd"/>
 		</xsd:schema>
 	</types>
 	<message name="TransformSubjectAddedToCheckPolicyRequestMessage">

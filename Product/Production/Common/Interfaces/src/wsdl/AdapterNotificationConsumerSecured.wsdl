@@ -71,8 +71,8 @@
     <wsdl:types>
         <xsd:schema>
             <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" 
-                  schemaLocation="../schemas/nhinc/common/NhincCommonAdapter.xsd"/>
-            <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommon" schemaLocation="../schemas/nhinc/common/NhincCommon.xsd"/>
+                  schemaLocation="classpath:schemas/nhinc/common/NhincCommonAdapter.xsd"/>
+            <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommon" schemaLocation="classpath:schemas/nhinc/common/NhincCommon.xsd"/>
         </xsd:schema>
     </wsdl:types>
     

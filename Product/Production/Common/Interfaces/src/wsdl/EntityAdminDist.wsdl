@@ -13,8 +13,8 @@
     <documentation>NHIN Administrative Distribution wsdl</documentation>
     <types>
         <xsd:schema>
-            <xsd:import namespace="urn:oasis:names:tc:emergency:EDXL:DE:1.0" schemaLocation="../schemas/ebRS/edxl-de.xsd"/>
-            <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommonentity"  schemaLocation="../schemas/nhinc/common/NhincCommonEntity.xsd"/>
+            <xsd:import namespace="urn:oasis:names:tc:emergency:EDXL:DE:1.0" schemaLocation="classpath:schemas/ebRS/edxl-de.xsd"/>
+            <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommonentity"  schemaLocation="classpath:schemas/nhinc/common/NhincCommonEntity.xsd"/>
         </xsd:schema>
     </types>
     <message name="SendAlertMessage_Message">

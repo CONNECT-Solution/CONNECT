@@ -5,7 +5,7 @@
   </wsdl:documentation>
 	<wsdl:types>
 		<xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:adapter:commondatalayer">
-			<xsd:import namespace="urn:hl7-org:v3" schemaLocation="../schemas/nhinc/hl7/HL7CommonDataLayerMessages.xsd"/>
+			<xsd:import namespace="urn:hl7-org:v3" schemaLocation="classpath:schemas/nhinc/hl7/HL7CommonDataLayerMessages.xsd"/>
 		</xsd:schema>
 	</wsdl:types>
     <wsdl:message name="GetProviderInfoResponse">

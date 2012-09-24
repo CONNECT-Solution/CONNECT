@@ -22,11 +22,11 @@
   <types>
     <xsd:schema xmlns:ns20="urn:gov:hhs:fha:nhinc:gateway:samltokendata">
       <xsd:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0"
-                  schemaLocation="../schemas/ebRS/rs.xsd"/>
+                  schemaLocation="classpath:schemas/ebRS/rs.xsd"/>
       <xsd:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0"
-                  schemaLocation="../schemas/ebRS/query.xsd"/>
+                  schemaLocation="classpath:schemas/ebRS/query.xsd"/>
       <xsd:import namespace="urn:gov:hhs:fha:nhinc:gateway:samltokendata"
-                  schemaLocation="../schemas/nhinc/gateway/SamlTokenData.xsd"/>
+                  schemaLocation="classpath:schemas/nhinc/gateway/SamlTokenData.xsd"/>
     </xsd:schema>
   </types>
   <message name="CrossGatewayQuery_Message">
