@@ -40,6 +40,12 @@
     <property name="core.docquery" location="../../Services/DocumentQueryCore/dist/debug" />
 
     <path id="war.libs">
+    	<filelist dir="${core.docquery}">
+            <file name="DocumentQueryCore.jar" />
+        </filelist>
+	</path>
+		
+	<path id="ear.libs">
         <fileset dir="${cxf.home}">
             <include name="cxf-2.6.0.jar" />
             <include name="commons-logging-1.1.1.jar" />
@@ -84,8 +90,6 @@
         <filelist dir="${common.lib}">
             <file name="CONNECTCommonTypesLib.jar" />
         </filelist>
-        <filelist dir="${core.docquery}">
-            <file name="DocumentQueryCore.jar" />
-        </filelist>
+        
     </path>
 </project>

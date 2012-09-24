@@ -40,6 +40,11 @@
     </path>
 
     <path id="war.libs">
+    	<filelist dir="${core.hiem}">
+            <file name="HIEMCore.jar" />
+        </filelist>
+    </path>
+    <path id="ear.libs">
         <fileset dir="${cxf.home}">
             <include name="cxf-2.6.0.jar" />
             <include name="commons-logging-1.1.1.jar" />
@@ -80,8 +85,6 @@
         <filelist dir="${common.lib}">
             <file name="CONNECTCommonTypesLib.jar" />
         </filelist>
-        <filelist dir="${core.hiem}">
-            <file name="HIEMCore.jar" />
-        </filelist>
+        
     </path>
 </project>

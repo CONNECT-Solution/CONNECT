@@ -12,7 +12,7 @@
 
        
 
-        <sys:inverse-classloading/>
+        <sys:inverse-classloading />
 
     </sys:environment> 
     

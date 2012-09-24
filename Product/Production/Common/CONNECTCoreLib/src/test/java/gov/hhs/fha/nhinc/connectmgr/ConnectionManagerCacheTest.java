@@ -26,7 +26,6 @@
  */
 package gov.hhs.fha.nhinc.connectmgr;
 
-import gov.hhs.fha.nhinc.common.nhinccommon.EPRType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunityType;
@@ -42,8 +41,9 @@ import java.util.List;
 import java.util.Set;
 import org.junit.Test;
 import org.uddi.api_v3.BusinessEntity;
-import org.xmlsoap.schemas.ws._2004._08.addressing.AttributedURI;
-import org.xmlsoap.schemas.ws._2004._08.addressing.EndpointReferenceType;
+import org.w3._2005._08.addressing.AttributedURIType;
+import org.w3._2005._08.addressing.EndpointReferenceType;
+
 import static org.junit.Assert.*;
 
 /**
@@ -375,13 +375,11 @@ public class ConnectionManagerCacheTest {
 
     protected NhinTargetSystemType createNhinTargetSystem() {
         NhinTargetSystemType targetSystem = new NhinTargetSystemType();
-        EPRType eprType = new EPRType();
         EndpointReferenceType endpointReference = new EndpointReferenceType();
-        AttributedURI address = new AttributedURI();
+        AttributedURIType address = new AttributedURIType();
         address.setValue(NHIN_TARGET_ENDPOINT_URL_VALUE);
         endpointReference.setAddress(address);
-        eprType.setEndpointReference(endpointReference);
-        targetSystem.setEpr(eprType);
+        targetSystem.setEpr(endpointReference);
 
         return targetSystem;
     }

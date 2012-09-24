@@ -73,6 +73,24 @@
 				<jar destfile="${dist.file}" compress="true" basedir="${build.dist.root}" manifest="${build.dist.manifest.file}" excludes="**/*.flag"/>
 			</case>
 			<case value="war">
+				<!-- Create a flat list of required jar files -->
+				<pathconvert property="libs.project" pathsep=" ">
+					<mapper>
+					  <chainedmapper>
+				        <!-- remove absolute path -->
+						<flattenmapper />
+					 
+				        <!-- add lib/ prefix -->
+						<!-- globmapper from="*" to="lib/*" / -->
+					  </chainedmapper>
+					</mapper>
+					 
+				    <path refid="ear.libs" />
+				</pathconvert>
+				
+				<manifest file="${build.dist.manifest.file}" mode="update">
+					<attribute name="Class-Path" value="${libs.project}" />
+				</manifest>
 				<mkdir dir="${build.war.lib.dir}" />
 				<for param="war.lib">
 					<path refid="war.libs" />
@@ -80,6 +98,8 @@
 						<copy file="@{war.lib}" todir="${build.war.lib.dir}" />
 					</sequential>
 				</for>
+
+				<echo>This is build.dist.manifest.file: ${build.dist.manifest.file}</echo>
 				
 				<for param="wsdl.item">
 					<path refid="wsdl.list" />					
@@ -105,21 +125,35 @@
 				</war>
 			</case>
 			<case value="ear">
-				<mkdir dir="${build.ear.lib.dir}" />
-				<copy todir="${build.ear.lib.dir}" flatten="true" overwrite="true">
-					<path refid="ear.libs" />
+				<mkdir dir=".ant-deploy-staging/lib" />
+				<copy todir=".ant-deploy-staging/lib" flatten="true" overwrite="true">
+					<path refid="ear.libs" />									
 				</copy>
-				<ear compress="true" destfile="${dist.file}" manifest="${build.dist.manifest.file}" appxml="${build.dist.meta-inf.dir}/application.xml">
+				<echo>This is build.dist.meta-inf.dir: ${build.dist.meta-inf.dir}</echo>
+				<echo>This is build.dist.root: ${build.dist.root}</echo>
+												
+				<ear compress="true" destfile=".ant-deploy-ear/CONNECT.ear" manifest="${build.dist.manifest.file}" appxml=".ant-deploy-staging/META-INF/application.xml">
 					<path refid="ear.files" />
-					<fileset dir="${build.dist.root}">
+					<fileset dir=".ant-deploy-staging">
 						<exclude name="META-INF/application.xml"/>
 					</fileset>
 				</ear>
 			</case>
 			<default>
-				<fail message="Tag your it! Packaging ${dist.type}s has not yet been implemented, you can write it..."/>
+				<fail message="Tag you're it! Packaging ${dist.type}s has not yet been implemented, you can write it..."/>
 			</default>
 		</switch>
+	</target>
+	
+	<target name="-ear.add.jar">
+		<basename property="temp.filename" file="${file.name}"/>
+		<var name="temp.filename.var" value="${temp.filename}"/>
+		<echo>=${temp.filename.var}=</echo>
+		<replace file=".ant-deploy-staging/META-INF/application.xml"
+			token="&lt;/application&gt;"
+			value="&lt;module&gt;&lt;java&gt;lib/${temp.filename.var}&lt;/java&gt;&lt;/module&gt;${line.separator}                      	  
+    	  	&lt;/application&gt;">
+    	</replace>
 	</target>
 
 </project>

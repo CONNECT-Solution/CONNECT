@@ -1,0 +1,21 @@
+<web-app xmlns="http://geronimo.apache.org/xml/ns/j2ee/web-2.0.1"
+         xmlns:sys="http://geronimo.apache.org/xml/ns/deployment-1.2">
+
+    <sys:environment>
+
+        <sys:moduleId>
+            <sys:groupId>CONNECT</sys:groupId>
+            <sys:artifactId>DocumentQueryAdapter</sys:artifactId>
+            <sys:version>A0</sys:version>
+            <sys:type>war</sys:type>
+        </sys:moduleId>
+
+       
+
+        <sys:inverse-classloading/>
+
+    </sys:environment> 
+    
+    <context-root>Adapter/DocumentQuery/A_0</context-root>
+   
+</web-app>
