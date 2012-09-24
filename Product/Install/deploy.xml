@@ -607,7 +607,7 @@
             location="${deploy.glassfish.domain.template}" />
         <exec executable="${ASADMIN}" failonerror="true">
             <arg
-                line="--echo --passwordfile ${deploy.glassfish.password.file.path} --user ${deployment.glassfish.server.username} create-domain --template ${deploy.glassfish.domain.template.path} --adminport ${deployment.glassfish.admin.port} --savemasterpassword=true ${deployment.glassfish.domain.name}" />
+               line="--echo --passwordfile '${deploy.glassfish.password.file.path}' --user ${deployment.glassfish.server.username} create-domain --template '${deploy.glassfish.domain.template.path}' --adminport ${deployment.glassfish.admin.port} --savemasterpassword=true ${deployment.glassfish.domain.name}" />
         </exec>
     </target>
 
