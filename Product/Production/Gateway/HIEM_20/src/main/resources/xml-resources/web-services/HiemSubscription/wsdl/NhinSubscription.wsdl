@@ -71,10 +71,10 @@
     <wsdl:types>
         <xsd:schema>
             <xsd:import namespace="http://docs.oasis-open.org/wsn/b-2"
-                  schemaLocation="../schemas/docs.oasis-open.org/wsn/b-2.xsd"/>
+                  schemaLocation="classpath:schemas/docs.oasis-open.org/wsn/b-2.xsd"/>
         </xsd:schema>
         <xsd:schema targetNamespace="http://docs.oasis-open.org/wsn/bw-2">
-            <xsd:import schemaLocation="../schemas/nhin/HIEM.xsd" namespace="http://www.hhs.gov/healthit/nhin"/>
+            <xsd:import schemaLocation="classpath:schemas/nhin/HIEM.xsd" namespace="http://www.hhs.gov/healthit/nhin"/>
         </xsd:schema>
     </wsdl:types>
     <wsdl:message name="Notify">

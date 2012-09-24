@@ -10,9 +10,9 @@
     <types>
         <xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:nhincdocquery">
             <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommoninternalorch" 
-            schemaLocation="../schemas/nhinc/common/NhincCommonInternalOrch.xsd"/>
+            schemaLocation="classpath:schemas/nhinc/common/NhincCommonInternalOrch.xsd"/>
             <xsd:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" 
-            schemaLocation="../schemas/ebRS/query.xsd"/>
+            schemaLocation="classpath:schemas/ebRS/query.xsd"/>
         </xsd:schema>
     </types>
     <message name="RespondingGateway_CrossGatewayQueryRequest">

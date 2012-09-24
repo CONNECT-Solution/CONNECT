@@ -70,11 +70,11 @@
     <wsdl:types>
         <xsd:schema>
             <xsd:import namespace="http://docs.oasis-open.org/wsn/b-2" 
-                  schemaLocation="../schemas/docs.oasis-open.org/wsn/b-2.xsd"/>
+                  schemaLocation="classpath:schemas/docs.oasis-open.org/wsn/b-2.xsd"/>
         </xsd:schema>
         <xsd:schema>
             <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" 
-                  schemaLocation="../schemas/nhinc/common/NhincCommonEntity.xsd"/>
+                  schemaLocation="classpath:schemas/nhinc/common/NhincCommonEntity.xsd"/>
         </xsd:schema>
     </wsdl:types>
 

@@ -69,11 +69,11 @@
     <wsdl:types>
         <xsd:schema>
             <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" 
-                  schemaLocation="../schemas/nhinc/common/NhincCommonEntity.xsd"/>
-            <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommon" schemaLocation="../schemas/nhinc/common/NhincCommon.xsd"/>
+                  schemaLocation="classpath:schemas/nhinc/common/NhincCommonEntity.xsd"/>
+            <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommon" schemaLocation="classpath:schemas/nhinc/common/NhincCommon.xsd"/>
         </xsd:schema>
         <xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:entitynotificationconsumersecured">
-            <xsd:import namespace="http://docs.oasis-open.org/wsn/b-2" schemaLocation="../schemas/docs.oasis-open.org/wsn/b-2.xsd"/>
+            <xsd:import namespace="http://docs.oasis-open.org/wsn/b-2" schemaLocation="classpath:schemas/docs.oasis-open.org/wsn/b-2.xsd"/>
         </xsd:schema>
     </wsdl:types>
 

@@ -15,7 +15,7 @@
     <documentation>Entity Performance Log Query WSDL</documentation>
     <types>
         <xsd:schema targetNamespace="http://j2ee.netbeans.org/wsdl/EntityPerformanceLogQuery">
-            <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:entityperformancelogquery" schemaLocation="../schemas/nhinc/common/EntityPerformanceLogQuery.xsd"/>
+            <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:entityperformancelogquery" schemaLocation="classpath:schemas/nhinc/common/EntityPerformanceLogQuery.xsd"/>
         </xsd:schema>
     </types>
 

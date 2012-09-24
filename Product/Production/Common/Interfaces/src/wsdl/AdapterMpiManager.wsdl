@@ -2,8 +2,8 @@
 <definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:adaptermpimanager" xmlns:hl7="urn:hl7-org:v3" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" name="AdapterMpiManager" targetNamespace="urn:gov:hhs:fha:nhinc:adaptermpimanager">
 	<types>
 		<xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:adaptermpimanager">
-			<xsd:import namespace="urn:hl7-org:v3" schemaLocation="../schemas/HL7V3/NE2008/multicacheschemas/MCCI_IN000002UV01.xsd"/>
-			<xsd:import namespace="urn:hl7-org:v3" schemaLocation="../schemas/HL7V3/NE2008/multicacheschemas/PRPA_IN201301UV02.xsd"/>
+			<xsd:import namespace="urn:hl7-org:v3" schemaLocation="classpath:schemas/HL7V3/NE2008/multicacheschemas/MCCI_IN000002UV01.xsd"/>
+			<xsd:import namespace="urn:hl7-org:v3" schemaLocation="classpath:schemas/HL7V3/NE2008/multicacheschemas/PRPA_IN201301UV02.xsd"/>
 		</xsd:schema>
 	</types>
 	<message name="AddPatientRequestMessage">

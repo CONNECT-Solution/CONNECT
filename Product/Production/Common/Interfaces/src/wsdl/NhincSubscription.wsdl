@@ -13,8 +13,8 @@
     <wsdl:import namespace="http://docs.oasis-open.org/wsrf/rw-2" location="rw-2.wsdl"/>
     <types>
         <xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:nhincsubscription">
-            <xsd:import namespace="http://docs.oasis-open.org/wsn/b-2" schemaLocation="../schemas/docs.oasis-open.org/wsn/b-2.xsd"/>
-            <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommoninternalorch" schemaLocation="../schemas/nhinc/common/NhincCommonInternalOrch.xsd"/>
+            <xsd:import namespace="http://docs.oasis-open.org/wsn/b-2" schemaLocation="classpath:schemas/docs.oasis-open.org/wsn/b-2.xsd"/>
+            <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommoninternalorch" schemaLocation="classpath:schemas/nhinc/common/NhincCommonInternalOrch.xsd"/>
         </xsd:schema>
     </types>
     <message name="NotifyRequestMessage">

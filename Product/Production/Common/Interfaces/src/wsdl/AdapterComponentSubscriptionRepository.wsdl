@@ -12,11 +12,11 @@
     <types>
         <xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:subscription:subscriptionrepository">
             <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:subscription" 
-                        schemaLocation="../schemas/nhinc/common/Subscription.xsd"/>
+                        schemaLocation="classpath:schemas/nhinc/common/Subscription.xsd"/>
         </xsd:schema>
         <xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:component:subscriptionrepository">
             <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommon" 
-                        schemaLocation="../schemas/nhinc/common/NhincCommon.xsd"/>
+                        schemaLocation="classpath:schemas/nhinc/common/NhincCommon.xsd"/>
         </xsd:schema>
     </types>
     <message name="StoreSubscriptionRequest">

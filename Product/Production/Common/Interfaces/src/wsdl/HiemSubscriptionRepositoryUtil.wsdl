@@ -9,7 +9,7 @@
     xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/">
     <types>
         <xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:hiemsubscriptionrepositoryutil">
-            <xsd:import namespace="urn:gov:hhs:fha:nhinc:gateway:hiemsubscriptionrepositoryutil" schemaLocation="../schemas/nhinc/gateway/HiemSubscriptionRepositoryUtil.xsd"/>
+            <xsd:import namespace="urn:gov:hhs:fha:nhinc:gateway:hiemsubscriptionrepositoryutil" schemaLocation="classpath:schemas/nhinc/gateway/HiemSubscriptionRepositoryUtil.xsd"/>
         </xsd:schema>
     </types>
     <message name="GetSubscriptionCountRequest">

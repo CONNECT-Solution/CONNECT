@@ -6,9 +6,9 @@
     xmlns:uddi="urn:uddi-org:api_v3" name="ConnectionManagerService" targetNamespace="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager">
     <wsdl:types>
         <xsd:schema>
-            <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" schemaLocation="../schemas/nhinc/common/ConnectionManagerInfo.xsd" />
-            <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommon" schemaLocation="../schemas/nhinc/common/NhincCommon.xsd" />
-            <xsd:import namespace="urn:uddi-org:api_v3" schemaLocation="../schemas/uddi/uddi_v3.xsd" />
+            <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" schemaLocation="classpath:schemas/nhinc/common/ConnectionManagerInfo.xsd" />
+            <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommon" schemaLocation="classpath:schemas/nhinc/common/NhincCommon.xsd" />
+            <xsd:import namespace="urn:uddi-org:api_v3" schemaLocation="classpath:schemas/uddi/uddi_v3.xsd" />
         </xsd:schema>
     </wsdl:types>
 

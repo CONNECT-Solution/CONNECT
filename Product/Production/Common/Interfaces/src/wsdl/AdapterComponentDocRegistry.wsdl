@@ -27,43 +27,43 @@
 			xmlns:hl7="urn:hl7-org:v3">
 			<!-- Include the message schema -->
             <xsd:include
-				schemaLocation="../schemas/HL7V3/NE2008/multicacheschemas/PRPA_IN201301UV02.xsd"/>
+				schemaLocation="classpath:schemas/HL7V3/NE2008/multicacheschemas/PRPA_IN201301UV02.xsd"/>
         </xsd:schema>
         <xsd:schema elementFormDefault="qualified" targetNamespace="urn:hl7-org:v3"
 			xmlns:hl7="urn:hl7-org:v3">
 			<!-- Include the message schema -->
             <xsd:include
-				schemaLocation="../schemas/HL7V3/NE2008/multicacheschemas/PRPA_IN201302UV02.xsd"/>
+				schemaLocation="classpath:schemas/HL7V3/NE2008/multicacheschemas/PRPA_IN201302UV02.xsd"/>
         </xsd:schema>
         <xsd:schema elementFormDefault="qualified" targetNamespace="urn:hl7-org:v3"
 			xmlns:hl7="urn:hl7-org:v3">
 			<!-- Include the message schema -->
             <xsd:include
-				schemaLocation="../schemas/HL7V3/NE2008/multicacheschemas/PRPA_IN201304UV02.xsd"/>
+				schemaLocation="classpath:schemas/HL7V3/NE2008/multicacheschemas/PRPA_IN201304UV02.xsd"/>
         </xsd:schema>
         <xsd:schema elementFormDefault="qualified" targetNamespace="urn:hl7-org:v3"
 			xmlns:hl7="urn:hl7-org:v3">
 			<!-- Include the message schema -->
             <xsd:include
-				schemaLocation="../schemas/HL7V3/NE2008/multicacheschemas/MCCI_IN000002UV01.xsd"/>
+				schemaLocation="classpath:schemas/HL7V3/NE2008/multicacheschemas/MCCI_IN000002UV01.xsd"/>
         </xsd:schema>
         <xsd:schema elementFormDefault="qualified"
 			targetNamespace="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0"
 			xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0">
 			<!-- Include the message schema -->
-            <xsd:include schemaLocation="../schemas/ebRS/query.xsd"/>
+            <xsd:include schemaLocation="classpath:schemas/ebRS/query.xsd"/>
         </xsd:schema>
         <xsd:schema elementFormDefault="qualified"
 			targetNamespace="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0"
 			xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0">
 			<!-- Include the message schema -->
-            <xsd:include schemaLocation="../schemas/ebRS/rs.xsd"/>
+            <xsd:include schemaLocation="classpath:schemas/ebRS/rs.xsd"/>
         </xsd:schema>
         <xsd:schema elementFormDefault="qualified"
 			targetNamespace="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0"
 			xmlns:lcm="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0">
 			<!-- Include the message schema -->
-            <xsd:include schemaLocation="../schemas/ebRS/lcm.xsd"/>
+            <xsd:include schemaLocation="classpath:schemas/ebRS/lcm.xsd"/>
         </xsd:schema>
 		<!-- While no elements are directly used from this schema in the WSDL, it needs to be present here in order for
 		code generating toolkits to work properly -->
@@ -71,7 +71,7 @@
 			targetNamespace="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0"
 			xmlns:lcm="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0">
 			<!-- Include the message schema -->
-            <xsd:include schemaLocation="../schemas/ebRS/rim.xsd"/>
+            <xsd:include schemaLocation="classpath:schemas/ebRS/rim.xsd"/>
         </xsd:schema>
 
     </types>

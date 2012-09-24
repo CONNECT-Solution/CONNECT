@@ -11,7 +11,7 @@
     <types>
         <xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor">
             <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:propertyaccess" 
-                        schemaLocation="../schemas/nhinc/common/PropertyAccess.xsd"/>
+                        schemaLocation="classpath:schemas/nhinc/common/PropertyAccess.xsd"/>
         </xsd:schema>
     </types>
     
