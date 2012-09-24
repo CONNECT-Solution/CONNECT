@@ -23,7 +23,7 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
     <!-- Nhin services -->
     <jaxws:endpoint xmlns:nds="urn:ihe:iti:xdr:2007" id="NhinDocSubmission_g1" address="/DocumentRepositoryXDR_Service"
         serviceName="nds:DocumentRepositoryXDR_Service" endpointName="nds:DocumentRepositoryXDR_Port_Soap"
-        implementor="gov.hhs.fha.nhinc.docsubmission._20.nhin.NhinXDR_g1" wsdlLocation="/WEB-INF/wsdl/NhinXDR/NhinXDR20.wsdl">
+        implementor="gov.hhs.fha.nhinc.docsubmission._20.nhin.NhinXDR_g1" wsdlLocation="classpath:wsdl/NhinXDR20.wsdl">
         <jaxws:properties>
             <entry key="ws-security.callback-handler" value="gov.hhs.fha.nhinc.callback.cxf.CXFSAMLCallbackHandler" />
             <entry key="ws-security.signature.properties" value="keystore.properties" />
@@ -44,12 +44,12 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
     <!-- Entity services -->
     <jaxws:endpoint xmlns:eds="urn:gov:hhs:fha:nhinc:nhincentityxdr" id="EntityDocSubmissionUnsecured_g1"
         address="/EntityService/EntityDocSubmissionUnsecured" serviceName="eds:EntityXDR_Service" endpointName="eds:EntityXDR_Port"
-        implementor="gov.hhs.fha.nhinc.docsubmission._20.entity.EntityDocSubmissionUnsecured_g1" wsdlLocation="/WEB-INF/wsdl/EntityDocSubmissionUnsecured/EntityXDR.wsdl">
+        implementor="gov.hhs.fha.nhinc.docsubmission._20.entity.EntityDocSubmissionUnsecured_g1" wsdlLocation="classpath:wsdl/EntityXDR.wsdl">
     </jaxws:endpoint>
 
     <jaxws:endpoint xmlns:edss="urn:gov:hhs:fha:nhinc:nhincentityxdrsecured" id="EntityDocSubmissionSecured_g1"
         address="/EntityService/EntityDocSubmissionSecured" serviceName="edss:EntityXDRSecured_Service" endpointName="edss:EntityXDRSecured_Port"
-        implementor="gov.hhs.fha.nhinc.docsubmission._20.entity.EntityDocSubmissionSecured_g1" wsdlLocation="/WEB-INF/wsdl/EntityDocSubmissionSecured/EntityXDRSecured.wsdl">
+        implementor="gov.hhs.fha.nhinc.docsubmission._20.entity.EntityDocSubmissionSecured_g1" wsdlLocation="classpath:wsdl/EntityXDRSecured.wsdl">
         <jaxws:properties>
             <entry key="ws-security.callback-handler" value="gov.hhs.fha.nhinc.callback.cxf.CXFSAMLCallbackHandler" />
             <entry key="ws-security.signature.properties" value="keystore.properties" />
@@ -63,12 +63,12 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
     <!-- MsgProxy/NhincProxy/Passthru services -->
     <jaxws:endpoint xmlns:mpds="urn:gov:hhs:fha:nhinc:nhincproxyxdr" id="NhincProxyXDR_g1"
         address="/EntityService/PassthruDocSubmissionUnsecured" serviceName="mpds:ProxyXDR_Service" endpointName="mpds:ProxyXDR_Port"
-        implementor="gov.hhs.fha.nhinc.docsubmission._20.passthru.PassthruDocSubmissionUnsecured_g1" wsdlLocation="/WEB-INF/wsdl/PassthruDocSubmissionUnsecured/NhincProxyXDR.wsdl">
+        implementor="gov.hhs.fha.nhinc.docsubmission._20.passthru.PassthruDocSubmissionUnsecured_g1" wsdlLocation="classpath:wsdl/NhincProxyXDR.wsdl">
     </jaxws:endpoint>
 
     <jaxws:endpoint xmlns:mpdss="urn:gov:hhs:fha:nhinc:nhincproxyxdrsecured" id="NhincProxyXDRSecured_g1"
         address="/EntityService/PassthruDocSubmissionSecured" serviceName="mpdss:ProxyXDRSecured_Service" endpointName="mpdss:ProxyXDRSecured_Port"
-        implementor="gov.hhs.fha.nhinc.docsubmission._20.passthru.PassthruDocSubmissionSecured_g1" wsdlLocation="/WEB-INF/wsdl/PassthruDocSubmissionSecured/NhincProxyXDRSecured.wsdl">
+        implementor="gov.hhs.fha.nhinc.docsubmission._20.passthru.PassthruDocSubmissionSecured_g1" wsdlLocation="classpath:wsdl/NhincProxyXDRSecured.wsdl">
         <jaxws:properties>
             <entry key="ws-security.callback-handler" value="gov.hhs.fha.nhinc.callback.cxf.CXFSAMLCallbackHandler" />
             <entry key="ws-security.signature.properties" value="keystore.properties" />
@@ -86,7 +86,7 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
     <!-- Nhin services -->
     <jaxws:endpoint xmlns:tns="urn:ihe:iti:xdr:2007" id="NhinXDRRequest20" address="/NhinService/XDRRequest_Service"
         serviceName="tns:XDRDeferredRequest20_Service" endpointName="tns:XDRDeferredRequest20_Port_Soap"
-        implementor="gov.hhs.fha.nhinc.docsubmission._20.nhin.deferred.request.NhinXDRRequest20" wsdlLocation="/WEB-INF/wsdl/NhinXDRRequest20/NhinXDRDeferredRequest20.wsdl">
+        implementor="gov.hhs.fha.nhinc.docsubmission._20.nhin.deferred.request.NhinXDRRequest20" wsdlLocation="classpath:wsdl/NhinXDRDeferredRequest20.wsdl">
         <jaxws:properties>
             <entry key="ws-security.callback-handler" value="gov.hhs.fha.nhinc.callback.cxf.CXFSAMLCallbackHandler" />
             <entry key="ws-security.signature.properties" value="keystore.properties" />
@@ -109,14 +109,14 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
         address="/EntityService/EntityDocSubmissionDeferredRequestUnsecured" serviceName="tns:EntityXDRAsyncRequest_Service"
         endpointName="tns:EntityXDRAsyncRequest_Port"
         implementor="gov.hhs.fha.nhinc.docsubmission._20.entity.deferred.request.EntityDocSubmissionDeferredRequestUnsecured_g1"
-        wsdlLocation="/WEB-INF/wsdl/EntityDocSubmissionDeferredRequestUnsecured/EntityXDRRequest.wsdl">
+        wsdlLocation="classpath:wsdl/EntityXDRRequest.wsdl">
     </jaxws:endpoint>
 
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:nhincentityxdrsecured:async:request" id="EntityDocSubmissionDeferredRequestSecured_g1"
         address="/EntityService/EntityDocSubmissionDeferredRequestSecured" serviceName="tns:EntityXDRSecuredAsyncRequest_Service"
         endpointName="tns:EntityXDRSecuredAsyncRequest_Port"
         implementor="gov.hhs.fha.nhinc.docsubmission._20.entity.deferred.request.EntityDocSubmissionDeferredRequestSecured_g1"
-        wsdlLocation="/WEB-INF/wsdl/EntityDocSubmissionDeferredRequestSecured/EntityXDRSecuredRequest.wsdl">
+        wsdlLocation="classpath:wsdl/EntityXDRSecuredRequest.wsdl">
         <jaxws:properties>
             <entry key="ws-security.callback-handler" value="gov.hhs.fha.nhinc.callback.cxf.CXFSAMLCallbackHandler" />
             <entry key="ws-security.signature.properties" value="keystore.properties" />
@@ -132,14 +132,14 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
         address="/EntityService/PassthruDocSubmissionDeferredRequestUnsecured" serviceName="tns:ProxyXDRAsyncRequest_Service"
         endpointName="tns:ProxyXDRAsyncRequest_Port"
         implementor="gov.hhs.fha.nhinc.docsubmission._20.passthru.deferred.request.PassthruDocSubmissionDeferredRequestUnsecured_g1"
-        wsdlLocation="/WEB-INF/wsdl/PassthruDocSubmissionDeferredRequestUnsecured/NhincProxyXDRRequest.wsdl">
+        wsdlLocation="classpath:wsdl/NhincProxyXDRRequest.wsdl">
     </jaxws:endpoint>
 
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:nhincproxyxdrsecured:async:request" id="PassthruDocSubmissionDeferredRequestSecured_g1"
         address="/EntityService/PassthruDocSubmissionDeferredRequestSecured" serviceName="tns:ProxyXDRSecuredAsyncRequest_Service"
         endpointName="tns:ProxyXDRSecuredAsyncRequest_Port"
         implementor="gov.hhs.fha.nhinc.docsubmission._20.passthru.deferred.request.PassthruDocSubmissionDeferredRequestSecured_g1"
-        wsdlLocation="/WEB-INF/wsdl/PassthruDocSubmissionDeferredRequestSecured/NhincProxyXDRSecuredRequest.wsdl">
+        wsdlLocation="classpath:wsdl/NhincProxyXDRSecuredRequest.wsdl">
         <jaxws:properties>
             <entry key="ws-security.callback-handler" value="gov.hhs.fha.nhinc.callback.cxf.CXFSAMLCallbackHandler" />
             <entry key="ws-security.signature.properties" value="keystore.properties" />
@@ -157,7 +157,7 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
     <!-- Nhin services -->
     <jaxws:endpoint xmlns:tns="urn:ihe:iti:xdr:2007" id="NhinXDRResponse20" address="/NhinService/XDRResponse_Service"
         serviceName="tns:XDRDeferredResponse20_Service" endpointName="tns:XDRDeferredResponse20_Port_Soap"
-        implementor="gov.hhs.fha.nhinc.docsubmission._20.nhin.deferred.response.NhinXDRResponse20" wsdlLocation="/WEB-INF/wsdl/NhinXDRResponse20/NhinXDRDeferredResponse20.wsdl">
+        implementor="gov.hhs.fha.nhinc.docsubmission._20.nhin.deferred.response.NhinXDRResponse20" wsdlLocation="classpath:wsdl/NhinXDRDeferredResponse20.wsdl">
         <jaxws:properties>
             <entry key="ws-security.callback-handler" value="gov.hhs.fha.nhinc.callback.cxf.CXFSAMLCallbackHandler" />
             <entry key="ws-security.signature.properties" value="keystore.properties" />
@@ -179,14 +179,14 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
         address="/EntityService/EntityDocSubmissionDeferredResponseUnsecured" serviceName="tns:EntityXDRAsyncResponse_Service"
         endpointName="tns:EntityXDRAsyncResponse_Port"
         implementor="gov.hhs.fha.nhinc.docsubmission._20.entity.deferred.response.EntityDocSubmissionDeferredResponseUnsecured_g1"
-        wsdlLocation="/WEB-INF/wsdl/EntityDocSubmissionDeferredResponseUnsecured/EntityXDRResponse.wsdl">
+        wsdlLocation="classpath:wsdl/EntityXDRResponse.wsdl">
     </jaxws:endpoint>
 
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:nhincentityxdrsecured:async:response" id="EntityDocSubmissionDeferredResponseSecured_g1"
         address="/EntityService/EntityDocSubmissionDeferredResponseSecured" serviceName="tns:EntityXDRSecuredAsyncResponse_Service"
         endpointName="tns:EntityXDRSecuredAsyncResponse_Port"
         implementor="gov.hhs.fha.nhinc.docsubmission._20.entity.deferred.response.EntityDocSubmissionDeferredResponseSecured_g1"
-        wsdlLocation="/WEB-INF/wsdl/EntityDocSubmissionDeferredResponseSecured/EntityXDRSecuredResponse.wsdl">
+        wsdlLocation="classpath:wsdl/EntityXDRSecuredResponse.wsdl">
         <jaxws:properties>
             <entry key="ws-security.callback-handler" value="gov.hhs.fha.nhinc.callback.cxf.CXFSAMLCallbackHandler" />
             <entry key="ws-security.signature.properties" value="keystore.properties" />
@@ -202,14 +202,14 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
         address="/EntityService/PassthruDocSubmissionDeferredResponseUnsecured" serviceName="tns:ProxyXDRAsyncResponse_Service"
         endpointName="tns:ProxyXDRAsyncResponse_Port"
         implementor="gov.hhs.fha.nhinc.docsubmission._20.passthru.deferred.response.PassthruDocSubmissionDeferredResponseUnsecured_g1"
-        wsdlLocation="/WEB-INF/wsdl/PassthruDocSubmissionDeferredResponseUnsecured/NhincProxyXDRResponse.wsdl">
+        wsdlLocation="classpath:wsdl/NhincProxyXDRResponse.wsdl">
     </jaxws:endpoint>
 
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:nhincproxyxdrsecured:async:response" id="PassthruDocSubmissionDeferredResponseSecured_g1"
         address="/EntityService/PassthruDocSubmissionDeferredResponseSecured" serviceName="tns:ProxyXDRSecuredAsyncResponse_Service"
         endpointName="tns:ProxyXDRSecuredAsyncResponse_Port"
         implementor="gov.hhs.fha.nhinc.docsubmission._20.passthru.deferred.response.PassthruDocSubmissionDeferredResponseSecured_g1"
-        wsdlLocation="/WEB-INF/wsdl/PassthruDocSubmissionDeferredResponseSecured/NhincProxyXDRSecuredResponse.wsdl">
+        wsdlLocation="classpath:wsdl/NhincProxyXDRSecuredResponse.wsdl">
         <jaxws:properties>
             <entry key="ws-security.callback-handler" value="gov.hhs.fha.nhinc.callback.cxf.CXFSAMLCallbackHandler" />
             <entry key="ws-security.signature.properties" value="keystore.properties" />
