@@ -1,0 +1,46 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.smartbear.samples</groupId>
+    <artifactId>soapui-maven2-plugin</artifactId>
+    <packaging>jar</packaging>
+    <version>1.0-SNAPSHOT</version>
+    <name>Maven 2 soapUI Sample</name>
+    <url>http://maven.apache.org</url>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>eviwarePluginRepository</id>
+            <url>http://www.soapui.org/repository/maven2/</url>
+        </pluginRepository>
+    </pluginRepositories>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>com.github.redfish4ktc.soapui</groupId>
+                <artifactId>maven-soapui-extension-plugin</artifactId>
+                <version>4.0.0.2</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>mysql</groupId>
+                        <artifactId>mysql-connector-java</artifactId>
+                        <version>5.1.6</version>
+                    </dependency>
+                </dependencies>
+                <executions>
+                    <execution>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>test</goal>
+                        </goals>
+                        <configuration>
+                            <projectFile>1-InternalSelfTest_g0-soapui-project.xml</projectFile>
+                            <projectProperties>
+                                <value>message=Hello World!</value>
+                            </projectProperties>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>
