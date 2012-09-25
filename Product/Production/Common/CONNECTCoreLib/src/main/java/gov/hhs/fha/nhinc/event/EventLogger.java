@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.event;
 
+import java.util.Observable;
 import java.util.Observer;
 
 /**
@@ -33,6 +34,20 @@ import java.util.Observer;
  *
  */
 public abstract class EventLogger implements Observer {
+
+    /* (non-Javadoc)
+     * @see java.util.Observer#update(java.util.Observable, java.lang.Object)
+     */
+    @Override
+    public void update(Observable o, Object arg) {
+        update((Event) o, arg);
+    }
+
+    /**
+     * @param event the event to be logged
+     * @param arg
+     */
+    abstract void update(Event event, Object arg);
 
 
 
