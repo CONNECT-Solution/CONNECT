@@ -34,4 +34,5 @@ public interface Event {
         String getDescription();
         String getEventName();
         String getMessageID();
+        String getTransactionID();
 }

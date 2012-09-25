@@ -48,7 +48,7 @@ public class Log4jEventLogger extends EventLogger {
     @Override
     void update(EventManager manager, Event logEvent) {
         log.info(logEvent.getEventName() + " has triggered. It has messageID " + logEvent.getMessageID()
-                + " and description " + logEvent.getDescription());
+                + ", transactionID " + logEvent.getTransactionID() + "and description " + logEvent.getDescription());
     }
 
     protected void createLogger() {
