@@ -26,12 +26,38 @@
  */
 package gov.hhs.fha.nhinc.event;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 /**
  * @author zmelnick
  *
  */
-public interface Event {
-        String getDescription();
-        String getEventName();
-        String getMessageID();
+public class Log4jEventLogger extends EventLogger {
+    private static Log log = null;
+
+    public Log4jEventLogger() {
+        createLogger();
+    }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see gov.hhs.fha.nhinc.event.EventLogger#update(gov.hhs.fha.nhinc.event.Event, java.lang.Object)
+     */
+    @Override
+    void update(Event logEvent, Object arg) {
+        log.info(logEvent.getEventName() + " has triggered. It has messageID " + logEvent.getMessageID()
+                + " and description " + logEvent.getDescription());
+    }
+
+    protected void createLogger() {
+        log = LogFactory.getLog(getClass());
+    }
+
+    public Log getLog() {
+        return log;
+
+    }
+
 }
