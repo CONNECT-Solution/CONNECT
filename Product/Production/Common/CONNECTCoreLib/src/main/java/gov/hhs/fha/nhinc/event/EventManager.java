@@ -33,6 +33,14 @@ import java.util.Observable;
  *
  */
 public class EventManager extends Observable {
+    private EventManager eventManager;
+
+    private EventManager() {
+    }
+
+    public EventManager getInstance() {
+        return eventManager == null ? new EventManager() : eventManager;
+    }
 
     public void recordEvent(Event event) {
         this.notifyObservers(event);
@@ -41,6 +49,5 @@ public class EventManager extends Observable {
     public void registerLogger(EventLogger eventLogger) {
         this.addObserver(eventLogger);
     }
-
 
 }
