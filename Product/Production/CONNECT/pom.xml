@@ -10,6 +10,7 @@
     <packaging>ear</packaging>
     <name>CONNECT</name>
     <properties>
+        <skip.unpack>true</skip.unpack>
     </properties>
     <dependencies>
         <dependency>

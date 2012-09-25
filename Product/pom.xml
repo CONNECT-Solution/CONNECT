@@ -8,7 +8,10 @@
     <packaging>pom</packaging>
     <properties>
         <cxf.version>2.6.1</cxf.version>
-        <cobertura.check.haltOnFailure>true</cobertura.check.haltOnFailure>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <connect.common.properties>Dev</connect.common.properties>
+
+        <cobertura.check.haltOnFailure>false</cobertura.check.haltOnFailure>
         <cobertura.totalBranchRate>85</cobertura.totalBranchRate>
         <cobertura.totalLineRate>85</cobertura.totalLineRate>
     </properties>
@@ -142,4 +145,20 @@
     </reporting>
     <repositories>
     </repositories>
+    <profiles>
+        <profile>
+            <id>quick</id>
+            <properties>
+                <checkstyle.skip>true</checkstyle.skip>
+                <maven.skip.test>true</maven.skip.test>
+            </properties>
+        </profile>
+        <profile>
+            <id>site</id>
+            <properties>
+                <skip.unpack>true</skip.unpack>
+            </properties>
+            <build></build>
+        </profile>
+    </profiles>
 </project>
