@@ -10,7 +10,6 @@
     xmlns:nhin="http://www.hhs.gov/healthit/nhin" name="AdapterComponentMpiSecured" targetNamespace="urn:gov:hhs:fha:nhinc:adaptercomponentmpi">
     <wsdl:types>
         <xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:adaptercomponentmpi">
-            <xsd:import namespace="urn:hl7-org:v3" schemaLocation="../schemas/nhinc/hl7/HL7PatientDiscoveryMessages.xsd"/>
             <xsd:import namespace="urn:hl7-org:v3" schemaLocation="../schemas/HL7V3/NE2008/multicacheschemas/PRPA_IN201306UV02.xsd"/>
             <xsd:import namespace="urn:hl7-org:v3" schemaLocation="../schemas/HL7V3/NE2008/multicacheschemas/PRPA_IN201305UV02.xsd"/>
             <xsd:import schemaLocation="../schemas/nhin/PatientDiscoveryFault.xsd" namespace="http://www.hhs.gov/healthit/nhin"/>
