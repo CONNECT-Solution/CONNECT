@@ -508,15 +508,33 @@ public class WebServiceProxyHelper {
 
     }
 
-
     /**
      * Add a target home community to the port object.
      * @param port The port to add the property to
      * @param targetSystem The targetSystem of the request
      */
     public void addTargetCommunity(BindingProvider port, NhinTargetSystemType targetSystem) {
-        ((BindingProvider)port).getRequestContext().put(NhincConstants.WS_SOAP_TARGET_HOME_COMMUNITY_ID,
+        port.getRequestContext().put(NhincConstants.WS_SOAP_TARGET_HOME_COMMUNITY_ID,
             HomeCommunityMap.getCommunityIdFromTargetSystem(targetSystem));
     }
+
+    /**
+     * Add a target api level to the port object.
+     * @param port The port to add the property to
+     * @param apiLevel the target api level to add.
+     */
+    public void addTargetApiLevel(BindingProvider port, GATEWAY_API_LEVEL apiLevel) {
+        port.getRequestContext().put(NhincConstants.TARGET_API_LEVEL, apiLevel);
+    }
+
+    /**
+     * Add service name to the port object.
+     * @param port The port to add the property to
+     * @param apiLevel the target api level to add.
+     */
+    public void addServiceName(BindingProvider port, String serviceName) {
+        port.getRequestContext().put(NhincConstants.ACTION_PROP, serviceName);
+    }
+    
     
 }

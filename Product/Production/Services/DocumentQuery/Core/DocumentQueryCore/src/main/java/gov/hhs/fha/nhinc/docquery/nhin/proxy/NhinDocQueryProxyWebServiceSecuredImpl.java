@@ -106,6 +106,7 @@ public class NhinDocQueryProxyWebServiceSecuredImpl implements NhinDocQueryProxy
 
             WebServiceProxyHelper wsHelper = new WebServiceProxyHelper();
             wsHelper.addTargetCommunity((BindingProvider) client.getPort(), target);
+            wsHelper.addServiceName((BindingProvider) client.getPort(), NhincConstants.DOC_QUERY_SERVICE_NAME);
 
             response = (AdhocQueryResponse) client.invokePort(RespondingGatewayQueryPortType.class,
                     "respondingGatewayCrossGatewayQuery", request);

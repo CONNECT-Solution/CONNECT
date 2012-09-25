@@ -98,6 +98,9 @@ public class NhinDocSubmissionDeferredResponseProxyWebServiceSecuredImpl impleme
 
                 WebServiceProxyHelper wsHelper = new WebServiceProxyHelper();
                 wsHelper.addTargetCommunity((BindingProvider) client.getPort(), target);
+                wsHelper.addServiceName((BindingProvider) client.getPort(), 
+                        NhincConstants.NHINC_XDR_RESPONSE_SERVICE_NAME);
+
 
                 response = (XDRAcknowledgementType) client.invokePort(XDRDeferredResponsePortType.class,
                         "provideAndRegisterDocumentSetBDeferredResponse", request);

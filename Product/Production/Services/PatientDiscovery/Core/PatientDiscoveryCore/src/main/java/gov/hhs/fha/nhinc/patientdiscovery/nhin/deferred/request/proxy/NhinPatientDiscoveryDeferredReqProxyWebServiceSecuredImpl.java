@@ -91,6 +91,8 @@ public class NhinPatientDiscoveryDeferredReqProxyWebServiceSecuredImpl implement
                             .getCONNECTClientSecured(portDescriptor, url, assertion);
                     
                     oProxyHelper.addTargetCommunity((BindingProvider) client.getPort(), target);
+                    oProxyHelper.addServiceName((BindingProvider) client.getPort(), 
+                            NhincConstants.PATIENT_DISCOVERY_DEFERRED_REQ_SERVICE_NAME);
                     
                     response = (MCCIIN000002UV01) client.invokePort(RespondingGatewayDeferredRequestPortType.class,
                             "respondingGatewayDeferredPRPAIN201305UV02", request);

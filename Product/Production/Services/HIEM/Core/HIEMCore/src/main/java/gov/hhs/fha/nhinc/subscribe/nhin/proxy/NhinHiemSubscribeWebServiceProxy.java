@@ -36,6 +36,7 @@ import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
 import gov.hhs.fha.nhinc.subscribe.nhin.proxy.service.NhinHiemSubscribeServicePortDescriptor;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 
@@ -79,6 +80,9 @@ public class NhinHiemSubscribeWebServiceProxy implements NhinHiemSubscribeProxy 
 
                 WebServiceProxyHelper wsHelper = new WebServiceProxyHelper();
                 wsHelper.addTargetCommunity((BindingProvider) client.getPort(), target);
+                wsHelper.addTargetApiLevel((BindingProvider) client.getPort(), GATEWAY_API_LEVEL.LEVEL_g0);
+                wsHelper.addServiceName((BindingProvider) client.getPort(), 
+                        NhincConstants.HIEM_SUBSCRIBE_SERVICE_NAME);
                 
                 response = (SubscribeResponse) client.invokePort(NotificationProducer.class, "subscribe", subscribe);
             }

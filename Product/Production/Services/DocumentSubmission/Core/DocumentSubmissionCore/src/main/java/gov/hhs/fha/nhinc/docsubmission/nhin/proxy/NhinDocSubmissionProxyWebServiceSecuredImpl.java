@@ -88,6 +88,9 @@ public class NhinDocSubmissionProxyWebServiceSecuredImpl implements NhinDocSubmi
 
             WebServiceProxyHelper wsHelper = new WebServiceProxyHelper();
             wsHelper.addTargetCommunity((BindingProvider) client.getPort(), targetSystem);
+            wsHelper.addServiceName((BindingProvider) client.getPort(), 
+                    NhincConstants.NHINC_XDR_SERVICE_NAME);
+            
 
             response = (RegistryResponseType) client.invokePort(DocumentRepositoryXDRPortType.class,
                     "documentRepositoryProvideAndRegisterDocumentSetB", request);

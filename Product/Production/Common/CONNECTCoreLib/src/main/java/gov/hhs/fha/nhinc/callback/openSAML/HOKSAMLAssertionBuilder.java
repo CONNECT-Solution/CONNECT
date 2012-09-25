@@ -520,11 +520,11 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
 		 */
 		if (isPurposeForUseEnabled(properties)) {
 			statements = OpenSAML2ComponentBuilder.getInstance()
-					.createPurposeOfUseAttributeStatements(purposeCode, purposeSystem,
+					.createPurposeForUseAttributeStatements(purposeCode, purposeSystem,
 							purposeSystemName, purposeDisplay);
 		} else {
 			statements = OpenSAML2ComponentBuilder.getInstance()
-					.createPurposeForUseAttributeStatements(purposeCode, purposeSystem,
+					.createPurposeOfUseAttributeStatements(purposeCode, purposeSystem,
 							purposeSystemName, purposeDisplay);
 		}
 

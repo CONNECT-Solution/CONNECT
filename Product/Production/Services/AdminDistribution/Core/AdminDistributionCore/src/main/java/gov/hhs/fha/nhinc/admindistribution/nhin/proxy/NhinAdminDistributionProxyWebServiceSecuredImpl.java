@@ -99,6 +99,7 @@ public class NhinAdminDistributionProxyWebServiceSecuredImpl implements NhinAdmi
 
         if (NullChecker.isNotNullish(url)) {
             
+            
             auditMessage(body, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
             
             try {
@@ -110,6 +111,9 @@ public class NhinAdminDistributionProxyWebServiceSecuredImpl implements NhinAdmi
 
                 WebServiceProxyHelper wsHelper = new WebServiceProxyHelper();
                 wsHelper.addTargetCommunity((BindingProvider) client.getPort(), target);
+                wsHelper.addTargetApiLevel((BindingProvider) client.getPort(), apiLevel);
+                wsHelper.addServiceName((BindingProvider) client.getPort(), 
+                        NhincConstants.NHIN_ADMIN_DIST_SERVICE_NAME);
 
                 client.invokePort(RespondingGatewayAdministrativeDistributionPortType.class, "sendAlertMessage", body);
             } catch (Exception ex) {

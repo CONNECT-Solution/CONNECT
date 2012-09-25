@@ -120,6 +120,8 @@ public class NhinDocRetrieveProxyWebServiceSecuredImpl implements NhinDocRetriev
 
                     WebServiceProxyHelper wsHelper = new WebServiceProxyHelper();
                     wsHelper.addTargetCommunity((BindingProvider) client.getPort(), targetSystem);
+                    wsHelper.addServiceName((BindingProvider) client.getPort(), 
+                            NhincConstants.DOC_RETRIEVE_SERVICE_NAME);
 
                     response = (RetrieveDocumentSetResponseType) client.invokePort(
                             RespondingGatewayRetrievePortType.class, "respondingGatewayCrossGatewayRetrieve", request);

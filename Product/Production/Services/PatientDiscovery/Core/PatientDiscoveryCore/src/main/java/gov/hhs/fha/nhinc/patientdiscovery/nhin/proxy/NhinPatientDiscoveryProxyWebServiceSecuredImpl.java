@@ -109,6 +109,8 @@ public class NhinPatientDiscoveryProxyWebServiceSecuredImpl implements NhinPatie
                             NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, targetCommunityId);
 
                     oProxyHelper.addTargetCommunity((BindingProvider) client.getPort(), target);
+                    oProxyHelper.addServiceName((BindingProvider) client.getPort(), 
+                            NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME);
                     
                     response = (PRPAIN201306UV02) client.invokePort(RespondingGatewayPortType.class,
                             "respondingGatewayPRPAIN201305UV02", request);
