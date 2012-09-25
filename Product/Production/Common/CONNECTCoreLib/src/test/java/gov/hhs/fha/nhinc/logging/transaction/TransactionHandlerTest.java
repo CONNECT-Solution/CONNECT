@@ -142,7 +142,7 @@ public class TransactionHandlerTest {
 	}
 	
 	/**
-	 * Test of TransactionHandler.handleMessage() with replyTo and message elements
+	 * Test of TransactionHandler.handleMessage() with relatesTo and message elements
 	 * in the soap message and a corresponding transaction id in the database.
 	 */
 	@Test
@@ -171,7 +171,7 @@ public class TransactionHandlerTest {
 	}
 	
 	/**
-	 * Test of TransactionHandler.handleMessage() with replyTo and message elements
+	 * Test of TransactionHandler.handleMessage() with relatesTo and message elements
 	 * in the soap message but no corresponding transaction id in the database.
 	 */
 	@Test
