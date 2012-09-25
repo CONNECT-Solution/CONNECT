@@ -40,14 +40,14 @@ public abstract class EventLogger implements Observer {
      */
     @Override
     public void update(Observable o, Object arg) {
-        update((Event) o, arg);
+        update((EventManager) o, (Event) arg);
     }
 
     /**
      * @param event the event to be logged
      * @param arg
      */
-    abstract void update(Event event, Object arg);
+    abstract void update(EventManager manager, Event event);
 
 
 
