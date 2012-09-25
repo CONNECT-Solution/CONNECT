@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<bindings version="2.1" xmlns="http://java.sun.com/xml/ns/jaxb">
+  
+  <bindings scd="x-schema::tns" xmlns:tns="urn:gov:hhs:fha:nhinc:common:patientcorrelationfacade" if-exists="">
+    <schemaBindings map="false">
+      <package name="gov.hhs.fha.nhinc.common.patientcorrelationfacade"/>
+    </schemaBindings>
+    <bindings scd="~tns:RemovePatientCorrelationRequestType">
+      <class ref="gov.hhs.fha.nhinc.common.patientcorrelationfacade.RemovePatientCorrelationRequestType"/>
+    </bindings>
+    <bindings scd="~tns:AddPatientCorrelationRequestType">
+      <class ref="gov.hhs.fha.nhinc.common.patientcorrelationfacade.AddPatientCorrelationRequestType"/>
+    </bindings>
+    <bindings scd="~tns:RetrievePatientCorrelationsRequestType">
+      <class ref="gov.hhs.fha.nhinc.common.patientcorrelationfacade.RetrievePatientCorrelationsRequestType"/>
+    </bindings>
+    <bindings scd="~tns:RemovePatientCorrelationResponseType">
+      <class ref="gov.hhs.fha.nhinc.common.patientcorrelationfacade.RemovePatientCorrelationResponseType"/>
+    </bindings>
+    <bindings scd="~tns:AddPatientCorrelationResponseType">
+      <class ref="gov.hhs.fha.nhinc.common.patientcorrelationfacade.AddPatientCorrelationResponseType"/>
+    </bindings>
+    <bindings scd="~tns:RetrievePatientCorrelationsResponseType">
+      <class ref="gov.hhs.fha.nhinc.common.patientcorrelationfacade.RetrievePatientCorrelationsResponseType"/>
+    </bindings>
+  </bindings>
+ 
+</bindings>

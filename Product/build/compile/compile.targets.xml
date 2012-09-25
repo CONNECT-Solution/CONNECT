@@ -254,7 +254,7 @@
     </if>
   </target>
 
-  <target name="copy.wsdl.to.web-inf">
+ <target name="copy.wsdl.to.web-inf">
     <if>
       <equals arg1="${dist.type}" arg2="war"/>
       <then>

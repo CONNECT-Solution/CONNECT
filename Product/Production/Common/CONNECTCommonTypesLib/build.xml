@@ -1,240 +1,262 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project basedir="." default="package.create" name="CONNECTCommonTypesLib">
 
-  <dirname property="CONNECTCommonTypesLib.basedir" file="${ant.file.CONNECTCommonTypesLib}"/>
-  <property name="CONNECTCommonTypesLib.thirdparty.dir" location="${CONNECTCommonTypesLib.basedir}/../../../../ThirdParty"/>
+    <dirname property="CONNECTCommonTypesLib.basedir" file="${ant.file.CONNECTCommonTypesLib}" />
+    <property name="CONNECTCommonTypesLib.thirdparty.dir"
+              location="${CONNECTCommonTypesLib.basedir}/../../../../ThirdParty" />
 
-  <property name="dist.type" value="jar" />
-  <property name="coverage.isneeded" value="false" />
-  <property name="unittest.hasTests" value="false" />
-  <property name="deploy.type" value="shared" />
-  <property name="deploy.isDeployable" value="true"/>
-  <property name="build.generated.dir" value="build.generated/generated/client"/>
-  <property name="build.wsdl.output.dir" value="build.wsdl.output.dir/wsdl"/>
-  <property name="cxf.home" location ="${CONNECTCommonTypesLib.thirdparty.dir}/CXF/"/>
+    <property name="dist.type" value="jar" />
+    <property name="coverage.isneeded" value="false" />
+    <property name="unittest.hasTests" value="false" />
+    <property name="deploy.type" value="shared" />
+    <property name="deploy.isDeployable" value="true" />
+    <property name="build.generated.dir" value="build.generated/generated/client" />
+    <property name="build.wsdl.output.dir" value="build.wsdl.output.dir/wsdl" />
+    <property name="cxf.home" location="${CONNECTCommonTypesLib.thirdparty.dir}/CXF/" />
 
-  <!-- Please make sure that this goes up to the correct directory -->
-  <import file="../../../build/build.targets.xml" />
+    <!-- Please make sure that this goes up to the correct directory -->
+    <import file="../../../build/build.targets.xml" />
 
-  <!-- You can add more or less wsld files here... -->
-  <patternset id="schema.list">
-    <include name="nhinc/**/*.xsd"/>
-    <include name="docs.oasis-open.org/**/*.xsd"/>
-    <include name="ebRS/**/*.xsd"/>
-    <include name="ihe/**/*.xsd"/>
-    <include name="nhin/**/*.xsd"/>
-    <include name="oasis/**/*.xsd"/>
-    <include name="uddi/uddi_v3.xsd"/>
-    <include name="uddi/uddi_v3custody.xsd"/>
-    <include name="uddi/uddi_v3policy_instanceParms.xsd"/>
-    <include name="uddi/uddi_v3subscriptionListener.xsd"/>
-    <include name="uddi/uddi_v3subscription.xsd"/>
-    <include name="www.w3.org/**/*.xsd"/>
-    <include name="xmlsoap.org/**/*.xsd"/>
-    <include name="Endpoint/**/*.xsd"/>
-  </patternset>
-
-  <path id="cxf.classpath">
-      <fileset dir="${cxf.home}">
-         <include name="*.jar"/>
-      </fileset>
-  </path>
-
-  <path id="wsdl.list">
     <!-- You can add more or less wsld files here... -->
-    <fileset dir="../Interfaces/src/wsdl">
-      <include name="*.wsdl" />
-      <exclude name="NhinUddiSubrV3PortType.wsdl" />
-      <exclude name="NhincComponentInternalSubDiscovery201309Orch.wsdl" />
-      <exclude name="rw-2.wsdl" />
-      <exclude name="uddi_api_v3_binding.wsdl" />
-      <exclude name="uddi_api_v3_portType.wsdl" />
-      <exclude name="uddi_custody_v3_binding.wsdl" />
-      <exclude name="uddi_custody_v3_portType.wsdl" />
-      <exclude name="uddi_repl_v3_binding.wsdl" />
-      <exclude name="uddi_repl_v3_portType.wsdl" />
-      <exclude name="uddi_sub_v3_binding.wsdl" />
-      <exclude name="uddi_sub_v3_portType.wsdl" />
-      <exclude name="uddi_subr_v3_binding.wsdl" />
-      <exclude name="uddi_subr_v3_portType.wsdl" />
-      <exclude name="uddi_vs_v3_binding.wsdl" />
-      <exclude name="uddi_vs_v3_portType.wsdl" />
-      <exclude name="uddi_vscache_v3_binding.wsdl" />
-      <exclude name="uddi_vscache_v3_portType.wsdl" />
-      <!-- not WS-I Basic -->
-      <exclude name="DoDConnector.wsdl" />
-    </fileset>
-  </path>
-
-  <taskdef name="WsImportConnect" classname="gov.hhs.fha.nhinc.tools.ws.ant.WsImportConnect">
-    <classpath>
-      <fileset dir="${CONNECTCommonTypesLib.thirdparty.dir}/AntExtraLibs">
-        <include name="*.jar"/>
-      </fileset>
-    </classpath>
-  </taskdef>
-  
-  <taskdef name="xjc" classname="com.sun.tools.xjc.XJCTask">
-    <classpath>
-      <fileset dir="${CONNECTCommonTypesLib.thirdparty.dir}/AntExtraLibs">
-        <include name="*.jar"/>
-      </fileset>
-    </classpath>
-  </taskdef>
-  
-  <target name="just.quick.clean">
-    <if>
-      <not>
-        <isset property="delete.commontypes.lib" />
-      </not>
-      <then>
-          <delete dir="${build.dir.root}" failonerror="true" />
-          <delete dir="${dist.root.dir}" failonerror="true" />
-      </then>
-    </if>
-  </target>
-
-  <target name="just.clean" depends="just.quick.clean">
-    <if>
-      <not>
-        <isset property="delete.commontypes.lib" />
-      </not>
-      <then>
-          <delete dir="${lib.dir}" failonerror="true" />
-          <delete dir="${build.generated.dir}" failonerror="true" />
-          <delete dir="${build.wsdl.output.dir}" failonerror="true"/>
-      </then>
-    </if>
-  </target>
-
-  <target name="-compile.source">
-    <echo message="compile.source for ${project.name}" level="info"/>
-    <mkdir dir="${build.classes.dir}" />
-    <mkdir dir="${build.generated.dir}"/>
-    <mkdir dir="${build.wsdl.output.dir}"/>
-    <call target="generate.proxies.wsdl"/>
-    <call target="generate.proxies.xjc"/>
-    <call target="copy.util.src"/>
-    <javac srcdir="${build.generated.dir}" destdir="${build.classes.dir}"/>
-    <copy todir="${build.classes.dir}/META-INF/wsdl" overwrite="true">
-        <path refid="wsdl.list" />
-    </copy>
-  </target>
-
-  <target name="-quick.compile.source">
-    <echo message="quick compile.source for ${project.name}" level="info"/>
-    <mkdir dir="${build.classes.dir}" />
-    <call target="copy.util.src"/>
-    <javac srcdir="${build.generated.dir}" destdir="${build.classes.dir}"/>
-  </target>
-
-  <target name="copy.util.src">
-    <copy todir="${build.generated.dir}" overwrite="true">
-      <fileset dir="src/main/java">
-        <include name="**/*.java"/>
-      </fileset>
-    </copy>
-  </target>
-
-  <target name="generate.proxies.xjc">
-    <outofdate verbose="true" force="${force.package}">
-      <sourcefiles >
-        <fileset dir="../Interfaces/src/schemas" >
-          <patternset refid="schema.list"/>
+    <path id="schema.list">
+        <fileset dir="../Interfaces/src/schemas">
+            <include name="nhinc/**/*.xsd" />
+            <include name="docs.oasis-open.org/**/*.xsd" />
+            <include name="ebRS/**/*.xsd" />
+            <include name="ihe/**/*.xsd" />
+            <include name="nhin/**/*.xsd" />
+            <include name="oasis/**/*.xsd" />
+            <include name="uddi/uddi_v3.xsd" />
+            <include name="uddi/uddi_v3custody.xsd" />
+            <include name="uddi/uddi_v3policy_instanceParms.xsd" />
+            <include name="uddi/uddi_v3subscriptionListener.xsd" />
+            <include name="uddi/uddi_v3subscription.xsd" />
+            <include name="www.w3.org/**/*.xsd" />
+            <!--   <include name="xmlsoap.org/**/*.xsd" /> -->
+            <include name="Endpoint/**/*.xsd" />
         </fileset>
-      </sourcefiles>
-      <targetfiles path="${build.dir.root}/compilexjc.flag"/>
-      <sequential>
-        <xjc destdir="${build.generated.dir}" >
-          <arg value="-xmlschema"/>
-          <schema dir="../Interfaces/src/schemas">
-            <patternset refid="schema.list"/>
-          </schema>
-        </xjc>
-        <echo file="${build.dir.root}/compilexjc.flag" append="false"/>
-      </sequential>
-    </outofdate>
-  </target>
-  
-  <target name="generate.proxies.wsdl">
-    <outofdate verbose="true" force="${force.package}">
-      <sourcefiles>
-        <path refid="wsdl.list"/>
-      </sourcefiles>
-      <targetfiles path="${build.dir.root}/compilewsdl.flag"/>          
-      <sequential>
-        <for param="wsdl.file.path">
-          <path refid="wsdl.list"/>
-          <sequential>
-            <var name="wsdl.file" unset="true"/>
-            <basename property="wsdl.file" file="@{wsdl.file.path}" />             
-              <basename property="file.basename" file="@{wsdl.file.path}" suffix=".wsdl"/>
-              <java classname="org.apache.cxf.tools.wsdlto.WSDLToJava" fork="true">
-				 <arg value="-client"/>
-                 <arg value="-wsdlLocation"/>
-                 <arg value="META-INF/wsdl/${wsdl.file}"/>                          
-                 <arg value="-noAddressBinding"/>
-                 <arg value="-dns"/>
-				 <arg value="false"/>
-				 <arg value="-verbose"/>
-				 <arg value="-mark-generated"/>
-                 <arg value="-d"/>
-                 <arg value="${build.generated.dir}"/>
-             	 <arg value="@{wsdl.file.path}"/>
-				 <classpath>
-					<path refid="cxf.classpath"/>
-				 </classpath>
-				 <jvmarg line="-Xmx1024m -Xms1024m"/>
-			  </java>
-          </sequential>
-        </for>  
-        <echo file="${build.dir.root}/compilewsdl.flag" append="false"/>
-      </sequential>
-    </outofdate>
-  </target>  
-  
-  <target name="generate.proxies.wsdl.metro">
-    <outofdate verbose="true" force="${force.package}">
-      <sourcefiles>
-        <path refid="wsdl.list"/>
-      </sourcefiles>
-      <targetfiles path="${build.dir.root}/compilewsdl.flag"/>
-      <sequential>
-        <for param="wsdl.file.path">
-          <path refid="wsdl.list"/>
-          <sequential>
-            <var name="wsdl.file" unset="true"/>
-            <basename property="wsdl.file" file="@{wsdl.file.path}" />
-        <java classname="gov.hhs.fha.nhinc.tools.ws.WsImportConnect"
-           fork="true"
-           failonerror="true">
-        <arg value="-d"/>
-        <arg value="${build.wsdl.output.dir}"/>
-        <arg value="-extension"/>
-        <arg value="-Xnocompile"/>
-        <arg value="-keep"/>    
-        <arg value="-s"/>
-        <arg value="${build.generated.dir}"/>
-        <arg value="-verbose"/>         
-        <arg value="@{wsdl.file.path}"/>            
-        <arg value="-wsdllocation"/>
-        <arg value="META-INF/wsdl/${wsdl.file}"/>
-        <jvmarg line="-Xmx1024m -Xms1024m"/>
+    </path>
+
+    <path id="cxf.classpath">
+        <pathelement location="${build.generated.dir}" />
+        <fileset dir="${cxf.home}">
+            <include name="*.jar" />
+        </fileset>
+    </path>
+
+    <path id="wsdl.list">
+        <!-- You can add more or less wsld files here... -->
+        <fileset dir="../Interfaces/src/wsdl">
+            <include name="*.wsdl" />
+            <exclude name="NhinUddiSubrV3PortType.wsdl" />
+            <exclude name="NhincComponentInternalSubDiscovery201309Orch.wsdl" />
+            <exclude name="rw-2.wsdl" />
+            <exclude name="uddi_api_v3_binding.wsdl" />
+            <exclude name="uddi_api_v3_portType.wsdl" />
+            <exclude name="uddi_custody_v3_binding.wsdl" />
+            <exclude name="uddi_custody_v3_portType.wsdl" />
+            <exclude name="uddi_repl_v3_binding.wsdl" />
+            <exclude name="uddi_repl_v3_portType.wsdl" />
+            <exclude name="uddi_sub_v3_binding.wsdl" />
+            <exclude name="uddi_sub_v3_portType.wsdl" />
+            <exclude name="uddi_subr_v3_binding.wsdl" />
+            <exclude name="uddi_subr_v3_portType.wsdl" />
+            <exclude name="uddi_vs_v3_binding.wsdl" />
+            <exclude name="uddi_vs_v3_portType.wsdl" />
+            <exclude name="uddi_vscache_v3_binding.wsdl" />
+            <exclude name="uddi_vscache_v3_portType.wsdl" />
+            <!-- not WS-I Basic -->
+            <exclude name="DoDConnector.wsdl" />
+        </fileset>
+    </path>
+
+    <taskdef name="WsImportConnect" classname="gov.hhs.fha.nhinc.tools.ws.ant.WsImportConnect">
         <classpath>
-            <pathelement path="${CONNECTCommonTypesLib.thirdparty.dir}/AntExtraLibs/agilex-ant-tasks.jar"/>
-            <pathelement path="${CONNECTCommonTypesLib.thirdparty.dir}/AntExtraLibs/webservices-rt.jar"/>
-            <pathelement path="${CONNECTCommonTypesLib.thirdparty.dir}/AntExtraLibs/jaxb-impl.jar"/>
-            <pathelement path="${CONNECTCommonTypesLib.thirdparty.dir}/AntExtraLibs/jaxb-xjc.jar"/>
-            <pathelement path="${CONNECTCommonTypesLib.thirdparty.dir}/AntExtraLibs/jaxws-api.jar"/>
-            <pathelement path="${CONNECTCommonTypesLib.thirdparty.dir}/AntExtraLibs/jaxws-rt.jar"/>
-            <pathelement path="${CONNECTCommonTypesLib.thirdparty.dir}/AntExtraLibs/jaxws-tools.jar"/>
+            <fileset dir="${CONNECTCommonTypesLib.thirdparty.dir}/AntExtraLibs">
+                <include name="*.jar" />
+            </fileset>
         </classpath>
-        </java>
-          </sequential>
-        </for>  
-        <echo file="${build.dir.root}/compilewsdl.flag" append="false"/>
-      </sequential>
-    </outofdate>
-  </target>  
-  
+    </taskdef>
+    <taskdef name="cxfxjc" classname="com.sun.tools.xjc.XJCTask">
+        <classpath>
+            <pathelement path="${CONNECTCommonTypesLib.thirdparty.dir}/CXF/jaxb-xjc-2.2.5.jar" />
+            <pathelement path="${CONNECTCommonTypesLib.thirdparty.dir}/CXF/jaxb-impl-2.2.5.jar" />
+            <pathelement path="${CONNECTCommonTypesLib.thirdparty.dir}/CXF/jaxb-api-2.2.6.jar" />
+            <pathelement path="${CONNECTCommonTypesLib.thirdparty.dir}/CXF/cxf-xjc-runtime-2.6.0.jar" />
+            <pathelement path="${CONNECTCommonTypesLib.thirdparty.dir}/CXF/cxf-xjc-ts-2.6.0.jar" />
+            <pathelement path="${CONNECTCommonTypesLib.thirdparty.dir}/CXF/cxf-xjc-boolean-2.6.0.jar" />
+            <pathelement path="${CONNECTCommonTypesLib.thirdparty.dir}/CXF/cxf-xjc-bug671-2.6.0.jar" />
+            <pathelement path="${CONNECTCommonTypesLib.thirdparty.dir}/CXF/cxf-xjc-dv-2.6.0.jar" />
+        </classpath>
+    </taskdef>
+
+    <target name="just.quick.clean">
+        <if>
+            <not>
+                <isset property="delete.commontypes.lib" />
+            </not>
+            <then>
+                <delete dir="${build.dir.root}" failonerror="true" />
+                <delete dir="${dist.root.dir}" failonerror="true" />
+            </then>
+        </if>
+    </target>
+
+    <target name="just.clean" depends="just.quick.clean">
+        <if>
+            <not>
+                <isset property="delete.commontypes.lib" />
+            </not>
+            <then>
+                <delete dir="${lib.dir}" failonerror="true" />
+                <delete dir="${build.generated.dir}" failonerror="true" />
+                <delete dir="${build.wsdl.output.dir}" failonerror="true" />
+            </then>
+        </if>
+    </target>
+
+    <target name="-compile.source">
+        <echo message="compile.source for ${project.name}" level="info" />
+        <mkdir dir="${build.classes.dir}" />
+        <mkdir dir="${build.generated.dir}" />
+        <mkdir dir="${build.wsdl.output.dir}" />
+        <call target="generate.proxies.wsdl" />
+        <call target="generate.proxies.xjc" />
+        <call target="copy.util.src" />
+        <javac srcdir="${build.generated.dir}" destdir="${build.classes.dir}" />
+        <!--
+          <copy todir="${build.classes.dir}/META-INF/wsdl" overwrite="true">
+            <path refid="wsdl.list" />
+         </copy>
+         -->
+    </target>
+
+    <target name="-quick.compile.source">
+        <echo message="quick compile.source for ${project.name}" level="info" />
+        <mkdir dir="${build.classes.dir}" />
+        <call target="copy.util.src" />
+        <javac srcdir="${build.generated.dir}" destdir="${build.classes.dir}" />
+    </target>
+
+    <target name="copy.util.src">
+        <copy todir="${build.generated.dir}" overwrite="true">
+            <fileset dir="src/main/java">
+                <include name="**/*.java" />
+            </fileset>
+        </copy>
+    </target>
+
+    <target name="generate.proxies.xjc">
+        <outofdate verbose="true" force="${force.package}">
+            <sourcefiles>
+                <path refid="schema.list" />
+            </sourcefiles>
+            <targetfiles path="${build.dir.root}/compilexjc.flag" />
+            <sequential>
+                <cxfxjc destdir="${build.generated.dir}">
+                    <arg value="-xmlschema" />
+                    <arg value="-mark-generated" />
+                    <schema dir="../Interfaces/src/schemas">
+                            <include name="nhinc/**/*.xsd" />
+                            <include name="docs.oasis-open.org/**/*.xsd" />
+                            <include name="ebRS/**/*.xsd" />
+                            <include name="ihe/**/*.xsd" />
+                            <include name="nhin/**/*.xsd" />
+                            <include name="oasis/**/*.xsd" />
+                            <include name="uddi/uddi_v3.xsd" />
+                            <include name="uddi/uddi_v3custody.xsd" />
+                            <include name="uddi/uddi_v3policy_instanceParms.xsd" />
+                            <include name="uddi/uddi_v3subscriptionListener.xsd" />
+                            <include name="uddi/uddi_v3subscription.xsd" />
+                            <include name="www.w3.org/**/*.xsd" />
+                            <!--   <include name="xmlsoap.org/**/*.xsd" /> -->
+                            <include name="Endpoint/**/*.xsd" />
+                    </schema>
+                </cxfxjc>
+            </sequential>
+        </outofdate>
+    </target>
+
+    <target name="generate.proxies.wsdl">
+        <outofdate verbose="true" force="${force.package}">
+            <sourcefiles>
+                <path refid="wsdl.list" />
+            </sourcefiles>
+            <targetfiles path="${build.dir.root}/compilewsdl.flag" />
+            <sequential>
+                <for param="wsdl.file.path">
+                    <path refid="wsdl.list" />
+                    <sequential>
+                        <var name="wsdl.file" unset="true" />
+                        <basename property="wsdl.file" file="@{wsdl.file.path}" />
+                        <basename property="file.basename" file="@{wsdl.file.path}" suffix=".wsdl" />
+                        <java classname="org.apache.cxf.tools.wsdlto.WSDLToJava" fork="true">
+                            <arg value="-client" />
+                            <arg value="-wsdlLocation" />
+                            <arg value="META-INF/wsdl/${wsdl.file}" />
+                            <arg value="-noAddressBinding" />
+                            <arg value="-dns" />
+                            <arg value="false" />
+                            <arg value="-verbose" />
+                         <!--   <arg value="-b" />
+                            <arg value="src/main/resources/org.hl7.v3.xjb" />
+                            -->
+                            <arg value="-mark-generated" />
+                            <arg value="-d" />
+                            <arg value="${build.generated.dir}" />
+                            <arg value="@{wsdl.file.path}" />
+                            <classpath>
+                                <path refid="cxf.classpath" />
+                            </classpath>
+                            <jvmarg line="-Xmx1024m -Xms1024m" />
+                        </java>
+                    </sequential>
+                </for>
+                <echo file="${build.dir.root}/compilewsdl.flag" append="false" />
+            </sequential>
+        </outofdate>
+    </target>
+
+    <target name="generate.proxies.wsdl.metro">
+        <outofdate verbose="true" force="${force.package}">
+            <sourcefiles>
+                <path refid="wsdl.list" />
+            </sourcefiles>
+            <targetfiles path="${build.dir.root}/compilewsdl.flag" />
+            <sequential>
+                <for param="wsdl.file.path">
+                    <path refid="wsdl.list" />
+                    <sequential>
+                        <var name="wsdl.file" unset="true" />
+                        <basename property="wsdl.file" file="@{wsdl.file.path}" />
+                        <java classname="gov.hhs.fha.nhinc.tools.ws.WsImportConnect" fork="true" failonerror="true">
+                            <arg value="-d" />
+                            <arg value="${build.wsdl.output.dir}" />
+                            <arg value="-extension" />
+                            <arg value="-Xnocompile" />
+                            <arg value="-keep" />
+                            <arg value="-s" />
+                            <arg value="${build.generated.dir}" />
+                            <arg value="-verbose" />
+                            <arg value="@{wsdl.file.path}" />
+                            <arg value="-wsdllocation" />
+                            <arg value="META-INF/wsdl/${wsdl.file}" />
+                            <jvmarg line="-Xmx1024m -Xms1024m" />
+                            <classpath>
+                                <pathelement path="${CONNECTCommonTypesLib.thirdparty.dir}/AntExtraLibs/agilex-ant-tasks.jar" />
+                                <pathelement path="${CONNECTCommonTypesLib.thirdparty.dir}/AntExtraLibs/webservices-rt.jar" />
+                                <pathelement path="${CONNECTCommonTypesLib.thirdparty.dir}/AntExtraLibs/jaxb-impl.jar" />
+                                <pathelement path="${CONNECTCommonTypesLib.thirdparty.dir}/AntExtraLibs/jaxb-xjc.jar" />
+                                <pathelement path="${CONNECTCommonTypesLib.thirdparty.dir}/AntExtraLibs/jaxws-api.jar" />
+                                <pathelement path="${CONNECTCommonTypesLib.thirdparty.dir}/AntExtraLibs/jaxws-rt.jar" />
+                                <pathelement path="${CONNECTCommonTypesLib.thirdparty.dir}/AntExtraLibs/jaxws-tools.jar" />
+                            </classpath>
+                        </java>
+                    </sequential>
+                </for>
+                <echo file="${build.dir.root}/compilewsdl.flag" append="false" />
+            </sequential>
+        </outofdate>
+    </target>
+
 </project>

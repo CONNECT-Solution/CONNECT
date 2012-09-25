@@ -171,7 +171,7 @@ public abstract class ComponentProxyObjectFactory {
     protected long getLastModified(String filePath) {
         long lastModified = 0L;
         try {
-            String tmpFilePath = filePath.replace('\\', '/');
+            String tmpFilePath = filePath.replace('\\', '/').replaceAll(" ", "%20");
             URI fileURI = new URI(tmpFilePath);
             File configFile = new File(fileURI);
             if (configFile.exists()) {

@@ -2,7 +2,7 @@
 <definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:adaptermpi" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:hl7="urn:hl7-org:v3" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" name="AdapterMpi" targetNamespace="urn:gov:hhs:fha:nhinc:adaptermpi">
 	<wsdl:types>
 		<xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:adaptermpi">
-			<xsd:import namespace="urn:hl7-org:v3" schemaLocation="../schemas/nhinc/hl7/HL7PatientDiscoveryMessages.xsd"/>
+			<xsd:import namespace="urn:hl7-org:v3" schemaLocation="../schemas/nhinc/hl7/RespondingGateway_PRPA_IN201305UV02Request.xsd"/>
 			<xsd:import schemaLocation="../schemas/HL7V3/NE2008/multicacheschemas/PRPA_IN201306UV02.xsd" namespace="urn:hl7-org:v3"/>
 		</xsd:schema>
 	</wsdl:types>
