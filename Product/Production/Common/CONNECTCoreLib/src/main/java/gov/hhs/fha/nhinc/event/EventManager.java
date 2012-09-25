@@ -33,13 +33,16 @@ import java.util.Observable;
  *
  */
 public class EventManager extends Observable {
-    private EventManager eventManager;
 
     private EventManager() {
     }
 
-    public EventManager getInstance() {
-        return eventManager == null ? new EventManager() : eventManager;
+    private static class EventManagerHolder{
+        public static final EventManager INSTANCE = new EventManager();
+    }
+
+    public static EventManager getInstance(){
+        return EventManagerHolder.INSTANCE;
     }
 
     public void recordEvent(Event event) {
