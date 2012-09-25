@@ -52,7 +52,7 @@ public class TransactionHandlerTest {
 	private Mockery context = new Mockery();
 	private final String MESSAGE_ID = "urn:uuid:AAA-AAA-AAA-AAA";
 	private final String TRANSACTION_ID = "urn:uuid:BBB-BBB-BBB-BBB";
-	private final String REPLYTO_ID = "urn:uuid:CCC-CCC-CCC-CCC";
+	private final String RELATESTO_ID = "urn:uuid:CCC-CCC-CCC-CCC";
 	private final String WSA_NS = "http://www.w3.org/2005/08/addressing";
 	private final String TRANS_NS = "http://connectopensource.org/transaction/";
 	private Log log = context.mock(Log.class);
@@ -142,11 +142,11 @@ public class TransactionHandlerTest {
 	}
 	
 	/**
-	 * Test of TransactionHandler.handleMessage() with replyTo and message elements
+	 * Test of TransactionHandler.handleMessage() with relatesTo and message elements
 	 * in the soap message and a corresponding transaction id in the database.
 	 */
 	@Test
-	public void testHandleMessage_replyTo_with_transaction(){
+	public void testHandleMessage_relatesTo_with_transaction(){
 		
 		final TransactionHandler transHandler = new TransactionHandler(){
 			@Override
@@ -161,7 +161,7 @@ public class TransactionHandlerTest {
 			
 			@Override
 			protected String getTransactionId(String id){
-				assertEquals(id, REPLYTO_ID);
+				assertEquals(id, RELATESTO_ID);
 				return TRANSACTION_ID;
 			}
 		};
@@ -171,11 +171,11 @@ public class TransactionHandlerTest {
 	}
 	
 	/**
-	 * Test of TransactionHandler.handleMessage() with replyTo and message elements
+	 * Test of TransactionHandler.handleMessage() with relatesTo and message elements
 	 * in the soap message but no corresponding transaction id in the database.
 	 */
 	@Test
-	public void testHandleMessage_replyTo_with_no_transaction(){
+	public void testHandleMessage_relatesTo_with_no_transaction(){
 		
 		final TransactionHandler transHandler = new TransactionHandler(){
 			private int counter = 0;
@@ -192,7 +192,7 @@ public class TransactionHandlerTest {
 			@Override
 			protected String getTransactionId(String id){
 				if(counter == 0)
-					assertEquals(id, REPLYTO_ID);
+					assertEquals(id, RELATESTO_ID);
 				else if(counter == 1){
 					assertEquals(id, MESSAGE_ID);
 				}
@@ -237,11 +237,11 @@ public class TransactionHandlerTest {
 	 * the tested method, handleMessage().
 	 * @param enableMessageId
 	 * @param enableTransactionId
-	 * @param enableReplyToId
+	 * @param enableRelatesToId
 	 * @param transactionHandler
 	 */
 	private void runHandleMessage(Boolean enableMessageId, Boolean enableTransactionId,
-			Boolean enableReplyToId, TransactionHandler transactionHandler){
+			Boolean enableRelatesToId, TransactionHandler transactionHandler){
 		
 		MDC.remove("transaction-id");
 		
@@ -269,11 +269,11 @@ public class TransactionHandlerTest {
 				headerElementTransID.addTextNode(TRANSACTION_ID);
 			}
 			
-			if(enableReplyToId){
+			if(enableRelatesToId){
 				SOAPHeaderElement headerElementTransID = soapHeader
 						.addHeaderElement(soapEnvelope.createName(
-						"ReplyTo", "", WSA_NS));
-				headerElementTransID.addTextNode(REPLYTO_ID);
+						"RelatesTo", "", WSA_NS));
+				headerElementTransID.addTextNode(RELATESTO_ID);
 			}
 			
 			context.checking(new Expectations(){
