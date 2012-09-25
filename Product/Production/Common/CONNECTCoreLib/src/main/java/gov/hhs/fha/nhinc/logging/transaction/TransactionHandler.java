@@ -63,7 +63,7 @@ public class TransactionHandler implements SOAPHandler<SOAPMessageContext> {
     private static Log log = LogFactory.getLog(TransactionHandler.class);
     private static final String WSA_NS = "http://www.w3.org/2005/08/addressing";
     private static final String MESSAGE_ID = "MessageID";
-    private static final String REPLYTO_ID = "ReplyTo";
+    private static final String RELATESTO_ID = "RelatesTo";
      
     protected Log getLogger(){
     	return log;
@@ -79,7 +79,7 @@ public class TransactionHandler implements SOAPHandler<SOAPMessageContext> {
     	
     	String messageId = null;
         String transactionId = null;
-        String replyToId = null;
+        String relatesToId = null;
 
         SOAPMessage soapMessage = context.getMessage();
         SOAPPart soapPart = soapMessage.getSOAPPart();
@@ -104,20 +104,36 @@ public class TransactionHandler implements SOAPHandler<SOAPMessageContext> {
                     }//else transactionId is already persisted
                 } 
                 
-                //Checks if the Reply-To value in the message has a transactionID
+                //Checks if the repeatable RelatesTo value in the message has a transactionID
                 if(NullChecker.isNullish(transactionId)){
-                	getLogger().debug("TransactionHandler.handleMessage() Looking up on ReplyTo");
-                	SOAPElement replyToIdElement = getFirstChild(soapHeader, WSA_NS, REPLYTO_ID);
-                	if(replyToIdElement != null){
-                		replyToId = replyToIdElement.getTextContent();
-                		getLogger().debug("TransactionHandler.handleMessage() ReplyTo: " + replyToId);
-                		if(NullChecker.isNotNullish(replyToId)){
-                			transactionId = getTransactionId(replyToId);
-                			if(NullChecker.isNotNullish(transactionId)){
-                            	createTransactionRecord(messageId,transactionId);
-                            }//else transactionId is already persisted
+                	getLogger().debug("TransactionHandler.handleMessage() Looking up on RelatesTo");
+                	Iterator<SOAPElement> iter = getAllChildren(soapHeader, WSA_NS, RELATESTO_ID);
+                	if(iter != null){
+                		int count = 0;
+                		StringBuffer relatesBuffer = new StringBuffer();
+                		while(iter.hasNext()){
+                			SOAPElement relatesToIdElement = iter.next();
+                        	if(relatesToIdElement != null){
+                        		relatesToId = relatesToIdElement.getTextContent();
+                        		getLogger().debug("TransactionHandler.handleMessage() RelatesTo: " + relatesToId);
+                        		if(NullChecker.isNotNullish(relatesToId)){
+                        			transactionId = getTransactionId(relatesToId);
+                        			if(NullChecker.isNotNullish(transactionId)){
+                                    	createTransactionRecord(messageId,transactionId);
+                                    	if(count > 0){
+                                    		relatesBuffer.append(", ");
+                                    	}
+                                    	relatesBuffer.append(transactionId);
+                                    	count++;
+                                    }//else transactionId is already persisted
+                        		}
+                        	}
+                		}
+                		if(relatesBuffer.length() > 0){
+                			transactionId = relatesBuffer.toString();
                 		}
                 	}
+                	
                 }
                 
                 //Finally, checks if transactionID is in the database
@@ -197,6 +213,15 @@ public class TransactionHandler implements SOAPHandler<SOAPMessageContext> {
         	}
         }
         return result;
+    }
+    
+    private Iterator<SOAPElement> getAllChildren(SOAPHeader header, String ns, String name) {
+    	QName qname = new QName(ns, name);
+    	Iterator<SOAPElement> iter = null;
+    	if(header != null){
+    		iter = header.getChildElements(qname);
+    	}
+    	return iter;
     }
     
     /**
