@@ -144,6 +144,19 @@
         </plugins>
     </reporting>
     <repositories>
+        <repository>
+            <id>central</id>
+            <name>Maven Repository Switchboard</name>
+            <layout>default</layout>
+            <url>http://repo.maven.apache.org/maven2</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>forgerock</id>
+            <url>http://repo.forgerock.org</url>
+        </repository>
     </repositories>
     <profiles>
         <profile>
