@@ -32,6 +32,8 @@ import java.util.Observer;
  * @author zmelnick
  *
  */
-public interface EventLogger extends Observer {
+public abstract class EventLogger implements Observer {
+
+
 
 }
