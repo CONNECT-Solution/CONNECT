@@ -36,8 +36,16 @@ import org.apache.commons.logging.LogFactory;
 public class Log4jEventLogger extends EventLogger {
     private static Log log = null;
 
-    public Log4jEventLogger() {
+    private Log4jEventLogger() {
         createLogger();
+    }
+
+    private static class Log4jEventLoggerHandler{
+        public static final Log4jEventLogger INSTANCE = new Log4jEventLogger();
+    }
+
+    public static Log4jEventLogger getInstance(){
+        return Log4jEventLoggerHandler.INSTANCE;
     }
 
     /*
