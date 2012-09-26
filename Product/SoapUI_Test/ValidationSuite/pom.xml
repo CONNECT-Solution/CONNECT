@@ -1,11 +1,11 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.smartbear.samples</groupId>
-    <artifactId>soapui-maven2-plugin</artifactId>
+    <groupId>gov.hhs.fha</groupId>
+    <artifactId>ValidationSuite</artifactId>
     <packaging>jar</packaging>
-    <version>1.0-SNAPSHOT</version>
-    <name>Maven 2 soapUI Sample</name>
+    <version>4.0.0-SNAPSHOT</version>
+    <name>Maven 3 soapUI ValidationSuite</name>
     <url>http://maven.apache.org</url>
     <pluginRepositories>
         <pluginRepository>
@@ -14,7 +14,67 @@
         </pluginRepository>
     </pluginRepositories>
     <build>
+        <testResources>
+            <testResource>
+                <directory>${project.build.testOutputDirectory}</directory>
+                <includes>
+                    <include>gateway.properties</include>
+                </includes>
+                <targetPath>${project.build.testOutputDirectory}/master/</targetPath>
+            </testResource>
+        </testResources>
         <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.1</version>
+                <executions>
+                    <execution>
+                        <id>exportVar</id>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <executable>export</executable>
+                    <arguments>
+                        <argument>NHINC_PROPERTIES_DIR=${project.build.testOutputDirectory}</argument>
+                    </arguments>
+                </configuration>
+            </plugin>
+            <plugin>
+                <!-- Used to pull XSD files from the JAR -->
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>2.5.1</version>
+                <executions>
+                    <execution>
+                        <id>unpack-gateway-properties</id>
+                        <!-- Using the initialize phase because it is before 
+                            the generate sources phase -->
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>unpack</goal>
+                        </goals>
+                        <configuration>
+                            <skip>${skip.unpack}</skip>
+                            <artifactItems>
+                                <artifactItem>
+                                    <!-- Artifact that Holds our custom templates -->
+                                    <groupId>org.connectopensource</groupId>
+                                    <artifactId>Properties</artifactId>
+                                    <version>4.0.0-SNAPSHOT</version>
+                                    <type>jar</type>
+                                </artifactItem>
+                            </artifactItems>
+                            <includes>gateway.properties,adapter.properties,PCConfiguration.xml,internalConnectionInfo.xml,hiemTopicConfiguration.xml,XDSUniqueIds.properties</includes>
+                            <outputDirectory>${project.build.directory}/test-classes/</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
             <plugin>
                 <groupId>com.github.redfish4ktc.soapui</groupId>
                 <artifactId>maven-soapui-extension-plugin</artifactId>
@@ -25,6 +85,38 @@
                         <artifactId>mysql-connector-java</artifactId>
                         <version>5.1.6</version>
                     </dependency>
+                    <dependency>
+                        <groupId>org.connectopensource</groupId>
+                        <artifactId>DocumentQueryCore</artifactId>
+                        <version>${project.version}</version>
+                        <exclusions>
+                            <exclusion>
+                                <groupId>org.connectopensource</groupId>
+                                <artifactId>CONNECTCoreLib</artifactId>
+                            </exclusion>
+                            <exclusion>
+                                <groupId>org.slf4j</groupId>
+                                <artifactId>slf4j-log4j12</artifactId>
+                            </exclusion>
+                            <exclusion>
+                                <groupId>org.slf4j</groupId>
+                                <artifactId>log4j-over-slf4j</artifactId>
+                            </exclusion>
+                            <exclusion>
+                                <groupId>javax.jms</groupId>
+                                <artifactId>jms</artifactId>
+                            </exclusion>
+                            <exclusion>
+                                <groupId>javax</groupId>
+                                <artifactId>javaee-api</artifactId>
+                            </exclusion>
+                        </exclusions>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.connectopensource</groupId>
+                        <artifactId>CONNECTCommonTypesLib</artifactId>
+                        <version>${project.version}</version>
+                    </dependency>
                 </dependencies>
                 <executions>
                     <execution>
@@ -33,9 +125,26 @@
                             <goal>test</goal>
                         </goals>
                         <configuration>
-                            <projectFile>1-InternalSelfTest_g0-soapui-project.xml</projectFile>
+                            <projectFile>1-InternalPDSelfTest_g0-soapui-project.xml</projectFile>
+                            <settingsFile>${basedir}/src/main/resources/soapui-settings.xml</settingsFile>
+                            <host>http://127.0.0.1:8080</host>
+                            <outputFolder>${basedir}/target/soapui/output/</outputFolder>
+                            <soapuiProperties>
+                                <property>
+                                    <name>NHINC_PROPERTIES_DIR</name>
+                                    <value>${project.build.testOutputDirectory}</value>
+                                </property>
+                                <property>
+                                    <name>soapui.logroot</name>
+                                    <value>${project.build.directory}/soapui/my_custon_logs/</value>
+                                </property>
+                            </soapuiProperties>
+                            <testCase>Patient Discovery Deferred Req</testCase>
+                            <globalProperties>
+                                <value>project.name=1-InternalSelfTest_g0</value>
+                            </globalProperties>
                             <projectProperties>
-                                <value>message=Hello World!</value>
+                                <value>project.name=1-InternalSelfTest_g0</value>
                             </projectProperties>
                         </configuration>
                     </execution>

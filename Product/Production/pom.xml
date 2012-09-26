@@ -36,6 +36,13 @@
                 </excludes>
             </resource>
             <resource>
+                <directory>${basedir}/src/main/resources/wsdl</directory>
+                <includes>
+                    <include>*.wsdl</include>
+                </includes>
+                <targetPath>${project.build.directory}/wsdl2java-sources/wsdl</targetPath>
+            </resource>
+            <resource>
                 <!-- Caution: Defining this resource to copy over the extracted 
                     wsdls from <directory> into ${project.build.directory}/classes so the resources 
                     are included within resulting archive -->
@@ -43,13 +50,6 @@
                 <includes>
                     <include>wsdl/**/*.wsdl</include>
                 </includes>
-            </resource>
-            <resource>
-                <directory>${basedir}/src/main/resources/wsdl</directory>
-                <includes>
-                    <include>*.wsdl</include>
-                </includes>
-                <targetPath>${project.build.directory}/wsdl2java-sources/wsdl</targetPath>
             </resource>
         </resources>
         <testResources>
