@@ -115,7 +115,8 @@ public class NhincConstants {
             throw new IllegalArgumentException("No enum constant " + valueString);
         }
     };
-
+    public static final String SERVICE_NAME = "serviceName";
+    
     // Property File Constants
     public static final String GATEWAY_PROPERTY_FILE = "gateway";
     public static final String HOME_COMMUNITY_ID_PROPERTY = "localHomeCommunityId";

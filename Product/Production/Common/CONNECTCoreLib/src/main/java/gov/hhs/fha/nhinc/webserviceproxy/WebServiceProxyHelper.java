@@ -533,7 +533,7 @@ public class WebServiceProxyHelper {
      * @param apiLevel the target api level to add.
      */
     public void addServiceName(BindingProvider port, String serviceName) {
-        port.getRequestContext().put(NhincConstants.ACTION_PROP, serviceName);
+        port.getRequestContext().put(NhincConstants.SERVICE_NAME, serviceName);
     }
     
     
