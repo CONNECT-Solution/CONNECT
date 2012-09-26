@@ -60,11 +60,16 @@
             <version>${project.parent.version}</version>
         </dependency>
         <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-bundle</artifactId>
+            <version>${cxf.version}</version>
+        </dependency>
+        <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-api</artifactId>
             <version>6.0</version>
+            <scope>provided</scope>
         </dependency>
-
         <dependency>
             <groupId>com.forgerock.openam</groupId>
             <artifactId>clientsdk</artifactId>

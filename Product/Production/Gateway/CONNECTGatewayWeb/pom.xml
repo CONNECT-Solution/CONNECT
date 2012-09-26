@@ -10,9 +10,6 @@
     <packaging>war</packaging>
     <name>CONNECT Gateway Web Webapp</name>
     <url>http://maven.apache.org</url>
-    <properties>
-        <cxf.version>2.6.1</cxf.version>
-    </properties>
     <dependencies>
         <dependency>
             <groupId>org.connectopensource</groupId>
@@ -60,14 +57,15 @@
             <version>${project.parent.version}</version>
         </dependency>
         <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-bundle</artifactId>
+            <version>${cxf.version}</version>
+        </dependency>
+        <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-api</artifactId>
             <version>6.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.eclipse.jetty</groupId>
-            <artifactId>jetty-util</artifactId>
-            <version>7.5.4.v20111024</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.sun.xml.messaging.saaj</groupId>
