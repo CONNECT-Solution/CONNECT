@@ -45,6 +45,12 @@
             <version>${project.parent.version}</version>
             <type>war</type>
         </dependency>
+        
+        <dependency>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-web</artifactId>
+          <version>3.0.7.RELEASE</version>
+        </dependency>
   
         <dependency>
             <groupId>org.hibernate</groupId>
