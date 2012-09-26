@@ -46,6 +46,8 @@ import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 
 import java.sql.Timestamp;
 
+import javax.xml.ws.BindingProvider;
+
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
@@ -103,9 +105,9 @@ public class NhinDocRetrieveProxyWebServiceSecuredImpl implements NhinDocRetriev
                 url = oProxyHelper.getUrlFromTargetSystemByGatewayAPILevel(targetSystem, sServiceName, level);
                 log.debug("After target system URL look up. URL for service: " + sServiceName + " is: " + url);
 
-                if (NullChecker.isNotNullish(url)) {                    
+                if (NullChecker.isNotNullish(url)) {
                     ServicePortDescriptor<RespondingGatewayRetrievePortType> portDescriptor = getServicePortDescriptor(NhincConstants.GATEWAY_API_LEVEL.LEVEL_g0);
-                    
+
                     CONNECTClient<RespondingGatewayRetrievePortType> client = CONNECTClientFactory.getInstance()
                             .getCONNECTClientSecured(portDescriptor, url, assertion);
 
@@ -115,10 +117,15 @@ public class NhinDocRetrieveProxyWebServiceSecuredImpl implements NhinDocRetriev
                     Long logId = PerformanceManager.getPerformanceManagerInstance().logPerformanceStart(starttime,
                             NhincConstants.DOC_RETRIEVE_SERVICE_NAME, NhincConstants.AUDIT_LOG_NHIN_INTERFACE,
                             NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, targetHomeCommunityId);
-                    
-                     response = (RetrieveDocumentSetResponseType) client.invokePort(RespondingGatewayRetrievePortType.class,
-                             "respondingGatewayCrossGatewayRetrieve", request);
-                     
+
+                    WebServiceProxyHelper wsHelper = new WebServiceProxyHelper();
+                    wsHelper.addTargetCommunity((BindingProvider) client.getPort(), targetSystem);
+                    wsHelper.addServiceName((BindingProvider) client.getPort(), 
+                            NhincConstants.DOC_RETRIEVE_SERVICE_NAME);
+
+                    response = (RetrieveDocumentSetResponseType) client.invokePort(
+                            RespondingGatewayRetrievePortType.class, "respondingGatewayCrossGatewayRetrieve", request);
+
                     // Log the end of the performance record
                     Timestamp stoptime = new Timestamp(System.currentTimeMillis());
                     PerformanceManager.getPerformanceManagerInstance().logPerformanceStop(logId, starttime, stoptime);

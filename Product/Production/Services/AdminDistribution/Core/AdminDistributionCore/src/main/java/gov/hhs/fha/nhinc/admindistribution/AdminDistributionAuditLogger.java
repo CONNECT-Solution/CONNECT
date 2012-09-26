@@ -94,7 +94,8 @@ public class AdminDistributionAuditLogger {
         return ack;
     }
 
-    public AcknowledgementType auditNhinAdminDist(EDXLDistribution body, AssertionType assertion, String direction) {
+    public AcknowledgementType auditNhinAdminDist(EDXLDistribution body, AssertionType assertion, String direction,
+            String logInterface) {
         log.debug("begin auditNhinAdminDist() " + direction);
         AcknowledgementType ack = null;
         AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
@@ -102,7 +103,7 @@ public class AdminDistributionAuditLogger {
         log.debug("body == null = " + body == null);
         log.debug("assertion == null = " + assertion == null);
 
-        LogEventRequestType auditLogMsg = auditLogger.logNhincAdminDist(body, assertion, direction);
+        LogEventRequestType auditLogMsg = auditLogger.logNhincAdminDist(body, assertion, direction, logInterface);
 
         if (auditLogMsg != null) {
             ack = audit(auditLogMsg, assertion);

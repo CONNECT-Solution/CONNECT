@@ -3,7 +3,15 @@
  */
 package gov.hhs.fha.nhinc.callback.cxf;
 
+import gov.hhs.fha.nhinc.callback.openSAML.CallbackMapProperties;
+import gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties;
+import gov.hhs.fha.nhinc.callback.openSAML.HOKSAMLAssertionBuilder;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.saml.extraction.SamlTokenCreator;
+
 import java.io.IOException;
+import java.util.Map;
 
 import javax.security.auth.callback.Callback;
 import javax.security.auth.callback.CallbackHandler;
@@ -15,12 +23,6 @@ import org.apache.cxf.message.Message;
 import org.apache.cxf.phase.PhaseInterceptorChain;
 import org.apache.ws.security.saml.ext.SAMLCallback;
 import org.opensaml.common.SAMLVersion;
-
-import gov.hhs.fha.nhinc.callback.openSAML.CallbackMapProperties;
-import gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties;
-import gov.hhs.fha.nhinc.callback.openSAML.HOKSAMLAssertionBuilder;
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.saml.extraction.SamlTokenCreator;
 
 /**
  * @author mweaver
@@ -63,8 +65,8 @@ public class CXFSAMLCallbackHandler implements CallbackHandler {
 
                     SamlTokenCreator creator = new SamlTokenCreator();
 
-                    CallbackProperties properties = new CallbackMapProperties(creator.CreateRequestContext(
-                            custAssertion, null, null));
+                    CallbackProperties properties = new CallbackMapProperties(addMessageProperties(
+                            creator.CreateRequestContext(custAssertion, null, null), message));
 
                     HOKSAMLAssertionBuilder builder = new HOKSAMLAssertionBuilder();
 
@@ -76,4 +78,25 @@ public class CXFSAMLCallbackHandler implements CallbackHandler {
         }
         log.debug("CXFSAMLCallbackHandler.handle end");
     }
+    
+    /**
+     * Populate Callback Properties with additional properties set on the message.
+     * 
+     * @param propertiesMap to be appended.
+     * @param message source of additional properties.
+     * @return map containing assertion data and additional properties.
+     */
+    private Map<String, Object> addMessageProperties(Map<String, Object> propertiesMap, Message message) {
+        
+        addPropertyFromMessage(propertiesMap, message, NhincConstants.WS_SOAP_TARGET_HOME_COMMUNITY_ID);
+        addPropertyFromMessage(propertiesMap, message, NhincConstants.TARGET_API_LEVEL);
+        addPropertyFromMessage(propertiesMap, message, NhincConstants.SERVICE_NAME);
+        
+        return propertiesMap;                
+    }
+    
+    private void addPropertyFromMessage(Map<String, Object> propertiesMap, Message message, String key) {
+        propertiesMap.put(key, message.get(key));
+    }
 }
+

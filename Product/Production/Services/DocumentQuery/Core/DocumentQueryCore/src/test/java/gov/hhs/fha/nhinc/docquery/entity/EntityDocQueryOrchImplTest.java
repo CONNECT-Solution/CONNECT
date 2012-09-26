@@ -131,6 +131,7 @@ public class EntityDocQueryOrchImplTest {
 
             context.checking(new Expectations() {
                 {
+                    allowing(mockLog).isDebugEnabled();
                     allowing(mockLog).debug(with(any(String.class)));
                     allowing(mockLog).error(with(any(String.class)));
                 }
@@ -257,6 +258,7 @@ public class EntityDocQueryOrchImplTest {
 
             context.checking(new Expectations() {
                 {
+                    allowing(mockLog).isDebugEnabled();                    
                     allowing(mockLog).debug(with(any(String.class)));
                     allowing(mockLog).error(with(any(String.class)));
                 }

@@ -6,6 +6,8 @@ package gov.hhs.fha.nhinc.callback.openSAML;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
+
 import java.math.BigInteger;
 import java.security.InvalidKeyException;
 import java.security.KeyPairGenerator;
@@ -415,12 +417,12 @@ public class HOKSAMLAssertionBuilderTest {
             }
 
             @Override
-            public String getAuthenicationSessionIndex() {
+            public String getAuthenticationSessionIndex() {
                 return "1";
             }
 
             @Override
-            public DateTime getAuthenicationInstant() {
+            public DateTime getAuthenticationInstant() {
                 return new DateTime();
             }
 
@@ -430,7 +432,7 @@ public class HOKSAMLAssertionBuilderTest {
             }
 
             @Override
-            public String getAuthenicationContextClass() {
+            public String getAuthenticationContextClass() {
                 return "cntx";
             }
 
@@ -438,6 +440,23 @@ public class HOKSAMLAssertionBuilderTest {
             public String getAssertionIssuerFormat() {
                 return "format";
             }
+
+            @Override
+            public String getTargetHomeCommunityId() {
+                return "targetHomeCommunityId";
+            }
+
+            @Override
+            public String getAction() {
+                return "action";
+            }
+
+            @Override
+            public GATEWAY_API_LEVEL getTargetApiLevel() {
+                return GATEWAY_API_LEVEL.LEVEL_g1;
+            }
+            
+            
         };
     }
 
