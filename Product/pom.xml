@@ -10,7 +10,7 @@
         <cxf.version>2.6.1</cxf.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <connect.common.properties>Dev</connect.common.properties>
-
+        <skip.cobertura>false</skip.cobertura>
         <cobertura.check.haltOnFailure>false</cobertura.check.haltOnFailure>
         <cobertura.totalBranchRate>85</cobertura.totalBranchRate>
         <cobertura.totalLineRate>85</cobertura.totalLineRate>
@@ -199,6 +199,8 @@
             <properties>
                 <checkstyle.skip>true</checkstyle.skip>
                 <maven.skip.test>true</maven.skip.test>
+                <skip.test>true</skip.test>
+                <skip.cobertura>true</skip.cobertura>
             </properties>
         </profile>
         <profile>

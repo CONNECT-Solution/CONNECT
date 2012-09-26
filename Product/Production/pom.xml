@@ -181,6 +181,7 @@
                     <execution>
                         <id>cobertura-instrument</id>
                         <configuration>
+                            <skip>${skip.cobertura)</skip>
                             <instrumentation>
                             </instrumentation>
                         </configuration>
@@ -191,6 +192,7 @@
                     <execution>
                         <id>cobertura-check</id>
                         <configuration>
+                            <skip>${skip.cobertura)</skip>
                             <check>
                                 <haltOnFailure>${cobertura.check.haltOnFailure}</haltOnFailure>
                                 <totalBranchRate>${cobertura.totalBranchRate}</totalBranchRate>
