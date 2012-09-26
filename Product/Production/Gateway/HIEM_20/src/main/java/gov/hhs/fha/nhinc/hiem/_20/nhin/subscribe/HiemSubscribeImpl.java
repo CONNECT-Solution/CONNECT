@@ -80,23 +80,37 @@ public class HiemSubscribeImpl {
         AssertionType assertion = SAML2AssertionExtractor.getInstance().extractSamlAssertion(context);
 
         // Audit the input message
-        auditInputMessage(subscribeRequest, assertion);
+        auditInputMessage(subscribeRequest, assertion,
+                NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
 
         SubscribeResponse response = null;
         if (checkPolicy(subscribeRequest, assertion)) {
+            // Audit the input message
+            auditInputMessage(subscribeRequest, assertion,
+                NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE);
+
             response = subscribeProcessor.processNhinSubscribe(soapMessage, assertion);
+
+            // Audit the response message
+            auditResponseMessage(response, assertion,
+                NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE);
         } else {
             SubscribeCreationFailedFaultType faultInfo = null;
             throw new SubscribeCreationFailedFault("Policy check failed", faultInfo);
         }
 
         // Audit the response message
-        auditResponseMessage(response, assertion);
+        // Audit the response message
+        auditResponseMessage(response, assertion,
+                NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
+
+
         log.debug("Exiting HiemSubscriptionImpl.subscribe");
         return response;
     }
 
-    private void auditInputMessage(Subscribe subscribe, AssertionType assertion) {
+    private void auditInputMessage(Subscribe subscribe, AssertionType assertion,
+            String direction, String logInterface) {
         log.debug("In HiemSubscriptionImpl.auditInputMessage");
         try {
             AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
@@ -106,7 +120,7 @@ public class HiemSubscribeImpl {
             message.setSubscribe(subscribe);
 
             LogEventRequestType auditLogMsg = auditLogger.logNhinSubscribeRequest(message,
-                    NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
+                    direction, logInterface);
 
             if (auditLogMsg != null) {
                 AuditRepositoryProxyObjectFactory auditRepoFactory = new AuditRepositoryProxyObjectFactory();
@@ -118,7 +132,8 @@ public class HiemSubscribeImpl {
         }
     }
 
-    private void auditResponseMessage(SubscribeResponse response, AssertionType assertion) {
+    private void auditResponseMessage(SubscribeResponse response, AssertionType assertion,
+            String direction, String logInterface) {
         log.debug("In HiemSubscriptionImpl.auditResponseMessage");
 
         try {
@@ -129,7 +144,7 @@ public class HiemSubscribeImpl {
             message.setSubscribeResponse(response);
 
             LogEventRequestType auditLogMsg = auditLogger.logSubscribeResponse(message,
-                    NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
+                    direction, logInterface);
 
             if (auditLogMsg != null) {
                 AuditRepositoryProxyObjectFactory auditRepoFactory = new AuditRepositoryProxyObjectFactory();

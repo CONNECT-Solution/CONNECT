@@ -64,8 +64,9 @@ public class NhinAdminDistributionOrchImpl {
         // setups. Please refer to the CONNECT 3.1 Release Notes for more information.
         this.checkSleep();
 
-        auditMessage(body, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
-
+        auditMessage(body, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
+                NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
+        
         if (this.isInPassThroughMode() || checkPolicy(body, assertion)) {
             sendToAgency(body, assertion);
         }
@@ -77,7 +78,8 @@ public class NhinAdminDistributionOrchImpl {
     }
 
     protected void sendToAgency(EDXLDistribution body, AssertionType assertion) {
-        auditMessage(body, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
+        auditMessage(body, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION,
+                NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE);
         log.debug("begin send to agency");
         this.getAdapterAdminDistProxy().sendAlertMessage(body, assertion);
 
@@ -142,8 +144,9 @@ public class NhinAdminDistributionOrchImpl {
         return Long.parseLong(result);
     }
 
-    protected void auditMessage(EDXLDistribution body, AssertionType assertion, String direction) {
-        AcknowledgementType ack = getLogger().auditNhinAdminDist(body, assertion, direction);
+    protected void auditMessage(EDXLDistribution body, AssertionType assertion, String direction,
+            String logInterface) {
+        AcknowledgementType ack = getLogger().auditNhinAdminDist(body, assertion, direction, logInterface);
         if (ack != null) {
             log.debug("ack: " + ack.getMessage());
         }

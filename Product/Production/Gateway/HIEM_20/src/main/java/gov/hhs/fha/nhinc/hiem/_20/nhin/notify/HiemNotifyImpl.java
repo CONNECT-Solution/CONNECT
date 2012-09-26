@@ -62,7 +62,11 @@ public class HiemNotifyImpl {
 
     public static void notify(Notify notifyRequest, WebServiceContext context) {
         log.debug("Entering HiemNotifyImpl.notify");
-
+        AssertionType assertion = SAML2AssertionExtractor.getInstance().extractSamlAssertion(context);
+            
+        auditInputMessage(notifyRequest, assertion,
+                NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
+        
         SoapUtil contextHelper = new SoapUtil();
         Element soapMessage = contextHelper.extractSoapMessageElement(context,
                 NhincConstants.HTTP_REQUEST_ATTRIBUTE_SOAPMESSAGE);
@@ -70,8 +74,8 @@ public class HiemNotifyImpl {
         try {
             // String rawSoapMessage = extractSoapMessage(context, "notifySoapMessage");
             NhinNotifyProcessor notifyProcessor = new NhinNotifyProcessor();
-            AssertionType assertion = SAML2AssertionExtractor.getInstance().extractSamlAssertion(context);
-            auditInputMessage(notifyRequest, assertion);
+            auditInputMessage(notifyRequest, assertion,
+                NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE);
             if (checkPolicy(notifyRequest, assertion)) {
                 notifyProcessor.processNhinNotify(soapMessage, assertion);
             } else {
@@ -85,7 +89,8 @@ public class HiemNotifyImpl {
         log.debug("Exiting HiemNotifyImpl.notify");
     }
 
-    private static void auditInputMessage(Notify notifyRequest, AssertionType assertion) {
+    private static void auditInputMessage(Notify notifyRequest, AssertionType assertion,
+            String direction, String logInterface) {
         log.debug("In HiemNotifyImpl.auditInputMessage");
         try {
             AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
@@ -95,7 +100,7 @@ public class HiemNotifyImpl {
             message.setNotify(notifyRequest);
 
             LogEventRequestType auditLogMsg = auditLogger.logNhinNotifyRequest(message,
-                    NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
+                    direction, logInterface);
 
             if (auditLogMsg != null) {
                 AuditRepositoryProxyObjectFactory auditRepoFactory = new AuditRepositoryProxyObjectFactory();

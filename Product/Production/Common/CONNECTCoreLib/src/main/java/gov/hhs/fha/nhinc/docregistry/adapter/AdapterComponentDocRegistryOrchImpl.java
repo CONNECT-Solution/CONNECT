@@ -1192,6 +1192,9 @@ public class AdapterComponentDocRegistryOrchImpl {
         RegistryErrorList regErrList = new RegistryErrorList();
         response.setRegistryErrorList(regErrList);
         response.setStatus(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_FAILURE);
+        RegistryObjectListType regObjectList = new RegistryObjectListType();
+        response.setRegistryObjectList(regObjectList);
+        
         RegistryError regErr = new RegistryError();
         regErrList.getRegistryError().add(regErr);
         regErr.setCodeContext(codeContext);

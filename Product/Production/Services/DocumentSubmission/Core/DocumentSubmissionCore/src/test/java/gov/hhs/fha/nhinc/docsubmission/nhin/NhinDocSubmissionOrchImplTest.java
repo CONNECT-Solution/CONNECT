@@ -161,15 +161,20 @@ public class NhinDocSubmissionOrchImplTest {
     private void expect4MockAudits() {
         context.checking(new Expectations() {
             {
-                exactly(2).of(mockXDRLog).auditNhinXDR(
+                oneOf(mockXDRLog).auditNhinXDR(
+                        with(any(ProvideAndRegisterDocumentSetRequestType.class)),
+                        with(any(AssertionType.class)), with(any(String.class)));
+
+                oneOf(mockXDRLog).auditAdapterXDR(
                         with(any(ProvideAndRegisterDocumentSetRequestType.class)),
                         with(any(AssertionType.class)), with(any(String.class)));
 
                 oneOf(mockXDRLog).auditNhinXDRResponse(with(any(RegistryResponseType.class)),
                         with(any(AssertionType.class)), with(any(String.class)));
 
-                oneOf(mockXDRLog).auditEntityXDRResponse(with(any(RegistryResponseType.class)),
+                oneOf(mockXDRLog).auditAdapterXDRResponse(with(any(RegistryResponseType.class)),
                         with(any(AssertionType.class)), with(any(String.class)));
+
             }
         });
     }
