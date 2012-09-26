@@ -76,15 +76,6 @@
                 </excludes>
             </resource>
             <resource>
-                <!-- Caution: Defining this resource to copy over the extracted 
-                    wsdls from <directory> into ${project.build.directory}/classes so the resources 
-                    are included within resulting archive -->
-                <directory>${project.build.directory}/wsdl2java-sources/</directory>
-                <includes>
-                    <include>wsdl/**/*.wsdl</include>
-                </includes>
-            </resource>
-            <resource>
                 <!-- <directory>${basedir}/src/main/resources/wsdl</directory> -->
                 <directory>${basedir}/../../Common/Interfaces/src/wsdl</directory>
                 <includes>
@@ -92,6 +83,15 @@
                     <include>*Mpi*.wsdl</include>
                 </includes>
                 <targetPath>${project.build.directory}/wsdl2java-sources/wsdl</targetPath>
+            </resource>
+            <resource>
+                <!-- Caution: Defining this resource to copy over the extracted 
+                    wsdls from <directory> into ${project.build.directory}/classes so the resources 
+                    are included within resulting archive -->
+                <directory>${project.build.directory}/wsdl2java-sources/</directory>
+                <includes>
+                    <include>wsdl/**/*.wsdl</include>
+                </includes>
             </resource>
         </resources>
         <plugins>

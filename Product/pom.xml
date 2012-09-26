@@ -10,7 +10,7 @@
         <cxf.version>2.6.1</cxf.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <connect.common.properties>Dev</connect.common.properties>
-
+        <skip.cobertura>false</skip.cobertura>
         <cobertura.check.haltOnFailure>false</cobertura.check.haltOnFailure>
         <cobertura.totalBranchRate>85</cobertura.totalBranchRate>
         <cobertura.totalLineRate>85</cobertura.totalLineRate>
@@ -18,6 +18,41 @@
     <modules>
         <module>Production</module>
     </modules>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.apache.cxf</groupId>
+                <artifactId>cxf-bundle</artifactId>
+                <version>${cxf.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.eclipse.jetty</groupId>
+                        <artifactId>jetty-server</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.eclipse.jetty</groupId>
+                        <artifactId>jetty-continuation</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.eclipse.jetty</groupId>
+                        <artifactId>jetty-http</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.eclipse.jetty</groupId>
+                        <artifactId>jetty-io</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.eclipse.jetty</groupId>
+                        <artifactId>jetty-util</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.eclipse.jetty</groupId>
+                        <artifactId>jetty-security</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
     <build>
         <pluginManagement>
             <plugins>
@@ -164,6 +199,8 @@
             <properties>
                 <checkstyle.skip>true</checkstyle.skip>
                 <maven.skip.test>true</maven.skip.test>
+                <skip.test>true</skip.test>
+                <skip.cobertura>true</skip.cobertura>
             </properties>
         </profile>
         <profile>
