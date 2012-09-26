@@ -32,6 +32,7 @@
             <groupId>javax</groupId>
             <artifactId>javaee-api</artifactId>
             <version>6.0</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>commons-logging</groupId>
@@ -81,6 +82,14 @@
                 </excludes>
             </resource>
             <resource>
+                <!-- <directory>${basedir}/src/main/resources/wsdl</directory> -->
+                <directory>${basedir}/../../Common/Interfaces/src/wsdl</directory>
+                <includes>
+                    <include>*DocRetrieve*.wsdl</include>
+                </includes>
+                <targetPath>${project.build.directory}/wsdl2java-sources/wsdl</targetPath>
+            </resource>
+            <resource>
                 <!-- Caution: Defining this resource to copy over the extracted wsdls 
                     from <directory> into ${project.build.directory}/classes so the resources 
                     are included within resulting archive -->
@@ -88,14 +97,6 @@
                 <includes>
                     <include>wsdl/**/*.wsdl</include>
                 </includes>
-            </resource>
-            <resource>
-                <!-- <directory>${basedir}/src/main/resources/wsdl</directory> -->
-                <directory>${basedir}/../../Common/Interfaces/src/wsdl</directory>
-                <includes>
-                    <include>*DocRetrieve*.wsdl</include>
-                </includes>
-                <targetPath>${project.build.directory}/wsdl2java-sources/wsdl</targetPath>
             </resource>
         </resources>
     </build>
