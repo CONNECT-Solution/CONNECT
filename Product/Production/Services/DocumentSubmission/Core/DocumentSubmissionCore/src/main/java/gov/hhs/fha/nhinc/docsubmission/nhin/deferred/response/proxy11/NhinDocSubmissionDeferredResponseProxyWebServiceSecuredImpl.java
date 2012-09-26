@@ -27,6 +27,8 @@
 package gov.hhs.fha.nhinc.docsubmission.nhin.deferred.response.proxy11;
 
 
+import javax.xml.ws.BindingProvider;
+
 import ihe.iti.xdr._2007.XDRDeferredResponsePortType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
@@ -93,6 +95,13 @@ public class NhinDocSubmissionDeferredResponseProxyWebServiceSecuredImpl impleme
                 ServicePortDescriptor<XDRDeferredResponsePortType> portDescriptor = new NhinDocSubmissionDeferredResponseServicePortDescriptor();
                 CONNECTClient<XDRDeferredResponsePortType> client = getCONNECTClientSecured(portDescriptor, url,
                         assertion);
+
+                WebServiceProxyHelper wsHelper = new WebServiceProxyHelper();
+                wsHelper.addTargetCommunity((BindingProvider) client.getPort(), target);
+                wsHelper.addServiceName((BindingProvider) client.getPort(), 
+                        NhincConstants.NHINC_XDR_RESPONSE_SERVICE_NAME);
+
+
                 response = (XDRAcknowledgementType) client.invokePort(XDRDeferredResponsePortType.class,
                         "provideAndRegisterDocumentSetBDeferredResponse", request);
             }

@@ -78,7 +78,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
 			// with a number (UUIDs can). Direction
 			// given from 2011 specification set was to prepend with and
 			// underscore.
-			String aID = ID_PREFIX.concat(String.valueOf(UUID.randomUUID()));
+			String aID = ID_PREFIX.concat(String.valueOf(UUID.randomUUID())).replaceAll("-", "");
 			log.debug("Assertion ID: " + aID);
 
 			// set assertion Id
@@ -234,17 +234,17 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
 
 		List<AuthnStatement> authnStatements = new ArrayList<AuthnStatement>();
 
-		String cntxCls = properties.getAuthenicationContextClass();
+		String cntxCls = properties.getAuthenticationContextClass();
 		if (cntxCls == null) {
 			cntxCls = X509_AUTHN_CNTX_CLS;
 		} else if (!isValidAuthnCntxCls(cntxCls)) {
 			cntxCls = UNSPECIFIED_AUTHN_CNTX_CLS;
 		}
-		String sessionIndex = properties.getAuthenicationSessionIndex();
+		String sessionIndex = properties.getAuthenticationSessionIndex();
 
 		log.debug("Setting Authentication session index to: " + sessionIndex);
 
-		DateTime authInstant = properties.getAuthenicationInstant();
+		DateTime authInstant = properties.getAuthenticationInstant();
 		if (authInstant == null) {
 			authInstant = new DateTime();
 		}
@@ -344,35 +344,34 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
 			format = X509_NAME_ID;
 		}
 
+        Issuer evIssuerId = OpenSAML2ComponentBuilder.getInstance().createIssuer(format, issuer);
 
-		Issuer evIssuerId = OpenSAML2ComponentBuilder.getInstance()
-				.createIssuer(format, issuer);
+        if (beginValidTime == null || beginValidTime.isAfter(now)) {
+            beginValidTime = now;
+        }
 
-                if (beginValidTime == null || beginValidTime.isAfter(now)){
-                    beginValidTime = now;
-		}
+        // If provided time is after the given issue instant,
+        // modify it to include the issue instant
+        if (beginValidTime.isAfter(issueInstant)) {
+            if (issueInstant.isAfter(now)) {
+                beginValidTime = now;
+            } else {
+                beginValidTime = issueInstant;
+            }
+        }
+        
+        // Make end datetime at a minimum 5 minutes from now
+        if (endValidTime == null || endValidTime.isBefore(now.plusMinutes(5))) {
+            endValidTime = now.plusMinutes(5);
+        }
 
-                //If provided time is after the given issue instant,
-                //  modify it to include the issue instant
-                if (beginValidTime.isAfter(issueInstant)){
-                    if(issueInstant.isAfter(now)) {
-                        beginValidTime = now;
-                    } else {
-                        beginValidTime = issueInstant;
-                    }
-                }
-                //Make end datetime at a minimum 5 minutes from now
-		if (endValidTime == null || endValidTime.isBefore(now.plusMinutes(5))) {
-			endValidTime = now.plusMinutes(5);
-		}
+        // Ensure issueInstant is contained within valid times
+        if (endValidTime.isBefore(issueInstant)) {
+            endValidTime = issueInstant.plusMinutes(5);
+        }
 
-                //Ensure issueInstant is contained within valid times
-		if(endValidTime.isBefore(issueInstant)){
-                    endValidTime = issueInstant.plusMinutes(5);
-                }
-
-		Conditions conditions = OpenSAML2ComponentBuilder.getInstance()
-				.createConditions(beginValidTime, endValidTime, null);
+        Conditions conditions = OpenSAML2ComponentBuilder.getInstance().createConditions(beginValidTime, endValidTime,
+                null);
 
 		Assertion evidenceAssertion = OpenSAML2ComponentBuilder.getInstance()
 				.createAssertion(evAssertionID);
@@ -385,8 +384,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
 
 		evidenceAssertions.add(evidenceAssertion);
 
-		Evidence evidence = OpenSAML2ComponentBuilder.getInstance()
-				.createEvidence(evidenceAssertions);
+		Evidence evidence = OpenSAML2ComponentBuilder.getInstance().createEvidence(evidenceAssertions);
 
 		log.debug("SamlCallbackHandler.createEvidence() -- End");
 		return evidence;
@@ -520,13 +518,13 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
 		 * Gateway-347 - Support for both values will remain until NHIN Specs
 		 * updated Determine whether to use PurposeOfUse or PuposeForUse
 		 */
-		if (isPurposeForUseEnabled()) {
+		if (isPurposeForUseEnabled(properties)) {
 			statements = OpenSAML2ComponentBuilder.getInstance()
-					.createPurposeOfUseAttributeStatements(purposeCode, purposeSystem,
+					.createPurposeForUseAttributeStatements(purposeCode, purposeSystem,
 							purposeSystemName, purposeDisplay);
 		} else {
 			statements = OpenSAML2ComponentBuilder.getInstance()
-					.createPurposeForUseAttributeStatements(purposeCode, purposeSystem,
+					.createPurposeOfUseAttributeStatements(purposeCode, purposeSystem,
 							purposeSystemName, purposeDisplay);
 		}
 

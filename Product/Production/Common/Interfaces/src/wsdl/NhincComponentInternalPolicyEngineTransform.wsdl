@@ -30,6 +30,9 @@
 	<message name="TransformFindAuditEventsToCheckPolicyRequestMessage">
 		<part name="TransformFindAuditEventsToCheckPolicyRequest" element="pdte:TransformFindAuditEventsToCheckPolicyRequest"/>
 	</message>
+	<message name="TransformSubjectReidentificationToCheckPolicyRequestMessage">
+		<part name="TransformSubjectReidentificationToCheckPolicyRequest" element="pdte:TransformSubjectReidentificationToCheckPolicyRequest"/>
+	</message>
 	<message name="TransformSubscribeToCheckPolicyRequestMessage">
 		<part name="TransformSubscribeToCheckPolicyRequest" element="pdte:TransformSubscribeToCheckPolicyRequest"/>
 	</message>
@@ -40,14 +43,7 @@
 		<part name="TransformNotifyToCheckPolicyRequest" element="pdte:TransformNotifyToCheckPolicyRequest"/>
 	</message>
 	<portType name="NhincInternalComponentPolicyEngineTransformPortType">
-		<operation name="TransformSubjectAddedToCheckPolicy">
-			<input name="TransformSubjectAddedToCheckPolicyRequest" message="tns:TransformSubjectAddedToCheckPolicyRequestMessage"/>
-			<output name="TransformSubjectAddedToCheckPolicyResponse" message="tns:TransformResponseMessage"/>
-		</operation>
-		<operation name="TransformSubjectRevisedToCheckPolicy">
-			<input name="TransformSubjectRevisedToCheckPolicyRequest" message="tns:TransformSubjectRevisedToCheckPolicyRequestMessage"/>
-			<output name="TransformSubjectRevisedToCheckPolicyResponse" message="tns:TransformResponseMessage"/>
-		</operation>
+		
 		<!--        <operation name="TransformSubjectRevokedToCheckPolicy">
             <input name="TransformSubjectRevokedToCheckPolicyRequest" message="tns:TransformSubjectRevokedToCheckPolicyRequestMessage"/>
             <output name="TransformSubjectRevokedToCheckPolicyResponse" message="tns:TransformResponseMessage"/>
@@ -87,24 +83,6 @@
 	</portType>
 	<binding name="NhincInternalComponentPolicyEngineTransformPortTypeBinding" type="tns:NhincInternalComponentPolicyEngineTransformPortType">
 		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
-		<operation name="TransformSubjectAddedToCheckPolicy">
-			<soap:operation soapAction="urn:TransformSubjectAddedToCheckPolicy"/>
-			<input name="TransformSubjectAddedToCheckPolicyRequest">
-				<soap:body use="literal"/>
-			</input>
-			<output name="TransformSubjectAddedToCheckPolicyResponse">
-				<soap:body use="literal"/>
-			</output>
-		</operation>
-		<operation name="TransformSubjectRevisedToCheckPolicy">
-			<soap:operation soapAction="urn:TransformSubjectRevisedToCheckPolicy"/>
-			<input name="TransformSubjectRevisedToCheckPolicyRequest">
-				<soap:body use="literal"/>
-			</input>
-			<output name="TransformSubjectRevisedToCheckPolicyResponse">
-				<soap:body use="literal"/>
-			</output>
-		</operation>
 		<!--     <operation name="TransformSubjectRevokedToCheckPolicy">
             <soap:operation/>
             <input name="TransformSubjectRevokedToCheckPolicyRequest">
@@ -189,7 +167,7 @@
 	</binding>
 	<service name="NhincComponentInternalPolicyEngineTransformService">
 		<port name="NhincInternalComponentPolicyEngineTransformPort" binding="tns:NhincInternalComponentPolicyEngineTransformPortTypeBinding">
-			<soap:address location="http://localhost:${HttpDefaultPort}/CONNECTGateway/NhincComponentInternalPolicyEngineTransformService"/>
+			<soap:address location="http://localhost:${NhincHttpPort}/NhinConnect/PolicyEngineGatewayTransformationService"/>
 		</port>
 	</service>
 	<!--   <message name="TransformSubjectRevokedToCheckPolicyRequestMessage">

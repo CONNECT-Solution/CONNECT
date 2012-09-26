@@ -37,6 +37,7 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import ihe.iti.xdr._2007.XDRDeferredResponse20PortType;
 
+import javax.xml.ws.BindingProvider;
 import javax.xml.ws.Holder;
 
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
@@ -92,6 +93,11 @@ public class NhinDocSubmissionDeferredResponseProxyWebServiceSecuredImpl impleme
                 ServicePortDescriptor<XDRDeferredResponse20PortType> portDescriptor = new NhinDocSubmissionDeferredResponseServicePortDescriptor();
 
                 CONNECTClient<XDRDeferredResponse20PortType> client = getCONNECTClientSecured(portDescriptor, url, assertion);
+
+                WebServiceProxyHelper wsHelper = new WebServiceProxyHelper();
+                wsHelper.addTargetCommunity((BindingProvider) client.getPort(), target);
+                wsHelper.addServiceName((BindingProvider) client.getPort(), 
+                        NhincConstants.NHINC_XDR_RESPONSE_SERVICE_NAME);
 
                 client.invokePort(XDRDeferredResponse20PortType.class,
                         "provideAndRegisterDocumentSetBDeferredResponse", respHolder);

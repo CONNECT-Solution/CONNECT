@@ -41,6 +41,8 @@ import ihe.iti.xcpd._2009.RespondingGatewayPortType;
 
 import java.sql.Timestamp;
 
+import javax.xml.ws.BindingProvider;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.PRPAIN201305UV02;
@@ -106,6 +108,10 @@ public class NhinPatientDiscoveryProxyWebServiceSecuredImpl implements NhinPatie
                             NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME, NhincConstants.AUDIT_LOG_NHIN_INTERFACE,
                             NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, targetCommunityId);
 
+                    oProxyHelper.addTargetCommunity((BindingProvider) client.getPort(), target);
+                    oProxyHelper.addServiceName((BindingProvider) client.getPort(), 
+                            NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME);
+                    
                     response = (PRPAIN201306UV02) client.invokePort(RespondingGatewayPortType.class,
                             "respondingGatewayPRPAIN201305UV02", request);
                 } else {

@@ -159,11 +159,11 @@ public class NhinDocSubmissionOrchImpl {
     }
 
     private void auditRequestToAdapter(ProvideAndRegisterDocumentSetRequestType request, AssertionType assertion) {
-        auditLogger.auditNhinXDR(request, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
+        auditLogger.auditAdapterXDR(request, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
     }
 
     private void auditResponseFromAdapter(RegistryResponseType response, AssertionType assertion) {
-        auditLogger.auditEntityXDRResponse(response, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
+        auditLogger.auditAdapterXDRResponse(response, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
     }
 
     private RegistryResponseType createFailedPolicyCheckResponse() {

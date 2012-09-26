@@ -29,11 +29,6 @@ package gov.hhs.fha.nhinc.transform.audit;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import javax.xml.bind.JAXBElement;
-import javax.xml.bind.JAXBContext;
-import java.io.ByteArrayOutputStream;
-import javax.xml.bind.Marshaller;
-
 import com.services.nhinc.schema.auditmessage.AuditMessageType;
 import com.services.nhinc.schema.auditmessage.AuditSourceIdentificationType;
 import com.services.nhinc.schema.auditmessage.CodedValueType;
@@ -45,7 +40,6 @@ import gov.hhs.fha.nhinc.common.auditlog.LogDocRetrieveRequestType;
 import gov.hhs.fha.nhinc.common.auditlog.LogDocRetrieveResultRequestType;
 import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
 
-import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType.DocumentRequest;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType.DocumentResponse;
 import java.util.List;
@@ -163,26 +157,6 @@ public class DocumentRetrieveTransforms {
             partObjId = AuditDataTransformHelper.createParticipantObjectIdentification(uniquePatientId);
         } else if (documentId != null && !documentId.isEmpty()) {
             partObjId = AuditDataTransformHelper.createDocumentParticipantObjectIdentification(documentId);
-        }
-
-        // Fill in the message field with the contents of the event message
-        try {
-            JAXBContextHandler oHandler = new JAXBContextHandler();
-            JAXBContext jc = oHandler.getJAXBContext("ihe.iti.xds_b._2007");
-            Marshaller marshaller = jc.createMarshaller();
-            ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
-            baOutStrm.reset();
-            ihe.iti.xds_b._2007.ObjectFactory factory = new ihe.iti.xds_b._2007.ObjectFactory();
-            JAXBElement oJaxbElement = factory.createRetrieveDocumentSetRequest(message.getMessage()
-                    .getRetrieveDocumentSetRequest());
-            baOutStrm.close();
-            marshaller.marshal(oJaxbElement, baOutStrm);
-            log.debug("Done marshalling the message.");
-
-            partObjId.setParticipantObjectQuery(baOutStrm.toByteArray());
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new RuntimeException();
         }
         auditMsg.getParticipantObjectIdentification().add(partObjId);
 
@@ -303,24 +277,6 @@ public class DocumentRetrieveTransforms {
             partObjId = AuditDataTransformHelper.createParticipantObjectIdentification(uniquePatientId);
         }
 
-        // Fill in the message field with the contents of the event message
-        try {
-            JAXBContextHandler oHandler = new JAXBContextHandler();
-            JAXBContext jc = oHandler.getJAXBContext("ihe.iti.xds_b._2007");
-            Marshaller marshaller = jc.createMarshaller();
-            ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
-            baOutStrm.reset();
-            ihe.iti.xds_b._2007.ObjectFactory factory = new ihe.iti.xds_b._2007.ObjectFactory();
-            JAXBElement oJaxbElement = factory.createRetrieveDocumentSetResponse(message.getMessage()
-                    .getRetrieveDocumentSetResponse());
-            marshaller.marshal(oJaxbElement, baOutStrm);
-            log.debug("Done marshalling the message.");
-
-            partObjId.setParticipantObjectQuery(baOutStrm.toByteArray());
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new RuntimeException();
-        }
         auditMsg.getParticipantObjectIdentification().add(partObjId);
 
         log.info("******************************************************************");
