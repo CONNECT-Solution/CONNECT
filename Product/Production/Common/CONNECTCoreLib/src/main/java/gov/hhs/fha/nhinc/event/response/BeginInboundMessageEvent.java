@@ -24,37 +24,32 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.event;
+package gov.hhs.fha.nhinc.event.response;
 
 /**
  * @author zmelnick
  *
  */
-public interface Event {
+public class BeginInboundMessageEvent extends ResponseEvent {
+
+    private static final String EVENT_NAME = "BEGIN_INBOUND_MESSAGE";
 
     /**
-     * Get the description for the event, a JSON String.
+     * @param messageID
+     * @param transactionID
+     * @param description
+     */
+    public BeginInboundMessageEvent(String messageID, String transactionID, String description) {
+        super(messageID, transactionID, description);
+    }
+
+    /*
+     * (non-Javadoc)
      *
-     * @return the description
+     * @see gov.hhs.fha.nhinc.event.Event#getEventName()
      */
-    String getDescription();
-
-    /**
-     * The name of the event triggered.
-     *
-     * @return the event name
-     */
-    String getEventName();
-
-    /**
-     * The associated MessageID for the triggered event.
-     * @return the messgaeID
-     */
-    String getMessageID();
-
-    /**
-     * The associated TransactionID for the triggered event.
-     * @return the transactionID
-     */
-    String getTransactionID();
+    @Override
+    public String getEventName() {
+        return EVENT_NAME;
+    }
 }

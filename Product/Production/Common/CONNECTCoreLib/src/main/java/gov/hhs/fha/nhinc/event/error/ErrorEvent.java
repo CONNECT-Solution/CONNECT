@@ -24,37 +24,78 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.event;
+package gov.hhs.fha.nhinc.event.error;
+
+import gov.hhs.fha.nhinc.event.Event;
 
 /**
  * @author zmelnick
  *
  */
-public interface Event {
+public abstract class ErrorEvent implements Event {
+
+    private String description;
+    private String messageID;
+    private String transactionID;
 
     /**
-     * Get the description for the event, a JSON String.
      *
-     * @return the description
      */
-    String getDescription();
+    public ErrorEvent(String messageID, String transactionID, String description) {
+        setMessageID(messageID);
+        setTransactionID(transactionID);
+        setDescription(description);
+    }
 
-    /**
-     * The name of the event triggered.
+    /*
+     * (non-Javadoc)
      *
-     * @return the event name
+     * @see gov.hhs.fha.nhinc.event.Event#getDescription()
      */
-    String getEventName();
+    @Override
+    public String getDescription() {
+        return description;
+    }
 
     /**
-     * The associated MessageID for the triggered event.
-     * @return the messgaeID
+     * @param description
      */
-    String getMessageID();
+    protected void setDescription(String description) {
+        this.description = description;
+    }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see gov.hhs.fha.nhinc.event.Event#getMessageID()
+     */
+    @Override
+    public String getMessageID() {
+        return messageID;
+    }
 
     /**
-     * The associated TransactionID for the triggered event.
-     * @return the transactionID
+     * @param messageID
      */
-    String getTransactionID();
+    protected void setMessageID(String messageID) {
+        this.messageID = messageID;
+    }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see gov.hhs.fha.nhinc.event.Event#getTransactionID()
+     */
+    @Override
+    public String getTransactionID() {
+        return transactionID;
+    }
+
+    /**
+     * @param transactionID
+     */
+    protected void setTransactionID(String transactionID) {
+        this.transactionID = transactionID;
+    }
+
 }

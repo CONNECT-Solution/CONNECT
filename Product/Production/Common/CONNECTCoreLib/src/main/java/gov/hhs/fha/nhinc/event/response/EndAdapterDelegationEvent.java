@@ -24,37 +24,31 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.event;
+package gov.hhs.fha.nhinc.event.response;
 
 /**
  * @author zmelnick
  *
  */
-public interface Event {
+public class EndAdapterDelegationEvent extends ResponseEvent {
+
+    private static final String EVENT_NAME = "END_DELEGATION_TO_ADAPTER";
 
     /**
-     * Get the description for the event, a JSON String.
-     *
-     * @return the description
+     * @param messageID
+     * @param transactionID
+     * @param description
      */
-    String getDescription();
+    public EndAdapterDelegationEvent(String messageID, String transactionID, String description) {
+        super(messageID, transactionID, description);
+    }
 
-    /**
-     * The name of the event triggered.
-     *
-     * @return the event name
+    /* (non-Javadoc)
+     * @see gov.hhs.fha.nhinc.event.Event#getEventName()
      */
-    String getEventName();
+    @Override
+    public String getEventName() {
+        return EVENT_NAME;
+    }
 
-    /**
-     * The associated MessageID for the triggered event.
-     * @return the messgaeID
-     */
-    String getMessageID();
-
-    /**
-     * The associated TransactionID for the triggered event.
-     * @return the transactionID
-     */
-    String getTransactionID();
 }
