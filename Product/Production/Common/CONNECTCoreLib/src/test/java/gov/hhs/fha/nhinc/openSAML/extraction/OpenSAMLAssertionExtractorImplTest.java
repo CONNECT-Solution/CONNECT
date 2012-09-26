@@ -130,7 +130,7 @@ public class OpenSAMLAssertionExtractorImplTest {
      */
     @Test
     public void testNullAssertionElement() throws Exception {
-        //assertNull(openSAMLAssertionExtractorImpl.extractSAMLAssertion(null));
+        assertNull(openSAMLAssertionExtractorImpl.extractSAMLAssertion(null));
     }
 
     /**
@@ -140,19 +140,19 @@ public class OpenSAMLAssertionExtractorImplTest {
     @Test
     public void testCompleteSamlAssertion() throws Exception {
         
-//        AssertionType assertionType = openSAMLAssertionExtractorImpl.extractSAMLAssertion(getElementForSamlFile(
-//                File.separator + "testing_saml" + File.separator + "complete_saml.xml"));
-//        assertNotNull(assertionType);
-//
-//        verifyHomeCommunity(assertionType.getHomeCommunity(), "2.16.840.1.113883.3.424", null);
-//        verifyIssuer(assertionType.getSamlIssuer());        
-//        verifyDecisionStatement(assertionType.getSamlAuthzDecisionStatement());        
-//        verifyUser(assertionType.getUserInfo());        
-//        verifyAuthnStatement(assertionType.getSamlAuthnStatement());        
-//        verifyUniquePatientId(assertionType.getUniquePatientId());
-//        verifyCeType(assertionType.getPurposeOfDisclosureCoded(), "OPERATIONS", "2.16.840.1.113883.3.18.7.1",
-//                "nhin-purpose", "Healthcare Operations");
-//        verifySignature(assertionType.getSamlSignature());
+        AssertionType assertionType = openSAMLAssertionExtractorImpl.extractSAMLAssertion(getElementForSamlFile(
+                File.separator + "testing_saml" + File.separator + "complete_saml.xml"));
+        assertNotNull(assertionType);
+
+        verifyHomeCommunity(assertionType.getHomeCommunity(), "2.16.840.1.113883.3.424", null);
+        verifyIssuer(assertionType.getSamlIssuer());        
+        verifyDecisionStatement(assertionType.getSamlAuthzDecisionStatement());        
+        verifyUser(assertionType.getUserInfo());        
+        verifyAuthnStatement(assertionType.getSamlAuthnStatement());        
+        verifyUniquePatientId(assertionType.getUniquePatientId());
+        verifyCeType(assertionType.getPurposeOfDisclosureCoded(), "OPERATIONS", "2.16.840.1.113883.3.18.7.1",
+                "nhin-purpose", "Healthcare Operations");
+        verifySignature(assertionType.getSamlSignature());
     }
      
     private void verifyIssuer(SamlIssuerType issuer) {
