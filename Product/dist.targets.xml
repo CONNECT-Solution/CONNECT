@@ -53,6 +53,7 @@
         <replace file="${install.scripts.staging.dir}/build.xml" token="default=&quot;install&quot;" value="default=&quot;install-binary&quot;" />
         <replace file="${install.scripts.staging.dir}/build.xml" token="../DBScripts/nhincdb" value="DBScripts/nhincdb" />
         <replace file="${install.scripts.staging.dir}/build.xml" token="../../ThirdParty" value="ThirdParty" />
+        <replace file="${install.scripts.staging.dir}/ear.libs.properties.xml" token="../../ThirdParty" value="ThirdParty" />
         <replace file="${install.scripts.staging.dir}/deploy.xml" token="../../ThirdParty" value="ThirdParty" />
         <replace file="${install.scripts.staging.dir}/deploy.xml" token="../Production/Common/Properties/Dev" value="Dev" />
         <replace file="${install.scripts.staging.dir}/deploy.xml" token="../build/package" value="package" />
@@ -64,7 +65,7 @@
             </zipfileset>
             <zipfileset dir="${root.project.directory.path}/build/package" prefix="package">
                 <include name="**\*" />
-            </zipfileset>                
+            </zipfileset>
             <zipfileset dir="${deployment.dir}">
                 <include name="**\*" />
             </zipfileset>
@@ -105,7 +106,7 @@
             <zipfileset dir="${thirdparty.dir}/AntExtraLibs" prefix="ThirdParty/AntExtraLibs">
                 <include name="*.jar" />
             </zipfileset>
-			<zipfileset dir="${root.project.directory.path}/SoapUI_Test/RegressionSuite" prefix="RegressionSuite">
+            <zipfileset dir="${root.project.directory.path}/SoapUI_Test/RegressionSuite" prefix="RegressionSuite">
                 <include name="*.*"/>
             </zipfileset>
         </zip>
