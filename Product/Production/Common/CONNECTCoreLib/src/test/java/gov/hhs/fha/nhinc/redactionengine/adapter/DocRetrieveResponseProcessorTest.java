@@ -81,8 +81,7 @@ public class DocRetrieveResponseProcessorTest {
                 {
                     allowing(mockLog).debug(with(any(String.class)));
                     allowing(mockPatientConsentHelper).retrievePatientConsentbyDocumentId(with(any(String.class)),
-                            with(any(String.class)), with(any(String.class)));
-                    allowing(mockPatientConsentMgr).getDocumentRegistryPort();
+                            with(any(String.class)), with(any(String.class)));                    
                 }
             });
 
@@ -135,11 +134,6 @@ public class DocRetrieveResponseProcessorTest {
             }
 
             @Override
-            protected PatientConsentManager getPatientConsentManager() {
-                return mockPatientConsentMgr;
-            }
-
-            @Override
             protected PatientConsentHelper getPatientConsentHelper() {
                 return mockPatientConsentHelper;
             }
@@ -170,11 +164,6 @@ public class DocRetrieveResponseProcessorTest {
                 @Override
                 protected Log createLogger() {
                     return mockLog;
-                }
-
-                @Override
-                protected PatientConsentManager getPatientConsentManager() {
-                    return mockPatientConsentMgr;
                 }
 
                 @Override
@@ -378,16 +367,6 @@ public class DocRetrieveResponseProcessorTest {
             }
 
             @Override
-            protected PatientConsentManager getPatientConsentManager() {
-                return mockPatientConsentMgr;
-            }
-
-            @Override
-            protected DocumentRegistryPortType getDocumentRegistryPort() {
-                return mockDocumentRegistryPort;
-            }
-
-            @Override
             protected PatientConsentHelper getPatientConsentHelper() {
                 return mockPatientConsentHelper;
             }
@@ -431,16 +410,6 @@ public class DocRetrieveResponseProcessorTest {
                 @Override
                 protected Log createLogger() {
                     return mockLog;
-                }
-
-                @Override
-                protected PatientConsentManager getPatientConsentManager() {
-                    return mockPatientConsentMgr;
-                }
-
-                @Override
-                protected DocumentRegistryPortType getDocumentRegistryPort() {
-                    return mockDocumentRegistryPort;
                 }
 
                 @Override
@@ -708,51 +677,4 @@ public class DocRetrieveResponseProcessorTest {
             fail("Error running testCreateLogger test: " + t.getMessage());
         }
     }
-
-    @Test
-    public void testGetPatientConsentManager() {
-        try {
-            DocRetrieveResponseProcessor processor = new DocRetrieveResponseProcessor() {
-                @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-
-                @Override
-                protected PatientConsentManager getPatientConsentManager() {
-                    return mockPatientConsentMgr;
-                }
-            };
-            PatientConsentManager oPatientConsentManager = processor.getPatientConsentManager();
-            assertNotNull("PatientConsentManager was null", oPatientConsentManager);
-        } catch (Throwable t) {
-            System.out.println("Error running testCreateLogger test: " + t.getMessage());
-            t.printStackTrace();
-            fail("Error running testCreateLogger test: " + t.getMessage());
-        }
-    }
-
-    @Test
-    public void testGetDocumentRegistryPort() {
-        try {
-            DocRetrieveResponseProcessor processor = new DocRetrieveResponseProcessor() {
-                @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-
-                @Override
-                protected DocumentRegistryPortType getDocumentRegistryPort() {
-                    return mockDocumentRegistryPort;
-                }
-            };
-            DocumentRegistryPortType oDocumentRegistryPortType = processor.getDocumentRegistryPort();
-            assertNotNull("DocumentRegistryPortType was null", oDocumentRegistryPortType);
-        } catch (Throwable t) {
-            System.out.println("Error running testCreateLogger test: " + t.getMessage());
-            t.printStackTrace();
-            fail("Error running testCreateLogger test: " + t.getMessage());
-        }
-    }
-
 }

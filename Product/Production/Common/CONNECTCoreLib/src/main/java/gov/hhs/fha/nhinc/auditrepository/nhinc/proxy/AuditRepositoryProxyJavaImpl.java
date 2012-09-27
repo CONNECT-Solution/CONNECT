@@ -26,16 +26,14 @@
  */
 package gov.hhs.fha.nhinc.auditrepository.nhinc.proxy;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
+import gov.hhs.fha.nhinc.auditrepository.nhinc.AuditRepositoryOrchImpl;
 import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
 import gov.hhs.fha.nhinc.common.auditlog.LogEventSecureRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.FindCommunitiesAndAuditEventsRequestType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.FindCommunitiesAndAuditEventsResponseType;
-import gov.hhs.fha.nhinc.auditrepository.nhinc.AuditRepositoryOrchImpl;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * 
@@ -54,16 +52,6 @@ public class AuditRepositoryProxyJavaImpl implements AuditRepositoryProxy {
 
     protected AuditRepositoryOrchImpl getAuditRepositoryOrchImpl() {
         return new AuditRepositoryOrchImpl();
-    }
-
-    /**
-     * Performs a query to the audit repository.
-     * 
-     * @param request Audit query search criteria.
-     * @return List of Audit records that match the search criteria along with a list of referenced communities.
-     */
-    public FindCommunitiesAndAuditEventsResponseType auditQuery(FindCommunitiesAndAuditEventsRequestType request) {
-        return getAuditRepositoryOrchImpl().findAudit(request.getFindAuditEvents(), request.getAssertion());
     }
 
     /**

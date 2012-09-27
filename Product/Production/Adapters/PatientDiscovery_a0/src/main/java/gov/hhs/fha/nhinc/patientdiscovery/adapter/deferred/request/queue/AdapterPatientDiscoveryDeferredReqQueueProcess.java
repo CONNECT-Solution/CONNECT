@@ -37,9 +37,8 @@ import javax.xml.ws.WebServiceContext;
  * 
  * @author richard.ettema
  */
-@WebService(serviceName = "AdapterPatientDiscoveryDeferredReqQueueProcess", portName = "AdapterPatientDiscoveryDeferredReqQueueProcessPort", endpointInterface = "gov.hhs.fha.nhinc.adapterpatientdiscoveryreqqueueprocess.AdapterPatientDiscoveryDeferredReqQueueProcessPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:adapterpatientdiscoveryreqqueueprocess", wsdlLocation = "WEB-INF/wsdl/AdapterPatientDiscoveryDeferredReqQueueProcess/AdapterPatientDiscoveryDeferredReqQueueProcess.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
-public class AdapterPatientDiscoveryDeferredReqQueueProcess {
+public class AdapterPatientDiscoveryDeferredReqQueueProcess implements gov.hhs.fha.nhinc.adapterpatientdiscoveryreqqueueprocess.AdapterPatientDiscoveryDeferredReqQueueProcessPortType {
 
     @Resource
     private WebServiceContext context;

@@ -1,30 +1,43 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
- * All rights reserved. 
+ * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * All rights reserved.
  *
- * Redistribution and use in source and binary forms, with or without 
- * modification, are permitted provided that the following conditions are met: 
- *     * Redistributions of source code must retain the above 
- *       copyright notice, this list of conditions and the following disclaimer. 
- *     * Redistributions in binary form must reproduce the above copyright 
- *       notice, this list of conditions and the following disclaimer in the documentation 
- *       and/or other materials provided with the distribution. 
- *     * Neither the name of the United States Government nor the 
- *       names of its contributors may be used to endorse or promote products 
- *       derived from this software without specific prior written permission. 
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *     * Redistributions of source code must retain the above
+ *       copyright notice, this list of conditions and the following disclaimer.
+ *     * Redistributions in binary form must reproduce the above copyright
+ *       notice, this list of conditions and the following disclaimer in the documentation
+ *       and/or other materials provided with the distribution.
+ *     * Neither the name of the United States Government nor the
+ *       names of its contributors may be used to endorse or promote products
+ *       derived from this software without specific prior written permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
- * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
- * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY 
- * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES 
- * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
- * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND 
- * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
- * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package gov.hhs.fha.nhinc.asyncmsgs.dao;
+
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+import java.util.TimeZone;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
 
 import gov.hhs.fha.nhinc.asyncmsgs.model.AsyncMsgRecord;
 import gov.hhs.fha.nhinc.asyncmsgs.persistence.HibernateUtil;
@@ -34,20 +47,9 @@ import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.util.format.XMLDateUtil;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.TimeZone;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.hibernate.Criteria;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-import org.hibernate.criterion.Restrictions;
 
 /**
- * 
+ *
  * @author JHOPPESC
  */
 public class AsyncMsgRecordDao {
@@ -81,7 +83,7 @@ public class AsyncMsgRecordDao {
 
     /**
      * Query by Message Id. This should return only one record.
-     * 
+     *
      * @param messageId
      * @return matching records
      */
@@ -127,7 +129,7 @@ public class AsyncMsgRecordDao {
 
     /**
      * Query by Message Id and Service Name. This should return only one record.
-     * 
+     *
      * @param messageId
      * @param serviceName
      * @return matching records
@@ -174,8 +176,8 @@ public class AsyncMsgRecordDao {
 
     /**
      * Query for Creation Time less than passed timestamp.
-     * 
-     * @param timestamp
+     *
+     * @param timestamp A timestamp
      * @return matching records
      */
     public List<AsyncMsgRecord> queryByTime(Date timestamp) {
@@ -219,8 +221,8 @@ public class AsyncMsgRecordDao {
     /**
      * Query for Creation Time less than passed timestamp and status equal to Request Receieved Acknowledged
      * [REQRCVDACK]
-     * 
-     * @param timestamp
+     *
+     * @param timestamp A timestamp
      * @return matching records
      */
     public List<AsyncMsgRecord> queryForExpired(Date timestamp) {
@@ -265,7 +267,7 @@ public class AsyncMsgRecordDao {
 
     /**
      * Query for all records to be processed by the Deferred Queue Manager.
-     * 
+     *
      * @return matching records
      */
     public List<AsyncMsgRecord> queryForDeferredQueueProcessing() {
@@ -311,7 +313,7 @@ public class AsyncMsgRecordDao {
     /**
      * Query for all records that are already selected. This will occur if a prior process was interrupted before all
      * selected records processing was complete.
-     * 
+     *
      * @return matching records
      */
     public List<AsyncMsgRecord> queryForDeferredQueueSelected() {
@@ -356,7 +358,7 @@ public class AsyncMsgRecordDao {
 
     /**
      * Query by Message Id and Service Name. This should return only one record.
-     * 
+     *
      * @param messageId
      * @param serviceName
      * @return matching records
@@ -448,9 +450,9 @@ public class AsyncMsgRecordDao {
     }
 
     /**
-     * Insert list of records
-     * 
-     * @param asyncMsgRecs
+     * Insert list of records.
+     *
+     * @param asyncMsgRecs object to save.
      * @return true - success; false - failure
      */
     public boolean insertRecords(List<AsyncMsgRecord> asyncMsgRecs) {
@@ -472,7 +474,7 @@ public class AsyncMsgRecordDao {
                 log.info("Inserting Record...");
 
                 for (int i = 0; i < size; i++) {
-                    dbRecord = (AsyncMsgRecord) asyncMsgRecs.get(i);
+                    dbRecord = asyncMsgRecs.get(i);
                     session.persist(dbRecord);
                 }
 
@@ -498,8 +500,8 @@ public class AsyncMsgRecordDao {
 
     /**
      * Save a record to the database. Insert if pk is null. Update otherwise.
-     * 
-     * @param object to save.
+     *
+     * @param asyncMsgRecord object to save.
      */
     public void save(AsyncMsgRecord asyncMsgRecord) {
         log.debug("AsyncMsgRecordDao.save() - Begin");
@@ -541,8 +543,8 @@ public class AsyncMsgRecordDao {
 
     /**
      * Save records to the database. Insert if pk is null. Update otherwise.
-     * 
-     * @param asyncMsgRecs
+     *
+     * @param asyncMsgRecs object to save.
      */
     public void save(List<AsyncMsgRecord> asyncMsgRecs) {
         log.debug("AsyncMsgRecordDao.save(list) - Begin");
@@ -562,7 +564,7 @@ public class AsyncMsgRecordDao {
                     log.info("Saving Records...");
 
                     for (int i = 0; i < size; i++) {
-                        dbRecord = (AsyncMsgRecord) asyncMsgRecs.get(i);
+                        dbRecord = asyncMsgRecs.get(i);
                         sess.saveOrUpdate(dbRecord);
                     }
 
@@ -595,8 +597,8 @@ public class AsyncMsgRecordDao {
 
     /**
      * Delete the specified record.
-     * 
-     * @param asyncMsgRecord
+     *
+     * @param asyncMsgRecord object to save.
      */
     public void delete(AsyncMsgRecord asyncMsgRecord) {
         log.debug("Performing a database record delete on asyncmsgrepo table");

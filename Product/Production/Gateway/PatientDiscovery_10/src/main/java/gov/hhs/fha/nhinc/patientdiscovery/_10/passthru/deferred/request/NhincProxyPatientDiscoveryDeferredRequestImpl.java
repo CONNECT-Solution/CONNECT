@@ -28,9 +28,11 @@ package gov.hhs.fha.nhinc.patientdiscovery._10.passthru.deferred.request;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
 import gov.hhs.fha.nhinc.patientdiscovery.passthru.deferred.request.PassthruPatientDiscoveryDeferredRequestOrchImpl;
-import gov.hhs.fha.nhinc.service.WebServiceHelper;
+
 import javax.xml.ws.WebServiceContext;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.MCCIIN000002UV01;
@@ -50,10 +52,7 @@ public class NhincProxyPatientDiscoveryDeferredRequestImpl {
         return ((log != null) ? log : LogFactory.getLog(getClass()));
     }
 
-    public WebServiceHelper createWebServiceHelper() {
-        return new WebServiceHelper();
-    }
-
+  
     protected PassthruPatientDiscoveryDeferredRequestOrchImpl createPassthruProxyPatientDiscoveryDeferredRequestOrchImpl() {
         return new PassthruPatientDiscoveryDeferredRequestOrchImpl();
     }
@@ -61,7 +60,6 @@ public class NhincProxyPatientDiscoveryDeferredRequestImpl {
     public MCCIIN000002UV01 processPatientDiscoveryAsyncRequestSecured(
             ProxyPRPAIN201305UVProxySecuredRequestType request, WebServiceContext context) {
         log.info("Begin processPatientDiscoveryAsyncRequestSecured(ProxyPRPAIN201305UVProxySecuredRequestType, WebServiceContext)");
-        WebServiceHelper oHelper = createWebServiceHelper();
         PassthruPatientDiscoveryDeferredRequestOrchImpl implOrch = createPassthruProxyPatientDiscoveryDeferredRequestOrchImpl();
         MCCIIN000002UV01 response = null;
 
@@ -69,8 +67,7 @@ public class NhincProxyPatientDiscoveryDeferredRequestImpl {
             if (request != null) {
                 PRPAIN201305UV02 message = request.getPRPAIN201305UV02();
                 NhinTargetSystemType targets = request.getNhinTargetSystem();
-                response = (MCCIIN000002UV01) oHelper.invokeSecureWebService(implOrch, implOrch.getClass(),
-                        "processPatientDiscoveryAsyncReq", message, targets, context);
+                response = implOrch.processPatientDiscoveryAsyncReq(message, extractAssertion(context),targets);
             } else {
                 log.error("Failed to call the web orchestration (" + implOrch.getClass()
                         + ".processPatientDiscoveryAsyncReq).  The input parameter is null.");
@@ -87,7 +84,6 @@ public class NhincProxyPatientDiscoveryDeferredRequestImpl {
     public MCCIIN000002UV01 processPatientDiscoveryAsyncRequestUnsecured(ProxyPRPAIN201305UVProxyRequestType request,
             WebServiceContext context) {
         log.info("Begin processPatientDiscoveryAsyncRequestSecured(ProxyPRPAIN201305UVProxyRequestType, WebServiceContext)");
-        WebServiceHelper oHelper = createWebServiceHelper();
         PassthruPatientDiscoveryDeferredRequestOrchImpl implOrch = createPassthruProxyPatientDiscoveryDeferredRequestOrchImpl();
         MCCIIN000002UV01 response = null;
 
@@ -96,8 +92,7 @@ public class NhincProxyPatientDiscoveryDeferredRequestImpl {
                 PRPAIN201305UV02 message = request.getPRPAIN201305UV02();
                 NhinTargetSystemType targets = request.getNhinTargetSystem();
                 AssertionType assertion = request.getAssertion();
-                response = (MCCIIN000002UV01) oHelper.invokeUnsecureWebService(implOrch, implOrch.getClass(),
-                        "processPatientDiscoveryAsyncReq", message, assertion, targets, context);
+                response = (MCCIIN000002UV01) implOrch.processPatientDiscoveryAsyncReq(message, assertion, targets);
             } else {
                 log.error("Failed to call the web orchestration (" + implOrch.getClass()
                         + ".processPatientDiscoveryAsyncReq).  The input parameter is null.");
@@ -109,5 +104,9 @@ public class NhincProxyPatientDiscoveryDeferredRequestImpl {
                             + e.getMessage(), e);
         }
         return response;
+    }
+    
+    protected AssertionType extractAssertion(WebServiceContext context) {
+        return SAML2AssertionExtractor.getInstance().extractSamlAssertion(context);
     }
 }

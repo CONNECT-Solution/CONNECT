@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements. See the NOTICE file 
+    distributed with this work for additional information regarding copyright ownership. The ASF licenses this file to you under 
+    the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may 
+    obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0 Unless required by applicable law or agreed to 
+    in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF 
+    ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under 
+    the License. -->
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:jaxws="http://cxf.apache.org/jaxws" xmlns:soap="http://cxf.apache.org/bindings/soap"
+    xsi:schemaLocation="
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+http://cxf.apache.org/bindings/soap http://cxf.apache.org/schemas/configuration/soap.xsd
+http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
+
+    <import resource="classpath:META-INF/cxf/cxf.xml" />
+    <import resource="classpath:META-INF/cxf/cxf-extension-soap.xml" />
+    <import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
+    <import resource="classpath:CONNECT-interceptor-beans.xml" />
+
+    <!-- Patient Discovery -->
+
+    <!-- Nhin services -->
+
+    <jaxws:endpoint xmlns:tns="urn:ihe:iti:xcpd:2009" id="RespondingGateway_Service" address="/NhinService/NhinPatientDiscovery"
+        serviceName="tns:RespondingGateway_Service" endpointName="tns:RespondingGateway_Port_Soap"
+        implementor="gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.NhinPatientDiscovery" wsdlLocation="/WEB-INF/wsdl/NhinPatientDiscovery.wsdl">
+        <jaxws:properties>
+            <entry key="ws-security.callback-handler" value="gov.hhs.fha.nhinc.callback.cxf.CXFSAMLCallbackHandler" />
+            <entry key="ws-security.signature.properties" value="keystore.properties" />
+            <entry key="ws-security.encryption.properties" value="truststore.properties" />
+            <entry key="ws-security.saml2.validator">
+                <bean class="gov.hhs.fha.nhinc.callback.cxf.CONNECTSamlAssertionValidator" />
+            </entry>
+        </jaxws:properties>
+        <jaxws:inInterceptors>
+            <ref bean="securityInInterceptor" />
+        </jaxws:inInterceptors>
+        <jaxws:handlers>
+            <ref bean="SOAPHeaderHandler" />
+        </jaxws:handlers>
+    </jaxws:endpoint>
+
+    <!-- Entity services -->
+
+    <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:entitypatientdiscoverysecured" id="EntityPatientDiscoverySecured"
+        address="/EntityService/EntityPatientDiscoverySecured" serviceName="tns:EntityPatientDiscoverySecured"
+        endpointName="tns:EntityPatientDiscoverySecuredPortSoap" implementor="gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.EntityPatientDiscoverySecured"
+        wsdlLocation="/WEB-INF/wsdl/EntityPatientDiscoverySecured.wsdl">
+        <jaxws:properties>
+            <entry key="ws-security.callback-handler" value="gov.hhs.fha.nhinc.callback.cxf.CXFSAMLCallbackHandler" />
+            <entry key="ws-security.signature.properties" value="keystore.properties" />
+            <entry key="ws-security.encryption.properties" value="truststore.properties" />
+        </jaxws:properties>
+        <jaxws:inInterceptors>
+            <ref bean="securityInInterceptor" />
+        </jaxws:inInterceptors>
+        <jaxws:handlers>
+            <ref bean="SOAPHeaderHandler" />
+        </jaxws:handlers>
+    </jaxws:endpoint>
+
+    <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:entitypatientdiscovery" id="EntityPatientDiscovery"
+        address="/EntityPatientDiscovery" serviceName="tns:EntityPatientDiscovery" endpointName="tns:EntityPatientDiscoveryPortSoap"
+        implementor="gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.EntityPatientDiscoveryUnsecured" wsdlLocation="/WEB-INF/wsdl/EntityPatientDiscovery.wsdl">
+    </jaxws:endpoint>
+
+    <!-- MsgProxy/NhincProxy/Passthru services -->
+
+    <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:nhincproxypatientdiscoverysecured" id="NhincProxyPatientDiscoverySecured"
+        address="/MsgProxy/NhincProxyPatientDiscoverySecured" serviceName="tns:NhincProxyPatientDiscoverySecured"
+        endpointName="tns:NhincProxyPatientDiscoverySecuredPort" implementor="gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.NhincProxyPatientDiscoverySecured"
+        wsdlLocation="/WEB-INF/wsdl/NhincProxyPatientDiscoverySecured.wsdl">
+        <jaxws:properties>
+            <entry key="ws-security.callback-handler" value="gov.hhs.fha.nhinc.callback.cxf.CXFSAMLCallbackHandler" />
+            <entry key="ws-security.signature.properties" value="keystore.properties" />
+            <entry key="ws-security.encryption.properties" value="truststore.properties" />
+        </jaxws:properties>
+        <jaxws:inInterceptors>
+            <ref bean="securityInInterceptor" />
+        </jaxws:inInterceptors>
+        <jaxws:handlers>
+            <ref bean="SOAPHeaderHandler" />
+        </jaxws:handlers>
+    </jaxws:endpoint>
+
+    <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:nhincproxypatientdiscovery" id="NhincProxyPatientDiscovery"
+        address="/MsgProxy/NhincProxyPatientDiscovery" serviceName="tns:NhincProxyPatientDiscovery" endpointName="tns:NhincProxyPatientDiscoveryPort"
+        implementor="gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.NhincProxyPatientDiscovery" wsdlLocation="/WEB-INF/wsdl/NhincProxyPatientDiscovery.wsdl">
+    </jaxws:endpoint>
+
+
+
+    <!-- Patient Discovery Deferred Request -->
+
+    <!-- Nhin services -->
+
+    <jaxws:endpoint xmlns:tns="urn:ihe:iti:xcpd:2009" id="RespondingGatewayDeferredRequest_Service"
+        address="/NhinService/NhinPatientDiscoveryAsyncReq" serviceName="tns:RespondingGatewayDeferredRequest_Service"
+        endpointName="tns:RespondingGatewayDeferredRequest_Port" implementor="gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.NhinPatientDiscoveryAsyncReq"
+        wsdlLocation="/WEB-INF/wsdl/NhinPatientDiscoveryDeferredRequest.wsdl">
+        <jaxws:properties>
+            <entry key="ws-security.callback-handler" value="gov.hhs.fha.nhinc.callback.cxf.CXFSAMLCallbackHandler" />
+            <entry key="ws-security.signature.properties" value="keystore.properties" />
+            <entry key="ws-security.encryption.properties" value="truststore.properties" />
+            <entry key="ws-security.saml2.validator">
+                <bean class="gov.hhs.fha.nhinc.callback.cxf.CONNECTSamlAssertionValidator" />
+            </entry>
+        </jaxws:properties>
+        <jaxws:inInterceptors>
+            <ref bean="securityInInterceptor" />
+        </jaxws:inInterceptors>
+        <jaxws:handlers>
+            <ref bean="SOAPHeaderHandler" />
+        </jaxws:handlers>
+    </jaxws:endpoint>
+
+    <!-- Entity services -->
+
+    <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:entitypatientdiscoverysecuredasyncreq" id="EntityPatientDiscoverySecuredAsyncReq"
+        address="/EntityService/EntityPatientDiscoveryDeferredRequestSecured" serviceName="tns:EntityPatientDiscoverySecuredAsyncReq"
+        endpointName="tns:EntityPatientDiscoverySecuredAsyncReqPortSoap" implementor="gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.EntityPatientDiscoveryDeferredRequestSecured"
+        wsdlLocation="/WEB-INF/wsdl/EntityPatientDiscoverySecuredAsyncReq.wsdl">
+        <jaxws:properties>
+            <entry key="ws-security.callback-handler" value="gov.hhs.fha.nhinc.callback.cxf.CXFSAMLCallbackHandler" />
+            <entry key="ws-security.signature.properties" value="keystore.properties" />
+            <entry key="ws-security.encryption.properties" value="truststore.properties" />
+        </jaxws:properties>
+        <jaxws:inInterceptors>
+            <ref bean="securityInInterceptor" />
+        </jaxws:inInterceptors>
+        <jaxws:handlers>
+            <ref bean="SOAPHeaderHandler" />
+        </jaxws:handlers>
+    </jaxws:endpoint>
+
+    <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:entitypatientdiscoveryasyncreq" id="EntityPatientDiscoveryAsyncReq"
+        address="/EntityService/EntityPatientDiscoveryDeferredRequestUnsecured" serviceName="tns:EntityPatientDiscoveryAsyncReq"
+        endpointName="tns:EntityPatientDiscoveryAsyncReqPortSoap" implementor="gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.EntityPatientDiscoveryDeferredRequestUnsecured"
+        wsdlLocation="/WEB-INF/wsdl/EntityPatientDiscoveryAsyncReq.wsdl">
+    </jaxws:endpoint>
+
+    <!-- MsgProxy/NhincProxy/Passthru services -->
+
+    <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:nhincproxypatientdiscoverysecuredasyncreq" id="NhincProxyPatientDiscoverySecuredAsyncReq"
+        address="/MsgProxy/NhincProxyPatientDiscoveryDeferredRequestSecured" serviceName="tns:NhincProxyPatientDiscoverySecuredAsyncReq"
+        endpointName="NhincProxyPatientDiscoverySecuredAsyncReqPortType"
+        implementor="gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.NhincProxyPatientDiscoveryDeferredRequestSecured"
+        wsdlLocation="/WEB-INF/wsdl/NhincProxyPatientDiscoverySecuredAsyncReq.wsdl">
+        <jaxws:properties>
+            <entry key="ws-security.callback-handler" value="gov.hhs.fha.nhinc.callback.cxf.CXFSAMLCallbackHandler" />
+            <entry key="ws-security.signature.properties" value="keystore.properties" />
+            <entry key="ws-security.encryption.properties" value="truststore.properties" />
+        </jaxws:properties>
+        <jaxws:inInterceptors>
+            <ref bean="securityInInterceptor" />
+        </jaxws:inInterceptors>
+        <jaxws:handlers>
+            <ref bean="SOAPHeaderHandler" />
+        </jaxws:handlers>
+    </jaxws:endpoint>
+
+    <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:nhincproxypatientdiscoveryasyncreq" id="NhincProxyPatientDiscoveryAsyncReq"
+        address="/MsgProxy/NhincProxyPatientDiscoveryDeferredRequestUnsecured" serviceName="tns:NhincProxyPatientDiscoveryAsyncReq"
+        endpointName="tns:NhincProxyPatientDiscoveryAsyncReqPortType"
+        implementor="gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.NhincProxyPatientDiscoveryDeferredRequestUnsecured"
+        wsdlLocation="/WEB-INF/wsdl/NhincProxyPatientDiscoveryAsyncReq.wsdl">
+    </jaxws:endpoint>
+
+
+
+
+    <!-- Patient Discovery Deferred Response -->
+
+    <!-- Nhin services -->
+
+    <jaxws:endpoint xmlns:tns="urn:ihe:iti:xcpd:2009" id="RespondingGatewayDeferredResp_Service" address="/NhinService/NhinPatientDiscoveryAsyncResp"
+        serviceName="tns:RespondingGatewayDeferredResp_Service" endpointName="tns:RespondingGatewayDeferredResponse_Port"
+        implementor="gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.NhinPatientDiscoveryAsyncResp" wsdlLocation="/WEB-INF/wsdl/NhinPatientDiscoveryDeferredResponse.wsdl">
+        <jaxws:properties>
+            <entry key="ws-security.callback-handler" value="gov.hhs.fha.nhinc.callback.cxf.CXFSAMLCallbackHandler" />
+            <entry key="ws-security.signature.properties" value="keystore.properties" />
+            <entry key="ws-security.encryption.properties" value="truststore.properties" />
+            <entry key="ws-security.saml2.validator">
+                <bean class="gov.hhs.fha.nhinc.callback.cxf.CONNECTSamlAssertionValidator" />
+            </entry>
+        </jaxws:properties>
+        <jaxws:inInterceptors>
+            <ref bean="securityInInterceptor" />
+        </jaxws:inInterceptors>
+        <jaxws:handlers>
+            <ref bean="SOAPHeaderHandler" />
+        </jaxws:handlers>
+    </jaxws:endpoint>
+
+    <!-- Entity services -->
+
+    <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:entitypatientdiscoverysecuredasyncresp" id="EntityPatientDiscoverySecuredAsyncResp"
+        address="/EntityService/EntityPatientDiscoveryDeferredResponseSecured" serviceName="tns:EntityPatientDiscoverySecuredAsyncResp"
+        endpointName="tns:EntityPatientDiscoverySecuredAsyncRespPortSoap" implementor="gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.EntityPatientDiscoveryDeferredResponseSecured"
+        wsdlLocation="/WEB-INF/wsdl/EntityPatientDiscoverySecuredAsyncResp.wsdl">
+        <jaxws:properties>
+            <entry key="ws-security.callback-handler" value="gov.hhs.fha.nhinc.callback.cxf.CXFSAMLCallbackHandler" />
+            <entry key="ws-security.signature.properties" value="keystore.properties" />
+            <entry key="ws-security.encryption.properties" value="truststore.properties" />
+        </jaxws:properties>
+        <jaxws:inInterceptors>
+            <ref bean="securityInInterceptor" />
+        </jaxws:inInterceptors>
+        <jaxws:handlers>
+            <ref bean="SOAPHeaderHandler" />
+        </jaxws:handlers>
+    </jaxws:endpoint>
+
+    <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:entitypatientdiscoveryasyncresp" id="EntityPatientDiscoveryAsyncResp"
+        address="/EntityService/EntityPatientDiscoveryDeferredResponseUnsecured" serviceName="tns:EntityPatientDiscoveryAsyncResp"
+        endpointName="tns:EntityPatientDiscoveryAsyncRespPortSoap" implementor="gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.EntityPatientDiscoveryDeferredResponseUnsecured"
+        wsdlLocation="/WEB-INF/wsdl/EntityPatientDiscoveryAsyncResp.wsdl">
+    </jaxws:endpoint>
+
+    <!-- MsgProxy/NhincProxy/Passthru services -->
+
+    <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:nhincproxypatientdiscoveryasyncresp" id="NhincProxyPatientDiscoveryAsyncResp"
+        address="/MsgProxy/NhincProxyPatientDiscoveryAsyncResp" serviceName="tns:NhincProxyPatientDiscoveryAsyncResp"
+        endpointName="tns:NhincProxyPatientDiscoveryAsyncRespPortType" implementor="gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.NhincProxyPatientDiscoveryAsyncResp"
+        wsdlLocation="/WEB-INF/wsdl/NhincProxyPatientDiscoveryAsyncResp.wsdl">
+    </jaxws:endpoint>
+
+    <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:nhincproxypatientdiscoverysecuredasyncresp" id="NhincProxyPatientDiscoverySecuredAsyncResp"
+        address="/MsgProxy/NhincProxyPatientDiscoveryAsyncRespSecured" serviceName="tns:NhincProxyPatientDiscoverySecuredAsyncResp"
+        endpointName="NhincProxyPatientDiscoverySecuredAsyncRespPortType" implementor="gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.NhincProxyPatientDiscoverySecuredAsyncResp"
+        wsdlLocation="/WEB-INF/wsdl/NhincProxyPatientDiscoverySecuredAsyncResp.wsdl">
+        <jaxws:properties>
+            <entry key="ws-security.callback-handler" value="gov.hhs.fha.nhinc.callback.cxf.CXFSAMLCallbackHandler" />
+            <entry key="ws-security.signature.properties" value="keystore.properties" />
+            <entry key="ws-security.encryption.properties" value="truststore.properties" />
+        </jaxws:properties>
+        <jaxws:inInterceptors>
+            <ref bean="securityInInterceptor" />
+        </jaxws:inInterceptors>
+        <jaxws:handlers>
+            <ref bean="SOAPHeaderHandler" />
+        </jaxws:handlers>
+    </jaxws:endpoint>
+
+    <bean id="SOAPHeaderHandler" class="gov.hhs.fha.nhinc.callback.SOAPHeaderHandler" />
+</beans>

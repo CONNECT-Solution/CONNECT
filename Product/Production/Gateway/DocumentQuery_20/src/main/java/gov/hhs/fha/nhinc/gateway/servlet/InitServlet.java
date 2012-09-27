@@ -58,6 +58,11 @@ import org.apache.commons.logging.LogFactory;
  */
 public class InitServlet extends HttpServlet{
 
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -4229185731377926278L;
+
     private Log log = LogFactory.getLog(InitServlet.class);
 
     private static ExecutorService executor = null;

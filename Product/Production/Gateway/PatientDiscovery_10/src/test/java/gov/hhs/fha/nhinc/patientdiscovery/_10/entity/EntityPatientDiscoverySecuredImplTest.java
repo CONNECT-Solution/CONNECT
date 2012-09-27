@@ -29,6 +29,9 @@ package gov.hhs.fha.nhinc.patientdiscovery._10.entity;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.fail;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.patientdiscovery.entity.EntityPatientDiscoveryOrchImpl;
+import gov.hhs.fha.nhinc.perfrepo.PerformanceManager;
 
 import javax.xml.ws.WebServiceContext;
 
@@ -42,10 +45,6 @@ import org.jmock.integration.junit4.JUnit4Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.patientdiscovery.entity.EntityPatientDiscoveryOrchImpl;
-import gov.hhs.fha.nhinc.perfrepo.PerformanceManager;
 
 /**
  * 
@@ -119,29 +118,29 @@ public class EntityPatientDiscoverySecuredImplTest {
         }
     }
 
-    @Test
-    public void testExtractAssertion() {
-        try {
-            EntityPatientDiscoveryImpl pdSecuredImpl = new EntityPatientDiscoveryImpl() {
-                @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-
-                @Override
-                protected AssertionType extractAssertion(WebServiceContext context) {
-                    return mockAssertion;
-                }
-            };
-
-            AssertionType assertion = pdSecuredImpl.extractAssertion(mockWebServiceContext);
-            assertNotNull("AssertionType was null", assertion);
-        } catch (Throwable t) {
-            System.out.println("Error running testExtractAssertion: " + t.getMessage());
-            t.printStackTrace();
-            fail("Error running testExtractAssertion: " + t.getMessage());
-        }
-    }
+//    @Test
+//    public void testExtractAssertion() {
+//        try {
+//            EntityPatientDiscoveryImpl pdSecuredImpl = new EntityPatientDiscoveryImpl() {
+//                @Override
+//                protected Log createLogger() {
+//                    return mockLog;
+//                }
+//
+//                @Override
+//                protected AssertionType extractAssertion(WebServiceContext context) {
+//                    return mockAssertion;
+//                }
+//            };
+//
+//            AssertionType assertion = pdSecuredImpl.extractAssertion(mockWebServiceContext);
+//            assertNotNull("AssertionType was null", assertion);
+//        } catch (Throwable t) {
+//            System.out.println("Error running testExtractAssertion: " + t.getMessage());
+//            t.printStackTrace();
+//            fail("Error running testExtractAssertion: " + t.getMessage());
+//        }
+//    }
 
     @Test
     public void testRespondingGatewayPRPAIN201305UV02Happy() {

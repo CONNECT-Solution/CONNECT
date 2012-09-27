@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><con:soapui-project xmlns:con="http://eviware.com/soapui/config" abortOnError="false" name="EntitySendingXDRAsyncResponseTests" resourceRoot="" runType="SEQUENTIAL" soapui-version="3.5.1">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><con:soapui-project xmlns:con="http://eviware.com/soapui/config" abortOnError="false" name="EntitySendingXDRAsyncResponseTests" resourceRoot="" runType="SEQUENTIAL" soapui-version="3.6">
   <con:settings>
     <con:setting id="com.eviware.soapui.impl.wsdl.actions.iface.tools.soapui.TestRunnerAction@values-local"><![CDATA[<xml-fragment xmlns:con="http://eviware.com/soapui/config">
   <con:entry key="Global Properties" value=""/>
@@ -345,7 +345,8 @@
       <con:settings/>
       <con:testStep name="Set PolicyEngine Mock" type="groovy">
         <con:settings/>
-        <con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+        <con:config><script>import nhinc.FileUtils;
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 def NHINGatewayHost = context.findProperty("NHINGatewayHost");
@@ -625,7 +626,7 @@ FileUtils.CreateOrUpdateConnection("internalConnectionInfo.xml", destConfigFileL
               <con:configuration><path>declare namespace ns20='http://www.hhs.gov/healthit/nhin';
 //ns20:XDRAcknowledgement[1]/ns20:message[1]/@status</path><content>urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:ResponseAccepted</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration>
             </con:assertion>
-            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:assertion name="Schema Compliance" type="Schema Compliance"><con:configuration><definition/></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
             <con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhincentityxdr:async:response:ProvideAndRegisterDocumentSet-bAsyncResp_Request" addDefaultTo="true" messageID="uuid:1111111111.22222.333.44" mustUnderstand="NONE" version="200508"/>
             <con:wsrmConfig version="1.2"/>
@@ -2116,28 +2117,30 @@ declare namespace adapter='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-03-01T09:24:30Z</con:value>
+          <con:value>2012-08-25T02:34:17Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-03-01T11:29:30Z</con:value>
+          <con:value>2012-08-25T04:39:17Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>03/01/2012 09:24:30</con:value>
+          <con:value>08/25/2012 02:34:17</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-03-31T00:00:00Z</con:value>
+          <con:value>2012-09-24T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    <con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript></con:testCase>
+    <con:tearDownScript>import nhinc.FileUtils;
+FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript></con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="d650350f-473a-4664-aea4-2a15f299c64e" keepSession="false" maxResults="0" name="PolicyCheckDeny" searchProperties="true">
       <con:settings/>
       <con:testStep name="Set PolicyEngine Mock" type="groovy">
         <con:settings/>
-        <con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+        <con:config><script>import nhinc.FileUtils;
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 def NHINGatewayHost = context.findProperty("NHINGatewayHost");
@@ -2414,15 +2417,10 @@ FileUtils.CreateOrUpdateConnection("internalConnectionInfo.xml", destConfigFileL
               </con:configuration>
             </con:assertion>
             <con:assertion name="Match content of [@status]" type="XPath Match">
-              <con:configuration>
-                <path>declare namespace ns20='http://www.hhs.gov/healthit/nhin';
-//ns20:XDRAcknowledgement[1]/ns20:message[1]/@status</path>
-                <content>urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:RequestAccepted</content>
-                <allowWildcards>false</allowWildcards>
-                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-              </con:configuration>
+              <con:configuration><path>declare namespace ns20='http://www.hhs.gov/healthit/nhin';
+//ns20:XDRAcknowledgement[1]/ns20:message[1]/@status</path><content>urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration>
             </con:assertion>
-            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:assertion name="Schema Compliance" type="Schema Compliance"><con:configuration><definition/></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
             <con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhincentityxdr:async:response:ProvideAndRegisterDocumentSet-bAsyncResp_Request" addDefaultTo="true" messageID="uuid:1111111111.22222.333.44" mustUnderstand="NONE" version="200508"/>
             <con:wsrmConfig version="1.2"/>
@@ -3913,23 +3911,24 @@ declare namespace adapter='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-03-01T09:24:35Z</con:value>
+          <con:value>2012-08-25T02:34:19Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-03-01T11:29:35Z</con:value>
+          <con:value>2012-08-25T04:39:19Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>03/01/2012 09:24:35</con:value>
+          <con:value>08/25/2012 02:34:19</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-03-31T00:00:00Z</con:value>
+          <con:value>2012-09-24T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    <con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript></con:testCase>
+    <con:tearDownScript>import nhinc.FileUtils;
+FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript></con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="15ded873-98b8-4a7a-b8d9-c6e2d48883b5" keepSession="false" maxResults="0" name="AuditLogQuery" searchProperties="true">
       <con:settings/>
       <con:testStep name="clear audit table" type="groovy"><con:settings/><con:config><script>context.withSql('AuditDB') { sql -&gt; 
@@ -4203,23 +4202,23 @@ context.testCase.setPropertyValue('FullPatientID', "${PatientID}^^^&amp;amp;${lo
 assert (count &gt; 0);</script></con:config></con:testStep><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-03-01T09:24:37Z</con:value>
+          <con:value>2012-08-25T02:34:20Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-03-01T11:29:37Z</con:value>
+          <con:value>2012-08-25T04:39:20Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>03/01/2012 09:24:37</con:value>
+          <con:value>08/25/2012 02:34:20</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-03-31T00:00:00Z</con:value>
+          <con:value>2012-09-24T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>XDRUserId</con:name>
-          <con:value>XDR Request Inbound UserThu Mar 01 09:29:37 UTC 2012</con:value>
+          <con:value>XDR Request Inbound UserSat Aug 25 02:39:20 UTC 2012</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -4227,7 +4226,8 @@ assert (count &gt; 0);</script></con:config></con:testStep><con:properties>
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    <con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript></con:testCase>
+    <con:tearDownScript>import nhinc.FileUtils;
+FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript></con:testCase>
     <con:properties/>
     <con:reportParameters/>
   </con:testSuite>

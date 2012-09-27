@@ -2,6 +2,8 @@
 .project
 .settings
 .metadata
+.DS_Store
+*.log
 .externalToolBuilders/
 build/
 dist/
@@ -17,10 +19,10 @@ target/
 Product/NHINC/
 Product/Production/Common/Properties/Dev/test*.properties
 Product/Production/Common/CONNECTCoreLib/*test*.properties
-Product/Production/Common/CONNECTCoreLib/testMPI.xml
+Product/Production/Services/PatientDiscovery/Core/PatientDiscoveryCore/testMPI.xml
 Product/Install/deploy.application.list.xml
 Product/Install/local.install.properties
-Product/Install/install.debug.log
+Product/Install/.installer.temp/
 Product/Install/.backup*/
+Product/PmdReport/
 CheckstyleReport/
-PmdReport/

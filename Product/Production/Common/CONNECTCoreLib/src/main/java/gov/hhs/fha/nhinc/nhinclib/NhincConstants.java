@@ -103,13 +103,24 @@ public class NhincConstants {
     	{
     		return this.UDDIServiceName;
     	}
+    	
+        public static NHIN_SERVICE_NAMES fromValueString(String valueString) {
+            if (valueString != null) {
+                for (NHIN_SERVICE_NAMES enumValue : NHIN_SERVICE_NAMES.values()) {
+                    if (valueString.equals(enumValue.UDDIServiceName)) {
+                        return enumValue;
+                    }
+                }
+            }
+            throw new IllegalArgumentException("No enum constant " + valueString);
+        }
     };
-
+    public static final String SERVICE_NAME = "serviceName";
+    
     // Property File Constants
     public static final String GATEWAY_PROPERTY_FILE = "gateway";
     public static final String HOME_COMMUNITY_ID_PROPERTY = "localHomeCommunityId";
     public static final String NHINC_PROPERTIES_DIR = "NHINC_PROPERTIES_DIR";
-    public static final String SPRING_CONFIG_FILE = "ComponentProxyConfig.xml";
     public static final String INTERNAL_CONNECTION_INFO = "InternalConnectionInfo2.xml";
     public static final String UDDI_CONNECTION_INFO = "";
     public static final String ADAPTER_PROPERTY_FILE_NAME = "adapter";
@@ -130,6 +141,7 @@ public class NhincConstants {
     public static final String REQUEST_TIMEOUT_NAME = "com.sun.xml.ws.request.timeout";
 
     // SAML Constants
+    public static final String TARGET_API_LEVEL = "targetAPILevel";
     public static final String ACTION_PROP = "action";
     public static final String RESOURCE_PROP = "resource";
     public static final String PURPOSE_CODE_PROP = "purposeOfUseRoleCode";
@@ -162,6 +174,7 @@ public class NhincConstants {
     public static final String EVIDENCE_VERSION_PROP = "evidenceAssertionVersion";
     public static final String EVIDENCE_ISSUER_PROP = "evidenceAssertionIssuer";
     public static final String EVIDENCE_ISSUER_FORMAT_PROP = "evidenceAssertionIssuerFormat";
+    public static final String EVIDENCE_SUBJECT_PROP = "evidenceSubject";
     public static final String EVIDENCE_CONDITION_NOT_BEFORE_PROP = "evidenceConditionNotBefore";
     public static final String EVIDENCE_CONDITION_NOT_AFTER_PROP = "evidenceConditionNotAfter";
     public static final String EVIDENCE_ACCESS_CONSENT_PROP = "evidenceAccessConsent";
@@ -188,6 +201,7 @@ public class NhincConstants {
     public static final String XDR_ACTION = "xdr";
     public static final String XDR_REQUEST_ACTION = "xdrrequest";
     public static final String XDR_RESPONSE_ACTION = "xdrresponse";
+
     public static final String USERNAME_ATTR = "urn:oasis:names:tc:xspa:1.0:subject:subject-id";
     public static final String USER_ORG_ATTR = "urn:oasis:names:tc:xspa:1.0:subject:organization";
     public static final String USER_ORG_ID_ATTR = "urn:oasis:names:tc:xspa:1.0:subject:organization-id";
@@ -197,6 +211,18 @@ public class NhincConstants {
     public static final String PATIENT_ID_ATTR = "urn:oasis:names:tc:xacml:2.0:resource:resource-id";
     public static final String ACCESS_CONSENT_ATTR = "AccessConsentPolicy";
     public static final String INST_ACCESS_CONSENT_ATTR = "InstanceAccessConsentPolicy";
+
+    // Attribute NameID Constants
+    public static final String ATTRIBUTE_NAME_SUBJECT_ID = "urn:oasis:names:tc:xacml:1.0:subject:subject-id";
+    public static final String ATTRIBUTE_NAME_SUBJECT_ID_XSPA = "urn:oasis:names:tc:xspa:1.0:subject:subject-id";
+    public static final String ATTRIBUTE_NAME_ORG = "urn:oasis:names:tc:xspa:1.0:subject:organization";
+    public static final String ATTRIBUTE_NAME_ORG_ID = "urn:oasis:names:tc:xspa:1.0:subject:organization-id";
+    public static final String ATTRIBUTE_NAME_HCID = "urn:nhin:names:saml:homeCommunityId";
+    public static final String ATTRIBUTE_NAME_SUBJECT_ROLE = "urn:oasis:names:tc:xacml:2.0:subject:role";
+    public static final String ATTRIBUTE_NAME_PURPOSE_OF_USE = "urn:oasis:names:tc:xspa:1.0:subject:purposeofuse";
+    public static final String ATTRIBUTE_NAME_RESOURCE_ID = "urn:oasis:names:tc:xacml:2.0:resource:resource-id";
+    public static final String ATTRIBUTE_NAME_NPI = "urn:oasis:names:tc:xspa:2.0:subject:npi";
+
     public static final String CE_CODE_ID = "code";
     public static final String CE_CODESYS_ID = "codeSystem";
     public static final String CE_CODESYSNAME_ID = "codeSystemName";
@@ -216,6 +242,22 @@ public class NhincConstants {
     public static final String NS_ADDRESSING_2005 = "http://www.w3.org/2005/08/addressing";
     public static final String HEADER_MESSAGEID = "MessageID";
     public static final String HEADER_RELATESTO = "RelatesTo";
+
+    // HL7 references
+    public static final String HL7_NAME = "hl7";
+    public static final String HL7_NS = "urn:hl7-org:v3";
+    public static final String CE_NAME = "CE";
+    public static final String CE_CODE = "code";
+    public static final String CE_CODESYSTEM = "codeSystem";
+    public static final String CE_CODESYSTEM_NAME = "codeSystemName";
+    public static final String CE_DISPLAYNAME = "displayName";
+    public static final String HL7_SUBJECT_ROLE_ROLE = "Role";
+    public static final String HL7_SUBJECT_PURPOSE_OF_USE = "PurposeOfUse";
+    public static final String ACCESS_CONSENT_POLICY_ATTRIBUTE_NAME = "AccessConsentPolicy";
+    public static final String ACCESS_CONSENT_POLICY_ATTRIBUTE_NAMEFORMAT = "http://www.hhs.gov/healthit/nhin";
+    public static final String INSTANCE_ACCESS_CONSENT_POLICY_ATTRIBUTE_NAME = "InstanceAccessConsentPolicy";
+    public static final String INSTANCE_ACCESS_CONSENT_POLICY_ATTRIBUTE_NAMEFORMAT = "http://www.hhs.gov/healthit/nhin";
+    public static final String AUTHZ_DECISION_STMT_ACTION_NAMESPACE = "urn:oasis:names:tc:SAML:1.0:action:rwedc";
     // Audit Logging Constants
     public static final String AUDIT_REPO_SERVICE_NAME = "auditrepository";
     public static final String AUDIT_REPO_SECURE_SERVICE_NAME = "auditrepositorysecured";
@@ -237,7 +279,6 @@ public class NhincConstants {
     public static final String AUDIT_LOG_SYNC_TYPE = "Synchronous";
     public static final String AUDIT_LOG_REQUEST_PROCESS = "Request";
     public static final String AUDIT_LOG_RESPONSE_PROCESS = "Response";
-    public static final String AUDIT_LOG_SERVICE_PROPERTY = "serviceAuditRepository";
     public static final String AUDIT_LOG_SERVICE_PASSTHRU_PROPERTY = "auditRepositoryPassthrough";
     public static final String AUDIT_DISABLED_ACK_MSG = "Audit Service is not enabled";
     // Policy Engine Constants
@@ -277,9 +318,7 @@ public class NhincConstants {
     public static final String HIEM_SUBSCRIBE_ADAPTER_SECURED_SERVICE_NAME = "adapternotificationproducersecured";
     public static final String HIEM_UNSUBSCRIBE_ADAPTER_SERVICE_SECURED_NAME = "adaptersubscriptionmanagersecured";
     public static final String HIEM_NOTIFY_ADAPTER_SERVICE_SECURED_NAME = "adapternotificationconsumersecured";
-    public static final String HIEM_SUBSCRIPTION_SERVICE_PROPERTY = "serviceSubscription";
     public static final String HIEM_SUBSCRIPTION_SERVICE_PASSTHRU_PROPERTY = "subscriptionPassthrough";
-    public static final String HIEM_NOTIFY_SERVICE_PROPERTY = "serviceNotify";
     public static final String HIEM_NOTIFY_SERVICE_PASSTHRU_PROPERTY = "notifyPassthrough";
     public static final String HIEM_ADAPTER_SUBSCRIPTION_MODE_PROPERTY = "hiem.AdapterSubscriptionMode";
     public static final String HIEM_ADAPTER_SUBSCRIPTION_MODE_CREATE_CHILD_SUBSCRIPTIONS = "createchildsubscription";
@@ -306,12 +345,12 @@ public class NhincConstants {
     public static final String WS_SOAP_HEADER_ADDRESS = "Address";
     public static final String WS_SOAP_HEADER_MESSAGE_ID = "MessageID";
     public static final String WS_SOAP_HEADER_MESSAGE_ID_PREFIX = "urn:uuid:";
+    public static final String WS_SOAP_TARGET_HOME_COMMUNITY_ID = "TargetHomeCommunityID";
     // Document Query Constants
     public static final String ADAPTER_DOC_QUERY_SERVICE_NAME = "adapterdocquery";
     public static final String ADAPTER_DOC_QUERY_SECURED_SERVICE_NAME = "adapterdocquerysecured";
     public static final String ADAPTER_DOC_REGISTRY_SERVICE_NAME = "adapterxdsbdocregistry";
     public static final String DOC_QUERY_XDS_PATIENT_ID_SLOT_NAME = "$XDSDocumentEntryPatientId";
-    public static final String NHINC_DOCUMENT_QUERY_SERVICE_NAME = "serviceDocumentQuery";
     public static final String DOC_QUERY_SELF_PROPERTY_NAME = "documentQueryQuerySelf";
     public static final String NHINC_DOCUMENT_QUERY_SERVICE_PASSTHRU_PROPERTY = "documentQueryPassthrough";
     public static final String DOC_QUERY_SERVICE_NAME = "QueryForDocuments";
@@ -321,9 +360,7 @@ public class NhincConstants {
     public static final BigInteger NHINC_ADHOC_QUERY_NO_RESULT_COUNT = BigInteger.valueOf(0L);
     public static final String NHINC_PROXY_DOC_QUERY_SERVICE_NAME = "nhincproxydocquery";
     public static final String NHINC_PROXY_DOC_QUERY_SECURED_SERVICE_NAME = "nhincproxydocquerysecured";
-    public static final String NHINC_DOCUMENT_QUERY_DEFERRED_REQ_SERVICE_NAME = "serviceDocumentQueryDeferredReq";
     public static final String NHINC_DOCUMENT_QUERY_DEFERRED_REQ_SERVICE_PASSTHRU_PROPERTY = "documentQueryDeferredReqPassthrough";
-    public static final String NHINC_DOCUMENT_QUERY_DEFERRED_RESP_SERVICE_NAME = "serviceDocumentQueryDeferredResp";
     public static final String NHINC_DOCUMENT_QUERY_DEFERRED_RESP_SERVICE_PASSTHRU_PROPERTY = "documentQueryDeferredRespPassthrough";
     public static final String ADAPTER_DOCUMENT_QUERY_DEFERRED_REQ_SERVICE_NAME = "adapterdocquerydeferredrequest";
     public static final String ADAPTER_DOCUMENT_QUERY_DEFERRED_REQ_SECURED_SERVICE_NAME = "adapterdocquerydeferredrequestsecured";
@@ -360,11 +397,9 @@ public class NhincConstants {
     public static final String ADAPTER_XDS_REP_SERVICE_NAME = "adapterxdsbdocrepositorysoap12";
     public static final String ENTITY_DOC_RETRIEVE_PROXY_SERVICE_NAME = "entitydocretrieveproxy";
     public static final String ENTITY_DOC_RETRIEVE_SECURED_SERVICE_NAME = "entitydocretrievesecured";
-    public static final String ENTITY_DOC_RETRIEVE_SERVICE_NAME = "entitydocretrieve";
     public static final String NHINC_PROXY_DOC_RETRIEVE_SERVICE_NAME = "nhincproxydocretrieve";
     public static final String NHINC_PROXY_DOC_RETRIEVE_SECURED_SERVICE_NAME = "nhincproxydocretrievesecured";
     public static final String DOC_RETRIEVE_SERVICE_NAME = "RetrieveDocuments";
-    public static final String NHINC_DOCUMENT_RETRIEVE_SERVICE_KEY = "serviceDocumentRetrieve";
     public static final String NHINC_DOCUMENT_RETRIEVE_SERVICE_PASSTHRU_PROPERTY = "documentRetrievePassthrough";
     public static final String ADAPTER_DOC_RETRIEVE_DEFERRED_REQ_QUEUE_PROCESS_SERVICE_NAME = "adapterdocretrievedeferredreqqueueprocess";
     public static final String DOC_RETRIEVE_DEFERRED_REQ_ACK_STATUS_MSG = "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:RequestAccepted";
@@ -380,9 +415,6 @@ public class NhincConstants {
     public static final String PATIENT_CORRELATION_SERVICE_NAME = "patientcorrelation";
     public static final String PATIENT_CORRELATION_SECURED_SERVICE_NAME = "patientcorrelationsecured";
     // Patient Discovery Constants
-    public static final String NHINC_PATIENT_DISCOVERY_SERVICE_NAME = "servicePatientDiscovery";
-    public static final String NHINC_PATIENT_DISCOVERY_ASYNC_REQ_SERVICE_NAME = "servicePatientDiscoveryAsyncReq";
-    public static final String NHINC_PATIENT_DISCOVERY_ASYNC_RESP_SERVICE_NAME = "servicePatientDiscoveryAsyncResp";
     public static final String PATIENT_DISCOVERY_SERVICE_NAME = "PatientDiscovery";
     public static final String PATIENT_DISCOVERY_DEFERRED_SERVICE_NAME = "DeferredPatientDiscovery";
     public static final String PATIENT_DISCOVERY_DEFERRED_REQ_SERVICE_NAME = "PatientDiscoveryDeferredReq";
@@ -459,9 +491,6 @@ public class NhincConstants {
     public static final String XDR_ACK_STATUS_MSG = "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:RequestAccepted";
     public static final String XDR_RESP_ACK_STATUS_MSG = "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:ResponseAccepted";
     public static final String XDR_ACK_FAILURE_STATUS_MSG = "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure";
-    public static final String DOC_SUBMISSION_SERVICE_PROP = "serviceDocumentSubmission";
-    public static final String DOC_SUBMISSION_DEFERRED_REQ_SERVICE_PROP = "serviceDocumentSubmissionDeferredReq";
-    public static final String DOC_SUBMISSION_DEFERRED_RESP_SERVICE_PROP = "serviceDocumentSubmissionDeferredResp";
     public static final String DOC_SUBMISSION_PASSTHRU_PROP = "documentSubmissionPassthrough";
     public static final String DOC_SUBMISSION_DEFERRED_REQ_PASSTHRU_PROP = "documentSubmissionDeferredReqPassthrough";
     public static final String DOC_SUBMISSION_DEFERRED_RESP_PASSTHRU_PROP = "documentSubmissionDeferredRespPassthrough";
@@ -474,7 +503,6 @@ public class NhincConstants {
     public static final String ADAPTER_ADMIN_DIST_SECURED_SERVICE_NAME = "adapteradmindistsecured";
     public static final String NHINC_ADMIN_DIST_SERVICE_NAME = "nhincadmindist";
     public static final String NHINC_ADMIN_DIST_SECURED_SERVICE_NAME = "nhincadmindistsecured";
-    public static final String NHIN_ADMIN_DIST_SERVICE_ENABLED = "serviceAdministrativeDistribution";
     public static final String NHIN_ADMIN_DIST_SERVICE_PASSTHRU_PROPERTY = "administrativeDistributionPassthrough";
     public static final String NHIN_ADMIN_DIST_SERVICE_SLEEP_PROPERTY = "administrativeDistributionPassthrough";
     // Hibernate Config Files
@@ -492,9 +520,7 @@ public class NhincConstants {
     public static final String AGGREGATOR_LARGE_RESP_SIZE_PROP = "aggregatorMaxDbResponseSize";
     /* -- Begin Document Retrieve deferred Service Name -- */
     public static final String DOCRETRIEVE_DEFERRED_ACTION = "docretrievedeferred";
-    public static final String NHINC_DOCUMENT_RETRIEVE_DEFERRED_REQUEST_SERVICE_KEY = "serviceDocumentRetrieveDeferredReq";
     public static final String NHINC_DOCUMENT_RETRIEVE_DEFERRED_REQUEST_SERVICE_PASSTHRU_PROPERTY = "documentRetrieveDeferredReqPassthrough";
-    public static final String NHINC_DOCUMENT_RETRIEVE_DEFERRED_RESPONSE_SERVICE_KEY = "serviceDocumentRetrieveDeferredResp";
     public static final String NHINC_DOCUMENT_RETRIEVE_DEFERRED_RESPONSE_SERVICE_PASSTHRU_PROPERTY = "documentRetrieveDeferredRespPassthrough";
     public static final String ENTITY_DOCRETRIEVE_DEFERRED_UNSECURED_REQUEST = "entitydocretrievedeferredrequest";
     public static final String ENTITY_DOCRETRIEVE_DEFERRED_SECURED_REQUEST = "entitydocretrievedeferredrequestsecured";

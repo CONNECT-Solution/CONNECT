@@ -13,107 +13,108 @@
     </wsdl:types>
 
     <message name="GetAllBusinessEntitiesRequestMessage">
-        <part name="EmptyParam" element="conninfo:EmptyParameter" />
+        <part name="body" element="conninfo:GetAllBusinessEntitiesRequest" />
     </message>
     <message name="GetAllBusinessEntitiesResponseMessage">
-        <part name="BusinessEntities" element="uddi:businessDetail" />
+        <part name="body" element="conninfo:GetAllBusinessEntitiesResponse" />
     </message>
 
     <message name="GetBusinessEntityRequestMessage">
-        <part name="HomeCommunityId" element="conninfo:HomeCommunityId" />
+        <part name="body" element="conninfo:GetBusinessEntityRequest" />
     </message>
     <message name="GetBusinessEntityResponseMessage">
-        <part name="BusinessEntity" element="uddi:businessEntity" />
+        <part name="body" element="conninfo:GetBusinessEntityResponse" />
     </message>
 
     <message name="GetBusinessEntitySetRequestMessage">
-        <part name="GetBusinessEntitySetRequest" element="conninfo:HomeCommunityIdListType" />
+        <part name="body" element="conninfo:GetBusinessEntitySetRequest" />
     </message>
     <message name="GetBusinessEntitySetResponseMessage">
-        <part name="BusinessEntities" element="uddi:businessDetail" />
+        <part name="body" element="conninfo:GetBusinessEntitySetResponse" />
     </message>
 
     <message name="GetBusinessEntityByServiceNameRequestMessage">
-        <part name="GetBusinessEntityByServiceNameRequest" element="conninfo:GetBusinessEntityByServiceNameRequest" />
+        <part name="body" element="conninfo:GetBusinessEntityByServiceNameRequest" />
     </message>
     <message name="GetBusinessEntityByServiceNameResponseMessage">
-        <part name="BusinessEntity" element="uddi:businessEntity" />
+        <part name="body" element="conninfo:GetBusinessEntityByServiceNameResponse" />
     </message>
 
     <message name="GetDefaultEndpointURLByServiceNameRequestMessage">
-        <part name="GetDefaultEndpointURLByServiceNameRequest" element="conninfo:GetDefaultEndpointURLByServiceNameRequest" />
+        <part name="body" element="conninfo:GetDefaultEndpointURLByServiceNameRequest" />
     </message>
     <message name="GetDefaultEndpointURLByServiceNameResponseMessage">
-        <part name="GetDefaultEndpointURLByServiceNameResponse" element="conninfo:EndpointURL" />
+        <part name="body" element="conninfo:GetDefaultEndpointURLByServiceNameResponse" />
     </message>
 
     <message name="GetInternalEndpointURLByServiceNameRequestMessage">
-        <part name="GetInternalEndpointURLByServiceNameRequest" element="conninfo:ServiceName" />
+        <part name="body" element="conninfo:GetInternalEndpointURLByServiceNameRequest" />
     </message>
     <message name="GetInternalEndpointURLByServiceNameResponseMessage">
-        <part name="GetInternalEndpointURLByServiceNameResponse" element="conninfo:EndpointURL" />
+        <part name="body" element="conninfo:GetInternalEndpointURLByServiceNameResponse" />
     </message>
 
     <message name="GetEndpointURLFromNhinTargetRequestMessage">
-        <part name="GetEndpointURLFromNhinTargetRequest" element="conninfo:GetEndpointURLFromNhinTargetRequest" />
+        <part name="body" element="conninfo:GetEndpointURLFromNhinTargetRequest" />
     </message>
     <message name="GetEndpointURLFromNhinTargetResponseMessage">
-        <part name="GetEndpointURLFromNhinTargetResponse" element="conninfo:EndpointURL" />
+        <part name="body" element="conninfo:GetEndpointURLFromNhinTargetResponse" />
     </message>
 
     <message name="GetEndpointURLFromNhinTargetCommunitiesRequestMessage">
-        <part name="GetEndpointURLFromNhinTargetCommunitiesRequest" element="conninfo:GetEndpointURLFromNhinTargetCommunitiesRequest" />
+        <part name="body" element="conninfo:GetEndpointURLFromNhinTargetCommunitiesRequest" />
     </message>
     <message name="GetEndpointURLFromNhinTargetCommunitiesResponseMessage">
-        <part name="GetEndpointURLFromNhinTargetCommunitiesResponse" element="conninfo:GetEndpointURLFromNhinTargetCommunitiesResponse" />
+        <part name="body" element="conninfo:GetEndpointURLFromNhinTargetCommunitiesResponse" />
     </message>
 
     <message name="GetBusinessEntitySetByServiceNameRequestMessage">
         <part name="GetBusinessEntitySetByServiceNameRequest" element="conninfo:GetBusinessEntitySetByServiceNameRequest" />
     </message>
     <message name="GetBusinessEntitySetByServiceNameResponseMessage">
-        <part name="GetBusinessEntitySetByServiceNameResponse" element="conninfo:GetBusinessEntitySetByServiceNameResponse" />
+        <part name="body" element="conninfo:GetBusinessEntitySetByServiceNameResponse" />
     </message>
 
     <message name="GetAllBusinessEntitySetByServiceNameRequestMessage">
-        <part name="GetAllBusinessEntitySetByServiceNameRequest" element="conninfo:GetAllBusinessEntitySetByServiceNameRequest" />
+        <part name="body" element="conninfo:GetAllBusinessEntitySetByServiceNameRequest" />
     </message>
     <message name="GetAllBusinessEntitySetByServiceNameResponseMessage">
-        <part name="GetAllBusinessEntitySetByServiceNameResponse" element="conninfo:GetAllBusinessEntitySetByServiceNameResponse" />
+        <part name="body" element="conninfo:GetAllBusinessEntitySetByServiceNameResponse" />
     </message>
 
     <message name="GetAdapterEndpointURLRequestMessage">
-        <part name="GetAdapterEndpointURLRequest" element="conninfo:GetAdapterEndpointURLRequest" />
+        <part name="body" element="conninfo:GetAdapterEndpointURLRequest" />
     </message>
     <message name="GetAdapterEndpointURLResponseMessage">
-        <part name="GetAdapterEndpointURLResponse" element="conninfo:GetAdapterEndpointURLResponse" />
+        <part name="body" element="conninfo:GetAdapterEndpointURLResponse" />
     </message>
 
     <message name="ForceRefreshUDDICacheRequestMessage">
-        <part name="EmptyParam" element="conninfo:EmptyParameter" />
+        <part name="body" element="conninfo:ForceRefreshUDDICacheRequest" />
     </message>
     <message name="ForceRefreshUDDICacheResponseMessage">
-        <part name="SuccessOrFail" element="conninfo:SuccessOrFail" />
+        <part name="body" element="conninfo:ForceRefreshUDDICacheResponse" />
     </message>
+    
     <message name="ForceRefreshInternalConnectCacheRequestMessage">
-        <part name="EmptyParam" element="conninfo:EmptyParameter" />
+        <part name="body" element="conninfo:ForceRefreshInternalConnectCacheRequest" />
     </message>
     <message name="ForceRefreshInternalConnectCacheResponseMessage">
-        <part name="SuccessOrFail" element="conninfo:SuccessOrFail" />
+        <part name="body" element="conninfo:ForceRefreshInternalConnectCacheResponse" />
     </message>
 
     <message name="GetAssigningAuthoritiesByHomeCommunityRequestMessage">
-        <part name="HomeCommunityId" element="conninfo:HomeCommunityId" />
+        <part name="body" element="conninfo:GetAssigningAuthoritiesByHomeCommunityRequest" />
     </message>
     <message name="GetAssigningAuthoritiesByHomeCommunityResponseMessage">
-        <part name="GetAssigningAuthoritiesByHomeCommunityResponse" element="conninfo:GetAssigningAuthoritiesByHomeCommunityResponse" />
+        <part name="body" element="conninfo:GetAssigningAuthoritiesByHomeCommunityResponse" />
     </message>
 
     <message name="GetHomeCommunityByAssigningAuthorityRequestMessage">
-        <part name="AssigningAuthorityId" element="conninfo:AssigningAuthorityId" />
+        <part name="body" element="conninfo:GetHomeCommunityByAssigningAuthorityRequest" />
     </message>
     <message name="GetHomeCommunityByAssigningAuthorityResponseMessage">
-        <part name="HomeCommunityId" element="conninfo:HomeCommunityId" />
+        <part name="body" element="conninfo:GetHomeCommunityByAssigningAuthorityResponse" />
     </message>
 
     <portType name="NhincComponentConnectionManagerPortType">
@@ -342,7 +343,7 @@
     </binding>
     <service name="NhincComponentConnectionManager">
         <port name="NhincComponentConnectionManagerPortSoap" binding="tns:NhincComponentConnectionManagerBindingSoap">
-            <soap:address location="http://localhost:${NhincHttpPort}/NhinConnect/NhincComponentConnectionManager" />
+            <soap:address location="http://localhost:${HttpDefaultPort}/CONNECTCommon/NhincComponentConnectionManager" />
         </port>
     </service>
     <plnk:partnerLinkType name="NhincComponentConnectionManager">

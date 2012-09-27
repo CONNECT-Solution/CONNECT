@@ -10,18 +10,17 @@
  */
 package gov.hhs.fha.nhinc.docretrieve.adapter;
 
-import javax.jws.WebService;
-import javax.xml.ws.BindingType;
 import javax.annotation.Resource;
+import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 
 /**
  * 
  * @author westberg
  */
-@WebService(serviceName = "AdapterDocRetrieve", portName = "AdapterDocRetrievePortSoap", endpointInterface = "gov.hhs.fha.nhinc.adapterdocretrieve.AdapterDocRetrievePortType", targetNamespace = "urn:gov:hhs:fha:nhinc:adapterdocretrieve", wsdlLocation = "WEB-INF/wsdl/AdapterDocRetrieve/AdapterDocRetrieve.wsdl")
+
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
-public class AdapterDocRetrieve {
+public class AdapterDocRetrieve implements gov.hhs.fha.nhinc.adapterdocretrieve.AdapterDocRetrievePortType {
     @Resource
     private WebServiceContext context;
 

@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
-    <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/BOSServiceEndpointProvider.wsdl" uri="wsdl/BOSServiceEndpointProvider.wsdl"/>
-    <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/DocumentManager.wsdl" uri="wsdl/DocumentManager.wsdl"/>
-    <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/DocumentAssembly.wsdl" uri="wsdl/DocumentAssembly.wsdl"/>
-</catalog>
-

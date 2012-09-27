@@ -18,7 +18,8 @@
       
       <con:testStep name="Copy uddiConnectionInfo" type="groovy">
         <con:settings/>
-        <con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+        <con:config><script>import nhinc.FileUtils;
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
 def testCase = testRunner.getTestCase()
 def testSuite = testCase.getTestSuite()
 def project = testSuite.getProject()
@@ -81,10 +82,10 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
   def remotePatientID2 = context.findProperty("RemotePatientID2")
   def insertSql = "insert into " + table + " (correlationId, PatientAssigningAuthorityId, PatientId, CorrelatedPatientAssignAuthId, CorrelatedPatientId) " + 
                    "values (?, ?, ?, ?, ?)"
-  sql.executeUpdate(insertSql, [1, localAA, localPatientID, remoteAA1, remotePatientID1])
-  sql.executeUpdate(insertSql, [2, localAA, localPatientID, remoteAA2, remotePatientID2])
-//  sql.executeUpdate(insertSql, [1, remoteAA1, remotePatientID1, localAA, localPatientID])
-//  sql.executeUpdate(insertSql, [2, remoteAA2, remotePatientID2, localAA, localPatientID])
+//  sql.executeUpdate(insertSql, [1, localAA, localPatientID, remoteAA1, remotePatientID1])
+//  sql.executeUpdate(insertSql, [2, localAA, localPatientID, remoteAA2, remotePatientID2])
+  sql.executeUpdate(insertSql, [1, remoteAA1, remotePatientID1, localAA, localPatientID])
+  sql.executeUpdate(insertSql, [2, remoteAA2, remotePatientID2, localAA, localPatientID])
 }</script></con:config>
       </con:testStep>
       <con:testStep name="Clear AA Mapping Table &amp; Add Mapping" type="groovy">
@@ -108,7 +109,8 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
       </con:testStep>
       <con:testStep name="Set Connection Info" type="groovy">
         <con:settings/>
-        <con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+        <con:config><script>import nhinc.FileUtils;
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 def Host2 = context.findProperty("Host2");
 def HCID2 = context.findProperty( "RemoteHCID1" );
@@ -143,6 +145,11 @@ FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml",destConfigFileLocati
                      <urn2:Value>${#TestCase#FullPatientID}</urn2:Value>
                   </urn2:ValueList>
                </urn2:Slot>
+		<urn2:Slot name="$XDSDocumentEntryType">
+			<urn2:ValueList>
+			<urn2:Value>('${#Project#DQStableDocs}','${#Project#DQDynamicDocs}')</urn2:Value>
+			</urn2:ValueList>
+		</urn2:Slot>
             </urn2:AdhocQuery>
          </urn1:AdhocQueryRequest>
          <urn:assertion>
@@ -422,19 +429,19 @@ MoveFile(sourceInternalFile, backupInternalFile, log);
 MoveFile(sourceUddiFile, backupUddiFile, log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-03-15T13:02:12Z</con:value>
+          <con:value>2012-08-25T02:20:17Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-03-15T13:12:12Z</con:value>
+          <con:value>2012-08-25T02:30:17Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>03/15/2012 13:02:12</con:value>
+          <con:value>08/25/2012 02:20:17</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-04-14T00:00:00Z</con:value>
+          <con:value>2012-09-24T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -442,7 +449,8 @@ MoveFile(sourceUddiFile, backupUddiFile, log);</con:setupScript><con:properties>
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    <con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);
+    <con:tearDownScript>import nhinc.FileUtils;
+FileUtils.restoreToMasterConfiguration(context, log);
 
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 
@@ -481,14 +489,15 @@ void DeleteFile(File file, log) {
 }
 
 DeleteFile(backupInternalFile, log);
-DeleteFile(backupUddiFile, log);</con:tearDownScript></con:testCase>
+DeleteFile(backupUddiFile, log); **/</con:tearDownScript></con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="9c7bc51e-43ca-4c8d-83da-068f42cbfc00" keepSession="false" maxResults="0" name="Document Query Fanout - bad endpoint" searchProperties="true">
       <con:settings/>
       
       
       <con:testStep name="Copy uddiConnectionInfo" type="groovy">
         <con:settings/>
-        <con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+        <con:config><script>import nhinc.FileUtils;
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
 def testCase = testRunner.getTestCase()
 def testSuite = testCase.getTestSuite()
 def project = testSuite.getProject()
@@ -581,7 +590,8 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
       
       <con:testStep name="Set Connection Info" type="groovy">
         <con:settings/>
-        <con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+        <con:config><script>import nhinc.FileUtils;
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 def Host2 = context.findProperty("Host2");
 def HCID2 = context.findProperty( "RemoteHCID1" );
@@ -601,7 +611,7 @@ FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocat
           <con:interface>EntityDocQueryBindingSoap</con:interface>
           <con:operation>RespondingGateway_CrossGatewayQuery</con:operation>
           <con:request name="Document Query">
-            <con:settings/>
+            <con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting></con:settings>
             <con:encoding>UTF-8</con:encoding>
             <con:endpoint>${#Project#Endpoint-DocQuery}</con:endpoint>
             <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn3="urn:gov:hhs:fha:nhinc:common:nhinccommon">
@@ -616,6 +626,11 @@ FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocat
                      <urn2:Value>${#TestCase#FullPatientID}</urn2:Value>
                   </urn2:ValueList>
                </urn2:Slot>
+		<urn2:Slot name="$XDSDocumentEntryType">
+			<urn2:ValueList>
+			<urn2:Value>('${#Project#DQStableDocs}','${#Project#DQDynamicDocs}')</urn2:Value>
+			</urn2:ValueList>
+		</urn2:Slot>
             </urn2:AdhocQuery>
          </urn1:AdhocQueryRequest>
          <urn:assertion>
@@ -903,19 +918,19 @@ MoveFile(sourceInternalFile, backupInternalFile, log);
 MoveFile(sourceUddiFile, backupUddiFile, log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-03-15T13:02:15Z</con:value>
+          <con:value>2012-08-25T02:23:20Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-03-15T13:12:15Z</con:value>
+          <con:value>2012-08-25T02:33:20Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>03/15/2012 13:02:15</con:value>
+          <con:value>08/25/2012 02:23:20</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-04-14T00:00:00Z</con:value>
+          <con:value>2012-09-24T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -923,7 +938,8 @@ MoveFile(sourceUddiFile, backupUddiFile, log);</con:setupScript><con:properties>
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    <con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);
+    <con:tearDownScript>import nhinc.FileUtils;
+FileUtils.restoreToMasterConfiguration(context, log);
 
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 
@@ -969,7 +985,8 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript></con:testCase>
       
       <con:testStep name="Copy uddiConnectionInfo" type="groovy">
         <con:settings/>
-        <con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+        <con:config><script>import nhinc.FileUtils;
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
 def testCase = testRunner.getTestCase()
 def testSuite = testCase.getTestSuite()
 def project = testSuite.getProject()
@@ -1059,7 +1076,8 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
       
       <con:testStep name="Set Connection Info" type="groovy">
         <con:settings/>
-        <con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+        <con:config><script>import nhinc.FileUtils;
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 def Host2 = context.findProperty("Host2");
 def HCID2 = context.findProperty( "RemoteHCID1" );
@@ -1089,6 +1107,11 @@ FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocat
                      <urn2:Value>${#TestCase#FullPatientID}</urn2:Value>
                   </urn2:ValueList>
                </urn2:Slot>
+		<urn2:Slot name="$XDSDocumentEntryType">
+			<urn2:ValueList>
+			<urn2:Value>('${#Project#DQStableDocs}','${#Project#DQDynamicDocs}')</urn2:Value>
+			</urn2:ValueList>
+		</urn2:Slot>
             </urn2:AdhocQuery>
          </urn1:AdhocQueryRequest>
          <urn:assertion>
@@ -1361,19 +1384,19 @@ MoveFile(sourceInternalFile, backupInternalFile, log);
 MoveFile(sourceUddiFile, backupUddiFile, log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-03-15T13:02:18Z</con:value>
+          <con:value>2012-08-25T02:24:24Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-03-15T13:12:18Z</con:value>
+          <con:value>2012-08-25T02:34:24Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>03/15/2012 13:02:18</con:value>
+          <con:value>08/25/2012 02:24:24</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-04-14T00:00:00Z</con:value>
+          <con:value>2012-09-24T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -1427,7 +1450,8 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript></con:testCase>
       
       <con:testStep name="Copy uddiConnectionInfo" type="groovy">
         <con:settings/>
-        <con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+        <con:config><script>import nhinc.FileUtils;
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
 def testCase = testRunner.getTestCase()
 def testSuite = testCase.getTestSuite()
 def project = testSuite.getProject()
@@ -1519,7 +1543,8 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
       
       <con:testStep name="Set Connection Info" type="groovy">
         <con:settings/>
-        <con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+        <con:config><script>import nhinc.FileUtils;
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 def Host2 = context.findProperty("Host2");
 def HCID2 = context.findProperty( "RemoteHCID1" );
@@ -1539,7 +1564,7 @@ FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocat
           <con:interface>EntityDocQueryBindingSoap</con:interface>
           <con:operation>RespondingGateway_CrossGatewayQuery</con:operation>
           <con:request name="Document Query">
-            <con:settings/>
+            <con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting></con:settings>
             <con:encoding>UTF-8</con:encoding>
             <con:endpoint>${#Project#Endpoint-DocQuery}</con:endpoint>
             <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn3="urn:gov:hhs:fha:nhinc:common:nhinccommon">
@@ -1554,6 +1579,11 @@ FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocat
                      <urn2:Value>${#TestCase#FullPatientID}</urn2:Value>
                   </urn2:ValueList>
                </urn2:Slot>
+		<urn2:Slot name="$XDSDocumentEntryType">
+			<urn2:ValueList>
+			<urn2:Value>('${#Project#DQStableDocs}','${#Project#DQDynamicDocs}')</urn2:Value>
+			</urn2:ValueList>
+		</urn2:Slot>
             </urn2:AdhocQuery>
          </urn1:AdhocQueryRequest>
          <urn:assertion>
@@ -1833,19 +1863,19 @@ MoveFile(sourceInternalFile, backupInternalFile, log);
 MoveFile(sourceUddiFile, backupUddiFile, log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-03-15T13:02:20Z</con:value>
+          <con:value>2012-08-25T02:25:22Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-03-15T13:12:20Z</con:value>
+          <con:value>2012-08-25T02:35:22Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>03/15/2012 13:02:20</con:value>
+          <con:value>08/25/2012 02:25:22</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-04-14T00:00:00Z</con:value>
+          <con:value>2012-09-24T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -1853,7 +1883,8 @@ MoveFile(sourceUddiFile, backupUddiFile, log);</con:setupScript><con:properties>
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    <con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);
+    <con:tearDownScript>import nhinc.FileUtils;
+FileUtils.restoreToMasterConfiguration(context, log);
 
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 
@@ -1899,7 +1930,8 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript></con:testCase>
       
       <con:testStep name="Copy uddiConnectionInfo" type="groovy">
         <con:settings/>
-        <con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+        <con:config><script>import nhinc.FileUtils;
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
 def testCase = testRunner.getTestCase()
 def testSuite = testCase.getTestSuite()
 def project = testSuite.getProject()
@@ -1991,7 +2023,8 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
       
       <con:testStep name="Set Connection Info" type="groovy">
         <con:settings/>
-        <con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+        <con:config><script>import nhinc.FileUtils;
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 def Host2 = context.findProperty("Host2");
 def HCID2 = context.findProperty( "RemoteHCID1" );
@@ -2011,7 +2044,7 @@ FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocat
           <con:interface>EntityDocQueryBindingSoap</con:interface>
           <con:operation>RespondingGateway_CrossGatewayQuery</con:operation>
           <con:request name="Document Query">
-            <con:settings/>
+            <con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting></con:settings>
             <con:encoding>UTF-8</con:encoding>
             <con:endpoint>${#Project#Endpoint-DocQuery}</con:endpoint>
             <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn3="urn:gov:hhs:fha:nhinc:common:nhinccommon">
@@ -2026,6 +2059,11 @@ FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocat
                      <urn2:Value>${#TestCase#FullPatientID}</urn2:Value>
                   </urn2:ValueList>
                </urn2:Slot>
+		<urn2:Slot name="$XDSDocumentEntryType">
+			<urn2:ValueList>
+			<urn2:Value>('${#Project#DQStableDocs}','${#Project#DQDynamicDocs}')</urn2:Value>
+			</urn2:ValueList>
+		</urn2:Slot>
             </urn2:AdhocQuery>
          </urn1:AdhocQueryRequest>
          <urn:assertion>
@@ -2305,19 +2343,19 @@ MoveFile(sourceInternalFile, backupInternalFile, log);
 MoveFile(sourceUddiFile, backupUddiFile, log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-03-15T13:02:49Z</con:value>
+          <con:value>2012-08-25T02:26:25Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-03-15T13:12:49Z</con:value>
+          <con:value>2012-08-25T02:36:25Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>03/15/2012 13:02:49</con:value>
+          <con:value>08/25/2012 02:26:25</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-04-14T00:00:00Z</con:value>
+          <con:value>2012-09-24T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -2325,7 +2363,8 @@ MoveFile(sourceUddiFile, backupUddiFile, log);</con:setupScript><con:properties>
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    <con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);
+    <con:tearDownScript>import nhinc.FileUtils;
+FileUtils.restoreToMasterConfiguration(context, log);
 
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 
@@ -2405,7 +2444,7 @@ FileUtils.DeleteFile(destConfigFileLocation,"uddiConnectionInfo_BACKUP.xml",cont
     
     
     
-  <con:property><con:name>RemoteHCID1</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemoteHCID2</con:name><con:value>3.3</con:value></con:property><con:property><con:name>RemotePatientID1</con:name><con:value>D123401</con:value></con:property><con:property><con:name>RemotePatientID2</con:name><con:value>D123402</con:value></con:property></con:properties>
+  <con:property><con:name>RemoteHCID1</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemoteHCID2</con:name><con:value>3.3</con:value></con:property><con:property><con:name>RemotePatientID1</con:name><con:value>D123401</con:value></con:property><con:property><con:name>RemotePatientID2</con:name><con:value>D123402</con:value></con:property><con:property><con:name>DQStableDocs</con:name><con:value>urn:uuid:7edca82f-054d-47f2-a032-9b2a5b5186c1</con:value></con:property><con:property><con:name>DQDynamicDocs</con:name><con:value>urn:uuid:34268e47-fdf5-41a6-ba33-82133c465248</con:value></con:property></con:properties>
   <con:afterLoadScript>def propertiesFilename = project.path[0..(project.path.size()-4)] + 'properties'
 def propertiesFile = new File(propertiesFilename)
 if (propertiesFile.exists()) {

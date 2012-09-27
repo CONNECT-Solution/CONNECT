@@ -31,7 +31,6 @@ import gov.hhs.fha.nhinc.entitysubscriptionmanagement.InvalidMessageContentExpre
 import gov.hhs.fha.nhinc.entitysubscriptionmanagement.InvalidProducerPropertiesExpressionFault;
 import gov.hhs.fha.nhinc.entitysubscriptionmanagement.InvalidTopicExpressionFault;
 import gov.hhs.fha.nhinc.entitysubscriptionmanagement.NotifyMessageNotSupportedFault;
-import gov.hhs.fha.nhinc.entitysubscriptionmanagement.ResourceUnknownFault;
 import gov.hhs.fha.nhinc.entitysubscriptionmanagement.SubscribeCreationFailedFault;
 import gov.hhs.fha.nhinc.entitysubscriptionmanagement.TopicExpressionDialectUnknownFault;
 import gov.hhs.fha.nhinc.entitysubscriptionmanagement.TopicNotSupportedFault;
@@ -39,7 +38,6 @@ import gov.hhs.fha.nhinc.entitysubscriptionmanagement.UnacceptableInitialTermina
 import gov.hhs.fha.nhinc.entitysubscriptionmanagement.UnrecognizedPolicyRequestFault;
 import gov.hhs.fha.nhinc.entitysubscriptionmanagement.UnsupportedPolicyRequestFault;
 import javax.annotation.Resource;
-import javax.jws.HandlerChain;
 import javax.jws.WebService;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
@@ -50,7 +48,6 @@ import javax.xml.ws.WebServiceContext;
  */
 @WebService(serviceName = "EntityNotificationProducer", portName = "EntityNotificationProducerPortSoap", endpointInterface = "gov.hhs.fha.nhinc.entitysubscriptionmanagement.EntityNotificationProducerPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement", wsdlLocation = "WEB-INF/wsdl/EntitySubscribeService/EntitySubscriptionManagement.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
-@HandlerChain(file = "EntitySubscribeSoapHeaderHandler.xml")
 public class EntitySubscribeService {
 
     @Resource
@@ -69,7 +66,7 @@ public class EntitySubscribeService {
     public org.oasis_open.docs.wsn.b_2.SubscribeResponse subscribe(
             gov.hhs.fha.nhinc.common.nhinccommonentity.SubscribeRequestType subscribeRequest)
             throws UnrecognizedPolicyRequestFault, InvalidMessageContentExpressionFault, UnsupportedPolicyRequestFault,
-            TopicNotSupportedFault, ResourceUnknownFault, NotifyMessageNotSupportedFault, InvalidTopicExpressionFault,
+            TopicNotSupportedFault, NotifyMessageNotSupportedFault, InvalidTopicExpressionFault,
             InvalidFilterFault, SubscribeCreationFailedFault, InvalidProducerPropertiesExpressionFault,
             TopicExpressionDialectUnknownFault, UnacceptableInitialTerminationTimeFault {
         return new EntitySubscribeServiceImpl().subscribe(subscribeRequest, context);

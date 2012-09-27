@@ -27,7 +27,6 @@
 package gov.hhs.fha.nhinc.policyengine.adapter;
 
 import javax.annotation.Resource;
-import javax.jws.WebService;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 
@@ -35,9 +34,8 @@ import javax.xml.ws.WebServiceContext;
  * 
  * @author Sai Valluripalli
  */
-@WebService(serviceName = "AdapterPolicyEngine", portName = "AdapterPolicyEnginePortSoap", endpointInterface = "gov.hhs.fha.nhinc.adapterpolicyengine.AdapterPolicyEnginePortType", targetNamespace = "urn:gov:hhs:fha:nhinc:adapterpolicyengine", wsdlLocation = "WEB-INF/wsdl/AdapterPolicyEngine/AdapterPolicyEngine.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
-public class AdapterPolicyEngine {
+public class AdapterPolicyEngine implements gov.hhs.fha.nhinc.adapterpolicyengine.AdapterPolicyEnginePortType {
     @Resource
     private WebServiceContext context;
 

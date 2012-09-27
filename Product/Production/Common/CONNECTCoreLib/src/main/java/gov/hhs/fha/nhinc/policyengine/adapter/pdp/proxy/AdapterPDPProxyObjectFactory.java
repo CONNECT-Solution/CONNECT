@@ -41,7 +41,7 @@ public class AdapterPDPProxyObjectFactory extends ComponentProxyObjectFactory
 
 {
 
-    private static final String CONFIG_FILE_NAME = "AdapterPDPConfig.xml";
+    private static final String CONFIG_FILE_NAME = "PolicyEngineProxyConfig.xml";
 
     private static final String BEAN_NAME = "adapterpdp";
 

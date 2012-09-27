@@ -39,14 +39,6 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.FindCommunitiesAndAuditEvents
 public interface AuditRepositoryProxy {
 
     /**
-     * Performs a query to the audit repository.
-     * 
-     * @param request Audit query search criteria.
-     * @return List of Audit records that match the search criteria along with a list of referenced communities.
-     */
-    public FindCommunitiesAndAuditEventsResponseType auditQuery(FindCommunitiesAndAuditEventsRequestType request);
-
-    /**
      * Logs an audit record to the audit repository.
      * 
      * @param request Audit record

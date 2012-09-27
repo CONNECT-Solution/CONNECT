@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project basedir="." default="package.create" name="FileUtils">
+
+<property name="lib.dir" value="../../../../ThirdParty"/>
+<property name="ant.project.name" value="FileUtils"/>
+<property name="main-class" value="nhinc.FileUtils"/>
+
+<path id="classpath">
+        <fileset dir="${lib.dir}" includes="SoapUI/*.jar"/>
+        <fileset dir="${lib.dir}" includes="log4j/log4j-1.2.15.jar"/>
+</path>
+
+<target name="init">
+    <mkdir dir="build/classes" />
+</target>
+
+<target name="compile" depends="init">
+    <javac srcdir="src" destdir="build/classes" classpathref="classpath" />
+</target>
+
+<target name="jar" depends="compile">
+        <jar destfile="../${ant.project.name}.jar" basedir="build/classes">
+            <manifest>
+                <attribute name="Main-Class" value="${main-class}"/>
+            </manifest>
+        </jar>
+</target>
+
+<target name="execute" depends="compile">
+    <java classname="nhinc.FileUtil" classpath="build/classes"/>
+</target>
+
+<target name="copy.deployable.artifacts"/>
+
+<target name="just.unittest.run"/>
+
+<target name="just.quick.package.create"/>
+
+<target name="clean">
+    <delete dir="build" />
+</target>
+
+<target name="just.quick.clean">
+	<delete dir="build" />
+    <delete file="../${ant.project.name}.jar" />
+</target>
+
+<target name="just.clean">
+	<delete dir="build" />
+    <delete file="../${ant.project.name}.jar" />
+</target>
+
+<target name="package.create" depends="jar">
+	<java fork="true" classname="${main-class}">
+            <classpath>
+                <path refid="classpath"/>
+                <path location="../${ant.project.name}.jar"/>
+            </classpath>
+    </java>
+</target>
+
+<target name="just.package.create" depends="jar">
+	<java fork="true" classname="${main-class}">
+            <classpath>
+                <path refid="classpath"/>
+                <path location="../${ant.project.name}.jar"/>
+            </classpath>
+    </java>
+</target>
+	
+
+</project>

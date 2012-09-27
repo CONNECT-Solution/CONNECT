@@ -8,25 +8,27 @@
 	in the description separated with a comma like the following sample: {somebean,anotherbean}
 -->
 	<description>Beans included in this file: {patientcorrelation}</description>
+	
+	<alias alias="patientcorrelation" name="patientcorrelationwssecured" />
 
 	<!-- No-op Implementation -->
-	<bean class="gov.hhs.fha.nhinc.patientcorrelation.nhinc.proxy.PatientCorrelationProxyNoOpImpl" id="patientcorrelationnoop" name="patientcorrelationnoop"> 
+	<bean lazy-init="true" class="gov.hhs.fha.nhinc.patientcorrelation.nhinc.proxy.PatientCorrelationProxyNoOpImpl" id="patientcorrelationnoop" name="patientcorrelationnoop"> 
 		<meta key="impltype" value="noop"/>
 	</bean> 
 
 	<!-- Java Implementation -->
-	<bean class="gov.hhs.fha.nhinc.patientcorrelation.nhinc.proxy.PatientCorrelationProxyJavaImpl" id="patientcorrelationjava" name="patientcorrelationjava"> 
+	<bean lazy-init="true" class="gov.hhs.fha.nhinc.patientcorrelation.nhinc.proxy.PatientCorrelationProxyJavaImpl" id="patientcorrelationjava" name="patientcorrelationjava"> 
 		<meta key="impltype" value="java"/>
 	</bean> 
 
 	<!-- Secured web service Implementation -->
-    <bean class="gov.hhs.fha.nhinc.patientcorrelation.nhinc.proxy.PatientCorrelationProxyWebServiceSecuredImpl" id="patientcorrelation" name="patientcorrelationwssecured"> 
+    <bean lazy-init="true" class="gov.hhs.fha.nhinc.patientcorrelation.nhinc.proxy.PatientCorrelationProxyWebServiceSecuredImpl" id="patientcorrelationwssecured" name="patientcorrelationwssecured"> 
 		<meta key="impltype" value="wssecured"/>
 		<meta key="default" value="true"/>
 	</bean> 
 
 	<!-- Unsecured web service Implementation -->
-	<bean class="gov.hhs.fha.nhinc.patientcorrelation.nhinc.proxy.PatientCorrelationProxyWebServiceUnsecuredImpl" id="patientcorrelationwsunsecured" name="patientcorrelationwsunsecured"> 
+	<bean lazy-init="true" class="gov.hhs.fha.nhinc.patientcorrelation.nhinc.proxy.PatientCorrelationProxyWebServiceUnsecuredImpl" id="patientcorrelationwsunsecured" name="patientcorrelationwsunsecured"> 
 		<meta key="impltype" value="wsunsecured"/>
 	</bean> 
 

@@ -9,77 +9,17 @@
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 -->
-	<servlet>
-		<servlet-name>EntityDocRetrieveSecured</servlet-name>
-		<servlet-class>gov.hhs.fha.nhinc.docretrieve._20.entity.EntityDocRetrieveSecured</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>EntityDocRetrieveSecured</servlet-name>
-		<url-pattern>/EntityService/EntityDocRetrieveSecured</url-pattern>
-	</servlet-mapping>
-
-	<servlet>
-		<servlet-name>EntityDocRetrieve</servlet-name>
-		<servlet-class>gov.hhs.fha.nhinc.docretrieve._20.entity.EntityDocRetrieve</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>EntityDocRetrieve</servlet-name>
-		<url-pattern>/EntityService/EntityDocRetrieve</url-pattern>
-	</servlet-mapping>
-
-	<!-- message proxy -->
-
-	<servlet>
-		<servlet-name>NhincProxyDocRetrieveUnsecured</servlet-name>
-		<servlet-class>gov.hhs.fha.nhinc.docretrieve._20.passthru.NhincProxyDocRetrieveUnsecured</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>NhincProxyDocRetrieveUnsecured</servlet-name>
-		<url-pattern>/NhincProxyDocRetrieveUnsecured</url-pattern>
-	</servlet-mapping>
-	<servlet>
-		<servlet-name>NhincProxyDocRetrieveSecured</servlet-name>
-		<servlet-class>gov.hhs.fha.nhinc.docretrieve._20.passthru.NhincProxyDocRetrieveSecured</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>NhincProxyDocRetrieveSecured</servlet-name>
-		<url-pattern>/EntityService/NhincProxyDocRetrieveSecured</url-pattern>
-	</servlet-mapping>
-
-
-	<servlet>
-        <servlet-name>DocRetrieve</servlet-name>
-        <servlet-class>gov.hhs.fha.nhinc.docretrieve._20.nhin.DocRetrieve</servlet-class>
+    <servlet>
+        <servlet-name>cxf</servlet-name>
+        <servlet-class>org.apache.cxf.transport.servlet.CXFServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
     </servlet>
+
     <servlet-mapping>
-        <servlet-name>DocRetrieve</servlet-name>
-        <url-pattern>/NhinService/RespondingGateway_Retrieve_Service/DocRetrieve</url-pattern>
+        <servlet-name>cxf</servlet-name>
+        <url-pattern>/*</url-pattern>
     </servlet-mapping>
-	
-	
-	<security-constraint>
-	
-		<web-resource-collection>
-            <web-resource-name>DocRetrieve</web-resource-name>
-            <url-pattern>/NhinService/RespondingGateway_Retrieve_Service/DocRetrieve</url-pattern>
-        </web-resource-collection>
-	
-		<!-- BEGIN: Document Retrieve Services -->
-		<web-resource-collection>
-			<web-resource-name>EntityDocRetrieveSecured</web-resource-name>
-			<url-pattern>/EntityService/EntityDocRetrieveSecured</url-pattern>
-		</web-resource-collection>		
-		<!-- END: Document Retrieve Services -->
-
-		<web-resource-collection>
-			<web-resource-name>NhincProxyDocRetrieveSecured</web-resource-name>
-			<url-pattern>/EntityService/NhincProxyDocRetrieveSecured</url-pattern>
-		</web-resource-collection>
-
-		<user-data-constraint>
-			<transport-guarantee>CONFIDENTIAL</transport-guarantee>
-		</user-data-constraint>
-	</security-constraint>
+    
 	<login-config>
 		<auth-method>CLIENT-CERT</auth-method>
 		<realm-name>certificate</realm-name>

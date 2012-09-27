@@ -13,20 +13,22 @@
 	in the description separated with a comma like the following sample: {somebean,anotherbean}
 -->
 	<description>Beans included in this file: {adapterauthentication}</description>
+	
+	<alias alias="adapterauthentication" name="adapterauthenticationnoop" />
 
 	<!-- Default AdapterAuthentication to indicate no authentication is implemented -->
-	<bean class="gov.hhs.fha.nhinc.adapterauthentication.proxy.AdapterAuthenticationProxyNoOpImpl" id="adapterauthentication" name="adapterauthenticationnoop"> 
+	<bean lazy-init="true" class="gov.hhs.fha.nhinc.adapterauthentication.proxy.AdapterAuthenticationProxyNoOpImpl" id="adapterauthenticationnoop" name="adapterauthenticationnoop"> 
 		<meta key="impltype" value="noop"/>
 		<meta key="default" value="true"/>
 	</bean> 
 
 	<!-- AdapterAuthentication java implementation Uses the OpenSSO authentication services -->
-	<bean class="gov.hhs.fha.nhinc.adapterauthentication.proxy.AdapterAuthenticationJavaProxy" id="adapterauthenticationjava" name="adapterauthenticationjava"> 
+	<bean lazy-init="true" class="gov.hhs.fha.nhinc.adapterauthentication.proxy.AdapterAuthenticationJavaProxy" id="adapterauthenticationjava" name="adapterauthenticationjava"> 
 		<meta key="impltype" value="java"/>
 	</bean> 
 
 	<!-- AdapterAuthentication web service implementation Uses the OpenSSO authentication services -->
-	<bean class="gov.hhs.fha.nhinc.adapterauthentication.proxy.AdapterAuthenticationWebServiceProxy" id="adapterauthenticationwsunsecured" name="adapterauthenticationwsunsecured"> 
+	<bean lazy-init="true" class="gov.hhs.fha.nhinc.adapterauthentication.proxy.AdapterAuthenticationWebServiceProxy" id="adapterauthenticationwsunsecured" name="adapterauthenticationwsunsecured"> 
 		<meta key="impltype" value="wsunsecured"/>
 	</bean> 
 

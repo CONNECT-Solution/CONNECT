@@ -27,7 +27,6 @@
 package gov.hhs.fha.nhinc.docsubmission.adapter.component;
 
 import javax.annotation.Resource;
-import javax.jws.WebService;
 import javax.xml.ws.Action;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
@@ -37,10 +36,9 @@ import javax.xml.ws.soap.Addressing;
  * 
  * @author JHOPPESC
  */
-@WebService(serviceName = "AdapterComponentXDRSecured_Service", portName = "AdapterComponentXDRSecured_Port", endpointInterface = "gov.hhs.fha.nhinc.adaptercomponentxdrsecured.AdapterComponentXDRSecuredPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:adaptercomponentxdrsecured", wsdlLocation = "WEB-INF/wsdl/AdapterComponentDocSubmissionSecured/AdapterComponentXDRSecured.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 @Addressing(enabled = true)
-public class AdapterComponentDocSubmissionSecured {
+public class AdapterComponentDocSubmissionSecured implements gov.hhs.fha.nhinc.adaptercomponentxdrsecured.AdapterComponentXDRSecuredPortType {
     @Resource
     private WebServiceContext context;
 

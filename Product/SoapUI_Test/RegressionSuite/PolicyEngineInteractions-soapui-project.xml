@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><con:soapui-project xmlns:con="http://eviware.com/soapui/config" abortOnError="false" name="PolicyEngineInteractions" resourceRoot="" runType="SEQUENTIAL" soapui-version="3.5.1">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><con:soapui-project xmlns:con="http://eviware.com/soapui/config" abortOnError="false" name="PolicyEngineInteractions" resourceRoot="" runType="SEQUENTIAL" soapui-version="3.6">
 	<con:settings>
 
 	</con:settings>
@@ -2241,7 +2241,7 @@ def ExpectedDataType = 'http://www.w3.org/2001/XMLSchema#base64Binary';
 assert(ActualDataType==ExpectedDataType);</scriptText>
 							</con:configuration>
 						</con:assertion>
-						<con:wsaConfig mustUnderstand="NONE" version="200508"/>
+						<con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
 						<con:wsrmConfig version="1.2"/>
 					</con:request>
 				</con:config>
@@ -3770,19 +3770,7 @@ declare namespace ns19='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
 					</con:assertion>
 				</con:config>
 			</con:testStep>
-			<con:testStep name="Update config - remove mock" type="groovy">
-				<con:settings/>
-				<con:config>
-					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
-
-def destConfigFileLocation = context.findProperty("GatewayConfigurationDirectory");
-
-FileUtils.UpdateProperty(destConfigFileLocation,"gateway.properties","serviceDocumentQuery","true",context,log);
-FileUtils.UpdateProperty(destConfigFileLocation,"gateway.properties","localHomeCommunityId","1.1",context,log);
-
-FileUtils.CreateOrUpdateConnection(destConfigFileLocation,"1.1","policyengineservice","http://localhost:8080/CONNECTAdapter/AdapterProxyService/AdapterPolicyEngine",context,log);</script>
-				</con:config>
-			</con:testStep>
+			
 			<con:properties/>
 			<con:reportParameters/>
 			<con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
@@ -3792,7 +3780,8 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation,"1.1","policyengineser
 
 			<con:testStep name="update config" type="groovy">
 				<con:settings/>
-				<con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+				<con:config><script>import nhinc.FileUtils;
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 
 //def destConfigFileLocation = context.findProperty("GatewayConfigurationDirectory");
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
@@ -5758,7 +5747,7 @@ log.debug('Finished checking ' + FieldName);
 							</scriptText>
 						</con:configuration>
 					</con:assertion>
-					<con:assertion name="AuthzDecisionStatementEvidenceAssertionConditionsNotOnOrAfter " type="GroovyScriptAssertion">
+					<con:assertion disabled="true" name="AuthzDecisionStatementEvidenceAssertionConditionsNotOnOrAfter " type="GroovyScriptAssertion">
 						<con:configuration>
 							<scriptText>def FieldName='AuthzDecisionStatementEvidenceAssertionConditionsNotOnOrAfter';
 def AssertionXpath='//ec:assertion/nc:samlAuthzDecisionStatement/nc:evidence/nc:assertion/nc:conditions/nc:notOnOrAfter';
@@ -6210,7 +6199,8 @@ declare namespace ns19='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
 			
 			<con:properties/>
 			<con:reportParameters/>
-			<con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
+			<con:tearDownScript>import nhinc.FileUtils;
+FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 		</con:testCase>
 		<con:properties/>
 		<con:reportParameters/>

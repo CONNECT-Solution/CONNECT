@@ -62,7 +62,7 @@
    xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy"
    xmlns:wspp="http://java.sun.com/xml/ns/wsit/policy"
    xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
-   xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy"
+   xmlns:sp="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702"
    xmlns:sc="http://schemas.sun.com/2006/03/wss/server"
    xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2">
  
@@ -153,13 +153,6 @@
   <wsp:Policy wsu:Id="EntityNotificationConsumerSecuredPortType_SoapPolicy">
         <wsp:ExactlyOne>
             <wsp:All>
-                <!-- <wsaw:UsingAddressing xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"/> -->
-                
-                <sc:KeyStore wspp:visibility="private"
-                     aliasSelector="gov.hhs.fha.nhinc.callback.KeyStoreServerAliasSelector" 
-                     callbackHandler="gov.hhs.fha.nhinc.callback.KeyStoreCallbackHandler"/>
-                <sc:TrustStore wspp:visibility="private"
-                       callbackHandler="gov.hhs.fha.nhinc.callback.TrustStoreCallbackHandler"/>
                 <sp:TransportBinding>
                     <wsp:Policy>
                         <sp:TransportToken>

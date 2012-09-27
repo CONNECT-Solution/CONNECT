@@ -28,12 +28,14 @@ package gov.hhs.fha.nhinc.docsubmission._20.nhin.deferred.response;
 
 import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
 import gov.hhs.fha.nhinc.docsubmission.nhin.deferred.response.NhinDocSubmissionDeferredResponseOrchImpl;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
-import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
-import javax.xml.ws.WebServiceContext;
-import gov.hhs.healthit.nhin.XDRAcknowledgementType;
+
 import java.util.List;
+
+import javax.xml.ws.WebServiceContext;
+
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 /**
@@ -52,14 +54,15 @@ public class NhinDocSubmissionDeferredResponseImpl20
      */
     public RegistryResponseType provideAndRegisterDocumentSetBResponse(RegistryResponseType body, WebServiceContext context)
     {
-       AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
+       SAML2AssertionExtractor extractor = SAML2AssertionExtractor.getInstance();
+       AssertionType assertion = extractor.extractSamlAssertion(context);
 
        if (assertion != null) {
             AsyncMessageIdExtractor msgIdExtractor = new AsyncMessageIdExtractor();
             assertion.setMessageId(msgIdExtractor.GetAsyncMessageId(context));
             List<String> relatesToList = AsyncMessageIdExtractor.GetAsyncRelatesTo(context);
             if (NullChecker.isNotNullish(relatesToList)) {
-                assertion.getRelatesToList().add(AsyncMessageIdExtractor.GetAsyncRelatesTo(context).get(0));
+                assertion.getRelatesToList().addAll(relatesToList);
             }
         }
 

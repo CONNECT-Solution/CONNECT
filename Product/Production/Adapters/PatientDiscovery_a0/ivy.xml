@@ -40,7 +40,6 @@
     <!-- compile time jars -->
 
     <!-- compile jars -->
-    <dependency org="org.glassfish.metro"		name="webservices-rt"		rev="2.1.1"		conf="runtime->default"		transitive="false" />
     <dependency org="org.springframework"	name="spring"               rev="2.5.6"		conf="compile->default"		transitive="false" />
 	<dependency org="commons-logging"		name="commons-logging"		rev="1.1.1"		conf="compile->default"		transitive="false" />
     <dependency org="log4j"					name="log4j"				rev="1.2.15"	conf="compile->default"		transitive="false" />

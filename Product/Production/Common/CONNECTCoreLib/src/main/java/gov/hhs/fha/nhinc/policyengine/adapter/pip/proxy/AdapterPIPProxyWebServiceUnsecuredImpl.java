@@ -26,22 +26,27 @@
  */
 package gov.hhs.fha.nhinc.policyengine.adapter.pip.proxy;
 
+import gov.hhs.fha.nhinc.adapterpip.AdapterPIPPortType;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RetrievePtConsentByPtDocIdRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RetrievePtConsentByPtDocIdResponseType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RetrievePtConsentByPtIdRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RetrievePtConsentByPtIdResponseType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.StorePtConsentRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.StorePtConsentResponseType;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import gov.hhs.fha.nhinc.adapterpip.AdapterPIPPortType;
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.messaging.client.CONNECTCXFClientFactory;
+import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
+import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADAPTER_API_LEVEL;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import gov.hhs.fha.nhinc.policyengine.adapter.pip.proxy.service.AdapterPIPRetrieveByDocIdServicePortDescriptor;
+import gov.hhs.fha.nhinc.policyengine.adapter.pip.proxy.service.AdapterPIPRetrieveByPatientIdServicePortDescriptor;
+import gov.hhs.fha.nhinc.policyengine.adapter.pip.proxy.service.AdapterPIPStoreConsentServicePortDescriptor;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
-import javax.xml.namespace.QName;
-import javax.xml.ws.Service;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * This is the concrete implementation for the Web Service based call to the AdapterPIP.
@@ -50,14 +55,6 @@ import javax.xml.ws.Service;
  */
 public class AdapterPIPProxyWebServiceUnsecuredImpl implements AdapterPIPProxy {
     private Log log = null;
-    private static Service cachedService = null;
-    private static final String NAMESPACE_URI = "urn:gov:hhs:fha:nhinc:adapterpip";
-    private static final String SERVICE_LOCAL_PART = "AdapterPIP";
-    private static final String PORT_LOCAL_PART = "AdapterPIPPortSoap";
-    private static final String WSDL_FILE = "AdapterPIP.wsdl";
-    private static final String WS_ADDRESSING_ACTION_RETRIEVEPTCONSENTBYPTID = "urn:gov:hhs:fha:nhinc:adapterpip:RetrievePtConsentByPtIdRequest";
-    private static final String WS_ADDRESSING_ACTION_RETRIEVEPTCONSENTBYPTDOCID = "urn:gov:hhs:fha:nhinc:adapterpip:RetrievePtConsentByPtDocIdRequest";
-    private static final String WS_ADDRESSING_ACTION_STOREPTCONSENT = "urn:gov:hhs:fha:nhinc:adapterpip:StorePtConsentRequest";
     private WebServiceProxyHelper oProxyHelper = null;
 
     public AdapterPIPProxyWebServiceUnsecuredImpl() {
@@ -73,43 +70,10 @@ public class AdapterPIPProxyWebServiceUnsecuredImpl implements AdapterPIPProxy {
         return new WebServiceProxyHelper();
     }
 
-    /**
-     * This method retrieves and initializes the port.
-     * 
-     * @param url The URL for the web service.
-     * @param wsAddressingAction The action assigned to the input parameter for the web service operation.
-     * @param assertion The assertion information for the web service
-     * @return The port object for the web service.
-     */
-    protected AdapterPIPPortType getPort(String url, String wsAddressingAction, AssertionType assertion) {
-        AdapterPIPPortType port = null;
-        Service service = getService();
-        if (service != null) {
-            log.debug("Obtained service - creating port.");
+    protected CONNECTClient<AdapterPIPPortType> getCONNECTClientUnsecured(
+            ServicePortDescriptor<AdapterPIPPortType> portDescriptor, String url, AssertionType assertion) {
 
-            port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), AdapterPIPPortType.class);
-            oProxyHelper
-                    .initializeUnsecurePort((javax.xml.ws.BindingProvider) port, url, wsAddressingAction, assertion);
-        } else {
-            log.error("Unable to obtain serivce - no port created.");
-        }
-        return port;
-    }
-
-    /**
-     * Retrieve the service class for this web service.
-     * 
-     * @return The service class for this web service.
-     */
-    protected Service getService() {
-        if (cachedService == null) {
-            try {
-                cachedService = oProxyHelper.createService(WSDL_FILE, NAMESPACE_URI, SERVICE_LOCAL_PART);
-            } catch (Throwable t) {
-                log.error("Error creating service: " + t.getMessage(), t);
-            }
-        }
-        return cachedService;
+        return CONNECTCXFClientFactory.getInstance().getCONNECTClientUnsecured(portDescriptor, url, assertion);
     }
 
     /**
@@ -130,9 +94,12 @@ public class AdapterPIPProxyWebServiceUnsecuredImpl implements AdapterPIPProxy {
             log.debug("After target system URL look up. URL for service: " + serviceName + " is: " + url);
 
             if (NullChecker.isNotNullish(url)) {
-                AdapterPIPPortType port = getPort(url, WS_ADDRESSING_ACTION_RETRIEVEPTCONSENTBYPTID, assertion);
-                oResponse = (RetrievePtConsentByPtIdResponseType) oProxyHelper.invokePort(port,
-                        AdapterPIPPortType.class, "retrievePtConsentByPtId", request);
+                ServicePortDescriptor<AdapterPIPPortType> portDescriptor = new AdapterPIPRetrieveByPatientIdServicePortDescriptor();
+
+                CONNECTClient<AdapterPIPPortType> client = getCONNECTClientUnsecured(portDescriptor, url, assertion);
+
+                oResponse = (RetrievePtConsentByPtIdResponseType) client.invokePort(AdapterPIPPortType.class,
+                        "retrievePtConsentByPtId", request);
             } else {
                 log.error("Failed to call the web service (" + serviceName + ").  The URL is null.");
             }
@@ -161,15 +128,19 @@ public class AdapterPIPProxyWebServiceUnsecuredImpl implements AdapterPIPProxy {
 
         try {
             log.debug("Before target system URL look up.");
-            String url = oProxyHelper.getEndPointFromConnectionManagerByAdapterAPILevel(serviceName, ADAPTER_API_LEVEL.LEVEL_a0);
+            String url = oProxyHelper.getEndPointFromConnectionManagerByAdapterAPILevel(serviceName,
+                    ADAPTER_API_LEVEL.LEVEL_a0);
             if (log.isDebugEnabled()) {
                 log.debug("After target system URL look up. URL for service: " + serviceName + " is: " + url);
             }
 
             if (NullChecker.isNotNullish(url)) {
-                AdapterPIPPortType port = getPort(url, WS_ADDRESSING_ACTION_RETRIEVEPTCONSENTBYPTDOCID, assertion);
-                oResponse = (RetrievePtConsentByPtDocIdResponseType) oProxyHelper.invokePort(port,
-                        AdapterPIPPortType.class, "retrievePtConsentByPtDocId", request);
+                ServicePortDescriptor<AdapterPIPPortType> portDescriptor = new AdapterPIPRetrieveByDocIdServicePortDescriptor();
+
+                CONNECTClient<AdapterPIPPortType> client = getCONNECTClientUnsecured(portDescriptor, url, assertion);
+
+                oResponse = (RetrievePtConsentByPtDocIdResponseType) client.invokePort(AdapterPIPPortType.class,
+                        "retrievePtConsentByPtDocId", request);
             } else {
                 log.error("Failed to call the web service (" + serviceName + ").  The URL is null.");
             }
@@ -202,9 +173,12 @@ public class AdapterPIPProxyWebServiceUnsecuredImpl implements AdapterPIPProxy {
             log.debug("After target system URL look up. URL for service: " + serviceName + " is: " + url);
 
             if (NullChecker.isNotNullish(url)) {
-                AdapterPIPPortType port = getPort(url, WS_ADDRESSING_ACTION_STOREPTCONSENT, assertion);
-                oResponse = (StorePtConsentResponseType) oProxyHelper.invokePort(port, AdapterPIPPortType.class,
-                        "storePtConsent", request);
+                ServicePortDescriptor<AdapterPIPPortType> portDescriptor = new AdapterPIPStoreConsentServicePortDescriptor();
+
+                CONNECTClient<AdapterPIPPortType> client = getCONNECTClientUnsecured(portDescriptor, url, assertion);
+
+                oResponse = (StorePtConsentResponseType) client.invokePort(AdapterPIPPortType.class, "storePtConsent",
+                        request);
             } else {
                 log.error("Failed to call the web service (" + serviceName + ").  The URL is null.");
             }

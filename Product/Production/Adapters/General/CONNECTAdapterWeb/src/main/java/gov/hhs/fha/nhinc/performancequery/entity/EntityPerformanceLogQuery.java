@@ -37,9 +37,8 @@ import javax.xml.ws.WebServiceContext;
  * 
  * @author richard.ettema
  */
-@WebService(serviceName = "EntityPerformanceLogQuery", portName = "EntityPerformanceLogQueryPort", endpointInterface = "gov.hhs.fha.nhinc.entityperformancelogquery.EntityPerformanceLogQueryPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:entityperformancelogquery", wsdlLocation = "WEB-INF/wsdl/EntityPerformanceLogQuery/EntityPerformanceLogQuery.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
-public class EntityPerformanceLogQuery {
+public class EntityPerformanceLogQuery implements gov.hhs.fha.nhinc.entityperformancelogquery.EntityPerformanceLogQueryPortType {
 
     @Resource
     private WebServiceContext context;

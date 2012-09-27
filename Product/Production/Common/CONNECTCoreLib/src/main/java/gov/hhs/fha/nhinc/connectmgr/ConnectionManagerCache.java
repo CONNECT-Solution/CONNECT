@@ -752,11 +752,11 @@ public class ConnectionManagerCache {
             if (targetSystem.getEpr() != null) {
                 // Extract the URL from the Endpoint Reference
                 log.debug("Attempting to look up URL by EPR");
-                if (targetSystem.getEpr().getEndpointReference() != null
-                        && targetSystem.getEpr().getEndpointReference().getAddress() != null
-                        && NullChecker.isNotNullish(targetSystem.getEpr().getEndpointReference().getAddress()
+                if (targetSystem.getEpr() != null
+                        && targetSystem.getEpr().getAddress() != null
+                        && NullChecker.isNotNullish(targetSystem.getEpr().getAddress()
                                 .getValue())) {
-                    sEndpointURL = targetSystem.getEpr().getEndpointReference().getAddress().getValue();
+                    sEndpointURL = targetSystem.getEpr().getAddress().getValue();
                 }
             } else if (NullChecker.isNotNullish(targetSystem.getUrl())) {
                 // Echo back the URL provided

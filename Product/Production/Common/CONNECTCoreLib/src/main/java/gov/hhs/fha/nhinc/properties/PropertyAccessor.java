@@ -87,6 +87,7 @@ public class PropertyAccessor implements IPropertyAcessor {
      * @param propertyName This is the name of the property within the property file.
      * @throws PropertyAccessException This is thrown if an error occurs accessing the property.
      */
+    @Override
     public synchronized String getProperty(String propertyFile, String propertyName) throws PropertyAccessException {                
         validateInput(propertyFile, propertyName);
         checkForRefreshAndLoad(propertyFile);
@@ -288,8 +289,8 @@ public class PropertyAccessor implements IPropertyAcessor {
         String propFilePathAndName = fileUtilities.getPropertyFileLocation(propertyFile);
                
         File propertyFileLocation = new File(propFilePathAndName);        
+  //      propertyFileDAO.loadPropertyFile(Thread.currentThread().getContextClassLoader().getResourceAsStream(propertyFile), propertyFile);
         propertyFileDAO.loadPropertyFile(propertyFileLocation, propertyFile);
-            
         String cacheRefreshDuration = propertyFileDAO.getProperty(propertyFile, CACHE_REFRESH_DURATION);
         refreshHandler.addRefreshInfo(propertyFile, cacheRefreshDuration);
     }

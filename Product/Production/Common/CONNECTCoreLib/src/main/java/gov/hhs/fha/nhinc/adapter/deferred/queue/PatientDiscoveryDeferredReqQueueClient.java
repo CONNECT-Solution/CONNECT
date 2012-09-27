@@ -26,20 +26,18 @@
  */
 package gov.hhs.fha.nhinc.adapter.deferred.queue;
 
-import java.util.Map;
-
-import javax.xml.namespace.QName;
-import javax.xml.ws.BindingProvider;
-import javax.xml.ws.Service;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import gov.hhs.fha.nhinc.adapter.deferred.queue.service.AdapterPatientDiscoveryDeferredReqQueueProcessServicePortDescriptor;
 import gov.hhs.fha.nhinc.adapterpatientdiscoveryreqqueueprocess.AdapterPatientDiscoveryDeferredReqQueueProcessPortType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.gateway.adapterpatientdiscoveryreqqueueprocess.PatientDiscoveryDeferredReqQueueProcessRequestType;
 import gov.hhs.fha.nhinc.gateway.adapterpatientdiscoveryreqqueueprocess.PatientDiscoveryDeferredReqQueueProcessResponseType;
 import gov.hhs.fha.nhinc.gateway.adapterpatientdiscoveryreqqueueprocess.SuccessOrFailType;
+import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
+import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
+import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
@@ -51,12 +49,6 @@ import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 public class PatientDiscoveryDeferredReqQueueClient {
 
     private static final Log log = LogFactory.getLog(PatientDiscoveryDeferredReqQueueClient.class);
-
-    private static final String NAMESPACE_URI = "urn:gov:hhs:fha:nhinc:adapterpatientdiscoveryreqqueueprocess";
-    private static final String SERVICE_LOCAL_PART = "AdapterPatientDiscoveryDeferredReqQueueProcess";
-    private static final String PORT_LOCAL_PART = "AdapterPatientDiscoveryDeferredReqQueueProcessPort";
-    private static final String WSDL_FILE = "AdapterPatientDiscoveryDeferredReqQueueProcess.wsdl";
-    private static final String WS_ADDRESSING_ACTION = "urn:gov:hhs:fha:nhinc:adapterpatientdiscoveryreqqueueprocess:ProcessPatientDiscoveryDeferredReqQueue";
     private static final String SERVICE_NAME = NhincConstants.PATIENT_DISCOVERY_ADAPTER_ASYNC_REQ_QUEUE_PROCESS_SERVICE_NAME;
 
     private final WebServiceProxyHelper proxyHelper;
@@ -87,17 +79,16 @@ public class PatientDiscoveryDeferredReqQueueClient {
             String endpointURL = getUrl(SERVICE_NAME);
 
             if (NullChecker.isNotNullish(endpointURL)) {
-                AdapterPatientDiscoveryDeferredReqQueueProcessPortType port = getPort(endpointURL, SERVICE_NAME);
+                ServicePortDescriptor<AdapterPatientDiscoveryDeferredReqQueueProcessPortType> portDescriptor =
+                        new AdapterPatientDiscoveryDeferredReqQueueProcessServicePortDescriptor();
+                CONNECTClient<AdapterPatientDiscoveryDeferredReqQueueProcessPortType> client = CONNECTClientFactory
+                        .getInstance().getCONNECTClientUnsecured(portDescriptor, endpointURL, null);
 
-                BindingProvider bp = (BindingProvider) port;
-                // (Optional) Configure RequestContext with endpoint's URL
-                Map<String, Object> rc = bp.getRequestContext();
-                rc.put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, endpointURL);
-
-                PatientDiscoveryDeferredReqQueueProcessRequestType request = new PatientDiscoveryDeferredReqQueueProcessRequestType();
+                PatientDiscoveryDeferredReqQueueProcessRequestType request =
+                        new PatientDiscoveryDeferredReqQueueProcessRequestType();
                 request.setMessageId(messageId);
-                response = (PatientDiscoveryDeferredReqQueueProcessResponseType) proxyHelper.invokePort(
-                        port, AdapterPatientDiscoveryDeferredReqQueueProcessPortType.class,
+                response = (PatientDiscoveryDeferredReqQueueProcessResponseType) client.invokePort(
+                        AdapterPatientDiscoveryDeferredReqQueueProcessPortType.class,
                         "processPatientDiscoveryDeferredReqQueue", request);
             } else {
                 msgText = "Endpoint URL not found for local home community service name ["
@@ -113,38 +104,8 @@ public class PatientDiscoveryDeferredReqQueueClient {
         return response;
     }
 
-    private Service getService() {
-        try {
-
-            return proxyHelper.createService(WSDL_FILE, NAMESPACE_URI, SERVICE_LOCAL_PART);
-        } catch (Throwable t) {
-            log.error("Error creating service: " + t.getMessage(), t);
-        }
-        return null;
-    }
-
     protected String getUrl(String serviceName) throws ConnectionManagerException {
         return proxyHelper.getAdapterEndPointFromConnectionManager(serviceName);
-    }
-
-    /**
-     * This method retrieves and initializes the port.
-     *
-     * @param url The URL for the web service.
-     * @return The port object for the web service.
-     */
-    protected AdapterPatientDiscoveryDeferredReqQueueProcessPortType getPort(String url, String serviceName) {
-        AdapterPatientDiscoveryDeferredReqQueueProcessPortType port = null;
-        Service service = getService();
-        if (service != null) {
-            log.debug("Obtained service - creating port.");
-
-            port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), AdapterPatientDiscoveryDeferredReqQueueProcessPortType.class);
-            proxyHelper.initializeUnsecurePort((javax.xml.ws.BindingProvider) port, url, WS_ADDRESSING_ACTION, null);
-        } else {
-            log.error("Unable to obtain serivce - no port created.");
-        }
-        return port;
     }
 
 }

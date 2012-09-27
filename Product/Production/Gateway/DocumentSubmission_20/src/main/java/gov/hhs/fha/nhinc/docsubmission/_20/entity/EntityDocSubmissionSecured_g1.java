@@ -26,34 +26,27 @@
  */
 package gov.hhs.fha.nhinc.docsubmission._20.entity;
 
+import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType;
+
 import javax.annotation.Resource;
-import javax.jws.HandlerChain;
-import javax.jws.WebService;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
 
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
-import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType;
-
-@WebService(serviceName = "EntityXDRSecured_Service", portName = "EntityXDRSecured_Port", endpointInterface = "gov.hhs.fha.nhinc.nhincentityxdrsecured.EntityXDRSecuredPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:nhincentityxdrsecured", wsdlLocation = "WEB-INF/wsdl/EntityDocSubmissionSecured/EntityXDRSecured.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 @Addressing(enabled = true)
-@HandlerChain(file = "../../../../../../../handler-chain.xml")
-public class EntityDocSubmissionSecured_g1 {
+public class EntityDocSubmissionSecured_g1 implements gov.hhs.fha.nhinc.nhincentityxdrsecured.EntityXDRSecuredPortType {
 
     @Resource
     private WebServiceContext context;
 
     public RegistryResponseType provideAndRegisterDocumentSetB(
             RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType body) {
-        RegistryResponseType response = null;
-
+        
         EntityDocSubmissionImpl_g1 impl = getEntityDocSubmissionImpl();
-        if (impl != null) {
-            response = impl.provideAndRegisterDocumentSetBSecured(body, getWebServiceContext());
-        }
+        RegistryResponseType response = impl.provideAndRegisterDocumentSetB(body, context);
 
         return response;
     }

@@ -1,51 +1,52 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
- * All rights reserved. 
+ * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * All rights reserved.
  *
- * Redistribution and use in source and binary forms, with or without 
- * modification, are permitted provided that the following conditions are met: 
- *     * Redistributions of source code must retain the above 
- *       copyright notice, this list of conditions and the following disclaimer. 
- *     * Redistributions in binary form must reproduce the above copyright 
- *       notice, this list of conditions and the following disclaimer in the documentation 
- *       and/or other materials provided with the distribution. 
- *     * Neither the name of the United States Government nor the 
- *       names of its contributors may be used to endorse or promote products 
- *       derived from this software without specific prior written permission. 
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *     * Redistributions of source code must retain the above
+ *       copyright notice, this list of conditions and the following disclaimer.
+ *     * Redistributions in binary form must reproduce the above copyright
+ *       notice, this list of conditions and the following disclaimer in the documentation
+ *       and/or other materials provided with the distribution.
+ *     * Neither the name of the United States Government nor the
+ *       names of its contributors may be used to endorse or promote products
+ *       derived from this software without specific prior written permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
- * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
- * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY 
- * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES 
- * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
- * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND 
- * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
- * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package gov.hhs.fha.nhinc.docrepository.adapter.dao;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Expression;
+import org.hibernate.criterion.Restrictions;
 
 import gov.hhs.fha.nhinc.docrepository.adapter.model.Document;
 import gov.hhs.fha.nhinc.docrepository.adapter.model.DocumentQueryParams;
 import gov.hhs.fha.nhinc.docrepository.adapter.persistence.HibernateUtil;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.hibernate.Criteria;
-import org.hibernate.SessionFactory;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
-import org.hibernate.criterion.Criterion;
-import org.hibernate.criterion.Expression;
-import org.hibernate.criterion.LogicalExpression;
-import org.hibernate.criterion.Restrictions;
 
 /**
  * Data access object class for Document data
- * 
+ *
  * @author Neil Webb
  */
 public class DocumentDao {
@@ -53,7 +54,7 @@ public class DocumentDao {
 
     /**
      * Save a document record to the database. Insert if document id is null. Update otherwise.
-     * 
+     *
      * @param document Document object to save.
      */
     public void save(Document document) {
@@ -95,7 +96,7 @@ public class DocumentDao {
 
     /**
      * Delete a document
-     * 
+     *
      * @param document Document to delete
      */
     public void delete(Document document) {
@@ -137,7 +138,7 @@ public class DocumentDao {
 
     /**
      * Retrieve a document by identifier
-     * 
+     *
      * @param documentId Document identifier
      * @return Retrieved document
      */
@@ -185,7 +186,7 @@ public class DocumentDao {
 
     /**
      * Retrieves all documents
-     * 
+     *
      * @return All document records
      */
     @SuppressWarnings("unchecked")
@@ -224,7 +225,7 @@ public class DocumentDao {
 
     /**
      * Perform a query for documents
-     * 
+     *
      * @param params Query parameters
      * @return Query results
      */
@@ -278,18 +279,18 @@ public class DocumentDao {
                     if ((classCodes != null) && (!classCodes.isEmpty())) {
                         /**************************************************************
                          * The class code and class code scheme combination can come in two different formats:
-                         * 
+                         *
                          * <ns7:Slot name="$XDSDocumentEntryClassCode"> <ns7:ValueList> <ns7:Value>34133-9</ns7:Value>
                          * </ns7:ValueList> </ns7:Slot> <ns7:Slot name="$XDSDocumentEntryClassCodeScheme">
                          * <ns7:ValueList> <ns7:Value>2.16.840.1.113883.6.1</ns7:Value> </ns7:ValueList> </ns7:Slot>
-                         * 
+                         *
                          * or
-                         * 
+                         *
                          * <ns7:Slot name="$XDSDocumentEntryClassCode"> <ns7:ValueList>
                          * <ns7:Value>('34133-9^^2.16.840.1.113883.6.1')</ns7:Value> </ns7:ValueList> </ns7:Slot>
-                         * 
+                         *
                          * The code below can deal with both formats.
-                         * 
+                         *
                          *************************************************************/
                         Criterion criterion = null;
                         for (String classCode : classCodes) {
@@ -385,12 +386,12 @@ public class DocumentDao {
                         }
                         criteria.add(Expression.in("documentUniqueId", documentUniqueIds));
                     }
-                    
+
                     if (log.isDebugEnabled()) {
-                        log.debug("Document query - onDemand: " + onDemand);                      
+                        log.debug("Document query - onDemand: " + onDemand);
                     }
                     criteria.add(Expression.eq("onDemand", onDemand));
-                    
+
                     documents = criteria.list();
                 } else {
                     log.error("Failed to obtain a session from the sessionFactory");

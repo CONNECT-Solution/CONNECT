@@ -27,12 +27,10 @@
 package gov.hhs.fha.nhinc.hiem._20.entity.unsubscribe;
 
 import javax.annotation.Resource;
-import javax.jws.HandlerChain;
 import javax.jws.WebService;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 
-import gov.hhs.fha.nhinc.entitysubscriptionmanagement.ResourceUnknownFault;
 import gov.hhs.fha.nhinc.entitysubscriptionmanagement.UnableToDestroySubscriptionFault;
 
 /**
@@ -41,7 +39,6 @@ import gov.hhs.fha.nhinc.entitysubscriptionmanagement.UnableToDestroySubscriptio
  */
 @WebService(serviceName = "EntitySubscriptionManager", portName = "EntitySubscriptionManagerPortSoap", endpointInterface = "gov.hhs.fha.nhinc.entitysubscriptionmanagement.EntitySubscriptionManagerPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement", wsdlLocation = "WEB-INF/wsdl/EntitySubscribeService/EntitySubscriptionManagement.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
-@HandlerChain(file = "EntityUnsubscribeSoapHeaderHandler.xml")
 public class EntityUnsubscribeService {
 
     @Resource
@@ -49,7 +46,7 @@ public class EntityUnsubscribeService {
 
     public org.oasis_open.docs.wsn.b_2.UnsubscribeResponse unsubscribe(
             gov.hhs.fha.nhinc.common.nhinccommonentity.UnsubscribeRequestType unsubscribeRequest)
-            throws ResourceUnknownFault, UnableToDestroySubscriptionFault, Exception {
+            throws UnableToDestroySubscriptionFault, Exception {
         return new EntityUnsubscribeServiceImpl().unsubscribe(unsubscribeRequest, context);
     }
 

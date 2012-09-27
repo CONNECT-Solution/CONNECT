@@ -57,18 +57,28 @@ public class SOAPHeaderHandler implements SOAPHandler<SOAPMessageContext> {
     private static final String MESSAGE_ID_CONTEXT = "com.sun.xml.ws.addressing.response.messageID";
     private static final String MESSAGE_ID = "MessageID";
 
+
+    /* (non-Javadoc)
+     * @see javax.xml.ws.handler.soap.SOAPHandler#getHeaders()
+     */
+    @Override
     public Set<QName> getHeaders() {
         log.debug("SoapHeaderHandler.getHeaders");
         return Collections.emptySet();
     }
 
+    /* (non-Javadoc)
+     * @see javax.xml.ws.handler.Handler#handleMessage(javax.xml.ws.handler.MessageContext)
+     */
+    @Override
     public boolean handleMessage(SOAPMessageContext messageContext) {
         log.debug("Entering SOAPHeaderHandler.handleMessage");
         Boolean isOutboundMessage = (Boolean) messageContext.get(MessageContext.MESSAGE_OUTBOUND_PROPERTY);
         try {
             SOAPMessage oMessage = messageContext.getMessage();
             SOAPHeader oHeader = oMessage.getSOAPHeader();
-            if (isOutboundMessage.booleanValue() && (messageContext.containsKey(MESSAGE_ID_CONTEXT) != true)) {
+
+            if (isOutboundMessage.booleanValue() && (!messageContext.containsKey(MESSAGE_ID_CONTEXT))) {
                 adjustMessageId(messageContext, oHeader);
             } else {
                 log.debug("Will not adjust messageID on inbound request");
@@ -80,6 +90,14 @@ public class SOAPHeaderHandler implements SOAPHandler<SOAPMessageContext> {
         return true;
     }
 
+
+    /**
+     * This method updates the messageID if found to be in an illegal format.
+     * 
+     * @param messageContext
+     * @param oHeader
+     * @throws SOAPException
+     */
     private void adjustMessageId(SOAPMessageContext messageContext, SOAPHeader oHeader) throws SOAPException {
         // Override the Message Id field
         String messageId = null;
@@ -88,7 +106,7 @@ public class SOAPHeaderHandler implements SOAPHandler<SOAPMessageContext> {
             messageId = AddressingHeaderCreator.generateMessageId();
         } else if (illegalUUID(messageId, "uuid:")) {
             messageId = "urn:" + messageId;
-        } else if (legalMessageId(messageId) == false) {
+		} else if (!legalMessageId(messageId)) {
             messageId = "urn:uuid:" + messageId;
         }
 
@@ -100,36 +118,67 @@ public class SOAPHeaderHandler implements SOAPHandler<SOAPMessageContext> {
             SOAPFactory soapFactory = SOAPFactory.newInstance();
             oMessageIdElem = soapFactory.createElement(MESSAGE_ID, "", WSA_NS);
             oMessageIdElem.setTextContent(messageId);
-            if(oHeader != null)
-            	oHeader.addChildElement(oMessageIdElem);
+
+            if (oHeader != null) {
+                oHeader.addChildElement(oMessageIdElem);
+            }
         }
     }
 
+    /**
+     * Returns a header object with a particular local name and namespace.
+     * @param header The header object from the message
+     * @param name The local name of the element being searched for
+     * @param ns The namespace of the object being searched for
+     * @return The first instance that matches the localname and namespace or return null
+     */
     private SOAPElement getFirstChild(SOAPHeader header, String name, String ns) {
         SOAPElement result = null;
-        if (header != null) {
-            QName qname = new QName(ns, name);
-            Iterator iter = header.getChildElements(qname);
-            if (iter.hasNext()) {
-                result = (SOAPElement) iter.next();
-            }
+        if (header == null || !header.hasChildNodes()) {
+            return result;
+        }
+
+        QName qname = new QName(ns, name);
+        Iterator iter = header.getChildElements(qname);
+        if (iter.hasNext()) {
+            result = (SOAPElement) iter.next();
         }
         return result;
     }
 
+    /**
+     * Check if UUID starts with an illegal prefix ("uuid:")
+     * @param messageId
+     * @param illegalPrefix
+     * @return
+     */
     private boolean illegalUUID(String messageId, String illegalPrefix) {
         return messageId.trim().startsWith(illegalPrefix);
     }
 
+    /**
+     * Returns true if the messageID starts with a legal prefix ("urn:uuid")
+     * @param messageId
+     * @return
+     */
     private boolean legalMessageId(String messageId) {
         return messageId.trim().startsWith("urn:uuid:");
     }
 
+    /**
+     * Method handles a fault if one occurs
+     * @param context
+     * @return
+     */
     public boolean handleFault(SOAPMessageContext context) {
         log.warn("SoapHeaderHandler.handleFault");
         return true;
     }
 
+    /**
+     * 
+     * @param context
+     */
     public void close(MessageContext context) {
         log.debug("SoapHeaderHandler.close");
     }

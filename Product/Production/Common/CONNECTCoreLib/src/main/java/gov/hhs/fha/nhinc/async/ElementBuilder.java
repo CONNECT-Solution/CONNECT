@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package gov.hhs.fha.nhinc.async;
 
@@ -13,15 +13,15 @@ import org.w3c.dom.Element;
 
 /**
  * @author bhumphrey
- * 
+ *
  */
-public class ElementBuilder {
+public final class ElementBuilder {
 
-	private Log log = LogFactory.getLog(ElementBuilder.class);
+	private final Log log = LogFactory.getLog(ElementBuilder.class);
 
 	private Document document;
 
-	
+
 	private ElementBuilder() {
 		try {
 			document = DocumentBuilderFactory.newInstance()
@@ -31,31 +31,52 @@ public class ElementBuilder {
 		}
 	}
 
+	/**
+	 * @param ns - The Namespace
+	 * @param name - The Name
+	 * @return built element
+	 */
 	public Element buildElement(final String ns, final String name) {
 
 		return buildElement(ns, name, null, null);
 	}
-	
+
+	/**
+	 * @param ns Namespace
+	 * @param name Name
+	 * @param content Content
+	 * @return built element
+	 */
 	public Element buildElement(final String ns, final String name, final String content) {
 
 		return buildElement(ns, name, content,  null);
 	}
-	
+
+	/**
+	 * @param ns Namespace
+	 * @param name Name
+	 * @param content Content
+	 * @param mustUnderstand mustUnderstand, true or false
+	 * @return built element
+	 */
 	public Element buildElement(final String ns, final String name, final String content, Boolean mustUnderstand) {
 
 		Element theElement = null;
 		theElement = document.createElementNS(ns, name);
-		
+
 		if (content != null) {
 			theElement.setTextContent(content);
 		}
-		
+
 		if (mustUnderstand != null) {
 			theElement.setAttribute("mustUnderstand", mustUnderstand.toString());
 		}
 		return theElement;
 	}
 
+	/**
+	 * @return A new instance of ElementBuilder.
+	 */
 	public static ElementBuilder newInstance() {
 		return new ElementBuilder();
 	}

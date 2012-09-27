@@ -26,16 +26,18 @@
  */
 package gov.hhs.fha.nhinc.policyengine.adapter.orchestrator.proxy;
 
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyResponseType;
 import gov.hhs.fha.nhinc.adapterpolicyengineorchestrator.AdapterPolicyEngineOrchestratorPortType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
+import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyResponseType;
+import gov.hhs.fha.nhinc.messaging.client.CONNECTCXFClientFactory;
+import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
+import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADAPTER_API_LEVEL;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import gov.hhs.fha.nhinc.policyengine.adapter.orchestrator.proxy.service.AdapterPolicyEngineOrchServicePortDescriptor;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
-import javax.xml.namespace.QName;
-import javax.xml.ws.Service;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -46,13 +48,6 @@ import org.apache.commons.logging.LogFactory;
  */
 public class AdapterPolicyEngineOrchProxyWebServiceUnsecuredImpl implements AdapterPolicyEngineOrchProxy {
     private Log log = null;
-    private static Service cachedService = null;
-    private static final String NAMESPACE_URI = "urn:gov:hhs:fha:nhinc:adapterpolicyengineorchestrator";
-    private static final String SERVICE_LOCAL_PART = "AdapterPolicyEngineOrchestrator";
-    private static final String PORT_LOCAL_PART = "AdapterPolicyEngineOrchestratorPortSoap";
-    private static final String WSDL_FILE = "AdapterPolicyEngineOrchestrator.wsdl";
-    private static final String WS_ADDRESSING_ACTION = "urn:gov:hhs:fha:nhinc:adapterpolicyengineorchestrator:CheckPolicyRequest";
-
     private WebServiceProxyHelper oProxyHelper = null;
 
     public AdapterPolicyEngineOrchProxyWebServiceUnsecuredImpl() {
@@ -68,45 +63,11 @@ public class AdapterPolicyEngineOrchProxyWebServiceUnsecuredImpl implements Adap
         return new WebServiceProxyHelper();
     }
 
-    /**
-     * This method retrieves and initializes the port.
-     * 
-     * @param url The URL for the web service.
-     * @param wsAddressingAction The action assigned to the input parameter for the web service operation.
-     * @param assertion The assertion information for the web service
-     * @return The port object for the web service.
-     */
-    protected AdapterPolicyEngineOrchestratorPortType getPort(String url, String wsAddressingAction,
+    protected CONNECTClient<AdapterPolicyEngineOrchestratorPortType> getCONNECTClientUnsecured(
+            ServicePortDescriptor<AdapterPolicyEngineOrchestratorPortType> portDescriptor, String url,
             AssertionType assertion) {
-        AdapterPolicyEngineOrchestratorPortType port = null;
-        Service service = getService();
-        if (service != null) {
-            log.debug("Obtained service - creating port.");
 
-            port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART),
-                    AdapterPolicyEngineOrchestratorPortType.class);
-            oProxyHelper
-                    .initializeUnsecurePort((javax.xml.ws.BindingProvider) port, url, wsAddressingAction, assertion);
-        } else {
-            log.error("Unable to obtain serivce - no port created.");
-        }
-        return port;
-    }
-
-    /**
-     * Retrieve the service class for this web service.
-     * 
-     * @return The service class for this web service.
-     */
-    protected Service getService() {
-        if (cachedService == null) {
-            try {
-                cachedService = oProxyHelper.createService(WSDL_FILE, NAMESPACE_URI, SERVICE_LOCAL_PART);
-            } catch (Throwable t) {
-                log.error("Error creating service: " + t.getMessage(), t);
-            }
-        }
-        return cachedService;
+        return CONNECTCXFClientFactory.getInstance().getCONNECTClientUnsecured(portDescriptor, url, assertion);
     }
 
     /**
@@ -127,8 +88,11 @@ public class AdapterPolicyEngineOrchProxyWebServiceUnsecuredImpl implements Adap
             log.debug("After target system URL look up. URL for service: " + serviceName + " is: " + url);
 
             if (NullChecker.isNotNullish(url)) {
-                AdapterPolicyEngineOrchestratorPortType port = getPort(url, WS_ADDRESSING_ACTION, assertion);
-                oResponse = (CheckPolicyResponseType) oProxyHelper.invokePort(port,
+                ServicePortDescriptor<AdapterPolicyEngineOrchestratorPortType> portDescriptor = new AdapterPolicyEngineOrchServicePortDescriptor();
+
+                CONNECTClient<AdapterPolicyEngineOrchestratorPortType> client = getCONNECTClientUnsecured(portDescriptor, url, assertion);
+                
+                oResponse = (CheckPolicyResponseType) client.invokePort(
                         AdapterPolicyEngineOrchestratorPortType.class, "checkPolicy", checkPolicyRequest);
             } else {
                 log.error("Failed to call the web service (" + serviceName + ").  The URL is null.");

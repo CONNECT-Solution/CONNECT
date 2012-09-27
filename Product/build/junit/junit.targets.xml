@@ -3,8 +3,9 @@
 
 	<import file="junit.properties.xml" />
 	<import file="junit.macros.xml" />
-	
-	<property name="properties.dir" location="../../Common/Properties/Dev"/>
+
+        <dirname property="junit.targets.basedir" file="${ant.file.junit.targets}"/>
+	<property name="properties.dir" location="${junit.targets.basedir}/../../Production/Common/Properties/Dev"/>
 
 	<target name="junit.help">
 			

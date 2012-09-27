@@ -37,12 +37,10 @@
     <dependency org="javax"                 name="javaee-api"           rev="6.0"                   conf="compile->default" transitive="false" />
 
     <!-- runtime jars -->
-    <dependency org="com.sun.xml" 		      name="jaxb-impl" 			rev="2.0EA3"			  conf="runtime->default" transitive="false" />
     <dependency org="jsf"                   name="appbase" rev="1.0" conf="runtime->default" transitive="false" /> 
     <dependency org="commons-collections"       name="commons-collections"            rev="2.1.1"               conf="runtime->default" transitive="false" />
     <dependency org="commons-digester"       name="commons-digester" rev="2.0" conf="runtime->default" transitive="false" />
     <dependency org="commons-fileupload"       name="commons-fileupload" rev="1.2.1" conf="runtime->default" transitive="false" />
-    <dependency org="commons-logging"           name="commons-logging"                rev="1.1.1"               conf="runtime->default" transitive="false" />
     <dependency org="jsf"                   name="appbase" rev="1.0" conf="runtime->default" transitive="false" /> 
     <dependency org="jsf"                   name="dataprovider" rev="1.0" conf="runtime->default" transitive="false" />
     <dependency org="jsf"                   name="errorhandler" rev="1.0" conf="runtime->default" transitive="false" />

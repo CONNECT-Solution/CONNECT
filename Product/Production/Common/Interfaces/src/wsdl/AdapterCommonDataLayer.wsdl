@@ -51,7 +51,7 @@
 		<wsdl:part name="output" element="hl7:CareRecord_QUPC_IN043200UV01Response"/>
 	</wsdl:message>
 	<wsdl:message name="GetAdmissionsRequest">
-		<wsdl:part name="param0" element="hl7:CareRecord_QUPC_IN043100UV01AppointmentsRequest"/>
+		<wsdl:part name="param0" element="hl7:CareRecord_QUPC_IN043100UV01AdmissionsRequest"/>
 	</wsdl:message>
 	<wsdl:message name="GetAdmissionsResponse">
 		<wsdl:part name="output" element="hl7:CareRecord_QUPC_IN043200UV01Response"/>

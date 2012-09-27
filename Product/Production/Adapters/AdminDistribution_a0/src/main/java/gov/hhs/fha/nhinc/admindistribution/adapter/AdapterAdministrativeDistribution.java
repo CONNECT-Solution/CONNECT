@@ -26,20 +26,17 @@
  */
 package gov.hhs.fha.nhinc.admindistribution.adapter;
 
-import javax.jws.WebService;
-import javax.xml.ws.BindingType;
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import javax.annotation.Resource;
+import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
-import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
 
 /**
  * 
  * @author dunnek
  */
-@WebService(serviceName = "Adapter_AdministrativeDistribution", portName = "Adapter_AdministrativeDistribution_PortType", endpointInterface = "gov.hhs.fha.nhinc.adapteradmindistribution.AdapterAdministrativeDistributionPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:adapteradmindistribution", wsdlLocation = "WEB-INF/wsdl/AdapterAdministrativeDistribution/AdapterAdminDist.wsdl")
+
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
-public class AdapterAdministrativeDistribution {
+public class AdapterAdministrativeDistribution implements gov.hhs.fha.nhinc.adapteradmindistribution.AdapterAdministrativeDistributionPortType {
     @Resource
     private WebServiceContext context;
 

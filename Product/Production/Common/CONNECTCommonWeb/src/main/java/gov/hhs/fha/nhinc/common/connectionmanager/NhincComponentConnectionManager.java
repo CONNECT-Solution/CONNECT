@@ -27,7 +27,9 @@
 package gov.hhs.fha.nhinc.common.connectionmanager;
 
 import gov.hhs.fha.nhinc.common.connectionmanager.dao.AssigningAuthorityHomeCommunityMappingDAO;
+import gov.hhs.fha.nhinc.common.connectionmanagerinfo.AssigningAuthorityIdType;
 import gov.hhs.fha.nhinc.common.connectionmanagerinfo.EmptyParameterType;
+import gov.hhs.fha.nhinc.common.connectionmanagerinfo.EndpointURLType;
 import gov.hhs.fha.nhinc.common.connectionmanagerinfo.GetAdapterEndpointURLRequestType;
 import gov.hhs.fha.nhinc.common.connectionmanagerinfo.GetAssigningAuthoritiesByHomeCommunityResponseType;
 import gov.hhs.fha.nhinc.common.connectionmanagerinfo.GetBusinessEntityByServiceNameRequestType;
@@ -36,14 +38,15 @@ import gov.hhs.fha.nhinc.common.connectionmanagerinfo.GetDefaultEndpointURLBySer
 import gov.hhs.fha.nhinc.common.connectionmanagerinfo.GetEndpointURLFromNhinTargetCommunitiesRequestType;
 import gov.hhs.fha.nhinc.common.connectionmanagerinfo.GetEndpointURLFromNhinTargetCommunitiesResponseType;
 import gov.hhs.fha.nhinc.common.connectionmanagerinfo.GetEndpointURLFromNhinTargetRequestType;
-import gov.hhs.fha.nhinc.common.connectionmanagerinfo.HomeCommunityIdList;
+import gov.hhs.fha.nhinc.common.connectionmanagerinfo.HomeCommunityIdListType;
+import gov.hhs.fha.nhinc.common.connectionmanagerinfo.HomeCommunityIdType;
+import gov.hhs.fha.nhinc.common.connectionmanagerinfo.ServiceNameType;
 import gov.hhs.fha.nhinc.common.connectionmanagerinfo.SuccessOrFailType;
 import gov.hhs.fha.nhinc.common.nhinccommon.UrlInfoType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.connectmgr.UrlInfo;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADAPTER_API_LEVEL;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 
 import java.util.List;
@@ -61,9 +64,8 @@ import org.uddi.api_v3.BusinessEntity;
  * 
  * @author akong
  */
-@WebService(serviceName = "NhincComponentConnectionManager", portName = "NhincComponentConnectionManagerPortSoap", endpointInterface = "gov.hhs.fha.nhinc.nhinccomponentconnectionmanager.NhincComponentConnectionManagerPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager", wsdlLocation = "WEB-INF/wsdl/NhincComponentConnectionManager/NhincComponentConnectionManager.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
-public class NhincComponentConnectionManager {
+public class NhincComponentConnectionManager implements gov.hhs.fha.nhinc.nhinccomponentconnectionmanager.NhincComponentConnectionManagerPortType {
 
     private static Log log = null;
 
@@ -101,10 +103,10 @@ public class NhincComponentConnectionManager {
      * @param sHomeCommunityId The home community ID that is being searched for.
      * @return the business entity information for the specified home community.
      */
-    public BusinessEntity getBusinessEntity(String sHomeCommunityId) {
+    public BusinessEntity getBusinessEntity(HomeCommunityIdType homeCommunity) {
         BusinessEntity bEntity = new BusinessEntity();;
         try {
-            bEntity = ConnectionManagerCache.getInstance().getBusinessEntity(sHomeCommunityId);
+            bEntity = ConnectionManagerCache.getInstance().getBusinessEntity(homeCommunity.getValue());
         } catch (ConnectionManagerException cme) {
             getLogger().error("Failed to invoke getBusinessEntity", cme);
         }
@@ -118,7 +120,7 @@ public class NhincComponentConnectionManager {
      * @param saHomeCommunityId The set of home communities to be retrieved.
      * @return The BusinessDetail containing the list of business entities found.
      */
-    public BusinessDetail getBusinessEntitySet(HomeCommunityIdList homeCommunityIdList) {
+    public BusinessDetail getBusinessEntitySet(HomeCommunityIdListType homeCommunityIdList) {
         BusinessDetail bDetail = new BusinessDetail();
         try {
             Set<BusinessEntity> businessEntitySet = ConnectionManagerCache.getInstance().getBusinessEntitySet(
@@ -159,7 +161,7 @@ public class NhincComponentConnectionManager {
      * @return The URL for only the requested service at the specified home community. If the service is not found, then
      *         null is returned.
      */
-    public String getDefaultEndpointURLByServiceName(GetDefaultEndpointURLByServiceNameRequestType request) {
+    public EndpointURLType getDefaultEndpointURLByServiceName(GetDefaultEndpointURLByServiceNameRequestType request) {
         String endpointUrl = null;
         try {
             endpointUrl = ConnectionManagerCache.getInstance().getDefaultEndpointURLByServiceName(
@@ -167,8 +169,11 @@ public class NhincComponentConnectionManager {
         } catch (ConnectionManagerException cme) {
             getLogger().error("Failed to invoke getEndpointURLByServiceName", cme);
         }
+        
+        EndpointURLType response = new EndpointURLType();
+        response.setValue(endpointUrl);
 
-        return endpointUrl;
+        return response;
     }
 
     /**
@@ -178,15 +183,18 @@ public class NhincComponentConnectionManager {
      * @return The URL for only the requested service at the local home community. If the service is not found, then
      *         null is returned.
      */
-    public String getInternalEndpointURLByServiceName(String sUniformServiceName) {
+    public EndpointURLType getInternalEndpointURLByServiceName(ServiceNameType serviceName) {
         String endpointUrl = null;
         try {
-            endpointUrl = ConnectionManagerCache.getInstance().getInternalEndpointURLByServiceName(sUniformServiceName);
+            endpointUrl = ConnectionManagerCache.getInstance().getInternalEndpointURLByServiceName(serviceName.getValue());
         } catch (ConnectionManagerException cme) {
             getLogger().error("Failed to invoke getLocalEndpointURLByServiceName", cme);
         }
 
-        return endpointUrl;
+        EndpointURLType response = new EndpointURLType();
+        response.setValue(endpointUrl);
+        
+        return response;
     }
 
     /**
@@ -199,7 +207,7 @@ public class NhincComponentConnectionManager {
      * @param request The request containing the target system information for the community being looked up and the service name
      * @return The URL to the requested service.
      */
-    public String getEndpointURLFromNhinTarget(GetEndpointURLFromNhinTargetRequestType request) {
+    public EndpointURLType getEndpointURLFromNhinTarget(GetEndpointURLFromNhinTargetRequestType request) {
         String endpointUrl = null;
         try {
             endpointUrl = ConnectionManagerCache.getInstance().getEndpointURLFromNhinTarget(
@@ -208,7 +216,10 @@ public class NhincComponentConnectionManager {
             getLogger().error("Failed to invoke getEndpointURLFromNhinTarget", cme);
         }
 
-        return endpointUrl;
+        EndpointURLType response = new EndpointURLType();
+        response.setValue(endpointUrl);
+        
+        return response;
     }
 
     /**
@@ -276,10 +287,10 @@ public class NhincComponentConnectionManager {
      * @param sUniformServiceName The service name to lookup
      * @return A BusinessDetail containing the list of business entities
      */
-    public BusinessDetail getAllBusinessEntitySetByServiceName(String sUniformServiceName) {
+    public BusinessDetail getAllBusinessEntitySetByServiceName(ServiceNameType serviceName) {
         BusinessDetail bDetail = new BusinessDetail();
         try {
-            Set<BusinessEntity> businessEntitySet = ConnectionManagerCache.getInstance().getAllBusinessEntitySetByServiceName(sUniformServiceName);
+            Set<BusinessEntity> businessEntitySet = ConnectionManagerCache.getInstance().getAllBusinessEntitySetByServiceName(serviceName.getValue());
             if (businessEntitySet != null) {
                 bDetail.getBusinessEntity().addAll(businessEntitySet);
             }
@@ -296,7 +307,7 @@ public class NhincComponentConnectionManager {
      * @param request The request containing the service name and the adapter level
      * @return The adapter endpoint url
      */
-    public String getAdapterEndpointURL(GetAdapterEndpointURLRequestType request) {
+    public EndpointURLType getAdapterEndpointURL(GetAdapterEndpointURLRequestType request) {
         String endpointUrl = null;
         try {            
             ADAPTER_API_LEVEL adapterLevel = ADAPTER_API_LEVEL.valueOf(request.getAdapterLevel());
@@ -304,8 +315,11 @@ public class NhincComponentConnectionManager {
         } catch (Exception e) {
             getLogger().error("Failed to invoke getAdapterEndpointURL", e);
         }
+        
+        EndpointURLType response = new EndpointURLType();
+        response.setValue(endpointUrl);
 
-        return endpointUrl;
+        return response;
     }
 
     /**
@@ -354,15 +368,15 @@ public class NhincComponentConnectionManager {
      * @param homeCommunityId The hcid to be used for lookup
      * @return A response containing a list of assigning authorities associated with the hcid
      */
-    public GetAssigningAuthoritiesByHomeCommunityResponseType getAssigningAuthoritiesByHomeCommunity(String homeCommunityId) {
+    public GetAssigningAuthoritiesByHomeCommunityResponseType getAssigningAuthoritiesByHomeCommunity(HomeCommunityIdType homeCommunityId) {
 
         GetAssigningAuthoritiesByHomeCommunityResponseType response = new GetAssigningAuthoritiesByHomeCommunityResponseType();
-        if (NullChecker.isNullish(homeCommunityId)) {
+        if (NullChecker.isNullish(homeCommunityId.getValue())) {
             return null;
         }
 
         AssigningAuthorityHomeCommunityMappingDAO mappingDao = new AssigningAuthorityHomeCommunityMappingDAO();
-        List<String> aaList = mappingDao.getAssigningAuthoritiesByHomeCommunity(homeCommunityId);
+        List<String> aaList = mappingDao.getAssigningAuthoritiesByHomeCommunity(homeCommunityId.getValue());
         response.getAssigningAuthoritiesId().addAll(aaList);
         
         return response;
@@ -374,17 +388,20 @@ public class NhincComponentConnectionManager {
      * @param assigningAuthorityId The assigning authority id to be used for lookup
      * @return The hcid of the assigning authority
      */
-    public String getHomeCommunityByAssigningAuthority(String assigningAuthorityId) {
+    public HomeCommunityIdType getHomeCommunityByAssigningAuthority(AssigningAuthorityIdType assigningAuthorityId) {
         
         String homeCommunityId = null;
-        if (NullChecker.isNullish(assigningAuthorityId)) {
+        if (NullChecker.isNullish(assigningAuthorityId.getValue())) {
             return null;
         }
 
         AssigningAuthorityHomeCommunityMappingDAO mappingDao = new AssigningAuthorityHomeCommunityMappingDAO();
-        homeCommunityId = mappingDao.getHomeCommunityId(assigningAuthorityId);
+        homeCommunityId = mappingDao.getHomeCommunityId(assigningAuthorityId.getValue());
         
-        return homeCommunityId;
+        HomeCommunityIdType response = new HomeCommunityIdType();
+        response.setValue(homeCommunityId);
+        
+        return response;
     }
 
 }

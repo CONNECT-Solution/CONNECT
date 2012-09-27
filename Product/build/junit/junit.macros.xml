@@ -3,6 +3,7 @@
 
   <dirname property="junit.macros.basedir" file="${ant.file.junit.macros}"/>
   <property name="junit.macros.thirdparty.dir" location="${junit.macros.basedir}/../../../ThirdParty"/>
+  <property name="product.dir" location="${junit.macros.basedir}/../.."/>
 
   <macrodef name="run.if.unit.tests.are.out.of.date">
     <element name="extra-source" optional="true"/>
@@ -84,10 +85,14 @@
       <junitrunner dir="${junit.basedir}" failureproperty="unittest.failure" printSummary="yes" fork="true" showoutput="true" forkmode="once" maxmemory="512m">
         <sysproperty key="basedir" value="${junit.basedir}" />
         <sysproperty key="net.sourceforge.cobertura.datafile" file="${coverage.file}" />
+        <sysproperty key="product.dir" value="${product.dir}"/>
 
         <env key="CLASSPATH" value="${cp}"/>
         <jvmarg value="-XX:-UseSplitVerifier"/>
-        <jvmarg value="-Dnhinc.properties.dir=@{nhinc.properties.dir}"/>        
+        <jvmarg value="-Xdebug"/>
+        <jvmarg value="-Xnoagent"/>
+        <jvmarg value="-Xrunjdwp:transport=dt_socket,address=${debug.port},server=y,suspend=${debug.suspend}"/>
+        <jvmarg value="-Dnhinc.properties.dir=@{nhinc.properties.dir}"/>
         <formatter type="xml" />
         <formatter usefile="false" type="plain" />
 
@@ -100,7 +105,7 @@
           </fileset>
         </classpath>
       </junitrunner>
-      
+
       <if>
         <isset property="unittest.failure"/>
         <then>

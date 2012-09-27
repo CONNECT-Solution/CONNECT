@@ -29,20 +29,12 @@ package gov.hhs.fha.nhinc.async;
 import gov.hhs.fha.nhinc.asyncmsgs.dao.AsyncMsgRecordDao;
 import gov.hhs.fha.nhinc.asyncmsgs.model.AsyncMsgRecord;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayRetrieveRequestType;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7AckTransforms;
-import gov.hhs.healthit.nhin.DocQueryAcknowledgementType;
-import gov.hhs.healthit.nhin.DocRetrieveAcknowledgementType;
-import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
-import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType.DocumentRequest;
-import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
-import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType.DocumentResponse;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
-import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
+
 import org.apache.commons.logging.Log;
 import org.hl7.v3.CS;
 import org.hl7.v3.MCCIIN000002UV01;
@@ -62,7 +54,7 @@ import static org.junit.Assert.*;
 /**
  * This class is used to test the AsyncMessageProcessorHelperTest class
  * 
- * @author Arhtur Kong
+ * @author Arthur Kong
  */
 public class AsyncMessageProcessHelperTest {
 
@@ -171,62 +163,6 @@ public class AsyncMessageProcessHelperTest {
     }
 
     @Test
-    public void testAddQueryForDocumentsRequest() {
-        AdhocQueryRequest request = new AdhocQueryRequest();
-        AssertionType assertion = new AssertionType();
-
-        try {
-            context.checking(new Expectations() {
-                {
-                    exactly(2).of(mockDao).insertRecords(with(any(List.class)));
-                    will(returnValue(true));
-                    allowing(mockLog).debug(with(any(String.class)));
-                }
-            });
-            AsyncMessageProcessHelper asyncHelper = createAsyncMessageProcessHelper();
-
-            boolean result = asyncHelper.addQueryForDocumentsRequest(request, assertion, "INBOUND", "1.1");
-            assertTrue(result);
-            result = asyncHelper.addQueryForDocumentsRequest(request, assertion, "OUTBOUND", "1.1");
-            assertTrue(result);
-        } catch (Exception e) {
-            e.printStackTrace();
-            fail("Error running testAddQueryForDocumentsRequest: " + e.getMessage());
-        }
-
-    }
-
-    @Test
-    public void testAddRetrieveDocumentsRequest() {
-        RespondingGatewayCrossGatewayRetrieveRequestType request = new RespondingGatewayCrossGatewayRetrieveRequestType();
-        AssertionType assertion = new AssertionType();
-
-        RetrieveDocumentSetRequestType retrieveDoc = new RetrieveDocumentSetRequestType();
-
-        request.setAssertion(assertion);
-        request.setRetrieveDocumentSetRequest(retrieveDoc);
-
-        try {
-            context.checking(new Expectations() {
-                {
-                    exactly(2).of(mockDao).insertRecords(with(any(List.class)));
-                    will(returnValue(true));
-                    allowing(mockLog).debug(with(any(String.class)));
-                }
-            });
-            AsyncMessageProcessHelper asyncHelper = createAsyncMessageProcessHelper();
-
-            boolean result = asyncHelper.addRetrieveDocumentsRequest(request, "INBOUND", "1.1");
-            assertTrue(result);
-            result = asyncHelper.addRetrieveDocumentsRequest(request, "OUTBOUND", "1.1");
-            assertTrue(result);
-        } catch (Exception e) {
-            e.printStackTrace();
-            fail("Error running testAddRetrieveDocumentsRequest: " + e.getMessage());
-        }
-    }
-
-    @Test
     public void testProcessAck_MCCIIN000002UV01() {
         String messageId = "111111111";
         String newStatus = AsyncMsgRecordDao.QUEUE_STATUS_RSPRCVDERR;
@@ -246,6 +182,7 @@ public class AsyncMessageProcessHelperTest {
                             with(any(String.class)));
                     will(returnValue(returnMockRecords()));
                     allowing(mockLog).debug(with(any(String.class)));
+                    allowing(mockLog).error(with(any(String.class)));
                 }
             });
             AsyncMessageProcessHelper asyncHelper = createAsyncMessageProcessHelper();
@@ -254,64 +191,6 @@ public class AsyncMessageProcessHelperTest {
         } catch (Exception e) {
             e.printStackTrace();
             fail("Error running testProcessAck_MCCIIN000002UV01: " + e.getMessage());
-        }
-    }
-
-    @Test
-    public void testProcessAck_DocQueryAcknowledgementType() {
-        String messageId = "111111111";
-        String newStatus = AsyncMsgRecordDao.QUEUE_STATUS_RSPRCVDERR;
-        String errorStatus = AsyncMsgRecordDao.QUEUE_STATUS_RSPRCVDERR;
-        DocQueryAcknowledgementType ack = new DocQueryAcknowledgementType();
-        RegistryResponseType responseType = new RegistryResponseType();
-        responseType.setStatus(NhincConstants.DOC_QUERY_DEFERRED_REQ_ACK_STATUS_MSG);
-        ack.setMessage(responseType);
-
-        try {
-            context.checking(new Expectations() {
-                {
-                    exactly(1).of(mockDao).save(with(any(AsyncMsgRecord.class)));
-                    exactly(1).of(mockDao).queryByMessageIdAndDirection(with(any(String.class)),
-                            with(any(String.class)));
-                    will(returnValue(returnMockRecords()));
-                    allowing(mockLog).debug(with(any(String.class)));
-                }
-            });
-            AsyncMessageProcessHelper asyncHelper = createAsyncMessageProcessHelper();
-            boolean result = asyncHelper.processAck(messageId, newStatus, errorStatus, ack);
-            assertTrue(result);
-        } catch (Exception e) {
-            e.printStackTrace();
-            fail("Error running testProcessAck_DocQueryAcknowledgementType: " + e.getMessage());
-        }
-    }
-
-    @Test
-    public void testProcessAck_DocRetrieveAcknowledgementType() {
-        String messageId = "111111111";
-        String newStatus = AsyncMsgRecordDao.QUEUE_STATUS_RSPRCVDERR;
-        String errorStatus = AsyncMsgRecordDao.QUEUE_STATUS_RSPRCVDERR;
-        DocRetrieveAcknowledgementType ack = new DocRetrieveAcknowledgementType();
-        RegistryResponseType responseType = new RegistryResponseType();
-        responseType.setStatus(NhincConstants.DOC_RETRIEVE_DEFERRED_REQ_ACK_STATUS_MSG);
-        ack.setMessage(responseType);
-
-        try {
-            context.checking(new Expectations() {
-                {
-                    exactly(1).of(mockDao).save(with(any(AsyncMsgRecord.class)));
-                    exactly(1).of(mockDao).queryByMessageIdAndDirection(with(any(String.class)),
-                            with(any(String.class)));
-                    will(returnValue(returnMockRecords()));
-                    allowing(mockLog).debug(with(any(String.class)));
-                }
-            });
-            AsyncMessageProcessHelper asyncHelper = createAsyncMessageProcessHelper();
-            boolean result = asyncHelper.processAck(messageId, newStatus, errorStatus, ack);
-            assertTrue(result);
-        } catch (Exception e) {
-            e.printStackTrace();
-            fail("Error running testProcessAck_DocRetrieveAcknowledgementType: " + e.getMessage());
         }
     }
 
@@ -349,64 +228,6 @@ public class AsyncMessageProcessHelperTest {
     }
 
     @Test
-    public void testProcessQueryForDocumentsResponse() {
-        context.checking(new Expectations() {
-            {
-                exactly(1).of(mockDao).save(with(any(AsyncMsgRecord.class)));
-                exactly(1).of(mockDao).queryByMessageIdAndDirection(with(any(String.class)), with(any(String.class)));
-                will(returnValue(returnMockRecords()));
-                allowing(mockLog).debug(with(any(String.class)));
-            }
-        });
-        AsyncMessageProcessHelper asyncHelper = createAsyncMessageProcessHelper();
-        boolean result = asyncHelper.processQueryForDocumentsResponse("1.1", AsyncMsgRecordDao.QUEUE_STATUS_REQPROCESS,
-                AsyncMsgRecordDao.QUEUE_STATUS_REQRCVDERR, null);
-        assertTrue(result);
-    }
-
-    @Test
-    public void testProcessRetrieveDocumentsResponse() {
-        context.checking(new Expectations() {
-            {
-                exactly(1).of(mockDao).save(with(any(AsyncMsgRecord.class)));
-                exactly(1).of(mockDao).queryByMessageIdAndDirection(with(any(String.class)), with(any(String.class)));
-                will(returnValue(returnMockRecords()));
-                allowing(mockLog).debug(with(any(String.class)));
-            }
-        });
-        AsyncMessageProcessHelper asyncHelper = createAsyncMessageProcessHelper();
-        boolean result = asyncHelper.processRetrieveDocumentsResponse("1.1", AsyncMsgRecordDao.QUEUE_STATUS_REQPROCESS,
-                AsyncMsgRecordDao.QUEUE_STATUS_REQRCVDERR, null);
-        assertTrue(result);
-    }
-
-    @Test
-    public void testCopyRetrieveDocumentSetRequestTypeObject() {
-        RetrieveDocumentSetRequestType origRequest = new RetrieveDocumentSetRequestType();
-        DocumentRequest docRequest = new DocumentRequest();
-        docRequest.setHomeCommunityId("1.1");
-        origRequest.getDocumentRequest().add(docRequest);
-
-        AsyncMessageProcessHelper asyncHelper = createAsyncMessageProcessHelper();
-        RetrieveDocumentSetRequestType copiedRequest = asyncHelper
-                .copyRetrieveDocumentSetRequestTypeObject(origRequest);
-        assertEquals("1.1", copiedRequest.getDocumentRequest().get(0).getHomeCommunityId());
-    }
-
-    @Test
-    public void testCopyRetrieveDocumentSetResponseTypeObject() {
-        RetrieveDocumentSetResponseType origResponse = new RetrieveDocumentSetResponseType();
-        DocumentResponse docResponse = new DocumentResponse();
-        docResponse.setHomeCommunityId("1.1");
-        origResponse.getDocumentResponse().add(docResponse);
-
-        AsyncMessageProcessHelper asyncHelper = createAsyncMessageProcessHelper();
-        RetrieveDocumentSetResponseType copiedResponse = asyncHelper
-                .copyRetrieveDocumentSetResponseTypeObject(origResponse);
-        assertEquals("1.1", copiedResponse.getDocumentResponse().get(0).getHomeCommunityId());
-    }
-
-    @Test
     public void testCopyAssertionTypeObject() {
         AssertionType origAssertion = new AssertionType();
         origAssertion.setMessageId("1.1");
@@ -424,5 +245,4 @@ public class AsyncMessageProcessHelperTest {
 
         assertNotNull(assertionString);
     }
-
 }

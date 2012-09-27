@@ -279,7 +279,7 @@ public class PerfrepositoryDao {
             // Build the query
             Query sqlQuery = session
                     .createSQLQuery(
-                            "SELECT direction, COUNT(direction) AS countval FROM perfrepo.perfrepository WHERE starttime BETWEEN ? AND ? GROUP BY direction")
+                            "SELECT direction, COUNT(direction) AS countval FROM perfrepo.perfrepository WHERE time BETWEEN ? AND ? GROUP BY direction")
                     .addScalar("direction", Hibernate.STRING).addScalar("countval", Hibernate.LONG);
 
             List<Object[]> result = sqlQuery.setTimestamp(0, beginTime).setTimestamp(1, endTime).list();

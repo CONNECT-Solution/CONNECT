@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><con:soapui-project xmlns:con="http://eviware.com/soapui/config" abortOnError="false" name="EntitySendingXDRAsyncReqTests" resourceRoot="" runType="SEQUENTIAL" soapui-version="3.5.1">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><con:soapui-project xmlns:con="http://eviware.com/soapui/config" abortOnError="false" name="EntitySendingXDRAsyncReqTests" resourceRoot="" runType="SEQUENTIAL" soapui-version="3.6">
   <con:settings/>
   <con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincentityxdr:async:request}EntityXDRAsyncRequest_Binding" definition="WSDL path not set.  #EntityXDRRequest.wsdl" name="EntityXDRAsyncRequest_Binding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
     <con:settings/>
@@ -326,7 +326,8 @@
       <con:settings/>
       <con:testStep name="ModifyInterrnalConnectionInfoPE" type="groovy">
         <con:settings/>
-        <con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+        <con:config><script>import nhinc.FileUtils;
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 def NHINGatewayHost = context.findProperty("NHINGatewayHost");
@@ -2299,28 +2300,30 @@ declare namespace adapter='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-02-24T22:26:59Z</con:value>
+          <con:value>2012-08-25T02:34:45Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-02-24T22:36:59Z</con:value>
+          <con:value>2012-08-25T02:44:45Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>02/24/2012 22:26:59</con:value>
+          <con:value>08/25/2012 02:34:45</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-03-25T00:00:00Z</con:value>
+          <con:value>2012-09-24T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    <con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript></con:testCase>
+    <con:tearDownScript>import nhinc.FileUtils;
+FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript></con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="99e55db5-3f11-40e5-85ea-6ebc0803bf11" keepSession="false" maxResults="0" name="PolicyCheckDeny" searchProperties="true">
       <con:settings/>
       <con:testStep name="Set PolicyEngine Mock" type="groovy">
         <con:settings/>
-        <con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+        <con:config><script>import nhinc.FileUtils;
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 def NHINGatewayHost = context.findProperty("NHINGatewayHost");
@@ -2778,13 +2781,8 @@ FileUtils.CreateOrUpdateConnection("internalConnectionInfo.xml", destConfigFileL
             <con:assertion type="SOAP Response"/>
             <con:assertion type="SOAP Fault Assertion"/>
             <con:assertion name="Verify Message Content" type="XPath Match">
-              <con:configuration>
-                <path>declare namespace ns17='http://www.hhs.gov/healthit/nhin';
-//ns17:XDRAcknowledgement[1]/ns17:message[1]/@status</path>
-                <content>Policy check unsuccessful</content>
-                <allowWildcards>false</allowWildcards>
-                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-              </con:configuration>
+              <con:configuration><path>declare namespace ns17='http://www.hhs.gov/healthit/nhin';
+//ns17:XDRAcknowledgement[1]/ns17:message[1]/@status</path><content>urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration>
             </con:assertion>
             <con:assertion name="Check RelatesTo Field" type="XPath Match">
               <con:configuration>
@@ -4286,23 +4284,24 @@ declare namespace adapter='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
       <con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-02-24T22:27:01Z</con:value>
+          <con:value>2012-08-25T02:34:46Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-02-24T22:37:01Z</con:value>
+          <con:value>2012-08-25T02:44:46Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>02/24/2012 22:27:01</con:value>
+          <con:value>08/25/2012 02:34:46</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-03-25T00:00:00Z</con:value>
+          <con:value>2012-09-24T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    <con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript></con:testCase>
+    <con:tearDownScript>import nhinc.FileUtils;
+FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript></con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="0c2c5f9f-0980-46e6-8c47-591e2ea6b4fa" keepSession="false" maxResults="0" name="AuditLogQuery" searchProperties="true">
       <con:settings/>
       <con:testStep name="clear audit table" type="groovy"><con:settings/><con:config><script>context.withSql('AuditDB') { sql -&gt; 
@@ -4807,19 +4806,19 @@ context.testCase.setPropertyValue('XDRUserId',"${UserID}${nowDate}");</script>
 assert (count &gt; 0);</script></con:config></con:testStep><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-02-24T22:27:03Z</con:value>
+          <con:value>2012-08-25T02:34:48Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-02-24T22:37:03Z</con:value>
+          <con:value>2012-08-25T02:44:48Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>02/24/2012 22:27:03</con:value>
+          <con:value>08/25/2012 02:34:48</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-03-25T00:00:00Z</con:value>
+          <con:value>2012-09-24T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -4827,73 +4826,32 @@ assert (count &gt; 0);</script></con:config></con:testStep><con:properties>
         </con:property>
         <con:property>
           <con:name>XDRUserId</con:name>
-          <con:value>XDR Request Inbound UserFri Feb 24 22:32:03 UTC 2012</con:value>
+          <con:value>XDR Request Inbound UserSat Aug 25 02:39:48 UTC 2012</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    <con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript></con:testCase>
+    <con:tearDownScript>import nhinc.FileUtils;
+FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript></con:testCase>
     <con:properties/>
     <con:reportParameters/>
   </con:testSuite>
   <con:requirements/>
   <con:properties>
-    <con:property>
-      <con:name>RemoteAA</con:name>
-      <con:value>2.2</con:value>
-    </con:property>
-    <con:property>
-      <con:name>UserID</con:name>
-      <con:value>XDR Request Inbound User</con:value>
-    </con:property>
-    <con:property>
-      <con:name>PatientId</con:name>
-      <con:value>XDR Request1</con:value>
-    </con:property>
-    <con:property>
-      <con:name>NHINGatewayConfigDir</con:name>
-      <con:value>C:/Sun/AppServer/domains/domain1/config/nhin</con:value>
-    </con:property>
-    <con:property>
-      <con:name>LocalAA</con:name>
-      <con:value>1.1</con:value>
-    </con:property>
-    <con:property>
-      <con:name>RemoteHCID</con:name>
-      <con:value>2.2</con:value>
-    </con:property>
-    <con:property>
-      <con:name>RemoteHCDescription</con:name>
-      <con:value>XDRAsyncTest2</con:value>
-    </con:property>
-    <con:property>
-      <con:name>LocalHCID</con:name>
-      <con:value>1.1</con:value>
-    </con:property>
-    <con:property>
-      <con:name>Endpoint-NhincProxyXDRRequest</con:name>
-      <con:value>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/PassthruDocSubmissionDeferredRequestUnsecured</con:value>
-    </con:property>
-    <con:property>
-      <con:name>NHINGatewayHost</con:name>
-      <con:value>localhost</con:value>
-    </con:property>
-    <con:property>
-      <con:name>MockHost</con:name>
-      <con:value>localhost</con:value>
-    </con:property>
-    <con:property>
-      <con:name>Endpoint-AuditLogQuery</con:name>
-      <con:value>http://localhost:8080/CONNECTAdapter/EntityAuditQuery</con:value>
-    </con:property>
-    <con:property>
-      <con:name>Endpoint-EntityXDRRequest</con:name>
-      <con:value>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionDeferredRequestUnsecured</con:value>
-    </con:property>
-    <con:property>
-      <con:name>LocalHCDescription</con:name>
-      <con:value>XDRAsyncTest1</con:value>
-    </con:property>
-  <con:property><con:name>AuditTable</con:name><con:value>auditrepository</con:value></con:property><con:property><con:name>AuditDB</con:name><con:value>auditrepo</con:value></con:property><con:property><con:name>DBPort</con:name><con:value>3306</con:value></con:property><con:property><con:name>DBHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>DBUser</con:name><con:value>nhincuser</con:value></con:property><con:property><con:name>DBPass</con:name><con:value>nhincpass</con:value></con:property></con:properties>
+    <con:property><con:name>AuditDB</con:name><con:value>auditrepo</con:value></con:property>
+    
+    <con:property><con:name>AuditTable</con:name><con:value>auditrepository</con:value></con:property>
+    
+    
+    <con:property><con:name>DBHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>DBPass</con:name><con:value>nhincpass</con:value></con:property>
+    <con:property><con:name>DBPort</con:name><con:value>3306</con:value></con:property><con:property><con:name>DBUser</con:name><con:value>nhincuser</con:value></con:property><con:property><con:name>Endpoint-AuditLogQuery</con:name><con:value>http://localhost:8080/CONNECTAdapter/EntityAuditQuery</con:value></con:property><con:property><con:name>Endpoint-EntityXDRRequest</con:name><con:value>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionDeferredRequestUnsecured</con:value></con:property>
+    
+    
+    
+    
+    <con:property><con:name>Endpoint-NhincProxyXDRRequest</con:name><con:value>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/PassthruDocSubmissionDeferredRequestUnsecured</con:value></con:property>
+    <con:property><con:name>LocalAA</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalHCDescription</con:name><con:value>XDRAsyncTest1</con:value></con:property><con:property><con:name>LocalHCID</con:name><con:value>1.1</con:value></con:property><con:property><con:name>MockHost</con:name><con:value>localhost</con:value></con:property>
+    
+  <con:property><con:name>NHINGatewayConfigDir</con:name><con:value>C:/Sun/AppServer/domains/domain1/config/nhin</con:value></con:property><con:property><con:name>NHINGatewayHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>PatientId</con:name><con:value>XDR Request1</con:value></con:property><con:property><con:name>RemoteAA</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemoteHCDescription</con:name><con:value>XDRAsyncTest2</con:value></con:property><con:property><con:name>RemoteHCID</con:name><con:value>2.2</con:value></con:property><con:property><con:name>UserID</con:name><con:value>XDR Request Inbound User</con:value></con:property></con:properties>
   <con:afterLoadScript>def propertiesFile = new File(new File(project.path).parent, 'EntitySendingXDRAsyncReqTests-soapui-project.properties')
 if (propertiesFile.exists()) {
 	def props = new Properties()
