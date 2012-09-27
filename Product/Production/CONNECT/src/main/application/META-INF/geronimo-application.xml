@@ -7,6 +7,6 @@
       <dep:version>4.0</dep:version>
       <dep:type>ear</dep:type>
     </dep:moduleId>
-    <inverse-classloading/>
+    <dep:inverse-classloading />
   </dep:environment>
 </app:application>
