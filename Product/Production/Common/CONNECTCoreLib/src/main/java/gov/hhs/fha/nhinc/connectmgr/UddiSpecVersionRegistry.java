@@ -95,16 +95,40 @@ public class UddiSpecVersionRegistry {
     		
     		// Patient Discovery
     		HashMap<GATEWAY_API_LEVEL, ArrayList<UDDI_SPEC_VERSION>> PDApiToSpecMap = new HashMap<GATEWAY_API_LEVEL, ArrayList<UDDI_SPEC_VERSION>>();
+    		ArrayList<UDDI_SPEC_VERSION> PDG0SpecVersions = new ArrayList<UDDI_SPEC_VERSION>();
+    		PDG0SpecVersions.add(UDDI_SPEC_VERSION.SPEC_1_0);
+    		PDApiToSpecMap.put(GATEWAY_API_LEVEL.LEVEL_g0, PDG0SpecVersions);
     		ArrayList<UDDI_SPEC_VERSION> PDG1SpecVersions = new ArrayList<UDDI_SPEC_VERSION>();
-    		PDG1SpecVersions.add(UDDI_SPEC_VERSION.SPEC_1_0);
     		PDG1SpecVersions.add(UDDI_SPEC_VERSION.SPEC_2_0);
-    		PDApiToSpecMap.put(GATEWAY_API_LEVEL.LEVEL_g0, PDG1SpecVersions);
+    		PDApiToSpecMap.put(GATEWAY_API_LEVEL.LEVEL_g1, PDG1SpecVersions);
     		apiToSpecMap.put(NhincConstants.NHIN_SERVICE_NAMES.PATIENT_DISCOVERY, PDApiToSpecMap);
     		
     		HashMap<UDDI_SPEC_VERSION, GATEWAY_API_LEVEL> PDSpecToApiMap = new HashMap<UDDI_SPEC_VERSION, GATEWAY_API_LEVEL>();
     		PDSpecToApiMap.put(UDDI_SPEC_VERSION.SPEC_1_0, GATEWAY_API_LEVEL.LEVEL_g0);
-    		PDSpecToApiMap.put(UDDI_SPEC_VERSION.SPEC_2_0, GATEWAY_API_LEVEL.LEVEL_g0);
+    		PDSpecToApiMap.put(UDDI_SPEC_VERSION.SPEC_2_0, GATEWAY_API_LEVEL.LEVEL_g1);
     		specToApiMap.put(NhincConstants.NHIN_SERVICE_NAMES.PATIENT_DISCOVERY, PDSpecToApiMap);
+    		
+            // Patient Discovery Deferred Request  
+            HashMap<GATEWAY_API_LEVEL, ArrayList<UDDI_SPEC_VERSION>> PDDReqApiToSpecMap = new HashMap<GATEWAY_API_LEVEL, ArrayList<UDDI_SPEC_VERSION>>();
+            ArrayList<UDDI_SPEC_VERSION> PDDReqG1SpecVersions = new ArrayList<UDDI_SPEC_VERSION>();
+            PDDReqG1SpecVersions.add(UDDI_SPEC_VERSION.SPEC_2_0);
+            PDDReqApiToSpecMap.put(GATEWAY_API_LEVEL.LEVEL_g1, PDDReqG1SpecVersions);
+            apiToSpecMap.put(NhincConstants.NHIN_SERVICE_NAMES.PATIENT_DISCOVERY_DEFERRED_REQUEST, PDDReqApiToSpecMap);
+            
+            HashMap<UDDI_SPEC_VERSION, GATEWAY_API_LEVEL> PDDReqSpecToApiMap = new HashMap<UDDI_SPEC_VERSION, GATEWAY_API_LEVEL>();
+            PDDReqSpecToApiMap.put(UDDI_SPEC_VERSION.SPEC_2_0, GATEWAY_API_LEVEL.LEVEL_g1);
+            specToApiMap.put(NhincConstants.NHIN_SERVICE_NAMES.PATIENT_DISCOVERY_DEFERRED_REQUEST, PDDReqSpecToApiMap);
+            
+            // Patient Discovery Deferred Response
+            HashMap<GATEWAY_API_LEVEL, ArrayList<UDDI_SPEC_VERSION>> PDDRespApiToSpecMap = new HashMap<GATEWAY_API_LEVEL, ArrayList<UDDI_SPEC_VERSION>>();
+            ArrayList<UDDI_SPEC_VERSION> PDDRespG1SpecVersions = new ArrayList<UDDI_SPEC_VERSION>();
+            PDDRespG1SpecVersions.add(UDDI_SPEC_VERSION.SPEC_2_0);
+            PDDRespApiToSpecMap.put(GATEWAY_API_LEVEL.LEVEL_g1, PDDRespG1SpecVersions);
+            apiToSpecMap.put(NhincConstants.NHIN_SERVICE_NAMES.PATIENT_DISCOVERY_DEFERRED_RESPONSE, PDDRespApiToSpecMap);
+            
+            HashMap<UDDI_SPEC_VERSION, GATEWAY_API_LEVEL> PDDRespSpecToApiMap = new HashMap<UDDI_SPEC_VERSION, GATEWAY_API_LEVEL>();
+            PDDRespSpecToApiMap.put(UDDI_SPEC_VERSION.SPEC_2_0, GATEWAY_API_LEVEL.LEVEL_g1);
+            specToApiMap.put(NhincConstants.NHIN_SERVICE_NAMES.PATIENT_DISCOVERY_DEFERRED_RESPONSE, PDDRespSpecToApiMap);
     		
     		// Document Submission
     		HashMap<GATEWAY_API_LEVEL, ArrayList<UDDI_SPEC_VERSION>> DSApiToSpecMap = new HashMap<GATEWAY_API_LEVEL, ArrayList<UDDI_SPEC_VERSION>>();
@@ -140,13 +164,15 @@ public class UddiSpecVersionRegistry {
     		HashMap<GATEWAY_API_LEVEL, ArrayList<UDDI_SPEC_VERSION>> DQApiToSpecMap = new HashMap<GATEWAY_API_LEVEL, ArrayList<UDDI_SPEC_VERSION>>();
     		ArrayList<UDDI_SPEC_VERSION> DQG0SpecVersions = new ArrayList<UDDI_SPEC_VERSION>();
     		DQG0SpecVersions.add(UDDI_SPEC_VERSION.SPEC_2_0);
-    		DQG0SpecVersions.add(UDDI_SPEC_VERSION.SPEC_3_0);
     		DQApiToSpecMap.put(GATEWAY_API_LEVEL.LEVEL_g0, DQG0SpecVersions);
+    		ArrayList<UDDI_SPEC_VERSION> DQG1SpecVersions = new ArrayList<UDDI_SPEC_VERSION>();
+    		DQG1SpecVersions.add(UDDI_SPEC_VERSION.SPEC_3_0);
+    		DQApiToSpecMap.put(GATEWAY_API_LEVEL.LEVEL_g1, DQG1SpecVersions);
     		apiToSpecMap.put(NhincConstants.NHIN_SERVICE_NAMES.DOCUMENT_QUERY, DQApiToSpecMap);
     		
     		HashMap<UDDI_SPEC_VERSION, GATEWAY_API_LEVEL> DQSpecToApiMap = new HashMap<UDDI_SPEC_VERSION, GATEWAY_API_LEVEL>();
     		DQSpecToApiMap.put(UDDI_SPEC_VERSION.SPEC_2_0, GATEWAY_API_LEVEL.LEVEL_g0);
-    		DQSpecToApiMap.put(UDDI_SPEC_VERSION.SPEC_3_0, GATEWAY_API_LEVEL.LEVEL_g0);
+    		DQSpecToApiMap.put(UDDI_SPEC_VERSION.SPEC_3_0, GATEWAY_API_LEVEL.LEVEL_g1);
     		specToApiMap.put(NhincConstants.NHIN_SERVICE_NAMES.DOCUMENT_QUERY, DQSpecToApiMap);
     		
     		// Document Retrieve
@@ -200,9 +226,9 @@ public class UddiSpecVersionRegistry {
     	
     	public HashMap<GATEWAY_API_LEVEL, ArrayList<UDDI_SPEC_VERSION>> getAPIToSpecMapping(NhincConstants.NHIN_SERVICE_NAMES serviceName) {
     		switch (serviceName) {
-    		case PATIENT_DISCOVERY_DEFERRED_REQUEST:
+    		/*case PATIENT_DISCOVERY_DEFERRED_REQUEST:
     		case PATIENT_DISCOVERY_DEFERRED_RESPONSE:
-    			return apiToSpecMap.get(NhincConstants.NHIN_SERVICE_NAMES.PATIENT_DISCOVERY);
+    			return apiToSpecMap.get(NhincConstants.NHIN_SERVICE_NAMES.PATIENT_DISCOVERY);*/
     		case DOCUMENT_SUBMISSION_DEFERRED_REQUEST:
     		case DOCUMENT_SUBMISSION_DEFERRED_RESPONSE:
     			return apiToSpecMap.get(NhincConstants.NHIN_SERVICE_NAMES.DOCUMENT_SUBMISSION);
@@ -213,9 +239,9 @@ public class UddiSpecVersionRegistry {
     	
     	public HashMap<UDDI_SPEC_VERSION, GATEWAY_API_LEVEL> getSpecToAPIMapping(NhincConstants.NHIN_SERVICE_NAMES serviceName) {
     		switch (serviceName) {
-    		case PATIENT_DISCOVERY_DEFERRED_REQUEST:
+    		/*case PATIENT_DISCOVERY_DEFERRED_REQUEST:
     		case PATIENT_DISCOVERY_DEFERRED_RESPONSE:
-    			return specToApiMap.get(NhincConstants.NHIN_SERVICE_NAMES.PATIENT_DISCOVERY);
+    			return specToApiMap.get(NhincConstants.NHIN_SERVICE_NAMES.PATIENT_DISCOVERY);*/
     		case DOCUMENT_SUBMISSION_DEFERRED_REQUEST:
     		case DOCUMENT_SUBMISSION_DEFERRED_RESPONSE:
     			return specToApiMap.get(NhincConstants.NHIN_SERVICE_NAMES.DOCUMENT_SUBMISSION);
