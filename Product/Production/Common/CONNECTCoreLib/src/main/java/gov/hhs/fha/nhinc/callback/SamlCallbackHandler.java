@@ -649,30 +649,9 @@ public class SamlCallbackHandler implements CallbackHandler {
             final Element elemPFUAttr = document.createElementNS("urn:oasis:names:tc:SAML:2.0:assertion",
                     "AttibuteValue");
 
-            // determine 2010 vs 2011 spec version
-            GATEWAY_API_LEVEL apiLevel = (GATEWAY_API_LEVEL)tokenVals.get(NhincConstants.TARGET_API_LEVEL);
-            String hcid = (String)tokenVals.get(NhincConstants.WS_SOAP_TARGET_HOME_COMMUNITY_ID);
-            String action = (String)tokenVals.get(NhincConstants.ACTION_PROP);
-            NHIN_SERVICE_NAMES serviceName = null;
-            try {
-                serviceName = NHIN_SERVICE_NAMES.fromValueString(action);//AddressingActionToServiceNameMapping.get(action);
-            } catch  (IllegalArgumentException exc) {
-                // Do nothing, this isnt an NHIN service.
-            }
-            boolean purposeFor = false;
-            
-            if (apiLevel == null && serviceName != null && hcid != null) {
-                NhinEndpointManager nem = new NhinEndpointManager();
-                apiLevel = nem.getApiVersion(hcid, serviceName);
-            }
-            
-            if (GATEWAY_API_LEVEL.LEVEL_g0 == apiLevel) {
-                PurposeUseProxyObjectFactory purposeFactory = new PurposeUseProxyObjectFactory();
-                PurposeUseProxy purposeUse = purposeFactory.getPurposeUseProxy();
-                purposeFor = purposeUse.createPurposeUseElement(tokenVals);
-            }
-                
-            Element purpose = createPurposeUseElement(document, purposeFor);
+            // Call out to the purpose decider to determine whether to use purposeofuse or purposeforuse.
+            PurposeOfForDecider pd = new PurposeOfForDecider();                
+            Element purpose = createPurposeUseElement(document, pd.isPurposeFor(tokenVals));
 
             elemPFUAttr.appendChild(purpose);
 

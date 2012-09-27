@@ -5,7 +5,8 @@
 
 package gov.hhs.fha.nhinc.callback.purposeuse;
 
-import java.util.HashMap;
+import java.util.Map;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -23,7 +24,7 @@ public class PurposeUseProxyDefaultImpl extends PurposeUseProxyBaseImpl {
      * @param tokens A list of tokens to be used to make this decision.
      * @return true if purposeForUse should be used.
      */
-    public boolean createPurposeUseElement(HashMap<Object, Object> tokens) {
+    public boolean createPurposeUseElement(Map<Object, Object> tokens) {
         log.info("Entering PurposeUseProxyDefaultImpl.createPurposeUseElement...");
 
         return (isPurposeForUseEnabled());

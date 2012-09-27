@@ -6,11 +6,12 @@
 package gov.hhs.fha.nhinc.callback.purposeuse;
 
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  *
  * @author rhalfert
  */
 public interface PurposeUseProxy {
-    public boolean createPurposeUseElement(HashMap<Object, Object> tokens);
+    public boolean createPurposeUseElement(Map<Object, Object> tokenVals);
 }
