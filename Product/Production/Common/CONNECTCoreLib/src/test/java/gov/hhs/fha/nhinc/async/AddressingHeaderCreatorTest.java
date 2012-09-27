@@ -83,12 +83,20 @@ public class AddressingHeaderCreatorTest {
         String action = "TestAction";
         String messageId = "TestMessageId";
         String relatesToId = "TestRelatesToId_1";
+        final String transactionId = "TestTransactionId";
         String addrAnon = "http://www.w3.org/2005/08/addressing/anonymous";
         List<String> relatesToIds = new ArrayList<String>();
         final String messageId_prefix = "urn:uuid:";
         relatesToIds.add(relatesToId);
 
-        AddressingHeaderCreator hdrCreator = new AddressingHeaderCreator(url, action, messageId, relatesToIds);
+        final AddressingHeaderCreator hdrCreator = 
+                new AddressingHeaderCreator(url, action, messageId, relatesToIds) {
+            @Override
+            protected void addTransactionId(String messageId, List<Header >headers){
+               //do nothing
+            }
+        };
+        
         List<Header> createdHeaders = hdrCreator.build();
 
         assertNotNull("List of created headers was null", createdHeaders);
@@ -134,13 +142,21 @@ public class AddressingHeaderCreatorTest {
         String messageId = "TestMessageId";
         String relatesToId1 = "TestRelatesToId_1";
         String relatesToId2 = "TestRelatesToId_2";
+        final String transactionId = "TestTransactionId";
         String addrAnon = "http://www.w3.org/2005/08/addressing/anonymous";
         final String messageId_prefix = "urn:uuid:";
         List<String> relatesToIds = new ArrayList<String>();
         relatesToIds.add(relatesToId1);
         relatesToIds.add(relatesToId2);
 
-        AddressingHeaderCreator hdrCreator = new AddressingHeaderCreator(url, action, messageId, relatesToIds);
+        final AddressingHeaderCreator hdrCreator = 
+                new AddressingHeaderCreator(url, action, messageId, relatesToIds) {
+            @Override
+            protected void addTransactionId(String messageId, List<Header >headers){
+              //do nothing
+            }
+        };
+        
         List<Header> createdHeaders = hdrCreator.build();
     
         assertNotNull("List of created headers was null", createdHeaders);
@@ -183,9 +199,16 @@ public class AddressingHeaderCreatorTest {
         String action = "TestAction";
         String messageId = "TestMessageId";
         final String messageId_prefix = "urn:uuid:";
+        final String transactionId = "TestTransactionId";
         String addrAnon = "http://www.w3.org/2005/08/addressing/anonymous";
 
-        AddressingHeaderCreator hdrCreator = new AddressingHeaderCreator(url, action, messageId, null);
+        final AddressingHeaderCreator hdrCreator = 
+                new AddressingHeaderCreator(url, action, messageId, null) {
+            @Override
+            protected void addTransactionId(String messageId, List<Header >headers){
+              //do nothing
+            }
+        };
         List<Header> createdHeaders = hdrCreator.build();
 
         assertNotNull("List of created headers was null", createdHeaders);
@@ -267,11 +290,18 @@ public class AddressingHeaderCreatorTest {
         String messageId = "TestMessageId";
         final String messageId_prefix = "urn:uuid:";
         String relatesToId = "TestRelatesToId_1";
+        final String transactionId = "TestTransactionId";
         String addrAnon = "http://www.w3.org/2005/08/addressing/anonymous";
         List<String> relatesToIds = new ArrayList<String>();
         relatesToIds.add(relatesToId);
 
-        AddressingHeaderCreator hdrCreator = new AddressingHeaderCreator(url, null, messageId, relatesToIds);
+        final AddressingHeaderCreator hdrCreator = 
+                new AddressingHeaderCreator(url, null, messageId, relatesToIds) {
+            @Override
+            protected void addTransactionId(String messageId, List<Header >headers){
+              //do nothing
+            }
+        };
         List<Header> createdHeaders = hdrCreator.build();
 
         assertNotNull("List of created headers was null", createdHeaders);
@@ -317,11 +347,18 @@ public class AddressingHeaderCreatorTest {
         String messageId = "TestMessageId";
         final String messageId_prefix = "urn:uuid:";
         String relatesToId = "TestRelatesToId_1";
+        final String transactionId = "TestTransactionId";
         String addrAnon = "http://www.w3.org/2005/08/addressing/anonymous";
         List<String> relatesToIds = new ArrayList<String>();
         relatesToIds.add(relatesToId);
 
-        AddressingHeaderCreator hdrCreator = new AddressingHeaderCreator(null, action, messageId, relatesToIds);
+        final AddressingHeaderCreator hdrCreator = 
+                new AddressingHeaderCreator(null, action, messageId, relatesToIds) {
+            @Override
+            protected void addTransactionId(String messageId, List<Header >headers){
+              //do nothing
+            }
+        };
         List<Header> createdHeaders = hdrCreator.build();
 
         assertNotNull("List of created headers was null", createdHeaders);

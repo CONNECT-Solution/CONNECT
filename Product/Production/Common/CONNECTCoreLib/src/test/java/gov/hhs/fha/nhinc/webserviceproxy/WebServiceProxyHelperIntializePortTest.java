@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.webserviceproxy;
 
+import gov.hhs.fha.nhinc.async.AddressingHeaderCreator;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 
@@ -37,6 +38,7 @@ import org.jmock.Expectations;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.sun.xml.ws.api.message.Header;
 import com.sun.xml.ws.developer.WSBindingProvider;
 
 public class WebServiceProxyHelperIntializePortTest extends AbstractWebServiceProxyHelpTest {
@@ -51,7 +53,26 @@ public class WebServiceProxyHelperIntializePortTest extends AbstractWebServicePr
     @Before
     public void before() throws PropertyAccessException {
         initializationExpectations();
-        oHelper = new WebServiceProxyHelper(mockLog, mockPropertyAccessor);
+        oHelper = new WebServiceProxyHelper(mockLog, mockPropertyAccessor){
+            @Override
+            protected List<Header> getWSAddressingHeaders(String url, String wsAddressingAction, AssertionType assertion) {
+
+                String messageId = getMessageId(assertion);
+                List<String> allRelatesTo = getRelatesTo(assertion);
+
+                AddressingHeaderCreator hdrCreator = new AddressingHeaderCreator(url, wsAddressingAction, messageId,
+                        allRelatesTo) {
+                    @Override
+                    protected void addTransactionId(String messageId, List<Header> headers){
+                        
+                    }
+                };
+
+                List<Header> createdHeaders = hdrCreator.build();
+
+                return createdHeaders;
+            }
+        };
     }
 
     /**

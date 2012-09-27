@@ -114,12 +114,8 @@ public class AddressingHeaderCreator {
 		headers.add(buildHeaderReplyTo());
 
 		if (messageId != null) {
-			headers.add(buildHeaderMessageId());
-			
-			String transactionId = TransactionDAO.getTransactionDAOInstance().getTransactionId(messageId);
-			if (transactionId != null) {
-			    headers.add(buildTransactionId(transactionId));
-			}
+			headers.add(buildHeaderMessageId());			
+			addTransactionId(messageId, headers);
 			
 		}
 		if (relatesToIds != null) {
@@ -210,6 +206,19 @@ public class AddressingHeaderCreator {
 
         Header header = Headers.create(element);
         return header;
+    }
+    
+    /**
+     * Adds transactionId to Headers.
+     * @param messageId messageId of header
+     * @param headers soap header elements
+     */
+    
+    protected void addTransactionId(String messageId, List<Header> headers){
+        String transactionId = TransactionDAO.getTransactionDAOInstance().getTransactionId(messageId);
+        if (transactionId != null) {
+            headers.add(buildTransactionId(transactionId));
+        }
     }
 	
 	 /**

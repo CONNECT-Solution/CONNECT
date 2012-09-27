@@ -32,10 +32,10 @@ import gov.hhs.fha.nhinc.logging.transaction.model.TransactionRepo;
 import gov.hhs.fha.nhinc.logging.transaction.persistance.HibernateUtil;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.Criteria;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -43,39 +43,41 @@ import org.hibernate.criterion.Expression;
 
 /**
  * TransactionDAO provides methods to query and update the transrepo database.
+ * 
  * @author jasonasmith
- *
+ * 
  */
-public class TransactionDAO {
-	
-	private static Log log = LogFactory.getLog(TransactionDAO.class);
-	private static TransactionDAO transDAOInstance = new TransactionDAO();
-	
-	/**
-	 * Constructor
-	 */
-	private TransactionDAO(){
-		log.info("TransactionDAO initialized");
-	}
-	
-	/**
-	 * Returns the instance of the DAO according to the Singleton Pattern
-	 * @return
-	 */
-	public static TransactionDAO getTransactionDAOInstance(){
-		log.debug("getTransactionDAOInstance()...");
-		return transDAOInstance;
-	}
-	
-	/**
-	 * Inserts a single TransactionRepo object into the database, returns boolean on
-	 * success or failure.
-	 * @param transactionRepo
-	 * @return
-	 */
-	public boolean insertIntoTransactionRepo(TransactionRepo transactionRepo){
-		
-		log.debug("TransactionDAO.insertIntoTransactionRepo() - Begin");
+public final class TransactionDAO {
+
+    private static final Log LOG = LogFactory.getLog(TransactionDAO.class);
+    private static TransactionDAO transDAOInstance = new TransactionDAO();
+
+    /**
+     * The constructor.
+     */
+    private TransactionDAO() {
+        LOG.info("TransactionDAO initialized");
+    }
+
+    /**
+     * Returns the instance of the DAO according to the Singleton Pattern.
+     * 
+     * @return TransactionDAO
+     */
+    public static TransactionDAO getTransactionDAOInstance() {
+        LOG.debug("getTransactionDAOInstance()...");
+        return transDAOInstance;
+    }
+
+    /**
+     * Inserts a single TransactionRepo object into the database, returns boolean on success or failure.
+     * 
+     * @param transactionRepo
+     * @return boolean
+     */
+    public boolean insertIntoTransactionRepo(TransactionRepo transactionRepo) {
+
+        LOG.debug("TransactionDAO.insertIntoTransactionRepo() - Begin");
         Session session = null;
         Transaction tx = null;
         boolean result = true;
@@ -85,77 +87,86 @@ public class TransactionDAO {
                 SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
                 session = sessionFactory.openSession();
                 tx = session.beginTransaction();
-                log.info("Inserting Record...");
+                LOG.info("Inserting Record...");
 
                 session.persist(transactionRepo);
 
-                log.info("TransactionRepo Inserted successfully...");
+                LOG.info("TransactionRepo Inserted successfully...");
                 tx.commit();
-            } catch (Exception e) {
+            } catch (HibernateException e) {
                 result = false;
-                if (tx != null) {
-                    tx.rollback();
-                }
-                log.error("Exception during insertion caused by :" + e.getMessage(), e);
+                transactionRollback(tx);
+                LOG.error("Exception during insertion caused by :" + e.getMessage(), e);
             } finally {
-                if (session != null) {
-                    session.close();
-                }
+                closeSession(session, false);
             }
         }
-        log.debug("TransactionDAO.insertIntoTransactionRepo() - End");
+        LOG.debug("TransactionDAO.insertIntoTransactionRepo() - End");
         return result;
-	}
-	
-	/**
-	 * Queries the database for a transaction record using the messageId.
-	 * @param messageId
-	 * @return
-	 */
-	public String getTransactionId(String messageId){
-		log.debug("TransactionDAO.getTransactinId() - Begin");
+    }
+
+    /**
+     * Queries the database for a transaction record using the messageId.
+     * 
+     * @param messageId
+     * @return String
+     */
+    public String getTransactionId(String messageId) {
+        LOG.debug("TransactionDAO.getTransactinId() - Begin");
 
         if (NullChecker.isNullish(messageId)) {
-            log.info("-- MessageId Parameter is required for Transaction Query --");
-            log.debug("TransactionDAO.getTransactinId() - End");
+            LOG.info("-- MessageId Parameter is required for Transaction Query --");
+            LOG.debug("TransactionDAO.getTransactinId() - End");
             return null;
         }
-        
+
         Session session = null;
         List<TransactionRepo> queryList = null;
         TransactionRepo foundRecord = null;
         String transactionId = null;
         
         try {
+
             SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
             session = sessionFactory.openSession();
-            log.info("Getting Records");
+            LOG.info("Getting Records");
 
             Criteria aCriteria = session.createCriteria(TransactionRepo.class);
-            
+
             aCriteria.add(Expression.eq("messageId", messageId));
 
             queryList = aCriteria.list();
 
-            if (queryList != null && queryList.size() > 0) {
+            if (queryList != null && !queryList.isEmpty()) {
                 foundRecord = queryList.get(0);
             }
+
         } catch (Exception e) {
-            log.error("Exception in getPerfrepository() occured due to :" + e.getMessage(), e);
+            LOG.error("Exception in getPerfrepository() occured due to :" + e.getMessage(), e);
         } finally {
-            // Flush and close session
-            if (session != null) {
-                session.flush();
-                session.close();
-            }
+            closeSession(session, true);
         }
         
-        if(foundRecord != null)
-        	transactionId = foundRecord.getTransactionId();
-        
+        if (foundRecord != null) {
+            transactionId = foundRecord.getTransactionId();
+        }
+
         return transactionId;
-	}
-	
-	
+    }
+
+    private void closeSession(Session session, boolean flush) {
+        if (session != null) {
+            if (flush) {
+                session.flush();
+            }
+            session.close();
+        }
+    }
+
+    private void transactionRollback(Transaction tx) {
+        if (tx != null) {
+            tx.rollback();
+        }
+    }
 
 }

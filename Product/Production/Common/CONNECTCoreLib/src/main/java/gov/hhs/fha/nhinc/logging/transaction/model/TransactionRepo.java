@@ -33,39 +33,79 @@ import java.sql.Timestamp;
 /**
  * 
  * @author jasonasmith
- *
+ * 
  */
-public class TransactionRepo implements Serializable{
-	
-	Long id;
-	String messageId;
-	String transactionId;
-	Timestamp time;
-	
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
-	}
-	public String getMessageId() {
-		return messageId;
-	}
-	public void setMessageId(String messageId) {
-		this.messageId = messageId;
-	}
-	public String getTransactionId() {
-		return transactionId;
-	}
-	public void setTransactionId(String transactionId) {
-		this.transactionId = transactionId;
-	}
-	public Timestamp getTime() {
-		return time;
-	}
-	public void setTime(Timestamp time) {
-		this.time = time;
-	}
-	
+public class TransactionRepo implements Serializable {
+
+    private static final long serialVersionUID = -4477402717133468043L;
+    
+    private Long id;
+    private String messageId;
+    private String transactionId;
+    private Timestamp time;
+
+    /**
+     * Get record ID.
+     * @return id   the record id
+     */
+    public Long getId() {
+        return id;
+    }
+    
+    /**
+     * Set record ID.
+     * @param id sets the record id
+     */
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    /**
+     * Get message ID.
+     * @return messageId the messageId
+     */
+    public String getMessageId() {
+        return messageId;
+    }
+
+    /**
+     * Set message ID.
+     * @param messageId the value for the messageId
+     */
+    public void setMessageId(String messageId) {
+        this.messageId = messageId;
+    }
+
+    /**
+     * Get transaction ID.
+     * @return transactionId    the transactionID
+     */
+    public String getTransactionId() {
+        return transactionId;
+    }
+
+    /**
+     * Set transaction ID.
+     * @param transactionId value for the transaction Id
+     */
+    public void setTransactionId(String transactionId) {
+        this.transactionId = transactionId;
+    }
+
+    /**
+     * Get timestamp.
+     * @return timestamp    the timestamp value
+     */
+    public Timestamp getTime() {
+        return time;
+    }
+
+    /**
+     * Set timestamp.
+     * @param time  the value for the timestamp
+     */
+    public void setTime(Timestamp time) {
+        this.time = time;
+    }
 
 }

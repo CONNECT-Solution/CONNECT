@@ -28,6 +28,7 @@ package gov.hhs.fha.nhinc.logging.transaction.persistance;
 
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.properties.HibernateAccessor;
+import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 
 import java.io.File;
 
@@ -39,40 +40,40 @@ import org.hibernate.cfg.Configuration;
 /**
  * 
  * @author jasonasmith
- *
+ * 
  */
 public class HibernateUtil {
 
-	private static final SessionFactory sessionFactory;
-    private static Log log = LogFactory.getLog(HibernateUtil.class);
+    private static final SessionFactory SESSION_FACTORY;
+    private static final Log LOG = LogFactory.getLog(HibernateUtil.class);
 
     static {
         try {
             // Create the SessionFactory from hibernate.cfg.xml
-            sessionFactory = new Configuration().configure(getConfigFile()).buildSessionFactory();
-        } catch (Throwable ex) {
+            SESSION_FACTORY = new Configuration().configure(getConfigFile()).buildSessionFactory();
+        } catch (ExceptionInInitializerError ex) {
             // Make sure you log the exception, as it might be swallowed
-            log.error("Initial SessionFactory creation failed." + ex);
-            throw new ExceptionInInitializerError(ex);
+            LOG.error("Initial SessionFactory creation failed." + ex, ex.getCause());
+            throw ex;
         }
     }
 
     /**
-     * Method returns an instance of Hibernate SessionFactory
+     * Method returns an instance of Hibernate SessionFactory.
      * 
-     * @return SessionFactory
+     * @return SessionFactory   The Hibernate Session Factory
      */
     public static SessionFactory getSessionFactory() {
-        return sessionFactory;
+        return SESSION_FACTORY;
     }
 
     private static File getConfigFile() {
         File result = null;
 
-       try {
+        try {
             result = HibernateAccessor.getInstance().getHibernateFile(NhincConstants.HIBERNATE_TRANSREPO_REPOSITORY);
-        } catch (Exception ex) {
-            log.error("Unable to load " + NhincConstants.HIBERNATE_TRANSREPO_REPOSITORY + " " + ex.getMessage(), ex);
+        } catch (PropertyAccessException ex) {
+            LOG.error("Unable to load " + NhincConstants.HIBERNATE_TRANSREPO_REPOSITORY + " " + ex.getMessage(), ex);
         }
 
         return result;
