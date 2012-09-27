@@ -4,7 +4,7 @@
   
   
   
-  <con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxydocretrieve}NhincProxyDocRetrieveBindingSoap" definition="WSDL path not set.  #NhincProxyDocRetrieve.wsdl" name="NhincProxyDocRetrieveBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
+  <con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxydocretrieve}NhincProxyDocRetrieveBindingSoap" definition="=f:\glassfish-2.1.1\domains\domain1\config\nhin\wsdlWSDL path not set.  " name="NhincProxyDocRetrieveBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
     <con:settings/>
     
     <con:endpoints>
@@ -20,7 +20,7 @@
   </con:interface>
   
   
-  <con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxyxdr:async:request}ProxyXDRAsyncRequest_Binding" definition="WSDL path not set.  #NhincProxyXDRRequest.wsdl" name="ProxyXDRAsyncRequest_Binding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
+  <con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxyxdr:async:request}ProxyXDRAsyncRequest_Binding" definition="=f:\glassfish-2.1.1\domains\domain1\config\nhin\wsdlWSDL path not set.  " name="ProxyXDRAsyncRequest_Binding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
     <con:settings/>
     
     <con:endpoints>
@@ -42,7 +42,7 @@
   
   
   
-  <con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincadmindistribution}NhincAdminDist_Binding_Soap12" definition="WSDL path not set.  #NhincAdminDist.wsdl" name="NhincAdminDist_Binding_Soap12" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
+  <con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincadmindistribution}NhincAdminDist_Binding_Soap12" definition="=f:\glassfish-2.1.1\domains\domain1\config\nhin\wsdlWSDL path not set.  " name="NhincAdminDist_Binding_Soap12" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
     <con:settings/>
     
     <con:endpoints>
@@ -54,7 +54,7 @@
     </con:operation>
   </con:interface>
   
-  <con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxyxdr:async:response}ProxyXDRAsyncResponse_Binding" definition="WSDL path not set.  #NhincProxyXDRResponse.wsdl" name="ProxyXDRAsyncResponse_Binding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface"><con:settings/><con:endpoints><con:endpoint>${#Project#Endpoint-DocSubmissionDefResp}</con:endpoint><con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/DocumentSubmission/1_1/EntityService/PassthruDocSubmissionDeferredResponseUnsecured</con:endpoint></con:endpoints><con:operation action="" anonymous="optional" bindingOperationName="ProvideAndRegisterDocumentSet-bAsyncResponse" inputName="" isOneWay="false" name="ProvideAndRegisterDocumentSet-bAsyncResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response"><con:settings/></con:operation></con:interface><con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxyxdr}ProxyXDR_Binding" definition="WSDL path not set.  #NhincProxyXDR.wsdl" name="ProxyXDR_Binding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface"><con:settings/><con:endpoints><con:endpoint>${#Project#Endpoint-DocumentSubmission}</con:endpoint><con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/DocumentSubmission/1_1/EntityService/PassthruDocSubmissionUnsecured</con:endpoint></con:endpoints><con:operation action="" anonymous="optional" bindingOperationName="ProvideAndRegisterDocumentSet-b" inputName="" isOneWay="false" name="ProvideAndRegisterDocumentSet-b" receivesAttachments="false" sendsAttachments="false" type="Request-Response"><con:settings/></con:operation></con:interface><con:testSuite name="MsgProxy_g1">
+  <con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxyxdr:async:response}ProxyXDRAsyncResponse_Binding" definition="=f:\glassfish-2.1.1\domains\domain1\config\nhin\wsdlWSDL path not set.  " name="ProxyXDRAsyncResponse_Binding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface"><con:settings/><con:endpoints><con:endpoint>${#Project#Endpoint-DocSubmissionDefResp}</con:endpoint><con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/DocumentSubmission/1_1/EntityService/PassthruDocSubmissionDeferredResponseUnsecured</con:endpoint></con:endpoints><con:operation action="" anonymous="optional" bindingOperationName="ProvideAndRegisterDocumentSet-bAsyncResponse" inputName="" isOneWay="false" name="ProvideAndRegisterDocumentSet-bAsyncResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response"><con:settings/></con:operation></con:interface><con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxyxdr}ProxyXDR_Binding" definition="=f:\glassfish-2.1.1\domains\domain1\config\nhin\wsdlWSDL path not set.  " name="ProxyXDR_Binding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface"><con:settings/><con:endpoints><con:endpoint>${#Project#Endpoint-DocumentSubmission}</con:endpoint><con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/DocumentSubmission/1_1/EntityService/PassthruDocSubmissionUnsecured</con:endpoint></con:endpoints><con:operation action="" anonymous="optional" bindingOperationName="ProvideAndRegisterDocumentSet-b" inputName="" isOneWay="false" name="ProvideAndRegisterDocumentSet-b" receivesAttachments="false" sendsAttachments="false" type="Request-Response"><con:settings/></con:operation></con:interface><con:testSuite name="MsgProxy_g1">
     <con:description/>
     <con:settings/>
     <con:runType>SEQUENTIAL</con:runType>
