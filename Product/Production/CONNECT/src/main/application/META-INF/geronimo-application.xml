@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<app:application xmlns:dep="http://geronimo.apache.org/xml/ns/deployment-1.2" xmlns:app="http://geronimo.apache.org/xml/ns/j2ee/application-2.0" application-name="CONNECT 4.0">
+  <dep:environment>
+    <dep:moduleId>
+      <dep:groupId>org.connectopensource</dep:groupId>
+      <dep:artifactId>CONNECT</dep:artifactId>
+      <dep:version>4.0</dep:version>
+      <dep:type>ear</dep:type>
+    </dep:moduleId>
+    <inverse-classloading/>
+  </dep:environment>
+</app:application>
