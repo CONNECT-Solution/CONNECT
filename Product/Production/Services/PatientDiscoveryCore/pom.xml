@@ -119,7 +119,7 @@
                                     <type>jar</type>
                                 </artifactItem>
                             </artifactItems>
-                            <includes>AuditRepositoryProxyConfig.xml</includes>
+                            <includes>AuditRepositoryProxyConfig.xml,adapter.properties</includes>
                             <outputDirectory>${project.build.directory}/test-classes/</outputDirectory>
                         </configuration>
                     </execution>

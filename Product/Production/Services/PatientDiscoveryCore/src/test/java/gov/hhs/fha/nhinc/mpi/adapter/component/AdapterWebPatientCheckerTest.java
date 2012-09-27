@@ -42,6 +42,7 @@ import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -66,8 +67,6 @@ public class AdapterWebPatientCheckerTest {
     @Before
     public void setUp() {
         propertyFileLocation = PropertyAccessor.getInstance().getPropertyFileLocation();
-        String testConfigDir = System.getProperty("user.dir") + "/src/test/resources/config";
-        PropertyAccessor.getInstance().setPropertyFileLocation(testConfigDir);
     }
 
     @After
@@ -79,6 +78,7 @@ public class AdapterWebPatientCheckerTest {
      * Test of FindPatient method, of class PatientChecker.
      */
     @Test
+    @Ignore
     public void SinglePatientExists() {
         log.info("SinglePatientExists");
         II subjectId = new II();
