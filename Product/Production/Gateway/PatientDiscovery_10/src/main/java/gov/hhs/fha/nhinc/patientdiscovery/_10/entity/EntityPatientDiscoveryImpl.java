@@ -26,22 +26,18 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery._10.entity;
 
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.gateway.servlet.InitServlet;
+import gov.hhs.fha.nhinc.messaging.server.BaseService;
+import gov.hhs.fha.nhinc.patientdiscovery.entity.EntityPatientDiscoveryOrchImpl;
+import gov.hhs.fha.nhinc.perfrepo.PerformanceManager;
+
 import javax.xml.ws.WebServiceContext;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 import org.hl7.v3.RespondingGatewayPRPAIN201306UV02ResponseType;
-
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
-import gov.hhs.fha.nhinc.gateway.servlet.InitServlet;
-import gov.hhs.fha.nhinc.patientdiscovery.entity.EntityPatientDiscoveryOrchImpl;
-import gov.hhs.fha.nhinc.perfrepo.PerformanceManager;
-import gov.hhs.fha.nhinc.util.HomeCommunityMap;
-import gov.hhs.fha.nhinc.messaging.server.BaseService;
-
-import java.sql.Timestamp;
 
 
 /**

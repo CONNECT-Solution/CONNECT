@@ -37,14 +37,10 @@ import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
-import gov.hhs.fha.nhinc.perfrepo.PerformanceManager;
-import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import ihe.iti.xds_b._2007.RespondingGatewayRetrievePortType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
-
-import java.sql.Timestamp;
 
 import javax.xml.ws.BindingProvider;
 
@@ -111,13 +107,6 @@ public class NhinDocRetrieveProxyWebServiceSecuredImpl implements NhinDocRetriev
                     CONNECTClient<RespondingGatewayRetrievePortType> client = CONNECTClientFactory.getInstance()
                             .getCONNECTClientSecured(portDescriptor, url, assertion);
 
-                    // Log the start of the performance record
-                    String targetHomeCommunityId = HomeCommunityMap.getCommunityIdFromTargetSystem(targetSystem);
-                    Timestamp starttime = new Timestamp(System.currentTimeMillis());
-                    Long logId = PerformanceManager.getPerformanceManagerInstance().logPerformanceStart(starttime,
-                            NhincConstants.DOC_RETRIEVE_SERVICE_NAME, NhincConstants.AUDIT_LOG_NHIN_INTERFACE,
-                            NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, targetHomeCommunityId);
-
                     WebServiceProxyHelper wsHelper = new WebServiceProxyHelper();
                     wsHelper.addTargetCommunity((BindingProvider) client.getPort(), targetSystem);
                     wsHelper.addServiceName((BindingProvider) client.getPort(), 
@@ -125,10 +114,6 @@ public class NhinDocRetrieveProxyWebServiceSecuredImpl implements NhinDocRetriev
 
                     response = (RetrieveDocumentSetResponseType) client.invokePort(
                             RespondingGatewayRetrievePortType.class, "respondingGatewayCrossGatewayRetrieve", request);
-
-                    // Log the end of the performance record
-                    Timestamp stoptime = new Timestamp(System.currentTimeMillis());
-                    PerformanceManager.getPerformanceManagerInstance().logPerformanceStop(logId, starttime, stoptime);
                 } else {
                     log.error("Failed to call the web service (" + sServiceName + ").  The URL is null.");
                 }

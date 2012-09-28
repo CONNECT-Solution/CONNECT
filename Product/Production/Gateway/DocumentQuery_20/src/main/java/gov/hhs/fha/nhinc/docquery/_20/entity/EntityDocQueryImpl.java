@@ -33,11 +33,6 @@ import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayQ
 import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
 import gov.hhs.fha.nhinc.docquery.entity.EntityDocQueryOrchImpl;
 import gov.hhs.fha.nhinc.gateway.servlet.InitServlet;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.perfrepo.PerformanceManager;
-import gov.hhs.fha.nhinc.util.HomeCommunityMap;
-
-import java.sql.Timestamp;
 
 import javax.xml.ws.WebServiceContext;
 
@@ -69,16 +64,7 @@ class EntityDocQueryImpl {
             if (request != null) {
                 AdhocQueryRequest adhocQueryRequest = request.getAdhocQueryRequest();
                 NhinTargetCommunitiesType targets = request.getNhinTargetCommunities();
-                // Log the start of the performance record
-                String homeCommunityId = HomeCommunityMap.getLocalHomeCommunityId();
-                Timestamp starttime = new Timestamp(System.currentTimeMillis());
-                Long logId = PerformanceManager.getPerformanceManagerInstance().logPerformanceStart(starttime, NhincConstants.DOC_QUERY_SERVICE_NAME, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, homeCommunityId);
-
                 response = implOrch.respondingGatewayCrossGatewayQuery( adhocQueryRequest, SAML2AssertionExtractor.getInstance().extractSamlAssertion(context), targets);
-               
-                // Log the end of the performance record
-                Timestamp stoptime = new Timestamp(System.currentTimeMillis());
-                PerformanceManager.getPerformanceManagerInstance().logPerformanceStop(logId, starttime, stoptime);
             } else {
                 log.error("Failed to call the web orchestration (" + implOrch.getClass()
                         + ".respondingGatewayCrossGatewayQuery).  The input parameter is null.");
