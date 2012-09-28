@@ -11,7 +11,6 @@
     <name>CONNECT</name>
     <properties>
         <skip.unpack>true</skip.unpack>
-
         <ad.excluded>true</ad.excluded>
         <ad.excluded>true</ad.excluded>
         <dq.excluded>true</dq.excluded>
@@ -40,8 +39,161 @@
             <version>${project.parent.version}</version>
             <type>war</type>
         </dependency>
-
-
+        <dependency>
+            <groupId>org.connectopensource</groupId>
+            <artifactId>PatientDiscovery_10</artifactId>
+            <version>${project.parent.version}</version>
+            <type>war</type>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.connectopensource</groupId>
+            <artifactId>PatientDiscovery_a0</artifactId>
+            <version>${project.parent.version}</version>
+            <type>war</type>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.connectopensource</groupId>
+            <artifactId>PatientDiscoveryCore</artifactId>
+            <version>${project.parent.version}</version>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.connectopensource</groupId>
+            <artifactId>PatientCorrelationCore</artifactId>
+            <version>${project.parent.version}</version>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.connectopensource</groupId>
+            <artifactId>AdminDistribution_10</artifactId>
+            <version>${project.parent.version}</version>
+            <type>war</type>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.connectopensource</groupId>
+            <artifactId>AdminDistribution_20</artifactId>
+            <version>${project.parent.version}</version>
+            <type>war</type>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.connectopensource</groupId>
+            <artifactId>AdminDistribution_a0</artifactId>
+            <version>${project.parent.version}</version>
+            <type>war</type>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.connectopensource</groupId>
+            <artifactId>AdminDistributionCore</artifactId>
+            <version>${project.parent.version}</version>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.connectopensource</groupId>
+            <artifactId>DocumentQuery_20</artifactId>
+            <version>${project.parent.version}</version>
+            <type>war</type>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.connectopensource</groupId>
+            <artifactId>DocumentQuery_a0</artifactId>
+            <version>${project.parent.version}</version>
+            <type>war</type>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.connectopensource</groupId>
+            <artifactId>DocumentQueryCore</artifactId>
+            <version>${project.parent.version}</version>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.connectopensource</groupId>
+            <artifactId>DocumentRetrieve_20</artifactId>
+            <version>${project.parent.version}</version>
+            <type>war</type>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.connectopensource</groupId>
+            <artifactId>DocumentRetrieve_30</artifactId>
+            <version>${project.parent.version}</version>
+            <type>war</type>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.connectopensource</groupId>
+            <artifactId>DocumentRetrieve_a0</artifactId>
+            <version>${project.parent.version}</version>
+            <type>war</type>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.connectopensource</groupId>
+            <artifactId>DocumentRetrieveCore</artifactId>
+            <version>${project.parent.version}</version>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.connectopensource</groupId>
+            <artifactId>DocumentSubmission_11</artifactId>
+            <version>${project.parent.version}</version>
+            <type>war</type>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.connectopensource</groupId>
+            <artifactId>DocumentSubmission_20</artifactId>
+            <version>${project.parent.version}</version>
+            <type>war</type>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.connectopensource</groupId>
+            <artifactId>DocumentSubmission_a0</artifactId>
+            <version>${project.parent.version}</version>
+            <type>war</type>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.connectopensource</groupId>
+            <artifactId>DocumentSubmissionCore</artifactId>
+            <version>${project.parent.version}</version>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.connectopensource</groupId>
+            <artifactId>HIEM_20</artifactId>
+            <version>${project.parent.version}</version>
+            <type>war</type>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.connectopensource</groupId>
+            <artifactId>HIEMCore</artifactId>
+            <version>${project.parent.version}</version>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.connectopensource</groupId>
+            <artifactId>CONNECTConsumerPreferencesProfileGUI</artifactId>
+            <version>${project.parent.version}</version>
+            <type>war</type>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.connectopensource</groupId>
+            <artifactId>CONNECTDeferredQueueManagerGUI</artifactId>
+            <version>${project.parent.version}</version>
+            <type>war</type>
+            <optional>true</optional>
+        </dependency>
+        
         <!-- Shared JARs - In order for the SKINNY WARs to work you must 
             include each dependency in the EAR manually and the JARS will be magically 
             removed from the WAR's WEB-INF/lib -->
@@ -346,6 +498,102 @@
                             <artifactId>CONNECTAdapterWeb</artifactId>
                             <contextRoot>/CONNECTAdapter</contextRoot>
                         </webModule>
+                        <webModule>
+                            <groupId>org.connectopensource</groupId>
+                            <artifactId>PatientDiscovery_10</artifactId>
+                            <contextRoot>/Gateway/PatientDiscovery/1_0</contextRoot>
+                            <excluded>${pd.excluded}</excluded>
+                        </webModule>
+                        <webModule>
+                            <groupId>org.connectopensource</groupId>
+                            <artifactId>PatientDiscovery_a0</artifactId>
+                            <contextRoot>/Adapter/PatientDiscovery/A_0</contextRoot>
+                            <excluded>${pd.excluded}</excluded>
+                        </webModule>
+                        <webModule>
+                            <groupId>org.connectopensource</groupId>
+                            <artifactId>AdminDistribution_10</artifactId>
+                            <contextRoot>/Gateway/AdminDistribution/1_0</contextRoot>
+                            <excluded>${ad.excluded}</excluded>
+                        </webModule>
+                        <webModule>
+                            <groupId>org.connectopensource</groupId>
+                            <artifactId>AdminDistribution_20</artifactId>
+                            <contextRoot>/Gateway/AdminDistribution/2_0</contextRoot>
+                            <excluded>${ad.excluded}</excluded>
+                        </webModule>
+                        <webModule>
+                            <groupId>org.connectopensource</groupId>
+                            <artifactId>AdminDistribution_a0</artifactId>
+                            <contextRoot>/Adapter/AdminDistribution/A_0</contextRoot>
+                            <excluded>${ad.excluded}</excluded>
+                        </webModule>
+                        <webModule>
+                            <groupId>org.connectopensource</groupId>
+                            <artifactId>DocumentQuery_20</artifactId>
+                            <contextRoot>/Gateway/DocumentQuery/2_0</contextRoot>
+                            <excluded>${dq.excluded}</excluded>
+                        </webModule>
+                        <webModule>
+                            <groupId>org.connectopensource</groupId>
+                            <artifactId>DocumentQuery_a0</artifactId>
+                            <contextRoot>/Adapter/DocumentQuery/A_0</contextRoot>
+                            <excluded>${dq.excluded}</excluded>
+                        </webModule>
+                        <webModule>
+                            <groupId>org.connectopensource</groupId>
+                            <artifactId>DocumentRetrieve_20</artifactId>
+                            <contextRoot>/Gateway/DocumentRetrieve/2_0</contextRoot>
+                            <excluded>${dr.excluded}</excluded>
+                        </webModule>
+                        <webModule>
+                            <groupId>org.connectopensource</groupId>
+                            <artifactId>DocumentRetrieve_30</artifactId>
+                            <contextRoot>/Gateway/DocumentRetrieve/3_0</contextRoot>
+                            <excluded>${dr.excluded}</excluded>
+                        </webModule>
+                        <webModule>
+                            <groupId>org.connectopensource</groupId>
+                            <artifactId>DocumentRetrieve_a0</artifactId>
+                            <contextRoot>/Adapter/DocumentRetrieve/A_0</contextRoot>
+                            <excluded>${dr.excluded}</excluded>
+                        </webModule>
+                        <webModule>
+                            <groupId>org.connectopensource</groupId>
+                            <artifactId>DocumentSubmission_11</artifactId>
+                            <contextRoot>/Gateway/DocumentSubmission/1_1</contextRoot>
+                            <excluded>${ds.excluded}</excluded>
+                        </webModule>
+                        <webModule>
+                            <groupId>org.connectopensource</groupId>
+                            <artifactId>DocumentSubmission_20</artifactId>
+                            <contextRoot>/Gateway/DocumentSubmission/2_0</contextRoot>
+                            <excluded>${ds.excluded}</excluded>
+                        </webModule>
+                        <webModule>
+                            <groupId>org.connectopensource</groupId>
+                            <artifactId>DocumentSubmission_a0</artifactId>
+                            <contextRoot>/Adapter/DocumentSubmission/A_0</contextRoot>
+                            <excluded>${ds.excluded}</excluded>
+                        </webModule>
+                        <webModule>
+                            <groupId>org.connectopensource</groupId>
+                            <artifactId>HIEM_20</artifactId>
+                            <contextRoot>/Gateway/HIEM/2_0</contextRoot>
+                            <excluded>${hiem.excluded}</excluded>
+                        </webModule>
+                        <webModule>
+                            <groupId>org.connectopensource</groupId>
+                            <artifactId>CONNECTConsumerPreferencesProfileGUI</artifactId>
+                            <contextRoot>/</contextRoot>
+                            <excluded>${gui.excluded}</excluded>
+                        </webModule>
+                        <webModule>
+                            <groupId>org.connectopensource</groupId>
+                            <artifactId>CONNECTDeferredQueueManagerGUI</artifactId>
+                            <contextRoot>/</contextRoot>
+                            <excluded>${gui.excluded}</excluded>
+                        </webModule>
                     </modules>
                     <version>6</version>
                     <defaultLibBundleDir>lib</defaultLibBundleDir>
@@ -368,49 +616,28 @@
                     <artifactId>PatientDiscovery_10</artifactId>
                     <version>${project.parent.version}</version>
                     <type>war</type>
+                    <optional>false</optional>
                 </dependency>
                 <dependency>
                     <groupId>org.connectopensource</groupId>
                     <artifactId>PatientDiscovery_a0</artifactId>
                     <version>${project.parent.version}</version>
                     <type>war</type>
+                    <optional>false</optional>
                 </dependency>
                 <dependency>
                     <groupId>org.connectopensource</groupId>
                     <artifactId>PatientDiscoveryCore</artifactId>
                     <version>${project.parent.version}</version>
+                    <optional>false</optional>
                 </dependency>
                 <dependency>
                     <groupId>org.connectopensource</groupId>
                     <artifactId>PatientCorrelationCore</artifactId>
                     <version>${project.parent.version}</version>
+                    <optional>false</optional>
                 </dependency>
             </dependencies>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-ear-plugin</artifactId>
-                        <version>2.8</version>
-                        <configuration>
-                            <modules>
-                                <webModule>
-                                    <groupId>org.connectopensource</groupId>
-                                    <artifactId>PatientDiscovery_10</artifactId>
-                                    <contextRoot>/Gateway/PatientDiscovery/1_0</contextRoot>
-                                    <excluded>${pd.excluded}</excluded>
-                                </webModule>
-                                <webModule>
-                                    <groupId>org.connectopensource</groupId>
-                                    <artifactId>PatientDiscovery_a0</artifactId>
-                                    <contextRoot>/Adapter/PatientDiscovery/A_0</contextRoot>
-                                    <excluded>${pd.excluded}</excluded>
-                                </webModule>
-                            </modules>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
         </profile>
         <profile>
             <id>AD</id>
@@ -423,56 +650,29 @@
                     <artifactId>AdminDistribution_10</artifactId>
                     <version>${project.parent.version}</version>
                     <type>war</type>
+                    <optional>false</optional>
                 </dependency>
                 <dependency>
                     <groupId>org.connectopensource</groupId>
                     <artifactId>AdminDistribution_20</artifactId>
                     <version>${project.parent.version}</version>
                     <type>war</type>
+                    <optional>false</optional>
                 </dependency>
                 <dependency>
                     <groupId>org.connectopensource</groupId>
                     <artifactId>AdminDistribution_a0</artifactId>
                     <version>${project.parent.version}</version>
                     <type>war</type>
+                    <optional>false</optional>
                 </dependency>
                 <dependency>
                     <groupId>org.connectopensource</groupId>
                     <artifactId>AdminDistributionCore</artifactId>
                     <version>${project.parent.version}</version>
+                    <optional>false</optional>
                 </dependency>
             </dependencies>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-ear-plugin</artifactId>
-                        <version>2.8</version>
-                        <configuration>
-                            <modules>
-                                <webModule>
-                                    <groupId>org.connectopensource</groupId>
-                                    <artifactId>AdminDistribution_10</artifactId>
-                                    <contextRoot>/Gateway/AdminDistribution/1_0</contextRoot>
-                                    <excluded>${ad.excluded}</excluded>
-                                </webModule>
-                                <webModule>
-                                    <groupId>org.connectopensource</groupId>
-                                    <artifactId>AdminDistribution_20</artifactId>
-                                    <contextRoot>/Gateway/AdminDistribution/2_0</contextRoot>
-                                    <excluded>${ad.excluded}</excluded>
-                                </webModule>
-                                <webModule>
-                                    <groupId>org.connectopensource</groupId>
-                                    <artifactId>AdminDistribution_a0</artifactId>
-                                    <contextRoot>/Adapter/AdminDistribution/A_0</contextRoot>
-                                    <excluded>${ad.excluded}</excluded>
-                                </webModule>
-                            </modules>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
         </profile>
         <profile>
             <id>DQ</id>
@@ -485,44 +685,22 @@
                     <artifactId>DocumentQuery_20</artifactId>
                     <version>${project.parent.version}</version>
                     <type>war</type>
+                    <optional>false</optional>
                 </dependency>
                 <dependency>
                     <groupId>org.connectopensource</groupId>
                     <artifactId>DocumentQuery_a0</artifactId>
                     <version>${project.parent.version}</version>
                     <type>war</type>
+                    <optional>false</optional>
                 </dependency>
                 <dependency>
                     <groupId>org.connectopensource</groupId>
                     <artifactId>DocumentQueryCore</artifactId>
                     <version>${project.parent.version}</version>
+                    <optional>false</optional>
                 </dependency>
             </dependencies>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-ear-plugin</artifactId>
-                        <version>2.8</version>
-                        <configuration>
-                            <modules>
-                                <webModule>
-                                    <groupId>org.connectopensource</groupId>
-                                    <artifactId>DocumentQuery_20</artifactId>
-                                    <contextRoot>/Gateway/DocumentQuery/2_0</contextRoot>
-                                    <excluded>${dq.excluded}</excluded>
-                                </webModule>
-                                <webModule>
-                                    <groupId>org.connectopensource</groupId>
-                                    <artifactId>DocumentQuery_a0</artifactId>
-                                    <contextRoot>/Adapter/DocumentQuery/A_0</contextRoot>
-                                    <excluded>${dq.excluded}</excluded>
-                                </webModule>
-                            </modules>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
         </profile>
         <profile>
             <id>DR</id>
@@ -535,56 +713,29 @@
                     <artifactId>DocumentRetrieve_20</artifactId>
                     <version>${project.parent.version}</version>
                     <type>war</type>
+                    <optional>false</optional>
                 </dependency>
                 <dependency>
                     <groupId>org.connectopensource</groupId>
                     <artifactId>DocumentRetrieve_30</artifactId>
                     <version>${project.parent.version}</version>
                     <type>war</type>
+                    <optional>false</optional>
                 </dependency>
                 <dependency>
                     <groupId>org.connectopensource</groupId>
                     <artifactId>DocumentRetrieve_a0</artifactId>
                     <version>${project.parent.version}</version>
                     <type>war</type>
+                    <optional>false</optional>
                 </dependency>
                 <dependency>
                     <groupId>org.connectopensource</groupId>
                     <artifactId>DocumentRetrieveCore</artifactId>
                     <version>${project.parent.version}</version>
+                    <optional>false</optional>
                 </dependency>
             </dependencies>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-ear-plugin</artifactId>
-                        <version>2.8</version>
-                        <configuration>
-                            <modules>
-                                <webModule>
-                                    <groupId>org.connectopensource</groupId>
-                                    <artifactId>DocumentRetrieve_20</artifactId>
-                                    <contextRoot>/Gateway/DocumentRetrieve/2_0</contextRoot>
-                                    <excluded>${dr.excluded}</excluded>
-                                </webModule>
-                                <webModule>
-                                    <groupId>org.connectopensource</groupId>
-                                    <artifactId>DocumentRetrieve_30</artifactId>
-                                    <contextRoot>/Gateway/DocumentRetrieve/3_0</contextRoot>
-                                    <excluded>${dr.excluded}</excluded>
-                                </webModule>
-                                <webModule>
-                                    <groupId>org.connectopensource</groupId>
-                                    <artifactId>DocumentRetrieve_a0</artifactId>
-                                    <contextRoot>/Adapter/DocumentRetrieve/A_0</contextRoot>
-                                    <excluded>${dr.excluded}</excluded>
-                                </webModule>
-                            </modules>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
         </profile>
         <profile>
             <id>DS</id>
@@ -597,56 +748,29 @@
                     <artifactId>DocumentSubmission_11</artifactId>
                     <version>${project.parent.version}</version>
                     <type>war</type>
+                    <optional>false</optional>
                 </dependency>
                 <dependency>
                     <groupId>org.connectopensource</groupId>
                     <artifactId>DocumentSubmission_20</artifactId>
                     <version>${project.parent.version}</version>
                     <type>war</type>
+                    <optional>false</optional>
                 </dependency>
                 <dependency>
                     <groupId>org.connectopensource</groupId>
                     <artifactId>DocumentSubmission_a0</artifactId>
                     <version>${project.parent.version}</version>
                     <type>war</type>
+                    <optional>false</optional>
                 </dependency>
                 <dependency>
                     <groupId>org.connectopensource</groupId>
                     <artifactId>DocumentSubmissionCore</artifactId>
                     <version>${project.parent.version}</version>
+                    <optional>false</optional>
                 </dependency>
             </dependencies>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-ear-plugin</artifactId>
-                        <version>2.8</version>
-                        <configuration>
-                            <modules>
-                                <webModule>
-                                    <groupId>org.connectopensource</groupId>
-                                    <artifactId>DocumentSubmission_11</artifactId>
-                                    <contextRoot>/Gateway/DocumentSubmission/1_1</contextRoot>
-                                    <excluded>${ds.excluded}</excluded>
-                                </webModule>
-                                <webModule>
-                                    <groupId>org.connectopensource</groupId>
-                                    <artifactId>DocumentSubmission_20</artifactId>
-                                    <contextRoot>/Gateway/DocumentSubmission/2_0</contextRoot>
-                                    <excluded>${ds.excluded}</excluded>
-                                </webModule>
-                                <webModule>
-                                    <groupId>org.connectopensource</groupId>
-                                    <artifactId>DocumentSubmission_a0</artifactId>
-                                    <contextRoot>/Adapter/DocumentSubmission/A_0</contextRoot>
-                                    <excluded>${ds.excluded}</excluded>
-                                </webModule>
-                            </modules>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
         </profile>
         <profile>
             <id>HIEM</id>
@@ -659,32 +783,15 @@
                     <artifactId>HIEM_20</artifactId>
                     <version>${project.parent.version}</version>
                     <type>war</type>
+                    <optional>false</optional>
                 </dependency>
                 <dependency>
                     <groupId>org.connectopensource</groupId>
                     <artifactId>HIEMCore</artifactId>
                     <version>${project.parent.version}</version>
+                    <optional>false</optional>
                 </dependency>
             </dependencies>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-ear-plugin</artifactId>
-                        <version>2.8</version>
-                        <configuration>
-                            <modules>
-                                <webModule>
-                                    <groupId>org.connectopensource</groupId>
-                                    <artifactId>HIEM_20</artifactId>
-                                    <contextRoot>/Gateway/HIEM/2_0</contextRoot>
-                                    <excluded>${hiem.excluded}</excluded>
-                                </webModule>
-                            </modules>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
         </profile>
         <profile>
             <id>GUI</id>
@@ -697,6 +804,7 @@
                     <artifactId>CONNECTConsumerPreferencesProfileGUI</artifactId>
                     <version>${project.parent.version}</version>
                     <type>war</type>
+                    <optional>false</optional>
                 </dependency>
 
                 <dependency>
@@ -704,6 +812,7 @@
                     <artifactId>CONNECTDeferredQueueManagerGUI</artifactId>
                     <version>${project.parent.version}</version>
                     <type>war</type>
+                    <optional>false</optional>
                 </dependency>
             </dependencies>
             <build>
