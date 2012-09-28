@@ -42,11 +42,11 @@ import org.hl7.v3.PRPAIN201306UV02;
  * 
  * @author paul.eftis
  */
-public class OutboundPatientDiscoveryStrategyImpl_g0 extends OutboundPatientDiscoveryStrategy {
+public class OutboundPatientDiscoveryStrategyImpl extends OutboundPatientDiscoveryStrategy {
 
-    private static Log log = LogFactory.getLog(OutboundPatientDiscoveryStrategyImpl_g0.class);
+    private static Log log = LogFactory.getLog(OutboundPatientDiscoveryStrategyImpl.class);
 
-    public OutboundPatientDiscoveryStrategyImpl_g0() {
+    public OutboundPatientDiscoveryStrategyImpl() {
 
     }
 
