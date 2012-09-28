@@ -36,12 +36,24 @@ import java.util.logging.Logger;
 
 
 public class NhinEndpointManager {
+    
+    protected ConnectionManagerCacheHelper getConnectionManagerCacheHelper() {
+        return new ConnectionManagerCacheHelper();
+    }
+    
+    protected ConnectionManagerCache getConnectionManagerCache() {
+        return ConnectionManagerCache.getInstance();
+    }
+    
+    protected UddiSpecVersionRegistry getUddiSpecVersionRegistry() {
+        return UddiSpecVersionRegistry.getInstance();
+    }
 
     public GATEWAY_API_LEVEL getApiVersion(String homeCommunityId, NhincConstants.NHIN_SERVICE_NAMES serviceName) {
         GATEWAY_API_LEVEL result = null;
-        ConnectionManagerCacheHelper helper = new ConnectionManagerCacheHelper();
+        ConnectionManagerCacheHelper helper = getConnectionManagerCacheHelper(); 
         try {
-            List<UDDI_SPEC_VERSION> specVersions = ConnectionManagerCache.getInstance().getSpecVersions(homeCommunityId, serviceName);
+            List<UDDI_SPEC_VERSION> specVersions = getConnectionManagerCache().getSpecVersions(homeCommunityId, serviceName);
             UDDI_SPEC_VERSION specVersion = helper.getHighestUDDISpecVersion(specVersions);
             result = getHighestGatewayApiLevelSupportedBySpec(specVersion, serviceName);
         } catch (Exception ex) {
@@ -55,7 +67,7 @@ public class NhinEndpointManager {
         GATEWAY_API_LEVEL highestApiLevel = null;
         
         try {
-        	UddiSpecVersionRegistry specRegistry = UddiSpecVersionRegistry.getInstance();
+        	UddiSpecVersionRegistry specRegistry = getUddiSpecVersionRegistry();
         	highestApiLevel = specRegistry.getSupportedGatewayAPI(specVersion, serviceName);
         } catch (Exception ex) {
             Logger.getLogger(ConnectionManagerCache.class.getName()).log(Level.SEVERE, null, ex);
