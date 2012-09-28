@@ -26,6 +26,8 @@
  */
 package gov.hhs.fha.nhinc.docquery.nhin.proxy;
 
+import javax.xml.ws.BindingProvider;
+
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
@@ -101,6 +103,10 @@ public class NhinDocQueryProxyWebServiceSecuredImpl implements NhinDocQueryProxy
 
             CONNECTClient<RespondingGatewayQueryPortType> client = CONNECTClientFactory.getInstance()
                     .getCONNECTClientSecured(portDescriptor, url, assertion);
+
+            WebServiceProxyHelper wsHelper = new WebServiceProxyHelper();
+            wsHelper.addTargetCommunity((BindingProvider) client.getPort(), target);
+            wsHelper.addServiceName((BindingProvider) client.getPort(), NhincConstants.DOC_QUERY_SERVICE_NAME);
 
             response = (AdhocQueryResponse) client.invokePort(RespondingGatewayQueryPortType.class,
                     "respondingGatewayCrossGatewayQuery", request);

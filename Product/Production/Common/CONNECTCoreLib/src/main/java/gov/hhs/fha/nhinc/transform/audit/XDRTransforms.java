@@ -96,17 +96,10 @@ public class XDRTransforms {
         auditMsg.setEventIdentification(oEventIdentificationType);
 
         ActiveParticipant participant = getActiveParticipant(assertion.getUserInfo());
+        auditMsg.getActiveParticipant().add(participant);
 
         /* Assign ParticipationObjectIdentification */
         ParticipantObjectIdentificationType participantObject = getParticipantObjectIdentificationType(patId);
-
-        auditMsg.getActiveParticipant().add(participant);
-
-        // Put the contents of the actual message into the Audit Log Message
-        ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
-
-        marshalRequestMessage(baOutStrm, request);
-        participantObject.setParticipantObjectQuery(baOutStrm.toByteArray());
         auditMsg.getParticipantObjectIdentification().add(participantObject);
 
         /* Create the AuditSourceIdentifierType object */
@@ -161,17 +154,10 @@ public class XDRTransforms {
         auditMsg.setEventIdentification(oEventIdentificationType);
 
         ActiveParticipant participant = getActiveParticipant(assertion.getUserInfo());
+        auditMsg.getActiveParticipant().add(participant);
 
         /* Assign ParticipationObjectIdentification */
         ParticipantObjectIdentificationType participantObject = getParticipantObjectIdentificationType(patId);
-
-        auditMsg.getActiveParticipant().add(participant);
-
-        // Put the contents of the actual message into the Audit Log Message
-        ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
-
-        marshalRequestMessage(baOutStrm, request);
-        participantObject.setParticipantObjectQuery(baOutStrm.toByteArray());
         auditMsg.getParticipantObjectIdentification().add(participantObject);
 
         /* Create the AuditSourceIdentifierType object */
@@ -227,17 +213,10 @@ public class XDRTransforms {
         auditMsg.setEventIdentification(oEventIdentificationType);
 
         ActiveParticipant participant = getActiveParticipant(assertion.getUserInfo());
+        auditMsg.getActiveParticipant().add(participant);
 
         /* Assign ParticipationObjectIdentification */
         ParticipantObjectIdentificationType participantObject = getParticipantObjectIdentificationType(patId);
-
-        auditMsg.getActiveParticipant().add(participant);
-
-        // Put the contents of the actual message into the Audit Log Message
-        ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
-
-        marshalRequestMessage(baOutStrm, request);
-        participantObject.setParticipantObjectQuery(baOutStrm.toByteArray());
         auditMsg.getParticipantObjectIdentification().add(participantObject);
 
         /* Create the AuditSourceIdentifierType object */
@@ -284,18 +263,12 @@ public class XDRTransforms {
         auditMsg.setEventIdentification(oEventIdentificationType);
 
         ActiveParticipant participant = getActiveParticipant(assertion.getUserInfo());
-
         auditMsg.getActiveParticipant().add(participant);
+        
         /* Assign ParticipationObjectIdentification */
         ParticipantObjectIdentificationType participantObject = getParticipantObjectIdentificationType("");
-
-        // Put the contents of the actual message into the Audit Log Message
-        ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
-
-        marshalRequestMessage(baOutStrm, request);
-        participantObject.setParticipantObjectQuery(baOutStrm.toByteArray());
         auditMsg.getParticipantObjectIdentification().add(participantObject);
-
+        
         /* Create the AuditSourceIdentifierType object */
         AuditSourceIdentificationType auditSource = getAuditSourceIdentificationType(assertion.getUserInfo());
         auditMsg.getAuditSourceIdentification().add(auditSource);
@@ -340,16 +313,10 @@ public class XDRTransforms {
         auditMsg.setEventIdentification(oEventIdentificationType);
 
         ActiveParticipant participant = getActiveParticipant(assertion.getUserInfo());
-
         auditMsg.getActiveParticipant().add(participant);
+        
         /* Assign ParticipationObjectIdentification */
         ParticipantObjectIdentificationType participantObject = getParticipantObjectIdentificationType("");
-
-        // Put the contents of the actual message into the Audit Log Message
-        ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
-
-        marshalRequestMessage(baOutStrm, request);
-        participantObject.setParticipantObjectQuery(baOutStrm.toByteArray());
         auditMsg.getParticipantObjectIdentification().add(participantObject);
 
         /* Create the AuditSourceIdentifierType object */
@@ -395,16 +362,10 @@ public class XDRTransforms {
         auditMsg.setEventIdentification(oEventIdentificationType);
 
         ActiveParticipant participant = getActiveParticipant(assertion.getUserInfo());
-
         auditMsg.getActiveParticipant().add(participant);
+        
         /* Assign ParticipationObjectIdentification */
         ParticipantObjectIdentificationType participantObject = getParticipantObjectIdentificationType("");
-
-        // Put the contents of the actual message into the Audit Log Message
-        ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
-
-        marshalResponseMessage(baOutStrm, response);
-        participantObject.setParticipantObjectQuery(baOutStrm.toByteArray());
         auditMsg.getParticipantObjectIdentification().add(participantObject);
 
         /* Create the AuditSourceIdentifierType object */
@@ -905,12 +866,6 @@ public class XDRTransforms {
         auditMsg.getActiveParticipant().add(participant);
         /* Assign ParticipationObjectIdentification */
         ParticipantObjectIdentificationType participantObject = getParticipantObjectIdentificationType("");
-
-        // Put the contents of the actual message into the Audit Log Message
-        ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
-
-        marshalAcknowledgement(baOutStrm, acknowledgement);
-        participantObject.setParticipantObjectQuery(baOutStrm.toByteArray());
         auditMsg.getParticipantObjectIdentification().add(participantObject);
 
         /* Create the AuditSourceIdentifierType object */

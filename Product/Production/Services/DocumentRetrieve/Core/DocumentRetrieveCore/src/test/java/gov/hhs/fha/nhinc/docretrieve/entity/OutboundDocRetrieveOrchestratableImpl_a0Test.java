@@ -71,4 +71,13 @@ public class OutboundDocRetrieveOrchestratableImpl_a0Test {
         RetrieveDocumentSetResponseType result = instance.getResponse();
         assertEquals(expResult, result);
     }
+    @Test
+    public void testResponsePartialSuccess(){
+        OutboundDocRetrieveOrchestratableFactory factory = new OutboundDocRetrieveOrchestratableFactory();
+        OutboundDocRetrieveOrchestratableImpl instance = factory.getEntityDocRetrieveOrchestratableImpl_a0();
+        RetrieveDocumentSetResponseType expResult = factory.getRetrieveDocumentSetResponseTypePartialSuccess();
+        instance.setResponse(expResult);
+        RetrieveDocumentSetResponseType result = instance.getResponse();
+        assertEquals(expResult, result); 
+    }
 }

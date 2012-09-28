@@ -3,6 +3,10 @@
  */
 package gov.hhs.fha.nhinc.callback.openSAML;
 
+import gov.hhs.fha.nhinc.callback.SamlConstants;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -12,8 +16,6 @@ import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormatter;
 import org.joda.time.format.ISODateTimeFormat;
 
-import gov.hhs.fha.nhinc.callback.SamlConstants;
-
 /**
  * @author bhumphrey
  *
@@ -21,8 +23,7 @@ import gov.hhs.fha.nhinc.callback.SamlConstants;
 public class CallbackMapProperties implements CallbackProperties {
 
 	private final Map<Object, Object> map = new HashMap<Object, Object>();
-	private static final DateTimeFormatter XML_DATE_TIME_FORMAT = ISODateTimeFormat
-			.dateTimeParser();
+	private static final DateTimeFormatter XML_DATE_TIME_FORMAT = ISODateTimeFormat.dateTimeParser();
 
 	/**
 	 * Puts the properties into the callback map.
@@ -60,7 +61,7 @@ public class CallbackMapProperties implements CallbackProperties {
 	 * @see gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties#getAuthenicationContextClass()
 	 */
 	@Override
-	public String getAuthenicationContextClass() {
+	public String getAuthenticationContextClass() {
 		return getNullSafeString(SamlConstants.AUTHN_CONTEXT_CLASS_PROP);
 	}
 
@@ -68,7 +69,7 @@ public class CallbackMapProperties implements CallbackProperties {
 	 * @see gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties#getAuthenicationSessionIndex()
 	 */
 	@Override
-	public String getAuthenicationSessionIndex() {
+	public String getAuthenticationSessionIndex() {
 		return getNullSafeString(SamlConstants.AUTHN_SESSION_INDEX_PROP);
 	}
 
@@ -76,7 +77,7 @@ public class CallbackMapProperties implements CallbackProperties {
 	 * @see gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties#getAuthenicationInstant()
 	 */
 	@Override
-	public DateTime getAuthenicationInstant() {
+	public DateTime getAuthenticationInstant() {
 		return getNullSafeDateTime(SamlConstants.AUTHN_INSTANT_PROP, null);
 	}
 
@@ -312,6 +313,30 @@ public class CallbackMapProperties implements CallbackProperties {
 		}
 		return nameConstruct.toString();
 	}
+	
+    /* (non-Javadoc)
+     * @see gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties#getTargetHomeCommunityId()
+     */
+    @Override
+    public String getTargetHomeCommunityId() {
+        return getNullSafeString(NhincConstants.WS_SOAP_TARGET_HOME_COMMUNITY_ID);
+    }
+
+    /* (non-Javadoc)
+     * @see gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties#getAction()
+     */
+    @Override
+    public String getAction() {
+        return getNullSafeString(NhincConstants.SERVICE_NAME);
+    }
+
+    /* (non-Javadoc)
+     * @see gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties#getTargetApiLevel()
+     */
+    @Override
+    public GATEWAY_API_LEVEL getTargetApiLevel() {
+        return (GATEWAY_API_LEVEL) getNullSafeObject(NhincConstants.TARGET_API_LEVEL, null);
+    }
 
 	private Boolean getNullSafeBoolean(final String property,
 			Boolean defaultValue) {
@@ -335,7 +360,6 @@ public class CallbackMapProperties implements CallbackProperties {
 	}
 
 	private String getNullSafeString(final String property) {
-
 		return getNullSafeString(property, null);
 	}
 
@@ -361,5 +385,13 @@ public class CallbackMapProperties implements CallbackProperties {
 
 		return list;
 	}
+
+    private Object getNullSafeObject(final String property, Object defaultValue) {
+        Object value = defaultValue;
+        if (map.containsKey(property) && map.get(property) != null) {
+            value = map.get(property);
+        }
+        return value;
+    }
 
 }

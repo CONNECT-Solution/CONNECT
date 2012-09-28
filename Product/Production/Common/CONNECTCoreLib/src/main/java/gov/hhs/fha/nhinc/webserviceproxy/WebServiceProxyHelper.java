@@ -26,21 +26,25 @@
  */
 package gov.hhs.fha.nhinc.webserviceproxy;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.StringTokenizer;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.connectmgr.AdapterEndpointManager;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADAPTER_API_LEVEL;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
 import gov.hhs.fha.nhinc.properties.IPropertyAcessor;
+import gov.hhs.fha.nhinc.util.HomeCommunityMap;
+
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.StringTokenizer;
+
+import javax.xml.ws.BindingProvider;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * This class is used as a helper in each of the Web Service Proxies. Since the bulk of the work being done in each web
@@ -503,4 +507,34 @@ public class WebServiceProxyHelper {
         }
 
     }
+
+    /**
+     * Add a target home community to the port object.
+     * @param port The port to add the property to
+     * @param targetSystem The targetSystem of the request
+     */
+    public void addTargetCommunity(BindingProvider port, NhinTargetSystemType targetSystem) {
+        port.getRequestContext().put(NhincConstants.WS_SOAP_TARGET_HOME_COMMUNITY_ID,
+            HomeCommunityMap.getCommunityIdFromTargetSystem(targetSystem));
+    }
+
+    /**
+     * Add a target api level to the port object.
+     * @param port The port to add the property to
+     * @param apiLevel the target api level to add.
+     */
+    public void addTargetApiLevel(BindingProvider port, GATEWAY_API_LEVEL apiLevel) {
+        port.getRequestContext().put(NhincConstants.TARGET_API_LEVEL, apiLevel);
+    }
+
+    /**
+     * Add service name to the port object.
+     * @param port The port to add the property to
+     * @param apiLevel the target api level to add.
+     */
+    public void addServiceName(BindingProvider port, String serviceName) {
+        port.getRequestContext().put(NhincConstants.SERVICE_NAME, serviceName);
+    }
+    
+    
 }
