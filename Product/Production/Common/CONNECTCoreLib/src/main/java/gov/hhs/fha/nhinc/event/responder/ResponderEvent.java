@@ -24,7 +24,7 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.event.request;
+package gov.hhs.fha.nhinc.event.responder;
 
 import gov.hhs.fha.nhinc.event.Event;
 
@@ -32,21 +32,19 @@ import gov.hhs.fha.nhinc.event.Event;
  * @author zmelnick
  *
  */
-abstract class RequestEvent implements Event {
+abstract class ResponderEvent implements Event {
 
     private String description;
     private String messageID;
     private String transactionID;
 
-    public RequestEvent(String messageID, String transactionID, String description) {
+    public ResponderEvent(String messageID, String transactionID, String description) {
         setMessageID(messageID);
         setTransactionID(transactionID);
         setDescription(description);
     }
 
-    /*
-     * (non-Javadoc)
-     *
+    /* (non-Javadoc)
      * @see gov.hhs.fha.nhinc.event.Event#getDescription()
      */
     @Override
@@ -61,9 +59,7 @@ abstract class RequestEvent implements Event {
         this.description = description;
     }
 
-    /*
-     * (non-Javadoc)
-     *
+    /* (non-Javadoc)
      * @see gov.hhs.fha.nhinc.event.Event#getMessageID()
      */
     @Override
@@ -78,9 +74,7 @@ abstract class RequestEvent implements Event {
         this.messageID = messageID;
     }
 
-    /*
-     * (non-Javadoc)
-     *
+    /* (non-Javadoc)
      * @see gov.hhs.fha.nhinc.event.Event#getTransactionID()
      */
     @Override
