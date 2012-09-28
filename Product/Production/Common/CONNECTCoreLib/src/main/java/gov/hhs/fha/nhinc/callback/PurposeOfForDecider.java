@@ -55,18 +55,20 @@ public class PurposeOfForDecider {
     }
 
     public boolean isPurposeFor(Map<Object, Object> tokenVals) {
-        // determine 2010 vs 2011 spec version
-        GATEWAY_API_LEVEL apiLevel = (GATEWAY_API_LEVEL) tokenVals.get(NhincConstants.TARGET_API_LEVEL);
-        String hcid = (String) tokenVals.get(NhincConstants.WS_SOAP_TARGET_HOME_COMMUNITY_ID);
-        String action = (String) tokenVals.get(NhincConstants.ACTION_PROP);
+        // if this isn't an Nhin Spec, just return PurposeOf
         NHIN_SERVICE_NAMES serviceName = null;
+        boolean purposeFor = false;
+        
+        String action = (String) tokenVals.get(NhincConstants.ACTION_PROP);
         try {
             serviceName = NHIN_SERVICE_NAMES.fromValueString(action);// AddressingActionToServiceNameMapping.get(action);
         } catch (IllegalArgumentException exc) {
-            throw new IllegalArgumentException("Service name from " + NhincConstants.ACTION_PROP
-                    + " key was not a valid NHIN Service Name.", exc);
+            return purposeFor;
         }
-        boolean purposeFor = false;
+        
+        // determine 2010 vs 2011 spec version
+        GATEWAY_API_LEVEL apiLevel = (GATEWAY_API_LEVEL) tokenVals.get(NhincConstants.TARGET_API_LEVEL);
+        String hcid = (String) tokenVals.get(NhincConstants.WS_SOAP_TARGET_HOME_COMMUNITY_ID); 
 
         if (apiLevel == null && serviceName != null && hcid != null) {
             NhinEndpointManager nem = getNhinEndpointManager();
