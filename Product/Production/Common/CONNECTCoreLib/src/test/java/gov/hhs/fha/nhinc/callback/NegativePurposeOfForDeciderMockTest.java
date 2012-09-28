@@ -47,7 +47,7 @@ public class NegativePurposeOfForDeciderMockTest extends AbstractPurposeOfForDec
     protected Map<Object,Object> createTokenValues() {
         HashMap<Object, Object> tokenVals = new HashMap<Object, Object>();
         tokenVals.put(NhincConstants.WS_SOAP_TARGET_HOME_COMMUNITY_ID, "1.1");
-        tokenVals.put(NhincConstants.ACTION_PROP, "wrongvalue");
+        tokenVals.put(NhincConstants.ACTION_PROP, "auditrepositorysecured");
         return tokenVals;
     }
     
@@ -57,10 +57,10 @@ public class NegativePurposeOfForDeciderMockTest extends AbstractPurposeOfForDec
      * Mock decider returns false, meaning we'll send PurposeOf
      */
     @Override
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testIsPurposeOfg0() {
         expectNoMockEndpointLookups();
-        expectMockPurposeUseProxyReturnPurposeFor(false);
+        expectNoMockPurposeUseProxy();
         
         assertTrue(!mockPurposeOfForDecider.isPurposeFor(createTokenValuesg0()));
         context.assertIsSatisfied();
@@ -70,12 +70,12 @@ public class NegativePurposeOfForDeciderMockTest extends AbstractPurposeOfForDec
      * Mock decider returns true, meaning we'll send PurposeFor
      */
     @Override
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testIsPurposeForg0() {
         expectNoMockEndpointLookups();
-        expectMockPurposeUseProxyReturnPurposeFor(true);
+        expectNoMockPurposeUseProxy();
         
-        assertTrue(mockPurposeOfForDecider.isPurposeFor(createTokenValuesg0()));
+        assertTrue(!mockPurposeOfForDecider.isPurposeFor(createTokenValuesg0()));
         context.assertIsSatisfied();
     }
  
@@ -83,7 +83,7 @@ public class NegativePurposeOfForDeciderMockTest extends AbstractPurposeOfForDec
      * g1 (2011 specs), meaning we'll always send PurposeOf
      */
     @Override
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testIsPurposeOfg1() {
         expectNoMockEndpointLookups();
         expectNoMockPurposeUseProxy();
@@ -93,29 +93,29 @@ public class NegativePurposeOfForDeciderMockTest extends AbstractPurposeOfForDec
     }
     
     @Override
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testIsPurposeOfg0APILookup() {
-        expectMockEndpointLookup(GATEWAY_API_LEVEL.LEVEL_g0);
-        expectMockPurposeUseProxyReturnPurposeFor(false);
+        expectNoMockEndpointLookups();
+        expectNoMockPurposeUseProxy();
         
         assertTrue(!mockPurposeOfForDecider.isPurposeFor(createTokenValues()));
         context.assertIsSatisfied();
     }
     
     @Override
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testIsPurposeForg0APILookup() {
-        expectMockEndpointLookup(GATEWAY_API_LEVEL.LEVEL_g0);
-        expectMockPurposeUseProxyReturnPurposeFor(true);
+        expectNoMockEndpointLookups();
+        expectNoMockPurposeUseProxy();
         
-        assertTrue(mockPurposeOfForDecider.isPurposeFor(createTokenValues()));
+        assertTrue(!mockPurposeOfForDecider.isPurposeFor(createTokenValues()));
         context.assertIsSatisfied();
     }
     
     @Override
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testIsPurposeOfg1APILookup() {
-        expectMockEndpointLookup(GATEWAY_API_LEVEL.LEVEL_g1);
+        expectNoMockEndpointLookups();
         expectNoMockPurposeUseProxy();
         
         assertTrue(!mockPurposeOfForDecider.isPurposeFor(createTokenValues()));

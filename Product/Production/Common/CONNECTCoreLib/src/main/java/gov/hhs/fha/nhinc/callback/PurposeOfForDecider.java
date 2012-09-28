@@ -53,18 +53,20 @@ public class PurposeOfForDecider {
     }
 
     public boolean isPurposeFor(CallbackProperties properties) {
-        // determine 2010 vs 2011 spec version
-        GATEWAY_API_LEVEL apiLevel = (GATEWAY_API_LEVEL) properties.getTargetApiLevel();
-        String hcid = (String) properties.getTargetHomeCommunityId();
-        String action = (String) properties.getAction();
+        // if this isn't an Nhin Spec, just return PurposeOf
         NHIN_SERVICE_NAMES serviceName = null;
-        try {
-            serviceName = NHIN_SERVICE_NAMES.fromValueString(action);// AddressingActionToServiceNameMapping.get(action);
-        } catch (IllegalArgumentException exc) {
-            throw new IllegalArgumentException("Service name from " + properties.getAction()
-                    + " key was not a valid NHIN Service Name.", exc);
-        }
         boolean purposeFor = false;
+        
+        String action = properties.getAction();
+        try {
+            serviceName = NHIN_SERVICE_NAMES.fromValueString(action);//AddressingActionToServiceNameMapping.get(action);
+        } catch (IllegalArgumentException exc) {
+            return purposeFor;
+        }
+        
+        // determine 2010 vs 2011 spec version
+        GATEWAY_API_LEVEL apiLevel = properties.getTargetApiLevel();
+        String hcid = properties.getTargetHomeCommunityId(); 
 
         if (apiLevel == null && serviceName != null && hcid != null) {
             NhinEndpointManager nem = getNhinEndpointManager();
