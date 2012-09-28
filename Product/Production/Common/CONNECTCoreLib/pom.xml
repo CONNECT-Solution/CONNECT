@@ -28,30 +28,6 @@
             <version>${project.parent.version}</version>
         </dependency>
         <dependency>
-            <!-- temporary -->
-            <groupId>org.connectopensource</groupId>
-            <artifactId>AuditRepositoryCore</artifactId>
-            <version>${project.parent.version}</version>
-        </dependency>
-        <dependency>
-            <!-- temporary -->
-            <groupId>org.connectopensource</groupId>
-            <artifactId>ConnectionManagerCore</artifactId>
-            <version>${project.parent.version}</version>
-        </dependency>
-        <dependency>
-            <!-- temporary -->
-            <groupId>org.connectopensource</groupId>
-            <artifactId>DocRegistryCore</artifactId>
-            <version>${project.parent.version}</version>
-        </dependency>
-        <dependency>
-            <!-- temporary -->
-            <groupId>org.connectopensource</groupId>
-            <artifactId>DocRepositoryCore</artifactId>
-            <version>${project.parent.version}</version>
-        </dependency>
-        <dependency>
             <groupId>commons-collections</groupId>
             <artifactId>commons-collections</artifactId>
         </dependency>
