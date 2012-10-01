@@ -15,96 +15,10 @@
     <dependencies>
         <dependency>
             <groupId>org.connectopensource</groupId>
-            <artifactId>CONNECTCommonTypesLib</artifactId>
+            <artifactId>AuditRepositoryCore</artifactId>
             <version>${project.parent.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.connectopensource</groupId>
-            <artifactId>CONNECTCoreLib</artifactId>
-            <version>${project.parent.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>javax</groupId>
-            <artifactId>javaee-api</artifactId>
-            <version>6.0</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>commons-logging</groupId>
-            <artifactId>commons-logging</artifactId>
-            <version>1.1.1</version>
-        </dependency>
-        <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-            <version>1.2.15</version>
-        </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.7</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.jmock</groupId>
-            <artifactId>jmock</artifactId>
-            <version>2.5.1</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.jmock</groupId>
-            <artifactId>jmock-legacy</artifactId>
-            <version>2.5.1</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.jmock</groupId>
-            <artifactId>jmock-junit4</artifactId>
-            <version>2.5.1</version>
-            <scope>test</scope>
         </dependency>
     </dependencies>
     <build>
-        <resources>
-            <resource>
-                <directory>${basedir}/src/main/resources</directory>
-                <includes>
-                    <include>**/*</include>
-                </includes>
-                <excludes>
-                    <exclude>.gitignore</exclude>
-                    <exclude>xml-resources/</exclude>
-                </excludes>
-            </resource>
-            <resource>
-                <!-- <directory>${basedir}/src/main/resources/wsdl</directory> -->
-                <directory>${basedir}/../../Common/Interfaces/src/wsdl</directory>
-                <includes>
-                    <include>NhinSubscription.wsdl</include>
-                    <include>EntityNotificationConsumerSecured.wsdl</include>
-                    <include>EntityNotificationConsumer.wsdl</include>
-                    <include>NhincProxyNotificationConsumer.wsdl</include>
-                    <include>EntitySubscriptionManagementSecured.wsdl</include>
-                    <include>EntitySubscriptionManagement.wsdl</include>
-                    <include>NhincProxySubscriptionManagementSecured.wsdl</include>
-                    <include>NhincProxySubscriptionManagement.wsdl</include>
-                    <include>rw-2.wsdl</include>
-                    <include>AdapterNotificationConsumer.wsdl</include>
-                    <include>AdapterNotificationConsumerSecured.wsdl</include>
-                    <include>AdapterSubscriptionManagement.wsdl</include>
-                    <include>AdapterSubscriptionManagementSecured.wsdl</include>
-                </includes>
-                <targetPath>${project.build.directory}/wsdl2java-sources/wsdl</targetPath>
-            </resource>
-            <resource>
-                <!-- Caution: Defining this resource to copy over the extracted 
-                    wsdls from <directory> into ${project.build.directory}/classes so the resources 
-                    are included within resulting archive -->
-                <directory>${project.build.directory}/wsdl2java-sources/</directory>
-                <includes>
-                    <include>wsdl/**/*.wsdl</include>
-                </includes>
-            </resource>
-        </resources>
     </build>
 </project>

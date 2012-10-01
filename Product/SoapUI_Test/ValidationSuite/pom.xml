@@ -120,12 +120,13 @@
                 </dependencies>
                 <executions>
                     <execution>
+                        <id>1-InternalSelfTest_g0-soapui-project.xml</id>
                         <phase>test</phase>
                         <goals>
                             <goal>test</goal>
                         </goals>
                         <configuration>
-                            <projectFile>1-InternalPDSelfTest_g0-soapui-project.xml</projectFile>
+                            <projectFile>1-InternalSelfTest_g0-soapui-project.xml</projectFile>
                             <settingsFile>${basedir}/src/main/resources/soapui-settings.xml</settingsFile>
                             <host>http://127.0.0.1:8080</host>
                             <outputFolder>${basedir}/target/soapui/output/</outputFolder>
@@ -139,7 +140,122 @@
                                     <value>${project.build.directory}/soapui/my_custon_logs/</value>
                                 </property>
                             </soapuiProperties>
-                            <testCase>Patient Discovery Deferred Req</testCase>
+                            <globalProperties>
+                                <value>project.name=1-InternalSelfTest_g0</value>
+                            </globalProperties>
+                            <projectProperties>
+                                <value>project.name=1-InternalSelfTest_g0</value>
+                            </projectProperties>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>1-InternalSelfTest_g1-soapui-project.xml</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>test</goal>
+                        </goals>
+                        <configuration>
+                            <projectFile>1-InternalSelfTest_g1-soapui-project.xml</projectFile>
+                            <settingsFile>${basedir}/src/main/resources/soapui-settings.xml</settingsFile>
+                            <host>http://127.0.0.1:8080</host>
+                            <outputFolder>${basedir}/target/soapui/output/</outputFolder>
+                            <soapuiProperties>
+                                <property>
+                                    <name>NHINC_PROPERTIES_DIR</name>
+                                    <value>${project.build.testOutputDirectory}</value>
+                                </property>
+                                <property>
+                                    <name>soapui.logroot</name>
+                                    <value>${project.build.directory}/soapui/my_custon_logs/</value>
+                                </property>
+                            </soapuiProperties>
+                            <globalProperties>
+                                <value>project.name=1-InternalSelfTest_g0</value>
+                            </globalProperties>
+                            <projectProperties>
+                                <value>project.name=1-InternalSelfTest_g0</value>
+                            </projectProperties>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>2-EndToEndSelfTest_g0-soapui-project.xml</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>test</goal>
+                        </goals>
+                        <configuration>
+                            <projectFile>2-EndToEndSelfTest_g0-soapui-project.xml</projectFile>
+                            <settingsFile>${basedir}/src/main/resources/soapui-settings.xml</settingsFile>
+                            <host>http://127.0.0.1:8080</host>
+                            <outputFolder>${basedir}/target/soapui/output/</outputFolder>
+                            <soapuiProperties>
+                                <property>
+                                    <name>NHINC_PROPERTIES_DIR</name>
+                                    <value>${project.build.testOutputDirectory}</value>
+                                </property>
+                                <property>
+                                    <name>soapui.logroot</name>
+                                    <value>${project.build.directory}/soapui/my_custon_logs/</value>
+                                </property>
+                            </soapuiProperties>
+                            <globalProperties>
+                                <value>project.name=1-InternalSelfTest_g0</value>
+                            </globalProperties>
+                            <projectProperties>
+                                <value>project.name=1-InternalSelfTest_g0</value>
+                            </projectProperties>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>2-EndToEndSelfTest_g1-soapui-project.xml</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>test</goal>
+                        </goals>
+                        <configuration>
+                            <projectFile>2-EndToEndSelfTest_g1-soapui-project.xml</projectFile>
+                            <settingsFile>${basedir}/src/main/resources/soapui-settings.xml</settingsFile>
+                            <host>http://127.0.0.1:8080</host>
+                            <outputFolder>${basedir}/target/soapui/output/</outputFolder>
+                            <soapuiProperties>
+                                <property>
+                                    <name>NHINC_PROPERTIES_DIR</name>
+                                    <value>${project.build.testOutputDirectory}</value>
+                                </property>
+                                <property>
+                                    <name>soapui.logroot</name>
+                                    <value>${project.build.directory}/soapui/my_custon_logs/</value>
+                                </property>
+                            </soapuiProperties>
+                            <globalProperties>
+                                <value>project.name=1-InternalSelfTest_g0</value>
+                            </globalProperties>
+                            <projectProperties>
+                                <value>project.name=1-InternalSelfTest_g0</value>
+                            </projectProperties>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>4-ConnectionManagerTest-soapui-project.xml</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>test</goal>
+                        </goals>
+                        <configuration>
+                            <projectFile>4-ConnectionManagerTest-soapui-project.xml</projectFile>
+                            <settingsFile>${basedir}/src/main/resources/soapui-settings.xml</settingsFile>
+                            <host>http://127.0.0.1:8080</host>
+                            <outputFolder>${basedir}/target/soapui/output/</outputFolder>
+                            <soapuiProperties>
+                                <property>
+                                    <name>NHINC_PROPERTIES_DIR</name>
+                                    <value>${project.build.testOutputDirectory}</value>
+                                </property>
+                                <property>
+                                    <name>soapui.logroot</name>
+                                    <value>${project.build.directory}/soapui/my_custon_logs/</value>
+                                </property>
+                            </soapuiProperties>
                             <globalProperties>
                                 <value>project.name=1-InternalSelfTest_g0</value>
                             </globalProperties>

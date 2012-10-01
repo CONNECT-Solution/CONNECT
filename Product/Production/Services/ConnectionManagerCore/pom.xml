@@ -12,48 +12,6 @@
     <packaging>jar</packaging>
     <name>CONNECT Connection Manager Core</name>
     <url>http://maven.apache.org</url>
-    <dependencies>
-        <dependency>
-            <groupId>org.connectopensource</groupId>
-            <artifactId>CONNECTCommonTypesLib</artifactId>
-            <version>4.0.0-SNAPSHOT</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>activation</artifactId>
-                    <groupId>javax.activation</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-    </dependencies>
     <build>
-        <resources>
-            <resource>
-                <directory>${basedir}/src/main/resources</directory>
-                <includes>
-                    <include>**/*</include>
-                </includes>
-                <excludes>
-                    <exclude>.gitignore</exclude>
-                    <exclude>xml-resources/</exclude>
-                </excludes>
-            </resource>
-            <resource>
-                <!-- <directory>${basedir}/src/main/resources/wsdl</directory> -->
-                <directory>${basedir}/../../Common/Interfaces/src/wsdl</directory>
-                <includes>
-                    <include>*Uddi*.wsdl</include>
-                </includes>
-                <targetPath>${project.build.directory}/wsdl2java-sources/wsdl</targetPath>
-            </resource>
-            <resource>
-                <!-- Caution: Defining this resource to copy over the extracted wsdls 
-                    from <directory> into ${project.build.directory}/classes so the resources 
-                    are included within resulting archive -->
-                <directory>${project.build.directory}/wsdl2java-sources/</directory>
-                <includes>
-                    <include>wsdl/**/*.wsdl</include>
-                </includes>
-            </resource>
-        </resources>
     </build>
 </project>
