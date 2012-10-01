@@ -25,47 +25,50 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
 
-package gov.hhs.fha.nhinc.messaging.client;
-
-import gov.hhs.fha.nhinc.messaging.service.BaseServiceEndpoint;
-import gov.hhs.fha.nhinc.messaging.service.ServiceEndpoint;
-import gov.hhs.fha.nhinc.messaging.service.decorator.MTOMServiceEndpointDecorator;
-import gov.hhs.fha.nhinc.messaging.service.decorator.TimeoutServiceEndpointDecorator;
-import gov.hhs.fha.nhinc.messaging.service.decorator.URLServiceEndpointDecorator;
-import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
-
+package gov.hhs.fha.nhinc.largefile;
 
 /**
  * @author akong
  *
  */
-public abstract class CONNECTClient<T> {
-
-    private  WebServiceProxyHelper proxyHelper;
-    
-    protected CONNECTClient() {
-        proxyHelper = new WebServiceProxyHelper();
-    }
-    
-    public abstract T getPort();
-    
-    public Object invokePort(Class<T> portClass, String methodName, Object operationInput) throws Exception {        
-        return proxyHelper.invokePort(getPort(), portClass, methodName, operationInput);        
-    }
-    
+public class LargePayloadException extends Exception {
     /**
-     * Configures the given port with properties common to all ports.
      * 
-     * @param port
-     * @param url
-     * @return
      */
-    protected ServiceEndpoint<T> configureBasePort(T port, String url) {
-        ServiceEndpoint<T> serviceEndpoint = new BaseServiceEndpoint<T>(port);
-        serviceEndpoint = new URLServiceEndpointDecorator<T>(serviceEndpoint, url);        
-        serviceEndpoint = new TimeoutServiceEndpointDecorator<T>(serviceEndpoint);
-        serviceEndpoint = new MTOMServiceEndpointDecorator<T>(serviceEndpoint);
-        
-        return serviceEndpoint;
+    private static final long serialVersionUID = 1L;
+
+    /**
+     * Default constructor.
+     */
+    public LargePayloadException() {
+        super();
+    }
+
+    /**
+     * Constructor with an envloping exception.
+     * 
+     * @param e The exception that caused this one.
+     */
+    public LargePayloadException(Exception e) {
+        super(e);
+    }
+
+    /**
+     * Constructor with the given exception and message.
+     * 
+     * @param sMessage The message to place in the exception.
+     * @param e The exception that triggered this one.
+     */
+    public LargePayloadException(String sMessage, Exception e) {
+        super(sMessage, e);
+    }
+
+    /**
+     * Constructor with a given message.
+     * 
+     * @param sMessage The message for the exception.
+     */
+    public LargePayloadException(String sMessage) {
+        super(sMessage);
     }
 }

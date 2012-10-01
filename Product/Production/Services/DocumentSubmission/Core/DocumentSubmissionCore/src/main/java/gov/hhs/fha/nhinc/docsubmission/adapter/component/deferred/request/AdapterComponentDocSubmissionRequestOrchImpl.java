@@ -26,10 +26,15 @@
  */
 package gov.hhs.fha.nhinc.docsubmission.adapter.component.deferred.request;
 
+import java.net.URI;
+import java.util.List;
+
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.largefile.LargeFileUtils;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
+import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType.Document;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -44,7 +49,7 @@ public class AdapterComponentDocSubmissionRequestOrchImpl {
     private static Log log = LogFactory.getLog(AdapterComponentDocSubmissionRequestOrchImpl.class);
 
     /**
-     * This method recieves the document information
+     * This method receives the document information
      * 
      * @param body The XDR request message
      * @param assertion The assertion information.
@@ -55,11 +60,33 @@ public class AdapterComponentDocSubmissionRequestOrchImpl {
     public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(ProvideAndRegisterDocumentSetRequestType body,
             AssertionType assertion) {
         log.debug("Entering AdapterComponentXDRRequestOrchImpl.provideAndRegisterDocumentSetBRequest");
+        
+        processRequest(body);
+        
         XDRAcknowledgementType response = new XDRAcknowledgementType();
         RegistryResponseType regResp = new RegistryResponseType();
         regResp.setStatus(NhincConstants.XDR_ACK_STATUS_MSG);
         response.setMessage(regResp);
-
+               
         return response;
+    }
+    
+    private void processRequest(ProvideAndRegisterDocumentSetRequestType body) {
+        LargeFileUtils fileUtils = LargeFileUtils.getInstance();
+        List<Document> docList = body.getDocument();
+        for (Document doc : docList) {
+            try {
+                if (fileUtils.isParsePayloadAsFileLocationEnabled()) {
+                    URI payloadURI = fileUtils.parseBase64DataAsUri(doc.getValue());
+                    log.debug("Payload Location ===> " + payloadURI.toString());
+                } else {
+                    log.debug("Closing request input streams.");
+                    LargeFileUtils.getInstance().closeStreamWithoutException(
+                            doc.getValue().getDataSource().getInputStream());
+                }
+            } catch (Exception ioe) {
+                log.error("Failed to close input stream", ioe);
+            }
+        }
     }
 }
