@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Deferred Queue Manager WSDL
+  -->
+<definitions name="DeferredQueueManager" 
+    targetNamespace="urn:gov:hhs:fha:nhinc:deferredqueuemanager"
+    xmlns="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+    xmlns:tns="urn:gov:hhs:fha:nhinc:deferredqueuemanager" 
+    xmlns:defq="urn:gov:hhs:fha:nhinc:common:deferredqueuemanager" 
+    xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" 
+    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/"
+    xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
+    >
+    <documentation>Deferred Queue Manager WSDL</documentation>
+    <types>
+        <xsd:schema targetNamespace="http://j2ee.netbeans.org/wsdl/DeferredQueueManager">
+            <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:deferredqueuemanager" schemaLocation="classpath:schemas/nhinc/common/DeferredQueueManager.xsd"/>
+        </xsd:schema>
+    </types>
+
+    <message name="DeferredQueueManagerForceProcessRequestMessage">
+        <part name="DeferredQueueManagerForceProcessRequest" element="defq:DeferredQueueManagerForceProcessRequest"/>
+    </message>
+    <message name="DeferredQueueManagerForceProcessResponseMessage">
+        <part name="DeferredQueueManagerForceProcessResponse" element="defq:DeferredQueueManagerForceProcessResponse"/>
+    </message>
+
+    <message name="QueryDeferredQueueRequestMessage">
+        <part name="QueryDeferredQueueRequest" element="defq:QueryDeferredQueueRequest"/>
+    </message>
+    <message name="QueryDeferredQueueResponseMessage">
+        <part name="QueryDeferredQueueResponse" element="defq:QueryDeferredQueueResponse"/>
+    </message>
+
+    <message name="RetrieveDeferredQueueRequestMessage">
+        <part name="RetrieveDeferredQueueRequest" element="defq:RetrieveDeferredQueueRequest"/>
+    </message>
+    <message name="RetrieveDeferredQueueResponseMessage">
+        <part name="RetrieveDeferredQueueResponse" element="defq:RetrieveDeferredQueueResponse"/>
+    </message>
+
+    <message name="DeferredQueueStatisticsRequestMessage">
+        <part name="DeferredQueueStatisticsRequest" element="defq:DeferredQueueStatisticsRequest"/>
+    </message>
+    <message name="DeferredQueueStatisticsResponseMessage">
+        <part name="DeferredQueueStatisticsResponse" element="defq:DeferredQueueStatisticsResponse"/>
+    </message>
+
+    <portType name="DeferredQueueManagerPortType">
+        <operation name="ForceProcessOnDeferredQueue">
+            <input name="ForceProcessOnDeferredQueueRequest" message="tns:DeferredQueueManagerForceProcessRequestMessage" wsaw:Action="urn:gov:hhs:fha:nhinc:deferredqueuemanager.ForceProcessOnDeferredQueueRequest"/>
+            <output name="ForceProcessOnDeferredQueueResponse" message="tns:DeferredQueueManagerForceProcessResponseMessage" wsaw:Action="urn:gov:hhs:fha:nhinc:deferredqueuemanager.ForceProcessOnDeferredQueueResponse"/>
+        </operation>
+        <operation name="ForceProcessOnDeferredRequest">
+            <input name="ForceProcessOnDeferredRequestRequest" message="tns:DeferredQueueManagerForceProcessRequestMessage" wsaw:Action="urn:gov:hhs:fha:nhinc:deferredqueuemanager.ForceProcessOnDeferredRequestRequest"/>
+            <output name="ForceProcessOnDeferredRequestResponse" message="tns:DeferredQueueManagerForceProcessResponseMessage" wsaw:Action="urn:gov:hhs:fha:nhinc:deferredqueuemanager.ForceProcessOnDeferredRequestResponse"/>
+        </operation>
+        <operation name="QueryDeferredQueue">
+            <input name="QueryDeferredQueueRequest" message="tns:QueryDeferredQueueRequestMessage" wsaw:Action="urn:gov:hhs:fha:nhinc:deferredqueuemanager.QueryDeferredQueueRequest"/>
+            <output name="QueryDeferredQueueResponse" message="tns:QueryDeferredQueueResponseMessage" wsaw:Action="urn:gov:hhs:fha:nhinc:deferredqueuemanager.QueryDeferredQueueResponse"/>
+        </operation>
+        <operation name="RetrieveDeferredQueue">
+            <input name="RetrieveDeferredQueueRequest" message="tns:RetrieveDeferredQueueRequestMessage" wsaw:Action="urn:gov:hhs:fha:nhinc:deferredqueuemanager.RetrieveDeferredQueueRequest"/>
+            <output name="RetrieveDeferredQueueResponse" message="tns:RetrieveDeferredQueueResponseMessage" wsaw:Action="urn:gov:hhs:fha:nhinc:deferredqueuemanager.RetrieveDeferredQueueResponse"/>
+        </operation>
+        <operation name="DeferredQueueStatistics">
+            <input name="DeferredQueueStatisticsRequest" message="tns:DeferredQueueStatisticsRequestMessage" wsaw:Action="urn:gov:hhs:fha:nhinc:deferredqueuemanager.DeferredQueueStatisticsRequest"/>
+            <output name="DeferredQueueStatisticsResponse" message="tns:DeferredQueueStatisticsResponseMessage" wsaw:Action="urn:gov:hhs:fha:nhinc:deferredqueuemanager.DeferredQueueStatisticsResponse"/>
+        </operation>
+    </portType>
+
+    <binding name="DeferredQueueManagerBinding" type="tns:DeferredQueueManagerPortType">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <operation name="ForceProcessOnDeferredQueue">
+            <input name="ForceProcessOnDeferredQueueRequest">
+                <soap:body use="literal"/>
+            </input>
+            <output name="ForceProcessOnDeferredQueueResponse">
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="ForceProcessOnDeferredRequest">
+            <input name="ForceProcessOnDeferredRequestRequest">
+                <soap:body use="literal"/>
+            </input>
+            <output name="ForceProcessOnDeferredRequestResponse">
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="QueryDeferredQueue">
+            <input name="QueryDeferredQueueRequest">
+                <soap:body use="literal"/>
+            </input>
+            <output name="QueryDeferredQueueResponse">
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="RetrieveDeferredQueue">
+            <input name="RetrieveDeferredQueueRequest">
+                <soap:body use="literal"/>
+            </input>
+            <output name="RetrieveDeferredQueueResponse">
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="DeferredQueueStatistics">
+            <input name="DeferredQueueStatisticsRequest">
+                <soap:body use="literal"/>
+            </input>
+            <output name="DeferredQueueStatisticsResponse">
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+    </binding>
+
+    <service name="DeferredQueueManager">
+        <port name="DeferredQueueManagerPort" binding="tns:DeferredQueueManagerBinding">
+            <soap:address location="http://localhost:${DefaultHttpPort}/CONNECTAdapter/DeferredQueueManager"/>
+        </port>
+    </service>
+
+    <plnk:partnerLinkType name="DeferredQueueManager">
+        <!-- A partner link type is automatically generated when a new port 
+             type is added. Partner link types are used by BPEL processes. 
+             In a BPEL process, a partner link represents the interaction 
+             between the BPEL process and a partner service. Each partner 
+             link is associated with a partner link type.  A partner link 
+             type characterizes the conversational relationship between two 
+             services. The partner link type can have one or two roles.-->
+        <plnk:role name="DeferredQueueManagerPortTypeRole" portType="tns:DeferredQueueManagerPortType"/>
+    </plnk:partnerLinkType>
+</definitions>

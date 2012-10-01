@@ -28,6 +28,7 @@
 package gov.hhs.fha.nhinc.properties;
 
 import java.io.File;
+import java.net.URISyntaxException;
 import java.net.URL;
 
 import org.jmock.Expectations;
@@ -79,10 +80,10 @@ public class HibernateAccessorTest {
     }
     
     @Test
-    public void testGetHibernateFile() throws PropertyAccessException {   
+    public void testGetHibernateFile() throws PropertyAccessException {
         HibernateAccessor hibernateAccessor = createHibernateAccessor();
         
-        File file = hibernateAccessor.getHibernateFile(HIBERNATE_PROPERTY_FILE_NAME);        
+        File file = hibernateAccessor.getHibernateFile(HIBERNATE_PROPERTY_FILE_NAME);
         assertTrue(file.exists());
     }
     
@@ -96,13 +97,17 @@ public class HibernateAccessorTest {
     public void testGetHibernateFile_WrongFileLocation() throws PropertyAccessException {
         HibernateAccessor hibernateAccessor = createBadHibernateAccessor();
         
-        hibernateAccessor.getHibernateFile(HIBERNATE_PROPERTY_FILE_NAME);     
+        hibernateAccessor.getHibernateFile(HIBERNATE_PROPERTY_FILE_NAME);
     }
     
-    private String getAbsolutePathFileLocation(String filename) {     
+    private String getAbsolutePathFileLocation(String filename) {
         URL url = this.getClass().getResource(filename);
         
-        return url.getFile();
+        try {
+            return new File(url.toURI()).getAbsolutePath();
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
     }
         
     private HibernateAccessor createHibernateAccessor() throws PropertyAccessException {
@@ -122,7 +127,4 @@ public class HibernateAccessorTest {
             }
         };
     }
-    
-    
-    
 }
