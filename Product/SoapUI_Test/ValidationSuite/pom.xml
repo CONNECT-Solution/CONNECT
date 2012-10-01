@@ -67,37 +67,29 @@
                     </dependency>
                     <dependency>
                         <groupId>org.connectopensource</groupId>
-                        <artifactId>DocumentQueryCore</artifactId>
-                        <version>${project.version}</version>
-                        <exclusions>
-                            <exclusion>
-                                <groupId>org.connectopensource</groupId>
-                                <artifactId>CONNECTCoreLib</artifactId>
-                            </exclusion>
-                            <exclusion>
-                                <groupId>org.slf4j</groupId>
-                                <artifactId>slf4j-log4j12</artifactId>
-                            </exclusion>
-                            <exclusion>
-                                <groupId>org.slf4j</groupId>
-                                <artifactId>log4j-over-slf4j</artifactId>
-                            </exclusion>
-                            <exclusion>
-                                <groupId>javax.jms</groupId>
-                                <artifactId>jms</artifactId>
-                            </exclusion>
-                            <exclusion>
-                                <groupId>javax</groupId>
-                                <artifactId>javaee-api</artifactId>
-                            </exclusion>
-                        </exclusions>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.connectopensource</groupId>
                         <artifactId>CONNECTCommonTypesLib</artifactId>
                         <version>${project.version}</version>
                     </dependency>
                 </dependencies>
+                <configuration>
+                    <settingsFile>${basedir}/src/main/resources/soapui-settings.xml</settingsFile>
+                    <outputFolder>${basedir}/target/soapui/output/</outputFolder>
+                    <soapuiProperties>
+                        <property>
+                            <name>NHINC_PROPERTIES_DIR</name>
+                            <value>${project.build.testOutputDirectory}</value>
+                        </property>
+                        <property>
+                            <name>soapui.logroot</name>
+                            <value>${project.build.directory}/soapui/my_custon_logs/</value>
+                        </property>
+                    </soapuiProperties>
+                    <printReport>true</printReport>
+                    <junitReport>true</junitReport>
+                    <coverage>true</coverage>
+                    <testFailIgnore>true</testFailIgnore>
+                    <saveAfterRun>false</saveAfterRun>
+                </configuration>
                 <executions>
                     <execution>
                         <id>EntityValidation-soapui-project.xml</id>
@@ -107,19 +99,7 @@
                         </goals>
                         <configuration>
                             <projectFile>EntityValidation-soapui-project.xml</projectFile>
-                            <settingsFile>${basedir}/src/main/resources/soapui-settings.xml</settingsFile>
-                            <host>http://127.0.0.1:8080</host>
-                            <outputFolder>${basedir}/target/soapui/output/</outputFolder>
-                            <soapuiProperties>
-                                <property>
-                                    <name>NHINC_PROPERTIES_DIR</name>
-                                    <value>${project.build.testOutputDirectory}</value>
-                                </property>
-                                <property>
-                                    <name>soapui.logroot</name>
-                                    <value>${project.build.directory}/soapui/my_custon_logs/</value>
-                                </property>
-                            </soapuiProperties>
+                            <outputFolder>${basedir}/target/soapui/output/EntityValidation</outputFolder>
                             <globalProperties>
                                 <value>project.name=EntityValidation</value>
                             </globalProperties>
@@ -136,24 +116,12 @@
                         </goals>
                         <configuration>
                             <projectFile>MsgProxyValidation-soapui-project.xml</projectFile>
-                            <settingsFile>${basedir}/src/main/resources/soapui-settings.xml</settingsFile>
-                            <host>http://127.0.0.1:8080</host>
-                            <outputFolder>${basedir}/target/soapui/output/</outputFolder>
-                            <soapuiProperties>
-                                <property>
-                                    <name>NHINC_PROPERTIES_DIR</name>
-                                    <value>${project.build.testOutputDirectory}</value>
-                                </property>
-                                <property>
-                                    <name>soapui.logroot</name>
-                                    <value>${project.build.directory}/soapui/my_custon_logs/</value>
-                                </property>
-                            </soapuiProperties>
+                            <outputFolder>${basedir}/target/soapui/output/MsgProxyValidation</outputFolder>
                             <globalProperties>
-                                <value>project.name=1-MsgProxyValidation</value>
+                                <value>project.name=MsgProxyValidation</value>
                             </globalProperties>
                             <projectProperties>
-                                <value>project.name=1-MsgProxyValidation</value>
+                                <value>project.name=MsgProxyValidation</value>
                             </projectProperties>
                         </configuration>
                     </execution>
@@ -165,19 +133,7 @@
                         </goals>
                         <configuration>
                             <projectFile>4-ConnectionManagerTest-soapui-project.xml</projectFile>
-                            <settingsFile>${basedir}/src/main/resources/soapui-settings.xml</settingsFile>
-                            <host>http://127.0.0.1:8080</host>
-                            <outputFolder>${basedir}/target/soapui/output/</outputFolder>
-                            <soapuiProperties>
-                                <property>
-                                    <name>NHINC_PROPERTIES_DIR</name>
-                                    <value>${project.build.testOutputDirectory}</value>
-                                </property>
-                                <property>
-                                    <name>soapui.logroot</name>
-                                    <value>${project.build.directory}/soapui/my_custon_logs/</value>
-                                </property>
-                            </soapuiProperties>
+                            <outputFolder>${basedir}/target/soapui/output/ConnectionManagerTest</outputFolder>
                             <globalProperties>
                                 <value>project.name=ConnectionManagerTest</value>
                             </globalProperties>
