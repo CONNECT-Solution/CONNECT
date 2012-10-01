@@ -25,26 +25,6 @@
         </testResources>
         <plugins>
             <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                <version>1.1</version>
-                <executions>
-                    <execution>
-                        <id>exportVar</id>
-                        <phase>initialize</phase>
-                        <goals>
-                            <goal>exec</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <executable>export</executable>
-                    <arguments>
-                        <argument>NHINC_PROPERTIES_DIR=${project.build.testOutputDirectory}</argument>
-                    </arguments>
-                </configuration>
-            </plugin>
-            <plugin>
                 <!-- Used to pull XSD files from the JAR -->
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
@@ -120,13 +100,13 @@
                 </dependencies>
                 <executions>
                     <execution>
-                        <id>1-InternalSelfTest_g0-soapui-project.xml</id>
+                        <id>EntityValidation-soapui-project.xml</id>
                         <phase>test</phase>
                         <goals>
                             <goal>test</goal>
                         </goals>
                         <configuration>
-                            <projectFile>1-InternalSelfTest_g0-soapui-project.xml</projectFile>
+                            <projectFile>EntityValidation-soapui-project.xml</projectFile>
                             <settingsFile>${basedir}/src/main/resources/soapui-settings.xml</settingsFile>
                             <host>http://127.0.0.1:8080</host>
                             <outputFolder>${basedir}/target/soapui/output/</outputFolder>
@@ -141,21 +121,21 @@
                                 </property>
                             </soapuiProperties>
                             <globalProperties>
-                                <value>project.name=1-InternalSelfTest_g0</value>
+                                <value>project.name=EntityValidation</value>
                             </globalProperties>
                             <projectProperties>
-                                <value>project.name=1-InternalSelfTest_g0</value>
+                                <value>project.name=EntityValidation</value>
                             </projectProperties>
                         </configuration>
                     </execution>
                     <execution>
-                        <id>1-InternalSelfTest_g1-soapui-project.xml</id>
+                        <id>MsgProxyValidation-soapui-project.xml</id>
                         <phase>test</phase>
                         <goals>
                             <goal>test</goal>
                         </goals>
                         <configuration>
-                            <projectFile>1-InternalSelfTest_g1-soapui-project.xml</projectFile>
+                            <projectFile>MsgProxyValidation-soapui-project.xml</projectFile>
                             <settingsFile>${basedir}/src/main/resources/soapui-settings.xml</settingsFile>
                             <host>http://127.0.0.1:8080</host>
                             <outputFolder>${basedir}/target/soapui/output/</outputFolder>
@@ -170,68 +150,10 @@
                                 </property>
                             </soapuiProperties>
                             <globalProperties>
-                                <value>project.name=1-InternalSelfTest_g0</value>
+                                <value>project.name=1-MsgProxyValidation</value>
                             </globalProperties>
                             <projectProperties>
-                                <value>project.name=1-InternalSelfTest_g0</value>
-                            </projectProperties>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>2-EndToEndSelfTest_g0-soapui-project.xml</id>
-                        <phase>test</phase>
-                        <goals>
-                            <goal>test</goal>
-                        </goals>
-                        <configuration>
-                            <projectFile>2-EndToEndSelfTest_g0-soapui-project.xml</projectFile>
-                            <settingsFile>${basedir}/src/main/resources/soapui-settings.xml</settingsFile>
-                            <host>http://127.0.0.1:8080</host>
-                            <outputFolder>${basedir}/target/soapui/output/</outputFolder>
-                            <soapuiProperties>
-                                <property>
-                                    <name>NHINC_PROPERTIES_DIR</name>
-                                    <value>${project.build.testOutputDirectory}</value>
-                                </property>
-                                <property>
-                                    <name>soapui.logroot</name>
-                                    <value>${project.build.directory}/soapui/my_custon_logs/</value>
-                                </property>
-                            </soapuiProperties>
-                            <globalProperties>
-                                <value>project.name=1-InternalSelfTest_g0</value>
-                            </globalProperties>
-                            <projectProperties>
-                                <value>project.name=1-InternalSelfTest_g0</value>
-                            </projectProperties>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>2-EndToEndSelfTest_g1-soapui-project.xml</id>
-                        <phase>test</phase>
-                        <goals>
-                            <goal>test</goal>
-                        </goals>
-                        <configuration>
-                            <projectFile>2-EndToEndSelfTest_g1-soapui-project.xml</projectFile>
-                            <settingsFile>${basedir}/src/main/resources/soapui-settings.xml</settingsFile>
-                            <host>http://127.0.0.1:8080</host>
-                            <outputFolder>${basedir}/target/soapui/output/</outputFolder>
-                            <soapuiProperties>
-                                <property>
-                                    <name>NHINC_PROPERTIES_DIR</name>
-                                    <value>${project.build.testOutputDirectory}</value>
-                                </property>
-                                <property>
-                                    <name>soapui.logroot</name>
-                                    <value>${project.build.directory}/soapui/my_custon_logs/</value>
-                                </property>
-                            </soapuiProperties>
-                            <globalProperties>
-                                <value>project.name=1-InternalSelfTest_g0</value>
-                            </globalProperties>
-                            <projectProperties>
-                                <value>project.name=1-InternalSelfTest_g0</value>
+                                <value>project.name=1-MsgProxyValidation</value>
                             </projectProperties>
                         </configuration>
                     </execution>
@@ -257,10 +179,10 @@
                                 </property>
                             </soapuiProperties>
                             <globalProperties>
-                                <value>project.name=1-InternalSelfTest_g0</value>
+                                <value>project.name=ConnectionManagerTest</value>
                             </globalProperties>
                             <projectProperties>
-                                <value>project.name=1-InternalSelfTest_g0</value>
+                                <value>project.name=ConnectionManagerTest</value>
                             </projectProperties>
                         </configuration>
                     </execution>
