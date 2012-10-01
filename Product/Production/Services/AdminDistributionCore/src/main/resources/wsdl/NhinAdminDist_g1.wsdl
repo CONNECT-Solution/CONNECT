@@ -12,7 +12,6 @@
     xmlns:sp="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702" 
     xmlns:sc="http://schemas.sun.com/2006/03/wss/server" 
     xmlns:wspp="http://java.sun.com/xml/ns/wsit/policy" 
-    xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype"
     xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" 
     xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
     name="NhinAdministrativeDistribution">
@@ -109,14 +108,5 @@
             </wsp:All>
         </wsp:ExactlyOne>
     </wsp:Policy>
-    <plnk:partnerLinkType name="NhinAdminDistSecured">
-        <!-- A partner link type is automatically generated when a new port type is added. 
-         Partner link types are used by BPEL processes. In a BPEL process, a partner 
-         link represents the interaction between the BPEL process and a partner service. 
-         Each partner link is associated with a partner link type. A partner link type 
-         characterizes the conversational relationship between two services. The 
-         partner link type can have one or two roles.-->
-        <plnk:role name="NhinAdminDistSecuredPortTypeRole" portType="tns:NhinAdminDistSecuredPortType"/>
-    </plnk:partnerLinkType>    
 </definitions>
 

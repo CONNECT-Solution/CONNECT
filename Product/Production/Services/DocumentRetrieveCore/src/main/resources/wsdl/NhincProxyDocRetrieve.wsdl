@@ -7,7 +7,6 @@
    xmlns:tns="urn:gov:hhs:fha:nhinc:nhincproxydocretrieve"
    xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
    xmlns:ihe="urn:ihe:iti:xds-b:2007" 
-   xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" 
    xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" 
    xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" 
    xmlns:wsoma="http://schemas.xmlsoap.org/ws/2004/09/policy/optimizedmimeserialization" 
@@ -41,7 +40,7 @@
                     message="tns:RespondingGateway_CrossGatewayRetrieveResponseMessage" wsaw:Action="urn:gov:hhs:fha:nhinc:nhincproxydocretrieve:RespondingGateway_CrossGatewayRetrieveResponse" />
         </operation>
     </portType>
-    
+
     <binding name="NhincProxyDocRetrieveBindingSoap" 
              type="tns:NhincProxyDocRetrievePortType">
         <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
@@ -56,7 +55,7 @@
             </output>
         </operation>
     </binding>
-    
+
     <service name="NhincProxyDocRetrieve">
         <port name="NhincProxyDocRetrievePortSoap" 
           binding="tns:NhincProxyDocRetrieveBindingSoap">
@@ -64,22 +63,11 @@
                location="http://localhost:${HttpDefaultPort}/Gateway/DocumentRetrieve/2_0/NhincProxyDocRetrieveUnsecured"/>
         </port>
     </service>
-    
-    <plnk:partnerLinkType name="NhincProxyDocRetrieve">
-    <!-- A partner link type is automatically generated when a new port type is added. 
-         Partner link types are used by BPEL processes. In a BPEL process, a partner 
-         link represents the interaction between the BPEL process and a partner service. 
-         Each partner link is associated with a partner link type. A partner link type 
-         characterizes the conversational relationship between two services. The 
-         partner link type can have one or two roles.-->
-        <plnk:role name="NhincProxyDocRetrievePortTypeRole" 
-               portType="tns:NhincProxyDocRetrievePortType"/>
-    </plnk:partnerLinkType>
-    
+
     <wsp:Policy wsu:Id="NhincProxyDocRetrievePolicy">
         <wsp:ExactlyOne>
             <wsp:All>
-                <wsoma:OptimizedMimeSerialization/>
+                <wsoma:OptimizedMimeSerialization wsp:Optional="true"/>
             </wsp:All>
         </wsp:ExactlyOne>
     </wsp:Policy>
