@@ -62,7 +62,8 @@ public class TransactionHandler implements SOAPHandler<SOAPMessageContext> {
     private static final QName TRANSACTION_QNAME = new QName("http://connectopensource.org/transaction/",
             "TransactionID");
     private static final Log LOG = LogFactory.getLog(TransactionHandler.class);
-    private static final String WSA_NS = "http://www.w3.org/2005/08/addressing";
+    private static final String WSA_NS_2005 = "http://www.w3.org/2005/08/addressing";
+    private static final String WSA_NS_2004 = "http://www.w3.org/2004/08/addressing";
     private static final String MESSAGE_ID = "MessageID";
     private static final String RELATESTO_ID = "RelatesTo";
 
@@ -82,8 +83,11 @@ public class TransactionHandler implements SOAPHandler<SOAPMessageContext> {
     @Override
     public boolean handleMessage(SOAPMessageContext context) {
 
+        getLogger().debug("TransactionHandler handleMessage() START ");
+        
         String messageId = null;
         String transactionId = null;
+        String currentWSA = null;
 
         SOAPMessage soapMessage = context.getMessage();
         SOAPPart soapPart = soapMessage.getSOAPPart();
@@ -91,7 +95,18 @@ public class TransactionHandler implements SOAPHandler<SOAPMessageContext> {
         try {
             soapEnvelope = soapPart.getEnvelope();
             SOAPHeader soapHeader = soapEnvelope.getHeader();
-            SOAPElement messageIdElement = getFirstChild(soapHeader, WSA_NS, MESSAGE_ID);
+            SOAPElement messageIdElement = null;
+            SOAPElement messageId05Element = getFirstChild(soapHeader, WSA_NS_2005, MESSAGE_ID);
+            
+            if (messageId05Element != null) {
+            	messageIdElement = messageId05Element;
+            	currentWSA = WSA_NS_2005;
+            } else {
+            	messageIdElement = getFirstChild(soapHeader, WSA_NS_2004, MESSAGE_ID);
+            	currentWSA = WSA_NS_2004;
+            }
+            
+            getLogger().debug("TransactionHandler handleMessage() WSA namespace = " + currentWSA);
 
             if (messageIdElement != null) {
                 messageId = messageIdElement.getTextContent();
@@ -106,7 +121,7 @@ public class TransactionHandler implements SOAPHandler<SOAPMessageContext> {
                 if (NullChecker.isNullish(transactionId)) {
                    
                     getLogger().debug("TransactionHandler.handleMessage() Looking up on RelatesTo");
-                    Iterator<SOAPElement> iter = getAllChildren(soapHeader, WSA_NS, RELATESTO_ID);
+                    Iterator<SOAPElement> iter = getAllChildren(soapHeader, currentWSA, RELATESTO_ID);
                     transactionId = iterateThroughRelatesTo(iter, messageId);
                 }
 
