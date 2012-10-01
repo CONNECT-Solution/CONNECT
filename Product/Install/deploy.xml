@@ -252,7 +252,6 @@
                                     <include name="${project.war}" />
                                 </fileset>
                             </copy>
-                            <echo message="dfunkt!"/>
                             <replace file=".ant-deploy-staging/META-INF/application.xml" token="&lt;/application&gt;" value="&lt;module&gt;${line.separator}                                    &lt;web&gt;${line.separator}                                        &lt;web-uri&gt;@{project.name}.war&lt;/web-uri&gt;${line.separator}                                        &lt;context-root&gt;@{context.root}&lt;/context-root&gt;${line.separator}                                    &lt;/web&gt;${line.separator}                                &lt;/module&gt;${line.separator}                            &lt;/application&gt;"/>
                         </then>
                     </if>
