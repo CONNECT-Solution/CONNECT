@@ -39,8 +39,8 @@ public class BeginNwhinInvocationEvent extends InitiatorEvent {
      * @param transactionID
      * @param description
      */
-    public BeginNwhinInvocationEvent(String messageID, String transactionID, String description) {
-        super(messageID, transactionID, description);
+    public BeginNwhinInvocationEvent(String messageID, String description) {
+        super(messageID, description);
     }
 
     /* (non-Javadoc)

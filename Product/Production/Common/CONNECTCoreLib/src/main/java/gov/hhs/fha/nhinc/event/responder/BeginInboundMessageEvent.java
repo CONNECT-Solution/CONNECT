@@ -39,8 +39,8 @@ public class BeginInboundMessageEvent extends ResponderEvent {
      * @param transactionID
      * @param description
      */
-    public BeginInboundMessageEvent(String messageID, String transactionID, String description) {
-        super(messageID, transactionID, description);
+    public BeginInboundMessageEvent(String messageID, String description) {
+        super(messageID, description);
     }
 
     /*

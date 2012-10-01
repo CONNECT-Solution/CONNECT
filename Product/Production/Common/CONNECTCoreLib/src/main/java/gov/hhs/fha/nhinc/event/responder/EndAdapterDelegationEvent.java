@@ -39,8 +39,8 @@ public class EndAdapterDelegationEvent extends ResponderEvent {
      * @param transactionID
      * @param description
      */
-    public EndAdapterDelegationEvent(String messageID, String transactionID, String description) {
-        super(messageID, transactionID, description);
+    public EndAdapterDelegationEvent(String messageID, String description) {
+        super(messageID, description);
     }
 
     /* (non-Javadoc)

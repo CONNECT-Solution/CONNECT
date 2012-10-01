@@ -39,8 +39,8 @@ public class EndOutboundProcessingEvent extends InitiatorEvent {
      * @param transactionID
      * @param description
      */
-    public EndOutboundProcessingEvent(String messageID, String transactionID, String description) {
-        super(messageID, transactionID, description);
+    public EndOutboundProcessingEvent(String messageID, String description) {
+        super(messageID, description);
     }
 
     /* (non-Javadoc)
