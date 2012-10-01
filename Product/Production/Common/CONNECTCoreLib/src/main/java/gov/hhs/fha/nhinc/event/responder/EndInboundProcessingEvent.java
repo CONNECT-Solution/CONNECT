@@ -39,8 +39,8 @@ public class EndInboundProcessingEvent extends ResponderEvent {
      * @param transactionID
      * @param description
      */
-    public EndInboundProcessingEvent(String messageID, String transactionID, String description) {
-        super(messageID, transactionID, description);
+    public EndInboundProcessingEvent(String messageID, String description) {
+        super(messageID, description);
     }
 
     /* (non-Javadoc)

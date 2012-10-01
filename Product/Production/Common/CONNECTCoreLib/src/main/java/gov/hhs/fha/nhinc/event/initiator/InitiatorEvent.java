@@ -36,11 +36,9 @@ abstract class InitiatorEvent implements Event {
 
     private String description;
     private String messageID;
-    private String transactionID;
 
-    public InitiatorEvent(String messageID, String transactionID, String description) {
+    public InitiatorEvent(String messageID, String description) {
         setMessageID(messageID);
-        setTransactionID(transactionID);
         setDescription(description);
     }
 
@@ -85,13 +83,7 @@ abstract class InitiatorEvent implements Event {
      */
     @Override
     public String getTransactionID() {
-        return transactionID;
-    }
-
-    /**
-     * @param transactionID
-     */
-    protected void setTransactionID(String transactionID) {
-        this.transactionID = transactionID;
+        return null;
+        //return TransactionDAO.getInstance().getTransactionID(this.messageID);
     }
 }
