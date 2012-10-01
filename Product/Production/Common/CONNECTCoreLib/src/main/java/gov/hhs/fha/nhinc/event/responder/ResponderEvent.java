@@ -36,9 +36,11 @@ public abstract class ResponderEvent implements Event {
 
     private String description;
     private String messageID;
+    private String transactionID;
 
-    public ResponderEvent(String messageID, String description) {
+    public ResponderEvent(String messageID, String transactionID, String description) {
         setMessageID(messageID);
+        setTransactionID(transactionID);
         setDescription(description);
     }
 
@@ -77,7 +79,13 @@ public abstract class ResponderEvent implements Event {
      */
     @Override
     public String getTransactionID() {
-        return null;
-        //return TransactionDAO.getInstance().getTransactionID(this.messageID);
+        return transactionID;
+    }
+
+    /**
+     * @param transactionID
+     */
+    protected void setTransactionID(String transactionID) {
+        this.transactionID = transactionID;
     }
 }

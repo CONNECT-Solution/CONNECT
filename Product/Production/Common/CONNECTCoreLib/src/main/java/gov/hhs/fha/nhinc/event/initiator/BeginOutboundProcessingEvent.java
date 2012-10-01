@@ -40,7 +40,7 @@ public class BeginOutboundProcessingEvent extends InitiatorEvent {
      * @param description
      */
     public BeginOutboundProcessingEvent(String messageID, String transactionID, String description) {
-        super(messageID, description);
+        super(messageID, transactionID, description);
     }
 
     /* (non-Javadoc)
