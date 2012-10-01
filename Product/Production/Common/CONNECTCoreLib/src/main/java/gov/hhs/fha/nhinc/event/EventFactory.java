@@ -35,8 +35,13 @@ import java.lang.reflect.InvocationTargetException;
  */
 public class EventFactory {
 
+
     /**
-     *
+     * @param clazz the Event Class from which to create an event
+     * @param messageID the messageID
+     * @param transactionID the transactionID
+     * @param description the description
+     * @return an Event
      */
     public static Event createEvent(Class<?> clazz, String messageID, String transactionID, String description) {
         if (Event.class.isAssignableFrom(clazz)){

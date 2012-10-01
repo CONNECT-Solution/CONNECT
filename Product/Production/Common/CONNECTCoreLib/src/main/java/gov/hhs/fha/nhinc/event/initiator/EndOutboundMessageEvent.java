@@ -24,13 +24,13 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.event.request;
+package gov.hhs.fha.nhinc.event.initiator;
 
 /**
  * @author zmelnick
  *
  */
-public class EndOutboundMessageEvent extends RequestEvent {
+public class EndOutboundMessageEvent extends InitiatorEvent {
 
     private static final String EVENT_NAME = "END_OUTBOUND_MESSAGE";
 

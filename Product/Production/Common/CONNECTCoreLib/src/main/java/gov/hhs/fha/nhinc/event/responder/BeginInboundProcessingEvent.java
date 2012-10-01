@@ -24,13 +24,13 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.event.response;
+package gov.hhs.fha.nhinc.event.responder;
 
 /**
  * @author zmelnick
  *
  */
-public class BeginInboundProcessingEvent extends ResponseEvent {
+public class BeginInboundProcessingEvent extends ResponderEvent {
 
     private static final String EVENT_NAME = "BEGIN_INBOUND_PROCESSING";
 

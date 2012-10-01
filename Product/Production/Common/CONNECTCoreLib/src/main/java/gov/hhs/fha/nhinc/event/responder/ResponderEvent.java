@@ -32,7 +32,7 @@ import gov.hhs.fha.nhinc.event.Event;
  * @author zmelnick
  *
  */
-abstract class ResponderEvent implements Event {
+public abstract class ResponderEvent implements Event {
 
     private String description;
     private String messageID;

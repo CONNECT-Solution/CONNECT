@@ -32,7 +32,7 @@ import gov.hhs.fha.nhinc.event.Event;
  * @author zmelnick
  *
  */
-public abstract class ErrorEvent implements Event {
+abstract class ErrorEvent implements Event {
 
     private String description;
     private String messageID;
