@@ -3,9 +3,14 @@
  */
 package gov.hhs.fha.nhinc.connectmgr.nhinendpointmanager;
 
+import static org.junit.Assert.assertTrue;
+
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.Test;
+
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.NHIN_SERVICE_NAMES;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.UDDI_SPEC_VERSION;
 
@@ -49,6 +54,24 @@ public class PDNhinEndpointManagerMockTest extends AbstractNhinEndpointManagerMo
         
         expectConnectionManagerCache(list);
     }
+    
+    protected void expectConnectionManagerCacheMisconfiguration() {
+        List<UDDI_SPEC_VERSION> list = new ArrayList<UDDI_SPEC_VERSION>();
+        list.add(UDDI_SPEC_VERSION.SPEC_3_0);
+        
+        expectConnectionManagerCache(list);
+    }
 
+    /**
+     * Test misconfigured target
+     */
+    @Test
+    public void testTargetIsMisconfigured() {
+        expectConnectionManagerCacheMisconfiguration();
+        
+        GATEWAY_API_LEVEL level = mockNhinEndpointManager.getApiVersion(HCID, getService());
+        assertTrue(level == GATEWAY_API_LEVEL.LEVEL_g1);
+        context.assertIsSatisfied();
+    }
 
 }
