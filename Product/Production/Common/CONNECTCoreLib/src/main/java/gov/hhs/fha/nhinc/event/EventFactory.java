@@ -43,16 +43,17 @@ public class EventFactory {
      * @param description the description
      * @return an Event
      */
-    public static Event createEvent(Class<?> clazz, String messageID, String description) {
+    public static Event createEvent(Class<?> clazz, String messageID, String transactionID, String description) {
         if (Event.class.isAssignableFrom(clazz)){
             try {
-                return (Event) clazz.getConstructor(String.class, String.class).newInstance(messageID, description);
+                return (Event) clazz.getConstructor(String.class, String.class, String.class).newInstance(messageID, transactionID, description);
             } catch (InstantiationException | IllegalAccessException | IllegalArgumentException
                     | InvocationTargetException | NoSuchMethodException | SecurityException e) {
                 e.printStackTrace();
             }
         }
         return null;
+
     }
 
 }
