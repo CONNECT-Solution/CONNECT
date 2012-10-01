@@ -97,43 +97,27 @@
             <fileset dir="${basedir}" includes="soapui*.log" />
         </delete>
         <delete dir="${validation.test.results.basedir}" />
-        <mkdir dir="${validation.test.results.basedir}/g0" />
-        <mkdir dir="${validation.test.results.basedir}/g1" />
         <copy todir="${soapui.bin}/ext" overwrite="true">
             <fileset dir="${basedir}/ThirdParty/MySQLDB">
                 <include name="mysql-connector-java-*-bin.jar" />
             </fileset>
         </copy>
-        <exec executable="${soapui.bin}/${soapui.executable}" vmlauncher="false" failonerror="false" failifexecutionfails="true" resultproperty="soapui.result.1-InternalSelfTest_g0">
+        <exec executable="${soapui.bin}/${soapui.executable}" vmlauncher="false" failonerror="false" failifexecutionfails="true" resultproperty="soapui.result.MsgProxyValidation">
             <env key="NHINC_PROPERTIES_DIR" value="${glassfish.home}/domains/domain1/config/nhin" />
-            <arg line="-j -a -f ${validation.test.results.basedir}/g0 -t ${soapui.settings.file} -r ${basedir}/ValidationSuite/1-InternalSelfTest_g0-soapui-project.xml" />
+            <arg line="-j -a -f ${validation.test.results.basedir} -t ${soapui.settings.file} -r ${basedir}/ValidationSuite/MsgProxyValidation-soapui-project.xml" />
         </exec>
-        <exec executable="${soapui.bin}/${soapui.executable}" vmlauncher="false" failonerror="false" failifexecutionfails="true" resultproperty="soapui.result.2-EndToEndSelfTest_g0">
+        <exec executable="${soapui.bin}/${soapui.executable}" vmlauncher="false" failonerror="false" failifexecutionfails="true" resultproperty="soapui.result.EntityValidation">
             <env key="NHINC_PROPERTIES_DIR" value="${glassfish.home}/domains/domain1/config/nhin" />
-            <arg line="-j -a -f ${validation.test.results.basedir}/g0 -t ${soapui.settings.file} -r ${basedir}/ValidationSuite/2-EndToEndSelfTest_g0-soapui-project.xml" />
-        </exec>
-        <exec executable="${soapui.bin}/${soapui.executable}" vmlauncher="false" failonerror="false" failifexecutionfails="true" resultproperty="soapui.result.1-InternalSelfTest_g1">
-            <env key="NHINC_PROPERTIES_DIR" value="${glassfish.home}/domains/domain1/config/nhin" />
-            <arg line="-j -a -f ${validation.test.results.basedir}/g1 -t ${soapui.settings.file} -r ${basedir}/ValidationSuite/1-InternalSelfTest_g1-soapui-project.xml" />
-        </exec>
-        <exec executable="${soapui.bin}/${soapui.executable}" vmlauncher="false" failonerror="false" failifexecutionfails="true" resultproperty="soapui.result.2-EndToEndSelfTest_g1">
-            <env key="NHINC_PROPERTIES_DIR" value="${glassfish.home}/domains/domain1/config/nhin" />
-            <arg line="-j -a -f ${validation.test.results.basedir}/g1 -t ${soapui.settings.file} -r ${basedir}/ValidationSuite/2-EndToEndSelfTest_g1-soapui-project.xml" />
+            <arg line="-j -a -f ${validation.test.results.basedir} -t ${soapui.settings.file} -r ${basedir}/ValidationSuite/EntityValidation-soapui-project.xml" />
         </exec>
         <antcall target="stop.glassfish" />
         <condition property="validation.failures.detected">
             <or>
                 <not>
-                    <equals arg1="${soapui.result.1-InternalSelfTest_g0}" arg2="0" />
+                    <equals arg1="${soapui.result.MsgProxyValidation}" arg2="0" />
                 </not>
                 <not>
-                    <equals arg1="${soapui.result.2-EndToEndSelfTest_g0}" arg2="0" />
-                </not>
-                <not>
-                    <equals arg1="${soapui.result.1-InternalSelfTest_g1}" arg2="0" />
-                </not>
-                <not>
-                    <equals arg1="${soapui.result.2-EndToEndSelfTest_g1}" arg2="0" />
+                    <equals arg1="${soapui.result.EntityValidation}" arg2="0" />
                 </not>
             </or>
         </condition>

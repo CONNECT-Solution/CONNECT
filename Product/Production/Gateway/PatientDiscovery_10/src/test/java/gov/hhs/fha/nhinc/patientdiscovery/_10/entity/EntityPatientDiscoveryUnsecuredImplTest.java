@@ -268,11 +268,6 @@ public class EntityPatientDiscoveryUnsecuredImplTest {
             context.checking(new Expectations() {
                 {
                     allowing(mockLog).debug(with(aNonNull(String.class)));
-                    oneOf(mockPerformanceManager).logPerformanceStart(with(aNonNull(Timestamp.class)),
-                            with(aNonNull(String.class)), with(aNonNull(String.class)), with(aNonNull(String.class)),
-                            with(aNonNull(String.class)));
-                    oneOf(mockPerformanceManager).logPerformanceStop(with(aNonNull(Long.class)),
-                            with(aNonNull(Timestamp.class)), with(aNonNull(Timestamp.class)));
                 }
             });
 
