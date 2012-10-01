@@ -26,14 +26,11 @@
  */
 package gov.hhs.fha.nhinc.admindistribution.nhin.proxy;
 
-import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
+import gov.hhs.fha.nhinc.admindistribution.AdminDistributionAuditLogger;
 import gov.hhs.fha.nhinc.admindistribution.AdminDistributionHelper;
 import gov.hhs.fha.nhinc.admindistribution.nhin.proxy.service.NhinAdminDistributionG0ServicePortDescriptor;
 import gov.hhs.fha.nhinc.admindistribution.nhin.proxy.service.NhinAdminDistributionG1ServicePortDescriptor;
+import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTCXFClientFactory;
@@ -44,12 +41,21 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 
+import javax.xml.ws.BindingProvider;
+
+import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 /**
  *
  * @author dunnek
  */
 public class NhinAdminDistributionProxyWebServiceSecuredImpl implements NhinAdminDistributionProxy {
     private Log log = null;
+    private AdminDistributionAuditLogger adLogger = null;
+
 
     public NhinAdminDistributionProxyWebServiceSecuredImpl() {
         log = createLogger();
@@ -92,12 +98,22 @@ public class NhinAdminDistributionProxyWebServiceSecuredImpl implements NhinAdmi
         String url = helper.getUrl(target, NhincConstants.NHIN_ADMIN_DIST_SERVICE_NAME, apiLevel);
 
         if (NullChecker.isNotNullish(url)) {
+            
+            
+            auditMessage(body, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
+            
             try {
                 ServicePortDescriptor<RespondingGatewayAdministrativeDistributionPortType> portDescriptor =
                         getServicePortDescriptor(apiLevel);
 
                 CONNECTClient<RespondingGatewayAdministrativeDistributionPortType> client = getCONNECTClientSecured(
                         portDescriptor, url, assertion);
+
+                WebServiceProxyHelper wsHelper = new WebServiceProxyHelper();
+                wsHelper.addTargetCommunity((BindingProvider) client.getPort(), target);
+                wsHelper.addTargetApiLevel((BindingProvider) client.getPort(), apiLevel);
+                wsHelper.addServiceName((BindingProvider) client.getPort(), 
+                        NhincConstants.NHIN_ADMIN_DIST_SERVICE_NAME);
 
                 client.invokePort(RespondingGatewayAdministrativeDistributionPortType.class, "sendAlertMessage", body);
             } catch (Exception ex) {
@@ -108,6 +124,17 @@ public class NhinAdminDistributionProxyWebServiceSecuredImpl implements NhinAdmi
             log.error("Failed to call the web service (" + NhincConstants.ADAPTER_ADMIN_DIST_SERVICE_NAME
                     + ").  The URL is null.");
         }
+    }
+
+    protected void auditMessage(EDXLDistribution message, AssertionType assertion, String direction) {
+        AcknowledgementType ack = getLogger().auditNhinAdminDist(message, assertion, direction, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
+        if (ack != null) {
+            log.debug("ack: " + ack.getMessage());
+        }
+    }
+
+    protected AdminDistributionAuditLogger getLogger() {
+        return (adLogger != null) ? adLogger : new AdminDistributionAuditLogger();
     }
 
 }

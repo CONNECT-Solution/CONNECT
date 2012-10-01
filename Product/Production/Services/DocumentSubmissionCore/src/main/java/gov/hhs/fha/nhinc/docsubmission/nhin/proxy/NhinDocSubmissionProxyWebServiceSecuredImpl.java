@@ -26,6 +26,8 @@
  */
 package gov.hhs.fha.nhinc.docsubmission.nhin.proxy;
 
+import javax.xml.ws.BindingProvider;
+
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.docsubmission.nhin.proxy.service.NhinDocSubmission20ServicePortDescriptor;
@@ -83,6 +85,12 @@ public class NhinDocSubmissionProxyWebServiceSecuredImpl implements NhinDocSubmi
 
             CONNECTClient<DocumentRepositoryXDRPortType> client = CONNECTCXFClientFactory.getInstance()
                     .getCONNECTClientSecured(portDescriptor, url, assertion);
+
+            WebServiceProxyHelper wsHelper = new WebServiceProxyHelper();
+            wsHelper.addTargetCommunity((BindingProvider) client.getPort(), targetSystem);
+            wsHelper.addServiceName((BindingProvider) client.getPort(), 
+                    NhincConstants.NHINC_XDR_SERVICE_NAME);
+            
 
             response = (RegistryResponseType) client.invokePort(DocumentRepositoryXDRPortType.class,
                     "documentRepositoryProvideAndRegisterDocumentSetB", request);

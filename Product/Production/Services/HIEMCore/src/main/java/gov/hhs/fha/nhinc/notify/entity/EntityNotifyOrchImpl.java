@@ -102,6 +102,9 @@ public class EntityNotifyOrchImpl {
 
         log.debug("Received Notify: " + rawNotifyXml);
 
+        auditInputMessage(notify, assertion,
+                NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE);
+        
         NodeList notificationMessageNodes = getNotificationMessageNodes(rawNotifyXml);
         if (notificationMessageNodes != null) {
             for (int i = 0; i < notificationMessageNodes.getLength(); i++) {
@@ -381,5 +384,35 @@ public class EntityNotifyOrchImpl {
         }
 
         return false;
+    }
+    
+    /**
+    * Create a generic log for Input messages.
+    * @param notify The notify message to be audited
+    * @param assertion The assertion element to be audited
+    * @param direction The direction of the log to be audited (Inbound or Outbound)
+    * @param logInterface The interface of the log to be audited (NHIN or Adapter)
+    */
+    private void auditInputMessage(Notify notify, AssertionType assertion, String direction,
+            String logInterface) {
+        log.debug("In NhinHiemNotifyWebServiceProxy.auditInputMessage");
+        try {
+            AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
+
+            gov.hhs.fha.nhinc.common.nhinccommoninternalorch.NotifyRequestType message = new gov.hhs.fha.nhinc.common.nhinccommoninternalorch.NotifyRequestType();
+            message.setAssertion(assertion);
+            message.setNotify(notify);
+
+            LogEventRequestType auditLogMsg = auditLogger.logNhinNotifyRequest(message,
+                    direction, logInterface);
+
+            if (auditLogMsg != null) {
+                AuditRepositoryProxyObjectFactory auditRepoFactory = new AuditRepositoryProxyObjectFactory();
+                AuditRepositoryProxy proxy = auditRepoFactory.getAuditRepositoryProxy();
+                proxy.auditLog(auditLogMsg, assertion);
+            }
+        } catch (Throwable t) {
+            log.error("Error logging subscribe message: " + t.getMessage(), t);
+        }
     }
 }

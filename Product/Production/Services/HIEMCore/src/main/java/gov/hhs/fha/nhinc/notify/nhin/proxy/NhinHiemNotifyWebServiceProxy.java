@@ -35,8 +35,12 @@ import gov.hhs.fha.nhinc.messaging.client.CONNECTCXFClientFactory;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.notify.nhin.proxy.service.NhinHiemNotifyServicePortDescriptor;
+import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
+
+import javax.xml.ws.BindingProvider;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -82,6 +86,13 @@ public class NhinHiemNotifyWebServiceProxy implements NhinHiemNotifyProxy {
                 CONNECTClient<NotificationConsumer> client = getCONNECTClientSecured(portDescriptor, url, assertion,
                         wsAddressingTo);
 
+                WebServiceProxyHelper wsHelper = new WebServiceProxyHelper();                
+                wsHelper.addTargetCommunity((BindingProvider) client.getPort(), target);
+                wsHelper.addTargetApiLevel((BindingProvider) client.getPort(), GATEWAY_API_LEVEL.LEVEL_g0);
+                wsHelper.addServiceName((BindingProvider) client.getPort(), 
+                        NhincConstants.HIEM_NOTIFY_SERVICE_NAME);
+
+                
                 client.invokePort(NotificationConsumer.class, "notify", notify);
             }
         } catch (Throwable t) {

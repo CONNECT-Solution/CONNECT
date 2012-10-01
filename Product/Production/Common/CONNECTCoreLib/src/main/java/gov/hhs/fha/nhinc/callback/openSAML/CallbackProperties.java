@@ -3,87 +3,191 @@
  */
 package gov.hhs.fha.nhinc.callback.openSAML;
 
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
+
 import java.util.List;
 
 import org.joda.time.DateTime;
 
 /**
  * @author bhumphrey
- *
+ * 
  */
 public interface CallbackProperties {
 
-	/**
-	 * @return AssertionIssuerFormat
-	 */
-	public abstract String getAssertionIssuerFormat();
+    /**
+     * @return AssertionIssuerFormat
+     */
+    public String getAssertionIssuerFormat();
 
-	/**
-	 * @return The Issuer
-	 */
-	public abstract String getIssuer();
+    /**
+     * @return The Issuer
+     */
+    public String getIssuer();
 
-	/**
-	 * @return The Username
-	 */
-	public abstract String getUsername();
+    /**
+     * @return The Username
+     */
+    public String getUsername();
 
-	public abstract String getAuthenicationContextClass();
+    /**
+     * @return Authentication Context Class
+     */
+    public String getAuthenticationContextClass();
 
-	public abstract String getAuthenicationSessionIndex();
+    /**
+     * @return Authentication Session Index
+     */
+    public String getAuthenticationSessionIndex();
 
-	public abstract DateTime getAuthenicationInstant();
+    /**
+     * @return Authentication Instant
+     */
+    public DateTime getAuthenticationInstant();
 
-	public abstract String getSubjectLocality();
+    /**
+     * @return Subject Locality
+     */
+    public String getSubjectLocality();
 
-	public abstract String getSubjectDNS();
+    /**
+     * @return Subject DNS
+     */
+    public String getSubjectDNS();
 
-	public abstract Boolean getAuthenicationStatementExists();
+    /**
+     * @return Authenication Statement Exists
+     */
+    public Boolean getAuthenicationStatementExists();
 
-	public abstract String getAuthnicationResource();
+    /**
+     * @return Authnication Resource
+     */
+    public String getAuthnicationResource();
 
-	public abstract String getAuthenicationDecision();
+    /**
+     * @return Authenication Decision
+     */
+    public String getAuthenicationDecision();
 
-	public abstract String getEvidenceID();
+    /**
+     * @return Evidence ID
+     */ 
+    public String getEvidenceID();
 
-	public abstract DateTime getEvidenceInstant();
+    /**
+     * @return Evidence Instant
+     */
+    public DateTime getEvidenceInstant();
 
-	public abstract String getEvidenceIssuerFormat();
+    /**
+     * @return Evidence Issuer Format
+     */
+    public String getEvidenceIssuerFormat();
 
-	public abstract String getEvidenceIssuer();
+    /**
+     * @return Evidence Issuer
+     */
+    public String getEvidenceIssuer();
 
-	public abstract DateTime getEvidenceConditionNotBefore();
+    /**
+     * @return Evidence Condition Not Before
+     */
+    public DateTime getEvidenceConditionNotBefore();
 
-	public abstract DateTime getEvidenceConditionNotAfter();
+    /**
+     * @return Evidence Condition Not After
+     */
+    public DateTime getEvidenceConditionNotAfter();
 
-	public abstract List getEvidenceAccessConstent();
+    /**
+     * @return Evidence Access Constent
+     */
+    public List<Object> getEvidenceAccessConstent();
 
-	public abstract List getEvidenceInstantAccessConsent();
-	
-	public abstract String getEvidenceSubject();
+    /**
+     * @return Evidence Instant Access Consent
+     */
+    public List<Object> getEvidenceInstantAccessConsent();
 
-	public abstract String getUserCode();
+    /**
+     * @return Evidence Subject
+     */
+    public String getEvidenceSubject();
 
-	public abstract String getUserSystem();
+    /**
+     * @return User Code
+     */
+    public String getUserCode();
 
-	public abstract String getUserSystemName();
+    /**
+     * @return User System
+     */
+    public String getUserSystem();
 
-	public abstract String getUserDisplay();
+    /**
+     * @return User System Name
+     */
+    public String getUserSystemName();
 
-	public abstract String getPurposeCode();
+    /**
+     * @return User Display
+     */
+    public String getUserDisplay();
 
-	public abstract String getPurposeSystem();
+    /**
+     * @return Purpose Code
+     */
+    public String getPurposeCode();
 
-	public abstract String getPurposeSystemName();
+    /**
+     * @return Purpose System
+     */
+    public String getPurposeSystem();
 
-	public abstract String getPurposeDisplay();
+    /**
+     * @return Purpose System Name
+     */
+    public String getPurposeSystemName();
 
-	public abstract String getUserOrganization();
+    /**
+     * @return Purpose Display
+     */
+    public String getPurposeDisplay();
 
-	public abstract String getHomeCommunity();
+    /**
+     * @return User Organization
+     */
+    public String getUserOrganization();
 
-	public abstract String getPatientID();
+    /**
+     * @return Home Community
+     */
+    public String getHomeCommunity();
 
-	public abstract String getUserFullName();
+    /**
+     * @return Patient ID
+     */
+    public String getPatientID();
+
+    /**
+     * @return user's full name
+     */
+    public String getUserFullName();
+
+    /**
+     * @return Target Home Community ID (HCID)
+     */
+    public String getTargetHomeCommunityId();
+
+    /**
+     * @return Service Name
+     */
+    public String getAction();
+
+    /**
+     * @return Target API Level
+     */
+    public GATEWAY_API_LEVEL getTargetApiLevel();
 
 }

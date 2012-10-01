@@ -87,6 +87,7 @@ public class PropertyAccessor implements IPropertyAcessor {
      * @param propertyName This is the name of the property within the property file.
      * @throws PropertyAccessException This is thrown if an error occurs accessing the property.
      */
+    @Override
     public synchronized String getProperty(String propertyFile, String propertyName) throws PropertyAccessException {                
         validateInput(propertyFile, propertyName);
         checkForRefreshAndLoad(propertyFile);

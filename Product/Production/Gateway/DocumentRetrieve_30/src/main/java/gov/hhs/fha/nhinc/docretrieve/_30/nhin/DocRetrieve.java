@@ -22,6 +22,11 @@ public class DocRetrieve implements ihe.iti.xds_b._2007.RespondingGatewayRetriev
     @Resource
     private WebServiceContext context;
 
+    /**
+     * The web service implementation for Document Retrieve.
+     * @param body the message of the request
+     * @return the document set of the retrieve
+     */
     public ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(
             ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType body) {
         return (new DocRetrieveImpl().respondingGatewayCrossGatewayRetrieve(body, context));

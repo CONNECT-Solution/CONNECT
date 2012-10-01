@@ -35,6 +35,7 @@ import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7Constants;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7DataTransformHelper;
+import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import gov.hhs.fha.nhinc.util.format.UTCDateUtil;
 
 import java.math.BigInteger;
@@ -283,24 +284,24 @@ public class HL7DbParser201306 {
 
         regEvent.setSubject1(createSubject1(patient));
 
-        regEvent.setCustodian(createCustodian(patient));
+        regEvent.setCustodian(createCustodian());
 
         return regEvent;
     }
 
-    private static MFMIMT700711UV01Custodian createCustodian(Patient patient) {
+    private static MFMIMT700711UV01Custodian createCustodian() {
         MFMIMT700711UV01Custodian result = new MFMIMT700711UV01Custodian();
         result.getTypeCode().add("CST");
-        result.setAssignedEntity(createAssignEntity(patient));
+        result.setAssignedEntity(createAssignEntity());
 
         return result;
     }
 
-    private static COCTMT090003UV01AssignedEntity createAssignEntity(Patient patient) {
+    private static COCTMT090003UV01AssignedEntity createAssignEntity() {
         COCTMT090003UV01AssignedEntity assignedEntity = new COCTMT090003UV01AssignedEntity();
         assignedEntity.setClassCode(HL7Constants.ASSIGNED_DEVICE_CLASS_CODE);
         II id = new II();
-        id.setRoot(patient.getIdentifiers().get(0).getOrganizationId());
+        id.setRoot(HomeCommunityMap.getLocalHomeCommunityId());
         assignedEntity.getId().add(id);
         CE ce = new CE();
         ce.setCode("NotHealthDataLocator");

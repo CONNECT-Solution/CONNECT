@@ -67,39 +67,11 @@
 		</xsd:sequence>
 	</xsd:complexType>
 	<xsd:element name="PIXConsumer_PRPA_IN201304UVProxySecuredRequest" type="PIXConsumer_PRPA_IN201304UVProxySecuredRequestType"/>
-	<xsd:complexType name="Proxy_PRPA_IN201305UVProxyRequestType">
-		<xsd:sequence>
-			<xsd:element ref="PRPA_IN201305UV02"/>
-			<xsd:element name="assertion" type="nccommon:AssertionType"/>
-			<xsd:element name="nhinTargetSystem" type="nccommon:NhinTargetSystemType"/>
-		</xsd:sequence>
-	</xsd:complexType>
-	<xsd:element name="Proxy_PRPA_IN201305UVProxyRequest" type="Proxy_PRPA_IN201305UVProxyRequestType"/>
-	<xsd:complexType name="Proxy_PRPA_IN201305UVProxySecuredRequestType">
-		<xsd:sequence>
-			<xsd:element ref="PRPA_IN201305UV02"/>
-			<xsd:element name="nhinTargetSystem" type="nccommon:NhinTargetSystemType"/>
-		</xsd:sequence>
-	</xsd:complexType>
-	<xsd:element name="Proxy_PRPA_IN201305UVProxySecuredRequest" type="Proxy_PRPA_IN201305UVProxySecuredRequestType"/>
 
-        <xsd:complexType name="Proxy_PRPA_IN201306UVProxyRequestType">
-		<xsd:sequence>
-			<xsd:element ref="PRPA_IN201306UV02"/>
-			<xsd:element name="assertion" type="nccommon:AssertionType"/>
-			<xsd:element name="nhinTargetSystem" type="nccommon:NhinTargetSystemType"/>
-		</xsd:sequence>
-	</xsd:complexType>
-	<xsd:element name="Proxy_PRPA_IN201306UVProxyRequest" type="Proxy_PRPA_IN201306UVProxyRequestType"/>
-	<xsd:complexType name="Proxy_PRPA_IN201306UVProxySecuredRequestType">
-		<xsd:sequence>
-			<xsd:element ref="PRPA_IN201306UV02"/>
-			<xsd:element name="nhinTargetSystem" type="nccommon:NhinTargetSystemType"/>
-		</xsd:sequence>
-	</xsd:complexType>
-	<xsd:element name="Proxy_PRPA_IN201306UVProxySecuredRequest" type="Proxy_PRPA_IN201306UVProxySecuredRequestType"/>
+    <xsd:import namespace="urn:hl7-org:v3" schemaLocation="Proxy_PRPA_IN201305UVProxyRequest.xsd"/>
+    <xsd:import namespace="urn:hl7-org:v3" schemaLocation="Proxy_PRPA_IN201306UVProxyRequest.xsd"/>
 	
-        <xsd:complexType name="PIXConsumer_PRPA_IN201309UVProxyRequestType">
+    <xsd:complexType name="PIXConsumer_PRPA_IN201309UVProxyRequestType">
 		<xsd:sequence>
 			<xsd:element ref="PRPA_IN201309UV02"/>
 			<xsd:element name="assertion" type="nccommon:AssertionType"/>

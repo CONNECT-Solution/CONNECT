@@ -76,7 +76,7 @@ public class NhinDocSubmissionDeferredRequestOrchImplTest {
     @Test
     public void testProvideAndRegisterDocumentSetB() throws PropertyAccessException {
         allowAnyMockLogging();
-        expect2MockAudits();
+        expect4MockAudits();
         setMockPropertyAccessorToReturnValidHcid();
         setMockPassthruMode(false);
         setMockPolicyCheck(true);
@@ -108,7 +108,7 @@ public class NhinDocSubmissionDeferredRequestOrchImplTest {
     @Test
     public void testProvideAndRegisterDocumentSetB_passthru() throws PropertyAccessException {
         allowAnyMockLogging();
-        expect2MockAudits();
+        expect4MockAudits();
         setMockPassthruMode(true);
         expectMockProxyInvocationAndReturnValidResponse();
 
@@ -197,6 +197,24 @@ public class NhinDocSubmissionDeferredRequestOrchImplTest {
         });
     }
 
+    private void expect4MockAudits() {
+        context.checking(new Expectations() {
+            {
+                oneOf(mockXDRLog).auditNhinXDR(with(any(ProvideAndRegisterDocumentSetRequestType.class)),
+                        with(any(AssertionType.class)), with(any(String.class)));
+
+                oneOf(mockXDRLog).auditAdapterXDR(with(any(ProvideAndRegisterDocumentSetRequestType.class)),
+                        with(any(AssertionType.class)), with(any(String.class)));
+
+                oneOf(mockXDRLog).auditAcknowledgement(with(any(XDRAcknowledgementType.class)),
+                        with(any(AssertionType.class)), with(any(String.class)), with(any(String.class)));
+                
+                oneOf(mockXDRLog).auditAdapterAcknowledgement(with(any(XDRAcknowledgementType.class)),
+                        with(any(AssertionType.class)), with(any(String.class)), with(any(String.class)));
+            }
+        });
+    }
+    
     private void setMockPropertyAccessorToReturnValidHcid() throws PropertyAccessException {
         context.checking(new Expectations() {
             {
