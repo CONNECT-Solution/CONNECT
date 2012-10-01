@@ -35,7 +35,7 @@ import java.util.Map;
  * @author mweaver
  *
  */
-public class ADPurposeOfForDeciderMockTest extends AbstractPurposeOfForDeciderMockBase {
+public class ADPurposeOfForDeciderMockTest extends AbstractPurposeOfForDeciderMockBaseTest {
    
     /*-----------------Setup Methods---------------*/
     

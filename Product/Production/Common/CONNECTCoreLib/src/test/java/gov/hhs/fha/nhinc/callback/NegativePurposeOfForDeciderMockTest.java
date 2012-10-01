@@ -39,7 +39,7 @@ import org.junit.Test;
  * @author mweaver
  *
  */
-public class NegativePurposeOfForDeciderMockTest extends AbstractPurposeOfForDeciderMockBase {
+public class NegativePurposeOfForDeciderMockTest extends AbstractPurposeOfForDeciderMockBaseTest {
    
     /*-----------------Setup Methods---------------*/
     

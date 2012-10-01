@@ -35,7 +35,7 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
  * @author mweaver
  *
  */
-public class PDPurposeOfForDeciderMockTest extends AbstractPurposeOfForDeciderMockBase {
+public class PDPurposeOfForDeciderMockTest extends AbstractPurposeOfForDeciderMockBaseTest {
    
     /*-----------------Setup Methods---------------*/
     
