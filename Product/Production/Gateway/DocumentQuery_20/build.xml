@@ -37,7 +37,7 @@
     <property name="core.lib" location="../../Common/CONNECTCoreLib/dist/debug" />
     <property name="common.lib" location="../../Common/CONNECTCommonTypesLib/dist/debug" />
     <property name="opensaml.home" location="../../../../ThirdParty/openSAML" />
-    <property name="core.docquery" location="../../Services/DocumentQuery/Core/DocumentQueryCore/dist/debug" />
+    <property name="core.docquery" location="../../Services/DocumentQueryCore/dist/debug" />
 
     <path id="war.libs">
         <filelist dir="${core.docquery}">
