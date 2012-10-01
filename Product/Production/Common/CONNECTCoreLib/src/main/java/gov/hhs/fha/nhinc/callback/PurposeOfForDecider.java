@@ -61,7 +61,7 @@ public class PurposeOfForDecider {
         
         String action = (String) tokenVals.get(NhincConstants.ACTION_PROP);
         try {
-            serviceName = NHIN_SERVICE_NAMES.fromValueString(action);// AddressingActionToServiceNameMapping.get(action);
+            serviceName = NHIN_SERVICE_NAMES.fromValueString(action);
         } catch (IllegalArgumentException exc) {
             return purposeFor;
         }
