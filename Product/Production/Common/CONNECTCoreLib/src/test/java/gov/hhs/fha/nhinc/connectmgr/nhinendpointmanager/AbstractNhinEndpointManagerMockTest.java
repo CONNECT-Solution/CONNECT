@@ -17,12 +17,14 @@ import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JUnit4Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
  * @author mweaver
  *
  */
+@Ignore
 public abstract class AbstractNhinEndpointManagerMockTest {
     
     protected Mockery context = new JUnit4Mockery() {

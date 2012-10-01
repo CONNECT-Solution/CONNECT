@@ -16,7 +16,7 @@ import org.junit.runners.Suite.SuiteClasses;
         DRNhinEndpointManagerMockTest.class, DSDReqNhinEndpointManagerMockTest.class,
         DSDRespNhinEndpointManagerMockTest.class, DSNhinEndpointManagerMockTest.class,
         PDDReqNhinEndpointManagerMockTest.class, PDDRespNhinEndpointManagerMockTest.class,
-        PDNhinEndpointManagerMockTest.class })
+        PDNhinEndpointManagerMockTest.class, AbstractNhinEndpointManagerMockTest.class })
 public class AllNhinEndpointManagerMockTests {
 
 }
