@@ -60,6 +60,8 @@
             <include name="**/xstream-1.3.jar" />
             <include name="**/esapi-2.0.1.jar" />
             <include name="**/spring.jar" />
+            <include name="**/aspectjrt.jar" />
+            <include name="**/aspectjweaver.jar" />
         </fileset>
     </path>
     <path id="ear.licenses">
