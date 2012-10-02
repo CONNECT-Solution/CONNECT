@@ -466,6 +466,8 @@
             </filelist>
             <filelist dir="${spring.home}">
                 <file name="spring.jar" />
+                <file name="aspectjrt.jar" />
+                <file name="aspectjweaver.jar" />
             </filelist>
             <filelist dir="${core.lib}">
                 <file name="CONNECTCoreLib.jar" />
