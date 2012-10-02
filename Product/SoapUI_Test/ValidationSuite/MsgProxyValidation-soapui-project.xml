@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project abortOnError="false" name="MsgProxyValidation" resourceRoot="${projectDir}" runType="SEQUENTIAL" soapui-version="3.6" xmlns:con="http://eviware.com/soapui/config">
+<con:soapui-project abortOnError="false" name="MsgProxyValidation" resourceRoot="${projectDir}" runType="SEQUENTIAL" soapui-version="4.0.0" xmlns:con="http://eviware.com/soapui/config">
 	<con:settings/>
 	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxysubscriptionmanagement}NhincProxySubscriptionManagerBindingSoap" definition="WSDL path not set.  #NhincProxySubscriptionManagement.wsdl" name="NhincProxySubscriptionManagerBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 
-		<con:endpoints>
+		<con:definitionCache type="TEXT"/><con:endpoints>
 			<con:endpoint>http://localhost:9080/NhinConnect/NhincProxySubscriptionManager</con:endpoint>
 			<con:endpoint>http://ATHC-GFAS:9080/NhinConnect/NhincProxySubscriptionManager</con:endpoint>
 			<con:endpoint>http://mhsnhie3.fedsconnect.org:9080/NhinConnect/NhincProxySubscriptionManager</con:endpoint>
@@ -18,7 +18,7 @@
 	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxynotificationconsumer}NhincProxyNotificationConsumerBindingSoap" definition="WSDL path not set.  #NhincProxyNotificationConsumer.wsdl" name="NhincProxyNotificationConsumerBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 
-		<con:endpoints>
+		<con:definitionCache type="TEXT"/><con:endpoints>
 			<con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/NhincProxyNotificationConsumer</con:endpoint>
 			<con:endpoint>http://192.168.25.157:9080/NhinConnect/NhincProxyNotificationConsumer</con:endpoint>
 			<con:endpoint>http://ATHC-GFAS:8080/NhinConnect/NhincProxyNotificationConsumer</con:endpoint>
@@ -32,7 +32,7 @@
 	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxysubscriptionmanagement}NhincProxyNotificationProducerBindingSoap" definition="WSDL path not set.  #NhincProxySubscriptionManagement.wsdl" name="NhincProxyNotificationProducerBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 
-		<con:endpoints>
+		<con:definitionCache type="TEXT"/><con:endpoints>
 			<con:endpoint>http://localhost:9080/NhinConnect/NhincProxyNotificationProducer</con:endpoint>
 			<con:endpoint>http://192.168.25.157:8080/NhinConnect/NhincProxyNotificationProducer</con:endpoint>
 			<con:endpoint>http://mhsnhie3.fedsconnect.org:9080/NhinConnect/NhincProxyNotificationProducer</con:endpoint>
@@ -49,7 +49,7 @@
 	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxydocretrieve}NhincProxyDocRetrieveBindingSoap" definition="WSDL path not set.  #NhincProxyDocRetrieve.wsdl" name="NhincProxyDocRetrieveBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 
-		<con:endpoints>
+		<con:definitionCache type="TEXT"/><con:endpoints>
 			<con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/NhincProxyDocRetrieve</con:endpoint>
 			<con:endpoint>http://ATHC-GFAS:9080/NhinConnect/NhincProxyDocRetrieve</con:endpoint>
 			<con:endpoint>http://dvanhie3.fedsconnect.org:9080/NhinConnect/NhincProxyDocRetrieve</con:endpoint>
@@ -64,7 +64,7 @@
 	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxydocquery}NhincProxyDocQueryBindingSoap" definition="WSDL path not set.  #NhincProxyDocQuery.wsdl" name="NhincProxyDocQueryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 
-		<con:endpoints>
+		<con:definitionCache type="TEXT"/><con:endpoints>
 			<con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/NhincProxyDocQuery</con:endpoint>
 			<con:endpoint>http://ATHC-GFAS:9080/NhinConnect/NhincProxyDocQuery</con:endpoint>
 			<con:endpoint>http://mhsnhie3.fedsconnect.org:9080/NhinConnect/NhincProxyDocQuery</con:endpoint>
@@ -78,7 +78,7 @@
 	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxyxdr:async:request}ProxyXDRAsyncRequest_Binding" definition="WSDL path not set.  #NhincProxyXDRRequest.wsdl" name="ProxyXDRAsyncRequest_Binding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 
-		<con:endpoints>
+		<con:definitionCache type="TEXT"/><con:endpoints>
 			<con:endpoint>http://localhost:8080/CONNECTAdapter/EntityProxyService/NhincProxyXDRRequest</con:endpoint>
 			<con:endpoint>http://localhost:${HttpDefaultPort}/EntityService/NhincProxyXDRRequest</con:endpoint>
 			<con:endpoint>http://localhost:8080/CONNECTAdapter/EntityProxyService/EntityXDRResponse</con:endpoint>
@@ -94,7 +94,7 @@
 	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxypatientdiscovery}NhincProxyPatientDiscoveryBinding" definition="WSDL path not set.  #NhincProxyPatientDiscovery.wsdl" name="NhincProxyPatientDiscoveryBinding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 
-		<con:endpoints>
+		<con:definitionCache type="TEXT"/><con:endpoints>
 			<con:endpoint>${#TestSuite#Endpoint-PatientDiscovery}</con:endpoint>
 			<con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/NhincProxyPatientDiscovery</con:endpoint>
 		</con:endpoints>
@@ -105,7 +105,7 @@
 	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxypatientdiscoveryasyncreq}NhincProxyPatientDiscoveryAsyncReqBinding" definition="WSDL path not set.  #NhincProxyPatientDiscoveryAsyncReq.wsdl" name="NhincProxyPatientDiscoveryAsyncReqBinding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 
-		<con:endpoints>
+		<con:definitionCache type="TEXT"/><con:endpoints>
 			<con:endpoint>http://localhost/NhinConnect/NhincProxyPatientDiscoveryAsyncReq</con:endpoint>
 			<con:endpoint>${#TestSuite#Endpoint-PatientDiscoveryAsyncReq}</con:endpoint>
 		</con:endpoints>
@@ -116,7 +116,7 @@
 	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxypatientdiscoveryasyncresp}NhincProxyPatientDiscoveryAsyncRespBinding" definition="WSDL path not set.  #NhincProxyPatientDiscoveryAsyncResp.wsdl" name="NhincProxyPatientDiscoveryAsyncRespBinding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 
-		<con:endpoints>
+		<con:definitionCache type="TEXT"/><con:endpoints>
 			<con:endpoint>http://localhost/NhinConnect/NhincProxyPatientDiscoveryAsyncResp</con:endpoint>
 			<con:endpoint>${#TestSuite#Endpoint-PatientDiscoveryAsyncResp}</con:endpoint>
 		</con:endpoints>
@@ -130,7 +130,7 @@
 	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincadmindistribution}NhincAdminDist_Binding_Soap12" definition="WSDL path not set.  #NhincAdminDist.wsdl" name="NhincAdminDist_Binding_Soap12_g0" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 
-		<con:endpoints>
+		<con:definitionCache type="TEXT"/><con:endpoints>
 			<con:endpoint>${#TestSuite#Endpoint-NhincProxyAdminDist}</con:endpoint>
 			<con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/AdminDistribution/1_0/MsgProxy/NhincProxyAdminDist</con:endpoint>
 		</con:endpoints>
@@ -142,7 +142,7 @@
 
 	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxyxdr:async:response}ProxyXDRAsyncResponse_Binding" definition="WSDL path not set.  #NhincProxyXDRResponse.wsdl" name="ProxyXDRAsyncResponse_Binding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
-		<con:endpoints>
+		<con:definitionCache type="TEXT"/><con:endpoints>
 			<con:endpoint>${#TestSuite#Endpoint-DocSubmissionDefResp}</con:endpoint>
 			<con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/DocumentSubmission/1_1/EntityService/PassthruDocSubmissionDeferredResponseUnsecured</con:endpoint>
 		</con:endpoints>
@@ -152,7 +152,7 @@
 	</con:interface>
 	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxyxdr}ProxyXDR_Binding" definition="WSDL path not set.  #NhincProxyXDR.wsdl" name="ProxyXDR_Binding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
-		<con:endpoints>
+		<con:definitionCache type="TEXT"/><con:endpoints>
 			<con:endpoint>${#TestSuite#Endpoint-DocumentSubmission}</con:endpoint>
 			<con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/DocumentSubmission/1_1/EntityService/PassthruDocSubmissionUnsecured</con:endpoint>
 		</con:endpoints>
@@ -162,7 +162,7 @@
 	</con:interface>
 	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincadmindistribution}NhincAdminDist_Binding_Soap12" definition="WSDL path not set.  #NhincAdminDist_g1.wsdl" name="NhincAdminDist_Binding_Soap12_g1" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
-		<con:endpoints>
+		<con:definitionCache type="TEXT"/><con:endpoints>
 			<con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/AdminDistribution/2_0/MsgProxy/NhincProxyAdminDist</con:endpoint>
 		</con:endpoints>
 		<con:operation action="urn:oasis:names:tc:emergency:EDXL:DE:1.0:SendAlertMessage" bindingOperationName="SendAlertMessage" inputName="" isOneWay="false" name="SendAlertMessage" sendsAttachments="false" type="One-Way">
@@ -186,8 +186,8 @@
 				</con:settings>
 				<con:encoding>UTF-8</con:encoding>
 				<con:endpoint>${#TestSuite#Endpoint-MsgProxyDocSubmissionDefReq}</con:endpoint>
-				<con:request>
-					<![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
+				<con:request><![CDATA[
+					<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
    <soap:Header/>
    <soap:Body testSuite="MsgProxy_g1" testCase="Document Submission Deferred Req">
       <urn:RespondingGateway_ProvideAndRegisterDocumentSetRequest>
@@ -722,19 +722,19 @@ DeleteFile(backupUddiFile, log);
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-09-27T22:54:41Z</con:value>
+		<con:value>2012-10-01T23:10:32Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-09-27T23:04:41Z</con:value>
+		<con:value>2012-10-01T23:20:32Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/27/2012 22:54:41</con:value>
+		<con:value>10/01/2012 23:10:32</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-27T00:00:00Z</con:value>
+		<con:value>2012-10-31T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -761,8 +761,8 @@ DeleteFile(backupUddiFile, log);
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
 		<con:endpoint>${#TestSuite#Endpoint-DocSubmissionDefResp}</con:endpoint>
-		<con:request>
-			<![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0">
+		<con:request><![CDATA[
+			<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0">
    <soap:Header/>
    <soap:Body testSuite="MsgProxy_g1" testCase="Document Submission Deferred Resp">
       <urn:RespondingGateway_ProvideAndRegisterDocumentSetResponseRequest>
@@ -1195,19 +1195,19 @@ DeleteFile(backupUddiFile, log);
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-09-27T22:54:43Z</con:value>
+		<con:value>2012-10-01T23:10:33Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-09-27T23:04:43Z</con:value>
+		<con:value>2012-10-01T23:20:33Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/27/2012 22:54:43</con:value>
+		<con:value>10/01/2012 23:10:33</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-27T00:00:00Z</con:value>
+		<con:value>2012-10-31T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 </con:testCase>
@@ -1228,8 +1228,8 @@ DeleteFile(backupUddiFile, log);
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
 		<con:endpoint>${#TestSuite#Endpoint-DocumentSubmission}</con:endpoint>
-		<con:request>
-			<![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
+		<con:request><![CDATA[
+			<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
    <soap:Header/>
    <soap:Body testSuite="MsgProxy_g1" testCase="Document Submission">
       <urn:RespondingGateway_ProvideAndRegisterDocumentSetRequest>
@@ -1759,19 +1759,19 @@ DeleteFile(backupUddiFile, log);
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-09-27T22:54:44Z</con:value>
+		<con:value>2012-10-01T23:10:33Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-09-27T23:04:44Z</con:value>
+		<con:value>2012-10-01T23:20:33Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/27/2012 22:54:44</con:value>
+		<con:value>10/01/2012 23:10:33</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-27T00:00:00Z</con:value>
+		<con:value>2012-10-31T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 </con:testCase>
@@ -1788,8 +1788,8 @@ DeleteFile(backupUddiFile, log);
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
 		<con:endpoint>${#TestSuite#Endpoint-PatientDiscoveryAsyncReq}</con:endpoint>
-		<con:request>
-			<![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
+		<con:request><![CDATA[
+			<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
    <soap:Header/>
    <soap:Body testSuite="MsgProxy_g1" testCase="Patient Discovery Deferred Req">
       <urn:RespondingGateway_ProvideAndRegisterDocumentSetRequest>
@@ -2617,8 +2617,8 @@ DeleteFile(backupUddiFile, log);
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
 		<con:endpoint>${#TestSuite#Endpoint-PatientDiscoveryAsyncResp}</con:endpoint>
-		<con:request>
-			<![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+		<con:request><![CDATA[
+			<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
    <soap:Header xmlns:add="http://www.w3.org/2005/08/addressing/module">
       <add:Action>urn:gov:hhs:fha:nhinc:nhincproxypatientdiscoveryasyncresp:Proxy_ProcessPatientDiscoveryAsyncRespRequest</add:Action>
       <add:MessageID>uuid:12bcfc1e-f422-4d1d-af99-ff83d050313e</add:MessageID>
@@ -3307,8 +3307,8 @@ DeleteFile(backupUddiFile, log);
 	</con:settings>
 	<con:encoding>UTF-8</con:encoding>
 	<con:endpoint>${#TestSuite#Endpoint-PatientDiscovery}</con:endpoint>
-	<con:request>
-		<![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+	<con:request><![CDATA[
+		<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soap:Header/>
    <soap:Body testSuite="MsgProxy_g1" testCase="Patient Discovery">
       <urn:Proxy_PRPA_IN201305UVProxyRequest>
@@ -3707,8 +3707,8 @@ DeleteFile(backupUddiFile, log);
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
 		<con:endpoint>${#TestSuite#Endpoint-DocQuery}</con:endpoint>
-		<con:request>
-			<![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn3="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+		<con:request><![CDATA[
+			<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn3="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soap:Header/>
    <soap:Body testSuite="MsgProxy_g1" testCase="Document Query">
       <urn:RespondingGateway_CrossGatewayQueryRequest>
@@ -4061,19 +4061,19 @@ DeleteFile(backupUddiFile, log);
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-09-27T22:54:51Z</con:value>
+		<con:value>2012-10-01T23:10:33Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-09-27T23:04:51Z</con:value>
+		<con:value>2012-10-01T23:20:33Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/27/2012 22:54:51</con:value>
+		<con:value>10/01/2012 23:10:33</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-27T00:00:00Z</con:value>
+		<con:value>2012-10-31T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
@@ -4096,8 +4096,8 @@ DeleteFile(backupUddiFile, log);
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
 		<con:endpoint>${#TestSuite#Endpoint-DocRetrieve}</con:endpoint>
-		<con:request>
-			<![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:ihe:iti:xds-b:2007" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+		<con:request><![CDATA[
+			<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:ihe:iti:xds-b:2007" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soap:Header/>
    <soap:Body testSuite="MsgProxy_g1" testCase="Document Retrieve">
       <urn:RespondingGateway_CrossGatewayRetrieveRequest>
@@ -4450,19 +4450,19 @@ DeleteFile(backupUddiFile, log);
 	</con:property>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-09-27T23:54:27Z</con:value>
+		<con:value>2012-10-01T23:10:34Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-09-28T00:04:27Z</con:value>
+		<con:value>2012-10-01T23:20:34Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/27/2012 23:54:27</con:value>
+		<con:value>10/01/2012 23:10:34</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-27T00:00:00Z</con:value>
+		<con:value>2012-10-31T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>CorrectedLocalHCID</con:name>
@@ -4518,8 +4518,8 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
 	</con:settings>
 	<con:encoding>UTF-8</con:encoding>
 	<con:endpoint>${#TestSuite#Endpoint-Subscribe}</con:endpoint>
-	<con:request>
-		<![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:wsa="http://www.w3.org/2005/08/addressing" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add1="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+	<con:request><![CDATA[
+		<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:wsa="http://www.w3.org/2005/08/addressing" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add1="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soap:Header/>
    <soap:Body testSuite="MsgProxy_g1" testCase="Subscribe">
       <urn:SubscribeRequest>
@@ -4891,19 +4891,19 @@ DeleteFile(backupUddiFile, log);
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-09-27T22:56:52Z</con:value>
+		<con:value>2012-10-01T23:10:34Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-09-27T23:06:52Z</con:value>
+		<con:value>2012-10-01T23:20:34Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/27/2012 22:56:52</con:value>
+		<con:value>10/01/2012 23:10:34</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-27T00:00:00Z</con:value>
+		<con:value>2012-10-31T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -4955,8 +4955,8 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
 	</con:settings>
 	<con:encoding>UTF-8</con:encoding>
 	<con:endpoint>${#TestSuite#Endpoint-Subscribe}</con:endpoint>
-	<con:request>
-		<![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:wsa="http://www.w3.org/2005/08/addressing" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add1="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+	<con:request><![CDATA[
+		<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:wsa="http://www.w3.org/2005/08/addressing" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add1="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soap:Header/>
    <soap:Body testSuite="MsgProxy_g1" testCase="Subscribe (as part of Notify test case)">
       <urn:SubscribeRequest>
@@ -5236,8 +5236,8 @@ testRunner.testCase.testSuite.project.setPropertyValue( "NotifySubscriptionID", 
 	</con:settings>
 	<con:encoding>UTF-8</con:encoding>
 	<con:endpoint>${#TestSuite#Endpoint-Notify}</con:endpoint>
-	<con:request>
-		<![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:b="http://docs.oasis-open.org/wsn/b-2" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:wsa="http://www.w3.org/2005/08/addressing" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+	<con:request><![CDATA[
+		<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:b="http://docs.oasis-open.org/wsn/b-2" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:wsa="http://www.w3.org/2005/08/addressing" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soap:Header/>
    <soap:Body testSuite="MsgProxy_g1" testCase="Notify">
       <urn:NotifyRequest>
@@ -5602,19 +5602,19 @@ DeleteFile(backupUddiFile, log);
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-09-27T22:56:53Z</con:value>
+		<con:value>2012-10-01T23:10:34Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-09-27T23:06:53Z</con:value>
+		<con:value>2012-10-01T23:20:34Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/27/2012 22:56:53</con:value>
+		<con:value>10/01/2012 23:10:34</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-27T00:00:00Z</con:value>
+		<con:value>2012-10-31T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -5682,8 +5682,8 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
 	</con:settings>
 	<con:encoding>UTF-8</con:encoding>
 	<con:endpoint>${#TestSuite#Endpoint-Unsubscribe}</con:endpoint>
-	<con:request>
-		<![CDATA[<soap:Envelope xmlns:nhin="http://www.hhs.gov/healthit/nhin" xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:subscription" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+	<con:request><![CDATA[
+		<soap:Envelope xmlns:nhin="http://www.hhs.gov/healthit/nhin" xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:subscription" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soap:Header>
       <ns5:SubscriptionId xmlns="http://www.w3.org/2005/08/addressing" xmlns:ns2="http://docs.oasis-open.org/wsn/b-2" xmlns:ns3="http://docs.oasis-open.org/wsrf/bf-2" xmlns:ns4="http://docs.oasis-open.org/wsn/t-1" xmlns:ns5="http://www.hhs.gov/healthit/nhin">${#Project#UnSubscriptionID}</ns5:SubscriptionId>
       <nhinconnect:Info xmlns:nhinconnect="urn:nhinconnect">hello world</nhinconnect:Info>
@@ -6080,8 +6080,8 @@ DeleteFile(backupUddiFile, log);
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
 		<con:endpoint>${#TestSuite#Endpoint-MsgProxyAdminDist}</con:endpoint>
-		<con:request>
-			<![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:emergency:EDXL:DE:1.0">
+		<con:request><![CDATA[
+			<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:emergency:EDXL:DE:1.0">
    <soap:Header/>
    <soap:Body testSuite="MsgProxy_g1" testCase="Admin Distribution">
       <urn:RespondingGateway_SendAlertMessage>
@@ -6557,19 +6557,19 @@ DeleteFile(backupUddiFile, log);
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-09-27T22:56:54Z</con:value>
+		<con:value>2012-10-01T23:10:34Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-09-27T23:06:54Z</con:value>
+		<con:value>2012-10-01T23:20:34Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/27/2012 22:56:54</con:value>
+		<con:value>10/01/2012 23:10:34</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-27T00:00:00Z</con:value>
+		<con:value>2012-10-31T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -6644,8 +6644,8 @@ DeleteFile(backupUddiFile, log);
 			</con:settings>
 			<con:encoding>UTF-8</con:encoding>
 			<con:endpoint>${#TestSuite#Endpoint-MsgProxyDocSubmissionDefReq}</con:endpoint>
-			<con:request>
-				<![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
+			<con:request><![CDATA[
+				<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
    <soap:Header/>
    <soap:Body testSuite="MsgProxy_g0" testCase="Document Submission Deferred Req">
       <urn:RespondingGateway_ProvideAndRegisterDocumentSetRequest>
@@ -7182,19 +7182,19 @@ DeleteFile(backupUddiFile, log);
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-09-27T23:00:04Z</con:value>
+		<con:value>2012-10-01T23:10:49Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-09-27T23:10:04Z</con:value>
+		<con:value>2012-10-01T23:20:49Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/27/2012 23:00:04</con:value>
+		<con:value>10/01/2012 23:10:49</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-27T00:00:00Z</con:value>
+		<con:value>2012-10-31T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -7212,8 +7212,8 @@ DeleteFile(backupUddiFile, log);
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
 		<con:endpoint>${#TestSuite#Endpoint-DocSubmissionDefResp}</con:endpoint>
-		<con:request>
-			<![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0">
+		<con:request><![CDATA[
+			<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0">
    <soap:Header/>
    <soap:Body testSuite="MsgProxy_g0" testcase="Document Submission Deferred Resp">
       <urn:RespondingGateway_ProvideAndRegisterDocumentSetResponseRequest>
@@ -7613,19 +7613,19 @@ DeleteFile(backupUddiFile, log);
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-09-27T23:00:05Z</con:value>
+		<con:value>2012-10-01T23:10:50Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-09-27T23:10:05Z</con:value>
+		<con:value>2012-10-01T23:20:50Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/27/2012 23:00:05</con:value>
+		<con:value>10/01/2012 23:10:50</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-27T00:00:00Z</con:value>
+		<con:value>2012-10-31T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 </con:testCase>
@@ -7642,8 +7642,8 @@ DeleteFile(backupUddiFile, log);
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
 		<con:endpoint>${#TestSuite#Endpoint-DocumentSubmission}</con:endpoint>
-		<con:request>
-			<![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
+		<con:request><![CDATA[
+			<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
    <soap:Header/>
    <soap:Body testSuite="MsgProxy_g0" testCase="Document Submission">
       <urn:RespondingGateway_ProvideAndRegisterDocumentSetRequest>
@@ -8174,19 +8174,19 @@ DeleteFile(backupUddiFile, log);
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-09-27T23:00:06Z</con:value>
+		<con:value>2012-10-01T23:10:50Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-09-27T23:10:06Z</con:value>
+		<con:value>2012-10-01T23:20:50Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/27/2012 23:00:06</con:value>
+		<con:value>10/01/2012 23:10:50</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-27T00:00:00Z</con:value>
+		<con:value>2012-10-31T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 </con:testCase>
@@ -8207,8 +8207,8 @@ DeleteFile(backupUddiFile, log);
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
 		<con:endpoint>${#TestSuite#Endpoint-PatientDiscoveryAsyncReq}</con:endpoint>
-		<con:request>
-			<![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+		<con:request><![CDATA[
+			<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soap:Header/>
    <soap:Body testSuite="MsgProxy_g0" testCase="Patient Discovery Deferred Req">
       <urn:Proxy_PRPA_IN201305UVProxyRequest>
@@ -8841,8 +8841,8 @@ DeleteFile(backupUddiFile, log);
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
 		<con:endpoint>${#TestSuite#Endpoint-PatientDiscoveryAsyncResp}</con:endpoint>
-		<con:request>
-			<![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+		<con:request><![CDATA[
+			<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
    <soap:Header xmlns:add="http://www.w3.org/2005/08/addressing/module">
       <add:Action>urn:gov:hhs:fha:nhinc:nhincproxypatientdiscoveryasyncresp:Proxy_ProcessPatientDiscoveryAsyncRespRequest</add:Action>
       <add:MessageID>uuid:12bcfc1e-f422-4d1d-af99-ff83d050313e</add:MessageID>
@@ -9531,8 +9531,8 @@ DeleteFile(backupUddiFile, log);
 	</con:settings>
 	<con:encoding>UTF-8</con:encoding>
 	<con:endpoint>${#TestSuite#Endpoint-PatientDiscovery}</con:endpoint>
-	<con:request>
-		<![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+	<con:request><![CDATA[
+		<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soap:Header/>
    <soap:Body testSuite="MsgProxy_g0" testCase="Patient Discovery">
       <urn:Proxy_PRPA_IN201305UVProxyRequest>
@@ -9931,8 +9931,8 @@ DeleteFile(backupUddiFile, log);
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
 		<con:endpoint>${#TestSuite#Endpoint-DocQuery}</con:endpoint>
-		<con:request>
-			<![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn3="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+		<con:request><![CDATA[
+			<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn3="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soap:Header/>
    <soap:Body testSuite="MsgProxy_g0" testCase="Document Query">
       <urn:RespondingGateway_CrossGatewayQueryRequest>
@@ -10285,19 +10285,19 @@ DeleteFile(backupUddiFile, log);
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-09-27T23:49:18Z</con:value>
+		<con:value>2012-10-01T23:10:51Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-09-27T23:59:18Z</con:value>
+		<con:value>2012-10-01T23:20:51Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/27/2012 23:49:18</con:value>
+		<con:value>10/01/2012 23:10:51</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-27T00:00:00Z</con:value>
+		<con:value>2012-10-31T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
@@ -10320,8 +10320,8 @@ DeleteFile(backupUddiFile, log);
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
 		<con:endpoint>${#TestSuite#Endpoint-DocRetrieve}</con:endpoint>
-		<con:request>
-			<![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:ihe:iti:xds-b:2007" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+		<con:request><![CDATA[
+			<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:ihe:iti:xds-b:2007" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soap:Header/>
    <soap:Body testSuite="MsgProxy_g0" testCase="Document Retrieve">
       <urn:RespondingGateway_CrossGatewayRetrieveRequest>
@@ -10676,19 +10676,19 @@ DeleteFile(backupUddiFile, log);
 	</con:property>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-09-27T23:49:48Z</con:value>
+		<con:value>2012-10-01T23:10:51Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-09-27T23:59:48Z</con:value>
+		<con:value>2012-10-01T23:20:51Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/27/2012 23:49:48</con:value>
+		<con:value>10/01/2012 23:10:51</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-27T00:00:00Z</con:value>
+		<con:value>2012-10-31T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>CorrectedLocalHCID</con:name>
@@ -10742,8 +10742,8 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
 	</con:settings>
 	<con:encoding>UTF-8</con:encoding>
 	<con:endpoint>${#TestSuite#Endpoint-Subscribe}</con:endpoint>
-	<con:request>
-		<![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:wsa="http://www.w3.org/2005/08/addressing" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add1="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+	<con:request><![CDATA[
+		<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:wsa="http://www.w3.org/2005/08/addressing" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add1="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soap:Header/>
    <soap:Body testSuite="MsgProxy_g0" testCase="Subscribe">
       <urn:SubscribeRequest>
@@ -11117,19 +11117,19 @@ DeleteFile(backupUddiFile, log);
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-09-27T23:02:11Z</con:value>
+		<con:value>2012-10-01T23:10:51Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-09-27T23:12:11Z</con:value>
+		<con:value>2012-10-01T23:20:51Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/27/2012 23:02:11</con:value>
+		<con:value>10/01/2012 23:10:51</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-27T00:00:00Z</con:value>
+		<con:value>2012-10-31T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -11179,8 +11179,8 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
 	</con:settings>
 	<con:encoding>UTF-8</con:encoding>
 	<con:endpoint>${#TestSuite#Endpoint-Subscribe}</con:endpoint>
-	<con:request>
-		<![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:wsa="http://www.w3.org/2005/08/addressing" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add1="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+	<con:request><![CDATA[
+		<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:wsa="http://www.w3.org/2005/08/addressing" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add1="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soap:Header/>
    <soap:Body testSuite="MsgProxy_g0" testCase="Subscribe (as part of Notify test case)">
       <urn:SubscribeRequest>
@@ -11460,8 +11460,8 @@ testRunner.testCase.testSuite.project.setPropertyValue( "NotifySubscriptionID", 
 	</con:settings>
 	<con:encoding>UTF-8</con:encoding>
 	<con:endpoint>${#TestSuite#Endpoint-Notify}</con:endpoint>
-	<con:request>
-		<![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:b="http://docs.oasis-open.org/wsn/b-2" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:wsa="http://www.w3.org/2005/08/addressing" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+	<con:request><![CDATA[
+		<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:b="http://docs.oasis-open.org/wsn/b-2" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:wsa="http://www.w3.org/2005/08/addressing" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soap:Header/>
    <soap:Body testSuite="MsgProxy_g0" testCase="Notify">
       <urn:NotifyRequest>
@@ -11827,19 +11827,19 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-09-27T23:49:10Z</con:value>
+		<con:value>2012-10-01T23:10:51Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-09-27T23:59:10Z</con:value>
+		<con:value>2012-10-01T23:20:51Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/27/2012 23:49:10</con:value>
+		<con:value>10/01/2012 23:10:51</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-27T00:00:00Z</con:value>
+		<con:value>2012-10-31T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -11905,8 +11905,8 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
 	</con:settings>
 	<con:encoding>UTF-8</con:encoding>
 	<con:endpoint>${#TestSuite#Endpoint-Unsubscribe}</con:endpoint>
-	<con:request>
-		<![CDATA[<soap:Envelope xmlns:nhin="http://www.hhs.gov/healthit/nhin" xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:subscription" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+	<con:request><![CDATA[
+		<soap:Envelope xmlns:nhin="http://www.hhs.gov/healthit/nhin" xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:subscription" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soap:Header>
       <ns5:SubscriptionId xmlns="http://www.w3.org/2005/08/addressing" xmlns:ns2="http://docs.oasis-open.org/wsn/b-2" xmlns:ns3="http://docs.oasis-open.org/wsrf/bf-2" xmlns:ns4="http://docs.oasis-open.org/wsn/t-1" xmlns:ns5="http://www.hhs.gov/healthit/nhin">${#Project#UnSubscriptionID}</ns5:SubscriptionId>
       <nhinconnect:Info xmlns:nhinconnect="urn:nhinconnect">hello world</nhinconnect:Info>
@@ -12305,8 +12305,8 @@ DeleteFile(backupUddiFile, log);
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
 		<con:endpoint>${#TestSuite#Endpoint-MsgProxyAdminDist}</con:endpoint>
-		<con:request>
-			<![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:emergency:EDXL:DE:1.0">
+		<con:request><![CDATA[
+			<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:emergency:EDXL:DE:1.0">
    <soap:Header/>
    <soap:Body testSuite="MsgProxy_g0" testCase="Admin Distribution">
       <urn:RespondingGateway_SendAlertMessage>
@@ -12784,19 +12784,19 @@ DeleteFile(backupUddiFile, log);
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-09-27T23:02:13Z</con:value>
+		<con:value>2012-10-01T23:10:51Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-09-27T23:12:13Z</con:value>
+		<con:value>2012-10-01T23:20:51Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/27/2012 23:02:13</con:value>
+		<con:value>10/01/2012 23:10:51</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-27T00:00:00Z</con:value>
+		<con:value>2012-10-31T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -13158,7 +13158,7 @@ DeleteFile(backupUddiFile, log);
 		<con:name>ZipCode</con:name>
 		<con:value>12345</con:value>
 	</con:property>
-</con:properties>
+<con:property><con:name>project.name</con:name><con:value>MsgProxyValidation</con:value></con:property></con:properties>
 <con:afterLoadScript>TimeZone.setDefault(TimeZone.getTimeZone("UTC"))
 def testRunListener = [
 afterRun: { testRunner, runContext -> },
