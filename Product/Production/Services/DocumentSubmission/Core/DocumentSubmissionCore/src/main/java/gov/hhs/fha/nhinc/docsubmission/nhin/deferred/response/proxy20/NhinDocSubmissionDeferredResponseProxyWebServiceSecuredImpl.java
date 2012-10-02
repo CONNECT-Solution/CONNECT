@@ -28,9 +28,10 @@ package gov.hhs.fha.nhinc.docsubmission.nhin.deferred.response.proxy20;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+import gov.hhs.fha.nhinc.docsubmission.MessageGeneratorUtils;
 import gov.hhs.fha.nhinc.docsubmission.nhin.deferred.response.proxy20.service.NhinDocSubmissionDeferredResponseServicePortDescriptor;
-import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTCXFClientFactory;
+import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
@@ -40,7 +41,6 @@ import ihe.iti.xdr._2007.XDRDeferredResponse20PortType;
 import javax.xml.ws.BindingProvider;
 import javax.xml.ws.Holder;
 
-import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 import org.apache.commons.logging.Log;
@@ -68,13 +68,16 @@ public class NhinDocSubmissionDeferredResponseProxyWebServiceSecuredImpl impleme
         return new WebServiceProxyHelper();
     }
 
+    protected MessageGeneratorUtils getMessageGeneratorUtils() {
+        return MessageGeneratorUtils.getInstance();
+    }
+
     protected CONNECTClient<XDRDeferredResponse20PortType> getCONNECTClientSecured(
             ServicePortDescriptor<XDRDeferredResponse20PortType> portDescriptor, String url, AssertionType assertion) {
-        
-        return CONNECTCXFClientFactory.getInstance().getCONNECTClientSecured(portDescriptor,
-                url, assertion);
+
+        return CONNECTCXFClientFactory.getInstance().getCONNECTClientSecured(portDescriptor, url, assertion);
     }
-    
+
     public RegistryResponseType provideAndRegisterDocumentSetBDeferredResponse20(RegistryResponseType request,
             AssertionType assertion, NhinTargetSystemType target) {
         log.debug("Begin provideAndRegisterDocumentSetBDeferredResponse");
@@ -92,11 +95,12 @@ public class NhinDocSubmissionDeferredResponseProxyWebServiceSecuredImpl impleme
 
                 ServicePortDescriptor<XDRDeferredResponse20PortType> portDescriptor = new NhinDocSubmissionDeferredResponseServicePortDescriptor();
 
-                CONNECTClient<XDRDeferredResponse20PortType> client = getCONNECTClientSecured(portDescriptor, url, assertion);
+                CONNECTClient<XDRDeferredResponse20PortType> client = getCONNECTClientSecured(portDescriptor, url,
+                        assertion);
 
                 WebServiceProxyHelper wsHelper = new WebServiceProxyHelper();
                 wsHelper.addTargetCommunity((BindingProvider) client.getPort(), target);
-                wsHelper.addServiceName((BindingProvider) client.getPort(), 
+                wsHelper.addServiceName((BindingProvider) client.getPort(),
                         NhincConstants.NHINC_XDR_RESPONSE_SERVICE_NAME);
 
                 client.invokePort(XDRDeferredResponse20PortType.class,
@@ -105,13 +109,9 @@ public class NhinDocSubmissionDeferredResponseProxyWebServiceSecuredImpl impleme
             }
         } catch (Exception ex) {
             log.error("Error calling provideAndRegisterDocumentSetBDeferredResponse: " + ex.getMessage(), ex);
-            response.setStatus(NhincConstants.XDR_ACK_FAILURE_STATUS_MSG);
-            RegistryError re = new RegistryError();
-            re.setCodeContext(ex.getMessage());
-            re.setErrorCode("XDSRegistryError");
-            re.setLocation("NhinDocSubmissionDeferredRequestWebServiceProxySecuredImpl");
-            re.setSeverity(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR);
-            response.getRegistryErrorList().getRegistryError().add(re);
+
+            response = getMessageGeneratorUtils().createRegistryErrorResponse(ex.getMessage(), "XDSRegistryError",
+                    NhincConstants.XDR_ACK_FAILURE_STATUS_MSG);
         }
 
         log.debug("End provideAndRegisterDocumentSetBDeferredResponse");

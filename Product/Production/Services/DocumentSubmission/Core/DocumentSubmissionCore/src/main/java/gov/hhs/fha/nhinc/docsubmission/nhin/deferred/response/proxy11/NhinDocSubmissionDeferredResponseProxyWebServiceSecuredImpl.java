@@ -26,18 +26,9 @@
  */
 package gov.hhs.fha.nhinc.docsubmission.nhin.deferred.response.proxy11;
 
-
-import javax.xml.ws.BindingProvider;
-
-import ihe.iti.xdr._2007.XDRDeferredResponsePortType;
-import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
-import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+import gov.hhs.fha.nhinc.docsubmission.MessageGeneratorUtils;
 import gov.hhs.fha.nhinc.docsubmission.nhin.deferred.response.proxy11.service.NhinDocSubmissionDeferredResponseServicePortDescriptor;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
@@ -46,9 +37,17 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
+import ihe.iti.xdr._2007.XDRDeferredResponsePortType;
+
+import javax.xml.ws.BindingProvider;
+
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author JHOPPESC
  */
 public class NhinDocSubmissionDeferredResponseProxyWebServiceSecuredImpl implements
@@ -70,15 +69,14 @@ public class NhinDocSubmissionDeferredResponseProxyWebServiceSecuredImpl impleme
         return new WebServiceProxyHelper();
     }
 
-    protected WebServiceProxyHelper getWebServiceProxyHelper() {
-        return new WebServiceProxyHelper();
+    protected MessageGeneratorUtils getMessageGeneratorUtils() {
+        return MessageGeneratorUtils.getInstance();
     }
 
     protected CONNECTClient<XDRDeferredResponsePortType> getCONNECTClientSecured(
             ServicePortDescriptor<XDRDeferredResponsePortType> portDescriptor, String url, AssertionType assertion) {
 
-        return CONNECTClientFactory.getInstance().getCONNECTClientSecured(portDescriptor, url,
-                assertion);
+        return CONNECTClientFactory.getInstance().getCONNECTClientSecured(portDescriptor, url, assertion);
     }
 
     public XDRAcknowledgementType provideAndRegisterDocumentSetBDeferredResponse11(RegistryResponseType request,
@@ -98,25 +96,15 @@ public class NhinDocSubmissionDeferredResponseProxyWebServiceSecuredImpl impleme
 
                 WebServiceProxyHelper wsHelper = new WebServiceProxyHelper();
                 wsHelper.addTargetCommunity((BindingProvider) client.getPort(), target);
-                wsHelper.addServiceName((BindingProvider) client.getPort(), 
+                wsHelper.addServiceName((BindingProvider) client.getPort(),
                         NhincConstants.NHINC_XDR_RESPONSE_SERVICE_NAME);
-
 
                 response = (XDRAcknowledgementType) client.invokePort(XDRDeferredResponsePortType.class,
                         "provideAndRegisterDocumentSetBDeferredResponse", request);
             }
         } catch (Exception ex) {
             log.error("Error calling provideAndRegisterDocumentSetBDeferredResponse: " + ex.getMessage(), ex);
-            response = new XDRAcknowledgementType();
-            RegistryResponseType regResponse = new RegistryResponseType();
-            regResponse.setStatus(NhincConstants.XDR_ACK_FAILURE_STATUS_MSG);
-            RegistryError re = new RegistryError();
-            re.setCodeContext(ex.getMessage());
-            re.setErrorCode("XDSRegistryError");
-            re.setLocation("NhinDocSubmissionDeferredRequestWebServiceProxySecuredImpl");
-            re.setSeverity(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR);
-            regResponse.getRegistryErrorList().getRegistryError().add(re);
-            response.setMessage(regResponse);
+            response = getMessageGeneratorUtils().createRegistryErrorXDRAcknowledgementType(ex.getMessage());
         }
 
         log.debug("End provideAndRegisterDocumentSetBDeferredResponse");

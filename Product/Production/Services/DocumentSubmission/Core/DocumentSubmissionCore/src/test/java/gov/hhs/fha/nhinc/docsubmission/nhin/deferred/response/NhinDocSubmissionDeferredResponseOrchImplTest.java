@@ -42,7 +42,7 @@ import org.junit.Test;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
-import gov.hhs.fha.nhinc.docsubmission.NhinDocSubmissionUtils;
+import gov.hhs.fha.nhinc.docsubmission.DocSubmissionUtils;
 import gov.hhs.fha.nhinc.docsubmission.XDRAuditLogger;
 import gov.hhs.fha.nhinc.docsubmission.XDRPolicyChecker;
 import gov.hhs.fha.nhinc.docsubmission.adapter.deferred.response.proxy.AdapterDocSubmissionDeferredResponseProxy;
@@ -65,7 +65,7 @@ public class NhinDocSubmissionDeferredResponseOrchImplTest {
     final XDRAuditLogger mockXDRLog = context.mock(XDRAuditLogger.class);
     final XDRPolicyChecker mockPolicyCheck = context.mock(XDRPolicyChecker.class);
     final PropertyAccessor mockPropertyAccessor = context.mock(PropertyAccessor.class);
-    final NhinDocSubmissionUtils mockUtils = context.mock(NhinDocSubmissionUtils.class);
+    final DocSubmissionUtils mockUtils = context.mock(DocSubmissionUtils.class);
     final AdapterDocSubmissionDeferredResponseProxy mockProxy = context.mock(AdapterDocSubmissionDeferredResponseProxy.class);
 
     @Test
@@ -172,7 +172,7 @@ public class NhinDocSubmissionDeferredResponseOrchImplTest {
         NhinDocSubmissionDeferredResponseOrchImpl nhinOrchImpl = new NhinDocSubmissionDeferredResponseOrchImpl();
 
         assertNotNull(nhinOrchImpl.getLogger());
-        assertNotNull(nhinOrchImpl.getNhinDocSubmissionUtils());
+        assertNotNull(nhinOrchImpl.getDocSubmissionUtils());
         assertNotNull(nhinOrchImpl.getPropertyAccessor());
         assertNotNull(nhinOrchImpl.getXDRAuditLogger());
         assertNotNull(nhinOrchImpl.getXDRPolicyChecker());
@@ -293,7 +293,7 @@ public class NhinDocSubmissionDeferredResponseOrchImplTest {
             }
 
             @Override
-            protected NhinDocSubmissionUtils getNhinDocSubmissionUtils() {
+            protected DocSubmissionUtils getDocSubmissionUtils() {
                 return mockUtils;
             }
 

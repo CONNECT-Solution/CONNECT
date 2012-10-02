@@ -64,8 +64,9 @@ public class SecurityOutInterceptorServiceEndpointDecorator<T> extends ServiceEn
         outProps.put(WSHandlerConstants.SIG_ALGO, "http://www.w3.org/2000/09/xmldsig#rsa-sha1");
         outProps.put(WSHandlerConstants.SIG_DIGEST_ALGO, "http://www.w3.org/2000/09/xmldsig#sha1");
         outProps.put(WSHandlerConstants.SIGNATURE_PARTS, "{Element}{http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd}Timestamp;");
-                        
+                         
         WSS4JOutInterceptor outInterceptor = new WSS4JOutInterceptor(outProps);
+        outInterceptor.setAllowMTOM(true);
         client.getOutInterceptors().add(outInterceptor);
     }
 }
