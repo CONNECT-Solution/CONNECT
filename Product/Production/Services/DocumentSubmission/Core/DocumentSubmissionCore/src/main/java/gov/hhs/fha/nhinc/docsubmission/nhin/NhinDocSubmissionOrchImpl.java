@@ -26,6 +26,19 @@
  */
 package gov.hhs.fha.nhinc.docsubmission.nhin;
 
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.docsubmission.DocSubmissionUtils;
+import gov.hhs.fha.nhinc.docsubmission.MessageGeneratorUtils;
+import gov.hhs.fha.nhinc.docsubmission.XDRAuditLogger;
+import gov.hhs.fha.nhinc.docsubmission.XDRPolicyChecker;
+import gov.hhs.fha.nhinc.docsubmission.adapter.proxy.AdapterDocSubmissionProxy;
+import gov.hhs.fha.nhinc.docsubmission.adapter.proxy.AdapterDocSubmissionProxyObjectFactory;
+import gov.hhs.fha.nhinc.gateway.aggregator.document.DocumentConstants;
+import gov.hhs.fha.nhinc.largefile.LargePayloadException;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import gov.hhs.fha.nhinc.properties.PropertyAccessException;
+import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
@@ -33,17 +46,6 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.docsubmission.XDRAuditLogger;
-import gov.hhs.fha.nhinc.docsubmission.XDRPolicyChecker;
-import gov.hhs.fha.nhinc.docsubmission.adapter.proxy.AdapterDocSubmissionProxy;
-import gov.hhs.fha.nhinc.docsubmission.adapter.proxy.AdapterDocSubmissionProxyObjectFactory;
-import gov.hhs.fha.nhinc.gateway.aggregator.document.DocumentConstants;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.nhinclib.NullChecker;
-import gov.hhs.fha.nhinc.properties.PropertyAccessException;
-import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 
 public class NhinDocSubmissionOrchImpl {
 
@@ -69,7 +71,13 @@ public class NhinDocSubmissionOrchImpl {
         String localHCID = getLocalHCID();
         if (isPolicyValid(body, assertion, localHCID)) {
             log.debug("Policy Check Succeeded");
-            response = sendToAdapter(body, assertion);
+            try {
+                getDocSubmissionUtils().convertDataToFileLocationIfEnabled(body);
+                response = sendToAdapter(body, assertion);
+            } catch (LargePayloadException lpe) {
+                log.error("Failed to retrieve payload document.", lpe);
+                response = getMessageGeneratorUtils().createRegistryErrorResponse();
+            }
         } else {
             log.error("Failed policy check.  Sending error response.");
             response = createFailedPolicyCheckResponse();
@@ -103,6 +111,14 @@ public class NhinDocSubmissionOrchImpl {
         return new AdapterDocSubmissionProxyObjectFactory().getAdapterDocSubmissionProxy();
     }
 
+    protected DocSubmissionUtils getDocSubmissionUtils() {
+        return DocSubmissionUtils.getInstance();
+    }
+
+    protected MessageGeneratorUtils getMessageGeneratorUtils() {
+        return MessageGeneratorUtils.getInstance();
+    }
+    
     protected boolean hasHomeCommunityId(AssertionType assertion) {
         if (assertion != null && assertion.getHomeCommunity() != null
                 && NullChecker.isNotNullish(assertion.getHomeCommunity().getHomeCommunityId())) {

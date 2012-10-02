@@ -32,7 +32,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.docsubmission.NhinDocSubmissionUtils;
+import gov.hhs.fha.nhinc.docsubmission.DocSubmissionUtils;
 import gov.hhs.fha.nhinc.docsubmission.XDRAuditLogger;
 import gov.hhs.fha.nhinc.docsubmission.XDRPolicyChecker;
 import gov.hhs.fha.nhinc.docsubmission.adapter.deferred.response.proxy.AdapterDocSubmissionDeferredResponseProxy;
@@ -88,7 +88,7 @@ public class NhinDocSubmissionDeferredResponseOrchImpl {
     }
 
     protected XDRAcknowledgementType sendToAdapter(RegistryResponseType body, AssertionType assertion) {
-        
+
         auditRequestToAdapter(body, assertion);
 
         AdapterDocSubmissionDeferredResponseProxy proxy = getAdapterDocSubmissionDeferredResponseProxy();
@@ -121,7 +121,7 @@ public class NhinDocSubmissionDeferredResponseOrchImpl {
     private void auditRequestFromNhin(RegistryResponseType body, AssertionType assertion) {
         getXDRAuditLogger().auditNhinXDRResponse(body, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
     }
-    
+
     private void auditRequestToAdapter(RegistryResponseType body, AssertionType assertion) {
         getXDRAuditLogger().auditAdapterXDRResponse(body, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
     }
@@ -135,7 +135,7 @@ public class NhinDocSubmissionDeferredResponseOrchImpl {
         getXDRAuditLogger().auditAdapterAcknowledgement(response, assertion,
                 NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.XDR_RESPONSE_ACTION);
     }
-    
+
     protected String getLocalHCID() {
         String localHCID = null;
         try {
@@ -157,8 +157,7 @@ public class NhinDocSubmissionDeferredResponseOrchImpl {
     }
 
     protected boolean isInPassThroughMode() {
-        return getNhinDocSubmissionUtils().isInPassThroughMode(
-                NhincConstants.DOC_SUBMISSION_DEFERRED_RESP_PASSTHRU_PROP);
+        return getDocSubmissionUtils().isInPassThroughMode(NhincConstants.DOC_SUBMISSION_DEFERRED_RESP_PASSTHRU_PROP);
     }
 
     protected XDRAuditLogger getXDRAuditLogger() {
@@ -173,8 +172,8 @@ public class NhinDocSubmissionDeferredResponseOrchImpl {
         return PropertyAccessor.getInstance();
     }
 
-    protected NhinDocSubmissionUtils getNhinDocSubmissionUtils() {
-        return NhinDocSubmissionUtils.getInstance();
+    protected DocSubmissionUtils getDocSubmissionUtils() {
+        return DocSubmissionUtils.getInstance();
     }
 
     protected AdapterDocSubmissionDeferredResponseProxy getAdapterDocSubmissionDeferredResponseProxy() {
