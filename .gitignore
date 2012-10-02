@@ -17,6 +17,7 @@ ivy-cache/
 ivy-project-cache/
 target/
 Product/NHINC/
+Product/.ant-deploy-*/
 Product/Production/Common/Properties/Dev/test*.properties
 Product/Production/Common/CONNECTCoreLib/*test*.properties
 Product/Production/Services/PatientDiscovery/Core/PatientDiscoveryCore/testMPI.xml
