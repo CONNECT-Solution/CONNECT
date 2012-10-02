@@ -26,18 +26,22 @@
  */
 package gov.hhs.fha.nhinc.docsubmission.adapter.deferred.request.error;
 
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.largefile.LargeFileUtils;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
+import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType.Document;
+
+import java.util.List;
+
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.healthit.nhin.XDRAcknowledgementType;
-
 /**
- *
+ * 
  * @author Neil Webb
  */
 public class AdapterDocSubmissionDeferredRequestErrorOrchImpl {
@@ -58,12 +62,28 @@ public class AdapterDocSubmissionDeferredRequestErrorOrchImpl {
             ProvideAndRegisterDocumentSetRequestType request, String errorMessage, AssertionType assertion) {
         log.debug("Begin AdapterDocSubmissionDeferredRequestErrorOrchImpl.provideAndRegisterDocumentSetBRequestError");
 
+        processRequest(request);
+        
         // Stub until adapter component is available
         XDRAcknowledgementType ack = new XDRAcknowledgementType();
         RegistryResponseType regResp = new RegistryResponseType();
         regResp.setStatus(NhincConstants.XDR_ACK_STATUS_MSG);
         ack.setMessage(regResp);
+
         log.debug("End AdapterDocSubmissionDeferredRequestErrorOrchImpl.provideAndRegisterDocumentSetBRequestError");
         return ack;
+    }
+    
+    private void processRequest(ProvideAndRegisterDocumentSetRequestType request) {
+        LargeFileUtils fileUtils = LargeFileUtils.getInstance();
+        List<Document> docList = request.getDocument();
+        for (Document doc : docList) {
+            try {
+                log.debug("Closing request input streams.");
+                fileUtils.closeStreamWithoutException(doc.getValue().getDataSource().getInputStream());
+            } catch (Exception ioe) {
+                log.error("Failed to close input stream", ioe);
+            }
+        }      
     }
 }

@@ -1257,9 +1257,9 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 		<con:encoding>UTF-8</con:encoding>
 		<con:endpoint>${#TestSuite#Endpoint-XDREntity}</con:endpoint>
 		<con:request>
-			<![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
-   <soapenv:Header/>
-   <soapenv:Body testSuite="Entity_g1" testCase="Document Submission">
+			<![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
+   <soap:Header/>
+   <soap:Body testSuite="Entity_g1" testCase="Document Submission">
       <urn:RespondingGateway_ProvideAndRegisterDocumentSetRequest>
          <urn:assertion>
             <urn1:address>
@@ -1695,8 +1695,8 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
             <urn5:Document id="Document01">UjBsR09EbGhjZ0dTQUxNQUFBUUNBRU1tQ1p0dU1GUXhEUzhi</urn5:Document>
          </urn:ProvideAndRegisterDocumentSetRequest>
       </urn:RespondingGateway_ProvideAndRegisterDocumentSetRequest>
-   </soapenv:Body>
-</soapenv:Envelope>]]></con:request>
+   </soap:Body>
+</soap:Envelope>]]></con:request>
 		<con:assertion type="SOAP Response"/>
 		<con:assertion type="SOAP Fault Assertion"/>
 		<con:assertion type="XPath Match">
@@ -3258,9 +3258,9 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 	<con:encoding>UTF-8</con:encoding>
 	<con:endpoint>${#TestSuite#Endpoint-PatientDiscovery}</con:endpoint>
 	<con:request>
-		<![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
-   <soapenv:Header/>
-   <soapenv:Body testSuite="Entity_g1" testCase="Patient Discovery">
+		<![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+   <soap:Header/>
+   <soap:Body testSuite="Entity_g1" testCase="Patient Discovery">
       <urn:RespondingGateway_PRPA_IN201305UV02Request>
          <urn:PRPA_IN201305UV02 ITSVersion="XML_1.0">
             <urn:id root="1.1" extension="-5a3e95b1:11d1fa33d45:-7f9b"/>
@@ -3497,8 +3497,8 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
             </urn1:nhinTargetCommunity>
          </urn:NhinTargetCommunities>
       </urn:RespondingGateway_PRPA_IN201305UV02Request>
-   </soapenv:Body>
-</soapenv:Envelope>]]></con:request>
+   </soap:Body>
+</soap:Envelope>]]></con:request>
 	<con:assertion type="SOAP Response"/>
 	<con:assertion disabled="true" type="Schema Compliance">
 		<con:configuration>
@@ -3726,9 +3726,9 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySe
 	<con:encoding>UTF-8</con:encoding>
 	<con:endpoint>${#TestSuite#Endpoint-DocQuery}</con:endpoint>
 	<con:request>
-		<![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn3="urn:gov:hhs:fha:nhinc:common:nhinccommon">
-   <soapenv:Header/>
-   <soapenv:Body testSuite="Entity_g1" testCase="Document Query">
+		<![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn3="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+   <soap:Header/>
+   <soap:Body testSuite="Entity_g1" testCase="Document Query">
       <urn:RespondingGateway_CrossGatewayQueryRequest>
          <urn1:AdhocQueryRequest federated="false" startIndex="0" maxResults="-1">
             <urn1:ResponseOption returnType="LeafClass" returnComposedObjects="false"/>
@@ -3974,8 +3974,8 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySe
             </urn3:nhinTargetCommunity>
          </urn:NhinTargetCommunities>
       </urn:RespondingGateway_CrossGatewayQueryRequest>
-   </soapenv:Body>
-</soapenv:Envelope>]]></con:request>
+   </soap:Body>
+</soap:Envelope>]]></con:request>
 	<con:assertion type="SOAP Response"/>
 	<con:assertion type="Schema Compliance">
 		<con:configuration/>
@@ -4144,9 +4144,9 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 		<con:encoding>UTF-8</con:encoding>
 		<con:endpoint>${#TestSuite#Endpoint-DocRetrieve}</con:endpoint>
 		<con:request>
-			<![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:ihe:iti:xds-b:2007" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon">
-   <soapenv:Header/>
-   <soapenv:Body testSuite="Entity_g1" testCase="Document Retrieve">
+			<![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:ihe:iti:xds-b:2007" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+   <soap:Header/>
+   <soap:Body testSuite="Entity_g1" testCase="Document Retrieve">
       <urn:RespondingGateway_CrossGatewayRetrieveRequest>
          <urn1:RetrieveDocumentSetRequest>
             <urn1:DocumentRequest>
@@ -4374,8 +4374,8 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
             </urn2:nhinTargetCommunity>
          </urn:NhinTargetCommunities>
       </urn:RespondingGateway_CrossGatewayRetrieveRequest>
-   </soapenv:Body>
-</soapenv:Envelope>]]></con:request>
+   </soap:Body>
+</soap:Envelope>]]></con:request>
 		<con:assertion type="SOAP Response"/>
 		<con:assertion type="SOAP Fault Assertion"/>
 		<con:assertion type="Schema Compliance">
@@ -4576,9 +4576,9 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
 	<con:encoding>UTF-8</con:encoding>
 	<con:endpoint>${#TestSuite#Endpoint-Subscribe}</con:endpoint>
 	<con:request>
-		<![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:wsa="http://www.w3.org/2005/08/addressing" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add1="http://schemas.xmlsoap.org/ws/2004/08/addressing">
-   <soapenv:Header/>
-   <soapenv:Body testSuite="Entity_g1" testCase="Subscribe">
+		<![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:wsa="http://www.w3.org/2005/08/addressing" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add1="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+   <soap:Header/>
+   <soap:Body testSuite="Entity_g1" testCase="Subscribe">
       <urn:SubscribeRequest>
          <wsnt:Subscribe>
             <wsnt:ConsumerReference>
@@ -4807,8 +4807,8 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
             </urn1:nhinTargetCommunity>
          </urn:nhinTargetCommunities>
       </urn:SubscribeRequest>
-   </soapenv:Body>
-</soapenv:Envelope>]]></con:request>
+   </soap:Body>
+</soap:Envelope>]]></con:request>
 	<con:assertion type="SOAP Response"/>
 	<con:assertion type="SOAP Fault Assertion"/>
 	<con:assertion name="Schema Compliance" type="Schema Compliance">
@@ -5012,9 +5012,9 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 	<con:encoding>UTF-8</con:encoding>
 	<con:endpoint>${#TestSuite#Endpoint-Subscribe}</con:endpoint>
 	<con:request>
-		<![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:wsa="http://www.w3.org/2005/08/addressing" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add1="http://schemas.xmlsoap.org/ws/2004/08/addressing">
-   <soapenv:Header/>
-   <soapenv:Body testSuite="Entity_g1" testCase="Subscribe (as part of Notify test case)">
+		<![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:wsa="http://www.w3.org/2005/08/addressing" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add1="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+   <soap:Header/>
+   <soap:Body testSuite="Entity_g1" testCase="Subscribe (as part of Notify test case)">
       <urn:SubscribeRequest>
          <wsnt:Subscribe>
             <wsnt:ConsumerReference>
@@ -5243,8 +5243,8 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
             </urn1:nhinTargetCommunity>
          </urn:nhinTargetCommunities>
       </urn:SubscribeRequest>
-   </soapenv:Body>
-</soapenv:Envelope>]]></con:request>
+   </soap:Body>
+</soap:Envelope>]]></con:request>
 
 
 	<con:assertion name="Not SOAP Fault" type="SOAP Fault Assertion"/>
@@ -5288,9 +5288,9 @@ testRunner.testCase.testSuite.project.setPropertyValue( "NotifySubscriptionID", 
 	<con:encoding>UTF-8</con:encoding>
 	<con:endpoint>${#TestSuite#Endpoint-Notify}</con:endpoint>
 	<con:request>
-		<![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:b="http://docs.oasis-open.org/wsn/b-2" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn4="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:ihe="urn:ihe:iti:xds-b:2007" xmlns:wsa="http://www.w3.org/2005/08/addressing" xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0">
-   <soapenv:Header/>
-   <soapenv:Body testSuite="Entity_g1" testCase="Notify">
+		<![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:b="http://docs.oasis-open.org/wsn/b-2" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn4="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:ihe="urn:ihe:iti:xds-b:2007" xmlns:wsa="http://www.w3.org/2005/08/addressing" xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0">
+   <soap:Header/>
+   <soap:Body testSuite="Entity_g1" testCase="Notify">
       <urn:NotifyRequest>
          <b:Notify>
             <b:NotificationMessage>
@@ -5521,8 +5521,8 @@ testRunner.testCase.testSuite.project.setPropertyValue( "NotifySubscriptionID", 
             </urn4:samlAuthzDecisionStatement>
          </urn:Assertion>
       </urn:NotifyRequest>
-   </soapenv:Body>
-</soapenv:Envelope>]]></con:request>
+   </soap:Body>
+</soap:Envelope>]]></con:request>
 	<con:assertion type="SOAP Response"/>
 	<con:assertion type="Schema Compliance">
 		<con:configuration/>
@@ -5716,9 +5716,9 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 	<con:encoding>UTF-8</con:encoding>
 	<con:endpoint>${#TestSuite#Endpoint-Subscribe}</con:endpoint>
 	<con:request>
-		<![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:wsa="http://www.w3.org/2005/08/addressing" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add1="http://schemas.xmlsoap.org/ws/2004/08/addressing">
-   <soapenv:Header/>
-   <soapenv:Body testSuite="Entity_g1" testCase="Subscribe (as part of Unsubscribe test case)">
+		<![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:wsa="http://www.w3.org/2005/08/addressing" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add1="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+   <soap:Header/>
+   <soap:Body testSuite="Entity_g1" testCase="Subscribe (as part of Unsubscribe test case)">
       <urn:SubscribeRequest>
          <wsnt:Subscribe>
             <wsnt:ConsumerReference>
@@ -5947,8 +5947,8 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
             </urn1:nhinTargetCommunity>
          </urn:nhinTargetCommunities>
       </urn:SubscribeRequest>
-   </soapenv:Body>
-</soapenv:Envelope>]]></con:request>
+   </soap:Body>
+</soap:Envelope>]]></con:request>
 	<con:assertion type="SOAP Response"/>
 	<con:assertion type="SOAP Fault Assertion"/>
 	<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
@@ -5994,12 +5994,12 @@ testRunner.testCase.testSuite.project.setPropertyValue( "UnSubscriptionID", subI
 	<con:encoding>UTF-8</con:encoding>
 	<con:endpoint>${#TestSuite#Endpoint-Unsubscribe}</con:endpoint>
 	<con:request>
-		<![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:nhin="http://www.hhs.gov/healthit/nhin" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:subscription" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
-   <soapenv:Header>
+		<![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:nhin="http://www.hhs.gov/healthit/nhin" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:subscription" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+   <soap:Header>
       <ns5:SubscriptionId xmlns="http://www.w3.org/2005/08/addressing" xmlns:ns2="http://docs.oasis-open.org/wsn/b-2" xmlns:ns3="http://docs.oasis-open.org/wsrf/bf-2" xmlns:ns4="http://docs.oasis-open.org/wsn/t-1" xmlns:ns5="http://www.hhs.gov/healthit/nhin">${#Project#UnSubscriptionID}</ns5:SubscriptionId>
       <nhinconnect:Info xmlns:nhinconnect="urn:nhinconnect">hello world</nhinconnect:Info>
-   </soapenv:Header>
-   <soapenv:Body testSuite="Entity_g1" testCase="Unsubscribe">
+   </soap:Header>
+   <soap:Body testSuite="Entity_g1" testCase="Unsubscribe">
       <urn:UnsubscribeRequest>
          <wsnt:Unsubscribe xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2">
             <nhinconnect:Info xmlns:nhinconnect="urn:nhinconnect">just some data</nhinconnect:Info>
@@ -6214,8 +6214,8 @@ testRunner.testCase.testSuite.project.setPropertyValue( "UnSubscriptionID", subI
             </nccommon:samlAuthzDecisionStatement>
          </urn:assertion>
       </urn:UnsubscribeRequest>
-   </soapenv:Body>
-</soapenv:Envelope>]]></con:request>
+   </soap:Body>
+</soap:Envelope>]]></con:request>
 	<con:assertion type="SOAP Response"/>
 	<con:assertion type="SOAP Fault Assertion"/>
 	<con:assertion disabled="true" name="Schema Compliance" type="Schema Compliance">
@@ -7914,9 +7914,9 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 		<con:encoding>UTF-8</con:encoding>
 		<con:endpoint>${#TestSuite#Endpoint-XDREntity}</con:endpoint>
 		<con:request>
-			<![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
-   <soapenv:Header/>
-   <soapenv:Body testSuite="Entity_g0" testCase="Document Submission">
+			<![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
+   <soap:Header/>
+   <soap:Body testSuite="Entity_g0" testCase="Document Submission">
       <urn:RespondingGateway_ProvideAndRegisterDocumentSetRequest>
          <urn:assertion>
             <urn1:address>
@@ -8352,8 +8352,8 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
             <urn5:Document id="Document01">UjBsR09EbGhjZ0dTQUxNQUFBUUNBRU1tQ1p0dU1GUXhEUzhi</urn5:Document>
          </urn:ProvideAndRegisterDocumentSetRequest>
       </urn:RespondingGateway_ProvideAndRegisterDocumentSetRequest>
-   </soapenv:Body>
-</soapenv:Envelope>]]></con:request>
+   </soap:Body>
+</soap:Envelope>]]></con:request>
 		<con:assertion type="SOAP Response"/>
 		<con:assertion type="SOAP Fault Assertion"/>
 		<con:assertion type="XPath Match">
@@ -9872,9 +9872,9 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 	<con:encoding>UTF-8</con:encoding>
 	<con:endpoint>${#TestSuite#Endpoint-PatientDiscovery}</con:endpoint>
 	<con:request>
-		<![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
-   <soapenv:Header/>
-   <soapenv:Body testSuite="Entity_g0" testCase="Patient Discovery">
+		<![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+   <soap:Header/>
+   <soap:Body testSuite="Entity_g0" testCase="Patient Discovery">
       <urn:RespondingGateway_PRPA_IN201305UV02Request>
          <urn:PRPA_IN201305UV02 ITSVersion="XML_1.0">
             <urn:id root="1.1" extension="-5a3e95b1:11d1fa33d45:-7f9b"/>
@@ -10111,8 +10111,8 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
             </urn1:nhinTargetCommunity>
          </urn:NhinTargetCommunities>
       </urn:RespondingGateway_PRPA_IN201305UV02Request>
-   </soapenv:Body>
-</soapenv:Envelope>]]></con:request>
+   </soap:Body>
+</soap:Envelope>]]></con:request>
 	<con:assertion type="SOAP Response"/>
 	<con:assertion disabled="true" type="Schema Compliance">
 		<con:configuration>
@@ -10324,9 +10324,9 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySe
 	<con:encoding>UTF-8</con:encoding>
 	<con:endpoint>${#TestSuite#Endpoint-DocQuery}</con:endpoint>
 	<con:request>
-		<![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn3="urn:gov:hhs:fha:nhinc:common:nhinccommon">
-   <soapenv:Header/>
-   <soapenv:Body testSuite="Entity_g0" testCase="Document Query">
+		<![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn3="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+   <soap:Header/>
+   <soap:Body testSuite="Entity_g0" testCase="Document Query">
       <urn:RespondingGateway_CrossGatewayQueryRequest>
          <urn1:AdhocQueryRequest federated="false" startIndex="0" maxResults="-1">
             <urn1:ResponseOption returnType="LeafClass" returnComposedObjects="false"/>
@@ -10572,8 +10572,8 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySe
             </urn3:nhinTargetCommunity>
          </urn:NhinTargetCommunities>
       </urn:RespondingGateway_CrossGatewayQueryRequest>
-   </soapenv:Body>
-</soapenv:Envelope>]]></con:request>
+   </soap:Body>
+</soap:Envelope>]]></con:request>
 	<con:assertion type="SOAP Response"/>
 	<con:assertion type="Schema Compliance">
 		<con:configuration/>
@@ -10742,9 +10742,9 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 		<con:encoding>UTF-8</con:encoding>
 		<con:endpoint>${#TestSuite#Endpoint-DocRetrieve}</con:endpoint>
 		<con:request>
-			<![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:ihe:iti:xds-b:2007" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon">
-   <soapenv:Header/>
-   <soapenv:Body testSuite="Entity_g0" testCase="Document Retrieve">
+			<![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:ihe:iti:xds-b:2007" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+   <soap:Header/>
+   <soap:Body testSuite="Entity_g0" testCase="Document Retrieve">
       <urn:RespondingGateway_CrossGatewayRetrieveRequest>
          <urn1:RetrieveDocumentSetRequest>
             <urn1:DocumentRequest>
@@ -10972,8 +10972,8 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
             </urn2:nhinTargetCommunity>
          </urn:NhinTargetCommunities>
       </urn:RespondingGateway_CrossGatewayRetrieveRequest>
-   </soapenv:Body>
-</soapenv:Envelope>]]></con:request>
+   </soap:Body>
+</soap:Envelope>]]></con:request>
 		<con:assertion type="SOAP Response"/>
 		<con:assertion type="SOAP Fault Assertion"/>
 		<con:assertion type="Schema Compliance">
@@ -11160,9 +11160,9 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
 	<con:encoding>UTF-8</con:encoding>
 	<con:endpoint>${#TestSuite#Endpoint-Subscribe}</con:endpoint>
 	<con:request>
-		<![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:wsa="http://www.w3.org/2005/08/addressing" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add1="http://schemas.xmlsoap.org/ws/2004/08/addressing">
-   <soapenv:Header/>
-   <soapenv:Body testSuite="Entity_g0" testCase="Subscribe">
+		<![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:wsa="http://www.w3.org/2005/08/addressing" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add1="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+   <soap:Header/>
+   <soap:Body testSuite="Entity_g0" testCase="Subscribe">
       <urn:SubscribeRequest>
          <wsnt:Subscribe>
             <wsnt:ConsumerReference>
@@ -11391,8 +11391,8 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
             </urn1:nhinTargetCommunity>
          </urn:nhinTargetCommunities>
       </urn:SubscribeRequest>
-   </soapenv:Body>
-</soapenv:Envelope>]]></con:request>
+   </soap:Body>
+</soap:Envelope>]]></con:request>
 	<con:assertion type="SOAP Response"/>
 	<con:assertion type="SOAP Fault Assertion"/>
 	<con:assertion name="Schema Compliance" type="Schema Compliance">
@@ -11596,9 +11596,9 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 	<con:encoding>UTF-8</con:encoding>
 	<con:endpoint>${#TestSuite#Endpoint-Subscribe}</con:endpoint>
 	<con:request>
-		<![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:wsa="http://www.w3.org/2005/08/addressing" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add1="http://schemas.xmlsoap.org/ws/2004/08/addressing">
-   <soapenv:Header/>
-   <soapenv:Body testSuite="Entity_g0" testCase="Subscribe (as part of Notify test case)">
+		<![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:wsa="http://www.w3.org/2005/08/addressing" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add1="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+   <soap:Header/>
+   <soap:Body testSuite="Entity_g0" testCase="Subscribe (as part of Notify test case)">
       <urn:SubscribeRequest>
          <wsnt:Subscribe>
             <wsnt:ConsumerReference>
@@ -11827,8 +11827,8 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
             </urn1:nhinTargetCommunity>
          </urn:nhinTargetCommunities>
       </urn:SubscribeRequest>
-   </soapenv:Body>
-</soapenv:Envelope>]]></con:request>
+   </soap:Body>
+</soap:Envelope>]]></con:request>
 
 
 	<con:assertion name="Not SOAP Fault" type="SOAP Fault Assertion"/>
@@ -11872,9 +11872,9 @@ context.testCase.testSuite.project.setPropertyValue( "NotifySubscriptionID", par
 	<con:encoding>UTF-8</con:encoding>
 	<con:endpoint>${#TestSuite#Endpoint-Notify}</con:endpoint>
 	<con:request>
-		<![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:b="http://docs.oasis-open.org/wsn/b-2" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn4="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:ihe="urn:ihe:iti:xds-b:2007" xmlns:wsa="http://www.w3.org/2005/08/addressing" xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0">
-   <soapenv:Header/>
-   <soapenv:Body testSuite="Entity_g0" testCase="Notify">
+		<![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:b="http://docs.oasis-open.org/wsn/b-2" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn4="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:ihe="urn:ihe:iti:xds-b:2007" xmlns:wsa="http://www.w3.org/2005/08/addressing" xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0">
+   <soap:Header/>
+   <soap:Body testSuite="Entity_g0" testCase="Notify">
       <urn:NotifyRequest>
          <b:Notify>
             <b:NotificationMessage>
@@ -12105,8 +12105,8 @@ context.testCase.testSuite.project.setPropertyValue( "NotifySubscriptionID", par
             </urn4:samlAuthzDecisionStatement>
          </urn:Assertion>
       </urn:NotifyRequest>
-   </soapenv:Body>
-</soapenv:Envelope>]]></con:request>
+   </soap:Body>
+</soap:Envelope>]]></con:request>
 	<con:assertion type="SOAP Response"/>
 	<con:assertion type="Schema Compliance">
 		<con:configuration/>
@@ -12300,9 +12300,9 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 	<con:encoding>UTF-8</con:encoding>
 	<con:endpoint>${#TestSuite#Endpoint-Subscribe}</con:endpoint>
 	<con:request>
-		<![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:wsa="http://www.w3.org/2005/08/addressing" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add1="http://schemas.xmlsoap.org/ws/2004/08/addressing">
-   <soapenv:Header/>
-   <soapenv:Body testSuite="Entity_g0" testCase="Subscribe (as part of Unsubscribe test case)">
+		<![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:wsa="http://www.w3.org/2005/08/addressing" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add1="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+   <soap:Header/>
+   <soap:Body testSuite="Entity_g0" testCase="Subscribe (as part of Unsubscribe test case)">
       <urn:SubscribeRequest>
          <wsnt:Subscribe>
             <wsnt:ConsumerReference>
@@ -12531,8 +12531,8 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
             </urn1:nhinTargetCommunity>
          </urn:nhinTargetCommunities>
       </urn:SubscribeRequest>
-   </soapenv:Body>
-</soapenv:Envelope>]]></con:request>
+   </soap:Body>
+</soap:Envelope>]]></con:request>
 	<con:assertion type="SOAP Response"/>
 	<con:assertion type="SOAP Fault Assertion"/>
 	<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
@@ -12578,12 +12578,12 @@ context.testCase.testSuite.project.setPropertyValue( "UnSubscriptionID", subID )
 	<con:encoding>UTF-8</con:encoding>
 	<con:endpoint>${#TestSuite#Endpoint-Unsubscribe}</con:endpoint>
 	<con:request>
-		<![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:nhin="http://www.hhs.gov/healthit/nhin" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:subscription" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
-   <soapenv:Header>
+		<![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:nhin="http://www.hhs.gov/healthit/nhin" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:subscription" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+   <soap:Header>
       <ns5:SubscriptionId xmlns="http://www.w3.org/2005/08/addressing" xmlns:ns2="http://docs.oasis-open.org/wsn/b-2" xmlns:ns3="http://docs.oasis-open.org/wsrf/bf-2" xmlns:ns4="http://docs.oasis-open.org/wsn/t-1" xmlns:ns5="http://www.hhs.gov/healthit/nhin">${#Project#UnSubscriptionID}</ns5:SubscriptionId>
       <nhinconnect:Info xmlns:nhinconnect="urn:nhinconnect">hello world</nhinconnect:Info>
-   </soapenv:Header>
-   <soapenv:Body testSuite="Entity_g0" testCase="Unsubscribe">
+   </soap:Header>
+   <soap:Body testSuite="Entity_g0" testCase="Unsubscribe">
       <urn:UnsubscribeRequest>
          <wsnt:Unsubscribe xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2">
             <nhinconnect:Info xmlns:nhinconnect="urn:nhinconnect">just some data</nhinconnect:Info>
@@ -12798,8 +12798,8 @@ context.testCase.testSuite.project.setPropertyValue( "UnSubscriptionID", subID )
             </nccommon:samlAuthzDecisionStatement>
          </urn:assertion>
       </urn:UnsubscribeRequest>
-   </soapenv:Body>
-</soapenv:Envelope>]]></con:request>
+   </soap:Body>
+</soap:Envelope>]]></con:request>
 	<con:assertion type="SOAP Response"/>
 	<con:assertion type="SOAP Fault Assertion"/>
 	<con:assertion disabled="true" name="Schema Compliance" type="Schema Compliance">

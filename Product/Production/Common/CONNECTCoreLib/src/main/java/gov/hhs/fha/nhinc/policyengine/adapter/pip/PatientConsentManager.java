@@ -35,6 +35,7 @@ import gov.hhs.fha.nhinc.docregistry.adapter.proxy.AdapterComponentDocRegistryPr
 import gov.hhs.fha.nhinc.docregistry.adapter.proxy.AdapterComponentDocRegistryProxyObjectFactory;
 import gov.hhs.fha.nhinc.docrepository.adapter.proxy.AdapterComponentDocRepositoryProxy;
 import gov.hhs.fha.nhinc.docrepository.adapter.proxy.AdapterComponentDocRepositoryProxyObjectFactory;
+import gov.hhs.fha.nhinc.largefile.LargeFileUtils;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
@@ -44,6 +45,7 @@ import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType.DocumentRequest;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType.DocumentResponse;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -236,7 +238,8 @@ public class PatientConsentManager {
             if (oPtPref.getFineGrainedPolicyMetadata() == null) {
                 oPtPref.setFineGrainedPolicyMetadata(new FineGrainedPolicyMetadataType());
             }
-            oPtPref.getFineGrainedPolicyMetadata().setSize(String.valueOf(oDoc.getValue().length));
+
+            oPtPref.getFineGrainedPolicyMetadata().setSize(String.valueOf(sPrefDoc.getBytes().length));
         }
 
         // If a matching document id is found the target will not be empty
@@ -267,14 +270,20 @@ public class PatientConsentManager {
      * @param sPrefDoc
      * @param sDocUniqueId
      * @return ProvideAndRegisterDocumentSetRequestType.Document
+     * @throws AdapterPIPException
      */
-    private ProvideAndRegisterDocumentSetRequestType.Document createDocumentRawData(String sPrefDoc, String sDocUniqueId) {
+    private ProvideAndRegisterDocumentSetRequestType.Document createDocumentRawData(String sPrefDoc, String sDocUniqueId)
+            throws AdapterPIPException {
         log.info("------ Begin PatientConsentManager.createDocumentRawData ------");
-        ProvideAndRegisterDocumentSetRequestType.Document oDoc = new ProvideAndRegisterDocumentSetRequestType.Document();
-        oDoc.setId(sDocUniqueId);
-        oDoc.setValue(sPrefDoc.getBytes());
-        log.info("------ End PatientConsentManager.createDocumentRawData ------");
-        return oDoc;
+        try {
+            ProvideAndRegisterDocumentSetRequestType.Document oDoc = new ProvideAndRegisterDocumentSetRequestType.Document();
+            oDoc.setId(sDocUniqueId);
+            oDoc.setValue(LargeFileUtils.getInstance().convertToDataHandler(sPrefDoc));
+            log.info("------ End PatientConsentManager.createDocumentRawData ------");
+            return oDoc;
+        } catch (Exception e) {
+            throw new AdapterPIPException("Failed to process document.", e);
+        }
     }
 
     /**

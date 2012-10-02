@@ -26,10 +26,12 @@
  */
 package gov.hhs.fha.nhinc.docrepository.adapter;
 
+import gov.hhs.fha.nhinc.largefile.LargeFileUtils;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.activation.DataHandler;
 import javax.xml.bind.JAXBElement;
 
 import org.apache.commons.logging.Log;
@@ -48,10 +50,13 @@ import gov.hhs.fha.nhinc.util.format.UTCDateUtil;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType.DocumentRequest;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType.DocumentResponse;
+
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.HashMap;
@@ -433,7 +438,7 @@ public class AdapterComponentDocRepositoryOrchImpl {
             // loop through binaryDocs list and put them into a hashmap for later use
             // when looping through the metadata - we need to associate the metadata
             // with the document (this is done by looking at the XDS Document id attribute).
-            HashMap<String, byte[]> docMap = new HashMap<String, byte[]>();
+            HashMap<String, DataHandler> docMap = new HashMap<String, DataHandler>();
             for (ProvideAndRegisterDocumentSetRequestType.Document tempDoc : binaryDocs) {
                 docMap.put(tempDoc.getId(), tempDoc.getValue());
             }
@@ -749,7 +754,15 @@ public class AdapterComponentDocRepositoryOrchImpl {
                         extractEventCodes(classifications, doc);
 
                         // get the document byte array from the hashmap populated earlier
-                        doc.setRawData((byte[]) docMap.get(extrinsicObject.getId()));
+                        byte[] rawData = new byte[0];
+                        try {
+                            DataHandler dh = (DataHandler) docMap.get(extrinsicObject.getId());
+                            rawData = LargeFileUtils.getInstance().convertToBytes(dh);
+                            
+                            doc.setRawData(rawData);
+                        } catch (IOException ioe) {
+                            log.error("Failed to retrieve document from the message.  Will not be able to save to repository.", ioe);
+                        }
 
                         String availabilityStatus = extrinsicObject.getStatus();
                         log.debug("Availability status received in message: " + availabilityStatus);
@@ -768,8 +781,7 @@ public class AdapterComponentDocRepositoryOrchImpl {
                         // doc.setParentDocumentRelationship(getChildElementStringValue(documentElement,
                         // "parentDocumentRelationship"));
 
-                        // TODO verify that this size logic is correct - it seems kludgy
-                        doc.setSize(((byte[]) docMap.get(extrinsicObject.getId())).length);
+                        doc.setSize(rawData.length);
 
                         // TODO concatenate the adapter server's uri to the document unique id
                         doc.setDocumentUri(documentUniqueId);
