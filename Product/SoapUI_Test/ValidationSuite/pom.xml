@@ -87,7 +87,8 @@
                     <printReport>true</printReport>
                     <junitReport>true</junitReport>
                     <coverage>true</coverage>
-                    <testFailIgnore>false</testFailIgnore>
+                    <testFailIgnore>true</testFailIgnore>
+                    <saveAfterRun>false</saveAfterRun>
                 </configuration>
                 <executions>
                     <execution>
@@ -132,7 +133,7 @@
                         </goals>
                         <configuration>
                             <projectFile>4-ConnectionManagerTest-soapui-project.xml</projectFile>
-                            <outputFolder>${basedir}/target/soapui/output/4-ConnectionManagerTest</outputFolder>
+                            <outputFolder>${basedir}/target/soapui/output/ConnectionManagerTest</outputFolder>
                             <globalProperties>
                                 <value>project.name=4-ConnectionManagerTest</value>
                             </globalProperties>
