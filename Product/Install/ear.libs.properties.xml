@@ -17,7 +17,8 @@
             <include name="**/jaxb-api-2.2.6.jar" />
             <include name="**/jaxb-impl-2.2.5.jar" />
             <include name="**/joda-time-1.6.2.jar" />
-            <include name="**/stax2-api-3.1.1.jar" />
+            <include name="**/openssoclientsdk.jar" />
+            <include name="**/log4j-1.2.15.jar" />
             <include name="**/neethi-3.0.2.jar" />
             <include name="**/opensaml-2.5.1-1.jar" />
             <include name="**/openws-1.4.2-1.jar" />
@@ -30,6 +31,7 @@
             <include name="**/spring-context-3.0.7.RELEASE.jar" />
             <include name="**/spring-core-3.0.7.RELEASE.jar" />
             <include name="**/spring-expression-3.0.7.RELEASE.jar" />
+            <include name="**/stax2-api-3.1.1.jar" />
             <include name="**/velocity-1.7.jar" />
             <include name="**/woodstox-core-asl-4.1.2.jar" />
             <include name="**/wsdl4j-1.6.2.jar" />
