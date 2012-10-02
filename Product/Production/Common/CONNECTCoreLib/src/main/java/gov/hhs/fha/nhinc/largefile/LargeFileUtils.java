@@ -59,10 +59,21 @@ public class LargeFileUtils {
         log = createLogger();
     };
 
+    /**
+     * Returns the singleton instance of this class.
+     * 
+     * @return the singleton instance
+     */
     public static LargeFileUtils getInstance() {
         return INSTANCE;
     }
 
+    /**
+     * Returns true if the gateway is configured to parse document payload as a URI pointing to the data rather than
+     * having the actual data itself.
+     * 
+     * @return true if the gateway should process document payload as a URI.
+     */
     public boolean isParsePayloadAsFileLocationEnabled() {
         try {
             return PropertyAccessor.getInstance().getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE,
@@ -74,6 +85,14 @@ public class LargeFileUtils {
         return false;
     }
 
+    /**
+     * Parse the data source of the data handler as a base 64 encoded URI string.
+     * 
+     * @param dh - the data handler that contains the data source to parse
+     * @return URI representing the data inside the data handler
+     * @throws IOException
+     * @throws URISyntaxException
+     */
     public URI parseBase64DataAsUri(DataHandler dh) throws IOException, URISyntaxException {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         InputStream is = null;
@@ -93,6 +112,13 @@ public class LargeFileUtils {
         return new URI(uriString);
     }
 
+    /**
+     * Save the data handler to the given file. The data handler will be empty at the end of this call.
+     * 
+     * @param dh - the data handler to convert to a file
+     * @param file - the file containing the data from the data handler
+     * @throws IOException
+     */
     public void saveDataToFile(DataHandler dh, File file) throws IOException {
         FileOutputStream fos = new FileOutputStream(file);
         InputStream is = null;
@@ -103,14 +129,17 @@ public class LargeFileUtils {
             while ((numRead = is.read(buf)) >= 0) {
                 fos.write(buf, 0, numRead);
             }
-            is.close();
-            fos.close();
         } finally {
             closeStreamWithoutException(is);
             closeStreamWithoutException(fos);
         }
     }
 
+    /**
+     * Closes the input stream and silently catches the exception.
+     * 
+     * @param is - the input stream to close
+     */
     public void closeStreamWithoutException(InputStream is) {
         try {
             if (is != null) {
@@ -121,6 +150,11 @@ public class LargeFileUtils {
         }
     }
 
+    /**
+     * Closes the output stream and silently catches the exception.
+     * 
+     * @param os - the output stream to close
+     */
     public void closeStreamWithoutException(OutputStream os) {
         try {
             if (os != null) {
@@ -131,6 +165,13 @@ public class LargeFileUtils {
         }
     }
 
+    /**
+     * Converts the given file into a data handler with a StreamDataSource.
+     * 
+     * @param file - the file to convert
+     * @return the data handler representing the file
+     * @throws IOException
+     */
     public DataHandler convertToDataHandler(File file) throws IOException {
         if (!file.exists()) {
             throw new IOException(
@@ -144,11 +185,25 @@ public class LargeFileUtils {
         return new DataHandler(sds);
     }
 
+    /**
+     * Converts the given string into a data handler with a ByteDataSource.
+     * 
+     * @param data - the data to convert
+     * @return the data handler representing the string
+     * @throws IOException
+     */
     public DataHandler convertToDataHandler(String data) throws IOException {
         ByteDataSource bds = new ByteDataSource(data.getBytes());
         return new DataHandler(bds);
     }
 
+    /**
+     * Saves the data handler as a byte array. The data handler will be empty at the end of this call.
+     * 
+     * @param dh - the data handler to convert
+     * @return a byte array containing the data from the data handler
+     * @throws IOException
+     */
     public byte[] convertToBytes(DataHandler dh) throws IOException {
         InputStream is = dh.getInputStream();
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -162,6 +217,13 @@ public class LargeFileUtils {
         return baos.toByteArray();
     }
 
+    /**
+     * Generates a file to be used for saving payload attachments. The file will be created at the configured payload
+     * directory or at the java tmp directory if the payload directory does not exists.
+     * 
+     * @return
+     * @throws IOException
+     */
     public File generateAttachmentFile() throws IOException {
         String payloadSaveDirectory = getPayloadSaveDirectory();
         File parentDir = null;

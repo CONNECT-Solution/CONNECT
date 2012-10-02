@@ -45,10 +45,23 @@ public class MessageGeneratorUtils {
     MessageGeneratorUtils() {
     };
 
+    /**
+     * Returns the singleton instance of this class.
+     * 
+     * @return the singleton instance
+     */
     public static MessageGeneratorUtils getInstance() {
         return INSTANCE;
     }
 
+    /**
+     * Create a RegistryErrorResponse with severity set to error.
+     * 
+     * @param errorMsg - the code context value of the message
+     * @param errorCode - the error code value of the message
+     * @param status - the status of the message
+     * @return the generated RegistryErrorResponse message
+     */
     public RegistryResponseType createRegistryErrorResponse(String errorMsg, String errorCode, String status) {
         RegistryErrorList regErrList = new RegistryErrorList();
         regErrList.setHighestSeverity(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR);
@@ -66,21 +79,46 @@ public class MessageGeneratorUtils {
         return response;
     }
 
+    /**
+     * Create a RegistryErrorResponse with severity set to error. The errorCode is set to registry error and status set
+     * to failure.
+     * 
+     * @return the generated RegistryErrorResponse message
+     */
     public RegistryResponseType createRegistryErrorResponse() {
         return createRegistryErrorResponse("Failed to retrieve document from request.",
                 DocumentConstants.XDS_REGISTRY_ERROR, DocumentConstants.XDS_SUBMISSION_RESPONSE_STATUS_FAILURE);
     }
 
+    /**
+     * Create a RegistryErrorResponse with severity set to error. The error code is set to missing document and status
+     * set to failure.
+     * 
+     * @return
+     */
     public RegistryResponseType createMissingDocumentRegistryResponse() {
         return createRegistryErrorResponse("Failed to retrieve document for sending.",
                 DocumentConstants.XDS_MISSING_DOCUMENT, DocumentConstants.XDS_SUBMISSION_RESPONSE_STATUS_FAILURE);
     }
 
+    /**
+     * Create a RegistryErrorResponse with severity set to error. The error code is set to registry error and the status
+     * set to ack failure.
+     * 
+     * @param errorMsg
+     * @return
+     */
     public RegistryResponseType createRegistryErrorResponseWithAckFailure(String errorMsg) {
         return createRegistryErrorResponse(errorMsg, DocumentConstants.XDS_REGISTRY_ERROR,
                 NhincConstants.XDR_ACK_FAILURE_STATUS_MSG);
     }
 
+    /**
+     * Create a XDRAcknowledgementType with a message containing a RegistryErrorResponse with an ack failure status.
+     * 
+     * @param errorMsg
+     * @return
+     */
     public XDRAcknowledgementType createRegistryErrorXDRAcknowledgementType(String errorMsg) {
         XDRAcknowledgementType response = new XDRAcknowledgementType();
 
@@ -90,6 +128,12 @@ public class MessageGeneratorUtils {
         return response;
     }
 
+    /**
+     * Create a XDRAcknowledgementType with a message containing a RegistryErrorResponse with a missing document error
+     * code.
+     * 
+     * @return
+     */
     public XDRAcknowledgementType createMissingDocumentXDRAcknowledgementType() {
         XDRAcknowledgementType response = new XDRAcknowledgementType();
 
