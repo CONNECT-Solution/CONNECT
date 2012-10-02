@@ -67,24 +67,16 @@
                 </includes>
                 <excludes>
                     <exclude>.gitignore</exclude>
-                    <exclude>xml-resources/</exclude>
+                    <exclude>xml-resources/</exclude> <!-- will be removed -->
                 </excludes>
             </resource>
             <resource>
-                <directory>${basedir}/src/main/resources/wsdl</directory>
-                <includes>
-                    <include>*.wsdl</include>
-                </includes>
-                <targetPath>${project.build.directory}/wsdl2java-sources/wsdl</targetPath>
-            </resource>
-            <resource>
-                <!-- Caution: Defining this resource to copy over the extracted 
-                    wsdls from <directory> into ${project.build.directory}/classes so the resources 
-                    are included within resulting archive -->
-                <directory>${project.build.directory}/wsdl2java-sources/</directory>
+                <directory>${basedir}/src/main/resources</directory>
                 <includes>
                     <include>wsdl/**/*.wsdl</include>
+                    <include>*.wsdl</include>
                 </includes>
+                <targetPath>${project.build.directory}/wsdl2java-sources</targetPath>
             </resource>
         </resources>
         <testResources>

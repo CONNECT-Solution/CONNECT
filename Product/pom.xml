@@ -6,6 +6,13 @@
     <artifactId>Product</artifactId>
     <version>4.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
+    <name>CONNECT Product</name>
+    <url>http://www.connectopensource.org/</url>
+    <scm>
+      <connection>scm:git:git@github.com:CONNECT-Solution/CONNECT.git</connection>
+      <developerConnection>scm:git:git@github.com:CONNECT-Solution/CONNECT.git</developerConnection>
+      <url>https://github.com/CONNECT-Solution/CONNECT</url>
+    </scm>
     <properties>
         <cxf.version>2.6.1</cxf.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -248,6 +255,12 @@
                         <downloadSources>true</downloadSources>
                         <downloadJavadocs>true</downloadJavadocs>
                         <useProjectReferences>false</useProjectReferences>
+                        <projectNameTemplate>[artifactId]-[version]</projectNameTemplate>
+                        <wtpmanifest>true</wtpmanifest>
+                        <wtpapplicationxml>true</wtpapplicationxml>
+                        <wtpversion>2.0</wtpversion>
+                        <manifest>${basedir}/src/main/resources/META-INF/MANIFEST.MF</manifest>
+                        <workspaceCodeStylesURL>https://developer.connectopensource.org/download/attachments/82509889/formatter.xml</workspaceCodeStylesURL>
                     </configuration>
                 </plugin>
             </plugins>
