@@ -43,11 +43,12 @@ import org.junit.Test;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
-import gov.hhs.fha.nhinc.docsubmission.NhinDocSubmissionUtils;
+import gov.hhs.fha.nhinc.docsubmission.DocSubmissionUtils;
 import gov.hhs.fha.nhinc.docsubmission.XDRAuditLogger;
 import gov.hhs.fha.nhinc.docsubmission.XDRPolicyChecker;
 import gov.hhs.fha.nhinc.docsubmission.adapter.deferred.request.error.proxy.AdapterDocSubmissionDeferredRequestErrorProxy;
 import gov.hhs.fha.nhinc.docsubmission.adapter.deferred.request.proxy.AdapterDocSubmissionDeferredRequestProxy;
+import gov.hhs.fha.nhinc.largefile.LargePayloadException;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
@@ -67,17 +68,18 @@ public class NhinDocSubmissionDeferredRequestOrchImplTest {
     final XDRAuditLogger mockXDRLog = context.mock(XDRAuditLogger.class);
     final XDRPolicyChecker mockPolicyCheck = context.mock(XDRPolicyChecker.class);
     final PropertyAccessor mockPropertyAccessor = context.mock(PropertyAccessor.class);
-    final NhinDocSubmissionUtils mockUtils = context.mock(NhinDocSubmissionUtils.class);
+    final DocSubmissionUtils mockUtils = context.mock(DocSubmissionUtils.class);
     final AdapterDocSubmissionDeferredRequestProxy mockProxy = context
             .mock(AdapterDocSubmissionDeferredRequestProxy.class);
     final AdapterDocSubmissionDeferredRequestErrorProxy mockErrorProxy = context
             .mock(AdapterDocSubmissionDeferredRequestErrorProxy.class);
 
     @Test
-    public void testProvideAndRegisterDocumentSetB() throws PropertyAccessException {
+    public void testProvideAndRegisterDocumentSetB() throws PropertyAccessException, LargePayloadException {
         allowAnyMockLogging();
         expect4MockAudits();
         setMockPropertyAccessorToReturnValidHcid();
+        expectMockDocSubmissionUtils();
         setMockPassthruMode(false);
         setMockPolicyCheck(true);
         expectMockProxyInvocationAndReturnValidResponse();
@@ -160,7 +162,7 @@ public class NhinDocSubmissionDeferredRequestOrchImplTest {
         NhinDocSubmissionDeferredRequestOrchImpl nhinOrchImpl = new NhinDocSubmissionDeferredRequestOrchImpl();
 
         assertNotNull(nhinOrchImpl.getLogger());
-        assertNotNull(nhinOrchImpl.getNhinDocSubmissionUtils());
+        assertNotNull(nhinOrchImpl.getDocSubmissionUtils());
         assertNotNull(nhinOrchImpl.getPropertyAccessor());
         assertNotNull(nhinOrchImpl.getXDRAuditLogger());
         assertNotNull(nhinOrchImpl.getXDRPolicyChecker());
@@ -274,7 +276,16 @@ public class NhinDocSubmissionDeferredRequestOrchImplTest {
             }
         });
     }
-
+    
+    private void expectMockDocSubmissionUtils() throws LargePayloadException {
+        context.checking(new Expectations() {
+            {
+                oneOf(mockUtils).convertDataToFileLocationIfEnabled(
+                        with(any(ProvideAndRegisterDocumentSetRequestType.class)));
+            }
+        });
+    }
+    
     private XDRAcknowledgementType createXDRAcknowledgementType() {
         RegistryResponseType regResponse = new RegistryResponseType();
         regResponse.setStatus(NhincConstants.XDR_ACK_STATUS_MSG);
@@ -313,7 +324,7 @@ public class NhinDocSubmissionDeferredRequestOrchImplTest {
                 return mockPropertyAccessor;
             }
 
-            protected NhinDocSubmissionUtils getNhinDocSubmissionUtils() {
+            protected DocSubmissionUtils getDocSubmissionUtils() {
                 return mockUtils;
             }
 

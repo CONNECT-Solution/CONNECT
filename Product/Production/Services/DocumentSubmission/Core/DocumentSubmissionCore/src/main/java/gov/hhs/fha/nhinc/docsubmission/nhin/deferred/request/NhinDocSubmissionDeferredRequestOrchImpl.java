@@ -32,13 +32,14 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.docsubmission.NhinDocSubmissionUtils;
+import gov.hhs.fha.nhinc.docsubmission.DocSubmissionUtils;
 import gov.hhs.fha.nhinc.docsubmission.XDRAuditLogger;
 import gov.hhs.fha.nhinc.docsubmission.XDRPolicyChecker;
 import gov.hhs.fha.nhinc.docsubmission.adapter.deferred.request.error.proxy.AdapterDocSubmissionDeferredRequestErrorProxy;
 import gov.hhs.fha.nhinc.docsubmission.adapter.deferred.request.error.proxy.AdapterDocSubmissionDeferredRequestErrorProxyObjectFactory;
 import gov.hhs.fha.nhinc.docsubmission.adapter.deferred.request.proxy.AdapterDocSubmissionDeferredRequestProxy;
 import gov.hhs.fha.nhinc.docsubmission.adapter.deferred.request.proxy.AdapterDocSubmissionDeferredRequestProxyObjectFactory;
+import gov.hhs.fha.nhinc.largefile.LargePayloadException;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
@@ -61,7 +62,13 @@ public class NhinDocSubmissionDeferredRequestOrchImpl {
             String localHCID = getLocalHCID();
             if (isPolicyValid(body, assertion, localHCID)) {
                 getLogger().debug("Policy Check Succeeded");
-                response = sendToAdapter(body, assertion);
+                try {
+                    getDocSubmissionUtils().convertDataToFileLocationIfEnabled(body);
+                    response = sendToAdapter(body, assertion);
+                } catch (LargePayloadException lpe) {
+                    logger.error("Failed to retrieve payload document.", lpe);
+                    response = sendErrorToAdapter(body, assertion, "Failed to retrieve payload document.");
+                }
             } else {
                 getLogger().error("Policy Check Failed");
                 response = sendErrorToAdapter(body, assertion, "Policy Check Failed");
@@ -119,15 +126,15 @@ public class NhinDocSubmissionDeferredRequestOrchImpl {
         getXDRAuditLogger().auditAcknowledgement(response, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION,
                 NhincConstants.XDR_REQUEST_ACTION);
     }
-    
+
     private void auditRequestToAdapter(ProvideAndRegisterDocumentSetRequestType request, AssertionType assertion) {
         getXDRAuditLogger().auditAdapterXDR(request, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
     }
 
     private void auditResponseFromAdapter(XDRAcknowledgementType response, AssertionType assertion) {
-        getXDRAuditLogger().auditAdapterAcknowledgement(response, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
-                NhincConstants.XDR_REQUEST_ACTION);
-    }    
+        getXDRAuditLogger().auditAdapterAcknowledgement(response, assertion,
+                NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.XDR_REQUEST_ACTION);
+    }
 
     protected String getLocalHCID() {
         String localHCID = null;
@@ -178,12 +185,12 @@ public class NhinDocSubmissionDeferredRequestOrchImpl {
                 .getAdapterDocSubmissionDeferredRequestErrorProxy();
     }
 
-    protected NhinDocSubmissionUtils getNhinDocSubmissionUtils() {
-        return NhinDocSubmissionUtils.getInstance();
+    protected DocSubmissionUtils getDocSubmissionUtils() {
+        return DocSubmissionUtils.getInstance();
     }
 
     protected boolean isInPassThroughMode() {
-        return getNhinDocSubmissionUtils()
+        return getDocSubmissionUtils()
                 .isInPassThroughMode(NhincConstants.DOC_SUBMISSION_DEFERRED_REQ_PASSTHRU_PROP);
     }
 

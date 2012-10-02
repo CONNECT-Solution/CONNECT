@@ -108,14 +108,6 @@ public class NhinPatientDiscoveryServiceTest {
                         NhincConstants.AUDIT_LOG_SYNC_TYPE, NhincConstants.AUDIT_LOG_REQUEST_PROCESS);
                 will(returnValue("1.1"));
 
-                oneOf(mockPerformanceManager).logPerformanceStart(with(aNonNull(Timestamp.class)),
-                        with(same(NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME)),
-                        with(same(NhincConstants.AUDIT_LOG_NHIN_INTERFACE)),
-                        with(same(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION)), with(same("1.1")));
-
-                oneOf(mockPerformanceManager).logPerformanceStop(with(aNonNull(Long.class)),
-                        with(aNonNull(Timestamp.class)), with(aNonNull(Timestamp.class)));
-
                 oneOf(mockAuditLogger).auditNhin201305(with(same(request)), with(same(mockAssertion)),
                         with(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION));
                 oneOf(mockAuditLogger).auditNhin201306(with(same(expectedResponse)), with(same(mockAssertion)),

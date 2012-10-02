@@ -27,9 +27,16 @@
 package gov.hhs.fha.nhinc.docsubmission.adapter.component.routing;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
-import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import gov.hhs.fha.nhinc.docsubmission.adapter.component.XDRHelper;
+import gov.hhs.fha.nhinc.largefile.LargeFileUtils;
+import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
+import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType.Document;
+
+import java.net.URI;
+import java.util.List;
+
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -48,8 +55,30 @@ public class ConnectReference implements XDRRouting {
             AssertionType assertion) {
         log.info("Inside Connect Reference provideAndRegisterDocumentSetB()");
         XDRHelper helper = new XDRHelper();
+        
+        processRequest(request);
 
         return helper.createPositiveAck();
+    }
+    
+    private void processRequest(ProvideAndRegisterDocumentSetRequestType request) {
+        LargeFileUtils fileUtils = LargeFileUtils.getInstance();
+        
+        List<Document> docList = request.getDocument();
+        for (Document doc : docList) {
+            try {
+                if (fileUtils.isParsePayloadAsFileLocationEnabled()) {
+                    URI payloadURI = fileUtils.parseBase64DataAsUri(doc.getValue());
+                    log.debug("Payload Location ===> " + payloadURI.toString());
+                } else {
+                    log.debug("Closing request input streams");
+                    LargeFileUtils.getInstance().closeStreamWithoutException(
+                            doc.getValue().getDataSource().getInputStream());
+                }
+            } catch (Exception ioe) {
+                log.error("Failed to close input stream", ioe);
+            }
+        }       
     }
 
     protected Log createLogger() {

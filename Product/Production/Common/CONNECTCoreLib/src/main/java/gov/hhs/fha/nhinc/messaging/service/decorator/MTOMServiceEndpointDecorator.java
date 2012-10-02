@@ -25,47 +25,46 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
 
-package gov.hhs.fha.nhinc.messaging.client;
+package gov.hhs.fha.nhinc.messaging.service.decorator;
 
-import gov.hhs.fha.nhinc.messaging.service.BaseServiceEndpoint;
 import gov.hhs.fha.nhinc.messaging.service.ServiceEndpoint;
-import gov.hhs.fha.nhinc.messaging.service.decorator.MTOMServiceEndpointDecorator;
-import gov.hhs.fha.nhinc.messaging.service.decorator.TimeoutServiceEndpointDecorator;
-import gov.hhs.fha.nhinc.messaging.service.decorator.URLServiceEndpointDecorator;
-import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 
+import javax.xml.ws.soap.SOAPBinding;
+
+import org.apache.cxf.endpoint.Client;
+import org.apache.cxf.frontend.ClientProxy;
+import org.apache.cxf.transport.http.HTTPConduit;
+import org.apache.cxf.transports.http.configuration.HTTPClientPolicy;
 
 /**
  * @author akong
  *
  */
-public abstract class CONNECTClient<T> {
-
-    private  WebServiceProxyHelper proxyHelper;
-    
-    protected CONNECTClient() {
-        proxyHelper = new WebServiceProxyHelper();
-    }
-    
-    public abstract T getPort();
-    
-    public Object invokePort(Class<T> portClass, String methodName, Object operationInput) throws Exception {        
-        return proxyHelper.invokePort(getPort(), portClass, methodName, operationInput);        
-    }
+public class MTOMServiceEndpointDecorator <T> extends ServiceEndpointDecorator<T> {
     
     /**
-     * Configures the given port with properties common to all ports.
-     * 
-     * @param port
-     * @param url
-     * @return
+     * @param decorated
      */
-    protected ServiceEndpoint<T> configureBasePort(T port, String url) {
-        ServiceEndpoint<T> serviceEndpoint = new BaseServiceEndpoint<T>(port);
-        serviceEndpoint = new URLServiceEndpointDecorator<T>(serviceEndpoint, url);        
-        serviceEndpoint = new TimeoutServiceEndpointDecorator<T>(serviceEndpoint);
-        serviceEndpoint = new MTOMServiceEndpointDecorator<T>(serviceEndpoint);
-        
-        return serviceEndpoint;
+    public MTOMServiceEndpointDecorator(ServiceEndpoint<T> decoratedEndpoint) {
+        super(decoratedEndpoint);
+    }
+
+    @Override
+    public void configure() {
+        super.configure();
+        Client client = ClientProxy.getClient(getPort());
+        HTTPConduit conduit = (HTTPConduit) client.getConduit();
+
+        HTTPClientPolicy httpClientPolicy = conduit.getClient();
+        if (httpClientPolicy == null) {
+            httpClientPolicy = new HTTPClientPolicy();
+        }                
+        httpClientPolicy.setAllowChunking(true);
+
+        // Enable MTOM
+        SOAPBinding binding = (SOAPBinding) ((javax.xml.ws.BindingProvider) getPort()).getBinding();
+        binding.setMTOMEnabled(true);
+       
+        conduit.setClient(httpClientPolicy);
     }
 }

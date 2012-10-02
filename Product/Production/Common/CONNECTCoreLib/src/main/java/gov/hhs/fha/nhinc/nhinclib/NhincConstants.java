@@ -115,6 +115,7 @@ public class NhincConstants {
             throw new IllegalArgumentException("No enum constant " + valueString);
         }
     };
+
     public static final String SERVICE_NAME = "serviceName";
     
     // Property File Constants
@@ -131,6 +132,10 @@ public class NhincConstants {
     public static final String CONCURRENT_POOL_SIZE = "ConcurrentPoolSize";
     public static final String LARGEJOB_POOL_SIZE = "LargeJobPoolSize";
     public static final String LARGEJOB_SIZE_PERCENT = "LargeJobSizePercent";
+    
+    // Streaming Large Files Constants    
+    public static final String PARSE_PAYLOAD_AS_FILE_URI = "ParsePayloadAsFileURI";
+    public static final String PAYLOAD_SAVE_DIRECTORY = "PayloadSaveDirectory";
 
     // these 6 not used anymore
     public static final String PATIENT_DISCOVERY_CONNECT_TIMEOUT = "PDConnectTimeout";
