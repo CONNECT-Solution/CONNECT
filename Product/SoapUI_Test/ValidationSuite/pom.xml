@@ -84,6 +84,7 @@
                             <value>${project.build.directory}/soapui/my_custon_logs/</value>
                         </property>
                     </soapuiProperties>
+                    <exportAll>true</exportAll>
                     <printReport>true</printReport>
                     <junitReport>true</junitReport>
                     <coverage>true</coverage>
