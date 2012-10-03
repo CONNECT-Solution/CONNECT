@@ -9,7 +9,7 @@
     <artifactId>CONNECTCommonWeb</artifactId>
     <packaging>war</packaging>
     <name>CONNECT Common Web</name>
-    <url>http://www.connectopensource.org/</url>
+    
     <properties>
         <skip.unpack>false</skip.unpack>
     </properties>

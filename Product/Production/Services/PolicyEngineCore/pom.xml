@@ -11,7 +11,7 @@
     <artifactId>PolicyEngineCore</artifactId>
     <packaging>jar</packaging>
     <name>CONNECT Policy Engine Core</name>
-    <url>http://www.connectopensource.org/</url>
+    
     <dependencies>
         <dependency>
             <groupId>com.forgerock.openam</groupId>

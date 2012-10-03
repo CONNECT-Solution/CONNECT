@@ -11,7 +11,7 @@
     <artifactId>RedactionEngineCore</artifactId>
     <packaging>jar</packaging>
     <name>CONNECT Redaction Engine Core</name>
-    <url>http://www.connectopensource.org/</url>
+    
     <dependencies>
     </dependencies>
     <build>

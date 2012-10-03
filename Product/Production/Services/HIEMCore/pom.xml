@@ -11,7 +11,7 @@
     <artifactId>HIEMCore</artifactId>
     <packaging>jar</packaging>
     <name>CONNECT HIEM Core</name>
-    <url>http://www.connectopensource.org/</url>
+    
     <dependencies>
         <dependency>
             <groupId>org.connectopensource</groupId>

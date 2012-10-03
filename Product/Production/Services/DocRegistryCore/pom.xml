@@ -11,7 +11,7 @@
     <artifactId>DocRegistryCore</artifactId>
     <packaging>jar</packaging>
     <name>CONNECT Document Registry Core</name>
-    <url>http://www.connectopensource.org/</url>
+    
     <build>
     </build>
 </project>
