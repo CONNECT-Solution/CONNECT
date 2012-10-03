@@ -9,7 +9,6 @@
 -->
 <hibernate-mapping>
   <class name="gov.hhs.fha.nhinc.logging.transaction.model.TransactionRepo" table="transactionrepository">
-    <!--<cache usage="read-write"/>-->
     <id name="id">
       <generator class="native"/>
     </id>
