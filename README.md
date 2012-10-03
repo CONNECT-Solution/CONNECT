@@ -60,9 +60,9 @@ When complete, open Eclipse then click on the following:
 
 		File --> Import --> 'Existing Projects into workspace'
 
-and choose the clone repo directory (<CONNECT_CLONE_DIR>), e.g. CONNECT. You may also need to repeat these steps and choose additional directories:
-* <CONNECT_CLONE_DIR>/Product
-* <CONNECT_CLONE_DIR>/Product/Production
+and choose the clone repo directory (\<CONNECT_CLONE_DIR\>), e.g. CONNECT. You may also need to repeat these steps and choose additional directories:
+* \<CONNECT_CLONE_DIR\>/Product
+* \<CONNECT_CLONE_DIR\>/Product/Production
 
 ####Building an ear
 For an ear with Patient Discovery, Document Query, Retrieve Document, Document Submission you would execute the following command.
