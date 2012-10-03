@@ -37,11 +37,11 @@ Getting Started
 Before you get started, you'll need the following installed and set up: 
 * Java 7 (JDK)
 * Maven 3.0.4+  [Download Maven](http://maven.apache.org/download.html)	[Install Maven](http://maven.apache.org/download.html#Installation)
-* [MySQL 5.1.x][http://dev.mysql.com/downloads/mysql/5.1.html#downloads]
-* [Eclipse Juno][http://www.eclipse.org/downloads/] 
-  * [egit plugin][http://www.eclipse.org/egit/]
-  * [m2eclipse plugin][http://www.eclipse.org/m2e/download/]
-* [Apache Ant v1.7.1][http://ant.apache.org/]
+* [MySQL 5.1.x](http://dev.mysql.com/downloads/mysql/5.1.html#downloads)
+* [Eclipse Juno](http://www.eclipse.org/downloads/) 
+  * [egit plugin](http://www.eclipse.org/egit/)
+  * [m2eclipse plugin](http://www.eclipse.org/m2e/download/)
+* [Apache Ant v1.7.1](http://ant.apache.org/)
 
 
 ###Building from source
