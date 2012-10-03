@@ -29,25 +29,25 @@ History
   * 4.0 planned Febuary 2013
   * 3.3 released March 2012
   
-[Release Notes][RN]
+[Release Notes](HISTORY.MD)
 
 Getting Started
 ---------------
 ###Pre-reqs
-java 7
-maven 3.0.4
-mysql
-eclipse juno (with egit and m2eclipse plugins)
-ant 1.7.1
+* java 7
+* maven 3.0.4
+* mysql
+* eclipse juno (with egit and m2eclipse plugins)
+* ant 1.7.1
 
 ###Thirdparty libs
-from the ThirdParty directory install the required dependencies [Thirdparty][TP]
+from the ThirdParty directory install the required dependencies [Thirdparty](Thirdparty/README.md)
 
 ###Eclipse
 from the product directory
 
-mvn clean install 
-mvn eclipse:clean eclispe:eclipse
+`mvn clean install` 
+`mvn eclipse:clean eclispe:eclipse`
 
 (in eclipse)
 File | Import | Existing project in workspace
@@ -57,21 +57,21 @@ and choose the clone repo directory (ex. CONNECT )
 To setup the GlassFish application server
 (in the Product/Install directory)
 copy install.properties to local.install.properties and update with your local information
-ant -Dskip.build -Dskip.deploy 
+`ant -Dskip.build -Dskip.deploy` 
 
 from the Product directory
-mvn install -PPD,DQ,DR,DS,AD,HIEM
+`mvn install -PPD,DQ,DR,DS,AD,HIEM`
 
-change to the domain1/config directory in the domain1 that was created from the glassfish install ( cd domain1/config ) 
-make a nhin directory ( mkdir nhin )
-change to the domain1/config/nhin ( cd nhin )
+change to the domain1/config directory in the domain1 that was created from the glassfish install (`cd domain1/config`) 
+make a nhin directory (`mkdir nhin`)
+change to the domain1/config/nhin (`cd nhin`)
 
 expand the properties jar in the domain1/nhin/directory
-jar xvf $M2_REPO/org/connectopensource/Properties.jar
+`jar xvf $M2_REPO/org/connectopensource/Properties.jar`
 
 
 start the glassfish domain
-asadmin start-domain
+`asadmin start-domain`
 
 copy the Product/Production/CONNECT/target/CONNECT.ear to the auto-deploy directory
 
@@ -92,12 +92,10 @@ this will run the soapui tests against your local connect
 
 Contributing
 ------------
-- Fork it.
-- Create a branch (`git checkout -b my_feature`)
-- Commit your changes (`git commit -am "Added new feature"`)
-- Push to the branch (`git push origin my_feature`)
-- Open a [Pull Request][1]
+1. Fork it.
+2. Create a branch (`git checkout -b my_feature`)
+3. Commit your changes (`git commit -am "Added new feature"`)
+4. Push to the branch (`git push origin my_feature`)
+5. Open a [Pull Request][1]
 
-[RN]: (HISTORY.md) 
 [1]: https://github.com/CONNECT-Solution/CONNECT/pulls
-[TP]: (Thirdparty/README.md)
