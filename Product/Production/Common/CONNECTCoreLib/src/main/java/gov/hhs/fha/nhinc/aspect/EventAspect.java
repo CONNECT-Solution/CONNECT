@@ -26,17 +26,10 @@
  */
 package gov.hhs.fha.nhinc.aspect;
 
-import javax.xml.ws.WebServiceContext;
-
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
-
-import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
-import gov.hhs.fha.nhinc.event.EventFactory;
-import gov.hhs.fha.nhinc.event.responder.BeginInboundMessageEvent;
-import gov.hhs.fha.nhinc.event.responder.EndInboundMessageEvent;
 
 /**
  * @author zmelnick
@@ -48,22 +41,22 @@ public class EventAspect {
     public EventAspect(){
 
     }
-
-    @Pointcut("execution(* gov.hhs.fha.nhinc..nhin..*.*rovideAndRegisterDocumentSetB*(*,*)) &&" + "args(*,WebServiceContext)")
-    private void DSInboundMessage(WebServiceContext context){
+    //&&" + "args(*,context)")
+    @Pointcut("execution(* gov.hhs.fha.nhinc..nhin..*.*rovideAndRegisterDocumentSetB*(..))")
+    private void DSInboundMessage(){
     }
 
-    @Before("DSInboundMessage(WebServiceContext)")
-    public void doSomethingBefore(WebServiceContext context){
-        String messageID = AsyncMessageIdExtractor.GetAsyncMessageId(context);
-        EventFactory.createEvent(BeginInboundMessageEvent.class, messageID, null, null);
+    @Before("DSInboundMessage()")
+    public void doSomethingBefore(){
+   //     String messageID = AsyncMessageIdExtractor.GetAsyncMessageId(context);
+     //   EventFactory.createEvent(BeginInboundMessageEvent.class, messageID, null, null);
         System.out.println("doSomethingBefore(narf)");
     }
 
-    @After("DSInboundMessage(WebServiceContext)")
-    public void doSomethingAfter(WebServiceContext context){
-        String messageID = AsyncMessageIdExtractor.GetAsyncMessageId(context);
-        EventFactory.createEvent(EndInboundMessageEvent.class, messageID, null, null);
+    @After("DSInboundMessage()")
+    public void doSomethingAfter(){
+     //   String messageID = AsyncMessageIdExtractor.GetAsyncMessageId(context);
+       // EventFactory.createEvent(EndInboundMessageEvent.class, messageID, null, null);
         System.out.println("doSomethingAfter(narf)");
     }
 
