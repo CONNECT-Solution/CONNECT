@@ -131,6 +131,7 @@ you want GlassFish to install.
 		$ cp install.properties local.install.properties
 
 Lastly, we're going to install the Glassfish Application Server         
+        
         $ ant install.glassfish
 
 
