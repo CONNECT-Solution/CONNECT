@@ -2,17 +2,15 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
                       http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>org.connectopensource</groupId>
+    <parent>
+        <groupId>org.connectopensource</groupId>
+        <artifactId>CONNECTSolution</artifactId>
+        <version>4.0.0-SNAPSHOT</version>
+    </parent>
     <artifactId>Product</artifactId>
-    <version>4.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>CONNECT Product</name>
     <url>http://www.connectopensource.org/</url>
-    <scm>
-      <connection>scm:git:git@github.com:CONNECT-Solution/CONNECT.git</connection>
-      <developerConnection>scm:git:git@github.com:CONNECT-Solution/CONNECT.git</developerConnection>
-      <url>https://github.com/CONNECT-Solution/CONNECT</url>
-    </scm>
     <properties>
         <cxf.version>2.6.1</cxf.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
