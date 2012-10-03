@@ -11,7 +11,7 @@
     <artifactId>ConnectionManagerCore</artifactId>
     <packaging>jar</packaging>
     <name>CONNECT Connection Manager Core</name>
-    <url>http://maven.apache.org</url>
+    <url>http://www.connectopensource.org/</url>
     <build>
     </build>
 </project>

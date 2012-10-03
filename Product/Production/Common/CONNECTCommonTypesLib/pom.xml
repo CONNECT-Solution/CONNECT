@@ -10,7 +10,7 @@
     <artifactId>CONNECTCommonTypesLib</artifactId>
     <packaging>jar</packaging>
     <name>CONNECT common types</name>
-    <url>http://maven.apache.org</url>
+    <url>http://www.connectopensource.org/</url>
     <properties>
         <skip.unpack>true</skip.unpack>
     </properties>

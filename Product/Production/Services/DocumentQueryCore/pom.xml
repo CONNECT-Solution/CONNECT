@@ -11,7 +11,7 @@
     <artifactId>DocumentQueryCore</artifactId>
     <packaging>jar</packaging>
     <name>CONNECT Document Query Core</name>
-    <url>http://maven.apache.org</url>
+    <url>http://www.connectopensource.org/</url>
     <dependencies>
         <dependency>
             <groupId>org.connectopensource</groupId>
