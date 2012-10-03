@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:adaptercomponentmpi"
+    xmlns:hl7="urn:hl7-org:v3" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/"
+    xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wspp="http://java.sun.com/xml/ns/wsit/policy"
+    xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:wsaw="http://www.w3.org/2005/08/addressing"
+    xmlns:ihe="urn:ihe:iti:xds-b:2007" xmlns:sxnmp="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/NMProperty"
+    xmlns:vprop="http://docs.oasis-open.org/wsbpel/2.0/varprop" xmlns:sp="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702"
+    xmlns:sc="http://schemas.sun.com/2006/03/wss/server"
+    xmlns:nhin="http://www.hhs.gov/healthit/nhin" name="AdapterComponentMpiSecured" targetNamespace="urn:gov:hhs:fha:nhinc:adaptercomponentmpi">
+    <wsdl:types>
+        <xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:adaptercomponentmpi">
+            <xsd:import namespace="urn:hl7-org:v3" schemaLocation="classpath:schemas/HL7V3/NE2008/multicacheschemas/PRPA_IN201306UV02.xsd"/>
+            <xsd:import namespace="urn:hl7-org:v3" schemaLocation="classpath:schemas/HL7V3/NE2008/multicacheschemas/PRPA_IN201305UV02.xsd"/>
+            <xsd:import schemaLocation="classpath:schemas/nhin/PatientDiscoveryFault.xsd" namespace="http://www.hhs.gov/healthit/nhin"/>
+        </xsd:schema>
+    </wsdl:types>
+    <message name="FindCandidatesSecuredRequest">
+        <part name="FindCandidatesRequest" element="hl7:PRPA_IN201305UV02"/>
+    </message>
+    <message name="FindCandidatesSecuredResponse">
+        <part name="FindCandidatesResponse" element="hl7:PRPA_IN201306UV02"/>
+    </message>
+    <message name="FindCandidatesSecuredFault">
+        <part name="PatientDiscoveryFault" element="nhin:PatientDiscoveryFault"/>
+    </message>
+    <portType name="AdapterComponentMpiSecuredPortType">
+        <operation name="FindCandidates">
+            <input name="FindCandidatesSecuredRequest" message="tns:FindCandidatesSecuredRequest"/>
+            <output name="FindCandidatesSecuredResponse" message="tns:FindCandidatesSecuredResponse"/>
+            <fault name="FindCandidatesSecuredFault" message="tns:FindCandidatesSecuredFault" />
+        </operation>
+    </portType>
+    <binding name="AdapterComponentMpiSecuredPortTypeBinding" type="tns:AdapterComponentMpiSecuredPortType">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
+        <wsp:PolicyReference URI="#AdapterComponentMpiSecuredPortType_Binding_SoapPolicy" />
+        <operation name="FindCandidates">
+            <soap:operation soapAction="FindCandidates" />
+            <input name="FindCandidatesSecuredRequest">
+                <soap:body use="literal" />
+                <wsp:PolicyReference URI="#FindCandidates_Binding_Soap_Input_Policy" />
+            </input>
+            <output name="FindCandidatesSecuredResponse">
+                <soap:body use="literal" />
+                <wsp:PolicyReference URI="#FindCandidates_Binding_Soap_Output_Policy" />
+            </output>
+            <fault name="FindCandidatesSecuredFault">
+                <soap:fault name="FindCandidatesSecuredFault" use="literal" />
+                <wsp:PolicyReference URI="#FindCandidates_Binding_Soap_Output_Policy" />
+            </fault>
+        </operation>
+    </binding>
+    <service name="AdapterComponentMpiSecuredService">
+        <port name="AdapterComponentMpiSecuredPort" binding="tns:AdapterComponentMpiSecuredPortTypeBinding">
+            <soap:address location="https://localhost:${HttpDefaultPort}/Adapter/PatientDiscovery/A_0/AdapterComponentMpiSecuredService" />
+        </port>
+    </service>
+    <wsp:Policy wsu:Id="AdapterComponentMpiSecuredPortType_Binding_SoapPolicy">
+        <wsp:ExactlyOne>
+            <wsp:All>
+                <sp:TransportBinding>
+                    <wsp:Policy>
+                        <sp:TransportToken>
+                            <wsp:Policy>
+                                <sp:HttpsToken>
+                                    <wsp:Policy>
+                                        <sp:RequireClientCertificate />
+                                    </wsp:Policy>
+                                </sp:HttpsToken>
+                            </wsp:Policy>
+                        </sp:TransportToken>
+                        <sp:Layout>
+                            <wsp:Policy>
+                                <sp:Strict />
+                            </wsp:Policy>
+                        </sp:Layout>
+                        <sp:IncludeTimestamp />
+                        <sp:AlgorithmSuite>
+                            <wsp:Policy>
+                                <sp:Basic256 />
+                            </wsp:Policy>
+                        </sp:AlgorithmSuite>
+                    </wsp:Policy>
+                </sp:TransportBinding>
+                <sp:EndorsingSupportingTokens>
+                    <wsp:Policy>
+                        <sp:SamlToken
+                            sp:IncludeToken="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702/IncludeToken/AlwaysToRecipient">
+                            <wsp:Policy>
+                                <sp:WssSamlV20Token11 />
+                            </wsp:Policy>
+                        </sp:SamlToken>
+                    </wsp:Policy>
+                </sp:EndorsingSupportingTokens>
+                <sp:Wss11>
+                    <wsp:Policy>
+                        <sp:MustSupportRefKeyIdentifier />
+                        <sp:MustSupportRefIssuerSerial />
+                        <sp:RequireSignatureConfirmation />
+                    </wsp:Policy>
+                </sp:Wss11>
+            </wsp:All>
+        </wsp:ExactlyOne>
+    </wsp:Policy>
+    <wsp:Policy wsu:Id="FindCandidates_Binding_Soap_Input_Policy">
+        <wsp:ExactlyOne>
+            <wsp:All>
+            </wsp:All>
+        </wsp:ExactlyOne>
+    </wsp:Policy>
+    <wsp:Policy wsu:Id="FindCandidates_Binding_Soap_Output_Policy">
+        <wsp:ExactlyOne>
+            <wsp:All>
+            </wsp:All>
+        </wsp:ExactlyOne>
+    </wsp:Policy>
+    <plnk:partnerLinkType name="AdapterComponentMpi">
+        <!-- A partner link type is automatically generated when a new port type is added. Partner link types are used by
+            BPEL processes. In a BPEL process, a partner link represents the interaction between the BPEL process and a partner service.
+            Each partner link is associated with a partner link type. A partner link type characterizes the conversational relationship
+            between two services. The partner link type can have one or two roles. -->
+        <plnk:role name="MpiPortTypeRole" portType="tns:AdapterComponentMpiSecuredPortType" />
+    </plnk:partnerLinkType>
+</definitions>

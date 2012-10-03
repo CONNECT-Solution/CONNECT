@@ -20,21 +20,21 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
     <!-- Connection Manager Service -->
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager" id="NhincComponentConnectionManager"
         address="/NhincComponentConnectionManager" serviceName="tns:NhincComponentConnectionManager" endpointName="tns:NhincComponentConnectionManagerPortSoap"
-        implementor="gov.hhs.fha.nhinc.common.connectionmanager.NhincComponentConnectionManager" wsdlLocation="/WEB-INF/wsdl/NhincComponentConnectionManager/NhincComponentConnectionManager.wsdl">
+        implementor="gov.hhs.fha.nhinc.common.connectionmanager.NhincComponentConnectionManager" wsdlLocation="classpath:wsdl/NhincComponentConnectionManager.wsdl">
     </jaxws:endpoint>
 
 
     <!-- Property Accessor Service -->
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" id="NhincComponentPropAccessor"
         address="/NhincComponentPropAccessor" serviceName="tns:NhincComponentPropAccessor" endpointName="tns:NhincComponentPropAccessorPort"
-        implementor="gov.hhs.fha.nhinc.common.propaccessor.NhincComponentPropAccessor" wsdlLocation="/WEB-INF/wsdl/NhincComponentPropAccessor/NhincComponentPropAccessor.wsdl">
+        implementor="gov.hhs.fha.nhinc.common.propaccessor.NhincComponentPropAccessor" wsdlLocation="classpath:wsdl/NhincComponentPropAccessor.wsdl">
     </jaxws:endpoint>
 
 
     <!-- UDDI Manager Service -->
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentuddiupdatemanager" id="UDDIUpdateManager"
         address="/NhincComponentUDDIUpdateManager" serviceName="tns:NhincComponentUDDIUpdateManager" endpointName="tns:NhincComponentUDDIUpdateManagerPortSoap11"
-        implementor="gov.hhs.fha.nhinc.connectmgr.uddi.UDDIUpdateManager" wsdlLocation="/WEB-INF/wsdl/UDDIUpdateManager/NhincComponentUDDIUpdateManager.wsdl">
+        implementor="gov.hhs.fha.nhinc.connectmgr.uddi.UDDIUpdateManager" wsdlLocation="classpath:wsdl/NhincComponentUDDIUpdateManager.wsdl">
     </jaxws:endpoint>
 
 

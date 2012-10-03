@@ -9,7 +9,7 @@
     <property name="copy.wsdl.to.webinf" value="true" />
     <property name="copy.schemas.to.webinf" value="true" />
     <property name="coverage.isneeded" value="false" />
-    <property name="core.patientdiscovery" location="../../Services/PatientDiscovery/Core/PatientDiscoveryCore/dist/debug" />
+    <property name="core.patientdiscovery" location="../../Services/PatientDiscoveryCore/dist/debug" />
 
     <property name="thirdparty.home" location="../../../../ThirdParty" />
     <property name="common.home" location="../../Common" />
