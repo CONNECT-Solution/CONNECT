@@ -71,7 +71,7 @@ For an ear with Patient Discovery, Document Query, Retrieve Document, Document S
         $ cd <CONNECT_CLONE_DIR>
         $ mvn clean install -P PD,DQ,DR,DS
         
-Available profiles to alter the composition of bundle gateways and adapters within the deployable .ear generated:        
+Available profiles to alter the composition of bundled gateways and adapters within the .ear generated for deployment are enumerated below (use value within parentheses):        
 * Patient Discovery (PD)
 * Document Query (DQ)
 * Document Submission (DS)
