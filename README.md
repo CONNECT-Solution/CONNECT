@@ -29,7 +29,7 @@ History
 * 4.0 planned Febuary 2013
 * 3.3 released March 2012
   
-  (see HISTORY.md)
+For more information, about CONNECT's history see [HISTORY.md](HISTORY.md)
 
 Getting Started
 ---------------
@@ -115,6 +115,7 @@ you want GlassFish to install.
 		$ cp install.properties local.install.properties
 
 Lastly, we're going to install the Glassfish Application Server         
+        
         $ ant install
         	
 
