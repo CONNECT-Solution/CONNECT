@@ -54,7 +54,7 @@ To build all CONNECT modules from source, run:
 After you have built from source you can create all of the Eclipse Project files
 
 		$ cd <CONNECT_CLONE_DIR>
-        $ mvn eclipse:clean eclispe:eclipse
+        $ mvn eclipse:clean eclipse:eclipse
 
 When complete, open Eclipse then click on the following:
 
