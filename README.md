@@ -29,7 +29,7 @@ History
   * 4.0 planned Febuary 2013
   * 3.3 released March 2012
   
-[Release Notes](HISTORY.MD)
+[Release Notes](/HISTORY.md)
 
 Getting Started
 ---------------
@@ -41,7 +41,7 @@ Getting Started
 * ant 1.7.1
 
 ###Thirdparty libs
-from the ThirdParty directory install the required dependencies [Thirdparty](Thirdparty/README.md)
+from the ThirdParty directory install the required dependencies [Thirdparty](/Thirdparty/README.md)
 
 ###Eclipse
 from the product directory
