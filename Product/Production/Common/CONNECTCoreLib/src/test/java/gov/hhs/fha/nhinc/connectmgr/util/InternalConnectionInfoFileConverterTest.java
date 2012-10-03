@@ -30,6 +30,7 @@ import gov.hhs.fha.nhinc.connectmgr.persistance.dao.InternalConnectionInfoDAOFil
 
 import java.io.File;
 
+import java.net.URISyntaxException;
 import java.net.URL;
 
 import org.junit.Test;
@@ -41,13 +42,13 @@ import static org.junit.Assert.*;
 public class InternalConnectionInfoFileConverterTest {
 
     @Test
-    public void testConvert() {
+    public void testConvert() throws URISyntaxException {
 
         String oldConnectionFilename = "/config/InternalConnectionInfoFileConverterTest/oldInternalConnectionInfo.xml";
 
         URL url = this.getClass().getResource(oldConnectionFilename);
 
-        File oldConnectionFile = new File(url.getFile());
+        File oldConnectionFile = new File(url.toURI());
 
         String newConnectionFilename = System.getProperty("java.io.tmpdir") + File.separator
                 + "newInternalConnection.xml";

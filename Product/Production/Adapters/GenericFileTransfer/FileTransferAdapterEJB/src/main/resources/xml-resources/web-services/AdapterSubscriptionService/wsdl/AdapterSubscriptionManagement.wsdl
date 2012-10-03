@@ -67,11 +67,11 @@
   <wsdl:types>
     <xsd:schema>
       <xsd:import namespace="http://docs.oasis-open.org/wsn/b-2" 
-                  schemaLocation="../schemas/docs.oasis-open.org/wsn/b-2.xsd"/> 
+                  schemaLocation="classpath:schemas/docs.oasis-open.org/wsn/b-2.xsd"/> 
     </xsd:schema>
     <xsd:schema>
       <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" 
-                  schemaLocation="../schemas/nhinc/common/NhincCommonAdapter.xsd"/>
+                  schemaLocation="classpath:schemas/nhinc/common/NhincCommonAdapter.xsd"/>
     </xsd:schema>
   </wsdl:types>
 

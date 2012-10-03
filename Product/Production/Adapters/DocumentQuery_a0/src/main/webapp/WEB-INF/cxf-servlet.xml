@@ -21,12 +21,12 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
     <!-- Adapter services -->
     <jaxws:endpoint xmlns:adq="urn:gov:hhs:fha:nhinc:adapterdocquery" id="AdapterDocQuery"
         address="/AdapterDocQueryUnsecured" serviceName="adq:AdapterDocQuery" endpointName="adq:AdapterDocQueryPortSoap"
-        implementor="gov.hhs.fha.nhinc.docquery.adapter.AdapterDocQueryUnsecured" wsdlLocation="/WEB-INF/wsdl/AdapterDocQueryUnsecured/AdapterDocQuery.wsdl">
+        implementor="gov.hhs.fha.nhinc.docquery.adapter.AdapterDocQueryUnsecured" wsdlLocation="classpath:wsdl/AdapterDocQuery.wsdl">
     </jaxws:endpoint>
 
     <jaxws:endpoint xmlns:adqs="urn:gov:hhs:fha:nhinc:adapterdocquerysecured" id="AdapterDocQuerySecured"
         address="/AdapterDocQuerySecured" serviceName="adqs:AdapterDocQuerySecured" endpointName="adqs:AdapterDocQuerySecuredPortSoap"
-        implementor="gov.hhs.fha.nhinc.docquery.adapter.AdapterDocQuerySecured" wsdlLocation="/WEB-INF/wsdl/AdapterDocQuerySecured/AdapterDocQuerySecured.wsdl">
+        implementor="gov.hhs.fha.nhinc.docquery.adapter.AdapterDocQuerySecured" wsdlLocation="classpath:wsdl/AdapterDocQuerySecured.wsdl">
         <jaxws:properties>
             <entry key="ws-security.callback-handler" value="gov.hhs.fha.nhinc.callback.cxf.CXFSAMLCallbackHandler" />
             <entry key="ws-security.signature.properties" value="keystore.properties" />

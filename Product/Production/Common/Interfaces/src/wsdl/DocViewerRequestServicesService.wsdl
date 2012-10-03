@@ -11,11 +11,11 @@ xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-ut
   <types>
     <xsd:schema>
       <xsd:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0"
-                  schemaLocation="../schemas/ebRS/query.xsd"/>
+                  schemaLocation="classpath:schemas/ebRS/query.xsd"/>
       <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommonentity"
-                  schemaLocation="../schemas/nhinc/common/NhincCommonEntity.xsd"/>
+                  schemaLocation="classpath:schemas/nhinc/common/NhincCommonEntity.xsd"/>
       <xsd:import namespace="http://xml.netbeans.org/schema/docviewer"
-                  schemaLocation="../schemas/nhinc/common/DocViewer.xsd"/>
+                  schemaLocation="classpath:schemas/nhinc/common/DocViewer.xsd"/>
     </xsd:schema>
   </types>
 

@@ -1,1 +1,0 @@
-SQ GetFoldersForDocument Stored Query

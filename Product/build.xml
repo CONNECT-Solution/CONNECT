@@ -335,7 +335,7 @@
         </if>
     </target>
 
-    <target name="do-to-projects" depends="check.project.count" description="calls the target specified in the property do-to-target on all the projects.">
+    <target name="do-to-projects" depends="check.project.count" unless="skip.do-to-projects" description="calls the target specified in the property do-to-target on all the projects.">
         <property name="current.project.count" value="0" />
         <xmltask source="${basedir}/projects.xml">
             <call path="/projects/project">
