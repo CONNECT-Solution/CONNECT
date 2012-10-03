@@ -25,7 +25,7 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
     <jaxws:endpoint xmlns:tns="http://docs.oasis-open.org/wsn/bw-2" id="HiemNotify"
         address="/NhinService/NotificationConsumerService/HiemNotify" serviceName="tns:NotificationConsumerService"
         endpointName="tns:NotificationConsumerPort" implementor="gov.hhs.fha.nhinc.hiem._20.nhin.notify.HiemNotify"
-        wsdlLocation="/WEB-INF/wsdl/HiemNotify/NhinSubscription.wsdl">
+        wsdlLocation="classpath:wsdl/NhinSubscription.wsdl">
         <jaxws:properties>
             <entry key="ws-security.callback-handler" value="gov.hhs.fha.nhinc.callback.cxf.CXFSAMLCallbackHandler" />
             <entry key="ws-security.signature.properties" value="keystore.properties" />
@@ -48,7 +48,7 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
 
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:entitynotificationconsumersecured" id="EntityNotifySecured"
         address="/EntityNotificationConsumerSecured" serviceName="tns:EntityNotificationConsumerSecured" endpointName="tns:EntityNotificationConsumerSecuredPortSoap"
-        implementor="gov.hhs.fha.nhinc.hiem._20.entity.notify.EntityNotifySecured" wsdlLocation="/WEB-INF/wsdl/EntityNotifySecured/EntityNotificationConsumerSecured.wsdl">
+        implementor="gov.hhs.fha.nhinc.hiem._20.entity.notify.EntityNotifySecured" wsdlLocation="classpath:wsdl/EntityNotificationConsumerSecured.wsdl">
         <jaxws:properties>
             <entry key="ws-security.callback-handler" value="gov.hhs.fha.nhinc.callback.cxf.CXFSAMLCallbackHandler" />
             <entry key="ws-security.signature.properties" value="keystore.properties" />
@@ -66,7 +66,7 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
 
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:entitynotificationconsumer" id="EntityNotifyService"
         address="/EntityNotificationConsumer" serviceName="tns:EntityNotificationConsumer" endpointName="tns:EntityNotificationConsumerPortSoap"
-        implementor="gov.hhs.fha.nhinc.hiem._20.entity.notify.EntityNotifyService" wsdlLocation="/WEB-INF/wsdl/EntityNotifyService/EntityNotificationConsumer.wsdl">
+        implementor="gov.hhs.fha.nhinc.hiem._20.entity.notify.EntityNotifyService" wsdlLocation="classpath:wsdl/EntityNotificationConsumer.wsdl">
         <jaxws:handlers>
             <ref bean="HIEMSoapHeaderHandler" />
             <ref bean="PerformanceLogHandler" />
@@ -79,7 +79,7 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:nhincproxynotificationconsumersecured" id="ProxyHiemNotifySecured"
         address="/NhincProxyNotificationConsumerSecured" serviceName="tns:NhincProxyNotificationConsumerSecured"
         endpointName="tns:NhincProxyNotificationConsumerPortSoap" implementor="gov.hhs.fha.nhinc.hiem._20.passthru.notify.ProxyHiemNotifySecured"
-        wsdlLocation="/WEB-INF/wsdl/ProxyHiemNotifySecured/NhincProxyNotificationConsumerSecured.wsdl">
+        wsdlLocation="classpath:wsdl/NhincProxyNotificationConsumerSecured.wsdl">
         <jaxws:properties>
             <entry key="ws-security.callback-handler" value="gov.hhs.fha.nhinc.callback.cxf.CXFSAMLCallbackHandler" />
             <entry key="ws-security.signature.properties" value="keystore.properties" />
@@ -97,7 +97,7 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
 
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:nhincproxynotificationconsumer" id="ProxyHiemNotify"
         address="/NhincProxyNotificationConsumer" serviceName="tns:NhincProxyNotificationConsumer" endpointName="tns:NhincProxyNotificationConsumerPortSoap"
-        implementor="gov.hhs.fha.nhinc.hiem._20.passthru.notify.ProxyHiemNotify" wsdlLocation="/WEB-INF/wsdl/ProxyHiemNotify/NhincProxyNotificationConsumer.wsdl">
+        implementor="gov.hhs.fha.nhinc.hiem._20.passthru.notify.ProxyHiemNotify" wsdlLocation="classpath:wsdl/NhincProxyNotificationConsumer.wsdl">
         <jaxws:handlers>
             <ref bean="HIEMSoapHeaderHandler" />
             <ref bean="PerformanceLogHandler" />
@@ -112,7 +112,7 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
     <jaxws:endpoint xmlns:tns="http://docs.oasis-open.org/wsn/bw-2" id="HiemSubscribe"
         address="/NhinService/NotificationProducerService/HiemSubscription" serviceName="tns:NotificationProducerService"
         endpointName="tns:NotificationProducerPort" implementor="gov.hhs.fha.nhinc.hiem._20.nhin.subscribe.HiemSubscribe"
-        wsdlLocation="/WEB-INF/wsdl/HiemNotify/NhinSubscription.wsdl">
+        wsdlLocation="classpath:wsdl/NhinSubscription.wsdl">
         <jaxws:properties>
             <entry key="ws-security.callback-handler" value="gov.hhs.fha.nhinc.callback.cxf.CXFSAMLCallbackHandler" />
             <entry key="ws-security.signature.properties" value="keystore.properties" />
@@ -135,7 +135,7 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
 
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:entitysubscriptionmanagementsecured" id="EntitySubscribeSecuredService"
         address="/EntityNotificationProducerSecured" serviceName="tns:EntityNotificationProducerSecured" endpointName="tns:EntityNotificationProducerSecuredPortSoap"
-        implementor="gov.hhs.fha.nhinc.hiem._20.entity.subscribe.EntitySubscribeSecuredService" wsdlLocation="/WEB-INF/wsdl/EntitySubscribeSecuredService/EntitySubscriptionManagementSecured.wsdl">
+        implementor="gov.hhs.fha.nhinc.hiem._20.entity.subscribe.EntitySubscribeSecuredService" wsdlLocation="classpath:wsdl/EntitySubscriptionManagementSecured.wsdl">
         <jaxws:properties>
             <entry key="ws-security.callback-handler" value="gov.hhs.fha.nhinc.callback.cxf.CXFSAMLCallbackHandler" />
             <entry key="ws-security.signature.properties" value="keystore.properties" />
@@ -153,7 +153,7 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
 
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement" id="EntitySubscribeService"
         address="/EntityNotificationProducer" serviceName="tns:EntityNotificationProducer" endpointName="tns:EntityNotificationProducerPortSoap"
-        implementor="gov.hhs.fha.nhinc.hiem._20.entity.subscribe.EntitySubscribeService" wsdlLocation="/WEB-INF/wsdl/EntitySubscribeService/EntitySubscriptionManagement.wsdl">
+        implementor="gov.hhs.fha.nhinc.hiem._20.entity.subscribe.EntitySubscribeService" wsdlLocation="classpath:wsdl/EntitySubscriptionManagement.wsdl">
         <jaxws:handlers>
             <ref bean="HIEMSoapHeaderHandler" />
             <ref bean="PerformanceLogHandler" />
@@ -166,7 +166,7 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:nhincproxysubscriptionmanagement" id="ProxyHiemSubscribeSecured"
         address="/NhincProxyNotificationProducerSecured" serviceName="tns:NhincProxyNotificationProducerSecured"
         endpointName="tns:NhincProxyNotificationProducerPortSoap" implementor="gov.hhs.fha.nhinc.hiem._20.passthru.subscribe.ProxyHiemSubscribeSecured"
-        wsdlLocation="/WEB-INF/wsdl/ProxyHiemSubscribeSecured/NhincProxySubscriptionManagementSecured.wsdl">
+        wsdlLocation="classpath:wsdl/NhincProxySubscriptionManagementSecured.wsdl">
         <jaxws:properties>
             <entry key="ws-security.callback-handler" value="gov.hhs.fha.nhinc.callback.cxf.CXFSAMLCallbackHandler" />
             <entry key="ws-security.signature.properties" value="keystore.properties" />
@@ -184,7 +184,7 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
 
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:nhincproxysubscriptionmanagement" id="ProxyHiemSubscribe"
         address="/NhincProxyNotificationProducer" serviceName="tns:NhincProxyNotificationProducer" endpointName="tns:NhincProxyNotificationProducerPortSoap"
-        implementor="gov.hhs.fha.nhinc.hiem._20.passthru.subscribe.ProxyHiemSubscribe" wsdlLocation="/WEB-INF/wsdl/ProxyHiemSubscribe/NhincProxySubscriptionManagement.wsdl">
+        implementor="gov.hhs.fha.nhinc.hiem._20.passthru.subscribe.ProxyHiemSubscribe" wsdlLocation="classpath:wsdl/NhincProxySubscriptionManagement.wsdl">
         <jaxws:handlers>
             <ref bean="HIEMSoapHeaderHandler" />
             <ref bean="PerformanceLogHandler" />
@@ -199,7 +199,7 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
     <jaxws:endpoint xmlns:tns="http://docs.oasis-open.org/wsn/bw-2" id="HiemUsubscribe"
         address="/NhinService/SubscriptionManagerService/HiemUnsubscribe" serviceName="tns:SubscriptionManagerService"
         endpointName="tns:SubscriptionManagerPort" implementor="gov.hhs.fha.nhinc.hiem._20.nhin.unsubscribe.HiemUnsubscribe"
-        wsdlLocation="/WEB-INF/wsdl/HiemNotify/NhinSubscription.wsdl">
+        wsdlLocation="classpath:wsdl/NhinSubscription.wsdl">
         <jaxws:properties>
             <entry key="ws-security.callback-handler" value="gov.hhs.fha.nhinc.callback.cxf.CXFSAMLCallbackHandler" />
             <entry key="ws-security.signature.properties" value="keystore.properties" />
@@ -222,7 +222,7 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
 
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:entitysubscriptionmanagementsecured" id="EntityUnsubscribeSecuredService"
         address="/EntitySubscriptionManagerSecured" serviceName="tns:EntitySubscriptionManagerSecured" endpointName="tns:EntitySubscriptionManagerSecuredPortSoap"
-        implementor="gov.hhs.fha.nhinc.hiem._20.entity.unsubscribe.EntityUnsubscribeSecuredService" wsdlLocation="/WEB-INF/wsdl/EntitySubscribeSecuredService/EntitySubscriptionManagementSecured.wsdl">
+        implementor="gov.hhs.fha.nhinc.hiem._20.entity.unsubscribe.EntityUnsubscribeSecuredService" wsdlLocation="classpath:wsdl/EntitySubscriptionManagementSecured.wsdl">
         <jaxws:properties>
             <entry key="ws-security.callback-handler" value="gov.hhs.fha.nhinc.callback.cxf.CXFSAMLCallbackHandler" />
             <entry key="ws-security.signature.properties" value="keystore.properties" />
@@ -240,7 +240,7 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
 
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement" id="EntityUnsubscribeService"
         address="/EntitySubscriptionManager" serviceName="tns:EntitySubscriptionManager" endpointName="tns:EntitySubscriptionManagerPortSoap"
-        implementor="gov.hhs.fha.nhinc.hiem._20.entity.unsubscribe.EntityUnsubscribeService" wsdlLocation="/WEB-INF/wsdl/EntitySubscribeService/EntitySubscriptionManagement.wsdl">
+        implementor="gov.hhs.fha.nhinc.hiem._20.entity.unsubscribe.EntityUnsubscribeService" wsdlLocation="classpath:wsdl/EntitySubscriptionManagement.wsdl">
         <jaxws:handlers>
             <ref bean="HIEMSoapHeaderHandler" />
             <ref bean="PerformanceLogHandler" />
@@ -253,7 +253,7 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:nhincproxysubscriptionmanagement" id="ProxyHiemUnsubscribeSecured"
         address="/NhincProxySubscriptionManagerSecured" serviceName="tns:NhincProxySubscriptionManagerSecured"
         endpointName="tns:NhincProxySubscriptionManagerSecuredPortSoap" implementor="gov.hhs.fha.nhinc.hiem._20.passthru.unsubscribe.ProxyHiemUnsubscribeSecured"
-        wsdlLocation="/WEB-INF/wsdl/ProxyHiemSubscribeSecured/NhincProxySubscriptionManagementSecured.wsdl">
+        wsdlLocation="classpath:wsdl/NhincProxySubscriptionManagementSecured.wsdl">
         <jaxws:properties>
             <entry key="ws-security.callback-handler" value="gov.hhs.fha.nhinc.callback.cxf.CXFSAMLCallbackHandler" />
             <entry key="ws-security.signature.properties" value="keystore.properties" />
@@ -271,7 +271,7 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
 
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:nhincproxysubscriptionmanagement" id="ProxyHiemUnsubscribe"
         address="/NhincProxySubscriptionManager" serviceName="tns:NhincProxySubscriptionManager" endpointName="tns:NhincProxySubscriptionManagerPortSoap"
-        implementor="gov.hhs.fha.nhinc.hiem._20.passthru.unsubscribe.ProxyHiemUnsubscribe" wsdlLocation="/WEB-INF/wsdl/ProxyHiemSubscribe/NhincProxySubscriptionManagement.wsdl">
+        implementor="gov.hhs.fha.nhinc.hiem._20.passthru.unsubscribe.ProxyHiemUnsubscribe" wsdlLocation="classpath:wsdl/NhincProxySubscriptionManagement.wsdl">
         <jaxws:handlers>
             <ref bean="HIEMSoapHeaderHandler" />
             <ref bean="PerformanceLogHandler" />

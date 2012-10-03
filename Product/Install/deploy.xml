@@ -219,71 +219,8 @@
 
     <target name="deploy.ears.to.glassfish"
         description="creates a classpath for all required jar|war files and packages them in ear">
-        <delete dir=".ant-deploy-staging" />
-        <delete dir=".ant-deploy-ear" />
-        <mkdir dir=".ant-deploy-staging/META-INF" />
-        <copy tofile=".ant-deploy-staging/META-INF/application.xml" file="application.template.xml" />
-        <copy todir=".ant-deploy-staging/lib" flatten="true" overwrite="true">
-            <path refid="ear.libs" />
-            <fileset dir="${deployment.binaries.dir}">
-                <include name="CONNECTCoreLib.jar" />
-                <include name="CONNECTCommonTypesLib.jar" />
-            </fileset>
-        </copy>
-        <copy todir=".ant-deploy-staging/lib/licenses" flatten="true" overwrite="true">
-            <path refid="ear.licenses" />
-        </copy>
-        <xmltask source="${basedir}/projects.xml">
-            <call path="/projects/project">
-                <param name="project.name" path="name/text()" />
-                <param name="project.directory" path="directory/text()" />
-                <param name="should.deploy" path="should.deploy/text()" />
-                <param name="context.root" path="context.root/text()" />
-                <param name="dist.type" path="dist.type/text()" />
-                <actions>
-                    <if>
-                        <istrue value="@{should.deploy}" />
-                        <then>
-                            <var name="project.war" value="@{project.name}.war" />
-                            <echo>**** copy: ${project.war} </echo>
-                            <mkdir dir=".ant-deploy-staging" />
-                            <copy todir=".ant-deploy-staging" flatten="true" overwrite="true">
-                                <fileset dir="${deployment.binaries.dir}">
-                                    <include name="${project.war}" />
-                                </fileset>
-                            </copy>
-                            <replace file=".ant-deploy-staging/META-INF/application.xml" token="&lt;/application&gt;" value="&lt;module&gt;${line.separator}                                    &lt;web&gt;${line.separator}                                        &lt;web-uri&gt;@{project.name}.war&lt;/web-uri&gt;${line.separator}                                        &lt;context-root&gt;@{context.root}&lt;/context-root&gt;${line.separator}                                    &lt;/web&gt;${line.separator}                                &lt;/module&gt;${line.separator}                            &lt;/application&gt;"/>
-                        </then>
-                    </if>
-                </actions>
-            </call>
-        </xmltask>
-
-        <!-- create ear file -->
-        <mkdir dir=".ant-deploy-ear" />
-
-        <var name="dist.type" value="ear" />
-        <var name="dist.file" value="CONNECT.ear" />
-        <if>
-            <not>
-                <isset property="build.dist.meta-inf.dir" />
-            </not>
-            <then>
-                <property name="build.dist.meta-inf.dir" value="META-INF" />
-            </then>
-        </if>
-        <if>
-            <not>
-                <isset property="build.dist.manifest.file" />
-            </not>
-            <then>
-                <property name="build.dist.manifest.file" value="${build.dist.meta-inf.dir}/MANIFEST.MF" />
-            </then>
-        </if>
-        <antcall target="-package.recreate" />
-
         <!-- Call deploy to glassfish target -->
-        <var name="deployment.glassfish.ear.file.path" value=".ant-deploy-ear/CONNECT.ear" />
+        <var name="deployment.glassfish.ear.file.path" value="${deployment.ear.file.path}" />
         <antcall target="deploy.ear.to.glassfish" />
 
     </target>
@@ -512,7 +449,7 @@
             location="${deploy.glassfish.domain.template}" />
         <exec executable="${ASADMIN}" failonerror="true">
             <arg
-                line="--echo --passwordfile ${deploy.glassfish.password.file.path} --user ${deployment.glassfish.server.username} create-domain --template ${deploy.glassfish.domain.template.path} --adminport ${deployment.glassfish.admin.port} --savemasterpassword=true ${deployment.glassfish.domain.name}" />
+               line="--echo --passwordfile '${deploy.glassfish.password.file.path}' --user ${deployment.glassfish.server.username} create-domain --template '${deploy.glassfish.domain.template.path}' --adminport ${deployment.glassfish.admin.port} --savemasterpassword=true ${deployment.glassfish.domain.name}" />
         </exec>
     </target>
 
@@ -571,16 +508,14 @@
     </target>
 
     <target name="deploy.nhinc.configuration.to.glassfish">
-        <copy todir="${deployment.config.home}" verbose="true" overwrite="true">
-            <fileset dir="${nhinc.deployment.properties.dir}" />
-        </copy>
+        <unjar dest="${deployment.config.home}" src="${config.nhin.dependency.file.path}"> </unjar>
     </target>
 
     <target name="deploy.nhinc.interfaces.to.glassfish">
-        <copy todir="${deployment.glassfish.domain.config.home}/nhin"
+        <!--<copy todir="${deployment.glassfish.domain.config.home}/nhin"
             verbose="true" overwrite="true">
             <fileset dir="${deployment.interfaces.dir}" />
-        </copy>
+        </copy>-->
     </target>
 
     <target name="-restore.glassfish.domain.certificates">

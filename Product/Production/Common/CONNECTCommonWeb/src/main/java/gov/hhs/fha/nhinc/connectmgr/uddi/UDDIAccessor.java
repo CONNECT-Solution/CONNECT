@@ -26,7 +26,7 @@
  */
 package gov.hhs.fha.nhinc.connectmgr.uddi;
 
-import gov.hhs.fha.nhinc.connectmgr.uddi.proxy.UDDIFindBusinessProxyBase;
+import gov.hhs.fha.nhinc.connectmgr.uddi.proxy.UDDIFindBusinessProxy;
 import gov.hhs.fha.nhinc.connectmgr.uddi.proxy.UDDIFindBusinessProxyObjectFactory;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 
@@ -161,7 +161,7 @@ public class UDDIAccessor {
         BusinessList businessList = null;
         try {
             UDDIFindBusinessProxyObjectFactory uddiFactory = new UDDIFindBusinessProxyObjectFactory();
-            UDDIFindBusinessProxyBase uddiProxy = uddiFactory.getUDDIBusinessInfoProxy();
+            UDDIFindBusinessProxy uddiProxy = uddiFactory.getUDDIBusinessInfoProxy();
             businessList = uddiProxy.findBusinessesFromUDDI();
 
             removeIgnoredBusinesses(businessList);
@@ -187,7 +187,7 @@ public class UDDIAccessor {
             GetBusinessDetail searchParams = createSearchParamsFromBusinessKeys(businessInfos);
 
             UDDIFindBusinessProxyObjectFactory uddiFactory = new UDDIFindBusinessProxyObjectFactory();
-            UDDIFindBusinessProxyBase uddiProxy = uddiFactory.getUDDIBusinessInfoProxy();
+            UDDIFindBusinessProxy uddiProxy = uddiFactory.getUDDIBusinessInfoProxy();
             businessDetail = uddiProxy.getBusinessDetail(searchParams);
         } catch (Exception e) {
             String sErrorMessage = "Failed to call UDDI web service get_businessDetail method.  Error: "
