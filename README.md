@@ -35,47 +35,42 @@ Getting Started
 ---------------
 ###Pre-reqs
 * java 7
-* maven 3.0.4
+*   Maven 3.0.4
+    [Download Maven][] 
+    [Install Maven][]
 * mysql
-* eclipse juno (with egit and m2eclipse plugins)
-* ant 1.7.1
+*   [Eclipse][] Juno 
+    [egit plugin][]
+    [m2eclipse plugin][]
+* [ant 1.7.1][]
+  
 
 ###Thirdparty libs
 from the ThirdParty directory install the required dependencies ( see Thirdparty/README.md)
 
 ###Eclipse
-from the product directory
 
-`mvn clean install` 
-`mvn eclipse:clean eclispe:eclipse`
+        mvn clean install 
+        mvn eclipse:clean eclispe:eclipse
 
 (in eclipse)
 File | Import | Existing project in workspace
 and choose the clone repo directory (ex. CONNECT )
 
-###Deploying
-To setup the GlassFish application server
+###Building an ear
+For an ear with Patient Discovery, Document Query, Retrieve Document, Document Submission you would execute the following command.
+
+        mvn install -PPD,DQ,DR,DS
+
+###Setup GlassFish
+
 (in the Product/Install directory)
 copy install.properties to local.install.properties and update with your local information
-`ant -Dskip.build -Dskip.deploy` 
-
-from the Product directory
-`mvn install -PPD,DQ,DR,DS,AD,HIEM`
-
-change to the domain1/config directory in the domain1 that was created from the glassfish install (`cd domain1/config`) 
-make a nhin directory (`mkdir nhin`)
-change to the domain1/config/nhin (`cd nhin`)
-
-expand the properties jar in the domain1/nhin/directory
-`jar xvf $M2_REPO/org/connectopensource/Properties.jar`
+        ant -Dskip.build -Dskip.deploy
 
 
-start the glassfish domain
-`asadmin start-domain`
-
-copy the Product/Production/CONNECT/target/CONNECT.ear to the auto-deploy directory
-
-
+###Deploy to GlassFish
+        ant deploy.connect
 
 Usage
 -----
@@ -86,7 +81,7 @@ Testing
 
 in the Product/SoapUI_Test/ValidationSuite/ directory
 
-mvn clean test
+        mvn clean test
 
 this will run the soapui tests against your local connect
 
@@ -96,6 +91,13 @@ Contributing
 2. Create a branch (`git checkout -b my_feature`)
 3. Commit your changes (`git commit -am "Added new feature"`)
 4. Push to the branch (`git push origin my_feature`)
-5. Open a [Pull Request][1]
+5. Open a [Pull Request][]
 
-[1]: https://github.com/CONNECT-Solution/CONNECT/pulls
+[Pull Request]: https://github.com/CONNECT-Solution/CONNECT/pulls
+[Download Maven]: http://maventest.apache.org/download.html
+[Install Maven]: http://maventest.apache.org/download.html#Installation
+[Eclipse]: http://www.eclipse.org/downloads/
+[ant 1.7.1]: http://archive.apache.org/dist/ant/binaries/apache-ant-1.7.1-bin.zip
+[egit plugin]: http://www.eclipse.org/egit/download/
+[m2eclipse plugin]: http://eclipse.org/m2e/
+
