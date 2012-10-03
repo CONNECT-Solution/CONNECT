@@ -47,7 +47,7 @@ import gov.hhs.fha.nhinc.async.AddressingHeaderCreator;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 
 /**
- *
+ * 
  * @author rayj
  */
 public class SOAPHeaderHandler implements SOAPHandler<SOAPMessageContext> {
@@ -77,6 +77,7 @@ public class SOAPHeaderHandler implements SOAPHandler<SOAPMessageContext> {
         try {
             SOAPMessage oMessage = messageContext.getMessage();
             SOAPHeader oHeader = oMessage.getSOAPHeader();
+
             if (isOutboundMessage.booleanValue() && (!messageContext.containsKey(MESSAGE_ID_CONTEXT))) {
                 adjustMessageId(messageContext, oHeader);
             } else {
@@ -88,6 +89,7 @@ public class SOAPHeaderHandler implements SOAPHandler<SOAPMessageContext> {
 
         return true;
     }
+
 
     /**
      * This method updates the messageID if found to be in an illegal format.
@@ -116,6 +118,7 @@ public class SOAPHeaderHandler implements SOAPHandler<SOAPMessageContext> {
             SOAPFactory soapFactory = SOAPFactory.newInstance();
             oMessageIdElem = soapFactory.createElement(MESSAGE_ID, "", WSA_NS);
             oMessageIdElem.setTextContent(messageId);
+
             if (oHeader != null) {
                 oHeader.addChildElement(oMessageIdElem);
             }

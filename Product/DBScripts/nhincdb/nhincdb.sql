@@ -323,3 +323,19 @@ COMMENT = 'Performance Monitor Repository';
 
 GRANT SELECT,INSERT,UPDATE,DELETE ON perfrepo.* to nhincuser;
 -- end perfrepo
+
+-- begin transrepo
+
+CREATE DATABASE transrepo;
+
+CREATE TABLE transrepo.transactionrepository (
+	id BIGINT NOT NULL AUTO_INCREMENT,
+	transactionId VARCHAR(100) NOT NULL,
+	messageId VARCHAR(100) NOT NULL,
+	time TIMESTAMP NULL,
+	PRIMARY KEY (id),
+	UNIQUE transID_UNIQUE (transactionId, messageId) )
+COMMENT = 'Message Transaction Repository';
+
+GRANT SELECT,INSERT,UPDATE,DELETE ON transrepo.* to nhincuser;
+-- end transrepo
