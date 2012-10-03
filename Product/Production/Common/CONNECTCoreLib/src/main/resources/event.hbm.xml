@@ -12,7 +12,7 @@
     <id name="id">
       <generator class="native"/>
     </id>
-    <property column="name" name="name"/>
+    <property column="name" name="eventName"/>
     <property column="description" name="description"/>
     <property column="messageId" name="messageID"/>
     <property column="transactionId" name="transactionID"/>

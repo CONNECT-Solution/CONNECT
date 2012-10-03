@@ -35,6 +35,25 @@ import gov.hhs.fha.nhinc.event.model.DatabaseEvent;
  */
 public class DatabaseEventLogger extends EventLogger {
 
+    private final DatabaseEventLoggerDao databaseEventLoggerDao;
+    
+    /**
+     * Constructor.
+     * @param databaseEventLoggerDao database event logger dao
+     */
+    public DatabaseEventLogger(DatabaseEventLoggerDao databaseEventLoggerDao) {
+        super();
+        this.databaseEventLoggerDao = databaseEventLoggerDao;
+    }
+
+    /**
+     * Constructor.
+     */
+    public DatabaseEventLogger() {
+        super();
+        databaseEventLoggerDao = DatabaseEventLoggerDao.getInstance();
+    }
+
     /**
      * {@inheritDoc}
      */
@@ -48,7 +67,7 @@ public class DatabaseEventLogger extends EventLogger {
             dbEvent.setMessageID(event.getMessageID());
             dbEvent.setTransactionID(event.getTransactionID());
             
-            DatabaseEventLoggerDao.getInstance().insertEvent(dbEvent);
+            databaseEventLoggerDao.insertEvent(dbEvent);
         }
     }
 }

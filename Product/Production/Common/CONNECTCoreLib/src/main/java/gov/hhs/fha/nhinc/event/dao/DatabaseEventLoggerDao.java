@@ -43,7 +43,7 @@ public class DatabaseEventLoggerDao {
 
     private static final Log LOG = LogFactory.getLog(DatabaseEventLoggerDao.class);
     private static final DatabaseEventLoggerDao dao = new DatabaseEventLoggerDao();
-
+    
     /**
      * The constructor.
      */
