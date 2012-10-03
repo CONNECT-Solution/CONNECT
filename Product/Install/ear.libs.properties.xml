@@ -63,6 +63,7 @@
             <include name="**/aspectjrt.jar" />
             <include name="**/aspectjweaver.jar" />
             <include name="**/asm.jar" />
+            <include name="**/c3p0-0.9.1.2.jar" />
         </fileset>
     </path>
     <path id="ear.licenses">
