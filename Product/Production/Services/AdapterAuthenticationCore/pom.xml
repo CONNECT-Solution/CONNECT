@@ -11,7 +11,7 @@
     <artifactId>AdapterAuthenticationCore</artifactId>
     <packaging>jar</packaging>
     <name>CONNECT Adapter Authentication Core</name>
-    <url>http://maven.apache.org</url>
+    
     <dependencies>
         <dependency>
             <groupId>com.forgerock.openam</groupId>

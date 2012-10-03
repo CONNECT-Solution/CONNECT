@@ -11,7 +11,7 @@
     <artifactId>AuditRepositoryCore</artifactId>
     <packaging>jar</packaging>
     <name>CONNECT Audit Repository Core</name>
-    <url>http://maven.apache.org</url>
+    
     <build>
     </build>
 </project>

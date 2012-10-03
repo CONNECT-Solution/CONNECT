@@ -9,7 +9,7 @@
     <artifactId>CONNECTAdapterWeb</artifactId>
     <packaging>war</packaging>
     <name>CONNECT Adapter Web</name>
-    <url>http://maven.apache.org</url>
+    
     <properties>
         <cxf.version>2.6.1</cxf.version>
     </properties>
