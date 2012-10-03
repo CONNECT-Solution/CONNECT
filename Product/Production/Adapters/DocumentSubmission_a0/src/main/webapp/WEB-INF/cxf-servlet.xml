@@ -36,7 +36,7 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adapterxdr" id="AdapterDocSubmissionUnsecured"
         address="/AdapterDocSubmissionUnsecured" serviceName="tns:AdapterXDR_Service"
         endpointName="tns:AdapterXDR_Port" implementor="gov.hhs.fha.nhinc.docsubmission.adapter.AdapterDocSubmissionUnsecured"
-        wsdlLocation="classpath:wsdl/AdapterDocSubmissionUnsecured/AdapterXDR.wsdl">
+        wsdlLocation="classpath:wsdl/AdapterXDR.wsdl">
         <jaxws:properties>          
             <entry key="mtom-enabled" value="true" />
         </jaxws:properties>

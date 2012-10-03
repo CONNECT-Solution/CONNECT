@@ -45,7 +45,7 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
     <!-- Entity services -->
     <jaxws:endpoint xmlns:eds="urn:gov:hhs:fha:nhinc:nhincentityxdr" id="EntityDocSubmissionUnsecured_g1"
         address="/EntityService/EntityDocSubmissionUnsecured" serviceName="eds:EntityXDR_Service" endpointName="eds:EntityXDR_Port"
-        implementor="gov.hhs.fha.nhinc.docsubmission._20.entity.EntityDocSubmissionUnsecured_g1" wsdlLocation="classpath:wsdl/EntityDocSubmissionUnsecured/EntityXDR.wsdl">
+        implementor="gov.hhs.fha.nhinc.docsubmission._20.entity.EntityDocSubmissionUnsecured_g1" wsdlLocation="classpath:wsdl/EntityXDR.wsdl">
         <jaxws:handlers>
             <ref bean="TransactionHandler"/>
         </jaxws:handlers>
@@ -74,7 +74,7 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
     <!-- MsgProxy/NhincProxy/Passthru services -->
     <jaxws:endpoint xmlns:mpds="urn:gov:hhs:fha:nhinc:nhincproxyxdr" id="NhincProxyXDR_g1"
         address="/EntityService/PassthruDocSubmissionUnsecured" serviceName="mpds:ProxyXDR_Service" endpointName="mpds:ProxyXDR_Port"
-        implementor="gov.hhs.fha.nhinc.docsubmission._20.passthru.PassthruDocSubmissionUnsecured_g1" wsdlLocation="classpath:wsdl/PassthruDocSubmissionUnsecured/NhincProxyXDR.wsdl">
+        implementor="gov.hhs.fha.nhinc.docsubmission._20.passthru.PassthruDocSubmissionUnsecured_g1" wsdlLocation="classpath:wsdl/NhincProxyXDR.wsdl">
         <jaxws:handlers>
             <ref bean="TransactionHandler"/>
         </jaxws:handlers>
