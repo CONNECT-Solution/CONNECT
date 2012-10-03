@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="CONNECT.Automated.Installer" default="install" basedir=".">
+<project name="CONNECT.Automated.Installer" default="install" basedir="." xmlns:artifact="antlib:org.apache.maven.artifact.ant">
 
     <property name="info.log" value="${basedir}/install.info.log" />
     <property name="debug.log" value="${basedir}/install.debug.log" />
@@ -35,7 +35,33 @@
             </fileset>
         </classpath>
     </taskdef>
-
+    
+    <property name="skip.build" value="true"/>
+    <property name="skip.do-to-projects" value="true"/>
+    <property name="m2.local.repo.path" value="${user.home}/.m2/repository/"/>
+    <property name="deployment.version" value="4.0.0-SNAPSHOT"/>
+    <path id="maven-ant-tasks.classpath" path="${thirdparty.dir}/AntExtraLibs/maven-ant-tasks-2.1.3.jar" />
+    <typedef resource="org/apache/maven/artifact/ant/antlib.xml" uri="antlib:org.apache.maven.artifact.ant" classpathref="maven-ant-tasks.classpath" />
+    <artifact:localRepository path="${m2.local.repo.path}"></artifact:localRepository>
+    <artifact:dependencies filesetId="config.nhin.dependency.fileset">
+        <dependency groupId="org.connectopensource" artifactId="Properties" version="${deployment.version}" type="jar" scope="runtime">
+            <exclusion groupId="commons-logging" artifactId="commons-logging"/>
+            <exclusion groupId="log4j" artifactId="log4j"/>
+            </dependency>
+        <localRepository path="${m2.local.repo.path}"/>
+    </artifact:dependencies>
+    <artifact:dependencies filesetId="ear.dependency.fileset">
+        <dependency groupId="org.connectopensource" artifactId="CONNECT" version="${deployment.version}" type="ear" scope="runtime"/>
+        <localRepository path="${m2.local.repo.path}"/>
+    </artifact:dependencies>
+    <property name="config.nhin.dependency.fileset" refid="config.nhin.dependency.fileset" />
+    <property name="config.nhin.dependency.file.path" location="${m2.local.repo.path}/${config.nhin.dependency.fileset}"/>
+    <echo message="NHIN Config File to unpack: ${config.nhin.dependency.file.path}"/>
+    <property name="ear.dependency.fileset" refid="ear.dependency.fileset" />
+    <property name="deployment.ear.file.path" location="${m2.local.repo.path}/${ear.dependency.fileset}"/>
+    <echo message="CONNECT EAR to Deploy: ${deployment.ear.file.path}"/>
+    
+    
     <mkdir dir="${temp.dir}" />
     <delete>
         <fileset dir="${temp.dir}">
