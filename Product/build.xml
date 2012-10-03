@@ -383,6 +383,7 @@
 
         <property name="cxf.home" location="${thirdparty.home}/CXF" />
         <property name="spring.home" location="${thirdparty.home}/SpringFramework" />
+        <property name="aspcectj.home" locaiton="${thirdparty.home}/AspectJ" />
         <property name="core.lib" location="${common.home}/CONNECTCoreLib/dist/debug" />
         <property name="common.lib" location="${common.home}/CONNECTCommonTypesLib/dist/debug" />
         <property name="opensaml.home" location="${thirdparty.home}/openSAML" />
@@ -436,6 +437,7 @@
                 <include name="jta.jar" />
                 <include name="cglib-2.1.3.jar" />
                 <include name="hibernate3.jar" />
+                <include name="asm.jar" />
             </fileset>
             <fileset dir="${c3po.home}">
                 <include name="c3p0-0.9.1.2.jar" />
@@ -466,6 +468,8 @@
             </filelist>
             <filelist dir="${spring.home}">
                 <file name="spring.jar" />
+            </filelist>
+            <filelist dir="${aspectj.home}">
                 <file name="aspectjrt.jar" />
                 <file name="aspectjweaver.jar" />
             </filelist>

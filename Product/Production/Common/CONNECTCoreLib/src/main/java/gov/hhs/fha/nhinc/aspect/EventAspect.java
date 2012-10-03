@@ -26,9 +26,17 @@
  */
 package gov.hhs.fha.nhinc.aspect;
 
+import javax.xml.ws.WebServiceContext;
+
+import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
+
+import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
+import gov.hhs.fha.nhinc.event.EventFactory;
+import gov.hhs.fha.nhinc.event.responder.BeginInboundMessageEvent;
+import gov.hhs.fha.nhinc.event.responder.EndInboundMessageEvent;
 
 /**
  * @author zmelnick
@@ -37,17 +45,26 @@ import org.aspectj.lang.annotation.Pointcut;
 @Aspect
 public class EventAspect {
 
+    public EventAspect(){
 
-    public EventAspect() {
     }
 
-    @Pointcut("within(public gov.hhs.fha.nhinc.docsubmission.*.nhin documentRepositoryProvideAndRegisterDocumentSetB(..))")
-    private void withinDSNhin(){
+    @Pointcut("execution(* gov.hhs.fha.nhinc..nhin..*.*rovideAndRegisterDocumentSetB*(*,*)) &&" + "args(*,WebServiceContext)")
+    private void DSInboundMessage(WebServiceContext context){
     }
 
-    @Before("gov.hhs.fha.nhinc.aspect.EventAspect.withinDSNhin()")
-    public void doSomething(){
-        System.out.println("hello");
+    @Before("DSInboundMessage(WebServiceContext)")
+    public void doSomethingBefore(WebServiceContext context){
+        String messageID = AsyncMessageIdExtractor.GetAsyncMessageId(context);
+        EventFactory.createEvent(BeginInboundMessageEvent.class, messageID, null, null);
+        System.out.println("doSomethingBefore(narf)");
+    }
+
+    @After("DSInboundMessage(WebServiceContext)")
+    public void doSomethingAfter(WebServiceContext context){
+        String messageID = AsyncMessageIdExtractor.GetAsyncMessageId(context);
+        EventFactory.createEvent(EndInboundMessageEvent.class, messageID, null, null);
+        System.out.println("doSomethingAfter(narf)");
     }
 
 }
