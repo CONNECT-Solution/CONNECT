@@ -521,6 +521,7 @@ public class NhincConstants {
     public static final String HIBERNATE_TRANSREPO_REPOSITORY = "transrepo.hibernate.cfg.xml";
     public static final String HIBERNATE_HIEMSUBREP_REPOSITORY = "HiemSubRepHibernate.cfg.xml";
     public static final String HIBERNATE_AGGREGATOR_REPOSITORY = "aggregator.cfg.xml";
+    public static final String HIBERNATE_EVENT_REPOSITORY = "event.hibernate.cfg.xml";
     public static final String AGGREGATOR_LARGE_RESP_DIR_PROP = "aggregatorLargeResponseDir";
     public static final String AGGREGATOR_LARGE_RESP_SIZE_PROP = "aggregatorMaxDbResponseSize";
     /* -- Begin Document Retrieve deferred Service Name -- */
