@@ -40,6 +40,7 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
         <jaxws:handlers>
             <ref bean="HIEMSoapHeaderHandler" />
             <ref bean="PerformanceLogHandler" />
+            <ref bean="TransactionHandler"/>
         </jaxws:handlers>
     </jaxws:endpoint>
 
@@ -59,6 +60,7 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
         <jaxws:handlers>
             <ref bean="HIEMSoapHeaderHandler" />
             <ref bean="PerformanceLogHandler" />
+            <ref bean="TransactionHandler"/>
         </jaxws:handlers>
     </jaxws:endpoint>
 
@@ -68,6 +70,7 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
         <jaxws:handlers>
             <ref bean="HIEMSoapHeaderHandler" />
             <ref bean="PerformanceLogHandler" />
+            <ref bean="TransactionHandler"/>
         </jaxws:handlers>
     </jaxws:endpoint>
 
@@ -88,6 +91,7 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
         <jaxws:handlers>
             <ref bean="HIEMSoapHeaderHandler" />
             <ref bean="PerformanceLogHandler" />
+            <ref bean="TransactionHandler"/>
         </jaxws:handlers>
     </jaxws:endpoint>
 
@@ -97,6 +101,7 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
         <jaxws:handlers>
             <ref bean="HIEMSoapHeaderHandler" />
             <ref bean="PerformanceLogHandler" />
+            <ref bean="TransactionHandler"/>
         </jaxws:handlers>
     </jaxws:endpoint>
 
@@ -122,6 +127,7 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
         <jaxws:handlers>
             <ref bean="HIEMSoapHeaderHandler" />
             <ref bean="PerformanceLogHandler" />
+            <ref bean="TransactionHandler"/>
         </jaxws:handlers>
     </jaxws:endpoint>
 
@@ -141,6 +147,7 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
         <jaxws:handlers>
             <ref bean="HIEMSoapHeaderHandler" />
             <ref bean="PerformanceLogHandler" />
+            <ref bean="TransactionHandler"/>
         </jaxws:handlers>
     </jaxws:endpoint>
 
@@ -150,6 +157,7 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
         <jaxws:handlers>
             <ref bean="HIEMSoapHeaderHandler" />
             <ref bean="PerformanceLogHandler" />
+            <ref bean="TransactionHandler"/>
         </jaxws:handlers>
     </jaxws:endpoint>
 
@@ -170,6 +178,7 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
         <jaxws:handlers>
             <ref bean="HIEMSoapHeaderHandler" />
             <ref bean="PerformanceLogHandler" />
+            <ref bean="TransactionHandler"/>
         </jaxws:handlers>
     </jaxws:endpoint>
 
@@ -179,6 +188,7 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
         <jaxws:handlers>
             <ref bean="HIEMSoapHeaderHandler" />
             <ref bean="PerformanceLogHandler" />
+            <ref bean="TransactionHandler"/>
         </jaxws:handlers>
     </jaxws:endpoint>
 
@@ -204,6 +214,7 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
         <jaxws:handlers>
             <ref bean="HIEMSoapHeaderHandler" />
             <ref bean="PerformanceLogHandler" />
+            <ref bean="TransactionHandler"/>
         </jaxws:handlers>
     </jaxws:endpoint>
 
@@ -223,6 +234,7 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
         <jaxws:handlers>
             <ref bean="HIEMSoapHeaderHandler" />
             <ref bean="PerformanceLogHandler" />
+            <ref bean="TransactionHandler"/>
         </jaxws:handlers>
     </jaxws:endpoint>
 
@@ -232,6 +244,7 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
         <jaxws:handlers>
             <ref bean="HIEMSoapHeaderHandler" />
             <ref bean="PerformanceLogHandler" />
+            <ref bean="TransactionHandler"/>
         </jaxws:handlers>
     </jaxws:endpoint>
 
@@ -252,6 +265,7 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
         <jaxws:handlers>
             <ref bean="HIEMSoapHeaderHandler" />
             <ref bean="PerformanceLogHandler" />
+            <ref bean="TransactionHandler"/>
         </jaxws:handlers>
     </jaxws:endpoint>
 
@@ -261,9 +275,11 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
         <jaxws:handlers>
             <ref bean="HIEMSoapHeaderHandler" />
             <ref bean="PerformanceLogHandler" />
+            <ref bean="TransactionHandler"/>
         </jaxws:handlers>
     </jaxws:endpoint>
 
     <bean id="HIEMSoapHeaderHandler" class="gov.hhs.fha.nhinc.hiem.header.HIEMSoapHeaderHandler" />
     <bean id="PerformanceLogHandler" class="gov.hhs.fha.nhinc.perfrepo.PerformanceLogHandler" />
+    <bean id="TransactionHandler" class="gov.hhs.fha.nhinc.logging.transaction.TransactionHandler" />
 </beans>

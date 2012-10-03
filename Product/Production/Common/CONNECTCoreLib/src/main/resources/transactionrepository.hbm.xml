@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!--
+    Document   : transactionrepository.hbm.xml
+    Created on : September 11, 2012
+    Author     : jasonasmith
+    Description:
+        Purpose of the document follows.
+-->
+<hibernate-mapping>
+  <class name="gov.hhs.fha.nhinc.logging.transaction.model.TransactionRepo" table="transactionrepository">
+    <id name="id">
+      <generator class="native"/>
+    </id>
+    <property column="time" name="time"/>
+    <property column="messageId" name="messageId"/>
+    <property column="transactionId" name="transactionId"/>
+  </class>
+</hibernate-mapping>

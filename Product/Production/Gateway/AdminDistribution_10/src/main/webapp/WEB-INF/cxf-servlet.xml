@@ -39,6 +39,7 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
         </jaxws:inInterceptors>
         <jaxws:handlers>
             <ref bean="SOAPHeaderHandler" />
+            <ref bean="TransactionHandler"/>
         </jaxws:handlers>
     </jaxws:endpoint>
 
@@ -56,11 +57,17 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
         <jaxws:inInterceptors>
             <ref bean="securityInInterceptor" />
         </jaxws:inInterceptors>
+        <jaxws:handlers>
+            <ref bean="TransactionHandler"/>
+        </jaxws:handlers>
     </jaxws:endpoint>
 
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:entityadmindistribution" id="EntityAdministrativeDistribution"
         address="/AdministrativeDistribution_Service" serviceName="tns:AdministrativeDistribution_Service" endpointName="tns:AdministrativeDistribution_PortType"
         implementor="gov.hhs.fha.nhinc.admindistribution._10.entity.EntityAdministrativeDistribution" wsdlLocation="classpath:wsdl/EntityAdminDist.wsdl">
+        <jaxws:handlers>
+            <ref bean="TransactionHandler"/>
+        </jaxws:handlers>
     </jaxws:endpoint>
 
 
@@ -77,12 +84,19 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
         <jaxws:inInterceptors>
             <ref bean="securityInInterceptor" />
         </jaxws:inInterceptors>
+        <jaxws:handlers>
+            <ref bean="TransactionHandler"/>
+        </jaxws:handlers>
     </jaxws:endpoint>
 
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:nhincadmindistribution" id="NhincAdminDist"
         address="/MsgProxy/NhincProxyAdminDist" serviceName="tns:NhincAdminDistService" endpointName="tns:NhincAdminDist_PortType"
-        implementor="gov.hhs.fha.nhinc.admindistribution._10.passthru.NhincAdminDist" wsdlLocation="classpath:wsdl/NhincAdminDist.wsdl">
+        implementor="gov.hhs.fha.nhinc.admindistribution._10.passthru.NhincAdminDist" wsdlLocation="classpath:/wsdl/NhincAdminDist.wsdl">
+        <jaxws:handlers>
+            <ref bean="TransactionHandler"/>
+        </jaxws:handlers>
     </jaxws:endpoint>
 
     <bean id="SOAPHeaderHandler" class="gov.hhs.fha.nhinc.callback.SOAPHeaderHandler" />
+    <bean id="TransactionHandler" class="gov.hhs.fha.nhinc.logging.transaction.TransactionHandler" />
 </beans>

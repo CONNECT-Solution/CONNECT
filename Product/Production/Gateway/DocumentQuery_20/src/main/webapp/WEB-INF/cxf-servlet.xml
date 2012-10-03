@@ -37,13 +37,17 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
         </jaxws:inInterceptors>
         <jaxws:handlers>
             <ref bean="SOAPHeaderHandler" />
+            <ref bean="TransactionHandler"/>
         </jaxws:handlers>
     </jaxws:endpoint>
 
     <!-- Entity services -->
     <jaxws:endpoint xmlns:edq="urn:gov:hhs:fha:nhinc:entitydocquery" id="EntityDocumentQuery"
         address="/EntityService/EntityDocQueryUnsecured" serviceName="edq:EntityDocQuery" endpointName="edq:EntityDocQueryPortSoap"
-        implementor="gov.hhs.fha.nhinc.docquery._20.entity.EntityDocQueryUnsecured" wsdlLocation="classpath:wsdl/EntityDocQuery.wsdl">
+        implementor="gov.hhs.fha.nhinc.docquery._20.entity.EntityDocQueryUnsecured" wsdlLocation="classpath:/wsdl/EntityDocQuery.wsdl">
+    <jaxws:handlers>
+            <ref bean="TransactionHandler"/>
+    </jaxws:handlers>
     </jaxws:endpoint>
 
     <jaxws:endpoint xmlns:edqs="urn:gov:hhs:fha:nhinc:entitydocquery" id="EntityDocumentQuerySecured"
@@ -57,12 +61,18 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
         <jaxws:inInterceptors>
             <ref bean="securityInInterceptor" />
         </jaxws:inInterceptors>
+        <jaxws:handlers>
+            <ref bean="TransactionHandler"/>
+        </jaxws:handlers>
     </jaxws:endpoint>
 
     <!-- MsgProxy/NhincProxy/Passthru services -->
     <jaxws:endpoint xmlns:mpdq="urn:gov:hhs:fha:nhinc:nhincproxydocquery" id="NhincProxyDocumentQuery"
         address="/EntityService/NhincProxyDocQueryUnsecured" serviceName="mpdq:NhincProxyDocQuery" endpointName="mpdq:NhincProxyDocQueryPortSoap"
         implementor="gov.hhs.fha.nhinc.docquery._20.passthru.NhincProxyDocQueryUnsecured" wsdlLocation="classpath:wsdl/NhincProxyDocQuery.wsdl">
+        <jaxws:handlers>
+            <ref bean="TransactionHandler"/>
+        </jaxws:handlers>
     </jaxws:endpoint>
 
     <jaxws:endpoint xmlns:mpdqs="urn:gov:hhs:fha:nhinc:nhincproxydocquerysecured" id="NhincProxyDocumentQuerySecured"
@@ -76,7 +86,11 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
         <jaxws:inInterceptors>
             <ref bean="securityInInterceptor" />
         </jaxws:inInterceptors>
+        <jaxws:handlers>
+            <ref bean="TransactionHandler"/>
+        </jaxws:handlers>
     </jaxws:endpoint>
 
     <bean id="SOAPHeaderHandler" class="gov.hhs.fha.nhinc.callback.SOAPHeaderHandler" />
+    <bean id="TransactionHandler" class="gov.hhs.fha.nhinc.logging.transaction.TransactionHandler" />
 </beans>

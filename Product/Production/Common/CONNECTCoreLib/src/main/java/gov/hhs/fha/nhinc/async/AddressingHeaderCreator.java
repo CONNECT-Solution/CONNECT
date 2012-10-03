@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.async;
 
+
 import java.util.UUID;
 
 /**
@@ -34,7 +35,7 @@ import java.util.UUID;
  */
 public class AddressingHeaderCreator {
     private static String UUID_TAG = "urn:uuid:";
-
+    
     public static String generateMessageId() {
         return UUID_TAG + UUID.randomUUID().toString();
     }

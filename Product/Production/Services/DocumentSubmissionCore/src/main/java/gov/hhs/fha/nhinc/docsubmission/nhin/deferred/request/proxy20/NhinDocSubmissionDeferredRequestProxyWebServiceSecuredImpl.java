@@ -26,29 +26,28 @@
  */
 package gov.hhs.fha.nhinc.docsubmission.nhin.deferred.request.proxy20;
 
-import javax.xml.ws.BindingProvider;
-
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+import gov.hhs.fha.nhinc.docsubmission.DocSubmissionUtils;
+import gov.hhs.fha.nhinc.docsubmission.MessageGeneratorUtils;
 import gov.hhs.fha.nhinc.docsubmission.nhin.deferred.request.proxy20.service.NhinDocSubmissionDeferredRequestServicePortDescriptor;
-import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
+import gov.hhs.fha.nhinc.largefile.LargePayloadException;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTCXFClientFactory;
+import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import ihe.iti.xdr._2007.XDRDeferredRequest20PortType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
-import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
+
+import javax.xml.ws.BindingProvider;
+
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-/**
- * 
- * @author JHOPPESC
- */
 public class NhinDocSubmissionDeferredRequestProxyWebServiceSecuredImpl implements
         NhinDocSubmissionDeferredRequestProxy {
     private Log log = null;
@@ -63,6 +62,14 @@ public class NhinDocSubmissionDeferredRequestProxyWebServiceSecuredImpl implemen
         return LogFactory.getLog(getClass());
     }
 
+    protected DocSubmissionUtils getDocSubmissionUtils() {
+        return DocSubmissionUtils.getInstance();
+    }
+
+    protected MessageGeneratorUtils getMessageGeneratorUtils() {
+        return MessageGeneratorUtils.getInstance();
+    }
+
     protected WebServiceProxyHelper createWebServiceProxyHelper() {
         return new WebServiceProxyHelper();
     }
@@ -70,8 +77,7 @@ public class NhinDocSubmissionDeferredRequestProxyWebServiceSecuredImpl implemen
     protected CONNECTClient<XDRDeferredRequest20PortType> getCONNECTClientSecured(
             ServicePortDescriptor<XDRDeferredRequest20PortType> portDescriptor, String url, AssertionType assertion) {
 
-        return CONNECTCXFClientFactory.getInstance().getCONNECTClientSecured(portDescriptor, url,
-                assertion);
+        return CONNECTCXFClientFactory.getInstance().getCONNECTClientSecured(portDescriptor, url, assertion);
     }
 
     public RegistryResponseType provideAndRegisterDocumentSetBRequest20(
@@ -80,12 +86,13 @@ public class NhinDocSubmissionDeferredRequestProxyWebServiceSecuredImpl implemen
         RegistryResponseType response = null;
 
         try {
-            String url = oProxyHelper.getUrlFromTargetSystemByGatewayAPILevel(targetSystem,
-                    NhincConstants.NHINC_XDR_REQUEST_SERVICE_NAME, GATEWAY_API_LEVEL.LEVEL_g1);
-
             if (request == null) {
                 log.error("Message was null");
             } else {
+                String url = oProxyHelper.getUrlFromTargetSystemByGatewayAPILevel(targetSystem,
+                        NhincConstants.NHINC_XDR_REQUEST_SERVICE_NAME, GATEWAY_API_LEVEL.LEVEL_g1);
+                getDocSubmissionUtils().convertFileLocationToDataIfEnabled(request);
+
                 ServicePortDescriptor<XDRDeferredRequest20PortType> portDescriptor = new NhinDocSubmissionDeferredRequestServicePortDescriptor();
 
                 CONNECTClient<XDRDeferredRequest20PortType> client = getCONNECTClientSecured(portDescriptor, url,
@@ -93,22 +100,18 @@ public class NhinDocSubmissionDeferredRequestProxyWebServiceSecuredImpl implemen
 
                 WebServiceProxyHelper wsHelper = new WebServiceProxyHelper();
                 wsHelper.addTargetCommunity((BindingProvider) client.getPort(), targetSystem);
-                wsHelper.addServiceName((BindingProvider) client.getPort(), 
+                wsHelper.addServiceName((BindingProvider) client.getPort(),
                         NhincConstants.NHINC_XDR_REQUEST_SERVICE_NAME);
 
                 response = (RegistryResponseType) client.invokePort(XDRDeferredRequest20PortType.class,
                         "provideAndRegisterDocumentSetBDeferredRequest", request);
             }
+        } catch (LargePayloadException lpe) {
+            log.error("Failed to send message.", lpe);
+            response = getMessageGeneratorUtils().createMissingDocumentRegistryResponse();
         } catch (Exception ex) {
             log.error("Error calling provideAndRegisterDocumentSetBDeferredRequest: " + ex.getMessage(), ex);
-            response = new RegistryResponseType();
-            response.setStatus(NhincConstants.XDR_ACK_FAILURE_STATUS_MSG);
-            RegistryError re = new RegistryError();
-            re.setCodeContext(ex.getMessage());
-            re.setErrorCode("XDSRegistryError");
-            re.setLocation("NhinDocSubmissionDeferredRequestWebServiceProxySecuredImpl");
-            re.setSeverity(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR);
-            response.getRegistryErrorList().getRegistryError().add(re);
+            response = getMessageGeneratorUtils().createRegistryErrorResponseWithAckFailure(ex.getMessage());
         }
 
         log.debug("End provideAndRegisterDocumentSetBAsyncRequest");

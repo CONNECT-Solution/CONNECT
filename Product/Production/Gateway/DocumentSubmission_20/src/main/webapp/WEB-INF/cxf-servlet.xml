@@ -31,20 +31,27 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
             <entry key="ws-security.saml2.validator">
                 <bean class="gov.hhs.fha.nhinc.callback.cxf.CONNECTSamlAssertionValidator" />
             </entry>
+            <entry key="mtom-enabled" value="true" />
         </jaxws:properties>
-
         <jaxws:inInterceptors>
             <ref bean="securityInInterceptor" />
         </jaxws:inInterceptors>
         <jaxws:handlers>
             <ref bean="SOAPHeaderHandler" />
+            <ref bean="TransactionHandler"/>
         </jaxws:handlers>
     </jaxws:endpoint>
 
     <!-- Entity services -->
     <jaxws:endpoint xmlns:eds="urn:gov:hhs:fha:nhinc:nhincentityxdr" id="EntityDocSubmissionUnsecured_g1"
         address="/EntityService/EntityDocSubmissionUnsecured" serviceName="eds:EntityXDR_Service" endpointName="eds:EntityXDR_Port"
-        implementor="gov.hhs.fha.nhinc.docsubmission._20.entity.EntityDocSubmissionUnsecured_g1" wsdlLocation="classpath:wsdl/EntityXDR.wsdl">
+        implementor="gov.hhs.fha.nhinc.docsubmission._20.entity.EntityDocSubmissionUnsecured_g1" wsdlLocation="classpath:wsdl/EntityDocSubmissionUnsecured/EntityXDR.wsdl">
+        <jaxws:handlers>
+            <ref bean="TransactionHandler"/>
+        </jaxws:handlers>
+        <jaxws:properties>          
+            <entry key="mtom-enabled" value="true" />
+        </jaxws:properties>
     </jaxws:endpoint>
 
     <jaxws:endpoint xmlns:edss="urn:gov:hhs:fha:nhinc:nhincentityxdrsecured" id="EntityDocSubmissionSecured_g1"
@@ -54,16 +61,26 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
             <entry key="ws-security.callback-handler" value="gov.hhs.fha.nhinc.callback.cxf.CXFSAMLCallbackHandler" />
             <entry key="ws-security.signature.properties" value="keystore.properties" />
             <entry key="ws-security.encryption.properties" value="truststore.properties" />
+            <entry key="mtom-enabled" value="true" />
         </jaxws:properties>
         <jaxws:inInterceptors>
             <ref bean="securityInInterceptor" />
         </jaxws:inInterceptors>
+        <jaxws:handlers>
+            <ref bean="TransactionHandler"/>
+        </jaxws:handlers>
     </jaxws:endpoint>
 
     <!-- MsgProxy/NhincProxy/Passthru services -->
     <jaxws:endpoint xmlns:mpds="urn:gov:hhs:fha:nhinc:nhincproxyxdr" id="NhincProxyXDR_g1"
         address="/EntityService/PassthruDocSubmissionUnsecured" serviceName="mpds:ProxyXDR_Service" endpointName="mpds:ProxyXDR_Port"
-        implementor="gov.hhs.fha.nhinc.docsubmission._20.passthru.PassthruDocSubmissionUnsecured_g1" wsdlLocation="classpath:wsdl/NhincProxyXDR.wsdl">
+        implementor="gov.hhs.fha.nhinc.docsubmission._20.passthru.PassthruDocSubmissionUnsecured_g1" wsdlLocation="classpath:wsdl/PassthruDocSubmissionUnsecured/NhincProxyXDR.wsdl">
+        <jaxws:handlers>
+            <ref bean="TransactionHandler"/>
+        </jaxws:handlers>
+        <jaxws:properties>          
+            <entry key="mtom-enabled" value="true" />
+        </jaxws:properties>
     </jaxws:endpoint>
 
     <jaxws:endpoint xmlns:mpdss="urn:gov:hhs:fha:nhinc:nhincproxyxdrsecured" id="NhincProxyXDRSecured_g1"
@@ -73,10 +90,14 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
             <entry key="ws-security.callback-handler" value="gov.hhs.fha.nhinc.callback.cxf.CXFSAMLCallbackHandler" />
             <entry key="ws-security.signature.properties" value="keystore.properties" />
             <entry key="ws-security.encryption.properties" value="truststore.properties" />
+            <entry key="mtom-enabled" value="true" />
         </jaxws:properties>
         <jaxws:inInterceptors>
             <ref bean="securityInInterceptor" />
         </jaxws:inInterceptors>
+        <jaxws:handlers>
+            <ref bean="TransactionHandler"/>
+        </jaxws:handlers>
     </jaxws:endpoint>
 
 
@@ -94,12 +115,14 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
             <entry key="ws-security.saml2.validator">
                 <bean class="gov.hhs.fha.nhinc.callback.cxf.CONNECTSamlAssertionValidator" />
             </entry>
+            <entry key="mtom-enabled" value="true" />
         </jaxws:properties>
         <jaxws:inInterceptors>
             <ref bean="securityInInterceptor" />
         </jaxws:inInterceptors>
         <jaxws:handlers>
             <ref bean="SOAPHeaderHandler" />
+            <ref bean="TransactionHandler"/>
         </jaxws:handlers>
     </jaxws:endpoint>
 
@@ -110,6 +133,12 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
         endpointName="tns:EntityXDRAsyncRequest_Port"
         implementor="gov.hhs.fha.nhinc.docsubmission._20.entity.deferred.request.EntityDocSubmissionDeferredRequestUnsecured_g1"
         wsdlLocation="classpath:wsdl/EntityXDRRequest.wsdl">
+        <jaxws:handlers>
+            <ref bean="TransactionHandler"/>
+        </jaxws:handlers>
+        <jaxws:properties>          
+            <entry key="mtom-enabled" value="true" />
+        </jaxws:properties>
     </jaxws:endpoint>
 
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:nhincentityxdrsecured:async:request" id="EntityDocSubmissionDeferredRequestSecured_g1"
@@ -121,10 +150,14 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
             <entry key="ws-security.callback-handler" value="gov.hhs.fha.nhinc.callback.cxf.CXFSAMLCallbackHandler" />
             <entry key="ws-security.signature.properties" value="keystore.properties" />
             <entry key="ws-security.encryption.properties" value="truststore.properties" />
+            <entry key="mtom-enabled" value="true" />
         </jaxws:properties>
         <jaxws:inInterceptors>
             <ref bean="securityInInterceptor" />
         </jaxws:inInterceptors>
+        <jaxws:handlers>
+            <ref bean="TransactionHandler"/>
+        </jaxws:handlers>
     </jaxws:endpoint>
 
     <!-- MsgProxy/NhincProxy/Passthru services -->
@@ -133,6 +166,12 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
         endpointName="tns:ProxyXDRAsyncRequest_Port"
         implementor="gov.hhs.fha.nhinc.docsubmission._20.passthru.deferred.request.PassthruDocSubmissionDeferredRequestUnsecured_g1"
         wsdlLocation="classpath:wsdl/NhincProxyXDRRequest.wsdl">
+        <jaxws:handlers>
+            <ref bean="TransactionHandler"/>
+        </jaxws:handlers>
+        <jaxws:properties>          
+            <entry key="mtom-enabled" value="true" />
+        </jaxws:properties>
     </jaxws:endpoint>
 
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:nhincproxyxdrsecured:async:request" id="PassthruDocSubmissionDeferredRequestSecured_g1"
@@ -144,10 +183,14 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
             <entry key="ws-security.callback-handler" value="gov.hhs.fha.nhinc.callback.cxf.CXFSAMLCallbackHandler" />
             <entry key="ws-security.signature.properties" value="keystore.properties" />
             <entry key="ws-security.encryption.properties" value="truststore.properties" />
+            <entry key="mtom-enabled" value="true" />
         </jaxws:properties>
         <jaxws:inInterceptors>
             <ref bean="securityInInterceptor" />
         </jaxws:inInterceptors>
+        <jaxws:handlers>
+            <ref bean="TransactionHandler"/>
+        </jaxws:handlers>
     </jaxws:endpoint>
 
 
@@ -171,6 +214,7 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
         </jaxws:inInterceptors>
         <jaxws:handlers>
             <ref bean="SOAPHeaderHandler" />
+            <ref bean="TransactionHandler"/>
         </jaxws:handlers>
     </jaxws:endpoint>
 
@@ -180,6 +224,9 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
         endpointName="tns:EntityXDRAsyncResponse_Port"
         implementor="gov.hhs.fha.nhinc.docsubmission._20.entity.deferred.response.EntityDocSubmissionDeferredResponseUnsecured_g1"
         wsdlLocation="classpath:wsdl/EntityXDRResponse.wsdl">
+        <jaxws:handlers>
+            <ref bean="TransactionHandler"/>
+        </jaxws:handlers>
     </jaxws:endpoint>
 
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:nhincentityxdrsecured:async:response" id="EntityDocSubmissionDeferredResponseSecured_g1"
@@ -195,6 +242,9 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
         <jaxws:inInterceptors>
             <ref bean="securityInInterceptor" />
         </jaxws:inInterceptors>
+        <jaxws:handlers>
+            <ref bean="TransactionHandler"/>
+        </jaxws:handlers>
     </jaxws:endpoint>
 
     <!-- MsgProxy/NhincProxy/Passthru services -->
@@ -203,6 +253,9 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
         endpointName="tns:ProxyXDRAsyncResponse_Port"
         implementor="gov.hhs.fha.nhinc.docsubmission._20.passthru.deferred.response.PassthruDocSubmissionDeferredResponseUnsecured_g1"
         wsdlLocation="classpath:wsdl/NhincProxyXDRResponse.wsdl">
+        <jaxws:handlers>
+            <ref bean="TransactionHandler"/>
+        </jaxws:handlers>
     </jaxws:endpoint>
 
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:nhincproxyxdrsecured:async:response" id="PassthruDocSubmissionDeferredResponseSecured_g1"
@@ -218,7 +271,11 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
         <jaxws:inInterceptors>
             <ref bean="securityInInterceptor" />
         </jaxws:inInterceptors>
+        <jaxws:handlers>
+            <ref bean="TransactionHandler"/>
+        </jaxws:handlers>
     </jaxws:endpoint>
 
     <bean id="SOAPHeaderHandler" class="gov.hhs.fha.nhinc.callback.SOAPHeaderHandler" />
+    <bean id="TransactionHandler" class="gov.hhs.fha.nhinc.logging.transaction.TransactionHandler" />
 </beans>

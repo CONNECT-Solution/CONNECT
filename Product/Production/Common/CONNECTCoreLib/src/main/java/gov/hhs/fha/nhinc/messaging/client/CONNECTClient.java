@@ -29,6 +29,7 @@ package gov.hhs.fha.nhinc.messaging.client;
 
 import gov.hhs.fha.nhinc.messaging.service.BaseServiceEndpoint;
 import gov.hhs.fha.nhinc.messaging.service.ServiceEndpoint;
+import gov.hhs.fha.nhinc.messaging.service.decorator.MTOMServiceEndpointDecorator;
 import gov.hhs.fha.nhinc.messaging.service.decorator.TimeoutServiceEndpointDecorator;
 import gov.hhs.fha.nhinc.messaging.service.decorator.URLServiceEndpointDecorator;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
@@ -63,6 +64,7 @@ public abstract class CONNECTClient<T> {
         ServiceEndpoint<T> serviceEndpoint = new BaseServiceEndpoint<T>(port);
         serviceEndpoint = new URLServiceEndpointDecorator<T>(serviceEndpoint, url);        
         serviceEndpoint = new TimeoutServiceEndpointDecorator<T>(serviceEndpoint);
+        serviceEndpoint = new MTOMServiceEndpointDecorator<T>(serviceEndpoint);
         
         return serviceEndpoint;
     }

@@ -26,17 +26,20 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
             <entry key="ws-security.callback-handler" value="gov.hhs.fha.nhinc.callback.cxf.CXFSAMLCallbackHandler" />
             <entry key="ws-security.signature.properties" value="keystore.properties" />
             <entry key="ws-security.encryption.properties" value="truststore.properties" />
+            <entry key="mtom-enabled" value="true" />
         </jaxws:properties>
         <jaxws:inInterceptors>
             <ref bean="securityInInterceptor" />
         </jaxws:inInterceptors>
-
     </jaxws:endpoint>
     
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adapterxdr" id="AdapterDocSubmissionUnsecured"
         address="/AdapterDocSubmissionUnsecured" serviceName="tns:AdapterXDR_Service"
         endpointName="tns:AdapterXDR_Port" implementor="gov.hhs.fha.nhinc.docsubmission.adapter.AdapterDocSubmissionUnsecured"
-        wsdlLocation="classpath:wsdl/AdapterXDR.wsdl">
+        wsdlLocation="classpath:wsdl/AdapterDocSubmissionUnsecured/AdapterXDR.wsdl">
+        <jaxws:properties>          
+            <entry key="mtom-enabled" value="true" />
+        </jaxws:properties>
     </jaxws:endpoint>
     
     <!-- Adapter Document Submission Component -->
@@ -50,11 +53,11 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
             <entry key="ws-security.callback-handler" value="gov.hhs.fha.nhinc.callback.cxf.CXFSAMLCallbackHandler" />
             <entry key="ws-security.signature.properties" value="keystore.properties" />
             <entry key="ws-security.encryption.properties" value="truststore.properties" />
+            <entry key="mtom-enabled" value="true" />
         </jaxws:properties>
         <jaxws:inInterceptors>
             <ref bean="securityInInterceptor" />
         </jaxws:inInterceptors>
-
     </jaxws:endpoint>
     
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adaptercomponentxdr" id="AdapterComponentDocSubmissionUnsecured"
@@ -74,17 +77,20 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
             <entry key="ws-security.callback-handler" value="gov.hhs.fha.nhinc.callback.cxf.CXFSAMLCallbackHandler" />
             <entry key="ws-security.signature.properties" value="keystore.properties" />
             <entry key="ws-security.encryption.properties" value="truststore.properties" />
+            <entry key="mtom-enabled" value="true" />
         </jaxws:properties>
         <jaxws:inInterceptors>
             <ref bean="securityInInterceptor" />
         </jaxws:inInterceptors>
-
     </jaxws:endpoint>
 
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adapterxdrrequest" id="AdapterXDRRequest"
         address="/AdapterService/AdapterDocSubmissionDeferredRequest" serviceName="tns:AdapterXDRRequest_Service"
         endpointName="tns:AdapterXDRRequest_Port" implementor="gov.hhs.fha.nhinc.docsubmission.adapter.deferred.request.AdapterXDRRequest"
-        wsdlLocation="classpath:wsdl/AdapterXDRRequest.wsdl">
+        wsdlLocation="classpath:/wsdl/AdapterXDRRequest.wsdl">
+        <jaxws:properties>          
+            <entry key="mtom-enabled" value="true" />
+        </jaxws:properties>
     </jaxws:endpoint>
     
     <!-- Adapter Document Submission Deferred Request Component --> 
@@ -93,6 +99,9 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
         address="/AdapterComponentXDRRequest_Service" serviceName="tns:AdapterComponentXDRRequest_Service"
         endpointName="tns:AdapterComponentXDRRequest_Port" implementor="gov.hhs.fha.nhinc.docsubmission.adapter.component.deferred.request.AdapterComponentXDRRequest"
         wsdlLocation="classpath:wsdl/AdapterComponentXDRRequest.wsdl">
+        <jaxws:properties>          
+            <entry key="mtom-enabled" value="true" />
+        </jaxws:properties>
     </jaxws:endpoint>
     
     <!-- Adapter Document Submission Deferred Request Error --> 
@@ -101,22 +110,24 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
         address="/AdapterService/AdapterDocSubmissionDeferredRequestErrorSecured" serviceName="tns:AdapterXDRRequestErrorSecured_Service"
         endpointName="tns:AdapterXDRRequestErrorSecured_Port_Soap" implementor="gov.hhs.fha.nhinc.docsubmission.adapter.deferred.request.error.AdapterXDRSecuredRequestError"
         wsdlLocation="classpath:wsdl/AdapterXDRRequestSecuredError.wsdl">
-
         <jaxws:properties>
             <entry key="ws-security.callback-handler" value="gov.hhs.fha.nhinc.callback.cxf.CXFSAMLCallbackHandler" />
             <entry key="ws-security.signature.properties" value="keystore.properties" />
             <entry key="ws-security.encryption.properties" value="truststore.properties" />
+            <entry key="mtom-enabled" value="true" />
         </jaxws:properties>
         <jaxws:inInterceptors>
             <ref bean="securityInInterceptor" />
         </jaxws:inInterceptors>
-
     </jaxws:endpoint>
         
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adapterxdrrequesterror" id="AdapterXDRRequestError"
         address="/AdapterService/AdapterDocSubmissionDeferredRequestError" serviceName="tns:AdapterXDRRequestError_Service"
         endpointName="tns:AdapterXDRRequestError_Port" implementor="gov.hhs.fha.nhinc.docsubmission.adapter.deferred.request.error.AdapterXDRRequestError"
-        wsdlLocation="classpath:wsdl/AdapterXDRRequestError.wsdl">
+        wsdlLocation="classpath:/wsdl/AdapterXDRRequestError.wsdl">
+        <jaxws:properties>          
+            <entry key="mtom-enabled" value="true" />
+        </jaxws:properties>
     </jaxws:endpoint>
     
     
@@ -127,7 +138,6 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
         address="/AdapterService/AdapterDocSubmissionDeferredResponseSecured" serviceName="tns:AdapterXDRResponseSecured_Service"
         endpointName="tns:AdapterXDRResponseSecured_Port_Soap" implementor="gov.hhs.fha.nhinc.docsubmission.adapter.deferred.response.AdapterXDRResponseSecured"
         wsdlLocation="classpath:wsdl/AdapterXDRResponseSecured.wsdl">
-
         <jaxws:properties>
             <entry key="ws-security.callback-handler" value="gov.hhs.fha.nhinc.callback.cxf.CXFSAMLCallbackHandler" />
             <entry key="ws-security.signature.properties" value="keystore.properties" />
@@ -136,7 +146,6 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
         <jaxws:inInterceptors>
             <ref bean="securityInInterceptor" />
         </jaxws:inInterceptors>
-
     </jaxws:endpoint>
     
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adapterxdrresponse" id="AdapterXDRResponse"
