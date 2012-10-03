@@ -26,50 +26,120 @@ Three primary elements make up the CONNECT solution:
 
 History
 -------
-  * 4.0 planned Febuary 2013
-  * 3.3 released March 2012
+* 4.0 planned Febuary 2013
+* 3.3 released March 2012
   
   (see HISTORY.md)
 
 Getting Started
 ---------------
-###Pre-reqs
-1. java 7
-2. Maven 3.0.4+  [Download Maven][] [Install Maven][]
-3. [MySQL 5.1.x][]
-4.   [Eclipse][] Juno 
-    * [egit plugin][]
-    * [m2eclipse plugin][]
-5. [ant 1.7.1][]
+###Prerequisites
+Before you get started, you'll need the following installed and set up: 
+* [Java (JDK) 7](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
+* [Maven 3.0.4+](http://maven.apache.org/download.html)	See [installation instructions](http://maven.apache.org/download.html#Installation).
+* [MySQL 5.1.x](http://dev.mysql.com/downloads/mysql/5.1.html#downloads)
+* [Eclipse Juno](http://www.eclipse.org/downloads/) 
+  * [egit plugin](http://www.eclipse.org/egit/)
+  * [m2eclipse plugin](http://www.eclipse.org/m2e/download/)
+* [Apache Ant v1.7.1](http://ant.apache.org/)
 
-###Eclipse
 
-        mvn clean install 
-        mvn eclipse:clean eclispe:eclipse
+###Building from source
+To build all CONNECT modules from source, run: 
+        
+        $ cd <CONNECT_CLONE_DIR>
+        $ mvn clean install 
 
-(in eclipse)
-File | Import | Existing project in workspace
-and choose the clone repo directory (ex. CONNECT )
+###Generate Eclipse Projects
+After you have built from source you can create all of the Eclipse Project files
 
-###Building an ear
+		$ cd <CONNECT_CLONE_DIR>
+        $ mvn eclipse:clean eclipse:eclipse
+
+When complete, open Eclipse then click on the following:
+
+		File --> Import --> 'Existing Projects into workspace'
+
+and choose the clone repo directory (\<CONNECT_CLONE_DIR\>), e.g. CONNECT. You may also need to repeat these steps and choose additional directories:
+* \<CONNECT_CLONE_DIR\>/Product
+* \<CONNECT_CLONE_DIR\>/Product/Production
+
+####Building an ear
 For an ear with Patient Discovery, Document Query, Retrieve Document, Document Submission you would execute the following command.
 
-        mvn install -P PD,DQ,DR,DS
+		
+        $ cd <CONNECT_CLONE_DIR>
+        $ mvn clean install -P PD,DQ,DR,DS
+        
+Available profiles to alter the composition of bundled gateways and adapters within the .ear generated for deployment are enumerated below (use value within parentheses):        
+* Admin Distribution (AD)
+* Patient Discovery (PD)
+* Document Query (DQ)
+* Document Submission (DS)
+* Document Retrieve (DR)
+* HIEM (HIEM)
+        
+You can alter the composition of the CONNECT.ear at any time by specifying any combination of the available profiles as a comma-separated list 
+		
+		$ cd <CONNECT_CLONE_DIR>
+		$ mvn clean package -P <profiles> -f Product/Production/CONNECT/pom.xml
+		
+OR 
+		
+		$ cd Product/Production/CONNECT/
+		$ mvn clean package -P <profiles>
 
-###Setup GlassFish
+###Setup Glassfish, MySQL & Deploy CONNECT
+These steps will install and configure a Glassfish Application Server, prepare your MySQL databases and deploy CONNECT for use. Lets get started.   
 
-(in the Product/Install directory)
-Copy install.properties to local.install.properties and update with your local information. Generally this just specifying where 
-you want GlassFish to install.
+Navigate to the <CONNECT_CLONE_DIR>/Product/Install directory
+
+        $ cd <CONNECT_CLONE_DIR>/Product/Install
+       
+Next, copy install.properties to local.install.properties and update with your local information. Generally this just specifying where 
+you want GlassFish to install.	
+
+		$ cp install.properties local.install.properties
+		
+		
+####Setup MySQL Databases
+These steps will install and configure a Glassfish Application Server to deploy and use CONNECT. Lets get started.  
+
+Navigate to the <CONNECT_CLONE_DIR>/Product/Install directory
+
+        $ cd <CONNECT_CLONE_DIR>/Product/Install
+        
+Next, copy install.properties to local.install.properties and update with your local information. Generally this just specifying where 
+you want GlassFish to install.	
+
+		$ cp install.properties local.install.properties
+
+Lastly, we're going to install the Glassfish Application Server         
+        $ ant install
+        	
+
+####Setup GlassFish
+These steps will install and configure a Glassfish Application Server to deploy and use CONNECT. Lets get started.  
+
+Navigate to the <CONNECT_CLONE_DIR>/Product/Install directory
+
+        $ cd <CONNECT_CLONE_DIR>/Product/Install
+        
+Next, copy install.properties to local.install.properties and update with your local information. Generally this just specifying where 
+you want GlassFish to install.	
+
+		$ cp install.properties local.install.properties
+
+Lastly, we're going to install the Glassfish Application Server         
+        
+        $ ant install.glassfish
 
 
-        ant -Dskip.build -Dskip.deploy
+####Deploy to GlassFish
+Navigate to the <CONNECT_CLONE_DIR>/Product/Install directory
 
-
-###Deploy to GlassFish
-(in the Product/Install directory)
-
-        ant deploy.connect
+        $ cd <CONNECT_CLONE_DIR>/Product/Install
+        $ ant deploy.connect
 
 Usage
 -----
@@ -78,11 +148,12 @@ TK
 Testing
 -------
 
-in the Product/SoapUI_Test/ValidationSuite/ directory
+###Perform Validation Tests
 
-        mvn clean test
+		$ cd <CONNECT_CLONE_DIR>/Product/SoapUI_Test/ValidationSuite
+        $ mvn clean test
 
-this will run the soapui tests against your local connect
+
 
 Contributing
 ------------
