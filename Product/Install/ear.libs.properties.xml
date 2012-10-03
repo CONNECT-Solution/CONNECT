@@ -62,6 +62,7 @@
             <include name="**/spring.jar" />
             <include name="**/aspectjrt.jar" />
             <include name="**/aspectjweaver.jar" />
+            <include name="**/asm.jar" />
         </fileset>
     </path>
     <path id="ear.licenses">

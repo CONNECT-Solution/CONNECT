@@ -6,12 +6,12 @@
     in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF 
     ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under 
     the License. -->
-<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
     xmlns:jaxws="http://cxf.apache.org/jaxws" xmlns:soap="http://cxf.apache.org/bindings/soap"
-    xsi:schemaLocation="
-http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 http://cxf.apache.org/bindings/soap http://cxf.apache.org/schemas/configuration/soap.xsd
-http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
+http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd
+http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd" >
 
     <import resource="classpath:META-INF/cxf/cxf.xml" />
     <import resource="classpath:META-INF/cxf/cxf-extension-soap.xml" />
@@ -238,4 +238,11 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
     </jaxws:endpoint>
 
     <bean id="SOAPHeaderHandler" class="gov.hhs.fha.nhinc.callback.SOAPHeaderHandler" />
+        <!-- Aspect Service -->
+    <aop:aspectj-autoproxy />
+    <bean id="eventAspect" class="gov.hhs.fha.nhinc.aspect.EventAspect" />
+    <bean id="nhinDocSubmissionImpl" class="gov.hhs.fha.nhinc.docsubmission._20.nhin.NhinDocSubmissionImpl_g1" />
+    <bean id="nhinDocSubmissionDeferredRequestImpl" class="gov.hhs.fha.nhinc.docsubmission._20.nhin.deferred.request.NhinDocSubmissionDeferredRequestImpl20" />
+    <bean id="nhinDocSubmissionDeferredResponseImpl" class="gov.hhs.fha.nhinc.docsubmission._20.nhin.deferred.response.NhinDocSubmissionDeferredResponseImpl20" />
+    
 </beans>

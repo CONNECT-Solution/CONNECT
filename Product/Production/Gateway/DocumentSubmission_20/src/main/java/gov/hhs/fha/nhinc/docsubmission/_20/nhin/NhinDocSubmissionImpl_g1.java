@@ -52,7 +52,6 @@ public class NhinDocSubmissionImpl_g1 {
             assertion.setMessageId(AsyncMessageIdExtractor.GetAsyncMessageId(context));
         }
         return new NhinDocSubmissionOrchImpl().documentRepositoryProvideAndRegisterDocumentSetB(body, assertion);
-
     }
 
 }
