@@ -50,16 +50,21 @@ To build all CONNECT modules from source, run:
         $ cd <CONNECT_CLONE_DIR>
         $ mvn clean install 
 
-###Eclipse
+###Generate Eclipse Projects
 After you have built from source you can create all of the Eclipse Project files
 
+		$ cd <CONNECT_CLONE_DIR>
         $ mvn eclipse:clean eclispe:eclipse
 
-(in eclipse)
-File | Import | Existing project in workspace
-and choose the clone repo directory (ex. CONNECT )
+When complete, open Eclipse then click on the following:
 
-###Building an ear
+		File --> Import --> 'Existing Projects into workspace'
+
+and choose the clone repo directory (<CONNECT_CLONE_DIR>), e.g. CONNECT. You may also need to repeat these steps and choose additional directories:
+* <CONNECT_CLONE_DIR>/Product
+* <CONNECT_CLONE_DIR>/Product/Production
+
+####Building an ear
 For an ear with Patient Discovery, Document Query, Retrieve Document, Document Submission you would execute the following command.
 
 		
