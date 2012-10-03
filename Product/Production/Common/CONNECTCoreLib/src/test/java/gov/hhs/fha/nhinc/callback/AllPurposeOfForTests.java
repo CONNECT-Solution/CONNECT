@@ -24,38 +24,22 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
-package gov.hhs.fha.nhinc.patientdiscovery.entity;
+package gov.hhs.fha.nhinc.callback;
 
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.orchestration.OrchestrationContextBuilder;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+import org.junit.runners.Suite.SuiteClasses;
 
 /**
- * Returns the OrchestrationContextBuilder appropriate for the particular apiLevel
+ * @author mweaver
  * 
- * @author paul.eftis
  */
-public class OutboundPatientDiscoveryFactory {
+@RunWith(Suite.class)
+@SuiteClasses({ PDPurposeOfForDeciderDefaultConfigTest.class, PDPurposeOfForDeciderMockTest.class,
+        PDDReqPurposeOfForDeciderMockTest.class, PDDRespPurposeOfForDeciderMockTest.class,
+        DQPurposeOfForDeciderMockTest.class, DRPurposeOfForDeciderMockTest.class, DSPurposeOfForDeciderMockTest.class,
+        ADPurposeOfForDeciderMockTest.class, DSDReqPurposeOfForDeciderMockTest.class,
+        DSDRespPurposeOfForDeciderMockTest.class, NegativePurposeOfForDeciderMockTest.class })
+public class AllPurposeOfForTests {
 
-    private static Log log = LogFactory.getLog(OutboundPatientDiscoveryFactory.class);
-
-    private static OutboundPatientDiscoveryFactory INSTANCE = new OutboundPatientDiscoveryFactory();
-
-    private OutboundPatientDiscoveryFactory() {
-    }
-
-    public OrchestrationContextBuilder createOrchestrationContextBuilder(NhincConstants.GATEWAY_API_LEVEL apiLevel) {
-        log.debug("EntityPatientDiscoveryFactory has apiLevel=" + apiLevel.toString());
-        switch (apiLevel) {
-        default:
-            log.warn("The same implementation is used for both PD g0 and PD g1.");
-            return new OutboundPatientDiscoveryOrchestrationContextBuilder();
-        }
-    }
-
-    public static OutboundPatientDiscoveryFactory getInstance() {
-        return INSTANCE;
-    }
 }
