@@ -10,7 +10,6 @@
     <artifactId>Product</artifactId>
     <packaging>pom</packaging>
     <name>CONNECT Product</name>
-    <url>http://www.connectopensource.org/</url>
     <properties>
         <cxf.version>2.6.1</cxf.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
