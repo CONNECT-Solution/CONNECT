@@ -34,19 +34,13 @@ History
 Getting Started
 ---------------
 ###Pre-reqs
-* java 7
-*   Maven 3.0.4
-    [Download Maven][] 
-    [Install Maven][]
-* mysql
-*   [Eclipse][] Juno 
-    [egit plugin][]
-    [m2eclipse plugin][]
-* [ant 1.7.1][]
-  
-
-###Thirdparty libs
-from the ThirdParty directory install the required dependencies ( see Thirdparty/README.md)
+1. java 7
+2. Maven 3.0.4+  [Download Maven][] [Install Maven][]
+3. [MySQL 5.1.x][]
+4.   [Eclipse][] Juno 
+    * [egit plugin][]
+    * [m2eclipse plugin][]
+5. [ant 1.7.1][]
 
 ###Eclipse
 
@@ -60,16 +54,21 @@ and choose the clone repo directory (ex. CONNECT )
 ###Building an ear
 For an ear with Patient Discovery, Document Query, Retrieve Document, Document Submission you would execute the following command.
 
-        mvn install -PPD,DQ,DR,DS
+        mvn install -P PD,DQ,DR,DS
 
 ###Setup GlassFish
 
 (in the Product/Install directory)
-copy install.properties to local.install.properties and update with your local information
+Copy install.properties to local.install.properties and update with your local information. Generally this just specifying where 
+you want GlassFish to install.
+
+
         ant -Dskip.build -Dskip.deploy
 
 
 ###Deploy to GlassFish
+(in the Product/Install directory)
+
         ant deploy.connect
 
 Usage
@@ -100,4 +99,5 @@ Contributing
 [ant 1.7.1]: http://archive.apache.org/dist/ant/binaries/apache-ant-1.7.1-bin.zip
 [egit plugin]: http://www.eclipse.org/egit/download/
 [m2eclipse plugin]: http://eclipse.org/m2e/
+[MySQL 5.1.x]: http://dev.mysql.com/downloads/mysql/5.1.html
 
