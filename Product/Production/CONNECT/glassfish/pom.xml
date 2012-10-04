@@ -28,7 +28,7 @@
                 <configuration>
                     <version>6</version>
                     <defaultLibBundleDir>lib</defaultLibBundleDir>
-                    <packagingExcludes>lib/stax2-api-3.1.1.jar,lib/woodstox-core-asl-4.1.2.jar</packagingExcludes>
+                    <packagingExcludes></packagingExcludes>
                 </configuration>
             </plugin>
         </plugins>

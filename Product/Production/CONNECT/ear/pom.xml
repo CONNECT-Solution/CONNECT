@@ -467,30 +467,6 @@
       <artifactId>xercesImpl</artifactId>
       <version>2.10.0</version>
     </dependency>
-    <dependency>
-      <groupId>org.codehaus.woodstox</groupId>
-      <artifactId>woodstox-core-asl</artifactId>
-      <version>4.1.2</version>
-      <exclusions>
-        <exclusion>
-          <!-- only needed when <= JDK6 -->
-          <groupId>javax.xml.stream</groupId>
-          <artifactId>stax-api</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-    <dependency>
-      <groupId>org.codehaus.woodstox</groupId>
-      <artifactId>stax2-api</artifactId>
-      <version>3.1.1</version>
-      <exclusions>
-        <exclusion>
-          <!-- only needed when <= JDK6 -->
-          <groupId>javax.xml.stream</groupId>
-          <artifactId>stax-api</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
   </dependencies>
   <build>
     <finalName>${project.artifactId}</finalName>
