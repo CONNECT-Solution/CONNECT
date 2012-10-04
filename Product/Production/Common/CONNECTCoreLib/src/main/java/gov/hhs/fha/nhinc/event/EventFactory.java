@@ -26,6 +26,8 @@
  */
 package gov.hhs.fha.nhinc.event;
 
+import gov.hhs.fha.nhinc.proxy.ComponentProxyFactory;
+
 import java.util.Map;
 
 import org.apache.commons.logging.Log;
@@ -50,8 +52,7 @@ public class EventFactory {
      * @return an instance of the event factory
      */
     public static EventFactory getInstance() {
-        return new ComponentProxyFactory<EventFactory>(CONFIG_FILE_NAME, BEAN_NAME, EventFactory.class).
-                getInstance();
+        return new ComponentProxyFactory(CONFIG_FILE_NAME).getInstance(BEAN_NAME, EventFactory.class);
     }
 
     /**

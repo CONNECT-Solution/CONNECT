@@ -29,8 +29,6 @@ package gov.hhs.fha.nhinc.gateway.servlet;
 import gov.hhs.fha.nhinc.event.EventLoggerFactory;
 import gov.hhs.fha.nhinc.gateway.executorservice.ExecutorServiceHelper;
 
-import java.util.Map;
-import java.util.HashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 

@@ -24,28 +24,23 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.event;
+package gov.hhs.fha.nhinc.proxy;
 
-import gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory;
 
 /**
- * This class is used to generify the component proxy object factory.
+ * Convenience class used to generify the component proxy object factory.
  */
-public class ComponentProxyFactory<T> extends ComponentProxyObjectFactory {
+public class ComponentProxyFactory extends ComponentProxyObjectFactory {
 
     private final String configFileName;
-    private final String beanName;
-    private final Class<T> clazz;
     
     /**
      * @param configFileName
      * @param beanName
      */
-    public ComponentProxyFactory(String configFileName, String beanName, Class<T> clazz) {
+    public ComponentProxyFactory(String configFileName) {
         super();
         this.configFileName = configFileName;
-        this.beanName = beanName;
-        this.clazz = clazz;
     }
     
     /**
@@ -59,9 +54,7 @@ public class ComponentProxyFactory<T> extends ComponentProxyObjectFactory {
     /**
      * @return an instance of the generic type.
      */
-    @SuppressWarnings("unchecked")
-    public T getInstance() {
-        return (T) getBean(beanName, clazz.getClass());
+    public <T> T getInstance(final String beanName, final Class<T> clazz) {
+        return (T) getBean(beanName, clazz);
     }
-    
 }
