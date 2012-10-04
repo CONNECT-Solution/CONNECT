@@ -38,7 +38,7 @@ Before you get started, you'll need the following installed and set up:
 * [Java (JDK) 7](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
 * [Maven 3.0.4+](http://maven.apache.org/download.html)	See [installation instructions](http://maven.apache.org/download.html#Installation).
 * [MySQL 5.1.x](http://dev.mysql.com/downloads/mysql/5.1.html#downloads)
-* [Eclipse Juno](http://www.eclipse.org/downloads/) 
+* [Eclipse Juno](http://www.eclipse.org/downloads/) (not required for installation of CONNECT)
   * [egit plugin](http://www.eclipse.org/egit/)
   * [m2eclipse plugin](http://www.eclipse.org/m2e/download/)
 * [Apache Ant v1.7.1](http://ant.apache.org/)
@@ -50,7 +50,7 @@ To build all CONNECT modules from source, run:
         $ cd <CONNECT_CLONE_DIR>
         $ mvn clean install 
 
-###Generate Eclipse Projects
+###Generate Eclipse Projects (not required for installation of CONNECT)
 After you have built from source you can create all of the Eclipse Project files
 
 		$ cd <CONNECT_CLONE_DIR>
