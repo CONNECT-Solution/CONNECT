@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.gateway.servlet;
 
+import gov.hhs.fha.nhinc.event.EventLoggerFactory;
 import gov.hhs.fha.nhinc.gateway.executorservice.ExecutorServiceHelper;
 
 import java.util.Map;
@@ -66,6 +67,9 @@ public class InitServlet extends HttpServlet {
         executor = Executors.newFixedThreadPool(ExecutorServiceHelper.getInstance().getExecutorPoolSize());
         largeJobExecutor = Executors.newFixedThreadPool(ExecutorServiceHelper.getInstance()
                 .getLargeJobExecutorPoolSize());
+        
+        // register event loggers as observers... 
+        EventLoggerFactory.getInstance().registerLoggers();
     }
 
     public static ExecutorService getExecutorService() {

@@ -39,7 +39,7 @@ public class EventLoggerFactory {
     private static final Log LOG = LogFactory.getLog(EventLoggerFactory.class);    
 
     private static final String CONFIG_FILE_NAME = "EventLoggerFactoryConfig.xml";
-    private static final String BEAN_NAME = "eventloggerfactory";
+    private static final String BEAN_NAME = "eventLoggerFactory";
 
     private final EventManager eventManager;    
     private List<EventLogger> loggers;
