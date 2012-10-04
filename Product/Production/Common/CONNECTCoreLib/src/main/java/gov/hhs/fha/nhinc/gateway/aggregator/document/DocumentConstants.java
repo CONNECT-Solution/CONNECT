@@ -110,5 +110,8 @@ public class DocumentConstants {
     public static final String SUCCESS_TEXT = "SUCCESS";
     public static final String COMPLETE_TEXT = "COMPLETE";
     public static final String PENDING_TEXT = "PENDING";
+    
+    public static final String XDS_REGISTRY_ERROR = "XDSRegistryError";
+    public static final String XDS_MISSING_DOCUMENT = "XDSMissingDocument";
 
 }

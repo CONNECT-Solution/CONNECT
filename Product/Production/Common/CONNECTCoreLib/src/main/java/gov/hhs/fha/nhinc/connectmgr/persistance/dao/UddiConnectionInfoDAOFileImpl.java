@@ -1,4 +1,4 @@
-/*
+    /*
  * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
  * All rights reserved. 
  *
@@ -48,9 +48,7 @@ public class UddiConnectionInfoDAOFileImpl extends ConnectionManagerDAOBase impl
     private static UddiConnectionInfoDAOFileImpl instance = null;
     private File file = null;
     private Log log = null;
-    private static String fileLocation = null;
     private static final String UDDI_XML_FILE_NAME = "uddiConnectionInfo.xml";
-    private static boolean failedToLoadEnvVar = false;
 
     public static UddiConnectionInfoDAOFileImpl getInstance() {
         if (instance == null) {
@@ -64,29 +62,32 @@ public class UddiConnectionInfoDAOFileImpl extends ConnectionManagerDAOBase impl
 
         String fileName = getUddiConnectionFileLocation();
         log.debug("Reading UddiConnectionInfo from file: " + fileName);
-        file = new File(fileName);
+        if (fileName != null) {
+            file = new File(fileName);
+        }
     }
 
     public String getUddiConnectionFileLocation() {
-        if (fileLocation == null) {
+        if (file == null) {
             String sValue = PropertyAccessor.getInstance().getPropertyFileLocation();
-            if ((sValue != null) && (sValue.length() > 0)) {
+            if (sValue != null && sValue.length() > 0) {
                 if (sValue.endsWith(File.separator)) {
-                    fileLocation = sValue + UDDI_XML_FILE_NAME;
+                    setFileName(sValue + UDDI_XML_FILE_NAME);
                 } else {
-                    fileLocation = sValue + File.separator + UDDI_XML_FILE_NAME;
+                    setFileName(sValue + File.separator + UDDI_XML_FILE_NAME);
                 }
-            } else {
-                failedToLoadEnvVar = true;
             }
         }
 
-        return fileLocation;
+        return isFile() ? file.getAbsolutePath() : null;
     }
 
+    private boolean isFile() {
+        return file != null && file.exists();
+    }
     @Override
     public BusinessDetail loadBusinessDetail() throws Exception {
-        if (failedToLoadEnvVar) {
+        if (!isFile()) {
             throw new ConnectionManagerException("Unable to access system variable: nhinc.properties.dir.");
         }
 
