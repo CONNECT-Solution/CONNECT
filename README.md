@@ -95,6 +95,7 @@ For some application server deployments the generated .ear needs different depen
 * WebSphere Application Server Community Edition v3.0.0.2 (websphere)
 
 This profile options are used just like above. As an example to generate a WebSphere specific .ear with only Patient Discovery.
+		
 		$ cd <CONNECT_CLONE_DIR>
 		$ mvn clean install -P PD,websphere
 		
