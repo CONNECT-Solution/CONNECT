@@ -29,8 +29,6 @@ package gov.hhs.fha.nhinc.patientdiscovery.entity;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.patientdiscovery.nhin.proxy.NhinPatientDiscoveryProxy;
 import gov.hhs.fha.nhinc.patientdiscovery.nhin.proxy.NhinPatientDiscoveryProxyObjectFactory;
-import gov.hhs.fha.nhinc.orchestration.OutboundResponseProcessor;
-import gov.hhs.fha.nhinc.gateway.executorservice.ExecutorServiceHelper;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
 
@@ -44,11 +42,11 @@ import org.hl7.v3.PRPAIN201306UV02;
  * 
  * @author paul.eftis
  */
-public class OutboundPatientDiscoveryStrategyImpl_g0 extends OutboundPatientDiscoveryStrategy {
+public class OutboundPatientDiscoveryStrategyImpl extends OutboundPatientDiscoveryStrategy {
 
-    private static Log log = LogFactory.getLog(OutboundPatientDiscoveryStrategyImpl_g0.class);
+    private static Log log = LogFactory.getLog(OutboundPatientDiscoveryStrategyImpl.class);
 
-    public OutboundPatientDiscoveryStrategyImpl_g0() {
+    public OutboundPatientDiscoveryStrategyImpl() {
 
     }
 
