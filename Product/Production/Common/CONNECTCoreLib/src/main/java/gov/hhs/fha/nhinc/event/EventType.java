@@ -43,7 +43,8 @@ public enum EventType {
     BEGIN_ADAPTER_DELEGATION("beginAdapterDelegation"), 
     END_ADAPTER_DELEGATION("endAdapterDelegation"), 
     END_INBOUND_PROCESSING("endInboundProcessing"), 
-    END_INBOUND_MESSAGE("endInboundMessage");
+    END_INBOUND_MESSAGE("endInboundMessage"),
+    MESSAGE_PROCESSING_FAILED("messageProcessingFailed");
 
     private final String name;
 
