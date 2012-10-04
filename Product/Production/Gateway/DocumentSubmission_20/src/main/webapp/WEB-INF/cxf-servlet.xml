@@ -280,10 +280,8 @@ http://www.springframework.org/schema/aop http://www.springframework.org/schema/
     <bean id="SOAPHeaderHandler" class="gov.hhs.fha.nhinc.callback.SOAPHeaderHandler" />
     <bean id="TransactionHandler" class="gov.hhs.fha.nhinc.logging.transaction.TransactionHandler" />
 
-        <!-- Aspect Service -->
-    <aop:aspectj-autoproxy />
+    <!-- Aspect Service -->
+    <aop:aspectj-autoproxy />    
     <bean id="eventAspect" class="gov.hhs.fha.nhinc.aspect.EventAspect" />
-    <bean id="nhinDocSubmissionImpl" class="gov.hhs.fha.nhinc.docsubmission._20.nhin.NhinDocSubmissionImpl_g1" />
-    <bean id="nhinDocSubmissionDeferredRequestImpl" class="gov.hhs.fha.nhinc.docsubmission._20.nhin.deferred.request.NhinDocSubmissionDeferredRequestImpl20" />
-    <bean id="nhinDocSubmissionDeferredResponseImpl" class="gov.hhs.fha.nhinc.docsubmission._20.nhin.deferred.response.NhinDocSubmissionDeferredResponseImpl20" />
+        
 </beans>
