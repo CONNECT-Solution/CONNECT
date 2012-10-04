@@ -26,34 +26,110 @@
  */
 package gov.hhs.fha.nhinc.event;
 
-import java.lang.reflect.InvocationTargetException;
+import gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory;
 
+import java.util.Map;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * @author zmelnick
- *
+ * 
  */
-public class EventFactory {
+public class EventFactory extends ComponentProxyObjectFactory {
 
+    private static final String CONFIG_FILE_NAME = "EventFactoryConfig.xml";
+    private static final String BEAN_NAME = "eventfactory";
+
+    private static Log log = null;
+    private Map<String, String> eventMap;
 
     /**
-     * @param clazz the Event Class from which to create an event
-     * @param messageID the messageID
-     * @param transactionID the transactionID
-     * @param description the description
-     * @return an Event
+     * Getter method for the factory declared by the spring proxy bean.
+     * 
+     * @return an instance of the event factory
      */
-    public static Event createEvent(Class<?> clazz, String messageID, String transactionID, String description) {
-        if (Event.class.isAssignableFrom(clazz)){
-            try {
-                return (Event) clazz.getConstructor(String.class, String.class, String.class).newInstance(messageID, transactionID, description);
-            } catch (InstantiationException | IllegalAccessException | IllegalArgumentException
-                    | InvocationTargetException | NoSuchMethodException | SecurityException e) {
-                e.printStackTrace();
-            }
-        }
-        return null;
+    public static EventFactory getBeanInstance() {
+        EventFactory nonBeanFactory = new EventFactory();
+        return nonBeanFactory.getEventFactoryBean();
+    }
 
+    /**
+     * Empty constructor. Will create an event factory with an empty event map.
+     */
+    public EventFactory() {
+
+    }
+
+    /**
+     * Creates the event class based on the passed in event type. Will construct the event type with the passed in
+     * parameters.
+     * 
+     * @param eventType
+     * @param messageID
+     * @param transactionID
+     * @param description
+     * @return
+     */
+    public Event createEvent(EventType eventType, String messageID, String transactionID, String description) {
+        return createEvent(eventType.toString(), messageID, transactionID, description);
+    }
+
+    /**
+     * Creates the event class based on the passed in event type. Will construct the event type with the passed in
+     * parameters.
+     * 
+     * @param eventType
+     * @param messageID
+     * @param transactionID
+     * @param description
+     * @return
+     */
+    public Event createEvent(String eventType, String messageID, String transactionID, String description) {
+        try {
+            String eventClassString = eventMap.get(eventType);
+            Class<?> eventClass = Class.forName(eventClassString);
+
+            Event event = (Event) eventClass.getConstructor(String.class, String.class, String.class).newInstance(
+                    messageID, transactionID, description);
+
+            return event;
+        } catch (Exception e) {
+            getLogger().error("Unknown event type received.  Is it registered in " + CONFIG_FILE_NAME + "?", e);
+        }
+
+        return null;
+    }
+
+    /**
+     * Setter method for the event map. Used to configure the spring bean.
+     * 
+     * @param eventMap
+     */
+    public void setEventMap(Map<String, String> eventMap) {
+        this.eventMap = eventMap;
+    }
+
+    /**
+     * (non-Javadoc)
+     * 
+     * @see gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory#getConfigFileName()
+     */
+    @Override
+    protected String getConfigFileName() {
+        return CONFIG_FILE_NAME;
+    }
+
+    protected Log getLogger() {
+        if (log == null) {
+            log = LogFactory.getLog(getClass());
+        }
+        return log;
+    }
+
+    protected EventFactory getEventFactoryBean() {
+        return getBean(BEAN_NAME, EventFactory.class);
     }
 
 }
