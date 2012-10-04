@@ -41,25 +41,21 @@ import org.hibernate.Transaction;
  */
 public class DatabaseEventLoggerDao {
 
-    private static final Log LOG = LogFactory.getLog(DatabaseEventLoggerDao.class);
-    private static final DatabaseEventLoggerDao dao = new DatabaseEventLoggerDao();
-    
-    /**
-     * The constructor.
-     */
-    private DatabaseEventLoggerDao() {
-        LOG.info("DatabaseEventLoggerDao initialized");
-    }
-        
-    /**
-     * Returns the instance of the DAO according to the Singleton Pattern.
-     * @return DatabaseEventLoggerDao
-     */
-    public static DatabaseEventLoggerDao getInstance() {
-        LOG.debug("getDatabaseEventLoggerDaoInstance()...");
-        return dao;
+    private static final Log LOG = LogFactory.getLog(DatabaseEventLoggerDao.class);    
+
+    private static class SingletonHolder { 
+        public static final DatabaseEventLoggerDao INSTANCE = new DatabaseEventLoggerDao();
     }
 
+    /**
+     * Get an instance of DatabaseEventLoggerDao.
+     * @return singleton instance of DatabaseEventLoggerDao
+     */
+    public static DatabaseEventLoggerDao getInstance() {
+        LOG.debug("getInstance()...");
+        return SingletonHolder.INSTANCE;
+    }
+    
     /**
      * Insert an event in the database.
      * @param databaseEvent to be added to the database
