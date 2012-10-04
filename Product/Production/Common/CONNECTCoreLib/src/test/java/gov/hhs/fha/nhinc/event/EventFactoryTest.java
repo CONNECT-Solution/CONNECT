@@ -26,31 +26,83 @@
  */
 package gov.hhs.fha.nhinc.event;
 
-import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+import gov.hhs.fha.nhinc.event.responder.BeginInboundMessageEvent;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import org.apache.commons.logging.Log;
+import org.jmock.Expectations;
+import org.jmock.Mockery;
+import org.jmock.integration.junit4.JUnit4Mockery;
+import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.Test;
-
-import gov.hhs.fha.nhinc.event.initiator.BeginOutboundProcessingEvent;
 
 /**
  * @author zmelnick
- *
+ * 
  */
 public class EventFactoryTest {
 
-    /**
-     *
-     */
-    public EventFactoryTest() {
+    protected Mockery context = new JUnit4Mockery() {
+        {
+            setImposteriser(ClassImposteriser.INSTANCE);
+        }
+    };
+    final Log mockLog = context.mock(Log.class);
 
+    private static final String MESSAGE_ID = "messageID";
+    private static final String TRANSACTION_ID = "transactionID";
+    private static final String DESCRIPTION = "description";
+
+    @Test
+    public void createEventFactory_Success() {
+        EventFactory eventFactory = createEventFactory();
+        Event event = eventFactory
+                .createEvent(EventType.BEGIN_INBOUND_MESSAGE, MESSAGE_ID, TRANSACTION_ID, DESCRIPTION);
+
+        assertTrue(event instanceof BeginInboundMessageEvent);
+        assertEquals(MESSAGE_ID, event.getMessageID());
+        assertEquals(TRANSACTION_ID, event.getTransactionID());
+        assertEquals(DESCRIPTION, event.getDescription());
     }
 
     @Test
-    public void createEventFactory_Success(){
-        Event event = EventFactory.createEvent(BeginOutboundProcessingEvent.class, "messageID", "transactionID", "description");
-        BeginOutboundProcessingEvent testEvent = new BeginOutboundProcessingEvent("messageID", "transactionID", "description");
-        assertSame(testEvent.getClass(),event.getClass());
+    public void createEventFactory_Failure() {
+        context.checking(new Expectations() {
+            {
+                oneOf(mockLog).error(with(any(String.class)), with(any(Exception.class)));
+            }
+        });
+
+        EventFactory eventFactory = createEventFactory();
+        Event event = eventFactory.createEvent("nonexisting event", MESSAGE_ID, TRANSACTION_ID, DESCRIPTION);
+
+        assertNull(event);
     }
 
+    private EventFactory createEventFactory() {
+        EventFactory eventFactory = new EventFactory() {
+            protected Log getLogger() {
+                return mockLog;
+            }
+        };
+
+        eventFactory.setEventMap(createEventMap());
+
+        return eventFactory;
+    }
+
+    private Map<String, String> createEventMap() {
+        HashMap<String, String> eventMap = new HashMap<String, String>();
+        eventMap.put(EventType.BEGIN_INBOUND_MESSAGE.toString(),
+                "gov.hhs.fha.nhinc.event.responder.BeginInboundMessageEvent");
+
+        return eventMap;
+
+    }
 
 }
