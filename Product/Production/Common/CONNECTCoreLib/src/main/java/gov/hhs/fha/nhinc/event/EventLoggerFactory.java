@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
@@ -26,14 +26,64 @@
  */
 package gov.hhs.fha.nhinc.event;
 
-/**
- * @author zmelnick
- *
- */
-public class EventListenerFactory {
+import java.util.List;
 
-    public EventLogger createEventLogger(Object o) {
-        return Log4jEventLogger.getInstance();
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+/**
+ * This class is responsible for bootstrapping event loggers.
+ */
+public class EventLoggerFactory {
+    
+    private static final Log LOG = LogFactory.getLog(EventLoggerFactory.class);    
+
+    private static final String CONFIG_FILE_NAME = "EventLoggerFactoryConfig.xml";
+    private static final String BEAN_NAME = "eventloggerfactory";
+
+    private final EventManager eventManager;    
+    private List<EventLogger> loggers;
+
+    /**
+     * @return an instance of the event logger factory using the component proxy object factory.
+     */
+    public static EventLoggerFactory getInstance() {
+        return new ComponentProxyFactory<EventLoggerFactory>(CONFIG_FILE_NAME, BEAN_NAME, EventLoggerFactory.class).
+                getInstance();
+    }
+    
+    /**
+     * Constructor.
+     * @param eventManager Event Manager used to create and register loggers.
+     */
+    public EventLoggerFactory(final EventManager eventManager) {
+        super();
+        this.eventManager = eventManager;
+    }    
+    
+    /**
+     * Register Loggers.
+     */
+    public void registerLoggers() {
+        LOG.debug("Registering loggers...");
+        for (EventLogger logger : loggers) {
+            LOG.info("Registering logger: " + logger.getClass().getName());
+            eventManager.addObserver(logger);
+        }
+    }
+
+    /**
+     * @return the loggers
+     */
+    public List<EventLogger> getLoggers() {
+        return loggers;
+    }
+
+    /**
+     * @param loggers the loggers to set
+     */
+    public void setLoggers(List<EventLogger> loggers) {
+        this.loggers = loggers;
     }
 
 }

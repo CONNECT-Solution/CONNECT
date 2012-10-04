@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
@@ -26,38 +26,42 @@
  */
 package gov.hhs.fha.nhinc.event;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory;
 
 /**
- * @author zmelnick
- *
+ * This class is used to generify the component proxy object factory.
  */
-public class Log4jEventLogger extends EventLogger {
+public class ComponentProxyFactory<T> extends ComponentProxyObjectFactory {
 
-    private static Log log = null;
-
-    public Log4jEventLogger() {
-        createLogger();
+    private final String configFileName;
+    private final String beanName;
+    private final Class<T> clazz;
+    
+    /**
+     * @param configFileName
+     * @param beanName
+     */
+    public ComponentProxyFactory(String configFileName, String beanName, Class<T> clazz) {
+        super();
+        this.configFileName = configFileName;
+        this.beanName = beanName;
+        this.clazz = clazz;
     }
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.event.EventLogger#update(gov.hhs.fha.nhinc.event.Event, java.lang.Object)
-     */ 
+    
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    void update(EventManager manager, Event logEvent) {
-        log.info(logEvent.getEventName() + " has triggered. It has messageID " + logEvent.getMessageID()
-                + ", transactionID " + logEvent.getTransactionID() + "and description " + logEvent.getDescription());
+    protected String getConfigFileName() {
+        return this.configFileName;
     }
-
-    protected void createLogger() {
-        log = LogFactory.getLog(getClass());
+    
+    /**
+     * @return an instance of the generic type.
+     */
+    @SuppressWarnings("unchecked")
+    public T getInstance() {
+        return (T) getBean(beanName, clazz.getClass());
     }
-
-    public Log getLog() {
-        return log;
-    }
-
+    
 }
