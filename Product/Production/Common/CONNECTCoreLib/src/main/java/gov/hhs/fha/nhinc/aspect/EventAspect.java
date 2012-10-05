@@ -74,7 +74,7 @@ public abstract class EventAspect {
         String transactionId = getTransactionID(context, messageId);
         String description = getDescription();
 
-        return EventFactory.getBeanInstance().createEvent(eventType, messageId, transactionId, description);
+        return EventFactory.getInstance().createEvent(eventType, messageId, transactionId, description);
     }
 
     private void recordEvent(String eventType) {
@@ -85,13 +85,27 @@ public abstract class EventAspect {
         // todo: event logger manager -> recordEvent()
     }
 
+    /*--- Inbound Message --*/
     public void beginInboundMessageEvent() {
         recordEvent(EventType.BEGIN_INBOUND_MESSAGE.toString());
     }
 
+    public void endInboundMessageEvent() {
+        recordEvent(EventType.END_INBOUND_MESSAGE.toString());
+    }
+
+    /*--- Inbound Processing --*/
+
+
     public void beginInboundProcessingEvent() {
         recordEvent(EventType.BEGIN_INBOUND_PROCESSING.toString());
     }
+
+    public void endInboundProcessingEvent() {
+        recordEvent(EventType.END_INBOUND_PROCESSING.toString());
+    }
+
+    /*--- Adapter Delegation --*/
 
     public void beginAdapterDelegationEvent() {
         recordEvent(EventType.BEGIN_ADAPTER_DELEGATION.toString());
@@ -101,21 +115,27 @@ public abstract class EventAspect {
         recordEvent(EventType.END_ADAPTER_DELEGATION.toString());
     }
 
-    public void endInboundProcessingEvent() {
-        recordEvent(EventType.END_INBOUND_PROCESSING.toString());
-    }
-
-    public void endInboundMessageEvent() {
-        recordEvent(EventType.END_INBOUND_MESSAGE.toString());
-    }
+    /*--- Outbound Message --*/
 
     public void beginOutboundMessageEvent() {
         recordEvent(EventType.BEGIN_OUTBOUND_MESSAGE.toString());
     }
 
+    public void endOutboundProcessingEvent() {
+        recordEvent(EventType.END_OUTBOUND_PROCESSING.toString());
+    }
+
+    /*--- Outbound Processing --*/
+
     public void beginOutboundProcessingEvent() {
         recordEvent(EventType.BEGIN_OUTBOUND_PROCESSING.toString());
     }
+
+    public void endOutboundMessageEvent() {
+        recordEvent(EventType.END_OUTBOUND_MESSAGE.toString());
+    }
+
+    /*--- Nwhin Invocation --*/
 
     public void beginNwhinInvocationEvent() {
         recordEvent(EventType.BEGIN_NWHIN_INVOCATION.toString());
@@ -125,16 +145,11 @@ public abstract class EventAspect {
         recordEvent(EventType.END_NWHIN_INVOCATION.toString());
     }
 
-    public void endOutboundProcessingEvent() {
-        recordEvent(EventType.END_OUTBOUND_PROCESSING.toString());
+    /*--- Failure --*/
+    public void failEvent() {
+        recordEvent(EventType.END_ADAPTER_DELEGATION.toString());
     }
 
-    public void endOutboundMessageEvent() {
-        recordEvent(EventType.END_OUTBOUND_MESSAGE.toString());
-    }
 
-    public void messageProcessingFailedEvent() {
-        recordEvent(EventType.MESSAGE_PROCESSING_FAILED.toString());
-    }
 
 }
