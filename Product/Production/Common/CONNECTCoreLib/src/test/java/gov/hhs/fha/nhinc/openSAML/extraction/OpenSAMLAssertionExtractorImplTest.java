@@ -85,7 +85,7 @@ public class OpenSAMLAssertionExtractorImplTest {
     public void testCompleteSamlAssertion() throws Exception {
         
         AssertionType assertionType = openSAMLAssertionExtractorImpl.extractSAMLAssertion(getElementForSamlFile(
-                File.separator + "testing_saml" + File.separator + "complete_saml.xml"));
+                "/" + "testing_saml" + File.separator + "complete_saml.xml"));
         assertNotNull(assertionType);
 
         verifyHomeCommunity(assertionType.getHomeCommunity(), "2.16.840.1.113883.3.424", null);
