@@ -13,6 +13,7 @@
 
     <properties>
         <skip.unpack>true</skip.unpack>
+        <xjc.strict>true</xjc.strict>
     </properties>
     <dependencies>
         <dependency>
@@ -38,8 +39,22 @@
                 <configuration>
                     <generateDirectory>${project.build.directory}/generated-sources/</generateDirectory>
                     <schemaDirectory>${basedir}/src/main/resources/schemas/</schemaDirectory>
+                    <strict>${xjc.strict}</strict>
                     <schemaIncludes>
-                        <include>**/*.xsd</include>
+                        <include>nhinc/**/*.xsd</include>
+                        <include>docs.oasis-open.org/**/*.xsd</include>
+                        <include>ebRS/**/*.xsd</include>
+                        <include>ihe/**/*.xsd</include>
+                        <include>nhin/**/*.xsd</include>
+                        <include>oasis/**/*.xsd</include>
+                        <include>uddi/uddi_v3.xsd</include>
+                        <include>uddi/uddi_v3custody.xsd</include>
+                        <include>uddi/uddi_v3policy_instanceParms.xsd</include>
+                        <include>uddi/uddi_v3subscriptionListener.xsd</include>
+                        <include>uddi/uddi_v3subscription.xsd</include>
+                        <include>www.w3.org/**/*.xsd</include>
+                        <include>xmlsoap.org/**/*.xsd</include>
+                        <include>Endpoint/**/*.xsd</include>
                     </schemaIncludes>
                     <source>1.7</source>
                     <target>1.7</target>
@@ -114,5 +129,17 @@
             </snapshots>
         </pluginRepository>
     </pluginRepositories>
-
+    <profiles>
+        <profile>
+            <id>linux</id>
+            <activation>
+                <os>
+                    <name>linux</name>
+                </os>
+            </activation>
+            <properties>
+                <xjc.strict>false</xjc.strict>
+            </properties>
+        </profile>
+    </profiles>
 </project>
