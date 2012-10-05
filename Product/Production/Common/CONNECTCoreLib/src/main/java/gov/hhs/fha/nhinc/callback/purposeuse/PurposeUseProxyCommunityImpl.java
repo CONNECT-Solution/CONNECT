@@ -5,12 +5,12 @@
 
 package gov.hhs.fha.nhinc.callback.purposeuse;
 
-import gov.hhs.fha.nhinc.callback.SamlConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
-import java.util.HashMap;
+import java.util.Map;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -30,7 +30,7 @@ public class PurposeUseProxyCommunityImpl extends PurposeUseProxyBaseImpl{
      * @param tokens A list of tokens from the assertion
      * @return true if purposeForUse should be used
      */
-    public boolean createPurposeUseElement(HashMap<Object, Object> tokens) {
+    public boolean createPurposeUseElement(Map<Object, Object> tokens) {
         log.info("Entering PurposeUseProxyCommunityImpl.createPurposeUseElement...");
         String homeCommunityId = null;
         /*if (tokens.containsKey(SamlConstants.HOME_COM_PROP)
