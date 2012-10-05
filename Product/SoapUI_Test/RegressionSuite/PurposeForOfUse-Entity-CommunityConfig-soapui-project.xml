@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project name="PurposeForOfUse_Entity_CommunityConfig" resourceRoot="${projectDir}" soapui-version="3.6.1" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config">
+<con:soapui-project name="PurposeForOfUse_Entity_CommunityConfig" resourceRoot="${projectDir}" soapui-version="3.6" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config">
 	<con:settings/>
-	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitydocquery}EntityDocQueryBindingSoap" definition="f:\glassfish-2.1.1\domains\domain1\config\nhin\wsdl\EntityDocQuery.wsdl" name="EntityDocQueryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitydocquery}EntityDocQueryBindingSoap" definition="${projectDir}/../../Production/Common/Interfaces/src/wsdl/EntityDocQuery.wsdl" name="EntityDocQueryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 
 		<con:endpoints>
@@ -11,7 +11,7 @@
 			<con:settings/>
 		</con:operation>
 	</con:interface>
-	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincentityxdr}EntityXDR_Binding" definition="f:\glassfish-2.1.1\domains\domain1\config\nhin\wsdl\EntityXDR.wsdl" name="EntityXDR_Binding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincentityxdr}EntityXDR_Binding" definition="${projectDir}/../../Production/Common/Interfaces/src/wsdl/EntityXDR.wsdl" name="EntityXDR_Binding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 
 		<con:endpoints>
@@ -23,7 +23,7 @@
 
 		</con:operation>
 	</con:interface>
-	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement}EntityNotificationProducerBindingSoap" definition="f:\glassfish-2.1.1\domains\domain1\config\nhin\wsdl\EntitySubscriptionManagement.wsdl" name="EntityNotificationProducerBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement}EntityNotificationProducerBindingSoap" definition="${projectDir}/../../Production/Common/Interfaces/src/wsdl/EntitySubscriptionManagement.wsdl" name="EntityNotificationProducerBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 
 		<con:endpoints>
@@ -39,7 +39,7 @@
 			<con:settings/>
 		</con:operation>
 	</con:interface>
-	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitydocretrieve}EntityDocRetrieveBindingSoap" definition="f:\glassfish-2.1.1\domains\domain1\config\nhin\wsdl\EntityDocRetrieve.wsdl" name="EntityDocRetrieveBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitydocretrieve}EntityDocRetrieveBindingSoap" definition="${projectDir}/../../Production/Common/Interfaces/src/wsdl/EntityDocRetrieve.wsdl" name="EntityDocRetrieveBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 
 		<con:endpoints>
@@ -49,7 +49,7 @@
 			<con:settings/>
 		</con:operation>
 	</con:interface>
-	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitypatientdiscoveryasyncresp}EntityPatientDiscoveryAsyncRespBindingSoap" definition="f:\glassfish-2.1.1\domains\domain1\config\nhin\wsdl\EntityPatientDiscoveryAsyncResp.wsdl" name="EntityPatientDiscoveryAsyncRespBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitypatientdiscoveryasyncresp}EntityPatientDiscoveryAsyncRespBindingSoap" definition="${projectDir}/../../Production/Common/Interfaces/src/wsdl/EntityPatientDiscoveryAsyncResp.wsdl" name="EntityPatientDiscoveryAsyncRespBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 
 		<con:endpoints>
@@ -60,7 +60,7 @@
 			<con:settings/>
 		</con:operation>
 	</con:interface>
-	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincentityxdr:async:response}EntityXDRAsyncResponse_Binding" definition="f:\glassfish-2.1.1\domains\domain1\config\nhin\wsdl\EntityXDRResponse.wsdl" name="EntityXDRAsyncResponse_Binding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincentityxdr:async:response}EntityXDRAsyncResponse_Binding" definition="${projectDir}/../../Production/Common/Interfaces/src/wsdl/EntityXDRResponse.wsdl" name="EntityXDRAsyncResponse_Binding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 		<con:endpoints>
 			<con:endpoint>http://localhost:${HttpDefaultPort}/EntityService/EntityXDRAsyncResponse</con:endpoint>
@@ -70,7 +70,7 @@
 			<con:settings/>
 		</con:operation>
 	</con:interface>
-	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitypatientdiscovery}EntityPatientDiscoveryBindingSoap" definition="f:\glassfish-2.1.1\domains\domain1\config\nhin\wsdl\EntityPatientDiscovery.wsdl" name="EntityPatientDiscoveryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitypatientdiscovery}EntityPatientDiscoveryBindingSoap" definition="${projectDir}/../../Production/Common/Interfaces/src/wsdl/EntityPatientDiscovery.wsdl" name="EntityPatientDiscoveryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 
 		<con:endpoints>
@@ -80,7 +80,7 @@
 			<con:settings/>
 		</con:operation>
 	</con:interface>
-	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitypatientdiscoveryasyncreq}EntityPatientDiscoveryAsyncReqBindingSoap" definition="f:\glassfish-2.1.1\domains\domain1\config\nhin\wsdl\EntityPatientDiscoveryAsyncReq.wsdl" name="EntityPatientDiscoveryAsyncReqBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitypatientdiscoveryasyncreq}EntityPatientDiscoveryAsyncReqBindingSoap" definition="${projectDir}/../../Production/Common/Interfaces/src/wsdl/EntityPatientDiscoveryAsyncReq.wsdl" name="EntityPatientDiscoveryAsyncReqBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 
 		<con:endpoints>
@@ -91,7 +91,7 @@
 			<con:settings/>
 		</con:operation>
 	</con:interface>
-	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement}EntitySubscriptionManagerBindingSoap" definition="f:\glassfish-2.1.1\domains\domain1\config\nhin\wsdl\EntitySubscriptionManagement.wsdl" name="EntitySubscriptionManagerBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement}EntitySubscriptionManagerBindingSoap" definition="${projectDir}/../../Production/Common/Interfaces/src/wsdl/EntitySubscriptionManagement.wsdl" name="EntitySubscriptionManagerBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 
 		<con:endpoints>
@@ -102,7 +102,7 @@
 			<con:settings/>
 		</con:operation>
 	</con:interface>
-	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincentityxdr:async:request}EntityXDRAsyncRequest_Binding" definition="f:\glassfish-2.1.1\domains\domain1\config\nhin\wsdl\EntityXDRRequest.wsdl" name="EntityXDRAsyncRequest_Binding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincentityxdr:async:request}EntityXDRAsyncRequest_Binding" definition="${projectDir}/../../Production/Common/Interfaces/src/wsdl/EntityXDRRequest.wsdl" name="EntityXDRAsyncRequest_Binding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 
 		<con:endpoints>
@@ -116,7 +116,7 @@
 
 		</con:operation>
 	</con:interface>
-	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entityadmindistribution}AdministrativeDistribution_Binding_Soap12" definition="f:\glassfish-2.1.1\domains\domain1\config\nhin\wsdl\EntityAdminDist_g1.wsdl" name="AdministrativeDistribution_Binding_Soap12_g1" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entityadmindistribution}AdministrativeDistribution_Binding_Soap12" definition="${projectDir}/../../Production/Common/Interfaces/src/wsdl/EntityAdminDist_g1.wsdl" name="AdministrativeDistribution_Binding_Soap12_g1" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 		<con:endpoints>
 			<con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/AdminDistribution/2_0/AdministrativeDistribution_Service</con:endpoint>
@@ -125,7 +125,7 @@
 			<con:settings/>
 		</con:operation>
 	</con:interface>
-	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitynotificationconsumer}EntityNotificationConsumerBindingSoap" definition="f:\glassfish-2.1.1\domains\domain1\config\nhin\wsdl\EntityNotificationConsumer.wsdl" name="EntityNotificationConsumerBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitynotificationconsumer}EntityNotificationConsumerBindingSoap" definition="${projectDir}/../../Production/Common/Interfaces/src/wsdl/EntityNotificationConsumer.wsdl" name="EntityNotificationConsumerBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 
 		<con:endpoints>
@@ -141,7 +141,7 @@
 			<con:settings/>
 		</con:operation>
 	</con:interface>
-	<con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="AdministrativeDistribution_Binding_Soap12_g0" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:entityadmindistribution}AdministrativeDistribution_Binding_Soap12" soapVersion="1_2" anonymous="optional" definition="f:\glassfish-2.1.1\domains\domain1\config\nhin\wsdl\EntityAdminDist.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="AdministrativeDistribution_Binding_Soap12_g0" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:entityadmindistribution}AdministrativeDistribution_Binding_Soap12" soapVersion="1_2" anonymous="optional" definition="${projectDir}/../../Production/Common/Interfaces/src/wsdl/EntityAdminDist.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 		<con:endpoints>
 			<con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/AdminDistribution/1_0/AdministrativeDistribution_Service</con:endpoint>
@@ -643,19 +643,19 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 	<con:properties>
 		<con:property>
 			<con:name>startDate</con:name>
-			<con:value>2012-09-27T23:38:48Z</con:value>
+			<con:value>2012-10-04T20:46:17Z</con:value>
 		</con:property>
 		<con:property>
 			<con:name>endDate</con:name>
-			<con:value>2012-09-27T23:48:48Z</con:value>
+			<con:value>2012-10-04T20:56:17Z</con:value>
 		</con:property>
 		<con:property>
 			<con:name>sigDate</con:name>
-			<con:value>09/27/2012 23:38:48</con:value>
+			<con:value>10/04/2012 20:46:17</con:value>
 		</con:property>
 		<con:property>
 			<con:name>expireDate</con:name>
-			<con:value>2012-10-27T00:00:00Z</con:value>
+			<con:value>2012-11-03T00:00:00Z</con:value>
 		</con:property>
 	</con:properties>
 	<con:reportParameters/>
@@ -1114,19 +1114,19 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-09-27T22:54:59Z</con:value>
+		<con:value>2012-10-04T20:46:19Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-09-27T23:04:59Z</con:value>
+		<con:value>2012-10-04T20:56:19Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/27/2012 22:54:59</con:value>
+		<con:value>10/04/2012 20:46:19</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-27T00:00:00Z</con:value>
+		<con:value>2012-11-03T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 </con:testCase>
@@ -1700,19 +1700,19 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-09-27T22:55:01Z</con:value>
+		<con:value>2012-10-04T20:46:20Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-09-27T23:05:01Z</con:value>
+		<con:value>2012-10-04T20:56:20Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/27/2012 22:55:01</con:value>
+		<con:value>10/04/2012 20:46:20</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-27T00:00:00Z</con:value>
+		<con:value>2012-11-03T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -2394,19 +2394,19 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 	</con:property>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-09-27T22:55:02Z</con:value>
+		<con:value>2012-10-04T20:46:21Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-09-27T23:05:02Z</con:value>
+		<con:value>2012-10-04T20:56:21Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/27/2012 22:55:02</con:value>
+		<con:value>10/04/2012 20:46:21</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-27T00:00:00Z</con:value>
+		<con:value>2012-11-03T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -3119,19 +3119,19 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 </con:property>
 <con:property>
 	<con:name>startDate</con:name>
-	<con:value>2012-09-27T22:55:05Z</con:value>
+	<con:value>2012-10-04T20:46:23Z</con:value>
 </con:property>
 <con:property>
 	<con:name>endDate</con:name>
-	<con:value>2012-09-27T23:05:05Z</con:value>
+	<con:value>2012-10-04T20:56:23Z</con:value>
 </con:property>
 <con:property>
 	<con:name>sigDate</con:name>
-	<con:value>09/27/2012 22:55:05</con:value>
+	<con:value>10/04/2012 20:46:23</con:value>
 </con:property>
 <con:property>
 	<con:name>expireDate</con:name>
-	<con:value>2012-10-27T00:00:00Z</con:value>
+	<con:value>2012-11-03T00:00:00Z</con:value>
 </con:property>
 </con:properties>
 <con:reportParameters/>
@@ -3546,19 +3546,19 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-09-27T22:55:07Z</con:value>
+		<con:value>2012-10-04T20:46:24Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-09-27T23:05:07Z</con:value>
+		<con:value>2012-10-04T20:56:24Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/27/2012 22:55:07</con:value>
+		<con:value>10/04/2012 20:46:24</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-27T00:00:00Z</con:value>
+		<con:value>2012-11-03T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -3883,7 +3883,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySe
    </soap:Body>
 </soap:Envelope>]]></con:request>
 	<con:assertion type="SOAP Response"/>
-	<con:assertion type="Schema Compliance">
+	<con:assertion type="Schema Compliance" disabled="true">
 		<con:configuration/>
 	</con:assertion>
 	<con:assertion type="SOAP Fault Assertion"/>
@@ -4020,19 +4020,19 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-09-27T22:55:08Z</con:value>
+		<con:value>2012-10-04T20:46:26Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-09-27T23:05:08Z</con:value>
+		<con:value>2012-10-04T20:56:26Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/27/2012 22:55:08</con:value>
+		<con:value>10/04/2012 20:46:26</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-27T00:00:00Z</con:value>
+		<con:value>2012-11-03T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
@@ -4432,19 +4432,19 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 	</con:property>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-09-27T23:56:08Z</con:value>
+		<con:value>2012-10-04T20:46:28Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-09-28T00:06:08Z</con:value>
+		<con:value>2012-10-04T20:56:28Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/27/2012 23:56:08</con:value>
+		<con:value>10/04/2012 20:46:28</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-28T00:00:00Z</con:value>
+		<con:value>2012-11-03T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -4909,19 +4909,19 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-09-27T22:57:14Z</con:value>
+		<con:value>2012-10-04T20:46:29Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-09-27T23:07:14Z</con:value>
+		<con:value>2012-10-04T20:56:29Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/27/2012 22:57:14</con:value>
+		<con:value>10/04/2012 20:46:29</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-27T00:00:00Z</con:value>
+		<con:value>2012-11-03T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 </con:testCase>
@@ -4990,7 +4990,7 @@ nhinc.FileUtils.changeSpringConfig("PurposeUseProxyConfig.xml", "community", log
 Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 specs respect the Purpose Of/For Use settings, and thus PurposeForUse should be used.</con:description>
 	<con:settings/>
 	<con:runType>SEQUENTIAL</con:runType>
-	<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Submission Deferred Req" searchProperties="true">
+	<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Submission Deferred Req" searchProperties="true" id="f681749c-6b2f-4784-95bf-36634944e605">
 		<con:settings/>
 		<con:testStep name="Doc Submission Deferred Req" type="request">
 			<con:settings/>
@@ -5552,24 +5552,24 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-09-27T22:57:29Z</con:value>
+		<con:value>2012-10-04T20:46:44Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-09-27T23:07:29Z</con:value>
+		<con:value>2012-10-04T20:56:44Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/27/2012 22:57:29</con:value>
+		<con:value>10/04/2012 20:46:44</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-27T00:00:00Z</con:value>
+		<con:value>2012-11-03T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
 </con:testCase>
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Submission Deferred Resp" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Submission Deferred Resp" searchProperties="true" id="47a9c3ca-496b-4edc-ac7f-9ddeedf090f5">
 	<con:settings/>
 	<con:testStep name="Doc Submission Deferred Resp" type="request">
 		<con:settings/>
@@ -5993,23 +5993,23 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-09-27T22:57:30Z</con:value>
+		<con:value>2012-10-04T20:46:46Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-09-27T23:07:30Z</con:value>
+		<con:value>2012-10-04T20:56:46Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/27/2012 22:57:30</con:value>
+		<con:value>10/04/2012 20:46:46</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-27T00:00:00Z</con:value>
+		<con:value>2012-11-03T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 </con:testCase>
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Submission" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Submission" searchProperties="true" id="5c4f99de-1d2e-40c6-a866-3f4a79acd0f4">
 	<con:settings/>
 	<con:testStep name="Doc Submission" type="request">
 		<con:settings/>
@@ -6568,19 +6568,19 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-09-27T22:57:31Z</con:value>
+		<con:value>2012-10-04T20:46:47Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-09-27T23:07:31Z</con:value>
+		<con:value>2012-10-04T20:56:47Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/27/2012 22:57:31</con:value>
+		<con:value>10/04/2012 20:46:47</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-27T00:00:00Z</con:value>
+		<con:value>2012-11-03T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -6589,7 +6589,7 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 
 
 
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Patient Discovery Deferred Req" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Patient Discovery Deferred Req" searchProperties="true" id="cc8c66df-9211-41fd-8bf4-f4778b013258">
 	<con:settings/>
 	<con:testStep name="Patient Discovery Deferred Req" type="request">
 		<con:settings/>
@@ -7250,25 +7250,25 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 	</con:property>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-09-27T22:57:32Z</con:value>
+		<con:value>2012-10-04T20:46:48Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-09-27T23:07:32Z</con:value>
+		<con:value>2012-10-04T20:56:48Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/27/2012 22:57:32</con:value>
+		<con:value>10/04/2012 20:46:48</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-27T00:00:00Z</con:value>
+		<con:value>2012-11-03T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
 </con:testCase>
 
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Patient Discovery Deferred Resp" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Patient Discovery Deferred Resp" searchProperties="true" id="ecdce2ca-4684-4545-a0f2-6d6d18194aad">
 	<con:settings/>
 	<con:testStep name="Patient Discovery Deferred Resp" type="request">
 		<con:settings/>
@@ -7960,24 +7960,24 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 </con:property>
 <con:property>
 	<con:name>startDate</con:name>
-	<con:value>2012-09-27T22:57:33Z</con:value>
+	<con:value>2012-10-04T20:46:50Z</con:value>
 </con:property>
 <con:property>
 	<con:name>endDate</con:name>
-	<con:value>2012-09-27T23:07:33Z</con:value>
+	<con:value>2012-10-04T20:56:50Z</con:value>
 </con:property>
 <con:property>
 	<con:name>sigDate</con:name>
-	<con:value>09/27/2012 22:57:33</con:value>
+	<con:value>10/04/2012 20:46:50</con:value>
 </con:property>
 <con:property>
 	<con:name>expireDate</con:name>
-	<con:value>2012-10-27T00:00:00Z</con:value>
+	<con:value>2012-11-03T00:00:00Z</con:value>
 </con:property>
 </con:properties>
 <con:reportParameters/>
 </con:testCase>
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Patient Discovery" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Patient Discovery" searchProperties="true" id="d895aab0-f441-4ec9-a416-57a8cf82d4d7">
 	<con:settings/>
 	<con:testStep name="clear correlations table" type="groovy">
 		<con:settings/>
@@ -8371,24 +8371,24 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-09-27T22:57:34Z</con:value>
+		<con:value>2012-10-04T20:46:51Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-09-27T23:07:34Z</con:value>
+		<con:value>2012-10-04T20:56:51Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/27/2012 22:57:34</con:value>
+		<con:value>10/04/2012 20:46:51</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-27T00:00:00Z</con:value>
+		<con:value>2012-11-03T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
 </con:testCase>
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Query" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Query" searchProperties="true" id="19fd0c32-4867-45cd-9bf9-ba683a164aa7">
 	<con:settings/>
 
 	<con:testStep name="update config" type="groovy">
@@ -8845,19 +8845,19 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-09-27T22:57:36Z</con:value>
+		<con:value>2012-10-04T20:46:53Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-09-27T23:07:36Z</con:value>
+		<con:value>2012-10-04T20:56:53Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/27/2012 22:57:36</con:value>
+		<con:value>10/04/2012 20:46:53</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-27T00:00:00Z</con:value>
+		<con:value>2012-11-03T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
@@ -8866,7 +8866,7 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 </con:properties>
 <con:reportParameters/>
 </con:testCase>
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Retrieve" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Retrieve" searchProperties="true" id="159056c1-f0b6-441e-8e2c-58745952eb5a">
 	<con:settings/>
 	<con:testStep name="Document Retrieve" type="request">
 		<con:settings/>
@@ -9241,26 +9241,26 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 	</con:property>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-09-27T23:50:49Z</con:value>
+		<con:value>2012-10-04T20:46:54Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-09-28T00:00:49Z</con:value>
+		<con:value>2012-10-04T20:56:54Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/27/2012 23:50:49</con:value>
+		<con:value>10/04/2012 20:46:54</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-27T00:00:00Z</con:value>
+		<con:value>2012-11-03T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
 </con:testCase>
 
 
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Subscribe" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Subscribe" searchProperties="true" id="9e34936a-398c-4232-ab64-93e678cf7339">
 	<con:settings/>
 
 	<con:testStep name="update config" type="groovy">
@@ -9684,24 +9684,24 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-09-27T23:48:03Z</con:value>
+		<con:value>2012-10-04T20:46:56Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-09-27T23:58:03Z</con:value>
+		<con:value>2012-10-04T20:56:56Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/27/2012 23:48:03</con:value>
+		<con:value>10/04/2012 20:46:56</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-27T00:00:00Z</con:value>
+		<con:value>2012-11-03T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
 </con:testCase>
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Notify" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Notify" searchProperties="true" id="e9588956-9874-4342-9088-6576d63b9402">
 	<con:settings/>
 
 	<con:testStep name="update config" type="groovy">
@@ -10383,19 +10383,19 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-09-27T23:48:09Z</con:value>
+		<con:value>2012-10-04T20:46:57Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-09-27T23:58:09Z</con:value>
+		<con:value>2012-10-04T20:56:57Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/27/2012 23:48:09</con:value>
+		<con:value>10/04/2012 20:46:57</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-27T00:00:00Z</con:value>
+		<con:value>2012-11-03T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>NotifySubscriptionID</con:name>
@@ -10404,7 +10404,7 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 </con:properties>
 <con:reportParameters/>
 </con:testCase>
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Unsubscribe" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Unsubscribe" searchProperties="true" id="1467d2a0-4e6b-49f7-8285-c1c3627be8ee">
 	<con:settings/>
 
 	<con:testStep name="update config" type="groovy">
@@ -11099,24 +11099,24 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-09-27T22:59:40Z</con:value>
+		<con:value>2012-10-04T20:46:59Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-09-27T23:09:40Z</con:value>
+		<con:value>2012-10-04T20:56:59Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/27/2012 22:59:40</con:value>
+		<con:value>10/04/2012 20:46:59</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-27T00:00:00Z</con:value>
+		<con:value>2012-11-03T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
 </con:testCase>
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Admin Distribution" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Admin Distribution" searchProperties="true" id="5badc3c5-1308-4d70-b121-4be82cad7dc3">
 	<con:settings/>
 	<con:testStep name="Admin Distribution" type="request">
 		<con:settings/>
@@ -11558,19 +11558,19 @@ DeleteFile(backupUddiFile, log);
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-09-27T22:59:41Z</con:value>
+		<con:value>2012-10-04T20:47:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-09-27T23:09:41Z</con:value>
+		<con:value>2012-10-04T20:57:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/27/2012 22:59:41</con:value>
+		<con:value>10/04/2012 20:47:00</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-27T00:00:00Z</con:value>
+		<con:value>2012-11-03T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -11640,7 +11640,7 @@ nhinc.FileUtils.changeSpringConfig("PurposeUseProxyConfig.xml", "community", log
 Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 specs do not respect the Purpose Of/For Use settings, and thus PurposeOfUse should be used.</con:description>
 	<con:settings/>
 	<con:runType>SEQUENTIAL</con:runType>
-	<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Submission Deferred Req" searchProperties="true">
+	<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Submission Deferred Req" searchProperties="true" id="7b82fe0e-280a-4047-bfff-413caccfd524">
 		<con:settings/>
 		<con:testStep name="Doc Submission Deferred Req" type="request">
 			<con:settings/>
@@ -12215,19 +12215,19 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-09-27T23:38:48Z</con:value>
+		<con:value>2012-10-04T20:47:16Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-09-27T23:48:48Z</con:value>
+		<con:value>2012-10-04T20:57:16Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/27/2012 23:38:48</con:value>
+		<con:value>10/04/2012 20:47:16</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-27T00:00:00Z</con:value>
+		<con:value>2012-11-03T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -12246,7 +12246,7 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 
 
 
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Submission Deferred Resp" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Submission Deferred Resp" searchProperties="true" id="cd1b2d55-4be5-4a1d-97a8-b60ffd935c91">
 	<con:settings/>
 	<con:testStep name="Doc Submission Deferred Resp" type="request">
 		<con:settings/>
@@ -12686,23 +12686,23 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-09-27T22:54:59Z</con:value>
+		<con:value>2012-10-04T20:47:17Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-09-27T23:04:59Z</con:value>
+		<con:value>2012-10-04T20:57:17Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/27/2012 22:54:59</con:value>
+		<con:value>10/04/2012 20:47:17</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-27T00:00:00Z</con:value>
+		<con:value>2012-11-03T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 </con:testCase>
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Submission" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Submission" searchProperties="true" id="c2adef20-b2fe-41d9-b05a-a656750b3ffd">
 	<con:settings/>
 	<con:testStep name="Doc Submission" type="request">
 		<con:settings/>
@@ -13277,24 +13277,24 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-09-27T22:55:01Z</con:value>
+		<con:value>2012-10-04T20:47:19Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-09-27T23:05:01Z</con:value>
+		<con:value>2012-10-04T20:57:19Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/27/2012 22:55:01</con:value>
+		<con:value>10/04/2012 20:47:19</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-27T00:00:00Z</con:value>
+		<con:value>2012-11-03T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
 </con:testCase>
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Patient Discovery Deferred Req" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Patient Discovery Deferred Req" searchProperties="true" id="26189b5d-da52-4186-93af-ffa3fcc6bc70">
 	<con:settings/>
 	<con:testStep name="Patient Discovery Deferred Req" type="request">
 		<con:settings/>
@@ -13971,24 +13971,24 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 	</con:property>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-09-27T22:55:02Z</con:value>
+		<con:value>2012-10-04T20:47:20Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-09-27T23:05:02Z</con:value>
+		<con:value>2012-10-04T20:57:20Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/27/2012 22:55:02</con:value>
+		<con:value>10/04/2012 20:47:20</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-27T00:00:00Z</con:value>
+		<con:value>2012-11-03T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
 </con:testCase>
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Patient Discovery Deferred Resp" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Patient Discovery Deferred Resp" searchProperties="true" id="7c9c9bd3-b86c-412b-9596-3897aac06ac8">
 	<con:settings/>
 	<con:testStep name="Patient Discovery Deferred Resp" type="request">
 		<con:settings/>
@@ -14696,24 +14696,24 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 </con:property>
 <con:property>
 	<con:name>startDate</con:name>
-	<con:value>2012-09-27T22:55:05Z</con:value>
+	<con:value>2012-10-04T20:47:22Z</con:value>
 </con:property>
 <con:property>
 	<con:name>endDate</con:name>
-	<con:value>2012-09-27T23:05:05Z</con:value>
+	<con:value>2012-10-04T20:57:22Z</con:value>
 </con:property>
 <con:property>
 	<con:name>sigDate</con:name>
-	<con:value>09/27/2012 22:55:05</con:value>
+	<con:value>10/04/2012 20:47:22</con:value>
 </con:property>
 <con:property>
 	<con:name>expireDate</con:name>
-	<con:value>2012-10-27T00:00:00Z</con:value>
+	<con:value>2012-11-03T00:00:00Z</con:value>
 </con:property>
 </con:properties>
 <con:reportParameters/>
 </con:testCase>
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Patient Discovery" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Patient Discovery" searchProperties="true" id="28f8df1e-c906-436f-a3da-fa364f5fbd9a">
 	<con:settings/>
 	<con:testStep name="clear correlations table" type="groovy">
 		<con:settings/>
@@ -15123,24 +15123,24 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-09-27T22:55:07Z</con:value>
+		<con:value>2012-10-04T20:47:23Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-09-27T23:05:07Z</con:value>
+		<con:value>2012-10-04T20:57:23Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/27/2012 22:55:07</con:value>
+		<con:value>10/04/2012 20:47:23</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-27T00:00:00Z</con:value>
+		<con:value>2012-11-03T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
 </con:testCase>
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Query" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Query" searchProperties="true" id="7ed1f509-8e9e-48d2-9262-64371a1474a2">
 	<con:settings/>
 
 	<con:testStep name="update config" type="groovy">
@@ -15460,7 +15460,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySe
    </soap:Body>
 </soap:Envelope>]]></con:request>
 	<con:assertion type="SOAP Response"/>
-	<con:assertion type="Schema Compliance">
+	<con:assertion type="Schema Compliance" disabled="true">
 		<con:configuration/>
 	</con:assertion>
 	<con:assertion type="SOAP Fault Assertion"/>
@@ -15597,19 +15597,19 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-09-27T22:55:08Z</con:value>
+		<con:value>2012-10-04T20:47:25Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-09-27T23:05:08Z</con:value>
+		<con:value>2012-10-04T20:57:25Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/27/2012 22:55:08</con:value>
+		<con:value>10/04/2012 20:47:25</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-27T00:00:00Z</con:value>
+		<con:value>2012-11-03T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
@@ -15618,7 +15618,7 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 </con:properties>
 <con:reportParameters/>
 </con:testCase>
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Retrieve" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Retrieve" searchProperties="true" id="8d124c14-b406-4b1a-b08c-a61990fc5b25">
 	<con:settings/>
 	<con:testStep name="Document Retrieve" type="request">
 		<con:settings/>
@@ -16009,19 +16009,19 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 	</con:property>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-09-27T23:56:08Z</con:value>
+		<con:value>2012-10-04T20:47:26Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-09-28T00:06:08Z</con:value>
+		<con:value>2012-10-04T20:57:26Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/27/2012 23:56:08</con:value>
+		<con:value>10/04/2012 20:47:26</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-28T00:00:00Z</con:value>
+		<con:value>2012-11-03T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -16029,7 +16029,7 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 
 
 
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Admin Distribution" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Admin Distribution" searchProperties="true" id="8a63acf7-4610-43c8-b265-a039692b2966">
 	<con:settings/>
 	<con:testStep name="Admin Distribution" type="request">
 		<con:settings/>
@@ -16486,19 +16486,19 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-09-27T22:57:14Z</con:value>
+		<con:value>2012-10-04T20:47:28Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-09-27T23:07:14Z</con:value>
+		<con:value>2012-10-04T20:57:28Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/27/2012 22:57:14</con:value>
+		<con:value>10/04/2012 20:47:28</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-27T00:00:00Z</con:value>
+		<con:value>2012-11-03T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 </con:testCase>
@@ -16567,7 +16567,7 @@ nhinc.FileUtils.changeSpringConfig("PurposeUseProxyConfig.xml", "community", log
 Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 specs respect the Purpose Of/For Use settings, and thus PurposeForUse should be used.</con:description>
 	<con:settings/>
 	<con:runType>SEQUENTIAL</con:runType>
-	<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Submission Deferred Req" searchProperties="true">
+	<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Submission Deferred Req" searchProperties="true" id="a5da06d8-08de-4215-974e-04196d1b8c2f">
 		<con:settings/>
 		<con:testStep name="Doc Submission Deferred Req" type="request">
 			<con:settings/>
@@ -17129,24 +17129,24 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-09-27T22:57:29Z</con:value>
+		<con:value>2012-10-04T20:47:43Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-09-27T23:07:29Z</con:value>
+		<con:value>2012-10-04T20:57:43Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/27/2012 22:57:29</con:value>
+		<con:value>10/04/2012 20:47:43</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-27T00:00:00Z</con:value>
+		<con:value>2012-11-03T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
 </con:testCase>
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Submission Deferred Resp" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Submission Deferred Resp" searchProperties="true" id="5e7eb140-7a08-42b0-a6b5-12fedf31de3d">
 	<con:settings/>
 	<con:testStep name="Doc Submission Deferred Resp" type="request">
 		<con:settings/>
@@ -17570,23 +17570,23 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-09-27T22:57:30Z</con:value>
+		<con:value>2012-10-04T20:47:45Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-09-27T23:07:30Z</con:value>
+		<con:value>2012-10-04T20:57:45Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/27/2012 22:57:30</con:value>
+		<con:value>10/04/2012 20:47:45</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-27T00:00:00Z</con:value>
+		<con:value>2012-11-03T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 </con:testCase>
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Submission" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Submission" searchProperties="true" id="1d960272-ddd9-4c81-a3d5-1886d1cd847b">
 	<con:settings/>
 	<con:testStep name="Doc Submission" type="request">
 		<con:settings/>
@@ -18145,19 +18145,19 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-09-27T22:57:31Z</con:value>
+		<con:value>2012-10-04T20:47:46Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-09-27T23:07:31Z</con:value>
+		<con:value>2012-10-04T20:57:46Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/27/2012 22:57:31</con:value>
+		<con:value>10/04/2012 20:47:46</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-27T00:00:00Z</con:value>
+		<con:value>2012-11-03T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -18166,7 +18166,7 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 
 
 
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Patient Discovery Deferred Req" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Patient Discovery Deferred Req" searchProperties="true" id="15ceff3c-fa59-4b37-9f9b-1ab0e45d74b4">
 	<con:settings/>
 	<con:testStep name="Patient Discovery Deferred Req" type="request">
 		<con:settings/>
@@ -18827,25 +18827,25 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 	</con:property>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-09-27T22:57:32Z</con:value>
+		<con:value>2012-10-04T20:47:47Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-09-27T23:07:32Z</con:value>
+		<con:value>2012-10-04T20:57:47Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/27/2012 22:57:32</con:value>
+		<con:value>10/04/2012 20:47:47</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-27T00:00:00Z</con:value>
+		<con:value>2012-11-03T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
 </con:testCase>
 
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Patient Discovery Deferred Resp" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Patient Discovery Deferred Resp" searchProperties="true" id="2e0a2254-d5e5-4bc4-8fd2-f1c56fb81bd9">
 	<con:settings/>
 	<con:testStep name="Patient Discovery Deferred Resp" type="request">
 		<con:settings/>
@@ -19537,24 +19537,24 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 </con:property>
 <con:property>
 	<con:name>startDate</con:name>
-	<con:value>2012-09-27T22:57:33Z</con:value>
+	<con:value>2012-10-04T20:47:49Z</con:value>
 </con:property>
 <con:property>
 	<con:name>endDate</con:name>
-	<con:value>2012-09-27T23:07:33Z</con:value>
+	<con:value>2012-10-04T20:57:49Z</con:value>
 </con:property>
 <con:property>
 	<con:name>sigDate</con:name>
-	<con:value>09/27/2012 22:57:33</con:value>
+	<con:value>10/04/2012 20:47:49</con:value>
 </con:property>
 <con:property>
 	<con:name>expireDate</con:name>
-	<con:value>2012-10-27T00:00:00Z</con:value>
+	<con:value>2012-11-03T00:00:00Z</con:value>
 </con:property>
 </con:properties>
 <con:reportParameters/>
 </con:testCase>
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Patient Discovery" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Patient Discovery" searchProperties="true" id="65df5241-4932-4c9f-814e-eda984219d43">
 	<con:settings/>
 	<con:testStep name="clear correlations table" type="groovy">
 		<con:settings/>
@@ -19948,24 +19948,24 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-09-27T22:57:34Z</con:value>
+		<con:value>2012-10-04T20:47:50Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-09-27T23:07:34Z</con:value>
+		<con:value>2012-10-04T20:57:50Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/27/2012 22:57:34</con:value>
+		<con:value>10/04/2012 20:47:50</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-27T00:00:00Z</con:value>
+		<con:value>2012-11-03T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
 </con:testCase>
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Query" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Query" searchProperties="true" id="46853412-13dd-4657-bfa2-abc194e2b9f2">
 	<con:settings/>
 
 	<con:testStep name="update config" type="groovy">
@@ -20422,19 +20422,19 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-09-27T22:57:36Z</con:value>
+		<con:value>2012-10-04T20:47:52Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-09-27T23:07:36Z</con:value>
+		<con:value>2012-10-04T20:57:52Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/27/2012 22:57:36</con:value>
+		<con:value>10/04/2012 20:47:52</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-27T00:00:00Z</con:value>
+		<con:value>2012-11-03T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
@@ -20443,7 +20443,7 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 </con:properties>
 <con:reportParameters/>
 </con:testCase>
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Retrieve" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Retrieve" searchProperties="true" id="77c19bbc-4d69-4677-bab0-ed4d03b2aa82">
 	<con:settings/>
 	<con:testStep name="Document Retrieve" type="request">
 		<con:settings/>
@@ -20818,26 +20818,26 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 	</con:property>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-09-27T23:50:49Z</con:value>
+		<con:value>2012-10-04T20:47:54Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-09-28T00:00:49Z</con:value>
+		<con:value>2012-10-04T20:57:54Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/27/2012 23:50:49</con:value>
+		<con:value>10/04/2012 20:47:54</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-27T00:00:00Z</con:value>
+		<con:value>2012-11-03T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
 </con:testCase>
 
 
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Subscribe" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Subscribe" searchProperties="true" id="3cc89cdc-ab57-4b98-803d-0fd2c8281156">
 	<con:settings/>
 
 	<con:testStep name="update config" type="groovy">
@@ -21261,24 +21261,24 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-09-27T23:48:03Z</con:value>
+		<con:value>2012-10-04T20:47:55Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-09-27T23:58:03Z</con:value>
+		<con:value>2012-10-04T20:57:55Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/27/2012 23:48:03</con:value>
+		<con:value>10/04/2012 20:47:55</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-27T00:00:00Z</con:value>
+		<con:value>2012-11-03T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
 </con:testCase>
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Notify" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Notify" searchProperties="true" id="19964c2c-1bdf-4429-8284-c75581721d45">
 	<con:settings/>
 
 	<con:testStep name="update config" type="groovy">
@@ -21960,19 +21960,19 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-09-27T23:48:09Z</con:value>
+		<con:value>2012-10-04T20:47:56Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-09-27T23:58:09Z</con:value>
+		<con:value>2012-10-04T20:57:56Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/27/2012 23:48:09</con:value>
+		<con:value>10/04/2012 20:47:56</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-27T00:00:00Z</con:value>
+		<con:value>2012-11-03T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>NotifySubscriptionID</con:name>
@@ -21981,7 +21981,7 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 </con:properties>
 <con:reportParameters/>
 </con:testCase>
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Unsubscribe" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Unsubscribe" searchProperties="true" id="debb1f99-2600-47cf-83ee-635aea095352">
 	<con:settings/>
 
 	<con:testStep name="update config" type="groovy">
@@ -22676,24 +22676,24 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-09-27T22:59:40Z</con:value>
+		<con:value>2012-10-04T20:47:58Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-09-27T23:09:40Z</con:value>
+		<con:value>2012-10-04T20:57:58Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/27/2012 22:59:40</con:value>
+		<con:value>10/04/2012 20:47:58</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-27T00:00:00Z</con:value>
+		<con:value>2012-11-03T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
 </con:testCase>
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Admin Distribution" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Admin Distribution" searchProperties="true" id="b4f13518-4d4a-4166-a417-13fb5953e2d5">
 	<con:settings/>
 	<con:testStep name="Admin Distribution" type="request">
 		<con:settings/>
@@ -23135,19 +23135,19 @@ DeleteFile(backupUddiFile, log);
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-09-27T22:59:41Z</con:value>
+		<con:value>2012-10-04T20:48:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-09-27T23:09:41Z</con:value>
+		<con:value>2012-10-04T20:58:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/27/2012 22:59:41</con:value>
+		<con:value>10/04/2012 20:48:00</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-27T00:00:00Z</con:value>
+		<con:value>2012-11-03T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -23217,7 +23217,7 @@ nhinc.FileUtils.changeSpringConfig("PurposeUseProxyConfig.xml", "community", log
 Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 specs do not respect the Purpose Of/For Use settings, and thus PurposeOfUse should be used.</con:description>
 	<con:settings/>
 	<con:runType>SEQUENTIAL</con:runType>
-	<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Submission Deferred Req" searchProperties="true">
+	<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Submission Deferred Req" searchProperties="true" id="aac436df-fc20-4386-94e6-8351bf588f9f">
 		<con:settings/>
 		<con:testStep name="Doc Submission Deferred Req" type="request">
 			<con:settings/>
@@ -23705,19 +23705,19 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-09-27T23:38:48Z</con:value>
+		<con:value>2012-10-04T20:48:15Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-09-27T23:48:48Z</con:value>
+		<con:value>2012-10-04T20:58:15Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/27/2012 23:38:48</con:value>
+		<con:value>10/04/2012 20:48:15</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-27T00:00:00Z</con:value>
+		<con:value>2012-11-03T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -23736,7 +23736,7 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 
 
 
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Submission Deferred Resp" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Submission Deferred Resp" searchProperties="true" id="91431b0b-5539-4415-ae71-c2c533ba9fa2">
 	<con:settings/>
 	<con:testStep name="Doc Submission Deferred Resp" type="request">
 		<con:settings/>
@@ -24176,23 +24176,23 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-09-27T22:54:59Z</con:value>
+		<con:value>2012-10-04T20:48:17Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-09-27T23:04:59Z</con:value>
+		<con:value>2012-10-04T20:58:17Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/27/2012 22:54:59</con:value>
+		<con:value>10/04/2012 20:48:17</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-27T00:00:00Z</con:value>
+		<con:value>2012-11-03T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 </con:testCase>
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Submission" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Submission" searchProperties="true" id="37f17e12-f4d8-4213-961d-00cf0066b9e7">
 	<con:settings/>
 	<con:testStep name="Doc Submission" type="request">
 		<con:settings/>
@@ -24767,24 +24767,24 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-09-27T22:55:01Z</con:value>
+		<con:value>2012-10-04T20:48:18Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-09-27T23:05:01Z</con:value>
+		<con:value>2012-10-04T20:58:18Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/27/2012 22:55:01</con:value>
+		<con:value>10/04/2012 20:48:18</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-27T00:00:00Z</con:value>
+		<con:value>2012-11-03T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
 </con:testCase>
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Patient Discovery Deferred Req" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Patient Discovery Deferred Req" searchProperties="true" id="2362be14-02cf-4b73-92e8-1e1eaa66cf70">
 	<con:settings/>
 	<con:testStep name="Patient Discovery Deferred Req" type="request">
 		<con:settings/>
@@ -25461,24 +25461,24 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 	</con:property>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-09-27T22:55:02Z</con:value>
+		<con:value>2012-10-04T20:48:19Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-09-27T23:05:02Z</con:value>
+		<con:value>2012-10-04T20:58:19Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/27/2012 22:55:02</con:value>
+		<con:value>10/04/2012 20:48:19</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-27T00:00:00Z</con:value>
+		<con:value>2012-11-03T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
 </con:testCase>
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Patient Discovery Deferred Resp" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Patient Discovery Deferred Resp" searchProperties="true" id="4e2df72d-e494-404b-b808-79b3882abbd9">
 	<con:settings/>
 	<con:testStep name="Patient Discovery Deferred Resp" type="request">
 		<con:settings/>
@@ -26186,24 +26186,24 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 </con:property>
 <con:property>
 	<con:name>startDate</con:name>
-	<con:value>2012-09-27T22:55:05Z</con:value>
+	<con:value>2012-10-04T20:48:21Z</con:value>
 </con:property>
 <con:property>
 	<con:name>endDate</con:name>
-	<con:value>2012-09-27T23:05:05Z</con:value>
+	<con:value>2012-10-04T20:58:21Z</con:value>
 </con:property>
 <con:property>
 	<con:name>sigDate</con:name>
-	<con:value>09/27/2012 22:55:05</con:value>
+	<con:value>10/04/2012 20:48:21</con:value>
 </con:property>
 <con:property>
 	<con:name>expireDate</con:name>
-	<con:value>2012-10-27T00:00:00Z</con:value>
+	<con:value>2012-11-03T00:00:00Z</con:value>
 </con:property>
 </con:properties>
 <con:reportParameters/>
 </con:testCase>
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Patient Discovery" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Patient Discovery" searchProperties="true" id="50f57d28-eb35-4fa6-9027-d26a5e68f37a">
 	<con:settings/>
 	<con:testStep name="clear correlations table" type="groovy">
 		<con:settings/>
@@ -26613,24 +26613,24 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-09-27T22:55:07Z</con:value>
+		<con:value>2012-10-04T20:48:22Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-09-27T23:05:07Z</con:value>
+		<con:value>2012-10-04T20:58:22Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/27/2012 22:55:07</con:value>
+		<con:value>10/04/2012 20:48:22</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-27T00:00:00Z</con:value>
+		<con:value>2012-11-03T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
 </con:testCase>
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Query" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Query" searchProperties="true" id="32c3bfa9-8c7b-42ac-b640-71de4ca262fa">
 	<con:settings/>
 
 	<con:testStep name="update config" type="groovy">
@@ -26950,7 +26950,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySe
    </soap:Body>
 </soap:Envelope>]]></con:request>
 	<con:assertion type="SOAP Response"/>
-	<con:assertion type="Schema Compliance">
+	<con:assertion type="Schema Compliance" disabled="true">
 		<con:configuration/>
 	</con:assertion>
 	<con:assertion type="SOAP Fault Assertion"/>
@@ -27087,19 +27087,19 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-09-27T22:55:08Z</con:value>
+		<con:value>2012-10-04T20:48:24Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-09-27T23:05:08Z</con:value>
+		<con:value>2012-10-04T20:58:24Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/27/2012 22:55:08</con:value>
+		<con:value>10/04/2012 20:48:24</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-27T00:00:00Z</con:value>
+		<con:value>2012-11-03T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
@@ -27108,7 +27108,7 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 </con:properties>
 <con:reportParameters/>
 </con:testCase>
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Retrieve" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Retrieve" searchProperties="true" id="e8e4b194-7ba5-4317-b3a9-846b4002e4dc">
 	<con:settings/>
 	<con:testStep name="Document Retrieve" type="request">
 		<con:settings/>
@@ -27499,19 +27499,19 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 	</con:property>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-09-27T23:56:08Z</con:value>
+		<con:value>2012-10-04T20:48:26Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-09-28T00:06:08Z</con:value>
+		<con:value>2012-10-04T20:58:26Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/27/2012 23:56:08</con:value>
+		<con:value>10/04/2012 20:48:26</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-28T00:00:00Z</con:value>
+		<con:value>2012-11-03T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -27519,7 +27519,7 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 
 
 
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Admin Distribution" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Admin Distribution" searchProperties="true" id="64542225-297d-47cc-a241-2da3d8ec33b0">
 	<con:settings/>
 	<con:testStep name="Admin Distribution" type="request">
 		<con:settings/>
@@ -27976,19 +27976,19 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-09-27T22:57:14Z</con:value>
+		<con:value>2012-10-04T20:48:27Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-09-27T23:07:14Z</con:value>
+		<con:value>2012-10-04T20:58:27Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/27/2012 22:57:14</con:value>
+		<con:value>10/04/2012 20:48:27</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-27T00:00:00Z</con:value>
+		<con:value>2012-11-03T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 </con:testCase>
@@ -28057,7 +28057,7 @@ nhinc.FileUtils.changeSpringConfig("PurposeUseProxyConfig.xml", "community", log
 Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 specs respect the Purpose Of/For Use settings, and thus PurposeForUse should be used.</con:description>
 	<con:settings/>
 	<con:runType>SEQUENTIAL</con:runType>
-	<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Submission Deferred Req" searchProperties="true">
+	<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Submission Deferred Req" searchProperties="true" id="981ec1e4-840e-405c-9fd4-0cfcdf9b536b">
 		<con:settings/>
 		<con:testStep name="Doc Submission Deferred Req" type="request">
 			<con:settings/>
@@ -28619,24 +28619,24 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-09-27T22:57:29Z</con:value>
+		<con:value>2012-10-04T20:48:43Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-09-27T23:07:29Z</con:value>
+		<con:value>2012-10-04T20:58:43Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/27/2012 22:57:29</con:value>
+		<con:value>10/04/2012 20:48:43</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-27T00:00:00Z</con:value>
+		<con:value>2012-11-03T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
 </con:testCase>
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Submission Deferred Resp" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Submission Deferred Resp" searchProperties="true" id="dc852d66-3d70-446f-805f-ac3e225f99fa">
 	<con:settings/>
 	<con:testStep name="Doc Submission Deferred Resp" type="request">
 		<con:settings/>
@@ -29060,23 +29060,23 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-09-27T22:57:30Z</con:value>
+		<con:value>2012-10-04T20:48:44Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-09-27T23:07:30Z</con:value>
+		<con:value>2012-10-04T20:58:44Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/27/2012 22:57:30</con:value>
+		<con:value>10/04/2012 20:48:44</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-27T00:00:00Z</con:value>
+		<con:value>2012-11-03T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 </con:testCase>
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Submission" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Submission" searchProperties="true" id="3f1e4840-26a2-41d0-8169-19a89acf6d93">
 	<con:settings/>
 	<con:testStep name="Doc Submission" type="request">
 		<con:settings/>
@@ -29635,19 +29635,19 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-09-27T22:57:31Z</con:value>
+		<con:value>2012-10-04T20:48:45Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-09-27T23:07:31Z</con:value>
+		<con:value>2012-10-04T20:58:45Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/27/2012 22:57:31</con:value>
+		<con:value>10/04/2012 20:48:45</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-27T00:00:00Z</con:value>
+		<con:value>2012-11-03T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -29656,7 +29656,7 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 
 
 
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Patient Discovery Deferred Req" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Patient Discovery Deferred Req" searchProperties="true" id="f7b6241b-7190-42c2-b2fd-9bc30e7b59aa">
 	<con:settings/>
 	<con:testStep name="Patient Discovery Deferred Req" type="request">
 		<con:settings/>
@@ -30317,25 +30317,25 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 	</con:property>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-09-27T22:57:32Z</con:value>
+		<con:value>2012-10-04T20:48:47Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-09-27T23:07:32Z</con:value>
+		<con:value>2012-10-04T20:58:47Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/27/2012 22:57:32</con:value>
+		<con:value>10/04/2012 20:48:47</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-27T00:00:00Z</con:value>
+		<con:value>2012-11-03T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
 </con:testCase>
 
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Patient Discovery Deferred Resp" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Patient Discovery Deferred Resp" searchProperties="true" id="991c99f8-9f42-413d-adf0-fbd7d96ac9c3">
 	<con:settings/>
 	<con:testStep name="Patient Discovery Deferred Resp" type="request">
 		<con:settings/>
@@ -31027,24 +31027,24 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 </con:property>
 <con:property>
 	<con:name>startDate</con:name>
-	<con:value>2012-09-27T22:57:33Z</con:value>
+	<con:value>2012-10-04T20:48:48Z</con:value>
 </con:property>
 <con:property>
 	<con:name>endDate</con:name>
-	<con:value>2012-09-27T23:07:33Z</con:value>
+	<con:value>2012-10-04T20:58:48Z</con:value>
 </con:property>
 <con:property>
 	<con:name>sigDate</con:name>
-	<con:value>09/27/2012 22:57:33</con:value>
+	<con:value>10/04/2012 20:48:48</con:value>
 </con:property>
 <con:property>
 	<con:name>expireDate</con:name>
-	<con:value>2012-10-27T00:00:00Z</con:value>
+	<con:value>2012-11-03T00:00:00Z</con:value>
 </con:property>
 </con:properties>
 <con:reportParameters/>
 </con:testCase>
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Patient Discovery" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Patient Discovery" searchProperties="true" id="4c8f1323-673a-422a-bd81-eb6f268597c7">
 	<con:settings/>
 	<con:testStep name="clear correlations table" type="groovy">
 		<con:settings/>
@@ -31438,24 +31438,24 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-09-27T22:57:34Z</con:value>
+		<con:value>2012-10-04T20:48:50Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-09-27T23:07:34Z</con:value>
+		<con:value>2012-10-04T20:58:50Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/27/2012 22:57:34</con:value>
+		<con:value>10/04/2012 20:48:50</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-27T00:00:00Z</con:value>
+		<con:value>2012-11-03T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
 </con:testCase>
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Query" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Query" searchProperties="true" id="3a30c7ee-3915-465c-87c4-b8bab6f612f3">
 	<con:settings/>
 
 	<con:testStep name="update config" type="groovy">
@@ -31912,19 +31912,19 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-09-27T22:57:36Z</con:value>
+		<con:value>2012-10-04T20:48:51Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-09-27T23:07:36Z</con:value>
+		<con:value>2012-10-04T20:58:51Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/27/2012 22:57:36</con:value>
+		<con:value>10/04/2012 20:48:51</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-27T00:00:00Z</con:value>
+		<con:value>2012-11-03T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
@@ -31933,7 +31933,7 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 </con:properties>
 <con:reportParameters/>
 </con:testCase>
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Retrieve" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Retrieve" searchProperties="true" id="a94e44e7-21c7-4f4d-9944-6e7525ce2aea">
 	<con:settings/>
 	<con:testStep name="Document Retrieve" type="request">
 		<con:settings/>
@@ -32308,26 +32308,26 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 	</con:property>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-09-27T23:50:49Z</con:value>
+		<con:value>2012-10-04T20:48:53Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-09-28T00:00:49Z</con:value>
+		<con:value>2012-10-04T20:58:53Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/27/2012 23:50:49</con:value>
+		<con:value>10/04/2012 20:48:53</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-27T00:00:00Z</con:value>
+		<con:value>2012-11-03T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
 </con:testCase>
 
 
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Subscribe" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Subscribe" searchProperties="true" id="20bdfdba-cdbc-483d-ba28-286a7e38482f">
 	<con:settings/>
 
 	<con:testStep name="update config" type="groovy">
@@ -32751,24 +32751,24 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-09-27T23:48:03Z</con:value>
+		<con:value>2012-10-04T20:48:54Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-09-27T23:58:03Z</con:value>
+		<con:value>2012-10-04T20:58:54Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/27/2012 23:48:03</con:value>
+		<con:value>10/04/2012 20:48:54</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-27T00:00:00Z</con:value>
+		<con:value>2012-11-03T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
 </con:testCase>
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Notify" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Notify" searchProperties="true" id="81d1f834-359c-4c88-9601-4078cc9905de">
 	<con:settings/>
 
 	<con:testStep name="update config" type="groovy">
@@ -33450,19 +33450,19 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-09-27T23:48:09Z</con:value>
+		<con:value>2012-10-04T20:48:56Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-09-27T23:58:09Z</con:value>
+		<con:value>2012-10-04T20:58:56Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/27/2012 23:48:09</con:value>
+		<con:value>10/04/2012 20:48:56</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-27T00:00:00Z</con:value>
+		<con:value>2012-11-03T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>NotifySubscriptionID</con:name>
@@ -33471,7 +33471,7 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 </con:properties>
 <con:reportParameters/>
 </con:testCase>
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Unsubscribe" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Unsubscribe" searchProperties="true" id="3196f641-e349-4ccb-9169-315540412a26">
 	<con:settings/>
 
 	<con:testStep name="update config" type="groovy">
@@ -34166,24 +34166,24 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-09-27T22:59:40Z</con:value>
+		<con:value>2012-10-04T20:48:58Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-09-27T23:09:40Z</con:value>
+		<con:value>2012-10-04T20:58:58Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/27/2012 22:59:40</con:value>
+		<con:value>10/04/2012 20:48:58</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-27T00:00:00Z</con:value>
+		<con:value>2012-11-03T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
 </con:testCase>
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Admin Distribution" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Admin Distribution" searchProperties="true" id="f04ead3c-ddbc-432a-a99b-85d5ea744610">
 	<con:settings/>
 	<con:testStep name="Admin Distribution" type="request">
 		<con:settings/>
@@ -34625,19 +34625,19 @@ DeleteFile(backupUddiFile, log);
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-09-27T22:59:41Z</con:value>
+		<con:value>2012-10-04T20:48:59Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-09-27T23:09:41Z</con:value>
+		<con:value>2012-10-04T20:58:59Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/27/2012 22:59:41</con:value>
+		<con:value>10/04/2012 20:48:59</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-27T00:00:00Z</con:value>
+		<con:value>2012-11-03T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -34707,7 +34707,7 @@ nhinc.FileUtils.changeSpringConfig("PurposeUseProxyConfig.xml", "community", log
 Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 specs do not respect the Purpose Of/For Use settings, and thus PurposeOfUse should be used.</con:description>
 	<con:settings/>
 	<con:runType>SEQUENTIAL</con:runType>
-	<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Submission Deferred Req" searchProperties="true">
+	<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Submission Deferred Req" searchProperties="true" id="da026520-138f-4572-abed-60773c10d6c1">
 		<con:settings/>
 		<con:testStep name="Doc Submission Deferred Req" type="request">
 			<con:settings/>
@@ -35282,19 +35282,19 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-09-27T23:38:48Z</con:value>
+		<con:value>2012-10-04T20:49:15Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-09-27T23:48:48Z</con:value>
+		<con:value>2012-10-04T20:59:15Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/27/2012 23:38:48</con:value>
+		<con:value>10/04/2012 20:49:15</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-27T00:00:00Z</con:value>
+		<con:value>2012-11-03T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -35313,7 +35313,7 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 
 
 
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Submission Deferred Resp" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Submission Deferred Resp" searchProperties="true" id="7f1fe20b-290e-4c78-8a83-487024c031ed">
 	<con:settings/>
 	<con:testStep name="Doc Submission Deferred Resp" type="request">
 		<con:settings/>
@@ -35753,23 +35753,23 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-09-27T22:54:59Z</con:value>
+		<con:value>2012-10-04T20:49:16Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-09-27T23:04:59Z</con:value>
+		<con:value>2012-10-04T20:59:16Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/27/2012 22:54:59</con:value>
+		<con:value>10/04/2012 20:49:16</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-27T00:00:00Z</con:value>
+		<con:value>2012-11-03T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 </con:testCase>
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Submission" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Submission" searchProperties="true" id="a0bd1827-ae23-4629-9c9a-934d7a3f3ea3">
 	<con:settings/>
 	<con:testStep name="Doc Submission" type="request">
 		<con:settings/>
@@ -36344,24 +36344,24 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-09-27T22:55:01Z</con:value>
+		<con:value>2012-10-04T20:49:17Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-09-27T23:05:01Z</con:value>
+		<con:value>2012-10-04T20:59:17Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/27/2012 22:55:01</con:value>
+		<con:value>10/04/2012 20:49:17</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-27T00:00:00Z</con:value>
+		<con:value>2012-11-03T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
 </con:testCase>
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Patient Discovery Deferred Req" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Patient Discovery Deferred Req" searchProperties="true" id="8e12c656-4580-41aa-b886-713b079ad592">
 	<con:settings/>
 	<con:testStep name="Patient Discovery Deferred Req" type="request">
 		<con:settings/>
@@ -37038,24 +37038,24 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 	</con:property>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-09-27T22:55:02Z</con:value>
+		<con:value>2012-10-04T20:49:19Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-09-27T23:05:02Z</con:value>
+		<con:value>2012-10-04T20:59:19Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/27/2012 22:55:02</con:value>
+		<con:value>10/04/2012 20:49:19</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-27T00:00:00Z</con:value>
+		<con:value>2012-11-03T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
 </con:testCase>
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Patient Discovery Deferred Resp" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Patient Discovery Deferred Resp" searchProperties="true" id="51dccae5-1c25-428f-a236-3af7881df0eb">
 	<con:settings/>
 	<con:testStep name="Patient Discovery Deferred Resp" type="request">
 		<con:settings/>
@@ -37763,24 +37763,24 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 </con:property>
 <con:property>
 	<con:name>startDate</con:name>
-	<con:value>2012-09-27T22:55:05Z</con:value>
+	<con:value>2012-10-04T20:49:20Z</con:value>
 </con:property>
 <con:property>
 	<con:name>endDate</con:name>
-	<con:value>2012-09-27T23:05:05Z</con:value>
+	<con:value>2012-10-04T20:59:20Z</con:value>
 </con:property>
 <con:property>
 	<con:name>sigDate</con:name>
-	<con:value>09/27/2012 22:55:05</con:value>
+	<con:value>10/04/2012 20:49:20</con:value>
 </con:property>
 <con:property>
 	<con:name>expireDate</con:name>
-	<con:value>2012-10-27T00:00:00Z</con:value>
+	<con:value>2012-11-03T00:00:00Z</con:value>
 </con:property>
 </con:properties>
 <con:reportParameters/>
 </con:testCase>
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Patient Discovery" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Patient Discovery" searchProperties="true" id="9775492b-da77-421e-891e-d813a998aa56">
 	<con:settings/>
 	<con:testStep name="clear correlations table" type="groovy">
 		<con:settings/>
@@ -38190,24 +38190,24 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-09-27T22:55:07Z</con:value>
+		<con:value>2012-10-04T20:49:22Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-09-27T23:05:07Z</con:value>
+		<con:value>2012-10-04T20:59:22Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/27/2012 22:55:07</con:value>
+		<con:value>10/04/2012 20:49:22</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-27T00:00:00Z</con:value>
+		<con:value>2012-11-03T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
 </con:testCase>
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Query" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Query" searchProperties="true" id="2ec27d19-1b6a-4dc4-86f4-cfc3c64a9a4e">
 	<con:settings/>
 
 	<con:testStep name="update config" type="groovy">
@@ -38527,7 +38527,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySe
    </soap:Body>
 </soap:Envelope>]]></con:request>
 	<con:assertion type="SOAP Response"/>
-	<con:assertion type="Schema Compliance">
+	<con:assertion type="Schema Compliance" disabled="true">
 		<con:configuration/>
 	</con:assertion>
 	<con:assertion type="SOAP Fault Assertion"/>
@@ -38664,19 +38664,19 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-09-27T22:55:08Z</con:value>
+		<con:value>2012-10-04T20:49:23Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-09-27T23:05:08Z</con:value>
+		<con:value>2012-10-04T20:59:23Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/27/2012 22:55:08</con:value>
+		<con:value>10/04/2012 20:49:23</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-27T00:00:00Z</con:value>
+		<con:value>2012-11-03T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
@@ -38685,7 +38685,7 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 </con:properties>
 <con:reportParameters/>
 </con:testCase>
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Retrieve" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Retrieve" searchProperties="true" id="a1dea146-e3b4-410f-9ece-d235c2a2ba53">
 	<con:settings/>
 	<con:testStep name="Document Retrieve" type="request">
 		<con:settings/>
@@ -39076,19 +39076,19 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 	</con:property>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-09-27T23:56:08Z</con:value>
+		<con:value>2012-10-04T20:49:25Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-09-28T00:06:08Z</con:value>
+		<con:value>2012-10-04T20:59:25Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/27/2012 23:56:08</con:value>
+		<con:value>10/04/2012 20:49:25</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-28T00:00:00Z</con:value>
+		<con:value>2012-11-03T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -39096,7 +39096,7 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 
 
 
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Admin Distribution" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Admin Distribution" searchProperties="true" id="201205d3-f48e-49c5-b119-b005cae2f2f5">
 	<con:settings/>
 	<con:testStep name="Admin Distribution" type="request">
 		<con:settings/>
@@ -39553,19 +39553,19 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-09-27T22:57:14Z</con:value>
+		<con:value>2012-10-04T20:49:26Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-09-27T23:07:14Z</con:value>
+		<con:value>2012-10-04T20:59:26Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/27/2012 22:57:14</con:value>
+		<con:value>10/04/2012 20:49:26</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-27T00:00:00Z</con:value>
+		<con:value>2012-11-03T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 </con:testCase>
@@ -39634,7 +39634,7 @@ nhinc.FileUtils.changeSpringConfig("PurposeUseProxyConfig.xml", "community", log
 Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 specs respect the Purpose Of/For Use settings, and thus PurposeOfUse should be used.</con:description>
 	<con:settings/>
 	<con:runType>SEQUENTIAL</con:runType>
-	<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Submission Deferred Req" searchProperties="true">
+	<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Submission Deferred Req" searchProperties="true" id="bffe02ba-36f5-416b-bb59-893ce09289c0">
 		<con:settings/>
 		<con:testStep name="Doc Submission Deferred Req" type="request">
 			<con:settings/>
@@ -40196,24 +40196,24 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-09-27T22:57:29Z</con:value>
+		<con:value>2012-10-04T20:49:42Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-09-27T23:07:29Z</con:value>
+		<con:value>2012-10-04T20:59:42Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/27/2012 22:57:29</con:value>
+		<con:value>10/04/2012 20:49:42</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-27T00:00:00Z</con:value>
+		<con:value>2012-11-03T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
 </con:testCase>
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Submission Deferred Resp" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Submission Deferred Resp" searchProperties="true" id="9646e477-3f42-45cd-bb81-02a9d8b07e38">
 	<con:settings/>
 	<con:testStep name="Doc Submission Deferred Resp" type="request">
 		<con:settings/>
@@ -40637,23 +40637,23 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-09-27T22:57:30Z</con:value>
+		<con:value>2012-10-04T20:49:43Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-09-27T23:07:30Z</con:value>
+		<con:value>2012-10-04T20:59:43Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/27/2012 22:57:30</con:value>
+		<con:value>10/04/2012 20:49:43</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-27T00:00:00Z</con:value>
+		<con:value>2012-11-03T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 </con:testCase>
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Submission" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Submission" searchProperties="true" id="b4cd8c5e-a8eb-4ae7-ae86-57ab59494bb7">
 	<con:settings/>
 	<con:testStep name="Doc Submission" type="request">
 		<con:settings/>
@@ -41212,19 +41212,19 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-09-27T22:57:31Z</con:value>
+		<con:value>2012-10-04T20:49:45Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-09-27T23:07:31Z</con:value>
+		<con:value>2012-10-04T20:59:45Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/27/2012 22:57:31</con:value>
+		<con:value>10/04/2012 20:49:45</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-27T00:00:00Z</con:value>
+		<con:value>2012-11-03T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -41233,7 +41233,7 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 
 
 
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Patient Discovery Deferred Req" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Patient Discovery Deferred Req" searchProperties="true" id="817296dc-0686-4f9a-b195-16e28701727a">
 	<con:settings/>
 	<con:testStep name="Patient Discovery Deferred Req" type="request">
 		<con:settings/>
@@ -41894,25 +41894,25 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 	</con:property>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-09-27T22:57:32Z</con:value>
+		<con:value>2012-10-04T20:49:46Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-09-27T23:07:32Z</con:value>
+		<con:value>2012-10-04T20:59:46Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/27/2012 22:57:32</con:value>
+		<con:value>10/04/2012 20:49:46</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-27T00:00:00Z</con:value>
+		<con:value>2012-11-03T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
 </con:testCase>
 
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Patient Discovery Deferred Resp" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Patient Discovery Deferred Resp" searchProperties="true" id="83a39295-a6bb-472a-ae7c-95c87a6343eb">
 	<con:settings/>
 	<con:testStep name="Patient Discovery Deferred Resp" type="request">
 		<con:settings/>
@@ -42604,24 +42604,24 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 </con:property>
 <con:property>
 	<con:name>startDate</con:name>
-	<con:value>2012-09-27T22:57:33Z</con:value>
+	<con:value>2012-10-04T20:49:48Z</con:value>
 </con:property>
 <con:property>
 	<con:name>endDate</con:name>
-	<con:value>2012-09-27T23:07:33Z</con:value>
+	<con:value>2012-10-04T20:59:48Z</con:value>
 </con:property>
 <con:property>
 	<con:name>sigDate</con:name>
-	<con:value>09/27/2012 22:57:33</con:value>
+	<con:value>10/04/2012 20:49:48</con:value>
 </con:property>
 <con:property>
 	<con:name>expireDate</con:name>
-	<con:value>2012-10-27T00:00:00Z</con:value>
+	<con:value>2012-11-03T00:00:00Z</con:value>
 </con:property>
 </con:properties>
 <con:reportParameters/>
 </con:testCase>
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Patient Discovery" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Patient Discovery" searchProperties="true" id="710ba178-88f7-4d1d-96e7-53c6fb404a6c">
 	<con:settings/>
 	<con:testStep name="clear correlations table" type="groovy">
 		<con:settings/>
@@ -43015,24 +43015,24 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-09-27T22:57:34Z</con:value>
+		<con:value>2012-10-04T20:49:49Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-09-27T23:07:34Z</con:value>
+		<con:value>2012-10-04T20:59:49Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/27/2012 22:57:34</con:value>
+		<con:value>10/04/2012 20:49:49</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-27T00:00:00Z</con:value>
+		<con:value>2012-11-03T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
 </con:testCase>
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Query" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Query" searchProperties="true" id="495c2b6b-0fac-4a47-b70c-387c18142973">
 	<con:settings/>
 
 	<con:testStep name="update config" type="groovy">
@@ -43489,19 +43489,19 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-09-27T22:57:36Z</con:value>
+		<con:value>2012-10-04T20:49:51Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-09-27T23:07:36Z</con:value>
+		<con:value>2012-10-04T20:59:51Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/27/2012 22:57:36</con:value>
+		<con:value>10/04/2012 20:49:51</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-27T00:00:00Z</con:value>
+		<con:value>2012-11-03T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
@@ -43510,7 +43510,7 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 </con:properties>
 <con:reportParameters/>
 </con:testCase>
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Retrieve" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Retrieve" searchProperties="true" id="17899b91-0c1f-4e74-9a6d-4273d0686dda">
 	<con:settings/>
 	<con:testStep name="Document Retrieve" type="request">
 		<con:settings/>
@@ -43885,26 +43885,26 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 	</con:property>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-09-27T23:50:49Z</con:value>
+		<con:value>2012-10-04T20:49:52Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-09-28T00:00:49Z</con:value>
+		<con:value>2012-10-04T20:59:52Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/27/2012 23:50:49</con:value>
+		<con:value>10/04/2012 20:49:52</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-27T00:00:00Z</con:value>
+		<con:value>2012-11-03T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
 </con:testCase>
 
 
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Subscribe" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Subscribe" searchProperties="true" id="641c9d04-f852-4dd2-9997-2577801d04b6">
 	<con:settings/>
 
 	<con:testStep name="update config" type="groovy">
@@ -44328,24 +44328,24 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-09-27T23:48:03Z</con:value>
+		<con:value>2012-10-04T20:49:54Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-09-27T23:58:03Z</con:value>
+		<con:value>2012-10-04T20:59:54Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/27/2012 23:48:03</con:value>
+		<con:value>10/04/2012 20:49:54</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-27T00:00:00Z</con:value>
+		<con:value>2012-11-03T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
 </con:testCase>
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Notify" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Notify" searchProperties="true" id="a16aff56-f1f6-4884-9e73-99a92559a274">
 	<con:settings/>
 
 	<con:testStep name="update config" type="groovy">
@@ -45027,19 +45027,19 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-09-27T23:48:09Z</con:value>
+		<con:value>2012-10-04T20:49:55Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-09-27T23:58:09Z</con:value>
+		<con:value>2012-10-04T20:59:55Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/27/2012 23:48:09</con:value>
+		<con:value>10/04/2012 20:49:55</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-27T00:00:00Z</con:value>
+		<con:value>2012-11-03T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>NotifySubscriptionID</con:name>
@@ -45048,7 +45048,7 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 </con:properties>
 <con:reportParameters/>
 </con:testCase>
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Unsubscribe" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Unsubscribe" searchProperties="true" id="1a869909-1ecb-4ad1-9f6a-762be9f01f29">
 	<con:settings/>
 
 	<con:testStep name="update config" type="groovy">
@@ -45743,24 +45743,24 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-09-27T22:59:40Z</con:value>
+		<con:value>2012-10-04T20:49:57Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-09-27T23:09:40Z</con:value>
+		<con:value>2012-10-04T20:59:57Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/27/2012 22:59:40</con:value>
+		<con:value>10/04/2012 20:49:57</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-27T00:00:00Z</con:value>
+		<con:value>2012-11-03T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
 </con:testCase>
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Admin Distribution" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Admin Distribution" searchProperties="true" id="9e617c72-fd73-44d0-9aaf-4755f5345d6a">
 	<con:settings/>
 	<con:testStep name="Admin Distribution" type="request">
 		<con:settings/>
@@ -46202,19 +46202,19 @@ DeleteFile(backupUddiFile, log);
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-09-27T22:59:41Z</con:value>
+		<con:value>2012-10-04T20:49:59Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-09-27T23:09:41Z</con:value>
+		<con:value>2012-10-04T20:59:59Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/27/2012 22:59:41</con:value>
+		<con:value>10/04/2012 20:49:59</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-27T00:00:00Z</con:value>
+		<con:value>2012-11-03T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -46279,7 +46279,57 @@ nhinc.FileUtils.changeSpringConfig("PurposeUseProxyConfig.xml", "community", log
 <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(log);</con:tearDownScript>
 <con:reportParameters/>
 </con:testSuite>
-<con:properties><con:property><con:name>AAMappingDB</con:name><con:value>assigningauthoritydb</con:value></con:property><con:property><con:name>AAMappingTable</con:name><con:value>aa_to_home_community_mapping</con:value></con:property><con:property><con:name>AsyncMsgDB</con:name><con:value>asyncmsgs</con:value></con:property><con:property><con:name>AsyncMsgTable</con:name><con:value>asyncmsgrepo</con:value></con:property><con:property><con:name>AuditRepoDB</con:name><con:value>auditrepo</con:value></con:property><con:property><con:name>AuditRepoTable</con:name><con:value>auditrepository</con:value></con:property><con:property><con:name>BirthTime</con:name><con:value>19630804</con:value></con:property><con:property><con:name>City</con:name><con:value>Melbourne</con:value></con:property><con:property><con:name>Country</con:name><con:value>US</con:value></con:property><con:property><con:name>DateOfSignature</con:name><con:value>20080520</con:value></con:property><con:property><con:name>DBHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>DBPass</con:name><con:value>nhincpass</con:value></con:property><con:property><con:name>DBPort</con:name><con:value>3306</con:value></con:property><con:property><con:name>DBUser</con:name><con:value>nhincuser</con:value></con:property><con:property><con:name>DeferredPatientDiscoveryReqMessageID</con:name><con:value>uuid:6666666666.66666.666.66</con:value></con:property><con:property><con:name>DOB</con:name><con:value>19800516</con:value></con:property><con:property><con:name>DQDocID</con:name><con:value>1.123401.55555</con:value></con:property><con:property><con:name>DQPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>DRDocID</con:name><con:value>1.123407.777777</con:value></con:property><con:property><con:name>DRRepoID</con:name><con:value>1</con:value></con:property><con:property><con:name>DynamicDQDocID</con:name><con:value>103.8.9284320.020.3590.75^1266324032288</con:value></con:property><con:property><con:name>ExpirationDate</con:name><con:value>20100520</con:value></con:property><con:property><con:name>FamilyName</con:name><con:value>Younger</con:value></con:property><con:property><con:name>Gender</con:name><con:value>M</con:value></con:property><con:property><con:name>GivenName</con:name><con:value>Gallow</con:value></con:property><con:property><con:name>LocalAA</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalHCDescription</con:name><con:value>InternalTest1</con:value></con:property><con:property><con:name>LocalHCID</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>NotificationEndpoint</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/NotificationConsumerService/HiemNotify</con:value></con:property><con:property><con:name>NotifySubscriptionID</con:name><con:value>24085385-ef54-4aaf-b027-d5896689be24</con:value></con:property><con:property><con:name>NotifySubscriptionManagerEndpointAddress</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/SubscriptionManagerService/HiemUnsubscribe</con:value></con:property><con:property><con:name>PatientCorrelationDB</con:name><con:value>patientcorrelationdb</con:value></con:property><con:property><con:name>PatientCorrelationTable</con:name><con:value>correlatedidentifiers</con:value></con:property><con:property><con:name>PurposeOfDisclosure</con:name><con:value>Mental</con:value></con:property><con:property><con:name>RemoteAA</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemoteHCDescription</con:name><con:value>InternalTest2</con:value></con:property><con:property><con:name>RemoteHCID</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemotePatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>SSN</con:name><con:value>123456789</con:value></con:property><con:property><con:name>State</con:name><con:value>FL</con:value></con:property><con:property><con:name>StreetAddress</con:name><con:value>123 Johnson Rd</con:value></con:property><con:property><con:name>SubjectID</con:name><con:value>1111</con:value></con:property><con:property><con:name>SubscribePatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>SubscriptionDB</con:name><con:value>subscriptionrepository</con:value></con:property><con:property><con:name>SubscriptionEndpoint</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/NotificationProducerService/HiemSubscription</con:value></con:property><con:property><con:name>SubscriptionManagerEndpointAddress</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/SubscriptionManagerService/HiemUnsubscribe</con:value></con:property><con:property><con:name>SubscriptionTable</con:name><con:value>subscription</con:value></con:property><con:property><con:name>UniquePatientId</con:name><con:value>1111^^^&amp;amp;1.1&amp;amp;ISO</con:value></con:property><con:property><con:name>UnSubscriptionID</con:name><con:value>6deec8e7-6e6c-4269-91c2-69cb777ab8b0</con:value></con:property><con:property><con:name>ZipCode</con:name><con:value>12345</con:value></con:property></con:properties>
-<con:afterLoadScript/>
+<con:properties><con:property><con:name>AAMappingDB</con:name><con:value>assigningauthoritydb</con:value></con:property><con:property><con:name>AAMappingTable</con:name><con:value>aa_to_home_community_mapping</con:value></con:property><con:property><con:name>AsyncMsgDB</con:name><con:value>asyncmsgs</con:value></con:property><con:property><con:name>AsyncMsgTable</con:name><con:value>asyncmsgrepo</con:value></con:property><con:property><con:name>AuditRepoDB</con:name><con:value>auditrepo</con:value></con:property><con:property><con:name>AuditRepoTable</con:name><con:value>auditrepository</con:value></con:property><con:property><con:name>BirthTime</con:name><con:value>19630804</con:value></con:property><con:property><con:name>City</con:name><con:value>Melbourne</con:value></con:property><con:property><con:name>Country</con:name><con:value>US</con:value></con:property><con:property><con:name>DateOfSignature</con:name><con:value>20080520</con:value></con:property><con:property><con:name>DBHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>DBPass</con:name><con:value>nhincpass</con:value></con:property><con:property><con:name>DBPort</con:name><con:value>3306</con:value></con:property><con:property><con:name>DBUser</con:name><con:value>nhincuser</con:value></con:property><con:property><con:name>DeferredPatientDiscoveryReqMessageID</con:name><con:value>uuid:6666666666.66666.666.66</con:value></con:property><con:property><con:name>DOB</con:name><con:value>19800516</con:value></con:property><con:property><con:name>DQDocID</con:name><con:value>1.123401.55555</con:value></con:property><con:property><con:name>DQPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>DRDocID</con:name><con:value>1.123407.777777</con:value></con:property><con:property><con:name>DRRepoID</con:name><con:value>1</con:value></con:property><con:property><con:name>DynamicDQDocID</con:name><con:value>103.8.9284320.020.3590.75^1266324032288</con:value></con:property><con:property><con:name>ExpirationDate</con:name><con:value>20100520</con:value></con:property><con:property><con:name>FamilyName</con:name><con:value>Younger</con:value></con:property><con:property><con:name>Gender</con:name><con:value>M</con:value></con:property><con:property><con:name>GivenName</con:name><con:value>Gallow</con:value></con:property><con:property><con:name>LocalAA</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalHCDescription</con:name><con:value>InternalTest1</con:value></con:property><con:property><con:name>LocalHCID</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>NotificationEndpoint</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/NotificationConsumerService/HiemNotify</con:value></con:property><con:property><con:name>NotifySubscriptionID</con:name><con:value>e71ca7dd-7f69-4206-bd78-40075d4be370</con:value></con:property><con:property><con:name>NotifySubscriptionManagerEndpointAddress</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/SubscriptionManagerService/HiemUnsubscribe</con:value></con:property><con:property><con:name>PatientCorrelationDB</con:name><con:value>patientcorrelationdb</con:value></con:property><con:property><con:name>PatientCorrelationTable</con:name><con:value>correlatedidentifiers</con:value></con:property><con:property><con:name>PurposeOfDisclosure</con:name><con:value>Mental</con:value></con:property><con:property><con:name>RemoteAA</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemoteHCDescription</con:name><con:value>InternalTest2</con:value></con:property><con:property><con:name>RemoteHCID</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemotePatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>SSN</con:name><con:value>123456789</con:value></con:property><con:property><con:name>State</con:name><con:value>FL</con:value></con:property><con:property><con:name>StreetAddress</con:name><con:value>123 Johnson Rd</con:value></con:property><con:property><con:name>SubjectID</con:name><con:value>1111</con:value></con:property><con:property><con:name>SubscribePatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>SubscriptionDB</con:name><con:value>subscriptionrepository</con:value></con:property><con:property><con:name>SubscriptionEndpoint</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/NotificationProducerService/HiemSubscription</con:value></con:property><con:property><con:name>SubscriptionManagerEndpointAddress</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/SubscriptionManagerService/HiemUnsubscribe</con:value></con:property><con:property><con:name>SubscriptionTable</con:name><con:value>subscription</con:value></con:property><con:property><con:name>UniquePatientId</con:name><con:value>1111^^^&amp;amp;1.1&amp;amp;ISO</con:value></con:property><con:property><con:name>UnSubscriptionID</con:name><con:value>72e372dd-a0f5-4647-9f7e-af3d88535b06</con:value></con:property><con:property><con:name>ZipCode</con:name><con:value>12345</con:value></con:property></con:properties>
+<con:afterLoadScript>TimeZone.setDefault(TimeZone.getTimeZone("UTC"))
+def testRunListener = [
+afterRun: { testRunner, runContext -> },
+afterStep: { testRunner, runContext, result -> },
+beforeStep: { testRunner, runContext -> },
+beforeStep: { testRunner, runContext, testStep -> },
+beforeRun: { testRunner, runContext -> 
+use (org.codehaus.groovy.runtime.TimeCategory) {
+def startDate = 5.minutes.ago
+def endDate = 5.minutes.from.now
+def expireDate = 30.days.from.now
+
+def df = "yyyy-MM-dd'T'HH:mm:ss'Z'"
+def dfSig = "MM/dd/yyyy' 'HH:mm:ss"
+
+runContext.testCase.setPropertyValue("startDate", startDate.format(df))
+runContext.testCase.setPropertyValue("endDate", endDate.format(df))
+runContext.testCase.setPropertyValue("sigDate", startDate.format(dfSig))
+runContext.testCase.setPropertyValue("expireDate", expireDate.format(df))
+}
+}   
+] as com.eviware.soapui.model.testsuite.TestRunListener
+
+project.testSuiteList*.testCaseList.flatten()*.addTestRunListener(testRunListener)
+
+
+
+com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.findProperty = { propertyName ->
+return delegate.getProperty(propertyName) ?:
+delegate.testCase.getPropertyValue(propertyName) ?:
+delegate.testCase.testSuite.getPropertyValue(propertyName) ?:
+delegate.testCase.testSuite.project.getPropertyValue(propertyName)
+}
+
+com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.withSql = { dbOrPropertyName, block ->
+def dbName = delegate.findProperty(dbOrPropertyName) ?: dbOrPropertyName
+def host = delegate.findProperty('DBHost')
+def port = delegate.findProperty('DBPort')
+def user = delegate.findProperty('DBUser')
+def pass = delegate.findProperty('DBPass')
+
+def connectString = "jdbc:mysql://${host}:${port}/${dbName}"
+def sql = groovy.sql.Sql.newInstance(connectString, user, pass, "com.mysql.jdbc.Driver");
+try {
+block(sql)
+} finally {
+sql.close()
+}
+}</con:afterLoadScript>
 <con:wssContainer/>
-</con:soapui-project>
+<con:beforeRunScript>import nhinc.FileUtils;
+nhinc.FileUtils.restoreToMasterConfiguration(log);</con:beforeRunScript><con:afterRunScript>import nhinc.FileUtils;
+nhinc.FileUtils.restoreToMasterConfiguration(log);</con:afterRunScript></con:soapui-project>

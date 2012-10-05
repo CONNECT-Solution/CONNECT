@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project name="PurposeForOfUse_MsgProxy_GatewayConfig" resourceRoot="${projectDir}" soapui-version="3.6.1" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxypatientdiscovery}NhincProxyPatientDiscoveryBinding" definition="f:\glassfish-2.1.1\domains\domain1\config\nhin\wsdl\NhincProxyPatientDiscovery.wsdl" name="NhincProxyPatientDiscoveryBinding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<con:soapui-project name="PurposeForOfUse_MsgProxy_GatewayConfig" resourceRoot="${projectDir}" soapui-version="3.6" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxypatientdiscovery}NhincProxyPatientDiscoveryBinding" definition="${projectDir}/../../Production/Common/Interfaces/src/wsdl/NhincProxyPatientDiscovery.wsdl" name="NhincProxyPatientDiscoveryBinding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 
 		<con:endpoints>
@@ -9,7 +9,7 @@
 		<con:operation action="urn:Proxy_PRPA_IN201305UV" anonymous="optional" bindingOperationName="Proxy_PRPA_IN201305UV" inputName="Proxy_PRPA_IN201305UVProxyRequest" isOneWay="false" name="Proxy_PRPA_IN201305UV" outputName="Proxy_PRPA_IN201306UVProxyResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
 			<con:settings/>
 		</con:operation>
-	</con:interface><con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincadmindistribution}NhincAdminDist_Binding_Soap12" definition="f:\glassfish-2.1.1\domains\domain1\config\nhin\wsdl\NhincAdminDist_g1.wsdl" name="NhincAdminDist_Binding_Soap12_g1" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	</con:interface><con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincadmindistribution}NhincAdminDist_Binding_Soap12" definition="${projectDir}/../../Production/Common/Interfaces/src/wsdl/NhincAdminDist_g1.wsdl" name="NhincAdminDist_Binding_Soap12_g1" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 		<con:endpoints>
 			<con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/AdminDistribution/2_0/MsgProxy/NhincProxyAdminDist</con:endpoint>
@@ -17,7 +17,7 @@
 		<con:operation action="urn:oasis:names:tc:emergency:EDXL:DE:1.0:SendAlertMessage" bindingOperationName="SendAlertMessage" inputName="" isOneWay="false" name="SendAlertMessage" sendsAttachments="false" type="One-Way">
 			<con:settings/>
 		</con:operation>
-	</con:interface><con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxydocretrieve}NhincProxyDocRetrieveBindingSoap" definition="f:\glassfish-2.1.1\domains\domain1\config\nhin\wsdl\NhincProxyDocRetrieve.wsdl" name="NhincProxyDocRetrieveBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	</con:interface><con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxydocretrieve}NhincProxyDocRetrieveBindingSoap" definition="${projectDir}/../../Production/Common/Interfaces/src/wsdl/NhincProxyDocRetrieve.wsdl" name="NhincProxyDocRetrieveBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 
 		<con:endpoints>
@@ -30,7 +30,7 @@
 		<con:operation action="urn:RespondingGateway_CrossGatewayRetrieve" anonymous="optional" bindingOperationName="RespondingGateway_CrossGatewayRetrieve" inputName="RespondingGateway_CrossGatewayRetrieveRequest" isOneWay="false" name="RespondingGateway_CrossGatewayRetrieve" outputName="RespondingGateway_CrossGatewayRetrieveResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
 			<con:settings/>
 		</con:operation>
-	</con:interface><con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxyxdr}ProxyXDR_Binding" definition="f:\glassfish-2.1.1\domains\domain1\config\nhin\wsdl\NhincProxyXDR.wsdl" name="ProxyXDR_Binding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	</con:interface><con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxyxdr}ProxyXDR_Binding" definition="${projectDir}/../../Production/Common/Interfaces/src/wsdl/NhincProxyXDR.wsdl" name="ProxyXDR_Binding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 		<con:endpoints>
 			<con:endpoint>${#TestSuite#Endpoint-DocumentSubmission}</con:endpoint>
@@ -39,7 +39,7 @@
 		<con:operation action="" anonymous="optional" bindingOperationName="ProvideAndRegisterDocumentSet-b" inputName="" isOneWay="false" name="ProvideAndRegisterDocumentSet-b" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
 			<con:settings/>
 		</con:operation>
-	</con:interface><con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxysubscriptionmanagement}NhincProxySubscriptionManagerBindingSoap" definition="f:\glassfish-2.1.1\domains\domain1\config\nhin\wsdl\NhincProxySubscriptionManagement.wsdl" name="NhincProxySubscriptionManagerBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	</con:interface><con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxysubscriptionmanagement}NhincProxySubscriptionManagerBindingSoap" definition="${projectDir}/../../Production/Common/Interfaces/src/wsdl/NhincProxySubscriptionManagement.wsdl" name="NhincProxySubscriptionManagerBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 
 		<con:endpoints>
@@ -52,7 +52,7 @@
 		<con:operation action="urn:Unsubscribe" anonymous="optional" bindingOperationName="Unsubscribe" inputName="UnsubscribeRequest" isOneWay="false" name="Unsubscribe" outputName="UnsubscribeResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
 			<con:settings/>
 		</con:operation>
-	</con:interface><con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxydocquery}NhincProxyDocQueryBindingSoap" definition="f:\glassfish-2.1.1\domains\domain1\config\nhin\wsdl\NhincProxyDocQuery.wsdl" name="NhincProxyDocQueryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	</con:interface><con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxydocquery}NhincProxyDocQueryBindingSoap" definition="${projectDir}/../../Production/Common/Interfaces/src/wsdl/NhincProxyDocQuery.wsdl" name="NhincProxyDocQueryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 
 		<con:endpoints>
@@ -65,7 +65,7 @@
 		<con:operation action="urn:RespondingGateway_CrossGatewayQuery" anonymous="optional" bindingOperationName="RespondingGateway_CrossGatewayQuery" inputName="RespondingGateway_CrossGatewayQueryRequest" isOneWay="false" name="RespondingGateway_CrossGatewayQuery" outputName="RespondingGateway_CrossGatewayQueryResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
 			<con:settings/>
 		</con:operation>
-	</con:interface><con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxypatientdiscoveryasyncresp}NhincProxyPatientDiscoveryAsyncRespBinding" definition="f:\glassfish-2.1.1\domains\domain1\config\nhin\wsdl\NhincProxyPatientDiscoveryAsyncResp.wsdl" name="NhincProxyPatientDiscoveryAsyncRespBinding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	</con:interface><con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxypatientdiscoveryasyncresp}NhincProxyPatientDiscoveryAsyncRespBinding" definition="${projectDir}/../../Production/Common/Interfaces/src/wsdl/NhincProxyPatientDiscoveryAsyncResp.wsdl" name="NhincProxyPatientDiscoveryAsyncRespBinding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 
 		<con:endpoints>
@@ -75,7 +75,7 @@
 		<con:operation action="urn:Proxy_ProcessPatientDiscoveryAsyncResp" bindingOperationName="Proxy_ProcessPatientDiscoveryAsyncResp" inputName="Proxy_ProcessPatientDiscoveryAsyncRespRequest" isOneWay="false" name="Proxy_ProcessPatientDiscoveryAsyncResp" outputName="Proxy_ProcessPatientDiscoveryAsyncRespResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
 			<con:settings/>
 		</con:operation>
-	</con:interface><con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxysubscriptionmanagement}NhincProxyNotificationProducerBindingSoap" definition="f:\glassfish-2.1.1\domains\domain1\config\nhin\wsdl\NhincProxySubscriptionManagement.wsdl" name="NhincProxyNotificationProducerBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	</con:interface><con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxysubscriptionmanagement}NhincProxyNotificationProducerBindingSoap" definition="${projectDir}/../../Production/Common/Interfaces/src/wsdl/NhincProxySubscriptionManagement.wsdl" name="NhincProxyNotificationProducerBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 
 		<con:endpoints>
@@ -91,7 +91,7 @@
 		<con:operation action="urn:Subscribe" anonymous="optional" bindingOperationName="Subscribe" inputName="SubscribeRequest" isOneWay="false" name="Subscribe" outputName="SubscribeResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
 			<con:settings/>
 		</con:operation>
-	</con:interface><con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxyxdr:async:request}ProxyXDRAsyncRequest_Binding" definition="f:\glassfish-2.1.1\domains\domain1\config\nhin\wsdl\NhincProxyXDRRequest.wsdl" name="ProxyXDRAsyncRequest_Binding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	</con:interface><con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxyxdr:async:request}ProxyXDRAsyncRequest_Binding" definition="${projectDir}/../../Production/Common/Interfaces/src/wsdl/NhincProxyXDRRequest.wsdl" name="ProxyXDRAsyncRequest_Binding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 
 		<con:endpoints>
@@ -106,7 +106,7 @@
 			<con:settings/>
 
 		</con:operation>
-	</con:interface><con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxypatientdiscoveryasyncreq}NhincProxyPatientDiscoveryAsyncReqBinding" definition="f:\glassfish-2.1.1\domains\domain1\config\nhin\wsdl\NhincProxyPatientDiscoveryAsyncReq.wsdl" name="NhincProxyPatientDiscoveryAsyncReqBinding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	</con:interface><con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxypatientdiscoveryasyncreq}NhincProxyPatientDiscoveryAsyncReqBinding" definition="${projectDir}/../../Production/Common/Interfaces/src/wsdl/NhincProxyPatientDiscoveryAsyncReq.wsdl" name="NhincProxyPatientDiscoveryAsyncReqBinding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 
 		<con:endpoints>
@@ -116,7 +116,7 @@
 		<con:operation action="urn:Proxy_ProcessPatientDiscoveryAsyncReq" anonymous="optional" bindingOperationName="Proxy_ProcessPatientDiscoveryAsyncReq" inputName="Proxy_ProcessPatientDiscoveryAsyncReqRequest" isOneWay="false" name="Proxy_ProcessPatientDiscoveryAsyncReq" outputName="Proxy_ProcessPatientDiscoveryAsyncReqResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
 			<con:settings/>
 		</con:operation>
-	</con:interface><con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxyxdr:async:response}ProxyXDRAsyncResponse_Binding" definition="f:\glassfish-2.1.1\domains\domain1\config\nhin\wsdl\NhincProxyXDRResponse.wsdl" name="ProxyXDRAsyncResponse_Binding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	</con:interface><con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxyxdr:async:response}ProxyXDRAsyncResponse_Binding" definition="${projectDir}/../../Production/Common/Interfaces/src/wsdl/NhincProxyXDRResponse.wsdl" name="ProxyXDRAsyncResponse_Binding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 		<con:endpoints>
 			<con:endpoint>${#TestSuite#Endpoint-DocSubmissionDefResp}</con:endpoint>
@@ -125,7 +125,7 @@
 		<con:operation action="" anonymous="optional" bindingOperationName="ProvideAndRegisterDocumentSet-bAsyncResponse" inputName="" isOneWay="false" name="ProvideAndRegisterDocumentSet-bAsyncResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
 			<con:settings/>
 		</con:operation>
-	</con:interface><con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxynotificationconsumer}NhincProxyNotificationConsumerBindingSoap" definition="f:\glassfish-2.1.1\domains\domain1\config\nhin\wsdl\NhincProxyNotificationConsumer.wsdl" name="NhincProxyNotificationConsumerBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	</con:interface><con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxynotificationconsumer}NhincProxyNotificationConsumerBindingSoap" definition="${projectDir}/../../Production/Common/Interfaces/src/wsdl/NhincProxyNotificationConsumer.wsdl" name="NhincProxyNotificationConsumerBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 
 		<con:endpoints>
@@ -137,12 +137,12 @@
 		<con:operation action="urn:Notify" anonymous="optional" bindingOperationName="Notify" inputName="NotifyRequest" isOneWay="false" name="Notify" sendsAttachments="false" type="One-Way">
 			<con:settings/>
 		</con:operation>
-	</con:interface><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="NhincAdminDist_Binding_Soap12_g0" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:nhincadmindistribution}NhincAdminDist_Binding_Soap12" soapVersion="1_2" anonymous="optional" definition="f:\glassfish-2.1.1\domains\domain1\config\nhin\wsdl\NhincAdminDist.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:endpoints><con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/AdminDistribution/1_0/MsgProxy/NhincProxyAdminDist</con:endpoint></con:endpoints><con:operation isOneWay="false" action="urn:oasis:names:tc:emergency:EDXL:DE:1.0:SendAlertMessage" name="SendAlertMessage" bindingOperationName="SendAlertMessage" type="One-Way" inputName="" sendsAttachments="false"><con:settings/></con:operation></con:interface><con:testSuite name="MsgProxy_g1_gateway_True">
+	</con:interface><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="NhincAdminDist_Binding_Soap12_g0" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:nhincadmindistribution}NhincAdminDist_Binding_Soap12" soapVersion="1_2" anonymous="optional" definition="${projectDir}/../../Production/Common/Interfaces/src/wsdl/NhincAdminDist.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:endpoints><con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/AdminDistribution/1_0/MsgProxy/NhincProxyAdminDist</con:endpoint></con:endpoints><con:operation isOneWay="false" action="urn:oasis:names:tc:emergency:EDXL:DE:1.0:SendAlertMessage" name="SendAlertMessage" bindingOperationName="SendAlertMessage" type="One-Way" inputName="" sendsAttachments="false"><con:settings/></con:operation></con:interface><con:testSuite name="MsgProxy_g1_gateway_True">
 		<con:description>Testing for Purpose Of/For Use. This suite sends a request message to the g1 message proxy interfaces, with the Gateway spring proxy, and purposeForUseEnabled=true in gateway.properties.
 Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 specs do not respect the Purpose Of/For Use settings, and thus PurposeOfUse should be used.</con:description>
 		<con:settings/>
 		<con:runType>SEQUENTIAL</con:runType>
-		<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Submission Deferred Req" searchProperties="true">
+		<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Submission Deferred Req" searchProperties="true" id="36be9459-2255-4877-b705-d8ce187205f5">
 			<con:settings/>
 			<con:testStep name="Doc Submission Deferred Req" type="request">
 				<con:settings/>
@@ -717,7 +717,7 @@ DeleteFile(backupUddiFile, log);
 
 
 
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Submission Deferred Resp" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Submission Deferred Resp" searchProperties="true" id="dd3e13d5-da23-4bfc-badc-0ff2f51e431c">
 	<con:settings/>
 	<con:testStep name="Doc Submission Deferred Resp" type="request">
 		<con:settings/>
@@ -1184,7 +1184,7 @@ DeleteFile(backupUddiFile, log);
 
 
 
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Submission" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Submission" searchProperties="true" id="13b75e6e-3b80-4442-bb36-6f52630cc882">
 	<con:settings/>
 	<con:testStep name="Document Submission" type="request">
 		<con:settings/>
@@ -1744,7 +1744,7 @@ DeleteFile(backupUddiFile, log);
 	</con:property>
 </con:properties>
 </con:testCase>
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Patient Discovery Deferred Req" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Patient Discovery Deferred Req" searchProperties="true" id="eeb6ea09-d2fd-4a81-8a69-f5050028c455">
 	<con:settings/>
 	<con:testStep name="Patient Discovery Deferred Req" type="request">
 		<con:settings/>
@@ -1758,168 +1758,184 @@ DeleteFile(backupUddiFile, log);
 		<con:encoding>UTF-8</con:encoding>
 		<con:endpoint>${#TestSuite#Endpoint-PatientDiscoveryAsyncReq}</con:endpoint>
 		<con:request><![CDATA[
-			<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
+			<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soap:Header/>
-   <soap:Body testSuite="MsgProxy_g1" testCase="Patient Discovery Deferred Req">
-      <urn:RespondingGateway_ProvideAndRegisterDocumentSetRequest>
-          <urn:assertion>
+   <soap:Body testSuite="MsgProxy_g0" testCase="Patient Discovery Deferred Req">
+      <urn:Proxy_PRPA_IN201305UVProxyRequest>
+         <urn:PRPA_IN201305UV02 ITSVersion="XML_1.0">
+            <urn:id root="1.1" extension="-5a3e95b1:11d1fa33d45:-7f9b"/>
+            <urn:creationTime value="20091116084800"/>
+            <urn:interactionId root="2.16.840.1.113883.1.6" extension="PRPA_IN201305UV02"/>
+            <urn:processingCode code="T"/>
+            <urn:processingModeCode code="T"/>
+            <urn:acceptAckCode code="AL"/>
+            <urn:receiver typeCode="RCV">
+               <urn:device classCode="DEV" determinerCode="INSTANCE">
+                  <urn:id root="1.2.345.678.999"/>
+                  <urn:asAgent classCode="AGNT">
+                     <urn:representedOrganization classCode="ORG" determinerCode="INSTANCE">
+                        <urn:id root="${#Project#LocalHCID}"/>
+                     </urn:representedOrganization>
+                  </urn:asAgent>
+               </urn:device>
+            </urn:receiver>
+            <urn:sender typeCode="SND">
+               <urn:device classCode="DEV" determinerCode="INSTANCE">
+                  <urn:id root="1.2.345.678.999"/>
+                  <urn:asAgent classCode="AGNT">
+                     <urn:representedOrganization classCode="ORG" determinerCode="INSTANCE">
+                        <urn:id root="${#Project#RemoteHCID}"/>
+                     </urn:representedOrganization>
+                  </urn:asAgent>
+               </urn:device>
+            </urn:sender>
+            <urn:controlActProcess classCode="CACT" moodCode="EVN">
+               <urn:authorOrPerformer typeCode="AUT">
+                  <urn:assignedDevice>
+                     <urn:id root="${#Project#RemoteAA}"/>
+                  </urn:assignedDevice>
+               </urn:authorOrPerformer>
+               <urn:queryByParameter>
+                  <urn:queryId root="${#Project#RemoteHCID}" extension="-abd3453dcd24wkkks545"/>
+                  <urn:statusCode code="new"/>
+                  <urn:responseModalityCode code="R"/>
+                  <urn:responsePriorityCode code="I"/>
+                  <urn:parameterList>
+                     <urn:livingSubjectAdministrativeGender>
+                        <urn:value code="${#Project#Gender}"/>
+                        <urn:semanticsText representation="TXT">LivingSubject.administrativeGender</urn:semanticsText>
+                     </urn:livingSubjectAdministrativeGender>
+                     <urn:livingSubjectBirthTime>
+                        <urn:value value="${#Project#BirthTime}"/>
+                        <urn:semanticsText representation="TXT">LivingSubject.birthTime</urn:semanticsText>
+                     </urn:livingSubjectBirthTime>
+                     <urn:livingSubjectName>
+                        <urn:value>
+                           <urn:family partType="FAM">${#Project#FamilyName}</urn:family>
+                           <urn:given partType="GIV">${#Project#GivenName}</urn:given>
+                        </urn:value>
+                        <urn:semanticsText representation="TXT">LivingSubject.name</urn:semanticsText>
+                     </urn:livingSubjectName>
+                     <urn:livingSubjectId>
+                        <urn:value root="${#Project#RemoteAA}" extension="${#Project#SubjectID}"/>
+                        <urn:semanticsText representation="TXT"/>
+                     </urn:livingSubjectId>
+                  </urn:parameterList>
+               </urn:queryByParameter>
+            </urn:controlActProcess>
+         </urn:PRPA_IN201305UV02>
+         <urn:assertion>
             <urn1:address>
                <urn1:addressType>
-                  <urn1:code>AddrCode</urn1:code>
-                  <urn1:codeSystem>AddrCodeSyst</urn1:codeSystem>
-                  <urn1:codeSystemName>AddrCodeSystName</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
-                  <urn1:displayName>AddrCode</urn1:displayName>
-                  <urn1:originalText>AddrCode</urn1:originalText>
+                  <urn1:code>W</urn1:code>
                </urn1:addressType>
-               <urn1:city>AddrCity</urn1:city>
-               <urn1:country>AddrCountry</urn1:country>
-               <urn1:state>AddrState</urn1:state>
-               <urn1:streetAddress>AddrStreet</urn1:streetAddress>
-               <urn1:zipCode>AddrZip</urn1:zipCode>
+               <urn1:city>${#Project#City}</urn1:city>
+               <urn1:country>${#Project#Country}</urn1:country>
+               <urn1:state>${#Project#State}</urn1:state>
+               <urn1:streetAddress>${#Project#StreetAddress}</urn1:streetAddress>
+               <urn1:zipCode>${#Project#ZipCode}</urn1:zipCode>
             </urn1:address>
-            <urn1:dateOfBirth>06/04/1959 05:21:00</urn1:dateOfBirth>
-            <urn1:explanationNonClaimantSignature>Electronic</urn1:explanationNonClaimantSignature>
-            <urn1:haveSecondWitnessSignature>false</urn1:haveSecondWitnessSignature>
-            <urn1:haveSignature>false</urn1:haveSignature>
-            <urn1:haveWitnessSignature>false</urn1:haveWitnessSignature>
+            <urn1:dateOfBirth>${#Project#DOB}</urn1:dateOfBirth>
+            <urn1:explanationNonClaimantSignature>NEEDED</urn1:explanationNonClaimantSignature>
+            <urn1:haveSecondWitnessSignature>true</urn1:haveSecondWitnessSignature>
+            <urn1:haveSignature>true</urn1:haveSignature>
+            <urn1:haveWitnessSignature>true</urn1:haveWitnessSignature>
             <urn1:homeCommunity>
-               <urn1:description>${#Project#LocalHCDescription}</urn1:description>
-               <urn1:homeCommunityId>${#Project#LocalHCID}</urn1:homeCommunityId>
-               <urn1:name>${#Project#LocalHCDescription}</urn1:name>
+               <urn1:description>${#Project#RemoteHCDescription}</urn1:description>
+               <urn1:homeCommunityId>${#Project#RemoteHCID}</urn1:homeCommunityId>
+               <urn1:name>${#Project#RemoteHCDescription}</urn1:name>
             </urn1:homeCommunity>
             <urn1:personName>
-               <urn1:familyName>Smith</urn1:familyName>
-               <urn1:givenName>Sandy</urn1:givenName>
+               <urn1:familyName>${#Project#FamilyName}</urn1:familyName>
+               <urn1:givenName>${#Project#GivenName}</urn1:givenName>
                <urn1:nameType>
-                  <urn1:code>nameCode</urn1:code>
-                  <urn1:codeSystem>nameCodeSyst</urn1:codeSystem>
-                  <urn1:codeSystemName>nameCodeSystName</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
-                  <urn1:displayName>nameCode</urn1:displayName>
-                  <urn1:originalText>nameCode</urn1:originalText>
+                  <urn1:code>G</urn1:code>
                </urn1:nameType>
-               <urn1:secondNameOrInitials>S</urn1:secondNameOrInitials>
-               <urn1:fullName>Sandy S. Smith</urn1:fullName>
+               <urn1:secondNameOrInitials>FJ</urn1:secondNameOrInitials>
+               <urn1:fullName>Joe Smith</urn1:fullName>
+               <urn1:prefix>Mr</urn1:prefix>
             </urn1:personName>
             <urn1:phoneNumber>
-               <urn1:areaCode>321</urn1:areaCode>
+               <urn1:areaCode>123</urn1:areaCode>
                <urn1:countryCode>1</urn1:countryCode>
-               <urn1:extension>5436</urn1:extension>
-               <urn1:localNumber>253-6849</urn1:localNumber>
+               <urn1:extension>1234</urn1:extension>
+               <urn1:localNumber>3456789</urn1:localNumber>
                <urn1:phoneNumberType>
-                  <urn1:code>phoneCode</urn1:code>
-                  <urn1:codeSystem>phoneCodeSyst</urn1:codeSystem>
-                  <urn1:codeSystemName>phoneCodeSystName</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
-                  <urn1:displayName>phoneCode</urn1:displayName>
-                  <urn1:originalText>phoneCode</urn1:originalText>
+                  <urn1:code>W</urn1:code>
                </urn1:phoneNumberType>
             </urn1:phoneNumber>
             <urn1:secondWitnessAddress>
                <urn1:addressType>
-                  <urn1:code>AddrCode</urn1:code>
-                  <urn1:codeSystem>AddrCodeSyst</urn1:codeSystem>
-                  <urn1:codeSystemName>AddrCodeSystName</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
-                  <urn1:displayName>AddrCode</urn1:displayName>
-                  <urn1:originalText>AddrCode</urn1:originalText>
+                  <urn1:code>W</urn1:code>
                </urn1:addressType>
-               <urn1:city>Addr2City</urn1:city>
-               <urn1:country>Addr2Country</urn1:country>
-               <urn1:state>Addr2State</urn1:state>
-               <urn1:streetAddress>Addr2Street</urn1:streetAddress>
-               <urn1:zipCode>Addr2Zip</urn1:zipCode>
+               <urn1:city>Melbourne</urn1:city>
+               <urn1:country>US</urn1:country>
+               <urn1:state>FL</urn1:state>
+               <urn1:streetAddress>123 Johnson Rd</urn1:streetAddress>
+               <urn1:zipCode>12345</urn1:zipCode>
             </urn1:secondWitnessAddress>
             <urn1:secondWitnessName>
-               <urn1:familyName>Smith</urn1:familyName>
-               <urn1:givenName>Sammy</urn1:givenName>
+               <urn1:familyName>Hughes</urn1:familyName>
+               <urn1:givenName>Howie</urn1:givenName>
                <urn1:nameType>
-                  <urn1:code>nameCode</urn1:code>
-                  <urn1:codeSystem>nameCodeSyst</urn1:codeSystem>
-                  <urn1:codeSystemName>nameCodeSystName</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
-                  <urn1:displayName>nameCode</urn1:displayName>
-                  <urn1:originalText>nameCode</urn1:originalText>
+                  <urn1:code>G</urn1:code>
                </urn1:nameType>
-               <urn1:secondNameOrInitials>s</urn1:secondNameOrInitials>
-               <urn1:fullName>Sammy S. Smith</urn1:fullName>
+               <urn1:secondNameOrInitials>HH</urn1:secondNameOrInitials>
+               <urn1:fullName>Howie Hughes</urn1:fullName>
+               <urn1:prefix>Dr</urn1:prefix>
             </urn1:secondWitnessName>
             <urn1:secondWitnessPhone>
-               <urn1:areaCode>321</urn1:areaCode>
+               <urn1:areaCode>123</urn1:areaCode>
                <urn1:countryCode>1</urn1:countryCode>
-               <urn1:extension>5424</urn1:extension>
-               <urn1:localNumber>542-6823</urn1:localNumber>
+               <urn1:extension>1546</urn1:extension>
+               <urn1:localNumber>4567892</urn1:localNumber>
                <urn1:phoneNumberType>
-                  <urn1:code>phoneCode</urn1:code>
-                  <urn1:codeSystem>phoneCodeSyst</urn1:codeSystem>
-                  <urn1:codeSystemName>phoneCodeSystName</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
-                  <urn1:displayName>phoneCode</urn1:displayName>
-                  <urn1:originalText>phoneCode</urn1:originalText>
+                  <urn1:code>W</urn1:code>
                </urn1:phoneNumberType>
             </urn1:secondWitnessPhone>
-            <urn1:SSN>253-98-7546</urn1:SSN>
-            <urn1:uniquePatientId>500000000^^^&amp;1.1&amp;ISO</urn1:uniquePatientId>
+            <urn1:SSN>${#Project#SSN}</urn1:SSN>
+            <urn1:uniquePatientId>${#Project#UniquePatientId}</urn1:uniquePatientId>
             <urn1:witnessAddress>
                <urn1:addressType>
-                  <urn1:code>addrCode</urn1:code>
-                  <urn1:codeSystem>addrCodeSyst</urn1:codeSystem>
-                  <urn1:codeSystemName>addrCodeSystName</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
-                  <urn1:displayName>addrCode</urn1:displayName>
-                  <urn1:originalText>addrCode</urn1:originalText>
+                  <urn1:code>W</urn1:code>
                </urn1:addressType>
-               <urn1:city>Burnell</urn1:city>
-               <urn1:country>USA</urn1:country>
-               <urn1:state>FL</urn1:state>
-               <urn1:streetAddress>825 North</urn1:streetAddress>
-               <urn1:zipCode>32184</urn1:zipCode>
+               <urn1:city>Frankfort</urn1:city>
+               <urn1:country>US</urn1:country>
+               <urn1:state>MN</urn1:state>
+               <urn1:streetAddress>432 Jackson St</urn1:streetAddress>
+               <urn1:zipCode>65498</urn1:zipCode>
             </urn1:witnessAddress>
             <urn1:witnessName>
-               <urn1:familyName>Smith</urn1:familyName>
-               <urn1:givenName>Scott</urn1:givenName>
+               <urn1:familyName>Ugble</urn1:familyName>
+               <urn1:givenName>Gary</urn1:givenName>
                <urn1:nameType>
-                  <urn1:code>nameCode</urn1:code>
-                  <urn1:codeSystem>nameCodeSyst</urn1:codeSystem>
-                  <urn1:codeSystemName>nameCodeSystName</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
-                  <urn1:displayName>nameCode</urn1:displayName>
-                  <urn1:originalText>nameCode</urn1:originalText>
+                  <urn1:code>G</urn1:code>
                </urn1:nameType>
-               <urn1:secondNameOrInitials>S.</urn1:secondNameOrInitials>
-               <urn1:fullName>Scott S. Smith</urn1:fullName>
+               <urn1:secondNameOrInitials>GU</urn1:secondNameOrInitials>
+               <urn1:fullName>Gary Ugble</urn1:fullName>
+               <urn1:prefix>Mr</urn1:prefix>
             </urn1:witnessName>
             <urn1:witnessPhone>
-               <urn1:areaCode>321</urn1:areaCode>
+               <urn1:areaCode>987</urn1:areaCode>
                <urn1:countryCode>1</urn1:countryCode>
-               <urn1:extension>8432</urn1:extension>
-               <urn1:localNumber>985-2239</urn1:localNumber>
+               <urn1:extension>6549</urn1:extension>
+               <urn1:localNumber>2222222</urn1:localNumber>
                <urn1:phoneNumberType>
-                  <urn1:code>phoneCode</urn1:code>
-                  <urn1:codeSystem>phoneCodeSyst</urn1:codeSystem>
-                  <urn1:codeSystemName>phoneCodeSystName</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
-                  <urn1:displayName>phoneCode</urn1:displayName>
-                  <urn1:originalText>phoneCode</urn1:originalText>
+                  <urn1:code>H</urn1:code>
                </urn1:phoneNumberType>
             </urn1:witnessPhone>
             <urn1:userInfo>
                <urn1:personName>
-                  <urn1:familyName>Skagerberg</urn1:familyName>
-                  <urn1:givenName>Karl</urn1:givenName>
+                  <urn1:familyName>Anderson</urn1:familyName>
+                  <urn1:givenName>Wilma</urn1:givenName>
                   <urn1:nameType>
-                     <urn1:code>nameCode</urn1:code>
-                     <urn1:codeSystem>nameCodeSyst</urn1:codeSystem>
-                     <urn1:codeSystemName>nameCodeSystName</urn1:codeSystemName>
-                     <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
-                     <urn1:displayName>nameCode</urn1:displayName>
-                     <urn1:originalText>nameCode</urn1:originalText>
+                     <urn1:code>G</urn1:code>
                   </urn1:nameType>
-                  <urn1:secondNameOrInitials>S</urn1:secondNameOrInitials>
-                  <urn1:fullName>Kasrl S. Skagerberg</urn1:fullName>
+                  <urn1:secondNameOrInitials>WA</urn1:secondNameOrInitials>
+                  <urn1:fullName>Wilma Anderson</urn1:fullName>
+                  <urn1:prefix>Mrs</urn1:prefix>
                </urn1:personName>
-               <urn1:userName>kskagerb</urn1:userName>
+               <urn1:userName>wanderson</urn1:userName>
                <urn1:org>
                   <urn1:description>${#Project#RemoteHCDescription}</urn1:description>
                   <urn1:homeCommunityId>${#Project#RemoteHCID}</urn1:homeCommunityId>
@@ -1972,225 +1988,13 @@ DeleteFile(backupUddiFile, log);
             </urn1:samlAuthzDecisionStatement>
          </urn:assertion>
          <urn:nhinTargetSystem>
-            <!--You have a CHOICE of the next 3 items at this level-->
             <urn1:homeCommunity>
-               <urn1:description>${#Project#RemoteHCDescription}</urn1:description>
-               <urn1:homeCommunityId>${#Project#RemoteHCID}</urn1:homeCommunityId>
-               <urn1:name>${#Project#RemoteHCDescription}</urn1:name>
+               <urn1:description>${#Project#LocalHCDescription}</urn1:description>
+               <urn1:homeCommunityId>${#Project#LocalHCID}</urn1:homeCommunityId>
+               <urn1:name>${#Project#LocalHCDescription}</urn1:name>
             </urn1:homeCommunity>
          </urn:nhinTargetSystem>
-         <urn:ProvideAndRegisterDocumentSetRequest>
-            <urn2:SubmitObjectsRequest id="123" comment="comme">
-               <!--Optional:-->
-               <urn4:RegistryObjectList>
-                  <urn4:ExtrinsicObject id="Document01" mimeType="text/xml" objectType="urn:uuid:7edca82f-054d-47f2-a032-9b2a5b5186c1">
-                     <urn4:Slot name="creationTime">
-                        <urn4:ValueList>
-                           <urn4:Value>20051224</urn4:Value>
-                        </urn4:ValueList>
-                     </urn4:Slot>
-                     <urn4:Slot name="languageCode">
-                        <urn4:ValueList>
-                           <urn4:Value>en-us</urn4:Value>
-                        </urn4:ValueList>
-                     </urn4:Slot>
-                     <urn4:Slot name="serviceStartTime">
-                        <urn4:ValueList>
-                           <urn4:Value>200412230800</urn4:Value>
-                        </urn4:ValueList>
-                     </urn4:Slot>
-                     <urn4:Slot name="serviceStopTime">
-                        <urn4:ValueList>
-                           <urn4:Value>200412230801</urn4:Value>
-                        </urn4:ValueList>
-                     </urn4:Slot>
-                     <urn4:Slot name="sourcePatientId">
-                        <urn4:ValueList>
-                           <urn4:Value>SELF-5^^^&amp;1.3.6.1.4.1.21367.2003.3.9&amp;ISO</urn4:Value>
-                        </urn4:ValueList>
-                     </urn4:Slot>
-                     <urn4:Slot name="sourcePatientInfo">
-                        <urn4:ValueList>
-                           <urn4:Value>PID-3|SELF-5^^^&amp;1.3.6.1.4.1.21367.2003.3.9&amp;ISO</urn4:Value>
-                           <urn4:Value>PID-5|Doe^John^^^</urn4:Value>
-                           <urn4:Value>PID-7|19560527</urn4:Value>
-                           <urn4:Value>PID-8|M</urn4:Value>
-                           <urn4:Value>PID-11|100 Main St^^Metropolis^Il^44130^USA</urn4:Value>
-                        </urn4:ValueList>
-                     </urn4:Slot>
-                     <urn4:Name>
-                        <urn4:LocalizedString value="Physical"/>
-                     </urn4:Name>
-                     <urn4:Description/>
-                     <urn4:Classification id="cl01" classificationScheme="urn:uuid:93606bcf-9494-43ec-9b4e-a7748d1a838d" classifiedObject="Document01">
-                        <urn4:Slot name="authorPerson">
-                           <urn4:ValueList>
-                              <urn4:Value>Gerald Smitty</urn4:Value>
-                           </urn4:ValueList>
-                        </urn4:Slot>
-                        <urn4:Slot name="authorInstitution">
-                           <urn4:ValueList>
-                              <urn4:Value>Cleveland Clinic</urn4:Value>
-                              <urn4:Value>Parma Community</urn4:Value>
-                           </urn4:ValueList>
-                        </urn4:Slot>
-                        <urn4:Slot name="authorRole">
-                           <urn4:ValueList>
-                              <urn4:Value>Attending</urn4:Value>
-                           </urn4:ValueList>
-                        </urn4:Slot>
-                        <urn4:Slot name="authorSpecialty">
-                           <urn4:ValueList>
-                              <urn4:Value>Orthopedic</urn4:Value>
-                           </urn4:ValueList>
-                        </urn4:Slot>
-                     </urn4:Classification>
-                     <urn4:Classification id="cl02" classificationScheme="urn:uuid:41a5887f-8865-4c09-adf7-e362475b143a" classifiedObject="Document01" nodeRepresentation="History and Physical">
-                        <urn4:Slot name="codingScheme">
-                           <urn4:ValueList>
-                              <urn4:Value>Connect-a-thon classCodes</urn4:Value>
-                           </urn4:ValueList>
-                        </urn4:Slot>
-                        <urn4:Name>
-                           <urn4:LocalizedString value="History and Physical"/>
-                        </urn4:Name>
-                     </urn4:Classification>
-                     <urn4:Classification id="cl03" classificationScheme="urn:uuid:f4f85eac-e6cb-4883-b524-f2705394840f" classifiedObject="Document01" nodeRepresentation="1.3.6.1.4.1.21367.2006.7.101">
-                        <urn4:Slot name="codingScheme">
-                           <urn4:ValueList>
-                              <urn4:Value>Connect-a-thon confidentialityCodes</urn4:Value>
-                           </urn4:ValueList>
-                        </urn4:Slot>
-                        <urn4:Name>
-                           <urn4:LocalizedString value="Clinical-Staff"/>
-                        </urn4:Name>
-                     </urn4:Classification>
-                     <urn4:Classification id="cl04" classificationScheme="urn:uuid:a09d5840-386c-46f2-b5ad-9c3699a4309d" classifiedObject="Document01" nodeRepresentation="CDAR2/IHE 1.0">
-                        <urn4:Slot name="codingScheme">
-                           <urn4:ValueList>
-                              <urn4:Value>Connect-a-thon formatCodes</urn4:Value>
-                           </urn4:ValueList>
-                        </urn4:Slot>
-                        <urn4:Name>
-                           <urn4:LocalizedString value="CDAR2/IHE 1.0"/>
-                        </urn4:Name>
-                     </urn4:Classification>
-                     <urn4:Classification id="cl05" classificationScheme="urn:uuid:f33fb8ac-18af-42cc-ae0e-ed0b0bdb91e1" classifiedObject="Document01" nodeRepresentation="Outpatient">
-                        <urn4:Slot name="codingScheme">
-                           <urn4:ValueList>
-                              <urn4:Value>Connect-a-thon healthcareFacilityTypeCodes</urn4:Value>
-                           </urn4:ValueList>
-                        </urn4:Slot>
-                        <urn4:Name>
-                           <urn4:LocalizedString value="Outpatient"/>
-                        </urn4:Name>
-                     </urn4:Classification>
-                     <urn4:Classification id="cl06" classificationScheme="urn:uuid:cccf5598-8b07-4b77-a05e-ae952c785ead" classifiedObject="Document01" nodeRepresentation="General Medicine">
-                        <urn4:Slot name="codingScheme">
-                           <urn4:ValueList>
-                              <urn4:Value>Connect-a-thon practiceSettingCodes</urn4:Value>
-                           </urn4:ValueList>
-                        </urn4:Slot>
-                        <urn4:Name>
-                           <urn4:LocalizedString value="General Medicine"/>
-                        </urn4:Name>
-                     </urn4:Classification>
-                     <urn4:Classification id="cl07" classificationScheme="urn:uuid:f0306f51-975f-434e-a61c-c59651d33983" classifiedObject="Document01" nodeRepresentation="34108-1">
-                        <urn4:Slot name="codingScheme">
-                           <urn4:ValueList>
-                              <urn4:Value>LOINC</urn4:Value>
-                           </urn4:ValueList>
-                        </urn4:Slot>
-                        <urn4:Name>
-                           <urn4:LocalizedString value="Outpatient Evaluation And Management"/>
-                        </urn4:Name>
-                     </urn4:Classification>
-                     <urn4:ExternalIdentifier id="ei01" registryObject="Document01" identificationScheme="urn:uuid:58a6f841-87b3-4a3e-92fd-a8ffeff98427" value="SELF-5^^^&amp;1.3.6.1.4.1.21367.2005.3.7&amp;ISO">
-                        <urn4:Name>
-                           <urn4:LocalizedString value="XDSDocumentEntry.patientId"/>
-                        </urn4:Name>
-                     </urn4:ExternalIdentifier>
-                     <urn4:ExternalIdentifier id="ei02" registryObject="Document01" identificationScheme="urn:uuid:2e82c1f6-a085-4c72-9da3-8640a32e42ab" value="1.3.6.1.4.1.21367.2005.3.9999.32">
-                        <urn4:Name>
-                           <urn4:LocalizedString value="XDSDocumentEntry.uniqueId"/>
-                        </urn4:Name>
-                     </urn4:ExternalIdentifier>
-                  </urn4:ExtrinsicObject>
-                  <urn4:RegistryPackage id="SubmissionSet01">
-                     <urn4:Slot name="submissionTime">
-                        <urn4:ValueList>
-                           <urn4:Value>20041225235050</urn4:Value>
-                        </urn4:ValueList>
-                     </urn4:Slot>
-                     <urn4:Name>
-                        <urn4:LocalizedString value="Physical"/>
-                     </urn4:Name>
-                     <urn4:Description>
-                        <urn4:LocalizedString value="Annual physical"/>
-                     </urn4:Description>
-                     <urn4:Classification id="cl08" classificationScheme="urn:uuid:a7058bb9-b4e4-4307-ba5b-e3f0ab85e12d" classifiedObject="SubmissionSet01">
-                        <urn4:Slot name="authorPerson">
-                           <urn4:ValueList>
-                              <urn4:Value>Sherry Dopplemeyer</urn4:Value>
-                           </urn4:ValueList>
-                        </urn4:Slot>
-                        <urn4:Slot name="authorInstitution">
-                           <urn4:ValueList>
-                              <urn4:Value>Cleveland Clinic</urn4:Value>
-                              <urn4:Value>Berea Community</urn4:Value>
-                           </urn4:ValueList>
-                        </urn4:Slot>
-                        <urn4:Slot name="authorRole">
-                           <urn4:ValueList>
-                              <urn4:Value>Purn4ary Surgon</urn4:Value>
-                           </urn4:ValueList>
-                        </urn4:Slot>
-                        <urn4:Slot name="authorSpecialty">
-                           <urn4:ValueList>
-                              <urn4:Value>Orthopedic</urn4:Value>
-                           </urn4:ValueList>
-                        </urn4:Slot>
-                     </urn4:Classification>
-                     <urn4:Classification id="cl09" classificationScheme="urn:uuid:aa543740-bdda-424e-8c96-df4873be8500" classifiedObject="SubmissionSet01" nodeRepresentation="History and Physical">
-                        <urn4:Slot name="codingScheme">
-                           <urn4:ValueList>
-                              <urn4:Value>Connect-a-thon contentTypeCodes</urn4:Value>
-                           </urn4:ValueList>
-                        </urn4:Slot>
-                        <urn4:Name>
-                           <urn4:LocalizedString value="History and Physical"/>
-                        </urn4:Name>
-                     </urn4:Classification>
-                     <urn4:ExternalIdentifier id="ei03" registryObject="SubmissionSet01" identificationScheme="urn:uuid:96fdda7c-d067-4183-912e-bf5ee74998a8" value="1.3.6.1.4.1.21367.2005.3.9999.33">
-                        <urn4:Name>
-                           <urn4:LocalizedString value="XDSSubmissionSet.uniqueId"/>
-                        </urn4:Name>
-                     </urn4:ExternalIdentifier>
-                     <urn4:ExternalIdentifier id="ei04" registryObject="SubmissionSet01" identificationScheme="urn:uuid:554ac39e-e3fe-47fe-b233-965d2a147832" value="3670984664">
-                        <urn4:Name>
-                           <urn4:LocalizedString value="XDSSubmissionSet.sourceId"/>
-                        </urn4:Name>
-                     </urn4:ExternalIdentifier>
-                     <urn4:ExternalIdentifier id="ei05" registryObject="SubmissionSet01" identificationScheme="urn:uuid:6b5aea1a-874d-4603-a4bc-96a0a7b38446" value="SELF-5^^^&amp;1.3.6.1.4.1.21367.2005.3.7&amp;ISO">
-                        <urn4:Name>
-                           <urn4:LocalizedString value="XDSSubmissionSet.patientId"/>
-                        </urn4:Name>
-                     </urn4:ExternalIdentifier>
-                  </urn4:RegistryPackage>
-                  <urn4:Classification id="cl10" classifiedObject="SubmissionSet01" classificationNode="urn:uuid:a54d6aa5-d40d-43f9-88c5-b4633d873bdd"/>
-                  <urn4:Association id="as01" associationType="HasMember" sourceObject="SubmissionSet01" targetObject="Document01">
-                     <urn4:Slot name="SubmissionSetStatus">
-                        <urn4:ValueList>
-                           <urn4:Value>Original</urn4:Value>
-                        </urn4:ValueList>
-                     </urn4:Slot>
-                  </urn4:Association>
-               </urn4:RegistryObjectList>
-            </urn2:SubmitObjectsRequest>
-            <!--1 or more repetitions:-->
-            <urn5:Document id="Document01">UjBsR09EbGhjZ0dTQUxNQUFBUUNBRU1tQ1p0dU1GUXhEUzhi</urn5:Document>
-         </urn:ProvideAndRegisterDocumentSetRequest>
-      </urn:RespondingGateway_ProvideAndRegisterDocumentSetRequest>
+      </urn:Proxy_PRPA_IN201305UVProxyRequest>
    </soap:Body>
 </soap:Envelope>]]></con:request>
 		<con:assertion type="SOAP Response"/>
@@ -2573,7 +2377,7 @@ DeleteFile(backupUddiFile, log);
 </con:properties>
 <con:reportParameters/>
 </con:testCase>
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Patient Discovery Deferred Resp" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Patient Discovery Deferred Resp" searchProperties="true" id="bacfdbd7-b4aa-4e3f-9ce6-f85d814dc9c0">
 	<con:settings/>      
 	<con:testStep name="Patient Discovery Deferred Resp" type="request">
 		<con:settings/>
@@ -3255,7 +3059,7 @@ DeleteFile(backupUddiFile, log);
 </con:properties>
 <con:reportParameters/>
 </con:testCase>
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Patient Discovery" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Patient Discovery" searchProperties="true" id="94ebb7ea-7103-4f0d-8f48-3d45627e8184">
 	<con:settings/>
 	<con:testStep name="clear correlations table" type="groovy">
 		<con:settings/>
@@ -3663,7 +3467,7 @@ DeleteFile(backupUddiFile, log);
 </con:properties>
 <con:reportParameters/>
 </con:testCase>
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Query" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Query" searchProperties="true" id="98421899-fc43-443a-b118-8e114f1387e3">
 	<con:settings/>
 	<con:testStep name="Document Query" type="request">
 		<con:settings/>
@@ -4051,7 +3855,7 @@ DeleteFile(backupUddiFile, log);
 </con:properties>
 <con:reportParameters/>
 </con:testCase>
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Retrieve" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Retrieve" searchProperties="true" id="6546caf6-b06f-4e36-93e0-ebcb6347565c">
 	<con:settings/>
 	<con:testStep name="Document Retrieve" type="request">
 		<con:settings/>
@@ -4443,7 +4247,7 @@ DeleteFile(backupUddiFile, log);
 
 
 
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Admin Distribution" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Admin Distribution" searchProperties="true" id="567e1fde-17fd-46e0-ab4e-9114822298dc">
 	<con:settings/>
 	<con:testStep name="Admin Distribution" type="request">
 		<con:settings/>
@@ -5005,13 +4809,13 @@ nhinc.FileUtils.backupConfiguration(log);
 nhinc.FileUtils.updateGatewayProperty("purposeForUseEnabled","true", log);
 nhinc.FileUtils.moveFile(context.expand(testSuite.project.resourceRoot), "uddiConnectionInfo_g1.xml", System.env['NHINC_PROPERTIES_DIR'], "uddiConnectionInfo.xml", log);
 nhinc.FileUtils.changeSpringConfig("PurposeUseProxyConfig.xml", "gateway", log);</con:setupScript>
-<con:tearDownScript>restoreGatewayProperties();</con:tearDownScript><con:reportParameters/>
+<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(log);</con:tearDownScript><con:reportParameters/>
 </con:testSuite><con:testSuite name="MsgProxy_g0_gateway_True">
 	<con:description>Testing for Purpose Of/For Use. This suite sends a request message to the g0 message proxy interfaces, with the Gateway spring proxy, and purposeForUseEnabled=true in gateway.properties.
 Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 specs respect the Purpose Of/For Use settings, and thus PurposeForUse should be used.</con:description>
 	<con:settings/>
 	<con:runType>SEQUENTIAL</con:runType>
-	<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Submission Deferred Req" searchProperties="true">
+	<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Submission Deferred Req" searchProperties="true" id="f39766fa-dd4c-4ac9-bd81-e451afcea32c">
 		<con:settings/>
 		<con:testStep name="Doc Submission Deferred Req" type="request">
 			<con:settings/>
@@ -5579,7 +5383,7 @@ DeleteFile(backupUddiFile, log);
 </con:properties>
 <con:reportParameters/>
 </con:testCase>
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Submission Deferred Resp" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Submission Deferred Resp" searchProperties="true" id="14b0ca47-0f75-4b3b-a67e-b8afbe161a03">
 	<con:settings/>
 	<con:testStep name="Doc Submission Deferred Resp" type="request">
 		<con:settings/>
@@ -5593,9 +5397,9 @@ DeleteFile(backupUddiFile, log);
 		<con:encoding>UTF-8</con:encoding>
 		<con:endpoint>${#TestSuite#Endpoint-DocSubmissionDefResp}</con:endpoint>
 		<con:request><![CDATA[
-			<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0">
+			<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0">
    <soap:Header/>
-   <soap:Body testSuite="MsgProxy_g0" testcase="Document Submission Deferred Resp">
+   <soap:Body testSuite="MsgProxy_g1" testCase="Document Submission Deferred Resp">
       <urn:RespondingGateway_ProvideAndRegisterDocumentSetResponseRequest>
          <urn:assertion>
             <urn1:address>
@@ -5872,16 +5676,13 @@ DeleteFile(backupUddiFile, log);
             <urn1:relatesToList>uuid:088a26e8-6b03-4bf8-84f1-737dc94be2e0</urn1:relatesToList>
          </urn:assertion>
          <!--Optional:-->
-         <urn:nhinTargetCommunities>
-            <!--1 or more repetitions:-->
-            <urn1:nhinTargetCommunity>
+         <urn:nhinTargetSystem>
                <urn1:homeCommunity>
                   <urn1:description>${#Project#RemoteHCDescription}</urn1:description>
                   <urn1:homeCommunityId>${#Project#RemoteHCID}</urn1:homeCommunityId>
                   <urn1:name>${#Project#RemoteHCDescription}</urn1:name>
                </urn1:homeCommunity>
-            </urn1:nhinTargetCommunity>
-         </urn:nhinTargetCommunities>
+         </urn:nhinTargetSystem>
          <urn:RegistryResponse status="urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Success" requestId="?"><!--Optional:-->
             <urn2:ResponseSlotList>
                <!--Zero or more repetitions:-->
@@ -5903,7 +5704,7 @@ DeleteFile(backupUddiFile, log);
 		<con:assertion type="SOAP Response"/>
 		<con:assertion type="Schema Compliance">
 			<con:configuration>
-				<definition>f:\glassfish-2.1.1\domains\domain1\config\nhin\wsdl\NhincProxyXDRResponse.wsdl</definition>
+				<definition/>
 			</con:configuration>
 		</con:assertion>
 		<con:assertion type="SOAP Fault Assertion"/>
@@ -6009,7 +5810,7 @@ DeleteFile(backupUddiFile, log);
 	</con:property>
 </con:properties>
 </con:testCase>
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Submission" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Submission" searchProperties="true" id="0d0ebce9-fdb5-48bb-8057-bfadf32a88b2">
 	<con:settings/>
 	<con:testStep name="Document Submission" type="request">
 		<con:settings/>
@@ -6023,22 +5824,22 @@ DeleteFile(backupUddiFile, log);
 		<con:encoding>UTF-8</con:encoding>
 		<con:endpoint>${#TestSuite#Endpoint-DocumentSubmission}</con:endpoint>
 		<con:request><![CDATA[
-			<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
+			<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
    <soap:Header/>
-   <soap:Body testSuite="MsgProxy_g0" testCase="Document Submission">
+   <soap:Body testSuite="MsgProxy_g1" testCase="Document Submission">
       <urn:RespondingGateway_ProvideAndRegisterDocumentSetRequest>
          <urn:assertion>
             <urn1:address>
                <urn1:addressType>
                   <urn1:code>AddrCode</urn1:code>
-                  <urn1:codeSystem>AddrCodeSyst</urn1:codeSystem>
+                  <urn1:codeSystem>AddrCodeSystem</urn1:codeSystem>
                   <urn1:codeSystemName>AddrCodeSystName</urn1:codeSystemName>
                   <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
                   <urn1:displayName>AddrCode</urn1:displayName>
                   <urn1:originalText>AddrCode</urn1:originalText>
                </urn1:addressType>
                <urn1:city>AddrCity</urn1:city>
-               <urn1:country>AddrCountry</urn1:country>
+               <urn1:country>AddrCounty</urn1:country>
                <urn1:state>AddrState</urn1:state>
                <urn1:streetAddress>AddrStreet</urn1:streetAddress>
                <urn1:zipCode>AddrZip</urn1:zipCode>
@@ -6066,6 +5867,7 @@ DeleteFile(backupUddiFile, log);
                </urn1:nameType>
                <urn1:secondNameOrInitials>S</urn1:secondNameOrInitials>
                <urn1:fullName>Sandy S. Smith</urn1:fullName>
+               <urn1:prefix>Ms.</urn1:prefix>
             </urn1:personName>
             <urn1:phoneNumber>
                <urn1:areaCode>321</urn1:areaCode>
@@ -6107,7 +5909,7 @@ DeleteFile(backupUddiFile, log);
                   <urn1:displayName>nameCode</urn1:displayName>
                   <urn1:originalText>nameCode</urn1:originalText>
                </urn1:nameType>
-               <urn1:secondNameOrInitials>s</urn1:secondNameOrInitials>
+               <urn1:secondNameOrInitials>S</urn1:secondNameOrInitials>
                <urn1:fullName>Sammy S. Smith</urn1:fullName>
             </urn1:secondWitnessName>
             <urn1:secondWitnessPhone>
@@ -6124,8 +5926,8 @@ DeleteFile(backupUddiFile, log);
                   <urn1:originalText>phoneCode</urn1:originalText>
                </urn1:phoneNumberType>
             </urn1:secondWitnessPhone>
-            <urn1:SSN>253-98-7546</urn1:SSN>
-            <urn1:uniquePatientId>500000000^^^&amp;1.1&amp;ISO</urn1:uniquePatientId>
+	    <urn1:SSN>253-98-7546</urn1:SSN>
+           <urn1:uniquePatientId>500000000^^^&amp;1.1&amp;ISO</urn1:uniquePatientId>
             <urn1:witnessAddress>
                <urn1:addressType>
                   <urn1:code>addrCode</urn1:code>
@@ -6190,7 +5992,7 @@ DeleteFile(backupUddiFile, log);
                   <urn1:homeCommunityId>${#Project#RemoteHCID}</urn1:homeCommunityId>
                   <urn1:name>${#Project#RemoteHCDescription}</urn1:name>
                </urn1:org>
-               <urn1:roleCoded>
+	    <urn1:roleCoded>
                   <urn1:code>307969004</urn1:code>
                   <urn1:codeSystem>2.16.840.1.113883.6.96</urn1:codeSystem>
                   <urn1:codeSystemName>SNOMED_CT</urn1:codeSystemName>
@@ -6198,9 +6000,9 @@ DeleteFile(backupUddiFile, log);
                   <urn1:displayName>Public Health</urn1:displayName>
                   <urn1:originalText>Public Health</urn1:originalText>
                </urn1:roleCoded>
-            </urn1:userInfo>
+	    </urn1:userInfo>
             <urn1:authorized>true</urn1:authorized>
-            <urn1:purposeOfDisclosureCoded>
+	    <urn1:purposeOfDisclosureCoded>
                <urn1:code>PUBLICHEALTHKIERAN</urn1:code>
                <urn1:codeSystem>2.16.840.1.113883.3.18.7.1</urn1:codeSystem>
                <urn1:codeSystemName>nhin-purpose</urn1:codeSystemName>
@@ -6237,20 +6039,18 @@ DeleteFile(backupUddiFile, log);
             </urn1:samlAuthzDecisionStatement>
          </urn:assertion>
 
-         <urn:nhinTargetCommunities>
-            <urn1:nhinTargetCommunity>
+         <urn:nhinTargetSystem>
                <urn1:homeCommunity>
                   <urn1:description>${#Project#RemoteHCDescription}</urn1:description>
                   <urn1:homeCommunityId>${#Project#RemoteHCID}</urn1:homeCommunityId>
                   <urn1:name>${#Project#RemoteHCDescription}</urn1:name>
                </urn1:homeCommunity>
-            </urn1:nhinTargetCommunity>
-         </urn:nhinTargetCommunities>
-
-         <urn:ProvideAndRegisterDocumentSetRequest>
+            </urn:nhinTargetSystem>
+         
+	<urn:ProvideAndRegisterDocumentSetRequest>
             <urn2:SubmitObjectsRequest id="123" comment="comme">
                <!--Optional:-->
-
+  
                <urn4:RegistryObjectList>
                   <urn4:ExtrinsicObject id="Document01" mimeType="text/xml" objectType="urn:uuid:7edca82f-054d-47f2-a032-9b2a5b5186c1">
                      <urn4:Slot name="creationTime">
@@ -6454,7 +6254,7 @@ DeleteFile(backupUddiFile, log);
                         </urn4:ValueList>
                      </urn4:Slot>
                   </urn4:Association>
-               </urn4:RegistryObjectList>
+               </urn4:RegistryObjectList> 
 
             </urn2:SubmitObjectsRequest>
             <!--1 or more repetitions:-->
@@ -6466,7 +6266,7 @@ DeleteFile(backupUddiFile, log);
 		<con:assertion type="SOAP Response"/>
 		<con:assertion type="Schema Compliance">
 			<con:configuration>
-				<definition>f:\glassfish-2.1.1/domains/domain1/config/nhin/wsdl/NhincProxyXDR.wsdl</definition>
+				<definition/>
 			</con:configuration>
 		</con:assertion>
 		<con:assertion type="SOAP Fault Assertion"/>
@@ -6574,7 +6374,7 @@ DeleteFile(backupUddiFile, log);
 
 
 
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Patient Discovery Deferred Req" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Patient Discovery Deferred Req" searchProperties="true" id="54d60af9-90e1-4dfc-b924-bf57c9ecd9bc">
 	<con:settings/>
 	<con:testStep name="Patient Discovery Deferred Req" type="request">
 		<con:settings/>
@@ -7208,7 +7008,7 @@ DeleteFile(backupUddiFile, log);
 <con:reportParameters/>
 </con:testCase>
 
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Patient Discovery Deferred Resp" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Patient Discovery Deferred Resp" searchProperties="true" id="1c237b31-75f5-4d7b-bf23-cb60796ac3c7">
 	<con:settings/>      
 	<con:testStep name="Patient Discovery Deferred Resp" type="request">
 		<con:settings/>
@@ -7890,7 +7690,7 @@ DeleteFile(backupUddiFile, log);
 </con:properties>
 <con:reportParameters/>
 </con:testCase>
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Patient Discovery" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Patient Discovery" searchProperties="true" id="ab642beb-e05f-4f27-b213-ae6538c72802">
 	<con:settings/>
 	<con:testStep name="clear correlations table" type="groovy">
 		<con:settings/>
@@ -8298,7 +8098,7 @@ DeleteFile(backupUddiFile, log);
 </con:properties>
 <con:reportParameters/>
 </con:testCase>
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Query" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Query" searchProperties="true" id="47066ca2-9c46-43e3-ae75-b5891f9677eb">
 	<con:settings/>
 	<con:testStep name="Document Query" type="request">
 		<con:settings/>
@@ -8686,7 +8486,7 @@ DeleteFile(backupUddiFile, log);
 </con:properties>
 <con:reportParameters/>
 </con:testCase>
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Retrieve" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Retrieve" searchProperties="true" id="78aea978-a242-4d5d-94ee-05c572fdb569">
 	<con:settings/>
 	<con:testStep name="Document Retrieve" type="request">
 		<con:settings/>
@@ -9077,7 +8877,7 @@ DeleteFile(backupUddiFile, log);
 </con:properties>
 <con:reportParameters/>
 </con:testCase>
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Subscribe" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Subscribe" searchProperties="true" id="d6061687-09a2-40f2-ad3c-1f48ba9f4722">
 	<con:settings/>
 
 	<con:testStep name="update config" type="groovy">
@@ -9447,10 +9247,10 @@ File gatewayBakFile = new File(MasterGatewayPropFile)
 
 if(gatewayBakFile.exists()) {
 	def reader = gatewayBakFile.newReader()
-   		gatewayFile.withWriter { writer ->
-       	writer &lt;&lt; reade
-   	}
-   reader.close()
+	gatewayFile.withWriter { writer ->
+	writer &lt;&lt; reader
+}
+	reader.close()
 } else {
 	throw new RuntimeException('Unable to locate master/gateway.properties')
 }
@@ -9492,8 +9292,7 @@ void DeleteFile(File file, log) {
 }
 
 DeleteFile(backupInternalFile, log);
-DeleteFile(backupUddiFile, log);
-</con:tearDownScript>
+DeleteFile(backupUddiFile, log);</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
@@ -9515,7 +9314,7 @@ DeleteFile(backupUddiFile, log);
 <con:reportParameters/>
 </con:testCase>
 
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Notify" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Notify" searchProperties="true" id="e39dfd43-5eed-445e-8b29-1a9c86e3291d">
 	<con:settings/>
 
 	<con:testStep name="update config" type="groovy">
@@ -10224,7 +10023,7 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 </con:properties>
 <con:reportParameters/>
 </con:testCase>
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Unsubscribe" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Unsubscribe" searchProperties="true" id="c8bbeea9-71ca-4830-aeab-931ebf068aab">
 	<con:settings/>
 
 	<con:testStep name="update config" type="groovy">
@@ -10672,7 +10471,7 @@ DeleteFile(backupUddiFile, log);
 </con:properties>
 <con:reportParameters/>
 </con:testCase>
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Admin Distribution" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Admin Distribution" searchProperties="true" id="0ac7d0f0-e4d5-47bc-9cee-7307a8bfae42">
 	<con:settings/>
 	<con:testStep name="Admin Distribution" type="request">
 		<con:settings/>
@@ -11236,13 +11035,13 @@ nhinc.FileUtils.backupConfiguration(log);
 nhinc.FileUtils.updateGatewayProperty("purposeForUseEnabled","true", log);
 nhinc.FileUtils.moveFile(context.expand(testSuite.project.resourceRoot), "uddiConnectionInfo_g0.xml", System.env['NHINC_PROPERTIES_DIR'], "uddiConnectionInfo.xml", log);
 nhinc.FileUtils.changeSpringConfig("PurposeUseProxyConfig.xml", "gateway", log);</con:setupScript>
-<con:tearDownScript>restoreGatewayProperties();</con:tearDownScript><con:reportParameters/>
+<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(log);</con:tearDownScript><con:reportParameters/>
 </con:testSuite><con:testSuite name="MsgProxy_g1_gateway_False">
 		<con:description>Testing for Purpose Of/For Use. This suite sends a request message to the g1 message proxy interfaces, with the Gateway spring proxy, and purposeForUseEnabled=false in gateway.properties.
 Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 specs do not respect the Purpose Of/For Use settings, and thus PurposeOfUse should be used.</con:description>
 		<con:settings/>
 		<con:runType>SEQUENTIAL</con:runType>
-		<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Submission Deferred Req" searchProperties="true">
+		<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Submission Deferred Req" searchProperties="true" id="1ffa55ea-af47-4d95-a1d2-cb710059877a">
 			<con:settings/>
 			<con:testStep name="Doc Submission Deferred Req" type="request">
 				<con:settings/>
@@ -11817,7 +11616,7 @@ DeleteFile(backupUddiFile, log);
 
 
 
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Submission Deferred Resp" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Submission Deferred Resp" searchProperties="true" id="73c28b14-cb81-4823-8d3c-5221459d9952">
 	<con:settings/>
 	<con:testStep name="Doc Submission Deferred Resp" type="request">
 		<con:settings/>
@@ -12284,7 +12083,7 @@ DeleteFile(backupUddiFile, log);
 
 
 
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Submission" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Submission" searchProperties="true" id="9df07810-7bc7-49d0-8639-2fbb91ee95ab">
 	<con:settings/>
 	<con:testStep name="Document Submission" type="request">
 		<con:settings/>
@@ -12844,7 +12643,7 @@ DeleteFile(backupUddiFile, log);
 	</con:property>
 </con:properties>
 </con:testCase>
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Patient Discovery Deferred Req" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Patient Discovery Deferred Req" searchProperties="true" id="64d1703b-6aff-411f-b408-acf2077242f3">
 	<con:settings/>
 	<con:testStep name="Patient Discovery Deferred Req" type="request">
 		<con:settings/>
@@ -12858,168 +12657,184 @@ DeleteFile(backupUddiFile, log);
 		<con:encoding>UTF-8</con:encoding>
 		<con:endpoint>${#TestSuite#Endpoint-PatientDiscoveryAsyncReq}</con:endpoint>
 		<con:request><![CDATA[
-			<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
+			<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soap:Header/>
-   <soap:Body testSuite="MsgProxy_g1" testCase="Patient Discovery Deferred Req">
-      <urn:RespondingGateway_ProvideAndRegisterDocumentSetRequest>
-          <urn:assertion>
+   <soap:Body testSuite="MsgProxy_g0" testCase="Patient Discovery Deferred Req">
+      <urn:Proxy_PRPA_IN201305UVProxyRequest>
+         <urn:PRPA_IN201305UV02 ITSVersion="XML_1.0">
+            <urn:id root="1.1" extension="-5a3e95b1:11d1fa33d45:-7f9b"/>
+            <urn:creationTime value="20091116084800"/>
+            <urn:interactionId root="2.16.840.1.113883.1.6" extension="PRPA_IN201305UV02"/>
+            <urn:processingCode code="T"/>
+            <urn:processingModeCode code="T"/>
+            <urn:acceptAckCode code="AL"/>
+            <urn:receiver typeCode="RCV">
+               <urn:device classCode="DEV" determinerCode="INSTANCE">
+                  <urn:id root="1.2.345.678.999"/>
+                  <urn:asAgent classCode="AGNT">
+                     <urn:representedOrganization classCode="ORG" determinerCode="INSTANCE">
+                        <urn:id root="${#Project#LocalHCID}"/>
+                     </urn:representedOrganization>
+                  </urn:asAgent>
+               </urn:device>
+            </urn:receiver>
+            <urn:sender typeCode="SND">
+               <urn:device classCode="DEV" determinerCode="INSTANCE">
+                  <urn:id root="1.2.345.678.999"/>
+                  <urn:asAgent classCode="AGNT">
+                     <urn:representedOrganization classCode="ORG" determinerCode="INSTANCE">
+                        <urn:id root="${#Project#RemoteHCID}"/>
+                     </urn:representedOrganization>
+                  </urn:asAgent>
+               </urn:device>
+            </urn:sender>
+            <urn:controlActProcess classCode="CACT" moodCode="EVN">
+               <urn:authorOrPerformer typeCode="AUT">
+                  <urn:assignedDevice>
+                     <urn:id root="${#Project#RemoteAA}"/>
+                  </urn:assignedDevice>
+               </urn:authorOrPerformer>
+               <urn:queryByParameter>
+                  <urn:queryId root="${#Project#RemoteHCID}" extension="-abd3453dcd24wkkks545"/>
+                  <urn:statusCode code="new"/>
+                  <urn:responseModalityCode code="R"/>
+                  <urn:responsePriorityCode code="I"/>
+                  <urn:parameterList>
+                     <urn:livingSubjectAdministrativeGender>
+                        <urn:value code="${#Project#Gender}"/>
+                        <urn:semanticsText representation="TXT">LivingSubject.administrativeGender</urn:semanticsText>
+                     </urn:livingSubjectAdministrativeGender>
+                     <urn:livingSubjectBirthTime>
+                        <urn:value value="${#Project#BirthTime}"/>
+                        <urn:semanticsText representation="TXT">LivingSubject.birthTime</urn:semanticsText>
+                     </urn:livingSubjectBirthTime>
+                     <urn:livingSubjectName>
+                        <urn:value>
+                           <urn:family partType="FAM">${#Project#FamilyName}</urn:family>
+                           <urn:given partType="GIV">${#Project#GivenName}</urn:given>
+                        </urn:value>
+                        <urn:semanticsText representation="TXT">LivingSubject.name</urn:semanticsText>
+                     </urn:livingSubjectName>
+                     <urn:livingSubjectId>
+                        <urn:value root="${#Project#RemoteAA}" extension="${#Project#SubjectID}"/>
+                        <urn:semanticsText representation="TXT"/>
+                     </urn:livingSubjectId>
+                  </urn:parameterList>
+               </urn:queryByParameter>
+            </urn:controlActProcess>
+         </urn:PRPA_IN201305UV02>
+         <urn:assertion>
             <urn1:address>
                <urn1:addressType>
-                  <urn1:code>AddrCode</urn1:code>
-                  <urn1:codeSystem>AddrCodeSyst</urn1:codeSystem>
-                  <urn1:codeSystemName>AddrCodeSystName</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
-                  <urn1:displayName>AddrCode</urn1:displayName>
-                  <urn1:originalText>AddrCode</urn1:originalText>
+                  <urn1:code>W</urn1:code>
                </urn1:addressType>
-               <urn1:city>AddrCity</urn1:city>
-               <urn1:country>AddrCountry</urn1:country>
-               <urn1:state>AddrState</urn1:state>
-               <urn1:streetAddress>AddrStreet</urn1:streetAddress>
-               <urn1:zipCode>AddrZip</urn1:zipCode>
+               <urn1:city>${#Project#City}</urn1:city>
+               <urn1:country>${#Project#Country}</urn1:country>
+               <urn1:state>${#Project#State}</urn1:state>
+               <urn1:streetAddress>${#Project#StreetAddress}</urn1:streetAddress>
+               <urn1:zipCode>${#Project#ZipCode}</urn1:zipCode>
             </urn1:address>
-            <urn1:dateOfBirth>06/04/1959 05:21:00</urn1:dateOfBirth>
-            <urn1:explanationNonClaimantSignature>Electronic</urn1:explanationNonClaimantSignature>
-            <urn1:haveSecondWitnessSignature>false</urn1:haveSecondWitnessSignature>
-            <urn1:haveSignature>false</urn1:haveSignature>
-            <urn1:haveWitnessSignature>false</urn1:haveWitnessSignature>
+            <urn1:dateOfBirth>${#Project#DOB}</urn1:dateOfBirth>
+            <urn1:explanationNonClaimantSignature>NEEDED</urn1:explanationNonClaimantSignature>
+            <urn1:haveSecondWitnessSignature>true</urn1:haveSecondWitnessSignature>
+            <urn1:haveSignature>true</urn1:haveSignature>
+            <urn1:haveWitnessSignature>true</urn1:haveWitnessSignature>
             <urn1:homeCommunity>
-               <urn1:description>${#Project#LocalHCDescription}</urn1:description>
-               <urn1:homeCommunityId>${#Project#LocalHCID}</urn1:homeCommunityId>
-               <urn1:name>${#Project#LocalHCDescription}</urn1:name>
+               <urn1:description>${#Project#RemoteHCDescription}</urn1:description>
+               <urn1:homeCommunityId>${#Project#RemoteHCID}</urn1:homeCommunityId>
+               <urn1:name>${#Project#RemoteHCDescription}</urn1:name>
             </urn1:homeCommunity>
             <urn1:personName>
-               <urn1:familyName>Smith</urn1:familyName>
-               <urn1:givenName>Sandy</urn1:givenName>
+               <urn1:familyName>${#Project#FamilyName}</urn1:familyName>
+               <urn1:givenName>${#Project#GivenName}</urn1:givenName>
                <urn1:nameType>
-                  <urn1:code>nameCode</urn1:code>
-                  <urn1:codeSystem>nameCodeSyst</urn1:codeSystem>
-                  <urn1:codeSystemName>nameCodeSystName</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
-                  <urn1:displayName>nameCode</urn1:displayName>
-                  <urn1:originalText>nameCode</urn1:originalText>
+                  <urn1:code>G</urn1:code>
                </urn1:nameType>
-               <urn1:secondNameOrInitials>S</urn1:secondNameOrInitials>
-               <urn1:fullName>Sandy S. Smith</urn1:fullName>
+               <urn1:secondNameOrInitials>FJ</urn1:secondNameOrInitials>
+               <urn1:fullName>Joe Smith</urn1:fullName>
+               <urn1:prefix>Mr</urn1:prefix>
             </urn1:personName>
             <urn1:phoneNumber>
-               <urn1:areaCode>321</urn1:areaCode>
+               <urn1:areaCode>123</urn1:areaCode>
                <urn1:countryCode>1</urn1:countryCode>
-               <urn1:extension>5436</urn1:extension>
-               <urn1:localNumber>253-6849</urn1:localNumber>
+               <urn1:extension>1234</urn1:extension>
+               <urn1:localNumber>3456789</urn1:localNumber>
                <urn1:phoneNumberType>
-                  <urn1:code>phoneCode</urn1:code>
-                  <urn1:codeSystem>phoneCodeSyst</urn1:codeSystem>
-                  <urn1:codeSystemName>phoneCodeSystName</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
-                  <urn1:displayName>phoneCode</urn1:displayName>
-                  <urn1:originalText>phoneCode</urn1:originalText>
+                  <urn1:code>W</urn1:code>
                </urn1:phoneNumberType>
             </urn1:phoneNumber>
             <urn1:secondWitnessAddress>
                <urn1:addressType>
-                  <urn1:code>AddrCode</urn1:code>
-                  <urn1:codeSystem>AddrCodeSyst</urn1:codeSystem>
-                  <urn1:codeSystemName>AddrCodeSystName</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
-                  <urn1:displayName>AddrCode</urn1:displayName>
-                  <urn1:originalText>AddrCode</urn1:originalText>
+                  <urn1:code>W</urn1:code>
                </urn1:addressType>
-               <urn1:city>Addr2City</urn1:city>
-               <urn1:country>Addr2Country</urn1:country>
-               <urn1:state>Addr2State</urn1:state>
-               <urn1:streetAddress>Addr2Street</urn1:streetAddress>
-               <urn1:zipCode>Addr2Zip</urn1:zipCode>
+               <urn1:city>Melbourne</urn1:city>
+               <urn1:country>US</urn1:country>
+               <urn1:state>FL</urn1:state>
+               <urn1:streetAddress>123 Johnson Rd</urn1:streetAddress>
+               <urn1:zipCode>12345</urn1:zipCode>
             </urn1:secondWitnessAddress>
             <urn1:secondWitnessName>
-               <urn1:familyName>Smith</urn1:familyName>
-               <urn1:givenName>Sammy</urn1:givenName>
+               <urn1:familyName>Hughes</urn1:familyName>
+               <urn1:givenName>Howie</urn1:givenName>
                <urn1:nameType>
-                  <urn1:code>nameCode</urn1:code>
-                  <urn1:codeSystem>nameCodeSyst</urn1:codeSystem>
-                  <urn1:codeSystemName>nameCodeSystName</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
-                  <urn1:displayName>nameCode</urn1:displayName>
-                  <urn1:originalText>nameCode</urn1:originalText>
+                  <urn1:code>G</urn1:code>
                </urn1:nameType>
-               <urn1:secondNameOrInitials>s</urn1:secondNameOrInitials>
-               <urn1:fullName>Sammy S. Smith</urn1:fullName>
+               <urn1:secondNameOrInitials>HH</urn1:secondNameOrInitials>
+               <urn1:fullName>Howie Hughes</urn1:fullName>
+               <urn1:prefix>Dr</urn1:prefix>
             </urn1:secondWitnessName>
             <urn1:secondWitnessPhone>
-               <urn1:areaCode>321</urn1:areaCode>
+               <urn1:areaCode>123</urn1:areaCode>
                <urn1:countryCode>1</urn1:countryCode>
-               <urn1:extension>5424</urn1:extension>
-               <urn1:localNumber>542-6823</urn1:localNumber>
+               <urn1:extension>1546</urn1:extension>
+               <urn1:localNumber>4567892</urn1:localNumber>
                <urn1:phoneNumberType>
-                  <urn1:code>phoneCode</urn1:code>
-                  <urn1:codeSystem>phoneCodeSyst</urn1:codeSystem>
-                  <urn1:codeSystemName>phoneCodeSystName</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
-                  <urn1:displayName>phoneCode</urn1:displayName>
-                  <urn1:originalText>phoneCode</urn1:originalText>
+                  <urn1:code>W</urn1:code>
                </urn1:phoneNumberType>
             </urn1:secondWitnessPhone>
-            <urn1:SSN>253-98-7546</urn1:SSN>
-            <urn1:uniquePatientId>500000000^^^&amp;1.1&amp;ISO</urn1:uniquePatientId>
+            <urn1:SSN>${#Project#SSN}</urn1:SSN>
+            <urn1:uniquePatientId>${#Project#UniquePatientId}</urn1:uniquePatientId>
             <urn1:witnessAddress>
                <urn1:addressType>
-                  <urn1:code>addrCode</urn1:code>
-                  <urn1:codeSystem>addrCodeSyst</urn1:codeSystem>
-                  <urn1:codeSystemName>addrCodeSystName</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
-                  <urn1:displayName>addrCode</urn1:displayName>
-                  <urn1:originalText>addrCode</urn1:originalText>
+                  <urn1:code>W</urn1:code>
                </urn1:addressType>
-               <urn1:city>Burnell</urn1:city>
-               <urn1:country>USA</urn1:country>
-               <urn1:state>FL</urn1:state>
-               <urn1:streetAddress>825 North</urn1:streetAddress>
-               <urn1:zipCode>32184</urn1:zipCode>
+               <urn1:city>Frankfort</urn1:city>
+               <urn1:country>US</urn1:country>
+               <urn1:state>MN</urn1:state>
+               <urn1:streetAddress>432 Jackson St</urn1:streetAddress>
+               <urn1:zipCode>65498</urn1:zipCode>
             </urn1:witnessAddress>
             <urn1:witnessName>
-               <urn1:familyName>Smith</urn1:familyName>
-               <urn1:givenName>Scott</urn1:givenName>
+               <urn1:familyName>Ugble</urn1:familyName>
+               <urn1:givenName>Gary</urn1:givenName>
                <urn1:nameType>
-                  <urn1:code>nameCode</urn1:code>
-                  <urn1:codeSystem>nameCodeSyst</urn1:codeSystem>
-                  <urn1:codeSystemName>nameCodeSystName</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
-                  <urn1:displayName>nameCode</urn1:displayName>
-                  <urn1:originalText>nameCode</urn1:originalText>
+                  <urn1:code>G</urn1:code>
                </urn1:nameType>
-               <urn1:secondNameOrInitials>S.</urn1:secondNameOrInitials>
-               <urn1:fullName>Scott S. Smith</urn1:fullName>
+               <urn1:secondNameOrInitials>GU</urn1:secondNameOrInitials>
+               <urn1:fullName>Gary Ugble</urn1:fullName>
+               <urn1:prefix>Mr</urn1:prefix>
             </urn1:witnessName>
             <urn1:witnessPhone>
-               <urn1:areaCode>321</urn1:areaCode>
+               <urn1:areaCode>987</urn1:areaCode>
                <urn1:countryCode>1</urn1:countryCode>
-               <urn1:extension>8432</urn1:extension>
-               <urn1:localNumber>985-2239</urn1:localNumber>
+               <urn1:extension>6549</urn1:extension>
+               <urn1:localNumber>2222222</urn1:localNumber>
                <urn1:phoneNumberType>
-                  <urn1:code>phoneCode</urn1:code>
-                  <urn1:codeSystem>phoneCodeSyst</urn1:codeSystem>
-                  <urn1:codeSystemName>phoneCodeSystName</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
-                  <urn1:displayName>phoneCode</urn1:displayName>
-                  <urn1:originalText>phoneCode</urn1:originalText>
+                  <urn1:code>H</urn1:code>
                </urn1:phoneNumberType>
             </urn1:witnessPhone>
             <urn1:userInfo>
                <urn1:personName>
-                  <urn1:familyName>Skagerberg</urn1:familyName>
-                  <urn1:givenName>Karl</urn1:givenName>
+                  <urn1:familyName>Anderson</urn1:familyName>
+                  <urn1:givenName>Wilma</urn1:givenName>
                   <urn1:nameType>
-                     <urn1:code>nameCode</urn1:code>
-                     <urn1:codeSystem>nameCodeSyst</urn1:codeSystem>
-                     <urn1:codeSystemName>nameCodeSystName</urn1:codeSystemName>
-                     <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
-                     <urn1:displayName>nameCode</urn1:displayName>
-                     <urn1:originalText>nameCode</urn1:originalText>
+                     <urn1:code>G</urn1:code>
                   </urn1:nameType>
-                  <urn1:secondNameOrInitials>S</urn1:secondNameOrInitials>
-                  <urn1:fullName>Kasrl S. Skagerberg</urn1:fullName>
+                  <urn1:secondNameOrInitials>WA</urn1:secondNameOrInitials>
+                  <urn1:fullName>Wilma Anderson</urn1:fullName>
+                  <urn1:prefix>Mrs</urn1:prefix>
                </urn1:personName>
-               <urn1:userName>kskagerb</urn1:userName>
+               <urn1:userName>wanderson</urn1:userName>
                <urn1:org>
                   <urn1:description>${#Project#RemoteHCDescription}</urn1:description>
                   <urn1:homeCommunityId>${#Project#RemoteHCID}</urn1:homeCommunityId>
@@ -13072,225 +12887,13 @@ DeleteFile(backupUddiFile, log);
             </urn1:samlAuthzDecisionStatement>
          </urn:assertion>
          <urn:nhinTargetSystem>
-            <!--You have a CHOICE of the next 3 items at this level-->
             <urn1:homeCommunity>
-               <urn1:description>${#Project#RemoteHCDescription}</urn1:description>
-               <urn1:homeCommunityId>${#Project#RemoteHCID}</urn1:homeCommunityId>
-               <urn1:name>${#Project#RemoteHCDescription}</urn1:name>
+               <urn1:description>${#Project#LocalHCDescription}</urn1:description>
+               <urn1:homeCommunityId>${#Project#LocalHCID}</urn1:homeCommunityId>
+               <urn1:name>${#Project#LocalHCDescription}</urn1:name>
             </urn1:homeCommunity>
          </urn:nhinTargetSystem>
-         <urn:ProvideAndRegisterDocumentSetRequest>
-            <urn2:SubmitObjectsRequest id="123" comment="comme">
-               <!--Optional:-->
-               <urn4:RegistryObjectList>
-                  <urn4:ExtrinsicObject id="Document01" mimeType="text/xml" objectType="urn:uuid:7edca82f-054d-47f2-a032-9b2a5b5186c1">
-                     <urn4:Slot name="creationTime">
-                        <urn4:ValueList>
-                           <urn4:Value>20051224</urn4:Value>
-                        </urn4:ValueList>
-                     </urn4:Slot>
-                     <urn4:Slot name="languageCode">
-                        <urn4:ValueList>
-                           <urn4:Value>en-us</urn4:Value>
-                        </urn4:ValueList>
-                     </urn4:Slot>
-                     <urn4:Slot name="serviceStartTime">
-                        <urn4:ValueList>
-                           <urn4:Value>200412230800</urn4:Value>
-                        </urn4:ValueList>
-                     </urn4:Slot>
-                     <urn4:Slot name="serviceStopTime">
-                        <urn4:ValueList>
-                           <urn4:Value>200412230801</urn4:Value>
-                        </urn4:ValueList>
-                     </urn4:Slot>
-                     <urn4:Slot name="sourcePatientId">
-                        <urn4:ValueList>
-                           <urn4:Value>SELF-5^^^&amp;1.3.6.1.4.1.21367.2003.3.9&amp;ISO</urn4:Value>
-                        </urn4:ValueList>
-                     </urn4:Slot>
-                     <urn4:Slot name="sourcePatientInfo">
-                        <urn4:ValueList>
-                           <urn4:Value>PID-3|SELF-5^^^&amp;1.3.6.1.4.1.21367.2003.3.9&amp;ISO</urn4:Value>
-                           <urn4:Value>PID-5|Doe^John^^^</urn4:Value>
-                           <urn4:Value>PID-7|19560527</urn4:Value>
-                           <urn4:Value>PID-8|M</urn4:Value>
-                           <urn4:Value>PID-11|100 Main St^^Metropolis^Il^44130^USA</urn4:Value>
-                        </urn4:ValueList>
-                     </urn4:Slot>
-                     <urn4:Name>
-                        <urn4:LocalizedString value="Physical"/>
-                     </urn4:Name>
-                     <urn4:Description/>
-                     <urn4:Classification id="cl01" classificationScheme="urn:uuid:93606bcf-9494-43ec-9b4e-a7748d1a838d" classifiedObject="Document01">
-                        <urn4:Slot name="authorPerson">
-                           <urn4:ValueList>
-                              <urn4:Value>Gerald Smitty</urn4:Value>
-                           </urn4:ValueList>
-                        </urn4:Slot>
-                        <urn4:Slot name="authorInstitution">
-                           <urn4:ValueList>
-                              <urn4:Value>Cleveland Clinic</urn4:Value>
-                              <urn4:Value>Parma Community</urn4:Value>
-                           </urn4:ValueList>
-                        </urn4:Slot>
-                        <urn4:Slot name="authorRole">
-                           <urn4:ValueList>
-                              <urn4:Value>Attending</urn4:Value>
-                           </urn4:ValueList>
-                        </urn4:Slot>
-                        <urn4:Slot name="authorSpecialty">
-                           <urn4:ValueList>
-                              <urn4:Value>Orthopedic</urn4:Value>
-                           </urn4:ValueList>
-                        </urn4:Slot>
-                     </urn4:Classification>
-                     <urn4:Classification id="cl02" classificationScheme="urn:uuid:41a5887f-8865-4c09-adf7-e362475b143a" classifiedObject="Document01" nodeRepresentation="History and Physical">
-                        <urn4:Slot name="codingScheme">
-                           <urn4:ValueList>
-                              <urn4:Value>Connect-a-thon classCodes</urn4:Value>
-                           </urn4:ValueList>
-                        </urn4:Slot>
-                        <urn4:Name>
-                           <urn4:LocalizedString value="History and Physical"/>
-                        </urn4:Name>
-                     </urn4:Classification>
-                     <urn4:Classification id="cl03" classificationScheme="urn:uuid:f4f85eac-e6cb-4883-b524-f2705394840f" classifiedObject="Document01" nodeRepresentation="1.3.6.1.4.1.21367.2006.7.101">
-                        <urn4:Slot name="codingScheme">
-                           <urn4:ValueList>
-                              <urn4:Value>Connect-a-thon confidentialityCodes</urn4:Value>
-                           </urn4:ValueList>
-                        </urn4:Slot>
-                        <urn4:Name>
-                           <urn4:LocalizedString value="Clinical-Staff"/>
-                        </urn4:Name>
-                     </urn4:Classification>
-                     <urn4:Classification id="cl04" classificationScheme="urn:uuid:a09d5840-386c-46f2-b5ad-9c3699a4309d" classifiedObject="Document01" nodeRepresentation="CDAR2/IHE 1.0">
-                        <urn4:Slot name="codingScheme">
-                           <urn4:ValueList>
-                              <urn4:Value>Connect-a-thon formatCodes</urn4:Value>
-                           </urn4:ValueList>
-                        </urn4:Slot>
-                        <urn4:Name>
-                           <urn4:LocalizedString value="CDAR2/IHE 1.0"/>
-                        </urn4:Name>
-                     </urn4:Classification>
-                     <urn4:Classification id="cl05" classificationScheme="urn:uuid:f33fb8ac-18af-42cc-ae0e-ed0b0bdb91e1" classifiedObject="Document01" nodeRepresentation="Outpatient">
-                        <urn4:Slot name="codingScheme">
-                           <urn4:ValueList>
-                              <urn4:Value>Connect-a-thon healthcareFacilityTypeCodes</urn4:Value>
-                           </urn4:ValueList>
-                        </urn4:Slot>
-                        <urn4:Name>
-                           <urn4:LocalizedString value="Outpatient"/>
-                        </urn4:Name>
-                     </urn4:Classification>
-                     <urn4:Classification id="cl06" classificationScheme="urn:uuid:cccf5598-8b07-4b77-a05e-ae952c785ead" classifiedObject="Document01" nodeRepresentation="General Medicine">
-                        <urn4:Slot name="codingScheme">
-                           <urn4:ValueList>
-                              <urn4:Value>Connect-a-thon practiceSettingCodes</urn4:Value>
-                           </urn4:ValueList>
-                        </urn4:Slot>
-                        <urn4:Name>
-                           <urn4:LocalizedString value="General Medicine"/>
-                        </urn4:Name>
-                     </urn4:Classification>
-                     <urn4:Classification id="cl07" classificationScheme="urn:uuid:f0306f51-975f-434e-a61c-c59651d33983" classifiedObject="Document01" nodeRepresentation="34108-1">
-                        <urn4:Slot name="codingScheme">
-                           <urn4:ValueList>
-                              <urn4:Value>LOINC</urn4:Value>
-                           </urn4:ValueList>
-                        </urn4:Slot>
-                        <urn4:Name>
-                           <urn4:LocalizedString value="Outpatient Evaluation And Management"/>
-                        </urn4:Name>
-                     </urn4:Classification>
-                     <urn4:ExternalIdentifier id="ei01" registryObject="Document01" identificationScheme="urn:uuid:58a6f841-87b3-4a3e-92fd-a8ffeff98427" value="SELF-5^^^&amp;1.3.6.1.4.1.21367.2005.3.7&amp;ISO">
-                        <urn4:Name>
-                           <urn4:LocalizedString value="XDSDocumentEntry.patientId"/>
-                        </urn4:Name>
-                     </urn4:ExternalIdentifier>
-                     <urn4:ExternalIdentifier id="ei02" registryObject="Document01" identificationScheme="urn:uuid:2e82c1f6-a085-4c72-9da3-8640a32e42ab" value="1.3.6.1.4.1.21367.2005.3.9999.32">
-                        <urn4:Name>
-                           <urn4:LocalizedString value="XDSDocumentEntry.uniqueId"/>
-                        </urn4:Name>
-                     </urn4:ExternalIdentifier>
-                  </urn4:ExtrinsicObject>
-                  <urn4:RegistryPackage id="SubmissionSet01">
-                     <urn4:Slot name="submissionTime">
-                        <urn4:ValueList>
-                           <urn4:Value>20041225235050</urn4:Value>
-                        </urn4:ValueList>
-                     </urn4:Slot>
-                     <urn4:Name>
-                        <urn4:LocalizedString value="Physical"/>
-                     </urn4:Name>
-                     <urn4:Description>
-                        <urn4:LocalizedString value="Annual physical"/>
-                     </urn4:Description>
-                     <urn4:Classification id="cl08" classificationScheme="urn:uuid:a7058bb9-b4e4-4307-ba5b-e3f0ab85e12d" classifiedObject="SubmissionSet01">
-                        <urn4:Slot name="authorPerson">
-                           <urn4:ValueList>
-                              <urn4:Value>Sherry Dopplemeyer</urn4:Value>
-                           </urn4:ValueList>
-                        </urn4:Slot>
-                        <urn4:Slot name="authorInstitution">
-                           <urn4:ValueList>
-                              <urn4:Value>Cleveland Clinic</urn4:Value>
-                              <urn4:Value>Berea Community</urn4:Value>
-                           </urn4:ValueList>
-                        </urn4:Slot>
-                        <urn4:Slot name="authorRole">
-                           <urn4:ValueList>
-                              <urn4:Value>Purn4ary Surgon</urn4:Value>
-                           </urn4:ValueList>
-                        </urn4:Slot>
-                        <urn4:Slot name="authorSpecialty">
-                           <urn4:ValueList>
-                              <urn4:Value>Orthopedic</urn4:Value>
-                           </urn4:ValueList>
-                        </urn4:Slot>
-                     </urn4:Classification>
-                     <urn4:Classification id="cl09" classificationScheme="urn:uuid:aa543740-bdda-424e-8c96-df4873be8500" classifiedObject="SubmissionSet01" nodeRepresentation="History and Physical">
-                        <urn4:Slot name="codingScheme">
-                           <urn4:ValueList>
-                              <urn4:Value>Connect-a-thon contentTypeCodes</urn4:Value>
-                           </urn4:ValueList>
-                        </urn4:Slot>
-                        <urn4:Name>
-                           <urn4:LocalizedString value="History and Physical"/>
-                        </urn4:Name>
-                     </urn4:Classification>
-                     <urn4:ExternalIdentifier id="ei03" registryObject="SubmissionSet01" identificationScheme="urn:uuid:96fdda7c-d067-4183-912e-bf5ee74998a8" value="1.3.6.1.4.1.21367.2005.3.9999.33">
-                        <urn4:Name>
-                           <urn4:LocalizedString value="XDSSubmissionSet.uniqueId"/>
-                        </urn4:Name>
-                     </urn4:ExternalIdentifier>
-                     <urn4:ExternalIdentifier id="ei04" registryObject="SubmissionSet01" identificationScheme="urn:uuid:554ac39e-e3fe-47fe-b233-965d2a147832" value="3670984664">
-                        <urn4:Name>
-                           <urn4:LocalizedString value="XDSSubmissionSet.sourceId"/>
-                        </urn4:Name>
-                     </urn4:ExternalIdentifier>
-                     <urn4:ExternalIdentifier id="ei05" registryObject="SubmissionSet01" identificationScheme="urn:uuid:6b5aea1a-874d-4603-a4bc-96a0a7b38446" value="SELF-5^^^&amp;1.3.6.1.4.1.21367.2005.3.7&amp;ISO">
-                        <urn4:Name>
-                           <urn4:LocalizedString value="XDSSubmissionSet.patientId"/>
-                        </urn4:Name>
-                     </urn4:ExternalIdentifier>
-                  </urn4:RegistryPackage>
-                  <urn4:Classification id="cl10" classifiedObject="SubmissionSet01" classificationNode="urn:uuid:a54d6aa5-d40d-43f9-88c5-b4633d873bdd"/>
-                  <urn4:Association id="as01" associationType="HasMember" sourceObject="SubmissionSet01" targetObject="Document01">
-                     <urn4:Slot name="SubmissionSetStatus">
-                        <urn4:ValueList>
-                           <urn4:Value>Original</urn4:Value>
-                        </urn4:ValueList>
-                     </urn4:Slot>
-                  </urn4:Association>
-               </urn4:RegistryObjectList>
-            </urn2:SubmitObjectsRequest>
-            <!--1 or more repetitions:-->
-            <urn5:Document id="Document01">UjBsR09EbGhjZ0dTQUxNQUFBUUNBRU1tQ1p0dU1GUXhEUzhi</urn5:Document>
-         </urn:ProvideAndRegisterDocumentSetRequest>
-      </urn:RespondingGateway_ProvideAndRegisterDocumentSetRequest>
+      </urn:Proxy_PRPA_IN201305UVProxyRequest>
    </soap:Body>
 </soap:Envelope>]]></con:request>
 		<con:assertion type="SOAP Response"/>
@@ -13673,7 +13276,7 @@ DeleteFile(backupUddiFile, log);
 </con:properties>
 <con:reportParameters/>
 </con:testCase>
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Patient Discovery Deferred Resp" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Patient Discovery Deferred Resp" searchProperties="true" id="bf8c609e-b562-43e2-9882-9f51cb564ae3">
 	<con:settings/>      
 	<con:testStep name="Patient Discovery Deferred Resp" type="request">
 		<con:settings/>
@@ -14355,7 +13958,7 @@ DeleteFile(backupUddiFile, log);
 </con:properties>
 <con:reportParameters/>
 </con:testCase>
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Patient Discovery" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Patient Discovery" searchProperties="true" id="b40ddc0a-ecfe-482f-8bce-b864a0e8e145">
 	<con:settings/>
 	<con:testStep name="clear correlations table" type="groovy">
 		<con:settings/>
@@ -14763,7 +14366,7 @@ DeleteFile(backupUddiFile, log);
 </con:properties>
 <con:reportParameters/>
 </con:testCase>
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Query" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Query" searchProperties="true" id="e54386b3-ce45-4351-9c2e-fc903e1dd61c">
 	<con:settings/>
 	<con:testStep name="Document Query" type="request">
 		<con:settings/>
@@ -15151,7 +14754,7 @@ DeleteFile(backupUddiFile, log);
 </con:properties>
 <con:reportParameters/>
 </con:testCase>
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Retrieve" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Retrieve" searchProperties="true" id="2884956d-90b1-4fe3-825a-8b7997512b9d">
 	<con:settings/>
 	<con:testStep name="Document Retrieve" type="request">
 		<con:settings/>
@@ -15543,7 +15146,7 @@ DeleteFile(backupUddiFile, log);
 
 
 
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Admin Distribution" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Admin Distribution" searchProperties="true" id="eeb51018-f6d5-4446-8508-02bbb0b2e897">
 	<con:settings/>
 	<con:testStep name="Admin Distribution" type="request">
 		<con:settings/>
@@ -16105,13 +15708,13 @@ nhinc.FileUtils.backupConfiguration(log);
 nhinc.FileUtils.updateGatewayProperty("purposeForUseEnabled","false", log);
 nhinc.FileUtils.moveFile(context.expand(testSuite.project.resourceRoot), "uddiConnectionInfo_g1.xml", System.env['NHINC_PROPERTIES_DIR'], "uddiConnectionInfo.xml", log);
 nhinc.FileUtils.changeSpringConfig("PurposeUseProxyConfig.xml", "gateway", log);</con:setupScript>
-<con:tearDownScript>restoreGatewayProperties();</con:tearDownScript><con:reportParameters/>
+<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(log);</con:tearDownScript><con:reportParameters/>
 </con:testSuite><con:testSuite name="MsgProxy_g0_gateway_False">
 	<con:description>Testing for Purpose Of/For Use. This suite sends a request message to the g0 message proxy interfaces, with the Gateway spring proxy, and purposeForUseEnabled=false in gateway.properties.
 Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 specs respect the Purpose Of/For Use settings, and thus PurposeOfUse should be used.</con:description>
 	<con:settings/>
 	<con:runType>SEQUENTIAL</con:runType>
-	<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Submission Deferred Req" searchProperties="true">
+	<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Submission Deferred Req" searchProperties="true" id="7ecddd8c-6d35-4269-b68c-7665825ed9c4">
 		<con:settings/>
 		<con:testStep name="Doc Submission Deferred Req" type="request">
 			<con:settings/>
@@ -16679,7 +16282,7 @@ DeleteFile(backupUddiFile, log);
 </con:properties>
 <con:reportParameters/>
 </con:testCase>
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Submission Deferred Resp" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Submission Deferred Resp" searchProperties="true" id="d62604b4-449e-41e6-8b20-52d5c70c9cc2">
 	<con:settings/>
 	<con:testStep name="Doc Submission Deferred Resp" type="request">
 		<con:settings/>
@@ -16693,9 +16296,9 @@ DeleteFile(backupUddiFile, log);
 		<con:encoding>UTF-8</con:encoding>
 		<con:endpoint>${#TestSuite#Endpoint-DocSubmissionDefResp}</con:endpoint>
 		<con:request><![CDATA[
-			<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0">
+			<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0">
    <soap:Header/>
-   <soap:Body testSuite="MsgProxy_g0" testcase="Document Submission Deferred Resp">
+   <soap:Body testSuite="MsgProxy_g1" testCase="Document Submission Deferred Resp">
       <urn:RespondingGateway_ProvideAndRegisterDocumentSetResponseRequest>
          <urn:assertion>
             <urn1:address>
@@ -16972,16 +16575,13 @@ DeleteFile(backupUddiFile, log);
             <urn1:relatesToList>uuid:088a26e8-6b03-4bf8-84f1-737dc94be2e0</urn1:relatesToList>
          </urn:assertion>
          <!--Optional:-->
-         <urn:nhinTargetCommunities>
-            <!--1 or more repetitions:-->
-            <urn1:nhinTargetCommunity>
+         <urn:nhinTargetSystem>
                <urn1:homeCommunity>
                   <urn1:description>${#Project#RemoteHCDescription}</urn1:description>
                   <urn1:homeCommunityId>${#Project#RemoteHCID}</urn1:homeCommunityId>
                   <urn1:name>${#Project#RemoteHCDescription}</urn1:name>
                </urn1:homeCommunity>
-            </urn1:nhinTargetCommunity>
-         </urn:nhinTargetCommunities>
+         </urn:nhinTargetSystem>
          <urn:RegistryResponse status="urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Success" requestId="?"><!--Optional:-->
             <urn2:ResponseSlotList>
                <!--Zero or more repetitions:-->
@@ -17003,7 +16603,7 @@ DeleteFile(backupUddiFile, log);
 		<con:assertion type="SOAP Response"/>
 		<con:assertion type="Schema Compliance">
 			<con:configuration>
-				<definition>f:\glassfish-2.1.1\domains\domain1\config\nhin\wsdl\NhincProxyXDRResponse.wsdl</definition>
+				<definition/>
 			</con:configuration>
 		</con:assertion>
 		<con:assertion type="SOAP Fault Assertion"/>
@@ -17109,7 +16709,7 @@ DeleteFile(backupUddiFile, log);
 	</con:property>
 </con:properties>
 </con:testCase>
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Submission" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Submission" searchProperties="true" id="204c2c98-9e8c-4afb-9f68-ec6b924e7bee">
 	<con:settings/>
 	<con:testStep name="Document Submission" type="request">
 		<con:settings/>
@@ -17123,22 +16723,22 @@ DeleteFile(backupUddiFile, log);
 		<con:encoding>UTF-8</con:encoding>
 		<con:endpoint>${#TestSuite#Endpoint-DocumentSubmission}</con:endpoint>
 		<con:request><![CDATA[
-			<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
+			<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
    <soap:Header/>
-   <soap:Body testSuite="MsgProxy_g0" testCase="Document Submission">
+   <soap:Body testSuite="MsgProxy_g1" testCase="Document Submission">
       <urn:RespondingGateway_ProvideAndRegisterDocumentSetRequest>
          <urn:assertion>
             <urn1:address>
                <urn1:addressType>
                   <urn1:code>AddrCode</urn1:code>
-                  <urn1:codeSystem>AddrCodeSyst</urn1:codeSystem>
+                  <urn1:codeSystem>AddrCodeSystem</urn1:codeSystem>
                   <urn1:codeSystemName>AddrCodeSystName</urn1:codeSystemName>
                   <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
                   <urn1:displayName>AddrCode</urn1:displayName>
                   <urn1:originalText>AddrCode</urn1:originalText>
                </urn1:addressType>
                <urn1:city>AddrCity</urn1:city>
-               <urn1:country>AddrCountry</urn1:country>
+               <urn1:country>AddrCounty</urn1:country>
                <urn1:state>AddrState</urn1:state>
                <urn1:streetAddress>AddrStreet</urn1:streetAddress>
                <urn1:zipCode>AddrZip</urn1:zipCode>
@@ -17166,6 +16766,7 @@ DeleteFile(backupUddiFile, log);
                </urn1:nameType>
                <urn1:secondNameOrInitials>S</urn1:secondNameOrInitials>
                <urn1:fullName>Sandy S. Smith</urn1:fullName>
+               <urn1:prefix>Ms.</urn1:prefix>
             </urn1:personName>
             <urn1:phoneNumber>
                <urn1:areaCode>321</urn1:areaCode>
@@ -17207,7 +16808,7 @@ DeleteFile(backupUddiFile, log);
                   <urn1:displayName>nameCode</urn1:displayName>
                   <urn1:originalText>nameCode</urn1:originalText>
                </urn1:nameType>
-               <urn1:secondNameOrInitials>s</urn1:secondNameOrInitials>
+               <urn1:secondNameOrInitials>S</urn1:secondNameOrInitials>
                <urn1:fullName>Sammy S. Smith</urn1:fullName>
             </urn1:secondWitnessName>
             <urn1:secondWitnessPhone>
@@ -17224,8 +16825,8 @@ DeleteFile(backupUddiFile, log);
                   <urn1:originalText>phoneCode</urn1:originalText>
                </urn1:phoneNumberType>
             </urn1:secondWitnessPhone>
-            <urn1:SSN>253-98-7546</urn1:SSN>
-            <urn1:uniquePatientId>500000000^^^&amp;1.1&amp;ISO</urn1:uniquePatientId>
+	    <urn1:SSN>253-98-7546</urn1:SSN>
+           <urn1:uniquePatientId>500000000^^^&amp;1.1&amp;ISO</urn1:uniquePatientId>
             <urn1:witnessAddress>
                <urn1:addressType>
                   <urn1:code>addrCode</urn1:code>
@@ -17290,7 +16891,7 @@ DeleteFile(backupUddiFile, log);
                   <urn1:homeCommunityId>${#Project#RemoteHCID}</urn1:homeCommunityId>
                   <urn1:name>${#Project#RemoteHCDescription}</urn1:name>
                </urn1:org>
-               <urn1:roleCoded>
+	    <urn1:roleCoded>
                   <urn1:code>307969004</urn1:code>
                   <urn1:codeSystem>2.16.840.1.113883.6.96</urn1:codeSystem>
                   <urn1:codeSystemName>SNOMED_CT</urn1:codeSystemName>
@@ -17298,9 +16899,9 @@ DeleteFile(backupUddiFile, log);
                   <urn1:displayName>Public Health</urn1:displayName>
                   <urn1:originalText>Public Health</urn1:originalText>
                </urn1:roleCoded>
-            </urn1:userInfo>
+	    </urn1:userInfo>
             <urn1:authorized>true</urn1:authorized>
-            <urn1:purposeOfDisclosureCoded>
+	    <urn1:purposeOfDisclosureCoded>
                <urn1:code>PUBLICHEALTHKIERAN</urn1:code>
                <urn1:codeSystem>2.16.840.1.113883.3.18.7.1</urn1:codeSystem>
                <urn1:codeSystemName>nhin-purpose</urn1:codeSystemName>
@@ -17337,20 +16938,18 @@ DeleteFile(backupUddiFile, log);
             </urn1:samlAuthzDecisionStatement>
          </urn:assertion>
 
-         <urn:nhinTargetCommunities>
-            <urn1:nhinTargetCommunity>
+         <urn:nhinTargetSystem>
                <urn1:homeCommunity>
                   <urn1:description>${#Project#RemoteHCDescription}</urn1:description>
                   <urn1:homeCommunityId>${#Project#RemoteHCID}</urn1:homeCommunityId>
                   <urn1:name>${#Project#RemoteHCDescription}</urn1:name>
                </urn1:homeCommunity>
-            </urn1:nhinTargetCommunity>
-         </urn:nhinTargetCommunities>
-
-         <urn:ProvideAndRegisterDocumentSetRequest>
+            </urn:nhinTargetSystem>
+         
+	<urn:ProvideAndRegisterDocumentSetRequest>
             <urn2:SubmitObjectsRequest id="123" comment="comme">
                <!--Optional:-->
-
+  
                <urn4:RegistryObjectList>
                   <urn4:ExtrinsicObject id="Document01" mimeType="text/xml" objectType="urn:uuid:7edca82f-054d-47f2-a032-9b2a5b5186c1">
                      <urn4:Slot name="creationTime">
@@ -17554,7 +17153,7 @@ DeleteFile(backupUddiFile, log);
                         </urn4:ValueList>
                      </urn4:Slot>
                   </urn4:Association>
-               </urn4:RegistryObjectList>
+               </urn4:RegistryObjectList> 
 
             </urn2:SubmitObjectsRequest>
             <!--1 or more repetitions:-->
@@ -17566,7 +17165,7 @@ DeleteFile(backupUddiFile, log);
 		<con:assertion type="SOAP Response"/>
 		<con:assertion type="Schema Compliance">
 			<con:configuration>
-				<definition>f:\glassfish-2.1.1/domains/domain1/config/nhin/wsdl/NhincProxyXDR.wsdl</definition>
+				<definition/>
 			</con:configuration>
 		</con:assertion>
 		<con:assertion type="SOAP Fault Assertion"/>
@@ -17674,7 +17273,7 @@ DeleteFile(backupUddiFile, log);
 
 
 
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Patient Discovery Deferred Req" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Patient Discovery Deferred Req" searchProperties="true" id="a6d83572-76e3-490f-af71-52ede51b45aa">
 	<con:settings/>
 	<con:testStep name="Patient Discovery Deferred Req" type="request">
 		<con:settings/>
@@ -18308,7 +17907,7 @@ DeleteFile(backupUddiFile, log);
 <con:reportParameters/>
 </con:testCase>
 
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Patient Discovery Deferred Resp" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Patient Discovery Deferred Resp" searchProperties="true" id="1f33ef33-13d6-40a1-8288-33e190d014bc">
 	<con:settings/>      
 	<con:testStep name="Patient Discovery Deferred Resp" type="request">
 		<con:settings/>
@@ -18990,7 +18589,7 @@ DeleteFile(backupUddiFile, log);
 </con:properties>
 <con:reportParameters/>
 </con:testCase>
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Patient Discovery" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Patient Discovery" searchProperties="true" id="97b52927-dee4-4dbe-94df-9ca79d89bc74">
 	<con:settings/>
 	<con:testStep name="clear correlations table" type="groovy">
 		<con:settings/>
@@ -19398,7 +18997,7 @@ DeleteFile(backupUddiFile, log);
 </con:properties>
 <con:reportParameters/>
 </con:testCase>
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Query" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Query" searchProperties="true" id="1c39c237-1c5d-4e62-a637-bddd5bb332e9">
 	<con:settings/>
 	<con:testStep name="Document Query" type="request">
 		<con:settings/>
@@ -19786,7 +19385,7 @@ DeleteFile(backupUddiFile, log);
 </con:properties>
 <con:reportParameters/>
 </con:testCase>
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Retrieve" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Retrieve" searchProperties="true" id="2da7432a-1648-4cbc-8a89-1e1225e4e9aa">
 	<con:settings/>
 	<con:testStep name="Document Retrieve" type="request">
 		<con:settings/>
@@ -20177,7 +19776,7 @@ DeleteFile(backupUddiFile, log);
 </con:properties>
 <con:reportParameters/>
 </con:testCase>
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Subscribe" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Subscribe" searchProperties="true" id="60471559-d515-40e4-b325-84365765c67c">
 	<con:settings/>
 
 	<con:testStep name="update config" type="groovy">
@@ -20547,10 +20146,10 @@ File gatewayBakFile = new File(MasterGatewayPropFile)
 
 if(gatewayBakFile.exists()) {
 	def reader = gatewayBakFile.newReader()
-   		gatewayFile.withWriter { writer ->
-       	writer &lt;&lt; reade
-   	}
-   reader.close()
+	gatewayFile.withWriter { writer ->
+	writer &lt;&lt; reader
+}
+	reader.close()
 } else {
 	throw new RuntimeException('Unable to locate master/gateway.properties')
 }
@@ -20592,8 +20191,7 @@ void DeleteFile(File file, log) {
 }
 
 DeleteFile(backupInternalFile, log);
-DeleteFile(backupUddiFile, log);
-</con:tearDownScript>
+DeleteFile(backupUddiFile, log);</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
@@ -20615,7 +20213,7 @@ DeleteFile(backupUddiFile, log);
 <con:reportParameters/>
 </con:testCase>
 
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Notify" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Notify" searchProperties="true" id="bf929f8a-5c06-4e54-9cb4-547895492c22">
 	<con:settings/>
 
 	<con:testStep name="update config" type="groovy">
@@ -21324,7 +20922,7 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 </con:properties>
 <con:reportParameters/>
 </con:testCase>
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Unsubscribe" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Unsubscribe" searchProperties="true" id="1be086bc-4a0a-4bbd-a741-c2011ce0bc9d">
 	<con:settings/>
 
 	<con:testStep name="update config" type="groovy">
@@ -21772,7 +21370,7 @@ DeleteFile(backupUddiFile, log);
 </con:properties>
 <con:reportParameters/>
 </con:testCase>
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Admin Distribution" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Admin Distribution" searchProperties="true" id="8ce36c74-7268-48fe-952b-416a1ed1fb7b">
 	<con:settings/>
 	<con:testStep name="Admin Distribution" type="request">
 		<con:settings/>
@@ -22336,5 +21934,54 @@ nhinc.FileUtils.backupConfiguration(log);
 nhinc.FileUtils.updateGatewayProperty("purposeForUseEnabled","false", log);
 nhinc.FileUtils.moveFile(context.expand(testSuite.project.resourceRoot), "uddiConnectionInfo_g0.xml", System.env['NHINC_PROPERTIES_DIR'], "uddiConnectionInfo.xml", log);
 nhinc.FileUtils.changeSpringConfig("PurposeUseProxyConfig.xml", "gateway", log);</con:setupScript>
-<con:tearDownScript>restoreGatewayProperties();</con:tearDownScript><con:reportParameters/>
-</con:testSuite><con:properties><con:property><con:name>AsyncMsgsDB</con:name><con:value>asyncmsgs</con:value></con:property><con:property><con:name>AsyncMsgTable</con:name><con:value>asyncmsgrepo</con:value></con:property><con:property><con:name>AuditRepoDB</con:name><con:value>auditrepo</con:value></con:property><con:property><con:name>AuditRepoTable</con:name><con:value>auditrepository</con:value></con:property><con:property><con:name>BirthTime</con:name><con:value>19630804</con:value></con:property><con:property><con:name>City</con:name><con:value>Melbourne</con:value></con:property><con:property><con:name>Country</con:name><con:value>US</con:value></con:property><con:property><con:name>DateOfSignature</con:name><con:value>20080520</con:value></con:property><con:property><con:name>DBHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>DBPass</con:name><con:value>nhincpass</con:value></con:property><con:property><con:name>DBPort</con:name><con:value>3306</con:value></con:property><con:property><con:name>DBUser</con:name><con:value>nhincuser</con:value></con:property><con:property><con:name>DeferredPatientDiscoveryReqMessageID</con:name><con:value>uuid:6666666666.66666.666.66</con:value></con:property><con:property><con:name>DOB</con:name><con:value>19800516</con:value></con:property><con:property><con:name>DQDocID</con:name><con:value>1.123401.11111</con:value></con:property><con:property><con:name>DQPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>DRDocID</con:name><con:value>1.123407.777777</con:value></con:property><con:property><con:name>DRRepoID</con:name><con:value>1</con:value></con:property><con:property><con:name>DynamicDQDocID</con:name><con:value>103.8.9284320.020.3590.75^1266324032288</con:value></con:property><con:property><con:name>EntitySubscribe</con:name><con:value>https://localhost:8080/Gateway/HIEM/2_0/EntityService/EntityNotificationProducer</con:value></con:property><con:property><con:name>ExpirationDate</con:name><con:value>20100520</con:value></con:property><con:property><con:name>FamilyName</con:name><con:value>Younger</con:value></con:property><con:property><con:name>Gender</con:name><con:value>M</con:value></con:property><con:property><con:name>GivenName</con:name><con:value>Gallow</con:value></con:property><con:property><con:name>LocalAA</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalHCDescription</con:name><con:value>InternalTest1</con:value></con:property><con:property><con:name>LocalHCID</con:name><con:value>1.1</con:value></con:property><con:property><con:name>NotificationEndpoint</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/NotificationConsumerService/HiemNotify</con:value></con:property><con:property><con:name>NotifySubscriptionID</con:name><con:value>9aedbff6-cbf5-4b6a-8d33-c6f915786617</con:value></con:property><con:property><con:name>NotifySubscriptionManagerEndpointAddress</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/SubscriptionManagerService/HiemUnsubscribe</con:value></con:property><con:property><con:name>PatientCorrelationDB</con:name><con:value>patientcorrelationdb</con:value></con:property><con:property><con:name>PatientCorrelationTable</con:name><con:value>correlatedidentifiers</con:value></con:property><con:property><con:name>PurposeOfDisclosure</con:name><con:value>Mental</con:value></con:property><con:property><con:name>RemoteAA</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemoteHCDescription</con:name><con:value>InternalTest2</con:value></con:property><con:property><con:name>RemoteHCID</con:name><con:value>2.2</con:value></con:property><con:property><con:name>SSN</con:name><con:value>123456789</con:value></con:property><con:property><con:name>State</con:name><con:value>FL</con:value></con:property><con:property><con:name>StreetAddress</con:name><con:value>123 Johnson Rd</con:value></con:property><con:property><con:name>SubjectID</con:name><con:value>1111</con:value></con:property><con:property><con:name>SubscribePatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>SubscriptionDB</con:name><con:value>subscriptionrepository</con:value></con:property><con:property><con:name>SubscriptionEndpoint</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/NotificationProducerService/HiemSubscription</con:value></con:property><con:property><con:name>SubscriptionManagerEndpointAddress</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/SubscriptionManagerService/HiemUnsubscribe</con:value></con:property><con:property><con:name>SubscriptionTable</con:name><con:value>subscription</con:value></con:property><con:property><con:name>UniquePatientId</con:name><con:value>1111^^^&amp;amp;1.1&amp;amp;ISO</con:value></con:property><con:property><con:name>UnSubscriptionID</con:name><con:value>3e74139f-5271-4db1-98c0-88748fa3e4e3</con:value></con:property><con:property><con:name>ZipCode</con:name><con:value>12345</con:value></con:property></con:properties><con:afterLoadScript/><con:wssContainer/></con:soapui-project>
+<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(log);</con:tearDownScript><con:reportParameters/>
+</con:testSuite><con:properties><con:property><con:name>AsyncMsgsDB</con:name><con:value>asyncmsgs</con:value></con:property><con:property><con:name>AsyncMsgTable</con:name><con:value>asyncmsgrepo</con:value></con:property><con:property><con:name>AuditRepoDB</con:name><con:value>auditrepo</con:value></con:property><con:property><con:name>AuditRepoTable</con:name><con:value>auditrepository</con:value></con:property><con:property><con:name>BirthTime</con:name><con:value>19630804</con:value></con:property><con:property><con:name>City</con:name><con:value>Melbourne</con:value></con:property><con:property><con:name>Country</con:name><con:value>US</con:value></con:property><con:property><con:name>DateOfSignature</con:name><con:value>20080520</con:value></con:property><con:property><con:name>DBHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>DBPass</con:name><con:value>nhincpass</con:value></con:property><con:property><con:name>DBPort</con:name><con:value>3306</con:value></con:property><con:property><con:name>DBUser</con:name><con:value>nhincuser</con:value></con:property><con:property><con:name>DeferredPatientDiscoveryReqMessageID</con:name><con:value>uuid:6666666666.66666.666.66</con:value></con:property><con:property><con:name>DOB</con:name><con:value>19800516</con:value></con:property><con:property><con:name>DQDocID</con:name><con:value>1.123401.11111</con:value></con:property><con:property><con:name>DQPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>DRDocID</con:name><con:value>1.123407.777777</con:value></con:property><con:property><con:name>DRRepoID</con:name><con:value>1</con:value></con:property><con:property><con:name>DynamicDQDocID</con:name><con:value>103.8.9284320.020.3590.75^1266324032288</con:value></con:property><con:property><con:name>EntitySubscribe</con:name><con:value>https://localhost:8080/Gateway/HIEM/2_0/EntityService/EntityNotificationProducer</con:value></con:property><con:property><con:name>ExpirationDate</con:name><con:value>20100520</con:value></con:property><con:property><con:name>FamilyName</con:name><con:value>Younger</con:value></con:property><con:property><con:name>Gender</con:name><con:value>M</con:value></con:property><con:property><con:name>GivenName</con:name><con:value>Gallow</con:value></con:property><con:property><con:name>LocalAA</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalHCDescription</con:name><con:value>InternalTest1</con:value></con:property><con:property><con:name>LocalHCID</con:name><con:value>1.1</con:value></con:property><con:property><con:name>NotificationEndpoint</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/NotificationConsumerService/HiemNotify</con:value></con:property><con:property><con:name>NotifySubscriptionID</con:name><con:value>a1d55c9e-6f00-4a01-abd0-79a2aef045e8</con:value></con:property><con:property><con:name>NotifySubscriptionManagerEndpointAddress</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/SubscriptionManagerService/HiemUnsubscribe</con:value></con:property><con:property><con:name>PatientCorrelationDB</con:name><con:value>patientcorrelationdb</con:value></con:property><con:property><con:name>PatientCorrelationTable</con:name><con:value>correlatedidentifiers</con:value></con:property><con:property><con:name>PurposeOfDisclosure</con:name><con:value>Mental</con:value></con:property><con:property><con:name>RemoteAA</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemoteHCDescription</con:name><con:value>InternalTest2</con:value></con:property><con:property><con:name>RemoteHCID</con:name><con:value>2.2</con:value></con:property><con:property><con:name>SSN</con:name><con:value>123456789</con:value></con:property><con:property><con:name>State</con:name><con:value>FL</con:value></con:property><con:property><con:name>StreetAddress</con:name><con:value>123 Johnson Rd</con:value></con:property><con:property><con:name>SubjectID</con:name><con:value>1111</con:value></con:property><con:property><con:name>SubscribePatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>SubscriptionDB</con:name><con:value>subscriptionrepository</con:value></con:property><con:property><con:name>SubscriptionEndpoint</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/NotificationProducerService/HiemSubscription</con:value></con:property><con:property><con:name>SubscriptionManagerEndpointAddress</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/SubscriptionManagerService/HiemUnsubscribe</con:value></con:property><con:property><con:name>SubscriptionTable</con:name><con:value>subscription</con:value></con:property><con:property><con:name>UniquePatientId</con:name><con:value>1111^^^&amp;amp;1.1&amp;amp;ISO</con:value></con:property><con:property><con:name>UnSubscriptionID</con:name><con:value>3e74139f-5271-4db1-98c0-88748fa3e4e3</con:value></con:property><con:property><con:name>ZipCode</con:name><con:value>12345</con:value></con:property></con:properties><con:afterLoadScript>TimeZone.setDefault(TimeZone.getTimeZone("UTC"))
+def testRunListener = [
+afterRun: { testRunner, runContext -> },
+afterStep: { testRunner, runContext, result -> },
+beforeStep: { testRunner, runContext -> },
+beforeStep: { testRunner, runContext, testStep -> },
+beforeRun: { testRunner, runContext -> 
+use (org.codehaus.groovy.runtime.TimeCategory) {
+def startDate = 5.minutes.ago
+def endDate = 5.minutes.from.now
+def expireDate = 30.days.from.now
+
+def df = "yyyy-MM-dd'T'HH:mm:ss'Z'"
+def dfSig = "MM/dd/yyyy' 'HH:mm:ss"
+
+runContext.testCase.setPropertyValue("startDate", startDate.format(df))
+runContext.testCase.setPropertyValue("endDate", endDate.format(df))
+runContext.testCase.setPropertyValue("sigDate", startDate.format(dfSig))
+runContext.testCase.setPropertyValue("expireDate", expireDate.format(df))
+}
+}   
+] as com.eviware.soapui.model.testsuite.TestRunListener
+
+project.testSuiteList*.testCaseList.flatten()*.addTestRunListener(testRunListener)
+
+
+
+com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.findProperty = { propertyName ->
+return delegate.getProperty(propertyName) ?:
+delegate.testCase.getPropertyValue(propertyName) ?:
+delegate.testCase.testSuite.getPropertyValue(propertyName) ?:
+delegate.testCase.testSuite.project.getPropertyValue(propertyName)
+}
+
+com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.withSql = { dbOrPropertyName, block ->
+def dbName = delegate.findProperty(dbOrPropertyName) ?: dbOrPropertyName
+def host = delegate.findProperty('DBHost')
+def port = delegate.findProperty('DBPort')
+def user = delegate.findProperty('DBUser')
+def pass = delegate.findProperty('DBPass')
+
+def connectString = "jdbc:mysql://${host}:${port}/${dbName}"
+def sql = groovy.sql.Sql.newInstance(connectString, user, pass, "com.mysql.jdbc.Driver");
+try {
+block(sql)
+} finally {
+sql.close()
+}
+}</con:afterLoadScript><con:wssContainer/><con:beforeRunScript>import nhinc.FileUtils;
+nhinc.FileUtils.restoreToMasterConfiguration(log);</con:beforeRunScript></con:soapui-project>
