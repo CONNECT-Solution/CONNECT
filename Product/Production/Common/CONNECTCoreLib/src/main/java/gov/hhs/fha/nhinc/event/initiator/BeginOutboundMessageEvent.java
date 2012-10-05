@@ -50,5 +50,4 @@ public class BeginOutboundMessageEvent extends InitiatorEvent {
     public String getEventName() {
         return EVENT_NAME;
     }
-
 }
