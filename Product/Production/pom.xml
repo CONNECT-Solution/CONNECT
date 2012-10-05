@@ -16,7 +16,7 @@
     <module>Services</module>
     <module>Adapters</module>
     <module>Gateway</module>
-    <module>Deploy</module>
+    <module>CONNECT</module>
     <module>Utilities</module>
   </modules>
   <dependencies>
@@ -60,7 +60,7 @@
             placed within the child POM that overrides the <resourcs> or <testResources> -->
     <resources>
       <resource>
-        <directory>/src/main/resources</directory>
+        <directory>${basedir}/src/main/resources</directory>
         <includes>
           <include>**/*</include>
         </includes>
@@ -71,7 +71,7 @@
         </excludes>
       </resource>
       <resource>
-        <directory>/src/main/resources</directory>
+        <directory>${basedir}/src/main/resources</directory>
         <includes>
           <include>wsdl/**/*.wsdl</include>
           <include>*.wsdl</include>
@@ -81,7 +81,7 @@
     </resources>
     <testResources>
       <testResource>
-        <directory>/src/test/resources</directory>
+        <directory>${basedir}/src/test/resources</directory>
         <includes>
           <include>**/*</include>
         </includes>
