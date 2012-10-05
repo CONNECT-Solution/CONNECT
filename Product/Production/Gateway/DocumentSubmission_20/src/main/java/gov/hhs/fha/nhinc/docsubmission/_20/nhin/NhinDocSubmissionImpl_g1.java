@@ -43,6 +43,12 @@ import gov.hhs.fha.nhinc.docsubmission.nhin.NhinDocSubmissionOrchImpl;
  */
 public class NhinDocSubmissionImpl_g1 {
 
+    private NhinDocSubmissionOrchImpl orchImpl;
+    
+    public NhinDocSubmissionImpl_g1(NhinDocSubmissionOrchImpl orchImpl) {
+        this.orchImpl = orchImpl;
+    }
+    
     public RegistryResponseType documentRepositoryProvideAndRegisterDocumentSetB(
             ProvideAndRegisterDocumentSetRequestType body, WebServiceContext context) {
         SAML2AssertionExtractor extractor = SAML2AssertionExtractor.getInstance();
@@ -51,7 +57,7 @@ public class NhinDocSubmissionImpl_g1 {
         if (assertion != null) {
             assertion.setMessageId(AsyncMessageIdExtractor.GetAsyncMessageId(context));
         }
-        return new NhinDocSubmissionOrchImpl().documentRepositoryProvideAndRegisterDocumentSetB(body, assertion);
+        return orchImpl.documentRepositoryProvideAndRegisterDocumentSetB(body, assertion);
     }
 
 }
