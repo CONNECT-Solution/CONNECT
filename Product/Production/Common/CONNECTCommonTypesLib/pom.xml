@@ -10,7 +10,7 @@
     <artifactId>CONNECTCommonTypesLib</artifactId>
     <packaging>jar</packaging>
     <name>CONNECT common types</name>
-    
+
     <properties>
         <skip.unpack>true</skip.unpack>
     </properties>
@@ -39,20 +39,7 @@
                     <generateDirectory>${project.build.directory}/generated-sources/</generateDirectory>
                     <schemaDirectory>${basedir}/src/main/resources/schemas/</schemaDirectory>
                     <schemaIncludes>
-                        <include>nhinc/**/*.xsd</include>
-                        <include>docs.oasis-open.org/**/*.xsd</include>
-                        <include>ebRS/**/*.xsd</include>
-                        <include>ihe/**/*.xsd</include>
-                        <include>nhin/**/*.xsd</include>
-                        <include>oasis/**/*.xsd</include>
-                        <include>uddi/uddi_v3.xsd</include>
-                        <include>uddi/uddi_v3custody.xsd</include>
-                        <include>uddi/uddi_v3policy_instanceParms.xsd</include>
-                        <include>uddi/uddi_v3subscriptionListener.xsd</include>
-                        <include>uddi/uddi_v3subscription.xsd</include>
-                        <include>www.w3.org/**/*.xsd</include>
-                        <include>xmlsoap.org/**/*.xsd</include>
-                        <include>Endpoint/**/*.xsd</include>
+                        <include>**/*.xsd</include>
                     </schemaIncludes>
                     <source>1.7</source>
                     <target>1.7</target>
