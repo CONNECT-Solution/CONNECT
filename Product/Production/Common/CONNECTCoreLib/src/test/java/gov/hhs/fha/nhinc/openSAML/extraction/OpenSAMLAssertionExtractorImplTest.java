@@ -84,6 +84,8 @@ public class OpenSAMLAssertionExtractorImplTest {
     @Test
     public void testCompleteSamlAssertion() throws Exception {
         
+    	// the first "/" is intentionally not using File.separator due to differences in how windows and unix based
+    	// operating systems handle the class.getResource method. Please see GATEWAY-2873 for more details.
         AssertionType assertionType = openSAMLAssertionExtractorImpl.extractSAMLAssertion(getElementForSamlFile(
                 "/" + "testing_saml" + File.separator + "complete_saml.xml"));
         assertNotNull(assertionType);
