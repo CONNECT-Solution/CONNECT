@@ -29,7 +29,7 @@ History
 * 4.0 planned Febuary 2013
 * 3.3 released March 2012
   
-  (see HISTORY.md)
+For more information, about CONNECT's history see [HISTORY.md](./CONNECT/HISTORY.md)
 
 Getting Started
 ---------------
@@ -46,7 +46,17 @@ Before you get started, you'll need the following installed and set up:
 
 ###Building from source
 To build all CONNECT modules from source, run: 
-        
+       
+Windows Users: 
+
+        $ set MAVEN_OPTS='-Xmx5000m -XX:MaxPermSize=1024m'
+
+OSX / Linux Users:
+
+        $ export MAVEN_OPTS='-Xmx5000m -XX:MaxPermSize=1024m'
+
+Everyone:
+
         $ cd <CONNECT_CLONE_DIR>
         $ mvn clean install 
 
@@ -82,13 +92,23 @@ Available profiles to alter the composition of bundled gateways and adapters wit
 You can alter the composition of the CONNECT.ear at any time by specifying any combination of the available profiles as a comma-separated list 
 		
 		$ cd <CONNECT_CLONE_DIR>
-		$ mvn clean package -P <profiles> -f Product/Production/CONNECT/pom.xml
+		$ mvn clean package -P <profiles> -f Product/Production/Deploy/pom.xml
 		
 OR 
 		
 		$ cd Product/Production/CONNECT/
 		$ mvn clean package -P <profiles>
 
+######Altering targeted application server
+For some application server deployments the generated .ear needs different dependencies. The following profiles are available to control which type of .ear is generated (use value within parentheses):
+* GlassFish v3.1.1 (glassfish)
+* WebSphere Application Server Community Edition v3.0.0.2 (websphere)
+
+This profile options are used just like above. As an example to generate a WebSphere specific .ear with only Patient Discovery.
+		
+		$ cd <CONNECT_CLONE_DIR>
+		$ mvn clean install -P PD,websphere
+		
 ###Setup Glassfish, MySQL & Deploy CONNECT
 These steps will install and configure a Glassfish Application Server, prepare your MySQL databases and deploy CONNECT for use. Lets get started.   
 
@@ -115,6 +135,7 @@ you want GlassFish to install.
 		$ cp install.properties local.install.properties
 
 Lastly, we're going to install the Glassfish Application Server         
+        
         $ ant install
         	
 

@@ -37,7 +37,7 @@ import javax.xml.ws.BindingType;
  * 
  * @author Sai Valluripalli
  */
-@WebService(serviceName = "NhincProxyNotificationConsumerSecured", portName = "NhincProxyNotificationConsumerPortSoap", endpointInterface = "gov.hhs.fha.nhinc.nhincproxynotificationconsumersecured.NhincProxyNotificationConsumerSecuredPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:nhincproxynotificationconsumersecured", wsdlLocation = "WEB-INF/wsdl/ProxyHiemNotifySecured/NhincProxyNotificationConsumerSecured.wsdl")
+@WebService(endpointInterface = "gov.hhs.fha.nhinc.nhincproxynotificationconsumersecured.NhincProxyNotificationConsumerSecuredPortType")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 public class ProxyHiemNotifySecured {
     @Resource

@@ -1,0 +1,14 @@
+<app:application
+	xmlns:app="http://geronimo.apache.org/xml/ns/j2ee/application-2.0"
+	xmlns:sys="http://geronimo.apache.org/xml/ns/deployment-1.2" xmlns:sec="http://geronimo.apache.org/xml/ns/security-2.0"
+	application-name="CONNECT">
+	<sys:environment>
+		<sys:moduleId>
+			<sys:groupId>org.connectopensource</sys:groupId>
+			<sys:artifactId>CONNECT</sys:artifactId>
+			<sys:version>4.0</sys:version>
+			<sys:type>ear</sys:type>
+		</sys:moduleId>
+		<sys:inverse-classloading />
+	</sys:environment>
+</app:application>

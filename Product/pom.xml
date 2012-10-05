@@ -11,6 +11,8 @@
     <packaging>pom</packaging>
     <name>CONNECT Product</name>
     <properties>
+        <checkstyle.skip>false</checkstyle.skip>
+        <checkstyle.settings.file>checkstyle.settings.xml</checkstyle.settings.file>
         <cxf.version>2.6.1</cxf.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <connect.common.properties>Dev</connect.common.properties>
@@ -21,6 +23,7 @@
     </properties>
     <modules>
         <module>Production</module>
+        <module>SoapUI_Test</module>
     </modules>
     <dependencyManagement>
         <dependencies>
@@ -88,8 +91,8 @@
                 </exclusions>
             </dependency>
             <dependency>
-                <!-- org.apache.cxf:cxf-bundle includes wss4j though org.apache.ws.security:wss4j:1.6.6:pom excludes numerous 
-                    dependencies from opensaml - see POM, http://repo.maven.apache.org/maven2/org/apache/ws/security/wss4j/1.6.6/wss4j-1.6.6.pom -->
+                <!-- org.apache.cxf:cxf-bundle includes wss4j though org.apache.ws.security:wss4j:1.6.6:pom 
+                    excludes numerous dependencies from opensaml - see POM, http://repo.maven.apache.org/maven2/org/apache/ws/security/wss4j/1.6.6/wss4j-1.6.6.pom -->
                 <groupId>org.opensaml</groupId>
                 <artifactId>opensaml</artifactId>
                 <version>2.5.1-1</version>
@@ -129,8 +132,8 @@
                         <artifactId>asm-attrs</artifactId>
                     </exclusion>
                     <exclusion>
-                        <!-- exclude and use <artifactId>cglib-nodep</artifactId> to include the asm it needs in a private 
-                            package space. -->
+                        <!-- exclude and use <artifactId>cglib-nodep</artifactId> 
+                            to include the asm it needs in a private package space. -->
                         <groupId>cglib</groupId>
                         <artifactId>cglib</artifactId>
                     </exclusion>
@@ -141,7 +144,8 @@
                 </exclusions>
             </dependency>
             <dependency>
-                <!-- Used to include the asm it needs in a private package space. -->
+                <!-- Used to include the asm it needs in a private package 
+                    space. -->
                 <groupId>cglib</groupId>
                 <artifactId>cglib-nodep</artifactId>
                 <version>2.1_3</version>
@@ -276,7 +280,8 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <configLocation>checkstyle.settings.xml</configLocation>
+                    <skip>${checkstyle.skip}}</skip>
+                    <configLocation>${checkstyle.settings.file}</configLocation>
                     <failOnViolation>false</failOnViolation>
                     <enableRulesSummary>false</enableRulesSummary>
                 </configuration>
