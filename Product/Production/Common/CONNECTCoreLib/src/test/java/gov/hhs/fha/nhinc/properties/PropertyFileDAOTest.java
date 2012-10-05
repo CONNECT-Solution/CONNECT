@@ -28,6 +28,7 @@
 package gov.hhs.fha.nhinc.properties;
 
 import java.io.File;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Properties;
 import java.util.Set;
@@ -184,8 +185,11 @@ public class PropertyFileDAOTest {
     
     private File getFile(String filename) {
         URL url = this.getClass().getResource(filename);
-        
-        return new File(url.getFile());
+        try {
+            return new File(url.toURI());
+        } catch(URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
     }
     
     private PropertyFileDAO loadTestProperties() throws PropertyAccessException {
