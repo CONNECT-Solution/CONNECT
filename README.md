@@ -29,7 +29,7 @@ History
 * 4.0 planned Febuary 2013
 * 3.3 released March 2012
   
-For more information, about CONNECT's history see [HISTORY.md](./HISTORY.md)
+For more information, about CONNECT's history see [HISTORY.md](./CONNECT/HISTORY.md)
 
 Getting Started
 ---------------
