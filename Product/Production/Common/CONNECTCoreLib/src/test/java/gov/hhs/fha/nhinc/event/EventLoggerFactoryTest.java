@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
@@ -26,38 +26,53 @@
  */
 package gov.hhs.fha.nhinc.event;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Observer;
+
+import org.jmock.Expectations;
+import org.jmock.Mockery;
+import org.jmock.integration.junit4.JUnit4Mockery;
+import org.jmock.lib.legacy.ClassImposteriser;
+import org.junit.Test;
 
 /**
- * @author zmelnick
- *
+ * Test {@link EventLoggerFactory}
  */
-public class Log4jEventLogger extends EventLogger {
+public class EventLoggerFactoryTest {
+    
+    private static final int TOTAL_MOCK_LOGGERS = 5;
+    
+    private Mockery context = new JUnit4Mockery() {
+        {
+            setImposteriser(ClassImposteriser.INSTANCE);
+        }
+    };
+       
+    /**
+     * Test {@link EventLoggerFactory#registerLoggers()}.
+     */
+    @Test
+    public void testRegisterLoggers() {
+        
+        final EventManager mockEventManager = context.mock(EventManager.class);
+        final EventLoggerFactory eventLoggerFactory = new EventLoggerFactory(mockEventManager);
 
-    private static Log log = null;
+        // add some mock loggers to be registered.
+        List<EventLogger> loggers = new ArrayList<EventLogger>(TOTAL_MOCK_LOGGERS);
+        for (int i = 0; i < TOTAL_MOCK_LOGGERS; i++) {
+            loggers.add(context.mock(EventLogger.class, "EventLogger" + i));            
+        }
+        
+        eventLoggerFactory.setLoggers(loggers);
+        
+        context.checking(new Expectations() {
+            {
+                exactly(TOTAL_MOCK_LOGGERS).of(mockEventManager).addObserver(with(any(Observer.class)));
+            }
+        });
 
-    public Log4jEventLogger() {
-        createLogger();
+        eventLoggerFactory.registerLoggers();
     }
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.event.EventLogger#update(gov.hhs.fha.nhinc.event.Event, java.lang.Object)
-     */ 
-    @Override
-    void update(EventManager manager, Event logEvent) {
-        log.info(logEvent.getEventName() + " has triggered. It has messageID " + logEvent.getMessageID()
-                + ", transactionID " + logEvent.getTransactionID() + "and description " + logEvent.getDescription());
-    }
-
-    protected void createLogger() {
-        log = LogFactory.getLog(getClass());
-    }
-
-    public Log getLog() {
-        return log;
-    }
-
+    
 }

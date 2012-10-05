@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
@@ -24,16 +24,37 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.event;
+package gov.hhs.fha.nhinc.proxy;
+
 
 /**
- * @author zmelnick
- *
+ * Convenience class used to generify the component proxy object factory.
  */
-public class EventListenerFactory {
+public class ComponentProxyFactory extends ComponentProxyObjectFactory {
 
-    public EventLogger createEventLogger(Object o) {
-        return Log4jEventLogger.getInstance();
+    private final String configFileName;
+    
+    /**
+     * @param configFileName
+     * @param beanName
+     */
+    public ComponentProxyFactory(String configFileName) {
+        super();
+        this.configFileName = configFileName;
     }
-
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    protected String getConfigFileName() {
+        return this.configFileName;
+    }
+    
+    /**
+     * @return an instance of the generic type.
+     */
+    public <T> T getInstance(final String beanName, final Class<T> clazz) {
+        return (T) getBean(beanName, clazz);
+    }
 }

@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
@@ -26,38 +26,65 @@
  */
 package gov.hhs.fha.nhinc.event;
 
+import gov.hhs.fha.nhinc.proxy.ComponentProxyFactory;
+
+import java.util.List;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * @author zmelnick
- *
+ * This class is responsible for bootstrapping event loggers.
  */
-public class Log4jEventLogger extends EventLogger {
+public class EventLoggerFactory {
+    
+    private static final Log LOG = LogFactory.getLog(EventLoggerFactory.class);    
 
-    private static Log log = null;
+    private static final String CONFIG_FILE_NAME = "EventLoggerFactoryConfig.xml";
+    private static final String BEAN_NAME = "eventLoggerFactory";
 
-    public Log4jEventLogger() {
-        createLogger();
+    private final EventManager eventManager;    
+    private List<EventLogger> loggers;
+
+    /**
+     * @return an instance of the event logger factory using the component proxy object factory.
+     */
+    public static EventLoggerFactory getInstance() {
+        return new ComponentProxyFactory(CONFIG_FILE_NAME).getInstance(BEAN_NAME, EventLoggerFactory.class);
+    }
+    
+    /**
+     * Constructor.
+     * @param eventManager Event Manager used to create and register loggers.
+     */
+    public EventLoggerFactory(final EventManager eventManager) {
+        super();
+        this.eventManager = eventManager;
+    }    
+    
+    /**
+     * Register Loggers.
+     */
+    public void registerLoggers() {
+        LOG.debug("Registering loggers...");
+        for (EventLogger logger : loggers) {
+            LOG.info("Registering logger: " + logger.getClass().getName());
+            eventManager.addObserver(logger);
+        }
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.event.EventLogger#update(gov.hhs.fha.nhinc.event.Event, java.lang.Object)
-     */ 
-    @Override
-    void update(EventManager manager, Event logEvent) {
-        log.info(logEvent.getEventName() + " has triggered. It has messageID " + logEvent.getMessageID()
-                + ", transactionID " + logEvent.getTransactionID() + "and description " + logEvent.getDescription());
+    /**
+     * @return the loggers
+     */
+    public List<EventLogger> getLoggers() {
+        return loggers;
     }
 
-    protected void createLogger() {
-        log = LogFactory.getLog(getClass());
-    }
-
-    public Log getLog() {
-        return log;
+    /**
+     * @param loggers the loggers to set
+     */
+    public void setLoggers(List<EventLogger> loggers) {
+        this.loggers = loggers;
     }
 
 }

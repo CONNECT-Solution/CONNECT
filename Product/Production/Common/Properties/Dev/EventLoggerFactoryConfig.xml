@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+    <description>Beans included in this file: {eventLoggerFactory}</description>
+    
+    <bean lazy-init="true" id="eventLoggerFactory" class="gov.hhs.fha.nhinc.event.EventLoggerFactory">
+        <constructor-arg ref="eventManager" />    
+        <property name="loggers" ref="loggersList" />
+    </bean>
+
+    <bean id="eventManager" class="gov.hhs.fha.nhinc.event.EventManager" />
+
+    <bean id="log4jEventLogger" class="gov.hhs.fha.nhinc.event.Log4jEventLogger" />
+    <bean id="databaseEventLogger" class="gov.hhs.fha.nhinc.event.DatabaseEventLogger" />
+
+    <bean id="loggersList" class="java.util.ArrayList">
+        <constructor-arg>
+            <list>
+                <ref bean="log4jEventLogger" />
+                <ref bean="databaseEventLogger" />
+            </list>
+        </constructor-arg>
+    </bean>
+    
+</beans>
