@@ -28,14 +28,14 @@ package gov.hhs.fha.nhinc.aspect;
 
 import java.util.List;
 
+import javax.xml.ws.WebServiceContext;
+
 import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
 import gov.hhs.fha.nhinc.event.Event;
 import gov.hhs.fha.nhinc.event.EventFactory;
 import gov.hhs.fha.nhinc.event.EventType;
 import gov.hhs.fha.nhinc.logging.transaction.dao.TransactionDAO;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
-
-import javax.xml.ws.WebServiceContext;
 
 /**
  * @author zmelnick
@@ -56,7 +56,7 @@ public abstract class EventAspect {
         }
 
         if ((transactionId == null) && (messageId != null)) {
-            transactionId = TransactionDAO.getTransactionDAOInstance().getTransactionId(messageId);
+            transactionId = TransactionDAO.getInstance().getTransactionId(messageId);
         }
 
         return transactionId;
@@ -81,7 +81,7 @@ public abstract class EventAspect {
         Event event = createEvent(eventType);
 
         System.out.println("Event triggered: " + eventType + " - " + event.getMessageID());
-        
+
         // todo: event logger manager -> recordEvent()
     }
 
@@ -108,7 +108,7 @@ public abstract class EventAspect {
     public void endInboundMessageEvent() {
         recordEvent(EventType.END_INBOUND_MESSAGE.toString());
     }
-    
+
     public void beginOutboundMessageEvent() {
         recordEvent(EventType.BEGIN_OUTBOUND_MESSAGE.toString());
     }
@@ -136,5 +136,5 @@ public abstract class EventAspect {
     public void messageProcessingFailedEvent() {
         recordEvent(EventType.MESSAGE_PROCESSING_FAILED.toString());
     }
-    
+
 }
