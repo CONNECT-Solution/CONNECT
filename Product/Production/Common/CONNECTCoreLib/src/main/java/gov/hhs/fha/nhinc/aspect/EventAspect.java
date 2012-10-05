@@ -43,7 +43,6 @@ import javax.xml.ws.WebServiceContext;
  */
 public abstract class EventAspect {
 
-
     private String getMessageId(WebServiceContext context) {
         return AsyncMessageIdExtractor.GetAsyncMessageId(context);
     }
@@ -63,14 +62,14 @@ public abstract class EventAspect {
         return transactionId;
     }
 
-    private String getDescription() {
-        // todo: what needs to be in here?
+    protected String getDescription() {
+        // todo: what needs to be in here? - json
         return "";
     }
 
     private Event createEvent(String eventType) {
         WebServiceContext context = new org.apache.cxf.jaxws.context.WebServiceContextImpl();
-        
+
         String messageId = getMessageId(context);
         String transactionId = getTransactionID(context, messageId);
         String description = getDescription();
@@ -78,60 +77,64 @@ public abstract class EventAspect {
         return EventFactory.getBeanInstance().createEvent(eventType, messageId, transactionId, description);
     }
 
-    public void beginInboundMessageEvent() {        
-        Event event = createEvent(EventType.BEGIN_INBOUND_MESSAGE.toString());
+    private void recordEvent(String eventType) {
+        Event event = createEvent(eventType);
+
+        System.out.println("Event triggered: " + eventType + " - " + event.getMessageID());
         
-        System.out.println("beginInboundMessageEvent" + event.getMessageID());
+        // todo: event logger manager -> recordEvent()
+    }
+
+    public void beginInboundMessageEvent() {
+        recordEvent(EventType.BEGIN_INBOUND_MESSAGE.toString());
     }
 
     public void beginInboundProcessingEvent() {
-        Event event = createEvent(EventType.BEGIN_INBOUND_PROCESSING.toString());
-        
-        System.out.println("beginInboundProcessing" + event.getMessageID());
+        recordEvent(EventType.BEGIN_INBOUND_PROCESSING.toString());
     }
 
     public void beginAdapterDelegationEvent() {
-        Event event = createEvent(EventType.BEGIN_ADAPTER_DELEGATION.toString());
-        
-        System.out.println("beginAdapterDelegation" + event.getMessageID());
+        recordEvent(EventType.BEGIN_ADAPTER_DELEGATION.toString());
     }
 
     public void endAdapterDelegationEvent() {
-        Event event = createEvent(EventType.END_ADAPTER_DELEGATION.toString());
-        
-        System.out.println("endAdapterDelegationEvent" + event.getMessageID());
+        recordEvent(EventType.END_ADAPTER_DELEGATION.toString());
     }
 
     public void endInboundProcessingEvent() {
-        Event event = createEvent(EventType.END_INBOUND_PROCESSING.toString());
-        
-        System.out.println("endInboundProcessingEvent" + event.getMessageID());
+        recordEvent(EventType.END_INBOUND_PROCESSING.toString());
     }
 
     public void endInboundMessageEvent() {
-        Event event = createEvent(EventType.END_INBOUND_MESSAGE.toString());
-        
-        System.out.println("endInboundMessageEvent" + event.getMessageID());
+        recordEvent(EventType.END_INBOUND_MESSAGE.toString());
+    }
+    
+    public void beginOutboundMessageEvent() {
+        recordEvent(EventType.BEGIN_OUTBOUND_MESSAGE.toString());
+    }
+
+    public void beginOutboundProcessingEvent() {
+        recordEvent(EventType.BEGIN_OUTBOUND_PROCESSING.toString());
+    }
+
+    public void beginNwhinInvocationEvent() {
+        recordEvent(EventType.BEGIN_NWHIN_INVOCATION.toString());
+    }
+
+    public void endNwhinInvocationEvent() {
+        recordEvent(EventType.END_NWHIN_INVOCATION.toString());
+    }
+
+    public void endOutboundProcessingEvent() {
+        recordEvent(EventType.END_OUTBOUND_PROCESSING.toString());
+    }
+
+    public void endOutboundMessageEvent() {
+        recordEvent(EventType.END_OUTBOUND_MESSAGE.toString());
     }
 
     public void messageProcessingFailedEvent() {
-        Event event = createEvent(EventType.MESSAGE_PROCESSING_FAILED.toString());
-        
-        System.out.println("endInboundMessageEvent" + event.getMessageID());
+        recordEvent(EventType.MESSAGE_PROCESSING_FAILED.toString());
     }
-
-    /*
-     * //&&" + "args(*,context)")
-     * 
-     * @Pointcut("execution(* gov.hhs.fha.nhinc..nhin..*.*rovideAndRegisterDocumentSetB*(..))") private void
-     * DSInboundMessage(){ }
-     * 
-     * @Before("DSInboundMessage()") public void doSomethingBefore(){ // String messageID =
-     * AsyncMessageIdExtractor.GetAsyncMessageId(context); // EventFactory.createEvent(BeginInboundMessageEvent.class,
-     * messageID, null, null); System.out.println("doSomethingBefore(narf)"); }
-     * 
-     * @After("DSInboundMessage()") public void doSomethingAfter(){ // String messageID =
-     * AsyncMessageIdExtractor.GetAsyncMessageId(context); // EventFactory.createEvent(EndInboundMessageEvent.class,
-     * messageID, null, null); System.out.println("doSomethingAfter(narf)");
-     */
+    
 }
