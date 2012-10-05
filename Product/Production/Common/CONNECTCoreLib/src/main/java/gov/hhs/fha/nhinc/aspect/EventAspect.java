@@ -26,38 +26,94 @@
  */
 package gov.hhs.fha.nhinc.aspect;
 
+import java.util.List;
+
+import javax.xml.ws.WebServiceContext;
+import javax.xml.ws.handler.MessageContext;
+
+import org.apache.cxf.binding.soap.SoapHeader;
+import org.apache.cxf.headers.Header;
 import org.aspectj.lang.annotation.After;
+import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
-import org.aspectj.lang.annotation.Pointcut;
+import org.w3c.dom.Element;
 
 /**
  * @author zmelnick
- *
+ * 
  */
 @Aspect
 public class EventAspect {
 
-    public EventAspect(){
+    public EventAspect() {
 
     }
-    //&&" + "args(*,context)")
-    @Pointcut("execution(* gov.hhs.fha.nhinc..nhin..*.*rovideAndRegisterDocumentSetB*(..))")
-    private void DSInboundMessage(){
+
+    private String getMessageId() {
+        String messageId = null;
+
+        WebServiceContext context = new org.apache.cxf.jaxws.context.WebServiceContextImpl();
+        MessageContext mContext = (MessageContext) context.getMessageContext();
+
+        SoapHeader messageIdHeader = getMessageIDSoapHeader(mContext);
+        if (messageIdHeader != null) {
+            Object obj = messageIdHeader.getObject();
+            Element element = (Element) obj;
+            messageId = element.getFirstChild().getNodeValue();
+        }
+
+        return messageId;
     }
 
-    @Before("DSInboundMessage()")
-    public void doSomethingBefore(){
-   //     String messageID = AsyncMessageIdExtractor.GetAsyncMessageId(context);
-     //   EventFactory.createEvent(BeginInboundMessageEvent.class, messageID, null, null);
-        System.out.println("doSomethingBefore(narf)");
+    private final SoapHeader getMessageIDSoapHeader(MessageContext mContext) {
+        @SuppressWarnings("unchecked")
+        List<Header> headers = (List<Header>) mContext.get(org.apache.cxf.headers.Header.HEADER_LIST);
+
+        if (headers != null) {
+            for (Header header : headers) {
+                if (header.getName().getLocalPart().equalsIgnoreCase("MessageID")) {
+                    return (SoapHeader) header;
+                }
+            }
+        }
+
+        return null;
     }
 
-    @After("DSInboundMessage()")
-    public void doSomethingAfter(){
-     //   String messageID = AsyncMessageIdExtractor.GetAsyncMessageId(context);
-       // EventFactory.createEvent(EndInboundMessageEvent.class, messageID, null, null);
-        System.out.println("doSomethingAfter(narf)");
+    @Before("execution(* gov.hhs.fha.nhinc.docsubmission.*.nhin.NhinXDR*.documentRepositoryProvideAndRegisterDocumentSetB(..))")
+    public void beginInboundMessageEvent() {
+        System.out.println("beginInboundMessageEvent" + getMessageId());
+    }
+
+    @Before("execution(* gov.hhs.fha.nhinc.docsubmission.nhin.NhinDocSubmissionOrchImpl*.documentRepositoryProvideAndRegisterDocumentSetB(..))")
+    public void beginInboundProcessingEvent() {
+        System.out.println("beginInboundProcessing" + getMessageId());        
+    }
+
+    @Before("execution(* gov.hhs.fha.nhinc.docsubmission.adapter.proxy.AdapterDocSubmissionProxy*.provideAndRegisterDocumentSetB(..))")
+    public void beginAdapterDelegationEvent() {
+        System.out.println("beginAdapterDelegation" + getMessageId());
+    }
+
+    @After("execution(* gov.hhs.fha.nhinc.docsubmission.adapter.proxy.AdapterDocSubmissionProxy*.provideAndRegisterDocumentSetB(..))")
+    public void endAdapterDelegationEvent() {
+        System.out.println("endAdapterDelegationEvent" + getMessageId());
+    }
+
+    @After("execution(* gov.hhs.fha.nhinc.docsubmission.nhin.NhinDocSubmissionOrchImpl*.documentRepositoryProvideAndRegisterDocumentSetB(..))")
+    public void endInboundProcessingEvent() {
+        System.out.println("endInboundProcessingEvent" + getMessageId());
+    }
+
+    @After("execution(* gov.hhs.fha.nhinc.docsubmission.adapter.proxy.AdapterDocSubmissionProxy*.provideAndRegisterDocumentSetB(..))")
+    public void endInboundMessageEvent() {
+        System.out.println("endInboundMessageEvent" + getMessageId());
+    }
+
+    @AfterThrowing("execution(* gov.hhs.fha.nhinc.docsubmission.*.nhin.NhinXDR*.documentRepositoryProvideAndRegisterDocumentSetB(..))")
+    public void messageProcessingFailedEvent() {
+        System.out.println("endInboundMessageEvent" + getMessageId());
     }
 
 }

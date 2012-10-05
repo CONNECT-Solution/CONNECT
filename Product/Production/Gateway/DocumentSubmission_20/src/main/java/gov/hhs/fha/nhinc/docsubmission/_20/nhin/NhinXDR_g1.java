@@ -1,4 +1,6 @@
 /*
+ * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
+ * All rights reserved. 
  * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
@@ -26,12 +28,13 @@
  */
 package gov.hhs.fha.nhinc.docsubmission._20.nhin;
 
+import gov.hhs.fha.nhinc.docsubmission.nhin.NhinDocSubmissionOrchImpl;
+
 import ihe.iti.xdr._2007.DocumentRepositoryXDRPortType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 
-import javax.annotation.Resource;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
@@ -48,17 +51,22 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 public class NhinXDR_g1 implements DocumentRepositoryXDRPortType {
     @Resource
     private WebServiceContext context;
+    
+    private NhinDocSubmissionOrchImpl orchImpl;
 
-    @Override
     public RegistryResponseType documentRepositoryProvideAndRegisterDocumentSetB(
             ProvideAndRegisterDocumentSetRequestType body) {
-        return new NhinDocSubmissionImpl_g1().documentRepositoryProvideAndRegisterDocumentSetB(body, context);
+        return new NhinDocSubmissionImpl_g1(orchImpl).documentRepositoryProvideAndRegisterDocumentSetB(body, context);
     }
 
     @Override
     public RetrieveDocumentSetResponseType documentRepositoryRetrieveDocumentSet(
             RetrieveDocumentSetRequestType body) {
         throw new UnsupportedOperationException("Not implemented yet.");
+    }
+    
+    public void setOrchestratorImpl(NhinDocSubmissionOrchImpl orchImpl) {
+        this.orchImpl = orchImpl;
     }
 
 }
