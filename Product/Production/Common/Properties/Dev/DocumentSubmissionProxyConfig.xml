@@ -145,6 +145,6 @@
 	</bean>
     
     <aop:aspectj-autoproxy />
-    <bean id="eventAspect" class="gov.hhs.fha.nhinc.aspect.EventAspect" />
+    <bean id="eventDSAspect" class="gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionEventAspect" />
 
 </beans>

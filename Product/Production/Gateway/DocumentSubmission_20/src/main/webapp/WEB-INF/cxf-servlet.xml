@@ -289,6 +289,6 @@ http://www.springframework.org/schema/aop http://www.springframework.org/schema/
 
     <!-- Aspect Service -->
     <aop:aspectj-autoproxy />    
-    <bean id="eventAspect" class="gov.hhs.fha.nhinc.aspect.EventAspect" />
+    <bean id="eventDSAspect" class="gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionEventAspect" />
     
 </beans>
