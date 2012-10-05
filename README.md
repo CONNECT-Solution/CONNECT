@@ -46,7 +46,17 @@ Before you get started, you'll need the following installed and set up:
 
 ###Building from source
 To build all CONNECT modules from source, run: 
-        
+       
+Windows Users: 
+
+        $ export MAVEN_OPTS='-Xmx5000m -XX:MaxPermSize=1024m'
+
+OSX / Linux Users:
+
+        $ set MAVEN_OPTS='-Xmx5000m -XX:MaxPermSize=1024m'
+
+Everyone:
+
         $ cd <CONNECT_CLONE_DIR>
         $ mvn clean install 
 
