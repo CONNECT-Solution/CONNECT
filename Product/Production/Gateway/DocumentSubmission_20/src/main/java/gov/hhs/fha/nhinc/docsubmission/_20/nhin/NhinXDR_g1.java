@@ -51,22 +51,16 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 public class NhinXDR_g1 implements DocumentRepositoryXDRPortType {
     @Resource
     private WebServiceContext context;
-    
-    private NhinDocSubmissionOrchImpl orchImpl;
 
-    public RegistryResponseType documentRepositoryProvideAndRegisterDocumentSetB(
-            ProvideAndRegisterDocumentSetRequestType body) {
-        return new NhinDocSubmissionImpl_g1(orchImpl).documentRepositoryProvideAndRegisterDocumentSetB(body, context);
+    public oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType documentRepositoryProvideAndRegisterDocumentSetB(
+            ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType body) {
+        return new NhinDocSubmissionImpl_g1().documentRepositoryProvideAndRegisterDocumentSetB(body, context);
     }
 
     @Override
     public RetrieveDocumentSetResponseType documentRepositoryRetrieveDocumentSet(
             RetrieveDocumentSetRequestType body) {
         throw new UnsupportedOperationException("Not implemented yet.");
-    }
-    
-    public void setOrchestratorImpl(NhinDocSubmissionOrchImpl orchImpl) {
-        this.orchImpl = orchImpl;
     }
 
 }
