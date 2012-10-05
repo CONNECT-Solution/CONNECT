@@ -6,13 +6,12 @@
     in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF 
     ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under 
     the License. -->
-<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
-
-    xmlns:jaxws="http://cxf.apache.org/jaxws" xmlns:soap="http://cxf.apache.org/bindings/soap"
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:aop="http://www.springframework.org/schema/aop" xmlns:jaxws="http://cxf.apache.org/jaxws" xmlns:soap="http://cxf.apache.org/bindings/soap"
     xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 http://cxf.apache.org/bindings/soap http://cxf.apache.org/schemas/configuration/soap.xsd
 http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd
-http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd" >
+http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
     <import resource="classpath:META-INF/cxf/cxf.xml" />
     <import resource="classpath:META-INF/cxf/cxf-extension-soap.xml" />
@@ -21,12 +20,25 @@ http://www.springframework.org/schema/aop http://www.springframework.org/schema/
 
     <!-- Document Submission -->
 
-    <bean id="nhinDocSubmissionOrchImpl" class="gov.hhs.fha.nhinc.docsubmission.nhin.NhinDocSubmissionOrchImpl" />
-    
-    <bean id="nhinXDR" class="gov.hhs.fha.nhinc.docsubmission._20.nhin.NhinXDR_g1">
-       <property name="orchestratorImpl"><ref bean="nhinDocSubmissionOrchImpl"/></property>
-    </bean>
-    
+    <bean id="nhinDocSubmissionOrchImpl" class="gov.hhs.fha.nhinc.docsubmission.nhin.NhinDocSubmissionOrchImpl" /> 
+    <bean id="nhinXDR" class="gov.hhs.fha.nhinc.docsubmission._20.nhin.NhinXDR_g1">
+        <property name="orchestratorImpl">
+            <ref bean="nhinDocSubmissionOrchImpl" />
+        </property>
+    </bean>
+    <bean id="nhinDocSubmissionDeferredRequestOrchImpl" class="gov.hhs.fha.nhinc.docsubmission.nhin.deferred.request.NhinDocSubmissionDeferredRequestOrchImpl" />
+    <bean id="nhinXDRDeferredRequest" class="gov.hhs.fha.nhinc.docsubmission._20.nhin.deferred.request.NhinXDRRequest20">
+        <property name="orchestratorImpl">
+            <ref bean="nhinDocSubmissionDeferredRequestOrchImpl" />
+        </property>
+    </bean>
+    <bean id="nhinDocSubmissionDeferredResopnseOrchImpl" class="gov.hhs.fha.nhinc.docsubmission.nhin.deferred.response.NhinDocSubmissionDeferredResponseOrchImpl" />
+    <bean id="nhinXDRDeferredResponse" class="gov.hhs.fha.nhinc.docsubmission._20.nhin.deferred.response.NhinXDRResponse20">
+        <property name="orchestratorImpl">
+            <ref bean="nhinDocSubmissionDeferredRequestOrchImpl" />
+        </property>
+    </bean>
+
     <!-- Nhin services -->
     <jaxws:endpoint xmlns:nds="urn:ihe:iti:xdr:2007" id="NhinDocSubmission_g1" address="/DocumentRepositoryXDR_Service"
         serviceName="nds:DocumentRepositoryXDR_Service" endpointName="nds:DocumentRepositoryXDR_Port_Soap"
@@ -46,7 +58,7 @@ http://www.springframework.org/schema/aop http://www.springframework.org/schema/
         </jaxws:inInterceptors>
         <jaxws:handlers>
             <ref bean="SOAPHeaderHandler" />
-            <ref bean="TransactionHandler"/>
+            <ref bean="TransactionHandler" />
         </jaxws:handlers>
     </jaxws:endpoint>
 
@@ -55,9 +67,9 @@ http://www.springframework.org/schema/aop http://www.springframework.org/schema/
         address="/EntityService/EntityDocSubmissionUnsecured" serviceName="eds:EntityXDR_Service" endpointName="eds:EntityXDR_Port"
         implementor="gov.hhs.fha.nhinc.docsubmission._20.entity.EntityDocSubmissionUnsecured_g1" wsdlLocation="classpath:wsdl/EntityXDR.wsdl">
         <jaxws:handlers>
-            <ref bean="TransactionHandler"/>
+            <ref bean="TransactionHandler" />
         </jaxws:handlers>
-        <jaxws:properties>          
+        <jaxws:properties>
             <entry key="mtom-enabled" value="true" />
         </jaxws:properties>
     </jaxws:endpoint>
@@ -75,7 +87,7 @@ http://www.springframework.org/schema/aop http://www.springframework.org/schema/
             <ref bean="securityInInterceptor" />
         </jaxws:inInterceptors>
         <jaxws:handlers>
-            <ref bean="TransactionHandler"/>
+            <ref bean="TransactionHandler" />
         </jaxws:handlers>
     </jaxws:endpoint>
 
@@ -84,9 +96,9 @@ http://www.springframework.org/schema/aop http://www.springframework.org/schema/
         address="/EntityService/PassthruDocSubmissionUnsecured" serviceName="mpds:ProxyXDR_Service" endpointName="mpds:ProxyXDR_Port"
         implementor="gov.hhs.fha.nhinc.docsubmission._20.passthru.PassthruDocSubmissionUnsecured_g1" wsdlLocation="classpath:wsdl/NhincProxyXDR.wsdl">
         <jaxws:handlers>
-            <ref bean="TransactionHandler"/>
+            <ref bean="TransactionHandler" />
         </jaxws:handlers>
-        <jaxws:properties>          
+        <jaxws:properties>
             <entry key="mtom-enabled" value="true" />
         </jaxws:properties>
     </jaxws:endpoint>
@@ -104,7 +116,7 @@ http://www.springframework.org/schema/aop http://www.springframework.org/schema/
             <ref bean="securityInInterceptor" />
         </jaxws:inInterceptors>
         <jaxws:handlers>
-            <ref bean="TransactionHandler"/>
+            <ref bean="TransactionHandler" />
         </jaxws:handlers>
     </jaxws:endpoint>
 
@@ -130,7 +142,7 @@ http://www.springframework.org/schema/aop http://www.springframework.org/schema/
         </jaxws:inInterceptors>
         <jaxws:handlers>
             <ref bean="SOAPHeaderHandler" />
-            <ref bean="TransactionHandler"/>
+            <ref bean="TransactionHandler" />
         </jaxws:handlers>
     </jaxws:endpoint>
 
@@ -142,9 +154,9 @@ http://www.springframework.org/schema/aop http://www.springframework.org/schema/
         implementor="gov.hhs.fha.nhinc.docsubmission._20.entity.deferred.request.EntityDocSubmissionDeferredRequestUnsecured_g1"
         wsdlLocation="classpath:wsdl/EntityXDRRequest.wsdl">
         <jaxws:handlers>
-            <ref bean="TransactionHandler"/>
+            <ref bean="TransactionHandler" />
         </jaxws:handlers>
-        <jaxws:properties>          
+        <jaxws:properties>
             <entry key="mtom-enabled" value="true" />
         </jaxws:properties>
     </jaxws:endpoint>
@@ -164,7 +176,7 @@ http://www.springframework.org/schema/aop http://www.springframework.org/schema/
             <ref bean="securityInInterceptor" />
         </jaxws:inInterceptors>
         <jaxws:handlers>
-            <ref bean="TransactionHandler"/>
+            <ref bean="TransactionHandler" />
         </jaxws:handlers>
     </jaxws:endpoint>
 
@@ -175,9 +187,9 @@ http://www.springframework.org/schema/aop http://www.springframework.org/schema/
         implementor="gov.hhs.fha.nhinc.docsubmission._20.passthru.deferred.request.PassthruDocSubmissionDeferredRequestUnsecured_g1"
         wsdlLocation="classpath:wsdl/NhincProxyXDRRequest.wsdl">
         <jaxws:handlers>
-            <ref bean="TransactionHandler"/>
+            <ref bean="TransactionHandler" />
         </jaxws:handlers>
-        <jaxws:properties>          
+        <jaxws:properties>
             <entry key="mtom-enabled" value="true" />
         </jaxws:properties>
     </jaxws:endpoint>
@@ -197,7 +209,7 @@ http://www.springframework.org/schema/aop http://www.springframework.org/schema/
             <ref bean="securityInInterceptor" />
         </jaxws:inInterceptors>
         <jaxws:handlers>
-            <ref bean="TransactionHandler"/>
+            <ref bean="TransactionHandler" />
         </jaxws:handlers>
     </jaxws:endpoint>
 
@@ -222,7 +234,7 @@ http://www.springframework.org/schema/aop http://www.springframework.org/schema/
         </jaxws:inInterceptors>
         <jaxws:handlers>
             <ref bean="SOAPHeaderHandler" />
-            <ref bean="TransactionHandler"/>
+            <ref bean="TransactionHandler" />
         </jaxws:handlers>
     </jaxws:endpoint>
 
@@ -233,7 +245,7 @@ http://www.springframework.org/schema/aop http://www.springframework.org/schema/
         implementor="gov.hhs.fha.nhinc.docsubmission._20.entity.deferred.response.EntityDocSubmissionDeferredResponseUnsecured_g1"
         wsdlLocation="classpath:wsdl/EntityXDRResponse.wsdl">
         <jaxws:handlers>
-            <ref bean="TransactionHandler"/>
+            <ref bean="TransactionHandler" />
         </jaxws:handlers>
     </jaxws:endpoint>
 
@@ -251,7 +263,7 @@ http://www.springframework.org/schema/aop http://www.springframework.org/schema/
             <ref bean="securityInInterceptor" />
         </jaxws:inInterceptors>
         <jaxws:handlers>
-            <ref bean="TransactionHandler"/>
+            <ref bean="TransactionHandler" />
         </jaxws:handlers>
     </jaxws:endpoint>
 
@@ -262,7 +274,7 @@ http://www.springframework.org/schema/aop http://www.springframework.org/schema/
         implementor="gov.hhs.fha.nhinc.docsubmission._20.passthru.deferred.response.PassthruDocSubmissionDeferredResponseUnsecured_g1"
         wsdlLocation="classpath:wsdl/NhincProxyXDRResponse.wsdl">
         <jaxws:handlers>
-            <ref bean="TransactionHandler"/>
+            <ref bean="TransactionHandler" />
         </jaxws:handlers>
     </jaxws:endpoint>
 
@@ -280,7 +292,7 @@ http://www.springframework.org/schema/aop http://www.springframework.org/schema/
             <ref bean="securityInInterceptor" />
         </jaxws:inInterceptors>
         <jaxws:handlers>
-            <ref bean="TransactionHandler"/>
+            <ref bean="TransactionHandler" />
         </jaxws:handlers>
     </jaxws:endpoint>
 
@@ -288,7 +300,7 @@ http://www.springframework.org/schema/aop http://www.springframework.org/schema/
     <bean id="TransactionHandler" class="gov.hhs.fha.nhinc.logging.transaction.TransactionHandler" />
 
     <!-- Aspect Service -->
-    <aop:aspectj-autoproxy />    
+    <aop:aspectj-autoproxy />
     <bean id="eventDSAspect" class="gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionEventAspect" />
-    
+
 </beans>
