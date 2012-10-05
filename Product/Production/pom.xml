@@ -60,7 +60,7 @@
             placed within the child POM that overrides the <resourcs> or <testResources> -->
     <resources>
       <resource>
-        <directory>${basedir}/src/main/resources</directory>
+        <directory>/src/main/resources</directory>
         <includes>
           <include>**/*</include>
         </includes>
@@ -71,7 +71,7 @@
         </excludes>
       </resource>
       <resource>
-        <directory>${basedir}/src/main/resources</directory>
+        <directory>/src/main/resources</directory>
         <includes>
           <include>wsdl/**/*.wsdl</include>
           <include>*.wsdl</include>
@@ -81,7 +81,7 @@
     </resources>
     <testResources>
       <testResource>
-        <directory>${basedir}/src/test/resources</directory>
+        <directory>/src/test/resources</directory>
         <includes>
           <include>**/*</include>
         </includes>
