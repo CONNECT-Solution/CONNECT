@@ -6,6 +6,8 @@
 	<xsd:include schemaLocation="../../HL7V3/NE2008/multicacheschemas/PRPA_IN201310UV02.xsd"/>
 	<xsd:include schemaLocation="../../HL7V3/NE2008/multicacheschemas/MCCI_IN000002UV01.xsd"/>
 	<xsd:include schemaLocation="../../HL7V3/NE2008/multicacheschemas/PRPA_MT201307UV02.xsd"/>
+    <xsd:include schemaLocation="../../HL7V3/NE2008/multicacheschemas/PRPA_MT201301UV02.xsd"/>
+    <xsd:include schemaLocation="../../HL7V3/NE2008/multicacheschemas/PRPA_MT201310UV02.xsd"/>
 	<xsd:include schemaLocation="../../HL7V3/NE2008/multicacheschemas/CDA.xsd"/>
 	<xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommon" schemaLocation="../common/NhincCommon.xsd"/>
 

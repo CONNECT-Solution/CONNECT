@@ -29,7 +29,7 @@ History
 * 4.0 planned Febuary 2013
 * 3.3 released March 2012
   
-  (see HISTORY.md)
+For more information, about CONNECT's history see [HISTORY.md](./HISTORY.md)
 
 Getting Started
 ---------------
@@ -82,7 +82,7 @@ Available profiles to alter the composition of bundled gateways and adapters wit
 You can alter the composition of the CONNECT.ear at any time by specifying any combination of the available profiles as a comma-separated list 
 		
 		$ cd <CONNECT_CLONE_DIR>
-		$ mvn clean package -P <profiles> -f Product/Production/CONNECT/pom.xml
+		$ mvn clean package -P <profiles> -f Product/Production/Deploy/pom.xml
 		
 OR 
 		
@@ -125,6 +125,7 @@ you want GlassFish to install.
 		$ cp install.properties local.install.properties
 
 Lastly, we're going to install the Glassfish Application Server         
+        
         $ ant install
         	
 
