@@ -32,6 +32,8 @@ import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
+import javax.xml.transform.stream.StreamSource;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.uddi.api_v3.BusinessDetail;
@@ -43,15 +45,15 @@ import org.uddi.api_v3.ObjectFactory;
  */
 public class ConnectionManagerDAOBase {
 
-    private static final String CONTEXT_PATH = "org.uddi.api_v3";
     private Log log = null;
 
     protected BusinessDetail loadBusinessDetail(File file) throws JAXBException {
         BusinessDetail resp = null;
         synchronized (file) {
-            JAXBContext context = JAXBContext.newInstance(CONTEXT_PATH);
+            JAXBContext context = JAXBContext.newInstance(BusinessDetail.class);
             Unmarshaller unmarshaller = context.createUnmarshaller();
-            resp = ((JAXBElement<BusinessDetail>) unmarshaller.unmarshal(file)).getValue();
+            JAXBElement<BusinessDetail> jaxbElement = unmarshaller.unmarshal(new StreamSource(file), BusinessDetail.class);
+            resp =  jaxbElement.getValue();
         }
         return resp;
     }
@@ -59,7 +61,7 @@ public class ConnectionManagerDAOBase {
     protected void saveBusinessDetail(BusinessDetail BusinessDetail, File file) {
         try {
             synchronized (file) {
-                JAXBContext context = JAXBContext.newInstance(CONTEXT_PATH);
+                JAXBContext context = JAXBContext.newInstance(BusinessDetail.class);
                 ObjectFactory factory = new ObjectFactory();
                 Marshaller marshaller = context.createMarshaller();
                 marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);

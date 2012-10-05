@@ -37,7 +37,7 @@ import gov.hhs.fha.nhinc.entitysubscriptionmanagement.UnableToDestroySubscriptio
  *
  * @author Sai Valluripalli
  */
-@WebService(serviceName = "EntitySubscriptionManager", portName = "EntitySubscriptionManagerPortSoap", endpointInterface = "gov.hhs.fha.nhinc.entitysubscriptionmanagement.EntitySubscriptionManagerPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement", wsdlLocation = "WEB-INF/wsdl/EntitySubscribeService/EntitySubscriptionManagement.wsdl")
+@WebService(endpointInterface = "gov.hhs.fha.nhinc.entitysubscriptionmanagement.EntitySubscriptionManagerPortType")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 public class EntityUnsubscribeService {
 
