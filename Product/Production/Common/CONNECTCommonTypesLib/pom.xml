@@ -10,9 +10,10 @@
     <artifactId>CONNECTCommonTypesLib</artifactId>
     <packaging>jar</packaging>
     <name>CONNECT common types</name>
-    
+
     <properties>
         <skip.unpack>true</skip.unpack>
+        <xjc.strict>true</xjc.strict>
     </properties>
     <dependencies>
         <dependency>
@@ -38,6 +39,7 @@
                 <configuration>
                     <generateDirectory>${project.build.directory}/generated-sources/</generateDirectory>
                     <schemaDirectory>${basedir}/src/main/resources/schemas/</schemaDirectory>
+                    <strict>${xjc.strict}</strict>
                     <schemaIncludes>
                         <include>nhinc/**/*.xsd</include>
                         <include>docs.oasis-open.org/**/*.xsd</include>
@@ -127,5 +129,17 @@
             </snapshots>
         </pluginRepository>
     </pluginRepositories>
-
+    <profiles>
+        <profile>
+            <id>linux</id>
+            <activation>
+                <os>
+                    <name>linux</name>
+                </os>
+            </activation>
+            <properties>
+                <xjc.strict>false</xjc.strict>
+            </properties>
+        </profile>
+    </profiles>
 </project>
