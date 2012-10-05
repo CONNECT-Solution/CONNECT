@@ -26,7 +26,7 @@
  */
 package gov.hhs.fha.nhinc.event;
 
-import gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory;
+import gov.hhs.fha.nhinc.proxy.ComponentProxyFactory;
 
 import java.util.Map;
 
@@ -37,29 +37,22 @@ import org.apache.commons.logging.LogFactory;
  * @author zmelnick
  * 
  */
-public class EventFactory extends ComponentProxyObjectFactory {
+public class EventFactory {
 
     private static final String CONFIG_FILE_NAME = "EventFactoryConfig.xml";
     private static final String BEAN_NAME = "eventfactory";
 
     private static Log log = null;
     private Map<String, String> eventMap;
-
+    
+    
     /**
      * Getter method for the factory declared by the spring proxy bean.
      * 
      * @return an instance of the event factory
      */
-    public static EventFactory getBeanInstance() {
-        EventFactory nonBeanFactory = new EventFactory();
-        return nonBeanFactory.getEventFactoryBean();
-    }
-
-    /**
-     * Empty constructor. Will create an event factory with an empty event map.
-     */
-    public EventFactory() {
-
+    public static EventFactory getInstance() {
+        return new ComponentProxyFactory(CONFIG_FILE_NAME).getInstance(BEAN_NAME, EventFactory.class);
     }
 
     /**
@@ -111,25 +104,11 @@ public class EventFactory extends ComponentProxyObjectFactory {
         this.eventMap = eventMap;
     }
 
-    /**
-     * (non-Javadoc)
-     * 
-     * @see gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory#getConfigFileName()
-     */
-    @Override
-    protected String getConfigFileName() {
-        return CONFIG_FILE_NAME;
-    }
-
     protected Log getLogger() {
         if (log == null) {
             log = LogFactory.getLog(getClass());
-        }
-        return log;
     }
-
-    protected EventFactory getEventFactoryBean() {
-        return getBean(BEAN_NAME, EventFactory.class);
+        return log;
     }
 
 }
