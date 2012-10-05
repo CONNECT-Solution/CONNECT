@@ -26,6 +26,8 @@
  */
 package gov.hhs.fha.nhinc.docsubmission._20.nhin;
 
+import gov.hhs.fha.nhinc.docsubmission.nhin.NhinDocSubmissionOrchImpl;
+
 import javax.xml.ws.BindingType;
 import javax.annotation.Resource;
 import javax.xml.ws.WebServiceContext;
@@ -40,15 +42,21 @@ import javax.xml.ws.soap.Addressing;
 public class NhinXDR_g1 implements ihe.iti.xdr._2007.DocumentRepositoryXDRPortType {
     @Resource
     private WebServiceContext context;
+    
+    private NhinDocSubmissionOrchImpl orchImpl;
 
     public oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType documentRepositoryProvideAndRegisterDocumentSetB(
             ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType body) {
-        return new NhinDocSubmissionImpl_g1().documentRepositoryProvideAndRegisterDocumentSetB(body, context);
+        return new NhinDocSubmissionImpl_g1(orchImpl).documentRepositoryProvideAndRegisterDocumentSetB(body, context);
     }
 
     public ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType documentRepositoryRetrieveDocumentSet(
             ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType body) {
         throw new UnsupportedOperationException("Not implemented yet.");
+    }
+    
+    public void setOrchestratorImpl(NhinDocSubmissionOrchImpl orchImpl) {
+        this.orchImpl = orchImpl;
     }
 
 }
