@@ -29,8 +29,10 @@ package gov.hhs.fha.nhinc.hiem._20.entity.unsubscribe;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.UnsubscribeRequestType;
 import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
+import gov.hhs.fha.nhinc.hiem.consumerreference.ReferenceParametersHelper;
 import gov.hhs.fha.nhinc.hiem.consumerreference.SoapHeaderHelper;
 import gov.hhs.fha.nhinc.hiem.consumerreference.SoapMessageElements;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.unsubscribe.entity.EntityUnsubscribeOrchImpl;
 
@@ -57,9 +59,11 @@ public class EntityUnsubscribeServiceImpl {
         try {
             AssertionType assertion = unsubscribeRequest.getAssertion();
             String subscriptionId = getSubscriptionId(context);
-            
+           /* ReferenceParametersHelper referenceParametersHelper = new ReferenceParametersHelper(); 
+            SoapMessageElements referenceParametersElements = referenceParametersHelper
+                    .createReferenceParameterElementsFromSubscriptionReference(NhincConstants.HTTP_REQUEST_ATTRIBUTE_SOAPMESSAGE);*/
             EntityUnsubscribeOrchImpl processor = new EntityUnsubscribeOrchImpl();
-            processor.processUnsubscribe(unsubscribeRequest.getUnsubscribe(), subscriptionId, assertion);
+            processor.processUnsubscribe(unsubscribeRequest.getUnsubscribe(),  assertion, subscriptionId);
         } catch (UnableToDestroySubscriptionFault ex) {
             throw new gov.hhs.fha.nhinc.entitysubscriptionmanagement.UnableToDestroySubscriptionFault(ex.getMessage(),
                     ex);
@@ -75,10 +79,10 @@ public class EntityUnsubscribeServiceImpl {
         UnsubscribeResponse response = null;
         try {            
             AssertionType assertion = SAML2AssertionExtractor.getInstance().extractSamlAssertion(context);
-            String subscriptionId = getSubscriptionId(context);
-
+            
+            String subscriptionId = getSubscriptionId(context);           
             EntityUnsubscribeOrchImpl processor = new EntityUnsubscribeOrchImpl();
-            processor.processUnsubscribe(unsubscribeRequest, subscriptionId, assertion);
+            processor.processUnsubscribe(unsubscribeRequest, assertion, subscriptionId);
         } catch (UnableToDestroySubscriptionFault ex) {
             throw new gov.hhs.fha.nhinc.entitysubscriptionmanagementsecured.UnableToDestroySubscriptionFault(
                     ex.getMessage(), ex);

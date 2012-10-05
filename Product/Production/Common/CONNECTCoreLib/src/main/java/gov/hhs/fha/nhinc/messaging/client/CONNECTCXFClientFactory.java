@@ -51,6 +51,15 @@ public class CONNECTCXFClientFactory extends CONNECTClientFactory {
 
         return client;
     }
+    
+    public <T> CONNECTClient<T> getCONNECTClientSecured(ServicePortDescriptor<T> portDescriptor, String url,
+            AssertionType assertion, String wsAddressingTo, String subscriptionId) {
+        CONNECTCXFClientSecured<T> client = new CONNECTCXFClientSecured<T>(portDescriptor, url, assertion, wsAddressingTo,subscriptionId);
+
+        return client;
+
+       
+    }
 
     public <T> CONNECTClient<T> getCONNECTClientUnsecured(ServicePortDescriptor<T> portDescriptor, String url,
             AssertionType assertion) {

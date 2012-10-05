@@ -86,7 +86,7 @@ public class EntityUnsubscribeOrchImpl {
 		 * @throws UnableToDestroySubscriptionFault
 		 */
 		public UnsubscribeResponse processUnsubscribe(Unsubscribe unsubscribe,
-				String subscriptionId, AssertionType assertion)
+		         AssertionType assertion, String subscriptionId)
 				throws UnableToDestroySubscriptionFault, Exception {
 			UnsubscribeResponse response = null;
 
@@ -97,7 +97,9 @@ public class EntityUnsubscribeOrchImpl {
 	        HiemSubscriptionItem subscriptionItem = null;
 	        try {
 	            log.debug("lookup subscription by reference parameters");
+	           
 	            subscriptionItem = repo.retrieveBySubscriptionId(subscriptionId);
+	            //subscriptionItem = repo.retrieveByLocalSubscriptionReferenceParameters(referenceParametersElements);
 	            
 	            log.debug("subscriptionItem isnull? = " + (subscriptionItem == null));
 	        } catch (SubscriptionRepositoryException ex) {
@@ -124,7 +126,7 @@ public class EntityUnsubscribeOrchImpl {
 	            log.debug("send unsubscribe(s) to child [" + childSubscriptions.size() + "]");
 	            for (HiemSubscriptionItem childSubscription : childSubscriptions) {
 	                log.debug("sending unsubscribe to child");
-	                response = unsubscribeToChild(unsubscribe, childSubscription, assertion);
+	                response = unsubscribeToChild(unsubscribe, childSubscription, assertion, subscriptionId);
 	            }
 	        }
 
@@ -142,7 +144,7 @@ public class EntityUnsubscribeOrchImpl {
 	    }
 
 		 private UnsubscribeResponse unsubscribeToChild(Unsubscribe parentUnsubscribe, HiemSubscriptionItem childSubscriptionItem,
-		            AssertionType parentAssertion) throws UnableToDestroySubscriptionFault, ResourceUnknownFault, Exception {
+		            AssertionType parentAssertion, String subscriptionId) throws UnableToDestroySubscriptionFault, ResourceUnknownFault, Exception {
 		        UnsubscribeResponse response = null;
 			 	try {
 		            log.debug("unsubscribing to child subscription");
@@ -164,10 +166,12 @@ public class EntityUnsubscribeOrchImpl {
 		                    .createReferenceParameterElementsFromSubscriptionReference(childSubscriptionItem
 		                            .getSubscriptionReferenceXML());
 		            log.debug("extracted " + referenceParametersElements.getElements().size() + " element(s)");
-
+		            
+		          //  HiemSubscriptionRepositoryService repo = new HiemSubscriptionRepositoryService();
+		           /* HiemSubscriptionItem subscriptionItem = null;
+		            subscriptionItem = repo.retrieveByLocalSubscriptionReference(childSubscriptionItem.getSubscriptionReferenceXML());*/
 		            response = getResponseFromTarget(parentUnsubscribe,referenceParametersElements,
-		            		parentAssertion, target);
-
+		            		parentAssertion, target,childSubscriptionItem.getStorageObject().getSubscriptionId());
 		            HiemSubscriptionRepositoryService repo = new HiemSubscriptionRepositoryService();
 		            repo.deleteSubscription(childSubscriptionItem);
 
@@ -252,13 +256,13 @@ public class EntityUnsubscribeOrchImpl {
 		 */
 		private UnsubscribeResponse getResponseFromTarget(
 				Unsubscribe request, SoapMessageElements referenceParameters,
-				AssertionType assertion, NhinTargetSystemType targetSystem) {
+				AssertionType assertion, NhinTargetSystemType targetSystem, String subscriptionId) {
 			UnsubscribeResponse nhinResponse = new UnsubscribeResponse();
 		    if(isPolicyValid(request, assertion)){
 	        	log.info("Policy check successful");
 	            //send request to nhin proxy
 	        	try {
-	                nhinResponse = sendToNhinProxy(request, referenceParameters, assertion, targetSystem);
+	                nhinResponse = sendToNhinProxy(request, referenceParameters, assertion, targetSystem,subscriptionId );
 	            } catch (Exception e) {
 	                //TODO nhinResponse = createFailedNhinSendResponse(hcid);
 	            	String hcid = targetSystem.getHomeCommunity().getHomeCommunityId();
@@ -274,11 +278,11 @@ public class EntityUnsubscribeOrchImpl {
 
 		private UnsubscribeResponse sendToNhinProxy(
 	            Unsubscribe request, SoapMessageElements referenceParameters,
-	            AssertionType assertion, NhinTargetSystemType nhinTargetSystem) {
+	            AssertionType assertion, NhinTargetSystemType nhinTargetSystem, String subscriptionId) {
 
 	        OutboundUnsubscribeDelegate dsDelegate = getOutboundUnsubscribeDelegate();
 	        OutboundUnsubscribeOrchestratable dsOrchestratable = createOrchestratable(dsDelegate, request,
-	        		referenceParameters, assertion, nhinTargetSystem);
+	        		referenceParameters, assertion, nhinTargetSystem, subscriptionId);
 	        UnsubscribeResponse response = ((OutboundUnsubscribeOrchestratable) dsDelegate
 	        		.process(dsOrchestratable)).getResponse();
 
@@ -292,14 +296,14 @@ public class EntityUnsubscribeOrchImpl {
 		private OutboundUnsubscribeOrchestratable createOrchestratable(
 	            OutboundUnsubscribeDelegate delegate, Unsubscribe request,
 	            SoapMessageElements referenceParameters, AssertionType assertion,
-	            NhinTargetSystemType nhinTargetSystem) {
+	            NhinTargetSystemType nhinTargetSystem, String subscriptionId) {
 
 	        OutboundUnsubscribeOrchestratable dsOrchestratable = new OutboundUnsubscribeOrchestratable(delegate);
 	        dsOrchestratable.setAssertion(assertion);
 	        dsOrchestratable.setRequest(request);
 	        dsOrchestratable.setReferenceParameters(referenceParameters);
 	        dsOrchestratable.setTarget(nhinTargetSystem);
-
+            dsOrchestratable.setSubscriptionId(subscriptionId);
 	        return dsOrchestratable;
 	    }
 

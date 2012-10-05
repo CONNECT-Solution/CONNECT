@@ -331,7 +331,7 @@ public class SubscriptionStorageItemDao {
                 sess = fact.openSession();
                 if (sess != null) {
                     trans = sess.beginTransaction();
-                    sess.delete(subscriptionItem);
+                    sess.delete(subscriptionItem.getSubscriptionId());
                 } else {
                     log.error("Failed to obtain a session from the sessionFactory");
                 }

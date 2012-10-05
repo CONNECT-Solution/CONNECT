@@ -30,6 +30,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.hiem.consumerreference.ReferenceParametersHelper;
+import gov.hhs.fha.nhinc.hiem.consumerreference.SoapHeaderHelper;
 import gov.hhs.fha.nhinc.hiem.consumerreference.SoapMessageElements;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTCXFClientFactory;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
@@ -45,6 +46,7 @@ import org.oasis_open.docs.wsn.b_2.UnsubscribeResponse;
 import org.oasis_open.docs.wsn.bw_2.SubscriptionManager;
 import org.oasis_open.docs.wsn.bw_2.UnableToDestroySubscriptionFault;
 import org.oasis_open.docs.wsrf.rw_2.ResourceUnknownFault;
+import org.w3c.dom.Element;
 
 /**
  * 
@@ -56,15 +58,18 @@ public class NhinHiemUnsubscribeWebServiceProxy implements NhinHiemUnsubscribePr
 
     protected CONNECTClient<SubscriptionManager> getCONNECTClientSecured(
             ServicePortDescriptor<SubscriptionManager> portDescriptor, String url, AssertionType assertion,
-            String wsAddressingTo) {
+            String wsAddressingTo, String subscriptionId) {
+        
+        log.debug("SubscriptionId from NhinHIEMUnsubscribeWebServiceProxy:"+ subscriptionId);
 
-        return CONNECTCXFClientFactory.getInstance().getCONNECTClientSecured(portDescriptor, url, assertion,
-                wsAddressingTo);
+        return CONNECTCXFClientFactory.getInstance().getCONNECTClientSecured( portDescriptor, url,
+                assertion, wsAddressingTo,  subscriptionId) ;
+       
     }
 
     @Override
     public UnsubscribeResponse unsubscribe(Unsubscribe unsubscribe, SoapMessageElements referenceParametersElements,
-            AssertionType assertion, NhinTargetSystemType target) throws ResourceUnknownFault,
+            AssertionType assertion, NhinTargetSystemType target, String subscriptionId) throws ResourceUnknownFault,
             UnableToDestroySubscriptionFault, Exception {
 
         UnsubscribeResponse response = null;
@@ -81,13 +86,14 @@ public class NhinHiemUnsubscribeWebServiceProxy implements NhinHiemUnsubscribePr
 
                 String wsAddressingTo = ReferenceParametersHelper.getWsAddressingTo(referenceParametersElements);
                 if (wsAddressingTo == null) {
-                    wsAddressingTo = url;
+                    wsAddressingTo = url;   
                 }
+                  
 
                 ServicePortDescriptor<SubscriptionManager> portDescriptor = new NhinHiemUnsubscribeServicePortDescriptor();
 
                 CONNECTClient<SubscriptionManager> client = getCONNECTClientSecured(portDescriptor, url, assertion,
-                        wsAddressingTo);
+                        wsAddressingTo, subscriptionId);
 
                 response = (UnsubscribeResponse) client.invokePort(SubscriptionManager.class, "unsubscribe",
                         unsubscribe);

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<application xmlns="http://java.sun.com/xml/ns/j2ee"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee
+             http://java.sun.com/xml/ns/j2ee/application_1_4.xsd"
+             version="1.4">
+ 	<display-name>CONNECT</display-name>
+    <module><web><web-uri>CONNECTGatewayWeb.war</web-uri>
+                                  <context-root>CONNECTGateway</context-root></web></module>
+    <module><web><web-uri>DocumentSubmission_11.war</web-uri>
+                                  <context-root>Gateway/DocumentSubmission/1_1</context-root></web></module>
+    <module><web><web-uri>DocumentSubmission_20.war</web-uri>
+                                  <context-root>Gateway/DocumentSubmission/2_0</context-root></web></module>
+    <module><web><web-uri>DocumentSubmission_a0.war</web-uri>
+                                  <context-root>Adapter/DocumentSubmission/A_0</context-root></web></module>
+    <module><web><web-uri>DocumentRetrieve_20.war</web-uri>
+                                  <context-root>Gateway/DocumentRetrieve/2_0</context-root></web></module>
+    <module><web><web-uri>DocumentRetrieve_30.war</web-uri>
+                                  <context-root>Gateway/DocumentRetrieve/3_0</context-root></web></module>
+    <module><web><web-uri>DocumentRetrieve_a0.war</web-uri>
+                                  <context-root>Adapter/DocumentRetrieve/A_0</context-root></web></module>
+    <module><web><web-uri>HIEM_20.war</web-uri>
+                                  <context-root>Gateway/HIEM/2_0</context-root></web></module>
+    <module><web><web-uri>CONNECTAdapterWeb.war</web-uri>
+                                  <context-root>CONNECTAdapter</context-root></web></module>
+</application>
