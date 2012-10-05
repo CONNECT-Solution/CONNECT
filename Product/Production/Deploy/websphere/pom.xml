@@ -4,19 +4,13 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.connectopensource</groupId>
-        <artifactId>connect-ear-deps</artifactId>
+        <artifactId>Deploy</artifactId>
         <version>4.0.0-SNAPSHOT</version>
     </parent>
     <artifactId>CONNECT-WS</artifactId>
     <packaging>ear</packaging>
     <name>CONNECT Websphere</name>
     <dependencies>
-        <dependency>
-            <groupId>org.connectopensource</groupId>
-            <artifactId>connect-ear-deps</artifactId>
-            <version>${project.parent.version}</version>
-            <type>pom</type>
-        </dependency>
         <dependency>
             <groupId>org.codehaus.woodstox</groupId>
             <artifactId>woodstox-core-asl</artifactId>
@@ -46,12 +40,49 @@
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>2.5.1</version>
+                <executions>
+                    <execution>
+                        <id>unpack</id>
+                        <goals>
+                            <goal>unpack</goal>
+                        </goals>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>org.connectopensource</groupId>
+                                    <artifactId>CONNECT</artifactId>
+                                    <version>${project.parent.version}</version>
+                                    <type>ear</type>
+                                    <overWrite>true</overWrite>
+                                    <outputDirectory>${project.build.directory}/CONNECT.ear</outputDirectory>
+                                    <includes>**/*</includes>
+                                    <excludes>META-INF/maven/**/*,
+                                        META-INF/MANIFEST.MF</excludes>
+                                </artifactItem>
+                            </artifactItems>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-ear-plugin</artifactId>
-                <version>2.8</version>
+                <configuration>
+                    <generateApplicationXml>false</generateApplicationXml>
+                    <applicationXml>${project.build.directory}/CONNECT.ear/META-INF/application.xml</applicationXml>
+                    <earSourceDirectory>${project.build.directory}/CONNECT.ear</earSourceDirectory>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-ear-plugin</artifactId>
                 <configuration>
                     <version>6</version>
                     <defaultLibBundleDir>lib</defaultLibBundleDir>
                     <skinnyWars>true</skinnyWars>
+                    <includeLibInApplicationXml>true</includeLibInApplicationXml>
                     <packagingExcludes>lib/asm-3.3.1.jar,lib/xercesImpl-2.10.0.jar,lib/xml-apis-1.4.01.jar,lib/xalan-2.7.1.jar,lib/xmlpull-1.1.3.1.jar</packagingExcludes>
                 </configuration>
             </plugin>

@@ -82,7 +82,7 @@ Available profiles to alter the composition of bundled gateways and adapters wit
 You can alter the composition of the CONNECT.ear at any time by specifying any combination of the available profiles as a comma-separated list 
 		
 		$ cd <CONNECT_CLONE_DIR>
-		$ mvn clean package -P <profiles> -f Product/Production/CONNECT/pom.xml
+		$ mvn clean package -P <profiles> -f Product/Production/Deploy/pom.xml
 		
 OR 
 		
