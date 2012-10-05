@@ -25,7 +25,7 @@ http://www.springframework.org/schema/aop http://www.springframework.org/schema/
     <jaxws:endpoint xmlns:nds="urn:ihe:iti:xdr:2007" id="NhinDocSubmission_g1" address="/DocumentRepositoryXDR_Service"
         serviceName="nds:DocumentRepositoryXDR_Service" endpointName="nds:DocumentRepositoryXDR_Port_Soap"
         implementorClass="gov.hhs.fha.nhinc.docsubmission._20.nhin.NhinXDR_g1" implementor="#nhinXDR"
-        wsdlLocation="/WEB-INF/wsdl/NhinXDR/NhinXDR20.wsdl">
+        wsdlLocation="classpath:wsdl/NhinXDR20.wsdl">
         <jaxws:properties>
             <entry key="ws-security.callback-handler" value="gov.hhs.fha.nhinc.callback.cxf.CXFSAMLCallbackHandler" />
             <entry key="ws-security.signature.properties" value="keystore.properties" />
