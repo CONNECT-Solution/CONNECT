@@ -9,7 +9,7 @@
     </parent>
     <artifactId>CONNECT-GF</artifactId>
     <packaging>ear</packaging>
-    <name>CONNECT Glassfish</name>
+    <name>CONNECT Glassfish EAR</name>
     <build>
         <finalName>${project.artifactId}</finalName>
         <plugins>

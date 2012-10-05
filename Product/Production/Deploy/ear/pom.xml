@@ -9,7 +9,7 @@
     </parent>
     <artifactId>CONNECT</artifactId>
     <packaging>ear</packaging>
-    <name>CONNECT</name>
+    <name>CONNECT EAR</name>
     <description>CONNECT EAR - App Server Agnostic EAR</description>
     <properties>
         <skip.unpack>true</skip.unpack>

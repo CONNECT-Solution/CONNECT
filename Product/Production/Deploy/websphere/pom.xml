@@ -9,7 +9,7 @@
     </parent>
     <artifactId>CONNECT-WS</artifactId>
     <packaging>ear</packaging>
-    <name>CONNECT Websphere</name>
+    <name>CONNECT IBM WebSphere EAR</name>
     <dependencies>
         <dependency>
             <groupId>org.codehaus.woodstox</groupId>
