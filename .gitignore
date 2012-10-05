@@ -5,6 +5,7 @@
 .DS_Store
 *.log
 .externalToolBuilders/
+maven-eclipse.xml
 build/
 dist/
 lib/

@@ -1,6 +1,0 @@
-#!/bin/bash
-while [ 1 ];
-do
-  xtest -err -run -tc v_xds
-  xtest -err -run -tc v_xca
-done

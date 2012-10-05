@@ -8,7 +8,7 @@
     <property name="deploy.type" value="war" />
     <property name="copy.wsdl.to.webinf" value="true" />
     <property name="coverage.isneeded" value="false" />
-    <property name="core.xdr" location="../../Services/DocumentSubmission/Core/DocumentSubmissionCore/dist/debug" />
+    <property name="core.xdr" location="../../Services/DocumentSubmissionCore/dist/debug" />
 
 
     <!-- Please make sure that this goes up to the correct directory -->

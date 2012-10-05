@@ -23,7 +23,7 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
     <!-- Nhin services -->
     <jaxws:endpoint xmlns:ndq="urn:ihe:iti:xds-b:2007" id="NhinDocumentQuery" address="/NhinService/RespondingGateway_Query_Service/DocQuery"
         serviceName="ndq:RespondingGateway_Query_Service" endpointName="ndq:RespondingGateway_Query_Port_Soap"
-        implementor="gov.hhs.fha.nhinc.docquery._20.nhin.DocQuery" wsdlLocation="/WEB-INF/wsdl/DocQuery/NhinDocQuery.wsdl">
+        implementor="gov.hhs.fha.nhinc.docquery._20.nhin.DocQuery" wsdlLocation="classpath:wsdl/NhinDocQuery.wsdl">
         <jaxws:properties>
             <entry key="ws-security.callback-handler" value="gov.hhs.fha.nhinc.callback.cxf.CXFSAMLCallbackHandler" />
             <entry key="ws-security.signature.properties" value="keystore.properties" />
@@ -44,7 +44,7 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
     <!-- Entity services -->
     <jaxws:endpoint xmlns:edq="urn:gov:hhs:fha:nhinc:entitydocquery" id="EntityDocumentQuery"
         address="/EntityService/EntityDocQueryUnsecured" serviceName="edq:EntityDocQuery" endpointName="edq:EntityDocQueryPortSoap"
-        implementor="gov.hhs.fha.nhinc.docquery._20.entity.EntityDocQueryUnsecured" wsdlLocation="/WEB-INF/wsdl/EntityDocQueryUnsecured/EntityDocQuery.wsdl">
+        implementor="gov.hhs.fha.nhinc.docquery._20.entity.EntityDocQueryUnsecured" wsdlLocation="classpath:/wsdl/EntityDocQuery.wsdl">
     <jaxws:handlers>
             <ref bean="TransactionHandler"/>
     </jaxws:handlers>
@@ -52,7 +52,7 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
 
     <jaxws:endpoint xmlns:edqs="urn:gov:hhs:fha:nhinc:entitydocquery" id="EntityDocumentQuerySecured"
         address="/EntityService/EntityDocQuerySecured" serviceName="edqs:EntityDocQuerySecured" endpointName="edqs:EntityDocQuerySecuredPortSoap"
-        implementor="gov.hhs.fha.nhinc.docquery._20.entity.EntityDocQuerySecured" wsdlLocation="/WEB-INF/wsdl/EntityDocQuerySecured/EntityDocQuerySecured.wsdl">
+        implementor="gov.hhs.fha.nhinc.docquery._20.entity.EntityDocQuerySecured" wsdlLocation="classpath:wsdl/EntityDocQuerySecured.wsdl">
         <jaxws:properties>
             <entry key="ws-security.callback-handler" value="gov.hhs.fha.nhinc.callback.cxf.CXFSAMLCallbackHandler" />
             <entry key="ws-security.signature.properties" value="keystore.properties" />
@@ -69,7 +69,7 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
     <!-- MsgProxy/NhincProxy/Passthru services -->
     <jaxws:endpoint xmlns:mpdq="urn:gov:hhs:fha:nhinc:nhincproxydocquery" id="NhincProxyDocumentQuery"
         address="/EntityService/NhincProxyDocQueryUnsecured" serviceName="mpdq:NhincProxyDocQuery" endpointName="mpdq:NhincProxyDocQueryPortSoap"
-        implementor="gov.hhs.fha.nhinc.docquery._20.passthru.NhincProxyDocQueryUnsecured" wsdlLocation="/WEB-INF/wsdl/NhincProxyDocQueryUnsecured/NhincProxyDocQuery.wsdl">
+        implementor="gov.hhs.fha.nhinc.docquery._20.passthru.NhincProxyDocQueryUnsecured" wsdlLocation="classpath:wsdl/NhincProxyDocQuery.wsdl">
         <jaxws:handlers>
             <ref bean="TransactionHandler"/>
         </jaxws:handlers>
@@ -77,7 +77,7 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
 
     <jaxws:endpoint xmlns:mpdqs="urn:gov:hhs:fha:nhinc:nhincproxydocquerysecured" id="NhincProxyDocumentQuerySecured"
         address="/EntityService/NhincProxyDocQuerySecured" serviceName="mpdqs:NhincProxyDocQuerySecured" endpointName="mpdqs:NhincProxyDocQuerySecuredPortSoap"
-        implementor="gov.hhs.fha.nhinc.docquery._20.passthru.NhincProxyDocQuerySecured" wsdlLocation="/WEB-INF/wsdl/NhincProxyDocQuerySecured/NhincProxyDocQuerySecured.wsdl">
+        implementor="gov.hhs.fha.nhinc.docquery._20.passthru.NhincProxyDocQuerySecured" wsdlLocation="classpath:wsdl/NhincProxyDocQuerySecured.wsdl">
         <jaxws:properties>
             <entry key="ws-security.callback-handler" value="gov.hhs.fha.nhinc.callback.cxf.CXFSAMLCallbackHandler" />
             <entry key="ws-security.signature.properties" value="keystore.properties" />

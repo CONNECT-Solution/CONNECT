@@ -1,0 +1,564 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<thresholds>
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.mpi.adapter.AdapterMpiOrchImpl" linecount="8" linerate="80" linesexecuted="0" />
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.mpi.adapter.component.AdapterComponentMpiChecker" linecount="0" linerate="80"
+        linesexecuted="0" />
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.mpi.adapter.component.AdapterComponentMpiCheckerFaultImpl" linecount="6" linerate="80"
+        linesexecuted="0" />
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.mpi.adapter.component.AdapterComponentMpiCheckerNoOpImpl" linecount="3" linerate="80"
+        linesexecuted="0" />
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.mpi.adapter.component.AdapterComponentMpiCheckerObjectFactory" linecount="3" linerate="80"
+        linesexecuted="0" />
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.mpi.adapter.component.AdapterComponentMpiOrchImpl" linecount="8" linerate="80"
+        linesexecuted="0" />
+    <threshold branchcount="12" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.mpi.adapter.component.CommonChecks" linecount="4" linerate="80" linesexecuted="0" />
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.mpi.adapter.component.MpiDataAccess" linecount="7" linerate="80" linesexecuted="0.04" />
+    <threshold branchcount="50" branchrate="80" branchsexecuted="0.17"
+        class="gov.hhs.fha.nhinc.mpi.adapter.component.PatientChecker" linecount="47" linerate="80" linesexecuted="0.29" />
+    <threshold branchcount="52" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.mpi.adapter.component.PatientDbChecker" linecount="46" linerate="80" linesexecuted="0" />
+    <threshold branchcount="28" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.mpi.adapter.component.PersonNameParser" linecount="47" linerate="80" linesexecuted="0" />
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.mpi.adapter.component.PersonNameParser$nameorder" linecount="2" linerate="80"
+        linesexecuted="0" />
+    <threshold branchcount="206" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.mpi.adapter.component.hl7parsers.HL7DbParser201305" linecount="293" linerate="80"
+        linesexecuted="0" />
+    <threshold branchcount="144" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.mpi.adapter.component.hl7parsers.HL7DbParser201306" linecount="292" linerate="80"
+        linesexecuted="0" />
+    <threshold branchcount="152" branchrate="80" branchsexecuted="0.53"
+        class="gov.hhs.fha.nhinc.mpi.adapter.component.hl7parsers.HL7Parser201305" linecount="226" linerate="80"
+        linesexecuted="1.2" />
+    <threshold branchcount="148" branchrate="80" branchsexecuted="0.68"
+        class="gov.hhs.fha.nhinc.mpi.adapter.component.hl7parsers.HL7Parser201306" linecount="291" linerate="80"
+        linesexecuted="2.65" />
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.mpi.adapter.component.hl7parsers.MessageIdGenerator" linecount="5" linerate="80"
+        linesexecuted="0.04" />
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.mpi.adapter.component.proxy.AdapterComponentMpiProxy" linecount="0" linerate="80"
+        linesexecuted="0" />
+    <threshold branchcount="2" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.mpi.adapter.component.proxy.AdapterComponentMpiProxyJavaImpl" linecount="10" linerate="80"
+        linesexecuted="0" />
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.mpi.adapter.component.proxy.AdapterComponentMpiProxyNoOpImpl" linecount="2" linerate="80"
+        linesexecuted="0" />
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.mpi.adapter.component.proxy.AdapterComponentMpiProxyObjectFactory" linecount="3"
+        linerate="80" linesexecuted="0" />
+    <threshold branchcount="10" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.mpi.adapter.component.proxy.AdapterComponentMpiProxyWebServiceSecuredImpl" linecount="38"
+        linerate="80" linesexecuted="0" />
+    <threshold branchcount="10" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.mpi.adapter.component.proxy.AdapterComponentMpiProxyWebServiceUnsecuredImpl" linecount="41"
+        linerate="80" linesexecuted="0" />
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.mpi.adapter.proxy.AdapterMpiProxy" linecount="0" linerate="80" linesexecuted="0" />
+    <threshold branchcount="2" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.mpi.adapter.proxy.AdapterMpiProxyJavaImpl" linecount="10" linerate="80" linesexecuted="0" />
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.mpi.adapter.proxy.AdapterMpiProxyNoOpImpl" linecount="2" linerate="80" linesexecuted="0" />
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.mpi.adapter.proxy.AdapterMpiProxyObjectFactory" linecount="3" linerate="80"
+        linesexecuted="0" />
+    <threshold branchcount="10" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.mpi.adapter.proxy.AdapterMpiProxyWebServiceSecuredImpl" linecount="39" linerate="80"
+        linesexecuted="0" />
+    <threshold branchcount="10" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.mpi.adapter.proxy.AdapterMpiProxyWebServiceUnsecuredImpl" linecount="41" linerate="80"
+        linesexecuted="0" />
+    <threshold branchcount="4" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.adapter.deferred.queue.PatientDiscoveryDeferredReqQueueClient" linecount="45" linerate="80"
+        linesexecuted="0" />
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0" class="gov.hhs.fha.nhinc.mpilib.Address"
+        linecount="22" linerate="80" linesexecuted="0.22" />
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0" class="gov.hhs.fha.nhinc.mpilib.Addresses"
+        linecount="4" linerate="80" linesexecuted="0.04" />
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0" class="gov.hhs.fha.nhinc.mpilib.IMPI"
+        linecount="0" linerate="80" linesexecuted="0" />
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0" class="gov.hhs.fha.nhinc.mpilib.Identifier"
+        linecount="15" linerate="80" linesexecuted="0.15" />
+    <threshold branchcount="10" branchrate="80" branchsexecuted="0.04" class="gov.hhs.fha.nhinc.mpilib.Identifiers"
+        linecount="21" linerate="80" linesexecuted="0.14" />
+    <threshold branchcount="68" branchrate="80" branchsexecuted="0.22" class="gov.hhs.fha.nhinc.mpilib.MiniMpi"
+        linecount="129" linerate="80" linesexecuted="0.68" />
+    <threshold branchcount="8" branchrate="80" branchsexecuted="0.06" class="gov.hhs.fha.nhinc.mpilib.MpiDataSaver"
+        linecount="83" linerate="80" linesexecuted="0.66" />
+    <threshold branchcount="8" branchrate="80" branchsexecuted="0.08" class="gov.hhs.fha.nhinc.mpilib.Patient"
+        linecount="66" linerate="80" linesexecuted="0.54" />
+    <threshold branchcount="112" branchrate="80" branchsexecuted="0.37" class="gov.hhs.fha.nhinc.mpilib.PatientMatcher"
+        linecount="126" linerate="80" linesexecuted="0.53" />
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0" class="gov.hhs.fha.nhinc.mpilib.Patients"
+        linecount="4" linerate="80" linesexecuted="0.04" />
+    <threshold branchcount="8" branchrate="80" branchsexecuted="0.03" class="gov.hhs.fha.nhinc.mpilib.PersonName"
+        linecount="40" linerate="80" linesexecuted="0.34" />
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0" class="gov.hhs.fha.nhinc.mpilib.PersonNames"
+        linecount="4" linerate="80" linesexecuted="0.04" />
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0" class="gov.hhs.fha.nhinc.mpilib.PhoneNumber"
+        linecount="10" linerate="80" linesexecuted="0.05" />
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0" class="gov.hhs.fha.nhinc.mpilib.PhoneNumbers"
+        linecount="4" linerate="80" linesexecuted="0.04" />
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.mpilib.UnableToInitializeMpi" linecount="10" linerate="80" linesexecuted="0.04" />
+    <threshold branchcount="26" branchrate="80" branchsexecuted="0" class="gov.hhs.fha.nhinc.patientdb.dao.AddressDAO"
+        linecount="105" linerate="80" linesexecuted="0" />
+    <threshold branchcount="22" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdb.dao.IdentifierDAO" linecount="85" linerate="80" linesexecuted="0" />
+    <threshold branchcount="156" branchrate="80" branchsexecuted="0" class="gov.hhs.fha.nhinc.patientdb.dao.PatientDAO"
+        linecount="283" linerate="80" linesexecuted="0" />
+    <threshold branchcount="26" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdb.dao.PersonnameDAO" linecount="105" linerate="80" linesexecuted="0" />
+    <threshold branchcount="26" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdb.dao.PhonenumberDAO" linecount="105" linerate="80" linesexecuted="0" />
+    <threshold branchcount="2" branchrate="80" branchsexecuted="0" class="gov.hhs.fha.nhinc.patientdb.model.Address"
+        linecount="24" linerate="80" linesexecuted="0" />
+    <threshold branchcount="6" branchrate="80" branchsexecuted="0" class="gov.hhs.fha.nhinc.patientdb.model.Identifier"
+        linecount="19" linerate="80" linesexecuted="0" />
+    <threshold branchcount="12" branchrate="80" branchsexecuted="0" class="gov.hhs.fha.nhinc.patientdb.model.Patient"
+        linecount="47" linerate="80" linesexecuted="0" />
+    <threshold branchcount="2" branchrate="80" branchsexecuted="0" class="gov.hhs.fha.nhinc.patientdb.model.Personname"
+        linecount="24" linerate="80" linesexecuted="0" />
+    <threshold branchcount="2" branchrate="80" branchsexecuted="0" class="gov.hhs.fha.nhinc.patientdb.model.Phonenumber"
+        linecount="12" linerate="80" linesexecuted="0" />
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdb.persistence.HibernateUtil" linecount="15" linerate="80" linesexecuted="0" />
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdb.service.PatientService" linecount="13" linerate="80" linesexecuted="0" />
+    <threshold branchcount="16" branchrate="80" branchsexecuted="0.1"
+        class="gov.hhs.fha.nhinc.patientdiscovery.AbstractPatientDiscoveryPolicyChecker" linecount="27" linerate="80"
+        linesexecuted="0.26" />
+    <threshold branchcount="38" branchrate="80" branchsexecuted="0.12"
+        class="gov.hhs.fha.nhinc.patientdiscovery.NhinPatientDiscoveryUtils" linecount="14" linerate="80" linesexecuted="0.07" />
+    <threshold branchcount="300" branchrate="80" branchsexecuted="0.84"
+        class="gov.hhs.fha.nhinc.patientdiscovery.PatientDiscovery201305Processor" linecount="231" linerate="80"
+        linesexecuted="1.02" />
+    <threshold branchcount="84" branchrate="80" branchsexecuted="0.04"
+        class="gov.hhs.fha.nhinc.patientdiscovery.PatientDiscovery201306PolicyChecker" linecount="43" linerate="80"
+        linesexecuted="0.19" />
+    <threshold branchcount="104" branchrate="80" branchsexecuted="0.5"
+        class="gov.hhs.fha.nhinc.patientdiscovery.PatientDiscovery201306Processor" linecount="64" linerate="80"
+        linesexecuted="0.41" />
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAdapterSender" linecount="24" linerate="80"
+        linesexecuted="0" />
+    <threshold branchcount="2" branchrate="80" branchsexecuted="0.01"
+        class="gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditLogger" linecount="28" linerate="80"
+        linesexecuted="0.09" />
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditor" linecount="0" linerate="80" linesexecuted="0" />
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryException" linecount="4" linerate="80" linesexecuted="0" />
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryPolicyChecker" linecount="13" linerate="80"
+        linesexecuted="0.08" />
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryProcessor" linecount="0" linerate="80" linesexecuted="0" />
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.PolicyChecker" linecount="0" linerate="80" linesexecuted="0" />
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.adapter.AdapterPatientDiscoveryOrchImpl" linecount="5" linerate="80"
+        linesexecuted="0" />
+    <threshold branchcount="6" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.AdapterPatientDiscoveryDeferredReqOrchImpl"
+        linecount="19" linerate="80" linesexecuted="0" />
+    <threshold branchcount="4" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.error.AdapterPatientDiscoveryDeferredReqErrorOrchImpl"
+        linecount="14" linerate="80" linesexecuted="0" />
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.error.proxy.AdapterPatientDiscoveryDeferredReqErrorProxy"
+        linecount="0" linerate="80" linesexecuted="0" />
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.error.proxy.AdapterPatientDiscoveryDeferredReqErrorProxyJavaImpl"
+        linecount="4" linerate="80" linesexecuted="0" />
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.error.proxy.AdapterPatientDiscoveryDeferredReqErrorProxyNoOpImpl"
+        linecount="2" linerate="80" linesexecuted="0.02" />
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.error.proxy.AdapterPatientDiscoveryDeferredReqErrorProxyObjectFactory"
+        linecount="3" linerate="80" linesexecuted="0" />
+    <threshold branchcount="14" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.error.proxy.AdapterPatientDiscoveryDeferredReqErrorProxyWebServiceSecuredImpl"
+        linecount="49" linerate="80" linesexecuted="0" />
+    <threshold branchcount="16" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.error.proxy.AdapterPatientDiscoveryDeferredReqErrorProxyWebServiceUnsecuredImpl"
+        linecount="52" linerate="80" linesexecuted="0" />
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.proxy.AdapterPatientDiscoveryDeferredReqProxy"
+        linecount="0" linerate="80" linesexecuted="0" />
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.proxy.AdapterPatientDiscoveryDeferredReqProxyJavaImpl"
+        linecount="4" linerate="80" linesexecuted="0" />
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.proxy.AdapterPatientDiscoveryDeferredReqProxyNoOpImpl"
+        linecount="2" linerate="80" linesexecuted="0.02" />
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.proxy.AdapterPatientDiscoveryDeferredReqProxyObjectFactory"
+        linecount="4" linerate="80" linesexecuted="0" />
+    <threshold branchcount="10" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.proxy.AdapterPatientDiscoveryDeferredReqProxyWebServiceSecuredImpl"
+        linecount="43" linerate="80" linesexecuted="0" />
+    <threshold branchcount="12" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.proxy.AdapterPatientDiscoveryDeferredReqProxyWebServiceUnsecuredImpl"
+        linecount="46" linerate="80" linesexecuted="0" />
+    <threshold branchcount="14" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.queue.AdapterPatientDiscoveryDeferredReqQueueOrchImpl"
+        linecount="64" linerate="80" linesexecuted="0" />
+    <threshold branchcount="34" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.queue.AdapterPatientDiscoveryDeferredReqQueueProcessOrchImpl"
+        linecount="67" linerate="80" linesexecuted="0" />
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.queue.proxy.AdapterPatientDiscoveryAsyncReqQueueProxy"
+        linecount="0" linerate="80" linesexecuted="0" />
+    <threshold branchcount="2" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.queue.proxy.AdapterPatientDiscoveryAsyncReqQueueProxyJavaImpl"
+        linecount="9" linerate="80" linesexecuted="0" />
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.queue.proxy.AdapterPatientDiscoveryAsyncReqQueueProxyObjectFactory"
+        linecount="3" linerate="80" linesexecuted="0" />
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.response.AdapterPatientDiscoveryDeferredRespOrchImpl"
+        linecount="3" linerate="80" linesexecuted="0" />
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.response.proxy.AdapterPatientDiscoveryDeferredRespProxy"
+        linecount="0" linerate="80" linesexecuted="0" />
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.response.proxy.AdapterPatientDiscoveryDeferredRespProxyJavaImpl"
+        linecount="4" linerate="80" linesexecuted="0" />
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.response.proxy.AdapterPatientDiscoveryDeferredRespProxyNoOpImpl"
+        linecount="4" linerate="80" linesexecuted="0.04" />
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.response.proxy.AdapterPatientDiscoveryDeferredRespProxyObjectFactory"
+        linecount="4" linerate="80" linesexecuted="0" />
+    <threshold branchcount="10" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.response.proxy.AdapterPatientDiscoveryDeferredRespProxyWebServiceSecuredImpl"
+        linecount="43" linerate="80" linesexecuted="0" />
+    <threshold branchcount="12" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.response.proxy.AdapterPatientDiscoveryDeferredRespProxyWebServiceUnsecuredImpl"
+        linecount="46" linerate="80" linesexecuted="0" />
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.adapter.proxy.AdapterPatientDiscoveryProxy" linecount="0" linerate="80"
+        linesexecuted="0" />
+    <threshold branchcount="2" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.adapter.proxy.AdapterPatientDiscoveryProxyJavaImpl" linecount="13"
+        linerate="80" linesexecuted="0" />
+    <threshold branchcount="2" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.adapter.proxy.AdapterPatientDiscoveryProxyNoOpImpl" linecount="7"
+        linerate="80" linesexecuted="0" />
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.adapter.proxy.AdapterPatientDiscoveryProxyObjectFactory" linecount="4"
+        linerate="80" linesexecuted="0" />
+    <threshold branchcount="10" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.adapter.proxy.AdapterPatientDiscoveryProxyWebServiceSecuredImpl"
+        linecount="43" linerate="80" linesexecuted="0" />
+    <threshold branchcount="10" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.adapter.proxy.AdapterPatientDiscoveryProxyWebServiceUnsecuredImpl"
+        linecount="43" linerate="80" linesexecuted="0" />
+    <threshold branchcount="56" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.entity.EntityPatientDiscoveryOrchImpl" linecount="164" linerate="80"
+        linesexecuted="0" />
+    <threshold branchcount="6" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.entity.OutboundPatientDiscoveryDelegate" linecount="27" linerate="80"
+        linesexecuted="0" />
+    <threshold branchcount="2" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.entity.OutboundPatientDiscoveryFactory" linecount="10" linerate="80"
+        linesexecuted="0" />
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.entity.OutboundPatientDiscoveryFactory$1" linecount="1" linerate="80"
+        linesexecuted="0" />
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.entity.OutboundPatientDiscoveryOrchestratable" linecount="40"
+        linerate="80" linesexecuted="0" />
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.entity.OutboundPatientDiscoveryOrchestrationContextBuilder" linecount="37"
+        linerate="80" linesexecuted="0" />
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.entity.OutboundPatientDiscoveryOrchestrationContextBuilder_g0"
+        linecount="4" linerate="80" linesexecuted="0" />
+    <threshold branchcount="16" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.entity.OutboundPatientDiscoveryProcessor" linecount="103" linerate="80"
+        linesexecuted="0" />
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.entity.OutboundPatientDiscoveryProcessor$1" linecount="1" linerate="80"
+        linesexecuted="0" />
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.entity.OutboundPatientDiscoveryProcessorHelper" linecount="7"
+        linerate="80" linesexecuted="0" />
+    <threshold branchcount="2" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.entity.OutboundPatientDiscoveryStrategy" linecount="16" linerate="80"
+        linesexecuted="0" />
+    <threshold branchcount="2" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.entity.OutboundPatientDiscoveryStrategyImpl_g0" linecount="23"
+        linerate="80" linesexecuted="0" />
+    <threshold branchcount="24" branchrate="80" branchsexecuted="0.15"
+        class="gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.request.EntityPatientDiscoveryDeferredRequestOrchImpl"
+        linecount="99" linerate="80" linesexecuted="0.62" />
+    <threshold branchcount="6" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.request.OutboundPatientDiscoveryDeferredRequestDelegate"
+        linecount="19" linerate="80" linesexecuted="0" />
+    <threshold branchcount="2" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.request.OutboundPatientDiscoveryDeferredRequestFactory"
+        linecount="9" linerate="80" linesexecuted="0" />
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.request.OutboundPatientDiscoveryDeferredRequestFactory$1"
+        linecount="1" linerate="80" linesexecuted="0" />
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.request.OutboundPatientDiscoveryDeferredRequestOrchestratable"
+        linecount="34" linerate="80" linesexecuted="0" />
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.request.OutboundPatientDiscoveryDeferredRequestOrchestrationContextBuilder"
+        linecount="19" linerate="80" linesexecuted="0" />
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.request.OutboundPatientDiscoveryDeferredRequestOrchestrationContextBuilder_g0"
+        linecount="5" linerate="80" linesexecuted="0" />
+    <threshold branchcount="6" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.request.OutboundPatientDiscoveryDeferredRequestStrategyImpl_g0"
+        linecount="20" linerate="80" linesexecuted="0" />
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.request.proxy.EntityPatientDiscoveryDeferredRequestProxy"
+        linecount="0" linerate="80" linesexecuted="0" />
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.request.proxy.EntityPatientDiscoveryDeferredRequestProxyJavaImpl"
+        linecount="5" linerate="80" linesexecuted="0" />
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.request.proxy.EntityPatientDiscoveryDeferredRequestProxyNoOpImpl"
+        linecount="2" linerate="80" linesexecuted="0.02" />
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.request.proxy.EntityPatientDiscoveryDeferredRequestProxyObjectFactory"
+        linecount="3" linerate="80" linesexecuted="0" />
+    <threshold branchcount="6" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.request.proxy.EntityPatientDiscoveryDeferredRequestProxyWebServiceSecuredImpl"
+        linecount="39" linerate="80" linesexecuted="0" />
+    <threshold branchcount="6" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.request.proxy.EntityPatientDiscoveryDeferredRequestProxyWebServiceUnsecuredImpl"
+        linecount="39" linerate="80" linesexecuted="0" />
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.response.EntityPatientDiscoveryDeferredResponseOrch"
+        linecount="0" linerate="80" linesexecuted="0" />
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.response.EntityPatientDiscoveryDeferredResponseOrchFactory"
+        linecount="2" linerate="80" linesexecuted="0" />
+    <threshold branchcount="10" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.response.EntityPatientDiscoveryDeferredResponseOrchImpl"
+        linecount="75" linerate="80" linesexecuted="0" />
+    <threshold branchcount="6" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.response.OutboundPatientDiscoveryDeferredResponseDelegate"
+        linecount="19" linerate="80" linesexecuted="0" />
+    <threshold branchcount="2" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.response.OutboundPatientDiscoveryDeferredResponseFactory"
+        linecount="9" linerate="80" linesexecuted="0" />
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.response.OutboundPatientDiscoveryDeferredResponseFactory$1"
+        linecount="1" linerate="80" linesexecuted="0" />
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.response.OutboundPatientDiscoveryDeferredResponseOrchestratable"
+        linecount="34" linerate="80" linesexecuted="0" />
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.response.OutboundPatientDiscoveryDeferredResponseOrchestrationContextBuilder"
+        linecount="19" linerate="80" linesexecuted="0" />
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.response.OutboundPatientDiscoveryDeferredResponseOrchestrationContextBuilder_g0"
+        linecount="5" linerate="80" linesexecuted="0" />
+    <threshold branchcount="6" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.response.OutboundPatientDiscoveryDeferredResponseStrategyImpl_g0"
+        linecount="20" linerate="80" linesexecuted="0" />
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.response.proxy.EntityPatientDiscoveryDeferredResponseProxy"
+        linecount="0" linerate="80" linesexecuted="0" />
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.response.proxy.EntityPatientDiscoveryDeferredResponseProxyJavaImpl"
+        linecount="9" linerate="80" linesexecuted="0" />
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.response.proxy.EntityPatientDiscoveryDeferredResponseProxyNoOpImpl"
+        linecount="7" linerate="80" linesexecuted="0.07" />
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.response.proxy.EntityPatientDiscoveryDeferredResponseProxyObjectFactory"
+        linecount="3" linerate="80" linesexecuted="0" />
+    <threshold branchcount="10" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.response.proxy.EntityPatientDiscoveryDeferredResponseProxyWebServiceSecuredImpl"
+        linecount="45" linerate="80" linesexecuted="0" />
+    <threshold branchcount="10" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.response.proxy.EntityPatientDiscoveryDeferredResponseProxyWebServiceUnsecuredImpl"
+        linecount="46" linerate="80" linesexecuted="0" />
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.entity.proxy.EntityPatientDiscoveryProxy" linecount="0" linerate="80"
+        linesexecuted="0" />
+    <threshold branchcount="2" branchrate="80" branchsexecuted="0.02"
+        class="gov.hhs.fha.nhinc.patientdiscovery.entity.proxy.EntityPatientDiscoveryProxyJavaImpl" linecount="18"
+        linerate="80" linesexecuted="0.16" />
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.entity.proxy.EntityPatientDiscoveryProxyNoOpImpl" linecount="2"
+        linerate="80" linesexecuted="0.02" />
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.entity.proxy.EntityPatientDiscoveryProxyObjectFactory" linecount="3"
+        linerate="80" linesexecuted="0.02" />
+    <threshold branchcount="12" branchrate="80" branchsexecuted="0.09"
+        class="gov.hhs.fha.nhinc.patientdiscovery.entity.proxy.EntityPatientDiscoveryProxyWebServiceSecuredImpl"
+        linecount="54" linerate="80" linesexecuted="0.4" />
+    <threshold branchcount="12" branchrate="80" branchsexecuted="0.09"
+        class="gov.hhs.fha.nhinc.patientdiscovery.entity.proxy.EntityPatientDiscoveryProxyWebServiceUnsecuredImpl"
+        linecount="54" linerate="80" linesexecuted="0.4" />
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.nhin.AbstractServicePropertyAccessor" linecount="17" linerate="80"
+        linesexecuted="0" />
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.nhin.GenericFactory" linecount="0" linerate="80" linesexecuted="0" />
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.nhin.InboundPatientDiscoveryOrchFactory" linecount="6" linerate="80"
+        linesexecuted="0" />
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.nhin.InboundPatientDiscoveryOrchFactory$1" linecount="3" linerate="80"
+        linesexecuted="0" />
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.nhin.InboundPatientDiscoveryOrchestration" linecount="0" linerate="80"
+        linesexecuted="0" />
+    <threshold branchcount="4" branchrate="80" branchsexecuted="0.04"
+        class="gov.hhs.fha.nhinc.patientdiscovery.nhin.NhinPatientDiscoveryOrchImpl" linecount="38" linerate="80"
+        linesexecuted="0.38" />
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.nhin.deferred.request.NhinPatientDiscoveryDeferredReqOrch" linecount="0"
+        linerate="80" linesexecuted="0" />
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.nhin.deferred.request.NhinPatientDiscoveryDeferredReqOrchFactory"
+        linecount="6" linerate="80" linesexecuted="0" />
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.nhin.deferred.request.NhinPatientDiscoveryDeferredReqOrchFactory$1"
+        linecount="3" linerate="80" linesexecuted="0" />
+    <threshold branchcount="6" branchrate="80" branchsexecuted="0.06"
+        class="gov.hhs.fha.nhinc.patientdiscovery.nhin.deferred.request.NhinPatientDiscoveryDeferredReqOrchImpl"
+        linecount="42" linerate="80" linesexecuted="0.41" />
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.nhin.deferred.request.proxy.NhinPatientDiscoveryDeferredReqProxy"
+        linecount="0" linerate="80" linesexecuted="0" />
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.nhin.deferred.request.proxy.NhinPatientDiscoveryDeferredReqProxyNoOpImpl"
+        linecount="2" linerate="80" linesexecuted="0.02" />
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.nhin.deferred.request.proxy.NhinPatientDiscoveryDeferredReqProxyObjectFactory"
+        linecount="3" linerate="80" linesexecuted="0" />
+    <threshold branchcount="10" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.nhin.deferred.request.proxy.NhinPatientDiscoveryDeferredReqProxyWebServiceSecuredImpl"
+        linecount="44" linerate="80" linesexecuted="0" />
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.nhin.deferred.response.NhinPatientDiscoveryDeferredRespOrchFactory"
+        linecount="6" linerate="80" linesexecuted="0" />
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.nhin.deferred.response.NhinPatientDiscoveryDeferredRespOrchFactory$1"
+        linecount="3" linerate="80" linesexecuted="0" />
+    <threshold branchcount="20" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.nhin.deferred.response.NhinPatientDiscoveryDeferredRespOrchImpl"
+        linecount="62" linerate="80" linesexecuted="0" />
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.nhin.deferred.response.NhinPatientDiscoveryDefferedRespPropertyAccessor"
+        linecount="3" linerate="80" linesexecuted="0" />
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.nhin.deferred.response.proxy.NhinPatientDiscoveryDeferredRespProxy"
+        linecount="0" linerate="80" linesexecuted="0" />
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.nhin.deferred.response.proxy.NhinPatientDiscoveryDeferredRespProxyNoOpImpl"
+        linecount="2" linerate="80" linesexecuted="0.02" />
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.nhin.deferred.response.proxy.NhinPatientDiscoveryDeferredRespProxyObjectFactory"
+        linecount="3" linerate="80" linesexecuted="0" />
+    <threshold branchcount="10" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.nhin.deferred.response.proxy.NhinPatientDiscoveryDeferredRespProxyWebServiceSecuredImpl"
+        linecount="37" linerate="80" linesexecuted="0" />
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.nhin.proxy.NhinPatientDiscoveryNoOpImpl" linecount="2" linerate="80"
+        linesexecuted="0" />
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.nhin.proxy.NhinPatientDiscoveryProxy" linecount="0" linerate="80"
+        linesexecuted="0" />
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.nhin.proxy.NhinPatientDiscoveryProxyObjectFactory" linecount="3"
+        linerate="80" linesexecuted="0.02" />
+    <threshold branchcount="18" branchrate="80" branchsexecuted="0.01"
+        class="gov.hhs.fha.nhinc.patientdiscovery.nhin.proxy.NhinPatientDiscoveryProxyWebServiceSecuredImpl" linecount="48"
+        linerate="80" linesexecuted="0.11" />
+    <threshold branchcount="6" branchrate="80" branchsexecuted="0.03"
+        class="gov.hhs.fha.nhinc.patientdiscovery.passthru.NhincPatientDiscoveryOrchImpl" linecount="34" linerate="80"
+        linesexecuted="0.17" />
+    <threshold branchcount="2" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.passthru.deferred.request.PassthruPatientDiscoveryDeferredRequestOrchImpl"
+        linecount="23" linerate="80" linesexecuted="0" />
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.passthru.deferred.request.proxy.PassthruPatientDiscoveryDeferredRequestProxy"
+        linecount="0" linerate="80" linesexecuted="0" />
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.passthru.deferred.request.proxy.PassthruPatientDiscoveryDeferredRequestProxyJavaImpl"
+        linecount="5" linerate="80" linesexecuted="0" />
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.passthru.deferred.request.proxy.PassthruPatientDiscoveryDeferredRequestProxyNoOpImpl"
+        linecount="2" linerate="80" linesexecuted="0" />
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.passthru.deferred.request.proxy.PassthruPatientDiscoveryDeferredRequestProxyObjectFactory"
+        linecount="3" linerate="80" linesexecuted="0" />
+    <threshold branchcount="6" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.passthru.deferred.request.proxy.PassthruPatientDiscoveryDeferredRequestProxyWebServiceSecuredImpl"
+        linecount="39" linerate="80" linesexecuted="0" />
+    <threshold branchcount="6" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.passthru.deferred.request.proxy.PassthruPatientDiscoveryDeferredRequestProxyWebServiceUnsecuredImpl"
+        linecount="40" linerate="80" linesexecuted="0" />
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.passthru.deferred.response.PassthruPatientDiscoveryDeferredRespOrchImpl"
+        linecount="19" linerate="80" linesexecuted="0" />
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.passthru.deferred.response.proxy.PassthruPatientDiscoveryDeferredRespProxy"
+        linecount="0" linerate="80" linesexecuted="0" />
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.passthru.deferred.response.proxy.PassthruPatientDiscoveryDeferredRespProxyJavaImpl"
+        linecount="10" linerate="80" linesexecuted="0" />
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.passthru.deferred.response.proxy.PassthruPatientDiscoveryDeferredRespProxyNoOpImpl"
+        linecount="7" linerate="80" linesexecuted="0.07" />
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.passthru.deferred.response.proxy.PassthruPatientDiscoveryDeferredRespProxyObjectFactory"
+        linecount="3" linerate="80" linesexecuted="0" />
+    <threshold branchcount="8" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.passthru.deferred.response.proxy.PassthruPatientDiscoveryDeferredRespProxyWebServiceSecuredImpl"
+        linecount="44" linerate="80" linesexecuted="0" />
+    <threshold branchcount="8" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.passthru.deferred.response.proxy.PassthruPatientDiscoveryDeferredRespProxyWebServiceUnsecuredImpl"
+        linecount="45" linerate="80" linesexecuted="0" />
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.passthru.proxy.PassthruPatientDiscoveryProxy" linecount="0" linerate="80"
+        linesexecuted="0" />
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.passthru.proxy.PassthruPatientDiscoveryProxyJavaImpl" linecount="10"
+        linerate="80" linesexecuted="0" />
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.passthru.proxy.PassthruPatientDiscoveryProxyNoOpImpl" linecount="7"
+        linerate="80" linesexecuted="0" />
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.passthru.proxy.PassthruPatientDiscoveryProxyObjectFactory" linecount="3"
+        linerate="80" linesexecuted="0.02" />
+    <threshold branchcount="8" branchrate="80" branchsexecuted="0.01"
+        class="gov.hhs.fha.nhinc.patientdiscovery.passthru.proxy.PassthruPatientDiscoveryProxyWebServiceSecuredImpl"
+        linecount="42" linerate="80" linesexecuted="0.11" />
+    <threshold branchcount="10" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.passthru.proxy.PassthruPatientDiscoveryProxyWebServiceUnsecuredImpl"
+        linecount="42" linerate="80" linesexecuted="0" />
+    <threshold branchcount="2" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.response.PassThruMode" linecount="7" linerate="80" linesexecuted="0" />
+    <threshold branchcount="12" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.response.ResponseFactory" linecount="38" linerate="80" linesexecuted="0" />
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.response.ResponseMode" linecount="0" linerate="80" linesexecuted="0" />
+    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
+        class="gov.hhs.fha.nhinc.patientdiscovery.response.ResponseParams" linecount="1" linerate="80" linesexecuted="0.01" />
+    <threshold branchcount="100" branchrate="80" branchsexecuted="0.06"
+        class="gov.hhs.fha.nhinc.patientdiscovery.response.TrustMode" linecount="114" linerate="80" linesexecuted="0.36" />
+    <threshold branchcount="118" branchrate="80" branchsexecuted="0.65"
+        class="gov.hhs.fha.nhinc.patientdiscovery.response.VerifyMode" linecount="130" linerate="80" linesexecuted="1.01" />
+</thresholds>

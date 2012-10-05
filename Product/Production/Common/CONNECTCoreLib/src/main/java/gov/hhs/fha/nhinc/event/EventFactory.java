@@ -107,7 +107,7 @@ public class EventFactory {
     protected Log getLogger() {
         if (log == null) {
             log = LogFactory.getLog(getClass());
-        }
+    }
         return log;
     }
 

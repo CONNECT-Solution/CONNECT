@@ -1,8 +1,9 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><con:soapui-project xmlns:con="http://eviware.com/soapui/config" abortOnError="false" name="ConnectionManagerTest" resourceRoot="" runType="SEQUENTIAL" soapui-version="3.5.1">
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project abortOnError="false" name="ConnectionManagerTest" resourceRoot="" runType="SEQUENTIAL" soapui-version="4.0.0" xmlns:con="http://eviware.com/soapui/config">
 	<con:settings/>
-	<con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager}NhincComponentConnectionManagerBindingSoap" definition="WSDL path not set.  #NhincComponentConnectionManager.wsdl" name="NhincComponentConnectionManagerBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
+	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager}NhincComponentConnectionManagerBindingSoap" definition="WSDL path not set.  #NhincComponentConnectionManager.wsdl" name="NhincComponentConnectionManagerBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
-		<con:endpoints>
+		<con:definitionCache type="TEXT"/><con:endpoints>
 			<con:endpoint>${#Project#Endpoint-ConnectionManager}</con:endpoint>
 		</con:endpoints>
 		<con:operation action="urn:ForceRefreshInternalConnectCache" anonymous="optional" bindingOperationName="ForceRefreshInternalConnectCache" inputName="ForceRefreshInternalConnectCacheRequest" isOneWay="false" name="ForceRefreshInternalConnectCache" outputName="ForceRefreshInternalConnectCacheResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
@@ -11,8 +12,8 @@
 				<con:settings/>
 				<con:encoding>UTF-8</con:encoding>
 				<con:endpoint>${#Project#Endpoint-ConnectionManager}</con:endpoint>
-				<con:request>
-					<![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo"><soap:Header/><soap:Body><urn:ForceRefreshInternalConnectCacheRequest>?</urn:ForceRefreshInternalConnectCacheRequest></soap:Body></soap:Envelope>]]></con:request>
+				<con:request><![CDATA[
+					<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo"><soap:Header/><soap:Body><urn:ForceRefreshInternalConnectCacheRequest>?</urn:ForceRefreshInternalConnectCacheRequest></soap:Body></soap:Envelope>]]></con:request>
 				<con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager/NhincComponentConnectionManagerPortType/ForceRefreshInternalConnectCacheRequest" mustUnderstand="NONE" version="200508"/>
 			</con:call>
 		</con:operation>
@@ -22,8 +23,8 @@
 				<con:settings/>
 				<con:encoding>UTF-8</con:encoding>
 				<con:endpoint>${#Project#Endpoint-ConnectionManager}</con:endpoint>
-				<con:request>
-					<![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo"><soap:Header/><soap:Body><urn:ForceRefreshUDDICacheRequest>?</urn:ForceRefreshUDDICacheRequest></soap:Body></soap:Envelope>]]></con:request>
+				<con:request><![CDATA[
+					<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo"><soap:Header/><soap:Body><urn:ForceRefreshUDDICacheRequest>?</urn:ForceRefreshUDDICacheRequest></soap:Body></soap:Envelope>]]></con:request>
 				<con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager/NhincComponentConnectionManagerPortType/ForceRefreshUDDICacheRequest" mustUnderstand="NONE" version="200508"/>
 			</con:call>
 		</con:operation>
@@ -33,8 +34,8 @@
 				<con:settings/>
 				<con:encoding>UTF-8</con:encoding>
 				<con:endpoint>${#Project#Endpoint-ConnectionManager}</con:endpoint>
-				<con:request>
-					<![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo">
+				<con:request><![CDATA[
+					<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo">
    <soap:Header/>
    <soap:Body>
       <urn:GetAdapterEndpointURLRequest>
@@ -52,8 +53,8 @@
 				<con:settings/>
 				<con:encoding>UTF-8</con:encoding>
 				<con:endpoint>${#Project#Endpoint-ConnectionManager}</con:endpoint>
-				<con:request>
-					<![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo"><soap:Header/><soap:Body><urn:GetAllBusinessEntitiesRequest>?</urn:GetAllBusinessEntitiesRequest></soap:Body></soap:Envelope>]]></con:request>
+				<con:request><![CDATA[
+					<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo"><soap:Header/><soap:Body><urn:GetAllBusinessEntitiesRequest>?</urn:GetAllBusinessEntitiesRequest></soap:Body></soap:Envelope>]]></con:request>
 				<con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager/NhincComponentConnectionManagerPortType/GetAllBusinessEntitiesRequest" mustUnderstand="NONE" version="200508"/>
 			</con:call>
 		</con:operation>
@@ -63,8 +64,8 @@
 				<con:settings/>
 				<con:encoding>UTF-8</con:encoding>
 				<con:endpoint>${#Project#Endpoint-ConnectionManager}</con:endpoint>
-				<con:request>
-					<![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo">
+				<con:request><![CDATA[
+					<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo">
    <soap:Header/>
    <soap:Body>
       <urn:GetAllBusinessEntitySetByServiceNameRequest>?</urn:GetAllBusinessEntitySetByServiceNameRequest>
@@ -79,8 +80,8 @@
 				<con:settings/>
 				<con:encoding>UTF-8</con:encoding>
 				<con:endpoint>${#Project#Endpoint-ConnectionManager}</con:endpoint>
-				<con:request>
-					<![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo"><soap:Header/><soap:Body><urn:GetAssigningAuthoritiesByHomeCommunityRequest>2.2</urn:GetAssigningAuthoritiesByHomeCommunityRequest></soap:Body></soap:Envelope>]]></con:request>
+				<con:request><![CDATA[
+					<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo"><soap:Header/><soap:Body><urn:GetAssigningAuthoritiesByHomeCommunityRequest>2.2</urn:GetAssigningAuthoritiesByHomeCommunityRequest></soap:Body></soap:Envelope>]]></con:request>
 				<con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager/NhincComponentConnectionManagerPortType/GetAssigningAuthoritiesByHomeCommunityRequest" mustUnderstand="NONE" version="200508"/>
 			</con:call>
 		</con:operation>
@@ -90,8 +91,8 @@
 				<con:settings/>
 				<con:encoding>UTF-8</con:encoding>
 				<con:endpoint>${#Project#Endpoint-ConnectionManager}</con:endpoint>
-				<con:request>
-					<![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo"><soap:Header/><soap:Body><urn:GetBusinessEntityRequest>1.1</urn:GetBusinessEntityRequest></soap:Body></soap:Envelope>]]></con:request>
+				<con:request><![CDATA[
+					<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo"><soap:Header/><soap:Body><urn:GetBusinessEntityRequest>1.1</urn:GetBusinessEntityRequest></soap:Body></soap:Envelope>]]></con:request>
 				<con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager/NhincComponentConnectionManagerPortType/GetBusinessEntityRequest" mustUnderstand="NONE" version="200508"/>
 			</con:call>
 		</con:operation>
@@ -101,8 +102,8 @@
 				<con:settings/>
 				<con:encoding>UTF-8</con:encoding>
 				<con:endpoint>${#Project#Endpoint-ConnectionManager}</con:endpoint>
-				<con:request>
-					<![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo">
+				<con:request><![CDATA[
+					<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo">
    <soap:Header/>
    <soap:Body>
       <urn:GetBusinessEntityByServiceNameRequest>
@@ -120,8 +121,8 @@
 				<con:settings/>
 				<con:encoding>UTF-8</con:encoding>
 				<con:endpoint>${#Project#Endpoint-ConnectionManager}</con:endpoint>
-				<con:request>
-					<![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo"><soap:Header/><soap:Body><urn:GetBusinessEntitySetRequest><urn:homeCommunityId>1.1</urn:homeCommunityId></urn:GetBusinessEntitySetRequest></soap:Body></soap:Envelope>]]></con:request>
+				<con:request><![CDATA[
+					<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo"><soap:Header/><soap:Body><urn:GetBusinessEntitySetRequest><urn:homeCommunityId>1.1</urn:homeCommunityId></urn:GetBusinessEntitySetRequest></soap:Body></soap:Envelope>]]></con:request>
 				<con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager/NhincComponentConnectionManagerPortType/GetBusinessEntitySetRequest" mustUnderstand="NONE" version="200508"/>
 			</con:call>
 		</con:operation>
@@ -131,8 +132,8 @@
 				<con:settings/>
 				<con:encoding>UTF-8</con:encoding>
 				<con:endpoint>${#Project#Endpoint-ConnectionManager}</con:endpoint>
-				<con:request>
-					<![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo">
+				<con:request><![CDATA[
+					<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo">
    <soap:Header/>
    <soap:Body>
       <urn:GetBusinessEntitySetByServiceNameRequest>
@@ -151,8 +152,8 @@
 				<con:settings/>
 				<con:encoding>UTF-8</con:encoding>
 				<con:endpoint>${#Project#Endpoint-ConnectionManager}</con:endpoint>
-				<con:request>
-					<![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo">
+				<con:request><![CDATA[
+					<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo">
    <soap:Header/>
    <soap:Body>
       <urn:GetDefaultEndpointURLByServiceNameRequest>
@@ -170,8 +171,8 @@
 				<con:settings/>
 				<con:encoding>UTF-8</con:encoding>
 				<con:endpoint>${#Project#Endpoint-ConnectionManager}</con:endpoint>
-				<con:request>
-					<![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+				<con:request><![CDATA[
+					<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soap:Header/>
    <soap:Body>
       <urn:GetEndpointURLFromNhinTargetRequest>
@@ -215,8 +216,8 @@
 				<con:settings/>
 				<con:encoding>UTF-8</con:encoding>
 				<con:endpoint>${#Project#Endpoint-ConnectionManager}</con:endpoint>
-				<con:request>
-					<![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+				<con:request><![CDATA[
+					<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
    <soap:Header/>
    <soap:Body>
       <urn:GetEndpointURLFromNhinTargetCommunitiesRequest>
@@ -245,8 +246,8 @@
 				<con:settings/>
 				<con:encoding>UTF-8</con:encoding>
 				<con:endpoint>${#Project#Endpoint-ConnectionManager}</con:endpoint>
-				<con:request>
-					<![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo">
+				<con:request><![CDATA[
+					<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo">
    <soap:Header/>
    <soap:Body>
       <urn:AssigningAuthorityId>?</urn:AssigningAuthorityId>
@@ -261,8 +262,8 @@
 				<con:settings/>
 				<con:encoding>UTF-8</con:encoding>
 				<con:endpoint>${#Project#Endpoint-ConnectionManager}</con:endpoint>
-				<con:request>
-					<![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo">
+				<con:request><![CDATA[
+					<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo">
    <soap:Header/>
    <soap:Body>
       <urn:ServiceName>?</urn:ServiceName>
@@ -280,12 +281,12 @@
 			<con:settings/>
 			<con:testStep name="ForceRefreshInternalConnectCache" type="request">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:interface>NhincComponentConnectionManagerBindingSoap</con:interface>
 					<con:operation>ForceRefreshInternalConnectCache</con:operation>
 					<con:request name="ForceRefreshInternalConnectCache">
 						<con:settings>
-							<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting>
+							<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
 				</con:settings>
 				<con:encoding>UTF-8</con:encoding>
 				<con:endpoint>${#Project#Endpoint-ConnectionManager}</con:endpoint>
@@ -318,12 +319,12 @@
 	<con:settings/>
 	<con:testStep name="ForceRefreshUDDICache" type="request">
 		<con:settings/>
-		<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+		<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 			<con:interface>NhincComponentConnectionManagerBindingSoap</con:interface>
 			<con:operation>ForceRefreshUDDICache</con:operation>
 			<con:request name="ForceRefreshUDDICache">
 				<con:settings>
-					<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting>
+					<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
 		<con:endpoint>${#Project#Endpoint-ConnectionManager}</con:endpoint>
@@ -356,12 +357,12 @@
 	<con:settings/>
 	<con:testStep name="GetAdapterEndpointURL" type="request">
 		<con:settings/>
-		<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+		<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 			<con:interface>NhincComponentConnectionManagerBindingSoap</con:interface>
 			<con:operation>GetAdapterEndpointURL</con:operation>
 			<con:request name="GetAdapterEndpointURL">
 				<con:settings>
-					<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting>
+					<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
 		<con:endpoint>${#Project#Endpoint-ConnectionManager}</con:endpoint>
@@ -397,12 +398,12 @@
 	<con:settings/>
 	<con:testStep name="GetAllBusinessEntities" type="request">
 		<con:settings/>
-		<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+		<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 			<con:interface>NhincComponentConnectionManagerBindingSoap</con:interface>
 			<con:operation>GetAllBusinessEntities</con:operation>
 			<con:request name="GetAllBusinessEntities">
 				<con:settings>
-					<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting>
+					<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
 		<con:endpoint>${#Project#Endpoint-ConnectionManager}</con:endpoint>
@@ -435,12 +436,12 @@ count(//ns3:GetAllBusinessEntitiesResponse/ns4:businessEntity)</path>
 	<con:settings/>
 	<con:testStep name="GetAllBusinessEntitySetByServiceName" type="request">
 		<con:settings/>
-		<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+		<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 			<con:interface>NhincComponentConnectionManagerBindingSoap</con:interface>
 			<con:operation>GetAllBusinessEntitySetByServiceName</con:operation>
 			<con:request name="GetAllBusinessEntitySetByServiceName">
 				<con:settings>
-					<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting>
+					<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
 		<con:endpoint>${#Project#Endpoint-ConnectionManager}</con:endpoint>
@@ -484,12 +485,12 @@ declare namespace ns5='urn:uddi-org:api_v3';
 	<con:settings/>
 	<con:testStep name="GetAssigningAuthoritiesByHomeCommunity" type="request">
 		<con:settings/>
-		<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+		<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 			<con:interface>NhincComponentConnectionManagerBindingSoap</con:interface>
 			<con:operation>GetAssigningAuthoritiesByHomeCommunity</con:operation>
 			<con:request name="GetAssigningAuthoritiesByHomeCommunity">
 				<con:settings>
-					<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting>
+					<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
 		<con:endpoint>${#Project#Endpoint-ConnectionManager}</con:endpoint>
@@ -522,12 +523,12 @@ declare namespace ns5='urn:uddi-org:api_v3';
 	<con:settings/>
 	<con:testStep name="GetBusinessEntity" type="request">
 		<con:settings/>
-		<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+		<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 			<con:interface>NhincComponentConnectionManagerBindingSoap</con:interface>
 			<con:operation>GetBusinessEntity</con:operation>
 			<con:request name="GetBusinessEntity">
 				<con:settings>
-					<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting>
+					<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
 		<con:endpoint>${#Project#Endpoint-ConnectionManager}</con:endpoint>
@@ -569,12 +570,12 @@ count(//ns3:GetBusinessEntityResponse)</path>
 	<con:settings/>
 	<con:testStep name="GetBusinessEntityByServiceName" type="request">
 		<con:settings/>
-		<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+		<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 			<con:interface>NhincComponentConnectionManagerBindingSoap</con:interface>
 			<con:operation>GetBusinessEntityByServiceName</con:operation>
 			<con:request name="GetBusinessEntityByServiceName">
 				<con:settings>
-					<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting>
+					<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
 		<con:endpoint>${#Project#Endpoint-ConnectionManager}</con:endpoint>
@@ -610,12 +611,12 @@ count(//ns3:GetBusinessEntityResponse)</path>
 	<con:settings/>
 	<con:testStep name="GetBusinessEntitySet" type="request">
 		<con:settings/>
-		<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+		<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 			<con:interface>NhincComponentConnectionManagerBindingSoap</con:interface>
 			<con:operation>GetBusinessEntitySet</con:operation>
 			<con:request name="GetBusinessEntitySet">
 				<con:settings>
-					<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting>
+					<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
 		<con:endpoint>${#Project#Endpoint-ConnectionManager}</con:endpoint>
@@ -659,12 +660,12 @@ count(//ns3:GetBusinessEntitySetResponse/ns4:businessEntity)</path>
 	<con:settings/>
 	<con:testStep name="GetBusinessEntitySetByServiceName" type="request">
 		<con:settings/>
-		<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+		<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 			<con:interface>NhincComponentConnectionManagerBindingSoap</con:interface>
 			<con:operation>GetBusinessEntitySetByServiceName</con:operation>
 			<con:request name="GetBusinessEntitySetByServiceName">
 				<con:settings>
-					<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting>
+					<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
 		<con:endpoint>${#Project#Endpoint-ConnectionManager}</con:endpoint>
@@ -712,12 +713,12 @@ declare namespace ns5='urn:uddi-org:api_v3';
 	<con:settings/>
 	<con:testStep name="GetDefaultEndpointURLByServiceName" type="request">
 		<con:settings/>
-		<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+		<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 			<con:interface>NhincComponentConnectionManagerBindingSoap</con:interface>
 			<con:operation>GetDefaultEndpointURLByServiceName</con:operation>
 			<con:request name="GetDefaultEndpointURLByServiceName">
 				<con:settings>
-					<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting>
+					<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
 		<con:endpoint>${#Project#Endpoint-ConnectionManager}</con:endpoint>
@@ -753,12 +754,12 @@ declare namespace ns5='urn:uddi-org:api_v3';
 	<con:settings/>
 	<con:testStep name="GetEndpointURLFromNhinTarget" type="request">
 		<con:settings/>
-		<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+		<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 			<con:interface>NhincComponentConnectionManagerBindingSoap</con:interface>
 			<con:operation>GetEndpointURLFromNhinTarget</con:operation>
 			<con:request name="GetEndpointURLFromNhinTarget">
 				<con:settings>
-					<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting>
+					<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
 		<con:endpoint>${#Project#Endpoint-ConnectionManager}</con:endpoint>
@@ -800,12 +801,12 @@ declare namespace ns5='urn:uddi-org:api_v3';
 	<con:settings/>
 	<con:testStep name="GetEndpointURLFromNhinTargetCommunities" type="request">
 		<con:settings/>
-		<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+		<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 			<con:interface>NhincComponentConnectionManagerBindingSoap</con:interface>
 			<con:operation>GetEndpointURLFromNhinTargetCommunities</con:operation>
 			<con:request name="GetEndpointURLFromNhinTargetCommunities">
 				<con:settings>
-					<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting>
+					<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
 		<con:endpoint>${#Project#Endpoint-ConnectionManager}</con:endpoint>
@@ -863,12 +864,12 @@ declare namespace ns3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
 	<con:settings/>
 	<con:testStep name="GetHomeCommunityByAssigningAuthority" type="request">
 		<con:settings/>
-		<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+		<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 			<con:interface>NhincComponentConnectionManagerBindingSoap</con:interface>
 			<con:operation>GetHomeCommunityByAssigningAuthority</con:operation>
 			<con:request name="GetHomeCommunityByAssigningAuthority">
 				<con:settings>
-					<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting>
+					<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
 		<con:endpoint>${#Project#Endpoint-ConnectionManager}</con:endpoint>
@@ -901,12 +902,12 @@ declare namespace ns3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
 	<con:settings/>
 	<con:testStep name="GetInternalEndpointURLByServiceName" type="request">
 		<con:settings/>
-		<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+		<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 			<con:interface>NhincComponentConnectionManagerBindingSoap</con:interface>
 			<con:operation>GetInternalEndpointURLByServiceName</con:operation>
 			<con:request name="GetInternalEndpointURLByServiceName">
 				<con:settings>
-					<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting>
+					<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
 		<con:endpoint>${#Project#Endpoint-ConnectionManager}</con:endpoint>
@@ -942,6 +943,6 @@ declare namespace ns3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
 		<con:name>Endpoint-ConnectionManager</con:name>
 		<con:value>http://localhost:8080/CONNECTCommon/NhincComponentConnectionManager </con:value>
 	</con:property>
-</con:properties>
+<con:property><con:name>project.name</con:name><con:value>ConnectionManagerTest</con:value></con:property></con:properties>
 <con:wssContainer/>
 </con:soapui-project>
