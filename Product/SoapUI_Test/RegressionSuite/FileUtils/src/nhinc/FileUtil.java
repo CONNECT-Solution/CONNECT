@@ -127,9 +127,9 @@ class FileUtils{
 		}
 	}
 	
-	public static void UpdateProperty(String directory, String filename, String propertyKey, String propertyValue, Logger log) {
+	public static void updateProperty(String directory, String filename, String propertyKey, String propertyValue, Logger log) {
 		try{
-		log.info("begin UpdateProperty; directory='" + directory + "';filename='" + filename + "';key='" + propertyKey + "';value='" + propertyValue + "';");
+		log.info("begin updateProperty; directory='" + directory + "';filename='" + filename + "';key='" + propertyKey + "';value='" + propertyValue + "';");
 	
 		File file = new File(directory,filename);
 	
@@ -153,7 +153,7 @@ class FileUtils{
 	
 	public static void updateGatewayProperty(String propertyKey, String propertyValue, Logger log){
 		
-		UpdateProperty(System.getenv("NHINC_PROPERTIES_DIR"), "gateway.properties", propertyKey, propertyValue, log);
+		updateProperty(System.getenv("NHINC_PROPERTIES_DIR"), "gateway.properties", propertyKey, propertyValue, log);
 	}
 
 	public static String ReadProperty(String directory, String filename, String propertyKey, Logger log) {
