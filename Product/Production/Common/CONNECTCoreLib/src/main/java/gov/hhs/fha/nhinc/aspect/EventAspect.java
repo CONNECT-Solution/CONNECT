@@ -33,11 +33,14 @@ import javax.xml.ws.handler.MessageContext;
 
 import org.apache.cxf.binding.soap.SoapHeader;
 import org.apache.cxf.headers.Header;
+
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
+
 import org.w3c.dom.Element;
+
 
 /**
  * @author zmelnick
@@ -101,6 +104,7 @@ public class EventAspect {
         System.out.println("endAdapterDelegationEvent" + getMessageId());
     }
 
+
     @After("execution(* gov.hhs.fha.nhinc.docsubmission.nhin.NhinDocSubmissionOrchImpl*.documentRepositoryProvideAndRegisterDocumentSetB(..))")
     public void endInboundProcessingEvent() {
         System.out.println("endInboundProcessingEvent" + getMessageId());
@@ -115,5 +119,24 @@ public class EventAspect {
     public void messageProcessingFailedEvent() {
         System.out.println("endInboundMessageEvent" + getMessageId());
     }
+    
+    /*
+    //&&" + "args(*,context)")
+    @Pointcut("execution(* gov.hhs.fha.nhinc..nhin..*.*rovideAndRegisterDocumentSetB*(..))")
+    private void DSInboundMessage(){
+    }
 
+    @Before("DSInboundMessage()")
+    public void doSomethingBefore(){
+   //     String messageID = AsyncMessageIdExtractor.GetAsyncMessageId(context);
+     //   EventFactory.createEvent(BeginInboundMessageEvent.class, messageID, null, null);
+        System.out.println("doSomethingBefore(narf)");
+    }
+
+    @After("DSInboundMessage()")
+    public void doSomethingAfter(){
+     //   String messageID = AsyncMessageIdExtractor.GetAsyncMessageId(context);
+       // EventFactory.createEvent(EndInboundMessageEvent.class, messageID, null, null);
+        System.out.println("doSomethingAfter(narf)");
+    */
 }
