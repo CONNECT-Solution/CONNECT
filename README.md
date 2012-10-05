@@ -49,11 +49,11 @@ To build all CONNECT modules from source, run:
        
 Windows Users: 
 
-        $ export MAVEN_OPTS='-Xmx5000m -XX:MaxPermSize=1024m'
+        $ set MAVEN_OPTS='-Xmx5000m -XX:MaxPermSize=1024m'
 
 OSX / Linux Users:
 
-        $ set MAVEN_OPTS='-Xmx5000m -XX:MaxPermSize=1024m'
+        $ export MAVEN_OPTS='-Xmx5000m -XX:MaxPermSize=1024m'
 
 Everyone:
 
