@@ -20,13 +20,13 @@ http://www.springframework.org/schema/aop http://www.springframework.org/schema/
     <import resource="classpath:CONNECT-interceptor-beans.xml" />
 
     <!-- Document Submission -->
-
-    <bean id="nhinDocSubmissionOrchImpl" class="gov.hhs.fha.nhinc.docsubmission.nhin.NhinDocSubmissionOrchImpl" />
-    
-    <bean id="nhinXDR" class="gov.hhs.fha.nhinc.docsubmission._20.nhin.NhinXDR_g1">
-       <property name="orchestratorImpl"><ref bean="nhinDocSubmissionOrchImpl"/></property>
-    </bean>
     
+    <bean id="nhinDocSubmissionOrchImpl" class="gov.hhs.fha.nhinc.docsubmission.nhin.NhinDocSubmissionOrchImpl" />
+    
+    <bean id="nhinXDR" class="gov.hhs.fha.nhinc.docsubmission._20.nhin.NhinXDR_g1">
+       <property name="orchestratorImpl"><ref bean="nhinDocSubmissionOrchImpl"/></property>
+    </bean>
+        
     <!-- Nhin services -->
     <jaxws:endpoint xmlns:nds="urn:ihe:iti:xdr:2007" id="NhinDocSubmission_g1" address="/DocumentRepositoryXDR_Service"
         serviceName="nds:DocumentRepositoryXDR_Service" endpointName="nds:DocumentRepositoryXDR_Port_Soap"
