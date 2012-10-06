@@ -89,6 +89,10 @@ public class OutboundUnsubscribeOrchestratable implements OutboundOrchestratable
     public Unsubscribe getRequest() {
         return request;
     }
+    
+    public String getSubscriptionId() {
+        return subscriptionId;
+    }
 
     public void setRequest(Unsubscribe request) {
         this.request = request;
@@ -118,7 +122,9 @@ public class OutboundUnsubscribeOrchestratable implements OutboundOrchestratable
         this.target = target;
     }
     
-   
+    public void setSubscriptionId(String subscriptionId) {
+        this.subscriptionId = subscriptionId;
+    }
 
     public String getServiceName() {
         return NhincConstants.NHINC_XDR_SERVICE_NAME;
@@ -136,15 +142,4 @@ public class OutboundUnsubscribeOrchestratable implements OutboundOrchestratable
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    /**
-     * @param subscriptionId2
-     */
-    public void setSubscriptionId(String subscriptionId) {
-        // TODO Auto-generated method stub
-        this.subscriptionId = subscriptionId;
-    }
-    
-    public String getSubscriptionId() {
-        return subscriptionId;
-    }
 }

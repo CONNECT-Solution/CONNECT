@@ -99,7 +99,6 @@ public class EntityUnsubscribeOrchImpl {
 	            log.debug("lookup subscription by reference parameters");
 	           
 	            subscriptionItem = repo.retrieveBySubscriptionId(subscriptionId);
-	            //subscriptionItem = repo.retrieveByLocalSubscriptionReferenceParameters(referenceParametersElements);
 	            
 	            log.debug("subscriptionItem isnull? = " + (subscriptionItem == null));
 	        } catch (SubscriptionRepositoryException ex) {
@@ -167,9 +166,6 @@ public class EntityUnsubscribeOrchImpl {
 		                            .getSubscriptionReferenceXML());
 		            log.debug("extracted " + referenceParametersElements.getElements().size() + " element(s)");
 		            
-		          //  HiemSubscriptionRepositoryService repo = new HiemSubscriptionRepositoryService();
-		           /* HiemSubscriptionItem subscriptionItem = null;
-		            subscriptionItem = repo.retrieveByLocalSubscriptionReference(childSubscriptionItem.getSubscriptionReferenceXML());*/
 		            response = getResponseFromTarget(parentUnsubscribe,referenceParametersElements,
 		            		parentAssertion, target,childSubscriptionItem.getStorageObject().getSubscriptionId());
 		            HiemSubscriptionRepositoryService repo = new HiemSubscriptionRepositoryService();
