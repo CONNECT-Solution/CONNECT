@@ -58,8 +58,8 @@ public class NhinDocSubmissionDeferredResponseImpl {
 
         if (assertion != null) {
             AsyncMessageIdExtractor msgIdExtractor = new AsyncMessageIdExtractor();
-            assertion.setMessageId(msgIdExtractor.GetAsyncMessageId(context));
-            List<String> relatesToList = AsyncMessageIdExtractor.GetAsyncRelatesTo(context);
+            assertion.setMessageId(msgIdExtractor.getOrCreateAsyncMessageId(context));
+            List<String> relatesToList = AsyncMessageIdExtractor.getAsyncRelatesTo(context);
             if (NullChecker.isNotNullish(relatesToList)) {
                 assertion.getRelatesToList().addAll(relatesToList);
             }

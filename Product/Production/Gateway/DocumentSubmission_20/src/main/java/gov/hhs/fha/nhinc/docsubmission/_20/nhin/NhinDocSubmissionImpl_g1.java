@@ -55,7 +55,7 @@ public class NhinDocSubmissionImpl_g1 {
         AssertionType assertion = extractor.extractSamlAssertion(context);
 
         if (assertion != null) {
-            assertion.setMessageId(AsyncMessageIdExtractor.GetAsyncMessageId(context));
+            assertion.setMessageId(AsyncMessageIdExtractor.getOrCreateAsyncMessageId(context));
         }
         return orchImpl.documentRepositoryProvideAndRegisterDocumentSetB(body, assertion);
     }

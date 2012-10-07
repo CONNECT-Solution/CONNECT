@@ -26,64 +26,32 @@
  */
 package gov.hhs.fha.nhinc.aspect;
 
-import java.util.List;
-
-import javax.xml.ws.WebServiceContext;
-
 import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
 import gov.hhs.fha.nhinc.event.Event;
 import gov.hhs.fha.nhinc.event.EventFactory;
+import gov.hhs.fha.nhinc.event.EventManager;
 import gov.hhs.fha.nhinc.event.EventType;
 import gov.hhs.fha.nhinc.logging.transaction.dao.TransactionDAO;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+
+import java.util.List;
+
+import javax.xml.ws.WebServiceContext;
+import javax.xml.ws.handler.MessageContext;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.apache.cxf.jaxws.context.WebServiceContextImpl;
+import org.json.JSONObject;
 
 /**
  * @author zmelnick
- *
+ * 
  */
 public abstract class EventAspect {
 
-    private String getMessageId(WebServiceContext context) {
-        return AsyncMessageIdExtractor.GetAsyncMessageId(context);
-    }
-
-    private String getTransactionID(WebServiceContext context, String messageId) {
-        String transactionId = null;
-
-        List<String> transactionIdList = AsyncMessageIdExtractor.GetAsyncRelatesTo(context);
-        if (NullChecker.isNotNullish(transactionIdList)) {
-            transactionId = transactionIdList.get(0);
-        }
-
-        if ((transactionId == null) && (messageId != null)) {
-            transactionId = TransactionDAO.getInstance().getTransactionId(messageId);
-        }
-
-        return transactionId;
-    }
-
-    protected String getDescription() {
-        // todo: what needs to be in here? - json
-        return "";
-    }
-
-    private Event createEvent(String eventType) {
-        WebServiceContext context = new org.apache.cxf.jaxws.context.WebServiceContextImpl();
-
-        String messageId = getMessageId(context);
-        String transactionId = getTransactionID(context, messageId);
-        String description = getDescription();
-
-        return EventFactory.getInstance().createEvent(eventType, messageId, transactionId, description);
-    }
-
-    private void recordEvent(String eventType) {
-        Event event = createEvent(eventType);
-
-        System.out.println("Event triggered: " + eventType + " - " + event.getMessageID());
-
-        // todo: event logger manager -> recordEvent()
-    }
+    private static final Log log = LogFactory.getLog(EventAspect.class);
 
     /*--- Inbound Message --*/
     public void beginInboundMessageEvent() {
@@ -95,7 +63,6 @@ public abstract class EventAspect {
     }
 
     /*--- Inbound Processing --*/
-
 
     public void beginInboundProcessingEvent() {
         recordEvent(EventType.BEGIN_INBOUND_PROCESSING.toString());
@@ -150,6 +117,69 @@ public abstract class EventAspect {
         recordEvent(EventType.END_ADAPTER_DELEGATION.toString());
     }
 
+    private void recordEvent(String eventType) {
+        try {
+            Event event = createEvent(eventType);
+            EventManager.getInstance().recordEvent(event);
 
+            log.debug("Event triggered: " + eventType + " - " + event.getMessageID() + " - " + event.getTransactionID()
+                    + " - " + event.getDescription());
+        } catch (Exception e) {
+            log.warn("Failed to record event.", e);
+        }
+    }
+
+    private Event createEvent(String eventType) {
+        WebServiceContext context = new WebServiceContextImpl();
+
+        String messageId = getMessageId(context);
+        String transactionId = getTransactionID(context, messageId);
+        String description = getDescription(context);
+
+        return EventFactory.getInstance().createEvent(eventType, messageId, transactionId, description);
+    }
+
+    private String getMessageId(WebServiceContext context) {
+        return AsyncMessageIdExtractor.getMessageId(context);
+    }
+
+    private String getTransactionID(WebServiceContext context, String messageId) {
+        String transactionId = null;
+
+        List<String> transactionIdList = AsyncMessageIdExtractor.getAsyncRelatesTo(context);
+        if (NullChecker.isNotNullish(transactionIdList)) {
+            transactionId = transactionIdList.get(0);
+        }
+
+        if ((transactionId == null) && (messageId != null)) {
+            transactionId = TransactionDAO.getInstance().getTransactionId(messageId);
+        }
+
+        return transactionId;
+    }
+
+    @SuppressWarnings("unchecked")
+    protected String getDescription(WebServiceContext context) {
+        String description = null;
+
+        MessageContext mContext = context.getMessageContext();
+        String action = AsyncMessageIdExtractor.getAction(context);
+        List<String> responseMsgIdList = (List<String>) mContext.get(NhincConstants.RESPONSE_MESSAGE_ID_LIST_KEY);
+
+        try {
+            JSONObject jsonObj = new JSONObject();
+            jsonObj.put("Action", action);
+
+            if (NullChecker.isNotNullish(responseMsgIdList)) {
+                jsonObj.put("ResponseId", responseMsgIdList);
+            }
+
+            description = jsonObj.toString();
+        } catch (Exception e) {
+            log.warn("Failed to create event description.", e);
+        }
+
+        return description;
+    }
 
 }
