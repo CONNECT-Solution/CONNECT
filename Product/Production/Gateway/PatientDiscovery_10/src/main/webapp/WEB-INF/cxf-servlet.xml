@@ -7,11 +7,11 @@
     ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under 
     the License. -->
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:jaxws="http://cxf.apache.org/jaxws" xmlns:soap="http://cxf.apache.org/bindings/soap"
+    xmlns:jaxws="http://cxf.apache.org/jaxws" xmlns:soap="http://cxf.apache.org/bindings/soap" xmlns:aop="http://www.springframework.org/schema/aop"
     xsi:schemaLocation="
 http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 http://cxf.apache.org/bindings/soap http://cxf.apache.org/schemas/configuration/soap.xsd
-http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
+http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
     <import resource="classpath:META-INF/cxf/cxf.xml" />
     <import resource="classpath:META-INF/cxf/cxf-extension-soap.xml" />
@@ -21,10 +21,17 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
     <!-- Patient Discovery -->
 
     <!-- Nhin services -->
-
+    
+    <bean id="nhinPDOrchestrator" class="gov.hhs.fha.nhinc.patientdiscovery.NhinPatientDiscoveryImpl" />
+    
+    <bean id="nhinPD" class="gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.NhinPatientDiscovery">
+       <property name="orchestratorImpl"><ref bean="nhinPDOrchestrator"/></property>
+    </bean>
+      
     <jaxws:endpoint xmlns:tns="urn:ihe:iti:xcpd:2009" id="RespondingGateway_Service" address="/NhinService/NhinPatientDiscovery"
         serviceName="tns:RespondingGateway_Service" endpointName="tns:RespondingGateway_Port_Soap"
-        implementor="gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.NhinPatientDiscovery" wsdlLocation="classpath:wsdl/NhinPatientDiscovery.wsdl">
+        implementorClass="gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.NhinPatientDiscovery" implementor="#nhinPD"
+        wsdlLocation="classpath:wsdl/NhinPatientDiscovery.wsdl">
         <jaxws:properties>
             <entry key="ws-security.callback-handler" value="gov.hhs.fha.nhinc.callback.cxf.CXFSAMLCallbackHandler" />
             <entry key="ws-security.signature.properties" value="keystore.properties" />
@@ -42,11 +49,21 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
     </jaxws:endpoint>
 
     <!-- Entity services -->
-
+    
+    <bean id="entityPDOrchestrator" class="gov.hhs.fha.nhinc.patientdiscovery._10.entity.EntityPatientDiscoveryImpl" />
+    
+    <bean id="entityPDSecured" class="gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.EntityPatientDiscoverySecured">
+       <property name="orchestratorImpl"><ref bean="entityPDOrchestrator"/></property>
+    </bean>
+    
+    <bean id="entityPDUnsecured" class="gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.EntityPatientDiscoveryUnsecured">
+       <property name="orchestratorImpl"><ref bean="entityPDOrchestrator"/></property>
+    </bean>
+    
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:entitypatientdiscoverysecured" id="EntityPatientDiscoverySecured"
         address="/EntityService/EntityPatientDiscoverySecured" serviceName="tns:EntityPatientDiscoverySecured"
-        endpointName="tns:EntityPatientDiscoverySecuredPortSoap" implementor="gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.EntityPatientDiscoverySecured"
-        wsdlLocation="classpath:wsdl/EntityPatientDiscoverySecured.wsdl">
+        endpointName="tns:EntityPatientDiscoverySecuredPortSoap" implementorClass="gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.EntityPatientDiscoverySecured"
+        implementor="#entityPDSecured" wsdlLocation="classpath:wsdl/EntityPatientDiscoverySecured.wsdl">
         <jaxws:properties>
             <entry key="ws-security.callback-handler" value="gov.hhs.fha.nhinc.callback.cxf.CXFSAMLCallbackHandler" />
             <entry key="ws-security.signature.properties" value="keystore.properties" />
@@ -62,15 +79,26 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
 
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:entitypatientdiscovery" id="EntityPatientDiscovery"
         address="/EntityPatientDiscovery" serviceName="tns:EntityPatientDiscovery" endpointName="tns:EntityPatientDiscoveryPortSoap"
-        implementor="gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.EntityPatientDiscoveryUnsecured" wsdlLocation="classpath:wsdl/EntityPatientDiscovery.wsdl">
+        implementorClass="gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.EntityPatientDiscoveryUnsecured" 
+        implementor="#entityPDUnsecured" wsdlLocation="classpath:wsdl/EntityPatientDiscovery.wsdl">
     </jaxws:endpoint>
 
     <!-- MsgProxy/NhincProxy/Passthru services -->
+    
+    <bean id="passthruPDOrchestrator" class="gov.hhs.fha.nhinc.patientdiscovery._10.passthru.NhincProxyPatientDiscoveryImpl" />
+    
+    <bean id="passthruPDSecured" class="gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.NhincProxyPatientDiscoverySecured">
+       <property name="orchestratorImpl"><ref bean="passthruPDOrchestrator"/></property>
+    </bean>
+    
+    <bean id="passthruPDUnsecured" class="gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.NhincProxyPatientDiscovery">
+       <property name="orchestratorImpl"><ref bean="passthruPDOrchestrator"/></property>
+    </bean>
 
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:nhincproxypatientdiscoverysecured" id="NhincProxyPatientDiscoverySecured"
         address="/MsgProxy/NhincProxyPatientDiscoverySecured" serviceName="tns:NhincProxyPatientDiscoverySecured"
-        endpointName="tns:NhincProxyPatientDiscoverySecuredPort" implementor="gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.NhincProxyPatientDiscoverySecured"
-        wsdlLocation="classpath:wsdl/NhincProxyPatientDiscoverySecured.wsdl">
+        endpointName="tns:NhincProxyPatientDiscoverySecuredPort" implementorClass="gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.NhincProxyPatientDiscoverySecured"
+        implementor="#passthruPDSecured" wsdlLocation="classpath:wsdl/NhincProxyPatientDiscoverySecured.wsdl">
         <jaxws:properties>
             <entry key="ws-security.callback-handler" value="gov.hhs.fha.nhinc.callback.cxf.CXFSAMLCallbackHandler" />
             <entry key="ws-security.signature.properties" value="keystore.properties" />
@@ -86,7 +114,8 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
 
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:nhincproxypatientdiscovery" id="NhincProxyPatientDiscovery"
         address="/MsgProxy/NhincProxyPatientDiscovery" serviceName="tns:NhincProxyPatientDiscovery" endpointName="tns:NhincProxyPatientDiscoveryPort"
-        implementor="gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.NhincProxyPatientDiscovery" wsdlLocation="classpath:wsdl/NhincProxyPatientDiscovery.wsdl">
+        implementorClass="gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.NhincProxyPatientDiscovery" 
+        implementor="#passthruPDUnsecured" wsdlLocation="classpath:wsdl/NhincProxyPatientDiscovery.wsdl">
     </jaxws:endpoint>
 
 
@@ -263,4 +292,9 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
 
     <bean id="SOAPHeaderHandler" class="gov.hhs.fha.nhinc.callback.SOAPHeaderHandler" />
     <bean id="TransactionHandler" class="gov.hhs.fha.nhinc.logging.transaction.TransactionHandler" />
+    
+    <!-- Aspect Service -->
+    <aop:aspectj-autoproxy />    
+    <bean id="eventPDAspect" class="gov.hhs.fha.nhinc.patientdiscovery.aspect.PatientDiscoveryEventAspect" />
+    
 </beans>

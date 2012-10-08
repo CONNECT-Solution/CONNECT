@@ -51,7 +51,16 @@ public class NhinPatientDiscoveryImpl extends BaseService {
     private GenericFactory<InboundPatientDiscoveryOrchestration> orchestrationFactory;
     private PatientDiscoveryAuditor auditLogger;
 
+    public NhinPatientDiscoveryImpl() {
+        
+    }
+    
     public NhinPatientDiscoveryImpl(PatientDiscoveryAuditor auditLogger,
+            GenericFactory<InboundPatientDiscoveryOrchestration> orchestrationFactory) {
+        configure(auditLogger, orchestrationFactory);
+    }
+    
+    public void configure(PatientDiscoveryAuditor auditLogger,
             GenericFactory<InboundPatientDiscoveryOrchestration> orchestrationFactory) {
         this.orchestrationFactory = orchestrationFactory;
         this.auditLogger = auditLogger;
