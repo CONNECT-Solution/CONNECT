@@ -122,8 +122,8 @@ public abstract class EventAspect {
             Event event = createEvent(eventType);
             EventManager.getInstance().recordEvent(event);
 
-            log.debug("Event triggered: " + eventType + " - " + event.getMessageID() + " - " + event.getTransactionID()
-                    + " - " + event.getDescription());
+            System.out.println("Event triggered: " + eventType + " - " + event.getMessageID() + " - "
+                    + event.getTransactionID() + " - " + event.getDescription());
         } catch (Exception e) {
             log.warn("Failed to record event.", e);
         }
@@ -161,10 +161,14 @@ public abstract class EventAspect {
     @SuppressWarnings("unchecked")
     protected String getDescription(WebServiceContext context) {
         String description = null;
+        List<String> responseMsgIdList = null;
 
         MessageContext mContext = context.getMessageContext();
         String action = AsyncMessageIdExtractor.getAction(context);
-        List<String> responseMsgIdList = (List<String>) mContext.get(NhincConstants.RESPONSE_MESSAGE_ID_LIST_KEY);
+
+        if (mContext != null) {
+            responseMsgIdList = (List<String>) mContext.get(NhincConstants.RESPONSE_MESSAGE_ID_LIST_KEY);
+        }
 
         try {
             JSONObject jsonObj = new JSONObject();
@@ -181,5 +185,4 @@ public abstract class EventAspect {
 
         return description;
     }
-
 }

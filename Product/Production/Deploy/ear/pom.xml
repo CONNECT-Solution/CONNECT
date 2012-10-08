@@ -707,6 +707,12 @@
                     <version>${project.parent.version}</version>
                     <optional>false</optional>
                 </dependency>
+				<dependency>
+					<groupId>org.connectopensource</groupId>
+					<artifactId>PatientCorrelationCore</artifactId>
+					<version>${project.parent.version}</version>
+				    <optional>false</optional>
+			</dependency>
             </dependencies>
         </profile>
         <profile>
