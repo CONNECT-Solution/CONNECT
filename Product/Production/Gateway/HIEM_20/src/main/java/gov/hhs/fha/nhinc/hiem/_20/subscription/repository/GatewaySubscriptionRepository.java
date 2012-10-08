@@ -37,7 +37,7 @@ import org.apache.commons.logging.LogFactory;
  * 
  * @author Sai Valluripalli
  */
-@WebService(serviceName = "NhincComponentSubscriptionRepositoryService", portName = "NhincComponentSubscriptionRepositoryPort", endpointInterface = "gov.hhs.fha.nhinc.nhinccomponentsubscriptionrepository.NhincComponentSubscriptionRepositoryPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:nhinccomponentsubscriptionrepository", wsdlLocation = "WEB-INF/wsdl/GatewaySubscriptionRepository/NhincComponentSubscriptionRepository.wsdl")
+@WebService(endpointInterface = "gov.hhs.fha.nhinc.nhinccomponentsubscriptionrepository.NhincComponentSubscriptionRepositoryPortType")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 public class GatewaySubscriptionRepository {
     private static Log log = LogFactory.getLog(GatewaySubscriptionRepository.class);
