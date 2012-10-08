@@ -133,8 +133,7 @@ Navigate to the <CONNECT_CLONE_DIR>/Product/Install directory
 
         $ cd <CONNECT_CLONE_DIR>/Product/Install
         
-Next, copy install.properties to local.install.properties and update with your local information. Generally this just specifying where 
-you want GlassFish to install.	
+Next, copy install.properties to local.install.properties and update with your local information. Generally this is just specifying a password for mysql.	
 
 		$ cp install.properties local.install.properties
 
