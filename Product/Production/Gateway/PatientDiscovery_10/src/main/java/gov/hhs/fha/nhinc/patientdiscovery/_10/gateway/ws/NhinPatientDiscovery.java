@@ -38,7 +38,7 @@ import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
 
 /**
- *
+ * 
  * @author Neil Webb
  */
 
@@ -49,15 +49,29 @@ public class NhinPatientDiscovery extends PatientDiscoveryBase implements ihe.it
     @Resource
     private WebServiceContext context;
 
+    /**
+     * A generic constructor.
+     */
     public NhinPatientDiscovery() {
         super();
     }
 
+    /**
+     * A constructor that takes a PD service factory.
+     * @param serviceFactory the service factory.
+     */
     public NhinPatientDiscovery(PatientDiscoveryServiceFactory serviceFactory) {
         super(serviceFactory);
     }
 
-    public org.hl7.v3.PRPAIN201306UV02 respondingGatewayPRPAIN201305UV02(org.hl7.v3.PRPAIN201305UV02 body) throws PRPAIN201305UV02Fault {
+    /**
+     * The web service implementation of Patient Discovery.
+     * @param body the body of the request
+     * @return the Patient discovery Response
+     * @throws PRPAIN201305UV02Fault a fault if there's an exception
+     */
+    public org.hl7.v3.PRPAIN201306UV02 respondingGatewayPRPAIN201305UV02(org.hl7.v3.PRPAIN201305UV02 body) 
+    		throws PRPAIN201305UV02Fault {
         try {
             return getNhinPatientDiscoveryService().respondingGatewayPRPAIN201305UV02(body, context);
         } catch (PatientDiscoveryException e) {
@@ -69,6 +83,10 @@ public class NhinPatientDiscovery extends PatientDiscoveryBase implements ihe.it
         }
     }
 
+    /**
+     * A getter function that returns the NHIN patient discovery service impl.
+     * @return the service impl.
+     */
     protected NhinPatientDiscoveryImpl getNhinPatientDiscoveryService() {
         return getServiceFactory().getNhinPatientDiscoveryService();
     }

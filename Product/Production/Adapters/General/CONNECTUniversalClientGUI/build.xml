@@ -12,9 +12,9 @@
     <property name="core.lib" location="../../../Common/CONNECTCoreLib/dist/debug" />
     <property name="common.lib" location="../../../Common/CONNECTCommonTypesLib/dist/debug" />
     <property name="opensaml.home" location="../../../../../ThirdParty/openSAML" />
-    <property name="core.docquery" location="../../../Services/DocumentQuery/Core/DocumentQueryCore/dist/debug" />
-    <property name="core.docretrieve" location="../../../Services/DocumentRetrieve/Core/DocumentRetrieveCore/dist/debug" />
-    <property name="core.patientdiscovery" location="../../../Services/PatientDiscovery/Core/PatientDiscoveryCore/dist/debug" />
+    <property name="core.docquery" location="../../../Services/DocumentQueryCore/dist/debug" />
+    <property name="core.docretrieve" location="../../../Services//DocumentRetrieveCore/dist/debug" />
+    <property name="core.patientdiscovery" location="../../../Services//PatientDiscoveryCore/dist/debug" />
 
     <!-- Please make sure that this goes up to the correct directory -->
     <import file="../../../../build/build.targets.xml" />

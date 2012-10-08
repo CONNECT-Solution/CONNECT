@@ -36,7 +36,7 @@ import javax.xml.ws.soap.Addressing;
  * 
  * @author Neil Webb
  */
-@WebService(serviceName = "NotificationConsumerService", portName = "NotificationConsumerPort", endpointInterface = "org.oasis_open.docs.wsn.bw_2.NotificationConsumer", targetNamespace = "http://docs.oasis-open.org/wsn/bw-2", wsdlLocation = "WEB-INF/wsdl/HiemNotify/NhinSubscription.wsdl")
+@WebService(endpointInterface = "org.oasis_open.docs.wsn.bw_2.NotificationConsumer")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 @Addressing(enabled = true)
 public class HiemNotify {

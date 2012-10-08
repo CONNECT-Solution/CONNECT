@@ -1,5 +1,0 @@
-#!/bin/bash
-while [ 1 ];
-do
-  xtest -err -run -t vsmallpnr
-done

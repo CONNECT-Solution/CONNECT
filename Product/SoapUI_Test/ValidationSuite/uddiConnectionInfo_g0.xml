@@ -6,7 +6,7 @@
 
             <!--  Query for Documents  -->
 
-            <businessService serviceKey="uddi:testnhincnode:QueryForDocuments" businessKey="uddi:testnhieonenode:1.1">
+            <businessService serviceKey="uddi:testnhincnode:QueryForDocuments">
                 <name xml:lang="en">QueryForDocuments</name>
                 <bindingTemplates>
                     <bindingTemplate bindingKey="uddi:testnhincnode:QueryForDocuments" serviceKey="uddi:testnhincnode:QueryForDocuments">
@@ -24,7 +24,7 @@
 
             <!--  Retrieve Documents  -->
 
-            <businessService serviceKey="uddi:testnhincnode:RetrieveDocuments" businessKey="uddi:testnhieonenode:1.1">
+            <businessService serviceKey="uddi:testnhincnode:RetrieveDocuments">
                 <name xml:lang="en">RetrieveDocuments</name>
                 <bindingTemplates>
                     <bindingTemplate bindingKey="uddi:testnhincnode:RetrieveDocuments" serviceKey="uddi:testnhincnode:RetrieveDocuments">
@@ -41,7 +41,7 @@
 
             <!--  HIEM  -->
 
-            <businessService serviceKey="uddi:testnhincnode:notificationproducer" businessKey="uddi:testnhieonenode:1.1">
+            <businessService serviceKey="uddi:testnhincnode:notificationproducer">
                 <name xml:lang="en">HIEM</name>
                 <bindingTemplates>
                     <bindingTemplate bindingKey="uddi:testnhincnode:notificationproducer" serviceKey="uddi:testnhincnode:notificationproducer">
@@ -55,7 +55,7 @@
                     <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="notificationproducer" keyValue="notificationproducer"/>
                 </categoryBag>
             </businessService>
-            <businessService serviceKey="uddi:testnhincnode:notificationconsumer" businessKey="uddi:testnhieonenode:1.1">
+            <businessService serviceKey="uddi:testnhincnode:notificationconsumer">
                 <name xml:lang="en">notificationconsumer</name>
                 <bindingTemplates>
                     <bindingTemplate bindingKey="uddi:testnhincnode:notificationconsumer" serviceKey="uddi:testnhincnode:notificationconsumer">
@@ -69,7 +69,7 @@
                     <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="notificationconsumer" keyValue="notificationconsumer"/>
                 </categoryBag>
             </businessService>
-            <businessService serviceKey="uddi:testnhincnode:subscriptionmanager" businessKey="uddi:testnhieonenode:1.1">
+            <businessService serviceKey="uddi:testnhincnode:subscriptionmanager">
                 <name xml:lang="en">subscriptionmanager</name>
                 <bindingTemplates>
                     <bindingTemplate bindingKey="uddi:testnhincnode:subscriptionmanager" serviceKey="uddi:testnhincnode:subscriptionmanager">
@@ -86,7 +86,7 @@
 
             <!--  PatientDiscovery  -->
 
-            <businessService serviceKey="uddi:testnhincnode:PatientDiscovery" businessKey="uddi:testnhieonenode:1.1">
+            <businessService serviceKey="uddi:testnhincnode:PatientDiscovery">
                 <name xml:lang="en">PatientDiscovery</name>
                 <bindingTemplates>
                     <bindingTemplate bindingKey="uddi:testnhincnode:PatientDiscovery" serviceKey="uddi:testnhincnode:PatientDiscovery">
@@ -100,7 +100,7 @@
                     <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="PatientDiscovery" keyValue="PatientDiscovery"/>
                 </categoryBag>
             </businessService>
-            <businessService serviceKey="uddi:testnhincnode:PatientDiscoveryDeferredReq" businessKey="uddi:testnhieonenode:1.1">
+            <businessService serviceKey="uddi:testnhincnode:PatientDiscoveryDeferredReq">
                 <name xml:lang="en">PatientDiscoveryDeferredReq</name>
                 <bindingTemplates>
                     <bindingTemplate bindingKey="uddi:testnhincnode:PatientDiscoveryDeferredReq" serviceKey="uddi:testnhincnode:PatientDiscoveryDeferredReq">
@@ -114,7 +114,7 @@
                     <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="PatientDiscoveryDeferredReq" keyValue="PatientDiscoveryDeferredReq"/>
                 </categoryBag>
             </businessService>
-            <businessService serviceKey="uddi:testnhincnode:PatientDiscoveryDeferredResp" businessKey="uddi:testnhieonenode:1.1">
+            <businessService serviceKey="uddi:testnhincnode:PatientDiscoveryDeferredResp">
                 <name xml:lang="en">PatientDiscoveryDeferredResp</name>
                 <bindingTemplates>
                     <bindingTemplate bindingKey="uddi:testnhincnode:PatientDiscoveryDeferredResp" serviceKey="uddi:testnhincnode:PatientDiscoveryDeferredResp">
@@ -131,7 +131,7 @@
 
             <!--  Document Submission  -->
 
-            <businessService serviceKey="uddi:testnhincnode:DocSubmission" businessKey="uddi:testnhieonenode:1.1">
+            <businessService serviceKey="uddi:testnhincnode:DocSubmission">
                 <name xml:lang="en">DocSubmission</name>
                 <bindingTemplates>
                     <bindingTemplate bindingKey="uddi:testnhincnode:DocSubmission" serviceKey="uddi:testnhincnode:DocSubmission">
@@ -145,7 +145,7 @@
                     <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="DocSubmission" keyValue="DocSubmission"/>
                 </categoryBag>
             </businessService>
-            <businessService serviceKey="uddi:testnhincnode:DocSubmissionDeferredReq" businessKey="uddi:testnhieonenode:1.1">
+            <businessService serviceKey="uddi:testnhincnode:DocSubmissionDeferredReq">
                 <name xml:lang="en">DocSubmissionDeferredReq</name>
                 <bindingTemplates>
                     <bindingTemplate bindingKey="uddi:testnhincnode:DocSubmissionDeferredReq" serviceKey="uddi:testnhincnode:DocSubmissionDeferredReq">
@@ -159,7 +159,7 @@
                     <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="DocSubmissionDeferredReq" keyValue="DocSubmissionDeferredReq"/>
                 </categoryBag>
             </businessService>
-            <businessService serviceKey="uddi:testnhincnode:DocSubmissionDeferredResp" businessKey="uddi:testnhieonenode:1.1">
+            <businessService serviceKey="uddi:testnhincnode:DocSubmissionDeferredResp">
                 <name xml:lang="en">DocSubmissionDeferredResp</name>
                 <bindingTemplates>
                     <bindingTemplate bindingKey="uddi:testnhincnode:DocSubmissionDeferredResp" serviceKey="uddi:testnhincnode:DocSubmissionDeferredResp">
@@ -176,7 +176,7 @@
 
             <!--  Administrative Distribution  -->
 
-            <businessService serviceKey="uddi:testnhincnode:AdminDistribution" businessKey="uddi:testnhieonenode:1.1">
+            <businessService serviceKey="uddi:testnhincnode:AdminDistribution">
                 <name xml:lang="en">AdminDistribution</name>
                 <bindingTemplates>
                     <bindingTemplate bindingKey="uddi:testnhincnode:AdminDistribution" serviceKey="uddi:testnhincnode:AdminDistribution">
@@ -202,13 +202,13 @@
 
     <!--  Gateway 2.2  -->
 
-        <businessEntity businessKey="uddi:testnhincnode:2.2">
+    <businessEntity businessKey="uddi:testnhincnode:2.2">
         <name xml:lang="en">DoD</name>
         <businessServices>
 
-            <!--  Query for Documents  -->
+            <!--  Query for Documents -->
 
-            <businessService serviceKey="uddi:testnhincnode:QueryForDocuments" businessKey="uddi:testnhieonenode:2.2">
+            <businessService serviceKey="uddi:testnhincnode:QueryForDocuments">
                 <name xml:lang="en">QueryForDocuments</name>
                 <bindingTemplates>
                     <bindingTemplate bindingKey="uddi:testnhincnode:QueryForDocuments" serviceKey="uddi:testnhincnode:QueryForDocuments">
@@ -222,11 +222,10 @@
                     <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="QueryForDocuments" keyValue="QueryForDocuments"/>
                 </categoryBag>
             </businessService>
- 
 
             <!--  Retrieve Documents  -->
 
-            <businessService serviceKey="uddi:testnhincnode:RetrieveDocuments" businessKey="uddi:testnhieonenode:2.2">
+            <businessService serviceKey="uddi:testnhincnode:RetrieveDocuments">
                 <name xml:lang="en">RetrieveDocuments</name>
                 <bindingTemplates>
                     <bindingTemplate bindingKey="uddi:testnhincnode:RetrieveDocuments" serviceKey="uddi:testnhincnode:RetrieveDocuments">
@@ -243,7 +242,7 @@
 
             <!--  HIEM  -->
 
-            <businessService serviceKey="uddi:testnhincnode:notificationproducer" businessKey="uddi:testnhieonenode:2.2">
+            <businessService serviceKey="uddi:testnhincnode:notificationproducer">
                 <name xml:lang="en">HIEM</name>
                 <bindingTemplates>
                     <bindingTemplate bindingKey="uddi:testnhincnode:notificationproducer" serviceKey="uddi:testnhincnode:notificationproducer">
@@ -257,7 +256,7 @@
                     <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="notificationproducer" keyValue="notificationproducer"/>
                 </categoryBag>
             </businessService>
-            <businessService serviceKey="uddi:testnhincnode:notificationconsumer" businessKey="uddi:testnhieonenode:2.2">
+            <businessService serviceKey="uddi:testnhincnode:notificationconsumer">
                 <name xml:lang="en">notificationconsumer</name>
                 <bindingTemplates>
                     <bindingTemplate bindingKey="uddi:testnhincnode:notificationconsumer" serviceKey="uddi:testnhincnode:notificationconsumer">
@@ -271,7 +270,7 @@
                     <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="notificationconsumer" keyValue="notificationconsumer"/>
                 </categoryBag>
             </businessService>
-            <businessService serviceKey="uddi:testnhincnode:subscriptionmanager" businessKey="uddi:testnhieonenode:2.2">
+            <businessService serviceKey="uddi:testnhincnode:subscriptionmanager">
                 <name xml:lang="en">subscriptionmanager</name>
                 <bindingTemplates>
                     <bindingTemplate bindingKey="uddi:testnhincnode:subscriptionmanager" serviceKey="uddi:testnhincnode:subscriptionmanager">
@@ -288,7 +287,7 @@
 
             <!--  PatientDiscovery  -->
 
-            <businessService serviceKey="uddi:testnhincnode:PatientDiscovery" businessKey="uddi:testnhieonenode:2.2">
+            <businessService serviceKey="uddi:testnhincnode:PatientDiscovery">
                 <name xml:lang="en">PatientDiscovery</name>
                 <bindingTemplates>
                     <bindingTemplate bindingKey="uddi:testnhincnode:PatientDiscovery" serviceKey="uddi:testnhincnode:PatientDiscovery">
@@ -302,7 +301,7 @@
                     <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="PatientDiscovery" keyValue="PatientDiscovery"/>
                 </categoryBag>
             </businessService>
-            <businessService serviceKey="uddi:testnhincnode:PatientDiscoveryDeferredReq" businessKey="uddi:testnhieonenode:2.2">
+            <businessService serviceKey="uddi:testnhincnode:PatientDiscoveryDeferredReq">
                 <name xml:lang="en">PatientDiscoveryDeferredReq</name>
                 <bindingTemplates>
                     <bindingTemplate bindingKey="uddi:testnhincnode:PatientDiscoveryDeferredReq" serviceKey="uddi:testnhincnode:PatientDiscoveryDeferredReq">
@@ -316,7 +315,7 @@
                     <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="PatientDiscoveryDeferredReq" keyValue="PatientDiscoveryDeferredReq"/>
                 </categoryBag>
             </businessService>
-            <businessService serviceKey="uddi:testnhincnode:PatientDiscoveryDeferredResp" businessKey="uddi:testnhieonenode:2.2">
+            <businessService serviceKey="uddi:testnhincnode:PatientDiscoveryDeferredResp">
                 <name xml:lang="en">PatientDiscoveryDeferredResp</name>
                 <bindingTemplates>
                     <bindingTemplate bindingKey="uddi:testnhincnode:PatientDiscoveryDeferredResp" serviceKey="uddi:testnhincnode:PatientDiscoveryDeferredResp">
@@ -333,7 +332,7 @@
 
             <!--  Document Submission  -->
 
-            <businessService serviceKey="uddi:testnhincnode:DocSubmission" businessKey="uddi:testnhieonenode:2.2">
+            <businessService serviceKey="uddi:testnhincnode:DocSubmission">
                 <name xml:lang="en">DocSubmission</name>
                 <bindingTemplates>
                     <bindingTemplate bindingKey="uddi:testnhincnode:DocSubmission" serviceKey="uddi:testnhincnode:DocSubmission">
@@ -347,7 +346,7 @@
                     <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="DocSubmission" keyValue="DocSubmission"/>
                 </categoryBag>
             </businessService>
-            <businessService serviceKey="uddi:testnhincnode:DocSubmissionDeferredReq" businessKey="uddi:testnhieonenode:2.2">
+            <businessService serviceKey="uddi:testnhincnode:DocSubmissionDeferredReq">
                 <name xml:lang="en">DocSubmissionDeferredReq</name>
                 <bindingTemplates>
                     <bindingTemplate bindingKey="uddi:testnhincnode:DocSubmissionDeferredReq" serviceKey="uddi:testnhincnode:DocSubmissionDeferredReq">
@@ -361,7 +360,7 @@
                     <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="DocSubmissionDeferredReq" keyValue="DocSubmissionDeferredReq"/>
                 </categoryBag>
             </businessService>
-            <businessService serviceKey="uddi:testnhincnode:DocSubmissionDeferredResp" businessKey="uddi:testnhieonenode:2.2">
+            <businessService serviceKey="uddi:testnhincnode:DocSubmissionDeferredResp">
                 <name xml:lang="en">DocSubmissionDeferredResp</name>
                 <bindingTemplates>
                     <bindingTemplate bindingKey="uddi:testnhincnode:DocSubmissionDeferredResp" serviceKey="uddi:testnhincnode:DocSubmissionDeferredResp">
@@ -378,7 +377,7 @@
 
             <!--  Administrative Distribution  -->
 
-            <businessService serviceKey="uddi:testnhincnode:AdminDistribution" businessKey="uddi:testnhieonenode:2.2">
+            <businessService serviceKey="uddi:testnhincnode:AdminDistribution">
                 <name xml:lang="en">AdminDistribution</name>
                 <bindingTemplates>
                     <bindingTemplate bindingKey="uddi:testnhincnode:AdminDistribution" serviceKey="uddi:testnhincnode:AdminDistribution">
@@ -393,6 +392,7 @@
                 </categoryBag>
             </businessService>
         </businessServices>
+
         <identifierBag>
             <keyedReference tModelKey="uddi:nhin:nhie:homecommunityid" keyName="" keyValue="2.2"/>
         </identifierBag>
@@ -401,5 +401,4 @@
             <keyedReference tModelKey="uddi:uddi.org:ubr:categorization:iso3166" keyName="Virginia" keyValue="US-VA"/>
         </categoryBag>
     </businessEntity>
-
 </businessDetail>

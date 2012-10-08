@@ -33,7 +33,7 @@ import javax.xml.ws.BindingType;
  * 
  * @author Sai Valluripalli
  */
-@WebService(serviceName = "HiemSubscriptionRepositoryUtilService", portName = "HiemSubscriptionRepositoryUtilPortTypeBindingPort", endpointInterface = "gov.hhs.fha.nhinc.hiemsubscriptionrepositoryutil.HiemSubscriptionRepositoryUtilPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:hiemsubscriptionrepositoryutil", wsdlLocation = "WEB-INF/wsdl/HiemSubscriptionRepositoryUtilService/HiemSubscriptionRepositoryUtil.wsdl")
+@WebService(endpointInterface = "gov.hhs.fha.nhinc.hiemsubscriptionrepositoryutil.HiemSubscriptionRepositoryUtilPortType")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 public class HiemSubscriptionRepositoryUtilService {
 

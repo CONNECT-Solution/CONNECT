@@ -75,23 +75,23 @@ public class NhincConstants {
     };
 
     public static enum NHIN_SERVICE_NAMES {
-        PATIENT_DISCOVERY(PATIENT_DISCOVERY_SERVICE_NAME),
-        PATIENT_DISCOVERY_DEFERRED_REQUEST(PATIENT_DISCOVERY_DEFERRED_REQ_SERVICE_NAME),
-        PATIENT_DISCOVERY_DEFERRED_RESPONSE(PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME),
+    	PATIENT_DISCOVERY(PATIENT_DISCOVERY_SERVICE_NAME),
+    	PATIENT_DISCOVERY_DEFERRED_REQUEST(PATIENT_DISCOVERY_DEFERRED_REQ_SERVICE_NAME),
+    	PATIENT_DISCOVERY_DEFERRED_RESPONSE(PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME),
 
-        DOCUMENT_QUERY(DOC_QUERY_SERVICE_NAME),
+    	DOCUMENT_QUERY(DOC_QUERY_SERVICE_NAME),
 
-        DOCUMENT_RETRIEVE(DOC_RETRIEVE_SERVICE_NAME),
+    	DOCUMENT_RETRIEVE(DOC_RETRIEVE_SERVICE_NAME),
 
-        DOCUMENT_SUBMISSION(NHINC_XDR_SERVICE_NAME),
-        DOCUMENT_SUBMISSION_DEFERRED_REQUEST(NHINC_XDR_REQUEST_SERVICE_NAME),
-        DOCUMENT_SUBMISSION_DEFERRED_RESPONSE(NHINC_XDR_RESPONSE_SERVICE_NAME),
+    	DOCUMENT_SUBMISSION(NHINC_XDR_SERVICE_NAME),
+    	DOCUMENT_SUBMISSION_DEFERRED_REQUEST(NHINC_XDR_REQUEST_SERVICE_NAME),
+    	DOCUMENT_SUBMISSION_DEFERRED_RESPONSE(NHINC_XDR_RESPONSE_SERVICE_NAME),
 
-        ADMINISTRATIVE_DISTRIBUTION(NHIN_ADMIN_DIST_SERVICE_NAME),
+    	ADMINISTRATIVE_DISTRIBUTION(NHIN_ADMIN_DIST_SERVICE_NAME),
 
-        HIEM_SUBSCRIBE(HIEM_SUBSCRIBE_SERVICE_NAME),
-        HIEM_NOTIFY(HIEM_NOTIFY_SERVICE_NAME),
-        HIEM_UNSUBSCRIBE(HIEM_UNSUBSCRIBE_ENTITY_SERVICE_NAME);
+    	HIEM_SUBSCRIBE(HIEM_SUBSCRIBE_SERVICE_NAME),
+    	HIEM_NOTIFY(HIEM_NOTIFY_SERVICE_NAME),
+    	HIEM_UNSUBSCRIBE(HIEM_UNSUBSCRIBE_ENTITY_SERVICE_NAME);
 
         private String UDDIServiceName = null;
 
@@ -99,12 +99,25 @@ public class NhincConstants {
             this.UDDIServiceName = value;
         }
 
-        public String getUDDIServiceName()
-        {
-            return this.UDDIServiceName;
+    	public String getUDDIServiceName()
+    	{
+    		return this.UDDIServiceName;
+    	}
+    	
+        public static NHIN_SERVICE_NAMES fromValueString(String valueString) {
+            if (valueString != null) {
+                for (NHIN_SERVICE_NAMES enumValue : NHIN_SERVICE_NAMES.values()) {
+                    if (valueString.equals(enumValue.UDDIServiceName)) {
+                        return enumValue;
+                    }
+                }
+            }
+            throw new IllegalArgumentException("No enum constant " + valueString);
         }
     };
 
+    public static final String SERVICE_NAME = "serviceName";
+    
     // Property File Constants
     public static final String GATEWAY_PROPERTY_FILE = "gateway";
     public static final String HOME_COMMUNITY_ID_PROPERTY = "localHomeCommunityId";
@@ -119,6 +132,10 @@ public class NhincConstants {
     public static final String CONCURRENT_POOL_SIZE = "ConcurrentPoolSize";
     public static final String LARGEJOB_POOL_SIZE = "LargeJobPoolSize";
     public static final String LARGEJOB_SIZE_PERCENT = "LargeJobSizePercent";
+    
+    // Streaming Large Files Constants    
+    public static final String PARSE_PAYLOAD_AS_FILE_URI = "ParsePayloadAsFileURI";
+    public static final String PAYLOAD_SAVE_DIRECTORY = "PayloadSaveDirectory";
 
     // these 6 not used anymore
     public static final String PATIENT_DISCOVERY_CONNECT_TIMEOUT = "PDConnectTimeout";
@@ -129,6 +146,7 @@ public class NhincConstants {
     public static final String REQUEST_TIMEOUT_NAME = "com.sun.xml.ws.request.timeout";
 
     // SAML Constants
+    public static final String TARGET_API_LEVEL = "targetAPILevel";
     public static final String ACTION_PROP = "action";
     public static final String RESOURCE_PROP = "resource";
     public static final String PURPOSE_CODE_PROP = "purposeOfUseRoleCode";
@@ -332,6 +350,7 @@ public class NhincConstants {
     public static final String WS_SOAP_HEADER_ADDRESS = "Address";
     public static final String WS_SOAP_HEADER_MESSAGE_ID = "MessageID";
     public static final String WS_SOAP_HEADER_MESSAGE_ID_PREFIX = "urn:uuid:";
+    public static final String WS_SOAP_TARGET_HOME_COMMUNITY_ID = "TargetHomeCommunityID";
     // Document Query Constants
     public static final String ADAPTER_DOC_QUERY_SERVICE_NAME = "adapterdocquery";
     public static final String ADAPTER_DOC_QUERY_SECURED_SERVICE_NAME = "adapterdocquerysecured";
@@ -499,6 +518,7 @@ public class NhincConstants {
     public static final String HIBERNATE_ASYNCMSGS_REPOSITORY = "AsyncMsgs.hibernate.cfg.xml";
     public static final String HIBERNATE_PATIENTDB_REPOSITORY = "patientdb.hibernate.cfg.xml";
     public static final String HIBERNATE_PERFREPO_REPOSITORY = "perfrepo.hibernate.cfg.xml";
+    public static final String HIBERNATE_TRANSREPO_REPOSITORY = "transrepo.hibernate.cfg.xml";
     public static final String HIBERNATE_HIEMSUBREP_REPOSITORY = "HiemSubRepHibernate.cfg.xml";
     public static final String HIBERNATE_AGGREGATOR_REPOSITORY = "aggregator.cfg.xml";
     public static final String AGGREGATOR_LARGE_RESP_DIR_PROP = "aggregatorLargeResponseDir";
