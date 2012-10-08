@@ -27,6 +27,7 @@
 package gov.hhs.fha.nhinc.docquery._20.entity;
 
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayQueryRequestType;
+import gov.hhs.fha.nhinc.docquery.entity.EntityDocQueryOrchImpl;
 
 import javax.annotation.Resource;
 import javax.xml.ws.BindingType;
@@ -39,7 +40,8 @@ import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 @Addressing(enabled=true)
 public class EntityDocQueryUnsecured implements gov.hhs.fha.nhinc.entitydocquery.EntityDocQueryPortType
-{
+{    
+    private EntityDocQueryOrchImpl orchImpl;
 
     @Resource
     private WebServiceContext context;
@@ -59,11 +61,15 @@ public class EntityDocQueryUnsecured implements gov.hhs.fha.nhinc.entitydocquery
 
     protected EntityDocQueryImpl getEntityDocQueryImpl()
     {
-        return new EntityDocQueryImpl();
+        return new EntityDocQueryImpl(orchImpl);
     }
 
     protected WebServiceContext getWebServiceContext()
     {
         return context;
+    }
+    
+    public void setOrchestratorImpl(EntityDocQueryOrchImpl orchImpl) {
+        this.orchImpl = orchImpl;
     }
 }

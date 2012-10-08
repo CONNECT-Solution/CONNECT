@@ -44,6 +44,7 @@ import org.apache.cxf.headers.Header;
 import org.apache.cxf.interceptor.Fault;
 import org.apache.cxf.message.Message;
 import org.apache.cxf.phase.Phase;
+import org.eclipse.jetty.util.log.Log;
 import org.w3c.dom.Element;
 
 /**
@@ -87,22 +88,27 @@ public class ClientSoapInInterceptor extends AbstractSoapInterceptor {
      */
     @SuppressWarnings("unchecked")
     public static void addResponseMessageIdToContext(Object port, Message currentMessage) {
-        Client clientProxy = ClientProxy.getClient((BindingProvider) port);
+        try {
+            Client clientProxy = ClientProxy.getClient((BindingProvider) port);
 
-        Map<String, Object> responseContext = clientProxy.getResponseContext();
-        String responseMsgId = (String) responseContext.get(NhincConstants.RESPONSE_MESSAGE_ID_KEY);
+            Map<String, Object> responseContext = clientProxy.getResponseContext();
+            String responseMsgId = (String) responseContext.get(NhincConstants.RESPONSE_MESSAGE_ID_KEY);
 
-        if (responseMsgId != null) {
+            if ((responseMsgId != null) && (currentMessage != null)) {
 
-            List<String> responseMsgIdList = (List<String>) currentMessage.getExchange().get(
-                    NhincConstants.RESPONSE_MESSAGE_ID_LIST_KEY);
-            if (responseMsgIdList == null) {
-                responseMsgIdList = new ArrayList<String>();
+                List<String> responseMsgIdList = (List<String>) currentMessage.getExchange().get(
+                        NhincConstants.RESPONSE_MESSAGE_ID_LIST_KEY);
+                if (responseMsgIdList == null) {
+                    responseMsgIdList = new ArrayList<String>();
+                }
+                responseMsgIdList.add(responseMsgId);
+
+                currentMessage.getExchange().put(NhincConstants.RESPONSE_MESSAGE_ID_LIST_KEY, responseMsgIdList);
             }
-            responseMsgIdList.add(responseMsgId);
-
-            currentMessage.getExchange().put(NhincConstants.RESPONSE_MESSAGE_ID_LIST_KEY, responseMsgIdList);
+        } catch (Exception e) {
+            // Do nothing
         }
+
     }
 
 }
