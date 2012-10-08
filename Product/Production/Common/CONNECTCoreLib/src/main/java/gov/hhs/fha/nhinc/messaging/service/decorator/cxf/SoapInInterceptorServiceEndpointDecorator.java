@@ -24,38 +24,32 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
-package gov.hhs.fha.nhinc.docrepository.adapter;
 
-import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import javax.xml.ws.WebServiceContext;
+package gov.hhs.fha.nhinc.messaging.service.decorator.cxf;
+
+import gov.hhs.fha.nhinc.messaging.client.interceptor.ClientSoapInInterceptor;
+import gov.hhs.fha.nhinc.messaging.service.ServiceEndpoint;
+import gov.hhs.fha.nhinc.messaging.service.decorator.ServiceEndpointDecorator;
+
+import org.apache.cxf.endpoint.Client;
+import org.apache.cxf.frontend.ClientProxy;
 
 /**
- * Helper class for the document repository service.
+ * @author akong
  * 
- * @author Neil Webb
  */
-public class DocumentRepositoryServiceImpl {
+public class SoapInInterceptorServiceEndpointDecorator<T> extends ServiceEndpointDecorator<T> {
 
-    public ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType documentRepositoryRetrieveDocumentSet(
-            ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType body, WebServiceContext context) {
-        AssertionType assertion = getAssertion(context);
-        return new AdapterComponentDocRepositoryOrchImpl().documentRepositoryRetrieveDocumentSet(body);
+    public SoapInInterceptorServiceEndpointDecorator(ServiceEndpoint<T> decoratoredEndpoint) {
+        super(decoratoredEndpoint);
     }
 
-    public oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType documentRepositoryProvideAndRegisterDocumentSet(
-            ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType body, WebServiceContext context) {
-        AssertionType assertion = getAssertion(context);
-        return new AdapterComponentDocRepositoryOrchImpl().documentRepositoryProvideAndRegisterDocumentSet(body);
+    @Override
+    public void configure() {
+        super.configure();
+        Client client = ClientProxy.getClient(getPort());
+
+        ClientSoapInInterceptor soapInInterceptor = new ClientSoapInInterceptor();
+        client.getInInterceptors().add(soapInInterceptor);
     }
-
-    protected AssertionType getAssertion(WebServiceContext context) {
-        AssertionType assertion = new AssertionType();
-
-        // Extract the relates to value from the WS-Addressing Header and place it in the Assertion Class
-        assertion.setMessageId(AsyncMessageIdExtractor.getOrCreateAsyncMessageId(context));
-
-        return assertion;
-    }
-
 }

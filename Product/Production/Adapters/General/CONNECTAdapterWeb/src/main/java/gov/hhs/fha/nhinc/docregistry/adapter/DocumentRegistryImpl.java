@@ -48,8 +48,7 @@ public class DocumentRegistryImpl {
         AssertionType assertion = new AssertionType();
 
         // Extract the relates to value from the WS-Addressing Header and place it in the Assertion Class
-        AsyncMessageIdExtractor msgIdExtractor = new AsyncMessageIdExtractor();
-        assertion.setMessageId(msgIdExtractor.GetAsyncMessageId(context));
+        assertion.setMessageId(AsyncMessageIdExtractor.getOrCreateAsyncMessageId(context));
 
         return assertion;
     }
