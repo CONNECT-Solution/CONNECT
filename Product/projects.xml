@@ -190,7 +190,7 @@
         <dist.type>war</dist.type>
         <context.root>Gateway/HIEM/2_0</context.root>
         <should.build>true</should.build>
-        <should.deploy>false</should.deploy>
+        <should.deploy>true</should.deploy>
     </project>
     <project>
         <name>CONNECTAdapterWeb</name>
