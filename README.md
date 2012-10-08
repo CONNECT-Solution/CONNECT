@@ -66,6 +66,10 @@ After you have built from source you can create all of the Eclipse Project files
 		$ cd <CONNECT_CLONE_DIR>
         $ mvn eclipse:clean eclipse:eclipse
 
+Before launching eclipse, execute the following to set up the M2_REPO var used in lib dependenies
+
+        $ mvn eclipse:configure-workspace -Declipse.workspace=/path/to/your/workspace	
+
 When complete, open Eclipse then click on the following:
 
 		File --> Import --> 'Existing Projects into workspace'
