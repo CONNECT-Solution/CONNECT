@@ -175,7 +175,7 @@ Testing
 ###Perform Validation Tests
 
 		$ cd <CONNECT_CLONE_DIR>/Product/SoapUI_Test/ValidationSuite
-        $ mvn clean test
+        $ mvn clean install
 
 
 
