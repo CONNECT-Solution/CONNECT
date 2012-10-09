@@ -87,7 +87,7 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adapterxdrrequest" id="AdapterXDRRequest"
         address="/AdapterService/AdapterDocSubmissionDeferredRequest" serviceName="tns:AdapterXDRRequest_Service"
         endpointName="tns:AdapterXDRRequest_Port" implementor="gov.hhs.fha.nhinc.docsubmission.adapter.deferred.request.AdapterXDRRequest"
-        wsdlLocation="classpath:/wsdl/AdapterXDRRequest.wsdl">
+        wsdlLocation="classpath:wsdl/AdapterXDRRequest.wsdl">
         <jaxws:properties>          
             <entry key="mtom-enabled" value="true" />
         </jaxws:properties>
@@ -124,7 +124,7 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adapterxdrrequesterror" id="AdapterXDRRequestError"
         address="/AdapterService/AdapterDocSubmissionDeferredRequestError" serviceName="tns:AdapterXDRRequestError_Service"
         endpointName="tns:AdapterXDRRequestError_Port" implementor="gov.hhs.fha.nhinc.docsubmission.adapter.deferred.request.error.AdapterXDRRequestError"
-        wsdlLocation="classpath:/wsdl/AdapterXDRRequestError.wsdl">
+        wsdlLocation="classpath:wsdl/AdapterXDRRequestError.wsdl">
         <jaxws:properties>          
             <entry key="mtom-enabled" value="true" />
         </jaxws:properties>
