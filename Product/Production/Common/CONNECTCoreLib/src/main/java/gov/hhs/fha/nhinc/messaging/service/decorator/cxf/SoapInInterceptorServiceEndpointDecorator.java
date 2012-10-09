@@ -24,48 +24,32 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
-package gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws;
 
-import gov.hhs.fha.nhinc.patientdiscovery._10.deferred.response.NhinPatientDiscoveryAsyncRespImpl;
+package gov.hhs.fha.nhinc.messaging.service.decorator.cxf;
 
-import javax.annotation.Resource;
-import javax.xml.ws.BindingType;
-import javax.xml.ws.WebServiceContext;
+import gov.hhs.fha.nhinc.messaging.client.interceptor.ClientSoapInInterceptor;
+import gov.hhs.fha.nhinc.messaging.service.ServiceEndpoint;
+import gov.hhs.fha.nhinc.messaging.service.decorator.ServiceEndpointDecorator;
 
-import org.hl7.v3.PRPAIN201306UV02;
+import org.apache.cxf.endpoint.Client;
+import org.apache.cxf.frontend.ClientProxy;
 
 /**
+ * @author akong
  * 
- * @author JHOPPESC
  */
+public class SoapInInterceptorServiceEndpointDecorator<T> extends ServiceEndpointDecorator<T> {
 
-@BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
-public class NhinPatientDiscoveryAsyncResp extends PatientDiscoveryBase implements
-        ihe.iti.xcpd._2009.RespondingGatewayDeferredResponsePortType {
-
-    private NhinPatientDiscoveryAsyncRespImpl orchImpl;
-
-    @Resource
-    private WebServiceContext context;
-
-    public NhinPatientDiscoveryAsyncResp() {
-        super();
+    public SoapInInterceptorServiceEndpointDecorator(ServiceEndpoint<T> decoratoredEndpoint) {
+        super(decoratoredEndpoint);
     }
 
-    public NhinPatientDiscoveryAsyncResp(PatientDiscoveryServiceFactory serviceFactory) {
-        super(serviceFactory);
-    }
+    @Override
+    public void configure() {
+        super.configure();
+        Client client = ClientProxy.getClient(getPort());
 
-    public org.hl7.v3.MCCIIN000002UV01 respondingGatewayDeferredPRPAIN201306UV02(PRPAIN201306UV02 body) {
-        return orchImpl.respondingGatewayPRPAIN201306UV02(body, getWebServiceContext());
+        ClientSoapInInterceptor soapInInterceptor = new ClientSoapInInterceptor();
+        client.getInInterceptors().add(soapInInterceptor);
     }
-
-    public void setOrchestratorImpl(NhinPatientDiscoveryAsyncRespImpl orchImpl) {
-        this.orchImpl = orchImpl;
-    }
-
-    protected WebServiceContext getWebServiceContext() {
-        return context;
-    }
-
 }

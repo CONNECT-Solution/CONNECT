@@ -136,6 +136,10 @@ public class NhincConstants {
     // Streaming Large Files Constants    
     public static final String PARSE_PAYLOAD_AS_FILE_URI = "ParsePayloadAsFileURI";
     public static final String PAYLOAD_SAVE_DIRECTORY = "PayloadSaveDirectory";
+    
+    // Response Message Interceptor Constants
+    public static final String RESPONSE_MESSAGE_ID_KEY = "RESPONSE_MESSAGE_ID";
+    public static final String RESPONSE_MESSAGE_ID_LIST_KEY = "RESPONSE_MESSAGE_ID_LIST";
 
     // these 6 not used anymore
     public static final String PATIENT_DISCOVERY_CONNECT_TIMEOUT = "PDConnectTimeout";

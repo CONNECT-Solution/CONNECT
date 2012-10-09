@@ -63,8 +63,8 @@ public class NhinDocSubmissionDeferredResponseImpl20
        AssertionType assertion = extractor.extractSamlAssertion(context);
 
        if (assertion != null) {
-            assertion.setMessageId(AsyncMessageIdExtractor.GetAsyncMessageId(context));
-            List<String> relatesToList = AsyncMessageIdExtractor.GetAsyncRelatesTo(context);
+            assertion.setMessageId(AsyncMessageIdExtractor.getOrCreateAsyncMessageId(context));
+            List<String> relatesToList = AsyncMessageIdExtractor.getAsyncRelatesTo(context);
             if (NullChecker.isNotNullish(relatesToList)) {
                 assertion.getRelatesToList().addAll(relatesToList);
             }

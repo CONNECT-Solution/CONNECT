@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
 <!-- 
 	The beans available in this file must be identified in the "description" element for the Spring configuration application. Beans are listed between braces 
@@ -125,7 +126,11 @@
 	<bean lazy-init="true" class="gov.hhs.fha.nhinc.docregistry.adapter.proxy.AdapterComponentDocRegistryProxyWebServiceUnsecuredImpl" id="adapterdocumentregistrywsunsecured" name="adapterdocumentregistrywsunsecured"> 
 		<meta key="impltype" value="wsunsecured"/>
 		<meta key="default" value="true"/>
-	</bean> 	
+	</bean>
+    
+    <!-- Aspect Service -->
+    <aop:aspectj-autoproxy />    
+    <bean id="eventDQAspect" class="gov.hhs.fha.nhinc.docquery.aspect.DocQueryEventAspect" />
 	
 
 </beans>

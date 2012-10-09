@@ -109,6 +109,10 @@ public class EntityDocQueryOrchImpl {
      */
     public EntityDocQueryOrchImpl(ExecutorService e, ExecutorService le) {
         log = createLogger();
+        setExecutorService(e, le);
+    }
+    
+    public void setExecutorService(ExecutorService e, ExecutorService le) {
         regularExecutor = e;
         largejobExecutor = le;
     }

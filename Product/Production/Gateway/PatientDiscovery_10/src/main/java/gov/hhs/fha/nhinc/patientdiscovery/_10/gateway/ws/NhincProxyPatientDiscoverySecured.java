@@ -26,6 +26,8 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws;
 
+import gov.hhs.fha.nhinc.patientdiscovery._10.passthru.NhincProxyPatientDiscoveryImpl;
+
 import javax.annotation.Resource;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
@@ -36,7 +38,10 @@ import javax.xml.ws.WebServiceContext;
  */
 
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
-public class NhincProxyPatientDiscoverySecured extends PatientDiscoveryBase implements gov.hhs.fha.nhinc.nhincproxypatientdiscoverysecured.NhincProxyPatientDiscoverySecuredPortType {
+public class NhincProxyPatientDiscoverySecured extends PatientDiscoveryBase implements
+        gov.hhs.fha.nhinc.nhincproxypatientdiscoverysecured.NhincProxyPatientDiscoverySecuredPortType {
+
+    private NhincProxyPatientDiscoveryImpl orchImpl;
 
     @Resource
     private WebServiceContext context;
@@ -52,8 +57,11 @@ public class NhincProxyPatientDiscoverySecured extends PatientDiscoveryBase impl
     public org.hl7.v3.PRPAIN201306UV02 proxyPRPAIN201305UV(
             org.hl7.v3.ProxyPRPAIN201305UVProxySecuredRequestType proxyPRPAIN201305UVProxyRequest) {
 
-        return getServiceFactory().getNhincProxyPatientDiscoveryImpl().proxyPRPAIN201305UV(
-                proxyPRPAIN201305UVProxyRequest, getWebServiceContext());
+        return orchImpl.proxyPRPAIN201305UV(proxyPRPAIN201305UVProxyRequest, getWebServiceContext());
+    }
+
+    public void setOrchestratorImpl(NhincProxyPatientDiscoveryImpl orchImpl) {
+        this.orchImpl = orchImpl;
     }
 
     protected WebServiceContext getWebServiceContext() {
