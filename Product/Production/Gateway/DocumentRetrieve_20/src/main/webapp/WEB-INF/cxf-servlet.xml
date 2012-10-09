@@ -45,7 +45,7 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
     <!-- Entity services -->
     <jaxws:endpoint xmlns:edr="urn:gov:hhs:fha:nhinc:entitydocretrieve" id="EntityDocumentRetrieve"
         address="/EntityService/EntityDocRetrieve" serviceName="edr:EntityDocRetrieve" endpointName="edr:EntityDocRetrievePortSoap"
-        implementor="gov.hhs.fha.nhinc.docretrieve._20.entity.EntityDocRetrieve" wsdlLocation="classpath:/wsdl/EntityDocRetrieve.wsdl">
+        implementor="gov.hhs.fha.nhinc.docretrieve._20.entity.EntityDocRetrieve" wsdlLocation="classpath:wsdl/EntityDocRetrieve.wsdl">
     <jaxws:handlers>
             <ref bean="TransactionHandler"/>
     </jaxws:handlers>

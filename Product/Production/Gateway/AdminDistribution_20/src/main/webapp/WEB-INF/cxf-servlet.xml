@@ -91,7 +91,7 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
 
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:nhincadmindistribution" id="NhincAdminDist_g1"
         address="/MsgProxy/NhincProxyAdminDist" serviceName="tns:NhincAdminDistService" endpointName="tns:NhincAdminDist_PortType"
-        implementor="gov.hhs.fha.nhinc.admindistribution._20.passthru.NhincAdminDist_g1" wsdlLocation="classpath:/wsdl/NhincAdminDist_g1.wsdl">
+        implementor="gov.hhs.fha.nhinc.admindistribution._20.passthru.NhincAdminDist_g1" wsdlLocation="classpath:wsdl/NhincAdminDist_g1.wsdl">
         <jaxws:handlers>
             <ref bean="TransactionHandler"/>
         </jaxws:handlers>
