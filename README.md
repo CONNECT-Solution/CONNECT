@@ -66,6 +66,10 @@ After you have built from source you can create all of the Eclipse Project files
 		$ cd <CONNECT_CLONE_DIR>
         $ mvn eclipse:clean eclipse:eclipse
 
+Before launching eclipse, execute the following to set up the M2_REPO var used in lib dependenies
+
+        $ mvn eclipse:configure-workspace -Declipse.workspace=/path/to/your/workspace	
+
 When complete, open Eclipse then click on the following:
 
 		File --> Import --> 'Existing Projects into workspace'
@@ -129,8 +133,7 @@ Navigate to the <CONNECT_CLONE_DIR>/Product/Install directory
 
         $ cd <CONNECT_CLONE_DIR>/Product/Install
         
-Next, copy install.properties to local.install.properties and update with your local information. Generally this just specifying where 
-you want GlassFish to install.	
+Next, copy install.properties to local.install.properties and update with your local information. Generally this is just specifying a password for mysql.	
 
 		$ cp install.properties local.install.properties
 
@@ -172,7 +175,7 @@ Testing
 ###Perform Validation Tests
 
 		$ cd <CONNECT_CLONE_DIR>/Product/SoapUI_Test/ValidationSuite
-        $ mvn clean test
+        $ mvn clean install
 
 
 

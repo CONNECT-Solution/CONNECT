@@ -62,7 +62,7 @@
       </ejb-container>
       <mdb-container/>
       <jms-service default-jms-host="default_JMS_host">
-        <jms-host admin-password="%%%JMS_PROVIDER_PASSWORD%%%" admin-user-name="%%%JMS_PROVIDER_USERID%%%" host="new-host.home" name="default_JMS_host"/>
+        <jms-host admin-password="%%%JMS_PROVIDER_PASSWORD%%%" admin-user-name="%%%JMS_PROVIDER_USERID%%%" host="localhost" name="default_JMS_host"/>
       </jms-service>
       <security-service>
         <auth-realm classname="com.sun.enterprise.security.auth.realm.file.FileRealm" name="admin-realm">
@@ -372,7 +372,7 @@
     <node install-dir="${com.sun.aas.productRoot}" name="localhost-domain1" node-host="localhost" type="CONFIG"/>
   </nodes>
   <secure-admin special-admin-indicator="8de44dc1-7cfb-451b-a09f-27c8dc49151f">
-    <secure-admin-principal dn="CN=new-host.home,OU=GlassFish,O=Oracle Corporation,L=Santa Clara,ST=California,C=US"/>
-    <secure-admin-principal dn="CN=new-host.home-instance,OU=GlassFish,O=Oracle Corporation,L=Santa Clara,ST=California,C=US"/>
+    <secure-admin-principal dn="CN=localhost,OU=GlassFish,O=Oracle Corporation,L=Santa Clara,ST=California,C=US"/>
+    <secure-admin-principal dn="CN=localhost-instance,OU=GlassFish,O=Oracle Corporation,L=Santa Clara,ST=California,C=US"/>
   </secure-admin>
 </domain>
