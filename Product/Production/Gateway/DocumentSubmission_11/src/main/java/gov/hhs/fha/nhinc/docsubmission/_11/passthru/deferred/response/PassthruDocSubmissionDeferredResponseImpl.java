@@ -45,12 +45,18 @@ import gov.hhs.healthit.nhin.XDRAcknowledgementType;
  */
 public class PassthruDocSubmissionDeferredResponseImpl {
 
+    private PassthruDocSubmissionDeferredResponseOrchImpl orchImpl;
+
+    PassthruDocSubmissionDeferredResponseImpl(PassthruDocSubmissionDeferredResponseOrchImpl orchImpl) {
+        this.orchImpl = orchImpl;
+    }
+
     public XDRAcknowledgementType provideAndRegisterDocumentSetBResponse(
             RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType provideAndRegisterResponseRequest,
             WebServiceContext context) {
         AssertionType assertion = extractAssertionFromContext(context, null);
 
-        return new PassthruDocSubmissionDeferredResponseOrchImpl().provideAndRegisterDocumentSetBResponse(
+        return orchImpl.provideAndRegisterDocumentSetBResponse(
                 provideAndRegisterResponseRequest.getRegistryResponse(), assertion,
                 provideAndRegisterResponseRequest.getNhinTargetSystem());
     }
@@ -60,7 +66,7 @@ public class PassthruDocSubmissionDeferredResponseImpl {
             WebServiceContext context) {
         AssertionType assertion = extractAssertionFromContext(context, provideAndRegisterResponseRequest.getAssertion());
 
-        return new PassthruDocSubmissionDeferredResponseOrchImpl().provideAndRegisterDocumentSetBResponse(
+        return orchImpl.provideAndRegisterDocumentSetBResponse(
                 provideAndRegisterResponseRequest.getRegistryResponse(), assertion,
                 provideAndRegisterResponseRequest.getNhinTargetSystem());
     }
@@ -83,6 +89,10 @@ public class PassthruDocSubmissionDeferredResponseImpl {
         }
 
         return assertion;
+    }
+
+    public void setOrchestratorImpl(PassthruDocSubmissionDeferredResponseOrchImpl orchImpl) {
+        this.orchImpl = orchImpl;
     }
 
 }

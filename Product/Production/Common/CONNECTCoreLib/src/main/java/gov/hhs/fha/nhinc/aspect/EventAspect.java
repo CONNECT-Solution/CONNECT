@@ -121,8 +121,8 @@ public abstract class EventAspect {
         recordEvent(EventType.BEGIN_OUTBOUND_MESSAGE.toString());
     }
 
-    public void endOutboundProcessingEvent() {
-        recordEvent(EventType.END_OUTBOUND_PROCESSING.toString());
+    public void endOutboundMessageEvent() {
+        recordEvent(EventType.END_OUTBOUND_MESSAGE.toString());
     }
 
     /*--- Outbound Processing --*/
@@ -131,8 +131,8 @@ public abstract class EventAspect {
         recordEvent(EventType.BEGIN_OUTBOUND_PROCESSING.toString());
     }
 
-    public void endOutboundMessageEvent() {
-        recordEvent(EventType.END_OUTBOUND_MESSAGE.toString());
+    public void endOutboundProcessingEvent() {
+        recordEvent(EventType.END_OUTBOUND_PROCESSING.toString());
     }
 
     /*--- Nwhin Invocation --*/

@@ -45,6 +45,11 @@ import gov.hhs.healthit.nhin.XDRAcknowledgementType;
  */
 public class NhinDocSubmissionDeferredResponseImpl {
 
+    private NhinDocSubmissionDeferredResponseOrchImpl orchImpl;
+
+    NhinDocSubmissionDeferredResponseImpl(NhinDocSubmissionDeferredResponseOrchImpl orchImpl) {
+        this.orchImpl = orchImpl;
+    }
     /**
      *
      * @param body
@@ -64,8 +69,12 @@ public class NhinDocSubmissionDeferredResponseImpl {
                 assertion.getRelatesToList().addAll(relatesToList);
             }
         }
-
-        return new NhinDocSubmissionDeferredResponseOrchImpl().provideAndRegisterDocumentSetBResponse(body, assertion);
-
+        return orchImpl.provideAndRegisterDocumentSetBResponse(body, assertion);
     }
+
+    public void setOrchestratorImpl(NhinDocSubmissionDeferredResponseOrchImpl orchImpl) {
+        this.orchImpl = orchImpl;
+    }
+
+
 }
