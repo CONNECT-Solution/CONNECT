@@ -44,7 +44,7 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
     <!-- Entity services -->
     <jaxws:endpoint xmlns:edq="urn:gov:hhs:fha:nhinc:entitydocquery" id="EntityDocumentQuery"
         address="/EntityService/EntityDocQueryUnsecured" serviceName="edq:EntityDocQuery" endpointName="edq:EntityDocQueryPortSoap"
-        implementor="gov.hhs.fha.nhinc.docquery._20.entity.EntityDocQueryUnsecured" wsdlLocation="classpath:/wsdl/EntityDocQuery.wsdl">
+        implementor="gov.hhs.fha.nhinc.docquery._20.entity.EntityDocQueryUnsecured" wsdlLocation="classpath:wsdl/EntityDocQuery.wsdl">
     <jaxws:handlers>
             <ref bean="TransactionHandler"/>
     </jaxws:handlers>
