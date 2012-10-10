@@ -29,9 +29,25 @@
         <pluginManagement>
             <plugins>
                 <plugin>
-                    <groupId>org.glassfish</groupId>
+                    <groupId>org.glassfish.embedded</groupId>
                     <artifactId>maven-embedded-glassfish-plugin</artifactId>
                     <version>3.1.2.2</version>
+                    <configuration>
+                        <goalPrefix>embedded-glassfish</goalPrefix>
+                        <name>CONNECT</name>
+                        <app>${ear.path}</app>
+                        <autoDelete>true</autoDelete>
+                        <port>8080</port>
+                        <configFile>${project.build.directory}/glassfish-resources/glassfish/domain.xml</configFile>
+                        <systemProperties>
+                            <property>glassfish.embedded.tmpdir=target/glassfish-embedded</property>
+                        </systemProperties>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>com.github.redfish4ktc.soapui</groupId>
+                    <artifactId>maven-soapui-extension-plugin</artifactId>
+                    <version>4.0.0.2</version>
                 </plugin>
             </plugins>
         </pluginManagement>
@@ -55,11 +71,12 @@
         </testResources>
         <plugins>
             <plugin>
+                <!-- Used to pull XSD files from the JAR -->
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
-                <version>2.6</version>
                 <executions>
                     <execution>
+                        <id>dependency-validate</id>
                         <phase>validate</phase>
                         <goals>
                             <goal>copy</goal>
@@ -77,27 +94,13 @@
                             </artifactItems>
                         </configuration>
                     </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <version>2.5.1</version>
-                <executions>
                     <execution>
+                        <id>dependency-properties</id>
                         <phase>initialize</phase>
                         <goals>
                             <goal>properties</goal>
                         </goals>
                     </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <!-- Used to pull XSD files from the JAR -->
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <version>2.5.1</version>
-                <executions>
                     <execution>
                         <id>unpack-nhin-properties</id>
                         <!-- Using the initialize phase because it is before 
@@ -122,21 +125,6 @@
                         </configuration>
                     </execution>
                 </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.glassfish.embedded</groupId>
-                <artifactId>maven-embedded-glassfish-plugin</artifactId>
-                <configuration>
-                    <goalPrefix>embedded-glassfish</goalPrefix>
-                    <name>CONNECT</name>
-                    <app>${ear.path}</app>
-                    <autoDelete>true</autoDelete>
-                    <port>8080</port>
-                    <configFile>${project.build.directory}/glassfish-resources/glassfish/domain.xml</configFile>
-                    <systemProperties>
-                        <property>glassfish.embedded.tmpdir=target/glassfish-embedded</property>
-                    </systemProperties>
-                </configuration>
             </plugin>
         </plugins>
     </build>
