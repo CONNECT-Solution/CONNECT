@@ -35,7 +35,7 @@ import javax.xml.ws.WebServiceContext;
  * 
  * @author Sai Valluripalli
  */
-@WebService(serviceName = "EntityNotificationConsumer", portName = "EntityNotificationConsumerPortSoap", endpointInterface = "gov.hhs.fha.nhinc.entitynotificationconsumer.EntityNotificationConsumerPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:entitynotificationconsumer", wsdlLocation = "WEB-INF/wsdl/EntityNotifyService/EntityNotificationConsumer.wsdl")
+@WebService(endpointInterface = "gov.hhs.fha.nhinc.entitynotificationconsumer.EntityNotificationConsumerPortType")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 public class EntityNotifyService {
 
