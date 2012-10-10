@@ -96,15 +96,15 @@ Available service profiles which can be excluded from the generated ear (use val
 * Document Retrieve (DR)
 * HIEM (HIEM)
 
-You can alter the composition of the CONNECT.ear at any time by specifying any combination of the available profiles as a comma-separated list
+You can alter the composition of the CONNECT.ear at any time by turning off any combination of the available profiles as a comma-separated list
 
         $ cd <CONNECT_CLONE_DIR>
-        $ mvn clean package -P <profiles> -f Product/Production/Deploy/pom.xml
+        $ mvn clean package -P \!PD,\!DQ,!DR -f Product/Production/Deploy/pom.xml
 
 OR
 
         $ cd Product/Production/CONNECT/
-        $ mvn clean package -P <profiles>
+        $ mvn clean package -P \!PD,\!DQ,!DR
 
 ######Altering targeted application server
 For some application server deployments the generated .ear needs different dependencies. The following profiles are available to control which type of .ear is generated (use value within parentheses):
@@ -114,7 +114,7 @@ For some application server deployments the generated .ear needs different depen
 This profile options are used just like above. As an example to generate a WebSphere specific .ear with only Patient Discovery.
 
         $ cd <CONNECT_CLONE_DIR>
-        $ mvn clean install -P PD,websphere
+        $ mvn clean install -P \!AD,\!DQ,\!DS,\!RD,\!HIEM,websphere
 
 ###Setup Glassfish, MySQL & Deploy CONNECT
 These steps will install and configure a Glassfish Application Server, prepare your MySQL databases and deploy CONNECT for use. Lets get started.
