@@ -26,17 +26,17 @@
  */
 package gov.hhs.fha.nhinc.docsubmission._20.nhin.deferred.response;
 
-import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
-import gov.hhs.fha.nhinc.docsubmission.nhin.deferred.response.NhinDocSubmissionDeferredResponseOrchImpl;
-import gov.hhs.fha.nhinc.nhinclib.NullChecker;
-
 import java.util.List;
 
 import javax.xml.ws.WebServiceContext;
 
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
+
+import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
+import gov.hhs.fha.nhinc.docsubmission.nhin.deferred.response.NhinDocSubmissionDeferredResponseOrchImpl;
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 
 /**
  *
@@ -45,6 +45,11 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 public class NhinDocSubmissionDeferredResponseImpl20
 {
 
+    private final NhinDocSubmissionDeferredResponseOrchImpl orchImpl;
+
+    public NhinDocSubmissionDeferredResponseImpl20(NhinDocSubmissionDeferredResponseOrchImpl orchImpl) {
+        this.orchImpl = orchImpl;
+    }
 
     /**
      *
@@ -65,7 +70,7 @@ public class NhinDocSubmissionDeferredResponseImpl20
             }
         }
 
-       return new NhinDocSubmissionDeferredResponseOrchImpl().provideAndRegisterDocumentSetBResponse(body, assertion).getMessage();
+       return orchImpl.provideAndRegisterDocumentSetBResponse(body, assertion).getMessage();
 
     }
 }

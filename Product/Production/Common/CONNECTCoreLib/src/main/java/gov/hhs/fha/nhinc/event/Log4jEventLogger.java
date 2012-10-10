@@ -45,11 +45,11 @@ public class Log4jEventLogger extends EventLogger {
      * (non-Javadoc)
      *
      * @see gov.hhs.fha.nhinc.event.EventLogger#update(gov.hhs.fha.nhinc.event.Event, java.lang.Object)
-     */ 
+     */
     @Override
     void update(EventManager manager, Event logEvent) {
         log.info(logEvent.getEventName() + " has triggered. It has messageID " + logEvent.getMessageID()
-                + ", transactionID " + logEvent.getTransactionID() + "and description " + logEvent.getDescription());
+                + ", transactionID " + logEvent.getTransactionID() + " and description " + logEvent.getDescription());
     }
 
     protected void createLogger() {

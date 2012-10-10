@@ -35,6 +35,8 @@ import javax.xml.ws.soap.Addressing;
 
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
+import gov.hhs.fha.nhinc.docsubmission.nhin.deferred.request.NhinDocSubmissionDeferredRequestOrchImpl;
+
 /**
  *
  * @author JHOPPESC
@@ -44,11 +46,15 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 public class NhinXDRRequest20 implements ihe.iti.xdr._2007.XDRDeferredRequest20PortType {
     @Resource
     private WebServiceContext context;
+    private NhinDocSubmissionDeferredRequestOrchImpl orchImpl;
 
     @Override
     public RegistryResponseType provideAndRegisterDocumentSetBDeferredRequest(
             ProvideAndRegisterDocumentSetRequestType body) {
-        return new NhinDocSubmissionDeferredRequestImpl20().provideAndRegisterDocumentSetBRequest(body, context);
+        return new NhinDocSubmissionDeferredRequestImpl20(orchImpl).provideAndRegisterDocumentSetBRequest(body, context);
     }
 
+    public void setOrchestratorImpl(NhinDocSubmissionDeferredRequestOrchImpl orchImpl) {
+        this.orchImpl = orchImpl;
+    }
 }
