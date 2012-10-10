@@ -79,6 +79,15 @@
                 </includes>
                 <targetPath>${project.build.directory}/wsdl2java-sources</targetPath>
             </resource>
+            <resource>
+                <!-- This is used to exclude the maven-remote-resources-plugin 
+                    content of <id>unpack-xsd-files</id> so it is NOT included in the archive 
+                    generated / packaged -->
+                <directory>${project.build.directory}/wsdl2java-sources</directory>
+                <excludes>
+                    <exclude>**/*</exclude>
+                </excludes>
+            </resource>
         </resources>
         <testResources>
             <testResource>
@@ -95,10 +104,12 @@
                 <executions>
                     <execution>
                         <id>unpack-gateway-properties</id>
+                        <phase>process-test-resources</phase>
                         <goals>
                             <goal>process</goal>
                         </goals>
                         <configuration>
+                            <attached>true</attached>
                             <resourceBundles>
                                 <resourceBundle>org.connectopensource:Properties:${project.parent.version}</resourceBundle>
                             </resourceBundles>
@@ -107,10 +118,12 @@
                     </execution>
                     <execution>
                         <id>unpack-xsd-files</id>
+                        <phase>process-resources</phase>
                         <goals>
                             <goal>process</goal>
                         </goals>
                         <configuration>
+                            <attached>true</attached>
                             <resourceBundles>
                                 <resourceBundle>org.connectopensource:CONNECTCommonTypesLib:${project.parent.version}</resourceBundle>
                             </resourceBundles>
