@@ -42,21 +42,32 @@ import gov.hhs.fha.nhinc.aspect.EventAspect;
 @Aspect
 public class DocSubmissionEventAspect extends EventAspect {
 
-
     /*------InboundMessage----*/
 
     @Pointcut("execution(* gov.hhs.fha.nhinc.docsubmission.*.nhin.NhinXDR*.documentRepositoryProvideAndRegisterDocumentSetB(..))")
-    private void inboundMessage(){
+    private void inboundMessage() {
+    }
+
+    @Pointcut("execution(* gov.hhs.fha.nhinc.docsubmission.*.nhin.deferred.request.NhinXDRRequest*.provideAndRegisterDocumentSetBDeferredRequest(..))")
+    private void inboundMessageDeferredRequest() {
+    }
+
+    @Pointcut("execution(* gov.hhs.fha.nhinc.docsubmission.*.nhin.deferred.response.NhinXDRResponse*.provideAndRegisterDocumentSetBDeferredResponse(..))")
+    private void inboundMessageDeferredResponse() {
+    }
+
+    @Pointcut("inboundMessage() || inboundMessageDeferredRequest() || inboundMessageDeferredResponse()")
+    private void anyInboundMessage() {
     }
 
     @Override
-    @Before("inboundMessage()")
+    @Before("anyInboundMessage()")
     public void beginInboundMessageEvent() {
         super.beginInboundMessageEvent();
     }
 
     @Override
-    @After("inboundMessage()")
+    @After("anyInboundMessage()")
     public void endInboundMessageEvent() {
         super.endInboundMessageEvent();
     }
@@ -64,17 +75,25 @@ public class DocSubmissionEventAspect extends EventAspect {
     /*------Inbound Processing----*/
 
     @Pointcut("execution(* gov.hhs.fha.nhinc.docsubmission.nhin.NhinDocSubmissionOrchImpl*.documentRepositoryProvideAndRegisterDocumentSetB(..))")
-    private void processInboundMessage(){
+    private void processInboundMessage() {
+    }
+
+    @Pointcut("execution(* gov.hhs.fha.nhinc.docsubmission.nhin.deferred.request.NhinDocSubmissionDeferredRequestOrchImpl.provideAndRegisterDocumentSetBRequest(..))")
+    private void processInboundMessageDeferredRequest() {
+    }
+
+    @Pointcut("execution(* gov.hhs.fha.nhinc.docsubmission.nhin.deferred.response.NhinDocSubmissionDeferredResponseOrchImpl.provideAndRegisterDocumentSetBResponse(..))")
+    private void processInboundMessageDeferredResponse() {
     }
 
     @Override
-    @Before("processInboundMessage()")
+    @Before("processInboundMessage() || processInboundMessageDeferredRequest() || processInboundMessageDeferredResponse()")
     public void beginInboundProcessingEvent() {
         super.beginInboundProcessingEvent();
     }
 
     @Override
-    @After("processInboundMessage()")
+    @After("processInboundMessage() || processInboundMessageDeferredRequest() || processInboundMessageDeferredResponse()")
     public void endInboundProcessingEvent() {
         super.endInboundProcessingEvent();
     }
@@ -85,23 +104,182 @@ public class DocSubmissionEventAspect extends EventAspect {
     private void adapterDelegation() {
     }
 
+    @Pointcut("execution(* gov.hhs.fha.nhinc.docsubmission.adapter.deferred.request.proxy.AdapterDocSubmissionDeferredRequestProxy*.provideAndRegisterDocumentSetBRequest(..))")
+    private void adapterDelegationDeferredRequest() {
+    }
+
+    @Pointcut("execution(* gov.hhs.fha.nhinc.docsubmission.adapter.deferred.response.proxy.AdapterDocSubmissionDeferredResponseProxy*.provideAndRegisterDocumentSetBResponse(..))")
+    private void adapterDelegationDeferredResponse() {
+    }
+
+    @Pointcut("adapterDelegation() || adapterDelegationDeferredRequest() || adapterDelegationDeferredResponse()")
+    private void anyAdapterDelegation(){
+    }
+
     @Override
-    @Before("adapterDelegation()")
+    @Before("anyAdapterDelegation()")
     public void beginAdapterDelegationEvent() {
         super.beginAdapterDelegationEvent();
     }
 
     @Override
-    @After("adapterDelegation()")
+    @After("anyAdapterDelegation()")
     public void endAdapterDelegationEvent() {
         super.endAdapterDelegationEvent();
     }
 
-    /*------ Failure ----*/
+    /*------ Outbound Message ----*/
+    @Pointcut("execution(* gov.hhs.fha.nhinc.docsubmission.*.entity.EntityDocSubmissionUnsecured*.provideAndRegisterDocumentSetB(..))")
+    private void outboundMessageEntityUnsecured(){
+    }
 
-    @AfterThrowing("inboundMessage() || processInboundMessage() || adapterDelegation()")
+    @Pointcut("execution(* gov.hhs.fha.nhinc.docsubmission.*.entity.EntityDocSubmissionSecured*.provideAndRegisterDocumentSetB(..))")
+    private void outboundMessageEntitySecured(){
+    }
+
+    @Pointcut("execution(* gov.hhs.fha.nhinc.docsubmission.*.entity.deferred.request.EntityDocSubmissionDeferredRequestUnsecured*.provideAndRegisterDocumentSetBAsyncRequest(..))")
+    private void outboundMessageEntityDeferredRequestUnsecured(){
+    }
+
+    @Pointcut("execution(* gov.hhs.fha.nhinc.docsubmission.*.entity.deferred.request.EntityDocSubmissionDeferredRequestSecured*.provideAndRegisterDocumentSetBAsyncRequest(..))")
+    private void outboundMessageEntityDeferredRequestSecured(){
+    }
+
+    @Pointcut("execution(* gov.hhs.fha.nhinc.docsubmission.*.entity.deferred.response.EntityDocSubmissionDeferredResponseUnsecured*.provideAndRegisterDocumentSetBAsyncResponse(..))")
+    private void outboundMessageEntityDeferredResponseUnsecured(){
+    }
+
+    @Pointcut("execution(* gov.hhs.fha.nhinc.docsubmission.*.entity.deferred.response.EntityDocSubmissionDeferredResponseSecured*.provideAndRegisterDocumentSetBAsyncResponse(..))")
+    private void outboundMessageEntityDeferredResponseSecured(){
+    }
+
+    @Pointcut("outboundMessageEntityUnsecured() || outboundMessageEntitySecured() || outboundMessageEntityDeferredRequestUnsecured() || outboundMessageEntityDeferredRequestSecured() || outboundMessageEntityDeferredResponseUnsecured() || outboundMessageEntityDeferredResponseSecured()")
+    private void anyEntityOutboundMessage(){
+    }
+
+    @Pointcut("execution(* gov.hhs.fha.nhinc.docsubmission.*.passthru.PassthruDocSubmissionUnsecured*.provideAndRegisterDocumentSetB(..))")
+    private void outboundMessagePassthruUnsecured(){
+    }
+
+    @Pointcut("execution(* gov.hhs.fha.nhinc.docsubmission.*.passthru.PassthruDocSubmissionSecured*.provideAndRegisterDocumentSetB(..))")
+    private void outboundMessagePassthruSecured(){
+    }
+
+    @Pointcut("execution(* gov.hhs.fha.nhinc.docsubmission.*.passthru.deferred.request.PassthruDocSubmissionDeferredRequestUnsecured*.provideAndRegisterDocumentSetBAsyncRequest(..))")
+    private void outboundMessagePassthruDeferredRequestUnsecured(){
+    }
+
+    @Pointcut("execution(* gov.hhs.fha.nhinc.docsubmission.*.passthru.deferred.request.PassthruDocSubmissionDeferredRequestSecured*.provideAndRegisterDocumentSetBAsyncRequest(..))")
+    private void outboundMessagePassthruDeferredRequestSecured(){
+    }
+
+    @Pointcut("execution(* gov.hhs.fha.nhinc.docsubmission.*.passthru.deferred.response.PassthruDocSubmissionDeferredResponseUnsecured*.provideAndRegisterDocumentSetBAsyncResponse(..))")
+    private void outboundMessagePassthruDeferredResponseUnsecured(){
+    }
+
+    @Pointcut("execution(* gov.hhs.fha.nhinc.docsubmission.*.passthru.deferred.response.EntityDocSubmissionDeferredResponseSecured*.provideAndRegisterDocumentSetBAsyncResponse(..))")
+    private void outboundMessagePassthruDeferredResponseSecured(){
+    }
+
+    @Pointcut("outboundMessagePassthruUnsecured() || outboundMessagePassthruSecured() || outboundMessagePassthruDeferredRequestUnsecured() || outboundMessagePassthruDeferredRequestUnsecured() || outboundMessagePassthruDeferredRequestSecured() || outboundMessagePassthruDeferredResponseUnsecured() || outboundMessagePassthruDeferredResponseSecured()")
+    private void anyPassthruOutboundMessage(){
+    }
+
+    @Pointcut("anyEntityOutboundMessage() || anyPassthruOutboundMessage()")
+    private void anyOutboundMessage() {
+    }
+
+    @Override
+    @Before("anyOutboundMessage()")
+    public void beginOutboundMessageEvent() {
+        super.beginOutboundMessageEvent();
+    }
+
+    @Override
+    @After("anyOutboundMessage()")
+    public void endOutboundMessageEvent() {
+        super.endOutboundMessageEvent();
+    }
+
+
+    /*------ Outbound Processing ----*/
+    @Pointcut("execution(* gov.hhs.fha.nhinc.docsubmission.entity.EntityDocSubmissionOrchImpl.provideAndRegisterDocumentSetB(..))")
+    private void entityOutboundProcessing(){
+    }
+
+    @Pointcut("execution(* gov.hhs.fha.nhinc.docsubmission.entity.deferred.request.EntityDocSubmissionDeferredRequestOrchImpl.provideAndRegisterDocumentSetBAsyncRequest(..))")
+    private void entityDeferredRequestOutboundProcessing(){
+    }
+
+    @Pointcut("execution(* gov.hhs.fha.nhinc.docsubmission.entity.deferred.response.EntityDocSubmissionDeferredResponseOrchImpl.provideAndRegisterDocumentSetBAsyncResponse(..))")
+    private void entityDeferredResponseOutboundProcessing(){
+    }
+
+    @Pointcut("entityOutboundProcessing() || entityDeferredRequestOutboundProcessing() || entityDeferredResponseOutboundProcessing()")
+    private void anyEntityOutboundProcessing(){
+    }
+
+    @Pointcut("execution(* gov.hhs.fha.nhinc.docsubmission.passthru.PassthruDocSubmissionOrchImpl.provideAndRegisterDocumentSetB(..))")
+    private void passthruOutboundProcessing(){
+    }
+
+    @Pointcut("execution(* gov.hhs.fha.nhinc.docsubmission.passthru.deferred.request.PassthruDocSubmissionDeferredRequestOrchImpl.provideAndRegisterDocumentSetBRequest(..))")
+    private void passthruDeferredRequestOutboundProcessing(){
+    }
+
+    @Pointcut("execution(* gov.hhs.fha.nhinc.docsubmission.passthru.deferred.response.PassthruDocSubmissionDeferredResponseOrchImpl.provideAndRegisterDocumentSetBResponse(..))")
+    private void passthruDeferredResponseOutboundProcessing(){
+    }
+
+    @Pointcut("passthruOutboundProcessing() || passthruDeferredRequestOutboundProcessing() || passthruDeferredResponseOutboundProcessing()")
+    private void anyPassthruOutboundProcessing() {
+    }
+
+    @Override
+    @Before("anyEntityOutboundProcessing() || anyPassthruOutboundProcessing()")
+    public void beginOutboundProcessingEvent() {
+        super.beginOutboundProcessingEvent();
+    }
+
+    @Override
+    @After("anyEntityOutboundProcessing() || anyPassthruOutboundProcessing()")
+    public void endOutboundProcessingEvent() {
+        super.endOutboundProcessingEvent();
+    }
+
+
+
+    /*------ Nwhin Invocation ----*/
+    @Pointcut("execution(* gov.hhs.fha.nhinc.docsubmission.nhin.proxy.NhinDocSubmissionProxy.provideAndRegisterDocumentSetB(..))")
+    private void nwhinInvocation(){
+    }
+
+    @Pointcut("execution(* gov.hhs.fha.nhinc.docsubmission.nhin.deferred.request.proxy*.NhinDocSubmissionDeferredRequestProxy*.provideAndRegisterDocumentSetBRequest*(..))")
+    private void nwhinDeferredRequestInvocation(){
+    }
+
+    @Pointcut("execution(* gov.hhs.fha.nhinc.docsubmission.nhin.deferred.response.proxy*.NhinDocSubmissionDeferredResponseProxy*.provideAndRegisterDocumentSetBDeferredResponse*(..))")
+    private void nwhinDeferredResponseInvocation(){
+    }
+
+    @Override
+    @Before("nwhinInvocation() || nwhinDeferredRequestInvocation() || nwhinDeferredResponseInvocation()")
+    public void beginNwhinInvocationEvent(){
+        super.beginNwhinInvocationEvent();
+    }
+
+    @Override
+    @After("nwhinInvocation() || nwhinDeferredRequestInvocation() || nwhinDeferredResponseInvocation()")
+    public void endNwhinInvocationEvent(){
+        super.endNwhinInvocationEvent();
+    }
+
+
+    /*------ Failure ----*/
+    @Override
+    @AfterThrowing("anyInboundMessage() || anyOutboundMessage()")
     public void failEvent() {
-        super.messageProcessingFailedEvent();
+        super.failEvent();
     }
 
 }

@@ -46,11 +46,12 @@ public class EventManager extends Observable {
     }
 
     public void recordEvent(Event event) {
-        this.notifyObservers(event);
+        setChanged();
+        notifyObservers(event);
     }
 
     public void registerLogger(EventLogger eventLogger) {
-        this.addObserver(eventLogger);
+        addObserver(eventLogger);
     }
 
 }

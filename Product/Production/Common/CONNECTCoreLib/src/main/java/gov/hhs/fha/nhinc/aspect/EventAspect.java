@@ -26,15 +26,6 @@
  */
 package gov.hhs.fha.nhinc.aspect;
 
-import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
-import gov.hhs.fha.nhinc.event.Event;
-import gov.hhs.fha.nhinc.event.EventFactory;
-import gov.hhs.fha.nhinc.event.EventManager;
-import gov.hhs.fha.nhinc.event.EventType;
-import gov.hhs.fha.nhinc.logging.transaction.dao.TransactionDAO;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.nhinclib.NullChecker;
-
 import java.util.List;
 
 import javax.xml.ws.WebServiceContext;
@@ -45,9 +36,18 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.cxf.jaxws.context.WebServiceContextImpl;
 import org.json.JSONObject;
 
+import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
+import gov.hhs.fha.nhinc.event.Event;
+import gov.hhs.fha.nhinc.event.EventFactory;
+import gov.hhs.fha.nhinc.event.EventManager;
+import gov.hhs.fha.nhinc.event.EventType;
+import gov.hhs.fha.nhinc.logging.transaction.dao.TransactionDAO;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+
 /**
  * @author zmelnick
- * 
+ *
  */
 public abstract class EventAspect {
 
@@ -88,8 +88,8 @@ public abstract class EventAspect {
         recordEvent(EventType.BEGIN_OUTBOUND_MESSAGE.toString());
     }
 
-    public void endOutboundProcessingEvent() {
-        recordEvent(EventType.END_OUTBOUND_PROCESSING.toString());
+    public void endOutboundMessageEvent() {
+        recordEvent(EventType.END_OUTBOUND_MESSAGE.toString());
     }
 
     /*--- Outbound Processing --*/
@@ -98,8 +98,8 @@ public abstract class EventAspect {
         recordEvent(EventType.BEGIN_OUTBOUND_PROCESSING.toString());
     }
 
-    public void endOutboundMessageEvent() {
-        recordEvent(EventType.END_OUTBOUND_MESSAGE.toString());
+    public void endOutboundProcessingEvent() {
+        recordEvent(EventType.END_OUTBOUND_PROCESSING.toString());
     }
 
     /*--- Nwhin Invocation --*/
@@ -121,9 +121,6 @@ public abstract class EventAspect {
         try {
             Event event = createEvent(eventType);
             EventManager.getInstance().recordEvent(event);
-
-            System.out.println("Event triggered: " + eventType + " - " + event.getMessageID() + " - "
-                    + event.getTransactionID() + " - " + event.getDescription());
         } catch (Exception e) {
             log.warn("Failed to record event.", e);
         }

@@ -69,7 +69,7 @@ public class EventLoggerFactory {
         LOG.debug("Registering loggers...");
         for (EventLogger logger : loggers) {
             LOG.info("Registering logger: " + logger.getClass().getName());
-            eventManager.addObserver(logger);
+            EventManager.getInstance().addObserver(logger);
         }
     }
 

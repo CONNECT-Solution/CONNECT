@@ -26,15 +26,15 @@
  */
 package gov.hhs.fha.nhinc.docsubmission._11.passthru;
 
+import javax.xml.ws.WebServiceContext;
+
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
+
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType;
 import gov.hhs.fha.nhinc.docsubmission.passthru.PassthruDocSubmissionOrchImpl;
 import gov.hhs.fha.nhinc.messaging.server.BaseService;
-
-import javax.xml.ws.WebServiceContext;
-
-import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 /**
  *
@@ -42,12 +42,18 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
  */
 public class PassthruDocSubmissionImpl extends BaseService {
 
+    private PassthruDocSubmissionOrchImpl orchImpl;
+
+    PassthruDocSubmissionImpl(PassthruDocSubmissionOrchImpl orchImpl) {
+        this.orchImpl = orchImpl;
+    }
+
     public RegistryResponseType provideAndRegisterDocumentSetB(
             RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType body, WebServiceContext context) {
         // Create an assertion class from the contents of the SAML token
         AssertionType assertion = getAssertion(context, null);
 
-        return new PassthruDocSubmissionOrchImpl().provideAndRegisterDocumentSetB(
+        return orchImpl.provideAndRegisterDocumentSetB(
                 body.getProvideAndRegisterDocumentSetRequest(), assertion, body.getNhinTargetSystem());
     }
 
@@ -55,7 +61,11 @@ public class PassthruDocSubmissionImpl extends BaseService {
             RespondingGatewayProvideAndRegisterDocumentSetRequestType body, WebServiceContext context) {
         AssertionType assertion = getAssertion(context, body.getAssertion());
 
-        return new PassthruDocSubmissionOrchImpl().provideAndRegisterDocumentSetB(
+        return orchImpl.provideAndRegisterDocumentSetB(
                 body.getProvideAndRegisterDocumentSetRequest(), assertion, body.getNhinTargetSystem());
+    }
+
+    public void setOrchestratorImpl(PassthruDocSubmissionOrchImpl orchImpl) {
+        this.orchImpl = orchImpl;
     }
 }
