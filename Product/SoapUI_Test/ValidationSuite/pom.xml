@@ -11,7 +11,7 @@
     <name>Maven 3 soapUI ValidationSuite</name>
     <properties>
         <skip.unpack>false</skip.unpack>
-        <soapui.testFailIgnore>true</soapui.testFailIgnore>
+        <soapui.testFailIgnore>false</soapui.testFailIgnore>
     </properties>
     <pluginRepositories>
         <pluginRepository>
