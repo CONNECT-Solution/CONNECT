@@ -76,7 +76,24 @@
         </testResources>
         <plugins>
             <plugin>
-                <!-- Used to pull XSD files from the JAR -->
+                <artifactId>maven-remote-resources-plugin</artifactId>
+                <version>1.3</version>
+                <executions>
+                    <execution>
+                        <id>unpack-nhin-properties</id>
+                        <goals>
+                            <goal>process</goal>
+                        </goals>
+                        <configuration>
+                            <resourceBundles>
+                                <resourceBundle>org.connectopensource:Properties:${project.parent.version}</resourceBundle>
+                            </resourceBundles>
+                            <outputDirectory>${project.build.directory}/nhinc-properites-dir/</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
                 <executions>
@@ -105,29 +122,6 @@
                         <goals>
                             <goal>properties</goal>
                         </goals>
-                    </execution>
-                    <execution>
-                        <id>unpack-nhin-properties</id>
-                        <!-- Using the initialize phase because it is before 
-                            the generate sources phase -->
-                        <phase>initialize</phase>
-                        <goals>
-                            <goal>unpack</goal>
-                        </goals>
-                        <configuration>
-                            <skip>${skip.unpack}</skip>
-                            <artifactItems>
-                                <artifactItem>
-                                    <!-- Artifact that Holds our custom templates -->
-                                    <groupId>org.connectopensource</groupId>
-                                    <artifactId>Properties</artifactId>
-                                    <version>${project.parent.version}</version>
-                                    <type>jar</type>
-                                </artifactItem>
-                            </artifactItems>
-                            <includes>**/*</includes>
-                            <outputDirectory>${project.build.directory}/nhinc-properites-dir/</outputDirectory>
-                        </configuration>
                     </execution>
                 </executions>
             </plugin>

@@ -17,6 +17,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <connect.common.properties>Dev</connect.common.properties>
         <skip.cobertura>false</skip.cobertura>
+        <pmd.failOnViolation>false</pmd.failOnViolation>
         <cobertura.check.haltOnFailure>false</cobertura.check.haltOnFailure>
         <cobertura.totalBranchRate>85</cobertura.totalBranchRate>
         <cobertura.totalLineRate>85</cobertura.totalLineRate>
@@ -251,6 +252,16 @@
                     <artifactId>maven-dependency-plugin</artifactId>
                     <version>2.5.1</version>
                 </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-site-plugin</artifactId>
+                    <version>3.1</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-pmd-plugin</artifactId>
+                    <version>2.7.1</version>
+                </plugin>
             </plugins>
         </pluginManagement>
         <plugins>
@@ -279,6 +290,16 @@
                     <configLocation>${checkstyle.settings.file}</configLocation>
                     <failOnViolation>false</failOnViolation>
                     <enableRulesSummary>false</enableRulesSummary>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-pmd-plugin</artifactId>
+                <configuration>
+                    <rulesets>
+                        <ruleset>${basedir}/pmd.xml</ruleset>
+                    </rulesets>
+                   <failOnViolation>${pmd.failOnViolation}</failOnViolation>
                 </configuration>
             </plugin>
             <plugin>
@@ -328,9 +349,57 @@
                     <attach>true</attach>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-site-plugin</artifactId>
+                <configuration>
+                    <reportPlugins>
+                        <plugin>
+                            <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-project-info-reports-plugin</artifactId>
+                            <version>2.5.1</version>
+                            <configuration>
+                                <dependencyDetailsEnabled>true</dependencyDetailsEnabled>
+                                <dependencyLocationsEnabled>true</dependencyLocationsEnabled>
+                            </configuration>
+                        </plugin>
+                        <plugin>
+                            <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-javadoc-plugin</artifactId>
+                            <version>2.9</version>
+                        </plugin>
+                        <plugin>
+                            <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-surefire-report-plugin</artifactId>
+                            <version>2.12.4</version>
+                        </plugin>
+                        <plugin>
+                            <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-checkstyle-plugin</artifactId>
+                            <version>2.9.1</version>
+                        </plugin>
+                        <plugin>
+                            <groupId>org.codehaus.mojo</groupId>
+                            <artifactId>cobertura-maven-plugin</artifactId>
+                            <version>2.5.2</version>
+                            <configuration>
+                                <formats>
+                                    <format>html</format>
+                                </formats>
+                            </configuration>
+                        </plugin>
+                        <plugin>
+                            <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-checkstyle-plugin</artifactId>
+                            <version>2.9.1</version>
+                        </plugin>
+                    </reportPlugins>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
     <reporting>
+        <excludeDefaults>true</excludeDefaults>
         <plugins>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
@@ -380,7 +449,49 @@
             <properties>
                 <skip.unpack>true</skip.unpack>
             </properties>
-            <build />
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>com.github.github</groupId>
+                        <artifactId>downloads-maven-plugin</artifactId>
+                        <version>0.6</version>
+                        <configuration>
+                            <description>Official ${project.name} build
+                                of the
+                                ${project.version} release</description>
+                            <override>true</override>
+                            <includeAttached>true</includeAttached>
+                            <server>github</server>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>upload</goal>
+                                </goals>
+                                <phase>install</phase>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>com.github.github</groupId>
+                        <artifactId>site-maven-plugin</artifactId>
+                        <version>0.7</version>
+                        <configuration>
+                            <message>Building site for
+                                ${project.version}</message>
+                            <server>github</server>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>site</goal>
+                                </goals>
+                                <phase>site</phase>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
         </profile>
     </profiles>
 </project>

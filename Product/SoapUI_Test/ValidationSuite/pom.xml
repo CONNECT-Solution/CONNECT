@@ -55,7 +55,7 @@
                         <id>unpack-soapui-test-resources</id>
                         <!-- Using the initialize phase because it is before 
                             the generate sources phase -->
-                        <phase>initialize</phase>
+                        <phase>pre-integration-test</phase>
                         <goals>
                             <goal>unpack</goal>
                         </goals>
@@ -76,7 +76,7 @@
                     </execution>
                     <execution>
                         <id>unpack-soapui-xsd-resources</id>
-                        <phase>initialize</phase>
+                        <phase>pre-integration-test</phase>
                         <goals>
                             <goal>unpack</goal>
                         </goals>
@@ -96,7 +96,7 @@
                     </execution>
                     <execution>
                         <id>unpack-soapui-wsdl-resources1</id>
-                        <phase>initialize</phase>
+                        <phase>pre-integration-test</phase>
                         <goals>
                             <goal>unpack</goal>
                         </goals>
@@ -116,7 +116,7 @@
                     </execution>
                     <execution>
                         <id>unpack-soapui-wsdl-resources2</id>
-                        <phase>initialize</phase>
+                        <phase>pre-integration-test</phase>
                         <goals>
                             <goal>unpack</goal>
                         </goals>
@@ -232,7 +232,7 @@
                 <executions>
                     <execution>
                         <id>flatten-soapui-test-resources</id>
-                        <phase>process-test-resources</phase>
+                        <phase>pre-integration-test</phase>
                         <goals>
                             <goal>run</goal>
                         </goals>

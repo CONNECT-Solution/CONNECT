@@ -8,13 +8,19 @@
     <packaging>pom</packaging>
     <name>CONNECT Solution</name>
     <url>http://www.connectopensource.org/</url>
+    <description>CONNECT is an open source software solution that supports health information exchange – both locally and at the national level. CONNECT uses Nationwide Health Information Network standards and governance to make sure that health information exchanges are compatible with other exchanges being set up throughout the country.
+This software solution was initially developed by federal agencies to support their health-related missions, but it is now available to all organizations and can be used to help set up health information exchanges and share data using nationally-recognized interoperability standards.
+CONNECT can be used to:
+Set up a health information exchange within an organization
+Tie a health information exchange into a regional network of health information exchanges using Nationwide Health Information Network standards
+By advancing the adoption of interoperable health IT systems and health information exchanges, the country will better be able to achieve the goal of making sure all citizens have electronic health records by 2014. Health data will be able to follow a patient across the street or across the country.</description>
     <scm>
         <connection>scm:git:git@github.com:CONNECT-Solution/CONNECT.git</connection>
         <developerConnection>scm:git:git@github.com:CONNECT-Solution/CONNECT.git</developerConnection>
         <url>https://github.com/CONNECT-Solution/CONNECT</url>
     </scm>
     <modules>
-    	<module>ThirdParty</module>
-    	<module>Product</module>
+        <module>ThirdParty</module>
+        <module>Product</module>
     </modules>
 </project>
