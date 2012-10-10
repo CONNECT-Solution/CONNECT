@@ -51,7 +51,7 @@
         <localRepository path="${m2.local.repo.path}"/>
     </artifact:dependencies>
     <artifact:dependencies filesetId="ear.dependency.fileset">
-        <dependency groupId="org.connectopensource" artifactId="CONNECT" version="${deployment.version}" type="ear" scope="runtime"/>
+        <dependency groupId="org.connectopensource" artifactId="CONNECT-GF" version="${deployment.version}" type="ear" scope="runtime"/>
         <localRepository path="${m2.local.repo.path}"/>
     </artifact:dependencies>
     <property name="config.nhin.dependency.fileset" refid="config.nhin.dependency.fileset" />

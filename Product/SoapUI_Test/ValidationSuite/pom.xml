@@ -1,12 +1,18 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>gov.hhs.fha</groupId>
+    <parent>
+        <groupId>org.connectopensource</groupId>
+        <artifactId>SoapUI_Test</artifactId>
+        <version>4.0.0-SNAPSHOT</version>
+    </parent>
     <artifactId>ValidationSuite</artifactId>
     <packaging>jar</packaging>
-    <version>4.0.0-SNAPSHOT</version>
     <name>Maven 3 soapUI ValidationSuite</name>
-    
+    <properties>
+        <skip.unpack>false</skip.unpack>
+        <soapui.testFailIgnore>false</soapui.testFailIgnore>
+    </properties>
     <pluginRepositories>
         <pluginRepository>
             <id>eviwarePluginRepository</id>
@@ -15,6 +21,22 @@
     </pluginRepositories>
     <build>
         <testResources>
+            <testResource>
+                <directory>${basedir}/src/test/resources</directory>
+                <includes>
+                    <include>glassfish/**/domain.xml</include>
+                </includes>
+                <filtering>true</filtering>
+                <targetPath>${project.build.directory}/glassfish-resources/</targetPath>
+            </testResource>
+            <testResource>
+                <directory>${basedir}/src/test/resources</directory>
+                <includes>
+                    <include>gateway.jks</include>
+                    <include>log4j.properties</include>
+                </includes>
+                <targetPath>${project.build.directory}/glassfish-resources/</targetPath>
+            </testResource>
             <testResource>
                 <directory>${project.build.testOutputDirectory}</directory>
                 <includes>
@@ -28,10 +50,9 @@
                 <!-- Used to pull XSD files from the JAR -->
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
-                <version>2.5.1</version>
                 <executions>
                     <execution>
-                        <id>unpack-gateway-properties</id>
+                        <id>unpack-soapui-test-resources</id>
                         <!-- Using the initialize phase because it is before 
                             the generate sources phase -->
                         <phase>initialize</phase>
@@ -56,9 +77,42 @@
                 </executions>
             </plugin>
             <plugin>
+                <groupId>org.glassfish.embedded</groupId>
+                <artifactId>maven-embedded-glassfish-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>start-glassfish</id>
+                        <phase>pre-integration-test</phase>
+                        <goals>
+                            <goal>start</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>glassfish-deploy</id>
+                        <phase>pre-integration-test</phase>
+                        <goals>
+                            <goal>deploy</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>glassfish-undeploy</id>
+                        <phase>post-integration-test</phase>
+                        <goals>
+                            <goal>undeploy</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>stop-glassfish</id>
+                        <phase>post-integration-test</phase>
+                        <goals>
+                            <goal>stop</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
                 <groupId>com.github.redfish4ktc.soapui</groupId>
                 <artifactId>maven-soapui-extension-plugin</artifactId>
-                <version>4.0.0.2</version>
                 <dependencies>
                     <dependency>
                         <groupId>mysql</groupId>
@@ -88,18 +142,18 @@
                     <printReport>true</printReport>
                     <junitReport>true</junitReport>
                     <coverage>true</coverage>
-                    <testFailIgnore>true</testFailIgnore>
+                    <testFailIgnore>${soapui.testFailIgnore}</testFailIgnore>
                     <saveAfterRun>false</saveAfterRun>
                 </configuration>
                 <executions>
                     <execution>
                         <id>EntityValidation-soapui-project.xml</id>
-                        <phase>test</phase>
+                        <phase>integration-test</phase>
                         <goals>
                             <goal>test</goal>
                         </goals>
                         <configuration>
-                            <projectFile>EntityValidation-soapui-project.xml</projectFile>
+                            <projectFile>${basedir}/EntityValidation-soapui-project.xml</projectFile>
                             <outputFolder>${basedir}/target/soapui/output/EntityValidation</outputFolder>
                             <globalProperties>
                                 <value>project.name=EntityValidation</value>
@@ -111,12 +165,12 @@
                     </execution>
                     <execution>
                         <id>MsgProxyValidation-soapui-project.xml</id>
-                        <phase>test</phase>
+                        <phase>integration-test</phase>
                         <goals>
                             <goal>test</goal>
                         </goals>
                         <configuration>
-                            <projectFile>MsgProxyValidation-soapui-project.xml</projectFile>
+                            <projectFile>${basedir}/MsgProxyValidation-soapui-project.xml</projectFile>
                             <outputFolder>${basedir}/target/soapui/output/MsgProxyValidation</outputFolder>
                             <globalProperties>
                                 <value>project.name=MsgProxyValidation</value>
@@ -128,12 +182,12 @@
                     </execution>
                     <execution>
                         <id>4-ConnectionManagerTest-soapui-project.xml</id>
-                        <phase>test</phase>
+                        <phase>integration-test</phase>
                         <goals>
                             <goal>test</goal>
                         </goals>
                         <configuration>
-                            <projectFile>4-ConnectionManagerTest-soapui-project.xml</projectFile>
+                            <projectFile>${basedir}/4-ConnectionManagerTest-soapui-project.xml</projectFile>
                             <outputFolder>${basedir}/target/soapui/output/ConnectionManagerTest</outputFolder>
                             <globalProperties>
                                 <value>project.name=4-ConnectionManagerTest</value>
