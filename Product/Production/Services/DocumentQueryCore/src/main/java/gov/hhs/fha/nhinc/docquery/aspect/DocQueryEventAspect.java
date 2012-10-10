@@ -163,7 +163,7 @@ public class DocQueryEventAspect extends EventAspect {
      
     /*------ Failure ----*/
 
-    @AfterThrowing("inboundMessage() || processInboundMessage() || adapterDelegation()")
+    @AfterThrowing("inboundMessage() || outboundMessage()")
     public void failEvent() {
         super.failEvent();
     }

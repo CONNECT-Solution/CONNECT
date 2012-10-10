@@ -24,27 +24,29 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
-package gov.hhs.fha.nhinc.docretrieve.entity;
+
+package gov.hhs.fha.nhinc.docretrieve.nhin;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.orchestration.AuditTransformer;
-import gov.hhs.fha.nhinc.orchestration.NhinAggregator;
-import gov.hhs.fha.nhinc.orchestration.OutboundDelegate;
+import gov.hhs.fha.nhinc.orchestration.CONNECTInboundOrchestrator;
+import gov.hhs.fha.nhinc.orchestration.InboundDelegate;
 import gov.hhs.fha.nhinc.orchestration.PolicyTransformer;
+import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
+ * @author akong
  * 
- * @author dunnek
  */
-public class EntityDocRetrieveOrchImpl {
-    
-    private static Log log = null;
+public class NhinDocRetrieveOrchImpl {
 
-    public EntityDocRetrieveOrchImpl() {
+    private Log log = null;
+
+    public NhinDocRetrieveOrchImpl() {
         log = createLogger();
     }
 
@@ -52,19 +54,23 @@ public class EntityDocRetrieveOrchImpl {
         return LogFactory.getLog(getClass());
     }
 
-    public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(
-            ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType body, AssertionType assertion) {
+    public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(RetrieveDocumentSetRequestType body,
+            AssertionType assertion) {    
+        log.debug("Entering NhinDocRetrieveOrchImpl.respondingGatewayCrossGatewayRetrieve");
 
-        PolicyTransformer pt = new OutboundDocRetrievePolicyTransformer_a0();
-        AuditTransformer at = new OutboundDocRetrieveAuditTransformer_a0();
-        OutboundDelegate nd = new OutboundDocRetrieveDelegate();
-        NhinAggregator na = new OutboundDocRetrieveAggregator_a0();
-        OutboundDocRetrieveOrchestratable outboundDROrchestratable = new OutboundDocRetrieveOrchestratableImpl(body,
-                assertion, pt, at, nd, na, null);
-        OutboundDocRetrieveOrchestratorImpl oOrchestrator = new OutboundDocRetrieveOrchestratorImpl();
-        oOrchestrator.process(outboundDROrchestratable);
+        PolicyTransformer pt = new InboundDocRetrievePolicyTransformer_g0();
+        AuditTransformer at = new InboundDocRetrieveAuditTransformer_g0();
+        InboundDelegate ad = new InboundDocRetrieveDelegate();
+        InboundDocRetrieveOrchestratableImpl NhinDROrchImpl = new InboundDocRetrieveOrchestratableImpl(body, assertion,
+                pt, at, ad);
+        CONNECTInboundOrchestrator oOrchestrator = new CONNECTInboundOrchestrator();
+        InboundDocRetrieveOrchestratableImpl OrchResponse = (InboundDocRetrieveOrchestratableImpl) oOrchestrator
+                .process(NhinDROrchImpl);
+        RetrieveDocumentSetResponseType response = OrchResponse.getResponse();
 
-        return outboundDROrchestratable.getResponse();
+        // Send response back to the initiating Gateway
+        log.debug("Exiting NhinDocRetrieveOrchImpl.respondingGatewayCrossGatewayRetrieve");
+
+        return response;
     }
-
 }

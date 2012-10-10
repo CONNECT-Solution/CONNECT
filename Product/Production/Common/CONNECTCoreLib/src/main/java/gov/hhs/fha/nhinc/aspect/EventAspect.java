@@ -121,9 +121,6 @@ public abstract class EventAspect {
         try {
             Event event = createEvent(eventType);
             EventManager.getInstance().recordEvent(event);
-
-            System.out.println("Event triggered: " + eventType + " - " + event.getMessageID() + " - "
-                    + event.getTransactionID() + " - " + event.getDescription());
         } catch (Exception e) {
             log.warn("Failed to record event.", e);
         }
