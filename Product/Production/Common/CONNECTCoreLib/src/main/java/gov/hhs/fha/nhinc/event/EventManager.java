@@ -46,7 +46,7 @@ public class EventManager extends Observable {
     }
 
     public void recordEvent(Event event) {
-        hasChanged();
+        setChanged();
         notifyObservers(event);
     }
 
