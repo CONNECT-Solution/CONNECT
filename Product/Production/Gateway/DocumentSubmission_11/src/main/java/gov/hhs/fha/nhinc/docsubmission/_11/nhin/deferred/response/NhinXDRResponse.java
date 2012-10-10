@@ -33,7 +33,7 @@ import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
 
 /**
- *
+ * 
  * @author JHOPPESC
  */
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
@@ -42,6 +42,11 @@ public class NhinXDRResponse implements ihe.iti.xdr._2007.XDRDeferredResponsePor
     @Resource
     private WebServiceContext context;
 
+    /**
+     * The web service implementation for Document Submission response.
+     * @param body the message body
+     * @return an acknowledgement
+     */
     public gov.hhs.healthit.nhin.XDRAcknowledgementType provideAndRegisterDocumentSetBDeferredResponse(
             oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType body) {
         return new NhinDocSubmissionDeferredResponseImpl().provideAndRegisterDocumentSetBResponse(body, context);

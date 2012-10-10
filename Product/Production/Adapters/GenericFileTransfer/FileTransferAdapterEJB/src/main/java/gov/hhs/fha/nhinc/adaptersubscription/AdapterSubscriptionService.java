@@ -34,7 +34,7 @@ import javax.jws.WebService;
  * 
  * @author svalluripalli
  */
-@WebService(serviceName = "AdapterNotificationProducer", portName = "AdapterNotificationProducerPortSoap11", endpointInterface = "gov.hhs.fha.nhinc.adaptersubscriptionmanagement.AdapterNotificationProducerPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:adaptersubscriptionmanagement", wsdlLocation = "META-INF/wsdl/AdapterSubscriptionService/AdapterSubscriptionManagement.wsdl")
+@WebService(serviceName = "AdapterNotificationProducer", portName = "AdapterNotificationProducerPortSoap11", endpointInterface = "gov.hhs.fha.nhinc.adaptersubscriptionmanagement.AdapterNotificationProducerPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:adaptersubscriptionmanagement", wsdlLocation="classpath:wsdl/AdapterSubscriptionManagement.wsdl")
 @Stateless
 public class AdapterSubscriptionService implements AdapterNotificationProducerPortType {
 

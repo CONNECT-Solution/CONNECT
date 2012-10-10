@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="package.properties">
 
-	<path id="war.files" />
-	<path id="ear.files" />
-	<path id="war.libs" />
-	<path id="ear.libs" />
-	<path id="jar.libs" />
-	<path id="jar.files" />
-	<path id="wsdl.list" />
+    <path id="war.files" />
+    <path id="ear.files" />
+    <path id="war.libs" />
+    <path id="jar.libs" />
+    <path id="jar.files" />
+    <path id="wsdl.list" />
 
-	<property name="dist.root.dir" value="${project.dir}/dist" />
-	<property name="dist.dir" value="${dist.root.dir}/${build.config}" />
-	<property name="dist.file" value="${dist.dir}/${project.name}.${dist.type}" />
-	
+    <property name="dist.root.dir" value="${project.dir}/dist" />
+    <property name="dist.dir" value="${dist.root.dir}/${build.config}" />
+    <property name="dist.file" value="${dist.dir}/${project.name}.${dist.type}" />
+
 </project>

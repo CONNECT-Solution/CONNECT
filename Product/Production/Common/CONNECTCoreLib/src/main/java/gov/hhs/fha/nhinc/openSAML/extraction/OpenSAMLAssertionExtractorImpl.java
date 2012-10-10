@@ -1,7 +1,46 @@
-/**
+/*
+ * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
+ * All rights reserved. 
  *
+ * Redistribution and use in source and binary forms, with or without 
+ * modification, are permitted provided that the following conditions are met: 
+ *     * Redistributions of source code must retain the above 
+ *       copyright notice, this list of conditions and the following disclaimer. 
+ *     * Redistributions in binary form must reproduce the above copyright 
+ *       notice, this list of conditions and the following disclaimer in the documentation 
+ *       and/or other materials provided with the distribution. 
+ *     * Neither the name of the United States Government nor the 
+ *       names of its contributors may be used to endorse or promote products 
+ *       derived from this software without specific prior written permission. 
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
+ * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY 
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES 
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND 
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
 package gov.hhs.fha.nhinc.openSAML.extraction;
+
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.CeType;
+import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
+import gov.hhs.fha.nhinc.common.nhinccommon.PersonNameType;
+import gov.hhs.fha.nhinc.common.nhinccommon.SamlAuthnStatementType;
+import gov.hhs.fha.nhinc.common.nhinccommon.SamlAuthzDecisionStatementEvidenceAssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.SamlAuthzDecisionStatementEvidenceConditionsType;
+import gov.hhs.fha.nhinc.common.nhinccommon.SamlAuthzDecisionStatementEvidenceType;
+import gov.hhs.fha.nhinc.common.nhinccommon.SamlAuthzDecisionStatementType;
+import gov.hhs.fha.nhinc.common.nhinccommon.SamlIssuerType;
+import gov.hhs.fha.nhinc.common.nhinccommon.SamlSignatureKeyInfoType;
+import gov.hhs.fha.nhinc.common.nhinccommon.SamlSignatureType;
+import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
+import gov.hhs.fha.nhinc.cxf.extraction.SAMLExtractorDOM;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +52,6 @@ import org.apache.cxf.common.util.StringUtils;
 import org.apache.log4j.Logger;
 import org.apache.ws.security.WSSecurityException;
 import org.apache.ws.security.saml.ext.OpenSAMLUtil;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Assertion;
 import org.opensaml.saml2.core.Attribute;
 import org.opensaml.saml2.core.AttributeStatement;
@@ -28,44 +66,34 @@ import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.schema.XSAny;
 import org.opensaml.xml.util.AttributeMap;
 import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
-
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommon.CeType;
-import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
-import gov.hhs.fha.nhinc.common.nhinccommon.PersonNameType;
-import gov.hhs.fha.nhinc.common.nhinccommon.SamlAuthnStatementType;
-import gov.hhs.fha.nhinc.common.nhinccommon.SamlAuthzDecisionStatementEvidenceAssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommon.SamlAuthzDecisionStatementEvidenceConditionsType;
-import gov.hhs.fha.nhinc.common.nhinccommon.SamlAuthzDecisionStatementEvidenceType;
-import gov.hhs.fha.nhinc.common.nhinccommon.SamlAuthzDecisionStatementType;
-import gov.hhs.fha.nhinc.common.nhinccommon.SamlSignatureKeyInfoType;
-import gov.hhs.fha.nhinc.common.nhinccommon.SamlSignatureType;
-import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
-import gov.hhs.fha.nhinc.cxf.extraction.SAMLExtractorDOM;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 
 /**
  * @author mweaver
- *
+ * 
  */
 public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
+    
     private static final Logger log = Logger.getLogger(OpenSAMLAssertionExtractorImpl.class);
     private static final String EMPTY_STRING = "";
     private static final String X509_FORMAT = "urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName";
 
     /**
      * This method is used to extract the SAML assertion information.
-     *
+     * 
      * @param Element element
      * @return AssertionType
      */
     public final AssertionType extractSAMLAssertion(final Element element) {
 
         log.debug("Executing Saml2AssertionExtractor.extractSamlAssertion()...");
+        if (null == element) {
+            return null;
+        }
         Assertion saml2Assertion = extractSaml2Assertion(element);
 
         AssertionType target = initializeAssertion();
+        // Populate Issuer
+        populateIssuer(saml2Assertion, target);
         // Populate the Subject Information
         populateSubject(saml2Assertion, target);
         // Populate the Authentication Statement Information.
@@ -81,29 +109,45 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
 
     /**
      * This method is used extract the saml2Assertion from Context.
-     *
      * @param context context
      * @return saml2 assertion from context
      */
-    @SuppressWarnings("unchecked")
     private Assertion extractSaml2Assertion(final Element element) {
+        
         Assertion assertion = null;
-        NodeList list = element.getElementsByTagNameNS(SAMLConstants.SAML20_NS, Assertion.DEFAULT_ELEMENT_LOCAL_NAME);
-        Element el = (Element) list.item(0);
         try {
-            XMLObject xmlObj = OpenSAMLUtil.fromDom(el);
-            if (xmlObj instanceof org.opensaml.saml2.core.Assertion) {
-                assertion = (Assertion) xmlObj;
-            }
+            XMLObject xmlObj = OpenSAMLUtil.fromDom(element);
+            assertion = extractSaml2Assertion(xmlObj);
         } catch (WSSecurityException e) {
             log.error("error extracting SAML assertion", e);
         }
         return assertion;
     }
+    
+    /**
+     * This method navigates xml elements until a Saml Assertion child is found.
+     * @param xmlObject element 
+     * @return saml2 assertion from context
+     */
+    private Assertion extractSaml2Assertion(final XMLObject xmlObject) {
+        
+        if (xmlObject == null || xmlObject instanceof org.opensaml.saml2.core.Assertion) {
+            return (Assertion) xmlObject;
+        }
+        
+        return extractSaml2Assertion(xmlObject.getOrderedChildren().get(0));
+    }
+    
+    
+    private void populateIssuer(final Assertion saml2Assertion, final AssertionType target) {        
+        target.setSamlIssuer(new SamlIssuerType());
+        target.getSamlIssuer().setIssuer(saml2Assertion.getIssuer().getValue());
+        target.getSamlIssuer().setIssuerFormat(saml2Assertion.getIssuer().getFormat());        
+    }
 
     /**
      * This method is used to populate the Attribute Statement.
-     *
+     * 
      * @param saml2Assertion saml2 assertion
      * @param target target assertion
      */
@@ -193,12 +237,12 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
     }
 
     private String getAttributeValue(Attribute attribute) {
-        return attribute.getAttributeValues().get(0).getDOM().getTextContent();
+        return attribute.getAttributeValues().get(0).getDOM().getTextContent().trim();
     }
 
     /**
      * This method is used to populate the Authentication Statement Information.
-     *
+     * 
      * @param saml2Assertion saml2 assertion
      * @param target target assertion
      */
@@ -206,6 +250,9 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
 
         log.debug("Executing Saml2AssertionExtractor.populateAuthenticationStatement()...");
         SamlAuthnStatementType samlAuthnStatement = new SamlAuthnStatementType();
+        if (null == saml2Assertion.getAuthnStatements() || saml2Assertion.getAuthnStatements().size() == 0) {
+            return;
+        }
         AuthnStatement source = saml2Assertion.getAuthnStatements().get(0);
         samlAuthnStatement.setAuthInstant(source.getAuthnInstant().toString());
         samlAuthnStatement.setSessionIndex(source.getSessionIndex());
@@ -223,7 +270,7 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
 
     /**
      * This method is used to populate the Subject Information into the target assertion.
-     *
+     * 
      * @param saml2Assertion saml2 assertion
      * @param target target assertion
      */
@@ -231,6 +278,9 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
         log.debug("Executing Saml2AssertionExtractor.populateSubject()...");
 
         Subject subject = saml2Assertion.getSubject();
+        if (subject == null) {
+            return;
+        }
         NameID name = subject.getNameID();
         if (X509_FORMAT.equals(name.getFormat())) {
             log.warn("Subject name format is not X509!");
@@ -242,7 +292,7 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
 
     /**
      * This method is used to populate the Authorization Decision Statement Information.
-     *
+     * 
      * @param saml2Assertion saml2 assertion
      * @param target target assertion
      */
@@ -284,17 +334,24 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
         SamlAuthzDecisionStatementEvidenceAssertionType targetEvidenceAssertion = new SamlAuthzDecisionStatementEvidenceAssertionType();
         targetEvidence.setAssertion(targetEvidenceAssertion);
 
+        // Translate Evidence Assertion Attributes
+        targetEvidenceAssertion.setId(saml2EvidenceAssertion.getID());
+        targetEvidenceAssertion.setIssueInstant(saml2EvidenceAssertion.getIssueInstant().toString());
+        targetEvidenceAssertion.setVersion(saml2EvidenceAssertion.getVersion().toString());
+        
         // Translate Evidence Attribute Statement
         AttributeStatement saml2EvidenceAttributeStatement = saml2EvidenceAssertion.getAttributeStatements().get(0);
         List<Attribute> saml2EvidenceAttributes = saml2EvidenceAttributeStatement.getAttributes();
 
         for (Attribute saml2EvidenceAttribute : saml2EvidenceAttributes) {
-            if (saml2EvidenceAttribute.getName().equals(ACCESS_CONSENT_POLICY_ATTRIBUTE_NAME)) {
+            if (saml2EvidenceAttribute.getName().equals(ACCESS_CONSENT_POLICY_ATTRIBUTE_NAME)
+                    && saml2EvidenceAttribute.getAttributeValues().size() > 0) {
                 XMLObject xmlObject = saml2EvidenceAttribute.getAttributeValues().get(0);
                 String accessConsent = xmlObject.getDOM().getTextContent();
 
                 targetEvidenceAssertion.getAccessConsentPolicy().add(accessConsent);
-            } else if (saml2EvidenceAttribute.getName().equals(INSTANCE_ACCESS_CONSENT_POLICY_ATTRIBUTE_NAME)) {
+            } else if (saml2EvidenceAttribute.getName().equals(INSTANCE_ACCESS_CONSENT_POLICY_ATTRIBUTE_NAME)
+                    && saml2EvidenceAttribute.getAttributeValues().size() > 0) {
                 XMLObject xmlObject = saml2EvidenceAttribute.getAttributeValues().get(0);
                 String instanceAccessConsent = xmlObject.getDOM().getTextContent();
 
@@ -322,7 +379,7 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
 
     /**
      * This method is used to construct HL7 PurposeOfUse Attribute, and adds it to the Assertion.
-     *
+     * 
      * @param attribute attribute
      * @param target target assertion
      */
@@ -330,49 +387,21 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
 
         log.debug("Executing Saml2AssertionExtractor.populatePurposeOfUseAttribute...");
 
-        XMLObject purposeOfUseAttribute = attribute.getAttributeValues().get(0);
-        AttributeMap attributeMap = ((XSAny) purposeOfUseAttribute.getOrderedChildren().get(0)).getUnknownAttributes();
-
-        String code = "";
-        String codeSystem = "";
-        String codeSystemName = "";
-        String displayName = "";
-
-        for (Map.Entry<QName, String> entry : attributeMap.entrySet()) {
-            QName key = entry.getKey();
-            if (NhincConstants.HL7_NS.equals(key.getNamespaceURI())) {
-                // Validate PurposeOfUse Code
-                if (key.getLocalPart().equals(NhincConstants.CE_CODE)) {
-                    code = String.valueOf(entry.getValue());
-                }
-                // Validate the code system
-                if (key.getLocalPart().equals(NhincConstants.CE_CODESYSTEM)) {
-                    codeSystem = String.valueOf(entry.getValue());
-                }
-                // Validate the code system name
-                if (key.getLocalPart().equals(NhincConstants.CE_CODESYSTEM_NAME)) {
-                    codeSystemName = String.valueOf(entry.getValue());
-                }
-                // Validate the code system name
-                if (key.getLocalPart().equals(NhincConstants.CE_DISPLAYNAME)) {
-                    displayName = String.valueOf(entry.getValue());
-                }
-            }
-        }
-
         CeType purposeOfUse = new CeType();
-        purposeOfUse.setCode(code);
-        purposeOfUse.setCodeSystem(codeSystem);
-        purposeOfUse.setCodeSystemName(codeSystemName);
-        purposeOfUse.setDisplayName(displayName);
+        
+        XMLObject purposeOfUseAttribute = attribute.getAttributeValues().get(0);
+        XMLObject purposeOfUseElement = purposeOfUseAttribute.getOrderedChildren().get(0);        
+
+        populateCeType((XSAny) purposeOfUseElement, purposeOfUse);
         target.setPurposeOfDisclosureCoded(purposeOfUse);
+
         log.debug("end populatePurposeOfUseAttribute()");
     }
 
     /**
      * Initializes the assertion object to contain empty strings for all values. These are overwritten in the extraction
      * process with real values if they are available
-     *
+     * 
      * @param assertOut The Assertion element being written to
      */
     private AssertionType initializeAssertion() {
@@ -462,7 +491,7 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
 
     /**
      * This method is used to construct HL7 Subject Role Attribute, and adds it to the Assertion.
-     *
+     * 
      * @param attribute attribute
      * @param target target assertion
      */
@@ -470,42 +499,45 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
 
         log.debug("Executing Saml2AssertionExtractor.populateSubjectRole...");
 
-        XMLObject subjRoleAttribute = attribute.getAttributeValues().get(0);
-        AttributeMap attributeMap = ((XSAny) subjRoleAttribute.getOrderedChildren().get(0)).getUnknownAttributes();
-
-        String code = "";
-        String codeSystem = "";
-        String codeSystemName = "";
-        String displayName = "";
-
-        for (Map.Entry<QName, String> entry : attributeMap.entrySet()) {
-            QName key = entry.getKey();
-            if (key.getNamespaceURI().equals(NhincConstants.HL7_NS)) {
-                // Validate Code
-                if (key.getLocalPart().equals(NhincConstants.CE_CODE)) {
-                    code = String.valueOf(entry.getValue());
-                }
-                // Validate Code System
-                if (key.getLocalPart().equals(NhincConstants.CE_CODESYSTEM)) {
-                    codeSystem = String.valueOf(entry.getValue());
-                }
-                // Validate CodeSystem Name
-                if (key.getLocalPart().equals(NhincConstants.CE_CODESYSTEM_NAME)) {
-                    codeSystemName = String.valueOf(entry.getValue());
-                }
-                // Validate the display Name
-                if (key.getLocalPart().equals(NhincConstants.CE_DISPLAYNAME)) {
-                    displayName = String.valueOf(entry.getValue());
-                }
-            }
-        }
-
-        CeType role = target.getUserInfo().getRoleCoded();
-        role.setCode(code);
-        role.setCodeSystem(codeSystem);
-        role.setCodeSystemName(codeSystemName);
-        role.setDisplayName(displayName);
+        XMLObject subjRoleAttribute = attribute.getAttributeValues().get(0);         
+        XMLObject roleElement = subjRoleAttribute.getOrderedChildren().get(0);
+        
+        populateCeType((XSAny) roleElement, target.getUserInfo().getRoleCoded());
 
         log.debug("end populateSubjectRole()");
     }
+    
+    private void populateCeType(XSAny samlAttrValElement, CeType ceType) {
+
+        ceType.setCode("");
+        ceType.setCodeSystem("");
+        ceType.setCodeSystemName("");
+        ceType.setDisplayName("");
+        
+        // check namespace and break out on mismatch...
+        if (!samlAttrValElement.getElementQName().getNamespaceURI().equals(NhincConstants.HL7_NS)) {
+            return;
+        }
+
+        AttributeMap attributeMap = samlAttrValElement.getUnknownAttributes();
+        for (Map.Entry<QName, String> entry : attributeMap.entrySet()) {
+
+            QName key = entry.getKey();
+
+            switch (key.getLocalPart()) {
+            case NhincConstants.CE_CODE:
+                ceType.setCode(String.valueOf(entry.getValue()));
+                break;
+            case NhincConstants.CE_CODESYSTEM:
+                ceType.setCodeSystem(String.valueOf(entry.getValue()));
+                break;
+            case NhincConstants.CE_CODESYSTEM_NAME:
+                ceType.setCodeSystemName(String.valueOf(entry.getValue()));
+                break;
+            case NhincConstants.CE_DISPLAYNAME:
+                ceType.setDisplayName(String.valueOf(entry.getValue()));
+                break;
+            }
+        }        
+    }    
 }

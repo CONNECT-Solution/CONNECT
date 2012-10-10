@@ -1,0 +1,34 @@
+<app:application
+    xmlns:app="http://geronimo.apache.org/xml/ns/j2ee/application-2.0"
+    xmlns:sys="http://geronimo.apache.org/xml/ns/deployment-1.2"
+    xmlns:sec="http://geronimo.apache.org/xml/ns/security-2.0"
+    application-name="CONNECT">
+    <sys:environment>
+        <sys:moduleId>
+            <sys:groupId>org.connectopensource</sys:groupId>
+            <sys:artifactId>CONNECT</sys:artifactId>
+            <sys:version>4.0</sys:version>
+            <sys:type>ear</sys:type>
+        </sys:moduleId>
+        
+        <sys:dependencies>
+            <sys:dependency>
+                <sys:groupId>org.apache.geronimo.configs</sys:groupId>
+                <sys:artifactId>sharedlib</sys:artifactId>
+            </sys:dependency>
+        </sys:dependencies>
+
+        <sys:hidden-classes>
+            <sys:filter>org.apache.geronimo.webservices</sys:filter>
+            <sys:filter>org.apache.cxf</sys:filter>
+            <sys:filter>javax.xml.ws</sys:filter>
+            <sys:filter>javax.xml.soap</sys:filter>
+            <sys:filter>org.springframework</sys:filter>
+            <sys:filter>antlr</sys:filter>
+
+        </sys:hidden-classes>
+
+        <sys:inverse-classloading />
+    </sys:environment>
+    
+</app:application>

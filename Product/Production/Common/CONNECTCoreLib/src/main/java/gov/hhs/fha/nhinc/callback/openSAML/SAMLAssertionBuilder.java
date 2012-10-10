@@ -3,15 +3,20 @@
  */
 package gov.hhs.fha.nhinc.callback.openSAML;
 
+import gov.hhs.fha.nhinc.callback.purposeuse.PurposeUseProxy;
+import gov.hhs.fha.nhinc.callback.purposeuse.PurposeUseProxyObjectFactory;
+import gov.hhs.fha.nhinc.connectmgr.NhinEndpointManager;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants.NHIN_SERVICE_NAMES;
+import gov.hhs.fha.nhinc.properties.PropertyAccessException;
+import gov.hhs.fha.nhinc.properties.PropertyAccessor;
+
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 import org.w3c.dom.Element;
-
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.properties.PropertyAccessException;
-import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 
 /**
  * @author bhumphrey
@@ -95,23 +100,51 @@ abstract public class SAMLAssertionBuilder {
     }
 
     /**
-     * Returns boolean condition on whether PurposeForUse is enabled
+     * @param callbackProperties used to pull target api level, target hcid and service name.
+     * @return true if deprecated "purposeForUse" syntax is allowed in outgoing saml assertion.
+     */
+    static boolean isPurposeForUseAllowed(CallbackProperties callbackProperties) {
+
+        // first check if target api level is explicitly specified...
+        GATEWAY_API_LEVEL targetApiLevel = callbackProperties.getTargetApiLevel();
+        if (targetApiLevel != null) {
+            return (targetApiLevel == GATEWAY_API_LEVEL.LEVEL_g0);
+        }
+        
+        // then check target api level based on target HCID and service name (action)...
+        NHIN_SERVICE_NAMES serviceName = null;
+        try {
+            serviceName = NHIN_SERVICE_NAMES.fromValueString(callbackProperties.getAction());
+        } catch  (IllegalArgumentException exc) {
+            // Do nothing, this isnt an NHIN service
+            return false;            
+        }           
+        String targetHcid = callbackProperties.getTargetHomeCommunityId();
+        if (serviceName == null || targetHcid == null) {
+            return false;
+        }
+        
+        NhinEndpointManager nem = new NhinEndpointManager();
+        return (nem.getApiVersion(targetHcid, serviceName) == GATEWAY_API_LEVEL.LEVEL_g0);        
+    }
+    
+    /**
+     * Returns boolean condition on whether PurposeForUse is enabled.
      *
      * @return The PurposeForUse enabled setting
      */
-    static boolean isPurposeForUseEnabled() {
-        boolean match = false;
-        try {
-            // Use CONNECT utility class to access gateway.properties
-            String purposeForUseEnabled = PropertyAccessor.getInstance().getProperty(
-                    NhincConstants.GATEWAY_PROPERTY_FILE, PURPOSE_FOR_USE_DEPRECATED_ENABLED);
-            if (purposeForUseEnabled != null && purposeForUseEnabled.equalsIgnoreCase("true")) {
-                match = true;
-            }
-        } catch (PropertyAccessException ex) {
-            match = false;
+    static boolean isPurposeForUseEnabled(CallbackProperties callbackProperties) {
+        
+        // default return value
+        boolean purposeForUseEnabled = false;
+        
+        if (isPurposeForUseAllowed(callbackProperties)) {            
+            PurposeUseProxyObjectFactory purposeFactory = new PurposeUseProxyObjectFactory();
+            PurposeUseProxy purposeUseProxy = purposeFactory.getPurposeUseProxy();
+            purposeForUseEnabled = purposeUseProxy.isPurposeForUseEnabled(callbackProperties); 
         }
-        return match;
+        
+        return purposeForUseEnabled;
     }
 
     abstract public Element build(CallbackProperties properties) throws Exception;

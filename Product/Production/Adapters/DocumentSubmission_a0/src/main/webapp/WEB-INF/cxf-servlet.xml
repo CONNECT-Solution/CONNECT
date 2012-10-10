@@ -20,23 +20,26 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adapterxdrsecured" id="AdapterDocSubmissionSecured"
         address="/AdapterDocSubmissionSecured" serviceName="tns:AdapterXDRSecured_Service"
         endpointName="tns:AdapterXDRSecured_Port" implementor="gov.hhs.fha.nhinc.docsubmission.adapter.AdapterDocSubmissionSecured"
-        wsdlLocation="/WEB-INF/wsdl/AdapterDocSubmissionSecured/AdapterXDRSecured.wsdl">
+        wsdlLocation="classpath:wsdl/AdapterXDRSecured.wsdl">
 
         <jaxws:properties>
             <entry key="ws-security.callback-handler" value="gov.hhs.fha.nhinc.callback.cxf.CXFSAMLCallbackHandler" />
             <entry key="ws-security.signature.properties" value="keystore.properties" />
             <entry key="ws-security.encryption.properties" value="truststore.properties" />
+            <entry key="mtom-enabled" value="true" />
         </jaxws:properties>
         <jaxws:inInterceptors>
             <ref bean="securityInInterceptor" />
         </jaxws:inInterceptors>
-
     </jaxws:endpoint>
     
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adapterxdr" id="AdapterDocSubmissionUnsecured"
         address="/AdapterDocSubmissionUnsecured" serviceName="tns:AdapterXDR_Service"
         endpointName="tns:AdapterXDR_Port" implementor="gov.hhs.fha.nhinc.docsubmission.adapter.AdapterDocSubmissionUnsecured"
-        wsdlLocation="/WEB-INF/wsdl/AdapterDocSubmissionUnsecured/AdapterXDR.wsdl">
+        wsdlLocation="classpath:wsdl/AdapterXDR.wsdl">
+        <jaxws:properties>          
+            <entry key="mtom-enabled" value="true" />
+        </jaxws:properties>
     </jaxws:endpoint>
     
     <!-- Adapter Document Submission Component -->
@@ -44,23 +47,23 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adaptercomponentxdrsecured" id="AdapterComponentDocSubmissionSecured"
         address="/AdapterComponentDocSubmissionSecured" serviceName="tns:AdapterComponentXDRSecured_Service"
         endpointName="tns:AdapterComponentXDRSecured_Port" implementor="gov.hhs.fha.nhinc.docsubmission.adapter.component.AdapterComponentDocSubmissionSecured"
-        wsdlLocation="/WEB-INF/wsdl/AdapterComponentDocSubmissionSecured/AdapterComponentXDRSecured.wsdl">
+        wsdlLocation="classpath:wsdl/AdapterComponentXDRSecured.wsdl">
 
         <jaxws:properties>
             <entry key="ws-security.callback-handler" value="gov.hhs.fha.nhinc.callback.cxf.CXFSAMLCallbackHandler" />
             <entry key="ws-security.signature.properties" value="keystore.properties" />
             <entry key="ws-security.encryption.properties" value="truststore.properties" />
+            <entry key="mtom-enabled" value="true" />
         </jaxws:properties>
         <jaxws:inInterceptors>
             <ref bean="securityInInterceptor" />
         </jaxws:inInterceptors>
-
     </jaxws:endpoint>
     
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adaptercomponentxdr" id="AdapterComponentDocSubmissionUnsecured"
         address="/AdapterComponentDocSubmissionUnsecured" serviceName="tns:AdapterComponentXDR_Service"
         endpointName="tns:AdapterComponentXDR_Port" implementor="gov.hhs.fha.nhinc.docsubmission.adapter.component.AdapterComponentDocSubmissionUnsecured"
-        wsdlLocation="/WEB-INF/wsdl/AdapterComponentDocSubmissionUnsecured/AdapterComponentXDR.wsdl">
+        wsdlLocation="classpath:wsdl/AdapterComponentXDR.wsdl">
     </jaxws:endpoint>
 
     <!-- Adapter Document Submission Deferred Request --> 
@@ -68,23 +71,26 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adapterxdrrequestsecured" id="AdapterXDRRequestSecured"
         address="/AdapterService/AdapterDocSubmissionDeferredRequestSecured" serviceName="tns:AdapterXDRRequestSecured_Service"
         endpointName="tns:AdapterXDRRequestSecured_Port_Soap" implementor="gov.hhs.fha.nhinc.docsubmission.adapter.deferred.request.AdapterXDRRequestSecured"
-        wsdlLocation="/WEB-INF/wsdl/AdapterXDRRequestSecured/AdapterXDRRequestSecured.wsdl">
+        wsdlLocation="classpath:wsdl/AdapterXDRRequestSecured.wsdl">
 
         <jaxws:properties>
             <entry key="ws-security.callback-handler" value="gov.hhs.fha.nhinc.callback.cxf.CXFSAMLCallbackHandler" />
             <entry key="ws-security.signature.properties" value="keystore.properties" />
             <entry key="ws-security.encryption.properties" value="truststore.properties" />
+            <entry key="mtom-enabled" value="true" />
         </jaxws:properties>
         <jaxws:inInterceptors>
             <ref bean="securityInInterceptor" />
         </jaxws:inInterceptors>
-
     </jaxws:endpoint>
 
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adapterxdrrequest" id="AdapterXDRRequest"
         address="/AdapterService/AdapterDocSubmissionDeferredRequest" serviceName="tns:AdapterXDRRequest_Service"
         endpointName="tns:AdapterXDRRequest_Port" implementor="gov.hhs.fha.nhinc.docsubmission.adapter.deferred.request.AdapterXDRRequest"
-        wsdlLocation="/WEB-INF/wsdl/AdapterXDRRequest/AdapterXDRRequest.wsdl">
+        wsdlLocation="classpath:wsdl/AdapterXDRRequest.wsdl">
+        <jaxws:properties>          
+            <entry key="mtom-enabled" value="true" />
+        </jaxws:properties>
     </jaxws:endpoint>
     
     <!-- Adapter Document Submission Deferred Request Component --> 
@@ -92,7 +98,10 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adaptercomponentxdrrequest" id="AdapterComponentXDRRequest"
         address="/AdapterComponentXDRRequest_Service" serviceName="tns:AdapterComponentXDRRequest_Service"
         endpointName="tns:AdapterComponentXDRRequest_Port" implementor="gov.hhs.fha.nhinc.docsubmission.adapter.component.deferred.request.AdapterComponentXDRRequest"
-        wsdlLocation="/WEB-INF/wsdl/AdapterComponentXDRRequest/AdapterComponentXDRRequest.wsdl">
+        wsdlLocation="classpath:wsdl/AdapterComponentXDRRequest.wsdl">
+        <jaxws:properties>          
+            <entry key="mtom-enabled" value="true" />
+        </jaxws:properties>
     </jaxws:endpoint>
     
     <!-- Adapter Document Submission Deferred Request Error --> 
@@ -100,23 +109,25 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adapterxdrrequesterrorsecured" id="AdapterXDRSecuredRequestError"
         address="/AdapterService/AdapterDocSubmissionDeferredRequestErrorSecured" serviceName="tns:AdapterXDRRequestErrorSecured_Service"
         endpointName="tns:AdapterXDRRequestErrorSecured_Port_Soap" implementor="gov.hhs.fha.nhinc.docsubmission.adapter.deferred.request.error.AdapterXDRSecuredRequestError"
-        wsdlLocation="/WEB-INF/wsdl/AdapterXDRSecuredRequestError/AdapterXDRRequestSecuredError.wsdl">
-
+        wsdlLocation="classpath:wsdl/AdapterXDRRequestSecuredError.wsdl">
         <jaxws:properties>
             <entry key="ws-security.callback-handler" value="gov.hhs.fha.nhinc.callback.cxf.CXFSAMLCallbackHandler" />
             <entry key="ws-security.signature.properties" value="keystore.properties" />
             <entry key="ws-security.encryption.properties" value="truststore.properties" />
+            <entry key="mtom-enabled" value="true" />
         </jaxws:properties>
         <jaxws:inInterceptors>
             <ref bean="securityInInterceptor" />
         </jaxws:inInterceptors>
-
     </jaxws:endpoint>
         
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adapterxdrrequesterror" id="AdapterXDRRequestError"
         address="/AdapterService/AdapterDocSubmissionDeferredRequestError" serviceName="tns:AdapterXDRRequestError_Service"
         endpointName="tns:AdapterXDRRequestError_Port" implementor="gov.hhs.fha.nhinc.docsubmission.adapter.deferred.request.error.AdapterXDRRequestError"
-        wsdlLocation="/WEB-INF/wsdl/AdapterXDRRequestError/AdapterXDRRequestError.wsdl">
+        wsdlLocation="classpath:wsdl/AdapterXDRRequestError.wsdl">
+        <jaxws:properties>          
+            <entry key="mtom-enabled" value="true" />
+        </jaxws:properties>
     </jaxws:endpoint>
     
     
@@ -126,8 +137,7 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adapterxdrresponsesecured" id="AdapterXDRResponseSecured"
         address="/AdapterService/AdapterDocSubmissionDeferredResponseSecured" serviceName="tns:AdapterXDRResponseSecured_Service"
         endpointName="tns:AdapterXDRResponseSecured_Port_Soap" implementor="gov.hhs.fha.nhinc.docsubmission.adapter.deferred.response.AdapterXDRResponseSecured"
-        wsdlLocation="/WEB-INF/wsdl/AdapterXDRResponseSecured/AdapterXDRResponseSecured.wsdl">
-
+        wsdlLocation="classpath:wsdl/AdapterXDRResponseSecured.wsdl">
         <jaxws:properties>
             <entry key="ws-security.callback-handler" value="gov.hhs.fha.nhinc.callback.cxf.CXFSAMLCallbackHandler" />
             <entry key="ws-security.signature.properties" value="keystore.properties" />
@@ -136,13 +146,12 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
         <jaxws:inInterceptors>
             <ref bean="securityInInterceptor" />
         </jaxws:inInterceptors>
-
     </jaxws:endpoint>
     
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adapterxdrresponse" id="AdapterXDRResponse"
         address="/AdapterService/AdapterDocSubmissionDeferredResponse" serviceName="tns:AdapterXDRResponse_Service"
         endpointName="tns:AdapterXDRResponse_Port" implementor="gov.hhs.fha.nhinc.docsubmission.adapter.deferred.response.AdapterXDRResponse"
-        wsdlLocation="/WEB-INF/wsdl/AdapterXDRResponse/AdapterXDRResponse.wsdl">
+        wsdlLocation="classpath:wsdl/AdapterXDRResponse.wsdl">
     </jaxws:endpoint>
     
     <!-- Adapter Document Submission Deferred Response Component --> 
@@ -150,7 +159,7 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adaptercomponentxdrresponse" id="AdapterComponentXDRResponse"
         address="/AdapterComponentXDRResponse_Service" serviceName="tns:AdapterComponentXDRResponse_Service"
         endpointName="tns:AdapterComponentXDRResponse_Port" implementor="gov.hhs.fha.nhinc.docsubmission.adapter.component.deferred.response.AdapterComponentXDRResponse"
-        wsdlLocation="/WEB-INF/wsdl/AdapterComponentXDRResponse/AdapterComponentXDRResponse.wsdl">
+        wsdlLocation="classpath:wsdl/AdapterComponentXDRResponse.wsdl">
     </jaxws:endpoint>
     
 </beans>
