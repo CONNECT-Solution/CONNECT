@@ -22,9 +22,7 @@
             <sys:filter>org.apache.geronimo.webservices</sys:filter>
             <sys:filter>org.apache.cxf</sys:filter>
             <sys:filter>javax.xml.ws</sys:filter>
-            <!-- <sys:filter>org.apache.xerces</sys:filter> -->
             <sys:filter>javax.xml.soap</sys:filter>
-            <!-- <sys:filter>javax.xml.parsers</sys:filter> -->
             <sys:filter>org.springframework</sys:filter>
             <sys:filter>antlr</sys:filter>
 
