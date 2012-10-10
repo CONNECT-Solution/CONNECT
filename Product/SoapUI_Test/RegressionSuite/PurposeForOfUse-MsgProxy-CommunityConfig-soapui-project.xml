@@ -643,25 +643,25 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 			<script/>
 		</con:config>
 	</con:testStep>
-	<con:setupScript></con:setupScript>
+	<con:setupScript/>
 <con:tearDownScript>
 </con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-10-04T20:56:09Z</con:value>
+		<con:value>2012-10-05T14:34:59Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-10-04T21:06:09Z</con:value>
+		<con:value>2012-10-05T14:44:59Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>10/04/2012 20:56:09</con:value>
+		<con:value>10/05/2012 14:34:59</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-11-03T00:00:00Z</con:value>
+		<con:value>2012-11-04T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -1013,26 +1013,26 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 		<script/>
 	</con:config>
 </con:testStep>
-<con:setupScript></con:setupScript>
+<con:setupScript/>
 <con:tearDownScript>
 
 </con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-10-04T20:56:04Z</con:value>
+		<con:value>2012-10-05T14:35:01Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-10-04T21:06:04Z</con:value>
+		<con:value>2012-10-05T14:45:01Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>10/04/2012 20:56:04</con:value>
+		<con:value>10/05/2012 14:35:01</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-11-03T00:00:00Z</con:value>
+		<con:value>2012-11-04T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 </con:testCase>
@@ -1513,25 +1513,25 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 		<script/>
 	</con:config>
 </con:testStep>
-<con:setupScript></con:setupScript>
+<con:setupScript/>
 <con:tearDownScript>
 </con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-10-04T20:55:20Z</con:value>
+		<con:value>2012-10-05T14:35:03Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-10-04T21:05:20Z</con:value>
+		<con:value>2012-10-05T14:45:03Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>10/04/2012 20:55:20</con:value>
+		<con:value>10/05/2012 14:35:03</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-11-03T00:00:00Z</con:value>
+		<con:value>2012-11-04T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 </con:testCase>
@@ -1844,7 +1844,7 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 		<script/>
 	</con:config>
 </con:testStep>
-<con:setupScript></con:setupScript>
+<con:setupScript/>
 <con:tearDownScript>
 </con:tearDownScript>
 <con:properties>
@@ -2086,19 +2086,19 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 	</con:property>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-10-04T20:55:23Z</con:value>
+		<con:value>2012-10-05T14:35:04Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-10-04T21:05:23Z</con:value>
+		<con:value>2012-10-05T14:45:04Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>10/04/2012 20:55:23</con:value>
+		<con:value>10/05/2012 14:35:04</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-11-03T00:00:00Z</con:value>
+		<con:value>2012-11-04T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -2457,7 +2457,7 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 		<script/>
 	</con:config>
 </con:testStep>
-<con:setupScript></con:setupScript>
+<con:setupScript/>
 <con:tearDownScript>
 </con:tearDownScript>
 <con:properties>
@@ -2703,19 +2703,19 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 	</con:property>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-10-04T20:55:24Z</con:value>
+		<con:value>2012-10-05T14:35:11Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-10-04T21:05:24Z</con:value>
+		<con:value>2012-10-05T14:45:11Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>10/04/2012 20:55:24</con:value>
+		<con:value>10/05/2012 14:35:11</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-11-03T00:00:00Z</con:value>
+		<con:value>2012-11-04T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -3040,25 +3040,25 @@ exists( //ns3:PRPA_IN201306UV02/ns3:controlActProcess)</path>
 		<script/>
 	</con:config>
 </con:testStep>
-<con:setupScript></con:setupScript>
+<con:setupScript/>
 <con:tearDownScript>
 </con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-10-04T20:55:33Z</con:value>
+		<con:value>2012-10-05T14:35:18Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-10-04T21:05:33Z</con:value>
+		<con:value>2012-10-05T14:45:18Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>10/04/2012 20:55:33</con:value>
+		<con:value>10/05/2012 14:35:18</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-11-03T00:00:00Z</con:value>
+		<con:value>2012-11-04T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -3359,25 +3359,25 @@ log.info documentID + " " + msgDocID</scriptText>
 		<script/>
 	</con:config>
 </con:testStep>
-<con:setupScript></con:setupScript>
+<con:setupScript/>
 <con:tearDownScript>
 </con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-10-04T20:55:39Z</con:value>
+		<con:value>2012-10-05T14:35:24Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-10-04T21:05:39Z</con:value>
+		<con:value>2012-10-05T14:45:24Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>10/04/2012 20:55:39</con:value>
+		<con:value>10/05/2012 14:35:24</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-11-03T00:00:00Z</con:value>
+		<con:value>2012-11-04T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
@@ -3679,7 +3679,7 @@ assert (docData.size() != 0)</scriptText>
 		<script/>
 	</con:config>
 </con:testStep>
-<con:setupScript></con:setupScript>
+<con:setupScript/>
 <con:tearDownScript>
 </con:tearDownScript>
 <con:properties>
@@ -3689,19 +3689,19 @@ assert (docData.size() != 0)</scriptText>
 	</con:property>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-10-04T20:55:42Z</con:value>
+		<con:value>2012-10-05T14:35:26Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-10-04T21:05:42Z</con:value>
+		<con:value>2012-10-05T14:45:26Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>10/04/2012 20:55:42</con:value>
+		<con:value>10/05/2012 14:35:26</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-11-03T00:00:00Z</con:value>
+		<con:value>2012-11-04T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>CorrectedLocalHCID</con:name>
@@ -4132,25 +4132,25 @@ assert (docData.size() != 0)</scriptText>
 		<script/>
 	</con:config>
 </con:testStep>
-<con:setupScript></con:setupScript>
+<con:setupScript/>
 <con:tearDownScript>
 </con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-10-04T20:55:45Z</con:value>
+		<con:value>2012-10-05T14:35:28Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-10-04T21:05:45Z</con:value>
+		<con:value>2012-10-05T14:45:28Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>10/04/2012 20:55:45</con:value>
+		<con:value>10/05/2012 14:35:28</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-11-03T00:00:00Z</con:value>
+		<con:value>2012-11-04T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -4210,6 +4210,7 @@ assert (docData.size() != 0)</scriptText>
 nhinc.FileUtils.backupConfiguration(log);
 nhinc.FileUtils.updateGatewayProperty("purposeForUseEnabled","true", log);
 nhinc.FileUtils.updateProperty(System.env['NHINC_PROPERTIES_DIR'], "purposeUse.properties", "2.2","true", log);
+nhinc.FileUtils.updateProperty(System.env['NHINC_PROPERTIES_DIR'], "purposeUse.properties", "1.1","true", log);
 nhinc.FileUtils.moveFile(context.expand(testSuite.project.resourceRoot), "uddiConnectionInfo_g1.xml", System.env['NHINC_PROPERTIES_DIR'], "uddiConnectionInfo.xml", log);
 nhinc.FileUtils.changeSpringConfig("PurposeUseProxyConfig.xml", "community", log);</con:setupScript>
 <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(log);</con:tearDownScript>
@@ -4701,44 +4702,7 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 <con:setupScript>
 
 </con:setupScript>
-<con:tearDownScript>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-
-File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
-File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
-
-File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml");
-File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
-
-void MoveFile(File sourceFile, File destinationFile, log)
-
-	if(sourceFile.exists()
-			{
-				def reader = sourceFile.newReader();
-				destinationFile.withWriter
-				{ writer ->       
-					writer &lt;&lt; reader;  
-				}   
-				reader.close()
-			} 
-			else {
-			   log.info("unable to find source file " + sourceFile)
-			}   
-}
-
-MoveFile(backupInternalFile, sourceInternalFile, log);
-MoveFile(backupUddiFile, sourceUddiFile, log);
-
-void DeleteFile(File file, log) {  
-			if(file.exists()) {    
-			   log.info("deleting file " + file);
-			   file.delete();
-			} else {
-			   log.info("file not found, skipping delete for " + file)
-			}
-}
-
-DeleteFile(backupInternalFile, log);
-DeleteFile(backupUddiFile, log);
+<con:tearDownScript>
 </con:tearDownScript>
 <con:properties>
 	<con:property>
@@ -5595,7 +5559,7 @@ DeleteFile(backupUddiFile, log);
 		<script/>
 	</con:config>
 </con:testStep>
-<con:setupScript></con:setupScript>
+<con:setupScript/>
 <con:tearDownScript>
 </con:tearDownScript>
 <con:properties>
@@ -5930,7 +5894,7 @@ DeleteFile(backupUddiFile, log);
 		<script/>
 	</con:config>
 </con:testStep>
-<con:setupScript></con:setupScript>
+<con:setupScript/>
 <con:tearDownScript>
 </con:tearDownScript>
 <con:properties>
@@ -6544,7 +6508,7 @@ DeleteFile(backupUddiFile, log);
 		<script/>
 	</con:config>
 </con:testStep>
-<con:setupScript></con:setupScript>
+<con:setupScript/>
 <con:tearDownScript>
 </con:tearDownScript>
 <con:properties>
@@ -7127,7 +7091,7 @@ exists( //ns3:PRPA_IN201306UV02/ns3:controlActProcess)</path>
 		<script/>
 	</con:config>
 </con:testStep>
-<con:setupScript></con:setupScript>
+<con:setupScript/>
 <con:tearDownScript>
 </con:tearDownScript>
 <con:properties>
@@ -7446,7 +7410,7 @@ log.info documentID + " " + msgDocID</scriptText>
 		<script/>
 	</con:config>
 </con:testStep>
-<con:setupScript></con:setupScript>
+<con:setupScript/>
 <con:tearDownScript>
 </con:tearDownScript>
 <con:properties>
@@ -7769,44 +7733,7 @@ assert (docData.size() != 0)</scriptText>
 <con:setupScript>
 
 </con:setupScript>
-<con:tearDownScript>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-
-File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
-File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
-
-File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml");
-File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
-
-void MoveFile(File sourceFile, File destinationFile, log)
-
-	if(sourceFile.exists()
-			{
-				def reader = sourceFile.newReader();
-				destinationFile.withWriter
-				{ writer ->       
-					writer &lt;&lt; reader;  
-				}   
-				reader.close()
-			} 
-			else {
-			   log.info("unable to find source file " + sourceFile)
-			}   
-}
-
-MoveFile(backupInternalFile, sourceInternalFile, log);
-MoveFile(backupUddiFile, sourceUddiFile, log);
-
-void DeleteFile(File file, log) {  
-			if(file.exists()) {    
-			   log.info("deleting file " + file);
-			   file.delete();
-			} else {
-			   log.info("file not found, skipping delete for " + file)
-			}
-}
-
-DeleteFile(backupInternalFile, log);
-DeleteFile(backupUddiFile, log);
+<con:tearDownScript>
 </con:tearDownScript>
 <con:properties>
 	<con:property>
@@ -9572,44 +9499,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
 <con:setupScript>
 
 </con:setupScript>
-<con:tearDownScript>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-
-File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
-File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
-
-File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml");
-File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
-
-void MoveFile(File sourceFile, File destinationFile, log)
-
-	if(sourceFile.exists()
-			{
-				def reader = sourceFile.newReader();
-				destinationFile.withWriter
-				{ writer ->       
-					writer &lt;&lt; reader;  
-				}   
-				reader.close()
-			} 
-			else {
-			   log.info("unable to find source file " + sourceFile)
-			}   
-}
-
-MoveFile(backupInternalFile, sourceInternalFile, log);
-MoveFile(backupUddiFile, sourceUddiFile, log);
-
-void DeleteFile(File file, log) {  
-			if(file.exists()) {    
-			   log.info("deleting file " + file);
-			   file.delete();
-			} else {
-			   log.info("file not found, skipping delete for " + file)
-			}
-}
-
-DeleteFile(backupInternalFile, log);
-DeleteFile(backupUddiFile, log);
+<con:tearDownScript>
 </con:tearDownScript>
 <con:properties>
 	<con:property>
@@ -9686,6 +9576,7 @@ DeleteFile(backupUddiFile, log);
 nhinc.FileUtils.backupConfiguration(log);
 nhinc.FileUtils.updateGatewayProperty("purposeForUseEnabled","true", log);
 nhinc.FileUtils.updateProperty(System.env['NHINC_PROPERTIES_DIR'], "purposeUse.properties", "2.2","true", log);
+nhinc.FileUtils.updateProperty(System.env['NHINC_PROPERTIES_DIR'], "purposeUse.properties", "1.1","true", log);
 nhinc.FileUtils.moveFile(context.expand(testSuite.project.resourceRoot), "uddiConnectionInfo_g0.xml", System.env['NHINC_PROPERTIES_DIR'], "uddiConnectionInfo.xml", log);
 nhinc.FileUtils.changeSpringConfig("PurposeUseProxyConfig.xml", "community", log);</con:setupScript>
 <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(log);</con:tearDownScript>
@@ -10174,7 +10065,7 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 		<script/>
 	</con:config>
 </con:testStep>
-<con:setupScript></con:setupScript>
+<con:setupScript/>
 <con:tearDownScript>
 </con:tearDownScript>
 <con:properties>
@@ -10544,7 +10435,7 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 		<script/>
 	</con:config>
 </con:testStep>
-<con:setupScript></con:setupScript>
+<con:setupScript/>
 <con:tearDownScript>
 
 </con:tearDownScript>
@@ -11044,7 +10935,7 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 		<script/>
 	</con:config>
 </con:testStep>
-<con:setupScript></con:setupScript>
+<con:setupScript/>
 <con:tearDownScript>
 </con:tearDownScript>
 <con:properties>
@@ -11375,7 +11266,7 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 		<script/>
 	</con:config>
 </con:testStep>
-<con:setupScript></con:setupScript>
+<con:setupScript/>
 <con:tearDownScript>
 </con:tearDownScript>
 <con:properties>
@@ -11988,7 +11879,7 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 		<script/>
 	</con:config>
 </con:testStep>
-<con:setupScript></con:setupScript>
+<con:setupScript/>
 <con:tearDownScript>
 </con:tearDownScript>
 <con:properties>
@@ -12571,7 +12462,7 @@ exists( //ns3:PRPA_IN201306UV02/ns3:controlActProcess)</path>
 		<script/>
 	</con:config>
 </con:testStep>
-<con:setupScript></con:setupScript>
+<con:setupScript/>
 <con:tearDownScript>
 </con:tearDownScript>
 <con:properties>
@@ -12890,7 +12781,7 @@ log.info documentID + " " + msgDocID</scriptText>
 		<script/>
 	</con:config>
 </con:testStep>
-<con:setupScript></con:setupScript>
+<con:setupScript/>
 <con:tearDownScript>
 </con:tearDownScript>
 <con:properties>
@@ -13210,7 +13101,7 @@ assert (docData.size() != 0)</scriptText>
 		<script/>
 	</con:config>
 </con:testStep>
-<con:setupScript></con:setupScript>
+<con:setupScript/>
 <con:tearDownScript>
 </con:tearDownScript>
 <con:properties>
@@ -13663,7 +13554,7 @@ assert (docData.size() != 0)</scriptText>
 		<script/>
 	</con:config>
 </con:testStep>
-<con:setupScript></con:setupScript>
+<con:setupScript/>
 <con:tearDownScript>
 </con:tearDownScript>
 <con:properties>
@@ -13741,6 +13632,7 @@ assert (docData.size() != 0)</scriptText>
 nhinc.FileUtils.backupConfiguration(log);
 nhinc.FileUtils.updateGatewayProperty("purposeForUseEnabled","false", log);
 nhinc.FileUtils.updateProperty(System.env['NHINC_PROPERTIES_DIR'], "purposeUse.properties", "2.2","true", log);
+nhinc.FileUtils.updateProperty(System.env['NHINC_PROPERTIES_DIR'], "purposeUse.properties", "1.1","true", log);
 nhinc.FileUtils.moveFile(context.expand(testSuite.project.resourceRoot), "uddiConnectionInfo_g1.xml", System.env['NHINC_PROPERTIES_DIR'], "uddiConnectionInfo.xml", log);
 nhinc.FileUtils.changeSpringConfig("PurposeUseProxyConfig.xml", "community", log);</con:setupScript>
 <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(log);</con:tearDownScript>
@@ -14232,44 +14124,7 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 <con:setupScript>
 
 </con:setupScript>
-<con:tearDownScript>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-
-File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
-File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
-
-File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml");
-File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
-
-void MoveFile(File sourceFile, File destinationFile, log)
-
-	if(sourceFile.exists()
-			{
-				def reader = sourceFile.newReader();
-				destinationFile.withWriter
-				{ writer ->       
-					writer &lt;&lt; reader;  
-				}   
-				reader.close()
-			} 
-			else {
-			   log.info("unable to find source file " + sourceFile)
-			}   
-}
-
-MoveFile(backupInternalFile, sourceInternalFile, log);
-MoveFile(backupUddiFile, sourceUddiFile, log);
-
-void DeleteFile(File file, log) {  
-			if(file.exists()) {    
-			   log.info("deleting file " + file);
-			   file.delete();
-			} else {
-			   log.info("file not found, skipping delete for " + file)
-			}
-}
-
-DeleteFile(backupInternalFile, log);
-DeleteFile(backupUddiFile, log);
+<con:tearDownScript>
 </con:tearDownScript>
 <con:properties>
 	<con:property>
@@ -15126,7 +14981,7 @@ DeleteFile(backupUddiFile, log);
 		<script/>
 	</con:config>
 </con:testStep>
-<con:setupScript></con:setupScript>
+<con:setupScript/>
 <con:tearDownScript>
 </con:tearDownScript>
 <con:properties>
@@ -15461,7 +15316,7 @@ DeleteFile(backupUddiFile, log);
 		<script/>
 	</con:config>
 </con:testStep>
-<con:setupScript></con:setupScript>
+<con:setupScript/>
 <con:tearDownScript>
 </con:tearDownScript>
 <con:properties>
@@ -16075,7 +15930,7 @@ DeleteFile(backupUddiFile, log);
 		<script/>
 	</con:config>
 </con:testStep>
-<con:setupScript></con:setupScript>
+<con:setupScript/>
 <con:tearDownScript>
 </con:tearDownScript>
 <con:properties>
@@ -16658,7 +16513,7 @@ exists( //ns3:PRPA_IN201306UV02/ns3:controlActProcess)</path>
 		<script/>
 	</con:config>
 </con:testStep>
-<con:setupScript></con:setupScript>
+<con:setupScript/>
 <con:tearDownScript>
 </con:tearDownScript>
 <con:properties>
@@ -16977,7 +16832,7 @@ log.info documentID + " " + msgDocID</scriptText>
 		<script/>
 	</con:config>
 </con:testStep>
-<con:setupScript></con:setupScript>
+<con:setupScript/>
 <con:tearDownScript>
 </con:tearDownScript>
 <con:properties>
@@ -17300,44 +17155,7 @@ assert (docData.size() != 0)</scriptText>
 <con:setupScript>
 
 </con:setupScript>
-<con:tearDownScript>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-
-File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
-File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
-
-File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml");
-File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
-
-void MoveFile(File sourceFile, File destinationFile, log)
-
-	if(sourceFile.exists()
-			{
-				def reader = sourceFile.newReader();
-				destinationFile.withWriter
-				{ writer ->       
-					writer &lt;&lt; reader;  
-				}   
-				reader.close()
-			} 
-			else {
-			   log.info("unable to find source file " + sourceFile)
-			}   
-}
-
-MoveFile(backupInternalFile, sourceInternalFile, log);
-MoveFile(backupUddiFile, sourceUddiFile, log);
-
-void DeleteFile(File file, log) {  
-			if(file.exists()) {    
-			   log.info("deleting file " + file);
-			   file.delete();
-			} else {
-			   log.info("file not found, skipping delete for " + file)
-			}
-}
-
-DeleteFile(backupInternalFile, log);
-DeleteFile(backupUddiFile, log);
+<con:tearDownScript>
 </con:tearDownScript>
 <con:properties>
 	<con:property>
@@ -19103,44 +18921,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
 <con:setupScript>
 
 </con:setupScript>
-<con:tearDownScript>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-
-File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
-File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
-
-File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml");
-File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
-
-void MoveFile(File sourceFile, File destinationFile, log)
-
-	if(sourceFile.exists()
-			{
-				def reader = sourceFile.newReader();
-				destinationFile.withWriter
-				{ writer ->       
-					writer &lt;&lt; reader;  
-				}   
-				reader.close()
-			} 
-			else {
-			   log.info("unable to find source file " + sourceFile)
-			}   
-}
-
-MoveFile(backupInternalFile, sourceInternalFile, log);
-MoveFile(backupUddiFile, sourceUddiFile, log);
-
-void DeleteFile(File file, log) {  
-			if(file.exists()) {    
-			   log.info("deleting file " + file);
-			   file.delete();
-			} else {
-			   log.info("file not found, skipping delete for " + file)
-			}
-}
-
-DeleteFile(backupInternalFile, log);
-DeleteFile(backupUddiFile, log);
+<con:tearDownScript>
 </con:tearDownScript>
 <con:properties>
 	<con:property>
@@ -19217,6 +18998,7 @@ DeleteFile(backupUddiFile, log);
 nhinc.FileUtils.backupConfiguration(log);
 nhinc.FileUtils.updateGatewayProperty("purposeForUseEnabled","false", log);
 nhinc.FileUtils.updateProperty(System.env['NHINC_PROPERTIES_DIR'], "purposeUse.properties", "2.2","true", log);
+nhinc.FileUtils.updateProperty(System.env['NHINC_PROPERTIES_DIR'], "purposeUse.properties", "1.1","true", log);
 nhinc.FileUtils.moveFile(context.expand(testSuite.project.resourceRoot), "uddiConnectionInfo_g0.xml", System.env['NHINC_PROPERTIES_DIR'], "uddiConnectionInfo.xml", log);
 nhinc.FileUtils.changeSpringConfig("PurposeUseProxyConfig.xml", "community", log);</con:setupScript>
 <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(log);</con:tearDownScript>
@@ -19705,7 +19487,7 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 		<script/>
 	</con:config>
 </con:testStep>
-<con:setupScript></con:setupScript>
+<con:setupScript/>
 <con:tearDownScript>
 </con:tearDownScript>
 <con:properties>
@@ -20075,7 +19857,7 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 		<script/>
 	</con:config>
 </con:testStep>
-<con:setupScript></con:setupScript>
+<con:setupScript/>
 <con:tearDownScript>
 
 </con:tearDownScript>
@@ -20575,7 +20357,7 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 		<script/>
 	</con:config>
 </con:testStep>
-<con:setupScript></con:setupScript>
+<con:setupScript/>
 <con:tearDownScript>
 </con:tearDownScript>
 <con:properties>
@@ -20906,7 +20688,7 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 		<script/>
 	</con:config>
 </con:testStep>
-<con:setupScript></con:setupScript>
+<con:setupScript/>
 <con:tearDownScript>
 </con:tearDownScript>
 <con:properties>
@@ -21519,7 +21301,7 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 		<script/>
 	</con:config>
 </con:testStep>
-<con:setupScript></con:setupScript>
+<con:setupScript/>
 <con:tearDownScript>
 </con:tearDownScript>
 <con:properties>
@@ -22102,7 +21884,7 @@ exists( //ns3:PRPA_IN201306UV02/ns3:controlActProcess)</path>
 		<script/>
 	</con:config>
 </con:testStep>
-<con:setupScript></con:setupScript>
+<con:setupScript/>
 <con:tearDownScript>
 </con:tearDownScript>
 <con:properties>
@@ -22421,7 +22203,7 @@ log.info documentID + " " + msgDocID</scriptText>
 		<script/>
 	</con:config>
 </con:testStep>
-<con:setupScript></con:setupScript>
+<con:setupScript/>
 <con:tearDownScript>
 </con:tearDownScript>
 <con:properties>
@@ -22741,7 +22523,7 @@ assert (docData.size() != 0)</scriptText>
 		<script/>
 	</con:config>
 </con:testStep>
-<con:setupScript></con:setupScript>
+<con:setupScript/>
 <con:tearDownScript>
 </con:tearDownScript>
 <con:properties>
@@ -23194,7 +22976,7 @@ assert (docData.size() != 0)</scriptText>
 		<script/>
 	</con:config>
 </con:testStep>
-<con:setupScript></con:setupScript>
+<con:setupScript/>
 <con:tearDownScript>
 </con:tearDownScript>
 <con:properties>
@@ -23763,44 +23545,7 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 <con:setupScript>
 
 </con:setupScript>
-<con:tearDownScript>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-
-File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
-File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
-
-File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml");
-File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
-
-void MoveFile(File sourceFile, File destinationFile, log)
-
-	if(sourceFile.exists()
-			{
-				def reader = sourceFile.newReader();
-				destinationFile.withWriter
-				{ writer ->       
-					writer &lt;&lt; reader;  
-				}   
-				reader.close()
-			} 
-			else {
-			   log.info("unable to find source file " + sourceFile)
-			}   
-}
-
-MoveFile(backupInternalFile, sourceInternalFile, log);
-MoveFile(backupUddiFile, sourceUddiFile, log);
-
-void DeleteFile(File file, log) {  
-			if(file.exists()) {    
-			   log.info("deleting file " + file);
-			   file.delete();
-			} else {
-			   log.info("file not found, skipping delete for " + file)
-			}
-}
-
-DeleteFile(backupInternalFile, log);
-DeleteFile(backupUddiFile, log);
+<con:tearDownScript>
 </con:tearDownScript>
 <con:properties>
 	<con:property>
@@ -24657,7 +24402,7 @@ DeleteFile(backupUddiFile, log);
 		<script/>
 	</con:config>
 </con:testStep>
-<con:setupScript></con:setupScript>
+<con:setupScript/>
 <con:tearDownScript>
 </con:tearDownScript>
 <con:properties>
@@ -24992,7 +24737,7 @@ DeleteFile(backupUddiFile, log);
 		<script/>
 	</con:config>
 </con:testStep>
-<con:setupScript></con:setupScript>
+<con:setupScript/>
 <con:tearDownScript>
 </con:tearDownScript>
 <con:properties>
@@ -25606,7 +25351,7 @@ DeleteFile(backupUddiFile, log);
 		<script/>
 	</con:config>
 </con:testStep>
-<con:setupScript></con:setupScript>
+<con:setupScript/>
 <con:tearDownScript>
 </con:tearDownScript>
 <con:properties>
@@ -26189,7 +25934,7 @@ exists( //ns3:PRPA_IN201306UV02/ns3:controlActProcess)</path>
 		<script/>
 	</con:config>
 </con:testStep>
-<con:setupScript></con:setupScript>
+<con:setupScript/>
 <con:tearDownScript>
 </con:tearDownScript>
 <con:properties>
@@ -26508,7 +26253,7 @@ log.info documentID + " " + msgDocID</scriptText>
 		<script/>
 	</con:config>
 </con:testStep>
-<con:setupScript></con:setupScript>
+<con:setupScript/>
 <con:tearDownScript>
 </con:tearDownScript>
 <con:properties>
@@ -26831,44 +26576,7 @@ assert (docData.size() != 0)</scriptText>
 <con:setupScript>
 
 </con:setupScript>
-<con:tearDownScript>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-
-File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
-File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
-
-File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml");
-File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
-
-void MoveFile(File sourceFile, File destinationFile, log)
-
-	if(sourceFile.exists()
-			{
-				def reader = sourceFile.newReader();
-				destinationFile.withWriter
-				{ writer ->       
-					writer &lt;&lt; reader;  
-				}   
-				reader.close()
-			} 
-			else {
-			   log.info("unable to find source file " + sourceFile)
-			}   
-}
-
-MoveFile(backupInternalFile, sourceInternalFile, log);
-MoveFile(backupUddiFile, sourceUddiFile, log);
-
-void DeleteFile(File file, log) {  
-			if(file.exists()) {    
-			   log.info("deleting file " + file);
-			   file.delete();
-			} else {
-			   log.info("file not found, skipping delete for " + file)
-			}
-}
-
-DeleteFile(backupInternalFile, log);
-DeleteFile(backupUddiFile, log);
+<con:tearDownScript>
 </con:tearDownScript>
 <con:properties>
 	<con:property>
@@ -28634,44 +28342,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
 <con:setupScript>
 
 </con:setupScript>
-<con:tearDownScript>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-
-File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
-File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
-
-File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml");
-File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
-
-void MoveFile(File sourceFile, File destinationFile, log)
-
-	if(sourceFile.exists()
-			{
-				def reader = sourceFile.newReader();
-				destinationFile.withWriter
-				{ writer ->       
-					writer &lt;&lt; reader;  
-				}   
-				reader.close()
-			} 
-			else {
-			   log.info("unable to find source file " + sourceFile)
-			}   
-}
-
-MoveFile(backupInternalFile, sourceInternalFile, log);
-MoveFile(backupUddiFile, sourceUddiFile, log);
-
-void DeleteFile(File file, log) {  
-			if(file.exists()) {    
-			   log.info("deleting file " + file);
-			   file.delete();
-			} else {
-			   log.info("file not found, skipping delete for " + file)
-			}
-}
-
-DeleteFile(backupInternalFile, log);
-DeleteFile(backupUddiFile, log);
+<con:tearDownScript>
 </con:tearDownScript>
 <con:properties>
 	<con:property>
@@ -29236,7 +28907,7 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 		<script/>
 	</con:config>
 </con:testStep>
-<con:setupScript></con:setupScript>
+<con:setupScript/>
 <con:tearDownScript>
 </con:tearDownScript>
 <con:properties>
@@ -29606,7 +29277,7 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 		<script/>
 	</con:config>
 </con:testStep>
-<con:setupScript></con:setupScript>
+<con:setupScript/>
 <con:tearDownScript>
 
 </con:tearDownScript>
@@ -30106,7 +29777,7 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 		<script/>
 	</con:config>
 </con:testStep>
-<con:setupScript></con:setupScript>
+<con:setupScript/>
 <con:tearDownScript>
 </con:tearDownScript>
 <con:properties>
@@ -30437,7 +30108,7 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 		<script/>
 	</con:config>
 </con:testStep>
-<con:setupScript></con:setupScript>
+<con:setupScript/>
 <con:tearDownScript>
 </con:tearDownScript>
 <con:properties>
@@ -31050,7 +30721,7 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 		<script/>
 	</con:config>
 </con:testStep>
-<con:setupScript></con:setupScript>
+<con:setupScript/>
 <con:tearDownScript>
 </con:tearDownScript>
 <con:properties>
@@ -31633,7 +31304,7 @@ exists( //ns3:PRPA_IN201306UV02/ns3:controlActProcess)</path>
 		<script/>
 	</con:config>
 </con:testStep>
-<con:setupScript></con:setupScript>
+<con:setupScript/>
 <con:tearDownScript>
 </con:tearDownScript>
 <con:properties>
@@ -31952,7 +31623,7 @@ log.info documentID + " " + msgDocID</scriptText>
 		<script/>
 	</con:config>
 </con:testStep>
-<con:setupScript></con:setupScript>
+<con:setupScript/>
 <con:tearDownScript>
 </con:tearDownScript>
 <con:properties>
@@ -32272,7 +31943,7 @@ assert (docData.size() != 0)</scriptText>
 		<script/>
 	</con:config>
 </con:testStep>
-<con:setupScript></con:setupScript>
+<con:setupScript/>
 <con:tearDownScript>
 </con:tearDownScript>
 <con:properties>
@@ -32725,7 +32396,7 @@ assert (docData.size() != 0)</scriptText>
 		<script/>
 	</con:config>
 </con:testStep>
-<con:setupScript></con:setupScript>
+<con:setupScript/>
 <con:tearDownScript>
 </con:tearDownScript>
 <con:properties>
@@ -33294,44 +32965,7 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 <con:setupScript>
 
 </con:setupScript>
-<con:tearDownScript>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-
-File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
-File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
-
-File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml");
-File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
-
-void MoveFile(File sourceFile, File destinationFile, log)
-
-	if(sourceFile.exists()
-			{
-				def reader = sourceFile.newReader();
-				destinationFile.withWriter
-				{ writer ->       
-					writer &lt;&lt; reader;  
-				}   
-				reader.close()
-			} 
-			else {
-			   log.info("unable to find source file " + sourceFile)
-			}   
-}
-
-MoveFile(backupInternalFile, sourceInternalFile, log);
-MoveFile(backupUddiFile, sourceUddiFile, log);
-
-void DeleteFile(File file, log) {  
-			if(file.exists()) {    
-			   log.info("deleting file " + file);
-			   file.delete();
-			} else {
-			   log.info("file not found, skipping delete for " + file)
-			}
-}
-
-DeleteFile(backupInternalFile, log);
-DeleteFile(backupUddiFile, log);
+<con:tearDownScript>
 </con:tearDownScript>
 <con:properties>
 	<con:property>
@@ -34188,7 +33822,7 @@ DeleteFile(backupUddiFile, log);
 		<script/>
 	</con:config>
 </con:testStep>
-<con:setupScript></con:setupScript>
+<con:setupScript/>
 <con:tearDownScript>
 </con:tearDownScript>
 <con:properties>
@@ -34523,7 +34157,7 @@ DeleteFile(backupUddiFile, log);
 		<script/>
 	</con:config>
 </con:testStep>
-<con:setupScript></con:setupScript>
+<con:setupScript/>
 <con:tearDownScript>
 </con:tearDownScript>
 <con:properties>
@@ -35137,7 +34771,7 @@ DeleteFile(backupUddiFile, log);
 		<script/>
 	</con:config>
 </con:testStep>
-<con:setupScript></con:setupScript>
+<con:setupScript/>
 <con:tearDownScript>
 </con:tearDownScript>
 <con:properties>
@@ -35720,7 +35354,7 @@ exists( //ns3:PRPA_IN201306UV02/ns3:controlActProcess)</path>
 		<script/>
 	</con:config>
 </con:testStep>
-<con:setupScript></con:setupScript>
+<con:setupScript/>
 <con:tearDownScript>
 </con:tearDownScript>
 <con:properties>
@@ -36039,7 +35673,7 @@ log.info documentID + " " + msgDocID</scriptText>
 		<script/>
 	</con:config>
 </con:testStep>
-<con:setupScript></con:setupScript>
+<con:setupScript/>
 <con:tearDownScript>
 </con:tearDownScript>
 <con:properties>
@@ -36362,44 +35996,7 @@ assert (docData.size() != 0)</scriptText>
 <con:setupScript>
 
 </con:setupScript>
-<con:tearDownScript>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-
-File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
-File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
-
-File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml");
-File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
-
-void MoveFile(File sourceFile, File destinationFile, log)
-
-	if(sourceFile.exists()
-			{
-				def reader = sourceFile.newReader();
-				destinationFile.withWriter
-				{ writer ->       
-					writer &lt;&lt; reader;  
-				}   
-				reader.close()
-			} 
-			else {
-			   log.info("unable to find source file " + sourceFile)
-			}   
-}
-
-MoveFile(backupInternalFile, sourceInternalFile, log);
-MoveFile(backupUddiFile, sourceUddiFile, log);
-
-void DeleteFile(File file, log) {  
-			if(file.exists()) {    
-			   log.info("deleting file " + file);
-			   file.delete();
-			} else {
-			   log.info("file not found, skipping delete for " + file)
-			}
-}
-
-DeleteFile(backupInternalFile, log);
-DeleteFile(backupUddiFile, log);
+<con:tearDownScript>
 </con:tearDownScript>
 <con:properties>
 	<con:property>
@@ -38165,44 +37762,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
 <con:setupScript>
 
 </con:setupScript>
-<con:tearDownScript>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-
-File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
-File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
-
-File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml");
-File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
-
-void MoveFile(File sourceFile, File destinationFile, log)
-
-	if(sourceFile.exists()
-			{
-				def reader = sourceFile.newReader();
-				destinationFile.withWriter
-				{ writer ->       
-					writer &lt;&lt; reader;  
-				}   
-				reader.close()
-			} 
-			else {
-			   log.info("unable to find source file " + sourceFile)
-			}   
-}
-
-MoveFile(backupInternalFile, sourceInternalFile, log);
-MoveFile(backupUddiFile, sourceUddiFile, log);
-
-void DeleteFile(File file, log) {  
-			if(file.exists()) {    
-			   log.info("deleting file " + file);
-			   file.delete();
-			} else {
-			   log.info("file not found, skipping delete for " + file)
-			}
-}
-
-DeleteFile(backupInternalFile, log);
-DeleteFile(backupUddiFile, log);
+<con:tearDownScript>
 </con:tearDownScript>
 <con:properties>
 	<con:property>

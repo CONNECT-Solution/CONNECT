@@ -614,7 +614,7 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 			</con:request>
 		</con:config>
 	</con:testStep><con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep>
-	<con:setupScript></con:setupScript>
+	<con:setupScript/>
 <con:tearDownScript>
 </con:tearDownScript>
 <con:properties>
@@ -978,7 +978,7 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 	</con:request>
 </con:config>
 </con:testStep>
-<con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript></con:setupScript>
+<con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript/>
 <con:tearDownScript>
 
 </con:tearDownScript>
@@ -1472,7 +1472,7 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 	</con:request>
 </con:config>
 </con:testStep>
-<con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript></con:setupScript>
+<con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript/>
 <con:tearDownScript>
 </con:tearDownScript>
 <con:properties>
@@ -1797,7 +1797,7 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 	</con:request>
 </con:config>
 </con:testStep>
-<con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript></con:setupScript>
+<con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript/>
 <con:tearDownScript>
 </con:tearDownScript>
 <con:properties>
@@ -2404,7 +2404,7 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 	</con:request>
 </con:config>
 </con:testStep>
-<con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript></con:setupScript>
+<con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript/>
 <con:tearDownScript>
 </con:tearDownScript>
 <con:properties>
@@ -2981,7 +2981,7 @@ exists( //ns3:PRPA_IN201306UV02/ns3:controlActProcess)</path>
 }</script>
 </con:config>
 </con:testStep>
-<con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript></con:setupScript>
+<con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript/>
 <con:tearDownScript>
 </con:tearDownScript>
 <con:properties>
@@ -3294,7 +3294,7 @@ log.info documentID + " " + msgDocID</scriptText>
 	</con:request>
 </con:config>
 </con:testStep>
-<con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript></con:setupScript>
+<con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript/>
 <con:tearDownScript>
 </con:tearDownScript>
 <con:properties>
@@ -3608,7 +3608,7 @@ assert (docData.size() != 0)</scriptText>
 	</con:request>
 </con:config>
 </con:testStep>
-<con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript></con:setupScript>
+<con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript/>
 <con:tearDownScript>
 </con:tearDownScript>
 <con:properties>
@@ -4055,7 +4055,7 @@ assert (docData.size() != 0)</scriptText>
 		<delay>8000</delay>
 	</con:config>
 </con:testStep>
-<con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript></con:setupScript>
+<con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript/>
 <con:tearDownScript>
 </con:tearDownScript>
 <con:properties>
@@ -4614,44 +4614,7 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 <con:testStep type="groovy" name="assert PurposeForUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript>
 
 </con:setupScript>
-<con:tearDownScript>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-
-File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
-File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
-
-File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml");
-File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
-
-void MoveFile(File sourceFile, File destinationFile, log)
-
-	if(sourceFile.exists()
-			{
-				def reader = sourceFile.newReader();
-				destinationFile.withWriter
-				{ writer ->       
-					writer &lt;&lt; reader;  
-				}   
-				reader.close()
-			} 
-			else {
-			   log.info("unable to find source file " + sourceFile)
-			}   
-}
-
-MoveFile(backupInternalFile, sourceInternalFile, log);
-MoveFile(backupUddiFile, sourceUddiFile, log);
-
-void DeleteFile(File file, log) {  
-			if(file.exists()) {    
-			   log.info("deleting file " + file);
-			   file.delete();
-			} else {
-			   log.info("file not found, skipping delete for " + file)
-			}
-}
-
-DeleteFile(backupInternalFile, log);
-DeleteFile(backupUddiFile, log);
+<con:tearDownScript>
 </con:tearDownScript>
 <con:properties>
 	<con:property>
@@ -5496,7 +5459,7 @@ DeleteFile(backupUddiFile, log);
 	</con:request>
 </con:config>
 </con:testStep>
-<con:testStep type="groovy" name="assert PurposeForUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript></con:setupScript>
+<con:testStep type="groovy" name="assert PurposeForUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript/>
 <con:tearDownScript>
 </con:tearDownScript>
 <con:properties>
@@ -5825,7 +5788,7 @@ DeleteFile(backupUddiFile, log);
 	</con:request>
 </con:config>
 </con:testStep>
-<con:testStep type="groovy" name="assert PurposeForUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript></con:setupScript>
+<con:testStep type="groovy" name="assert PurposeForUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript/>
 <con:tearDownScript>
 </con:tearDownScript>
 <con:properties>
@@ -6433,7 +6396,7 @@ DeleteFile(backupUddiFile, log);
 	</con:request>
 </con:config>
 </con:testStep>
-<con:testStep type="groovy" name="assert PurposeForUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript></con:setupScript>
+<con:testStep type="groovy" name="assert PurposeForUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript/>
 <con:tearDownScript>
 </con:tearDownScript>
 <con:properties>
@@ -7010,7 +6973,7 @@ exists( //ns3:PRPA_IN201306UV02/ns3:controlActProcess)</path>
 }</script>
 </con:config>
 </con:testStep>
-<con:testStep type="groovy" name="assert PurposeForUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript></con:setupScript>
+<con:testStep type="groovy" name="assert PurposeForUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript/>
 <con:tearDownScript>
 </con:tearDownScript>
 <con:properties>
@@ -7323,7 +7286,7 @@ log.info documentID + " " + msgDocID</scriptText>
 	</con:request>
 </con:config>
 </con:testStep>
-<con:testStep type="groovy" name="assert PurposeForUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript></con:setupScript>
+<con:testStep type="groovy" name="assert PurposeForUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript/>
 <con:tearDownScript>
 </con:tearDownScript>
 <con:properties>
@@ -7640,44 +7603,7 @@ assert (docData.size() != 0)</scriptText>
 <con:testStep type="groovy" name="assert PurposeForUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript>
 
 </con:setupScript>
-<con:tearDownScript>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-
-File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
-File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
-
-File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml");
-File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
-
-void MoveFile(File sourceFile, File destinationFile, log)
-
-	if(sourceFile.exists()
-			{
-				def reader = sourceFile.newReader();
-				destinationFile.withWriter
-				{ writer ->       
-					writer &lt;&lt; reader;  
-				}   
-				reader.close()
-			} 
-			else {
-			   log.info("unable to find source file " + sourceFile)
-			}   
-}
-
-MoveFile(backupInternalFile, sourceInternalFile, log);
-MoveFile(backupUddiFile, sourceUddiFile, log);
-
-void DeleteFile(File file, log) {  
-			if(file.exists()) {    
-			   log.info("deleting file " + file);
-			   file.delete();
-			} else {
-			   log.info("file not found, skipping delete for " + file)
-			}
-}
-
-DeleteFile(backupInternalFile, log);
-DeleteFile(backupUddiFile, log);
+<con:tearDownScript>
 </con:tearDownScript>
 <con:properties>
 	<con:property>
@@ -9419,44 +9345,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
 <con:testStep type="groovy" name="assert PurposeForUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript>
 
 </con:setupScript>
-<con:tearDownScript>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-
-File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
-File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
-
-File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml");
-File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
-
-void MoveFile(File sourceFile, File destinationFile, log)
-
-	if(sourceFile.exists()
-			{
-				def reader = sourceFile.newReader();
-				destinationFile.withWriter
-				{ writer ->       
-					writer &lt;&lt; reader;  
-				}   
-				reader.close()
-			} 
-			else {
-			   log.info("unable to find source file " + sourceFile)
-			}   
-}
-
-MoveFile(backupInternalFile, sourceInternalFile, log);
-MoveFile(backupUddiFile, sourceUddiFile, log);
-
-void DeleteFile(File file, log) {  
-			if(file.exists()) {    
-			   log.info("deleting file " + file);
-			   file.delete();
-			} else {
-			   log.info("file not found, skipping delete for " + file)
-			}
-}
-
-DeleteFile(backupInternalFile, log);
-DeleteFile(backupUddiFile, log);
+<con:tearDownScript>
 </con:tearDownScript>
 <con:properties>
 	<con:property>
@@ -10011,7 +9900,7 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 			</con:request>
 		</con:config>
 	</con:testStep><con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep>
-	<con:setupScript></con:setupScript>
+	<con:setupScript/>
 <con:tearDownScript>
 </con:tearDownScript>
 <con:properties>
@@ -10375,7 +10264,7 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 	</con:request>
 </con:config>
 </con:testStep>
-<con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript></con:setupScript>
+<con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript/>
 <con:tearDownScript>
 
 </con:tearDownScript>
@@ -10869,7 +10758,7 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 	</con:request>
 </con:config>
 </con:testStep>
-<con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript></con:setupScript>
+<con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript/>
 <con:tearDownScript>
 </con:tearDownScript>
 <con:properties>
@@ -11194,7 +11083,7 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 	</con:request>
 </con:config>
 </con:testStep>
-<con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript></con:setupScript>
+<con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript/>
 <con:tearDownScript>
 </con:tearDownScript>
 <con:properties>
@@ -11801,7 +11690,7 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 	</con:request>
 </con:config>
 </con:testStep>
-<con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript></con:setupScript>
+<con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript/>
 <con:tearDownScript>
 </con:tearDownScript>
 <con:properties>
@@ -12378,7 +12267,7 @@ exists( //ns3:PRPA_IN201306UV02/ns3:controlActProcess)</path>
 }</script>
 </con:config>
 </con:testStep>
-<con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript></con:setupScript>
+<con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript/>
 <con:tearDownScript>
 </con:tearDownScript>
 <con:properties>
@@ -12691,7 +12580,7 @@ log.info documentID + " " + msgDocID</scriptText>
 	</con:request>
 </con:config>
 </con:testStep>
-<con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript></con:setupScript>
+<con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript/>
 <con:tearDownScript>
 </con:tearDownScript>
 <con:properties>
@@ -13005,7 +12894,7 @@ assert (docData.size() != 0)</scriptText>
 	</con:request>
 </con:config>
 </con:testStep>
-<con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript></con:setupScript>
+<con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript/>
 <con:tearDownScript>
 </con:tearDownScript>
 <con:properties>
@@ -13452,7 +13341,7 @@ assert (docData.size() != 0)</scriptText>
 		<delay>8000</delay>
 	</con:config>
 </con:testStep>
-<con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript></con:setupScript>
+<con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript/>
 <con:tearDownScript>
 </con:tearDownScript>
 <con:properties>
@@ -14011,44 +13900,7 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 <con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript>
 
 </con:setupScript>
-<con:tearDownScript>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-
-File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
-File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
-
-File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml");
-File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
-
-void MoveFile(File sourceFile, File destinationFile, log)
-
-	if(sourceFile.exists()
-			{
-				def reader = sourceFile.newReader();
-				destinationFile.withWriter
-				{ writer ->       
-					writer &lt;&lt; reader;  
-				}   
-				reader.close()
-			} 
-			else {
-			   log.info("unable to find source file " + sourceFile)
-			}   
-}
-
-MoveFile(backupInternalFile, sourceInternalFile, log);
-MoveFile(backupUddiFile, sourceUddiFile, log);
-
-void DeleteFile(File file, log) {  
-			if(file.exists()) {    
-			   log.info("deleting file " + file);
-			   file.delete();
-			} else {
-			   log.info("file not found, skipping delete for " + file)
-			}
-}
-
-DeleteFile(backupInternalFile, log);
-DeleteFile(backupUddiFile, log);
+<con:tearDownScript>
 </con:tearDownScript>
 <con:properties>
 	<con:property>
@@ -14893,7 +14745,7 @@ DeleteFile(backupUddiFile, log);
 	</con:request>
 </con:config>
 </con:testStep>
-<con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript></con:setupScript>
+<con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript/>
 <con:tearDownScript>
 </con:tearDownScript>
 <con:properties>
@@ -15222,7 +15074,7 @@ DeleteFile(backupUddiFile, log);
 	</con:request>
 </con:config>
 </con:testStep>
-<con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript></con:setupScript>
+<con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript/>
 <con:tearDownScript>
 </con:tearDownScript>
 <con:properties>
@@ -15830,7 +15682,7 @@ DeleteFile(backupUddiFile, log);
 	</con:request>
 </con:config>
 </con:testStep>
-<con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript></con:setupScript>
+<con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript/>
 <con:tearDownScript>
 </con:tearDownScript>
 <con:properties>
@@ -16407,7 +16259,7 @@ exists( //ns3:PRPA_IN201306UV02/ns3:controlActProcess)</path>
 }</script>
 </con:config>
 </con:testStep>
-<con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript></con:setupScript>
+<con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript/>
 <con:tearDownScript>
 </con:tearDownScript>
 <con:properties>
@@ -16720,7 +16572,7 @@ log.info documentID + " " + msgDocID</scriptText>
 	</con:request>
 </con:config>
 </con:testStep>
-<con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript></con:setupScript>
+<con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript/>
 <con:tearDownScript>
 </con:tearDownScript>
 <con:properties>
@@ -17037,44 +16889,7 @@ assert (docData.size() != 0)</scriptText>
 <con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript>
 
 </con:setupScript>
-<con:tearDownScript>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-
-File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
-File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
-
-File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml");
-File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
-
-void MoveFile(File sourceFile, File destinationFile, log)
-
-	if(sourceFile.exists()
-			{
-				def reader = sourceFile.newReader();
-				destinationFile.withWriter
-				{ writer ->       
-					writer &lt;&lt; reader;  
-				}   
-				reader.close()
-			} 
-			else {
-			   log.info("unable to find source file " + sourceFile)
-			}   
-}
-
-MoveFile(backupInternalFile, sourceInternalFile, log);
-MoveFile(backupUddiFile, sourceUddiFile, log);
-
-void DeleteFile(File file, log) {  
-			if(file.exists()) {    
-			   log.info("deleting file " + file);
-			   file.delete();
-			} else {
-			   log.info("file not found, skipping delete for " + file)
-			}
-}
-
-DeleteFile(backupInternalFile, log);
-DeleteFile(backupUddiFile, log);
+<con:tearDownScript>
 </con:tearDownScript>
 <con:properties>
 	<con:property>
@@ -18816,44 +18631,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
 <con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript>
 
 </con:setupScript>
-<con:tearDownScript>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-
-File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
-File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
-
-File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml");
-File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
-
-void MoveFile(File sourceFile, File destinationFile, log)
-
-	if(sourceFile.exists()
-			{
-				def reader = sourceFile.newReader();
-				destinationFile.withWriter
-				{ writer ->       
-					writer &lt;&lt; reader;  
-				}   
-				reader.close()
-			} 
-			else {
-			   log.info("unable to find source file " + sourceFile)
-			}   
-}
-
-MoveFile(backupInternalFile, sourceInternalFile, log);
-MoveFile(backupUddiFile, sourceUddiFile, log);
-
-void DeleteFile(File file, log) {  
-			if(file.exists()) {    
-			   log.info("deleting file " + file);
-			   file.delete();
-			} else {
-			   log.info("file not found, skipping delete for " + file)
-			}
-}
-
-DeleteFile(backupInternalFile, log);
-DeleteFile(backupUddiFile, log);
+<con:tearDownScript>
 </con:tearDownScript>
 <con:properties>
 	<con:property>

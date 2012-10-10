@@ -621,9 +621,7 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 					</con:configuration>
 				</con:assertion>
 				<con:assertion name="Schema Compliance" type="Schema Compliance">
-					<con:configuration>
-						<definition/>
-					</con:configuration>
+					<con:configuration><definition/></con:configuration>
 				</con:assertion>
 				<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 				<con:jmsPropertyConfig/>
@@ -643,19 +641,19 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 	<con:properties>
 		<con:property>
 			<con:name>startDate</con:name>
-			<con:value>2012-10-04T20:46:17Z</con:value>
+			<con:value>2012-10-05T14:31:15Z</con:value>
 		</con:property>
 		<con:property>
 			<con:name>endDate</con:name>
-			<con:value>2012-10-04T20:56:17Z</con:value>
+			<con:value>2012-10-05T14:41:15Z</con:value>
 		</con:property>
 		<con:property>
 			<con:name>sigDate</con:name>
-			<con:value>10/04/2012 20:46:17</con:value>
+			<con:value>10/05/2012 14:31:15</con:value>
 		</con:property>
 		<con:property>
 			<con:name>expireDate</con:name>
-			<con:value>2012-11-03T00:00:00Z</con:value>
+			<con:value>2012-11-04T00:00:00Z</con:value>
 		</con:property>
 	</con:properties>
 	<con:reportParameters/>
@@ -1022,26 +1020,26 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 		<script/>
 	</con:config>
 </con:testStep>
-<con:setupScript></con:setupScript>
+<con:setupScript/>
 <con:tearDownScript>
 
 </con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-10-04T20:46:19Z</con:value>
+		<con:value>2012-10-05T14:31:45Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-10-04T20:56:19Z</con:value>
+		<con:value>2012-10-05T14:41:45Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>10/04/2012 20:46:19</con:value>
+		<con:value>10/05/2012 14:31:45</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-11-03T00:00:00Z</con:value>
+		<con:value>2012-11-04T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 </con:testCase>
@@ -1523,26 +1521,26 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 		<script/>
 	</con:config>
 </con:testStep>
-<con:setupScript></con:setupScript>
+<con:setupScript/>
 <con:tearDownScript>
 
 </con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-10-04T20:46:20Z</con:value>
+		<con:value>2012-10-05T14:31:49Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-10-04T20:56:20Z</con:value>
+		<con:value>2012-10-05T14:41:49Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>10/04/2012 20:46:20</con:value>
+		<con:value>10/05/2012 14:31:49</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-11-03T00:00:00Z</con:value>
+		<con:value>2012-11-04T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -1868,7 +1866,7 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 		<script/>
 	</con:config>
 </con:testStep>
-<con:setupScript></con:setupScript>
+<con:setupScript/>
 <con:tearDownScript>
 
 </con:tearDownScript>
@@ -2139,19 +2137,19 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 	</con:property>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-10-04T20:46:21Z</con:value>
+		<con:value>2012-10-05T14:31:53Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-10-04T20:56:21Z</con:value>
+		<con:value>2012-10-05T14:41:53Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>10/04/2012 20:46:21</con:value>
+		<con:value>10/05/2012 14:31:53</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-11-03T00:00:00Z</con:value>
+		<con:value>2012-11-04T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -2504,7 +2502,7 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 		<script/>
 	</con:config>
 </con:testStep>
-<con:setupScript></con:setupScript>
+<con:setupScript/>
 <con:tearDownScript>
 
 </con:tearDownScript>
@@ -2779,19 +2777,19 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 </con:property>
 <con:property>
 	<con:name>startDate</con:name>
-	<con:value>2012-10-04T20:46:23Z</con:value>
+	<con:value>2012-10-05T14:32:26Z</con:value>
 </con:property>
 <con:property>
 	<con:name>endDate</con:name>
-	<con:value>2012-10-04T20:56:23Z</con:value>
+	<con:value>2012-10-05T14:42:26Z</con:value>
 </con:property>
 <con:property>
 	<con:name>sigDate</con:name>
-	<con:value>10/04/2012 20:46:23</con:value>
+	<con:value>10/05/2012 14:32:26</con:value>
 </con:property>
 <con:property>
 	<con:name>expireDate</con:name>
-	<con:value>2012-11-03T00:00:00Z</con:value>
+	<con:value>2012-11-04T00:00:00Z</con:value>
 </con:property>
 </con:properties>
 <con:reportParameters/>
@@ -3114,26 +3112,26 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 		<script/>
 	</con:config>
 </con:testStep>
-<con:setupScript></con:setupScript>
+<con:setupScript/>
 <con:tearDownScript>
 
 </con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-10-04T20:46:24Z</con:value>
+		<con:value>2012-10-05T14:32:50Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-10-04T20:56:24Z</con:value>
+		<con:value>2012-10-05T14:42:50Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>10/04/2012 20:46:24</con:value>
+		<con:value>10/05/2012 14:32:50</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-11-03T00:00:00Z</con:value>
+		<con:value>2012-11-04T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -3458,7 +3456,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySe
    </soap:Body>
 </soap:Envelope>]]></con:request>
 	<con:assertion type="SOAP Response"/>
-	<con:assertion type="Schema Compliance" disabled="true">
+	<con:assertion type="Schema Compliance">
 		<con:configuration/>
 	</con:assertion>
 	<con:assertion type="SOAP Fault Assertion"/>
@@ -3496,19 +3494,19 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySe
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-10-04T20:46:26Z</con:value>
+		<con:value>2012-10-05T14:33:40Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-10-04T20:56:26Z</con:value>
+		<con:value>2012-10-05T14:43:40Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>10/04/2012 20:46:26</con:value>
+		<con:value>10/05/2012 14:33:40</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-11-03T00:00:00Z</con:value>
+		<con:value>2012-11-04T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
@@ -3812,7 +3810,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySe
 		<script/>
 	</con:config>
 </con:testStep>
-<con:setupScript></con:setupScript>
+<con:setupScript/>
 <con:tearDownScript>
 
 </con:tearDownScript>
@@ -3823,19 +3821,19 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySe
 	</con:property>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-10-04T20:46:28Z</con:value>
+		<con:value>2012-10-05T14:33:52Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-10-04T20:56:28Z</con:value>
+		<con:value>2012-10-05T14:43:52Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>10/04/2012 20:46:28</con:value>
+		<con:value>10/05/2012 14:33:52</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-11-03T00:00:00Z</con:value>
+		<con:value>2012-11-04T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -4208,26 +4206,26 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySe
 		<script/>
 	</con:config>
 </con:testStep>
-<con:setupScript></con:setupScript>
+<con:setupScript/>
 <con:tearDownScript>
 
 </con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-10-04T20:46:29Z</con:value>
+		<con:value>2012-10-05T14:33:55Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-10-04T20:56:29Z</con:value>
+		<con:value>2012-10-05T14:43:55Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>10/04/2012 20:46:29</con:value>
+		<con:value>10/05/2012 14:33:55</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-11-03T00:00:00Z</con:value>
+		<con:value>2012-11-04T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 </con:testCase>
@@ -4782,8 +4780,8 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 		<script/>
 	</con:config>
 </con:testStep>
-<con:setupScript></con:setupScript>
-<con:tearDownScript></con:tearDownScript>
+<con:setupScript/>
+<con:tearDownScript/>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
@@ -5152,8 +5150,8 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 		<script/>
 	</con:config>
 </con:testStep>
-<con:setupScript></con:setupScript>
-<con:tearDownScript></con:tearDownScript>
+<con:setupScript/>
+<con:tearDownScript/>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
@@ -5656,8 +5654,8 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 		<script/>
 	</con:config>
 </con:testStep>
-<con:setupScript></con:setupScript>
-<con:tearDownScript></con:tearDownScript>
+<con:setupScript/>
+<con:tearDownScript/>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
@@ -6003,8 +6001,8 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 		<script/>
 	</con:config>
 </con:testStep>
-<con:setupScript></con:setupScript>
-<con:tearDownScript></con:tearDownScript>
+<con:setupScript/>
+<con:tearDownScript/>
 <con:properties>
 	<con:property>
 		<con:name>LocalHCID</con:name>
@@ -6638,8 +6636,8 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 		<script/>
 	</con:config>
 </con:testStep>
-<con:setupScript></con:setupScript>
-<con:tearDownScript></con:tearDownScript>
+<con:setupScript/>
+<con:tearDownScript/>
 <con:properties>
 	<con:property>
 		<con:name>LocalHCID</con:name>
@@ -7246,8 +7244,8 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 		<script/>
 	</con:config>
 </con:testStep>
-<con:setupScript></con:setupScript>
-<con:tearDownScript></con:tearDownScript>
+<con:setupScript/>
+<con:tearDownScript/>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
@@ -7942,8 +7940,8 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySe
 		<script/>
 	</con:config>
 </con:testStep>
-<con:setupScript></con:setupScript>
-<con:tearDownScript></con:tearDownScript>
+<con:setupScript/>
+<con:tearDownScript/>
 <con:properties>
 	<con:property>
 		<con:name>CorrectedRemoteHCID</con:name>
@@ -9894,7 +9892,7 @@ context.testCase.testSuite.project.setPropertyValue( "UnSubscriptionID", subID )
 		<script/>
 	</con:config>
 </con:testStep>
-<con:setupScript></con:setupScript>
+<con:setupScript/>
 <con:tearDownScript>
 </con:tearDownScript>
 <con:properties>
@@ -10465,7 +10463,7 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 		<script/>
 	</con:config>
 </con:testStep>
-<con:setupScript></con:setupScript>
+<con:setupScript/>
 <con:tearDownScript>
 
 </con:tearDownScript>
@@ -10851,7 +10849,7 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 		<script/>
 	</con:config>
 </con:testStep>
-<con:setupScript></con:setupScript>
+<con:setupScript/>
 <con:tearDownScript>
 
 </con:tearDownScript>
@@ -11357,7 +11355,7 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 		<script/>
 	</con:config>
 </con:testStep>
-<con:setupScript></con:setupScript>
+<con:setupScript/>
 <con:tearDownScript>
 
 </con:tearDownScript>
@@ -11702,7 +11700,7 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 		<script/>
 	</con:config>
 </con:testStep>
-<con:setupScript></con:setupScript>
+<con:setupScript/>
 <con:tearDownScript>
 
 </con:tearDownScript>
@@ -12338,7 +12336,7 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 		<script/>
 	</con:config>
 </con:testStep>
-<con:setupScript></con:setupScript>
+<con:setupScript/>
 <con:tearDownScript>
 
 </con:tearDownScript>
@@ -12948,7 +12946,7 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 		<script/>
 	</con:config>
 </con:testStep>
-<con:setupScript></con:setupScript>
+<con:setupScript/>
 <con:tearDownScript>
 
 </con:tearDownScript>
@@ -13646,7 +13644,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySe
 		<script/>
 	</con:config>
 </con:testStep>
-<con:setupScript></con:setupScript>
+<con:setupScript/>
 <con:tearDownScript>
 
 </con:tearDownScript>
@@ -14042,7 +14040,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySe
 		<script/>
 	</con:config>
 </con:testStep>
-<con:setupScript></con:setupScript>
+<con:setupScript/>
 <con:tearDownScript>
 
 </con:tearDownScript>
@@ -14616,8 +14614,8 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 		<script/>
 	</con:config>
 </con:testStep>
-<con:setupScript></con:setupScript>
-<con:tearDownScript></con:tearDownScript>
+<con:setupScript/>
+<con:tearDownScript/>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
@@ -14986,8 +14984,8 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 		<script/>
 	</con:config>
 </con:testStep>
-<con:setupScript></con:setupScript>
-<con:tearDownScript></con:tearDownScript>
+<con:setupScript/>
+<con:tearDownScript/>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
@@ -15490,8 +15488,8 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 		<script/>
 	</con:config>
 </con:testStep>
-<con:setupScript></con:setupScript>
-<con:tearDownScript></con:tearDownScript>
+<con:setupScript/>
+<con:tearDownScript/>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
@@ -15837,8 +15835,8 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 		<script/>
 	</con:config>
 </con:testStep>
-<con:setupScript></con:setupScript>
-<con:tearDownScript></con:tearDownScript>
+<con:setupScript/>
+<con:tearDownScript/>
 <con:properties>
 	<con:property>
 		<con:name>LocalHCID</con:name>
@@ -16472,8 +16470,8 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 		<script/>
 	</con:config>
 </con:testStep>
-<con:setupScript></con:setupScript>
-<con:tearDownScript></con:tearDownScript>
+<con:setupScript/>
+<con:tearDownScript/>
 <con:properties>
 	<con:property>
 		<con:name>LocalHCID</con:name>
@@ -17080,8 +17078,8 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 		<script/>
 	</con:config>
 </con:testStep>
-<con:setupScript></con:setupScript>
-<con:tearDownScript></con:tearDownScript>
+<con:setupScript/>
+<con:tearDownScript/>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
@@ -17776,8 +17774,8 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySe
 		<script/>
 	</con:config>
 </con:testStep>
-<con:setupScript></con:setupScript>
-<con:tearDownScript></con:tearDownScript>
+<con:setupScript/>
+<con:tearDownScript/>
 <con:properties>
 	<con:property>
 		<con:name>CorrectedRemoteHCID</con:name>
@@ -19728,7 +19726,7 @@ context.testCase.testSuite.project.setPropertyValue( "UnSubscriptionID", subID )
 		<script/>
 	</con:config>
 </con:testStep>
-<con:setupScript></con:setupScript>
+<con:setupScript/>
 <con:tearDownScript>
 </con:tearDownScript>
 <con:properties>
@@ -20683,7 +20681,7 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 		<script/>
 	</con:config>
 </con:testStep>
-<con:setupScript></con:setupScript>
+<con:setupScript/>
 <con:tearDownScript>
 
 </con:tearDownScript>
@@ -21189,7 +21187,7 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 		<script/>
 	</con:config>
 </con:testStep>
-<con:setupScript></con:setupScript>
+<con:setupScript/>
 <con:tearDownScript>
 
 </con:tearDownScript>
@@ -21534,7 +21532,7 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 		<script/>
 	</con:config>
 </con:testStep>
-<con:setupScript></con:setupScript>
+<con:setupScript/>
 <con:tearDownScript>
 
 </con:tearDownScript>
@@ -22170,7 +22168,7 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 		<script/>
 	</con:config>
 </con:testStep>
-<con:setupScript></con:setupScript>
+<con:setupScript/>
 <con:tearDownScript>
 
 </con:tearDownScript>
@@ -22780,7 +22778,7 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 		<script/>
 	</con:config>
 </con:testStep>
-<con:setupScript></con:setupScript>
+<con:setupScript/>
 <con:tearDownScript>
 
 </con:tearDownScript>
@@ -23124,7 +23122,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySe
    </soap:Body>
 </soap:Envelope>]]></con:request>
 	<con:assertion type="SOAP Response"/>
-	<con:assertion type="Schema Compliance" disabled="true">
+	<con:assertion type="Schema Compliance">
 		<con:configuration/>
 	</con:assertion>
 	<con:assertion type="SOAP Fault Assertion"/>
@@ -23478,7 +23476,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySe
 		<script/>
 	</con:config>
 </con:testStep>
-<con:setupScript></con:setupScript>
+<con:setupScript/>
 <con:tearDownScript>
 
 </con:tearDownScript>
@@ -23874,7 +23872,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySe
 		<script/>
 	</con:config>
 </con:testStep>
-<con:setupScript></con:setupScript>
+<con:setupScript/>
 <con:tearDownScript>
 
 </con:tearDownScript>
@@ -24448,8 +24446,8 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 		<script/>
 	</con:config>
 </con:testStep>
-<con:setupScript></con:setupScript>
-<con:tearDownScript></con:tearDownScript>
+<con:setupScript/>
+<con:tearDownScript/>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
@@ -24818,8 +24816,8 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 		<script/>
 	</con:config>
 </con:testStep>
-<con:setupScript></con:setupScript>
-<con:tearDownScript></con:tearDownScript>
+<con:setupScript/>
+<con:tearDownScript/>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
@@ -25322,8 +25320,8 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 		<script/>
 	</con:config>
 </con:testStep>
-<con:setupScript></con:setupScript>
-<con:tearDownScript></con:tearDownScript>
+<con:setupScript/>
+<con:tearDownScript/>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
@@ -25669,8 +25667,8 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 		<script/>
 	</con:config>
 </con:testStep>
-<con:setupScript></con:setupScript>
-<con:tearDownScript></con:tearDownScript>
+<con:setupScript/>
+<con:tearDownScript/>
 <con:properties>
 	<con:property>
 		<con:name>LocalHCID</con:name>
@@ -26304,8 +26302,8 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 		<script/>
 	</con:config>
 </con:testStep>
-<con:setupScript></con:setupScript>
-<con:tearDownScript></con:tearDownScript>
+<con:setupScript/>
+<con:tearDownScript/>
 <con:properties>
 	<con:property>
 		<con:name>LocalHCID</con:name>
@@ -26912,8 +26910,8 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 		<script/>
 	</con:config>
 </con:testStep>
-<con:setupScript></con:setupScript>
-<con:tearDownScript></con:tearDownScript>
+<con:setupScript/>
+<con:tearDownScript/>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
@@ -27608,8 +27606,8 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySe
 		<script/>
 	</con:config>
 </con:testStep>
-<con:setupScript></con:setupScript>
-<con:tearDownScript></con:tearDownScript>
+<con:setupScript/>
+<con:tearDownScript/>
 <con:properties>
 	<con:property>
 		<con:name>CorrectedRemoteHCID</con:name>
@@ -29560,7 +29558,7 @@ context.testCase.testSuite.project.setPropertyValue( "UnSubscriptionID", subID )
 		<script/>
 	</con:config>
 </con:testStep>
-<con:setupScript></con:setupScript>
+<con:setupScript/>
 <con:tearDownScript>
 </con:tearDownScript>
 <con:properties>
@@ -30131,7 +30129,7 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 		<script/>
 	</con:config>
 </con:testStep>
-<con:setupScript></con:setupScript>
+<con:setupScript/>
 <con:tearDownScript>
 
 </con:tearDownScript>
@@ -30517,7 +30515,7 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 		<script/>
 	</con:config>
 </con:testStep>
-<con:setupScript></con:setupScript>
+<con:setupScript/>
 <con:tearDownScript>
 
 </con:tearDownScript>
@@ -31023,7 +31021,7 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 		<script/>
 	</con:config>
 </con:testStep>
-<con:setupScript></con:setupScript>
+<con:setupScript/>
 <con:tearDownScript>
 
 </con:tearDownScript>
@@ -31368,7 +31366,7 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 		<script/>
 	</con:config>
 </con:testStep>
-<con:setupScript></con:setupScript>
+<con:setupScript/>
 <con:tearDownScript>
 
 </con:tearDownScript>
@@ -32004,7 +32002,7 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 		<script/>
 	</con:config>
 </con:testStep>
-<con:setupScript></con:setupScript>
+<con:setupScript/>
 <con:tearDownScript>
 
 </con:tearDownScript>
@@ -32614,7 +32612,7 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 		<script/>
 	</con:config>
 </con:testStep>
-<con:setupScript></con:setupScript>
+<con:setupScript/>
 <con:tearDownScript>
 
 </con:tearDownScript>
@@ -32958,7 +32956,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySe
    </soap:Body>
 </soap:Envelope>]]></con:request>
 	<con:assertion type="SOAP Response"/>
-	<con:assertion type="Schema Compliance" disabled="true">
+	<con:assertion type="Schema Compliance">
 		<con:configuration/>
 	</con:assertion>
 	<con:assertion type="SOAP Fault Assertion"/>
@@ -33312,7 +33310,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySe
 		<script/>
 	</con:config>
 </con:testStep>
-<con:setupScript></con:setupScript>
+<con:setupScript/>
 <con:tearDownScript>
 
 </con:tearDownScript>
@@ -33708,7 +33706,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySe
 		<script/>
 	</con:config>
 </con:testStep>
-<con:setupScript></con:setupScript>
+<con:setupScript/>
 <con:tearDownScript>
 
 </con:tearDownScript>
@@ -34282,8 +34280,8 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 		<script/>
 	</con:config>
 </con:testStep>
-<con:setupScript></con:setupScript>
-<con:tearDownScript></con:tearDownScript>
+<con:setupScript/>
+<con:tearDownScript/>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
@@ -34652,8 +34650,8 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 		<script/>
 	</con:config>
 </con:testStep>
-<con:setupScript></con:setupScript>
-<con:tearDownScript></con:tearDownScript>
+<con:setupScript/>
+<con:tearDownScript/>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
@@ -35156,8 +35154,8 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 		<script/>
 	</con:config>
 </con:testStep>
-<con:setupScript></con:setupScript>
-<con:tearDownScript></con:tearDownScript>
+<con:setupScript/>
+<con:tearDownScript/>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
@@ -35503,8 +35501,8 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 		<script/>
 	</con:config>
 </con:testStep>
-<con:setupScript></con:setupScript>
-<con:tearDownScript></con:tearDownScript>
+<con:setupScript/>
+<con:tearDownScript/>
 <con:properties>
 	<con:property>
 		<con:name>LocalHCID</con:name>
@@ -36138,8 +36136,8 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 		<script/>
 	</con:config>
 </con:testStep>
-<con:setupScript></con:setupScript>
-<con:tearDownScript></con:tearDownScript>
+<con:setupScript/>
+<con:tearDownScript/>
 <con:properties>
 	<con:property>
 		<con:name>LocalHCID</con:name>
@@ -36746,8 +36744,8 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 		<script/>
 	</con:config>
 </con:testStep>
-<con:setupScript></con:setupScript>
-<con:tearDownScript></con:tearDownScript>
+<con:setupScript/>
+<con:tearDownScript/>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
@@ -37442,8 +37440,8 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySe
 		<script/>
 	</con:config>
 </con:testStep>
-<con:setupScript></con:setupScript>
-<con:tearDownScript></con:tearDownScript>
+<con:setupScript/>
+<con:tearDownScript/>
 <con:properties>
 	<con:property>
 		<con:name>CorrectedRemoteHCID</con:name>
@@ -39394,7 +39392,7 @@ context.testCase.testSuite.project.setPropertyValue( "UnSubscriptionID", subID )
 		<script/>
 	</con:config>
 </con:testStep>
-<con:setupScript></con:setupScript>
+<con:setupScript/>
 <con:tearDownScript>
 </con:tearDownScript>
 <con:properties>
