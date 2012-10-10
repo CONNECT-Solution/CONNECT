@@ -195,9 +195,9 @@
             <type>war</type>
             <optional>true</optional>
         </dependency>
-        <!-- Shared JARs - In order for the SKINNY WARs to work you must 
-            include each dependency in the EAR manually and the JARS will be magically 
-            removed from the WAR's WEB-INF/lib -->
+        <!-- Shared JARs - In order for the SKINNY WARs to work you must include
+            each dependency in the EAR manually and the JARS will be magically removed
+            from the WAR's WEB-INF/lib -->
         <dependency>
             <groupId>org.connectopensource</groupId>
             <artifactId>CONNECTCommonTypesLib</artifactId>
@@ -386,7 +386,7 @@
             <groupId>com.megginson.sax</groupId>
             <artifactId>xml-writer</artifactId>
             <version>0.2</version>
-            <!-- <exclusions> <exclusion> <groupId>xml-apis</groupId> <artifactId>xml-apis</artifactId> 
+            <!-- <exclusions> <exclusion> <groupId>xml-apis</groupId> <artifactId>xml-apis</artifactId>
                 </exclusion> </exclusions> -->
         </dependency>
         <dependency>
@@ -593,8 +593,7 @@
                         <version>6</version>
                         <defaultLibBundleDir>lib</defaultLibBundleDir>
                         <skinnyWars>true</skinnyWars>
-                        <!-- this causes all archives to be exploded on server 
-                            SLOW!!! <includeLibInApplicationXml>true</includeLibInApplicationXml> -->
+                        <!-- this causes all archives to be exploded on server SLOW!!! <includeLibInApplicationXml>true</includeLibInApplicationXml> -->
                     </configuration>
                 </plugin>
             </plugins>
@@ -604,6 +603,9 @@
     <profiles>
         <profile>
             <id>PD</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
             <properties>
                 <pd.excluded>false</pd.excluded>
             </properties>
@@ -638,6 +640,9 @@
         </profile>
         <profile>
             <id>AD</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
             <properties>
                 <ad.excluded>false</ad.excluded>
             </properties>
@@ -673,6 +678,9 @@
         </profile>
         <profile>
             <id>DQ</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
             <properties>
                 <dq.excluded>false</dq.excluded>
             </properties>
@@ -701,6 +709,9 @@
         </profile>
         <profile>
             <id>DR</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
             <properties>
                 <dr.excluded>false</dr.excluded>
             </properties>
@@ -736,6 +747,9 @@
         </profile>
         <profile>
             <id>DS</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
             <properties>
                 <ds.excluded>false</ds.excluded>
             </properties>
@@ -771,6 +785,9 @@
         </profile>
         <profile>
             <id>HIEM</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
             <properties>
                 <hiem.excluded>false</hiem.excluded>
             </properties>
@@ -792,6 +809,9 @@
         </profile>
         <profile>
             <id>GUI</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
             <properties>
                 <gui.excluded>false</gui.excluded>
             </properties>
