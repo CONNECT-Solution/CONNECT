@@ -23,4 +23,16 @@ By advancing the adoption of interoperable health IT systems and health informat
         <module>ThirdParty</module>
         <module>Product</module>
     </modules>
+    <licenses>
+        <license>
+            <name>CONNECT License Agreement</name>
+            <url>http://www.connectopensource.org/product/licensing</url>
+        </license>
+    </licenses>
+    <distributionManagement>
+        <site>
+            <id>www.connectopensource.org</id>
+            <url>file://tmp/fullsite</url>
+        </site>
+    </distributionManagement>
 </project>

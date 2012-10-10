@@ -360,7 +360,7 @@
                             <version>2.5.1</version>
                             <configuration>
                                 <dependencyDetailsEnabled>true</dependencyDetailsEnabled>
-                                <dependencyLocationsEnabled>true</dependencyLocationsEnabled>
+                                <dependencyLocationsEnabled>false</dependencyLocationsEnabled>
                             </configuration>
                         </plugin>
                         <plugin>
@@ -390,8 +390,8 @@
                         </plugin>
                         <plugin>
                             <groupId>org.apache.maven.plugins</groupId>
-                            <artifactId>maven-checkstyle-plugin</artifactId>
-                            <version>2.9.1</version>
+                            <artifactId>maven-pmd-plugin</artifactId>
+                            <version>2.7.1</version>
                         </plugin>
                     </reportPlugins>
                 </configuration>
