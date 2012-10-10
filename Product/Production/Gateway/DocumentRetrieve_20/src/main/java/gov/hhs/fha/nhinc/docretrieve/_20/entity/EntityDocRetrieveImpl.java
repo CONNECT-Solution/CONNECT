@@ -28,18 +28,8 @@ package gov.hhs.fha.nhinc.docretrieve._20.entity;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.docretrieve._20.ResponseScrubber;
-import gov.hhs.fha.nhinc.docretrieve.entity.OutboundDocRetrieveAggregator_a0;
-import gov.hhs.fha.nhinc.docretrieve.entity.OutboundDocRetrieveAuditTransformer_a0;
-import gov.hhs.fha.nhinc.docretrieve.entity.OutboundDocRetrieveDelegate;
-import gov.hhs.fha.nhinc.docretrieve.entity.OutboundDocRetrieveOrchestratable;
-import gov.hhs.fha.nhinc.docretrieve.entity.OutboundDocRetrieveOrchestratableImpl;
-import gov.hhs.fha.nhinc.docretrieve.entity.OutboundDocRetrieveOrchestratorImpl;
-import gov.hhs.fha.nhinc.docretrieve.entity.OutboundDocRetrievePolicyTransformer_a0;
+import gov.hhs.fha.nhinc.docretrieve.entity.EntityDocRetrieveOrchImpl;
 import gov.hhs.fha.nhinc.messaging.server.BaseService;
-import gov.hhs.fha.nhinc.orchestration.AuditTransformer;
-import gov.hhs.fha.nhinc.orchestration.NhinAggregator;
-import gov.hhs.fha.nhinc.orchestration.OutboundDelegate;
-import gov.hhs.fha.nhinc.orchestration.PolicyTransformer;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 
 import javax.xml.ws.WebServiceContext;
@@ -48,8 +38,14 @@ import javax.xml.ws.WebServiceContext;
  *
  * @author dunnek
  */
-public class EntityDocRetreiveImpl extends BaseService {
+public class EntityDocRetrieveImpl extends BaseService {
 
+    private EntityDocRetrieveOrchImpl orchImpl;
+    
+    public EntityDocRetrieveImpl(EntityDocRetrieveOrchImpl orchImpl) {
+        this.orchImpl = orchImpl;
+    }
+    
     public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(
             ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType body, final WebServiceContext context) {
         AssertionType assertion = getAssertion(context, null);
@@ -75,16 +71,9 @@ public class EntityDocRetreiveImpl extends BaseService {
     public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(
             ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType body, AssertionType assertion) {
 
-        PolicyTransformer pt = new OutboundDocRetrievePolicyTransformer_a0();
-        AuditTransformer at = new OutboundDocRetrieveAuditTransformer_a0();
-        OutboundDelegate nd = new OutboundDocRetrieveDelegate();
-        NhinAggregator na = new OutboundDocRetrieveAggregator_a0();
-        OutboundDocRetrieveOrchestratable EntityDROrchImpl = new OutboundDocRetrieveOrchestratableImpl(body,
-                assertion, pt, at, nd, na, null);
-        OutboundDocRetrieveOrchestratorImpl oOrchestrator = new OutboundDocRetrieveOrchestratorImpl();
-        oOrchestrator.process(EntityDROrchImpl);
+        RetrieveDocumentSetResponseType response = orchImpl.respondingGatewayCrossGatewayRetrieve(body, assertion);
 
         ResponseScrubber rs = new ResponseScrubber();
-        return rs.Scrub(EntityDROrchImpl.getResponse());
+        return rs.Scrub(response);
     }
 }

@@ -26,10 +26,12 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws;
 
+import gov.hhs.fha.nhinc.generic.GenericFactory;
 import gov.hhs.fha.nhinc.patientdiscovery.NhinPatientDiscoveryImpl;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditLogger;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryException;
 import gov.hhs.fha.nhinc.patientdiscovery.nhin.InboundPatientDiscoveryOrchFactory;
+import gov.hhs.fha.nhinc.patientdiscovery.nhin.InboundPatientDiscoveryOrchestration;
 import gov.hhs.healthit.nhin.PatientDiscoveryFaultType;
 import ihe.iti.xcpd._2009.PRPAIN201305UV02Fault;
 
@@ -90,7 +92,15 @@ public class NhinPatientDiscovery extends PatientDiscoveryBase implements ihe.it
 
     public void setOrchestratorImpl(NhinPatientDiscoveryImpl orchImpl) {
         this.orchImpl = orchImpl;
-        this.orchImpl.configure(new PatientDiscoveryAuditLogger(), InboundPatientDiscoveryOrchFactory.getInstance());
+        this.orchImpl.configure(getPatientDiscoveryAuditLogger(), getOrchestrationFactory());
+    }
+    
+    protected PatientDiscoveryAuditLogger getPatientDiscoveryAuditLogger() {
+        return new PatientDiscoveryAuditLogger();
+    }
+    
+    protected GenericFactory<InboundPatientDiscoveryOrchestration> getOrchestrationFactory() {
+        return InboundPatientDiscoveryOrchFactory.getInstance();
     }
 
 }

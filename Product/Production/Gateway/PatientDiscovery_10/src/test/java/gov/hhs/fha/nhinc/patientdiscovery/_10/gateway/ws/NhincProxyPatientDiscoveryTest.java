@@ -62,14 +62,12 @@ public class NhincProxyPatientDiscoveryTest {
         final PatientDiscoveryServiceFactory mockFactory = context.mock(PatientDiscoveryServiceFactory.class);
 
         NhincProxyPatientDiscovery patientDiscovery = new NhincProxyPatientDiscovery(mockFactory);
+        patientDiscovery.setOrchestratorImpl(mockService);
 
         context.checking(new Expectations() {
             {
                 oneOf(mockService).proxyPRPAIN201305UV(with(same(mockBody)), with(any(WebServiceContext.class)));
                 will(returnValue(expectedResponse));
-
-                oneOf(mockFactory).getNhincProxyPatientDiscoveryImpl();
-                will(returnValue(mockService));
             }
         });
 
