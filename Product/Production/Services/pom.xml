@@ -28,6 +28,7 @@
     </modules>
     <properties>
         <skip.unpack>false</skip.unpack>
+        <skip.source>false</skip.source>
     </properties>
     <dependencies>
         <dependency>
