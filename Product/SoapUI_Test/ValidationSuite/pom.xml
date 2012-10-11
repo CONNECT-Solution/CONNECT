@@ -53,8 +53,8 @@
                 <executions>
                     <execution>
                         <id>unpack-soapui-test-resources</id>
-                        <!-- Using the initialize phase because it is before the generate sources
-                            phase -->
+                        <!-- Using the initialize phase because it is before 
+                            the generate sources phase -->
                         <phase>initialize</phase>
                         <goals>
                             <goal>unpack</goal>
@@ -238,8 +238,10 @@
                         </goals>
                         <configuration>
                             <target>
-                                <copy todir="${project.build.directory}/wsdl" flatten="true">
-                                    <fileset dir="${project.build.directory}/wsdl-extracted">
+                                <copy todir="${project.build.directory}/wsdl"
+                                    flatten="true">
+                                    <fileset
+                                        dir="${project.build.directory}/wsdl-extracted">
                                         <include name="**/*.wsdl" />
                                     </fileset>
                                 </copy>
@@ -254,12 +256,16 @@
                         </goals>
                         <configuration>
                             <target>
-                                <fileset dir="${basedir}/target/soapui/output/" id="soapui.failure.files">
+                                <fileset
+                                    dir="${basedir}/target/soapui/output/"
+                                    id="soapui.failure.files">
                                     <include name="**/*FAILED.txt" />
                                 </fileset>
-                                <pathconvert refid="soapui.failure.files" property="soapui.test.failures.detected"
+                                <pathconvert refid="soapui.failure.files"
+                                    property="soapui.test.failures.detected"
                                     setonempty="false" />
-                                <fail if="soapui.test.failures.detected" message="soapui test failures detected!" />
+                                <fail if="soapui.test.failures.detected"
+                                    message="soapui test failures detected!" />
                             </target>
                         </configuration>
                     </execution>
@@ -279,14 +285,21 @@
                         <artifactId>CONNECTCommonTypesLib</artifactId>
                         <version>${project.version}</version>
                     </dependency>
+                    <dependency>
+                        <groupId>org.connectopensource</groupId>
+                        <artifactId>FileUtils</artifactId>
+                        <version>4.0.0-SNAPSHOT</version>
+                    </dependency>
                 </dependencies>
                 <configuration>
                     <settingsFile>${basedir}/src/main/resources/soapui-settings.xml</settingsFile>
                     <outputFolder>${basedir}/target/soapui/output/</outputFolder>
-                    <systemPropertyVariables>
-                        <NHINC_PROPERTIES_DIR>${project.build.testOutputDirectory}</NHINC_PROPERTIES_DIR>
-                    </systemPropertyVariables>
+
                     <soapuiProperties>
+                        <property>
+                            <name>GatewayPropDir</name>
+                            <value>${project.build.testOutputDirectory}</value>
+                        </property>
                         <property>
                             <name>soapui.logroot</name>
                             <value>${project.build.directory}/soapui/my_custon_logs/</value>
