@@ -27,8 +27,6 @@
                 <sitesearch />
             </googleSearch>
             <sourceLineNumbersEnabled>true</sourceLineNumbersEnabled>
-            <leftColumnClass>span2</leftColumnClass>
-            <bodyColumnClass>span10</bodyColumnClass>
         </fluidoSkin>
     </custom>
 
