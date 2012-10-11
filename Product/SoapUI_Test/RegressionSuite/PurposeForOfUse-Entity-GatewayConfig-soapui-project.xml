@@ -608,7 +608,7 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 			</con:request>
 		</con:config>
 	</con:testStep>
-	<con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript></con:setupScript>
+	<con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript/>
 <con:tearDownScript>
 
 </con:tearDownScript>
@@ -988,7 +988,7 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 	</con:request>
 </con:config>
 </con:testStep>
-<con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript></con:setupScript>
+<con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript/>
 <con:tearDownScript>
 
 </con:tearDownScript>
@@ -1488,7 +1488,7 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 	</con:request>
 </con:config>
 </con:testStep>
-<con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript></con:setupScript>
+<con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript/>
 <con:tearDownScript>
 
 </con:tearDownScript>
@@ -1827,7 +1827,7 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 	</con:request>
 </con:config>
 </con:testStep>
-<con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript></con:setupScript>
+<con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript/>
 <con:tearDownScript>
 
 </con:tearDownScript>
@@ -2457,7 +2457,7 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 	</con:request>
 </con:config>
 </con:testStep><con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep>
-<con:setupScript></con:setupScript>
+<con:setupScript/>
 <con:tearDownScript>
 
 </con:tearDownScript>
@@ -3061,7 +3061,7 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 </con:config>
 </con:testStep>
 <con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep>
-<con:setupScript></con:setupScript>
+<con:setupScript/>
 <con:tearDownScript>
 
 </con:tearDownScript>
@@ -3407,7 +3407,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySe
    </soap:Body>
 </soap:Envelope>]]></con:request>
 	<con:assertion type="SOAP Response"/>
-	<con:assertion type="Schema Compliance" disabled="true">
+	<con:assertion type="Schema Compliance">
 		<con:configuration/>
 	</con:assertion>
 	<con:assertion type="SOAP Fault Assertion"/>
@@ -3747,7 +3747,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySe
 	</con:request>
 </con:config>
 </con:testStep>
-<con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript></con:setupScript>
+<con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript/>
 <con:tearDownScript>
 
 </con:tearDownScript>
@@ -4137,7 +4137,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySe
 		<delay>8000</delay>
 	</con:config>
 </con:testStep>
-<con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript></con:setupScript>
+<con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript/>
 <con:tearDownScript>
 
 </con:tearDownScript>
@@ -4701,8 +4701,8 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 		</con:request>
 	</con:config>
 </con:testStep>
-<con:testStep type="groovy" name="assert PurposeForUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript></con:setupScript>
-<con:tearDownScript></con:tearDownScript>
+<con:testStep type="groovy" name="assert PurposeForUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript/>
+<con:tearDownScript/>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
@@ -5065,8 +5065,8 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 	</con:request>
 </con:config>
 </con:testStep>
-<con:testStep type="groovy" name="assert PurposeForUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript></con:setupScript>
-<con:tearDownScript></con:tearDownScript>
+<con:testStep type="groovy" name="assert PurposeForUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript/>
+<con:tearDownScript/>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
@@ -5563,8 +5563,8 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 	</con:request>
 </con:config>
 </con:testStep>
-<con:testStep type="groovy" name="assert PurposeForUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript></con:setupScript>
-<con:tearDownScript></con:tearDownScript>
+<con:testStep type="groovy" name="assert PurposeForUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript/>
+<con:tearDownScript/>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
@@ -5904,8 +5904,8 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 	</con:request>
 </con:config>
 </con:testStep><con:testStep type="groovy" name="assert PurposeForUse"><con:settings/><con:config><script/></con:config></con:testStep>
-<con:setupScript></con:setupScript>
-<con:tearDownScript></con:tearDownScript>
+<con:setupScript/>
+<con:tearDownScript/>
 <con:properties>
 	<con:property>
 		<con:name>LocalHCID</con:name>
@@ -6533,8 +6533,8 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 	</con:request>
 </con:config>
 </con:testStep>
-<con:testStep type="groovy" name="assert PurposeForUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript></con:setupScript>
-<con:tearDownScript></con:tearDownScript>
+<con:testStep type="groovy" name="assert PurposeForUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript/>
+<con:tearDownScript/>
 <con:properties>
 	<con:property>
 		<con:name>LocalHCID</con:name>
@@ -7135,8 +7135,8 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 		}</script>
 </con:config>
 </con:testStep>
-<con:testStep type="groovy" name="assert PurposeForUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript></con:setupScript>
-<con:tearDownScript></con:tearDownScript>
+<con:testStep type="groovy" name="assert PurposeForUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript/>
+<con:tearDownScript/>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
@@ -7819,8 +7819,8 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySe
 	</con:request>
 </con:config>
 </con:testStep>
-<con:testStep type="groovy" name="assert PurposeForUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript></con:setupScript>
-<con:tearDownScript></con:tearDownScript>
+<con:testStep type="groovy" name="assert PurposeForUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript/>
+<con:tearDownScript/>
 <con:properties>
 	<con:property>
 		<con:name>CorrectedRemoteHCID</con:name>
@@ -9747,7 +9747,7 @@ context.testCase.testSuite.project.setPropertyValue( "UnSubscriptionID", subID )
 		<delay>8000</delay>
 	</con:config>
 </con:testStep>
-<con:testStep type="groovy" name="assert PurposeForUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript></con:setupScript>
+<con:testStep type="groovy" name="assert PurposeForUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript/>
 <con:tearDownScript>
 </con:tearDownScript>
 <con:properties>
@@ -10308,7 +10308,7 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 			</con:request>
 		</con:config>
 	</con:testStep>
-	<con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript></con:setupScript>
+	<con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript/>
 <con:tearDownScript>
 
 </con:tearDownScript>
@@ -10688,7 +10688,7 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 	</con:request>
 </con:config>
 </con:testStep>
-<con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript></con:setupScript>
+<con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript/>
 <con:tearDownScript>
 
 </con:tearDownScript>
@@ -11188,7 +11188,7 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 	</con:request>
 </con:config>
 </con:testStep>
-<con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript></con:setupScript>
+<con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript/>
 <con:tearDownScript>
 
 </con:tearDownScript>
@@ -11527,7 +11527,7 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 	</con:request>
 </con:config>
 </con:testStep>
-<con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript></con:setupScript>
+<con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript/>
 <con:tearDownScript>
 
 </con:tearDownScript>
@@ -12157,7 +12157,7 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 	</con:request>
 </con:config>
 </con:testStep><con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep>
-<con:setupScript></con:setupScript>
+<con:setupScript/>
 <con:tearDownScript>
 
 </con:tearDownScript>
@@ -12761,7 +12761,7 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 </con:config>
 </con:testStep>
 <con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep>
-<con:setupScript></con:setupScript>
+<con:setupScript/>
 <con:tearDownScript>
 
 </con:tearDownScript>
@@ -13105,7 +13105,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySe
    </soap:Body>
 </soap:Envelope>]]></con:request>
 	<con:assertion type="SOAP Response"/>
-	<con:assertion type="Schema Compliance" disabled="true">
+	<con:assertion type="Schema Compliance">
 		<con:configuration/>
 	</con:assertion>
 	<con:assertion type="SOAP Fault Assertion"/>
@@ -13447,7 +13447,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySe
 	</con:request>
 </con:config>
 </con:testStep>
-<con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript></con:setupScript>
+<con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript/>
 <con:tearDownScript>
 
 </con:tearDownScript>
@@ -13837,7 +13837,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySe
 		<delay>8000</delay>
 	</con:config>
 </con:testStep>
-<con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript></con:setupScript>
+<con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript/>
 <con:tearDownScript>
 
 </con:tearDownScript>
@@ -14401,8 +14401,8 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 		</con:request>
 	</con:config>
 </con:testStep>
-<con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript></con:setupScript>
-<con:tearDownScript></con:tearDownScript>
+<con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript/>
+<con:tearDownScript/>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
@@ -14765,8 +14765,8 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 	</con:request>
 </con:config>
 </con:testStep>
-<con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript></con:setupScript>
-<con:tearDownScript></con:tearDownScript>
+<con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript/>
+<con:tearDownScript/>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
@@ -15263,8 +15263,8 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 	</con:request>
 </con:config>
 </con:testStep>
-<con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript></con:setupScript>
-<con:tearDownScript></con:tearDownScript>
+<con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript/>
+<con:tearDownScript/>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
@@ -15604,8 +15604,8 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 	</con:request>
 </con:config>
 </con:testStep><con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep>
-<con:setupScript></con:setupScript>
-<con:tearDownScript></con:tearDownScript>
+<con:setupScript/>
+<con:tearDownScript/>
 <con:properties>
 	<con:property>
 		<con:name>LocalHCID</con:name>
@@ -16233,8 +16233,8 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 	</con:request>
 </con:config>
 </con:testStep>
-<con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript></con:setupScript>
-<con:tearDownScript></con:tearDownScript>
+<con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript/>
+<con:tearDownScript/>
 <con:properties>
 	<con:property>
 		<con:name>LocalHCID</con:name>
@@ -16835,8 +16835,8 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 		}</script>
 </con:config>
 </con:testStep>
-<con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript></con:setupScript>
-<con:tearDownScript></con:tearDownScript>
+<con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript/>
+<con:tearDownScript/>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
@@ -17519,8 +17519,8 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySe
 	</con:request>
 </con:config>
 </con:testStep>
-<con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript></con:setupScript>
-<con:tearDownScript></con:tearDownScript>
+<con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript/>
+<con:tearDownScript/>
 <con:properties>
 	<con:property>
 		<con:name>CorrectedRemoteHCID</con:name>
@@ -19447,7 +19447,7 @@ context.testCase.testSuite.project.setPropertyValue( "UnSubscriptionID", subID )
 		<delay>8000</delay>
 	</con:config>
 </con:testStep>
-<con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript></con:setupScript>
+<con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript/>
 <con:tearDownScript>
 </con:tearDownScript>
 <con:properties>

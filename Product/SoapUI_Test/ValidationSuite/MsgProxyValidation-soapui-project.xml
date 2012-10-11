@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project abortOnError="false" name="MsgProxyValidation" resourceRoot="${projectDir}" runType="SEQUENTIAL" soapui-version="4.0.0" xmlns:con="http://eviware.com/soapui/config">
+<con:soapui-project abortOnError="false" name="MsgProxyValidation" resourceRoot="${projectDir}" runType="SEQUENTIAL" soapui-version="3.6" xmlns:con="http://eviware.com/soapui/config">
 	<con:settings/>
-	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxysubscriptionmanagement}NhincProxySubscriptionManagerBindingSoap" definition="WSDL path not set.  #NhincProxySubscriptionManagement.wsdl" name="NhincProxySubscriptionManagerBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxysubscriptionmanagement}NhincProxySubscriptionManagerBindingSoap" definition="${projectDir}/target/wsdl/NhincProxySubscriptionManagement.wsdl" name="NhincProxySubscriptionManagerBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 
-		<con:definitionCache type="TEXT"/><con:endpoints>
+		<con:endpoints>
 			<con:endpoint>http://localhost:9080/NhinConnect/NhincProxySubscriptionManager</con:endpoint>
 			<con:endpoint>http://ATHC-GFAS:9080/NhinConnect/NhincProxySubscriptionManager</con:endpoint>
 			<con:endpoint>http://mhsnhie3.fedsconnect.org:9080/NhinConnect/NhincProxySubscriptionManager</con:endpoint>
@@ -15,10 +15,10 @@
 			<con:settings/>
 		</con:operation>
 	</con:interface>
-	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxynotificationconsumer}NhincProxyNotificationConsumerBindingSoap" definition="WSDL path not set.  #NhincProxyNotificationConsumer.wsdl" name="NhincProxyNotificationConsumerBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxynotificationconsumer}NhincProxyNotificationConsumerBindingSoap" definition="${projectDir}/target/wsdl/NhincProxyNotificationConsumer.wsdl" name="NhincProxyNotificationConsumerBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 
-		<con:definitionCache type="TEXT"/><con:endpoints>
+		<con:endpoints>
 			<con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/NhincProxyNotificationConsumer</con:endpoint>
 			<con:endpoint>http://192.168.25.157:9080/NhinConnect/NhincProxyNotificationConsumer</con:endpoint>
 			<con:endpoint>http://ATHC-GFAS:8080/NhinConnect/NhincProxyNotificationConsumer</con:endpoint>
@@ -29,10 +29,10 @@
 		</con:operation>
 	</con:interface>
 
-	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxysubscriptionmanagement}NhincProxyNotificationProducerBindingSoap" definition="WSDL path not set.  #NhincProxySubscriptionManagement.wsdl" name="NhincProxyNotificationProducerBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxysubscriptionmanagement}NhincProxyNotificationProducerBindingSoap" definition="${projectDir}/target/wsdl/NhincProxySubscriptionManagement.wsdl" name="NhincProxyNotificationProducerBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 
-		<con:definitionCache type="TEXT"/><con:endpoints>
+		<con:endpoints>
 			<con:endpoint>http://localhost:9080/NhinConnect/NhincProxyNotificationProducer</con:endpoint>
 			<con:endpoint>http://192.168.25.157:8080/NhinConnect/NhincProxyNotificationProducer</con:endpoint>
 			<con:endpoint>http://mhsnhie3.fedsconnect.org:9080/NhinConnect/NhincProxyNotificationProducer</con:endpoint>
@@ -46,10 +46,10 @@
 			<con:settings/>
 		</con:operation>
 	</con:interface>
-	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxydocretrieve}NhincProxyDocRetrieveBindingSoap" definition="WSDL path not set.  #NhincProxyDocRetrieve.wsdl" name="NhincProxyDocRetrieveBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxydocretrieve}NhincProxyDocRetrieveBindingSoap" definition="${projectDir}/target/wsdl/NhincProxyDocRetrieve.wsdl" name="NhincProxyDocRetrieveBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 
-		<con:definitionCache type="TEXT"/><con:endpoints>
+		<con:endpoints>
 			<con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/NhincProxyDocRetrieve</con:endpoint>
 			<con:endpoint>http://ATHC-GFAS:9080/NhinConnect/NhincProxyDocRetrieve</con:endpoint>
 			<con:endpoint>http://dvanhie3.fedsconnect.org:9080/NhinConnect/NhincProxyDocRetrieve</con:endpoint>
@@ -61,10 +61,10 @@
 		</con:operation>
 	</con:interface>
 
-	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxydocquery}NhincProxyDocQueryBindingSoap" definition="WSDL path not set.  #NhincProxyDocQuery.wsdl" name="NhincProxyDocQueryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxydocquery}NhincProxyDocQueryBindingSoap" definition="${projectDir}/target/wsdl/NhincProxyDocQuery.wsdl" name="NhincProxyDocQueryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 
-		<con:definitionCache type="TEXT"/><con:endpoints>
+		<con:endpoints>
 			<con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/NhincProxyDocQuery</con:endpoint>
 			<con:endpoint>http://ATHC-GFAS:9080/NhinConnect/NhincProxyDocQuery</con:endpoint>
 			<con:endpoint>http://mhsnhie3.fedsconnect.org:9080/NhinConnect/NhincProxyDocQuery</con:endpoint>
@@ -75,10 +75,10 @@
 			<con:settings/>
 		</con:operation>
 	</con:interface>
-	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxyxdr:async:request}ProxyXDRAsyncRequest_Binding" definition="WSDL path not set.  #NhincProxyXDRRequest.wsdl" name="ProxyXDRAsyncRequest_Binding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxyxdr:async:request}ProxyXDRAsyncRequest_Binding" definition="${projectDir}/target/wsdl/NhincProxyXDRRequest.wsdl" name="ProxyXDRAsyncRequest_Binding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 
-		<con:definitionCache type="TEXT"/><con:endpoints>
+		<con:endpoints>
 			<con:endpoint>http://localhost:8080/CONNECTAdapter/EntityProxyService/NhincProxyXDRRequest</con:endpoint>
 			<con:endpoint>http://localhost:${HttpDefaultPort}/EntityService/NhincProxyXDRRequest</con:endpoint>
 			<con:endpoint>http://localhost:8080/CONNECTAdapter/EntityProxyService/EntityXDRResponse</con:endpoint>
@@ -91,10 +91,10 @@
 
 		</con:operation>
 	</con:interface>
-	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxypatientdiscovery}NhincProxyPatientDiscoveryBinding" definition="WSDL path not set.  #NhincProxyPatientDiscovery.wsdl" name="NhincProxyPatientDiscoveryBinding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxypatientdiscovery}NhincProxyPatientDiscoveryBinding" definition="${projectDir}/target/wsdl/NhincProxyPatientDiscovery.wsdl" name="NhincProxyPatientDiscoveryBinding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 
-		<con:definitionCache type="TEXT"/><con:endpoints>
+		<con:endpoints>
 			<con:endpoint>${#TestSuite#Endpoint-PatientDiscovery}</con:endpoint>
 			<con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/NhincProxyPatientDiscovery</con:endpoint>
 		</con:endpoints>
@@ -102,10 +102,10 @@
 			<con:settings/>
 		</con:operation>
 	</con:interface>
-	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxypatientdiscoveryasyncreq}NhincProxyPatientDiscoveryAsyncReqBinding" definition="WSDL path not set.  #NhincProxyPatientDiscoveryAsyncReq.wsdl" name="NhincProxyPatientDiscoveryAsyncReqBinding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxypatientdiscoveryasyncreq}NhincProxyPatientDiscoveryAsyncReqBinding" definition="${projectDir}/target/wsdl/NhincProxyPatientDiscoveryAsyncReq.wsdl" name="NhincProxyPatientDiscoveryAsyncReqBinding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 
-		<con:definitionCache type="TEXT"/><con:endpoints>
+		<con:endpoints>
 			<con:endpoint>http://localhost/NhinConnect/NhincProxyPatientDiscoveryAsyncReq</con:endpoint>
 			<con:endpoint>${#TestSuite#Endpoint-PatientDiscoveryAsyncReq}</con:endpoint>
 		</con:endpoints>
@@ -113,10 +113,10 @@
 			<con:settings/>
 		</con:operation>
 	</con:interface>
-	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxypatientdiscoveryasyncresp}NhincProxyPatientDiscoveryAsyncRespBinding" definition="WSDL path not set.  #NhincProxyPatientDiscoveryAsyncResp.wsdl" name="NhincProxyPatientDiscoveryAsyncRespBinding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxypatientdiscoveryasyncresp}NhincProxyPatientDiscoveryAsyncRespBinding" definition="${projectDir}/target/wsdl/NhincProxyPatientDiscoveryAsyncResp.wsdl" name="NhincProxyPatientDiscoveryAsyncRespBinding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 
-		<con:definitionCache type="TEXT"/><con:endpoints>
+		<con:endpoints>
 			<con:endpoint>http://localhost/NhinConnect/NhincProxyPatientDiscoveryAsyncResp</con:endpoint>
 			<con:endpoint>${#TestSuite#Endpoint-PatientDiscoveryAsyncResp}</con:endpoint>
 		</con:endpoints>
@@ -127,10 +127,10 @@
 
 
 
-	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincadmindistribution}NhincAdminDist_Binding_Soap12" definition="WSDL path not set.  #NhincAdminDist.wsdl" name="NhincAdminDist_Binding_Soap12_g0" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincadmindistribution}NhincAdminDist_Binding_Soap12" definition="${projectDir}/target/wsdl/NhincAdminDist.wsdl" name="NhincAdminDist_Binding_Soap12_g0" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 
-		<con:definitionCache type="TEXT"/><con:endpoints>
+		<con:endpoints>
 			<con:endpoint>${#TestSuite#Endpoint-NhincProxyAdminDist}</con:endpoint>
 			<con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/AdminDistribution/1_0/MsgProxy/NhincProxyAdminDist</con:endpoint>
 		</con:endpoints>
@@ -140,9 +140,9 @@
 		</con:operation>
 	</con:interface>
 
-	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxyxdr:async:response}ProxyXDRAsyncResponse_Binding" definition="WSDL path not set.  #NhincProxyXDRResponse.wsdl" name="ProxyXDRAsyncResponse_Binding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxyxdr:async:response}ProxyXDRAsyncResponse_Binding" definition="${projectDir}/target/wsdl/NhincProxyXDRResponse.wsdl" name="ProxyXDRAsyncResponse_Binding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
-		<con:definitionCache type="TEXT"/><con:endpoints>
+		<con:endpoints>
 			<con:endpoint>${#TestSuite#Endpoint-DocSubmissionDefResp}</con:endpoint>
 			<con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/DocumentSubmission/1_1/EntityService/PassthruDocSubmissionDeferredResponseUnsecured</con:endpoint>
 		</con:endpoints>
@@ -150,9 +150,9 @@
 			<con:settings/>
 		</con:operation>
 	</con:interface>
-	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxyxdr}ProxyXDR_Binding" definition="WSDL path not set.  #NhincProxyXDR.wsdl" name="ProxyXDR_Binding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxyxdr}ProxyXDR_Binding" definition="${projectDir}/target/wsdl/NhincProxyXDR.wsdl" name="ProxyXDR_Binding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
-		<con:definitionCache type="TEXT"/><con:endpoints>
+		<con:endpoints>
 			<con:endpoint>${#TestSuite#Endpoint-DocumentSubmission}</con:endpoint>
 			<con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/DocumentSubmission/1_1/EntityService/PassthruDocSubmissionUnsecured</con:endpoint>
 		</con:endpoints>
@@ -160,9 +160,9 @@
 			<con:settings/>
 		</con:operation>
 	</con:interface>
-	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincadmindistribution}NhincAdminDist_Binding_Soap12" definition="WSDL path not set.  #NhincAdminDist_g1.wsdl" name="NhincAdminDist_Binding_Soap12_g1" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincadmindistribution}NhincAdminDist_Binding_Soap12" definition="${projectDir}/target/wsdl/NhincAdminDist_g1.wsdl" name="NhincAdminDist_Binding_Soap12_g1" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
-		<con:definitionCache type="TEXT"/><con:endpoints>
+		<con:endpoints>
 			<con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/AdminDistribution/2_0/MsgProxy/NhincProxyAdminDist</con:endpoint>
 		</con:endpoints>
 		<con:operation action="urn:oasis:names:tc:emergency:EDXL:DE:1.0:SendAlertMessage" bindingOperationName="SendAlertMessage" inputName="" isOneWay="false" name="SendAlertMessage" sendsAttachments="false" type="One-Way">
@@ -1775,7 +1775,7 @@ DeleteFile(backupUddiFile, log);
 	</con:property>
 </con:properties>
 </con:testCase>
-<con:testCase failOnError="true" failTestCaseOnErrors="true" id="5df391c7-9943-4c8f-b4a5-b14111fb61b2" keepSession="false" maxResults="0" name="Patient Discovery Deferred Req" searchProperties="true" disabled="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" id="5df391c7-9943-4c8f-b4a5-b14111fb61b2" keepSession="false" maxResults="0" name="Patient Discovery Deferred Req" searchProperties="true">
 	<con:settings/>
 	<con:testStep name="Patient Discovery Deferred Req" type="request">
 		<con:settings/>
@@ -2604,7 +2604,7 @@ DeleteFile(backupUddiFile, log);
 </con:properties>
 <con:reportParameters/>
 </con:testCase>
-<con:testCase failOnError="true" failTestCaseOnErrors="true" id="23843e47-a4ee-4d8c-939f-ae78cfc64bda" keepSession="false" maxResults="0" name="Patient Discovery Deferred Resp" searchProperties="true" disabled="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" id="23843e47-a4ee-4d8c-939f-ae78cfc64bda" keepSession="false" maxResults="0" name="Patient Discovery Deferred Resp" searchProperties="true">
 	<con:settings/>      
 	<con:testStep name="Patient Discovery Deferred Resp" type="request">
 		<con:settings/>
@@ -3286,7 +3286,7 @@ DeleteFile(backupUddiFile, log);
 </con:properties>
 <con:reportParameters/>
 </con:testCase>
-<con:testCase failOnError="true" failTestCaseOnErrors="true" id="564f6338-004e-4199-a8e7-58f7df76e913" keepSession="false" maxResults="0" name="Patient Discovery" searchProperties="true" disabled="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" id="564f6338-004e-4199-a8e7-58f7df76e913" keepSession="false" maxResults="0" name="Patient Discovery" searchProperties="true">
 	<con:settings/>
 	<con:testStep name="clear correlations table" type="groovy">
 		<con:settings/>
@@ -4834,7 +4834,7 @@ MoveFile(sourceUddiFile, backupUddiFile, log);
 MoveFile(g1InternalFile, sourceInternalFile, log);
 MoveFile(g1UddiFile, sourceUddiFile, log);</con:setupScript>
 <con:tearDownScript>def GatewayPropFile = System.env['NHINC_PROPERTIES_DIR']+"/gateway.properties"
-def MasterGatewayPropFile = System.env['NHINC_PROPERTIES_DIR']+"/master/gateway.properties"
+def MasterGatewayPropFile = System.env['NHINC_PROPERTIES_DIR']+"/gateway.properties.bak"
 
 File gatewayFile = new File(GatewayPropFile)
 File gatewayBakFile = new File(MasterGatewayPropFile)
@@ -4846,7 +4846,7 @@ if(gatewayBakFile.exists()) {
    	}
    reader.close()
 } else {
-	throw new RuntimeException('Unable to locate master/gateway.properties')
+	throw new RuntimeException('Unable to locate gateway.properties.bak')
 }
 
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
@@ -5545,7 +5545,7 @@ MoveFile(sourceUddiFile, backupUddiFile, log);
 MoveFile(g1InternalFile, sourceInternalFile, log);
 MoveFile(g1UddiFile, sourceUddiFile, log);</con:setupScript>
 <con:tearDownScript>def GatewayPropFile = System.env['NHINC_PROPERTIES_DIR']+"/gateway.properties"
-def MasterGatewayPropFile = System.env['NHINC_PROPERTIES_DIR']+"/master/gateway.properties"
+def MasterGatewayPropFile = System.env['NHINC_PROPERTIES_DIR']+"/gateway.properties.bak"
 
 File gatewayFile = new File(GatewayPropFile)
 File gatewayBakFile = new File(MasterGatewayPropFile)
@@ -5557,7 +5557,7 @@ if(gatewayBakFile.exists()) {
    	}
    reader.close()
 } else {
-	throw new RuntimeException('Unable to locate master/gateway.properties')
+	throw new RuntimeException('Unable to locate gateway.properties.bak')
 }
 
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
@@ -5619,7 +5619,7 @@ DeleteFile(backupUddiFile, log);
 </con:properties>
 <con:reportParameters/>
 </con:testCase>
-<con:testCase failOnError="true" failTestCaseOnErrors="true" id="886d8913-7b5c-42a9-94a0-dfedf9ab3e37" keepSession="false" maxResults="0" name="Unsubscribe" searchProperties="true" disabled="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" id="886d8913-7b5c-42a9-94a0-dfedf9ab3e37" keepSession="false" maxResults="0" name="Unsubscribe" searchProperties="true">
 	<con:settings/>
 
 	<con:testStep name="update config" type="groovy">
@@ -5993,7 +5993,7 @@ MoveFile(sourceUddiFile, backupUddiFile, log);
 MoveFile(g1InternalFile, sourceInternalFile, log);
 MoveFile(g1UddiFile, sourceUddiFile, log);</con:setupScript>
 <con:tearDownScript>def GatewayPropFile = System.env['NHINC_PROPERTIES_DIR']+"/gateway.properties"
-def MasterGatewayPropFile = System.env['NHINC_PROPERTIES_DIR']+"/master/gateway.properties"
+def MasterGatewayPropFile = System.env['NHINC_PROPERTIES_DIR']+"/gateway.properties.bak"
 
 File gatewayFile = new File(GatewayPropFile)
 File gatewayBakFile = new File(MasterGatewayPropFile)
@@ -6005,7 +6005,7 @@ if(gatewayBakFile.exists()) {
    	}
    reader.close()
 } else {
-	throw new RuntimeException('Unable to locate master/gateway.properties')
+	throw new RuntimeException('Unable to locate gateway.properties.bak')
 }
 
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
@@ -8194,7 +8194,7 @@ DeleteFile(backupUddiFile, log);
 
 
 
-<con:testCase failOnError="true" failTestCaseOnErrors="true" id="0ff296e7-d50a-4917-9f52-e812a4e7e60e" keepSession="false" maxResults="0" name="Patient Discovery Deferred Req" searchProperties="true" disabled="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" id="0ff296e7-d50a-4917-9f52-e812a4e7e60e" keepSession="false" maxResults="0" name="Patient Discovery Deferred Req" searchProperties="true">
 	<con:settings/>
 	<con:testStep name="Patient Discovery Deferred Req" type="request">
 		<con:settings/>
@@ -8828,7 +8828,7 @@ DeleteFile(backupUddiFile, log);
 <con:reportParameters/>
 </con:testCase>
 
-<con:testCase failOnError="true" failTestCaseOnErrors="true" id="adbf725a-b15f-4188-a5f6-da1115f1b6f7" keepSession="false" maxResults="0" name="Patient Discovery Deferred Resp" searchProperties="true" disabled="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" id="adbf725a-b15f-4188-a5f6-da1115f1b6f7" keepSession="false" maxResults="0" name="Patient Discovery Deferred Resp" searchProperties="true">
 	<con:settings/>      
 	<con:testStep name="Patient Discovery Deferred Resp" type="request">
 		<con:settings/>
@@ -9510,7 +9510,7 @@ DeleteFile(backupUddiFile, log);
 </con:properties>
 <con:reportParameters/>
 </con:testCase>
-<con:testCase failOnError="true" failTestCaseOnErrors="true" id="803da81d-206f-441a-841c-31071b9508ae" keepSession="false" maxResults="0" name="Patient Discovery" searchProperties="true" disabled="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" id="803da81d-206f-441a-841c-31071b9508ae" keepSession="false" maxResults="0" name="Patient Discovery" searchProperties="true">
 	<con:settings/>
 	<con:testStep name="clear correlations table" type="groovy">
 		<con:settings/>
@@ -11059,23 +11059,7 @@ MoveFile(g0InternalFile, sourceInternalFile, log);
 MoveFile(g0UddiFile, sourceUddiFile, log);
 
 </con:setupScript>
-<con:tearDownScript>def GatewayPropFile = System.env['NHINC_PROPERTIES_DIR']+"/gateway.properties"
-def MasterGatewayPropFile = System.env['NHINC_PROPERTIES_DIR']+"/master/gateway.properties"
-
-File gatewayFile = new File(GatewayPropFile)
-File gatewayBakFile = new File(MasterGatewayPropFile)
-
-if(gatewayBakFile.exists()) {
-	def reader = gatewayBakFile.newReader()
-   		gatewayFile.withWriter { writer ->
-       	writer &lt;&lt; reade
-   	}
-   reader.close()
-} else {
-	throw new RuntimeException('Unable to locate master/gateway.properties')
-}
-
-def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
+<con:tearDownScript>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 
 File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
 File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
@@ -11771,7 +11755,7 @@ MoveFile(g0UddiFile, sourceUddiFile, log);
 
 </con:setupScript>
 <con:tearDownScript>def GatewayPropFile = System.env['NHINC_PROPERTIES_DIR']+"/gateway.properties"
-def MasterGatewayPropFile = System.env['NHINC_PROPERTIES_DIR']+"/master/gateway.properties"
+def MasterGatewayPropFile = System.env['NHINC_PROPERTIES_DIR']+"/gateway.properties.bak"
 
 File gatewayFile = new File(GatewayPropFile)
 File gatewayBakFile = new File(MasterGatewayPropFile)
@@ -11783,7 +11767,7 @@ if(gatewayBakFile.exists()) {
 }
 	reader.close()
 } else {
-	throw new RuntimeException('Unable to locate master/gateway.properties')
+	throw new RuntimeException('Unable to locate gateway.properties.bak')
 }
 
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
@@ -11844,7 +11828,7 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 </con:properties>
 <con:reportParameters/>
 </con:testCase>
-<con:testCase failOnError="true" failTestCaseOnErrors="true" id="1f230d3f-22ce-4c47-8f2b-8adf701059de" keepSession="false" maxResults="0" name="Unsubscribe" searchProperties="true" disabled="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" id="1f230d3f-22ce-4c47-8f2b-8adf701059de" keepSession="false" maxResults="0" name="Unsubscribe" searchProperties="true">
 	<con:settings/>
 
 	<con:testStep name="update config" type="groovy">
@@ -12217,23 +12201,7 @@ MoveFile(g0InternalFile, sourceInternalFile, log);
 MoveFile(g0UddiFile, sourceUddiFile, log);
 
 </con:setupScript>
-<con:tearDownScript>def GatewayPropFile = System.env['NHINC_PROPERTIES_DIR']+"/gateway.properties"
-def MasterGatewayPropFile = System.env['NHINC_PROPERTIES_DIR']+"/master/gateway.properties"
-
-File gatewayFile = new File(GatewayPropFile)
-File gatewayBakFile = new File(MasterGatewayPropFile)
-
-if(gatewayBakFile.exists()) {
-	def reader = gatewayBakFile.newReader()
-   		gatewayFile.withWriter { writer ->
-       	writer &lt;&lt; reade
-   	}
-   reader.close()
-} else {
-	throw new RuntimeException('Unable to locate master/gateway.properties')
-}
-
-def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
+<con:tearDownScript>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 
 File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
 File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
