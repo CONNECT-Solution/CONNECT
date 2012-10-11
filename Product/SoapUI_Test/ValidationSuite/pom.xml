@@ -11,7 +11,7 @@
     <name>Maven 3 soapUI ValidationSuite</name>
     <properties>
         <skip.unpack>false</skip.unpack>
-        <soapui.testFailIgnore>false</soapui.testFailIgnore>
+        <soapui.testFailIgnore>true</soapui.testFailIgnore>
     </properties>
     <pluginRepositories>
         <pluginRepository>
@@ -53,8 +53,8 @@
                 <executions>
                     <execution>
                         <id>unpack-soapui-test-resources</id>
-                        <!-- Using the initialize phase because it is before 
-                            the generate sources phase -->
+                        <!-- Using the initialize phase because it is before the generate sources
+                            phase -->
                         <phase>initialize</phase>
                         <goals>
                             <goal>unpack</goal>
@@ -238,49 +238,30 @@
                         </goals>
                         <configuration>
                             <target>
-                                <copy todir="${project.build.directory}/wsdl"
-                                    flatten="true">
-                                    <fileset
-                                        dir="${project.build.directory}/wsdl-extracted">
+                                <copy todir="${project.build.directory}/wsdl" flatten="true">
+                                    <fileset dir="${project.build.directory}/wsdl-extracted">
                                         <include name="**/*.wsdl" />
                                     </fileset>
                                 </copy>
                             </target>
                         </configuration>
                     </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.glassfish.embedded</groupId>
-                <artifactId>maven-embedded-glassfish-plugin</artifactId>
-                <executions>
                     <execution>
-                        <id>start-glassfish</id>
-                        <phase>pre-integration-test</phase>
-                        <goals>
-                            <goal>start</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>glassfish-deploy</id>
-                        <phase>pre-integration-test</phase>
-                        <goals>
-                            <goal>deploy</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>glassfish-undeploy</id>
+                        <id>check-for-soapui-failures</id>
                         <phase>post-integration-test</phase>
                         <goals>
-                            <goal>undeploy</goal>
+                            <goal>run</goal>
                         </goals>
-                    </execution>
-                    <execution>
-                        <id>stop-glassfish</id>
-                        <phase>post-integration-test</phase>
-                        <goals>
-                            <goal>stop</goal>
-                        </goals>
+                        <configuration>
+                            <target>
+                                <fileset dir="${basedir}/target/soapui/output/" id="soapui.failure.files">
+                                    <include name="**/*FAILED.txt" />
+                                </fileset>
+                                <pathconvert refid="soapui.failure.files" property="soapui.test.failures.detected"
+                                    setonempty="false" />
+                                <fail if="soapui.test.failures.detected" message="soapui test failures detected!" />
+                            </target>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
@@ -302,11 +283,10 @@
                 <configuration>
                     <settingsFile>${basedir}/src/main/resources/soapui-settings.xml</settingsFile>
                     <outputFolder>${basedir}/target/soapui/output/</outputFolder>
+                    <systemPropertyVariables>
+                        <NHINC_PROPERTIES_DIR>${project.build.testOutputDirectory}</NHINC_PROPERTIES_DIR>
+                    </systemPropertyVariables>
                     <soapuiProperties>
-                        <property>
-                            <name>NHINC_PROPERTIES_DIR</name>
-                            <value>${project.build.testOutputDirectory}</value>
-                        </property>
                         <property>
                             <name>soapui.logroot</name>
                             <value>${project.build.directory}/soapui/my_custon_logs/</value>
@@ -375,4 +355,51 @@
             </plugin>
         </plugins>
     </build>
+    <profiles>
+        <profile>
+            <id>embedded-testing</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.glassfish.embedded</groupId>
+                        <artifactId>maven-embedded-glassfish-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>start-glassfish</id>
+                                <phase>pre-integration-test</phase>
+                                <goals>
+                                    <goal>stop</goal>
+                                    <goal>start</goal>
+                                </goals>
+                            </execution>
+                            <execution>
+                                <id>glassfish-deploy</id>
+                                <phase>pre-integration-test</phase>
+                                <goals>
+                                    <goal>deploy</goal>
+                                </goals>
+                            </execution>
+                            <execution>
+                                <id>glassfish-undeploy</id>
+                                <phase>post-integration-test</phase>
+                                <goals>
+                                    <goal>undeploy</goal>
+                                </goals>
+                            </execution>
+                            <execution>
+                                <id>stop-glassfish</id>
+                                <phase>post-integration-test</phase>
+                                <goals>
+                                    <goal>stop</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>

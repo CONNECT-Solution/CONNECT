@@ -17,6 +17,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <connect.common.properties>Dev</connect.common.properties>
         <skip.cobertura>false</skip.cobertura>
+        <skip.source>true</skip.source>
         <cobertura.check.haltOnFailure>false</cobertura.check.haltOnFailure>
         <cobertura.totalBranchRate>85</cobertura.totalBranchRate>
         <cobertura.totalLineRate>85</cobertura.totalLineRate>
@@ -306,6 +307,9 @@
                             <value>${project.build.testOutputDirectory}</value>
                         </property>
                     </systemProperties>
+                    <configuration>
+                        <redirectTestOutputToFile>true</redirectTestOutputToFile>
+                    </configuration>
                 </configuration>
             </plugin>
             <plugin>
@@ -335,6 +339,7 @@
                     </execution>
                 </executions>
                 <configuration>
+                    <skipSource>${skip.source}</skipSource>
                     <attach>true</attach>
                 </configuration>
             </plugin>
