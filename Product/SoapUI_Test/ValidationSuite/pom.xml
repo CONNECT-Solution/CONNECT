@@ -12,6 +12,7 @@
     <properties>
         <skip.unpack>false</skip.unpack>
         <soapui.testFailIgnore>true</soapui.testFailIgnore>
+        <skip.soapui.failonerror>false</skip.soapui.failonerror>
     </properties>
     <pluginRepositories>
         <pluginRepository>
@@ -253,6 +254,7 @@
                             <goal>run</goal>
                         </goals>
                         <configuration>
+                            <skip>${skip.soapui.failonerror}</skip>
                             <target>
                                 <fileset dir="${basedir}/target/soapui/output/" id="soapui.failure.files">
                                     <include name="**/*FAILED.txt" />
