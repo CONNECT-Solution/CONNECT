@@ -35,7 +35,6 @@ import gov.hhs.fha.nhinc.adapter.commondatalayer.mappers.exceptions.SimpleErrorH
 import org.hl7.v3.CareRecordQUPCIN043200UV01ResponseType;
 import org.hl7.v3.PatientDemographicsPRPAMT201303UV02ResponseType;
 import org.hl7.v3.FindPatientsPRPAMT201310UV02ResponseType;
-import org.hl7.v3.FindDocumentRCMRIN000032UV01ResponseType;
 import org.hl7.v3.FindDocumentWithContentRCMRIN000032UV01ResponseType;
 import java.io.*;
 import org.apache.commons.logging.Log;
@@ -151,14 +150,14 @@ public class StaticUtil {
 
     }
 
-    public static FindDocumentWithContentRCMRIN000032UV01ResponseType createFindDocumentWithContentResponse(String patientID, String receiverOID)
+    public static FindDocumentWithContentRCMRIN000032UV01ResponseType createFindDocumentWithContentResponse(String patientID, String receiverOID, String documentType)
     {
 
         FindDocumentWithContentRCMRIN000032UV01ResponseType response = new FindDocumentWithContentRCMRIN000032UV01ResponseType();
         response = null;
 
         // Get FIND_DOCUMENT_TAG from the properties file
-        String findDocumentWithContentTag = AdapterCommonDataLayerConstants.EMULATOR_FIND_DOCUMENT_WITH_CONTENT_TAG;
+        String findDocumentWithContentTag = AdapterCommonDataLayerConstants.EMULATOR_FIND_DOCUMENT_WITH_CONTENT_TAG + "_" + documentType;
 
         // Get FIND_DOCUMENT_RESPONSE_TYPE fro the properties file
         String findDocumentWithContentResponseType = AdapterCommonDataLayerConstants.EMULATOR_FIND_DOCUMENT_WITH_CONTENT_RESPONSE_TYPE;
@@ -200,7 +199,7 @@ public class StaticUtil {
            tag.equals(AdapterCommonDataLayerConstants.EMULATOR_PROBLEMS_TAG) ||
            tag.equals(AdapterCommonDataLayerConstants.EMULATOR_PATIENT_INFO_TAG) ||
            tag.equals(AdapterCommonDataLayerConstants.EMULATOR_FIND_DOCUMENT_TAG) ||
-           tag.equals(AdapterCommonDataLayerConstants.EMULATOR_FIND_DOCUMENT_WITH_CONTENT_TAG))
+           tag.contains(AdapterCommonDataLayerConstants.EMULATOR_FIND_DOCUMENT_WITH_CONTENT_TAG))
         {
             responseFile = dataPath + receiverOID + "_" + patientID + "_" + tag + "_" + responseType + ".xml";
             responseNotFoundFile = dataPath + receiverOID + "_" + AdapterCommonDataLayerConstants.EMULATOR_NO_PATIENT_ID_LABEL + "_" + tag + "_" + responseType + ".xml";

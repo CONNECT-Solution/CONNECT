@@ -92,10 +92,10 @@
 	<wsdl:message name="GetOrdersResponse">
 		<wsdl:part name="output" element="hl7:CareRecord_QUPC_IN043200UV01Response"/>
 	</wsdl:message>
-	<wsdl:message name="GetPatienInfoRequest">
+	<wsdl:message name="GetPatientInfoRequest">
 		<wsdl:part name="param0" element="hl7:PatientDemographics_PRPA_IN201307UV02Request"/>
 	</wsdl:message>
-	<wsdl:message name="GetPatienInfoResponse">
+	<wsdl:message name="GetPatientInfoResponse">
 		<wsdl:part name="output" element="hl7:PatientDemographics_PRPA_MT201303UV02Response"/>
 	</wsdl:message>
 	<wsdl:message name="FindPatientsRequest">
@@ -173,9 +173,9 @@
 			<wsdl:input message="tns:GetOrdersRequest"/>
 			<wsdl:output message="tns:GetOrdersResponse"/>
 		</wsdl:operation>
-		<wsdl:operation name="GetPatienInfo">
-			<wsdl:input message="tns:GetPatienInfoRequest"/>
-			<wsdl:output message="tns:GetPatienInfoResponse"/>
+		<wsdl:operation name="GetPatientInfo">
+			<wsdl:input message="tns:GetPatientInfoRequest"/>
+			<wsdl:output message="tns:GetPatientInfoResponse"/>
 		</wsdl:operation>
 		<wsdl:operation name="FindPatients">
 			<wsdl:input message="tns:FindPatientsRequest"/>
@@ -318,8 +318,8 @@
 				<soap:body use="literal"/>
 			</wsdl:output>
 		</wsdl:operation>
-		<wsdl:operation name="GetPatienInfo">
-			<soap:operation soapAction="urn:GetPatienInfo" style="document"/>
+		<wsdl:operation name="GetPatientInfo">
+			<soap:operation soapAction="urn:GetPatientInfo" style="document"/>
 			<wsdl:input>
 				<soap:body use="literal"/>
 			</wsdl:input>

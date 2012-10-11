@@ -28,7 +28,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package gov.hhs.fha.nhinc.assemblymanager.service;
 
 import gov.hhs.fha.nhinc.assemblymanager.AssemblyConstants;
@@ -63,175 +62,187 @@ import org.hl7.v3.FindDocumentWithContentRCMRIN000031UV01RequestType;
  */
 public class FindDocumentRequestHelper {
 
-   private static ObjectFactory factory = null;
-   private static String homeOID = "";
+    private static ObjectFactory factory = null;
+    private static String homeOID = "";
 
-   static {
-      homeOID = AssemblyConstants.ORGANIZATION_OID;
-      factory = new ObjectFactory();
-   }
+    static {
+        homeOID = AssemblyConstants.ORGANIZATION_OID;
+        factory = new ObjectFactory();
+    }
 
-   public static FindDocumentRCMRIN000031UV01RequestType findDocumentRequest(II subjectId) {
-      FindDocumentRCMRIN000031UV01RequestType msg = new FindDocumentRCMRIN000031UV01RequestType();
+    public static FindDocumentRCMRIN000031UV01RequestType findDocumentRequest(II subjectId) {
+        FindDocumentRCMRIN000031UV01RequestType msg = new FindDocumentRCMRIN000031UV01RequestType();
 
-      msg.setQuery(build000031(subjectId, null, null));
+        msg.setQuery(build000031(subjectId, null, null, null));
 
-      return msg;
-   }
+        return msg;
+    }
 
-   public static FindDocumentRCMRIN000031UV01RequestType findDocumentRequest(II subjectId, String dataStartDate, String dataEndDate) {
-      FindDocumentRCMRIN000031UV01RequestType msg = new FindDocumentRCMRIN000031UV01RequestType();
+    public static FindDocumentRCMRIN000031UV01RequestType findDocumentRequest(II subjectId, String dataStartDate, String dataEndDate) {
+        FindDocumentRCMRIN000031UV01RequestType msg = new FindDocumentRCMRIN000031UV01RequestType();
 
-      if (dataStartDate == null) {
-         msg.setQuery(build000031(subjectId, null, null));
-      } else {
-         msg.setQuery(build000031(subjectId, dataStartDate, dataEndDate));
-      }
+        if (dataStartDate == null) {
+            msg.setQuery(build000031(subjectId, null, null, null));
+        } else {
+            msg.setQuery(build000031(subjectId, dataStartDate, dataEndDate, null));
+        }
 
-      return msg;
-   }
+        return msg;
+    }
 
-      public static FindDocumentWithContentRCMRIN000031UV01RequestType findDocumentWithContentRequest(II subjectId) {
-      FindDocumentWithContentRCMRIN000031UV01RequestType msg = new FindDocumentWithContentRCMRIN000031UV01RequestType();
+    public static FindDocumentWithContentRCMRIN000031UV01RequestType findDocumentWithContentRequest(II subjectId, String documentClassCode) {
+        FindDocumentWithContentRCMRIN000031UV01RequestType msg = new FindDocumentWithContentRCMRIN000031UV01RequestType();
 
-      msg.setQuery(build000031(subjectId, null, null));
+        msg.setQuery(build000031(subjectId, null, null, documentClassCode));
 
-      return msg;
-   }
+        return msg;
+    }
 
-   public static FindDocumentWithContentRCMRIN000031UV01RequestType findDocumentWithContentRequest(II subjectId, String dataStartDate, String dataEndDate) {
-      FindDocumentWithContentRCMRIN000031UV01RequestType msg = new FindDocumentWithContentRCMRIN000031UV01RequestType();
+    public static FindDocumentWithContentRCMRIN000031UV01RequestType findDocumentWithContentRequest(II subjectId, String dataStartDate, String dataEndDate) {
+        FindDocumentWithContentRCMRIN000031UV01RequestType msg = new FindDocumentWithContentRCMRIN000031UV01RequestType();
 
-      if (dataStartDate == null) {
-         msg.setQuery(build000031(subjectId, null, null));
-      } else {
-         msg.setQuery(build000031(subjectId, dataStartDate, dataEndDate));
-      }
+        if (dataStartDate == null) {
+            msg.setQuery(build000031(subjectId, null, null, null));
+        } else {
+            msg.setQuery(build000031(subjectId, dataStartDate, dataEndDate, null));
+        }
 
-      return msg;
-   }
+        return msg;
+    }
 
-  private static RCMRIN000031UV01MCCIMT000100UV01Message build000031(II subjectId, String dataStartDate, String dataEndDate) {
+    private static RCMRIN000031UV01MCCIMT000100UV01Message build000031(II subjectId, String dataStartDate, String dataEndDate, String documentClassCode) {
 
-      RCMRIN000031UV01MCCIMT000100UV01Message query = new RCMRIN000031UV01MCCIMT000100UV01Message();
+        RCMRIN000031UV01MCCIMT000100UV01Message query = new RCMRIN000031UV01MCCIMT000100UV01Message();
 
-      II id = new II();
-      id.setRoot(homeOID);
-      id.setExtension(UUIDGenerator.generateRandomUUID());
-      query.setId(id);
+        II id = new II();
+        id.setRoot(homeOID);
+        id.setExtension(UUIDGenerator.generateRandomUUID());
+        query.setId(id);
 
-      TS creationTime = new TS();
-      creationTime.setValue(DateUtil.convertToCDATime(new Date()));
-      query.setCreationTime(creationTime);
+        TS creationTime = new TS();
+        creationTime.setValue(DateUtil.convertToCDATime(new Date()));
+        query.setCreationTime(creationTime);
 
-      II interactionId = new II();
-      interactionId.setRoot("2.16.840.1.113883.5");
-      interactionId.setExtension(AssemblyConstants.CARE_RECORD_QUERY_INTERACTION_ID);
-      query.setInteractionId(interactionId);
+        II interactionId = new II();
+        interactionId.setRoot("2.16.840.1.113883.5");
+        interactionId.setExtension(AssemblyConstants.CARE_RECORD_QUERY_INTERACTION_ID);
+        query.setInteractionId(interactionId);
 
-      // Set the receiver and sender
-      query.getReceiver().add(createReceiver());
-      query.setSender(createSender());
+        // Set the receiver and sender
+        query.getReceiver().add(createReceiver());
+        query.setSender(createSender());
 
-      // create ControlActProcess object
-      RCMRIN000031UV01QUQIMT021001UV01ControlActProcess controlActProcess = createControlActProcess();
+        // create ControlActProcess object
+        RCMRIN000031UV01QUQIMT021001UV01ControlActProcess controlActProcess = createControlActProcess();
 
-      // create QueryByParameter object
-      RCMRMT000003UV01QueryByParameter queryParams = createQueryParams();
+        // create QueryByParameter object
+        RCMRMT000003UV01QueryByParameter queryParams = createQueryParams();
 
-      RCMRMT000003UV01PatientId patId = new RCMRMT000003UV01PatientId();
-      patId.setValue(subjectId);
-      queryParams.getPatientId().add(patId);
+        RCMRMT000003UV01PatientId patId = new RCMRMT000003UV01PatientId();
+        patId.setValue(subjectId);
+        queryParams.getPatientId().add(patId);
 
-      CE docCodeId = new CE();
-      docCodeId.setCode(AssemblyConstants.C62_CLASS_CODE);
-      docCodeId.setCodeSystem(CDAConstants.LOINC_CODE_SYS_OID);
-      docCodeId.setCodeSystemName(CDAConstants.LOINC_CODE_SYS_NAME);
-      docCodeId.setDisplayName("EMERGENCY DEPARTMENT DISCHARGE SUMMARY");
+        CE docCodeId = new CE();
+        //set the correct classcode
+        // docCodeId.setCode(AssemblyConstants.C62_CLASS_CODE);
+        if (documentClassCode != null) {
+            docCodeId.setCode(documentClassCode);
+        } else {
+            docCodeId.setCode(AssemblyConstants.C62_CLASS_CODE);
+        }
 
-      RCMRMT000003UV01ClinicalDocumentCode docCode = new RCMRMT000003UV01ClinicalDocumentCode();
-      docCode.setValue(docCodeId);
+        docCodeId.setCodeSystem(CDAConstants.LOINC_CODE_SYS_OID);
+        docCodeId.setCodeSystemName(CDAConstants.LOINC_CODE_SYS_NAME);
 
-      queryParams.setClinicalDocumentCode(factory.createRCMRMT000003UV01QueryByParameterClinicalDocumentCode(docCode));
+        if (documentClassCode != null && documentClassCode.equals(AssemblyConstants.C62_RR_CLASS_CODE)) {
+            docCodeId.setDisplayName(AssemblyConstants.C62_RR_DISPLAY_NAME);
+        } else {
+            docCodeId.setDisplayName(AssemblyConstants.C62_DISPLAY_NAME);
+        }
 
-      // set QueryByParameter in ControlActProcess object
-      controlActProcess.setQueryByParameter(factory.createRCMRIN000031UV01QUQIMT021001UV01ControlActProcessQueryByParameter(queryParams));
+        RCMRMT000003UV01ClinicalDocumentCode docCode = new RCMRMT000003UV01ClinicalDocumentCode();
+        docCode.setValue(docCodeId);
 
-      // set ControlActProcess in Message object
-      query.setControlActProcess(controlActProcess);
+        queryParams.setClinicalDocumentCode(factory.createRCMRMT000003UV01QueryByParameterClinicalDocumentCode(docCode));
 
-      return query;
-   }
+        // set QueryByParameter in ControlActProcess object
+        controlActProcess.setQueryByParameter(factory.createRCMRIN000031UV01QUQIMT021001UV01ControlActProcessQueryByParameter(queryParams));
 
-   private static MCCIMT000100UV01Receiver createReceiver() {
-      MCCIMT000100UV01Receiver receiver = new MCCIMT000100UV01Receiver();
+        // set ControlActProcess in Message object
+        query.setControlActProcess(controlActProcess);
 
-      receiver.setTypeCode(CommunicationFunctionType.RCV);
+        return query;
+    }
 
-      MCCIMT000100UV01Device device = new MCCIMT000100UV01Device();
-      device.setDeterminerCode("INSTANCE");
-      device.setClassCode(EntityClassDevice.DEV);
+    private static MCCIMT000100UV01Receiver createReceiver() {
+        MCCIMT000100UV01Receiver receiver = new MCCIMT000100UV01Receiver();
 
-      II id = new II();
-      id.setExtension(AssemblyConstants.CDL_SERVICE);
-      id.setRoot(homeOID);
-      device.getId().add(id);
+        receiver.setTypeCode(CommunicationFunctionType.RCV);
 
-      receiver.setDevice(device);
+        MCCIMT000100UV01Device device = new MCCIMT000100UV01Device();
+        device.setDeterminerCode("INSTANCE");
+        device.setClassCode(EntityClassDevice.DEV);
 
-      return receiver;
-   }
+        II id = new II();
+        id.setExtension(AssemblyConstants.CDL_SERVICE);
+        id.setRoot(homeOID);
+        device.getId().add(id);
 
-   private static MCCIMT000100UV01Sender createSender() {
-      MCCIMT000100UV01Sender sender = new MCCIMT000100UV01Sender();
+        receiver.setDevice(device);
 
-      sender.setTypeCode(CommunicationFunctionType.SND);
+        return receiver;
+    }
 
-      MCCIMT000100UV01Device device = new MCCIMT000100UV01Device();
-      device.setDeterminerCode("INSTANCE");
-      device.setClassCode(EntityClassDevice.DEV);
+    private static MCCIMT000100UV01Sender createSender() {
+        MCCIMT000100UV01Sender sender = new MCCIMT000100UV01Sender();
 
-      II id = new II();
-      id.setExtension(AssemblyConstants.ADAS_SERVICE);
-      id.setRoot(homeOID);
-      device.getId().add(id);
+        sender.setTypeCode(CommunicationFunctionType.SND);
 
-      sender.setDevice(device);
+        MCCIMT000100UV01Device device = new MCCIMT000100UV01Device();
+        device.setDeterminerCode("INSTANCE");
+        device.setClassCode(EntityClassDevice.DEV);
 
-      return sender;
-   }
+        II id = new II();
+        id.setExtension(AssemblyConstants.ADAS_SERVICE);
+        id.setRoot(homeOID);
+        device.getId().add(id);
 
-   private static RCMRIN000031UV01QUQIMT021001UV01ControlActProcess createControlActProcess() {
-      RCMRIN000031UV01QUQIMT021001UV01ControlActProcess controlActProcess =
-              new RCMRIN000031UV01QUQIMT021001UV01ControlActProcess();
+        sender.setDevice(device);
 
-      controlActProcess.setMoodCode(XActMoodIntentEvent.EVN);
-      controlActProcess.setClassCode(ActClassControlAct.CACT);
+        return sender;
+    }
 
-      CD code = new CD();
-      code.setCode(AssemblyConstants.CARE_RECORD_QUERY_TRIGGER);
-      controlActProcess.setCode(code);
+    private static RCMRIN000031UV01QUQIMT021001UV01ControlActProcess createControlActProcess() {
+        RCMRIN000031UV01QUQIMT021001UV01ControlActProcess controlActProcess =
+            new RCMRIN000031UV01QUQIMT021001UV01ControlActProcess();
 
-      CE priority = new CE();
-      priority.setCode("R");
-      controlActProcess.getPriorityCode().add(priority);
+        controlActProcess.setMoodCode(XActMoodIntentEvent.EVN);
+        controlActProcess.setClassCode(ActClassControlAct.CACT);
 
-      return controlActProcess;
-   }
+        CD code = new CD();
+        code.setCode(AssemblyConstants.CARE_RECORD_QUERY_TRIGGER);
+        controlActProcess.setCode(code);
 
-   private static RCMRMT000003UV01QueryByParameter createQueryParams() {
-      RCMRMT000003UV01QueryByParameter queryParams = new RCMRMT000003UV01QueryByParameter();
+        CE priority = new CE();
+        priority.setCode("R");
+        controlActProcess.getPriorityCode().add(priority);
 
-      II id = new II();
-      id.setExtension(UUIDGenerator.generateRandomUUID());
-      id.setRoot(homeOID);
-      queryParams.setQueryId(id);
+        return controlActProcess;
+    }
 
-      CS statusCode = new CS();
-      statusCode.setCode("new");
-      queryParams.setStatusCode(statusCode);
+    private static RCMRMT000003UV01QueryByParameter createQueryParams() {
+        RCMRMT000003UV01QueryByParameter queryParams = new RCMRMT000003UV01QueryByParameter();
+
+        II id = new II();
+        id.setExtension(UUIDGenerator.generateRandomUUID());
+        id.setRoot(homeOID);
+        queryParams.setQueryId(id);
+
+        CS statusCode = new CS();
+        statusCode.setCode("new");
+        queryParams.setStatusCode(statusCode);
 
 
-      return queryParams;
-   }
+        return queryParams;
+    }
 }
