@@ -31,10 +31,7 @@
   </configurations>
 
   <dependencies>
-    <!-- To find dependency params use http://www.mavensearch.net/ to find the XML descriptor.
-                 then org=groupId, name=artifactId, rev=version
-    -->
-
+    
     <!-- Project dependencies -->
 
     <!-- compile time jars -->
