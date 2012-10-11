@@ -22,6 +22,8 @@
         <cobertura.check.haltOnFailure>false</cobertura.check.haltOnFailure>
         <cobertura.totalBranchRate>85</cobertura.totalBranchRate>
         <cobertura.totalLineRate>85</cobertura.totalLineRate>
+        <compiler.source>1.7</compiler.source>
+        <compiler.target>1.7</compiler.target>
     </properties>
     <modules>
         <module>Production</module>
@@ -270,10 +272,10 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-                    <source>1.7</source>
-                    <target>1.7</target>
-                    <testSource>1.7</testSource>
-                    <testTarget>1.7</testTarget>
+                    <source>${compiler.source}</source>
+                    <target>${compiler.target}</target>
+                    <testSource>${compiler.source}</testSource>
+                    <testTarget>${compiler.target}</testTarget>
                 </configuration>
             </plugin>
             <plugin>
@@ -300,7 +302,8 @@
                     <rulesets>
                         <ruleset>${basedir}/pmd.xml</ruleset>
                     </rulesets>
-                   <failOnViolation>${pmd.failOnViolation}</failOnViolation>
+                    <targetJdk>${compiler.source}</targetJdk>
+                    <failOnViolation>${pmd.failOnViolation}</failOnViolation>
                 </configuration>
             </plugin>
             <plugin>
@@ -368,11 +371,8 @@
                                 <dependencyLocationsEnabled>false</dependencyLocationsEnabled>
                             </configuration>
                         </plugin>
-                        <!-- <plugin>
-                            <groupId>org.apache.maven.plugins</groupId>
-                            <artifactId>maven-javadoc-plugin</artifactId>
-                            <version>2.9</version>
-                        </plugin> -->
+                        <!-- <plugin> <groupId>org.apache.maven.plugins</groupId> 
+                            <artifactId>maven-javadoc-plugin</artifactId> <version>2.9</version> </plugin> -->
                         <plugin>
                             <groupId>org.apache.maven.plugins</groupId>
                             <artifactId>maven-surefire-report-plugin</artifactId>
