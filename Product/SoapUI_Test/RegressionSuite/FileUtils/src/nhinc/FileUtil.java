@@ -76,6 +76,16 @@ class FileUtils{
 			}
 			
    }
+   
+	public static void setG0ConnectionInfo(String sourceDirectory, String destDirectory, Logger log){
+		moveFile(sourceDirectory, "uddiConnectionInfo_g0.xml", destDirectory, "uddiConnectionInfo.xml", log);
+		moveFile(sourceDirectory, "internalConnectionInfo_g0.xml", destDirectory, "internalConnectionInfo.xml", log);
+	}
+	
+	public static void setG1ConnectionInfo(String sourceDirectory, String destDirectory, Logger log){
+		moveFile(sourceDirectory, "uddiConnectionInfo_g1.xml", destDirectory, "uddiConnectionInfo.xml", log);
+		moveFile(sourceDirectory, "internalConnectionInfo_g1.xml", destDirectory, "internalConnectionInfo.xml", log);
+	}
 
 	public static void moveFile(String sourceDirectory, String sourceFileName, String destinationDirectory, String destinationFileName, Logger log) {
       
@@ -480,14 +490,12 @@ try
       log.error("Exception writing out connection info file: " + e.getMessage(), e);
     }
 }
-	
-  public static void InitializeNHINCProperties(Logger log) {}
   
-  public static void backupConfiguration(Logger log) {
-    log.info("Start backupConfiguration(log)");
+  public static void backupConfiguration(String configDir, Logger log) {
+    log.info("Start backupConfiguration");
     try{
-      File backupDir = new File(System.getenv("NHINC_PROPERTIES_DIR"), "prop_temp");
-      File confDir = new File(System.getenv("NHINC_PROPERTIES_DIR"));
+      File backupDir = new File(configDir, "prop_temp");
+      File confDir = new File(configDir);
       
       backupDir.mkdir();
       
@@ -500,14 +508,14 @@ try
     } catch(Throwable e) {
       log.error(e.getMessage());
     }
-    log.info("End backupConfiguration(log)");
+    log.info("End backupConfiguration");
   }
   
-  public static void restoreConfiguration(Logger log, Boolean optionDel) {
-    log.info("Start restoreConfiguration(log)");
+  public static void restoreConfiguration(String configDir, Logger log, Boolean optionDel) {
+    log.info("Start restoreConfiguration");
     try{
-      File backupDir = new File(System.getenv("NHINC_PROPERTIES_DIR"), "prop_temp");
-      File confDir = new File(System.getenv("NHINC_PROPERTIES_DIR"));
+      File backupDir = new File(configDir, "prop_temp");
+      File confDir = new File(configDir);
       
       String[] files2restore = {"hiemTopicConfiguration.xml","internalConnectionInfo.xml","PCConfiguration.xml",
     		  "uddiConnectionInfo.xml","XDSUniqueIds.properties","gateway.properties","adapter.properties","purposeUse.properties"};
@@ -526,15 +534,15 @@ try
     }catch(Throwable e) {
       log.error(e.getMessage());
     }
-    log.info("End restoreConfiguration(log)");
+    log.info("End restoreConfiguration");
   }
   
-  public static void restoreConfiguration(Logger log){
-	  restoreConfiguration(log,true);
+  public static void restoreConfiguration(String configDir, Logger log){
+	  restoreConfiguration(configDir, log,true);
   }
   
   public static void restoreToMasterConfiguration(Logger log) {
-    log.info("Start restoreToMasterConfiguration(log)");
+    log.info("Start restoreToMasterConfiguration");
     try{
 	
 	  String masterDirFile = System.getenv("NHINC_PROPERTIES_DIR") + "/master";
@@ -551,7 +559,7 @@ try
     }catch(Throwable e) {
       log.error(e.getMessage());
     }
-    log.info("End restoreToMasterConfiguration(log)");
+    log.info("End restoreToMasterConfiguration");
   }
   
 } 
