@@ -188,7 +188,7 @@ Documentation
 ###Generate & View
 You can generate the project's site information by performing the following: 
 
-        $ mvn site:site site:stage -DstagingSiteURL=file://tmp/fullsite
+        $ mvn -P\!embedded-testing site:site site:stage -DstagingSiteURL=/tmp/fullsite
 
 Then open your browser and view [file:///tmp/fullsite/index.html]
 

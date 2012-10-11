@@ -58,6 +58,7 @@ By advancing the adoption of interoperable health IT systems and health informat
                             <configuration>
                                 <dependencyDetailsEnabled>true</dependencyDetailsEnabled>
                                 <dependencyLocationsEnabled>false</dependencyLocationsEnabled>
+                                <linkOnly>true</linkOnly>
                             </configuration>
                         </plugin>
                         <!-- <plugin> <groupId>org.apache.maven.plugins</groupId> 
