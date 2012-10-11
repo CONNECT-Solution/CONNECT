@@ -64,9 +64,10 @@ public class StaticFindDocumentWithContentQuery {
             RCMRMT000003UV01QueryByParameter queryByParam = query.getQueryByParameter().getValue();
             List<RCMRMT000003UV01PatientId> patientIdList = queryByParam.getPatientId();
             String reqPatientID = patientIdList.get(0).getValue().getExtension();
+            String documentType = request.getQuery().getControlActProcess().getQueryByParameter().getValue().getClinicalDocumentCode().getValue().getValue().getCode();
 
-            logger.debug("Retrieving Emulated Data File for : Patient ID " + reqPatientID + ",receiverOID: " + receiverOID);
-            response = StaticUtil.createFindDocumentWithContentResponse(reqPatientID, receiverOID);
+            logger.debug("Retrieving Emulated Data File for : Patient ID " + reqPatientID + ",receiverOID: " + receiverOID + ", DocType: " + documentType);
+            response = StaticUtil.createFindDocumentWithContentResponse(reqPatientID, receiverOID, documentType);
 
         } else {
             logger.debug("= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =");

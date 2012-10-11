@@ -1,32 +1,32 @@
 /*
- * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
- *
- * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
- *
- */
-/*
+ * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
+ * All rights reserved. 
  * Copyright (c) 2011, Conemaugh Valley Memorial Hospital
- *
  * This source is subject to the Conemaugh public license.  Please see the
  * license.txt file for more information.
- *
  * All other rights reserved.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND
- * CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING,
- * BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND
- * FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT
- * SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY
- * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE
- * GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
- * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ * Redistribution and use in source and binary forms, with or without 
+ * modification, are permitted provided that the following conditions are met: 
+ *     * Redistributions of source code must retain the above 
+ *       copyright notice, this list of conditions and the following disclaimer. 
+ *     * Redistributions in binary form must reproduce the above copyright 
+ *       notice, this list of conditions and the following disclaimer in the documentation 
+ *       and/or other materials provided with the distribution. 
+ *     * Neither the name of the United States Government nor the 
+ *       names of its contributors may be used to endorse or promote products 
+ *       derived from this software without specific prior written permission. 
  *
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
+ * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY 
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES 
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND 
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
 package gov.hhs.fha.nhinc.adapter.busorchestration.nhinadapteserviceejb.documentquery;
 
@@ -35,7 +35,6 @@ package gov.hhs.fha.nhinc.adapter.busorchestration.nhinadapteserviceejb.document
  * @author mflynn02
  */
 import gov.hhs.fha.nhinc.adapter.busorchestration.nhinadapteserviceejb.AdapterConstants;
-import gov.hhs.fha.nhinc.adapter.busorchestration.nhinadapteserviceejb.ServiceHelper;
 
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
 
@@ -46,12 +45,11 @@ import org.apache.commons.logging.LogFactory;
 
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayProvideAndRegisterDocumentSetRequestRequestType;
 import gov.hhs.fha.nhinc.util.StringUtil;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayQueryRequestType;
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
+
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -82,26 +80,20 @@ import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryPackageType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType.Document;
 
 /**
- * This Class is the core orchestration piece to Handle the dynamic creation of
- * documents. This class is intended to receive incomming document query
- * requests and insure that dyanmic documents are created and stashed in the
- * dynamic document archive to insure that they can be retrieved. In order to
- * accomplish this the this class coordinates calls to the document assembler
- * and insures that dyanamic documents are sent to the document manager for
- * storage if they are unique. At this point all specific document type requests
- * are passed to the document assembler in a unary manner, although a query
- * might request mulitple document types. The current implementation will
- * support multiple request types assuming the requested types are supported by
- * the document assembler. This class works in cooperation with the
- * AdapterDocRetrieve service to insure that dynamic documents will be flagged to
- * be retained once they have been served to a remote host. This
- * implementation only supports Dynamic Documents - It is envisioned that a
- * future version may server both static and dynamic content.
- *
- * Note: If note if not specific document type is request then a C32 is
- * considered the default.
- *
- * @author  Jerry Goodnough
+ * This Class is the core orchestration piece to Handle the dynamic creation of documents. This class is intended to
+ * recieve incomming document query requests and insure that dyanmic documents are created and stashed in the dynamic
+ * document archive to insure that they can be retrieved. In order to accomplish this the this class coordinates calls
+ * to the document assembler and insures that dyanamic documents are sent to the document manager for storage if they
+ * are unique. At this point all specific document type requests are passed to the document assembler in a unary manner,
+ * although a query might request mulitple document types. The current implementation will support multiple request
+ * types assuming they requested types are supported by the document assembler. This class works in cooperation with the
+ * AdapterDocRetrieve service to insure at dynamic documents will be flagged to be retained once they have been servered
+ * to a remote host. This implementation only supports Dynamic Documents - It is envisioned that a future version may
+ * server both static and dynamic content.
+ * 
+ * Note: If note if not specific document type is request then a C32 is considered the default.
+ * 
+ * @author Jerry Goodnough
  */
 public class AdapterDocQuerySecuredImpl {
 
@@ -109,20 +101,20 @@ public class AdapterDocQuerySecuredImpl {
     private static AdapterDocQuerySecuredImpl singlton = null;
     /** Local Log */
     private static Log log = LogFactory.getLog(
-            AdapterDocQuerySecuredImpl.class);
+        AdapterDocQuerySecuredImpl.class);
     /** Sucess code */
     private static String statusSuccess =
-            "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Success";
+        "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Success";
     //TODO: Validate the next element is correct.
     /** Query request Id */
     private static String queryRequestId =
-            "urn:oasis:names:tc:ebeml-regrep:xsd:query:3.0";
+        "urn:oasis:names:tc:ebeml-regrep:xsd:query:3.0";
     /*property file key*/
     private static final String PROPERTY_FILE_NAME_REPOSITORY = "repository";
     private static final String PROPERTY_FILE_REPOSITORY_ID = "dynamicDocumentRepositoryId";
     /** Qname for the extrinsice */
     private static final QName _ExtrinsicObject_QNAME = new QName(
-            "urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0", "ExtrinsicObject");
+        "urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0", "ExtrinsicObject");
 
     static {
         singlton = new AdapterDocQuerySecuredImpl();
@@ -142,7 +134,7 @@ public class AdapterDocQuerySecuredImpl {
 
     public oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse respondingGatewayCrossGatewayQuery(oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest body, WebServiceContext context) {
         RespondingGatewayCrossGatewayQueryRequestType respondingGatewayCrossGatewayQueryRequest =
-                new RespondingGatewayCrossGatewayQueryRequestType();
+            new RespondingGatewayCrossGatewayQueryRequestType();
         oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse response;
         AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
         respondingGatewayCrossGatewayQueryRequest.setAdhocQueryRequest(body);
@@ -152,7 +144,7 @@ public class AdapterDocQuerySecuredImpl {
     }
 
     public oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse respondingGatewayCrossGatewayQuery(
-            gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayQueryRequestType respondingGatewayCrossGatewayQueryRequest) {
+        gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayQueryRequestType respondingGatewayCrossGatewayQueryRequest) {
 
         log.debug("Entering Adapter respondingGatewayCrossGatewayQuery for Dynamic Assembly");
 
@@ -162,14 +154,14 @@ public class AdapterDocQuerySecuredImpl {
         String sHomeCommunityId = null;
 
         try {
-            sHomeCommunityId = PropertyAccessor.getProperty(
-                    NhincConstants.GATEWAY_PROPERTY_FILE,
-                    NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
+            sHomeCommunityId = PropertyAccessor.getInstance().getProperty(
+                NhincConstants.GATEWAY_PROPERTY_FILE,
+                NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
         } catch (PropertyAccessException e) {
             log.error("Failed to read " +
-                    NhincConstants.HOME_COMMUNITY_ID_PROPERTY +
-                    " property from the " + NhincConstants.GATEWAY_PROPERTY_FILE +
-                    ".properties  file.  Error: " + e.getMessage(), e);
+                NhincConstants.HOME_COMMUNITY_ID_PROPERTY +
+                " property from the " + NhincConstants.GATEWAY_PROPERTY_FILE +
+                ".properties  file.  Error: " + e.getMessage(), e);
         }
 
         log.debug("Get the Assembler Endpoint");
@@ -187,14 +179,14 @@ public class AdapterDocQuerySecuredImpl {
         //This will require modifing the input to the dynamic assember to only have one type
         //Check the ad-hoc query request;
         AdhocQueryRequest adhocQuery =
-                respondingGatewayCrossGatewayQueryRequest.getAdhocQueryRequest();
+            respondingGatewayCrossGatewayQueryRequest.getAdhocQueryRequest();
 
         //respondingGatewayCrossGatewayQueryRequest.getAdhocQueryRequest().
         AdhocQueryType ahqType = adhocQuery.getAdhocQuery();
 
         //Examine the slots of data for the query - First we transfer them to a hash map
         HashMap<String, ValueListType> querySlotHashMap = createSlotMap(
-                ahqType.getSlot());
+            ahqType.getSlot());
 
         try {
             //The following creates a default of a C32 request if none was provided
@@ -205,29 +197,29 @@ public class AdapterDocQuerySecuredImpl {
                 ValueListType vaList = new ValueListType();
                 vaList.getValue().add(AdapterConstants.C32_DOCUMENT);
                 vaList.getValue().add(AdapterConstants.ED_DISCHARGE_SUMMARY);
+                vaList.getValue().add(AdapterConstants.RADIOLOGY_REPORT);
                 newSlot.setValueList(vaList);
                 replaceOrAddSlotValue(ahqType.getSlot(), newSlot);
                 querySlotHashMap.put(AdapterConstants.XDSDocumentEntryClassCode, vaList);
-                log.debug("Query did not specify a document type - Adding C32 and ED Discharge Summary");
+                log.debug("Query did not specify a document type - Adding C32, Radiology Report & ED Discharge Summary");
             }
 
             //If the caller has specified a class code - required for us.
             //Then we loop each type individually to send out for assembly
-            if (querySlotHashMap.containsKey(
-                    AdapterConstants.XDSDocumentEntryClassCode)) {
+            if (querySlotHashMap.containsKey(AdapterConstants.XDSDocumentEntryClassCode)) {
                 gov.hhs.fha.nhinc.documentassembly.DocumentAssemblyPortType port = null;
 
                 try // Call Web Service Operation
                 {
                     gov.hhs.fha.nhinc.documentassembly.DocumentAssembly service =
-                            new gov.hhs.fha.nhinc.documentassembly.DocumentAssembly();
+                        new gov.hhs.fha.nhinc.documentassembly.DocumentAssembly();
                     port = service.getDocumentAssemblyPortSoap();
                     if ((assemblerEndpoint != null) &&
-                            !assemblerEndpoint.isEmpty()) {
+                        !assemblerEndpoint.isEmpty()) {
                         //Use the BOS Endpoint
                         ((BindingProvider) port).getRequestContext().put(
-                                BindingProvider.ENDPOINT_ADDRESS_PROPERTY,
-                                assemblerEndpoint);
+                            BindingProvider.ENDPOINT_ADDRESS_PROPERTY,
+                            assemblerEndpoint);
                     }
                 } catch (Exception ex) {
                     log.error("Exception during dynamic assembly", ex);
@@ -235,7 +227,7 @@ public class AdapterDocQuerySecuredImpl {
                 }
 
                 ValueListType vlClassCode = querySlotHashMap.get(
-                        AdapterConstants.XDSDocumentEntryClassCode);
+                    AdapterConstants.XDSDocumentEntryClassCode);
 
                 List<String> documentTypeList = getDocumentTypes(vlClassCode);
 
@@ -251,8 +243,8 @@ public class AdapterDocQuerySecuredImpl {
                         docType = docType.substring(0, docType.indexOf("^")).trim();
                     }
 
-                    //if it's not a supported class code (docType), don't assemble it
-                    if (docType.equals("34133-9") || docType.equals("18842-5")) {
+                    //if not a class code (docType) that Conemaugh supports, don't assemble it
+                    if (docType.equals("34133-9") || docType.equals("18842-5") || docType.equals("18726-0")) {
                         //known class code - assemble document
                         log.debug("Supported class code of " + docType + " - Assemble Document");
 
@@ -270,13 +262,13 @@ public class AdapterDocQuerySecuredImpl {
 
                         //Loop the request and scan the requested type codes
                         gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayProvideAndRegisterDocumentSetRequestRequestType dynResult =
-                                null;
+                            null;
 
                         //Get the document from the Assembler
                         try // Call Web Service Operation
                         {
                             dynResult = port.dynamicAssemblyQuery(
-                                    respondingGatewayCrossGatewayQueryRequest);
+                                respondingGatewayCrossGatewayQueryRequest);
                         } catch (Exception ex) {
                             log.error("Exception during dynamic assembly", ex);
                             throw ex;
@@ -285,21 +277,21 @@ public class AdapterDocQuerySecuredImpl {
                         if (dynResult != null) {
                             //Query the Dynamic Document Archive
                             oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse archiveResult =
-                                    null;
+                                null;
 
                             try {
                                 // Call Web Service Operation
                                 ihe.iti.xds_b._2007.DocumentManagerService service =
-                                        new ihe.iti.xds_b._2007.DocumentManagerService();
+                                    new ihe.iti.xds_b._2007.DocumentManagerService();
                                 ihe.iti.xds_b._2007.DocumentManagerPortType docManagerPort =
-                                        service.getDocumentManagerPortSoap();
+                                    service.getDocumentManagerPortSoap();
 
                                 if ((docMgrEndpoint != null) &&
-                                        !docMgrEndpoint.isEmpty()) {
+                                    !docMgrEndpoint.isEmpty()) {
                                     //Use the BOS Endpoint
                                     ((BindingProvider) docManagerPort).getRequestContext().put(
-                                            BindingProvider.ENDPOINT_ADDRESS_PROPERTY,
-                                            docMgrEndpoint);
+                                        BindingProvider.ENDPOINT_ADDRESS_PROPERTY,
+                                        docMgrEndpoint);
                                 }
                                 log.debug("Calling to Document Manager for match");
 
@@ -307,7 +299,7 @@ public class AdapterDocQuerySecuredImpl {
                                 AdhocQueryRequest aqr = respondingGatewayCrossGatewayQueryRequest.getAdhocQueryRequest();
 
                                 SlotType1 slot = new SlotType1();
-                                String slotValue = PropertyAccessor.getProperty(PROPERTY_FILE_NAME_REPOSITORY, PROPERTY_FILE_REPOSITORY_ID);
+                                String slotValue = PropertyAccessor.getInstance().getProperty(PROPERTY_FILE_NAME_REPOSITORY, PROPERTY_FILE_REPOSITORY_ID);
                                 ValueListType vList = new ValueListType();
 
                                 slot.setName("$XDSRepositoryUniqueId");
@@ -333,7 +325,7 @@ public class AdapterDocQuerySecuredImpl {
                                 RegistryObjectListType rol = getRegistryObjectListForDocument(sor, j);
 
                                 ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType currentPandRSet =
-                                        new ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType();
+                                    new ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType();
 
                                 ExtrinsicObjectType currentExtrinsic = (ExtrinsicObjectType) rol.getIdentifiable().get(0).getValue();
                                 SubmitObjectsRequest newsor = new SubmitObjectsRequest();
@@ -360,41 +352,41 @@ public class AdapterDocQuerySecuredImpl {
                                     try // Call Web Service Operation
                                     {
                                         ihe.iti.xds_b._2007.DocumentManagerService service =
-                                                new ihe.iti.xds_b._2007.DocumentManagerService();
+                                            new ihe.iti.xds_b._2007.DocumentManagerService();
                                         ihe.iti.xds_b._2007.DocumentManagerPortType docManagerPort =
-                                                service.getDocumentManagerPortSoap();
+                                            service.getDocumentManagerPortSoap();
 
                                         if ((docMgrEndpoint != null) &&
-                                                !docMgrEndpoint.isEmpty()) {
+                                            !docMgrEndpoint.isEmpty()) {
                                             //Use the BOS Endpoint
                                             ((BindingProvider) docManagerPort).getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, docMgrEndpoint);
                                         }
 
                                         //set the repository type as a dynamic document (1=dynamic doc, 2=inbound doc, 3 = policy doc)
                                         ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType pardsrt =
-                                                currentPandRSet;
+                                            currentPandRSet;
                                         //         pardsrt.setRepositoryUniqueType("1");
                                         //Now we format the return data to deal with results
                                         formatOutputForNewDynDoc(dqResponse, currentExtrinsic);
 
                                         //store dynamic document
                                         oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType result =
-                                                //docManagerPort.documentManagerStoreDynamicDocument(pardsrt);
-                                                docManagerPort.documentManagerStoreDocument(pardsrt);
+                                            //docManagerPort.documentManagerStoreDynamicDocument(pardsrt);
+                                            docManagerPort.documentManagerStoreDocument(pardsrt);
                                         log.debug("Result of storing document " +
-                                                result.getStatus());
+                                            result.getStatus());
 
                                         //Check success - Verify this is the right status code
                                         if (result.getStatus().compareTo(statusSuccess) != 0) {
                                             // OK we have a fault filing
                                             log.error(
-                                                    "Error storing dynamic document - Success code = " +
-                                                    result.getStatus());
+                                                "Error storing dynamic document - Success code = " +
+                                                result.getStatus());
 
                                             // Log the error and throw an exception
                                             throw new Exception(
-                                                    "Error storing dynamic document - Success code = " +
-                                                    result.getStatus());
+                                                "Error storing dynamic document - Success code = " +
+                                                result.getStatus());
                                         }
                                     } catch (Exception ex) {
                                         log.error("Exception saving dynamic document", ex);
@@ -404,13 +396,13 @@ public class AdapterDocQuerySecuredImpl {
                                 } else {
                                     log.info("Match found in archive");
                                     JAXBElement<ExtrinsicObjectType> metadata =
-                                            new JAXBElement<ExtrinsicObjectType>(
-                                            _ExtrinsicObject_QNAME,
-                                            ExtrinsicObjectType.class, matchFound);
+                                        new JAXBElement<ExtrinsicObjectType>(
+                                        _ExtrinsicObject_QNAME,
+                                        ExtrinsicObjectType.class, matchFound);
 
                                     //Given a match add it to the output
                                     dqResponse.getRegistryObjectList().getIdentifiable().add(
-                                            metadata);
+                                        metadata);
 
                                     //The output was updated by the search so we really don't need to do anything
                                     log.info("Request fullfilled by existing document");
@@ -421,7 +413,7 @@ public class AdapterDocQuerySecuredImpl {
                         }
                     } else {
                         //unknown class code - do NOT asemble document
-                        log.warn("Unsupported class code of "  + docType + " - Do NOT Assemble Document");
+                        log.warn("Unsupported class code of " + docType + " - Do NOT Assemble Document");
                     }
                 }  //end of iterator loop
             } else {
@@ -429,7 +421,7 @@ public class AdapterDocQuerySecuredImpl {
             }
         } catch (Exception ex) {
             log.error("Exception for dynamic document query - Details above",
-                    ex);
+                ex);
             //build registry error
             dqResponse.setStatus("urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure");
             RegistryErrorList _regerrorlist = new RegistryErrorList();
@@ -454,7 +446,7 @@ public class AdapterDocQuerySecuredImpl {
      * @param  values    - slot values
      */
     private static void addSlot(List<SlotType1> slots, String name,
-            String[] values) {
+        String[] values) {
 
         SlotType1 slot = new SlotType1();
         slot.setName(name);
@@ -481,9 +473,9 @@ public class AdapterDocQuerySecuredImpl {
      * @return
      */
     private static ExtrinsicObjectType checkForMatchInArchive(
-            oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse archiveResult,
-            String sClinicallyUnqiueHash,
-            oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse out) {
+        oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse archiveResult,
+        String sClinicallyUnqiueHash,
+        oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse out) {
 
         //For a moment pretend there is no match.
 
@@ -492,7 +484,7 @@ public class AdapterDocQuerySecuredImpl {
 
         //Pull out submit objects
         List<JAXBElement<? extends IdentifiableType>> objectList =
-                archiveResult.getRegistryObjectList().getIdentifiable();
+            archiveResult.getRegistryObjectList().getIdentifiable();
 
         ExtrinsicObjectType docExtrinsic = null;
 
@@ -506,8 +498,8 @@ public class AdapterDocQuerySecuredImpl {
                 docExtrinsic = (ExtrinsicObjectType) identifiableType;
 
                 SlotType1 slClinicalHash = findSlot(
-                        AdapterConstants.XDSClinicallyUniqueHash,
-                        docExtrinsic.getSlot());
+                    AdapterConstants.XDSClinicallyUniqueHash,
+                    docExtrinsic.getSlot());
 
                 if (slClinicalHash != null) {
                     String sChkHash = slClinicalHash.getValueList().getValue().get(0);
@@ -539,9 +531,9 @@ public class AdapterDocQuerySecuredImpl {
      * @return  A Hash Map of the slots mapped by the slot names
      */
     private static HashMap<String, ValueListType> createSlotMap(
-            List<SlotType1> slots) {
+        List<SlotType1> slots) {
         HashMap<String, ValueListType> hm =
-                new HashMap<String, ValueListType>();
+            new HashMap<String, ValueListType>();
         ListIterator<SlotType1> itr = slots.listIterator();
 
         while (itr.hasNext()) {
@@ -584,7 +576,7 @@ public class AdapterDocQuerySecuredImpl {
      * @param  repositoryId  Repository Id
      */
     private static void fixRepositoryId(ExtrinsicObjectType extrinsic,
-            String repositoryId) {
+        String repositoryId) {
         SlotType1 repositoryIdSlot = null;
 
         //Find repositoryl id (if present)
@@ -601,7 +593,7 @@ public class AdapterDocQuerySecuredImpl {
         if (repositoryIdSlot == null) {
             repositoryIdSlot = new SlotType1();
             addSlot(extrinsic.getSlot(), AdapterConstants.XDS_REPOSITORY_ID,
-                    new String[]{repositoryId});
+                new String[]{repositoryId});
 
             return;
         }
@@ -620,11 +612,11 @@ public class AdapterDocQuerySecuredImpl {
      */
     RegistryObjectListType getRegistryObjectListForDocument(SubmitObjectsRequest sor, int k) {
         List<JAXBElement<? extends IdentifiableType>> objectList =
-                sor.getRegistryObjectList().getIdentifiable();
+            sor.getRegistryObjectList().getIdentifiable();
         int objectListSize = objectList.size();
 
         oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory factory =
-                new oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory();
+            new oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory();
 
         RegistryObjectListType registryObjectList = new RegistryObjectListType();
 
@@ -648,7 +640,7 @@ public class AdapterDocQuerySecuredImpl {
      */
     private static ExtrinsicObjectType findExtrinsicObject(SubmitObjectsRequest sor, int matchCount) {
         List<JAXBElement<? extends IdentifiableType>> objectList =
-                sor.getRegistryObjectList().getIdentifiable();
+            sor.getRegistryObjectList().getIdentifiable();
 
         ExtrinsicObjectType matchingExtrinsic = null;
 
@@ -670,7 +662,7 @@ public class AdapterDocQuerySecuredImpl {
 
         if (matchingExtrinsic == null) {
             log.warn(
-                    "Warning failed to find extrinsic object the dynamic document");
+                "Warning failed to find extrinsic object the dynamic document");
         }
 
         return matchingExtrinsic;
@@ -684,9 +676,9 @@ public class AdapterDocQuerySecuredImpl {
      * @return  The Extrinsic Object or Null
      */
     private static ExtrinsicObjectType fndDynamicDocumentExtrinsicObject(
-            gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayProvideAndRegisterDocumentSetRequestRequestType dynamicDocument) {
+        gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayProvideAndRegisterDocumentSetRequestRequestType dynamicDocument) {
         List<JAXBElement<? extends IdentifiableType>> objectList =
-                dynamicDocument.getProvideAndRegisterDocumentSetRequest().getSubmitObjectsRequest().getRegistryObjectList().getIdentifiable();
+            dynamicDocument.getProvideAndRegisterDocumentSetRequest().getSubmitObjectsRequest().getRegistryObjectList().getIdentifiable();
 
         ExtrinsicObjectType dynExtrinsic = null;
 
@@ -705,7 +697,7 @@ public class AdapterDocQuerySecuredImpl {
 
         if (dynExtrinsic == null) {
             log.warn(
-                    "Warning failed to find extrinsic object the dynamic document");
+                "Warning failed to find extrinsic object the dynamic document");
         }
 
         return dynExtrinsic;
@@ -715,8 +707,8 @@ public class AdapterDocQuerySecuredImpl {
      * Used to format the output when a new dynamic document has been created
      */
     private static void formatOutputForNewDynDoc(
-            oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse out,
-            ExtrinsicObjectType dynExtrinsic) {
+        oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse out,
+        ExtrinsicObjectType dynExtrinsic) {
 
         //TODO: Validate document assembler return data
 
@@ -730,14 +722,14 @@ public class AdapterDocQuerySecuredImpl {
         String repositoryId = "";
 
         try {
-            repositoryId = PropertyAccessor.getProperty(
-                    AdapterConstants.REPOSITORY_PROPERTY_FILE,
-                    AdapterConstants.DYNAMIC_DOCUMENT_REPOSITORY_ID_PROP);
+            repositoryId = PropertyAccessor.getInstance().getProperty(
+                AdapterConstants.REPOSITORY_PROPERTY_FILE,
+                AdapterConstants.DYNAMIC_DOCUMENT_REPOSITORY_ID_PROP);
         } catch (PropertyAccessException e) {
             log.error("Error accessing property:" +
-                    AdapterConstants.DYNAMIC_DOCUMENT_REPOSITORY_ID_PROP +
-                    " in file:" + AdapterConstants.REPOSITORY_PROPERTY_FILE + ".",
-                    e);
+                AdapterConstants.DYNAMIC_DOCUMENT_REPOSITORY_ID_PROP +
+                " in file:" + AdapterConstants.REPOSITORY_PROPERTY_FILE + ".",
+                e);
         }
 
         log.debug("Got repository id value = " + repositoryId);
@@ -748,8 +740,8 @@ public class AdapterDocQuerySecuredImpl {
 
         // Add the extrinsic to the output
         JAXBElement<ExtrinsicObjectType> metadata =
-                new JAXBElement<ExtrinsicObjectType>(_ExtrinsicObject_QNAME,
-                ExtrinsicObjectType.class, dynExtrinsic);
+            new JAXBElement<ExtrinsicObjectType>(_ExtrinsicObject_QNAME,
+            ExtrinsicObjectType.class, dynExtrinsic);
 
         //Given a match add it to the output
         out.getRegistryObjectList().getIdentifiable().add(metadata);
@@ -764,8 +756,12 @@ public class AdapterDocQuerySecuredImpl {
      * @return  The Document Assembler Endpoint or null if not mapped.
      */
     private static String getAssemblerEndpoint() {
-        return ServiceHelper.getEndpointFromBOS(
-                AdapterConstants.DOCUMENT_ASSEMBLY);
+
+        String adapterDocumentEndpoint = "";
+
+        adapterDocumentEndpoint = AdapterConstants.ADAPTER_DOCUMENT_ASSEMBLY_ENDPOINT;
+
+        return adapterDocumentEndpoint;
     }
 
     /**
@@ -777,20 +773,20 @@ public class AdapterDocQuerySecuredImpl {
      * @return  The Hash as a String
      */
     private static String getClinicallyUniqueHash(
-            ExtrinsicObjectType dynExtrinsic) {
+        ExtrinsicObjectType dynExtrinsic) {
 
         String sClinicallyUniqueHash = null;
         SlotType1 slClinicalHash = findSlot(
-                AdapterConstants.XDSClinicallyUniqueHash,
-                dynExtrinsic.getSlot());
+            AdapterConstants.XDSClinicallyUniqueHash,
+            dynExtrinsic.getSlot());
 
         if (slClinicalHash != null) {
             sClinicallyUniqueHash = slClinicalHash.getValueList().getValue().get(0);
         } else {
             log.error(
-                    "DynamicDocument did not contatain a Clinically unique hash");
+                "DynamicDocument did not contatain a Clinically unique hash");
             throw new WebServiceException(
-                    "Unable to find Clinically unique Hash in the Dynamic Doument");
+                "Unable to find Clinically unique Hash in the Dynamic Doument");
 
         }
 
@@ -803,8 +799,12 @@ public class AdapterDocQuerySecuredImpl {
      * @return  The DocumentManager Endpoint or null if not mapped
      */
     private static String getDocMgrEndpoint() {
-        return ServiceHelper.getEndpointFromBOS(
-                AdapterConstants.DOCUMENT_MANAGER);
+
+        String docMgrEndpoint = "";
+
+        docMgrEndpoint = AdapterConstants.DOCUMENT_MANAGER_ENDPOINT;
+
+        return docMgrEndpoint;
     }
 
     /**
@@ -824,7 +824,7 @@ public class AdapterDocQuerySecuredImpl {
             String classCodes = itr.next();
 
             String normTypes = StringUtil.extractStringFromTokens(classCodes,
-                    "'()");
+                "'()");
 
             if (normTypes.contains(",")) {
                 //Ok We have a List of Types to break out
@@ -854,7 +854,7 @@ public class AdapterDocQuerySecuredImpl {
      * @param  newSlot  The Replacement/Additional Slot
      */
     private static void replaceOrAddSlotValue(List<SlotType1> slots,
-            SlotType1 newSlot) {
+        SlotType1 newSlot) {
         boolean fnd = false;
         ListIterator<SlotType1> itr = slots.listIterator();
 
@@ -884,7 +884,7 @@ public class AdapterDocQuerySecuredImpl {
      */
     private static oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse initializeAdhocQueryResponse() {
         oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse out =
-                new oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse();
+            new oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse();
         out.setStatus(statusSuccess);
         out.setRequestId(queryRequestId);
 
@@ -902,7 +902,7 @@ public class AdapterDocQuerySecuredImpl {
      */
     private static void updateAdditionalMetadata(gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayProvideAndRegisterDocumentSetRequestRequestType dynamicDocument, int index) {
         List<JAXBElement<? extends IdentifiableType>> objectList =
-                dynamicDocument.getProvideAndRegisterDocumentSetRequest().getSubmitObjectsRequest().getRegistryObjectList().getIdentifiable();
+            dynamicDocument.getProvideAndRegisterDocumentSetRequest().getSubmitObjectsRequest().getRegistryObjectList().getIdentifiable();
 
         ExtrinsicObjectType dynExtrinsic = null;
 

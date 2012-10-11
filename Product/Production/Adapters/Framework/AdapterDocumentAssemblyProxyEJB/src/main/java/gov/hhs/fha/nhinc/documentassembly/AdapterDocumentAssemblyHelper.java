@@ -1,38 +1,38 @@
 /*
- * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
- *
- * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
- *
- */
-/*
+ * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
+ * All rights reserved. 
  * Copyright (c) 2011, Conemaugh Valley Memorial Hospital
- *
  * This source is subject to the Conemaugh public license.  Please see the
  * license.txt file for more information.
- *
  * All other rights reserved.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND
- * CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING,
- * BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND
- * FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT
- * SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY
- * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE
- * GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
- * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ * Redistribution and use in source and binary forms, with or without 
+ * modification, are permitted provided that the following conditions are met: 
+ *     * Redistributions of source code must retain the above 
+ *       copyright notice, this list of conditions and the following disclaimer. 
+ *     * Redistributions in binary form must reproduce the above copyright 
+ *       notice, this list of conditions and the following disclaimer in the documentation 
+ *       and/or other materials provided with the distribution. 
+ *     * Neither the name of the United States Government nor the 
+ *       names of its contributors may be used to endorse or promote products 
+ *       derived from this software without specific prior written permission. 
  *
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
+ * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY 
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES 
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND 
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
 package gov.hhs.fha.nhinc.documentassembly;
 
 import gov.hhs.fha.nhinc.assemblymanager.AssemblyManager;
 import gov.hhs.fha.nhinc.assemblymanager.DocumentType;
-import gov.hhs.fha.nhinc.assemblymanager.utils.HashCodeUtil;
+import gov.hhs.fha.nhinc.utils.HashCodeUtil;
 import gov.hhs.fha.nhinc.assemblymanager.utils.XMLUtil;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayProvideAndRegisterDocumentSetRequestRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayQueryRequestType;
@@ -62,7 +62,8 @@ public class AdapterDocumentAssemblyHelper {
 
     private static final String C32_CLASS_CODE_ID = "34133-9";
     private static final String C62_CLASS_CODE_ID = "18842-5";
-
+    private static final String C62_RR_CLASS_CODE_ID = "18726-0";
+    private static final String UUID_PREFIX = "urn:uuid:";
     private static Log log = LogFactory.getLog(AdapterDocumentAssemblyHelper.class);
 
     /*
@@ -72,7 +73,7 @@ public class AdapterDocumentAssemblyHelper {
 
         /* Instantiate Required Objects */
         RespondingGatewayCrossGatewayProvideAndRegisterDocumentSetRequestRequestType response =
-                new RespondingGatewayCrossGatewayProvideAndRegisterDocumentSetRequestRequestType();
+            new RespondingGatewayCrossGatewayProvideAndRegisterDocumentSetRequestRequestType();
 
         EBXMLRequestBuilder ebxmlBuilder = new EBXMLRequestBuilder();
         AssemblyManager assembler = new AssemblyManager();
@@ -80,7 +81,7 @@ public class AdapterDocumentAssemblyHelper {
         String documentId = "";
 
         AdhocQueryRequestParser queryParser =
-                new AdhocQueryRequestParser(request.getAdhocQueryRequest());
+            new AdhocQueryRequestParser(request.getAdhocQueryRequest());
 
         /* 
          * If the request Status  ""$XDSDocumentEntryStatus"" is not one of
@@ -92,30 +93,23 @@ public class AdapterDocumentAssemblyHelper {
         boolean approvedFound = false;
         boolean statusIsNull = false;
         List<String> statusValues = queryParser.getStatusValues();
-        if (statusValues == null)
-        {
+        if (statusValues == null) {
             statusIsNull = true;
-        }
-        else
-        {
-            for (String item : statusValues)
-            {
-                if (item.contains("Approved"))
-                {
+        } else {
+            for (String item : statusValues) {
+                if (item.contains("Approved")) {
                     approvedFound = true;
                     log.info("'$XDSDocumentEntryStatus:Approved' found in request");
                     continue;
                 }
-                if (item.contains("DeferredCreation"))
-                {
+                if (item.contains("DeferredCreation")) {
                     log.info("'$XDSDocumentEntryStatus:DeferredCreation' found in request");
                     continue;
                 }
             }
         }
         /* If status is acceptable, proceed */
-        if (approvedFound || statusIsNull)
-        {
+        if (approvedFound || statusIsNull) {
             // get query parameters:  document type requested, patient identifier
             String docTypeId = queryParser.getDocType();
             String patientId = queryParser.getPatientId();
@@ -130,24 +124,21 @@ public class AdapterDocumentAssemblyHelper {
             Date serviceStopTimeTo = null;
 
             DocumentType documentType = null;
-            try
-            {
+            try {
                 //TODO: How does the assembler know what document type to process
                 documentType = assembler.getDocumentType(docTypeId);
 
-                if (documentType != null) 
-                {
+                if (documentType != null) {
                     String documentTypeDisplayName = documentType.getDisplayName();
                     String documentTypeClassCodeId = documentType.getTypeId();
 
                     log.info("Assembler request to build document " + documentTypeDisplayName +
-                            " with document class code = " + documentTypeClassCodeId + " for patientId = " + patientId);
+                        " with document class code = " + documentTypeClassCodeId + " for patientId = " + patientId);
 
                     // Assemble the document via Common Data Layer calls to the associated EMR/EHR system
                     List<POCDMT000040ClinicalDocument> assembledDocs = assembler.getDocuments(documentTypeClassCodeId, patientId);
 
-                    if(assembledDocs != null)
-                    {
+                    if (assembledDocs != null) {
                         ProvideAndRegisterDocumentSetRequestType documentSetRequest = null;
                         ExtrinsicObjectType metadata = null;
                         RegistryPackageType registryPkg = null;
@@ -157,14 +148,13 @@ public class AdapterDocumentAssemblyHelper {
                         String clinicalUniqueHash = null;
                         int numDocs = assembledDocs.size();
                         oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryObjectListType rol =
-                                new oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryObjectListType();
+                            new oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryObjectListType();
                         SubmitObjectsRequest submitObjects = new SubmitObjectsRequest();
                         submitObjects.setRegistryObjectList(rol);
 
-                        log.info("Assembler returned " + numDocs + " of type " + documentTypeClassCodeId + " for patientid " + patientId );
+                        log.info("Assembler returned " + numDocs + " of type " + documentTypeClassCodeId + " for patientid " + patientId);
 
-                        for (int docNum = 0; docNum < numDocs; docNum++)
-                        {
+                        for (int docNum = 0; docNum < numDocs; docNum++) {
                             // Initialize key variabl;es upon processing a new document
                             uniqueHash = null;
                             clinicalUniqueHash = null;
@@ -173,8 +163,7 @@ public class AdapterDocumentAssemblyHelper {
                             /* Filter Out C62 documents that don't meet the requested servie time specification
                              * before we waste any more time processing the C62 document
                              */
-                            if (documentTypeClassCodeId.equals(C62_CLASS_CODE_ID))
-                            {
+                            if (documentTypeClassCodeId.equals(C62_CLASS_CODE_ID) || documentTypeClassCodeId.equals(C62_RR_CLASS_CODE_ID)) {
                                 JAXBElement o = (JAXBElement) assembledDocs.get(docNum).getDocumentationOf().get(0).getServiceEvent().getEffectiveTime().getContent().get(0);
                                 IVXBTSExplicit ob = (IVXBTSExplicit) o.getValue();
                                 String serviceTime = ob.getValue();
@@ -185,9 +174,8 @@ public class AdapterDocumentAssemblyHelper {
                                 parsedServiceTime = new SimpleDateFormat(formatString).parse(serviceTime);
                                 serviceStartTimeFrom = parsedServiceTime;
                                 serviceStopTimeTo = parsedServiceTime;
-                                if(!(queryServiceStartTimeFrom == null) && !(queryServiceStopTimeTo == null) &&
-                                        !isWithinRange(serviceStartTimeFrom, queryServiceStartTimeFrom, queryServiceStopTimeTo))
-                                {
+                                if (!(queryServiceStartTimeFrom == null) && !(queryServiceStopTimeTo == null) &&
+                                    !isWithinRange(serviceStartTimeFrom, queryServiceStartTimeFrom, queryServiceStopTimeTo)) {
                                     continue;
                                 }
                             }
@@ -204,20 +192,20 @@ public class AdapterDocumentAssemblyHelper {
 
                             //Save and then reset document time and author times if they exist
                             TSExplicit savedTime, savedAuthorTime;
-                            TSExplicit tempTime = new TSExplicit(); 
+                            TSExplicit tempTime = new TSExplicit();
                             tempTime.setValue("000000000000000-0000");//temporary value
                             savedTime = assembledDocs.get(docNum).getEffectiveTime();
                             assembledDocs.get(docNum).setEffectiveTime(tempTime);
                             savedAuthorTime = assembledDocs.get(docNum).getAuthor().get(0).getTime();
                             assembledDocs.get(docNum).getAuthor().get(0).setTime(tempTime);
 
-                            if (assembledDocs.get(docNum).getAuthor().size() == 2)
-                              assembledDocs.get(docNum).getAuthor().get(1).setTime(tempTime);
+                            if (assembledDocs.get(docNum).getAuthor().size() == 2) {
+                                assembledDocs.get(docNum).getAuthor().get(1).setTime(tempTime);
+                            }
 
                             // save the document text
                             EDExplicit savedText = new EDExplicit();
-                            if(assembledDocs.get(docNum).getComponent()!= null && assembledDocs.get(docNum).getComponent().getNonXMLBody() != null)
-                            {
+                            if (assembledDocs.get(docNum).getComponent() != null && assembledDocs.get(docNum).getComponent().getNonXMLBody() != null) {
                                 savedText = assembledDocs.get(docNum).getComponent().getNonXMLBody().getText();
                                 assembledDocs.get(docNum).getComponent().getNonXMLBody().setText(null);
                             }
@@ -229,21 +217,21 @@ public class AdapterDocumentAssemblyHelper {
                             // put back ClinicalDocument.id
                             assembledDocs.get(docNum).getId().setRoot(savedDocId);
                             //log.info("Clinical Document- ADDED savedDocId =" + XMLUtil.toCanonicalXMLString(assembledDocs.get(docNum)));
-                            
+
                             //put back the Effective Time and the author time
                             assembledDocs.get(docNum).setEffectiveTime(savedTime);
                             assembledDocs.get(docNum).getAuthor().get(0).setTime(savedAuthorTime);
-                            
-                            if (assembledDocs.get(docNum).getAuthor().size() == 2)
-                              assembledDocs.get(docNum).getAuthor().get(1).setTime(savedAuthorTime);
+
+                            if (assembledDocs.get(docNum).getAuthor().size() == 2) {
+                                assembledDocs.get(docNum).getAuthor().get(1).setTime(savedAuthorTime);
+                            }
 
                             // Put back the text
-                            if(assembledDocs.get(docNum).getComponent()!= null && assembledDocs.get(docNum).getComponent().getNonXMLBody() != null)
-                            {
+                            if (assembledDocs.get(docNum).getComponent() != null && assembledDocs.get(docNum).getComponent().getNonXMLBody() != null) {
                                 //put back Text
                                 assembledDocs.get(docNum).getComponent().getNonXMLBody().setText(savedText);
                             }
-                            
+
                             // generate unique hash for document (with dates id and body)
                             xmlBytes = assembler.serializeCDAContentToXMLBytes(assembledDocs.get(docNum));
                             String docSize = "" + xmlBytes.length;
@@ -251,7 +239,7 @@ public class AdapterDocumentAssemblyHelper {
 
                             // use the document id from C32
                             documentId = savedDocId;
-                            document.setId("urn:uuid:" + documentId);
+                            document.setId(UUID_PREFIX + documentId);
                             document.setValue(xmlBytes);
                             log.info("Set documentId to = " + document.getId());
 
@@ -260,12 +248,12 @@ public class AdapterDocumentAssemblyHelper {
                             docTitle = assembledDocs.get(docNum).getTitle().getContent().get(0).toString();
 
                             documentSetRequest = ebxmlBuilder.createDocumentSetRequest();
-/*                           if (docNum > 0 && documentTypeClassCodeId.equals(C62_CLASS_CODE_ID))
+                            /*                           if (docNum > 0 && documentTypeClassCodeId.equals(C62_CLASS_CODE_ID))
                             {
-                                //ebxmlBuilder.addAdditionalMetadata(metadata, clinicalUniqueHash, serviceStartTimeFrom, serviceStopTimeTo);
+                            //ebxmlBuilder.addAdditionalMetadata(metadata, clinicalUniqueHash, serviceStartTimeFrom, serviceStopTimeTo);
                             }
                             else
-*/
+                             */
                             {
                                 // build metadata - need to pass doc title since it determines whether or not doc is
                                 // ER Discharge Summary or just Discharge Summary
@@ -278,7 +266,7 @@ public class AdapterDocumentAssemblyHelper {
                                     documentType,
                                     serviceStartTimeFrom,
                                     serviceStopTimeTo,
-                                    docSize,docTitle);
+                                    docSize, docTitle);
 
                                 registryPkg =
                                     ebxmlBuilder.createRegistryPackage(queryParser.getISOFormatPatientId(), documentType, docTitle);
@@ -290,23 +278,18 @@ public class AdapterDocumentAssemblyHelper {
                             documentSetRequest.getDocument().add(document);
                             submitObjects = createSubmitObjectsRequest(submitObjects, metadata, registryPkg, association, classification);
                             log.info("Built document " + docNum + " of type = " + documentType.getDisplayName() + ", id = " + documentId + ", " +
-                                        "hash = " + uniqueHash + ", clinical hash = " + clinicalUniqueHash + " Size = " + docSize);
+                                "hash = " + uniqueHash + ", clinical hash = " + clinicalUniqueHash + " Size = " + docSize);
                         } // end of FOR LOOP on documents of the same type
                         // Build the RespondingGatewayCrossGatewayProvideAndRegisterDocumentSetRequestRequest response
                         // using the documents already added
-                        if (documentSetRequest == null)
-                        {
+                        if (documentSetRequest == null) {
                             response = null;
-                        }
-                        else   
-                        {
+                        } else {
                             documentSetRequest.setSubmitObjectsRequest(submitObjects);
                             response.setProvideAndRegisterDocumentSetRequest(documentSetRequest);
                             response.setAssertion(request.getAssertion());
                         }
-                    }
-                    else
-                    {
+                    } else {
                         log.info("No document found...for document type \"" + documentType.getDisplayName() + "\" and patientId = " + patientId);
                         response = null;
                     }
@@ -319,23 +302,21 @@ public class AdapterDocumentAssemblyHelper {
                 log.error(itp.getMessage(), itp);
             }
             return response;
-        }
-        else // Approved not a requested status
+        } else // Approved not a requested status
         {
             return null;
         }
     }
 
     private static SubmitObjectsRequest createSubmitObjectsRequest(
-            SubmitObjectsRequest submitObjects,
-            ExtrinsicObjectType metadata,
-            RegistryPackageType registryPkg,
-            AssociationType1 association, 
-            ClassificationType classification)
-    {
+        SubmitObjectsRequest submitObjects,
+        ExtrinsicObjectType metadata,
+        RegistryPackageType registryPkg,
+        AssociationType1 association,
+        ClassificationType classification) {
 
         oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory factory =
-                new oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory();
+            new oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory();
 
         oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryObjectListType registryObjectList = submitObjects.getRegistryObjectList();
         // submission
@@ -347,29 +328,26 @@ public class AdapterDocumentAssemblyHelper {
         return submitObjects;
     }
 
-       /**
-    * Prepare a date format string based on the length of the date string
-    * to be parsed.
-    * @see gov.hhs.fha.nhinc.repository.util.DocumentLoadUtil
-    * @param dateFormat Date format string (ex. yyyyMMddhhmmssZ)
-    * @param dateString Date string to be parsed (ex. 19990205)
-    * @return Modified format string based on the date string length (ex. yyyyMMdd)
-    */
-   public static String prepareDateFormatString(String dateFormat, String dateString)
-   {
-      String formatString = dateFormat;
-      if ((dateString != null) && (dateFormat != null) && (dateString.length() > 0) && (dateString.length() < dateFormat.length())) {
-         formatString = dateFormat.substring(0, dateString.length());
-         if (log.isDebugEnabled()) {
-            log.debug("New dateFormat: " + dateFormat);
-         }
-      }
-      return formatString;
-   }
+    /**
+     * Prepare a date format string based on the length of the date string
+     * to be parsed.
+     * @see gov.hhs.fha.nhinc.repository.util.DocumentLoadUtil
+     * @param dateFormat Date format string (ex. yyyyMMddhhmmssZ)
+     * @param dateString Date string to be parsed (ex. 19990205)
+     * @return Modified format string based on the date string length (ex. yyyyMMdd)
+     */
+    public static String prepareDateFormatString(String dateFormat, String dateString) {
+        String formatString = dateFormat;
+        if ((dateString != null) && (dateFormat != null) && (dateString.length() > 0) && (dateString.length() < dateFormat.length())) {
+            formatString = dateFormat.substring(0, dateString.length());
+            if (log.isDebugEnabled()) {
+                log.debug("New dateFormat: " + dateFormat);
+            }
+        }
+        return formatString;
+    }
 
-   public static boolean isWithinRange(Date serviceDate, Date startDate, Date stopDate)
-   {
-    return serviceDate.after(startDate) && serviceDate.before(stopDate);
-   }
-
+    public static boolean isWithinRange(Date serviceDate, Date startDate, Date stopDate) {
+        return serviceDate.after(startDate) && serviceDate.before(stopDate);
+    }
 }

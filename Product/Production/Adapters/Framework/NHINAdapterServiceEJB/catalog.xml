@@ -1,145 +1,40 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
-    <system systemId="file:/C:/projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/NIST_xdsregistryb.wsdl" uri="src/conf/xml-resources/web-service-references/NIST_xdsregistryb/wsdl/NIST_xdsregistryb.wsdl"/>
-    <system systemId="file:/C:/projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/AdapterInternalSubDiscoveryAnnounce.wsdl" uri="src/conf/xml-resources/web-services/InternalSubjectDiscoveryAnnounce/wsdl/AdapterInternalSubDiscoveryAnnounce.wsdl"/>
-    <system systemId="file:/C:/projects/NHINC/3.1/Product/Production/Common/Interfaces/src/schemas/HL7V3/coreschemas/voc.xsd" uri="src/conf/xml-resources/web-services/AdapterSubjectDiscovery/schemas/HL7V3/coreschemas/voc.xsd"/>
-    <system systemId="file:/C:/projects/NHINC/3.1/Product/Production/Common/Interfaces/src/schemas/HL7V3/coreschemas/datatypes.xsd" uri="src/conf/xml-resources/web-services/AdapterSubjectDiscovery/schemas/HL7V3/coreschemas/datatypes.xsd"/>
-    <system systemId="file:/C:/projects/NHINC/3.1/Product/Production/Common/Interfaces/src/schemas/HL7V3/multicacheschemas/COCT_MT040203UV01.xsd" uri="src/conf/xml-resources/web-services/AdapterSubjectDiscovery/schemas/HL7V3/multicacheschemas/COCT_MT040203UV01.xsd"/>
-    <system systemId="file:/C:/projects/NHINC/3.1/Product/Production/Common/Interfaces/src/schemas/HL7V3/multicacheschemas/COCT_MT090300UV01.xsd" uri="src/conf/xml-resources/web-services/AdapterSubjectDiscovery/schemas/HL7V3/multicacheschemas/COCT_MT090300UV01.xsd"/>
-    <system systemId="file:/C:/projects/NHINC/3.1/Product/Production/Common/Interfaces/src/schemas/HL7V3/multicacheschemas/COCT_MT090100UV01.xsd" uri="src/conf/xml-resources/web-services/AdapterSubjectDiscovery/schemas/HL7V3/multicacheschemas/COCT_MT090100UV01.xsd"/>
-    <system systemId="file:/C:/projects/NHINC/3.1/Product/Production/Common/Interfaces/src/schemas/HL7V3/multicacheschemas/COCT_MT090003UV.xsd" uri="src/conf/xml-resources/web-services/AdapterSubjectDiscovery/schemas/HL7V3/multicacheschemas/COCT_MT090003UV.xsd"/>
-    <system systemId="file:/C:/projects/NHINC/3.1/Product/Production/Common/Interfaces/src/schemas/HL7V3/multicacheschemas/MCAI_MT900001UV01.xsd" uri="src/conf/xml-resources/web-services/AdapterSubjectDiscovery/schemas/HL7V3/multicacheschemas/MCAI_MT900001UV01.xsd"/>
-    <system systemId="file:/C:/projects/NHINC/3.1/Product/Production/Common/Interfaces/src/schemas/HL7V3/multicacheschemas/COCT_MT150007UV.xsd" uri="src/conf/xml-resources/web-services/AdapterSubjectDiscovery/schemas/HL7V3/multicacheschemas/COCT_MT150007UV.xsd"/>
-    <system systemId="file:/C:/projects/NHINC/3.1/Product/Production/Common/Interfaces/src/schemas/HL7V3/multicacheschemas/COCT_MT820000UV.xsd" uri="src/conf/xml-resources/web-services/AdapterSubjectDiscovery/schemas/HL7V3/multicacheschemas/COCT_MT820000UV.xsd"/>
-    <system systemId="file:/C:/projects/NHINC/3.1/Product/Production/Common/Interfaces/src/schemas/HL7V3/multicacheschemas/COCT_MT150002UV01.xsd" uri="src/conf/xml-resources/web-services/AdapterSubjectDiscovery/schemas/HL7V3/multicacheschemas/COCT_MT150002UV01.xsd"/>
-    <system systemId="file:/C:/projects/NHINC/3.1/Product/Production/Common/Interfaces/src/schemas/HL7V3/multicacheschemas/COCT_MT030007UV.xsd" uri="src/conf/xml-resources/web-services/AdapterSubjectDiscovery/schemas/HL7V3/multicacheschemas/COCT_MT030007UV.xsd"/>
-    <system systemId="file:/C:/projects/NHINC/3.1/Product/Production/Common/Interfaces/src/schemas/HL7V3/multicacheschemas/COCT_MT030207UV.xsd" uri="src/conf/xml-resources/web-services/AdapterSubjectDiscovery/schemas/HL7V3/multicacheschemas/COCT_MT030207UV.xsd"/>
-    <system systemId="file:/C:/projects/NHINC/3.1/Product/Production/Common/Interfaces/src/schemas/HL7V3/multicacheschemas/COCT_MT710007UV.xsd" uri="src/conf/xml-resources/web-services/AdapterSubjectDiscovery/schemas/HL7V3/multicacheschemas/COCT_MT710007UV.xsd"/>
-    <system systemId="file:/C:/projects/NHINC/3.1/Product/Production/Common/Interfaces/src/schemas/HL7V3/multicacheschemas/COCT_MT960000UV.xsd" uri="src/conf/xml-resources/web-services/AdapterSubjectDiscovery/schemas/HL7V3/multicacheschemas/COCT_MT960000UV.xsd"/>
-    <system systemId="file:/C:/projects/NHINC/3.1/Product/Production/Common/Interfaces/src/schemas/HL7V3/multicacheschemas/COCT_MT670000UV01.xsd" uri="src/conf/xml-resources/web-services/AdapterSubjectDiscovery/schemas/HL7V3/multicacheschemas/COCT_MT670000UV01.xsd"/>
-    <system systemId="file:/C:/projects/NHINC/3.1/Product/Production/Common/Interfaces/src/schemas/HL7V3/multicacheschemas/COCT_MT150003UV03.xsd" uri="src/conf/xml-resources/web-services/AdapterSubjectDiscovery/schemas/HL7V3/multicacheschemas/COCT_MT150003UV03.xsd"/>
-    <system systemId="file:/C:/projects/NHINC/3.1/Product/Production/Common/Interfaces/src/schemas/HL7V3/multicacheschemas/COCT_MT180000UV04.xsd" uri="src/conf/xml-resources/web-services/AdapterSubjectDiscovery/schemas/HL7V3/multicacheschemas/COCT_MT180000UV04.xsd"/>
-    <system systemId="file:/C:/projects/NHINC/3.1/Product/Production/Common/Interfaces/src/schemas/HL7V3/coreschemas/NarrativeBlock.xsd" uri="src/conf/xml-resources/web-services/AdapterSubjectDiscovery/schemas/HL7V3/coreschemas/NarrativeBlock.xsd"/>
-    <system systemId="file:/C:/projects/NHINC/3.1/Product/Production/Common/Interfaces/src/schemas/HL7V3/coreschemas/datatypes-base.xsd" uri="src/conf/xml-resources/web-services/AdapterSubjectDiscovery/schemas/HL7V3/coreschemas/datatypes-base.xsd"/>
-    <system systemId="file:/C:/projects/NHINC/3.1/Product/Production/Common/Interfaces/src/schemas/HL7V3/multicacheschemas/COCT_MT030203UV02.xsd" uri="src/conf/xml-resources/web-services/AdapterSubjectDiscovery/schemas/HL7V3/multicacheschemas/COCT_MT030203UV02.xsd"/>
-    <system systemId="file:/C:/projects/NHINC/3.1/Product/Production/Common/Interfaces/src/schemas/HL7V3/multicacheschemas/COCT_MT150000UV02.xsd" uri="src/conf/xml-resources/web-services/AdapterSubjectDiscovery/schemas/HL7V3/multicacheschemas/COCT_MT150000UV02.xsd"/>
-    <system systemId="file:/C:/projects/NHINC/3.1/Product/Production/Common/Interfaces/src/schemas/HL7V3/multicacheschemas/COCT_MT070000UV01.xsd" uri="src/conf/xml-resources/web-services/AdapterSubjectDiscovery/schemas/HL7V3/multicacheschemas/COCT_MT070000UV01.xsd"/>
-    <system systemId="file:/C:/projects/NHINC/3.1/Product/Production/Common/Interfaces/src/schemas/HL7V3/multicacheschemas/COCT_MT030202UV01.xsd" uri="src/conf/xml-resources/web-services/AdapterSubjectDiscovery/schemas/HL7V3/multicacheschemas/COCT_MT030202UV01.xsd"/>
-    <system systemId="file:/C:/projects/NHINC/3.1/Product/Production/Common/Interfaces/src/schemas/HL7V3/multicacheschemas/COCT_MT710000UV01.xsd" uri="src/conf/xml-resources/web-services/AdapterSubjectDiscovery/schemas/HL7V3/multicacheschemas/COCT_MT710000UV01.xsd"/>
-    <system systemId="file:/C:/projects/NHINC/3.1/Product/Production/Common/Interfaces/src/schemas/HL7V3/multicacheschemas/COCT_MT090303UV01.xsd" uri="src/conf/xml-resources/web-services/AdapterSubjectDiscovery/schemas/HL7V3/multicacheschemas/COCT_MT090303UV01.xsd"/>
-    <system systemId="file:/C:/projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/AdapterSubjectDiscovery.wsdl" uri="src/conf/xml-resources/web-services/subjectdiscovery/wsdl/AdapterSubjectDiscovery.wsdl"/>
-    <system systemId="file:/C:/projects/NHINC/3.1/Product/Production/Common/Interfaces/src/schemas/nhinc/hl7/HL7SubjectDiscoveryMessages.xsd" uri="src/conf/xml-resources/web-services/subjectdiscovery/schemas/nhinc/hl7/HL7SubjectDiscoveryMessages.xsd"/>
-    <system systemId="file:/C:/projects/NHINC/3.1/Product/Production/Common/Interfaces/src/schemas/HL7V3/multicacheschemas/MCCI_IN000002UV01.xsd" uri="src/conf/xml-resources/web-services/subjectdiscovery/schemas/HL7V3/multicacheschemas/MCCI_IN000002UV01.xsd"/>
-    <system systemId="file:/C:/projects/NHINC/3.1/Product/Production/Common/Interfaces/src/schemas/HL7V3/multicacheschemas/PRPA_IN201301UV.xsd" uri="src/conf/xml-resources/web-services/subjectdiscovery/schemas/HL7V3/multicacheschemas/PRPA_IN201301UV.xsd"/>
-    <system systemId="file:/C:/projects/NHINC/3.1/Product/Production/Common/Interfaces/src/schemas/HL7V3/multicacheschemas/PRPA_IN201302UV.xsd" uri="src/conf/xml-resources/web-services/subjectdiscovery/schemas/HL7V3/multicacheschemas/PRPA_IN201302UV.xsd"/>
-    <system systemId="file:/C:/projects/NHINC/3.1/Product/Production/Common/Interfaces/src/schemas/HL7V3/multicacheschemas/PRPA_IN201303UV.xsd" uri="src/conf/xml-resources/web-services/subjectdiscovery/schemas/HL7V3/multicacheschemas/PRPA_IN201303UV.xsd"/>
-    <system systemId="file:/C:/projects/NHINC/3.1/Product/Production/Common/Interfaces/src/schemas/HL7V3/multicacheschemas/PRPA_IN201304UV.xsd" uri="src/conf/xml-resources/web-services/subjectdiscovery/schemas/HL7V3/multicacheschemas/PRPA_IN201304UV.xsd"/>
-    <system systemId="file:/C:/projects/NHINC/3.1/Product/Production/Common/Interfaces/src/schemas/HL7V3/multicacheschemas/PRPA_IN201305UV.xsd" uri="src/conf/xml-resources/web-services/subjectdiscovery/schemas/HL7V3/multicacheschemas/PRPA_IN201305UV.xsd"/>
-    <system systemId="file:/C:/projects/NHINC/3.1/Product/Production/Common/Interfaces/src/schemas/HL7V3/multicacheschemas/PRPA_IN201306UV.xsd" uri="src/conf/xml-resources/web-services/subjectdiscovery/schemas/HL7V3/multicacheschemas/PRPA_IN201306UV.xsd"/>
-    <system systemId="file:/C:/projects/NHINC/3.1/Product/Production/Common/Interfaces/src/schemas/HL7V3/multicacheschemas/PRPA_IN201309UV.xsd" uri="src/conf/xml-resources/web-services/subjectdiscovery/schemas/HL7V3/multicacheschemas/PRPA_IN201309UV.xsd"/>
-    <system systemId="file:/C:/projects/NHINC/3.1/Product/Production/Common/Interfaces/src/schemas/HL7V3/multicacheschemas/PRPA_IN201310UV.xsd" uri="src/conf/xml-resources/web-services/subjectdiscovery/schemas/HL7V3/multicacheschemas/PRPA_IN201310UV.xsd"/>
-    <system systemId="file:/C:/projects/NHINC/3.1/Product/Production/Common/Interfaces/src/schemas/HL7V3/multicacheschemas/PRPA_MT201307UV.xsd" uri="src/conf/xml-resources/web-services/subjectdiscovery/schemas/HL7V3/multicacheschemas/PRPA_MT201307UV.xsd"/>
-    <system systemId="file:/C:/projects/NHINC/3.1/Product/Production/Common/Interfaces/src/schemas/HL7V3/multicacheschemas/CDA.xsd" uri="src/conf/xml-resources/web-services/subjectdiscovery/schemas/HL7V3/multicacheschemas/CDA.xsd"/>
-    <system systemId="file:/C:/projects/NHINC/3.1/Product/Production/Common/Interfaces/src/schemas/HL7V3/coreschemas/infrastructureRoot.xsd" uri="src/conf/xml-resources/web-services/subjectdiscovery/schemas/HL7V3/coreschemas/infrastructureRoot.xsd"/>
-    <system systemId="file:/C:/projects/NHINC/3.1/Product/Production/Common/Interfaces/src/schemas/HL7V3/multicacheschemas/MCCI_MT000200UV01.xsd" uri="src/conf/xml-resources/web-services/subjectdiscovery/schemas/HL7V3/multicacheschemas/MCCI_MT000200UV01.xsd"/>
-    <system systemId="file:/C:/projects/NHINC/3.1/Product/Production/Common/Interfaces/src/schemas/HL7V3/multicacheschemas/MCCI_MT000100UV01.xsd" uri="src/conf/xml-resources/web-services/subjectdiscovery/schemas/HL7V3/multicacheschemas/MCCI_MT000100UV01.xsd"/>
-    <system systemId="file:/C:/projects/NHINC/3.1/Product/Production/Common/Interfaces/src/schemas/HL7V3/multicacheschemas/MFMI_MT700701UV01.xsd" uri="src/conf/xml-resources/web-services/subjectdiscovery/schemas/HL7V3/multicacheschemas/MFMI_MT700701UV01.xsd"/>
-    <system systemId="file:/C:/projects/NHINC/3.1/Product/Production/Common/Interfaces/src/schemas/HL7V3/multicacheschemas/PRPA_MT201301UV.xsd" uri="src/conf/xml-resources/web-services/subjectdiscovery/schemas/HL7V3/multicacheschemas/PRPA_MT201301UV.xsd"/>
-    <system systemId="file:/C:/projects/NHINC/3.1/Product/Production/Common/Interfaces/src/schemas/HL7V3/multicacheschemas/PRPA_MT201302UV.xsd" uri="src/conf/xml-resources/web-services/subjectdiscovery/schemas/HL7V3/multicacheschemas/PRPA_MT201302UV.xsd"/>
-    <system systemId="file:/C:/projects/NHINC/3.1/Product/Production/Common/Interfaces/src/schemas/HL7V3/multicacheschemas/PRPA_MT201305UV.xsd" uri="src/conf/xml-resources/web-services/subjectdiscovery/schemas/HL7V3/multicacheschemas/PRPA_MT201305UV.xsd"/>
-    <system systemId="file:/C:/projects/NHINC/3.1/Product/Production/Common/Interfaces/src/schemas/HL7V3/multicacheschemas/PRPA_MT201303UV.xsd" uri="src/conf/xml-resources/web-services/subjectdiscovery/schemas/HL7V3/multicacheschemas/PRPA_MT201303UV.xsd"/>
-    <system systemId="file:/C:/projects/NHINC/3.1/Product/Production/Common/Interfaces/src/schemas/HL7V3/multicacheschemas/QUQI_MT021001UV01.xsd" uri="src/conf/xml-resources/web-services/subjectdiscovery/schemas/HL7V3/multicacheschemas/QUQI_MT021001UV01.xsd"/>
-    <system systemId="file:/C:/projects/NHINC/3.1/Product/Production/Common/Interfaces/src/schemas/HL7V3/multicacheschemas/PRPA_MT201306UV.xsd" uri="src/conf/xml-resources/web-services/subjectdiscovery/schemas/HL7V3/multicacheschemas/PRPA_MT201306UV.xsd"/>
-    <system systemId="file:/C:/projects/NHINC/3.1/Product/Production/Common/Interfaces/src/schemas/HL7V3/multicacheschemas/MCCI_MT000300UV01.xsd" uri="src/conf/xml-resources/web-services/subjectdiscovery/schemas/HL7V3/multicacheschemas/MCCI_MT000300UV01.xsd"/>
-    <system systemId="file:/C:/projects/NHINC/3.1/Product/Production/Common/Interfaces/src/schemas/HL7V3/multicacheschemas/MFMI_MT700711UV01.xsd" uri="src/conf/xml-resources/web-services/subjectdiscovery/schemas/HL7V3/multicacheschemas/MFMI_MT700711UV01.xsd"/>
-    <system systemId="file:/C:/projects/NHINC/3.1/Product/Production/Common/Interfaces/src/schemas/HL7V3/multicacheschemas/PRPA_MT201310UV.xsd" uri="src/conf/xml-resources/web-services/subjectdiscovery/schemas/HL7V3/multicacheschemas/PRPA_MT201310UV.xsd"/>
-    <system systemId="file:/C:/projects/NHINC/3.1/Product/Production/Common/Interfaces/src/schemas/HL7V3/multicacheschemas/PRPA_MT201304UV.xsd" uri="src/conf/xml-resources/web-services/subjectdiscovery/schemas/HL7V3/multicacheschemas/PRPA_MT201304UV.xsd"/>
-    <system systemId="file:/C:/projects/NHINC/3.1/Product/Production/Common/Interfaces/src/schemas/HL7V3/multicacheschemas/POCD_MT000040.xsd" uri="src/conf/xml-resources/web-services/subjectdiscovery/schemas/HL7V3/multicacheschemas/POCD_MT000040.xsd"/>
-    <system systemId="file:/C:/projects/NHINC/3.1/Product/Production/Common/Interfaces/src/schemas/Endpoint/addressing.xsd" uri="src/conf/xml-resources/web-service-references/BOSServiceEndpointProvider/schemas/Endpoint/addressing.xsd"/>
-    <system systemId="file:/C:/projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/AdapterDocQuery.wsdl" uri="src/conf/xml-resources/web-services/AdpaterDocumentQueryService/wsdl/AdapterDocQuery.wsdl"/>
-    <system systemId="file:/C:/projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/AdapterDocRetrieve.wsdl" uri="src/conf/xml-resources/web-services/AdapterDocRetrieve/wsdl/AdapterDocRetrieve.wsdl"/>
-    <system systemId="file:/C:/projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/BOSServiceEndpointProvider.wsdl" uri="src/main/resources/xml-resources/web-service-references/BOSServiceEndpointProvider/wsdl/BOSServiceEndpointProvider.wsdl"/>
-    <system systemId="file:/C:/projects/NHINC/3.1/Product/Production/Common/Interfaces/src/schemas/Endpoint/Endpoint.xsd" uri="src/main/resources/xml-resources/web-service-references/BOSServiceEndpointProvider/schemas/Endpoint/Endpoint.xsd"/>
-    <system systemId="file:/C:/projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/DocumentManager.wsdl" uri="src/main/resources/xml-resources/web-service-references/DocumentManager/wsdl/DocumentManager.wsdl"/>
-    <system systemId="file:/C:/projects/NHINC/3.1/Product/Production/Common/Interfaces/src/schemas/nhinc/common/DocManager.xsd" uri="src/main/resources/xml-resources/web-service-references/DocumentManager/schemas/nhinc/common/DocManager.xsd"/>
-    <system systemId="file:/C:/projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/DocumentAssembly.wsdl" uri="src/main/resources/xml-resources/web-service-references/DocumentAssembly/wsdl/DocumentAssembly.wsdl"/>
-    <system systemId="file:/C:/projects/NHINC/3.1/Product/Production/Common/Interfaces/src/schemas/ebRS/query.xsd" uri="src/main/resources/xml-resources/web-service-references/DocumentAssembly/schemas/ebRS/query.xsd"/>
-    <system systemId="file:/C:/projects/NHINC/3.1/Product/Production/Common/Interfaces/src/schemas/nhinc/common/NhincCommonAdapter.xsd" uri="src/main/resources/xml-resources/web-service-references/DocumentAssembly/schemas/nhinc/common/NhincCommonAdapter.xsd"/>
-    <system systemId="file:/C:/projects/NHINC/3.1/Product/Production/Common/Interfaces/src/schemas/ihe/XDS.b_DocumentRepository.xsd" uri="src/main/resources/xml-resources/web-service-references/DocumentAssembly/schemas/ihe/XDS.b_DocumentRepository.xsd"/>
-    <system systemId="file:/C:/projects/NHINC/3.1/Product/Production/Common/Interfaces/src/schemas/ebRS/rim.xsd" uri="src/main/resources/xml-resources/web-service-references/DocumentAssembly/schemas/ebRS/rim.xsd"/>
-    <system systemId="file:/C:/projects/NHINC/3.1/Product/Production/Common/Interfaces/src/schemas/ebRS/rs.xsd" uri="src/main/resources/xml-resources/web-service-references/DocumentAssembly/schemas/ebRS/rs.xsd"/>
-    <system systemId="file:/C:/projects/NHINC/3.1/Product/Production/Common/Interfaces/src/schemas/nhinc/common/NhincCommon.xsd" uri="src/main/resources/xml-resources/web-service-references/DocumentAssembly/schemas/nhinc/common/NhincCommon.xsd"/>
-    <system systemId="file:/C:/projects/NHINC/3.1/Product/Production/Common/Interfaces/src/schemas/ihe/auditmessage.xsd" uri="src/main/resources/xml-resources/web-service-references/DocumentAssembly/schemas/ihe/auditmessage.xsd"/>
-    <system systemId="file:/C:/projects/NHINC/3.1/Product/Production/Common/Interfaces/src/schemas/docs.oasis-open.org/wsn/b-2.xsd" uri="src/main/resources/xml-resources/web-service-references/DocumentAssembly/schemas/docs.oasis-open.org/wsn/b-2.xsd"/>
-    <system systemId="file:/C:/projects/NHINC/3.1/Product/Production/Common/Interfaces/src/schemas/nhinc/common/SubscriptionB2OverrideForCdc.xsd" uri="src/main/resources/xml-resources/web-service-references/DocumentAssembly/schemas/nhinc/common/SubscriptionB2OverrideForCdc.xsd"/>
-    <system systemId="file:/C:/projects/NHINC/3.1/Product/Production/Common/Interfaces/src/schemas/nhinc/common/SubscriptionB2OverrideForDocuments.xsd" uri="src/main/resources/xml-resources/web-service-references/DocumentAssembly/schemas/nhinc/common/SubscriptionB2OverrideForDocuments.xsd"/>
-    <system systemId="file:/C:/projects/NHINC/3.1/Product/Production/Common/Interfaces/src/schemas/oasis/xacml/access_control-xacml-2.0-context-schema-os.xsd" uri="src/main/resources/xml-resources/web-service-references/DocumentAssembly/schemas/oasis/xacml/access_control-xacml-2.0-context-schema-os.xsd"/>
-    <system systemId="file:/C:/projects/NHINC/3.1/Product/Production/Common/Interfaces/src/schemas/ebRS/lcm.xsd" uri="src/main/resources/xml-resources/web-service-references/DocumentAssembly/schemas/ebRS/lcm.xsd"/>
-    <system systemId="file:/C:/projects/NHINC/3.1/Product/Production/Common/Interfaces/src/schemas/www.w3.org/2001/xml.xsd" uri="src/main/resources/xml-resources/web-service-references/DocumentAssembly/schemas/www.w3.org/2001/xml.xsd"/>
-    <system systemId="file:/C:/projects/NHINC/3.1/Product/Production/Common/Interfaces/src/schemas/xmlsoap.org/addressing.xsd" uri="src/main/resources/xml-resources/web-service-references/DocumentAssembly/schemas/xmlsoap.org/addressing.xsd"/>
-    <system systemId="file:/C:/projects/NHINC/3.1/Product/Production/Common/Interfaces/src/schemas/www.w3.org/2005/08/addressing/ws-addr.xsd" uri="src/main/resources/xml-resources/web-service-references/DocumentAssembly/schemas/www.w3.org/2005/08/addressing/ws-addr.xsd"/>
-    <system systemId="file:/C:/projects/NHINC/3.1/Product/Production/Common/Interfaces/src/schemas/docs.oasis-open.org/wsrf/bf-2.xsd" uri="src/main/resources/xml-resources/web-service-references/DocumentAssembly/schemas/docs.oasis-open.org/wsrf/bf-2.xsd"/>
-    <system systemId="file:/C:/projects/NHINC/3.1/Product/Production/Common/Interfaces/src/schemas/docs.oasis-open.org/wsn/t-1.xsd" uri="src/main/resources/xml-resources/web-service-references/DocumentAssembly/schemas/docs.oasis-open.org/wsn/t-1.xsd"/>
-    <system systemId="file:/C:/projects/NHINC/3.1/Product/Production/Common/Interfaces/src/schemas/nhinc/common/Cdc.xsd" uri="src/main/resources/xml-resources/web-service-references/DocumentAssembly/schemas/nhinc/common/Cdc.xsd"/>
-    <system systemId="file:/C:/projects/NHINC/3.1/Product/Production/Common/Interfaces/src/schemas/oasis/xacml/access_control-xacml-2.0-policy-schema-os.xsd" uri="src/main/resources/xml-resources/web-service-references/DocumentAssembly/schemas/oasis/xacml/access_control-xacml-2.0-policy-schema-os.xsd"/>
-    <system systemId="file:/C:/Projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/AdapterDocRetrieveSecured.wsdl" uri="src/main/resources/xml-resources/web-services/AdapterDocRetrieveSecured/wsdl/AdapterDocRetrieveSecured.wsdl"/>
-    <system systemId="file:/C:/Projects/NHINC/3.1/Product/Production/Common/Interfaces/src/schemas/ihe/XDS.b_DocumentRepository.xsd" uri="src/main/resources/xml-resources/web-services/AdapterDocRetrieveSecured/schemas/ihe/XDS.b_DocumentRepository.xsd"/>
-    <system systemId="file:/C:/Projects/NHINC/3.1/Product/Production/Common/Interfaces/src/schemas/ebRS/lcm.xsd" uri="src/main/resources/xml-resources/web-services/AdapterDocRetrieveSecured/schemas/ebRS/lcm.xsd"/>
-    <system systemId="file:/C:/Projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/AdapterDocQuerySecured.wsdl" uri="src/main/resources/xml-resources/web-services/AdapterDocQuerySecured/wsdl/AdapterDocQuerySecured.wsdl"/>
-    <system systemId="file:/C:/Projects/NHINC/3.1/Product/Production/Common/Interfaces/src/schemas/ebRS/query.xsd" uri="src/main/resources/xml-resources/web-services/AdapterDocQuerySecured/schemas/ebRS/query.xsd"/>
-    <system systemId="file:/C:/Projects/NHINC/3.1/Product/Production/Common/Interfaces/src/schemas/nhinc/gateway/SamlTokenData.xsd" uri="src/main/resources/xml-resources/web-services/AdapterDocQuerySecured/schemas/nhinc/gateway/SamlTokenData.xsd"/>
-    <system systemId="file:/C:/Projects/NHINC/3.1/Product/Production/Common/Interfaces/src/schemas/ebRS/rim.xsd" uri="src/main/resources/xml-resources/web-services/AdapterDocQuerySecured/schemas/ebRS/rim.xsd"/>
-    <system systemId="file:/C:/Projects/NHINC/3.1/Product/Production/Common/Interfaces/src/schemas/ebRS/rs.xsd" uri="src/main/resources/xml-resources/web-services/AdapterDocQuerySecured/schemas/ebRS/rs.xsd"/>
-    <system systemId="file:/C:/Projects/NHINC/3.1/Product/Production/Common/Interfaces/src/schemas/www.w3.org/2001/xml.xsd" uri="src/main/resources/xml-resources/web-services/AdapterDocQuerySecured/schemas/www.w3.org/2001/xml.xsd"/>
-    <system systemId="file:/D:/Projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/AdapterDocRetrieveSecured.wsdl" uri="src/main/resources/xml-resources/web-services/AdapterDocRetrieveSecured/wsdl/AdapterDocRetrieveSecured.wsdl"/>
-    <system systemId="file:/D:/Projects/NHINC/3.1/Product/Production/Common/Interfaces/src/schemas/ihe/XDS.b_DocumentRepository.xsd" uri="src/main/resources/xml-resources/web-services/AdapterDocRetrieveSecured/schemas/ihe/XDS.b_DocumentRepository.xsd"/>
-    <system systemId="file:/D:/Projects/NHINC/3.1/Product/Production/Common/Interfaces/src/schemas/nhinc/gateway/SamlTokenData.xsd" uri="src/main/resources/xml-resources/web-services/AdapterDocRetrieveSecured/schemas/nhinc/gateway/SamlTokenData.xsd"/>
-    <system systemId="file:/D:/Projects/NHINC/3.1/Product/Production/Common/Interfaces/src/schemas/ebRS/rs.xsd" uri="src/main/resources/xml-resources/web-services/AdapterDocRetrieveSecured/schemas/ebRS/rs.xsd"/>
-    <system systemId="file:/D:/Projects/NHINC/3.1/Product/Production/Common/Interfaces/src/schemas/ebRS/rim.xsd" uri="src/main/resources/xml-resources/web-services/AdapterDocRetrieveSecured/schemas/ebRS/rim.xsd"/>
-    <system systemId="file:/D:/Projects/NHINC/3.1/Product/Production/Common/Interfaces/src/schemas/ebRS/lcm.xsd" uri="src/main/resources/xml-resources/web-services/AdapterDocRetrieveSecured/schemas/ebRS/lcm.xsd"/>
-    <system systemId="file:/D:/Projects/NHINC/3.1/Product/Production/Common/Interfaces/src/schemas/ebRS/query.xsd" uri="src/main/resources/xml-resources/web-services/AdapterDocRetrieveSecured/schemas/ebRS/query.xsd"/>
-    <system systemId="file:/D:/Projects/NHINC/3.1/Product/Production/Common/Interfaces/src/schemas/www.w3.org/2001/xml.xsd" uri="src/main/resources/xml-resources/web-services/AdapterDocRetrieveSecured/schemas/www.w3.org/2001/xml.xsd"/>
+    <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NIST_xdsregistryb.wsdl" uri="src/conf/xml-resources/web-service-references/NIST_xdsregistryb/wsdl/NIST_xdsregistryb.wsdl"/>
+    <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterDocQuery.wsdl" uri="src/conf/xml-resources/web-services/AdpaterDocumentQueryService/wsdl/AdapterDocQuery.wsdl"/>
+    <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterDocRetrieve.wsdl" uri="src/conf/xml-resources/web-services/AdapterDocRetrieve/wsdl/AdapterDocRetrieve.wsdl"/>
+    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterDocRetrieveSecured.wsdl" uri="src/main/resources/xml-resources/web-services/AdapterDocRetrieveSecured/wsdl/AdapterDocRetrieveSecured.wsdl"/>
+    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/ihe/XDS.b_DocumentRepository.xsd" uri="src/main/resources/xml-resources/web-services/AdapterDocRetrieveSecured/schemas/ihe/XDS.b_DocumentRepository.xsd"/>
+    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/ebRS/lcm.xsd" uri="src/main/resources/xml-resources/web-services/AdapterDocRetrieveSecured/schemas/ebRS/lcm.xsd"/>
+    <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/DocumentAssembly.wsdl" uri="src/main/resources/xml-resources/web-service-references/DocumentAssembly/wsdl/DocumentAssembly.wsdl"/>
+    <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/nhinc/common/NhincCommonAdapter.xsd" uri="src/main/resources/xml-resources/web-service-references/DocumentAssembly/schemas/nhinc/common/NhincCommonAdapter.xsd"/>
+    <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/nhinc/common/NhincCommon.xsd" uri="src/main/resources/xml-resources/web-service-references/DocumentAssembly/schemas/nhinc/common/NhincCommon.xsd"/>
+    <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/ihe/auditmessage.xsd" uri="src/main/resources/xml-resources/web-service-references/DocumentAssembly/schemas/ihe/auditmessage.xsd"/>
+    <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/docs.oasis-open.org/wsn/b-2.xsd" uri="src/main/resources/xml-resources/web-service-references/DocumentAssembly/schemas/docs.oasis-open.org/wsn/b-2.xsd"/>
+    <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/nhinc/common/SubscriptionB2OverrideForCdc.xsd" uri="src/main/resources/xml-resources/web-service-references/DocumentAssembly/schemas/nhinc/common/SubscriptionB2OverrideForCdc.xsd"/>
+    <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/nhinc/common/SubscriptionB2OverrideForDocuments.xsd" uri="src/main/resources/xml-resources/web-service-references/DocumentAssembly/schemas/nhinc/common/SubscriptionB2OverrideForDocuments.xsd"/>
+    <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/oasis/xacml/access_control-xacml-2.0-context-schema-os.xsd" uri="src/main/resources/xml-resources/web-service-references/DocumentAssembly/schemas/oasis/xacml/access_control-xacml-2.0-context-schema-os.xsd"/>
+    <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/xmlsoap.org/addressing.xsd" uri="src/main/resources/xml-resources/web-service-references/DocumentAssembly/schemas/xmlsoap.org/addressing.xsd"/>
+    <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/www.w3.org/2005/08/addressing/ws-addr.xsd" uri="src/main/resources/xml-resources/web-service-references/DocumentAssembly/schemas/www.w3.org/2005/08/addressing/ws-addr.xsd"/>
+    <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/docs.oasis-open.org/wsrf/bf-2.xsd" uri="src/main/resources/xml-resources/web-service-references/DocumentAssembly/schemas/docs.oasis-open.org/wsrf/bf-2.xsd"/>
+    <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/docs.oasis-open.org/wsn/t-1.xsd" uri="src/main/resources/xml-resources/web-service-references/DocumentAssembly/schemas/docs.oasis-open.org/wsn/t-1.xsd"/>
+    <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/nhinc/common/Cdc.xsd" uri="src/main/resources/xml-resources/web-service-references/DocumentAssembly/schemas/nhinc/common/Cdc.xsd"/>
+    <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/oasis/xacml/access_control-xacml-2.0-policy-schema-os.xsd" uri="src/main/resources/xml-resources/web-service-references/DocumentAssembly/schemas/oasis/xacml/access_control-xacml-2.0-policy-schema-os.xsd"/>
+    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterDocQuerySecured.wsdl" uri="src/main/resources/xml-resources/web-services/AdapterDocQuerySecured/wsdl/AdapterDocQuerySecured.wsdl"/>
+    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/ebRS/query.xsd" uri="src/main/resources/xml-resources/web-services/AdapterDocQuerySecured/schemas/ebRS/query.xsd"/>
+    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/nhinc/gateway/SamlTokenData.xsd" uri="src/main/resources/xml-resources/web-services/AdapterDocQuerySecured/schemas/nhinc/gateway/SamlTokenData.xsd"/>
+    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/ebRS/rim.xsd" uri="src/main/resources/xml-resources/web-services/AdapterDocQuerySecured/schemas/ebRS/rim.xsd"/>
+    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/ebRS/rs.xsd" uri="src/main/resources/xml-resources/web-services/AdapterDocQuerySecured/schemas/ebRS/rs.xsd"/>
+    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/www.w3.org/2001/xml.xsd" uri="src/main/resources/xml-resources/web-services/AdapterDocQuerySecured/schemas/www.w3.org/2001/xml.xsd"/>
+    <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/DocumentManager.wsdl" uri="src/main/resources/xml-resources/web-service-references/DocumentManager/wsdl/DocumentManager.wsdl"/>
+    <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/nhinc/common/DocManager.xsd" uri="src/main/resources/xml-resources/web-service-references/DocumentManager/schemas/nhinc/common/DocManager.xsd"/>
+    <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/ihe/XDS.b_DocumentRepository.xsd" uri="src/main/resources/xml-resources/web-service-references/DocumentManager/schemas/ihe/XDS.b_DocumentRepository.xsd"/>
+    <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/ebRS/query.xsd" uri="src/main/resources/xml-resources/web-service-references/DocumentManager/schemas/ebRS/query.xsd"/>
+    <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/ebRS/rs.xsd" uri="src/main/resources/xml-resources/web-service-references/DocumentManager/schemas/ebRS/rs.xsd"/>
+    <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/ebRS/lcm.xsd" uri="src/main/resources/xml-resources/web-service-references/DocumentManager/schemas/ebRS/lcm.xsd"/>
+    <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/ebRS/rim.xsd" uri="src/main/resources/xml-resources/web-service-references/DocumentManager/schemas/ebRS/rim.xsd"/>
+    <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/www.w3.org/2001/xml.xsd" uri="src/main/resources/xml-resources/web-service-references/DocumentManager/schemas/www.w3.org/2001/xml.xsd"/>
 </catalog>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
