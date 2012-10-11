@@ -238,10 +238,8 @@
                         </goals>
                         <configuration>
                             <target>
-                                <copy todir="${project.build.directory}/wsdl"
-                                    flatten="true">
-                                    <fileset
-                                        dir="${project.build.directory}/wsdl-extracted">
+                                <copy todir="${project.build.directory}/wsdl" flatten="true">
+                                    <fileset dir="${project.build.directory}/wsdl-extracted">
                                         <include name="**/*.wsdl" />
                                     </fileset>
                                 </copy>
@@ -256,16 +254,12 @@
                         </goals>
                         <configuration>
                             <target>
-                                <fileset
-                                    dir="${basedir}/target/soapui/output/"
-                                    id="soapui.failure.files">
+                                <fileset dir="${basedir}/target/soapui/output/" id="soapui.failure.files">
                                     <include name="**/*FAILED.txt" />
                                 </fileset>
-                                <pathconvert refid="soapui.failure.files"
-                                    property="soapui.test.failures.detected"
+                                <pathconvert refid="soapui.failure.files" property="soapui.test.failures.detected"
                                     setonempty="false" />
-                                <fail if="soapui.test.failures.detected"
-                                    message="soapui test failures detected!" />
+                                <fail if="soapui.test.failures.detected" message="soapui test failures detected!" />
                             </target>
                         </configuration>
                     </execution>
@@ -363,7 +357,10 @@
     </build>
     <profiles>
         <profile>
-            <id>embedded</id>
+            <id>embedded-testing</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
             <build>
                 <plugins>
                     <plugin>
@@ -374,6 +371,7 @@
                                 <id>start-glassfish</id>
                                 <phase>pre-integration-test</phase>
                                 <goals>
+                                    <goal>stop</goal>
                                     <goal>start</goal>
                                 </goals>
                             </execution>
