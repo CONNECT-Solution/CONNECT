@@ -645,79 +645,10 @@
 			</con:request>
 		</con:config>
 	</con:testStep>
-	<con:setupScript>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-
-File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
-File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
-
-File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml");
-File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
-
-log.info context.expand(context.testCase.testSuite.project.resourceRoot);
-def testDirectoryName = context.expand(context.testCase.testSuite.project.resourceRoot);
-
-def g1InternalFile = new File(testDirectoryName, "internalConnectionInfo_g1.xml");
-def g1UddiFile = new File(testDirectoryName, "uddiConnectionInfo_g1.xml");
-
-void MoveFile(File sourceFile, File destinationFile, log){
-
-	if(sourceFile.exists())
-			{
-				def reader = sourceFile.newReader();
-				destinationFile.withWriter 
-				{ writer ->       
-					writer &lt;&lt; reader;   
-				}   
-				reader.close();
-			} 
-			else {
-			   log.info("unable to find source file " + sourceFile);
-			}   
-}
-
-MoveFile(sourceInternalFile, backupInternalFile, log);
-MoveFile(sourceUddiFile, backupUddiFile, log);
-
-MoveFile(g1InternalFile, sourceInternalFile, log);
-MoveFile(g1UddiFile, sourceUddiFile, log);</con:setupScript>
-<con:tearDownScript>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-
-File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
-File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
-
-File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml");
-File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
-
-void MoveFile(File sourceFile, File destinationFile, log){
-
-	if(sourceFile.exists())
-			{
-				def reader = sourceFile.newReader();
-				destinationFile.withWriter 
-				{ writer ->       
-					writer &lt;&lt; reader;   
-				}   
-				reader.close();
-			} 
-			else {
-			   log.info("unable to find source file " + sourceFile);
-			}   
-}
-
-MoveFile(backupInternalFile, sourceInternalFile, log);
-MoveFile(backupUddiFile, sourceUddiFile, log);
-
-void DeleteFile(File file, log) {  
-			if(file.exists()) {    
-			   log.info("deleting file " + file);
-			   file.delete(); 
-			} else {
-			   log.info("file not found, skipping delete for " + file);
-			}
-}
-
-DeleteFile(backupInternalFile, log);
-DeleteFile(backupUddiFile, log);
+	<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
+nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);
+</con:setupScript>
+<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);
 </con:tearDownScript>
 <con:properties>
 	<con:property>
@@ -1080,117 +1011,10 @@ DeleteFile(backupUddiFile, log);
 	</con:request>
 </con:config>
 </con:testStep>
-<con:setupScript>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-
-File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
-File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
-
-File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml");
-File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
-
-log.info context.expand(context.testCase.testSuite.project.resourceRoot);
-def testDirectoryName = context.expand(context.testCase.testSuite.project.resourceRoot);
-
-def g1InternalFile = new File(testDirectoryName, "internalConnectionInfo_g1.xml");
-def g1UddiFile = new File(testDirectoryName, "uddiConnectionInfo_g1.xml");
-
-void MoveFile(File sourceFile, File destinationFile, log){
-
-	if(sourceFile.exists())
-			{
-				def reader = sourceFile.newReader();
-				destinationFile.withWriter 
-				{ writer ->       
-					writer &lt;&lt; reader;   
-				}   
-				reader.close();
-			} 
-			else {
-			   log.info("unable to find source file " + sourceFile);
-			}   
-}
-
-MoveFile(sourceInternalFile, backupInternalFile, log);
-MoveFile(sourceUddiFile, backupUddiFile, log);
-
-MoveFile(g1InternalFile, sourceInternalFile, log);
-MoveFile(g1UddiFile, sourceUddiFile, log);</con:setupScript>
-<con:tearDownScript>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-
-File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
-File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
-
-File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml");
-File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
-
-void MoveFile(File sourceFile, File destinationFile, log){
-
-	if(sourceFile.exists())
-			{
-				def reader = sourceFile.newReader();
-				destinationFile.withWriter 
-				{ writer ->       
-					writer &lt;&lt; reader;   
-				}   
-				reader.close();
-			} 
-			else {
-			   log.info("unable to find source file " + sourceFile);
-			}   
-}
-
-MoveFile(backupInternalFile, sourceInternalFile, log);
-MoveFile(backupUddiFile, sourceUddiFile, log);
-
-void DeleteFile(File file, log) {  
-			if(file.exists()) {    
-			   log.info("deleting file " + file);
-			   file.delete(); 
-			} else {
-			   log.info("file not found, skipping delete for " + file);
-			}
-}
-
-DeleteFile(backupInternalFile, log);
-DeleteFile(backupUddiFile, log);
-def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-
-File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
-File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
-
-File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml");
-File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
-
-void MoveFile(File sourceFile, File destinationFile, log){
-
-	if(sourceFile.exists())
-			{
-				def reader = sourceFile.newReader();
-				destinationFile.withWriter 
-				{ writer ->       
-					writer &lt;&lt; reader;   
-				}   
-				reader.close();
-			} 
-			else {
-			   log.info("unable to find source file " + sourceFile);
-			}   
-}
-
-MoveFile(backupInternalFile, sourceInternalFile, log);
-MoveFile(backupUddiFile, sourceUddiFile, log);
-
-void DeleteFile(File file, log) {  
-			if(file.exists()) {    
-			   log.info("deleting file " + file);
-			   file.delete(); 
-			} else {
-			   log.info("file not found, skipping delete for " + file);
-			}
-}
-
-DeleteFile(backupInternalFile, log);
-DeleteFile(backupUddiFile, log);
+<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
+nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);
+</con:setupScript>
+<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);
 </con:tearDownScript>
 <con:properties>
 	<con:property>
@@ -1682,79 +1506,9 @@ DeleteFile(backupUddiFile, log);
 	</con:request>
 </con:config>
 </con:testStep>
-<con:setupScript>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-
-File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
-File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
-
-File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml");
-File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
-
-log.info context.expand(context.testCase.testSuite.project.resourceRoot);
-def testDirectoryName = context.expand(context.testCase.testSuite.project.resourceRoot);
-
-def g1InternalFile = new File(testDirectoryName, "internalConnectionInfo_g1.xml");
-def g1UddiFile = new File(testDirectoryName, "uddiConnectionInfo_g1.xml");
-
-void MoveFile(File sourceFile, File destinationFile, log){
-
-	if(sourceFile.exists())
-			{
-				def reader = sourceFile.newReader();
-				destinationFile.withWriter 
-				{ writer ->       
-					writer &lt;&lt; reader;   
-				}   
-				reader.close();
-			} 
-			else {
-			   log.info("unable to find source file " + sourceFile);
-			}   
-}
-
-MoveFile(sourceInternalFile, backupInternalFile, log);
-MoveFile(sourceUddiFile, backupUddiFile, log);
-
-MoveFile(g1InternalFile, sourceInternalFile, log);
-MoveFile(g1UddiFile, sourceUddiFile, log);</con:setupScript>
-<con:tearDownScript>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-
-File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
-File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
-
-File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml");
-File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
-
-void MoveFile(File sourceFile, File destinationFile, log){
-
-	if(sourceFile.exists())
-			{
-				def reader = sourceFile.newReader();
-				destinationFile.withWriter 
-				{ writer ->       
-					writer &lt;&lt; reader;   
-				}   
-				reader.close();
-			} 
-			else {
-			   log.info("unable to find source file " + sourceFile);
-			}   
-}
-
-MoveFile(backupInternalFile, sourceInternalFile, log);
-MoveFile(backupUddiFile, sourceUddiFile, log);
-
-void DeleteFile(File file, log) {  
-			if(file.exists()) {    
-			   log.info("deleting file " + file);
-			   file.delete(); 
-			} else {
-			   log.info("file not found, skipping delete for " + file);
-			}
-}
-
-DeleteFile(backupInternalFile, log);
-DeleteFile(backupUddiFile, log);
+<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
+nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
+<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);
 </con:tearDownScript>
 <con:properties>
 	<con:property>
@@ -2274,79 +2028,9 @@ DeleteFile(backupUddiFile, log);
 	</con:request>
 </con:config>
 </con:testStep>
-<con:setupScript>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-
-File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
-File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
-
-File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml");
-File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
-
-log.info context.expand(context.testCase.testSuite.project.resourceRoot);
-def testDirectoryName = context.expand(context.testCase.testSuite.project.resourceRoot);
-
-def g1InternalFile = new File(testDirectoryName, "internalConnectionInfo_g1.xml");
-def g1UddiFile = new File(testDirectoryName, "uddiConnectionInfo_g1.xml");
-
-void MoveFile(File sourceFile, File destinationFile, log){
-
-	if(sourceFile.exists())
-			{
-				def reader = sourceFile.newReader();
-				destinationFile.withWriter 
-				{ writer ->       
-					writer &lt;&lt; reader;   
-				}   
-				reader.close();
-			} 
-			else {
-			   log.info("unable to find source file " + sourceFile);
-			}   
-}
-
-MoveFile(sourceInternalFile, backupInternalFile, log);
-MoveFile(sourceUddiFile, backupUddiFile, log);
-
-MoveFile(g1InternalFile, sourceInternalFile, log);
-MoveFile(g1UddiFile, sourceUddiFile, log);</con:setupScript>
-<con:tearDownScript>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-
-File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
-File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
-
-File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml");
-File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
-
-void MoveFile(File sourceFile, File destinationFile, log){
-
-	if(sourceFile.exists())
-			{
-				def reader = sourceFile.newReader();
-				destinationFile.withWriter 
-				{ writer ->       
-					writer &lt;&lt; reader;   
-				}   
-				reader.close();
-			} 
-			else {
-			   log.info("unable to find source file " + sourceFile);
-			}   
-}
-
-MoveFile(backupInternalFile, sourceInternalFile, log);
-MoveFile(backupUddiFile, sourceUddiFile, log);
-
-void DeleteFile(File file, log) {  
-			if(file.exists()) {    
-			   log.info("deleting file " + file);
-			   file.delete(); 
-			} else {
-			   log.info("file not found, skipping delete for " + file);
-			}
-}
-
-DeleteFile(backupInternalFile, log);
-DeleteFile(backupUddiFile, log);
+<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
+nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
+<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);
 </con:tearDownScript>
 <con:properties>
 	<con:property>
@@ -2952,79 +2636,9 @@ DeleteFile(backupUddiFile, log);
 	</con:request>
 </con:config>
 </con:testStep>
-<con:setupScript>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-
-File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
-File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
-
-File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml");
-File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
-
-log.info context.expand(context.testCase.testSuite.project.resourceRoot);
-def testDirectoryName = context.expand(context.testCase.testSuite.project.resourceRoot);
-
-def g1InternalFile = new File(testDirectoryName, "internalConnectionInfo_g1.xml");
-def g1UddiFile = new File(testDirectoryName, "uddiConnectionInfo_g1.xml");
-
-void MoveFile(File sourceFile, File destinationFile, log){
-
-	if(sourceFile.exists())
-			{
-				def reader = sourceFile.newReader();
-				destinationFile.withWriter 
-				{ writer ->       
-					writer &lt;&lt; reader;   
-				}   
-				reader.close();
-			} 
-			else {
-			   log.info("unable to find source file " + sourceFile);
-			}   
-}
-
-MoveFile(sourceInternalFile, backupInternalFile, log);
-MoveFile(sourceUddiFile, backupUddiFile, log);
-
-MoveFile(g1InternalFile, sourceInternalFile, log);
-MoveFile(g1UddiFile, sourceUddiFile, log);</con:setupScript>
-<con:tearDownScript>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-
-File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
-File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
-
-File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml");
-File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
-
-void MoveFile(File sourceFile, File destinationFile, log){
-
-	if(sourceFile.exists())
-			{
-				def reader = sourceFile.newReader();
-				destinationFile.withWriter 
-				{ writer ->       
-					writer &lt;&lt; reader;   
-				}   
-				reader.close();
-			} 
-			else {
-			   log.info("unable to find source file " + sourceFile);
-			}   
-}
-
-MoveFile(backupInternalFile, sourceInternalFile, log);
-MoveFile(backupUddiFile, sourceUddiFile, log);
-
-void DeleteFile(File file, log) {  
-			if(file.exists()) {    
-			   log.info("deleting file " + file);
-			   file.delete(); 
-			} else {
-			   log.info("file not found, skipping delete for " + file);
-			}
-}
-
-DeleteFile(backupInternalFile, log);
-DeleteFile(backupUddiFile, log);
+<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
+nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
+<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);
 </con:tearDownScript>
 <con:properties>
 	<con:property>
@@ -3600,79 +3214,9 @@ exists( //ns3:PRPA_IN201306UV02/ns3:controlActProcess)</path>
 }</script>
 </con:config>
 </con:testStep>
-<con:setupScript>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-
-File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
-File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
-
-File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml");
-File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
-
-log.info context.expand(context.testCase.testSuite.project.resourceRoot);
-def testDirectoryName = context.expand(context.testCase.testSuite.project.resourceRoot);
-
-def g1InternalFile = new File(testDirectoryName, "internalConnectionInfo_g1.xml");
-def g1UddiFile = new File(testDirectoryName, "uddiConnectionInfo_g1.xml");
-
-void MoveFile(File sourceFile, File destinationFile, log){
-
-	if(sourceFile.exists())
-			{
-				def reader = sourceFile.newReader();
-				destinationFile.withWriter 
-				{ writer ->       
-					writer &lt;&lt; reader;   
-				}   
-				reader.close();
-			} 
-			else {
-			   log.info("unable to find source file " + sourceFile);
-			}   
-}
-
-MoveFile(sourceInternalFile, backupInternalFile, log);
-MoveFile(sourceUddiFile, backupUddiFile, log);
-
-MoveFile(g1InternalFile, sourceInternalFile, log);
-MoveFile(g1UddiFile, sourceUddiFile, log);</con:setupScript>
-<con:tearDownScript>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-
-File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
-File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
-
-File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml");
-File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
-
-void MoveFile(File sourceFile, File destinationFile, log){
-
-	if(sourceFile.exists())
-			{
-				def reader = sourceFile.newReader();
-				destinationFile.withWriter 
-				{ writer ->       
-					writer &lt;&lt; reader;   
-				}   
-				reader.close();
-			} 
-			else {
-			   log.info("unable to find source file " + sourceFile);
-			}   
-}
-
-MoveFile(backupInternalFile, sourceInternalFile, log);
-MoveFile(backupUddiFile, sourceUddiFile, log);
-
-void DeleteFile(File file, log) {  
-			if(file.exists()) {    
-			   log.info("deleting file " + file);
-			   file.delete(); 
-			} else {
-			   log.info("file not found, skipping delete for " + file);
-			}
-}
-
-DeleteFile(backupInternalFile, log);
-DeleteFile(backupUddiFile, log);
+<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
+nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
+<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);
 </con:tearDownScript>
 <con:properties>
 	<con:property>
@@ -3984,79 +3528,9 @@ log.info documentID + " " + msgDocID</scriptText>
 	</con:request>
 </con:config>
 </con:testStep>
-<con:setupScript>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-
-File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
-File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
-
-File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml");
-File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
-
-log.info context.expand(context.testCase.testSuite.project.resourceRoot);
-def testDirectoryName = context.expand(context.testCase.testSuite.project.resourceRoot);
-
-def g1InternalFile = new File(testDirectoryName, "internalConnectionInfo_g1.xml");
-def g1UddiFile = new File(testDirectoryName, "uddiConnectionInfo_g1.xml");
-
-void MoveFile(File sourceFile, File destinationFile, log){
-
-	if(sourceFile.exists())
-			{
-				def reader = sourceFile.newReader();
-				destinationFile.withWriter 
-				{ writer ->       
-					writer &lt;&lt; reader;   
-				}   
-				reader.close();
-			} 
-			else {
-			   log.info("unable to find source file " + sourceFile);
-			}   
-}
-
-MoveFile(sourceInternalFile, backupInternalFile, log);
-MoveFile(sourceUddiFile, backupUddiFile, log);
-
-MoveFile(g1InternalFile, sourceInternalFile, log);
-MoveFile(g1UddiFile, sourceUddiFile, log);</con:setupScript>
-<con:tearDownScript>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-
-File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
-File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
-
-File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml");
-File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
-
-void MoveFile(File sourceFile, File destinationFile, log){
-
-	if(sourceFile.exists())
-			{
-				def reader = sourceFile.newReader();
-				destinationFile.withWriter 
-				{ writer ->       
-					writer &lt;&lt; reader;   
-				}   
-				reader.close();
-			} 
-			else {
-			   log.info("unable to find source file " + sourceFile);
-			}   
-}
-
-MoveFile(backupInternalFile, sourceInternalFile, log);
-MoveFile(backupUddiFile, sourceUddiFile, log);
-
-void DeleteFile(File file, log) {  
-			if(file.exists()) {    
-			   log.info("deleting file " + file);
-			   file.delete(); 
-			} else {
-			   log.info("file not found, skipping delete for " + file);
-			}
-}
-
-DeleteFile(backupInternalFile, log);
-DeleteFile(backupUddiFile, log);
+<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
+nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
+<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);
 </con:tearDownScript>
 <con:properties>
 	<con:property>
@@ -4369,79 +3843,9 @@ assert (docData.size() != 0)</scriptText>
 	</con:request>
 </con:config>
 </con:testStep>
-<con:setupScript>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-
-File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
-File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
-
-File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml");
-File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
-
-log.info context.expand(context.testCase.testSuite.project.resourceRoot);
-def testDirectoryName = context.expand(context.testCase.testSuite.project.resourceRoot);
-
-def g1InternalFile = new File(testDirectoryName, "internalConnectionInfo_g1.xml");
-def g1UddiFile = new File(testDirectoryName, "uddiConnectionInfo_g1.xml");
-
-void MoveFile(File sourceFile, File destinationFile, log){
-
-	if(sourceFile.exists())
-			{
-				def reader = sourceFile.newReader();
-				destinationFile.withWriter 
-				{ writer ->       
-					writer &lt;&lt; reader;   
-				}   
-				reader.close();
-			} 
-			else {
-			   log.info("unable to find source file " + sourceFile);
-			}   
-}
-
-MoveFile(sourceInternalFile, backupInternalFile, log);
-MoveFile(sourceUddiFile, backupUddiFile, log);
-
-MoveFile(g1InternalFile, sourceInternalFile, log);
-MoveFile(g1UddiFile, sourceUddiFile, log);</con:setupScript>
-<con:tearDownScript>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-
-File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
-File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
-
-File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml");
-File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
-
-void MoveFile(File sourceFile, File destinationFile, log){
-
-	if(sourceFile.exists())
-			{
-				def reader = sourceFile.newReader();
-				destinationFile.withWriter 
-				{ writer ->       
-					writer &lt;&lt; reader;   
-				}   
-				reader.close();
-			} 
-			else {
-			   log.info("unable to find source file " + sourceFile);
-			}   
-}
-
-MoveFile(backupInternalFile, sourceInternalFile, log);
-MoveFile(backupUddiFile, sourceUddiFile, log);
-
-void DeleteFile(File file, log) {  
-			if(file.exists()) {    
-			   log.info("deleting file " + file);
-			   file.delete(); 
-			} else {
-			   log.info("file not found, skipping delete for " + file);
-			}
-}
-
-DeleteFile(backupInternalFile, log);
-DeleteFile(backupUddiFile, log);
+<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
+nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
+<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);
 </con:tearDownScript>
 <con:properties>
 	<con:property>
@@ -4783,110 +4187,9 @@ assert holder["//ns4:SubscribeResponse[1]/ns4:SubscriptionReference[1]/ns3:Refer
 }</script>
 </con:config>
 </con:testStep>
-<con:setupScript>def GatewayPropFile = System.env['NHINC_PROPERTIES_DIR']+"/gateway.properties"
-
-File gatewayFile = new File(GatewayPropFile)
-File gatewayBakFile = new File(GatewayPropFile + ".bak")
-
-if(gatewayBakFile.exists()) {
-	gatewayBakFile.delete()
-}
-
-if(gatewayFile.exists()) {
-	gatewayBakFile &lt;&lt; gatewayFile.asWritable()
-} else {
-	throw new RuntimeException('Unable to locate gateway.properties')
-}
-
-def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-
-File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
-File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
-
-File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml");
-File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
-
-log.info context.expand(context.testCase.testSuite.project.resourceRoot);
-def testDirectoryName = context.expand(context.testCase.testSuite.project.resourceRoot);
-
-def g1InternalFile = new File(testDirectoryName, "internalConnectionInfo_g1.xml");
-def g1UddiFile = new File(testDirectoryName, "uddiConnectionInfo_g1.xml");
-
-void MoveFile(File sourceFile, File destinationFile, log){
-
-	if(sourceFile.exists())
-			{
-				def reader = sourceFile.newReader();
-				destinationFile.withWriter 
-				{ writer ->       
-					writer &lt;&lt; reader;   
-				}   
-				reader.close();
-			} 
-			else {
-			   log.info("unable to find source file " + sourceFile);
-			}   
-}
-
-MoveFile(sourceInternalFile, backupInternalFile, log);
-MoveFile(sourceUddiFile, backupUddiFile, log);
-
-MoveFile(g1InternalFile, sourceInternalFile, log);
-MoveFile(g1UddiFile, sourceUddiFile, log);</con:setupScript>
-<con:tearDownScript>def GatewayPropFile = System.env['NHINC_PROPERTIES_DIR']+"/gateway.properties"
-def MasterGatewayPropFile = System.env['NHINC_PROPERTIES_DIR']+"/gateway.properties.bak"
-
-File gatewayFile = new File(GatewayPropFile)
-File gatewayBakFile = new File(MasterGatewayPropFile)
-
-if(gatewayBakFile.exists()) {
-	def reader = gatewayBakFile.newReader()
-   		gatewayFile.withWriter { writer ->
-       	writer &lt;&lt; reader
-   	}
-   reader.close()
-} else {
-	throw new RuntimeException('Unable to locate gateway.properties.bak')
-}
-
-def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-
-File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
-File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
-
-File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml");
-File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
-
-void MoveFile(File sourceFile, File destinationFile, log){
-
-	if(sourceFile.exists())
-			{
-				def reader = sourceFile.newReader();
-				destinationFile.withWriter 
-				{ writer ->       
-					writer &lt;&lt; reader;   
-				}   
-				reader.close();
-			} 
-			else {
-			   log.info("unable to find source file " + sourceFile);
-			}   
-}
-
-MoveFile(backupInternalFile, sourceInternalFile, log);
-MoveFile(backupUddiFile, sourceUddiFile, log);
-
-void DeleteFile(File file, log) {  
-			if(file.exists()) {    
-			   log.info("deleting file " + file);
-			   file.delete(); 
-			} else {
-			   log.info("file not found, skipping delete for " + file);
-			}
-}
-
-DeleteFile(backupInternalFile, log);
-DeleteFile(backupUddiFile, log);
+<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
+nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
+<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);
 </con:tearDownScript>
 <con:properties>
 	<con:property>
@@ -5494,110 +4797,9 @@ testRunner.testCase.testSuite.project.setPropertyValue( "NotifySubscriptionID", 
 </con:request>
 </con:config>
 </con:testStep>
-<con:setupScript>def GatewayPropFile = System.env['NHINC_PROPERTIES_DIR']+"/gateway.properties"
-
-File gatewayFile = new File(GatewayPropFile)
-File gatewayBakFile = new File(GatewayPropFile + ".bak")
-
-if(gatewayBakFile.exists()) {
-	gatewayBakFile.delete()
-}
-
-if(gatewayFile.exists()) {
-	gatewayBakFile &lt;&lt; gatewayFile.asWritable()
-} else {
-	throw new RuntimeException('Unable to locate gateway.properties')
-}
-
-def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-
-File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
-File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
-
-File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml");
-File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
-
-log.info context.expand(context.testCase.testSuite.project.resourceRoot);
-def testDirectoryName = context.expand(context.testCase.testSuite.project.resourceRoot);
-
-def g1InternalFile = new File(testDirectoryName, "internalConnectionInfo_g1.xml");
-def g1UddiFile = new File(testDirectoryName, "uddiConnectionInfo_g1.xml");
-
-void MoveFile(File sourceFile, File destinationFile, log){
-
-	if(sourceFile.exists())
-			{
-				def reader = sourceFile.newReader();
-				destinationFile.withWriter 
-				{ writer ->       
-					writer &lt;&lt; reader;   
-				}   
-				reader.close();
-			} 
-			else {
-			   log.info("unable to find source file " + sourceFile);
-			}   
-}
-
-MoveFile(sourceInternalFile, backupInternalFile, log);
-MoveFile(sourceUddiFile, backupUddiFile, log);
-
-MoveFile(g1InternalFile, sourceInternalFile, log);
-MoveFile(g1UddiFile, sourceUddiFile, log);</con:setupScript>
-<con:tearDownScript>def GatewayPropFile = System.env['NHINC_PROPERTIES_DIR']+"/gateway.properties"
-def MasterGatewayPropFile = System.env['NHINC_PROPERTIES_DIR']+"/gateway.properties.bak"
-
-File gatewayFile = new File(GatewayPropFile)
-File gatewayBakFile = new File(MasterGatewayPropFile)
-
-if(gatewayBakFile.exists()) {
-	def reader = gatewayBakFile.newReader()
-   		gatewayFile.withWriter { writer ->
-       	writer &lt;&lt; reader
-   	}
-   reader.close()
-} else {
-	throw new RuntimeException('Unable to locate gateway.properties.bak')
-}
-
-def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-
-File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
-File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
-
-File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml");
-File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
-
-void MoveFile(File sourceFile, File destinationFile, log){
-
-	if(sourceFile.exists())
-			{
-				def reader = sourceFile.newReader();
-				destinationFile.withWriter 
-				{ writer ->       
-					writer &lt;&lt; reader;   
-				}   
-				reader.close();
-			} 
-			else {
-			   log.info("unable to find source file " + sourceFile);
-			}   
-}
-
-MoveFile(backupInternalFile, sourceInternalFile, log);
-MoveFile(backupUddiFile, sourceUddiFile, log);
-
-void DeleteFile(File file, log) {  
-			if(file.exists()) {    
-			   log.info("deleting file " + file);
-			   file.delete(); 
-			} else {
-			   log.info("file not found, skipping delete for " + file);
-			}
-}
-
-DeleteFile(backupInternalFile, log);
-DeleteFile(backupUddiFile, log);
+<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
+nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
+<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);
 </con:tearDownScript>
 <con:properties>
 	<con:property>
@@ -5942,110 +5144,9 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
 }</script>
 </con:config>
 </con:testStep>
-<con:setupScript>def GatewayPropFile = System.env['NHINC_PROPERTIES_DIR']+"/gateway.properties"
-
-File gatewayFile = new File(GatewayPropFile)
-File gatewayBakFile = new File(GatewayPropFile + ".bak")
-
-if(gatewayBakFile.exists()) {
-	gatewayBakFile.delete()
-}
-
-if(gatewayFile.exists()) {
-	gatewayBakFile &lt;&lt; gatewayFile.asWritable()
-} else {
-	throw new RuntimeException('Unable to locate gateway.properties')
-}
-
-def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-
-File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
-File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
-
-File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml");
-File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
-
-log.info context.expand(context.testCase.testSuite.project.resourceRoot);
-def testDirectoryName = context.expand(context.testCase.testSuite.project.resourceRoot);
-
-def g1InternalFile = new File(testDirectoryName, "internalConnectionInfo_g1.xml");
-def g1UddiFile = new File(testDirectoryName, "uddiConnectionInfo_g1.xml");
-
-void MoveFile(File sourceFile, File destinationFile, log){
-
-	if(sourceFile.exists())
-			{
-				def reader = sourceFile.newReader();
-				destinationFile.withWriter 
-				{ writer ->       
-					writer &lt;&lt; reader;   
-				}   
-				reader.close();
-			} 
-			else {
-			   log.info("unable to find source file " + sourceFile);
-			}   
-}
-
-MoveFile(sourceInternalFile, backupInternalFile, log);
-MoveFile(sourceUddiFile, backupUddiFile, log);
-
-MoveFile(g1InternalFile, sourceInternalFile, log);
-MoveFile(g1UddiFile, sourceUddiFile, log);</con:setupScript>
-<con:tearDownScript>def GatewayPropFile = System.env['NHINC_PROPERTIES_DIR']+"/gateway.properties"
-def MasterGatewayPropFile = System.env['NHINC_PROPERTIES_DIR']+"/gateway.properties.bak"
-
-File gatewayFile = new File(GatewayPropFile)
-File gatewayBakFile = new File(MasterGatewayPropFile)
-
-if(gatewayBakFile.exists()) {
-	def reader = gatewayBakFile.newReader()
-   		gatewayFile.withWriter { writer ->
-       	writer &lt;&lt; reader
-   	}
-   reader.close()
-} else {
-	throw new RuntimeException('Unable to locate gateway.properties.bak')
-}
-
-def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-
-File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
-File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
-
-File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml");
-File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
-
-void MoveFile(File sourceFile, File destinationFile, log){
-
-	if(sourceFile.exists())
-			{
-				def reader = sourceFile.newReader();
-				destinationFile.withWriter 
-				{ writer ->       
-					writer &lt;&lt; reader;   
-				}   
-				reader.close();
-			} 
-			else {
-			   log.info("unable to find source file " + sourceFile);
-			}   
-}
-
-MoveFile(backupInternalFile, sourceInternalFile, log);
-MoveFile(backupUddiFile, sourceUddiFile, log);
-
-void DeleteFile(File file, log) {  
-			if(file.exists()) {    
-			   log.info("deleting file " + file);
-			   file.delete(); 
-			} else {
-			   log.info("file not found, skipping delete for " + file);
-			}
-}
-
-DeleteFile(backupInternalFile, log);
-DeleteFile(backupUddiFile, log);
+<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
+nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
+<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);
 </con:tearDownScript>
 <con:properties>
 	<con:property>
@@ -6480,79 +5581,9 @@ DeleteFile(backupUddiFile, log);
 		<delay>15000</delay>
 	</con:config>
 </con:testStep>
-<con:setupScript>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-
-File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
-File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
-
-File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml");
-File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
-
-log.info context.expand(context.testCase.testSuite.project.resourceRoot);
-def testDirectoryName = context.expand(context.testCase.testSuite.project.resourceRoot);
-
-def g1InternalFile = new File(testDirectoryName, "internalConnectionInfo_g1.xml");
-def g1UddiFile = new File(testDirectoryName, "uddiConnectionInfo_g1.xml");
-
-void MoveFile(File sourceFile, File destinationFile, log){
-
-	if(sourceFile.exists())
-			{
-				def reader = sourceFile.newReader();
-				destinationFile.withWriter 
-				{ writer ->       
-					writer &lt;&lt; reader;   
-				}   
-				reader.close();
-			} 
-			else {
-			   log.info("unable to find source file " + sourceFile);
-			}   
-}
-
-MoveFile(sourceInternalFile, backupInternalFile, log);
-MoveFile(sourceUddiFile, backupUddiFile, log);
-
-MoveFile(g1InternalFile, sourceInternalFile, log);
-MoveFile(g1UddiFile, sourceUddiFile, log);</con:setupScript>
-<con:tearDownScript>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-
-File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
-File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
-
-File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml");
-File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
-
-void MoveFile(File sourceFile, File destinationFile, log){
-
-	if(sourceFile.exists())
-			{
-				def reader = sourceFile.newReader();
-				destinationFile.withWriter 
-				{ writer ->       
-					writer &lt;&lt; reader;   
-				}   
-				reader.close();
-			} 
-			else {
-			   log.info("unable to find source file " + sourceFile);
-			}   
-}
-
-MoveFile(backupInternalFile, sourceInternalFile, log);
-MoveFile(backupUddiFile, sourceUddiFile, log);
-
-void DeleteFile(File file, log) {  
-			if(file.exists()) {    
-			   log.info("deleting file " + file);
-			   file.delete(); 
-			} else {
-			   log.info("file not found, skipping delete for " + file);
-			}
-}
-
-DeleteFile(backupInternalFile, log);
-DeleteFile(backupUddiFile, log);
+<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
+nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
+<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);
 </con:tearDownScript>
 <con:properties>
 	<con:property>
@@ -7103,81 +6134,10 @@ DeleteFile(backupUddiFile, log);
 		</con:request>
 	</con:config>
 </con:testStep>
-<con:setupScript>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-
-File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
-File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
-
-File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml");
-File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
-
-log.info context.expand(context.testCase.testSuite.project.resourceRoot);
-def testDirectoryName = context.expand(context.testCase.testSuite.project.resourceRoot);
-
-def g0InternalFile = new File(testDirectoryName, "internalConnectionInfo_g0.xml");
-def g0UddiFile = new File(testDirectoryName, "uddiConnectionInfo_g0.xml");
-
-void MoveFile(File sourceFile, File destinationFile, log){
-
-	if(sourceFile.exists())
-			{
-				def reader = sourceFile.newReader();
-				destinationFile.withWriter 
-				{ writer ->       
-					writer &lt;&lt; reader;   
-				}   
-				reader.close();
-			} 
-			else {
-			   log.info("unable to find source file " + sourceFile);
-			}   
-}
-
-MoveFile(sourceInternalFile, backupInternalFile, log);
-MoveFile(sourceUddiFile, backupUddiFile, log);
-
-MoveFile(g0InternalFile, sourceInternalFile, log);
-MoveFile(g0UddiFile, sourceUddiFile, log);
-
+<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
+nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);
 </con:setupScript>
-<con:tearDownScript>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-
-File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
-File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
-
-File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml");
-File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
-
-void MoveFile(File sourceFile, File destinationFile, log)
-
-	if(sourceFile.exists()
-			{
-				def reader = sourceFile.newReader();
-				destinationFile.withWriter
-				{ writer ->       
-					writer &lt;&lt; reader;  
-				}   
-				reader.close()
-			} 
-			else {
-			   log.info("unable to find source file " + sourceFile)
-			}   
-}
-
-MoveFile(backupInternalFile, sourceInternalFile, log);
-MoveFile(backupUddiFile, sourceUddiFile, log);
-
-void DeleteFile(File file, log) {  
-			if(file.exists()) {    
-			   log.info("deleting file " + file);
-			   file.delete();
-			} else {
-			   log.info("file not found, skipping delete for " + file)
-			}
-}
-
-DeleteFile(backupInternalFile, log);
-DeleteFile(backupUddiFile, log);
+<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);
 </con:tearDownScript>
 <con:properties>
 	<con:property>
@@ -7534,81 +6494,10 @@ DeleteFile(backupUddiFile, log);
 	</con:request>
 </con:config>
 </con:testStep>
-<con:setupScript>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-
-File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
-File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
-
-File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml");
-File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
-
-log.info context.expand(context.testCase.testSuite.project.resourceRoot);
-def testDirectoryName = context.expand(context.testCase.testSuite.project.resourceRoot);
-
-def g0InternalFile = new File(testDirectoryName, "internalConnectionInfo_g0.xml");
-def g0UddiFile = new File(testDirectoryName, "uddiConnectionInfo_g0.xml");
-
-void MoveFile(File sourceFile, File destinationFile, log){
-
-	if(sourceFile.exists())
-			{
-				def reader = sourceFile.newReader();
-				destinationFile.withWriter 
-				{ writer ->       
-					writer &lt;&lt; reader;   
-				}   
-				reader.close();
-			} 
-			else {
-			   log.info("unable to find source file " + sourceFile);
-			}   
-}
-
-MoveFile(sourceInternalFile, backupInternalFile, log);
-MoveFile(sourceUddiFile, backupUddiFile, log);
-
-MoveFile(g0InternalFile, sourceInternalFile, log);
-MoveFile(g0UddiFile, sourceUddiFile, log);
-
+<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
+nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);
 </con:setupScript>
-<con:tearDownScript>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-
-File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
-File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
-
-File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml");
-File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
-
-void MoveFile(File sourceFile, File destinationFile, log){
-
-	if(sourceFile.exists())
-			{
-				def reader = sourceFile.newReader();
-				destinationFile.withWriter 
-				{ writer ->       
-					writer &lt;&lt; reader;   
-				}   
-				reader.close();
-			} 
-			else {
-			   log.info("unable to find source file " + sourceFile);
-			}   
-}
-
-MoveFile(backupInternalFile, sourceInternalFile, log);
-MoveFile(backupUddiFile, sourceUddiFile, log);
-
-void DeleteFile(File file, log) {  
-			if(file.exists()) {    
-			   log.info("deleting file " + file);
-			   file.delete(); 
-			} else {
-			   log.info("file not found, skipping delete for " + file);
-			}
-}
-
-DeleteFile(backupInternalFile, log);
-DeleteFile(backupUddiFile, log);
+<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);
 </con:tearDownScript>
 <con:properties>
 	<con:property>
@@ -8097,79 +6986,9 @@ DeleteFile(backupUddiFile, log);
 	</con:request>
 </con:config>
 </con:testStep>
-<con:setupScript>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-
-File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
-File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
-
-File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml");
-File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
-
-log.info context.expand(context.testCase.testSuite.project.resourceRoot);
-def testDirectoryName = context.expand(context.testCase.testSuite.project.resourceRoot);
-
-def g0InternalFile = new File(testDirectoryName, "internalConnectionInfo_g0.xml");
-def g0UddiFile = new File(testDirectoryName, "uddiConnectionInfo_g0.xml");
-
-void MoveFile(File sourceFile, File destinationFile, log){
-
-	if(sourceFile.exists())
-			{
-				def reader = sourceFile.newReader();
-				destinationFile.withWriter 
-				{ writer ->       
-					writer &lt;&lt; reader;   
-				}   
-				reader.close();
-			} 
-			else {
-			   log.info("unable to find source file " + sourceFile);
-			}   
-}
-
-MoveFile(sourceInternalFile, backupInternalFile, log);
-MoveFile(sourceUddiFile, backupUddiFile, log);
-
-MoveFile(g0InternalFile, sourceInternalFile, log);
-MoveFile(g0UddiFile, sourceUddiFile, log);</con:setupScript>
-<con:tearDownScript>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-
-File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
-File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
-
-File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml");
-File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
-
-void MoveFile(File sourceFile, File destinationFile, log){
-
-	if(sourceFile.exists())
-			{
-				def reader = sourceFile.newReader();
-				destinationFile.withWriter 
-				{ writer ->       
-					writer &lt;&lt; reader;   
-				}   
-				reader.close();
-			} 
-			else {
-			   log.info("unable to find source file " + sourceFile);
-			}   
-}
-
-MoveFile(backupInternalFile, sourceInternalFile, log);
-MoveFile(backupUddiFile, sourceUddiFile, log);
-
-void DeleteFile(File file, log) {  
-			if(file.exists()) {    
-			   log.info("deleting file " + file);
-			   file.delete(); 
-			} else {
-			   log.info("file not found, skipping delete for " + file);
-			}
-}
-
-DeleteFile(backupInternalFile, log);
-DeleteFile(backupUddiFile, log);
+<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
+nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
+<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);
 </con:tearDownScript>
 <con:properties>
 	<con:property>
@@ -8497,79 +7316,9 @@ DeleteFile(backupUddiFile, log);
 	</con:request>
 </con:config>
 </con:testStep>
-<con:setupScript>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-
-File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
-File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
-
-File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml");
-File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
-
-log.info context.expand(context.testCase.testSuite.project.resourceRoot);
-def testDirectoryName = context.expand(context.testCase.testSuite.project.resourceRoot);
-
-def g0InternalFile = new File(testDirectoryName, "internalConnectionInfo_g0.xml");
-def g0UddiFile = new File(testDirectoryName, "uddiConnectionInfo_g0.xml");
-
-void MoveFile(File sourceFile, File destinationFile, log){
-
-	if(sourceFile.exists())
-			{
-				def reader = sourceFile.newReader();
-				destinationFile.withWriter 
-				{ writer ->       
-					writer &lt;&lt; reader;   
-				}   
-				reader.close();
-			} 
-			else {
-			   log.info("unable to find source file " + sourceFile);
-			}   
-}
-
-MoveFile(sourceInternalFile, backupInternalFile, log);
-MoveFile(sourceUddiFile, backupUddiFile, log);
-
-MoveFile(g0InternalFile, sourceInternalFile, log);
-MoveFile(g0UddiFile, sourceUddiFile, log);</con:setupScript>
-<con:tearDownScript>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-
-File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
-File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
-
-File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml");
-File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
-
-void MoveFile(File sourceFile, File destinationFile, log){
-
-	if(sourceFile.exists())
-			{
-				def reader = sourceFile.newReader();
-				destinationFile.withWriter 
-				{ writer ->       
-					writer &lt;&lt; reader;   
-				}   
-				reader.close();
-			} 
-			else {
-			   log.info("unable to find source file " + sourceFile);
-			}   
-}
-
-MoveFile(backupInternalFile, sourceInternalFile, log);
-MoveFile(backupUddiFile, sourceUddiFile, log);
-
-void DeleteFile(File file, log) {  
-			if(file.exists()) {    
-			   log.info("deleting file " + file);
-			   file.delete(); 
-			} else {
-			   log.info("file not found, skipping delete for " + file);
-			}
-}
-
-DeleteFile(backupInternalFile, log);
-DeleteFile(backupUddiFile, log);
+<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
+nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
+<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);
 </con:tearDownScript>
 <con:properties>
 	<con:property>
@@ -9176,79 +7925,9 @@ DeleteFile(backupUddiFile, log);
 	</con:request>
 </con:config>
 </con:testStep>
-<con:setupScript>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-
-File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
-File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
-
-File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml");
-File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
-
-log.info context.expand(context.testCase.testSuite.project.resourceRoot);
-def testDirectoryName = context.expand(context.testCase.testSuite.project.resourceRoot);
-
-def g0InternalFile = new File(testDirectoryName, "internalConnectionInfo_g0.xml");
-def g0UddiFile = new File(testDirectoryName, "uddiConnectionInfo_g0.xml");
-
-void MoveFile(File sourceFile, File destinationFile, log){
-
-	if(sourceFile.exists())
-			{
-				def reader = sourceFile.newReader();
-				destinationFile.withWriter 
-				{ writer ->       
-					writer &lt;&lt; reader;   
-				}   
-				reader.close();
-			} 
-			else {
-			   log.info("unable to find source file " + sourceFile);
-			}   
-}
-
-MoveFile(sourceInternalFile, backupInternalFile, log);
-MoveFile(sourceUddiFile, backupUddiFile, log);
-
-MoveFile(g0InternalFile, sourceInternalFile, log);
-MoveFile(g0UddiFile, sourceUddiFile, log);</con:setupScript>
-<con:tearDownScript>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-
-File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
-File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
-
-File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml");
-File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
-
-void MoveFile(File sourceFile, File destinationFile, log){
-
-	if(sourceFile.exists())
-			{
-				def reader = sourceFile.newReader();
-				destinationFile.withWriter 
-				{ writer ->       
-					writer &lt;&lt; reader;   
-				}   
-				reader.close();
-			} 
-			else {
-			   log.info("unable to find source file " + sourceFile);
-			}   
-}
-
-MoveFile(backupInternalFile, sourceInternalFile, log);
-MoveFile(backupUddiFile, sourceUddiFile, log);
-
-void DeleteFile(File file, log) {  
-			if(file.exists()) {    
-			   log.info("deleting file " + file);
-			   file.delete(); 
-			} else {
-			   log.info("file not found, skipping delete for " + file);
-			}
-}
-
-DeleteFile(backupInternalFile, log);
-DeleteFile(backupUddiFile, log);
+<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
+nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
+<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);
 </con:tearDownScript>
 <con:properties>
 	<con:property>
@@ -9824,79 +8503,9 @@ exists( //ns3:PRPA_IN201306UV02/ns3:controlActProcess)</path>
 }</script>
 </con:config>
 </con:testStep>
-<con:setupScript>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-
-File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
-File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
-
-File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml");
-File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
-
-log.info context.expand(context.testCase.testSuite.project.resourceRoot);
-def testDirectoryName = context.expand(context.testCase.testSuite.project.resourceRoot);
-
-def g0InternalFile = new File(testDirectoryName, "internalConnectionInfo_g0.xml");
-def g0UddiFile = new File(testDirectoryName, "uddiConnectionInfo_g0.xml");
-
-void MoveFile(File sourceFile, File destinationFile, log){
-
-	if(sourceFile.exists())
-			{
-				def reader = sourceFile.newReader();
-				destinationFile.withWriter 
-				{ writer ->       
-					writer &lt;&lt; reader;   
-				}   
-				reader.close();
-			} 
-			else {
-			   log.info("unable to find source file " + sourceFile);
-			}   
-}
-
-MoveFile(sourceInternalFile, backupInternalFile, log);
-MoveFile(sourceUddiFile, backupUddiFile, log);
-
-MoveFile(g0InternalFile, sourceInternalFile, log);
-MoveFile(g0UddiFile, sourceUddiFile, log);</con:setupScript>
-<con:tearDownScript>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-
-File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
-File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
-
-File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml");
-File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
-
-void MoveFile(File sourceFile, File destinationFile, log){
-
-	if(sourceFile.exists())
-			{
-				def reader = sourceFile.newReader();
-				destinationFile.withWriter 
-				{ writer ->       
-					writer &lt;&lt; reader;   
-				}   
-				reader.close();
-			} 
-			else {
-			   log.info("unable to find source file " + sourceFile);
-			}   
-}
-
-MoveFile(backupInternalFile, sourceInternalFile, log);
-MoveFile(backupUddiFile, sourceUddiFile, log);
-
-void DeleteFile(File file, log) {  
-			if(file.exists()) {    
-			   log.info("deleting file " + file);
-			   file.delete(); 
-			} else {
-			   log.info("file not found, skipping delete for " + file);
-			}
-}
-
-DeleteFile(backupInternalFile, log);
-DeleteFile(backupUddiFile, log);
+<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
+nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
+<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);
 </con:tearDownScript>
 <con:properties>
 	<con:property>
@@ -10208,79 +8817,9 @@ log.info documentID + " " + msgDocID</scriptText>
 	</con:request>
 </con:config>
 </con:testStep>
-<con:setupScript>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-
-File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
-File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
-
-File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml");
-File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
-
-log.info context.expand(context.testCase.testSuite.project.resourceRoot);
-def testDirectoryName = context.expand(context.testCase.testSuite.project.resourceRoot);
-
-def g0InternalFile = new File(testDirectoryName, "internalConnectionInfo_g0.xml");
-def g0UddiFile = new File(testDirectoryName, "uddiConnectionInfo_g0.xml");
-
-void MoveFile(File sourceFile, File destinationFile, log){
-
-	if(sourceFile.exists())
-			{
-				def reader = sourceFile.newReader();
-				destinationFile.withWriter 
-				{ writer ->       
-					writer &lt;&lt; reader;   
-				}   
-				reader.close();
-			} 
-			else {
-			   log.info("unable to find source file " + sourceFile);
-			}   
-}
-
-MoveFile(sourceInternalFile, backupInternalFile, log);
-MoveFile(sourceUddiFile, backupUddiFile, log);
-
-MoveFile(g0InternalFile, sourceInternalFile, log);
-MoveFile(g0UddiFile, sourceUddiFile, log);</con:setupScript>
-<con:tearDownScript>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-
-File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
-File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
-
-File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml");
-File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
-
-void MoveFile(File sourceFile, File destinationFile, log){
-
-	if(sourceFile.exists())
-			{
-				def reader = sourceFile.newReader();
-				destinationFile.withWriter 
-				{ writer ->       
-					writer &lt;&lt; reader;   
-				}   
-				reader.close();
-			} 
-			else {
-			   log.info("unable to find source file " + sourceFile);
-			}   
-}
-
-MoveFile(backupInternalFile, sourceInternalFile, log);
-MoveFile(backupUddiFile, sourceUddiFile, log);
-
-void DeleteFile(File file, log) {  
-			if(file.exists()) {    
-			   log.info("deleting file " + file);
-			   file.delete(); 
-			} else {
-			   log.info("file not found, skipping delete for " + file);
-			}
-}
-
-DeleteFile(backupInternalFile, log);
-DeleteFile(backupUddiFile, log);
+<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
+nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
+<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);
 </con:tearDownScript>
 <con:properties>
 	<con:property>
@@ -10593,81 +9132,10 @@ assert (docData.size() != 0)</scriptText>
 	</con:request>
 </con:config>
 </con:testStep>
-<con:setupScript>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-
-File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
-File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
-
-File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml");
-File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
-
-log.info context.expand(context.testCase.testSuite.project.resourceRoot);
-def testDirectoryName = context.expand(context.testCase.testSuite.project.resourceRoot);
-
-def g0InternalFile = new File(testDirectoryName, "internalConnectionInfo_g0.xml");
-def g0UddiFile = new File(testDirectoryName, "uddiConnectionInfo_g0.xml");
-
-void MoveFile(File sourceFile, File destinationFile, log){
-
-	if(sourceFile.exists())
-			{
-				def reader = sourceFile.newReader();
-				destinationFile.withWriter 
-				{ writer ->       
-					writer &lt;&lt; reader;   
-				}   
-				reader.close();
-			} 
-			else {
-			   log.info("unable to find source file " + sourceFile);
-			}   
-}
-
-MoveFile(sourceInternalFile, backupInternalFile, log);
-MoveFile(sourceUddiFile, backupUddiFile, log);
-
-MoveFile(g0InternalFile, sourceInternalFile, log);
-MoveFile(g0UddiFile, sourceUddiFile, log);
-
+<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
+nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);
 </con:setupScript>
-<con:tearDownScript>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-
-File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
-File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
-
-File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml");
-File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
-
-void MoveFile(File sourceFile, File destinationFile, log)
-
-	if(sourceFile.exists()
-			{
-				def reader = sourceFile.newReader();
-				destinationFile.withWriter
-				{ writer ->       
-					writer &lt;&lt; reader;  
-				}   
-				reader.close()
-			} 
-			else {
-			   log.info("unable to find source file " + sourceFile)
-			}   
-}
-
-MoveFile(backupInternalFile, sourceInternalFile, log);
-MoveFile(backupUddiFile, sourceUddiFile, log);
-
-void DeleteFile(File file, log) {  
-			if(file.exists()) {    
-			   log.info("deleting file " + file);
-			   file.delete();
-			} else {
-			   log.info("file not found, skipping delete for " + file)
-			}
-}
-
-DeleteFile(backupInternalFile, log);
-DeleteFile(backupUddiFile, log);
+<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);
 </con:tearDownScript>
 <con:properties>
 	<con:property>
@@ -11007,96 +9475,10 @@ assert holder["//ns4:SubscribeResponse[1]/ns4:SubscriptionReference[1]/ns3:Refer
 }</script>
 </con:config>
 </con:testStep>
-<con:setupScript>def GatewayPropFile = System.env['NHINC_PROPERTIES_DIR']+"/gateway.properties"
-
-File gatewayFile = new File(GatewayPropFile)
-File gatewayBakFile = new File(GatewayPropFile + ".bak")
-
-if(gatewayBakFile.exists()) {
-	gatewayBakFile.delete()
-}
-
-if(gatewayFile.exists()) {
-	gatewayBakFile &lt;&lt; gatewayFile.asWritable()
-} else {
-	throw new RuntimeException('Unable to locate gateway.properties')
-}
-
-def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-
-File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
-File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
-
-File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml");
-File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
-
-log.info context.expand(context.testCase.testSuite.project.resourceRoot);
-def testDirectoryName = context.expand(context.testCase.testSuite.project.resourceRoot);
-
-def g0InternalFile = new File(testDirectoryName, "internalConnectionInfo_g0.xml");
-def g0UddiFile = new File(testDirectoryName, "uddiConnectionInfo_g0.xml");
-
-void MoveFile(File sourceFile, File destinationFile, log){
-
-	if(sourceFile.exists())
-			{
-				def reader = sourceFile.newReader();
-				destinationFile.withWriter 
-				{ writer ->       
-					writer &lt;&lt; reader;   
-				}   
-				reader.close();
-			} 
-			else {
-			   log.info("unable to find source file " + sourceFile);
-			}   
-}
-
-MoveFile(sourceInternalFile, backupInternalFile, log);
-MoveFile(sourceUddiFile, backupUddiFile, log);
-
-MoveFile(g0InternalFile, sourceInternalFile, log);
-MoveFile(g0UddiFile, sourceUddiFile, log);
-
+<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
+nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);
 </con:setupScript>
-<con:tearDownScript>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-
-File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
-File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
-
-File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml");
-File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
-
-void MoveFile(File sourceFile, File destinationFile, log){
-
-	if(sourceFile.exists())
-			{
-				def reader = sourceFile.newReader();
-				destinationFile.withWriter 
-				{ writer ->       
-					writer &lt;&lt; reader;   
-				}   
-				reader.close();
-			} 
-			else {
-			   log.info("unable to find source file " + sourceFile);
-			}   
-}
-
-MoveFile(backupInternalFile, sourceInternalFile, log);
-MoveFile(backupUddiFile, sourceUddiFile, log);
-
-void DeleteFile(File file, log) {  
-			if(file.exists()) {    
-			   log.info("deleting file " + file);
-			   file.delete(); 
-			} else {
-			   log.info("file not found, skipping delete for " + file);
-			}
-}
-
-DeleteFile(backupInternalFile, log);
-DeleteFile(backupUddiFile, log);
+<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);
 </con:tearDownScript>
 <con:properties>
 	<con:property>
@@ -11702,112 +10084,10 @@ testRunner.testCase.testSuite.project.setPropertyValue( "NotifySubscriptionID", 
 </con:request>
 </con:config>
 </con:testStep>
-<con:setupScript>def GatewayPropFile = System.env['NHINC_PROPERTIES_DIR']+"/gateway.properties"
-
-File gatewayFile = new File(GatewayPropFile)
-File gatewayBakFile = new File(GatewayPropFile + ".bak")
-
-if(gatewayBakFile.exists()) {
-	gatewayBakFile.delete()
-}
-
-if(gatewayFile.exists()) {
-	gatewayBakFile &lt;&lt; gatewayFile.asWritable()
-} else {
-	throw new RuntimeException('Unable to locate gateway.properties')
-}
-
-def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-
-File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
-File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
-
-File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml");
-File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
-
-log.info context.expand(context.testCase.testSuite.project.resourceRoot);
-def testDirectoryName = context.expand(context.testCase.testSuite.project.resourceRoot);
-
-def g0InternalFile = new File(testDirectoryName, "internalConnectionInfo_g0.xml");
-def g0UddiFile = new File(testDirectoryName, "uddiConnectionInfo_g0.xml");
-
-void MoveFile(File sourceFile, File destinationFile, log){
-
-	if(sourceFile.exists())
-			{
-				def reader = sourceFile.newReader();
-				destinationFile.withWriter 
-				{ writer ->       
-					writer &lt;&lt; reader;   
-				}   
-				reader.close();
-			} 
-			else {
-			   log.info("unable to find source file " + sourceFile);
-			}   
-}
-
-MoveFile(sourceInternalFile, backupInternalFile, log);
-MoveFile(sourceUddiFile, backupUddiFile, log);
-
-MoveFile(g0InternalFile, sourceInternalFile, log);
-MoveFile(g0UddiFile, sourceUddiFile, log);
-
+<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
+nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);
 </con:setupScript>
-<con:tearDownScript>def GatewayPropFile = System.env['NHINC_PROPERTIES_DIR']+"/gateway.properties"
-def MasterGatewayPropFile = System.env['NHINC_PROPERTIES_DIR']+"/gateway.properties.bak"
-
-File gatewayFile = new File(GatewayPropFile)
-File gatewayBakFile = new File(MasterGatewayPropFile)
-
-if(gatewayBakFile.exists()) {
-	def reader = gatewayBakFile.newReader()
-	gatewayFile.withWriter { writer ->
-	writer &lt;&lt; reader
-}
-	reader.close()
-} else {
-	throw new RuntimeException('Unable to locate gateway.properties.bak')
-}
-
-def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-
-File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
-File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
-
-File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml");
-File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
-
-void MoveFile(File sourceFile, File destinationFile, log){
-
-	if(sourceFile.exists())
-			{
-				def reader = sourceFile.newReader();
-				destinationFile.withWriter 
-				{ writer ->       
-					writer &lt;&lt; reader;   
-				}   
-				reader.close();
-			} 
-			else {
-			   log.info("unable to find source file " + sourceFile);
-			}   
-}
-
-MoveFile(backupInternalFile, sourceInternalFile, log);
-MoveFile(backupUddiFile, sourceUddiFile, log);
-
-void DeleteFile(File file, log) {  
-			if(file.exists()) {    
-			   log.info("deleting file " + file);
-			   file.delete(); 
-			} else {
-			   log.info("file not found, skipping delete for " + file);
-			}
-}
-
-DeleteFile(backupInternalFile, log);
-DeleteFile(backupUddiFile, log);</con:tearDownScript>
+<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
@@ -12149,96 +10429,10 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
 }</script>
 </con:config>
 </con:testStep>
-<con:setupScript>def GatewayPropFile = System.env['NHINC_PROPERTIES_DIR']+"/gateway.properties"
-
-File gatewayFile = new File(GatewayPropFile)
-File gatewayBakFile = new File(GatewayPropFile + ".bak")
-
-if(gatewayBakFile.exists()) {
-	gatewayBakFile.delete()
-}
-
-if(gatewayFile.exists()) {
-	gatewayBakFile &lt;&lt; gatewayFile.asWritable()
-} else {
-	throw new RuntimeException('Unable to locate gateway.properties')
-}
-
-def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-
-File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
-File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
-
-File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml");
-File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
-
-log.info context.expand(context.testCase.testSuite.project.resourceRoot);
-def testDirectoryName = context.expand(context.testCase.testSuite.project.resourceRoot);
-
-def g0InternalFile = new File(testDirectoryName, "internalConnectionInfo_g0.xml");
-def g0UddiFile = new File(testDirectoryName, "uddiConnectionInfo_g0.xml");
-
-void MoveFile(File sourceFile, File destinationFile, log){
-
-	if(sourceFile.exists())
-			{
-				def reader = sourceFile.newReader();
-				destinationFile.withWriter 
-				{ writer ->       
-					writer &lt;&lt; reader;   
-				}   
-				reader.close();
-			} 
-			else {
-			   log.info("unable to find source file " + sourceFile);
-			}   
-}
-
-MoveFile(sourceInternalFile, backupInternalFile, log);
-MoveFile(sourceUddiFile, backupUddiFile, log);
-
-MoveFile(g0InternalFile, sourceInternalFile, log);
-MoveFile(g0UddiFile, sourceUddiFile, log);
-
+<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
+nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);
 </con:setupScript>
-<con:tearDownScript>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-
-File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
-File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
-
-File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml");
-File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
-
-void MoveFile(File sourceFile, File destinationFile, log){
-
-	if(sourceFile.exists())
-			{
-				def reader = sourceFile.newReader();
-				destinationFile.withWriter 
-				{ writer ->       
-					writer &lt;&lt; reader;   
-				}   
-				reader.close();
-			} 
-			else {
-			   log.info("unable to find source file " + sourceFile);
-			}   
-}
-
-MoveFile(backupInternalFile, sourceInternalFile, log);
-MoveFile(backupUddiFile, sourceUddiFile, log);
-
-void DeleteFile(File file, log) {  
-			if(file.exists()) {    
-			   log.info("deleting file " + file);
-			   file.delete(); 
-			} else {
-			   log.info("file not found, skipping delete for " + file);
-			}
-}
-
-DeleteFile(backupInternalFile, log);
-DeleteFile(backupUddiFile, log);
+<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);
 </con:tearDownScript>
 <con:properties>
 	<con:property>
@@ -12673,81 +10867,10 @@ DeleteFile(backupUddiFile, log);
 		<delay>15000</delay>
 	</con:config>
 </con:testStep>
-<con:setupScript>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-
-File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
-File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
-
-File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml");
-File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
-
-log.info context.expand(context.testCase.testSuite.project.resourceRoot);
-def testDirectoryName = context.expand(context.testCase.testSuite.project.resourceRoot);
-
-def g0InternalFile = new File(testDirectoryName, "internalConnectionInfo_g0.xml");
-def g0UddiFile = new File(testDirectoryName, "uddiConnectionInfo_g0.xml");
-
-void MoveFile(File sourceFile, File destinationFile, log){
-
-	if(sourceFile.exists())
-			{
-				def reader = sourceFile.newReader();
-				destinationFile.withWriter 
-				{ writer ->       
-					writer &lt;&lt; reader;   
-				}   
-				reader.close();
-			} 
-			else {
-			   log.info("unable to find source file " + sourceFile);
-			}   
-}
-
-MoveFile(sourceInternalFile, backupInternalFile, log);
-MoveFile(sourceUddiFile, backupUddiFile, log);
-
-MoveFile(g0InternalFile, sourceInternalFile, log);
-MoveFile(g0UddiFile, sourceUddiFile, log);
-
+<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
+nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);
 </con:setupScript>
-<con:tearDownScript>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-
-File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
-File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
-
-File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml");
-File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
-
-void MoveFile(File sourceFile, File destinationFile, log)
-
-	if(sourceFile.exists()
-			{
-				def reader = sourceFile.newReader();
-				destinationFile.withWriter
-				{ writer ->       
-					writer &lt;&lt; reader;  
-				}   
-				reader.close()
-			} 
-			else {
-			   log.info("unable to find source file " + sourceFile)
-			}   
-}
-
-MoveFile(backupInternalFile, sourceInternalFile, log);
-MoveFile(backupUddiFile, sourceUddiFile, log);
-
-void DeleteFile(File file, log) {  
-			if(file.exists()) {    
-			   log.info("deleting file " + file);
-			   file.delete();
-			} else {
-			   log.info("file not found, skipping delete for " + file)
-			}
-}
-
-DeleteFile(backupInternalFile, log);
-DeleteFile(backupUddiFile, log);
+<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);
 </con:tearDownScript>
 <con:properties>
 	<con:property>
@@ -12845,39 +10968,24 @@ DeleteFile(backupUddiFile, log);
 
 
 
-	<con:property>
-		<con:name>AsyncMsgTable</con:name>
-		<con:value>asyncmsgrepo</con:value>
-	</con:property>
-	<con:property>
+	
+	<con:property><con:name>AsyncMsgTable</con:name><con:value>asyncmsgrepo</con:value></con:property><con:property>
 		<con:name>AuditRepoDB</con:name>
 		<con:value>auditrepo</con:value>
 	</con:property>
-	<con:property>
-		<con:name>AuditRepoTable</con:name>
-		<con:value>auditrepository</con:value>
-	</con:property>
-	<con:property>
-		<con:name>BirthTime</con:name>
-		<con:value>19630804</con:value>
-	</con:property>
-	<con:property>
+	
+	<con:property><con:name>AuditRepoTable</con:name><con:value>auditrepository</con:value></con:property>
+	<con:property><con:name>BirthTime</con:name><con:value>19630804</con:value></con:property><con:property>
 		<con:name>City</con:name>
 		<con:value>Melbourne</con:value>
 	</con:property>
-	<con:property>
-		<con:name>Country</con:name>
-		<con:value>US</con:value>
-	</con:property>
-	<con:property>
+	
+	<con:property><con:name>Country</con:name><con:value>US</con:value></con:property><con:property>
 		<con:name>DateOfSignature</con:name>
 		<con:value>20080520</con:value>
 	</con:property>
-	<con:property>
-		<con:name>DBHost</con:name>
-		<con:value>localhost</con:value>
-	</con:property>
-	<con:property>
+	
+	<con:property><con:name>DBHost</con:name><con:value>localhost</con:value></con:property><con:property>
 		<con:name>DBPass</con:name>
 		<con:value>nhincpass</con:value>
 	</con:property>
@@ -12895,122 +11003,59 @@ DeleteFile(backupUddiFile, log);
 
 
 
-	<con:property>
-		<con:name>DBPort</con:name>
-		<con:value>3306</con:value>
-	</con:property>
-	<con:property>
-		<con:name>DBUser</con:name>
-		<con:value>nhincuser</con:value>
-	</con:property>
-	<con:property>
+	
+	<con:property><con:name>DBPort</con:name><con:value>3306</con:value></con:property>
+	<con:property><con:name>DBUser</con:name><con:value>nhincuser</con:value></con:property><con:property>
 		<con:name>DeferredPatientDiscoveryReqMessageID</con:name>
 		<con:value>uuid:6666666666.66666.666.66</con:value>
 	</con:property>
-	<con:property>
-		<con:name>DOB</con:name>
-		<con:value>19800516</con:value>
-	</con:property>
-	<con:property>
+	
+	<con:property><con:name>DOB</con:name><con:value>19800516</con:value></con:property><con:property>
 		<con:name>DQDocID</con:name>
 		<con:value>1.123401.11111</con:value>
 	</con:property>
-	<con:property>
-		<con:name>DQPatientID</con:name>
-		<con:value>D123401</con:value>
-	</con:property>
-	<con:property>
-		<con:name>DRDocID</con:name>
-		<con:value>1.123407.777777</con:value>
-	</con:property>
-	<con:property>
+	
+	<con:property><con:name>DQPatientID</con:name><con:value>D123401</con:value></con:property>
+	<con:property><con:name>DRDocID</con:name><con:value>1.123407.777777</con:value></con:property><con:property>
 		<con:name>DRRepoID</con:name>
 		<con:value>1</con:value>
 	</con:property>
-	<con:property>
-		<con:name>DynamicDQDocID</con:name>
-		<con:value>103.8.9284320.020.3590.75^1266324032288</con:value>
-	</con:property>
-	<con:property>
-		<con:name>Endpoint-DocQuery</con:name>
-		<con:value>http://localhost:8080/Gateway/DocumentQuery/2_0/EntityService/NhincProxyDocQueryUnsecured</con:value>
-	</con:property>
-	<con:property>
-		<con:name>Endpoint-DocRetrieve</con:name>
-		<con:value>http://localhost:8080/Gateway/DocumentRetrieve/2_0/NhincProxyDocRetrieveUnsecured</con:value>
-	</con:property>
-	<con:property>
-		<con:name>Endpoint-DocSubmissionDefResp</con:name>
-		<con:value>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/PassthruDocSubmissionDeferredResponseUnsecured</con:value>
-	</con:property>
-	<con:property>
-		<con:name>Endpoint-DocumentSubmission</con:name>
-		<con:value>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/PassthruDocSubmissionUnsecured</con:value>
-	</con:property>
-	<con:property>
+	
+	<con:property><con:name>DynamicDQDocID</con:name><con:value>103.8.9284320.020.3590.75^1266324032288</con:value></con:property>
+	
+	
+	<con:property><con:name>Endpoint-DocQuery</con:name><con:value>http://localhost:8080/Gateway/DocumentQuery/2_0/EntityService/NhincProxyDocQueryUnsecured</con:value></con:property><con:property><con:name>Endpoint-DocRetrieve</con:name><con:value>http://localhost:8080/Gateway/DocumentRetrieve/2_0/NhincProxyDocRetrieveUnsecured</con:value></con:property><con:property><con:name>Endpoint-DocSubmissionDefResp</con:name><con:value>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/PassthruDocSubmissionDeferredResponseUnsecured</con:value></con:property>
+	<con:property><con:name>Endpoint-DocumentSubmission</con:name><con:value>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/PassthruDocSubmissionUnsecured</con:value></con:property><con:property>
 		<con:name>Endpoint-MsgProxyAdminDist</con:name>
 		<con:value>http://localhost:8080/Gateway/AdminDistribution/1_0/MsgProxy/NhincProxyAdminDist</con:value>
 	</con:property>
-	<con:property>
-		<con:name>Endpoint-MsgProxyDocSubmissionDefReq</con:name>
-		<con:value>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/PassthruDocSubmissionDeferredRequestUnsecured</con:value>
-	</con:property>
-	<con:property>
-		<con:name>Endpoint-Notify</con:name>
-		<con:value>http://localhost:8080/Gateway/HIEM/2_0/NhincProxyNotificationConsumer</con:value>
-	</con:property>
-	<con:property>
-		<con:name>Endpoint-PatientDiscovery</con:name>
-		<con:value>http://localhost:8080/Gateway/PatientDiscovery/1_0/MsgProxy/NhincProxyPatientDiscovery</con:value>
-	</con:property>
-	<con:property>
-		<con:name>Endpoint-PatientDiscoveryAsyncReq</con:name>
-		<con:value>http://localhost:8080/Gateway/PatientDiscovery/1_0/MsgProxy/NhincProxyPatientDiscoveryDeferredRequestUnsecured</con:value>
-	</con:property>
-	<con:property>
+	
+	<con:property><con:name>Endpoint-MsgProxyDocSubmissionDefReq</con:name><con:value>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/PassthruDocSubmissionDeferredRequestUnsecured</con:value></con:property>
+	
+	
+	<con:property><con:name>Endpoint-Notify</con:name><con:value>http://localhost:8080/Gateway/HIEM/2_0/NhincProxyNotificationConsumer</con:value></con:property><con:property><con:name>Endpoint-PatientDiscovery</con:name><con:value>http://localhost:8080/Gateway/PatientDiscovery/1_0/MsgProxy/NhincProxyPatientDiscovery</con:value></con:property><con:property><con:name>Endpoint-PatientDiscoveryAsyncReq</con:name><con:value>http://localhost:8080/Gateway/PatientDiscovery/1_0/MsgProxy/NhincProxyPatientDiscoveryDeferredRequestUnsecured</con:value></con:property><con:property>
 		<con:name>Endpoint-PatientDiscoveryAsyncResp</con:name>
 		<con:value>http://localhost:8080/Gateway/PatientDiscovery/1_0/MsgProxy/NhincProxyPatientDiscoveryAsyncResp</con:value>
 	</con:property>
-	<con:property>
-		<con:name>Endpoint-Subscribe</con:name>
-		<con:value>http://localhost:8080/Gateway/HIEM/2_0/NhincProxyNotificationProducer</con:value>
-	</con:property>
-	<con:property>
+	
+	<con:property><con:name>Endpoint-Subscribe</con:name><con:value>http://localhost:8080/Gateway/HIEM/2_0/NhincProxyNotificationProducer</con:value></con:property><con:property>
 		<con:name>Endpoint-Unsubscribe</con:name>
 		<con:value>http://localhost:8080/Gateway/HIEM/2_0/NhincProxySubscriptionManager</con:value>
 	</con:property>
-	<con:property>
-		<con:name>EntitySubscribe</con:name>
-		<con:value>https://localhost:8080/Gateway/HIEM/2_0/EntityService/EntityNotificationProducer</con:value>
-	</con:property>
-	<con:property>
+	
+	<con:property><con:name>EntitySubscribe</con:name><con:value>https://localhost:8080/Gateway/HIEM/2_0/EntityService/EntityNotificationProducer</con:value></con:property><con:property>
 		<con:name>ExpirationDate</con:name>
 		<con:value>20100520</con:value>
 	</con:property>
-	<con:property>
-		<con:name>FamilyName</con:name>
-		<con:value>Younger</con:value>
-	</con:property>
-	<con:property>
-		<con:name>Gender</con:name>
-		<con:value>M</con:value>
-	</con:property>
-	<con:property>
-		<con:name>GivenName</con:name>
-		<con:value>Gallow</con:value>
-	</con:property>
-	<con:property>
-		<con:name>LocalAA</con:name>
-		<con:value>1.1</con:value>
-	</con:property>
-	<con:property>
+	
+	<con:property><con:name>FamilyName</con:name><con:value>Younger</con:value></con:property>
+	
+	
+	<con:property><con:name>Gender</con:name><con:value>M</con:value></con:property><con:property><con:name>GivenName</con:name><con:value>Gallow</con:value></con:property><con:property><con:name>LocalAA</con:name><con:value>1.1</con:value></con:property><con:property>
 		<con:name>LocalHCDescription</con:name>
 		<con:value>InternalTest1</con:value>
 	</con:property>
-	<con:property>
-		<con:name>LocalHCID</con:name>
-		<con:value>1.1</con:value>
-	</con:property>
+	
 
 
 
@@ -13030,14 +11075,8 @@ DeleteFile(backupUddiFile, log);
 
 
 
-	<con:property>
-		<con:name>NotificationEndpoint</con:name>
-		<con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/NotificationConsumerService/HiemNotify</con:value>
-	</con:property>
-	<con:property>
-		<con:name>NotifySubscriptionID</con:name>
-		<con:value>9aedbff6-cbf5-4b6a-8d33-c6f915786617</con:value>
-	</con:property>
+	<con:property><con:name>LocalHCID</con:name><con:value>1.1</con:value></con:property>
+	<con:property><con:name>NotificationEndpoint</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/NotificationConsumerService/HiemNotify</con:value></con:property>
 
 
 
@@ -13050,83 +11089,38 @@ DeleteFile(backupUddiFile, log);
 
 
 
-	<con:property>
-		<con:name>NotifySubscriptionManagerEndpointAddress</con:name>
-		<con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/SubscriptionManagerService/HiemUnsubscribe</con:value>
-	</con:property>
-	<con:property>
-		<con:name>PatientCorrelationDB</con:name>
-		<con:value>patientcorrelationdb</con:value>
-	</con:property>
-	<con:property>
-		<con:name>PatientCorrelationTable</con:name>
-		<con:value>correlatedidentifiers</con:value>
-	</con:property>
-	<con:property>
-		<con:name>PurposeOfDisclosure</con:name>
-		<con:value>Mental</con:value>
-	</con:property>
-	<con:property>
-		<con:name>RemoteAA</con:name>
-		<con:value>2.2</con:value>
-	</con:property>
-	<con:property>
+	
+	
+	<con:property><con:name>NotifySubscriptionID</con:name><con:value>9aedbff6-cbf5-4b6a-8d33-c6f915786617</con:value></con:property><con:property><con:name>NotifySubscriptionManagerEndpointAddress</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/SubscriptionManagerService/HiemUnsubscribe</con:value></con:property><con:property><con:name>PatientCorrelationDB</con:name><con:value>patientcorrelationdb</con:value></con:property>
+	<con:property><con:name>PatientCorrelationTable</con:name><con:value>correlatedidentifiers</con:value></con:property>
+	
+	<con:property><con:name>project.name</con:name><con:value>MsgProxyValidation</con:value></con:property><con:property><con:name>PurposeOfDisclosure</con:name><con:value>Mental</con:value></con:property><con:property><con:name>RemoteAA</con:name><con:value>2.2</con:value></con:property><con:property>
 		<con:name>RemoteHCDescription</con:name>
 		<con:value>InternalTest2</con:value>
 	</con:property>
-	<con:property>
-		<con:name>RemoteHCID</con:name>
-		<con:value>2.2</con:value>
-	</con:property>
-	<con:property>
-		<con:name>SSN</con:name>
-		<con:value>123456789</con:value>
-	</con:property>
-	<con:property>
+	
+	
+	<con:property><con:name>RemoteHCID</con:name><con:value>2.2</con:value></con:property><con:property><con:name>SSN</con:name><con:value>123456789</con:value></con:property><con:property>
 		<con:name>State</con:name>
 		<con:value>FL</con:value>
 	</con:property>
-	<con:property>
-		<con:name>StreetAddress</con:name>
-		<con:value>123 Johnson Rd</con:value>
-	</con:property>
-	<con:property>
-		<con:name>SubjectID</con:name>
-		<con:value>1111</con:value>
-	</con:property>
-	<con:property>
-		<con:name>SubscribePatientID</con:name>
-		<con:value>D123401</con:value>
-	</con:property>
-	<con:property>
+	
+	<con:property><con:name>StreetAddress</con:name><con:value>123 Johnson Rd</con:value></con:property>
+	
+	<con:property><con:name>SubjectID</con:name><con:value>1111</con:value></con:property><con:property><con:name>SubscribePatientID</con:name><con:value>D123401</con:value></con:property><con:property>
 		<con:name>SubscriptionDB</con:name>
 		<con:value>subscriptionrepository</con:value>
 	</con:property>
-	<con:property>
-		<con:name>SubscriptionEndpoint</con:name>
-		<con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/NotificationProducerService/HiemSubscription</con:value>
-	</con:property>
-	<con:property>
-		<con:name>SubscriptionManagerEndpointAddress</con:name>
-		<con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/SubscriptionManagerService/HiemUnsubscribe</con:value>
-	</con:property>
-	<con:property>
-		<con:name>SubscriptionTable</con:name>
-		<con:value>subscription</con:value>
-	</con:property>
-	<con:property>
-		<con:name>UniquePatientId</con:name>
-		<con:value>1111^^^&amp;amp;1.1&amp;amp;ISO</con:value>
-	</con:property>
-	<con:property>
-		<con:name>UnSubscriptionID</con:name>
-		<con:value>3e74139f-5271-4db1-98c0-88748fa3e4e3</con:value>
-	</con:property>
-	<con:property>
+	
+	<con:property><con:name>SubscriptionEndpoint</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/NotificationProducerService/HiemSubscription</con:value></con:property>
+	
+	
+	
+	<con:property><con:name>SubscriptionManagerEndpointAddress</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/SubscriptionManagerService/HiemUnsubscribe</con:value></con:property><con:property><con:name>SubscriptionTable</con:name><con:value>subscription</con:value></con:property><con:property><con:name>UniquePatientId</con:name><con:value>1111^^^&amp;amp;1.1&amp;amp;ISO</con:value></con:property><con:property><con:name>UnSubscriptionID</con:name><con:value>3e74139f-5271-4db1-98c0-88748fa3e4e3</con:value></con:property><con:property>
 		<con:name>ZipCode</con:name>
 		<con:value>12345</con:value>
 	</con:property>
-<con:property><con:name>project.name</con:name><con:value>MsgProxyValidation</con:value></con:property></con:properties>
+<con:property><con:name>GatewayPropDir</con:name><con:value>c:\glassfish-2.1.1\domains\domain1\config\nhin</con:value></con:property></con:properties>
 <con:afterLoadScript>TimeZone.setDefault(TimeZone.getTimeZone("UTC"))
 def testRunListener = [
 afterRun: { testRunner, runContext -> },

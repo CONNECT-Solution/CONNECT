@@ -16,6 +16,7 @@
         <ear.path>${org.connectopensource:CONNECT-GF:ear}</ear.path>
     </properties>
     <modules>
+        <module>FileUtils</module>
         <module>ValidationSuite</module>
     </modules>
     <dependencies>
