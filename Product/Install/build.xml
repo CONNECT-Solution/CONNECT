@@ -26,7 +26,7 @@
     <property name="glassfish.install.ant.script" value="${glassfish.install.dir}/setup.xml" />
     <property name="sql.scripts.dir" value="${basedir}/../DBScripts/nhincdb" />
     <property name="mysql.executable" value="mysql" />
-    <property name="glassfish.zip.file" value="${temp.dir}/glassfish-3.1.1.zip" />
+    <property name="glassfish.zip.file" value="${temp.dir}/glassfish-3.1.2.2.zip" />
 
     <taskdef resource="net/sf/antcontrib/antlib.xml">
         <classpath>
@@ -66,7 +66,7 @@
     <delete>
         <fileset dir="${temp.dir}">
             <include name="**/*" />
-            <exclude name="glassfish-3.1.1.zip" />
+            <exclude name="glassfish-3.1.2.2.zip" />
         </fileset>
     </delete>
 
@@ -77,7 +77,7 @@
             <available file="${glassfish.zip.file}" type="file" />
         </not>
         <then>
-            <get src="http://download.java.net/glassfish/3.1.1/release/glassfish-3.1.1.zip" dest="${glassfish.zip.file}" />
+            <get src="http://download.java.net/glassfish/3.1.2.2/release/glassfish-3.1.2.2.zip" dest="${glassfish.zip.file}" />
         </then>
     </if>
 
@@ -97,7 +97,7 @@
         <delete>
             <fileset dir="${temp.dir}">
                 <include name="**/*" />
-                <exclude name="glassfish-3.1.1.zip" />
+                <exclude name="glassfish-3.1.2.2.zip" />
             </fileset>
         </delete>
     </target>
