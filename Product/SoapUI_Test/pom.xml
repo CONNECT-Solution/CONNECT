@@ -55,6 +55,11 @@
                     <artifactId>maven-antrun-plugin</artifactId>
                     <version>1.7</version>
                 </plugin>
+                <plugin>
+                    <groupId>com.google.code.maven-replacer-plugin</groupId>
+                    <artifactId>replacer</artifactId>
+                    <version>1.5.1</version>
+                </plugin>
             </plugins>
         </pluginManagement>
         <testResources>
