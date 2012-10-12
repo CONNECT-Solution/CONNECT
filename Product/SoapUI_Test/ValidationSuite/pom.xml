@@ -272,6 +272,28 @@
                 </executions>
             </plugin>
             <plugin>
+                <groupId>com.google.code.maven-replacer-plugin</groupId>
+                <artifactId>replacer</artifactId>
+                <executions>
+                    <execution>
+                        <id>fix-wsdl-schemalocation</id>
+                        <phase>process-test-resources</phase>
+                        <goals>
+                            <goal>replace</goal>
+                        </goals>
+                        <configuration>
+                            <basedir>${project.build.directory}/wsdl</basedir>
+                            <includes>
+                                <include>**/*.wsdl</include>
+                            </includes>
+                            <token>schemaLocation=\"classpath:</token>
+                            <value>schemaLocation=\"../</value>
+                            <regex>true</regex>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
                 <groupId>com.github.redfish4ktc.soapui</groupId>
                 <artifactId>maven-soapui-extension-plugin</artifactId>
                 <dependencies>
