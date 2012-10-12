@@ -16,8 +16,7 @@
 http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 http://cxf.apache.org/bindings/soap http://cxf.apache.org/schemas/configuration/soap.xsd
 http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd http://www.springframework.org/schema/aop
-http://www.springframework.org/schema/aop/spring-aop.xsd"
->
+http://www.springframework.org/schema/aop/spring-aop.xsd">
 
     <import resource="classpath:META-INF/cxf/cxf.xml" />
     <import resource="classpath:META-INF/cxf/cxf-extension-soap.xml" />
@@ -178,10 +177,8 @@ http://www.springframework.org/schema/aop/spring-aop.xsd"
         </jaxws:handlers>
     </jaxws:endpoint>
 
-    <bean id="SOAPHeaderHandler"
-        class="gov.hhs.fha.nhinc.callback.SOAPHeaderHandler" />
-    <bean id="TransactionHandler"
-        class="gov.hhs.fha.nhinc.logging.transaction.TransactionHandler" />
+    <bean id="SOAPHeaderHandler" class="gov.hhs.fha.nhinc.callback.SOAPHeaderHandler" />
+    <bean id="TransactionHandler" class="gov.hhs.fha.nhinc.logging.transaction.TransactionHandler" />
 
     <aop:aspectj-autoproxy />
     <bean id="eventADAspect" class="gov.hhs.fha.nhinc.admindistribution.aspect.AdminDistributionEventAspect" />
