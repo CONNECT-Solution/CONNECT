@@ -17,6 +17,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <connect.common.properties>Dev</connect.common.properties>
         <skip.cobertura>false</skip.cobertura>
+        <skip.source>true</skip.source>
         <cobertura.check.haltOnFailure>false</cobertura.check.haltOnFailure>
         <cobertura.totalBranchRate>85</cobertura.totalBranchRate>
         <cobertura.totalLineRate>85</cobertura.totalLineRate>
@@ -246,6 +247,11 @@
                     <artifactId>maven-source-plugin</artifactId>
                     <version>2.2</version>
                 </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-dependency-plugin</artifactId>
+                    <version>2.5.1</version>
+                </plugin>
             </plugins>
         </pluginManagement>
         <plugins>
@@ -291,6 +297,9 @@
                             <value>${project.build.testOutputDirectory}</value>
                         </property>
                     </systemProperties>
+                    <configuration>
+                        <redirectTestOutputToFile>true</redirectTestOutputToFile>
+                    </configuration>
                 </configuration>
             </plugin>
             <plugin>
@@ -320,6 +329,7 @@
                     </execution>
                 </executions>
                 <configuration>
+                    <skipSource>${skip.source}</skipSource>
                     <attach>true</attach>
                 </configuration>
             </plugin>
