@@ -14,10 +14,13 @@ CONNECT can be used to:
 Set up a health information exchange within an organization
 Tie a health information exchange into a regional network of health information exchanges using Nationwide Health Information Network standards
 By advancing the adoption of interoperable health IT systems and health information exchanges, the country will better be able to achieve the goal of making sure all citizens have electronic health records by 2014. Health data will be able to follow a patient across the street or across the country.</description>
+    <properties>
+        <git.username>CONNECT-Solution</git.username>
+    </properties>
     <scm>
-        <connection>scm:git:git@github.com:CONNECT-Solution/CONNECT.git</connection>
-        <developerConnection>scm:git:git@github.com:CONNECT-Solution/CONNECT.git</developerConnection>
-        <url>https://github.com/CONNECT-Solution/CONNECT</url>
+        <connection>scm:git:git@github.com:${git.username}/CONNECT.git</connection>
+        <developerConnection>scm:git:git@github.com:${git.username}/CONNECT.git</developerConnection>
+        <url>https://github.com/${git.username}/CONNECT</url>
     </scm>
     <modules>
         <module>ThirdParty</module>
@@ -31,8 +34,9 @@ By advancing the adoption of interoperable health IT systems and health informat
     </licenses>
     <distributionManagement>
         <site>
-            <id>www.connectopensource.org</id>
-            <url>file://tmp/fullsite</url>
+            <id>github-pages-site</id>
+            <name>Deployment through GitHub's site deployment plugin</name>
+            <url>site/${project.version}</url>
         </site>
     </distributionManagement>
     <build>
@@ -49,7 +53,17 @@ By advancing the adoption of interoperable health IT systems and health informat
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-site-plugin</artifactId>
+                <dependencies>
+                    <dependency>
+                        <!-- | allows markdown syntax for site generation. 
+                            To use it place files below | src/site/markdown/[filename].md -->
+                        <groupId>org.apache.maven.doxia</groupId>
+                        <artifactId>doxia-module-markdown</artifactId>
+                        <version>1.3</version>
+                    </dependency>
+                </dependencies>
                 <configuration>
+                    <skipDeploy>true</skipDeploy>
                     <reportPlugins>
                         <plugin>
                             <groupId>org.apache.maven.plugins</groupId>
@@ -106,38 +120,27 @@ By advancing the adoption of interoperable health IT systems and health informat
     </build>
     <profiles>
         <profile>
-            <id>site</id>
+            <id>github-site-deploy</id>
             <properties>
-                <skip.unpack>true</skip.unpack>
+                <github.site.merge>true</github.site.merge>
             </properties>
             <build>
                 <plugins>
-                    <plugin>
-                        <groupId>com.github.github</groupId>
-                        <artifactId>downloads-maven-plugin</artifactId>
-                        <version>0.6</version>
-                        <configuration>
-                            <description>Official ${project.name} build
-                                of the
-                                ${project.version} release</description>
-                            <override>true</override>
-                            <includeAttached>true</includeAttached>
-                            <server>github</server>
-                        </configuration>
-                        <executions>
-                            <execution>
-                                <goals>
-                                    <goal>upload</goal>
-                                </goals>
-                                <phase>install</phase>
-                            </execution>
-                        </executions>
-                    </plugin>
+                    <!-- <plugin> <groupId>com.github.github</groupId> <artifactId>downloads-maven-plugin</artifactId> 
+                        <version>0.6</version> <configuration> <description>Official ${project.name} 
+                        build of the ${project.version} release</description> <override>true</override> 
+                        <includeAttached>true</includeAttached> <server>github</server> </configuration> 
+                        <executions> <execution> <goals> <goal>upload</goal> </goals> <phase>install</phase> 
+                        </execution> </executions> </plugin> -->
                     <plugin>
                         <groupId>com.github.github</groupId>
                         <artifactId>site-maven-plugin</artifactId>
                         <version>0.7</version>
                         <configuration>
+                            <!-- this does the trick to place every module 
+                                in the correct subfolder -->
+                            <path>${project.distributionManagement.site.url}</path>
+                            <merge>${github.site.merge}</merge>
                             <message>Building site for
                                 ${project.version}</message>
                             <server>github</server>
@@ -147,7 +150,7 @@ By advancing the adoption of interoperable health IT systems and health informat
                                 <goals>
                                     <goal>site</goal>
                                 </goals>
-                                <phase>site</phase>
+                                <phase>site-deploy</phase>
                             </execution>
                         </executions>
                     </plugin>
