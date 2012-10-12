@@ -31,11 +31,21 @@ import org.apache.log4j.Logger;
 
 class FileUtils {
 
-	public static String ReadFile(String FileName, Logger log) {
+	static String[] files2restore = { "hiemTopicConfiguration.xml",
+			"internalConnectionInfo.xml", "PCConfiguration.xml",
+			"uddiConnectionInfo.xml", "XDSUniqueIds.properties",
+			"gateway.properties", "adapter.properties", "purposeUse.properties" };
+	// should these match?
+	static String[] files2backup = { "hiemTopicConfiguration.xml",
+			"internalConnectionInfo.xml", "PCConfiguration.xml",
+			"uddiConnectionInfo.xml", "XDSUniqueIds.properties",
+			"gateway.properties", "adapter.properties", "purposeUse.properties" };
+
+	public static String readFile(String fileName, Logger log) {
 		try {
 
-			log.info("read file: " + FileName);
-			File sourceFile = new File(FileName);
+			log.info("read file: " + fileName);
+			File sourceFile = new File(fileName);
 			String filecontents = null;
 			if (sourceFile.exists()) {
 				log.info("file exists");
@@ -60,7 +70,7 @@ class FileUtils {
 				}
 				filecontents = sb.toString();
 			} else {
-				log.info("unable to find source file " + FileName);
+				log.info("unable to find source file " + fileName);
 			}
 
 			log.info("read file contents (" + filecontents.length() + ")");
@@ -130,11 +140,10 @@ class FileUtils {
 		}
 	}
 
-	public static void DeleteFile(String sourceDirectory,
+	public static void deleteFile(String sourceDirectory,
 			String sourceFileName, Logger log) {
 
 		File file = new File(sourceDirectory, sourceFileName);
-
 		if (file.exists()) {
 			log.info("deleting file " + file);
 			file.delete();
@@ -146,22 +155,20 @@ class FileUtils {
 	public static void updateProperty(String directory, String filename,
 			String propertyKey, String propertyValue, Logger log) {
 		FileWriter fwPropFile = null;
+		FileReader frPropFile = null;
+
 		try {
 			log.info("begin updateProperty; directory='" + directory
 					+ "';filename='" + filename + "';key='" + propertyKey
 					+ "';value='" + propertyValue + "';");
 
 			File file = new File(directory, filename);
-
 			Properties properties = new Properties();
-			FileReader frPropFile;
 
 			frPropFile = new FileReader(file);
-
 			properties.load(frPropFile);
 
 			properties.setProperty(propertyKey, propertyValue);
-
 			fwPropFile = new FileWriter(file);
 			properties
 					.store(fwPropFile,
@@ -170,22 +177,24 @@ class FileUtils {
 		} catch (IOException e) {
 			log.error(e.getMessage());
 		} finally {
+
+			if (frPropFile != null) {
+				try {
+					frPropFile.close();
+				} catch (Exception e) {
+				}
+			}
+
 			if (fwPropFile != null) {
 				try {
 					fwPropFile.close();
-				} catch( Exception e) {}
+				} catch (Exception e) {
+				}
 			}
 		}
 	}
 
-	public static void updateGatewayProperty(String propertyKey,
-			String propertyValue, Logger log) {
-
-		updateProperty(System.getenv("NHINC_PROPERTIES_DIR"),
-				"gateway.properties", propertyKey, propertyValue, log);
-	}
-
-	public static String ReadProperty(String directory, String filename,
+	public static String readProperty(String directory, String filename,
 			String propertyKey, Logger log) {
 		try {
 
@@ -211,12 +220,6 @@ class FileUtils {
 			log.error(e.getMessage());
 			return null;
 		}
-	}
-
-	public static void changeSpringConfig(String fileName,
-			String desiredImpltype, String beanName, Logger log) throws Exception {
-		changeSpringConfig(System.getenv("NHINC_PROPERTIES_DIR"), fileName,
-				desiredImpltype, beanName, log);
 	}
 
 	public static void changeSpringConfig(String configDir, String fileName,
@@ -362,16 +365,7 @@ class FileUtils {
 		}
 	}
 
-	public static void changeSpringConfig(String fileName,
-			String desiredImpltype, Logger log) {
-		try {
-			changeSpringConfig(fileName, desiredImpltype, "none", log);
-		} catch (Exception e) {
-			log.error(e.getMessage());
-		}
-	}
-
-	public static void CreateOrUpdateConnection(String fileName,
+	public static void createOrUpdateConnection(String fileName,
 			String directory, String communityId, String serviceName,
 			String serviceUrl, String defaultVersion, Logger log) {
 
@@ -381,7 +375,6 @@ class FileUtils {
 
 		String fullPath = directory + "/" + fileName;
 		log.info("Path to connection info file: " + fullPath);
-		log.info("Changed jar!!!");
 		boolean serviceNodeFound = false;
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 		factory.setNamespaceAware(true);
@@ -582,12 +575,6 @@ class FileUtils {
 
 			backupDir.mkdir();
 
-			String[] files2backup = { "hiemTopicConfiguration.xml",
-					"internalConnectionInfo.xml", "PCConfiguration.xml",
-					"uddiConnectionInfo.xml", "XDSUniqueIds.properties",
-					"gateway.properties", "adapter.properties",
-					"purposeUse.properties" };
-
 			for (String fileName : files2backup) {
 				moveFile(confDir.getAbsolutePath(), fileName,
 						backupDir.getAbsolutePath(), fileName, log);
@@ -604,12 +591,6 @@ class FileUtils {
 		try {
 			File backupDir = new File(configDir, "prop_temp");
 			File confDir = new File(configDir);
-
-			String[] files2restore = { "hiemTopicConfiguration.xml",
-					"internalConnectionInfo.xml", "PCConfiguration.xml",
-					"uddiConnectionInfo.xml", "XDSUniqueIds.properties",
-					"gateway.properties", "adapter.properties",
-					"purposeUse.properties" };
 
 			for (String fileName : files2restore) {
 				moveFile(backupDir.getAbsolutePath(), fileName,
@@ -634,19 +615,15 @@ class FileUtils {
 		restoreConfiguration(configDir, log, true);
 	}
 
-	public static void restoreToMasterConfiguration(Logger log) {
+	public static void restoreToMasterConfiguration(String configFile,
+			Logger log) {
+
 		log.info("Start restoreToMasterConfiguration");
 		try {
 
-			String masterDirFile = System.getenv("NHINC_PROPERTIES_DIR")
-					+ "/master";
+			String masterDirFile = configFile + "/master";
 			File masterDir = new File(masterDirFile);
-			File confDir = new File(System.getenv("NHINC_PROPERTIES_DIR"));
-
-			String[] files2restore = { "internalConnectionInfo.xml",
-					"adapter.properties", "gateway.properties",
-					"hiemTopicConfiguration.xml", "XDSUniqueIds.properties",
-					"PCConfiguration.xml" };
+			File confDir = new File(configFile);
 
 			for (String fileName : files2restore) {
 				moveFile(masterDir.getAbsolutePath(), fileName,
@@ -657,6 +634,66 @@ class FileUtils {
 			log.error(e.getMessage());
 		}
 		log.info("End restoreToMasterConfiguration");
+	}
+
+	/*
+	 * The Methods listed below should be removed!
+	 */
+
+	@Deprecated
+	public static void restoreToMasterConfiguration(Logger log) {
+		restoreConfiguration(System.getenv("NHINC_PROPERTIES_DIR"), log);
+	}
+
+	@Deprecated
+	public static String ReadFile(String FileName, Logger log) {
+		return readFile(FileName, log);
+	}
+
+	@Deprecated
+	public static void DeleteFile(String sourceDirectory,
+			String sourceFileName, Logger log) {
+		deleteFile(sourceDirectory, sourceFileName, log);
+	}
+
+	@Deprecated
+	public static void updateGatewayProperty(String propertyKey,
+			String propertyValue, Logger log) {
+
+		updateProperty(System.getenv("NHINC_PROPERTIES_DIR"),
+				"gateway.properties", propertyKey, propertyValue, log);
+	}
+
+	@Deprecated
+	public static String ReadProperty(String directory, String filename,
+			String propertyKey, Logger log) {
+		return readProperty(directory, filename, propertyKey, log);
+	}
+
+	@Deprecated
+	public static void changeSpringConfig(String fileName,
+			String desiredImpltype, String beanName, Logger log)
+			throws Exception {
+		changeSpringConfig(System.getenv("NHINC_PROPERTIES_DIR"), fileName,
+				desiredImpltype, beanName, log);
+	}
+
+	@Deprecated
+	public static void changeSpringConfig(String fileName,
+			String desiredImpltype, Logger log) {
+		try {
+			changeSpringConfig(fileName, desiredImpltype, "none", log);
+		} catch (Exception e) {
+			log.error(e.getMessage());
+		}
+	}
+
+	@Deprecated
+	public static void CreateOrUpdateConnection(String fileName,
+			String directory, String communityId, String serviceName,
+			String serviceUrl, String defaultVersion, Logger log) {
+		createOrUpdateConnection(fileName, directory, communityId, serviceName,
+				serviceUrl, defaultVersion, log);
 	}
 
 }
