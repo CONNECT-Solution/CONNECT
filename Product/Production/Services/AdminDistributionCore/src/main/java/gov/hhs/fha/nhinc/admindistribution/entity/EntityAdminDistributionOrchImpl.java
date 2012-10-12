@@ -65,7 +65,7 @@ public class EntityAdminDistributionOrchImpl {
     public void sendAlertMessage(RespondingGatewaySendAlertMessageType message, AssertionType assertion,
             NhinTargetCommunitiesType target) {
         auditMessage(message, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
-
+        
         List<UrlInfo> urlInfoList = getEndpoints(target);
 
         if ((urlInfoList == null) || (urlInfoList.isEmpty())) {
