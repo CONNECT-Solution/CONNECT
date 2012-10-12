@@ -95,7 +95,7 @@ public class NhinHiemUnsubscribeWebServiceProxy implements NhinHiemUnsubscribePr
                         wsAddressingTo, subscriptionId);
 
                 WebServiceProxyHelper wsHelper = new WebServiceProxyHelper();
-                wsHelper.addTargetCommunity((BindingProvider) client.getPort(), target);
+                
                 wsHelper.addTargetApiLevel((BindingProvider) client.getPort(), GATEWAY_API_LEVEL.LEVEL_g0);
                 wsHelper.addServiceName((BindingProvider) client.getPort(), 
                         NhincConstants.HIEM_SUBSCRIPTION_MANAGER_SERVICE_NAME);

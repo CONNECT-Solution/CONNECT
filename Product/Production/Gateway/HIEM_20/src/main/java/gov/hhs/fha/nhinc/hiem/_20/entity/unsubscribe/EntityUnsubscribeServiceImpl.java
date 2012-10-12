@@ -27,6 +27,7 @@
 package gov.hhs.fha.nhinc.hiem._20.entity.unsubscribe;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.UnsubscribeRequestType;
 import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
 import gov.hhs.fha.nhinc.hiem.consumerreference.ReferenceParametersHelper;
@@ -60,7 +61,7 @@ public class EntityUnsubscribeServiceImpl {
             AssertionType assertion = unsubscribeRequest.getAssertion();
             String subscriptionId = getSubscriptionId(context);
             EntityUnsubscribeOrchImpl processor = new EntityUnsubscribeOrchImpl();
-            processor.processUnsubscribe(unsubscribeRequest.getUnsubscribe(), assertion, subscriptionId);
+            response = processor.processUnsubscribe(unsubscribeRequest.getUnsubscribe(), subscriptionId, assertion);
         } catch (UnableToDestroySubscriptionFault ex) {
             throw new gov.hhs.fha.nhinc.entitysubscriptionmanagement.UnableToDestroySubscriptionFault(ex.getMessage(),
                     ex);
@@ -79,7 +80,7 @@ public class EntityUnsubscribeServiceImpl {
 
             String subscriptionId = getSubscriptionId(context);
             EntityUnsubscribeOrchImpl processor = new EntityUnsubscribeOrchImpl();
-            processor.processUnsubscribe(unsubscribeRequest, assertion, subscriptionId);
+            response = processor.processUnsubscribe(unsubscribeRequest, subscriptionId, assertion);
         } catch (UnableToDestroySubscriptionFault ex) {
             throw new gov.hhs.fha.nhinc.entitysubscriptionmanagementsecured.UnableToDestroySubscriptionFault(
                     ex.getMessage(), ex);

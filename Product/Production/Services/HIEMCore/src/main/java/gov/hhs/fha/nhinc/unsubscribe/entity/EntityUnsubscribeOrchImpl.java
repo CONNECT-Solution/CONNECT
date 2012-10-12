@@ -86,7 +86,7 @@ public class EntityUnsubscribeOrchImpl {
 		 * @throws UnableToDestroySubscriptionFault
 		 */
 		public UnsubscribeResponse processUnsubscribe(Unsubscribe unsubscribe,
-		         AssertionType assertion, String subscriptionId)
+		         String subscriptionId,  AssertionType assertion)
 				throws UnableToDestroySubscriptionFault, Exception {
 			UnsubscribeResponse response = null;
 
@@ -153,6 +153,7 @@ public class EntityUnsubscribeOrchImpl {
 
 		            target = new TargetBuilder().buildSubscriptionManagerTarget(childSubscriptionItem
 		                    .getSubscriptionReferenceXML());
+		            
 		            log.debug("target url = " + target.getUrl());
 		            if (NullChecker.isNullish(target.getUrl())) {
 		                throw new UnableToDestroySubscriptionFault(
