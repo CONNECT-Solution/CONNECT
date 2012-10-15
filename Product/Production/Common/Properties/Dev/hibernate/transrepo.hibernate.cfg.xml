@@ -21,7 +21,6 @@
 
         <property name="connection.datasource">jdbc/transrepo_datasource</property>
       
-       <!-- DEPRECATED very expensive property name="c3p0.validate>-->
         <!-- Drop and re-create the database schema on startup -->
         <!-- <property name="hbm2ddl.auto">create</property> -->
 

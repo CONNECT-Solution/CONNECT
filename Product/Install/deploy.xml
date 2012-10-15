@@ -622,15 +622,6 @@
         </else>
     </if>
     <if>
-        <available file="${glassfish.home}/domains/domain1/lib/c3p0-0.9.1.2.jar"
-                type="file" />
-        <then />
-        <else>
-            <fail
-                    message="C3PO Jar file are missing. Please copy $NHINC_THIRDPARTY_DIR\C3PO\*.jar to AS_HOME\lib\." />
-        </else>
-    </if>
-    <if>
         <available file="${glassfish.home}/domains/domain1/lib/log4j-1.2.15.jar"
                 type="file" />
         <then />
