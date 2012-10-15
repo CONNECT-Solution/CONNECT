@@ -60,15 +60,15 @@ public class NhinHiemUnsubscribeWebServiceProxy implements NhinHiemUnsubscribePr
 
     protected CONNECTClient<SubscriptionManager> getCONNECTClientSecured(
             ServicePortDescriptor<SubscriptionManager> portDescriptor, String url, AssertionType assertion,
-            String wsAddressingTo) {
+            String wsAddressingTo, String subscriptionId) {
 
         return CONNECTCXFClientFactory.getInstance().getCONNECTClientSecured(portDescriptor, url, assertion,
-                wsAddressingTo);
+                wsAddressingTo, subscriptionId);
     }
 
     @Override
     public UnsubscribeResponse unsubscribe(Unsubscribe unsubscribe, SoapMessageElements referenceParametersElements,
-            AssertionType assertion, NhinTargetSystemType target) throws ResourceUnknownFault,
+            AssertionType assertion, NhinTargetSystemType target, String subscriptionId) throws ResourceUnknownFault,
             UnableToDestroySubscriptionFault, Exception {
 
         UnsubscribeResponse response = null;
@@ -87,14 +87,15 @@ public class NhinHiemUnsubscribeWebServiceProxy implements NhinHiemUnsubscribePr
                 if (wsAddressingTo == null) {
                     wsAddressingTo = url;
                 }
+                
 
                 ServicePortDescriptor<SubscriptionManager> portDescriptor = new NhinHiemUnsubscribeServicePortDescriptor();
 
                 CONNECTClient<SubscriptionManager> client = getCONNECTClientSecured(portDescriptor, url, assertion,
-                        wsAddressingTo);
+                        wsAddressingTo, subscriptionId);
 
                 WebServiceProxyHelper wsHelper = new WebServiceProxyHelper();
-                wsHelper.addTargetCommunity((BindingProvider) client.getPort(), target);
+                
                 wsHelper.addTargetApiLevel((BindingProvider) client.getPort(), GATEWAY_API_LEVEL.LEVEL_g0);
                 wsHelper.addServiceName((BindingProvider) client.getPort(), 
                         NhincConstants.HIEM_SUBSCRIPTION_MANAGER_SERVICE_NAME);
