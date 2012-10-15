@@ -128,7 +128,6 @@ public class AdminDistributionEventAspect extends EventAspect {
     }
 
     /*--- Outbound Processing ---*/
-
     @Pointcut("execution(* gov.hhs.fha.nhinc.admindistribution.entity.EntityAdminDistributionOrchImpl.sendAlertMessage(..))")
     private void entityOutboundProcessing() {
     }
@@ -149,23 +148,19 @@ public class AdminDistributionEventAspect extends EventAspect {
         super.endOutboundProcessingEvent();
     }
 
-    /*------ Nwhin Invocation ----*/
-    @Pointcut("execution(* gov.hhs.fha.nhinc.admindistribution.entity.proxy.EntityAdminDistributionProxy*.sendAlertMessage(..)")
-    private void entityNwhinInvocation() {
-    }
-
-    @Pointcut("execution(* gov.hhs.fha.nhinc.admindistribution.passthru.proxy.PassthruAdminDistributionProxy*.sendAlertMessage(..)")
-    private void passthruNwhinInvocation() {
+    /*--- Nwhin Invocation ---*/
+    @Pointcut("execution(* gov.hhs.fha.nhinc.admindistribution.nhin.proxy.EntityAdminDistributionProxy*.sendAlertMessage(..)")
+    private void nwhinInvocation() {
     }
 
     @Override
-    @Before("entityNwhinInvocation() || passthruNwhinInvocation()")
+    @Before("nwhinInvocation()")
     public void beginNwhinInvocationEvent(){
         super.beginNwhinInvocationEvent();
     }
 
     @Override
-    @After("entityNwhinInvocation() || passthruNwhinInvocation()")
+    @After("nwhinInvocation()")
     public void endNwhinInvocationEvent(){
         super.endNwhinInvocationEvent();
     }
