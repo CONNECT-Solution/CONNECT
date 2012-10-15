@@ -302,8 +302,8 @@
         <jvm-options>-Djavax.net.ssl.keyStorePassword=changeit</jvm-options>
         <jvm-options>-Djavax.net.ssl.trustStorePassword=changeit</jvm-options>
         <jvm-options>-d64</jvm-options>
-        <jvm-options>-Xmx3000m</jvm-options>
-        <jvm-options>-Xms3000m</jvm-options>
+        <jvm-options>-Xmx5000m</jvm-options>
+        <jvm-options>-Xms5000m</jvm-options>
         <jvm-options>-XX:MaxPermSize=1024m</jvm-options>
         <jvm-options>-Dlog4j.configuration=file:${com.sun.aas.instanceRoot}/config/log4j.properties</jvm-options>
         <jvm-options>-Dwsdl.path=file:${com.sun.aas.instanceRoot}/config/nhin/wsdl/</jvm-options>
