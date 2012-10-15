@@ -144,6 +144,9 @@ Lastly, we're going to install the Glassfish Application Server
 
         $ ant install
 
+The "mysql-connector-java-5.1.10.jar" must be copied into the following folder, for container managed database resources
+
+        <GLASSFISH_HOME>/domains/domain1/lib/ext
 
 ####Setup GlassFish
 These steps will install and configure a Glassfish Application Server to deploy and use CONNECT. Lets get started.
