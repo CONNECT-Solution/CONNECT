@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project abortOnError="false" name="EntityValidation" resourceRoot="${projectDir}" runType="SEQUENTIAL" soapui-version="3.6" xmlns:con="http://eviware.com/soapui/config">
+<con:soapui-project abortOnError="false" name="EntityValidation" resourceRoot="${projectDir}" runType="SEQUENTIAL" soapui-version="4.5.1" activeEnvironment="Default" xmlns:con="http://eviware.com/soapui/config">
 	<con:settings>
 		<con:setting id="com.eviware.soapui.impl.wsdl.actions.iface.tools.soapui.TestRunnerAction@values-local"><![CDATA[
 			<xml-fragment xmlns:con="http://eviware.com/soapui/config">
@@ -663,7 +663,7 @@
 						<definition/>
 					</con:configuration>
 				</con:assertion>
-				<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+				<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 				<con:jmsPropertyConfig/>
 				<con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhincentityxdr:async:request:ProvideAndRegisterDocumentSet-bAsyncRequest_RequestMessage" generateMessageId="true" mustUnderstand="NONE" version="200508"/>
 				<con:wsrmConfig version="1.2"/>
@@ -671,24 +671,24 @@
 		</con:config>
 	</con:testStep>
 	<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
-	nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
+nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
 <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-10-11T17:26:05Z</con:value>
+		<con:value>2012-10-15T18:27:41Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-10-11T17:36:05Z</con:value>
+		<con:value>2012-10-15T18:37:41Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>10/11/2012 17:26:05</con:value>
+		<con:value>10/15/2012 18:27:41</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-11-10T00:00:00Z</con:value>
+		<con:value>2012-11-14T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -1042,7 +1042,7 @@
 				<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
 			</con:configuration>
 		</con:assertion>
-		<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
 		<con:wsaConfig mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
@@ -1055,19 +1055,19 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-10-01T23:09:51Z</con:value>
+		<con:value>2012-10-15T18:28:16Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-10-01T23:19:51Z</con:value>
+		<con:value>2012-10-15T18:38:16Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>10/01/2012 23:09:51</con:value>
+		<con:value>10/15/2012 18:28:16</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-31T00:00:00Z</con:value>
+		<con:value>2012-11-14T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 </con:testCase>
@@ -1541,7 +1541,7 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 				<definition/>
 			</con:configuration>
 		</con:assertion>
-		<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
 		<con:wsaConfig action="{urn:gov:hhs:fha:nhinc:nhincentityxdr}ProvideAndRegisterDocumentSet-b" mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
@@ -1554,19 +1554,19 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-10-01T23:09:52Z</con:value>
+		<con:value>2012-10-15T18:28:25Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-10-01T23:19:52Z</con:value>
+		<con:value>2012-10-15T18:38:25Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>10/01/2012 23:09:52</con:value>
+		<con:value>10/15/2012 18:28:25</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-31T00:00:00Z</con:value>
+		<con:value>2012-11-14T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -1584,8 +1584,7 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
 		<con:endpoint>${#TestSuite#Endpoint-PatientDiscoveryAsyncReq}</con:endpoint>
-		<con:request><![CDATA[
-			<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+		<con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
    <soap:Header/>
    <soap:Body testSuite="Entity_g1" testCase="Patient Discovery Deferred Req">
       <urn:RespondingGateway_PRPA_IN201305UV02Request>
@@ -1879,7 +1878,7 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 				<definition/>
 			</con:configuration>
 		</con:assertion>
-		<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
 		<con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitypatientdiscoveryasyncreq:ProcessPatientDiscoveryAsyncReqAsyncRequest" addDefaultTo="true" messageID="uuid:6666666666.66666.666.66" mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
@@ -2156,19 +2155,19 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 	</con:property>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-09-27T22:55:02Z</con:value>
+		<con:value>2012-10-15T18:28:34Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-09-27T23:05:02Z</con:value>
+		<con:value>2012-10-15T18:38:34Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/27/2012 22:55:02</con:value>
+		<con:value>10/15/2012 18:28:34</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-27T00:00:00Z</con:value>
+		<con:value>2012-11-14T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -2508,7 +2507,7 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 				<definition/>
 			</con:configuration>
 		</con:assertion>
-		<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
 		<con:wsaConfig mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
@@ -2789,19 +2788,19 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 </con:property>
 <con:property>
 	<con:name>startDate</con:name>
-	<con:value>2012-09-27T22:55:05Z</con:value>
+	<con:value>2012-10-15T18:28:50Z</con:value>
 </con:property>
 <con:property>
 	<con:name>endDate</con:name>
-	<con:value>2012-09-27T23:05:05Z</con:value>
+	<con:value>2012-10-15T18:38:50Z</con:value>
 </con:property>
 <con:property>
 	<con:name>sigDate</con:name>
-	<con:value>09/27/2012 22:55:05</con:value>
+	<con:value>10/15/2012 18:28:50</con:value>
 </con:property>
 <con:property>
 	<con:name>expireDate</con:name>
-	<con:value>2012-10-27T00:00:00Z</con:value>
+	<con:value>2012-11-14T00:00:00Z</con:value>
 </con:property>
 </con:properties>
 <con:reportParameters/>
@@ -3103,7 +3102,7 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 			<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
 		</con:configuration>
 	</con:assertion>
-	<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+	<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 	<con:jmsPropertyConfig/>
 	<con:wsaConfig mustUnderstand="NONE" version="200508"/>
 	<con:wsrmConfig version="1.2"/>
@@ -3124,19 +3123,19 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-09-27T22:55:07Z</con:value>
+		<con:value>2012-10-15T18:29:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-09-27T23:05:07Z</con:value>
+		<con:value>2012-10-15T18:39:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/27/2012 22:55:07</con:value>
+		<con:value>10/15/2012 18:29:00</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-27T00:00:00Z</con:value>
+		<con:value>2012-11-14T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -3146,23 +3145,7 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 
 	<con:testStep name="update config" type="groovy">
 		<con:settings/>
-		<con:config>
-			<script>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR']
-
-void UpdateProperty(String directory, String filename, String propertyKey, String propertyValue,context,log) {
-	log.info("begin UpdateProperty; directory='" + directory + "';filename='" + filename + "';key='" + propertyKey + "';value='" + propertyValue + "';");
-	File file = new File(directory,filename);
-	Properties properties = new Properties();
-	FileInputStream frPropFile = new FileInputStream(file);
-	properties.load(frPropFile);
-	properties.setProperty(propertyKey, propertyValue);
-	FileOutputStream fwPropFile = new FileOutputStream(file);
-	properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
-	properties = null;
-}
-
-UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySelf","false",context,log);</script>
-	</con:config>
+		<con:config><script>nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "documentQueryQuerySelf", "false", log);</script></con:config>
 </con:testStep>
 <con:testStep name="Clear Correlation Table &amp; Add Correlation" type="groovy">
 	<con:settings/>
@@ -3477,7 +3460,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySe
 				assert (documentID == msgDocID)</scriptText>
 		</con:configuration>
 	</con:assertion>
-	<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+	<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 	<con:jmsPropertyConfig/>
 	<con:wsaConfig mustUnderstand="NONE" version="200508"/>
 	<con:wsrmConfig version="1.2"/>
@@ -3491,19 +3474,19 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-10-01T23:09:52Z</con:value>
+		<con:value>2012-10-15T18:29:11Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-10-01T23:19:52Z</con:value>
+		<con:value>2012-10-15T18:39:11Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>10/01/2012 23:09:52</con:value>
+		<con:value>10/15/2012 18:29:11</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-31T00:00:00Z</con:value>
+		<con:value>2012-11-14T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
@@ -3794,7 +3777,7 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 					assert (docData.size() != 0)</scriptText>
 			</con:configuration>
 		</con:assertion>
-		<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
 		<con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitydocretrieve/EntityDocRetrievePortType/RespondingGateway_CrossGatewayRetrieveRequest" mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
@@ -3811,19 +3794,19 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 	</con:property>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-10-01T23:09:53Z</con:value>
+		<con:value>2012-10-15T18:29:21Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-10-01T23:19:53Z</con:value>
+		<con:value>2012-10-15T18:39:21Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>10/01/2012 23:09:53</con:value>
+		<con:value>10/15/2012 18:29:21</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-31T00:00:00Z</con:value>
+		<con:value>2012-11-14T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -3833,25 +3816,9 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 
 	<con:testStep name="update config" type="groovy">
 		<con:settings/>
-		<con:config>
-			<script>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR']
-
-void UpdateProperty(String directory, String filename, String propertyKey, String propertyValue,context,log) {
-	log.info("begin UpdateProperty; directory='" + directory + "';filename='" + filename + "';key='" + propertyKey + "';value='" + propertyValue + "';");
-	File file = new File(directory,filename);
-	Properties properties = new Properties();
-	FileInputStream frPropFile = new FileInputStream(file);
-	properties.load(frPropFile);
-	properties.setProperty(propertyKey, propertyValue);
-	FileOutputStream fwPropFile = new FileOutputStream(file);
-	properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
-properties = null;
-}
-
-UpdateProperty(destConfigFileLocation,"gateway.properties","serviceSubscription","true",context,log);
-UpdateProperty(destConfigFileLocation,"gateway.properties","subscriptionPassthrough","false",context,log);
-UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscriptionMode","disabled",context,log);</script>
-	</con:config>
+		<con:config><script>nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "serviceSubscription", "true", log);
+nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "subscriptionPassthrough", "false", log);
+nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "AdapterSubscriptionMode", "disabled", log);</script></con:config>
 </con:testStep>
 <con:testStep name="Clear Subscription Table" type="groovy">
 	<con:settings/>
@@ -4123,7 +4090,7 @@ holder.namespaces["ns5"] = "urn:gov:hhs:fha:nhinc:common:subscriptionb2overridef
 assert holder["//ns4:SubscribeResponse[1]/ns4:SubscriptionReference[1]/ns3:ReferenceParameters[1]/ns5:SubscriptionId[1]"] != null</scriptText>
 		</con:configuration>
 	</con:assertion>
-	<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+	<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 	<con:jmsPropertyConfig/>
 	<con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement/EntityNotificationProducerPortType/SubscribeDocumentRequest" mustUnderstand="NONE" version="200508"/>
 	<con:wsrmConfig version="1.2"/>
@@ -4145,19 +4112,19 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-10-01T23:09:54Z</con:value>
+		<con:value>2012-10-15T18:29:27Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-10-01T23:19:54Z</con:value>
+		<con:value>2012-10-15T18:39:27Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>10/01/2012 23:09:54</con:value>
+		<con:value>10/15/2012 18:29:27</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-31T00:00:00Z</con:value>
+		<con:value>2012-11-14T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -4167,26 +4134,9 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 
 	<con:testStep name="update config" type="groovy">
 		<con:settings/>
-		<con:config>
-			<script>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR']
-
-				void UpdateProperty(String directory, String filename, String propertyKey, String propertyValue,context,log) {
-
-				log.info("begin UpdateProperty; directory='" + directory + "';filename='" + filename + "';key='" + propertyKey + "';value='" + propertyValue + "';");
-				File file = new File(directory,filename);
-				Properties properties = new Properties();
-				FileInputStream frPropFile = new FileInputStream(file);
-				properties.load(frPropFile);
-				properties.setProperty(propertyKey, propertyValue);
-				FileOutputStream fwPropFile = new FileOutputStream(file);
-				properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
-			properties = null;
-			}
-
-			UpdateProperty(destConfigFileLocation,"gateway.properties","serviceSubscription","true",context,log);
-			UpdateProperty(destConfigFileLocation,"gateway.properties","subscriptionPassthrough","false",context,log);
-			UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscriptionMode","disabled",context,log);</script>
-	</con:config>
+		<con:config><script>nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "serviceSubscription", "true", log);
+nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "subscriptionPassthrough", "false", log);
+nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "AdapterSubscriptionMode", "disabled", log);</script></con:config>
 </con:testStep>
 <con:testStep name="Clear Subscription Table" type="groovy">
 	<con:settings/>
@@ -4445,7 +4395,7 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 
 	<con:assertion name="Not SOAP Fault" type="SOAP Fault Assertion"/>
 	<con:assertion name="SOAP Response" type="SOAP Response"/>
-	<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+	<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 	<con:jmsPropertyConfig/>
 	<con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement/EntityNotificationProducerPortType/SubscribeDocumentRequest" mustUnderstand="NONE" version="200508"/>
 	<con:wsrmConfig version="1.2"/>
@@ -4724,7 +4674,7 @@ testRunner.testCase.testSuite.project.setPropertyValue( "NotifySubscriptionID", 
 		<con:configuration/>
 	</con:assertion>
 	<con:assertion type="SOAP Fault Assertion"/>
-	<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+	<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 	<con:jmsPropertyConfig/>
 	<con:wsaConfig mustUnderstand="NONE" version="200508"/>
 	<con:wsrmConfig version="1.2"/>
@@ -4737,19 +4687,19 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-10-01T23:09:54Z</con:value>
+		<con:value>2012-10-15T18:29:34Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-10-01T23:19:54Z</con:value>
+		<con:value>2012-10-15T18:39:34Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>10/01/2012 23:09:54</con:value>
+		<con:value>10/15/2012 18:29:34</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-31T00:00:00Z</con:value>
+		<con:value>2012-11-14T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>NotifySubscriptionID</con:name>
@@ -4763,30 +4713,9 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 
 	<con:testStep name="update config" type="groovy">
 		<con:settings/>
-		<con:config>
-			<script>//def destConfigFileLocation = context.findProperty("NHINGatewayConfigDir");
-
-
-				def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR']
-
-				void UpdateProperty(String directory, String filename, String propertyKey, String propertyValue,context,log) {
-
-				log.info("begin UpdateProperty; directory='" + directory + "';filename='" + filename + "';key='" + propertyKey + "';value='" + propertyValue + "';");
-				File file = new File(directory,filename);
-				Properties properties = new Properties();
-				FileInputStream frPropFile = new FileInputStream(file);
-				properties.load(frPropFile);
-				properties.setProperty(propertyKey, propertyValue);
-				FileOutputStream fwPropFile = new FileOutputStream(file);
-				fwPropFile = new FileOutputStream(file);
-				properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
-			properties = null;
-			}
-
-			UpdateProperty(destConfigFileLocation,"gateway.properties","serviceSubscription","true",context,log);
-			UpdateProperty(destConfigFileLocation,"gateway.properties","subscriptionPassthrough","false",context,log);
-			UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscriptionMode","disabled",context,log);</script>
-	</con:config>
+		<con:config><script>nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "serviceSubscription", "true", log);
+nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "subscriptionPassthrough", "false", log);
+nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "AdapterSubscriptionMode", "disabled", log);</script></con:config>
 </con:testStep>
 <con:testStep name="Clear Subscription Table" type="groovy">
 	<con:settings/>
@@ -5046,7 +4975,7 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 </soap:Envelope>]]></con:request>
 	<con:assertion type="SOAP Response"/>
 	<con:assertion type="SOAP Fault Assertion"/>
-	<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+	<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 	<con:jmsPropertyConfig/>
 	<con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement/EntityNotificationProducerPortType/SubscribeDocumentRequest" mustUnderstand="NONE" version="200508"/>
 	<con:wsrmConfig version="1.2"/>
@@ -5325,7 +5254,7 @@ testRunner.testCase.testSuite.project.setPropertyValue( "UnSubscriptionID", subI
 			<useRegEx>false</useRegEx>
 		</con:configuration>
 	</con:assertion>
-	<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+	<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 	<con:jmsPropertyConfig/>
 	<con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement/EntitySubscriptionManagerPortType/UnsubscribeRequest" mustUnderstand="NONE" version="200508"/>
 	<con:wsrmConfig version="1.2"/>
@@ -5346,19 +5275,19 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-09-27T22:57:12Z</con:value>
+		<con:value>2012-10-15T18:29:43Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-09-27T23:07:12Z</con:value>
+		<con:value>2012-10-15T18:39:43Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/27/2012 22:57:12</con:value>
+		<con:value>10/15/2012 18:29:43</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-27T00:00:00Z</con:value>
+		<con:value>2012-11-14T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -5709,7 +5638,7 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
       </urn:RespondingGateway_SendAlertMessage>
    </soap:Body>
 </soap:Envelope>]]></con:request>
-		<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
 		<con:wsaConfig mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
@@ -5728,19 +5657,19 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-10-01T23:09:55Z</con:value>
+		<con:value>2012-10-15T18:29:50Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-10-01T23:19:55Z</con:value>
+		<con:value>2012-10-15T18:39:50Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>10/01/2012 23:09:55</con:value>
+		<con:value>10/15/2012 18:29:50</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-31T00:00:00Z</con:value>
+		<con:value>2012-11-14T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 </con:testCase>
@@ -6274,7 +6203,7 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 			<con:assertion type="Schema Compliance">
 				<con:configuration/>
 			</con:assertion>
-			<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+			<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 			<con:jmsPropertyConfig/>
 			<con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhincentityxdr:async:request:ProvideAndRegisterDocumentSet-bAsyncRequest_RequestMessage" generateMessageId="true" mustUnderstand="NONE" version="200508"/>
 			<con:wsrmConfig version="1.2"/>
@@ -6287,19 +6216,19 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-10-11T17:25:48Z</con:value>
+		<con:value>2012-10-15T18:32:43Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-10-11T17:35:48Z</con:value>
+		<con:value>2012-10-15T18:42:43Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>10/11/2012 17:25:48</con:value>
+		<con:value>10/15/2012 18:32:43</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-11-10T00:00:00Z</con:value>
+		<con:value>2012-11-14T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -6639,7 +6568,7 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 				<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
 			</con:configuration>
 		</con:assertion>
-		<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
 		<con:wsaConfig mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
@@ -6652,19 +6581,19 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-10-01T23:10:12Z</con:value>
+		<con:value>2012-10-15T18:32:49Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-10-01T23:20:12Z</con:value>
+		<con:value>2012-10-15T18:42:49Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>10/01/2012 23:10:12</con:value>
+		<con:value>10/15/2012 18:32:49</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-31T00:00:00Z</con:value>
+		<con:value>2012-11-14T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 </con:testCase>
@@ -6681,8 +6610,7 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
 		<con:endpoint>${#TestSuite#Endpoint-XDREntity}</con:endpoint>
-		<con:request><![CDATA[
-			<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
+		<con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
    <soap:Header/>
    <soap:Body testSuite="Entity_g0" testCase="Document Submission">
       <urn:RespondingGateway_ProvideAndRegisterDocumentSetRequest>
@@ -7138,7 +7066,7 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 				<definition/>
 			</con:configuration>
 		</con:assertion>
-		<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
 		<con:wsaConfig action="{urn:gov:hhs:fha:nhinc:nhincentityxdr}ProvideAndRegisterDocumentSet-b" mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
@@ -7151,19 +7079,19 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-10-01T23:10:12Z</con:value>
+		<con:value>2012-10-15T18:32:59Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-10-01T23:20:12Z</con:value>
+		<con:value>2012-10-15T18:42:59Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>10/01/2012 23:10:12</con:value>
+		<con:value>10/15/2012 18:32:59</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-31T00:00:00Z</con:value>
+		<con:value>2012-11-14T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -7480,7 +7408,7 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 				<definition/>
 			</con:configuration>
 		</con:assertion>
-		<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
 		<con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitypatientdiscoveryasyncreq:ProcessPatientDiscoveryAsyncReqAsyncRequest" addDefaultTo="true" messageID="uuid:6666666666.66666.666.66" mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
@@ -7757,19 +7685,19 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 	</con:property>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-09-27T22:57:32Z</con:value>
+		<con:value>2012-10-15T18:33:07Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-09-27T23:07:32Z</con:value>
+		<con:value>2012-10-15T18:43:07Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/27/2012 22:57:32</con:value>
+		<con:value>10/15/2012 18:33:07</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-27T00:00:00Z</con:value>
+		<con:value>2012-11-14T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -8110,7 +8038,7 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 				<definition/>
 			</con:configuration>
 		</con:assertion>
-		<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
 		<con:wsaConfig mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
@@ -8391,19 +8319,19 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 </con:property>
 <con:property>
 	<con:name>startDate</con:name>
-	<con:value>2012-09-27T22:57:33Z</con:value>
+	<con:value>2012-10-15T18:33:12Z</con:value>
 </con:property>
 <con:property>
 	<con:name>endDate</con:name>
-	<con:value>2012-09-27T23:07:33Z</con:value>
+	<con:value>2012-10-15T18:43:12Z</con:value>
 </con:property>
 <con:property>
 	<con:name>sigDate</con:name>
-	<con:value>09/27/2012 22:57:33</con:value>
+	<con:value>10/15/2012 18:33:12</con:value>
 </con:property>
 <con:property>
 	<con:name>expireDate</con:name>
-	<con:value>2012-10-27T00:00:00Z</con:value>
+	<con:value>2012-11-14T00:00:00Z</con:value>
 </con:property>
 </con:properties>
 <con:reportParameters/>
@@ -8705,7 +8633,7 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 			<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
 		</con:configuration>
 	</con:assertion>
-	<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+	<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 	<con:jmsPropertyConfig/>
 	<con:wsaConfig mustUnderstand="NONE" version="200508"/>
 	<con:wsrmConfig version="1.2"/>
@@ -8726,19 +8654,19 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-09-27T22:57:34Z</con:value>
+		<con:value>2012-10-15T18:33:17Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-09-27T23:07:34Z</con:value>
+		<con:value>2012-10-15T18:43:17Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/27/2012 22:57:34</con:value>
+		<con:value>10/15/2012 18:33:17</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-27T00:00:00Z</con:value>
+		<con:value>2012-11-14T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -8748,23 +8676,7 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 
 	<con:testStep name="update config" type="groovy">
 		<con:settings/>
-		<con:config>
-			<script>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR']
-
-void UpdateProperty(String directory, String filename, String propertyKey, String propertyValue,context,log) {
-	log.info("begin UpdateProperty; directory='" + directory + "';filename='" + filename + "';key='" + propertyKey + "';value='" + propertyValue + "';");
-	File file = new File(directory,filename);
-	Properties properties = new Properties();
-	FileInputStream frPropFile = new FileInputStream(file);
-	properties.load(frPropFile);
-	properties.setProperty(propertyKey, propertyValue);
-	FileOutputStream fwPropFile = new FileOutputStream(file);
-	properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
-	properties = null;
-}
-
-UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySelf","false",context,log);</script>
-	</con:config>
+		<con:config><script>nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "documentQueryQuerySelf", "false", log);</script></con:config>
 </con:testStep>
 <con:testStep name="Clear Correlation Table &amp; Add Correlation" type="groovy">
 	<con:settings/>
@@ -9079,7 +8991,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySe
 				assert (documentID == msgDocID)</scriptText>
 		</con:configuration>
 	</con:assertion>
-	<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+	<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 	<con:jmsPropertyConfig/>
 	<con:wsaConfig mustUnderstand="NONE" version="200508"/>
 	<con:wsrmConfig version="1.2"/>
@@ -9093,19 +9005,19 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-10-01T23:10:13Z</con:value>
+		<con:value>2012-10-15T18:33:22Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-10-01T23:20:13Z</con:value>
+		<con:value>2012-10-15T18:43:22Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>10/01/2012 23:10:13</con:value>
+		<con:value>10/15/2012 18:33:22</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-31T00:00:00Z</con:value>
+		<con:value>2012-11-14T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
@@ -9396,7 +9308,7 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 					assert (docData.size() != 0)</scriptText>
 			</con:configuration>
 		</con:assertion>
-		<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
 		<con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitydocretrieve/EntityDocRetrievePortType/RespondingGateway_CrossGatewayRetrieveRequest" mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
@@ -9413,19 +9325,19 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 	</con:property>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-10-01T23:10:13Z</con:value>
+		<con:value>2012-10-15T18:33:30Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-10-01T23:20:13Z</con:value>
+		<con:value>2012-10-15T18:43:30Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>10/01/2012 23:10:13</con:value>
+		<con:value>10/15/2012 18:33:30</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-31T00:00:00Z</con:value>
+		<con:value>2012-11-14T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -9437,25 +9349,9 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 
 	<con:testStep name="update config" type="groovy">
 		<con:settings/>
-		<con:config>
-			<script>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR']
-
-void UpdateProperty(String directory, String filename, String propertyKey, String propertyValue,context,log) {
-	log.info("begin UpdateProperty; directory='" + directory + "';filename='" + filename + "';key='" + propertyKey + "';value='" + propertyValue + "';");
-	File file = new File(directory,filename);
-	Properties properties = new Properties();
-	FileInputStream frPropFile = new FileInputStream(file);
-	properties.load(frPropFile);
-	properties.setProperty(propertyKey, propertyValue);
-	FileOutputStream fwPropFile = new FileOutputStream(file);
-	properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
-properties = null;
-}
-
-UpdateProperty(destConfigFileLocation,"gateway.properties","serviceSubscription","true",context,log);
-UpdateProperty(destConfigFileLocation,"gateway.properties","subscriptionPassthrough","false",context,log);
-UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscriptionMode","disabled",context,log);</script>
-	</con:config>
+		<con:config><script>nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "serviceSubscription", "true", log);
+nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "subscriptionPassthrough", "false", log);
+nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "AdapterSubscriptionMode", "disabled", log);</script></con:config>
 </con:testStep>
 <con:testStep name="Clear Subscription Table" type="groovy">
 	<con:settings/>
@@ -9727,7 +9623,7 @@ holder.namespaces["ns5"] = "urn:gov:hhs:fha:nhinc:common:subscriptionb2overridef
 assert holder["//ns4:SubscribeResponse[1]/ns4:SubscriptionReference[1]/ns3:ReferenceParameters[1]/ns5:SubscriptionId[1]"] != null</scriptText>
 		</con:configuration>
 	</con:assertion>
-	<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+	<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 	<con:jmsPropertyConfig/>
 	<con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement/EntityNotificationProducerPortType/SubscribeDocumentRequest" mustUnderstand="NONE" version="200508"/>
 	<con:wsrmConfig version="1.2"/>
@@ -9749,19 +9645,19 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-10-01T23:10:14Z</con:value>
+		<con:value>2012-10-15T18:33:35Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-10-01T23:20:14Z</con:value>
+		<con:value>2012-10-15T18:43:35Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>10/01/2012 23:10:14</con:value>
+		<con:value>10/15/2012 18:33:35</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-31T00:00:00Z</con:value>
+		<con:value>2012-11-14T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -9771,26 +9667,9 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 
 	<con:testStep name="update config" type="groovy">
 		<con:settings/>
-		<con:config>
-			<script>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR']
-
-				void UpdateProperty(String directory, String filename, String propertyKey, String propertyValue,context,log) {
-
-				log.info("begin UpdateProperty; directory='" + directory + "';filename='" + filename + "';key='" + propertyKey + "';value='" + propertyValue + "';");
-				File file = new File(directory,filename);
-				Properties properties = new Properties();
-				FileInputStream frPropFile = new FileInputStream(file);
-				properties.load(frPropFile);
-				properties.setProperty(propertyKey, propertyValue);
-				FileOutputStream fwPropFile = new FileOutputStream(file);
-				properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
-			properties = null;
-			}
-
-			UpdateProperty(destConfigFileLocation,"gateway.properties","serviceSubscription","true",context,log);
-			UpdateProperty(destConfigFileLocation,"gateway.properties","subscriptionPassthrough","false",context,log);
-			UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscriptionMode","disabled",context,log);</script>
-	</con:config>
+		<con:config><script>nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "serviceSubscription", "true", log);
+nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "subscriptionPassthrough", "false", log);
+nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "AdapterSubscriptionMode", "disabled", log);</script></con:config>
 </con:testStep>
 <con:testStep name="Clear Subscription Table" type="groovy">
 	<con:settings/>
@@ -10049,7 +9928,7 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 
 	<con:assertion name="Not SOAP Fault" type="SOAP Fault Assertion"/>
 	<con:assertion name="SOAP Response" type="SOAP Response"/>
-	<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+	<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 	<con:jmsPropertyConfig/>
 	<con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement/EntityNotificationProducerPortType/SubscribeDocumentRequest" mustUnderstand="NONE" version="200508"/>
 	<con:wsrmConfig version="1.2"/>
@@ -10328,7 +10207,7 @@ context.testCase.testSuite.project.setPropertyValue( "NotifySubscriptionID", par
 		<con:configuration/>
 	</con:assertion>
 	<con:assertion type="SOAP Fault Assertion"/>
-	<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+	<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 	<con:jmsPropertyConfig/>
 	<con:wsaConfig mustUnderstand="NONE" version="200508"/>
 	<con:wsrmConfig version="1.2"/>
@@ -10341,19 +10220,19 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-10-01T23:10:15Z</con:value>
+		<con:value>2012-10-15T18:33:40Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-10-01T23:20:15Z</con:value>
+		<con:value>2012-10-15T18:43:40Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>10/01/2012 23:10:15</con:value>
+		<con:value>10/15/2012 18:33:40</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-31T00:00:00Z</con:value>
+		<con:value>2012-11-14T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>NotifySubscriptionID</con:name>
@@ -10367,30 +10246,9 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 
 	<con:testStep name="update config" type="groovy">
 		<con:settings/>
-		<con:config>
-			<script>//def destConfigFileLocation = context.findProperty("NHINGatewayConfigDir");
-
-
-				def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR']
-
-				void UpdateProperty(String directory, String filename, String propertyKey, String propertyValue,context,log) {
-
-				log.info("begin UpdateProperty; directory='" + directory + "';filename='" + filename + "';key='" + propertyKey + "';value='" + propertyValue + "';");
-				File file = new File(directory,filename);
-				Properties properties = new Properties();
-				FileInputStream frPropFile = new FileInputStream(file);
-				properties.load(frPropFile);
-				properties.setProperty(propertyKey, propertyValue);
-				FileOutputStream fwPropFile = new FileOutputStream(file);
-				fwPropFile = new FileOutputStream(file);
-				properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
-			properties = null;
-			}
-
-			UpdateProperty(destConfigFileLocation,"gateway.properties","serviceSubscription","true",context,log);
-			UpdateProperty(destConfigFileLocation,"gateway.properties","subscriptionPassthrough","false",context,log);
-			UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscriptionMode","disabled",context,log);</script>
-	</con:config>
+		<con:config><script>nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "serviceSubscription", "true", log);
+nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "subscriptionPassthrough", "false", log);
+nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "AdapterSubscriptionMode", "disabled", log);</script></con:config>
 </con:testStep>
 <con:testStep name="Clear Subscription Table" type="groovy">
 	<con:settings/>
@@ -10650,7 +10508,7 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 </soap:Envelope>]]></con:request>
 	<con:assertion type="SOAP Response"/>
 	<con:assertion type="SOAP Fault Assertion"/>
-	<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+	<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 	<con:jmsPropertyConfig/>
 	<con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement/EntityNotificationProducerPortType/SubscribeDocumentRequest" mustUnderstand="NONE" version="200508"/>
 	<con:wsrmConfig version="1.2"/>
@@ -10929,7 +10787,7 @@ context.testCase.testSuite.project.setPropertyValue( "UnSubscriptionID", subID )
 			<useRegEx>false</useRegEx>
 		</con:configuration>
 	</con:assertion>
-	<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+	<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 	<con:jmsPropertyConfig/>
 	<con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement/EntitySubscriptionManagerPortType/UnsubscribeRequest" mustUnderstand="NONE" version="200508"/>
 	<con:wsrmConfig version="1.2"/>
@@ -10950,19 +10808,19 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-09-27T22:59:40Z</con:value>
+		<con:value>2012-10-15T18:33:46Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-09-27T23:09:40Z</con:value>
+		<con:value>2012-10-15T18:43:46Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/27/2012 22:59:40</con:value>
+		<con:value>10/15/2012 18:33:46</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-27T00:00:00Z</con:value>
+		<con:value>2012-11-14T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -11313,7 +11171,7 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
       </urn:RespondingGateway_SendAlertMessage>
    </soap:Body>
 </soap:Envelope>]]></con:request>
-		<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
 		<con:wsaConfig mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
@@ -11333,19 +11191,19 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-10-01T23:10:15Z</con:value>
+		<con:value>2012-10-15T18:33:53Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-10-01T23:20:15Z</con:value>
+		<con:value>2012-10-15T18:43:53Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>10/01/2012 23:10:15</con:value>
+		<con:value>10/15/2012 18:33:53</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-31T00:00:00Z</con:value>
+		<con:value>2012-11-14T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -11519,7 +11377,7 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 	
 	<con:property><con:name>ExpirationDate</con:name><con:value>20100520</con:value></con:property>
 	
-	<con:property><con:name>FamilyName</con:name><con:value>Younger</con:value></con:property><con:property><con:name>GatewayPropDir</con:name><con:value>c:\glassfish-2.1.1\domains\domain1\config\nhin</con:value></con:property><con:property><con:name>Gender</con:name><con:value>M</con:value></con:property>
+	<con:property><con:name>FamilyName</con:name><con:value>Younger</con:value></con:property><con:property><con:name>GatewayPropDir</con:name><con:value></con:value></con:property><con:property><con:name>Gender</con:name><con:value>M</con:value></con:property>
 	
 	<con:property><con:name>GivenName</con:name><con:value>Gallow</con:value></con:property><con:property><con:name>LocalAA</con:name><con:value>1.1</con:value></con:property><con:property>
 		<con:name>LocalHCDescription</con:name>
@@ -11573,7 +11431,17 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 		<con:value>12345</con:value>
 	</con:property>
 </con:properties>
-<con:afterLoadScript>TimeZone.setDefault(TimeZone.getTimeZone("UTC"))
+<con:afterLoadScript>def propertiesFilename = project.path[0..(project.path.size()-4)] + 'properties'
+def propertiesFile = new File(propertiesFilename)
+if (propertiesFile.exists()) {
+	def props = new Properties()
+	props.load(new FileInputStream(propertiesFile))
+	props.each { key, value ->
+	    project.setPropertyValue(key, value)
+	}
+}
+
+TimeZone.setDefault(TimeZone.getTimeZone("UTC"))
 def testRunListener = [
 afterRun: { testRunner, runContext -> },
 afterStep: { testRunner, runContext, result -> },
@@ -11832,4 +11700,4 @@ sql.close()
 	<con:xmlTemplates/>
 	<con:parameters/>
 </con:reporting>
-</con:soapui-project>
+<con:sensitiveInformation/></con:soapui-project>
