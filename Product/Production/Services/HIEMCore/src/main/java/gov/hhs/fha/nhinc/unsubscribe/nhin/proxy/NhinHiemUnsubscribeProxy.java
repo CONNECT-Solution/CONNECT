@@ -42,6 +42,6 @@ import gov.hhs.fha.nhinc.hiem.consumerreference.SoapMessageElements;
 public interface NhinHiemUnsubscribeProxy {
 
     public UnsubscribeResponse unsubscribe(Unsubscribe unsubscribeElement, SoapMessageElements referenceParametersElements,
-            AssertionType assertion, NhinTargetSystemType target) throws ResourceUnknownFault,
+            AssertionType assertion, NhinTargetSystemType target, String subscriptionId) throws ResourceUnknownFault,
             UnableToDestroySubscriptionFault, Exception;
 }
