@@ -42,13 +42,14 @@
                         <configFile>${project.build.directory}/glassfish-resources/glassfish/domain.xml</configFile>
                         <systemProperties>
                             <property>glassfish.embedded.tmpdir=target/glassfish-embedded</property>
+                            <property>org.apache.spring.validation.mode=VALIDATION_NONE</property>
                         </systemProperties>
                     </configuration>
                 </plugin>
                 <plugin>
                     <groupId>com.github.redfish4ktc.soapui</groupId>
                     <artifactId>maven-soapui-extension-plugin</artifactId>
-                    <version>4.0.0.2</version>
+                    <version>4.5.1.0</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>

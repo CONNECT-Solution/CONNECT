@@ -636,64 +636,6 @@ class FileUtils {
 		log.info("End restoreToMasterConfiguration");
 	}
 
-	/*
-	 * The Methods listed below should be removed!
-	 */
-
-	@Deprecated
-	public static void restoreToMasterConfiguration(Logger log) {
-		restoreConfiguration(System.getenv("NHINC_PROPERTIES_DIR"), log);
-	}
-
-	@Deprecated
-	public static String ReadFile(String FileName, Logger log) {
-		return readFile(FileName, log);
-	}
-
-	@Deprecated
-	public static void DeleteFile(String sourceDirectory,
-			String sourceFileName, Logger log) {
-		deleteFile(sourceDirectory, sourceFileName, log);
-	}
-
-	@Deprecated
-	public static void updateGatewayProperty(String propertyKey,
-			String propertyValue, Logger log) {
-
-		updateProperty(System.getenv("NHINC_PROPERTIES_DIR"),
-				"gateway.properties", propertyKey, propertyValue, log);
-	}
-
-	@Deprecated
-	public static String ReadProperty(String directory, String filename,
-			String propertyKey, Logger log) {
-		return readProperty(directory, filename, propertyKey, log);
-	}
-
-	@Deprecated
-	public static void changeSpringConfig(String fileName,
-			String desiredImpltype, String beanName, Logger log)
-			throws Exception {
-		changeSpringConfig(System.getenv("NHINC_PROPERTIES_DIR"), fileName,
-				desiredImpltype, beanName, log);
-	}
-
-	@Deprecated
-	public static void changeSpringConfig(String fileName,
-			String desiredImpltype, Logger log) {
-		try {
-			changeSpringConfig(fileName, desiredImpltype, "none", log);
-		} catch (Exception e) {
-			log.error(e.getMessage());
-		}
-	}
-
-	@Deprecated
-	public static void CreateOrUpdateConnection(String fileName,
-			String directory, String communityId, String serviceName,
-			String serviceUrl, String defaultVersion, Logger log) {
-		createOrUpdateConnection(fileName, directory, communityId, serviceName,
-				serviceUrl, defaultVersion, log);
-	}
+	
 
 }
