@@ -115,7 +115,7 @@ public class EntityUnsubscribeServiceImpl {
     /**
      * @param orchImpl the orchImpl to set
      */
-    public void setOrchImpl(EntityUnsubscribeOrchImpl orchImpl) {
+    public void setOrchestratorImpl(EntityUnsubscribeOrchImpl orchImpl) {
         this.orchImpl = orchImpl;
     }
 }

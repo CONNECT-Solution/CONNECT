@@ -31,6 +31,9 @@ import javax.jws.WebService;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 
+import org.oasis_open.docs.wsn.b_2.Unsubscribe;
+import org.oasis_open.docs.wsn.b_2.UnsubscribeResponse;
+
 import gov.hhs.fha.nhinc.entitysubscriptionmanagementsecured.UnableToDestroySubscriptionFault;
 import gov.hhs.fha.nhinc.unsubscribe.entity.EntityUnsubscribeOrchImpl;
 
@@ -38,23 +41,23 @@ import gov.hhs.fha.nhinc.unsubscribe.entity.EntityUnsubscribeOrchImpl;
  *
  * @author Neil Webb
  */
-@WebService(endpointInterface = "gov.hhs.fha.nhinc.entitysubscriptionmanagementsecured.EntitySubscriptionManagerSecuredPortType")
+@WebService(
+        endpointInterface = "gov.hhs.fha.nhinc.entitysubscriptionmanagementsecured.EntitySubscriptionManagerSecuredPortType")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 public class EntityUnsubscribeSecuredService {
     @Resource
     private WebServiceContext context;
     private EntityUnsubscribeOrchImpl orchImpl;
 
-    public org.oasis_open.docs.wsn.b_2.UnsubscribeResponse unsubscribe(
-            org.oasis_open.docs.wsn.b_2.Unsubscribe unsubscribeRequestSecured) throws UnableToDestroySubscriptionFault,
-            Exception {
+    public UnsubscribeResponse unsubscribe(Unsubscribe unsubscribeRequestSecured)
+            throws UnableToDestroySubscriptionFault, Exception {
         return new EntityUnsubscribeServiceImpl(orchImpl).unsubscribe(unsubscribeRequestSecured, context);
     }
 
     /**
      * @param orchImpl the orchImpl to set
      */
-    public void setOrchImpl(EntityUnsubscribeOrchImpl orchImpl) {
+    public void setOrchestratorImpl(EntityUnsubscribeOrchImpl orchImpl) {
         this.orchImpl = orchImpl;
     }
 
