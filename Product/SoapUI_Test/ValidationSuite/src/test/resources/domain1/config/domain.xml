@@ -26,7 +26,7 @@
     <config name="server-config">
       <http-service>
         <access-log rotation-interval-in-minutes="15"/>
-        <virtual-server id="server" network-listeners="http-listener-1,http-listener-2"/>
+        <virtual-server id="server" network-listeners="http-listener,http-listener-2"/>
         <virtual-server id="__asadmin" network-listeners="admin-listener"/>
       </http-service>
       <iiop-service>
@@ -135,10 +135,10 @@
         <jvm-options>-Xmx5000m</jvm-options>
         <jvm-options>-Xms5000m</jvm-options>
         <jvm-options>-XX:MaxPermSize=1024m</jvm-options>
-        <jvm-options>-Dlog4j.configuration=file:${project.build.directory}/glassfish-resources/log4j.properties</jvm-options>
+        <jvm-options>-Dlog4j.configuration=file:${com.sun.aas.instanceRoot}/config/log4j.properties</jvm-options>
         <jvm-options>-Dwsdl.path=file:${com.sun.aas.instanceRoot}/config/nhin/wsdl/</jvm-options>
         <jvm-options>-Dnhinc.properties.dir=${project.build.directory}/nhinc-properites-dir</jvm-options>
-        <jvm-options>-Djavax.net.ssl.keyStore=${project.build.directory}/glassfish-resources/gateway.jks</jvm-options>
+        <jvm-options>-Djavax.net.ssl.keyStore=${com.sun.aas.instanceRoot}/config/gateway.jks</jvm-options>
         <jvm-options>-Djavax.net.ssl.keyStoreType=JKS</jvm-options>
         <jvm-options>-Djavax.net.ssl.trustStoreType=JKS</jvm-options>
         <jvm-options>-Dcom.sun.net.ssl.checkRevocation=true</jvm-options>
@@ -162,14 +162,14 @@
           <transport name="tcp"/>
         </transports>
         <protocols>
-          <protocol name="http-listener-1">
+          <protocol name="http-listener">
             <http default-virtual-server="server" max-connections="250" server-name="">
               <file-cache/>
             </http>
           </protocol>
-          <protocol name="pu-http-listener-1">
+          <protocol name="pu-http-listener">
             <port-unification>
-              <protocol-finder classname="com.sun.grizzly.http.portunif.HttpProtocolFinder" name="http-listener-1" protocol="http-listener-1"/>
+              <protocol-finder classname="com.sun.grizzly.http.portunif.HttpProtocolFinder" name="http-listener" protocol="http-listener"/>
             </port-unification>
           </protocol>
           <protocol name="http-listener-2" security-enabled="true">
@@ -185,7 +185,7 @@
           </protocol>
         </protocols>
         <network-listeners>
-          <network-listener name="http-listener-1" port="8080" protocol="pu-http-listener-1" thread-pool="http-thread-pool" transport="tcp"/>
+          <network-listener name="http-listener" port="8080" protocol="pu-http-listener" thread-pool="http-thread-pool" transport="tcp"/>
           <network-listener name="http-listener-2" port="8181" protocol="http-listener-2" thread-pool="http-thread-pool" transport="tcp"/>
           <network-listener name="admin-listener" port="4848" protocol="admin-listener" thread-pool="admin-thread-pool" transport="tcp"/>
         </network-listeners>
@@ -233,7 +233,7 @@
         <orb use-thread-pool-ids="thread-pool-1"/>
       </iiop-service>
       <http-service>
-        <virtual-server id="server" network-listeners="http-listener-1, http-listener-2">
+        <virtual-server id="server" network-listeners="http-listener, http-listener-2">
           <property name="default-web-xml" value="${com.sun.aas.instanceRoot}/config/default-web.xml"/>
         </virtual-server>
         <virtual-server id="__asadmin" network-listeners="admin-listener"/>
@@ -311,7 +311,7 @@
           <transport name="tcp"/>
         </transports>
         <protocols>
-          <protocol name="http-listener-1">
+          <protocol name="http-listener">
             <http default-virtual-server="server">
               <file-cache/>
             </http>
@@ -344,7 +344,7 @@
           </protocol>
         </protocols>
         <network-listeners>
-          <network-listener name="http-listener-1" port="${HTTP_LISTENER_PORT}" protocol="http-listener-1" thread-pool="http-thread-pool" transport="tcp"/>
+          <network-listener name="http-listener" port="${HTTP_LISTENER_PORT}" protocol="http-listener" thread-pool="http-thread-pool" transport="tcp"/>
           <network-listener name="http-listener-2" port="${HTTP_SSL_LISTENER_PORT}" protocol="http-listener-2" thread-pool="http-thread-pool" transport="tcp"/>
           <network-listener name="admin-listener" port="${ASADMIN_LISTENER_PORT}" protocol="pu-protocol" thread-pool="http-thread-pool" transport="tcp"/>
         </network-listeners>

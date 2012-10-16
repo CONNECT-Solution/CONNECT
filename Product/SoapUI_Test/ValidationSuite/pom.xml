@@ -20,31 +20,6 @@
         </pluginRepository>
     </pluginRepositories>
     <build>
-        <testResources>
-            <testResource>
-                <directory>${basedir}/src/test/resources</directory>
-                <includes>
-                    <include>glassfish/**/domain.xml</include>
-                </includes>
-                <filtering>true</filtering>
-                <targetPath>${project.build.directory}/glassfish-resources/</targetPath>
-            </testResource>
-            <testResource>
-                <directory>${basedir}/src/test/resources</directory>
-                <includes>
-                    <include>gateway.jks</include>
-                    <include>log4j.properties</include>
-                </includes>
-                <targetPath>${project.build.directory}/glassfish-resources/</targetPath>
-            </testResource>
-            <testResource>
-                <directory>${project.build.testOutputDirectory}</directory>
-                <includes>
-                    <include>gateway.properties</include>
-                </includes>
-                <targetPath>${project.build.testOutputDirectory}/master/</targetPath>
-            </testResource>
-        </testResources>
         <plugins>
             <plugin>
                 <!-- Used to pull XSD files from the JAR -->
@@ -53,7 +28,7 @@
                 <executions>
                     <execution>
                         <id>unpack-soapui-test-resources</id>
-                        <!-- Using the initialize phase because it is before 
+                        <!-- Using the initialize phase because it is before
                             the generate sources phase -->
                         <phase>initialize</phase>
                         <goals>
