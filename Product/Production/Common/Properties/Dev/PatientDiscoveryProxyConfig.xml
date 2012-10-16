@@ -100,8 +100,11 @@
 		<meta key="default" value="true"/>
 	</bean> 	
     
-     <!-- Aspect Service -->
+    <!-- Aspect Service -->
     <aop:aspectj-autoproxy />    
-    <bean id="eventPDAspect" class="gov.hhs.fha.nhinc.patientdiscovery.aspect.PatientDiscoveryEventAspect" />
+    <bean id="eventAspectAdvice" class="gov.hhs.fha.nhinc.aspect.EventAspectAdvice">
+    <bean id="eventPDAspect" class="gov.hhs.fha.nhinc.patientdiscovery.aspect.PatientDiscoveryEventAspect">
+        <constructor-arg ref="eventAspectAdvice" />        
+    </bean>
 
 </beans>

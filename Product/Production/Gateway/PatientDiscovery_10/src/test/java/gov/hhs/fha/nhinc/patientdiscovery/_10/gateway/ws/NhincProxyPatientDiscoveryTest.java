@@ -26,8 +26,11 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertSame;
+import gov.hhs.fha.nhinc.aspect.EventAspectAdvice;
 import gov.hhs.fha.nhinc.patientdiscovery._10.passthru.NhincProxyPatientDiscoveryImpl;
+import gov.hhs.fha.nhinc.patientdiscovery.aspect.PatientDiscoveryEventAspect;
 
 import javax.xml.ws.WebServiceContext;
 
@@ -38,43 +41,78 @@ import org.jmock.Mockery;
 import org.jmock.integration.junit4.JUnit4Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = { "aspectj-unit-tests.xml" })
 public class NhincProxyPatientDiscoveryTest {
 
-    Mockery context = new JUnit4Mockery() {
+    private static final Mockery context = new JUnit4Mockery() {
         {
             setImposteriser(ClassImposteriser.INSTANCE);
         }
     };
 
+    private static final PatientDiscoveryServiceFactory mockFactory = context
+            .mock(PatientDiscoveryServiceFactory.class);
+    
+    private static final EventAspectAdvice mockEventAspectAdvice = context.mock(EventAspectAdvice.class);
+
+    @Autowired
+    private NhincProxyPatientDiscovery patientDiscovery;
+
+    @Autowired
+    private PatientDiscoveryEventAspect patientDiscoveryEventAspect;
+
     @Test
     public void testDefaultConstructor() {
-        NhincProxyPatientDiscovery patientDiscovery = new NhincProxyPatientDiscovery();
         assertNotNull(patientDiscovery);
     }
 
+    /**
+     * Tests {@link NhincProxyPatientDiscovery#testProxyPRPAIN201305UV()}
+     * Ensure aspect advice is invoked.
+     */
     @Test
-    public void testMockService() {
+    public void testProxyPRPAIN201305UV() {
 
         final ProxyPRPAIN201305UVProxyRequestType mockBody = context.mock(ProxyPRPAIN201305UVProxyRequestType.class);
         final PRPAIN201306UV02 expectedResponse = context.mock(PRPAIN201306UV02.class);
         final NhincProxyPatientDiscoveryImpl mockService = context.mock(NhincProxyPatientDiscoveryImpl.class);
-        final PatientDiscoveryServiceFactory mockFactory = context.mock(PatientDiscoveryServiceFactory.class);
 
-        NhincProxyPatientDiscovery patientDiscovery = new NhincProxyPatientDiscovery(mockFactory);
         patientDiscovery.setOrchestratorImpl(mockService);
 
         context.checking(new Expectations() {
             {
+                oneOf(mockEventAspectAdvice).beginOutboundMessageEvent();
                 oneOf(mockService).proxyPRPAIN201305UV(with(same(mockBody)), with(any(WebServiceContext.class)));
                 will(returnValue(expectedResponse));
+                oneOf(mockEventAspectAdvice).endOutboundMessageEvent();
             }
         });
 
         PRPAIN201306UV02 actualResponse = patientDiscovery.proxyPRPAIN201305UV(mockBody);
 
         assertSame(expectedResponse, actualResponse);
-
     }
 
+    /**
+     * This method is necessary for wiring in the factory to the NhincProxyPatientDiscovery in a spring config.
+     * @return patient discovery service factory.
+     */
+    public static PatientDiscoveryServiceFactory getPatientDiscoveryServiceFactory() {
+        return mockFactory;
+    }
+    
+    /**
+     * This method is necessary for wiring in the event aspect advice in a spring config.
+     * @return patient discovery service factory.
+     */
+    public static EventAspectAdvice getEventAspectAdvice() {
+        return mockEventAspectAdvice;
+    }
+    
 }

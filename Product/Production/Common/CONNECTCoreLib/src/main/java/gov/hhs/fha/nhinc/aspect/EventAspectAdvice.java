@@ -49,9 +49,9 @@ import gov.hhs.fha.nhinc.nhinclib.NullChecker;
  * @author zmelnick
  *
  */
-public abstract class EventAspect {
+public class EventAspectAdvice {
 
-    private static final Log log = LogFactory.getLog(EventAspect.class);
+    private static final Log log = LogFactory.getLog(EventAspectAdvice.class);
 
     /*--- Inbound Message --*/
     public void beginInboundMessageEvent() {
