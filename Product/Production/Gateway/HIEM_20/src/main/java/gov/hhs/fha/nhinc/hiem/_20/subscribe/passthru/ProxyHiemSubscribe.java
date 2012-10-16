@@ -42,15 +42,28 @@ public class ProxyHiemSubscribe {
     @Resource
     private WebServiceContext context;
 
+    private ProxyHiemSubscribeImpl orchImpl;
+    
     public org.oasis_open.docs.wsn.b_2.SubscribeResponse subscribe(
             gov.hhs.fha.nhinc.common.nhinccommonproxy.SubscribeRequestType subscribeRequest)
             throws Exception {
-    	ProxyHiemSubscribeImpl hiemSubscribeImpl = new ProxyHiemSubscribeImpl();
-        try {
-            return hiemSubscribeImpl.subscribe(subscribeRequest, context);
-        } catch (org.oasis_open.docs.wsn.bw_2.NotifyMessageNotSupportedFault ex) {
-            throw ex;
-        }
+    	return getOrchImpl().subscribe(subscribeRequest, context);
+    }
+    
+    /**
+    * Set the orchImpl object.
+    * @param orchImpl
+    */
+    public void setOrchestratorImpl(ProxyHiemSubscribeImpl orchImpl) {
+    	this.orchImpl = orchImpl;
+    }
+    
+    /**
+    * return the orchImpl object.
+    * @return
+    */
+    protected ProxyHiemSubscribeImpl getOrchImpl(){
+    	return this.orchImpl;
     }
 
 }
