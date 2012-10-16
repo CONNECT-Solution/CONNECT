@@ -41,11 +41,19 @@ public class ProxyHiemUnsubscribe {
 
     @Resource
     private WebServiceContext context;
+    private ProxyHiemUnsubscribeImpl unsubscribeProxyImpl;
 
     public org.oasis_open.docs.wsn.b_2.UnsubscribeResponse unsubscribe(
             gov.hhs.fha.nhinc.common.nhinccommonproxy.UnsubscribeRequestType unsubscribeRequest)
             throws Exception {
-        return new ProxyHiemUnsubscribeImpl().unsubscribe(unsubscribeRequest, context);
+        return unsubscribeProxyImpl.unsubscribe(unsubscribeRequest, context);
+    }
+
+    /**
+     * @param unsubscribeProxyImpl the unsubscribeProxyImpl to set
+     */
+    public void setUnsubscribeProxyImpl(ProxyHiemUnsubscribeImpl unsubscribeProxyImpl) {
+        this.unsubscribeProxyImpl = unsubscribeProxyImpl;
     }
 
 }
