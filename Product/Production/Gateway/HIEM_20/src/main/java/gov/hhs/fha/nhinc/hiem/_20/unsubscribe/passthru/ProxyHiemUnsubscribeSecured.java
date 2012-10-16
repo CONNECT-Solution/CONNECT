@@ -42,11 +42,18 @@ import gov.hhs.fha.nhinc.nhincproxysubscriptionmanagement.UnableToDestroySubscri
 public class ProxyHiemUnsubscribeSecured {
     @Resource
     private WebServiceContext context;
+    private ProxyHiemUnsubscribeImpl unsubscribeProxyImpl;
 
     public org.oasis_open.docs.wsn.b_2.UnsubscribeResponse unsubscribe(
             gov.hhs.fha.nhinc.common.nhinccommonproxy.UnsubscribeRequestSecuredType unsubscribeRequestSecured)
             throws UnableToDestroySubscriptionFault, Exception {
-        return new ProxyHiemUnsubscribeImpl().unsubscribe(unsubscribeRequestSecured, context);
+        return unsubscribeProxyImpl.unsubscribe(unsubscribeRequestSecured, context);
     }
 
+    /**
+     * @param unsubscribeProxyImpl the unsubscribeProxyImpl to set
+     */
+    public void setUnsubscribeProxyImpl(ProxyHiemUnsubscribeImpl unsubscribeProxyImpl) {
+        this.unsubscribeProxyImpl = unsubscribeProxyImpl;
+    }
 }

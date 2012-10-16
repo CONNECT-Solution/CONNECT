@@ -66,7 +66,7 @@ public class ProxyHiemUnsubscribeImpl {
         NhinHiemUnsubscribeProxy proxy = factory.getNhinHiemUnsubscribeProxy();
         try {
             response = proxy.unsubscribe(unsubscribe, soapHeaderElements, assertion, target);
-        } catch (org.oasis_open.docs.wsn.bw_2.UnableToDestroySubscriptionFault ex) {
+        } catch (UnableToDestroySubscriptionFault ex) {
             log.error("error occurred", ex);
             response = new UnsubscribeResponse();
             response.getAny().add(ex);

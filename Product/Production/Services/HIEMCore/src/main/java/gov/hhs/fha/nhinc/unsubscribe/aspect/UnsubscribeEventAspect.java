@@ -24,10 +24,9 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.admindistribution.aspect;
+package gov.hhs.fha.nhinc.unsubscribe.aspect;
 
 import org.aspectj.lang.annotation.After;
-import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 
@@ -37,10 +36,10 @@ import gov.hhs.fha.nhinc.aspect.EventAspect;
  * @author zmelnick
  *
  */
-public class AdminDistributionEventAspect extends EventAspect {
+public class UnsubscribeEventAspect extends EventAspect {
 
     /*--- Inbound Message ---*/
-    @Pointcut("execution(* gov.hhs.fha.nhinc.admindistribution.*.nhin.NhinAdministrativeDistribution.sendAlertMessage(..))")
+    @Pointcut("execution(* gov.hhs.fha.nhinc.hiem._20.unsubscribe.nhin.HiemUnsubscribe.unsubscribe(..))")
     private void inboundMessage() {
     }
 
@@ -53,11 +52,11 @@ public class AdminDistributionEventAspect extends EventAspect {
     @Override
     @After("inboundMessage()")
     public void endInboundMessageEvent() {
-        super.beginInboundMessageEvent();
+        super.endInboundMessageEvent();
     }
 
     /*--- Inbound Processing ---*/
-    @Pointcut("execution(* gov.hhs.fha.nhinc.admindistribution.nhin.NhinAdminDistributionOrchImpl.sendAlertMessage(..))")
+    @Pointcut("execution(* gov.hhs.fha.nhinc.hiem._20.unsubscribe.nhin.HiemUnsubscribeImpl.unsubscribe(..))")
     private void inboundProcessing() {
     }
 
@@ -74,8 +73,8 @@ public class AdminDistributionEventAspect extends EventAspect {
     }
 
     /*--- Adapter Delegation ---*/
-    @Pointcut("execution(* gov.hhs.fha.nhinc.admindistribution.nhin.proxy.NhinAdminDistributionProxy*.sendAlertMessage(..))")
-    private void adapterDelegation() {
+    @Pointcut("execution(* gov.hhs.fha.nhinc.unsubscribe.adapter.proxy.HiemUnsubscribeAdapterProxy.unsubscribe(..))")
+    private void adaterDeleation() {
     }
 
     @Override
@@ -91,28 +90,28 @@ public class AdminDistributionEventAspect extends EventAspect {
     }
 
     /*--- Outbound Message ---*/
-    @Pointcut("execution(* gov.hhs.fha.nhinc.admindistribution.*.entity.EntityAdministrativeDistribution.sendAlertMessage(..))")
-    private void outboundMessageEntityUnsecured(){
+    @Pointcut("execution(* gov.hhs.fha.nhinc.hiem._20.unsubscribe.entity.EntityUnsubscribeSecuredService.unsubscribe(..))")
+    private void outboundMessageEntitySecured() {
     }
 
-    @Pointcut("execution(* gov.hhs.fha.nhinc.admindistribution.*.entity.EntityAdministrativeDistributionSecured.sendAlertMessage(..))")
-    private void outboundMessageEntitySecured(){
+    @Pointcut("execution(* gov.hhs.fha.nhinc.hiem._20.unsubscribe.entity.EntityUnsubscribeService.unsubscribe(..))")
+    private void outboundMessageEntityUnsecured() {
     }
 
-    @Pointcut("outboundMessageEntityUnsecured() || outboundMessageEntitySecured()")
+    @Pointcut("outboundMessageSecured() || outboundMessageUnsecured()")
     private void entityOutboundMessage() {
     }
 
-    @Pointcut("execution(* gov.hhs.fha.nhinc.admindistribution.*.passthru.NhincAdminDist.sendAlertMessage(..))")
-    private void outboundMessagePassthruUnsecured(){
+    @Pointcut("execution(* gov.hhs.fha.nhinc.hiem._20.unsubscribe.passthru.ProxyHiemUnsubscribeSecured.unsubscribe(..))")
+    private void outboundMessagePassthruSecured() {
     }
 
-    @Pointcut("execution(* gov.hhs.fha.nhinc.admindistribution.*.passthru.NhincAdminDistSecured.sendAlertMessage(..))")
-    private void outboundMessagePassthruSecured(){
+    @Pointcut("execution(* gov.hhs.fha.nhinc.hiem._20.unsubscribe.passthru.ProxyHiemUnsubscribe.unsubscribe(..))")
+    private void outboundMessagePassthruUnsecured() {
     }
 
-    @Pointcut("outboundMessageEntityUnsecured() || outboundMessageEntitySecured()")
-    private void passthruOutboundMessage() {
+    @Pointcut("outboundMessagePassthruSecured() || outboundMessagePassthruUnsecured()")
+    private void  passthruOutboundMessage() {
     }
 
     @Override
@@ -127,52 +126,45 @@ public class AdminDistributionEventAspect extends EventAspect {
         super.endOutboundMessageEvent();
     }
 
+
     /*--- Outbound Processing ---*/
-    @Pointcut("execution(* gov.hhs.fha.nhinc.admindistribution.entity.EntityAdminDistributionOrchImpl.sendAlertMessage(..))")
-    private void entityOutboundProcessing() {
+    @Pointcut("execution(* gov.hhs.fha.nhinc.unsubscribe.entity.EntityUnsubscribeOrchImpl.processUnsubscribe(..))")
+    private void outboundProcessingEntity() {
     }
 
-    @Pointcut("execution(* gov.hhs.fha.nhinc.admindistribution.passthru.PassthruAdminDistributionOrchImpl.sendAlertMessage(..))")
-    private void passthruOutboundProcessing() {
+    @Pointcut("execution(* gov.hhs.fha.nhinc.hiem._20.unsubscribe.passthru.ProxyHiemUnsubscribeImpl.unsubscribe(..))")
+    private void outboundProcessingPassthru() {
     }
 
     @Override
-    @Before("entityOutboundProcessing() || passthruOutboundProcessing()")
+    @Before("outboundProcessingEntity() || outboundProcessingPassthru()")
     public void beginOutboundProcessingEvent() {
         super.beginOutboundProcessingEvent();
     }
 
     @Override
-    @After("entityOutboundProcessing()|| passthruOutboundProcessing()")
+    @After("outboundProcessingEntity() || outboundProcessingPassthru()")
     public void endOutboundProcessingEvent() {
         super.endOutboundProcessingEvent();
     }
 
+
     /*--- Nwhin Invocation ---*/
-    @Pointcut("execution(* gov.hhs.fha.nhinc.admindistribution.nhin.proxy.EntityAdminDistributionProxy*.sendAlertMessage(..)")
+    @Pointcut("execution(* gov.hhs.fha.nhinc.unsubscribe.nhin.proxy.NhinHiemUnsubscribeProxy.unsubscribe(..))")
     private void nwhinInvocation() {
     }
 
     @Override
     @Before("nwhinInvocation()")
-    public void beginNwhinInvocationEvent(){
+    public void beginNwhinInvocationEvent() {
         super.beginNwhinInvocationEvent();
     }
 
     @Override
     @After("nwhinInvocation()")
-    public void endNwhinInvocationEvent(){
+    public void endNwhinInvocationEvent() {
         super.endNwhinInvocationEvent();
     }
-
-    /*------ Failure ----*/
-    @Override
-    @AfterThrowing("inboundMessage() || entityOutboundMessage() || passthruOutboundMessage()")
-    public void failEvent() {
-        super.failEvent();
-    }
-
-
 
 
 }

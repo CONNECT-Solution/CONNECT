@@ -32,6 +32,7 @@ import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
 
+import org.oasis_open.docs.wsn.b_2.UnsubscribeResponse;
 import org.oasis_open.docs.wsn.bw_2.UnableToDestroySubscriptionFault;
 
 /**
@@ -46,7 +47,7 @@ public class HiemUnsubscribe {
     private WebServiceContext context;
     private HiemUnsubscribeImpl hiemUnsubscribeImpl;
 
-    public org.oasis_open.docs.wsn.b_2.UnsubscribeResponse unsubscribe(
+    public UnsubscribeResponse unsubscribe(
             org.oasis_open.docs.wsn.b_2.Unsubscribe unsubscribeRequest) throws UnableToDestroySubscriptionFault {
         return hiemUnsubscribeImpl.unsubscribe(unsubscribeRequest, context);
     }
