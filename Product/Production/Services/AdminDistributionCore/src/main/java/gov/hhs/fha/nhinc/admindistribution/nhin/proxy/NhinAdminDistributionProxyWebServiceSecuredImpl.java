@@ -28,6 +28,7 @@ package gov.hhs.fha.nhinc.admindistribution.nhin.proxy;
 
 import gov.hhs.fha.nhinc.admindistribution.AdminDistributionAuditLogger;
 import gov.hhs.fha.nhinc.admindistribution.AdminDistributionHelper;
+import gov.hhs.fha.nhinc.admindistribution.AdminDistributionUtils;
 import gov.hhs.fha.nhinc.admindistribution.nhin.proxy.service.NhinAdminDistributionG0ServicePortDescriptor;
 import gov.hhs.fha.nhinc.admindistribution.nhin.proxy.service.NhinAdminDistributionG1ServicePortDescriptor;
 import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
@@ -64,6 +65,10 @@ public class NhinAdminDistributionProxyWebServiceSecuredImpl implements NhinAdmi
     private Log createLogger() {
         return LogFactory.getLog(getClass());
     }
+    
+    protected AdminDistributionUtils getAdminDistributionUtils() {
+        return AdminDistributionUtils.getInstance();
+    }
 
     private AdminDistributionHelper getHelper() {
         return new AdminDistributionHelper();
@@ -98,11 +103,12 @@ public class NhinAdminDistributionProxyWebServiceSecuredImpl implements NhinAdmi
         String url = helper.getUrl(target, NhincConstants.NHIN_ADMIN_DIST_SERVICE_NAME, apiLevel);
 
         if (NullChecker.isNotNullish(url)) {
-            
-            
+
             auditMessage(body, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
             
             try {
+                getAdminDistributionUtils().convertFileLocationToDataIfEnabled(body);
+                
                 ServicePortDescriptor<RespondingGatewayAdministrativeDistributionPortType> portDescriptor =
                         getServicePortDescriptor(apiLevel);
 

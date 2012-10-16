@@ -44,6 +44,7 @@ public abstract class OutboundUnsubscribeOrchestrationContextBuilder implements 
     private OutboundDelegate nhinDelegate;
     private Unsubscribe request;
     private SoapMessageElements referenceParameters;
+    private String subscriptionId;
     private NhinTargetSystemType target;
 
     public abstract OrchestrationContext build();
@@ -54,6 +55,8 @@ public abstract class OutboundUnsubscribeOrchestrationContextBuilder implements 
         setReferenceParameters(((OutboundUnsubscribeOrchestratable) message).getReferenceParameters());
         setTarget(((OutboundUnsubscribeOrchestratable) message).getTarget());
         setNhinDelegate(((OutboundUnsubscribeOrchestratable) message).getNhinDelegate());
+        setSubscriptionId(((OutboundUnsubscribeOrchestratable) message).getSubscriptionId());
+        
     }
 
     public AssertionType getAssertionType() {
@@ -79,6 +82,10 @@ public abstract class OutboundUnsubscribeOrchestrationContextBuilder implements 
     public Unsubscribe getRequest() {
         return request;
     }
+    
+    public String getSubscriptionId() {
+        return subscriptionId;
+    }
 
     public void setRequest(Unsubscribe request) {
         this.request = request;
@@ -98,5 +105,9 @@ public abstract class OutboundUnsubscribeOrchestrationContextBuilder implements 
 
     public void setTarget(NhinTargetSystemType target) {
         this.target = target;
+    }
+    
+    public void setSubscriptionId(String subscriptionId) {
+        this.subscriptionId = subscriptionId;
     }
 }

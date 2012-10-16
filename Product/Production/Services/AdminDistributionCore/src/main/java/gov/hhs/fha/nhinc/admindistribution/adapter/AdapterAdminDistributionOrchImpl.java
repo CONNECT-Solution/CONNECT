@@ -26,8 +26,16 @@
  */
 package gov.hhs.fha.nhinc.admindistribution.adapter;
 
+import java.net.URI;
+import java.util.List;
+
+import javax.activation.DataHandler;
+
+import oasis.names.tc.emergency.edxl.de._1.ContentObjectType;
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.largefile.LargeFileUtils;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -36,21 +44,45 @@ import org.apache.commons.logging.LogFactory;
  * @author dunnek
  */
 public class AdapterAdminDistributionOrchImpl {
-    private Log log = null;
+	private Log log = null;
 
-    public AdapterAdminDistributionOrchImpl() {
-        log = createLogger();
-    }
+	public AdapterAdminDistributionOrchImpl() {
+		log = createLogger();
+	}
 
-    protected Log createLogger() {
-        return LogFactory.getLog(getClass());
-    }
+	protected Log createLogger() {
+		return LogFactory.getLog(getClass());
+	}
 
-    public void sendAlertMessage(EDXLDistribution body, AssertionType assertion) {
-        log.info("Received Alert Message");
-        log.info(body.getCombinedConfidentiality());
-        log.info("Time Sent: " + body.getDateTimeSent());
-        log.info("Sender Id: " + body.getSenderID());
-        log.info("Keyword: " + body.getKeyword().toString());
-    }
+	public void sendAlertMessage(EDXLDistribution body, AssertionType assertion) {
+		log.info("Received Alert Message");
+		log.info(body.getCombinedConfidentiality());
+		log.info("Time Sent: " + body.getDateTimeSent());
+		log.info("Sender Id: " + body.getSenderID());
+		log.info("Keyword: " + body.getKeyword().toString());
+
+		try {
+			if (LargeFileUtils.getInstance().isSavePayloadToFileEnabled()) {
+				log.info("Configured to save payload to file. Will try to parse content as File URI.");
+
+				List<ContentObjectType> contentObjectList = body
+						.getContentObject();
+
+				for (ContentObjectType co : contentObjectList) {
+					if (co.getNonXMLContent() != null) {
+						DataHandler data = co.getNonXMLContent()
+								.getContentData();
+						URI paylaodURI = LargeFileUtils.getInstance()
+								.parseBase64DataAsUri(data);
+						log.info("Payload Content: " + paylaodURI);
+
+					}
+				}
+
+			}
+		} catch (Exception e) {
+			log.error("Failed to parse payload as URI.", e);
+		}
+
+	}
 }
