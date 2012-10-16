@@ -121,7 +121,7 @@
                 <version>2.6</version>
                 <executions>
                     <execution>
-                        <id>copy-resources</id>
+                        <id>copy-resources-embedded-glassfish-domain</id>
                         <phase>validate</phase>
                         <goals>
                             <goal>copy-resources</goal>
@@ -132,17 +132,41 @@
                                 <resource>
                                     <directory>${basedir}/src/test/resources/domain1/</directory>
                                     <excludes>
-                                        <exclude>*.jks</exclude>
+                                        <exclude>**/*.jks</exclude>
                                     </excludes>
                                     <filtering>true</filtering>
                                 </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>copy-resources-keystores</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/domain1/</outputDirectory>
+                            <resources>
                                 <resource>
                                     <directory>${basedir}/src/test/resources/domain1/</directory>
                                     <includes>
-                                        <include>*.jks</include>
+                                        <include>**/*.jks</include>
                                     </includes>
                                     <filtering>false</filtering>
                                 </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>copy-resources-gateway.properties</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/domain1/config/nhin/</outputDirectory>
+                            <resources>
                                 <resource>
                                     <directory>${project.build.testOutputDirectory}</directory>
                                     <includes>
