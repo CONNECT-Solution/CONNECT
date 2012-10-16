@@ -41,15 +41,26 @@ public class ProxyHiemSubscribeSecured {
     @Resource
     private WebServiceContext context;
 
+    private ProxyHiemSubscribeImpl orchImpl;
     public org.oasis_open.docs.wsn.b_2.SubscribeResponse subscribe(
             gov.hhs.fha.nhinc.common.nhinccommonproxy.SubscribeRequestSecuredType subscribeRequestSecured)
             throws Exception {
-        ProxyHiemSubscribeImpl hiemSubscribeImpl = new ProxyHiemSubscribeImpl();
-        try {
-            return hiemSubscribeImpl.subscribe(subscribeRequestSecured, context);
-        } catch (Exception ex) {
-            throw ex;
-        }
+    	return getOrchImpl().subscribe(subscribeRequestSecured, context);
     }
 
+    /**
+    * Set the orchImpl object.
+    * @param orchImpl
+    */
+    public void setOrchestratorImpl(ProxyHiemSubscribeImpl orchImpl) {
+    	this.orchImpl = orchImpl;
+    }
+    
+    /**
+    * return the orchImpl object.
+    * @return
+    */
+    protected ProxyHiemSubscribeImpl getOrchImpl(){
+    	return this.orchImpl;
+    }
 }
