@@ -233,12 +233,6 @@
                             </target>
                         </configuration>
                     </execution>
-                    <!-- <execution> <id>check-for-soapui-failures</id> <phase>post-integration-test</phase> 
-                        <goals> <goal>run</goal> </goals> <configuration> <target> <fileset dir="${basedir}/target/soapui/output/" 
-                        id="soapui.failure.files"> <include name="**/*FAILED.txt" /> </fileset> <pathconvert 
-                        refid="soapui.failure.files" property="soapui.test.failures.detected" setonempty="false" 
-                        /> <fail if="soapui.test.failures.detected" message="soapui test failures 
-                        detected!" /> </target> </configuration> </execution> -->
                 </executions>
             </plugin>
             <plugin>
