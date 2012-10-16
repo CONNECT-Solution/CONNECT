@@ -26,6 +26,15 @@
  */
 package gov.hhs.fha.nhinc.hiem._20.notify.nhin;
 
+import javax.xml.ws.WebServiceContext;
+
+import oasis.names.tc.xacml._2_0.context.schema.os.DecisionType;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.oasis_open.docs.wsn.b_2.Notify;
+import org.w3c.dom.Element;
+
 import gov.hhs.fha.nhinc.auditrepository.AuditRepositoryLogger;
 import gov.hhs.fha.nhinc.auditrepository.nhinc.proxy.AuditRepositoryProxy;
 import gov.hhs.fha.nhinc.auditrepository.nhinc.proxy.AuditRepositoryProxyObjectFactory;
@@ -36,21 +45,12 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyResponseType;
 import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
 import gov.hhs.fha.nhinc.hiem.dte.SoapUtil;
-import gov.hhs.fha.nhinc.notify.nhin.NhinNotifyProcessor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import gov.hhs.fha.nhinc.notify.nhin.NhinNotifyProcessor;
 import gov.hhs.fha.nhinc.policyengine.PolicyEngineChecker;
 import gov.hhs.fha.nhinc.policyengine.adapter.proxy.PolicyEngineProxy;
 import gov.hhs.fha.nhinc.policyengine.adapter.proxy.PolicyEngineProxyObjectFactory;
-
-import javax.xml.ws.WebServiceContext;
-
-import oasis.names.tc.xacml._2_0.context.schema.os.DecisionType;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.oasis_open.docs.wsn.b_2.Notify;
-import org.w3c.dom.Element;
 
 /**
  *
@@ -60,13 +60,13 @@ public class HiemNotifyImpl {
 
     private static Log log = LogFactory.getLog(HiemNotifyImpl.class);
 
-    public static void notify(Notify notifyRequest, WebServiceContext context) {
+    public void notify(Notify notifyRequest, WebServiceContext context) {
         log.debug("Entering HiemNotifyImpl.notify");
         AssertionType assertion = SAML2AssertionExtractor.getInstance().extractSamlAssertion(context);
-            
+
         auditInputMessage(notifyRequest, assertion,
                 NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
-        
+
         SoapUtil contextHelper = new SoapUtil();
         Element soapMessage = contextHelper.extractSoapMessageElement(context,
                 NhincConstants.HTTP_REQUEST_ATTRIBUTE_SOAPMESSAGE);
@@ -89,7 +89,7 @@ public class HiemNotifyImpl {
         log.debug("Exiting HiemNotifyImpl.notify");
     }
 
-    private static void auditInputMessage(Notify notifyRequest, AssertionType assertion,
+    private void auditInputMessage(Notify notifyRequest, AssertionType assertion,
             String direction, String logInterface) {
         log.debug("In HiemNotifyImpl.auditInputMessage");
         try {
@@ -112,7 +112,7 @@ public class HiemNotifyImpl {
         }
     }
 
-    private static boolean checkPolicy(Notify notifyRequest, AssertionType assertion) {
+    private boolean checkPolicy(Notify notifyRequest, AssertionType assertion) {
         log.debug("In HiemNotifyImpl.checkPolicy");
         boolean policyIsValid = false;
 
