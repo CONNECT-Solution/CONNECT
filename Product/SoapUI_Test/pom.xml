@@ -15,6 +15,7 @@
         <ear.path>${org.connectopensource:CONNECT-GF:ear}</ear.path>
     </properties>
     <modules>
+        <module>FileUtils</module>
         <module>ValidationSuite</module>
     </modules>
     <dependencies>
@@ -38,42 +39,26 @@
                         <app>${ear.path}</app>
                         <autoDelete>true</autoDelete>
                         <port>8080</port>
-                        <configFile>${project.build.directory}/glassfish-resources/glassfish/domain.xml</configFile>
-                        <systemProperties>
-                            <property>glassfish.embedded.tmpdir=target/glassfish-embedded</property>
-                        </systemProperties>
+                        <instanceRoot>${project.build.directory}/domain1</instanceRoot>
                     </configuration>
                 </plugin>
                 <plugin>
                     <groupId>com.github.redfish4ktc.soapui</groupId>
                     <artifactId>maven-soapui-extension-plugin</artifactId>
-                    <version>4.0.0.2</version>
+                    <version>4.5.1.0</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-antrun-plugin</artifactId>
                     <version>1.7</version>
                 </plugin>
+                <plugin>
+                    <groupId>com.google.code.maven-replacer-plugin</groupId>
+                    <artifactId>replacer</artifactId>
+                    <version>1.5.1</version>
+                </plugin>
             </plugins>
         </pluginManagement>
-        <testResources>
-            <testResource>
-                <directory>${basedir}/src/test/resources</directory>
-                <includes>
-                    <include>glassfish/**/domain.xml</include>
-                </includes>
-                <filtering>true</filtering>
-                <targetPath>${project.build.directory}/glassfish-resources/</targetPath>
-            </testResource>
-            <testResource>
-                <directory>${basedir}/src/test/resources</directory>
-                <includes>
-                    <include>gateway.jks</include>
-                    <include>log4j.properties</include>
-                </includes>
-                <targetPath>${project.build.directory}/glassfish-resources/</targetPath>
-            </testResource>
-        </testResources>
         <plugins>
             <plugin>
                 <!-- Used to pull XSD files from the JAR -->
@@ -108,8 +93,8 @@
                     </execution>
                     <execution>
                         <id>unpack-nhin-properties</id>
-                        <!-- Using the initialize phase because it is before 
-                            the generate sources phase -->
+                        <!-- Using the initialize phase because it is before the generate sources
+                            phase -->
                         <phase>initialize</phase>
                         <goals>
                             <goal>unpack</goal>
@@ -127,6 +112,63 @@
                             </artifactItems>
                             <includes>**/*</includes>
                             <outputDirectory>${project.build.directory}/nhinc-properites-dir/</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>2.6</version>
+                <executions>
+                    <execution>
+                        <id>copy-resources</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/domain1/</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>${basedir}/src/test/resources/domain1/</directory>
+                                    <excludes>
+                                        <exclude>*.jks</exclude>
+                                    </excludes>
+                                    <filtering>true</filtering>
+                                </resource>
+                                <resource>
+                                    <directory>${basedir}/src/test/resources/domain1/</directory>
+                                    <includes>
+                                        <include>*.jks</include>
+                                    </includes>
+                                    <filtering>false</filtering>
+                                </resource>
+                                <resource>
+                                    <directory>${project.build.testOutputDirectory}</directory>
+                                    <includes>
+                                        <include>gateway.properties</include>
+                                    </includes>
+                                    <filtering>true</filtering>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>create-docroot</id>
+                        <phase>process-test-resources</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <target>
+                                <mkdir dir="${project.build.directory}/domain1/docroot/" />
+                            </target>
                         </configuration>
                     </execution>
                 </executions>

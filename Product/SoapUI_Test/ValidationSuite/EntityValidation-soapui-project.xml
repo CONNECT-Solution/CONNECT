@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project abortOnError="false" name="EntityValidation" resourceRoot="${projectDir}" runType="SEQUENTIAL" soapui-version="3.6" xmlns:con="http://eviware.com/soapui/config">
+<con:soapui-project abortOnError="false" name="EntityValidation" resourceRoot="${projectDir}" runType="SEQUENTIAL" soapui-version="4.5.1" activeEnvironment="Default" xmlns:con="http://eviware.com/soapui/config">
 	<con:settings>
 		<con:setting id="com.eviware.soapui.impl.wsdl.actions.iface.tools.soapui.TestRunnerAction@values-local"><![CDATA[
 			<xml-fragment xmlns:con="http://eviware.com/soapui/config">
@@ -115,8 +115,8 @@
 	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitypatientdiscoveryasyncreq}EntityPatientDiscoveryAsyncReqBindingSoap" definition="${projectDir}/target/wsdl/EntityPatientDiscoveryAsyncReq.wsdl" name="EntityPatientDiscoveryAsyncReqBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 
-		<con:endpoints>
-			<con:endpoint>${#TestSuite#Endpoint-PatientDiscoveryAsyncReq}</con:endpoint>
+		<con:definitionCache/><con:endpoints>
+			<con:endpoint>${#Project#Endpoint-PatientDiscoveryAsyncReq}</con:endpoint>
 			<con:endpoint>http://localhost/NhinConnect/EntityPatientDiscoveryAsyncReq</con:endpoint>
 		</con:endpoints>
 		<con:operation action="urn:ProcessPatientDiscoveryAsyncReq" anonymous="optional" bindingOperationName="ProcessPatientDiscoveryAsyncReq" inputName="ProcessPatientDiscoveryAsyncReqAsyncRequest" isOneWay="false" name="ProcessPatientDiscoveryAsyncReq" outputName="ProcessPatientDiscoveryAsyncReqAsyncResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
@@ -126,7 +126,7 @@
 	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitypatientdiscoveryasyncresp}EntityPatientDiscoveryAsyncRespBindingSoap" definition="${projectDir}/target/wsdl/EntityPatientDiscoveryAsyncResp.wsdl" name="EntityPatientDiscoveryAsyncRespBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 
-		<con:endpoints>
+		<con:definitionCache/><con:endpoints>
 			<con:endpoint>http://localhost/NhinConnect/EntityPatientDiscoveryAsyncResp</con:endpoint>
 			<con:endpoint>${#TestSuite#Endpoint-PatientDiscoveryAsyncResp}</con:endpoint>
 		</con:endpoints>
@@ -137,7 +137,7 @@
 	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincentityxdr}EntityXDR_Binding" definition="${projectDir}/target/wsdl/EntityXDR.wsdl" name="EntityXDR_Binding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 
-		<con:endpoints>
+		<con:definitionCache/><con:endpoints>
 			<con:endpoint>http://localhost:8080/CONNECTGateway/EntityService/EntityDocSubmissionUnsecured</con:endpoint>
 			<con:endpoint>${#TestSuite#Endpoint-XDREntity}</con:endpoint>
 		</con:endpoints>
@@ -161,7 +161,7 @@
 		<con:settings/>
 
 		<con:endpoints>
-			<con:endpoint>${#TestSuite#Endpoint-EntityAdminDist}</con:endpoint>
+			<con:endpoint>${#Project#Endpoint-EntityAdminDist}</con:endpoint>
 		</con:endpoints>
 		<con:operation action="urn:oasis:names:tc:emergency:EDXL:DE:1.0:SendAlertMessage" anonymous="optional" bindingOperationName="SendAlertMessage" inputName="" isOneWay="false" name="SendAlertMessage" sendsAttachments="false" type="One-Way">
 			<con:settings/>
@@ -171,9 +171,9 @@
 
 	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincentityxdr:async:response}EntityXDRAsyncResponse_Binding" definition="${projectDir}/target/wsdl/EntityXDRResponse.wsdl" name="EntityXDRAsyncResponse_Binding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
-		<con:endpoints>
+		<con:definitionCache/><con:endpoints>
 			<con:endpoint>http://localhost:${HttpDefaultPort}/EntityService/EntityXDRAsyncResponse</con:endpoint>
-			<con:endpoint>${#TestSuite#Endpoint-DSDeferredResp}</con:endpoint>
+			<con:endpoint>${#Project#Endpoint-DSDeferredResp}</con:endpoint>
 		</con:endpoints>
 		<con:operation action="" anonymous="optional" bindingOperationName="ProvideAndRegisterDocumentSet-bAsyncResponse" inputName="" isOneWay="false" name="ProvideAndRegisterDocumentSet-bAsyncResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
 			<con:settings/>
@@ -183,7 +183,7 @@
 
 	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entityadmindistribution}AdministrativeDistribution_Binding_Soap12" definition="${projectDir}/target/wsdl/EntityAdminDist_g1.wsdl" name="AdministrativeDistribution_Binding_Soap12_g1" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
-		<con:endpoints>
+		<con:definitionCache/><con:endpoints>
 			<con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/AdminDistribution/2_0/AdministrativeDistribution_Service</con:endpoint>
 		</con:endpoints>
 		<con:operation action="urn:oasis:names:tc:emergency:EDXL:DE:1.0:SendAlertMessage" bindingOperationName="SendAlertMessage" inputName="" isOneWay="false" name="SendAlertMessage" sendsAttachments="false" type="One-Way">
@@ -205,7 +205,7 @@
 							<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
 				</con:settings>
 				<con:encoding>UTF-8</con:encoding>
-				<con:endpoint>${#TestSuite#Endpoint-EntityXDRRequest}</con:endpoint>
+				<con:endpoint>${#Project#Endpoint-EntityXDRRequest}</con:endpoint>
 				<con:request><![CDATA[
 					<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
    <soap:Header/>
@@ -663,7 +663,7 @@
 						<definition/>
 					</con:configuration>
 				</con:assertion>
-				<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+				<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 				<con:jmsPropertyConfig/>
 				<con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhincentityxdr:async:request:ProvideAndRegisterDocumentSet-bAsyncRequest_RequestMessage" generateMessageId="true" mustUnderstand="NONE" version="200508"/>
 				<con:wsrmConfig version="1.2"/>
@@ -671,24 +671,24 @@
 		</con:config>
 	</con:testStep>
 	<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
-	nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
+nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
 <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-10-11T17:26:05Z</con:value>
+		<con:value>2012-10-15T18:27:41Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-10-11T17:36:05Z</con:value>
+		<con:value>2012-10-15T18:37:41Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>10/11/2012 17:26:05</con:value>
+		<con:value>10/15/2012 18:27:41</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-11-10T00:00:00Z</con:value>
+		<con:value>2012-11-14T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -719,7 +719,7 @@
 					<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
-		<con:endpoint>${#TestSuite#Endpoint-DSDeferredResp}</con:endpoint>
+		<con:endpoint>${#Project#Endpoint-DSDeferredResp}</con:endpoint>
 		<con:request><![CDATA[
 			<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0">
    <soap:Header/>
@@ -1042,7 +1042,7 @@
 				<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
 			</con:configuration>
 		</con:assertion>
-		<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
 		<con:wsaConfig mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
@@ -1055,19 +1055,19 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-10-01T23:09:51Z</con:value>
+		<con:value>2012-10-15T18:28:16Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-10-01T23:19:51Z</con:value>
+		<con:value>2012-10-15T18:38:16Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>10/01/2012 23:09:51</con:value>
+		<con:value>10/15/2012 18:28:16</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-31T00:00:00Z</con:value>
+		<con:value>2012-11-14T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 </con:testCase>
@@ -1083,7 +1083,7 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 					<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
-		<con:endpoint>${#TestSuite#Endpoint-XDREntity}</con:endpoint>
+		<con:endpoint>${#Project#Endpoint-XDREntity}</con:endpoint>
 		<con:request><![CDATA[
 			<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
    <soap:Header/>
@@ -1541,7 +1541,7 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 				<definition/>
 			</con:configuration>
 		</con:assertion>
-		<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
 		<con:wsaConfig action="{urn:gov:hhs:fha:nhinc:nhincentityxdr}ProvideAndRegisterDocumentSet-b" mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
@@ -1554,19 +1554,19 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-10-01T23:09:52Z</con:value>
+		<con:value>2012-10-15T18:28:25Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-10-01T23:19:52Z</con:value>
+		<con:value>2012-10-15T18:38:25Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>10/01/2012 23:09:52</con:value>
+		<con:value>10/15/2012 18:28:25</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-31T00:00:00Z</con:value>
+		<con:value>2012-11-14T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -1583,9 +1583,8 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 					<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
-		<con:endpoint>${#TestSuite#Endpoint-PatientDiscoveryAsyncReq}</con:endpoint>
-		<con:request><![CDATA[
-			<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+		<con:endpoint>${#Project#Endpoint-PatientDiscoveryAsyncReq}</con:endpoint>
+		<con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
    <soap:Header/>
    <soap:Body testSuite="Entity_g1" testCase="Patient Discovery Deferred Req">
       <urn:RespondingGateway_PRPA_IN201305UV02Request>
@@ -1879,7 +1878,7 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 				<definition/>
 			</con:configuration>
 		</con:assertion>
-		<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
 		<con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitypatientdiscoveryasyncreq:ProcessPatientDiscoveryAsyncReqAsyncRequest" addDefaultTo="true" messageID="uuid:6666666666.66666.666.66" mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
@@ -2156,19 +2155,19 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 	</con:property>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-09-27T22:55:02Z</con:value>
+		<con:value>2012-10-15T18:28:34Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-09-27T23:05:02Z</con:value>
+		<con:value>2012-10-15T18:38:34Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/27/2012 22:55:02</con:value>
+		<con:value>10/15/2012 18:28:34</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-27T00:00:00Z</con:value>
+		<con:value>2012-11-14T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -2185,7 +2184,7 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 					<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
-		<con:endpoint>${#TestSuite#Endpoint-PatientDiscoveryAsyncResp}</con:endpoint>
+		<con:endpoint>${#Project#Endpoint-PatientDiscoveryAsyncResp}</con:endpoint>
 		<con:request><![CDATA[
 			<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
    <soap:Header xmlns:add="SoapUI_Test/ValidationSuite/2-EndToEndSelfTest-soapui-project.xml">
@@ -2508,7 +2507,7 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 				<definition/>
 			</con:configuration>
 		</con:assertion>
-		<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
 		<con:wsaConfig mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
@@ -2699,18 +2698,12 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 		<con:name>NotifySubscriptionID</con:name>
 		<con:value>-f7c1a5d:1204e50e42e:-79eb</con:value>
 	</con:property>
-	<con:property>
-		<con:name>NotifySubscriptionManagerEndpointAddress</con:name>
-		<con:value>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/SubscriptionManagerService/HiemUnsubscribe</con:value>
-	</con:property>
+	
 	<con:property>
 		<con:name>UnSubscriptionID</con:name>
 		<con:value>3e74139f-5271-4db1-98c0-88748fa3e4e3</con:value>
 	</con:property>
-	<con:property>
-		<con:name>SubscriptionManagerEndpointAddress</con:name>
-		<con:value>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/SubscriptionManagerService/HiemUnsubscribe</con:value>
-	</con:property>
+	
 	<con:property>
 		<con:name>AQUserID</con:name>
 		<con:value>kskagerb</con:value>
@@ -2718,10 +2711,6 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 	<con:property>
 		<con:name>AQPatientID</con:name>
 		<con:value>D123401</con:value>
-	</con:property>
-	<con:property>
-		<con:name>Endpoint-EntityXDRRequest</con:name>
-		<con:value>http://localhost:8080/CONNECTAdapter/EntityProxyService/EntityXDRRequest</con:value>
 	</con:property>
 	<con:property>
 		<con:name>Gender</con:name>
@@ -2789,19 +2778,19 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 </con:property>
 <con:property>
 	<con:name>startDate</con:name>
-	<con:value>2012-09-27T22:55:05Z</con:value>
+	<con:value>2012-10-15T18:28:50Z</con:value>
 </con:property>
 <con:property>
 	<con:name>endDate</con:name>
-	<con:value>2012-09-27T23:05:05Z</con:value>
+	<con:value>2012-10-15T18:38:50Z</con:value>
 </con:property>
 <con:property>
 	<con:name>sigDate</con:name>
-	<con:value>09/27/2012 22:55:05</con:value>
+	<con:value>10/15/2012 18:28:50</con:value>
 </con:property>
 <con:property>
 	<con:name>expireDate</con:name>
-	<con:value>2012-10-27T00:00:00Z</con:value>
+	<con:value>2012-11-14T00:00:00Z</con:value>
 </con:property>
 </con:properties>
 <con:reportParameters/>
@@ -2826,7 +2815,7 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 				<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
 	</con:settings>
 	<con:encoding>UTF-8</con:encoding>
-	<con:endpoint>${#TestSuite#Endpoint-PatientDiscovery}</con:endpoint>
+	<con:endpoint>${#Project#Endpoint-PatientDiscovery}</con:endpoint>
 	<con:request><![CDATA[
 		<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soap:Header/>
@@ -3103,7 +3092,7 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 			<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
 		</con:configuration>
 	</con:assertion>
-	<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+	<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 	<con:jmsPropertyConfig/>
 	<con:wsaConfig mustUnderstand="NONE" version="200508"/>
 	<con:wsrmConfig version="1.2"/>
@@ -3124,19 +3113,19 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-09-27T22:55:07Z</con:value>
+		<con:value>2012-10-15T18:29:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-09-27T23:05:07Z</con:value>
+		<con:value>2012-10-15T18:39:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/27/2012 22:55:07</con:value>
+		<con:value>10/15/2012 18:29:00</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-27T00:00:00Z</con:value>
+		<con:value>2012-11-14T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -3146,23 +3135,7 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 
 	<con:testStep name="update config" type="groovy">
 		<con:settings/>
-		<con:config>
-			<script>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR']
-
-void UpdateProperty(String directory, String filename, String propertyKey, String propertyValue,context,log) {
-	log.info("begin UpdateProperty; directory='" + directory + "';filename='" + filename + "';key='" + propertyKey + "';value='" + propertyValue + "';");
-	File file = new File(directory,filename);
-	Properties properties = new Properties();
-	FileInputStream frPropFile = new FileInputStream(file);
-	properties.load(frPropFile);
-	properties.setProperty(propertyKey, propertyValue);
-	FileOutputStream fwPropFile = new FileOutputStream(file);
-	properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
-	properties = null;
-}
-
-UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySelf","false",context,log);</script>
-	</con:config>
+		<con:config><script>nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "documentQueryQuerySelf", "false", log);</script></con:config>
 </con:testStep>
 <con:testStep name="Clear Correlation Table &amp; Add Correlation" type="groovy">
 	<con:settings/>
@@ -3208,7 +3181,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySe
 				<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
 	</con:settings>
 	<con:encoding>UTF-8</con:encoding>
-	<con:endpoint>${#TestSuite#Endpoint-DocQuery}</con:endpoint>
+	<con:endpoint>${#Project#Endpoint-DocQuery}</con:endpoint>
 	<con:request><![CDATA[
 		<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn3="urn:gov:hhs:fha:nhinc:common:nhinccommon">
    <soap:Header/>
@@ -3477,7 +3450,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySe
 				assert (documentID == msgDocID)</scriptText>
 		</con:configuration>
 	</con:assertion>
-	<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+	<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 	<con:jmsPropertyConfig/>
 	<con:wsaConfig mustUnderstand="NONE" version="200508"/>
 	<con:wsrmConfig version="1.2"/>
@@ -3491,19 +3464,19 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-10-01T23:09:52Z</con:value>
+		<con:value>2012-10-15T18:29:11Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-10-01T23:19:52Z</con:value>
+		<con:value>2012-10-15T18:39:11Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>10/01/2012 23:09:52</con:value>
+		<con:value>10/15/2012 18:29:11</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-31T00:00:00Z</con:value>
+		<con:value>2012-11-14T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
@@ -3525,7 +3498,7 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 					<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
-		<con:endpoint>${#TestSuite#Endpoint-DocRetrieve}</con:endpoint>
+		<con:endpoint>${#Project#Endpoint-DocRetrieve}</con:endpoint>
 		<con:request><![CDATA[
 			<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:ihe:iti:xds-b:2007" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon">
    <soap:Header/>
@@ -3794,7 +3767,7 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 					assert (docData.size() != 0)</scriptText>
 			</con:configuration>
 		</con:assertion>
-		<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
 		<con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitydocretrieve/EntityDocRetrievePortType/RespondingGateway_CrossGatewayRetrieveRequest" mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
@@ -3811,19 +3784,19 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 	</con:property>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-10-01T23:09:53Z</con:value>
+		<con:value>2012-10-15T18:29:21Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-10-01T23:19:53Z</con:value>
+		<con:value>2012-10-15T18:39:21Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>10/01/2012 23:09:53</con:value>
+		<con:value>10/15/2012 18:29:21</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-31T00:00:00Z</con:value>
+		<con:value>2012-11-14T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -3833,25 +3806,9 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 
 	<con:testStep name="update config" type="groovy">
 		<con:settings/>
-		<con:config>
-			<script>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR']
-
-void UpdateProperty(String directory, String filename, String propertyKey, String propertyValue,context,log) {
-	log.info("begin UpdateProperty; directory='" + directory + "';filename='" + filename + "';key='" + propertyKey + "';value='" + propertyValue + "';");
-	File file = new File(directory,filename);
-	Properties properties = new Properties();
-	FileInputStream frPropFile = new FileInputStream(file);
-	properties.load(frPropFile);
-	properties.setProperty(propertyKey, propertyValue);
-	FileOutputStream fwPropFile = new FileOutputStream(file);
-	properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
-properties = null;
-}
-
-UpdateProperty(destConfigFileLocation,"gateway.properties","serviceSubscription","true",context,log);
-UpdateProperty(destConfigFileLocation,"gateway.properties","subscriptionPassthrough","false",context,log);
-UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscriptionMode","disabled",context,log);</script>
-	</con:config>
+		<con:config><script>nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "serviceSubscription", "true", log);
+nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "subscriptionPassthrough", "false", log);
+nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "AdapterSubscriptionMode", "disabled", log);</script></con:config>
 </con:testStep>
 <con:testStep name="Clear Subscription Table" type="groovy">
 	<con:settings/>
@@ -3871,7 +3828,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
 				<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
 	</con:settings>
 	<con:encoding>UTF-8</con:encoding>
-	<con:endpoint>${#TestSuite#Endpoint-Subscribe}</con:endpoint>
+	<con:endpoint>${#Project#Endpoint-Subscribe}</con:endpoint>
 	<con:request><![CDATA[
 		<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:wsa="http://www.w3.org/2005/08/addressing" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add1="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soap:Header/>
@@ -4123,7 +4080,7 @@ holder.namespaces["ns5"] = "urn:gov:hhs:fha:nhinc:common:subscriptionb2overridef
 assert holder["//ns4:SubscribeResponse[1]/ns4:SubscriptionReference[1]/ns3:ReferenceParameters[1]/ns5:SubscriptionId[1]"] != null</scriptText>
 		</con:configuration>
 	</con:assertion>
-	<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+	<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 	<con:jmsPropertyConfig/>
 	<con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement/EntityNotificationProducerPortType/SubscribeDocumentRequest" mustUnderstand="NONE" version="200508"/>
 	<con:wsrmConfig version="1.2"/>
@@ -4145,19 +4102,19 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-10-01T23:09:54Z</con:value>
+		<con:value>2012-10-15T18:29:27Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-10-01T23:19:54Z</con:value>
+		<con:value>2012-10-15T18:39:27Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>10/01/2012 23:09:54</con:value>
+		<con:value>10/15/2012 18:29:27</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-31T00:00:00Z</con:value>
+		<con:value>2012-11-14T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -4167,26 +4124,9 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 
 	<con:testStep name="update config" type="groovy">
 		<con:settings/>
-		<con:config>
-			<script>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR']
-
-				void UpdateProperty(String directory, String filename, String propertyKey, String propertyValue,context,log) {
-
-				log.info("begin UpdateProperty; directory='" + directory + "';filename='" + filename + "';key='" + propertyKey + "';value='" + propertyValue + "';");
-				File file = new File(directory,filename);
-				Properties properties = new Properties();
-				FileInputStream frPropFile = new FileInputStream(file);
-				properties.load(frPropFile);
-				properties.setProperty(propertyKey, propertyValue);
-				FileOutputStream fwPropFile = new FileOutputStream(file);
-				properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
-			properties = null;
-			}
-
-			UpdateProperty(destConfigFileLocation,"gateway.properties","serviceSubscription","true",context,log);
-			UpdateProperty(destConfigFileLocation,"gateway.properties","subscriptionPassthrough","false",context,log);
-			UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscriptionMode","disabled",context,log);</script>
-	</con:config>
+		<con:config><script>nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "serviceSubscription", "true", log);
+nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "subscriptionPassthrough", "false", log);
+nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "AdapterSubscriptionMode", "disabled", log);</script></con:config>
 </con:testStep>
 <con:testStep name="Clear Subscription Table" type="groovy">
 	<con:settings/>
@@ -4206,7 +4146,7 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 				<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
 	</con:settings>
 	<con:encoding>UTF-8</con:encoding>
-	<con:endpoint>${#TestSuite#Endpoint-Subscribe}</con:endpoint>
+	<con:endpoint>${#Project#Endpoint-Subscribe}</con:endpoint>
 	<con:request><![CDATA[
 		<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:wsa="http://www.w3.org/2005/08/addressing" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add1="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soap:Header/>
@@ -4445,7 +4385,7 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 
 	<con:assertion name="Not SOAP Fault" type="SOAP Fault Assertion"/>
 	<con:assertion name="SOAP Response" type="SOAP Response"/>
-	<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+	<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 	<con:jmsPropertyConfig/>
 	<con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement/EntityNotificationProducerPortType/SubscribeDocumentRequest" mustUnderstand="NONE" version="200508"/>
 	<con:wsrmConfig version="1.2"/>
@@ -4482,7 +4422,7 @@ testRunner.testCase.testSuite.project.setPropertyValue( "NotifySubscriptionID", 
 				<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
 	</con:settings>
 	<con:encoding>UTF-8</con:encoding>
-	<con:endpoint>${#TestSuite#Endpoint-Notify}</con:endpoint>
+	<con:endpoint>${#Project#Endpoint-Notify}</con:endpoint>
 	<con:request><![CDATA[
 		<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:b="http://docs.oasis-open.org/wsn/b-2" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn4="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:ihe="urn:ihe:iti:xds-b:2007" xmlns:wsa="http://www.w3.org/2005/08/addressing" xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0">
    <soap:Header/>
@@ -4724,7 +4664,7 @@ testRunner.testCase.testSuite.project.setPropertyValue( "NotifySubscriptionID", 
 		<con:configuration/>
 	</con:assertion>
 	<con:assertion type="SOAP Fault Assertion"/>
-	<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+	<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 	<con:jmsPropertyConfig/>
 	<con:wsaConfig mustUnderstand="NONE" version="200508"/>
 	<con:wsrmConfig version="1.2"/>
@@ -4737,19 +4677,19 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-10-01T23:09:54Z</con:value>
+		<con:value>2012-10-15T18:29:34Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-10-01T23:19:54Z</con:value>
+		<con:value>2012-10-15T18:39:34Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>10/01/2012 23:09:54</con:value>
+		<con:value>10/15/2012 18:29:34</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-31T00:00:00Z</con:value>
+		<con:value>2012-11-14T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>NotifySubscriptionID</con:name>
@@ -4763,30 +4703,9 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 
 	<con:testStep name="update config" type="groovy">
 		<con:settings/>
-		<con:config>
-			<script>//def destConfigFileLocation = context.findProperty("NHINGatewayConfigDir");
-
-
-				def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR']
-
-				void UpdateProperty(String directory, String filename, String propertyKey, String propertyValue,context,log) {
-
-				log.info("begin UpdateProperty; directory='" + directory + "';filename='" + filename + "';key='" + propertyKey + "';value='" + propertyValue + "';");
-				File file = new File(directory,filename);
-				Properties properties = new Properties();
-				FileInputStream frPropFile = new FileInputStream(file);
-				properties.load(frPropFile);
-				properties.setProperty(propertyKey, propertyValue);
-				FileOutputStream fwPropFile = new FileOutputStream(file);
-				fwPropFile = new FileOutputStream(file);
-				properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
-			properties = null;
-			}
-
-			UpdateProperty(destConfigFileLocation,"gateway.properties","serviceSubscription","true",context,log);
-			UpdateProperty(destConfigFileLocation,"gateway.properties","subscriptionPassthrough","false",context,log);
-			UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscriptionMode","disabled",context,log);</script>
-	</con:config>
+		<con:config><script>nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "serviceSubscription", "true", log);
+nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "subscriptionPassthrough", "false", log);
+nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "AdapterSubscriptionMode", "disabled", log);</script></con:config>
 </con:testStep>
 <con:testStep name="Clear Subscription Table" type="groovy">
 	<con:settings/>
@@ -4809,7 +4728,7 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 				<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
 	</con:settings>
 	<con:encoding>UTF-8</con:encoding>
-	<con:endpoint>${#TestSuite#Endpoint-Subscribe}</con:endpoint>
+	<con:endpoint>${#Project#Endpoint-Subscribe}</con:endpoint>
 	<con:request><![CDATA[
 		<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:wsa="http://www.w3.org/2005/08/addressing" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add1="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soap:Header/>
@@ -5046,7 +4965,7 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 </soap:Envelope>]]></con:request>
 	<con:assertion type="SOAP Response"/>
 	<con:assertion type="SOAP Fault Assertion"/>
-	<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+	<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 	<con:jmsPropertyConfig/>
 	<con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement/EntityNotificationProducerPortType/SubscribeDocumentRequest" mustUnderstand="NONE" version="200508"/>
 	<con:wsrmConfig version="1.2"/>
@@ -5087,7 +5006,7 @@ testRunner.testCase.testSuite.project.setPropertyValue( "UnSubscriptionID", subI
 				<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
 	</con:settings>
 	<con:encoding>UTF-8</con:encoding>
-	<con:endpoint>${#TestSuite#Endpoint-Unsubscribe}</con:endpoint>
+	<con:endpoint>${#Project#Endpoint-Unsubscribe}</con:endpoint>
 	<con:request><![CDATA[
 		<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:nhin="http://www.hhs.gov/healthit/nhin" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:subscription" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soap:Header>
@@ -5325,7 +5244,7 @@ testRunner.testCase.testSuite.project.setPropertyValue( "UnSubscriptionID", subI
 			<useRegEx>false</useRegEx>
 		</con:configuration>
 	</con:assertion>
-	<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+	<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 	<con:jmsPropertyConfig/>
 	<con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement/EntitySubscriptionManagerPortType/UnsubscribeRequest" mustUnderstand="NONE" version="200508"/>
 	<con:wsrmConfig version="1.2"/>
@@ -5346,19 +5265,19 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-09-27T22:57:12Z</con:value>
+		<con:value>2012-10-15T18:29:43Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-09-27T23:07:12Z</con:value>
+		<con:value>2012-10-15T18:39:43Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/27/2012 22:57:12</con:value>
+		<con:value>10/15/2012 18:29:43</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-27T00:00:00Z</con:value>
+		<con:value>2012-11-14T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -5375,7 +5294,7 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 					<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
-		<con:endpoint>${#TestSuite#Endpoint-EntityAdminDist}</con:endpoint>
+		<con:endpoint>${#Project#Endpoint-EntityAdminDist}</con:endpoint>
 		<con:request><![CDATA[
 			<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:urn2="urn:oasis:names:tc:emergency:EDXL:DE:1.0">
    <soap:Header/>
@@ -5709,7 +5628,7 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
       </urn:RespondingGateway_SendAlertMessage>
    </soap:Body>
 </soap:Envelope>]]></con:request>
-		<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
 		<con:wsaConfig mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
@@ -5728,19 +5647,19 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-10-01T23:09:55Z</con:value>
+		<con:value>2012-10-15T18:29:50Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-10-01T23:19:55Z</con:value>
+		<con:value>2012-10-15T18:39:50Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>10/01/2012 23:09:55</con:value>
+		<con:value>10/15/2012 18:29:50</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-31T00:00:00Z</con:value>
+		<con:value>2012-11-14T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 </con:testCase>
@@ -5813,7 +5732,7 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 						<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
 			</con:settings>
 			<con:encoding>UTF-8</con:encoding>
-			<con:endpoint>${#TestSuite#Endpoint-EntityXDRRequest}</con:endpoint>
+			<con:endpoint>${#Project#Endpoint-EntityXDRRequest}</con:endpoint>
 			<con:request><![CDATA[
 				<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
    <soap:Header/>
@@ -6274,7 +6193,7 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 			<con:assertion type="Schema Compliance">
 				<con:configuration/>
 			</con:assertion>
-			<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+			<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 			<con:jmsPropertyConfig/>
 			<con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhincentityxdr:async:request:ProvideAndRegisterDocumentSet-bAsyncRequest_RequestMessage" generateMessageId="true" mustUnderstand="NONE" version="200508"/>
 			<con:wsrmConfig version="1.2"/>
@@ -6287,19 +6206,19 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-10-11T17:25:48Z</con:value>
+		<con:value>2012-10-15T18:32:43Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-10-11T17:35:48Z</con:value>
+		<con:value>2012-10-15T18:42:43Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>10/11/2012 17:25:48</con:value>
+		<con:value>10/15/2012 18:32:43</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-11-10T00:00:00Z</con:value>
+		<con:value>2012-11-14T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -6316,7 +6235,7 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 					<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
-		<con:endpoint>${#TestSuite#Endpoint-DSDeferredResp}</con:endpoint>
+		<con:endpoint>${#Project#Endpoint-DSDeferredResp}</con:endpoint>
 		<con:request><![CDATA[
 			<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0">
    <soap:Header/>
@@ -6639,7 +6558,7 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 				<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
 			</con:configuration>
 		</con:assertion>
-		<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
 		<con:wsaConfig mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
@@ -6652,19 +6571,19 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-10-01T23:10:12Z</con:value>
+		<con:value>2012-10-15T18:32:49Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-10-01T23:20:12Z</con:value>
+		<con:value>2012-10-15T18:42:49Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>10/01/2012 23:10:12</con:value>
+		<con:value>10/15/2012 18:32:49</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-31T00:00:00Z</con:value>
+		<con:value>2012-11-14T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 </con:testCase>
@@ -6680,9 +6599,8 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 					<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
-		<con:endpoint>${#TestSuite#Endpoint-XDREntity}</con:endpoint>
-		<con:request><![CDATA[
-			<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
+		<con:endpoint>${#Project#Endpoint-XDREntity}</con:endpoint>
+		<con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
    <soap:Header/>
    <soap:Body testSuite="Entity_g0" testCase="Document Submission">
       <urn:RespondingGateway_ProvideAndRegisterDocumentSetRequest>
@@ -7138,7 +7056,7 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 				<definition/>
 			</con:configuration>
 		</con:assertion>
-		<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
 		<con:wsaConfig action="{urn:gov:hhs:fha:nhinc:nhincentityxdr}ProvideAndRegisterDocumentSet-b" mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
@@ -7151,19 +7069,19 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-10-01T23:10:12Z</con:value>
+		<con:value>2012-10-15T18:32:59Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-10-01T23:20:12Z</con:value>
+		<con:value>2012-10-15T18:42:59Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>10/01/2012 23:10:12</con:value>
+		<con:value>10/15/2012 18:32:59</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-31T00:00:00Z</con:value>
+		<con:value>2012-11-14T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -7184,7 +7102,7 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 					<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
-		<con:endpoint>${#TestSuite#Endpoint-PatientDiscoveryAsyncReq}</con:endpoint>
+		<con:endpoint>${#Project#Endpoint-PatientDiscoveryAsyncReq}</con:endpoint>
 		<con:request><![CDATA[
 			<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
    <soap:Header/>
@@ -7480,7 +7398,7 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 				<definition/>
 			</con:configuration>
 		</con:assertion>
-		<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
 		<con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitypatientdiscoveryasyncreq:ProcessPatientDiscoveryAsyncReqAsyncRequest" addDefaultTo="true" messageID="uuid:6666666666.66666.666.66" mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
@@ -7490,289 +7408,7 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
 <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript>
-<con:properties>
-	<con:property>
-		<con:name>LocalHCID</con:name>
-		<con:value>1.1</con:value>
-	</con:property>
-	<con:property>
-		<con:name>LocalAA</con:name>
-		<con:value>1.1</con:value>
-	</con:property>
-	<con:property>
-		<con:name>LocalHCDescription</con:name>
-		<con:value>InternalTest1</con:value>
-	</con:property>
-	<con:property>
-		<con:name>LocalPatientID</con:name>
-		<con:value>D123401</con:value>
-	</con:property>
-	<con:property>
-		<con:name>RemoteHCID</con:name>
-		<con:value>2.2</con:value>
-	</con:property>
-	<con:property>
-		<con:name>RemoteAA</con:name>
-		<con:value>2.2</con:value>
-	</con:property>
-	<con:property>
-		<con:name>RemoteHCDescription</con:name>
-		<con:value>InternalTest2</con:value>
-	</con:property>
-	<con:property>
-		<con:name>RemotePatientID</con:name>
-		<con:value>D123401</con:value>
-	</con:property>
-	<con:property>
-		<con:name>NHINGatewayConfigDir</con:name>
-		<con:value>C:/Sun/AppServer/domains/domain1/config/nhin</con:value>
-	</con:property>
-	<con:property>
-		<con:name>MPIDir</con:name>
-		<con:value>C:/Sun/AppServer/domains/domain1/config</con:value>
-	</con:property>
-	<con:property>
-		<con:name>LocalConfigDir</con:name>
-		<con:value>C:/SelfTest/EndToEndSelfTest</con:value>
-	</con:property>
-	<con:property>
-		<con:name>Endpoint-DocQuery</con:name>
-		<con:value>http://localhost:8080/CONNECTGateway/EntityService/EntityDocQueryUnsecured</con:value>
-	</con:property>
-	<con:property>
-		<con:name>Endpoint-DocRetrieve</con:name>
-		<con:value>http://localhost:8080/CONNECTAdapter/EntityDocRetrieve</con:value>
-	</con:property>
-	<con:property>
-		<con:name>Endpoint-Reidentification</con:name>
-		<con:value>http://localhost:8080/CONNECTAdapter/EntitySubjectDiscovery</con:value>
-	</con:property>
-	<con:property>
-		<con:name>Endpoint-Subscribe</con:name>
-		<con:value>http://localhost:8080/CONNECTAdapter/EntityNotificationProducer</con:value>
-	</con:property>
-	<con:property>
-		<con:name>Endpoint-Notify</con:name>
-		<con:value>http://localhost:8080/CONNECTAdapter/EntityNotificationConsumer</con:value>
-	</con:property>
-	<con:property>
-		<con:name>Endpoint-Unsubscribe</con:name>
-		<con:value>http://localhost:8080/CONNECTAdapter/EntitySubscriptionManager</con:value>
-	</con:property>
-	<con:property>
-		<con:name>Endpoint-AuditLogQuery</con:name>
-		<con:value>http://localhost:8080/CONNECTAdapter/EntityAuditQuery</con:value>
-	</con:property>
-	<con:property>
-		<con:name>Endpoint-PatientDiscoveryAsyncReq</con:name>
-		<con:value>http://localhost:8080/CONNECTGateway/EntityService/EntityPatientDiscoveryDeferredRequestUnsecured</con:value>
-	</con:property>
-	<con:property>
-		<con:name>DBHost</con:name>
-		<con:value>localhost</con:value>
-	</con:property>
-	<con:property>
-		<con:name>DBPort</con:name>
-		<con:value>3306</con:value>
-	</con:property>
-	<con:property>
-		<con:name>DBUser</con:name>
-		<con:value>nhincuser</con:value>
-	</con:property>
-	<con:property>
-		<con:name>DBPass</con:name>
-		<con:value>nhincpass</con:value>
-	</con:property>
-	<con:property>
-		<con:name>PatientCorrelationDB</con:name>
-		<con:value>patientcorrelationdb</con:value>
-	</con:property>
-	<con:property>
-		<con:name>PatientCorrelationTable</con:name>
-		<con:value>correlatedidentifiers</con:value>
-	</con:property>
-	<con:property>
-		<con:name>SubscriptionDB</con:name>
-		<con:value>subscriptionrepository</con:value>
-	</con:property>
-	<con:property>
-		<con:name>SubscriptionTable</con:name>
-		<con:value>subscription</con:value>
-	</con:property>
-	<con:property>
-		<con:name>AAMappingDB</con:name>
-		<con:value>assigningauthoritydb</con:value>
-	</con:property>
-	<con:property>
-		<con:name>AAMappingTable</con:name>
-		<con:value>aa_to_home_community_mapping</con:value>
-	</con:property>
-	<con:property>
-		<con:name>PseudonymAA</con:name>
-		<con:value>ABC</con:value>
-	</con:property>
-	<con:property>
-		<con:name>PseudonymPatientID</con:name>
-		<con:value>PSEUDO001</con:value>
-	</con:property>
-	<con:property>
-		<con:name>RealAA</con:name>
-		<con:value>1.1.1</con:value>
-	</con:property>
-	<con:property>
-		<con:name>RealPatientID</con:name>
-		<con:value>D1234010050</con:value>
-	</con:property>
-	<con:property>
-		<con:name>DQDocID</con:name>
-		<con:value>1.123401.11111</con:value>
-	</con:property>
-	<con:property>
-		<con:name>DQPatientID</con:name>
-		<con:value>D123401</con:value>
-	</con:property>
-	<con:property>
-		<con:name>DynamicDQDocID</con:name>
-		<con:value>103.8.9284320.020.3590.75^1266324032288</con:value>
-	</con:property>
-	<con:property>
-		<con:name>DRDocID</con:name>
-		<con:value>1.123407.777777</con:value>
-	</con:property>
-	<con:property>
-		<con:name>DRRepoID</con:name>
-		<con:value>1</con:value>
-	</con:property>
-	<con:property>
-		<con:name>NotificationEndpoint</con:name>
-		<con:value>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/NotificationConsumerService/HiemNotify</con:value>
-	</con:property>
-	<con:property>
-		<con:name>SubscriptionEndpoint</con:name>
-		<con:value>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/NotificationProducerService/HiemSubscription</con:value>
-	</con:property>
-	<con:property>
-		<con:name>SubscribePatientID</con:name>
-		<con:value>D123401</con:value>
-	</con:property>
-	<con:property>
-		<con:name>NotifySubscriptionID</con:name>
-		<con:value>-f7c1a5d:1204e50e42e:-79eb</con:value>
-	</con:property>
-	<con:property>
-		<con:name>NotifySubscriptionManagerEndpointAddress</con:name>
-		<con:value>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/SubscriptionManagerService/HiemUnsubscribe</con:value>
-	</con:property>
-	<con:property>
-		<con:name>UnSubscriptionID</con:name>
-		<con:value>3e74139f-5271-4db1-98c0-88748fa3e4e3</con:value>
-	</con:property>
-	<con:property>
-		<con:name>SubscriptionManagerEndpointAddress</con:name>
-		<con:value>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/SubscriptionManagerService/HiemUnsubscribe</con:value>
-	</con:property>
-	<con:property>
-		<con:name>AQUserID</con:name>
-		<con:value>kskagerb</con:value>
-	</con:property>
-	<con:property>
-		<con:name>AQPatientID</con:name>
-		<con:value>D123401</con:value>
-	</con:property>
-	<con:property>
-		<con:name>Endpoint-EntityXDRRequest</con:name>
-		<con:value>http://localhost:8080/CONNECTAdapter/EntityProxyService/EntityXDRRequest</con:value>
-	</con:property>
-	<con:property>
-		<con:name>AsyncMsgDB</con:name>
-		<con:value>asyncmsgs</con:value>
-	</con:property>
-	<con:property>
-		<con:name>AsyncMsgTable</con:name>
-		<con:value>asyncmsgrepo</con:value>
-	</con:property>
-	<con:property>
-		<con:name>Gender</con:name>
-		<con:value>M</con:value>
-	</con:property>
-	<con:property>
-		<con:name>BirthTime</con:name>
-		<con:value>19630804</con:value>
-	</con:property>
-	<con:property>
-		<con:name>FamilyName</con:name>
-		<con:value>Younger</con:value>
-	</con:property>
-	<con:property>
-		<con:name>GivenName</con:name>
-		<con:value>Gallow</con:value>
-	</con:property>
-	<con:property>
-		<con:name>SubjectID</con:name>
-		<con:value>1111</con:value>
-	</con:property>
-	<con:property>
-		<con:name>UniquePatientId</con:name>
-		<con:value>1111^^^&amp;amp;1.1&amp;amp;ISO</con:value>
-	</con:property>
-	<con:property>
-		<con:name>StreetAddress</con:name>
-		<con:value>123 Johnson Rd</con:value>
-	</con:property>
-	<con:property>
-		<con:name>City</con:name>
-		<con:value>Melbourne</con:value>
-	</con:property>
-	<con:property>
-		<con:name>State</con:name>
-		<con:value>FL</con:value>
-	</con:property>
-	<con:property>
-		<con:name>ZipCode</con:name>
-		<con:value>12345</con:value>
-	</con:property>
-	<con:property>
-		<con:name>Country</con:name>
-		<con:value>US</con:value>
-	</con:property>
-	<con:property>
-		<con:name>SSN</con:name>
-		<con:value>123456789</con:value>
-	</con:property>
-	<con:property>
-		<con:name>PurposeOfDisclosure</con:name>
-		<con:value>Mental</con:value>
-	</con:property>
-	<con:property>
-		<con:name>ExpirationDate</con:name>
-		<con:value>20100520</con:value>
-	</con:property>
-	<con:property>
-		<con:name>DOB</con:name>
-		<con:value>19800516</con:value>
-	</con:property>
-	<con:property>
-		<con:name>DateOfSignature</con:name>
-		<con:value>20080520</con:value>
-	</con:property>
-	<con:property>
-		<con:name>startDate</con:name>
-		<con:value>2012-09-27T22:57:32Z</con:value>
-	</con:property>
-	<con:property>
-		<con:name>endDate</con:name>
-		<con:value>2012-09-27T23:07:32Z</con:value>
-	</con:property>
-	<con:property>
-		<con:name>sigDate</con:name>
-		<con:value>09/27/2012 22:57:32</con:value>
-	</con:property>
-	<con:property>
-		<con:name>expireDate</con:name>
-		<con:value>2012-10-27T00:00:00Z</con:value>
-	</con:property>
-</con:properties>
-<con:reportParameters/>
+<con:properties/><con:reportParameters/>
 </con:testCase>
 
 <con:testCase failOnError="true" failTestCaseOnErrors="true" id="a873f53b-f81b-4529-b866-ccad8f7a0e4a" keepSession="false" maxResults="0" name="Patient Discovery Deferred Resp" searchProperties="true">
@@ -7787,7 +7423,7 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 					<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
-		<con:endpoint>${#TestSuite#Endpoint-PatientDiscoveryAsyncResp}</con:endpoint>
+		<con:endpoint>${#Project#Endpoint-PatientDiscoveryAsyncResp}</con:endpoint>
 		<con:request><![CDATA[
 			<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
    <soap:Header xmlns:add="SoapUI_Test/ValidationSuite/2-EndToEndSelfTest-soapui-project.xml">
@@ -8110,7 +7746,7 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 				<definition/>
 			</con:configuration>
 		</con:assertion>
-		<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
 		<con:wsaConfig mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
@@ -8120,293 +7756,7 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
 <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript>
-<con:properties>
-	<con:property>
-		<con:name>LocalHCID</con:name>
-		<con:value>1.1</con:value>
-	</con:property>
-	<con:property>
-		<con:name>LocalAA</con:name>
-		<con:value>1.1</con:value>
-	</con:property>
-	<con:property>
-		<con:name>LocalHCDescription</con:name>
-		<con:value>InternalTest1</con:value>
-	</con:property>
-	<con:property>
-		<con:name>LocalPatientID</con:name>
-		<con:value>D123401</con:value>
-	</con:property>
-	<con:property>
-		<con:name>RemoteHCID</con:name>
-		<con:value>2.2</con:value>
-	</con:property>
-	<con:property>
-		<con:name>RemoteAA</con:name>
-		<con:value>2.2</con:value>
-	</con:property>
-	<con:property>
-		<con:name>RemoteHCDescription</con:name>
-		<con:value>InternalTest2</con:value>
-	</con:property>
-	<con:property>
-		<con:name>RemotePatientID</con:name>
-		<con:value>D123401</con:value>
-	</con:property>
-	<con:property>
-		<con:name>NHINGatewayConfigDir</con:name>
-		<con:value>C:/Sun/AppServer/domains/domain1/config/nhin</con:value>
-	</con:property>
-	<con:property>
-		<con:name>MPIDir</con:name>
-		<con:value>C:/Sun/AppServer/domains/domain1/config</con:value>
-	</con:property>
-	<con:property>
-		<con:name>LocalConfigDir</con:name>
-		<con:value>C:/SelfTest/EndToEndSelfTest</con:value>
-	</con:property>
-	<con:property>
-		<con:name>Endpoint-DocQuery</con:name>
-		<con:value>http://localhost:8080/CONNECTGateway/EntityService/EntityDocQueryUnsecured</con:value>
-	</con:property>
-	<con:property>
-		<con:name>Endpoint-DocRetrieve</con:name>
-		<con:value>http://localhost:8080/CONNECTAdapter/EntityDocRetrieve</con:value>
-	</con:property>
-	<con:property>
-		<con:name>Endpoint-Reidentification</con:name>
-		<con:value>http://localhost:8080/CONNECTAdapter/EntitySubjectDiscovery</con:value>
-	</con:property>
-	<con:property>
-		<con:name>Endpoint-Subscribe</con:name>
-		<con:value>http://localhost:8080/CONNECTAdapter/EntityNotificationProducer</con:value>
-	</con:property>
-	<con:property>
-		<con:name>Endpoint-Notify</con:name>
-		<con:value>http://localhost:8080/CONNECTAdapter/EntityNotificationConsumer</con:value>
-	</con:property>
-	<con:property>
-		<con:name>Endpoint-Unsubscribe</con:name>
-		<con:value>http://localhost:8080/CONNECTAdapter/EntitySubscriptionManager</con:value>
-	</con:property>
-	<con:property>
-		<con:name>Endpoint-AuditLogQuery</con:name>
-		<con:value>http://localhost:8080/CONNECTAdapter/EntityAuditQuery</con:value>
-	</con:property>
-	<con:property>
-		<con:name>Endpoint-PatientDiscoveryAsyncReq</con:name>
-		<con:value>http://localhost:8080/CONNECTGateway/EntityService/EntityPatientDiscoveryDeferredRequestUnsecured</con:value>
-	</con:property>
-	<con:property>
-		<con:name>Endpoint-PatientDiscoveryAsyncResp</con:name>
-		<con:value>http://localhost:8080/CONNECTGateway/EntityService/EntityPatientDiscoveryDeferredResponseUnsecured</con:value>
-	</con:property>
-	<con:property>
-		<con:name>DBHost</con:name>
-		<con:value>localhost</con:value>
-	</con:property>
-	<con:property>
-		<con:name>DBPort</con:name>
-		<con:value>3306</con:value>
-	</con:property>
-	<con:property>
-		<con:name>DBUser</con:name>
-		<con:value>nhincuser</con:value>
-	</con:property>
-	<con:property>
-		<con:name>DBPass</con:name>
-		<con:value>nhincpass</con:value>
-	</con:property>
-	<con:property>
-		<con:name>PatientCorrelationDB</con:name>
-		<con:value>patientcorrelationdb</con:value>
-	</con:property>
-	<con:property>
-		<con:name>PatientCorrelationTable</con:name>
-		<con:value>correlatedidentifiers</con:value>
-	</con:property>
-	<con:property>
-		<con:name>SubscriptionDB</con:name>
-		<con:value>subscriptionrepository</con:value>
-	</con:property>
-	<con:property>
-		<con:name>SubscriptionTable</con:name>
-		<con:value>subscription</con:value>
-	</con:property>
-	<con:property>
-		<con:name>AAMappingDB</con:name>
-		<con:value>assigningauthoritydb</con:value>
-	</con:property>
-	<con:property>
-		<con:name>AAMappingTable</con:name>
-		<con:value>aa_to_home_community_mapping</con:value>
-	</con:property>
-	<con:property>
-		<con:name>AsyncMsgDB</con:name>
-		<con:value>asyncmsgs</con:value>
-	</con:property>
-	<con:property>
-		<con:name>AsyncMsgTable</con:name>
-		<con:value>asyncmsgrepo</con:value>
-	</con:property>
-	<con:property>
-		<con:name>PseudonymAA</con:name>
-		<con:value>ABC</con:value>
-	</con:property>
-	<con:property>
-		<con:name>PseudonymPatientID</con:name>
-		<con:value>PSEUDO001</con:value>
-	</con:property>
-	<con:property>
-		<con:name>RealAA</con:name>
-		<con:value>1.1.1</con:value>
-	</con:property>
-	<con:property>
-		<con:name>RealPatientID</con:name>
-		<con:value>D1234010050</con:value>
-	</con:property>
-	<con:property>
-		<con:name>DQDocID</con:name>
-		<con:value>1.123401.11111</con:value>
-	</con:property>
-	<con:property>
-		<con:name>DQPatientID</con:name>
-		<con:value>D123401</con:value>
-	</con:property>
-	<con:property>
-		<con:name>DynamicDQDocID</con:name>
-		<con:value>103.8.9284320.020.3590.75^1266324032288</con:value>
-	</con:property>
-	<con:property>
-		<con:name>DRDocID</con:name>
-		<con:value>1.123407.777777</con:value>
-	</con:property>
-	<con:property>
-		<con:name>DRRepoID</con:name>
-		<con:value>1</con:value>
-	</con:property>
-	<con:property>
-		<con:name>NotificationEndpoint</con:name>
-		<con:value>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/NotificationConsumerService/HiemNotify</con:value>
-	</con:property>
-	<con:property>
-		<con:name>SubscriptionEndpoint</con:name>
-		<con:value>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/NotificationProducerService/HiemSubscription</con:value>
-	</con:property>
-	<con:property>
-		<con:name>SubscribePatientID</con:name>
-		<con:value>D123401</con:value>
-	</con:property>
-	<con:property>
-		<con:name>NotifySubscriptionID</con:name>
-		<con:value>-f7c1a5d:1204e50e42e:-79eb</con:value>
-	</con:property>
-	<con:property>
-		<con:name>NotifySubscriptionManagerEndpointAddress</con:name>
-		<con:value>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/SubscriptionManagerService/HiemUnsubscribe</con:value>
-	</con:property>
-	<con:property>
-		<con:name>UnSubscriptionID</con:name>
-		<con:value>3e74139f-5271-4db1-98c0-88748fa3e4e3</con:value>
-	</con:property>
-	<con:property>
-		<con:name>SubscriptionManagerEndpointAddress</con:name>
-		<con:value>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/SubscriptionManagerService/HiemUnsubscribe</con:value>
-	</con:property>
-	<con:property>
-		<con:name>AQUserID</con:name>
-		<con:value>kskagerb</con:value>
-	</con:property>
-	<con:property>
-		<con:name>AQPatientID</con:name>
-		<con:value>D123401</con:value>
-	</con:property>
-	<con:property>
-		<con:name>Endpoint-EntityXDRRequest</con:name>
-		<con:value>http://localhost:8080/CONNECTAdapter/EntityProxyService/EntityXDRRequest</con:value>
-	</con:property>
-	<con:property>
-		<con:name>Gender</con:name>
-		<con:value>M</con:value>
-	</con:property>
-	<con:property>
-		<con:name>BirthTime</con:name>
-		<con:value>19630804</con:value>
-	</con:property>
-	<con:property>
-		<con:name>FamilyName</con:name>
-		<con:value>Younger</con:value>
-	</con:property>
-	<con:property>
-		<con:name>GivenName</con:name>
-		<con:value>Gallow</con:value>
-	</con:property>
-	<con:property>
-		<con:name>SubjectID</con:name>
-		<con:value>1111</con:value>
-	</con:property>
-	<con:property>
-		<con:name>UniquePatientId</con:name>
-		<con:value>1111^^^&amp;amp;1.1&amp;amp;ISO</con:value>
-	</con:property>
-	<con:property>
-		<con:name>StreetAddress</con:name>
-		<con:value>123 Johnson Rd</con:value>
-	</con:property>
-	<con:property>
-		<con:name>City</con:name>
-		<con:value>Melbourne</con:value>
-	</con:property>
-	<con:property>
-		<con:name>State</con:name>
-		<con:value>FL</con:value>
-	</con:property>
-	<con:property>
-		<con:name>ZipCode</con:name>
-		<con:value>12345</con:value>
-	</con:property>
-	<con:property>
-		<con:name>Country</con:name>
-		<con:value>US</con:value>
-	</con:property>
-	<con:property>
-		<con:name>SSN</con:name>
-		<con:value>123456789</con:value>
-	</con:property>
-	<con:property>
-		<con:name>PurposeOfDisclosure</con:name>
-		<con:value>Mental</con:value>
-	</con:property>
-	<con:property>
-		<con:name>ExpirationDate</con:name>
-		<con:value>20100520</con:value>
-	</con:property>
-	<con:property>
-		<con:name>DOB</con:name>
-		<con:value>19800516</con:value>
-	</con:property>
-	<con:property>
-		<con:name>DateOfSignature</con:name>
-		<con:value>20080520>>>>>>> .r3844</con:value>
-</con:property>
-<con:property>
-	<con:name>startDate</con:name>
-	<con:value>2012-09-27T22:57:33Z</con:value>
-</con:property>
-<con:property>
-	<con:name>endDate</con:name>
-	<con:value>2012-09-27T23:07:33Z</con:value>
-</con:property>
-<con:property>
-	<con:name>sigDate</con:name>
-	<con:value>09/27/2012 22:57:33</con:value>
-</con:property>
-<con:property>
-	<con:name>expireDate</con:name>
-	<con:value>2012-10-27T00:00:00Z</con:value>
-</con:property>
-</con:properties>
-<con:reportParameters/>
+<con:properties/><con:reportParameters/>
 </con:testCase>
 <con:testCase failOnError="true" failTestCaseOnErrors="true" id="db617e16-46c1-4f66-9e29-bac17e0a5a44" keepSession="false" maxResults="0" name="Patient Discovery" searchProperties="true">
 	<con:settings/>
@@ -8428,7 +7778,7 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 				<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
 	</con:settings>
 	<con:encoding>UTF-8</con:encoding>
-	<con:endpoint>${#TestSuite#Endpoint-PatientDiscovery}</con:endpoint>
+	<con:endpoint>${#Project#Endpoint-PatientDiscovery}</con:endpoint>
 	<con:request><![CDATA[
 		<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soap:Header/>
@@ -8705,7 +8055,7 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 			<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
 		</con:configuration>
 	</con:assertion>
-	<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+	<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 	<con:jmsPropertyConfig/>
 	<con:wsaConfig mustUnderstand="NONE" version="200508"/>
 	<con:wsrmConfig version="1.2"/>
@@ -8723,48 +8073,14 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
 <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript>
-<con:properties>
-	<con:property>
-		<con:name>startDate</con:name>
-		<con:value>2012-09-27T22:57:34Z</con:value>
-	</con:property>
-	<con:property>
-		<con:name>endDate</con:name>
-		<con:value>2012-09-27T23:07:34Z</con:value>
-	</con:property>
-	<con:property>
-		<con:name>sigDate</con:name>
-		<con:value>09/27/2012 22:57:34</con:value>
-	</con:property>
-	<con:property>
-		<con:name>expireDate</con:name>
-		<con:value>2012-10-27T00:00:00Z</con:value>
-	</con:property>
-</con:properties>
-<con:reportParameters/>
+<con:properties/><con:reportParameters/>
 </con:testCase>
 <con:testCase failOnError="true" failTestCaseOnErrors="true" id="a9707ab4-3b2c-484c-a302-24ab8377c2a4" keepSession="false" maxResults="0" name="Document Query" searchProperties="true">
 	<con:settings/>
 
 	<con:testStep name="update config" type="groovy">
 		<con:settings/>
-		<con:config>
-			<script>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR']
-
-void UpdateProperty(String directory, String filename, String propertyKey, String propertyValue,context,log) {
-	log.info("begin UpdateProperty; directory='" + directory + "';filename='" + filename + "';key='" + propertyKey + "';value='" + propertyValue + "';");
-	File file = new File(directory,filename);
-	Properties properties = new Properties();
-	FileInputStream frPropFile = new FileInputStream(file);
-	properties.load(frPropFile);
-	properties.setProperty(propertyKey, propertyValue);
-	FileOutputStream fwPropFile = new FileOutputStream(file);
-	properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
-	properties = null;
-}
-
-UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySelf","false",context,log);</script>
-	</con:config>
+		<con:config><script>nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "documentQueryQuerySelf", "false", log);</script></con:config>
 </con:testStep>
 <con:testStep name="Clear Correlation Table &amp; Add Correlation" type="groovy">
 	<con:settings/>
@@ -8810,7 +8126,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySe
 				<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
 	</con:settings>
 	<con:encoding>UTF-8</con:encoding>
-	<con:endpoint>${#TestSuite#Endpoint-DocQuery}</con:endpoint>
+	<con:endpoint>${#Project#Endpoint-DocQuery}</con:endpoint>
 	<con:request><![CDATA[
 		<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn3="urn:gov:hhs:fha:nhinc:common:nhinccommon">
    <soap:Header/>
@@ -9079,7 +8395,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySe
 				assert (documentID == msgDocID)</scriptText>
 		</con:configuration>
 	</con:assertion>
-	<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+	<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 	<con:jmsPropertyConfig/>
 	<con:wsaConfig mustUnderstand="NONE" version="200508"/>
 	<con:wsrmConfig version="1.2"/>
@@ -9091,22 +8407,6 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySe
 nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
 <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript>
 <con:properties>
-	<con:property>
-		<con:name>startDate</con:name>
-		<con:value>2012-10-01T23:10:13Z</con:value>
-	</con:property>
-	<con:property>
-		<con:name>endDate</con:name>
-		<con:value>2012-10-01T23:20:13Z</con:value>
-	</con:property>
-	<con:property>
-		<con:name>sigDate</con:name>
-		<con:value>10/01/2012 23:10:13</con:value>
-	</con:property>
-	<con:property>
-		<con:name>expireDate</con:name>
-		<con:value>2012-10-31T00:00:00Z</con:value>
-	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
 		<con:value>'D123401^^^&amp;amp;1.1&amp;amp;ISO'</con:value>
@@ -9127,7 +8427,7 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 					<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
-		<con:endpoint>${#TestSuite#Endpoint-DocRetrieve}</con:endpoint>
+		<con:endpoint>${#Project#Endpoint-DocRetrieve}</con:endpoint>
 		<con:request><![CDATA[
 			<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:ihe:iti:xds-b:2007" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon">
    <soap:Header/>
@@ -9396,7 +8696,7 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 					assert (docData.size() != 0)</scriptText>
 			</con:configuration>
 		</con:assertion>
-		<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
 		<con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitydocretrieve/EntityDocRetrievePortType/RespondingGateway_CrossGatewayRetrieveRequest" mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
@@ -9413,19 +8713,19 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 	</con:property>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-10-01T23:10:13Z</con:value>
+		<con:value>2012-10-15T18:33:30Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-10-01T23:20:13Z</con:value>
+		<con:value>2012-10-15T18:43:30Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>10/01/2012 23:10:13</con:value>
+		<con:value>10/15/2012 18:33:30</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-31T00:00:00Z</con:value>
+		<con:value>2012-11-14T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -9437,25 +8737,9 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 
 	<con:testStep name="update config" type="groovy">
 		<con:settings/>
-		<con:config>
-			<script>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR']
-
-void UpdateProperty(String directory, String filename, String propertyKey, String propertyValue,context,log) {
-	log.info("begin UpdateProperty; directory='" + directory + "';filename='" + filename + "';key='" + propertyKey + "';value='" + propertyValue + "';");
-	File file = new File(directory,filename);
-	Properties properties = new Properties();
-	FileInputStream frPropFile = new FileInputStream(file);
-	properties.load(frPropFile);
-	properties.setProperty(propertyKey, propertyValue);
-	FileOutputStream fwPropFile = new FileOutputStream(file);
-	properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
-properties = null;
-}
-
-UpdateProperty(destConfigFileLocation,"gateway.properties","serviceSubscription","true",context,log);
-UpdateProperty(destConfigFileLocation,"gateway.properties","subscriptionPassthrough","false",context,log);
-UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscriptionMode","disabled",context,log);</script>
-	</con:config>
+		<con:config><script>nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "serviceSubscription", "true", log);
+nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "subscriptionPassthrough", "false", log);
+nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "AdapterSubscriptionMode", "disabled", log);</script></con:config>
 </con:testStep>
 <con:testStep name="Clear Subscription Table" type="groovy">
 	<con:settings/>
@@ -9475,7 +8759,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
 				<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
 	</con:settings>
 	<con:encoding>UTF-8</con:encoding>
-	<con:endpoint>${#TestSuite#Endpoint-Subscribe}</con:endpoint>
+	<con:endpoint>${#Project#Endpoint-Subscribe}</con:endpoint>
 	<con:request><![CDATA[
 		<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:wsa="http://www.w3.org/2005/08/addressing" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add1="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soap:Header/>
@@ -9727,7 +9011,7 @@ holder.namespaces["ns5"] = "urn:gov:hhs:fha:nhinc:common:subscriptionb2overridef
 assert holder["//ns4:SubscribeResponse[1]/ns4:SubscriptionReference[1]/ns3:ReferenceParameters[1]/ns5:SubscriptionId[1]"] != null</scriptText>
 		</con:configuration>
 	</con:assertion>
-	<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+	<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 	<con:jmsPropertyConfig/>
 	<con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement/EntityNotificationProducerPortType/SubscribeDocumentRequest" mustUnderstand="NONE" version="200508"/>
 	<con:wsrmConfig version="1.2"/>
@@ -9749,19 +9033,19 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-10-01T23:10:14Z</con:value>
+		<con:value>2012-10-15T18:33:35Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-10-01T23:20:14Z</con:value>
+		<con:value>2012-10-15T18:43:35Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>10/01/2012 23:10:14</con:value>
+		<con:value>10/15/2012 18:33:35</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-31T00:00:00Z</con:value>
+		<con:value>2012-11-14T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -9771,26 +9055,9 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 
 	<con:testStep name="update config" type="groovy">
 		<con:settings/>
-		<con:config>
-			<script>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR']
-
-				void UpdateProperty(String directory, String filename, String propertyKey, String propertyValue,context,log) {
-
-				log.info("begin UpdateProperty; directory='" + directory + "';filename='" + filename + "';key='" + propertyKey + "';value='" + propertyValue + "';");
-				File file = new File(directory,filename);
-				Properties properties = new Properties();
-				FileInputStream frPropFile = new FileInputStream(file);
-				properties.load(frPropFile);
-				properties.setProperty(propertyKey, propertyValue);
-				FileOutputStream fwPropFile = new FileOutputStream(file);
-				properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
-			properties = null;
-			}
-
-			UpdateProperty(destConfigFileLocation,"gateway.properties","serviceSubscription","true",context,log);
-			UpdateProperty(destConfigFileLocation,"gateway.properties","subscriptionPassthrough","false",context,log);
-			UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscriptionMode","disabled",context,log);</script>
-	</con:config>
+		<con:config><script>nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "serviceSubscription", "true", log);
+nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "subscriptionPassthrough", "false", log);
+nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "AdapterSubscriptionMode", "disabled", log);</script></con:config>
 </con:testStep>
 <con:testStep name="Clear Subscription Table" type="groovy">
 	<con:settings/>
@@ -9810,7 +9077,7 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 				<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
 	</con:settings>
 	<con:encoding>UTF-8</con:encoding>
-	<con:endpoint>${#TestSuite#Endpoint-Subscribe}</con:endpoint>
+	<con:endpoint>${#Project#Endpoint-Subscribe}</con:endpoint>
 	<con:request><![CDATA[
 		<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:wsa="http://www.w3.org/2005/08/addressing" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add1="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soap:Header/>
@@ -10049,7 +9316,7 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 
 	<con:assertion name="Not SOAP Fault" type="SOAP Fault Assertion"/>
 	<con:assertion name="SOAP Response" type="SOAP Response"/>
-	<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+	<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 	<con:jmsPropertyConfig/>
 	<con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement/EntityNotificationProducerPortType/SubscribeDocumentRequest" mustUnderstand="NONE" version="200508"/>
 	<con:wsrmConfig version="1.2"/>
@@ -10086,7 +9353,7 @@ context.testCase.testSuite.project.setPropertyValue( "NotifySubscriptionID", par
 				<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
 	</con:settings>
 	<con:encoding>UTF-8</con:encoding>
-	<con:endpoint>${#TestSuite#Endpoint-Notify}</con:endpoint>
+	<con:endpoint>${#Project#Endpoint-Notify}</con:endpoint>
 	<con:request><![CDATA[
 		<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:b="http://docs.oasis-open.org/wsn/b-2" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn4="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:ihe="urn:ihe:iti:xds-b:2007" xmlns:wsa="http://www.w3.org/2005/08/addressing" xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0">
    <soap:Header/>
@@ -10328,7 +9595,7 @@ context.testCase.testSuite.project.setPropertyValue( "NotifySubscriptionID", par
 		<con:configuration/>
 	</con:assertion>
 	<con:assertion type="SOAP Fault Assertion"/>
-	<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+	<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 	<con:jmsPropertyConfig/>
 	<con:wsaConfig mustUnderstand="NONE" version="200508"/>
 	<con:wsrmConfig version="1.2"/>
@@ -10341,19 +9608,19 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-10-01T23:10:15Z</con:value>
+		<con:value>2012-10-15T18:33:40Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-10-01T23:20:15Z</con:value>
+		<con:value>2012-10-15T18:43:40Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>10/01/2012 23:10:15</con:value>
+		<con:value>10/15/2012 18:33:40</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-31T00:00:00Z</con:value>
+		<con:value>2012-11-14T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>NotifySubscriptionID</con:name>
@@ -10367,30 +9634,9 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 
 	<con:testStep name="update config" type="groovy">
 		<con:settings/>
-		<con:config>
-			<script>//def destConfigFileLocation = context.findProperty("NHINGatewayConfigDir");
-
-
-				def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR']
-
-				void UpdateProperty(String directory, String filename, String propertyKey, String propertyValue,context,log) {
-
-				log.info("begin UpdateProperty; directory='" + directory + "';filename='" + filename + "';key='" + propertyKey + "';value='" + propertyValue + "';");
-				File file = new File(directory,filename);
-				Properties properties = new Properties();
-				FileInputStream frPropFile = new FileInputStream(file);
-				properties.load(frPropFile);
-				properties.setProperty(propertyKey, propertyValue);
-				FileOutputStream fwPropFile = new FileOutputStream(file);
-				fwPropFile = new FileOutputStream(file);
-				properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
-			properties = null;
-			}
-
-			UpdateProperty(destConfigFileLocation,"gateway.properties","serviceSubscription","true",context,log);
-			UpdateProperty(destConfigFileLocation,"gateway.properties","subscriptionPassthrough","false",context,log);
-			UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscriptionMode","disabled",context,log);</script>
-	</con:config>
+		<con:config><script>nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "serviceSubscription", "true", log);
+nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "subscriptionPassthrough", "false", log);
+nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "AdapterSubscriptionMode", "disabled", log);</script></con:config>
 </con:testStep>
 <con:testStep name="Clear Subscription Table" type="groovy">
 	<con:settings/>
@@ -10413,7 +9659,7 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 				<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
 	</con:settings>
 	<con:encoding>UTF-8</con:encoding>
-	<con:endpoint>${#TestSuite#Endpoint-Subscribe}</con:endpoint>
+	<con:endpoint>${#Project#Endpoint-Subscribe}</con:endpoint>
 	<con:request><![CDATA[
 		<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:wsa="http://www.w3.org/2005/08/addressing" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add1="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soap:Header/>
@@ -10650,7 +9896,7 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 </soap:Envelope>]]></con:request>
 	<con:assertion type="SOAP Response"/>
 	<con:assertion type="SOAP Fault Assertion"/>
-	<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+	<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 	<con:jmsPropertyConfig/>
 	<con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement/EntityNotificationProducerPortType/SubscribeDocumentRequest" mustUnderstand="NONE" version="200508"/>
 	<con:wsrmConfig version="1.2"/>
@@ -10691,7 +9937,7 @@ context.testCase.testSuite.project.setPropertyValue( "UnSubscriptionID", subID )
 				<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
 	</con:settings>
 	<con:encoding>UTF-8</con:encoding>
-	<con:endpoint>${#TestSuite#Endpoint-Unsubscribe}</con:endpoint>
+	<con:endpoint>${#Project#Endpoint-Unsubscribe}</con:endpoint>
 	<con:request><![CDATA[
 		<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:nhin="http://www.hhs.gov/healthit/nhin" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:subscription" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soap:Header>
@@ -10929,7 +10175,7 @@ context.testCase.testSuite.project.setPropertyValue( "UnSubscriptionID", subID )
 			<useRegEx>false</useRegEx>
 		</con:configuration>
 	</con:assertion>
-	<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+	<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 	<con:jmsPropertyConfig/>
 	<con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement/EntitySubscriptionManagerPortType/UnsubscribeRequest" mustUnderstand="NONE" version="200508"/>
 	<con:wsrmConfig version="1.2"/>
@@ -10950,19 +10196,19 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-09-27T22:59:40Z</con:value>
+		<con:value>2012-10-15T18:33:46Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-09-27T23:09:40Z</con:value>
+		<con:value>2012-10-15T18:43:46Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/27/2012 22:59:40</con:value>
+		<con:value>10/15/2012 18:33:46</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-27T00:00:00Z</con:value>
+		<con:value>2012-11-14T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -10979,7 +10225,7 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 					<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
-		<con:endpoint>${#TestSuite#Endpoint-EntityAdminDist}</con:endpoint>
+		<con:endpoint>${#Project#Endpoint-EntityAdminDist}</con:endpoint>
 		<con:request><![CDATA[
 			<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:urn2="urn:oasis:names:tc:emergency:EDXL:DE:1.0">
    <soap:Header/>
@@ -11313,7 +10559,7 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
       </urn:RespondingGateway_SendAlertMessage>
    </soap:Body>
 </soap:Envelope>]]></con:request>
-		<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
 		<con:wsaConfig mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
@@ -11333,19 +10579,19 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-10-01T23:10:15Z</con:value>
+		<con:value>2012-10-15T18:33:53Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-10-01T23:20:15Z</con:value>
+		<con:value>2012-10-15T18:43:53Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>10/01/2012 23:10:15</con:value>
+		<con:value>10/15/2012 18:33:53</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-10-31T00:00:00Z</con:value>
+		<con:value>2012-11-14T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -11519,7 +10765,7 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 	
 	<con:property><con:name>ExpirationDate</con:name><con:value>20100520</con:value></con:property>
 	
-	<con:property><con:name>FamilyName</con:name><con:value>Younger</con:value></con:property><con:property><con:name>GatewayPropDir</con:name><con:value>c:\glassfish-2.1.1\domains\domain1\config\nhin</con:value></con:property><con:property><con:name>Gender</con:name><con:value>M</con:value></con:property>
+	<con:property><con:name>FamilyName</con:name><con:value>Younger</con:value></con:property><con:property><con:name>GatewayPropDir</con:name><con:value></con:value></con:property><con:property><con:name>Gender</con:name><con:value>M</con:value></con:property>
 	
 	<con:property><con:name>GivenName</con:name><con:value>Gallow</con:value></con:property><con:property><con:name>LocalAA</con:name><con:value>1.1</con:value></con:property><con:property>
 		<con:name>LocalHCDescription</con:name>
@@ -11573,7 +10819,17 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 		<con:value>12345</con:value>
 	</con:property>
 </con:properties>
-<con:afterLoadScript>TimeZone.setDefault(TimeZone.getTimeZone("UTC"))
+<con:afterLoadScript>def propertiesFilename = project.path[0..(project.path.size()-4)] + 'properties'
+def propertiesFile = new File(propertiesFilename)
+if (propertiesFile.exists()) {
+	def props = new Properties()
+	props.load(new FileInputStream(propertiesFile))
+	props.each { key, value ->
+	    project.setPropertyValue(key, value)
+	}
+}
+
+TimeZone.setDefault(TimeZone.getTimeZone("UTC"))
 def testRunListener = [
 afterRun: { testRunner, runContext -> },
 afterStep: { testRunner, runContext, result -> },
@@ -11832,4 +11088,4 @@ sql.close()
 	<con:xmlTemplates/>
 	<con:parameters/>
 </con:reporting>
-</con:soapui-project>
+<con:sensitiveInformation/></con:soapui-project>

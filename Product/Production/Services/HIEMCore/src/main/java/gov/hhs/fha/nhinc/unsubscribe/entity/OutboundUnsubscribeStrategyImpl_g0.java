@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.unsubscribe.entity;
 
+import gov.hhs.fha.nhinc.hiem.consumerreference.SoapMessageElements;
 import gov.hhs.fha.nhinc.orchestration.Orchestratable;
 import gov.hhs.fha.nhinc.orchestration.OrchestrationStrategy;
 import gov.hhs.fha.nhinc.unsubscribe.nhin.proxy.NhinHiemUnsubscribeProxy;
@@ -34,6 +35,7 @@ import gov.hhs.fha.nhinc.unsubscribe.nhin.proxy.NhinHiemUnsubscribeProxyObjectFa
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.oasis_open.docs.wsn.b_2.UnsubscribeResponse;
+import org.w3c.dom.Element;
 
 class OutboundUnsubscribeStrategyImpl_g0 implements OrchestrationStrategy {
 
@@ -64,9 +66,12 @@ class OutboundUnsubscribeStrategyImpl_g0 implements OrchestrationStrategy {
 
         NhinHiemUnsubscribeProxy nhincUnsubscribe = getNhinUnsubscribeProxy();
         UnsubscribeResponse response = null;
+        for ( Element element :  message.getReferenceParameters().getElements()) {
+            log.debug("element: "+element.getNodeValue());
+        }
 		try {
 			response = nhincUnsubscribe.unsubscribe(message.getRequest(), message.getReferenceParameters(),
-			        message.getAssertion(), message.getTarget());
+			        message.getAssertion(), message.getTarget(),message.getSubscriptionId());
 		} catch (Exception e) {
 			log.error("Failure to process nhin Subscribe message.", e);
 		}

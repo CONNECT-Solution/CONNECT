@@ -25,7 +25,6 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package gov.hhs.fha.nhinc.hiem._20.unsubscribe.entity;
-
 import javax.xml.ws.WebServiceContext;
 
 import org.apache.commons.logging.Log;
@@ -103,7 +102,7 @@ public class EntityUnsubscribeServiceImpl {
             if (nodeName.equals("SubscriptionId")) {
                 String nodeValue = soapHeaderElement.getNodeValue();
                 if (NullChecker.isNullish(nodeValue) && soapHeaderElement.getFirstChild() != null) {
-                    nodeValue =  soapHeaderElement.getFirstChild().getNodeValue();
+                    nodeValue = soapHeaderElement.getFirstChild().getNodeValue();
                 }
                 return nodeValue;
             }

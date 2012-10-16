@@ -30,6 +30,7 @@ package gov.hhs.fha.nhinc.messaging.client;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.messaging.service.decorator.SAMLServiceEndpointDecorator;
 import gov.hhs.fha.nhinc.messaging.service.decorator.cxf.SecurityOutInterceptorServiceEndpointDecorator;
+import gov.hhs.fha.nhinc.messaging.service.decorator.cxf.SoapHeaderServiceEndPointDecorator;
 import gov.hhs.fha.nhinc.messaging.service.decorator.cxf.TLSClientServiceEndpointDecorator;
 import gov.hhs.fha.nhinc.messaging.service.decorator.cxf.WsAddressingServiceEndpointDecorator;
 import gov.hhs.fha.nhinc.messaging.service.port.CXFServicePortBuilderWithAddressing;
@@ -40,33 +41,47 @@ import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
  * 
  */
 public class CONNECTCXFClientSecured<T> extends CONNECTCXFClient<T> {
-    
+
     CONNECTCXFClientSecured(ServicePortDescriptor<T> portDescriptor, String url, AssertionType assertion) {
         super(portDescriptor, url, assertion, new CXFServicePortBuilderWithAddressing<T>(portDescriptor));
-        
-        decorateEndpoint(assertion, url, portDescriptor.getWSAddressingAction());
-          
+        String SoapHeader = null;
+        decorateEndpoint(assertion, url, portDescriptor.getWSAddressingAction(), SoapHeader);
+
         serviceEndpoint.configure();
     }
-    
-    CONNECTCXFClientSecured(ServicePortDescriptor<T> portDescriptor, String url, AssertionType assertion, String wsAddressingTo) {
+
+    CONNECTCXFClientSecured(ServicePortDescriptor<T> portDescriptor, String url, AssertionType assertion,
+            String wsAddressingTo) {
         super(portDescriptor, url, assertion, new CXFServicePortBuilderWithAddressing<T>(portDescriptor));
-        
-        decorateEndpoint(assertion, wsAddressingTo, portDescriptor.getWSAddressingAction());
-                
+        String SoapHeader = null;
+        decorateEndpoint(assertion, wsAddressingTo, portDescriptor.getWSAddressingAction(), SoapHeader);
+
+        serviceEndpoint.configure();
+    }
+
+    CONNECTCXFClientSecured(ServicePortDescriptor<T> portDescriptor, String url, AssertionType assertion,
+            String wsAddressingTo, String SoapHeader) {
+        super(portDescriptor, url, assertion, new CXFServicePortBuilderWithAddressing<T>(portDescriptor));
+
+        decorateEndpoint(assertion, wsAddressingTo, portDescriptor.getWSAddressingAction(), SoapHeader);
+
         serviceEndpoint.configure();
     }
 
     public T getPort() {
         return serviceEndpoint.getPort();
     }
-    
-    private void decorateEndpoint(AssertionType assertion, String wsAddressingTo, String wsAddressingAction) {
+
+    private void decorateEndpoint(AssertionType assertion, String wsAddressingTo, String wsAddressingActionId,
+            String subscriptionId) {
         serviceEndpoint = new SAMLServiceEndpointDecorator<T>(serviceEndpoint, assertion);
         serviceEndpoint = new TLSClientServiceEndpointDecorator<T>(serviceEndpoint);
-        serviceEndpoint = new SecurityOutInterceptorServiceEndpointDecorator<T>(serviceEndpoint);               
-        serviceEndpoint = new WsAddressingServiceEndpointDecorator<T>(serviceEndpoint, wsAddressingTo, wsAddressingAction,
-                assertion);
+        serviceEndpoint = new SecurityOutInterceptorServiceEndpointDecorator<T>(serviceEndpoint);
+        serviceEndpoint = new WsAddressingServiceEndpointDecorator<T>(serviceEndpoint, wsAddressingTo,
+                wsAddressingActionId, assertion);
+        if (subscriptionId != null) {
+            serviceEndpoint = new SoapHeaderServiceEndPointDecorator<T>(serviceEndpoint, subscriptionId);
+        }
     }
 
 }

@@ -92,6 +92,8 @@ public class ProxyHiemUnsubscribeImpl {
             response = proxy.unsubscribe(unsubscribe, soapHeaderElements, assertion,
                     target);
         } catch (UnableToDestroySubscriptionFault e) {
+                    target,getSubscriptionId(context));
+        } catch (UnableToDestroySubscriptionFault e) {
             log.error("error occurred", e);
             response = new UnsubscribeResponse();
             response.getAny().add(e);
@@ -102,5 +104,23 @@ public class ProxyHiemUnsubscribeImpl {
         log.debug("Exiting ProxyHiemUnsubscribeImpl.unsubscribe...");
         return response;
     }
+    
+    private String getSubscriptionId(WebServiceContext context) {
+        SoapMessageElements soapHeaderElements = new SoapHeaderHelper().getSoapHeaderElements(context);
+        
+        String subscriptionId = null;
+        for (Element soapHeaderElement : soapHeaderElements.getElements()) {
+            String nodeName = soapHeaderElement.getLocalName();
+            if (nodeName.equals("SubscriptionId")) {
+                String nodeValue = soapHeaderElement.getNodeValue();
+                if (NullChecker.isNullish(nodeValue) && soapHeaderElement.getFirstChild() != null) {
+                    nodeValue =  soapHeaderElement.getFirstChild().getNodeValue();
+                }                
+                return nodeValue;
+            }
+        }
 
+        return subscriptionId;
+    }    
+        
 }
