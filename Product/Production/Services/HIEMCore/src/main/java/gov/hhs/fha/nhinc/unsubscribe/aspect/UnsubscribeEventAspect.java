@@ -38,7 +38,7 @@ import gov.hhs.fha.nhinc.aspect.EventAspectAdvice;
  *
  */
 @Aspect
-public class UnsubscribeEventAspect extends EventAspect {
+public class UnsubscribeEventAspect extends EventAspectAdvice {
 
     /*--- Inbound Message ---*/
     @Pointcut("execution(* gov.hhs.fha.nhinc.hiem._20.unsubscribe.nhin.HiemUnsubscribe.unsubscribe(..))")
