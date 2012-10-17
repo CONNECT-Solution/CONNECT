@@ -140,7 +140,7 @@
                         </configuration>
                     </execution>
                     <execution>
-                        <id>copy-resources-keystores</id>
+                        <id>copy-resources-keystores-to-config</id>
                         <phase>validate</phase>
                         <goals>
                             <goal>copy-resources</goal>
@@ -152,6 +152,25 @@
                                     <directory>${basedir}/src/test/resources/domain1/</directory>
                                     <includes>
                                         <include>**/*.jks</include>
+                                    </includes>
+                                    <filtering>false</filtering>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>copy-resources-keystores-to-lib-classes</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/domain1/lib/classes/</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>${basedir}/src/test/resources/domain1/config</directory>
+                                    <includes>
+                                        <include>*.jks</include>
                                     </includes>
                                     <filtering>false</filtering>
                                 </resource>
