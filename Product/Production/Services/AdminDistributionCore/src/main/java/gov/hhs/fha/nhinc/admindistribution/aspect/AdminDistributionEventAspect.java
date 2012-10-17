@@ -38,7 +38,8 @@ import gov.hhs.fha.nhinc.aspect.EventAspectAdvice;
  * @author zmelnick
  *
  */
-public class AdminDistributionEventAspect extends EventAspectAdvice {
+@Aspect
+public class AdminDistributionEventAspect extends EventAspect {
 
     /*--- Inbound Message ---*/
     @Pointcut("execution(* gov.hhs.fha.nhinc.admindistribution.*.nhin.NhinAdministrativeDistribution.sendAlertMessage(..))")
