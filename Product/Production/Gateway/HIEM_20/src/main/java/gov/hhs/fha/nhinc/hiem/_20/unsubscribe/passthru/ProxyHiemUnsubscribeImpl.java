@@ -32,12 +32,14 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.oasis_open.docs.wsn.b_2.Unsubscribe;
 import org.oasis_open.docs.wsn.b_2.UnsubscribeResponse;
+import org.w3c.dom.Element;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
 import gov.hhs.fha.nhinc.hiem.consumerreference.SoapHeaderHelper;
 import gov.hhs.fha.nhinc.hiem.consumerreference.SoapMessageElements;
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.nhincproxysubscriptionmanagement.UnableToDestroySubscriptionFault;
 import gov.hhs.fha.nhinc.unsubscribe.nhin.proxy.NhinHiemUnsubscribeProxy;
 import gov.hhs.fha.nhinc.unsubscribe.nhin.proxy.NhinHiemUnsubscribeProxyObjectFactory;
@@ -65,7 +67,7 @@ public class ProxyHiemUnsubscribeImpl {
         NhinHiemUnsubscribeProxyObjectFactory factory = new NhinHiemUnsubscribeProxyObjectFactory();
         NhinHiemUnsubscribeProxy proxy = factory.getNhinHiemUnsubscribeProxy();
         try {
-            response = proxy.unsubscribe(unsubscribe, soapHeaderElements, assertion, target);
+            response = proxy.unsubscribe(unsubscribe, soapHeaderElements, assertion, target, getSubscriptionId(context));
         } catch (UnableToDestroySubscriptionFault ex) {
             log.error("error occurred", ex);
             response = new UnsubscribeResponse();
@@ -90,9 +92,7 @@ public class ProxyHiemUnsubscribeImpl {
         NhinHiemUnsubscribeProxy proxy = factory.getNhinHiemUnsubscribeProxy();
         try {
             response = proxy.unsubscribe(unsubscribe, soapHeaderElements, assertion,
-                    target);
-        } catch (UnableToDestroySubscriptionFault e) {
-                    target,getSubscriptionId(context));
+                    target, getSubscriptionId(context));
         } catch (UnableToDestroySubscriptionFault e) {
             log.error("error occurred", e);
             response = new UnsubscribeResponse();
