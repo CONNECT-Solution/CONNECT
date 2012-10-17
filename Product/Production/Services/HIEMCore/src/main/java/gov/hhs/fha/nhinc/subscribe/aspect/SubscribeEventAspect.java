@@ -24,7 +24,7 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.admindistribution.aspect;
+package gov.hhs.fha.nhinc.subscribe.aspect;
 
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.AfterThrowing;
@@ -39,10 +39,10 @@ import gov.hhs.fha.nhinc.aspect.EventAspect;
  *
  */
 @Aspect
-public class AdminDistributionEventAspect extends EventAspect {
+public class SubscribeEventAspect extends EventAspect {
 
     /*--- Inbound Message ---*/
-    @Pointcut("execution(* gov.hhs.fha.nhinc.admindistribution.*.nhin.NhinAdministrativeDistribution.sendAlertMessage(..))")
+    @Pointcut("execution(* gov.hhs.fha.nhinc.hiem.*.subscribe.nhin.HiemSubscribe.subscribe(..))")
     private void inboundMessage() {
     }
 
@@ -55,11 +55,11 @@ public class AdminDistributionEventAspect extends EventAspect {
     @Override
     @After("inboundMessage()")
     public void endInboundMessageEvent() {
-        super.beginInboundMessageEvent();
+        super.endInboundMessageEvent();
     }
 
     /*--- Inbound Processing ---*/
-    @Pointcut("execution(* gov.hhs.fha.nhinc.admindistribution.nhin.NhinAdminDistributionOrchImpl.sendAlertMessage(..))")
+    @Pointcut("execution(* gov.hhs.fha.nhinc.hiem.*.subscribe.nhin.HiemSubscribeImpl.subscribe(..))")
     private void inboundProcessing() {
     }
 
@@ -76,7 +76,7 @@ public class AdminDistributionEventAspect extends EventAspect {
     }
 
     /*--- Adapter Delegation ---*/
-    @Pointcut("execution(* gov.hhs.fha.nhinc.admindistribution.nhin.proxy.NhinAdminDistributionProxy*.sendAlertMessage(..))")
+    @Pointcut("execution(* gov.hhs.fha.nhinc.subscribe.adapter.proxy.HiemSubscribeAdapter*.subscribe(..))")
     private void adapterDelegation() {
     }
 
@@ -93,11 +93,11 @@ public class AdminDistributionEventAspect extends EventAspect {
     }
 
     /*--- Outbound Message ---*/
-    @Pointcut("execution(* gov.hhs.fha.nhinc.admindistribution.*.entity.EntityAdministrativeDistribution.sendAlertMessage(..))")
+    @Pointcut("execution(* gov.hhs.fha.nhinc.hiem.*.subscribe.entity.EntitySubscribeService.subscribe(..))")
     private void outboundMessageEntityUnsecured(){
     }
 
-    @Pointcut("execution(* gov.hhs.fha.nhinc.admindistribution.*.entity.EntityAdministrativeDistributionSecured.sendAlertMessage(..))")
+    @Pointcut("execution(* gov.hhs.fha.nhinc.hiem.*.subscribe.entity.EntitySubscribeSecuredService.subscribe(..))")
     private void outboundMessageEntitySecured(){
     }
 
@@ -105,11 +105,11 @@ public class AdminDistributionEventAspect extends EventAspect {
     private void entityOutboundMessage() {
     }
 
-    @Pointcut("execution(* gov.hhs.fha.nhinc.admindistribution.*.passthru.NhincAdminDist.sendAlertMessage(..))")
+    @Pointcut("execution(* gov.hhs.fha.nhinc.hiem.*.subscribe.passthru.ProxyHiemSubscribe.subscribe(..))")
     private void outboundMessagePassthruUnsecured(){
     }
 
-    @Pointcut("execution(* gov.hhs.fha.nhinc.admindistribution.*.passthru.NhincAdminDistSecured.sendAlertMessage(..))")
+    @Pointcut("execution(* gov.hhs.fha.nhinc.hiem.*.subscribe.passthru.ProxyHiemSubscribeSecured.subscribe(..))")
     private void outboundMessagePassthruSecured(){
     }
 
@@ -130,11 +130,12 @@ public class AdminDistributionEventAspect extends EventAspect {
     }
 
     /*--- Outbound Processing ---*/
-    @Pointcut("execution(* gov.hhs.fha.nhinc.admindistribution.entity.EntityAdminDistributionOrchImpl.sendAlertMessage(..))")
+
+    @Pointcut("execution(* gov.hhs.fha.nhinc.subscribe.entity.EntitySubscribeOrchImpl.processSubscribe(..))")
     private void entityOutboundProcessing() {
     }
 
-    @Pointcut("execution(* gov.hhs.fha.nhinc.admindistribution.passthru.PassthruAdminDistributionOrchImpl.sendAlertMessage(..))")
+    @Pointcut("execution(* gov.hhs.fha.nhinc.hiem.*.subscribe.passthru.ProxyHiemSubscribeImpl.subscribe(..))")
     private void passthruOutboundProcessing() {
     }
 
@@ -150,19 +151,19 @@ public class AdminDistributionEventAspect extends EventAspect {
         super.endOutboundProcessingEvent();
     }
 
-    /*--- Nwhin Invocation ---*/
-    @Pointcut("execution(* gov.hhs.fha.nhinc.admindistribution.nhin.proxy.EntityAdminDistributionProxy*.sendAlertMessage(..))")
-    private void nwhinInvocation() {
+    /*------ Nwhin Invocation ----*/
+    @Pointcut("execution(* gov.hhs.fha.nhinc.subscribe.nhin.proxy.NhinHiemSubscribe*.subscribe(..))")
+    private void nhinNwhinInvocation() {
     }
 
     @Override
-    @Before("nwhinInvocation()")
+    @Before("nhinNwhinInvocation()")
     public void beginNwhinInvocationEvent(){
         super.beginNwhinInvocationEvent();
     }
 
     @Override
-    @After("nwhinInvocation()")
+    @After("nhinNwhinInvocation()")
     public void endNwhinInvocationEvent(){
         super.endNwhinInvocationEvent();
     }
@@ -173,8 +174,4 @@ public class AdminDistributionEventAspect extends EventAspect {
     public void failEvent() {
         super.failEvent();
     }
-
-
-
-
 }
