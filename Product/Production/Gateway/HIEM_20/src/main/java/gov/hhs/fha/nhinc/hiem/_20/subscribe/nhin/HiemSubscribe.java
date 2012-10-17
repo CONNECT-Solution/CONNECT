@@ -54,7 +54,7 @@ public class HiemSubscribe {
     @Resource
     private WebServiceContext context;
 
-    private HiemSubscribeImpl orchImpl;
+    private HiemSubscribeImpl subscribeImpl;
     
     public org.oasis_open.docs.wsn.b_2.SubscribeResponse subscribe(
             org.oasis_open.docs.wsn.b_2.Subscribe subscribeRequest) throws InvalidProducerPropertiesExpressionFault,
@@ -62,22 +62,22 @@ public class HiemSubscribe {
             UnacceptableInitialTerminationTimeFault, InvalidFilterFault, UnrecognizedPolicyRequestFault,
             NotifyMessageNotSupportedFault, UnsupportedPolicyRequestFault, InvalidTopicExpressionFault,
             TopicNotSupportedFault {
-        return getOrchImpl().subscribe(subscribeRequest, context);
+        return getSubscribeImpl().subscribe(subscribeRequest, context);
     }
 
     /**
     * Set the orchImpl object.
-    * @param orchImpl
+    * @param subscribeImpl
     */
-    public void setOrchestratorImpl(HiemSubscribeImpl orchImpl) {
-    	this.orchImpl = orchImpl;
+    public void setSubscribeImpl(HiemSubscribeImpl subscribeImpl) {
+    	this.subscribeImpl = subscribeImpl;
     }
     
     /**
     * return the orchImpl object.
     * @return
     */
-    protected HiemSubscribeImpl getOrchImpl(){
-    	return this.orchImpl;
+    protected HiemSubscribeImpl getSubscribeImpl(){
+    	return this.subscribeImpl;
     }
 }

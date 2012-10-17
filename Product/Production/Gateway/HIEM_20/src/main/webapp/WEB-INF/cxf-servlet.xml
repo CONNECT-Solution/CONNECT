@@ -152,7 +152,7 @@ http://www.springframework.org/schema/aop http://www.springframework.org/schema/
 		class="gov.hhs.fha.nhinc.hiem._20.subscribe.nhin.HiemSubscribeImpl" />
 	<bean id="NhinSubscribeBean"
 		class="gov.hhs.fha.nhinc.hiem._20.subscribe.nhin.HiemSubscribe">
-		<property name="orchestratorImpl">
+		<property name="subscribeImpl">
             <ref bean="NhinSubscribeServiceImpl"/>
         </property>
 	</bean>
@@ -239,7 +239,7 @@ http://www.springframework.org/schema/aop http://www.springframework.org/schema/
     
     <bean id="NhincSubscribeSecuredBean" 
     	class="gov.hhs.fha.nhinc.hiem._20.subscribe.passthru.ProxyHiemSubscribeSecured">
-    	<property name="orchestratorImpl">
+    	<property name="subscribeImpl">
             <ref bean="PassthruSubscribeServiceImpl"/>
         </property>
     </bean>
@@ -266,7 +266,7 @@ http://www.springframework.org/schema/aop http://www.springframework.org/schema/
 
 	<bean id="NhincSubscribeBean" 
 		class="gov.hhs.fha.nhinc.hiem._20.subscribe.passthru.ProxyHiemSubscribe">
-		<property name="orchestratorImpl">
+		<property name="subscribeImpl">
             <ref bean="PassthruSubscribeServiceImpl"/>
         </property>
     </bean>
