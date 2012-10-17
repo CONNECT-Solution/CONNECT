@@ -36,6 +36,8 @@ import org.w3c.dom.Element;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+import gov.hhs.fha.nhinc.common.nhinccommonproxy.UnsubscribeRequestSecuredType;
+import gov.hhs.fha.nhinc.common.nhinccommonproxy.UnsubscribeRequestType;
 import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
 import gov.hhs.fha.nhinc.hiem.consumerreference.SoapHeaderHelper;
 import gov.hhs.fha.nhinc.hiem.consumerreference.SoapMessageElements;
@@ -48,9 +50,8 @@ public class ProxyHiemUnsubscribeImpl {
 
     private static Log log = LogFactory.getLog(ProxyHiemUnsubscribeImpl.class);
 
-    public UnsubscribeResponse unsubscribe(
-            gov.hhs.fha.nhinc.common.nhinccommonproxy.UnsubscribeRequestType unsubscribeRequest,
-            WebServiceContext context) throws Exception {
+    public UnsubscribeResponse unsubscribe(UnsubscribeRequestType unsubscribeRequest, WebServiceContext context)
+            throws Exception {
         UnsubscribeResponse response = null;
         log.debug("Entering ProxyHiemUnsubscribeImpl.unsubscribe...");
 
@@ -74,9 +75,8 @@ public class ProxyHiemUnsubscribeImpl {
         return response;
     }
 
-    public UnsubscribeResponse unsubscribe(
-            gov.hhs.fha.nhinc.common.nhinccommonproxy.UnsubscribeRequestSecuredType unsubscribeRequest,
-            WebServiceContext context) throws UnableToDestroySubscriptionFault {
+    public UnsubscribeResponse unsubscribe(UnsubscribeRequestSecuredType unsubscribeRequest, WebServiceContext context)
+            throws UnableToDestroySubscriptionFault {
         UnsubscribeResponse response = null;
         log.debug("Entering ProxyHiemUnsubscribeImpl.unsubscribe...");
         Unsubscribe unsubscribe = unsubscribeRequest.getUnsubscribe();
