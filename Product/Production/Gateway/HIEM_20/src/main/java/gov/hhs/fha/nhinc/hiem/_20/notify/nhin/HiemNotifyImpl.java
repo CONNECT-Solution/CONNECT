@@ -72,7 +72,6 @@ public class HiemNotifyImpl {
                 NhincConstants.HTTP_REQUEST_ATTRIBUTE_SOAPMESSAGE);
 
         try {
-            // String rawSoapMessage = extractSoapMessage(context, "notifySoapMessage");
             NhinNotifyProcessor notifyProcessor = new NhinNotifyProcessor();
             auditInputMessage(notifyRequest, assertion,
                 NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE);
