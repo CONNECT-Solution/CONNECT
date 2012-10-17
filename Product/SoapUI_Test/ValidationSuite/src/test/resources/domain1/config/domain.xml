@@ -21,6 +21,177 @@
       <property name="DatabaseName" value="sun-appserv-samples"/>
       <property name="connectionAttributes" value=";create=true"/>
     </jdbc-connection-pool>
+
+    <jdbc-connection-pool connection-validation-method="auto-commit"
+           datasource-classname="com.mysql.jdbc.jdbc2.optional.MysqlDataSource"
+           res-type="javax.sql.DataSource"
+           wrap-jdbc-objects="false"
+           name="aggregator_pool"
+           min-pool-size="1"
+           max-pool-size="10">
+      <property name="URL" value="jdbc:mysql://localhost/aggregator" />
+      <property name="driverClass" value="com.mysql.jdbc.Driver" />
+      <property name="portNumber" value="3306" />
+      <property name="databaseName" value="aggregator" />
+      <property name="User" value="nhincuser" />
+      <property name="Password" value="nhincpass" />
+      <property name="serverName" value="localhost" />
+    </jdbc-connection-pool>
+    <jdbc-resource pool-name="aggregator_pool" jndi-name="jdbc/aggregator_datasource" enabled="true" object-type="user"/>
+
+    <jdbc-connection-pool connection-validation-method="auto-commit"
+           datasource-classname="com.mysql.jdbc.jdbc2.optional.MysqlDataSource"
+           res-type="javax.sql.DataSource"
+           wrap-jdbc-objects="false"
+           name="assigningauthoritydb_pool"
+           min-pool-size="1"
+           max-pool-size="10">
+      <property name="URL" value="jdbc:mysql://localhost/assigningauthoritydb" />
+      <property name="driverClass" value="com.mysql.jdbc.Driver" />
+      <property name="portNumber" value="3306" />
+      <property name="databaseName" value="assigningauthoritydb" />
+      <property name="User" value="nhincuser" />
+      <property name="Password" value="nhincpass" />
+      <property name="serverName" value="localhost" />
+    </jdbc-connection-pool>
+    <jdbc-resource pool-name="assigningauthoritydb_pool" jndi-name="jdbc/assigningauthoritydb_datasource" enabled="true" object-type="user"/>
+
+    <jdbc-connection-pool connection-validation-method="auto-commit"
+           datasource-classname="com.mysql.jdbc.jdbc2.optional.MysqlDataSource"
+           res-type="javax.sql.DataSource"
+           wrap-jdbc-objects="false"
+           name="asyncmsgs_pool"
+           min-pool-size="1"
+           max-pool-size="10">
+      <property name="URL" value="jdbc:mysql://localhost/asyncmsgs" />
+      <property name="driverClass" value="com.mysql.jdbc.Driver" />
+      <property name="portNumber" value="3306" />
+      <property name="databaseName" value="asyncmsgs" />
+      <property name="User" value="nhincuser" />
+      <property name="Password" value="nhincpass" />
+      <property name="serverName" value="localhost" />
+    </jdbc-connection-pool>
+    <jdbc-resource pool-name="asyncmsgs_pool" jndi-name="jdbc/asyncmsgs_datasource" enabled="true" object-type="user"/>
+
+    <jdbc-connection-pool connection-validation-method="auto-commit"
+           datasource-classname="com.mysql.jdbc.jdbc2.optional.MysqlDataSource"
+           res-type="javax.sql.DataSource"
+           wrap-jdbc-objects="false"
+           name="auditrepo_pool"
+           min-pool-size="1"
+           max-pool-size="10">
+      <property name="URL" value="jdbc:mysql://localhost/auditrepo" />
+      <property name="driverClass" value="com.mysql.jdbc.Driver" />
+      <property name="portNumber" value="3306" />
+      <property name="databaseName" value="auditrepo" />
+      <property name="User" value="nhincuser" />
+      <property name="Password" value="nhincpass" />
+      <property name="serverName" value="localhost" />
+    </jdbc-connection-pool>
+    <jdbc-resource pool-name="auditrepo_pool" jndi-name="jdbc/auditrepo_datasource" enabled="true" object-type="user"/>
+
+    <jdbc-connection-pool connection-validation-method="auto-commit"
+           datasource-classname="com.mysql.jdbc.jdbc2.optional.MysqlDataSource"
+           res-type="javax.sql.DataSource"
+           wrap-jdbc-objects="false"
+           name="patientcorrelationdb_pool"
+           min-pool-size="1"
+           max-pool-size="10">
+      <property name="URL" value="jdbc:mysql://localhost/patientcorrelationdb" />
+      <property name="driverClass" value="com.mysql.jdbc.Driver" />
+      <property name="portNumber" value="3306" />
+      <property name="databaseName" value="patientcorrelationdb" />
+      <property name="User" value="nhincuser" />
+      <property name="Password" value="nhincpass" />
+      <property name="serverName" value="localhost" />
+    </jdbc-connection-pool>
+    <jdbc-resource pool-name="patientcorrelationdb_pool" jndi-name="jdbc/patientcorrelationdb_datasource" enabled="true" object-type="user"/>
+
+    <jdbc-connection-pool connection-validation-method="auto-commit"
+           datasource-classname="com.mysql.jdbc.jdbc2.optional.MysqlDataSource"
+           res-type="javax.sql.DataSource"
+           wrap-jdbc-objects="false"
+           name="docrepository_pool"
+           min-pool-size="1"
+           max-pool-size="10">
+      <property name="URL" value="jdbc:mysql://localhost/docrepository" />
+      <property name="driverClass" value="com.mysql.jdbc.Driver" />
+      <property name="portNumber" value="3306" />
+      <property name="databaseName" value="docrepository" />
+      <property name="User" value="nhincuser" />
+      <property name="Password" value="nhincpass" />
+      <property name="serverName" value="localhost" />
+    </jdbc-connection-pool>
+    <jdbc-resource pool-name="docrepository_pool" jndi-name="jdbc/docrepository_datasource" enabled="true" object-type="user"/>
+
+    <jdbc-connection-pool connection-validation-method="auto-commit"
+           datasource-classname="com.mysql.jdbc.jdbc2.optional.MysqlDataSource"
+           res-type="javax.sql.DataSource"
+           wrap-jdbc-objects="false"
+           name="subscriptionrepository_pool"
+           min-pool-size="1"
+           max-pool-size="10">
+      <property name="URL" value="jdbc:mysql://localhost/subscriptionrepository" />
+      <property name="driverClass" value="com.mysql.jdbc.Driver" />
+      <property name="portNumber" value="3306" />
+      <property name="databaseName" value="subscriptionrepository" />
+      <property name="User" value="nhincuser" />
+      <property name="Password" value="nhincpass" />
+      <property name="serverName" value="localhost" />
+    </jdbc-connection-pool>
+    <jdbc-resource pool-name="subscriptionrepository_pool" jndi-name="jdbc/subscriptionrepository_datasource" enabled="true" object-type="user"/>
+
+    <jdbc-connection-pool connection-validation-method="auto-commit"
+           datasource-classname="com.mysql.jdbc.jdbc2.optional.MysqlDataSource"
+           res-type="javax.sql.DataSource"
+           wrap-jdbc-objects="false"
+           name="patientdb_pool"
+           min-pool-size="1"
+           max-pool-size="10">
+      <property name="URL" value="jdbc:mysql://localhost/patientdb" />
+      <property name="driverClass" value="com.mysql.jdbc.Driver" />
+      <property name="portNumber" value="3306" />
+      <property name="databaseName" value="patientdb" />
+      <property name="User" value="nhincuser" />
+      <property name="Password" value="nhincpass" />
+      <property name="serverName" value="localhost" />
+    </jdbc-connection-pool>
+    <jdbc-resource pool-name="patientdb_pool" jndi-name="jdbc/patientdb_datasource" enabled="true" object-type="user"/>
+
+    <jdbc-connection-pool connection-validation-method="auto-commit"
+           datasource-classname="com.mysql.jdbc.jdbc2.optional.MysqlDataSource"
+           res-type="javax.sql.DataSource"
+           wrap-jdbc-objects="false"
+           name="perfrepo_pool"
+           min-pool-size="1"
+           max-pool-size="10">
+      <property name="URL" value="jdbc:mysql://localhost/perfrepo" />
+      <property name="driverClass" value="com.mysql.jdbc.Driver" />
+      <property name="portNumber" value="3306" />
+      <property name="databaseName" value="perfrepo" />
+      <property name="User" value="nhincuser" />
+      <property name="Password" value="nhincpass" />
+      <property name="serverName" value="localhost" />
+    </jdbc-connection-pool>
+    <jdbc-resource pool-name="perfrepo_pool" jndi-name="jdbc/perfrepo_datasource" enabled="true" object-type="user"/>
+
+    <jdbc-connection-pool connection-validation-method="auto-commit"
+           datasource-classname="com.mysql.jdbc.jdbc2.optional.MysqlDataSource"
+           res-type="javax.sql.DataSource"
+           wrap-jdbc-objects="false"
+           name="transrepo_pool"
+           min-pool-size="1"
+           max-pool-size="10">
+      <property name="URL" value="jdbc:mysql://localhost/transrepo" />
+      <property name="driverClass" value="com.mysql.jdbc.Driver" />
+      <property name="portNumber" value="3306" />
+      <property name="databaseName" value="transrepo" />
+      <property name="User" value="nhincuser" />
+      <property name="Password" value="nhincpass" />
+      <property name="serverName" value="localhost" />
+    </jdbc-connection-pool>
+    <jdbc-resource pool-name="transrepo_pool" jndi-name="jdbc/transrepo_datasource" enabled="true" object-type="user"/>
+
   </resources>
   <configs>
     <config name="server-config">
@@ -361,6 +532,16 @@
       <resource-ref ref="jdbc/__TimerPool"/>
       <resource-ref ref="jdbc/__CallFlowPool"/>
       <resource-ref ref="jdbc/__default"/>
+      <resource-ref ref="jdbc/aggregator_datasource"/>
+      <resource-ref ref="jdbc/assigningauthoritydb_datasource"/>
+      <resource-ref ref="jdbc/asyncmsgs_datasource"/>
+      <resource-ref ref="jdbc/auditrepo_datasource"/>
+      <resource-ref ref="jdbc/patientcorrelationdb_datasource"/>
+      <resource-ref ref="jdbc/docrepository_datasource"/>
+      <resource-ref ref="jdbc/subscriptionrepository_datasource"/>
+      <resource-ref ref="jdbc/patientdb_datasource"/>
+      <resource-ref ref="jdbc/perfrepo_datasource"/>
+      <resource-ref ref="jdbc/transrepo_datasource"/>
     </server>
   </servers>
   <property name="administrative.domain.name" value="domain1"/>
