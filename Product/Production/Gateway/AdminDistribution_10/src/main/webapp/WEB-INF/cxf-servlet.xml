@@ -12,6 +12,8 @@
     xmlns:jaxws="http://cxf.apache.org/jaxws"
     xmlns:soap="http://cxf.apache.org/bindings/soap"
     xmlns:aop="http://www.springframework.org/schema/aop"
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:jaxws="http://cxf.apache.org/jaxws" xmlns:soap="http://cxf.apache.org/bindings/soap"
     xsi:schemaLocation="
 http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 http://cxf.apache.org/bindings/soap http://cxf.apache.org/schemas/configuration/soap.xsd
@@ -56,6 +58,7 @@ http://www.springframework.org/schema/aop/spring-aop.xsd">
             <entry key="ws-security.saml2.validator">
                 <bean class="gov.hhs.fha.nhinc.callback.cxf.CONNECTSamlAssertionValidator" />
             </entry>
+            <entry key="mtom-enabled" value="true" />
         </jaxws:properties>
         <jaxws:inInterceptors>
             <ref bean="securityInInterceptor" />
@@ -84,15 +87,10 @@ http://www.springframework.org/schema/aop/spring-aop.xsd">
         implementor="#EntityAdministrativeDistributionSecuredBean"
         wsdlLocation="classpath:wsdl/EntityAdminDistSecured.wsdl">
         <jaxws:properties>
-            <entry
-                key="ws-security.callback-handler"
-                value="gov.hhs.fha.nhinc.callback.cxf.CXFSAMLCallbackHandler" />
-            <entry
-                key="ws-security.signature.properties"
-                value="keystore.properties" />
-            <entry
-                key="ws-security.encryption.properties"
-                value="truststore.properties" />
+            <entry key="ws-security.callback-handler" value="gov.hhs.fha.nhinc.callback.cxf.CXFSAMLCallbackHandler" />
+            <entry key="ws-security.signature.properties" value="keystore.properties" />
+            <entry key="ws-security.encryption.properties" value="truststore.properties" />
+            <entry key="mtom-enabled" value="true" />
         </jaxws:properties>
         <jaxws:inInterceptors>
             <ref bean="securityInInterceptor" />
@@ -120,6 +118,9 @@ http://www.springframework.org/schema/aop/spring-aop.xsd">
         <jaxws:handlers>
             <ref bean="TransactionHandler" />
         </jaxws:handlers>
+        <jaxws:properties>          
+            <entry key="mtom-enabled" value="true" />
+        </jaxws:properties>
     </jaxws:endpoint>
 
 
@@ -140,15 +141,10 @@ http://www.springframework.org/schema/aop/spring-aop.xsd">
         implementor="#NhincAdminDistSecuredBean"
         wsdlLocation="classpath:wsdl/NhincAdminDistSecured.wsdl">
         <jaxws:properties>
-            <entry
-                key="ws-security.callback-handler"
-                value="gov.hhs.fha.nhinc.callback.cxf.CXFSAMLCallbackHandler" />
-            <entry
-                key="ws-security.signature.properties"
-                value="keystore.properties" />
-            <entry
-                key="ws-security.encryption.properties"
-                value="truststore.properties" />
+            <entry key="ws-security.callback-handler" value="gov.hhs.fha.nhinc.callback.cxf.CXFSAMLCallbackHandler" />
+            <entry key="ws-security.signature.properties" value="keystore.properties" />
+            <entry key="ws-security.encryption.properties" value="truststore.properties" />
+            <entry key="mtom-enabled" value="true" />
         </jaxws:properties>
         <jaxws:inInterceptors>
             <ref bean="securityInInterceptor" />
@@ -175,6 +171,9 @@ http://www.springframework.org/schema/aop/spring-aop.xsd">
         <jaxws:handlers>
             <ref bean="TransactionHandler" />
         </jaxws:handlers>
+        <jaxws:properties>          
+            <entry key="mtom-enabled" value="true" />
+        </jaxws:properties>
     </jaxws:endpoint>
 
     <bean id="SOAPHeaderHandler" class="gov.hhs.fha.nhinc.callback.SOAPHeaderHandler" />

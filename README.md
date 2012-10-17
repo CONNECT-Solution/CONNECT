@@ -140,9 +140,9 @@ Next, copy install.properties to local.install.properties and update with your l
 
         $ cp install.properties local.install.properties
 
-Lastly, we're going to install the Glassfish Application Server
+Lastly, we're going to install the MySQL databases needed for CONNECT.
 
-        $ ant install
+        $ ant install.databases
 
 
 ####Setup GlassFish
@@ -159,7 +159,7 @@ you want GlassFish to install.
 
 Lastly, we're going to install the Glassfish Application Server
 
-        $ ant install.glassfish
+        $ ant install
 
 
 ####Deploy to GlassFish

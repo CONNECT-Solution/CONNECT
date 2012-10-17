@@ -26,10 +26,22 @@
  */
 package gov.hhs.fha.nhinc.unsubscribe.adapter.proxy;
 
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+import gov.hhs.fha.nhinc.hiem.consumerreference.SoapMessageElements;
+
+import org.w3c.dom.Element;
+
 /**
  * 
  * @author rayj
  */
-public class HiemUnsubscribeAdapterNoOpImpl {
+public class HiemUnsubscribeAdapterNoOpImpl implements HiemUnsubscribeAdapterProxy {
+    
+    public Element unsubscribe(Element unsubscribeElement, SoapMessageElements referenceParametersElements,
+            AssertionType assertion, NhinTargetSystemType target) {
+        Element responseElement = null;
+        return responseElement;
 
+    }
 }

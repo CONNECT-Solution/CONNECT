@@ -134,7 +134,8 @@ public class NhincConstants {
     public static final String LARGEJOB_SIZE_PERCENT = "LargeJobSizePercent";
     
     // Streaming Large Files Constants    
-    public static final String PARSE_PAYLOAD_AS_FILE_URI = "ParsePayloadAsFileURI";
+    public static final String PARSE_PAYLOAD_AS_FILE_URI_OUTBOUND = "ParsePayloadAsFileURIOutbound";
+    public static final String SAVE_PAYLOAD_TO_FILE_INBOUND = "SavePayloadToFileInbound";
     public static final String PAYLOAD_SAVE_DIRECTORY = "PayloadSaveDirectory";
     
     // Response Message Interceptor Constants

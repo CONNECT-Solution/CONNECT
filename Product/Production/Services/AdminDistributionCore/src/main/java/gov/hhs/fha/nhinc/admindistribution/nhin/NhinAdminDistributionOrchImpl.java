@@ -34,15 +34,17 @@ import org.apache.commons.logging.LogFactory;
 import gov.hhs.fha.nhinc.admindistribution.AdminDistributionAuditLogger;
 import gov.hhs.fha.nhinc.admindistribution.AdminDistributionHelper;
 import gov.hhs.fha.nhinc.admindistribution.AdminDistributionPolicyChecker;
+import gov.hhs.fha.nhinc.admindistribution.AdminDistributionUtils;
 import gov.hhs.fha.nhinc.admindistribution.adapter.proxy.AdapterAdminDistributionProxy;
 import gov.hhs.fha.nhinc.admindistribution.adapter.proxy.AdapterAdminDistributionProxyObjectFactory;
 import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.largefile.LargePayloadException;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 
 /**
- *
+ * 
  * @author dunnek
  */
 public class NhinAdminDistributionOrchImpl {
@@ -56,6 +58,10 @@ public class NhinAdminDistributionOrchImpl {
         return LogFactory.getLog(getClass());
     }
 
+    protected AdminDistributionUtils getAdminDistributionUtils() {
+        return AdminDistributionUtils.getInstance();
+    }
+
     public void sendAlertMessage(EDXLDistribution body, AssertionType assertion) {
         log.info("begin sendAlert");
         // With the one-way service in a one-machine setup,
@@ -66,9 +72,14 @@ public class NhinAdminDistributionOrchImpl {
 
         auditMessage(body, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
                 NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
-        
+
         if (this.isInPassThroughMode() || checkPolicy(body, assertion)) {
-            sendToAgency(body, assertion);
+            try {
+                getAdminDistributionUtils().convertDataToFileLocationIfEnabled(body);
+                sendToAgency(body, assertion);
+            } catch (LargePayloadException lpe) {
+                log.error("Failed to retrieve payload document.", lpe);
+            }
         }
         log.info("End sendAlert");
     }
@@ -144,8 +155,7 @@ public class NhinAdminDistributionOrchImpl {
         return Long.parseLong(result);
     }
 
-    protected void auditMessage(EDXLDistribution body, AssertionType assertion, String direction,
-            String logInterface) {
+    protected void auditMessage(EDXLDistribution body, AssertionType assertion, String direction, String logInterface) {
         AcknowledgementType ack = getLogger().auditNhinAdminDist(body, assertion, direction, logInterface);
         if (ack != null) {
             log.debug("ack: " + ack.getMessage());

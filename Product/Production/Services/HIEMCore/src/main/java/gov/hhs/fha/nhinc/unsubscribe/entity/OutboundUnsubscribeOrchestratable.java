@@ -47,18 +47,21 @@ public class OutboundUnsubscribeOrchestratable implements OutboundOrchestratable
     private Unsubscribe request = null;
     private SoapMessageElements referenceParameters = null;
     private UnsubscribeResponse response = null;
+    private String subscriptionId;
 
     public OutboundUnsubscribeOrchestratable(OutboundDelegate delegate) {
         this.nhinDelegate = delegate;
     }
 
     public OutboundUnsubscribeOrchestratable(OutboundDelegate delegate,
-    		Unsubscribe request, SoapMessageElements referenceParameters, NhinTargetSystemType target, AssertionType assertion) {
+    		Unsubscribe request, SoapMessageElements referenceParameters, NhinTargetSystemType target, AssertionType assertion,
+    		String subscriptionId) {
         this(delegate);
         this.assertion = assertion;
         this.request = request;
         this.referenceParameters = referenceParameters;
         this.target = target;
+        this.subscriptionId = subscriptionId;
     }
 
     @Override
@@ -85,6 +88,10 @@ public class OutboundUnsubscribeOrchestratable implements OutboundOrchestratable
 
     public Unsubscribe getRequest() {
         return request;
+    }
+    
+    public String getSubscriptionId() {
+        return subscriptionId;
     }
 
     public void setRequest(Unsubscribe request) {
@@ -114,6 +121,10 @@ public class OutboundUnsubscribeOrchestratable implements OutboundOrchestratable
     public void setTarget(NhinTargetSystemType target) {
         this.target = target;
     }
+    
+    public void setSubscriptionId(String subscriptionId) {
+        this.subscriptionId = subscriptionId;
+    }
 
     public String getServiceName() {
         return NhincConstants.NHINC_XDR_SERVICE_NAME;
@@ -130,4 +141,5 @@ public class OutboundUnsubscribeOrchestratable implements OutboundOrchestratable
     public PolicyTransformer getPolicyTransformer() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
+
 }

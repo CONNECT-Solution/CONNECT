@@ -26,16 +26,18 @@
  */
 package gov.hhs.fha.nhinc.hiem._20.notify.entity;
 
+import javax.xml.ws.WebServiceContext;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.oasis_open.docs.wsn.b_2.Notify;
+
 import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.NotifyRequestType;
 import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
 import gov.hhs.fha.nhinc.hiem.dte.SoapUtil;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.notify.entity.EntityNotifyOrchImpl;
-
-import javax.xml.ws.WebServiceContext;
-
-import org.oasis_open.docs.wsn.b_2.Notify;
 
 /**
  *
@@ -44,8 +46,12 @@ import org.oasis_open.docs.wsn.b_2.Notify;
  */
 public class EntityNotifyServiceImpl {
 
-    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory
-            .getLog(EntityNotifyServiceImpl.class);
+    private static Log log = LogFactory.getLog(EntityNotifyServiceImpl.class);
+    private EntityNotifyOrchImpl orchImpl;
+
+    EntityNotifyServiceImpl(EntityNotifyOrchImpl orchImpl) {
+        this.orchImpl = orchImpl;
+    }
 
     public AcknowledgementType notify(NotifyRequestType notifyRequest, WebServiceContext context) {
         log.debug("EntityNotifyServiceImpl.notify");
@@ -54,8 +60,7 @@ public class EntityNotifyServiceImpl {
         try {
             String rawNotifyXml = new SoapUtil().extractSoapMessage(context, NhincConstants.HTTP_REQUEST_ATTRIBUTE_SOAPMESSAGE);
 
-            EntityNotifyOrchImpl processor = new EntityNotifyOrchImpl();
-            processor.processNotify(notifyRequest.getNotify(), notifyRequest.getAssertion(), rawNotifyXml);
+            orchImpl.processNotify(notifyRequest.getNotify(), notifyRequest.getAssertion(), rawNotifyXml);
         } catch (Throwable t) {
             log.error("Exception encountered processing notify message: " + t.getMessage(), t);
         }
@@ -69,13 +74,19 @@ public class EntityNotifyServiceImpl {
 
         try {
             String rawNotifyXml = new SoapUtil().extractSoapMessage(context, NhincConstants.HTTP_REQUEST_ATTRIBUTE_SOAPMESSAGE);
-            EntityNotifyOrchImpl processor = new EntityNotifyOrchImpl();
-            processor.processNotify(notifyRequest, SAML2AssertionExtractor.getInstance().extractSamlAssertion(context), rawNotifyXml);
+            orchImpl.processNotify(notifyRequest, SAML2AssertionExtractor.getInstance().extractSamlAssertion(context), rawNotifyXml);
         } catch (Throwable t) {
             log.error("Exception encountered processing notify message: " + t.getMessage(), t);
         }
 
         return ack;
+    }
+
+    /**
+     * @param orchImpl the orchImpl to set
+     */
+    public void setOrchImpl(EntityNotifyOrchImpl orchImpl) {
+        this.orchImpl = orchImpl;
     }
 
 }
