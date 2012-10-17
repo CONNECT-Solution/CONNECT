@@ -28,6 +28,7 @@ package gov.hhs.fha.nhinc.subscribe.aspect;
 
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.AfterThrowing;
+import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 
@@ -37,7 +38,8 @@ import gov.hhs.fha.nhinc.aspect.EventAspect;
  * @author zmelnick
  *
  */
-public class SubscribeEventAspect extends EventAspect {
+@Aspect
+public class SubscribeEventAspect extends EventAspectAdvice {
 
     /*--- Inbound Message ---*/
     @Pointcut("execution(* gov.hhs.fha.nhinc.hiem.*.subscribe.nhin.HiemSubscribe.subscribe(..))")
@@ -53,7 +55,7 @@ public class SubscribeEventAspect extends EventAspect {
     @Override
     @After("inboundMessage()")
     public void endInboundMessageEvent() {
-        super.beginInboundMessageEvent();
+        super.endInboundMessageEvent();
     }
 
     /*--- Inbound Processing ---*/
