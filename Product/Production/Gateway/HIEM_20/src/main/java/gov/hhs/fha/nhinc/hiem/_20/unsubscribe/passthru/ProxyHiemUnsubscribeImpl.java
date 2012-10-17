@@ -44,10 +44,6 @@ import gov.hhs.fha.nhinc.nhincproxysubscriptionmanagement.UnableToDestroySubscri
 import gov.hhs.fha.nhinc.unsubscribe.nhin.proxy.NhinHiemUnsubscribeProxy;
 import gov.hhs.fha.nhinc.unsubscribe.nhin.proxy.NhinHiemUnsubscribeProxyObjectFactory;
 
-/**
- *
- * @author rayj
- */
 public class ProxyHiemUnsubscribeImpl {
 
     private static Log log = LogFactory.getLog(ProxyHiemUnsubscribeImpl.class);
@@ -55,8 +51,8 @@ public class ProxyHiemUnsubscribeImpl {
     public UnsubscribeResponse unsubscribe(
             gov.hhs.fha.nhinc.common.nhinccommonproxy.UnsubscribeRequestType unsubscribeRequest,
             WebServiceContext context) throws Exception {
-    	UnsubscribeResponse response = null;
-    	log.debug("Entering ProxyHiemUnsubscribeImpl.unsubscribe...");
+        UnsubscribeResponse response = null;
+        log.debug("Entering ProxyHiemUnsubscribeImpl.unsubscribe...");
 
         Unsubscribe unsubscribe = unsubscribeRequest.getUnsubscribe();
         NhinTargetSystemType target = unsubscribeRequest.getNhinTargetSystem();
@@ -67,7 +63,8 @@ public class ProxyHiemUnsubscribeImpl {
         NhinHiemUnsubscribeProxyObjectFactory factory = new NhinHiemUnsubscribeProxyObjectFactory();
         NhinHiemUnsubscribeProxy proxy = factory.getNhinHiemUnsubscribeProxy();
         try {
-            response = proxy.unsubscribe(unsubscribe, soapHeaderElements, assertion, target, getSubscriptionId(context));
+            response = proxy
+                    .unsubscribe(unsubscribe, soapHeaderElements, assertion, target, getSubscriptionId(context));
         } catch (UnableToDestroySubscriptionFault ex) {
             log.error("error occurred", ex);
             response = new UnsubscribeResponse();
@@ -80,8 +77,8 @@ public class ProxyHiemUnsubscribeImpl {
     public UnsubscribeResponse unsubscribe(
             gov.hhs.fha.nhinc.common.nhinccommonproxy.UnsubscribeRequestSecuredType unsubscribeRequest,
             WebServiceContext context) throws UnableToDestroySubscriptionFault {
-    	UnsubscribeResponse response = null;
-    	log.debug("Entering ProxyHiemUnsubscribeImpl.unsubscribe...");
+        UnsubscribeResponse response = null;
+        log.debug("Entering ProxyHiemUnsubscribeImpl.unsubscribe...");
         Unsubscribe unsubscribe = unsubscribeRequest.getUnsubscribe();
         NhinTargetSystemType target = unsubscribeRequest.getNhinTargetSystem();
         AssertionType assertion = SAML2AssertionExtractor.getInstance().extractSamlAssertion(context);
@@ -91,8 +88,8 @@ public class ProxyHiemUnsubscribeImpl {
         NhinHiemUnsubscribeProxyObjectFactory factory = new NhinHiemUnsubscribeProxyObjectFactory();
         NhinHiemUnsubscribeProxy proxy = factory.getNhinHiemUnsubscribeProxy();
         try {
-            response = proxy.unsubscribe(unsubscribe, soapHeaderElements, assertion,
-                    target, getSubscriptionId(context));
+            response = proxy
+                    .unsubscribe(unsubscribe, soapHeaderElements, assertion, target, getSubscriptionId(context));
         } catch (UnableToDestroySubscriptionFault e) {
             log.error("error occurred", e);
             response = new UnsubscribeResponse();
@@ -104,23 +101,23 @@ public class ProxyHiemUnsubscribeImpl {
         log.debug("Exiting ProxyHiemUnsubscribeImpl.unsubscribe...");
         return response;
     }
-    
+
     private String getSubscriptionId(WebServiceContext context) {
         SoapMessageElements soapHeaderElements = new SoapHeaderHelper().getSoapHeaderElements(context);
-        
+
         String subscriptionId = null;
         for (Element soapHeaderElement : soapHeaderElements.getElements()) {
             String nodeName = soapHeaderElement.getLocalName();
             if (nodeName.equals("SubscriptionId")) {
                 String nodeValue = soapHeaderElement.getNodeValue();
                 if (NullChecker.isNullish(nodeValue) && soapHeaderElement.getFirstChild() != null) {
-                    nodeValue =  soapHeaderElement.getFirstChild().getNodeValue();
-                }                
+                    nodeValue = soapHeaderElement.getFirstChild().getNodeValue();
+                }
                 return nodeValue;
             }
         }
 
         return subscriptionId;
-    }    
-        
+    }
+
 }

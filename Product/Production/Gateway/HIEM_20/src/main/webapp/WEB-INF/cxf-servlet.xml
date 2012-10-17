@@ -144,13 +144,24 @@ http://www.springframework.org/schema/aop http://www.springframework.org/schema/
         </jaxws:handlers>
     </jaxws:endpoint>
 
-    <!-- Subscribe -->
+    	<!-- Subscribe -->
 
     <!-- Nhin services -->
 
+	<bean id="NhinSubscribeServiceImpl" 
+		class="gov.hhs.fha.nhinc.hiem._20.subscribe.nhin.HiemSubscribeImpl" />
+	<bean id="NhinSubscribeBean"
+		class="gov.hhs.fha.nhinc.hiem._20.subscribe.nhin.HiemSubscribe">
+		<property name="subscribeImpl">
+            <ref bean="NhinSubscribeServiceImpl"/>
+        </property>
+	</bean>
     <jaxws:endpoint xmlns:tns="http://docs.oasis-open.org/wsn/bw-2" id="HiemSubscribe"
-        address="/NhinService/NotificationProducerService/HiemSubscription" serviceName="tns:NotificationProducerService"
-        endpointName="tns:NotificationProducerPort" implementor="gov.hhs.fha.nhinc.hiem._20.subscribe.nhin.HiemSubscribe"
+        address="/NhinService/NotificationProducerService/HiemSubscription" 
+        serviceName="tns:NotificationProducerService"
+        endpointName="tns:NotificationProducerPort" 
+        implementorClass="gov.hhs.fha.nhinc.hiem._20.subscribe.nhin.HiemSubscribe"
+        implementor="#NhinSubscribeBean"
         wsdlLocation="classpath:wsdl/NhinSubscription.wsdl">
         <jaxws:properties>
             <entry key="ws-security.callback-handler" value="gov.hhs.fha.nhinc.callback.cxf.CXFSAMLCallbackHandler" />
@@ -166,15 +177,27 @@ http://www.springframework.org/schema/aop http://www.springframework.org/schema/
         <jaxws:handlers>
             <ref bean="HIEMSoapHeaderHandler" />
             <ref bean="PerformanceLogHandler" />
-            <ref bean="TransactionHandler" />
+            <ref bean="TransactionHandler"/>
         </jaxws:handlers>
     </jaxws:endpoint>
 
     <!-- Entity services -->
 
+	<bean id="EntitySubscribeOrchImpl" 
+		class="gov.hhs.fha.nhinc.subscribe.entity.EntitySubscribeOrchImpl" />
+    <bean id="EntitySubscribeSecuredBean"
+        class="gov.hhs.fha.nhinc.hiem._20.subscribe.entity.EntitySubscribeSecuredService" >
+        <property name="orchestratorImpl">
+            <ref bean="EntitySubscribeOrchImpl"/>
+        </property>
+    </bean>
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:entitysubscriptionmanagementsecured" id="EntitySubscribeSecuredService"
-        address="/EntityNotificationProducerSecured" serviceName="tns:EntityNotificationProducerSecured" endpointName="tns:EntityNotificationProducerSecuredPortSoap"
-        implementor="gov.hhs.fha.nhinc.hiem._20.subscribe.entity.EntitySubscribeSecuredService" wsdlLocation="classpath:wsdl/EntitySubscriptionManagementSecured.wsdl">
+        address="/EntityNotificationProducerSecured" 
+        serviceName="tns:EntityNotificationProducerSecured" 
+        endpointName="tns:EntityNotificationProducerSecuredPortSoap"
+        implementorClass="gov.hhs.fha.nhinc.hiem._20.subscribe.entity.EntitySubscribeSecuredService"
+        implementor="#EntitySubscribeSecuredBean" 
+        wsdlLocation="classpath:wsdl/EntitySubscriptionManagementSecured.wsdl">
         <jaxws:properties>
             <entry key="ws-security.callback-handler" value="gov.hhs.fha.nhinc.callback.cxf.CXFSAMLCallbackHandler" />
             <entry key="ws-security.signature.properties" value="keystore.properties" />
@@ -186,25 +209,45 @@ http://www.springframework.org/schema/aop http://www.springframework.org/schema/
         <jaxws:handlers>
             <ref bean="HIEMSoapHeaderHandler" />
             <ref bean="PerformanceLogHandler" />
-            <ref bean="TransactionHandler" />
+            <ref bean="TransactionHandler"/>
         </jaxws:handlers>
     </jaxws:endpoint>
 
+	<bean id="EntitySubscribeBean"
+        class="gov.hhs.fha.nhinc.hiem._20.subscribe.entity.EntitySubscribeService" >
+        <property name="orchestratorImpl">
+            <ref bean="EntitySubscribeOrchImpl"/>
+        </property>
+    </bean>
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement" id="EntitySubscribeService"
-        address="/EntityNotificationProducer" serviceName="tns:EntityNotificationProducer" endpointName="tns:EntityNotificationProducerPortSoap"
-        implementor="gov.hhs.fha.nhinc.hiem._20.subscribe.entity.EntitySubscribeService" wsdlLocation="classpath:wsdl/EntitySubscriptionManagement.wsdl">
+        address="/EntityNotificationProducer" serviceName="tns:EntityNotificationProducer" 
+        endpointName="tns:EntityNotificationProducerPortSoap"
+        implementorClass="gov.hhs.fha.nhinc.hiem._20.subscribe.entity.EntitySubscribeService" 
+        implementor="#EntitySubscribeBean"
+        wsdlLocation="classpath:wsdl/EntitySubscriptionManagement.wsdl">
         <jaxws:handlers>
             <ref bean="HIEMSoapHeaderHandler" />
             <ref bean="PerformanceLogHandler" />
-            <ref bean="TransactionHandler" />
+            <ref bean="TransactionHandler"/>
         </jaxws:handlers>
     </jaxws:endpoint>
 
     <!-- MsgProxy/NhincProxy/Passthru services -->
 
+	<bean id="PassthruSubscribeServiceImpl" 
+		class="gov.hhs.fha.nhinc.hiem._20.subscribe.passthru.ProxyHiemSubscribeImpl" />
+    
+    <bean id="NhincSubscribeSecuredBean" 
+    	class="gov.hhs.fha.nhinc.hiem._20.subscribe.passthru.ProxyHiemSubscribeSecured">
+    	<property name="subscribeImpl">
+            <ref bean="PassthruSubscribeServiceImpl"/>
+        </property>
+    </bean>
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:nhincproxysubscriptionmanagement" id="ProxyHiemSubscribeSecured"
         address="/NhincProxyNotificationProducerSecured" serviceName="tns:NhincProxyNotificationProducerSecured"
-        endpointName="tns:NhincProxyNotificationProducerPortSoap" implementor="gov.hhs.fha.nhinc.hiem._20.subscribe.passthru.ProxyHiemSubscribeSecured"
+        endpointName="tns:NhincProxyNotificationProducerPortSoap" 
+        implementorClass="gov.hhs.fha.nhinc.hiem._20.subscribe.passthru.ProxyHiemSubscribeSecured"
+        implementor="#NhincSubscribeSecuredBean"
         wsdlLocation="classpath:wsdl/NhincProxySubscriptionManagementSecured.wsdl">
         <jaxws:properties>
             <entry key="ws-security.callback-handler" value="gov.hhs.fha.nhinc.callback.cxf.CXFSAMLCallbackHandler" />
@@ -217,17 +260,26 @@ http://www.springframework.org/schema/aop http://www.springframework.org/schema/
         <jaxws:handlers>
             <ref bean="HIEMSoapHeaderHandler" />
             <ref bean="PerformanceLogHandler" />
-            <ref bean="TransactionHandler" />
+            <ref bean="TransactionHandler"/>
         </jaxws:handlers>
     </jaxws:endpoint>
 
+	<bean id="NhincSubscribeBean" 
+		class="gov.hhs.fha.nhinc.hiem._20.subscribe.passthru.ProxyHiemSubscribe">
+		<property name="subscribeImpl">
+            <ref bean="PassthruSubscribeServiceImpl"/>
+        </property>
+    </bean>
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:nhincproxysubscriptionmanagement" id="ProxyHiemSubscribe"
-        address="/NhincProxyNotificationProducer" serviceName="tns:NhincProxyNotificationProducer" endpointName="tns:NhincProxyNotificationProducerPortSoap"
-        implementor="gov.hhs.fha.nhinc.hiem._20.subscribe.passthru.ProxyHiemSubscribe" wsdlLocation="classpath:wsdl/NhincProxySubscriptionManagement.wsdl">
+        address="/NhincProxyNotificationProducer" serviceName="tns:NhincProxyNotificationProducer" 
+        endpointName="tns:NhincProxyNotificationProducerPortSoap"
+        implementorClass="gov.hhs.fha.nhinc.hiem._20.subscribe.passthru.ProxyHiemSubscribe"
+        implementor="#NhincSubscribeBean" 
+        wsdlLocation="classpath:wsdl/NhincProxySubscriptionManagement.wsdl">
         <jaxws:handlers>
             <ref bean="HIEMSoapHeaderHandler" />
             <ref bean="PerformanceLogHandler" />
-            <ref bean="TransactionHandler" />
+            <ref bean="TransactionHandler"/>
         </jaxws:handlers>
     </jaxws:endpoint>
 
@@ -356,4 +408,5 @@ http://www.springframework.org/schema/aop http://www.springframework.org/schema/
     <!-- Aspect Service -->
     <aop:aspectj-autoproxy />
     <bean id="eventUnsubscribeAspect" class="gov.hhs.fha.nhinc.unsubscribe.aspect.UnsubscribeEventAspect" />
+    <bean id="eventSubscribeAspect" class="gov.hhs.fha.nhinc.subscribe.aspect.SubscribeEventAspect" />
 </beans>

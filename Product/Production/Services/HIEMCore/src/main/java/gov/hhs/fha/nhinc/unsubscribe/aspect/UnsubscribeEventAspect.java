@@ -27,6 +27,7 @@
 package gov.hhs.fha.nhinc.unsubscribe.aspect;
 
 import org.aspectj.lang.annotation.After;
+import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 
@@ -74,7 +75,7 @@ public class UnsubscribeEventAspect extends EventAspectAdvice {
 
     /*--- Adapter Delegation ---*/
     @Pointcut("execution(* gov.hhs.fha.nhinc.unsubscribe.adapter.proxy.HiemUnsubscribeAdapterProxy.unsubscribe(..))")
-    private void adaterDeleation() {
+    private void adapterDelegation() {
     }
 
     @Override
@@ -98,7 +99,7 @@ public class UnsubscribeEventAspect extends EventAspectAdvice {
     private void outboundMessageEntityUnsecured() {
     }
 
-    @Pointcut("outboundMessageSecured() || outboundMessageUnsecured()")
+    @Pointcut("outboundMessageEntitySecured() || outboundMessageEntityUnsecured()")
     private void entityOutboundMessage() {
     }
 
