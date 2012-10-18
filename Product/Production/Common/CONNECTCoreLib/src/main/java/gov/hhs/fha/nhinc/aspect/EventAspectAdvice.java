@@ -36,7 +36,10 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.cxf.jaxws.context.WebServiceContextImpl;
 
 import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
+import gov.hhs.fha.nhinc.event.ContextEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.event.Event;
+import gov.hhs.fha.nhinc.event.EventDescriptionDirector;
+import gov.hhs.fha.nhinc.event.EventDescriptionJSONDecorator;
 import gov.hhs.fha.nhinc.event.EventFactory;
 import gov.hhs.fha.nhinc.event.EventManager;
 import gov.hhs.fha.nhinc.event.EventType;
@@ -113,7 +116,7 @@ public class EventAspectAdvice {
 
     /*--- Failure --*/
     public void failEvent() {
-        recordEvent(EventType.END_ADAPTER_DELEGATION.toString());
+        recordEvent(EventType.MESSAGE_PROCESSING_FAILED.toString());
     }
 
     private void recordEvent(String eventType) {
@@ -156,22 +159,13 @@ public class EventAspectAdvice {
 
     @SuppressWarnings("unchecked")
     protected String getDescription(WebServiceContext context) {
-        String description = null;
-        List<String> responseMsgIdList = null;
+        EventDescriptionDirector director = new EventDescriptionDirector();
+        director.setEventDescriptionBuilder(new ContextEventDescriptionBuilder(context));
+        
+        director.constructEvent();
+        
+        EventDescriptionJSONDecorator jsonDescorator = new EventDescriptionJSONDecorator(director.getPizza());
 
-        MessageContext mContext = context.getMessageContext();
-        String action = AsyncMessageIdExtractor.getAction(context);
-
-        if (mContext != null) {
-            responseMsgIdList = (List<String>) mContext.get(NhincConstants.RESPONSE_MESSAGE_ID_LIST_KEY);
-        }
-
-        description = "{ Action : " + action ;
-        if (NullChecker.isNotNullish(responseMsgIdList)) {
-            	description += ", ResponseId : " + responseMsgIdList;
-            }
-        description += "}";
-
-        return description;
+        return jsonDescorator.toJSONString();
     }
 }

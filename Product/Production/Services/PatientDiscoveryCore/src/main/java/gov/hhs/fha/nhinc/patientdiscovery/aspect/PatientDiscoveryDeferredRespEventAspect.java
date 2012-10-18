@@ -34,6 +34,7 @@ import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
+import org.hl7.v3.PRPAIN201306UV02;
 
 /**
  * @author akong
@@ -59,12 +60,14 @@ public class PatientDiscoveryDeferredRespEventAspect {
 
     /*------InboundMessage----*/
 
-    @Pointcut("execution(* gov.hhs.fha.nhinc.patientdiscovery.*.gateway.ws.NhinPatientDiscoveryAsyncResp.respondingGatewayDeferredPRPAIN201306UV02(..))")
-    private void inboundMessage(){
+    @Pointcut("execution(* gov.hhs.fha.nhinc.patientdiscovery.*.gateway.ws.NhinPatientDiscoveryAsyncResp.respondingGatewayDeferredPRPAIN201306UV02(..)) &&" + 
+            "args(PRPAIN201306UV02)")
+    private void inboundMessage(PRPAIN201306UV02 body){
     }
 
-    @Before("inboundMessage()")
-    public void beginInboundMessageEvent() {
+    @Before("inboundMessage(PRPAIN201306UV02)")
+    public void beginInboundMessageEvent(PRPAIN201306UV02 body) {
+        
         eventAspectAdvice.beginInboundMessageEvent();
     }
 
