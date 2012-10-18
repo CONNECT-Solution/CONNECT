@@ -11,7 +11,7 @@
     <name>CONNECT Adapter Web</name>
     
     <properties>
-        <cxf.version>2.6.1</cxf.version>
+        <cxf.version>2.6.0</cxf.version>
     </properties>
     <dependencies>
         <dependency>
