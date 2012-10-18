@@ -31,29 +31,32 @@ import javax.jws.WebService;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 
+import org.oasis_open.docs.wsn.b_2.Notify;
+
+import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
+import gov.hhs.fha.nhinc.common.nhinccommonentity.NotifySubscribersOfDocumentRequestSecuredType;
 import gov.hhs.fha.nhinc.notify.entity.EntityNotifyOrchImpl;
 
 /**
  *
  * @author Sai Valluripalli
  */
-@WebService(endpointInterface = "gov.hhs.fha.nhinc.entitynotificationconsumersecured.EntityNotificationConsumerSecuredPortType")
+@WebService(
+        endpointInterface = "gov.hhs.fha.nhinc.entitynotificationconsumersecured.EntityNotificationConsumerSecuredPortType")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 public class EntityNotifySecured {
     @Resource
     private WebServiceContext context;
     private EntityNotifyOrchImpl orchImpl;
 
-    public gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType notifySubscribersOfDocument(
-            gov.hhs.fha.nhinc.common.nhinccommonentity.NotifySubscribersOfDocumentRequestSecuredType notifySubscribersOfDocumentRequestSecured) {
+    public AcknowledgementType notifySubscribersOfDocument(
+            NotifySubscribersOfDocumentRequestSecuredType notifySubscribersOfDocumentRequestSecured) {
         throw new UnsupportedOperationException("Not implemented.");
     }
 
-    public gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType notify(
-            org.oasis_open.docs.wsn.b_2.Notify notifyRequestSecured) {
+    public AcknowledgementType notify(Notify notifyRequestSecured) {
         return new EntityNotifyServiceImpl(orchImpl).notify(notifyRequestSecured, context);
     }
-
 
     /**
      * @param orchImpl the orchImpl to set

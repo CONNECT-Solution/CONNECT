@@ -12,25 +12,25 @@
 	<description>Beans included in this file: {nhinhiemsubscribe,nhinhiemnotify}</description>
 
 	<!-- NHIN HIEM Subscribe -->
-	
+
 	<alias alias="nhinhiemsubscribe" name="nhinhiemsubscribewssecured" />
-	
+
 	<!-- No-op Implementation -->
-	<bean lazy-init="true" class="gov.hhs.fha.nhinc.nhin.subscribe.proxy.NhinHiemSubscribeNoOpImpl" id="nhinhiemsubscribenoop" name="nhinhiemsubscribenoop"> 
+	<bean lazy-init="true" class="gov.hhs.fha.nhinc.subscribe.nhin.proxy.NhinHiemSubscribeNoOpImpl" id="nhinhiemsubscribenoop" name="nhinhiemsubscribenoop"> 
 		<meta key="impltype" value="noop"/>
 	</bean> 
 
 	<!-- Secured web service Implementation -->
-    <bean lazy-init="true" class="gov.hhs.fha.nhinc.nhin.subscribe.proxy.NhinHiemSubscribeWebServiceProxy" id="nhinhiemsubscribewssecured" name="nhinhiemsubscribewssecured"> 
+    <bean lazy-init="true" class="gov.hhs.fha.nhinc.subscribe.nhin.proxy.NhinHiemSubscribeWebServiceProxy" id="nhinhiemsubscribewssecured" name="nhinhiemsubscribewssecured"> 
 		<meta key="impltype" value="wssecured"/>
 		<meta key="default" value="true"/>
 	</bean> 
 
-	
+
 	<!-- NHIN HIEM Notify -->
-	
+
 	<alias alias="nhinhiemnotify" name="nhinhiemnotifywssecured" />
-	
+
 	<!-- No-op Implementation -->
 	<bean lazy-init="true" class="gov.hhs.fha.nhinc.notify.nhin.proxy.NhinHiemNotifyNoOpImpl" id="nhinhiemnotifynoop" name="nhinhiemnotifynoop"> 
 		<meta key="impltype" value="noop"/>
@@ -46,5 +46,6 @@
 
 	<aop:aspectj-autoproxy />    
 	<bean id="eventUnsubscribeAspect" class="gov.hhs.fha.nhinc.unsubscribe.aspect.UnsubscribeEventAspect" />
-	
+	<bean id="eventSubscribeAspect" class="gov.hhs.fha.nhinc.subscribe.aspect.SubscribeEventAspect" />
+
 </beans>
