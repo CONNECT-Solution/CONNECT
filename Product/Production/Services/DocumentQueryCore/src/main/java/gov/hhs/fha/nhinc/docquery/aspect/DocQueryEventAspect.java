@@ -33,7 +33,7 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 
-import gov.hhs.fha.nhinc.aspect.EventAspect;
+import gov.hhs.fha.nhinc.aspect.EventAspectAdvice;
 
 /**
  * @author akong
@@ -41,7 +41,7 @@ import gov.hhs.fha.nhinc.aspect.EventAspect;
  */
 @Aspect
 @SuppressWarnings("unused")
-public class DocQueryEventAspect extends EventAspect {
+public class DocQueryEventAspect extends EventAspectAdvice {
 
 
     /*------InboundMessage----*/
@@ -98,13 +98,13 @@ public class DocQueryEventAspect extends EventAspect {
         super.endAdapterDelegationEvent();
     }
 
-    
+
     /*------OutboundMessage----*/
 
     @Pointcut("execution(* gov.hhs.fha.nhinc.docquery.*.entity.EntityDocQuery*.respondingGatewayCrossGatewayQuery(..))")
     private void outboundMessage(){
     }
-        
+
     @Pointcut("execution(* gov.hhs.fha.nhinc.docquery.*.passthru.NhincProxyDocQuery*.respondingGatewayCrossGatewayQuery(..))")
     private void passthruOutboundMessage(){
     }
@@ -126,7 +126,7 @@ public class DocQueryEventAspect extends EventAspect {
     @Pointcut("execution(* gov.hhs.fha.nhinc.docquery.entity.EntityDocQueryOrchImpl.respondingGatewayCrossGatewayQuery(..))")
     private void processOutboundMessage(){
     }
-    
+
     @Pointcut("execution(* gov.hhs.fha.nhinc.docquery.passthru.PassthruDocQueryOrchImpl.respondingGatewayCrossGatewayQuery(..))")
     private void processPassthruOutboundMessage(){
     }
@@ -160,7 +160,7 @@ public class DocQueryEventAspect extends EventAspect {
     public void endNwhinInvocationEvent() {
         super.endNwhinInvocationEvent();
     }
-     
+
     /*------ Failure ----*/
 
     @AfterThrowing("inboundMessage() || outboundMessage()")

@@ -52,7 +52,6 @@ class EntityDocSubmissionImpl {
         this.orchImpl = orchImpl;
     }
 
-
     RegistryResponseType provideAndRegisterDocumentSetBUnsecured(
             RespondingGatewayProvideAndRegisterDocumentSetRequestType request, WebServiceContext context) {
         log.info("Begin EntityDocSubmissionImpl.provideAndRegisterDocumentSetBUnsecured(RespondingGatewayProvideAndRegisterDocumentSetRequestType, WebServiceContext)");
