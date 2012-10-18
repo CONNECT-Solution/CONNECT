@@ -32,7 +32,7 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 
-import gov.hhs.fha.nhinc.aspect.EventAspect;
+import gov.hhs.fha.nhinc.aspect.EventAspectAdvice;
 
 /**
  * @author zmelnick
