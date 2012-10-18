@@ -31,10 +31,6 @@
                     <artifactId>hibernate</artifactId>
                 </exclusion>
                 <exclusion>
-                    <groupId>c3p0</groupId>
-                    <artifactId>c3p0</artifactId>
-                </exclusion>
-                <exclusion>
                     <artifactId>activation</artifactId>
                     <groupId>javax.activation</groupId>
                 </exclusion>
