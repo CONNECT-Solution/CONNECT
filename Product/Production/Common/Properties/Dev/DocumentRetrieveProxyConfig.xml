@@ -40,16 +40,23 @@
 	<alias alias="adapterdocumentrepository" name="adapterdocumentrepositorywsunsecured" />
 	
 	<!-- No-op Implementation -->
-	<bean lazy-init="true" class="gov.hhs.fha.nhinc.docrepository.adapter.proxy.AdapterComponentDocRepositoryProxyNoOpImpl" id="adapterdocumentrepositorynoop" name="adapterdocumentrepositorynoop"> 
-		<property name="document" value="ZmlsZTovLy9Vc2Vycy9ha29uZy9wYXlsb2Fkcy8xRy56aXA=" />
-		<property name="repositoryUniqueId" value="1" />
-		<property name="documentUniqueId" value="1.123407.777777" />
+	<bean lazy-init="true" class="gov.hhs.fha.nhinc.docrepository.adapter.proxy.AdapterComponentDocRepositoryProxyNoOpImpl" id="adapterdocumentrepositorynoop" name="adapterdocumentrepositorynoop">
+	    <meta key="impltype" value="noop"/>
 	</bean> 
 
 	<!-- Java Implementation -->
 	<bean lazy-init="true" class="gov.hhs.fha.nhinc.docrepository.adapter.proxy.AdapterComponentDocRepositoryProxyJavaImpl" id="adapterdocumentrepositoryjava" name="adapterdocumentrepositoryjava"> 
 		<meta key="impltype" value="java"/>
 	</bean>
+	
+	<!-- Bean Implementation -->
+	<bean lazy-init="true" class="gov.hhs.fha.nhinc.docrepository.adapter.proxy.AdapterComponentDocRepositoryProxyBeanImpl" id="adapterdocumentrepositorybean" name="adapterdocumentrepositorybean"> 
+		<property name="homeCommunityId" value="urn:oid:2.2" />
+		<property name="repositoryUniqueId" value="1" />
+		<property name="documentUniqueId" value="1.123407.777777" />
+		<property name="mimeType" value="text/xml" />
+		<property name="document" value="ZmlsZTovLy9Vc2Vycy9ha29uZy9wYXlsb2Fkcy8xRy56aXA=" />
+	</bean> 
 	
 	<!-- Unsecured web service Implementation -->
 	<bean lazy-init="true" class="gov.hhs.fha.nhinc.docrepository.adapter.proxy.AdapterComponentDocRepositoryProxyWebServiceUnsecuredImpl" id="adapterdocumentrepositorywsunsecured" name="adapterdocumentrepositorywsunsecured"> 

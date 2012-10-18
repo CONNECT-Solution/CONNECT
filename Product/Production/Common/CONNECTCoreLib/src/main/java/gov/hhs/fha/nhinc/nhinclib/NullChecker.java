@@ -26,8 +26,8 @@
  */
 package gov.hhs.fha.nhinc.nhinclib;
 
+import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 
 /**
  * 
@@ -36,11 +36,7 @@ import java.util.Set;
 public class NullChecker {
 
     public static boolean isNullish(String value) {
-        boolean result = false;
-        if ((value == null) || (value.contentEquals(""))) {
-            result = true;
-        }
-        return result;
+        return ((value == null) || (value.contentEquals("")));
     }
 
     public static boolean isNotNullish(String value) {
@@ -48,26 +44,18 @@ public class NullChecker {
     }
 
     public static boolean isNullish(List<?> value) {
-        boolean result = false;
-        if ((value == null) || (value.size() == 0)) {
-            result = true;
-        }
-        return result;
+        return ((value == null) || (value.size() == 0));
     }
 
     public static boolean isNotNullish(List<?> value) {
         return (!isNullish(value));
     }
     
-    public static boolean isNullish(Set<?> value) {
-        boolean result = false;
-        if ((value == null) || (value.size() == 0)) {
-            result = true;
-        }
-        return result;
+    public static boolean isNullish(Collection<?> value) {
+        return ((value == null) || (value.isEmpty()));
     }
     
-    public static boolean isNotNullish(Set<?> value) {
+    public static boolean isNotNullish(Collection<?> value) {
         return (!isNullish(value));
     }
 
