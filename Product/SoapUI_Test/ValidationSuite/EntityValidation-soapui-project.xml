@@ -3734,7 +3734,7 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 </soap:Envelope>]]></con:request>
 		<con:assertion type="SOAP Response"/>
 		<con:assertion type="SOAP Fault Assertion"/>
-		<con:assertion type="Schema Compliance">
+		<con:assertion disabled="true" type="Schema Compliance">
 			<con:configuration>
 				<definition/>
 			</con:configuration>
@@ -8663,7 +8663,7 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 </soap:Envelope>]]></con:request>
 		<con:assertion type="SOAP Response"/>
 		<con:assertion type="SOAP Fault Assertion"/>
-		<con:assertion type="Schema Compliance">
+		<con:assertion disabled="true" type="Schema Compliance">
 			<con:configuration>
 				<definition/>
 			</con:configuration>

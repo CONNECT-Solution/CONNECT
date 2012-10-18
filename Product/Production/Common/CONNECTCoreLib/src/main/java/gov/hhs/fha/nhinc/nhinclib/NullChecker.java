@@ -27,6 +27,7 @@
 package gov.hhs.fha.nhinc.nhinclib;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * 
@@ -46,7 +47,7 @@ public class NullChecker {
         return (!isNullish(value));
     }
 
-    public static boolean isNullish(List value) {
+    public static boolean isNullish(List<?> value) {
         boolean result = false;
         if ((value == null) || (value.size() == 0)) {
             result = true;
@@ -54,7 +55,19 @@ public class NullChecker {
         return result;
     }
 
-    public static boolean isNotNullish(List value) {
+    public static boolean isNotNullish(List<?> value) {
+        return (!isNullish(value));
+    }
+    
+    public static boolean isNullish(Set<?> value) {
+        boolean result = false;
+        if ((value == null) || (value.size() == 0)) {
+            result = true;
+        }
+        return result;
+    }
+    
+    public static boolean isNotNullish(Set<?> value) {
         return (!isNullish(value));
     }
 

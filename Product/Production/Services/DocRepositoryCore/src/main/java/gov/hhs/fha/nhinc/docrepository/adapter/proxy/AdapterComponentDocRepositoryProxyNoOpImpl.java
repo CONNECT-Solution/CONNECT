@@ -27,9 +27,12 @@
 package gov.hhs.fha.nhinc.docrepository.adapter.proxy;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.gateway.aggregator.document.DocumentConstants;
+import gov.hhs.fha.nhinc.largefile.LargeFileUtils;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
+import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType.DocumentResponse;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 import org.apache.commons.logging.Log;
@@ -43,15 +46,54 @@ public class AdapterComponentDocRepositoryProxyNoOpImpl implements AdapterCompon
 
     private static Log log = LogFactory.getLog(AdapterComponentDocRepositoryProxyNoOpImpl.class);
 
+    private String document;
+    private String repositoryId;
+    private String documentUniqueId;
+
     public RetrieveDocumentSetResponseType retrieveDocument(RetrieveDocumentSetRequestType request,
             AssertionType assertion) {
         log.debug("Using NoOp Implementation for Adapter Component Doc Repository Service");
-        return new RetrieveDocumentSetResponseType();
+        return createRetrieveDocumentSetResponseType();
     }
 
     public RegistryResponseType provideAndRegisterDocumentSet(ProvideAndRegisterDocumentSetRequestType body,
             AssertionType assertion) {
         log.debug("Using NoOp Implementation for Adapter Component Doc Repository Service");
         return new RegistryResponseType();
+    }
+
+    public void setDocument(String document) {
+        this.document = document;
+    }
+
+    public void setRepositoryUniqueId(String repositoryId) {
+        this.repositoryId = repositoryId;
+    }
+
+    public void setDocumentUniqueId(String documentUniqueId) {
+        this.documentUniqueId = documentUniqueId;
+    }
+
+    private RetrieveDocumentSetResponseType createRetrieveDocumentSetResponseType() {
+        RetrieveDocumentSetResponseType response = new RetrieveDocumentSetResponseType();
+
+        RegistryResponseType registryResponse = new RegistryResponseType();
+        registryResponse.setStatus(DocumentConstants.XDS_RETRIEVE_RESPONSE_STATUS_SUCCESS);
+
+        DocumentResponse documentResponse = new DocumentResponse();
+        if (this.documentUniqueId != null) {
+            documentResponse.setDocumentUniqueId(this.documentUniqueId);
+        }
+        if (this.repositoryId != null) {
+            documentResponse.setRepositoryUniqueId(this.repositoryId);
+        }
+        if (this.document != null) {
+            documentResponse.setDocument(LargeFileUtils.getInstance().convertToDataHandler(this.document));
+        }
+
+        response.setRegistryResponse(registryResponse);
+        response.getDocumentResponse().add(documentResponse);
+
+        return response;
     }
 }

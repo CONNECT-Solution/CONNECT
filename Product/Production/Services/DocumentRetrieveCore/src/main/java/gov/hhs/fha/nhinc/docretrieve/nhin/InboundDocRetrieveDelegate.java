@@ -5,20 +5,18 @@
 package gov.hhs.fha.nhinc.docretrieve.nhin;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
-import gov.hhs.fha.nhinc.gateway.aggregator.document.DocumentConstants;
+import gov.hhs.fha.nhinc.docretrieve.MessageGenerator;
+import gov.hhs.fha.nhinc.docretrieve.orchestration.OrchestrationContextFactory;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.orchestration.InboundDelegate;
 import gov.hhs.fha.nhinc.orchestration.InboundOrchestratable;
 import gov.hhs.fha.nhinc.orchestration.Orchestratable;
 import gov.hhs.fha.nhinc.orchestration.OrchestrationContext;
 import gov.hhs.fha.nhinc.orchestration.OrchestrationContextBuilder;
-import gov.hhs.fha.nhinc.docretrieve.orchestration.OrchestrationContextFactory;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
-import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
-import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
-import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -68,17 +66,10 @@ public class InboundDocRetrieveDelegate implements InboundDelegate {
         }
 
         if (message instanceof InboundDocRetrieveOrchestratableImpl) {
-            RetrieveDocumentSetResponseType response = new RetrieveDocumentSetResponseType();
-            RegistryResponseType responseType = new RegistryResponseType();
-            response.setRegistryResponse(responseType);
-            responseType.setStatus(DocumentConstants.XDS_RETRIEVE_RESPONSE_STATUS_FAILURE);
-            RegistryErrorList regErrList = new RegistryErrorList();
-            responseType.setRegistryErrorList(regErrList);
-            RegistryError regErr = new RegistryError();
-            regErrList.getRegistryError().add(regErr);
-            regErr.setCodeContext(error);
-            regErr.setErrorCode("XDSRepositoryError");
-            regErr.setSeverity(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR);
+
+            RetrieveDocumentSetResponseType response = MessageGenerator.getInstance()
+                    .createRegistryResponseError(error);
+
             ((InboundDocRetrieveOrchestratableImpl) message).setResponse(response);
         }
     }
