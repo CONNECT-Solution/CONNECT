@@ -27,13 +27,13 @@
 
 package gov.hhs.fha.nhinc.patientdiscovery.aspect;
 
+import gov.hhs.fha.nhinc.aspect.EventAspectAdvice;
+
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
-
-import gov.hhs.fha.nhinc.aspect.EventAspect;
 
 /**
  * @author akong
@@ -41,43 +41,50 @@ import gov.hhs.fha.nhinc.aspect.EventAspect;
  */
 @Aspect
 @SuppressWarnings("unused")
-public class PatientDiscoveryEventAspect extends EventAspect {
+public class PatientDiscoveryEventAspect {
 
+    /**
+     * Advice to invoke at pointcut locations.
+     */
+    private final EventAspectAdvice eventAspectAdvice;
+    
+    /**
+     * Constructor.
+     * @param eventAspectAdvice
+     */
+    public PatientDiscoveryEventAspect(EventAspectAdvice eventAspectAdvice) {
+        super();
+        this.eventAspectAdvice = eventAspectAdvice;
+    }
 
     /*------InboundMessage----*/
-
     @Pointcut("execution(* gov.hhs.fha.nhinc.patientdiscovery.*.gateway.ws.NhinPatientDiscovery.respondingGatewayPRPAIN201305UV02(..))")
     private void inboundMessage(){
     }
 
-    @Override
     @Before("inboundMessage()")
     public void beginInboundMessageEvent() {
-        super.beginInboundMessageEvent();
+        eventAspectAdvice.beginInboundMessageEvent();
     }
 
-    @Override
     @After("inboundMessage()")
     public void endInboundMessageEvent() {
-        super.endInboundMessageEvent();
+        eventAspectAdvice.endInboundMessageEvent();
     }
 
     /*------Inbound Processing----*/
-
     @Pointcut("execution(* gov.hhs.fha.nhinc.patientdiscovery.NhinPatientDiscoveryImpl.respondingGatewayPRPAIN201305UV02(..))")
     private void processInboundMessage(){
     }
 
-    @Override
     @Before("processInboundMessage()")
     public void beginInboundProcessingEvent() {
-        super.beginInboundProcessingEvent();
+        eventAspectAdvice.beginInboundProcessingEvent();
     }
 
-    @Override
     @After("processInboundMessage()")
     public void endInboundProcessingEvent() {
-        super.endInboundProcessingEvent();
+        eventAspectAdvice.endInboundProcessingEvent();
     }
 
     /*------ Adapter Delegation----*/
@@ -86,21 +93,18 @@ public class PatientDiscoveryEventAspect extends EventAspect {
     private void adapterDelegation() {
     }
 
-    @Override
     @Before("adapterDelegation()")
     public void beginAdapterDelegationEvent() {
-        super.beginAdapterDelegationEvent();
+        eventAspectAdvice.beginAdapterDelegationEvent();
     }
 
-    @Override
     @After("adapterDelegation()")
     public void endAdapterDelegationEvent() {
-        super.endAdapterDelegationEvent();
+        eventAspectAdvice.endAdapterDelegationEvent();
     }
 
     
     /*------OutboundMessage----*/
-
     @Pointcut("execution(* gov.hhs.fha.nhinc.patientdiscovery.*.gateway.ws.EntityPatientDiscovery*.respondingGatewayPRPAIN201305UV02(..))")
     private void outboundMessage(){
     }
@@ -109,20 +113,17 @@ public class PatientDiscoveryEventAspect extends EventAspect {
     private void passthruOutboundMessage(){
     }
 
-    @Override
     @Before("outboundMessage() || passthruOutboundMessage()")
     public void beginOutboundMessageEvent() {
-        super.beginOutboundMessageEvent();
+        eventAspectAdvice.beginOutboundMessageEvent();
     }
 
-    @Override
     @After("outboundMessage() || passthruOutboundMessage()")
     public void endOutboundMessageEvent() {
-        super.endOutboundMessageEvent();
+        eventAspectAdvice.endOutboundMessageEvent();
     }
 
     /*------Outbound Processing----*/
-
     @Pointcut("execution(* gov.hhs.fha.nhinc.patientdiscovery._10.entity.EntityPatientDiscoveryImpl.respondingGatewayPRPAIN201305UV02(..))")
     private void processOutboundMessage(){
     }
@@ -131,41 +132,35 @@ public class PatientDiscoveryEventAspect extends EventAspect {
     private void processPassthruOutboundMessage(){
     }
 
-    @Override
     @Before("processOutboundMessage() || processPassthruOutboundMessage()")
     public void beginOutboundProcessingEvent() {
-        super.beginOutboundProcessingEvent();
+        eventAspectAdvice.beginOutboundProcessingEvent();
     }
 
-    @Override
     @After("processOutboundMessage() || processPassthruOutboundMessage()")
     public void endOutboundProcessingEvent() {
-        super.endOutboundProcessingEvent();
+        eventAspectAdvice.endOutboundProcessingEvent();
     }
 
     /*------ Nwhin Invocation ----*/
-
     @Pointcut("execution(* gov.hhs.fha.nhinc.patientdiscovery.nhin.proxy.NhinPatientDiscoveryProxy*.respondingGatewayPRPAIN201305UV02(..))")
     private void nwhinInvocation() {
     }
 
-    @Override
     @Before("nwhinInvocation()")
     public void beginNwhinInvocationEvent() {
-        super.beginNwhinInvocationEvent();
+        eventAspectAdvice.beginNwhinInvocationEvent();
     }
 
-    @Override
     @After("nwhinInvocation()")
     public void endNwhinInvocationEvent() {
-        super.endNwhinInvocationEvent();
+        eventAspectAdvice.endNwhinInvocationEvent();
     }
      
     /*------ Failure ----*/
-
     @AfterThrowing("inboundMessage() || outboundMessage()")
     public void failEvent() {
-        super.failEvent();
+        eventAspectAdvice.failEvent();
     }
 
 }

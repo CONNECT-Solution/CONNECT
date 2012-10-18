@@ -26,17 +26,17 @@
  */
 package gov.hhs.fha.nhinc.admindistribution._20.entity;
 
-import gov.hhs.fha.nhinc.admindistribution.entity.EntityAdminDistributionOrchImpl;
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
-
 import javax.annotation.Resource;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
 
+import gov.hhs.fha.nhinc.admindistribution.entity.EntityAdminDistributionOrchImpl;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
+
 /**
- * 
+ *
  * @author dunnek
  */
 
@@ -45,19 +45,25 @@ import javax.xml.ws.soap.Addressing;
 public class EntityAdministrativeDistributionSecured_g1 implements gov.hhs.fha.nhinc.entityadmindistribution.AdministrativeDistributionSecuredPortType {
     @Resource
     private WebServiceContext context;
+    private EntityAdminDistributionOrchImpl orchImpl;
 
+    @Override
     public void sendAlertMessage(
             gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewaySendAlertMessageSecuredType body) {
         AssertionType assertion = extractAssertion(context);
 
-        getEntityImpl().sendAlertMessage(body, assertion, body.getNhinTargetCommunities());
+        orchImpl.sendAlertMessage(body, assertion, body.getNhinTargetCommunities());
     }
 
     protected AssertionType extractAssertion(WebServiceContext context) {
         return SAML2AssertionExtractor.getInstance().extractSamlAssertion(context);
     }
 
-    protected EntityAdminDistributionOrchImpl getEntityImpl() {
-        return new EntityAdminDistributionOrchImpl();
+    public void setOrchestratorImpl(EntityAdminDistributionOrchImpl orchImpl) {
+        this.orchImpl = orchImpl;
+    }
+
+    protected EntityAdminDistributionOrchImpl getOrchImpl(){
+        return this.orchImpl;
     }
 }

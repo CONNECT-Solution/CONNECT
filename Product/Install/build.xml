@@ -26,7 +26,7 @@
     <property name="glassfish.install.ant.script" value="${glassfish.install.dir}/setup.xml" />
     <property name="sql.scripts.dir" value="${basedir}/../DBScripts/nhincdb" />
     <property name="mysql.executable" value="mysql" />
-    <property name="glassfish.zip.file" value="${temp.dir}/glassfish-3.1.1.zip" />
+    <property name="glassfish.zip.file" value="${temp.dir}/glassfish-3.1.2.2.zip" />
 
     <taskdef resource="net/sf/antcontrib/antlib.xml">
         <classpath>
@@ -35,8 +35,7 @@
             </fileset>
         </classpath>
     </taskdef>
-    
-    <property name="skip.build" value="true"/>
+
     <property name="skip.do-to-projects" value="true"/>
     <property name="m2.local.repo.path" value="${user.home}/.m2/repository/"/>
     <property name="deployment.version" value="4.0.0-SNAPSHOT"/>
@@ -60,13 +59,12 @@
     <property name="ear.dependency.fileset" refid="ear.dependency.fileset" />
     <property name="deployment.ear.file.path" location="${m2.local.repo.path}/${ear.dependency.fileset}"/>
     <echo message="CONNECT EAR to Deploy: ${deployment.ear.file.path}"/>
-    
-    
+
     <mkdir dir="${temp.dir}" />
     <delete>
         <fileset dir="${temp.dir}">
             <include name="**/*" />
-            <exclude name="glassfish-3.1.1.zip" />
+            <exclude name="glassfish-3.1.2.2.zip" />
         </fileset>
     </delete>
 
@@ -77,11 +75,11 @@
             <available file="${glassfish.zip.file}" type="file" />
         </not>
         <then>
-            <get src="http://download.java.net/glassfish/3.1.1/release/glassfish-3.1.1.zip" dest="${glassfish.zip.file}" />
+            <get src="http://download.java.net/glassfish/3.1.2.2/release/glassfish-3.1.2.2.zip" dest="${glassfish.zip.file}" />
         </then>
     </if>
 
-    <target name="install" depends="backup.glassfish.install.dir, install.glassfish, install.databases, build.connect, deploy.connect, cleanup" />
+    <target name="install" depends="backup.glassfish.install.dir, install.glassfish, install.databases, deploy.connect, cleanup" />
 
     <target name="install-binary" depends="backup.glassfish.install.dir, install.glassfish, install.databases, deploy.connect.binary, cleanup" />
 
@@ -97,7 +95,7 @@
         <delete>
             <fileset dir="${temp.dir}">
                 <include name="**/*" />
-                <exclude name="glassfish-3.1.1.zip" />
+                <exclude name="glassfish-3.1.2.2.zip" />
             </fileset>
         </delete>
     </target>
@@ -208,16 +206,6 @@ FLUSH PRIVILEGES;
             <arg value="-pnhincpass" />
         </exec>
         <echo message="databases are successfully installed." />
-    </target>
-
-    <target name="build.connect" unless="skip.build">
-        <echo message="building CONNECT." />
-        <ant antfile="${basedir}/../build.xml" dir="${basedir}/..">
-            <target name="clean" />
-            <target name="package.create" />
-            <property name="as.home" value="${glassfish.install.dir}/glassfish" />
-            <property name="source.install" value="true" />
-        </ant>
     </target>
 
     <target name="deploy.connect" unless="skip.deploy">

@@ -63,11 +63,8 @@
         </property>
     </bean>
     <jaxws:endpoint xmlns:eds="urn:gov:hhs:fha:nhinc:nhincentityxdr" id="EntityDocSubmissionUnsecured"
-        address="/EntityService/EntityDocSubmissionUnsecured" serviceName="eds:EntityXDR_Service"
-        endpointName="eds:EntityXDR_Port"
-        implementorClass="gov.hhs.fha.nhinc.docsubmission._11.entity.EntityDocSubmissionUnsecured"
-        implementor="#entityXDRUnsecured"
-        wsdlLocation="classpath:/wsdl/EntityXDR.wsdl">
+        address="/EntityService/EntityDocSubmissionUnsecured" serviceName="eds:EntityXDR_Service" endpointName="eds:EntityXDR_Port"
+        implementor="gov.hhs.fha.nhinc.docsubmission._11.entity.EntityDocSubmissionUnsecured" wsdlLocation="classpath:wsdl/EntityXDR.wsdl">
         <jaxws:handlers>
             <ref bean="TransactionHandler" />
         </jaxws:handlers>

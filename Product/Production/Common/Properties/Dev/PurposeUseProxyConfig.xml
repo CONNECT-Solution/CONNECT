@@ -11,11 +11,13 @@
 
 	<!-- Gateway Property File Selection -->
 	<bean class="gov.hhs.fha.nhinc.callback.purposeuse.PurposeUseProxyDefaultImpl" id="purposeuse" name="purposeusedefault">
+		<meta key="impltype" value="gateway"/>
 		<meta key="default" value="true"/>
 	</bean> 
 
 	<!-- Community Based Selection -->
     <bean class="gov.hhs.fha.nhinc.callback.purposeuse.PurposeUseProxyCommunityImpl" id="purposeusecommunity" name="purposeusecommunity"> 
+		<meta key="impltype" value="community"/>
 	</bean>
 
 </beans>

@@ -77,9 +77,20 @@ public class LargeFileUtils {
     public boolean isParsePayloadAsFileLocationEnabled() {
         try {
             return PropertyAccessor.getInstance().getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE,
-                    NhincConstants.PARSE_PAYLOAD_AS_FILE_URI);
+                    NhincConstants.PARSE_PAYLOAD_AS_FILE_URI_OUTBOUND);
         } catch (PropertyAccessException pae) {
-            log.error("Failed to determine if payload is a file location.  Will assume false.", pae);
+            log.error("Failed to determine if payload should be parsed as a file location.  Will assume false.", pae);
+        }
+
+        return false;
+    }
+    
+    public boolean isSavePayloadToFileEnabled() {
+        try {
+            return PropertyAccessor.getInstance().getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE,
+                    NhincConstants.SAVE_PAYLOAD_TO_FILE_INBOUND);
+        } catch (PropertyAccessException pae) {
+            log.error("Failed to determine if payload should be saved to a file location.  Will assume false.", pae);
         }
 
         return false;
@@ -100,7 +111,7 @@ public class LargeFileUtils {
             is = dh.getInputStream();
             int numRead = 1024;
             byte[] buf = new byte[numRead];
-            while ((numRead = is.read(buf)) >= 0) {
+            if ((numRead = is.read(buf)) >= 0) {
                 baos.write(buf, 0, numRead);
             }
         } finally {

@@ -44,20 +44,25 @@ import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
 public class EntityAdministrativeDistributionSecured implements gov.hhs.fha.nhinc.entityadmindistribution.AdministrativeDistributionSecuredPortType {
     @Resource
     private WebServiceContext context;
+    private EntityAdminDistributionOrchImpl orchImpl;
 
     @Override
     public void sendAlertMessage(
             gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewaySendAlertMessageSecuredType body) {
         AssertionType assertion = extractAssertion(context);
 
-        getEntityImpl().sendAlertMessage(body, assertion, body.getNhinTargetCommunities());
+        getOrchImpl().sendAlertMessage(body, assertion, body.getNhinTargetCommunities());
     }
 
     protected AssertionType extractAssertion(WebServiceContext context) {
         return SAML2AssertionExtractor.getInstance().extractSamlAssertion(context);
     }
 
-    protected EntityAdminDistributionOrchImpl getEntityImpl() {
-        return new EntityAdminDistributionOrchImpl();
+    public void setOrchestratorImpl(EntityAdminDistributionOrchImpl orchImpl) {
+        this.orchImpl = orchImpl;
+    }
+
+    protected EntityAdminDistributionOrchImpl getOrchImpl(){
+        return this.orchImpl;
     }
 }

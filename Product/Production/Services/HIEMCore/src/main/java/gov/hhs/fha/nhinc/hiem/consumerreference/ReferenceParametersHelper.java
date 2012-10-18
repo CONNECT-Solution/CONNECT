@@ -78,6 +78,26 @@ public class ReferenceParametersHelper {
         return wsAddressingTo;
         
     }
+    
+    public static String getSubscriptionId(SoapMessageElements referenceParametersElements) {
+        String SubscriptionId = null;
+        for (Element referenceParametersElement : referenceParametersElements.getElements()) {
+
+            String nodeName = referenceParametersElement.getLocalName().toLowerCase();
+                   
+            if (nodeName.equals("subscriptionid")) {
+                String nodeValue = referenceParametersElement.getNodeValue();
+                log.debug("nodeValue SubscriptionId :"+nodeValue);
+                if (nodeValue == null && referenceParametersElement.getFirstChild() != null) {
+                    nodeValue = referenceParametersElement.getFirstChild().getNodeValue(); 
+                }
+           SubscriptionId = nodeValue;
+           log.debug("SubscriptionId: "+SubscriptionId);
+           break;
+        }
+    }
+    return SubscriptionId;
+    }
 
     private SoapMessageElements createReferenceParameterElementsFromEndpointReference(String xml, String xpathQuery)
             throws XPathExpressionException {

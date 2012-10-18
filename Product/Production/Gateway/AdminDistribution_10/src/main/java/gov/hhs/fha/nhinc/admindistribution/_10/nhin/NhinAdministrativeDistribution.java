@@ -46,22 +46,24 @@ public class NhinAdministrativeDistribution implements gov.hhs.fha.nhinc.nhinadm
 
     @Resource
     private WebServiceContext context;
+    private NhinAdminDistributionOrchImpl orchImpl;
 
     @Override
     public void sendAlertMessage(oasis.names.tc.emergency.edxl.de._1.EDXLDistribution body) {
-
         AssertionType assertion = extractAssertion(context);
-
-        getNhinImpl().sendAlertMessage(body, assertion);
-
+        getOrchestratorImpl().sendAlertMessage(body, assertion);
     }
 
     protected AssertionType extractAssertion(WebServiceContext context) {
         return SAML2AssertionExtractor.getInstance().extractSamlAssertion(context);
     }
 
-    protected NhinAdminDistributionOrchImpl getNhinImpl() {
-        return new NhinAdminDistributionOrchImpl();
+    public void setOrchestratorImpl(NhinAdminDistributionOrchImpl orchImpl) {
+        this.orchImpl = orchImpl;
+    }
+
+    protected NhinAdminDistributionOrchImpl getOrchestratorImpl() {
+        return this.orchImpl;
     }
 
 }
