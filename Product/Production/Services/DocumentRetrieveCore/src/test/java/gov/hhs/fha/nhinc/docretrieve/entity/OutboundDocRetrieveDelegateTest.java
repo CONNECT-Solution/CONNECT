@@ -80,13 +80,12 @@ public class OutboundDocRetrieveDelegateTest {
         System.out.println("createErrorResponse");
         OutboundDocRetrieveOrchestratableImpl message = null;
         String errorCode = "XDSDocumentUniqueIdError";
-        String errorContext = "Document id not found";
         OutboundDocRetrieveDelegate instance = new OutboundDocRetrieveDelegate();
-        instance.createErrorResponse(message, errorCode, errorContext);
+        instance.createErrorResponse(message, errorCode);
         assertNull(message);
         
         message = new OutboundDocRetrieveOrchestratableImpl(null, null, null, null, instance, null, null);
-        instance.createErrorResponse(message, errorCode, errorContext);
+        instance.createErrorResponse(message, errorCode);
         assertEquals(message.getResponse().getRegistryResponse().getStatus(),
                 "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure");
     }
