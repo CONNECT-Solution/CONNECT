@@ -82,7 +82,8 @@ public class EntityDocSubmissionDeferredResponseImpl {
         } else {
             assertion = oAssertionIn;
         }
-
+        // Extract the message id value from the WS-Addressing Header and place it in the Assertion Class
+        // Extract the RelatesTo value list and place it in the AssertionClass
         if (assertion != null) {
             assertion.setMessageId(AsyncMessageIdExtractor.getOrCreateAsyncMessageId(context));
             List<String> relatesToList = AsyncMessageIdExtractor.getAsyncRelatesTo(context);

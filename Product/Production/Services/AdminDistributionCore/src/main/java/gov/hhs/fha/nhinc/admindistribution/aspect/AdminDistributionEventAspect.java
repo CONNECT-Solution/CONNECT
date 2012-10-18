@@ -28,17 +28,16 @@ package gov.hhs.fha.nhinc.admindistribution.aspect;
 
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.AfterThrowing;
-import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 
-import gov.hhs.fha.nhinc.aspect.EventAspectAdvice;
+import gov.hhs.fha.nhinc.aspect.EventAspect;
 
 /**
  * @author zmelnick
  *
  */
-public class AdminDistributionEventAspect extends EventAspectAdvice {
+public class AdminDistributionEventAspect extends EventAspect {
 
     /*--- Inbound Message ---*/
     @Pointcut("execution(* gov.hhs.fha.nhinc.admindistribution.*.nhin.NhinAdministrativeDistribution.sendAlertMessage(..))")
@@ -150,7 +149,7 @@ public class AdminDistributionEventAspect extends EventAspectAdvice {
     }
 
     /*--- Nwhin Invocation ---*/
-    @Pointcut("execution(* gov.hhs.fha.nhinc.admindistribution.nhin.proxy.EntityAdminDistributionProxy*.sendAlertMessage(..))")
+    @Pointcut("execution(* gov.hhs.fha.nhinc.admindistribution.nhin.proxy.EntityAdminDistributionProxy*.sendAlertMessage(..)")
     private void nwhinInvocation() {
     }
 

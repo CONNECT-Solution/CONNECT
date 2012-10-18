@@ -45,11 +45,16 @@ import gov.hhs.fha.nhinc.docsubmission.entity.EntityDocSubmissionOrchImpl;
 
 class EntityDocSubmissionImpl_g1 {
 
-    private static final Log log = LogFactory.getLog(EntityDocSubmissionImpl_g1.class);
+    private Log log = null;
     private EntityDocSubmissionOrchImpl orchImpl;
 
     public EntityDocSubmissionImpl_g1(EntityDocSubmissionOrchImpl orchImpl) {
+        log = createLogger();
         this.orchImpl = orchImpl;
+    }
+
+    protected Log createLogger() {
+        return ((log != null) ? log : LogFactory.getLog(getClass()));
     }
 
 

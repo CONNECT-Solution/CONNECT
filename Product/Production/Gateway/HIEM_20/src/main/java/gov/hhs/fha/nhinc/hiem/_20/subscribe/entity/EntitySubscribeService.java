@@ -37,8 +37,6 @@ import gov.hhs.fha.nhinc.entitysubscriptionmanagement.TopicNotSupportedFault;
 import gov.hhs.fha.nhinc.entitysubscriptionmanagement.UnacceptableInitialTerminationTimeFault;
 import gov.hhs.fha.nhinc.entitysubscriptionmanagement.UnrecognizedPolicyRequestFault;
 import gov.hhs.fha.nhinc.entitysubscriptionmanagement.UnsupportedPolicyRequestFault;
-import gov.hhs.fha.nhinc.subscribe.entity.EntitySubscribeOrchImpl;
-
 import javax.annotation.Resource;
 import javax.jws.WebService;
 import javax.xml.ws.BindingType;
@@ -55,16 +53,14 @@ public class EntitySubscribeService {
     @Resource
     private WebServiceContext context;
 
-    private EntitySubscribeOrchImpl orchImpl;
-    
     public gov.hhs.fha.nhinc.common.nhinccommonentity.SubscribeDocumentResponseType subscribeDocument(
             gov.hhs.fha.nhinc.common.nhinccommonentity.SubscribeDocumentRequestType subscribeDocumentRequest) {
-        return new EntitySubscribeServiceImpl(orchImpl).subscribeDocument(subscribeDocumentRequest);
+        return new EntitySubscribeServiceImpl().subscribeDocument(subscribeDocumentRequest);
     }
 
     public gov.hhs.fha.nhinc.common.nhinccommonentity.SubscribeCdcBioPackageResponseType subscribeCdcBioPackage(
             gov.hhs.fha.nhinc.common.nhinccommonentity.SubscribeCdcBioPackageRequestType subscribeCdcBioPackageRequest) {
-        return new EntitySubscribeServiceImpl(orchImpl).subscribeCdcBioPackage(subscribeCdcBioPackageRequest);
+        return new EntitySubscribeServiceImpl().subscribeCdcBioPackage(subscribeCdcBioPackageRequest);
     }
 
     public org.oasis_open.docs.wsn.b_2.SubscribeResponse subscribe(
@@ -73,15 +69,7 @@ public class EntitySubscribeService {
             TopicNotSupportedFault, NotifyMessageNotSupportedFault, InvalidTopicExpressionFault,
             InvalidFilterFault, SubscribeCreationFailedFault, InvalidProducerPropertiesExpressionFault,
             TopicExpressionDialectUnknownFault, UnacceptableInitialTerminationTimeFault {
-        return new EntitySubscribeServiceImpl(orchImpl).subscribe(subscribeRequest, context);
+        return new EntitySubscribeServiceImpl().subscribe(subscribeRequest, context);
     }
-    
-    /**
-     * Set the orchImpl object.
-     * @param orchImpl
-     */
-     public void setOrchestratorImpl(EntitySubscribeOrchImpl orchImpl) {
-     	this.orchImpl = orchImpl;
-     }
 
 }

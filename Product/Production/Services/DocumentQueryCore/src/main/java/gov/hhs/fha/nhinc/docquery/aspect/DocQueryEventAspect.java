@@ -33,7 +33,7 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 
-import gov.hhs.fha.nhinc.aspect.EventAspectAdvice;
+import gov.hhs.fha.nhinc.aspect.EventAspect;
 
 /**
  * @author akong
@@ -41,7 +41,7 @@ import gov.hhs.fha.nhinc.aspect.EventAspectAdvice;
  */
 @Aspect
 @SuppressWarnings("unused")
-public class DocQueryEventAspect extends EventAspectAdvice {
+public class DocQueryEventAspect extends EventAspect {
 
 
     /*------InboundMessage----*/

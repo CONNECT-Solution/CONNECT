@@ -37,8 +37,6 @@ import gov.hhs.fha.nhinc.entitysubscriptionmanagementsecured.TopicNotSupportedFa
 import gov.hhs.fha.nhinc.entitysubscriptionmanagementsecured.UnacceptableInitialTerminationTimeFault;
 import gov.hhs.fha.nhinc.entitysubscriptionmanagementsecured.UnrecognizedPolicyRequestFault;
 import gov.hhs.fha.nhinc.entitysubscriptionmanagementsecured.UnsupportedPolicyRequestFault;
-import gov.hhs.fha.nhinc.subscribe.entity.EntitySubscribeOrchImpl;
-
 import javax.jws.WebService;
 import javax.annotation.Resource;
 import javax.xml.ws.WebServiceContext;
@@ -54,8 +52,6 @@ public class EntitySubscribeSecuredService {
     @Resource
     private WebServiceContext context;
 
-    private EntitySubscribeOrchImpl orchImpl;
-    
     public gov.hhs.fha.nhinc.common.nhinccommonentity.SubscribeDocumentResponseType subscribeDocument(
             gov.hhs.fha.nhinc.common.nhinccommonentity.SubscribeDocumentRequestSecuredType subscribeDocumentRequestSecured) {
         throw new UnsupportedOperationException("Not implemented.");
@@ -67,15 +63,7 @@ public class EntitySubscribeSecuredService {
             NotifyMessageNotSupportedFault, TopicNotSupportedFault, InvalidTopicExpressionFault,
             SubscribeCreationFailedFault, UnsupportedPolicyRequestFault, UnacceptableInitialTerminationTimeFault,
             InvalidMessageContentExpressionFault, InvalidFilterFault, TopicExpressionDialectUnknownFault {
-        return new EntitySubscribeServiceImpl(orchImpl).subscribe(subscribeRequestSecured, context);
-    }
-    
-    /**
-    * Set the orchImpl object.
-    * @param orchImpl
-    */
-    public void setOrchestratorImpl(EntitySubscribeOrchImpl orchImpl) {
-    	this.orchImpl = orchImpl;
+        return new EntitySubscribeServiceImpl().subscribe(subscribeRequestSecured, context);
     }
 
 }

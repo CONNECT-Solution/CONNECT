@@ -31,8 +31,10 @@ import javax.jws.WebService;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 
-import gov.hhs.fha.nhinc.common.nhinccommonproxy.NotifyRequestType;
-
+/**
+ *
+ * @author Sai Valluripalli
+ */
 @WebService(endpointInterface = "gov.hhs.fha.nhinc.nhincproxynotificationconsumer.NhincProxyNotificationConsumerPortType")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 public class ProxyHiemNotify {
@@ -40,7 +42,7 @@ public class ProxyHiemNotify {
     @Resource
     private WebServiceContext context;
     private ProxyHiemNotifyImpl proxyNotifyImpl;
-    public void notify(NotifyRequestType notifyRequest) {
+    public void notify(gov.hhs.fha.nhinc.common.nhinccommonproxy.NotifyRequestType notifyRequest) {
         proxyNotifyImpl.notify(notifyRequest, context);
     }
 

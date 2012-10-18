@@ -31,10 +31,7 @@ import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
 
-import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetRequestType;
 import gov.hhs.fha.nhinc.docsubmission.entity.deferred.request.EntityDocSubmissionDeferredRequestOrchImpl;
-import gov.hhs.fha.nhinc.nhincentityxdr.async.request.EntityXDRAsyncRequestPortType;
-import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 
 /**
  *
@@ -42,14 +39,14 @@ import gov.hhs.healthit.nhin.XDRAcknowledgementType;
  */
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 @Addressing(enabled = true)
-public class EntityDocSubmissionDeferredRequestUnsecured implements EntityXDRAsyncRequestPortType {
+public class EntityDocSubmissionDeferredRequestUnsecured implements gov.hhs.fha.nhinc.nhincentityxdr.async.request.EntityXDRAsyncRequestPortType {
     @Resource
     private WebServiceContext context;
     private EntityDocSubmissionDeferredRequestOrchImpl orchImpl;
 
     @Override
-    public XDRAcknowledgementType provideAndRegisterDocumentSetBAsyncRequest(
-            RespondingGatewayProvideAndRegisterDocumentSetRequestType provideAndRegisterAsyncReqRequest) {
+    public gov.hhs.healthit.nhin.XDRAcknowledgementType provideAndRegisterDocumentSetBAsyncRequest(
+            gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetRequestType provideAndRegisterAsyncReqRequest) {
         return new EntityDocSubmissionDeferredRequestImpl(orchImpl).provideAndRegisterDocumentSetBAsyncRequest(
                 provideAndRegisterAsyncReqRequest, context);
     }

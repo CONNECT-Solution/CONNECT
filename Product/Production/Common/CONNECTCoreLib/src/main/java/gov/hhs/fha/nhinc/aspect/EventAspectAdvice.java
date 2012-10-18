@@ -34,6 +34,7 @@ import javax.xml.ws.handler.MessageContext;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.cxf.jaxws.context.WebServiceContextImpl;
+import org.json.JSONObject;
 
 import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
 import gov.hhs.fha.nhinc.event.Event;
@@ -166,11 +167,18 @@ public class EventAspectAdvice {
             responseMsgIdList = (List<String>) mContext.get(NhincConstants.RESPONSE_MESSAGE_ID_LIST_KEY);
         }
 
-        description = "{ Action : " + action ;
-        if (NullChecker.isNotNullish(responseMsgIdList)) {
-            	description += ", ResponseId : " + responseMsgIdList;
+        try {
+            JSONObject jsonObj = new JSONObject();
+            jsonObj.put("Action", action);
+
+            if (NullChecker.isNotNullish(responseMsgIdList)) {
+                jsonObj.put("ResponseId", responseMsgIdList);
             }
-        description += "}";
+
+            description = jsonObj.toString();
+        } catch (Exception e) {
+            log.warn("Failed to create event description.", e);
+        }
 
         return description;
     }

@@ -27,17 +27,16 @@
 package gov.hhs.fha.nhinc.unsubscribe.aspect;
 
 import org.aspectj.lang.annotation.After;
-import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 
-import gov.hhs.fha.nhinc.aspect.EventAspectAdvice;
+import gov.hhs.fha.nhinc.aspect.EventAspect;
 
 /**
  * @author zmelnick
  *
  */
-public class UnsubscribeEventAspect extends EventAspectAdvice {
+public class UnsubscribeEventAspect extends EventAspect {
 
     /*--- Inbound Message ---*/
     @Pointcut("execution(* gov.hhs.fha.nhinc.hiem._20.unsubscribe.nhin.HiemUnsubscribe.unsubscribe(..))")
@@ -75,7 +74,7 @@ public class UnsubscribeEventAspect extends EventAspectAdvice {
 
     /*--- Adapter Delegation ---*/
     @Pointcut("execution(* gov.hhs.fha.nhinc.unsubscribe.adapter.proxy.HiemUnsubscribeAdapterProxy.unsubscribe(..))")
-    private void adapterDelegation() {
+    private void adaterDeleation() {
     }
 
     @Override
@@ -99,7 +98,7 @@ public class UnsubscribeEventAspect extends EventAspectAdvice {
     private void outboundMessageEntityUnsecured() {
     }
 
-    @Pointcut("outboundMessageEntitySecured() || outboundMessageEntityUnsecured()")
+    @Pointcut("outboundMessageSecured() || outboundMessageUnsecured()")
     private void entityOutboundMessage() {
     }
 
@@ -151,7 +150,7 @@ public class UnsubscribeEventAspect extends EventAspectAdvice {
 
 
     /*--- Nwhin Invocation ---*/
-    @Pointcut("execution(* gov.hhs.fha.nhinc.unsubscribe.nhin.proxy.NhinHiemUnsubscribeProxy*.unsubscribe(..))")
+    @Pointcut("execution(* gov.hhs.fha.nhinc.unsubscribe.nhin.proxy.NhinHiemUnsubscribeProxy.unsubscribe(..))")
     private void nwhinInvocation() {
     }
 
@@ -166,4 +165,6 @@ public class UnsubscribeEventAspect extends EventAspectAdvice {
     public void endNwhinInvocationEvent() {
         super.endNwhinInvocationEvent();
     }
+
+
 }

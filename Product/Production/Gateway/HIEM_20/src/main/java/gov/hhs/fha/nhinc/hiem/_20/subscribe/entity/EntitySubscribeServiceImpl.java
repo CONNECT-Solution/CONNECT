@@ -61,12 +61,6 @@ public class EntitySubscribeServiceImpl {
 
     private static Log log = LogFactory.getLog(EntitySubscribeServiceImpl.class);
 
-    private EntitySubscribeOrchImpl orchImpl;
-    
-    public EntitySubscribeServiceImpl(EntitySubscribeOrchImpl orchImpl){
-    	this.orchImpl = orchImpl;
-    }
-    
     public SubscribeDocumentResponseType subscribeDocument(SubscribeDocumentRequestType arg0) {
         // TODO implement this method
         throw new UnsupportedOperationException("Not implemented yet.");
@@ -146,15 +140,8 @@ public class EntitySubscribeServiceImpl {
                     org.oasis_open.docs.wsn.bw_2.InvalidTopicExpressionFault,
                     org.oasis_open.docs.wsn.bw_2.SubscribeCreationFailedFault {
         SubscribeResponse response = null;
-        response = getOrchImpl().processSubscribe(subscribe, assertion, targetCommunitites);
+        EntitySubscribeOrchImpl processor = new EntitySubscribeOrchImpl();
+        response = processor.processSubscribe(subscribe, assertion, targetCommunitites);
         return response;
-    }
-    
-    /**
-    * return the orchImpl object.
-    * @return
-    */
-    protected EntitySubscribeOrchImpl getOrchImpl(){
-    	return this.orchImpl;
     }
 }
