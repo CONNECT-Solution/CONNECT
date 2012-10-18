@@ -24,11 +24,9 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.subscribe.aspect;
+package gov.hhs.fha.nhinc.notify.aspect;
 
 import org.aspectj.lang.annotation.After;
-import org.aspectj.lang.annotation.AfterThrowing;
-import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 
@@ -38,11 +36,10 @@ import gov.hhs.fha.nhinc.aspect.EventAspectAdvice;
  * @author zmelnick
  *
  */
-@Aspect
-public class SubscribeEventAspect extends EventAspectAdvice{
+public class NotifyEventAspect extends EventAspectAdvice{
 
     /*--- Inbound Message ---*/
-    @Pointcut("execution(* gov.hhs.fha.nhinc.hiem.*.subscribe.nhin.HiemSubscribe.subscribe(..))")
+    @Pointcut("execution(* gov.hhs.fha.nhinc.hiem._20.notify.nhin.HiemNotify.notify(..)")
     private void inboundMessage() {
     }
 
@@ -59,7 +56,7 @@ public class SubscribeEventAspect extends EventAspectAdvice{
     }
 
     /*--- Inbound Processing ---*/
-    @Pointcut("execution(* gov.hhs.fha.nhinc.hiem.*.subscribe.nhin.HiemSubscribeImpl.subscribe(..))")
+    @Pointcut("execution(* gov.hhs.fha.nhinc.hiem._20.notify.nhin.HiemNotifyImpl.notify(..)")
     private void inboundProcessing() {
     }
 
@@ -76,8 +73,8 @@ public class SubscribeEventAspect extends EventAspectAdvice{
     }
 
     /*--- Adapter Delegation ---*/
-    @Pointcut("execution(* gov.hhs.fha.nhinc.subscribe.adapter.proxy.HiemSubscribeAdapter*.subscribe(..))")
-    private void adapterDelegation() {
+    @Pointcut("execution(* gov.hhs.fha.nhinc.notify.adapter.proxy.HiemNotifyAdapterProxy.notify(..)")
+    private void adaterDeleation() {
     }
 
     @Override
@@ -93,28 +90,28 @@ public class SubscribeEventAspect extends EventAspectAdvice{
     }
 
     /*--- Outbound Message ---*/
-    @Pointcut("execution(* gov.hhs.fha.nhinc.hiem.*.subscribe.entity.EntitySubscribeService.subscribe(..))")
-    private void outboundMessageEntityUnsecured(){
+    @Pointcut("execution(* gov.hhs.fha.nhinc.hiem._20.notify.entity.EntityNotifySecured.notify(..)")
+    private void outboundMessageEntitySecured() {
     }
 
-    @Pointcut("execution(* gov.hhs.fha.nhinc.hiem.*.subscribe.entity.EntitySubscribeSecuredService.subscribe(..))")
-    private void outboundMessageEntitySecured(){
+    @Pointcut("execution(* gov.hhs.fha.nhinc.hiem._20.notify.entity.EntityNotifyService(..)")
+    private void outboundMessageEntityUnsecured() {
     }
 
-    @Pointcut("outboundMessageEntityUnsecured() || outboundMessageEntitySecured()")
+    @Pointcut("outboundMessageSecured() || outboundMessageUnsecured()")
     private void entityOutboundMessage() {
     }
 
-    @Pointcut("execution(* gov.hhs.fha.nhinc.hiem.*.subscribe.passthru.ProxyHiemSubscribe.subscribe(..))")
-    private void outboundMessagePassthruUnsecured(){
+    @Pointcut("execution(* gov.hhs.fha.nhinc.hiem._20.notify.passthru.ProxyHiemNotifySecured.notify(..)")
+    private void outboundMessagePassthruSecured() {
     }
 
-    @Pointcut("execution(* gov.hhs.fha.nhinc.hiem.*.subscribe.passthru.ProxyHiemSubscribeSecured.subscribe(..))")
-    private void outboundMessagePassthruSecured(){
+    @Pointcut("execution(* gov.hhs.fha.nhinc.hiem._20.notify.passthru.ProxyHiemNotify.notify(..)")
+    private void outboundMessagePassthruUnsecured() {
     }
 
-    @Pointcut("outboundMessageEntityUnsecured() || outboundMessageEntitySecured()")
-    private void passthruOutboundMessage() {
+    @Pointcut("outboundMessagePassthruSecured() || outboundMessagePassthruUnsecured()")
+    private void  passthruOutboundMessage() {
     }
 
     @Override
@@ -129,49 +126,45 @@ public class SubscribeEventAspect extends EventAspectAdvice{
         super.endOutboundMessageEvent();
     }
 
-    /*--- Outbound Processing ---*/
 
-    @Pointcut("execution(* gov.hhs.fha.nhinc.subscribe.entity.EntitySubscribeOrchImpl.processSubscribe(..))")
-    private void entityOutboundProcessing() {
+    /*--- Outbound Processing ---*/
+    @Pointcut("execution(* gov.hhs.fha.nhinc.notify.entity.EntityNotifyOrchImpl.processNotify(..)")
+    private void outboundProcessingEntity() {
     }
 
-    @Pointcut("execution(* gov.hhs.fha.nhinc.hiem.*.subscribe.passthru.ProxyHiemSubscribeImpl.subscribe(..))")
-    private void passthruOutboundProcessing() {
+    @Pointcut("execution(* gov.hhs.fha.nhinc.hiem._20.notify.passthru.ProxyHiemNotifyImpl.notify(..)")
+    private void outboundProcessingPassthru() {
     }
 
     @Override
-    @Before("entityOutboundProcessing() || passthruOutboundProcessing()")
+    @Before("outboundProcessingEntity() || outboundProcessingPassthru()")
     public void beginOutboundProcessingEvent() {
         super.beginOutboundProcessingEvent();
     }
 
     @Override
-    @After("entityOutboundProcessing()|| passthruOutboundProcessing()")
+    @After("outboundProcessingEntity() || outboundProcessingPassthru()")
     public void endOutboundProcessingEvent() {
         super.endOutboundProcessingEvent();
     }
 
-    /*------ Nwhin Invocation ----*/
-    @Pointcut("execution(* gov.hhs.fha.nhinc.subscribe.nhin.proxy.NhinHiemSubscribe*.subscribe(..))")
-    private void nhinNwhinInvocation() {
+
+    /*--- Nwhin Invocation ---*/
+    @Pointcut("execution(* gov.hhs.fha.nhinc.notify.nhin.proxy.NhinHiemNotifyProxy*.notify(..)")
+    private void nwhinInvocation() {
     }
 
     @Override
-    @Before("nhinNwhinInvocation()")
-    public void beginNwhinInvocationEvent(){
+    @Before("nwhinInvocation()")
+    public void beginNwhinInvocationEvent() {
         super.beginNwhinInvocationEvent();
     }
 
     @Override
-    @After("nhinNwhinInvocation()")
-    public void endNwhinInvocationEvent(){
+    @After("nwhinInvocation()")
+    public void endNwhinInvocationEvent() {
         super.endNwhinInvocationEvent();
     }
 
-    /*------ Failure ----*/
-    @Override
-    @AfterThrowing("inboundMessage() || entityOutboundMessage() || passthruOutboundMessage()")
-    public void failEvent() {
-        super.failEvent();
-    }
+
 }
