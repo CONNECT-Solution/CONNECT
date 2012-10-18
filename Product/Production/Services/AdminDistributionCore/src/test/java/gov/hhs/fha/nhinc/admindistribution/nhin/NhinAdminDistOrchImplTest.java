@@ -107,10 +107,6 @@ public class NhinAdminDistOrchImplTest {
                 return policyChecker;
             }
 
-            @Override
-            protected long getSleepPeriod() {
-                return 1;
-            }
         };
         context.checking(new Expectations() {
 
@@ -185,10 +181,6 @@ public class NhinAdminDistOrchImplTest {
                 return policyChecker;
             }
 
-            @Override
-            protected long getSleepPeriod() {
-                return -1;
-            }
         };
         context.checking(new Expectations() {
 
@@ -262,10 +254,6 @@ public class NhinAdminDistOrchImplTest {
                 return policyChecker;
             }
 
-            @Override
-            protected long getSleepPeriod() {
-                return -1;
-            }
         };
         context.checking(new Expectations() {
 
@@ -335,10 +323,6 @@ public class NhinAdminDistOrchImplTest {
                 return policyChecker;
             }
 
-            @Override
-            protected long getSleepPeriod() {
-                return 1;
-            }
         };
         context.checking(new Expectations() {
 

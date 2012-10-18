@@ -36,7 +36,7 @@
 	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitydocquery}EntityDocQueryBindingSoap" definition="${projectDir}/target/wsdl/EntityDocQuery.wsdl" name="EntityDocQueryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 
-		<con:endpoints>
+		<con:definitionCache/><con:endpoints>
 			<con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/EntityDocQuery</con:endpoint>
 		</con:endpoints>
 		<con:operation action="urn:RespondingGateway_CrossGatewayQuery" anonymous="optional" bindingOperationName="RespondingGateway_CrossGatewayQuery" inputName="RespondingGateway_CrossGatewayQueryRequest" isOneWay="false" name="RespondingGateway_CrossGatewayQuery" outputName="RespondingGateway_CrossGatewayQueryResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
@@ -47,7 +47,7 @@
 	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitydocretrieve}EntityDocRetrieveBindingSoap" definition="${projectDir}/target/wsdl/EntityDocRetrieve.wsdl" name="EntityDocRetrieveBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 
-		<con:endpoints>
+		<con:definitionCache/><con:endpoints>
 			<con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/EntityDocRetrieve</con:endpoint>
 		</con:endpoints>
 		<con:operation action="urn:RespondingGateway_CrossGatewayRetrieve" anonymous="optional" bindingOperationName="RespondingGateway_CrossGatewayRetrieve" inputName="RespondingGateway_CrossGatewayRetrieveRequest" isOneWay="false" name="RespondingGateway_CrossGatewayRetrieve" outputName="RespondingGateway_CrossGatewayRetrieveResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
@@ -58,7 +58,7 @@
 	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement}EntitySubscriptionManagerBindingSoap" definition="${projectDir}/target/wsdl/EntitySubscriptionManagement.wsdl" name="EntitySubscriptionManagerBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 
-		<con:endpoints>
+		<con:definitionCache/><con:endpoints>
 			<con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/EntitySubscriptionManager</con:endpoint>
 			<con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/EntityNotificationProducer</con:endpoint>
 		</con:endpoints>
@@ -69,7 +69,7 @@
 	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement}EntityNotificationProducerBindingSoap" definition="${projectDir}/target/wsdl/EntitySubscriptionManagement.wsdl" name="EntityNotificationProducerBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 
-		<con:endpoints>
+		<con:definitionCache/><con:endpoints>
 			<con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/EntityNotificationProducer</con:endpoint>
 		</con:endpoints>
 		<con:operation action="urn:SubscribeCdcBioPackage" anonymous="optional" bindingOperationName="SubscribeCdcBioPackage" inputName="SubscribeCdcBioPackageRequest" isOneWay="false" name="SubscribeCdcBioPackage" outputName="SubscribeCdcBioPackageResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
@@ -85,7 +85,7 @@
 	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitynotificationconsumer}EntityNotificationConsumerBindingSoap" definition="${projectDir}/target/wsdl/EntityNotificationConsumer.wsdl" name="EntityNotificationConsumerBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 
-		<con:endpoints>
+		<con:definitionCache/><con:endpoints>
 			<con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/EntityNotificationConsumer</con:endpoint>
 		</con:endpoints>
 		<con:operation action="urn:NotifySubscribersOfCdcBioPackage" anonymous="optional" bindingOperationName="NotifySubscribersOfCdcBioPackage" inputName="NotifySubscribersOfCdcBioPackageRequest" isOneWay="false" name="NotifySubscribersOfCdcBioPackage" outputName="NotifySubscribersOfCdcBioPackageResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
@@ -101,7 +101,7 @@
 	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincentityxdr:async:request}EntityXDRAsyncRequest_Binding" definition="${projectDir}/target/wsdl/EntityXDRRequest.wsdl" name="EntityXDRAsyncRequest_Binding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 
-		<con:endpoints>
+		<con:definitionCache/><con:endpoints>
 			<con:endpoint>http://localhost:${HttpDefaultPort}/EntityService/EntityXDRRequest</con:endpoint>
 			<con:endpoint>http://localhost:8080/CONNECTAdapter/EntityProxyService/EntityXDRRequest</con:endpoint>
 			<con:endpoint>${#TestSuite#Endpoint-EntityXDRRequest}</con:endpoint>
@@ -149,7 +149,7 @@
 	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitypatientdiscovery}EntityPatientDiscoveryBindingSoap" definition="${projectDir}/target/wsdl/EntityPatientDiscovery.wsdl" name="EntityPatientDiscoveryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 
-		<con:endpoints>
+		<con:definitionCache/><con:endpoints>
 			<con:endpoint>http://localhost:8080/CONNECTGateway/EntityPatientDiscovery</con:endpoint>
 		</con:endpoints>
 		<con:operation action="urn:RespondingGateway_PRPA_IN201305UV02" bindingOperationName="RespondingGateway_PRPA_IN201305UV02" inputName="RespondingGateway_PRPA_IN201305UV02Request" isOneWay="false" name="RespondingGateway_PRPA_IN201305UV02" outputName="RespondingGateway_PRPA_IN201306UV02Response" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
@@ -160,7 +160,7 @@
 	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entityadmindistribution}AdministrativeDistribution_Binding_Soap12" definition="${projectDir}/target/wsdl/EntityAdminDist.wsdl" name="AdministrativeDistribution_Binding_Soap12_g0" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 
-		<con:endpoints>
+		<con:definitionCache/><con:endpoints>
 			<con:endpoint>${#Project#Endpoint-EntityAdminDist}</con:endpoint>
 		</con:endpoints>
 		<con:operation action="urn:oasis:names:tc:emergency:EDXL:DE:1.0:SendAlertMessage" anonymous="optional" bindingOperationName="SendAlertMessage" inputName="" isOneWay="false" name="SendAlertMessage" sendsAttachments="false" type="One-Way">
@@ -5635,12 +5635,6 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 	</con:request>
 </con:config>
 </con:testStep>
-<con:testStep name="Delay" type="delay">
-	<con:settings/>
-	<con:config>
-		<delay>15000</delay>
-	</con:config>
-</con:testStep>
 <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
 <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript>
@@ -10566,12 +10560,6 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 	</con:request>
 </con:config>
 </con:testStep>
-<con:testStep name="Delay" type="delay">
-	<con:settings/>
-	<con:config>
-		<delay>15000</delay>
-	</con:config>
-</con:testStep>
 <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
 <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);
@@ -10765,7 +10753,7 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 	
 	<con:property><con:name>ExpirationDate</con:name><con:value>20100520</con:value></con:property>
 	
-	<con:property><con:name>FamilyName</con:name><con:value>Younger</con:value></con:property><con:property><con:name>GatewayPropDir</con:name><con:value></con:value></con:property><con:property><con:name>Gender</con:name><con:value>M</con:value></con:property>
+	<con:property><con:name>FamilyName</con:name><con:value>Younger</con:value></con:property><con:property><con:name>GatewayPropDir</con:name><con:value/></con:property><con:property><con:name>Gender</con:name><con:value>M</con:value></con:property>
 	
 	<con:property><con:name>GivenName</con:name><con:value>Gallow</con:value></con:property><con:property><con:name>LocalAA</con:name><con:value>1.1</con:value></con:property><con:property>
 		<con:name>LocalHCDescription</con:name>
