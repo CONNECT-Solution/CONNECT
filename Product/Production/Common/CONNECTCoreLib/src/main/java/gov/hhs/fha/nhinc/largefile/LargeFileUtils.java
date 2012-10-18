@@ -84,7 +84,12 @@ public class LargeFileUtils {
 
         return false;
     }
-    
+
+    /**
+     * Returns true if the gateway is configured to save incoming payload to the file system.
+     * 
+     * @return true if the gateway is to save payloads on the file system
+     */
     public boolean isSavePayloadToFileEnabled() {
         try {
             return PropertyAccessor.getInstance().getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE,
@@ -121,6 +126,20 @@ public class LargeFileUtils {
 
         String uriString = new String(baos.toByteArray());
         return new URI(uriString);
+    }
+
+    /**
+     * Saves the data handler to a file in the configured payload directory.
+     * 
+     * @param dh - the data handler to convert to a file
+     * @return
+     * @throws IOException
+     */
+    public File saveDataToFile(DataHandler dh) throws IOException {
+        File attachmentFile = generateAttachmentFile();
+        saveDataToFile(dh, attachmentFile);
+
+        return attachmentFile;
     }
 
     /**
@@ -203,8 +222,19 @@ public class LargeFileUtils {
      * @return the data handler representing the string
      * @throws IOException
      */
-    public DataHandler convertToDataHandler(String data) throws IOException {
-        ByteDataSource bds = new ByteDataSource(data.getBytes());
+    public DataHandler convertToDataHandler(String data) {
+        return convertToDataHandler(data.getBytes());
+    }
+
+    /**
+     * Converts the given byte array into a data handler with a ByteDataSource.
+     * 
+     * @param data - the data to convert
+     * @return the data handler representing the bytes
+     * @throws IOException
+     */
+    public DataHandler convertToDataHandler(byte[] data) {
+        ByteDataSource bds = new ByteDataSource(data);
         return new DataHandler(bds);
     }
 
@@ -237,6 +267,18 @@ public class LargeFileUtils {
      */
     public File generateAttachmentFile() throws IOException {
         String payloadSaveDirectory = getPayloadSaveDirectory();
+        return generateAttachmentFile(payloadSaveDirectory);
+    }
+
+    /**
+     * Generates a file to be used for saving payload attachments. The file will be created at the configured payload
+     * directory or at the java tmp directory if the payload directory does not exists.
+     * 
+     * @param payloadSaveDirectory - directory where the attachment file will be created
+     * @return generated file
+     * @throws IOException
+     */
+    public File generateAttachmentFile(String payloadSaveDirectory) throws IOException {
         File parentDir = null;
         if (payloadSaveDirectory != null) {
             parentDir = new File(payloadSaveDirectory);

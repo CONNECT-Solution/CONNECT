@@ -26,43 +26,34 @@
  */
 package gov.hhs.fha.nhinc.docrepository.adapter;
 
-import gov.hhs.fha.nhinc.largefile.LargeFileUtils;
-import gov.hhs.fha.nhinc.nhinclib.NullChecker;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.activation.DataHandler;
-import javax.xml.bind.JAXBElement;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-//import org.bouncycastle.crypto.DSA;
-
 import gov.hhs.fha.nhinc.docrepository.adapter.model.Document;
 import gov.hhs.fha.nhinc.docrepository.adapter.model.DocumentQueryParams;
 import gov.hhs.fha.nhinc.docrepository.adapter.model.EventCode;
 import gov.hhs.fha.nhinc.docrepository.adapter.service.DocumentService;
+import gov.hhs.fha.nhinc.largefile.LargeFileUtils;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.util.StringUtil;
 import gov.hhs.fha.nhinc.util.format.PatientIdFormatUtil;
-
 import gov.hhs.fha.nhinc.util.format.UTCDateUtil;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType.DocumentRequest;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType.DocumentResponse;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
+
+import javax.activation.DataHandler;
+import javax.xml.bind.JAXBElement;
+
 import oasis.names.tc.ebxml_regrep.xsd.lcm._3.SubmitObjectsRequest;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.AssociationType1;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.ExtrinsicObjectType;
@@ -71,7 +62,9 @@ import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryObjectListType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
-import gov.hhs.fha.nhinc.docretrieve.util.DocRetrieveStatusUtil;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * 
@@ -135,7 +128,6 @@ public class AdapterComponentDocRepositoryOrchImpl {
     private UTCDateUtil utcDateUtil = null;
     private static final String REPOSITORY_UNIQUE_ID = "1";
     private static final String XDS_DOCUMENT_UNIQUE_ID_ERROR = "XDSDocumentUniqueIdError";
-    private static String status = null;
 
     // private final static int FILECHUNK = 65536;
 
@@ -359,34 +351,21 @@ public class AdapterComponentDocRepositoryOrchImpl {
             String url = new String(doc.getRawData());
             log.info("Raw Data: " + url);
 
-            // Convert the url to a uri
-            URI uri = null;
-
             try {
-                uri = new URI(url);
+                URI uri = new URI(url);
                 File sourceFile = new File(uri);
-
-                try {
-                    FileInputStream in = new FileInputStream(sourceFile);
-                    Long longObj = new Long(sourceFile.length());
-                    byte[] buffer = new byte[longObj.intValue()];
-                    in.read(buffer);
-
-                    log.info("Found Large File: " + url);
-                    log.info("File Size:: " + sourceFile.length());
-
-                    oDocResponse.setDocument(buffer);
-
+                try {                    
+                    DataHandler dh = LargeFileUtils.getInstance().convertToDataHandler(sourceFile);       
+                    oDocResponse.setDocument(dh);
                     bHasData = true;
-                } catch (FileNotFoundException ex) {
-                    log.error("File Not Found: " + sourceFile.getName() + ". " + ex.getMessage());
-                    bHasData = false;
                 } catch (IOException ex) {
                     log.error("Failed to read contents of the file : " + sourceFile.getName() + ". " + ex.getMessage());
                     bHasData = false;
                 }
             } catch (URISyntaxException e) {
-                oDocResponse.setDocument(doc.getRawData());
+                DataHandler dh = LargeFileUtils.getInstance().convertToDataHandler(doc.getRawData());
+                                
+                oDocResponse.setDocument(dh);
                 bHasData = true;
             }
         }
