@@ -27,16 +27,17 @@
 package gov.hhs.fha.nhinc.unsubscribe.aspect;
 
 import org.aspectj.lang.annotation.After;
+import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 
-import gov.hhs.fha.nhinc.aspect.EventAspect;
+import gov.hhs.fha.nhinc.aspect.EventAspectAdvice;
 
 /**
  * @author zmelnick
  *
  */
-public class UnsubscribeEventAspect extends EventAspect {
+public class UnsubscribeEventAspect extends EventAspectAdvice {
 
     /*--- Inbound Message ---*/
     @Pointcut("execution(* gov.hhs.fha.nhinc.hiem._20.unsubscribe.nhin.HiemUnsubscribe.unsubscribe(..))")
@@ -74,7 +75,7 @@ public class UnsubscribeEventAspect extends EventAspect {
 
     /*--- Adapter Delegation ---*/
     @Pointcut("execution(* gov.hhs.fha.nhinc.unsubscribe.adapter.proxy.HiemUnsubscribeAdapterProxy.unsubscribe(..))")
-    private void adaterDeleation() {
+    private void adapterDelegation() {
     }
 
     @Override
@@ -98,7 +99,7 @@ public class UnsubscribeEventAspect extends EventAspect {
     private void outboundMessageEntityUnsecured() {
     }
 
-    @Pointcut("outboundMessageSecured() || outboundMessageUnsecured()")
+    @Pointcut("outboundMessageEntitySecured() || outboundMessageEntityUnsecured()")
     private void entityOutboundMessage() {
     }
 
