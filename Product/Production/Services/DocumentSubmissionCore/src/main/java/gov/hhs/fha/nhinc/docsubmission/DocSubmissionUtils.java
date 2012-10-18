@@ -107,7 +107,7 @@ public class DocSubmissionUtils {
     public void convertDataToFileLocationIfEnabled(ProvideAndRegisterDocumentSetRequestType request)
             throws LargePayloadException {
 
-        if (fileUtils.isParsePayloadAsFileLocationEnabled()) {
+        if (fileUtils.isSavePayloadToFileEnabled()) {
             List<File> savedAttachmentList = new ArrayList<File>();
             try {
                 for (Document doc : request.getDocument()) {

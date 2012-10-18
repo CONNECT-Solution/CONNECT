@@ -80,7 +80,6 @@
         <runtarget target="delete.common.jars" />
         <runtarget target="deploy.glassfish.start.server" />
         <runtarget target="deploy.ears.to.glassfish" />
-        <run-validationsuite-mod jarfile="SetValidationSuiteWsdlPath.jar" />
         <if>
             <isset property="stop.glassfish.after.deploy" />
             <then>
@@ -622,15 +621,6 @@
         </else>
     </if>
     <if>
-        <available file="${glassfish.home}/domains/domain1/lib/c3p0-0.9.1.2.jar"
-                type="file" />
-        <then />
-        <else>
-            <fail
-                    message="C3PO Jar file are missing. Please copy $NHINC_THIRDPARTY_DIR\C3PO\*.jar to AS_HOME\lib\." />
-        </else>
-    </if>
-    <if>
         <available file="${glassfish.home}/domains/domain1/lib/log4j-1.2.15.jar"
                 type="file" />
         <then />
@@ -698,27 +688,5 @@
 
 
 </target>
-
-<macrodef name="run-validationsuite-mod">
-    <attribute name="jarfile" />
-    <sequential>
-        <mkdir dir="${deployment.config.home}/master" />
-        <copy todir="${deployment.config.home}/master" verbose="true"
-                overwrite="true">
-            <filelist dir="${nhinc.deployment.properties.dir}">
-                <file name="gateway.properties" />
-                <file name="adapter.properties" />
-                <file name="PCConfiguration.xml" />
-                <file name="internalConnectionInfo.xml" />
-                <file name="hiemTopicConfiguration.xml" />
-                <file name="XDSUniqueIds.properties" />
-            </filelist>
-        </copy>
-        <java jar="${deployment.dir}/ValidationSuite/@{jarfile}" fork="true"
-                dir="${deployment.dir}/ValidationSuite">
-            <sysproperty key="AS_HOME" value="${glassfish.home}" />
-        </java>
-    </sequential>
-</macrodef>
 
 </project>

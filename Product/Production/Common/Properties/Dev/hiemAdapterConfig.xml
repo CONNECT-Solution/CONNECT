@@ -50,11 +50,12 @@
 
   	<!-- ******************************************************************** -->
   	
-  	<alias alias="hiemunsubscribeadapter" name="hiemunsubscribeadapterwsunsecured" />
+  	<alias alias="hiemunsubscribeadapter" name="hiemunsubscribeadapternoop" />
 
 	<!-- No-op Implementation -->
 	<bean class="gov.hhs.fha.nhinc.unsubscribe.adapter.proxy.HiemUnsubscribeAdapterNoOpImpl" id="hiemunsubscribeadapternoop" name="hiemunsubscribeadapternoop"> 
 		<meta key="impltype" value="noop"/>
+		<meta key="default" value="true"/>
 	</bean> 
 
 	<!-- Secured web service Implementation -->
@@ -65,7 +66,7 @@
 	<!-- Unsecured web service Implementation -->
 	<bean class="gov.hhs.fha.nhinc.unsubscribe.adapter.proxy.HiemUnsubscribeAdapterWebServiceProxy" id="hiemunsubscribeadapterwsunsecured" name="hiemunsubscribeadapterwsunsecured"> 
 		<meta key="impltype" value="wsunsecured"/>
-		<meta key="default" value="true"/>
+		
 	</bean> 
 
 </beans>

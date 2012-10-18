@@ -11,7 +11,17 @@
     <name>Maven 3 soapUI ValidationSuite</name>
     <properties>
         <skip.unpack>false</skip.unpack>
-        <soapui.testFailIgnore>false</soapui.testFailIgnore>
+        <soapui.testFailIgnore>true</soapui.testFailIgnore>
+        <entity.skip>false</entity.skip>
+        <msgproxy.skip>false</msgproxy.skip>
+        <connectionmanager.skip>false</connectionmanager.skip>
+        <host>localhost</host>
+        <secured.port>8181</secured.port>
+        <port>8080</port>
+        <db.host>localhost</db.host>
+        <db.password>nhincpass</db.password>
+        <db.port>3306</db.port>
+        <db.user>nhincuser</db.user>
     </properties>
     <pluginRepositories>
         <pluginRepository>
@@ -20,31 +30,6 @@
         </pluginRepository>
     </pluginRepositories>
     <build>
-        <testResources>
-            <testResource>
-                <directory>${basedir}/src/test/resources</directory>
-                <includes>
-                    <include>glassfish/**/domain.xml</include>
-                </includes>
-                <filtering>true</filtering>
-                <targetPath>${project.build.directory}/glassfish-resources/</targetPath>
-            </testResource>
-            <testResource>
-                <directory>${basedir}/src/test/resources</directory>
-                <includes>
-                    <include>gateway.jks</include>
-                    <include>log4j.properties</include>
-                </includes>
-                <targetPath>${project.build.directory}/glassfish-resources/</targetPath>
-            </testResource>
-            <testResource>
-                <directory>${project.build.testOutputDirectory}</directory>
-                <includes>
-                    <include>gateway.properties</include>
-                </includes>
-                <targetPath>${project.build.testOutputDirectory}/master/</targetPath>
-            </testResource>
-        </testResources>
         <plugins>
             <plugin>
                 <!-- Used to pull XSD files from the JAR -->
@@ -53,7 +38,7 @@
                 <executions>
                     <execution>
                         <id>unpack-soapui-test-resources</id>
-                        <!-- Using the initialize phase because it is before 
+                        <!-- Using the initialize phase because it is before
                             the generate sources phase -->
                         <phase>initialize</phase>
                         <goals>
@@ -251,36 +236,24 @@
                 </executions>
             </plugin>
             <plugin>
-                <groupId>org.glassfish.embedded</groupId>
-                <artifactId>maven-embedded-glassfish-plugin</artifactId>
+                <groupId>com.google.code.maven-replacer-plugin</groupId>
+                <artifactId>replacer</artifactId>
                 <executions>
                     <execution>
-                        <id>start-glassfish</id>
-                        <phase>pre-integration-test</phase>
+                        <id>fix-wsdl-schemalocation</id>
+                        <phase>process-test-resources</phase>
                         <goals>
-                            <goal>start</goal>
+                            <goal>replace</goal>
                         </goals>
-                    </execution>
-                    <execution>
-                        <id>glassfish-deploy</id>
-                        <phase>pre-integration-test</phase>
-                        <goals>
-                            <goal>deploy</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>glassfish-undeploy</id>
-                        <phase>post-integration-test</phase>
-                        <goals>
-                            <goal>undeploy</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>stop-glassfish</id>
-                        <phase>post-integration-test</phase>
-                        <goals>
-                            <goal>stop</goal>
-                        </goals>
+                        <configuration>
+                            <basedir>${project.build.directory}/wsdl</basedir>
+                            <includes>
+                                <include>**/*.wsdl</include>
+                            </includes>
+                            <token>schemaLocation=\"classpath:</token>
+                            <value>schemaLocation=\"../</value>
+                            <regex>true</regex>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
@@ -298,24 +271,25 @@
                         <artifactId>CONNECTCommonTypesLib</artifactId>
                         <version>${project.version}</version>
                     </dependency>
+                    <dependency>
+                        <groupId>org.connectopensource</groupId>
+                        <artifactId>FileUtils</artifactId>
+                        <version>4.0.0-SNAPSHOT</version>
+                    </dependency>
                 </dependencies>
                 <configuration>
                     <settingsFile>${basedir}/src/main/resources/soapui-settings.xml</settingsFile>
                     <outputFolder>${basedir}/target/soapui/output/</outputFolder>
                     <soapuiProperties>
                         <property>
-                            <name>NHINC_PROPERTIES_DIR</name>
-                            <value>${project.build.testOutputDirectory}</value>
-                        </property>
-                        <property>
                             <name>soapui.logroot</name>
-                            <value>${project.build.directory}/soapui/my_custon_logs/</value>
+                            <value>${project.build.directory}/soapui/my_custom_logs/</value>
                         </property>
                     </soapuiProperties>
                     <exportAll>true</exportAll>
                     <printReport>true</printReport>
                     <junitReport>true</junitReport>
-                    <coverage>true</coverage>
+                    <coverage>false</coverage>
                     <testFailIgnore>${soapui.testFailIgnore}</testFailIgnore>
                     <saveAfterRun>false</saveAfterRun>
                 </configuration>
@@ -327,13 +301,36 @@
                             <goal>test</goal>
                         </goals>
                         <configuration>
+                            <skip>${entity.skip}</skip>
                             <projectFile>${basedir}/EntityValidation-soapui-project.xml</projectFile>
                             <outputFolder>${basedir}/target/soapui/output/EntityValidation</outputFolder>
-                            <globalProperties>
-                                <value>project.name=EntityValidation</value>
-                            </globalProperties>
                             <projectProperties>
+                                <value>GatewayPropDir=${properties.dir}</value>
                                 <value>project.name=EntityValidation</value>
+                                <value>DBHost=${db.host}</value>
+                                <value>DBPass=${db.password}</value>
+                                <value>DBPort=${db.port}</value>
+                                <value>DBUser=nhincuser</value>
+                                <value>startDate=2012-09-27T22:57:33Z</value>
+                                <value>endDate=2012-09-27T23:07:33Z</value>
+                                <value>sigDate=09/27/2012 22:57:33</value>
+                                <value>expireDate=2012-10-27T00:00:00Z</value>
+                                <value>Endpoint-DocQuery=http://${host}:${port}/Gateway/DocumentQuery/2_0/EntityService/EntityDocQueryUnsecured</value>
+                                <value>Endpoint-DocRetrieve=http://${host}:${port}/Gateway/DocumentRetrieve/2_0/EntityService/EntityDocRetrieve</value>
+                                <value>Endpoint-DSDeferredResp=http://${host}:${port}/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionDeferredResponseUnsecured</value>
+                                <value>Endpoint-EntityAdminDist=http://${host}:${port}/Gateway/AdminDistribution/1_0/AdministrativeDistribution_Service</value>
+                                <value>Endpoint-EntityXDRRequest=http://${host}:${port}/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionDeferredRequestUnsecured</value>
+                                <value>Endpoint-Notify=http://${host}:${port}/Gateway/HIEM/2_0/EntityNotificationConsumer</value>
+                                <value>Endpoint-PatientDiscovery=http://${host}:${port}/Gateway/PatientDiscovery/1_0/EntityPatientDiscovery</value>
+                                <value>Endpoint-PatientDiscoveryAsyncReq=http://${host}:${port}/Gateway/PatientDiscovery/1_0/EntityService/EntityPatientDiscoveryDeferredRequestUnsecured</value>
+                                <value>Endpoint-PatientDiscoveryAsyncResp=http://${host}:${port}/Gateway/PatientDiscovery/1_0/EntityService/EntityPatientDiscoveryDeferredResponseUnsecured</value>
+                                <value>Endpoint-Subscribe=http://${host}:${port}/Gateway/HIEM/2_0/EntityNotificationProducer</value>
+                                <value>Endpoint-Unsubscribe=http://${host}:${port}/Gateway/HIEM/2_0/EntitySubscriptionManager</value>
+                                <value>Endpoint-XDREntity=http://${host}:${port}/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionUnsecured</value>
+                                <value>NotificationEndpoint=https://${host}:${secured.port}/Gateway/HIEM/2_0/NhinService/NotificationConsumerService/HiemNotify</value>
+                                <value>NotifySubscriptionManagerEndpointAddress=https://${host}:${secured.port}/Gateway/HIEM/2_0/NhinService/SubscriptionManagerService/HiemUnsubscribe</value>
+                                <value>SubscriptionEndpoint=https://${host}:${secured.port}/Gateway/HIEM/2_0/NhinService/NotificationProducerService/HiemSubscription</value>
+                                <value>SubscriptionManagerEndpointAddress=https://${host}:${secured.port}/Gateway/HIEM/2_0/NhinService/SubscriptionManagerService/HiemUnsubscribe</value>
                             </projectProperties>
                         </configuration>
                     </execution>
@@ -344,13 +341,32 @@
                             <goal>test</goal>
                         </goals>
                         <configuration>
+                            <skip>${msgproxy.skip}</skip>
                             <projectFile>${basedir}/MsgProxyValidation-soapui-project.xml</projectFile>
                             <outputFolder>${basedir}/target/soapui/output/MsgProxyValidation</outputFolder>
-                            <globalProperties>
-                                <value>project.name=MsgProxyValidation</value>
-                            </globalProperties>
                             <projectProperties>
+                                <value>GatewayPropDir=${properties.dir}</value>
                                 <value>project.name=MsgProxyValidation</value>
+                                <value>DBHost=${db.host}</value>
+                                <value>DBPass=${db.password}</value>
+                                <value>DBPort=${db.port}</value>
+                                <value>DBUser=nhincuser</value>
+                                <value>Endpoint-DocQuery=http://${host}:${port}/Gateway/DocumentQuery/2_0/EntityService/EntityDocQueryUnsecured</value>
+                                <value>Endpoint-DocRetrieve=http://${host}:${port}/Gateway/DocumentRetrieve/2_0/EntityService/EntityDocRetrieve</value>
+                                <value>Endpoint-DSDeferredResp=http://${host}:${port}/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionDeferredResponseUnsecured</value>
+                                <value>Endpoint-EntityAdminDist=http://${host}:${port}/Gateway/AdminDistribution/1_0/AdministrativeDistribution_Service</value>
+                                <value>Endpoint-EntityXDRRequest=http://${host}:${port}/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionDeferredRequestUnsecured</value>
+                                <value>Endpoint-Notify=http://${host}:${port}/Gateway/HIEM/2_0/EntityNotificationConsumer</value>
+                                <value>Endpoint-PatientDiscovery=http://${host}:${port}/Gateway/PatientDiscovery/1_0/EntityPatientDiscovery</value>
+                                <value>Endpoint-PatientDiscoveryAsyncReq=http://${host}:${port}/Gateway/PatientDiscovery/1_0/EntityService/EntityPatientDiscoveryDeferredRequestUnsecured</value>
+                                <value>Endpoint-PatientDiscoveryAsyncResp=http://${host}:${port}/Gateway/PatientDiscovery/1_0/EntityService/EntityPatientDiscoveryDeferredResponseUnsecured</value>
+                                <value>Endpoint-Subscribe=http://${host}:${port}/Gateway/HIEM/2_0/EntityNotificationProducer</value>
+                                <value>Endpoint-Unsubscribe=http://${host}:${port}/Gateway/HIEM/2_0/EntitySubscriptionManager</value>
+                                <value>Endpoint-XDREntity=http://${host}:${port}/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionUnsecured</value>
+                                <value>NotificationEndpoint=https://${host}:${secured.port}/Gateway/HIEM/2_0/NhinService/NotificationConsumerService/HiemNotify</value>
+                                <value>NotifySubscriptionManagerEndpointAddress=https://${host}:${secured.port}/Gateway/HIEM/2_0/NhinService/SubscriptionManagerService/HiemUnsubscribe</value>
+                                <value>SubscriptionEndpoint=https://${host}:${secured.port}/Gateway/HIEM/2_0/NhinService/NotificationProducerService/HiemSubscription</value>
+                                <value>SubscriptionManagerEndpointAddress=https://${host}:${secured.port}/Gateway/HIEM/2_0/NhinService/SubscriptionManagerService/HiemUnsubscribe</value>
                             </projectProperties>
                         </configuration>
                     </execution>
@@ -361,18 +377,81 @@
                             <goal>test</goal>
                         </goals>
                         <configuration>
+                            <skip>${connectionmanager.skip}</skip>
                             <projectFile>${basedir}/4-ConnectionManagerTest-soapui-project.xml</projectFile>
                             <outputFolder>${basedir}/target/soapui/output/ConnectionManagerTest</outputFolder>
-                            <globalProperties>
-                                <value>project.name=4-ConnectionManagerTest</value>
-                            </globalProperties>
                             <projectProperties>
+                                <value>GatewayPropDir=${properties.dir}</value>
                                 <value>project.name=4-ConnectionManagerTest</value>
+                                <value>DBHost=${db.host}</value>
+                                <value>DBPass=${db.password}</value>
+                                <value>DBPort=${db.port}</value>
+                                <value>DBUser=nhincuser</value>
+                                <value>Endpoint-ConnectionManager=http://${host}:${port}/CONNECTCommon/NhincComponentConnectionManager</value>
                             </projectProperties>
                         </configuration>
+                    </execution>
+                    <execution>
+                        <id>test-verify</id>
+                        <phase>post-integration-test</phase>
+                        <goals>
+                            <goal>test-verify</goal>
+                        </goals>
                     </execution>
                 </executions>
             </plugin>
         </plugins>
     </build>
+    <profiles>
+        <profile>
+            <id>embedded-testing</id>
+            <activation>
+                <property>
+                    <name>!standalone</name>
+                </property>
+            </activation>
+            <properties>
+                <properties.dir>${project.build.directory}/nhinc-properites-dir</properties.dir>
+            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.glassfish.embedded</groupId>
+                        <artifactId>maven-embedded-glassfish-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>start-glassfish</id>
+                                <phase>pre-integration-test</phase>
+                                <goals>
+                                    <goal>stop</goal>
+                                    <goal>start</goal>
+                                </goals>
+                            </execution>
+                            <execution>
+                                <id>glassfish-deploy</id>
+                                <phase>pre-integration-test</phase>
+                                <goals>
+                                    <goal>deploy</goal>
+                                </goals>
+                            </execution>
+                            <execution>
+                                <id>glassfish-undeploy</id>
+                                <phase>post-integration-test</phase>
+                                <goals>
+                                    <goal>undeploy</goal>
+                                </goals>
+                            </execution>
+                            <execution>
+                                <id>stop-glassfish</id>
+                                <phase>post-integration-test</phase>
+                                <goals>
+                                    <goal>stop</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>

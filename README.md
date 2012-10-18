@@ -108,7 +108,7 @@ OR
 
 ######Altering targeted application server
 For some application server deployments the generated .ear needs different dependencies. The following profiles are available to control which type of .ear is generated (use value within parentheses):
-* GlassFish v3.1.1 (glassfish)
+* GlassFish v3.1.2.2 (glassfish)
 * WebSphere Application Server Community Edition v3.0.0.2 (websphere)
 
 This profile options are used just like above. As an example to generate a WebSphere specific .ear with only Patient Discovery.
@@ -140,10 +140,13 @@ Next, copy install.properties to local.install.properties and update with your l
 
         $ cp install.properties local.install.properties
 
-Lastly, we're going to install the Glassfish Application Server
+Lastly, we're going to install the MySQL databases needed for CONNECT.
 
-        $ ant install
+        $ ant install.databases
 
+The "mysql-connector-java-5.1.10.jar" must be copied into the following folder, for container managed database resources
+
+        <GLASSFISH_HOME>/domains/domain1/lib/ext
 
 ####Setup GlassFish
 These steps will install and configure a Glassfish Application Server to deploy and use CONNECT. Lets get started.
@@ -159,7 +162,7 @@ you want GlassFish to install.
 
 Lastly, we're going to install the Glassfish Application Server
 
-        $ ant install.glassfish
+        $ ant install
 
 
 ####Deploy to GlassFish

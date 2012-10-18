@@ -11,7 +11,7 @@ import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 
 /**
  * @author bhumphrey
- *
+ * 
  */
 public abstract class CONNECTCXFClient<T> extends CONNECTClient<T> {
 
@@ -20,13 +20,21 @@ public abstract class CONNECTCXFClient<T> extends CONNECTClient<T> {
     CONNECTCXFClient(ServicePortDescriptor<T> portDescriptor, String url, AssertionType assertion) {
         this(portDescriptor, url, assertion, new CXFServicePortBuilder<T>(portDescriptor));
     }
-    
-    CONNECTCXFClient(ServicePortDescriptor<T> portDescriptor, String url, AssertionType assertion, ServicePortBuilder<T> portBuilder) {
-        serviceEndpoint = super.configureBasePort(portBuilder.createPort(), url); 
+
+    CONNECTCXFClient(ServicePortDescriptor<T> portDescriptor, String url, AssertionType assertion,
+            ServicePortBuilder<T> portBuilder) {
+        serviceEndpoint = super.configureBasePort(portBuilder.createPort(), url);
     }
+
+    CONNECTCXFClient(ServicePortDescriptor<T> portDescriptor, String url, AssertionType assertion,
+            ServicePortBuilder<T> portBuilder, String subscriptionId) {
+        serviceEndpoint = super.configureBasePort(portBuilder.createPort(), subscriptionId);
+    }
+    
+   
 
     public T getPort() {
         return serviceEndpoint.getPort();
     }
-    
+
 }

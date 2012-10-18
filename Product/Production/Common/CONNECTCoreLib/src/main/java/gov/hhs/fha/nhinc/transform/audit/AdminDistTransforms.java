@@ -26,11 +26,11 @@
  */
 package gov.hhs.fha.nhinc.transform.audit;
 
-import java.io.ByteArrayOutputStream;
-
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.Marshaller;
-
+import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
+import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewaySendAlertMessageType;
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 
 import org.apache.commons.logging.Log;
@@ -39,14 +39,6 @@ import org.apache.commons.logging.LogFactory;
 import com.services.nhinc.schema.auditmessage.AuditMessageType;
 import com.services.nhinc.schema.auditmessage.AuditSourceIdentificationType;
 import com.services.nhinc.schema.auditmessage.CodedValueType;
-import com.services.nhinc.schema.auditmessage.ParticipantObjectIdentificationType;
-
-import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
-import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
-import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewaySendAlertMessageType;
-import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
 
 /**
  *
@@ -163,32 +155,6 @@ public class AdminDistTransforms {
                     communityId, communityName);
             auditMsg.getAuditSourceIdentification().add(auditSource);
 
-            ParticipantObjectIdentificationType participantObject = AuditDataTransformHelper
-                    .createParticipantObjectIdentification("N/A");
-            // Fill in the message field with the contents of the event message
-            try {
-                JAXBContextHandler oHandler = new JAXBContextHandler();
-                JAXBContext jc = oHandler.getJAXBContext(oasis.names.tc.emergency.edxl.de._1.ObjectFactory.class,
-                        oasis.names.tc.emergency.edxl.de._1.EDXLDistribution.class);
-                Marshaller marshaller = jc.createMarshaller();
-                ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
-                baOutStrm.reset();
-                marshaller.marshal(body, baOutStrm);
-                log.debug("Done marshalling the message.");
-
-                participantObject.setParticipantObjectQuery(baOutStrm.toByteArray());
-
-            } catch (Exception e) {
-                e.printStackTrace();
-                log.error("EXCEPTION when marshalling Nhin Notify Request : " + e);
-                throw new RuntimeException();
-            }
-            // Put the contents of the actual message into the Audit Log Message
-            ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
-
-            participantObject.setParticipantObjectQuery(baOutStrm.toByteArray());
-            auditMsg.getParticipantObjectIdentification().add(participantObject);
-
             result.setAuditMessage(auditMsg);
             result.setDirection(direction);
             result.setInterface(_interface);
@@ -248,32 +214,6 @@ public class AdminDistTransforms {
         AuditSourceIdentificationType auditSource = AuditDataTransformHelper.createAuditSourceIdentification(
                 communityId, communityName);
         auditMsg.getAuditSourceIdentification().add(auditSource);
-
-        ParticipantObjectIdentificationType participantObject = AuditDataTransformHelper
-                .createParticipantObjectIdentification("N/A");
-        // Fill in the message field with the contents of the event message
-        try {
-            JAXBContextHandler oHandler = new JAXBContextHandler();
-            JAXBContext jc = oHandler.getJAXBContext(oasis.names.tc.emergency.edxl.de._1.ObjectFactory.class,
-                    oasis.names.tc.emergency.edxl.de._1.EDXLDistribution.class);
-            Marshaller marshaller = jc.createMarshaller();
-            ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
-            baOutStrm.reset();
-            marshaller.marshal(body, baOutStrm);
-            log.debug("Done marshalling the message.");
-
-            participantObject.setParticipantObjectQuery(baOutStrm.toByteArray());
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            log.error("EXCEPTION when marshalling Nhin Notify Request : " + e);
-            throw new RuntimeException();
-        }
-        // Put the contents of the actual message into the Audit Log Message
-        ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
-
-        participantObject.setParticipantObjectQuery(baOutStrm.toByteArray());
-        auditMsg.getParticipantObjectIdentification().add(participantObject);
 
         result.setAuditMessage(auditMsg);
         result.setDirection(direction);
