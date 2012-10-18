@@ -131,48 +131,7 @@
                             <resources>
                                 <resource>
                                     <directory>${basedir}/src/test/resources/domain1/</directory>
-                                    <excludes>
-                                        <exclude>**/*.jks</exclude>
-                                    </excludes>
                                     <filtering>true</filtering>
-                                </resource>
-                            </resources>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>copy-resources-keystores-to-config</id>
-                        <phase>validate</phase>
-                        <goals>
-                            <goal>copy-resources</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>${project.build.directory}/domain1/</outputDirectory>
-                            <resources>
-                                <resource>
-                                    <directory>${basedir}/src/test/resources/domain1/</directory>
-                                    <includes>
-                                        <include>**/*.jks</include>
-                                    </includes>
-                                    <filtering>false</filtering>
-                                </resource>
-                            </resources>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>copy-resources-keystores-to-lib-classes</id>
-                        <phase>validate</phase>
-                        <goals>
-                            <goal>copy-resources</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>${project.build.directory}/domain1/lib/classes/</outputDirectory>
-                            <resources>
-                                <resource>
-                                    <directory>${basedir}/src/test/resources/domain1/config</directory>
-                                    <includes>
-                                        <include>*.jks</include>
-                                    </includes>
-                                    <filtering>false</filtering>
                                 </resource>
                             </resources>
                         </configuration>
@@ -211,6 +170,34 @@
                         <configuration>
                             <target>
                                 <mkdir dir="${project.build.directory}/domain1/docroot/" />
+                            </target>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>setup-selfsigned-certs</id>
+                        <phase>process-test-resources</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <target>
+                                <exec failonerror="true" executable="keytool"
+                                    dir="${project.build.directory}/domain1/config">
+                                    <arg
+                                        line="-v -genkey -keyalg RSA -keysize 1024 -keystore gateway.jks -keypass changeit -storepass changeit -validity 365 -alias gateway -dname &quot;cn=localhost&quot;" />
+                                </exec>
+                                <exec failonerror="true" executable="keytool"
+                                    dir="${project.build.directory}/domain1/config/">
+                                    <arg
+                                        line="-v -export -rfc -alias gateway -file localhost.cer -keystore gateway.jks -keypass changeit -storepass changeit" />
+                                </exec>
+                                <exec failonerror="true" executable="keytool"
+                                    dir="${project.build.directory}/domain1/config/">
+                                    <arg
+                                        line="-v -import -keypass changeit -noprompt -trustcacerts -alias localhost -file localhost.cer -keystore cacerts.jks -storepass changeit" />
+                                </exec>
+                                <copy file="${project.build.directory}/domain1/config/gateway.jks"
+                                    todir="${project.build.directory}/domain1/lib/classes/" />
                             </target>
                         </configuration>
                     </execution>
