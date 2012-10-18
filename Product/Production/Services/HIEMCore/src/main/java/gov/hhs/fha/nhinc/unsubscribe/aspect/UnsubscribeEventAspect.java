@@ -152,7 +152,7 @@ public class UnsubscribeEventAspect extends EventAspectAdvice {
 
 
     /*--- Nwhin Invocation ---*/
-    @Pointcut("execution(* gov.hhs.fha.nhinc.unsubscribe.nhin.proxy.NhinHiemUnsubscribeProxy.unsubscribe(..))")
+    @Pointcut("execution(* gov.hhs.fha.nhinc.unsubscribe.nhin.proxy.NhinHiemUnsubscribeProxy*.unsubscribe(..))")
     private void nwhinInvocation() {
     }
 
