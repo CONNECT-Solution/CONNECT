@@ -27,9 +27,6 @@
 package gov.hhs.fha.nhinc.docretrieve;
 
 import gov.hhs.fha.nhinc.largefile.LargeFileUtils;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.properties.PropertyAccessException;
-import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType.DocumentResponse;
 
@@ -41,15 +38,11 @@ import java.util.List;
 
 import javax.activation.DataHandler;
 
-import org.apache.commons.logging.Log;
-
 /**
  * @author akong
  * 
  */
 public class DocRetrieveFileUtils {
-    private static Log log = null; // todo
-
     private LargeFileUtils fileUtils = null;
 
     private static DocRetrieveFileUtils instance = new DocRetrieveFileUtils();
@@ -90,30 +83,6 @@ public class DocRetrieveFileUtils {
     }
 
     /**
-     * Saves the actual documents in the response into the file system and replaces it with either the file URI or the
-     * actual file depending on gateway configuration.
-     * 
-     * @param response
-     * @throws IOException
-     */
-    public void streamDocumentsToFileSystemForAggregation(RetrieveDocumentSetResponseType response) throws IOException {
-        List<DocumentResponse> docResponseList = response.getDocumentResponse();
-        if (docResponseList == null) {
-            return;
-        }
-
-        for (DocumentResponse docResponse : docResponseList) {
-            if (docResponse != null && docResponse.getDocument() != null) {
-                if (fileUtils.isSavePayloadToFileEnabled()) {
-                    saveDocumentAndSetPayloadToFileURI(docResponse);
-                } else {
-                    saveDocumentToTempFolderAndSetPayloadToFile(docResponse);
-                }
-            }
-        }
-    }
-
-    /**
      * Saves the actual documents in the response into the file system if enabled.
      * 
      * @param response
@@ -138,34 +107,6 @@ public class DocRetrieveFileUtils {
         File file = fileUtils.saveDataToFile(docResponse.getDocument());
         DataHandler dh = fileUtils.convertToDataHandler(file.toURI().toString());
         docResponse.setDocument(dh);
-    }
-
-    private void saveDocumentToTempFolderAndSetPayloadToFile(DocumentResponse docResponse) throws IOException {
-        File file = saveDataToFileInAggregatorFolder(docResponse.getDocument());
-        DataHandler dh = fileUtils.convertToDataHandlerWithTempFile(file);
-        docResponse.setDocument(dh);
-    }
-
-    private File saveDataToFileInAggregatorFolder(DataHandler data) throws IOException {
-        LargeFileUtils fileUtils = LargeFileUtils.getInstance();
-        String aggregatorDir = getAggregatorTempDirectory();
-        File tempFile = LargeFileUtils.getInstance().generateAttachmentFile(aggregatorDir);
-
-        fileUtils.saveDataToFile(data, tempFile);
-
-        return tempFile;
-    }
-
-    protected String getAggregatorTempDirectory() {
-        try {
-            return PropertyAccessor.getInstance().getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
-                    NhincConstants.AGGREGATOR_TEMP_DIRECTORY);
-        } catch (PropertyAccessException pae) {
-            log.error("Failed to determine aggregator save directory.  Is " + NhincConstants.AGGREGATOR_TEMP_DIRECTORY
-                    + " set in gateway.properties?", pae);
-        }
-
-        return null;
     }
 
     protected LargeFileUtils getLargeFileUtils() {

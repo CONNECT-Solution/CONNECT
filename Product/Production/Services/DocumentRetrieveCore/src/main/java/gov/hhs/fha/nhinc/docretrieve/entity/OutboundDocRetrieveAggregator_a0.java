@@ -71,7 +71,7 @@ public class OutboundDocRetrieveAggregator_a0 implements NhinAggregator {
 
                 try {
                     initializeResponse(aggregatedResponse);
-                    streamDocumentsToFileSystemForAggregation(fromResponse);
+                    streamDocumentsToFileSystemIfEnabled(fromResponse);
                     addAllDocuments(aggregatedResponse, fromResponse);
                 } catch (IOException ioe) {
                     getLogger().error("Failed to save document to file system for aggregation.", ioe);
@@ -105,9 +105,9 @@ public class OutboundDocRetrieveAggregator_a0 implements NhinAggregator {
         }
     }
     
-    private void streamDocumentsToFileSystemForAggregation(OutboundDocRetrieveOrchestratable orchestratable) throws IOException {
+    private void streamDocumentsToFileSystemIfEnabled(OutboundDocRetrieveOrchestratable orchestratable) throws IOException {
         DocRetrieveFileUtils fileUtils = DocRetrieveFileUtils.getInstance();
-        fileUtils.streamDocumentsToFileSystemForAggregation(orchestratable.getResponse());
+        fileUtils.streamDocumentsToFileSystemIfEnabled(orchestratable.getResponse());
     }
     
     private void addAllDocuments(OutboundDocRetrieveOrchestratable toResponse,

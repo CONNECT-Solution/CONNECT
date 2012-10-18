@@ -203,7 +203,16 @@ public class LargeFileUtils {
      * @throws IOException
      */
     public DataHandler convertToDataHandler(File file) throws IOException {
-        return convertToDataHandler(file, false);
+        if (!file.exists()) {
+            throw new IOException(
+                    "Payload file location points to does not exists.  Please ensure that the file path is base64 encoded. "
+                            + file.getAbsolutePath());
+        }
+
+        FileInputStream fis = new FileInputStream(file);
+        StreamDataSource sds = new StreamDataSource("application/octect-stream", fis);
+
+        return new DataHandler(sds);
     }
 
     /**
@@ -227,37 +236,6 @@ public class LargeFileUtils {
     public DataHandler convertToDataHandler(byte[] data) {
         ByteDataSource bds = new ByteDataSource(data);
         return new DataHandler(bds);
-    }
-
-    private DataHandler convertToDataHandler(File file, boolean isFileTemp) throws IOException {
-        if (!file.exists()) {
-            throw new IOException(
-                    "Payload file location points to does not exists.  Please ensure that the file path is base64 encoded. "
-                            + file.getAbsolutePath());
-        }
-
-        FileInputStream fis = null;
-        if (isFileTemp) {
-            fis = new TempFileInputStream(file);
-        } else {
-            fis = new FileInputStream(file);
-        }
-
-        StreamDataSource sds = new StreamDataSource("application/octect-stream", fis);
-
-        return new DataHandler(sds);
-    }
-
-    /**
-     * Converts the given temp file into a data handler with a StreamDataSource. The file passed in is considered
-     * temporary and will be deleted once the input stream has been closed.
-     * 
-     * @param file - the file to convert
-     * @return the data handler representing the file
-     * @throws IOException
-     */
-    public DataHandler convertToDataHandlerWithTempFile(File file) throws IOException {
-        return convertToDataHandler(file, true);
     }
 
     /**
