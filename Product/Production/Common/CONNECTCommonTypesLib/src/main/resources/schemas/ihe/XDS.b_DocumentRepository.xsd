@@ -62,7 +62,7 @@
 				</xs:annotation>
 			    </xs:element>                            
                             <xs:element name="mimeType" type="rim:LongName"/>
-                            <xs:element name="Document" type="xs:base64Binary"/>
+                            <xs:element name="Document" type="xs:base64Binary" xmime:expectedContentTypes="application/octet-stream"/>
                         </xs:sequence>
                     </xs:complexType>
                 </xs:element>
