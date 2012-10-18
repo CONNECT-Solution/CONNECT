@@ -218,10 +218,6 @@
                     <groupId>org.hibernate</groupId>
                     <artifactId>hibernate</artifactId>
                 </exclusion>
-                <exclusion>
-                    <groupId>c3p0</groupId>
-                    <artifactId>c3p0</artifactId>
-                </exclusion>
             </exclusions>
         </dependency>
         <dependency>
@@ -343,11 +339,6 @@
             <artifactId>cglib-nodep</artifactId>
         </dependency>
         <dependency>
-            <groupId>c3p0</groupId>
-            <artifactId>c3p0</artifactId>
-            <version>0.9.1.2</version>
-        </dependency>
-        <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>5.1.10</version>
@@ -402,12 +393,12 @@
         <dependency>
             <groupId>org.apache.ws.security</groupId>
             <artifactId>wss4j</artifactId>
-            <version>1.6.6</version>
+            <version>1.6.5</version>
         </dependency>
         <dependency>
             <groupId>org.apache.santuario</groupId>
             <artifactId>xmlsec</artifactId>
-            <version>1.5.2</version>
+            <version>1.5.1</version>
         </dependency>
         <dependency>
             <groupId>net.sf.ehcache</groupId>
