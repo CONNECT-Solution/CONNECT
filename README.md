@@ -177,12 +177,36 @@ TK
 
 Testing
 -------
-
-###Perform Validation Tests
-
+###Run the Validation Suite as part of install
+At the end of the mvn install process, an embedded GlassFish instance will start and the Validation Suite will run against it:
         $ cd <CONNECT_CLONE_DIR>/Product/SoapUI_Test/ValidationSuite
         $ mvn clean install
 
+###Run the Validation Suite via Maven sript
+The Validation Suite can be run via a Maven script against a standalone installation of the applicaiton server:
+		$ cd <CONNECT_CLONE_DIR>/Product/SoapUI_Test/ValidationSuite
+		$ mvn verify -Dstandalone -Dproperties.dir=<applicaiton server configuration dir>
+
+Several propertis can be passed for mvn verify:
+		-Dstandalone -- must be passed in for standalone testing
+		-Dproperties.dir=<gateway config dir> -- for GlassFish this is <GlassFish home>/domains/domain1/config/nhin; there is an equivalent in WebSphere 
+		-Dhost=<machine name or IP address to act as the requesting gateway> -- defaults to localhost, but can be passed in to test on remote machines
+		-Dport=<####> -- defaults to 8080; the unsecured entity/message-proxy port
+		-Dsecured.port=<####> -- defaults to 8181; the secured entity/message-proxy port
+		-Ddb.host=<machine name or IP address of the MySQL server> --  defaults to localhost
+		-Ddb.port=<####> -- defaults to 3306
+		-Ddb.user=<database user name> -- defaults to nhincuser
+		-Ddb.password=<database password> -- defaults to nhincpass
+				
+###Run the Validation Suite via SoapUI
+The Validation Suite can be run with SoapUI. First, follow the instructions "Setting up SoapUI" below.
+Set the property "GatewayPropDir" in MsgProxyValidation-soapui-project.properties and EntityValidation-soapui-project.properties in the Validation Suite directory. This should be set to the gateway configuration directory. For GlassFish this is <GlassFish home>/domains/domain1/config/nhin; there is an equivalent in WebSphere 
+Run the Validation Suite project files MsgProxyValidation-soapui-project.xml and EntityValidation-soapui-project.xml via SoapUI's command line runner testrunner.sh (or testrunner.bat in Windows).
+
+##Setting up SoapUI
+Install SoapUI v4.5.1.
+Copy the MySQL jdbc driver mydql-connector-java-5.1.10.jar from the Maven repository directory .m2/repository/mysql/mysql-connector-java/5.1.10 to <SoapUI home>/bin/ext.
+Copy the file FileUtils-4.0.0-SNAPSHOT.jar (or similarly named) to <SoapUI home>/bin/ext.
 
 
 Contributing
