@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+Class-Path: CONNECTCommonTypesLib-4.0.0-SNAPSHOT.jar jaxb-impl-2.2.5.j
+ ar commons-logging-1.1.1.jar log4j-1.2.17.jar CONNECTCoreLib-4.0.0-SN
+ APSHOT.jar PatientDiscoveryCore-4.0.0-SNAPSHOT.jar AuditRepositoryCor
+ e-4.0.0-SNAPSHOT.jar PatientCorrelationCore-4.0.0-SNAPSHOT.jar common
+ s-lang-2.6.jar commons-collections-3.2.1.jar slf4j-api-1.6.4.jar
+

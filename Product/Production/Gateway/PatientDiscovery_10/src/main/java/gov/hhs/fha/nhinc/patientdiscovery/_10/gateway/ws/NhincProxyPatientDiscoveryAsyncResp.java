@@ -26,8 +26,9 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws;
 
+import gov.hhs.fha.nhinc.patientdiscovery._10.passthru.deferred.response.NhincProxyPatientDiscoveryAsyncRespImpl;
+
 import javax.annotation.Resource;
-import javax.jws.WebService;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
@@ -38,7 +39,11 @@ import javax.xml.ws.soap.Addressing;
  */
 @Addressing(enabled = true)
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
-public class NhincProxyPatientDiscoveryAsyncResp extends PatientDiscoveryBase implements gov.hhs.fha.nhinc.nhincproxypatientdiscoveryasyncresp.NhincProxyPatientDiscoveryAsyncRespPortType{
+public class NhincProxyPatientDiscoveryAsyncResp extends PatientDiscoveryBase implements
+        gov.hhs.fha.nhinc.nhincproxypatientdiscoveryasyncresp.NhincProxyPatientDiscoveryAsyncRespPortType {
+
+    private NhincProxyPatientDiscoveryAsyncRespImpl orchImpl;
+
     @Resource
     private WebServiceContext context;
 
@@ -52,8 +57,12 @@ public class NhincProxyPatientDiscoveryAsyncResp extends PatientDiscoveryBase im
 
     public org.hl7.v3.MCCIIN000002UV01 proxyProcessPatientDiscoveryAsyncResp(
             org.hl7.v3.ProxyPRPAIN201306UVProxyRequestType proxyProcessPatientDiscoveryAsyncRespRequest) {
-        return getServiceFactory().getNhincProxyPatientDiscoveryAsyncRespImpl().proxyProcessPatientDiscoveryAsyncResp(
-                proxyProcessPatientDiscoveryAsyncRespRequest, getWebServiceContext());
+        return orchImpl.proxyProcessPatientDiscoveryAsyncResp(proxyProcessPatientDiscoveryAsyncRespRequest,
+                getWebServiceContext());
+    }
+
+    public void setOrchestratorImpl(NhincProxyPatientDiscoveryAsyncRespImpl orchImpl) {
+        this.orchImpl = orchImpl;
     }
 
     protected WebServiceContext getWebServiceContext() {

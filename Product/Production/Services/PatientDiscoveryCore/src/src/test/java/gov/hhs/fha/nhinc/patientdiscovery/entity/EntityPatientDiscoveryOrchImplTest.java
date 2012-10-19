@@ -141,12 +141,6 @@ public class EntityPatientDiscoveryOrchImplTest {
                 newRequest.setAssertion(assertion);
                 newRequest.setPRPAIN201305UV02(new201305);
                 newRequest.setNhinTargetCommunities(request.getNhinTargetCommunities());
-                /*
-                 * II anII = new II(); List<II> iiList = new ArrayList<II>(); iiList.set(0, anII);
-                 * MCCIMT000100UV01Device device = new MCCIMT000100UV01Device(); device.
-                 * RespondingGatewayPRPAIN201305UV02RequestType req = new
-                 * RespondingGatewayPRPAIN201305UV02RequestType(); PRPAIN201305UV02 new201305 = new PRPAIN201305UV02();
-                 */
                 return newRequest;
             }
 
@@ -176,7 +170,7 @@ public class EntityPatientDiscoveryOrchImplTest {
             }
         });
 
-        assertSame(response,entityOrchImpl.getResponseFromCommunities(request, assertion));
+        assertSame(response, entityOrchImpl.getResponseFromCommunities(request, assertion));
         context.assertIsSatisfied();
     }
 

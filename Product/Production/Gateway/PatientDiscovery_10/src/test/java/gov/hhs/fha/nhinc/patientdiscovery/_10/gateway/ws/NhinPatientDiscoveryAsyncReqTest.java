@@ -64,15 +64,13 @@ public class NhinPatientDiscoveryAsyncReqTest {
         final PatientDiscoveryServiceFactory mockFactory = context.mock(PatientDiscoveryServiceFactory.class);
 
         NhinPatientDiscoveryAsyncReq patientDiscovery = new NhinPatientDiscoveryAsyncReq(mockFactory);
+        patientDiscovery.setOrchestratorImpl(mockService);
 
         context.checking(new Expectations() {
             {
                 oneOf(mockService).respondingGatewayPRPAIN201305UV02(with(same(mockBody)),
                         with(any(WebServiceContext.class)));
                 will(returnValue(expectedResponse));
-
-                oneOf(mockFactory).getNhinPatientDiscoveryAsyncReqImpl();
-                will(returnValue(mockService));
             }
         });
 

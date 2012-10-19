@@ -26,15 +26,15 @@
  */
 package gov.hhs.fha.nhinc.docquery._20.entity;
 
+import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayQuerySecuredRequestType;
+import gov.hhs.fha.nhinc.docquery.entity.EntityDocQueryOrchImpl;
+
 import javax.annotation.Resource;
-import javax.jws.WebService;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
 
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
-
-import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayQuerySecuredRequestType;
 
 
 
@@ -42,6 +42,8 @@ import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayQ
 @Addressing(enabled=true)
 public class EntityDocQuerySecured implements gov.hhs.fha.nhinc.entitydocquery.EntityDocQuerySecuredPortType{
 
+    private EntityDocQueryOrchImpl orchImpl;
+    
     @Resource
     private WebServiceContext context;
 
@@ -59,11 +61,15 @@ public class EntityDocQuerySecured implements gov.hhs.fha.nhinc.entitydocquery.E
 
     protected EntityDocQueryImpl getEntityDocQueryImpl()
     {
-        return new EntityDocQueryImpl();
+        return new EntityDocQueryImpl(orchImpl);
     }
 
     protected WebServiceContext getWebServiceContext()
     {
         return context;
+    }
+    
+    public void setOrchestratorImpl(EntityDocQueryOrchImpl orchImpl) {
+        this.orchImpl = orchImpl;
     }
 }

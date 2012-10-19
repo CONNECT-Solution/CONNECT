@@ -45,6 +45,11 @@ import gov.hhs.healthit.nhin.XDRAcknowledgementType;
  */
 public class NhinDocSubmissionDeferredResponseImpl {
 
+    private NhinDocSubmissionDeferredResponseOrchImpl orchImpl;
+
+    NhinDocSubmissionDeferredResponseImpl(NhinDocSubmissionDeferredResponseOrchImpl orchImpl) {
+        this.orchImpl = orchImpl;
+    }
     /**
      *
      * @param body
@@ -58,14 +63,18 @@ public class NhinDocSubmissionDeferredResponseImpl {
 
         if (assertion != null) {
             AsyncMessageIdExtractor msgIdExtractor = new AsyncMessageIdExtractor();
-            assertion.setMessageId(msgIdExtractor.GetAsyncMessageId(context));
-            List<String> relatesToList = AsyncMessageIdExtractor.GetAsyncRelatesTo(context);
+            assertion.setMessageId(msgIdExtractor.getOrCreateAsyncMessageId(context));
+            List<String> relatesToList = AsyncMessageIdExtractor.getAsyncRelatesTo(context);
             if (NullChecker.isNotNullish(relatesToList)) {
                 assertion.getRelatesToList().addAll(relatesToList);
             }
         }
-
-        return new NhinDocSubmissionDeferredResponseOrchImpl().provideAndRegisterDocumentSetBResponse(body, assertion);
-
+        return orchImpl.provideAndRegisterDocumentSetBResponse(body, assertion);
     }
+
+    public void setOrchestratorImpl(NhinDocSubmissionDeferredResponseOrchImpl orchImpl) {
+        this.orchImpl = orchImpl;
+    }
+
+
 }

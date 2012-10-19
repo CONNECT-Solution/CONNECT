@@ -6,6 +6,8 @@
  */
 package gov.hhs.fha.nhinc.docretrieve._30.nhin;
 
+import gov.hhs.fha.nhinc.docretrieve.nhin.NhinDocRetrieveOrchImpl;
+
 import javax.annotation.Resource;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
@@ -19,6 +21,9 @@ import javax.xml.ws.soap.Addressing;
 @BindingType(value = "http://www.w3.org/2003/05/soap/bindings/HTTP/")
 @Addressing(enabled = true)
 public class DocRetrieve implements ihe.iti.xds_b._2007.RespondingGatewayRetrievePortType {
+    
+    private NhinDocRetrieveOrchImpl orchImpl;
+    
     @Resource
     private WebServiceContext context;
 
@@ -29,7 +34,10 @@ public class DocRetrieve implements ihe.iti.xds_b._2007.RespondingGatewayRetriev
      */
     public ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(
             ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType body) {
-        return (new DocRetrieveImpl().respondingGatewayCrossGatewayRetrieve(body, context));
+        return new DocRetrieveImpl(orchImpl).respondingGatewayCrossGatewayRetrieve(body, context);
     }
-
+    
+    public void setOrchestratorImpl(NhinDocRetrieveOrchImpl orchImpl) {
+        this.orchImpl = orchImpl;
+    }
 }

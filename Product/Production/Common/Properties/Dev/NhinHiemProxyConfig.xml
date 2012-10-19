@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
        
 <!-- 
 	The beans available in this file must be identified in the "description" element for the Spring configuration application. Beans are listed between braces 
@@ -10,9 +12,9 @@
 	<description>Beans included in this file: {nhinhiemsubscribe,nhinhiemnotify}</description>
 
 	<!-- NHIN HIEM Subscribe -->
-	
+
 	<alias alias="nhinhiemsubscribe" name="nhinhiemsubscribewssecured" />
-	
+
 	<!-- No-op Implementation -->
 	<bean lazy-init="true" class="gov.hhs.fha.nhinc.subscribe.nhin.proxy.NhinHiemSubscribeNoOpImpl" id="nhinhiemsubscribenoop" name="nhinhiemsubscribenoop"> 
 		<meta key="impltype" value="noop"/>
@@ -24,11 +26,11 @@
 		<meta key="default" value="true"/>
 	</bean> 
 
-	
+
 	<!-- NHIN HIEM Notify -->
-	
+
 	<alias alias="nhinhiemnotify" name="nhinhiemnotifywssecured" />
-	
+
 	<!-- No-op Implementation -->
 	<bean lazy-init="true" class="gov.hhs.fha.nhinc.notify.nhin.proxy.NhinHiemNotifyNoOpImpl" id="nhinhiemnotifynoop" name="nhinhiemnotifynoop"> 
 		<meta key="impltype" value="noop"/>
@@ -39,5 +41,11 @@
 		<meta key="impltype" value="wssecured"/>
 		<meta key="default" value="true"/>
 	</bean> 
-	
+
+	<!-- Aspect Service -->
+
+	<aop:aspectj-autoproxy />    
+	<bean id="eventUnsubscribeAspect" class="gov.hhs.fha.nhinc.unsubscribe.aspect.UnsubscribeEventAspect" />
+	<bean id="eventSubscribeAspect" class="gov.hhs.fha.nhinc.subscribe.aspect.SubscribeEventAspect" />
+
 </beans>

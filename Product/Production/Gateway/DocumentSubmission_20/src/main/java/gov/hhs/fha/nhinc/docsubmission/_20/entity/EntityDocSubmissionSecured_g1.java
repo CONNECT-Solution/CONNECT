@@ -26,14 +26,15 @@
  */
 package gov.hhs.fha.nhinc.docsubmission._20.entity;
 
-import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType;
-
 import javax.annotation.Resource;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
 
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
+
+import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType;
+import gov.hhs.fha.nhinc.docsubmission.entity.EntityDocSubmissionOrchImpl;
 
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 @Addressing(enabled = true)
@@ -42,20 +43,23 @@ public class EntityDocSubmissionSecured_g1 implements gov.hhs.fha.nhinc.nhincent
     @Resource
     private WebServiceContext context;
 
+    private EntityDocSubmissionOrchImpl orchImpl;
+
+    @Override
     public RegistryResponseType provideAndRegisterDocumentSetB(
             RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType body) {
-        
-        EntityDocSubmissionImpl_g1 impl = getEntityDocSubmissionImpl();
-        RegistryResponseType response = impl.provideAndRegisterDocumentSetB(body, context);
+
+        RegistryResponseType response = new EntityDocSubmissionImpl_g1(orchImpl).provideAndRegisterDocumentSetB(body,
+                context);
 
         return response;
     }
 
-    protected EntityDocSubmissionImpl_g1 getEntityDocSubmissionImpl() {
-        return new EntityDocSubmissionImpl_g1();
-    }
-
     protected WebServiceContext getWebServiceContext() {
         return context;
+    }
+
+    public void setOrchestratorImpl(EntityDocSubmissionOrchImpl orchImpl) {
+        this.orchImpl = orchImpl;
     }
 }

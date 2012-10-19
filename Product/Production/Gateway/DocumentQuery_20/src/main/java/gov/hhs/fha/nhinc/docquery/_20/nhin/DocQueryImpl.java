@@ -45,10 +45,13 @@ import org.apache.commons.logging.LogFactory;
 public class DocQueryImpl extends BaseService
 {
     private Log log = null;
+    
+    private NhinDocQueryOrchImpl orchImpl;
 
-    public DocQueryImpl()
+    public DocQueryImpl(NhinDocQueryOrchImpl orchImpl)
     {
         log = createLogger();
+        this.orchImpl = orchImpl;
     }
 
     protected Log createLogger()
@@ -61,7 +64,7 @@ public class DocQueryImpl extends BaseService
                 
         AssertionType assertion = getAssertion(context, null);
 
-        return new NhinDocQueryOrchImpl().respondingGatewayCrossGatewayQuery(body, assertion);
+        return orchImpl.respondingGatewayCrossGatewayQuery(body, assertion);
     }
 
     

@@ -67,15 +67,13 @@ public class NhincProxyPatientDiscoverySecuredAsyncRespTest {
 
         NhincProxyPatientDiscoverySecuredAsyncResp patientDiscovery = new NhincProxyPatientDiscoverySecuredAsyncResp(
                 mockFactory);
+        patientDiscovery.setOrchestratorImpl(mockService);
 
         context.checking(new Expectations() {
             {
                 oneOf(mockService).proxyProcessPatientDiscoveryAsyncResp(with(same(mockBody)),
                         with(any(WebServiceContext.class)));
                 will(returnValue(expectedResponse));
-
-                oneOf(mockFactory).getNhincProxyPatientDiscoveryAsyncRespImpl();
-                will(returnValue(mockService));
             }
         });
 
