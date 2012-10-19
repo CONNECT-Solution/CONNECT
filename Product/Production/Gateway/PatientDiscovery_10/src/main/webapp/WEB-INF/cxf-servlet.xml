@@ -361,13 +361,6 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd http://www.s
         </property>
     </bean>
 
-    <bean id="entityPDRespUnsecured"
-        class="gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.EntityPatientDiscoveryDeferredResponseUnsecured">
-        <property name="orchestratorImpl">
-            <ref bean="entityPDRespOrchestrator" />
-        </property>
-    </bean>
-
     <jaxws:endpoint
         xmlns:tns="urn:gov:hhs:fha:nhinc:entitypatientdiscoverysecuredasyncresp"
         id="EntityPatientDiscoverySecuredAsyncResp"
@@ -392,12 +385,20 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd http://www.s
         </jaxws:handlers>
     </jaxws:endpoint>
 
+    <bean id="entityPDRespUnsecured"
+        class="gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.EntityPatientDiscoveryDeferredResponseUnsecured">
+        <property name="orchestratorImpl">
+            <ref bean="entityPDRespOrchestrator" />
+        </property>
+    </bean>
+    
     <jaxws:endpoint
         xmlns:tns="urn:gov:hhs:fha:nhinc:entitypatientdiscoveryasyncresp"
         id="EntityPatientDiscoveryAsyncResp"
         address="/EntityService/EntityPatientDiscoveryDeferredResponseUnsecured"
         serviceName="tns:EntityPatientDiscoveryAsyncResp" endpointName="tns:EntityPatientDiscoveryAsyncRespPortSoap"
-        implementor="gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.EntityPatientDiscoveryDeferredResponseUnsecured"
+        implementorClass="gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.EntityPatientDiscoveryDeferredResponseUnsecured"
+        implementor="#entityPDRespUnsecured"
         wsdlLocation="classpath:wsdl/EntityPatientDiscoveryAsyncResp.wsdl">
         <jaxws:handlers>
             <ref bean="TransactionHandler" />
@@ -460,8 +461,7 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd http://www.s
     </jaxws:endpoint>
 
     <bean id="SOAPHeaderHandler" class="gov.hhs.fha.nhinc.callback.SOAPHeaderHandler" />
-    <bean id="TransactionHandler"
-        class="gov.hhs.fha.nhinc.logging.transaction.TransactionHandler" />
+    <bean id="TransactionHandler" class="gov.hhs.fha.nhinc.logging.transaction.TransactionHandler" />
 
     <!-- Aspect Service -->
     <aop:aspectj-autoproxy />
