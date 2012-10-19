@@ -140,10 +140,13 @@ Next, copy install.properties to local.install.properties and update with your l
 
         $ cp install.properties local.install.properties
 
-Lastly, we're going to install the Glassfish Application Server
+Lastly, we're going to install the MySQL databases needed for CONNECT.
 
-        $ ant install
+        $ ant install.databases
 
+The "mysql-connector-java-5.1.10.jar" must be copied into the following folder, for container managed database resources
+
+        <GLASSFISH_HOME>/domains/domain1/lib/ext
 
 ####Setup GlassFish
 These steps will install and configure a Glassfish Application Server to deploy and use CONNECT. Lets get started.
@@ -159,7 +162,7 @@ you want GlassFish to install.
 
 Lastly, we're going to install the Glassfish Application Server
 
-        $ ant install.glassfish
+        $ ant install
 
 
 ####Deploy to GlassFish
