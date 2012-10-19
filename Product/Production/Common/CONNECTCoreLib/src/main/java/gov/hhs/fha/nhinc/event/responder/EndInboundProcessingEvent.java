@@ -34,6 +34,13 @@ public class EndInboundProcessingEvent extends ResponderEvent {
 
     private static final String EVENT_NAME = "END_INBOUND_PROCESSING";
 
+    
+    
+    public EndInboundProcessingEvent() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
     /**
      * @param messageID
      * @param transactionID

@@ -26,25 +26,28 @@
  */
 package gov.hhs.fha.nhinc.event;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+import gov.hhs.fha.nhinc.event.initiator.BeginOutboundMessageEvent;
+import gov.hhs.fha.nhinc.event.initiator.BeginOutboundProcessingEvent;
 import gov.hhs.fha.nhinc.event.responder.BeginInboundMessageEvent;
-
-import java.util.HashMap;
-import java.util.Map;
+import gov.hhs.fha.nhinc.event.responder.EndInboundMessageEvent;
 
 import org.apache.commons.logging.Log;
-import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JUnit4Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
  * @author zmelnick
  * 
  */
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = { "/EventFactoryConfig.xml" })
 public class EventFactoryTest {
 
     protected Mockery context = new JUnit4Mockery() {
@@ -54,55 +57,52 @@ public class EventFactoryTest {
     };
     final Log mockLog = context.mock(Log.class);
 
-    private static final String MESSAGE_ID = "messageID";
-    private static final String TRANSACTION_ID = "transactionID";
-    private static final String DESCRIPTION = "description";
-
+    @Autowired
+    private EventFactory eventFactory;
+    
     @Test
-    public void createEventFactory_Success() {
-        EventFactory eventFactory = createEventFactory();
-        Event event = eventFactory
-                .createEvent(EventType.BEGIN_INBOUND_MESSAGE, MESSAGE_ID, TRANSACTION_ID, DESCRIPTION);
-
+    public void createBeginInboundMessageEvent() {
+        Event event = eventFactory.createBeginInboundMessage(); 
         assertTrue(event instanceof BeginInboundMessageEvent);
-        assertEquals(MESSAGE_ID, event.getMessageID());
-        assertEquals(TRANSACTION_ID, event.getTransactionID());
-        assertEquals(DESCRIPTION, event.getDescription());
+    }
+    
+    @Test
+    public void createEndInboundMessageEvent() {
+        Event event = eventFactory.createEndInboundMessage(); 
+        assertTrue(event instanceof EndInboundMessageEvent);
+    }
+    
+    @Test
+    public void createBeginOutboundMessage() {
+        Event event = eventFactory.createBeginOutboundMessage(); 
+        assertTrue(event instanceof BeginOutboundMessageEvent);
     }
 
     @Test
-    public void createEventFactory_Failure() {
-        context.checking(new Expectations() {
-            {
-                oneOf(mockLog).error(with(any(String.class)), with(any(Exception.class)));
-            }
-        });
-
-        EventFactory eventFactory = createEventFactory();
-        Event event = eventFactory.createEvent("nonexisting event", MESSAGE_ID, TRANSACTION_ID, DESCRIPTION);
-
-        assertNull(event);
+    public void createBeginOutboundProcessing() {
+        Event event = eventFactory.createBeginOutboundProcessing(); 
+        assertTrue(event instanceof BeginOutboundProcessingEvent);
     }
 
-    private EventFactory createEventFactory() {
-        EventFactory eventFactory = new EventFactory() {
-            protected Log getLogger() {
-                return mockLog;
-            }
-        };
+//    public Event createBeginNwhinInvocation();
+//
+//    public Event createEndNwhinInvocation();
+//
+//    public Event createEndOutboundProcessing();
+//
+//    public Event createEndOutboundMessage();
+//
+//    public Event createBeginInboundProcessing();
+//
+//    public Event createBeginAdapterDelegation();
+//
+//    public Event createEndAdapterDelegation();
+//
+//    public Event createEndInboundProcessing();
+//
+//    public Event createMessageProcessingFailed();
 
-        eventFactory.setEventMap(createEventMap());
+  
 
-        return eventFactory;
-    }
-
-    private Map<String, String> createEventMap() {
-        HashMap<String, String> eventMap = new HashMap<String, String>();
-        eventMap.put(EventType.BEGIN_INBOUND_MESSAGE.toString(),
-                "gov.hhs.fha.nhinc.event.responder.BeginInboundMessageEvent");
-
-        return eventMap;
-
-    }
-
+    
 }

@@ -31,8 +31,12 @@ package gov.hhs.fha.nhinc.event.initiator;
  *
  */
 public class BeginOutboundMessageEvent extends InitiatorEvent {
-
     private static final String EVENT_NAME = "BEGIN_OUTBOUND_MESSAGE";
+
+    public BeginOutboundMessageEvent() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
 
     /**
      * @param messageID

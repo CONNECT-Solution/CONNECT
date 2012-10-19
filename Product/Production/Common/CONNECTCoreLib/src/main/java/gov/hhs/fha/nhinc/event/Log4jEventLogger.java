@@ -35,10 +35,9 @@ import org.apache.commons.logging.LogFactory;
  */
 public class Log4jEventLogger extends EventLogger {
 
-    private static Log log = null;
+    private static Log log = LogFactory.getLog(Log4jEventLogger.class);
 
     public Log4jEventLogger() {
-        createLogger();
     }
 
     /*
@@ -47,17 +46,11 @@ public class Log4jEventLogger extends EventLogger {
      * @see gov.hhs.fha.nhinc.event.EventLogger#update(gov.hhs.fha.nhinc.event.Event, java.lang.Object)
      */
     @Override
-    void update(EventManager manager, Event logEvent) {
+    void recordEvent(EventManager manager, Event logEvent) {
         log.info(logEvent.getEventName() + " has triggered. It has messageID " + logEvent.getMessageID()
                 + ", transactionID " + logEvent.getTransactionID() + " and description " + logEvent.getDescription());
     }
 
-    protected void createLogger() {
-        log = LogFactory.getLog(getClass());
-    }
-
-    public Log getLog() {
-        return log;
-    }
+    
 
 }

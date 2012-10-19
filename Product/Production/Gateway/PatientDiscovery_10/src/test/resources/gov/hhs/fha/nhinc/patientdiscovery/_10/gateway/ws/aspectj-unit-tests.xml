@@ -13,10 +13,11 @@
     <!-- proxy-target-class="true" forces the use of CGLIB. This means proxying will be done by extending the target 
         class listed in a bean def, instead of creating a wrapper that implements all of the interfaces. This is 
         necessary since legacy code is generally tightly coupled. -->
+   
     <aop:aspectj-autoproxy proxy-target-class="true"/>
     
     <bean id="patientDiscoveryEventAspect" class="gov.hhs.fha.nhinc.patientdiscovery.aspect.PatientDiscoveryEventAspect">
-        <constructor-arg ref="eventAspectAdvice" />
+     <property name="EventFactory" ref="eventfactory" /> 
     </bean>
     
     <bean id="nhincProxyPatientDiscovery" class="gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.NhincProxyPatientDiscovery">
@@ -27,8 +28,6 @@
           class="gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.NhincProxyPatientDiscoveryTest"
           factory-method="getPatientDiscoveryServiceFactory" />
 
-    <bean id="eventAspectAdvice" 
-          class="gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.NhincProxyPatientDiscoveryTest"
-          factory-method="getEventAspectAdvice" />
+  
 
 </beans>

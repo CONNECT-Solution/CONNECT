@@ -120,9 +120,9 @@
                 <version>3.0.7.RELEASE</version>
             </dependency>
             <dependency>
-               <groupId>org.springframework</groupId>
-               <artifactId>spring-test</artifactId>
-               <version>3.0.7.RELEASE</version>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-test</artifactId>
+                <version>3.0.7.RELEASE</version>
             </dependency>
             <dependency>
                 <groupId>org.hibernate</groupId>
@@ -211,6 +211,11 @@
                 <groupId>org.aspectj</groupId>
                 <artifactId>aspectjweaver</artifactId>
                 <version>1.7.0</version>
+            </dependency>
+            <dependency>
+                <groupId>org.json</groupId>
+                <artifactId>json</artifactId>
+                <version>20090211</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -323,7 +328,7 @@
                 <configuration>
                     <downloadSources>true</downloadSources>
                     <downloadJavadocs>true</downloadJavadocs>
-                    <useProjectReferences>false</useProjectReferences>
+                    <useProjectReferences>true</useProjectReferences>
                     <projectNameTemplate>[artifactId]-[version]</projectNameTemplate>
                     <wtpmanifest>true</wtpmanifest>
                     <wtpapplicationxml>true</wtpapplicationxml>

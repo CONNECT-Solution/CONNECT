@@ -26,18 +26,17 @@
  */
 package gov.hhs.fha.nhinc.event.error;
 
-import gov.hhs.fha.nhinc.event.Event;
+import gov.hhs.fha.nhinc.event.BaseEvent;
 
 /**
  * @author zmelnick
- *
+ * 
  */
-abstract class ErrorEvent implements Event {
+abstract class ErrorEvent extends BaseEvent {
 
-    private String description;
-    private String messageID;
-    private String transactionID;
-
+    public ErrorEvent() {      
+    }
+    
     /**
      *
      */
@@ -45,57 +44,6 @@ abstract class ErrorEvent implements Event {
         setMessageID(messageID);
         setTransactionID(transactionID);
         setDescription(description);
-    }
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.event.Event#getDescription()
-     */
-    @Override
-    public String getDescription() {
-        return description;
-    }
-
-    /**
-     * @param description
-     */
-    protected void setDescription(String description) {
-        this.description = description;
-    }
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.event.Event#getMessageID()
-     */
-    @Override
-    public String getMessageID() {
-        return messageID;
-    }
-
-    /**
-     * @param messageID
-     */
-    protected void setMessageID(String messageID) {
-        this.messageID = messageID;
-    }
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.event.Event#getTransactionID()
-     */
-    @Override
-    public String getTransactionID() {
-        return transactionID;
-    }
-
-    /**
-     * @param transactionID
-     */
-    protected void setTransactionID(String transactionID) {
-        this.transactionID = transactionID;
     }
 
 }

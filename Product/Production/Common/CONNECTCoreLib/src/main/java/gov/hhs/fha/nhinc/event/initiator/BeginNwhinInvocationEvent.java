@@ -34,6 +34,12 @@ public class BeginNwhinInvocationEvent extends InitiatorEvent {
 
     private static final String EVENT_NAME = "BEGIN_INVOCATION_TO_NWHIN";
 
+    
+    
+    public BeginNwhinInvocationEvent() {
+        super();
+    }
+
     /**
      * @param messageID
      * @param transactionID

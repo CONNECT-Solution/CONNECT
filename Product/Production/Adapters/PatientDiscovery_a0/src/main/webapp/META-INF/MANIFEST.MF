@@ -20,9 +20,10 @@ Class-Path: PatientDiscoveryCore-4.0.0-SNAPSHOT.jar AuditRepositoryCor
  .jar geronimo-servlet_3.0_spec-1.0.jar ehcache-core-2.5.1.jar wss4j-1
  .6.6.jar xmlsec-1.5.2.jar opensaml-2.5.1-1.jar openws-1.4.2-1.jar xml
  tooling-1.3.2-1.jar joda-time-1.6.2.jar xalan-2.7.1.jar serializer-2.
- 7.1.jar neethi-3.0.2.jar spring-web-3.0.7.RELEASE.jar xercesImpl-2.10
- .0.jar xml-apis-1.4.01.jar cglib-nodep-2.1_3.jar hibernate-3.2.5.ga.j
- ar jta-1.0.1B.jar dom4j-1.6.1.jar xstream-1.4.3.jar xmlpull-1.1.3.1.j
- ar xpp3_min-1.1.4c.jar aspectjrt-1.7.0.jar aspectjweaver-1.7.0.jar Pa
- tientCorrelationCore-4.0.0-SNAPSHOT.jar
+ 7.1.jar neethi-3.0.2.jar spring-web-3.0.7.RELEASE.jar spring-test-3.0
+ .7.RELEASE.jar xercesImpl-2.10.0.jar xml-apis-1.4.01.jar cglib-nodep-
+ 2.1_3.jar hibernate-3.2.5.ga.jar jta-1.0.1B.jar dom4j-1.6.1.jar xstre
+ am-1.4.3.jar xmlpull-1.1.3.1.jar xpp3_min-1.1.4c.jar aspectjrt-1.7.0.
+ jar aspectjweaver-1.7.0.jar json-20090211.jar PatientCorrelationCore-
+ 4.0.0-SNAPSHOT.jar
 

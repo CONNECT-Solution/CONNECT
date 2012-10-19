@@ -34,6 +34,13 @@ public class EndInboundMessageEvent extends ResponderEvent {
 
     private static final String EVENT_NAME = "END_INBOUND_MESSAGE";
 
+    
+    
+    public EndInboundMessageEvent() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
     /**
      * @param messageID
      * @param transactionID

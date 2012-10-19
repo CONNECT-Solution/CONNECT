@@ -34,6 +34,13 @@ public class BeginAdapterDelegationEvent extends ResponderEvent {
 
     private static final String EVENT_NAME = "BEGIN_DELEGATION_TO_ADAPTER";
 
+    
+    
+    public BeginAdapterDelegationEvent() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
     /**
      * @param messageID
      * @param transactionID

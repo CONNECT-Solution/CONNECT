@@ -28,33 +28,41 @@ package gov.hhs.fha.nhinc.event;
 
 /**
  * @author zmelnick
- *
+ * 
  */
 public interface Event {
 
     /**
      * Get the description for the event, a JSON String.
-     *
+     * 
      * @return the description
      */
     String getDescription();
 
     /**
      * The name of the event triggered.
-     *
+     * 
      * @return the event name
      */
     String getEventName();
 
     /**
      * The associated MessageID for the triggered event.
+     * 
      * @return the messgaeID
      */
     String getMessageID();
 
     /**
      * The associated TransactionID for the triggered event.
+     * 
      * @return the transactionID
      */
     String getTransactionID();
+
+    void setTransactionID(String transactionID);
+
+    void setMessageID(String messageID);
+
+    void setDescription(String description);
 }

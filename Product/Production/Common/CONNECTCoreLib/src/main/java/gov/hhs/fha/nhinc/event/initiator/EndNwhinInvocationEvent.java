@@ -34,6 +34,13 @@ public class EndNwhinInvocationEvent extends InitiatorEvent {
 
     private static final String EVENT_NAME = "END_INVOCATION_TO_NWHIN";
 
+    
+    
+    public EndNwhinInvocationEvent() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
     /**
      * @param messageID
      * @param transactionID

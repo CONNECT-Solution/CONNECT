@@ -28,7 +28,7 @@ package gov.hhs.fha.nhinc.proxy;
 
 
 /**
- * Convenience class used to generify the component proxy object factory.
+ * Convenience class used to generalize the component proxy object factory.
  */
 public class ComponentProxyFactory extends ComponentProxyObjectFactory {
 

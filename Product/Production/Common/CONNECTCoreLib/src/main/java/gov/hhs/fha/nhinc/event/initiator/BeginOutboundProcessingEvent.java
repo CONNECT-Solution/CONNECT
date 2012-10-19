@@ -34,6 +34,13 @@ public class BeginOutboundProcessingEvent extends InitiatorEvent {
 
     private static final String EVENT_NAME = "BEGIN_OUTBOUND_PROCESSING";
 
+    
+    
+    public BeginOutboundProcessingEvent() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
     /**
      * @param messageID
      * @param transactionID

@@ -3,7 +3,7 @@
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * modification, are permittntefed provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
  *       copyright notice, this list of conditions and the following disclaimer.
  *     * Redistributions in binary form must reproduce the above copyright
@@ -26,89 +26,36 @@
  */
 package gov.hhs.fha.nhinc.event;
 
-import gov.hhs.fha.nhinc.proxy.ComponentProxyFactory;
-
-import java.util.Map;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 /**
  * @author zmelnick
  * 
  */
-public class EventFactory {
+public interface EventFactory {
 
-    private static final String CONFIG_FILE_NAME = "EventFactoryConfig.xml";
-    private static final String BEAN_NAME = "eventfactory";
+    public Event createBeginOutboundMessage();
 
-    private static Log log = null;
-    private Map<String, String> eventMap;
-    
-    
-    /**
-     * Getter method for the factory declared by the spring proxy bean.
-     * 
-     * @return an instance of the event factory
-     */
-    public static EventFactory getInstance() {
-        return new ComponentProxyFactory(CONFIG_FILE_NAME).getInstance(BEAN_NAME, EventFactory.class);
-    }
+    public Event createBeginOutboundProcessing();
 
-    /**
-     * Creates the event class based on the passed in event type. Will construct the event type with the passed in
-     * parameters.
-     * 
-     * @param eventType
-     * @param messageID
-     * @param transactionID
-     * @param description
-     * @return
-     */
-    public Event createEvent(EventType eventType, String messageID, String transactionID, String description) {
-        return createEvent(eventType.toString(), messageID, transactionID, description);
-    }
+    public Event createBeginNwhinInvocation();
 
-    /**
-     * Creates the event class based on the passed in event type. Will construct the event type with the passed in
-     * parameters.
-     * 
-     * @param eventType
-     * @param messageID
-     * @param transactionID
-     * @param description
-     * @return
-     */
-    public Event createEvent(String eventType, String messageID, String transactionID, String description) {
-        try {
-            String eventClassString = eventMap.get(eventType);
-            Class<?> eventClass = Class.forName(eventClassString);
+    public Event createEndNwhinInvocation();
 
-            Event event = (Event) eventClass.getConstructor(String.class, String.class, String.class).newInstance(
-                    messageID, transactionID, description);
+    public Event createEndOutboundProcessing();
 
-            return event;
-        } catch (Exception e) {
-            getLogger().error("Unknown event type received.  Is it registered in " + CONFIG_FILE_NAME + "?", e);
-        }
+    public Event createEndOutboundMessage();
 
-        return null;
-    }
+    public Event createBeginInboundMessage();
 
-    /**
-     * Setter method for the event map. Used to configure the spring bean.
-     * 
-     * @param eventMap
-     */
-    public void setEventMap(Map<String, String> eventMap) {
-        this.eventMap = eventMap;
-    }
+    public Event createBeginInboundProcessing();
 
-    protected Log getLogger() {
-        if (log == null) {
-            log = LogFactory.getLog(getClass());
-    }
-        return log;
-    }
+    public Event createBeginAdapterDelegation();
+
+    public Event createEndAdapterDelegation();
+
+    public Event createEndInboundProcessing();
+
+    public Event createEndInboundMessage();
+
+    public Event createMessageProcessingFailed();
 
 }
