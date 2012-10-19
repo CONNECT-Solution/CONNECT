@@ -79,9 +79,9 @@
         </then>
     </if>
 
-    <target name="install" depends="backup.glassfish.install.dir, install.glassfish, install.databases, deploy.connect, cleanup" />
+    <target name="install" depends="backup.glassfish.install.dir, install.glassfish, install.databases, install.mysql.connector, deploy.connect, cleanup" />
 
-    <target name="install-binary" depends="backup.glassfish.install.dir, install.glassfish, install.databases, deploy.connect.binary, cleanup" />
+    <target name="install-binary" depends="backup.glassfish.install.dir, install.glassfish, install.databases, install.mysql.connector, deploy.connect.binary, cleanup" />
 
     <target name="backup.glassfish.install.dir" if="glassfish.install.dir.exists" unless="skip.backup">
         <property name="backup.dir" value="${glassfish.install.dir.root}/.backup.${glassfish.install.dir.name}.${DSTAMP}_${TSTAMP}" />
@@ -167,6 +167,21 @@
                 <include name="${cert.store.name}.jks" />
             </fileset>
         </copy>
+    </target>
+
+    <target name="install.mysql.connector">
+        <echo message="Installing mysql connector jar on the glassfish container." />
+
+        <artifact:dependencies filesetId="mysql.connector.dependency.fileset">
+            <dependency groupId="mysql" artifactId="mysql-connector-java" version="5.1.10" type="jar" scope="runtime"/>
+            <localRepository path="${m2.local.repo.path}"/>
+        </artifact:dependencies>
+
+        <property name="mysql.connector.dependency.fileset" refid="mysql.connector.dependency.fileset" />
+        <property name="mysql.connector.dependency.file.path" location="${m2.local.repo.path}/${mysql.connector.dependency.fileset}"/>
+        <echo message="Mysql Connector File: ${mysql.connector.dependency.file.path}"/>
+
+        <copy file="${mysql.connector.dependency.file.path}" todir="${glassfish.install.dir}/glassfish/domains/domain1/lib/ext" overwrite="true"/>
     </target>
 
     <target name="install.databases">
