@@ -68,7 +68,6 @@ public class NhinAdminDistributionOrchImpl {
         // we were hanging on the next webservice call.
         // sleep allows Glassfish to catch up. Only applies to one box (dev)
         // setups. Please refer to the CONNECT 3.1 Release Notes for more information.
-       // this.checkSleep();
 
         auditMessage(body, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
                 NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
