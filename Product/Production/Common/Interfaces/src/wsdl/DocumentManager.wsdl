@@ -5,28 +5,28 @@
 	<types>
 		<xsd:schema elementFormDefault="qualified" targetNamespace="urn:ihe:iti:xds-b:2007" xmlns:ihe="urn:ihe:iti:xds-b:2007">
 			<!-- Include the message schema -->
-			<xsd:include schemaLocation="../schemas/ihe/XDS.b_DocumentRepository.xsd"/>
+			<xsd:include schemaLocation="classpath:schemas/ihe/XDS.b_DocumentRepository.xsd"/>
 		</xsd:schema>
 		<xsd:schema elementFormDefault="qualified" targetNamespace="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0">
 			<!-- Include the message schema -->
-			<xsd:include schemaLocation="../schemas/ebRS/query.xsd"/>
+			<xsd:include schemaLocation="classpath:schemas/ebRS/query.xsd"/>
 		</xsd:schema>
 		<xsd:schema elementFormDefault="qualified" targetNamespace="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0">
 			<!-- Include the message schema -->
-			<xsd:include schemaLocation="../schemas/ebRS/rs.xsd"/>
+			<xsd:include schemaLocation="classpath:schemas/ebRS/rs.xsd"/>
 		</xsd:schema>
 		<xsd:schema elementFormDefault="qualified" targetNamespace="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:lcm="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0">
 			<!-- Include the message schema -->
-			<xsd:include schemaLocation="../schemas/ebRS/lcm.xsd"/>
+			<xsd:include schemaLocation="classpath:schemas/ebRS/lcm.xsd"/>
 		</xsd:schema>
 		<!-- While no elements are directly used from this schema in the WSDL, it needs to be present here in order for
 		code generating toolkits to work properly -->
 		<xsd:schema elementFormDefault="qualified" targetNamespace="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:lcm="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0">
 			<!-- Include the message schema -->
-			<xsd:include schemaLocation="../schemas/ebRS/rim.xsd"/>
+			<xsd:include schemaLocation="classpath:schemas/ebRS/rim.xsd"/>
 		</xsd:schema>
 		<xsd:schema>
-			<xsd:import namespace="urn:gov:hhs:fha:nhinc:common:docmgr" schemaLocation="../schemas/nhinc/common/DocManager.xsd"/>
+			<xsd:import namespace="urn:gov:hhs:fha:nhinc:common:docmgr" schemaLocation="classpath:schemas/nhinc/common/DocManager.xsd"/>
 		</xsd:schema>
 	</types>
 	<message name="queryDynamicDocumentArchive_Message">

@@ -27,10 +27,13 @@
 package gov.hhs.fha.nhinc.hiem._20.entity.unsubscribe;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.UnsubscribeRequestType;
 import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
+import gov.hhs.fha.nhinc.hiem.consumerreference.ReferenceParametersHelper;
 import gov.hhs.fha.nhinc.hiem.consumerreference.SoapHeaderHelper;
 import gov.hhs.fha.nhinc.hiem.consumerreference.SoapMessageElements;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.unsubscribe.entity.EntityUnsubscribeOrchImpl;
 
@@ -57,9 +60,8 @@ public class EntityUnsubscribeServiceImpl {
         try {
             AssertionType assertion = unsubscribeRequest.getAssertion();
             String subscriptionId = getSubscriptionId(context);
-            
             EntityUnsubscribeOrchImpl processor = new EntityUnsubscribeOrchImpl();
-            processor.processUnsubscribe(unsubscribeRequest.getUnsubscribe(), subscriptionId, assertion);
+            response = processor.processUnsubscribe(unsubscribeRequest.getUnsubscribe(), subscriptionId, assertion);
         } catch (UnableToDestroySubscriptionFault ex) {
             throw new gov.hhs.fha.nhinc.entitysubscriptionmanagement.UnableToDestroySubscriptionFault(ex.getMessage(),
                     ex);
@@ -73,12 +75,12 @@ public class EntityUnsubscribeServiceImpl {
     public UnsubscribeResponse unsubscribe(Unsubscribe unsubscribeRequest, WebServiceContext context)
             throws gov.hhs.fha.nhinc.entitysubscriptionmanagementsecured.UnableToDestroySubscriptionFault, Exception {
         UnsubscribeResponse response = null;
-        try {            
+        try {
             AssertionType assertion = SAML2AssertionExtractor.getInstance().extractSamlAssertion(context);
-            String subscriptionId = getSubscriptionId(context);
 
+            String subscriptionId = getSubscriptionId(context);
             EntityUnsubscribeOrchImpl processor = new EntityUnsubscribeOrchImpl();
-            processor.processUnsubscribe(unsubscribeRequest, subscriptionId, assertion);
+            response = processor.processUnsubscribe(unsubscribeRequest, subscriptionId, assertion);
         } catch (UnableToDestroySubscriptionFault ex) {
             throw new gov.hhs.fha.nhinc.entitysubscriptionmanagementsecured.UnableToDestroySubscriptionFault(
                     ex.getMessage(), ex);
@@ -88,22 +90,22 @@ public class EntityUnsubscribeServiceImpl {
         }
         return response;
     }
-        
+
     private String getSubscriptionId(WebServiceContext context) {
         SoapMessageElements soapHeaderElements = new SoapHeaderHelper().getSoapHeaderElements(context);
-        
+
         String subscriptionId = null;
         for (Element soapHeaderElement : soapHeaderElements.getElements()) {
             String nodeName = soapHeaderElement.getLocalName();
             if (nodeName.equals("SubscriptionId")) {
                 String nodeValue = soapHeaderElement.getNodeValue();
                 if (NullChecker.isNullish(nodeValue) && soapHeaderElement.getFirstChild() != null) {
-                    nodeValue =  soapHeaderElement.getFirstChild().getNodeValue();
-                }                
+                    nodeValue = soapHeaderElement.getFirstChild().getNodeValue();
+                }
                 return nodeValue;
             }
         }
 
         return subscriptionId;
-    }    
+    }
 }

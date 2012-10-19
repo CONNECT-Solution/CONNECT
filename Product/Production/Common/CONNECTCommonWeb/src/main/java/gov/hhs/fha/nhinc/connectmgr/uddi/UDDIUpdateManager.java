@@ -26,7 +26,6 @@
  */
 package gov.hhs.fha.nhinc.connectmgr.uddi;
 
-import javax.jws.WebService;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -34,8 +33,7 @@ import org.apache.commons.logging.LogFactory;
  * 
  * @author Sai Valluripalli
  */
-@WebService(serviceName = "NhincComponentUDDIUpdateManager", portName = "NhincComponentUDDIUpdateManagerPortSoap11", endpointInterface = "gov.hhs.fha.nhinc.nhinccomponentuddiupdatemanager.NhincComponentUDDIUpdateManagerPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:nhinccomponentuddiupdatemanager", wsdlLocation = "WEB-INF/wsdl/UDDIUpdateManager/NhincComponentUDDIUpdateManager.wsdl")
-public class UDDIUpdateManager {
+public class UDDIUpdateManager implements gov.hhs.fha.nhinc.nhinccomponentuddiupdatemanager.NhincComponentUDDIUpdateManagerPortType {
 
     private static Log log = LogFactory.getLog(UDDIUpdateManager.class);
 

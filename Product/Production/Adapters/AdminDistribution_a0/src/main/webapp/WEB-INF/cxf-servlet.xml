@@ -23,11 +23,12 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adapteradmindistribution" id="AdapterAdministrativeDistributionSecured"
         address="/AdapterAdministrativeDistributionSecured" serviceName="tns:Adapter_AdministrativeDistributionSecured"
         endpointName="tns:Adapter_AdministrativeDistributionSecured_PortType" implementor="gov.hhs.fha.nhinc.admindistribution.adapter.AdapterAdministrativeDistributionSecured"
-        wsdlLocation="/WEB-INF/wsdl/AdapterAdministrativeDistributionSecured/AdapterAdminDistSecured.wsdl">
+        wsdlLocation="classpath:wsdl/AdapterAdminDistSecured.wsdl">
         <jaxws:properties>
             <entry key="ws-security.callback-handler" value="gov.hhs.fha.nhinc.callback.cxf.CXFSAMLCallbackHandler" />
             <entry key="ws-security.signature.properties" value="keystore.properties" />
             <entry key="ws-security.encryption.properties" value="truststore.properties" />
+            <entry key="mtom-enabled" value="true" />
         </jaxws:properties>
         <jaxws:inInterceptors>
             <ref bean="securityInInterceptor" />
@@ -36,7 +37,10 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
 
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adapteradmindistribution" id="AdapterAdministrativeDistribution"
         address="/AdapterAdministrativeDistribution" serviceName="tns:Adapter_AdministrativeDistribution" endpointName="tns:Adapter_AdministrativeDistribution_PortType"
-        implementor="gov.hhs.fha.nhinc.admindistribution.adapter.AdapterAdministrativeDistribution" wsdlLocation="/WEB-INF/wsdl/AdapterAdministrativeDistribution/AdapterAdminDist.wsdl">
+        implementor="gov.hhs.fha.nhinc.admindistribution.adapter.AdapterAdministrativeDistribution" wsdlLocation="classpath:wsdl/AdapterAdminDist.wsdl">
+        <jaxws:properties>          
+            <entry key="mtom-enabled" value="true" />
+        </jaxws:properties>
     </jaxws:endpoint>
 
 </beans>

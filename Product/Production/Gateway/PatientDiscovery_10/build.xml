@@ -8,16 +8,20 @@
     <property name="deploy.isDeployable" value="true" />
     <property name="deploy.type" value="war" />
     <property name="copy.wsdl.to.webinf" value="true" />
-    <property name="copy.schemas.to.webinf" value="true" />
-    <property name="cxf.home" location="../../../../ThirdParty/CXF" />
-    <property name="spring.home" location="../../../../ThirdParty/SpringFramework" />
-    <property name="core.lib" location="../../Common/CONNECTCoreLib/dist/debug" />
-    <property name="common.lib" location="../../Common/CONNECTCommonTypesLib/dist/debug" />
-    <property name="opensaml.home" location="../../../../ThirdParty/openSAML" />
-    <property name="core.patientdiscovery"
-              location="../../Services/PatientDiscovery/Core/PatientDiscoveryCore/dist/debug" />
+
+	<property name="core.patientdiscovery"
+              location="../../Services/PatientDiscoveryCore/dist/debug" />
     <property name="wsdl.dir" location="../../Common/Interfaces/src/wsdl" />   
     <property name="schema.dir" location="../../Common/Interfaces/src/schemas" />       
+    <property name="copy.schemas.to.webinf" value="true" />
+    <property name="thirdparty.home" location="../../../../ThirdParty" />
+     <property name="common.home" location="../../Common" />
+
+
+
+    <property name="wsdl.dir" location="${common.home}/Interfaces/src/wsdl" />
+    <property name="schema.dir" location="${common.home}/Interfaces/src/schemas" />
+
 
     <!-- Please make sure that this goes up to the correct directory -->
     <import file="../../../build/build.targets.xml" />
@@ -42,72 +46,21 @@
         </filelist>
     </path>
 
+
+    <property name="cxf.home" location="${thirdparty.home}/CXF" />
+    <property name="spring.home" location="${thirdparty.home}/SpringFramework" />
+    <property name="core.lib" location="${common.home}/CONNECTCoreLib/dist/debug" />
+    <property name="common.lib" location="${common.home}/CONNECTCommonTypesLib/dist/debug" />
+    <property name="opensaml.home" location="${thirdparty.home}/openSAML" />
+    <property name="hibernate.home" location="${thirdparty.home}/HibernateLibraries" />
+    <property name="c3po.home" location="${thirdparty.home}/C3PO" />
+    <property name="mysql.home" location="${thirdparty.home}/MySQLDB" />
+    <property name="xstream.home" location="${thirdparty.home}/XStream" />
+
     <path id="war.libs">
-        <fileset dir="${cxf.home}">
-            <include name="cxf-2.6.0.jar" />
-            <include name="commons-logging-1.1.1.jar" />
-            <include name="neethi-3.0.2.jar" />
-            <include name="xmlschema-core-2.0.2.jar" />
-            <include name="wsdl4j-1.6.2.jar" />
-            <include name="asm-3.3.1.jar" />
-            <include name="aopalliance-1.0.jar" />
-            <include name="spring-beans-3.0.7.RELEASE.jar" />
-            <include name="spring-context-3.0.7.RELEASE.jar" />
-            <include name="spring-core-3.0.7.RELEASE.jar" />
-            <include name="FastInfoset-1.2.9.jar" />
-            <include name="xalan-2.7.1.jar" />
-            <include name="serializer-2.7.1.jar" />
-            <include name="wss4j-1.6.5.jar" />
-            <include name="xmlsec-1.5.1.jar" />
-            <include name="ehcache-core-2.5.1.jar" />
-            <include name="joda-time-1.6.2.jar" />
-            <include name="opensaml-2.5.1-1.jar" />
-            <include name="openws-1.4.2-1.jar" />
-            <include name="xmltooling-1.3.2-1.jar" />
-            <include name="spring-expression-3.0.7.RELEASE.jar" />
-            <include name="slf4j-jdk14-1.6.2.jar" />
-            <include name="velocity-1.7.jar" />
-            <include name="commons-lang-2.6.jar" />
-            <include name="commons-collections-3.2.1.jar" />
-            <include name="saaj-impl-1.3.18.jar" />
-            <include name="jetty-util-7.5.4.v20111024.jar"/>                 
-        </fileset>
-        <filelist dir="${opensaml.home}">
-            <file name="slf4j-api-1.6.4.jar" />
-            <file name="esapi-2.0.1.jar" />
-        </filelist>
-        <filelist dir="${spring.home}">
-            <file name="spring.jar" />
-        </filelist>
-        <filelist dir="${core.lib}">
-            <file name="CONNECTCoreLib.jar" />
-        </filelist>
-        <filelist dir="${common.lib}">
-            <file name="CONNECTCommonTypesLib.jar" />
-        </filelist>
         <filelist dir="${core.patientdiscovery}">
             <file name="PatientDiscoveryCore.jar" />
         </filelist>
-    </path>
-    
-    <path id="wsdl.list">
-        <filelist dir="${wsdl.dir}">
-            <file name="NhinPatientDiscovery.wsdl" />
-            <file name="EntityPatientDiscoverySecured.wsdl" />
-            <file name="EntityPatientDiscovery.wsdl" />
-            <file name="NhincProxyPatientDiscoverySecured.wsdl" />
-            <file name="NhincProxyPatientDiscovery.wsdl" />
-            <file name="NhinPatientDiscoveryDeferredRequest.wsdl" />
-            <file name="EntityPatientDiscoverySecuredAsyncReq.wsdl" />
-            <file name="EntityPatientDiscoveryAsyncReq.wsdl" />
-            <file name="NhincProxyPatientDiscoverySecuredAsyncReq.wsdl" />
-            <file name="NhincProxyPatientDiscoveryAsyncReq.wsdl" />
-            <file name="NhinPatientDiscoveryDeferredResponse.wsdl" />
-            <file name="EntityPatientDiscoverySecuredAsyncResp.wsdl" />
-            <file name="EntityPatientDiscoveryAsyncResp.wsdl" />
-            <file name="NhincProxyPatientDiscoveryAsyncResp.wsdl" />
-            <file name="NhincProxyPatientDiscoverySecuredAsyncResp.wsdl" />
-        </filelist>    
     </path>
 
 </project>

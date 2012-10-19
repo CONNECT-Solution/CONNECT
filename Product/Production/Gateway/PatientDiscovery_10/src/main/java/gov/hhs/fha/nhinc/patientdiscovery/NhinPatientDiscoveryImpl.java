@@ -29,12 +29,9 @@ package gov.hhs.fha.nhinc.patientdiscovery;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.generic.GenericFactory;
 import gov.hhs.fha.nhinc.messaging.server.BaseService;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.patientdiscovery.nhin.InboundPatientDiscoveryOrchestration;
 import gov.hhs.fha.nhinc.perfrepo.PerformanceManager;
 import gov.hhs.fha.nhinc.transform.audit.PatientDiscoveryTransforms;
-
-import java.sql.Timestamp;
 
 import javax.xml.ws.WebServiceContext;
 
@@ -51,10 +48,6 @@ public class NhinPatientDiscoveryImpl extends BaseService {
 
     private static Log log = LogFactory.getLog(NhinPatientDiscoveryImpl.class);
 
-    private Timestamp startTime = null;
-    private Timestamp stopTime = null;
-    private Long logId = null;
-
     private GenericFactory<InboundPatientDiscoveryOrchestration> orchestrationFactory;
     private PatientDiscoveryAuditor auditLogger;
 
@@ -70,12 +63,8 @@ public class NhinPatientDiscoveryImpl extends BaseService {
 
         AssertionType assertion = extractAssertion(context);
 
-        start(body);
-
         PRPAIN201306UV02 response;
         response = respondingGatewayPRPAIN201305UV02(body, assertion);
-
-        stop();
 
         // Send response back to the initiating Gateway
         log.debug("Exiting NhinPatientDiscoveryImpl.respondingGatewayPRPAIN201305UV02");
@@ -84,30 +73,6 @@ public class NhinPatientDiscoveryImpl extends BaseService {
     }
     
  
-    private void stop() {
-
-        // Log the end of the nhin performance record
-
-        stopTime = new Timestamp(System.currentTimeMillis());
-        try {
-            PerformanceManager.getPerformanceManagerInstance().logPerformanceStop(logId, startTime, stopTime);
-        } finally {
-            logId = null;
-            startTime = null;
-            stopTime = null;
-        }
-
-    }
-
-    private void start(PRPAIN201305UV02 body) {
-        String targetCommunityId = getTargetCommunityId(body);
-
-        // Log the start of the nhin performance record
-        startTime = new Timestamp(System.currentTimeMillis());
-        logId = getPerformanceManager().logPerformanceStart(startTime, NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME,
-                NhincConstants.AUDIT_LOG_NHIN_INTERFACE, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, targetCommunityId);
-    }
-
     protected PerformanceManager getPerformanceManager() {
         return PerformanceManager.getPerformanceManagerInstance();
     }
@@ -123,14 +88,6 @@ public class NhinPatientDiscoveryImpl extends BaseService {
 
     protected PatientDiscoveryAuditor getAuditLogger() {
         return auditLogger;
-    }
-
-    private String getTargetCommunityId(PRPAIN201305UV02 body) {
-        PatientDiscoveryTransforms transforms = getTransforms();
-        String targetCommunityId = transforms.getPatientDiscoveryMessageCommunityId(body,
-                NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE,
-                NhincConstants.AUDIT_LOG_SYNC_TYPE, NhincConstants.AUDIT_LOG_REQUEST_PROCESS);
-        return targetCommunityId;
     }
 
     protected PatientDiscoveryTransforms getTransforms() {

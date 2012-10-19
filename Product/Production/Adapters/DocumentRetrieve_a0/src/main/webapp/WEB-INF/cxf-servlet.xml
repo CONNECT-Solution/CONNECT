@@ -23,16 +23,20 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
     <!-- Adapter Services -->
     <jaxws:endpoint xmlns:adr="urn:gov:hhs:fha:nhinc:adapterdocretrieve" id="AdapterDocRetrieve_a0"
         address="/AdapterDocRetrieve" serviceName="adr:AdapterDocRetrieve" endpointName="adr:AdapterDocRetrievePortSoap"
-        implementor="gov.hhs.fha.nhinc.docretrieve.adapter.AdapterDocRetrieve" wsdlLocation="/WEB-INF/wsdl/AdapterDocRetrieve/AdapterDocRetrieve.wsdl">
+        implementor="gov.hhs.fha.nhinc.docretrieve.adapter.AdapterDocRetrieve" wsdlLocation="classpath:wsdl/AdapterDocRetrieve.wsdl">
+        <jaxws:properties>          
+            <entry key="mtom-enabled" value="true" />
+        </jaxws:properties>
     </jaxws:endpoint>
 
     <jaxws:endpoint xmlns:adrs="urn:gov:hhs:fha:nhinc:adapterdocretrievesecured" id="AdapterDocRetrieveSecured_a0"
         address="/AdapterDocRetrieveSecured" serviceName="adrs:AdapterDocRetrieveSecured" endpointName="adrs:AdapterDocRetrieveSecuredPortSoap"
-        implementor="gov.hhs.fha.nhinc.docretrieve.adapter.AdapterDocRetrieveSecured" wsdlLocation="/WEB-INF/wsdl/AdapterDocRetrieveSecured/AdapterDocRetrieveSecured.wsdl">
+        implementor="gov.hhs.fha.nhinc.docretrieve.adapter.AdapterDocRetrieveSecured" wsdlLocation="classpath:wsdl/AdapterDocRetrieveSecured.wsdl">
         <jaxws:properties>
             <entry key="ws-security.callback-handler" value="gov.hhs.fha.nhinc.callback.cxf.CXFSAMLCallbackHandler" />
             <entry key="ws-security.signature.properties" value="keystore.properties" />
             <entry key="ws-security.encryption.properties" value="truststore.properties" />
+            <entry key="mtom-enabled" value="true" />
         </jaxws:properties>
         <jaxws:inInterceptors>
             <ref bean="securityInInterceptor" />

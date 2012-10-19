@@ -49,14 +49,25 @@
                 <include name="**\*" />
                 <exclude name="**\*.zip" />
             </fileset>
+            <fileset dir="${root.project.directory.path}/build/package" />
+        </copy>
+        <copy todir="${install.scripts.staging.dir}/package">
+            <fileset dir="${root.project.directory.path}/build/package" />
         </copy>
         <replace file="${install.scripts.staging.dir}/build.xml" token="default=&quot;install&quot;" value="default=&quot;install-binary&quot;" />
         <replace file="${install.scripts.staging.dir}/build.xml" token="../DBScripts/nhincdb" value="DBScripts/nhincdb" />
         <replace file="${install.scripts.staging.dir}/build.xml" token="../../ThirdParty" value="ThirdParty" />
+        <replace file="${install.scripts.staging.dir}/ear.libs.properties.xml" token="../../ThirdParty" value="ThirdParty" />
         <replace file="${install.scripts.staging.dir}/deploy.xml" token="../../ThirdParty" value="ThirdParty" />
         <replace file="${install.scripts.staging.dir}/deploy.xml" token="../Production/Common/Properties/Dev" value="Dev" />
+        <replace file="${install.scripts.staging.dir}/deploy.xml" token="../build/package" value="package" />
+        <replace file="${install.scripts.staging.dir}/package/package.targets.xml" token="../../Install/ear.libs.properties.xml" value="../ear.libs.properties.xml" />
         <echo file="${release.info.tempfile}">${released.version.name}, ${snapshot_tstamp}</echo>
         <zip zipfile="${dist.artifact.dir}/${dist.zip.filename}">
+            <zipfileset dir="${root.project.directory.path}">
+                <include name="application.template.xml" />
+                <include name="projects.xml" />
+            </zipfileset>
             <zipfileset dir="${deployment.dir}">
                 <include name="**\*" />
             </zipfileset>
@@ -97,7 +108,7 @@
             <zipfileset dir="${thirdparty.dir}/AntExtraLibs" prefix="ThirdParty/AntExtraLibs">
                 <include name="*.jar" />
             </zipfileset>
-			<zipfileset dir="${root.project.directory.path}/SoapUI_Test/RegressionSuite" prefix="RegressionSuite">
+            <zipfileset dir="${root.project.directory.path}/SoapUI_Test/RegressionSuite" prefix="RegressionSuite">
                 <include name="*.*"/>
             </zipfileset>
         </zip>

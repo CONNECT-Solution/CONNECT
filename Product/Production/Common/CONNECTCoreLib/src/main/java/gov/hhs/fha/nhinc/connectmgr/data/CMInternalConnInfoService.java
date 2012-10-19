@@ -26,7 +26,6 @@
  */
 package gov.hhs.fha.nhinc.connectmgr.data;
 
-//import com.thoughtworks.xstream.annotations.XStreamAlias;
 
 /**
  * @author Les Westberg

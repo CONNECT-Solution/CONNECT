@@ -57,9 +57,8 @@ import org.apache.commons.logging.LogFactory;
  * 
  * @author Sai Valluripalli
  */
-@WebService(serviceName = "NhincComponentPropAccessor", portName = "NhincComponentPropAccessorPort", endpointInterface = "gov.hhs.fha.nhinc.nhinccomponentpropaccessor.NhincComponentPropAccessorPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor", wsdlLocation = "WEB-INF/wsdl/NhincComponentPropAccessor/NhincComponentPropAccessor.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
-public class NhincComponentPropAccessor {
+public class NhincComponentPropAccessor implements gov.hhs.fha.nhinc.nhinccomponentpropaccessor.NhincComponentPropAccessorPortType  {
 
     private static Log log = LogFactory.getLog(NhincComponentPropAccessor.class);
 

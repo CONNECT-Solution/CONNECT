@@ -8,22 +8,22 @@
         Purpose of the document follows.
 -->
 <hibernate-mapping>
-  <class name="gov.hhs.fha.nhinc.perfrepo.model.Perfrepository" table="perfrepository">
+  <class name="gov.hhs.fha.nhinc.perfrepo.model.Perfrepository"
+  table="perfrepository">
     <id name="id">
-      <generator class="native"/>
+      <generator class="native" />
     </id>
-    <property column="time" name="time"/>
-    <property column="servicetype" name="servicetype"/>
-    <property column="messagetype" name="messagetype"/>
-    <property column="direction" name="direction"/>
-    <property column="communityid" name="communityid"/>
-    <property column="status" name="status"/>
-  
-    <property column="version" name="messageVersion"/>
-    <property column="payloadtype" name="payLoadType"/>
-    <property column="size" name="payLoadSize"/>
-    <property column="correlationid" name="correlationId"/>
-    <property column="othercommunityid" name="otherCommunityId"/>
-    <property column="errorcode" name="errorCode"/>
+    <property column="time" name="time" />
+    <property column="servicetype" name="servicetype" />
+    <property column="messagetype" name="messagetype" />
+    <property column="direction" name="direction" />
+    <property column="communityid" name="communityid" />
+    <property column="status" name="status" />
+    <property column="version" name="messageVersion" />
+    <property column="payloadtype" name="payLoadType" />
+    <property column="size" name="payLoadSize" />
+    <property column="correlationid" name="correlationId" />
+    <property column="othercommunityid" name="otherCommunityId" />
+    <property column="errorcode" name="errorCode" />
   </class>
 </hibernate-mapping>
