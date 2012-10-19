@@ -26,6 +26,10 @@
  */
 package gov.hhs.fha.nhinc.docretrieve.nhin;
 
+import javax.activation.DataHandler;
+
+import org.apache.cxf.attachment.ByteDataSource;
+
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
@@ -60,7 +64,8 @@ public class InboundDocRetrieveOrchestratableFactory {
         RetrieveDocumentSetResponseType resp = new RetrieveDocumentSetResponseType();
         resp.setRegistryResponse(new RegistryResponseType());
         DocumentResponse dr = new DocumentResponse();
-        dr.setDocument(new byte[1]);
+        ByteDataSource bds = new ByteDataSource(new byte[1]);
+        dr.setDocument(new DataHandler(bds));
         dr.setDocumentUniqueId("1.1.1");
         dr.setHomeCommunityId("2.2.2");
         dr.setMimeType("energon");

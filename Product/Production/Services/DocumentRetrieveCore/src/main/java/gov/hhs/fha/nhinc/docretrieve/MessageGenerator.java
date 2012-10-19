@@ -24,66 +24,53 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.event;
+package gov.hhs.fha.nhinc.docretrieve;
 
-import java.util.List;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
-import gov.hhs.fha.nhinc.proxy.ComponentProxyFactory;
+import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
+import gov.hhs.fha.nhinc.gateway.aggregator.document.DocumentConstants;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 /**
- * This class is responsible for bootstrapping event loggers.
+ * @author akong
+ *
  */
-public class EventLoggerFactory {
+public class MessageGenerator {
 
-    private static final Log LOG = LogFactory.getLog(EventLoggerFactory.class);
-
-    private static final String CONFIG_FILE_NAME = "EventLoggerFactoryConfig.xml";
-    private static final String BEAN_NAME = "eventLoggerFactory";
-
-    private final EventManager eventManager;
-    private List<EventLogger> loggers;
-
+    private static MessageGenerator instance = new MessageGenerator();
+    
     /**
-     * @return an instance of the event logger factory using the component proxy object factory.
+     * @return the singleton instance of DocRetrieveFileUtils
      */
-    public static EventLoggerFactory getInstance() {
-        return new ComponentProxyFactory(CONFIG_FILE_NAME).getInstance(BEAN_NAME, EventLoggerFactory.class);
+    public static MessageGenerator getInstance() {
+        return instance;
     }
-
+    
     /**
-     * Constructor.
-     * @param eventManager Event Manager used to create and register loggers.
+     * Creates a Response with a RegistryError with a Repository Error Code. 
+     * 
+     * @param codeContext
+     * @return
      */
-    public EventLoggerFactory(final EventManager eventManager) {
-        this.eventManager = eventManager;
-    }
+    public RetrieveDocumentSetResponseType createRegistryResponseError(String codeContext) {
+        
+        RetrieveDocumentSetResponseType response = new RetrieveDocumentSetResponseType();
+        
+        RegistryResponseType regResp = new RegistryResponseType();
+        regResp.setStatus(DocumentConstants.XDS_RETRIEVE_RESPONSE_STATUS_FAILURE);
 
-    /**
-     * Register Loggers.
-     */
-    public void registerLoggers() {
-        LOG.debug("Registering loggers...");
-        for (EventLogger logger : loggers) {
-            LOG.info("Registering logger: " + logger.getClass().getName());
-            eventManager.addObserver(logger);
-        }
-    }
-
-    /**
-     * @return the loggers
-     */
-    public List<EventLogger> getLoggers() {
-        return loggers;
-    }
-
-    /**
-     * @param loggers the loggers to set
-     */
-    public void setLoggers(List<EventLogger> loggers) {
-        this.loggers = loggers;
-    }
-
+        RegistryError registryError = new RegistryError();
+        registryError.setCodeContext(codeContext);
+        registryError.setErrorCode(DocumentConstants.XDS_RETRIEVE_ERRORCODE_REPOSITORY_ERROR);
+        registryError.setSeverity(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR);
+        
+        regResp.setRegistryErrorList(new RegistryErrorList());
+        regResp.getRegistryErrorList().getRegistryError().add(registryError);
+        
+        response.setRegistryResponse(regResp);
+        
+        return response;
+    }    
 }

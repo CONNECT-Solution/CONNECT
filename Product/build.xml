@@ -388,7 +388,6 @@
         <property name="common.lib" location="${common.home}/CONNECTCommonTypesLib/dist/debug" />
         <property name="opensaml.home" location="${thirdparty.home}/openSAML" />
         <property name="hibernate.home" location="${thirdparty.home}/HibernateLibraries" />
-        <property name="c3po.home" location="${thirdparty.home}/C3PO" />
         <property name="mysql.home" location="${thirdparty.home}/MySQLDB" />
         <property name="xstream.home" location="${thirdparty.home}/XStream" />
 
@@ -438,9 +437,6 @@
                 <include name="cglib-2.1.3.jar" />
                 <include name="hibernate3.jar" />
                 <include name="asm.jar" />
-            </fileset>
-            <fileset dir="${c3po.home}">
-                <include name="c3p0-0.9.1.2.jar" />
             </fileset>
 
             <fileset dir="${mysql.home}">

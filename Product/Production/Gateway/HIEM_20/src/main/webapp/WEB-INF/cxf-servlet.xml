@@ -324,8 +324,10 @@ http://www.springframework.org/schema/aop http://www.springframework.org/schema/
         </property>
     </bean>
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:entitysubscriptionmanagementsecured" id="EntityUnsubscribeSecuredService"
-        address="/EntitySubscriptionManagerSecured" serviceName="tns:EntitySubscriptionManagerSecured" endpointName="tns:EntitySubscriptionManagerSecuredPortSoap"
-        implementorClass="gov.hhs.fha.nhinc.hiem._20.unsubscribe.entity.EntityUnsubscribeSecuredService" implementor="#EntityUnsubscribeServiceSecuredBean"
+        address="/EntitySubscriptionManagerSecured" serviceName="tns:EntitySubscriptionManagerSecured"
+        endpointName="tns:EntitySubscriptionManagerSecuredPortSoap"
+        implementorClass="gov.hhs.fha.nhinc.hiem._20.unsubscribe.entity.EntityUnsubscribeSecuredService"
+        implementor="#EntityUnsubscribeServiceSecuredBean"
         wsdlLocation="classpath:wsdl/EntitySubscriptionManagementSecured.wsdl">
         <jaxws:properties>
             <entry key="ws-security.callback-handler" value="gov.hhs.fha.nhinc.callback.cxf.CXFSAMLCallbackHandler" />
@@ -348,8 +350,10 @@ http://www.springframework.org/schema/aop http://www.springframework.org/schema/
         </property>
     </bean>
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement" id="EntityUnsubscribeService"
-        address="/EntitySubscriptionManager" serviceName="tns:EntitySubscriptionManager" endpointName="tns:EntitySubscriptionManagerPortSoap"
-        implementorClass="gov.hhs.fha.nhinc.hiem._20.unsubscribe.entity.EntityUnsubscribeService" implementor="#EntityUnsubscribeServiceBean"
+        address="/EntitySubscriptionManager" serviceName="tns:EntitySubscriptionManager"
+        endpointName="tns:EntitySubscriptionManagerPortSoap"
+        implementorClass="gov.hhs.fha.nhinc.hiem._20.unsubscribe.entity.EntityUnsubscribeService"
+        implementor="#EntityUnsubscribeServiceBean"
         wsdlLocation="classpath:wsdl/EntitySubscriptionManagement.wsdl">
         <jaxws:handlers>
             <ref bean="HIEMSoapHeaderHandler" />
@@ -368,8 +372,10 @@ http://www.springframework.org/schema/aop http://www.springframework.org/schema/
     </bean>
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:nhincproxysubscriptionmanagement" id="ProxyHiemUnsubscribeSecured"
         address="/NhincProxySubscriptionManagerSecured" serviceName="tns:NhincProxySubscriptionManagerSecured"
-        endpointName="tns:NhincProxySubscriptionManagerSecuredPortSoap" implementorClass="gov.hhs.fha.nhinc.hiem._20.unsubscribe.passthru.ProxyHiemUnsubscribeSecured"
-        implementor="#PassthruUnsubscribeSecuredBean" wsdlLocation="classpath:wsdl/NhincProxySubscriptionManagementSecured.wsdl">
+        endpointName="tns:NhincProxySubscriptionManagerSecuredPortSoap"
+        implementorClass="gov.hhs.fha.nhinc.hiem._20.unsubscribe.passthru.ProxyHiemUnsubscribeSecured"
+        implementor="#PassthruUnsubscribeSecuredBean"
+        wsdlLocation="classpath:wsdl/NhincProxySubscriptionManagementSecured.wsdl">
         <jaxws:properties>
             <entry key="ws-security.callback-handler" value="gov.hhs.fha.nhinc.callback.cxf.CXFSAMLCallbackHandler" />
             <entry key="ws-security.signature.properties" value="keystore.properties" />
@@ -391,8 +397,10 @@ http://www.springframework.org/schema/aop http://www.springframework.org/schema/
         </property>
     </bean>
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:nhincproxysubscriptionmanagement" id="ProxyHiemUnsubscribe"
-        address="/NhincProxySubscriptionManager" serviceName="tns:NhincProxySubscriptionManager" endpointName="tns:NhincProxySubscriptionManagerPortSoap"
-        implementorClass="gov.hhs.fha.nhinc.hiem._20.unsubscribe.passthru.ProxyHiemUnsubscribe" implementor="#PassthruUnsubscribeBean"
+        address="/NhincProxySubscriptionManager" serviceName="tns:NhincProxySubscriptionManager"
+        endpointName="tns:NhincProxySubscriptionManagerPortSoap"
+        implementorClass="gov.hhs.fha.nhinc.hiem._20.unsubscribe.passthru.ProxyHiemUnsubscribe"
+        implementor="#PassthruUnsubscribeBean"
         wsdlLocation="classpath:wsdl/NhincProxySubscriptionManagement.wsdl">
         <jaxws:handlers>
             <ref bean="HIEMSoapHeaderHandler" />
@@ -409,4 +417,5 @@ http://www.springframework.org/schema/aop http://www.springframework.org/schema/
     <aop:aspectj-autoproxy />
     <bean id="eventUnsubscribeAspect" class="gov.hhs.fha.nhinc.unsubscribe.aspect.UnsubscribeEventAspect" />
     <bean id="eventSubscribeAspect" class="gov.hhs.fha.nhinc.subscribe.aspect.SubscribeEventAspect" />
+    <bean id="eventNotifyAspect" class="gov.hhs.fha.nhinc.notify.aspect.NotifyEventAspect" />
 </beans>

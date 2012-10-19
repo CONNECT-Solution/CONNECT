@@ -32,14 +32,14 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 
-import gov.hhs.fha.nhinc.aspect.EventAspect;
+import gov.hhs.fha.nhinc.aspect.EventAspectAdvice;
 
 /**
  * @author zmelnick
  *
  */
 @Aspect
-public class SubscribeEventAspect extends EventAspect {
+public class SubscribeEventAspect extends EventAspectAdvice {
 
     /*--- Inbound Message ---*/
     @Pointcut("execution(* gov.hhs.fha.nhinc.hiem.*.subscribe.nhin.HiemSubscribe.subscribe(..))")
