@@ -12,7 +12,7 @@
         <url-pattern>/*</url-pattern>
     </servlet-mapping>
   
-    <security-constraint>
+    <!--security-constraint>
         <web-resource-collection>
             <web-resource-name>AdapterDocQuerySecured</web-resource-name>
             <url-pattern>/AdapterDocQuerySecured</url-pattern>
@@ -21,7 +21,7 @@
         <user-data-constraint>
             <transport-guarantee>CONFIDENTIAL</transport-guarantee>
         </user-data-constraint>
-    </security-constraint>
+    </security-constraint -->
 
     <login-config>
         <auth-method>CLIENT-CERT</auth-method>
