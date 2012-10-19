@@ -26,7 +26,6 @@
  */
 package universalclientgui;
 
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunityType;
@@ -34,19 +33,16 @@ import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayR
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.docretrieve.entity.proxy.EntityDocRetrieveProxyWebServiceUnsecuredImpl;
-import gov.hhs.fha.nhinc.entitydocretrieve.EntityDocRetrievePortType;
+import gov.hhs.fha.nhinc.largefile.LargeFileUtils;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
-import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType.DocumentRequest;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType.DocumentResponse;
 
+import java.io.IOException;
 import java.util.List;
-
-import javax.xml.namespace.QName;
-import javax.xml.ws.Service;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -92,7 +88,12 @@ public class DocumentRetrieveClient {
             DocumentResponse documentResponse = documentResponseList.get(0);
 
             if (documentResponse != null && documentResponse.getDocument() != null) {
-                documentInXmlFormat = new String(documentResponse.getDocument());
+                try {
+                    byte[] rawData = LargeFileUtils.getInstance().convertToBytes(documentResponse.getDocument());
+                    documentInXmlFormat = new String(rawData);
+                } catch (IOException ioe) {
+                    log.error("Failed to retrieve document.", ioe);
+                }
             }
         }
 

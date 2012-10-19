@@ -32,10 +32,6 @@
                     <artifactId>hibernate</artifactId>
                 </exclusion>
                 <exclusion>
-                    <groupId>c3p0</groupId>
-                    <artifactId>c3p0</artifactId>
-                </exclusion>
-                <exclusion>
                     <artifactId>activation</artifactId>
                     <groupId>javax.activation</groupId>
                 </exclusion>
@@ -49,11 +45,13 @@
         <dependency>
               <groupId>javax</groupId>
               <artifactId>javaee-api</artifactId>
+              <version>6.0</version>
               <scope>provided</scope>
           </dependency>
         <dependency>
             <groupId>commons-logging</groupId>
             <artifactId>commons-logging</artifactId>
+            <version>1.1.1</version>
         </dependency>
         <dependency>
             <groupId>commons-lang</groupId>
@@ -63,6 +61,7 @@
         <dependency>
             <groupId>commons-collections</groupId>
             <artifactId>commons-collections</artifactId>
+            <version>3.2.1</version>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
@@ -72,26 +71,31 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
+            <version>4.7</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.jmock</groupId>
             <artifactId>jmock</artifactId>
+            <version>2.5.1</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.jmock</groupId>
             <artifactId>jmock-legacy</artifactId>
+            <version>2.5.1</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.jmock</groupId>
             <artifactId>jmock-junit4</artifactId>
+            <version>2.5.1</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-log4j12</artifactId>
+            <version>1.6.4</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -103,6 +107,7 @@
                     resource JAR -->
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
+                <version>2.5.1</version>
                 <executions>
                     <execution>
                         <id>unpack-test-resources</id>
@@ -130,6 +135,7 @@
             </plugin>
             <plugin>
                 <artifactId>maven-war-plugin</artifactId>
+                <version>2.2</version>
                 <configuration>
                     <packagingExcludes>WEB-INF/classes/xml-resources/**</packagingExcludes>
                     <webResources>

@@ -635,23 +635,30 @@ public class PatientConsentManager {
             throws AdapterPIPException {
         String sPrefDoc = "";
 
-        if ((oResponse != null) && (oResponse.getDocumentResponse() != null)
-                && (oResponse.getDocumentResponse().size() > 0)) {
-            List<DocumentResponse> olDocResponse = oResponse.getDocumentResponse();
-            for (DocumentResponse oDocResponse : olDocResponse) {
-                log.info("Doc: " + oDocResponse.getDocumentUniqueId() + " Mime type: " + oDocResponse.getMimeType());
-                if (oDocRequest.getDocumentUniqueId().equals(oDocResponse.getDocumentUniqueId())) {
-                    if (XACML_MIME_TYPE.equals(oDocResponse.getMimeType())) {
-                        if ((oDocResponse.getDocument() != null) && (oDocResponse.getDocument().length > 0)) {
-                            log.info("Matching XACML document found");
-                            sPrefDoc = new String(oDocResponse.getDocument());
-                            break;
+        try {
+            if ((oResponse != null) && (oResponse.getDocumentResponse() != null)
+                    && (oResponse.getDocumentResponse().size() > 0)) {
+                List<DocumentResponse> olDocResponse = oResponse.getDocumentResponse();
+                for (DocumentResponse oDocResponse : olDocResponse) {
+                    log.info("Doc: " + oDocResponse.getDocumentUniqueId() + " Mime type: " + oDocResponse.getMimeType());
+                    if (oDocRequest.getDocumentUniqueId().equals(oDocResponse.getDocumentUniqueId())) {
+                        if (XACML_MIME_TYPE.equals(oDocResponse.getMimeType())) {
+                            if (oDocResponse.getDocument() != null) {
+                                log.info("Matching XACML document found");
 
+                                byte[] rawData = LargeFileUtils.getInstance()
+                                        .convertToBytes(oDocResponse.getDocument());
+                                sPrefDoc = new String(rawData);
+                                break;
+
+                            }
                         }
                     }
                 }
             }
-        } // if ((oResponse != null) &&
+        } catch (IOException ioe) {
+            throw new AdapterPIPException("Failed to retrieve document.", ioe);
+        }
 
         return sPrefDoc;
     }
@@ -669,10 +676,17 @@ public class PatientConsentManager {
                 log.info("Doc: " + oDocResponse.getDocumentUniqueId() + " Mime type: " + oDocResponse.getMimeType());
                 if (oDocRequest.getDocumentUniqueId().equals(oDocResponse.getDocumentUniqueId())) {
                     if (PDF_MIME_TYPE.equals(oDocResponse.getMimeType())) {
-                        if ((oDocResponse.getDocument() != null) && (oDocResponse.getDocument().length > 0)) {
-                            String sPrefDoc = new String(oDocResponse.getDocument());
-                            log.info("Matching PDF document found: " + sPrefDoc);
-                            olBinPrefDoc.add(sPrefDoc);
+                        if ((oDocResponse.getDocument() != null)) {
+                            try {
+                                byte[] rawData = LargeFileUtils.getInstance()
+                                        .convertToBytes(oDocResponse.getDocument());
+
+                                String sPrefDoc = new String(rawData);
+                                log.info("Matching PDF document found: " + sPrefDoc);
+                                olBinPrefDoc.add(sPrefDoc);
+                            } catch (IOException ioe) {
+                                log.error("Failed to retrieve document: " + oDocResponse.getDocumentUniqueId(), ioe);
+                            }
                         }
                     }
                 }

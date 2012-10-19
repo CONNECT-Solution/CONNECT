@@ -28,13 +28,15 @@ package gov.hhs.fha.nhinc.docretrieve.passthru;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
-import gov.hhs.fha.nhinc.docretrieve.entity.OutboundDocRetrieveOrchestratableImpl;
+import gov.hhs.fha.nhinc.docretrieve.DocRetrieveFileUtils;
+import gov.hhs.fha.nhinc.docretrieve.MessageGenerator;
 import gov.hhs.fha.nhinc.docretrieve.entity.OutboundDocRetrieveDelegate;
+import gov.hhs.fha.nhinc.docretrieve.entity.OutboundDocRetrieveOrchestratableImpl;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
-import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
-import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
-import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
+
+import java.io.IOException;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -60,14 +62,22 @@ public class NhincProxyDocRetrieveOrchImpl {
         RetrieveDocumentSetResponseType response = null;
 
         // Note: auditing occurs in the orchestrator strategy.
-            OutboundDocRetrieveDelegate delegate = new OutboundDocRetrieveDelegate();
-            OutboundDocRetrieveOrchestratableImpl message = new OutboundDocRetrieveOrchestratableImpl(request,
-                    assertion, null, null, delegate, null, targetSystem);
-            OutboundPassthruDocRetrieveOrchestratorImpl orchestrator = new OutboundPassthruDocRetrieveOrchestratorImpl();
+        OutboundDocRetrieveDelegate delegate = new OutboundDocRetrieveDelegate();
+        OutboundDocRetrieveOrchestratableImpl message = new OutboundDocRetrieveOrchestratableImpl(request, assertion,
+                null, null, delegate, null, targetSystem);
+        OutboundPassthruDocRetrieveOrchestratorImpl orchestrator = new OutboundPassthruDocRetrieveOrchestratorImpl();
 
-            OutboundDocRetrieveOrchestratableImpl orchResponse = (OutboundDocRetrieveOrchestratableImpl) orchestrator
-                    .process(message);
-            response = orchResponse.getResponse();
+        OutboundDocRetrieveOrchestratableImpl orchResponse = (OutboundDocRetrieveOrchestratableImpl) orchestrator
+                .process(message);
+        response = orchResponse.getResponse();
+
+        try {
+            DocRetrieveFileUtils.getInstance().streamDocumentsToFileSystemIfEnabled(response);
+        } catch (IOException ioe) {
+            log.error("Failed to save documents to file system.", ioe);
+            response = MessageGenerator.getInstance().createRegistryResponseError(
+                    "Adapter Document Retrieve Processing: " + ioe.getLocalizedMessage());
+        }
 
         log.debug("End NhincProxyDocRetrieveOrchImpl.respondingGatewayCrossGatewayRetrieve(...)");
         return response;

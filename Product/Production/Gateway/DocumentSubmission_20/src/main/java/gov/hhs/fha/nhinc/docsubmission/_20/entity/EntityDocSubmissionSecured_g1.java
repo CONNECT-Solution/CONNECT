@@ -49,14 +49,10 @@ public class EntityDocSubmissionSecured_g1 implements gov.hhs.fha.nhinc.nhincent
     public RegistryResponseType provideAndRegisterDocumentSetB(
             RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType body) {
 
-        EntityDocSubmissionImpl_g1 impl = getEntityDocSubmissionImpl(orchImpl);
-        RegistryResponseType response = impl.provideAndRegisterDocumentSetB(body, context);
+        RegistryResponseType response = new EntityDocSubmissionImpl_g1(orchImpl).provideAndRegisterDocumentSetB(body,
+                context);
 
         return response;
-    }
-
-    protected EntityDocSubmissionImpl_g1 getEntityDocSubmissionImpl(EntityDocSubmissionOrchImpl orchImpl) {
-        return new EntityDocSubmissionImpl_g1(orchImpl);
     }
 
     protected WebServiceContext getWebServiceContext() {
