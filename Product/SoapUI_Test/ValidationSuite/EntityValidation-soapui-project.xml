@@ -3734,7 +3734,7 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 </soap:Envelope>]]></con:request>
 		<con:assertion type="SOAP Response"/>
 		<con:assertion type="SOAP Fault Assertion"/>
-		<con:assertion type="Schema Compliance">
+		<con:assertion disabled="true" type="Schema Compliance">
 			<con:configuration>
 				<definition/>
 			</con:configuration>
@@ -5634,12 +5634,6 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 		<con:wsrmConfig version="1.2"/>
 	</con:request>
 </con:config>
-</con:testStep>
-<con:testStep name="Delay" type="delay">
-	<con:settings/>
-	<con:config>
-		<delay>15000</delay>
-	</con:config>
 </con:testStep>
 <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
@@ -8663,7 +8657,7 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 </soap:Envelope>]]></con:request>
 		<con:assertion type="SOAP Response"/>
 		<con:assertion type="SOAP Fault Assertion"/>
-		<con:assertion type="Schema Compliance">
+		<con:assertion disabled="true" type="Schema Compliance">
 			<con:configuration>
 				<definition/>
 			</con:configuration>
@@ -10565,12 +10559,6 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 		<con:wsrmConfig version="1.2"/>
 	</con:request>
 </con:config>
-</con:testStep>
-<con:testStep name="Delay" type="delay">
-	<con:settings/>
-	<con:config>
-		<delay>15000</delay>
-	</con:config>
 </con:testStep>
 <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>

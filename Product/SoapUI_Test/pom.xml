@@ -114,6 +114,25 @@
                             <outputDirectory>${project.build.directory}/nhinc-properites-dir/</outputDirectory>
                         </configuration>
                     </execution>
+                    <execution>
+                        <id>copy-resources-mysql-conn-to-lib</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>copy</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/domain1/lib/</outputDirectory>
+                            <silent>true</silent>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>mysql</groupId>
+                                    <artifactId>mysql-connector-java</artifactId>
+                                    <version>5.1.10</version>
+                                    <type>jar</type>
+                                </artifactItem>
+                            </artifactItems>
+                        </configuration>
+                    </execution>
                 </executions>
             </plugin>
             <plugin>
@@ -181,22 +200,25 @@
                         </goals>
                         <configuration>
                             <target>
-                                <exec failonerror="true" executable="keytool"
+                                <mkdir dir="${project.build.directory}/domain1/config" />
+                                <exec failonerror="false" executable="keytool"
                                     dir="${project.build.directory}/domain1/config">
                                     <arg
                                         line="-v -genkey -keyalg RSA -keysize 1024 -keystore gateway.jks -keypass changeit -storepass changeit -validity 365 -alias gateway -dname &quot;cn=localhost&quot;" />
                                 </exec>
-                                <exec failonerror="true" executable="keytool"
+                                <exec failonerror="false" executable="keytool"
                                     dir="${project.build.directory}/domain1/config/">
                                     <arg
                                         line="-v -export -rfc -alias gateway -file localhost.cer -keystore gateway.jks -keypass changeit -storepass changeit" />
                                 </exec>
-                                <exec failonerror="true" executable="keytool"
+                                <exec failonerror="false" executable="keytool"
                                     dir="${project.build.directory}/domain1/config/">
                                     <arg
                                         line="-v -import -keypass changeit -noprompt -trustcacerts -alias localhost -file localhost.cer -keystore cacerts.jks -storepass changeit" />
                                 </exec>
                                 <copy file="${project.build.directory}/domain1/config/gateway.jks"
+                                    todir="${project.build.directory}/domain1/lib/classes/" />
+                                <copy file="${project.build.directory}/domain1/config/cacerts.jks"
                                     todir="${project.build.directory}/domain1/lib/classes/" />
                             </target>
                         </configuration>
