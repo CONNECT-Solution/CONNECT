@@ -20,21 +20,8 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd http://www.s
     <import resource="classpath:META-INF/cxf/cxf.xml" />
     <import resource="classpath:META-INF/cxf/cxf-extension-soap.xml" />
     <import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
-    <import resource="classpath:CONNECT-interceptor-beans.xml" />
-
-    <!-- Patient Discovery -->
-
-    <!-- Nhin services -->
-
-    <bean id="nhinPDOrchestrator"
-        class="gov.hhs.fha.nhinc.patientdiscovery.NhinPatientDiscoveryImpl" />
-
-    <bean id="nhinPD"
-        class="gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.NhinPatientDiscovery">
-        <property name="orchestratorImpl">
-            <ref bean="nhinPDOrchestrator" />
-        </property>
-    </bean>
+    
+    
 
     <jaxws:endpoint xmlns:tns="urn:ihe:iti:xcpd:2009" id="RespondingGateway_Service"
         address="/NhinService/NhinPatientDiscovery" serviceName="tns:RespondingGateway_Service"
@@ -463,20 +450,6 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd http://www.s
     <bean id="SOAPHeaderHandler" class="gov.hhs.fha.nhinc.callback.SOAPHeaderHandler" />
     <bean id="TransactionHandler" class="gov.hhs.fha.nhinc.logging.transaction.TransactionHandler" />
 
-    <!-- Aspect Service -->
-    <aop:aspectj-autoproxy />
-    <bean id="eventAspectAdvice" class="gov.hhs.fha.nhinc.aspect.EventAspectAdvice" />
-    <bean id="eventPDAspect"
-        class="gov.hhs.fha.nhinc.patientdiscovery.aspect.PatientDiscoveryEventAspect">
-        <constructor-arg ref="eventAspectAdvice" />
-    </bean>
-    <bean id="eventPDDefReqAspect"
-        class="gov.hhs.fha.nhinc.patientdiscovery.aspect.PatientDiscoveryDeferredReqEventAspect">
-        <constructor-arg ref="eventAspectAdvice" />
-    </bean>
-    <bean id="eventPDDefRespAspect"
-        class="gov.hhs.fha.nhinc.patientdiscovery.aspect.PatientDiscoveryDeferredRespEventAspect">
-        <constructor-arg ref="eventAspectAdvice" />
-    </bean>
+    
 
 </beans>
