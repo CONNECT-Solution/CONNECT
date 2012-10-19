@@ -92,7 +92,6 @@ public class NhinPatientDiscovery extends PatientDiscoveryBase implements ihe.it
 
     public void setOrchestratorImpl(NhinPatientDiscoveryImpl orchImpl) {
         this.orchImpl = orchImpl;
-        this.orchImpl.configure(getPatientDiscoveryAuditLogger(), getOrchestrationFactory());
     }
     
     protected PatientDiscoveryAuditLogger getPatientDiscoveryAuditLogger() {

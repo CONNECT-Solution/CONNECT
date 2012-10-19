@@ -6,7 +6,7 @@
     <description>Beans included in this file: {eventFactory}
     </description>
     
-    <bean name="eventmanager" class="gov.hhs.fha.nhinc.event.EventManager" factory-method="getInstance" />  
+    <bean name="eventmanager" class="gov.hhs.fha.nhinc.event.EventManager" factory-method="getInstance" />
     
     <alias alias="eventfactory" name="baseeventfactory"/>
 
