@@ -198,6 +198,8 @@
                                 </exec>
                                 <copy file="${project.build.directory}/domain1/config/gateway.jks"
                                     todir="${project.build.directory}/domain1/lib/classes/" />
+                                <copy file="${project.build.directory}/domain1/config/cacerts.jks"
+                                    todir="${project.build.directory}/domain1/lib/classes/" />
                             </target>
                         </configuration>
                     </execution>
