@@ -40,7 +40,7 @@ import org.junit.Test;
  * Unit tests for {@link DatabaseEventLogger}.
  */
 public class DatabaseEventLoggerTest {
-    
+
     private Mockery context = new JUnit4Mockery() {
         {
             setImposteriser(ClassImposteriser.INSTANCE);
@@ -49,10 +49,10 @@ public class DatabaseEventLoggerTest {
 
     @Test
     public void testUpdateWithMock() {
-        
+
         final DatabaseEventLoggerDao mockDatabaseEventLoggerDao = context.mock(DatabaseEventLoggerDao.class);
         final Event mockEvent = context.mock(Event.class);
-        
+
         context.checking(new Expectations() {
             {
                 oneOf(mockEvent).getEventName();
@@ -66,9 +66,8 @@ public class DatabaseEventLoggerTest {
             }
         });
 
-        
-        DatabaseEventLogger testDatabaseEventLogger = new DatabaseEventLogger(mockDatabaseEventLoggerDao);        
-        
+        DatabaseEventLogger testDatabaseEventLogger = new DatabaseEventLogger(mockDatabaseEventLoggerDao);
+
         context.checking(new Expectations() {
             {
                 oneOf(mockDatabaseEventLoggerDao).insertEvent(with(any(DatabaseEvent.class)));
@@ -76,15 +75,15 @@ public class DatabaseEventLoggerTest {
             }
         });
 
-        testDatabaseEventLogger.update(null, mockEvent);            
+        testDatabaseEventLogger.recordEvent(null, mockEvent);
     }
-    
+
     @Test
     @Ignore
     public void testUpdateWithDatabase() {
-        
+
         final Event mockEvent = context.mock(Event.class);
-        
+
         context.checking(new Expectations() {
             {
                 oneOf(mockEvent).getEventName();
@@ -98,11 +97,8 @@ public class DatabaseEventLoggerTest {
             }
         });
 
-        
-        DatabaseEventLogger testDatabaseEventLogger = new DatabaseEventLogger();                
-        testDatabaseEventLogger.update(null, mockEvent);            
+        DatabaseEventLogger testDatabaseEventLogger = new DatabaseEventLogger();
+        testDatabaseEventLogger.recordEvent(null, mockEvent);
     }
-    
-    
 
 }

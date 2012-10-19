@@ -43,7 +43,7 @@ public class EventLoggerFactory {
     private static final String CONFIG_FILE_NAME = "EventLoggerFactoryConfig.xml";
     private static final String BEAN_NAME = "eventLoggerFactory";
 
-    private final EventManager eventManager;    
+    private final EventRecorder eventManager;    
     private List<EventLogger> loggers;
 
     /**
@@ -57,7 +57,7 @@ public class EventLoggerFactory {
      * Constructor.
      * @param eventManager Event Manager used to create and register loggers.
      */
-    public EventLoggerFactory(final EventManager eventManager) {
+    public EventLoggerFactory(final EventRecorder eventManager) {
         super();
         this.eventManager = eventManager;
     }    

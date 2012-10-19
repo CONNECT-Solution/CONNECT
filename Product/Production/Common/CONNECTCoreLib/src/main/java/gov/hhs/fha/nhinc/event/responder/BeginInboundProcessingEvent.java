@@ -34,6 +34,13 @@ public class BeginInboundProcessingEvent extends ResponderEvent {
 
     private static final String EVENT_NAME = "BEGIN_INBOUND_PROCESSING";
 
+    
+    
+    public BeginInboundProcessingEvent() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
     /**
      * @param messageID
      * @param transactionID

@@ -1,28 +1,84 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 
-    <description>Beans included in this file: {eventFactory}</description>
+    <description>Beans included in this file: {eventFactory}
+    </description>
     
-    <bean lazy-init="true" id="eventfactory" class="gov.hhs.fha.nhinc.event.EventFactory">
+    <bean name="eventmanager" class="gov.hhs.fha.nhinc.event.EventManager" factory-method="getInstance" />  
+    
+    <alias alias="eventfactory" name="baseeventfactory"/>
+
+    <bean name="baseeventfactory" class="gov.hhs.fha.nhinc.event.BaseEventFactory">
         <property name="eventMap">
             <map>
-                <entry key="beginOutboundMessage" value="gov.hhs.fha.nhinc.event.initiator.BeginOutboundMessageEvent" />
-                <entry key="beginOutboundProcessing" value="gov.hhs.fha.nhinc.event.initiator.BeginOutboundProcessingEvent" />
-                <entry key="beginNwhinInvocation" value="gov.hhs.fha.nhinc.event.initiator.BeginNwhinInvocationEvent" />
-                <entry key="endNwhinInvocation" value="gov.hhs.fha.nhinc.event.initiator.EndNwhinInvocationEvent" />
-                <entry key="endOutboundProcessing" value="gov.hhs.fha.nhinc.event.initiator.EndOutboundProcessingEvent" />
-                <entry key="endOutboundMessage" value="gov.hhs.fha.nhinc.event.initiator.EndOutboundMessageEvent" />               
-                <entry key="beginInboundMessage" value="gov.hhs.fha.nhinc.event.responder.BeginInboundMessageEvent" />
-                <entry key="beginInboundProcessing" value="gov.hhs.fha.nhinc.event.responder.BeginInboundProcessingEvent" />
-                <entry key="beginAdapterDelegation" value="gov.hhs.fha.nhinc.event.responder.BeginAdapterDelegationEvent" />
-                <entry key="endAdapterDelegation" value="gov.hhs.fha.nhinc.event.responder.EndAdapterDelegationEvent" />
-                <entry key="endInboundProcessing" value="gov.hhs.fha.nhinc.event.responder.EndInboundProcessingEvent" />
-                <entry key="endInboundMessage" value="gov.hhs.fha.nhinc.event.responder.EndInboundMessageEvent" />
-                <entry key="messageProcessingFailed" value="gov.hhs.fha.nhinc.event.error.MessageProcessingFailedEvent" />
+                <entry key="beginOutboundMessage">
+                    <bean
+                        class="gov.hhs.fha.nhinc.event.initiator.BeginOutboundMessageEvent"
+                        scope="prototype" />
+                </entry>
+                <entry key="beginOutboundProcessing">
+                    <bean
+                        class="gov.hhs.fha.nhinc.event.initiator.BeginOutboundProcessingEvent"
+                        scope="prototype" />
+                </entry>
+                <entry key="beginNwhinInvocation">
+                    <bean
+                        class="gov.hhs.fha.nhinc.event.initiator.BeginNwhinInvocationEvent"
+                        scope="prototype" />
+                </entry>
+                <entry key="endNwhinInvocation">
+                    <bean
+                        class="gov.hhs.fha.nhinc.event.initiator.EndNwhinInvocationEvent"
+                        scope="prototype" />
+                </entry>
+                <entry key="endOutboundProcessing">
+                    <bean
+                        class="gov.hhs.fha.nhinc.event.initiator.EndOutboundProcessingEvent"
+                        scope="prototype" />
+                </entry>
+                <entry key="endOutboundMessage">
+                    <bean
+                        class="gov.hhs.fha.nhinc.event.initiator.EndOutboundMessageEvent"
+                        scope="prototype" />
+                </entry>
+                <entry key="beginInboundMessage">
+                    <bean
+                        class="gov.hhs.fha.nhinc.event.responder.BeginInboundMessageEvent"
+                        scope="prototype" />
+                </entry>
+                <entry key="beginInboundProcessing">
+                    <bean
+                        class="gov.hhs.fha.nhinc.event.responder.BeginInboundProcessingEvent"
+                        scope="prototype" />
+                </entry>
+                <entry key="">
+                    <bean id="beginAdapterDelegation"
+                        class="gov.hhs.fha.nhinc.event.responder.BeginAdapterDelegationEvent"
+                        scope="prototype" />
+                </entry>
+                <entry key="endAdapterDelegation">
+                    <bean
+                        class="gov.hhs.fha.nhinc.event.responder.EndAdapterDelegationEvent"
+                        scope="prototype" />
+                </entry>
+                <entry key="endInboundProcessing">
+                    <bean
+                        class="gov.hhs.fha.nhinc.event.responder.EndInboundProcessingEvent"
+                        scope="prototype" />
+                </entry>
+                <entry key="endInboundMessage">
+                    <bean
+                        class="gov.hhs.fha.nhinc.event.responder.EndInboundMessageEvent"
+                        scope="prototype" />
+                </entry>
+                <entry key="messageProcessingFailed">
+                    <bean
+                        class="gov.hhs.fha.nhinc.event.error.MessageProcessingFailedEvent"
+                        scope="prototype" />
+                </entry>
             </map>
         </property>
     </bean>
-    
 </beans>

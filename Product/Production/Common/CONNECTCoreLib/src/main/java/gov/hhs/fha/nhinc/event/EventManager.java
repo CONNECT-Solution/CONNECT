@@ -32,7 +32,7 @@ import java.util.Observable;
  * @author zmelnick
  *
  */
-public class EventManager extends Observable {
+public class EventManager extends Observable implements EventRecorder, EventLoggerRegistrar{
 
     private EventManager() {
     }
@@ -45,11 +45,13 @@ public class EventManager extends Observable {
         return EventManagerHolder.INSTANCE;
     }
 
+    @Override
     public void recordEvent(Event event) {
         setChanged();
         notifyObservers(event);
     }
 
+    @Override
     public void registerLogger(EventLogger eventLogger) {
         addObserver(eventLogger);
     }

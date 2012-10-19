@@ -26,12 +26,83 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery.aspect;
 
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import gov.hhs.fha.nhinc.event.EventFactory;
+import gov.hhs.fha.nhinc.event.EventRecorder;
+import gov.hhs.fha.nhinc.event.responder.BeginInboundProcessingEvent;
+import gov.hhs.fha.nhinc.event.responder.EndInboundProcessingEvent;
+
+import org.apache.cxf.jaxws.context.WebServiceContextImpl;
+import org.apache.cxf.jaxws.context.WrappedMessageContext;
+import org.apache.cxf.message.MessageImpl;
+import org.hl7.v3.PRPAIN201305UV02;
+import org.hl7.v3.ProxyPRPAIN201305UVProxyRequestType;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
  * Test {@link PatientDiscoveryEventAspect}
  */
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = { "/EventFactoryConfig.xml" })
 public class PatientDiscoveryEventAspectTest {
 
-    
-    
+    @Autowired
+    private EventFactory eventFactory;
+
+
+    @Before
+    public void mockWebserviceConext() {
+        // Mock up message context
+        MessageImpl msg = new MessageImpl();
+        WrappedMessageContext msgCtx = new WrappedMessageContext(msg);
+        WebServiceContextImpl.setMessageContext(msgCtx);
+    }
+
+    @Test
+    public void beginInboundMessageEvent() {
+        EventRecorder mockEventRecorder = mock(EventRecorder.class);
+
+        PatientDiscoveryEventAspect aspect = new PatientDiscoveryEventAspect();
+        aspect.setEventFactory(eventFactory);
+        aspect.setEventRecorder(mockEventRecorder);
+
+        ProxyPRPAIN201305UVProxyRequestType mockRequestType = mock(ProxyPRPAIN201305UVProxyRequestType.class);
+
+        PRPAIN201305UV02 mockPRPAIN201305UV02 = mock(PRPAIN201305UV02.class);
+
+        when(mockRequestType.getPRPAIN201305UV02()).thenReturn(mockPRPAIN201305UV02);
+
+        aspect.beginInboundProcessingEvent(mockRequestType);
+
+        verify(mockEventRecorder).recordEvent(any(BeginInboundProcessingEvent.class));
+
+    }
+
+    @Test
+    public void endInboundMessageEvent() {
+        EventRecorder mockEventRecorder = mock(EventRecorder.class);
+        PatientDiscoveryEventAspect aspect = new PatientDiscoveryEventAspect();
+        aspect.setEventFactory(eventFactory);
+        aspect.setEventRecorder(mockEventRecorder);
+        ProxyPRPAIN201305UVProxyRequestType mockRequestType = mock(ProxyPRPAIN201305UVProxyRequestType.class);
+
+        PRPAIN201305UV02 mockPRPAIN201305UV02 = mock(PRPAIN201305UV02.class);
+
+        when(mockRequestType.getPRPAIN201305UV02()).thenReturn(mockPRPAIN201305UV02);
+
+
+        aspect.endInboundProcessingEvent(mockRequestType);
+
+        verify(mockEventRecorder).recordEvent(any(EndInboundProcessingEvent.class));
+
+    }
+
 }

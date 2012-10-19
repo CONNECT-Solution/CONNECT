@@ -58,7 +58,7 @@ public class DatabaseEventLogger extends EventLogger {
      * {@inheritDoc}
      */
     @Override
-    void update(EventManager manager, Event event) {
+    void recordEvent(EventManager manager, Event event) {
         
         if (event != null) {
             DatabaseEvent dbEvent = new DatabaseEvent();

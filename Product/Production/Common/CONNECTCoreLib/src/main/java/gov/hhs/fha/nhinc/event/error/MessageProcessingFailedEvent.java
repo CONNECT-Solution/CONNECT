@@ -34,6 +34,10 @@ public class MessageProcessingFailedEvent extends ErrorEvent {
 
     private static final String EVENT_NAME = "MESSAGE_PROCESSING_FAILED";
 
+    public MessageProcessingFailedEvent() {
+        
+    }
+    
     /**
      * @param messageID
      * @param transactionID

@@ -1,12 +1,12 @@
 package gov.hhs.fha.nhinc.event;
 
 public class EventDescriptionDirector {
-    private BaseEventDescriptionBuilder builder;
+    private EventDescriptionBuilder builder;
     
-    public void setEventDescriptionBuilder(BaseEventDescriptionBuilder builder) { this.builder = builder; }
-    public EventDescription getPizza() { return builder.getEventDescription(); }
+    public void setEventDescriptionBuilder(EventDescriptionBuilder builder) { this.builder = builder; }
+    public EventDescription getEventDescription() { return builder.getEventDescription(); }
  
-    public void constructEvent() {
+    public void constructEventDescription() {
       builder.createEventDescription();
       
       builder.buildMessageId();

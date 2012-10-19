@@ -26,72 +26,24 @@
  */
 package gov.hhs.fha.nhinc.event.initiator;
 
+import gov.hhs.fha.nhinc.event.BaseEvent;
 import gov.hhs.fha.nhinc.event.Event;
 
 /**
  * @author zmelnick
  *
  */
-abstract class InitiatorEvent implements Event {
+abstract class InitiatorEvent extends BaseEvent implements Event {
 
-    private String description;
-    private String messageID;
-    private String transactionID;
+    
+    
+    public InitiatorEvent() {
+        super();
+    }
 
     public InitiatorEvent(String messageID, String transactionID, String description) {
         setMessageID(messageID);
         setTransactionID(transactionID);
         setDescription(description);
-    }
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.event.Event#getDescription()
-     */
-    @Override
-    public String getDescription() {
-        return description;
-    }
-
-    /**
-     * @param description
-     */
-    protected void setDescription(String description) {
-        this.description = description;
-    }
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.event.Event#getMessageID()
-     */
-    @Override
-    public String getMessageID() {
-        return messageID;
-    }
-
-    /**
-     * @param messageID
-     */
-    protected void setMessageID(String messageID) {
-        this.messageID = messageID;
-    }
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.event.Event#getTransactionID()
-     */
-    @Override
-    public String getTransactionID() {
-        return transactionID;
-    }
-
-    /**
-     * @param transactionID
-     */
-    protected void setTransactionID(String transactionID) {
-        this.transactionID = transactionID;
     }
 }

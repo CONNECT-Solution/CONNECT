@@ -3,7 +3,7 @@
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * modification, are permittntefed provided that the following conditions are met:
  *     * Redistributions of source code must retain the above
  *       copyright notice, this list of conditions and the following disclaimer.
  *     * Redistributions in binary form must reproduce the above copyright
@@ -24,38 +24,73 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.event.initiator;
+package gov.hhs.fha.nhinc.event;
 
-/**
- * @author zmelnick
- *
- */
-public class BeginOutboundProcessingEvent extends InitiatorEvent {
-
-    private static final String EVENT_NAME = "BEGIN_OUTBOUND_PROCESSING";
+public abstract class BaseEvent implements Event {
 
     
+    private String description;
+    private String messageID;
+    private String transactionID;
     
-    public BeginOutboundProcessingEvent() {
-        super();
-        // TODO Auto-generated constructor stub
+    
+    public BaseEvent() {
+        
+    }
+    
+    /*
+     * (non-Javadoc)
+     *
+     * @see gov.hhs.fha.nhinc.event.Event#getDescription()
+     */
+    @Override
+    public String getDescription() {
+        return description;
+    }
+
+    /**
+     * @param description
+     */
+     @Override
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see gov.hhs.fha.nhinc.event.Event#getMessageID()
+     */
+    @Override
+    public String getMessageID() {
+        return messageID;
     }
 
     /**
      * @param messageID
-     * @param transactionID
-     * @param description
      */
-    public BeginOutboundProcessingEvent(String messageID, String transactionID, String description) {
-        super(messageID, transactionID, description);
+     @Override
+    public void setMessageID(String messageID) {
+        this.messageID = messageID;
     }
 
-    /* (non-Javadoc)
-     * @see gov.hhs.fha.nhinc.event.Event#getEventName()
+    /*
+     * (non-Javadoc)
+     *
+     * @see gov.hhs.fha.nhinc.event.Event#getTransactionID()
      */
     @Override
-    public String getEventName() {
-        return EVENT_NAME;
+    public String getTransactionID() {
+        return transactionID;
     }
 
+    /**
+     * @param transactionID
+     */
+     @Override
+    public void setTransactionID(String transactionID) {
+        this.transactionID = transactionID;
+    }
+
+    abstract public String getEventName();
 }

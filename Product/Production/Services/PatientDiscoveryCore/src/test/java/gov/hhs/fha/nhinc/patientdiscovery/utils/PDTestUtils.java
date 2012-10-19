@@ -48,6 +48,7 @@ import org.hl7.v3.MCCIMT000100UV01Sender;
 import org.hl7.v3.ObjectFactory;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201305UV02QUQIMT021001UV01ControlActProcess;
+import org.hl7.v3.PRPAIN201306UV02;
 import org.hl7.v3.PRPAMT201306UV02LivingSubjectAdministrativeGender;
 import org.hl7.v3.PRPAMT201306UV02LivingSubjectBirthTime;
 import org.hl7.v3.PRPAMT201306UV02LivingSubjectId;
@@ -56,6 +57,7 @@ import org.hl7.v3.PRPAMT201306UV02ParameterList;
 import org.hl7.v3.PRPAMT201306UV02QueryByParameter;
 import org.hl7.v3.QUQIMT021001UV01AuthorOrPerformer;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
+import org.hl7.v3.RespondingGatewayPRPAIN201306UV02RequestType;
 import org.hl7.v3.ST;
 import org.hl7.v3.TSExplicit;
 import org.hl7.v3.XActMoodIntentEvent;
@@ -92,11 +94,16 @@ public class PDTestUtils {
     public RespondingGatewayPRPAIN201305UV02RequestType createValidEntityRequest() {
         RespondingGatewayPRPAIN201305UV02RequestType request = new RespondingGatewayPRPAIN201305UV02RequestType();
 
-        request.setPRPAIN201305UV02(createValidPRPAIN());
+        request.setPRPAIN201305UV02(createValidPRPAIN201305UV02());
         request.setAssertion(createValidAssertion());
         request.setNhinTargetCommunities(createValidNhinTargetCommunitiesType());
         return request;
     }
+    
+    
+   
+
+  
 
     /**
      * @return
@@ -300,7 +307,7 @@ public class PDTestUtils {
     /**
      * @return
      */
-    private PRPAIN201305UV02 createValidPRPAIN() {
+    private PRPAIN201305UV02 createValidPRPAIN201305UV02() {
         PRPAIN201305UV02 prpain = new PRPAIN201305UV02();
         prpain.setCreationTime(createValidCreationTime());
         prpain.setInteractionId(createValidInterationID());
@@ -314,6 +321,10 @@ public class PDTestUtils {
         return prpain;
     }
 
+
+    
+    
+    
     /**
      * @return
      */

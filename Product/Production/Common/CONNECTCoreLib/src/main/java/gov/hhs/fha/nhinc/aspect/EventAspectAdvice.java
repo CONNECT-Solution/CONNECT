@@ -26,30 +26,27 @@
  */
 package gov.hhs.fha.nhinc.aspect;
 
-import java.util.List;
-
-import javax.xml.ws.WebServiceContext;
-import javax.xml.ws.handler.MessageContext;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.apache.cxf.jaxws.context.WebServiceContextImpl;
-
 import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
 import gov.hhs.fha.nhinc.event.ContextEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.event.Event;
 import gov.hhs.fha.nhinc.event.EventDescriptionDirector;
 import gov.hhs.fha.nhinc.event.EventDescriptionJSONDecorator;
-import gov.hhs.fha.nhinc.event.EventFactory;
 import gov.hhs.fha.nhinc.event.EventManager;
 import gov.hhs.fha.nhinc.event.EventType;
 import gov.hhs.fha.nhinc.logging.transaction.dao.TransactionDAO;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+
+import java.util.List;
+
+import javax.xml.ws.WebServiceContext;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.apache.cxf.jaxws.context.WebServiceContextImpl;
 
 /**
  * @author zmelnick
- *
+ * 
  */
 public class EventAspectAdvice {
 
@@ -128,14 +125,51 @@ public class EventAspectAdvice {
         }
     }
 
-    private Event createEvent(String eventType) {
+    private Event createEvent(final String eventType) {
         WebServiceContext context = new WebServiceContextImpl();
 
-        String messageId = getMessageId(context);
-        String transactionId = getTransactionID(context, messageId);
-        String description = getDescription(context);
+        final String messageId = getMessageId(context);
+        final String transactionId = getTransactionID(context, messageId);
+        final String description = getDescription(context);
 
-        return EventFactory.getInstance().createEvent(eventType, messageId, transactionId, description);
+        return new Event() {
+
+            @Override
+            public String getDescription() {
+                return description;
+            }
+
+            @Override
+            public String getEventName() {
+                return eventType;
+            }
+
+            @Override
+            public String getMessageID() {
+                return messageId;
+            }
+
+            @Override
+            public String getTransactionID() {
+                return transactionId;
+            }
+
+            @Override
+            public void setTransactionID(String transactionID) {
+
+            }
+
+            @Override
+            public void setMessageID(String messageID) {
+
+            }
+
+            @Override
+            public void setDescription(String description) {
+
+            }
+
+        };
     }
 
     private String getMessageId(WebServiceContext context) {
@@ -160,11 +194,11 @@ public class EventAspectAdvice {
     @SuppressWarnings("unchecked")
     protected String getDescription(WebServiceContext context) {
         EventDescriptionDirector director = new EventDescriptionDirector();
-        director.setEventDescriptionBuilder(new ContextEventDescriptionBuilder(context));
-        
-        director.constructEvent();
-        
-        EventDescriptionJSONDecorator jsonDescorator = new EventDescriptionJSONDecorator(director.getPizza());
+        director.setEventDescriptionBuilder(new ContextEventDescriptionBuilder());
+
+        director.constructEventDescription();
+
+        EventDescriptionJSONDecorator jsonDescorator = new EventDescriptionJSONDecorator(director.getEventDescription());
 
         return jsonDescorator.toJSONString();
     }

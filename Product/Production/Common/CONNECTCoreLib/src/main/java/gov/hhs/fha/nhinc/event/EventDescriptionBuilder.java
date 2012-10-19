@@ -18,6 +18,6 @@ public interface EventDescriptionBuilder {
     
     public EventDescription getEventDescription();
     
-    public EventDescription createEventDescription();
+    public void createEventDescription();
 
 }

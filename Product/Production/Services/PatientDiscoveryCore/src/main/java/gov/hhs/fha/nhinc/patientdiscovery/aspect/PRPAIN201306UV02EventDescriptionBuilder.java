@@ -5,6 +5,7 @@ import org.hl7.v3.PRPAIN201306UV02;
 import gov.hhs.fha.nhinc.event.BaseEventDescription;
 import gov.hhs.fha.nhinc.event.BaseEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.event.EventDescription;
+import gov.hhs.fha.nhinc.event.EventDescriptionBuilder;
 
 public class PRPAIN201306UV02EventDescriptionBuilder implements EventDescriptionBuilder {
     
@@ -13,6 +14,7 @@ public class PRPAIN201306UV02EventDescriptionBuilder implements EventDescription
     
     public PRPAIN201306UV02EventDescriptionBuilder(BaseEventDescriptionBuilder builder, PRPAIN201306UV02 body) {
         this.decorated = builder;
+        this.body = body;
     }
 
     public void buildAction() {
@@ -68,8 +70,8 @@ public class PRPAIN201306UV02EventDescriptionBuilder implements EventDescription
         decorated.buildTransactionId();
     }
 
-    public EventDescription createEventDescription() {
-        return decorated.createEventDescription();
+    public void createEventDescription() {
+        decorated.createEventDescription();
     }
 
     public boolean equals(Object obj) {

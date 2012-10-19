@@ -10,12 +10,14 @@ import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.handler.MessageContext;
 
+import org.apache.cxf.jaxws.context.WebServiceContextImpl;
+
 public class ContextEventDescriptionBuilder extends BaseEventDescriptionBuilder {
 
     private WebServiceContext context;
 
-    public ContextEventDescriptionBuilder(WebServiceContext context) {
-        this.context = context;
+    public ContextEventDescriptionBuilder() {
+        this.context = new WebServiceContextImpl();
     }
 
     @Override

@@ -9,7 +9,7 @@
     <artifactId>PatientDiscovery_10</artifactId>
     <packaging>war</packaging>
     <name>CONNECT Gateway - ${project.artifactId}</name>
-    
+
     <dependencies>
         <dependency>
             <groupId>org.connectopensource</groupId>
@@ -47,10 +47,10 @@
             <version>${project.parent.version}</version>
         </dependency>
         <dependency>
-              <groupId>javax</groupId>
-              <artifactId>javaee-api</artifactId>
-              <scope>provided</scope>
-          </dependency>
+            <groupId>javax</groupId>
+            <artifactId>javaee-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
         <dependency>
             <groupId>commons-logging</groupId>
             <artifactId>commons-logging</artifactId>
@@ -92,6 +92,27 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-log4j12</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-all</artifactId>
+            <version>1.9.0</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-bundle</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>
