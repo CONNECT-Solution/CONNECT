@@ -1,21 +1,25 @@
 <web-app xmlns="http://geronimo.apache.org/xml/ns/j2ee/web-2.0.1"
-         xmlns:sys="http://geronimo.apache.org/xml/ns/deployment-1.2">
+         xmlns:sys="http://geronimo.apache.org/xml/ns/deployment-1.2"
+         xmlns:naming="http://geronimo.apache.org/xml/ns/naming-1.2">
 
-    <sys:environment>
-
-        <sys:moduleId>
-            <sys:groupId>CONNECT</sys:groupId>
-            <sys:artifactId>AdminDistribution</sys:artifactId>
-            <sys:version>2.0</sys:version>
-            <sys:type>war</sys:type>
-        </sys:moduleId>
-
-       
-
-        <sys:inverse-classloading/>
-
-    </sys:environment> 
+    <environment>
+        <moduleId>
+            <artifactId>AdminDistribution20</artifactId>
+        </moduleId>
+        
+        <dependencies>
+            <dependency>
+                <groupId>console.dbpool</groupId>
+                <artifactId>perfrepo_pool</artifactId>
+            </dependency>
+        </dependencies>
+        
+    </environment> 
     
     <context-root>Gateway/AdminDistribution/2_0</context-root>
-   
+
+    <naming:resource-ref>
+    	<naming:ref-name>jdbc/perfrepo_datasource</naming:ref-name>
+        <naming:resource-link>perfrepo_pool</naming:resource-link>
+    </naming:resource-ref>   
 </web-app>
