@@ -23,6 +23,10 @@
             <dependency>
                 <groupId>console.dbpool</groupId>
                 <artifactId>perfrepo_pool</artifactId>
+            </dependency>
+            <dependency>
+                <groupId>console.dbpool</groupId>
+                <artifactId>asyncmsgs_pool</artifactId>
             </dependency>            
         </dependencies>
         
@@ -49,5 +53,10 @@
     	<naming:ref-name>jdbc/perfrepo_datasource</naming:ref-name>
         <naming:resource-link>perfrepo_pool</naming:resource-link>
     </naming:resource-ref>
+    
+    <naming:resource-ref>
+    	<naming:ref-name>jdbc/asyncmsgs_datasource</naming:ref-name>
+        <naming:resource-link>asyncmsgs_pool</naming:resource-link>
+    </naming:resource-ref>    
    
 </web-app>

@@ -12,6 +12,14 @@
                 <groupId>console.dbpool</groupId>
                 <artifactId>auditrepo_pool</artifactId>
             </dependency>
+            <dependency>
+                <groupId>console.dbpool</groupId>
+                <artifactId>patientcorrelationdb_pool</artifactId>
+            </dependency>
+            <dependency>
+                <groupId>console.dbpool</groupId>
+                <artifactId>assigningauthoritydb_pool</artifactId>
+            </dependency>            
         </dependencies>
         
     </environment> 
@@ -22,5 +30,13 @@
     	<naming:ref-name>jdbc/auditrepo_datasource</naming:ref-name>
         <naming:resource-link>auditrepo_pool</naming:resource-link>
     </naming:resource-ref>
+    <naming:resource-ref>
+    	<naming:ref-name>jdbc/patientcorrelationdb_datasource</naming:ref-name>
+        <naming:resource-link>patientcorrelationdb_pool</naming:resource-link>
+    </naming:resource-ref>
+    <naming:resource-ref>
+    	<naming:ref-name>jdbc/assigningauthoritydb_datasource</naming:ref-name>
+        <naming:resource-link>assigningauthoritydb_pool</naming:resource-link>
+    </naming:resource-ref>    
    
 </web-app>
