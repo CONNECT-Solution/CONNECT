@@ -31,18 +31,29 @@ import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
 
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
+
+import gov.hhs.fha.nhinc.docsubmission.nhin.deferred.response.NhinDocSubmissionDeferredResponseOrchImpl;
+
 /**
  *
  * @author JHOPPESC
  */
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
-@Addressing(enabled=true)
+@Addressing(enabled = true)
 public class NhinXDRResponse20 implements ihe.iti.xdr._2007.XDRDeferredResponse20PortType {
+
     @Resource
     private WebServiceContext context;
+    private NhinDocSubmissionDeferredResponseOrchImpl orchImpl;
 
-    public void provideAndRegisterDocumentSetBDeferredResponse(javax.xml.ws.Holder<oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType> body) {
-        body.value = new NhinDocSubmissionDeferredResponseImpl20().provideAndRegisterDocumentSetBResponse(body.value, context);
+    @Override
+    public void provideAndRegisterDocumentSetBDeferredResponse(javax.xml.ws.Holder<RegistryResponseType> body) {
+        body.value = new NhinDocSubmissionDeferredResponseImpl20(orchImpl).provideAndRegisterDocumentSetBResponse(body.value,
+                context);
     }
 
+    public void setOrchestratorImpl(NhinDocSubmissionDeferredResponseOrchImpl orchImpl) {
+        this.orchImpl = orchImpl;
+    }
 }

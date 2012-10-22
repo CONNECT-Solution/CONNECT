@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans 
+            http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+            http://www.springframework.org/schema/aop
+            http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <description>Beans used for unit testing aspect j</description>
+
+    <!-- proxy-target-class="true" forces the use of CGLIB. This means proxying will be done by extending the target 
+        class listed in a bean def, instead of creating a wrapper that implements all of the interfaces. This is 
+        necessary since legacy code is generally tightly coupled. -->
+   
+    <aop:aspectj-autoproxy proxy-target-class="true"/>
+    
+    <bean id="patientDiscoveryEventAspect" class="gov.hhs.fha.nhinc.patientdiscovery.aspect.PatientDiscoveryEventAspect">
+     <property name="EventFactory" ref="eventfactory" /> 
+    </bean>
+    
+    <bean id="nhincProxyPatientDiscovery" class="gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.NhincProxyPatientDiscovery">
+        <constructor-arg ref="patientDiscoveryServiceFactory" />
+    </bean>
+
+    <bean id="patientDiscoveryServiceFactory" 
+          class="gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.NhincProxyPatientDiscoveryTest"
+          factory-method="getPatientDiscoveryServiceFactory" />
+
+  
+
+</beans>
