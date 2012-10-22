@@ -2,7 +2,7 @@
  * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
  * All rights reserved. 
  * Copyright (c) 2011, Conemaugh Valley Memorial Hospital
- 
+
  * This source is subject to the Conemaugh public license.  Please see the
  * license.txt file for more information.
  *
@@ -30,7 +30,6 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
-
 package universalclientgui;
 
 import com.sun.rave.web.ui.appbase.AbstractPageBean;
@@ -49,8 +48,6 @@ import gov.hhs.fha.nhinc.common.nhinccommon.QualifiedSubjectIdentifierType;
 import gov.hhs.fha.nhinc.common.patientcorrelationfacade.RetrievePatientCorrelationsRequestType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCommunityMapping;
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
-//import gov.hhs.fha.nhinc.connectmgr.data.CMHomeCommunity;
 import org.uddi.api_v3.BusinessEntity;
 import gov.hhs.fha.nhinc.mpi.adapter.component.proxy.AdapterComponentMpiProxy;
 import gov.hhs.fha.nhinc.mpi.adapter.component.proxy.AdapterComponentMpiProxyObjectFactory;
@@ -104,7 +101,6 @@ import org.hl7.v3.PRPAMT201310UV02OtherIDs;
 import org.hl7.v3.PRPAMT201310UV02Patient;
 import org.hl7.v3.TELExplicit;
 import org.hl7.v3.RetrievePatientCorrelationsResponseType;
-import gov.hhs.fha.nhinc.saml.creation.SAMLAssertionCreator;
 
 import java.util.StringTokenizer;
 
@@ -132,39 +128,30 @@ public class Page2 extends AbstractPageBean {
     private static final String PROPERTY_FILE_KEY_LOCAL_DEVICE = "localDeviceId";
     private static final String PROPERTY_FILE_KEY_SSA_OID = "ssa.oid";
     private static Log log = LogFactory.getLog(Page2.class);
-
     //dynamic stylesheet properties
     private static final String ADAPTER_PROPERTY_FILE = "adapter";
     private static final String C32_STYLE_SHEET_PROPERTY = "C32StyleSheet";
     private static String m_sPropertyFileDir = "";
     private static String m_sFileSeparator =
-                          System.getProperty("file.separator");
+        System.getProperty("file.separator");
     private static final String m_sFailedEnvVarMessage =
-                                "Unable to access environment variable: NHINC_PROPERTIES_DIR.";
+        "Unable to access environment variable: NHINC_PROPERTIES_DIR.";
     private static boolean m_bFailedToLoadEnvVar = false;
-
     private static final String HL7_DATE_FORMAT = "yyyyMMddHHmmss";
     private static final String REGULAR_DATE_FORMAT = "yyyyMMdd";
 
-    static
-    {
+    static {
         String sValue = PropertyAccessor.getInstance().getPropertyFileLocation();
 
-        if ((sValue != null) && (sValue.length() > 0))
-        {
+        if ((sValue != null) && (sValue.length() > 0)) {
             // Set it up so that we always have a "/" at the end - in case
             //------------------------------------------------------------
-            if ((sValue.endsWith("/")) || (sValue.endsWith("\\")))
-            {
+            if ((sValue.endsWith("/")) || (sValue.endsWith("\\"))) {
                 m_sPropertyFileDir = sValue;
-            }
-            else
-            {
+            } else {
                 m_sPropertyFileDir = sValue + m_sFileSeparator;
             }
-        }
-        else
-        {
+        } else {
             log.error(m_sFailedEnvVarMessage);
             m_bFailedToLoadEnvVar = true;
         }
@@ -268,7 +255,6 @@ public class Page2 extends AbstractPageBean {
     public void setMiddleInitialField(TextField tf) {
         this.middleInitialField = tf;
     }
-
     //Date of Birth calendar components
     private Calendar searchDateOfBirth = new Calendar();
 
@@ -278,9 +264,8 @@ public class Page2 extends AbstractPageBean {
     }
 
     public void setSearchDateOfBirth(Calendar c) {
-     this.searchDateOfBirth = c;
+        this.searchDateOfBirth = c;
     }
-
     private List<PatientSearchData> patientSearchDataList;
 
     public List<PatientSearchData> getPatientSearchDataList() {
@@ -289,11 +274,10 @@ public class Page2 extends AbstractPageBean {
     }
 
     public void setPatientSearchDataList(List<PatientSearchData> patientSearchDataList) {
-                       
+
         this.patientSearchDataList = patientSearchDataList;
         getSessionBean1().setPatientSearchDataList(patientSearchDataList);
     }
-
     private Hyperlink patientSelectIdLink = new Hyperlink();
 
     public Hyperlink getPatientSelectIdLink() {
@@ -303,19 +287,17 @@ public class Page2 extends AbstractPageBean {
     public void setPatientSelectIdLink(Hyperlink h) {
         this.patientSelectIdLink = h;
     }
-    
     private Hyperlink selectedDocumentID = new Hyperlink();
-    
 
     public Hyperlink getSelectedDocumentID() {
-  
+
         return selectedDocumentID;
     }
 
     public void setSelectedDocumentID(Hyperlink selectedDocumentID) {
-    
+
         this.selectedDocumentID = selectedDocumentID;
-       
+
     }
     // Subject Discovery Tab Bindings
     private StaticText subjectDiscoveryResultsInfo = new StaticText();
@@ -365,7 +347,6 @@ public class Page2 extends AbstractPageBean {
     public void setBroadcastInfo2(StaticText st) {
         this.broadcastInfo2 = st;
     }
-
     //service time calendar components
     private Calendar serviceTimeFromDate = new Calendar();
 
@@ -376,7 +357,6 @@ public class Page2 extends AbstractPageBean {
     public void setServiceTimeFromDate(Calendar c) {
         this.serviceTimeFromDate = c;
     }
-
     private Calendar serviceTimeToDate = new Calendar();
 
     public Calendar getServiceTimeToDate() {
@@ -386,8 +366,6 @@ public class Page2 extends AbstractPageBean {
     public void setServiceTimeToDate(Calendar c) {
         this.serviceTimeToDate = c;
     }
-
-    
     private StaticText errorMessage = new StaticText();
 
     public StaticText getErrorMessage() {
@@ -413,7 +391,6 @@ public class Page2 extends AbstractPageBean {
      */
     public Page2() {
     }
-
     private boolean isPostBack = false;
 
     /**
@@ -487,42 +464,35 @@ public class Page2 extends AbstractPageBean {
      */
     @Override
     public void prerender() {
-        
+
         //check for postback - if not postback, then calculate the initial view
-        if (!isPostBack)
-        {
+        if (!isPostBack) {
             log.debug("Page2:prerender() - retrieving login values from Page1 login...");
-       
+
             log.debug("Page2:prerender - patient id value from Page1 = " + getExternalContext().getRequestParameterMap().get("form1:hideEID"));
 
             //only execute when page2 does not postback...
-            if (getExternalContext().getRequestParameterMap().get("form1:hideEID")!= null && !getExternalContext().getRequestParameterMap().get("form1:hideEID").equals("standalone"))
-            {
+            if (getExternalContext().getRequestParameterMap().get("form1:hideEID") != null && !getExternalContext().getRequestParameterMap().get("form1:hideEID").equals("standalone")) {
                 //set the username session value - this indicates that it is a care portal user
-                if (getExternalContext().getRequestParameterMap().get("form1:nameField_field").toString() != null)
+                if (getExternalContext().getRequestParameterMap().get("form1:nameField_field").toString() != null) {
                     getSessionBean1().setUserName(getExternalContext().getRequestParameterMap().get("form1:nameField_field").toString());
+                }
 
-                if (getExternalContext().getRequestParameterMap().get("form1:hideEID").isEmpty())
-                {
+                if (getExternalContext().getRequestParameterMap().get("form1:hideEID").isEmpty()) {
                     //user is a careportal user who has already accessed the application and logged back in
                     initialDeactivateSubDiscTabAndDocTab();
-                }
-                else
-                {
+                } else {
                     //the login contains a patient id which indicates a first time care portal user
                     firstRunCarePortal(getExternalContext().getRequestParameterMap().get("form1:hideEID").toString());
                 }
-            }
-            else
-            {
+            } else {
                 initialDeactivateSubDiscTabAndDocTab();
             }
         }
     }
 
     @Override
-    protected void afterRenderResponse()
-    {
+    protected void afterRenderResponse() {
     }
 
     /**
@@ -574,32 +544,26 @@ public class Page2 extends AbstractPageBean {
         getSessionBean1().getPatientSearchDataList().clear();
 
         //send logout signal to Page1 and define user type
-        if (getSessionBean1().getUserName() != null)
-        {
-             getRequestBean1().setCarePortalUserFlag(getSessionBean1().getUserName());
-        }
-        else
-        {
-             getRequestBean1().setCarePortalUserFlag("standaloneUser");
+        if (getSessionBean1().getUserName() != null) {
+            getRequestBean1().setCarePortalUserFlag(getSessionBean1().getUserName());
+        } else {
+            getRequestBean1().setCarePortalUserFlag("standaloneUser");
         }
 
-        
+
         return loginDecision;
     }
-
     private String emptyDataMsg = "";
 
     //Set the empty data  message
-    public void setEmptyDataMsg(String msg)
-    {
+    public void setEmptyDataMsg(String msg) {
         emptyDataMsg = msg;
     }
 
     /**
      * Get the empty data  message
      */
-    public String getEmptyDataMsg()
-    {
+    public String getEmptyDataMsg() {
         return emptyDataMsg;
     }
 
@@ -609,61 +573,58 @@ public class Page2 extends AbstractPageBean {
         return null;
     }
 
-     protected PatientDiscoveryAuditLogger getPatientDiscoveryAuditLogger() {
+    protected PatientDiscoveryAuditLogger getPatientDiscoveryAuditLogger() {
         return new PatientDiscoveryAuditLogger();
     }
 
-     private  PRPAIN201306UV02 getPatientCarePortal(String pPatientId)
-     {
-          PRPAIN201306UV02 foundPatient = null;
+    private PRPAIN201306UV02 getPatientCarePortal(String pPatientId) {
+        PRPAIN201306UV02 foundPatient = null;
 
-          try {
-                    String assigningAuthId = PropertyAccessor.getInstance().getProperty(PROPERTY_FILE_NAME_ADAPTER, PROPERTY_FILE_KEY_ASSIGN_AUTH);
-                    String orgId = PropertyAccessor.getInstance().getProperty(PROPERTY_FILE_NAME_GATEWAY, PROPERTY_FILE_KEY_HOME_COMMUNITY);
-                    II patId = new II();
-                    patId.setExtension(pPatientId);
-                    patId.setRoot(orgId);
-                    PRPAMT201301UV02Patient patient = HL7PatientTransforms.create201301Patient(HL7PatientTransforms.create201301PatientPerson(null, null, null, null), patId);
-                    PRPAIN201305UV02 searchPat = HL7PRPA201305Transforms.createPRPA201305(patient, orgId, orgId, assigningAuthId);
+        try {
+            String assigningAuthId = PropertyAccessor.getInstance().getProperty(PROPERTY_FILE_NAME_ADAPTER, PROPERTY_FILE_KEY_ASSIGN_AUTH);
+            String orgId = PropertyAccessor.getInstance().getProperty(PROPERTY_FILE_NAME_GATEWAY, PROPERTY_FILE_KEY_HOME_COMMUNITY);
+            II patId = new II();
+            patId.setExtension(pPatientId);
+            patId.setRoot(orgId);
+            PRPAMT201301UV02Patient patient = HL7PatientTransforms.create201301Patient(HL7PatientTransforms.create201301PatientPerson(null, null, null, null), patId);
+            PRPAIN201305UV02 searchPat = HL7PRPA201305Transforms.createPRPA201305(patient, orgId, orgId, assigningAuthId);
 
-                    AdapterComponentMpiProxyObjectFactory mpiFactory = new AdapterComponentMpiProxyObjectFactory();
-                    AdapterComponentMpiProxy mpiProxy = mpiFactory.getAdapterComponentMpiProxy();
-                    AuthenticatedUserInfo authenticationInfo = Page1.getAuthenticationInfo();
-                    AssertionType oAssertion = authenticationInfo.getAssertions();
+            AdapterComponentMpiProxyObjectFactory mpiFactory = new AdapterComponentMpiProxyObjectFactory();
+            AdapterComponentMpiProxy mpiProxy = mpiFactory.getAdapterComponentMpiProxy();
+            AuthenticatedUserInfo authenticationInfo = Page1.getAuthenticationInfo();
+            AssertionType oAssertion = authenticationInfo.getAssertions();
 
-                    //before returning a response - make audit log entry
-                   log.debug("Log Audit entry for patient lookup request...");
-                   getPatientDiscoveryAuditLogger().auditAdapter201305(searchPat, oAssertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION + ": UC Patient Lookup");
+            //before returning a response - make audit log entry
+            log.debug("Log Audit entry for patient lookup request...");
+            getPatientDiscoveryAuditLogger().auditAdapter201305(searchPat, oAssertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION + ": UC Patient Lookup");
 
-                   foundPatient = mpiProxy.findCandidates(searchPat, oAssertion);
+            foundPatient = mpiProxy.findCandidates(searchPat, oAssertion);
 
-                   //now that result has been returned - make audit log entry
-                   log.debug("Log Audit entry for patient lookup response...");
-                   getPatientDiscoveryAuditLogger().auditAdapter201306(foundPatient, oAssertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION + ": UC Patient Lookup");
+            //now that result has been returned - make audit log entry
+            log.debug("Log Audit entry for patient lookup response...");
+            getPatientDiscoveryAuditLogger().auditAdapter201306(foundPatient, oAssertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION + ": UC Patient Lookup");
 
-          } catch (PropertyAccessException ex) {
-                log.error("Property file access problem: " + ex.getMessage());
-          }
+        } catch (PropertyAccessException ex) {
+            log.error("Property file access problem: " + ex.getMessage());
+        }
 
-          return foundPatient;
-     }
-     
-     private PatientSearchData setUpPatientData(PRPAIN201306UV02 patients)
-     {
-         PatientSearchData patientData = null;
-         try
-         {
-             List<Object> data = new ArrayList<Object>();
-             String assigningAuthId = PropertyAccessor.getInstance().getProperty(PROPERTY_FILE_NAME_ADAPTER, PROPERTY_FILE_KEY_ASSIGN_AUTH);
+        return foundPatient;
+    }
 
-           PRPAMT201310UV02Patient mpiPat = patients.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient();
-           List <PNExplicit> patientNames = null;
+    private PatientSearchData setUpPatientData(PRPAIN201306UV02 patients) {
+        PatientSearchData patientData = null;
+        try {
+            List<Object> data = new ArrayList<Object>();
+            String assigningAuthId = PropertyAccessor.getInstance().getProperty(PROPERTY_FILE_NAME_ADAPTER, PROPERTY_FILE_KEY_ASSIGN_AUTH);
+
+            PRPAMT201310UV02Patient mpiPat = patients.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient();
+            List<PNExplicit> patientNames = null;
 
             if (mpiPat.getPatientPerson() != null && mpiPat.getPatientPerson().getValue() != null &&
-                    mpiPat.getPatientPerson().getValue().getName() != null) {
+                mpiPat.getPatientPerson().getValue().getName() != null) {
                 patientNames = mpiPat.getPatientPerson().getValue().getName();
                 data.add(patientNames);
-                List <ADExplicit> addr = null;
+                List<ADExplicit> addr = null;
 
                 if (mpiPat.getPatientPerson().getValue().getAddr() != null) {
                     addr = mpiPat.getPatientPerson().getValue().getAddr();
@@ -684,11 +645,11 @@ public class Page2 extends AbstractPageBean {
                         if (ssnId.getId() != null && !ssnId.getId().isEmpty()) {
                             for (II idxId : ssnId.getId()) {
                                 if (idxId != null &&
-                                        idxId.getExtension() != null &&
-                                        idxId.getRoot() != null) {
+                                    idxId.getExtension() != null &&
+                                    idxId.getRoot() != null) {
                                     if (ssaOid.equals(idxId.getRoot())) {
                                         resultPatientSSN = idxId.getExtension();
-                                        tempResultPatientSSN = "XXX-XX-"+idxId.getExtension().substring(idxId.getExtension().length()-4);
+                                        tempResultPatientSSN = "XXX-XX-" + idxId.getExtension().substring(idxId.getExtension().length() - 4);
                                         log.debug(resultPatientSSN + " found with SSA Authority: " + idxId.getRoot());
                                     }
                                 }
@@ -701,7 +662,7 @@ public class Page2 extends AbstractPageBean {
                 //extract DOB
                 String resultPatientDOB = "";
                 if (mpiPat.getPatientPerson().getValue().getBirthTime() != null &&
-                        mpiPat.getPatientPerson().getValue().getBirthTime().getValue() != null) {
+                    mpiPat.getPatientPerson().getValue().getBirthTime().getValue() != null) {
                     resultPatientDOB = mpiPat.getPatientPerson().getValue().getBirthTime().getValue();
                 }
                 data.add(resultPatientDOB);
@@ -709,13 +670,13 @@ public class Page2 extends AbstractPageBean {
                 //extract Gender
                 String resultPatientGender = "";
                 if (mpiPat.getPatientPerson().getValue().getAdministrativeGenderCode() != null &&
-                        mpiPat.getPatientPerson().getValue().getAdministrativeGenderCode().getCode() != null) {
+                    mpiPat.getPatientPerson().getValue().getAdministrativeGenderCode().getCode() != null) {
                     resultPatientGender = mpiPat.getPatientPerson().getValue().getAdministrativeGenderCode().getCode();
                 }
                 data.add(resultPatientGender);
 
                 //extract phone number
-                List <TELExplicit> telno = null;
+                List<TELExplicit> telno = null;
                 if (mpiPat.getPatientPerson().getValue().getTelecom() != null) {
                     telno = mpiPat.getPatientPerson().getValue().getTelecom();
                 }
@@ -734,7 +695,7 @@ public class Page2 extends AbstractPageBean {
                     if (name.getGivenName() != null) {
 
                         if (mpiPat.getPatientPerson().getValue().getName() != null) {
-                        //have to distinguish first name from middle name
+                            //have to distinguish first name from middle name
                             List<PNExplicit> fNameList = mpiPat.getPatientPerson().getValue().getName();
 
                             for (PNExplicit nameId : fNameList) {
@@ -757,7 +718,7 @@ public class Page2 extends AbstractPageBean {
                                         }
 
                                     }
-                                     patientFirstName = tempList.get(0);
+                                    patientFirstName = tempList.get(0);
                                 }
                             }
                         }
@@ -774,18 +735,17 @@ public class Page2 extends AbstractPageBean {
                 getSessionBean1().setFoundPatient(patientData);
 
             }
-                } catch (PropertyAccessException ex) {
-                log.error("Property file access problem: " + ex.getMessage());
-          }
-                            
+        } catch (PropertyAccessException ex) {
+            log.error("Property file access problem: " + ex.getMessage());
+        }
+
         return patientData;
     }
 
-     private void firstRunCarePortal(String pPatientId)
-     {
+    private void firstRunCarePortal(String pPatientId) {
         //Determined this is first run for user coming from care portal
 
-         PRPAIN201306UV02 patients = getPatientCarePortal(pPatientId);
+        PRPAIN201306UV02 patients = getPatientCarePortal(pPatientId);
 
         this.getPatientSearchDataList().clear();
         this.patientInfo.setText("");
@@ -796,110 +756,112 @@ public class Page2 extends AbstractPageBean {
             String assigningAuthId = PropertyAccessor.getInstance().getProperty(PROPERTY_FILE_NAME_ADAPTER, PROPERTY_FILE_KEY_ASSIGN_AUTH);
             String orgId = PropertyAccessor.getInstance().getProperty(PROPERTY_FILE_NAME_GATEWAY, PROPERTY_FILE_KEY_HOME_COMMUNITY);
 
-            if(patients!=null&& patients.getControlActProcess()!=null&&
-                   patients.getControlActProcess().getSubject()!=null&&
-                   patients.getControlActProcess().getSubject().get(0)!=null&&
-                   patients.getControlActProcess().getSubject().get(0).getRegistrationEvent()!=null&&
-                   patients.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1()!=null&&
-                   patients.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient()!=null&&
-                   patients.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId()!=null&&
-                   patients.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId().get(0)!=null) {
+            if (patients != null && patients.getControlActProcess() != null &&
+                patients.getControlActProcess().getSubject() != null &&
+                patients.getControlActProcess().getSubject().get(0) != null &&
+                patients.getControlActProcess().getSubject().get(0).getRegistrationEvent() != null &&
+                patients.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1() != null &&
+                patients.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient() != null &&
+                patients.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId() != null &&
+                patients.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId().get(0) != null) {
 
                 //set up display for page2 search member page
-               PatientSearchData patientData = setUpPatientData(patients);
+                PatientSearchData patientData = setUpPatientData(patients);
 
-               PRPAMT201310UV02Patient mpiPat = patients.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient();
+                PRPAMT201310UV02Patient mpiPat = patients.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient();
 
                 if (mpiPat.getPatientPerson() != null && mpiPat.getPatientPerson().getValue() != null &&
-                        mpiPat.getPatientPerson().getValue().getName() != null) {
+                    mpiPat.getPatientPerson().getValue().getName() != null) {
                     setPatientDiscoveryInfo(patientData);
                 }
 
-               initialActivateSubDiscTabAndDocTab();
-               this.getClientTabSet().setSelected("subjectDiscoveryTab");
-           } else {
+                initialActivateSubDiscTabAndDocTab();
+                this.getClientTabSet().setSelected("subjectDiscoveryTab");
+            } else {
                 log.error("No MPI candidates where found matching Patient ID: " + pPatientId + " org: " + orgId + " assigning authority: " + assigningAuthId);
                 this.patientInfo.setText("No MPI candidates where found matching Patient ID: " + pPatientId + " org: " + orgId + " assigning authority: " + assigningAuthId);
 
                 initialDeactivateSubDiscTabAndDocTab();
-           }
+            }
         } catch (PropertyAccessException ex) {
             log.error("Property file access problem: " + ex.getMessage());
         }
-     }
+    }
 
-     private void setPatientDiscoveryInfo(PatientSearchData patientData)
-     {
-      //Clear the document search results
-                            setBean("DocumentQueryResults", new DocumentQueryResults());
+    private void setPatientDiscoveryInfo(PatientSearchData patientData) {
+        //Clear the document search results
+        setBean("DocumentQueryResults", new DocumentQueryResults());
 
-                            StringBuffer discoverInfoBuf = new StringBuffer();
-                            for (PatientSearchData testPatient : getPatientSearchDataList()) {
+        StringBuffer discoverInfoBuf = new StringBuffer();
+        for (PatientSearchData testPatient : getPatientSearchDataList()) {
 
-                                getSessionBean1().setFoundPatient(testPatient);
-                                patientData = testPatient;
+            getSessionBean1().setFoundPatient(testPatient);
+            patientData = testPatient;
 
-                                discoverInfoBuf.append("Name: ");
-                                if (patientData.getNames() != null) {
-                                    PersonNameType name = HL7Extractors.translatePNListtoPersonNameType((List <PNExplicit>)patientData.getNames());
-                                    if (name.getFamilyName() != null) {
-                                        //last name
-                                        discoverInfoBuf.append(name.getFamilyName() + ", ");
-                                    }
-                                    if (name.getGivenName() != null) {
-                                        //first name
-                                        //discoverInfoBuf.append(name.getGivenName());
-                                        discoverInfoBuf.append(patientData.getFirstName() + " ");
-                                    }
-                                }
+            discoverInfoBuf.append("Name: ");
+            if (patientData.getNames() != null) {
+                PersonNameType name = HL7Extractors.translatePNListtoPersonNameType((List<PNExplicit>) patientData.getNames());
+                if (name.getFamilyName() != null) {
+                    //last name
+                    discoverInfoBuf.append(name.getFamilyName());
+                    discoverInfoBuf.append(", ");
+                }
+                if (name.getGivenName() != null) {
+                    //first name
+                    discoverInfoBuf.append(patientData.getFirstName());
+                    discoverInfoBuf.append( " ");
+                }
+            }
 
-                                discoverInfoBuf.append("ID: ");
-                                if (!patientData.getPatientId().toString().isEmpty()) {
-                                    discoverInfoBuf.append(patientData.getPatientId() + " ");
-                                }
-                                discoverInfoBuf.append("SSN: ");
-                                if (!patientData.getSsn().toString().isEmpty()) {
-                                    discoverInfoBuf.append(patientData.getDisplaySsn() + " ");
-                                }
-                                discoverInfoBuf.append("DOB: ");
-                                if (!patientData.getDob().toString().isEmpty()) {
-                                    discoverInfoBuf.append(patientData.getDob() + " ");
-                                }
-                                discoverInfoBuf.append("Gender: ");
-                                if (!patientData.getGender().toString().isEmpty()) {
-                                    discoverInfoBuf.append(patientData.getGender() + " ");
-                                }
-                                this.patientInfo.setText(discoverInfoBuf.toString());
+            discoverInfoBuf.append("ID: ");
+            if (!patientData.getPatientId().toString().isEmpty()) {
+                discoverInfoBuf.append(patientData.getPatientId());
+                discoverInfoBuf.append(" ");
+            }
+            discoverInfoBuf.append("SSN: ");
+            if (!patientData.getSsn().toString().isEmpty()) {
+                discoverInfoBuf.append(patientData.getDisplaySsn());
+                discoverInfoBuf.append(" ");
+            }
+            discoverInfoBuf.append("DOB: ");
+            if (!patientData.getDob().toString().isEmpty()) {
+                discoverInfoBuf.append(patientData.getDob());
+                discoverInfoBuf.append(" ");
+            }
+            discoverInfoBuf.append("Gender: ");
+            if (!patientData.getGender().toString().isEmpty()) {
+                discoverInfoBuf.append(patientData.getGender());
+                discoverInfoBuf.append(" ");
+            }
+            this.patientInfo.setText(discoverInfoBuf.toString());
 
-                                SearchData searchData = (SearchData) getBean("SearchData");
-                                searchData.setPatientID(patientData.getPatientId().toString());
-                            }
+            SearchData searchData = (SearchData) getBean("SearchData");
+            searchData.setPatientID(patientData.getPatientId().toString());
+        }
 
 
-     }
+    }
 
-     private void initialActivateSubDiscTabAndDocTab()
-     {
-         if(getSubjectDiscoveryTab()!=null) {
+    private void initialActivateSubDiscTabAndDocTab() {
+        if (getSubjectDiscoveryTab() != null) {
             this.getSubjectDiscoveryTab().setStyle("font-family: 'Times New Roman',Times,serif; font-size: 14px");
         }
         initializeSubjectDiscoveryTab();
-        if(getDocumentTab()!=null) {
+        if (getDocumentTab() != null) {
             this.getDocumentTab().setStyle("font-family: 'Times New Roman',Times,serif; font-size: 14px");
         }
-     }
+    }
 
-     private void initialDeactivateSubDiscTabAndDocTab()
-     {
-         if(getSubjectDiscoveryTab()!=null) {
+    private void initialDeactivateSubDiscTabAndDocTab() {
+        if (getSubjectDiscoveryTab() != null) {
             this.getSubjectDiscoveryTab().setStyle("color: gray; font-family: 'Times New Roman',Times,serif; font-size: 14px");
             this.getSubjectDiscoveryTab().setDisabled(true);
         }
-        if(getDocumentTab()!=null) {
+        if (getDocumentTab() != null) {
             this.getDocumentTab().setStyle("color: gray; font-family: 'Times New Roman',Times,serif; font-size: 14px");
             this.getDocumentTab().setDisabled(true);
         }
-     }
+    }
 
     public String patientSearchButton_action() {
 
@@ -921,10 +883,9 @@ public class Page2 extends AbstractPageBean {
         String middleInitial = (String) middleInitialField.getText();
         String dateOfBirth = null;
 
-        if(searchDateOfBirth !=null&& searchDateOfBirth.getSelectedDate()!=null)
-        {
-            dateOfBirth = formatDate(searchDateOfBirth.getSelectedDate(),REGULAR_DATE_FORMAT);
-        } 
+        if (searchDateOfBirth != null && searchDateOfBirth.getSelectedDate() != null) {
+            dateOfBirth = formatDate(searchDateOfBirth.getSelectedDate(), REGULAR_DATE_FORMAT);
+        }
 
         try {
             String assigningAuthId = PropertyAccessor.getInstance().getProperty(PROPERTY_FILE_NAME_ADAPTER, PROPERTY_FILE_KEY_ASSIGN_AUTH);
@@ -935,15 +896,18 @@ public class Page2 extends AbstractPageBean {
             boolean isLastNameAvail = false;
 
             if (firstName != null && !firstName.isEmpty()) {
-                searchInfoBuf.append(firstName + " ");
+                searchInfoBuf.append(firstName);
+                searchInfoBuf.append(" ");
                 isFirstNameAvail = true;
             }
             if (lastName != null && !lastName.isEmpty()) {
-                searchInfoBuf.append(lastName + " ");
+                searchInfoBuf.append(lastName);
+                searchInfoBuf.append(" ");
                 isLastNameAvail = true;
             }
             if (dateOfBirth != null) {
-                searchInfoBuf.append(dateOfBirth + " ");
+                searchInfoBuf.append(dateOfBirth);
+                searchInfoBuf.append(" ");
             }
 
             if (isFirstNameAvail || isLastNameAvail) {
@@ -951,7 +915,6 @@ public class Page2 extends AbstractPageBean {
 
                 II patId = new II();
                 patId.setRoot(assigningAuthId);
-                //HL7PatientTransforms.create201301PatientPerson(null, null, null, null)
 
                 PNExplicit patname = null;
 
@@ -962,12 +925,12 @@ public class Page2 extends AbstractPageBean {
                 TSExplicit bday = null;
                 bday = HL7DataTransformHelper.TSExplicitFactory(dateOfBirth);
 
-                             
 
-            //    PRPAMT201301UV02Patient patient = HL7PatientTransforms.create201301Patient(HL7PatientTransforms.create201301PatientPerson(firstName, middleInitial, lastName, null, dateOfBirth, null), patId);
+
+                //    PRPAMT201301UV02Patient patient = HL7PatientTransforms.create201301Patient(HL7PatientTransforms.create201301PatientPerson(firstName, middleInitial, lastName, null, dateOfBirth, null), patId);
                 PRPAMT201301UV02Patient patient = HL7PatientTransforms.create201301Patient(HL7PatientTransforms.create201301PatientPerson(patname, null, bday, null), patId);
                 PRPAIN201305UV02 searchPat = HL7PRPA201305Transforms.createPRPA201305(patient, orgId, orgId, assigningAuthId);
-         
+
                 AdapterComponentMpiProxyObjectFactory mpiFactory = new AdapterComponentMpiProxyObjectFactory();
                 AdapterComponentMpiProxy mpiProxy = mpiFactory.getAdapterComponentMpiProxy();
                 AuthenticatedUserInfo authenticationInfo = Page1.getAuthenticationInfo();
@@ -991,9 +954,9 @@ public class Page2 extends AbstractPageBean {
                     //loop through search results cand create Patient object for each result
                     for (PRPAIN201306UV02MFMIMT700711UV01Subject1 subject1 : subjectList) {
                         if (subject1 != null &&
-                                subject1.getRegistrationEvent() != null &&
-                                subject1.getRegistrationEvent().getSubject1() != null &&
-                                subject1.getRegistrationEvent().getSubject1().getPatient() != null) {
+                            subject1.getRegistrationEvent() != null &&
+                            subject1.getRegistrationEvent().getSubject1() != null &&
+                            subject1.getRegistrationEvent().getSubject1().getPatient() != null) {
                             PRPAMT201310UV02Patient mpiPat = subject1.getRegistrationEvent().getSubject1().getPatient();
 
                             mpiPatResultList.add(mpiPat);
@@ -1003,35 +966,21 @@ public class Page2 extends AbstractPageBean {
                         List<Object> data = null;
                         for (PRPAMT201310UV02Patient resultPatient : mpiPatResultList) {
 
-                             data = new ArrayList<Object>();
+                            data = new ArrayList<Object>();
 
                             //extract multiple names
-                            List <PNExplicit> patientNames = null;
+                            List<PNExplicit> patientNames = null;
 
-                            if (resultPatient.getPatientPerson() != null && resultPatient.getPatientPerson().getValue() != null && resultPatient.getPatientPerson().getValue().getName() != null)
-                            {
+                            if (resultPatient.getPatientPerson() != null && resultPatient.getPatientPerson().getValue() != null && resultPatient.getPatientPerson().getValue().getName() != null) {
                                 patientNames = resultPatient.getPatientPerson().getValue().getName();
-                            
-                            data.add(patientNames);
+
+                                data.add(patientNames);
 
                                 //extract Address
-                                List <ADExplicit> addr = null;
-                                if (resultPatient.getPatientPerson().getValue().getAddr() != null)
-                                {
+                                List<ADExplicit> addr = null;
+                                if (resultPatient.getPatientPerson().getValue().getAddr() != null) {
                                     addr = resultPatient.getPatientPerson().getValue().getAddr();
                                     log.debug("**********addr size =" + addr.size());
-                                 /*   for (int i = 0; i < addr.get(0).getContent().size(); i++) {
-                                      JAXBElement o = (JAXBElement) addr.get(0).getContent().get(i);
-                                      if (o != null && o.getValue() != null)
-                                      {
-                                          log.debug("**********object has className=" + o.getValue().getClass().getName());
-                                          if (o.getValue().getClass().getName().equals("org.hl7.v3.AdxpExplicitPostalCode")) {
-                                            org.hl7.v3.AdxpExplicitPostalCode ob = ( org.hl7.v3.AdxpExplicitPostalCode) o.getValue();
-                                            log.debug("Postal Code = " + ob.getContent());
-                                              break;
-                                          }
-                                       }
-                                    } */
                                 }
                                 data.add(addr);
 
@@ -1041,8 +990,8 @@ public class Page2 extends AbstractPageBean {
                                 if (resultPatient.getId() != null && !resultPatient.getId().isEmpty()) {
                                     for (II idxId : resultPatient.getId()) {
                                         if (idxId != null &&
-                                                idxId.getExtension() != null &&
-                                                idxId.getRoot() != null) {
+                                            idxId.getExtension() != null &&
+                                            idxId.getRoot() != null) {
                                             // Get the assigning authority of the patient
                                             patientOrgAssigningAuthorityID = idxId.getRoot();
                                             if (assigningAuthId.equals(idxId.getRoot())) {
@@ -1064,11 +1013,11 @@ public class Page2 extends AbstractPageBean {
                                         if (ssnId.getId() != null && !ssnId.getId().isEmpty()) {
                                             for (II idxId : ssnId.getId()) {
                                                 if (idxId != null &&
-                                                        idxId.getExtension() != null &&
-                                                        idxId.getRoot() != null) {
+                                                    idxId.getExtension() != null &&
+                                                    idxId.getRoot() != null) {
                                                     if (ssaOid.equals(idxId.getRoot())) {
                                                         resultPatientSSN = idxId.getExtension();
-                                                        tempResultPatientSSN = "XXX-XX-"+idxId.getExtension().substring(idxId.getExtension().length()-4);
+                                                        tempResultPatientSSN = "XXX-XX-" + idxId.getExtension().substring(idxId.getExtension().length() - 4);
                                                         log.debug(resultPatientSSN + " found with SSA Authority: " + idxId.getRoot());
                                                     }
                                                 }
@@ -1081,7 +1030,7 @@ public class Page2 extends AbstractPageBean {
                                 //extract DOB
                                 String resultPatientDOB = "";
                                 if (resultPatient.getPatientPerson().getValue().getBirthTime() != null &&
-                                        resultPatient.getPatientPerson().getValue().getBirthTime().getValue() != null) {
+                                    resultPatient.getPatientPerson().getValue().getBirthTime().getValue() != null) {
                                     resultPatientDOB = resultPatient.getPatientPerson().getValue().getBirthTime().getValue();
                                 }
                                 data.add(resultPatientDOB);
@@ -1089,75 +1038,71 @@ public class Page2 extends AbstractPageBean {
                                 //extract Gender
                                 String resultPatientGender = "";
                                 if (resultPatient.getPatientPerson().getValue().getAdministrativeGenderCode() != null &&
-                                        resultPatient.getPatientPerson().getValue().getAdministrativeGenderCode().getCode() != null) {
+                                    resultPatient.getPatientPerson().getValue().getAdministrativeGenderCode().getCode() != null) {
                                     resultPatientGender = resultPatient.getPatientPerson().getValue().getAdministrativeGenderCode().getCode();
                                 }
                                 data.add(resultPatientGender);
 
                                 //extract phone number
-                                List <TELExplicit> telno = null;
-                                if (resultPatient.getPatientPerson().getValue().getTelecom() != null)
-                                {
+                                List<TELExplicit> telno = null;
+                                if (resultPatient.getPatientPerson().getValue().getTelecom() != null) {
                                     telno = resultPatient.getPatientPerson().getValue().getTelecom();
                                 }
                                 data.add(telno);
 
                                 //used for display purposes
-                               if (resultPatient.getPatientPerson() != null &&
+                                if (resultPatient.getPatientPerson() != null &&
                                     resultPatient.getPatientPerson().getValue() != null &&
                                     resultPatient.getPatientPerson().getValue().getName() != null) {
-                                String patientLastName = "";
-                                String patientFirstName = "";
-                                PersonNameType name = HL7Extractors.translatePNListtoPersonNameType(resultPatient.getPatientPerson().getValue().getName());
+                                    String patientLastName = "";
+                                    String patientFirstName = "";
+                                    PersonNameType name = HL7Extractors.translatePNListtoPersonNameType(resultPatient.getPatientPerson().getValue().getName());
 
-                                if (name.getFamilyName() != null) {
+                                    if (name.getFamilyName() != null) {
 
-                                   patientLastName = name.getFamilyName();
+                                        patientLastName = name.getFamilyName();
 
-                                }
-                                if (name.getGivenName() != null) {
+                                    }
+                                    if (name.getGivenName() != null) {
 
-                                    if (resultPatient.getPatientPerson().getValue().getName() != null) {
+                                        if (resultPatient.getPatientPerson().getValue().getName() != null) {
 
-                                        //have to distinguish first name from middle name
-                                        List<PNExplicit> fNameList = resultPatient.getPatientPerson().getValue().getName();
+                                            //have to distinguish first name from middle name
+                                            List<PNExplicit> fNameList = resultPatient.getPatientPerson().getValue().getName();
 
 
-                                        for (PNExplicit nameId : fNameList)
-                                        {
-                                            if (nameId.getContent() != null && !nameId.getContent().isEmpty()) {
+                                            for (PNExplicit nameId : fNameList) {
+                                                if (nameId.getContent() != null && !nameId.getContent().isEmpty()) {
 
-                                                List<Serializable> choice = nameId.getContent();
-                                                Iterator<Serializable> iterSerialObjects = choice.iterator();
+                                                    List<Serializable> choice = nameId.getContent();
+                                                    Iterator<Serializable> iterSerialObjects = choice.iterator();
 
-                                                 List<String> tempList = new ArrayList();
+                                                    List<String> tempList = new ArrayList();
 
-                                                while (iterSerialObjects.hasNext()) {
-                                                    Serializable contentItem = iterSerialObjects.next();
+                                                    while (iterSerialObjects.hasNext()) {
+                                                        Serializable contentItem = iterSerialObjects.next();
 
-                                                    if (contentItem instanceof JAXBElement) {
-                                                        JAXBElement oJAXBElement = (JAXBElement) contentItem;
-                                                        log.debug("Found JAXBElement");
-                                                        if (oJAXBElement.getValue() instanceof EnExplicitGiven) {
+                                                        if (contentItem instanceof JAXBElement) {
+                                                            JAXBElement oJAXBElement = (JAXBElement) contentItem;
+                                                            log.debug("Found JAXBElement");
+                                                            if (oJAXBElement.getValue() instanceof EnExplicitGiven) {
 
-                                                            //add to array List
-                                                            tempList.add(((EnExplicitGiven) oJAXBElement.getValue()).getContent());
+                                                                //add to array List
+                                                                tempList.add(((EnExplicitGiven) oJAXBElement.getValue()).getContent());
+                                                            }
                                                         }
+
                                                     }
 
+                                                    patientFirstName = tempList.get(0);
+
                                                 }
-
-                                                 patientFirstName = tempList.get(0);
-
                                             }
                                         }
                                     }
-                                                                      
-                                 //   patientFirstName = name.getGivenName();
+                                    data.add(patientLastName);
+                                    data.add(patientFirstName);
                                 }
-                                data.add(patientLastName);
-                                data.add(patientFirstName);
-                               }
 
                                 data.add(tempResultPatientSSN);
                                 //add patient Object
@@ -1167,7 +1112,7 @@ public class Page2 extends AbstractPageBean {
                                 PatientSearchData patientData = new PatientSearchData(data);
                                 patientData.setAssigningAuthorityID(patientOrgAssigningAuthorityID);
                                 this.getPatientSearchDataList().add(patientData);
-                                
+
 
                             } else {
                                 log.error("Subject patientPerson has no name data.");
@@ -1198,12 +1143,11 @@ public class Page2 extends AbstractPageBean {
         boolean isValid = true;
 
         //check to see if there is a null calendar value
-        if (middleInitialField !=null &&middleInitialField.getText()!=null &&middleInitialField.getText()!="")
-        {
-            log.info("middle initial "+middleInitialField.getText()+".");
-            if(!Character.isLetter(((String)middleInitialField.getText()).charAt(0))){
+        if (middleInitialField.getText() != null && middleInitialField.getText() != "") {
+            log.info("middle initial " + middleInitialField.getText() + ".");
+            if (!Character.isLetter(((String) middleInitialField.getText()).charAt(0))) {
                 message.append("Please enter valid Middle Initial ");
-                isValid=false;
+                isValid = false;
             }
         }
 
@@ -1226,70 +1170,55 @@ public class Page2 extends AbstractPageBean {
         StringBuffer discoverInfoBuf = new StringBuffer();
         for (PatientSearchData testPatient : getPatientSearchDataList()) {
             if (testPatient.getPatientId().equals(matchPatientId)) {
-                
+
                 log.debug("Match for patient " + matchPatientId + " found in PatientSearchDataList!");
 
                 getSessionBean1().setFoundPatient(testPatient);
                 foundPatient = testPatient;
 
                 discoverInfoBuf.append("Name: ");
-                if (foundPatient.getNames() != null)
-                {
+                if (foundPatient.getNames() != null) {
 
-                    PersonNameType name = HL7Extractors.translatePNListtoPersonNameType((List <PNExplicit>)foundPatient.getNames());
+                    PersonNameType name = HL7Extractors.translatePNListtoPersonNameType((List<PNExplicit>) foundPatient.getNames());
                     if (name.getFamilyName() != null) {
                         //last name
-                        discoverInfoBuf.append(name.getFamilyName() + ", ");
+                        discoverInfoBuf.append(name.getFamilyName());
+                        discoverInfoBuf.append(", ");
                     }
                     if (name.getGivenName() != null) {
                         //first name
                         //discoverInfoBuf.append(name.getGivenName());
-                        discoverInfoBuf.append(testPatient.getFirstName() + " ");
+                        discoverInfoBuf.append(testPatient.getFirstName());
+                        discoverInfoBuf.append(" ");
                     }
                 }
-              /*  if (!foundPatient.getLastName().isEmpty()) {
-                    discoverInfoBuf.append(foundPatient.getLastName() + ", ");
-                }
-                if (!foundPatient.getFirstName().isEmpty()) {
-                    discoverInfoBuf.append(foundPatient.getFirstName() + " ");
-                }
-              */
 
                 //check for address
-                List <ADExplicit> addr = null;
-                if (testPatient.getAddress() != null)
-                {
-                    addr = (List <ADExplicit>)testPatient.getAddress();
+                List<ADExplicit> addr = null;
+                if (testPatient.getAddress() != null) {
+                    addr = (List<ADExplicit>) testPatient.getAddress();
                     log.debug("******Address list size = " + addr.size());
-
-              //      for (int i = 0; i < addr.get(0).getContent().size(); i++) {
-              //      JAXBElement o = (JAXBElement) addr.get(0).getContent().get(i);
-              //      if (o != null && o.getValue() != null) {
-              //      log.debug("**********object has className=" + o.getValue().getClass().getName());
-              //      if (o.getValue().getClass().getName().equals("org.hl7.v3.AdxpExplicitPostalCode")) {
-              //      org.hl7.v3.AdxpExplicitPostalCode ob = ( org.hl7.v3.AdxpExplicitPostalCode) o.getValue();
-               //     log.debug("Postal Code = " + ob.getContent());
-               //      break;
-               //}
-           //}
-            //        }
                 }
 
-               discoverInfoBuf.append("ID: ");
+                discoverInfoBuf.append("ID: ");
                 if (!foundPatient.getPatientId().toString().isEmpty()) {
-                    discoverInfoBuf.append(foundPatient.getPatientId() + " ");
+                    discoverInfoBuf.append(foundPatient.getPatientId());
+                    discoverInfoBuf.append(" ");
                 }
                 discoverInfoBuf.append("SSN: ");
                 if (!foundPatient.getSsn().toString().isEmpty()) {
-                    discoverInfoBuf.append(foundPatient.getDisplaySsn() + " ");
+                    discoverInfoBuf.append(foundPatient.getDisplaySsn());
+                    discoverInfoBuf.append(" ");
                 }
                 discoverInfoBuf.append("DOB: ");
                 if (!foundPatient.getDob().toString().isEmpty()) {
-                    discoverInfoBuf.append(foundPatient.getDob() + " ");
+                    discoverInfoBuf.append(foundPatient.getDob());
+                    discoverInfoBuf.append(" ");
                 }
                 discoverInfoBuf.append("Gender: ");
                 if (!foundPatient.getGender().toString().isEmpty()) {
-                    discoverInfoBuf.append(foundPatient.getGender() + " ");
+                    discoverInfoBuf.append(foundPatient.getGender());
+                    discoverInfoBuf.append(" ");
                 }
                 this.patientInfo.setText(discoverInfoBuf.toString());
 
@@ -1371,14 +1300,14 @@ public class Page2 extends AbstractPageBean {
         List<QualifiedSubjectIdentifierType> retrievedPatCorrList = new ArrayList<QualifiedSubjectIdentifierType>();
 
         if (response != null &&
-                response.getPRPAIN201310UV02() != null &&
-                response.getPRPAIN201310UV02().getControlActProcess() != null &&
-                NullChecker.isNotNullish(response.getPRPAIN201310UV02().getControlActProcess().getSubject()) &&
-                response.getPRPAIN201310UV02().getControlActProcess().getSubject().get(0) != null &&
-                response.getPRPAIN201310UV02().getControlActProcess().getSubject().get(0).getRegistrationEvent() != null &&
-                response.getPRPAIN201310UV02().getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1() != null &&
-                response.getPRPAIN201310UV02().getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient() != null &&
-                NullChecker.isNotNullish(response.getPRPAIN201310UV02().getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId())) {
+            response.getPRPAIN201310UV02() != null &&
+            response.getPRPAIN201310UV02().getControlActProcess() != null &&
+            NullChecker.isNotNullish(response.getPRPAIN201310UV02().getControlActProcess().getSubject()) &&
+            response.getPRPAIN201310UV02().getControlActProcess().getSubject().get(0) != null &&
+            response.getPRPAIN201310UV02().getControlActProcess().getSubject().get(0).getRegistrationEvent() != null &&
+            response.getPRPAIN201310UV02().getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1() != null &&
+            response.getPRPAIN201310UV02().getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient() != null &&
+            NullChecker.isNotNullish(response.getPRPAIN201310UV02().getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId())) {
             for (II id : response.getPRPAIN201310UV02().getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId()) {
                 QualifiedSubjectIdentifierType subId = new QualifiedSubjectIdentifierType();
                 subId.setAssigningAuthorityIdentifier(id.getRoot());
@@ -1391,7 +1320,7 @@ public class Page2 extends AbstractPageBean {
                     String remoteAssigningAuth = qualSubject.getAssigningAuthorityIdentifier();
                     String remotePatientId = qualSubject.getSubjectIdentifier();
 
-                    log.debug ("Perofrming Home Community lookup for Patient " + remotePatientId + " with an AA of " + remotePatientId);
+                    log.debug("Perofrming Home Community lookup for Patient " + remotePatientId + " with an AA of " + remotePatientId);
                     HomeCommunityType remoteHomeCommunity = ConnectionManagerCommunityMapping.getHomeCommunityByAssigningAuthority(remoteAssigningAuth);
                     String remoteHomeCommunityId = remoteHomeCommunity.getHomeCommunityId();
                     HomeCommunityMap hcMapping = new HomeCommunityMap();
@@ -1434,27 +1363,7 @@ public class Page2 extends AbstractPageBean {
 
     public String broadcastSubjectDiscoveryButton_action() {
 
-//        try {
-
-//            EntitySubjectDiscoveryProxyObjectFactory sdFactory = new EntitySubjectDiscoveryProxyObjectFactory();
-//            EntitySubjectDiscoveryProxy sdProxy = sdFactory.getEntitySubjectDiscoveryProxy();
-//
-//            PIXConsumerPRPAIN201301UVRequestType request = new PIXConsumerPRPAIN201301UVRequestType();
-//            request.setAssertion(getSessionBean1().getAssertionInfo());
-//
-//            String localDeviceId = PropertyAccessor.getProperty(PROPERTY_FILE_NAME_GATEWAY, PROPERTY_FILE_KEY_LOCAL_DEVICE);
-//            String orgId = PropertyAccessor.getProperty(PROPERTY_FILE_NAME_GATEWAY, PROPERTY_FILE_KEY_HOME_COMMUNITY);
-//
         PatientSearchData foundPatient = getSessionBean1().getFoundPatient();
-//            JAXBElement<PRPAMT201301UV02Person> person = HL7PatientTransforms.create201301PatientPerson(foundPatient.getFirstName(), foundPatient.getLastName(), foundPatient.getGender(), foundPatient.getDob(), foundPatient.getSsn());
-//            //HL7PatientTransforms.create201302PatientPerson(foundPatient.getFirstName(), foundPatient.getLastName(), foundPatient.getGender(), foundPatient.getDob(), foundPatient.getSsn(), null);
-//            PRPAMT201301UV02Patient patient = HL7PatientTransforms.create201301Patient(person, foundPatient.getPatientId(), localDeviceId);
-//            PRPAIN201301UV02 prpain201301 = HL7PRPA201301Transforms.createPRPA201301(patient, localDeviceId, orgId, orgId);
-//            request.setPRPAIN201301UV02(prpain201301);
-//
-//            MCCIIN000002UV01 sdAck = sdProxy.pixConsumerPRPAIN201301UV(request);
-//
-//            if (sdAck != null) {
 
         //retrieve communities from PD comboBox
         List<String> targetList = getComboVal();
@@ -1463,7 +1372,7 @@ public class Page2 extends AbstractPageBean {
         // Obtain and format the uniquePatientId
         String ptId = (String) foundPatient.getPatientId();
         String aaId = foundPatient.getAssigningAuthorityID();
-        String uniquePatientId = ptId +"^^^&" + aaId + "&ISO";
+        String uniquePatientId = ptId + "^^^&" + aaId + "&ISO";
 
         AuthenticatedUserInfo authenticationInfo = Page1.getAuthenticationInfo();
         authenticationInfo.updateAssertedPatientId(uniquePatientId);
@@ -1480,16 +1389,6 @@ public class Page2 extends AbstractPageBean {
 
         this.getBroadcastInfo().setText("Broadcast sent: " + (cal.get(java.util.Calendar.MONTH) + 1) + "/" + cal.get(java.util.Calendar.DAY_OF_MONTH) + "/" + cal.get(java.util.Calendar.YEAR) + " " + cal.get(java.util.Calendar.HOUR_OF_DAY) + ":" + cal.get(java.util.Calendar.MINUTE) + ":" + cal.get(java.util.Calendar.SECOND) + " GMT");
         this.getBroadcastInfo2().setText("");
-
-//            } else {
-//                this.getBroadcastInfo().setText("Error in broadcast subject discovery");
-//            }
-
-//              return null;
-//        } catch (PropertyAccessException ex) {
-//            Logger.getLogger(Page2.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-
 
         return null;
     }
@@ -1517,12 +1416,11 @@ public class Page2 extends AbstractPageBean {
         for (PatientSearchData testPatient : getPatientSearchDataList()) {
             if (testPatient.getPatientId().equals(searchData.getPatientID())) {
                 currentPatient = testPatient;
+                
+                log.info("Current patient is " + currentPatient.getPatientId() + " patient name " + currentPatient.getLastName());
             }
         }
-
-        log.info("Current patient is "+currentPatient.getPatientId()+" patient name "+currentPatient.getLastName());
-        //System.out.println("Patient ID: " + currentPatient.getPatientId() + "Assigning Authority ID: " + currentPatient.getAssigningAuthorityID());
-
+  
         if (currentPatient == null) {
             this.errorMessage.setText("Patient information is not available. Please search again.");
         }
@@ -1538,24 +1436,21 @@ public class Page2 extends AbstractPageBean {
         DocumentQueryClient docQueryClient = new DocumentQueryClient();
 
         List<DocumentInformation> docInfoList = docQueryClient.retrieveDocumentsInformation(currentPatient, this.getServiceTimeFromDate().getSelectedDate(),
-                this.getServiceTimeToDate().getSelectedDate(), docQueryTargetList, docQueryDocTypesList);
+            this.getServiceTimeToDate().getSelectedDate(), docQueryTargetList, docQueryDocTypesList);
 
         //check to see if any results were returned
-        if(docInfoList != null && !docInfoList.isEmpty())
-        {
+        if (docInfoList != null && !docInfoList.isEmpty()) {
             //create new DocumentQueryResults object
-        DocumentQueryResults documentQueryResults = new DocumentQueryResults();
-        documentQueryResults.setDocuments(docInfoList);
+            DocumentQueryResults documentQueryResults = new DocumentQueryResults();
+            documentQueryResults.setDocuments(docInfoList);
 
             //Replace the value of attribute stored in request, session or application scope named DocumentQueryResults
             setBean("DocumentQueryResults", documentQueryResults);
-        }
-        else
-        {
+        } else {
             //clear results table if results exist from previous query
             //Replace the value of attribute stored in request, session or application scope named DocumentQueryResults
             DocumentQueryResults documentQueryResults = new DocumentQueryResults();
-        setBean("DocumentQueryResults", documentQueryResults);
+            setBean("DocumentQueryResults", documentQueryResults);
 
             //output the fact that no NHIN Query results have been returned
             setEmptyDataMsg("No Results - Query to NwHIN returned no documents.");
@@ -1577,25 +1472,18 @@ public class Page2 extends AbstractPageBean {
         boolean isValid = true;
 
         //check to see if there is a null calendar value 
-        if ( this.serviceTimeFromDate.getSelectedDate() == null || this.serviceTimeToDate.getSelectedDate() == null )
-        {
-            if (this.serviceTimeFromDate.getSelectedDate() == null && this.serviceTimeToDate.getSelectedDate() != null)
-            {
-                 message.append("** Please enter an Earliest Date value **");
-                 isValid = false;
+        if (this.serviceTimeFromDate.getSelectedDate() == null || this.serviceTimeToDate.getSelectedDate() == null) {
+            if (this.serviceTimeFromDate.getSelectedDate() == null && this.serviceTimeToDate.getSelectedDate() != null) {
+                message.append("** Please enter an Earliest Date value **");
+                isValid = false;
             } else if (this.serviceTimeFromDate.getSelectedDate() != null && this.serviceTimeToDate.getSelectedDate() == null) {
                 message.append("** Please enter a Most Recent Date value **");
                 isValid = false;
-            }
-            else if (this.serviceTimeFromDate.getSelectedDate() == null && this.serviceTimeToDate.getSelectedDate() == null)
-            {
+            } else if (this.serviceTimeFromDate.getSelectedDate() == null && this.serviceTimeToDate.getSelectedDate() == null) {
                 //user has chose to not include Service Time entry in request. Do nothing.
             }
-        }
-        else
-        {
-            if (this.serviceTimeFromDate.getSelectedDate().after(this.getServiceTimeToDate().getSelectedDate()))
-            {
+        } else {
+            if (this.serviceTimeFromDate.getSelectedDate().after(this.getServiceTimeToDate().getSelectedDate())) {
                 message.append("** Earliest Date should not be after Most Recent Date **");
                 isValid = false;
             }
@@ -1605,79 +1493,6 @@ public class Page2 extends AbstractPageBean {
 
         return isValid;
     }
-
-/*    public String displayDocument() throws Exception {
-
-        log.debug("Selected document ID: " + this.selectedDocumentID.getText());
-
-        DocumentRetrieveClient docRetrieveClient = new DocumentRetrieveClient();
-
-        String documentID = this.selectedDocumentID.getText().toString();
-
-        DocumentQueryResults docQueryResults = (DocumentQueryResults) getBean("DocumentQueryResults");
-
-        DocumentInformation currentDocument = null;
-
-        for (DocumentInformation documentInformation : docQueryResults.getDocuments()) {
-            if (documentID.equals(documentInformation.getDocumentID())) {
-                currentDocument = documentInformation;
-                break;
-            }
-        }
-
-        String document = docRetrieveClient.retriveDocument(currentDocument);
-
-        if (document == null || document.isEmpty()) {
-            return "display_document_error";
-        }
-
-
-         // Look for the C32 stylesheet specific to this provider
-         log.debug("Lookup stylesheet for: "+ currentDocument.getHomeCommunityID());
-         String styleSheet = null;
-
-         if (currentDocument.getHomeCommunityID() != null)
-         {
-            String[] saArgs = currentDocument.getHomeCommunityID().split(":");
-            
-            log.debug("Lookup property value for: C32StyleSheet_"+ saArgs[saArgs.length-1]);
-
-            styleSheet = PropertyAccessor.getProperty(ADAPTER_PROPERTY_FILE, "C32StyleSheet_"+ saArgs[saArgs.length-1]);
-         }
-         if ((styleSheet == null) || (styleSheet.isEmpty()))
-         {
-            // Provider-specific stylesheet not defined... use default
-            String c32 = PropertyAccessor.getProperty(ADAPTER_PROPERTY_FILE, C32_STYLE_SHEET_PROPERTY);
-            styleSheet = c32;
-         }
-
-         log.debug("Converting raw XML using stylesheet: "+styleSheet);
-
-         //read stylesheet file and prepare to render with document
-         FileReader reader = new FileReader(m_sPropertyFileDir + styleSheet);
-         
-         String html = convertXMLToHTML(new ByteArrayInputStream(document.getBytes()), reader);
-
-         log.debug("HTML PAGE: " + html);
-
-         if (html == null || html.isEmpty()) {
-            return "display_document_error";
-         }
-
-         //get response
-         HttpServletResponse response = (HttpServletResponse) getExternalContext().getResponse();
-         
-         OutputStream os = response.getOutputStream();
-         os.write(html.getBytes());
-         os.flush();
-         os.close();
-
-         FacesContext.getCurrentInstance().responseComplete();
-
-        return null;
-    }
- */
-    
 
     /**
      *
@@ -1694,10 +1509,10 @@ public class Page2 extends AbstractPageBean {
             TransformerFactory tFactory = TransformerFactory.newInstance();
 
             Transformer transformer =
-                    tFactory.newTransformer(new javax.xml.transform.stream.StreamSource(xsl));
+                tFactory.newTransformer(new javax.xml.transform.stream.StreamSource(xsl));
 
             transformer.transform(new javax.xml.transform.stream.StreamSource(xml),
-                    new javax.xml.transform.stream.StreamResult(output));
+                new javax.xml.transform.stream.StreamResult(output));
 
         } catch (Exception e) {
             log.error("Exception in transforming xml to html", e);
@@ -1705,105 +1520,86 @@ public class Page2 extends AbstractPageBean {
 
         return output.toString();
     }
-
     //getter for Patient Discovery target communities combobox
     private List<String> selectItems;
 
-    public void setComboVal(List<String> selectItems)
-    {
+    public void setComboVal(List<String> selectItems) {
         this.selectItems = selectItems;
     }
 
-    public List<String> getComboVal ()
-    {
+    public List<String> getComboVal() {
         return selectItems;
     }
-
     //getter/setter for Doc Query target communities combobox
     private List<String> docQuerySelectItems;
 
-    public void setDocQueryComboVal(List<String> docQuerySelectItems)
-    {
+    public void setDocQueryComboVal(List<String> docQuerySelectItems) {
         this.docQuerySelectItems = docQuerySelectItems;
     }
 
-    public List<String> getDocQueryComboVal ()
-    {
+    public List<String> getDocQueryComboVal() {
         return docQuerySelectItems;
     }
-
     //setter for list of communities from registry
     private List<SelectItem> availableComs = null;
 
-    public void setCommunitiesFromRegistry(List<SelectItem> availableComs)
-    {
+    public void setCommunitiesFromRegistry(List<SelectItem> availableComs) {
         this.availableComs = availableComs;
     }
 
-    
-    
-   //use the connection manager to gather a list of avaialble target communities
-   public List<SelectItem> getCommunitiesFromRegistry()
-    {
+    //use the connection manager to gather a list of avaialble target communities
+    public List<SelectItem> getCommunitiesFromRegistry() {
         //prepare a list to hold configured communities
-        //List<CMHomeCommunity> communities = new ArrayList<CMHomeCommunity>();
-       List<BusinessEntity> communities = new ArrayList<BusinessEntity>();
+        List<BusinessEntity> communities = new ArrayList<BusinessEntity>();
         availableComs = new ArrayList<SelectItem>();
-        
+
         // Get all the Communities from ConnectionManager
         try {
 
             //gather communities from InternalConnectionInfo via Connection Manager
-          //  communities = ConnectionManagerCache.getAllCommunities();
-           communities = ConnectionManagerCache.getInstance().getAllBusinessEntities();
+            communities = ConnectionManagerCache.getInstance().getAllBusinessEntities();
+
+            //get the home community id for this gateway
+            String homeCommunityOrgId = PropertyAccessor.getInstance().getProperty(PROPERTY_FILE_NAME_GATEWAY, PROPERTY_FILE_KEY_HOME_COMMUNITY);
 
             //convert to strings for display
-            for (int r=0; r<communities.size(); r++)
-            {
+            for (int r = 0; r < communities.size(); r++) {
                 String comName = communities.get(r).getName().get(0).getValue();
-              //  String comOID = communities.get(r).getHomeCommunityId();
                 String comOID = communities.get(r).getIdentifierBag().getKeyedReference().get(0).getKeyValue();
 
-                //Adds all available communities except for Conemaugh's when the user is on the subject discovery tab
-                if(!(getClientTabSet().getSelectedTab().toString().contains("subjectDiscoveryTab") &&
-                        comOID.equals("2.16.840.1.113883.3.413")))
-                {
+                //Adds all available communities except for the local gateway when the user is on the subject discovery tab
+                if (!(getClientTabSet().getSelectedTab().toString().contains("subjectDiscoveryTab") &&
+                    comOID.equals(homeCommunityOrgId))) {
                     availableComs.add(new SelectItem(comOID, comName));
                 }
             }
 
-        } catch (ConnectionManagerException ex) {
+        } catch (Exception ex) {
             log.error(ex.getMessage());
             return null;
         }
 
         return availableComs;
     }
-
-   //getter/setter for Doc Query document types combobox
+    //getter/setter for Doc Query document types combobox
     private List<String> docQuerySelectDocsItems;
 
-    public void setDocQueryDocTypesComboVal(List<String> docQuerySelectDocsItems)
-    {
+    public void setDocQueryDocTypesComboVal(List<String> docQuerySelectDocsItems) {
         this.docQuerySelectDocsItems = docQuerySelectDocsItems;
     }
 
-    public List<String> getDocQueryDocTypesComboVal ()
-    {
+    public List<String> getDocQueryDocTypesComboVal() {
         return docQuerySelectDocsItems;
     }
-
-     //setter for list of document types from properties file
+    //setter for list of document types from properties file
     private List<SelectItem> availableDocs = null;
 
-    public void setDocTypesFromRegistry(List<SelectItem> availableDocs)
-    {
+    public void setDocTypesFromRegistry(List<SelectItem> availableDocs) {
         this.availableDocs = availableDocs;
     }
 
     //use the property lookup to retrieve list of avaialble document types
-   public List<SelectItem> getDocTypesFromRegistry()
-    {
+    public List<SelectItem> getDocTypesFromRegistry() {
         //prepare a list to hold configured document types
         availableDocs = new ArrayList<SelectItem>();
 
@@ -1812,14 +1608,13 @@ public class Page2 extends AbstractPageBean {
 
             //gather document types from UniversalClient properties file
             String docTypeStr = PropertyAccessor.getInstance().getProperty(PROPERTY_FILE_NAME_UC, PROPERTY_FILE_DOCUMENT_LOINCS);
-            
+
             log.debug("Docuemnt Loincs property value = " + docTypeStr);
 
             StringTokenizer st = new StringTokenizer(docTypeStr, ",");
 
             //convert to strings for display
-            while (st.hasMoreElements())
-            {
+            while (st.hasMoreElements()) {
                 String loincDescription = st.nextToken();
 
                 availableDocs.add(new SelectItem(loincDescription, loincDescription));
@@ -1833,24 +1628,15 @@ public class Page2 extends AbstractPageBean {
         return availableDocs;
     }
 
-
-
-   public NhinTargetCommunitiesType createNhinTargetCommunities(List<String> homeCommunityIds){
+    public NhinTargetCommunitiesType createNhinTargetCommunities(List<String> homeCommunityIds) {
         NhinTargetCommunitiesType nhinTargetCommunities = new NhinTargetCommunitiesType();
 
-//        nhinTargetCommunity.setList("List");
-//        nhinTargetCommunity.setRegion("Region");
-//
-
-        for (int t=0; t<homeCommunityIds.size();t++)
-        {
-            if (homeCommunityIds.get(t) != null && !homeCommunityIds.get(t).isEmpty())
-            {
+        for (int t = 0; t < homeCommunityIds.size(); t++) {
+            if (homeCommunityIds.get(t) != null && !homeCommunityIds.get(t).isEmpty()) {
                 HomeCommunityType homeCommunity = new HomeCommunityType();
-    //          homeCommunity.setDescription("Description");
                 homeCommunity.setHomeCommunityId(homeCommunityIds.get(t));
 
-                log.debug("Target Community " + String.valueOf(t+1) + " OID = " + homeCommunityIds.get(t));
+                log.debug("Target Community " + String.valueOf(t + 1) + " OID = " + homeCommunityIds.get(t));
 
                 NhinTargetCommunityType nhinTargetCommunity = new NhinTargetCommunityType();
                 nhinTargetCommunity.setHomeCommunity(homeCommunity);
