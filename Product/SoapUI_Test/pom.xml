@@ -134,27 +134,6 @@
                             </artifactItems>
                         </configuration>
                     </execution>
-                    <execution>
-                        <id>unpack-sql-scripts</id>
-                        <phase>initialize</phase>
-                        <goals>
-                            <goal>unpack</goal>
-                        </goals>
-                        <configuration>
-                            <skip>${skip.unpack}</skip>
-                            <artifactItems>
-                                <artifactItem>
-                                    <!-- Artifact that Holds our SQL scripts -->
-                                    <groupId>org.connectopensource</groupId>
-                                    <artifactId>DBScripts</artifactId>
-                                    <version>${project.parent.version}</version>
-                                    <type>jar</type>
-                                </artifactItem>
-                            </artifactItems>
-                            <includes>**/*</includes>
-                            <outputDirectory>${project.build.directory}/DBScripts/</outputDirectory>
-                        </configuration>
-                    </execution>
                 </executions>
             </plugin>
             <plugin>
@@ -243,42 +222,6 @@
                                 <copy file="${project.build.directory}/domain1/config/cacerts.jks"
                                     todir="${project.build.directory}/domain1/lib/classes/" />
                             </target>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>sql-maven-plugin</artifactId>
-                <version>1.5</version>
-                <dependencies>
-                    <dependency>
-                        <groupId>mysql</groupId>
-                        <artifactId>mysql-connector-java</artifactId>
-                        <version>5.1.10</version>
-                    </dependency>
-                </dependencies>
-                <configuration>
-                    <driver>com.mysql.jdbc.Driver</driver>
-                    <url>jdbc:mysql://localhost</url>
-                    <username>root</username>
-                    <password>${mysql.root.password}</password>
-                </configuration>
-                <executions>
-                    <execution>
-                        <phase>process-test-resources</phase>
-                        <goals>
-                            <goal>execute</goal>
-                        </goals>
-                        <configuration>
-                            <srcFiles>
-                                <srcFile>${project.build.directory}/DBScripts/nhincdb/dropall.sql</srcFile>
-                                <srcFile>${project.build.directory}/DBScripts/nhincdb/nhincdb.sql</srcFile>
-                                <srcFile>${project.build.directory}/DBScripts/nhincdb/populateTestData.sql</srcFile>
-                            </srcFiles>
-                            <sqlCommand>GRANT ALL PRIVILEGES ON *.* TO 'nhincuser'@'localhost' IDENTIFIED BY 'nhincpass' WITH GRANT OPTION;</sqlCommand>
-                            <sqlCommand>GRANT ALL PRIVILEGES ON *.* TO 'nhincuser'@'127.0.0.1' IDENTIFIED BY 'nhincpass' WITH GRANT OPTION;</sqlCommand>
-                            <sqlCommand>FLUSH PRIVILEGES;</sqlCommand>
                         </configuration>
                     </execution>
                 </executions>
