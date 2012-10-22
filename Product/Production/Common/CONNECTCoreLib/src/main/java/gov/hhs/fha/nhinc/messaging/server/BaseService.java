@@ -29,15 +29,15 @@ public abstract class BaseService {
 
       // Extract the message id value from the WS-Addressing Header and place it in the Assertion Class
       if (assertion != null) {
-          assertion.setMessageId(AsyncMessageIdExtractor.GetAsyncMessageId(context));
+          assertion.setMessageId(AsyncMessageIdExtractor.getOrCreateAsyncMessageId(context));
       }
         
         
       // Extract the relates-to value from the WS-Addressing Header and place it in the Assertion Class
       if (assertion != null) {
-          List<String> relatesToList = AsyncMessageIdExtractor.GetAsyncRelatesTo(context);
+          List<String> relatesToList = AsyncMessageIdExtractor.getAsyncRelatesTo(context);
           if (NullChecker.isNotNullish(relatesToList)) {
-              assertion.getRelatesToList().add(AsyncMessageIdExtractor.GetAsyncRelatesTo(context).get(0));
+              assertion.getRelatesToList().add(AsyncMessageIdExtractor.getAsyncRelatesTo(context).get(0));
           }
       }
 

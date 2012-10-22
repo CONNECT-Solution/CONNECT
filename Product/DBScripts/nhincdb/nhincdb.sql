@@ -339,3 +339,21 @@ COMMENT = 'Message Transaction Repository';
 
 GRANT SELECT,INSERT,UPDATE,DELETE ON transrepo.* to nhincuser;
 -- end transrepo
+
+-- begin eventdb
+
+CREATE DATABASE eventdb;
+
+CREATE TABLE eventdb.event (
+  id BIGINT NOT NULL AUTO_INCREMENT,
+  name VARCHAR(100) NOT NULL,
+  description longtext,
+  transactionId VARCHAR(100),
+  messageId VARCHAR(100),
+  time TIMESTAMP,
+  PRIMARY KEY (id) )
+COMMENT = 'Event Logging';
+
+GRANT SELECT,INSERT,UPDATE,DELETE ON eventdb.* to nhincuser;
+-- end eventdb
+

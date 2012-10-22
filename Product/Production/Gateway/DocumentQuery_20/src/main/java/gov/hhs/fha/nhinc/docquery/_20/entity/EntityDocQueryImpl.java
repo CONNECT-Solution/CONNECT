@@ -46,8 +46,10 @@ import org.apache.commons.logging.LogFactory;
 class EntityDocQueryImpl {
 
     private Log log = null;
+    private EntityDocQueryOrchImpl orchImpl;
 
-    public EntityDocQueryImpl() {
+    public EntityDocQueryImpl(EntityDocQueryOrchImpl orchImpl) {
+        this.orchImpl = orchImpl;
         log = createLogger();
     }
 
@@ -104,7 +106,8 @@ class EntityDocQueryImpl {
     }
 
     private EntityDocQueryOrchImpl createEntityDocQueryOrchImpl() {
-        // create the orch impl and pass in references to the executor services
-        return new EntityDocQueryOrchImpl(InitServlet.getExecutorService(), InitServlet.getLargeJobExecutorService());
+        orchImpl.setExecutorService(InitServlet.getExecutorService(), InitServlet.getLargeJobExecutorService());
+        
+        return orchImpl;
     }
 }

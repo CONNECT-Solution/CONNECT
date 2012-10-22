@@ -66,25 +66,6 @@ public class EntityPatientDiscoverySecuredTest {
     }
 
     @Test
-    public void testGetEntityPatientDiscoverySecuredImpl() {
-        try {
-            EntityPatientDiscoverySecured pdSecured = new EntityPatientDiscoverySecured() {
-                @Override
-                protected EntityPatientDiscoveryImpl getEntityPatientDiscoveryImpl() {
-                    return mockServiceImpl;
-                }
-            };
-
-            EntityPatientDiscoveryImpl servcieImpl = pdSecured.getEntityPatientDiscoveryImpl();
-            assertNotNull("EntityPatientDiscoverySecuredImpl was null", servcieImpl);
-        } catch (Throwable t) {
-            System.out.println("Error running testGetEntityPatientDiscoverySecuredImpl: " + t.getMessage());
-            t.printStackTrace();
-            fail("Error running testGetEntityPatientDiscoverySecuredImpl: " + t.getMessage());
-        }
-    }
-
-    @Test
     public void testGetWebServiceContext() {
         try {
             EntityPatientDiscoverySecured pdSecured = new EntityPatientDiscoverySecured() {
@@ -108,15 +89,12 @@ public class EntityPatientDiscoverySecuredTest {
         try {
             EntityPatientDiscoverySecured pdSecured = new EntityPatientDiscoverySecured() {
                 @Override
-                protected EntityPatientDiscoveryImpl getEntityPatientDiscoveryImpl() {
-                    return mockServiceImpl;
-                }
-
-                @Override
                 protected WebServiceContext getWebServiceContext() {
                     return mockWebServiceContext;
                 }
             };
+            pdSecured.setOrchestratorImpl(mockServiceImpl);
+            
             context.checking(new Expectations() {
                 {
                     oneOf(mockServiceImpl).respondingGatewayPRPAIN201305UV02(
@@ -140,15 +118,11 @@ public class EntityPatientDiscoverySecuredTest {
         try {
             EntityPatientDiscoverySecured pdSecured = new EntityPatientDiscoverySecured() {
                 @Override
-                protected EntityPatientDiscoveryImpl getEntityPatientDiscoveryImpl() {
-                    return null;
-                }
-
-                @Override
                 protected WebServiceContext getWebServiceContext() {
                     return mockWebServiceContext;
                 }
             };
+            pdSecured.setOrchestratorImpl(null);
 
             RespondingGatewayPRPAIN201306UV02ResponseType response = pdSecured
                     .respondingGatewayPRPAIN201305UV02(mockRequest);

@@ -28,11 +28,9 @@ package gov.hhs.fha.nhinc.docsubmission._11.passthru.deferred.request;
 
 import javax.xml.ws.WebServiceContext;
 
-import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType;
-import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
 import gov.hhs.fha.nhinc.docsubmission.passthru.deferred.request.PassthruDocSubmissionDeferredRequestOrchImpl;
 import gov.hhs.fha.nhinc.messaging.server.BaseService;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
@@ -43,12 +41,18 @@ import gov.hhs.healthit.nhin.XDRAcknowledgementType;
  */
 public class PassthruDocSubmissionDeferredRequestImpl extends BaseService {
 
+    private PassthruDocSubmissionDeferredRequestOrchImpl orchImpl;
+
+    PassthruDocSubmissionDeferredRequestImpl(PassthruDocSubmissionDeferredRequestOrchImpl orchImpl) {
+        this.orchImpl = orchImpl;
+    }
+
     public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(
             RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType provideAndRegisterRequestRequest,
             WebServiceContext context) {
         AssertionType assertion = getAssertion(context, null);
 
-        return new PassthruDocSubmissionDeferredRequestOrchImpl().provideAndRegisterDocumentSetBRequest(
+        return orchImpl.provideAndRegisterDocumentSetBRequest(
                 provideAndRegisterRequestRequest.getProvideAndRegisterDocumentSetRequest(), assertion,
                 provideAndRegisterRequestRequest.getNhinTargetSystem());
     }
@@ -58,9 +62,12 @@ public class PassthruDocSubmissionDeferredRequestImpl extends BaseService {
             WebServiceContext context) {
         AssertionType assertion = getAssertion(context, provideAndRegisterRequestRequest.getAssertion());
 
-        return new PassthruDocSubmissionDeferredRequestOrchImpl().provideAndRegisterDocumentSetBRequest(
+        return orchImpl.provideAndRegisterDocumentSetBRequest(
                 provideAndRegisterRequestRequest.getProvideAndRegisterDocumentSetRequest(), assertion,
                 provideAndRegisterRequestRequest.getNhinTargetSystem());
+    }
 
+    public void setOrchestratorImpl(PassthruDocSubmissionDeferredRequestOrchImpl orchImpl) {
+        this.orchImpl = orchImpl;
     }
 }

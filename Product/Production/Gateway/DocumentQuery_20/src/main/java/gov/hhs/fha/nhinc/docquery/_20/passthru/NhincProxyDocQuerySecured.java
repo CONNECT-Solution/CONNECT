@@ -26,26 +26,35 @@
  */
 package gov.hhs.fha.nhinc.docquery._20.passthru;
 
+import gov.hhs.fha.nhinc.docquery.passthru.PassthruDocQueryOrchImpl;
+
 import javax.annotation.Resource;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
 
 /**
- *
+ * 
  * @author Sai Valluripalli
  */
 
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
-@Addressing(enabled=true)
-public class NhincProxyDocQuerySecured implements gov.hhs.fha.nhinc.nhincproxydocquerysecured.NhincProxyDocQuerySecuredPortType {
+@Addressing(enabled = true)
+public class NhincProxyDocQuerySecured implements
+        gov.hhs.fha.nhinc.nhincproxydocquerysecured.NhincProxyDocQuerySecuredPortType {
+
+    private PassthruDocQueryOrchImpl orchImpl;
 
     @Resource
     private WebServiceContext context;
 
-    public oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse respondingGatewayCrossGatewayQuery(gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayCrossGatewayQuerySecuredRequestType body)
-    {
-        return new NhincProxyDocQueryImpl().respondingGatewayCrossGatewayQuery(body, context);
+    public oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse respondingGatewayCrossGatewayQuery(
+            gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayCrossGatewayQuerySecuredRequestType body) {
+        return new NhincProxyDocQueryImpl(orchImpl).respondingGatewayCrossGatewayQuery(body, context);
+    }
+
+    public void setOrchestratorImpl(PassthruDocQueryOrchImpl orchImpl) {
+        this.orchImpl = orchImpl;
     }
 
 }

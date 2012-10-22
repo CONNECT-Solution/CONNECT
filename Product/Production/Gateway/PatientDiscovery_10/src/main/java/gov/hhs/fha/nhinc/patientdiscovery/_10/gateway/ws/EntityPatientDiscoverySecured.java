@@ -47,6 +47,8 @@ import org.hl7.v3.RespondingGatewayPRPAIN201306UV02ResponseType;
 public class EntityPatientDiscoverySecured extends PatientDiscoveryBase implements gov.hhs.fha.nhinc.entitypatientdiscoverysecured.EntityPatientDiscoverySecuredPortType {
     private static final Log log = LogFactory.getLog(EntityPatientDiscoverySecured.class);
 
+    private EntityPatientDiscoveryImpl orchImpl;
+    
     @Resource
     private WebServiceContext context;
 
@@ -63,19 +65,18 @@ public class EntityPatientDiscoverySecured extends PatientDiscoveryBase implemen
         log.debug("Begin EntityPatientDiscoverySecured.respondingGatewayPRPAIN201305UV02...");
         RespondingGatewayPRPAIN201306UV02ResponseType response = null;
 
-        EntityPatientDiscoveryImpl serviceImpl = getEntityPatientDiscoveryImpl();
-        if (serviceImpl != null) {
-            response = serviceImpl.respondingGatewayPRPAIN201305UV02(respondingGatewayPRPAIN201305UV02Request,
+        if (orchImpl != null) {
+            response = orchImpl.respondingGatewayPRPAIN201305UV02(respondingGatewayPRPAIN201305UV02Request,
                     getWebServiceContext());
         }
         log.debug("End EntityPatientDiscoverySecured.respondingGatewayPRPAIN201305UV02...");
         return response;
     }
-
-    protected EntityPatientDiscoveryImpl getEntityPatientDiscoveryImpl() {
-        return getServiceFactory().getEntityPatientDiscoveryImpl();
+    
+    public void setOrchestratorImpl(EntityPatientDiscoveryImpl orchImpl) {
+        this.orchImpl = orchImpl;
     }
-
+    
     protected WebServiceContext getWebServiceContext() {
         return context;
     }

@@ -26,6 +26,8 @@
  */
 package gov.hhs.fha.nhinc.auditrepository.nhinc.proxy;
 
+import org.springframework.beans.factory.FactoryBean;
+
 import gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory;
 
 /**
@@ -46,7 +48,7 @@ import gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory;
  * 
  * @author Jon Hoppesch
  */
-public class AuditRepositoryProxyObjectFactory extends ComponentProxyObjectFactory {
+public class AuditRepositoryProxyObjectFactory extends ComponentProxyObjectFactory implements FactoryBean<AuditRepositoryProxy> {
     private static final String CONFIG_FILE_NAME = "AuditRepositoryProxyConfig.xml";
     private static final String BEAN_NAME_AUDIT_REPOSITORY = "auditrepository";
 
@@ -67,6 +69,21 @@ public class AuditRepositoryProxyObjectFactory extends ComponentProxyObjectFacto
     public AuditRepositoryProxy getAuditRepositoryProxy() {
 
         return getBean(BEAN_NAME_AUDIT_REPOSITORY, AuditRepositoryProxy.class);
+    }
+
+    @Override
+    public AuditRepositoryProxy getObject() throws Exception {
+        return getAuditRepositoryProxy();
+    }
+
+    @Override
+    public Class<?> getObjectType() {
+        return AuditRepositoryProxy.class;
+    }
+
+    @Override
+    public boolean isSingleton() {
+        return true;
     }
 
 }

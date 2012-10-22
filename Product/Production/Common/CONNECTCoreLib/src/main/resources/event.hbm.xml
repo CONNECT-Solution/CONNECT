@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!--
+    Document   : event.hbm.xml
+    Created on : October 3, 2012
+    Author     : mlandis
+    Description:
+        Hibernate mapping file for event logging in the database.
+-->
+<hibernate-mapping>
+  <class name="gov.hhs.fha.nhinc.event.model.DatabaseEvent" table="event">
+    <id name="id">
+      <generator class="native"/>
+    </id>
+    <property column="name" name="eventName"/>
+    <property column="description" name="description"/>
+    <property column="messageId" name="messageID"/>
+    <property column="transactionId" name="transactionID"/>
+  </class>
+</hibernate-mapping>

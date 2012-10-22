@@ -46,13 +46,14 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 public class NhincAdminDistSecured implements gov.hhs.fha.nhinc.nhincadmindistribution.NhincAdminDistSecuredPortType {
     @Resource
     private WebServiceContext context;
+    private PassthruAdminDistributionOrchImpl orchImpl;
 
     @Override
     public void sendAlertMessage(
             gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewaySendAlertMessageSecuredType body) {
         AssertionType assertion = extractAssertion(context);
 
-        getNhincImpl().sendAlertMessage(body.getEDXLDistribution(), assertion, body.getNhinTargetSystem(),
+        orchImpl.sendAlertMessage(body.getEDXLDistribution(), assertion, body.getNhinTargetSystem(),
                 NhincConstants.GATEWAY_API_LEVEL.LEVEL_g0);
     }
 
@@ -60,7 +61,7 @@ public class NhincAdminDistSecured implements gov.hhs.fha.nhinc.nhincadmindistri
         return SAML2AssertionExtractor.getInstance().extractSamlAssertion(context);
     }
 
-    public PassthruAdminDistributionOrchImpl getNhincImpl() {
-        return new PassthruAdminDistributionOrchImpl();
+    public void setOrchestratorImpl(PassthruAdminDistributionOrchImpl orchImpl) {
+        this.orchImpl = orchImpl;
     }
 }
