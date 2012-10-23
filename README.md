@@ -199,6 +199,12 @@ Several properties can be passed for mvn verify:
         -Ddb.password=<database password> -- defaults to nhincpass
         -Dmysql.root.password=<password> -- defaults to NHIE-Gateway, and must be passed in if MySQL root user's password is different from default
 
+Alternatively, any of these properties can be set in your maven settings.xml file, and they will be propagated to all your builds.  Here is an example showing the mysql.root.password property set to a non-default value:
+        <properties>
+-           <mysql.root.password>f00B4r</mysql.root.password>
+            ...
+-       </properties>
+
 ###Run the Validation Suite via SoapUI
 The Validation Suite can be run with SoapUI. First, follow the instructions "Setting up SoapUI" below.
 Set the property "GatewayPropDir" in MsgProxyValidation-soapui-project.properties and EntityValidation-soapui-project.properties in the Validation Suite directory. This should be set to the gateway configuration directory. For GlassFish this is <GlassFish home>/domains/domain1/config/nhin; there is an equivalent in WebSphere
