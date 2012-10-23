@@ -499,13 +499,6 @@
                                         <srcFile>${project.build.directory}/DBScripts/nhincdb/nhincdb.sql</srcFile>
                                         <srcFile>${project.build.directory}/DBScripts/nhincdb/populateTestData.sql</srcFile>
                                     </srcFiles>
-                                    <sqlCommand>GRANT ALL PRIVILEGES ON *.* TO
-                                        'nhincuser'@'localhost' IDENTIFIED BY 'nhincpass' WITH GRANT
-                                        OPTION;</sqlCommand>
-                                    <sqlCommand>GRANT ALL PRIVILEGES ON *.* TO
-                                        'nhincuser'@'127.0.0.1' IDENTIFIED BY 'nhincpass' WITH GRANT
-                                        OPTION;</sqlCommand>
-                                    <sqlCommand>FLUSH PRIVILEGES;</sqlCommand>
                                 </configuration>
                             </execution>
                         </executions>

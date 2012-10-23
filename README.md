@@ -26,7 +26,7 @@ Three primary elements make up the CONNECT solution:
 
 History
 -------
-* 4.0 planned Febuary 2013
+* 4.0 planned February 2013
 * 3.3 released March 2012
 
 For more information, about CONNECT's history see [HISTORY.md](./CONNECT/HISTORY.md)
@@ -66,7 +66,7 @@ After you have built from source you can create all of the Eclipse Project files
         $ cd <CONNECT_CLONE_DIR>
         $ mvn eclipse:clean eclipse:eclipse
 
-Before launching eclipse, execute the following to set up the M2_REPO var used in lib dependenies
+Before launching eclipse, execute the following to set up the M2_REPO var used in lib dependencies
 
         $ mvn eclipse:configure-workspace -Declipse.workspace=/path/to/your/workspace
 
@@ -79,7 +79,7 @@ and choose the clone repo directory (\<CONNECT_CLONE_DIR\>), e.g. CONNECT. You m
 * \<CONNECT_CLONE_DIR\>/Product/Production
 
 ####Building an ear
-All services profiles are active by default, so to build an ear containging all services, just execute:
+All services profiles are active by default, so to build an ear containing all services, just execute:
 
         $ cd <CONNECT_CLONE_DIR>
         $ mvn clean install
@@ -183,24 +183,31 @@ At the end of the mvn install process, an embedded GlassFish instance will start
         $ mvn clean install
 
 ###Run the Validation Suite via Maven sript
-The Validation Suite can be run via a Maven script against a standalone installation of the applicaiton server:
-		$ cd <CONNECT_CLONE_DIR>/Product/SoapUI_Test/ValidationSuite
-		$ mvn verify -Dstandalone -Dproperties.dir=<applicaiton server configuration dir>
+The Validation Suite can be run via a Maven script against a standalone installation of the application server:
+        $ cd <CONNECT_CLONE_DIR>/Product/SoapUI_Test/ValidationSuite
+        $ mvn verify -Dstandalone -Dproperties.dir=<applicaiton server configuration dir>
 
-Several propertis can be passed for mvn verify:
-		-Dstandalone -- must be passed in for standalone testing
-		-Dproperties.dir=<gateway config dir> -- for GlassFish this is <GlassFish home>/domains/domain1/config/nhin; there is an equivalent in WebSphere 
-		-Dhost=<machine name or IP address to act as the requesting gateway> -- defaults to localhost, but can be passed in to test on remote machines
-		-Dport=<####> -- defaults to 8080; the unsecured entity/message-proxy port
-		-Dsecured.port=<####> -- defaults to 8181; the secured entity/message-proxy port
-		-Ddb.host=<machine name or IP address of the MySQL server> --  defaults to localhost
-		-Ddb.port=<####> -- defaults to 3306
-		-Ddb.user=<database user name> -- defaults to nhincuser
-		-Ddb.password=<database password> -- defaults to nhincpass
-				
+Several properties can be passed for mvn verify:
+        -Dstandalone -- must be passed in for standalone testing
+        -Dproperties.dir=<gateway config dir> -- for GlassFish this is <GlassFish home>/domains/domain1/config/nhin; there is an equivalent in WebSphere
+        -Dhost=<machine name or IP address to act as the requesting gateway> -- defaults to localhost, but can be passed in to test on remote machines
+        -Dport=<####> -- defaults to 8080; the unsecured entity/message-proxy port
+        -Dsecured.port=<####> -- defaults to 8181; the secured entity/message-proxy port
+        -Ddb.host=<machine name or IP address of the MySQL server> --  defaults to localhost
+        -Ddb.port=<####> -- defaults to 3306
+        -Ddb.user=<database user name> -- defaults to nhincuser
+        -Ddb.password=<database password> -- defaults to nhincpass
+        -Dmysql.root.password=<password> -- defaults to NHIE-Gateway, and must be passed in if MySQL root user's password is different from default
+
+Alternatively, any of these properties can be set in your maven settings.xml file, and they will be propagated to all your builds.  Here is an example showing the mysql.root.password property set to a non-default value:
+        <properties>
+-           <mysql.root.password>f00B4r</mysql.root.password>
+            ...
+-       </properties>
+
 ###Run the Validation Suite via SoapUI
 The Validation Suite can be run with SoapUI. First, follow the instructions "Setting up SoapUI" below.
-Set the property "GatewayPropDir" in MsgProxyValidation-soapui-project.properties and EntityValidation-soapui-project.properties in the Validation Suite directory. This should be set to the gateway configuration directory. For GlassFish this is <GlassFish home>/domains/domain1/config/nhin; there is an equivalent in WebSphere 
+Set the property "GatewayPropDir" in MsgProxyValidation-soapui-project.properties and EntityValidation-soapui-project.properties in the Validation Suite directory. This should be set to the gateway configuration directory. For GlassFish this is <GlassFish home>/domains/domain1/config/nhin; there is an equivalent in WebSphere
 Run the Validation Suite project files MsgProxyValidation-soapui-project.xml and EntityValidation-soapui-project.xml via SoapUI's command line runner testrunner.sh (or testrunner.bat in Windows).
 
 ##Setting up SoapUI
