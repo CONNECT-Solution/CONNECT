@@ -184,7 +184,7 @@ At the end of the mvn install process, an embedded GlassFish instance will start
         $ mvn clean install
 
 ###Run the Validation Suite via Maven sript
-The Validation Suite can be run via a Maven script against a standalone installation of the applicaiton server:
+The Validation Suite can be run via a Maven script against a standalone installation of the application server:
 
         $ cd <CONNECT_CLONE_DIR>/Product/SoapUI_Test/ValidationSuite
         $ mvn verify -Dstandalone -Dproperties.dir=<applicaiton server configuration dir>
