@@ -3,6 +3,7 @@
 .settings
 .metadata
 .DS_Store
+.pmd
 *.log
 .externalToolBuilders/
 maven-eclipse.xml
@@ -27,3 +28,4 @@ Product/Install/.installer.temp/
 Product/Install/.backup*/
 Product/PmdReport/
 CheckstyleReport/
+META-INF
