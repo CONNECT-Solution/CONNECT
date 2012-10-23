@@ -24,6 +24,7 @@
     </properties>
     <modules>
         <module>Production</module>
+        <module>DBScripts</module>
         <module>SoapUI_Test</module>
     </modules>
     <dependencyManagement>
@@ -92,7 +93,7 @@
                 </exclusions>
             </dependency>
             <dependency>
-                <!-- org.apache.cxf:cxf-bundle includes wss4j though org.apache.ws.security:wss4j:1.6.6:pom 
+                <!-- org.apache.cxf:cxf-bundle includes wss4j though org.apache.ws.security:wss4j:1.6.6:pom
                     excludes numerous dependencies from opensaml - see POM, http://repo.maven.apache.org/maven2/org/apache/ws/security/wss4j/1.6.6/wss4j-1.6.6.pom -->
                 <groupId>org.opensaml</groupId>
                 <artifactId>opensaml</artifactId>
@@ -133,7 +134,7 @@
                         <artifactId>asm-attrs</artifactId>
                     </exclusion>
                     <exclusion>
-                        <!-- exclude and use <artifactId>cglib-nodep</artifactId> 
+                        <!-- exclude and use <artifactId>cglib-nodep</artifactId>
                             to include the asm it needs in a private package space. -->
                         <groupId>cglib</groupId>
                         <artifactId>cglib</artifactId>
@@ -145,7 +146,7 @@
                 </exclusions>
             </dependency>
             <dependency>
-                <!-- Used to include the asm it needs in a private package 
+                <!-- Used to include the asm it needs in a private package
                     space. -->
                 <groupId>cglib</groupId>
                 <artifactId>cglib-nodep</artifactId>

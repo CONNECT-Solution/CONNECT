@@ -22,6 +22,7 @@
         <db.password>nhincpass</db.password>
         <db.port>3306</db.port>
         <db.user>nhincuser</db.user>
+        <mysql.root.password>NHIE-Gateway</mysql.root.password>
     </properties>
     <pluginRepositories>
         <pluginRepository>
@@ -38,8 +39,8 @@
                 <executions>
                     <execution>
                         <id>unpack-soapui-test-resources</id>
-                        <!-- Using the initialize phase because it is before
-                            the generate sources phase -->
+                        <!-- Using the initialize phase because it is before the generate sources
+                            phase -->
                         <phase>initialize</phase>
                         <goals>
                             <goal>unpack</goal>
@@ -209,6 +210,27 @@
                             <outputDirectory>${project.build.directory}/wsdl-extracted/</outputDirectory>
                         </configuration>
                     </execution>
+                    <execution>
+                        <id>unpack-sql-scripts</id>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>unpack</goal>
+                        </goals>
+                        <configuration>
+                            <skip>${skip.unpack}</skip>
+                            <artifactItems>
+                                <artifactItem>
+                                    <!-- Artifact that Holds our SQL scripts -->
+                                    <groupId>org.connectopensource</groupId>
+                                    <artifactId>DBScripts</artifactId>
+                                    <version>${project.parent.version}</version>
+                                    <type>jar</type>
+                                </artifactItem>
+                            </artifactItems>
+                            <includes>**/*</includes>
+                            <outputDirectory>${project.build.directory}/DBScripts/</outputDirectory>
+                        </configuration>
+                    </execution>
                 </executions>
             </plugin>
             <plugin>
@@ -223,10 +245,8 @@
                         </goals>
                         <configuration>
                             <target>
-                                <copy todir="${project.build.directory}/wsdl"
-                                    flatten="true">
-                                    <fileset
-                                        dir="${project.build.directory}/wsdl-extracted">
+                                <copy todir="${project.build.directory}/wsdl" flatten="true">
+                                    <fileset dir="${project.build.directory}/wsdl-extracted">
                                         <include name="**/*.wsdl" />
                                     </fileset>
                                 </copy>
@@ -400,6 +420,39 @@
                                 <goals>
                                     <goal>stop</goal>
                                 </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>sql-maven-plugin</artifactId>
+                        <version>1.5</version>
+                        <dependencies>
+                            <dependency>
+                                <groupId>mysql</groupId>
+                                <artifactId>mysql-connector-java</artifactId>
+                                <version>5.1.10</version>
+                            </dependency>
+                        </dependencies>
+                        <configuration>
+                            <driver>com.mysql.jdbc.Driver</driver>
+                            <url>jdbc:mysql://localhost</url>
+                            <username>root</username>
+                            <password>${mysql.root.password}</password>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <phase>process-test-resources</phase>
+                                <goals>
+                                    <goal>execute</goal>
+                                </goals>
+                                <configuration>
+                                    <srcFiles>
+                                        <srcFile>${project.build.directory}/DBScripts/nhincdb/dropall.sql</srcFile>
+                                        <srcFile>${project.build.directory}/DBScripts/nhincdb/nhincdb.sql</srcFile>
+                                        <srcFile>${project.build.directory}/DBScripts/nhincdb/populateTestData.sql</srcFile>
+                                    </srcFiles>
+                                </configuration>
                             </execution>
                         </executions>
                     </plugin>
