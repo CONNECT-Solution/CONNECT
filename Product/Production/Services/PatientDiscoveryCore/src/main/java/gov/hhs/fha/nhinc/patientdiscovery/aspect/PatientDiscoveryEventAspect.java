@@ -61,7 +61,7 @@ public class PatientDiscoveryEventAspect {
 
     private EventRecorder eventRecorder;
 
-    private EventFactory eventFactory;
+    protected EventFactory eventFactory;
 
     public void setEventFactory(EventFactory eventFactory) {
         this.eventFactory = eventFactory;
@@ -88,7 +88,8 @@ public class PatientDiscoveryEventAspect {
         eventRecorder.recordEvent(event);
     }
     
-    private void recordPRPAIN201305UV0Event(BaseEventBuilder builder, PRPAIN201305UV02 body) {
+
+    protected void recordEvent(BaseEventBuilder builder, PRPAIN201305UV02 body) {
         EventDescriptionDirector eventDescriptionDirector = new EventDescriptionDirector();
 
         ContextEventDescriptionBuilder contextEventDesciptionBuilder = new ContextEventDescriptionBuilder();
@@ -98,228 +99,15 @@ public class PatientDiscoveryEventAspect {
         recordEvent(builder, eventDescriptionDirector, pRPAIN201305UV02Builder);
 
     }
-//
-//    /*------InboundMessage----*/
-//    @Pointcut("execution(* gov.hhs.fha.nhinc.patientdiscovery.*.gateway.ws.NhinPatientDiscovery.respondingGatewayPRPAIN201305UV02(PRPAIN201305UV02,..)) &&"
-//            + "args(body)")
-//    private void inboundMessage(PRPAIN201305UV02 body) {
-//    }
-//    
-//    
-//
-//    @Before("inboundMessage(PRPAIN201305UV02)")
-//    public void beginInboundMessageEvent(PRPAIN201305UV02 body) {
-//
-//        ContextEventBuilder builder = new ContextEventBuilder() {
-//            @Override
-//            public void createNewEvent() {
-//                event = eventFactory.createBeginInboundMessage();
-//            }
-//        };
-//        recordPRPAIN201305UV0Event(builder, body);
-//    }
-//
-//   
-//
-//    @After("inboundMessage(PRPAIN201305UV02)")
-//    public void endInboundMessageEvent(PRPAIN201305UV02 body) {
-//        ContextEventBuilder builder = new ContextEventBuilder() {
-//            @Override
-//            public void createNewEvent() {
-//                event = eventFactory.createEndInboundMessage();
-//            }
-//        };
-//        recordPRPAIN201305UV0Event(builder, body);
-//    }
-
-    /*------Inbound Processing----*/
-    @Pointcut("execution(* gov.hhs.fha.nhinc.patientdiscovery.NhinPatientDiscoveryImpl.respondingGatewayPRPAIN201305UV02(..)) &&"
-            + " args(requestType)")
-    private void processInboundMessage(ProxyPRPAIN201305UVProxyRequestType requestType) {
+    protected void recordEvent(BaseEventBuilder builder, RespondingGatewayPRPAIN201305UV02RequestType requestType) {
+        recordEvent(builder, requestType.getPRPAIN201305UV02());
+        
     }
+    
 
-    @Before("processInboundMessage(org.hl7.v3.ProxyPRPAIN201305UVProxyRequestType) && args(requestType)")
-    public void beginInboundProcessingEvent(ProxyPRPAIN201305UVProxyRequestType requestType) {
-
-        ContextEventBuilder builder = new ContextEventBuilder() {
-            @Override
-            public void createNewEvent() {
-                event = eventFactory.createBeginInboundProcessing();
-            }
-        };
-        recordPRPAIN201305UV0Event(builder, requestType.getPRPAIN201305UV02());
+    protected void recordEvent(BaseEventBuilder builder, ProxyPRPAIN201305UVProxyRequestType requestType) {
+        recordEvent(builder, requestType.getPRPAIN201305UV02());
+        
     }
-
-  
-
-    @After("processInboundMessage(org.hl7.v3.ProxyPRPAIN201305UVProxyRequestType) && args(requestType)")
-    public void endInboundProcessingEvent(ProxyPRPAIN201305UVProxyRequestType requestType) {
-        ContextEventBuilder builder = new ContextEventBuilder() {
-            @Override
-            public void createNewEvent() {
-                event = eventFactory.createEndInboundProcessing();
-            }
-        };
-        recordPRPAIN201305UV0Event(builder, requestType.getPRPAIN201305UV02());
-    }
-
-    /*------ Adapter Delegation----*/
-//
-//    @Pointcut("execution(* gov.hhs.fha.nhinc.patientdiscovery.adapter.proxy.AdapterPatientDiscoveryProxy*.respondingGatewayPRPAIN201305UV02(PRPAIN201305UV02,..)) &&"
-//            + "args(body)")
-//    private void adapterDelegation(PRPAIN201305UV02 body) {
-//    }
-//
-//    @Before("adapterDelegation(PRPAIN201305UV02)")
-//    public void beginAdapterDelegationEvent(PRPAIN201305UV02 body) {
-//        ContextEventBuilder builder = new ContextEventBuilder() {
-//            @Override
-//            public void createNewEvent() {
-//                event = eventFactory.createBeginAdapterDelegation();
-//            }
-//        };
-//        recordPRPAIN201305UV0Event(builder, body);
-//    }
-//
-//    @After("adapterDelegation(PRPAIN201305UV02)")
-//    public void endAdapterDelegationEvent(PRPAIN201305UV02 body) {
-//        ContextEventBuilder builder = new ContextEventBuilder() {
-//            @Override
-//            public void createNewEvent() {
-//                event = eventFactory.createEndAdapterDelegation();
-//            }
-//        };
-//        recordPRPAIN201305UV0Event(builder, body);
-//    }
-
-//    /*------OutboundMessage----*/
-//    @Pointcut("execution(* gov.hhs.fha.nhinc.patientdiscovery.*.gateway.ws.EntityPatientDiscovery*.respondingGatewayPRPAIN201305UV02(..)) &&"
-//            + "args(requestType)")
-//    private void outboundMessage(RespondingGatewayPRPAIN201305UV02RequestType requestType) {
-//    }
-//    
-//    @Before("outboundMessage() && args(requestType)")
-//    public void beginOutboundMessageEvent(RespondingGatewayPRPAIN201305UV02RequestType requestType) {
-//        ContextEventBuilder builder = new ContextEventBuilder() {
-//            @Override
-//            public void createNewEvent() {
-//                event = eventFactory.createBeginOutboundMessage();
-//            }
-//        };
-//        recordPRPAIN201305UV0Event(builder, requestType.getPRPAIN201305UV02());
-//    }
-//    
-//    
-//
-//    @After("outboundMessage()  && args(requestType)")
-//    public void endOutboundMessageEvent(RespondingGatewayPRPAIN201305UV02RequestType requestType) {
-//        ContextEventBuilder builder = new ContextEventBuilder() {
-//            @Override
-//            public void createNewEvent() {
-//                event = eventFactory.createEndOutboundMessage();
-//            }
-//        };
-//        recordPRPAIN201305UV0Event(builder, requestType.getPRPAIN201305UV02());
-//    }
-
-    @Pointcut("execution(* gov.hhs.fha.nhinc.patientdiscovery.*.gateway.ws.NhincProxyPatientDiscovery*.proxyPRPAIN201305UV(..)) &&"
-            + "args(requestType)")
-    private void passthruOutboundMessage(ProxyPRPAIN201305UVProxyRequestType requestType) {
-    }
-
-    @Before("passthruOutboundMessage(org.hl7.v3.ProxyPRPAIN201305UVProxyRequestType) && args(requestType)")
-    public void beginOutboundMessageEvent(ProxyPRPAIN201305UVProxyRequestType requestType) {
-        ContextEventBuilder builder = new ContextEventBuilder() {
-            @Override
-            public void createNewEvent() {
-                event = eventFactory.createBeginOutboundMessage();
-            }
-        };
-        recordPRPAIN201305UV0Event(builder, requestType.getPRPAIN201305UV02());
-    }
-
-    @After("passthruOutboundMessage(org.hl7.v3.ProxyPRPAIN201305UVProxyRequestType) && args(requestType)")
-    public void endOutboundMessageEvent(ProxyPRPAIN201305UVProxyRequestType requestType) {
-        ContextEventBuilder builder = new ContextEventBuilder() {
-            @Override
-            public void createNewEvent() {
-                event = eventFactory.createEndOutboundMessage();
-            }
-        };
-        recordPRPAIN201305UV0Event(builder, requestType.getPRPAIN201305UV02());
-    }
-
-    /*------Outbound Processing----*/
-//    @Pointcut("execution(* gov.hhs.fha.nhinc.patientdiscovery._10.entity.EntityPatientDiscoveryImpl.respondingGatewayPRPAIN201305UV02(..))&&"
-//            + "args(body)")
-//    private void processOutboundMessage(PRPAIN201305UV02 body) {
-//    }
-//
-//    @Pointcut("execution(* gov.hhs.fha.nhinc.patientdiscovery._10.passthru.NhincProxyPatientDiscoveryImpl.proxyPRPAIN201305UV(..)) &&"
-//            + "args(body)")
-//    private void processPassthruOutboundMessage(PRPAIN201305UV02 body) {
-//    }
-//
-//    @Before("processOutboundMessage() || processPassthruOutboundMessage() && args(body)")
-//    public void beginOutboundProcessingEvent(PRPAIN201305UV02 body) {
-//        ContextEventBuilder builder = new ContextEventBuilder() {
-//            @Override
-//            public void createNewEvent() {
-//                event = eventFactory.createBeginOutboundProcessing();
-//            }
-//        };
-//        recordPRPAIN201305UV0Event(builder, body);
-//    }
-//
-//    @After("processOutboundMessage() || processPassthruOutboundMessage() && args(body)")
-//    public void endOutboundProcessingEvent(PRPAIN201305UV02 body) {
-//        ContextEventBuilder builder = new ContextEventBuilder() {
-//            @Override
-//            public void createNewEvent() {
-//                event = eventFactory.createEndOutboundProcessing();
-//            }
-//        };
-//        recordPRPAIN201305UV0Event(builder, body);
-//    }
-//
-//    /*------ Nwhin Invocation ----*/
-//    @Pointcut("execution(* gov.hhs.fha.nhinc.patientdiscovery.nhin.proxy.NhinPatientDiscoveryProxy*.respondingGatewayPRPAIN201305UV02(..))&&"
-//            + "args(body)")
-//    private void nwhinInvocation(PRPAIN201305UV02 body) {
-//    }
-//
-//    @Before("nwhinInvocation() && args(body)")
-//    public void beginNwhinInvocationEvent(PRPAIN201305UV02 body) {
-//        ContextEventBuilder builder = new ContextEventBuilder() {
-//            @Override
-//            public void createNewEvent() {
-//                event = eventFactory.createBeginNwhinInvocation();
-//            }
-//        };
-//        recordPRPAIN201305UV0Event(builder, body);
-//    }
-//
-//    @After("nwhinInvocation() && args(body)")
-//    public void endNwhinInvocationEvent(PRPAIN201305UV02 body) {
-//        ContextEventBuilder builder = new ContextEventBuilder() {
-//            @Override
-//            public void createNewEvent() {
-//                event = eventFactory.createEndNwhinInvocation();
-//            }
-//        };
-//        recordPRPAIN201305UV0Event(builder, body);
-//    }
-
-    /*------ Failure ----*/
-//    @AfterThrowing(pointcut="inboundMessage() || outboundMessage()", throwing="fault")
-//    public void failEvent(PRPAIN201305UV02Fault fault) {
-////        ContextEventBuilder builder = new ContextEventBuilder() {
-////            @Override
-////            public void createNewEvent() {
-////                event = eventFactory.createMessageProcessingFailed();
-////            }
-////        };
-////        recordPRPAIN201305UV0Event(builder, body);
-//    }
 
 }

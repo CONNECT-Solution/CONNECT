@@ -26,23 +26,26 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery.aspect;
 
-import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.isA;
+import static org.mockito.Mockito.inOrder;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 import gov.hhs.fha.nhinc.event.EventFactory;
 import gov.hhs.fha.nhinc.event.EventRecorder;
+import gov.hhs.fha.nhinc.event.responder.BeginAdapterDelegationEvent;
+import gov.hhs.fha.nhinc.event.responder.BeginInboundMessageEvent;
 import gov.hhs.fha.nhinc.event.responder.BeginInboundProcessingEvent;
+import gov.hhs.fha.nhinc.event.responder.EndAdapterDelegationEvent;
+import gov.hhs.fha.nhinc.event.responder.EndInboundMessageEvent;
 import gov.hhs.fha.nhinc.event.responder.EndInboundProcessingEvent;
 
 import org.apache.cxf.jaxws.context.WebServiceContextImpl;
 import org.apache.cxf.jaxws.context.WrappedMessageContext;
 import org.apache.cxf.message.MessageImpl;
 import org.hl7.v3.PRPAIN201305UV02;
-import org.hl7.v3.ProxyPRPAIN201305UVProxyRequestType;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -67,42 +70,63 @@ public class PatientDiscoveryEventAspectTest {
     }
 
     @Test
-    public void beginInboundMessageEvent() {
+    public void inboundMessageEvent() {
         EventRecorder mockEventRecorder = mock(EventRecorder.class);
-
-        PatientDiscoveryEventAspect aspect = new PatientDiscoveryEventAspect();
+        
+        InboundMessageEventAspect aspect = new InboundMessageEventAspect();
         aspect.setEventFactory(eventFactory);
         aspect.setEventRecorder(mockEventRecorder);
 
-        ProxyPRPAIN201305UVProxyRequestType mockRequestType = mock(ProxyPRPAIN201305UVProxyRequestType.class);
-
         PRPAIN201305UV02 mockPRPAIN201305UV02 = mock(PRPAIN201305UV02.class);
+        InOrder order = inOrder(mockEventRecorder);
+        
+        aspect.beginEvent(mockPRPAIN201305UV02);
+        aspect.endEvent(mockPRPAIN201305UV02);
 
-        when(mockRequestType.getPRPAIN201305UV02()).thenReturn(mockPRPAIN201305UV02);
-
-        aspect.beginInboundProcessingEvent(mockRequestType);
-
-        verify(mockEventRecorder).recordEvent(any(BeginInboundProcessingEvent.class));
+        order.verify(mockEventRecorder).recordEvent(isA(BeginInboundMessageEvent.class));
+        order.verify(mockEventRecorder).recordEvent(isA(EndInboundMessageEvent.class));
 
     }
-
+    
     @Test
-    public void endInboundMessageEvent() {
+    public void adapterDelegationEvent() {
+        AdapterDelegationEventAspect aspect = new AdapterDelegationEventAspect();
+        
         EventRecorder mockEventRecorder = mock(EventRecorder.class);
-        PatientDiscoveryEventAspect aspect = new PatientDiscoveryEventAspect();
+        
         aspect.setEventFactory(eventFactory);
         aspect.setEventRecorder(mockEventRecorder);
-        ProxyPRPAIN201305UVProxyRequestType mockRequestType = mock(ProxyPRPAIN201305UVProxyRequestType.class);
-
-        PRPAIN201305UV02 mockPRPAIN201305UV02 = mock(PRPAIN201305UV02.class);
-
-        when(mockRequestType.getPRPAIN201305UV02()).thenReturn(mockPRPAIN201305UV02);
-
-
-        aspect.endInboundProcessingEvent(mockRequestType);
-
-        verify(mockEventRecorder).recordEvent(any(EndInboundProcessingEvent.class));
-
+        
+        PRPAIN201305UV02 pRPAIN201305UV02 = mock(PRPAIN201305UV02.class);
+        
+        aspect.beginEvent(pRPAIN201305UV02);
+        aspect.endEvent(pRPAIN201305UV02);
+        
+        InOrder order = inOrder(mockEventRecorder);
+        
+        order.verify(mockEventRecorder).recordEvent(isA(BeginAdapterDelegationEvent.class));
+        order.verify(mockEventRecorder).recordEvent(isA(EndAdapterDelegationEvent.class));
+        
     }
+    
+    @Test
+    public void inboundProcessingEvent() {
+        InboundProcessingEventAspect aspect = new InboundProcessingEventAspect();
+        
+        EventRecorder mockEventRecorder = mock(EventRecorder.class);
+        
+        aspect.setEventFactory(eventFactory);
+        aspect.setEventRecorder(mockEventRecorder);
+        
+        PRPAIN201305UV02 pRPAIN201305UV02 = mock(PRPAIN201305UV02.class);
+        
+        InOrder order = inOrder(mockEventRecorder);
+        aspect.beginEvent(pRPAIN201305UV02);
+        aspect.endEvent(pRPAIN201305UV02);
+        
+        order.verify(mockEventRecorder).recordEvent(isA(BeginInboundProcessingEvent.class));
+        order.verify(mockEventRecorder).recordEvent(isA(EndInboundProcessingEvent.class));
+    }
+
 
 }
