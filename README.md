@@ -179,11 +179,13 @@ Testing
 -------
 ###Run the Validation Suite as part of install
 At the end of the mvn install process, an embedded GlassFish instance will start and the Validation Suite will run against it:
+
         $ cd <CONNECT_CLONE_DIR>/Product/SoapUI_Test/ValidationSuite
         $ mvn clean install
 
 ###Run the Validation Suite via Maven sript
 The Validation Suite can be run via a Maven script against a standalone installation of the applicaiton server:
+
 		$ cd <CONNECT_CLONE_DIR>/Product/SoapUI_Test/ValidationSuite
 		$ mvn verify -Dstandalone -Dproperties.dir=<applicaiton server configuration dir>
 
@@ -197,7 +199,12 @@ Several propertis can be passed for mvn verify:
 		-Ddb.port=<####> -- defaults to 3306
 		-Ddb.user=<database user name> -- defaults to nhincuser
 		-Ddb.password=<database password> -- defaults to nhincpass
-				
+		-Dproject 
+		-Dtest.suite=<g0 or g1>
+		-Dtest.case=<test case name> -- one of "Document Submission Deferred Req", "Document Submission Deferred Resp", "Document Submission", "Patient Discovery Deferred Req", "Patient Discovery Deferred Resp", "Patient Discovery", "Document Query", "Document Retrieve", "Subscribe", "Notify", "Unsubscribe", "Admin Distribution"
+		-Dentity.skip -- pass in to skip Entity testing
+		-Dmsgproxy.skip -- pass in to skip MsgProxy testing
+		
 ###Run the Validation Suite via SoapUI
 The Validation Suite can be run with SoapUI. First, follow the instructions "Setting up SoapUI" below.
 Set the property "GatewayPropDir" in MsgProxyValidation-soapui-project.properties and EntityValidation-soapui-project.properties in the Validation Suite directory. This should be set to the gateway configuration directory. For GlassFish this is <GlassFish home>/domains/domain1/config/nhin; there is an equivalent in WebSphere 
