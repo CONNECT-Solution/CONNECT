@@ -26,36 +26,78 @@
  */
 package gov.hhs.fha.nhinc.event;
 
+import gov.hhs.fha.nhinc.event.error.MessageProcessingFailedEvent;
+import gov.hhs.fha.nhinc.event.initiator.BeginNwhinInvocationEvent;
+import gov.hhs.fha.nhinc.event.initiator.BeginOutboundMessageEvent;
+import gov.hhs.fha.nhinc.event.initiator.BeginOutboundProcessingEvent;
+import gov.hhs.fha.nhinc.event.initiator.EndNwhinInvocationEvent;
+import gov.hhs.fha.nhinc.event.initiator.EndOutboundMessageEvent;
+import gov.hhs.fha.nhinc.event.initiator.EndOutboundProcessingEvent;
+import gov.hhs.fha.nhinc.event.responder.BeginAdapterDelegationEvent;
+import gov.hhs.fha.nhinc.event.responder.BeginInboundMessageEvent;
+import gov.hhs.fha.nhinc.event.responder.BeginInboundProcessingEvent;
+import gov.hhs.fha.nhinc.event.responder.EndAdapterDelegationEvent;
+import gov.hhs.fha.nhinc.event.responder.EndInboundMessageEvent;
+import gov.hhs.fha.nhinc.event.responder.EndInboundProcessingEvent;
+
+import org.springframework.stereotype.Component;
+
 /**
  * @author zmelnick
  * 
  */
-public interface EventFactory {
+@Component
+public class EventFactory {
 
-    public Event createBeginOutboundMessage();
+    public Event createBeginOutboundMessage() {
+        return new BeginOutboundMessageEvent();
+    }
 
-    public Event createBeginOutboundProcessing();
+    public Event createBeginOutboundProcessing() {
+        return new BeginOutboundProcessingEvent();
+    }
 
-    public Event createBeginNwhinInvocation();
+    public Event createBeginNwhinInvocation() {
+        return new BeginNwhinInvocationEvent();
+    }
 
-    public Event createEndNwhinInvocation();
+    public Event createEndNwhinInvocation() {
+        return new EndNwhinInvocationEvent();
+    }
 
-    public Event createEndOutboundProcessing();
+    public Event createEndOutboundProcessing() {
+        return new EndOutboundProcessingEvent();
+    }
 
-    public Event createEndOutboundMessage();
+    public Event createEndOutboundMessage() {
+        return new EndOutboundMessageEvent();
+    }
 
-    public Event createBeginInboundMessage();
+    public Event createBeginInboundMessage() {
+        return new BeginInboundMessageEvent();
+    }
 
-    public Event createBeginInboundProcessing();
+    public Event createBeginInboundProcessing() {
+        return new BeginInboundProcessingEvent();
+    }
 
-    public Event createBeginAdapterDelegation();
+    public Event createBeginAdapterDelegation() {
+        return new BeginAdapterDelegationEvent();
+    }
 
-    public Event createEndAdapterDelegation();
+    public Event createEndAdapterDelegation() {
+        return new EndAdapterDelegationEvent();
+    }
 
-    public Event createEndInboundProcessing();
+    public Event createEndInboundProcessing() {
+        return new EndInboundProcessingEvent();
+    }
 
-    public Event createEndInboundMessage();
+    public Event createEndInboundMessage() {
+        return new EndInboundMessageEvent();
+    }
 
-    public Event createMessageProcessingFailed();
-
+    public Event createMessageProcessingFailed() {
+        return new MessageProcessingFailedEvent();
+    }
 }
