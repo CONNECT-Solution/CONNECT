@@ -53,8 +53,8 @@
                         class="gov.hhs.fha.nhinc.event.responder.BeginInboundProcessingEvent"
                         scope="prototype" />
                 </entry>
-                <entry key="">
-                    <bean id="beginAdapterDelegation"
+                <entry key="beginAdapterDelegation">
+                    <bean 
                         class="gov.hhs.fha.nhinc.event.responder.BeginAdapterDelegationEvent"
                         scope="prototype" />
                 </entry>

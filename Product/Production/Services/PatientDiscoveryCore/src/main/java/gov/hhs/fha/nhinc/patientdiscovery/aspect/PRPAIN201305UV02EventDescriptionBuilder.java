@@ -29,7 +29,7 @@ public class PRPAIN201305UV02EventDescriptionBuilder implements EventDescription
     }
 
     public EventDescription getEventDescription() {
-        return decorated.getEventDescription();
+        return description;
     }
 
     public void createEventDescription() {

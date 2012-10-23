@@ -194,7 +194,7 @@ public class EventAspectAdvice {
     @SuppressWarnings("unchecked")
     protected String getDescription(WebServiceContext context) {
         EventDescriptionDirector director = new EventDescriptionDirector();
-        director.setEventDescriptionBuilder(new ContextEventDescriptionBuilder());
+        director.setEventDescriptionBuilder(new ContextEventDescriptionBuilder(context));
 
         director.constructEventDescription();
 
