@@ -369,10 +369,10 @@
         <repository>
             <id>forgerock</id>
             <url>http://repo.forgerock.org</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
         </repository>
-        <snapshots>
-            <enabled>false</enabled>
-        </snapshots>
     </repositories>
     <profiles>
         <profile>
