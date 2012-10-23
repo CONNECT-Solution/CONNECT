@@ -370,6 +370,9 @@
             <id>forgerock</id>
             <url>http://repo.forgerock.org</url>
         </repository>
+        <snapshots>
+            <enabled>false</enabled>
+        </snapshots>
     </repositories>
     <profiles>
         <profile>
