@@ -1,7 +1,7 @@
 CONNECT
 =======
 
-CONNECT is an open source software solution that supports health information exchange, both locally and at the national level. CONNECT uses Nationwide Health Information Network standards and governance to make sure that health information exchanges are compatible with other exchanges being set up throughout the country.
+CONNECT is an open source software solution that supports health information exchange – both locally and at the national level. CONNECT uses Nationwide Health Information Network standards and governance to make sure that health information exchanges are compatible with other exchanges being set up throughout the country.
 
 This software solution was initially developed by federal agencies to support their health-related missions, but it is now available to all organizations and can be used to help set up health information exchanges and share data using nationally-recognized interoperability standards.
 
@@ -26,7 +26,7 @@ Three primary elements make up the CONNECT solution:
 
 History
 -------
-* 4.0 planned Febuary 2013
+* 4.0 planned February 2013
 * 3.3 released March 2012
 
 For more information, about CONNECT's history see [HISTORY.md](./CONNECT/HISTORY.md)
@@ -45,13 +45,6 @@ Before you get started, you'll need the following installed and set up:
 
 
 ###Building from source
-
-If your MySQL root user's password is not "NHIE-Gateway", which is the CONNECT default, then you will need to either pass-in the value via a system property (-Dmysql.root.password=<password>), or more conveniently, add the property to your maven settings.xml:
-        <properties>
-             <mysql.root.password>password</mysql.root.password>
-             ...
-        </properties>
-
 To build all CONNECT modules from source, run:
 
 Windows Users:
@@ -65,12 +58,7 @@ OSX / Linux Users:
 Everyone:
 
         $ cd <CONNECT_CLONE_DIR>
-
-        If using default CONNECT MySQL root user password "NHIE-Gateway":
         $ mvn clean install
-
-        If using non-default CONNECT MySQL root user password:
-        $ mvn clean install -Dmysql.root.password=<password>
 
 ###Generate Eclipse Projects
 After you have built from source you can create all of the Eclipse Project files
@@ -91,15 +79,10 @@ and choose the clone repo directory (\<CONNECT_CLONE_DIR\>), e.g. CONNECT. You m
 * \<CONNECT_CLONE_DIR\>/Product/Production
 
 ####Building an ear
-All services profiles are active by default, so to build an ear containing all services, using the default MySQL root password, just execute:
+All services profiles are active by default, so to build an ear containing all services, just execute:
 
         $ cd <CONNECT_CLONE_DIR>
         $ mvn clean install
-
-To build an ear containing all services, with non-default MySQL root user password, just execute:
-
-        $ cd <CONNECT_CLONE_DIR>
-        $ mvn clean install -Dmysql.root.password=<password>
 
 If you want to exclude a service, in this case PD, you can turn off the profile by adding a "!" to the name of the service profile you'd like to exclude (needs to be escaped with "\" char on *NIX) platforms:
 
@@ -197,12 +180,12 @@ Testing
 ###Run the Validation Suite as part of install
 At the end of the mvn install process, an embedded GlassFish instance will start and the Validation Suite will run against it:
         $ cd <CONNECT_CLONE_DIR>/Product/SoapUI_Test/ValidationSuite
-        $ mvn clean install -Dmysql.root.password=<password>
+        $ mvn clean install
 
-###Run the Validation Suite via Maven script
+###Run the Validation Suite via Maven sript
 The Validation Suite can be run via a Maven script against a standalone installation of the application server:
         $ cd <CONNECT_CLONE_DIR>/Product/SoapUI_Test/ValidationSuite
-        $ mvn verify -Dstandalone -Dproperties.dir=<applicaiton server configuration dir> -Dmysql.root.password=<password>
+        $ mvn verify -Dstandalone -Dproperties.dir=<applicaiton server configuration dir>
 
 Several properties can be passed for mvn verify:
         -Dstandalone -- must be passed in for standalone testing
@@ -214,6 +197,7 @@ Several properties can be passed for mvn verify:
         -Ddb.port=<####> -- defaults to 3306
         -Ddb.user=<database user name> -- defaults to nhincuser
         -Ddb.password=<database password> -- defaults to nhincpass
+        -Dmysql.root.password=<password> -- defaults to NHIE-Gateway, and must be passed in if MySQL root user's password is different from default
 
 ###Run the Validation Suite via SoapUI
 The Validation Suite can be run with SoapUI. First, follow the instructions "Setting up SoapUI" below.
@@ -222,7 +206,7 @@ Run the Validation Suite project files MsgProxyValidation-soapui-project.xml and
 
 ##Setting up SoapUI
 Install SoapUI v4.5.1.
-Copy the MySQL jdbc driver mysql-connector-java-5.1.10.jar from the Maven repository directory .m2/repository/mysql/mysql-connector-java/5.1.10 to <SoapUI home>/bin/ext.
+Copy the MySQL jdbc driver mydql-connector-java-5.1.10.jar from the Maven repository directory .m2/repository/mysql/mysql-connector-java/5.1.10 to <SoapUI home>/bin/ext.
 Copy the file FileUtils-4.0.0-SNAPSHOT.jar (or similarly named) to <SoapUI home>/bin/ext.
 
 
