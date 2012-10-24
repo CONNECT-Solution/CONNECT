@@ -194,8 +194,8 @@ Several properties can be passed for mvn verify:
         -Dstandalone -- must be passed in for standalone testing
         -Dproperties.dir=<gateway config dir> -- for GlassFish this is <GlassFish home>/domains/domain1/config/nhin; there is an equivalent in WebSphere 
         -Dhost=<machine name or IP address to act as the requesting gateway> -- defaults to localhost, but can be passed in to test on remote machines
-        -Dport=<####> -- defaults to 8080; the unsecured entity/message-proxy port
-        -Dsecured.port=<####> -- defaults to 8181; the secured entity/message-proxy port
+        -Dport=<####> -- defaults to 8080; the unsecured port
+        -Dsecured.port=<####> -- defaults to 8181; the secured port, used for defining HIEM response endpoints
         -Ddb.host=<machine name or IP address of the MySQL server> --  defaults to localhost
         -Ddb.port=<####> -- defaults to 3306
         -Ddb.user=<database user name> -- defaults to nhincuser
