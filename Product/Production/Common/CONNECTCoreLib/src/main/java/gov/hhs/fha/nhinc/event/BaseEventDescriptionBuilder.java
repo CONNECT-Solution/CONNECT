@@ -27,10 +27,30 @@
 package gov.hhs.fha.nhinc.event;
 
 
-public class BaseEventDescriptionBuilder implements EventDescriptionBuilder {
+public abstract class BaseEventDescriptionBuilder implements EventDescriptionBuilder {
     
-    protected BaseEventDescription description;
+    private BaseEventDescription description;
+    private MessageRoutingAccessor msgRouting;
+    private EventContextAccessor msgContext;
     
+    public BaseEventDescriptionBuilder() {
+        
+    }
+    
+    public BaseEventDescriptionBuilder(MessageRoutingAccessor msgRouting, EventContextAccessor msgContext) {
+        this.msgRouting = msgRouting;
+        this.msgContext = msgContext;
+    }
+    
+    
+    public void setMsgRouting(MessageRoutingAccessor msgRouting) {
+        this.msgRouting = msgRouting;
+    }
+
+    public void setMsgContext(EventContextAccessor msgContext) {
+        this.msgContext = msgContext;
+    }
+
     public EventDescription getEventDescription() {
         return description;
     }
@@ -38,19 +58,57 @@ public class BaseEventDescriptionBuilder implements EventDescriptionBuilder {
     public void createEventDescription() {
         description = new BaseEventDescription();
     }
+    final public void buildMessageId() {
+       description.setMessageId(msgRouting.getMessageId());
+        
+    }
+    final public void buildTransactionId() {
+        description.setTransactionId(msgRouting.getTransactionId());
+    }
     
-    public void buildMessageId() {}
-    public void buildTransactionId() {}
-    public void buildTimeStamp() {}
-    public void buildStatus() {}
-    public void buildServiceType() {}
-    public void buildResponseMsgIdList() {}
-    public void buildRespondingHCID() {}
-    public void buildPayloadType() {}
-    public void buildPayloadSize() {}
-    public void buildNPI() {}
-    public void buildInitiatingHCID() {}
-    public void buildErrorCode() {}
-    public void buildAction() {}
+    final public void buildResponseMsgIdList() {
+        description.setResponseMsgids(msgRouting.getResponseMsgIdList());
+    }
+    
+    final public void buildAction() {
+        description.setAction(msgContext.getAction());
+    }
+    final public void buildServiceType() {
+        description.setServiceType(msgContext.getServiceType());
+    }
+
+    protected void setErrorCode(String errorCode) {
+        description.setErrorCode(errorCode);
+    }
+
+    protected void setStatus(String status) {
+        description.setStatus(status);
+    }
+
+    protected void setNpi(String npi) {
+        description.setNpi(npi);
+    }
+
+    protected void setRespondingHCID(String respondingHCID) {
+        description.setRespondingHCID(respondingHCID);
+    }
+
+    protected void setInitiatingHCID(String initiatingHCID) {
+        description.setInitiatingHCID(initiatingHCID);
+    }
+
+    protected void setPayloadSize(String payloadSize) {
+        description.setPayloadSize(payloadSize);
+    }
+
+    protected void setPayLoadType(String payLoadType) {
+        description.setPayLoadType(payLoadType);
+    }
+
+    protected void setTimeStamp(String timeStamp) {
+        description.setTimeStamp(timeStamp);
+    }
+    
+    
 
 }

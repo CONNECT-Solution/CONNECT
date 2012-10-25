@@ -76,7 +76,7 @@ public class PatientDiscoveryEventAspectTest {
         InboundMessageEventAspect aspect = new InboundMessageEventAspect();
         aspect.setEventFactory(eventFactory);
         aspect.setEventRecorder(mockEventRecorder);
-
+       
         PRPAIN201305UV02 mockPRPAIN201305UV02 = mock(PRPAIN201305UV02.class);
         InOrder order = inOrder(mockEventRecorder);
         

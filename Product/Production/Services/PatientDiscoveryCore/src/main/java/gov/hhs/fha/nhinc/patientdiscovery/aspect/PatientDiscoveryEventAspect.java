@@ -27,27 +27,18 @@
 
 package gov.hhs.fha.nhinc.patientdiscovery.aspect;
 
-import ihe.iti.xcpd._2009.PRPAIN201305UV02Fault;
-import gov.hhs.fha.nhinc.aspect.EventAspectAdvice;
 import gov.hhs.fha.nhinc.event.BaseEventBuilder;
-import gov.hhs.fha.nhinc.event.ContextEventBuilder;
-import gov.hhs.fha.nhinc.event.ContextEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.event.Event;
-import gov.hhs.fha.nhinc.event.EventBuilder;
+import gov.hhs.fha.nhinc.event.EventContextAccessor;
 import gov.hhs.fha.nhinc.event.EventDescriptionBuilder;
 import gov.hhs.fha.nhinc.event.EventDescriptionDirector;
 import gov.hhs.fha.nhinc.event.EventDirector;
 import gov.hhs.fha.nhinc.event.EventFactory;
 import gov.hhs.fha.nhinc.event.EventRecorder;
+import gov.hhs.fha.nhinc.event.SOAPMessageRoutingAccessor;
 
-import org.apache.cxf.jaxws.context.WebServiceContextImpl;
-import org.aspectj.lang.annotation.After;
-import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
-import org.aspectj.lang.annotation.Pointcut;
 import org.hl7.v3.PRPAIN201305UV02;
-import org.hl7.v3.PRPAIN201306UV02;
 import org.hl7.v3.ProxyPRPAIN201305UVProxyRequestType;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 
@@ -92,9 +83,25 @@ public class PatientDiscoveryEventAspect {
     protected void recordEvent(BaseEventBuilder builder, PRPAIN201305UV02 body) {
         EventDescriptionDirector eventDescriptionDirector = new EventDescriptionDirector();
 
-        ContextEventDescriptionBuilder contextEventDesciptionBuilder = new ContextEventDescriptionBuilder();
-        EventDescriptionBuilder pRPAIN201305UV02Builder = new PRPAIN201305UV02EventDescriptionBuilder(
-                contextEventDesciptionBuilder, body);
+        PRPAIN201305UV02EventDescriptionBuilder pRPAIN201305UV02Builder = new PRPAIN201305UV02EventDescriptionBuilder(body);
+
+        //TODO: this isn't correct
+        
+        pRPAIN201305UV02Builder.setMsgRouting(new SOAPMessageRoutingAccessor());
+        pRPAIN201305UV02Builder.setMsgContext(new EventContextAccessor() {
+            
+            @Override
+            public String getServiceType() {
+                // TODO Auto-generated method stub
+                return null;
+            }
+            
+            @Override
+            public String getAction() {
+                // TODO Auto-generated method stub
+                return null;
+            }
+        });
 
         recordEvent(builder, eventDescriptionDirector, pRPAIN201305UV02Builder);
 

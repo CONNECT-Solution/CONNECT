@@ -7,7 +7,6 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.hl7.v3.PRPAIN201305UV02;
-import org.hl7.v3.ProxyPRPAIN201305UVProxyRequestType;
 
 @Aspect
 public class InboundProcessingEventAspect extends PatientDiscoveryEventAspect {

@@ -1,9 +1,9 @@
 package gov.hhs.fha.nhinc.event;
 
 public class EventDirector {
-    private BaseEventBuilder builder;
+    private EventBuilder builder;
 
-    public void setEventBuilder(BaseEventBuilder builder) {
+    public void setEventBuilder(EventBuilder builder) {
         this.builder = builder;
     }
 

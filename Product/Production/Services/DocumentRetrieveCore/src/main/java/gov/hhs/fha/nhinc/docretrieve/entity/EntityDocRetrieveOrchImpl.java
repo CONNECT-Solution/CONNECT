@@ -61,7 +61,7 @@ public class EntityDocRetrieveOrchImpl {
         NhinAggregator na = new OutboundDocRetrieveAggregator_a0();
         OutboundDocRetrieveOrchestratable outboundDROrchestratable = new OutboundDocRetrieveOrchestratableImpl(body,
                 assertion, pt, at, nd, na, null);
-        OutboundDocRetrieveOrchestratorImpl oOrchestrator = new OutboundDocRetrieveOrchestratorImpl();
+        OutboundDocRetrCONNECTOutboundOrchestratorieveOrchestratorImpl oOrchestrator = new OutboundDocRetrieveOrchestratorImpl();
         oOrchestrator.process(outboundDROrchestratable);
 
         return outboundDROrchestratable.getResponse();
