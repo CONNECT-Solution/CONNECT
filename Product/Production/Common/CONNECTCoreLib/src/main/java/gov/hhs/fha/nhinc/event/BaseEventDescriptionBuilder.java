@@ -26,23 +26,23 @@
  */
 package gov.hhs.fha.nhinc.event;
 
+import java.util.List;
 
 public abstract class BaseEventDescriptionBuilder implements EventDescriptionBuilder {
-    
+
     private BaseEventDescription description;
     private MessageRoutingAccessor msgRouting;
     private EventContextAccessor msgContext;
-    
+
     public BaseEventDescriptionBuilder() {
-        
+
     }
-    
+
     public BaseEventDescriptionBuilder(MessageRoutingAccessor msgRouting, EventContextAccessor msgContext) {
         this.msgRouting = msgRouting;
         this.msgContext = msgContext;
     }
-    
-    
+
     public void setMsgRouting(MessageRoutingAccessor msgRouting) {
         this.msgRouting = msgRouting;
     }
@@ -54,25 +54,28 @@ public abstract class BaseEventDescriptionBuilder implements EventDescriptionBui
     public EventDescription getEventDescription() {
         return description;
     }
-    
+
     public void createEventDescription() {
         description = new BaseEventDescription();
     }
+
     final public void buildMessageId() {
-       description.setMessageId(msgRouting.getMessageId());
-        
+        description.setMessageId(msgRouting.getMessageId());
+
     }
+
     final public void buildTransactionId() {
         description.setTransactionId(msgRouting.getTransactionId());
     }
-    
+
     final public void buildResponseMsgIdList() {
         description.setResponseMsgids(msgRouting.getResponseMsgIdList());
     }
-    
+
     final public void buildAction() {
         description.setAction(msgContext.getAction());
     }
+
     final public void buildServiceType() {
         description.setServiceType(msgContext.getServiceType());
     }
@@ -89,8 +92,8 @@ public abstract class BaseEventDescriptionBuilder implements EventDescriptionBui
         description.setNpi(npi);
     }
 
-    protected void setRespondingHCID(String respondingHCID) {
-        description.setRespondingHCID(respondingHCID);
+    protected void setRespondingHCIDs(List<String> respondingHCIDs) {
+        description.setRespondingHCID(respondingHCIDs);
     }
 
     protected void setInitiatingHCID(String initiatingHCID) {
@@ -108,7 +111,5 @@ public abstract class BaseEventDescriptionBuilder implements EventDescriptionBui
     protected void setTimeStamp(String timeStamp) {
         description.setTimeStamp(timeStamp);
     }
-    
-    
 
 }

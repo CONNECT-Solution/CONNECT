@@ -26,8 +26,8 @@ public class EventDescriptionJSONDecorator implements JSONString, EventDescripti
 
     private void constructJSONObject() {
         try {
-        addResponseMsgId(description);
-        addAction(description);
+            addResponseMsgId(description);
+            addAction(description);
         } catch (JSONException e) {
             log.error("failed to serialize event description as JSON", e);
         }
@@ -41,7 +41,6 @@ public class EventDescriptionJSONDecorator implements JSONString, EventDescripti
         jsonObject.put(ACTION, description.getAction());
     }
 
-    
     @Override
     public String toJSONString() {
         return jsonObject.toString();
@@ -83,8 +82,8 @@ public class EventDescriptionJSONDecorator implements JSONString, EventDescripti
     }
 
     @Override
-    public String getRespondingHCID() {
-        return description.getRespondingHCID();
+    public List<String> getRespondingHCIDs() {
+        return description.getRespondingHCIDs();
     }
 
     @Override

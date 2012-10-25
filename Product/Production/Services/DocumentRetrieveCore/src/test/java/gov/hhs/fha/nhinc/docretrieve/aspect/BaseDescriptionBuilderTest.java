@@ -28,57 +28,34 @@
  */
 package gov.hhs.fha.nhinc.docretrieve.aspect;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
 import static org.mockito.Mockito.mock;
+import gov.hhs.fha.nhinc.event.BaseEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.event.EventContextAccessor;
 import gov.hhs.fha.nhinc.event.EventDescription;
 import gov.hhs.fha.nhinc.event.EventDescriptionDirector;
 import gov.hhs.fha.nhinc.event.MessageRoutingAccessor;
-import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 
-import org.junit.Test;
+public class BaseDescriptionBuilderTest {
 
-public class RetrieveDocumentSetRequestTypeDescriptionBuilderTest {
-
-    @Test
-    public void emptyBuild() {
-        RetrieveDocumentSetRequestTypeDescriptionBuilder builder = new RetrieveDocumentSetRequestTypeDescriptionBuilder(
-                null);
-        EventDescription eventDescription = getEventDescription(builder);
-        assertNotNull(eventDescription);
+    public BaseDescriptionBuilderTest() {
+        super();
     }
 
-    @Test
-    public void basicBuild() {
-        RetrieveDocumentSetRequestType request = new RetrieveDocumentSetRequestType();
-        RetrieveDocumentSetRequestTypeDescriptionBuilder builder = new RetrieveDocumentSetRequestTypeDescriptionBuilder(
-                request);
-        EventDescription eventDescription = getEventDescription(builder);
-        assertNull(eventDescription.getTimeStamp());
-        assertNull(eventDescription.getStatus());
-        assertNull(eventDescription.getRespondingHCIDs());
-        assertNull(eventDescription.getPayloadType());
-        assertNull(eventDescription.getPayloadSize());
-        assertNull(eventDescription.getNPI());
-        assertNull(eventDescription.getInitiatingHCID());
-        assertNull(eventDescription.getErrorCode());
-    }
-
-    private EventDescription getEventDescription(RetrieveDocumentSetRequestTypeDescriptionBuilder builder) {
+    protected EventDescription getEventDescription(BaseEventDescriptionBuilder builder) {
         setMsgMocks(builder);
         return runDirector(builder);
     }
 
-    private void setMsgMocks(RetrieveDocumentSetRequestTypeDescriptionBuilder builder) {
+    private void setMsgMocks(BaseEventDescriptionBuilder builder) {
         builder.setMsgContext(mock(EventContextAccessor.class));
         builder.setMsgRouting(mock(MessageRoutingAccessor.class));
     }
 
-    private EventDescription runDirector(RetrieveDocumentSetRequestTypeDescriptionBuilder builder) {
+    private EventDescription runDirector(BaseEventDescriptionBuilder builder) {
         EventDescriptionDirector director = new EventDescriptionDirector();
         director.setEventDescriptionBuilder(builder);
         director.constructEventDescription();
         return director.getEventDescription();
     }
+
 }

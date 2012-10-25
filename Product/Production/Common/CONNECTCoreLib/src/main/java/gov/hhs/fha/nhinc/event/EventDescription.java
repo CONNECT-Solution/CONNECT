@@ -84,7 +84,7 @@ public interface EventDescription {
      * 
      * @return
      */
-    public String getRespondingHCID();
+    public List<String> getRespondingHCIDs();
 
     /**
      * 
