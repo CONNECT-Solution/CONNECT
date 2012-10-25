@@ -1,0 +1,46 @@
+<SmtpAgentConfig>
+   <Domains>
+      <AnchorStore type="Uniform" storeType="KeyStore" file="KeyStore" filePass="h3||0 wor|d" privKeyPass="pKpa$$wd"/>    
+      <Domain name="cerner.com" postmaster="postmaster@cerner.com">
+         <IncomingTrustAnchors> 
+            <Anchor name="cacert"/>
+            <Anchor name="externCaCert"/>
+            <Anchor name="secureHealthEmailCACert"/>
+            <Anchor name="msanchor"/>
+            <Anchor name="cernerDemosCaCert"/>      
+         </IncomingTrustAnchors>  
+         <OutgoingTrustAnchors> 
+            <Anchor name="cacert"/>
+            <Anchor name="externCaCert"/>
+            <Anchor name="secureHealthEmailCACert"/>
+            <Anchor name="msanchor"/>
+            <Anchor name="cernerDemosCaCert"/>      
+         </OutgoingTrustAnchors>           
+      </Domain> 
+      <Domain name="securehealthemail.com" postmaster="postmaster@securehealthemail.com">    
+         <IncomingTrustAnchors> 
+            <Anchor name="cacert"/>
+            <Anchor name="externCaCert"/>
+            <Anchor name="secureHealthEmailCACert"/>
+            <Anchor name="msanchor"/>
+            <Anchor name="cernerDemosCaCert"/>      
+         </IncomingTrustAnchors>  
+         <OutgoingTrustAnchors> 
+            <Anchor name="cacert"/>
+            <Anchor name="externCaCert"/>
+            <Anchor name="secureHealthEmailCACert"/>
+            <Anchor name="msanchor"/>
+            <Anchor name="cernerDemosCaCert"/>      
+         </OutgoingTrustAnchors>         
+      </Domain> 
+   </Domains>
+   <PublicCertStore type="Keystore" file="KeyStore" filePass="h3||0 wor|d" privKeyPass="pKpa$$wd"/>
+   <PrivateCertStore type="Keystore" file="KeyStore" filePass="h3||0 wor|d" privKeyPass="pKpa$$wd"/>
+   <RawMessageSettings saveFolder="RawMsgFolder"/>
+   <OutgoingMessagesSettings saveFolder="OutgoingMsgFolder"/>
+   <IncomingMessagesSettings saveFolder="IncomingMsgFolder"/>
+   <BadMessagesSettings saveFolder="BadMsgFolder"/>  
+   <MDNSettings autoResponse="true" productName="NHIN Direct Security Agent">
+       <Text><![CDATA[This is a CDATA subject]]></Text>
+   </MDNSettings>
+</SmtpAgentConfig>
