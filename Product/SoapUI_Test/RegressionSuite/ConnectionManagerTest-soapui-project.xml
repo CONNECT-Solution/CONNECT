@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project abortOnError="false" name="ConnectionManagerTest" resourceRoot="" runType="SEQUENTIAL" soapui-version="4.0.0" xmlns:con="http://eviware.com/soapui/config">
+<con:soapui-project abortOnError="false" name="ConnectionManagerTest" resourceRoot="${projectDir}" runType="SEQUENTIAL" soapui-version="4.5.1" activeEnvironment="Default" xmlns:con="http://eviware.com/soapui/config">
 	<con:settings/>
 	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager}NhincComponentConnectionManagerBindingSoap" definition="${projectDir}/target/wsdl/NhincComponentConnectionManager.wsdl" name="NhincComponentConnectionManagerBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
-		<con:definitionCache type="TEXT"/><con:endpoints>
+		<con:endpoints>
 			<con:endpoint>${#Project#Endpoint-ConnectionManager}</con:endpoint>
 		</con:endpoints>
 		<con:operation action="urn:ForceRefreshInternalConnectCache" anonymous="optional" bindingOperationName="ForceRefreshInternalConnectCache" inputName="ForceRefreshInternalConnectCacheRequest" isOneWay="false" name="ForceRefreshInternalConnectCache" outputName="ForceRefreshInternalConnectCacheResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
@@ -306,7 +306,7 @@
 						<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
 					</con:configuration>
 				</con:assertion>
-				<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+				<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 				<con:jmsPropertyConfig/>
 				<con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager/NhincComponentConnectionManagerPortType/ForceRefreshInternalConnectCacheRequest" mustUnderstand="NONE" version="200508"/>
 				<con:wsrmConfig version="1.2"/>
@@ -344,7 +344,7 @@
 				<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
 			</con:configuration>
 		</con:assertion>
-		<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
 		<con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager/NhincComponentConnectionManagerPortType/ForceRefreshUDDICacheRequest" mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
@@ -385,7 +385,7 @@
 				<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
 			</con:configuration>
 		</con:assertion>
-		<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
 		<con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager/NhincComponentConnectionManagerPortType/GetAdapterEndpointURLRequest" mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
@@ -423,7 +423,7 @@ count(//ns3:GetAllBusinessEntitiesResponse/ns4:businessEntity)</path>
 				<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
 			</con:configuration>
 		</con:assertion>
-		<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
 		<con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager/NhincComponentConnectionManagerPortType/GetAllBusinessEntitiesRequest" mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
@@ -472,7 +472,7 @@ declare namespace ns5='urn:uddi-org:api_v3';
 				<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
 			</con:configuration>
 		</con:assertion>
-		<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
 		<con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager/NhincComponentConnectionManagerPortType/GetAllBusinessEntitySetByServiceNameRequest" mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
@@ -510,7 +510,7 @@ declare namespace ns5='urn:uddi-org:api_v3';
 				<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
 			</con:configuration>
 		</con:assertion>
-		<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
 		<con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager/NhincComponentConnectionManagerPortType/GetAssigningAuthoritiesByHomeCommunityRequest" mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
@@ -557,7 +557,7 @@ count(//ns3:GetBusinessEntityResponse)</path>
 				<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
 			</con:configuration>
 		</con:assertion>
-		<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
 		<con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager/NhincComponentConnectionManagerPortType/GetBusinessEntityRequest" mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
@@ -598,7 +598,7 @@ count(//ns3:GetBusinessEntityResponse)</path>
 				<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
 			</con:configuration>
 		</con:assertion>
-		<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
 		<con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager/NhincComponentConnectionManagerPortType/GetBusinessEntityByServiceNameRequest" mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
@@ -647,7 +647,7 @@ count(//ns3:GetBusinessEntitySetResponse/ns4:businessEntity)</path>
 				<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
 			</con:configuration>
 		</con:assertion>		
-		<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
 		<con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager/NhincComponentConnectionManagerPortType/GetBusinessEntitySetRequest" mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
@@ -700,7 +700,7 @@ declare namespace ns5='urn:uddi-org:api_v3';
 				<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
 			</con:configuration>
 		</con:assertion>
-		<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
 		<con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager/NhincComponentConnectionManagerPortType/GetBusinessEntitySetByServiceNameRequest" mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
@@ -741,7 +741,7 @@ declare namespace ns5='urn:uddi-org:api_v3';
 				<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
 			</con:configuration>
 		</con:assertion>
-		<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
 		<con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager/NhincComponentConnectionManagerPortType/GetDefaultEndpointURLByServiceNameRequest" mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
@@ -788,7 +788,7 @@ declare namespace ns5='urn:uddi-org:api_v3';
 				<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
 			</con:configuration>
 		</con:assertion>
-		<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
 		<con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager/NhincComponentConnectionManagerPortType/GetEndpointURLFromNhinTargetRequest" mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
@@ -851,7 +851,7 @@ declare namespace ns3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
 				<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
 			</con:configuration>
 		</con:assertion>
-		<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
 		<con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager/NhincComponentConnectionManagerPortType/GetEndpointURLFromNhinTargetCommunitiesRequest" mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
@@ -889,7 +889,7 @@ declare namespace ns3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
 				<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
 			</con:configuration>
 		</con:assertion>
-		<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
 		<con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager/NhincComponentConnectionManagerPortType/GetHomeCommunityByAssigningAuthorityRequest" mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
@@ -927,7 +927,7 @@ declare namespace ns3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
 				<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
 			</con:configuration>
 		</con:assertion>
-		<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
 		<con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager/NhincComponentConnectionManagerPortType/GetInternalEndpointURLByServiceNameRequest" mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
@@ -945,4 +945,4 @@ declare namespace ns3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
 	</con:property>
 <con:property><con:name>project.name</con:name><con:value>ConnectionManagerTest</con:value></con:property></con:properties>
 <con:wssContainer/>
-</con:soapui-project>
+<con:sensitiveInformation/></con:soapui-project>

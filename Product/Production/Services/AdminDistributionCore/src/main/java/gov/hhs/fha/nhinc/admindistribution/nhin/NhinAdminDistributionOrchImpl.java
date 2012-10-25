@@ -41,7 +41,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.largefile.LargePayloadException;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.properties.PropertyAccessor;
+
 
 /**
  * 
@@ -68,7 +68,6 @@ public class NhinAdminDistributionOrchImpl {
         // we were hanging on the next webservice call.
         // sleep allows Glassfish to catch up. Only applies to one box (dev)
         // setups. Please refer to the CONNECT 3.1 Release Notes for more information.
-        this.checkSleep();
 
         auditMessage(body, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
                 NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
@@ -126,34 +125,6 @@ public class NhinAdminDistributionOrchImpl {
         return new AdminDistributionPolicyChecker();
     }
 
-    private void checkSleep() {
-        long sleep = 0;
-
-        try {
-            sleep = this.getSleepPeriod();
-            if (sleep > 0) {
-                log.debug("Admindistribution is sleeping...");
-                Thread.sleep(sleep);
-            }
-        } catch (Exception ex) {
-            log.error("Unable to sleep thread: " + ex);
-        }
-
-        log.debug("End checkSleep()");
-    }
-
-    protected long getSleepPeriod() {
-        String result = "0";
-        try {
-            result = PropertyAccessor.getInstance().getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
-                    "administrativeDistributionSleepValue");
-            log.debug("administrativeDistributionSleepValue = " + result);
-        } catch (Exception ex) {
-            log.warn("Unable to retrieve local home community id from Gateway.properties");
-            log.warn(ex);
-        }
-        return Long.parseLong(result);
-    }
 
     protected void auditMessage(EDXLDistribution body, AssertionType assertion, String direction, String logInterface) {
         AcknowledgementType ack = getLogger().auditNhinAdminDist(body, assertion, direction, logInterface);

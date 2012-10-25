@@ -12,7 +12,7 @@
         <url-pattern>/*</url-pattern>
     </servlet-mapping>
   
-    <security-constraint>
+    <!--security-constraint>
         <web-resource-collection>
             <web-resource-name>AdapterDocQuerySecured</web-resource-name>
             <url-pattern>/AdapterDocQuerySecured</url-pattern>
@@ -21,7 +21,7 @@
         <user-data-constraint>
             <transport-guarantee>CONFIDENTIAL</transport-guarantee>
         </user-data-constraint>
-    </security-constraint>
+    </security-constraint -->
 
     <login-config>
         <auth-method>CLIENT-CERT</auth-method>
@@ -35,4 +35,17 @@
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
+    
+    <resource-ref>
+        <res-ref-name>jdbc/perfrepo_datasource</res-ref-name>
+        <res-type>javax.sql.DataSource</res-type>
+        <res-auth>Container</res-auth>
+        <res-sharing-scope>Shareable</res-sharing-scope>
+    </resource-ref>
+    <resource-ref>
+        <res-ref-name>jdbc/docrepository_datasource</res-ref-name>
+        <res-type>javax.sql.DataSource</res-type>
+        <res-auth>Container</res-auth>
+        <res-sharing-scope>Shareable</res-sharing-scope>
+    </resource-ref>
 </web-app>
