@@ -66,6 +66,15 @@ public class NhinPatientDiscoveryImpl extends BaseService {
         this.auditLogger = auditLogger;
     }
 
+    
+    public void setAuditLogger(PatientDiscoveryAuditor auditLogger) {
+        this.auditLogger = auditLogger;
+    }
+    
+    public void setOrchestrationFactory(GenericFactory<InboundPatientDiscoveryOrchestration> orchestrationFactory) {
+        this.orchestrationFactory = orchestrationFactory;
+    }
+    
     public PRPAIN201306UV02 respondingGatewayPRPAIN201305UV02(PRPAIN201305UV02 body, WebServiceContext context)
             throws PatientDiscoveryException {
         log.debug("Entering NhinPatientDiscoveryImpl.respondingGatewayPRPAIN201305UV02");

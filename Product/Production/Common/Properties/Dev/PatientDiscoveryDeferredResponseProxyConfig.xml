@@ -107,7 +107,10 @@
 	</bean> 
 	
      <!-- Aspect Service -->
-    <aop:aspectj-autoproxy />    
-    <bean id="eventPDDefRespAspect" class="gov.hhs.fha.nhinc.patientdiscovery.aspect.PatientDiscoveryDeferredRespEventAspect" />
+    <aop:aspectj-autoproxy />
+    <bean id="eventAspectAdvice" class="gov.hhs.fha.nhinc.aspect.EventAspectAdvice" />    
+    <bean id="eventPDDefRespAspect" class="gov.hhs.fha.nhinc.patientdiscovery.aspect.PatientDiscoveryDeferredRespEventAspect">
+    	<constructor-arg ref="eventAspectAdvice" />
+    </bean>
 
 </beans>

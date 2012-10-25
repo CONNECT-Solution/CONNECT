@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<domain application-root="${com.sun.aas.instanceRoot}/applications" log-root="${com.sun.aas.instanceRoot}/logs" version="5">
+<domain application-root="${project.build.directory}/domain1/applications" log-root="${project.build.directory}/domain1/logs" version="5">
   <applications>
   </applications>
   <resources>
@@ -7,11 +7,11 @@
     <jdbc-resource jndi-name="jdbc/__CallFlowPool" object-type="system-all" pool-name="__CallFlowPool"/>
     <jdbc-resource jndi-name="jdbc/__default" pool-name="DerbyPool"/>
     <jdbc-connection-pool connection-validation-method="auto-commit" datasource-classname="org.apache.derby.jdbc.EmbeddedXADataSource" name="__CallFlowPool" res-type="javax.sql.XADataSource" wrap-jdbc-objects="false">
-      <property name="databaseName" value="${com.sun.aas.instanceRoot}/lib/databases/sun-callflow"/>
+      <property name="databaseName" value="${project.build.directory}/domain1/lib/databases/sun-callflow"/>
       <property name="connectionAttributes" value=";create=true"/>
     </jdbc-connection-pool>
     <jdbc-connection-pool connection-validation-method="auto-commit" datasource-classname="org.apache.derby.jdbc.EmbeddedXADataSource" name="__TimerPool" res-type="javax.sql.XADataSource" wrap-jdbc-objects="false">
-      <property name="databaseName" value="${com.sun.aas.instanceRoot}/lib/databases/ejbtimer"/>
+      <property name="databaseName" value="${project.build.directory}/domain1/lib/databases/ejbtimer"/>
     </jdbc-connection-pool>
     <jdbc-connection-pool connection-validation-method="auto-commit" datasource-classname="org.apache.derby.jdbc.ClientDataSource" is-isolation-level-guaranteed="false" name="DerbyPool" res-type="javax.sql.DataSource" wrap-jdbc-objects="false">
       <property name="PortNumber" value="1527"/>
@@ -21,6 +21,177 @@
       <property name="DatabaseName" value="sun-appserv-samples"/>
       <property name="connectionAttributes" value=";create=true"/>
     </jdbc-connection-pool>
+
+    <jdbc-connection-pool connection-validation-method="auto-commit"
+           datasource-classname="com.mysql.jdbc.jdbc2.optional.MysqlDataSource"
+           res-type="javax.sql.DataSource"
+           wrap-jdbc-objects="false"
+           name="aggregator_pool"
+           min-pool-size="1"
+           max-pool-size="10">
+      <property name="URL" value="jdbc:mysql://localhost/aggregator" />
+      <property name="driverClass" value="com.mysql.jdbc.Driver" />
+      <property name="portNumber" value="3306" />
+      <property name="databaseName" value="aggregator" />
+      <property name="User" value="nhincuser" />
+      <property name="Password" value="nhincpass" />
+      <property name="serverName" value="localhost" />
+    </jdbc-connection-pool>
+    <jdbc-resource pool-name="aggregator_pool" jndi-name="jdbc/aggregator_datasource" enabled="true" object-type="user"/>
+
+    <jdbc-connection-pool connection-validation-method="auto-commit"
+           datasource-classname="com.mysql.jdbc.jdbc2.optional.MysqlDataSource"
+           res-type="javax.sql.DataSource"
+           wrap-jdbc-objects="false"
+           name="assigningauthoritydb_pool"
+           min-pool-size="1"
+           max-pool-size="10">
+      <property name="URL" value="jdbc:mysql://localhost/assigningauthoritydb" />
+      <property name="driverClass" value="com.mysql.jdbc.Driver" />
+      <property name="portNumber" value="3306" />
+      <property name="databaseName" value="assigningauthoritydb" />
+      <property name="User" value="nhincuser" />
+      <property name="Password" value="nhincpass" />
+      <property name="serverName" value="localhost" />
+    </jdbc-connection-pool>
+    <jdbc-resource pool-name="assigningauthoritydb_pool" jndi-name="jdbc/assigningauthoritydb_datasource" enabled="true" object-type="user"/>
+
+    <jdbc-connection-pool connection-validation-method="auto-commit"
+           datasource-classname="com.mysql.jdbc.jdbc2.optional.MysqlDataSource"
+           res-type="javax.sql.DataSource"
+           wrap-jdbc-objects="false"
+           name="asyncmsgs_pool"
+           min-pool-size="1"
+           max-pool-size="10">
+      <property name="URL" value="jdbc:mysql://localhost/asyncmsgs" />
+      <property name="driverClass" value="com.mysql.jdbc.Driver" />
+      <property name="portNumber" value="3306" />
+      <property name="databaseName" value="asyncmsgs" />
+      <property name="User" value="nhincuser" />
+      <property name="Password" value="nhincpass" />
+      <property name="serverName" value="localhost" />
+    </jdbc-connection-pool>
+    <jdbc-resource pool-name="asyncmsgs_pool" jndi-name="jdbc/asyncmsgs_datasource" enabled="true" object-type="user"/>
+
+    <jdbc-connection-pool connection-validation-method="auto-commit"
+           datasource-classname="com.mysql.jdbc.jdbc2.optional.MysqlDataSource"
+           res-type="javax.sql.DataSource"
+           wrap-jdbc-objects="false"
+           name="auditrepo_pool"
+           min-pool-size="1"
+           max-pool-size="10">
+      <property name="URL" value="jdbc:mysql://localhost/auditrepo" />
+      <property name="driverClass" value="com.mysql.jdbc.Driver" />
+      <property name="portNumber" value="3306" />
+      <property name="databaseName" value="auditrepo" />
+      <property name="User" value="nhincuser" />
+      <property name="Password" value="nhincpass" />
+      <property name="serverName" value="localhost" />
+    </jdbc-connection-pool>
+    <jdbc-resource pool-name="auditrepo_pool" jndi-name="jdbc/auditrepo_datasource" enabled="true" object-type="user"/>
+
+    <jdbc-connection-pool connection-validation-method="auto-commit"
+           datasource-classname="com.mysql.jdbc.jdbc2.optional.MysqlDataSource"
+           res-type="javax.sql.DataSource"
+           wrap-jdbc-objects="false"
+           name="patientcorrelationdb_pool"
+           min-pool-size="1"
+           max-pool-size="10">
+      <property name="URL" value="jdbc:mysql://localhost/patientcorrelationdb" />
+      <property name="driverClass" value="com.mysql.jdbc.Driver" />
+      <property name="portNumber" value="3306" />
+      <property name="databaseName" value="patientcorrelationdb" />
+      <property name="User" value="nhincuser" />
+      <property name="Password" value="nhincpass" />
+      <property name="serverName" value="localhost" />
+    </jdbc-connection-pool>
+    <jdbc-resource pool-name="patientcorrelationdb_pool" jndi-name="jdbc/patientcorrelationdb_datasource" enabled="true" object-type="user"/>
+
+    <jdbc-connection-pool connection-validation-method="auto-commit"
+           datasource-classname="com.mysql.jdbc.jdbc2.optional.MysqlDataSource"
+           res-type="javax.sql.DataSource"
+           wrap-jdbc-objects="false"
+           name="docrepository_pool"
+           min-pool-size="1"
+           max-pool-size="10">
+      <property name="URL" value="jdbc:mysql://localhost/docrepository" />
+      <property name="driverClass" value="com.mysql.jdbc.Driver" />
+      <property name="portNumber" value="3306" />
+      <property name="databaseName" value="docrepository" />
+      <property name="User" value="nhincuser" />
+      <property name="Password" value="nhincpass" />
+      <property name="serverName" value="localhost" />
+    </jdbc-connection-pool>
+    <jdbc-resource pool-name="docrepository_pool" jndi-name="jdbc/docrepository_datasource" enabled="true" object-type="user"/>
+
+    <jdbc-connection-pool connection-validation-method="auto-commit"
+           datasource-classname="com.mysql.jdbc.jdbc2.optional.MysqlDataSource"
+           res-type="javax.sql.DataSource"
+           wrap-jdbc-objects="false"
+           name="subscriptionrepository_pool"
+           min-pool-size="1"
+           max-pool-size="10">
+      <property name="URL" value="jdbc:mysql://localhost/subscriptionrepository" />
+      <property name="driverClass" value="com.mysql.jdbc.Driver" />
+      <property name="portNumber" value="3306" />
+      <property name="databaseName" value="subscriptionrepository" />
+      <property name="User" value="nhincuser" />
+      <property name="Password" value="nhincpass" />
+      <property name="serverName" value="localhost" />
+    </jdbc-connection-pool>
+    <jdbc-resource pool-name="subscriptionrepository_pool" jndi-name="jdbc/subscriptionrepository_datasource" enabled="true" object-type="user"/>
+
+    <jdbc-connection-pool connection-validation-method="auto-commit"
+           datasource-classname="com.mysql.jdbc.jdbc2.optional.MysqlDataSource"
+           res-type="javax.sql.DataSource"
+           wrap-jdbc-objects="false"
+           name="patientdb_pool"
+           min-pool-size="1"
+           max-pool-size="10">
+      <property name="URL" value="jdbc:mysql://localhost/patientdb" />
+      <property name="driverClass" value="com.mysql.jdbc.Driver" />
+      <property name="portNumber" value="3306" />
+      <property name="databaseName" value="patientdb" />
+      <property name="User" value="nhincuser" />
+      <property name="Password" value="nhincpass" />
+      <property name="serverName" value="localhost" />
+    </jdbc-connection-pool>
+    <jdbc-resource pool-name="patientdb_pool" jndi-name="jdbc/patientdb_datasource" enabled="true" object-type="user"/>
+
+    <jdbc-connection-pool connection-validation-method="auto-commit"
+           datasource-classname="com.mysql.jdbc.jdbc2.optional.MysqlDataSource"
+           res-type="javax.sql.DataSource"
+           wrap-jdbc-objects="false"
+           name="perfrepo_pool"
+           min-pool-size="1"
+           max-pool-size="10">
+      <property name="URL" value="jdbc:mysql://localhost/perfrepo" />
+      <property name="driverClass" value="com.mysql.jdbc.Driver" />
+      <property name="portNumber" value="3306" />
+      <property name="databaseName" value="perfrepo" />
+      <property name="User" value="nhincuser" />
+      <property name="Password" value="nhincpass" />
+      <property name="serverName" value="localhost" />
+    </jdbc-connection-pool>
+    <jdbc-resource pool-name="perfrepo_pool" jndi-name="jdbc/perfrepo_datasource" enabled="true" object-type="user"/>
+
+    <jdbc-connection-pool connection-validation-method="auto-commit"
+           datasource-classname="com.mysql.jdbc.jdbc2.optional.MysqlDataSource"
+           res-type="javax.sql.DataSource"
+           wrap-jdbc-objects="false"
+           name="transrepo_pool"
+           min-pool-size="1"
+           max-pool-size="10">
+      <property name="URL" value="jdbc:mysql://localhost/transrepo" />
+      <property name="driverClass" value="com.mysql.jdbc.Driver" />
+      <property name="portNumber" value="3306" />
+      <property name="databaseName" value="transrepo" />
+      <property name="User" value="nhincuser" />
+      <property name="Password" value="nhincpass" />
+      <property name="serverName" value="localhost" />
+    </jdbc-connection-pool>
+    <jdbc-resource pool-name="transrepo_pool" jndi-name="jdbc/transrepo_datasource" enabled="true" object-type="user"/>
+
   </resources>
   <configs>
     <config name="server-config">
@@ -55,7 +226,7 @@
           <session-properties/>
         </session-config>
       </web-container>
-      <ejb-container session-store="${com.sun.aas.instanceRoot}/session-store">
+      <ejb-container session-store="${project.build.directory}/domain1/session-store">
         <ejb-timer-service>
           <property name="ejb-timer-service-upgraded" value="false"/>
         </ejb-timer-service>
@@ -66,16 +237,16 @@
       </jms-service>
       <security-service>
         <auth-realm classname="com.sun.enterprise.security.auth.realm.file.FileRealm" name="admin-realm">
-          <property name="file" value="${com.sun.aas.instanceRoot}/config/admin-keyfile"/>
+          <property name="file" value="${project.build.directory}/domain1/config/admin-keyfile"/>
           <property name="jaas-context" value="fileRealm"/>
         </auth-realm>
         <auth-realm classname="com.sun.enterprise.security.auth.realm.file.FileRealm" name="file">
-          <property name="file" value="${com.sun.aas.instanceRoot}/config/keyfile"/>
+          <property name="file" value="${project.build.directory}/domain1/config/keyfile"/>
           <property name="jaas-context" value="fileRealm"/>
         </auth-realm>
         <auth-realm classname="com.sun.enterprise.security.auth.realm.certificate.CertificateRealm" name="certificate"/>
         <jacc-provider name="default" policy-configuration-factory-provider="com.sun.enterprise.security.provider.PolicyConfigurationFactoryImpl" policy-provider="com.sun.enterprise.security.provider.PolicyWrapper">
-          <property name="repository" value="${com.sun.aas.instanceRoot}/generated/policy"/>
+          <property name="repository" value="${project.build.directory}/domain1/generated/policy"/>
         </jacc-provider>
         <jacc-provider name="simple" policy-configuration-factory-provider="com.sun.enterprise.security.jacc.provider.SimplePolicyConfigurationFactory" policy-provider="com.sun.enterprise.security.jacc.provider.SimplePolicyProvider"/>
         <audit-module classname="com.sun.enterprise.security.Audit" name="default">
@@ -91,7 +262,7 @@
           </provider-config>
         </message-security-config>
       </security-service>
-      <transaction-service tx-log-dir="${com.sun.aas.instanceRoot}/logs"/>
+      <transaction-service tx-log-dir="${project.build.directory}/domain1/logs"/>
       <monitoring-service>
         <module-monitoring-levels/>
       </monitoring-service>
@@ -99,7 +270,7 @@
       <java-config classpath-suffix="" debug-options="-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=9009" system-classpath="">
         <jvm-options>-XX:+UnlockDiagnosticVMOptions</jvm-options>
         <jvm-options>-XX:+LogVMOutput</jvm-options>
-        <jvm-options>-XX:LogFile=${com.sun.aas.instanceRoot}/logs/jvm.log</jvm-options>
+        <jvm-options>-XX:LogFile=${project.build.directory}/domain1/logs/jvm.log</jvm-options>
         <jvm-options>-Djava.awt.headless=true</jvm-options>
         <jvm-options>-DANTLR_USE_DIRECT_CLASS_LOADING=true</jvm-options>
         <jvm-options>-Dosgi.shell.telnet.maxconn=1</jvm-options>
@@ -114,13 +285,13 @@
         <jvm-options>-Dfelix.fileinstall.log.level=2</jvm-options>
         <jvm-options>-Djavax.management.builder.initial=com.sun.enterprise.v3.admin.AppServerMBeanServerBuilder</jvm-options>
         <jvm-options>-Dorg.glassfish.web.rfc2109_cookie_names_enforced=false</jvm-options>
-        <jvm-options>-Djava.ext.dirs=${com.sun.aas.javaRoot}/lib/ext${path.separator}${com.sun.aas.javaRoot}/jre/lib/ext${path.separator}${com.sun.aas.instanceRoot}/lib/ext</jvm-options>
+        <jvm-options>-Djava.ext.dirs=${com.sun.aas.javaRoot}/lib/ext${path.separator}${com.sun.aas.javaRoot}/jre/lib/ext${path.separator}${project.build.directory}/domain1/lib/ext</jvm-options>
         <jvm-options>-Dosgi.shell.telnet.port=6666</jvm-options>
         <jvm-options>-client</jvm-options>
         <jvm-options>-Djava.endorsed.dirs=${com.sun.aas.installRoot}/lib/endorsed</jvm-options>
-        <jvm-options>-Djava.security.policy=${com.sun.aas.instanceRoot}/config/server.policy</jvm-options>
-        <jvm-options>-Djava.security.auth.login.config=${com.sun.aas.instanceRoot}/config/login.conf</jvm-options>
-        <jvm-options>-Djavax.net.ssl.trustStore=${com.sun.aas.instanceRoot}/config/cacerts.jks</jvm-options>
+        <jvm-options>-Djava.security.policy=${project.build.directory}/domain1/config/server.policy</jvm-options>
+        <jvm-options>-Djava.security.auth.login.config=${project.build.directory}/domain1/config/login.conf</jvm-options>
+        <jvm-options>-Djavax.net.ssl.trustStore=${project.build.directory}/domain1/config/cacerts.jks</jvm-options>
         <jvm-options>-Djdbc.drivers=org.apache.derby.jdbc.ClientDriver</jvm-options>
         <jvm-options>-Dcom.sun.enterprise.config.config_environment_factory_class=com.sun.enterprise.config.serverbeans.AppserverConfigEnvironmentFactory</jvm-options>
         <jvm-options>-XX:NewRatio=6</jvm-options>
@@ -135,10 +306,10 @@
         <jvm-options>-Xmx5000m</jvm-options>
         <jvm-options>-Xms5000m</jvm-options>
         <jvm-options>-XX:MaxPermSize=1024m</jvm-options>
-        <jvm-options>-Dlog4j.configuration=file:${com.sun.aas.instanceRoot}/config/log4j.properties</jvm-options>
-        <jvm-options>-Dwsdl.path=file:${com.sun.aas.instanceRoot}/config/nhin/wsdl/</jvm-options>
+        <jvm-options>-Dlog4j.configuration=file:${project.build.directory}/domain1/config/log4j.properties</jvm-options>
+        <jvm-options>-Dwsdl.path=file:${project.build.directory}/domain1/config/nhin/wsdl/</jvm-options>
         <jvm-options>-Dnhinc.properties.dir=${project.build.directory}/nhinc-properites-dir</jvm-options>
-        <jvm-options>-Djavax.net.ssl.keyStore=${com.sun.aas.instanceRoot}/config/gateway.jks</jvm-options>
+        <jvm-options>-Djavax.net.ssl.keyStore=${project.build.directory}/domain1/config/gateway.jks</jvm-options>
         <jvm-options>-Djavax.net.ssl.keyStoreType=JKS</jvm-options>
         <jvm-options>-Djavax.net.ssl.trustStoreType=JKS</jvm-options>
         <jvm-options>-Dcom.sun.net.ssl.checkRevocation=true</jvm-options>
@@ -234,7 +405,7 @@
       </iiop-service>
       <http-service>
         <virtual-server id="server" network-listeners="http-listener, http-listener-2">
-          <property name="default-web-xml" value="${com.sun.aas.instanceRoot}/config/default-web.xml"/>
+          <property name="default-web-xml" value="${project.build.directory}/domain1/config/default-web.xml"/>
         </virtual-server>
         <virtual-server id="__asadmin" network-listeners="admin-listener"/>
         <access-log/>
@@ -244,25 +415,25 @@
         <jmx-connector address="0.0.0.0" auth-realm-name="admin-realm" name="system" port="${JMX_SYSTEM_CONNECTOR_PORT}" security-enabled="false"/>
         <das-config/>
       </admin-service>
-      <ejb-container session-store="${com.sun.aas.instanceRoot}/session-store">
+      <ejb-container session-store="${project.build.directory}/domain1/session-store">
         <ejb-timer-service>
           <property name="ejb-timer-service-upgraded" value="false"/>
         </ejb-timer-service>
       </ejb-container>
-      <log-service file="${com.sun.aas.instanceRoot}/logs/server.log" log-rotation-limit-in-bytes="2000000">
+      <log-service file="${project.build.directory}/domain1/logs/server.log" log-rotation-limit-in-bytes="2000000">
         <module-log-levels/>
       </log-service>
       <security-service>
         <jacc-provider name="default" policy-configuration-factory-provider="com.sun.enterprise.security.provider.PolicyConfigurationFactoryImpl" policy-provider="com.sun.enterprise.security.provider.PolicyWrapper">
-          <property name="repository" value="${com.sun.aas.instanceRoot}/generated/policy"/>
+          <property name="repository" value="${project.build.directory}/domain1/generated/policy"/>
         </jacc-provider>
         <jacc-provider name="simple" policy-configuration-factory-provider="com.sun.enterprise.security.jacc.provider.SimplePolicyConfigurationFactory" policy-provider="com.sun.enterprise.security.jacc.provider.SimplePolicyProvider"/>
         <auth-realm classname="com.sun.enterprise.security.auth.realm.file.FileRealm" name="admin-realm">
-          <property name="file" value="${com.sun.aas.instanceRoot}/config/admin-keyfile"/>
+          <property name="file" value="${project.build.directory}/domain1/config/admin-keyfile"/>
           <property name="jaas-context" value="fileRealm"/>
         </auth-realm>
         <auth-realm classname="com.sun.enterprise.security.auth.realm.file.FileRealm" name="file">
-          <property name="file" value="${com.sun.aas.instanceRoot}/config/keyfile"/>
+          <property name="file" value="${project.build.directory}/domain1/config/keyfile"/>
           <property name="jaas-context" value="fileRealm"/>
         </auth-realm>
         <auth-realm classname="com.sun.enterprise.security.auth.realm.certificate.CertificateRealm" name="certificate"/>
@@ -270,7 +441,7 @@
           <property name="auditOn" value="false"/>
         </audit-module>
       </security-service>
-      <transaction-service automatic-recovery="true" tx-log-dir="${com.sun.aas.instanceRoot}/logs"/>
+      <transaction-service automatic-recovery="true" tx-log-dir="${project.build.directory}/domain1/logs"/>
       <diagnostic-service/>
       <java-config classpath-suffix="" debug-options="-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=${JAVA_DEBUGGER_PORT}" system-classpath="">
         <jvm-options>-XX:MaxPermSize=192m</jvm-options>
@@ -279,12 +450,12 @@
         <jvm-options>-Djava.awt.headless=true</jvm-options>
         <jvm-options>-XX:+UnlockDiagnosticVMOptions</jvm-options>
         <jvm-options>-Djava.endorsed.dirs=${com.sun.aas.installRoot}/modules/endorsed${path.separator}${com.sun.aas.installRoot}/lib/endorsed</jvm-options>
-        <jvm-options>-Djava.security.policy=${com.sun.aas.instanceRoot}/config/server.policy</jvm-options>
-        <jvm-options>-Djava.security.auth.login.config=${com.sun.aas.instanceRoot}/config/login.conf</jvm-options>
+        <jvm-options>-Djava.security.policy=${project.build.directory}/domain1/config/server.policy</jvm-options>
+        <jvm-options>-Djava.security.auth.login.config=${project.build.directory}/domain1/config/login.conf</jvm-options>
         <jvm-options>-Dcom.sun.enterprise.security.httpsOutboundKeyAlias=s1as</jvm-options>
-        <jvm-options>-Djavax.net.ssl.keyStore=${com.sun.aas.instanceRoot}/config/keystore.jks</jvm-options>
-        <jvm-options>-Djavax.net.ssl.trustStore=${com.sun.aas.instanceRoot}/config/cacerts.jks</jvm-options>
-        <jvm-options>-Djava.ext.dirs=${com.sun.aas.javaRoot}/lib/ext${path.separator}${com.sun.aas.javaRoot}/jre/lib/ext${path.separator}${com.sun.aas.instanceRoot}/lib/ext</jvm-options>
+        <jvm-options>-Djavax.net.ssl.keyStore=${project.build.directory}/domain1/config/keystore.jks</jvm-options>
+        <jvm-options>-Djavax.net.ssl.trustStore=${project.build.directory}/domain1/config/cacerts.jks</jvm-options>
+        <jvm-options>-Djava.ext.dirs=${com.sun.aas.javaRoot}/lib/ext${path.separator}${com.sun.aas.javaRoot}/jre/lib/ext${path.separator}${project.build.directory}/domain1/lib/ext</jvm-options>
         <jvm-options>-Djdbc.drivers=org.apache.derby.jdbc.ClientDriver</jvm-options>
         <jvm-options>-DANTLR_USE_DIRECT_CLASS_LOADING=true</jvm-options>
         <jvm-options>-Dcom.sun.enterprise.config.config_environment_factory_class=com.sun.enterprise.config.serverbeans.AppserverConfigEnvironmentFactory</jvm-options>
@@ -361,6 +532,16 @@
       <resource-ref ref="jdbc/__TimerPool"/>
       <resource-ref ref="jdbc/__CallFlowPool"/>
       <resource-ref ref="jdbc/__default"/>
+      <resource-ref ref="jdbc/aggregator_datasource"/>
+      <resource-ref ref="jdbc/assigningauthoritydb_datasource"/>
+      <resource-ref ref="jdbc/asyncmsgs_datasource"/>
+      <resource-ref ref="jdbc/auditrepo_datasource"/>
+      <resource-ref ref="jdbc/patientcorrelationdb_datasource"/>
+      <resource-ref ref="jdbc/docrepository_datasource"/>
+      <resource-ref ref="jdbc/subscriptionrepository_datasource"/>
+      <resource-ref ref="jdbc/patientdb_datasource"/>
+      <resource-ref ref="jdbc/perfrepo_datasource"/>
+      <resource-ref ref="jdbc/transrepo_datasource"/>
     </server>
   </servers>
   <property name="administrative.domain.name" value="domain1"/>

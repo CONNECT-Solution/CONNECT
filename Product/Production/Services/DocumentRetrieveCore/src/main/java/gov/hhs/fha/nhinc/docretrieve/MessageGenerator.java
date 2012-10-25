@@ -24,53 +24,53 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.docsubmission;
+package gov.hhs.fha.nhinc.docretrieve;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
+import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
+import gov.hhs.fha.nhinc.gateway.aggregator.document.DocumentConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.properties.PropertyAccessException;
-import gov.hhs.fha.nhinc.properties.PropertyAccessor;
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 /**
+ * @author akong
  *
- * @author JHOPPESC
  */
-public class NhinDocSubmissionUtils {
-    private static Log log = LogFactory.getLog(NhinDocSubmissionUtils.class);
+public class MessageGenerator {
 
-    private static NhinDocSubmissionUtils instance = new NhinDocSubmissionUtils();
-
-    NhinDocSubmissionUtils() {
-
-    }
-
+    private static MessageGenerator instance = new MessageGenerator();
+    
     /**
-     * @return the singleton instance of NhinDocSubmissionUtils
+     * @return the singleton instance of DocRetrieveFileUtils
      */
-    public static NhinDocSubmissionUtils getInstance() {
+    public static MessageGenerator getInstance() {
         return instance;
     }
-
+    
     /**
-     * Checks to see if the query should be handled internally or passed through to an adapter.
-     * @param passThruProperty the passthough property
-     * @return Returns true if the pass through property for a specified Patient Discovery Service in the
-     *         gateway.properties file is true.
+     * Creates a Response with a RegistryError with a Repository Error Code. 
+     * 
+     * @param codeContext
+     * @return
      */
-    public boolean isInPassThroughMode(String passThruProperty) {
-        boolean passThroughModeEnabled = false;
-        try {
-            passThroughModeEnabled = PropertyAccessor.getInstance().
-                    getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE,
-                    passThruProperty);
-        } catch (PropertyAccessException ex) {
-            log.error("Error: Failed to retrieve " + passThruProperty + " from property file: "
-                    + NhincConstants.GATEWAY_PROPERTY_FILE);
-            log.error(ex.getMessage());
-        }
-        return passThroughModeEnabled;
-    }
+    public RetrieveDocumentSetResponseType createRegistryResponseError(String codeContext) {
+        
+        RetrieveDocumentSetResponseType response = new RetrieveDocumentSetResponseType();
+        
+        RegistryResponseType regResp = new RegistryResponseType();
+        regResp.setStatus(DocumentConstants.XDS_RETRIEVE_RESPONSE_STATUS_FAILURE);
 
+        RegistryError registryError = new RegistryError();
+        registryError.setCodeContext(codeContext);
+        registryError.setErrorCode(DocumentConstants.XDS_RETRIEVE_ERRORCODE_REPOSITORY_ERROR);
+        registryError.setSeverity(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR);
+        
+        regResp.setRegistryErrorList(new RegistryErrorList());
+        regResp.getRegistryErrorList().getRegistryError().add(registryError);
+        
+        response.setRegistryResponse(regResp);
+        
+        return response;
+    }    
 }

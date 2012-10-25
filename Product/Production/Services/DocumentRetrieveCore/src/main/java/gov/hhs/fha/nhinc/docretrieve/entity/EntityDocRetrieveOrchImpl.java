@@ -41,17 +41,13 @@ import org.apache.commons.logging.LogFactory;
  * @author dunnek
  */
 public class EntityDocRetrieveOrchImpl {
-    
-    private static Log log = null;
+
+    private static Log log = LogFactory.getLog(EntityDocRetrieveOrchImpl.class);
 
     public EntityDocRetrieveOrchImpl() {
-        log = createLogger();
     }
 
-    protected Log createLogger() {
-        return LogFactory.getLog(getClass());
-    }
-
+   
     public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(
             ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType body, AssertionType assertion) {
 

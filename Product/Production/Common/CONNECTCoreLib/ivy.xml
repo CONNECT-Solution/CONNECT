@@ -23,7 +23,6 @@
     <dependency org="org.springframework" name="spring" rev="2.5.6" conf="compile->default" transitive="false" />
     <dependency org="log4j" name="log4j" rev="1.2.15" conf="compile->default" transitive="false" />
     <dependency org="org.hibernate" name="hibernate" rev="3.2.5.ga" conf="compile->default" transitive="false" />
-    <dependency org="c3p0" name="c3p0" rev="0.9.1.2" conf="compile->default" transitive="false" />
     <dependency org="commons-logging" name="commons-logging" rev="1.1.1" conf="compile->default" transitive="false" />
     <dependency org="mysql" name="mysql-connector-java" rev="5.1.10" conf="compile->default" transitive="false" />
     <dependency org="OpenSSO" name="openssoclientsdk" rev="1.0" conf="compile->default" transitive="false" />

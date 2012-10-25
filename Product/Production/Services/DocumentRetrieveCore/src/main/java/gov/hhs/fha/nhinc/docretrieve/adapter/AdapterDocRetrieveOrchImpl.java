@@ -26,25 +26,20 @@
  */
 package gov.hhs.fha.nhinc.docretrieve.adapter;
 
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.docrepository.adapter.proxy.AdapterComponentDocRepositoryProxy;
+import gov.hhs.fha.nhinc.docrepository.adapter.proxy.AdapterComponentDocRepositoryProxyObjectFactory;
+import gov.hhs.fha.nhinc.docretrieve.MessageGenerator;
+import gov.hhs.fha.nhinc.redactionengine.adapter.proxy.AdapterRedactionEngineProxy;
+import gov.hhs.fha.nhinc.redactionengine.adapter.proxy.AdapterRedactionEngineProxyObjectFactory;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
-import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
-import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
-import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.docrepository.adapter.proxy.AdapterComponentDocRepositoryProxy;
-import gov.hhs.fha.nhinc.docrepository.adapter.proxy.AdapterComponentDocRepositoryProxyObjectFactory;
-import gov.hhs.fha.nhinc.gateway.aggregator.document.DocumentConstants;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.redactionengine.adapter.proxy.AdapterRedactionEngineProxy;
-import gov.hhs.fha.nhinc.redactionengine.adapter.proxy.AdapterRedactionEngineProxyObjectFactory;
-
 /**
- *
+ * 
  * @author westberg
  */
 public class AdapterDocRetrieveOrchImpl {
@@ -60,7 +55,7 @@ public class AdapterDocRetrieveOrchImpl {
     }
 
     /**
-     *
+     * 
      * @param body
      * @param assertion
      * @return RetrieveDocumentSetResponseType
@@ -79,19 +74,7 @@ public class AdapterDocRetrieveOrchImpl {
         } catch (Throwable t) {
             String errorMsg = "Error processing an adapter document retrieve message: " + t.getMessage();
             log.error(errorMsg, t);
-            response = new RetrieveDocumentSetResponseType();
-            RegistryResponseType responseType = new RegistryResponseType();
-            response.setRegistryResponse(responseType);
-            responseType.setStatus(DocumentConstants.XDS_RETRIEVE_RESPONSE_STATUS_FAILURE);
-
-            RegistryError registryError = new RegistryError();
-            registryError.setErrorCode(DocumentConstants.XDS_RETRIEVE_ERRORCODE_REPOSITORY_ERROR);
-            registryError.setCodeContext(errorMsg);
-            registryError.setSeverity(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR);
-            RegistryErrorList registryErrorList = new RegistryErrorList();
-            registryErrorList.getRegistryError().add(registryError);
-
-            responseType.setRegistryErrorList(registryErrorList);
+            response = MessageGenerator.getInstance().createRegistryResponseError(errorMsg);
         }
         log.debug("Leaving AdapterDocRetrieveSecuredImpl.respondingGatewayCrossGatewayRetrieve()");
         return response;

@@ -26,24 +26,24 @@
  */
 package gov.hhs.fha.nhinc.event;
 
-import gov.hhs.fha.nhinc.proxy.ComponentProxyFactory;
-
 import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import gov.hhs.fha.nhinc.proxy.ComponentProxyFactory;
+
 /**
  * This class is responsible for bootstrapping event loggers.
  */
 public class EventLoggerFactory {
-    
-    private static final Log LOG = LogFactory.getLog(EventLoggerFactory.class);    
+
+    private static final Log LOG = LogFactory.getLog(EventLoggerFactory.class);
 
     private static final String CONFIG_FILE_NAME = "EventLoggerFactoryConfig.xml";
     private static final String BEAN_NAME = "eventLoggerFactory";
 
-    private final EventRecorder eventManager;    
+    private final EventManager eventManager;
     private List<EventLogger> loggers;
 
     /**
@@ -52,16 +52,15 @@ public class EventLoggerFactory {
     public static EventLoggerFactory getInstance() {
         return new ComponentProxyFactory(CONFIG_FILE_NAME).getInstance(BEAN_NAME, EventLoggerFactory.class);
     }
-    
+
     /**
      * Constructor.
      * @param eventManager Event Manager used to create and register loggers.
      */
-    public EventLoggerFactory(final EventRecorder eventManager) {
-        super();
+    public EventLoggerFactory(final EventManager eventManager) {
         this.eventManager = eventManager;
-    }    
-    
+    }
+
     /**
      * Register Loggers.
      */
@@ -69,7 +68,7 @@ public class EventLoggerFactory {
         LOG.debug("Registering loggers...");
         for (EventLogger logger : loggers) {
             LOG.info("Registering logger: " + logger.getClass().getName());
-            EventManager.getInstance().addObserver(logger);
+            eventManager.addObserver(logger);
         }
     }
 

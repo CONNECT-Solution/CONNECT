@@ -28,7 +28,7 @@ package gov.hhs.fha.nhinc.docretrieve.nhin.proxy;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
-import gov.hhs.fha.nhinc.docrepository.DocumentProcessHelper;
+import gov.hhs.fha.nhinc.docretrieve.MessageGenerator;
 import gov.hhs.fha.nhinc.docretrieve.nhin.proxy.description.NhinDocRetrieveServicePortDescriptor;
 import gov.hhs.fha.nhinc.gateway.aggregator.document.DocumentConstants;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
@@ -57,7 +57,7 @@ import org.apache.commons.logging.LogFactory;
  * @author Neil Webb
  */
 public class NhinDocRetrieveProxyWebServiceSecuredImpl implements NhinDocRetrieveProxy {
-    
+
     private Log log = null;
     private WebServiceProxyHelper oProxyHelper = new WebServiceProxyHelper();
 
@@ -75,10 +75,6 @@ public class NhinDocRetrieveProxyWebServiceSecuredImpl implements NhinDocRetriev
      */
     protected Log createLogger() {
         return ((log != null) ? log : LogFactory.getLog(getClass()));
-    }
-
-    protected DocumentProcessHelper getDocumentProcessHelper() {
-        return new DocumentProcessHelper();
     }
 
     /**
@@ -109,7 +105,7 @@ public class NhinDocRetrieveProxyWebServiceSecuredImpl implements NhinDocRetriev
 
                     WebServiceProxyHelper wsHelper = new WebServiceProxyHelper();
                     wsHelper.addTargetCommunity((BindingProvider) client.getPort(), targetSystem);
-                    wsHelper.addServiceName((BindingProvider) client.getPort(), 
+                    wsHelper.addServiceName((BindingProvider) client.getPort(),
                             NhincConstants.DOC_RETRIEVE_SERVICE_NAME);
 
                     response = (RetrieveDocumentSetResponseType) client.invokePort(
@@ -123,24 +119,14 @@ public class NhinDocRetrieveProxyWebServiceSecuredImpl implements NhinDocRetriev
         } catch (Exception e) {
             log.error("Failed to call the web service (" + sServiceName + ").  An unexpected exception occurred.  "
                     + "Exception: " + e.getMessage(), e);
-            RegistryResponseType regResp = new RegistryResponseType();
 
-            regResp.setStatus(DocumentConstants.XDS_RETRIEVE_RESPONSE_STATUS_FAILURE);
-
-            RegistryError registryError = new RegistryError();
-            registryError.setCodeContext("Processing Adapter Doc Query document retrieve");
-            registryError.setErrorCode("XDSRepostoryError");
-            registryError.setSeverity(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR);
-            if (regResp.getRegistryErrorList() == null) {
-                regResp.setRegistryErrorList(new RegistryErrorList());
-            }
-            regResp.getRegistryErrorList().getRegistryError().add(registryError);
-            response.setRegistryResponse(regResp);
+            response = MessageGenerator.getInstance().createRegistryResponseError(
+                    "Adapter Document Retrieve Processing");
         }
 
         return response;
     }
-    
+
     public ServicePortDescriptor<RespondingGatewayRetrievePortType> getServicePortDescriptor(
             NhincConstants.GATEWAY_API_LEVEL apiLevel) {
         switch (apiLevel) {

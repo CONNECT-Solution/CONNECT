@@ -38,6 +38,7 @@ import gov.hhs.fha.nhinc.aspect.EventAspectAdvice;
  * @author zmelnick
  *
  */
+@Aspect
 public class AdminDistributionEventAspect extends EventAspectAdvice {
 
     /*--- Inbound Message ---*/

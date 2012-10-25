@@ -54,6 +54,10 @@ public class PatientDiscoveryEventAspect {
 
     protected EventFactory eventFactory;
 
+    public PatientDiscoveryEventAspect() {
+        // TODO Auto-generated constructor stub
+    }
+
     public void setEventFactory(EventFactory eventFactory) {
         this.eventFactory = eventFactory;
     }
@@ -62,10 +66,7 @@ public class PatientDiscoveryEventAspect {
         this.eventRecorder = eventRecorder;
     }
     
-    public PatientDiscoveryEventAspect() {
-        // TODO Auto-generated constructor stub
-    }
-    
+   
     private void recordEvent(BaseEventBuilder builder, EventDescriptionDirector eventDescriptionDirector,
             EventDescriptionBuilder eventDescriptionBuilder) {
         eventDescriptionDirector.setEventDescriptionBuilder(eventDescriptionBuilder);

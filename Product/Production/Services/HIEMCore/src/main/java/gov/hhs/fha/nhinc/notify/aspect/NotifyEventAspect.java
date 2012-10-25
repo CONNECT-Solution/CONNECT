@@ -24,10 +24,9 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.unsubscribe.aspect;
+package gov.hhs.fha.nhinc.notify.aspect;
 
 import org.aspectj.lang.annotation.After;
-import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 
@@ -37,11 +36,10 @@ import gov.hhs.fha.nhinc.aspect.EventAspectAdvice;
  * @author zmelnick
  *
  */
-@Aspect
-public class UnsubscribeEventAspect extends EventAspectAdvice {
+public class NotifyEventAspect extends EventAspectAdvice{
 
     /*--- Inbound Message ---*/
-    @Pointcut("execution(* gov.hhs.fha.nhinc.hiem._20.unsubscribe.nhin.HiemUnsubscribe.unsubscribe(..))")
+    @Pointcut("execution(* gov.hhs.fha.nhinc.hiem._20.notify.nhin.HiemNotify.notify(..)")
     private void inboundMessage() {
     }
 
@@ -58,7 +56,7 @@ public class UnsubscribeEventAspect extends EventAspectAdvice {
     }
 
     /*--- Inbound Processing ---*/
-    @Pointcut("execution(* gov.hhs.fha.nhinc.hiem._20.unsubscribe.nhin.HiemUnsubscribeImpl.unsubscribe(..))")
+    @Pointcut("execution(* gov.hhs.fha.nhinc.hiem._20.notify.nhin.HiemNotifyImpl.notify(..)")
     private void inboundProcessing() {
     }
 
@@ -75,8 +73,8 @@ public class UnsubscribeEventAspect extends EventAspectAdvice {
     }
 
     /*--- Adapter Delegation ---*/
-    @Pointcut("execution(* gov.hhs.fha.nhinc.unsubscribe.adapter.proxy.HiemUnsubscribeAdapterProxy.unsubscribe(..))")
-    private void adapterDelegation() {
+    @Pointcut("execution(* gov.hhs.fha.nhinc.notify.adapter.proxy.HiemNotifyAdapterProxy.notify(..)")
+    private void adaterDeleation() {
     }
 
     @Override
@@ -92,23 +90,23 @@ public class UnsubscribeEventAspect extends EventAspectAdvice {
     }
 
     /*--- Outbound Message ---*/
-    @Pointcut("execution(* gov.hhs.fha.nhinc.hiem._20.unsubscribe.entity.EntityUnsubscribeSecuredService.unsubscribe(..))")
+    @Pointcut("execution(* gov.hhs.fha.nhinc.hiem._20.notify.entity.EntityNotifySecured.notify(..)")
     private void outboundMessageEntitySecured() {
     }
 
-    @Pointcut("execution(* gov.hhs.fha.nhinc.hiem._20.unsubscribe.entity.EntityUnsubscribeService.unsubscribe(..))")
+    @Pointcut("execution(* gov.hhs.fha.nhinc.hiem._20.notify.entity.EntityNotifyService(..)")
     private void outboundMessageEntityUnsecured() {
     }
 
-    @Pointcut("outboundMessageEntitySecured() || outboundMessageEntityUnsecured()")
+    @Pointcut("outboundMessageSecured() || outboundMessageUnsecured()")
     private void entityOutboundMessage() {
     }
 
-    @Pointcut("execution(* gov.hhs.fha.nhinc.hiem._20.unsubscribe.passthru.ProxyHiemUnsubscribeSecured.unsubscribe(..))")
+    @Pointcut("execution(* gov.hhs.fha.nhinc.hiem._20.notify.passthru.ProxyHiemNotifySecured.notify(..)")
     private void outboundMessagePassthruSecured() {
     }
 
-    @Pointcut("execution(* gov.hhs.fha.nhinc.hiem._20.unsubscribe.passthru.ProxyHiemUnsubscribe.unsubscribe(..))")
+    @Pointcut("execution(* gov.hhs.fha.nhinc.hiem._20.notify.passthru.ProxyHiemNotify.notify(..)")
     private void outboundMessagePassthruUnsecured() {
     }
 
@@ -130,11 +128,11 @@ public class UnsubscribeEventAspect extends EventAspectAdvice {
 
 
     /*--- Outbound Processing ---*/
-    @Pointcut("execution(* gov.hhs.fha.nhinc.unsubscribe.entity.EntityUnsubscribeOrchImpl.processUnsubscribe(..))")
+    @Pointcut("execution(* gov.hhs.fha.nhinc.notify.entity.EntityNotifyOrchImpl.processNotify(..)")
     private void outboundProcessingEntity() {
     }
 
-    @Pointcut("execution(* gov.hhs.fha.nhinc.hiem._20.unsubscribe.passthru.ProxyHiemUnsubscribeImpl.unsubscribe(..))")
+    @Pointcut("execution(* gov.hhs.fha.nhinc.hiem._20.notify.passthru.ProxyHiemNotifyImpl.notify(..)")
     private void outboundProcessingPassthru() {
     }
 
@@ -152,7 +150,7 @@ public class UnsubscribeEventAspect extends EventAspectAdvice {
 
 
     /*--- Nwhin Invocation ---*/
-    @Pointcut("execution(* gov.hhs.fha.nhinc.unsubscribe.nhin.proxy.NhinHiemUnsubscribeProxy*.unsubscribe(..))")
+    @Pointcut("execution(* gov.hhs.fha.nhinc.notify.nhin.proxy.NhinHiemNotifyProxy*.notify(..)")
     private void nwhinInvocation() {
     }
 

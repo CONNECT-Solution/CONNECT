@@ -98,13 +98,13 @@ public class DocQueryEventAspect extends EventAspectAdvice {
         super.endAdapterDelegationEvent();
     }
 
-    
+
     /*------OutboundMessage----*/
 
     @Pointcut("execution(* gov.hhs.fha.nhinc.docquery.*.entity.EntityDocQuery*.respondingGatewayCrossGatewayQuery(..))")
     private void outboundMessage(){
     }
-        
+
     @Pointcut("execution(* gov.hhs.fha.nhinc.docquery.*.passthru.NhincProxyDocQuery*.respondingGatewayCrossGatewayQuery(..))")
     private void passthruOutboundMessage(){
     }
@@ -126,7 +126,7 @@ public class DocQueryEventAspect extends EventAspectAdvice {
     @Pointcut("execution(* gov.hhs.fha.nhinc.docquery.entity.EntityDocQueryOrchImpl.respondingGatewayCrossGatewayQuery(..))")
     private void processOutboundMessage(){
     }
-    
+
     @Pointcut("execution(* gov.hhs.fha.nhinc.docquery.passthru.PassthruDocQueryOrchImpl.respondingGatewayCrossGatewayQuery(..))")
     private void processPassthruOutboundMessage(){
     }
@@ -160,7 +160,7 @@ public class DocQueryEventAspect extends EventAspectAdvice {
     public void endNwhinInvocationEvent() {
         super.endNwhinInvocationEvent();
     }
-     
+
     /*------ Failure ----*/
 
     @AfterThrowing("inboundMessage() || outboundMessage()")

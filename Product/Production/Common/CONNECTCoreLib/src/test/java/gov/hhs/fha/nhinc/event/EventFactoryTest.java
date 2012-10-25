@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.event;
 
+import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertTrue;
 import gov.hhs.fha.nhinc.event.initiator.BeginOutboundMessageEvent;
 import gov.hhs.fha.nhinc.event.initiator.BeginOutboundProcessingEvent;
@@ -59,50 +60,54 @@ public class EventFactoryTest {
 
     @Autowired
     private EventFactory eventFactory;
-    
+
     @Test
     public void createBeginInboundMessageEvent() {
-        Event event = eventFactory.createBeginInboundMessage(); 
+        Event event = eventFactory.createBeginInboundMessage();
         assertTrue(event instanceof BeginInboundMessageEvent);
     }
-    
+
     @Test
     public void createEndInboundMessageEvent() {
-        Event event = eventFactory.createEndInboundMessage(); 
+        Event event = eventFactory.createEndInboundMessage();
         assertTrue(event instanceof EndInboundMessageEvent);
     }
-    
+
     @Test
     public void createBeginOutboundMessage() {
-        Event event = eventFactory.createBeginOutboundMessage(); 
+        Event event = eventFactory.createBeginOutboundMessage();
         assertTrue(event instanceof BeginOutboundMessageEvent);
     }
 
     @Test
     public void createBeginOutboundProcessing() {
-        Event event = eventFactory.createBeginOutboundProcessing(); 
+        Event event = eventFactory.createBeginOutboundProcessing();
         assertTrue(event instanceof BeginOutboundProcessingEvent);
     }
 
-//    public Event createBeginNwhinInvocation();
-//
-//    public Event createEndNwhinInvocation();
-//
-//    public Event createEndOutboundProcessing();
-//
-//    public Event createEndOutboundMessage();
-//
-//    public Event createBeginInboundProcessing();
-//
-//    public Event createBeginAdapterDelegation();
-//
-//    public Event createEndAdapterDelegation();
-//
-//    public Event createEndInboundProcessing();
-//
-//    public Event createMessageProcessingFailed();
+    @Test
+    public void newEventEachCall() {
+        Event first = eventFactory.createBeginOutboundProcessing();
+        Event second = eventFactory.createBeginOutboundProcessing();
+        assertNotSame(first, second);
+    }
 
-  
+    // public Event createBeginNwhinInvocation();
+    //
+    // public Event createEndNwhinInvocation();
+    //
+    // public Event createEndOutboundProcessing();
+    //
+    // public Event createEndOutboundMessage();
+    //
+    // public Event createBeginInboundProcessing();
+    //
+    // public Event createBeginAdapterDelegation();
+    //
+    // public Event createEndAdapterDelegation();
+    //
+    // public Event createEndInboundProcessing();
+    //
+    // public Event createMessageProcessingFailed();
 
-    
 }

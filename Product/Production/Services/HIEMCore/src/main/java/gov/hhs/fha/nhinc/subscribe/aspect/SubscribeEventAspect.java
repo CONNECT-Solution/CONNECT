@@ -26,13 +26,13 @@
  */
 package gov.hhs.fha.nhinc.subscribe.aspect;
 
-import gov.hhs.fha.nhinc.aspect.EventAspectAdvice;
-
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
+
+import gov.hhs.fha.nhinc.aspect.EventAspectAdvice;
 
 /**
  * @author zmelnick
