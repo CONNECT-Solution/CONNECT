@@ -28,4 +28,4 @@ Product/Install/.installer.temp/
 Product/Install/.backup*/
 Product/PmdReport/
 CheckstyleReport/
-META-INF
+MANIFEST.MF
