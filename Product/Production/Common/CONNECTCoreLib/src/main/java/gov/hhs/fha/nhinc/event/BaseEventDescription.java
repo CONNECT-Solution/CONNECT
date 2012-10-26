@@ -32,7 +32,7 @@ public class BaseEventDescription implements EventDescription {
 
     private List<String> responseMsgids;
     private String action;
-    private String errorCode;
+    private List<String> errorCodes;
     private String status;
     private String npi;
     private List<String> respondingHCIDs;
@@ -98,8 +98,8 @@ public class BaseEventDescription implements EventDescription {
     }
 
     @Override
-    public String getErrorCode() {
-        return errorCode;
+    public List<String> getErrorCodes() {
+        return errorCodes;
     }
 
     @Override
@@ -120,8 +120,8 @@ public class BaseEventDescription implements EventDescription {
         this.action = action;
     }
 
-    public void setErrorCode(String errorCode) {
-        this.errorCode = errorCode;
+    public void setErrorCodes(List<String> errorCodes) {
+        this.errorCodes = errorCodes;
     }
 
     public void setStatus(String status) {

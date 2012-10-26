@@ -31,9 +31,13 @@ package gov.hhs.fha.nhinc.docretrieve.aspect;
 import gov.hhs.fha.nhinc.event.BaseEventDescriptionBuilder;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType.DocumentResponse;
+
+import java.util.List;
+
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
 
 import com.google.common.base.Function;
+import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Lists;
 
 public class RetrieveDocumentSetResponseTypeDescriptionBuilder extends BaseEventDescriptionBuilder {
@@ -60,7 +64,8 @@ public class RetrieveDocumentSetResponseTypeDescriptionBuilder extends BaseEvent
     @Override
     public void buildRespondingHCID() {
         if (response != null) {
-            setRespondingHCIDs(Lists.transform(response.getDocumentResponse(), HCID_EXTRACTOR));
+            List<String> listWithDups = Lists.transform(response.getDocumentResponse(), HCID_EXTRACTOR);
+            setRespondingHCIDs(ImmutableSet.copyOf(listWithDups).asList());
         }
     }
 
@@ -82,10 +87,10 @@ public class RetrieveDocumentSetResponseTypeDescriptionBuilder extends BaseEvent
 
     @Override
     public void buildErrorCode() {
-        if (response != null) {
-            // TODO: change error code type to be a list
-            // setErrorCode(Lists.transform(response.getRegistryResponse().getRegistryErrorList().getRegistryError(),
-            // ERROR_CODE_EXTRACTOR));
+        if (response != null && response.getRegistryResponse().getRegistryErrorList() != null) {
+            List<String> listWithDups = Lists.transform(response.getRegistryResponse().getRegistryErrorList()
+                    .getRegistryError(), ERROR_CODE_EXTRACTOR);
+            setErrorCodes(ImmutableSet.copyOf(listWithDups).asList());
         }
     }
 

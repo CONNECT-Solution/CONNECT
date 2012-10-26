@@ -80,7 +80,7 @@ public interface EventDescription {
     public String getInitiatingHCID();
 
     /**
-     * HCID for Responding gateway.
+     * HCID(s) for Responding gateway(s).
      * 
      * @return
      */
@@ -100,11 +100,11 @@ public interface EventDescription {
     public String getStatus();
 
     /**
-     * Error code when failed.
+     * Error code(s) when failed.
      * 
      * @return
      */
-    public String getErrorCode();
+    public List<String> getErrorCodes();
 
     public String getAction();
 

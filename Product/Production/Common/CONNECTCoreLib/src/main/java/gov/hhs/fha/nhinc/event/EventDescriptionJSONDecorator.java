@@ -97,8 +97,8 @@ public class EventDescriptionJSONDecorator implements JSONString, EventDescripti
     }
 
     @Override
-    public String getErrorCode() {
-        return description.getErrorCode();
+    public List<String> getErrorCodes() {
+        return description.getErrorCodes();
     }
 
     @Override

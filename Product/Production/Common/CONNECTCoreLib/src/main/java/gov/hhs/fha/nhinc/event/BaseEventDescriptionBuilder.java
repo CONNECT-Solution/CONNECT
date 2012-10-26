@@ -80,8 +80,8 @@ public abstract class BaseEventDescriptionBuilder implements EventDescriptionBui
         description.setServiceType(msgContext.getServiceType());
     }
 
-    protected void setErrorCode(String errorCode) {
-        description.setErrorCode(errorCode);
+    protected void setErrorCodes(List<String> errorCodes) {
+        description.setErrorCodes(errorCodes);
     }
 
     protected void setStatus(String status) {

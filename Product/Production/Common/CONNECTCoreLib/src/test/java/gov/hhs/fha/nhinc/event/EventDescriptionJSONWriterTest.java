@@ -87,7 +87,7 @@ public class EventDescriptionJSONWriterTest {
         }
 
         @Override
-        public String getErrorCode() {
+        public List<String> getErrorCodes() {
             // TODO Auto-generated method stub
             return null;
         }

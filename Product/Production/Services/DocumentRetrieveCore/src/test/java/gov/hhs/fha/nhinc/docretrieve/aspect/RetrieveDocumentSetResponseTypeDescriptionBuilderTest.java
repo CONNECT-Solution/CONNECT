@@ -40,8 +40,8 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
-import org.junit.Ignore;
 import org.junit.Test;
+import org.springframework.util.CollectionUtils;
 
 public class RetrieveDocumentSetResponseTypeDescriptionBuilderTest extends BaseDescriptionBuilderTest {
 
@@ -65,7 +65,7 @@ public class RetrieveDocumentSetResponseTypeDescriptionBuilderTest extends BaseD
         assertEquals(DocumentConstants.XDS_RETRIEVE_RESPONSE_STATUS_SUCCESS, eventDescription.getStatus());
         assertEquals(1, eventDescription.getRespondingHCIDs().size());
         assertEquals("homeCommunityId", eventDescription.getRespondingHCIDs().get(0));
-        assertNull(eventDescription.getErrorCode());
+        assertTrue(CollectionUtils.isEmpty(eventDescription.getErrorCodes()));
         assertAlwaysNullAttributes(eventDescription);
     }
 
@@ -83,7 +83,7 @@ public class RetrieveDocumentSetResponseTypeDescriptionBuilderTest extends BaseD
         assertEquals(2, eventDescription.getRespondingHCIDs().size());
         assertEquals("homeCommunityId", eventDescription.getRespondingHCIDs().get(0));
         assertEquals("otherHomeCommunityId", eventDescription.getRespondingHCIDs().get(1));
-        assertNull(eventDescription.getErrorCode());
+        assertTrue(CollectionUtils.isEmpty(eventDescription.getErrorCodes()));
         assertAlwaysNullAttributes(eventDescription);
     }
 
@@ -91,35 +91,57 @@ public class RetrieveDocumentSetResponseTypeDescriptionBuilderTest extends BaseD
     public void errorNoDocsInResponse() {
         RetrieveDocumentSetResponseType response = new RetrieveDocumentSetResponseType();
         addStatus(response, DocumentConstants.XDS_RETRIEVE_RESPONSE_STATUS_FAILURE);
-
-        RegistryErrorList registryErrorList = new RegistryErrorList();
-        RegistryError registryError = new RegistryError();
-        registryError.setCodeContext("codeContext"); // TODO: find enumeration
-                                                     // of error code contexts
-        registryError.setErrorCode("errorCode"); // TODO: find enumeration of
-                                                 // error code contexts
-        registryErrorList.getRegistryError().add(registryError);
-        response.getRegistryResponse().setRegistryErrorList(registryErrorList);
+        addError(response);
 
         RetrieveDocumentSetResponseTypeDescriptionBuilder builder = new RetrieveDocumentSetResponseTypeDescriptionBuilder(
                 response);
         EventDescription eventDescription = getEventDescription(builder);
         assertEquals(DocumentConstants.XDS_RETRIEVE_RESPONSE_STATUS_FAILURE, eventDescription.getStatus());
         assertTrue(eventDescription.getRespondingHCIDs() == null || eventDescription.getRespondingHCIDs().isEmpty());
-        assertEquals("errorCode", eventDescription.getErrorCode());
+        assertEquals(1, eventDescription.getErrorCodes().size());
+        assertEquals(DocumentConstants.XDS_RETRIEVE_ERRORCODE_REPOSITORY_ERROR, eventDescription.getErrorCodes().get(0));
         assertAlwaysNullAttributes(eventDescription);
     }
 
     @Test
-    @Ignore("Two doc responses for same hcid should be a single hcid in event log")
     public void deDupHCIDList() {
+        RetrieveDocumentSetResponseType response = new RetrieveDocumentSetResponseType();
+        addStatus(response, DocumentConstants.XDS_RETRIEVE_RESPONSE_STATUS_SUCCESS);
+        addDocumentResponse(response, "homeCommunityId");
+        addDocumentResponse(response, "homeCommunityId");
 
+        RetrieveDocumentSetResponseTypeDescriptionBuilder builder = new RetrieveDocumentSetResponseTypeDescriptionBuilder(
+                response);
+        EventDescription eventDescription = getEventDescription(builder);
+        assertEquals(1, eventDescription.getRespondingHCIDs().size());
+        assertEquals("homeCommunityId", eventDescription.getRespondingHCIDs().get(0));
     }
 
     @Test
-    @Ignore("Multiple errors of same type should be single error in event log")
     public void deDupErrorList() {
+        RetrieveDocumentSetResponseType response = new RetrieveDocumentSetResponseType();
+        addStatus(response, DocumentConstants.XDS_RETRIEVE_RESPONSE_STATUS_FAILURE);
+        addError(response);
+        addError(response);
 
+        RetrieveDocumentSetResponseTypeDescriptionBuilder builder = new RetrieveDocumentSetResponseTypeDescriptionBuilder(
+                response);
+        EventDescription eventDescription = getEventDescription(builder);
+        assertEquals(1, eventDescription.getErrorCodes().size());
+        assertEquals(DocumentConstants.XDS_RETRIEVE_ERRORCODE_REPOSITORY_ERROR, eventDescription.getErrorCodes().get(0));
+    }
+
+    private void addError(RetrieveDocumentSetResponseType response) {
+        RegistryResponseType registryResponse = response.getRegistryResponse();
+        RegistryErrorList registryErrorList = registryResponse.getRegistryErrorList();
+        if (registryErrorList == null) {
+            registryErrorList = new RegistryErrorList();
+            registryResponse.setRegistryErrorList(registryErrorList);
+        }
+        RegistryError registryError = new RegistryError();
+        registryError.setCodeContext("error context"); // not an enumerated value
+        registryError.setErrorCode(DocumentConstants.XDS_RETRIEVE_ERRORCODE_REPOSITORY_ERROR);
+        registryErrorList.getRegistryError().add(registryError);
     }
 
     private void addDocumentResponse(RetrieveDocumentSetResponseType response, String communityId) {
@@ -141,5 +163,4 @@ public class RetrieveDocumentSetResponseTypeDescriptionBuilderTest extends BaseD
         assertNull(eventDescription.getNPI());
         assertNull(eventDescription.getInitiatingHCID());
     }
-
 }
