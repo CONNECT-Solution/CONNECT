@@ -22,6 +22,7 @@
         <db.password>nhincpass</db.password>
         <db.port>3306</db.port>
         <db.user>nhincuser</db.user>
+        <mysql.root.password>NHIE-Gateway</mysql.root.password>
     </properties>
     <pluginRepositories>
         <pluginRepository>
@@ -38,8 +39,8 @@
                 <executions>
                     <execution>
                         <id>unpack-soapui-test-resources</id>
-                        <!-- Using the initialize phase because it is before
-                            the generate sources phase -->
+                        <!-- Using the initialize phase because it is before the generate sources
+                            phase -->
                         <phase>initialize</phase>
                         <goals>
                             <goal>unpack</goal>
@@ -209,6 +210,27 @@
                             <outputDirectory>${project.build.directory}/wsdl-extracted/</outputDirectory>
                         </configuration>
                     </execution>
+                    <execution>
+                        <id>unpack-sql-scripts</id>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>unpack</goal>
+                        </goals>
+                        <configuration>
+                            <skip>${skip.unpack}</skip>
+                            <artifactItems>
+                                <artifactItem>
+                                    <!-- Artifact that Holds our SQL scripts -->
+                                    <groupId>org.connectopensource</groupId>
+                                    <artifactId>DBScripts</artifactId>
+                                    <version>${project.parent.version}</version>
+                                    <type>jar</type>
+                                </artifactItem>
+                            </artifactItems>
+                            <includes>**/*</includes>
+                            <outputDirectory>${project.build.directory}/DBScripts/</outputDirectory>
+                        </configuration>
+                    </execution>
                 </executions>
             </plugin>
             <plugin>
@@ -223,10 +245,8 @@
                         </goals>
                         <configuration>
                             <target>
-                                <copy todir="${project.build.directory}/wsdl"
-                                    flatten="true">
-                                    <fileset
-                                        dir="${project.build.directory}/wsdl-extracted">
+                                <copy todir="${project.build.directory}/wsdl" flatten="true">
+                                    <fileset dir="${project.build.directory}/wsdl-extracted">
                                         <include name="**/*.wsdl" />
                                     </fileset>
                                 </copy>
@@ -304,32 +324,17 @@
                             <skip>${entity.skip}</skip>
                             <projectFile>${basedir}/EntityValidation-soapui-project.xml</projectFile>
                             <outputFolder>${basedir}/target/soapui/output/EntityValidation</outputFolder>
+							<host>${host}:${port}</host>
+							<testSuite>${test.suite}</testSuite>
+							<testCase>${test.case}</testCase>
                             <projectProperties>
                                 <value>GatewayPropDir=${properties.dir}</value>
-                                <value>project.name=EntityValidation</value>
                                 <value>DBHost=${db.host}</value>
                                 <value>DBPass=${db.password}</value>
                                 <value>DBPort=${db.port}</value>
-                                <value>DBUser=nhincuser</value>
-                                <value>startDate=2012-09-27T22:57:33Z</value>
-                                <value>endDate=2012-09-27T23:07:33Z</value>
-                                <value>sigDate=09/27/2012 22:57:33</value>
-                                <value>expireDate=2012-10-27T00:00:00Z</value>
-                                <value>Endpoint-DocQuery=http://${host}:${port}/Gateway/DocumentQuery/2_0/EntityService/EntityDocQueryUnsecured</value>
-                                <value>Endpoint-DocRetrieve=http://${host}:${port}/Gateway/DocumentRetrieve/2_0/EntityService/EntityDocRetrieve</value>
-                                <value>Endpoint-DSDeferredResp=http://${host}:${port}/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionDeferredResponseUnsecured</value>
-                                <value>Endpoint-EntityAdminDist=http://${host}:${port}/Gateway/AdminDistribution/1_0/AdministrativeDistribution_Service</value>
-                                <value>Endpoint-EntityXDRRequest=http://${host}:${port}/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionDeferredRequestUnsecured</value>
-                                <value>Endpoint-Notify=http://${host}:${port}/Gateway/HIEM/2_0/EntityNotificationConsumer</value>
-                                <value>Endpoint-PatientDiscovery=http://${host}:${port}/Gateway/PatientDiscovery/1_0/EntityPatientDiscovery</value>
-                                <value>Endpoint-PatientDiscoveryAsyncReq=http://${host}:${port}/Gateway/PatientDiscovery/1_0/EntityService/EntityPatientDiscoveryDeferredRequestUnsecured</value>
-                                <value>Endpoint-PatientDiscoveryAsyncResp=http://${host}:${port}/Gateway/PatientDiscovery/1_0/EntityService/EntityPatientDiscoveryDeferredResponseUnsecured</value>
-                                <value>Endpoint-Subscribe=http://${host}:${port}/Gateway/HIEM/2_0/EntityNotificationProducer</value>
-                                <value>Endpoint-Unsubscribe=http://${host}:${port}/Gateway/HIEM/2_0/EntitySubscriptionManager</value>
-                                <value>Endpoint-XDREntity=http://${host}:${port}/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionUnsecured</value>
+                                <value>DBUser=${db.user}</value>
                                 <value>NotificationEndpoint=https://${host}:${secured.port}/Gateway/HIEM/2_0/NhinService/NotificationConsumerService/HiemNotify</value>
                                 <value>NotifySubscriptionManagerEndpointAddress=https://${host}:${secured.port}/Gateway/HIEM/2_0/NhinService/SubscriptionManagerService/HiemUnsubscribe</value>
-                                <value>SubscriptionEndpoint=https://${host}:${secured.port}/Gateway/HIEM/2_0/NhinService/NotificationProducerService/HiemSubscription</value>
                                 <value>SubscriptionManagerEndpointAddress=https://${host}:${secured.port}/Gateway/HIEM/2_0/NhinService/SubscriptionManagerService/HiemUnsubscribe</value>
                             </projectProperties>
                         </configuration>
@@ -344,50 +349,18 @@
                             <skip>${msgproxy.skip}</skip>
                             <projectFile>${basedir}/MsgProxyValidation-soapui-project.xml</projectFile>
                             <outputFolder>${basedir}/target/soapui/output/MsgProxyValidation</outputFolder>
+							<host>${host}:${port}</host>
+							<testSuite>${test.suite}</testSuite>
+							<testCase>${test.case}</testCase>
                             <projectProperties>
                                 <value>GatewayPropDir=${properties.dir}</value>
-                                <value>project.name=MsgProxyValidation</value>
                                 <value>DBHost=${db.host}</value>
                                 <value>DBPass=${db.password}</value>
                                 <value>DBPort=${db.port}</value>
-                                <value>DBUser=nhincuser</value>
-                                <value>Endpoint-DocQuery=http://${host}:${port}/Gateway/DocumentQuery/2_0/EntityService/EntityDocQueryUnsecured</value>
-                                <value>Endpoint-DocRetrieve=http://${host}:${port}/Gateway/DocumentRetrieve/2_0/EntityService/EntityDocRetrieve</value>
-                                <value>Endpoint-DSDeferredResp=http://${host}:${port}/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionDeferredResponseUnsecured</value>
-                                <value>Endpoint-EntityAdminDist=http://${host}:${port}/Gateway/AdminDistribution/1_0/AdministrativeDistribution_Service</value>
-                                <value>Endpoint-EntityXDRRequest=http://${host}:${port}/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionDeferredRequestUnsecured</value>
-                                <value>Endpoint-Notify=http://${host}:${port}/Gateway/HIEM/2_0/EntityNotificationConsumer</value>
-                                <value>Endpoint-PatientDiscovery=http://${host}:${port}/Gateway/PatientDiscovery/1_0/EntityPatientDiscovery</value>
-                                <value>Endpoint-PatientDiscoveryAsyncReq=http://${host}:${port}/Gateway/PatientDiscovery/1_0/EntityService/EntityPatientDiscoveryDeferredRequestUnsecured</value>
-                                <value>Endpoint-PatientDiscoveryAsyncResp=http://${host}:${port}/Gateway/PatientDiscovery/1_0/EntityService/EntityPatientDiscoveryDeferredResponseUnsecured</value>
-                                <value>Endpoint-Subscribe=http://${host}:${port}/Gateway/HIEM/2_0/EntityNotificationProducer</value>
-                                <value>Endpoint-Unsubscribe=http://${host}:${port}/Gateway/HIEM/2_0/EntitySubscriptionManager</value>
-                                <value>Endpoint-XDREntity=http://${host}:${port}/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionUnsecured</value>
+                                <value>DBUser=${db.user}</value>
                                 <value>NotificationEndpoint=https://${host}:${secured.port}/Gateway/HIEM/2_0/NhinService/NotificationConsumerService/HiemNotify</value>
                                 <value>NotifySubscriptionManagerEndpointAddress=https://${host}:${secured.port}/Gateway/HIEM/2_0/NhinService/SubscriptionManagerService/HiemUnsubscribe</value>
-                                <value>SubscriptionEndpoint=https://${host}:${secured.port}/Gateway/HIEM/2_0/NhinService/NotificationProducerService/HiemSubscription</value>
                                 <value>SubscriptionManagerEndpointAddress=https://${host}:${secured.port}/Gateway/HIEM/2_0/NhinService/SubscriptionManagerService/HiemUnsubscribe</value>
-                            </projectProperties>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>4-ConnectionManagerTest-soapui-project.xml</id>
-                        <phase>integration-test</phase>
-                        <goals>
-                            <goal>test</goal>
-                        </goals>
-                        <configuration>
-                            <skip>${connectionmanager.skip}</skip>
-                            <projectFile>${basedir}/4-ConnectionManagerTest-soapui-project.xml</projectFile>
-                            <outputFolder>${basedir}/target/soapui/output/ConnectionManagerTest</outputFolder>
-                            <projectProperties>
-                                <value>GatewayPropDir=${properties.dir}</value>
-                                <value>project.name=4-ConnectionManagerTest</value>
-                                <value>DBHost=${db.host}</value>
-                                <value>DBPass=${db.password}</value>
-                                <value>DBPort=${db.port}</value>
-                                <value>DBUser=nhincuser</value>
-                                <value>Endpoint-ConnectionManager=http://${host}:${port}/CONNECTCommon/NhincComponentConnectionManager</value>
                             </projectProperties>
                         </configuration>
                     </execution>
@@ -447,6 +420,39 @@
                                 <goals>
                                     <goal>stop</goal>
                                 </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>sql-maven-plugin</artifactId>
+                        <version>1.5</version>
+                        <dependencies>
+                            <dependency>
+                                <groupId>mysql</groupId>
+                                <artifactId>mysql-connector-java</artifactId>
+                                <version>5.1.10</version>
+                            </dependency>
+                        </dependencies>
+                        <configuration>
+                            <driver>com.mysql.jdbc.Driver</driver>
+                            <url>jdbc:mysql://localhost</url>
+                            <username>root</username>
+                            <password>${mysql.root.password}</password>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <phase>process-test-resources</phase>
+                                <goals>
+                                    <goal>execute</goal>
+                                </goals>
+                                <configuration>
+                                    <srcFiles>
+                                        <srcFile>${project.build.directory}/DBScripts/nhincdb/dropall.sql</srcFile>
+                                        <srcFile>${project.build.directory}/DBScripts/nhincdb/nhincdb.sql</srcFile>
+                                        <srcFile>${project.build.directory}/DBScripts/nhincdb/populateTestData.sql</srcFile>
+                                    </srcFiles>
+                                </configuration>
                             </execution>
                         </executions>
                     </plugin>
