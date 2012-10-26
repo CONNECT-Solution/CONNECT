@@ -47,7 +47,6 @@ public class EntityDocRetrieveOrchImpl {
     public EntityDocRetrieveOrchImpl() {
     }
 
-   
     public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(
             ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType body, AssertionType assertion) {
 
@@ -57,7 +56,7 @@ public class EntityDocRetrieveOrchImpl {
         NhinAggregator na = new OutboundDocRetrieveAggregator_a0();
         OutboundDocRetrieveOrchestratable outboundDROrchestratable = new OutboundDocRetrieveOrchestratableImpl(body,
                 assertion, pt, at, nd, na, null);
-        OutboundDocRetrCONNECTOutboundOrchestratorieveOrchestratorImpl oOrchestrator = new OutboundDocRetrieveOrchestratorImpl();
+        OutboundDocRetrieveOrchestratorImpl oOrchestrator = new OutboundDocRetrieveOrchestratorImpl();
         oOrchestrator.process(outboundDROrchestratable);
 
         return outboundDROrchestratable.getResponse();
