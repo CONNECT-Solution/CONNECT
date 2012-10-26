@@ -36,6 +36,7 @@
             <id>websphere</id>
             <modules>
                 <module>ear</module>
+                <module>glassfish</module>
                 <module>websphere</module>
             </modules>
         </profile>

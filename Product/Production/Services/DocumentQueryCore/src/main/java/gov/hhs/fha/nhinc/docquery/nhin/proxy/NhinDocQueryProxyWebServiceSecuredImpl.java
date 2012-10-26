@@ -26,14 +26,10 @@
  */
 package gov.hhs.fha.nhinc.docquery.nhin.proxy;
 
-import javax.xml.ws.BindingProvider;
-
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.docquery.nhin.proxy.description.NhinDocQueryServicePortDescriptor;
-import gov.hhs.fha.nhinc.docrepository.DocumentProcessHelper;
-import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
@@ -41,7 +37,12 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import ihe.iti.xds_b._2007.RespondingGatewayQueryPortType;
+
+import javax.xml.ws.BindingProvider;
+
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
+import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -64,10 +65,6 @@ public class NhinDocQueryProxyWebServiceSecuredImpl implements NhinDocQueryProxy
 
     protected WebServiceProxyHelper createWebServiceProxyHelper() {
         return new WebServiceProxyHelper();
-    }
-
-    protected DocumentProcessHelper getDocumentProcessHelper() {
-        return new DocumentProcessHelper();
     }
 
     public ServicePortDescriptor<RespondingGatewayQueryPortType> getServicePortDescriptor(

@@ -57,7 +57,7 @@ public class DocSubmissionUtils {
     }
 
     /**
-     * @return the singleton instance of NhinDocSubmissionUtils
+     * @return the singleton instance of DocSubmissionUtils
      */
     public static DocSubmissionUtils getInstance() {
         return instance;
@@ -107,11 +107,11 @@ public class DocSubmissionUtils {
     public void convertDataToFileLocationIfEnabled(ProvideAndRegisterDocumentSetRequestType request)
             throws LargePayloadException {
 
-        if (fileUtils.isParsePayloadAsFileLocationEnabled()) {
+        if (fileUtils.isSavePayloadToFileEnabled()) {
             List<File> savedAttachmentList = new ArrayList<File>();
             try {
                 for (Document doc : request.getDocument()) {
-                    File attachmentFile = saveDataAttachmentToFile(doc);
+                    File attachmentFile = fileUtils.saveDataToFile(doc.getValue());
                     setDocumentValueToFileURI(doc, attachmentFile);
                     savedAttachmentList.add(attachmentFile);
                 }
@@ -125,15 +125,6 @@ public class DocSubmissionUtils {
                 throw new LargePayloadException("Failed to save attachments to file system", e);
             }
         }
-    }
-
-    private File saveDataAttachmentToFile(Document doc) throws IOException {
-        File attachmentFile = fileUtils.generateAttachmentFile();
-        log.debug("Saving document " + doc.getId() + " to " + attachmentFile.getAbsolutePath());
-
-        fileUtils.saveDataToFile(doc.getValue(), attachmentFile);
-
-        return attachmentFile;
     }
 
     private void setDocumentValueToFileURI(Document doc, File file) throws IOException {

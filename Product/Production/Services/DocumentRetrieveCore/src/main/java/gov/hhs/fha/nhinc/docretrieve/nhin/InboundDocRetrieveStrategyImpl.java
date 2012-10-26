@@ -10,6 +10,8 @@ import gov.hhs.fha.nhinc.auditrepository.nhinc.proxy.AuditRepositoryProxyObjectF
 import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.docretrieve.DocRetrieveFileUtils;
+import gov.hhs.fha.nhinc.docretrieve.MessageGenerator;
 import gov.hhs.fha.nhinc.docretrieve.adapter.proxy.AdapterDocRetrieveProxy;
 import gov.hhs.fha.nhinc.docretrieve.adapter.proxy.AdapterDocRetrieveProxyObjectFactory;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
@@ -18,6 +20,7 @@ import gov.hhs.fha.nhinc.orchestration.OrchestrationStrategy;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -55,8 +58,19 @@ public class InboundDocRetrieveStrategyImpl implements InboundDocRetrieveStrateg
             getLogger().debug("Creating adapter (a0) doc retrieve proxy");
             AdapterDocRetrieveProxy proxy = new AdapterDocRetrieveProxyObjectFactory().getAdapterDocRetrieveProxy();
             getLogger().debug("Sending adapter doc retrieve to adapter (a0)");
-            NhinDRMessage.setResponse(proxy.retrieveDocumentSet(NhinDRMessage.getRequest(),
-                    NhinDRMessage.getAssertion()));
+
+            RetrieveDocumentSetResponseType adapterResponse = proxy.retrieveDocumentSet(NhinDRMessage.getRequest(),
+                    NhinDRMessage.getAssertion());
+
+            try {
+                DocRetrieveFileUtils.getInstance().convertFileLocationToDataIfEnabled(adapterResponse);
+            } catch (Exception e) {
+                log.error("Failed to retrieve data from the file uri in the payload.", e);
+                adapterResponse = MessageGenerator.getInstance().createRegistryResponseError(
+                        "Adapter Document Retrieve Processing");
+            }
+
+            NhinDRMessage.setResponse(adapterResponse);
 
             getLogger().debug("Calling audit log for doc retrieve response received from adapter (a0)");
             auditResponseMessage(NhinDRMessage.getResponse(), NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,

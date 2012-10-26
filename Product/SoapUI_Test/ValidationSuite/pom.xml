@@ -12,7 +12,17 @@
     <properties>
         <skip.unpack>false</skip.unpack>
         <soapui.testFailIgnore>true</soapui.testFailIgnore>
-        <skip.soapui.failonerror>false</skip.soapui.failonerror>
+        <entity.skip>false</entity.skip>
+        <msgproxy.skip>false</msgproxy.skip>
+        <connectionmanager.skip>false</connectionmanager.skip>
+        <host>localhost</host>
+        <secured.port>8181</secured.port>
+        <port>8080</port>
+        <db.host>localhost</db.host>
+        <db.password>nhincpass</db.password>
+        <db.port>3306</db.port>
+        <db.user>nhincuser</db.user>
+        <mysql.root.password>NHIE-Gateway</mysql.root.password>
     </properties>
     <pluginRepositories>
         <pluginRepository>
@@ -21,31 +31,6 @@
         </pluginRepository>
     </pluginRepositories>
     <build>
-        <testResources>
-            <testResource>
-                <directory>${basedir}/src/test/resources</directory>
-                <includes>
-                    <include>glassfish/**/domain.xml</include>
-                </includes>
-                <filtering>true</filtering>
-                <targetPath>${project.build.directory}/glassfish-resources/</targetPath>
-            </testResource>
-            <testResource>
-                <directory>${basedir}/src/test/resources</directory>
-                <includes>
-                    <include>gateway.jks</include>
-                    <include>log4j.properties</include>
-                </includes>
-                <targetPath>${project.build.directory}/glassfish-resources/</targetPath>
-            </testResource>
-            <testResource>
-                <directory>${project.build.testOutputDirectory}</directory>
-                <includes>
-                    <include>gateway.properties</include>
-                </includes>
-                <targetPath>${project.build.testOutputDirectory}/master/</targetPath>
-            </testResource>
-        </testResources>
         <plugins>
             <plugin>
                 <!-- Used to pull XSD files from the JAR -->
@@ -225,6 +210,27 @@
                             <outputDirectory>${project.build.directory}/wsdl-extracted/</outputDirectory>
                         </configuration>
                     </execution>
+                    <execution>
+                        <id>unpack-sql-scripts</id>
+                        <phase>pre-integration-test</phase>
+                        <goals>
+                            <goal>unpack</goal>
+                        </goals>
+                        <configuration>
+                            <skip>${skip.unpack}</skip>
+                            <artifactItems>
+                                <artifactItem>
+                                    <!-- Artifact that Holds our SQL scripts -->
+                                    <groupId>org.connectopensource</groupId>
+                                    <artifactId>DBScripts</artifactId>
+                                    <version>${project.parent.version}</version>
+                                    <type>jar</type>
+                                </artifactItem>
+                            </artifactItems>
+                            <includes>**/*</includes>
+                            <outputDirectory>${project.build.directory}/DBScripts/</outputDirectory>
+                        </configuration>
+                    </execution>
                 </executions>
             </plugin>
             <plugin>
@@ -233,7 +239,7 @@
                 <executions>
                     <execution>
                         <id>flatten-soapui-test-resources</id>
-                        <phase>pre-integration-test</phase>
+                        <phase>process-test-resources</phase>
                         <goals>
                             <goal>run</goal>
                         </goals>
@@ -249,22 +255,26 @@
                             </target>
                         </configuration>
                     </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>com.google.code.maven-replacer-plugin</groupId>
+                <artifactId>replacer</artifactId>
+                <executions>
                     <execution>
-                        <id>check-for-soapui-failures</id>
-                        <phase>post-integration-test</phase>
+                        <id>fix-wsdl-schemalocation</id>
+                        <phase>process-test-resources</phase>
                         <goals>
-                            <goal>run</goal>
+                            <goal>replace</goal>
                         </goals>
                         <configuration>
-                            <skip>${skip.soapui.failonerror}</skip>
-                            <target>
-                                <fileset dir="${basedir}/target/soapui/output/" id="soapui.failure.files">
-                                    <include name="**/*FAILED.txt" />
-                                </fileset>
-                                <pathconvert refid="soapui.failure.files" property="soapui.test.failures.detected"
-                                    setonempty="false" />
-                                <fail if="soapui.test.failures.detected" message="soapui test failures detected!" />
-                            </target>
+                            <basedir>${project.build.directory}/wsdl</basedir>
+                            <includes>
+                                <include>**/*.wsdl</include>
+                            </includes>
+                            <token>schemaLocation=\"classpath:</token>
+                            <value>schemaLocation=\"../</value>
+                            <regex>true</regex>
                         </configuration>
                     </execution>
                 </executions>
@@ -292,21 +302,16 @@
                 <configuration>
                     <settingsFile>${basedir}/src/main/resources/soapui-settings.xml</settingsFile>
                     <outputFolder>${basedir}/target/soapui/output/</outputFolder>
-
                     <soapuiProperties>
                         <property>
-                            <name>GatewayPropDir</name>
-                            <value>${project.build.testOutputDirectory}</value>
-                        </property>
-                        <property>
                             <name>soapui.logroot</name>
-                            <value>${project.build.directory}/soapui/my_custon_logs/</value>
+                            <value>${project.build.directory}/soapui/my_custom_logs/</value>
                         </property>
                     </soapuiProperties>
                     <exportAll>true</exportAll>
                     <printReport>true</printReport>
                     <junitReport>true</junitReport>
-                    <coverage>true</coverage>
+                    <coverage>false</coverage>
                     <testFailIgnore>${soapui.testFailIgnore}</testFailIgnore>
                     <saveAfterRun>false</saveAfterRun>
                 </configuration>
@@ -318,13 +323,21 @@
                             <goal>test</goal>
                         </goals>
                         <configuration>
+                            <skip>${entity.skip}</skip>
                             <projectFile>${basedir}/EntityValidation-soapui-project.xml</projectFile>
                             <outputFolder>${basedir}/target/soapui/output/EntityValidation</outputFolder>
-                            <globalProperties>
-                                <value>project.name=EntityValidation</value>
-                            </globalProperties>
+                            <host>${host}:${port}</host>
+                            <testSuite>${test.suite}</testSuite>
+                            <testCase>${test.case}</testCase>
                             <projectProperties>
-                                <value>project.name=EntityValidation</value>
+                                <value>GatewayPropDir=${properties.dir}</value>
+                                <value>DBHost=${db.host}</value>
+                                <value>DBPass=${db.password}</value>
+                                <value>DBPort=${db.port}</value>
+                                <value>DBUser=${db.user}</value>
+                                <value>NotificationEndpoint=https://${host}:${secured.port}/Gateway/HIEM/2_0/NhinService/NotificationConsumerService/HiemNotify</value>
+                                <value>NotifySubscriptionManagerEndpointAddress=https://${host}:${secured.port}/Gateway/HIEM/2_0/NhinService/SubscriptionManagerService/HiemUnsubscribe</value>
+                                <value>SubscriptionManagerEndpointAddress=https://${host}:${secured.port}/Gateway/HIEM/2_0/NhinService/SubscriptionManagerService/HiemUnsubscribe</value>
                             </projectProperties>
                         </configuration>
                     </execution>
@@ -335,32 +348,30 @@
                             <goal>test</goal>
                         </goals>
                         <configuration>
+                            <skip>${msgproxy.skip}</skip>
                             <projectFile>${basedir}/MsgProxyValidation-soapui-project.xml</projectFile>
                             <outputFolder>${basedir}/target/soapui/output/MsgProxyValidation</outputFolder>
-                            <globalProperties>
-                                <value>project.name=MsgProxyValidation</value>
-                            </globalProperties>
+                            <host>${host}:${port}</host>
+                            <testSuite>${test.suite}</testSuite>
+                            <testCase>${test.case}</testCase>
                             <projectProperties>
-                                <value>project.name=MsgProxyValidation</value>
+                                <value>GatewayPropDir=${properties.dir}</value>
+                                <value>DBHost=${db.host}</value>
+                                <value>DBPass=${db.password}</value>
+                                <value>DBPort=${db.port}</value>
+                                <value>DBUser=${db.user}</value>
+                                <value>NotificationEndpoint=https://${host}:${secured.port}/Gateway/HIEM/2_0/NhinService/NotificationConsumerService/HiemNotify</value>
+                                <value>NotifySubscriptionManagerEndpointAddress=https://${host}:${secured.port}/Gateway/HIEM/2_0/NhinService/SubscriptionManagerService/HiemUnsubscribe</value>
+                                <value>SubscriptionManagerEndpointAddress=https://${host}:${secured.port}/Gateway/HIEM/2_0/NhinService/SubscriptionManagerService/HiemUnsubscribe</value>
                             </projectProperties>
                         </configuration>
                     </execution>
                     <execution>
-                        <id>4-ConnectionManagerTest-soapui-project.xml</id>
-                        <phase>integration-test</phase>
+                        <id>test-verify</id>
+                        <phase>post-integration-test</phase>
                         <goals>
-                            <goal>test</goal>
+                            <goal>test-verify</goal>
                         </goals>
-                        <configuration>
-                            <projectFile>${basedir}/4-ConnectionManagerTest-soapui-project.xml</projectFile>
-                            <outputFolder>${basedir}/target/soapui/output/ConnectionManagerTest</outputFolder>
-                            <globalProperties>
-                                <value>project.name=4-ConnectionManagerTest</value>
-                            </globalProperties>
-                            <projectProperties>
-                                <value>project.name=4-ConnectionManagerTest</value>
-                            </projectProperties>
-                        </configuration>
                     </execution>
                 </executions>
             </plugin>
@@ -370,8 +381,13 @@
         <profile>
             <id>embedded-testing</id>
             <activation>
-                <activeByDefault>true</activeByDefault>
+                <property>
+                    <name>!standalone</name>
+                </property>
             </activation>
+            <properties>
+                <properties.dir>${project.build.directory}/nhinc-properites-dir</properties.dir>
+            </properties>
             <build>
                 <plugins>
                     <plugin>
@@ -406,6 +422,39 @@
                                 <goals>
                                     <goal>stop</goal>
                                 </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>sql-maven-plugin</artifactId>
+                        <version>1.5</version>
+                        <dependencies>
+                            <dependency>
+                                <groupId>mysql</groupId>
+                                <artifactId>mysql-connector-java</artifactId>
+                                <version>5.1.10</version>
+                            </dependency>
+                        </dependencies>
+                        <configuration>
+                            <driver>com.mysql.jdbc.Driver</driver>
+                            <url>jdbc:mysql://localhost</url>
+                            <username>root</username>
+                            <password>${mysql.root.password}</password>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <phase>process-test-resources</phase>
+                                <goals>
+                                    <goal>execute</goal>
+                                </goals>
+                                <configuration>
+                                    <srcFiles>
+                                        <srcFile>${project.build.directory}/DBScripts/nhincdb/dropall.sql</srcFile>
+                                        <srcFile>${project.build.directory}/DBScripts/nhincdb/nhincdb.sql</srcFile>
+                                        <srcFile>${project.build.directory}/DBScripts/nhincdb/populateTestData.sql</srcFile>
+                                    </srcFiles>
+                                </configuration>
                             </execution>
                         </executions>
                     </plugin>

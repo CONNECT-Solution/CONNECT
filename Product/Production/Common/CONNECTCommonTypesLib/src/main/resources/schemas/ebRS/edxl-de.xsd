@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
  xmlns="urn:oasis:names:tc:emergency:EDXL:DE:1.0"
+ xmlns:xmime="http://www.w3.org/2005/05/xmlmime"
  targetNamespace="urn:oasis:names:tc:emergency:EDXL:DE:1.0"
  elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0CD">
 
@@ -64,7 +65,7 @@
             <xsd:element name="size" type="xsd:integer" minOccurs="0"/>
             <xsd:element name="digest" type="xsd:string" minOccurs="0"/>
             <xsd:element name="uri" type="xsd:anyURI" minOccurs="0"/>
-            <xsd:element name="contentData" type="xsd:base64Binary" minOccurs="0"/>
+            <xsd:element name="contentData" type="xsd:base64Binary" xmime:expectedContentTypes="application/octet-stream" minOccurs="0"/>
         </xsd:sequence>
     </xsd:complexType>
 

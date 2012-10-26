@@ -59,6 +59,7 @@ public class SoapHeaderHelper {
             log.debug("extract soapheader");
             SoapUtil soaputil = new SoapUtil();
             header = soaputil.extractSoapHeader(context, messageContextAttributeName);
+            log.debug("Header:"+header.toString());
         } catch (SOAPException ex) {
             log.error("failed to extract soapheader", ex);
         }
@@ -89,6 +90,8 @@ public class SoapHeaderHelper {
             }
         }
         log.debug("reference parameters elements found = " + elements.getElements().size());
+        for ( Element element : elements.getElements())
+           log.debug("Elements are :"+element.toString());
         return elements;
     }
 

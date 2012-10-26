@@ -35,8 +35,7 @@
             </fileset>
         </classpath>
     </taskdef>
-    
-    <property name="skip.build" value="true"/>
+
     <property name="skip.do-to-projects" value="true"/>
     <property name="m2.local.repo.path" value="${user.home}/.m2/repository/"/>
     <property name="deployment.version" value="4.0.0-SNAPSHOT"/>
@@ -60,8 +59,7 @@
     <property name="ear.dependency.fileset" refid="ear.dependency.fileset" />
     <property name="deployment.ear.file.path" location="${m2.local.repo.path}/${ear.dependency.fileset}"/>
     <echo message="CONNECT EAR to Deploy: ${deployment.ear.file.path}"/>
-    
-    
+
     <mkdir dir="${temp.dir}" />
     <delete>
         <fileset dir="${temp.dir}">
@@ -81,9 +79,9 @@
         </then>
     </if>
 
-    <target name="install" depends="backup.glassfish.install.dir, install.glassfish, install.databases, build.connect, deploy.connect, cleanup" />
+    <target name="install" depends="backup.glassfish.install.dir, install.glassfish, install.databases, install.mysql.connector, deploy.connect, cleanup" />
 
-    <target name="install-binary" depends="backup.glassfish.install.dir, install.glassfish, install.databases, deploy.connect.binary, cleanup" />
+    <target name="install-binary" depends="backup.glassfish.install.dir, install.glassfish, install.databases, install.mysql.connector, deploy.connect.binary, cleanup" />
 
     <target name="backup.glassfish.install.dir" if="glassfish.install.dir.exists" unless="skip.backup">
         <property name="backup.dir" value="${glassfish.install.dir.root}/.backup.${glassfish.install.dir.name}.${DSTAMP}_${TSTAMP}" />
@@ -171,6 +169,21 @@
         </copy>
     </target>
 
+    <target name="install.mysql.connector">
+        <echo message="Installing mysql connector jar on the glassfish container." />
+
+        <artifact:dependencies filesetId="mysql.connector.dependency.fileset">
+            <dependency groupId="mysql" artifactId="mysql-connector-java" version="5.1.10" type="jar" scope="runtime"/>
+            <localRepository path="${m2.local.repo.path}"/>
+        </artifact:dependencies>
+
+        <property name="mysql.connector.dependency.fileset" refid="mysql.connector.dependency.fileset" />
+        <property name="mysql.connector.dependency.file.path" location="${m2.local.repo.path}/${mysql.connector.dependency.fileset}"/>
+        <echo message="Mysql Connector File: ${mysql.connector.dependency.file.path}"/>
+
+        <copy file="${mysql.connector.dependency.file.path}" todir="${glassfish.install.dir}/glassfish/domains/domain1/lib/ext" overwrite="true"/>
+    </target>
+
     <target name="install.databases">
         <echo message="installing MySQL databases and connection users." />
         <exec failonerror="true" executable="${mysql.executable}" dir="${sql.scripts.dir}" input="${sql.scripts.dir}/dropall.sql">
@@ -194,30 +207,11 @@
             <arg value="-uroot" />
             <arg value="-p${mysql.system.password}" />
         </exec>
-        <echo file="${temp.dir}/privileges.sql">GRANT ALL PRIVILEGES ON *.* TO 'nhincuser'@'localhost' IDENTIFIED BY 'nhincpass' WITH GRANT OPTION;
-GRANT ALL PRIVILEGES ON *.* TO 'nhincuser'@'127.0.0.1' IDENTIFIED BY 'nhincpass' WITH GRANT OPTION;
-FLUSH PRIVILEGES;
-        </echo>
-        <exec failonerror="true" executable="${mysql.executable}" dir="${temp.dir}" input="${temp.dir}/privileges.sql">
-            <arg value="-v" />
-            <arg value="-uroot" />
-            <arg value="-p${mysql.system.password}" />
-        </exec>
         <exec failonerror="true" executable="${mysql.executable}" dir="${basedir}">
             <arg value="-unhincuser" />
             <arg value="-pnhincpass" />
         </exec>
         <echo message="databases are successfully installed." />
-    </target>
-
-    <target name="build.connect" unless="skip.build">
-        <echo message="building CONNECT." />
-        <ant antfile="${basedir}/../build.xml" dir="${basedir}/..">
-            <target name="clean" />
-            <target name="package.create" />
-            <property name="as.home" value="${glassfish.install.dir}/glassfish" />
-            <property name="source.install" value="true" />
-        </ant>
     </target>
 
     <target name="deploy.connect" unless="skip.deploy">

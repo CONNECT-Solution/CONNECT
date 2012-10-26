@@ -13,7 +13,7 @@
     <properties>
         <checkstyle.skip>false</checkstyle.skip>
         <checkstyle.settings.file>checkstyle.settings.xml</checkstyle.settings.file>
-        <cxf.version>2.6.1</cxf.version>
+        <cxf.version>2.6.0</cxf.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <connect.common.properties>Dev</connect.common.properties>
         <skip.cobertura>false</skip.cobertura>
@@ -27,6 +27,7 @@
     </properties>
     <modules>
         <module>Production</module>
+        <module>DBScripts</module>
         <module>SoapUI_Test</module>
     </modules>
     <dependencyManagement>
@@ -95,7 +96,7 @@
                 </exclusions>
             </dependency>
             <dependency>
-                <!-- org.apache.cxf:cxf-bundle includes wss4j though org.apache.ws.security:wss4j:1.6.6:pom 
+                <!-- org.apache.cxf:cxf-bundle includes wss4j though org.apache.ws.security:wss4j:1.6.6:pom
                     excludes numerous dependencies from opensaml - see POM, http://repo.maven.apache.org/maven2/org/apache/ws/security/wss4j/1.6.6/wss4j-1.6.6.pom -->
                 <groupId>org.opensaml</groupId>
                 <artifactId>opensaml</artifactId>
@@ -136,7 +137,7 @@
                         <artifactId>asm-attrs</artifactId>
                     </exclusion>
                     <exclusion>
-                        <!-- exclude and use <artifactId>cglib-nodep</artifactId> 
+                        <!-- exclude and use <artifactId>cglib-nodep</artifactId>
                             to include the asm it needs in a private package space. -->
                         <groupId>cglib</groupId>
                         <artifactId>cglib</artifactId>
@@ -148,7 +149,7 @@
                 </exclusions>
             </dependency>
             <dependency>
-                <!-- Used to include the asm it needs in a private package 
+                <!-- Used to include the asm it needs in a private package
                     space. -->
                 <groupId>cglib</groupId>
                 <artifactId>cglib-nodep</artifactId>
@@ -388,6 +389,9 @@
         <repository>
             <id>forgerock</id>
             <url>http://repo.forgerock.org</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
         </repository>
     </repositories>
     <profiles>

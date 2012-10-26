@@ -34,15 +34,17 @@ import org.apache.commons.logging.LogFactory;
 import gov.hhs.fha.nhinc.admindistribution.AdminDistributionAuditLogger;
 import gov.hhs.fha.nhinc.admindistribution.AdminDistributionHelper;
 import gov.hhs.fha.nhinc.admindistribution.AdminDistributionPolicyChecker;
+import gov.hhs.fha.nhinc.admindistribution.AdminDistributionUtils;
 import gov.hhs.fha.nhinc.admindistribution.adapter.proxy.AdapterAdminDistributionProxy;
 import gov.hhs.fha.nhinc.admindistribution.adapter.proxy.AdapterAdminDistributionProxyObjectFactory;
 import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.largefile.LargePayloadException;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.properties.PropertyAccessor;
+
 
 /**
- *
+ * 
  * @author dunnek
  */
 public class NhinAdminDistributionOrchImpl {
@@ -56,19 +58,27 @@ public class NhinAdminDistributionOrchImpl {
         return LogFactory.getLog(getClass());
     }
 
+    protected AdminDistributionUtils getAdminDistributionUtils() {
+        return AdminDistributionUtils.getInstance();
+    }
+
     public void sendAlertMessage(EDXLDistribution body, AssertionType assertion) {
         log.info("begin sendAlert");
         // With the one-way service in a one-machine setup,
         // we were hanging on the next webservice call.
         // sleep allows Glassfish to catch up. Only applies to one box (dev)
         // setups. Please refer to the CONNECT 3.1 Release Notes for more information.
-        this.checkSleep();
 
         auditMessage(body, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
                 NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
-        
+
         if (this.isInPassThroughMode() || checkPolicy(body, assertion)) {
-            sendToAgency(body, assertion);
+            try {
+                getAdminDistributionUtils().convertDataToFileLocationIfEnabled(body);
+                sendToAgency(body, assertion);
+            } catch (LargePayloadException lpe) {
+                log.error("Failed to retrieve payload document.", lpe);
+            }
         }
         log.info("End sendAlert");
     }
@@ -115,37 +125,8 @@ public class NhinAdminDistributionOrchImpl {
         return new AdminDistributionPolicyChecker();
     }
 
-    private void checkSleep() {
-        long sleep = 0;
 
-        try {
-            sleep = this.getSleepPeriod();
-            if (sleep > 0) {
-                log.debug("Admindistribution is sleeping...");
-                Thread.sleep(sleep);
-            }
-        } catch (Exception ex) {
-            log.error("Unable to sleep thread: " + ex);
-        }
-
-        log.debug("End checkSleep()");
-    }
-
-    protected long getSleepPeriod() {
-        String result = "0";
-        try {
-            result = PropertyAccessor.getInstance().getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
-                    "administrativeDistributionSleepValue");
-            log.debug("administrativeDistributionSleepValue = " + result);
-        } catch (Exception ex) {
-            log.warn("Unable to retrieve local home community id from Gateway.properties");
-            log.warn(ex);
-        }
-        return Long.parseLong(result);
-    }
-
-    protected void auditMessage(EDXLDistribution body, AssertionType assertion, String direction,
-            String logInterface) {
+    protected void auditMessage(EDXLDistribution body, AssertionType assertion, String direction, String logInterface) {
         AcknowledgementType ack = getLogger().auditNhinAdminDist(body, assertion, direction, logInterface);
         if (ack != null) {
             log.debug("ack: " + ack.getMessage());

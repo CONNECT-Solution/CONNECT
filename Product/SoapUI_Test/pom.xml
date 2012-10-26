@@ -14,6 +14,7 @@
         <skip.unpack>true</skip.unpack>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
         <ear.path>${org.connectopensource:CONNECT-GF:ear}</ear.path>
+        <mysql.root.password>NHIE-Gateway</mysql.root.password>
     </properties>
     <modules>
         <module>FileUtils</module>
@@ -40,42 +41,26 @@
                         <app>${ear.path}</app>
                         <autoDelete>true</autoDelete>
                         <port>8080</port>
-                        <configFile>${project.build.directory}/glassfish-resources/glassfish/domain.xml</configFile>
-                        <systemProperties>
-                            <property>glassfish.embedded.tmpdir=target/glassfish-embedded</property>
-                        </systemProperties>
+                        <instanceRoot>${project.build.directory}/domain1</instanceRoot>
                     </configuration>
                 </plugin>
                 <plugin>
                     <groupId>com.github.redfish4ktc.soapui</groupId>
                     <artifactId>maven-soapui-extension-plugin</artifactId>
-                    <version>4.0.0.2</version>
+                    <version>4.5.1.0</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-antrun-plugin</artifactId>
                     <version>1.7</version>
                 </plugin>
+                <plugin>
+                    <groupId>com.google.code.maven-replacer-plugin</groupId>
+                    <artifactId>replacer</artifactId>
+                    <version>1.5.1</version>
+                </plugin>
             </plugins>
         </pluginManagement>
-        <testResources>
-            <testResource>
-                <directory>${basedir}/src/test/resources</directory>
-                <includes>
-                    <include>glassfish/**/domain.xml</include>
-                </includes>
-                <filtering>true</filtering>
-                <targetPath>${project.build.directory}/glassfish-resources/</targetPath>
-            </testResource>
-            <testResource>
-                <directory>${basedir}/src/test/resources</directory>
-                <includes>
-                    <include>gateway.jks</include>
-                    <include>log4j.properties</include>
-                </includes>
-                <targetPath>${project.build.directory}/glassfish-resources/</targetPath>
-            </testResource>
-        </testResources>
         <plugins>
             <plugin>
                 <artifactId>maven-remote-resources-plugin</artifactId>
@@ -124,6 +109,138 @@
                         <goals>
                             <goal>properties</goal>
                         </goals>
+                    </execution>
+                    <execution>
+                        <id>unpack-nhin-properties</id>
+                        <!-- Using the initialize phase because it is before the generate sources
+                            phase -->
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>unpack</goal>
+                        </goals>
+                        <configuration>
+                            <skip>${skip.unpack}</skip>
+                            <artifactItems>
+                                <artifactItem>
+                                    <!-- Artifact that Holds our custom templates -->
+                                    <groupId>org.connectopensource</groupId>
+                                    <artifactId>Properties</artifactId>
+                                    <version>${project.parent.version}</version>
+                                    <type>jar</type>
+                                </artifactItem>
+                            </artifactItems>
+                            <includes>**/*</includes>
+                            <outputDirectory>${project.build.directory}/nhinc-properites-dir/</outputDirectory>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>copy-resources-mysql-conn-to-lib</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>copy</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/domain1/lib/</outputDirectory>
+                            <silent>true</silent>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>mysql</groupId>
+                                    <artifactId>mysql-connector-java</artifactId>
+                                    <version>5.1.10</version>
+                                    <type>jar</type>
+                                </artifactItem>
+                            </artifactItems>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>2.6</version>
+                <executions>
+                    <execution>
+                        <id>copy-resources-embedded-glassfish-domain</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/domain1/</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>${basedir}/src/test/resources/domain1/</directory>
+                                    <filtering>true</filtering>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>copy-resources-gateway.properties</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/domain1/config/nhin/</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>${project.build.testOutputDirectory}</directory>
+                                    <includes>
+                                        <include>gateway.properties</include>
+                                    </includes>
+                                    <filtering>true</filtering>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>create-docroot</id>
+                        <phase>process-test-resources</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <target>
+                                <mkdir dir="${project.build.directory}/domain1/docroot/" />
+                            </target>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>setup-selfsigned-certs</id>
+                        <phase>process-test-resources</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <target>
+                                <mkdir dir="${project.build.directory}/domain1/config" />
+                                <exec failonerror="false" executable="keytool"
+                                    dir="${project.build.directory}/domain1/config">
+                                    <arg
+                                        line="-v -genkey -keyalg RSA -keysize 1024 -keystore gateway.jks -keypass changeit -storepass changeit -validity 365 -alias gateway -dname &quot;cn=localhost&quot;" />
+                                </exec>
+                                <exec failonerror="false" executable="keytool"
+                                    dir="${project.build.directory}/domain1/config/">
+                                    <arg
+                                        line="-v -export -rfc -alias gateway -file localhost.cer -keystore gateway.jks -keypass changeit -storepass changeit" />
+                                </exec>
+                                <exec failonerror="false" executable="keytool"
+                                    dir="${project.build.directory}/domain1/config/">
+                                    <arg
+                                        line="-v -import -keypass changeit -noprompt -trustcacerts -alias localhost -file localhost.cer -keystore cacerts.jks -storepass changeit" />
+                                </exec>
+                                <copy file="${project.build.directory}/domain1/config/gateway.jks"
+                                    todir="${project.build.directory}/domain1/lib/classes/" />
+                                <copy file="${project.build.directory}/domain1/config/cacerts.jks"
+                                    todir="${project.build.directory}/domain1/lib/classes/" />
+                            </target>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
