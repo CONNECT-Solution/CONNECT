@@ -27,19 +27,23 @@
 package gov.hhs.fha.nhinc.xmlCommon;
 
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
-import java.io.ByteArrayInputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.xml.namespace.NamespaceContext;
-import javax.xml.xpath.XPathConstants;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPathExpressionException;
-import org.apache.commons.logging.Log;
-import org.w3c.dom.*;
+
+import org.w3c.dom.DOMException;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 import org.w3c.dom.bootstrap.DOMImplementationRegistry;
 import org.w3c.dom.ls.DOMImplementationLS;
 import org.w3c.dom.ls.LSException;
 import org.w3c.dom.ls.LSSerializer;
-import org.xml.sax.InputSource;
 import org.w3c.dom.ls.LSInput;
 import org.w3c.dom.ls.LSParser;
 
@@ -61,16 +65,19 @@ public class XmlUtility {
         }
         return value;
     }
+    
+    protected static DOMImplementationLS getDOMImplementationLS(Node node) {
+        Document document = node.getOwnerDocument();
+        return (DOMImplementationLS) document.getImplementation();
+    }
 
     public static String serializeElement(Element element) throws LSException, IllegalAccessException, DOMException,
             InstantiationException, ClassNotFoundException, ClassCastException {
         String serializedElement = null;
         if (element != null) {
-            System.setProperty(DOMImplementationRegistry.PROPERTY, "org.apache.xerces.dom.DOMImplementationSourceImpl");
-            DOMImplementationRegistry registry = DOMImplementationRegistry.newInstance();
-            DOMImplementationLS impl = (DOMImplementationLS) registry.getDOMImplementation("LS");
-            LSSerializer writer = impl.createLSSerializer();
-            serializedElement = writer.writeToString(element);
+            DOMImplementationLS domImplLS = getDOMImplementationLS(element);
+            LSSerializer serializer = domImplLS.createLSSerializer();
+            serializedElement = serializer.writeToString(element);
         }
         return serializedElement;
     }
@@ -109,9 +116,7 @@ public class XmlUtility {
             InstantiationException, ClassNotFoundException, ClassCastException {
         String serializedElement = null;
         if (node != null) {
-            System.setProperty(DOMImplementationRegistry.PROPERTY, "org.apache.xerces.dom.DOMImplementationSourceImpl");
-            DOMImplementationRegistry registry = DOMImplementationRegistry.newInstance();
-            DOMImplementationLS impl = (DOMImplementationLS) registry.getDOMImplementation("LS");
+            DOMImplementationLS impl = getDOMImplementationLS(node);
             LSSerializer writer = impl.createLSSerializer();
             serializedElement = writer.writeToString(node);
         }
@@ -199,13 +204,26 @@ public class XmlUtility {
         }
         return element;
     }
+    
+    private static Element initializeElement() {
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder builder = null;
+        Document document = null;
+        try {
+            builder = factory.newDocumentBuilder();
+            document = builder.newDocument();
+        } catch (ParserConfigurationException e) {
+            log.error("Error creating dom document builder", e);
+        }
+
+        return document.createElement("init");
+
+    }
 
     private static Element convertXmlToElementWorker(String xml) throws Exception {
-        Element element = null;
+        Element element = initializeElement();
 
-        System.setProperty(DOMImplementationRegistry.PROPERTY, "org.apache.xerces.dom.DOMImplementationSourceImpl");
-        DOMImplementationRegistry registry = DOMImplementationRegistry.newInstance();
-        DOMImplementationLS impl = (DOMImplementationLS) registry.getDOMImplementation("LS");
+        DOMImplementationLS impl = getDOMImplementationLS(element);
         LSParser parser = impl.createLSParser(DOMImplementationLS.MODE_SYNCHRONOUS, "http://www.w3.org/2001/XMLSchema");
         LSInput lsInput = impl.createLSInput();
         lsInput.setStringData(xml);

@@ -51,11 +51,4 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd http://www.s
     
     <!-- Aspect Service -->
     <aop:aspectj-autoproxy />
-    <bean id="eventAspectAdvice" class="gov.hhs.fha.nhinc.aspect.EventAspectAdvice" />
-    
-    <bean id="eventPDAspect"
-        class="gov.hhs.fha.nhinc.patientdiscovery.aspect.PatientDiscoveryEventAspect">
-        <property name="EventFactory" ref="eventfactory" /> 
-        <property name="EventRecorder" ref="eventmanager" />
-     </bean>
 </beans>

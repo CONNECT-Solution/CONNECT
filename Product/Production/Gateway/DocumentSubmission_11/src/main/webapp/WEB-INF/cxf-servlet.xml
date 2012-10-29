@@ -42,10 +42,13 @@
             <entry key="ws-security.saml2.validator">
                 <bean class="gov.hhs.fha.nhinc.callback.cxf.CONNECTSamlAssertionValidator" />
             </entry>
+            <entry key="ws-security.timestamp.validator">
+                <bean class="gov.hhs.fha.nhinc.callback.cxf.largefile.TimestampValidator" />
+            </entry>
             <entry key="mtom-enabled" value="true" />
         </jaxws:properties>
-
         <jaxws:inInterceptors>
+            <ref bean="timestampInInterceptor" />
             <ref bean="securityInInterceptor" />
         </jaxws:inInterceptors>
         <jaxws:handlers>
@@ -92,8 +95,12 @@
             <entry key="ws-security.signature.properties" value="keystore.properties" />
             <entry key="ws-security.encryption.properties" value="truststore.properties" />
             <entry key="mtom-enabled" value="true" />
+            <entry key="ws-security.timestamp.validator">
+                <bean class="gov.hhs.fha.nhinc.callback.cxf.largefile.TimestampValidator" />
+            </entry>
         </jaxws:properties>
         <jaxws:inInterceptors>
+            <ref bean="timestampInInterceptor" />
             <ref bean="securityInInterceptor" />
         </jaxws:inInterceptors>
         <jaxws:handlers>
@@ -137,8 +144,12 @@
             <entry key="ws-security.signature.properties" value="keystore.properties" />
             <entry key="ws-security.encryption.properties" value="truststore.properties" />
             <entry key="mtom-enabled" value="true" />
+            <entry key="ws-security.timestamp.validator">
+                <bean class="gov.hhs.fha.nhinc.callback.cxf.largefile.TimestampValidator" />
+            </entry>
         </jaxws:properties>
         <jaxws:inInterceptors>
+            <ref bean="timestampInInterceptor" />
             <ref bean="securityInInterceptor" />
         </jaxws:inInterceptors>
         <jaxws:handlers>
@@ -170,9 +181,13 @@
             <entry key="ws-security.saml2.validator">
                 <bean class="gov.hhs.fha.nhinc.callback.cxf.CONNECTSamlAssertionValidator" />
             </entry>
+            <entry key="ws-security.timestamp.validator">
+                <bean class="gov.hhs.fha.nhinc.callback.cxf.largefile.TimestampValidator" />
+            </entry>
             <entry key="mtom-enabled" value="true" />
         </jaxws:properties>
         <jaxws:inInterceptors>
+            <ref bean="timestampInInterceptor" />
             <ref bean="securityInInterceptor" />
         </jaxws:inInterceptors>
         <jaxws:handlers>
@@ -219,8 +234,12 @@
             <entry key="ws-security.signature.properties" value="keystore.properties" />
             <entry key="ws-security.encryption.properties" value="truststore.properties" />
             <entry key="mtom-enabled" value="true" />
+            <entry key="ws-security.timestamp.validator">
+                <bean class="gov.hhs.fha.nhinc.callback.cxf.largefile.TimestampValidator" />
+            </entry>
         </jaxws:properties>
         <jaxws:inInterceptors>
+            <ref bean="timestampInInterceptor" />
             <ref bean="securityInInterceptor" />
         </jaxws:inInterceptors>
         <jaxws:handlers>
@@ -266,8 +285,12 @@
             <entry key="ws-security.signature.properties" value="keystore.properties" />
             <entry key="ws-security.encryption.properties" value="truststore.properties" />
             <entry key="mtom-enabled" value="true" />
+            <entry key="ws-security.timestamp.validator">
+                <bean class="gov.hhs.fha.nhinc.callback.cxf.largefile.TimestampValidator" />
+            </entry>
         </jaxws:properties>
         <jaxws:inInterceptors>
+            <ref bean="timestampInInterceptor" />
             <ref bean="securityInInterceptor" />
         </jaxws:inInterceptors>
         <jaxws:handlers>

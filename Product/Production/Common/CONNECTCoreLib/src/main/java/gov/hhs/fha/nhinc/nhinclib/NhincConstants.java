@@ -29,9 +29,9 @@ package gov.hhs.fha.nhinc.nhinclib;
 import java.math.BigInteger;
 
 /**
- *
- *
- *
+ * 
+ * 
+ * 
  * @author Jon Hoppesch
  */
 public class NhincConstants {
@@ -75,23 +75,21 @@ public class NhincConstants {
     };
 
     public static enum NHIN_SERVICE_NAMES {
-    	PATIENT_DISCOVERY(PATIENT_DISCOVERY_SERVICE_NAME),
-    	PATIENT_DISCOVERY_DEFERRED_REQUEST(PATIENT_DISCOVERY_DEFERRED_REQ_SERVICE_NAME),
-    	PATIENT_DISCOVERY_DEFERRED_RESPONSE(PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME),
+        PATIENT_DISCOVERY(PATIENT_DISCOVERY_SERVICE_NAME), PATIENT_DISCOVERY_DEFERRED_REQUEST(
+                PATIENT_DISCOVERY_DEFERRED_REQ_SERVICE_NAME), PATIENT_DISCOVERY_DEFERRED_RESPONSE(
+                PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME),
 
-    	DOCUMENT_QUERY(DOC_QUERY_SERVICE_NAME),
+        DOCUMENT_QUERY(DOC_QUERY_SERVICE_NAME),
 
-    	DOCUMENT_RETRIEVE(DOC_RETRIEVE_SERVICE_NAME),
+        DOCUMENT_RETRIEVE(DOC_RETRIEVE_SERVICE_NAME),
 
-    	DOCUMENT_SUBMISSION(NHINC_XDR_SERVICE_NAME),
-    	DOCUMENT_SUBMISSION_DEFERRED_REQUEST(NHINC_XDR_REQUEST_SERVICE_NAME),
-    	DOCUMENT_SUBMISSION_DEFERRED_RESPONSE(NHINC_XDR_RESPONSE_SERVICE_NAME),
+        DOCUMENT_SUBMISSION(NHINC_XDR_SERVICE_NAME), DOCUMENT_SUBMISSION_DEFERRED_REQUEST(
+                NHINC_XDR_REQUEST_SERVICE_NAME), DOCUMENT_SUBMISSION_DEFERRED_RESPONSE(NHINC_XDR_RESPONSE_SERVICE_NAME),
 
-    	ADMINISTRATIVE_DISTRIBUTION(NHIN_ADMIN_DIST_SERVICE_NAME),
+        ADMINISTRATIVE_DISTRIBUTION(NHIN_ADMIN_DIST_SERVICE_NAME),
 
-    	HIEM_SUBSCRIBE(HIEM_SUBSCRIBE_SERVICE_NAME),
-    	HIEM_NOTIFY(HIEM_NOTIFY_SERVICE_NAME),
-    	HIEM_UNSUBSCRIBE(HIEM_UNSUBSCRIBE_ENTITY_SERVICE_NAME);
+        HIEM_SUBSCRIBE(HIEM_SUBSCRIBE_SERVICE_NAME), HIEM_NOTIFY(HIEM_NOTIFY_SERVICE_NAME), HIEM_UNSUBSCRIBE(
+                HIEM_UNSUBSCRIBE_ENTITY_SERVICE_NAME);
 
         private String UDDIServiceName = null;
 
@@ -99,11 +97,10 @@ public class NhincConstants {
             this.UDDIServiceName = value;
         }
 
-    	public String getUDDIServiceName()
-    	{
-    		return this.UDDIServiceName;
-    	}
-    	
+        public String getUDDIServiceName() {
+            return this.UDDIServiceName;
+        }
+
         public static NHIN_SERVICE_NAMES fromValueString(String valueString) {
             if (valueString != null) {
                 for (NHIN_SERVICE_NAMES enumValue : NHIN_SERVICE_NAMES.values()) {
@@ -117,7 +114,7 @@ public class NhincConstants {
     };
 
     public static final String SERVICE_NAME = "serviceName";
-    
+
     // Property File Constants
     public static final String GATEWAY_PROPERTY_FILE = "gateway";
     public static final String HOME_COMMUNITY_ID_PROPERTY = "localHomeCommunityId";
@@ -132,12 +129,15 @@ public class NhincConstants {
     public static final String CONCURRENT_POOL_SIZE = "ConcurrentPoolSize";
     public static final String LARGEJOB_POOL_SIZE = "LargeJobPoolSize";
     public static final String LARGEJOB_SIZE_PERCENT = "LargeJobSizePercent";
-    
-    // Streaming Large Files Constants    
+
+    // Streaming Large Files Constants
     public static final String PARSE_PAYLOAD_AS_FILE_URI_OUTBOUND = "ParsePayloadAsFileURIOutbound";
     public static final String SAVE_PAYLOAD_TO_FILE_INBOUND = "SavePayloadToFileInbound";
     public static final String PAYLOAD_SAVE_DIRECTORY = "PayloadSaveDirectory";
-    
+    public static final String TIMESTAMP_TIME_TO_LIVE = "TimeStampTimeToLive";
+    public static final String TIMESTAMP_STRICT = "TimeStampStrict";
+    public static final String TIMESTAMP_FUTURE_TIME_TO_LIVE = "FutureTimeToLive";
+
     // Response Message Interceptor Constants
     public static final String RESPONSE_MESSAGE_ID_KEY = "RESPONSE_MESSAGE_ID";
     public static final String RESPONSE_MESSAGE_ID_LIST_KEY = "RESPONSE_MESSAGE_ID_LIST";
