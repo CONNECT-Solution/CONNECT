@@ -47,7 +47,6 @@ public class EntityDocRetrieveOrchImpl {
     public EntityDocRetrieveOrchImpl() {
     }
 
-   
     public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(
             ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType body, AssertionType assertion) {
 

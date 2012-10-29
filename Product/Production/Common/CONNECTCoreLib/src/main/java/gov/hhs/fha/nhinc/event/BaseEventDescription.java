@@ -32,10 +32,10 @@ public class BaseEventDescription implements EventDescription {
 
     private List<String> responseMsgids;
     private String action;
-    private String errorCode;
+    private List<String> errorCodes;
     private String status;
     private String npi;
-    private String respondingHCID;
+    private List<String> respondingHCIDs;
     private String initiatingHCID;
     private String payloadSize;
     private String payLoadType;
@@ -43,8 +43,7 @@ public class BaseEventDescription implements EventDescription {
     private String serviceType;
     private String messageId;
     private String timeStamp;
-    
-    
+
     public BaseEventDescription() {
     }
 
@@ -84,8 +83,8 @@ public class BaseEventDescription implements EventDescription {
     }
 
     @Override
-    public String getRespondingHCID() {
-        return respondingHCID;
+    public List<String> getRespondingHCIDs() {
+        return respondingHCIDs;
     }
 
     @Override
@@ -99,8 +98,8 @@ public class BaseEventDescription implements EventDescription {
     }
 
     @Override
-    public String getErrorCode() {
-        return errorCode;
+    public List<String> getErrorCodes() {
+        return errorCodes;
     }
 
     @Override
@@ -121,8 +120,8 @@ public class BaseEventDescription implements EventDescription {
         this.action = action;
     }
 
-    public void setErrorCode(String errorCode) {
-        this.errorCode = errorCode;
+    public void setErrorCodes(List<String> errorCodes) {
+        this.errorCodes = errorCodes;
     }
 
     public void setStatus(String status) {
@@ -133,8 +132,8 @@ public class BaseEventDescription implements EventDescription {
         this.npi = npi;
     }
 
-    public void setRespondingHCID(String respondingHCID) {
-        this.respondingHCID = respondingHCID;
+    public void setRespondingHCID(List<String> respondingHCIDs) {
+        this.respondingHCIDs = respondingHCIDs;
     }
 
     public void setInitiatingHCID(String initiatingHCID) {
@@ -165,6 +164,4 @@ public class BaseEventDescription implements EventDescription {
         this.timeStamp = timeStamp;
     }
 
-    
-    
 }

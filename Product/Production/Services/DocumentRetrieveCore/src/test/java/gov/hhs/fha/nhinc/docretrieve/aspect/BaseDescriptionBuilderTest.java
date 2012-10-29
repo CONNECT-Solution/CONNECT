@@ -1,4 +1,6 @@
 /**
+ * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
+ *
  * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
@@ -24,95 +26,36 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.event;
+package gov.hhs.fha.nhinc.docretrieve.aspect;
 
-import java.util.List;
+import static org.mockito.Mockito.mock;
+import gov.hhs.fha.nhinc.event.BaseEventDescriptionBuilder;
+import gov.hhs.fha.nhinc.event.EventContextAccessor;
+import gov.hhs.fha.nhinc.event.EventDescription;
+import gov.hhs.fha.nhinc.event.EventDescriptionDirector;
+import gov.hhs.fha.nhinc.event.MessageRoutingAccessor;
 
-/**
- * Interface defining data expected to be in Event.description.
- * 
- * @author bhumphrey
- * 
- */
-public interface EventDescription {
+public class BaseDescriptionBuilderTest {
 
-    public String getMessageId();
+    public BaseDescriptionBuilderTest() {
+        super();
+    }
 
-    /**
-     * 
-     * @return
-     */
-    public String getTimeStamp();
+    protected EventDescription getEventDescription(BaseEventDescriptionBuilder builder) {
+        setMsgMocks(builder);
+        return runDirector(builder);
+    }
 
-    /**
-     * Message service type (with version).
-     * 
-     * @return
-     */
-    public String getServiceType();
+    private void setMsgMocks(BaseEventDescriptionBuilder builder) {
+        builder.setMsgContext(mock(EventContextAccessor.class));
+        builder.setMsgRouting(mock(MessageRoutingAccessor.class));
+    }
 
-    /**
-     * transaction id (this is called "correlation id" in the requirements doc)
-     * 
-     * @return
-     */
-    public String getTransactionId();
-
-    /**
-     * Payload Type (C32, C62 etc.).
-     * 
-     * @return
-     */
-    public String getPayloadType();
-
-    /**
-     * Payload Size (message specific).
-     * 
-     * @return
-     */
-    public String getPayloadSize();
-
-    /**
-     * HCID for Initiatinggateway.
-     * 
-     * @return
-     */
-    public String getInitiatingHCID();
-
-    /**
-     * HCID(s) for Responding gateway(s).
-     * 
-     * @return
-     */
-    public List<String> getRespondingHCIDs();
-
-    /**
-     * 
-     * @return
-     */
-    public String getNPI();
-
-    /**
-     * Message status (Success/Failure).
-     * 
-     * @return
-     */
-    public String getStatus();
-
-    /**
-     * Error code(s) when failed.
-     * 
-     * @return
-     */
-    public List<String> getErrorCodes();
-
-    public String getAction();
-
-    /**
-     * Returns a list of response message ids. Can be an empty list (eg [] ).
-     * 
-     * @return
-     */
-    public List<String> getResponseMsgIdList();
+    private EventDescription runDirector(BaseEventDescriptionBuilder builder) {
+        EventDescriptionDirector director = new EventDescriptionDirector();
+        director.setEventDescriptionBuilder(builder);
+        director.constructEventDescription();
+        return director.getEventDescription();
+    }
 
 }

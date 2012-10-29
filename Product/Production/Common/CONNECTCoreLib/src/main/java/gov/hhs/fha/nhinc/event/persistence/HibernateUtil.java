@@ -28,7 +28,6 @@ package gov.hhs.fha.nhinc.event.persistence;
 
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.properties.HibernateAccessor;
-import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 
 import java.io.File;
 
@@ -51,7 +50,7 @@ public class HibernateUtil {
         try {
             // Create the SessionFactory from hibernate.cfg.xml
             SESSION_FACTORY = new Configuration().configure(getConfigFile()).buildSessionFactory();
-        } catch (ExceptionInInitializerError ex) {
+        } catch (Throwable ex) {
             // Make sure you log the exception, as it might be swallowed
             LOG.error("Initial SessionFactory creation failed." + ex, ex.getCause());
             throw ex;
@@ -61,7 +60,7 @@ public class HibernateUtil {
     /**
      * Method returns an instance of Hibernate SessionFactory.
      * 
-     * @return SessionFactory   The Hibernate Session Factory
+     * @return SessionFactory The Hibernate Session Factory
      */
     public static SessionFactory getSessionFactory() {
         return SESSION_FACTORY;
@@ -72,7 +71,7 @@ public class HibernateUtil {
 
         try {
             result = HibernateAccessor.getInstance().getHibernateFile(NhincConstants.HIBERNATE_EVENT_REPOSITORY);
-        } catch (PropertyAccessException ex) {
+        } catch (Exception ex) {
             LOG.error("Unable to load " + NhincConstants.HIBERNATE_EVENT_REPOSITORY + " " + ex.getMessage(), ex);
         }
 

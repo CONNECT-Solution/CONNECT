@@ -5,12 +5,7 @@
 		<con:settings/>
 
 		<con:endpoints>
-			<con:endpoint>http://localhost:9080/NhinConnect/NhincProxySubscriptionManager</con:endpoint>
-			<con:endpoint>http://ATHC-GFAS:9080/NhinConnect/NhincProxySubscriptionManager</con:endpoint>
-			<con:endpoint>http://mhsnhie3.fedsconnect.org:9080/NhinConnect/NhincProxySubscriptionManager</con:endpoint>
-			<con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/NhincProxySubscriptionManager</con:endpoint>
-			<con:endpoint>http://dvanhie3.fedsconnect.org:8080/NhinConnect/NhincProxySubscriptionManager</con:endpoint>
-		</con:endpoints>
+		<con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/HIEM/2_0/NhincProxySubscriptionManager</con:endpoint></con:endpoints>
 		<con:operation action="urn:Unsubscribe" anonymous="optional" bindingOperationName="Unsubscribe" inputName="UnsubscribeRequest" isOneWay="false" name="Unsubscribe" outputName="UnsubscribeResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
 			<con:settings/>
 		</con:operation>
@@ -19,11 +14,7 @@
 		<con:settings/>
 
 		<con:endpoints>
-			<con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/NhincProxyNotificationConsumer</con:endpoint>
-			<con:endpoint>http://192.168.25.157:9080/NhinConnect/NhincProxyNotificationConsumer</con:endpoint>
-			<con:endpoint>http://ATHC-GFAS:8080/NhinConnect/NhincProxyNotificationConsumer</con:endpoint>
-			<con:endpoint>http://DVANHIE3.fedsconnect.org:9080/NhinConnect/NhincProxyNotificationConsumer</con:endpoint>
-		</con:endpoints>
+		<con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/HIEM/2_0/NhincProxyNotificationConsumer</con:endpoint></con:endpoints>
 		<con:operation action="urn:Notify" anonymous="optional" bindingOperationName="Notify" inputName="NotifyRequest" isOneWay="false" name="Notify" sendsAttachments="false" type="One-Way">
 			<con:settings/>
 		</con:operation>
@@ -33,15 +24,7 @@
 		<con:settings/>
 
 		<con:endpoints>
-			<con:endpoint>http://localhost:9080/NhinConnect/NhincProxyNotificationProducer</con:endpoint>
-			<con:endpoint>http://192.168.25.157:8080/NhinConnect/NhincProxyNotificationProducer</con:endpoint>
-			<con:endpoint>http://mhsnhie3.fedsconnect.org:9080/NhinConnect/NhincProxyNotificationProducer</con:endpoint>
-			<con:endpoint>http://DVANHIE3.fedsconnect.org:9080/NhinConnect/NhincProxyNotificationProducer</con:endpoint>
-			<con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/NhincProxyNotificationProducer</con:endpoint>
-			<con:endpoint>http://ATHC-GFAS:9080/NhinConnect/NhincProxyNotificationProducer</con:endpoint>
-			<con:endpoint>http://dvanhie3.fedsconnect.org:8080/NhinConnect/NhincProxySubscriptionManager</con:endpoint>
-			<con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/NhincProxySubscriptionManager</con:endpoint>
-		</con:endpoints>
+		<con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/HIEM/2_0/NhincProxyNotificationProducer</con:endpoint></con:endpoints>
 		<con:operation action="urn:Subscribe" anonymous="optional" bindingOperationName="Subscribe" inputName="SubscribeRequest" isOneWay="false" name="Subscribe" outputName="SubscribeResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
 			<con:settings/>
 		</con:operation>
@@ -50,12 +33,7 @@
 		<con:settings/>
 
 		<con:endpoints>
-			<con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/NhincProxyDocRetrieve</con:endpoint>
-			<con:endpoint>http://ATHC-GFAS:9080/NhinConnect/NhincProxyDocRetrieve</con:endpoint>
-			<con:endpoint>http://dvanhie3.fedsconnect.org:9080/NhinConnect/NhincProxyDocRetrieve</con:endpoint>
-			<con:endpoint>http://192.168.101.162:9080/NhinConnect/NhincProxyDocRetrieve</con:endpoint>
-			<con:endpoint>http://dodgateway.fedsconnect.org:9080/NhinConnect/NhincProxyDocRetrieve</con:endpoint>
-		</con:endpoints>
+		<con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/DocumentRetrieve/2_0/NhincProxyDocRetrieveUnsecured</con:endpoint></con:endpoints>
 		<con:operation action="urn:RespondingGateway_CrossGatewayRetrieve" anonymous="optional" bindingOperationName="RespondingGateway_CrossGatewayRetrieve" inputName="RespondingGateway_CrossGatewayRetrieveRequest" isOneWay="false" name="RespondingGateway_CrossGatewayRetrieve" outputName="RespondingGateway_CrossGatewayRetrieveResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
 			<con:settings/>
 		</con:operation>
@@ -65,12 +43,7 @@
 		<con:settings/>
 
 		<con:endpoints>
-			<con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/NhincProxyDocQuery</con:endpoint>
-			<con:endpoint>http://ATHC-GFAS:9080/NhinConnect/NhincProxyDocQuery</con:endpoint>
-			<con:endpoint>http://mhsnhie3.fedsconnect.org:9080/NhinConnect/NhincProxyDocQuery</con:endpoint>
-			<con:endpoint>http://dvanhie3.fedsconnect.org:9080/NhinConnect/NhincProxyDocQuery</con:endpoint>
-			<con:endpoint>http://dodgateway.fedsconnect.org:9080/NhinConnect/NhincProxyDocQuery</con:endpoint>
-		</con:endpoints>
+		<con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/DocumentQuery/2_0/EntityService/NhincProxyDocQueryUnsecured</con:endpoint></con:endpoints>
 		<con:operation action="urn:RespondingGateway_CrossGatewayQuery" anonymous="optional" bindingOperationName="RespondingGateway_CrossGatewayQuery" inputName="RespondingGateway_CrossGatewayQueryRequest" isOneWay="false" name="RespondingGateway_CrossGatewayQuery" outputName="RespondingGateway_CrossGatewayQueryResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
 			<con:settings/>
 		</con:operation>
@@ -79,14 +52,8 @@
 		<con:settings/>
 
 		<con:endpoints>
-			<con:endpoint>http://localhost:8080/CONNECTAdapter/EntityProxyService/NhincProxyXDRRequest</con:endpoint>
-			<con:endpoint>http://localhost:${HttpDefaultPort}/EntityService/NhincProxyXDRRequest</con:endpoint>
-			<con:endpoint>http://localhost:8080/CONNECTAdapter/EntityProxyService/EntityXDRResponse</con:endpoint>
-			<con:endpoint>${#TestSuite#Endpoint-NhincProxyXDRRequest}</con:endpoint>
-			<con:endpoint>${#TestSuite#Endpoint-EntityXDRResponse}</con:endpoint>
-			<con:endpoint>http://localhost:${HttpDefaultPort}/EntityService/NhincProxyXDRAsyncRequest</con:endpoint>
-		</con:endpoints>
-		<con:operation action="tns:ProvideAndRegisterDocumentSet-bAsyncRequest" anonymous="optional" bindingOperationName="ProvideAndRegisterDocumentSet-bAsyncRequest" inputName="" isOneWay="false" name="ProvideAndRegisterDocumentSet-bAsyncRequest" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
+		<con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/DocumentSubmission/1_1/EntityService/PassthruDocSubmissionDeferredRequestUnsecured</con:endpoint></con:endpoints>
+		<con:operation action="" anonymous="optional" bindingOperationName="ProvideAndRegisterDocumentSet-bAsyncRequest" inputName="" isOneWay="false" name="ProvideAndRegisterDocumentSet-bAsyncRequest" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
 			<con:settings/>
 
 		</con:operation>
@@ -95,9 +62,7 @@
 		<con:settings/>
 
 		<con:endpoints>
-			<con:endpoint>${#TestSuite#Endpoint-PatientDiscovery}</con:endpoint>
-			<con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/NhincProxyPatientDiscovery</con:endpoint>
-		</con:endpoints>
+		<con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/PatientDiscovery/1_0/MsgProxy/NhincProxyPatientDiscovery</con:endpoint></con:endpoints>
 		<con:operation action="urn:Proxy_PRPA_IN201305UV" anonymous="optional" bindingOperationName="Proxy_PRPA_IN201305UV" inputName="Proxy_PRPA_IN201305UVProxyRequest" isOneWay="false" name="Proxy_PRPA_IN201305UV" outputName="Proxy_PRPA_IN201306UVProxyResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
 			<con:settings/>
 		</con:operation>
@@ -106,10 +71,8 @@
 		<con:settings/>
 
 		<con:endpoints>
-			<con:endpoint>http://localhost/NhinConnect/NhincProxyPatientDiscoveryAsyncReq</con:endpoint>
-			<con:endpoint>${#TestSuite#Endpoint-PatientDiscoveryAsyncReq}</con:endpoint>
-		</con:endpoints>
-		<con:operation action="urn:Proxy_ProcessPatientDiscoveryAsyncReq" anonymous="optional" bindingOperationName="Proxy_ProcessPatientDiscoveryAsyncReq" inputName="Proxy_ProcessPatientDiscoveryAsyncReqRequest" isOneWay="false" name="Proxy_ProcessPatientDiscoveryAsyncReq" outputName="Proxy_ProcessPatientDiscoveryAsyncReqResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
+		<con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/PatientDiscovery/1_0/MsgProxy/NhincProxyPatientDiscoveryDeferredRequestUnsecured</con:endpoint></con:endpoints>
+		<con:operation action="" anonymous="optional" bindingOperationName="Proxy_ProcessPatientDiscoveryAsyncReq" inputName="Proxy_ProcessPatientDiscoveryAsyncReqRequest" isOneWay="false" name="Proxy_ProcessPatientDiscoveryAsyncReq" outputName="Proxy_ProcessPatientDiscoveryAsyncReqResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
 			<con:settings/>
 		</con:operation>
 	</con:interface>
@@ -117,22 +80,19 @@
 		<con:settings/>
 
 		<con:endpoints>
-			<con:endpoint>http://localhost/NhinConnect/NhincProxyPatientDiscoveryAsyncResp</con:endpoint>
-			<con:endpoint>${#TestSuite#Endpoint-PatientDiscoveryAsyncResp}</con:endpoint>
-		</con:endpoints>
-		<con:operation action="urn:Proxy_ProcessPatientDiscoveryAsyncResp" bindingOperationName="Proxy_ProcessPatientDiscoveryAsyncResp" inputName="Proxy_ProcessPatientDiscoveryAsyncRespRequest" isOneWay="false" name="Proxy_ProcessPatientDiscoveryAsyncResp" outputName="Proxy_ProcessPatientDiscoveryAsyncRespResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
+		<con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/PatientDiscovery/1_0/MsgProxy/NhincProxyPatientDiscoveryAsyncResp</con:endpoint></con:endpoints>
+		<con:operation action="" bindingOperationName="Proxy_ProcessPatientDiscoveryAsyncResp" inputName="Proxy_ProcessPatientDiscoveryAsyncRespRequest" isOneWay="false" name="Proxy_ProcessPatientDiscoveryAsyncResp" outputName="Proxy_ProcessPatientDiscoveryAsyncRespResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response" anonymous="optional">
 			<con:settings/>
 		</con:operation>
 	</con:interface>
 
 
 
-	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincadmindistribution}NhincAdminDist_Binding_Soap12" definition="${projectDir}/target/wsdl/NhincAdminDist.wsdl" name="NhincAdminDist_Binding_Soap12_g0" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincadmindistribution}NhincAdminDist_Binding_Soap12" definition="${projectDir}/target/wsdl/NhincAdminDist.wsdl" name="NhincAdminDist_Binding_Soap12" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 
 		<con:endpoints>
-			<con:endpoint>${#TestSuite#Endpoint-NhincProxyAdminDist}</con:endpoint>
-			<con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/AdminDistribution/1_0/MsgProxy/NhincProxyAdminDist</con:endpoint>
+		<con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/AdminDistribution/1_0/MsgProxy/NhincProxyAdminDist</con:endpoint>
 		</con:endpoints>
 		<con:operation action="urn:oasis:names:tc:emergency:EDXL:DE:1.0:SendAlertMessage" anonymous="optional" bindingOperationName="SendAlertMessage" inputName="" isOneWay="false" name="SendAlertMessage" sendsAttachments="false" type="One-Way">
 			<con:settings/>
@@ -143,8 +103,7 @@
 	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxyxdr:async:response}ProxyXDRAsyncResponse_Binding" definition="${projectDir}/target/wsdl/NhincProxyXDRResponse.wsdl" name="ProxyXDRAsyncResponse_Binding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 		<con:endpoints>
-			<con:endpoint>${#TestSuite#Endpoint-DocSubmissionDefResp}</con:endpoint>
-			<con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/DocumentSubmission/1_1/EntityService/PassthruDocSubmissionDeferredResponseUnsecured</con:endpoint>
+		<con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/DocumentSubmission/1_1/EntityService/PassthruDocSubmissionDeferredResponseUnsecured</con:endpoint>
 		</con:endpoints>
 		<con:operation action="" anonymous="optional" bindingOperationName="ProvideAndRegisterDocumentSet-bAsyncResponse" inputName="" isOneWay="false" name="ProvideAndRegisterDocumentSet-bAsyncResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
 			<con:settings/>
@@ -153,23 +112,22 @@
 	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxyxdr}ProxyXDR_Binding" definition="${projectDir}/target/wsdl/NhincProxyXDR.wsdl" name="ProxyXDR_Binding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 		<con:endpoints>
-			<con:endpoint>${#TestSuite#Endpoint-DocumentSubmission}</con:endpoint>
 			<con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/DocumentSubmission/1_1/EntityService/PassthruDocSubmissionUnsecured</con:endpoint>
 		</con:endpoints>
 		<con:operation action="" anonymous="optional" bindingOperationName="ProvideAndRegisterDocumentSet-b" inputName="" isOneWay="false" name="ProvideAndRegisterDocumentSet-b" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
 			<con:settings/>
 		</con:operation>
 	</con:interface>
-	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincadmindistribution}NhincAdminDist_Binding_Soap12" definition="${projectDir}/target/wsdl/NhincAdminDist_g1.wsdl" name="NhincAdminDist_Binding_Soap12_g1" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincadmindistribution}NhincAdminDist_Binding_Soap12" definition="${projectDir}/target/wsdl/NhincAdminDist_g1.wsdl" name="NhincAdminDist_Binding_Soap12" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 		<con:endpoints>
 			<con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/AdminDistribution/2_0/MsgProxy/NhincProxyAdminDist</con:endpoint>
 		</con:endpoints>
-		<con:operation action="urn:oasis:names:tc:emergency:EDXL:DE:1.0:SendAlertMessage" bindingOperationName="SendAlertMessage" inputName="" isOneWay="false" name="SendAlertMessage" sendsAttachments="false" type="One-Way">
+		<con:operation action="urn:oasis:names:tc:emergency:EDXL:DE:1.0:SendAlertMessage" bindingOperationName="SendAlertMessage" inputName="" isOneWay="false" name="SendAlertMessage" sendsAttachments="false" type="One-Way" anonymous="optional">
 			<con:settings/>
 		</con:operation>
 	</con:interface>
-	<con:testSuite name="MsgProxy_g1">
+	<con:testSuite name="g1">
 		<con:description/>
 		<con:settings/>
 		<con:runType>SEQUENTIAL</con:runType>
@@ -185,7 +143,7 @@
 							<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
 				</con:settings>
 				<con:encoding>UTF-8</con:encoding>
-				<con:endpoint>${#TestSuite#Endpoint-MsgProxyDocSubmissionDefReq}</con:endpoint>
+				<con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/DocumentSubmission/1_1/EntityService/PassthruDocSubmissionDeferredRequestUnsecured</con:endpoint>
 				<con:request><![CDATA[
 					<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
    <soap:Header/>
@@ -691,7 +649,7 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 					<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
-		<con:endpoint>${#TestSuite#Endpoint-DocSubmissionDefResp}</con:endpoint>
+		<con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/DocumentSubmission/1_1/EntityService/PassthruDocSubmissionDeferredResponseUnsecured</con:endpoint>
 		<con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0">
    <soap:Header/>
    <soap:Body testSuite="MsgProxy_g1" testCase="Document Submission Deferred Resp">
@@ -1050,7 +1008,7 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 					<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
-		<con:endpoint>${#TestSuite#Endpoint-DocumentSubmission}</con:endpoint>
+		<con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/DocumentSubmission/1_1/EntityService/PassthruDocSubmissionUnsecured</con:endpoint>
 		<con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
    <soap:Header/>
    <soap:Body testSuite="MsgProxy_g1" testCase="Document Submission">
@@ -1539,7 +1497,7 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 					<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
-		<con:endpoint>${#TestSuite#Endpoint-PatientDiscoveryAsyncReq}</con:endpoint>
+		<con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/PatientDiscovery/1_0/MsgProxy/NhincProxyPatientDiscoveryDeferredRequestUnsecured</con:endpoint>
 		<con:request><![CDATA[
 			<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soap:Header/>
@@ -1836,252 +1794,16 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 </con:tearDownScript>
 <con:properties>
 	<con:property>
-		<con:name>LocalHCID</con:name>
-		<con:value>1.1</con:value>
-	</con:property>
-	<con:property>
-		<con:name>LocalAA</con:name>
-		<con:value>1.1</con:value>
-	</con:property>
-	<con:property>
-		<con:name>LocalHCDescription</con:name>
-		<con:value>InternalTest1</con:value>
-	</con:property>
-	<con:property>
-		<con:name>RemoteHCID</con:name>
-		<con:value>2.2</con:value>
-	</con:property>
-	<con:property>
-		<con:name>RemoteAA</con:name>
-		<con:value>2.2</con:value>
-	</con:property>
-	<con:property>
-		<con:name>RemoteHCDescription</con:name>
-		<con:value>InternalTest2</con:value>
-	</con:property>
-	<con:property>
-		<con:name>Endpoint-PatientDiscovery</con:name>
-		<con:value>http://localhost:8080/CONNECTAdapter/NhincProxyPatientDiscovery</con:value>
-	</con:property>
-	<con:property>
-		<con:name>Endpoint-PatientDiscoveryAsyncReq</con:name>
-		<con:value>http://localhost:8080/CONNECTMsgProxyWeb/MsgProxy/NhincProxyPatientDiscoveryDeferredRequestUnsecured</con:value>
-	</con:property>
-	<con:property>
-		<con:name>Endpoint-DocQuery</con:name>
-		<con:value>http://localhost:8080/CONNECTAdapter/NhincProxyDocQuery</con:value>
-	</con:property>
-	<con:property>
-		<con:name>Endpoint-DocRetrieve</con:name>
-		<con:value>http://localhost:8080/CONNECTMsgProxyWeb/NhincProxyDocRetrieve</con:value>
-	</con:property>
-	<con:property>
-		<con:name>Endpoint-Reidentification</con:name>
-		<con:value>http://localhost:8080/CONNECTAdapter/NhincProxySubjectDiscovery</con:value>
-	</con:property>
-	<con:property>
-		<con:name>Endpoint-Subscribe</con:name>
-		<con:value>http://localhost:8080/CONNECTAdapter/NhincProxyNotificationProducer</con:value>
-	</con:property>
-	<con:property>
-		<con:name>Endpoint-Notify</con:name>
-		<con:value>http://localhost:8080/CONNECTAdapter/NhincProxyNotificationConsumer</con:value>
-	</con:property>
-	<con:property>
-		<con:name>Endpoint-Unsubscribe</con:name>
-		<con:value>http://localhost:8080/CONNECTAdapter/NhincProxySubscriptionManager</con:value>
-	</con:property>
-	<con:property>
-		<con:name>Endpoint-AuditLogQuery</con:name>
-		<con:value>http://localhost:8080/CONNECTAdapter/NhincProxyAuditQuery</con:value>
-	</con:property>
-	<con:property>
-		<con:name>DBHost</con:name>
-		<con:value>localhost</con:value>
-	</con:property>
-	<con:property>
-		<con:name>DBPort</con:name>
-		<con:value>3306</con:value>
-	</con:property>
-	<con:property>
-		<con:name>DBUser</con:name>
-		<con:value>nhincuser</con:value>
-	</con:property>
-	<con:property>
-		<con:name>DBPass</con:name>
-		<con:value>nhincpass</con:value>
-	</con:property>
-	<con:property>
-		<con:name>PatientCorrelationDB</con:name>
-		<con:value>patientcorrelationdb</con:value>
-	</con:property>
-	<con:property>
-		<con:name>PatientCorrelationTable</con:name>
-		<con:value>correlatedidentifiers</con:value>
-	</con:property>
-	<con:property>
-		<con:name>SubscriptionDB</con:name>
-		<con:value>subscriptionrepository</con:value>
-	</con:property>
-	<con:property>
-		<con:name>SubscriptionTable</con:name>
-		<con:value>subscription</con:value>
-	</con:property>
-	<con:property>
-		<con:name>Gender</con:name>
-		<con:value>M</con:value>
-	</con:property>
-	<con:property>
-		<con:name>BirthTime</con:name>
-		<con:value>19630804</con:value>
-	</con:property>
-	<con:property>
-		<con:name>FamilyName</con:name>
-		<con:value>Younger</con:value>
-	</con:property>
-	<con:property>
-		<con:name>GivenName</con:name>
-		<con:value>Gallow</con:value>
-	</con:property>
-	<con:property>
-		<con:name>SubjectID</con:name>
-		<con:value>1111</con:value>
-	</con:property>
-	<con:property>
-		<con:name>UniquePatientId</con:name>
-		<con:value>1111^^^&amp;amp;1.1&amp;amp;ISO</con:value>
-	</con:property>
-	<con:property>
-		<con:name>StreetAddress</con:name>
-		<con:value>123 Johnson Rd</con:value>
-	</con:property>
-	<con:property>
-		<con:name>City</con:name>
-		<con:value>Melbourne</con:value>
-	</con:property>
-	<con:property>
-		<con:name>State</con:name>
-		<con:value>FL</con:value>
-	</con:property>
-	<con:property>
-		<con:name>ZipCode</con:name>
-		<con:value>12345</con:value>
-	</con:property>
-	<con:property>
-		<con:name>Country</con:name>
-		<con:value>US</con:value>
-	</con:property>
-	<con:property>
-		<con:name>SSN</con:name>
-		<con:value>123456789</con:value>
-	</con:property>
-	<con:property>
-		<con:name>PurposeOfDisclosure</con:name>
-		<con:value>Mental</con:value>
-	</con:property>
-	<con:property>
-		<con:name>ExpirationDate</con:name>
-		<con:value>20100520</con:value>
-	</con:property>
-	<con:property>
-		<con:name>DOB</con:name>
-		<con:value>19800516</con:value>
-	</con:property>
-	<con:property>
-		<con:name>DateOfSignature</con:name>
-		<con:value>20080520</con:value>
-	</con:property>
-	<con:property>
-		<con:name>PseudonymAA</con:name>
-		<con:value>ABC</con:value>
-	</con:property>
-	<con:property>
-		<con:name>PseudonymPatientID</con:name>
-		<con:value>PSEUDO001</con:value>
-	</con:property>
-	<con:property>
-		<con:name>RealAA</con:name>
-		<con:value>1.1.1</con:value>
-	</con:property>
-	<con:property>
-		<con:name>RealPatientID</con:name>
-		<con:value>D1234010050</con:value>
-	</con:property>
-	<con:property>
-		<con:name>DQDocID</con:name>
-		<con:value>1.123401.11111</con:value>
-	</con:property>
-	<con:property>
-		<con:name>DQPatientID</con:name>
-		<con:value>D123401</con:value>
-	</con:property>
-	<con:property>
-		<con:name>DynamicDQDocID</con:name>
-		<con:value>103.8.9284320.020.3590.75^1266324032288</con:value>
-	</con:property>
-	<con:property>
-		<con:name>DRDocID</con:name>
-		<con:value>1.123407.777777</con:value>
-	</con:property>
-	<con:property>
-		<con:name>DRRepoID</con:name>
-		<con:value>1</con:value>
-	</con:property>
-	<con:property>
-		<con:name>NotificationEndpoint</con:name>
-		<con:value>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/NotificationConsumerService/HiemNotify</con:value>
-	</con:property>
-	<con:property>
-		<con:name>SubscriptionEndpoint</con:name>
-		<con:value>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/NotificationProducerService/HiemSubscription</con:value>
-	</con:property>
-	<con:property>
-		<con:name>SubscribePatientID</con:name>
-		<con:value>D123401</con:value>
-	</con:property>
-	<con:property>
-		<con:name>NotifySubscriptionID</con:name>
-		<con:value>-f7c1a5d:1204e50e42e:-79eb</con:value>
-	</con:property>
-	<con:property>
-		<con:name>NotifySubscriptionManagerEndpointAddress</con:name>
-		<con:value>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/SubscriptionManagerService/HiemUnsubscribe</con:value>
-	</con:property>
-	<con:property>
-		<con:name>EntitySubscribe</con:name>
-		<con:value>http://localhost:8080/CONNECTAdapter/EntityNotificationProducer</con:value>
-	</con:property>
-	<con:property>
-		<con:name>UnSubscriptionID</con:name>
-		<con:value>3e74139f-5271-4db1-98c0-88748fa3e4e3</con:value>
-	</con:property>
-	<con:property>
-		<con:name>SubscriptionManagerEndpointAddress</con:name>
-		<con:value>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/SubscriptionManagerService/HiemUnsubscribe</con:value>
-	</con:property>
-	<con:property>
-		<con:name>AQUserID</con:name>
-		<con:value>kskagerb</con:value>
-	</con:property>
-	<con:property>
-		<con:name>AQPatientID</con:name>
-		<con:value>D123401</con:value>
-	</con:property>
-	<con:property>
-		<con:name>Endpoint-NhincProxyXDRRequest</con:name>
-		<con:value>http://localhost:8080/CONNECTAdapter/EntityProxyService/NhincProxyXDRRequest</con:value>
-	</con:property>
-	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-10-15T18:44:03Z</con:value>
+		<con:value>2012-10-15T18:43:11Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-10-15T18:54:03Z</con:value>
+		<con:value>2012-10-15T18:53:11Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>10/15/2012 18:44:03</con:value>
+		<con:value>10/15/2012 18:43:11</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
@@ -2102,7 +1824,7 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 					<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
-		<con:endpoint>${#TestSuite#Endpoint-PatientDiscoveryAsyncResp}</con:endpoint>
+		<con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/PatientDiscovery/1_0/MsgProxy/NhincProxyPatientDiscoveryAsyncResp</con:endpoint>
 		<con:request><![CDATA[
 			<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
    <soap:Header xmlns:add="http://www.w3.org/2005/08/addressing/module">
@@ -2444,256 +2166,16 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 </con:tearDownScript>
 <con:properties>
 	<con:property>
-		<con:name>LocalHCID</con:name>
-		<con:value>1.1</con:value>
-	</con:property>
-	<con:property>
-		<con:name>LocalAA</con:name>
-		<con:value>1.1</con:value>
-	</con:property>
-	<con:property>
-		<con:name>LocalHCDescription</con:name>
-		<con:value>InternalTest1</con:value>
-	</con:property>
-	<con:property>
-		<con:name>RemoteHCID</con:name>
-		<con:value>2.2</con:value>
-	</con:property>
-	<con:property>
-		<con:name>RemoteAA</con:name>
-		<con:value>2.2</con:value>
-	</con:property>
-	<con:property>
-		<con:name>RemoteHCDescription</con:name>
-		<con:value>InternalTest2</con:value>
-	</con:property>
-	<con:property>
-		<con:name>Endpoint-PatientDiscovery</con:name>
-		<con:value>http://localhost:8080/CONNECTAdapter/NhincProxyPatientDiscovery</con:value>
-	</con:property>
-	<con:property>
-		<con:name>Endpoint-PatientDiscoveryAsyncReq</con:name>
-		<con:value>http://localhost:8080/CONNECTMsgProxyWeb/MsgProxy/NhincProxyPatientDiscoveryDeferredRequestUnsecured</con:value>
-	</con:property>
-	<con:property>
-		<con:name>Endpoint-PatientDiscoveryAsyncResp</con:name>
-		<con:value>http://localhost:8080/CONNECTMsgProxyWeb/MsgProxy/NhincProxyPatientDiscoveryAsyncResp</con:value>
-	</con:property>
-	<con:property>
-		<con:name>Endpoint-DocQuery</con:name>
-		<con:value>http://localhost:8080/CONNECTAdapter/NhincProxyDocQuery</con:value>
-	</con:property>
-	<con:property>
-		<con:name>Endpoint-DocRetrieve</con:name>
-		<con:value>http://localhost:8080/CONNECTMsgProxyWeb/NhincProxyDocRetrieve</con:value>
-	</con:property>
-	<con:property>
-		<con:name>Endpoint-Reidentification</con:name>
-		<con:value>http://localhost:8080/CONNECTAdapter/NhincProxySubjectDiscovery</con:value>
-	</con:property>
-	<con:property>
-		<con:name>Endpoint-Subscribe</con:name>
-		<con:value>http://localhost:8080/CONNECTAdapter/NhincProxyNotificationProducer</con:value>
-	</con:property>
-	<con:property>
-		<con:name>Endpoint-Notify</con:name>
-		<con:value>http://localhost:8080/CONNECTAdapter/NhincProxyNotificationConsumer</con:value>
-	</con:property>
-	<con:property>
-		<con:name>Endpoint-Unsubscribe</con:name>
-		<con:value>http://localhost:8080/CONNECTAdapter/NhincProxySubscriptionManager</con:value>
-	</con:property>
-	<con:property>
-		<con:name>Endpoint-AuditLogQuery</con:name>
-		<con:value>http://localhost:8080/CONNECTAdapter/NhincProxyAuditQuery</con:value>
-	</con:property>
-	<con:property>
-		<con:name>DBHost</con:name>
-		<con:value>localhost</con:value>
-	</con:property>
-	<con:property>
-		<con:name>DBPort</con:name>
-		<con:value>3306</con:value>
-	</con:property>
-	<con:property>
-		<con:name>DBUser</con:name>
-		<con:value>nhincuser</con:value>
-	</con:property>
-	<con:property>
-		<con:name>DBPass</con:name>
-		<con:value>nhincpass</con:value>
-	</con:property>
-	<con:property>
-		<con:name>PatientCorrelationDB</con:name>
-		<con:value>patientcorrelationdb</con:value>
-	</con:property>
-	<con:property>
-		<con:name>PatientCorrelationTable</con:name>
-		<con:value>correlatedidentifiers</con:value>
-	</con:property>
-	<con:property>
-		<con:name>SubscriptionDB</con:name>
-		<con:value>subscriptionrepository</con:value>
-	</con:property>
-	<con:property>
-		<con:name>SubscriptionTable</con:name>
-		<con:value>subscription</con:value>
-	</con:property>
-	<con:property>
-		<con:name>Gender</con:name>
-		<con:value>M</con:value>
-	</con:property>
-	<con:property>
-		<con:name>BirthTime</con:name>
-		<con:value>19630804</con:value>
-	</con:property>
-	<con:property>
-		<con:name>FamilyName</con:name>
-		<con:value>Younger</con:value>
-	</con:property>
-	<con:property>
-		<con:name>GivenName</con:name>
-		<con:value>Gallow</con:value>
-	</con:property>
-	<con:property>
-		<con:name>SubjectID</con:name>
-		<con:value>1111</con:value>
-	</con:property>
-	<con:property>
-		<con:name>UniquePatientId</con:name>
-		<con:value>1111^^^&amp;amp;1.1&amp;amp;ISO</con:value>
-	</con:property>
-	<con:property>
-		<con:name>StreetAddress</con:name>
-		<con:value>123 Johnson Rd</con:value>
-	</con:property>
-	<con:property>
-		<con:name>City</con:name>
-		<con:value>Melbourne</con:value>
-	</con:property>
-	<con:property>
-		<con:name>State</con:name>
-		<con:value>FL</con:value>
-	</con:property>
-	<con:property>
-		<con:name>ZipCode</con:name>
-		<con:value>12345</con:value>
-	</con:property>
-	<con:property>
-		<con:name>Country</con:name>
-		<con:value>US</con:value>
-	</con:property>
-	<con:property>
-		<con:name>SSN</con:name>
-		<con:value>123456789</con:value>
-	</con:property>
-	<con:property>
-		<con:name>PurposeOfDisclosure</con:name>
-		<con:value>Mental</con:value>
-	</con:property>
-	<con:property>
-		<con:name>ExpirationDate</con:name>
-		<con:value>20100520</con:value>
-	</con:property>
-	<con:property>
-		<con:name>DOB</con:name>
-		<con:value>19800516</con:value>
-	</con:property>
-	<con:property>
-		<con:name>DateOfSignature</con:name>
-		<con:value>20080520</con:value>
-	</con:property>
-	<con:property>
-		<con:name>PseudonymAA</con:name>
-		<con:value>ABC</con:value>
-	</con:property>
-	<con:property>
-		<con:name>PseudonymPatientID</con:name>
-		<con:value>PSEUDO001</con:value>
-	</con:property>
-	<con:property>
-		<con:name>RealAA</con:name>
-		<con:value>1.1.1</con:value>
-	</con:property>
-	<con:property>
-		<con:name>RealPatientID</con:name>
-		<con:value>D1234010050</con:value>
-	</con:property>
-	<con:property>
-		<con:name>DQDocID</con:name>
-		<con:value>1.123401.11111</con:value>
-	</con:property>
-	<con:property>
-		<con:name>DQPatientID</con:name>
-		<con:value>D123401</con:value>
-	</con:property>
-	<con:property>
-		<con:name>DynamicDQDocID</con:name>
-		<con:value>103.8.9284320.020.3590.75^1266324032288</con:value>
-	</con:property>
-	<con:property>
-		<con:name>DRDocID</con:name>
-		<con:value>1.123407.777777</con:value>
-	</con:property>
-	<con:property>
-		<con:name>DRRepoID</con:name>
-		<con:value>1</con:value>
-	</con:property>
-	<con:property>
-		<con:name>NotificationEndpoint</con:name>
-		<con:value>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/NotificationConsumerService/HiemNotify</con:value>
-	</con:property>
-	<con:property>
-		<con:name>SubscriptionEndpoint</con:name>
-		<con:value>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/NotificationProducerService/HiemSubscription</con:value>
-	</con:property>
-	<con:property>
-		<con:name>SubscribePatientID</con:name>
-		<con:value>D123401</con:value>
-	</con:property>
-	<con:property>
-		<con:name>NotifySubscriptionID</con:name>
-		<con:value>-f7c1a5d:1204e50e42e:-79eb</con:value>
-	</con:property>
-	<con:property>
-		<con:name>NotifySubscriptionManagerEndpointAddress</con:name>
-		<con:value>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/SubscriptionManagerService/HiemUnsubscribe</con:value>
-	</con:property>
-	<con:property>
-		<con:name>EntitySubscribe</con:name>
-		<con:value>http://localhost:8080/CONNECTAdapter/EntityNotificationProducer</con:value>
-	</con:property>
-	<con:property>
-		<con:name>UnSubscriptionID</con:name>
-		<con:value>3e74139f-5271-4db1-98c0-88748fa3e4e3</con:value>
-	</con:property>
-	<con:property>
-		<con:name>SubscriptionManagerEndpointAddress</con:name>
-		<con:value>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/SubscriptionManagerService/HiemUnsubscribe</con:value>
-	</con:property>
-	<con:property>
-		<con:name>AQUserID</con:name>
-		<con:value>kskagerb</con:value>
-	</con:property>
-	<con:property>
-		<con:name>AQPatientID</con:name>
-		<con:value>D123401</con:value>
-	</con:property>
-	<con:property>
-		<con:name>Endpoint-NhincProxyXDRRequest</con:name>
-		<con:value>http://localhost:8080/CONNECTAdapter/EntityProxyService/NhincProxyXDRRequest</con:value>
-	</con:property>
-	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-10-15T18:44:07Z</con:value>
+		<con:value>2012-10-15T18:43:11Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-10-15T18:54:07Z</con:value>
+		<con:value>2012-10-15T18:53:11Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>10/15/2012 18:44:07</con:value>
+		<con:value>10/15/2012 18:43:11</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
@@ -2722,7 +2204,7 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 				<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
 	</con:settings>
 	<con:encoding>UTF-8</con:encoding>
-	<con:endpoint>${#TestSuite#Endpoint-PatientDiscovery}</con:endpoint>
+	<con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/PatientDiscovery/1_0/MsgProxy/NhincProxyPatientDiscovery</con:endpoint>
 	<con:request><![CDATA[
 		<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soap:Header/>
@@ -3052,7 +2534,7 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 					<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
-		<con:endpoint>${#TestSuite#Endpoint-DocQuery}</con:endpoint>
+		<con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/DocumentQuery/2_0/EntityService/NhincProxyDocQueryUnsecured</con:endpoint>
 		<con:request><![CDATA[
 			<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn3="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soap:Header/>
@@ -3371,7 +2853,7 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 					<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
-		<con:endpoint>${#TestSuite#Endpoint-DocRetrieve}</con:endpoint>
+		<con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/DocumentRetrieve/2_0/NhincProxyDocRetrieveUnsecured</con:endpoint>
 		<con:request><![CDATA[
 			<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:ihe:iti:xds-b:2007" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soap:Header/>
@@ -3704,7 +3186,7 @@ nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.
 				<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
 	</con:settings>
 	<con:encoding>UTF-8</con:encoding>
-	<con:endpoint>${#TestSuite#Endpoint-Subscribe}</con:endpoint>
+	<con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/HIEM/2_0/NhincProxyNotificationProducer</con:endpoint>
 	<con:request><![CDATA[
 		<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:wsa="http://www.w3.org/2005/08/addressing" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add1="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soap:Header/>
@@ -4021,7 +3503,7 @@ nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.
 				<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
 	</con:settings>
 	<con:encoding>UTF-8</con:encoding>
-	<con:endpoint>${#TestSuite#Endpoint-Subscribe}</con:endpoint>
+	<con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/HIEM/2_0/NhincProxyNotificationProducer</con:endpoint>
 	<con:request><![CDATA[
 		<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:wsa="http://www.w3.org/2005/08/addressing" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add1="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soap:Header/>
@@ -4302,7 +3784,7 @@ testRunner.testCase.testSuite.project.setPropertyValue( "NotifySubscriptionID", 
 				<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
 	</con:settings>
 	<con:encoding>UTF-8</con:encoding>
-	<con:endpoint>${#TestSuite#Endpoint-Notify}</con:endpoint>
+	<con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/HIEM/2_0/NhincProxyNotificationConsumer</con:endpoint>
 	<con:request><![CDATA[
 		<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:b="http://docs.oasis-open.org/wsn/b-2" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:wsa="http://www.w3.org/2005/08/addressing" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soap:Header/>
@@ -4628,7 +4110,7 @@ nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.
 				<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
 	</con:settings>
 	<con:encoding>UTF-8</con:encoding>
-	<con:endpoint>${#TestSuite#Endpoint-Unsubscribe}</con:endpoint>
+	<con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/HIEM/2_0/NhincProxySubscriptionManager</con:endpoint>
 	<con:request><![CDATA[
 		<soap:Envelope xmlns:nhin="http://www.hhs.gov/healthit/nhin" xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:subscription" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soap:Header>
@@ -4918,14 +4400,14 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 	<con:testStep name="Admin Distribution" type="request">
 		<con:settings/>
 		<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-			<con:interface>NhincAdminDist_Binding_Soap12_g1</con:interface>
+			<con:interface>NhincAdminDist_Binding_Soap12</con:interface>
 			<con:operation>SendAlertMessage</con:operation>
 			<con:request name="Admin Distribution">
 				<con:settings>
 					<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
-		<con:endpoint>${#TestSuite#Endpoint-MsgProxyAdminDist}</con:endpoint>
+		<con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/AdminDistribution/1_0/MsgProxy/NhincProxyAdminDist</con:endpoint>
 		<con:request><![CDATA[
 			<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:emergency:EDXL:DE:1.0">
    <soap:Header/>
@@ -5397,7 +4879,7 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 <con:setupScript/>
 <con:reportParameters/>
 </con:testSuite>
-<con:testSuite name="MsgProxy_g0">
+<con:testSuite name="g0">
 	<con:description/>
 	<con:settings/>
 	<con:runType>SEQUENTIAL</con:runType>
@@ -5413,7 +4895,7 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 						<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
 			</con:settings>
 			<con:encoding>UTF-8</con:encoding>
-			<con:endpoint>${#TestSuite#Endpoint-MsgProxyDocSubmissionDefReq}</con:endpoint>
+			<con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/DocumentSubmission/1_1/EntityService/PassthruDocSubmissionDeferredRequestUnsecured</con:endpoint>
 			<con:request><![CDATA[
 				<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
    <soap:Header/>
@@ -5910,7 +5392,7 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 					<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
-		<con:endpoint>${#TestSuite#Endpoint-DocSubmissionDefResp}</con:endpoint>
+		<con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/DocumentSubmission/1_1/EntityService/PassthruDocSubmissionDeferredResponseUnsecured</con:endpoint>
 		<con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0">
    <soap:Header/>
    <soap:Body testSuite="MsgProxy_g1" testCase="Document Submission Deferred Resp">
@@ -6263,7 +5745,7 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 					<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
-		<con:endpoint>${#TestSuite#Endpoint-DocumentSubmission}</con:endpoint>
+		<con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/DocumentSubmission/1_1/EntityService/PassthruDocSubmissionUnsecured</con:endpoint>
 		<con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
    <soap:Header/>
    <soap:Body testSuite="MsgProxy_g1" testCase="Document Submission">
@@ -6754,7 +6236,7 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 					<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
-		<con:endpoint>${#TestSuite#Endpoint-PatientDiscoveryAsyncReq}</con:endpoint>
+		<con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/PatientDiscovery/1_0/MsgProxy/NhincProxyPatientDiscoveryDeferredRequestUnsecured</con:endpoint>
 		<con:request><![CDATA[
 			<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soap:Header/>
@@ -7051,252 +6533,16 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 </con:tearDownScript>
 <con:properties>
 	<con:property>
-		<con:name>LocalHCID</con:name>
-		<con:value>1.1</con:value>
-	</con:property>
-	<con:property>
-		<con:name>LocalAA</con:name>
-		<con:value>1.1</con:value>
-	</con:property>
-	<con:property>
-		<con:name>LocalHCDescription</con:name>
-		<con:value>InternalTest1</con:value>
-	</con:property>
-	<con:property>
-		<con:name>RemoteHCID</con:name>
-		<con:value>2.2</con:value>
-	</con:property>
-	<con:property>
-		<con:name>RemoteAA</con:name>
-		<con:value>2.2</con:value>
-	</con:property>
-	<con:property>
-		<con:name>RemoteHCDescription</con:name>
-		<con:value>InternalTest2</con:value>
-	</con:property>
-	<con:property>
-		<con:name>Endpoint-PatientDiscovery</con:name>
-		<con:value>http://localhost:8080/CONNECTAdapter/NhincProxyPatientDiscovery</con:value>
-	</con:property>
-	<con:property>
-		<con:name>Endpoint-PatientDiscoveryAsyncReq</con:name>
-		<con:value>http://localhost:8080/CONNECTMsgProxyWeb/MsgProxy/NhincProxyPatientDiscoveryDeferredRequestUnsecured</con:value>
-	</con:property>
-	<con:property>
-		<con:name>Endpoint-DocQuery</con:name>
-		<con:value>http://localhost:8080/CONNECTAdapter/NhincProxyDocQuery</con:value>
-	</con:property>
-	<con:property>
-		<con:name>Endpoint-DocRetrieve</con:name>
-		<con:value>http://localhost:8080/CONNECTMsgProxyWeb/NhincProxyDocRetrieve</con:value>
-	</con:property>
-	<con:property>
-		<con:name>Endpoint-Reidentification</con:name>
-		<con:value>http://localhost:8080/CONNECTAdapter/NhincProxySubjectDiscovery</con:value>
-	</con:property>
-	<con:property>
-		<con:name>Endpoint-Subscribe</con:name>
-		<con:value>http://localhost:8080/CONNECTAdapter/NhincProxyNotificationProducer</con:value>
-	</con:property>
-	<con:property>
-		<con:name>Endpoint-Notify</con:name>
-		<con:value>http://localhost:8080/CONNECTAdapter/NhincProxyNotificationConsumer</con:value>
-	</con:property>
-	<con:property>
-		<con:name>Endpoint-Unsubscribe</con:name>
-		<con:value>http://localhost:8080/CONNECTAdapter/NhincProxySubscriptionManager</con:value>
-	</con:property>
-	<con:property>
-		<con:name>Endpoint-AuditLogQuery</con:name>
-		<con:value>http://localhost:8080/CONNECTAdapter/NhincProxyAuditQuery</con:value>
-	</con:property>
-	<con:property>
-		<con:name>DBHost</con:name>
-		<con:value>localhost</con:value>
-	</con:property>
-	<con:property>
-		<con:name>DBPort</con:name>
-		<con:value>3306</con:value>
-	</con:property>
-	<con:property>
-		<con:name>DBUser</con:name>
-		<con:value>nhincuser</con:value>
-	</con:property>
-	<con:property>
-		<con:name>DBPass</con:name>
-		<con:value>nhincpass</con:value>
-	</con:property>
-	<con:property>
-		<con:name>PatientCorrelationDB</con:name>
-		<con:value>patientcorrelationdb</con:value>
-	</con:property>
-	<con:property>
-		<con:name>PatientCorrelationTable</con:name>
-		<con:value>correlatedidentifiers</con:value>
-	</con:property>
-	<con:property>
-		<con:name>SubscriptionDB</con:name>
-		<con:value>subscriptionrepository</con:value>
-	</con:property>
-	<con:property>
-		<con:name>SubscriptionTable</con:name>
-		<con:value>subscription</con:value>
-	</con:property>
-	<con:property>
-		<con:name>Gender</con:name>
-		<con:value>M</con:value>
-	</con:property>
-	<con:property>
-		<con:name>BirthTime</con:name>
-		<con:value>19630804</con:value>
-	</con:property>
-	<con:property>
-		<con:name>FamilyName</con:name>
-		<con:value>Younger</con:value>
-	</con:property>
-	<con:property>
-		<con:name>GivenName</con:name>
-		<con:value>Gallow</con:value>
-	</con:property>
-	<con:property>
-		<con:name>SubjectID</con:name>
-		<con:value>1111</con:value>
-	</con:property>
-	<con:property>
-		<con:name>UniquePatientId</con:name>
-		<con:value>1111^^^&amp;amp;1.1&amp;amp;ISO</con:value>
-	</con:property>
-	<con:property>
-		<con:name>StreetAddress</con:name>
-		<con:value>123 Johnson Rd</con:value>
-	</con:property>
-	<con:property>
-		<con:name>City</con:name>
-		<con:value>Melbourne</con:value>
-	</con:property>
-	<con:property>
-		<con:name>State</con:name>
-		<con:value>FL</con:value>
-	</con:property>
-	<con:property>
-		<con:name>ZipCode</con:name>
-		<con:value>12345</con:value>
-	</con:property>
-	<con:property>
-		<con:name>Country</con:name>
-		<con:value>US</con:value>
-	</con:property>
-	<con:property>
-		<con:name>SSN</con:name>
-		<con:value>123456789</con:value>
-	</con:property>
-	<con:property>
-		<con:name>PurposeOfDisclosure</con:name>
-		<con:value>Mental</con:value>
-	</con:property>
-	<con:property>
-		<con:name>ExpirationDate</con:name>
-		<con:value>20100520</con:value>
-	</con:property>
-	<con:property>
-		<con:name>DOB</con:name>
-		<con:value>19800516</con:value>
-	</con:property>
-	<con:property>
-		<con:name>DateOfSignature</con:name>
-		<con:value>20080520</con:value>
-	</con:property>
-	<con:property>
-		<con:name>PseudonymAA</con:name>
-		<con:value>ABC</con:value>
-	</con:property>
-	<con:property>
-		<con:name>PseudonymPatientID</con:name>
-		<con:value>PSEUDO001</con:value>
-	</con:property>
-	<con:property>
-		<con:name>RealAA</con:name>
-		<con:value>1.1.1</con:value>
-	</con:property>
-	<con:property>
-		<con:name>RealPatientID</con:name>
-		<con:value>D1234010050</con:value>
-	</con:property>
-	<con:property>
-		<con:name>DQDocID</con:name>
-		<con:value>1.123401.11111</con:value>
-	</con:property>
-	<con:property>
-		<con:name>DQPatientID</con:name>
-		<con:value>D123401</con:value>
-	</con:property>
-	<con:property>
-		<con:name>DynamicDQDocID</con:name>
-		<con:value>103.8.9284320.020.3590.75^1266324032288</con:value>
-	</con:property>
-	<con:property>
-		<con:name>DRDocID</con:name>
-		<con:value>1.123407.777777</con:value>
-	</con:property>
-	<con:property>
-		<con:name>DRRepoID</con:name>
-		<con:value>1</con:value>
-	</con:property>
-	<con:property>
-		<con:name>NotificationEndpoint</con:name>
-		<con:value>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/NotificationConsumerService/HiemNotify</con:value>
-	</con:property>
-	<con:property>
-		<con:name>SubscriptionEndpoint</con:name>
-		<con:value>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/NotificationProducerService/HiemSubscription</con:value>
-	</con:property>
-	<con:property>
-		<con:name>SubscribePatientID</con:name>
-		<con:value>D123401</con:value>
-	</con:property>
-	<con:property>
-		<con:name>NotifySubscriptionID</con:name>
-		<con:value>-f7c1a5d:1204e50e42e:-79eb</con:value>
-	</con:property>
-	<con:property>
-		<con:name>NotifySubscriptionManagerEndpointAddress</con:name>
-		<con:value>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/SubscriptionManagerService/HiemUnsubscribe</con:value>
-	</con:property>
-	<con:property>
-		<con:name>EntitySubscribe</con:name>
-		<con:value>http://localhost:8080/CONNECTAdapter/EntityNotificationProducer</con:value>
-	</con:property>
-	<con:property>
-		<con:name>UnSubscriptionID</con:name>
-		<con:value>3e74139f-5271-4db1-98c0-88748fa3e4e3</con:value>
-	</con:property>
-	<con:property>
-		<con:name>SubscriptionManagerEndpointAddress</con:name>
-		<con:value>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/SubscriptionManagerService/HiemUnsubscribe</con:value>
-	</con:property>
-	<con:property>
-		<con:name>AQUserID</con:name>
-		<con:value>kskagerb</con:value>
-	</con:property>
-	<con:property>
-		<con:name>AQPatientID</con:name>
-		<con:value>D123401</con:value>
-	</con:property>
-	<con:property>
-		<con:name>Endpoint-NhincProxyXDRRequest</con:name>
-		<con:value>http://localhost:8080/CONNECTAdapter/EntityProxyService/NhincProxyXDRRequest</con:value>
-	</con:property>
-	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-10-15T18:43:04Z</con:value>
+		<con:value>2012-10-15T18:43:11Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-10-15T18:53:04Z</con:value>
+		<con:value>2012-10-15T18:53:11Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>10/15/2012 18:43:04</con:value>
+		<con:value>10/15/2012 18:43:11</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
@@ -7318,7 +6564,7 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 					<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
-		<con:endpoint>${#TestSuite#Endpoint-PatientDiscoveryAsyncResp}</con:endpoint>
+		<con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/PatientDiscovery/1_0/MsgProxy/NhincProxyPatientDiscoveryAsyncResp</con:endpoint>
 		<con:request><![CDATA[
 			<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
    <soap:Header xmlns:add="http://www.w3.org/2005/08/addressing/module">
@@ -7660,256 +6906,16 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 </con:tearDownScript>
 <con:properties>
 	<con:property>
-		<con:name>LocalHCID</con:name>
-		<con:value>1.1</con:value>
-	</con:property>
-	<con:property>
-		<con:name>LocalAA</con:name>
-		<con:value>1.1</con:value>
-	</con:property>
-	<con:property>
-		<con:name>LocalHCDescription</con:name>
-		<con:value>InternalTest1</con:value>
-	</con:property>
-	<con:property>
-		<con:name>RemoteHCID</con:name>
-		<con:value>2.2</con:value>
-	</con:property>
-	<con:property>
-		<con:name>RemoteAA</con:name>
-		<con:value>2.2</con:value>
-	</con:property>
-	<con:property>
-		<con:name>RemoteHCDescription</con:name>
-		<con:value>InternalTest2</con:value>
-	</con:property>
-	<con:property>
-		<con:name>Endpoint-PatientDiscovery</con:name>
-		<con:value>http://localhost:8080/CONNECTAdapter/NhincProxyPatientDiscovery</con:value>
-	</con:property>
-	<con:property>
-		<con:name>Endpoint-PatientDiscoveryAsyncReq</con:name>
-		<con:value>http://localhost:8080/CONNECTMsgProxyWeb/MsgProxy/NhincProxyPatientDiscoveryDeferredRequestUnsecured</con:value>
-	</con:property>
-	<con:property>
-		<con:name>Endpoint-PatientDiscoveryAsyncResp</con:name>
-		<con:value>http://localhost:8080/CONNECTMsgProxyWeb/MsgProxy/NhincProxyPatientDiscoveryAsyncResp</con:value>
-	</con:property>
-	<con:property>
-		<con:name>Endpoint-DocQuery</con:name>
-		<con:value>http://localhost:8080/CONNECTAdapter/NhincProxyDocQuery</con:value>
-	</con:property>
-	<con:property>
-		<con:name>Endpoint-DocRetrieve</con:name>
-		<con:value>http://localhost:8080/CONNECTMsgProxyWeb/NhincProxyDocRetrieve</con:value>
-	</con:property>
-	<con:property>
-		<con:name>Endpoint-Reidentification</con:name>
-		<con:value>http://localhost:8080/CONNECTAdapter/NhincProxySubjectDiscovery</con:value>
-	</con:property>
-	<con:property>
-		<con:name>Endpoint-Subscribe</con:name>
-		<con:value>http://localhost:8080/CONNECTAdapter/NhincProxyNotificationProducer</con:value>
-	</con:property>
-	<con:property>
-		<con:name>Endpoint-Notify</con:name>
-		<con:value>http://localhost:8080/CONNECTAdapter/NhincProxyNotificationConsumer</con:value>
-	</con:property>
-	<con:property>
-		<con:name>Endpoint-Unsubscribe</con:name>
-		<con:value>http://localhost:8080/CONNECTAdapter/NhincProxySubscriptionManager</con:value>
-	</con:property>
-	<con:property>
-		<con:name>Endpoint-AuditLogQuery</con:name>
-		<con:value>http://localhost:8080/CONNECTAdapter/NhincProxyAuditQuery</con:value>
-	</con:property>
-	<con:property>
-		<con:name>DBHost</con:name>
-		<con:value>localhost</con:value>
-	</con:property>
-	<con:property>
-		<con:name>DBPort</con:name>
-		<con:value>3306</con:value>
-	</con:property>
-	<con:property>
-		<con:name>DBUser</con:name>
-		<con:value>nhincuser</con:value>
-	</con:property>
-	<con:property>
-		<con:name>DBPass</con:name>
-		<con:value>nhincpass</con:value>
-	</con:property>
-	<con:property>
-		<con:name>PatientCorrelationDB</con:name>
-		<con:value>patientcorrelationdb</con:value>
-	</con:property>
-	<con:property>
-		<con:name>PatientCorrelationTable</con:name>
-		<con:value>correlatedidentifiers</con:value>
-	</con:property>
-	<con:property>
-		<con:name>SubscriptionDB</con:name>
-		<con:value>subscriptionrepository</con:value>
-	</con:property>
-	<con:property>
-		<con:name>SubscriptionTable</con:name>
-		<con:value>subscription</con:value>
-	</con:property>
-	<con:property>
-		<con:name>Gender</con:name>
-		<con:value>M</con:value>
-	</con:property>
-	<con:property>
-		<con:name>BirthTime</con:name>
-		<con:value>19630804</con:value>
-	</con:property>
-	<con:property>
-		<con:name>FamilyName</con:name>
-		<con:value>Younger</con:value>
-	</con:property>
-	<con:property>
-		<con:name>GivenName</con:name>
-		<con:value>Gallow</con:value>
-	</con:property>
-	<con:property>
-		<con:name>SubjectID</con:name>
-		<con:value>1111</con:value>
-	</con:property>
-	<con:property>
-		<con:name>UniquePatientId</con:name>
-		<con:value>1111^^^&amp;amp;1.1&amp;amp;ISO</con:value>
-	</con:property>
-	<con:property>
-		<con:name>StreetAddress</con:name>
-		<con:value>123 Johnson Rd</con:value>
-	</con:property>
-	<con:property>
-		<con:name>City</con:name>
-		<con:value>Melbourne</con:value>
-	</con:property>
-	<con:property>
-		<con:name>State</con:name>
-		<con:value>FL</con:value>
-	</con:property>
-	<con:property>
-		<con:name>ZipCode</con:name>
-		<con:value>12345</con:value>
-	</con:property>
-	<con:property>
-		<con:name>Country</con:name>
-		<con:value>US</con:value>
-	</con:property>
-	<con:property>
-		<con:name>SSN</con:name>
-		<con:value>123456789</con:value>
-	</con:property>
-	<con:property>
-		<con:name>PurposeOfDisclosure</con:name>
-		<con:value>Mental</con:value>
-	</con:property>
-	<con:property>
-		<con:name>ExpirationDate</con:name>
-		<con:value>20100520</con:value>
-	</con:property>
-	<con:property>
-		<con:name>DOB</con:name>
-		<con:value>19800516</con:value>
-	</con:property>
-	<con:property>
-		<con:name>DateOfSignature</con:name>
-		<con:value>20080520</con:value>
-	</con:property>
-	<con:property>
-		<con:name>PseudonymAA</con:name>
-		<con:value>ABC</con:value>
-	</con:property>
-	<con:property>
-		<con:name>PseudonymPatientID</con:name>
-		<con:value>PSEUDO001</con:value>
-	</con:property>
-	<con:property>
-		<con:name>RealAA</con:name>
-		<con:value>1.1.1</con:value>
-	</con:property>
-	<con:property>
-		<con:name>RealPatientID</con:name>
-		<con:value>D1234010050</con:value>
-	</con:property>
-	<con:property>
-		<con:name>DQDocID</con:name>
-		<con:value>1.123401.11111</con:value>
-	</con:property>
-	<con:property>
-		<con:name>DQPatientID</con:name>
-		<con:value>D123401</con:value>
-	</con:property>
-	<con:property>
-		<con:name>DynamicDQDocID</con:name>
-		<con:value>103.8.9284320.020.3590.75^1266324032288</con:value>
-	</con:property>
-	<con:property>
-		<con:name>DRDocID</con:name>
-		<con:value>1.123407.777777</con:value>
-	</con:property>
-	<con:property>
-		<con:name>DRRepoID</con:name>
-		<con:value>1</con:value>
-	</con:property>
-	<con:property>
-		<con:name>NotificationEndpoint</con:name>
-		<con:value>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/NotificationConsumerService/HiemNotify</con:value>
-	</con:property>
-	<con:property>
-		<con:name>SubscriptionEndpoint</con:name>
-		<con:value>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/NotificationProducerService/HiemSubscription</con:value>
-	</con:property>
-	<con:property>
-		<con:name>SubscribePatientID</con:name>
-		<con:value>D123401</con:value>
-	</con:property>
-	<con:property>
-		<con:name>NotifySubscriptionID</con:name>
-		<con:value>-f7c1a5d:1204e50e42e:-79eb</con:value>
-	</con:property>
-	<con:property>
-		<con:name>NotifySubscriptionManagerEndpointAddress</con:name>
-		<con:value>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/SubscriptionManagerService/HiemUnsubscribe</con:value>
-	</con:property>
-	<con:property>
-		<con:name>EntitySubscribe</con:name>
-		<con:value>http://localhost:8080/CONNECTAdapter/EntityNotificationProducer</con:value>
-	</con:property>
-	<con:property>
-		<con:name>UnSubscriptionID</con:name>
-		<con:value>3e74139f-5271-4db1-98c0-88748fa3e4e3</con:value>
-	</con:property>
-	<con:property>
-		<con:name>SubscriptionManagerEndpointAddress</con:name>
-		<con:value>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/SubscriptionManagerService/HiemUnsubscribe</con:value>
-	</con:property>
-	<con:property>
-		<con:name>AQUserID</con:name>
-		<con:value>kskagerb</con:value>
-	</con:property>
-	<con:property>
-		<con:name>AQPatientID</con:name>
-		<con:value>D123401</con:value>
-	</con:property>
-	<con:property>
-		<con:name>Endpoint-NhincProxyXDRRequest</con:name>
-		<con:value>http://localhost:8080/CONNECTAdapter/EntityProxyService/NhincProxyXDRRequest</con:value>
-	</con:property>
-	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-10-15T18:43:08Z</con:value>
+		<con:value>2012-10-15T18:43:11Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-10-15T18:53:08Z</con:value>
+		<con:value>2012-10-15T18:53:11Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>10/15/2012 18:43:08</con:value>
+		<con:value>10/15/2012 18:43:11</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
@@ -7938,7 +6944,7 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 				<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
 	</con:settings>
 	<con:encoding>UTF-8</con:encoding>
-	<con:endpoint>${#TestSuite#Endpoint-PatientDiscovery}</con:endpoint>
+	<con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/PatientDiscovery/1_0/MsgProxy/NhincProxyPatientDiscovery</con:endpoint>
 	<con:request><![CDATA[
 		<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soap:Header/>
@@ -8268,7 +7274,7 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 					<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
-		<con:endpoint>${#TestSuite#Endpoint-DocQuery}</con:endpoint>
+		<con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/DocumentQuery/2_0/EntityService/NhincProxyDocQueryUnsecured</con:endpoint>
 		<con:request><![CDATA[
 			<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn3="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soap:Header/>
@@ -8587,7 +7593,7 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 					<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
-		<con:endpoint>${#TestSuite#Endpoint-DocRetrieve}</con:endpoint>
+		<con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/DocumentRetrieve/2_0/NhincProxyDocRetrieveUnsecured</con:endpoint>
 		<con:request><![CDATA[
 			<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:ihe:iti:xds-b:2007" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soap:Header/>
@@ -8921,7 +7927,7 @@ nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.
 				<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
 	</con:settings>
 	<con:encoding>UTF-8</con:encoding>
-	<con:endpoint>${#TestSuite#Endpoint-Subscribe}</con:endpoint>
+	<con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/HIEM/2_0/NhincProxyNotificationProducer</con:endpoint>
 	<con:request><![CDATA[
 		<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:wsa="http://www.w3.org/2005/08/addressing" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add1="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soap:Header/>
@@ -9240,7 +8246,7 @@ nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.
 				<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
 	</con:settings>
 	<con:encoding>UTF-8</con:encoding>
-	<con:endpoint>${#TestSuite#Endpoint-Subscribe}</con:endpoint>
+	<con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/HIEM/2_0/NhincProxyNotificationProducer</con:endpoint>
 	<con:request><![CDATA[
 		<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:wsa="http://www.w3.org/2005/08/addressing" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add1="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soap:Header/>
@@ -9521,7 +8527,7 @@ testRunner.testCase.testSuite.project.setPropertyValue( "NotifySubscriptionID", 
 				<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
 	</con:settings>
 	<con:encoding>UTF-8</con:encoding>
-	<con:endpoint>${#TestSuite#Endpoint-Notify}</con:endpoint>
+	<con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/HIEM/2_0/NhincProxyNotificationConsumer</con:endpoint>
 	<con:request><![CDATA[
 		<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:b="http://docs.oasis-open.org/wsn/b-2" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:wsa="http://www.w3.org/2005/08/addressing" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soap:Header/>
@@ -9847,7 +8853,7 @@ nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.
 				<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
 	</con:settings>
 	<con:encoding>UTF-8</con:encoding>
-	<con:endpoint>${#TestSuite#Endpoint-Unsubscribe}</con:endpoint>
+	<con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/HIEM/2_0/NhincProxySubscriptionManager</con:endpoint>
 	<con:request><![CDATA[
 		<soap:Envelope xmlns:nhin="http://www.hhs.gov/healthit/nhin" xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:subscription" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soap:Header>
@@ -10138,14 +9144,14 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 	<con:testStep name="Admin Distribution" type="request">
 		<con:settings/>
 		<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-			<con:interface>NhincAdminDist_Binding_Soap12_g0</con:interface>
+			<con:interface>NhincAdminDist_Binding_Soap12</con:interface>
 			<con:operation>SendAlertMessage</con:operation>
 			<con:request name="Admin Distribution">
 				<con:settings>
 					<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
-		<con:endpoint>${#TestSuite#Endpoint-MsgProxyAdminDist}</con:endpoint>
+		<con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/AdminDistribution/1_0/MsgProxy/NhincProxyAdminDist</con:endpoint>
 		<con:request><![CDATA[
 			<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:emergency:EDXL:DE:1.0">
    <soap:Header/>
@@ -10764,7 +9770,7 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 
 	
 	
-	<con:property><con:name>NotifySubscriptionID</con:name><con:value>9aedbff6-cbf5-4b6a-8d33-c6f915786617</con:value></con:property><con:property><con:name>NotifySubscriptionManagerEndpointAddress</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/SubscriptionManagerService/HiemUnsubscribe</con:value></con:property><con:property><con:name>PatientCorrelationDB</con:name><con:value>patientcorrelationdb</con:value></con:property>
+	<con:property><con:name>NotifySubscriptionID</con:name><con:value>9aedbff6-cbf5-4b6a-8d33-c6f915786617</con:value></con:property><con:property><con:name>PatientCorrelationDB</con:name><con:value>patientcorrelationdb</con:value></con:property>
 	<con:property><con:name>PatientCorrelationTable</con:name><con:value>correlatedidentifiers</con:value></con:property>
 	
 	<con:property><con:name>project.name</con:name><con:value>MsgProxyValidation</con:value></con:property><con:property><con:name>PurposeOfDisclosure</con:name><con:value>Mental</con:value></con:property><con:property><con:name>RemoteAA</con:name><con:value>2.2</con:value></con:property><con:property>
@@ -10784,16 +9790,11 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 		<con:name>SubscriptionDB</con:name>
 		<con:value>subscriptionrepository</con:value>
 	</con:property>
-	
-	<con:property><con:name>SubscriptionEndpoint</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/NotificationProducerService/HiemSubscription</con:value></con:property>
-	
-	
-	
-	<con:property><con:name>SubscriptionManagerEndpointAddress</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/SubscriptionManagerService/HiemUnsubscribe</con:value></con:property><con:property><con:name>SubscriptionTable</con:name><con:value>subscription</con:value></con:property><con:property><con:name>UniquePatientId</con:name><con:value>1111^^^&amp;amp;1.1&amp;amp;ISO</con:value></con:property><con:property><con:name>UnSubscriptionID</con:name><con:value>3e74139f-5271-4db1-98c0-88748fa3e4e3</con:value></con:property><con:property>
+	<con:property><con:name>SubscriptionTable</con:name><con:value>subscription</con:value></con:property><con:property><con:name>UniquePatientId</con:name><con:value>1111^^^&amp;amp;1.1&amp;amp;ISO</con:value></con:property><con:property><con:name>UnSubscriptionID</con:name><con:value>3e74139f-5271-4db1-98c0-88748fa3e4e3</con:value></con:property><con:property>
 		<con:name>ZipCode</con:name>
 		<con:value>12345</con:value>
 	</con:property>
-<con:property><con:name>GatewayPropDir</con:name><con:value></con:value></con:property></con:properties>
+<con:property><con:name>GatewayPropDir</con:name><con:value/></con:property></con:properties>
 <con:afterLoadScript>def propertiesFilename = project.path[0..(project.path.size()-4)] + 'properties'
 def propertiesFile = new File(propertiesFilename)
 if (propertiesFile.exists()) {

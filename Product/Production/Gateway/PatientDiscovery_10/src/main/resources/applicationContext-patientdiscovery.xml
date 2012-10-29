@@ -58,15 +58,4 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd http://www.s
         <property name="EventFactory" ref="eventfactory" /> 
         <property name="EventRecorder" ref="eventmanager" />
      </bean>
-    
-    <bean id="eventPDDefReqAspect"
-        class="gov.hhs.fha.nhinc.patientdiscovery.aspect.PatientDiscoveryDeferredReqEventAspect">
-        <constructor-arg ref="eventAspectAdvice" />
-    </bean>
-    
-    <bean id="eventPDDefRespAspect"
-        class="gov.hhs.fha.nhinc.patientdiscovery.aspect.PatientDiscoveryDeferredRespEventAspect">
-        <constructor-arg ref="eventAspectAdvice" />
-    </bean>
-    
 </beans>
