@@ -26,244 +26,85 @@
  */
 package gov.hhs.fha.nhinc.aspect;
 
-import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
-import gov.hhs.fha.nhinc.event.BaseEventDescriptionBuilder;
-import gov.hhs.fha.nhinc.event.Event;
-import gov.hhs.fha.nhinc.event.EventContextAccessor;
-import gov.hhs.fha.nhinc.event.EventDescriptionDirector;
-import gov.hhs.fha.nhinc.event.EventDescriptionJSONDecorator;
-import gov.hhs.fha.nhinc.event.EventManager;
-import gov.hhs.fha.nhinc.event.EventType;
-import gov.hhs.fha.nhinc.event.SOAPMessageRoutingAccessor;
-import gov.hhs.fha.nhinc.logging.transaction.dao.TransactionDAO;
-import gov.hhs.fha.nhinc.nhinclib.NullChecker;
-
-import java.util.List;
-
-import javax.xml.ws.WebServiceContext;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.cxf.jaxws.context.WebServiceContextImpl;
+import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.annotation.After;
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Before;
 
 /**
  * @author zmelnick
  * 
  */
+@Aspect
 public class EventAspectAdvice {
 
     private static final Log log = LogFactory.getLog(EventAspectAdvice.class);
 
+    private EventAdviceDelegate delegate;
+    
+    public void setDelegate(EventAdviceDelegate delegate) {
+        this.delegate = delegate;
+    }
+
     /*--- Inbound Message --*/
     public void beginInboundMessageEvent() {
-        recordEvent(EventType.BEGIN_INBOUND_MESSAGE.toString());
     }
 
     public void endInboundMessageEvent() {
-        recordEvent(EventType.END_INBOUND_MESSAGE.toString());
     }
 
     /*--- Inbound Processing --*/
 
     public void beginInboundProcessingEvent() {
-        recordEvent(EventType.BEGIN_INBOUND_PROCESSING.toString());
     }
 
     public void endInboundProcessingEvent() {
-        recordEvent(EventType.END_INBOUND_PROCESSING.toString());
     }
 
     /*--- Adapter Delegation --*/
 
     public void beginAdapterDelegationEvent() {
-        recordEvent(EventType.BEGIN_ADAPTER_DELEGATION.toString());
     }
 
     public void endAdapterDelegationEvent() {
-        recordEvent(EventType.END_ADAPTER_DELEGATION.toString());
     }
 
     /*--- Outbound Message --*/
 
-    public void beginOutboundMessageEvent() {
-        recordEvent(EventType.BEGIN_OUTBOUND_MESSAGE.toString());
+    @Before("@annotation(annotation)")
+    public void beginOutboundMessageEvent(JoinPoint joinPoint, OutboundMessageEvent annotation) {
+        delegate.beginOutboundMessageEvent(joinPoint.getArgs(), annotation.serviceType(), annotation.version());
     }
 
-    public void endOutboundMessageEvent() {
-        recordEvent(EventType.END_OUTBOUND_MESSAGE.toString());
+    @After("@annotation(annotation)")
+    public void endOutboundMessageEvent(JoinPoint joinPoint, OutboundMessageEvent annotation) {
+        delegate.endOutboundMessageEvent(joinPoint.getArgs(), annotation.serviceType(), annotation.version());
     }
 
     /*--- Outbound Processing --*/
 
-    public void beginOutboundProcessingEvent() {
-        recordEvent(EventType.BEGIN_OUTBOUND_PROCESSING.toString());
+    @Before("@annotation(annotation)")
+    public void beginOutboundProcessingEvent(JoinPoint joinPoint, OutboundProcessingEvent annotation) {
     }
 
-    public void endOutboundProcessingEvent() {
-        recordEvent(EventType.END_OUTBOUND_PROCESSING.toString());
+    @After("@annotation(annotation)")
+    public void endOutboundProcessingEvent(JoinPoint joinPoint, OutboundProcessingEvent annotation) {
     }
 
-    /*--- Nwhin Invocation --*/
-
-    public void beginNwhinInvocationEvent() {
-        recordEvent(EventType.BEGIN_NWHIN_INVOCATION.toString());
+    @Before("@annotation(annotation)")
+    public void beginNwhinInvocationEvent(JoinPoint joinPoint, NwhinInvocationEvent annotation) {
     }
 
-    public void endNwhinInvocationEvent() {
-        recordEvent(EventType.END_NWHIN_INVOCATION.toString());
+    @After("@annotation(annotation)")
+    public void endNwhinInvocationEvent(JoinPoint joinPoint, NwhinInvocationEvent annotation) {
     }
 
     /*--- Failure --*/
     public void failEvent() {
-        recordEvent(EventType.MESSAGE_PROCESSING_FAILED.toString());
     }
 
-    private void recordEvent(String eventType) {
-        try {
-            Event event = createEvent(eventType);
-            EventManager.getInstance().recordEvent(event);
-        } catch (Exception e) {
-            log.warn("Failed to record event.", e);
-        }
-    }
+    
 
-    private Event createEvent(final String eventType) {
-        WebServiceContext context = new WebServiceContextImpl();
-
-        final String messageId = getMessageId(context);
-        final String transactionId = getTransactionID(context, messageId);
-        final String description = getDescription(context);
-
-        return new Event() {
-
-            @Override
-            public String getDescription() {
-                return description;
-            }
-
-            @Override
-            public String getEventName() {
-                return eventType;
-            }
-
-            @Override
-            public String getMessageID() {
-                return messageId;
-            }
-
-            @Override
-            public String getTransactionID() {
-                return transactionId;
-            }
-
-            @Override
-            public void setTransactionID(String transactionID) {
-
-            }
-
-            @Override
-            public void setMessageID(String messageID) {
-
-            }
-
-            @Override
-            public void setDescription(String description) {
-
-            }
-
-        };
-    }
-
-    private String getMessageId(WebServiceContext context) {
-        return AsyncMessageIdExtractor.getMessageId(context);
-    }
-
-    private String getTransactionID(WebServiceContext context, String messageId) {
-        String transactionId = null;
-
-        List<String> transactionIdList = AsyncMessageIdExtractor.getAsyncRelatesTo(context);
-        if (NullChecker.isNotNullish(transactionIdList)) {
-            transactionId = transactionIdList.get(0);
-        }
-
-        if ((transactionId == null) && (messageId != null)) {
-            transactionId = TransactionDAO.getInstance().getTransactionId(messageId);
-        }
-
-        return transactionId;
-    }
-
-    @SuppressWarnings("unchecked")
-    protected String getDescription(WebServiceContext context) {
-        EventDescriptionDirector director = new EventDescriptionDirector();
-        director.setEventDescriptionBuilder(new BaseEventDescriptionBuilder(new SOAPMessageRoutingAccessor(context), new EventContextAccessor() {
-            
-            @Override
-            public String getServiceType() {
-                // TODO Auto-generated method stub
-                return null;
-            }
-            
-            @Override
-            public String getAction() {
-                // TODO Auto-generated method stub
-                return null;
-            }
-        }) {
-            
-            @Override
-            public void buildTimeStamp() {
-                // TODO Auto-generated method stub
-                
-            }
-            
-            @Override
-            public void buildStatus() {
-                // TODO Auto-generated method stub
-                
-            }
-            
-            @Override
-            public void buildRespondingHCID() {
-                // TODO Auto-generated method stub
-                
-            }
-            
-            @Override
-            public void buildPayloadType() {
-                // TODO Auto-generated method stub
-                
-            }
-            
-            @Override
-            public void buildPayloadSize() {
-                // TODO Auto-generated method stub
-                
-            }
-            
-            @Override
-            public void buildNPI() {
-                // TODO Auto-generated method stub
-                
-            }
-            
-            @Override
-            public void buildInitiatingHCID() {
-                // TODO Auto-generated method stub
-                
-            }
-            
-            @Override
-            public void buildErrorCode() {
-                // TODO Auto-generated method stub
-                
-            }
-        });
-
-        director.constructEventDescription();
-
-        EventDescriptionJSONDecorator jsonDescorator = new EventDescriptionJSONDecorator(director.getEventDescription());
-
-        return jsonDescorator.toJSONString();
-    }
 }
