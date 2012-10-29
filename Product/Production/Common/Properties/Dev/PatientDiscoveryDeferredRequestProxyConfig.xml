@@ -147,6 +147,4 @@
     
     <!-- Aspect Service -->
     <aop:aspectj-autoproxy />    
-    <bean id="eventPDDefReqAspect" class="gov.hhs.fha.nhinc.patientdiscovery.aspect.PatientDiscoveryDeferredReqEventAspect" />
-
 </beans>

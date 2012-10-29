@@ -12,21 +12,32 @@ import javax.xml.ws.handler.MessageContext;
 
 import org.apache.cxf.jaxws.context.WebServiceContextImpl;
 
-public class ContextEventDescriptionBuilder extends BaseEventDescriptionBuilder {
+public class SOAPMessageRoutingAccessor implements MessageRoutingAccessor  {
 
     private WebServiceContext context;
 
-    public ContextEventDescriptionBuilder() {
+    public SOAPMessageRoutingAccessor() {
         this.context = new WebServiceContextImpl();
     }
 
-    @Override
-    public void buildMessageId() {
-        description.setMessageId(AsyncMessageIdExtractor.getMessageId(context));
+    public SOAPMessageRoutingAccessor(WebServiceContext context) {
+        this.context = context;
     }
 
+    
+    /* (non-Javadoc)
+     * @see gov.hhs.fha.nhinc.event.HeaderEvent#getMessageId()
+     */
     @Override
-    public void buildTransactionId() {
+    public  String getMessageId() {
+        return AsyncMessageIdExtractor.getMessageId(context);
+    }
+
+    /* (non-Javadoc)
+     * @see gov.hhs.fha.nhinc.event.HeaderEvent#getTransactionId()
+     */
+    @Override
+    public String getTransactionId() {
 
         String messageId = AsyncMessageIdExtractor.getMessageId(context);
         String transactionId = null;
@@ -40,13 +51,16 @@ public class ContextEventDescriptionBuilder extends BaseEventDescriptionBuilder 
             transactionId = TransactionDAO.getInstance().getTransactionId(messageId);
         }
 
-        description.setTransactionId(transactionId);
+        return transactionId;
     }
 
+    /* (non-Javadoc)
+     * @see gov.hhs.fha.nhinc.event.HeaderEvent#buildResponseMsgIdList()
+     */
     @Override
-    public void buildResponseMsgIdList() {
+    public List<String> getResponseMsgIdList() {
         MessageContext mContext = context.getMessageContext();
-        description.setResponseMsgids((List<String>) mContext.get(NhincConstants.RESPONSE_MESSAGE_ID_LIST_KEY));
+        return (List<String>) mContext.get(NhincConstants.RESPONSE_MESSAGE_ID_LIST_KEY);
     }
     
     

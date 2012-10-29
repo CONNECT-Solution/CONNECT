@@ -1,4 +1,6 @@
 /**
+ * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
+ *
  * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
@@ -24,95 +26,51 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.event;
+package gov.hhs.fha.nhinc.docretrieve.aspect;
 
-import java.util.List;
+import gov.hhs.fha.nhinc.event.BaseEventDescriptionBuilder;
+import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 
 /**
- * Interface defining data expected to be in Event.description.
- * 
- * @author bhumphrey
- * 
+ * Event description builder for retrieve document set request objects. The
+ * retreive document set object does not contain any fields that contribute to
+ * event descriptions. Only the routing and event context extraction from the
+ * superclass are necessary.
  */
-public interface EventDescription {
+public class RetrieveDocumentSetRequestTypeDescriptionBuilder extends BaseEventDescriptionBuilder {
 
-    public String getMessageId();
+    public RetrieveDocumentSetRequestTypeDescriptionBuilder(RetrieveDocumentSetRequestType request) {
+    }
 
-    /**
-     * 
-     * @return
-     */
-    public String getTimeStamp();
+    @Override
+    public void buildTimeStamp() {
+    }
 
-    /**
-     * Message service type (with version).
-     * 
-     * @return
-     */
-    public String getServiceType();
+    @Override
+    public void buildStatus() {
+    }
 
-    /**
-     * transaction id (this is called "correlation id" in the requirements doc)
-     * 
-     * @return
-     */
-    public String getTransactionId();
+    @Override
+    public void buildRespondingHCID() {
+    }
 
-    /**
-     * Payload Type (C32, C62 etc.).
-     * 
-     * @return
-     */
-    public String getPayloadType();
+    @Override
+    public void buildPayloadType() {
+    }
 
-    /**
-     * Payload Size (message specific).
-     * 
-     * @return
-     */
-    public String getPayloadSize();
+    @Override
+    public void buildPayloadSize() {
+    }
 
-    /**
-     * HCID for Initiatinggateway.
-     * 
-     * @return
-     */
-    public String getInitiatingHCID();
+    @Override
+    public void buildNPI() {
+    }
 
-    /**
-     * HCID(s) for Responding gateway(s).
-     * 
-     * @return
-     */
-    public List<String> getRespondingHCIDs();
+    @Override
+    public void buildInitiatingHCID() {
+    }
 
-    /**
-     * 
-     * @return
-     */
-    public String getNPI();
-
-    /**
-     * Message status (Success/Failure).
-     * 
-     * @return
-     */
-    public String getStatus();
-
-    /**
-     * Error code(s) when failed.
-     * 
-     * @return
-     */
-    public List<String> getErrorCodes();
-
-    public String getAction();
-
-    /**
-     * Returns a list of response message ids. Can be an empty list (eg [] ).
-     * 
-     * @return
-     */
-    public List<String> getResponseMsgIdList();
-
+    @Override
+    public void buildErrorCode() {
+    }
 }

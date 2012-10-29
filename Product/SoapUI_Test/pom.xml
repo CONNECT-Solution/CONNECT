@@ -13,6 +13,7 @@
         <skip.unpack>true</skip.unpack>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
         <ear.path>${org.connectopensource:CONNECT-GF:ear}</ear.path>
+        <mysql.root.password>NHIE-Gateway</mysql.root.password>
     </properties>
     <modules>
         <module>FileUtils</module>

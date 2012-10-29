@@ -52,6 +52,5 @@ public abstract class ContextEventBuilder extends BaseEventBuilder {
 
         return transactionId;
     }
-    
-    
+  
 }

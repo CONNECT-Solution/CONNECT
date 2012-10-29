@@ -27,12 +27,14 @@
 package gov.hhs.fha.nhinc.aspect;
 
 import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
-import gov.hhs.fha.nhinc.event.ContextEventDescriptionBuilder;
+import gov.hhs.fha.nhinc.event.BaseEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.event.Event;
+import gov.hhs.fha.nhinc.event.EventContextAccessor;
 import gov.hhs.fha.nhinc.event.EventDescriptionDirector;
 import gov.hhs.fha.nhinc.event.EventDescriptionJSONDecorator;
 import gov.hhs.fha.nhinc.event.EventManager;
 import gov.hhs.fha.nhinc.event.EventType;
+import gov.hhs.fha.nhinc.event.SOAPMessageRoutingAccessor;
 import gov.hhs.fha.nhinc.logging.transaction.dao.TransactionDAO;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 
@@ -194,7 +196,69 @@ public class EventAspectAdvice {
     @SuppressWarnings("unchecked")
     protected String getDescription(WebServiceContext context) {
         EventDescriptionDirector director = new EventDescriptionDirector();
-        director.setEventDescriptionBuilder(new ContextEventDescriptionBuilder());
+        director.setEventDescriptionBuilder(new BaseEventDescriptionBuilder(new SOAPMessageRoutingAccessor(context), new EventContextAccessor() {
+            
+            @Override
+            public String getServiceType() {
+                // TODO Auto-generated method stub
+                return null;
+            }
+            
+            @Override
+            public String getAction() {
+                // TODO Auto-generated method stub
+                return null;
+            }
+        }) {
+            
+            @Override
+            public void buildTimeStamp() {
+                // TODO Auto-generated method stub
+                
+            }
+            
+            @Override
+            public void buildStatus() {
+                // TODO Auto-generated method stub
+                
+            }
+            
+            @Override
+            public void buildRespondingHCID() {
+                // TODO Auto-generated method stub
+                
+            }
+            
+            @Override
+            public void buildPayloadType() {
+                // TODO Auto-generated method stub
+                
+            }
+            
+            @Override
+            public void buildPayloadSize() {
+                // TODO Auto-generated method stub
+                
+            }
+            
+            @Override
+            public void buildNPI() {
+                // TODO Auto-generated method stub
+                
+            }
+            
+            @Override
+            public void buildInitiatingHCID() {
+                // TODO Auto-generated method stub
+                
+            }
+            
+            @Override
+            public void buildErrorCode() {
+                // TODO Auto-generated method stub
+                
+            }
+        });
 
         director.constructEventDescription();
 
