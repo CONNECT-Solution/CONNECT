@@ -52,10 +52,10 @@ import org.nhindirect.stagent.AddressSource;
 import org.nhindirect.stagent.NHINDAddress;
 import org.nhindirect.stagent.NHINDAddressCollection;
 import org.nhindirect.stagent.parser.EntitySerializer;
+import org.nhindirect.stagent.mail.notifications.NotificationMessage;
 
 import javax.activation.DataHandler;
 import javax.mail.Address;
-import javax.mail.Authenticator;
 import javax.mail.Flags;
 import javax.mail.Folder;
 import javax.mail.Message;
@@ -72,23 +72,17 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 import javax.activation.DataSource;
-import javax.activation.FileDataSource;
-import javax.activation.MimeType;
-import javax.mail.*;
 import javax.mail.search.FlagTerm;
 import javax.mail.util.ByteArrayDataSource;
 
-import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
+
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.Format;
 import java.text.SimpleDateFormat;
+import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -98,7 +92,7 @@ import java.util.UUID;
 class EntityDocSubmissionImpl {
 
 	private static Log log = null;	
-	private static final String configURLParam = "http://127.0.0.1:8081/config-service/ConfigurationService";
+	private static final String configURLParam = "http://localhost:8081/config-service/ConfigurationService";
 	private static SmtpAgent agent;
     private static final String SUBJECT = "Document from CONNECT ";
     private static final String TEXT = "Test Message for CONNECT to DIRECT use case";
@@ -261,11 +255,13 @@ class EntityDocSubmissionImpl {
                 NHINDAddressCollection recipients = new NHINDAddressCollection();
                 recipients.add(new NHINDAddress(recipAddr.toString(), (AddressSource)null));                
                 InternetAddress senderAddr = new InternetAddress(sender);
-                NHINDAddress sender = new NHINDAddress(senderAddr, AddressSource.From);	
-    			MessageProcessResult result = agent.processMessage(message, recipients, sender);
+                NHINDAddress directsender = new NHINDAddress(senderAddr, AddressSource.From);	
+    			MessageProcessResult result = agent.processMessage(message, recipients, directsender);
     			copyMessage(result.getProcessedMessage().getMessage(), "outbox");
+  			
     			log.trace("Finished calling agent.processMessage");
     			Transport transport;
+    		
     			
     			if (result.getProcessedMessage() != null)
     			{
@@ -286,6 +282,7 @@ class EntityDocSubmissionImpl {
                         transport.close();
                     }
                 }
+                
     	     }
     		catch (Exception e)
     		{
@@ -301,7 +298,7 @@ class EntityDocSubmissionImpl {
     }
     
  
-    
+   
     private static class SMTPAuthenticator extends javax.mail.Authenticator
     {
     	@Override
@@ -310,8 +307,42 @@ class EntityDocSubmissionImpl {
             return new PasswordAuthentication(username, password);
         }
     }
+    
+    
     /************ END - Send Message **************************************************************/
     
+    public static void processMDNMessage(MessageProcessResult result) {
+    	Transport transport = null;
+    	try
+    	{	
+    		initData("smtp");
+    		Session session = Session.getInstance(smtpProps, new SMTPAuthenticator());    
+    		if (result.getProcessedMessage() != null)
+    		{
+    			transport = session.getTransport("smtps");
+    			transport.connect();
+    			InternetAddress[] addressFrom = new InternetAddress[1];
+    			addressFrom[0] = new InternetAddress(recipient);
+             	InternetAddress[] addressTo = new InternetAddress[1];
+               	addressTo[0] = new InternetAddress(sender);
+    			Collection<NotificationMessage> notifications = result.getNotificationMessages();
+    			log.info("# of notifications message: " + notifications.size());	
+    			if (notifications != null && notifications.size() > 0)
+    			{
+    				for (NotificationMessage mdnMsg : notifications)
+    				{
+    					transport.sendMessage(mdnMsg, addressTo);
+    					log.info("MDN notification sent.");
+    				}
+    			}
+    		}
+    		transport.close();
+    	}
+    	catch (Exception e)
+    	{
+    		log.error("Failed to process message: " + e.getMessage(), e);	
+    	}
+     }
     
     /************ BEGIN - Receive Message **************************************************************/
  
@@ -366,7 +397,7 @@ class EntityDocSubmissionImpl {
     	}
     	catch (MalformedURLException ex)
     	{
-    		System.out.println("Invalid configuration URL:" + ex.getMessage());
+    		log.error("Invalid configuration URL:" + ex.getMessage());
 
     	}
     	try
@@ -387,7 +418,19 @@ class EntityDocSubmissionImpl {
     		NHINDAddress sender = new NHINDAddress(senderAddr, AddressSource.From);
     		org.nhindirect.stagent.mail.Message msg = new org.nhindirect.stagent.mail.Message(message);
     		MessageProcessResult result = agent.processMessage(message, recipients, sender);
-       		copyMessage( result.getProcessedMessage().getMessage(), "inbox");
+    		
+    		Collection<NotificationMessage> notifications = result.getNotificationMessages();
+			log.info("# of notifications message: " + notifications.size());	
+			if (notifications != null && notifications.size() > 0)
+			{
+				copyMessage( result.getProcessedMessage().getMessage(), "inbox");
+				
+				processMDNMessage(result);
+			}
+			else
+			{	
+				copyMessage( message, "inbox");
+			}      		
     	}
     	catch (Exception ex)
     	{
@@ -449,7 +492,7 @@ class EntityDocSubmissionImpl {
                 	log.info("End - Mail received from responding gateway mail server");
                 	log.info("------------------------------------------------------------------");
                 }
-                
+               
 
                 NhinTargetCommunitiesType targets = request.getNhinTargetCommunities();
                 AssertionType assertIn = request.getAssertion();
