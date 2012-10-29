@@ -29,6 +29,8 @@ package gov.hhs.fha.nhinc.admindistribution._20.passthru;
 import javax.xml.ws.BindingType;
 
 import gov.hhs.fha.nhinc.admindistribution.passthru.PassthruAdminDistributionOrchImpl;
+import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewaySendAlertMessageType;
+import gov.hhs.fha.nhinc.nhincadmindistribution.NhincAdminDistPortType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 
 /**
@@ -37,12 +39,12 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
  */
 
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
-public class NhincAdminDist_g1 implements gov.hhs.fha.nhinc.nhincadmindistribution.NhincAdminDistPortType {
+public class NhincAdminDist_g1 implements NhincAdminDistPortType {
 
     private PassthruAdminDistributionOrchImpl orchImpl;
 
     @Override
-    public void sendAlertMessage(gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewaySendAlertMessageType body) {
+    public void sendAlertMessage(RespondingGatewaySendAlertMessageType body) {
         orchImpl.sendAlertMessage(body.getEDXLDistribution(), body.getAssertion(), body.getNhinTargetSystem(),
                 NhincConstants.GATEWAY_API_LEVEL.LEVEL_g1);
     }
