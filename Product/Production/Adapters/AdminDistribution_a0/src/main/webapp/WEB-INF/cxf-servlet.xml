@@ -37,6 +37,9 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
             <ref bean="timestampInInterceptor" />
             <ref bean="securityInInterceptor" />
         </jaxws:inInterceptors>
+        <jaxws:outFaultInterceptors>
+            <ref bean="attachmentFaultOutInterceptor" />
+        </jaxws:outFaultInterceptors>
     </jaxws:endpoint>
 
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adapteradmindistribution" id="AdapterAdministrativeDistribution"
