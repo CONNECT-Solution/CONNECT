@@ -185,7 +185,7 @@ public class HL7Parser201306Test {
     }
 
     /**
-     *
+     * Test method for building a message from mpi when a patient has multiple phone numbers.
      */
     @Test
     public void testBuildMessageFromMpiPatientMultiPhoneNumber() {
