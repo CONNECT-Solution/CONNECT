@@ -47,10 +47,19 @@ import org.apache.cxf.phase.Phase;
  */
 public class AttachmentReleaseFaultOutInterceptor extends AbstractPhaseInterceptor<Message> {
 
+    /**
+     * Constructor.
+     */
     public AttachmentReleaseFaultOutInterceptor() {
         super(Phase.SETUP_ENDING);
     }
 
+    /**
+     * Releases and closes all incoming attachment input streams. This is a workaround for a CXF bug that is not
+     * deleting tmp files when a soap fault occurs during file transfers.
+     * 
+     * @param message The message object of the session
+     */
     public void handleMessage(Message message) {
         Collection<Attachment> attachments = message.getExchange().getInMessage().getAttachments();
         if (attachments != null) {
