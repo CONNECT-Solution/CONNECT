@@ -1,41 +1,31 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
- * All rights reserved. 
+ * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * All rights reserved.
  *
- * Redistribution and use in source and binary forms, with or without 
- * modification, are permitted provided that the following conditions are met: 
- *     * Redistributions of source code must retain the above 
- *       copyright notice, this list of conditions and the following disclaimer. 
- *     * Redistributions in binary form must reproduce the above copyright 
- *       notice, this list of conditions and the following disclaimer in the documentation 
- *       and/or other materials provided with the distribution. 
- *     * Neither the name of the United States Government nor the 
- *       names of its contributors may be used to endorse or promote products 
- *       derived from this software without specific prior written permission. 
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *     * Redistributions of source code must retain the above
+ *       copyright notice, this list of conditions and the following disclaimer.
+ *     * Redistributions in binary form must reproduce the above copyright
+ *       notice, this list of conditions and the following disclaimer in the documentation
+ *       and/or other materials provided with the distribution.
+ *     * Neither the name of the United States Government nor the
+ *       names of its contributors may be used to endorse or promote products
+ *       derived from this software without specific prior written permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
- * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
- * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY 
- * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES 
- * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
- * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND 
- * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
- * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package gov.hhs.fha.nhinc.gateway.executorservice;
 
-import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.connectmgr.UrlInfo;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscovery201305Processor;
-import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditLogger;
-import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditor;
-import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryPolicyChecker;
-import gov.hhs.fha.nhinc.saml.extraction.SamlTokenCreator;
-import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201306Transforms;
 import ihe.iti.xcpd._2009.RespondingGatewayPortType;
 import ihe.iti.xcpd._2009.RespondingGatewayService;
 
@@ -55,15 +45,30 @@ import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.connectmgr.UrlInfo;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscovery201305Processor;
+import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditLogger;
+import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditor;
+import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryPolicyChecker;
+import gov.hhs.fha.nhinc.saml.extraction.SamlTokenCreator;
+import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201306Transforms;
+
 /**
  * Implements the Nhin PatientDiscovery web service client that calls this web service Defines the specific generics to
  * be used as follows Target is a gov.hhs.fha.nhinc.connectmgr.data.UrlInfo object Request is an
  * org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType object Response is an org.hl7.v3.PRPAIN201306UV02 object
- * ResponseWrapper contains the Response, Request and Target
- * 
+ * ResponseWrapper contains the Response, Request and Target.
+ *
  * @author paul.eftis
+ *
+ * @param <Target>
+ * @param <Request>
+ * @param <Response>
  */
-public class PDClient<Target extends UrlInfo, Request extends RespondingGatewayPRPAIN201305UV02RequestType, Response extends ResponseWrapper>
+public class PDClient<Target extends UrlInfo, Request extends RespondingGatewayPRPAIN201305UV02RequestType,
+    Response extends ResponseWrapper>
         implements WebServiceClient<Target, Request, Response> {
 
     private static Log log = LogFactory.getLog(PDClient.class);
@@ -73,8 +78,13 @@ public class PDClient<Target extends UrlInfo, Request extends RespondingGatewayP
 
     private AssertionType assertion = null;
 
-    public PDClient(AssertionType a) {
-        assertion = a;
+    /**
+     * Public constructor for PDClient.
+     *
+     * @param assertionType is of type AssertionType
+     */
+    public PDClient(AssertionType assertionType) {
+        this.assertion = assertionType;
     }
 
     // implement singleton pattern using double null check pattern
@@ -99,51 +109,43 @@ public class PDClient<Target extends UrlInfo, Request extends RespondingGatewayP
     }
 
     /**
-     * Implements all connect logic to generate web service call
-     * 
+     * Implements all connect logic to generate web service call.
+     *
      * Updates RespondingGatewayPRPAIN201305UV02RequestType for the target Checks policy through
      * PatientDiscoveryPolicyChecker (if policy false returns PRPAIN201306UV02 with error set
-     * 
+     *
      * Note that web service client timeouts set to InitServlet.getTimeoutValues().get("DQConnectTimeout") and
      * InitServlet.getTimeoutValues().get("DQRequestTimeout"))
-     * 
-     * @param t is UrlInfo target with url to call
-     * @param r is RespondingGatewayPRPAIN201305UV02RequestType request to send in web service call
+     *
+     * @param target is UrlInfo target with url to call
+     * @param request is RespondingGatewayPRPAIN201305UV02RequestType request to send in web service call
      * @return Response is PRPAIN201306UV02 returned
      * @throws Exception
      */
     @SuppressWarnings("static-access")
     @Override
-    public Response callWebService(Target t, Request r) throws Exception {
+    public Response callWebService(Target target, Request request) throws Exception {
         ResponseWrapper resp = null;
         PRPAIN201306UV02 discoveryResponse = null;
         RespondingGatewayPRPAIN201305UV02RequestType newRequest = null;
         try {
             // create a new request to send out to each target community
-            newRequest = createNewRequest(r, assertion, t);
+            newRequest = createNewRequest(request, assertion, target);
 
             // check the policy for the outgoing request to the target community
             boolean bIsPolicyOk = checkPolicy(newRequest, assertion);
             if (bIsPolicyOk) {
                 // Audit the patientDiscovery Request Message sent on the Nhin Interface
                 PatientDiscoveryAuditor auditLog = new PatientDiscoveryAuditLogger();
-                AcknowledgementType ack = auditLog.auditEntity201305(newRequest, assertion,
-                        NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
-                String serviceAddress = t.getUrl();
+                auditLog.auditEntity201305(newRequest, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
+                String serviceAddress = target.getUrl();
 
                 RespondingGatewayPortType servicePort = getWebServiceInstance().getRespondingGatewayPortSoap();
                 Map requestContext = ((BindingProvider) servicePort).getRequestContext();
                 requestContext.put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, serviceAddress);
-                // set the urlconnection timeout and read timeout for the web service call
-                // requestContext.put(NhincConstants.CONNECT_TIMEOUT_NAME,
-                // ExecutorServiceHelper.getInstance().getTimeoutValues().
-                // get(NhincConstants.PATIENT_DISCOVERY_CONNECT_TIMEOUT));
-                // requestContext.put(NhincConstants.REQUEST_TIMEOUT_NAME,
-                // ExecutorServiceHelper.getInstance().getTimeoutValues().
-                // get(NhincConstants.PATIENT_DISCOVERY_REQUEST_TIMEOUT));
-                // set saml assertion on requestContext
-                Map samlMap = (new SamlTokenCreator()).CreateRequestContext(assertion, serviceAddress,
-                        NhincConstants.PATIENT_DISCOVERY_ACTION);
+                Map samlMap =
+                        (new SamlTokenCreator()).CreateRequestContext(assertion, serviceAddress,
+                                NhincConstants.PATIENT_DISCOVERY_ACTION);
                 requestContext.putAll(samlMap);
 
                 // ensure target hcid is set on request
@@ -153,31 +155,36 @@ public class PDClient<Target extends UrlInfo, Request extends RespondingGatewayP
                         && newRequest.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getId() != null
                         && newRequest.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getId().get(0) != null) {
 
-                    newRequest.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getId().get(0)
-                            .setRoot(t.getHcid());
+                    newRequest.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getId().get(0).setRoot(
+                            target.getHcid());
                     log.debug(Thread.currentThread().getName() + " set Receiver.Device.Id.Root of "
-                            + "PRPAIN201305UV02 request to hcid=" + t.getHcid());
+                            + "PRPAIN201305UV02 request to hcid=" + target.getHcid());
                 }
 
                 log.debug(Thread.currentThread().getName() + " calling serviceAddress=" + serviceAddress
-                        + " for target hcid=" + t.getHcid());
+                        + " for target hcid=" + target.getHcid());
                 discoveryResponse = servicePort.respondingGatewayPRPAIN201305UV02(newRequest.getPRPAIN201305UV02());
             } else {
                 log.debug(Thread.currentThread().getName() + " has validPolicy=false");
-                discoveryResponse = (new HL7PRPA201306Transforms()).createPRPA201306ForErrors(
-                        newRequest.getPRPAIN201305UV02(), NhincConstants.PATIENT_DISCOVERY_POLICY_FAILED_ACK_MSG);
+                discoveryResponse =
+                        (new HL7PRPA201306Transforms()).createPRPA201306ForErrors(newRequest.getPRPAIN201305UV02(),
+                                NhincConstants.PATIENT_DISCOVERY_POLICY_FAILED_ACK_MSG);
             }
         } catch (Exception e) {
             ExecutorServiceHelper.getInstance().outputCompleteException(e);
             throw e;
         } finally {
-            resp = new ResponseWrapper(t, newRequest, discoveryResponse);
+            resp = new ResponseWrapper(target, newRequest, discoveryResponse);
         }
         return (Response) resp;
     }
 
     /**
-     * Policy Check verification done here....from connect code
+     * Policy Check verification done here....from connect code.
+     *
+     * @param request request
+     * @param assertion assertion
+     * @return true or false
      */
     protected boolean checkPolicy(RespondingGatewayPRPAIN201305UV02RequestType request, AssertionType assertion) {
         if (request != null) {
@@ -188,19 +195,20 @@ public class PDClient<Target extends UrlInfo, Request extends RespondingGatewayP
 
     /**
      * Create a new RespondingGatewayPRPAIN201305UV02RequestType which has a new PRPAIN201305UV02 cloned from the
-     * original
-     * 
-     * @param request
-     * @param assertion
-     * @param urlInfo
+     * original.
+     *
+     * @param request request
+     * @param assertion assertionType
+     * @param urlInfo urlInfo
      * @return new RespondingGatewayPRPAIN201305UV02RequestType
      */
     protected RespondingGatewayPRPAIN201305UV02RequestType createNewRequest(
             RespondingGatewayPRPAIN201305UV02RequestType request, AssertionType assertion, UrlInfo urlInfo) {
         RespondingGatewayPRPAIN201305UV02RequestType newRequest = new RespondingGatewayPRPAIN201305UV02RequestType();
 
-        PRPAIN201305UV02 new201305 = new PatientDiscovery201305Processor().createNewRequest(
-                cloneRequest(request.getPRPAIN201305UV02()), urlInfo.getHcid());
+        PRPAIN201305UV02 new201305 =
+                new PatientDiscovery201305Processor().createNewRequest(cloneRequest(request.getPRPAIN201305UV02()),
+                        urlInfo.getHcid());
 
         newRequest.setAssertion(assertion);
         newRequest.setPRPAIN201305UV02(new201305);
@@ -210,11 +218,11 @@ public class PDClient<Target extends UrlInfo, Request extends RespondingGatewayP
 
     /**
      * paul added this to generate a new PRPAIN201305UV02 for every PDClient thread rather than a single
-     * PRPAIN201305UV02 for all requests
-     * 
+     * PRPAIN201305UV02 for all requests.
+     *
      * The reason is that otherwise you can get a java.util.ConcurrentModificationException when the PRPAIN201305UV02 is
      * marshalled for audit/policy etc calls in one thread and updated in another thread
-     * 
+     *
      * @param request is original PRPAIN201305UV02
      * @return new PRPAIN201305UV02 object with values set to original
      */

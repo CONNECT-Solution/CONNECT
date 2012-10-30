@@ -5,5 +5,7 @@
             http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <bean id="securityInInterceptor" class="gov.hhs.fha.nhinc.callback.cxf.EndorsingSupportingTokensInterceptor" />
+    <bean id="timestampInInterceptor" class="gov.hhs.fha.nhinc.callback.cxf.largefile.TimestampInterceptor" />
+    <bean id="attachmentFaultOutInterceptor" class="gov.hhs.fha.nhinc.callback.cxf.largefile.AttachmentReleaseFaultOutInterceptor" />
     
 </beans>

@@ -1,28 +1,28 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
- * All rights reserved.
+ * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
+ * All rights reserved. 
  *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
- *     * Redistributions of source code must retain the above
- *       copyright notice, this list of conditions and the following disclaimer.
- *     * Redistributions in binary form must reproduce the above copyright
- *       notice, this list of conditions and the following disclaimer in the documentation
- *       and/or other materials provided with the distribution.
- *     * Neither the name of the United States Government nor the
- *       names of its contributors may be used to endorse or promote products
- *       derived from this software without specific prior written permission.
+ * Redistribution and use in source and binary forms, with or without 
+ * modification, are permitted provided that the following conditions are met: 
+ *     * Redistributions of source code must retain the above 
+ *       copyright notice, this list of conditions and the following disclaimer. 
+ *     * Redistributions in binary form must reproduce the above copyright 
+ *       notice, this list of conditions and the following disclaimer in the documentation 
+ *       and/or other materials provided with the distribution. 
+ *     * Neither the name of the United States Government nor the 
+ *       names of its contributors may be used to endorse or promote products 
+ *       derived from this software without specific prior written permission. 
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
- * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY
- * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
- * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
- * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
- * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
- * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
+ * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY 
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES 
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND 
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
 package gov.hhs.fha.nhinc.docsubmission._11.entity;
 
@@ -91,7 +91,7 @@ import java.util.UUID;
 
 class EntityDocSubmissionImpl {
 
-	private static Log log = null;
+	private static Log log = null;	
 	private static final String configURLParam = "http://localhost:8081/config-service/ConfigurationService";
 	private static SmtpAgent agent;
     private static final String SUBJECT = "Document from CONNECT ";
@@ -100,9 +100,9 @@ class EntityDocSubmissionImpl {
     private static Properties smtpProps = new Properties();
     private static String host, username, password, sender, recipient;
     private static final String HIBERNATE_CONFIG_FILE = "hibernate.cfg.xml";
-
+    
     private static void initData(String protocol){
-  	  try
+  	  try 
   	  {
   		org.hibernate.Session session = null;
   	    File hibernateConfiguration = null;
@@ -124,16 +124,16 @@ class EntityDocSubmissionImpl {
   			MailServer property = (MailServer) iterator.next();
 			if (property.getattributename().equalsIgnoreCase("sender"))
 			{
-					sender = property.getattributevalue();
+					sender = property.getattributevalue();	
 			}
 			else if (property.getattributename().equalsIgnoreCase("recipient"))
 			{
-					recipient = property.getattributevalue();
+					recipient = property.getattributevalue();	
 			}
-
+  			
 			 if (protocol.equalsIgnoreCase("smtp"))
-  			{
-  				if ((property.gettype() != null) && (property.gettype().equalsIgnoreCase(protocol)))
+  			{	
+  				if ((property.gettype() != null) && (property.gettype().equalsIgnoreCase(protocol))) 
   				{
   					if (property.getattributename().equalsIgnoreCase("username"))
   					{
@@ -141,22 +141,22 @@ class EntityDocSubmissionImpl {
   					}
   					else if (property.getattributename().equalsIgnoreCase("password"))
   					{
-  						password = property.getattributevalue();
+  						password = property.getattributevalue();	
   					}
 
   					else
-  					{
+  					{	
   						smtpProps.put(property.getattributename(),property.getattributevalue());
-  					}
+  					}  					
   				}
   			}
   			else if (protocol.equalsIgnoreCase("imap"))
   			{
-  				if ((property.gettype() != null) && (property.gettype().equalsIgnoreCase(protocol)))
+  				if ((property.gettype() != null) && (property.gettype().equalsIgnoreCase(protocol))) 
   				{
   					if (property.getattributename().equalsIgnoreCase("host"))
   					{
-  					    host = property.getattributevalue();
+  					    host = property.getattributevalue();						
   					}
   					else if (property.getattributename().equalsIgnoreCase("username"))
   					{
@@ -164,22 +164,22 @@ class EntityDocSubmissionImpl {
     				}
   					else if (property.getattributename().equalsIgnoreCase("password"))
   					{
-  						password = property.getattributevalue();
+  						password = property.getattributevalue();	
   					}
   				}
   			}
-  		}
+  		}			
   		session.flush();
   		session.close();
   		log.trace("Done - database fetch");
-  		}
+  		} 
   	    catch (Exception ex)
   	    {
   			log.error("Initial SessionFactory creation failed." + ex);
   			throw new ExceptionInInitializerError(ex);
   		}
   	}
-
+    
     private static void copyMessage(MimeMessage message, String folder)
     {
     	String rand = UUID.randomUUID().toString() + ".eml";
@@ -193,9 +193,9 @@ class EntityDocSubmissionImpl {
         	log.error("Failed to copy outbound message: " + e.getMessage(), e);
         }
     }
-
+    
     /************ BEGIN - Send Message **************************************************************/
-
+    
     public static MimeBodyPart createAttachmentFromSOAPRequest(Document data,String name) throws MessagingException, IOException
     {
         DataSource source = new ByteArrayDataSource(data.getValue(),"application/octet-stream");
@@ -207,10 +207,10 @@ class EntityDocSubmissionImpl {
         bodypart.setFileName(name);
         return (MimeBodyPart)bodypart;
     }
-
+    
     public void sendMessage(Document attachment, String name)
     {
-        try
+        try 
         {
        		URL configURL = null;
     		try
@@ -220,9 +220,9 @@ class EntityDocSubmissionImpl {
     		catch (MalformedURLException ex)
     		{
     			log.error("Invalid configuration URL:" + ex.getMessage(), ex);
-
+    	
     		}
-
+    		
     		try
     		{
     			agent = SmtpAgentFactory.createAgent(configURL);
@@ -231,38 +231,38 @@ class EntityDocSubmissionImpl {
     		{
     			log.error("Failed to create the SMTP agent: " + e.getMessage(), e);
     		}
-
+    		
     		try
     		{
     			log.trace("Calling agent.processMessage");
     			initData("smtp");
-    			Session session = Session.getInstance(smtpProps, new SMTPAuthenticator());
-                MimeMessage message =  new MimeMessage(session);
+    			Session session = Session.getInstance(smtpProps, new SMTPAuthenticator());    			
+                MimeMessage message =  new MimeMessage(session);       
                 message.setFrom(new InternetAddress(sender));
                 message.addRecipient(Message.RecipientType.TO,new InternetAddress(recipient));
                 message.setSubject(SUBJECT);
                 MimeBodyPart messagePart = new MimeBodyPart();
                 messagePart.setText(TEXT);
-
-                MimeBodyPart attachmentPart = createAttachmentFromSOAPRequest(attachment,name);
+                
+                MimeBodyPart attachmentPart = createAttachmentFromSOAPRequest(attachment,name);     
                 Multipart multipart = new MimeMultipart();
                 multipart.addBodyPart(messagePart);
                 multipart.addBodyPart(attachmentPart);
                 message.setContent(multipart);
                 message.saveChanges();
 
-                Address recipAddr = new InternetAddress(recipient);
+                Address recipAddr = new InternetAddress(recipient);       		
                 NHINDAddressCollection recipients = new NHINDAddressCollection();
-                recipients.add(new NHINDAddress(recipAddr.toString(), (AddressSource)null));
+                recipients.add(new NHINDAddress(recipAddr.toString(), (AddressSource)null));                
                 InternetAddress senderAddr = new InternetAddress(sender);
-                NHINDAddress directsender = new NHINDAddress(senderAddr, AddressSource.From);
+                NHINDAddress directsender = new NHINDAddress(senderAddr, AddressSource.From);	
     			MessageProcessResult result = agent.processMessage(message, recipients, directsender);
     			copyMessage(result.getProcessedMessage().getMessage(), "outbox");
-
+  			
     			log.trace("Finished calling agent.processMessage");
     			Transport transport;
-
-
+    		
+    			
     			if (result.getProcessedMessage() != null)
     			{
     	            transport = session.getTransport("smtps");
@@ -275,30 +275,30 @@ class EntityDocSubmissionImpl {
                     }
     		        catch (AddressException e)
     		        {
-    		            log.error("Failed to process message: " + e.getMessage(), e);
+    		            log.error("Failed to process message: " + e.getMessage(), e);	
     		        }
-                    finally
+                    finally 
                     {
                         transport.close();
                     }
                 }
-
+                
     	     }
     		catch (Exception e)
     		{
-		    	log.error("Failed to process message: " + e.getMessage(), e);
+		    	log.error("Failed to process message: " + e.getMessage(), e);	
     		}
-        }
-        catch (Exception e)
+        } 
+        catch (Exception e) 
         {
         	 log.error(
                      "Failed to call the sendMessage in EntityDocSubmissionImpl.  An unexpected exception occurred.  " + "Exception: "
                              + e.getMessage(), e);
         }
     }
-
-
-
+    
+ 
+   
     private static class SMTPAuthenticator extends javax.mail.Authenticator
     {
     	@Override
@@ -307,16 +307,16 @@ class EntityDocSubmissionImpl {
             return new PasswordAuthentication(username, password);
         }
     }
-
-
+    
+    
     /************ END - Send Message **************************************************************/
-
+    
     public static void processMDNMessage(MessageProcessResult result) {
     	Transport transport = null;
     	try
-    	{
+    	{	
     		initData("smtp");
-    		Session session = Session.getInstance(smtpProps, new SMTPAuthenticator());
+    		Session session = Session.getInstance(smtpProps, new SMTPAuthenticator());    
     		if (result.getProcessedMessage() != null)
     		{
     			transport = session.getTransport("smtps");
@@ -326,7 +326,7 @@ class EntityDocSubmissionImpl {
              	InternetAddress[] addressTo = new InternetAddress[1];
                	addressTo[0] = new InternetAddress(sender);
     			Collection<NotificationMessage> notifications = result.getNotificationMessages();
-    			log.info("# of notifications message: " + notifications.size());
+    			log.info("# of notifications message: " + notifications.size());	
     			if (notifications != null && notifications.size() > 0)
     			{
     				for (NotificationMessage mdnMsg : notifications)
@@ -340,12 +340,12 @@ class EntityDocSubmissionImpl {
     	}
     	catch (Exception e)
     	{
-    		log.error("Failed to process message: " + e.getMessage(), e);
+    		log.error("Failed to process message: " + e.getMessage(), e);	
     	}
      }
-
+    
     /************ BEGIN - Receive Message **************************************************************/
-
+ 
     public void receiveMessage(Document attachment, String name) {
   	  Folder inbox;
   	  Store store;
@@ -362,8 +362,8 @@ class EntityDocSubmissionImpl {
                 FlagTerm ft = new FlagTerm(new Flags(Flags.Flag.SEEN), false);
                 Message messages[] = inbox.search(ft);
                 Message message[] = reverseMessageOrder(messages);
-
-	              for (int i = 0; i < 1; i++)
+				
+	              for (int i = 0; i < 1; i++) 
 	              {
 	                Format formatter = new SimpleDateFormat("MM/dd/yy");
 	                String sentDate =  formatter.format(message[i].getSentDate());
@@ -377,15 +377,15 @@ class EntityDocSubmissionImpl {
 		                	Object content = message[i].getContent();
 	                	}
 	                }
-	              }
+	              }    
 	  			inbox.close(true);
     	        store.close();
 
-             }
-            catch (Exception e)
+             } 
+            catch (Exception e) 
             {
                e.printStackTrace();
-            }
+            }           
 
    }
 
@@ -413,24 +413,24 @@ class EntityDocSubmissionImpl {
     	{
     		Address recipAddr = new InternetAddress(recipient);
     		NHINDAddressCollection recipients = new NHINDAddressCollection();
-    		recipients.add(new NHINDAddress(recipAddr.toString(), (AddressSource)null));
+    		recipients.add(new NHINDAddress(recipAddr.toString(), (AddressSource)null));                
     		InternetAddress senderAddr = new InternetAddress(sender);
     		NHINDAddress sender = new NHINDAddress(senderAddr, AddressSource.From);
     		org.nhindirect.stagent.mail.Message msg = new org.nhindirect.stagent.mail.Message(message);
     		MessageProcessResult result = agent.processMessage(message, recipients, sender);
-
+    		
     		Collection<NotificationMessage> notifications = result.getNotificationMessages();
-			log.info("# of notifications message: " + notifications.size());
+			log.info("# of notifications message: " + notifications.size());	
 			if (notifications != null && notifications.size() > 0)
 			{
 				copyMessage( result.getProcessedMessage().getMessage(), "inbox");
-
+				
 				processMDNMessage(result);
 			}
 			else
-			{
+			{	
 				copyMessage( message, "inbox");
-			}
+			}      		
     	}
     	catch (Exception ex)
     	{
@@ -447,10 +447,10 @@ class EntityDocSubmissionImpl {
 		}
 		return revMessages;
 	   }
-
+    
    /************ END - Receive Message **************************************************************/
-
-
+   
+   
     public EntityDocSubmissionImpl() {
        log = createLogger();
     }
@@ -463,24 +463,24 @@ class EntityDocSubmissionImpl {
         return new WebServiceHelper();
     }
 
-
+    
 
     RegistryResponseType provideAndRegisterDocumentSetBUnsecured(
             RespondingGatewayProvideAndRegisterDocumentSetRequestType request, WebServiceContext context) {
         log.info("Begin EntityDocSubmissionImpl.provideAndRegisterDocumentSetBUnsecured(RespondingGatewayProvideAndRegisterDocumentSetRequestType, WebServiceContext)");
-
+       
         RegistryResponseType response = null;
         WebServiceHelper oHelper = createWebServiceHelper();
         EntityDocSubmissionOrchImpl implOrch = createEntityDocSubmissionOrchImpl();
         try {
             if (request != null) {
                 ProvideAndRegisterDocumentSetRequestType msg = request.getProvideAndRegisterDocumentSetRequest();
-
+                
                 if (msg.getSubmitObjectsRequest().getId().equalsIgnoreCase("send"))
                 {
                 	log.info("------------------------------------------------------------------");
                 	log.info("Begin - Sending mail to responding gateway mail server");
-                	sendMessage(msg.getDocument().get(0), ATTACHMENT_NAME);
+                	sendMessage(msg.getDocument().get(0), ATTACHMENT_NAME);  
                 	log.info("End - Mail sent to responding gateway mail server");
                 	log.info("------------------------------------------------------------------");
                 }
@@ -488,11 +488,11 @@ class EntityDocSubmissionImpl {
                 {
                 	log.info("------------------------------------------------------------------");
                 	log.info("Begin - Receiving mail from responding gateway mail server");
-                	receiveMessage(msg.getDocument().get(0), ATTACHMENT_NAME);
+                	receiveMessage(msg.getDocument().get(0), ATTACHMENT_NAME);  
                 	log.info("End - Mail received from responding gateway mail server");
                 	log.info("------------------------------------------------------------------");
                 }
-
+               
 
                 NhinTargetCommunitiesType targets = request.getNhinTargetCommunities();
                 AssertionType assertIn = request.getAssertion();
@@ -509,12 +509,12 @@ class EntityDocSubmissionImpl {
                             + ".provideAndRegisterDocumentSetB).  An unexpected exception occurred.  " + "Exception: "
                             + e.getMessage(), e);
         }
-
-
-
-
-
-
+        
+        
+ 
+        
+        
+       
 
         log.info("End EntityDocSubmissionImpl.provideAndRegisterDocumentSetBUnsecured with response: " + response);
         return response;
