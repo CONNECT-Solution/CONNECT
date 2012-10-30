@@ -36,8 +36,18 @@
             <id>websphere</id>
             <modules>
                 <module>ear</module>
+                <module>glassfish</module>
                 <module>websphere</module>
             </modules>
         </profile>
+        <profile>
+            <id>weblogic</id>
+            <modules>
+                <module>ear</module>
+                <module>glassfish</module>
+                <module>weblogic</module>
+            </modules>
+        </profile>
+        
     </profiles>
 </project>

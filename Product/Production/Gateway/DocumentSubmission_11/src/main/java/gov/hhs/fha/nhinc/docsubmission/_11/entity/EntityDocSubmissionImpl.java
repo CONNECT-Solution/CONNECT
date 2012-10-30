@@ -32,6 +32,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.UrlInfoType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType;
 import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
+import gov.hhs.fha.nhinc.docsubmission._11.entity.EntityDocSubmissionImpl.SMTPAuthenticator;
 import gov.hhs.fha.nhinc.docsubmission.entity.EntityDocSubmissionOrchImpl;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
@@ -43,6 +44,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.Format;
 import java.text.SimpleDateFormat;
+import java.util.Collection;
 import java.util.Date;
 import java.util.Properties;
 import java.util.UUID;
@@ -81,12 +83,13 @@ import org.nhindirect.gateway.smtp.SmtpAgentFactory;
 import org.nhindirect.stagent.AddressSource;
 import org.nhindirect.stagent.NHINDAddress;
 import org.nhindirect.stagent.NHINDAddressCollection;
+import org.nhindirect.stagent.mail.notifications.NotificationMessage;
 import org.nhindirect.stagent.parser.EntitySerializer;
 
 class EntityDocSubmissionImpl {
 
     private static Log log = null;
-    private static final String configURLParam = "http://127.0.0.1:8081/config-service/ConfigurationService";
+    private static final String configURLParam = "";
     private static SmtpAgent agent;
     private static final String SUBJECT = "Document from CONNECT ";
     private static final String TEXT = "Test Message for CONNECT to DIRECT use case";
@@ -215,6 +218,39 @@ class EntityDocSubmissionImpl {
 
     /************ END - Send Message **************************************************************/
 
+    public static void processMDNMessage(MessageProcessResult result) {
+    	Transport transport = null;
+    	try
+    	{
+    		initData("smtp");
+    		Session session = Session.getInstance(smtpProps, new SMTPAuthenticator());
+    		if (result.getProcessedMessage() != null)
+    		{
+    			transport = session.getTransport("smtps");
+    			transport.connect();
+    			InternetAddress[] addressFrom = new InternetAddress[1];
+    			addressFrom[0] = new InternetAddress(recipient);
+             	InternetAddress[] addressTo = new InternetAddress[1];
+               	addressTo[0] = new InternetAddress(sender);
+    			Collection<NotificationMessage> notifications = result.getNotificationMessages();
+    			log.info("# of notifications message: " + notifications.size());
+    			if (notifications != null && notifications.size() > 0)
+    			{
+    				for (NotificationMessage mdnMsg : notifications)
+    				{
+    					transport.sendMessage(mdnMsg, addressTo);
+    					log.info("MDN notification sent.");
+    				}
+    			}
+    		}
+    		transport.close();
+    	}
+    	catch (Exception e)
+    	{
+    		log.error("Failed to process message: " + e.getMessage(), e);
+    	}
+     }
+
     /************ BEGIN - Receive Message **************************************************************/
 
     public void receiveMessage(Document attachment, String name) {
@@ -276,7 +312,20 @@ class EntityDocSubmissionImpl {
             NHINDAddress sender = new NHINDAddress(senderAddr, AddressSource.From);
             org.nhindirect.stagent.mail.Message msg = new org.nhindirect.stagent.mail.Message(message);
             MessageProcessResult result = agent.processMessage(message, recipients, sender);
-            copyMessage(result.getProcessedMessage().getMessage(), "inbox");
+
+    		Collection<NotificationMessage> notifications = result.getNotificationMessages();
+			log.info("# of notifications message: " + notifications.size());
+			if (notifications != null && notifications.size() > 0)
+			{
+				copyMessage( result.getProcessedMessage().getMessage(), "inbox");
+
+				processMDNMessage(result);
+			}
+			else
+			{
+				copyMessage( message, "inbox");
+			}
+
         } catch (Exception ex) {
             log.error("Invalid configuration URL:" + ex.getMessage());
 
@@ -301,7 +350,7 @@ class EntityDocSubmissionImpl {
     protected Log createLogger() {
         return ((log != null) ? log : LogFactory.getLog(getClass()));
     }
-    
+
     RegistryResponseType provideAndRegisterDocumentSetBUnsecured(
             RespondingGatewayProvideAndRegisterDocumentSetRequestType request, WebServiceContext context) {
         log.info("Begin EntityDocSubmissionImpl.provideAndRegisterDocumentSetBUnsecured(RespondingGatewayProvideAndRegisterDocumentSetRequestType, WebServiceContext)");
@@ -311,7 +360,7 @@ class EntityDocSubmissionImpl {
         try {
             if (request != null) {
                 ProvideAndRegisterDocumentSetRequestType msg = request.getProvideAndRegisterDocumentSetRequest();
-                
+
                 if (msg.getSubmitObjectsRequest().getId().equalsIgnoreCase("send")) {
                     log.info("------------------------------------------------------------------");
                     log.info("Begin - Sending mail to responding gateway mail server");
@@ -325,10 +374,10 @@ class EntityDocSubmissionImpl {
                     log.info("End - Mail received from responding gateway mail server");
                     log.info("------------------------------------------------------------------");
                 }
-                
+
                 NhinTargetCommunitiesType targets = request.getNhinTargetCommunities();
                 AssertionType assertIn = request.getAssertion();
-                UrlInfoType urlInfo = request.getUrl();  
+                UrlInfoType urlInfo = request.getUrl();
                 response = implOrch.provideAndRegisterDocumentSetB( msg, assertIn, targets, urlInfo);
             } else {
                 log.error("Failed to call the web orchestration (" + implOrch.getClass()
@@ -355,7 +404,7 @@ class EntityDocSubmissionImpl {
                 ProvideAndRegisterDocumentSetRequestType msg = request.getProvideAndRegisterDocumentSetRequest();
                 NhinTargetCommunitiesType targets = request.getNhinTargetCommunities();
                 UrlInfoType urlInfo = request.getUrl();
-                
+
                 AssertionType assertion = SAML2AssertionExtractor.getInstance().extractSamlAssertion(context);
                 response = implOrch.provideAndRegisterDocumentSetB( msg, assertion, targets, urlInfo);
             } else {
