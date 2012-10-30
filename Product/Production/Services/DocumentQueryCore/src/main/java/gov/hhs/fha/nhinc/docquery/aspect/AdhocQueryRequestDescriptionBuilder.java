@@ -26,41 +26,62 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.docretrieve.aspect;
+package gov.hhs.fha.nhinc.docquery.aspect;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-import gov.hhs.fha.nhinc.event.BaseDescriptionBuilderTest;
-import gov.hhs.fha.nhinc.event.EventDescription;
-import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
+import gov.hhs.fha.nhinc.event.BaseEventDescriptionBuilder;
+import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 
-import org.junit.Test;
-import org.springframework.util.CollectionUtils;
+public class AdhocQueryRequestDescriptionBuilder extends BaseEventDescriptionBuilder {
 
-public class RetrieveDocumentSetRequestTypeDescriptionBuilderTest extends BaseDescriptionBuilderTest {
+    private final AdhocQueryRequest request;
 
-    @Test
-    public void emptyBuild() {
-        RetrieveDocumentSetRequestTypeDescriptionBuilder builder = new RetrieveDocumentSetRequestTypeDescriptionBuilder(
-                null);
-        EventDescription eventDescription = getEventDescription(builder);
-        assertNotNull(eventDescription);
+    public AdhocQueryRequestDescriptionBuilder(AdhocQueryRequest request) {
+        this.request = request;
     }
 
-    @Test
-    public void basicBuild() {
-        RetrieveDocumentSetRequestType request = new RetrieveDocumentSetRequestType();
-        RetrieveDocumentSetRequestTypeDescriptionBuilder builder = new RetrieveDocumentSetRequestTypeDescriptionBuilder(
-                request);
-        EventDescription eventDescription = getEventDescription(builder);
-        assertNull(eventDescription.getTimeStamp());
-        assertNull(eventDescription.getStatus());
-        assertNull(eventDescription.getRespondingHCIDs());
-        assertNull(eventDescription.getPayloadType());
-        assertNull(eventDescription.getPayloadSize());
-        assertNull(eventDescription.getNPI());
-        assertNull(eventDescription.getInitiatingHCID());
-        assertTrue(CollectionUtils.isEmpty(eventDescription.getErrorCodes()));
+    @Override
+    public void buildTimeStamp() {
+        // time stamp not available from request
+    }
+
+    @Override
+    public void buildStatus() {
+        // status not a relevant field for requests
+
+    }
+
+    @Override
+    public void buildRespondingHCID() {
+        // responding HCID not relevant for request object
+    }
+
+    @Override
+    public void buildPayloadType() {
+        if (request != null) {
+            setPayLoadType(request.getClass().getSimpleName());
+        }
+    }
+
+    @Override
+    public void buildPayloadSize() {
+        // payload size not available in request
+
+    }
+
+    @Override
+    public void buildNPI() {
+        // NPI not available in request
+
+    }
+
+    @Override
+    public void buildInitiatingHCID() {
+        // initiating HCID not available in request
+
+    }
+
+    @Override
+    public void buildErrorCode() {
+        // error codes not available in request
     }
 }

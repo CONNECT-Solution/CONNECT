@@ -2,6 +2,7 @@
 .project
 .settings
 .metadata
+.checkstyle
 .DS_Store
 *.log
 .externalToolBuilders/

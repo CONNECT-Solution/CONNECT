@@ -26,41 +26,40 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.docretrieve.aspect;
+package gov.hhs.fha.nhinc.event;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-import gov.hhs.fha.nhinc.event.BaseDescriptionBuilderTest;
-import gov.hhs.fha.nhinc.event.EventDescription;
-import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
+import static org.mockito.Mockito.mock;
 
-import org.junit.Test;
-import org.springframework.util.CollectionUtils;
+/**
+ * Helper class for concrete builder test classes. To use this superclass:
+ * 
+ * <pre>
+ * @Test public void myTest() {
+ *   ClassBeingBuiltFrom from = ...;
+ *   // build from up for the test case
+ *   ConcreteBuilder builder = new ConcreteBuilder(from);  // or however the construction occurs
+ *   EventDescription eventDescription = getEventDescription();
+ *   // do asserts here
+ * }
+ * </pre>
+ */
+public abstract class BaseDescriptionBuilderTest {
 
-public class RetrieveDocumentSetRequestTypeDescriptionBuilderTest extends BaseDescriptionBuilderTest {
-
-    @Test
-    public void emptyBuild() {
-        RetrieveDocumentSetRequestTypeDescriptionBuilder builder = new RetrieveDocumentSetRequestTypeDescriptionBuilder(
-                null);
-        EventDescription eventDescription = getEventDescription(builder);
-        assertNotNull(eventDescription);
+    protected EventDescription getEventDescription(BaseEventDescriptionBuilder builder) {
+        setMsgMocks(builder);
+        return runDirector(builder);
     }
 
-    @Test
-    public void basicBuild() {
-        RetrieveDocumentSetRequestType request = new RetrieveDocumentSetRequestType();
-        RetrieveDocumentSetRequestTypeDescriptionBuilder builder = new RetrieveDocumentSetRequestTypeDescriptionBuilder(
-                request);
-        EventDescription eventDescription = getEventDescription(builder);
-        assertNull(eventDescription.getTimeStamp());
-        assertNull(eventDescription.getStatus());
-        assertNull(eventDescription.getRespondingHCIDs());
-        assertNull(eventDescription.getPayloadType());
-        assertNull(eventDescription.getPayloadSize());
-        assertNull(eventDescription.getNPI());
-        assertNull(eventDescription.getInitiatingHCID());
-        assertTrue(CollectionUtils.isEmpty(eventDescription.getErrorCodes()));
+    private void setMsgMocks(BaseEventDescriptionBuilder builder) {
+        builder.setMsgContext(mock(EventContextAccessor.class));
+        builder.setMsgRouting(mock(MessageRoutingAccessor.class));
     }
+
+    private EventDescription runDirector(BaseEventDescriptionBuilder builder) {
+        EventDescriptionDirector director = new EventDescriptionDirector();
+        director.setEventDescriptionBuilder(builder);
+        director.constructEventDescription();
+        return director.getEventDescription();
+    }
+
 }
