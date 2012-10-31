@@ -28,8 +28,7 @@
  */
 package gov.hhs.fha.nhinc.docquery.aspect;
 
-import gov.hhs.fha.nhinc.event.BaseEventDescriptionBuilder;
-
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.bind.JAXBElement;
@@ -42,6 +41,8 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
 import com.google.common.base.Function;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Lists;
+
+import gov.hhs.fha.nhinc.event.BaseEventDescriptionBuilder;
 
 public class AdhocQueryResponseDescriptionBuilder extends BaseEventDescriptionBuilder {
 
@@ -81,12 +82,14 @@ public class AdhocQueryResponseDescriptionBuilder extends BaseEventDescriptionBu
 
     @Override
     public void buildPayloadType() {
+        List<String> payloadType = new ArrayList<String>();
         if (hasObjectList()) {
             JAXBElement<? extends IdentifiableType> jaxbElement = response.getRegistryObjectList().getIdentifiable()
                     .get(0);
             IdentifiableType value = jaxbElement.getValue();
             ExtrinsicObjectType extrinsicObjectType = (ExtrinsicObjectType) value;
-            super.setPayLoadType(extrinsicObjectType.getObjectType());
+            payloadType.add(extrinsicObjectType.getObjectType());
+            super.setPayLoadType(payloadType);
         }
     }
 

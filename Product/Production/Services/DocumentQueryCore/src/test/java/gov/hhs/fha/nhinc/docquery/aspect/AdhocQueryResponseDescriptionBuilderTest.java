@@ -32,9 +32,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.mockito.Mockito.mock;
-import gov.hhs.fha.nhinc.event.BaseDescriptionBuilderTest;
-import gov.hhs.fha.nhinc.event.EventDescription;
-import gov.hhs.fha.nhinc.gateway.aggregator.document.DocumentConstants;
 
 import java.util.List;
 
@@ -50,6 +47,10 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
 
 import org.junit.Ignore;
 import org.junit.Test;
+
+import gov.hhs.fha.nhinc.event.BaseDescriptionBuilderTest;
+import gov.hhs.fha.nhinc.event.EventDescription;
+import gov.hhs.fha.nhinc.gateway.aggregator.document.DocumentConstants;
 
 public class AdhocQueryResponseDescriptionBuilderTest extends BaseDescriptionBuilderTest {
 
@@ -77,7 +78,7 @@ public class AdhocQueryResponseDescriptionBuilderTest extends BaseDescriptionBui
         assertEquals(1, eventDescription.getRespondingHCIDs().size());
         assertEquals("home", eventDescription.getRespondingHCIDs().get(0));
         assertEquals(DocumentConstants.XDS_QUERY_RESPONSE_EXTRINSIC_OBJCECT_OBJECT_TYPE,
-                eventDescription.getPayloadType());
+                eventDescription.getPayloadType().get(0));
 
         assertNull(eventDescription.getTimeStamp());
         assertNull(eventDescription.getPayloadSize());

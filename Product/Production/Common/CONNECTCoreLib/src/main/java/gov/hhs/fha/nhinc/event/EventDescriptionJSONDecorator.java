@@ -13,8 +13,8 @@ public class EventDescriptionJSONDecorator implements JSONString, EventDescripti
     private static final String ACTION = "action";
     private static final String RESPONSE_ID = "response_ids";
 
-    private EventDescription description;
-    private JSONObject jsonObject;
+    private final EventDescription description;
+    private final JSONObject jsonObject;
 
     private static Log log = LogFactory.getLog(EventDescriptionJSONDecorator.class);
 
@@ -67,7 +67,7 @@ public class EventDescriptionJSONDecorator implements JSONString, EventDescripti
     }
 
     @Override
-    public String getPayloadType() {
+    public List<String> getPayloadType() {
         return description.getPayloadType();
     }
 

@@ -57,7 +57,7 @@ public class EventDescriptionJSONWriterTest {
         }
 
         @Override
-        public String getPayloadType() {
+        public List<String> getPayloadType() {
             // TODO Auto-generated method stub
             return null;
         }

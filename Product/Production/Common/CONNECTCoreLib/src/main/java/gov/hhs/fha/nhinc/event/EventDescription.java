@@ -30,78 +30,78 @@ import java.util.List;
 
 /**
  * Interface defining data expected to be in Event.description.
- * 
+ *
  * @author bhumphrey
- * 
+ *
  */
 public interface EventDescription {
 
     public String getMessageId();
 
     /**
-     * 
+     *
      * @return
      */
     public String getTimeStamp();
 
     /**
      * Message service type (with version).
-     * 
+     *
      * @return
      */
     public String getServiceType();
 
     /**
      * transaction id (this is called "correlation id" in the requirements doc)
-     * 
+     *
      * @return
      */
     public String getTransactionId();
 
     /**
      * Payload Type (C32, C62 etc.).
-     * 
+     *
      * @return
      */
-    public String getPayloadType();
+    public List<String> getPayloadType();
 
     /**
      * Payload Size (message specific).
-     * 
+     *
      * @return
      */
     public String getPayloadSize();
 
     /**
      * HCID for Initiatinggateway.
-     * 
+     *
      * @return
      */
     public String getInitiatingHCID();
 
     /**
      * HCID(s) for Responding gateway(s).
-     * 
+     *
      * @return
      */
     public List<String> getRespondingHCIDs();
 
     /**
-     * 
+     *
      * @return
      */
     public String getNPI();
 
     /**
      * Message status (Success/Failure).
-     * 
+     *
      * @return
      */
     public String getStatus();
 
     /**
      * Error code(s) when failed.
-     * 
+     *
      * @return
      */
     public List<String> getErrorCodes();
@@ -110,7 +110,7 @@ public interface EventDescription {
 
     /**
      * Returns a list of response message ids. Can be an empty list (eg [] ).
-     * 
+     *
      * @return
      */
     public List<String> getResponseMsgIdList();

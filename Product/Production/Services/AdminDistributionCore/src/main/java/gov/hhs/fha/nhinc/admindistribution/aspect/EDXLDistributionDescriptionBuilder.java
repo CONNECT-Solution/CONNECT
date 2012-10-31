@@ -26,7 +26,14 @@
  */
 package gov.hhs.fha.nhinc.admindistribution.aspect;
 
+import java.math.BigInteger;
+import java.util.List;
+
+import oasis.names.tc.emergency.edxl.de._1.ContentObjectType;
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import gov.hhs.fha.nhinc.event.BaseEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.event.EventContextAccessor;
@@ -38,12 +45,14 @@ import gov.hhs.fha.nhinc.event.MessageRoutingAccessor;
  */
 public class EDXLDistributionDescriptionBuilder extends BaseEventDescriptionBuilder {
 
-    EDXLDistribution alert;
+    private EDXLDistribution alert;
+    private static final Log LOG = LogFactory.getLog(EDXLDistributionDescriptionBuilder.class);
+
     /**
      * Public constructor.
      */
-    public EDXLDistributionDescriptionBuilder(EDXLDistribution alert) {
-        this.alert = alert;
+    public EDXLDistributionDescriptionBuilder(EDXLDistribution alertMessage) {
+        this.alert = alertMessage;
     }
 
     /**
@@ -54,46 +63,76 @@ public class EDXLDistributionDescriptionBuilder extends BaseEventDescriptionBuil
         super(msgRouting, msgContext);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     *
      * @see gov.hhs.fha.nhinc.event.EventDescriptionBuilder#buildTimeStamp()
      */
     @Override
     public void buildTimeStamp() {
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     *
      * @see gov.hhs.fha.nhinc.event.EventDescriptionBuilder#buildStatus()
      */
     @Override
     public void buildStatus() {
-
+        // No response in Admin Distribution, so no status to build.
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     *
      * @see gov.hhs.fha.nhinc.event.EventDescriptionBuilder#buildRespondingHCID()
      */
     @Override
     public void buildRespondingHCID() {
-
+        // No response in Admin Distribution
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     *
      * @see gov.hhs.fha.nhinc.event.EventDescriptionBuilder#buildPayloadType()
      */
     @Override
     public void buildPayloadType() {
-
+        //PayloadType not available from EDXLDistribution object. However, type will always be t63.
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     *
      * @see gov.hhs.fha.nhinc.event.EventDescriptionBuilder#buildPayloadSize()
      */
     @Override
     public void buildPayloadSize() {
-
+        if (alert != null) {
+            List<ContentObjectType> contents = alert.getContentObject();
+            BigInteger payloadSize = null;
+            for (ContentObjectType message : contents) {
+                if (message.getXmlContent() != null
+                        || (message.getNonXMLContent() != null && message.getNonXMLContent().getSize() == null)) {
+                    LOG.warn("Paylod size not provided");
+                    payloadSize = null;
+                    break;
+                } else if (payloadSize != null) {
+                    payloadSize = payloadSize.add(message.getNonXMLContent().getSize());
+                } else {
+                    payloadSize = message.getNonXMLContent().getSize();
+                }
+            }
+            if (payloadSize != null) {
+                setPayloadSize(payloadSize.toString());
+            }
+        }
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     *
      * @see gov.hhs.fha.nhinc.event.EventDescriptionBuilder#buildNPI()
      */
     @Override
@@ -101,20 +140,30 @@ public class EDXLDistributionDescriptionBuilder extends BaseEventDescriptionBuil
 
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     *
      * @see gov.hhs.fha.nhinc.event.EventDescriptionBuilder#buildInitiatingHCID()
      */
     @Override
     public void buildInitiatingHCID() {
-
+        if(alert != null) {
+            setInitiatingHCID(alert.getSenderID());
+        }
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     *
      * @see gov.hhs.fha.nhinc.event.EventDescriptionBuilder#buildErrorCode()
      */
     @Override
     public void buildErrorCode() {
-
+        /*
+         * Given that no web services response is defined by this specification, error codes are deferred to the
+         * underlying HTTP specification. 404 - Client unable to contact the server. 500 – Error occurred while
+         * processing.
+         */
     }
 
 }

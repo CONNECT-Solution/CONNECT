@@ -28,8 +28,12 @@
  */
 package gov.hhs.fha.nhinc.docquery.aspect;
 
-import gov.hhs.fha.nhinc.event.BaseEventDescriptionBuilder;
+import java.util.ArrayList;
+import java.util.List;
+
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
+
+import gov.hhs.fha.nhinc.event.BaseEventDescriptionBuilder;
 
 public class AdhocQueryRequestDescriptionBuilder extends BaseEventDescriptionBuilder {
 
@@ -57,8 +61,10 @@ public class AdhocQueryRequestDescriptionBuilder extends BaseEventDescriptionBui
 
     @Override
     public void buildPayloadType() {
+        List<String> payloadType = new ArrayList<String>();
         if (request != null) {
-            setPayLoadType(request.getClass().getSimpleName());
+            payloadType.add(request.getClass().getSimpleName());
+            setPayLoadType(payloadType);
         }
     }
 

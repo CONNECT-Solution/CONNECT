@@ -31,11 +31,12 @@ package gov.hhs.fha.nhinc.docquery.aspect;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
-import gov.hhs.fha.nhinc.event.BaseDescriptionBuilderTest;
-import gov.hhs.fha.nhinc.event.EventDescription;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 
 import org.junit.Test;
+
+import gov.hhs.fha.nhinc.event.BaseDescriptionBuilderTest;
+import gov.hhs.fha.nhinc.event.EventDescription;
 
 public class AdhocQueryRequestDescriptionBuilderTest extends BaseDescriptionBuilderTest {
 
@@ -53,7 +54,7 @@ public class AdhocQueryRequestDescriptionBuilderTest extends BaseDescriptionBuil
         AdhocQueryRequestDescriptionBuilder builder = new AdhocQueryRequestDescriptionBuilder(request);
         EventDescription eventDescription = getEventDescription(builder);
 
-        assertEquals(AdhocQueryRequest.class.getSimpleName(), eventDescription.getPayloadType());
+        assertEquals(AdhocQueryRequest.class.getSimpleName(), eventDescription.getPayloadType().get(0));
 
         assertNull(eventDescription.getTimeStamp());
         assertNull(eventDescription.getStatus());
