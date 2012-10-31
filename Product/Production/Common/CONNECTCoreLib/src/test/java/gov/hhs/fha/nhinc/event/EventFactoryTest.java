@@ -28,10 +28,19 @@ package gov.hhs.fha.nhinc.event;
 
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertTrue;
+import gov.hhs.fha.nhinc.event.error.MessageProcessingFailedEvent;
+import gov.hhs.fha.nhinc.event.initiator.BeginNwhinInvocationEvent;
 import gov.hhs.fha.nhinc.event.initiator.BeginOutboundMessageEvent;
 import gov.hhs.fha.nhinc.event.initiator.BeginOutboundProcessingEvent;
+import gov.hhs.fha.nhinc.event.initiator.EndNwhinInvocationEvent;
+import gov.hhs.fha.nhinc.event.initiator.EndOutboundMessageEvent;
+import gov.hhs.fha.nhinc.event.initiator.EndOutboundProcessingEvent;
+import gov.hhs.fha.nhinc.event.responder.BeginAdapterDelegationEvent;
 import gov.hhs.fha.nhinc.event.responder.BeginInboundMessageEvent;
+import gov.hhs.fha.nhinc.event.responder.BeginInboundProcessingEvent;
+import gov.hhs.fha.nhinc.event.responder.EndAdapterDelegationEvent;
 import gov.hhs.fha.nhinc.event.responder.EndInboundMessageEvent;
+import gov.hhs.fha.nhinc.event.responder.EndInboundProcessingEvent;
 
 import org.apache.commons.logging.Log;
 import org.jmock.Mockery;
@@ -92,22 +101,63 @@ public class EventFactoryTest {
         assertNotSame(first, second);
     }
 
-    // public Event createBeginNwhinInvocation();
-    //
-    // public Event createEndNwhinInvocation();
-    //
-    // public Event createEndOutboundProcessing();
-    //
-    // public Event createEndOutboundMessage();
-    //
-    // public Event createBeginInboundProcessing();
-    //
-    // public Event createBeginAdapterDelegation();
-    //
-    // public Event createEndAdapterDelegation();
-    //
-    // public Event createEndInboundProcessing();
-    //
-    // public Event createMessageProcessingFailed();
+    @Test
+    public void createBeginNwhinInvocation() {
+        Event event = eventFactory.createBeginNwhinInvocation();
+        assertTrue(event instanceof BeginNwhinInvocationEvent);
+    }
+    
+    @Test
+     public void createEndNwhinInvocation() {
+         Event event = eventFactory.createEndNwhinInvocation();
+         assertTrue(event instanceof EndNwhinInvocationEvent);
+         
+     }
+    
+    @Test
+     public void createEndOutboundProcessing() {
+         Event event = eventFactory.createEndOutboundProcessing();
+         assertTrue(event instanceof EndOutboundProcessingEvent);
+         
+     }
+    
+    @Test
+     public void createEndOutboundMessage() {
+         Event event = eventFactory.createEndOutboundMessage();
+         assertTrue(event instanceof EndOutboundMessageEvent);
+         
+     }
+    
+    @Test
+     public void createBeginInboundProcessing() {
+         Event event = eventFactory.createBeginInboundProcessing();
+         assertTrue(event instanceof BeginInboundProcessingEvent);
+         
+     }
+    
+    @Test
+     public void createBeginAdapterDelegation() {
+         Event event = eventFactory.createBeginAdapterDelegation();
+         assertTrue(event instanceof BeginAdapterDelegationEvent);
+     }
+    
+    @Test
+     public void createEndAdapterDelegation() {
+        Event event = eventFactory.createEndAdapterDelegation();
+        assertTrue(event instanceof EndAdapterDelegationEvent);  
+     }
+    
+    @Test
+     public void createEndInboundProcessing() {
+         Event event = eventFactory.createEndInboundProcessing();
+         assertTrue(event instanceof EndInboundProcessingEvent);  
+         
+     }
+    
+    @Test
+     public void createMessageProcessingFailed() {
+        Event event = eventFactory.createMessageProcessingFailed();
+        assertTrue(event instanceof MessageProcessingFailedEvent); 
+     }
 
 }
