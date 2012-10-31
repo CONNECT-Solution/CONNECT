@@ -57,8 +57,8 @@
         </dependency>
     </dependencies>
     <build>
-        <!-- Caution: If <resources> or <testResources> is overridden by 
-            a child POM then all <resource> and <testResouce> elements will need to be 
+        <!-- Caution: If <resources> or <testResources> is overridden by
+            a child POM then all <resource> and <testResouce> elements will need to be
             placed within the child POM that overrides the <resourcs> or <testResources> -->
         <resources>
             <resource>
@@ -81,8 +81,8 @@
                 <targetPath>${project.build.directory}/wsdl2java-sources</targetPath>
             </resource>
             <resource>
-                <!-- This is used to exclude the maven-remote-resources-plugin 
-                    content of <id>unpack-xsd-files</id> so it is NOT included in the archive 
+                <!-- This is used to exclude the maven-remote-resources-plugin
+                    content of <id>unpack-xsd-files</id> so it is NOT included in the archive
                     generated / packaged -->
                 <directory>${project.build.directory}/wsdl2java-sources</directory>
                 <excludes>
@@ -143,6 +143,7 @@
                     <execution>
                         <phase>process-resources</phase>
                         <configuration>
+                            <skip>${skip.unpack}</skip>
                             <fork>once</fork>
                             <encoding>UTF-8</encoding>
                             <sourceRoot>${project.build.directory}/generated-sources</sourceRoot>
@@ -163,7 +164,7 @@
                                     <extraarg>-wsdlLocation</extraarg>
                                     <extraarg></extraarg>
                                 </extraargs>
-                                <!-- <bindingFiles> <bindingFile>${basedir}/src/main/resources/sun-jaxb.episode</bindingFile> 
+                                <!-- <bindingFiles> <bindingFile>${basedir}/src/main/resources/sun-jaxb.episode</bindingFile>
                                     </bindingFiles> -->
                                 <noAddressBinding>true</noAddressBinding>
                             </defaultOptions>
