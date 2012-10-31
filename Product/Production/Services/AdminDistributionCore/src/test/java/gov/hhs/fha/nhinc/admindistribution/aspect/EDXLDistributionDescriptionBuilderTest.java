@@ -195,9 +195,9 @@ public class EDXLDistributionDescriptionBuilderTest extends BaseDescriptionBuild
 
     private void assertAlwaysNullAttributes(EventDescription eventDescription) {
         assertNull(eventDescription.getTimeStamp());
-        assertNull(eventDescription.getStatus());
+        assertNull(eventDescription.getStatuses());
         assertNull(eventDescription.getRespondingHCIDs());
-        assertTrue(CollectionUtils.isEmpty(eventDescription.getPayloadType()));
+        assertTrue(CollectionUtils.isEmpty(eventDescription.getPayloadTypes()));
         assertNull(eventDescription.getNPI());
         assertTrue(CollectionUtils.isEmpty(eventDescription.getErrorCodes()));
     }

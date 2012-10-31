@@ -78,7 +78,7 @@ public class EDXLDistributionDescriptionBuilder extends BaseEventDescriptionBuil
      * @see gov.hhs.fha.nhinc.event.EventDescriptionBuilder#buildStatus()
      */
     @Override
-    public void buildStatus() {
+    public void buildStatuses() {
         // No response in Admin Distribution, so no status to build.
     }
 
@@ -88,7 +88,7 @@ public class EDXLDistributionDescriptionBuilder extends BaseEventDescriptionBuil
      * @see gov.hhs.fha.nhinc.event.EventDescriptionBuilder#buildRespondingHCID()
      */
     @Override
-    public void buildRespondingHCID() {
+    public void buildRespondingHCIDs() {
         // No response in Admin Distribution
     }
 
@@ -98,7 +98,7 @@ public class EDXLDistributionDescriptionBuilder extends BaseEventDescriptionBuil
      * @see gov.hhs.fha.nhinc.event.EventDescriptionBuilder#buildPayloadType()
      */
     @Override
-    public void buildPayloadType() {
+    public void buildPayloadTypes() {
         //PayloadType not available from EDXLDistribution object. However, type will always be t63.
     }
 
@@ -158,7 +158,7 @@ public class EDXLDistributionDescriptionBuilder extends BaseEventDescriptionBuil
      * @see gov.hhs.fha.nhinc.event.EventDescriptionBuilder#buildErrorCode()
      */
     @Override
-    public void buildErrorCode() {
+    public void buildErrorCodes() {
         /*
          * Given that no web services response is defined by this specification, error codes are deferred to the
          * underlying HTTP specification. 404 - Client unable to contact the server. 500 – Error occurred while
