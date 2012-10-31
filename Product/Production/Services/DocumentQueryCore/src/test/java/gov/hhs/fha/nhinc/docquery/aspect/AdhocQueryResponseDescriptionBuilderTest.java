@@ -42,9 +42,12 @@ import javax.xml.bind.JAXBElement;
 import javax.xml.namespace.QName;
 
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
+import oasis.names.tc.ebxml_regrep.xsd.rim._3.ClassificationType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.ExtrinsicObjectType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.IdentifiableType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryObjectListType;
+import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1;
+import oasis.names.tc.ebxml_regrep.xsd.rim._3.ValueListType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
 
@@ -63,7 +66,7 @@ public class AdhocQueryResponseDescriptionBuilderTest extends BaseDescriptionBui
     public void basicBuild() {
         AdhocQueryResponse response = new AdhocQueryResponse();
         response.setStatus(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_PARTIAL_SUCCESS);
-        addQueryResult(response, DocumentConstants.XDS_QUERY_RESPONSE_EXTRINSIC_OBJCECT_OBJECT_TYPE);
+        addQueryResult(response, "payloadType");
 
         AdhocQueryResponseDescriptionBuilder builder = new AdhocQueryResponseDescriptionBuilder(response);
         EventDescription eventDescription = getEventDescription(builder);
@@ -73,8 +76,7 @@ public class AdhocQueryResponseDescriptionBuilderTest extends BaseDescriptionBui
         assertEquals(1, eventDescription.getRespondingHCIDs().size());
         assertEquals("home", eventDescription.getRespondingHCIDs().get(0));
         assertEquals(1, eventDescription.getPayloadTypes().size());
-        assertEquals(DocumentConstants.XDS_QUERY_RESPONSE_EXTRINSIC_OBJCECT_OBJECT_TYPE, eventDescription
-                .getPayloadTypes().get(0));
+        assertEquals("payloadType", eventDescription.getPayloadTypes().get(0));
 
         assertNull(eventDescription.getTimeStamp());
         assertNull(eventDescription.getPayloadSize());
@@ -101,17 +103,15 @@ public class AdhocQueryResponseDescriptionBuilderTest extends BaseDescriptionBui
     public void mixedPayloadTypes() {
         AdhocQueryResponse response = new AdhocQueryResponse();
 
-        addQueryResult(response, DocumentConstants.XDS_QUERY_RESPONSE_EXTRINSIC_OBJCECT_OBJECT_TYPE);
-        addQueryResult(response, DocumentConstants.XDS_QUERY_RESPONSE_EXTRINSIC_OBJCECT_OBJECT_TYPE + "alt");
+        addQueryResult(response, "payloadType");
+        addQueryResult(response, "payloadType2");
 
         AdhocQueryResponseDescriptionBuilder builder = new AdhocQueryResponseDescriptionBuilder(response);
         EventDescription eventDescription = getEventDescription(builder);
 
         assertEquals(2, eventDescription.getPayloadTypes().size());
-        assertEquals(DocumentConstants.XDS_QUERY_RESPONSE_EXTRINSIC_OBJCECT_OBJECT_TYPE, eventDescription
-                .getPayloadTypes().get(0));
-        assertEquals(DocumentConstants.XDS_QUERY_RESPONSE_EXTRINSIC_OBJCECT_OBJECT_TYPE + "alt", eventDescription
-                .getPayloadTypes().get(1));
+        assertEquals("payloadType", eventDescription.getPayloadTypes().get(0));
+        assertEquals("payloadType2", eventDescription.getPayloadTypes().get(1));
     }
 
     private void addError(AdhocQueryResponse response, RegistryError error) {
@@ -121,12 +121,45 @@ public class AdhocQueryResponseDescriptionBuilderTest extends BaseDescriptionBui
         registryError.add(error);
     }
 
-    private void addQueryResult(AdhocQueryResponse response, String objectType) {
+    private void addQueryResult(AdhocQueryResponse response, String payloadType) {
         ExtrinsicObjectType extrinsicObject = new ExtrinsicObjectType();
         extrinsicObject.setStatus(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_SUCCESS);
         extrinsicObject.setHome("home");
-        extrinsicObject.setObjectType(objectType);
+
+        addPayloadType(extrinsicObject, payloadType);
+
         addQueryResult(response, extrinsicObject);
+    }
+
+    private void addPayloadType(ExtrinsicObjectType extrinsicObject, String payloadType) {
+        ClassificationType classificatonType = addClassification(extrinsicObject);
+        SlotType1 slotType = addSlot(classificatonType);
+        addValue(payloadType, slotType);
+    }
+
+    private ClassificationType addClassification(ExtrinsicObjectType extrinsicObject) {
+        ClassificationType classificatonType = new ClassificationType();
+        extrinsicObject.getClassification().add(classificatonType);
+        classificatonType.setNodeRepresentation(DocumentConstants.EBXML_RESPONSE_NODE_REPRESENTATION_FORMAT_CODE);
+        return classificatonType;
+    }
+
+    private SlotType1 addSlot(ClassificationType classificatonType) {
+        SlotType1 slotType = new SlotType1();
+        classificatonType.getSlot().add(slotType);
+
+        slotType.setName(DocumentConstants.EBXML_RESPONSE_CODE_CODESCHEME_SLOTNAME);
+        return slotType;
+    }
+
+    private void addValue(String payloadType, SlotType1 slotType) {
+        ValueListType valueListType = slotType.getValueList();
+        if (valueListType == null) {
+            valueListType = new ValueListType();
+            slotType.setValueList(valueListType);
+        }
+
+        valueListType.getValue().add(payloadType);
     }
 
     private void addQueryResult(AdhocQueryResponse response, ExtrinsicObjectType extrinsicObject) {

@@ -29,19 +29,25 @@
 package gov.hhs.fha.nhinc.docquery.aspect;
 
 import gov.hhs.fha.nhinc.event.BaseEventDescriptionBuilder;
+import gov.hhs.fha.nhinc.gateway.aggregator.document.DocumentConstants;
 
 import java.util.List;
 
 import javax.xml.bind.JAXBElement;
 
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
+import oasis.names.tc.ebxml_regrep.xsd.rim._3.ClassificationType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.ExtrinsicObjectType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.IdentifiableType;
+import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
 
 import com.google.common.base.Function;
+import com.google.common.base.Optional;
+import com.google.common.base.Predicate;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 
 public class AdhocQueryResponseDescriptionBuilder extends BaseEventDescriptionBuilder {
@@ -79,10 +85,12 @@ public class AdhocQueryResponseDescriptionBuilder extends BaseEventDescriptionBu
 
     @Override
     public void buildPayloadTypes() {
+        // RegistryObjectList/ExtrinsicObject/Classification[@nodeRepresentation="formatCode"]/Slot[@name="codingScheme"]/ValueList/Value[1]
         if (hasObjectList()) {
-            List<String> listWithDups = Lists.transform(response.getRegistryObjectList().getIdentifiable(),
+            List<Optional<String>> listWithDups = Lists.transform(response.getRegistryObjectList().getIdentifiable(),
                     PAYLOAD_TYPE_EXTRACTOR);
-            setPayLoadTypes(ImmutableSet.copyOf(listWithDups).asList());
+
+            setPayLoadTypes(ImmutableSet.copyOf(Optional.presentInstances(listWithDups)).asList());
         }
     }
 
@@ -140,13 +148,54 @@ public class AdhocQueryResponseDescriptionBuilder extends BaseEventDescriptionBu
         }
     }
 
-    private static class PayloadTypeExtractor implements Function<JAXBElement<? extends IdentifiableType>, String> {
+    /**
+     * Finds this deep value, if it is present:
+     * 
+     * <pre>
+     * RegistryObjectList/ExtrinsicObject/Classification[@nodeRepresentation="formatCode"]/Slot[@name="codingScheme"]/ValueList/Value[1]
+     * </Pre>
+     */
+    private static class PayloadTypeExtractor implements
+            Function<JAXBElement<? extends IdentifiableType>, Optional<String>> {
 
         @Override
-        public String apply(JAXBElement<? extends IdentifiableType> jaxbElement) {
+        public Optional<String> apply(JAXBElement<? extends IdentifiableType> jaxbElement) {
             IdentifiableType value = jaxbElement.getValue();
             ExtrinsicObjectType extrinsicObjectType = (ExtrinsicObjectType) value;
-            return extrinsicObjectType.getObjectType();
+
+            Optional<ClassificationType> classificationType = findClassificationType(extrinsicObjectType);
+            if (!classificationType.isPresent()) {
+                return Optional.absent();
+            }
+
+            Optional<SlotType1> slot = findSlotType(classificationType.get());
+            if (!slot.isPresent()) {
+                return Optional.absent();
+            }
+
+            return Optional.of(slot.get().getValueList().getValue().get(0));
+        }
+
+        private Optional<ClassificationType> findClassificationType(ExtrinsicObjectType extrinsicObjectType) {
+            Predicate<ClassificationType> typePredicate = new Predicate<ClassificationType>() {
+                @Override
+                public boolean apply(ClassificationType type) {
+                    return DocumentConstants.EBXML_RESPONSE_NODE_REPRESENTATION_FORMAT_CODE.equals(type
+                            .getNodeRepresentation());
+                }
+            };
+            return Iterables.tryFind(extrinsicObjectType.getClassification(), typePredicate);
+        }
+
+        private Optional<SlotType1> findSlotType(ClassificationType classificationType) {
+            Predicate<SlotType1> slotPredicate = new Predicate<SlotType1>() {
+                @Override
+                public boolean apply(SlotType1 slot) {
+                    return DocumentConstants.EBXML_RESPONSE_CODE_CODESCHEME_SLOTNAME.equals(slot.getName())
+                            && slot.getValueList() != null && !slot.getValueList().getValue().isEmpty();
+                }
+            };
+            return Iterables.tryFind(classificationType.getSlot(), slotPredicate);
         }
     }
 }
