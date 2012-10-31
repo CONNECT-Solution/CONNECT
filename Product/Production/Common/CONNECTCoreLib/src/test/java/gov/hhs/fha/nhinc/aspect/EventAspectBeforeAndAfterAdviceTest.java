@@ -52,34 +52,44 @@ public class EventAspectBeforeAndAfterAdviceTest {
 
     private Class<EventAspectAdvice> clazz = EventAspectAdvice.class;
     private Class<?> annotationClass;
-    private String methodName;
+    private String beforeMethodName;
+    private String afterMethodName;
 
-    public EventAspectBeforeAndAfterAdviceTest(String methodName, Class<?> annotationClass) {
-        this.methodName = methodName;
+    public EventAspectBeforeAndAfterAdviceTest(String beforeMethodName, String afterMethodName, Class<?> annotationClass) {
+        this.beforeMethodName = beforeMethodName;
         this.annotationClass = annotationClass;
+        this.afterMethodName = afterMethodName;
     }
 
     @Parameters
     public static Collection<Object[]> data() {
         Object[][] data = new Object[][] {
-                { "outboundMessageEvent", OutboundMessageEvent.class },
-                { "inboundMessageEvent", InboundMessageEvent.class },
-                { "outboundProcessingEvent", OutboundProcessingEvent.class },
-                { "inboundProcessingEvent", InboundProcessingEvent.class},
-                { "nwhinInvocationEvent", NwhinInvocationEvent.class},
-                { "adapterDelegationEvent", AdapterDelegationEvent.class} };
+                { "beginOutboundMessageEvent", "endOutboundMessageEvent", OutboundMessageEvent.class },
+                { "beginInboundMessageEvent", "endInboundMessageEvent", InboundMessageEvent.class },
+                { "beginOutboundProcessingEvent", "endOutboundProcessingEvent", OutboundProcessingEvent.class },
+                { "beginInboundProcessingEvent", "endInboundProcessingEvent", InboundProcessingEvent.class},
+                { "beginNwhinInvocationEvent", "endNwhinInvocationEvent", NwhinInvocationEvent.class},
+                { "beginAdapterDelegationEvent","endAdapterDelegationEvent", AdapterDelegationEvent.class} };
         return Arrays.asList(data);
     }
 
     @Test
-    public void verify() throws NoSuchMethodException, SecurityException {
-        Method method = clazz.getMethod(methodName, JoinPoint.class, annotationClass);
+    public void verifyBefore() throws NoSuchMethodException, SecurityException {
+        Method method = clazz.getMethod(beforeMethodName, JoinPoint.class, annotationClass);
         assertNotNull("method exsist with correct parameters", method);
 
         Before beforeAnnotation = method.getAnnotation(Before.class);
         assertNotNull("has before Annotation ", beforeAnnotation);
 
         assertEquals("@annotation(annotation)", beforeAnnotation.value());
+
+    }
+
+    
+    @Test
+    public void verifyAfter() throws NoSuchMethodException, SecurityException {
+        Method method = clazz.getMethod(afterMethodName, JoinPoint.class, annotationClass);
+        assertNotNull("method exsist with correct parameters", method);
 
         After afterAnnotation = method.getAnnotation(After.class);
         assertNotNull("has after Annotation", afterAnnotation);

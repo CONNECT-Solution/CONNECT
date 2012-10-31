@@ -36,6 +36,24 @@ package gov.hhs.fha.nhinc.aspect;
 public interface EventAdviceDelegate {
 
    
-    void outboundMessageEvent(Object[] args, String serviceType, String version);
+    void beginOutboundMessageEvent(Object[] args, String serviceType, String version);   
+    void endOutboundMessageEvent(Object[] args, String serviceType, String version);
+
+    void beginInboundMessageEvent(Object[] args, String serviceType, String version);
+    void endInboundMessageEvent(Object[] args, String serviceType, String version);
+
+    void beginAdapterDelegationEvent(Object[] any, String serviceType, String version);
+    void endAdapterDelegationEvent(Object[] any, String serviceType, String version);
+
+    void beginInboundProcessingEvent(Object[] any, String serviceType, String version);
+    void endInboundProcessingEvent(Object[] any, String serviceType, String version);
+
+    void beginOutboundProcessingEvent(Object[] any, String serviceType, String version);
+    void endOutboundProcessingEvent(Object[] any, String serviceType, String version);
+
+    void beginNwhinInvocationEvent(Object[] any, String serviceType, String version);
+    void endNwhinInvocationEvent(Object[] any, String serviceType, String version);
+
+    void failEvent(Object[] any);
 
 }
