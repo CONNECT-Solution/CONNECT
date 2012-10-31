@@ -15,11 +15,7 @@
         necessary since legacy code is generally tightly coupled. -->
    
     <aop:aspectj-autoproxy proxy-target-class="true"/>
-    
-    <bean id="patientDiscoveryEventAspect" class="gov.hhs.fha.nhinc.patientdiscovery.aspect.PatientDiscoveryEventAspect">
-     <property name="EventFactory" ref="eventfactory" /> 
-    </bean>
-    
+      
     <bean id="nhincProxyPatientDiscovery" class="gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.NhincProxyPatientDiscovery">
         <constructor-arg ref="patientDiscoveryServiceFactory" />
     </bean>

@@ -45,7 +45,5 @@
 	<!-- Aspect Service -->
 
 	<aop:aspectj-autoproxy />    
-	<bean id="eventUnsubscribeAspect" class="gov.hhs.fha.nhinc.unsubscribe.aspect.UnsubscribeEventAspect" />
-	<bean id="eventSubscribeAspect" class="gov.hhs.fha.nhinc.subscribe.aspect.SubscribeEventAspect" />
-
+	
 </beans>

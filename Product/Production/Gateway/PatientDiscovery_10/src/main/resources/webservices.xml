@@ -15,14 +15,9 @@
     xsi:schemaLocation="
 http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 http://cxf.apache.org/bindings/soap http://cxf.apache.org/schemas/configuration/soap.xsd
-http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd ">
 
-    <import resource="classpath:META-INF/cxf/cxf.xml" />
-    <import resource="classpath:META-INF/cxf/cxf-extension-soap.xml" />
-    <import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
     
-    
-
     <jaxws:endpoint xmlns:tns="urn:ihe:iti:xcpd:2009" id="RespondingGateway_Service"
         address="/NhinService/NhinPatientDiscovery" serviceName="tns:RespondingGateway_Service"
         endpointName="tns:RespondingGateway_Port_Soap"
@@ -48,22 +43,7 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd http://www.s
 
     <!-- Entity services -->
 
-    <bean id="entityPDOrchestrator"
-        class="gov.hhs.fha.nhinc.patientdiscovery._10.entity.EntityPatientDiscoveryImpl" />
-
-    <bean id="entityPDSecured"
-        class="gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.EntityPatientDiscoverySecured">
-        <property name="orchestratorImpl">
-            <ref bean="entityPDOrchestrator" />
-        </property>
-    </bean>
-
-    <bean id="entityPDUnsecured"
-        class="gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.EntityPatientDiscoveryUnsecured">
-        <property name="orchestratorImpl">
-            <ref bean="entityPDOrchestrator" />
-        </property>
-    </bean>
+   
 
     <jaxws:endpoint
         xmlns:tns="urn:gov:hhs:fha:nhinc:entitypatientdiscoverysecured"
@@ -94,23 +74,7 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd http://www.s
 
     <!-- MsgProxy/NhincProxy/Passthru services -->
 
-    <bean id="passthruPDOrchestrator"
-        class="gov.hhs.fha.nhinc.patientdiscovery._10.passthru.NhincProxyPatientDiscoveryImpl" />
-
-    <bean id="passthruPDSecured"
-        class="gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.NhincProxyPatientDiscoverySecured">
-        <property name="orchestratorImpl">
-            <ref bean="passthruPDOrchestrator" />
-        </property>
-    </bean>
-
-    <bean id="passthruPDUnsecured"
-        class="gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.NhincProxyPatientDiscovery">
-        <property name="orchestratorImpl">
-            <ref bean="passthruPDOrchestrator" />
-        </property>
-    </bean>
-
+   
     <jaxws:endpoint
         xmlns:tns="urn:gov:hhs:fha:nhinc:nhincproxypatientdiscoverysecured"
         id="NhincProxyPatientDiscoverySecured" address="/MsgProxy/NhincProxyPatientDiscoverySecured"
@@ -146,15 +110,6 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd http://www.s
 
     <!-- Nhin services -->
 
-    <bean id="nhinPDReqOrchestrator"
-        class="gov.hhs.fha.nhinc.patientdiscovery._10.deferred.request.NhinPatientDiscoveryAsyncReqImpl" />
-
-    <bean id="nhinPDReq"
-        class="gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.NhinPatientDiscoveryAsyncReq">
-        <property name="orchestratorImpl">
-            <ref bean="nhinPDReqOrchestrator" />
-        </property>
-    </bean>
 
     <jaxws:endpoint xmlns:tns="urn:ihe:iti:xcpd:2009"
         id="RespondingGatewayDeferredRequest_Service" address="/NhinService/NhinPatientDiscoveryAsyncReq"
@@ -184,23 +139,7 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd http://www.s
 
     <!-- Entity services -->
 
-    <bean id="entityPDReqOrchestrator"
-        class="gov.hhs.fha.nhinc.patientdiscovery._10.entity.deferred.request.EntityPatientDiscoveryDeferredRequestImpl" />
-
-    <bean id="entityPDReqSecured"
-        class="gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.EntityPatientDiscoveryDeferredRequestSecured">
-        <property name="orchestratorImpl">
-            <ref bean="entityPDReqOrchestrator" />
-        </property>
-    </bean>
-
-    <bean id="entityPDReqUnsecured"
-        class="gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.EntityPatientDiscoveryDeferredRequestUnsecured">
-        <property name="orchestratorImpl">
-            <ref bean="entityPDReqOrchestrator" />
-        </property>
-    </bean>
-
+   
     <jaxws:endpoint
         xmlns:tns="urn:gov:hhs:fha:nhinc:entitypatientdiscoverysecuredasyncreq"
         id="EntityPatientDiscoverySecuredAsyncReq" address="/EntityService/EntityPatientDiscoveryDeferredRequestSecured"
@@ -238,22 +177,7 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd http://www.s
 
     <!-- MsgProxy/NhincProxy/Passthru services -->
 
-    <bean id="passthruPDReqOrchestrator"
-        class="gov.hhs.fha.nhinc.patientdiscovery._10.passthru.deferred.request.NhincProxyPatientDiscoveryDeferredRequestImpl" />
-
-    <bean id="passthruPDReqSecured"
-        class="gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.NhincProxyPatientDiscoveryDeferredRequestSecured">
-        <property name="orchestratorImpl">
-            <ref bean="passthruPDReqOrchestrator" />
-        </property>
-    </bean>
-
-    <bean id="passthruPDReqUnsecured"
-        class="gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.NhincProxyPatientDiscoveryDeferredRequestUnsecured">
-        <property name="orchestratorImpl">
-            <ref bean="passthruPDReqOrchestrator" />
-        </property>
-    </bean>
+   
 
 
     <jaxws:endpoint
@@ -300,16 +224,6 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd http://www.s
 
     <!-- Nhin services -->
 
-    <bean id="nhinPDRespOrchestrator"
-        class="gov.hhs.fha.nhinc.patientdiscovery._10.deferred.response.NhinPatientDiscoveryAsyncRespImpl" />
-
-    <bean id="nhinPDResp"
-        class="gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.NhinPatientDiscoveryAsyncResp">
-        <property name="orchestratorImpl">
-            <ref bean="nhinPDRespOrchestrator" />
-        </property>
-    </bean>
-
     <jaxws:endpoint xmlns:tns="urn:ihe:iti:xcpd:2009"
         id="RespondingGatewayDeferredResp_Service" address="/NhinService/NhinPatientDiscoveryAsyncResp"
         serviceName="tns:RespondingGatewayDeferredResp_Service"
@@ -338,16 +252,6 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd http://www.s
 
     <!-- Entity services -->
 
-    <bean id="entityPDRespOrchestrator"
-        class="gov.hhs.fha.nhinc.patientdiscovery._10.entity.deferred.response.EntityPatientDiscoveryDeferredResponseImpl" />
-
-    <bean id="entityPDRespSecured"
-        class="gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.EntityPatientDiscoveryDeferredResponseSecured">
-        <property name="orchestratorImpl">
-            <ref bean="entityPDRespOrchestrator" />
-        </property>
-    </bean>
-
     <jaxws:endpoint
         xmlns:tns="urn:gov:hhs:fha:nhinc:entitypatientdiscoverysecuredasyncresp"
         id="EntityPatientDiscoverySecuredAsyncResp"
@@ -372,13 +276,7 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd http://www.s
         </jaxws:handlers>
     </jaxws:endpoint>
 
-    <bean id="entityPDRespUnsecured"
-        class="gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.EntityPatientDiscoveryDeferredResponseUnsecured">
-        <property name="orchestratorImpl">
-            <ref bean="entityPDRespOrchestrator" />
-        </property>
-    </bean>
-    
+  
     <jaxws:endpoint
         xmlns:tns="urn:gov:hhs:fha:nhinc:entitypatientdiscoveryasyncresp"
         id="EntityPatientDiscoveryAsyncResp"
@@ -394,15 +292,7 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd http://www.s
 
     <!-- MsgProxy/NhincProxy/Passthru services -->
 
-    <bean id="passthruPDRespOrchestrator"
-        class="gov.hhs.fha.nhinc.patientdiscovery._10.passthru.deferred.response.NhincProxyPatientDiscoveryAsyncRespImpl" />
-
-    <bean id="passthruPDRespSecured"
-        class="gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.NhincProxyPatientDiscoverySecuredAsyncResp">
-        <property name="orchestratorImpl">
-            <ref bean="passthruPDRespOrchestrator" />
-        </property>
-    </bean>
+   
 
     <bean id="passthruPDRespUnsecured"
         class="gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.NhincProxyPatientDiscoveryAsyncResp">
@@ -447,9 +337,5 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd http://www.s
         </jaxws:handlers>
     </jaxws:endpoint>
 
-    <bean id="SOAPHeaderHandler" class="gov.hhs.fha.nhinc.callback.SOAPHeaderHandler" />
-    <bean id="TransactionHandler" class="gov.hhs.fha.nhinc.logging.transaction.TransactionHandler" />
-
-    
-
+   
 </beans>

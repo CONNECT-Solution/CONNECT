@@ -31,6 +31,7 @@ import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
 
+import gov.hhs.fha.nhinc.aspect.InboundMessageEvent;
 import gov.hhs.fha.nhinc.docsubmission.nhin.deferred.response.NhinDocSubmissionDeferredResponseOrchImpl;
 
 /**
@@ -50,6 +51,7 @@ public class NhinXDRResponse implements ihe.iti.xdr._2007.XDRDeferredResponsePor
      * @return an acknowledgement
      */
     @Override
+    @InboundMessageEvent(serviceType="Document Submission Deferred Response", version="1.1")
     public gov.hhs.healthit.nhin.XDRAcknowledgementType provideAndRegisterDocumentSetBDeferredResponse(
             oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType body) {
         return new NhinDocSubmissionDeferredResponseImpl(orchImpl).provideAndRegisterDocumentSetBResponse(body, context);

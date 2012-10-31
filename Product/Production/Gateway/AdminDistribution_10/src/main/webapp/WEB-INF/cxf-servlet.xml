@@ -190,5 +190,4 @@ http://www.springframework.org/schema/aop/spring-aop.xsd">
     <bean id="TransactionHandler" class="gov.hhs.fha.nhinc.logging.transaction.TransactionHandler" />
 
     <aop:aspectj-autoproxy />
-    <bean id="eventADAspect" class="gov.hhs.fha.nhinc.admindistribution.aspect.AdminDistributionEventAspect" />
-</beans>
+ </beans>

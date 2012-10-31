@@ -423,7 +423,6 @@
     
     <!-- Aspect Service -->
     <aop:aspectj-autoproxy />
-    <bean id="eventDSAspect" class="gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionEventAspect" />
     
     
 </beans>

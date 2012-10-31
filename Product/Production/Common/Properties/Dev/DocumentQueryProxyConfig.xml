@@ -130,7 +130,6 @@
     
     <!-- Aspect Service -->
     <aop:aspectj-autoproxy />    
-    <bean id="eventDQAspect" class="gov.hhs.fha.nhinc.docquery.aspect.DocQueryEventAspect" />
 	
 
 </beans>
