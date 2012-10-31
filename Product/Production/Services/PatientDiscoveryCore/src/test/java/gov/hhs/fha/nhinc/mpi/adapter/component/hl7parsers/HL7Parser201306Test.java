@@ -1,39 +1,32 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
- * All rights reserved. 
+ * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * All rights reserved.
  *
- * Redistribution and use in source and binary forms, with or without 
- * modification, are permitted provided that the following conditions are met: 
- *     * Redistributions of source code must retain the above 
- *       copyright notice, this list of conditions and the following disclaimer. 
- *     * Redistributions in binary form must reproduce the above copyright 
- *       notice, this list of conditions and the following disclaimer in the documentation 
- *       and/or other materials provided with the distribution. 
- *     * Neither the name of the United States Government nor the 
- *       names of its contributors may be used to endorse or promote products 
- *       derived from this software without specific prior written permission. 
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *     * Redistributions of source code must retain the above
+ *       copyright notice, this list of conditions and the following disclaimer.
+ *     * Redistributions in binary form must reproduce the above copyright
+ *       notice, this list of conditions and the following disclaimer in the documentation
+ *       and/or other materials provided with the distribution.
+ *     * Neither the name of the United States Government nor the
+ *       names of its contributors may be used to endorse or promote products
+ *       derived from this software without specific prior written permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
- * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
- * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY 
- * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES 
- * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
- * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND 
- * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
- * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package gov.hhs.fha.nhinc.mpi.adapter.component.hl7parsers;
 
-import static org.junit.Assert.*;
-import gov.hhs.fha.nhinc.mpi.adapter.component.TestHelper;
-import gov.hhs.fha.nhinc.mpilib.Address;
-import gov.hhs.fha.nhinc.mpilib.Identifier;
-import gov.hhs.fha.nhinc.mpilib.Patient;
-import gov.hhs.fha.nhinc.mpilib.Patients;
-import gov.hhs.fha.nhinc.mpilib.PersonName;
-import gov.hhs.fha.nhinc.mpilib.PhoneNumber;
+import static org.junit.Assert.assertEquals;
 
 import java.io.Serializable;
 import java.util.Iterator;
@@ -56,11 +49,21 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import gov.hhs.fha.nhinc.mpi.adapter.component.TestHelper;
+import gov.hhs.fha.nhinc.mpilib.Address;
+import gov.hhs.fha.nhinc.mpilib.Identifier;
+import gov.hhs.fha.nhinc.mpilib.Patient;
+import gov.hhs.fha.nhinc.mpilib.Patients;
+import gov.hhs.fha.nhinc.mpilib.PersonName;
+import gov.hhs.fha.nhinc.mpilib.PhoneNumber;
+
 /**
- * 
+ *
  * @author dunnek
  */
 public class HL7Parser201306Test {
+
+    //CHECKSTYLE:OFF
     private static class PatientName {
         public String FirstName = "";
         public String LastName = "";
@@ -69,6 +72,9 @@ public class HL7Parser201306Test {
         public String Suffix = "";
     }
 
+    /**
+     * Public constructor for the test class.
+     */
     public HL7Parser201306Test() {
     }
 
@@ -88,6 +94,7 @@ public class HL7Parser201306Test {
     public void tearDown() {
     }
 
+    //CHECKSTYLE:ON
     /**
      * Test of BuildMessageFromMpiPatient method, of class HL7Parser201306.
      */
@@ -119,8 +126,7 @@ public class HL7Parser201306Test {
         Patients patients = new Patients();
         patients.add(patient);
 
-        PRPAIN201306UV02 result = HL7Parser201306.BuildMessageFromMpiPatient(patients, query);
-        // TODO review the generated test code and remove the default call to fail.
+        PRPAIN201306UV02 result = HL7Parser201306.buildMessageFromMpiPatient(patients, query);
 
         PNExplicit pnResult = result.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1()
                 .getPatient().getPatientPerson().getValue().getName().get(0);
@@ -135,8 +141,11 @@ public class HL7Parser201306Test {
 
     }
 
+    /**
+     * Test Build Message From MPI Patient Phone Number.
+     */
     @Test
-    public void testBuildMessageFromMpiPatient_PhoneNumber() {
+    public void testBuildMessageFromMpiPatientPhoneNumber() {
         System.out.println("testBuildMessageFromMpiPatient_PhoneNumber");
         II subjectId = new II();
         subjectId.setRoot("2.16.840.1.113883.3.200");
@@ -165,8 +174,7 @@ public class HL7Parser201306Test {
         Patients patients = new Patients();
         patients.add(patient);
 
-        PRPAIN201306UV02 result = HL7Parser201306.BuildMessageFromMpiPatient(patients, query);
-        // TODO review the generated test code and remove the default call to fail.
+        PRPAIN201306UV02 result = HL7Parser201306.buildMessageFromMpiPatient(patients, query);
 
         PRPAMT201310UV02Person person = result.getControlActProcess().getSubject().get(0).getRegistrationEvent()
                 .getSubject1().getPatient().getPatientPerson().getValue();
@@ -176,8 +184,11 @@ public class HL7Parser201306Test {
 
     }
 
+    /**
+     * Test method for building a message from mpi when a patient has multiple phone numbers.
+     */
     @Test
-    public void testBuildMessageFromMpiPatient_MultiPhoneNumber() {
+    public void testBuildMessageFromMpiPatientMultiPhoneNumber() {
         System.out.println("testBuildMessageFromMpiPatient_MultiPhoneNumber");
         II subjectId = new II();
         subjectId.setRoot("2.16.840.1.113883.3.200");
@@ -207,7 +218,7 @@ public class HL7Parser201306Test {
         Patients patients = new Patients();
         patients.add(patient);
 
-        PRPAIN201306UV02 result = HL7Parser201306.BuildMessageFromMpiPatient(patients, query);
+        PRPAIN201306UV02 result = HL7Parser201306.buildMessageFromMpiPatient(patients, query);
         // TODO review the generated test code and remove the default call to fail.
 
         PRPAMT201310UV02Person person = result.getControlActProcess().getSubject().get(0).getRegistrationEvent()
@@ -219,8 +230,11 @@ public class HL7Parser201306Test {
 
     }
 
+    /**
+     *
+     */
     @Test
-    public void testBuildMessageFromMpiPatient_Address() {
+    public void testBuildMessageFromMpiPatientAddress() {
         System.out.println("testBuildMessageFromMpiPatient_PhoneNumber");
         II subjectId = new II();
         subjectId.setRoot("2.16.840.1.113883.3.200");
@@ -255,7 +269,7 @@ public class HL7Parser201306Test {
         Patients patients = new Patients();
         patients.add(patient);
 
-        PRPAIN201306UV02 result = HL7Parser201306.BuildMessageFromMpiPatient(patients, query);
+        PRPAIN201306UV02 result = HL7Parser201306.buildMessageFromMpiPatient(patients, query);
         // TODO review the generated test code and remove the default call to fail.
 
         PRPAMT201310UV02Person person = result.getControlActProcess().getSubject().get(0).getRegistrationEvent()
@@ -265,8 +279,11 @@ public class HL7Parser201306Test {
 
     }
 
+    /**
+     *
+     */
     @Test
-    public void testBuildMessageFromMpiPatient_MultiAddress() {
+    public void testBuildMessageFromMpiPatientMultiAddress() {
         System.out.println("testBuildMessageFromMpiPatient_MultiAddress");
         II subjectId = new II();
         subjectId.setRoot("2.16.840.1.113883.3.200");
@@ -310,7 +327,7 @@ public class HL7Parser201306Test {
         Patients patients = new Patients();
         patients.add(patient);
 
-        PRPAIN201306UV02 result = HL7Parser201306.BuildMessageFromMpiPatient(patients, query);
+        PRPAIN201306UV02 result = HL7Parser201306.buildMessageFromMpiPatient(patients, query);
         // TODO review the generated test code and remove the default call to fail.
 
         PRPAMT201310UV02Person person = result.getControlActProcess().getSubject().get(0).getRegistrationEvent()
@@ -320,8 +337,11 @@ public class HL7Parser201306Test {
 
     }
 
+    /**
+     *
+     */
     @Test
-    public void testBuildMessageFromMpiPatient_MultiNames() {
+    public void testBuildMessageFromMpiPatientMultiNames() {
         System.out.println("BuildMessageFromMpiPatient");
         II subjectId = new II();
         subjectId.setRoot("2.16.840.1.113883.3.200");
@@ -347,8 +367,7 @@ public class HL7Parser201306Test {
         Patients patients = new Patients();
         patients.add(patient);
 
-        PRPAIN201306UV02 result = HL7Parser201306.BuildMessageFromMpiPatient(patients, query);
-        // TODO review the generated test code and remove the default call to fail.
+        PRPAIN201306UV02 result = HL7Parser201306.buildMessageFromMpiPatient(patients, query);
 
         assertEquals(2, result.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1()
                 .getPatient().getPatientPerson().getValue().getName().size());
@@ -386,7 +405,7 @@ public class HL7Parser201306Test {
             Serializable contentItem = iterSerialObjects.next();
 
             if (contentItem instanceof JAXBElement) {
-                JAXBElement oJAXBElement = (JAXBElement) contentItem;
+                JAXBElement<?> oJAXBElement = (JAXBElement<?>) contentItem;
                 if (oJAXBElement.getValue() instanceof EnExplicitFamily) {
                     familyName = (EnExplicitFamily) oJAXBElement.getValue();
                     result.LastName = familyName.getContent();
@@ -395,10 +414,8 @@ public class HL7Parser201306Test {
                     givenName = (EnExplicitGiven) oJAXBElement.getValue();
                     if (result.FirstName == "") {
                         result.FirstName = givenName.getContent();
-                        ;
                     } else {
                         result.MiddleName = givenName.getContent();
-                        ;
                     }
                     hasName = true;
                 } else if (oJAXBElement.getValue() instanceof EnExplicitPrefix) {
@@ -411,7 +428,7 @@ public class HL7Parser201306Test {
             }
         }
 
-        if (hasName == true) {
+        if (hasName) {
             nameString = familyName.getContent();
             System.out.println(nameString);
         }

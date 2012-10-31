@@ -24,24 +24,29 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.mpi.adapter.component.hl7parsers;
+package gov.hhs.fha.nhinc.callback.cxf.largefile;
+
+import java.util.Date;
+
+import org.apache.cxf.message.Message;
+import org.apache.cxf.phase.AbstractPhaseInterceptor;
+import org.apache.cxf.phase.Phase;
 
 /**
+ * @author akong
  *
- * @author rayj
  */
-public class MessageIdGenerator {
+public class TimestampInterceptor extends AbstractPhaseInterceptor<Message> {
+    public static String INVOCATION_TIME_KEY = "invocationTime";
+    
+    public TimestampInterceptor() {
+        super(Phase.RECEIVE);
+    }
 
-    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory
-            .getLog(MessageIdGenerator.class);
+    public void handleMessage(Message message) {
+        message.put(INVOCATION_TIME_KEY, new Date());
+    }
 
-    /**
-     * Method to generate a MessageID.
-     * @return a messageID
-     */
-    public static String generateMessageId() {
-        java.rmi.server.UID uid = new java.rmi.server.UID();
-        log.debug("generated message id=" + uid.toString());
-        return uid.toString();
+    public void handleFault(Message messageParam) {
     }
 }
