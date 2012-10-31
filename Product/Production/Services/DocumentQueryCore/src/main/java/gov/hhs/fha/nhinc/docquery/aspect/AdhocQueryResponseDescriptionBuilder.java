@@ -40,6 +40,7 @@ import oasis.names.tc.ebxml_regrep.xsd.rim._3.IdentifiableType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
 
 import com.google.common.base.Function;
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Lists;
 
@@ -48,7 +49,6 @@ public class AdhocQueryResponseDescriptionBuilder extends BaseEventDescriptionBu
     private static final HCIDExtractor HCID_EXTRACTOR = new HCIDExtractor();
     private static final ErrorExtractor ERROR_EXTRACTOR = new ErrorExtractor();
     private static final PayloadTypeExtractor PAYLOAD_TYPE_EXTRACTOR = new PayloadTypeExtractor();
-    private static final StatusExtractor STATUS_EXTRACTOR = new StatusExtractor();
 
     private final AdhocQueryResponse response;
 
@@ -63,10 +63,8 @@ public class AdhocQueryResponseDescriptionBuilder extends BaseEventDescriptionBu
 
     @Override
     public void buildStatuses() {
-        if (hasObjectList()) {
-            List<String> listWithDups = Lists.transform(response.getRegistryObjectList().getIdentifiable(),
-                    STATUS_EXTRACTOR);
-            setStatuses(ImmutableSet.copyOf(listWithDups).asList());
+        if (hasStatus()) {
+            setStatuses(ImmutableList.of(response.getStatus()));
         }
     }
 
@@ -112,6 +110,10 @@ public class AdhocQueryResponseDescriptionBuilder extends BaseEventDescriptionBu
         }
     }
 
+    private boolean hasStatus() {
+        return response != null && response.getStatus() != null;
+    }
+
     private boolean hasObjectList() {
         return response != null && response.getRegistryObjectList() != null;
     }
@@ -145,16 +147,6 @@ public class AdhocQueryResponseDescriptionBuilder extends BaseEventDescriptionBu
             IdentifiableType value = jaxbElement.getValue();
             ExtrinsicObjectType extrinsicObjectType = (ExtrinsicObjectType) value;
             return extrinsicObjectType.getObjectType();
-        }
-    }
-
-    private static class StatusExtractor implements Function<JAXBElement<? extends IdentifiableType>, String> {
-
-        @Override
-        public String apply(JAXBElement<? extends IdentifiableType> jaxbElement) {
-            IdentifiableType value = jaxbElement.getValue();
-            ExtrinsicObjectType extrinsicObjectType = (ExtrinsicObjectType) value;
-            return extrinsicObjectType.getStatus();
         }
     }
 }

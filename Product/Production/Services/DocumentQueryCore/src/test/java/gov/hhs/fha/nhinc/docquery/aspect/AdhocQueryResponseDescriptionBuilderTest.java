@@ -62,14 +62,14 @@ public class AdhocQueryResponseDescriptionBuilderTest extends BaseDescriptionBui
     @Test
     public void basicBuild() {
         AdhocQueryResponse response = new AdhocQueryResponse();
-        addQueryResult(response, DocumentConstants.XDS_QUERY_RESPONSE_STATUS_SUCCESS,
-                DocumentConstants.XDS_QUERY_RESPONSE_EXTRINSIC_OBJCECT_OBJECT_TYPE);
+        response.setStatus(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_PARTIAL_SUCCESS);
+        addQueryResult(response, DocumentConstants.XDS_QUERY_RESPONSE_EXTRINSIC_OBJCECT_OBJECT_TYPE);
 
         AdhocQueryResponseDescriptionBuilder builder = new AdhocQueryResponseDescriptionBuilder(response);
         EventDescription eventDescription = getEventDescription(builder);
 
         assertEquals(1, eventDescription.getStatuses().size());
-        assertEquals(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_SUCCESS, eventDescription.getStatuses().get(0));
+        assertEquals(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_PARTIAL_SUCCESS, eventDescription.getStatuses().get(0));
         assertEquals(1, eventDescription.getRespondingHCIDs().size());
         assertEquals("home", eventDescription.getRespondingHCIDs().get(0));
         assertEquals(1, eventDescription.getPayloadTypes().size());
@@ -101,10 +101,8 @@ public class AdhocQueryResponseDescriptionBuilderTest extends BaseDescriptionBui
     public void mixedPayloadTypes() {
         AdhocQueryResponse response = new AdhocQueryResponse();
 
-        addQueryResult(response, DocumentConstants.XDS_QUERY_RESPONSE_STATUS_SUCCESS,
-                DocumentConstants.XDS_QUERY_RESPONSE_EXTRINSIC_OBJCECT_OBJECT_TYPE);
-        addQueryResult(response, DocumentConstants.XDS_QUERY_RESPONSE_STATUS_SUCCESS,
-                DocumentConstants.XDS_QUERY_RESPONSE_EXTRINSIC_OBJCECT_OBJECT_TYPE + "alt");
+        addQueryResult(response, DocumentConstants.XDS_QUERY_RESPONSE_EXTRINSIC_OBJCECT_OBJECT_TYPE);
+        addQueryResult(response, DocumentConstants.XDS_QUERY_RESPONSE_EXTRINSIC_OBJCECT_OBJECT_TYPE + "alt");
 
         AdhocQueryResponseDescriptionBuilder builder = new AdhocQueryResponseDescriptionBuilder(response);
         EventDescription eventDescription = getEventDescription(builder);
@@ -116,23 +114,6 @@ public class AdhocQueryResponseDescriptionBuilderTest extends BaseDescriptionBui
                 .getPayloadTypes().get(1));
     }
 
-    @Test
-    public void mixedStatus() {
-        AdhocQueryResponse response = new AdhocQueryResponse();
-
-        addQueryResult(response, DocumentConstants.XDS_QUERY_RESPONSE_STATUS_SUCCESS,
-                DocumentConstants.XDS_QUERY_RESPONSE_EXTRINSIC_OBJCECT_OBJECT_TYPE);
-        addQueryResult(response, DocumentConstants.XDS_QUERY_RESPONSE_STATUS_FAILURE,
-                DocumentConstants.XDS_QUERY_RESPONSE_EXTRINSIC_OBJCECT_OBJECT_TYPE);
-
-        AdhocQueryResponseDescriptionBuilder builder = new AdhocQueryResponseDescriptionBuilder(response);
-        EventDescription eventDescription = getEventDescription(builder);
-
-        assertEquals(2, eventDescription.getStatuses().size());
-        assertEquals(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_SUCCESS, eventDescription.getStatuses().get(0));
-        assertEquals(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_FAILURE, eventDescription.getStatuses().get(1));
-    }
-
     private void addError(AdhocQueryResponse response, RegistryError error) {
         RegistryErrorList registryErrorList = new RegistryErrorList();
         response.setRegistryErrorList(registryErrorList);
@@ -140,9 +121,9 @@ public class AdhocQueryResponseDescriptionBuilderTest extends BaseDescriptionBui
         registryError.add(error);
     }
 
-    private void addQueryResult(AdhocQueryResponse response, String status, String objectType) {
+    private void addQueryResult(AdhocQueryResponse response, String objectType) {
         ExtrinsicObjectType extrinsicObject = new ExtrinsicObjectType();
-        extrinsicObject.setStatus(status);
+        extrinsicObject.setStatus(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_SUCCESS);
         extrinsicObject.setHome("home");
         extrinsicObject.setObjectType(objectType);
         addQueryResult(response, extrinsicObject);
