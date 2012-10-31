@@ -3,6 +3,7 @@
 .settings
 .metadata
 .DS_Store
+.pmd
 *.log
 .externalToolBuilders/
 maven-eclipse.xml
