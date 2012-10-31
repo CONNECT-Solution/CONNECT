@@ -137,6 +137,9 @@ public class NhincConstants {
     public static final String PARSE_PAYLOAD_AS_FILE_URI_OUTBOUND = "ParsePayloadAsFileURIOutbound";
     public static final String SAVE_PAYLOAD_TO_FILE_INBOUND = "SavePayloadToFileInbound";
     public static final String PAYLOAD_SAVE_DIRECTORY = "PayloadSaveDirectory";
+    public static final String TIMESTAMP_TIME_TO_LIVE = "TimeStampTimeToLive";
+    public static final String TIMESTAMP_STRICT = "TimeStampStrict";
+    public static final String TIMESTAMP_FUTURE_TIME_TO_LIVE = "FutureTimeToLive";
 
     // these 6 not used anymore
     public static final String PATIENT_DISCOVERY_CONNECT_TIMEOUT = "PDConnectTimeout";

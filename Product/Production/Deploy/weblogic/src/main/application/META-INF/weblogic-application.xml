@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<weblogic-application xmlns="http://xmlns.oracle.com/weblogic/weblogic-application">
+	<application-param>
+		<param-name>webapp.encoding.default</param-name>
+		<param-value>UTF-8</param-value>
+	</application-param>
+	<prefer-application-packages>
+		<package-name>javax.jws.*</package-name>
+		<package-name>org.apache.cxf.*</package-name>
+            	<package-name>org.apache.geronimo.webservices.*</package-name>
+            	<package-name>org.apache.jcp.*</package-name>
+            	<package-name>org.apache.ws.*</package-name>
+            	<package-name>org.apache.xerces.*</package-name>
+            	<package-name>org.apache.xml.*</package-name>
+            	<package-name>org.apache.xalan.*</package-name>
+            	<package-name>org.apache.log4j.*</package-name>
+            	<package-name>javax.xml.ws.*</package-name>
+            	<package-name>javax.xml.soap.*</package-name>
+            	<package-name>javax.xml.crypto.*</package-name>
+            	<package-name>org.springframework.*</package-name>
+            	<package-name>antlr.*</package-name>
+            	<package-name>net.sf.cglib.*</package-name>
+            	<package-name>org.hibernate.*</package-name>
+            	<package-name>org.objectweb.asm.*</package-name>
+            	<package-name>org.opensaml.*</package-name>
+            	<package-name>com.ctc.wstx.*</package-name>
+            	<package-name>org.codehaus.stax2.*</package-name>
+            	<package-name>com.sun.xml.messaging.saaj.*</package-name>
+	</prefer-application-packages>
+</weblogic-application>
