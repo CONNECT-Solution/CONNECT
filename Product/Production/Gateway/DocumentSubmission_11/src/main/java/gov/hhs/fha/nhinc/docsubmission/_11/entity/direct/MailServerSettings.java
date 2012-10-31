@@ -26,35 +26,91 @@
  */
 package gov.hhs.fha.nhinc.docsubmission._11.entity.direct;
 
+import gov.hhs.fha.nhinc.properties.PropertyAccessor;
+
 import java.util.Properties;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 /**
- * Direct mail server settings.
+ * Template for defining direct mail server settings (internal or external).
  */
-public interface MailServerSettings {
+public abstract class MailServerSettingsTmpl implements MailServerSettings {
+
+    private static Log log = LogFactory.getLog(MailServerSettingsTmpl.class);
+    
+    private final Properties props;
+    
+    /**
+     * Default constructor uses direct.mailserver.properties
+     */
+    public MailServerSettingsTmpl() {
+        
+        // props filename comes from implementations of the template.
+        String filename = getPropsFilename();
+
+        Properties props = null;
+        try {
+            props = PropertyAccessor.getInstance().getProperties(filename);
+        } catch (Exception e) {
+            log.error("Exception while reading properties file: " + filename + ".properties", e);
+        }
+        this.props = props;
+    }
 
     /**
-     * @return the smtp properties used by the JavaMail API.
+     * Constructor.
+     * @param props properties used to define this mail server.
      */
-    Properties getSmtpProperties();
+    public MailServerSettingsTmpl(Properties props) {
+        this.props = props;
+    }
     
     /**
-     * @return the configured sender for the gateway
+     * @return the props file name that is backing this mail server.
      */
-    String getSender();
+    protected abstract String getPropsFilename();
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Properties getSmtpProperties() {
+        // passthru smtp props for javamail. todo - we could extract only the javamail props. 
+        return props;
+    }
 
     /**
-     * @return the imap host for the mailserver
+     * {@inheritDoc}
      */
-    String getImapHost();
-    
+    @Override
+    public String getSender() {
+        return props.getProperty("direct.sender");
+    }
+
     /**
-     * @return the imap username for the mailserver.
+     * {@inheritDoc}
      */
-    String getUsername();
-    
+    @Override
+    public String getImapHost() {        
+        return props.getProperty("imap.host");
+    }
+
     /**
-     * @return the imap password for the mailserver.
+     * {@inheritDoc}
      */
-    String getPassword();
+    @Override
+    public String getUsername() {
+        return props.getProperty("imap.username");
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getPassword() {
+        return props.getProperty("imap.password");
+    }
+
 }
