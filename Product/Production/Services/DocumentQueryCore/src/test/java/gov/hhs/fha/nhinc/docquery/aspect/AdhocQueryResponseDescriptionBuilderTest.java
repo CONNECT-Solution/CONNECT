@@ -32,6 +32,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.mockito.Mockito.mock;
+import gov.hhs.fha.nhinc.event.BaseDescriptionBuilderTest;
+import gov.hhs.fha.nhinc.event.EventDescription;
+import gov.hhs.fha.nhinc.gateway.aggregator.document.DocumentConstants;
 
 import java.util.List;
 
@@ -45,12 +48,7 @@ import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryObjectListType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
 
-import org.junit.Ignore;
 import org.junit.Test;
-
-import gov.hhs.fha.nhinc.event.BaseDescriptionBuilderTest;
-import gov.hhs.fha.nhinc.event.EventDescription;
-import gov.hhs.fha.nhinc.gateway.aggregator.document.DocumentConstants;
 
 public class AdhocQueryResponseDescriptionBuilderTest extends BaseDescriptionBuilderTest {
 
@@ -64,21 +62,19 @@ public class AdhocQueryResponseDescriptionBuilderTest extends BaseDescriptionBui
     @Test
     public void basicBuild() {
         AdhocQueryResponse response = new AdhocQueryResponse();
-        ExtrinsicObjectType extrinsicObject = new ExtrinsicObjectType();
-        extrinsicObject.setStatus(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_SUCCESS);
-        extrinsicObject.setHome("home");
-        extrinsicObject.setObjectType(DocumentConstants.XDS_QUERY_RESPONSE_EXTRINSIC_OBJCECT_OBJECT_TYPE);
-
-        addQueryResult(response, extrinsicObject);
+        response.setStatus(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_PARTIAL_SUCCESS);
+        addQueryResult(response, DocumentConstants.XDS_QUERY_RESPONSE_EXTRINSIC_OBJCECT_OBJECT_TYPE);
 
         AdhocQueryResponseDescriptionBuilder builder = new AdhocQueryResponseDescriptionBuilder(response);
         EventDescription eventDescription = getEventDescription(builder);
 
-        assertEquals(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_SUCCESS, eventDescription.getStatus());
+        assertEquals(1, eventDescription.getStatuses().size());
+        assertEquals(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_PARTIAL_SUCCESS, eventDescription.getStatuses().get(0));
         assertEquals(1, eventDescription.getRespondingHCIDs().size());
         assertEquals("home", eventDescription.getRespondingHCIDs().get(0));
-        assertEquals(DocumentConstants.XDS_QUERY_RESPONSE_EXTRINSIC_OBJCECT_OBJECT_TYPE,
-                eventDescription.getPayloadType().get(0));
+        assertEquals(1, eventDescription.getPayloadTypes().size());
+        assertEquals(DocumentConstants.XDS_QUERY_RESPONSE_EXTRINSIC_OBJCECT_OBJECT_TYPE, eventDescription
+                .getPayloadTypes().get(0));
 
         assertNull(eventDescription.getTimeStamp());
         assertNull(eventDescription.getPayloadSize());
@@ -102,15 +98,20 @@ public class AdhocQueryResponseDescriptionBuilderTest extends BaseDescriptionBui
     }
 
     @Test
-    @Ignore("Need to change the payload type to be a list in description object")
     public void mixedPayloadTypes() {
+        AdhocQueryResponse response = new AdhocQueryResponse();
 
-    }
+        addQueryResult(response, DocumentConstants.XDS_QUERY_RESPONSE_EXTRINSIC_OBJCECT_OBJECT_TYPE);
+        addQueryResult(response, DocumentConstants.XDS_QUERY_RESPONSE_EXTRINSIC_OBJCECT_OBJECT_TYPE + "alt");
 
-    @Test
-    @Ignore("Need to change the status type to be a list in the description object")
-    public void mixedStatus() {
+        AdhocQueryResponseDescriptionBuilder builder = new AdhocQueryResponseDescriptionBuilder(response);
+        EventDescription eventDescription = getEventDescription(builder);
 
+        assertEquals(2, eventDescription.getPayloadTypes().size());
+        assertEquals(DocumentConstants.XDS_QUERY_RESPONSE_EXTRINSIC_OBJCECT_OBJECT_TYPE, eventDescription
+                .getPayloadTypes().get(0));
+        assertEquals(DocumentConstants.XDS_QUERY_RESPONSE_EXTRINSIC_OBJCECT_OBJECT_TYPE + "alt", eventDescription
+                .getPayloadTypes().get(1));
     }
 
     private void addError(AdhocQueryResponse response, RegistryError error) {
@@ -118,6 +119,14 @@ public class AdhocQueryResponseDescriptionBuilderTest extends BaseDescriptionBui
         response.setRegistryErrorList(registryErrorList);
         List<RegistryError> registryError = registryErrorList.getRegistryError();
         registryError.add(error);
+    }
+
+    private void addQueryResult(AdhocQueryResponse response, String objectType) {
+        ExtrinsicObjectType extrinsicObject = new ExtrinsicObjectType();
+        extrinsicObject.setStatus(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_SUCCESS);
+        extrinsicObject.setHome("home");
+        extrinsicObject.setObjectType(objectType);
+        addQueryResult(response, extrinsicObject);
     }
 
     private void addQueryResult(AdhocQueryResponse response, ExtrinsicObjectType extrinsicObject) {

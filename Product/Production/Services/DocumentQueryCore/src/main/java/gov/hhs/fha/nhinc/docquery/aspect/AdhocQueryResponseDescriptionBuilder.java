@@ -28,7 +28,8 @@
  */
 package gov.hhs.fha.nhinc.docquery.aspect;
 
-import java.util.ArrayList;
+import gov.hhs.fha.nhinc.event.BaseEventDescriptionBuilder;
+
 import java.util.List;
 
 import javax.xml.bind.JAXBElement;
@@ -39,15 +40,15 @@ import oasis.names.tc.ebxml_regrep.xsd.rim._3.IdentifiableType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
 
 import com.google.common.base.Function;
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Lists;
-
-import gov.hhs.fha.nhinc.event.BaseEventDescriptionBuilder;
 
 public class AdhocQueryResponseDescriptionBuilder extends BaseEventDescriptionBuilder {
 
     private static final HCIDExtractor HCID_EXTRACTOR = new HCIDExtractor();
     private static final ErrorExtractor ERROR_EXTRACTOR = new ErrorExtractor();
+    private static final PayloadTypeExtractor PAYLOAD_TYPE_EXTRACTOR = new PayloadTypeExtractor();
 
     private final AdhocQueryResponse response;
 
@@ -61,18 +62,14 @@ public class AdhocQueryResponseDescriptionBuilder extends BaseEventDescriptionBu
     }
 
     @Override
-    public void buildStatus() {
-        if (hasObjectList()) {
-            JAXBElement<? extends IdentifiableType> jaxbElement = response.getRegistryObjectList().getIdentifiable()
-                    .get(0);
-            IdentifiableType value = jaxbElement.getValue();
-            ExtrinsicObjectType extrinsicObjectType = (ExtrinsicObjectType) value;
-            setStatus(extrinsicObjectType.getStatus());
+    public void buildStatuses() {
+        if (hasStatus()) {
+            setStatuses(ImmutableList.of(response.getStatus()));
         }
     }
 
     @Override
-    public void buildRespondingHCID() {
+    public void buildRespondingHCIDs() {
         if (hasObjectList()) {
             List<String> listWithDups = Lists.transform(response.getRegistryObjectList().getIdentifiable(),
                     HCID_EXTRACTOR);
@@ -81,15 +78,11 @@ public class AdhocQueryResponseDescriptionBuilder extends BaseEventDescriptionBu
     }
 
     @Override
-    public void buildPayloadType() {
-        List<String> payloadType = new ArrayList<String>();
+    public void buildPayloadTypes() {
         if (hasObjectList()) {
-            JAXBElement<? extends IdentifiableType> jaxbElement = response.getRegistryObjectList().getIdentifiable()
-                    .get(0);
-            IdentifiableType value = jaxbElement.getValue();
-            ExtrinsicObjectType extrinsicObjectType = (ExtrinsicObjectType) value;
-            payloadType.add(extrinsicObjectType.getObjectType());
-            super.setPayLoadType(payloadType);
+            List<String> listWithDups = Lists.transform(response.getRegistryObjectList().getIdentifiable(),
+                    PAYLOAD_TYPE_EXTRACTOR);
+            setPayLoadTypes(ImmutableSet.copyOf(listWithDups).asList());
         }
     }
 
@@ -109,12 +102,16 @@ public class AdhocQueryResponseDescriptionBuilder extends BaseEventDescriptionBu
     }
 
     @Override
-    public void buildErrorCode() {
+    public void buildErrorCodes() {
         if (hasErrorList()) {
             List<String> listWithDups = Lists.transform(response.getRegistryErrorList().getRegistryError(),
                     ERROR_EXTRACTOR);
             setErrorCodes(ImmutableSet.copyOf(listWithDups).asList());
         }
+    }
+
+    private boolean hasStatus() {
+        return response != null && response.getStatus() != null;
     }
 
     private boolean hasObjectList() {
@@ -141,6 +138,15 @@ public class AdhocQueryResponseDescriptionBuilder extends BaseEventDescriptionBu
         public String apply(RegistryError error) {
             return error.getErrorCode();
         }
+    }
 
+    private static class PayloadTypeExtractor implements Function<JAXBElement<? extends IdentifiableType>, String> {
+
+        @Override
+        public String apply(JAXBElement<? extends IdentifiableType> jaxbElement) {
+            IdentifiableType value = jaxbElement.getValue();
+            ExtrinsicObjectType extrinsicObjectType = (ExtrinsicObjectType) value;
+            return extrinsicObjectType.getObjectType();
+        }
     }
 }

@@ -33,7 +33,7 @@ public class BaseEventDescription implements EventDescription {
     private List<String> responseMsgids;
     private String action;
     private List<String> errorCodes;
-    private String status;
+    private List<String> statuses;
     private String npi;
     private List<String> respondingHCIDs;
     private String initiatingHCID;
@@ -68,7 +68,7 @@ public class BaseEventDescription implements EventDescription {
     }
 
     @Override
-    public List<String> getPayloadType() {
+    public List<String> getPayloadTypes() {
         return payLoadTypes;
     }
 
@@ -93,8 +93,8 @@ public class BaseEventDescription implements EventDescription {
     }
 
     @Override
-    public String getStatus() {
-        return status;
+    public List<String> getStatuses() {
+        return statuses;
     }
 
     @Override
@@ -124,8 +124,8 @@ public class BaseEventDescription implements EventDescription {
         this.errorCodes = errorCodes;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setStatuses(List<String> statuses) {
+        this.statuses = statuses;
     }
 
     public void setNpi(String npi) {
@@ -144,7 +144,7 @@ public class BaseEventDescription implements EventDescription {
         this.payloadSize = payloadSize;
     }
 
-    public void setPayLoadType(List<String> payLoadTypes) {
+    public void setPayLoadTypes(List<String> payLoadTypes) {
         this.payLoadTypes = payLoadTypes;
     }
 

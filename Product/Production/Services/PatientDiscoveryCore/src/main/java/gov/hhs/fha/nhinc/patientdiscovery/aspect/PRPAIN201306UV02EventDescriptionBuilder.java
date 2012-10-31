@@ -5,41 +5,48 @@ import gov.hhs.fha.nhinc.event.BaseEventDescriptionBuilder;
 import org.hl7.v3.PRPAIN201306UV02;
 
 public class PRPAIN201306UV02EventDescriptionBuilder extends BaseEventDescriptionBuilder {
-    
+
     private PRPAIN201306UV02 body;
-    
+
     public PRPAIN201306UV02EventDescriptionBuilder(PRPAIN201306UV02 body) {
         this.body = body;
     }
 
-   
-    public void buildErrorCode() {
+    @Override
+    public void buildErrorCodes() {
     }
 
+    @Override
     public void buildInitiatingHCID() {
-        setInitiatingHCID(body.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot());
+        setInitiatingHCID(body.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue()
+                .getId().get(0).getRoot());
     }
 
-   
+    @Override
     public void buildNPI() {
     }
 
+    @Override
     public void buildPayloadSize() {
     }
 
-    public void buildPayloadType() {
+    @Override
+    public void buildPayloadTypes() {
     }
 
-    public void buildRespondingHCID() {
+    @Override
+    public void buildRespondingHCIDs() {
     }
 
-       public void buildStatus() {
+    @Override
+    public void buildStatuses() {
     }
 
+    @Override
     public void buildTimeStamp() {
     }
 
+    @Override
     public void createEventDescription() {
     }
-
 }
