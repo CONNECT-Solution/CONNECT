@@ -28,32 +28,59 @@
  */
 package gov.hhs.fha.nhinc.aspect;
 
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
+import java.lang.reflect.Method;
+import java.util.Arrays;
+import java.util.Collection;
+
+import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.annotation.AfterThrowing;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameters;
 
 /**
  * @author bhumphrey
- *
+ * 
  */
-public interface EventAdviceDelegate {
+@RunWith(value = Parameterized.class)
+public class EventAspectAfterThrowingAdviceTest {
 
-   
-    void beginOutboundMessageEvent(Object[] args, String serviceType, String version);   
-    void endOutboundMessageEvent(Object[] args, String serviceType, String version);
+    private Class<EventAspectAdvice> clazz = EventAspectAdvice.class;
 
-    void beginInboundMessageEvent(Object[] args, String serviceType, String version);
-    void endInboundMessageEvent(Object[] args, String serviceType, String version);
+    private Class<?> annotationClass;
 
-    void beginAdapterDelegationEvent(Object[] any, String serviceType, String version);
-    void endAdapterDelegationEvent(Object[] any, String serviceType, String version);
+    public EventAspectAfterThrowingAdviceTest(Class<?> annotationClass) {
+        this.annotationClass = annotationClass;
+    }
 
-    void beginInboundProcessingEvent(Object[] any, String serviceType, String version);
-    void endInboundProcessingEvent(Object[] any, String serviceType, String version);
+    @Parameters
+    public static Collection<Object[]> data() {
+        Object[][] data = new Object[][] { { InboundMessageEvent.class }, 
+                  { InboundProcessingEvent.class },
+                { AdapterDelegationEvent.class },
+                { OutboundMessageEvent.class },
+                { OutboundProcessingEvent.class},
+                { NwhinInvocationEvent.class } };
+        return Arrays.asList(data);
+    }
 
-    void beginOutboundProcessingEvent(Object[] any, String serviceType, String version);
-    void endOutboundProcessingEvent(Object[] any, String serviceType, String version);
+    @Test
+    public void verify() throws NoSuchMethodException, SecurityException {
+        Method method = clazz.getMethod("failEvent", JoinPoint.class);
+        assertNotNull("method exsist with correct parameters", method);
 
-    void beginNwhinInvocationEvent(Object[] any, String serviceType, String version);
-    void endNwhinInvocationEvent(Object[] any, String serviceType, String version);
+        AfterThrowing annotation = method.getAnnotation(AfterThrowing.class);
 
-    void failEvent(Object[] any);
+        assertNotNull(annotation);
+
+        String expression = annotation.value();
+
+        assertTrue("does bind to '" + annotationClass.getCanonicalName() + "'",
+                expression.contains("@annotation(" + annotationClass.getCanonicalName() + ")"));
+    }
 
 }
