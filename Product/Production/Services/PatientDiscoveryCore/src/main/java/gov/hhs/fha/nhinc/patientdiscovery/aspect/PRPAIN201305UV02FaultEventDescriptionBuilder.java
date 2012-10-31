@@ -13,30 +13,37 @@ public class PRPAIN201305UV02FaultEventDescriptionBuilder extends BaseEventDescr
         this.fault = fault;
     }
 
+    @Override
     public void buildTimeStamp() {
     }
 
-    public void buildStatus() {
-        setStatus("FAULT");
+    @Override
+    public void buildStatuses() {
+        setStatuses(ImmutableList.of("FAULT"));
     }
 
-    public void buildRespondingHCID() {
+    @Override
+    public void buildRespondingHCIDs() {
     }
 
-    public void buildPayloadType() {
+    @Override
+    public void buildPayloadTypes() {
     }
 
+    @Override
     public void buildPayloadSize() {
     }
 
+    @Override
     public void buildNPI() {
     }
 
+    @Override
     public void buildInitiatingHCID() {
     }
 
-    public void buildErrorCode() {
+    @Override
+    public void buildErrorCodes() {
         setErrorCodes(ImmutableList.of(fault.getFaultInfo().getErrorCode()));
     }
-
 }

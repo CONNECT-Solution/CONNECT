@@ -59,11 +59,11 @@ public interface EventDescription {
     public String getTransactionId();
 
     /**
-     * Payload Type (C32, C62 etc.).
+     * Payload Types (C32, C62 etc.).
      * 
      * @return
      */
-    public String getPayloadType();
+    public List<String> getPayloadTypes();
 
     /**
      * Payload Size (message specific).
@@ -93,11 +93,12 @@ public interface EventDescription {
     public String getNPI();
 
     /**
-     * Message status (Success/Failure).
+     * Message status (Success/Failure). Returns a list to support response objects that allow multiple responses (ie,
+     * queries).
      * 
      * @return
      */
-    public String getStatus();
+    public List<String> getStatuses();
 
     /**
      * Error code(s) when failed.

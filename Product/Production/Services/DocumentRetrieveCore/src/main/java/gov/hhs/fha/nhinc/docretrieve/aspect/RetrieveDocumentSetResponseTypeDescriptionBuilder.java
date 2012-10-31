@@ -37,6 +37,7 @@ import java.util.List;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
 
 import com.google.common.base.Function;
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Lists;
 
@@ -55,14 +56,14 @@ public class RetrieveDocumentSetResponseTypeDescriptionBuilder extends BaseEvent
     }
 
     @Override
-    public void buildStatus() {
+    public void buildStatuses() {
         if (response != null) {
-            setStatus(response.getRegistryResponse().getStatus());
+            setStatuses(ImmutableList.of(response.getRegistryResponse().getStatus()));
         }
     }
 
     @Override
-    public void buildRespondingHCID() {
+    public void buildRespondingHCIDs() {
         if (response != null) {
             List<String> listWithDups = Lists.transform(response.getDocumentResponse(), HCID_EXTRACTOR);
             setRespondingHCIDs(ImmutableSet.copyOf(listWithDups).asList());
@@ -70,7 +71,7 @@ public class RetrieveDocumentSetResponseTypeDescriptionBuilder extends BaseEvent
     }
 
     @Override
-    public void buildPayloadType() {
+    public void buildPayloadTypes() {
     }
 
     @Override
@@ -86,7 +87,7 @@ public class RetrieveDocumentSetResponseTypeDescriptionBuilder extends BaseEvent
     }
 
     @Override
-    public void buildErrorCode() {
+    public void buildErrorCodes() {
         if (response != null && response.getRegistryResponse().getRegistryErrorList() != null) {
             List<String> listWithDups = Lists.transform(response.getRegistryResponse().getRegistryErrorList()
                     .getRegistryError(), ERROR_CODE_EXTRACTOR);

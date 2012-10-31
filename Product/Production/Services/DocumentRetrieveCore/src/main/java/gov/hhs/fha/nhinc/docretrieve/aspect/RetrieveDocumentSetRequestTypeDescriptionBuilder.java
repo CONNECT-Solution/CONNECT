@@ -32,9 +32,8 @@ import gov.hhs.fha.nhinc.event.BaseEventDescriptionBuilder;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 
 /**
- * Event description builder for retrieve document set request objects. The
- * retreive document set object does not contain any fields that contribute to
- * event descriptions. Only the routing and event context extraction from the
+ * Event description builder for retrieve document set request objects. The retreive document set object does not
+ * contain any fields that contribute to event descriptions. Only the routing and event context extraction from the
  * superclass are necessary.
  */
 public class RetrieveDocumentSetRequestTypeDescriptionBuilder extends BaseEventDescriptionBuilder {
@@ -47,15 +46,15 @@ public class RetrieveDocumentSetRequestTypeDescriptionBuilder extends BaseEventD
     }
 
     @Override
-    public void buildStatus() {
+    public void buildStatuses() {
     }
 
     @Override
-    public void buildRespondingHCID() {
+    public void buildRespondingHCIDs() {
     }
 
     @Override
-    public void buildPayloadType() {
+    public void buildPayloadTypes() {
     }
 
     @Override
@@ -71,6 +70,6 @@ public class RetrieveDocumentSetRequestTypeDescriptionBuilder extends BaseEventD
     }
 
     @Override
-    public void buildErrorCode() {
+    public void buildErrorCodes() {
     }
 }
