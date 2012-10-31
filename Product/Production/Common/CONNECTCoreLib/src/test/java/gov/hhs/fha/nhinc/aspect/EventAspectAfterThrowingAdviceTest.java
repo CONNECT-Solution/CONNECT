@@ -28,14 +28,59 @@
  */
 package gov.hhs.fha.nhinc.aspect;
 
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
+import java.lang.reflect.Method;
+import java.util.Arrays;
+import java.util.Collection;
+
+import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.annotation.AfterThrowing;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameters;
 
 /**
  * @author bhumphrey
- *
+ * 
  */
-public interface EventAdviceDelegate {
+@RunWith(value = Parameterized.class)
+public class EventAspectAfterThrowingAdviceTest {
 
-   
-    void outboundMessageEvent(Object[] args, String serviceType, String version);
+    private Class<EventAspectAdvice> clazz = EventAspectAdvice.class;
+
+    private Class<?> annotationClass;
+
+    public EventAspectAfterThrowingAdviceTest(Class<?> annotationClass) {
+        this.annotationClass = annotationClass;
+    }
+
+    @Parameters
+    public static Collection<Object[]> data() {
+        Object[][] data = new Object[][] { { InboundMessageEvent.class }, 
+                  { InboundProcessingEvent.class },
+                { AdapterDelegationEvent.class },
+                { OutboundMessageEvent.class },
+                { OutboundProcessingEvent.class},
+                { NwhinInvocationEvent.class } };
+        return Arrays.asList(data);
+    }
+
+    @Test
+    public void verify() throws NoSuchMethodException, SecurityException {
+        Method method = clazz.getMethod("failEvent", JoinPoint.class);
+        assertNotNull("method exsist with correct parameters", method);
+
+        AfterThrowing annotation = method.getAnnotation(AfterThrowing.class);
+
+        assertNotNull(annotation);
+
+        String expression = annotation.value();
+
+        assertTrue("does bind to '" + annotationClass.getCanonicalName() + "'",
+                expression.contains("@annotation(" + annotationClass.getCanonicalName() + ")"));
+    }
 
 }
