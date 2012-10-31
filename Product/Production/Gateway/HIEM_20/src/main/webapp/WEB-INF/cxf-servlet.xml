@@ -415,7 +415,4 @@ http://www.springframework.org/schema/aop http://www.springframework.org/schema/
 
     <!-- Aspect Service -->
     <aop:aspectj-autoproxy />
-    <bean id="eventUnsubscribeAspect" class="gov.hhs.fha.nhinc.unsubscribe.aspect.UnsubscribeEventAspect" />
-    <bean id="eventSubscribeAspect" class="gov.hhs.fha.nhinc.subscribe.aspect.SubscribeEventAspect" />
-    <bean id="eventNotifyAspect" class="gov.hhs.fha.nhinc.notify.aspect.NotifyEventAspect" />
 </beans>
