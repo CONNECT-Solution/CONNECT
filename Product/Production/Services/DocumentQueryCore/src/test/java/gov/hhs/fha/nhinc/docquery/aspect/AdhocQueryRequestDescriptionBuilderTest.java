@@ -26,36 +26,41 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.docretrieve.aspect;
+package gov.hhs.fha.nhinc.docquery.aspect;
 
-import static org.mockito.Mockito.mock;
-import gov.hhs.fha.nhinc.event.BaseEventDescriptionBuilder;
-import gov.hhs.fha.nhinc.event.EventContextAccessor;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import gov.hhs.fha.nhinc.event.BaseDescriptionBuilderTest;
 import gov.hhs.fha.nhinc.event.EventDescription;
-import gov.hhs.fha.nhinc.event.EventDescriptionDirector;
-import gov.hhs.fha.nhinc.event.MessageRoutingAccessor;
+import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 
-public class BaseDescriptionBuilderTest {
+import org.junit.Test;
 
-    public BaseDescriptionBuilderTest() {
-        super();
+public class AdhocQueryRequestDescriptionBuilderTest extends BaseDescriptionBuilderTest {
+
+    @Test
+    public void emptyBuild() {
+        AdhocQueryRequestDescriptionBuilder builder = new AdhocQueryRequestDescriptionBuilder(null);
+        EventDescription eventDescription = getEventDescription(builder);
+        assertNotNull(eventDescription);
     }
 
-    protected EventDescription getEventDescription(BaseEventDescriptionBuilder builder) {
-        setMsgMocks(builder);
-        return runDirector(builder);
-    }
+    @Test
+    public void basicBuild() {
+        AdhocQueryRequest request = new AdhocQueryRequest();
 
-    private void setMsgMocks(BaseEventDescriptionBuilder builder) {
-        builder.setMsgContext(mock(EventContextAccessor.class));
-        builder.setMsgRouting(mock(MessageRoutingAccessor.class));
-    }
+        AdhocQueryRequestDescriptionBuilder builder = new AdhocQueryRequestDescriptionBuilder(request);
+        EventDescription eventDescription = getEventDescription(builder);
 
-    private EventDescription runDirector(BaseEventDescriptionBuilder builder) {
-        EventDescriptionDirector director = new EventDescriptionDirector();
-        director.setEventDescriptionBuilder(builder);
-        director.constructEventDescription();
-        return director.getEventDescription();
-    }
+        assertEquals(AdhocQueryRequest.class.getSimpleName(), eventDescription.getPayloadType());
 
+        assertNull(eventDescription.getTimeStamp());
+        assertNull(eventDescription.getStatus());
+        assertNull(eventDescription.getRespondingHCIDs());
+        assertNull(eventDescription.getPayloadSize());
+        assertNull(eventDescription.getNPI());
+        assertNull(eventDescription.getInitiatingHCID());
+        assertNull(eventDescription.getErrorCodes());
+    }
 }
