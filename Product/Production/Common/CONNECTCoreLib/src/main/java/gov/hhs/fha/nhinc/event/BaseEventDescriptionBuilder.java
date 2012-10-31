@@ -89,8 +89,8 @@ public abstract class BaseEventDescriptionBuilder implements EventDescriptionBui
         description.setErrorCodes(errorCodes);
     }
 
-    protected void setStatus(String status) {
-        description.setStatus(status);
+    protected void setStatuses(List<String> statuses) {
+        description.setStatuses(statuses);
     }
 
     protected void setNpi(String npi) {
@@ -109,8 +109,8 @@ public abstract class BaseEventDescriptionBuilder implements EventDescriptionBui
         description.setPayloadSize(payloadSize);
     }
 
-    protected void setPayLoadType(String payLoadType) {
-        description.setPayLoadType(payLoadType);
+    protected void setPayLoadTypes(List<String> payLoadTypes) {
+        description.setPayLoadTypes(payLoadTypes);
     }
 
     protected void setTimeStamp(String timeStamp) {

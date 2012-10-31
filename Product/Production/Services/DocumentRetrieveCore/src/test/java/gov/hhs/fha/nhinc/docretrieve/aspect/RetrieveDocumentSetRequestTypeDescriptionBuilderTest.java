@@ -55,9 +55,9 @@ public class RetrieveDocumentSetRequestTypeDescriptionBuilderTest extends BaseDe
                 request);
         EventDescription eventDescription = getEventDescription(builder);
         assertNull(eventDescription.getTimeStamp());
-        assertNull(eventDescription.getStatus());
+        assertTrue(CollectionUtils.isEmpty(eventDescription.getStatuses()));
         assertNull(eventDescription.getRespondingHCIDs());
-        assertNull(eventDescription.getPayloadType());
+        assertTrue(CollectionUtils.isEmpty(eventDescription.getPayloadTypes()));
         assertNull(eventDescription.getPayloadSize());
         assertNull(eventDescription.getNPI());
         assertNull(eventDescription.getInitiatingHCID());

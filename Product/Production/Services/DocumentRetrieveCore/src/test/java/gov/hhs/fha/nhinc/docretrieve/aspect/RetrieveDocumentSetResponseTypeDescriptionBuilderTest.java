@@ -63,7 +63,8 @@ public class RetrieveDocumentSetResponseTypeDescriptionBuilderTest extends BaseD
         RetrieveDocumentSetResponseTypeDescriptionBuilder builder = new RetrieveDocumentSetResponseTypeDescriptionBuilder(
                 response);
         EventDescription eventDescription = getEventDescription(builder);
-        assertEquals(DocumentConstants.XDS_RETRIEVE_RESPONSE_STATUS_SUCCESS, eventDescription.getStatus());
+        assertEquals(1, eventDescription.getStatuses().size());
+        assertEquals(DocumentConstants.XDS_RETRIEVE_RESPONSE_STATUS_SUCCESS, eventDescription.getStatuses().get(0));
         assertEquals(1, eventDescription.getRespondingHCIDs().size());
         assertEquals("homeCommunityId", eventDescription.getRespondingHCIDs().get(0));
         assertTrue(CollectionUtils.isEmpty(eventDescription.getErrorCodes()));
@@ -80,7 +81,8 @@ public class RetrieveDocumentSetResponseTypeDescriptionBuilderTest extends BaseD
         RetrieveDocumentSetResponseTypeDescriptionBuilder builder = new RetrieveDocumentSetResponseTypeDescriptionBuilder(
                 response);
         EventDescription eventDescription = getEventDescription(builder);
-        assertEquals(DocumentConstants.XDS_RETRIEVE_RESPONSE_STATUS_SUCCESS, eventDescription.getStatus());
+        assertEquals(1, eventDescription.getStatuses().size());
+        assertEquals(DocumentConstants.XDS_RETRIEVE_RESPONSE_STATUS_SUCCESS, eventDescription.getStatuses().get(0));
         assertEquals(2, eventDescription.getRespondingHCIDs().size());
         assertEquals("homeCommunityId", eventDescription.getRespondingHCIDs().get(0));
         assertEquals("otherHomeCommunityId", eventDescription.getRespondingHCIDs().get(1));
@@ -97,7 +99,8 @@ public class RetrieveDocumentSetResponseTypeDescriptionBuilderTest extends BaseD
         RetrieveDocumentSetResponseTypeDescriptionBuilder builder = new RetrieveDocumentSetResponseTypeDescriptionBuilder(
                 response);
         EventDescription eventDescription = getEventDescription(builder);
-        assertEquals(DocumentConstants.XDS_RETRIEVE_RESPONSE_STATUS_FAILURE, eventDescription.getStatus());
+        assertEquals(1, eventDescription.getStatuses().size());
+        assertEquals(DocumentConstants.XDS_RETRIEVE_RESPONSE_STATUS_FAILURE, eventDescription.getStatuses().get(0));
         assertTrue(eventDescription.getRespondingHCIDs() == null || eventDescription.getRespondingHCIDs().isEmpty());
         assertEquals(1, eventDescription.getErrorCodes().size());
         assertEquals(DocumentConstants.XDS_RETRIEVE_ERRORCODE_REPOSITORY_ERROR, eventDescription.getErrorCodes().get(0));
@@ -159,7 +162,7 @@ public class RetrieveDocumentSetResponseTypeDescriptionBuilderTest extends BaseD
 
     private void assertAlwaysNullAttributes(EventDescription eventDescription) {
         assertNull(eventDescription.getTimeStamp());
-        assertNull(eventDescription.getPayloadType());
+        assertTrue(CollectionUtils.isEmpty(eventDescription.getPayloadTypes()));
         assertNull(eventDescription.getPayloadSize());
         assertNull(eventDescription.getNPI());
         assertNull(eventDescription.getInitiatingHCID());

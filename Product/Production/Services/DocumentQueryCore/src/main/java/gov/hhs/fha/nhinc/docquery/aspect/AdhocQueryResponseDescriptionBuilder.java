@@ -47,6 +47,8 @@ public class AdhocQueryResponseDescriptionBuilder extends BaseEventDescriptionBu
 
     private static final HCIDExtractor HCID_EXTRACTOR = new HCIDExtractor();
     private static final ErrorExtractor ERROR_EXTRACTOR = new ErrorExtractor();
+    private static final PayloadTypeExtractor PAYLOAD_TYPE_EXTRACTOR = new PayloadTypeExtractor();
+    private static final StatusExtractor STATUS_EXTRACTOR = new StatusExtractor();
 
     private final AdhocQueryResponse response;
 
@@ -60,18 +62,16 @@ public class AdhocQueryResponseDescriptionBuilder extends BaseEventDescriptionBu
     }
 
     @Override
-    public void buildStatus() {
+    public void buildStatuses() {
         if (hasObjectList()) {
-            JAXBElement<? extends IdentifiableType> jaxbElement = response.getRegistryObjectList().getIdentifiable()
-                    .get(0);
-            IdentifiableType value = jaxbElement.getValue();
-            ExtrinsicObjectType extrinsicObjectType = (ExtrinsicObjectType) value;
-            setStatus(extrinsicObjectType.getStatus());
+            List<String> listWithDups = Lists.transform(response.getRegistryObjectList().getIdentifiable(),
+                    STATUS_EXTRACTOR);
+            setStatuses(ImmutableSet.copyOf(listWithDups).asList());
         }
     }
 
     @Override
-    public void buildRespondingHCID() {
+    public void buildRespondingHCIDs() {
         if (hasObjectList()) {
             List<String> listWithDups = Lists.transform(response.getRegistryObjectList().getIdentifiable(),
                     HCID_EXTRACTOR);
@@ -80,13 +80,11 @@ public class AdhocQueryResponseDescriptionBuilder extends BaseEventDescriptionBu
     }
 
     @Override
-    public void buildPayloadType() {
+    public void buildPayloadTypes() {
         if (hasObjectList()) {
-            JAXBElement<? extends IdentifiableType> jaxbElement = response.getRegistryObjectList().getIdentifiable()
-                    .get(0);
-            IdentifiableType value = jaxbElement.getValue();
-            ExtrinsicObjectType extrinsicObjectType = (ExtrinsicObjectType) value;
-            super.setPayLoadType(extrinsicObjectType.getObjectType());
+            List<String> listWithDups = Lists.transform(response.getRegistryObjectList().getIdentifiable(),
+                    PAYLOAD_TYPE_EXTRACTOR);
+            setPayLoadTypes(ImmutableSet.copyOf(listWithDups).asList());
         }
     }
 
@@ -106,7 +104,7 @@ public class AdhocQueryResponseDescriptionBuilder extends BaseEventDescriptionBu
     }
 
     @Override
-    public void buildErrorCode() {
+    public void buildErrorCodes() {
         if (hasErrorList()) {
             List<String> listWithDups = Lists.transform(response.getRegistryErrorList().getRegistryError(),
                     ERROR_EXTRACTOR);
@@ -138,6 +136,25 @@ public class AdhocQueryResponseDescriptionBuilder extends BaseEventDescriptionBu
         public String apply(RegistryError error) {
             return error.getErrorCode();
         }
+    }
 
+    private static class PayloadTypeExtractor implements Function<JAXBElement<? extends IdentifiableType>, String> {
+
+        @Override
+        public String apply(JAXBElement<? extends IdentifiableType> jaxbElement) {
+            IdentifiableType value = jaxbElement.getValue();
+            ExtrinsicObjectType extrinsicObjectType = (ExtrinsicObjectType) value;
+            return extrinsicObjectType.getObjectType();
+        }
+    }
+
+    private static class StatusExtractor implements Function<JAXBElement<? extends IdentifiableType>, String> {
+
+        @Override
+        public String apply(JAXBElement<? extends IdentifiableType> jaxbElement) {
+            IdentifiableType value = jaxbElement.getValue();
+            ExtrinsicObjectType extrinsicObjectType = (ExtrinsicObjectType) value;
+            return extrinsicObjectType.getStatus();
+        }
     }
 }

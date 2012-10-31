@@ -67,8 +67,8 @@ public class EventDescriptionJSONDecorator implements JSONString, EventDescripti
     }
 
     @Override
-    public String getPayloadType() {
-        return description.getPayloadType();
+    public List<String> getPayloadTypes() {
+        return description.getPayloadTypes();
     }
 
     @Override
@@ -92,8 +92,8 @@ public class EventDescriptionJSONDecorator implements JSONString, EventDescripti
     }
 
     @Override
-    public String getStatus() {
-        return null;
+    public List<String> getStatuses() {
+        return description.getStatuses();
     }
 
     @Override
