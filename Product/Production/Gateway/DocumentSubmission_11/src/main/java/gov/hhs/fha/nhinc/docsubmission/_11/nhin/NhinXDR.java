@@ -31,6 +31,7 @@ import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
 
+import gov.hhs.fha.nhinc.aspect.InboundMessageEvent;
 import gov.hhs.fha.nhinc.docsubmission.nhin.NhinDocSubmissionOrchImpl;
 
 /**
@@ -50,6 +51,7 @@ public class NhinXDR implements ihe.iti.xdr._2007.DocumentRepositoryXDRPortType 
      * @return a registry response
      */
     @Override
+    @InboundMessageEvent(serviceType="Document Submission", version="1.1")
     public oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType documentRepositoryProvideAndRegisterDocumentSetB(
             ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType body) {
         return new NhinDocSubmissionImpl(orchImpl).documentRepositoryProvideAndRegisterDocumentSetB(body, context);

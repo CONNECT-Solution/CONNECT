@@ -47,18 +47,24 @@ import javax.xml.ws.soap.Addressing;
 
 @Addressing(enabled = true)
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
-public class NhinPatientDiscovery extends PatientDiscoveryBase implements ihe.iti.xcpd._2009.RespondingGatewayPortType {
+public class NhinPatientDiscovery  implements ihe.iti.xcpd._2009.RespondingGatewayPortType {
 
     private NhinPatientDiscoveryImpl orchImpl;
 
-    @Resource
+   
     private WebServiceContext context;
+    
 
     /**
      * A generic constructor.
      */
     public NhinPatientDiscovery() {
         super();
+        // this is normally done with a @Resource injection
+        // because we are using aop with cxf this will not
+        // work.
+        // see: http://mail-archives.apache.org/mod_mbox/cxf-users/200908.mbox/%3C200908131043.47706.dkulp%40apache.org%3E
+      //  context = new WebServiceContextImpl();
     }
 
     /**
@@ -67,9 +73,16 @@ public class NhinPatientDiscovery extends PatientDiscoveryBase implements ihe.it
      * @param serviceFactory the service factory.
      */
     public NhinPatientDiscovery(PatientDiscoveryServiceFactory serviceFactory) {
-        super(serviceFactory);
     }
 
+    
+    @Resource
+    public void setContext(WebServiceContext context) {
+        this.context = context;
+    }
+
+    
+    
     /**
      * The web service implementation of Patient Discovery.
      * 

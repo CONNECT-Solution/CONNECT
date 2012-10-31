@@ -139,6 +139,5 @@
 	
 	<!-- Aspect Service -->
     <aop:aspectj-autoproxy />    
-    <bean id="eventDRAspect" class="gov.hhs.fha.nhinc.docretrieve.aspect.DocRetrieveEventAspect" />
 
 </beans>

@@ -108,6 +108,5 @@
 	</bean>
 
     <aop:aspectj-autoproxy />
-    <bean id="eventADAspect" class="gov.hhs.fha.nhinc.admindistribution.aspect.AdminDistributionEventAspect" />
-	
+ 	
 </beans>

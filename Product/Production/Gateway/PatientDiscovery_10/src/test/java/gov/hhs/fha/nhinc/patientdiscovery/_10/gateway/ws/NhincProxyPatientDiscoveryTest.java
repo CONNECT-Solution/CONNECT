@@ -38,7 +38,6 @@ import gov.hhs.fha.nhinc.event.EventRecorder;
 import gov.hhs.fha.nhinc.event.initiator.BeginOutboundMessageEvent;
 import gov.hhs.fha.nhinc.event.initiator.EndOutboundMessageEvent;
 import gov.hhs.fha.nhinc.patientdiscovery._10.passthru.NhincProxyPatientDiscoveryImpl;
-import gov.hhs.fha.nhinc.patientdiscovery.aspect.PatientDiscoveryEventAspect;
 
 import javax.xml.ws.WebServiceContext;
 
@@ -66,9 +65,6 @@ public class NhincProxyPatientDiscoveryTest {
 
     @Autowired
     private NhincProxyPatientDiscovery patientDiscovery;
-
-    @Autowired
-    private PatientDiscoveryEventAspect patientDiscoveryEventAspect;
 
     @Test
     public void testDefaultConstructor() {
@@ -102,18 +98,12 @@ public class NhincProxyPatientDiscoveryTest {
         PRPAIN201305UV02 body = mock(PRPAIN201305UV02.class);
         when(requestType.getPRPAIN201305UV02()).thenReturn(body);
 
-        EventRecorder eventRecorder = mock(EventRecorder.class);
-        patientDiscoveryEventAspect.setEventRecorder(eventRecorder);
-
+      
         PRPAIN201306UV02 actualResponse = patientDiscovery.proxyPRPAIN201305UV(requestType);
 
         verify(mockService).proxyPRPAIN201305UV(eq(requestType), any(WebServiceContext.class));
 
-        InOrder inOrder = Mockito.inOrder(eventRecorder);
-
-        inOrder.verify(eventRecorder).recordEvent(isA(BeginOutboundMessageEvent.class));
-        inOrder.verify(eventRecorder).recordEvent(isA(EndOutboundMessageEvent.class));
-
+      
         assertSame(expectedResponse, actualResponse);
     }
 

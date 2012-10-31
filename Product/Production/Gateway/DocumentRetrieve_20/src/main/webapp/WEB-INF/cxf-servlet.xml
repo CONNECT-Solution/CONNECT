@@ -20,8 +20,7 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd http://www.s
 
     <!-- Aspect Service -->
     <aop:aspectj-autoproxy />    
-    <bean id="eventDRAspect" class="gov.hhs.fha.nhinc.docretrieve.aspect.DocRetrieveEventAspect" />
-
+    
     <!-- Document Retrieve -->
     
     <bean id="nhinDocRetrieveOrchImpl" class="gov.hhs.fha.nhinc.docretrieve.nhin.NhinDocRetrieveOrchImpl" />

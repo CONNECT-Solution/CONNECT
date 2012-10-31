@@ -184,7 +184,7 @@ At the end of the mvn install process, an embedded GlassFish instance will start
         $ mvn clean install
 
 ###Run the Validation Suite via Maven sript
-The Validation Suite can be run via a Maven script against a standalone installation of the applicaiton server:
+The Validation Suite can be run via a Maven script against a standalone installation of the application server:
 
         $ cd <CONNECT_CLONE_DIR>/Product/SoapUI_Test/ValidationSuite
         $ mvn verify -Dstandalone -Dproperties.dir=<applicaiton server configuration dir>
@@ -194,8 +194,8 @@ Several properties can be passed for mvn verify:
         -Dstandalone -- must be passed in for standalone testing
         -Dproperties.dir=<gateway config dir> -- for GlassFish this is <GlassFish home>/domains/domain1/config/nhin; there is an equivalent in WebSphere 
         -Dhost=<machine name or IP address to act as the requesting gateway> -- defaults to localhost, but can be passed in to test on remote machines
-        -Dport=<####> -- defaults to 8080; the unsecured entity/message-proxy port
-        -Dsecured.port=<####> -- defaults to 8181; the secured entity/message-proxy port
+        -Dport=<####> -- defaults to 8080; the unsecured port
+        -Dsecured.port=<####> -- defaults to 8181; the secured port, used for defining HIEM response endpoints
         -Ddb.host=<machine name or IP address of the MySQL server> --  defaults to localhost
         -Ddb.port=<####> -- defaults to 3306
         -Ddb.user=<database user name> -- defaults to nhincuser
