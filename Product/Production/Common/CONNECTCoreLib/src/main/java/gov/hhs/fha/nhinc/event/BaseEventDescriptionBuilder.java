@@ -28,6 +28,11 @@ package gov.hhs.fha.nhinc.event;
 
 import java.util.List;
 
+/**
+ * Base builder implementation that fills the event description from the message routing and event context. Concrete
+ * implementations need only worry about extracting description elements from their service-specific request and
+ * response objects.
+ */
 public abstract class BaseEventDescriptionBuilder implements EventDescriptionBuilder {
 
     private BaseEventDescription description;

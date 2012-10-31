@@ -31,17 +31,14 @@ package gov.hhs.fha.nhinc.docretrieve.aspect;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
-import gov.hhs.fha.nhinc.event.EventContextAccessor;
+import gov.hhs.fha.nhinc.event.BaseDescriptionBuilderTest;
 import gov.hhs.fha.nhinc.event.EventDescription;
-import gov.hhs.fha.nhinc.event.EventDescriptionDirector;
-import gov.hhs.fha.nhinc.event.MessageRoutingAccessor;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 
 import org.junit.Test;
 import org.springframework.util.CollectionUtils;
 
-public class RetrieveDocumentSetRequestTypeDescriptionBuilderTest {
+public class RetrieveDocumentSetRequestTypeDescriptionBuilderTest extends BaseDescriptionBuilderTest {
 
     @Test
     public void emptyBuild() {
@@ -65,22 +62,5 @@ public class RetrieveDocumentSetRequestTypeDescriptionBuilderTest {
         assertNull(eventDescription.getNPI());
         assertNull(eventDescription.getInitiatingHCID());
         assertTrue(CollectionUtils.isEmpty(eventDescription.getErrorCodes()));
-    }
-
-    private EventDescription getEventDescription(RetrieveDocumentSetRequestTypeDescriptionBuilder builder) {
-        setMsgMocks(builder);
-        return runDirector(builder);
-    }
-
-    private void setMsgMocks(RetrieveDocumentSetRequestTypeDescriptionBuilder builder) {
-        builder.setMsgContext(mock(EventContextAccessor.class));
-        builder.setMsgRouting(mock(MessageRoutingAccessor.class));
-    }
-
-    private EventDescription runDirector(RetrieveDocumentSetRequestTypeDescriptionBuilder builder) {
-        EventDescriptionDirector director = new EventDescriptionDirector();
-        director.setEventDescriptionBuilder(builder);
-        director.constructEventDescription();
-        return director.getEventDescription();
     }
 }

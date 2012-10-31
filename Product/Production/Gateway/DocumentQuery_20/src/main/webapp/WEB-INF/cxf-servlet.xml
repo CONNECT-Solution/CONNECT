@@ -142,6 +142,5 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd http://www.s
 
     <!-- Aspect Service -->
     <aop:aspectj-autoproxy />
-    <bean id="eventDQAspect" class="gov.hhs.fha.nhinc.docquery.aspect.DocQueryEventAspect" />
-
+   
 </beans>
