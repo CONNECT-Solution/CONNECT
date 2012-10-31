@@ -8,6 +8,7 @@
         <version>4.0.0-SNAPSHOT</version>
     </parent>
     <artifactId>SoapUI_Test</artifactId>
+    <name>${project.artifactId}</name>
     <packaging>pom</packaging>
     <properties>
         <skip.unpack>true</skip.unpack>
@@ -62,7 +63,24 @@
         </pluginManagement>
         <plugins>
             <plugin>
-                <!-- Used to pull XSD files from the JAR -->
+                <artifactId>maven-remote-resources-plugin</artifactId>
+                <version>1.3</version>
+                <executions>
+                    <execution>
+                        <id>unpack-nhin-properties</id>
+                        <goals>
+                            <goal>process</goal>
+                        </goals>
+                        <configuration>
+                            <resourceBundles>
+                                <resourceBundle>org.connectopensource:Properties:${project.parent.version}</resourceBundle>
+                            </resourceBundles>
+                            <outputDirectory>${project.build.directory}/nhinc-properites-dir/</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
                 <executions>
