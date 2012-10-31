@@ -58,12 +58,6 @@ public class EDXLDistributionDescriptionBuilderTest extends BaseDescriptionBuild
      */
     private static final String INITIATING_HCID = "1.1";
 
-    /**
-     *
-     */
-    public EDXLDistributionDescriptionBuilderTest() {
-    }
-
     @Test
     public void emptyBuild() {
         EDXLDistributionDescriptionBuilder builder = new EDXLDistributionDescriptionBuilder(null);

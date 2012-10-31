@@ -36,8 +36,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import gov.hhs.fha.nhinc.event.BaseEventDescriptionBuilder;
-import gov.hhs.fha.nhinc.event.EventContextAccessor;
-import gov.hhs.fha.nhinc.event.MessageRoutingAccessor;
 
 /**
  * @author zmelnick
@@ -45,7 +43,7 @@ import gov.hhs.fha.nhinc.event.MessageRoutingAccessor;
  */
 public class EDXLDistributionDescriptionBuilder extends BaseEventDescriptionBuilder {
 
-    private EDXLDistribution alert;
+    private final EDXLDistribution alert;
     private static final Log LOG = LogFactory.getLog(EDXLDistributionDescriptionBuilder.class);
 
     /**
@@ -55,14 +53,6 @@ public class EDXLDistributionDescriptionBuilder extends BaseEventDescriptionBuil
         this.alert = alertMessage;
     }
 
-    /**
-     * @param msgRouting
-     * @param msgContext
-     */
-    public EDXLDistributionDescriptionBuilder(MessageRoutingAccessor msgRouting, EventContextAccessor msgContext) {
-        super(msgRouting, msgContext);
-    }
-
     /*
      * (non-Javadoc)
      *
@@ -70,6 +60,7 @@ public class EDXLDistributionDescriptionBuilder extends BaseEventDescriptionBuil
      */
     @Override
     public void buildTimeStamp() {
+        //Work in progress
     }
 
     /*
@@ -111,23 +102,29 @@ public class EDXLDistributionDescriptionBuilder extends BaseEventDescriptionBuil
     public void buildPayloadSize() {
         if (alert != null) {
             List<ContentObjectType> contents = alert.getContentObject();
-            BigInteger payloadSize = null;
+            BigInteger payloadSize = BigInteger.ZERO;
             for (ContentObjectType message : contents) {
-                if (message.getXmlContent() != null
-                        || (message.getNonXMLContent() != null && message.getNonXMLContent().getSize() == null)) {
-                    LOG.warn("Paylod size not provided");
+                if (isPayloadSizeEmpty(message)) {
+                    LOG.info("Paylod size not provided");
                     payloadSize = null;
                     break;
-                } else if (payloadSize != null) {
-                    payloadSize = payloadSize.add(message.getNonXMLContent().getSize());
                 } else {
-                    payloadSize = message.getNonXMLContent().getSize();
+                    payloadSize = payloadSize.add(message.getNonXMLContent().getSize());
                 }
             }
-            if (payloadSize != null) {
+            if (BigInteger.ZERO.compareTo(payloadSize) != 0) {
                 setPayloadSize(payloadSize.toString());
             }
         }
+    }
+
+    /**
+     * @param message
+     * @return
+     */
+    private boolean isPayloadSizeEmpty(ContentObjectType message) {
+        return message.getXmlContent() != null
+                || (message.getNonXMLContent() != null && message.getNonXMLContent().getSize() == null);
     }
 
     /*
