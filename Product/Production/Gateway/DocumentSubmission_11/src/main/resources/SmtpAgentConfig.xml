@@ -1,41 +1,45 @@
 <SmtpAgentConfig>
    <Domains>
-      <AnchorStore type="Uniform" storeType="KeyStore" file="KeyStore" filePass="h3||0 wor|d" privKeyPass="pKpa$$wd"/>    
-      <Domain name="cerner.com" postmaster="postmaster@cerner.com">
+      <AnchorStore type="Uniform" storeType="KeyStore" file="/tmp/direct/directkeystore.jks" filePass="connectisawesome" privKeyPass="connectisawesome"/>    
+      <Domain name="localhost" postmaster="postmaster@localhost">
          <IncomingTrustAnchors> 
             <Anchor name="cacert"/>
-            <Anchor name="externCaCert"/>
-            <Anchor name="secureHealthEmailCACert"/>
-            <Anchor name="msanchor"/>
-            <Anchor name="cernerDemosCaCert"/>      
+            <Anchor name="cacert-5am"/>
+            <Anchor name="provider-localhost"/>
+            <Anchor name="provider-5am"/>
+            <Anchor name="org-localhost"/>
+            <Anchor name="org-5am"/>
          </IncomingTrustAnchors>  
          <OutgoingTrustAnchors> 
             <Anchor name="cacert"/>
-            <Anchor name="externCaCert"/>
-            <Anchor name="secureHealthEmailCACert"/>
-            <Anchor name="msanchor"/>
-            <Anchor name="cernerDemosCaCert"/>      
+            <Anchor name="cacert-5am"/>
+            <Anchor name="provider-localhost"/>
+            <Anchor name="provider-5am"/>
+            <Anchor name="org-localhost"/>
+            <Anchor name="org-5am"/>
          </OutgoingTrustAnchors>           
       </Domain> 
-      <Domain name="securehealthemail.com" postmaster="postmaster@securehealthemail.com">    
+      <Domain name="5amsolutions.com" postmaster="postmaster@5amsolutions.com">    
          <IncomingTrustAnchors> 
             <Anchor name="cacert"/>
-            <Anchor name="externCaCert"/>
-            <Anchor name="secureHealthEmailCACert"/>
-            <Anchor name="msanchor"/>
-            <Anchor name="cernerDemosCaCert"/>      
+            <Anchor name="cacert-5am"/>
+            <Anchor name="provider-localhost"/>
+            <Anchor name="provider-5am"/>
+            <Anchor name="org-localhost"/>
+            <Anchor name="org-5am"/>
          </IncomingTrustAnchors>  
          <OutgoingTrustAnchors> 
             <Anchor name="cacert"/>
-            <Anchor name="externCaCert"/>
-            <Anchor name="secureHealthEmailCACert"/>
-            <Anchor name="msanchor"/>
-            <Anchor name="cernerDemosCaCert"/>      
+            <Anchor name="cacert-5am"/>
+            <Anchor name="provider-localhost"/>
+            <Anchor name="provider-5am"/>
+            <Anchor name="org-localhost"/>
+            <Anchor name="org-5am"/>
          </OutgoingTrustAnchors>         
       </Domain> 
    </Domains>
-   <PublicCertStore type="Keystore" file="KeyStore" filePass="h3||0 wor|d" privKeyPass="pKpa$$wd"/>
-   <PrivateCertStore type="Keystore" file="KeyStore" filePass="h3||0 wor|d" privKeyPass="pKpa$$wd"/>
+   <PublicCertStore type="Keystore" file="/tmp/direct/directkeystore.jks" filePass="connectisawesome" privKeyPass="connectisawesome"/>
+   <PrivateCertStore type="Keystore" file="/tmp/direct/directkeystore.jks" filePass="connectisawesome" privKeyPass="connectisawesome"/>
    <RawMessageSettings saveFolder="RawMsgFolder"/>
    <OutgoingMessagesSettings saveFolder="OutgoingMsgFolder"/>
    <IncomingMessagesSettings saveFolder="IncomingMsgFolder"/>

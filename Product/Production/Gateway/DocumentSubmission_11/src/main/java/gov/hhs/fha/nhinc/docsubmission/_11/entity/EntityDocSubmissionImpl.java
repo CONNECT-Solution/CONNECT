@@ -32,16 +32,14 @@ import gov.hhs.fha.nhinc.common.nhinccommon.UrlInfoType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType;
 import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
-import gov.hhs.fha.nhinc.docsubmission._11.entity.direct.MailServerSettings;
 import gov.hhs.fha.nhinc.docsubmission._11.entity.direct.ExternalMailServerSettings;
+import gov.hhs.fha.nhinc.docsubmission._11.entity.direct.MailServerSettings;
 import gov.hhs.fha.nhinc.docsubmission.entity.EntityDocSubmissionOrchImpl;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType.Document;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -87,7 +85,6 @@ import org.nhindirect.stagent.parser.EntitySerializer;
 class EntityDocSubmissionImpl {
 
     private static Log log = null;
-    private static final String configURLParam = "http://127.0.0.1:8081/config-service/ConfigurationService";
     private static SmtpAgent agent;
     private static final String SUBJECT = "Document from CONNECT ";
     private static final String TEXT = "Test Message for CONNECT to DIRECT use case";
@@ -228,16 +225,9 @@ class EntityDocSubmissionImpl {
 
     }
 
-    public static void decryptMessage(MimeMessage message, String recipient) {
-        URL configURL = null;
+    public void decryptMessage(MimeMessage message, String recipient) {
         try {
-            configURL = new URL(configURLParam);
-        } catch (MalformedURLException ex) {
-            System.out.println("Invalid configuration URL:" + ex.getMessage());
-
-        }
-        try {
-            agent = SmtpAgentFactory.createAgent(configURL);
+            agent = getSmtpAgent();
         } catch (SmtpAgentException e) {
             log.error("Failed to create the SMTP agent: " + e.getMessage());
         }
