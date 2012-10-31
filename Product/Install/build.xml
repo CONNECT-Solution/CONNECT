@@ -207,15 +207,6 @@
             <arg value="-uroot" />
             <arg value="-p${mysql.system.password}" />
         </exec>
-        <echo file="${temp.dir}/privileges.sql">GRANT ALL PRIVILEGES ON *.* TO 'nhincuser'@'localhost' IDENTIFIED BY 'nhincpass' WITH GRANT OPTION;
-GRANT ALL PRIVILEGES ON *.* TO 'nhincuser'@'127.0.0.1' IDENTIFIED BY 'nhincpass' WITH GRANT OPTION;
-FLUSH PRIVILEGES;
-        </echo>
-        <exec failonerror="true" executable="${mysql.executable}" dir="${temp.dir}" input="${temp.dir}/privileges.sql">
-            <arg value="-v" />
-            <arg value="-uroot" />
-            <arg value="-p${mysql.system.password}" />
-        </exec>
         <exec failonerror="true" executable="${mysql.executable}" dir="${basedir}">
             <arg value="-unhincuser" />
             <arg value="-pnhincpass" />
