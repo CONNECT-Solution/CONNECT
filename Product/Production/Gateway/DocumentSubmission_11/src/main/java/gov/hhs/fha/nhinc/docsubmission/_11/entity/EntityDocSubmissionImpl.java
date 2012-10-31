@@ -263,6 +263,9 @@ class EntityDocSubmissionImpl {
         }
     }
 
+/*
+* MDN Generation
+*/
     public static void processMDNMessage(MessageProcessResult result) {
     	Transport transport = null;
     	 try {
