@@ -32,15 +32,14 @@ import gov.hhs.fha.nhinc.common.nhinccommon.UrlInfoType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType;
 import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
+import gov.hhs.fha.nhinc.docsubmission._11.entity.direct.ExternalMailServerSettings;
+import gov.hhs.fha.nhinc.docsubmission._11.entity.direct.MailServerSettings;
 import gov.hhs.fha.nhinc.docsubmission.entity.EntityDocSubmissionOrchImpl;
-import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType.Document;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -86,36 +85,14 @@ import org.nhindirect.stagent.parser.EntitySerializer;
 class EntityDocSubmissionImpl {
 
     private static Log log = null;
-    private static final String configURLParam = "http://127.0.0.1:8081/config-service/ConfigurationService";
     private static SmtpAgent agent;
     private static final String SUBJECT = "Document from CONNECT ";
     private static final String TEXT = "Test Message for CONNECT to DIRECT use case";
     private static final String ATTACHMENT_NAME = "CONNECT_Document";
-    private static Properties smtpProps = new Properties();
-    private static String host, username, password, sender, recipient;
-
-    private static void initData(String protocol) {
-
-        Properties props = null;
-        try {
-            props = PropertyAccessor.getInstance().getProperties("direct.properties");
-        } catch (Exception e) {
-            log.error("Exception while reading properties file: direct.properties", e);
-        }
-
-        sender = props.getProperty("direct.sender");
-        recipient = props.getProperty("direct.recipient");
-
-        if (protocol.equalsIgnoreCase("smtp")) {
-            // passthru smtp props from the direct.properties file
-            smtpProps = props;
-        } else if (protocol.equalsIgnoreCase("imap")) {
-            host = props.getProperty("imap.host");
-            username = props.getProperty("imap.username");
-            password = props.getProperty("imap.password");
-        }
-    }
-
+    
+    // TODO::Make this a dependency on a yet to be created class for sending and receiving direct messages
+    private static final MailServerSettings mailServerSettings = new ExternalMailServerSettings();
+    
     private static void copyMessage(MimeMessage message, String folder) {
         String rand = UUID.randomUUID().toString() + ".eml";
         File fl = new File(System.getProperty("java.io.tmpdir") + folder + File.separator + rand);
@@ -140,28 +117,23 @@ class EntityDocSubmissionImpl {
         return (MimeBodyPart) bodypart;
     }
 
-    public void sendMessage(Document attachment, String name) {
+    private SmtpAgent getSmtpAgent() {
+        return SmtpAgentFactory.createAgent(getClass().getClassLoader().getResource("SmtpAgentConfig.xml"));
+    }
+    
+    public void sendMessage(Document attachment, String name, String recipient) {
         try {
-            URL configURL = null;
-            try {
-                configURL = new URL(configURLParam);
-            } catch (MalformedURLException ex) {
-                log.error("Invalid configuration URL:" + ex.getMessage(), ex);
-
-            }
-
-            try {
-                agent = SmtpAgentFactory.createAgent(configURL);
+            try {                
+                agent = getSmtpAgent();
             } catch (SmtpAgentException e) {
                 log.error("Failed to create the SMTP agent: " + e.getMessage(), e);
             }
 
             try {
                 log.trace("Calling agent.processMessage");
-                initData("smtp");
-                Session session = Session.getInstance(smtpProps, new SMTPAuthenticator());
+                Session session = Session.getInstance(mailServerSettings.getSmtpProperties(), new SMTPAuthenticator());
                 MimeMessage message = new MimeMessage(session);
-                message.setFrom(new InternetAddress(sender));
+                message.setFrom(new InternetAddress(mailServerSettings.getSender()));
                 message.addRecipient(Message.RecipientType.TO, new InternetAddress(recipient));
                 message.setSubject(SUBJECT);
                 MimeBodyPart messagePart = new MimeBodyPart();
@@ -177,7 +149,7 @@ class EntityDocSubmissionImpl {
                 Address recipAddr = new InternetAddress(recipient);
                 NHINDAddressCollection recipients = new NHINDAddressCollection();
                 recipients.add(new NHINDAddress(recipAddr.toString(), (AddressSource) null));
-                InternetAddress senderAddr = new InternetAddress(sender);
+                InternetAddress senderAddr = new InternetAddress(mailServerSettings.getSender());
                 NHINDAddress sender = new NHINDAddress(senderAddr, AddressSource.From);
                 MessageProcessResult result = agent.processMessage(message, recipients, sender);
                 copyMessage(result.getProcessedMessage().getMessage(), "outbox");
@@ -209,7 +181,7 @@ class EntityDocSubmissionImpl {
     private static class SMTPAuthenticator extends javax.mail.Authenticator {
         @Override
         public PasswordAuthentication getPasswordAuthentication() {
-            return new PasswordAuthentication(username, password);
+            return new PasswordAuthentication(mailServerSettings.getUsername(), mailServerSettings.getPassword());
         }
     }
 
@@ -217,16 +189,15 @@ class EntityDocSubmissionImpl {
 
     /************ BEGIN - Receive Message **************************************************************/
 
-    public void receiveMessage(Document attachment, String name) {
+    public void receiveMessage(Document attachment, String name, String recipient) {
         Folder inbox;
         Store store;
         Properties props = System.getProperties();
         props.setProperty("mail.store.protocol", "imaps");
         try {
-            initData("imap");
             Session session = Session.getDefaultInstance(props, null);
             store = session.getStore("imaps");
-            store.connect(host, username, password);
+            store.connect(mailServerSettings.getImapHost(), mailServerSettings.getUsername(), mailServerSettings.getPassword());
             inbox = store.getFolder("Inbox");
             inbox.open(Folder.READ_ONLY);
             FlagTerm ft = new FlagTerm(new Flags(Flags.Flag.SEEN), false);
@@ -239,8 +210,8 @@ class EntityDocSubmissionImpl {
                 String todaysDate = formatter.format(new Date());
                 if (sentDate.equalsIgnoreCase(todaysDate)) {
                     String sender = message[i].getFrom()[0].toString();
-                    if (sender.indexOf(username) != -1) {
-                        decryptMessage((MimeMessage) message[i]);
+                    if (sender.indexOf(mailServerSettings.getUsername()) != -1) {
+                        decryptMessage((MimeMessage) message[i], recipient);
                         Object content = message[i].getContent();
                     }
                 }
@@ -254,16 +225,9 @@ class EntityDocSubmissionImpl {
 
     }
 
-    public static void decryptMessage(MimeMessage message) {
-        URL configURL = null;
+    public void decryptMessage(MimeMessage message, String recipient) {
         try {
-            configURL = new URL(configURLParam);
-        } catch (MalformedURLException ex) {
-            System.out.println("Invalid configuration URL:" + ex.getMessage());
-
-        }
-        try {
-            agent = SmtpAgentFactory.createAgent(configURL);
+            agent = getSmtpAgent();
         } catch (SmtpAgentException e) {
             log.error("Failed to create the SMTP agent: " + e.getMessage());
         }
@@ -272,7 +236,7 @@ class EntityDocSubmissionImpl {
             Address recipAddr = new InternetAddress(recipient);
             NHINDAddressCollection recipients = new NHINDAddressCollection();
             recipients.add(new NHINDAddress(recipAddr.toString(), (AddressSource) null));
-            InternetAddress senderAddr = new InternetAddress(sender);
+            InternetAddress senderAddr = new InternetAddress(mailServerSettings.getSender());
             NHINDAddress sender = new NHINDAddress(senderAddr, AddressSource.From);
             org.nhindirect.stagent.mail.Message msg = new org.nhindirect.stagent.mail.Message(message);
             MessageProcessResult result = agent.processMessage(message, recipients, sender);
@@ -311,17 +275,17 @@ class EntityDocSubmissionImpl {
         try {
             if (request != null) {
                 ProvideAndRegisterDocumentSetRequestType msg = request.getProvideAndRegisterDocumentSetRequest();
-                
+                 
                 if (msg.getSubmitObjectsRequest().getId().equalsIgnoreCase("send")) {
                     log.info("------------------------------------------------------------------");
                     log.info("Begin - Sending mail to responding gateway mail server");
-                    sendMessage(msg.getDocument().get(0), ATTACHMENT_NAME);
+                    sendMessage(msg.getDocument().get(0), ATTACHMENT_NAME, "mlandis@5amsolutions.com");
                     log.info("End - Mail sent to responding gateway mail server");
                     log.info("------------------------------------------------------------------");
                 } else if (msg.getSubmitObjectsRequest().getId().equalsIgnoreCase("receive")) {
                     log.info("------------------------------------------------------------------");
                     log.info("Begin - Receiving mail from responding gateway mail server");
-                    receiveMessage(msg.getDocument().get(0), ATTACHMENT_NAME);
+                    receiveMessage(msg.getDocument().get(0), ATTACHMENT_NAME, "mlandis@5amsolutions.com");
                     log.info("End - Mail received from responding gateway mail server");
                     log.info("------------------------------------------------------------------");
                 }
