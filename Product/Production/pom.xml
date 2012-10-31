@@ -124,6 +124,7 @@
                             <goal>process</goal>
                         </goals>
                         <configuration>
+                            <skip>${skip.unpack}</skip>
                             <attached>true</attached>
                             <resourceBundles>
                                 <resourceBundle>org.connectopensource:CONNECTCommonTypesLib:${project.parent.version}</resourceBundle>
@@ -143,7 +144,6 @@
                     <execution>
                         <phase>process-resources</phase>
                         <configuration>
-                            <skip>${skip.unpack}</skip>
                             <fork>once</fork>
                             <encoding>UTF-8</encoding>
                             <sourceRoot>${project.build.directory}/generated-sources</sourceRoot>
