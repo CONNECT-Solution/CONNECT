@@ -37,7 +37,7 @@ public class BaseEventDescription implements EventDescription {
     private String npi;
     private List<String> respondingHCIDs;
     private String initiatingHCID;
-    private String payloadSize;
+    private List<String> payloadSizes;
     private List<String> payLoadTypes;
     private String transactionId;
     private String serviceType;
@@ -73,8 +73,8 @@ public class BaseEventDescription implements EventDescription {
     }
 
     @Override
-    public String getPayloadSize() {
-        return payloadSize;
+    public List<String> getPayloadSizes() {
+        return payloadSizes;
     }
 
     @Override
@@ -140,8 +140,8 @@ public class BaseEventDescription implements EventDescription {
         this.initiatingHCID = initiatingHCID;
     }
 
-    public void setPayloadSize(String payloadSize) {
-        this.payloadSize = payloadSize;
+    public void setPayloadSizes(List<String> payloadSizes) {
+        this.payloadSizes = payloadSizes;
     }
 
     public void setPayLoadTypes(List<String> payLoadTypes) {
