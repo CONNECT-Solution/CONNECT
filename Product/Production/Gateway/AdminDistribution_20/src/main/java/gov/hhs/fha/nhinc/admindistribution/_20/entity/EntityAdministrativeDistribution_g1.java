@@ -30,6 +30,8 @@ import javax.xml.ws.BindingType;
 import javax.xml.ws.soap.Addressing;
 
 import gov.hhs.fha.nhinc.admindistribution.entity.EntityAdminDistributionOrchImpl;
+import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewaySendAlertMessageType;
+import gov.hhs.fha.nhinc.entityadmindistribution.AdministrativeDistributionPortType;
 
 /**
  *
@@ -38,12 +40,12 @@ import gov.hhs.fha.nhinc.admindistribution.entity.EntityAdminDistributionOrchImp
 
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 @Addressing(enabled = true)
-public class EntityAdministrativeDistribution_g1 implements gov.hhs.fha.nhinc.entityadmindistribution.AdministrativeDistributionPortType {
+public class EntityAdministrativeDistribution_g1 implements AdministrativeDistributionPortType {
 
     private EntityAdminDistributionOrchImpl orchImpl;
 
     @Override
-    public void sendAlertMessage(gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewaySendAlertMessageType body) {
+    public void sendAlertMessage(RespondingGatewaySendAlertMessageType body) {
         orchImpl.sendAlertMessage(body, body.getAssertion(), body.getNhinTargetCommunities());
     }
 

@@ -33,7 +33,9 @@ import javax.xml.ws.soap.Addressing;
 
 import gov.hhs.fha.nhinc.admindistribution.passthru.PassthruAdminDistributionOrchImpl;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewaySendAlertMessageSecuredType;
 import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
+import gov.hhs.fha.nhinc.nhincadmindistribution.NhincAdminDistSecuredPortType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 
 /**
@@ -43,14 +45,13 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 @Addressing(enabled = true)
-public class NhincAdminDistSecured_g1 implements gov.hhs.fha.nhinc.nhincadmindistribution.NhincAdminDistSecuredPortType {
+public class NhincAdminDistSecured_g1 implements NhincAdminDistSecuredPortType {
     @Resource
     private WebServiceContext context;
     private PassthruAdminDistributionOrchImpl orchImpl;
 
     @Override
-    public void sendAlertMessage(
-            gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewaySendAlertMessageSecuredType body) {
+    public void sendAlertMessage(RespondingGatewaySendAlertMessageSecuredType body) {
         AssertionType assertion = extractAssertion(context);
 
         orchImpl.sendAlertMessage(body.getEDXLDistribution(), assertion, body.getNhinTargetSystem(),

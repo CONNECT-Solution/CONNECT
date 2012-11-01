@@ -33,7 +33,9 @@ import javax.xml.ws.soap.Addressing;
 
 import gov.hhs.fha.nhinc.admindistribution.entity.EntityAdminDistributionOrchImpl;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewaySendAlertMessageSecuredType;
 import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
+import gov.hhs.fha.nhinc.entityadmindistribution.AdministrativeDistributionSecuredPortType;
 
 /**
  *
@@ -42,14 +44,13 @@ import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
 
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 @Addressing(enabled = true)
-public class EntityAdministrativeDistributionSecured_g1 implements gov.hhs.fha.nhinc.entityadmindistribution.AdministrativeDistributionSecuredPortType {
+public class EntityAdministrativeDistributionSecured_g1 implements AdministrativeDistributionSecuredPortType {
     @Resource
     private WebServiceContext context;
     private EntityAdminDistributionOrchImpl orchImpl;
 
     @Override
-    public void sendAlertMessage(
-            gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewaySendAlertMessageSecuredType body) {
+    public void sendAlertMessage(RespondingGatewaySendAlertMessageSecuredType body) {
         AssertionType assertion = extractAssertion(context);
 
         orchImpl.sendAlertMessage(body, assertion, body.getNhinTargetCommunities());
