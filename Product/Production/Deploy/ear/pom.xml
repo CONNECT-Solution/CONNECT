@@ -256,6 +256,12 @@
             <version>${project.parent.version}</version>
         </dependency>
         <dependency>
+            <groupId>org.connectopensource</groupId>
+            <artifactId>DirectCore</artifactId>
+            <version>${project.parent.version}</version>
+            <optional>true</optional>
+        </dependency>        
+        <dependency>
             <groupId>org.apache.cxf</groupId>
             <artifactId>cxf-bundle</artifactId>
         </dependency>
