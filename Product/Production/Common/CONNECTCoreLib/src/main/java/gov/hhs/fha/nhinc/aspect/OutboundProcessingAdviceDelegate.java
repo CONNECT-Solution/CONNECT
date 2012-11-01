@@ -35,30 +35,26 @@ import gov.hhs.fha.nhinc.event.EventFactory;
 
 /**
  * @author bhumphrey
- * 
+ *
  */
-public class OutboundMessageAdviceDelegate extends BaseEventAdviceDelegate {
+public class OutboundProcessingAdviceDelegate extends BaseEventAdviceDelegate {
 
     private EventFactory eventFactory;
-
-    /*
-     * (non-Javadoc)
-     * 
+    
+    /* (non-Javadoc)
      * @see gov.hhs.fha.nhinc.aspect.BaseEventAdviceDelegate#createBeginEvent()
      */
     @Override
     protected Event createBeginEvent() {
-        return eventFactory.createBeginOutboundMessage();
+        return eventFactory.createBeginOutboundProcessing();
     }
 
-    /*
-     * (non-Javadoc)
-     * 
+    /* (non-Javadoc)
      * @see gov.hhs.fha.nhinc.aspect.BaseEventAdviceDelegate#createEndEvent()
      */
     @Override
     protected Event createEndEvent() {
-        return eventFactory.createEndOutboundMessage();
+        return eventFactory.createEndOutboundProcessing();
     }
 
     /**
@@ -69,5 +65,5 @@ public class OutboundMessageAdviceDelegate extends BaseEventAdviceDelegate {
     public void setEventFactory(EventFactory eventFactory) {
         this.eventFactory = eventFactory;
     }
-
+    
 }

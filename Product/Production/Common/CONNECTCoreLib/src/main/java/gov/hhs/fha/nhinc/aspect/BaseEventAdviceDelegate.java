@@ -28,6 +28,8 @@
  */
 package gov.hhs.fha.nhinc.aspect;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import gov.hhs.fha.nhinc.event.BaseEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.event.ContextEventBuilder;
 import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
@@ -61,10 +63,20 @@ public abstract class BaseEventAdviceDelegate implements EventAdviceDelegate {
      */
     abstract protected Event createEndEvent();
 
+    /**
+     * inject the eventRecorder.
+     * @param eventRecorder
+     */
+    @Autowired
     public void setEventRecorder(EventRecorder eventRecorder) {
         this.eventRecorder = eventRecorder;
     }
 
+    /**
+     * inject the messageRoutingAccessor.
+     * @param messageRoutingAccessor
+     */
+    @Autowired
     public void setMessageRoutingAccessor(MessageRoutingAccessor messageRoutingAccessor) {
         this.messageRoutingAccessor = messageRoutingAccessor;
     }
