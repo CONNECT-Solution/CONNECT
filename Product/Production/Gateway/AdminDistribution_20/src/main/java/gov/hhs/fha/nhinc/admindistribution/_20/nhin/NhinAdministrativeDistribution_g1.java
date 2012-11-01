@@ -31,9 +31,12 @@ import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
 
+import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
+
 import gov.hhs.fha.nhinc.admindistribution.nhin.NhinAdminDistributionOrchImpl;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
+import gov.hhs.fha.nhinc.nhinadmindistribution.RespondingGatewayAdministrativeDistributionPortType;
 
 /**
  *
@@ -42,14 +45,14 @@ import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
 
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 @Addressing(enabled = true)
-public class NhinAdministrativeDistribution_g1 implements gov.hhs.fha.nhinc.nhinadmindistribution.RespondingGatewayAdministrativeDistributionPortType {
+public class NhinAdministrativeDistribution_g1 implements RespondingGatewayAdministrativeDistributionPortType {
 
     @Resource
     private WebServiceContext context;
     private NhinAdminDistributionOrchImpl orchImpl;
 
     @Override
-    public void sendAlertMessage(oasis.names.tc.emergency.edxl.de._1.EDXLDistribution body) {
+    public void sendAlertMessage(EDXLDistribution body) {
 
         AssertionType assertion = extractAssertion(context);
 

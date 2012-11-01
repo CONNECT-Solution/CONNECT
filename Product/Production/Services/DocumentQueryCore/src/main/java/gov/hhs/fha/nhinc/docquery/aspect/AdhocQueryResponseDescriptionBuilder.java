@@ -46,7 +46,6 @@ import com.google.common.base.Function;
 import com.google.common.base.Optional;
 import com.google.common.base.Predicate;
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 
@@ -80,7 +79,7 @@ public class AdhocQueryResponseDescriptionBuilder extends BaseEventDescriptionBu
         if (hasObjectList()) {
             List<String> listWithDups = Lists.transform(response.getRegistryObjectList().getIdentifiable(),
                     HCID_EXTRACTOR);
-            setRespondingHCIDs(ImmutableSet.copyOf(listWithDups).asList());
+            setRespondingHCIDs(listWithDups);
         }
     }
 
@@ -90,7 +89,7 @@ public class AdhocQueryResponseDescriptionBuilder extends BaseEventDescriptionBu
             List<Optional<String>> listWithDups = Lists.transform(response.getRegistryObjectList().getIdentifiable(),
                     PAYLOAD_TYPE_EXTRACTOR);
 
-            setPayLoadTypes(ImmutableSet.copyOf(Optional.presentInstances(listWithDups)).asList());
+            setPayLoadTypes(fillAbsents(listWithDups, ""));
         }
     }
 
@@ -100,8 +99,20 @@ public class AdhocQueryResponseDescriptionBuilder extends BaseEventDescriptionBu
             List<Optional<String>> listWithDups = Lists.transform(response.getRegistryObjectList().getIdentifiable(),
                     PAYLOAD_SIZE_EXTRACTOR);
 
-            setPayloadSizes(ImmutableSet.copyOf(Optional.presentInstances(listWithDups)).asList());
+            setPayloadSizes(fillAbsents(listWithDups, ""));
         }
+    }
+
+    // Leaving this private, as there may be a way to do this is Guava natively. I just couldn't find it.
+    // if we promote it out to higher visibility, we will need a separate test
+    private <T> List<T> fillAbsents(List<Optional<T>> list, final T fillValue) {
+        Function<Optional<T>, T> helper = new Function<Optional<T>, T>() {
+            @Override
+            public T apply(Optional<T> t) {
+                return t.or(fillValue);
+            }
+        };
+        return Lists.transform(list, helper);
     }
 
     @Override
@@ -119,7 +130,7 @@ public class AdhocQueryResponseDescriptionBuilder extends BaseEventDescriptionBu
         if (hasErrorList()) {
             List<String> listWithDups = Lists.transform(response.getRegistryErrorList().getRegistryError(),
                     ERROR_EXTRACTOR);
-            setErrorCodes(ImmutableSet.copyOf(listWithDups).asList());
+            setErrorCodes(listWithDups);
         }
     }
 
@@ -166,6 +177,7 @@ public class AdhocQueryResponseDescriptionBuilder extends BaseEventDescriptionBu
 
         @Override
         public String apply(RegistryError error) {
+            // errorCode is required by the DTD, so no Optional<String> here
             return error.getErrorCode();
         }
     }

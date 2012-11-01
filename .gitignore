@@ -5,6 +5,7 @@
 .checkstyle
 .DS_Store
 *.log
+MANIFEST.MF
 .externalToolBuilders/
 maven-eclipse.xml
 build/
@@ -29,4 +30,4 @@ Product/Install/.installer.temp/
 Product/Install/.backup*/
 Product/PmdReport/
 CheckstyleReport/
-MANIFEST.MF
+
