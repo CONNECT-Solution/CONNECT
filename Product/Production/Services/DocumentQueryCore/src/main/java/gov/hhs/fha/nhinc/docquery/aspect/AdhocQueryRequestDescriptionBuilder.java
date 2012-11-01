@@ -31,6 +31,8 @@ package gov.hhs.fha.nhinc.docquery.aspect;
 import gov.hhs.fha.nhinc.event.BaseEventDescriptionBuilder;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 
+import com.google.common.collect.ImmutableList;
+
 public class AdhocQueryRequestDescriptionBuilder extends BaseEventDescriptionBuilder {
 
     private final AdhocQueryRequest request;
@@ -45,20 +47,20 @@ public class AdhocQueryRequestDescriptionBuilder extends BaseEventDescriptionBui
     }
 
     @Override
-    public void buildStatus() {
+    public void buildStatuses() {
         // status not a relevant field for requests
 
     }
 
     @Override
-    public void buildRespondingHCID() {
+    public void buildRespondingHCIDs() {
         // responding HCID not relevant for request object
     }
 
     @Override
-    public void buildPayloadType() {
+    public void buildPayloadTypes() {
         if (request != null) {
-            setPayLoadType(request.getClass().getSimpleName());
+            setPayLoadTypes(ImmutableList.of(request.getClass().getSimpleName()));
         }
     }
 
@@ -81,7 +83,7 @@ public class AdhocQueryRequestDescriptionBuilder extends BaseEventDescriptionBui
     }
 
     @Override
-    public void buildErrorCode() {
+    public void buildErrorCodes() {
         // error codes not available in request
     }
 }
