@@ -112,8 +112,8 @@ public abstract class BaseEventDescriptionBuilder implements EventDescriptionBui
         description.setInitiatingHCID(initiatingHCID);
     }
 
-    protected void setPayloadSize(String payloadSize) {
-        description.setPayloadSize(payloadSize);
+    protected void setPayloadSizes(List<String> payloadSizes) {
+        description.setPayloadSizes(payloadSizes);
     }
 
     protected void setPayLoadTypes(List<String> payLoadTypes) {

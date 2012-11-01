@@ -72,8 +72,8 @@ public class EventDescriptionJSONDecorator implements JSONString, EventDescripti
     }
 
     @Override
-    public String getPayloadSize() {
-        return description.getPayloadSize();
+    public List<String> getPayloadSizes() {
+        return description.getPayloadSizes();
     }
 
     @Override

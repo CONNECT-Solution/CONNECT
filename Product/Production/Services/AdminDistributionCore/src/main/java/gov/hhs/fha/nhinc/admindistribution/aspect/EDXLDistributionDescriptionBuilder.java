@@ -26,7 +26,7 @@
  */
 package gov.hhs.fha.nhinc.admindistribution.aspect;
 
-import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.List;
 
 import oasis.names.tc.emergency.edxl.de._1.ContentObjectType;
@@ -100,21 +100,19 @@ public class EDXLDistributionDescriptionBuilder extends BaseEventDescriptionBuil
      */
     @Override
     public void buildPayloadSize() {
+        List<String> payloadSize = new ArrayList<String>();
         if (alert != null) {
             List<ContentObjectType> contents = alert.getContentObject();
-            BigInteger payloadSize = BigInteger.ZERO;
             for (ContentObjectType message : contents) {
                 if (isPayloadSizeEmpty(message)) {
                     LOG.info("Paylod size not provided");
                     payloadSize = null;
                     break;
                 } else {
-                    payloadSize = payloadSize.add(message.getNonXMLContent().getSize());
+                    payloadSize.add(message.getNonXMLContent().getSize().toString());
                 }
             }
-            if (BigInteger.ZERO.compareTo(payloadSize) != 0) {
-                setPayloadSize(payloadSize.toString());
-            }
+            setPayloadSizes(payloadSize);
         }
     }
 

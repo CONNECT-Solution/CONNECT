@@ -58,7 +58,7 @@ public class RetrieveDocumentSetRequestTypeDescriptionBuilderTest extends BaseDe
         assertTrue(CollectionUtils.isEmpty(eventDescription.getStatuses()));
         assertNull(eventDescription.getRespondingHCIDs());
         assertTrue(CollectionUtils.isEmpty(eventDescription.getPayloadTypes()));
-        assertNull(eventDescription.getPayloadSize());
+        assertTrue(CollectionUtils.isEmpty(eventDescription.getPayloadSizes()));
         assertNull(eventDescription.getNPI());
         assertNull(eventDescription.getInitiatingHCID());
         assertTrue(CollectionUtils.isEmpty(eventDescription.getErrorCodes()));

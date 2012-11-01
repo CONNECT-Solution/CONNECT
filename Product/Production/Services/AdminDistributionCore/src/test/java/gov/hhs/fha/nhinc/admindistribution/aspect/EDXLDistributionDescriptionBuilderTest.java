@@ -84,7 +84,7 @@ public class EDXLDistributionDescriptionBuilderTest extends BaseDescriptionBuild
         EDXLDistributionDescriptionBuilder builder = new EDXLDistributionDescriptionBuilder(alert);
         EventDescription eventDescription = getEventDescription(builder);
 
-        assertEquals(BigInteger.TEN.toString(), eventDescription.getPayloadSize());
+        assertEquals(BigInteger.TEN.toString(), eventDescription.getPayloadSizes().get(0));
 
         assertNull(eventDescription.getInitiatingHCID());
         assertAlwaysNullAttributes(eventDescription);
@@ -98,12 +98,13 @@ public class EDXLDistributionDescriptionBuilderTest extends BaseDescriptionBuild
         alert.getContentObject().add(setNonXmlPayloadObject(BigInteger.TEN));
 
         BigInteger testSize = BigInteger.TEN;
-        testSize = testSize.add(BigInteger.TEN);
 
         EDXLDistributionDescriptionBuilder builder = new EDXLDistributionDescriptionBuilder(alert);
         EventDescription eventDescription = getEventDescription(builder);
 
-        assertEquals(testSize.toString(), eventDescription.getPayloadSize());
+        assertTrue(eventDescription.getPayloadSizes().size() == 2);
+        assertEquals(testSize.toString(), eventDescription.getPayloadSizes().get(0));
+        assertEquals(testSize.toString(), eventDescription.getPayloadSizes().get(1));
 
         assertNull(eventDescription.getInitiatingHCID());
         assertAlwaysNullAttributes(eventDescription);
@@ -118,7 +119,7 @@ public class EDXLDistributionDescriptionBuilderTest extends BaseDescriptionBuild
         EDXLDistributionDescriptionBuilder builder = new EDXLDistributionDescriptionBuilder(alert);
         EventDescription eventDescription = getEventDescription(builder);
 
-        assertNull(eventDescription.getPayloadSize());
+        assertNull(eventDescription.getPayloadSizes());
         assertNull(eventDescription.getInitiatingHCID());
         assertAlwaysNullAttributes(eventDescription);
     }
@@ -132,7 +133,7 @@ public class EDXLDistributionDescriptionBuilderTest extends BaseDescriptionBuild
         EDXLDistributionDescriptionBuilder builder = new EDXLDistributionDescriptionBuilder(alert);
         EventDescription eventDescription = getEventDescription(builder);
 
-        assertNull(eventDescription.getPayloadSize());
+        assertNull(eventDescription.getPayloadSizes());
         assertNull(eventDescription.getInitiatingHCID());
         assertAlwaysNullAttributes(eventDescription);
     }

@@ -66,11 +66,11 @@ public interface EventDescription {
     public List<String> getPayloadTypes();
 
     /**
-     * Payload Size (message specific).
-     *
+     * Payload Sizes (message specific).
+     * 
      * @return
      */
-    public String getPayloadSize();
+    public List<String> getPayloadSizes();
 
     /**
      * HCID for Initiatinggateway.

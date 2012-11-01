@@ -61,7 +61,7 @@ public class AdhocQueryRequestDescriptionBuilderTest extends BaseDescriptionBuil
         assertNull(eventDescription.getTimeStamp());
         assertTrue(CollectionUtils.isEmpty(eventDescription.getStatuses()));
         assertNull(eventDescription.getRespondingHCIDs());
-        assertNull(eventDescription.getPayloadSize());
+        assertTrue(CollectionUtils.isEmpty(eventDescription.getPayloadSizes()));
         assertNull(eventDescription.getNPI());
         assertNull(eventDescription.getInitiatingHCID());
         assertNull(eventDescription.getErrorCodes());

@@ -163,7 +163,7 @@ public class RetrieveDocumentSetResponseTypeDescriptionBuilderTest extends BaseD
     private void assertAlwaysNullAttributes(EventDescription eventDescription) {
         assertNull(eventDescription.getTimeStamp());
         assertTrue(CollectionUtils.isEmpty(eventDescription.getPayloadTypes()));
-        assertNull(eventDescription.getPayloadSize());
+        assertTrue(CollectionUtils.isEmpty(eventDescription.getPayloadSizes()));
         assertNull(eventDescription.getNPI());
         assertNull(eventDescription.getInitiatingHCID());
     }
