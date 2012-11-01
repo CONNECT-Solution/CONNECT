@@ -28,6 +28,7 @@ package gov.hhs.fha.nhinc.docsubmission._20.nhin;
 
 import gov.hhs.fha.nhinc.aspect.InboundMessageEvent;
 import gov.hhs.fha.nhinc.docsubmission.nhin.NhinDocSubmissionOrchImpl;
+import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
 
 import javax.xml.ws.BindingType;
 import javax.annotation.Resource;
@@ -41,12 +42,11 @@ import javax.xml.ws.soap.Addressing;
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 @Addressing(enabled = true)
 public class NhinXDR_g1 implements ihe.iti.xdr._2007.DocumentRepositoryXDRPortType {
-    @Resource
     private WebServiceContext context;
     
     private NhinDocSubmissionOrchImpl orchImpl;
 
-    @InboundMessageEvent(serviceType="Document Submission", version="2.0")
+    @InboundMessageEvent(serviceType="Document Submission", version="2.0", descriptionBuilder=DefaultEventDescriptionBuilder.class)
     public oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType documentRepositoryProvideAndRegisterDocumentSetB(
             ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType body) {
         return new NhinDocSubmissionImpl_g1(orchImpl).documentRepositoryProvideAndRegisterDocumentSetB(body, context);
@@ -60,5 +60,14 @@ public class NhinXDR_g1 implements ihe.iti.xdr._2007.DocumentRepositoryXDRPortTy
     public void setOrchestratorImpl(NhinDocSubmissionOrchImpl orchImpl) {
         this.orchImpl = orchImpl;
     }
+
+    @Resource
+    public void setContext(WebServiceContext context) {
+        this.context = context;
+    }
+
+   
+    
+    
 
 }

@@ -30,6 +30,7 @@ package gov.hhs.fha.nhinc.aspect;
 
 import gov.hhs.fha.nhinc.event.BaseEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.event.ContextEventBuilder;
+import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.event.Event;
 import gov.hhs.fha.nhinc.event.EventBuilder;
 import gov.hhs.fha.nhinc.event.EventContextAccessor;
@@ -38,14 +39,27 @@ import gov.hhs.fha.nhinc.event.EventDirector;
 import gov.hhs.fha.nhinc.event.EventRecorder;
 import gov.hhs.fha.nhinc.event.MessageRoutingAccessor;
 
-
 /**
+ * Base class for EventAdviceDelegates. Has two template methods
+ * <i>createBeginEvent</i> and <i>createEndEvent</i>.
  * @author bhumphrey
- *
+ * 
  */
-public abstract class BaseEventAdviceDelegate  implements EventAdviceDelegate {
+public abstract class BaseEventAdviceDelegate implements EventAdviceDelegate {
     private EventRecorder eventRecorder;
     private MessageRoutingAccessor messageRoutingAccessor;
+
+    /**
+     * overridden in sub class to return the correct Begin event object.
+     * @return Concrete Event object
+     */
+    abstract protected Event createBeginEvent();
+
+    /**
+     * overridden in sub class to return the correct End event object.
+     * @return Concrete Event object
+     */
+    abstract protected Event createEndEvent();
 
     public void setEventRecorder(EventRecorder eventRecorder) {
         this.eventRecorder = eventRecorder;
@@ -62,14 +76,20 @@ public abstract class BaseEventAdviceDelegate  implements EventAdviceDelegate {
      * java.lang.String)
      */
     @Override
-    public void begin(Object[] args, String serviceType, String version) {
+    public void begin(Object[] args, String serviceType, String version,
+            Class<? extends BaseEventDescriptionBuilder> eventDescriptionbuilderClass) {
 
-        BaseEventDescriptionBuilder eventDescriptionBuilder = getEventDecriptionBuilder(args,
-                getEventContextAccessor(serviceType, version), messageRoutingAccessor);
-        createAndRecordEvent(args, serviceType, version, getBeginEventBuilder(eventDescriptionBuilder));
+        BaseEventDescriptionBuilder eventDescriptionBuilder = createAndInitializeEventDecriptionBuilder(args,
+                createEventContextAccessor(serviceType, version), eventDescriptionbuilderClass);
+
+        createAndRecordEvent(getBeginEventBuilder(eventDescriptionBuilder));
     }
 
-    private void createAndRecordEvent(Object[] args, String serviceType, String version, EventBuilder eventBuilder) {
+    /**
+     * Execute the Director pattern of the Event then record the event.
+     * @param eventBuilder
+     */
+    private void createAndRecordEvent(EventBuilder eventBuilder) {
         EventDirector director = new EventDirector();
         director.setEventBuilder(eventBuilder);
         director.constructEvent();
@@ -82,69 +102,52 @@ public abstract class BaseEventAdviceDelegate  implements EventAdviceDelegate {
      * @see gov.hhs.fha.nhinc.aspect.EndEventAdviceDelegate#end(java.lang.Object[], java.lang.String, java.lang.String)
      */
     @Override
-    public void end(Object[] args, String serviceType, String version) {
-        BaseEventDescriptionBuilder eventDescriptionBuilder = getEventDecriptionBuilder(args,
-                getEventContextAccessor(serviceType, version), messageRoutingAccessor);
-        createAndRecordEvent(args, serviceType, version, getEndEventBuilder(eventDescriptionBuilder));
+    public void end(Object[] args, String serviceType, String version,
+            Class<? extends BaseEventDescriptionBuilder> eventDescriptionbuilderClass) {
+        BaseEventDescriptionBuilder eventDescriptionBuilder = createAndInitializeEventDecriptionBuilder(args,
+                createEventContextAccessor(serviceType, version), eventDescriptionbuilderClass);
+        createAndRecordEvent(getEndEventBuilder(eventDescriptionBuilder));
     }
 
-    protected BaseEventDescriptionBuilder getEventDecriptionBuilder(Object[] args,
-            EventContextAccessor eventContextAccessor, MessageRoutingAccessor messageRoutingAccessor) {
-        return new BaseEventDescriptionBuilder(messageRoutingAccessor, eventContextAccessor) {
+    /**
+     * after creating the event builder populate with args, context and routing accessor.
+     * @param args
+     * @param eventContextAccessor
+     * @param eventDescriptionbuilderClass
+     * @return
+     */
+    protected BaseEventDescriptionBuilder createAndInitializeEventDecriptionBuilder(Object[] args,
+            EventContextAccessor eventContextAccessor,
+            Class<? extends BaseEventDescriptionBuilder> eventDescriptionbuilderClass) {
+        BaseEventDescriptionBuilder eventDescriptionBuilder = createEventDescriptionBuilder(eventDescriptionbuilderClass);
 
-            @Override
-            public void buildTimeStamp() {
-                // TODO Auto-generated method stub
-                
-            }
+        eventDescriptionBuilder.setArguments(args);
+        eventDescriptionBuilder.setMsgContext(eventContextAccessor);
+        eventDescriptionBuilder.setMsgRouting(messageRoutingAccessor);
+        return eventDescriptionBuilder;
 
-            @Override
-            public void buildStatuses() {
-                // TODO Auto-generated method stub
-                
-            }
-
-            @Override
-            public void buildRespondingHCIDs() {
-                // TODO Auto-generated method stub
-                
-            }
-
-            @Override
-            public void buildPayloadTypes() {
-                // TODO Auto-generated method stub
-                
-            }
-
-            @Override
-            public void buildPayloadSize() {
-                // TODO Auto-generated method stub
-                
-            }
-
-            @Override
-            public void buildNPI() {
-                // TODO Auto-generated method stub
-                
-            }
-
-            @Override
-            public void buildInitiatingHCID() {
-                // TODO Auto-generated method stub
-                
-            }
-
-            @Override
-            public void buildErrorCodes() {
-                // TODO Auto-generated method stub
-                
-            }
-
-            
-        };
     }
 
-    private EventContextAccessor getEventContextAccessor(final String serviceType, final String version) {
+    /**
+     *  create a new instance of the eventDescription builder class. If one can't created return
+     *  the default builder.
+     * @param eventDescriptionbuilderClass
+     * @return
+     */
+    private BaseEventDescriptionBuilder createEventDescriptionBuilder(
+            Class<? extends BaseEventDescriptionBuilder> eventDescriptionbuilderClass) {
+        BaseEventDescriptionBuilder eventDescriptionBuilder;
+        try {
+            eventDescriptionBuilder = eventDescriptionbuilderClass.newInstance();
+        } catch (InstantiationException e) {
+            eventDescriptionBuilder = new DefaultEventDescriptionBuilder();
+        } catch (IllegalAccessException e) {
+            eventDescriptionBuilder = new DefaultEventDescriptionBuilder();
+        }
+        return eventDescriptionBuilder;
+    }
+
+    private EventContextAccessor createEventContextAccessor(final String serviceType, final String version) {
         return new EventContextAccessor() {
 
             @Override
@@ -173,8 +176,6 @@ public abstract class BaseEventAdviceDelegate  implements EventAdviceDelegate {
         return builder;
     }
 
-    abstract Event createBeginEvent();
-
     private EventBuilder getEndEventBuilder(BaseEventDescriptionBuilder eventDescriptionBuilder) {
         EventDescriptionDirector eventDescriptionDirector = new EventDescriptionDirector();
         eventDescriptionDirector.setEventDescriptionBuilder(eventDescriptionBuilder);
@@ -189,6 +190,4 @@ public abstract class BaseEventAdviceDelegate  implements EventAdviceDelegate {
         return builder;
     }
 
-    abstract protected Event createEndEvent();
-   
 }

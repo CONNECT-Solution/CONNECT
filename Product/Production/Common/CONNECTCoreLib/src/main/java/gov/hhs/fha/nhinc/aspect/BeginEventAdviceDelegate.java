@@ -28,12 +28,14 @@
  */
 package gov.hhs.fha.nhinc.aspect;
 
+import gov.hhs.fha.nhinc.event.BaseEventDescriptionBuilder;
+
 /**
  * @author bhumphrey
  *
  */
 public interface BeginEventAdviceDelegate {
 
-    void begin(Object[] args, String serviceType, String version);   
+    void begin(Object[] args, String serviceType, String version, Class<? extends BaseEventDescriptionBuilder> eventDescriptionbuilder);
 
 }

@@ -47,6 +47,8 @@ public abstract class BaseEventDescriptionBuilder implements EventDescriptionBui
         this.msgRouting = msgRouting;
         this.msgContext = msgContext;
     }
+    
+    abstract public void setArguments(Object ... aguements);
 
     public void setMsgRouting(MessageRoutingAccessor msgRouting) {
         this.msgRouting = msgRouting;

@@ -34,6 +34,7 @@ import gov.hhs.fha.nhinc.docsubmission.XDRAuditLogger;
 import gov.hhs.fha.nhinc.docsubmission.XDRPolicyChecker;
 import gov.hhs.fha.nhinc.docsubmission.adapter.proxy.AdapterDocSubmissionProxy;
 import gov.hhs.fha.nhinc.docsubmission.adapter.proxy.AdapterDocSubmissionProxyObjectFactory;
+import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.gateway.aggregator.document.DocumentConstants;
 import gov.hhs.fha.nhinc.largefile.LargePayloadException;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
@@ -63,7 +64,7 @@ public class NhinDocSubmissionOrchImpl {
         auditLogger = getXDRAuditLogger();
     }
 
-    @InboundProcessingEvent(serviceType="Document Submission", version="")
+    @InboundProcessingEvent(serviceType="Document Submission", version="", descriptionBuilder=DefaultEventDescriptionBuilder.class)
     public RegistryResponseType documentRepositoryProvideAndRegisterDocumentSetB(
             ProvideAndRegisterDocumentSetRequestType body, AssertionType assertion) {
         RegistryResponseType response = null;

@@ -44,7 +44,7 @@ public class InboundProcessingAdviceDelegate extends BaseEventAdviceDelegate {
     }
 
     @Override
-    Event createBeginEvent() {
+    protected Event createBeginEvent() {
         return eventFactory.createBeginInboundProcessing();
     }
 

@@ -7,6 +7,9 @@ import org.hl7.v3.PRPAIN201306UV02;
 public class PRPAIN201306UV02EventDescriptionBuilder extends BaseEventDescriptionBuilder {
 
     private PRPAIN201306UV02 body;
+    
+    public PRPAIN201306UV02EventDescriptionBuilder() {
+    }
 
     public PRPAIN201306UV02EventDescriptionBuilder(PRPAIN201306UV02 body) {
         this.body = body;
@@ -48,5 +51,15 @@ public class PRPAIN201306UV02EventDescriptionBuilder extends BaseEventDescriptio
 
     @Override
     public void createEventDescription() {
+    }
+
+    @Override
+    public void setArguments(Object... arguements) {
+        if (arguements.length == 1) {
+            if (arguements[0] instanceof PRPAIN201306UV02) {
+                this.body = (PRPAIN201306UV02)arguements[0];
+            }
+        }
+        
     }
 }

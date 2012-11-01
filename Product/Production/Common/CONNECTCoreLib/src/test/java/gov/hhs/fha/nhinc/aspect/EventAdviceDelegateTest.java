@@ -28,15 +28,21 @@
  */
 package gov.hhs.fha.nhinc.aspect;
 
+import static junit.framework.Assert.assertNotNull;
 import static org.mockito.Matchers.isA;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.event.BaseEventDescriptionBuilder;
+import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.event.EventFactory;
 import gov.hhs.fha.nhinc.event.EventRecorder;
 import gov.hhs.fha.nhinc.event.MessageRoutingAccessor;
+import gov.hhs.fha.nhinc.event.initiator.BeginOutboundMessageEvent;
+import gov.hhs.fha.nhinc.event.responder.BeginAdapterDelegationEvent;
 import gov.hhs.fha.nhinc.event.responder.BeginInboundMessageEvent;
 import gov.hhs.fha.nhinc.event.responder.BeginInboundProcessingEvent;
+import gov.hhs.fha.nhinc.event.responder.EndAdapterDelegationEvent;
 import gov.hhs.fha.nhinc.event.responder.EndInboundMessageEvent;
 import gov.hhs.fha.nhinc.event.responder.EndInboundProcessingEvent;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
@@ -61,10 +67,10 @@ public class EventAdviceDelegateTest {
         inboundMessageAdviceDelegate.setMessageRoutingAccessor(messageRoutingAccessor);
         inboundMessageAdviceDelegate.setEventFactory(eventFactory);
 
-        inboundMessageAdviceDelegate.begin(args, DS_SERVICE_TYPE, DS_VERISON);
+        inboundMessageAdviceDelegate.begin(args, DS_SERVICE_TYPE, DS_VERISON, DefaultEventDescriptionBuilder.class);
         verify(eventRecorder).recordEvent(isA(BeginInboundMessageEvent.class));
 
-        inboundMessageAdviceDelegate.end(args, DS_SERVICE_TYPE, DS_VERISON);
+        inboundMessageAdviceDelegate.end(args, DS_SERVICE_TYPE, DS_VERISON, DefaultEventDescriptionBuilder.class);
         verify(eventRecorder).recordEvent(isA(EndInboundMessageEvent.class));
     }
 
@@ -80,12 +86,47 @@ public class EventAdviceDelegateTest {
         inboundProcessingAdviceDelegate.setEventFactory(eventFactory);
         inboundProcessingAdviceDelegate.setMessageRoutingAccessor(messageRoutingAccessor);
         
-        inboundProcessingAdviceDelegate.begin(args, DS_SERVICE_TYPE, DS_VERISON);
+        inboundProcessingAdviceDelegate.begin(args, DS_SERVICE_TYPE, DS_VERISON, DefaultEventDescriptionBuilder.class);
         verify(eventRecorder).recordEvent(isA(BeginInboundProcessingEvent.class));
         
-        inboundProcessingAdviceDelegate.end(args, DS_SERVICE_TYPE, DS_VERISON);
+        inboundProcessingAdviceDelegate.end(args, DS_SERVICE_TYPE, DS_VERISON, DefaultEventDescriptionBuilder.class);
         verify(eventRecorder).recordEvent(isA(EndInboundProcessingEvent.class));
         
     }
     
+    @Test
+    public void adapterDelegationAdviceDelegate() {
+        AdapterDelegationAdviceDelegate adapterDelegationAdviceDelegate = new AdapterDelegationAdviceDelegate();
+    
+        ProvideAndRegisterDocumentSetRequestType body = new ProvideAndRegisterDocumentSetRequestType();
+        AssertionType assertion = new AssertionType();
+        Object[] args = { body, assertion };
+        
+        adapterDelegationAdviceDelegate.setEventFactory(eventFactory);
+        adapterDelegationAdviceDelegate.setEventRecorder(eventRecorder);
+        adapterDelegationAdviceDelegate.setMessageRoutingAccessor(messageRoutingAccessor);
+        
+        adapterDelegationAdviceDelegate.begin(args, DS_SERVICE_TYPE, DS_VERISON, DefaultEventDescriptionBuilder.class);
+        verify(eventRecorder).recordEvent(isA(BeginAdapterDelegationEvent.class));
+        
+        adapterDelegationAdviceDelegate.end(args, DS_SERVICE_TYPE, DS_VERISON, DefaultEventDescriptionBuilder.class);
+        verify(eventRecorder).recordEvent(isA(EndAdapterDelegationEvent.class));
+    }
+    
+    @Test
+    public void outboundMessageAdviceDelegate() {
+        OutboundMessageAdviceDelegate outboundMessageAdviceDelegate = new OutboundMessageAdviceDelegate();
+        
+        Object[] args = {};
+        
+        outboundMessageAdviceDelegate.setEventRecorder(eventRecorder);
+        outboundMessageAdviceDelegate.setMessageRoutingAccessor(messageRoutingAccessor);
+        outboundMessageAdviceDelegate.setEventFactory(eventFactory);
+        
+        assertNotNull(outboundMessageAdviceDelegate.createBeginEvent());
+        
+        outboundMessageAdviceDelegate.begin(args, DS_SERVICE_TYPE, DS_VERISON, DefaultEventDescriptionBuilder.class);
+        verify(eventRecorder).recordEvent(isA(BeginOutboundMessageEvent.class));
+        
+    }
 }
