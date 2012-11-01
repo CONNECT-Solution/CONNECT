@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.docsubmission.nhin;
 
+import gov.hhs.fha.nhinc.aspect.InboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.docsubmission.DocSubmissionUtils;
 import gov.hhs.fha.nhinc.docsubmission.MessageGeneratorUtils;
@@ -62,6 +63,7 @@ public class NhinDocSubmissionOrchImpl {
         auditLogger = getXDRAuditLogger();
     }
 
+    @InboundProcessingEvent(serviceType="Document Submission", version="")
     public RegistryResponseType documentRepositoryProvideAndRegisterDocumentSetB(
             ProvideAndRegisterDocumentSetRequestType body, AssertionType assertion) {
         RegistryResponseType response = null;

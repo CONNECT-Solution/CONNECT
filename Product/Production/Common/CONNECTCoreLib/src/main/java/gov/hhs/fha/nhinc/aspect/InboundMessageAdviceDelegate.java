@@ -28,11 +28,28 @@
  */
 package gov.hhs.fha.nhinc.aspect;
 
+import gov.hhs.fha.nhinc.event.Event;
+import gov.hhs.fha.nhinc.event.EventFactory;
 
 /**
  * @author bhumphrey
- *
+ * 
  */
-public interface EventAdviceDelegate extends BeginEventAdviceDelegate, EndEventAdviceDelegate {
+public class InboundMessageAdviceDelegate extends BaseEventAdviceDelegate  {
+    
+    private EventFactory eventFactory;
+    
+    public void setEventFactory(EventFactory eventFactory) {
+        this.eventFactory = eventFactory;
+    }
+
+    protected Event createBeginEvent() {
+        return eventFactory.createBeginInboundMessage();
+    }
+
+   
+    protected Event createEndEvent() {
+        return eventFactory.createEndInboundMessage();
+    }
 
 }

@@ -49,7 +49,13 @@ import org.mockito.stubbing.Answer;
 public class EventAspectAdviceTest {
 
     private EventAspectAdvice advice = new EventAspectAdvice();
-    private EventAdviceDelegate mockDelegate = mock(EventAdviceDelegate.class);
+    private EventAdviceDelegate adapterDelegationAdviceDelegate = mock(EventAdviceDelegate.class);
+    private EventAdviceDelegate inboundMessageAdviceDelegate = mock(EventAdviceDelegate.class);
+    private EventAdviceDelegate inboundProcessingAdviceDelegate = mock(EventAdviceDelegate.class);
+    private EventAdviceDelegate nwhinInvocationAdviceDelegate = mock(EventAdviceDelegate.class);
+    private EventAdviceDelegate outboundMessageAdviceDelegate = mock(EventAdviceDelegate.class);
+    private EventAdviceDelegate outboundProcessingAdviceDelegate = mock(EventAdviceDelegate.class);
+    private FailureAdviceDelegate failureAdviceDelegate = mock(FailureAdviceDelegate.class);
     private JoinPoint mockJoinPoint = mock(JoinPoint.class);
 
     private Answer<String> serviceTypeAnswer = new Answer<String>() {
@@ -70,7 +76,13 @@ public class EventAspectAdviceTest {
     public void setupMocks() {
         
         
-        advice.setDelegate(mockDelegate);
+        advice.setAdapterDelegationAdviceDelegate(adapterDelegationAdviceDelegate);
+        advice.setInboundMessageAdviceDelegate(inboundMessageAdviceDelegate);
+        advice.setInboundProcessingAdviceDelegate(inboundProcessingAdviceDelegate);
+        advice.setNwhinInvocationAdviceDelegate(nwhinInvocationAdviceDelegate);
+        advice.setOutboundMessageAdviceDelegate(outboundMessageAdviceDelegate);
+        advice.setOutboundProcessingAdviceDelegate(outboundProcessingAdviceDelegate);
+        advice.setFailureAdviceDelegate(failureAdviceDelegate);
         when(mockJoinPoint.getArgs()).then(new Answer<Object[]>() {
 
             @Override
@@ -82,7 +94,6 @@ public class EventAspectAdviceTest {
     
     @After
     public void cleanUpMocks() {
-        reset(mockDelegate);
         reset(mockJoinPoint);
     }
 
@@ -95,11 +106,11 @@ public class EventAspectAdviceTest {
 
         advice.beginInboundMessageEvent(mockJoinPoint, mockAnnotation);
 
-        verify(mockDelegate).beginInboundMessageEvent(any(Object[].class), eq("test-serviceType"), eq("test-version"));
+        verify(inboundMessageAdviceDelegate).begin(any(Object[].class), eq("test-serviceType"), eq("test-version"));
         
         advice.endInboundMessageEvent(mockJoinPoint, mockAnnotation);
 
-        verify(mockDelegate).endInboundMessageEvent(any(Object[].class), eq("test-serviceType"), eq("test-version"));
+        verify(inboundMessageAdviceDelegate).end(any(Object[].class), eq("test-serviceType"), eq("test-version"));
     }
     
     @Test
@@ -111,11 +122,11 @@ public class EventAspectAdviceTest {
 
         advice.beginOutboundMessageEvent(mockJoinPoint, mockAnnotation);
 
-        verify(mockDelegate).beginOutboundMessageEvent(any(Object[].class), eq("test-serviceType"), eq("test-version"));
+        verify(outboundMessageAdviceDelegate).begin(any(Object[].class), eq("test-serviceType"), eq("test-version"));
         
         advice.endOutboundMessageEvent(mockJoinPoint, mockAnnotation);
 
-        verify(mockDelegate).endOutboundMessageEvent(any(Object[].class), eq("test-serviceType"), eq("test-version"));
+        verify(outboundMessageAdviceDelegate).end(any(Object[].class), eq("test-serviceType"), eq("test-version"));
     }
     
     @Test
@@ -127,11 +138,11 @@ public class EventAspectAdviceTest {
 
         advice.beginAdapterDelegationEvent(mockJoinPoint, mockAnnotation);
 
-        verify(mockDelegate).beginAdapterDelegationEvent(any(Object[].class), eq("test-serviceType"), eq("test-version"));
+        verify(adapterDelegationAdviceDelegate).begin(any(Object[].class), eq("test-serviceType"), eq("test-version"));
   
         advice.endAdapterDelegationEvent(mockJoinPoint, mockAnnotation);
         
-        verify(mockDelegate).endAdapterDelegationEvent(any(Object[].class), eq("test-serviceType"), eq("test-version"));
+        verify(adapterDelegationAdviceDelegate).end(any(Object[].class), eq("test-serviceType"), eq("test-version"));
     }
     
     @Test
@@ -143,11 +154,11 @@ public class EventAspectAdviceTest {
 
         advice.beginInboundProcessingEvent(mockJoinPoint, mockAnnotation);
 
-        verify(mockDelegate).beginInboundProcessingEvent(any(Object[].class), eq("test-serviceType"), eq("test-version"));
+        verify(inboundProcessingAdviceDelegate).begin(any(Object[].class), eq("test-serviceType"), eq("test-version"));
        
         advice.endInboundProcessingEvent(mockJoinPoint, mockAnnotation);
         
-        verify(mockDelegate).endInboundProcessingEvent(any(Object[].class), eq("test-serviceType"), eq("test-version"));
+        verify(inboundProcessingAdviceDelegate).end(any(Object[].class), eq("test-serviceType"), eq("test-version"));
     }
     
     @Test
@@ -159,11 +170,11 @@ public class EventAspectAdviceTest {
 
         advice.beginOutboundProcessingEvent(mockJoinPoint, mockAnnotation);
 
-        verify(mockDelegate).beginOutboundProcessingEvent(any(Object[].class), eq("test-serviceType"), eq("test-version"));
+        verify(outboundProcessingAdviceDelegate).begin(any(Object[].class), eq("test-serviceType"), eq("test-version"));
       
         advice.endOutboundProcessingEvent(mockJoinPoint, mockAnnotation);
         
-        verify(mockDelegate).endOutboundProcessingEvent(any(Object[].class), eq("test-serviceType"), eq("test-version"));
+        verify(outboundProcessingAdviceDelegate).end(any(Object[].class), eq("test-serviceType"), eq("test-version"));
     }
     
     @Test
@@ -175,17 +186,17 @@ public class EventAspectAdviceTest {
         
         advice.beginNwhinInvocationEvent(mockJoinPoint, mockAnnotation);
         
-        verify(mockDelegate).beginNwhinInvocationEvent(any(Object[].class), eq("test-serviceType"), eq("test-version"));
+        verify(nwhinInvocationAdviceDelegate).begin(any(Object[].class), eq("test-serviceType"), eq("test-version"));
        
         advice.endNwhinInvocationEvent(mockJoinPoint, mockAnnotation);
         
-        verify(mockDelegate).endNwhinInvocationEvent(any(Object[].class), eq("test-serviceType"), eq("test-version"));
+        verify(nwhinInvocationAdviceDelegate).end(any(Object[].class), eq("test-serviceType"), eq("test-version"));
     }
     @Test
     public void verifyFailEvent() {
         
         advice.failEvent(mockJoinPoint);
         
-        verify(mockDelegate).failEvent(any(Object[].class));
+        verify(failureAdviceDelegate).fail(any(Object[].class));
     }
 }

@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.docsubmission._20.nhin;
 
+import gov.hhs.fha.nhinc.aspect.InboundMessageEvent;
 import gov.hhs.fha.nhinc.docsubmission.nhin.NhinDocSubmissionOrchImpl;
 
 import javax.xml.ws.BindingType;
@@ -45,6 +46,7 @@ public class NhinXDR_g1 implements ihe.iti.xdr._2007.DocumentRepositoryXDRPortTy
     
     private NhinDocSubmissionOrchImpl orchImpl;
 
+    @InboundMessageEvent(serviceType="Document Submission", version="2.0")
     public oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType documentRepositoryProvideAndRegisterDocumentSetB(
             ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType body) {
         return new NhinDocSubmissionImpl_g1(orchImpl).documentRepositoryProvideAndRegisterDocumentSetB(body, context);

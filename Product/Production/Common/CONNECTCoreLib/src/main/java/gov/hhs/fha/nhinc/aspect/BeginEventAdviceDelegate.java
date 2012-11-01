@@ -28,11 +28,12 @@
  */
 package gov.hhs.fha.nhinc.aspect;
 
-
 /**
  * @author bhumphrey
  *
  */
-public interface EventAdviceDelegate extends BeginEventAdviceDelegate, EndEventAdviceDelegate {
+public interface BeginEventAdviceDelegate {
+
+    void begin(Object[] args, String serviceType, String version);   
 
 }
