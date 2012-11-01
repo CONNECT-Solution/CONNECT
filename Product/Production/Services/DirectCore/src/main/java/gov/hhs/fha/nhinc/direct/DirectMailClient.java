@@ -24,21 +24,59 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.docsubmission._11.entity.direct;
+package gov.hhs.fha.nhinc.direct;
+
+import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType.Document;
+
+import org.nhindirect.gateway.smtp.MessageProcessResult;
+import org.nhindirect.gateway.smtp.SmtpAgent;
+import org.nhindirect.gateway.smtp.SmtpAgentFactory;
 
 /**
- * External Direct Mailserver Settings.
+ * Mail Server implementation which used the direct libraries to send encrypted mail.
  */
-public class ExternalMailServerSettings extends MailServerSettingsTmpl {
+public class DirectMailClient implements DirectClient {
 
-    private static final String PROPS_MAILSERVER = "direct.mailserver.external";
+    private final MailServerSettings mailServerSettings;
+    private final SmtpAgent smtpAgent;
+    
+    /**
+     * Construct a direct mail server with mail server settings.
+     * @param mailServerSettings used to define this mail server
+     * @param smtpAgent direct smtp agent config file path relative to classpath used to configure SmtpAgent
+     */
+    public DirectMailClient(MailServerSettings mailServerSettings, final String smtpAgentFileName) {
+        this.mailServerSettings = mailServerSettings;
+        this.smtpAgent = SmtpAgentFactory.createAgent(getClass().getClassLoader().getResource(smtpAgentFileName));
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void send(String sender, String recipient, Document attachment, String attachmentName) {
+        // TODO Auto-generated method stub
+        
+    }    
     
     /**
      * {@inheritDoc}
      */
     @Override
-    protected String getPropsFilename() {
-        return PROPS_MAILSERVER;
+    public void sendMdn(String sender, String recipient, MessageProcessResult result) {
+        // TODO Auto-generated method stub
+        
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int handleMessages(MessageHandler handler) {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+
+    
     
 }

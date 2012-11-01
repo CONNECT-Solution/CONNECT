@@ -24,25 +24,38 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.docsubmission._11.entity.direct;
+package gov.hhs.fha.nhinc.direct;
+
+import org.nhindirect.gateway.smtp.MessageProcessResult;
+
+import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType.Document;
 
 /**
- * Template for handling Mail Messages via IMAP.
+ * Interface defining a Mail Client.
  */
-public abstract class ImapMailCheckerTmpl implements MailChecker {
+public interface DirectClient {
 
     /**
-     * {@inheritDoc}
+     * Use the mail server to send a message.
+     * @param sender
+     * @param recipient
+     * @param attachment
+     * @param attachmentName
      */
-    @Override
-    public void checkMessages() {
-        // TODO::
-        
-    }
+    public void send(String sender, String recipient, Document attachment, String attachmentName);
+
+    /**
+     * Use the mail server to send MDN messages if result contains notification messages.
+     * @param sender of the message
+     * @param recipient of the message
+     * @param result to be processed for MDN Messages.
+     */
+    public void sendMdn(String sender, String recipient, MessageProcessResult result);    
     
     /**
-     * Handle a message from the mail server.
+     * @param handler used to handle messages pulled from the mail server.
+     * @return number of messages handled.
      */
-    protected abstract void handleMessage();
-
+    public int handleMessages(MessageHandler handler);
+    
 }

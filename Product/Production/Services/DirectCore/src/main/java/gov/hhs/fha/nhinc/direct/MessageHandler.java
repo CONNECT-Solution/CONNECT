@@ -24,11 +24,19 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.docsubmission._11.entity.direct;
+package gov.hhs.fha.nhinc.direct;
+
+import javax.mail.Message;
 
 /**
- * Direct Message Bean. 
+ * Direct Message Handler is invoked when messages are retrieved from a mail server.
  */
-public class DirectMessage {
+public interface MessageHandler {
 
+    /**
+     * Handle a message retrieved from the mail server.
+     * @param message to be handled.
+     */
+    public void handleMessage(Message message);
+    
 }
