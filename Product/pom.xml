@@ -309,7 +309,7 @@
                 <configuration>
                     <downloadSources>true</downloadSources>
                     <downloadJavadocs>true</downloadJavadocs>
-                    <useProjectReferences>false</useProjectReferences>
+                    <useProjectReferences>true</useProjectReferences>
                     <projectNameTemplate>[artifactId]-[version]</projectNameTemplate>
                     <wtpmanifest>true</wtpmanifest>
                     <wtpapplicationxml>true</wtpapplicationxml>

@@ -32,9 +32,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.UrlInfoType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType;
 import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
-import gov.hhs.fha.nhinc.docsubmission._11.entity.EntityDocSubmissionImpl.SMTPAuthenticator;
-import gov.hhs.fha.nhinc.docsubmission._11.entity.direct.ExternalMailServerSettings;
-import gov.hhs.fha.nhinc.docsubmission._11.entity.direct.MailServerSettings;
+import gov.hhs.fha.nhinc.direct.MailServerSettings;
 import gov.hhs.fha.nhinc.docsubmission.entity.EntityDocSubmissionOrchImpl;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType.Document;
@@ -95,7 +93,7 @@ class EntityDocSubmissionImpl {
 
     private static String SENDER, RECIPIENT;
     // TODO::Make this a dependency on a yet to be created class for sending and receiving direct messages
-    private static final MailServerSettings mailServerSettings = new ExternalMailServerSettings();
+    private static final MailServerSettings mailServerSettings = new MailServerSettings("direct.mailserver.external");
 
     private static void copyMessage(MimeMessage message, String folder) {
         String rand = UUID.randomUUID().toString() + ".eml";
@@ -137,7 +135,7 @@ class EntityDocSubmissionImpl {
                 log.trace("Calling agent.processMessage");
                 Session session = Session.getInstance(mailServerSettings.getSmtpProperties(), new SMTPAuthenticator());
                 MimeMessage message = new MimeMessage(session);
-                message.setFrom(new InternetAddress(mailServerSettings.getSender()));
+                message.setFrom(new InternetAddress("mlandis@5amsolutions.com"));
                 message.addRecipient(Message.RecipientType.TO, new InternetAddress(recipient));
                 message.setSubject(SUBJECT);
                 MimeBodyPart messagePart = new MimeBodyPart();
@@ -153,7 +151,7 @@ class EntityDocSubmissionImpl {
                 Address recipAddr = new InternetAddress(recipient);
                 NHINDAddressCollection recipients = new NHINDAddressCollection();
                 recipients.add(new NHINDAddress(recipAddr.toString(), (AddressSource) null));
-                InternetAddress senderAddr = new InternetAddress(mailServerSettings.getSender());
+                InternetAddress senderAddr = new InternetAddress("mlandis@5amsolutions.com");
                 NHINDAddress sender = new NHINDAddress(senderAddr, AddressSource.From);
                 MessageProcessResult result = agent.processMessage(message, recipients, sender);
                 copyMessage(result.getProcessedMessage().getMessage(), "outbox");
@@ -182,7 +180,7 @@ class EntityDocSubmissionImpl {
         }
     }
 
-    private static class SMTPAuthenticator extends javax.mail.Authenticator {
+    public static class SMTPAuthenticator extends javax.mail.Authenticator {
         @Override
         public PasswordAuthentication getPasswordAuthentication() {
             return new PasswordAuthentication(mailServerSettings.getUsername(), mailServerSettings.getPassword());
@@ -240,7 +238,7 @@ class EntityDocSubmissionImpl {
             Address recipAddr = new InternetAddress(recipient);
             NHINDAddressCollection recipients = new NHINDAddressCollection();
             recipients.add(new NHINDAddress(recipAddr.toString(), (AddressSource) null));
-            InternetAddress senderAddr = new InternetAddress(mailServerSettings.getSender());
+            InternetAddress senderAddr = new InternetAddress("mlandis@5amsolutions.com");
             NHINDAddress sender = new NHINDAddress(senderAddr, AddressSource.From);
             org.nhindirect.stagent.mail.Message msg = new org.nhindirect.stagent.mail.Message(message);
             MessageProcessResult result = agent.processMessage(message, recipients, sender);
@@ -266,7 +264,7 @@ class EntityDocSubmissionImpl {
 /*
 * MDN Generation
 */
-    public static void processMDNMessage(MessageProcessResult result) {
+    public void processMDNMessage(MessageProcessResult result) {
     	Transport transport = null;
     	 try {
              agent = getSmtpAgent();
