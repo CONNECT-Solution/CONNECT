@@ -55,6 +55,7 @@ public class AdhocQueryResponseDescriptionBuilder extends BaseEventDescriptionBu
     private static final HCIDExtractor HCID_EXTRACTOR = new HCIDExtractor();
     private static final ErrorExtractor ERROR_EXTRACTOR = new ErrorExtractor();
     private static final PayloadTypeExtractor PAYLOAD_TYPE_EXTRACTOR = new PayloadTypeExtractor();
+    private static final PayloadSizeExtractor PAYLOAD_SIZE_EXTRACTOR = new PayloadSizeExtractor();
 
     private final AdhocQueryResponse response;
 
@@ -85,7 +86,6 @@ public class AdhocQueryResponseDescriptionBuilder extends BaseEventDescriptionBu
 
     @Override
     public void buildPayloadTypes() {
-        // RegistryObjectList/ExtrinsicObject/Classification[@nodeRepresentation="formatCode"]/Slot[@name="codingScheme"]/ValueList/Value[1]
         if (hasObjectList()) {
             List<Optional<String>> listWithDups = Lists.transform(response.getRegistryObjectList().getIdentifiable(),
                     PAYLOAD_TYPE_EXTRACTOR);
@@ -96,7 +96,12 @@ public class AdhocQueryResponseDescriptionBuilder extends BaseEventDescriptionBu
 
     @Override
     public void buildPayloadSize() {
-        // payload size not available in response
+        if (hasObjectList()) {
+            List<Optional<String>> listWithDups = Lists.transform(response.getRegistryObjectList().getIdentifiable(),
+                    PAYLOAD_SIZE_EXTRACTOR);
+
+            setPayloadSizes(ImmutableSet.copyOf(Optional.presentInstances(listWithDups)).asList());
+        }
     }
 
     @Override
@@ -128,6 +133,23 @@ public class AdhocQueryResponseDescriptionBuilder extends BaseEventDescriptionBu
 
     private boolean hasErrorList() {
         return response != null && response.getRegistryErrorList() != null;
+    }
+
+    private static Optional<String> findSlotType(List<SlotType1> slotList, final String expectedType) {
+        Predicate<SlotType1> slotPredicate = new Predicate<SlotType1>() {
+            @Override
+            public boolean apply(SlotType1 slot) {
+                return expectedType.equals(slot.getName()) && slot.getValueList() != null
+                        && !slot.getValueList().getValue().isEmpty();
+            }
+        };
+        Optional<SlotType1> slot = Iterables.tryFind(slotList, slotPredicate);
+
+        if (!slot.isPresent()) {
+            return Optional.absent();
+        }
+
+        return Optional.of(slot.get().getValueList().getValue().get(0));
     }
 
     private static class HCIDExtractor implements Function<JAXBElement<? extends IdentifiableType>, String> {
@@ -163,39 +185,44 @@ public class AdhocQueryResponseDescriptionBuilder extends BaseEventDescriptionBu
             IdentifiableType value = jaxbElement.getValue();
             ExtrinsicObjectType extrinsicObjectType = (ExtrinsicObjectType) value;
 
-            Optional<ClassificationType> classificationType = findClassificationType(extrinsicObjectType);
+            Optional<ClassificationType> classificationType = findClassificationType(extrinsicObjectType,
+                    DocumentConstants.EBXML_RESPONSE_NODE_REPRESENTATION_FORMAT_CODE);
             if (!classificationType.isPresent()) {
                 return Optional.absent();
             }
 
-            Optional<SlotType1> slot = findSlotType(classificationType.get());
-            if (!slot.isPresent()) {
-                return Optional.absent();
-            }
-
-            return Optional.of(slot.get().getValueList().getValue().get(0));
+            return findSlotType(classificationType.get().getSlot(),
+                    DocumentConstants.EBXML_RESPONSE_CODE_CODESCHEME_SLOTNAME);
         }
 
-        private Optional<ClassificationType> findClassificationType(ExtrinsicObjectType extrinsicObjectType) {
+        private static Optional<ClassificationType> findClassificationType(ExtrinsicObjectType extrinsicObjectType,
+                final String expectedType) {
             Predicate<ClassificationType> typePredicate = new Predicate<ClassificationType>() {
                 @Override
                 public boolean apply(ClassificationType type) {
-                    return DocumentConstants.EBXML_RESPONSE_NODE_REPRESENTATION_FORMAT_CODE.equals(type
-                            .getNodeRepresentation());
+                    return expectedType.equals(type.getNodeRepresentation());
                 }
             };
             return Iterables.tryFind(extrinsicObjectType.getClassification(), typePredicate);
         }
+    }
 
-        private Optional<SlotType1> findSlotType(ClassificationType classificationType) {
-            Predicate<SlotType1> slotPredicate = new Predicate<SlotType1>() {
-                @Override
-                public boolean apply(SlotType1 slot) {
-                    return DocumentConstants.EBXML_RESPONSE_CODE_CODESCHEME_SLOTNAME.equals(slot.getName())
-                            && slot.getValueList() != null && !slot.getValueList().getValue().isEmpty();
-                }
-            };
-            return Iterables.tryFind(classificationType.getSlot(), slotPredicate);
+    /**
+     * Finds these deep values, if present:
+     * 
+     * <pre>
+     * RegistryObjectList/ExtrinsicObject/Slot[@name="size"]/ValueList/Value[1]
+     * </pre>
+     */
+    private static class PayloadSizeExtractor implements
+            Function<JAXBElement<? extends IdentifiableType>, Optional<String>> {
+
+        @Override
+        public Optional<String> apply(JAXBElement<? extends IdentifiableType> jaxbElement) {
+            IdentifiableType value = jaxbElement.getValue();
+            ExtrinsicObjectType extrinsicObjectType = (ExtrinsicObjectType) value;
+
+            return findSlotType(extrinsicObjectType.getSlot(), DocumentConstants.EBXML_RESPONSE_SIZE_SLOTNAME);
         }
     }
 }

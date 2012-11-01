@@ -66,7 +66,7 @@ public class AdhocQueryResponseDescriptionBuilderTest extends BaseDescriptionBui
     public void basicBuild() {
         AdhocQueryResponse response = new AdhocQueryResponse();
         response.setStatus(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_PARTIAL_SUCCESS);
-        addQueryResult(response, "payloadType");
+        addQueryResult(response, "payloadType", 12345);
 
         AdhocQueryResponseDescriptionBuilder builder = new AdhocQueryResponseDescriptionBuilder(response);
         EventDescription eventDescription = getEventDescription(builder);
@@ -77,9 +77,10 @@ public class AdhocQueryResponseDescriptionBuilderTest extends BaseDescriptionBui
         assertEquals("home", eventDescription.getRespondingHCIDs().get(0));
         assertEquals(1, eventDescription.getPayloadTypes().size());
         assertEquals("payloadType", eventDescription.getPayloadTypes().get(0));
+        assertEquals(1, eventDescription.getPayloadSizes().size());
+        assertEquals("" + 12345, eventDescription.getPayloadSizes().get(0));
 
         assertNull(eventDescription.getTimeStamp());
-        assertNull(eventDescription.getPayloadSize());
         assertNull(eventDescription.getNPI()); // TODO: check with BH - is that correct
         assertNull(eventDescription.getInitiatingHCID());
     }
@@ -103,8 +104,8 @@ public class AdhocQueryResponseDescriptionBuilderTest extends BaseDescriptionBui
     public void mixedPayloadTypes() {
         AdhocQueryResponse response = new AdhocQueryResponse();
 
-        addQueryResult(response, "payloadType");
-        addQueryResult(response, "payloadType2");
+        addQueryResult(response, "payloadType", 12345);
+        addQueryResult(response, "payloadType2", 1);
 
         AdhocQueryResponseDescriptionBuilder builder = new AdhocQueryResponseDescriptionBuilder(response);
         EventDescription eventDescription = getEventDescription(builder);
@@ -112,6 +113,9 @@ public class AdhocQueryResponseDescriptionBuilderTest extends BaseDescriptionBui
         assertEquals(2, eventDescription.getPayloadTypes().size());
         assertEquals("payloadType", eventDescription.getPayloadTypes().get(0));
         assertEquals("payloadType2", eventDescription.getPayloadTypes().get(1));
+        assertEquals(2, eventDescription.getPayloadSizes().size());
+        assertEquals("" + 12345, eventDescription.getPayloadSizes().get(0));
+        assertEquals("" + 1, eventDescription.getPayloadSizes().get(1));
     }
 
     private void addError(AdhocQueryResponse response, RegistryError error) {
@@ -121,20 +125,29 @@ public class AdhocQueryResponseDescriptionBuilderTest extends BaseDescriptionBui
         registryError.add(error);
     }
 
-    private void addQueryResult(AdhocQueryResponse response, String payloadType) {
+    private void addQueryResult(AdhocQueryResponse response, String payloadType, int size) {
         ExtrinsicObjectType extrinsicObject = new ExtrinsicObjectType();
         extrinsicObject.setStatus(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_SUCCESS);
         extrinsicObject.setHome("home");
 
         addPayloadType(extrinsicObject, payloadType);
+        addPayloadSize(extrinsicObject, size);
 
         addQueryResult(response, extrinsicObject);
     }
 
     private void addPayloadType(ExtrinsicObjectType extrinsicObject, String payloadType) {
         ClassificationType classificatonType = addClassification(extrinsicObject);
-        SlotType1 slotType = addSlot(classificatonType);
+        SlotType1 slotType = addSlot(classificatonType, DocumentConstants.EBXML_RESPONSE_CODE_CODESCHEME_SLOTNAME);
         addValue(payloadType, slotType);
+    }
+
+    private void addPayloadSize(ExtrinsicObjectType extrinsicObject, int size) {
+        SlotType1 slotType = new SlotType1();
+        extrinsicObject.getSlot().add(slotType);
+
+        slotType.setName(DocumentConstants.EBXML_RESPONSE_SIZE_SLOTNAME);
+        addValue("" + size, slotType);
     }
 
     private ClassificationType addClassification(ExtrinsicObjectType extrinsicObject) {
@@ -144,11 +157,11 @@ public class AdhocQueryResponseDescriptionBuilderTest extends BaseDescriptionBui
         return classificatonType;
     }
 
-    private SlotType1 addSlot(ClassificationType classificatonType) {
+    private SlotType1 addSlot(ClassificationType classificatonType, String slotName) {
         SlotType1 slotType = new SlotType1();
         classificatonType.getSlot().add(slotType);
 
-        slotType.setName(DocumentConstants.EBXML_RESPONSE_CODE_CODESCHEME_SLOTNAME);
+        slotType.setName(slotName);
         return slotType;
     }
 
