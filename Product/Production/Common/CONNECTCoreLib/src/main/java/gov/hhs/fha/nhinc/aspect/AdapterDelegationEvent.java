@@ -28,7 +28,13 @@
  */
 package gov.hhs.fha.nhinc.aspect;
 
-import java.lang.annotation.*;
+import gov.hhs.fha.nhinc.event.BaseEventDescriptionBuilder;
+
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Inherited;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 /**
  * @author bhumphrey
@@ -36,7 +42,9 @@ import java.lang.annotation.*;
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
+@Inherited
 public @interface AdapterDelegationEvent {
     String serviceType();
     String version();
+    Class<? extends BaseEventDescriptionBuilder> descriptionBuilder();
 }

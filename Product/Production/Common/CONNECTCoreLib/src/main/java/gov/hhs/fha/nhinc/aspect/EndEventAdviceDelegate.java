@@ -30,17 +30,11 @@ package gov.hhs.fha.nhinc.aspect;
 
 import gov.hhs.fha.nhinc.event.BaseEventDescriptionBuilder;
 
-import java.lang.annotation.*;
-
 /**
  * @author bhumphrey
  *
  */
-@Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.METHOD)
-@Inherited
-public @interface InboundMessageEvent {
-    String serviceType();
-    String version();
-    Class<? extends BaseEventDescriptionBuilder> descriptionBuilder();
+public interface EndEventAdviceDelegate {
+    void end(Object[] args, String serviceType, String version, Class<? extends BaseEventDescriptionBuilder> eventDescriptionbuilder);
+    
 }
