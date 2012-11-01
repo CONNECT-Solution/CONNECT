@@ -26,6 +26,8 @@
  */
 package gov.hhs.fha.nhinc.direct;
 
+import org.nhindirect.gateway.smtp.MessageProcessResult;
+
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType.Document;
 
 /**
@@ -41,6 +43,14 @@ public interface DirectClient {
      * @param attachmentName
      */
     public void send(String sender, String recipient, Document attachment, String attachmentName);
+
+    /**
+     * Use the mail server to send MDN messages if result contains notification messages.
+     * @param sender of the message
+     * @param recipient of the message
+     * @param result to be processed for MDN Messages.
+     */
+    public void sendMdn(String sender, String recipient, MessageProcessResult result);    
     
     /**
      * @param handler used to handle messages pulled from the mail server.

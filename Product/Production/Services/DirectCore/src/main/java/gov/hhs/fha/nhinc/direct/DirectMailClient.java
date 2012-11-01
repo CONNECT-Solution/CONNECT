@@ -28,6 +28,7 @@ package gov.hhs.fha.nhinc.direct;
 
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType.Document;
 
+import org.nhindirect.gateway.smtp.MessageProcessResult;
 import org.nhindirect.gateway.smtp.SmtpAgent;
 import org.nhindirect.gateway.smtp.SmtpAgentFactory;
 
@@ -54,6 +55,15 @@ public class DirectMailClient implements DirectClient {
      */
     @Override
     public void send(String sender, String recipient, Document attachment, String attachmentName) {
+        // TODO Auto-generated method stub
+        
+    }    
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void sendMdn(String sender, String recipient, MessageProcessResult result) {
         // TODO Auto-generated method stub
         
     }
