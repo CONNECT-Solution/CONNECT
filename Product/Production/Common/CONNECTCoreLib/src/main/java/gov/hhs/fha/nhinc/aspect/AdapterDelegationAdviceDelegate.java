@@ -28,19 +28,29 @@
  */
 package gov.hhs.fha.nhinc.aspect;
 
-import gov.hhs.fha.nhinc.event.BaseEventDescriptionBuilder;
-
-import java.lang.annotation.*;
+import gov.hhs.fha.nhinc.event.Event;
+import gov.hhs.fha.nhinc.event.EventFactory;
 
 /**
  * @author bhumphrey
  *
  */
-@Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.METHOD)
-@Inherited
-public @interface InboundMessageEvent {
-    String serviceType();
-    String version();
-    Class<? extends BaseEventDescriptionBuilder> descriptionBuilder();
+public class AdapterDelegationAdviceDelegate extends BaseEventAdviceDelegate {
+
+    private EventFactory eventFactory;
+    
+    @Override
+    protected Event createBeginEvent() {
+        return eventFactory.createBeginAdapterDelegation();
+    }
+
+    @Override
+    protected Event createEndEvent() {
+        return eventFactory.createEndAdapterDelegation();
+    }
+
+    public void setEventFactory(EventFactory eventFactory) {
+        this.eventFactory = eventFactory;
+    }
+    
 }

@@ -161,4 +161,10 @@ public class EDXLDistributionDescriptionBuilder extends BaseEventDescriptionBuil
          */
     }
 
+    @Override
+    public void setArguments(Object... arguements) {
+        // TODO Auto-generated method stub
+        
+    }
+
 }

@@ -33,6 +33,7 @@ import javax.xml.ws.soap.Addressing;
 
 import gov.hhs.fha.nhinc.aspect.InboundMessageEvent;
 import gov.hhs.fha.nhinc.docsubmission.nhin.deferred.request.NhinDocSubmissionDeferredRequestOrchImpl;
+import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
 
 /**
  *
@@ -41,7 +42,6 @@ import gov.hhs.fha.nhinc.docsubmission.nhin.deferred.request.NhinDocSubmissionDe
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 @Addressing(enabled = true)
 public class NhinXDRRequest implements ihe.iti.xdr._2007.XDRDeferredRequestPortType {
-    @Resource
     private WebServiceContext context;
     private NhinDocSubmissionDeferredRequestOrchImpl orchImpl;
 
@@ -51,7 +51,7 @@ public class NhinXDRRequest implements ihe.iti.xdr._2007.XDRDeferredRequestPortT
      * @return an acknowledgement
      */
     @Override
-    @InboundMessageEvent(serviceType="Document Submission Deferred Request", version="1.1")
+    @InboundMessageEvent(serviceType="Document Submission Deferred Request", version="1.1", descriptionBuilder=DefaultEventDescriptionBuilder.class)
     public gov.hhs.healthit.nhin.XDRAcknowledgementType provideAndRegisterDocumentSetBDeferredRequest(
             ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType body) {
         return new NhinDocSubmissionDeferredRequestImpl(orchImpl).provideAndRegisterDocumentSetBRequest(body, context);
@@ -61,5 +61,11 @@ public class NhinXDRRequest implements ihe.iti.xdr._2007.XDRDeferredRequestPortT
         this.orchImpl = orchImpl;
     }
 
+    @Resource
+    public void setContext(WebServiceContext context) {
+        this.context = context;
+    }
+
+    
 
 }

@@ -237,4 +237,10 @@ public class AdhocQueryResponseDescriptionBuilder extends BaseEventDescriptionBu
             return findSlotType(extrinsicObjectType.getSlot(), DocumentConstants.EBXML_RESPONSE_SIZE_SLOTNAME);
         }
     }
+
+    @Override
+    public void setArguments(Object... arguments) {
+        // TODO Auto-generated method stub
+        
+    }
 }

@@ -110,4 +110,10 @@ public class RetrieveDocumentSetResponseTypeDescriptionBuilder extends BaseEvent
             return registryError.getErrorCode();
         }
     }
+
+    @Override
+    public void setArguments(Object... aguements) {
+        // TODO Auto-generated method stub
+        
+    }
 }
