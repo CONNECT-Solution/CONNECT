@@ -37,7 +37,7 @@ import gov.hhs.fha.nhinc.event.EventFactory;
  * @author bhumphrey
  * 
  */
-public class OutboundMessageAdviceDelegate extends BaseEventAdviceDelegate {
+public class NwhinInvocationAdviceDelegate extends BaseEventAdviceDelegate {
 
     private EventFactory eventFactory;
 
@@ -48,7 +48,7 @@ public class OutboundMessageAdviceDelegate extends BaseEventAdviceDelegate {
      */
     @Override
     protected Event createBeginEvent() {
-        return eventFactory.createBeginOutboundMessage();
+        return eventFactory.createBeginNwhinInvocation();
     }
 
     /*
@@ -58,7 +58,7 @@ public class OutboundMessageAdviceDelegate extends BaseEventAdviceDelegate {
      */
     @Override
     protected Event createEndEvent() {
-        return eventFactory.createEndOutboundMessage();
+        return eventFactory.createEndNwhinInvocation();
     }
 
     /**

@@ -33,6 +33,7 @@ import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * @author zmelnick
@@ -127,26 +128,32 @@ public class EventAspectAdvice {
         failureAdviceDelegate.fail(joinPoint.getArgs());
     }
 
+    @Autowired
     public void setInboundMessageAdviceDelegate(EventAdviceDelegate inboundMessageAdviceDelegate) {
         this.inboundMessageAdviceDelegate = inboundMessageAdviceDelegate;
     }
 
+    @Autowired
     public void setInboundProcessingAdviceDelegate(EventAdviceDelegate inboundProcessingAdviceDelegate) {
         this.inboundProcessingAdviceDelegate = inboundProcessingAdviceDelegate;
     }
 
+    @Autowired
     public void setAdapterDelegationAdviceDelegate(EventAdviceDelegate adapterDelegationAdviceDelegate) {
         this.adapterDelegationAdviceDelegate = adapterDelegationAdviceDelegate;
     }
 
+    @Autowired
     public void setOutboundMessageAdviceDelegate(EventAdviceDelegate outboundMessageAdviceDelegate) {
         this.outboundMessageAdviceDelegate = outboundMessageAdviceDelegate;
     }
 
+    @Autowired
     public void setOutboundProcessingAdviceDelegate(EventAdviceDelegate outboundProcessingAdviceDelegate) {
         this.outboundProcessingAdviceDelegate = outboundProcessingAdviceDelegate;
     }
 
+    @Autowired
     public void setNwhinInvocationAdviceDelegate(EventAdviceDelegate nwhinInvocationAdviceDelegate) {
         this.nwhinInvocationAdviceDelegate = nwhinInvocationAdviceDelegate;
     }

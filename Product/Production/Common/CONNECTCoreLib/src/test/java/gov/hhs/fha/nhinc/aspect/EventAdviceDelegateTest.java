@@ -38,7 +38,12 @@ import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.event.EventFactory;
 import gov.hhs.fha.nhinc.event.EventRecorder;
 import gov.hhs.fha.nhinc.event.MessageRoutingAccessor;
+import gov.hhs.fha.nhinc.event.initiator.BeginNwhinInvocationEvent;
 import gov.hhs.fha.nhinc.event.initiator.BeginOutboundMessageEvent;
+import gov.hhs.fha.nhinc.event.initiator.BeginOutboundProcessingEvent;
+import gov.hhs.fha.nhinc.event.initiator.EndNwhinInvocationEvent;
+import gov.hhs.fha.nhinc.event.initiator.EndOutboundMessageEvent;
+import gov.hhs.fha.nhinc.event.initiator.EndOutboundProcessingEvent;
 import gov.hhs.fha.nhinc.event.responder.BeginAdapterDelegationEvent;
 import gov.hhs.fha.nhinc.event.responder.BeginInboundMessageEvent;
 import gov.hhs.fha.nhinc.event.responder.BeginInboundProcessingEvent;
@@ -124,9 +129,54 @@ public class EventAdviceDelegateTest {
         outboundMessageAdviceDelegate.setEventFactory(eventFactory);
         
         assertNotNull(outboundMessageAdviceDelegate.createBeginEvent());
+        assertNotNull(outboundMessageAdviceDelegate.createEndEvent());
         
         outboundMessageAdviceDelegate.begin(args, DS_SERVICE_TYPE, DS_VERISON, DefaultEventDescriptionBuilder.class);
         verify(eventRecorder).recordEvent(isA(BeginOutboundMessageEvent.class));
         
+        outboundMessageAdviceDelegate.end(args, DS_SERVICE_TYPE, DS_VERISON, DefaultEventDescriptionBuilder.class);
+        verify(eventRecorder).recordEvent(isA(EndOutboundMessageEvent.class));
     }
+    
+    @Test
+    public void outboundProcessingAdviceDelegate() {
+        OutboundProcessingAdviceDelegate outboundProcessingAdviceDelegate = new OutboundProcessingAdviceDelegate();
+        
+        Object[] args = {};
+        
+        outboundProcessingAdviceDelegate.setEventRecorder(eventRecorder);
+        outboundProcessingAdviceDelegate.setMessageRoutingAccessor(messageRoutingAccessor);
+        outboundProcessingAdviceDelegate.setEventFactory(eventFactory);
+        
+        assertNotNull(outboundProcessingAdviceDelegate.createBeginEvent());
+        assertNotNull(outboundProcessingAdviceDelegate.createEndEvent());
+        
+        outboundProcessingAdviceDelegate.begin(args, DS_SERVICE_TYPE, DS_VERISON, DefaultEventDescriptionBuilder.class);
+        verify(eventRecorder).recordEvent(isA(BeginOutboundProcessingEvent.class));
+        
+        outboundProcessingAdviceDelegate.end(args, DS_SERVICE_TYPE, DS_VERISON, DefaultEventDescriptionBuilder.class);
+        verify(eventRecorder).recordEvent(isA(EndOutboundProcessingEvent.class));
+    }
+    
+    
+    @Test
+    public void nwhinInvocationAdviceDelegate() {
+        NwhinInvocationAdviceDelegate nwhinInvocationAdviceDelegate = new NwhinInvocationAdviceDelegate();
+        
+        Object[] args = {};
+        
+        nwhinInvocationAdviceDelegate.setEventRecorder(eventRecorder);
+        nwhinInvocationAdviceDelegate.setMessageRoutingAccessor(messageRoutingAccessor);
+        nwhinInvocationAdviceDelegate.setEventFactory(eventFactory);
+        
+        assertNotNull(nwhinInvocationAdviceDelegate.createBeginEvent());
+        assertNotNull(nwhinInvocationAdviceDelegate.createEndEvent());
+        
+        nwhinInvocationAdviceDelegate.begin(args, DS_SERVICE_TYPE, DS_VERISON, DefaultEventDescriptionBuilder.class);
+        verify(eventRecorder).recordEvent(isA(BeginNwhinInvocationEvent.class));
+        
+        nwhinInvocationAdviceDelegate.end(args, DS_SERVICE_TYPE, DS_VERISON, DefaultEventDescriptionBuilder.class);
+        verify(eventRecorder).recordEvent(isA(EndNwhinInvocationEvent.class));
+    }
+    
 }
