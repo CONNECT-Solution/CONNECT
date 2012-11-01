@@ -37,6 +37,9 @@ import gov.hhs.fha.nhinc.event.EventDescription;
 import gov.hhs.fha.nhinc.gateway.aggregator.document.DocumentConstants;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType.DocumentResponse;
+import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotListType;
+import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1;
+import oasis.names.tc.ebxml_regrep.xsd.rim._3.ValueListType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
@@ -59,6 +62,8 @@ public class RetrieveDocumentSetResponseTypeDescriptionBuilderTest extends BaseD
         RetrieveDocumentSetResponseType response = new RetrieveDocumentSetResponseType();
         addStatus(response, DocumentConstants.XDS_RETRIEVE_RESPONSE_STATUS_SUCCESS);
         addDocumentResponse(response, "homeCommunityId");
+        addSlot(response, DocumentConstants.EBXML_RESPONSE_CODE_CODESCHEME_SLOTNAME, "payloadType");
+        addSlot(response, DocumentConstants.EBXML_RESPONSE_SIZE_SLOTNAME, "12345");
 
         RetrieveDocumentSetResponseTypeDescriptionBuilder builder = new RetrieveDocumentSetResponseTypeDescriptionBuilder(
                 response);
@@ -67,6 +72,10 @@ public class RetrieveDocumentSetResponseTypeDescriptionBuilderTest extends BaseD
         assertEquals(DocumentConstants.XDS_RETRIEVE_RESPONSE_STATUS_SUCCESS, eventDescription.getStatuses().get(0));
         assertEquals(1, eventDescription.getRespondingHCIDs().size());
         assertEquals("homeCommunityId", eventDescription.getRespondingHCIDs().get(0));
+        assertEquals(1, eventDescription.getPayloadTypes().size());
+        assertEquals("payloadType", eventDescription.getPayloadTypes().get(0));
+        assertEquals(1, eventDescription.getPayloadSizes().size());
+        assertEquals("12345", eventDescription.getPayloadSizes().get(0));
         assertTrue(CollectionUtils.isEmpty(eventDescription.getErrorCodes()));
         assertAlwaysNullAttributes(eventDescription);
     }
@@ -135,17 +144,51 @@ public class RetrieveDocumentSetResponseTypeDescriptionBuilderTest extends BaseD
         assertEquals(DocumentConstants.XDS_RETRIEVE_ERRORCODE_REPOSITORY_ERROR, eventDescription.getErrorCodes().get(0));
     }
 
+    private void addSlot(RetrieveDocumentSetResponseType response, String slotName, String slotValue) {
+        RegistryResponseType registryResponse = getOrCreateRegistryResponse(response);
+        SlotListType responseSlotList = getOrCreateSlotList(registryResponse);
+
+        SlotType1 slotType = new SlotType1();
+        slotType.setName(slotName);
+        responseSlotList.getSlot().add(slotType);
+        slotType.setValueList(new ValueListType());
+        slotType.getValueList().getValue().add(slotValue);
+    }
+
     private void addError(RetrieveDocumentSetResponseType response) {
         RegistryResponseType registryResponse = response.getRegistryResponse();
+        RegistryErrorList registryErrorList = getOrCreateErrorList(registryResponse);
+        RegistryError registryError = new RegistryError();
+        registryError.setCodeContext("error context"); // not an enumerated value
+        registryError.setErrorCode(DocumentConstants.XDS_RETRIEVE_ERRORCODE_REPOSITORY_ERROR);
+        registryErrorList.getRegistryError().add(registryError);
+    }
+
+    private RegistryResponseType getOrCreateRegistryResponse(RetrieveDocumentSetResponseType response) {
+        RegistryResponseType registryResponse = response.getRegistryResponse();
+        if (registryResponse == null) {
+            registryResponse = new RegistryResponseType();
+            response.setRegistryResponse(registryResponse);
+        }
+        return registryResponse;
+    }
+
+    private SlotListType getOrCreateSlotList(RegistryResponseType registryResponse) {
+        SlotListType responseSlotList = registryResponse.getResponseSlotList();
+        if (responseSlotList == null) {
+            responseSlotList = new SlotListType();
+            registryResponse.setResponseSlotList(responseSlotList);
+        }
+        return responseSlotList;
+    }
+
+    private RegistryErrorList getOrCreateErrorList(RegistryResponseType registryResponse) {
         RegistryErrorList registryErrorList = registryResponse.getRegistryErrorList();
         if (registryErrorList == null) {
             registryErrorList = new RegistryErrorList();
             registryResponse.setRegistryErrorList(registryErrorList);
         }
-        RegistryError registryError = new RegistryError();
-        registryError.setCodeContext("error context"); // not an enumerated value
-        registryError.setErrorCode(DocumentConstants.XDS_RETRIEVE_ERRORCODE_REPOSITORY_ERROR);
-        registryErrorList.getRegistryError().add(registryError);
+        return registryErrorList;
     }
 
     private void addDocumentResponse(RetrieveDocumentSetResponseType response, String communityId) {
@@ -155,15 +198,13 @@ public class RetrieveDocumentSetResponseTypeDescriptionBuilderTest extends BaseD
     }
 
     private void addStatus(RetrieveDocumentSetResponseType response, String status) {
-        RegistryResponseType value = new RegistryResponseType();
+        RegistryResponseType value = getOrCreateRegistryResponse(response);
         value.setStatus(status);
         response.setRegistryResponse(value);
     }
 
     private void assertAlwaysNullAttributes(EventDescription eventDescription) {
         assertNull(eventDescription.getTimeStamp());
-        assertTrue(CollectionUtils.isEmpty(eventDescription.getPayloadTypes()));
-        assertTrue(CollectionUtils.isEmpty(eventDescription.getPayloadSizes()));
         assertNull(eventDescription.getNPI());
         assertNull(eventDescription.getInitiatingHCID());
     }
