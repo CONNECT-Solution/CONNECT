@@ -28,6 +28,8 @@
  */
 package gov.hhs.fha.nhinc.aspect;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import gov.hhs.fha.nhinc.event.Event;
 import gov.hhs.fha.nhinc.event.EventFactory;
 
@@ -39,6 +41,11 @@ public class InboundMessageAdviceDelegate extends BaseEventAdviceDelegate  {
     
     private EventFactory eventFactory;
     
+    /**
+     * inject eventfactory.
+     * @param eventFactory
+     */
+    @Autowired
     public void setEventFactory(EventFactory eventFactory) {
         this.eventFactory = eventFactory;
     }
@@ -47,7 +54,7 @@ public class InboundMessageAdviceDelegate extends BaseEventAdviceDelegate  {
         return eventFactory.createBeginInboundMessage();
     }
 
-   
+    
     protected Event createEndEvent() {
         return eventFactory.createEndInboundMessage();
     }
