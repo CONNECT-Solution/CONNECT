@@ -31,6 +31,9 @@ import gov.hhs.fha.nhinc.util.JaxbDocumentUtils;
 
 import javax.xml.bind.JAXBElement;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.ClassificationType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.ExtrinsicObjectType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.IdentifiableType;
@@ -48,19 +51,27 @@ import com.google.common.collect.Iterables;
  */
 public class PayloadTypeExtractor implements Function<JAXBElement<? extends IdentifiableType>, Optional<String>> {
 
+    private static Log log = LogFactory.getLog(PayloadTypeExtractor.class);
+
     @Override
     public Optional<String> apply(JAXBElement<? extends IdentifiableType> jaxbElement) {
-        IdentifiableType value = jaxbElement.getValue();
-        ExtrinsicObjectType extrinsicObjectType = (ExtrinsicObjectType) value;
+        Optional<String> payloadType = Optional.absent();
 
-        Optional<ClassificationType> classificationType = findClassificationType(extrinsicObjectType,
-                DocumentConstants.EBXML_RESPONSE_NODE_REPRESENTATION_FORMAT_CODE);
-        if (!classificationType.isPresent()) {
-            return Optional.absent();
+        IdentifiableType value = jaxbElement.getValue();
+        if (value instanceof ExtrinsicObjectType) {
+            ExtrinsicObjectType extrinsicObjectType = (ExtrinsicObjectType) value;
+
+            Optional<ClassificationType> classificationType = findClassificationType(extrinsicObjectType,
+                    DocumentConstants.EBXML_RESPONSE_NODE_REPRESENTATION_FORMAT_CODE);
+            if (classificationType.isPresent()) {
+                payloadType = JaxbDocumentUtils.findSlotType(classificationType.get().getSlot(),
+                        DocumentConstants.EBXML_RESPONSE_CODE_CODESCHEME_SLOTNAME);
+            }
+        } else {
+            log.warn("Passed in element has an unexpected type.  Expecting ExtrinsicObjectType.  Returning as absent.");
         }
 
-        return JaxbDocumentUtils.findSlotType(classificationType.get().getSlot(),
-                DocumentConstants.EBXML_RESPONSE_CODE_CODESCHEME_SLOTNAME);
+        return payloadType;
     }
 
     private Optional<ClassificationType> findClassificationType(ExtrinsicObjectType extrinsicObjectType,

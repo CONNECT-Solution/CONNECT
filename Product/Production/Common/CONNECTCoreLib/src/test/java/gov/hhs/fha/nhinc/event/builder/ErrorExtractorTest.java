@@ -52,19 +52,16 @@ public class ErrorExtractorTest {
         RegistryError registryError2 = new RegistryError();
         registryError2.setErrorCode("errorCode2");
 
-        RegistryError registryErrorEmpty = new RegistryError();
 
         List<RegistryError> registryErrorList = new ArrayList<RegistryError>();
         registryErrorList.add(registryError1);
         registryErrorList.add(registryError2);
-        registryErrorList.add(registryErrorEmpty);
 
         List<String> errorCodeList = Lists.transform(registryErrorList, new ErrorExtractor());
 
-        assertEquals(3, errorCodeList.size());
+        assertEquals(2, errorCodeList.size());
         assertEquals("errorCode1", errorCodeList.get(0));
         assertEquals("errorCode2", errorCodeList.get(1));
-        assertEquals(null, errorCodeList.get(2));
     }
 
 }

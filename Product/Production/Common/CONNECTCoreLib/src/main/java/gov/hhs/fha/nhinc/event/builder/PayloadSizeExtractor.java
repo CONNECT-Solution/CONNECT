@@ -31,6 +31,9 @@ import gov.hhs.fha.nhinc.util.JaxbDocumentUtils;
 
 import javax.xml.bind.JAXBElement;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.ExtrinsicObjectType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.IdentifiableType;
 
@@ -45,13 +48,22 @@ import com.google.common.base.Optional;
  */
 public class PayloadSizeExtractor implements
         Function<JAXBElement<? extends IdentifiableType>, Optional<String>> {
+    
+    private static Log log = LogFactory.getLog(PayloadSizeExtractor.class);
 
     @Override
     public Optional<String> apply(JAXBElement<? extends IdentifiableType> jaxbElement) {
+        Optional<String> payloadSize = Optional.absent();
+        
         IdentifiableType value = jaxbElement.getValue();
-        ExtrinsicObjectType extrinsicObjectType = (ExtrinsicObjectType) value;
-
-        return JaxbDocumentUtils.findSlotType(extrinsicObjectType.getSlot(), DocumentConstants.EBXML_RESPONSE_SIZE_SLOTNAME);
+        if (value instanceof ExtrinsicObjectType) {
+            ExtrinsicObjectType extrinsicObjectType = (ExtrinsicObjectType) value;
+            payloadSize = JaxbDocumentUtils.findSlotType(extrinsicObjectType.getSlot(), DocumentConstants.EBXML_RESPONSE_SIZE_SLOTNAME);
+        } else {
+            log.warn("Passed in element has an unexpected type.  Expecting ExtrinsicObjectType.  Returning as absent.");
+        }
+        
+        return payloadSize;
     }
 
 }
