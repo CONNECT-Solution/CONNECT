@@ -45,7 +45,6 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.Properties;
 import java.util.UUID;
-
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
 import javax.mail.Address;
