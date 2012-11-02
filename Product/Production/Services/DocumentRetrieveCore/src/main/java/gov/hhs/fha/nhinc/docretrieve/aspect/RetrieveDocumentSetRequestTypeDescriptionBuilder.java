@@ -72,4 +72,16 @@ public class RetrieveDocumentSetRequestTypeDescriptionBuilder extends BaseEventD
     @Override
     public void buildErrorCodes() {
     }
+
+    @Override
+    public void setArguments(Object... arguments) {
+        // TODO need to do
+        
+    }
+
+    @Override
+    public void setReturnValue(Object returnValue) {
+        // TODO Auto-generated method stub
+        
+    }
 }

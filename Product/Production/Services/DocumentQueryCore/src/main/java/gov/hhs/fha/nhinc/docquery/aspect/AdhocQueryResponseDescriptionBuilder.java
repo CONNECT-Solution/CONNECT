@@ -30,6 +30,8 @@ package gov.hhs.fha.nhinc.docquery.aspect;
 
 import gov.hhs.fha.nhinc.event.BaseEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.gateway.aggregator.document.DocumentConstants;
+import gov.hhs.fha.nhinc.util.JaxbDocumentUtils;
+import gov.hhs.fha.nhinc.util.NhincCollections;
 
 import java.util.List;
 
@@ -39,25 +41,35 @@ import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.ClassificationType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.ExtrinsicObjectType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.IdentifiableType;
-import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import com.google.common.base.Function;
 import com.google.common.base.Optional;
 import com.google.common.base.Predicate;
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 
 public class AdhocQueryResponseDescriptionBuilder extends BaseEventDescriptionBuilder {
 
+    private static final Log LOG = LogFactory.getLog(AdhocQueryResponseDescriptionBuilder.class);
     private static final HCIDExtractor HCID_EXTRACTOR = new HCIDExtractor();
     private static final ErrorExtractor ERROR_EXTRACTOR = new ErrorExtractor();
     private static final PayloadTypeExtractor PAYLOAD_TYPE_EXTRACTOR = new PayloadTypeExtractor();
     private static final PayloadSizeExtractor PAYLOAD_SIZE_EXTRACTOR = new PayloadSizeExtractor();
 
-    private final AdhocQueryResponse response;
+    private AdhocQueryResponse response;
+
+    /**
+     * Constructor for aspects. Response should be set via <code>setArguments</code>.
+     * 
+     * @see #setArguments(Object...)
+     */
+    public AdhocQueryResponseDescriptionBuilder() {
+    }
 
     public AdhocQueryResponseDescriptionBuilder(AdhocQueryResponse response) {
         this.response = response;
@@ -80,7 +92,7 @@ public class AdhocQueryResponseDescriptionBuilder extends BaseEventDescriptionBu
         if (hasObjectList()) {
             List<String> listWithDups = Lists.transform(response.getRegistryObjectList().getIdentifiable(),
                     HCID_EXTRACTOR);
-            setRespondingHCIDs(ImmutableSet.copyOf(listWithDups).asList());
+            setRespondingHCIDs(listWithDups);
         }
     }
 
@@ -90,7 +102,7 @@ public class AdhocQueryResponseDescriptionBuilder extends BaseEventDescriptionBu
             List<Optional<String>> listWithDups = Lists.transform(response.getRegistryObjectList().getIdentifiable(),
                     PAYLOAD_TYPE_EXTRACTOR);
 
-            setPayLoadTypes(ImmutableSet.copyOf(Optional.presentInstances(listWithDups)).asList());
+            setPayLoadTypes(NhincCollections.fillAbsents(listWithDups, ""));
         }
     }
 
@@ -100,7 +112,7 @@ public class AdhocQueryResponseDescriptionBuilder extends BaseEventDescriptionBu
             List<Optional<String>> listWithDups = Lists.transform(response.getRegistryObjectList().getIdentifiable(),
                     PAYLOAD_SIZE_EXTRACTOR);
 
-            setPayloadSizes(ImmutableSet.copyOf(Optional.presentInstances(listWithDups)).asList());
+            setPayloadSizes(NhincCollections.fillAbsents(listWithDups, ""));
         }
     }
 
@@ -119,7 +131,21 @@ public class AdhocQueryResponseDescriptionBuilder extends BaseEventDescriptionBu
         if (hasErrorList()) {
             List<String> listWithDups = Lists.transform(response.getRegistryErrorList().getRegistryError(),
                     ERROR_EXTRACTOR);
-            setErrorCodes(ImmutableSet.copyOf(listWithDups).asList());
+            setErrorCodes(listWithDups);
+        }
+    }
+
+    @Override
+    public void setArguments(Object... arguments) {
+        // response builder ignores input arguments
+    }
+
+    @Override
+    public void setReturnValue(Object returnValue) {
+        if (returnValue == null || !(returnValue instanceof AdhocQueryResponse)) {
+            LOG.warn("Unexpected return value: " + returnValue);
+        } else {
+            response = (AdhocQueryResponse) returnValue;
         }
     }
 
@@ -133,23 +159,6 @@ public class AdhocQueryResponseDescriptionBuilder extends BaseEventDescriptionBu
 
     private boolean hasErrorList() {
         return response != null && response.getRegistryErrorList() != null;
-    }
-
-    private static Optional<String> findSlotType(List<SlotType1> slotList, final String expectedType) {
-        Predicate<SlotType1> slotPredicate = new Predicate<SlotType1>() {
-            @Override
-            public boolean apply(SlotType1 slot) {
-                return expectedType.equals(slot.getName()) && slot.getValueList() != null
-                        && !slot.getValueList().getValue().isEmpty();
-            }
-        };
-        Optional<SlotType1> slot = Iterables.tryFind(slotList, slotPredicate);
-
-        if (!slot.isPresent()) {
-            return Optional.absent();
-        }
-
-        return Optional.of(slot.get().getValueList().getValue().get(0));
     }
 
     private static class HCIDExtractor implements Function<JAXBElement<? extends IdentifiableType>, String> {
@@ -166,6 +175,7 @@ public class AdhocQueryResponseDescriptionBuilder extends BaseEventDescriptionBu
 
         @Override
         public String apply(RegistryError error) {
+            // errorCode is required by the DTD, so no Optional<String> here
             return error.getErrorCode();
         }
     }
@@ -191,7 +201,7 @@ public class AdhocQueryResponseDescriptionBuilder extends BaseEventDescriptionBu
                 return Optional.absent();
             }
 
-            return findSlotType(classificationType.get().getSlot(),
+            return JaxbDocumentUtils.findSlotType(classificationType.get().getSlot(),
                     DocumentConstants.EBXML_RESPONSE_CODE_CODESCHEME_SLOTNAME);
         }
 
@@ -222,7 +232,8 @@ public class AdhocQueryResponseDescriptionBuilder extends BaseEventDescriptionBu
             IdentifiableType value = jaxbElement.getValue();
             ExtrinsicObjectType extrinsicObjectType = (ExtrinsicObjectType) value;
 
-            return findSlotType(extrinsicObjectType.getSlot(), DocumentConstants.EBXML_RESPONSE_SIZE_SLOTNAME);
+            return JaxbDocumentUtils.findSlotType(extrinsicObjectType.getSlot(),
+                    DocumentConstants.EBXML_RESPONSE_SIZE_SLOTNAME);
         }
     }
 }

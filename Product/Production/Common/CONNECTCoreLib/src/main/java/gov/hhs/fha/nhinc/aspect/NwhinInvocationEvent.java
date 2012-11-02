@@ -28,15 +28,35 @@
  */
 package gov.hhs.fha.nhinc.aspect;
 
-import java.lang.annotation.*;
+import gov.hhs.fha.nhinc.event.BaseEventDescriptionBuilder;
+
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Inherited;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 /**
  * @author bhumphrey
- *
+ * 
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
+@Inherited
 public @interface NwhinInvocationEvent {
     String serviceType();
+
     String version();
+
+    /**
+     * @return builder class to instantiate for Before processing, using the arguments.
+     * @See {@link org.aspectj.lang.annotation.Before}
+     */
+    Class<? extends BaseEventDescriptionBuilder> beforeBuilder();
+
+    /**
+     * @return builder class to instantiate for AfterReturn processing, using the arguments and return value.
+     * @See {@link org.aspectj.lang.annotation.AfterReturning}
+     */
+    Class<? extends BaseEventDescriptionBuilder> afterReturningBuilder();
 }

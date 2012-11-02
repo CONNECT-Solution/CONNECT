@@ -31,6 +31,7 @@ package gov.hhs.fha.nhinc.docquery.aspect;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.fail;
 import static org.mockito.Mockito.mock;
 import gov.hhs.fha.nhinc.event.BaseDescriptionBuilderTest;
 import gov.hhs.fha.nhinc.event.EventDescription;
@@ -53,6 +54,8 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
 
 import org.junit.Test;
 
+import com.google.common.base.Optional;
+
 public class AdhocQueryResponseDescriptionBuilderTest extends BaseDescriptionBuilderTest {
 
     @Test
@@ -64,11 +67,116 @@ public class AdhocQueryResponseDescriptionBuilderTest extends BaseDescriptionBui
 
     @Test
     public void basicBuild() {
+        AdhocQueryResponse response = getBasicResponse();
+        AdhocQueryResponseDescriptionBuilder builder = new AdhocQueryResponseDescriptionBuilder(response);
+        assertBasicResponseBuilt(builder);
+    }
+
+    @Test
+    public void validRespnoseTypes() {
+        AdhocQueryResponseDescriptionBuilder builder = new AdhocQueryResponseDescriptionBuilder();
+        AdhocQueryResponse response = getBasicResponse();
+        builder.setReturnValue(response);
+        assertBasicResponseBuilt(builder);
+    }
+
+    @Test
+    public void nullArguments() {
+        AdhocQueryResponseDescriptionBuilder builder = new AdhocQueryResponseDescriptionBuilder();
+        try {
+            builder.setReturnValue(null);
+        } catch (NullPointerException npe) {
+            fail("Should accept null gracefully");
+        }
+    }
+
+    @Test
+    public void errors() {
         AdhocQueryResponse response = new AdhocQueryResponse();
-        response.setStatus(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_PARTIAL_SUCCESS);
-        addQueryResult(response, "payloadType", 12345);
+        RegistryError error = new RegistryError();
+        error.setErrorCode(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_FAILURE);
+        addError(response, error);
+
+        error = new RegistryError();
+        error.setErrorCode(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_FAILURE);
+        addError(response, error);
+
+        error = new RegistryError();
+        error.setErrorCode(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_PARTIAL_SUCCESS);
+        addError(response, error);
 
         AdhocQueryResponseDescriptionBuilder builder = new AdhocQueryResponseDescriptionBuilder(response);
+        EventDescription eventDescription = getEventDescription(builder);
+
+        assertEquals(3, eventDescription.getErrorCodes().size());
+        assertEquals(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_FAILURE, eventDescription.getErrorCodes().get(0));
+        assertEquals(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_FAILURE, eventDescription.getErrorCodes().get(1));
+        assertEquals(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_PARTIAL_SUCCESS,
+                eventDescription.getErrorCodes().get(2));
+    }
+
+    @Test
+    public void mixedPayloadTypes() {
+        AdhocQueryResponse response = new AdhocQueryResponse();
+
+        addQueryResult(response, Optional.of("payloadType"), Optional.of(12345));
+        addQueryResult(response, Optional.of("payloadType2"), Optional.of(1));
+
+        AdhocQueryResponseDescriptionBuilder builder = new AdhocQueryResponseDescriptionBuilder(response);
+        EventDescription eventDescription = getEventDescription(builder);
+
+        assertEquals(2, eventDescription.getPayloadTypes().size());
+        assertEquals("payloadType", eventDescription.getPayloadTypes().get(0));
+        assertEquals("payloadType2", eventDescription.getPayloadTypes().get(1));
+        assertEquals(2, eventDescription.getPayloadSizes().size());
+        assertEquals("" + 12345, eventDescription.getPayloadSizes().get(0));
+        assertEquals("" + 1, eventDescription.getPayloadSizes().get(1));
+    }
+
+    @Test
+    public void keepDuplicateDescriptionElements() {
+        AdhocQueryResponse response = new AdhocQueryResponse();
+
+        addQueryResult(response, Optional.of("payloadType"), Optional.of(12345));
+        addQueryResult(response, Optional.of("payloadType"), Optional.of(12345));
+
+        AdhocQueryResponseDescriptionBuilder builder = new AdhocQueryResponseDescriptionBuilder(response);
+        EventDescription eventDescription = getEventDescription(builder);
+
+        assertEquals(2, eventDescription.getPayloadTypes().size());
+        assertEquals("payloadType", eventDescription.getPayloadTypes().get(0));
+        assertEquals("payloadType", eventDescription.getPayloadTypes().get(1));
+        assertEquals(2, eventDescription.getPayloadSizes().size());
+        assertEquals("" + 12345, eventDescription.getPayloadSizes().get(0));
+        assertEquals("" + 12345, eventDescription.getPayloadSizes().get(1));
+        assertEquals(2, eventDescription.getRespondingHCIDs().size());
+        assertEquals("home", eventDescription.getRespondingHCIDs().get(0));
+        assertEquals("home", eventDescription.getRespondingHCIDs().get(1));
+    }
+
+    @Test
+    public void missingPayloadInfoCoercedToEmpty() {
+        AdhocQueryResponse response = new AdhocQueryResponse();
+
+        addQueryResult(response, Optional.<String> absent(), Optional.<Integer> absent());
+
+        AdhocQueryResponseDescriptionBuilder builder = new AdhocQueryResponseDescriptionBuilder(response);
+        EventDescription eventDescription = getEventDescription(builder);
+
+        assertEquals(1, eventDescription.getPayloadTypes().size());
+        assertEquals("", eventDescription.getPayloadTypes().get(0));
+        assertEquals(1, eventDescription.getPayloadSizes().size());
+        assertEquals("", eventDescription.getPayloadSizes().get(0));
+    }
+
+    private AdhocQueryResponse getBasicResponse() {
+        AdhocQueryResponse response = new AdhocQueryResponse();
+        response.setStatus(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_PARTIAL_SUCCESS);
+        addQueryResult(response, Optional.of("payloadType"), Optional.of(12345));
+        return response;
+    }
+
+    private void assertBasicResponseBuilt(AdhocQueryResponseDescriptionBuilder builder) {
         EventDescription eventDescription = getEventDescription(builder);
 
         assertEquals(1, eventDescription.getStatuses().size());
@@ -85,53 +193,27 @@ public class AdhocQueryResponseDescriptionBuilderTest extends BaseDescriptionBui
         assertNull(eventDescription.getInitiatingHCID());
     }
 
-    @Test
-    public void error() {
-        AdhocQueryResponse response = new AdhocQueryResponse();
-        RegistryError error = new RegistryError();
-        error.setErrorCode(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_FAILURE);
-
-        addError(response, error);
-
-        AdhocQueryResponseDescriptionBuilder builder = new AdhocQueryResponseDescriptionBuilder(response);
-        EventDescription eventDescription = getEventDescription(builder);
-
-        assertEquals(1, eventDescription.getErrorCodes().size());
-        assertEquals(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_FAILURE, eventDescription.getErrorCodes().get(0));
-    }
-
-    @Test
-    public void mixedPayloadTypes() {
-        AdhocQueryResponse response = new AdhocQueryResponse();
-
-        addQueryResult(response, "payloadType", 12345);
-        addQueryResult(response, "payloadType2", 1);
-
-        AdhocQueryResponseDescriptionBuilder builder = new AdhocQueryResponseDescriptionBuilder(response);
-        EventDescription eventDescription = getEventDescription(builder);
-
-        assertEquals(2, eventDescription.getPayloadTypes().size());
-        assertEquals("payloadType", eventDescription.getPayloadTypes().get(0));
-        assertEquals("payloadType2", eventDescription.getPayloadTypes().get(1));
-        assertEquals(2, eventDescription.getPayloadSizes().size());
-        assertEquals("" + 12345, eventDescription.getPayloadSizes().get(0));
-        assertEquals("" + 1, eventDescription.getPayloadSizes().get(1));
-    }
-
     private void addError(AdhocQueryResponse response, RegistryError error) {
-        RegistryErrorList registryErrorList = new RegistryErrorList();
-        response.setRegistryErrorList(registryErrorList);
+        RegistryErrorList registryErrorList = response.getRegistryErrorList();
+        if (registryErrorList == null) {
+            registryErrorList = new RegistryErrorList();
+            response.setRegistryErrorList(registryErrorList);
+        }
         List<RegistryError> registryError = registryErrorList.getRegistryError();
         registryError.add(error);
     }
 
-    private void addQueryResult(AdhocQueryResponse response, String payloadType, int size) {
+    private void addQueryResult(AdhocQueryResponse response, Optional<String> payloadType, Optional<Integer> size) {
         ExtrinsicObjectType extrinsicObject = new ExtrinsicObjectType();
         extrinsicObject.setStatus(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_SUCCESS);
         extrinsicObject.setHome("home");
 
-        addPayloadType(extrinsicObject, payloadType);
-        addPayloadSize(extrinsicObject, size);
+        if (payloadType.isPresent()) {
+            addPayloadType(extrinsicObject, payloadType.get());
+        }
+        if (size.isPresent()) {
+            addPayloadSize(extrinsicObject, size.get());
+        }
 
         addQueryResult(response, extrinsicObject);
     }

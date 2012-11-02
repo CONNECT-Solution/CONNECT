@@ -13,22 +13,9 @@ http://www.springframework.org/schema/beans http://www.springframework.org/schem
 http://cxf.apache.org/bindings/soap http://cxf.apache.org/schemas/configuration/soap.xsd
 http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
-    <import resource="classpath:META-INF/cxf/cxf.xml" />
-    <import resource="classpath:META-INF/cxf/cxf-extension-soap.xml" />
-    <import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
-    <import resource="classpath:CONNECT-interceptor-beans.xml" />
-
     <!-- Document Query -->
 
     <!-- Nhin services -->
-
-    <bean id="nhinDocQueryOrchImpl" class="gov.hhs.fha.nhinc.docquery.nhin.NhinDocQueryOrchImpl" />
-
-    <bean id="nhinDQ" class="gov.hhs.fha.nhinc.docquery._20.nhin.DocQuery">
-        <property name="orchestratorImpl">
-            <ref bean="nhinDocQueryOrchImpl" />
-        </property>
-    </bean>
 
     <jaxws:endpoint xmlns:ndq="urn:ihe:iti:xds-b:2007" id="NhinDocumentQuery"
         address="/NhinService/RespondingGateway_Query_Service/DocQuery" serviceName="ndq:RespondingGateway_Query_Service"
@@ -53,14 +40,6 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd http://www.s
 
     <!-- Entity services -->
 
-    <bean id="entityDocQueryOrchImpl" class="gov.hhs.fha.nhinc.docquery.entity.EntityDocQueryOrchImpl" />
-
-    <bean id="entityDQUnsecured" class="gov.hhs.fha.nhinc.docquery._20.entity.EntityDocQueryUnsecured">
-        <property name="orchestratorImpl">
-            <ref bean="entityDocQueryOrchImpl" />
-        </property>
-    </bean>
-
     <jaxws:endpoint xmlns:edq="urn:gov:hhs:fha:nhinc:entitydocquery" id="EntityDocumentQuery"
         address="/EntityService/EntityDocQueryUnsecured" serviceName="edq:EntityDocQuery" endpointName="edq:EntityDocQueryPortSoap"
         implementorClass="gov.hhs.fha.nhinc.docquery._20.entity.EntityDocQueryUnsecured" implementor="#entityDQUnsecured"
@@ -69,12 +48,6 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd http://www.s
             <ref bean="TransactionHandler" />
         </jaxws:handlers>
     </jaxws:endpoint>
-
-    <bean id="entityDQSecured" class="gov.hhs.fha.nhinc.docquery._20.entity.EntityDocQuerySecured">
-        <property name="orchestratorImpl">
-            <ref bean="entityDocQueryOrchImpl" />
-        </property>
-    </bean>
 
     <jaxws:endpoint xmlns:edqs="urn:gov:hhs:fha:nhinc:entitydocquery" id="EntityDocumentQuerySecured"
         address="/EntityService/EntityDocQuerySecured" serviceName="edqs:EntityDocQuerySecured" endpointName="edqs:EntityDocQuerySecuredPortSoap"
@@ -94,20 +67,6 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd http://www.s
     </jaxws:endpoint>
 
     <!-- MsgProxy/NhincProxy/Passthru services -->
-
-    <bean id="passthruDocQueryOrchImpl" class="gov.hhs.fha.nhinc.docquery.passthru.PassthruDocQueryOrchImpl" />
-
-    <bean id="passthruDQUnsecured" class="gov.hhs.fha.nhinc.docquery._20.passthru.NhincProxyDocQueryUnsecured">
-        <property name="orchestratorImpl">
-            <ref bean="passthruDocQueryOrchImpl" />
-        </property>
-    </bean>
-
-    <bean id="passthruDQSecured" class="gov.hhs.fha.nhinc.docquery._20.passthru.NhincProxyDocQuerySecured">
-        <property name="orchestratorImpl">
-            <ref bean="passthruDocQueryOrchImpl" />
-        </property>
-    </bean>
 
     <jaxws:endpoint xmlns:mpdq="urn:gov:hhs:fha:nhinc:nhincproxydocquery" id="NhincProxyDocumentQuery"
         address="/EntityService/NhincProxyDocQueryUnsecured" serviceName="mpdq:NhincProxyDocQuery"
@@ -136,11 +95,4 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd http://www.s
             <ref bean="TransactionHandler" />
         </jaxws:handlers>
     </jaxws:endpoint>
-
-    <bean id="SOAPHeaderHandler" class="gov.hhs.fha.nhinc.callback.SOAPHeaderHandler" />
-    <bean id="TransactionHandler" class="gov.hhs.fha.nhinc.logging.transaction.TransactionHandler" />
-
-    <!-- Aspect Service -->
-    <aop:aspectj-autoproxy />
-   
 </beans>

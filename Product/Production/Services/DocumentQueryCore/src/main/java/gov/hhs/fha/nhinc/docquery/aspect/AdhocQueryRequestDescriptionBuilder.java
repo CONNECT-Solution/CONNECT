@@ -28,17 +28,30 @@
  */
 package gov.hhs.fha.nhinc.docquery.aspect;
 
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.event.BaseEventDescriptionBuilder;
+import gov.hhs.fha.nhinc.event.builder.AssertionDescriptionExtractor;
+
+import java.util.Arrays;
+
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 
 public class AdhocQueryRequestDescriptionBuilder extends BaseEventDescriptionBuilder {
 
-    private final AdhocQueryRequest request;
+    private static final Log LOG = LogFactory.getLog(AdhocQueryRequestDescriptionBuilder.class);
+    private AssertionDescriptionExtractor assertionExtractor = new AssertionDescriptionExtractor();
+    private Optional<AdhocQueryRequest> request;
+    private Optional<AssertionType> assertion;
 
-    public AdhocQueryRequestDescriptionBuilder(AdhocQueryRequest request) {
-        this.request = request;
+    public AdhocQueryRequestDescriptionBuilder() {
+        request = Optional.absent();
+        assertion = Optional.absent();
     }
 
     @Override
@@ -59,8 +72,8 @@ public class AdhocQueryRequestDescriptionBuilder extends BaseEventDescriptionBui
 
     @Override
     public void buildPayloadTypes() {
-        if (request != null) {
-            setPayLoadTypes(ImmutableList.of(request.getClass().getSimpleName()));
+        if (request.isPresent()) {
+            setPayLoadTypes(ImmutableList.of(request.get().getClass().getSimpleName()));
         }
     }
 
@@ -72,18 +85,60 @@ public class AdhocQueryRequestDescriptionBuilder extends BaseEventDescriptionBui
 
     @Override
     public void buildNPI() {
-        // NPI not available in request
-
+        if (assertion.isPresent()) {
+            setNpi(assertionExtractor.getNPI(assertion.get()));
+        }
     }
 
     @Override
     public void buildInitiatingHCID() {
-        // initiating HCID not available in request
-
+        if (assertion.isPresent()) {
+            setInitiatingHCID(assertionExtractor.getInitiatingHCID(assertion.get()));
+        }
     }
 
     @Override
     public void buildErrorCodes() {
         // error codes not available in request
+    }
+
+    @Override
+    public void setArguments(Object... arguments) {
+        Optional<AdhocQueryRequest> request = extractRequest(arguments);
+        Optional<AssertionType> assertion = extractAssertion(arguments);
+        if (!request.isPresent()) {
+            LOG.warn("Unexpected argument list: " + Arrays.toString(arguments));
+        } else {
+            this.request = request;
+            this.assertion = assertion;
+
+        }
+    }
+
+    @Override
+    public void setReturnValue(Object returnValue) {
+        // return value not dealt with by request builder
+    }
+
+    public void setAssertionExtractor(AssertionDescriptionExtractor assertionExtractor) {
+        this.assertionExtractor = assertionExtractor;
+    }
+
+    protected AssertionDescriptionExtractor getAssertionExtractor() {
+        return assertionExtractor;
+    }
+
+    private Optional<AdhocQueryRequest> extractRequest(Object[] arguments) {
+        if (arguments != null && arguments.length > 0 && arguments[0] instanceof AdhocQueryRequest) {
+            return Optional.of((AdhocQueryRequest) arguments[0]);
+        }
+        return Optional.absent();
+    }
+
+    private Optional<AssertionType> extractAssertion(Object[] arguments) {
+        if (arguments != null && arguments.length > 1 && arguments[1] instanceof AssertionType) {
+            return Optional.of((AssertionType) arguments[1]);
+        }
+        return Optional.absent();
     }
 }
