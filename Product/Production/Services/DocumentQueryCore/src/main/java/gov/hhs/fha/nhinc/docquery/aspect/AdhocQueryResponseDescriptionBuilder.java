@@ -30,6 +30,8 @@ package gov.hhs.fha.nhinc.docquery.aspect;
 
 import gov.hhs.fha.nhinc.event.BaseEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.gateway.aggregator.document.DocumentConstants;
+import gov.hhs.fha.nhinc.util.JaxbDocumentUtils;
+import gov.hhs.fha.nhinc.util.NhincCollections;
 
 import java.util.List;
 
@@ -39,7 +41,6 @@ import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.ClassificationType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.ExtrinsicObjectType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.IdentifiableType;
-import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
 
 import com.google.common.base.Function;
@@ -89,7 +90,7 @@ public class AdhocQueryResponseDescriptionBuilder extends BaseEventDescriptionBu
             List<Optional<String>> listWithDups = Lists.transform(response.getRegistryObjectList().getIdentifiable(),
                     PAYLOAD_TYPE_EXTRACTOR);
 
-            setPayLoadTypes(fillAbsents(listWithDups, ""));
+            setPayLoadTypes(NhincCollections.fillAbsents(listWithDups, ""));
         }
     }
 
@@ -99,20 +100,8 @@ public class AdhocQueryResponseDescriptionBuilder extends BaseEventDescriptionBu
             List<Optional<String>> listWithDups = Lists.transform(response.getRegistryObjectList().getIdentifiable(),
                     PAYLOAD_SIZE_EXTRACTOR);
 
-            setPayloadSizes(fillAbsents(listWithDups, ""));
+            setPayloadSizes(NhincCollections.fillAbsents(listWithDups, ""));
         }
-    }
-
-    // Leaving this private, as there may be a way to do this is Guava natively. I just couldn't find it.
-    // if we promote it out to higher visibility, we will need a separate test
-    private <T> List<T> fillAbsents(List<Optional<T>> list, final T fillValue) {
-        Function<Optional<T>, T> helper = new Function<Optional<T>, T>() {
-            @Override
-            public T apply(Optional<T> t) {
-                return t.or(fillValue);
-            }
-        };
-        return Lists.transform(list, helper);
     }
 
     @Override
@@ -144,23 +133,6 @@ public class AdhocQueryResponseDescriptionBuilder extends BaseEventDescriptionBu
 
     private boolean hasErrorList() {
         return response != null && response.getRegistryErrorList() != null;
-    }
-
-    private static Optional<String> findSlotType(List<SlotType1> slotList, final String expectedType) {
-        Predicate<SlotType1> slotPredicate = new Predicate<SlotType1>() {
-            @Override
-            public boolean apply(SlotType1 slot) {
-                return expectedType.equals(slot.getName()) && slot.getValueList() != null
-                        && !slot.getValueList().getValue().isEmpty();
-            }
-        };
-        Optional<SlotType1> slot = Iterables.tryFind(slotList, slotPredicate);
-
-        if (!slot.isPresent()) {
-            return Optional.absent();
-        }
-
-        return Optional.of(slot.get().getValueList().getValue().get(0));
     }
 
     private static class HCIDExtractor implements Function<JAXBElement<? extends IdentifiableType>, String> {
@@ -203,7 +175,7 @@ public class AdhocQueryResponseDescriptionBuilder extends BaseEventDescriptionBu
                 return Optional.absent();
             }
 
-            return findSlotType(classificationType.get().getSlot(),
+            return JaxbDocumentUtils.findSlotType(classificationType.get().getSlot(),
                     DocumentConstants.EBXML_RESPONSE_CODE_CODESCHEME_SLOTNAME);
         }
 
@@ -234,13 +206,14 @@ public class AdhocQueryResponseDescriptionBuilder extends BaseEventDescriptionBu
             IdentifiableType value = jaxbElement.getValue();
             ExtrinsicObjectType extrinsicObjectType = (ExtrinsicObjectType) value;
 
-            return findSlotType(extrinsicObjectType.getSlot(), DocumentConstants.EBXML_RESPONSE_SIZE_SLOTNAME);
+            return JaxbDocumentUtils.findSlotType(extrinsicObjectType.getSlot(),
+                    DocumentConstants.EBXML_RESPONSE_SIZE_SLOTNAME);
         }
     }
 
     @Override
     public void setArguments(Object... arguments) {
         // TODO Auto-generated method stub
-        
+
     }
 }

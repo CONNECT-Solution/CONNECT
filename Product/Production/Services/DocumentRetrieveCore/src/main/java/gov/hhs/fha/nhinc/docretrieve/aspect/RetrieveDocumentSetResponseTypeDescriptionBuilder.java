@@ -72,10 +72,14 @@ public class RetrieveDocumentSetResponseTypeDescriptionBuilder extends BaseEvent
 
     @Override
     public void buildPayloadTypes() {
+        // payload type is not available in response object. The slots do exist but the type is not
+        // one of the available options.
     }
 
     @Override
     public void buildPayloadSize() {
+        // payload size is not available in response object. The slots do exist but the size is not
+        // one of the available options.
     }
 
     @Override
@@ -114,6 +118,6 @@ public class RetrieveDocumentSetResponseTypeDescriptionBuilder extends BaseEvent
     @Override
     public void setArguments(Object... aguements) {
         // TODO Auto-generated method stub
-        
+
     }
 }

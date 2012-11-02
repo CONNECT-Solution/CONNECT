@@ -137,15 +137,29 @@ public class RetrieveDocumentSetResponseTypeDescriptionBuilderTest extends BaseD
 
     private void addError(RetrieveDocumentSetResponseType response) {
         RegistryResponseType registryResponse = response.getRegistryResponse();
+        RegistryErrorList registryErrorList = getOrCreateErrorList(registryResponse);
+        RegistryError registryError = new RegistryError();
+        registryError.setCodeContext("error context"); // not an enumerated value
+        registryError.setErrorCode(DocumentConstants.XDS_RETRIEVE_ERRORCODE_REPOSITORY_ERROR);
+        registryErrorList.getRegistryError().add(registryError);
+    }
+
+    private RegistryResponseType getOrCreateRegistryResponse(RetrieveDocumentSetResponseType response) {
+        RegistryResponseType registryResponse = response.getRegistryResponse();
+        if (registryResponse == null) {
+            registryResponse = new RegistryResponseType();
+            response.setRegistryResponse(registryResponse);
+        }
+        return registryResponse;
+    }
+
+    private RegistryErrorList getOrCreateErrorList(RegistryResponseType registryResponse) {
         RegistryErrorList registryErrorList = registryResponse.getRegistryErrorList();
         if (registryErrorList == null) {
             registryErrorList = new RegistryErrorList();
             registryResponse.setRegistryErrorList(registryErrorList);
         }
-        RegistryError registryError = new RegistryError();
-        registryError.setCodeContext("error context"); // not an enumerated value
-        registryError.setErrorCode(DocumentConstants.XDS_RETRIEVE_ERRORCODE_REPOSITORY_ERROR);
-        registryErrorList.getRegistryError().add(registryError);
+        return registryErrorList;
     }
 
     private void addDocumentResponse(RetrieveDocumentSetResponseType response, String communityId) {
@@ -155,16 +169,16 @@ public class RetrieveDocumentSetResponseTypeDescriptionBuilderTest extends BaseD
     }
 
     private void addStatus(RetrieveDocumentSetResponseType response, String status) {
-        RegistryResponseType value = new RegistryResponseType();
+        RegistryResponseType value = getOrCreateRegistryResponse(response);
         value.setStatus(status);
         response.setRegistryResponse(value);
     }
 
     private void assertAlwaysNullAttributes(EventDescription eventDescription) {
         assertNull(eventDescription.getTimeStamp());
-        assertTrue(CollectionUtils.isEmpty(eventDescription.getPayloadTypes()));
-        assertTrue(CollectionUtils.isEmpty(eventDescription.getPayloadSizes()));
         assertNull(eventDescription.getNPI());
         assertNull(eventDescription.getInitiatingHCID());
+        assertTrue(CollectionUtils.isEmpty(eventDescription.getPayloadSizes()));
+        assertTrue(CollectionUtils.isEmpty(eventDescription.getPayloadTypes()));
     }
 }
