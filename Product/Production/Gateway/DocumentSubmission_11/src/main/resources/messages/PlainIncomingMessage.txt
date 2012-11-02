@@ -1,0 +1,29 @@
+To: user@hispA.org
+From: externuser@hispB.org
+Subject: Subject of message
+Date: Fri, 05 Nov 12 10:53:24 -0500
+Message-ID: <9501232051053.aa04167@hispA>
+Mime-Version: 1.0
+Content-type: Multipart/Mixed; boundary="NextPart"
+
+--NextPart
+
+Content-type: text/plain; charset="us-ascii"
+
+Title           : X Ray report
+Author(s)       : User XYZ. 
+Filename        : xray-report.txt
+Pages           : 2
+Date            : 01/04/2012
+
+Body area 1
+
+--NextPart
+
+Content-type: Message/External-body;
+name="report2.txt";
+
+Content-Type: text/plain
+Content-ID: <1995321320104161302@hispA>
+
+--NextPart
