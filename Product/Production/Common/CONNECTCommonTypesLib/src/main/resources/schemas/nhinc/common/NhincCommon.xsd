@@ -31,6 +31,7 @@
             <xsd:element name="haveSignature" type="xsd:boolean"/>
             <xsd:element name="haveWitnessSignature" type="xsd:boolean"/>
             <xsd:element name="homeCommunity" type="tns:HomeCommunityType"/>
+            <xsd:element name="nationalProviderId" type="xsd:string"/>
             <xsd:element name="personName" type="tns:PersonNameType"/>
             <xsd:element name="phoneNumber" type="tns:PhoneType"/>
             <xsd:element name="secondWitnessAddress" type="tns:AddressType"/>
