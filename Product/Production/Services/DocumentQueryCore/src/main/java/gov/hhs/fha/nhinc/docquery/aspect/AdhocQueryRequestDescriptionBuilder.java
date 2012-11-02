@@ -86,4 +86,10 @@ public class AdhocQueryRequestDescriptionBuilder extends BaseEventDescriptionBui
     public void buildErrorCodes() {
         // error codes not available in request
     }
+
+    @Override
+    public void setArguments(Object... arguments) {
+        // TODO Auto-generated method stub
+        
+    }
 }

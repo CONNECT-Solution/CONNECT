@@ -28,6 +28,8 @@
  */
 package gov.hhs.fha.nhinc.aspect;
 
+import gov.hhs.fha.nhinc.event.BaseEventDescriptionBuilder;
+
 import java.lang.annotation.*;
 
 /**
@@ -36,8 +38,10 @@ import java.lang.annotation.*;
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
+@Inherited
 public @interface OutboundProcessingEvent {
     String serviceType();
     String version();
+    Class<? extends BaseEventDescriptionBuilder> descriptionBuilder();
 
 }

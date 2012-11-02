@@ -15,16 +15,13 @@ http://www.springframework.org/schema/aop http://www.springframework.org/schema/
     <bean id="SOAPHeaderHandler" class="gov.hhs.fha.nhinc.callback.SOAPHeaderHandler" />
     <bean id="TransactionHandler" class="gov.hhs.fha.nhinc.logging.transaction.TransactionHandler" />
     
- 
-    <bean id="eventfactory" class="gov.hhs.fha.nhinc.event.EventFactoryFactoryBean" />
+    <bean id="auditRepositoryLogger" class="gov.hhs.fha.nhinc.auditrepository.AuditRepositoryLogger"/>
     
-    <bean name="eventmanager" class="gov.hhs.fha.nhinc.event.EventManager" factory-method="getInstance" />
-
+    
     <bean id="auditRepositoryProxyObjectFactory" class="gov.hhs.fha.nhinc.auditrepository.nhinc.proxy.AuditRepositoryProxyObjectFactory" />
-
-
-     <bean id="auditRepositoryLogger" class="gov.hhs.fha.nhinc.auditrepository.AuditRepositoryLogger"/>
-
+    
+  
+ 
     <bean id="inboundPatientDiscoveryOrchFactory" class="gov.hhs.fha.nhinc.patientdiscovery.nhin.InboundPatientDiscoveryOrchFactory" factory-method="getInstance" />
 
   

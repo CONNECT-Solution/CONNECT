@@ -33,19 +33,21 @@ import javax.xml.ws.soap.Addressing;
 
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
+import gov.hhs.fha.nhinc.aspect.InboundMessageEvent;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType;
 import gov.hhs.fha.nhinc.docsubmission.entity.EntityDocSubmissionOrchImpl;
+import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
 
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 @Addressing(enabled = true)
 public class EntityDocSubmissionSecured_g1 implements gov.hhs.fha.nhinc.nhincentityxdrsecured.EntityXDRSecuredPortType {
 
-    @Resource
     private WebServiceContext context;
 
     private EntityDocSubmissionOrchImpl orchImpl;
 
     @Override
+    @InboundMessageEvent(serviceType="Document Submission", version="2.0", descriptionBuilder=DefaultEventDescriptionBuilder.class)
     public RegistryResponseType provideAndRegisterDocumentSetB(
             RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType body) {
 
@@ -53,6 +55,12 @@ public class EntityDocSubmissionSecured_g1 implements gov.hhs.fha.nhinc.nhincent
                 context);
 
         return response;
+    }
+
+    
+    @Resource
+    public void setContext(WebServiceContext context) {
+        this.context = context;
     }
 
     protected WebServiceContext getWebServiceContext() {

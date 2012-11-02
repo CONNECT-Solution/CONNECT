@@ -2,6 +2,7 @@ package gov.hhs.fha.nhinc.patientdiscovery.aspect;
 
 import gov.hhs.fha.nhinc.event.BaseEventDescriptionBuilder;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.bind.JAXBElement;
@@ -16,6 +17,10 @@ import org.hl7.v3.PRPAIN201305UV02;
 public class PRPAIN201305UV02EventDescriptionBuilder extends BaseEventDescriptionBuilder {
 
     private PRPAIN201305UV02 body;
+    
+    public PRPAIN201305UV02EventDescriptionBuilder() {
+        
+    }
 
     public PRPAIN201305UV02EventDescriptionBuilder(PRPAIN201305UV02 body) {
         this.body = body;
@@ -33,10 +38,11 @@ public class PRPAIN201305UV02EventDescriptionBuilder extends BaseEventDescriptio
             JAXBElement<MCCIMT000100UV01Organization> jaxbRepresentedOrganization = agent.getRepresentedOrganization();
             MCCIMT000100UV01Organization representedOrganization = jaxbRepresentedOrganization.getValue();
             List<II> ids = representedOrganization.getId();
-            II ii = ids.get(0);
-            String root = ii.getRoot();
-
-            setInitiatingHCID(root); // BUG? - why is this setting initiating, not responding?
+            List<String> hcids = new ArrayList<String> ();
+            for(II ii : ids) {
+                 hcids.add(ii.getRoot());
+            }
+            setRespondingHCIDs(hcids); 
         }
     }
 
@@ -80,6 +86,15 @@ public class PRPAIN201305UV02EventDescriptionBuilder extends BaseEventDescriptio
     public void buildErrorCodes() {
         // TODO Auto-generated method stub
 
+    }
+
+    @Override
+    public void setArguments(Object... arguements) {
+        if (arguements.length == 1) {
+            if ( arguements[0] instanceof PRPAIN201305UV02) {
+                this.body = (PRPAIN201305UV02)arguements[0];
+            }
+        }
     }
 
 }
