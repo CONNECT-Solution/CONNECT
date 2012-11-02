@@ -1,28 +1,28 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
- * All rights reserved. 
+ * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * All rights reserved.
  *
- * Redistribution and use in source and binary forms, with or without 
- * modification, are permitted provided that the following conditions are met: 
- *     * Redistributions of source code must retain the above 
- *       copyright notice, this list of conditions and the following disclaimer. 
- *     * Redistributions in binary form must reproduce the above copyright 
- *       notice, this list of conditions and the following disclaimer in the documentation 
- *       and/or other materials provided with the distribution. 
- *     * Neither the name of the United States Government nor the 
- *       names of its contributors may be used to endorse or promote products 
- *       derived from this software without specific prior written permission. 
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *     * Redistributions of source code must retain the above
+ *       copyright notice, this list of conditions and the following disclaimer.
+ *     * Redistributions in binary form must reproduce the above copyright
+ *       notice, this list of conditions and the following disclaimer in the documentation
+ *       and/or other materials provided with the distribution.
+ *     * Neither the name of the United States Government nor the
+ *       names of its contributors may be used to endorse or promote products
+ *       derived from this software without specific prior written permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
- * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
- * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY 
- * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES 
- * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
- * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND 
- * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
- * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package gov.hhs.fha.nhinc.docquery.entity;
 
@@ -52,30 +52,36 @@ import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import org.hl7.v3.RetrievePatientCorrelationsResponseType;
 
 /**
- * 
+ *
  * @author jhoppesc
  */
 public class EntityDocQueryHelper {
 
     private Log log = null;
 
+    /**
+     * Add default Constructor.
+     */
     public EntityDocQueryHelper() {
         log = createLogger();
     }
 
+    /**
+     * @return Log log.
+     */
     protected Log createLogger() {
         return ((log != null) ? log : LogFactory.getLog(getClass()));
     }
 
     /**
-     * This method retrieves the correlations
-     * 
-     * @param slotList
-     * @param urlInfoList
-     * @param assertion
-     * @param isTargeted
-     * @param localHomeCommunity
-     * @return subIdList
+     * This method retrieves the patient correlations found.
+     *
+     * @param slotList The slotList from AdhocQuery Request message.
+     * @param urlInfoList The targets where request needs to be send.
+     * @param assertion Assertion received.
+     * @param isTargeted True if targeted to a community.
+     * @param localHomeCommunity HomeCommunityId of requesting Gateway.
+     * @return subIdList extracted from patientCorrealtion service response
      */
     public List<QualifiedSubjectIdentifierType> retreiveCorrelations(List<SlotType1> slotList,
             List<UrlInfo> urlInfoList, AssertionType assertion, boolean isTargeted, String localHomeCommunity) {
@@ -193,6 +199,12 @@ public class EntityDocQueryHelper {
         return subIdList;
     }
 
+    /** Return target communities to send DocQuery request.
+     * @param sAssigningAuthorityId Target AssigningAuthorityId.
+     * @param sLocalAssigningAuthorityId AA Id of requesting Gateway.
+     * @param sLocalHomeCommunity communityId of requesting Gateway.
+     * @return targetCommunity where request needs to be targeted.
+     */
     public HomeCommunityType lookupHomeCommunityId(String sAssigningAuthorityId, String sLocalAssigningAuthorityId,
             String sLocalHomeCommunity) {
         HomeCommunityType targetCommunity = null;
@@ -203,7 +215,8 @@ public class EntityDocQueryHelper {
              */
             targetCommunity = new HomeCommunityType();
             targetCommunity.setHomeCommunityId(sLocalHomeCommunity);
-            log.debug("Assigning authority was for the local home community. Set target to manual local home community id");
+            log.debug("Assigning authority was for the local home community. "
+            + "Set target to manual local home community id");
         } else {
             targetCommunity = ConnectionManagerCommunityMapping
                     .getHomeCommunityByAssigningAuthority(sAssigningAuthorityId);
@@ -211,6 +224,11 @@ public class EntityDocQueryHelper {
         return targetCommunity;
     }
 
+    /**
+     * @param sPropertiesFile PropertyFile name where PropertyName value to be read.
+     * @param sPropertyName Name of the property to be read from Property File.
+     * @return PropertyName value (true or false from Property File).
+     */
     private boolean getPropertyBoolean(String sPropertiesFile, String sPropertyName) {
         boolean sPropertyValue = false;
         try {
@@ -221,6 +239,10 @@ public class EntityDocQueryHelper {
         return sPropertyValue;
     }
 
+    /**Returns Local AssigningAuthorityId.
+     * @param slotList slotList extracted from AdhocQuery Request message.
+     * @return AssigingAuthorityId of local HomeCommunity.
+     */
     public String getLocalAssigningAuthority(List<SlotType1> slotList) {
         String localAssigningAuthorityId = null;
 
@@ -240,10 +262,10 @@ public class EntityDocQueryHelper {
     }
 
     /**
-     * This method returns uniquePatientId from slot list
-     * 
-     * @param slotList
-     * @return uniquePatientId
+     * This method returns uniquePatientId from slot list.
+     *
+     * @param slotList The slotList from AdhocQuery Request message.
+     * @return uniquePatientId extracted form slotList.
      */
     public String getUniquePatientId(List<SlotType1> slotList) {
         String uniquePatientId = null;
@@ -263,6 +285,10 @@ public class EntityDocQueryHelper {
         return uniquePatientId;
     }
 
+    /**
+     * @param slotList The slotList from AdhocQueryRequest message.
+     * @return true if patientId slot id present or false if not present.
+     */
     protected boolean patientIdSlot(List<SlotType1> slotList) {
         boolean slotPresent = false;
         for (SlotType1 slot1 : slotList) {
