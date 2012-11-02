@@ -26,23 +26,24 @@
  */
 package gov.hhs.fha.nhinc.direct;
 
+import static gov.hhs.fha.nhinc.direct.DirectUnitTestUtil.RECIPIENT;
+import static gov.hhs.fha.nhinc.direct.DirectUnitTestUtil.SENDER;
+import static gov.hhs.fha.nhinc.direct.DirectUnitTestUtil.getMailServerProps;
+import static gov.hhs.fha.nhinc.direct.DirectUnitTestUtil.getMockDocument;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType.Document;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.Properties;
 
-import javax.activation.DataHandler;
 import javax.mail.internet.MimeMessage;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.nhindirect.gateway.smtp.MessageProcessResult;
 import org.nhindirect.gateway.smtp.SmtpAgent;
@@ -59,8 +60,6 @@ import com.icegreen.greenmail.util.ServerSetupTest;
  */
 public class DirectMailClientTest {
 
-    private static final String SENDER = "testsender@localhost";
-    private static final String RECIPIENT = "testrecip@localhost";
     private static final String ATTACHMENT_NAME = "mymockattachment";
     
     private Properties mailServerProps;
@@ -74,7 +73,7 @@ public class DirectMailClientTest {
         mockSmtpAgent = mock(SmtpAgent.class);
         greenMail = new GreenMail(ServerSetupTest.SMTPS);
         greenMail.start();
-        mailServerProps = getMailServerProps();
+        mailServerProps = getMailServerProps(greenMail.getSmtps().getServerSetup().getPort(), SENDER, SENDER);
         testDirectMailClient = new DirectMailClient(mailServerProps, mockSmtpAgent);
     }
     
@@ -84,62 +83,50 @@ public class DirectMailClientTest {
      * @throws IOException 
      */
     @Test
-    public void canSendOneMessage() throws InterruptedException, IOException {
-        
-        Document mockDocument = mock(Document.class);
-        DataHandler mockDataHandler = mock(DataHandler.class);
-        InputStream mockInputStream = mock(InputStream.class);
-        MessageProcessResult mockMessageProcessResult = mock(MessageProcessResult.class);
-        MessageEnvelope mockMessageEnvelope = mock(MessageEnvelope.class);
-        Message mockMessage = mock(Message.class);
-        
-        when(mockDocument.getValue()).thenReturn(mockDataHandler);
-        when(mockDataHandler.getInputStream()).thenReturn(mockInputStream);
-        
+    public void canSendOneMessage() throws InterruptedException, IOException {        
+
+        MessageProcessResult mockMessageProcessResult = getMockMessageProcessResult();
         when(mockSmtpAgent.processMessage(any(MimeMessage.class), any(NHINDAddressCollection.class),
                 any(NHINDAddress.class))).thenReturn(mockMessageProcessResult);
-        
-        when(mockMessageProcessResult.getProcessedMessage()).thenReturn(mockMessageEnvelope);
-        when(mockMessageEnvelope.getMessage()).thenReturn(mockMessage);
-        
-        testDirectMailClient.send(SENDER, RECIPIENT, mockDocument, ATTACHMENT_NAME);
+
+        testDirectMailClient.send(SENDER, RECIPIENT, getMockDocument(), ATTACHMENT_NAME);
 
         verify(mockSmtpAgent).processMessage(any(MimeMessage.class), any(NHINDAddressCollection.class), 
                 any(NHINDAddress.class));
         
-        //wait for max 5s for 1 email to arrive
-        //waitForIncomingEmail() is useful if you're sending stuff asynchronously in a separate thread
-        assertTrue(greenMail.waitForIncomingEmail(5000, 1));
-        
-        //Retrieve using GreenMail API
+        // Retrieve using GreenMail API
         javax.mail.Message[] messages = greenMail.getReceivedMessages();
         assertEquals(1, messages.length);
     }
         
+    /**
+     * Test {@link DirectMailClient#send(String, String, ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType.Document, String)}
+     * @throws InterruptedException 
+     * @throws IOException 
+     */
+    @Ignore
+    @Test
+    public void canSendAndReceiveOneMessage() throws InterruptedException, IOException {        
+        // TODO::Implement this.
+    }
+
     @After
     public void tearDown() {
         if (null != greenMail) {
             greenMail.stop();
         }
     }
-    
-    private Properties getMailServerProps() {
-
-        String port = Integer.toString(greenMail.getSmtps().getServerSetup().getPort());
         
-        Properties props = new Properties();
-        props.put("mail.smtps.host", "localhost");
-        props.put("mail.smtps.auth", "TRUE");
-        props.put("mail.smtps.port", port);
-        props.put("mail.smtps.starttls.enabled", "TRUE");
-        props.put("mail.smtp.user", SENDER);
-        props.put("mail.smtp.password", SENDER);
-        
-        // this allows us to run the test using a dummy in-memory keystore... don't use in prod.
-        props.put("mail.smtps.ssl.socketFactory.class", "com.icegreen.greenmail.util.DummySSLSocketFactory");
-        props.put("mail.smtps.ssl.socketFactory.port", port);
-        props.put("mail.smtps.ssl.socketFactory.fallback", "false");
+    private MessageProcessResult getMockMessageProcessResult() {
 
-        return props;
+        MessageProcessResult mockMessageProcessResult = mock(MessageProcessResult.class);
+        MessageEnvelope mockMessageEnvelope = mock(MessageEnvelope.class);
+        Message mockMessage = mock(Message.class);
+        
+        when(mockMessageProcessResult.getProcessedMessage()).thenReturn(mockMessageEnvelope);
+        when(mockMessageEnvelope.getMessage()).thenReturn(mockMessage);
+
+        return mockMessageProcessResult;
     }
+    
 }

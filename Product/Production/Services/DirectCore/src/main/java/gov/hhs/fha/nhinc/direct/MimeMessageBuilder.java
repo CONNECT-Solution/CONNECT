@@ -107,7 +107,7 @@ public class MimeMessageBuilder {
     }
 
     /**
-     * Builde the Mime Message.
+     * Build the Mime Message.
      * @return the Mime message.
      * @throws DirectException on problems building the mime message.
      */
