@@ -29,8 +29,6 @@
 package gov.hhs.fha.nhinc.docretrieve.aspect;
 
 import gov.hhs.fha.nhinc.event.BaseEventDescriptionBuilder;
-import gov.hhs.fha.nhinc.gateway.aggregator.document.DocumentConstants;
-import gov.hhs.fha.nhinc.util.JaxbDocumentUtils;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType.DocumentResponse;
 
@@ -39,7 +37,6 @@ import java.util.List;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
 
 import com.google.common.base.Function;
-import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Lists;
@@ -75,24 +72,14 @@ public class RetrieveDocumentSetResponseTypeDescriptionBuilder extends BaseEvent
 
     @Override
     public void buildPayloadTypes() {
-        if (hasResponseSlotList()) {
-            Optional<String> value = JaxbDocumentUtils.findSlotType(response.getRegistryResponse()
-                    .getResponseSlotList().getSlot(), DocumentConstants.EBXML_RESPONSE_CODE_CODESCHEME_SLOTNAME);
-            if (value.isPresent()) {
-                setPayLoadTypes(ImmutableList.of(value.get()));
-            }
-        }
+        // payload type is not available in response object. The slots do exist but the type is not
+        // one of the available options.
     }
 
     @Override
     public void buildPayloadSize() {
-        if (hasResponseSlotList()) {
-            Optional<String> value = JaxbDocumentUtils.findSlotType(response.getRegistryResponse()
-                    .getResponseSlotList().getSlot(), DocumentConstants.EBXML_RESPONSE_SIZE_SLOTNAME);
-            if (value.isPresent()) {
-                setPayloadSizes(ImmutableList.of(value.get()));
-            }
-        }
+        // payload size is not available in response object. The slots do exist but the size is not
+        // one of the available options.
     }
 
     @Override
@@ -110,11 +97,6 @@ public class RetrieveDocumentSetResponseTypeDescriptionBuilder extends BaseEvent
                     .getRegistryError(), ERROR_CODE_EXTRACTOR);
             setErrorCodes(ImmutableSet.copyOf(listWithDups).asList());
         }
-    }
-
-    private boolean hasResponseSlotList() {
-        return response != null && response.getRegistryResponse() != null
-                && response.getRegistryResponse().getResponseSlotList() != null;
     }
 
     private static class HCIDExtractor implements Function<DocumentResponse, String> {
