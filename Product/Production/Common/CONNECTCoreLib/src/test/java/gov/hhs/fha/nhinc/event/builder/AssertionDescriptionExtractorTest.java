@@ -1,6 +1,4 @@
-/**
- * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
- *
+/*
  * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
@@ -26,62 +24,52 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.docretrieve.aspect;
+package gov.hhs.fha.nhinc.event.builder;
 
-import gov.hhs.fha.nhinc.event.BaseEventDescriptionBuilder;
-import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
+import gov.hhs.fha.nhinc.event.BaseDescriptionBuilderTest;
+
+import org.junit.Test;
 
 /**
- * Event description builder for retrieve document set request objects. The retreive document set object does not
- * contain any fields that contribute to event descriptions. Only the routing and event context extraction from the
- * superclass are necessary.
+ * @author akong
+ *
  */
-public class RetrieveDocumentSetRequestTypeDescriptionBuilder extends BaseEventDescriptionBuilder {
-
-    public RetrieveDocumentSetRequestTypeDescriptionBuilder(RetrieveDocumentSetRequestType request) {
-    }
-
-    @Override
-    public void buildTimeStamp() {
-    }
-
-    @Override
-    public void buildStatuses() {
-    }
-
-    @Override
-    public void buildRespondingHCIDs() {
-    }
-
-    @Override
-    public void buildPayloadTypes() {
-    }
-
-    @Override
-    public void buildPayloadSize() {
-    }
-
-    @Override
-    public void buildNPI() {
-    }
-
-    @Override
-    public void buildInitiatingHCID() {
-    }
-
-    @Override
-    public void buildErrorCodes() {
-    }
-
-    @Override
-    public void setArguments(Object... arguments) {
-        // TODO need to do
+public class AssertionDescriptionExtractorTest extends BaseDescriptionBuilderTest {
+    
+    @Test
+    public void noAssertion() {
+        AssertionDescriptionExtractor extractor = new AssertionDescriptionExtractor();
         
+        assertNull(extractor.getNPI(null));
+        assertNull(extractor.getInitiatingHCID(null));
     }
 
-    @Override
-    public void setReturnValue(Object returnValue) {
-        // TODO Auto-generated method stub
+    @Test
+    public void emptyAssertion() {
+        AssertionType assertion = new AssertionType();
+
+        AssertionDescriptionExtractor extractor = new AssertionDescriptionExtractor();
+                
+        assertNull(extractor.getNPI(assertion));
+        assertNull(extractor.getInitiatingHCID(assertion));
+    }
+    
+    @Test
+    public void validAssertion() {        
+        HomeCommunityType homeCommunity = new HomeCommunityType();
+        homeCommunity.setHomeCommunityId("1.1");
         
+        AssertionType assertion = new AssertionType();
+        assertion.setHomeCommunity(homeCommunity);
+        assertion.setNationalProviderId("npi");
+        
+        AssertionDescriptionExtractor extractor = new AssertionDescriptionExtractor();
+        
+        assertEquals("1.1", extractor.getInitiatingHCID(assertion));
+        assertEquals("npi", extractor.getNPI(assertion));        
     }
 }

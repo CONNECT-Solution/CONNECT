@@ -62,4 +62,10 @@ public class PRPAIN201306UV02EventDescriptionBuilder extends BaseEventDescriptio
         }
         
     }
+
+    @Override
+    public void setReturnValue(Object returnValue) {
+        // TODO Auto-generated method stub
+        
+    }
 }

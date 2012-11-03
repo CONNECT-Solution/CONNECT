@@ -120,4 +120,10 @@ public class RetrieveDocumentSetResponseTypeDescriptionBuilder extends BaseEvent
         // TODO Auto-generated method stub
 
     }
+
+    @Override
+    public void setReturnValue(Object returnValue) {
+        // TODO Auto-generated method stub
+        
+    }
 }

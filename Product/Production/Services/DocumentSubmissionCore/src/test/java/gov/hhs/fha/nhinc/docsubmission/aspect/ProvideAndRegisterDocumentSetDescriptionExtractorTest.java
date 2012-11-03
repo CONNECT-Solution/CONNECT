@@ -27,10 +27,9 @@
 package gov.hhs.fha.nhinc.docsubmission.aspect;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import gov.hhs.fha.nhinc.event.DocumentDescriptionBuilderTest;
-import gov.hhs.fha.nhinc.event.EventDescription;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 
 import java.util.List;
@@ -44,6 +43,7 @@ import oasis.names.tc.ebxml_regrep.xsd.rim._3.IdentifiableType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryObjectListType;
 
 import org.junit.Test;
+import org.springframework.util.CollectionUtils;
 
 import com.google.common.base.Optional;
 
@@ -51,26 +51,24 @@ import com.google.common.base.Optional;
  * @author akong
  * 
  */
-public class ProvideAndRegisterDocumentSetDescriptionBuilderTest extends DocumentDescriptionBuilderTest {
+public class ProvideAndRegisterDocumentSetDescriptionExtractorTest extends DocumentDescriptionBuilderTest {
 
     @Test
-    public void emptyBuild() {
-        ProvideAndRegisterDocumentSetDescriptionBuilder builder = new ProvideAndRegisterDocumentSetDescriptionBuilder(
-                null);
-        EventDescription eventDescription = getEventDescription(builder);
-        assertNotNull(eventDescription);
+    public void noRequest() {
+        ProvideAndRegisterDocumentSetDescriptionExtractor extractor = new ProvideAndRegisterDocumentSetDescriptionExtractor();
+
+        assertTrue(CollectionUtils.isEmpty(extractor.getPayloadTypes(null)));
+        assertTrue(CollectionUtils.isEmpty(extractor.getPayloadSize(null)));
     }
 
     @Test
     public void emptyRequest() {
         ProvideAndRegisterDocumentSetRequestType request = new ProvideAndRegisterDocumentSetRequestType();
 
-        ProvideAndRegisterDocumentSetDescriptionBuilder builder = new ProvideAndRegisterDocumentSetDescriptionBuilder(
-                request);
-        EventDescription eventDescription = getEventDescription(builder);
-
-        assertEquals(null, eventDescription.getPayloadTypes());
-        assertEquals(null, eventDescription.getPayloadSizes());
+        ProvideAndRegisterDocumentSetDescriptionExtractor extractor = new ProvideAndRegisterDocumentSetDescriptionExtractor();
+        
+        assertTrue(CollectionUtils.isEmpty(extractor.getPayloadTypes(request)));
+        assertTrue(CollectionUtils.isEmpty(extractor.getPayloadSize(request)));
     }
 
     @Test
@@ -78,54 +76,56 @@ public class ProvideAndRegisterDocumentSetDescriptionBuilderTest extends Documen
         ProvideAndRegisterDocumentSetRequestType request = new ProvideAndRegisterDocumentSetRequestType();
         SubmitObjectsRequest submitRequest = new SubmitObjectsRequest();
         request.setSubmitObjectsRequest(submitRequest);
-        
+
         addPayloadToRequest(submitRequest, Optional.of("payloadType1"), Optional.of(123));
+
+        ProvideAndRegisterDocumentSetDescriptionExtractor extractor = new ProvideAndRegisterDocumentSetDescriptionExtractor();
         
-        ProvideAndRegisterDocumentSetDescriptionBuilder builder = new ProvideAndRegisterDocumentSetDescriptionBuilder(
-                request);
-        EventDescription eventDescription = getEventDescription(builder);
+        List<String> payloadTypes = extractor.getPayloadTypes(request);
+        List<String> payloadSizes = extractor.getPayloadSize(request);
         
-        assertEquals(1, eventDescription.getPayloadTypes().size());
-        assertEquals(1, eventDescription.getPayloadSizes().size());
-        assertEquals("payloadType1", eventDescription.getPayloadTypes().get(0));
-        assertEquals("123", eventDescription.getPayloadSizes().get(0));
+        assertEquals(1, payloadTypes.size());
+        assertEquals(1, payloadSizes.size());
+        assertEquals("payloadType1", payloadTypes.get(0));
+        assertEquals("123", payloadSizes.get(0));
     }
-    
+
     @Test
     public void unevenPayloadRequest() {
         ProvideAndRegisterDocumentSetRequestType request = new ProvideAndRegisterDocumentSetRequestType();
         SubmitObjectsRequest submitRequest = new SubmitObjectsRequest();
         request.setSubmitObjectsRequest(submitRequest);
-        
+
         addPayloadToRequest(submitRequest, Optional.of("payloadType1"), Optional.of(1));
         addPayloadToRequest(submitRequest, Optional.of("payloadType2"), Optional.<Integer> absent());
         addPayloadToRequest(submitRequest, Optional.<String> absent(), Optional.of(3));
         addPayloadToRequest(submitRequest, Optional.<String> absent(), Optional.<Integer> absent());
         addPayloadToRequest(submitRequest, Optional.of("payloadType5"), Optional.of(5));
-                
-        ProvideAndRegisterDocumentSetDescriptionBuilder builder = new ProvideAndRegisterDocumentSetDescriptionBuilder(
-                request);
-        EventDescription eventDescription = getEventDescription(builder);
+
+        ProvideAndRegisterDocumentSetDescriptionExtractor extractor = new ProvideAndRegisterDocumentSetDescriptionExtractor();
         
-        assertEquals(5, eventDescription.getPayloadTypes().size());
-        assertEquals(5, eventDescription.getPayloadSizes().size());
-        
-        assertEquals("payloadType1", eventDescription.getPayloadTypes().get(0));
-        assertEquals("1", eventDescription.getPayloadSizes().get(0));
-        
-        assertEquals("payloadType2", eventDescription.getPayloadTypes().get(1));
-        assertEquals("", eventDescription.getPayloadSizes().get(1));
-        
-        assertEquals("", eventDescription.getPayloadTypes().get(2));
-        assertEquals("3", eventDescription.getPayloadSizes().get(2));
-        
-        assertEquals("", eventDescription.getPayloadTypes().get(3));
-        assertEquals("", eventDescription.getPayloadSizes().get(3));
-        
-        assertEquals("payloadType5", eventDescription.getPayloadTypes().get(4));
-        assertEquals("5", eventDescription.getPayloadSizes().get(4));
+        List<String> payloadTypes = extractor.getPayloadTypes(request);
+        List<String> payloadSizes = extractor.getPayloadSize(request);
+
+        assertEquals(5, payloadTypes.size());
+        assertEquals(5, payloadSizes.size());
+
+        assertEquals("payloadType1", payloadTypes.get(0));
+        assertEquals("1", payloadSizes.get(0));
+
+        assertEquals("payloadType2", payloadTypes.get(1));
+        assertEquals("", payloadSizes.get(1));
+
+        assertEquals("", payloadTypes.get(2));
+        assertEquals("3", payloadSizes.get(2));
+
+        assertEquals("", payloadTypes.get(3));
+        assertEquals("", payloadSizes.get(3));
+
+        assertEquals("payloadType5", payloadTypes.get(4));
+        assertEquals("5", payloadSizes.get(4));
     }
-    
+
     private void addPayloadToRequest(SubmitObjectsRequest response, Optional<String> payloadType, Optional<Integer> size) {
         ExtrinsicObjectType extrinsicObject = new ExtrinsicObjectType();
 
@@ -138,7 +138,7 @@ public class ProvideAndRegisterDocumentSetDescriptionBuilderTest extends Documen
 
         addExtrinsicObjectToRequest(response, extrinsicObject);
     }
-    
+
     private void addExtrinsicObjectToRequest(SubmitObjectsRequest request, ExtrinsicObjectType extrinsicObject) {
         QName qName = mock(QName.class);
         JAXBElement<ExtrinsicObjectType> jaxbWrapper = new JAXBElement<ExtrinsicObjectType>(qName,

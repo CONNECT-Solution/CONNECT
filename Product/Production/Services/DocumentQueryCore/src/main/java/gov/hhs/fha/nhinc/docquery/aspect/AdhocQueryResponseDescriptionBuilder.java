@@ -232,4 +232,13 @@ public class AdhocQueryResponseDescriptionBuilder extends BaseEventDescriptionBu
             response = (AdhocQueryResponse) arguments[0];
         }
     }
+
+    /* (non-Javadoc)
+     * @see gov.hhs.fha.nhinc.event.BaseEventDescriptionBuilder#setReturnValue(java.lang.Object)
+     */
+    @Override
+    public void setReturnValue(Object returnValue) {
+        // TODO Auto-generated method stub
+        
+    }
 }

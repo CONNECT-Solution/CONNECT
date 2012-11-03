@@ -47,15 +47,27 @@ public abstract class BaseEventDescriptionBuilder implements EventDescriptionBui
         this.msgRouting = msgRouting;
         this.msgContext = msgContext;
     }
-    
+
     /**
-     * Intended to take the arguments form the method that was execute where
-     * this event was triggered and populate this object for description building. 
-     * Will be overwritten in sub classes because only the subs know what objects
+     * Intended to take the arguments from the method that was executed when this event was triggered and to be used to
+     * build the event description. Needs to be implemented in sub classes because only the subs will know what objects
      * they can operate on.
-     * @param arguements 
+     * 
+     * @param arguments
      */
-    abstract public void setArguments(Object ... arguements);
+    abstract public void setArguments(Object... arguments);
+
+    /**
+     * Intended to take the return value from the method that was executed when this event was triggered and to be used
+     * to build the event description. Needs to be implemented in sub classes because only the subs will know what
+     * objects they can operate on.
+     * 
+     * The returnValue will only have a valid object if the event was executed after returning from a method. It will be
+     * null otherwise.
+     * 
+     * @param returnValue
+     */
+    abstract public void setReturnValue(Object returnValue);
 
     public void setMsgRouting(MessageRoutingAccessor msgRouting) {
         this.msgRouting = msgRouting;

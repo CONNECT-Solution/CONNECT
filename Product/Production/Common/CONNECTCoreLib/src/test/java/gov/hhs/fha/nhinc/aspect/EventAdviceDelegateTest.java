@@ -33,7 +33,6 @@ import static org.mockito.Matchers.isA;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.event.BaseEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.event.EventFactory;
 import gov.hhs.fha.nhinc.event.EventRecorder;
@@ -67,6 +66,7 @@ public class EventAdviceDelegateTest {
 
         ProvideAndRegisterDocumentSetRequestType requestType = new ProvideAndRegisterDocumentSetRequestType();
         Object[] args = { requestType };
+        Object returnValue = new Object();
 
         inboundMessageAdviceDelegate.setEventRecorder(eventRecorder);
         inboundMessageAdviceDelegate.setMessageRoutingAccessor(messageRoutingAccessor);
@@ -75,7 +75,7 @@ public class EventAdviceDelegateTest {
         inboundMessageAdviceDelegate.begin(args, DS_SERVICE_TYPE, DS_VERISON, DefaultEventDescriptionBuilder.class);
         verify(eventRecorder).recordEvent(isA(BeginInboundMessageEvent.class));
 
-        inboundMessageAdviceDelegate.end(args, DS_SERVICE_TYPE, DS_VERISON, DefaultEventDescriptionBuilder.class);
+        inboundMessageAdviceDelegate.end(args, DS_SERVICE_TYPE, DS_VERISON, DefaultEventDescriptionBuilder.class, returnValue);
         verify(eventRecorder).recordEvent(isA(EndInboundMessageEvent.class));
     }
 
@@ -85,7 +85,7 @@ public class EventAdviceDelegateTest {
         ProvideAndRegisterDocumentSetRequestType body = new ProvideAndRegisterDocumentSetRequestType();
         AssertionType assertion = new AssertionType();
         Object[] args = { body, assertion };
-        
+        Object returnValue = new Object();
         
         inboundProcessingAdviceDelegate.setEventRecorder(eventRecorder);
         inboundProcessingAdviceDelegate.setEventFactory(eventFactory);
@@ -94,7 +94,7 @@ public class EventAdviceDelegateTest {
         inboundProcessingAdviceDelegate.begin(args, DS_SERVICE_TYPE, DS_VERISON, DefaultEventDescriptionBuilder.class);
         verify(eventRecorder).recordEvent(isA(BeginInboundProcessingEvent.class));
         
-        inboundProcessingAdviceDelegate.end(args, DS_SERVICE_TYPE, DS_VERISON, DefaultEventDescriptionBuilder.class);
+        inboundProcessingAdviceDelegate.end(args, DS_SERVICE_TYPE, DS_VERISON, DefaultEventDescriptionBuilder.class, returnValue);
         verify(eventRecorder).recordEvent(isA(EndInboundProcessingEvent.class));
         
     }
@@ -106,6 +106,7 @@ public class EventAdviceDelegateTest {
         ProvideAndRegisterDocumentSetRequestType body = new ProvideAndRegisterDocumentSetRequestType();
         AssertionType assertion = new AssertionType();
         Object[] args = { body, assertion };
+        Object returnValue = new Object();
         
         adapterDelegationAdviceDelegate.setEventFactory(eventFactory);
         adapterDelegationAdviceDelegate.setEventRecorder(eventRecorder);
@@ -114,7 +115,7 @@ public class EventAdviceDelegateTest {
         adapterDelegationAdviceDelegate.begin(args, DS_SERVICE_TYPE, DS_VERISON, DefaultEventDescriptionBuilder.class);
         verify(eventRecorder).recordEvent(isA(BeginAdapterDelegationEvent.class));
         
-        adapterDelegationAdviceDelegate.end(args, DS_SERVICE_TYPE, DS_VERISON, DefaultEventDescriptionBuilder.class);
+        adapterDelegationAdviceDelegate.end(args, DS_SERVICE_TYPE, DS_VERISON, DefaultEventDescriptionBuilder.class, returnValue);
         verify(eventRecorder).recordEvent(isA(EndAdapterDelegationEvent.class));
     }
     
@@ -123,6 +124,7 @@ public class EventAdviceDelegateTest {
         OutboundMessageAdviceDelegate outboundMessageAdviceDelegate = new OutboundMessageAdviceDelegate();
         
         Object[] args = {};
+        Object returnValue = new Object();
         
         outboundMessageAdviceDelegate.setEventRecorder(eventRecorder);
         outboundMessageAdviceDelegate.setMessageRoutingAccessor(messageRoutingAccessor);
@@ -134,7 +136,7 @@ public class EventAdviceDelegateTest {
         outboundMessageAdviceDelegate.begin(args, DS_SERVICE_TYPE, DS_VERISON, DefaultEventDescriptionBuilder.class);
         verify(eventRecorder).recordEvent(isA(BeginOutboundMessageEvent.class));
         
-        outboundMessageAdviceDelegate.end(args, DS_SERVICE_TYPE, DS_VERISON, DefaultEventDescriptionBuilder.class);
+        outboundMessageAdviceDelegate.end(args, DS_SERVICE_TYPE, DS_VERISON, DefaultEventDescriptionBuilder.class, returnValue);
         verify(eventRecorder).recordEvent(isA(EndOutboundMessageEvent.class));
     }
     
@@ -143,6 +145,7 @@ public class EventAdviceDelegateTest {
         OutboundProcessingAdviceDelegate outboundProcessingAdviceDelegate = new OutboundProcessingAdviceDelegate();
         
         Object[] args = {};
+        Object returnValue = new Object();
         
         outboundProcessingAdviceDelegate.setEventRecorder(eventRecorder);
         outboundProcessingAdviceDelegate.setMessageRoutingAccessor(messageRoutingAccessor);
@@ -154,7 +157,7 @@ public class EventAdviceDelegateTest {
         outboundProcessingAdviceDelegate.begin(args, DS_SERVICE_TYPE, DS_VERISON, DefaultEventDescriptionBuilder.class);
         verify(eventRecorder).recordEvent(isA(BeginOutboundProcessingEvent.class));
         
-        outboundProcessingAdviceDelegate.end(args, DS_SERVICE_TYPE, DS_VERISON, DefaultEventDescriptionBuilder.class);
+        outboundProcessingAdviceDelegate.end(args, DS_SERVICE_TYPE, DS_VERISON, DefaultEventDescriptionBuilder.class, returnValue);
         verify(eventRecorder).recordEvent(isA(EndOutboundProcessingEvent.class));
     }
     
@@ -164,6 +167,7 @@ public class EventAdviceDelegateTest {
         NwhinInvocationAdviceDelegate nwhinInvocationAdviceDelegate = new NwhinInvocationAdviceDelegate();
         
         Object[] args = {};
+        Object returnValue = new Object();
         
         nwhinInvocationAdviceDelegate.setEventRecorder(eventRecorder);
         nwhinInvocationAdviceDelegate.setMessageRoutingAccessor(messageRoutingAccessor);
@@ -175,7 +179,7 @@ public class EventAdviceDelegateTest {
         nwhinInvocationAdviceDelegate.begin(args, DS_SERVICE_TYPE, DS_VERISON, DefaultEventDescriptionBuilder.class);
         verify(eventRecorder).recordEvent(isA(BeginNwhinInvocationEvent.class));
         
-        nwhinInvocationAdviceDelegate.end(args, DS_SERVICE_TYPE, DS_VERISON, DefaultEventDescriptionBuilder.class);
+        nwhinInvocationAdviceDelegate.end(args, DS_SERVICE_TYPE, DS_VERISON, DefaultEventDescriptionBuilder.class, returnValue);
         verify(eventRecorder).recordEvent(isA(EndNwhinInvocationEvent.class));
     }
     

@@ -60,4 +60,10 @@ public class PRPAIN201305UV02FaultEventDescriptionBuilder extends BaseEventDescr
             }
         }
     }
+
+    @Override
+    public void setReturnValue(Object returnValue) {
+        // TODO Auto-generated method stub
+        
+    }
 }

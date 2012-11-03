@@ -27,54 +27,47 @@
 package gov.hhs.fha.nhinc.docsubmission.aspect;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import gov.hhs.fha.nhinc.event.BaseDescriptionBuilderTest;
+import gov.hhs.fha.nhinc.gateway.aggregator.document.DocumentConstants;
 
 import java.util.List;
 
-import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
-
-import oasis.names.tc.ebxml_regrep.xsd.lcm._3.SubmitObjectsRequest;
-import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 import org.junit.Test;
-
-import com.google.common.base.Optional;
-
-import gov.hhs.fha.nhinc.event.BaseDescriptionBuilderTest;
-import gov.hhs.fha.nhinc.event.EventDescription;
-import gov.hhs.fha.nhinc.gateway.aggregator.document.DocumentConstants;
+import org.springframework.util.CollectionUtils;
 
 /**
  * @author akong
  * 
  */
-public class RegistryResponseDescriptionBuilderTest extends BaseDescriptionBuilderTest {
+public class RegistryResponseDescriptionExtractorTest extends BaseDescriptionBuilderTest {
 
     @Test
-    public void emptyBuild() {
-        RegistryResponseDescriptionBuilder builder = new RegistryResponseDescriptionBuilder(null);
-        EventDescription eventDescription = getEventDescription(builder);
-        assertNotNull(eventDescription);
+    public void noResponse() {
+        RegistryResponseDescriptionExtractor extractor = new RegistryResponseDescriptionExtractor();
+        
+        assertTrue(CollectionUtils.isEmpty(extractor.getStatuses(null)));
+        assertTrue(CollectionUtils.isEmpty(extractor.getErrorCodes(null)));
     }
 
     @Test
     public void emptyResponse() {
         RegistryResponseType response = new RegistryResponseType();
 
-        RegistryResponseDescriptionBuilder builder = new RegistryResponseDescriptionBuilder(response);
-        EventDescription eventDescription = getEventDescription(builder);
-
-        assertEquals(null, eventDescription.getStatuses());
-        assertEquals(null, eventDescription.getErrorCodes());
+        RegistryResponseDescriptionExtractor extractor = new RegistryResponseDescriptionExtractor();
+        
+        assertTrue(CollectionUtils.isEmpty(extractor.getStatuses(response)));
+        assertTrue(CollectionUtils.isEmpty(extractor.getErrorCodes(response)));
     }
-    
+
     @Test
     public void errorResponse() {
         RegistryResponseType response = new RegistryResponseType();
-        
+
         RegistryError error = new RegistryError();
         error.setErrorCode(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_FAILURE);
         addError(response, error);
@@ -86,17 +79,17 @@ public class RegistryResponseDescriptionBuilderTest extends BaseDescriptionBuild
         error = new RegistryError();
         error.setErrorCode(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_PARTIAL_SUCCESS);
         addError(response, error);
-               
-        RegistryResponseDescriptionBuilder builder = new RegistryResponseDescriptionBuilder(response);
-        EventDescription eventDescription = getEventDescription(builder);
-        
-        assertEquals(3, eventDescription.getErrorCodes().size());
-        assertEquals(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_FAILURE, eventDescription.getErrorCodes().get(0));
-        assertEquals(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_FAILURE, eventDescription.getErrorCodes().get(1));
-        assertEquals(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_PARTIAL_SUCCESS,
-                eventDescription.getErrorCodes().get(2));
+
+        RegistryResponseDescriptionExtractor extractor = new RegistryResponseDescriptionExtractor();
+
+        List<String> errorCodes = extractor.getErrorCodes(response);
+
+        assertEquals(3, errorCodes.size());
+        assertEquals(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_FAILURE, errorCodes.get(0));
+        assertEquals(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_FAILURE, errorCodes.get(1));
+        assertEquals(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_PARTIAL_SUCCESS, errorCodes.get(2));
     }
-    
+
     private void addError(RegistryResponseType response, RegistryError error) {
         RegistryErrorList registryErrorList = response.getRegistryErrorList();
         if (registryErrorList == null) {
