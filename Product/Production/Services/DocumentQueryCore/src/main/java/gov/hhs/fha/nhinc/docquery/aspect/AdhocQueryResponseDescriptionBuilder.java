@@ -226,19 +226,21 @@ public class AdhocQueryResponseDescriptionBuilder extends BaseEventDescriptionBu
 
     @Override
     public void setArguments(Object... arguments) {
-        if (arguments.length != 1 || !(arguments[0] instanceof AdhocQueryResponse)) {
+        if (arguments == null || arguments.length != 1 || !(arguments[0] instanceof AdhocQueryResponse)) {
             LOG.warn("Unexpected argument list: " + Arrays.toString(arguments));
         } else {
             response = (AdhocQueryResponse) arguments[0];
         }
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see gov.hhs.fha.nhinc.event.BaseEventDescriptionBuilder#setReturnValue(java.lang.Object)
      */
     @Override
     public void setReturnValue(Object returnValue) {
         // TODO Auto-generated method stub
-        
+
     }
 }

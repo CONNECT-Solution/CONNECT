@@ -31,6 +31,7 @@ package gov.hhs.fha.nhinc.docquery.aspect;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.fail;
 import static org.mockito.Mockito.mock;
 import gov.hhs.fha.nhinc.event.BaseDescriptionBuilderTest;
 import gov.hhs.fha.nhinc.event.EventDescription;
@@ -78,6 +79,16 @@ public class AdhocQueryResponseDescriptionBuilderTest extends BaseDescriptionBui
         Object[] arguments = { response };
         builder.setArguments(arguments);
         assertBasicResponseBuilt(builder);
+    }
+
+    @Test
+    public void nullArguments() {
+        AdhocQueryResponseDescriptionBuilder builder = new AdhocQueryResponseDescriptionBuilder();
+        try {
+            builder.setArguments((Object[]) null);
+        } catch (NullPointerException npe) {
+            fail("Should accept null gracefully");
+        }
     }
 
     @Test
