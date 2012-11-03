@@ -30,7 +30,7 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.event.BaseEventDescriptionBuilder;
-import gov.hhs.fha.nhinc.event.builder.AssertionDescriptionBuilder;
+import gov.hhs.fha.nhinc.event.builder.AssertionDescriptionExtractor;
 
 /**
  * @author akong
@@ -38,28 +38,27 @@ import gov.hhs.fha.nhinc.event.builder.AssertionDescriptionBuilder;
  */
 public class InboundProcessingEventDescriptionBuilder extends BaseEventDescriptionBuilder {
 
-    ProvideAndRegisterDocumentSetDescriptionBuilder provideAndRegisterBuilder;
-    AssertionDescriptionBuilder assertionBuilder;
-    RegistryResponseDescriptionBuilder responseBuilder;
+    private final ProvideAndRegisterDocumentSetDescriptionExtractor REQUEST_EXTRACTOR;
+    private final RegistryResponseDescriptionExtractor RESPONSE_EXTRACTOR;
+    private final AssertionDescriptionExtractor ASSERTION_EXTRACTOR;
+
+    private ProvideAndRegisterDocumentSetRequestType request;
+    private AssertionType assertion;
+    private RegistryResponseType response;
 
     public InboundProcessingEventDescriptionBuilder() {
-        initialize(null, null, null);
-    }
-    
-    public InboundProcessingEventDescriptionBuilder(ProvideAndRegisterDocumentSetRequestType request,
-            AssertionType assertion, RegistryResponseType response) {
-        initialize(request, assertion, response);
+        REQUEST_EXTRACTOR = new ProvideAndRegisterDocumentSetDescriptionExtractor();
+        RESPONSE_EXTRACTOR = new RegistryResponseDescriptionExtractor();
+        ASSERTION_EXTRACTOR = new AssertionDescriptionExtractor();
     }
 
-    private void initialize(ProvideAndRegisterDocumentSetRequestType request, AssertionType assertion,
-            RegistryResponseType response) {
-        provideAndRegisterBuilder = new ProvideAndRegisterDocumentSetDescriptionBuilder(request);
-        assertionBuilder = new AssertionDescriptionBuilder(assertion);
-        responseBuilder = new RegistryResponseDescriptionBuilder(response);
-        
-        provideAndRegisterBuilder.createEventDescription();
-        assertionBuilder.createEventDescription();
-        responseBuilder.createEventDescription();
+    public InboundProcessingEventDescriptionBuilder(
+            final ProvideAndRegisterDocumentSetDescriptionExtractor requestExtractor,
+            final AssertionDescriptionExtractor assertionExtractor,
+            final RegistryResponseDescriptionExtractor responseExtractor) {
+        REQUEST_EXTRACTOR = requestExtractor;
+        RESPONSE_EXTRACTOR = responseExtractor;
+        ASSERTION_EXTRACTOR = assertionExtractor;
     }
 
     /*
@@ -79,8 +78,7 @@ public class InboundProcessingEventDescriptionBuilder extends BaseEventDescripti
      */
     @Override
     public void buildStatuses() {
-        responseBuilder.buildStatuses();
-        setStatuses(responseBuilder.getEventDescription().getStatuses());
+        setStatuses(RESPONSE_EXTRACTOR.getStatuses(response));
     }
 
     /*
@@ -100,8 +98,7 @@ public class InboundProcessingEventDescriptionBuilder extends BaseEventDescripti
      */
     @Override
     public void buildPayloadTypes() {
-        provideAndRegisterBuilder.buildPayloadTypes();
-        setPayLoadTypes(provideAndRegisterBuilder.getEventDescription().getPayloadTypes());
+        setPayLoadTypes(REQUEST_EXTRACTOR.getPayloadTypes(request));
     }
 
     /*
@@ -111,8 +108,7 @@ public class InboundProcessingEventDescriptionBuilder extends BaseEventDescripti
      */
     @Override
     public void buildPayloadSize() {
-        provideAndRegisterBuilder.buildPayloadSize();
-        setPayloadSizes(provideAndRegisterBuilder.getEventDescription().getPayloadSizes());
+        setPayloadSizes(REQUEST_EXTRACTOR.getPayloadSize(request));
     }
 
     /*
@@ -122,8 +118,7 @@ public class InboundProcessingEventDescriptionBuilder extends BaseEventDescripti
      */
     @Override
     public void buildNPI() {
-        assertionBuilder.buildNPI();
-        setNpi(assertionBuilder.getEventDescription().getNPI());
+        setNpi(ASSERTION_EXTRACTOR.getNPI(assertion));
     }
 
     /*
@@ -133,8 +128,7 @@ public class InboundProcessingEventDescriptionBuilder extends BaseEventDescripti
      */
     @Override
     public void buildInitiatingHCID() {
-        assertionBuilder.buildInitiatingHCID();
-        setInitiatingHCID(assertionBuilder.getEventDescription().getInitiatingHCID());
+        setInitiatingHCID(ASSERTION_EXTRACTOR.getInitiatingHCID(assertion));
     }
 
     /*
@@ -144,8 +138,7 @@ public class InboundProcessingEventDescriptionBuilder extends BaseEventDescripti
      */
     @Override
     public void buildErrorCodes() {
-        responseBuilder.buildErrorCodes();
-        setErrorCodes(responseBuilder.getEventDescription().getErrorCodes());
+        setErrorCodes(RESPONSE_EXTRACTOR.getErrorCodes(response));
     }
 
     /*
@@ -156,13 +149,8 @@ public class InboundProcessingEventDescriptionBuilder extends BaseEventDescripti
     @Override
     public void setArguments(Object... arguments) {
         if (arguments != null && arguments.length == 2 && areArgumentTypesExpected(arguments)) {
-            ProvideAndRegisterDocumentSetRequestType request = (ProvideAndRegisterDocumentSetRequestType) arguments[0];
-            AssertionType assertion = (AssertionType) arguments[1];
-            
-            // TODO: Figure out how to pass the response in
-            RegistryResponseType response = null;
-
-            initialize(request, assertion, response);
+            this.request = (ProvideAndRegisterDocumentSetRequestType) arguments[0];
+            this.assertion = (AssertionType) arguments[1];
         }
     }
 
@@ -171,4 +159,15 @@ public class InboundProcessingEventDescriptionBuilder extends BaseEventDescripti
                 && arguments[1] instanceof AssertionType;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see gov.hhs.fha.nhinc.event.BaseEventDescriptionBuilder#setReturnValue(java.lang.Object)
+     */
+    @Override
+    public void setReturnValue(Object returnValue) {
+        if (returnValue != null && returnValue instanceof RegistryResponseType) {
+            this.response = (RegistryResponseType) returnValue;
+        }
+    }
 }

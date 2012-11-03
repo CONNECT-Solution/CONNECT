@@ -26,53 +26,45 @@
  */
 package gov.hhs.fha.nhinc.event.builder;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
-import gov.hhs.fha.nhinc.event.BaseDescriptionBuilderTest;
-import gov.hhs.fha.nhinc.event.EventDescription;
-
-import org.junit.Test;
 
 /**
  * @author akong
- *
+ * 
  */
-public class AssertionDescriptionBuilderTest extends BaseDescriptionBuilderTest {
-    
-    @Test
-    public void emptyBuild() {
-        AssertionDescriptionBuilder builder = new AssertionDescriptionBuilder(null);
-        EventDescription eventDescription = getEventDescription(builder);
-        assertNotNull(eventDescription);
+public class AssertionDescriptionExtractor {
+
+    /**
+     * Extracts the NPI from the AssertionType
+     * 
+     * @param assertion the AssertionType whose values are to be extracted from
+     * @return string containing the NPI value, null if it doesn't exists
+     */
+    public String getNPI(AssertionType assertion) {
+        String npi = null;
+        if (assertion != null) {
+            npi = assertion.getNationalProviderId();
+        }
+
+        return npi;
     }
 
-    @Test
-    public void emptyAssertion() {
-        AssertionType assertion = new AssertionType();
+    /**
+     * Extracts the initiating HCID from the AssertionType
+     * 
+     * @param assertion the AssertionType whose values are to be extracted from
+     * @return string containing the initiating hcid value, null if it doesn't exists
+     */
+    public String getInitiatingHCID(AssertionType assertion) {
+        String hcid = null;
+        if (hasHomeCommunity(assertion)) {
+            return assertion.getHomeCommunity().getHomeCommunityId();
+        }
 
-        AssertionDescriptionBuilder builder = new AssertionDescriptionBuilder(assertion);
-        EventDescription eventDescription = getEventDescription(builder);
-        
-        assertNull(eventDescription.getNPI());
-        assertNull(eventDescription.getInitiatingHCID());
+        return hcid;
     }
-    
-    @Test
-    public void validAssertion() {        
-        HomeCommunityType homeCommunity = new HomeCommunityType();
-        homeCommunity.setHomeCommunityId("1.1");
-        
-        AssertionType assertion = new AssertionType();
-        assertion.setHomeCommunity(homeCommunity);
-        assertion.setNationalProviderId("npi");
-        
-        AssertionDescriptionBuilder builder = new AssertionDescriptionBuilder(assertion);
-        EventDescription eventDescription = getEventDescription(builder);
-        
-        assertEquals("1.1", eventDescription.getInitiatingHCID());
-        assertEquals("npi", eventDescription.getNPI());        
+
+    private boolean hasHomeCommunity(AssertionType assertion) {
+        return assertion != null && assertion.getHomeCommunity() != null;
     }
 }

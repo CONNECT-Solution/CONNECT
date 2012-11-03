@@ -92,7 +92,7 @@ public abstract class BaseEventAdviceDelegate implements EventAdviceDelegate {
             Class<? extends BaseEventDescriptionBuilder> eventDescriptionbuilderClass) {
 
         BaseEventDescriptionBuilder eventDescriptionBuilder = createAndInitializeEventDecriptionBuilder(args,
-                createEventContextAccessor(serviceType, version), eventDescriptionbuilderClass);
+                createEventContextAccessor(serviceType, version), eventDescriptionbuilderClass, null);
 
         createAndRecordEvent(getBeginEventBuilder(eventDescriptionBuilder));
     }
@@ -115,9 +115,9 @@ public abstract class BaseEventAdviceDelegate implements EventAdviceDelegate {
      */
     @Override
     public void end(Object[] args, String serviceType, String version,
-            Class<? extends BaseEventDescriptionBuilder> eventDescriptionbuilderClass) {
+            Class<? extends BaseEventDescriptionBuilder> eventDescriptionbuilderClass, Object returnValue) {
         BaseEventDescriptionBuilder eventDescriptionBuilder = createAndInitializeEventDecriptionBuilder(args,
-                createEventContextAccessor(serviceType, version), eventDescriptionbuilderClass);
+                createEventContextAccessor(serviceType, version), eventDescriptionbuilderClass, returnValue);
         createAndRecordEvent(getEndEventBuilder(eventDescriptionBuilder));
     }
 
@@ -130,10 +130,11 @@ public abstract class BaseEventAdviceDelegate implements EventAdviceDelegate {
      */
     protected BaseEventDescriptionBuilder createAndInitializeEventDecriptionBuilder(Object[] args,
             EventContextAccessor eventContextAccessor,
-            Class<? extends BaseEventDescriptionBuilder> eventDescriptionbuilderClass) {
+            Class<? extends BaseEventDescriptionBuilder> eventDescriptionbuilderClass, Object returnValue) {
         BaseEventDescriptionBuilder eventDescriptionBuilder = createEventDescriptionBuilder(eventDescriptionbuilderClass);
 
         eventDescriptionBuilder.setArguments(args);
+        eventDescriptionBuilder.setReturnValue(returnValue);
         eventDescriptionBuilder.setMsgContext(eventContextAccessor);
         eventDescriptionBuilder.setMsgRouting(messageRoutingAccessor);
         return eventDescriptionBuilder;

@@ -167,4 +167,10 @@ public class EDXLDistributionDescriptionBuilder extends BaseEventDescriptionBuil
         
     }
 
+    @Override
+    public void setReturnValue(Object returnValue) {
+        // TODO Auto-generated method stub
+        
+    }
+
 }

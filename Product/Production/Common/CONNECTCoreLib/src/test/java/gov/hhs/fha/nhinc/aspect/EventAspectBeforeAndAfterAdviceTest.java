@@ -36,7 +36,7 @@ import java.util.Arrays;
 import java.util.Collection;
 
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.annotation.After;
+import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -82,19 +82,19 @@ public class EventAspectBeforeAndAfterAdviceTest {
         assertNotNull("has before Annotation ", beforeAnnotation);
 
         assertEquals("@annotation(annotation)", beforeAnnotation.value());
-
     }
 
     
     @Test
-    public void verifyAfter() throws NoSuchMethodException, SecurityException {
-        Method method = clazz.getMethod(afterMethodName, JoinPoint.class, annotationClass);
-        assertNotNull("method exsist with correct parameters", method);
+    public void verifyAfterReturning() throws NoSuchMethodException, SecurityException {
+        Method method = clazz.getMethod(afterMethodName, JoinPoint.class, annotationClass, Object.class);
+        assertNotNull("method exist with correct parameters", method);
 
-        After afterAnnotation = method.getAnnotation(After.class);
-        assertNotNull("has after Annotation", afterAnnotation);
+        AfterReturning afterReturningAnnotation = method.getAnnotation(AfterReturning.class);
+        assertNotNull("has after returning Annotation", afterReturningAnnotation);
 
-        assertEquals("@annotation(annotation)", afterAnnotation.value());
+        assertEquals("@annotation(annotation)", afterReturningAnnotation.pointcut());
+        assertEquals("returnValue", afterReturningAnnotation.returning());
     }
 
 }
