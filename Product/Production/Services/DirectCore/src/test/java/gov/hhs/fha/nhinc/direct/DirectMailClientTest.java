@@ -98,7 +98,7 @@ public class DirectMailClientTest {
         javax.mail.Message[] messages = greenMail.getReceivedMessages();
         assertEquals(1, messages.length);
     }
-        
+    
     /**
      * Test {@link DirectMailClient#send(String, String, ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType.Document, String)}
      * @throws InterruptedException 
