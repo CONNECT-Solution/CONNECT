@@ -32,9 +32,10 @@ import gov.hhs.fha.nhinc.event.BaseEventDescriptionBuilder;
 
 /**
  * @author bhumphrey
- *
+ * 
  */
 public interface EndEventAdviceDelegate {
-    void end(Object[] args, String serviceType, String version, Class<? extends BaseEventDescriptionBuilder> eventDescriptionbuilder);
-    
+    void end(Object[] args, String serviceType, String version,
+            Class<? extends BaseEventDescriptionBuilder> eventDescriptionbuilder, Object returnValue);
+
 }

@@ -126,4 +126,12 @@ public final class DefaultEventDescriptionBuilder extends BaseEventDescriptionBu
 
     }
 
+    /* (non-Javadoc)
+     * @see gov.hhs.fha.nhinc.event.BaseEventDescriptionBuilder#setReturnValue(java.lang.Object)
+     */
+    @Override
+    public void setReturnValue(Object returnValue) {
+        
+    }
+
 }

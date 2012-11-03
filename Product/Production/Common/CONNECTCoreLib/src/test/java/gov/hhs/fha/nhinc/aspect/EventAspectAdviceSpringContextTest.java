@@ -114,13 +114,13 @@ public class EventAspectAdviceSpringContextTest {
         when(annotation.version()).thenReturn("version");
         when(annotation.descriptionBuilder()).then(builderAnswer);
         
-        eventAspectAdvice.beginAdapterDelegationEvent(joinPoint, annotation); 
+        eventAspectAdvice.beginAdapterDelegationEvent(joinPoint, annotation);
         verify(eventLogger).update(eq(eventManager), isA(BeginAdapterDelegationEvent.class));
         
-        eventAspectAdvice.endAdapterDelegationEvent(joinPoint, annotation); 
+        Object returnValue = mock(Object.class);
+        
+        eventAspectAdvice.endAdapterDelegationEvent(joinPoint, annotation, returnValue);
         verify(eventLogger).update(eq(eventManager), isA(EndAdapterDelegationEvent.class));
-        
-        
     }
     
     @Test
@@ -143,10 +143,10 @@ public class EventAspectAdviceSpringContextTest {
         eventAspectAdvice.beginOutboundMessageEvent(joinPoint, annotation); 
         verify(eventLogger).update(eq(eventManager), isA(BeginOutboundMessageEvent.class));
         
-        eventAspectAdvice.endOutboundMessageEvent(joinPoint, annotation); 
+        Object returnValue = mock(Object.class);
+        
+        eventAspectAdvice.endOutboundMessageEvent(joinPoint, annotation, returnValue);
         verify(eventLogger).update(eq(eventManager), isA(EndOutboundMessageEvent.class));
-        
-        
     }
     
     @Test
@@ -157,7 +157,6 @@ public class EventAspectAdviceSpringContextTest {
         eventManager.registerLogger(eventLogger);
         
         JoinPoint joinPoint = mock(JoinPoint.class);
-        
         when(joinPoint.getArgs()).thenReturn(new Object[]{});
         
         OutboundProcessingEvent annotation = mock(OutboundProcessingEvent.class);
@@ -169,9 +168,10 @@ public class EventAspectAdviceSpringContextTest {
         eventAspectAdvice.beginOutboundProcessingEvent(joinPoint, annotation); 
         verify(eventLogger).update(eq(eventManager), isA(BeginOutboundProcessingEvent.class));
         
-        eventAspectAdvice.endOutboundProcessingEvent(joinPoint, annotation); 
-        verify(eventLogger).update(eq(eventManager), isA(EndOutboundProcessingEvent.class));
+        Object returnValue = mock(Object.class);
         
+        eventAspectAdvice.endOutboundProcessingEvent(joinPoint, annotation, returnValue);
+        verify(eventLogger).update(eq(eventManager), isA(EndOutboundProcessingEvent.class));
     }
     
     @Test
@@ -194,9 +194,10 @@ public class EventAspectAdviceSpringContextTest {
         eventAspectAdvice.beginInboundMessageEvent(joinPoint, annotation); 
         verify(eventLogger).update(eq(eventManager), isA(BeginInboundMessageEvent.class));
         
-        eventAspectAdvice.endInboundMessageEvent(joinPoint, annotation); 
-        verify(eventLogger).update(eq(eventManager), isA(EndInboundMessageEvent.class));
+        Object returnValue = mock(Object.class);
         
+        eventAspectAdvice.endInboundMessageEvent(joinPoint, annotation, returnValue);
+        verify(eventLogger).update(eq(eventManager), isA(EndInboundMessageEvent.class));
     }
     
     @Test
@@ -216,12 +217,13 @@ public class EventAspectAdviceSpringContextTest {
         when(annotation.version()).thenReturn("version");
         when(annotation.descriptionBuilder()).then(builderAnswer);
         
-        eventAspectAdvice.beginNwhinInvocationEvent(joinPoint, annotation); 
+        eventAspectAdvice.beginNwhinInvocationEvent(joinPoint, annotation);
         verify(eventLogger).update(eq(eventManager), isA(BeginNwhinInvocationEvent.class));
         
-        eventAspectAdvice.endNwhinInvocationEvent(joinPoint, annotation); 
-        verify(eventLogger).update(eq(eventManager), isA(EndNwhinInvocationEvent.class));
+        Object returnValue = mock(Object.class);
         
+        eventAspectAdvice.endNwhinInvocationEvent(joinPoint, annotation, returnValue);
+        verify(eventLogger).update(eq(eventManager), isA(EndNwhinInvocationEvent.class));
     }
 
 }
