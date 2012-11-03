@@ -66,25 +66,18 @@ public class AdhocQueryResponseDescriptionBuilderTest extends BaseDescriptionBui
 
     @Test
     public void basicBuild() {
-        AdhocQueryResponse response = new AdhocQueryResponse();
-        response.setStatus(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_PARTIAL_SUCCESS);
-        addQueryResult(response, Optional.of("payloadType"), Optional.of(12345));
-
+        AdhocQueryResponse response = getBasicResponse();
         AdhocQueryResponseDescriptionBuilder builder = new AdhocQueryResponseDescriptionBuilder(response);
-        EventDescription eventDescription = getEventDescription(builder);
+        assertBasicResponseBuilt(builder);
+    }
 
-        assertEquals(1, eventDescription.getStatuses().size());
-        assertEquals(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_PARTIAL_SUCCESS, eventDescription.getStatuses().get(0));
-        assertEquals(1, eventDescription.getRespondingHCIDs().size());
-        assertEquals("home", eventDescription.getRespondingHCIDs().get(0));
-        assertEquals(1, eventDescription.getPayloadTypes().size());
-        assertEquals("payloadType", eventDescription.getPayloadTypes().get(0));
-        assertEquals(1, eventDescription.getPayloadSizes().size());
-        assertEquals("" + 12345, eventDescription.getPayloadSizes().get(0));
-
-        assertNull(eventDescription.getTimeStamp());
-        assertNull(eventDescription.getNPI()); // TODO: check with BH - is that correct
-        assertNull(eventDescription.getInitiatingHCID());
+    @Test
+    public void validArgumentTypes() {
+        AdhocQueryResponseDescriptionBuilder builder = new AdhocQueryResponseDescriptionBuilder();
+        AdhocQueryResponse response = getBasicResponse();
+        Object[] arguments = { response };
+        builder.setArguments(arguments);
+        assertBasicResponseBuilt(builder);
     }
 
     @Test
@@ -164,6 +157,30 @@ public class AdhocQueryResponseDescriptionBuilderTest extends BaseDescriptionBui
         assertEquals("", eventDescription.getPayloadTypes().get(0));
         assertEquals(1, eventDescription.getPayloadSizes().size());
         assertEquals("", eventDescription.getPayloadSizes().get(0));
+    }
+
+    private AdhocQueryResponse getBasicResponse() {
+        AdhocQueryResponse response = new AdhocQueryResponse();
+        response.setStatus(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_PARTIAL_SUCCESS);
+        addQueryResult(response, Optional.of("payloadType"), Optional.of(12345));
+        return response;
+    }
+
+    private void assertBasicResponseBuilt(AdhocQueryResponseDescriptionBuilder builder) {
+        EventDescription eventDescription = getEventDescription(builder);
+
+        assertEquals(1, eventDescription.getStatuses().size());
+        assertEquals(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_PARTIAL_SUCCESS, eventDescription.getStatuses().get(0));
+        assertEquals(1, eventDescription.getRespondingHCIDs().size());
+        assertEquals("home", eventDescription.getRespondingHCIDs().get(0));
+        assertEquals(1, eventDescription.getPayloadTypes().size());
+        assertEquals("payloadType", eventDescription.getPayloadTypes().get(0));
+        assertEquals(1, eventDescription.getPayloadSizes().size());
+        assertEquals("" + 12345, eventDescription.getPayloadSizes().get(0));
+
+        assertNull(eventDescription.getTimeStamp());
+        assertNull(eventDescription.getNPI()); // TODO: check with BH - is that correct
+        assertNull(eventDescription.getInitiatingHCID());
     }
 
     private void addError(AdhocQueryResponse response, RegistryError error) {

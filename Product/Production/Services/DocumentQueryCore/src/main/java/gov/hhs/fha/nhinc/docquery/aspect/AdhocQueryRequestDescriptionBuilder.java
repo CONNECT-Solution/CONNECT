@@ -29,16 +29,31 @@
 package gov.hhs.fha.nhinc.docquery.aspect;
 
 import gov.hhs.fha.nhinc.event.BaseEventDescriptionBuilder;
+
+import java.util.Arrays;
+
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import com.google.common.collect.ImmutableList;
 
 public class AdhocQueryRequestDescriptionBuilder extends BaseEventDescriptionBuilder {
 
-    private final AdhocQueryRequest request;
+    private static final Log LOG = LogFactory.getLog(AdhocQueryRequestDescriptionBuilder.class);
+    private AdhocQueryRequest request;
 
     public AdhocQueryRequestDescriptionBuilder(AdhocQueryRequest request) {
         this.request = request;
+    }
+
+    /**
+     * Constructor for aspects. Response should be set via <code>setArguments</code>.
+     * 
+     * @see #setArguments(Object...)
+     */
+    public AdhocQueryRequestDescriptionBuilder() {
     }
 
     @Override
@@ -89,7 +104,10 @@ public class AdhocQueryRequestDescriptionBuilder extends BaseEventDescriptionBui
 
     @Override
     public void setArguments(Object... arguments) {
-        // TODO Auto-generated method stub
-        
+        if (arguments.length != 1 || !(arguments[0] instanceof AdhocQueryRequest)) {
+            LOG.warn("Unexpected argument list: " + Arrays.toString(arguments));
+        } else {
+            request = (AdhocQueryRequest) arguments[0];
+        }
     }
 }

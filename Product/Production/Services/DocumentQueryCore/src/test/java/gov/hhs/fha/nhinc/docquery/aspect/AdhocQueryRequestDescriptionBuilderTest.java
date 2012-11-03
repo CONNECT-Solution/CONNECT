@@ -51,8 +51,20 @@ public class AdhocQueryRequestDescriptionBuilderTest extends BaseDescriptionBuil
     @Test
     public void basicBuild() {
         AdhocQueryRequest request = new AdhocQueryRequest();
-
         AdhocQueryRequestDescriptionBuilder builder = new AdhocQueryRequestDescriptionBuilder(request);
+        assertBasicBuild(builder);
+    }
+
+    @Test
+    public void validArgumentTypes() {
+        AdhocQueryRequestDescriptionBuilder builder = new AdhocQueryRequestDescriptionBuilder();
+        AdhocQueryRequest request = new AdhocQueryRequest();
+        Object[] arguments = { request };
+        builder.setArguments(arguments);
+        assertBasicBuild(builder);
+    }
+
+    private void assertBasicBuild(AdhocQueryRequestDescriptionBuilder builder) {
         EventDescription eventDescription = getEventDescription(builder);
 
         assertEquals(1, eventDescription.getPayloadTypes().size());

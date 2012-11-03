@@ -33,6 +33,7 @@ import gov.hhs.fha.nhinc.gateway.aggregator.document.DocumentConstants;
 import gov.hhs.fha.nhinc.util.JaxbDocumentUtils;
 import gov.hhs.fha.nhinc.util.NhincCollections;
 
+import java.util.Arrays;
 import java.util.List;
 
 import javax.xml.bind.JAXBElement;
@@ -43,6 +44,9 @@ import oasis.names.tc.ebxml_regrep.xsd.rim._3.ExtrinsicObjectType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.IdentifiableType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import com.google.common.base.Function;
 import com.google.common.base.Optional;
 import com.google.common.base.Predicate;
@@ -52,12 +56,21 @@ import com.google.common.collect.Lists;
 
 public class AdhocQueryResponseDescriptionBuilder extends BaseEventDescriptionBuilder {
 
+    private static final Log LOG = LogFactory.getLog(AdhocQueryResponseDescriptionBuilder.class);
     private static final HCIDExtractor HCID_EXTRACTOR = new HCIDExtractor();
     private static final ErrorExtractor ERROR_EXTRACTOR = new ErrorExtractor();
     private static final PayloadTypeExtractor PAYLOAD_TYPE_EXTRACTOR = new PayloadTypeExtractor();
     private static final PayloadSizeExtractor PAYLOAD_SIZE_EXTRACTOR = new PayloadSizeExtractor();
 
-    private final AdhocQueryResponse response;
+    private AdhocQueryResponse response;
+
+    /**
+     * Constructor for aspects. Response should be set via <code>setArguments</code>.
+     * 
+     * @see #setArguments(Object...)
+     */
+    public AdhocQueryResponseDescriptionBuilder() {
+    }
 
     public AdhocQueryResponseDescriptionBuilder(AdhocQueryResponse response) {
         this.response = response;
@@ -213,7 +226,10 @@ public class AdhocQueryResponseDescriptionBuilder extends BaseEventDescriptionBu
 
     @Override
     public void setArguments(Object... arguments) {
-        // TODO Auto-generated method stub
-
+        if (arguments.length != 1 || !(arguments[0] instanceof AdhocQueryResponse)) {
+            LOG.warn("Unexpected argument list: " + Arrays.toString(arguments));
+        } else {
+            response = (AdhocQueryResponse) arguments[0];
+        }
     }
 }
