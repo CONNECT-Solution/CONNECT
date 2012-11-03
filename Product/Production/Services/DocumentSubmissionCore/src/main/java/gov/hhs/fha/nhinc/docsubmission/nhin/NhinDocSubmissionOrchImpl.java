@@ -64,7 +64,9 @@ public class NhinDocSubmissionOrchImpl {
         auditLogger = getXDRAuditLogger();
     }
 
-    @InboundProcessingEvent(serviceType = "Document Submission", version = "", descriptionBuilder = InboundProcessingEventDescriptionBuilder.class)
+    @InboundProcessingEvent(serviceType = "Document Submission", version = "",
+            beforeBuilder = InboundProcessingEventDescriptionBuilder.class,
+            afterReturningBuilder = InboundProcessingEventDescriptionBuilder.class)
     public RegistryResponseType documentRepositoryProvideAndRegisterDocumentSetB(
             ProvideAndRegisterDocumentSetRequestType body, AssertionType assertion) {
         RegistryResponseType response = null;

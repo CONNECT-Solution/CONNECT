@@ -33,8 +33,10 @@ import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 public interface AdapterDocSubmissionProxy {
-    
-    @AdapterDelegationEvent(serviceType="Document Submission", version="", descriptionBuilder=DefaultEventDescriptionBuilder.class)
+
+    @AdapterDelegationEvent(serviceType = "Document Submission", version = "",
+            beforeBuilder = DefaultEventDescriptionBuilder.class,
+            afterReturningBuilder = DefaultEventDescriptionBuilder.class)
     public RegistryResponseType provideAndRegisterDocumentSetB(ProvideAndRegisterDocumentSetRequestType msg,
             AssertionType assertion);
 }
