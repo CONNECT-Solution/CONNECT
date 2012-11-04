@@ -26,8 +26,6 @@
  */
 package gov.hhs.fha.nhinc.aspect;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.AfterThrowing;
@@ -41,8 +39,6 @@ import org.springframework.beans.factory.annotation.Autowired;
  */
 @Aspect
 public class EventAspectAdvice {
-
-    private static final Log log = LogFactory.getLog(EventAspectAdvice.class);
 
     private EventAdviceDelegate inboundMessageAdviceDelegate;
 
@@ -61,73 +57,73 @@ public class EventAspectAdvice {
     @Before("@annotation(annotation)")
     public void beginInboundMessageEvent(JoinPoint joinPoint, InboundMessageEvent annotation) {
         inboundMessageAdviceDelegate.begin(joinPoint.getArgs(), annotation.serviceType(), annotation.version(),
-                annotation.descriptionBuilder());
+                annotation.beforeBuilder());
     }
 
     @AfterReturning(pointcut = "@annotation(annotation)", returning = "returnValue")
     public void endInboundMessageEvent(JoinPoint joinPoint, InboundMessageEvent annotation, Object returnValue) {
         inboundMessageAdviceDelegate.end(joinPoint.getArgs(), annotation.serviceType(), annotation.version(),
-                annotation.descriptionBuilder(), returnValue);
+                annotation.afterReturningBuilder(), returnValue);
     }
 
     @Before("@annotation(annotation)")
     public void beginInboundProcessingEvent(JoinPoint joinPoint, InboundProcessingEvent annotation) {
         inboundProcessingAdviceDelegate.begin(joinPoint.getArgs(), annotation.serviceType(), annotation.version(),
-                annotation.descriptionBuilder());
+                annotation.beforeBuilder());
     }
 
     @AfterReturning(pointcut = "@annotation(annotation)", returning = "returnValue")
     public void endInboundProcessingEvent(JoinPoint joinPoint, InboundProcessingEvent annotation, Object returnValue) {
         inboundProcessingAdviceDelegate.end(joinPoint.getArgs(), annotation.serviceType(), annotation.version(),
-                annotation.descriptionBuilder(), returnValue);
+                annotation.afterReturningBuilder(), returnValue);
     }
 
     @Before("@annotation(annotation)")
     public void beginAdapterDelegationEvent(JoinPoint joinPoint, AdapterDelegationEvent annotation) {
         adapterDelegationAdviceDelegate.begin(joinPoint.getArgs(), annotation.serviceType(), annotation.version(),
-                annotation.descriptionBuilder());
+                annotation.beforeBuilder());
     }
 
     @AfterReturning(pointcut = "@annotation(annotation)", returning = "returnValue")
     public void endAdapterDelegationEvent(JoinPoint joinPoint, AdapterDelegationEvent annotation, Object returnValue) {
         adapterDelegationAdviceDelegate.end(joinPoint.getArgs(), annotation.serviceType(), annotation.version(),
-                annotation.descriptionBuilder(), returnValue);
+                annotation.afterReturningBuilder(), returnValue);
     }
 
     @Before("@annotation(annotation)")
     public void beginOutboundMessageEvent(JoinPoint joinPoint, OutboundMessageEvent annotation) {
         outboundMessageAdviceDelegate.begin(joinPoint.getArgs(), annotation.serviceType(), annotation.version(),
-                annotation.descriptionBuilder());
+                annotation.beforeBuilder());
     }
 
     @AfterReturning(pointcut = "@annotation(annotation)", returning = "returnValue")
     public void endOutboundMessageEvent(JoinPoint joinPoint, OutboundMessageEvent annotation, Object returnValue) {
         outboundMessageAdviceDelegate.end(joinPoint.getArgs(), annotation.serviceType(), annotation.version(),
-                annotation.descriptionBuilder(), returnValue);
+                annotation.afterReturningBuilder(), returnValue);
     }
 
     @Before("@annotation(annotation)")
     public void beginOutboundProcessingEvent(JoinPoint joinPoint, OutboundProcessingEvent annotation) {
         outboundProcessingAdviceDelegate.begin(joinPoint.getArgs(), annotation.serviceType(), annotation.version(),
-                annotation.descriptionBuilder());
+                annotation.beforeBuilder());
     }
 
     @AfterReturning(pointcut = "@annotation(annotation)", returning = "returnValue")
     public void endOutboundProcessingEvent(JoinPoint joinPoint, OutboundProcessingEvent annotation, Object returnValue) {
         outboundProcessingAdviceDelegate.end(joinPoint.getArgs(), annotation.serviceType(), annotation.version(),
-                annotation.descriptionBuilder(), returnValue);
+                annotation.afterReturningBuilder(), returnValue);
     }
 
     @Before("@annotation(annotation)")
     public void beginNwhinInvocationEvent(JoinPoint joinPoint, NwhinInvocationEvent annotation) {
         nwhinInvocationAdviceDelegate.begin(joinPoint.getArgs(), annotation.serviceType(), annotation.version(),
-                annotation.descriptionBuilder());
+                annotation.beforeBuilder());
     }
 
     @AfterReturning(pointcut = "@annotation(annotation)", returning = "returnValue")
     public void endNwhinInvocationEvent(JoinPoint joinPoint, NwhinInvocationEvent annotation, Object returnValue) {
         nwhinInvocationAdviceDelegate.end(joinPoint.getArgs(), annotation.serviceType(), annotation.version(),
-                annotation.descriptionBuilder(), returnValue);
+                annotation.afterReturningBuilder(), returnValue);
     }
 
     @AfterThrowing("@annotation(gov.hhs.fha.nhinc.aspect.InboundMessageEvent) &&"

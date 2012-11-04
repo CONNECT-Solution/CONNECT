@@ -35,7 +35,6 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
-import gov.hhs.fha.nhinc.event.EventFactory;
 import gov.hhs.fha.nhinc.event.EventLogger;
 import gov.hhs.fha.nhinc.event.EventManager;
 import gov.hhs.fha.nhinc.event.initiator.BeginNwhinInvocationEvent;
@@ -64,30 +63,26 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
  * @author bhumphrey
- *
+ * 
  */
-
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "/CONNECT-context-test.xml", "/eventlogging.xml" })
 public class EventAspectAdviceSpringContextTest {
-    
-    @Autowired
-    private EventFactory eventFactory;
-    
+
     @Autowired
     private EventAspectAdvice eventAspectAdvice;
-    
+
     @Autowired
     private EventManager eventManager;
-    
+
     Answer<Class<DefaultEventDescriptionBuilder>> builderAnswer = new Answer<Class<DefaultEventDescriptionBuilder>>() {
         @Override
         public Class<DefaultEventDescriptionBuilder> answer(InvocationOnMock invocation) throws Throwable {
             return DefaultEventDescriptionBuilder.class;
         }
     };
-    
+
     @Before
     public void mockWebserviceConext() {
         // Mock up message context
@@ -95,133 +90,137 @@ public class EventAspectAdviceSpringContextTest {
         WrappedMessageContext msgCtx = new WrappedMessageContext(msg);
         WebServiceContextImpl.setMessageContext(msgCtx);
     }
-  
-    
+
     @Test
     public void adapterDelegationEvent() {
         assertNotNull(eventAspectAdvice);
-        
+
         EventLogger eventLogger = mock(EventLogger.class);
         eventManager.registerLogger(eventLogger);
-        
+
         JoinPoint joinPoint = mock(JoinPoint.class);
-        
-        when(joinPoint.getArgs()).thenReturn(new Object[]{});
-        
+
+        when(joinPoint.getArgs()).thenReturn(new Object[] {});
+
         AdapterDelegationEvent annotation = mock(AdapterDelegationEvent.class);
-        
+
         when(annotation.serviceType()).thenReturn("Test Type");
         when(annotation.version()).thenReturn("version");
-        when(annotation.descriptionBuilder()).then(builderAnswer);
-        
+        when(annotation.beforeBuilder()).then(builderAnswer);
+        when(annotation.afterReturningBuilder()).then(builderAnswer);
+
         eventAspectAdvice.beginAdapterDelegationEvent(joinPoint, annotation);
         verify(eventLogger).update(eq(eventManager), isA(BeginAdapterDelegationEvent.class));
-        
+
         Object returnValue = mock(Object.class);
-        
+
         eventAspectAdvice.endAdapterDelegationEvent(joinPoint, annotation, returnValue);
         verify(eventLogger).update(eq(eventManager), isA(EndAdapterDelegationEvent.class));
     }
-    
+
     @Test
     public void outboundMessageEvent() {
         assertNotNull(eventAspectAdvice);
-        
+
         EventLogger eventLogger = mock(EventLogger.class);
         eventManager.registerLogger(eventLogger);
-        
+
         JoinPoint joinPoint = mock(JoinPoint.class);
-        
-        when(joinPoint.getArgs()).thenReturn(new Object[]{});
-        
+
+        when(joinPoint.getArgs()).thenReturn(new Object[] {});
+
         OutboundMessageEvent annotation = mock(OutboundMessageEvent.class);
-        
+
         when(annotation.serviceType()).thenReturn("Test Type");
         when(annotation.version()).thenReturn("version");
-        when(annotation.descriptionBuilder()).then(builderAnswer);
-        
-        eventAspectAdvice.beginOutboundMessageEvent(joinPoint, annotation); 
+        when(annotation.beforeBuilder()).then(builderAnswer);
+        when(annotation.afterReturningBuilder()).then(builderAnswer);
+
+        eventAspectAdvice.beginOutboundMessageEvent(joinPoint, annotation);
         verify(eventLogger).update(eq(eventManager), isA(BeginOutboundMessageEvent.class));
-        
+
         Object returnValue = mock(Object.class);
-        
+
         eventAspectAdvice.endOutboundMessageEvent(joinPoint, annotation, returnValue);
         verify(eventLogger).update(eq(eventManager), isA(EndOutboundMessageEvent.class));
     }
-    
+
     @Test
     public void outboundProcessingEvent() {
         assertNotNull(eventAspectAdvice);
-        
+
         EventLogger eventLogger = mock(EventLogger.class);
         eventManager.registerLogger(eventLogger);
-        
+
         JoinPoint joinPoint = mock(JoinPoint.class);
-        when(joinPoint.getArgs()).thenReturn(new Object[]{});
-        
+        when(joinPoint.getArgs()).thenReturn(new Object[] {});
+
         OutboundProcessingEvent annotation = mock(OutboundProcessingEvent.class);
-        
+
         when(annotation.serviceType()).thenReturn("Test Type");
         when(annotation.version()).thenReturn("version");
-        when(annotation.descriptionBuilder()).then(builderAnswer);
-        
-        eventAspectAdvice.beginOutboundProcessingEvent(joinPoint, annotation); 
+        when(annotation.beforeBuilder()).then(builderAnswer);
+        when(annotation.afterReturningBuilder()).then(builderAnswer);
+
+        eventAspectAdvice.beginOutboundProcessingEvent(joinPoint, annotation);
         verify(eventLogger).update(eq(eventManager), isA(BeginOutboundProcessingEvent.class));
-        
+
         Object returnValue = mock(Object.class);
-        
+
         eventAspectAdvice.endOutboundProcessingEvent(joinPoint, annotation, returnValue);
         verify(eventLogger).update(eq(eventManager), isA(EndOutboundProcessingEvent.class));
     }
-    
+
     @Test
     public void inboundMessageEvent() {
         assertNotNull(eventAspectAdvice);
-        
+
         EventLogger eventLogger = mock(EventLogger.class);
         eventManager.registerLogger(eventLogger);
-        
+
         JoinPoint joinPoint = mock(JoinPoint.class);
-        
-        when(joinPoint.getArgs()).thenReturn(new Object[]{});
-        
+
+        when(joinPoint.getArgs()).thenReturn(new Object[] {});
+
         InboundMessageEvent annotation = mock(InboundMessageEvent.class);
-        
+
         when(annotation.serviceType()).thenReturn("Test Type");
         when(annotation.version()).thenReturn("version");
-        when(annotation.descriptionBuilder()).then(builderAnswer);
-        
-        eventAspectAdvice.beginInboundMessageEvent(joinPoint, annotation); 
+        when(annotation.beforeBuilder()).then(builderAnswer);
+        when(annotation.afterReturningBuilder()).then(builderAnswer);
+
+        eventAspectAdvice.beginInboundMessageEvent(joinPoint, annotation);
         verify(eventLogger).update(eq(eventManager), isA(BeginInboundMessageEvent.class));
-        
+
         Object returnValue = mock(Object.class);
-        
+
         eventAspectAdvice.endInboundMessageEvent(joinPoint, annotation, returnValue);
         verify(eventLogger).update(eq(eventManager), isA(EndInboundMessageEvent.class));
     }
-    
+
     @Test
     public void nwhinInvocationEvent() {
         assertNotNull(eventAspectAdvice);
-        
+
         EventLogger eventLogger = mock(EventLogger.class);
         eventManager.registerLogger(eventLogger);
-        
+
         JoinPoint joinPoint = mock(JoinPoint.class);
-        
-        when(joinPoint.getArgs()).thenReturn(new Object[]{});
-        
+
+        when(joinPoint.getArgs()).thenReturn(new Object[] {});
+
         NwhinInvocationEvent annotation = mock(NwhinInvocationEvent.class);
-        
+
         when(annotation.serviceType()).thenReturn("Test Type");
         when(annotation.version()).thenReturn("version");
-        when(annotation.descriptionBuilder()).then(builderAnswer);
-        
+        when(annotation.beforeBuilder()).then(builderAnswer);
+        when(annotation.afterReturningBuilder()).then(builderAnswer);
+
         eventAspectAdvice.beginNwhinInvocationEvent(joinPoint, annotation);
         verify(eventLogger).update(eq(eventManager), isA(BeginNwhinInvocationEvent.class));
-        
+
         Object returnValue = mock(Object.class);
-        
+
         eventAspectAdvice.endNwhinInvocationEvent(joinPoint, annotation, returnValue);
         verify(eventLogger).update(eq(eventManager), isA(EndNwhinInvocationEvent.class));
     }

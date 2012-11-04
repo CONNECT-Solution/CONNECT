@@ -28,6 +28,7 @@ package gov.hhs.fha.nhinc.docquery._20.nhin;
 
 import gov.hhs.fha.nhinc.aspect.InboundMessageEvent;
 import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryRequestDescriptionBuilder;
+import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryResponseDescriptionBuilder;
 import gov.hhs.fha.nhinc.docquery.nhin.NhinDocQueryOrchImpl;
 import ihe.iti.xds_b._2007.RespondingGatewayQueryPortType;
 
@@ -58,8 +59,9 @@ public class DocQuery implements RespondingGatewayQueryPortType {
      *            the body of the request
      * @return the query response for the document query
      */
-    @InboundMessageEvent(descriptionBuilder = AdhocQueryRequestDescriptionBuilder.class,
-            serviceType = "Document Query", version = "2.0")
+    @InboundMessageEvent(beforeBuilder = AdhocQueryRequestDescriptionBuilder.class,
+            afterReturningBuilder = AdhocQueryResponseDescriptionBuilder.class, serviceType = "Document Query",
+            version = "2.0")
     public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest body) {
         return new DocQueryImpl(orchImpl).respondingGatewayCrossGatewayQuery(body, context);
     }

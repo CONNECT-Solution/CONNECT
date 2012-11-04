@@ -34,6 +34,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import gov.hhs.fha.nhinc.event.BaseEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
 
 import org.aspectj.lang.JoinPoint;
@@ -74,10 +75,17 @@ public class EventAspectAdviceTest {
         }
     };
 
-    Answer<Class<DefaultEventDescriptionBuilder>> builderAnswer = new Answer<Class<DefaultEventDescriptionBuilder>>() {
+    Answer<Class<? extends BaseEventDescriptionBuilder>> beforeBuilderAnswer = new Answer<Class<? extends BaseEventDescriptionBuilder>>() {
         @Override
-        public Class<DefaultEventDescriptionBuilder> answer(InvocationOnMock invocation) throws Throwable {
+        public Class<? extends BaseEventDescriptionBuilder> answer(InvocationOnMock invocation) throws Throwable {
             return DefaultEventDescriptionBuilder.class;
+        }
+    };
+
+    Answer<Class<? extends BaseEventDescriptionBuilder>> afterReturningBuilderAnswer = new Answer<Class<? extends BaseEventDescriptionBuilder>>() {
+        @Override
+        public Class<? extends BaseEventDescriptionBuilder> answer(InvocationOnMock invocation) throws Throwable {
+            return BaseEventDescriptionBuilder.class;
         }
     };
 
@@ -107,117 +115,123 @@ public class EventAspectAdviceTest {
     }
 
     @Test
-    public void verifyInboundMessageEvent() {
+    public void verifyInboundMessageEvent() throws Throwable {
         InboundMessageEvent mockAnnotation = mock(InboundMessageEvent.class);
 
         when(mockAnnotation.serviceType()).then(serviceTypeAnswer);
         when(mockAnnotation.version()).then(versionAnswer);
-        when(mockAnnotation.descriptionBuilder()).then(builderAnswer);
+        when(mockAnnotation.beforeBuilder()).then(beforeBuilderAnswer);
+        when(mockAnnotation.afterReturningBuilder()).then(afterReturningBuilderAnswer);
 
         advice.beginInboundMessageEvent(mockJoinPoint, mockAnnotation);
 
         verify(inboundMessageAdviceDelegate).begin(any(Object[].class), eq("test-serviceType"), eq("test-version"),
-                eq(DefaultEventDescriptionBuilder.class));
+                eq(beforeBuilderAnswer.answer(null)));
 
         advice.endInboundMessageEvent(mockJoinPoint, mockAnnotation, mockReturnValue);
 
         verify(inboundMessageAdviceDelegate).end(any(Object[].class), eq("test-serviceType"), eq("test-version"),
-                eq(DefaultEventDescriptionBuilder.class), any(Object.class));
+                eq(afterReturningBuilderAnswer.answer(null)), any(Object.class));
     }
 
     @Test
-    public void verifyOutboundMessageEvent() {
+    public void verifyOutboundMessageEvent() throws Throwable {
         OutboundMessageEvent mockAnnotation = mock(OutboundMessageEvent.class);
 
         when(mockAnnotation.serviceType()).then(serviceTypeAnswer);
         when(mockAnnotation.version()).then(versionAnswer);
-        when(mockAnnotation.descriptionBuilder()).then(builderAnswer);
+        when(mockAnnotation.beforeBuilder()).then(beforeBuilderAnswer);
+        when(mockAnnotation.afterReturningBuilder()).then(afterReturningBuilderAnswer);
 
         advice.beginOutboundMessageEvent(mockJoinPoint, mockAnnotation);
 
         verify(outboundMessageAdviceDelegate).begin(any(Object[].class), eq("test-serviceType"), eq("test-version"),
-                eq(DefaultEventDescriptionBuilder.class));
+                eq(beforeBuilderAnswer.answer(null)));
 
         advice.endOutboundMessageEvent(mockJoinPoint, mockAnnotation, mockReturnValue);
 
         verify(outboundMessageAdviceDelegate).end(any(Object[].class), eq("test-serviceType"), eq("test-version"),
-                eq(DefaultEventDescriptionBuilder.class), any(Object.class));
+                eq(afterReturningBuilderAnswer.answer(null)), any(Object.class));
     }
 
     @Test
-    public void verifyAdapterDelegationEvent() {
+    public void verifyAdapterDelegationEvent() throws Throwable {
         AdapterDelegationEvent mockAnnotation = mock(AdapterDelegationEvent.class);
 
         when(mockAnnotation.serviceType()).then(serviceTypeAnswer);
         when(mockAnnotation.version()).then(versionAnswer);
-        when(mockAnnotation.descriptionBuilder()).then(builderAnswer);
+        when(mockAnnotation.beforeBuilder()).then(beforeBuilderAnswer);
+        when(mockAnnotation.afterReturningBuilder()).then(afterReturningBuilderAnswer);
 
         advice.beginAdapterDelegationEvent(mockJoinPoint, mockAnnotation);
 
         verify(adapterDelegationAdviceDelegate).begin(any(Object[].class), eq("test-serviceType"), eq("test-version"),
-                eq(DefaultEventDescriptionBuilder.class));
+                eq(beforeBuilderAnswer.answer(null)));
 
         advice.endAdapterDelegationEvent(mockJoinPoint, mockAnnotation, mockReturnValue);
 
         verify(adapterDelegationAdviceDelegate).end(any(Object[].class), eq("test-serviceType"), eq("test-version"),
-                eq(DefaultEventDescriptionBuilder.class), any(Object.class));
+                eq(afterReturningBuilderAnswer.answer(null)), any(Object.class));
     }
 
     @Test
-    public void verifyInboundProcessingEvent() {
+    public void verifyInboundProcessingEvent() throws Throwable {
         InboundProcessingEvent mockAnnotation = mock(InboundProcessingEvent.class);
 
         when(mockAnnotation.serviceType()).then(serviceTypeAnswer);
         when(mockAnnotation.version()).then(versionAnswer);
-        when(mockAnnotation.descriptionBuilder()).then(builderAnswer);
+        when(mockAnnotation.beforeBuilder()).then(beforeBuilderAnswer);
+        when(mockAnnotation.afterReturningBuilder()).then(afterReturningBuilderAnswer);
 
         advice.beginInboundProcessingEvent(mockJoinPoint, mockAnnotation);
 
         verify(inboundProcessingAdviceDelegate).begin(any(Object[].class), eq("test-serviceType"), eq("test-version"),
-                eq(DefaultEventDescriptionBuilder.class));
+                eq(beforeBuilderAnswer.answer(null)));
 
         advice.endInboundProcessingEvent(mockJoinPoint, mockAnnotation, mockReturnValue);
 
         verify(inboundProcessingAdviceDelegate).end(any(Object[].class), eq("test-serviceType"), eq("test-version"),
-                eq(DefaultEventDescriptionBuilder.class), any(Object.class));
+                eq(afterReturningBuilderAnswer.answer(null)), any(Object.class));
     }
 
     @Test
-    public void verifyOutboundProcessingEvent() {
+    public void verifyOutboundProcessingEvent() throws Throwable {
         OutboundProcessingEvent mockAnnotation = mock(OutboundProcessingEvent.class);
 
         when(mockAnnotation.serviceType()).then(serviceTypeAnswer);
         when(mockAnnotation.version()).then(versionAnswer);
-        when(mockAnnotation.descriptionBuilder()).then(builderAnswer);
+        when(mockAnnotation.beforeBuilder()).then(beforeBuilderAnswer);
+        when(mockAnnotation.afterReturningBuilder()).then(afterReturningBuilderAnswer);
 
         advice.beginOutboundProcessingEvent(mockJoinPoint, mockAnnotation);
 
         verify(outboundProcessingAdviceDelegate).begin(any(Object[].class), eq("test-serviceType"), eq("test-version"),
-                eq(DefaultEventDescriptionBuilder.class));
+                eq(beforeBuilderAnswer.answer(null)));
 
         advice.endOutboundProcessingEvent(mockJoinPoint, mockAnnotation, mockReturnValue);
 
         verify(outboundProcessingAdviceDelegate).end(any(Object[].class), eq("test-serviceType"), eq("test-version"),
-                eq(DefaultEventDescriptionBuilder.class), any(Object.class));
+                eq(afterReturningBuilderAnswer.answer(null)), any(Object.class));
     }
 
     @Test
-    public void verifyNwhinInvocationEvent() {
+    public void verifyNwhinInvocationEvent() throws Throwable {
         NwhinInvocationEvent mockAnnotation = mock(NwhinInvocationEvent.class);
 
         when(mockAnnotation.serviceType()).then(serviceTypeAnswer);
         when(mockAnnotation.version()).then(versionAnswer);
-        when(mockAnnotation.descriptionBuilder()).then(builderAnswer);
+        when(mockAnnotation.beforeBuilder()).then(beforeBuilderAnswer);
+        when(mockAnnotation.afterReturningBuilder()).then(afterReturningBuilderAnswer);
 
         advice.beginNwhinInvocationEvent(mockJoinPoint, mockAnnotation);
 
         verify(nwhinInvocationAdviceDelegate).begin(any(Object[].class), eq("test-serviceType"), eq("test-version"),
-                eq(DefaultEventDescriptionBuilder.class));
+                eq(beforeBuilderAnswer.answer(null)));
 
         advice.endNwhinInvocationEvent(mockJoinPoint, mockAnnotation, mockReturnValue);
 
         verify(nwhinInvocationAdviceDelegate).end(any(Object[].class), eq("test-serviceType"), eq("test-version"),
-                eq(DefaultEventDescriptionBuilder.class), any(Object.class));
+                eq(afterReturningBuilderAnswer.answer(null)), any(Object.class));
     }
 
     @Test
