@@ -68,6 +68,9 @@ public class DirectMailClientTest {
         
     private GreenMail greenMail;
         
+    /**
+     * Set up tests.
+     */
     @Before
     public void setUp() {
         mockSmtpAgent = mock(SmtpAgent.class);
@@ -78,7 +81,8 @@ public class DirectMailClientTest {
     }
     
     /**
-     * Test {@link DirectMailClient#send(String, String, ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType.Document, String)}
+     * Test {@link DirectMailClient#
+     * send(String, String, ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType.Document, String)}.
      * @throws InterruptedException 
      * @throws IOException 
      */
@@ -100,16 +104,20 @@ public class DirectMailClientTest {
     }
     
     /**
-     * Test {@link DirectMailClient#send(String, String, ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType.Document, String)}
+     * Test {@link DirectMailClient#
+     * send(String, String, ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType.Document, String)}.
      * @throws InterruptedException 
      * @throws IOException 
      */
     @Ignore
     @Test
     public void canSendAndReceiveOneMessage() throws InterruptedException, IOException {        
-        // TODO::Implement this.
+        // TODO Implement this.
     }
 
+    /**
+     * Tear down after tests run.
+     */
     @After
     public void tearDown() {
         if (null != greenMail) {

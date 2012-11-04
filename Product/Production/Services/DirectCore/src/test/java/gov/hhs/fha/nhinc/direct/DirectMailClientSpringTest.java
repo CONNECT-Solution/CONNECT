@@ -48,16 +48,25 @@ public class DirectMailClientSpringTest {
     @Autowired
     private DirectMailClient extDirectMailClient;
     
+    /**
+     * Test that we can get an external mail client with spring.
+     */
     @Test
     public void canGetExternalMailClient() {
         assertNotNull(extDirectMailClient);
     }
     
+    /**
+     * Test that we can get an internal mail client with spring.
+     */
     @Test
     public void canGetInternalMailClient() {
         assertNotNull(intDirectMailClient);
     }
     
+    /**
+     * Test that the two mail clients are distinct instances.
+     */
     @Test
     public void canDistinguishInternalExternal() {
         assertNotSame(intDirectMailClient, extDirectMailClient);        

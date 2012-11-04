@@ -30,11 +30,9 @@ import static gov.hhs.fha.nhinc.direct.DirectUnitTestUtil.RECIPIENT;
 import static gov.hhs.fha.nhinc.direct.DirectUnitTestUtil.SENDER;
 import static gov.hhs.fha.nhinc.direct.DirectUnitTestUtil.getMailServerProps;
 import static gov.hhs.fha.nhinc.direct.DirectUnitTestUtil.getMockDocument;
-
 import static org.junit.Assert.assertNotNull;
 
 import java.io.IOException;
-import java.util.Properties;
 
 import javax.mail.Session;
 
@@ -45,33 +43,55 @@ import org.junit.Test;
  */
 public class MimeMessageBuilderTest {
 
-    Properties mailServerProps = getMailServerProps(3456, SENDER, SENDER);
-    Session session = Session.getInstance(mailServerProps);
+    /**
+     * Java mail session.
+     */
+    private final Session session = Session.getInstance(getMailServerProps(3456, SENDER, SENDER));
     
+    /**
+     * Test that we can build a message with all of the properties of the mime message set.
+     * @throws IOException is a possible error.
+     */
     @Test
     public void canBuildMessage() throws IOException {
         MimeMessageBuilder testBuilder = getMimeMessageBuilder();
         assertNotNull(testBuilder.build());
     }
 
+    /**
+     * Throw an exception when the text of the message is missing.
+     * @throws IOException is a possible error.
+     */
     @Test(expected = DirectException.class)
     public void willThrowExceptionWhenTextIsMissing() throws IOException {
         MimeMessageBuilder testBuilder = getMimeMessageBuilder().text(null);
         testBuilder.build();        
     }
     
+    /**
+     * Allow message to be built if the subject is missing.
+     * @throws IOException is a possible error.
+     */
     @Test
     public void canBuildMesageWithoutSubject() throws IOException {
         MimeMessageBuilder testBuilder = getMimeMessageBuilder().subject(null);
         testBuilder.build();        
     }
 
+    /**
+     * Throw an exception when the attachment of the message is missing.
+     * @throws IOException is a possible error.
+     */
     @Test(expected = DirectException.class)
     public void willThrowExceptionWhenAttachmentIsMissing() throws IOException {
         MimeMessageBuilder testBuilder = getMimeMessageBuilder().attachment(null);
         testBuilder.build();        
     }
 
+    /**
+     * Throw an exception when the attachment name of the message is missing.
+     * @throws IOException is a possible error.
+     */
     @Test(expected = DirectException.class)
     public void willThrowExceptionWhenAttachmentNameIsMissing() throws IOException {
         MimeMessageBuilder testBuilder = getMimeMessageBuilder().attachmentName(null);
