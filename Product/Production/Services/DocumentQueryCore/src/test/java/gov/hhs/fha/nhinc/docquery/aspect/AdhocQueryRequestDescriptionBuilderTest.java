@@ -29,6 +29,7 @@
 package gov.hhs.fha.nhinc.docquery.aspect;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
@@ -58,7 +59,6 @@ public class AdhocQueryRequestDescriptionBuilderTest extends BaseDescriptionBuil
         assertionExtractor = mock(AssertionDescriptionExtractor.class);
         when(assertionExtractor.getInitiatingHCID(assertion)).thenReturn("hcid");
         when(assertionExtractor.getNPI(assertion)).thenReturn("npi");
-        builder.setAssertionExtractor(assertionExtractor);
     }
 
     @Test
@@ -72,11 +72,18 @@ public class AdhocQueryRequestDescriptionBuilderTest extends BaseDescriptionBuil
 
     @Test
     public void withAssertion() {
+        builder.setAssertionExtractor(assertionExtractor);
         Object[] arguments = { request, assertion };
         builder.setArguments(arguments);
         EventDescription eventDescription = assertBasicBuild(builder);
         assertEquals("hcid", eventDescription.getInitiatingHCID());
         assertEquals("npi", eventDescription.getNPI());
+    }
+
+    @Test
+    public void defaultAssertionExtractorUponConstruction() {
+        AssertionDescriptionExtractor defaultExtractor = builder.getAssertionExtractor();
+        assertNotNull(defaultExtractor);
     }
 
     private EventDescription assertBasicBuild(AdhocQueryRequestDescriptionBuilder builder) {

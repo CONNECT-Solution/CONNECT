@@ -45,9 +45,9 @@ import com.google.common.collect.ImmutableList;
 public class AdhocQueryRequestDescriptionBuilder extends BaseEventDescriptionBuilder {
 
     private static final Log LOG = LogFactory.getLog(AdhocQueryRequestDescriptionBuilder.class);
+    private AssertionDescriptionExtractor assertionExtractor = new AssertionDescriptionExtractor();
     private Optional<AdhocQueryRequest> request;
     private Optional<AssertionType> assertion;
-    private AssertionDescriptionExtractor assertionExtractor;
 
     public AdhocQueryRequestDescriptionBuilder() {
         request = Optional.absent();
@@ -122,6 +122,10 @@ public class AdhocQueryRequestDescriptionBuilder extends BaseEventDescriptionBui
 
     public void setAssertionExtractor(AssertionDescriptionExtractor assertionExtractor) {
         this.assertionExtractor = assertionExtractor;
+    }
+
+    protected AssertionDescriptionExtractor getAssertionExtractor() {
+        return assertionExtractor;
     }
 
     private Optional<AdhocQueryRequest> extractRequest(Object[] arguments) {

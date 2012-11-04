@@ -143,7 +143,7 @@ public class AdhocQueryResponseDescriptionBuilder extends BaseEventDescriptionBu
     @Override
     public void setReturnValue(Object returnValue) {
         if (returnValue == null || !(returnValue instanceof AdhocQueryResponse)) {
-            LOG.warn("Unexpected argument list: " + returnValue);
+            LOG.warn("Unexpected return value: " + returnValue);
         } else {
             response = (AdhocQueryResponse) returnValue;
         }
