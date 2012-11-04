@@ -3,7 +3,6 @@ package gov.hhs.fha.nhinc.aspect;
 import static junit.framework.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-
 import gov.hhs.fha.nhinc.event.BaseEventDescriptionBuilder;
 
 import java.lang.annotation.ElementType;
@@ -33,11 +32,8 @@ public class EventLoggingAnnontationTest {
 
     @Parameters
     public static Collection<Object[]> data() {
-        Object[][] data = new Object[][] { { NwhinInvocationEvent.class }, 
-                { OutboundMessageEvent.class },
-                { OutboundProcessingEvent.class },
-                { InboundMessageEvent.class },
-                { InboundProcessingEvent.class },
+        Object[][] data = new Object[][] { { NwhinInvocationEvent.class }, { OutboundMessageEvent.class },
+                { OutboundProcessingEvent.class }, { InboundMessageEvent.class }, { InboundProcessingEvent.class },
                 { AdapterDelegationEvent.class } };
         return Arrays.asList(data);
     }
@@ -57,12 +53,22 @@ public class EventLoggingAnnontationTest {
         assertTrue(String.class.isAssignableFrom(versionMethod.getReturnType()));
 
     }
-    
+
     @Test
-    public void verifyDescriptionBuilderMethod() throws Throwable {
-        Method descriptionBuilderMethod = annotationClass.getMethod("descriptionBuilder");
-        assertNotNull(className + " has method descriptionBuilder", descriptionBuilderMethod);
-        assertTrue(BaseEventDescriptionBuilder.class.getClass().isAssignableFrom(descriptionBuilderMethod.getReturnType()));
+    public void verifyBeforeBuilderMethod() throws Throwable {
+        Method descriptionBuilderMethod = annotationClass.getMethod("beforeBuilder");
+        assertNotNull(className + " has method beforeBuilder", descriptionBuilderMethod);
+        assertTrue(BaseEventDescriptionBuilder.class.getClass().isAssignableFrom(
+                descriptionBuilderMethod.getReturnType()));
+
+    }
+
+    @Test
+    public void verifyAfterReturningBuilderMethod() throws Throwable {
+        Method descriptionBuilderMethod = annotationClass.getMethod("afterReturningBuilder");
+        assertNotNull(className + " has method afterReturningBuilder", descriptionBuilderMethod);
+        assertTrue(BaseEventDescriptionBuilder.class.getClass().isAssignableFrom(
+                descriptionBuilderMethod.getReturnType()));
 
     }
 
@@ -79,14 +85,14 @@ public class EventLoggingAnnontationTest {
     public void verifyTargetAnnotation() {
         Target t = (Target) annotationClass.getAnnotation(Target.class);
         assertNotNull(className + " has target annotation", t);
-        assertEquals( ElementType.METHOD, t.value()[0]);
+        assertEquals(ElementType.METHOD, t.value()[0]);
     }
-    
+
     @Test
     public void verifyInhertitedAnnotation() {
         Inherited i = (Inherited) annotationClass.getAnnotation(Inherited.class);
         assertNotNull(className + " has inhertied annotation", i);
-        
+
     }
 
 }
