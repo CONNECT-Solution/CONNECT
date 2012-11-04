@@ -26,12 +26,7 @@
  */
 package gov.hhs.fha.nhinc.docquery.nhin;
 
-import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
-import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
+import gov.hhs.fha.nhinc.aspect.InboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayQueryRequestType;
@@ -39,13 +34,20 @@ import gov.hhs.fha.nhinc.docquery.DocQueryAuditLog;
 import gov.hhs.fha.nhinc.docquery.DocQueryPolicyChecker;
 import gov.hhs.fha.nhinc.docquery.adapter.proxy.AdapterDocQueryProxy;
 import gov.hhs.fha.nhinc.docquery.adapter.proxy.AdapterDocQueryProxyObjectFactory;
+import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryRequestDescriptionBuilder;
+import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryResponseDescriptionBuilder;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
+import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
+import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
- *
+ * 
  * @author jhoppesc
  */
 public class NhinDocQueryOrchImpl {
@@ -61,11 +63,14 @@ public class NhinDocQueryOrchImpl {
     }
 
     /**
-     *
+     * 
      * @param body
      * @param assertion
      * @return <code>AdhocQueryResponse</code>
      */
+    @InboundProcessingEvent(beforeBuilder = AdhocQueryRequestDescriptionBuilder.class,
+            afterReturningBuilder = AdhocQueryResponseDescriptionBuilder.class, serviceType = "Document Query",
+            version = "")
     public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest msg, AssertionType assertion) {
         log.info("Begin - NhinDocQueryOrchImpl.respondingGatewayCrossGatewayQuery()");
 
@@ -107,10 +112,13 @@ public class NhinDocQueryOrchImpl {
 
     /**
      * Creates an audit log for an AdhocQueryRequest.
-     *
-     * @param crossGatewayDocQueryRequest AdhocQueryRequest message to log
-     * @param direction Indicates whether the message is going out or comming in
-     * @param _interface Indicates which interface component is being logged??
+     * 
+     * @param crossGatewayDocQueryRequest
+     *            AdhocQueryRequest message to log
+     * @param direction
+     *            Indicates whether the message is going out or comming in
+     * @param _interface
+     *            Indicates which interface component is being logged??
      * @return Returns an acknowledgement object indicating whether the audit was successfully completed.
      */
     private AcknowledgementType auditAdhocQueryRequest(RespondingGatewayCrossGatewayQueryRequestType msg,
@@ -124,10 +132,13 @@ public class NhinDocQueryOrchImpl {
 
     /**
      * Creates an audit log for an AdhocQueryResponse.
-     *
-     * @param crossGatewayDocQueryResponse AdhocQueryResponse message to log
-     * @param direction Indicates whether the message is going out or comming in
-     * @param _interface Indicates which interface component is being logged??
+     * 
+     * @param crossGatewayDocQueryResponse
+     *            AdhocQueryResponse message to log
+     * @param direction
+     *            Indicates whether the message is going out or comming in
+     * @param _interface
+     *            Indicates which interface component is being logged??
      * @param requestCommunityID
      * @return Returns an acknowledgement object indicating whether the audit was successfully completed.
      */
@@ -142,8 +153,9 @@ public class NhinDocQueryOrchImpl {
 
     /**
      * Checks to see if the security policy will permit the query to be executed.
-     *
-     * @param message The AdhocQuery request message.
+     * 
+     * @param message
+     *            The AdhocQuery request message.
      * @return Returns true if the security policy permits the query; false if denied.
      */
     private boolean checkPolicy(RespondingGatewayCrossGatewayQueryRequestType message) {
@@ -155,7 +167,7 @@ public class NhinDocQueryOrchImpl {
 
     /**
      * Checks to see if the query should be handled internally or passed through to an adapter.
-     *
+     * 
      * @return Returns true if the documentQueryPassthrough property of the gateway.properties file is true.
      */
     private boolean isInPassThroughMode() {
@@ -174,7 +186,7 @@ public class NhinDocQueryOrchImpl {
 
     /**
      * Forwards the AdhocQueryRequest to an agency's adapter doc query service
-     *
+     * 
      * @param adhocQueryRequestMsg
      * @param communityID
      * @return
@@ -205,7 +217,7 @@ public class NhinDocQueryOrchImpl {
 
     /**
      * Forwards the AdhocQueryRequest to this agency's adapter doc query service
-     *
+     * 
      * @param adhocQueryRequestMsg
      * @param requestCommunityID
      * @return

@@ -29,42 +29,57 @@
 package gov.hhs.fha.nhinc.docquery.aspect;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.event.BaseDescriptionBuilderTest;
 import gov.hhs.fha.nhinc.event.EventDescription;
+import gov.hhs.fha.nhinc.event.builder.AssertionDescriptionExtractor;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.springframework.util.CollectionUtils;
 
 public class AdhocQueryRequestDescriptionBuilderTest extends BaseDescriptionBuilderTest {
 
-    @Test
-    public void emptyBuild() {
-        AdhocQueryRequestDescriptionBuilder builder = new AdhocQueryRequestDescriptionBuilder(null);
-        EventDescription eventDescription = getEventDescription(builder);
-        assertNotNull(eventDescription);
+    private AdhocQueryRequestDescriptionBuilder builder = new AdhocQueryRequestDescriptionBuilder();
+    private AssertionType assertion;
+    private AssertionDescriptionExtractor assertionExtractor;
+    private AdhocQueryRequest request;
+
+    @Before
+    public void before() {
+        request = new AdhocQueryRequest();
+        builder = new AdhocQueryRequestDescriptionBuilder();
+        assertion = new AssertionType();
+        assertionExtractor = mock(AssertionDescriptionExtractor.class);
+        when(assertionExtractor.getInitiatingHCID(assertion)).thenReturn("hcid");
+        when(assertionExtractor.getNPI(assertion)).thenReturn("npi");
+        builder.setAssertionExtractor(assertionExtractor);
     }
 
     @Test
-    public void basicBuild() {
-        AdhocQueryRequest request = new AdhocQueryRequest();
-        AdhocQueryRequestDescriptionBuilder builder = new AdhocQueryRequestDescriptionBuilder(request);
-        assertBasicBuild(builder);
-    }
-
-    @Test
-    public void validArgumentTypes() {
-        AdhocQueryRequestDescriptionBuilder builder = new AdhocQueryRequestDescriptionBuilder();
-        AdhocQueryRequest request = new AdhocQueryRequest();
+    public void noAssertion() {
         Object[] arguments = { request };
         builder.setArguments(arguments);
-        assertBasicBuild(builder);
+        EventDescription eventDescription = assertBasicBuild(builder);
+        assertNull(eventDescription.getNPI());
+        assertNull(eventDescription.getInitiatingHCID());
     }
 
-    private void assertBasicBuild(AdhocQueryRequestDescriptionBuilder builder) {
+    @Test
+    public void withAssertion() {
+        Object[] arguments = { request, assertion };
+        builder.setArguments(arguments);
+        EventDescription eventDescription = assertBasicBuild(builder);
+        assertEquals("hcid", eventDescription.getInitiatingHCID());
+        assertEquals("npi", eventDescription.getNPI());
+    }
+
+    private EventDescription assertBasicBuild(AdhocQueryRequestDescriptionBuilder builder) {
         EventDescription eventDescription = getEventDescription(builder);
 
         assertEquals(1, eventDescription.getPayloadTypes().size());
@@ -74,8 +89,8 @@ public class AdhocQueryRequestDescriptionBuilderTest extends BaseDescriptionBuil
         assertTrue(CollectionUtils.isEmpty(eventDescription.getStatuses()));
         assertNull(eventDescription.getRespondingHCIDs());
         assertTrue(CollectionUtils.isEmpty(eventDescription.getPayloadSizes()));
-        assertNull(eventDescription.getNPI());
-        assertNull(eventDescription.getInitiatingHCID());
         assertNull(eventDescription.getErrorCodes());
+
+        return eventDescription;
     }
 }

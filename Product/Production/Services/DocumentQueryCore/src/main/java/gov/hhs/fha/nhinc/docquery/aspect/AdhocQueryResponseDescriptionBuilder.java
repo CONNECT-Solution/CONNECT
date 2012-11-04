@@ -33,7 +33,6 @@ import gov.hhs.fha.nhinc.gateway.aggregator.document.DocumentConstants;
 import gov.hhs.fha.nhinc.util.JaxbDocumentUtils;
 import gov.hhs.fha.nhinc.util.NhincCollections;
 
-import java.util.Arrays;
 import java.util.List;
 
 import javax.xml.bind.JAXBElement;
@@ -136,6 +135,20 @@ public class AdhocQueryResponseDescriptionBuilder extends BaseEventDescriptionBu
         }
     }
 
+    @Override
+    public void setArguments(Object... arguments) {
+        // response builder ignores input arguments
+    }
+
+    @Override
+    public void setReturnValue(Object returnValue) {
+        if (returnValue == null || !(returnValue instanceof AdhocQueryResponse)) {
+            LOG.warn("Unexpected argument list: " + returnValue);
+        } else {
+            response = (AdhocQueryResponse) returnValue;
+        }
+    }
+
     private boolean hasStatus() {
         return response != null && response.getStatus() != null;
     }
@@ -222,25 +235,5 @@ public class AdhocQueryResponseDescriptionBuilder extends BaseEventDescriptionBu
             return JaxbDocumentUtils.findSlotType(extrinsicObjectType.getSlot(),
                     DocumentConstants.EBXML_RESPONSE_SIZE_SLOTNAME);
         }
-    }
-
-    @Override
-    public void setArguments(Object... arguments) {
-        if (arguments == null || arguments.length != 1 || !(arguments[0] instanceof AdhocQueryResponse)) {
-            LOG.warn("Unexpected argument list: " + Arrays.toString(arguments));
-        } else {
-            response = (AdhocQueryResponse) arguments[0];
-        }
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see gov.hhs.fha.nhinc.event.BaseEventDescriptionBuilder#setReturnValue(java.lang.Object)
-     */
-    @Override
-    public void setReturnValue(Object returnValue) {
-        // TODO Auto-generated method stub
-
     }
 }

@@ -73,11 +73,10 @@ public class AdhocQueryResponseDescriptionBuilderTest extends BaseDescriptionBui
     }
 
     @Test
-    public void validArgumentTypes() {
+    public void validRespnoseTypes() {
         AdhocQueryResponseDescriptionBuilder builder = new AdhocQueryResponseDescriptionBuilder();
         AdhocQueryResponse response = getBasicResponse();
-        Object[] arguments = { response };
-        builder.setArguments(arguments);
+        builder.setReturnValue(response);
         assertBasicResponseBuilt(builder);
     }
 
@@ -85,7 +84,7 @@ public class AdhocQueryResponseDescriptionBuilderTest extends BaseDescriptionBui
     public void nullArguments() {
         AdhocQueryResponseDescriptionBuilder builder = new AdhocQueryResponseDescriptionBuilder();
         try {
-            builder.setArguments((Object[]) null);
+            builder.setReturnValue(null);
         } catch (NullPointerException npe) {
             fail("Should accept null gracefully");
         }

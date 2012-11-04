@@ -26,17 +26,17 @@
  */
 package gov.hhs.fha.nhinc.docsubmission._11.nhin.deferred.request;
 
+import gov.hhs.fha.nhinc.aspect.InboundMessageEvent;
+import gov.hhs.fha.nhinc.docsubmission.nhin.deferred.request.NhinDocSubmissionDeferredRequestOrchImpl;
+import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
+
 import javax.annotation.Resource;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
 
-import gov.hhs.fha.nhinc.aspect.InboundMessageEvent;
-import gov.hhs.fha.nhinc.docsubmission.nhin.deferred.request.NhinDocSubmissionDeferredRequestOrchImpl;
-import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
-
 /**
- *
+ * 
  * @author JHOPPESC
  */
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
@@ -47,11 +47,15 @@ public class NhinXDRRequest implements ihe.iti.xdr._2007.XDRDeferredRequestPortT
 
     /**
      * The web service implemenation for Document Submission request.
-     * @param body The message of the request
+     * 
+     * @param body
+     *            The message of the request
      * @return an acknowledgement
      */
     @Override
-    @InboundMessageEvent(serviceType="Document Submission Deferred Request", version="1.1", descriptionBuilder=DefaultEventDescriptionBuilder.class)
+    @InboundMessageEvent(serviceType = "Document Submission Deferred Request", version = "1.1",
+            beforeBuilder = DefaultEventDescriptionBuilder.class,
+            afterReturningBuilder = DefaultEventDescriptionBuilder.class)
     public gov.hhs.healthit.nhin.XDRAcknowledgementType provideAndRegisterDocumentSetBDeferredRequest(
             ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType body) {
         return new NhinDocSubmissionDeferredRequestImpl(orchImpl).provideAndRegisterDocumentSetBRequest(body, context);
@@ -65,7 +69,5 @@ public class NhinXDRRequest implements ihe.iti.xdr._2007.XDRDeferredRequestPortT
     public void setContext(WebServiceContext context) {
         this.context = context;
     }
-
-    
 
 }
