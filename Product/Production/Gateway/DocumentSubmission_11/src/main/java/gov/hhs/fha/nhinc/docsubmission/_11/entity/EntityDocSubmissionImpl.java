@@ -32,7 +32,6 @@ import gov.hhs.fha.nhinc.common.nhinccommon.UrlInfoType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType;
 import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
-import gov.hhs.fha.nhinc.direct.MailServerSettings;
 import gov.hhs.fha.nhinc.docsubmission.entity.EntityDocSubmissionOrchImpl;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType.Document;
@@ -92,9 +91,24 @@ class EntityDocSubmissionImpl {
     private static final String ATTACHMENT_NAME = "CONNECT_Document";
 
     private static String SENDER, RECIPIENT;
-    // TODO::Make this a dependency on a yet to be created class for sending and receiving direct messages
-    private static final MailServerSettings mailServerSettings = new MailServerSettings("direct.mailserver.external");
+    
+    // These props will be loaded by Spring - the POC will be re-worked, this is to keep it compiling...
+    private static final String USER = "mlandis@5amsolutions.com";
+    private static final String PASS = "xxxx";
+    private static final Properties mailServerProps = new Properties();
+    static {
+        mailServerProps.put("mail.smtps.host", "localhost");
+        mailServerProps.put("mail.smtps.auth", "TRUE");
+        mailServerProps.put("mail.smtps.port", "456");
+        mailServerProps.put("mail.smtps.starttls.enabled", "TRUE");
+        mailServerProps.put("mail.smtp.user", USER);
+        mailServerProps.put("mail.smtp.password", PASS);
 
+        mailServerProps.put("imap.host", "imap.gmail.com");
+        mailServerProps.put("imap.username", USER);
+        mailServerProps.put("imap.password", PASS);
+    }
+    
     private static void copyMessage(MimeMessage message, String folder) {
         String rand = UUID.randomUUID().toString() + ".eml";
         File fl = new File(System.getProperty("java.io.tmpdir") + folder + File.separator + rand);
@@ -133,7 +147,7 @@ class EntityDocSubmissionImpl {
 
             try {
                 log.trace("Calling agent.processMessage");
-                Session session = Session.getInstance(mailServerSettings.getSmtpProperties(), new SMTPAuthenticator());
+                Session session = Session.getInstance(mailServerProps, new SMTPAuthenticator());
                 MimeMessage message = new MimeMessage(session);
                 message.setFrom(new InternetAddress("mlandis@5amsolutions.com"));
                 message.addRecipient(Message.RecipientType.TO, new InternetAddress(recipient));
@@ -183,7 +197,7 @@ class EntityDocSubmissionImpl {
     public static class SMTPAuthenticator extends javax.mail.Authenticator {
         @Override
         public PasswordAuthentication getPasswordAuthentication() {
-            return new PasswordAuthentication(mailServerSettings.getUsername(), mailServerSettings.getPassword());
+            return new PasswordAuthentication(USER, PASS);
         }
     }
 
@@ -199,7 +213,7 @@ class EntityDocSubmissionImpl {
         try {
             Session session = Session.getDefaultInstance(props, null);
             store = session.getStore("imaps");
-            store.connect(mailServerSettings.getImapHost(), mailServerSettings.getUsername(), mailServerSettings.getPassword());
+            store.connect(mailServerProps.getProperty("imap.host"), USER, PASS);
             inbox = store.getFolder("Inbox");
             inbox.open(Folder.READ_ONLY);
             FlagTerm ft = new FlagTerm(new Flags(Flags.Flag.SEEN), false);
@@ -212,7 +226,7 @@ class EntityDocSubmissionImpl {
                 String todaysDate = formatter.format(new Date());
                 if (sentDate.equalsIgnoreCase(todaysDate)) {
                     String sender = message[i].getFrom()[0].toString();
-                    if (sender.indexOf(mailServerSettings.getUsername()) != -1) {
+                    if (sender.indexOf(USER) != -1) {
                         decryptMessage((MimeMessage) message[i], recipient);
                         Object content = message[i].getContent();
                     }
@@ -274,7 +288,7 @@ class EntityDocSubmissionImpl {
 
          try {
              log.trace("Calling agent.processMessage");
-             Session session = Session.getInstance(mailServerSettings.getSmtpProperties(), new SMTPAuthenticator());
+             Session session = Session.getInstance(mailServerProps, new SMTPAuthenticator());
 
     		if (result.getProcessedMessage() != null)
     		{
@@ -285,6 +299,7 @@ class EntityDocSubmissionImpl {
              	InternetAddress[] addressTo = new InternetAddress[1];
                	addressTo[0] = new InternetAddress(SENDER);
     			Collection<NotificationMessage> notifications = result.getNotificationMessages();
+
     			log.info("# of notifications message: " + notifications.size());
     			if (notifications != null && notifications.size() > 0)
     			{
