@@ -1,5 +1,4 @@
 package gov.hhs.fha.nhinc.direct;
-import gov.hhs.fha.nhinc.direct.MimeMessageBuilder;
 
 /*
  * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
@@ -29,7 +28,7 @@ import gov.hhs.fha.nhinc.direct.MimeMessageBuilder;
  */
 
 /**
- * Exceptions for {@link MimeMessageBuilder}
+ * Exceptions for {@link MimeMessageBuilder}.
  */
 public class DirectException extends RuntimeException {
 

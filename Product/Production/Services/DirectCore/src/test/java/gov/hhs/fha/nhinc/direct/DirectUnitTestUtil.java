@@ -43,9 +43,22 @@ import org.apache.commons.io.IOUtils;
  */
 public class DirectUnitTestUtil {
 
+    /**
+     * Sender of a mail message.
+     */
     public static final String SENDER = "testsender@localhost";
+    /**
+     * Recipient of a mail message.
+     */
     public static final String RECIPIENT = "testrecip@localhost";
 
+    /**
+     * Sets up the properties in order to connect to the green mail test server.
+     * @param port mail server is listening to.
+     * @param user used for login.
+     * @param pass used for login.
+     * @return Properties instance holding appropriate values for java mail.
+     */
     public static Properties getMailServerProps(int port, String user, String pass) {
 
         Properties props = new Properties();
@@ -64,6 +77,11 @@ public class DirectUnitTestUtil {
         return props;
     }
 
+    /**
+     * Mock document for testing direct messages.
+     * @return the mocked document.
+     * @throws IOException possible error.
+     */
     public static Document getMockDocument() throws IOException {        
 
         Document mockDocument = mock(Document.class);

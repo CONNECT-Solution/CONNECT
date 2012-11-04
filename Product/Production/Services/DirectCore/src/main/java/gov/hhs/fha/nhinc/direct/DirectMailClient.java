@@ -50,7 +50,7 @@ import org.nhindirect.stagent.NHINDAddressCollection;
  */
 public class DirectMailClient implements DirectClient {
 
-    // TODO::Where should these come from?...
+    // TODO - Where should these come from?...
     private static final String MSG_SUBJECT = "DIRECT Message";
     private static final String MSG_TEXT = "DIRECT Message body text";
     
@@ -59,7 +59,7 @@ public class DirectMailClient implements DirectClient {
     
     /**
      * Construct a direct mail server with mail server settings.
-     * @param mailServerSettings used to define this mail server
+     * @param mailServerProps used to define this mail server
      * @param smtpAgent direct smtp agent config file path relative to classpath used to configure SmtpAgent
      */
     public DirectMailClient(final Properties mailServerProps, final SmtpAgent smtpAgent) {
@@ -123,6 +123,9 @@ public class DirectMailClient implements DirectClient {
         return 0;
     }
 
+    /**
+     * Authenticator used to provide login credentials to the mail server.
+     */
     private class SMTPAuthenticator extends javax.mail.Authenticator {
         /**
          * {@inheritDoc}

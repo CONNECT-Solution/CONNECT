@@ -37,6 +37,6 @@ public interface MessageHandler {
      * Handle a message retrieved from the mail server.
      * @param message to be handled.
      */
-    public void handleMessage(Message message);
+    void handleMessage(Message message);
     
 }

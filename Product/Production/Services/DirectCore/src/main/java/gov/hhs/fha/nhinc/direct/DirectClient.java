@@ -37,12 +37,12 @@ public interface DirectClient {
 
     /**
      * Use the mail server to send a message.
-     * @param sender
-     * @param recipient
-     * @param attachment
-     * @param attachmentName
+     * @param sender of the message
+     * @param recipient of the message
+     * @param attachment for the message
+     * @param attachmentName for the attachment
      */
-    public void send(String sender, String recipient, Document attachment, String attachmentName);
+    void send(String sender, String recipient, Document attachment, String attachmentName);
 
     /**
      * Use the mail server to send MDN messages if result contains notification messages.
@@ -50,12 +50,12 @@ public interface DirectClient {
      * @param recipient of the message
      * @param result to be processed for MDN Messages.
      */
-    public void sendMdn(String sender, String recipient, MessageProcessResult result);    
+    void sendMdn(String sender, String recipient, MessageProcessResult result);    
     
     /**
      * @param handler used to handle messages pulled from the mail server.
      * @return number of messages handled.
      */
-    public int handleMessages(MessageHandler handler);
+    int handleMessages(MessageHandler handler);
     
 }

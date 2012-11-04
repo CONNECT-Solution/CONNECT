@@ -44,7 +44,7 @@ import javax.mail.internet.MimeMultipart;
 import javax.mail.util.ByteArrayDataSource;
 
 /**
- * Builder for {@link MimeMessage}
+ * Builder for {@link MimeMessage}.
  */
 public class MimeMessageBuilder {
 
@@ -59,9 +59,9 @@ public class MimeMessageBuilder {
     
     /**
      * Construct the Mime Message builder with required fields.
-     * @param session
-     * @param fromAddress
-     * @param recipient
+     * @param session used to build the message.
+     * @param fromAddress sender of the message.
+     * @param recipient of the message.
      */
     public MimeMessageBuilder(Session session, String fromAddress, String recipient) {
         super();
@@ -71,47 +71,46 @@ public class MimeMessageBuilder {
     }
     
     /**
-     * @param subject to be set.
+     * @param str for subject.
      * @return builder
      */
-    public MimeMessageBuilder subject(String subject) {
-        this.subject = subject;
+    public MimeMessageBuilder subject(String str) {
+        this.subject = str;
         return this;
     }
 
     /**
-     * @param text to be set
+     * @param str for text
      * @return builder
      */
-    public MimeMessageBuilder text(String text) {
-        this.text = text;
+    public MimeMessageBuilder text(String str) {
+        this.text = str;
         return this;
     }
     
     /**
-     * @param attachment to be set
+     * @param doc for attachment
      * @return builder
      */
-    public MimeMessageBuilder attachment(Document attachment) {
-        this.attachment = attachment;
+    public MimeMessageBuilder attachment(Document doc) {
+        this.attachment = doc;
         return this;
     }
     
     /**
-     * @param attachmentName to be set
+     * @param str for attachment name
      * @return builder
      */
-    public MimeMessageBuilder attachmentName(String attachmentName) {
-        this.attachmentName = attachmentName;
+    public MimeMessageBuilder attachmentName(String str) {
+        this.attachmentName = str;
         return this;
     }
 
     /**
      * Build the Mime Message.
      * @return the Mime message.
-     * @throws DirectException on problems building the mime message.
      */
-    public MimeMessage build() throws DirectException {
+    public MimeMessage build()  {
 
         final MimeMessage message = new MimeMessage(session);
         
@@ -137,14 +136,14 @@ public class MimeMessageBuilder {
         try {
             messagePart.setText(text);
         } catch (Exception e) {
-            throw new DirectException("Exception setting mime message part text: " + text, e);                                    
+            throw new DirectException("Exception setting mime message part text: " + text, e);
         }
 
         MimeBodyPart attachmentPart = null;
         try {
             attachmentPart = createAttachmentFromSOAPRequest(attachment, attachmentName);
         } catch (Exception e) {
-            throw new DirectException("Exception creating attachment: " + attachmentName, e);                                                
+            throw new DirectException("Exception creating attachment: " + attachmentName, e);
         }
         
         Multipart multipart = new MimeMultipart();
@@ -153,13 +152,13 @@ public class MimeMessageBuilder {
             multipart.addBodyPart(attachmentPart);
             message.setContent(multipart);
         } catch (Exception e) {
-            throw new DirectException("Exception creating multi-part attachment.", e);                                                            
+            throw new DirectException("Exception creating multi-part attachment.", e);
         }
         
         try {
             message.saveChanges();
         } catch (Exception e) {
-            throw new DirectException("Exception saving changes.", e);                                                                        
+            throw new DirectException("Exception saving changes.", e);
         }
 
         return message;
