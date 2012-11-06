@@ -32,8 +32,10 @@ import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
 
 import gov.hhs.fha.nhinc.admindistribution.entity.EntityAdminDistributionOrchImpl;
+import gov.hhs.fha.nhinc.aspect.InboundMessageEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
+import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
 
 /**
  *
@@ -47,6 +49,8 @@ public class EntityAdministrativeDistributionSecured implements gov.hhs.fha.nhin
     private EntityAdminDistributionOrchImpl orchImpl;
 
     @Override
+    @InboundMessageEvent(serviceType = "Admin Distribution", version = "1.0",
+    descriptionBuilder = DefaultEventDescriptionBuilder.class)
     public void sendAlertMessage(
             gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewaySendAlertMessageSecuredType body) {
         AssertionType assertion = extractAssertion(context);

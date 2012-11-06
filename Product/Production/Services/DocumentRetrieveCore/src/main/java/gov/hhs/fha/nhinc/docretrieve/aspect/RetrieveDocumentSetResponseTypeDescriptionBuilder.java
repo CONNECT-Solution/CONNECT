@@ -77,7 +77,7 @@ public class RetrieveDocumentSetResponseTypeDescriptionBuilder extends BaseEvent
     }
 
     @Override
-    public void buildPayloadSize() {
+    public void buildPayloadSizes() {
         // payload size is not available in response object. The slots do exist but the size is not
         // one of the available options.
     }

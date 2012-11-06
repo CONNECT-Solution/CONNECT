@@ -30,6 +30,8 @@ import javax.xml.ws.BindingType;
 import javax.xml.ws.soap.Addressing;
 
 import gov.hhs.fha.nhinc.admindistribution.entity.EntityAdminDistributionOrchImpl;
+import gov.hhs.fha.nhinc.aspect.InboundMessageEvent;
+import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
 
 /**
  *
@@ -43,6 +45,8 @@ public class EntityAdministrativeDistribution implements gov.hhs.fha.nhinc.entit
     private EntityAdminDistributionOrchImpl orchImpl;
 
     @Override
+    @InboundMessageEvent(serviceType = "Admin Distribution", version = "1.0",
+    descriptionBuilder = DefaultEventDescriptionBuilder.class)
     public void sendAlertMessage(gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewaySendAlertMessageType body) {
         getOrchImpl().sendAlertMessage(body, body.getAssertion(), body.getNhinTargetCommunities());
     }

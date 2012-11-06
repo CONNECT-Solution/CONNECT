@@ -78,7 +78,7 @@ public class AdhocQueryRequestDescriptionBuilder extends BaseEventDescriptionBui
     }
 
     @Override
-    public void buildPayloadSize() {
+    public void buildPayloadSizes() {
         // payload size not available in request
 
     }

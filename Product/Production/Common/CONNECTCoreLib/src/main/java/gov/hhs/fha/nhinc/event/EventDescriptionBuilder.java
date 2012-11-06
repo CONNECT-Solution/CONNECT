@@ -18,7 +18,7 @@ public interface EventDescriptionBuilder {
 
     public void buildPayloadTypes();
 
-    public void buildPayloadSize();
+    public void buildPayloadSizes();
 
     public void buildNPI();
 
