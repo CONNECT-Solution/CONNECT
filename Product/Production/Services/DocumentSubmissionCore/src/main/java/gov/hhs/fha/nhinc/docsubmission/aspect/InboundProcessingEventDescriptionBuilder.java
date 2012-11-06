@@ -110,8 +110,8 @@ public class InboundProcessingEventDescriptionBuilder extends BaseEventDescripti
      * @see gov.hhs.fha.nhinc.event.EventDescriptionBuilder#buildPayloadSize()
      */
     @Override
-    public void buildPayloadSize() {
-        provideAndRegisterBuilder.buildPayloadSize();
+    public void buildPayloadSizes() {
+        provideAndRegisterBuilder.buildPayloadSizes();
         setPayloadSizes(provideAndRegisterBuilder.getEventDescription().getPayloadSizes());
     }
 

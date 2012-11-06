@@ -102,7 +102,7 @@ public class RegistryResponseDescriptionBuilder extends BaseEventDescriptionBuil
      * @see gov.hhs.fha.nhinc.event.EventDescriptionBuilder#buildPayloadSize()
      */
     @Override
-    public void buildPayloadSize() {
+    public void buildPayloadSizes() {
         // Not available on the response
     }
 

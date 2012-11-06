@@ -8,29 +8,15 @@
     the License. -->
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:jaxws="http://cxf.apache.org/jaxws" xmlns:soap="http://cxf.apache.org/bindings/soap"
-    xmlns:aop="http://www.springframework.org/schema/aop"
     xsi:schemaLocation="
 http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 http://cxf.apache.org/bindings/soap http://cxf.apache.org/schemas/configuration/soap.xsd
-http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd http://www.springframework.org/schema/aop
-http://www.springframework.org/schema/aop/spring-aop.xsd">
-
-    <import resource="classpath:META-INF/cxf/cxf.xml" />
-    <import resource="classpath:META-INF/cxf/cxf-extension-soap.xml" />
-    <import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
-    <import resource="classpath:CONNECT-interceptor-beans.xml" />
+http://cxf.apache.org/jaxws">
 
     <!-- Admin Distribution -->
 
     <!-- Nhin services -->
-    <bean id="nhinAdminDistributionOrchImpl"
-        class="gov.hhs.fha.nhinc.admindistribution.nhin.NhinAdminDistributionOrchImpl" />
-    <bean id="NhinAdministrativeDistributionBean_g1"
-        class="gov.hhs.fha.nhinc.admindistribution._20.nhin.NhinAdministrativeDistribution_g1">
-        <property name="orchestratorImpl">
-            <ref bean="nhinAdminDistributionOrchImpl"/>
-        </property>
-    </bean>
+
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:nhinadmindistribution" id="NhinAdministrativeDistribution_g1"
         address="/NhinService/NhinAdminDist" serviceName="tns:RespondingGateway_AdministrativeDistribution"
         endpointName="tns:RespondingGateway_AdministrativeDistribution_PortType"
@@ -60,13 +46,7 @@ http://www.springframework.org/schema/aop/spring-aop.xsd">
     </jaxws:endpoint>
 
     <!-- Entity services -->
-    <bean id="EntityAdminDistributionOrchImpl" class="gov.hhs.fha.nhinc.admindistribution.entity.EntityAdminDistributionOrchImpl" />
-    <bean id="EntityAdministrativeDistributionSecuredBean_g1"
-        class="gov.hhs.fha.nhinc.admindistribution._20.entity.EntityAdministrativeDistributionSecured_g1" >
-        <property name="orchestratorImpl">
-            <ref bean="EntityAdminDistributionOrchImpl"/>
-        </property>
-    </bean>
+
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:entityadmindistribution" id="EntityAdministrativeDistributionSecured_g1"
         address="/AdministrativeDistributionSecured_Service" serviceName="tns:AdministrativeDistributionSecured_Service"
         endpointName="tns:AdministrativeDistributionSecured_PortType"
@@ -91,12 +71,7 @@ http://www.springframework.org/schema/aop/spring-aop.xsd">
         </jaxws:handlers>
     </jaxws:endpoint>
 
-    <bean id="EntityAdministrativeDistributionBean_g1"
-        class="gov.hhs.fha.nhinc.admindistribution._20.entity.EntityAdministrativeDistribution_g1" >
-        <property name="orchestratorImpl">
-            <ref bean="EntityAdminDistributionOrchImpl"/>
-        </property>
-    </bean>
+
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:entityadmindistribution" id="EntityAdministrativeDistribution_g1"
         address="/AdministrativeDistribution_Service" serviceName="tns:AdministrativeDistribution_Service"
         endpointName="tns:AdministrativeDistribution_PortType"
@@ -113,14 +88,7 @@ http://www.springframework.org/schema/aop/spring-aop.xsd">
 
 
     <!-- MsgProxy/NhincProxy/Passthru services -->
-    <bean id="PassthruAdminDistributionOrchImpl"
-        class="gov.hhs.fha.nhinc.admindistribution.passthru.PassthruAdminDistributionOrchImpl"/>
-    <bean id="NhincAdminDistSecuredBean_g1"
-        class="gov.hhs.fha.nhinc.admindistribution._20.passthru.NhincAdminDistSecured_g1">
-        <property name="orchestratorImpl">
-            <ref bean="PassthruAdminDistributionOrchImpl"/>
-        </property>
-    </bean>
+
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:nhincadmindistribution" id="NhincAdminDistSecured_g1"
         address="/MsgProxy/NhincProxyAdminDistSecured" serviceName="tns:NhincAdminDistSecuredService"
         endpointName="tns:NhincAdminDistSecured_PortType"
@@ -145,11 +113,7 @@ http://www.springframework.org/schema/aop/spring-aop.xsd">
         </jaxws:handlers>
     </jaxws:endpoint>
 
-    <bean id="NhincAdminDistBean_g1" class="gov.hhs.fha.nhinc.admindistribution._20.passthru.NhincAdminDist_g1">
-        <property name="orchestratorImpl">
-            <ref bean="PassthruAdminDistributionOrchImpl"/>
-        </property>
-    </bean>
+
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:nhincadmindistribution" id="NhincAdminDist_g1"
         address="/MsgProxy/NhincProxyAdminDist" serviceName="tns:NhincAdminDistService"
         endpointName="tns:NhincAdminDist_PortType"
@@ -163,9 +127,4 @@ http://www.springframework.org/schema/aop/spring-aop.xsd">
             <entry key="mtom-enabled" value="true" />
         </jaxws:properties>
     </jaxws:endpoint>
-
-    <bean id="SOAPHeaderHandler" class="gov.hhs.fha.nhinc.callback.SOAPHeaderHandler" />
-    <bean id="TransactionHandler" class="gov.hhs.fha.nhinc.logging.transaction.TransactionHandler" />
-    
-    <aop:aspectj-autoproxy />
 </beans>

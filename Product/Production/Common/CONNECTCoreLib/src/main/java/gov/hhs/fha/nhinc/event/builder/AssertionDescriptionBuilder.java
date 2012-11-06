@@ -93,7 +93,7 @@ public class AssertionDescriptionBuilder extends BaseEventDescriptionBuilder {
      * @see gov.hhs.fha.nhinc.event.EventDescriptionBuilder#buildPayloadSize()
      */
     @Override
-    public void buildPayloadSize() {
+    public void buildPayloadSizes() {
         // Not available in the assertion
 
     }

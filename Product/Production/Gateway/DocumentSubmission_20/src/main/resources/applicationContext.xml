@@ -13,7 +13,7 @@ http://www.springframework.org/schema/aop http://www.springframework.org/schema/
     <bean id="SOAPHeaderHandler" class="gov.hhs.fha.nhinc.callback.SOAPHeaderHandler" />
     <bean id="TransactionHandler" class="gov.hhs.fha.nhinc.logging.transaction.TransactionHandler" />
 
-    <!-- Do we need these?  -->
+    <!-- Do we need these? -->
     <bean id="auditRepositoryLogger" class="gov.hhs.fha.nhinc.auditrepository.AuditRepositoryLogger" />
     <bean id="auditRepositoryProxyObjectFactory" class="gov.hhs.fha.nhinc.auditrepository.nhinc.proxy.AuditRepositoryProxyObjectFactory" />
 
@@ -134,7 +134,4 @@ http://www.springframework.org/schema/aop http://www.springframework.org/schema/
             <ref bean="passthruDocSubmissionDeferredResponseOrchImpl" />
         </property>
     </bean>
-
-
-
 </beans>

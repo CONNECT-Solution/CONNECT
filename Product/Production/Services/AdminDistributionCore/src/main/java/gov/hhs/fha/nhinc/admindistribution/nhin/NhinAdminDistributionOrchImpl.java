@@ -37,6 +37,8 @@ import gov.hhs.fha.nhinc.admindistribution.AdminDistributionPolicyChecker;
 import gov.hhs.fha.nhinc.admindistribution.AdminDistributionUtils;
 import gov.hhs.fha.nhinc.admindistribution.adapter.proxy.AdapterAdminDistributionProxy;
 import gov.hhs.fha.nhinc.admindistribution.adapter.proxy.AdapterAdminDistributionProxyObjectFactory;
+import gov.hhs.fha.nhinc.admindistribution.aspect.InboundProcessingDescriptionBuilder;
+import gov.hhs.fha.nhinc.aspect.InboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.largefile.LargePayloadException;
@@ -44,7 +46,7 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 
 
 /**
- * 
+ *
  * @author dunnek
  */
 public class NhinAdminDistributionOrchImpl {
@@ -62,6 +64,7 @@ public class NhinAdminDistributionOrchImpl {
         return AdminDistributionUtils.getInstance();
     }
 
+    @InboundProcessingEvent(serviceType="Admin Distribution", version="2.0", descriptionBuilder=InboundProcessingDescriptionBuilder.class)
     public void sendAlertMessage(EDXLDistribution body, AssertionType assertion) {
         log.info("begin sendAlert");
         // With the one-way service in a one-machine setup,

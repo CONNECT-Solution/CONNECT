@@ -31,7 +31,9 @@ import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
 
+import gov.hhs.fha.nhinc.admindistribution.aspect.EDXLDistributionDescriptionBuilder;
 import gov.hhs.fha.nhinc.admindistribution.nhin.NhinAdminDistributionOrchImpl;
+import gov.hhs.fha.nhinc.aspect.InboundMessageEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
 
@@ -49,6 +51,8 @@ public class NhinAdministrativeDistribution implements gov.hhs.fha.nhinc.nhinadm
     private NhinAdminDistributionOrchImpl orchImpl;
 
     @Override
+    @InboundMessageEvent(serviceType = "Admin Distribution", version = "1.0",
+    descriptionBuilder = EDXLDistributionDescriptionBuilder.class)
     public void sendAlertMessage(oasis.names.tc.emergency.edxl.de._1.EDXLDistribution body) {
         AssertionType assertion = extractAssertion(context);
         getOrchestratorImpl().sendAlertMessage(body, assertion);

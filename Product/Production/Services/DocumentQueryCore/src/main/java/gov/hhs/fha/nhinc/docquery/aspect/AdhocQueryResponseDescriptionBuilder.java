@@ -95,7 +95,7 @@ public class AdhocQueryResponseDescriptionBuilder extends BaseEventDescriptionBu
     }
 
     @Override
-    public void buildPayloadSize() {
+    public void buildPayloadSizes() {
         if (hasObjectList()) {
             List<Optional<String>> listWithDups = Lists.transform(response.getRegistryObjectList().getIdentifiable(),
                     PAYLOAD_SIZE_EXTRACTOR);

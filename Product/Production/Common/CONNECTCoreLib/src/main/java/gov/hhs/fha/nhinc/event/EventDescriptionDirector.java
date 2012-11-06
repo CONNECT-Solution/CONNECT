@@ -22,7 +22,7 @@ public class EventDescriptionDirector {
         builder.buildResponseMsgIdList();
         builder.buildRespondingHCIDs();
         builder.buildPayloadTypes();
-        builder.buildPayloadSize();
+        builder.buildPayloadSizes();
         builder.buildNPI();
         builder.buildInitiatingHCID();
         builder.buildErrorCodes();

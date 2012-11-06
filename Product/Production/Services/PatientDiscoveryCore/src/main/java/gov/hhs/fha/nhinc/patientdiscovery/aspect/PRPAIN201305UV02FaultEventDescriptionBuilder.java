@@ -36,7 +36,7 @@ public class PRPAIN201305UV02FaultEventDescriptionBuilder extends BaseEventDescr
     }
 
     @Override
-    public void buildPayloadSize() {
+    public void buildPayloadSizes() {
     }
 
     @Override

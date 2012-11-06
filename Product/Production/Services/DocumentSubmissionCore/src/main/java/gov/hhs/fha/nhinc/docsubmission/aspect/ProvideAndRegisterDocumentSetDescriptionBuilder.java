@@ -108,7 +108,7 @@ public class ProvideAndRegisterDocumentSetDescriptionBuilder extends BaseEventDe
      * @see gov.hhs.fha.nhinc.event.EventDescriptionBuilder#buildPayloadSize()
      */
     @Override
-    public void buildPayloadSize() {
+    public void buildPayloadSizes() {
         // ProvideAndRegisterDocumentSetRequest/SubmitObjectRequest/RegistryObjectList/ExtrinsicObject[1...n]/Slot[@name=size]/ValueList/Value
         if (hasObjectList()) {
             List<Optional<String>> listWithDups = Lists.transform(request.getSubmitObjectsRequest()
