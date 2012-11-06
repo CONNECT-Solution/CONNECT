@@ -29,7 +29,13 @@ import javax.xml.transform.stream.StreamResult;
 
 import org.apache.log4j.Logger;
 
-class FileUtils {
+/**
+ * Utility class for SoapUI Connect testing.  Utility methods are for file
+ * manipulation for CONNECT config files.  Logs to SoapUI logger.
+ * @author jasonasmith, mtiller
+ *
+ */
+public class FileUtil {
 
 	static String[] files2restore = { "hiemTopicConfiguration.xml",
 			"internalConnectionInfo.xml", "PCConfiguration.xml",
@@ -41,6 +47,12 @@ class FileUtils {
 			"uddiConnectionInfo.xml", "XDSUniqueIds.properties",
 			"gateway.properties", "adapter.properties", "purposeUse.properties" };
 
+	/**
+	 * Reads in a file with a given file name and converts to a String.
+	 * @param fileName Name of file to be read.
+	 * @param log SoapUI logger.
+	 * @return String value of file.
+	 */
 	public static String readFile(String fileName, Logger log) {
 		try {
 
@@ -83,23 +95,45 @@ class FileUtils {
 
 	}
 
+	/**
+	 * Sets the connection info files in a given config directory to have
+	 * only endpoints that support the CONNECT specs prior to July, 2011.
+	 * @param sourceDirectory Directory the config  files are read from.
+	 * @param destDirectory The config directory the files are copied to.
+	 * @param log SoapUI logger.
+	 */
 	public static void setG0ConnectionInfo(String sourceDirectory,
 			String destDirectory, Logger log) {
-		moveFile(sourceDirectory, "uddiConnectionInfo_g0.xml", destDirectory,
+		copyFile(sourceDirectory, "uddiConnectionInfo_g0.xml", destDirectory,
 				"uddiConnectionInfo.xml", log);
-		moveFile(sourceDirectory, "internalConnectionInfo_g0.xml",
+		copyFile(sourceDirectory, "internalConnectionInfo_g0.xml",
 				destDirectory, "internalConnectionInfo.xml", log);
 	}
 
+	/**
+	 * Sets the connection info files in a given config directory to have
+	 * only endpoints that support the CONNECT specs post July, 2011.
+	 * @param sourceDirectory Directory the config files are read from.
+	 * @param destDirectory The config directory the files are copied to.
+	 * @param log SoapUI logger.
+	 */
 	public static void setG1ConnectionInfo(String sourceDirectory,
 			String destDirectory, Logger log) {
-		moveFile(sourceDirectory, "uddiConnectionInfo_g1.xml", destDirectory,
+		copyFile(sourceDirectory, "uddiConnectionInfo_g1.xml", destDirectory,
 				"uddiConnectionInfo.xml", log);
-		moveFile(sourceDirectory, "internalConnectionInfo_g1.xml",
+		copyFile(sourceDirectory, "internalConnectionInfo_g1.xml",
 				destDirectory, "internalConnectionInfo.xml", log);
 	}
 
-	public static void moveFile(String sourceDirectory, String sourceFileName,
+	/**
+	 * Copies given source file to the given destination file.
+	 * @param sourceDirectory Directory of file to be copied.
+	 * @param sourceFileName File name of file to be copied.
+	 * @param destinationDirectory Directory that file is copied into.
+	 * @param destinationFileName File name of file copy.
+	 * @param log SoapUI logger.
+	 */
+	public static void copyFile(String sourceDirectory, String sourceFileName,
 			String destinationDirectory, String destinationFileName, Logger log) {
 
 		File sourceFile = new File(sourceDirectory, sourceFileName);
@@ -140,6 +174,12 @@ class FileUtils {
 		}
 	}
 
+	/**
+	 * Deletes a given file.
+	 * @param sourceDirectory Directory of file to be deleted.
+	 * @param sourceFileName File name of file to be deleted.
+	 * @param log SoapUI logger.
+	 */
 	public static void deleteFile(String sourceDirectory,
 			String sourceFileName, Logger log) {
 
@@ -152,6 +192,14 @@ class FileUtils {
 		}
 	}
 
+	/**
+	 * Updates a property file with the given key/value pair.
+	 * @param directory Directory of properties file.
+	 * @param filename File name of properties file.
+	 * @param propertyKey Key value for property to be updated.
+	 * @param propertyValue Value of property for updating.
+	 * @param log SoapUI logger.
+	 */
 	public static void updateProperty(String directory, String filename,
 			String propertyKey, String propertyValue, Logger log) {
 		FileWriter fwPropFile = null;
@@ -194,6 +242,14 @@ class FileUtils {
 		}
 	}
 
+	/**
+	 * Reads a property from the given property file with the given key.
+	 * @param directory Directory of properties file.
+	 * @param filename File name of properties file.
+	 * @param propertyKey Key value of property to be read.
+	 * @param log SoapUI logger.
+	 * @return The string value of the read property.
+	 */
 	public static String readProperty(String directory, String filename,
 			String propertyKey, Logger log) {
 		try {
@@ -222,6 +278,16 @@ class FileUtils {
 		}
 	}
 
+	/**
+	 * Updates a Spring config file in the given CONNECT config directory
+	 * with the desired implementation setting.
+	 * @param configDir Directory of spring proxy file.
+	 * @param fileName File name of spring proxy file.
+	 * @param desiredImpltype The desired implementation type of the spring proxy config.
+	 * @param beanName The name of the java bean that will be modified.
+	 * @param log SoapUI logger.
+	 * @throws Exception Throws exception on not finding bean or wrong bean name.
+	 */
 	public static void changeSpringConfig(String configDir, String fileName,
 			String desiredImpltype, String beanName, Logger log)
 			throws Exception {
@@ -365,6 +431,18 @@ class FileUtils {
 		}
 	}
 
+	/**
+	 * Creates or edits an endpoint in the given connection info file in the 
+	 * given CONNECT config directory.
+	 * @param fileName File name of config file to be updated.
+	 * @param directory Directory of config file to be updated.
+	 * @param communityId Home Community ID of endpoint update.
+	 * @param serviceName The name of the CONNECT service that is getting
+	 * updated/added.
+	 * @param serviceUrl URL of service for updating/adding.
+	 * @param defaultVersion The default spec version.
+	 * @param log SoapUI logger.
+	 */
 	public static void createOrUpdateConnection(String fileName,
 			String directory, String communityId, String serviceName,
 			String serviceUrl, String defaultVersion, Logger log) {
@@ -566,7 +644,12 @@ class FileUtils {
 							+ e.getMessage(), e);
 		}
 	}
-
+	
+	/**
+	 * Copies a list of configuration values to a temporary directory.
+	 * @param configDir Configuration directory of files to be backed up.
+	 * @param log SoapUI logger.
+	 */
 	public static void backupConfiguration(String configDir, Logger log) {
 		log.info("Start backupConfiguration");
 		try {
@@ -576,7 +659,7 @@ class FileUtils {
 			backupDir.mkdir();
 
 			for (String fileName : files2backup) {
-				moveFile(confDir.getAbsolutePath(), fileName,
+				copyFile(confDir.getAbsolutePath(), fileName,
 						backupDir.getAbsolutePath(), fileName, log);
 			}
 		} catch (Throwable e) {
@@ -585,6 +668,14 @@ class FileUtils {
 		log.info("End backupConfiguration");
 	}
 
+	/**
+	 * Restores a list of configuration values from a temporary directory.
+	 * The temporary directory is deleted after the restore based on the
+	 * passed in optionDel boolean.
+	 * @param configDir Configuration directory for files to be restored to.
+	 * @param log SoapUI logger.
+	 * @param optionDel Flag for deleting the temporary directory.
+	 */
 	public static void restoreConfiguration(String configDir, Logger log,
 			Boolean optionDel) {
 		log.info("Start restoreConfiguration");
@@ -593,7 +684,7 @@ class FileUtils {
 			File confDir = new File(configDir);
 
 			for (String fileName : files2restore) {
-				moveFile(backupDir.getAbsolutePath(), fileName,
+				copyFile(backupDir.getAbsolutePath(), fileName,
 						confDir.getAbsolutePath(), fileName, log);
 				if (optionDel == true) {
 					File tmpFile = new File(backupDir.getAbsolutePath(),
@@ -611,31 +702,15 @@ class FileUtils {
 		log.info("End restoreConfiguration");
 	}
 
+	/**
+	 * Restores a list of configurable values from a temporary directory which
+	 * is deleted on completion.
+	 * @param configDir Configuration directory for files to be restored to.
+	 * @param log SoapUI logger.
+	 */
 	public static void restoreConfiguration(String configDir, Logger log) {
 		restoreConfiguration(configDir, log, true);
 	}
-
-	public static void restoreToMasterConfiguration(String configFile,
-			Logger log) {
-
-		log.info("Start restoreToMasterConfiguration");
-		try {
-
-			String masterDirFile = configFile + "/master";
-			File masterDir = new File(masterDirFile);
-			File confDir = new File(configFile);
-
-			for (String fileName : files2restore) {
-				moveFile(masterDir.getAbsolutePath(), fileName,
-						confDir.getAbsolutePath(), fileName, log);
-			}
-
-		} catch (Throwable e) {
-			log.error(e.getMessage());
-		}
-		log.info("End restoreToMasterConfiguration");
-	}
-
 	
 
 }
