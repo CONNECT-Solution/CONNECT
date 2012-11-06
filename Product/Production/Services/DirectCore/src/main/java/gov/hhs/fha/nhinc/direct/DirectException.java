@@ -1,3 +1,5 @@
+package gov.hhs.fha.nhinc.direct;
+
 /*
  * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
@@ -24,74 +26,28 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.direct;
-
-import gov.hhs.fha.nhinc.properties.PropertyAccessor;
-
-import java.util.Properties;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 /**
- * Defines direct mail server settings (internal or external).
+ * Exceptions for {@link MimeMessageBuilder}.
  */
-public class MailServerSettings {
+public class DirectException extends RuntimeException {
 
-    private static final Log log = LogFactory.getLog(MailServerSettings.class);
-    
-    private final Properties props;
-    
+    private static final long serialVersionUID = 4636463959045310435L;
+
     /**
-     * Construct mail server settings based on property file.
-     * @param propsFilename to use.
+     * Constructor.
+     * @param message for the exception
+     * @param cause chained exception
      */
-    public MailServerSettings(final String propsFilename) {
-        
-        Properties props = null;
-        try {
-            props = PropertyAccessor.getInstance().getProperties(propsFilename);
-        } catch (Exception e) {
-            log.error("Exception while reading properties file: " + propsFilename + ".properties", e);
-        }
-        this.props = props;
+    public DirectException(String message, Throwable cause) {
+        super(message, cause);
     }
 
     /**
      * Constructor.
-     * @param props properties used to define this mail server.
+     * @param message for the exception
      */
-    public MailServerSettings(Properties props) {
-        this.props = props;
+    public DirectException(String message) {
+        super(message);
     }
-    
-    /**
-     * @return smtp properties used by javamail.
-     */
-    public Properties getSmtpProperties() {
-        // passthru smtp props for javamail. todo - we could extract only the javamail props. 
-        return props;
-    }
-
-    /**
-     * @return host name for the imap mail server.
-     */
-    public String getImapHost() {        
-        return props.getProperty("imap.host");
-    }
-
-    /**
-     * @return username for the mail server.
-     */
-    public String getUsername() {
-        return props.getProperty("imap.username");
-    }
-
-    /**
-     * @return password for the mail server.
-     */
-    public String getPassword() {
-        return props.getProperty("imap.password");
-    }
-
 }

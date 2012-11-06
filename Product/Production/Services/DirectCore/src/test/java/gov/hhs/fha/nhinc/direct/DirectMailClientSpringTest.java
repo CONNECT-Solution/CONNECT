@@ -26,17 +26,49 @@
  */
 package gov.hhs.fha.nhinc.direct;
 
-import javax.mail.Message;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNotSame;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
- * Direct Message Handler is invoked when messages are retrieved from a mail server.
+ * Test {@link DirectMailClient} with Spring Framework Configuration.
  */
-public interface MessageHandler {
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration("/test.direct.appcontext.xml")
+public class DirectMailClientSpringTest {
 
-    /**
-     * Handle a message retrieved from the mail server.
-     * @param message to be handled.
-     */
-    void handleMessage(Message message);
+    @Autowired
+    private DirectMailClient intDirectMailClient;
+
+    @Autowired
+    private DirectMailClient extDirectMailClient;
     
+    /**
+     * Test that we can get an external mail client with spring.
+     */
+    @Test
+    public void canGetExternalMailClient() {
+        assertNotNull(extDirectMailClient);
+    }
+    
+    /**
+     * Test that we can get an internal mail client with spring.
+     */
+    @Test
+    public void canGetInternalMailClient() {
+        assertNotNull(intDirectMailClient);
+    }
+    
+    /**
+     * Test that the two mail clients are distinct instances.
+     */
+    @Test
+    public void canDistinguishInternalExternal() {
+        assertNotSame(intDirectMailClient, extDirectMailClient);        
+    }
 }
