@@ -12,8 +12,8 @@
     <name>CONNECT Product</name>
     <properties>
         <checkstyle.skip>false</checkstyle.skip>
-        <checkstyle.settings.file>checkstyle.settings.xml</checkstyle.settings.file>
         <cxf.version>2.6.0</cxf.version>
+        <checkstyle.settings.file>checkstyle.settings.xml</checkstyle.settings.file>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <connect.common.properties>Dev</connect.common.properties>
         <skip.cobertura>false</skip.cobertura>
