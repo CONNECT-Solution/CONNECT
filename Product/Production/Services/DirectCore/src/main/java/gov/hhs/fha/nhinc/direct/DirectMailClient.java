@@ -31,14 +31,21 @@ import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType.Document;
 import java.util.Properties;
 
 import javax.mail.Address;
+import javax.mail.Flags;
+import javax.mail.Folder;
+import javax.mail.Message;
 import javax.mail.MessagingException;
+import javax.mail.NoSuchProviderException;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
+import javax.mail.Store;
 import javax.mail.Transport;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.nhindirect.gateway.smtp.MessageProcessResult;
 import org.nhindirect.gateway.smtp.SmtpAgent;
 import org.nhindirect.stagent.AddressSource;
@@ -50,10 +57,14 @@ import org.nhindirect.stagent.NHINDAddressCollection;
  */
 public class DirectMailClient implements DirectClient {
 
+    private static Log log = LogFactory.getLog(DirectMailClient.class);
+    
     // TODO - Where should these come from?...
     private static final String MSG_SUBJECT = "DIRECT Message";
     private static final String MSG_TEXT = "DIRECT Message body text";
-    
+    private static final String DEF_NUM_MSGS_TO_HANDLE = "25";
+    private static final int MSG_INDEX_START = 1;
+        
     private final Properties mailServerProps;    
     private final SmtpAgent smtpAgent;
     
@@ -73,7 +84,8 @@ public class DirectMailClient implements DirectClient {
     @Override
     public void send(String sender, String recipient, Document attachment, String attachmentName) {
 
-        Session session = Session.getInstance(mailServerProps, new SMTPAuthenticator());
+        Session session = Session.getInstance(mailServerProps, new MailAuthenticator());
+//        Session session = Session.getInstance(mailServerProps);
 
         MimeMessage mimeMessage = new MimeMessageBuilder(session, sender, recipient).subject(MSG_SUBJECT)
                 .text(MSG_TEXT).attachment(attachment).attachmentName(attachmentName).build();
@@ -119,20 +131,68 @@ public class DirectMailClient implements DirectClient {
      */
     @Override
     public int handleMessages(MessageHandler handler) {
-        // TODO Auto-generated method stub
-        return 0;
+
+        Session session = Session.getInstance(mailServerProps, new MailAuthenticator());
+
+        Store store = null;
+        try {
+            store = session.getStore("imaps");
+        } catch (NoSuchProviderException e) { 
+            throw new DirectException("Exception getting imaps store from session", e);            
+        }
+        
+        try {
+            store.connect();
+        } catch (MessagingException e) {
+            MailUtils.closeQuietly(store);
+            throw new DirectException("Could not connect to imaps mail store", e);
+        }        
+        
+        Folder inbox = null;
+        try {
+            inbox = store.getFolder(MailUtils.FOLDER_NAME_INBOX);
+            inbox.open(Folder.READ_WRITE);            
+        } catch (MessagingException e) {
+            MailUtils.closeQuietly(store);
+            throw new DirectException("Could not open " + MailUtils.FOLDER_NAME_INBOX + " for READ_WRITE" , e);            
+        }
+                        
+        Message messages[] = null;
+        try {
+            // TODO Right now the code assumes that we can connect to the mail server at the configured 
+            // host, with the configured user and every message sitting in the inbox is one that needs to be handled.
+            // we may need to filter on a list of domains.
+            messages = inbox.getMessages(MSG_INDEX_START, getNumberOfMsgsToHandle(inbox));
+        } catch (MessagingException e) {
+            MailUtils.closeQuietly(store, inbox, MailUtils.FOLDER_EXPUNGE_INBOX_FALSE);
+            throw new DirectException("Exception while retrieving messages from inbox.", e);
+        }
+
+        for (Message message : messages) {
+            try {
+                handler.handleMessage(message);
+                message.setFlag(Flags.Flag.DELETED, true);
+            } catch (Exception e) {
+                // messages that were handled successfully are removed from the server...
+                MailUtils.closeQuietly(store, inbox, MailUtils.FOLDER_EXPUNGE_INBOX_TRUE);
+                throw new DirectException("Exception while handling message.", e);                
+            }
+        }
+        
+        MailUtils.closeQuietly(store, inbox, MailUtils.FOLDER_EXPUNGE_INBOX_TRUE);
+        return messages.length;                
     }
 
     /**
      * Authenticator used to provide login credentials to the mail server.
      */
-    private class SMTPAuthenticator extends javax.mail.Authenticator {
+    private class MailAuthenticator extends javax.mail.Authenticator {
         /**
          * {@inheritDoc}
          */
         public PasswordAuthentication getPasswordAuthentication() {
-            return new PasswordAuthentication(mailServerProps.getProperty("mail.smtp.user"), 
-                    mailServerProps.getProperty("mail.smtp.password"));
+            return new PasswordAuthentication(mailServerProps.getProperty("direct.mail.user"), 
+                    mailServerProps.getProperty("direct.mail.pass"));
         }
     }
     
@@ -156,6 +216,18 @@ public class DirectMailClient implements DirectClient {
         
         NHINDAddress senderNhindAddress = new NHINDAddress(senderAddr, AddressSource.From);
         return smtpAgent.processMessage(mimeMessage, recipients, senderNhindAddress);   
+    }
+    
+    /**
+     * @param folder used to get message count on the server.
+     * @return number of messages we need to handle (whichever number is less).
+     * @throws MessagingException if error communicating with mail server.
+     */
+    private int getNumberOfMsgsToHandle(Folder folder) throws MessagingException {
+        int numberOfMsgsInFolder = folder.getMessageCount();
+        int maxNumberOfMsgsToHandle = Integer.parseInt(
+                mailServerProps.getProperty("direct.number.of.messages", DEF_NUM_MSGS_TO_HANDLE));
+        return numberOfMsgsInFolder < maxNumberOfMsgsToHandle ? numberOfMsgsInFolder : maxNumberOfMsgsToHandle;
     }
     
 }

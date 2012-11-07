@@ -46,7 +46,7 @@ public class MimeMessageBuilderTest {
     /**
      * Java mail session.
      */
-    private final Session session = Session.getInstance(getMailServerProps(3456, SENDER, SENDER));
+    private final Session session = Session.getInstance(getMailServerProps(3456, 3143));
     
     /**
      * Test that we can build a message with all of the properties of the mime message set.

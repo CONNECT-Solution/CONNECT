@@ -30,6 +30,3 @@
     <util:properties id="internalMailProperties" location="classpath:/test.mail.internal.properties" />
     <util:properties id="externalMailProperties" location="classpath:/test.mail.external.properties" />
 </beans>
-
-      
-
