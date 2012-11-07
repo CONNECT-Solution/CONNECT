@@ -85,7 +85,6 @@ public class DirectMailClient implements DirectClient {
     public void send(String sender, String recipient, Document attachment, String attachmentName) {
 
         Session session = Session.getInstance(mailServerProps, new MailAuthenticator());
-//        Session session = Session.getInstance(mailServerProps);
 
         MimeMessage mimeMessage = new MimeMessageBuilder(session, sender, recipient).subject(MSG_SUBJECT)
                 .text(MSG_TEXT).attachment(attachment).attachmentName(attachmentName).build();
@@ -159,9 +158,6 @@ public class DirectMailClient implements DirectClient {
                         
         Message[] messages = null;
         try {
-            // TODO Right now the code assumes that we can connect to the mail server at the configured 
-            // host, with the configured user and every message sitting in the inbox is one that needs to be handled.
-            // we may need to filter on a list of domains.
             messages = inbox.getMessages(MSG_INDEX_START, getNumberOfMsgsToHandle(inbox));
         } catch (MessagingException e) {
             MailUtils.closeQuietly(store, inbox, MailUtils.FOLDER_EXPUNGE_INBOX_FALSE);
