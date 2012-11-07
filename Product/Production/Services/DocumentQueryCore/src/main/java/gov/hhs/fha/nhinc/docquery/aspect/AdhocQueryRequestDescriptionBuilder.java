@@ -128,6 +128,14 @@ public class AdhocQueryRequestDescriptionBuilder extends BaseEventDescriptionBui
         return assertionExtractor;
     }
 
+    protected Optional<AdhocQueryRequest> getRequest() {
+        return request;
+    }
+
+    protected Optional<AssertionType> getAssertion() {
+        return assertion;
+    }
+
     private Optional<AdhocQueryRequest> extractRequest(Object[] arguments) {
         if (arguments != null && arguments.length > 0 && arguments[0] instanceof AdhocQueryRequest) {
             return Optional.of((AdhocQueryRequest) arguments[0]);

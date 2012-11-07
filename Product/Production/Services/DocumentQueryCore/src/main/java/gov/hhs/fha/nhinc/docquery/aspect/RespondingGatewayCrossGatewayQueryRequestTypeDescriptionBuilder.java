@@ -28,68 +28,129 @@
  */
 package gov.hhs.fha.nhinc.docquery.aspect;
 
-import gov.hhs.fha.nhinc.event.BaseEventDescriptionBuilder;
+import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayQueryRequestType;
+import gov.hhs.fha.nhinc.event.EventContextAccessor;
+import gov.hhs.fha.nhinc.event.EventDescription;
+import gov.hhs.fha.nhinc.event.EventDescriptionBuilder;
+import gov.hhs.fha.nhinc.event.MessageRoutingAccessor;
 
-public class RespondingGatewayCrossGatewayQueryRequestTypeDescriptionBuilder extends BaseEventDescriptionBuilder {
+public class RespondingGatewayCrossGatewayQueryRequestTypeDescriptionBuilder implements EventDescriptionBuilder {
+
+    private AdhocQueryRequestDescriptionBuilder delegate = new AdhocQueryRequestDescriptionBuilder();
+    private MessageRoutingAccessor msgRouting;
+    private EventContextAccessor msgContext;
 
     @Override
     public void buildTimeStamp() {
-        // TODO Auto-generated method stub
-
+        delegate.buildTimeStamp();
     }
 
     @Override
     public void buildStatuses() {
-        // TODO Auto-generated method stub
-
+        delegate.buildStatuses();
     }
 
     @Override
     public void buildRespondingHCIDs() {
-        // TODO Auto-generated method stub
-
+        delegate.buildRespondingHCIDs();
     }
 
     @Override
     public void buildPayloadTypes() {
-        // TODO Auto-generated method stub
-
+        delegate.buildPayloadTypes();
     }
 
     @Override
     public void buildPayloadSize() {
-        // TODO Auto-generated method stub
-
+        delegate.buildPayloadSize();
     }
 
     @Override
     public void buildNPI() {
-        // TODO Auto-generated method stub
-
+        delegate.buildNPI();
     }
 
     @Override
     public void buildInitiatingHCID() {
-        // TODO Auto-generated method stub
-
+        delegate.buildInitiatingHCID();
     }
 
     @Override
     public void buildErrorCodes() {
-        // TODO Auto-generated method stub
+        delegate.buildErrorCodes();
+    }
 
+    @Override
+    public void buildMessageId() {
+        delegate.buildMessageId();
+    }
+
+    @Override
+    public void buildTransactionId() {
+        delegate.buildTransactionId();
+    }
+
+    @Override
+    public void buildServiceType() {
+        delegate.buildServiceType();
+    }
+
+    @Override
+    public void buildResponseMsgIdList() {
+        delegate.buildResponseMsgIdList();
+    }
+
+    @Override
+    public void buildAction() {
+        delegate.buildAction();
+    }
+
+    @Override
+    public EventDescription getEventDescription() {
+        return delegate.getEventDescription();
+    }
+
+    @Override
+    public void createEventDescription() {
+        delegate.createEventDescription();
     }
 
     @Override
     public void setArguments(Object... arguments) {
-        // TODO Auto-generated method stub
-
+        RespondingGatewayCrossGatewayQueryRequestType request = (RespondingGatewayCrossGatewayQueryRequestType) arguments[0];
+        delegate.setArguments(request.getAdhocQueryRequest(), request.getAssertion());
     }
 
     @Override
     public void setReturnValue(Object returnValue) {
-        // TODO Auto-generated method stub
-
+        delegate.setReturnValue(returnValue);
     }
 
+    protected AdhocQueryRequestDescriptionBuilder getDelegate() {
+        return delegate;
+    }
+
+    protected void setDelegate(AdhocQueryRequestDescriptionBuilder delegate) {
+        this.delegate = delegate;
+        setMsgObjects();
+    }
+
+    @Override
+    public void setMsgRouting(MessageRoutingAccessor msgRouting) {
+        this.msgRouting = msgRouting;
+        setMsgObjects();
+    }
+
+    @Override
+    public void setMsgContext(EventContextAccessor msgContext) {
+        this.msgContext = msgContext;
+        setMsgObjects();
+    }
+
+    private void setMsgObjects() {
+        if (delegate != null) {
+            delegate.setMsgContext(msgContext);
+            delegate.setMsgRouting(msgRouting);
+        }
+    }
 }

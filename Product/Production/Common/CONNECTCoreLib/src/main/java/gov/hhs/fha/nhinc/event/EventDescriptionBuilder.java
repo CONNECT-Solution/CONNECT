@@ -2,34 +2,58 @@ package gov.hhs.fha.nhinc.event;
 
 public interface EventDescriptionBuilder {
 
-    public void buildMessageId();
+    void buildMessageId();
 
-    public void buildTransactionId();
+    void buildTransactionId();
 
-    public void buildTimeStamp();
+    void buildTimeStamp();
 
-    public void buildStatuses();
+    void buildStatuses();
 
-    public void buildServiceType();
+    void buildServiceType();
 
-    public void buildResponseMsgIdList();
+    void buildResponseMsgIdList();
 
-    public void buildRespondingHCIDs();
+    void buildRespondingHCIDs();
 
-    public void buildPayloadTypes();
+    void buildPayloadTypes();
 
-    public void buildPayloadSize();
+    void buildPayloadSize();
 
-    public void buildNPI();
+    void buildNPI();
 
-    public void buildInitiatingHCID();
+    void buildInitiatingHCID();
 
-    public void buildErrorCodes();
+    void buildErrorCodes();
 
-    public void buildAction();
+    void buildAction();
 
-    public EventDescription getEventDescription();
+    EventDescription getEventDescription();
 
-    public void createEventDescription();
+    void createEventDescription();
 
+    /**
+     * Intended to take the arguments from the method that was executed when this event was triggered and to be used to
+     * build the event description. Needs to be implemented in sub classes because only the subs will know what objects
+     * they can operate on.
+     * 
+     * @param arguments
+     */
+    void setArguments(Object... arguments);
+
+    /**
+     * Intended to take the return value from the method that was executed when this event was triggered and to be used
+     * to build the event description. Needs to be implemented in sub classes because only the subs will know what
+     * objects they can operate on.
+     * 
+     * The returnValue will only have a valid object if the event was executed after returning from a method. It will be
+     * null otherwise.
+     * 
+     * @param returnValue
+     */
+    void setReturnValue(Object returnValue);
+
+    void setMsgRouting(MessageRoutingAccessor msgRouting);
+
+    void setMsgContext(EventContextAccessor msgContext);
 }
