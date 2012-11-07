@@ -57,7 +57,7 @@ import org.nhindirect.stagent.NHINDAddressCollection;
  */
 public class DirectMailClient implements DirectClient {
 
-    private static Log log = LogFactory.getLog(DirectMailClient.class);
+    private static final Log log = LogFactory.getLog(DirectMailClient.class);
     
     // TODO - Where should these come from?...
     private static final String MSG_SUBJECT = "DIRECT Message";
@@ -154,10 +154,10 @@ public class DirectMailClient implements DirectClient {
             inbox.open(Folder.READ_WRITE);            
         } catch (MessagingException e) {
             MailUtils.closeQuietly(store);
-            throw new DirectException("Could not open " + MailUtils.FOLDER_NAME_INBOX + " for READ_WRITE" , e);            
+            throw new DirectException("Could not open " + MailUtils.FOLDER_NAME_INBOX + " for READ_WRITE" , e);
         }
                         
-        Message messages[] = null;
+        Message[] messages = null;
         try {
             // TODO Right now the code assumes that we can connect to the mail server at the configured 
             // host, with the configured user and every message sitting in the inbox is one that needs to be handled.
@@ -168,9 +168,13 @@ public class DirectMailClient implements DirectClient {
             throw new DirectException("Exception while retrieving messages from inbox.", e);
         }
 
+        int numberOfHandledMsgs = 0;
         for (Message message : messages) {
-            try {
-                handler.handleMessage(message);
+            try {  
+                if (isMessageNew(message)) {
+                    handler.handleMessage(message);
+                    numberOfHandledMsgs++;
+                }
                 message.setFlag(Flags.Flag.DELETED, true);
             } catch (Exception e) {
                 // messages that were handled successfully are removed from the server...
@@ -180,9 +184,17 @@ public class DirectMailClient implements DirectClient {
         }
         
         MailUtils.closeQuietly(store, inbox, MailUtils.FOLDER_EXPUNGE_INBOX_TRUE);
-        return messages.length;                
+        return numberOfHandledMsgs;                
     }
 
+    private boolean isMessageNew(Message message) throws MessagingException {
+        if (message.getFlags().contains(Flags.Flag.DELETED) || message.getFlags().contains(Flags.Flag.SEEN)) {
+            return false;
+        }
+        return true;
+    }
+    
+    
     /**
      * Authenticator used to provide login credentials to the mail server.
      */
@@ -224,9 +236,11 @@ public class DirectMailClient implements DirectClient {
      * @throws MessagingException if error communicating with mail server.
      */
     private int getNumberOfMsgsToHandle(Folder folder) throws MessagingException {
+
         int numberOfMsgsInFolder = folder.getMessageCount();
-        int maxNumberOfMsgsToHandle = Integer.parseInt(
-                mailServerProps.getProperty("direct.number.of.messages", DEF_NUM_MSGS_TO_HANDLE));
+        int maxNumberOfMsgsToHandle = Integer.parseInt(mailServerProps.getProperty("direct.max.msgs.in.batch",
+                DEF_NUM_MSGS_TO_HANDLE));
+                
         return numberOfMsgsInFolder < maxNumberOfMsgsToHandle ? numberOfMsgsInFolder : maxNumberOfMsgsToHandle;
     }
     

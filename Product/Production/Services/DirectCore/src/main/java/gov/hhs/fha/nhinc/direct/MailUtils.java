@@ -37,10 +37,19 @@ import org.apache.commons.logging.LogFactory;
  */
 public class MailUtils {
 
-    private static Log log = LogFactory.getLog(MailUtils.class);
+    private static final Log log = LogFactory.getLog(MailUtils.class);
 
+    /**
+     * Folder Name for "Inbox".
+     */
     public static final String FOLDER_NAME_INBOX = "Inbox";
+    /**
+     * boolean flag when we do want to expunge the inbox.
+     */
     public static final boolean FOLDER_EXPUNGE_INBOX_TRUE = true;
+    /**
+     * boolean flag when we don't want to expunge the inbox.
+     */
     public static final boolean FOLDER_EXPUNGE_INBOX_FALSE = false;
     
     /**
