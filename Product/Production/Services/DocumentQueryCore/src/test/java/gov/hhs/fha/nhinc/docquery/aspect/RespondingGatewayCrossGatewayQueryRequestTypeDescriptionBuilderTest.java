@@ -30,17 +30,11 @@ package gov.hhs.fha.nhinc.docquery.aspect;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayQueryRequestType;
 import gov.hhs.fha.nhinc.event.BaseDescriptionBuilderTest;
-import gov.hhs.fha.nhinc.event.EventContextAccessor;
-import gov.hhs.fha.nhinc.event.EventDescription;
-import gov.hhs.fha.nhinc.event.MessageRoutingAccessor;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 
 import org.junit.Before;
@@ -56,67 +50,28 @@ public class RespondingGatewayCrossGatewayQueryRequestTypeDescriptionBuilderTest
     }
 
     @Test
-    public void delegateCreated() {
+    public void delegateIsCorrectType() {
+        assertEquals(AdhocQueryRequestDescriptionBuilder.class, builder.getDelegate().getClass());
+    }
+
+    @Test
+    public void transformArguments() {
         RespondingGatewayCrossGatewayQueryRequestType request = mock(RespondingGatewayCrossGatewayQueryRequestType.class);
-        AdhocQueryRequest adhocMock = mock(AdhocQueryRequest.class);
+        AdhocQueryRequest mockAdhocQueryRequest = mock(AdhocQueryRequest.class);
         AssertionType mockAssertion = mock(AssertionType.class);
-        when(request.getAdhocQueryRequest()).thenReturn(adhocMock);
+        when(request.getAdhocQueryRequest()).thenReturn(mockAdhocQueryRequest);
         when(request.getAssertion()).thenReturn(mockAssertion);
 
-        builder.setArguments(request);
-        AdhocQueryRequestDescriptionBuilder delegate = builder.getDelegate();
-        assertNotNull(delegate);
-        assertEquals(adhocMock, delegate.getRequest().get());
-        assertEquals(mockAssertion, delegate.getAssertion().get());
+        Object[] transformArguments = builder.transformArguments(new Object[] { request });
+        assertNotNull(transformArguments);
+        assertEquals(2, transformArguments.length);
+        assertEquals(mockAdhocQueryRequest, transformArguments[0]);
+        assertEquals(mockAssertion, transformArguments[1]);
     }
 
     @Test
-    public void buildMethodsDelegate() {
-        AdhocQueryRequestDescriptionBuilder mockDelegate = mock(AdhocQueryRequestDescriptionBuilder.class);
-        EventDescription eventDescription = mock(EventDescription.class);
-        when(mockDelegate.getEventDescription()).thenReturn(eventDescription);
-        builder.setDelegate(mockDelegate);
-
-        EventDescription result = getEventDescription(builder);
-        assertEquals(eventDescription, result);
-
-        verify(mockDelegate).buildTimeStamp();
-        verify(mockDelegate).buildStatuses();
-        verify(mockDelegate).buildRespondingHCIDs();
-        verify(mockDelegate).buildPayloadSize();
-        verify(mockDelegate).buildPayloadTypes();
-        verify(mockDelegate).buildNPI();
-        verify(mockDelegate).buildInitiatingHCID();
-        verify(mockDelegate).buildErrorCodes();
-        verify(mockDelegate).buildMessageId();
-        verify(mockDelegate).buildTransactionId();
-        verify(mockDelegate).buildServiceType();
-        verify(mockDelegate).buildResponseMsgIdList();
-        verify(mockDelegate).buildAction();
-    }
-
-    @Test
-    public void messageArgs() {
-        EventContextAccessor contextAccessor = mock(EventContextAccessor.class);
-        MessageRoutingAccessor routingAccessor = mock(MessageRoutingAccessor.class);
-        builder.setMsgContext(contextAccessor);
-        builder.setMsgRouting(routingAccessor);
-
-        AdhocQueryRequestDescriptionBuilder mockDelegate = mock(AdhocQueryRequestDescriptionBuilder.class);
-        builder.setDelegate(mockDelegate);
-
-        verify(mockDelegate).setMsgContext(any(EventContextAccessor.class));
-        verify(mockDelegate).setMsgRouting(eq(routingAccessor));
-    }
-
-    @Test
-    public void returnValueDelegates() {
-        AdhocQueryRequestDescriptionBuilder mockDelegate = mock(AdhocQueryRequestDescriptionBuilder.class);
-        builder.setDelegate(mockDelegate);
-
-        Object returnValue = new Object();
-        builder.setReturnValue(returnValue);
-
-        verify(mockDelegate).setReturnValue(returnValue);
+    public void transformReturnValue() {
+        Object o = new Object();
+        assertEquals(o, builder.transformReturnValue(o));
     }
 }

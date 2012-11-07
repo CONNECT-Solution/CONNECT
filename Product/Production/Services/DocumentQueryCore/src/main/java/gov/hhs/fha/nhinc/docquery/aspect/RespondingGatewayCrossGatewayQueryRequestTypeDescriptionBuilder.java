@@ -29,128 +29,22 @@
 package gov.hhs.fha.nhinc.docquery.aspect;
 
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayQueryRequestType;
-import gov.hhs.fha.nhinc.event.EventContextAccessor;
-import gov.hhs.fha.nhinc.event.EventDescription;
-import gov.hhs.fha.nhinc.event.EventDescriptionBuilder;
-import gov.hhs.fha.nhinc.event.MessageRoutingAccessor;
 
-public class RespondingGatewayCrossGatewayQueryRequestTypeDescriptionBuilder implements EventDescriptionBuilder {
+public class RespondingGatewayCrossGatewayQueryRequestTypeDescriptionBuilder extends
+        ArgTransformerEventDescriptionBuilder {
 
-    private AdhocQueryRequestDescriptionBuilder delegate = new AdhocQueryRequestDescriptionBuilder();
-    private MessageRoutingAccessor msgRouting;
-    private EventContextAccessor msgContext;
-
-    @Override
-    public void buildTimeStamp() {
-        delegate.buildTimeStamp();
+    public RespondingGatewayCrossGatewayQueryRequestTypeDescriptionBuilder() {
+        setDelegate(new AdhocQueryRequestDescriptionBuilder());
     }
 
     @Override
-    public void buildStatuses() {
-        delegate.buildStatuses();
-    }
-
-    @Override
-    public void buildRespondingHCIDs() {
-        delegate.buildRespondingHCIDs();
-    }
-
-    @Override
-    public void buildPayloadTypes() {
-        delegate.buildPayloadTypes();
-    }
-
-    @Override
-    public void buildPayloadSize() {
-        delegate.buildPayloadSize();
-    }
-
-    @Override
-    public void buildNPI() {
-        delegate.buildNPI();
-    }
-
-    @Override
-    public void buildInitiatingHCID() {
-        delegate.buildInitiatingHCID();
-    }
-
-    @Override
-    public void buildErrorCodes() {
-        delegate.buildErrorCodes();
-    }
-
-    @Override
-    public void buildMessageId() {
-        delegate.buildMessageId();
-    }
-
-    @Override
-    public void buildTransactionId() {
-        delegate.buildTransactionId();
-    }
-
-    @Override
-    public void buildServiceType() {
-        delegate.buildServiceType();
-    }
-
-    @Override
-    public void buildResponseMsgIdList() {
-        delegate.buildResponseMsgIdList();
-    }
-
-    @Override
-    public void buildAction() {
-        delegate.buildAction();
-    }
-
-    @Override
-    public EventDescription getEventDescription() {
-        return delegate.getEventDescription();
-    }
-
-    @Override
-    public void createEventDescription() {
-        delegate.createEventDescription();
-    }
-
-    @Override
-    public void setArguments(Object... arguments) {
+    protected Object[] transformArguments(Object[] arguments) {
         RespondingGatewayCrossGatewayQueryRequestType request = (RespondingGatewayCrossGatewayQueryRequestType) arguments[0];
-        delegate.setArguments(request.getAdhocQueryRequest(), request.getAssertion());
+        return new Object[] { request.getAdhocQueryRequest(), request.getAssertion() };
     }
 
     @Override
-    public void setReturnValue(Object returnValue) {
-        delegate.setReturnValue(returnValue);
-    }
-
-    protected AdhocQueryRequestDescriptionBuilder getDelegate() {
-        return delegate;
-    }
-
-    protected void setDelegate(AdhocQueryRequestDescriptionBuilder delegate) {
-        this.delegate = delegate;
-        setMsgObjects();
-    }
-
-    @Override
-    public void setMsgRouting(MessageRoutingAccessor msgRouting) {
-        this.msgRouting = msgRouting;
-        setMsgObjects();
-    }
-
-    @Override
-    public void setMsgContext(EventContextAccessor msgContext) {
-        this.msgContext = msgContext;
-        setMsgObjects();
-    }
-
-    private void setMsgObjects() {
-        if (delegate != null) {
-            delegate.setMsgContext(msgContext);
-            delegate.setMsgRouting(msgRouting);
-        }
+    protected Object transformReturnValue(Object returnValue) {
+        return returnValue;
     }
 }

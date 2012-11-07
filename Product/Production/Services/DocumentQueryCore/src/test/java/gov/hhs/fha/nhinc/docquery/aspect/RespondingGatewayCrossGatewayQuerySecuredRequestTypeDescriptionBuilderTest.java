@@ -28,23 +28,47 @@
  */
 package gov.hhs.fha.nhinc.docquery.aspect;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayQuerySecuredRequestType;
+import gov.hhs.fha.nhinc.event.BaseDescriptionBuilderTest;
+import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 
-public class RespondingGatewayCrossGatewayQuerySecuredRequestTypeDescriptionBuilder extends
-        ArgTransformerEventDescriptionBuilder {
+import org.junit.Before;
+import org.junit.Test;
 
-    public RespondingGatewayCrossGatewayQuerySecuredRequestTypeDescriptionBuilder() {
-        setDelegate(new AdhocQueryRequestDescriptionBuilder());
+public class RespondingGatewayCrossGatewayQuerySecuredRequestTypeDescriptionBuilderTest extends
+        BaseDescriptionBuilderTest {
+
+    private RespondingGatewayCrossGatewayQuerySecuredRequestTypeDescriptionBuilder builder;
+
+    @Before
+    public void before() {
+        builder = new RespondingGatewayCrossGatewayQuerySecuredRequestTypeDescriptionBuilder();
     }
 
-    @Override
-    protected Object[] transformArguments(Object[] arguments) {
-        RespondingGatewayCrossGatewayQuerySecuredRequestType request = (RespondingGatewayCrossGatewayQuerySecuredRequestType) arguments[0];
-        return new Object[] { request.getAdhocQueryRequest() };
+    @Test
+    public void delegateIsCorrectType() {
+        assertEquals(AdhocQueryRequestDescriptionBuilder.class, builder.getDelegate().getClass());
     }
 
-    @Override
-    protected Object transformReturnValue(Object returnValue) {
-        return returnValue;
+    @Test
+    public void transformArguments() {
+        RespondingGatewayCrossGatewayQuerySecuredRequestType request = mock(RespondingGatewayCrossGatewayQuerySecuredRequestType.class);
+        AdhocQueryRequest mockAdhocQueryRequest = mock(AdhocQueryRequest.class);
+        when(request.getAdhocQueryRequest()).thenReturn(mockAdhocQueryRequest);
+
+        Object[] transformArguments = builder.transformArguments(new Object[] { request });
+        assertNotNull(transformArguments);
+        assertEquals(1, transformArguments.length);
+        assertEquals(mockAdhocQueryRequest, transformArguments[0]);
+    }
+
+    @Test
+    public void transformReturnValue() {
+        Object o = new Object();
+        assertEquals(o, builder.transformReturnValue(o));
     }
 }
