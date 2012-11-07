@@ -33,6 +33,7 @@ import javax.xml.ws.soap.Addressing;
 
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 
+import gov.hhs.fha.nhinc.admindistribution.aspect.EDXLDistributionDescriptionBuilder;
 import gov.hhs.fha.nhinc.admindistribution.nhin.NhinAdminDistributionOrchImpl;
 import gov.hhs.fha.nhinc.aspect.InboundMessageEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;

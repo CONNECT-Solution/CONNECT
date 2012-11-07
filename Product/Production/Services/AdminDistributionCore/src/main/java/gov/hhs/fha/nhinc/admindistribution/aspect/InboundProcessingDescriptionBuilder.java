@@ -30,34 +30,42 @@ import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.event.BaseEventDescriptionBuilder;
-import gov.hhs.fha.nhinc.event.builder.AssertionDescriptionExtractor;
+import gov.hhs.fha.nhinc.event.builder.AssertionDescriptionBuilder;
 
 /**
  * @author zmelnick
  *
  */
-public class InboundProcessingEventDescriptionBuilder extends BaseEventDescriptionBuilder {
-
-    private final EDXLDistributionDescriptionExtractor AD_EXTRACTOR;
-    private final AssertionDescriptionExtractor ASSERTION_EXTRACTOR;
+public class InboundProcessingDescriptionBuilder extends BaseEventDescriptionBuilder {
 
     EDXLDistribution alertMessage;
-    AssertionType assertion;
+    EDXLDistributionDescriptionBuilder edxlDistributionBuilder;
+    AssertionDescriptionBuilder assertionBuilder;
 
     /**
      * Public constructor
      */
-    public InboundProcessingEventDescriptionBuilder() {
-        this(new EDXLDistributionDescriptionExtractor(), new AssertionDescriptionExtractor());
+    public InboundProcessingDescriptionBuilder() {
+        initialize(null, null);
     }
 
     /**
      * Public Constructor
      */
-    public InboundProcessingEventDescriptionBuilder(final EDXLDistributionDescriptionExtractor adExtractor,
-            final AssertionDescriptionExtractor assertionExtractor) {
-        AD_EXTRACTOR = adExtractor;
-        ASSERTION_EXTRACTOR = assertionExtractor;
+    public InboundProcessingDescriptionBuilder(EDXLDistribution alertMessage, AssertionType assertion) {
+        initialize(alertMessage, assertion);
+    }
+
+    /**
+     * @param alertMessage2
+     * @param assertion
+     */
+    private void initialize(EDXLDistribution alertMessage, AssertionType assertion) {
+        edxlDistributionBuilder = new EDXLDistributionDescriptionBuilder(alertMessage);
+        assertionBuilder = new AssertionDescriptionBuilder(assertion);
+
+        edxlDistributionBuilder.createEventDescription();
+        assertionBuilder.createEventDescription();
     }
 
     /*
@@ -88,7 +96,7 @@ public class InboundProcessingEventDescriptionBuilder extends BaseEventDescripti
      */
     @Override
     public void buildRespondingHCIDs() {
-        // leave blank since there is never a responder
+        //leave blank since there is never a responder
     }
 
     /*
@@ -98,7 +106,9 @@ public class InboundProcessingEventDescriptionBuilder extends BaseEventDescripti
      */
     @Override
     public void buildPayloadTypes() {
-        // PayloadType not available from EDXLDistribution object. However, type will always be t63.
+        edxlDistributionBuilder.buildPayloadTypes();
+        setPayLoadTypes(edxlDistributionBuilder.getEventDescription().getPayloadTypes());
+
     }
 
     /*
@@ -108,7 +118,8 @@ public class InboundProcessingEventDescriptionBuilder extends BaseEventDescripti
      */
     @Override
     public void buildPayloadSizes() {
-        setPayloadSizes(AD_EXTRACTOR.getPayloadSizes(alertMessage));
+        edxlDistributionBuilder.buildPayloadSizes();
+        setPayLoadTypes(edxlDistributionBuilder.getEventDescription().getPayloadSizes());
     }
 
     /*
@@ -118,7 +129,8 @@ public class InboundProcessingEventDescriptionBuilder extends BaseEventDescripti
      */
     @Override
     public void buildNPI() {
-        setNpi(ASSERTION_EXTRACTOR.getNPI(assertion));
+        assertionBuilder.buildNPI();
+        setNpi(assertionBuilder.getEventDescription().getNPI());
     }
 
     /*
@@ -128,7 +140,8 @@ public class InboundProcessingEventDescriptionBuilder extends BaseEventDescripti
      */
     @Override
     public void buildInitiatingHCID() {
-        setInitiatingHCID(ASSERTION_EXTRACTOR.getInitiatingHCID(assertion));
+        assertionBuilder.buildInitiatingHCID();
+        setInitiatingHCID(assertionBuilder.getEventDescription().getInitiatingHCID());
     }
 
     /*
@@ -138,7 +151,7 @@ public class InboundProcessingEventDescriptionBuilder extends BaseEventDescripti
      */
     @Override
     public void buildErrorCodes() {
-        // No error codes in spec
+        //No error codes in spec
     }
 
     /*
@@ -149,22 +162,14 @@ public class InboundProcessingEventDescriptionBuilder extends BaseEventDescripti
     @Override
     public void setArguments(Object... arguements) {
         if (arguements != null && arguements.length == 2 && areArgumentTypesExpected(arguements)) {
-            this.alertMessage = (EDXLDistribution) arguements[0];
-            this.assertion = (AssertionType) arguements[1];
+            EDXLDistribution alert = (EDXLDistribution) arguements[0];
+            AssertionType assertion = (AssertionType) arguements[1];
+            initialize(alert, assertion);
         }
     }
 
     private boolean areArgumentTypesExpected(Object... arguments) {
-        return arguments[0] instanceof EDXLDistribution && arguments[1] instanceof AssertionType;
-    }
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.event.BaseEventDescriptionBuilder#setReturnValue(java.lang.Object)
-     */
-    @Override
-    public void setReturnValue(Object returnValue) {
-        // no action needed. Return value is "void" for AD. The object "return value" is a null object.
+        return arguments[0] instanceof EDXLDistribution
+                && arguments[1] instanceof AssertionType;
     }
 }
