@@ -43,7 +43,6 @@ import javax.mail.internet.MimeMessage;
 
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.nhindirect.gateway.smtp.MessageProcessResult;
 import org.nhindirect.gateway.smtp.SmtpAgent;
@@ -53,6 +52,7 @@ import org.nhindirect.stagent.NHINDAddressCollection;
 import org.nhindirect.stagent.mail.Message;
 
 import com.icegreen.greenmail.util.GreenMail;
+import com.icegreen.greenmail.util.ServerSetup;
 import com.icegreen.greenmail.util.ServerSetupTest;
 
 /**
@@ -74,9 +74,11 @@ public class DirectMailClientTest {
     @Before
     public void setUp() {
         mockSmtpAgent = mock(SmtpAgent.class);
-        greenMail = new GreenMail(ServerSetupTest.SMTPS);
+        greenMail = new GreenMail(new ServerSetup[] {ServerSetupTest.SMTPS, ServerSetupTest.IMAPS});
         greenMail.start();
-        mailServerProps = getMailServerProps(greenMail.getSmtps().getServerSetup().getPort(), SENDER, SENDER);
+
+        mailServerProps = getMailServerProps(greenMail.getSmtps().getServerSetup().getPort(), 
+                greenMail.getImaps().getServerSetup().getPort());
         testDirectMailClient = new DirectMailClient(mailServerProps, mockSmtpAgent);
     }
     
@@ -109,10 +111,25 @@ public class DirectMailClientTest {
      * @throws InterruptedException 
      * @throws IOException 
      */
-    @Ignore
     @Test
     public void canSendAndReceiveOneMessage() throws InterruptedException, IOException {        
-        // TODO Implement this.
+
+        // set up the greenmail user for imaps. Must be done before message is sent.
+        greenMail.setUser(DirectUnitTestUtil.RECIPIENT, DirectUnitTestUtil.USER, DirectUnitTestUtil.PASS);
+
+        MessageProcessResult mockMessageProcessResult = getMockMessageProcessResult();
+        when(mockSmtpAgent.processMessage(any(MimeMessage.class), any(NHINDAddressCollection.class),
+                any(NHINDAddress.class))).thenReturn(mockMessageProcessResult);
+
+        testDirectMailClient.send(SENDER, RECIPIENT, getMockDocument(), ATTACHMENT_NAME);
+
+        verify(mockSmtpAgent).processMessage(any(MimeMessage.class), any(NHINDAddressCollection.class), 
+                any(NHINDAddress.class));
+        
+        MessageHandler mockMessageHandler = mock(MessageHandler.class);
+        assertEquals(1, testDirectMailClient.handleMessages(mockMessageHandler));
+        
+        verify(mockMessageHandler).handleMessage(any(Message.class));        
     }
 
     /**

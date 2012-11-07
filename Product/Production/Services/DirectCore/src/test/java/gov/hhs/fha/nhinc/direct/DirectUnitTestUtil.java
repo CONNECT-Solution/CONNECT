@@ -46,11 +46,21 @@ public class DirectUnitTestUtil {
     /**
      * Sender of a mail message.
      */
-    public static final String SENDER = "testsender@localhost";
+    protected static final String SENDER = "testsender@localhost";
     /**
      * Recipient of a mail message.
      */
-    public static final String RECIPIENT = "testrecip@localhost";
+    protected static final String RECIPIENT = "testrecip@localhost";
+
+    /**
+     * Login username.
+     */
+    protected static final String USER = "testuser";
+    
+    /**
+     * Login password.
+     */
+    protected static final String PASS = "testpass1";
 
     /**
      * Sets up the properties in order to connect to the green mail test server.
@@ -59,21 +69,30 @@ public class DirectUnitTestUtil {
      * @param pass used for login.
      * @return Properties instance holding appropriate values for java mail.
      */
-    public static Properties getMailServerProps(int port, String user, String pass) {
+    public static Properties getMailServerProps(int smtpPort, int imapPort) {
 
         Properties props = new Properties();
+
+        props.put("direct.mail.user", USER);
+        props.put("direct.mail.pass", PASS);
+        props.put("direct.number.of.messages", 5);
+                
         props.put("mail.smtps.host", "localhost");
         props.put("mail.smtps.auth", "TRUE");
-        props.put("mail.smtps.port", port);
+        props.put("mail.smtps.port", smtpPort);
         props.put("mail.smtps.starttls.enabled", "TRUE");
-        props.put("mail.smtp.user", user);
-        props.put("mail.smtp.password", pass);
-        
+
+        props.put("mail.imaps.host", "localhost");
+        props.put("mail.imaps.port", imapPort);
+
         // this allows us to run the test using a dummy in-memory keystore provided by GreenMail... don't use in prod.
         props.put("mail.smtps.ssl.socketFactory.class", "com.icegreen.greenmail.util.DummySSLSocketFactory");
-        props.put("mail.smtps.ssl.socketFactory.port", port);
+        props.put("mail.smtps.ssl.socketFactory.port", smtpPort);
         props.put("mail.smtps.ssl.socketFactory.fallback", "false");
-
+        props.put("mail.imaps.ssl.socketFactory.class", "com.icegreen.greenmail.util.DummySSLSocketFactory");
+        props.put("mail.imaps.ssl.socketFactory.port", imapPort);
+        props.put("mail.imaps.ssl.socketFactory.fallback", "false");
+        
         return props;
     }
 
