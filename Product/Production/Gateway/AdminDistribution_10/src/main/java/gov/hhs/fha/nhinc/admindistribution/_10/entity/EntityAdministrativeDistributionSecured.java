@@ -43,14 +43,16 @@ import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
  */
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 @Addressing(enabled = true)
-public class EntityAdministrativeDistributionSecured implements gov.hhs.fha.nhinc.entityadmindistribution.AdministrativeDistributionSecuredPortType {
+public class EntityAdministrativeDistributionSecured implements
+        gov.hhs.fha.nhinc.entityadmindistribution.AdministrativeDistributionSecuredPortType {
     @Resource
     private WebServiceContext context;
     private EntityAdminDistributionOrchImpl orchImpl;
 
     @Override
     @InboundMessageEvent(serviceType = "Admin Distribution", version = "1.0",
-    descriptionBuilder = DefaultEventDescriptionBuilder.class)
+            afterReturningBuilder = DefaultEventDescriptionBuilder.class,
+            beforeBuilder = DefaultEventDescriptionBuilder.class)
     public void sendAlertMessage(
             gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewaySendAlertMessageSecuredType body) {
         AssertionType assertion = extractAssertion(context);
@@ -66,7 +68,7 @@ public class EntityAdministrativeDistributionSecured implements gov.hhs.fha.nhin
         this.orchImpl = orchImpl;
     }
 
-    protected EntityAdminDistributionOrchImpl getOrchImpl(){
+    protected EntityAdminDistributionOrchImpl getOrchImpl() {
         return this.orchImpl;
     }
 }

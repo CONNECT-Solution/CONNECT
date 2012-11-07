@@ -108,7 +108,7 @@ public class InboundProcessingEventDescriptionBuilder extends BaseEventDescripti
      */
     @Override
     public void buildPayloadSizes() {
-        setPayLoadTypes(AD_EXTRACTOR.getPayloadSizes(alertMessage));
+        setPayloadSizes(AD_EXTRACTOR.getPayloadSizes(alertMessage));
     }
 
     /*

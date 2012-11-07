@@ -31,11 +31,11 @@ import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
 
-import gov.hhs.fha.nhinc.admindistribution.aspect.EDXLDistributionDescriptionExtractor;
 import gov.hhs.fha.nhinc.admindistribution.nhin.NhinAdminDistributionOrchImpl;
 import gov.hhs.fha.nhinc.aspect.InboundMessageEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
+import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
 
 /**
  *
@@ -44,7 +44,8 @@ import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
 
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 @Addressing(enabled = true)
-public class NhinAdministrativeDistribution implements gov.hhs.fha.nhinc.nhinadmindistribution.RespondingGatewayAdministrativeDistributionPortType {
+public class NhinAdministrativeDistribution implements
+        gov.hhs.fha.nhinc.nhinadmindistribution.RespondingGatewayAdministrativeDistributionPortType {
 
     @Resource
     private WebServiceContext context;
@@ -52,7 +53,8 @@ public class NhinAdministrativeDistribution implements gov.hhs.fha.nhinc.nhinadm
 
     @Override
     @InboundMessageEvent(serviceType = "Admin Distribution", version = "1.0",
-    descriptionBuilder = EDXLDistributionDescriptionExtractor.class)
+            afterReturningBuilder = DefaultEventDescriptionBuilder.class,
+            beforeBuilder = DefaultEventDescriptionBuilder.class)
     public void sendAlertMessage(oasis.names.tc.emergency.edxl.de._1.EDXLDistribution body) {
         AssertionType assertion = extractAssertion(context);
         getOrchestratorImpl().sendAlertMessage(body, assertion);

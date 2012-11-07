@@ -46,7 +46,8 @@ public class EntityAdministrativeDistribution implements gov.hhs.fha.nhinc.entit
 
     @Override
     @InboundMessageEvent(serviceType = "Admin Distribution", version = "1.0",
-    descriptionBuilder = DefaultEventDescriptionBuilder.class)
+            afterReturningBuilder = DefaultEventDescriptionBuilder.class,
+            beforeBuilder = DefaultEventDescriptionBuilder.class)
     public void sendAlertMessage(gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewaySendAlertMessageType body) {
         getOrchImpl().sendAlertMessage(body, body.getAssertion(), body.getNhinTargetCommunities());
     }
