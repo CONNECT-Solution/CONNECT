@@ -48,7 +48,8 @@ public class EntityAdministrativeDistribution_g1 implements AdministrativeDistri
 
     @Override
     @InboundMessageEvent(serviceType = "Admin Distribution", version = "2.0",
-            descriptionBuilder = DefaultEventDescriptionBuilder.class)
+            afterReturningBuilder = DefaultEventDescriptionBuilder.class,
+            beforeBuilder = DefaultEventDescriptionBuilder.class)
     public void sendAlertMessage(RespondingGatewaySendAlertMessageType body) {
         orchImpl.sendAlertMessage(body, body.getAssertion(), body.getNhinTargetCommunities());
     }

@@ -28,7 +28,6 @@ package gov.hhs.fha.nhinc.admindistribution.aspect;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 
@@ -42,10 +41,8 @@ import oasis.names.tc.emergency.edxl.de._1.NonXMLContentType;
 import oasis.names.tc.emergency.edxl.de._1.XmlContentType;
 
 import org.junit.Test;
-import org.springframework.util.CollectionUtils;
 
 import gov.hhs.fha.nhinc.event.BaseDescriptionBuilderTest;
-import gov.hhs.fha.nhinc.event.EventDescription;
 
 /**
  * @author zmelnick
@@ -53,41 +50,19 @@ import gov.hhs.fha.nhinc.event.EventDescription;
  */
 public class EDXLDistributionDescriptionBuilderTest extends BaseDescriptionBuilderTest {
 
-    /**
-     *
-     */
-    private static final String INITIATING_HCID = "1.1";
-
     @Test
     public void emptyBuild() {
-        EDXLDistributionDescriptionBuilder builder = new EDXLDistributionDescriptionBuilder(null);
-        EventDescription eventDescription = getEventDescription(builder);
-        assertNotNull(eventDescription);
-    }
-
-    @Test
-    public void basicBuild() {
-        EDXLDistribution alert = new EDXLDistribution();
-        setIncomingHCID(alert);
-        setNonXmlPayloadWithoutSize(alert);
-        EDXLDistributionDescriptionBuilder builder = new EDXLDistributionDescriptionBuilder(alert);
-        EventDescription eventDescription = getEventDescription(builder);
-
-        assertEquals(INITIATING_HCID, eventDescription.getInitiatingHCID());
-        assertAlwaysNullAttributes(eventDescription);
+        EDXLDistributionDescriptionExtractor extractor = new EDXLDistributionDescriptionExtractor();
+        assertNotNull(extractor);
     }
 
     @Test
     public void testPayloadSizeOnSingleNonXMLPayload() {
         EDXLDistribution alert = new EDXLDistribution();
         setNonXmlPayloadWithSize(alert, BigInteger.TEN);
-        EDXLDistributionDescriptionBuilder builder = new EDXLDistributionDescriptionBuilder(alert);
-        EventDescription eventDescription = getEventDescription(builder);
+        EDXLDistributionDescriptionExtractor extractor = new EDXLDistributionDescriptionExtractor();
 
-        assertEquals(BigInteger.TEN.toString(), eventDescription.getPayloadSizes().get(0));
-
-        assertNull(eventDescription.getInitiatingHCID());
-        assertAlwaysNullAttributes(eventDescription);
+        assertEquals(BigInteger.TEN.toString(), extractor.getPayloadSizes(alert).get(0));
     }
 
     @Test
@@ -99,29 +74,21 @@ public class EDXLDistributionDescriptionBuilderTest extends BaseDescriptionBuild
 
         BigInteger testSize = BigInteger.TEN;
 
-        EDXLDistributionDescriptionBuilder builder = new EDXLDistributionDescriptionBuilder(alert);
-        EventDescription eventDescription = getEventDescription(builder);
+        EDXLDistributionDescriptionExtractor extractor = new EDXLDistributionDescriptionExtractor();
 
-        assertTrue(eventDescription.getPayloadSizes().size() == 2);
-        assertEquals(testSize.toString(), eventDescription.getPayloadSizes().get(0));
-        assertEquals(testSize.toString(), eventDescription.getPayloadSizes().get(1));
-
-        assertNull(eventDescription.getInitiatingHCID());
-        assertAlwaysNullAttributes(eventDescription);
+        assertTrue(extractor.getPayloadSizes(alert).size() == 2);
+        assertEquals(testSize.toString(), extractor.getPayloadSizes(alert).get(0));
+        assertEquals(testSize.toString(), extractor.getPayloadSizes(alert).get(1));
     }
 
 
     @Test
     public void testPayloadSizeXmlPayload() {
+        EDXLDistributionDescriptionExtractor extractor = new EDXLDistributionDescriptionExtractor();
         EDXLDistribution alert = new EDXLDistribution();
+
         setXmlPayload(alert);
-
-        EDXLDistributionDescriptionBuilder builder = new EDXLDistributionDescriptionBuilder(alert);
-        EventDescription eventDescription = getEventDescription(builder);
-
-        assertNull(eventDescription.getPayloadSizes());
-        assertNull(eventDescription.getInitiatingHCID());
-        assertAlwaysNullAttributes(eventDescription);
+        assertEquals(0, extractor.getPayloadSizes(alert).size());
     }
 
     @Test
@@ -130,12 +97,9 @@ public class EDXLDistributionDescriptionBuilderTest extends BaseDescriptionBuild
         setXmlPayload(alert);
         setNonXmlPayloadWithSize(alert,BigInteger.TEN);
 
-        EDXLDistributionDescriptionBuilder builder = new EDXLDistributionDescriptionBuilder(alert);
-        EventDescription eventDescription = getEventDescription(builder);
+        EDXLDistributionDescriptionExtractor extractor = new EDXLDistributionDescriptionExtractor();
 
-        assertNull(eventDescription.getPayloadSizes());
-        assertNull(eventDescription.getInitiatingHCID());
-        assertAlwaysNullAttributes(eventDescription);
+        assertEquals(0, extractor.getPayloadSizes(alert).size());
     }
 
     /**
@@ -162,17 +126,6 @@ public class EDXLDistributionDescriptionBuilderTest extends BaseDescriptionBuild
     }
 
     /**
-     * @param alert the object to set the payload for
-     */
-    private void setNonXmlPayloadWithoutSize(EDXLDistribution alert) {
-        ContentObjectType payload = new ContentObjectType();
-        NonXMLContentType payloadContent = createMockNonXmlPayload();
-
-        payload.setNonXMLContent(payloadContent);
-        alert.getContentObject().add(payload);
-    }
-
-    /**
      * @return
      */
     private NonXMLContentType createMockNonXmlPayload() {
@@ -180,23 +133,6 @@ public class EDXLDistributionDescriptionBuilderTest extends BaseDescriptionBuild
         payloadContent.setContentData(mock(DataHandler.class));
         return payloadContent;
     }
-
-    /**
-     * @param alert
-     */
-    private void setIncomingHCID(EDXLDistribution alert) {
-        alert.setSenderID(INITIATING_HCID);
-    }
-
-    private void assertAlwaysNullAttributes(EventDescription eventDescription) {
-        assertNull(eventDescription.getTimeStamp());
-        assertNull(eventDescription.getStatuses());
-        assertNull(eventDescription.getRespondingHCIDs());
-        assertTrue(CollectionUtils.isEmpty(eventDescription.getPayloadTypes()));
-        assertNull(eventDescription.getNPI());
-        assertTrue(CollectionUtils.isEmpty(eventDescription.getErrorCodes()));
-    }
-
 
     private ContentObjectType setNonXmlPayloadObject(BigInteger size) {
         ContentObjectType payload = new ContentObjectType();

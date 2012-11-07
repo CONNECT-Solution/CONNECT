@@ -53,7 +53,8 @@ public class EntityAdministrativeDistributionSecured_g1 implements Administrativ
 
     @Override
     @InboundMessageEvent(serviceType = "Admin Distribution", version = "2.0",
-            descriptionBuilder = DefaultEventDescriptionBuilder.class)
+            afterReturningBuilder = DefaultEventDescriptionBuilder.class,
+            beforeBuilder = DefaultEventDescriptionBuilder.class)
     public void sendAlertMessage(RespondingGatewaySendAlertMessageSecuredType body) {
         AssertionType assertion = extractAssertion(context);
 

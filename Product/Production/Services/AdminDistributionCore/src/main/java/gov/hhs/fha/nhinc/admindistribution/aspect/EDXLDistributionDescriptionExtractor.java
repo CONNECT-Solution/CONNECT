@@ -1,4 +1,4 @@
-/*
+/**
  * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
@@ -24,50 +24,49 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.admindistribution._10.nhin;
+package gov.hhs.fha.nhinc.admindistribution.aspect;
 
-import javax.annotation.Resource;
-import javax.xml.ws.BindingType;
-import javax.xml.ws.WebServiceContext;
-import javax.xml.ws.soap.Addressing;
+import java.util.ArrayList;
+import java.util.List;
 
-import gov.hhs.fha.nhinc.admindistribution.aspect.EDXLDistributionDescriptionExtractor;
-import gov.hhs.fha.nhinc.admindistribution.nhin.NhinAdminDistributionOrchImpl;
-import gov.hhs.fha.nhinc.aspect.InboundMessageEvent;
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
+import oasis.names.tc.emergency.edxl.de._1.ContentObjectType;
+import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
+ * @author zmelnick
  *
- * @author dunnek
  */
+public class EDXLDistributionDescriptionExtractor {
 
-@BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
-@Addressing(enabled = true)
-public class NhinAdministrativeDistribution implements gov.hhs.fha.nhinc.nhinadmindistribution.RespondingGatewayAdministrativeDistributionPortType {
+    private static final Log LOG = LogFactory.getLog(EDXLDistributionDescriptionExtractor.class);
 
-    @Resource
-    private WebServiceContext context;
-    private NhinAdminDistributionOrchImpl orchImpl;
-
-    @Override
-    @InboundMessageEvent(serviceType = "Admin Distribution", version = "1.0",
-    descriptionBuilder = EDXLDistributionDescriptionExtractor.class)
-    public void sendAlertMessage(oasis.names.tc.emergency.edxl.de._1.EDXLDistribution body) {
-        AssertionType assertion = extractAssertion(context);
-        getOrchestratorImpl().sendAlertMessage(body, assertion);
+    public List<String> getPayloadSizes(EDXLDistribution alertMessage) {
+        List<String> payloadSize = new ArrayList<String>();
+        if (alertMessage != null) {
+            List<ContentObjectType> contents = alertMessage.getContentObject();
+            for (ContentObjectType message : contents) {
+                if (isPayloadSizeEmpty(message)) {
+                    LOG.info("Paylod size not provided");
+                    payloadSize.clear();
+                    break;
+                } else {
+                    payloadSize.add(message.getNonXMLContent().getSize().toString());
+                }
+            }
+        }
+        return payloadSize;
     }
 
-    protected AssertionType extractAssertion(WebServiceContext context) {
-        return SAML2AssertionExtractor.getInstance().extractSamlAssertion(context);
-    }
-
-    public void setOrchestratorImpl(NhinAdminDistributionOrchImpl orchImpl) {
-        this.orchImpl = orchImpl;
-    }
-
-    protected NhinAdminDistributionOrchImpl getOrchestratorImpl() {
-        return this.orchImpl;
+    /**
+     * @param message
+     * @return
+     */
+    private boolean isPayloadSizeEmpty(ContentObjectType message) {
+        return message.getXmlContent() != null
+                || (message.getNonXMLContent() != null && message.getNonXMLContent().getSize() == null);
     }
 
 }

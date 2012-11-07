@@ -26,38 +26,38 @@
  */
 package gov.hhs.fha.nhinc.admindistribution.aspect;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import oasis.names.tc.emergency.edxl.de._1.ContentObjectType;
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.event.BaseEventDescriptionBuilder;
+import gov.hhs.fha.nhinc.event.builder.AssertionDescriptionExtractor;
 
 /**
  * @author zmelnick
  *
  */
-public class EDXLDistributionDescriptionBuilder extends BaseEventDescriptionBuilder {
+public class InboundProcessingEventDescriptionBuilder extends BaseEventDescriptionBuilder {
 
-    private EDXLDistribution alert;
-    private static final Log LOG = LogFactory.getLog(EDXLDistributionDescriptionBuilder.class);
+    private final EDXLDistributionDescriptionExtractor AD_EXTRACTOR;
+    private final AssertionDescriptionExtractor ASSERTION_EXTRACTOR;
+
+    EDXLDistribution alertMessage;
+    AssertionType assertion;
 
     /**
-     * Public constructor.
+     * Public constructor
      */
-    public EDXLDistributionDescriptionBuilder(EDXLDistribution alertMessage) {
-        initialize(alertMessage);
+    public InboundProcessingEventDescriptionBuilder() {
+        this(new EDXLDistributionDescriptionExtractor(), new AssertionDescriptionExtractor());
     }
 
     /**
-     * @param alertMessage
+     * Public Constructor
      */
-    private void initialize(EDXLDistribution alertMessage) {
-        this.alert = alertMessage;
+    public InboundProcessingEventDescriptionBuilder(final EDXLDistributionDescriptionExtractor adExtractor,
+            final AssertionDescriptionExtractor assertionExtractor) {
+        AD_EXTRACTOR = adExtractor;
+        ASSERTION_EXTRACTOR = assertionExtractor;
     }
 
     /*
@@ -67,37 +67,38 @@ public class EDXLDistributionDescriptionBuilder extends BaseEventDescriptionBuil
      */
     @Override
     public void buildTimeStamp() {
-        // Work in progress
+
     }
 
     /*
      * (non-Javadoc)
      *
-     * @see gov.hhs.fha.nhinc.event.EventDescriptionBuilder#buildStatus()
+     * @see gov.hhs.fha.nhinc.event.EventDescriptionBuilder#buildStatuses()
      */
     @Override
     public void buildStatuses() {
-        // No response in Admin Distribution, so no status to build.
+        // no status response in AD messages
+
     }
 
     /*
      * (non-Javadoc)
      *
-     * @see gov.hhs.fha.nhinc.event.EventDescriptionBuilder#buildRespondingHCID()
+     * @see gov.hhs.fha.nhinc.event.EventDescriptionBuilder#buildRespondingHCIDs()
      */
     @Override
     public void buildRespondingHCIDs() {
-        // No response in Admin Distribution
+        // leave blank since there is never a responder
     }
 
     /*
      * (non-Javadoc)
      *
-     * @see gov.hhs.fha.nhinc.event.EventDescriptionBuilder#buildPayloadType()
+     * @see gov.hhs.fha.nhinc.event.EventDescriptionBuilder#buildPayloadTypes()
      */
     @Override
     public void buildPayloadTypes() {
-        // PayloadType not available from EDXLDistribution object. However, type will always be t63.
+        //all AD messages are of type t63
     }
 
     /*
@@ -107,29 +108,7 @@ public class EDXLDistributionDescriptionBuilder extends BaseEventDescriptionBuil
      */
     @Override
     public void buildPayloadSizes() {
-        List<String> payloadSize = new ArrayList<String>();
-        if (alert != null) {
-            List<ContentObjectType> contents = alert.getContentObject();
-            for (ContentObjectType message : contents) {
-                if (isPayloadSizeEmpty(message)) {
-                    LOG.info("Paylod size not provided");
-                    payloadSize = null;
-                    break;
-                } else {
-                    payloadSize.add(message.getNonXMLContent().getSize().toString());
-                }
-            }
-            setPayloadSizes(payloadSize);
-        }
-    }
-
-    /**
-     * @param message
-     * @return
-     */
-    private boolean isPayloadSizeEmpty(ContentObjectType message) {
-        return message.getXmlContent() != null
-                || (message.getNonXMLContent() != null && message.getNonXMLContent().getSize() == null);
+        setPayLoadTypes(AD_EXTRACTOR.getPayloadSizes(alertMessage));
     }
 
     /*
@@ -139,7 +118,7 @@ public class EDXLDistributionDescriptionBuilder extends BaseEventDescriptionBuil
      */
     @Override
     public void buildNPI() {
-
+        setNpi(ASSERTION_EXTRACTOR.getNPI(assertion));
     }
 
     /*
@@ -149,36 +128,43 @@ public class EDXLDistributionDescriptionBuilder extends BaseEventDescriptionBuil
      */
     @Override
     public void buildInitiatingHCID() {
-        if (alert != null) {
-            setInitiatingHCID(alert.getSenderID());
-        }
+        setInitiatingHCID(ASSERTION_EXTRACTOR.getInitiatingHCID(assertion));
     }
 
     /*
      * (non-Javadoc)
      *
-     * @see gov.hhs.fha.nhinc.event.EventDescriptionBuilder#buildErrorCode()
+     * @see gov.hhs.fha.nhinc.event.EventDescriptionBuilder#buildErrorCodes()
      */
     @Override
     public void buildErrorCodes() {
-        /*
-         * Given that no web services response is defined by this specification, error codes are deferred to the
-         * underlying HTTP specification. 404 - Client unable to contact the server. 500 – Error occurred while
-         * processing.
-         */
+        // No error codes in spec
     }
 
+    /*
+     * (non-Javadoc)
+     *
+     * @see gov.hhs.fha.nhinc.event.BaseEventDescriptionBuilder#setArguments(java.lang.Object[])
+     */
     @Override
     public void setArguments(Object... arguements) {
-        if (arguements != null && arguements.length == 1 && arguements[0] instanceof EDXLDistribution) {
-            initialize((EDXLDistribution) arguements[0]);
+        if (arguements != null && arguements.length == 2 && areArgumentTypesExpected(arguements)) {
+            this.alertMessage = (EDXLDistribution) arguements[0];
+            this.assertion = (AssertionType) arguements[1];
         }
     }
 
-    @Override
-    public void setReturnValue(Object returnValue) {
-        // TODO Auto-generated method stub
-        
+    private boolean areArgumentTypesExpected(Object... arguments) {
+        return arguments[0] instanceof EDXLDistribution && arguments[1] instanceof AssertionType;
     }
 
+    /*
+     * (non-Javadoc)
+     *
+     * @see gov.hhs.fha.nhinc.event.BaseEventDescriptionBuilder#setReturnValue(java.lang.Object)
+     */
+    @Override
+    public void setReturnValue(Object returnValue) {
+        // no action needed. Return value is "void" for AD. The object "return value" is a null object.
+    }
 }

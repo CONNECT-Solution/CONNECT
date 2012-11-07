@@ -26,15 +26,16 @@
  */
 package gov.hhs.fha.nhinc.docsubmission.aspect;
 
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.event.BaseEventDescriptionBuilder;
-import gov.hhs.fha.nhinc.event.builder.AssertionDescriptionExtractor;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.event.BaseEventDescriptionBuilder;
+import gov.hhs.fha.nhinc.event.builder.AssertionDescriptionExtractor;
+
 /**
  * @author akong
- * 
+ *
  */
 public class InboundProcessingEventDescriptionBuilder extends BaseEventDescriptionBuilder {
 
@@ -63,7 +64,7 @@ public class InboundProcessingEventDescriptionBuilder extends BaseEventDescripti
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see gov.hhs.fha.nhinc.event.EventDescriptionBuilder#buildTimeStamp()
      */
     @Override
@@ -73,7 +74,7 @@ public class InboundProcessingEventDescriptionBuilder extends BaseEventDescripti
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see gov.hhs.fha.nhinc.event.EventDescriptionBuilder#buildStatuses()
      */
     @Override
@@ -83,7 +84,7 @@ public class InboundProcessingEventDescriptionBuilder extends BaseEventDescripti
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see gov.hhs.fha.nhinc.event.EventDescriptionBuilder#buildRespondingHCIDs()
      */
     @Override
@@ -93,7 +94,7 @@ public class InboundProcessingEventDescriptionBuilder extends BaseEventDescripti
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see gov.hhs.fha.nhinc.event.EventDescriptionBuilder#buildPayloadTypes()
      */
     @Override
@@ -103,17 +104,17 @@ public class InboundProcessingEventDescriptionBuilder extends BaseEventDescripti
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see gov.hhs.fha.nhinc.event.EventDescriptionBuilder#buildPayloadSize()
      */
     @Override
-    public void buildPayloadSize() {
+    public void buildPayloadSizes() {
         setPayloadSizes(REQUEST_EXTRACTOR.getPayloadSize(request));
     }
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see gov.hhs.fha.nhinc.event.EventDescriptionBuilder#buildNPI()
      */
     @Override
@@ -123,7 +124,7 @@ public class InboundProcessingEventDescriptionBuilder extends BaseEventDescripti
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see gov.hhs.fha.nhinc.event.EventDescriptionBuilder#buildInitiatingHCID()
      */
     @Override
@@ -133,7 +134,7 @@ public class InboundProcessingEventDescriptionBuilder extends BaseEventDescripti
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see gov.hhs.fha.nhinc.event.EventDescriptionBuilder#buildErrorCodes()
      */
     @Override
@@ -143,7 +144,7 @@ public class InboundProcessingEventDescriptionBuilder extends BaseEventDescripti
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see gov.hhs.fha.nhinc.event.BaseEventDescriptionBuilder#setArguments(java.lang.Object[])
      */
     @Override
@@ -161,7 +162,7 @@ public class InboundProcessingEventDescriptionBuilder extends BaseEventDescripti
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see gov.hhs.fha.nhinc.event.BaseEventDescriptionBuilder#setReturnValue(java.lang.Object)
      */
     @Override

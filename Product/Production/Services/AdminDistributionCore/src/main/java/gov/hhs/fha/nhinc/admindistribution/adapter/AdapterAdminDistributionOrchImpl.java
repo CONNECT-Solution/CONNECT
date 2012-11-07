@@ -37,7 +37,7 @@ import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import gov.hhs.fha.nhinc.aspect.AdapterDelegationEvent;
+import gov.hhs.fha.nhinc.aspect.InboundMessageEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.largefile.LargeFileUtils;
@@ -57,8 +57,9 @@ public class AdapterAdminDistributionOrchImpl {
         return LogFactory.getLog(getClass());
     }
 
-    @AdapterDelegationEvent(serviceType = "Admin Distribution", version = "",
-            descriptionBuilder = DefaultEventDescriptionBuilder.class)
+    @InboundMessageEvent(serviceType = "Admin Distribution", version = "",
+            afterReturningBuilder = DefaultEventDescriptionBuilder.class,
+            beforeBuilder = DefaultEventDescriptionBuilder.class)
     public void sendAlertMessage(EDXLDistribution body, AssertionType assertion) {
         log.info("Received Alert Message");
         log.info(body.getCombinedConfidentiality());
