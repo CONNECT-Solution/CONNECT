@@ -1,4 +1,6 @@
-/*
+/**
+ * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
+ *
  * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
@@ -24,75 +26,29 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.docquery.adapter.proxy;
+package gov.hhs.fha.nhinc.docquery.nhin;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.fail;
-import gov.hhs.fha.nhinc.adapterdocquerysecured.AdapterDocQuerySecuredPortType;
-import gov.hhs.fha.nhinc.aspect.AdapterDelegationEvent;
+import gov.hhs.fha.nhinc.aspect.InboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryRequestDescriptionBuilder;
 import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryResponseDescriptionBuilder;
 
 import java.lang.reflect.Method;
 
-import javax.xml.ws.Service;
-
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 
-import org.apache.commons.logging.Log;
-import org.jmock.Mockery;
-import org.jmock.integration.junit4.JUnit4Mockery;
-import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.Test;
 
-/**
- * 
- * @author Neil Webb
- */
-public class AdapterDocQueryWebServiceProxyTest {
-    Mockery context = new JUnit4Mockery() {
-        {
-            setImposteriser(ClassImposteriser.INSTANCE);
-        }
-    };
-
-    final Log mockLog = context.mock(Log.class);
-    final Service mockService = context.mock(Service.class);
-    final AdapterDocQuerySecuredPortType mockPort = context.mock(AdapterDocQuerySecuredPortType.class);
+public class NhinDocQueryOrchImplTest {
 
     @Test
-    public void testCreateLogger() {
-        try {
-            AdapterDocQueryProxyWebServiceSecuredImpl sut = new AdapterDocQueryProxyWebServiceSecuredImpl() {
-                @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-
-            };
-            Log log = sut.createLogger();
-            assertNotNull("Log was null", log);
-        } catch (Throwable t) {
-            System.out.println("Error running testCreateLogger test: " + t.getMessage());
-            t.printStackTrace();
-            fail("Error running testCreateLogger test: " + t.getMessage());
-        }
-    }
-
-    @Test
-    public void hasAdapterDelegationEvent() throws Exception {
-        assertAdapterDelegationEvent(AdapterDocQueryProxyJavaImpl.class);
-        assertAdapterDelegationEvent(AdapterDocQueryProxyNoOpImpl.class);
-        assertAdapterDelegationEvent(AdapterDocQueryProxyWebServiceSecuredImpl.class);
-        assertAdapterDelegationEvent(AdapterDocQueryProxyWebServiceUnsecuredImpl.class);
-    }
-
-    private void assertAdapterDelegationEvent(Class<? extends AdapterDocQueryProxy> clazz) throws NoSuchMethodException {
+    public void hasInboundProcessingEvent() throws Exception {
+        Class<NhinDocQueryOrchImpl> clazz = NhinDocQueryOrchImpl.class;
         Method method = clazz.getMethod("respondingGatewayCrossGatewayQuery", AdhocQueryRequest.class,
                 AssertionType.class);
-        AdapterDelegationEvent annotation = method.getAnnotation(AdapterDelegationEvent.class);
+        InboundProcessingEvent annotation = method.getAnnotation(InboundProcessingEvent.class);
         assertNotNull(annotation);
         assertEquals(AdhocQueryRequestDescriptionBuilder.class, annotation.beforeBuilder());
         assertEquals(AdhocQueryResponseDescriptionBuilder.class, annotation.afterReturningBuilder());
