@@ -48,31 +48,12 @@ public abstract class BaseEventDescriptionBuilder implements EventDescriptionBui
         this.msgContext = msgContext;
     }
 
-    /**
-     * Intended to take the arguments from the method that was executed when this event was triggered and to be used to
-     * build the event description. Needs to be implemented in sub classes because only the subs will know what objects
-     * they can operate on.
-     * 
-     * @param arguments
-     */
-    abstract public void setArguments(Object... arguments);
-
-    /**
-     * Intended to take the return value from the method that was executed when this event was triggered and to be used
-     * to build the event description. Needs to be implemented in sub classes because only the subs will know what
-     * objects they can operate on.
-     * 
-     * The returnValue will only have a valid object if the event was executed after returning from a method. It will be
-     * null otherwise.
-     * 
-     * @param returnValue
-     */
-    abstract public void setReturnValue(Object returnValue);
-
+    @Override
     public void setMsgRouting(MessageRoutingAccessor msgRouting) {
         this.msgRouting = msgRouting;
     }
 
+    @Override
     public void setMsgContext(EventContextAccessor msgContext) {
         this.msgContext = msgContext;
     }
@@ -87,29 +68,44 @@ public abstract class BaseEventDescriptionBuilder implements EventDescriptionBui
         description = new BaseEventDescription();
     }
 
+    /**
+     * Do not override in subclasses - only non-final so class can be effectively mocked.
+     */
     @Override
-    final public void buildMessageId() {
+    public void buildMessageId() {
         description.setMessageId(msgRouting.getMessageId());
 
     }
 
+    /**
+     * Do not override in subclasses - only non-final so class can be effectively mocked.
+     */
     @Override
-    final public void buildTransactionId() {
+    public void buildTransactionId() {
         description.setTransactionId(msgRouting.getTransactionId());
     }
 
+    /**
+     * Do not override in subclasses - only non-final so class can be effectively mocked.
+     */
     @Override
-    final public void buildResponseMsgIdList() {
+    public void buildResponseMsgIdList() {
         description.setResponseMsgids(msgRouting.getResponseMsgIdList());
     }
 
+    /**
+     * Do not override in subclasses - only non-final so class can be effectively mocked.
+     */
     @Override
-    final public void buildAction() {
+    public void buildAction() {
         description.setAction(msgContext.getAction());
     }
 
+    /**
+     * Do not override in subclasses - only non-final so class can be effectively mocked.
+     */
     @Override
-    final public void buildServiceType() {
+    public void buildServiceType() {
         description.setServiceType(msgContext.getServiceType());
     }
 
@@ -144,5 +140,4 @@ public abstract class BaseEventDescriptionBuilder implements EventDescriptionBui
     protected void setTimeStamp(String timeStamp) {
         description.setTimeStamp(timeStamp);
     }
-
 }

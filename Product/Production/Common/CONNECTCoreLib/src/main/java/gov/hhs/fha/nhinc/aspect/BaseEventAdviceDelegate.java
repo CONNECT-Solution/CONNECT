@@ -28,22 +28,22 @@
  */
 package gov.hhs.fha.nhinc.aspect;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
-import gov.hhs.fha.nhinc.event.BaseEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.event.ContextEventBuilder;
 import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.event.Event;
 import gov.hhs.fha.nhinc.event.EventBuilder;
 import gov.hhs.fha.nhinc.event.EventContextAccessor;
+import gov.hhs.fha.nhinc.event.EventDescriptionBuilder;
 import gov.hhs.fha.nhinc.event.EventDescriptionDirector;
 import gov.hhs.fha.nhinc.event.EventDirector;
 import gov.hhs.fha.nhinc.event.EventRecorder;
 import gov.hhs.fha.nhinc.event.MessageRoutingAccessor;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 /**
- * Base class for EventAdviceDelegates. Has two template methods
- * <i>createBeginEvent</i> and <i>createEndEvent</i>.
+ * Base class for EventAdviceDelegates. Has two template methods <i>createBeginEvent</i> and <i>createEndEvent</i>.
+ * 
  * @author bhumphrey
  * 
  */
@@ -53,18 +53,21 @@ public abstract class BaseEventAdviceDelegate implements EventAdviceDelegate {
 
     /**
      * overridden in sub class to return the correct Begin event object.
+     * 
      * @return Concrete Event object
      */
     abstract protected Event createBeginEvent();
 
     /**
      * overridden in sub class to return the correct End event object.
+     * 
      * @return Concrete Event object
      */
     abstract protected Event createEndEvent();
 
     /**
      * inject the eventRecorder.
+     * 
      * @param eventRecorder
      */
     @Autowired
@@ -74,6 +77,7 @@ public abstract class BaseEventAdviceDelegate implements EventAdviceDelegate {
 
     /**
      * inject the messageRoutingAccessor.
+     * 
      * @param messageRoutingAccessor
      */
     @Autowired
@@ -89,9 +93,9 @@ public abstract class BaseEventAdviceDelegate implements EventAdviceDelegate {
      */
     @Override
     public void begin(Object[] args, String serviceType, String version,
-            Class<? extends BaseEventDescriptionBuilder> eventDescriptionbuilderClass) {
+            Class<? extends EventDescriptionBuilder> eventDescriptionbuilderClass) {
 
-        BaseEventDescriptionBuilder eventDescriptionBuilder = createAndInitializeEventDecriptionBuilder(args,
+        EventDescriptionBuilder eventDescriptionBuilder = createAndInitializeEventDecriptionBuilder(args,
                 createEventContextAccessor(serviceType, version), eventDescriptionbuilderClass, null);
 
         createAndRecordEvent(getBeginEventBuilder(eventDescriptionBuilder));
@@ -99,6 +103,7 @@ public abstract class BaseEventAdviceDelegate implements EventAdviceDelegate {
 
     /**
      * Execute the Director pattern of the Event then record the event.
+     * 
      * @param eventBuilder
      */
     private void createAndRecordEvent(EventBuilder eventBuilder) {
@@ -115,23 +120,24 @@ public abstract class BaseEventAdviceDelegate implements EventAdviceDelegate {
      */
     @Override
     public void end(Object[] args, String serviceType, String version,
-            Class<? extends BaseEventDescriptionBuilder> eventDescriptionbuilderClass, Object returnValue) {
-        BaseEventDescriptionBuilder eventDescriptionBuilder = createAndInitializeEventDecriptionBuilder(args,
+            Class<? extends EventDescriptionBuilder> eventDescriptionbuilderClass, Object returnValue) {
+        EventDescriptionBuilder eventDescriptionBuilder = createAndInitializeEventDecriptionBuilder(args,
                 createEventContextAccessor(serviceType, version), eventDescriptionbuilderClass, returnValue);
         createAndRecordEvent(getEndEventBuilder(eventDescriptionBuilder));
     }
 
     /**
      * after creating the event builder populate with args, context and routing accessor.
+     * 
      * @param args
      * @param eventContextAccessor
      * @param eventDescriptionbuilderClass
      * @return
      */
-    protected BaseEventDescriptionBuilder createAndInitializeEventDecriptionBuilder(Object[] args,
+    protected EventDescriptionBuilder createAndInitializeEventDecriptionBuilder(Object[] args,
             EventContextAccessor eventContextAccessor,
-            Class<? extends BaseEventDescriptionBuilder> eventDescriptionbuilderClass, Object returnValue) {
-        BaseEventDescriptionBuilder eventDescriptionBuilder = createEventDescriptionBuilder(eventDescriptionbuilderClass);
+            Class<? extends EventDescriptionBuilder> eventDescriptionbuilderClass, Object returnValue) {
+        EventDescriptionBuilder eventDescriptionBuilder = createEventDescriptionBuilder(eventDescriptionbuilderClass);
 
         eventDescriptionBuilder.setArguments(args);
         eventDescriptionBuilder.setReturnValue(returnValue);
@@ -142,14 +148,14 @@ public abstract class BaseEventAdviceDelegate implements EventAdviceDelegate {
     }
 
     /**
-     *  create a new instance of the eventDescription builder class. If one can't created return
-     *  the default builder.
+     * create a new instance of the eventDescription builder class. If one can't created return the default builder.
+     * 
      * @param eventDescriptionbuilderClass
      * @return
      */
-    private BaseEventDescriptionBuilder createEventDescriptionBuilder(
-            Class<? extends BaseEventDescriptionBuilder> eventDescriptionbuilderClass) {
-        BaseEventDescriptionBuilder eventDescriptionBuilder;
+    private EventDescriptionBuilder createEventDescriptionBuilder(
+            Class<? extends EventDescriptionBuilder> eventDescriptionbuilderClass) {
+        EventDescriptionBuilder eventDescriptionBuilder;
         try {
             eventDescriptionBuilder = eventDescriptionbuilderClass.newInstance();
         } catch (InstantiationException e) {
@@ -175,7 +181,7 @@ public abstract class BaseEventAdviceDelegate implements EventAdviceDelegate {
         };
     }
 
-    private EventBuilder getBeginEventBuilder(BaseEventDescriptionBuilder eventDescriptionBuilder) {
+    private EventBuilder getBeginEventBuilder(EventDescriptionBuilder eventDescriptionBuilder) {
         EventDescriptionDirector eventDescriptionDirector = new EventDescriptionDirector();
         eventDescriptionDirector.setEventDescriptionBuilder(eventDescriptionBuilder);
         ContextEventBuilder builder = new ContextEventBuilder() {
@@ -189,7 +195,7 @@ public abstract class BaseEventAdviceDelegate implements EventAdviceDelegate {
         return builder;
     }
 
-    private EventBuilder getEndEventBuilder(BaseEventDescriptionBuilder eventDescriptionBuilder) {
+    private EventBuilder getEndEventBuilder(EventDescriptionBuilder eventDescriptionBuilder) {
         EventDescriptionDirector eventDescriptionDirector = new EventDescriptionDirector();
         eventDescriptionDirector.setEventDescriptionBuilder(eventDescriptionBuilder);
         ContextEventBuilder builder = new ContextEventBuilder() {

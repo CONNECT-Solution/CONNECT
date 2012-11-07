@@ -45,17 +45,17 @@ import static org.mockito.Mockito.mock;
  */
 public abstract class BaseDescriptionBuilderTest {
 
-    protected EventDescription getEventDescription(BaseEventDescriptionBuilder builder) {
+    protected EventDescription getEventDescription(EventDescriptionBuilder builder) {
         setMsgMocks(builder);
         return runDirector(builder);
     }
 
-    private void setMsgMocks(BaseEventDescriptionBuilder builder) {
+    private void setMsgMocks(EventDescriptionBuilder builder) {
         builder.setMsgContext(mock(EventContextAccessor.class));
         builder.setMsgRouting(mock(MessageRoutingAccessor.class));
     }
 
-    private EventDescription runDirector(BaseEventDescriptionBuilder builder) {
+    private EventDescription runDirector(EventDescriptionBuilder builder) {
         EventDescriptionDirector director = new EventDescriptionDirector();
         director.setEventDescriptionBuilder(builder);
         director.constructEventDescription();

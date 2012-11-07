@@ -28,7 +28,7 @@
  */
 package gov.hhs.fha.nhinc.aspect;
 
-import gov.hhs.fha.nhinc.event.BaseEventDescriptionBuilder;
+import gov.hhs.fha.nhinc.event.EventDescriptionBuilder;
 
 /**
  * @author bhumphrey
@@ -36,6 +36,6 @@ import gov.hhs.fha.nhinc.event.BaseEventDescriptionBuilder;
  */
 public interface EndEventAdviceDelegate {
     void end(Object[] args, String serviceType, String version,
-            Class<? extends BaseEventDescriptionBuilder> eventDescriptionbuilder, Object returnValue);
+            Class<? extends EventDescriptionBuilder> eventDescriptionbuilder, Object returnValue);
 
 }
