@@ -1,4 +1,6 @@
-/*
+/**
+ * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
+ *
  * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
@@ -26,51 +28,30 @@
  */
 package gov.hhs.fha.nhinc.docquery._20.entity;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import gov.hhs.fha.nhinc.aspect.OutboundMessageEvent;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayQuerySecuredRequestType;
 import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryResponseDescriptionBuilder;
 import gov.hhs.fha.nhinc.docquery.aspect.RespondingGatewayCrossGatewayQuerySecuredRequestTypeDescriptionBuilder;
-import gov.hhs.fha.nhinc.docquery.entity.EntityDocQueryOrchImpl;
 
-import javax.annotation.Resource;
-import javax.xml.ws.BindingType;
-import javax.xml.ws.WebServiceContext;
-import javax.xml.ws.soap.Addressing;
+import java.lang.reflect.Method;
 
-import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
+import org.junit.Test;
 
-@BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
-@Addressing(enabled = true)
-public class EntityDocQuerySecured implements gov.hhs.fha.nhinc.entitydocquery.EntityDocQuerySecuredPortType {
+public class EntityDocQuerySecuredTest {
 
-    private EntityDocQueryOrchImpl orchImpl;
-
-    @Resource
-    private WebServiceContext context;
-
-    @OutboundMessageEvent(beforeBuilder = RespondingGatewayCrossGatewayQuerySecuredRequestTypeDescriptionBuilder.class,
-            afterReturningBuilder = AdhocQueryResponseDescriptionBuilder.class, serviceType = "Document Query",
-            version = "2.0")
-    public AdhocQueryResponse respondingGatewayCrossGatewayQuery(
-            RespondingGatewayCrossGatewayQuerySecuredRequestType body) {
-        AdhocQueryResponse response = null;
-
-        EntityDocQueryImpl serviceImpl = getEntityDocQueryImpl();
-        if (serviceImpl != null) {
-            response = serviceImpl.respondingGatewayCrossGatewayQuerySecured(body, getWebServiceContext());
-        }
-        return response;
-    }
-
-    protected EntityDocQueryImpl getEntityDocQueryImpl() {
-        return new EntityDocQueryImpl(orchImpl);
-    }
-
-    protected WebServiceContext getWebServiceContext() {
-        return context;
-    }
-
-    public void setOrchestratorImpl(EntityDocQueryOrchImpl orchImpl) {
-        this.orchImpl = orchImpl;
+    @Test
+    public void hasBeginOutboundMessageEvent() throws Exception {
+        Class<EntityDocQuerySecured> clazz = EntityDocQuerySecured.class;
+        Method method = clazz.getMethod("respondingGatewayCrossGatewayQuery",
+                RespondingGatewayCrossGatewayQuerySecuredRequestType.class);
+        OutboundMessageEvent annotation = method.getAnnotation(OutboundMessageEvent.class);
+        assertNotNull(annotation);
+        assertEquals(RespondingGatewayCrossGatewayQuerySecuredRequestTypeDescriptionBuilder.class,
+                annotation.beforeBuilder());
+        assertEquals(AdhocQueryResponseDescriptionBuilder.class, annotation.afterReturningBuilder());
+        assertEquals("Document Query", annotation.serviceType());
+        assertEquals("2.0", annotation.version());
     }
 }
