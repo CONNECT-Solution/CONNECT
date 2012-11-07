@@ -28,7 +28,7 @@
  */
 package gov.hhs.fha.nhinc.aspect;
 
-import gov.hhs.fha.nhinc.event.BaseEventDescriptionBuilder;
+import gov.hhs.fha.nhinc.event.EventDescriptionBuilder;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Inherited;
@@ -52,11 +52,11 @@ public @interface InboundProcessingEvent {
      * @return builder class to instantiate for Before processing, using the arguments.
      * @See {@link org.aspectj.lang.annotation.Before}
      */
-    Class<? extends BaseEventDescriptionBuilder> beforeBuilder();
+    Class<? extends EventDescriptionBuilder> beforeBuilder();
 
     /**
      * @return builder class to instantiate for AfterReturn processing, using the arguments and return value.
      * @See {@link org.aspectj.lang.annotation.AfterReturning}
      */
-    Class<? extends BaseEventDescriptionBuilder> afterReturningBuilder();
+    Class<? extends EventDescriptionBuilder> afterReturningBuilder();
 }
