@@ -10,8 +10,12 @@ import java.io.InputStream;
 import java.util.Properties;
 
 import javax.activation.DataHandler;
+import javax.mail.Address;
 import javax.mail.Flags;
 import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
 
 import org.apache.commons.io.IOUtils;
 
@@ -151,4 +155,42 @@ public class DirectUnitTestUtil {
         }
         return false;
     }
+    
+    /**
+     * @return sender.
+     */
+    public static Address getSender() {
+        return toInternetAddress(SENDER);
+    }
+    
+    /**
+     * @return recipients.
+     */
+    public static Address[] getRecipients() {
+        return new InternetAddress[] {toInternetAddress(RECIPIENT)};
+    }
+    
+    /**
+     * Return a stubbed out mime message builder.
+     * @param session mail session
+     * @return Mime Message Builder
+     * @throws IOException on io error.
+     */
+    public static MimeMessageBuilder getMimeMessageBuilder(Session session) throws IOException {
+        MimeMessageBuilder testBuilder = new MimeMessageBuilder(session, getSender(), getRecipients());
+        testBuilder.text("text").subject("subject").attachment(getMockDocument()).attachmentName("attachmentName");
+        return testBuilder;
+    }
+
+    
+    private static InternetAddress toInternetAddress(String email) {
+        InternetAddress address = null;
+        try {
+            address = new InternetAddress(email);
+        } catch (AddressException e) {
+            fail(e.getMessage());
+        }
+        return address;        
+    }
+
 }

@@ -36,12 +36,9 @@ import javax.mail.Folder;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.NoSuchProviderException;
-import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Store;
 import javax.mail.Transport;
-import javax.mail.internet.AddressException;
-import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 import org.apache.commons.logging.Log;
@@ -82,22 +79,22 @@ public class DirectMailClient implements DirectClient {
      * {@inheritDoc}
      */
     @Override
-    public void send(String sender, String recipient, Document attachment, String attachmentName) {
+    public void send(Address sender, Address[] recipients, Document attachment, String attachmentName) {
 
         Session session = getMailSession();
 
-        MimeMessage mimeMessage = new MimeMessageBuilder(session, sender, recipient).subject(MSG_SUBJECT)
-                .text(MSG_TEXT).attachment(attachment).attachmentName(attachmentName).build();
+        MimeMessage mimeMessage = new MimeMessageBuilder(session, sender, recipients)
+                .subject(MSG_SUBJECT).text(MSG_TEXT).attachment(attachment).attachmentName(attachmentName).build();
             
-        send(sender, recipient, mimeMessage, session);
+        send(sender, recipients, mimeMessage, session);
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void send(String sender, String recipient, MimeMessage message) {
-        send(sender, recipient, message, getMailSession());
+    public void send(Address sender, Address[] recipients, MimeMessage message) {
+        send(sender, recipients, message, getMailSession());
     }
 
     
@@ -169,70 +166,44 @@ public class DirectMailClient implements DirectClient {
     }
     
     private Session getMailSession() {
-        Session session = Session.getInstance(mailServerProps, new MailAuthenticator());
-        return session;
-    }    
+        return MailUtils.getMailSession(mailServerProps, mailServerProps.getProperty("direct.mail.user"),
+                mailServerProps.getProperty("direct.mail.pass"));
+    }
     
-    private void send(String sender, String recipient, MimeMessage mimeMessage, Session session) {
-        MessageProcessResult result = processAsDirectMessage(recipient, sender, mimeMessage);
+    private void send(Address sender, Address[] recipients, MimeMessage mimeMessage, Session session) {
+        MessageProcessResult result = processAsDirectMessage(sender, recipients, mimeMessage);
         if (null == result || null == result.getProcessedMessage()) {
             throw new DirectException("Message processed by Direct is null.");
         }        
         try {
-            sendDirectProcessedMessage(recipient, session, result);
+            sendDirectProcessedMessage(recipients, session, result);
         } catch (MessagingException e) {
             throw new DirectException("Could not send message.", e);            
         }                
     }
     
-    private void sendDirectProcessedMessage(String recipient, Session session, MessageProcessResult result) 
+    private void sendDirectProcessedMessage(Address[] recipients, Session session, MessageProcessResult result) 
             throws MessagingException {
         
         Transport transport = null;
         try {
             transport = session.getTransport("smtps");
             transport.connect();
-            InternetAddress[] addressTo = new InternetAddress[1];
-            addressTo[0] = new InternetAddress(recipient);
-            transport.sendMessage(result.getProcessedMessage().getMessage(), addressTo);
+            transport.sendMessage(result.getProcessedMessage().getMessage(), recipients);
         } finally {
             transport.close();
         }
     }
 
-    /**
-     * Authenticator used to provide login credentials to the mail server.
-     */
-    private class MailAuthenticator extends javax.mail.Authenticator {
-        /**
-         * {@inheritDoc}
-         */
-        public PasswordAuthentication getPasswordAuthentication() {
-            return new PasswordAuthentication(mailServerProps.getProperty("direct.mail.user"), 
-                    mailServerProps.getProperty("direct.mail.pass"));
-        }
-    }
-    
-    private MessageProcessResult processAsDirectMessage(String recipient, String sender, MimeMessage mimeMessage) {
+    private MessageProcessResult processAsDirectMessage(Address sender, Address[] recipients, MimeMessage mimeMessage) {
 
-        Address recipAddr = null;
-        try {
-            recipAddr = new InternetAddress(recipient);            
-        } catch (AddressException e) {
-            throw new DirectException("Could not transform recipient string into mail address: " + recipient, e);
-        }        
-        NHINDAddressCollection recipients = new NHINDAddressCollection();
-        recipients.add(new NHINDAddress(recipAddr.toString(), (AddressSource) null));
-
-        InternetAddress senderAddr = null;
-        try {
-            senderAddr = new InternetAddress(sender);            
-        } catch (AddressException e) {
-            throw new DirectException("Could not transform sender string into mail address: " + sender, e);
+        NHINDAddressCollection recipientsCollection = new NHINDAddressCollection();
+        for (Address recipient : recipients) {
+            recipientsCollection.add(new NHINDAddress(recipient.toString(), (AddressSource) null));
         }
         
-        NHINDAddress senderNhindAddress = new NHINDAddress(senderAddr, AddressSource.From);
-        return smtpAgent.processMessage(mimeMessage, recipients, senderNhindAddress);   
+        NHINDAddress senderNhindAddress = new NHINDAddress(sender.toString(), AddressSource.From);
+        return smtpAgent.processMessage(mimeMessage, recipientsCollection, senderNhindAddress);   
     }
     
     /**

@@ -32,12 +32,12 @@ import java.io.IOException;
 
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
+import javax.mail.Address;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Multipart;
 import javax.mail.Part;
 import javax.mail.Session;
-import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
@@ -49,8 +49,8 @@ import javax.mail.util.ByteArrayDataSource;
 public class MimeMessageBuilder {
 
     private final Session session;
-    private final String fromAddress;
-    private final String recipient;
+    private final Address fromAddress;
+    private final Address[] recipients;
 
     private String subject;
     private String text;
@@ -63,11 +63,11 @@ public class MimeMessageBuilder {
      * @param fromAddress sender of the message.
      * @param recipient of the message.
      */
-    public MimeMessageBuilder(Session session, String fromAddress, String recipient) {
+    public MimeMessageBuilder(Session session, Address fromAddress, Address[] recipients) {
         super();
         this.session = session;
         this.fromAddress = fromAddress;
-        this.recipient = recipient;
+        this.recipients = recipients;
     }
     
     /**
@@ -115,21 +115,21 @@ public class MimeMessageBuilder {
         final MimeMessage message = new MimeMessage(session);
         
         try {
-            message.setFrom(new InternetAddress(fromAddress));
+            message.setFrom(fromAddress);
         } catch (Exception e) {
             throw new DirectException("Exception setting from address: " + fromAddress, e);
         }
         
         try {
-            message.addRecipient(Message.RecipientType.TO, new InternetAddress(recipient));
+            message.addRecipients(Message.RecipientType.TO, recipients);
         } catch (Exception e) {
-            throw new DirectException("Exception setting recipient to address: " + recipient, e);            
+            throw new DirectException("Exception setting recipient to address(es): " + recipients, e);            
         }
         
         try {
             message.setSubject(subject);
         } catch (Exception e) {
-            throw new DirectException("Exception setting subject: " + recipient, e);                        
+            throw new DirectException("Exception setting subject: " + subject, e);                        
         }
         
         MimeBodyPart messagePart = new MimeBodyPart();

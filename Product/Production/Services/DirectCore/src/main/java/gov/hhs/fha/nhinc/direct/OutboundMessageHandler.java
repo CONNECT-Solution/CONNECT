@@ -51,9 +51,9 @@ public class OutboundMessageHandler implements MessageHandler {
     @Override
     public void handleMessage(MimeMessage message) {
         try {
-            extDirectMailClient.send(message.getFrom().toString(), message.getAllRecipients().toString(), message);
+            extDirectMailClient.send(message.getFrom()[0], message.getAllRecipients(), message);
         } catch (MessagingException e) {
-            throw new DirectException("Could not convert and send mime message as DIRECT message.", e);
+            throw new DirectException("Could not convert and send RFC5322 MIME message as DIRECT message.", e);
         }
     }
 
