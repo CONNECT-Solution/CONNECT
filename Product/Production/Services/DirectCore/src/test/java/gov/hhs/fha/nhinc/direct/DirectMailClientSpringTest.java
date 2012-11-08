@@ -28,7 +28,14 @@ package gov.hhs.fha.nhinc.direct;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.fail;
 
+import java.io.File;
+import java.io.IOException;
+
+import org.apache.commons.io.FileUtils;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,6 +55,11 @@ public class DirectMailClientSpringTest {
     @Autowired
     private DirectMailClient extDirectMailClient;
     
+    @BeforeClass
+    public static void setUpClass() {
+        writeSmtpAgentConfig();
+    }
+
     /**
      * Test that we can get an external mail client with spring.
      */
@@ -70,5 +82,37 @@ public class DirectMailClientSpringTest {
     @Test
     public void canDistinguishInternalExternal() {
         assertNotSame(intDirectMailClient, extDirectMailClient);        
+    }
+    
+    @AfterClass
+    public static void tearDownClass() {
+        removeSmtpAgentConfig();
+    }
+
+    
+    /**
+     * The keystores references in smtp.agent.config.xml are fully qualified, so we have to make an absolute path
+     * for them from a relative path in order to use inside a junit test.
+     */
+    private static void writeSmtpAgentConfig() {
+        String classpath = getClassPath();
+        try {
+            String smtpAgentConfigTmpl = FileUtils.readFileToString(new File(classpath + "smtp.agent.config.tmpl.xml"));
+            FileUtils.writeStringToFile(new File(classpath + "smtp.agent.config.xml"),
+                    smtpAgentConfigTmpl.replaceAll("\\{jks.keystore.path\\}", classpath));
+        } catch (IOException e) {
+            fail(e.getMessage());
+        }
+    }
+    
+    /**
+     * Delete the auto-generated smtp.agent.config.xml once the test is complete.
+     */
+    private static void removeSmtpAgentConfig() {
+        FileUtils.deleteQuietly(new File(getClassPath() + "smtp.agent.config.xml"));
+    }
+    
+    private static String getClassPath() {
+        return DirectMailClientSpringTest.class.getProtectionDomain().getCodeSource().getLocation().getPath();
     }
 }
