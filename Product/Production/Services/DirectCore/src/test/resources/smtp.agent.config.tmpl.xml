@@ -1,6 +1,6 @@
 <SmtpAgentConfig>
    <Domains>
-      <AnchorStore type="Uniform" storeType="KeyStore" file="/tmp/direct/directkeystore.jks" filePass="connectisawesome" privKeyPass="connectisawesome"/>    
+      <AnchorStore type="Uniform" storeType="KeyStore" file="{jks.keystore.path}directkeystore.jks" filePass="connectisawesome" privKeyPass="connectisawesome"/>    
       <Domain name="localhost" postmaster="postmaster@localhost">
          <IncomingTrustAnchors> 
             <Anchor name="cacert"/>
@@ -38,8 +38,8 @@
          </OutgoingTrustAnchors>         
       </Domain> 
    </Domains>
-   <PublicCertStore type="Keystore" file="/tmp/direct/directkeystore.jks" filePass="connectisawesome" privKeyPass="connectisawesome"/>
-   <PrivateCertStore type="Keystore" file="/tmp/direct/directkeystore.jks" filePass="connectisawesome" privKeyPass="connectisawesome"/>
+   <PublicCertStore type="Keystore" file="{jks.keystore.path}directkeystore.jks" filePass="connectisawesome" privKeyPass="connectisawesome"/>
+   <PrivateCertStore type="Keystore" file="{jks.keystore.path}directkeystore.jks" filePass="connectisawesome" privKeyPass="connectisawesome"/>
    <RawMessageSettings saveFolder="RawMsgFolder"/>
    <OutgoingMessagesSettings saveFolder="OutgoingMsgFolder"/>
    <IncomingMessagesSettings saveFolder="IncomingMsgFolder"/>
