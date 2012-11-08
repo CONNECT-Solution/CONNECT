@@ -36,12 +36,9 @@ import javax.mail.Folder;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.NoSuchProviderException;
-import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Store;
 import javax.mail.Transport;
-import javax.mail.internet.AddressException;
-import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 import org.apache.commons.logging.Log;
@@ -58,18 +55,19 @@ import org.nhindirect.stagent.NHINDAddressCollection;
 public class DirectMailClient implements DirectClient {
 
     private static final Log log = LogFactory.getLog(DirectMailClient.class);
-    
+
     // TODO - Where should these come from?...
     private static final String MSG_SUBJECT = "DIRECT Message";
     private static final String MSG_TEXT = "DIRECT Message body text";
     private static final String DEF_NUM_MSGS_TO_HANDLE = "25";
     private static final int MSG_INDEX_START = 1;
-    
-    private final Properties mailServerProps;    
+
+    private final Properties mailServerProps;
     private final SmtpAgent smtpAgent;
-    
+
     /**
      * Construct a direct mail server with mail server settings.
+     * 
      * @param mailServerProps used to define this mail server
      * @param smtpAgent direct smtp agent config file path relative to classpath used to configure SmtpAgent
      */
@@ -82,47 +80,31 @@ public class DirectMailClient implements DirectClient {
      * {@inheritDoc}
      */
     @Override
-    public void send(String sender, String recipient, Document attachment, String attachmentName) {
+    public void send(Address sender, Address[] recipients, Document attachment, String attachmentName) {
 
-        Session session = Session.getInstance(mailServerProps, new MailAuthenticator());
+        Session session = getMailSession();
 
-        MimeMessage mimeMessage = new MimeMessageBuilder(session, sender, recipient).subject(MSG_SUBJECT)
+        MimeMessage mimeMessage = new MimeMessageBuilder(session, sender, recipients).subject(MSG_SUBJECT)
                 .text(MSG_TEXT).attachment(attachment).attachmentName(attachmentName).build();
-            
-        MessageProcessResult result = processAsDirectMessage(recipient, sender, mimeMessage);
-        if (null == result || null == result.getProcessedMessage()) {
-            throw new DirectException("Message processed by Direct is null.");
-        }
-        
-        try {
-            sendDirectProcessedMessage(recipient, session, result);
-        } catch (MessagingException e) {
-            throw new DirectException("Could not send message.", e);            
-        }
+
+        send(sender, recipients, mimeMessage, session);
     }
-    
-    private void sendDirectProcessedMessage(String recipient, Session session, MessageProcessResult result) 
-            throws MessagingException {
-        
-        Transport transport = null;
-        try {
-            transport = session.getTransport("smtps");
-            transport.connect();
-            InternetAddress[] addressTo = new InternetAddress[1];
-            addressTo[0] = new InternetAddress(recipient);
-            transport.sendMessage(result.getProcessedMessage().getMessage(), addressTo);
-        } finally {
-            transport.close();
-        }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void send(Address sender, Address[] recipients, MimeMessage message) {
+        send(sender, recipients, message, getMailSession());
     }
-    
+
     /**
      * {@inheritDoc}
      */
     @Override
     public void sendMdn(String sender, String recipient, MessageProcessResult result) {
         // TODO Auto-generated method stub
-        
+
     }
 
     /**
@@ -131,31 +113,31 @@ public class DirectMailClient implements DirectClient {
     @Override
     public int handleMessages(MessageHandler handler) {
 
-        Session session = Session.getInstance(mailServerProps, new MailAuthenticator());
+        Session session = getMailSession();
 
         Store store = null;
         try {
             store = session.getStore("imaps");
-        } catch (NoSuchProviderException e) { 
-            throw new DirectException("Exception getting imaps store from session", e);            
-    }
+        } catch (NoSuchProviderException e) {
+            throw new DirectException("Exception getting imaps store from session", e);
+        }
 
         try {
             store.connect();
         } catch (MessagingException e) {
             MailUtils.closeQuietly(store);
             throw new DirectException("Could not connect to imaps mail store", e);
-        }        
-        
+        }
+
         Folder inbox = null;
         try {
             inbox = store.getFolder(MailUtils.FOLDER_NAME_INBOX);
-            inbox.open(Folder.READ_WRITE);            
+            inbox.open(Folder.READ_WRITE);
         } catch (MessagingException e) {
             MailUtils.closeQuietly(store);
-            throw new DirectException("Could not open " + MailUtils.FOLDER_NAME_INBOX + " for READ_WRITE" , e);
+            throw new DirectException("Could not open " + MailUtils.FOLDER_NAME_INBOX + " for READ_WRITE", e);
         }
-                        
+
         Message[] messages = null;
         try {
             messages = inbox.getMessages(MSG_INDEX_START, getNumberOfMsgsToHandle(inbox));
@@ -166,66 +148,64 @@ public class DirectMailClient implements DirectClient {
 
         int numberOfHandledMsgs = 0;
         for (Message message : messages) {
-            try {  
-                if (isMessageNew(message)) {
-                    handler.handleMessage(message);
+            try {
+                if ((message instanceof MimeMessage)) {
+                    handler.handleMessage((MimeMessage) message);
                     numberOfHandledMsgs++;
                 }
                 message.setFlag(Flags.Flag.DELETED, true);
             } catch (Exception e) {
                 // messages that were handled successfully are removed from the server...
                 MailUtils.closeQuietly(store, inbox, MailUtils.FOLDER_EXPUNGE_INBOX_TRUE);
-                throw new DirectException("Exception while handling message.", e);                
+                throw new DirectException("Exception while handling message.", e);
             }
         }
-        
+
         MailUtils.closeQuietly(store, inbox, MailUtils.FOLDER_EXPUNGE_INBOX_TRUE);
-        return numberOfHandledMsgs;                
+        return numberOfHandledMsgs;
     }
 
-    private boolean isMessageNew(Message message) throws MessagingException {
-        if (message.getFlags().contains(Flags.Flag.DELETED) || message.getFlags().contains(Flags.Flag.SEEN)) {
-            return false;
-        }
-        return true;
+    private Session getMailSession() {
+        return MailUtils.getMailSession(mailServerProps, mailServerProps.getProperty("direct.mail.user"),
+                mailServerProps.getProperty("direct.mail.pass"));
     }
-    
-    
-        /**
-     * Authenticator used to provide login credentials to the mail server.
-     */
-    private class MailAuthenticator extends javax.mail.Authenticator {
-        /**
-         * {@inheritDoc}
-         */
-        public PasswordAuthentication getPasswordAuthentication() {
-            return new PasswordAuthentication(mailServerProps.getProperty("direct.mail.user"), 
-                    mailServerProps.getProperty("direct.mail.pass"));
-        }
-    }
-    
-    private MessageProcessResult processAsDirectMessage(String recipient, String sender, MimeMessage mimeMessage) {
 
-        Address recipAddr = null;
+    private void send(Address sender, Address[] recipients, MimeMessage mimeMessage, Session session) {
+        MessageProcessResult result = processAsDirectMessage(sender, recipients, mimeMessage);
+        if (null == result || null == result.getProcessedMessage()) {
+            throw new DirectException("Message processed by Direct is null.");
+        }
         try {
-            recipAddr = new InternetAddress(recipient);            
-        } catch (AddressException e) {
-            throw new DirectException("Could not transform recipient string into mail address: " + recipient, e);
-        }        
-        NHINDAddressCollection recipients = new NHINDAddressCollection();
-        recipients.add(new NHINDAddress(recipAddr.toString(), (AddressSource) null));
-
-        InternetAddress senderAddr = null;
-        try {
-            senderAddr = new InternetAddress(sender);            
-        } catch (AddressException e) {
-            throw new DirectException("Could not transform sender string into mail address: " + sender, e);
+            sendDirectProcessedMessage(recipients, session, result);
+        } catch (MessagingException e) {
+            throw new DirectException("Could not send message.", e);
         }
-        
-        NHINDAddress senderNhindAddress = new NHINDAddress(senderAddr, AddressSource.From);
-        return smtpAgent.processMessage(mimeMessage, recipients, senderNhindAddress);   
     }
-    
+
+    private void sendDirectProcessedMessage(Address[] recipients, Session session, MessageProcessResult result)
+            throws MessagingException {
+
+        Transport transport = null;
+        try {
+            transport = session.getTransport("smtps");
+            transport.connect();
+            transport.sendMessage(result.getProcessedMessage().getMessage(), recipients);
+        } finally {
+            transport.close();
+        }
+    }
+
+    private MessageProcessResult processAsDirectMessage(Address sender, Address[] recipients, MimeMessage mimeMessage) {
+
+        NHINDAddressCollection recipientsCollection = new NHINDAddressCollection();
+        for (Address recipient : recipients) {
+            recipientsCollection.add(new NHINDAddress(recipient.toString(), (AddressSource) null));
+        }
+
+        NHINDAddress senderNhindAddress = new NHINDAddress(sender.toString(), AddressSource.From);
+        return smtpAgent.processMessage(mimeMessage, recipientsCollection, senderNhindAddress);
+    }
+
     /**
      * @param folder used to get message count on the server.
      * @return number of messages we need to handle (whichever number is less).
@@ -236,8 +216,8 @@ public class DirectMailClient implements DirectClient {
         int numberOfMsgsInFolder = folder.getMessageCount();
         int maxNumberOfMsgsToHandle = Integer.parseInt(mailServerProps.getProperty("direct.max.msgs.in.batch",
                 DEF_NUM_MSGS_TO_HANDLE));
-                
+
         return numberOfMsgsInFolder < maxNumberOfMsgsToHandle ? numberOfMsgsInFolder : maxNumberOfMsgsToHandle;
-}
-    
+    }
+
 }

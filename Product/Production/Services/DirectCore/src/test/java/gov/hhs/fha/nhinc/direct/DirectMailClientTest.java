@@ -26,13 +26,16 @@
  */
 package gov.hhs.fha.nhinc.direct;
 
-import static gov.hhs.fha.nhinc.direct.DirectUnitTestUtil.RECIPIENT;
-import static gov.hhs.fha.nhinc.direct.DirectUnitTestUtil.SENDER;
+import static gov.hhs.fha.nhinc.direct.DirectUnitTestUtil.PASS;
+import static gov.hhs.fha.nhinc.direct.DirectUnitTestUtil.USER;
 import static gov.hhs.fha.nhinc.direct.DirectUnitTestUtil.getMailServerProps;
 import static gov.hhs.fha.nhinc.direct.DirectUnitTestUtil.getMockDocument;
+import static gov.hhs.fha.nhinc.direct.DirectUnitTestUtil.getRecipients;
+import static gov.hhs.fha.nhinc.direct.DirectUnitTestUtil.getSender;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
@@ -42,6 +45,7 @@ import static org.mockito.Mockito.when;
 import java.io.IOException;
 import java.util.Properties;
 
+import javax.mail.Session;
 import javax.mail.internet.MimeMessage;
 
 import org.junit.After;
@@ -123,7 +127,7 @@ public class DirectMailClientTest {
                 any(NHINDAddress.class))).thenReturn(mockMessageProcessResult);
 
         for (int i = 0; i < NUM_MSGS_ONE_BATCH; i++) {
-        testDirectMailClient.send(SENDER, RECIPIENT, getMockDocument(), ATTACHMENT_NAME);
+            testDirectMailClient.send(getSender(), getRecipients(), getMockDocument(), ATTACHMENT_NAME);
         }
 
         verify(mockSmtpAgent, times(NUM_MSGS_ONE_BATCH)).processMessage(any(MimeMessage.class),
@@ -155,7 +159,7 @@ public class DirectMailClientTest {
         
         // blast out all of the messages at once...
         for (int i = 0; i < NUM_MSGS_MULTI_BATCH; i++) {
-            testDirectMailClient.send(SENDER, RECIPIENT, getMockDocument(), ATTACHMENT_NAME);
+            testDirectMailClient.send(getSender(), getRecipients(), getMockDocument(), ATTACHMENT_NAME);
     }
 
         verify(mockSmtpAgent, times(NUM_MSGS_MULTI_BATCH)).processMessage(any(MimeMessage.class),
@@ -188,6 +192,21 @@ public class DirectMailClientTest {
     }
 
     /**
+     * Verify that the Outbound Message Handler will use the external direct mail client to directify the message.
+     */
+    @Test
+    public void canHandleOutboundMsg() {
+        
+        DirectMailClient mockExternalDirectMailClient = mock(DirectMailClient.class);        
+        MessageHandler testOutBoundMessageHandler = new OutboundMessageHandler(mockExternalDirectMailClient);        
+
+        MimeMessage mimeMessage = getSampleMimeMessage();        
+        testOutBoundMessageHandler.handleMessage(mimeMessage);
+
+        verify(mockExternalDirectMailClient).send(getSender(), getRecipients(), mimeMessage);
+    }
+        
+    /**
      * Tear down after tests run.
      */
     @After
@@ -197,6 +216,21 @@ public class DirectMailClientTest {
         }
     }
         
+    /**
+     * @return mime message with sample generic content.
+     */
+    private MimeMessage getSampleMimeMessage() {
+        MimeMessage mimeMessage = null;
+        try {
+            Session session = MailUtils.getMailSession(mailServerProps, USER, PASS);
+            mimeMessage = DirectUnitTestUtil.getMimeMessageBuilder(session).build();
+        } catch (IOException e) {
+            fail(e.getMessage());
+        }
+        return mimeMessage;
+    }
+
+
     private MessageProcessResult getMockMessageProcessResult() {
 
         MessageProcessResult mockMessageProcessResult = mock(MessageProcessResult.class);

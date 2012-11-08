@@ -26,7 +26,12 @@
  */
 package gov.hhs.fha.nhinc.direct;
 
+import java.util.Properties;
+
+import javax.mail.Authenticator;
 import javax.mail.Folder;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
 import javax.mail.Store;
 
 import org.apache.commons.logging.Log;
@@ -51,9 +56,10 @@ public class MailUtils {
      * boolean flag when we don't want to expunge the inbox.
      */
     public static final boolean FOLDER_EXPUNGE_INBOX_FALSE = false;
-    
+
     /**
      * Close the java mail store and folder, specifying whether deleted messages should be expunged. Log exceptions.
+     * 
      * @param store to be closed.
      * @param folder to be closed.
      * @param expunge true if deleted messages should be expunged from the folder.
@@ -71,6 +77,7 @@ public class MailUtils {
 
     /**
      * Close the java mail store. Log exceptions.
+     * 
      * @param store to be closed.
      */
     public static void closeQuietly(Store store) {
@@ -82,6 +89,34 @@ public class MailUtils {
             }
         }
     }
-    
+
+    /**
+     * Return a mail session using the provided properties, username and password.
+     * 
+     * @param mailServerProps properties for the mail server
+     * @param user username credential
+     * @param pass password credential
+     * @return mail session.
+     */
+    public static Session getMailSession(Properties mailServerProps, String user, String pass) {
+        Session session = Session.getInstance(mailServerProps, getMailAuthenticator(user, pass));
+        return session;
+    }
+
+    /**
+     * @param user username login credential
+     * @param pass password login credential
+     * @return mail Authenticator using credentials
+     */
+    private static Authenticator getMailAuthenticator(final String user, final String pass) {
+        return new Authenticator() {
+            /**
+             * {@inheritDoc}
+             */
+            public PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(user, pass);
+            }
+        };
+    }
 
 }
