@@ -55,6 +55,9 @@ public class DirectMailClientSpringTest {
     @Autowired
     private DirectMailClient extDirectMailClient;
     
+    /**
+     * Set up keystore for test.
+     */
     @BeforeClass
     public static void setUpClass() {
         writeSmtpAgentConfig();
@@ -84,15 +87,18 @@ public class DirectMailClientSpringTest {
         assertNotSame(intDirectMailClient, extDirectMailClient);        
     }
     
+    /**
+     * Tear down keystore created in setup.
+     */
     @AfterClass
     public static void tearDownClass() {
         removeSmtpAgentConfig();
-}
-
+    }
     
     /**
      * The keystores references in smtp.agent.config.xml are fully qualified, so we have to make an absolute path
-     * for them from a relative path in order to use inside a junit test.
+     * for them from a relative path in order to use inside a junit test. The template config file references the 
+     * keystore with a placeholder {jks.keystore.path} which we will replace with the classpath used by this test.
      */
     private static void writeSmtpAgentConfig() {
         String classpath = getClassPath();

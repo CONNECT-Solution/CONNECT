@@ -26,51 +26,35 @@
  */
 package gov.hhs.fha.nhinc.direct;
 
-import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType.Document;
-
-import javax.mail.Address;
+import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
-import org.nhindirect.gateway.smtp.MessageProcessResult;
-
 /**
- * Interface defining a Mail Client.
+ * Handles outbound messages from an internal mail client. Outbound messages are directified and resent using the
+ * external mail server.
  */
-public interface DirectClient {
+public class OutboundMessageHandler implements MessageHandler {
 
-    /**
-     * Use the mail server to send a DIRECT message.
-     * 
-     * @param sender of the message
-     * @param recipients of the message
-     * @param attachment for the message
-     * @param attachmentName for the attachment
-     */
-    void send(Address sender, Address[] recipients, Document attachment, String attachmentName);
-
-    /**
-     * Use the mail server to send a DIRECT message. When you already have a mail message and you want to send it
-     * as a DIRECT message.
-     * 
-     * @param sender of the message
-     * @param recipients of the message
-     * @param message (mime) to be sent using the direct
-     */
-    void send(Address sender, Address[] recipients, MimeMessage message);
-
-    /**
-     * Use the mail server to send MDN messages if result contains notification messages.
-     * 
-     * @param sender of the message
-     * @param recipient of the message
-     * @param result to be processed for MDN Messages.
-     */
-    void sendMdn(String sender, String recipient, MessageProcessResult result);    
+    private final DirectMailClient extDirectMailClient;
     
     /**
-     * @param handler used to handle messages pulled from the mail server.
-     * @return number of messages handled.
+     * Constructor.
+     * @param extDirectMailClient external direct mail client for sending messages after they have been "directified".
      */
-    int handleMessages(MessageHandler handler);
-    
+    public OutboundMessageHandler(DirectMailClient extDirectMailClient) {
+        this.extDirectMailClient = extDirectMailClient;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void handleMessage(MimeMessage message) {
+        try {
+            extDirectMailClient.send(message.getFrom()[0], message.getAllRecipients(), message);
+        } catch (MessagingException e) {
+            throw new DirectException("Could not convert and send RFC5322 MIME message as DIRECT message.", e);
+        }
+    }
+
 }

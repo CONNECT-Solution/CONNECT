@@ -26,7 +26,7 @@
  */
 package gov.hhs.fha.nhinc.direct;
 
-import javax.mail.Message;
+import javax.mail.internet.MimeMessage;
 
 /**
  * Direct Message Handler is invoked when messages are retrieved from a mail server.
@@ -37,6 +37,6 @@ public interface MessageHandler {
      * Handle a message retrieved from the mail server.
      * @param message to be handled.
      */
-    void handleMessage(Message message);
+    void handleMessage(MimeMessage message);
     
 }
