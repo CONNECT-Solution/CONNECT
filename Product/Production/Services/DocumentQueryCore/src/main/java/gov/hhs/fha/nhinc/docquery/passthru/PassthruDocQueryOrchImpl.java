@@ -55,11 +55,11 @@ public class PassthruDocQueryOrchImpl {
     private static Log log = LogFactory.getLog(PassthruDocQueryOrchImpl.class);
 
     /**
-     *
-     * @param body
-     * @param assertion
-     * @param target
-     * @return <code>AdhocQueryResponse</code>
+     *This method sends DocQuery Request to another Gateway.
+     * @param body Body of AdhocQuery Request message.
+     * @param assertion Asserion received.
+     * @param target TargetCommunity where DocQuery Request to send.
+     * @return AdhocQuery Response from Gateway.
      */
     public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest body, AssertionType assertion,
             NhinTargetSystemType target) {
@@ -102,6 +102,11 @@ public class PassthruDocQueryOrchImpl {
         return response;
     }
 
+    /**
+     * @param target Target Community information.
+     * @param error Type of error
+     * @return Generated AdhocQuery Error Response.
+     */
     private AdhocQueryResponse generateErrorResponse(NhinTargetSystemType target, String error) {
         AdhocQueryResponse adhocResponse = new AdhocQueryResponse();
         RegistryErrorList regErrList = new RegistryErrorList();
