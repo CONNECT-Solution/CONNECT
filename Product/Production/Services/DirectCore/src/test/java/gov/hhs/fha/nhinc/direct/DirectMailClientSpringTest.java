@@ -87,7 +87,7 @@ public class DirectMailClientSpringTest {
     @AfterClass
     public static void tearDownClass() {
         removeSmtpAgentConfig();
-    }
+}
 
     
     /**

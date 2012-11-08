@@ -64,7 +64,7 @@ public class DirectMailClient implements DirectClient {
     private static final String MSG_TEXT = "DIRECT Message body text";
     private static final String DEF_NUM_MSGS_TO_HANDLE = "25";
     private static final int MSG_INDEX_START = 1;
-        
+    
     private final Properties mailServerProps;    
     private final SmtpAgent smtpAgent;
     
@@ -138,8 +138,8 @@ public class DirectMailClient implements DirectClient {
             store = session.getStore("imaps");
         } catch (NoSuchProviderException e) { 
             throw new DirectException("Exception getting imaps store from session", e);            
-        }
-        
+    }
+
         try {
             store.connect();
         } catch (MessagingException e) {
@@ -191,7 +191,7 @@ public class DirectMailClient implements DirectClient {
     }
     
     
-    /**
+        /**
      * Authenticator used to provide login credentials to the mail server.
      */
     private class MailAuthenticator extends javax.mail.Authenticator {
@@ -238,6 +238,6 @@ public class DirectMailClient implements DirectClient {
                 DEF_NUM_MSGS_TO_HANDLE));
                 
         return numberOfMsgsInFolder < maxNumberOfMsgsToHandle ? numberOfMsgsInFolder : maxNumberOfMsgsToHandle;
-    }
+}
     
 }

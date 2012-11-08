@@ -104,7 +104,7 @@ public class DirectMailClientTest {
         assertNotNull(mailServerProps.getProperty("mail.imaps.host"));
         assertNotNull(mailServerProps.getProperty("mail.imaps.port"));
     }
-    
+
     /**
      * Test {@link DirectMailClient#handleMessages(MessageHandler)}
      * Verify that we can send an receive messages on the direct mail client with one batch when the message count is
@@ -121,11 +121,11 @@ public class DirectMailClientTest {
         MessageProcessResult mockMessageProcessResult = getMockMessageProcessResult();
         when(mockSmtpAgent.processMessage(any(MimeMessage.class), any(NHINDAddressCollection.class),
                 any(NHINDAddress.class))).thenReturn(mockMessageProcessResult);
-        
+
         for (int i = 0; i < NUM_MSGS_ONE_BATCH; i++) {
-            testDirectMailClient.send(SENDER, RECIPIENT, getMockDocument(), ATTACHMENT_NAME);
+        testDirectMailClient.send(SENDER, RECIPIENT, getMockDocument(), ATTACHMENT_NAME);
         }
-        
+
         verify(mockSmtpAgent, times(NUM_MSGS_ONE_BATCH)).processMessage(any(MimeMessage.class),
                 any(NHINDAddressCollection.class), any(NHINDAddress.class));
         
@@ -156,7 +156,7 @@ public class DirectMailClientTest {
         // blast out all of the messages at once...
         for (int i = 0; i < NUM_MSGS_MULTI_BATCH; i++) {
             testDirectMailClient.send(SENDER, RECIPIENT, getMockDocument(), ATTACHMENT_NAME);
-        }
+    }
 
         verify(mockSmtpAgent, times(NUM_MSGS_MULTI_BATCH)).processMessage(any(MimeMessage.class),
                 any(NHINDAddressCollection.class), any(NHINDAddress.class));
