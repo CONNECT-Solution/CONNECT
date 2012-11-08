@@ -26,9 +26,11 @@
  */
 package gov.hhs.fha.nhinc.direct;
 
-import org.nhindirect.gateway.smtp.MessageProcessResult;
-
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType.Document;
+
+import javax.mail.internet.MimeMessage;
+
+import org.nhindirect.gateway.smtp.MessageProcessResult;
 
 /**
  * Interface defining a Mail Client.
@@ -36,7 +38,8 @@ import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType.Document;
 public interface DirectClient {
 
     /**
-     * Use the mail server to send a message.
+     * Use the mail server to send a DIRECT message.
+     * 
      * @param sender of the message
      * @param recipient of the message
      * @param attachment for the message
@@ -45,7 +48,18 @@ public interface DirectClient {
     void send(String sender, String recipient, Document attachment, String attachmentName);
 
     /**
+     * Use the mail server to send a DIRECT message. When you already have a mail message and you want to send it
+     * as a DIRECT message.
+     * 
+     * @param sender of the message
+     * @param recipient of the message
+     * @param message (mime) to be sent using the direct
+     */
+    void send(String sender, String recipient, MimeMessage message);
+
+    /**
      * Use the mail server to send MDN messages if result contains notification messages.
+     * 
      * @param sender of the message
      * @param recipient of the message
      * @param result to be processed for MDN Messages.

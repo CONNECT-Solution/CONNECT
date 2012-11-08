@@ -26,17 +26,35 @@
  */
 package gov.hhs.fha.nhinc.direct;
 
+import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
 /**
- * Direct Message Handler is invoked when messages are retrieved from a mail server.
+ * Handles outbound messages from an internal mail client. Outbound messages are directified and resent using the
+ * external mail server.
  */
-public interface MessageHandler {
+public class OutboundMessageHandler implements MessageHandler {
+
+    private final DirectMailClient extDirectMailClient;
+    
+    /**
+     * Constructor.
+     * @param extDirectMailClient external direct mail client for sending messages after they have been "directified".
+     */
+    public OutboundMessageHandler(DirectMailClient extDirectMailClient) {
+        this.extDirectMailClient = extDirectMailClient;
+    }
 
     /**
-     * Handle a message retrieved from the mail server.
-     * @param message to be handled.
+     * {@inheritDoc}
      */
-    void handleMessage(MimeMessage message);
-    
+    @Override
+    public void handleMessage(MimeMessage message) {
+        try {
+            extDirectMailClient.send(message.getFrom().toString(), message.getAllRecipients().toString(), message);
+        } catch (MessagingException e) {
+            throw new DirectException("Could not convert and send mime message as DIRECT message.", e);
+        }
+    }
+
 }

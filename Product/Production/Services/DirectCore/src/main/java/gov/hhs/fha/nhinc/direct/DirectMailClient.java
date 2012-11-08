@@ -84,37 +84,22 @@ public class DirectMailClient implements DirectClient {
     @Override
     public void send(String sender, String recipient, Document attachment, String attachmentName) {
 
-        Session session = Session.getInstance(mailServerProps, new MailAuthenticator());
+        Session session = getMailSession();
 
         MimeMessage mimeMessage = new MimeMessageBuilder(session, sender, recipient).subject(MSG_SUBJECT)
                 .text(MSG_TEXT).attachment(attachment).attachmentName(attachmentName).build();
             
-        MessageProcessResult result = processAsDirectMessage(recipient, sender, mimeMessage);
-        if (null == result || null == result.getProcessedMessage()) {
-            throw new DirectException("Message processed by Direct is null.");
-        }
-        
-        try {
-            sendDirectProcessedMessage(recipient, session, result);
-        } catch (MessagingException e) {
-            throw new DirectException("Could not send message.", e);            
-        }
+        send(sender, recipient, mimeMessage, session);
     }
-    
-    private void sendDirectProcessedMessage(String recipient, Session session, MessageProcessResult result) 
-            throws MessagingException {
-        
-        Transport transport = null;
-        try {
-            transport = session.getTransport("smtps");
-            transport.connect();
-            InternetAddress[] addressTo = new InternetAddress[1];
-            addressTo[0] = new InternetAddress(recipient);
-            transport.sendMessage(result.getProcessedMessage().getMessage(), addressTo);
-        } finally {
-            transport.close();
-        }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void send(String sender, String recipient, MimeMessage message) {
+        send(sender, recipient, message, getMailSession());
     }
+
     
     /**
      * {@inheritDoc}
@@ -131,7 +116,7 @@ public class DirectMailClient implements DirectClient {
     @Override
     public int handleMessages(MessageHandler handler) {
 
-        Session session = Session.getInstance(mailServerProps, new MailAuthenticator());
+        Session session = getMailSession();
 
         Store store = null;
         try {
@@ -166,9 +151,9 @@ public class DirectMailClient implements DirectClient {
 
         int numberOfHandledMsgs = 0;
         for (Message message : messages) {
-            try {  
-                if (isMessageNew(message)) {
-                    handler.handleMessage(message);
+            try {                
+                if ((message instanceof MimeMessage)) {                    
+                    handler.handleMessage((MimeMessage) message);
                     numberOfHandledMsgs++;
                 }
                 message.setFlag(Flags.Flag.DELETED, true);
@@ -182,15 +167,39 @@ public class DirectMailClient implements DirectClient {
         MailUtils.closeQuietly(store, inbox, MailUtils.FOLDER_EXPUNGE_INBOX_TRUE);
         return numberOfHandledMsgs;                
     }
-
-    private boolean isMessageNew(Message message) throws MessagingException {
-        if (message.getFlags().contains(Flags.Flag.DELETED) || message.getFlags().contains(Flags.Flag.SEEN)) {
-            return false;
-        }
-        return true;
+    
+    private Session getMailSession() {
+        Session session = Session.getInstance(mailServerProps, new MailAuthenticator());
+        return session;
+    }    
+    
+    private void send(String sender, String recipient, MimeMessage mimeMessage, Session session) {
+        MessageProcessResult result = processAsDirectMessage(recipient, sender, mimeMessage);
+        if (null == result || null == result.getProcessedMessage()) {
+            throw new DirectException("Message processed by Direct is null.");
+        }        
+        try {
+            sendDirectProcessedMessage(recipient, session, result);
+        } catch (MessagingException e) {
+            throw new DirectException("Could not send message.", e);            
+        }                
     }
     
-    
+    private void sendDirectProcessedMessage(String recipient, Session session, MessageProcessResult result) 
+            throws MessagingException {
+        
+        Transport transport = null;
+        try {
+            transport = session.getTransport("smtps");
+            transport.connect();
+            InternetAddress[] addressTo = new InternetAddress[1];
+            addressTo[0] = new InternetAddress(recipient);
+            transport.sendMessage(result.getProcessedMessage().getMessage(), addressTo);
+        } finally {
+            transport.close();
+        }
+    }
+
     /**
      * Authenticator used to provide login credentials to the mail server.
      */
