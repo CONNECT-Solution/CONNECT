@@ -1,5 +1,6 @@
 package gov.hhs.fha.nhinc.direct;
 
+import static org.junit.Assert.fail;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType.Document;
@@ -9,8 +10,19 @@ import java.io.InputStream;
 import java.util.Properties;
 
 import javax.activation.DataHandler;
+import javax.mail.Address;
+import javax.mail.Flags;
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
 
 import org.apache.commons.io.IOUtils;
+
+import com.icegreen.greenmail.store.MailFolder;
+import com.icegreen.greenmail.store.SimpleStoredMessage;
+import com.icegreen.greenmail.user.GreenMailUser;
+import com.icegreen.greenmail.util.GreenMail;
 /*
  * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
@@ -46,33 +58,53 @@ public class DirectUnitTestUtil {
     /**
      * Sender of a mail message.
      */
-    public static final String SENDER = "testsender@localhost";
+    protected static final String SENDER = "testsender@localhost";
     /**
      * Recipient of a mail message.
      */
-    public static final String RECIPIENT = "testrecip@localhost";
+    protected static final String RECIPIENT = "testrecip@localhost";
+    /**
+     * Login username.
+     */
+    protected static final String USER = "testuser";    
+    /**
+     * Login password.
+     */
+    protected static final String PASS = "testpass1";
+    /**
+     * Max number of messages to process at once, allows us to throttle and distribute load.
+     */
+    protected static final int MAX_NUM_MSGS_IN_BATCH = 5;
 
     /**
      * Sets up the properties in order to connect to the green mail test server.
-     * @param port mail server is listening to.
-     * @param user used for login.
-     * @param pass used for login.
+     * @param smtpPort for smtps
+     * @param imapPort for imaps
      * @return Properties instance holding appropriate values for java mail.
      */
-    public static Properties getMailServerProps(int port, String user, String pass) {
+    public static Properties getMailServerProps(int smtpPort, int imapPort) {
 
         Properties props = new Properties();
-        props.put("mail.smtps.host", "localhost");
-        props.put("mail.smtps.auth", "TRUE");
-        props.put("mail.smtps.port", port);
-        props.put("mail.smtps.starttls.enabled", "TRUE");
-        props.put("mail.smtp.user", user);
-        props.put("mail.smtp.password", pass);
         
+        props.setProperty("direct.mail.user", USER);
+        props.setProperty("direct.mail.pass", PASS);
+        props.setProperty("direct.max.msgs.in.batch", Integer.toString(MAX_NUM_MSGS_IN_BATCH));
+                        
+        props.setProperty("mail.smtps.host", "localhost");
+        props.setProperty("mail.smtps.auth", "TRUE");
+        props.setProperty("mail.smtps.port", Integer.toString(smtpPort));
+        props.setProperty("mail.smtps.starttls.enabled", "TRUE");
+
+        props.setProperty("mail.imaps.host", "localhost");
+        props.setProperty("mail.imaps.port", Integer.toString(imapPort));
+
         // this allows us to run the test using a dummy in-memory keystore provided by GreenMail... don't use in prod.
-        props.put("mail.smtps.ssl.socketFactory.class", "com.icegreen.greenmail.util.DummySSLSocketFactory");
-        props.put("mail.smtps.ssl.socketFactory.port", port);
-        props.put("mail.smtps.ssl.socketFactory.fallback", "false");
+        props.setProperty("mail.smtps.ssl.socketFactory.class", "com.icegreen.greenmail.util.DummySSLSocketFactory");
+        props.setProperty("mail.smtps.ssl.socketFactory.port", Integer.toString(smtpPort));
+        props.setProperty("mail.smtps.ssl.socketFactory.fallback", "false");
+        props.setProperty("mail.imaps.ssl.socketFactory.class", "com.icegreen.greenmail.util.DummySSLSocketFactory");
+        props.setProperty("mail.imaps.ssl.socketFactory.port", Integer.toString(imapPort));
+        props.setProperty("mail.imaps.ssl.socketFactory.fallback", "false");
 
         return props;
     }
@@ -91,6 +123,74 @@ public class DirectUnitTestUtil {
         when(mockDataHandler.getInputStream()).thenReturn(dummyInputStream);
 
         return mockDocument;        
+    }
+
+    
+    /**
+     * Workaround for defect in greenmail expunging messages: 
+     * http://sourceforge.net/tracker/?func=detail&aid=2688036&group_id=159695&atid=812857
+     * 
+     * We have to delete these ourselves...
+     * @param greenMail mock mail server
+     * @param user used to access folder to be expunged
+     */
+    public static void expungeMissedMessages(GreenMail greenMail, GreenMailUser user) {
+        try {
+            MailFolder folder = greenMail.getManagers().getImapHostManager()
+                    .getFolder(user, MailUtils.FOLDER_NAME_INBOX);
+            while (folderHasDeletedMsgs(folder)) {
+                folder.expunge();
+            }
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
+    }    
+    
+    private static  boolean folderHasDeletedMsgs(MailFolder folder) throws MessagingException {
+        for (Object object : folder.getMessages()) {
+            SimpleStoredMessage message = (SimpleStoredMessage) object;
+            if (message.getFlags().contains(Flags.Flag.DELETED)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    /**
+     * @return sender.
+     */
+    public static Address getSender() {
+        return toInternetAddress(SENDER);
+    }
+    
+    /**
+     * @return recipients.
+     */
+    public static Address[] getRecipients() {
+        return new InternetAddress[] {toInternetAddress(RECIPIENT)};
+    }
+    
+    /**
+     * Return a stubbed out mime message builder.
+     * @param session mail session
+     * @return Mime Message Builder
+     * @throws IOException on io error.
+     */
+    public static MimeMessageBuilder getMimeMessageBuilder(Session session) throws IOException {
+        MimeMessageBuilder testBuilder = new MimeMessageBuilder(session, getSender(), getRecipients());
+        testBuilder.text("text").subject("subject").attachment(getMockDocument()).attachmentName("attachmentName");
+        return testBuilder;
+    }
+
+    
+    private static InternetAddress toInternetAddress(String email) {
+        InternetAddress address = null;
+        try {
+            address = new InternetAddress(email);
+        } catch (AddressException e) {
+            fail(e.getMessage());
+        }
+        return address;        
     }
 
 }

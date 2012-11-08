@@ -97,16 +97,14 @@ class EntityDocSubmissionImpl {
     private static final String PASS = "xxxx";
     private static final Properties mailServerProps = new Properties();
     static {
-        mailServerProps.put("mail.smtps.host", "localhost");
-        mailServerProps.put("mail.smtps.auth", "TRUE");
-        mailServerProps.put("mail.smtps.port", "456");
-        mailServerProps.put("mail.smtps.starttls.enabled", "TRUE");
-        mailServerProps.put("mail.smtp.user", USER);
-        mailServerProps.put("mail.smtp.password", PASS);
-
-        mailServerProps.put("imap.host", "imap.gmail.com");
-        mailServerProps.put("imap.username", USER);
-        mailServerProps.put("imap.password", PASS);
+        mailServerProps.setProperty("mail.smtps.host", "localhost");
+        mailServerProps.setProperty("mail.smtps.auth", "TRUE");
+        mailServerProps.setProperty("mail.smtps.port", "456");
+        mailServerProps.setProperty("mail.smtps.starttls.enabled", "TRUE");
+        mailServerProps.setProperty("direct.mail.user", USER);
+        mailServerProps.setProperty("direct.mail.pass", PASS);
+        mailServerProps.setProperty("mail.imaps.host", "imap.gmail.com");
+        mailServerProps.setProperty("mail.imaps.port", "imap.gmail.com");
     }
     
     private static void copyMessage(MimeMessage message, String folder) {
