@@ -1,28 +1,28 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
- * All rights reserved. 
+ * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * All rights reserved.
  *
- * Redistribution and use in source and binary forms, with or without 
- * modification, are permitted provided that the following conditions are met: 
- *     * Redistributions of source code must retain the above 
- *       copyright notice, this list of conditions and the following disclaimer. 
- *     * Redistributions in binary form must reproduce the above copyright 
- *       notice, this list of conditions and the following disclaimer in the documentation 
- *       and/or other materials provided with the distribution. 
- *     * Neither the name of the United States Government nor the 
- *       names of its contributors may be used to endorse or promote products 
- *       derived from this software without specific prior written permission. 
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *     * Redistributions of source code must retain the above
+ *       copyright notice, this list of conditions and the following disclaimer.
+ *     * Redistributions in binary form must reproduce the above copyright
+ *       notice, this list of conditions and the following disclaimer in the documentation
+ *       and/or other materials provided with the distribution.
+ *     * Neither the name of the United States Government nor the
+ *       names of its contributors may be used to endorse or promote products
+ *       derived from this software without specific prior written permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
- * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
- * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY 
- * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES 
- * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
- * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND 
- * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
- * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package gov.hhs.fha.nhinc.gateway.aggregator.model;
 
@@ -31,7 +31,7 @@ import gov.hhs.fha.nhinc.gateway.aggregator.AggregatorException;
 /**
  * This represents the fields that make up the message key that identifies a single document query record in the
  * aggregator message results table.
- * 
+ *
  * @author Les Westberg
  */
 public class DocQueryMessageKey {
@@ -64,7 +64,7 @@ public class DocQueryMessageKey {
     /**
      * This method takes the information in a formatted message key and creates an object with that information. This
      * key should be one that was created by this class. (or at least exactly formatted that way).
-     * 
+     *
      * @param sMessageKey The message key as formatted by calling the creatingXMLMessageKey.
      * @throws AggregatorException This is thrown if the format of the XML message is not correct.
      */
@@ -76,7 +76,7 @@ public class DocQueryMessageKey {
     }
 
     /**
-     * Clear the ocntents of this object
+     * Clear the ocntents of this object.
      */
     public void clear() {
         homeCommunityId = "";
@@ -86,7 +86,7 @@ public class DocQueryMessageKey {
 
     /**
      * Return the assigning authority.
-     * 
+     *
      * @return The assigning authority.
      */
     public String getAssigningAuthority() {
@@ -95,7 +95,7 @@ public class DocQueryMessageKey {
 
     /**
      * Sets the assigning authority.
-     * 
+     *
      * @param assigningAuthority The assigning authority.
      */
     public void setAssigningAuthority(String assigningAuthority) {
@@ -105,7 +105,7 @@ public class DocQueryMessageKey {
     /**
      * Return the home community ID. Note if this has not been set, then a look up will be done to retrieve it based on
      * assigning authority.
-     * 
+     *
      * @return The home community ID.
      */
     public String getHomeCommunityId() {
@@ -115,7 +115,7 @@ public class DocQueryMessageKey {
     /**
      * Sets the home community ID. Note if this has not been set, then a look up will be done to retrieve it based on
      * assigning authority.
-     * 
+     *
      * @param homeCommunityId The home community ID.
      */
     public void setHomeCommunityId(String homeCommunityId) {
@@ -124,7 +124,7 @@ public class DocQueryMessageKey {
 
     /**
      * Returns the patient Id.
-     * 
+     *
      * @return The patient Id.
      */
     public String getPatientId() {
@@ -133,7 +133,7 @@ public class DocQueryMessageKey {
 
     /**
      * Sets the patient Id.
-     * 
+     *
      * @param patientId The patient Id.
      */
     public void setPatientId(String patientId) {
@@ -143,7 +143,7 @@ public class DocQueryMessageKey {
     /**
      * This method creates the XML Message Key that will be stored in the MessageKey field of the
      * AGGREGATOR.AGG_MESSAGE_RESULTS table.
-     * 
+     *
      * @return The XML key that is created based on the fields in this object.
      */
     public String createXMLMessageKey() {
@@ -180,7 +180,7 @@ public class DocQueryMessageKey {
     /**
      * Since this is a simple XML that is in a controlled format - It is easiest to just pull out the fields by
      * hand-parsing...
-     * 
+     *
      * @param sMessageKey The XML string key containing the data.
      * @throws AggregatorException This is thrown if the format of the XML message is not correct.
      */

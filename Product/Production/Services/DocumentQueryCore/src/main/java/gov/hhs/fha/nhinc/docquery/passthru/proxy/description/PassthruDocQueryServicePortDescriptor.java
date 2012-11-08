@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package gov.hhs.fha.nhinc.docquery.passthru.proxy.description;
 
@@ -16,8 +16,9 @@ public class PassthruDocQueryServicePortDescriptor implements ServicePortDescrip
     private static final String SERVICE_LOCAL_PART = "NhincProxyDocQuery";
     private static final String PORT_LOCAL_PART = "NhincProxyDocQueryPortSoap";
     private static final String WSDL_FILE = "NhincProxyDocQuery.wsdl";
-    private static final String WS_ADDRESSING_ACTION = "urn:gov:hhs:fha:nhinc:nhincproxydocquery:RespondingGateway_CrossGatewayQueryRequestMessage";
-    
+    private static final String WS_ADDRESSING_ACTION = "urn:gov:hhs:fha:nhinc:nhincproxydocquery:"
+            + "RespondingGateway_CrossGatewayQueryRequestMessage";
+
     /* (non-Javadoc)
      * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getNamespaceUri()
      */

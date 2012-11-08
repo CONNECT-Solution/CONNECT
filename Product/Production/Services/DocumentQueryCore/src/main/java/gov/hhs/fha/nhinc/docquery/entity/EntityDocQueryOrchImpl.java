@@ -1,28 +1,28 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
- * All rights reserved. 
+ * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * All rights reserved.
  *
- * Redistribution and use in source and binary forms, with or without 
- * modification, are permitted provided that the following conditions are met: 
- *     * Redistributions of source code must retain the above 
- *       copyright notice, this list of conditions and the following disclaimer. 
- *     * Redistributions in binary form must reproduce the above copyright 
- *       notice, this list of conditions and the following disclaimer in the documentation 
- *       and/or other materials provided with the distribution. 
- *     * Neither the name of the United States Government nor the 
- *       names of its contributors may be used to endorse or promote products 
- *       derived from this software without specific prior written permission. 
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *     * Redistributions of source code must retain the above
+ *       copyright notice, this list of conditions and the following disclaimer.
+ *     * Redistributions in binary form must reproduce the above copyright
+ *       notice, this list of conditions and the following disclaimer in the documentation
+ *       and/or other materials provided with the distribution.
+ *     * Neither the name of the United States Government nor the
+ *       names of its contributors may be used to endorse or promote products
+ *       derived from this software without specific prior written permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
- * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
- * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY 
- * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES 
- * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
- * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND 
- * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
- * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package gov.hhs.fha.nhinc.docquery.entity;
 
@@ -92,7 +92,7 @@ public class EntityDocQueryOrchImpl {
 
     /**
      * Add default constructor that is used by test cases Note that implementations should always use constructor that
-     * takes the executor services as input
+     * takes the executor services as input.
      */
     public EntityDocQueryOrchImpl() {
         // for this default test case, we just create default executor services
@@ -105,7 +105,10 @@ public class EntityDocQueryOrchImpl {
     /**
      * We construct the orch impl class with references to both executor services that could be used for this particular
      * orchestration instance. Determination of which executor service to use (largejob or regular) is based on the size
-     * of the correlationsResult and configs
+     * of the correlationsResult and configs.
+     * 
+     * @param e regular executor.
+     * @param le largejob executor.
      */
     public EntityDocQueryOrchImpl(ExecutorService e, ExecutorService le) {
         log = createLogger();
@@ -113,16 +116,19 @@ public class EntityDocQueryOrchImpl {
         largejobExecutor = le;
     }
 
+    /**
+     * @return Log log
+     */
     protected Log createLogger() {
         return ((log != null) ? log : LogFactory.getLog(getClass()));
     }
 
     /**
      * 
-     * @param adhocQueryRequest
-     * @param assertion
-     * @param targets
-     * @return <code>AdhocQueryResponse</code>
+     * @param adhocQueryRequest The AdhocQueryRequest message received.
+     * @param assertion Assertion received.
+     * @param targets Target to send request.
+     * @return AdhocQueryResponse from Entity Interface.
      */
     @SuppressWarnings("static-access")
     public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest adhocQueryRequest,
@@ -132,15 +138,15 @@ public class EntityDocQueryOrchImpl {
         AdhocQueryResponse response = new AdhocQueryResponse();
         boolean responseIsSpecA0 = getApiLevel(getLocalHomeCommunityId(),
                 NhincConstants.NHIN_SERVICE_NAMES.DOCUMENT_QUERY);
-        if (log.isDebugEnabled()) {
-            log.debug("EntityDocQueryOrchImpl set responseIsSpecA0=" + responseIsSpecA0);
-        }
+
+        log.debug("EntityDocQueryOrchImpl set responseIsSpecA0=" + responseIsSpecA0);
+
         List<UrlInfo> urlInfoList = null;
         boolean isTargeted = false;
-
         // audit initial request
         DocQueryAuditLog auditLog = new DocQueryAuditLog();
-        RespondingGatewayCrossGatewayQuerySecuredRequestType request = new RespondingGatewayCrossGatewayQuerySecuredRequestType();
+        RespondingGatewayCrossGatewayQuerySecuredRequestType request = 
+                new RespondingGatewayCrossGatewayQuerySecuredRequestType();
         request.setAdhocQueryRequest(adhocQueryRequest);
         request.setNhinTargetCommunities(targets);
         auditInitialEntityRequest(request, assertion, auditLog);
@@ -149,9 +155,7 @@ public class EntityDocQueryOrchImpl {
             if (targets != null && NullChecker.isNotNullish(targets.getNhinTargetCommunity())) {
                 isTargeted = true;
             }
-
             // Obtain all the URLs for the targets being sent to
-
             urlInfoList = getEndpointForNhinTargetCommunities(targets, NhincConstants.DOC_QUERY_SERVICE_NAME);
 
             if ((!isTargeted) || (isTargeted && NullChecker.isNotNullish(urlInfoList))) {
@@ -168,24 +172,19 @@ public class EntityDocQueryOrchImpl {
 
                     if (NullChecker.isNotNullish(correlationsResult)) {
 
-                        List<NhinCallableRequest<OutboundDocQueryOrchestratable>> callableList = new ArrayList<NhinCallableRequest<OutboundDocQueryOrchestratable>>();
+                        List<NhinCallableRequest<OutboundDocQueryOrchestratable>> callableList = 
+                                new ArrayList<NhinCallableRequest<OutboundDocQueryOrchestratable>>();
                         String transactionId = (UUID.randomUUID()).toString();
 
                         // we hold the error messages for any failed policy checks in policyErrList
                         RegistryErrorList policyErrList = new RegistryErrorList();
 
                         for (QualifiedSubjectIdentifierType identifier : correlationsResult) {
-                            if (log.isDebugEnabled()) {
-                                log.debug("EntityDocQueryOrchImpl correlated target aaid="
-                                        + identifier.getAssigningAuthorityIdentifier());
-                            }
+                            log.debug("EntityDocQueryOrchImpl correlated target aaid="
+                                    + identifier.getAssigningAuthorityIdentifier());
                             NhinTargetSystemType target = new NhinTargetSystemType();
                             HomeCommunityType targetCommunity = getTargetCommunity(
                                     identifier.getAssigningAuthorityIdentifier(), localAA, getLocalHomeCommunityId());
-                            /*
-                             * HomeCommunityType targetCommunity = new EntityDocQueryHelper().lookupHomeCommunityId(
-                             * identifier.getAssigningAuthorityIdentifier(), localAA, getLocalHomeCommunityId());
-                             */
                             String sTargetHomeCommunityId = null;
                             if (targetCommunity != null) {
                                 target.setHomeCommunity(targetCommunity);
@@ -194,7 +193,6 @@ public class EntityDocQueryOrchImpl {
 
                             log.debug("EntityDocQueryOrchImpl correlated target hcid="
                                     + targetCommunity.getHomeCommunityId());
-
                             if (isValidPolicy(adhocQueryRequest, assertion, targetCommunity)) {
                                 OutboundDelegate nd = new OutboundDocQueryDelegate();
                                 OutboundResponseProcessor np = null;
@@ -203,7 +201,6 @@ public class EntityDocQueryOrchImpl {
                                 } else {
                                     np = new OutboundDocQueryProcessor(NhincConstants.GATEWAY_API_LEVEL.LEVEL_g1);
                                 }
-
                                 // clone the request
                                 AdhocQueryRequest clonedRequest = cloneRequest(adhocQueryRequest);
                                 // replace the patient id slot
@@ -223,14 +220,7 @@ public class EntityDocQueryOrchImpl {
                                     }
                                 }
                                 // set the home community id to the target hcid
-                                if (NullChecker.isNotNullish(sTargetHomeCommunityId)) {
-                                    if (!(sTargetHomeCommunityId.startsWith("urn:oid:"))) {
-                                        clonedRequest.getAdhocQuery().setHome("urn:oid:" + sTargetHomeCommunityId);
-                                    } else {
-                                        clonedRequest.getAdhocQuery().setHome(sTargetHomeCommunityId);
-                                    }
-                                }
-
+                                clonedRequest = setTargetHomeCommunityId(clonedRequest, sTargetHomeCommunityId);
                                 for (UrlInfo urlInfo : urlInfoList) {
                                     if (urlInfo.getHcid().equals(sTargetHomeCommunityId)) {
                                         if (NullChecker.isNotNullish(urlInfo.getUrl())) {
@@ -239,39 +229,23 @@ public class EntityDocQueryOrchImpl {
                                                     NhincConstants.DOC_QUERY_SERVICE_NAME, target, clonedRequest);
                                             callableList.add(new NhinCallableRequest<OutboundDocQueryOrchestratable>(
                                                     message));
-
                                         } else {
-                                            RegistryError regErr = new RegistryError();
-                                            regErr.setCodeContext("No URLs found for targeted DocQueryRequest for homecommunity:"
-                                                    + urlInfo.getHcid());
-                                            regErr.setErrorCode(DocumentConstants.XDS_QUERY_ERRORCODE_HOMECOMMUNITY_ERROR);
-                                            regErr.setSeverity(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR);
-                                            homeCommunityErrorList.getRegistryError().add(regErr);
-
+                                            homeCommunityErrorList = createHomeCommunityError(homeCommunityErrorList,
+                                                    urlInfo);
                                         }
                                     }
                                 }
-                                if (log.isDebugEnabled()) {
-                                    log.debug("EntityDocQueryOrchImpl added NhinCallableRequest" + " for hcid="
-                                            + target.getHomeCommunity().getHomeCommunityId()
-                                            + " with formattedPatientId=" + formattedPatientId);
-                                }
+                                log.debug("EntityDocQueryOrchImpl added NhinCallableRequest" + " for hcid="
+                                        + target.getHomeCommunity().getHomeCommunityId() + " with formattedPatientId="
+                                        + formattedPatientId);
                             } else {
-                                RegistryError regErr = new RegistryError();
-                                regErr.setCodeContext("Policy Check Failed for homeId="
-                                        + target.getHomeCommunity().getHomeCommunityId() + " and aaId="
-                                        + identifier.getAssigningAuthorityIdentifier());
-                                regErr.setErrorCode("XDSRepositoryError");
-                                regErr.setSeverity(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR);
-                                policyErrList.getRegistryError().add(regErr);
+                                policyErrList = createPolicyError(policyErrList,
+                                        identifier.getAssigningAuthorityIdentifier(), target.getHomeCommunity()
+                                                .getHomeCommunityId());
                             }
                         }
-
                         // note that if responseIsSpecA0 taskexecutor is set to return OutboundDocQueryOrchestratable_a0
                         // else taskexecutor set to return OutboundDocQueryOrchestratable_a1
-                        // OutboundDocQueryOrchestratable_a0 orchResponse_g0 = null;
-                        // OutboundDocQueryOrchestratable_a1 orchResponse_g1 = null;
-
                         if (responseIsSpecA0) {
                             response = specResponseA0(correlationsResult, callableList, transactionId, response,
                                     policyErrList);
@@ -279,38 +253,17 @@ public class EntityDocQueryOrchImpl {
                             response = specResponseA1(correlationsResult, callableList, transactionId, response,
                                     policyErrList);
                         }
-                        if (log.isDebugEnabled()) {
-                            log.debug("EntityDocQueryOrchImpl taskexecutor done and received response");
-                        }
+
+                        log.debug("EntityDocQueryOrchImpl taskexecutor done and received response");
+
                     } else {
-                        boolean slotPresent = patientIdSlot(slotList);
-                        if (!slotPresent) {
-                            response = createErrorResponse(DocumentConstants.EBXML_DOCQUERY_STORED_QUERY_MISSIN_PARAM,
-                                    "Required parameter XDSDocumentEntryPatientId, not present in query request.");
-                        } else {
-                            if (log.isDebugEnabled()) {
-                                log.debug("EntityDocQueryOrchImpl no patient found, return empty list");
-                            }
-                            response = createErrorResponse("XDSUnknownPatientId", "No patient correlations found.");
-                        }
+                        response = createPatientIdError(slotList, response);
                     }
                 } else {
                     log.error("Incomplete doc query message");
                     response = createErrorResponse("XDSRepositoryError", "Incomplete/empty adhocquery message");
                 }
-                if (homeCommunityErrorList.getRegistryError() != null
-                        && !homeCommunityErrorList.getRegistryError().isEmpty()) {
-                    if (response.getRegistryErrorList() == null) {
-                        response.setRegistryErrorList(homeCommunityErrorList);
-                    } else if (response.getRegistryErrorList().getRegistryError() != null) {
-                        response.getRegistryErrorList().getRegistryError()
-                                .addAll(homeCommunityErrorList.getRegistryError());
-                    }
-                    if (response.getStatus().equals(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_SUCCESS)) {
-                        response.setStatus(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_PARTIALSUCCESS);
-                    }
-                }
-
+                response = addHomeCommunityError(response, homeCommunityErrorList);
             } else {
                 log.error("No URLs found for targeted DocQueryRequest");
                 response = createErrorResponse(DocumentConstants.XDS_QUERY_ERRORCODE_HOMECOMMUNITY_ERROR,
@@ -318,7 +271,6 @@ public class EntityDocQueryOrchImpl {
                 RegistryObjectListType regObjList = new RegistryObjectListType();
                 response.setRegistryObjectList(regObjList);
             }
-
         } catch (Exception e) {
             log.error("Error occured processing doc query on entity interface: " + e.getMessage(), e);
             response = createErrorResponse("XDSRepositoryError", "Fault encountered processing internal document query"
@@ -332,9 +284,94 @@ public class EntityDocQueryOrchImpl {
     }
 
     /**
-     * @param localHomeCommunityId
-     * @param documentQuery
+     * @param slotList
+     * @param response
      * @return
+     */
+    private AdhocQueryResponse createPatientIdError(List<SlotType1> slotList, AdhocQueryResponse response) {
+        boolean slotPresent = patientIdSlot(slotList);
+        if (!slotPresent) {
+            response = createErrorResponse(DocumentConstants.EBXML_DOCQUERY_STORED_QUERY_MISSIN_PARAM,
+                    "Required parameter XDSDocumentEntryPatientId, not present in query request.");
+        } else {
+            if (log.isDebugEnabled()) {
+                log.debug("EntityDocQueryOrchImpl no patient found, return empty list");
+            }
+            response = createErrorResponse("XDSUnknownPatientId", "No patient correlations found.");
+        }
+        return response;
+    }
+
+    /**
+     * @param clonedRequest
+     * @param sTargetHomeCommunityId
+     * @return
+     */
+    private AdhocQueryRequest setTargetHomeCommunityId(AdhocQueryRequest clonedRequest, String sTargetHomeCommunityId) {
+        if (NullChecker.isNotNullish(sTargetHomeCommunityId)) {
+            if (!(sTargetHomeCommunityId.startsWith("urn:oid:"))) {
+                clonedRequest.getAdhocQuery().setHome("urn:oid:" + sTargetHomeCommunityId);
+            } else {
+                clonedRequest.getAdhocQuery().setHome(sTargetHomeCommunityId);
+            }
+        }
+        return clonedRequest;
+    }
+
+    /**
+     * @param response
+     * @param homeCommunityErrorList
+     * @return
+     */
+    private AdhocQueryResponse addHomeCommunityError(AdhocQueryResponse response,
+            RegistryErrorList homeCommunityErrorList) {
+        if (homeCommunityErrorList.getRegistryError() != null && !homeCommunityErrorList.getRegistryError().isEmpty()) {
+            if (response.getRegistryErrorList() == null) {
+                response.setRegistryErrorList(homeCommunityErrorList);
+            } else if (response.getRegistryErrorList().getRegistryError() != null) {
+                response.getRegistryErrorList().getRegistryError().addAll(homeCommunityErrorList.getRegistryError());
+            }
+            if (response.getStatus().equals(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_SUCCESS)) {
+                response.setStatus(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_PARTIALSUCCESS);
+            }
+        }
+        return response;
+    }
+
+    /**
+     * @param policyErrList
+     * @param assigningAuthorityIdentifier
+     * @param string
+     * @return
+     */
+    private RegistryErrorList createPolicyError(RegistryErrorList policyErrList, String assigningAuthorityIdentifier,
+            String target) {
+        RegistryError regErr = new RegistryError();
+        regErr.setCodeContext("Policy Check Failed for homeId=" + target + " and aaId=" + assigningAuthorityIdentifier);
+        regErr.setErrorCode("XDSRepositoryError");
+        regErr.setSeverity(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR);
+        policyErrList.getRegistryError().add(regErr);
+        return policyErrList;
+    }
+
+    /**
+     * @param homeCommunityErrorList RegistryErrorList to add HomeCommunityError for DocQuery.
+     * @param urlInfo urlInfo for the targeted community.
+     * @return
+     */
+    private RegistryErrorList createHomeCommunityError(RegistryErrorList homeCommunityErrorList, UrlInfo urlInfo) {
+        RegistryError regErr = new RegistryError();
+        regErr.setCodeContext("No URLs found for targeted DocQueryRequest " + "for homecommunity:" + urlInfo.getHcid());
+        regErr.setErrorCode(DocumentConstants.XDS_QUERY_ERRORCODE_HOMECOMMUNITY_ERROR);
+        regErr.setSeverity(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR);
+        homeCommunityErrorList.getRegistryError().add(regErr);
+        return homeCommunityErrorList;
+    }
+
+    /**
+     * @param localHomeCommunityId Requesting gateway CommunityId.
+     * @param documentQuery Name of Service (DocumentQuery)
+     * @return gateway APILevel (g0, g1)
      */
     // quick rig for testing to switch between a0 and a1
     // note that a0 and a1 would be handled by different methods if they were different
@@ -344,26 +381,25 @@ public class EntityDocQueryOrchImpl {
         NhincConstants.GATEWAY_API_LEVEL gatewayLevel = nem.getApiVersion(getLocalHomeCommunityId(),
                 NhincConstants.NHIN_SERVICE_NAMES.DOCUMENT_QUERY);
         switch (gatewayLevel) {
-        case LEVEL_g0: {
+        case LEVEL_g0:
             responseIsSpecA0 = true;
             break;
-        }
-        case LEVEL_g1: {
+        case LEVEL_g1:
             responseIsSpecA0 = false;
             break;
-        }
-        default: {
+        default:
             responseIsSpecA0 = true;
             break;
-        }
         }
         return responseIsSpecA0;
     }
 
     /**
-     * @param targets
-     * @param docQueryServiceName
-     * @return
+     * This method returns url list for the targets.
+     * 
+     * @param targets Targets received.
+     * @param docQueryServiceName ServiceName (DocumentQuery)
+     * @return list of url's of targets.
      */
     protected List<UrlInfo> getEndpointForNhinTargetCommunities(NhinTargetCommunitiesType targets,
             String docQueryServiceName) {
@@ -378,10 +414,10 @@ public class EntityDocQueryOrchImpl {
     }
 
     /**
-     * @param assigningAuthorityIdentifier
-     * @param localAA
-     * @param localHomeCommunityId
-     * @return
+     * @param assigningAuthorityIdentifier Target AA identifier received from correlation
+     * @param localAA AssigningAuthorityId of local HomeCommunityId.
+     * @param localHomeCommunityId Home CommunityId of requesting Gateway.
+     * @return targetCommunity (Nhin)
      */
     protected HomeCommunityType getTargetCommunity(String assigningAuthorityIdentifier, String localAA,
             String localHomeCommunityId) {
@@ -391,12 +427,12 @@ public class EntityDocQueryOrchImpl {
     }
 
     /**
-     * @param slotList
-     * @param urlInfoList
-     * @param assertion
-     * @param isTargeted
-     * @param localHomeCommunityId
-     * @return
+     * @param slotList slotList extracted from AdhocQuery Request message.
+     * @param urlInfoList List of url's of targets received from ConnectionManagerCache.
+     * @param assertion Assertion received.
+     * @param isTargeted Targetted to any community (true); otherwise false.S
+     * @param localHomeCommunityId HomeCommunityId of requesting Gateway.S
+     * @return List of Qualified Identifiers from targeted communities.
      */
     protected List<QualifiedSubjectIdentifierType> retrieveCorrelation(List<SlotType1> slotList,
             List<UrlInfo> urlInfoList, AssertionType assertion, boolean isTargeted, String localHomeCommunityId) {
@@ -407,11 +443,20 @@ public class EntityDocQueryOrchImpl {
         return correlationResult;
     }
 
+    /**
+     * @param slotList slotList extracted from AdhocQuery Request message.
+     * @return patientIdslot from slotList passed.
+     */
     protected boolean patientIdSlot(List<SlotType1> slotList) {
         return (new EntityDocQueryHelper().patientIdSlot(slotList));
 
     }
 
+    /**
+     * @param request The AdhocQuery Request to be audited.
+     * @param assertion Assertion received.
+     * @param auditLog get instance of DocQueryAuditLog Object.
+     */
     protected void auditInitialEntityRequest(RespondingGatewayCrossGatewayQuerySecuredRequestType request,
             AssertionType assertion, DocQueryAuditLog auditLog) {
 
@@ -422,7 +467,13 @@ public class EntityDocQueryOrchImpl {
         }
     }
 
-    protected void auditDocQueryResponse(AdhocQueryResponse response, AssertionType assertion, DocQueryAuditLog auditLog) {
+    /**
+     * @param response DocQuery Response to be audit logged.
+     * @param assertion Assertion received.
+     * @param auditLog get instance of DocQueryAuditLog Object.
+     */
+    protected void auditDocQueryResponse(AdhocQueryResponse response, AssertionType assertion, 
+            DocQueryAuditLog auditLog) {
 
         if (auditLog != null) {
             AdhocQueryResponseMessageType auditMsg = new AdhocQueryResponseMessageType();
@@ -433,6 +484,10 @@ public class EntityDocQueryOrchImpl {
         }
     }
 
+    /**
+     * @param request AdhocQuery request received.
+     * @return AdhocQUery Request.
+     */
     protected AdhocQueryRequest cloneRequest(AdhocQueryRequest request) {
         AdhocQueryRequest newRequest = new AdhocQueryRequest();
         AdhocQueryType currentQuery = request.getAdhocQuery();
@@ -483,6 +538,9 @@ public class EntityDocQueryOrchImpl {
         return newRequest;
     }
 
+    /**
+     * @return local HomeCommunityId from gateway.property file.
+     */
     protected String getLocalHomeCommunityId() {
         String sHomeCommunity = null;
         try {
@@ -495,11 +553,12 @@ public class EntityDocQueryOrchImpl {
     }
 
     /**
-     * Policy Check verification done here
+     * Policy Check verification done here.
      * 
-     * @param queryRequest
-     * @param assertion
-     * @return boolean
+     * @param queryRequest The AdhocQuery Request recieved.
+     * @param assertion Assertion received.
+     * @param targetCommunity TargetCommunities where request needs to be send.
+     * @return boolean return true if decision is PERMIT; else Denied
      */
     protected boolean isValidPolicy(AdhocQueryRequest queryRequest, AssertionType assertion,
             HomeCommunityType targetCommunity) {
@@ -524,17 +583,31 @@ public class EntityDocQueryOrchImpl {
         return isValid;
     }
 
+    /**
+     * This method returns Response with RegistryErrorList if there is any failure.
+     * 
+     * @param errorCode The ErrorCode that needs to be set to the AdhocQueryResponse (Errorcodes are defined in spec).
+     * @param codeContext The codecontext defines the reason of failure of AdhocQueryRequest.
+     * @return AdhocQueryResponse.
+     */
     private AdhocQueryResponse createErrorResponse(String errorCode, String codeContext) {
         AdhocQueryResponse response = new AdhocQueryResponse();
         response.setRegistryErrorList(createErrorListWithError(errorCode, codeContext));
         response.setStatus(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_FAILURE);
-        
+
         RegistryObjectListType regObjectList = new RegistryObjectListType();
         response.setRegistryObjectList(regObjectList);
-        
+
         return response;
     }
 
+    /**
+     * This method returns RegistryErrorList for AdhocQueryResponse.
+     * 
+     * @param errorCode The ErrorCode that needs to be set to the AdhocQueryResponse (Errorcodes are defined in spec).
+     * @param codeContext The codecontext defines the reason of failure of AdhocQueryRequest.
+     * @return registryErrorList.
+     */
     private RegistryErrorList createErrorListWithError(String errorCode, String codeContext) {
         RegistryErrorList regErrList = new RegistryErrorList();
         RegistryError regErr = new RegistryError();
@@ -545,38 +618,44 @@ public class EntityDocQueryOrchImpl {
         return regErrList;
     }
 
+    /**
+     * @param correlationsResult List of correlated Patients identified from targets.
+     * @param callableList Nhin callable List for DocQuery message.
+     * @param transactionId TransactionId for the message.
+     * @param response Null AdhocQuery Response.
+     * @param policyErrList Policy Error List if present; else empty.
+     * @return AdhocQueryresponse from entity Interface.
+     * @throws InterruptedException Throws Exception.
+     * @throws ExecutionException Throws Exception.
+     */
     protected AdhocQueryResponse specResponseA0(List<QualifiedSubjectIdentifierType> correlationsResult,
             List<NhinCallableRequest<OutboundDocQueryOrchestratable>> callableList, String transactionId,
             AdhocQueryResponse response, RegistryErrorList policyErrList) throws InterruptedException,
             ExecutionException {
-        OutboundDocQueryOrchestratable_a0 orchResponse_g0 = null;
+        OutboundDocQueryOrchestratable_a0 orchResponseg0 = null;
         if (!callableList.isEmpty()) {
-            NhinTaskExecutor<OutboundDocQueryOrchestratable_a0, OutboundDocQueryOrchestratable> dqexecutor = new NhinTaskExecutor<OutboundDocQueryOrchestratable_a0, OutboundDocQueryOrchestratable>(
-                    ExecutorServiceHelper.getInstance().checkExecutorTaskIsLarge(correlationsResult.size()) ? largejobExecutor
-                            : regularExecutor, callableList, transactionId);
+            NhinTaskExecutor<OutboundDocQueryOrchestratable_a0, OutboundDocQueryOrchestratable> dqexecutor = 
+                    new NhinTaskExecutor<OutboundDocQueryOrchestratable_a0, OutboundDocQueryOrchestratable>(
+                    ExecutorServiceHelper.getInstance().checkExecutorTaskIsLarge(correlationsResult.size()) 
+                    ? largejobExecutor : regularExecutor, callableList, transactionId);
             dqexecutor.executeTask();
-            orchResponse_g0 = (OutboundDocQueryOrchestratable_a0) dqexecutor.getFinalResponse();
-            response = orchResponse_g0.getCumulativeResponse();
+            orchResponseg0 = (OutboundDocQueryOrchestratable_a0) dqexecutor.getFinalResponse();
+            response = orchResponseg0.getCumulativeResponse();
         } else {
-            log.debug("No callable requests were sent out.  " +
-                    "Setting response to failure.");
-            response.setStatus(DocumentConstants.
-                    XDS_QUERY_RESPONSE_STATUS_FAILURE);
-            
-            if(response.getRegistryErrorList() == null){
+            log.debug("No callable requests were sent out.  " + "Setting response to failure.");
+            response.setStatus(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_FAILURE);
+
+            if (response.getRegistryErrorList() == null) {
                 RegistryErrorList regErrList = createErrorListWithError(
-                    DocumentConstants.XDS_RETRIEVE_ERRORCODE_REPOSITORY_ERROR,
-                    "Unable to find any callable targets.");
+                        DocumentConstants.XDS_RETRIEVE_ERRORCODE_REPOSITORY_ERROR,
+                        "Unable to find any callable targets.");
                 response.setRegistryErrorList(regErrList);
-            }else {
+            } else {
                 RegistryError regErr = new RegistryError();
                 regErr.setCodeContext("Unable to find any callable targets.");
-                regErr.setErrorCode(DocumentConstants.
-                        XDS_RETRIEVE_ERRORCODE_REPOSITORY_ERROR);
-                regErr.setSeverity(NhincConstants.
-                        XDS_REGISTRY_ERROR_SEVERITY_ERROR);
-                response.getRegistryErrorList().getRegistryError().
-                        add(regErr);  
+                regErr.setErrorCode(DocumentConstants.XDS_RETRIEVE_ERRORCODE_REPOSITORY_ERROR);
+                regErr.setSeverity(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR);
+                response.getRegistryErrorList().getRegistryError().add(regErr);
             }
         }
 
@@ -588,47 +667,54 @@ public class EntityDocQueryOrchImpl {
                 response.getRegistryErrorList().getRegistryError().addAll(policyErrList.getRegistryError());
             }
         }
-        
-        if(response.getRegistryObjectList() == null )
-        {
-        	RegistryObjectListType regObjectList = new RegistryObjectListType();
+
+        if (response.getRegistryObjectList() == null) {
+            RegistryObjectListType regObjectList = new RegistryObjectListType();
             response.setRegistryObjectList(regObjectList);
         }
-        
+
         return response;
 
     }
 
+    /**
+     * @param correlationsResult List of correlated Patients identified from targets.
+     * @param callableList Nhin callable List for DocQuery message.
+     * @param transactionId TransactionId for the message.
+     * @param response Null AdhocQuery Response.
+     * @param policyErrList Policy Error List if present; else empty.
+     * @return AdhocQueryresponse from entity Interface.
+     * @throws InterruptedException Throws Exception.
+     * @throws ExecutionException Throws Exception.
+     */
     protected AdhocQueryResponse specResponseA1(List<QualifiedSubjectIdentifierType> correlationsResult,
             List<NhinCallableRequest<OutboundDocQueryOrchestratable>> callableList, String transactionId,
             AdhocQueryResponse response, RegistryErrorList policyErrList) throws InterruptedException,
             ExecutionException {
-        OutboundDocQueryOrchestratable_a1 orchResponse_g1 = null;
+        OutboundDocQueryOrchestratable_a1 orchResponseg1 = null;
         if (!callableList.isEmpty()) {
-            NhinTaskExecutor<OutboundDocQueryOrchestratable_a1, OutboundDocQueryOrchestratable> dqexecutor = new NhinTaskExecutor<OutboundDocQueryOrchestratable_a1, OutboundDocQueryOrchestratable>(
-                    ExecutorServiceHelper.getInstance().checkExecutorTaskIsLarge(correlationsResult.size()) ? largejobExecutor
-                            : regularExecutor, callableList, transactionId);
+            NhinTaskExecutor<OutboundDocQueryOrchestratable_a1, OutboundDocQueryOrchestratable> dqexecutor = 
+                    new NhinTaskExecutor<OutboundDocQueryOrchestratable_a1, OutboundDocQueryOrchestratable>(
+                    ExecutorServiceHelper.getInstance().checkExecutorTaskIsLarge(correlationsResult.size()) 
+                    ? largejobExecutor  : regularExecutor, callableList, transactionId);
             dqexecutor.executeTask();
-            orchResponse_g1 = (OutboundDocQueryOrchestratable_a1) dqexecutor.getFinalResponse();
-            response = orchResponse_g1.getCumulativeResponse();
+            orchResponseg1 = (OutboundDocQueryOrchestratable_a1) dqexecutor.getFinalResponse();
+            response = orchResponseg1.getCumulativeResponse();
         } else {
             log.debug("No callable requests were sent out.  Setting response to failure.");
             response.setStatus(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_FAILURE);
 
-            if(response.getRegistryErrorList() == null){
+            if (response.getRegistryErrorList() == null) {
                 RegistryErrorList regErrList = createErrorListWithError(
-                    DocumentConstants.XDS_RETRIEVE_ERRORCODE_REPOSITORY_ERROR,
-                    "Unable to find any callable targets.");
+                        DocumentConstants.XDS_RETRIEVE_ERRORCODE_REPOSITORY_ERROR,
+                        "Unable to find any callable targets.");
                 response.setRegistryErrorList(regErrList);
-            }else {
+            } else {
                 RegistryError regErr = new RegistryError();
                 regErr.setCodeContext("Unable to find any callable targets.");
-                regErr.setErrorCode(DocumentConstants.
-                        XDS_RETRIEVE_ERRORCODE_REPOSITORY_ERROR);
-                regErr.setSeverity(NhincConstants.
-                        XDS_REGISTRY_ERROR_SEVERITY_ERROR);
-                response.getRegistryErrorList().getRegistryError().
-                        add(regErr);
+                regErr.setErrorCode(DocumentConstants.XDS_RETRIEVE_ERRORCODE_REPOSITORY_ERROR);
+                regErr.setSeverity(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR);
+                response.getRegistryErrorList().getRegistryError().add(regErr);
             }
         }
 
@@ -640,13 +726,12 @@ public class EntityDocQueryOrchImpl {
                 response.getRegistryErrorList().getRegistryError().addAll(policyErrList.getRegistryError());
             }
         }
-        
-        if(response.getRegistryObjectList() == null )
-        {
-        	RegistryObjectListType regObjectList = new RegistryObjectListType();
+
+        if (response.getRegistryObjectList() == null) {
+            RegistryObjectListType regObjectList = new RegistryObjectListType();
             response.setRegistryObjectList(regObjectList);
         }
-        
+
         return response;
 
     }
