@@ -56,9 +56,10 @@ public class MimeMessageBuilder {
     private String text;
     private Document attachment;
     private String attachmentName;
-    
+
     /**
      * Construct the Mime Message builder with required fields.
+     * 
      * @param session used to build the message.
      * @param fromAddress sender of the message.
      * @param recipient of the message.
@@ -69,7 +70,7 @@ public class MimeMessageBuilder {
         this.fromAddress = fromAddress;
         this.recipients = recipients;
     }
-    
+
     /**
      * @param str for subject.
      * @return builder
@@ -87,7 +88,7 @@ public class MimeMessageBuilder {
         this.text = str;
         return this;
     }
-    
+
     /**
      * @param doc for attachment
      * @return builder
@@ -96,7 +97,7 @@ public class MimeMessageBuilder {
         this.attachment = doc;
         return this;
     }
-    
+
     /**
      * @param str for attachment name
      * @return builder
@@ -108,30 +109,31 @@ public class MimeMessageBuilder {
 
     /**
      * Build the Mime Message.
+     * 
      * @return the Mime message.
      */
-    public MimeMessage build()  {
+    public MimeMessage build() {
 
         final MimeMessage message = new MimeMessage(session);
-        
+
         try {
             message.setFrom(fromAddress);
         } catch (Exception e) {
             throw new DirectException("Exception setting from address: " + fromAddress, e);
         }
-        
+
         try {
             message.addRecipients(Message.RecipientType.TO, recipients);
         } catch (Exception e) {
-            throw new DirectException("Exception setting recipient to address(es): " + recipients, e);            
+            throw new DirectException("Exception setting recipient to address(es): " + recipients, e);
         }
-        
+
         try {
             message.setSubject(subject);
         } catch (Exception e) {
-            throw new DirectException("Exception setting subject: " + subject, e);                        
+            throw new DirectException("Exception setting subject: " + subject, e);
         }
-        
+
         MimeBodyPart messagePart = new MimeBodyPart();
         try {
             messagePart.setText(text);
@@ -145,7 +147,7 @@ public class MimeMessageBuilder {
         } catch (Exception e) {
             throw new DirectException("Exception creating attachment: " + attachmentName, e);
         }
-        
+
         Multipart multipart = new MimeMultipart();
         try {
             multipart.addBodyPart(messagePart);
@@ -154,7 +156,7 @@ public class MimeMessageBuilder {
         } catch (Exception e) {
             throw new DirectException("Exception creating multi-part attachment.", e);
         }
-        
+
         try {
             message.saveChanges();
         } catch (Exception e) {

@@ -75,7 +75,7 @@ public class DirectUnitTestUtil {
      * Max number of messages to process at once, allows us to throttle and distribute load.
      */
     protected static final int MAX_NUM_MSGS_IN_BATCH = 5;
-    
+
     /**
      * Sets up the properties in order to connect to the green mail test server.
      * @param smtpPort for smtps
@@ -85,7 +85,7 @@ public class DirectUnitTestUtil {
     public static Properties getMailServerProps(int smtpPort, int imapPort) {
 
         Properties props = new Properties();
-
+        
         props.setProperty("direct.mail.user", USER);
         props.setProperty("direct.mail.pass", PASS);
         props.setProperty("direct.max.msgs.in.batch", Integer.toString(MAX_NUM_MSGS_IN_BATCH));
@@ -105,7 +105,7 @@ public class DirectUnitTestUtil {
         props.setProperty("mail.imaps.ssl.socketFactory.class", "com.icegreen.greenmail.util.DummySSLSocketFactory");
         props.setProperty("mail.imaps.ssl.socketFactory.port", Integer.toString(imapPort));
         props.setProperty("mail.imaps.ssl.socketFactory.fallback", "false");
-        
+
         return props;
     }
 
@@ -140,7 +140,7 @@ public class DirectUnitTestUtil {
                     .getFolder(user, MailUtils.FOLDER_NAME_INBOX);
             while (folderHasDeletedMsgs(folder)) {
                 folder.expunge();
-            } 
+            }
         } catch (Exception e) {
             fail(e.getMessage());
         }
