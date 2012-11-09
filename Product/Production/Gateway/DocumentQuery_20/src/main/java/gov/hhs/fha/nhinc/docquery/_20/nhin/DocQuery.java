@@ -26,7 +26,7 @@
  */
 package gov.hhs.fha.nhinc.docquery._20.nhin;
 
-import gov.hhs.fha.nhinc.docquery.inbound.InboundDocQueryFactory;
+import gov.hhs.fha.nhinc.docquery.inbound.InboundDocQuery;
 import ihe.iti.xds_b._2007.RespondingGatewayQueryPortType;
 
 import javax.annotation.Resource;
@@ -44,7 +44,7 @@ import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 @Addressing(enabled = true)
 public class DocQuery implements RespondingGatewayQueryPortType {
-    private InboundDocQueryFactory docQueryFactory;
+    private InboundDocQuery inboundDocQuery;
 
     @Resource
     private WebServiceContext context;
@@ -55,11 +55,11 @@ public class DocQuery implements RespondingGatewayQueryPortType {
      * @return the query response for the document query
      */
     public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest body) {
-        return new DocQueryImpl(docQueryFactory).respondingGatewayCrossGatewayQuery(body, context);
+        return new DocQueryImpl(inboundDocQuery).respondingGatewayCrossGatewayQuery(body, context);
     }
 
-    public void setInboundDocQueryFactory(InboundDocQueryFactory docQueryFactory) {
-        this.docQueryFactory = docQueryFactory;
+    public void setInboundDocQuery(InboundDocQuery inboundDocQuery) {
+        this.inboundDocQuery = inboundDocQuery;
     }
 
 }

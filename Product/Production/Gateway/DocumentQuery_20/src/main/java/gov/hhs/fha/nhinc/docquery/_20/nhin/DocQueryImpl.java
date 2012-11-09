@@ -27,7 +27,7 @@
 package gov.hhs.fha.nhinc.docquery._20.nhin;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.docquery.inbound.InboundDocQueryFactory;
+import gov.hhs.fha.nhinc.docquery.inbound.InboundDocQuery;
 import gov.hhs.fha.nhinc.messaging.server.BaseService;
 
 import javax.xml.ws.WebServiceContext;
@@ -36,15 +36,15 @@ import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 
 public class DocQueryImpl extends BaseService {
-    private InboundDocQueryFactory docQueryFactory;
+    private InboundDocQuery inboundDocQuery;
 
-    public DocQueryImpl(InboundDocQueryFactory docQueryFactory) {
-        this.docQueryFactory = docQueryFactory;
+    public DocQueryImpl(InboundDocQuery inboundDocQuery) {
+        this.inboundDocQuery = inboundDocQuery;
     }
 
     public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest body, WebServiceContext context) {
         AssertionType assertion = getAssertion(context, null);
 
-        return docQueryFactory.createInboundDocQuery().respondingGatewayCrossGatewayQuery(body, assertion);
+        return inboundDocQuery.respondingGatewayCrossGatewayQuery(body, assertion);
     }
 }

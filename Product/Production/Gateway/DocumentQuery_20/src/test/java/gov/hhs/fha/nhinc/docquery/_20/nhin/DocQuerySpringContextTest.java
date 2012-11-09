@@ -24,13 +24,38 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.docquery.inbound;
+package gov.hhs.fha.nhinc.docquery._20.nhin;
+
+import static org.junit.Assert.assertNotNull;
+
+import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
+import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
  * @author akong
- * 
+ *
  */
-public interface InboundDocQueryFactory {
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = { "/applicationContext.xml" })
+public class DocQuerySpringContextTest {
 
-    InboundDocQuery createInboundDocQuery();
+    @Autowired
+    DocQuery docQuery;
+    
+    @Test
+    public void invocation() {
+        assertNotNull(docQuery);
+        
+        AdhocQueryRequest request = new AdhocQueryRequest();
+        AdhocQueryResponse response = docQuery.respondingGatewayCrossGatewayQuery(request);
+        
+        assertNotNull(response);        
+    }
+    
 }
