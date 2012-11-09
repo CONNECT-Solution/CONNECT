@@ -7,27 +7,24 @@
     ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under 
     the License. -->
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:jaxws="http://cxf.apache.org/jaxws" xmlns:soap="http://cxf.apache.org/bindings/soap"
+    xmlns:soap="http://cxf.apache.org/bindings/soap" xmlns:aop="http://www.springframework.org/schema/aop" xmlns:jaxws="http://cxf.apache.org/jaxws"
     xsi:schemaLocation="
 http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 http://cxf.apache.org/bindings/soap http://cxf.apache.org/schemas/configuration/soap.xsd
-http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
-
-    <import resource="classpath:META-INF/cxf/cxf.xml" />
-    <import resource="classpath:META-INF/cxf/cxf-extension-soap.xml" />
-    <import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
-    <import resource="classpath:CONNECT-interceptor-beans.xml" />
+http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
     <!-- Document Query -->
 
     <!-- Nhin services -->
-    <jaxws:endpoint xmlns:ndq="urn:ihe:iti:xds-b:2007" id="NhinDocumentQuery" address="/NhinService/RespondingGateway_Query_Service/DocQuery"
-        serviceName="ndq:RespondingGateway_Query_Service" endpointName="ndq:RespondingGateway_Query_Port_Soap"
-        implementor="gov.hhs.fha.nhinc.docquery._20.nhin.DocQuery" wsdlLocation="classpath:wsdl/NhinDocQuery.wsdl">
+
+    <jaxws:endpoint xmlns:ndq="urn:ihe:iti:xds-b:2007" id="NhinDocumentQuery"
+        address="/NhinService/RespondingGateway_Query_Service/DocQuery" serviceName="ndq:RespondingGateway_Query_Service"
+        endpointName="ndq:RespondingGateway_Query_Port_Soap" implementorClass="gov.hhs.fha.nhinc.docquery._20.nhin.DocQuery"
+        implementor="#nhinDQ" wsdlLocation="classpath:wsdl/NhinDocQuery.wsdl">
         <jaxws:properties>
             <entry key="ws-security.callback-handler" value="gov.hhs.fha.nhinc.callback.cxf.CXFSAMLCallbackHandler" />
             <entry key="ws-security.signature.properties" value="keystore.properties" />
-            <entry key="ws-security.encryption.properties" value="truststore.properties" />         
+            <entry key="ws-security.encryption.properties" value="truststore.properties" />
             <entry key="ws-security.saml2.validator">
                 <bean class="gov.hhs.fha.nhinc.callback.cxf.CONNECTSamlAssertionValidator" />
             </entry>
@@ -37,22 +34,25 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
         </jaxws:inInterceptors>
         <jaxws:handlers>
             <ref bean="SOAPHeaderHandler" />
-            <ref bean="TransactionHandler"/>
+            <ref bean="TransactionHandler" />
         </jaxws:handlers>
     </jaxws:endpoint>
 
     <!-- Entity services -->
+
     <jaxws:endpoint xmlns:edq="urn:gov:hhs:fha:nhinc:entitydocquery" id="EntityDocumentQuery"
         address="/EntityService/EntityDocQueryUnsecured" serviceName="edq:EntityDocQuery" endpointName="edq:EntityDocQueryPortSoap"
-        implementor="gov.hhs.fha.nhinc.docquery._20.entity.EntityDocQueryUnsecured" wsdlLocation="classpath:wsdl/EntityDocQuery.wsdl">
-    <jaxws:handlers>
-            <ref bean="TransactionHandler"/>
-    </jaxws:handlers>
+        implementorClass="gov.hhs.fha.nhinc.docquery._20.entity.EntityDocQueryUnsecured" implementor="#entityDQUnsecured"
+        wsdlLocation="classpath:wsdl/EntityDocQuery.wsdl">
+        <jaxws:handlers>
+            <ref bean="TransactionHandler" />
+        </jaxws:handlers>
     </jaxws:endpoint>
 
     <jaxws:endpoint xmlns:edqs="urn:gov:hhs:fha:nhinc:entitydocquery" id="EntityDocumentQuerySecured"
         address="/EntityService/EntityDocQuerySecured" serviceName="edqs:EntityDocQuerySecured" endpointName="edqs:EntityDocQuerySecuredPortSoap"
-        implementor="gov.hhs.fha.nhinc.docquery._20.entity.EntityDocQuerySecured" wsdlLocation="classpath:wsdl/EntityDocQuerySecured.wsdl">
+        implementorClass="gov.hhs.fha.nhinc.docquery._20.entity.EntityDocQuerySecured" implementor="#entityDQSecured"
+        wsdlLocation="classpath:wsdl/EntityDocQuerySecured.wsdl">
         <jaxws:properties>
             <entry key="ws-security.callback-handler" value="gov.hhs.fha.nhinc.callback.cxf.CXFSAMLCallbackHandler" />
             <entry key="ws-security.signature.properties" value="keystore.properties" />
@@ -62,22 +62,27 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
             <ref bean="securityInInterceptor" />
         </jaxws:inInterceptors>
         <jaxws:handlers>
-            <ref bean="TransactionHandler"/>
+            <ref bean="TransactionHandler" />
         </jaxws:handlers>
     </jaxws:endpoint>
 
     <!-- MsgProxy/NhincProxy/Passthru services -->
+
     <jaxws:endpoint xmlns:mpdq="urn:gov:hhs:fha:nhinc:nhincproxydocquery" id="NhincProxyDocumentQuery"
-        address="/EntityService/NhincProxyDocQueryUnsecured" serviceName="mpdq:NhincProxyDocQuery" endpointName="mpdq:NhincProxyDocQueryPortSoap"
-        implementor="gov.hhs.fha.nhinc.docquery._20.passthru.NhincProxyDocQueryUnsecured" wsdlLocation="classpath:wsdl/NhincProxyDocQuery.wsdl">
+        address="/EntityService/NhincProxyDocQueryUnsecured" serviceName="mpdq:NhincProxyDocQuery"
+        endpointName="mpdq:NhincProxyDocQueryPortSoap"
+        implementorClass="gov.hhs.fha.nhinc.docquery._20.passthru.NhincProxyDocQueryUnsecured"
+        implementor="#passthruDQUnsecured" wsdlLocation="classpath:wsdl/NhincProxyDocQuery.wsdl">
         <jaxws:handlers>
-            <ref bean="TransactionHandler"/>
+            <ref bean="TransactionHandler" />
         </jaxws:handlers>
     </jaxws:endpoint>
 
     <jaxws:endpoint xmlns:mpdqs="urn:gov:hhs:fha:nhinc:nhincproxydocquerysecured" id="NhincProxyDocumentQuerySecured"
-        address="/EntityService/NhincProxyDocQuerySecured" serviceName="mpdqs:NhincProxyDocQuerySecured" endpointName="mpdqs:NhincProxyDocQuerySecuredPortSoap"
-        implementor="gov.hhs.fha.nhinc.docquery._20.passthru.NhincProxyDocQuerySecured" wsdlLocation="classpath:wsdl/NhincProxyDocQuerySecured.wsdl">
+        address="/EntityService/NhincProxyDocQuerySecured" serviceName="mpdqs:NhincProxyDocQuerySecured"
+        endpointName="mpdqs:NhincProxyDocQuerySecuredPortSoap"
+        implementorClass="gov.hhs.fha.nhinc.docquery._20.passthru.NhincProxyDocQuerySecured"
+        implementor="#passthruDQSecured" wsdlLocation="classpath:wsdl/NhincProxyDocQuerySecured.wsdl">
         <jaxws:properties>
             <entry key="ws-security.callback-handler" value="gov.hhs.fha.nhinc.callback.cxf.CXFSAMLCallbackHandler" />
             <entry key="ws-security.signature.properties" value="keystore.properties" />
@@ -87,10 +92,7 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
             <ref bean="securityInInterceptor" />
         </jaxws:inInterceptors>
         <jaxws:handlers>
-            <ref bean="TransactionHandler"/>
+            <ref bean="TransactionHandler" />
         </jaxws:handlers>
     </jaxws:endpoint>
-
-    <bean id="SOAPHeaderHandler" class="gov.hhs.fha.nhinc.callback.SOAPHeaderHandler" />
-    <bean id="TransactionHandler" class="gov.hhs.fha.nhinc.logging.transaction.TransactionHandler" />
 </beans>

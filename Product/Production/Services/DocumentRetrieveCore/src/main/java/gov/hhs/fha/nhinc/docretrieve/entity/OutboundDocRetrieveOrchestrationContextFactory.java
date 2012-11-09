@@ -30,11 +30,11 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.orchestration.OrchestrationContextBuilder;
 
 
-public class OutboundDocRetrieveFactory {
+public class OutboundDocRetrieveOrchestrationContextFactory {
 
-    private static OutboundDocRetrieveFactory INSTANCE = new OutboundDocRetrieveFactory();
+    private static OutboundDocRetrieveOrchestrationContextFactory INSTANCE = new OutboundDocRetrieveOrchestrationContextFactory();
 
-    private OutboundDocRetrieveFactory() {
+    private OutboundDocRetrieveOrchestrationContextFactory() {
     }
 
     public OrchestrationContextBuilder createOrchestrationContextBuilder(NhincConstants.GATEWAY_API_LEVEL apiLevel) {
@@ -48,7 +48,7 @@ public class OutboundDocRetrieveFactory {
         }
     }
 
-    public static OutboundDocRetrieveFactory getInstance() {
+    public static OutboundDocRetrieveOrchestrationContextFactory getInstance() {
         return INSTANCE;
     }
     

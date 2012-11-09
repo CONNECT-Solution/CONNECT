@@ -27,7 +27,7 @@
 package gov.hhs.fha.nhinc.docquery._20.nhin;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.docquery.nhin.NhinDocQueryOrchImpl;
+import gov.hhs.fha.nhinc.docquery.inbound.InboundDocQueryFactory;
 import gov.hhs.fha.nhinc.messaging.server.BaseService;
 
 import javax.xml.ws.WebServiceContext;
@@ -35,34 +35,16 @@ import javax.xml.ws.WebServiceContext;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+public class DocQueryImpl extends BaseService {
+    private InboundDocQueryFactory docQueryFactory;
 
-/**
- *
- * @author Neil Webb
- */
-public class DocQueryImpl extends BaseService
-{
-    private Log log = null;
-
-    public DocQueryImpl()
-    {
-        log = createLogger();
-    }
-
-    protected Log createLogger()
-    {
-        return LogFactory.getLog(getClass());
+    public DocQueryImpl(InboundDocQueryFactory docQueryFactory) {
+        this.docQueryFactory = docQueryFactory;
     }
 
     public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest body, WebServiceContext context) {
-        log.debug("Entering DocQueryImpl.respondingGatewayCrossGatewayQuery");
-                
         AssertionType assertion = getAssertion(context, null);
 
-        return new NhinDocQueryOrchImpl().respondingGatewayCrossGatewayQuery(body, assertion);
+        return docQueryFactory.createInboundDocQuery().respondingGatewayCrossGatewayQuery(body, assertion);
     }
-
-    
 }

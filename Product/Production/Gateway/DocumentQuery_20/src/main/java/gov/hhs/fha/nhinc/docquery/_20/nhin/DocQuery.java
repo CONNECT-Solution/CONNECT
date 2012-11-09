@@ -26,20 +26,26 @@
  */
 package gov.hhs.fha.nhinc.docquery._20.nhin;
 
+import gov.hhs.fha.nhinc.docquery.inbound.InboundDocQueryFactory;
+import ihe.iti.xds_b._2007.RespondingGatewayQueryPortType;
+
 import javax.annotation.Resource;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
 
+import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
+import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
+
 /**
  *
  * @author Neil Webb
  */
-
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
-@Addressing(enabled=true)
-public class DocQuery implements ihe.iti.xds_b._2007.RespondingGatewayQueryPortType
-{
+@Addressing(enabled = true)
+public class DocQuery implements RespondingGatewayQueryPortType {
+    private InboundDocQueryFactory docQueryFactory;
+
     @Resource
     private WebServiceContext context;
 
@@ -48,10 +54,12 @@ public class DocQuery implements ihe.iti.xds_b._2007.RespondingGatewayQueryPortT
      * @param body the body of the request
      * @return the query response for the document query
      */
-    public oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse respondingGatewayCrossGatewayQuery(
-    		oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest body)
-    {
-        return new DocQueryImpl().respondingGatewayCrossGatewayQuery(body, context);
+    public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest body) {
+        return new DocQueryImpl(docQueryFactory).respondingGatewayCrossGatewayQuery(body, context);
+    }
+
+    public void setInboundDocQueryFactory(InboundDocQueryFactory docQueryFactory) {
+        this.docQueryFactory = docQueryFactory;
     }
 
 }
