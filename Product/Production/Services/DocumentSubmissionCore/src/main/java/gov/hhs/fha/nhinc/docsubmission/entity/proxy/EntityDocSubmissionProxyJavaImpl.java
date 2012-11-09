@@ -29,22 +29,27 @@ package gov.hhs.fha.nhinc.docsubmission.entity.proxy;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.UrlInfoType;
-import gov.hhs.fha.nhinc.docsubmission.entity.EntityDocSubmissionOrchImpl;
+import gov.hhs.fha.nhinc.docsubmission.outbound.StandardOutboundDocSubmission;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 public class EntityDocSubmissionProxyJavaImpl implements EntityDocSubmissionProxy {
-
-    protected EntityDocSubmissionOrchImpl getEntityDocSubmissionOrchImpl() {
-        return new EntityDocSubmissionOrchImpl();
+    
+    private StandardOutboundDocSubmission outboundDocSubmission = new StandardOutboundDocSubmission();
+    
+    public EntityDocSubmissionProxyJavaImpl() {
+        super();
+    }
+    
+    public EntityDocSubmissionProxyJavaImpl(StandardOutboundDocSubmission outboundDocSubmission) {
+        this.outboundDocSubmission = outboundDocSubmission;
     }
     
     public RegistryResponseType provideAndRegisterDocumentSetB(ProvideAndRegisterDocumentSetRequestType msg,
             AssertionType assertion, NhinTargetCommunitiesType targets, UrlInfoType urlInfo) {
         RegistryResponseType response = new RegistryResponseType();
 
-        EntityDocSubmissionOrchImpl orchImpl = getEntityDocSubmissionOrchImpl();
-        response = orchImpl.provideAndRegisterDocumentSetB(msg, assertion, targets, urlInfo);
+        response = outboundDocSubmission.provideAndRegisterDocumentSetB(msg, assertion, targets, urlInfo);
 
         return response;
     }

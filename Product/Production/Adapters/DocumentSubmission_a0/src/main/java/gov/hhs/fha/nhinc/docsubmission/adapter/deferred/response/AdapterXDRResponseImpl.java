@@ -94,10 +94,10 @@ public class AdapterXDRResponseImpl {
 
         // Extract the message id value from the WS-Addressing Header and place it in the Assertion Class
         if (assertion != null) {
-            assertion.setMessageId(AsyncMessageIdExtractor.GetAsyncMessageId(context));
-            List<String> relatesToList = AsyncMessageIdExtractor.GetAsyncRelatesTo(context);
+            assertion.setMessageId(AsyncMessageIdExtractor.getOrCreateAsyncMessageId(context));
+            List<String> relatesToList = AsyncMessageIdExtractor.getAsyncRelatesTo(context);
             if (NullChecker.isNotNullish(relatesToList)) {
-                assertion.getRelatesToList().add(AsyncMessageIdExtractor.GetAsyncRelatesTo(context).get(0));
+                assertion.getRelatesToList().add(relatesToList.get(0));
             }
         }
 

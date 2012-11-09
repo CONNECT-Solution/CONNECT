@@ -12,8 +12,8 @@
     <name>CONNECT Product</name>
     <properties>
         <checkstyle.skip>false</checkstyle.skip>
-        <checkstyle.settings.file>checkstyle.settings.xml</checkstyle.settings.file>
         <cxf.version>2.6.0</cxf.version>
+        <checkstyle.settings.file>checkstyle.settings.xml</checkstyle.settings.file>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <connect.common.properties>Dev</connect.common.properties>
         <skip.cobertura>false</skip.cobertura>
@@ -119,8 +119,18 @@
                 <version>3.2.1</version>
             </dependency>
             <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>13.0.1</version>
+            </dependency>
+            <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-web</artifactId>
+                <version>3.0.7.RELEASE</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-test</artifactId>
                 <version>3.0.7.RELEASE</version>
             </dependency>
             <dependency>
@@ -200,6 +210,21 @@
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-log4j12</artifactId>
                 <version>1.6.4</version>
+            </dependency>
+            <dependency>
+                <groupId>org.aspectj</groupId>
+                <artifactId>aspectjrt</artifactId>
+                <version>1.7.0</version>
+            </dependency>
+            <dependency>
+                <groupId>org.aspectj</groupId>
+                <artifactId>aspectjweaver</artifactId>
+                <version>1.7.0</version>
+            </dependency>
+            <dependency>
+                <groupId>org.json</groupId>
+                <artifactId>json</artifactId>
+                <version>20090211</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -328,7 +353,7 @@
                 <configuration>
                     <downloadSources>true</downloadSources>
                     <downloadJavadocs>true</downloadJavadocs>
-                    <useProjectReferences>false</useProjectReferences>
+                    <useProjectReferences>true</useProjectReferences>
                     <projectNameTemplate>[artifactId]-[version]</projectNameTemplate>
                     <wtpmanifest>true</wtpmanifest>
                     <wtpapplicationxml>true</wtpapplicationxml>

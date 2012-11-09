@@ -69,14 +69,12 @@ public class EntityPatientDiscoveryDeferredRequestUnsecuredTest {
                 oneOf(mockService).processPatientDiscoveryAsyncRequestUnsecured(with(same(mockRequest)),
                         with(any(WebServiceContext.class)));
                 will(returnValue(expectedResponse));
-
-                oneOf(mockFactory).getEntityPatientDiscoveryDeferredRequestImpl();
-                will(returnValue(mockService));
             }
         });
 
         EntityPatientDiscoveryDeferredRequestUnsecured ws = new EntityPatientDiscoveryDeferredRequestUnsecured(
                 mockFactory);
+        ws.setOrchestratorImpl(mockService);
 
         MCCIIN000002UV01 actualResponse = ws.processPatientDiscoveryAsyncReq(mockRequest);
 
@@ -89,17 +87,9 @@ public class EntityPatientDiscoveryDeferredRequestUnsecuredTest {
         final RespondingGatewayPRPAIN201305UV02RequestType mockRequest = context
                 .mock(RespondingGatewayPRPAIN201305UV02RequestType.class);
 
-        context.checking(new Expectations() {
-            {
-
-                oneOf(mockFactory).getEntityPatientDiscoveryDeferredRequestImpl();
-                will(returnValue(null));
-
-            }
-        });
-
         EntityPatientDiscoveryDeferredRequestUnsecured ws = new EntityPatientDiscoveryDeferredRequestUnsecured(
                 mockFactory);
+        ws.setOrchestratorImpl(null);
 
         MCCIIN000002UV01 actualResponse = ws.processPatientDiscoveryAsyncReq(mockRequest);
 

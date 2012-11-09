@@ -23,8 +23,8 @@ By advancing the adoption of interoperable health IT systems and health informat
         <url>https://github.com/${git.username}/CONNECT</url>
     </scm>
     <modules>
-        <module>ThirdParty</module>
-        <module>Product</module>
+    	<module>ThirdParty</module>
+    	<module>Product</module>
     </modules>
     <licenses>
         <license>

@@ -131,7 +131,7 @@
 		<con:description/>
 		<con:settings/>
 		<con:runType>SEQUENTIAL</con:runType>
-		<con:testCase failOnError="true" failTestCaseOnErrors="true" id="37b6384d-128d-4161-9c03-64392fd61e79" keepSession="false" maxResults="0" name="Document Submission Deferred Req" searchProperties="true">
+		<con:testCase failOnError="true" failTestCaseOnErrors="true" id="37b6384d-128d-4161-9c03-64392fd61e79" keepSession="false" maxResults="0" name="Document Submission Deferred Req" searchProperties="true" disabled="true">
 			<con:settings/>
 			<con:testStep name="Doc Submission Deferred Req" type="request">
 				<con:settings/>
@@ -637,7 +637,7 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 
 
 
-<con:testCase failOnError="true" failTestCaseOnErrors="true" id="a1c14238-6162-46f1-b21d-6ac3756f8502" keepSession="false" maxResults="0" name="Document Submission Deferred Resp" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" id="a1c14238-6162-46f1-b21d-6ac3756f8502" keepSession="false" maxResults="0" name="Document Submission Deferred Resp" searchProperties="true" disabled="true">
 	<con:settings/>
 	<con:testStep name="Doc Submission Deferred Resp" type="request">
 		<con:settings/>
@@ -998,7 +998,7 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 
 
 
-<con:testCase failOnError="true" failTestCaseOnErrors="true" id="ad97df8e-fdc7-4db5-a9ed-b66be1db13c6" keepSession="false" maxResults="0" name="Document Submission" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" id="ad97df8e-fdc7-4db5-a9ed-b66be1db13c6" keepSession="false" maxResults="0" name="Document Submission" searchProperties="true" disabled="true">
 	<con:settings/>
 	<con:testStep name="Document Submission" type="request">
 		<con:settings/>
@@ -2518,7 +2518,7 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 </con:properties>
 <con:reportParameters/>
 </con:testCase>
-<con:testCase failOnError="true" failTestCaseOnErrors="true" id="34af0ba4-ebd0-4ffb-9bfc-99f69bfdc1b0" keepSession="false" maxResults="0" name="Document Query" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" id="34af0ba4-ebd0-4ffb-9bfc-99f69bfdc1b0" keepSession="false" maxResults="0" name="Document Query" searchProperties="true" disabled="true">
 	<con:settings/>
 	<con:testStep name="Document Query" type="request">
 		<con:settings/>
@@ -4830,7 +4830,7 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 	<con:description/>
 	<con:settings/>
 	<con:runType>SEQUENTIAL</con:runType>
-	<con:testCase failOnError="true" failTestCaseOnErrors="true" id="1839c262-cc8c-43bd-8aa9-7bccdf9a10e5" keepSession="false" maxResults="0" name="Document Submission Deferred Req" searchProperties="true">
+	<con:testCase failOnError="true" failTestCaseOnErrors="true" id="1839c262-cc8c-43bd-8aa9-7bccdf9a10e5" keepSession="false" maxResults="0" name="Document Submission Deferred Req" searchProperties="true" disabled="true">
 		<con:settings/>
 		<con:testStep name="Doc Submission Deferred Req" type="request">
 			<con:settings/>
@@ -5332,7 +5332,7 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 </con:properties>
 <con:reportParameters/>
 </con:testCase>
-<con:testCase failOnError="true" failTestCaseOnErrors="true" id="69a513b3-2779-4d9f-a3cd-6055e67d2904" keepSession="false" maxResults="0" name="Document Submission Deferred Resp" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" id="69a513b3-2779-4d9f-a3cd-6055e67d2904" keepSession="false" maxResults="0" name="Document Submission Deferred Resp" searchProperties="true" disabled="true">
 	<con:settings/>
 	<con:testStep name="Doc Submission Deferred Resp" type="request">
 		<con:settings/>
@@ -5686,7 +5686,7 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 	</con:property>
 </con:properties>
 </con:testCase>
-<con:testCase failOnError="true" failTestCaseOnErrors="true" id="74331aa0-02e5-4795-93de-c22dca79221c" keepSession="false" maxResults="0" name="Document Submission" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" id="74331aa0-02e5-4795-93de-c22dca79221c" keepSession="false" maxResults="0" name="Document Submission" searchProperties="true" disabled="true">
 	<con:settings/>
 	<con:testStep name="Document Submission" type="request">
 		<con:settings/>
@@ -7209,7 +7209,7 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 </con:properties>
 <con:reportParameters/>
 </con:testCase>
-<con:testCase failOnError="true" failTestCaseOnErrors="true" id="cd5d3a85-d1ff-4a08-98ff-def03e8d8e58" keepSession="false" maxResults="0" name="Document Query" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" id="cd5d3a85-d1ff-4a08-98ff-def03e8d8e58" keepSession="false" maxResults="0" name="Document Query" searchProperties="true" disabled="true">
 	<con:settings/>
 	<con:testStep name="Document Query" type="request">
 		<con:settings/>

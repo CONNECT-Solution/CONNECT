@@ -30,6 +30,8 @@ import javax.xml.ws.BindingType;
 import javax.xml.ws.soap.Addressing;
 
 import gov.hhs.fha.nhinc.admindistribution.entity.EntityAdminDistributionOrchImpl;
+import gov.hhs.fha.nhinc.aspect.InboundMessageEvent;
+import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
 
 /**
  *
@@ -40,12 +42,21 @@ import gov.hhs.fha.nhinc.admindistribution.entity.EntityAdminDistributionOrchImp
 @Addressing(enabled = true)
 public class EntityAdministrativeDistribution implements gov.hhs.fha.nhinc.entityadmindistribution.AdministrativeDistributionPortType {
 
+    private EntityAdminDistributionOrchImpl orchImpl;
+
     @Override
+    @InboundMessageEvent(serviceType = "Admin Distribution", version = "1.0",
+            afterReturningBuilder = DefaultEventDescriptionBuilder.class,
+            beforeBuilder = DefaultEventDescriptionBuilder.class)
     public void sendAlertMessage(gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewaySendAlertMessageType body) {
-        getEntityImpl().sendAlertMessage(body, body.getAssertion(), body.getNhinTargetCommunities());
+        getOrchImpl().sendAlertMessage(body, body.getAssertion(), body.getNhinTargetCommunities());
     }
 
-    protected EntityAdminDistributionOrchImpl getEntityImpl() {
-        return new EntityAdminDistributionOrchImpl();
+    public void setOrchestratorImpl(EntityAdminDistributionOrchImpl orchImpl) {
+        this.orchImpl = orchImpl;
+    }
+
+    protected EntityAdminDistributionOrchImpl getOrchImpl(){
+        return this.orchImpl;
     }
 }

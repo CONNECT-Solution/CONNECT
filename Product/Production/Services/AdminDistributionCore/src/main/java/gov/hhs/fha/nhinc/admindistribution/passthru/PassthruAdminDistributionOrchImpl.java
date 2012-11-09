@@ -50,14 +50,26 @@ public class PassthruAdminDistributionOrchImpl {
 
     private Log log = null;
 
+    /**
+     * Constructor.
+     */
     public PassthruAdminDistributionOrchImpl() {
         log = createLogger();
     }
 
+    /**
+     * @return log.
+     */
     protected Log createLogger() {
         return LogFactory.getLog(getClass());
     }
 
+    /**This method implements sendAlertMessage for AdminDist when in passthrumode.
+     * @param body Emergency Message Distribution Element transaction messgae body.
+     * @param assertion Assertion received.
+     * @param target NhinTargetCommunity received.
+     * @param apiLevel gateway apiLevel (g0/g1).
+     */
     public void sendAlertMessage(EDXLDistribution body, AssertionType assertion, NhinTargetSystemType target,
             NhincConstants.GATEWAY_API_LEVEL apiLevel) {
         log.info("begin sendAlert");
@@ -93,11 +105,18 @@ public class PassthruAdminDistributionOrchImpl {
         return newRequest;
     }
 
+    /**This method process the AdminDist Orchestratable message.
+     * @param adDelegate outbound AD delegate.
+     * @param orchestratable orchestratable AdminDist message.
+     */
     protected void execute(OutboundAdminDistributionDelegate adDelegate,
             OutboundAdminDistributionOrchestratable orchestratable) {
         adDelegate.process(orchestratable);
     }
 
+    /**
+     * @return AdminDist audit logger instance.
+     */
     protected AdminDistributionAuditLogger getLogger() {
         return new AdminDistributionAuditLogger();
     }

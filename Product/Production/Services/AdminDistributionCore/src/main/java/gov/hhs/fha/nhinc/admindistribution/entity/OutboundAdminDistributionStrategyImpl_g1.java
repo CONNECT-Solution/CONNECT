@@ -38,10 +38,15 @@ import org.apache.commons.logging.LogFactory;
  * 
  * @author nnguyen
  */
+//CHECKSTYLE:OFF
 public class OutboundAdminDistributionStrategyImpl_g1 implements OrchestrationStrategy {
+//CHECKSTYLE:ON
 
     private static Log log = LogFactory.getLog(OutboundAdminDistributionStrategyImpl_g1.class);
 
+    /**
+     * Default Constructor.
+     */
     public OutboundAdminDistributionStrategyImpl_g1() {
     }
 
@@ -58,6 +63,9 @@ public class OutboundAdminDistributionStrategyImpl_g1 implements OrchestrationSt
         }
     }
 
+    /**This method forwards outbound orchestratable message to Nhin.
+     * @param message Orchestratable AdminDist message .
+     */
     public void execute(OutboundAdminDistributionOrchestratable message) {
         getLogger().debug("Begin NhinAdminDistributionOrchestratableImpl_g1.process");
         if (message == null) {

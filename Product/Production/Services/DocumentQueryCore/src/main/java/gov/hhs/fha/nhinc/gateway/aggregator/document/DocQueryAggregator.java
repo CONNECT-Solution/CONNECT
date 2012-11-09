@@ -1,28 +1,28 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
- * All rights reserved. 
+ * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * All rights reserved.
  *
- * Redistribution and use in source and binary forms, with or without 
- * modification, are permitted provided that the following conditions are met: 
- *     * Redistributions of source code must retain the above 
- *       copyright notice, this list of conditions and the following disclaimer. 
- *     * Redistributions in binary form must reproduce the above copyright 
- *       notice, this list of conditions and the following disclaimer in the documentation 
- *       and/or other materials provided with the distribution. 
- *     * Neither the name of the United States Government nor the 
- *       names of its contributors may be used to endorse or promote products 
- *       derived from this software without specific prior written permission. 
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *     * Redistributions of source code must retain the above
+ *       copyright notice, this list of conditions and the following disclaimer.
+ *     * Redistributions in binary form must reproduce the above copyright
+ *       notice, this list of conditions and the following disclaimer in the documentation
+ *       and/or other materials provided with the distribution.
+ *     * Neither the name of the United States Government nor the
+ *       names of its contributors may be used to endorse or promote products
+ *       derived from this software without specific prior written permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
- * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
- * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY 
- * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES 
- * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
- * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND 
- * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
- * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package gov.hhs.fha.nhinc.gateway.aggregator.document;
 
@@ -70,24 +70,24 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
 
 /**
  * This class is used to handle the tasks surrounding aggregating responses to document query messages.
- * 
+ *
  * @author Les Westberg
  */
 public class DocQueryAggregator {
     private static Log log = LogFactory.getLog(DocQueryAggregator.class);
-    private static String DOC_QUERY_NAME = "documentquery";
-    private static String DOC_QUERY_RESPONSE = "AdhocQueryResponse";
+    private static final String DOC_QUERY_NAME = "documentquery";
+    private static final String DOC_QUERY_RESPONSE = "AdhocQueryResponse";
 
     /**
-     * Default constructor
+     * Default constructor.
      */
     public DocQueryAggregator() {
     }
 
     /**
      * This method marshalls the AdhocQueryResponse into an XML string.
-     * 
-     * @param oAdhocQueryRsponse The object to be marshalled.
+     *
+     * @param oAdhocQueryResponse The object to be marshalled.
      * @return The XML representation of the object.
      */
     public String marshalAdhocQueryResponse(AdhocQueryResponse oAdhocQueryResponse) {
@@ -111,7 +111,7 @@ public class DocQueryAggregator {
 
     /**
      * This method unmarshalls the XML into an AdhocQueryResponse object.
-     * 
+     *
      * @param sAdhocQueryResponseXML The XML of the AdhocQueryResponse object to be unmarshalled.
      * @return The AdhocQueryResponse object.
      */
@@ -136,8 +136,9 @@ public class DocQueryAggregator {
     /**
      * This method is called from the web service to start a transaction. it prepares the set of DocQueryMessageKey(s)
      * and then calls the other startTransaction to do the work.
-     * 
+     *
      * @param oRequest The message that was sent to the web service.
+     * @param hAssignAuthHomeCommMap HashMap having a map between AssigningAuthorityId and HomeCommunityId.
      * @return The transaction Id.
      */
     public String startTransaction(StartTransactionDocQueryRequestType oRequest,
@@ -156,8 +157,7 @@ public class DocQueryAggregator {
                     .getQualifiedSubjectIdentifier();
 
             for (QualifiedSubjectIdentifierType oId : olIds) {
-                boolean baFound[] = { false, false, false };
-
+                boolean[] baFound = {false, false, false};
                 DocQueryMessageKey oKey = new DocQueryMessageKey();
                 if (oId.getAssigningAuthorityIdentifier() != null) {
                     oKey.setAssigningAuthority(oId.getAssigningAuthorityIdentifier());
@@ -211,7 +211,7 @@ public class DocQueryAggregator {
             } // for (QualifiedSubjectIdentifierType oId : olIds)
 
             if (olKey.size() > 0) {
-                DocQueryMessageKey oaKey[] = olKey.toArray(new DocQueryMessageKey[0]);
+                DocQueryMessageKey[] oaKey = olKey.toArray(new DocQueryMessageKey[0]);
 
                 int count = 0;
                 for (DocQueryMessageKey keyValue : oaKey) {
@@ -229,7 +229,7 @@ public class DocQueryAggregator {
 
     /**
      * This method sets the response message for the specified message key.
-     * 
+     *
      * @param oRequest The message key and the response message.
      * @return The status of the request, either "SUCCESS" or "FAIL".
      */
@@ -246,7 +246,8 @@ public class DocQueryAggregator {
             if ((oRequest.getTransactionId() != null) && (oRequest.getTransactionId().length() > 0)) {
                 sTransactionId = oRequest.getTransactionId();
             } else {
-                String sErrorMessage = "DocQuery Aggregator - setResponseMsg called with no Transaction Id - this is a required data element.";
+                String sErrorMessage = "DocQuery Aggregator - setResponseMsg called with no Transaction Id - "
+                        + "this is a required data element.";
                 log.error(sErrorMessage);
                 sStatus = DocumentConstants.FAIL_TEXT;
             }
@@ -268,7 +269,8 @@ public class DocQueryAggregator {
                     && (oRequest.getQualifiedPatientIdentifier().getAssigningAuthorityIdentifier().length() > 0)) {
                 oKey.setAssigningAuthority(oRequest.getQualifiedPatientIdentifier().getAssigningAuthorityIdentifier());
             } else {
-                String sErrorMessage = "DocQuery Aggregator - setResponseMsg called with no assigning authority - this is a required data element.";
+                String sErrorMessage = "DocQuery Aggregator - setResponseMsg called with no assigning authority - "
+                        + "this is a required data element.";
                 log.error(sErrorMessage);
                 sStatus = DocumentConstants.FAIL_TEXT;
             }
@@ -280,7 +282,8 @@ public class DocQueryAggregator {
                     && (oRequest.getQualifiedPatientIdentifier().getSubjectIdentifier().length() > 0)) {
                 oKey.setPatientId(oRequest.getQualifiedPatientIdentifier().getSubjectIdentifier());
             } else {
-                String sErrorMessage = "DocQuery Aggregator - setResponseMsg called with no subject identifier - this is a required data element.";
+                String sErrorMessage = "DocQuery Aggregator - setResponseMsg called with no subject identifier - "
+                        + "this is a required data element.";
                 log.error(sErrorMessage);
                 sStatus = DocumentConstants.FAIL_TEXT;
             }
@@ -310,8 +313,8 @@ public class DocQueryAggregator {
      * it will place error information in the aggregated results for the ones that it did not receive. It will also send
      * back a status of "Incomplete" with the results. If timedOut is set to true, but everything had been received,
      * then it will send back a status of "Complete" with the aggregated results.
-     * 
-     * @param getAggResultsDocQueryRequest Tells whether we are in a timed out state or not.
+     *
+     * @param oRequest getAggResultsDocQueryRequest Tells whether we are in a timed out state or not.
      * @return Returns results if all responses have been received or if timedOut is set to true. Returns status only if
      *         we are not timedOut and if not all expected results have been received.
      */
@@ -357,7 +360,7 @@ public class DocQueryAggregator {
      * This method starts a transaction using the set of message keys passed in. It will create a transaction, with one
      * message for each message key. The entries will be written to the AGGREGATOR.AGG_TRANSACTION and
      * AGGREGATOR.AGG_MESSAGE_RESULTS tables.
-     * 
+     *
      * @param oaMessageKey The set of message keys. There will be one row written to the AGG_MESSAGE_RESULTS table for
      *            each array item.
      * @return The transaction Id that was assigned when this transaction was started.
@@ -404,7 +407,7 @@ public class DocQueryAggregator {
      * This method retrieves the message result entry in the database and fills in the response information for that
      * message. It locates the entry based on the message key and transaction Id based on the information that was
      * passed in.
-     * 
+     *
      * @param sTransactionId The transaction Id associated with the message.
      * @param oKey The information that is used for the message key.
      * @param sAdhocQueryResponseXML The AdhocQueryResponse in XML form.
@@ -446,7 +449,7 @@ public class DocQueryAggregator {
     /**
      * This method looks through the results to see if all responses have been received. If they have, then it returns
      * true. Otherwise it returns false.
-     * 
+     *
      * @param oTrans The Transaction with all of the message results.
      * @return TRUE if all responses have been received, FALSE if not.
      */
@@ -468,7 +471,7 @@ public class DocQueryAggregator {
 
     /**
      * This method will create an empty AdhocQueryResponse. One that would be returned if there were no results.
-     * 
+     *
      * @return An AdhocQueryResponse that represents an empty result set.
      */
     private AdhocQueryResponse createEmptyResult() {
@@ -483,7 +486,7 @@ public class DocQueryAggregator {
     /**
      * This method is used to combine the results together into a single AdhocQueryResponse. It will extract the items
      * in the RegistryObjectList from the various systems and place them into the new response.
-     * 
+     *
      * @param olMsgResult List of messages to be combined
      * @return The combined AdhocQueryResponse object.
      */
@@ -499,7 +502,8 @@ public class DocQueryAggregator {
             if (oMsgResult.getResponseReceivedTime() != null) {
                 // The response may have been empty - if so - there is nothing to aggregate from here.
                 // -------------------------------------------------------------------------------------
-                if ((oMsgResult.getResponseMessage() != null) && (oMsgResult.getResponseMessage().trim().length() > 0)) {
+                if ((oMsgResult.getResponseMessage() != null)
+                        && (oMsgResult.getResponseMessage().trim().length() > 0)) {
                     AdhocQueryResponse oTempResponse = unmarshalAdhocQueryResponse(oMsgResult.getResponseMessage());
                     if ((oTempResponse != null) && (oTempResponse.getRegistryObjectList() != null)
                             && (oTempResponse.getRegistryObjectList().getIdentifiable() != null)
@@ -532,9 +536,7 @@ public class DocQueryAggregator {
                         }
                     }
                 } // if ((oMsgResult.getResponseMessage() != null) &&
-            } // if (oMsgResult.getResponseReceivedTime() != null)
-            else // This means that this result never received a response - log an error that this one timed out.
-            {
+            } else  { // This means that this result never received a response - log an error that this one timed out.
                 RegistryErrorList oRegErrors = null;
                 if (oAdhocQueryResponse.getRegistryErrorList() == null) {
                     oRegErrors = new RegistryErrorList();
@@ -568,10 +570,11 @@ public class DocQueryAggregator {
      * This method returns either an aggregated AdhocQueryResponse if all results have been retrieved, or if the timed
      * out flag has been passed, or it will return null if the results are not ready and the timedout flag has not been
      * set.
-     * 
+     *
      * @param sTransactionId The transaction ID of the transaction to be aggregated.
      * @param bTimedOut TRUE if we should stop waiting for results and compile what is available. FALSE if we should
      *            only return them if all expected results have been received.
+     * @throws AggregatorException Throws java.lang.Exception.
      * @return The aggregated results.
      */
     public AdhocQueryResponse getAggResults(String sTransactionId, boolean bTimedOut) throws AggregatorException {

@@ -26,44 +26,36 @@
  */
 package gov.hhs.fha.nhinc.docquery._20.entity;
 
+import gov.hhs.fha.nhinc.aspect.OutboundMessageEvent;
+import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayQuerySecuredRequestType;
+import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryResponseDescriptionBuilder;
+import gov.hhs.fha.nhinc.docquery.aspect.RespondingGatewayCrossGatewayQuerySecuredRequestTypeDescriptionBuilder;
+import gov.hhs.fha.nhinc.docquery.outbound.OutboundDocQuery;
+
 import javax.annotation.Resource;
-import javax.jws.WebService;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
 
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 
-import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayQuerySecuredRequestType;
-
-
-
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
-@Addressing(enabled=true)
-public class EntityDocQuerySecured implements gov.hhs.fha.nhinc.entitydocquery.EntityDocQuerySecuredPortType{
+@Addressing(enabled = true)
+public class EntityDocQuerySecured implements gov.hhs.fha.nhinc.entitydocquery.EntityDocQuerySecuredPortType {
+    private OutboundDocQuery outboundDocQuery;
 
     @Resource
     private WebServiceContext context;
 
-    public AdhocQueryResponse respondingGatewayCrossGatewayQuery(RespondingGatewayCrossGatewayQuerySecuredRequestType body)
-    {
-        AdhocQueryResponse response = null;
-
-        EntityDocQueryImpl serviceImpl = getEntityDocQueryImpl();
-        if(serviceImpl != null)
-        {
-            response =  serviceImpl.respondingGatewayCrossGatewayQuerySecured(body, getWebServiceContext());
-        }
-        return response;
+    @OutboundMessageEvent(beforeBuilder = RespondingGatewayCrossGatewayQuerySecuredRequestTypeDescriptionBuilder.class,
+            afterReturningBuilder = AdhocQueryResponseDescriptionBuilder.class, serviceType = "Document Query",
+            version = "2.0")
+    public AdhocQueryResponse respondingGatewayCrossGatewayQuery(
+            RespondingGatewayCrossGatewayQuerySecuredRequestType body) {        
+        return new EntityDocQueryImpl(outboundDocQuery).respondingGatewayCrossGatewayQuerySecured(body, context);
     }
 
-    protected EntityDocQueryImpl getEntityDocQueryImpl()
-    {
-        return new EntityDocQueryImpl();
-    }
-
-    protected WebServiceContext getWebServiceContext()
-    {
-        return context;
+    public void setOutboundDocQuery(OutboundDocQuery outboundDocQuery) {
+        this.outboundDocQuery = outboundDocQuery;
     }
 }

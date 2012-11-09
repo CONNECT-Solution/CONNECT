@@ -31,18 +31,30 @@ import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
 
-/**
- *
- * @author JHOPPESC
- */
-@BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
-@Addressing(enabled=true)
-public class NhinXDRResponse20 implements ihe.iti.xdr._2007.XDRDeferredResponse20PortType {
-    @Resource
-    private WebServiceContext context;
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
-    public void provideAndRegisterDocumentSetBDeferredResponse(javax.xml.ws.Holder<oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType> body) {
-        body.value = new NhinDocSubmissionDeferredResponseImpl20().provideAndRegisterDocumentSetBResponse(body.value, context);
+import gov.hhs.fha.nhinc.docsubmission.inbound.deferred.response.InboundDocSubmissionDeferredResponse;
+
+
+@BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
+@Addressing(enabled = true)
+public class NhinXDRResponse20 implements ihe.iti.xdr._2007.XDRDeferredResponse20PortType {
+
+    private WebServiceContext context;
+    private InboundDocSubmissionDeferredResponse inboundDocSubmissionResponse;
+
+    @Override
+    public void provideAndRegisterDocumentSetBDeferredResponse(javax.xml.ws.Holder<RegistryResponseType> body) {
+        body.value = new NhinDocSubmissionDeferredResponseImpl20(inboundDocSubmissionResponse)
+                .provideAndRegisterDocumentSetBResponse(body.value, context);
     }
 
+    public void setInboundDocSubmissionResponse(InboundDocSubmissionDeferredResponse inboundDocSubmissionResponse) {
+        this.inboundDocSubmissionResponse = inboundDocSubmissionResponse;
+    }
+
+    @Resource
+    public void setContext(WebServiceContext context) {
+        this.context = context;
+    }
 }
