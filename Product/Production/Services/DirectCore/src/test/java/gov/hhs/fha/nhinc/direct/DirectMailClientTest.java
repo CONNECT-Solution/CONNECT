@@ -243,7 +243,7 @@ public class DirectMailClientTest {
     }
 
     private MessageProcessResult getMockMessageProcessResult() {
-        return getMockMessageProcessResult();
+        return getMockMessageProcessResult(1);
     }
 
     private MessageProcessResult getMockMessageProcessResult(int numNotificationMessages) {
