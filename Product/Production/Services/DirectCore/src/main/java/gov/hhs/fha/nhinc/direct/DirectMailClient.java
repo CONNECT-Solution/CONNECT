@@ -28,6 +28,7 @@ package gov.hhs.fha.nhinc.direct;
 
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType.Document;
 
+import java.util.Collection;
 import java.util.Properties;
 
 import javax.mail.Address;
@@ -48,13 +49,14 @@ import org.nhindirect.gateway.smtp.SmtpAgent;
 import org.nhindirect.stagent.AddressSource;
 import org.nhindirect.stagent.NHINDAddress;
 import org.nhindirect.stagent.NHINDAddressCollection;
+import org.nhindirect.stagent.mail.notifications.NotificationMessage;
 
 /**
  * Mail Server implementation which used the direct libraries to send encrypted mail.
  */
 public class DirectMailClient implements DirectClient {
 
-    private static final Log log = LogFactory.getLog(DirectMailClient.class);
+    private static final Log LOG = LogFactory.getLog(DirectMailClient.class);
 
     // TODO - Where should these come from?...
     private static final String MSG_SUBJECT = "DIRECT Message";
@@ -67,7 +69,7 @@ public class DirectMailClient implements DirectClient {
 
     /**
      * Construct a direct mail server with mail server settings.
-     * 
+     *
      * @param mailServerProps used to define this mail server
      * @param smtpAgent direct smtp agent config file path relative to classpath used to configure SmtpAgent
      */
@@ -102,8 +104,35 @@ public class DirectMailClient implements DirectClient {
      * {@inheritDoc}
      */
     @Override
-    public void sendMdn(String sender, String recipient, MessageProcessResult result) {
-        // TODO Auto-generated method stub
+    public void sendMdn(Address recipient, MessageProcessResult result) {
+        Transport transport = null;
+        try {
+            LOG.trace("Calling agent.processMessage");
+            Session session = getMailSession();
+
+           if (result.getProcessedMessage() != null)
+           {
+               transport = session.getTransport("smtps");
+               transport.connect();
+               Address[] addressTo = { recipient };
+               Collection<NotificationMessage> notifications = result.getNotificationMessages();
+
+               LOG.info("# of notifications message: " + notifications.size());
+               if (notifications != null && notifications.size() > 0)
+               {
+                   for (NotificationMessage mdnMsg : notifications)
+                   {
+                       transport.sendMessage(mdnMsg, addressTo);
+                       LOG.info("MDN notification sent.");
+                   }
+               }
+           }
+           transport.close();
+       }
+       catch (Exception e)
+       {
+           LOG.error("Failed to process message: " + e.getMessage(), e);
+       }
 
     }
 
