@@ -120,6 +120,5 @@ public class DirectMailClientSpringTest {
     
     private static String getClassPath() {
         return DirectMailClientSpringTest.class.getProtectionDomain().getCodeSource().getLocation().getPath();
-                //.replaceAll("/", File.separator);
     }
 }
