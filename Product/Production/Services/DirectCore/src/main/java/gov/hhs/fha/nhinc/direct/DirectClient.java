@@ -40,7 +40,7 @@ public interface DirectClient {
 
     /**
      * Use the mail server to send a DIRECT message.
-     * 
+     *
      * @param sender of the message
      * @param recipients of the message
      * @param attachment for the message
@@ -51,7 +51,7 @@ public interface DirectClient {
     /**
      * Use the mail server to send a DIRECT message. When you already have a mail message and you want to send it
      * as a DIRECT message.
-     * 
+     *
      * @param sender of the message
      * @param recipients of the message
      * @param message (mime) to be sent using the direct
@@ -60,17 +60,17 @@ public interface DirectClient {
 
     /**
      * Use the mail server to send MDN messages if result contains notification messages.
-     * 
+     *
      * @param sender of the message
      * @param recipient of the message
      * @param result to be processed for MDN Messages.
      */
-    void sendMdn(String sender, String recipient, MessageProcessResult result);    
-    
+    void sendMdn(Address recipient, MessageProcessResult result);
+
     /**
      * @param handler used to handle messages pulled from the mail server.
      * @return number of messages handled.
      */
     int handleMessages(MessageHandler handler);
-    
+
 }
