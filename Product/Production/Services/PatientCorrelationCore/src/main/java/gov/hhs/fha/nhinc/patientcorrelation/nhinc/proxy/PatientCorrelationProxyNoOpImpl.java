@@ -38,6 +38,13 @@ import org.hl7.v3.RetrievePatientCorrelationsResponseType;
  */
 public class PatientCorrelationProxyNoOpImpl implements PatientCorrelationProxy {
 
+    /**
+     * This method retrieves PatientCorrelation from the targeted community. But this method 
+     * returns a null response back does not implement anything.
+     * @param request PRPAIN201309UV02 HL7 type of Request received.
+     * @param assertion Assertion received.
+     * @return PatientCorrelationresponse.
+     */
     public RetrievePatientCorrelationsResponseType retrievePatientCorrelations(PRPAIN201309UV02 request,
             AssertionType assertion) {
         RetrievePatientCorrelationsResponseType resp = new RetrievePatientCorrelationsResponseType();
@@ -45,6 +52,13 @@ public class PatientCorrelationProxyNoOpImpl implements PatientCorrelationProxy 
         return resp;
     }
 
+    /**
+     * This method add PatientCorrelations to database.But this method 
+     * returns a null response back does not implement anything.
+     * @param request PRPAIN201301UV02 HL7 type of Request received.
+     * @param assertion Assertion received.
+     * @return PatientCorrelationResponse.
+     */
     public AddPatientCorrelationResponseType addPatientCorrelation(PRPAIN201301UV02 request, AssertionType assertion) {
         AddPatientCorrelationResponseType resp = new AddPatientCorrelationResponseType();
 

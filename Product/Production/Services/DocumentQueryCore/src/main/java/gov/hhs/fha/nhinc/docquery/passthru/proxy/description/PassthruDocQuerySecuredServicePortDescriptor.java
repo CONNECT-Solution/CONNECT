@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package gov.hhs.fha.nhinc.docquery.passthru.proxy.description;
 
@@ -10,13 +10,15 @@ import gov.hhs.fha.nhinc.nhincproxydocquerysecured.NhincProxyDocQuerySecuredPort
  * @author mweaver
  *
  */
-public class PassthruDocQuerySecuredServicePortDescriptor implements ServicePortDescriptor<NhincProxyDocQuerySecuredPortType> {
+public class PassthruDocQuerySecuredServicePortDescriptor implements
+                ServicePortDescriptor<NhincProxyDocQuerySecuredPortType> {
 
     private static final String NAMESPACE_URI = "urn:gov:hhs:fha:nhinc:nhincproxydocquerysecured";
     private static final String SERVICE_LOCAL_PART = "NhincProxyDocQuerySecured";
     private static final String PORT_LOCAL_PART = "NhincProxyDocQuerySecuredPortSoap";
     private static final String WSDL_FILE = "NhincProxyDocQuerySecured.wsdl";
-    private static final String WS_ADDRESSING_ACTION = "urn:gov:hhs:fha:nhinc:nhincproxydocquerysecured:RespondingGateway_CrossGatewayQueryRequestSecuredMessage";
+    private static final String WS_ADDRESSING_ACTION = "urn:gov:hhs:fha:nhinc:nhincproxydocquerysecured:"
+            + "RespondingGateway_CrossGatewayQueryRequestSecuredMessage";
 
     /* (non-Javadoc)
      * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getNamespaceUri()

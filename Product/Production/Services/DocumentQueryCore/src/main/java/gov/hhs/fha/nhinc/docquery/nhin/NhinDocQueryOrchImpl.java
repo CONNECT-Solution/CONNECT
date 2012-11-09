@@ -52,24 +52,31 @@ public class NhinDocQueryOrchImpl {
 
     private Log log = null;
 
+    /**
+     * Default constructor creates log.
+     */
     public NhinDocQueryOrchImpl() {
         log = createLogger();
     }
 
+    /**
+     * @return Log log
+     */
     protected Log createLogger() {
         return LogFactory.getLog(getClass());
     }
 
-    /**
+    /** This method forwards DocQUeryRequest to Nhin.
      *
-     * @param body
-     * @param assertion
-     * @return <code>AdhocQueryResponse</code>
+     * @param msg The AdhocQuery Request message received.
+     * @param assertion Assertion received.
+     * @return AdhocQuery Response.
      */
     public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest msg, AssertionType assertion) {
         log.info("Begin - NhinDocQueryOrchImpl.respondingGatewayCrossGatewayQuery()");
 
-        RespondingGatewayCrossGatewayQueryRequestType crossGatewayQueryRequest = new RespondingGatewayCrossGatewayQueryRequestType();
+        RespondingGatewayCrossGatewayQueryRequestType crossGatewayQueryRequest =
+                                                      new RespondingGatewayCrossGatewayQueryRequestType();
         AdhocQueryResponse resp = new AdhocQueryResponse();
         crossGatewayQueryRequest.setAdhocQueryRequest(msg);
         crossGatewayQueryRequest.setAssertion(assertion);
@@ -110,14 +117,15 @@ public class NhinDocQueryOrchImpl {
      *
      * @param crossGatewayDocQueryRequest AdhocQueryRequest message to log
      * @param direction Indicates whether the message is going out or comming in
-     * @param _interface Indicates which interface component is being logged??
+     * @param msgInterface Indicates which interface component is being logged??
+     * @param requestCommunityId HomeCommunityId to be audit logged.
      * @return Returns an acknowledgement object indicating whether the audit was successfully completed.
      */
     private AcknowledgementType auditAdhocQueryRequest(RespondingGatewayCrossGatewayQueryRequestType msg,
-            String direction, String _interface, String requestCommunityID) {
+            String direction, String msgInterface, String requestCommunityID) {
         DocQueryAuditLog auditLogger = new DocQueryAuditLog();
         AcknowledgementType ack = auditLogger.auditDQRequest(msg.getAdhocQueryRequest(), msg.getAssertion(), direction,
-                _interface, requestCommunityID);
+                msgInterface, requestCommunityID);
 
         return ack;
     }
@@ -127,15 +135,15 @@ public class NhinDocQueryOrchImpl {
      *
      * @param crossGatewayDocQueryResponse AdhocQueryResponse message to log
      * @param direction Indicates whether the message is going out or comming in
-     * @param _interface Indicates which interface component is being logged??
-     * @param requestCommunityID
+     * @param msgInterface Indicates which interface component is being logged??
+     * @param requestCommunityID to be audit logged.
      * @return Returns an acknowledgement object indicating whether the audit was successfully completed.
      */
-    private AcknowledgementType auditAdhocQueryResponse(AdhocQueryResponse msg, String direction, String _interface,
+    private AcknowledgementType auditAdhocQueryResponse(AdhocQueryResponse msg, String direction, String msgInterface,
             AssertionType assertion, String requestCommunityID) {
         DocQueryAuditLog auditLogger = new DocQueryAuditLog();
         AcknowledgementType ack = auditLogger
-                .auditDQResponse(msg, assertion, direction, _interface, requestCommunityID);
+                .auditDQResponse(msg, assertion, direction, msgInterface, requestCommunityID);
 
         return ack;
     }
@@ -173,10 +181,10 @@ public class NhinDocQueryOrchImpl {
     }
 
     /**
-     * Forwards the AdhocQueryRequest to an agency's adapter doc query service
+     * Forwards the AdhocQueryRequest to an agency's adapter doc query service.
      *
-     * @param adhocQueryRequestMsg
-     * @param communityID
+     * @param adhocQueryRequestMsg The AdhocQuery Request Message Received.
+     * @param communityID The request communityId.
      * @return
      */
     private AdhocQueryResponse forwardToAgency(RespondingGatewayCrossGatewayQueryRequestType adhocQueryRequestMsg,
@@ -187,7 +195,9 @@ public class NhinDocQueryOrchImpl {
         auditAdhocQueryRequest(adhocQueryRequestMsg, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION,
                 NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE, communityID);
 
-        gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayQueryRequestType crossGatewayQueryEventsRequest = new gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayQueryRequestType();
+        gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayQueryRequestType
+        crossGatewayQueryEventsRequest = new gov.hhs.fha.nhinc.common.nhinccommonadapter.
+                                                    RespondingGatewayCrossGatewayQueryRequestType();
         crossGatewayQueryEventsRequest.setAssertion(adhocQueryRequestMsg.getAssertion());
         crossGatewayQueryEventsRequest.setAdhocQueryRequest(adhocQueryRequestMsg.getAdhocQueryRequest());
 
@@ -204,10 +214,10 @@ public class NhinDocQueryOrchImpl {
     }
 
     /**
-     * Forwards the AdhocQueryRequest to this agency's adapter doc query service
+     * Forwards the AdhocQueryRequest to this agency's adapter doc query service.
      *
-     * @param adhocQueryRequestMsg
-     * @param requestCommunityID
+     * @param adhocQueryRequestMsg AdhocQUery Request Message received.
+     * @param requestCommunityID The request communityId.
      * @return
      */
     private AdhocQueryResponse queryInternalDocRegistry(
