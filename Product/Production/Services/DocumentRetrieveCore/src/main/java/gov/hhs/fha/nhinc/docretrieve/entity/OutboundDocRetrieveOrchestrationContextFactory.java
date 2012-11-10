@@ -24,42 +24,33 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
-package gov.hhs.fha.nhinc.docquery._20.nhin;
+package gov.hhs.fha.nhinc.docretrieve.entity;
 
-import gov.hhs.fha.nhinc.docquery.inbound.InboundDocQuery;
-import ihe.iti.xds_b._2007.RespondingGatewayQueryPortType;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.orchestration.OrchestrationContextBuilder;
 
-import javax.annotation.Resource;
-import javax.xml.ws.BindingType;
-import javax.xml.ws.WebServiceContext;
-import javax.xml.ws.soap.Addressing;
 
-import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
-import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
+public class OutboundDocRetrieveOrchestrationContextFactory {
 
-/**
- *
- * @author Neil Webb
- */
-@BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
-@Addressing(enabled = true)
-public class DocQuery implements RespondingGatewayQueryPortType {
-    private InboundDocQuery inboundDocQuery;
+    private static OutboundDocRetrieveOrchestrationContextFactory INSTANCE = new OutboundDocRetrieveOrchestrationContextFactory();
 
-    @Resource
-    private WebServiceContext context;
-
-    /**
-     * The web service implementation for Document Query.
-     * @param body the body of the request
-     * @return the query response for the document query
-     */
-    public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest body) {
-        return new DocQueryImpl(inboundDocQuery).respondingGatewayCrossGatewayQuery(body, context);
+    private OutboundDocRetrieveOrchestrationContextFactory() {
     }
 
-    public void setInboundDocQuery(InboundDocQuery inboundDocQuery) {
-        this.inboundDocQuery = inboundDocQuery;
+    public OrchestrationContextBuilder createOrchestrationContextBuilder(NhincConstants.GATEWAY_API_LEVEL apiLevel) {
+        switch (apiLevel) {
+        case LEVEL_g0:
+            return new OutboundDocRetrieveOrchestrationContextBuilder_g0();
+        case LEVEL_g1:
+            return new OutboundDocRetrieveOrchestrationContextBuilder_g1();
+        default:
+            return null;
+        }
     }
 
+    public static OutboundDocRetrieveOrchestrationContextFactory getInstance() {
+        return INSTANCE;
+    }
+    
+    
 }
