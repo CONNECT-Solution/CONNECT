@@ -24,22 +24,20 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.docquery.inbound;
-
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.docquery.DocQueryAuditLog;
-import gov.hhs.fha.nhinc.docquery.adapter.proxy.AdapterDocQueryProxy;
-import gov.hhs.fha.nhinc.docquery.adapter.proxy.AdapterDocQueryProxyObjectFactory;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+package gov.hhs.fha.nhinc.docquery.outbound;
 
 import static org.junit.Assert.assertSame;
-
-import static org.mockito.Mockito.any;
-import static org.mockito.Mockito.eq;
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.verify;
-
+import static org.mockito.Mockito.when;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
+import gov.hhs.fha.nhinc.docquery.DocQueryAuditLog;
+import gov.hhs.fha.nhinc.docquery.entity.OutboundDocQueryDelegate;
+import gov.hhs.fha.nhinc.docquery.entity.OutboundDocQueryOrchestratable;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 
@@ -47,44 +45,37 @@ import org.junit.Test;
 
 /**
  * @author akong
- * 
+ *
  */
-public class PassthroughInboundDocQueryTest {
+public class PassthroughOutboundDocQueryTest {
 
     @Test
-    public void passthroughInboundDocQuery() {
+    public void passthroughOutboundDocQuery() {
+        DocQueryAuditLog mockAuditLogger = mock(DocQueryAuditLog.class);
+        OutboundDocQueryDelegate mockDelegate = mock(OutboundDocQueryDelegate.class);
+        
+        AdhocQueryResponse expectedResponse = new AdhocQueryResponse();
+        OutboundDocQueryOrchestratable orchestratableResponse = new OutboundDocQueryOrchestratable();
+        orchestratableResponse.setResponse(expectedResponse);
+        
+        when(mockDelegate.process(any(OutboundDocQueryOrchestratable.class))).thenReturn(orchestratableResponse);
+                
         AdhocQueryRequest request = new AdhocQueryRequest();
         AssertionType assertion = new AssertionType();
-        AdhocQueryResponse expectedResponse = new AdhocQueryResponse();
-
-        AdapterDocQueryProxyObjectFactory mockAdapterFactory = mock(AdapterDocQueryProxyObjectFactory.class);
-        AdapterDocQueryProxy mockAdapterProxy = mock(AdapterDocQueryProxy.class);
-        DocQueryAuditLog mockAuditLogger = mock(DocQueryAuditLog.class);
-
-        when(mockAdapterFactory.getAdapterDocQueryProxy()).thenReturn(mockAdapterProxy);
-
-        when(mockAdapterProxy.respondingGatewayCrossGatewayQuery(request, assertion)).thenReturn(expectedResponse);
-
-        PassthroughInboundDocQuery passthroughDocQuery = new PassthroughInboundDocQuery(mockAdapterFactory,
-                mockAuditLogger);
-        AdhocQueryResponse actualResponse = passthroughDocQuery.respondingGatewayCrossGatewayQuery(request, assertion);
+        NhinTargetCommunitiesType targets = new NhinTargetCommunitiesType();
+        
+        PassthroughOutboundDocQuery passthroughDocQuery = new PassthroughOutboundDocQuery(mockAuditLogger, mockDelegate);
+        AdhocQueryResponse actualResponse = passthroughDocQuery.respondingGatewayCrossGatewayQuery(request, assertion, targets);
         
         assertSame(expectedResponse, actualResponse);
-
+        
         verify(mockAuditLogger).auditDQRequest(eq(request), eq(assertion),
-                eq(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE),
-                any(String.class));
-
-        verify(mockAuditLogger).auditDQRequest(eq(request), eq(assertion),
-                eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE),
-                any(String.class));
-
-        verify(mockAuditLogger).auditDQResponse(eq(actualResponse), eq(assertion),
-                eq(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE),
-                any(String.class));
-
-        verify(mockAuditLogger).auditDQResponse(eq(actualResponse), eq(assertion),
                 eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE),
                 any(String.class));
+        
+        verify(mockAuditLogger).auditDQResponse(eq(actualResponse), eq(assertion),
+                eq(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE),
+                any(String.class));
+        
     }
 }

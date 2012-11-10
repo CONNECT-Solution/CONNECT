@@ -24,27 +24,23 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.docquery.passthru.proxy;
+package gov.hhs.fha.nhinc.docquery.outbound;
+
+import java.util.concurrent.ExecutorService;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 
 /**
- *
- * @author JHOPPESC
+ * @author akong
+ * 
  */
-public interface PassthruDocQueryProxy {
-     /**
-      * This method sends DocQuery Request in passthru mode to another Gateway.
-     * @param body The body of AdhocQuery Request message received.
-     * @param assertion Assertion received.
-     * @param target TargetCommunity to forward DocQuery Request.
-     * @return The AdhocQuery Response from Gateway.
-     * @throws Exception Throws Exception.
-     */
-    AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest body, AssertionType assertion,
-            NhinTargetSystemType target) throws Exception;
+public interface OutboundDocQuery {
 
+    public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest adhocQueryRequest,
+            AssertionType assertion, NhinTargetCommunitiesType targets);
+    
+    public void setExecutorService(ExecutorService regularExecutor, ExecutorService largeJobExecutor);
 }

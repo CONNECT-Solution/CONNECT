@@ -24,7 +24,7 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.docquery.entity;
+package gov.hhs.fha.nhinc.docquery.outbound;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
@@ -55,14 +55,14 @@ import org.hl7.v3.RetrievePatientCorrelationsResponseType;
  *
  * @author jhoppesc
  */
-public class EntityDocQueryHelper {
+public class StandardOutboundDocQueryHelper {
 
     private Log log = null;
 
     /**
      * Add default Constructor.
      */
-    public EntityDocQueryHelper() {
+    public StandardOutboundDocQueryHelper() {
         log = createLogger();
     }
 

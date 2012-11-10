@@ -1,7 +1,7 @@
 /**
  *
  */
-package gov.hhs.fha.nhinc.docquery.entity;
+package gov.hhs.fha.nhinc.docquery.outbound;
 
 import static org.junit.Assert.assertSame;
 
@@ -31,6 +31,8 @@ import gov.hhs.fha.nhinc.common.nhinccommon.QualifiedSubjectIdentifierType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayQuerySecuredRequestType;
 import gov.hhs.fha.nhinc.connectmgr.UrlInfo;
 import gov.hhs.fha.nhinc.docquery.DocQueryAuditLog;
+import gov.hhs.fha.nhinc.docquery.entity.OutboundDocQueryOrchestratable;
+import gov.hhs.fha.nhinc.docquery.outbound.StandardOutboundDocQuery;
 import gov.hhs.fha.nhinc.gateway.aggregator.document.DocumentConstants;
 import gov.hhs.fha.nhinc.gateway.executorservice.NhinCallableRequest;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.NHIN_SERVICE_NAMES;
@@ -40,7 +42,7 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants.NHIN_SERVICE_NAMES;
  *
  *
  */
-public class EntityDocQueryOrchImplTest {
+public class StandardOutboundDocQueryTest {
 
     Mockery context = new JUnit4Mockery() {
         {
@@ -59,7 +61,7 @@ public class EntityDocQueryOrchImplTest {
         AssertionType assertion = new AssertionType();
 
         AdhocQueryResponse response = null;
-        EntityDocQueryOrchImpl entitydocqueryimpl = new EntityDocQueryOrchImpl() {
+        StandardOutboundDocQuery entitydocqueryimpl = new StandardOutboundDocQuery() {
 
             @Override
             protected boolean isValidPolicy(AdhocQueryRequest queryRequest, AssertionType assertion,
@@ -155,7 +157,7 @@ public class EntityDocQueryOrchImplTest {
         AssertionType assertion = new AssertionType();
 
         AdhocQueryResponse response = new AdhocQueryResponse();
-        EntityDocQueryOrchImpl entitydocqueryimpl = new EntityDocQueryOrchImpl() {
+        StandardOutboundDocQuery entitydocqueryimpl = new StandardOutboundDocQuery() {
 
             @Override
             protected boolean isValidPolicy(AdhocQueryRequest queryRequest, AssertionType assertion,

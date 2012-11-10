@@ -27,6 +27,10 @@
 package gov.hhs.fha.nhinc.docquery._20.nhin;
 
 import static org.junit.Assert.assertNotNull;
+import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayQueryRequestType;
+import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayQuerySecuredRequestType;
+import gov.hhs.fha.nhinc.docquery._20.entity.EntityDocQuerySecured;
+import gov.hhs.fha.nhinc.docquery._20.entity.EntityDocQueryUnsecured;
 
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
@@ -39,23 +43,49 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
  * @author akong
- *
+ * 
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "/applicationContext.xml" })
 public class DocQuerySpringContextTest {
 
     @Autowired
-    DocQuery docQuery;
-    
+    DocQuery inboundDocQuery;
+
+    @Autowired
+    EntityDocQueryUnsecured outboundDocQueryUnsecured;
+
+    @Autowired
+    EntityDocQuerySecured outboundDocQuerySecured;
+
     @Test
-    public void invocation() {
-        assertNotNull(docQuery);
-        
+    public void inbound() {
+        assertNotNull(inboundDocQuery);
+
         AdhocQueryRequest request = new AdhocQueryRequest();
-        AdhocQueryResponse response = docQuery.respondingGatewayCrossGatewayQuery(request);
-        
-        assertNotNull(response);        
+        AdhocQueryResponse response = inboundDocQuery.respondingGatewayCrossGatewayQuery(request);
+
+        assertNotNull(response);
     }
-    
+
+    @Test
+    public void outboundUnsecured() {
+        assertNotNull(outboundDocQueryUnsecured);
+
+        RespondingGatewayCrossGatewayQueryRequestType request = new RespondingGatewayCrossGatewayQueryRequestType();
+        AdhocQueryResponse response = outboundDocQueryUnsecured.respondingGatewayCrossGatewayQuery(request);
+
+        assertNotNull(response);
+    }
+
+    @Test
+    public void outboundSecured() {
+        assertNotNull(outboundDocQuerySecured);
+
+        RespondingGatewayCrossGatewayQuerySecuredRequestType request = new RespondingGatewayCrossGatewayQuerySecuredRequestType();
+        AdhocQueryResponse response = outboundDocQuerySecured.respondingGatewayCrossGatewayQuery(request);
+
+        assertNotNull(response);
+    }
+
 }

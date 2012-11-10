@@ -26,9 +26,12 @@
  */
 package gov.hhs.fha.nhinc.docquery;
 
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.gateway.aggregator.document.DocumentConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
+import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryObjectListType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
 
@@ -52,6 +55,17 @@ public class MessageGeneratorUtils {
         return INSTANCE;
     }
 
+    public NhinTargetSystemType convertFirstToNhinTargetSystemType(NhinTargetCommunitiesType targets) {
+        NhinTargetSystemType nhinTargetSystem = new NhinTargetSystemType();
+
+        if (targets != null && targets.getNhinTargetCommunity() != null && targets.getNhinTargetCommunity().size() > 0) {
+            nhinTargetSystem.setHomeCommunity(targets.getNhinTargetCommunity().get(0).getHomeCommunity());
+        }
+
+        return nhinTargetSystem;
+
+    }
+    
     /**
      * Create a AdhocQueryResponse with severity set to error.
      * 
@@ -84,6 +98,11 @@ public class MessageGeneratorUtils {
      */
     public AdhocQueryResponse createPolicyErrorResponse() {
         return createAdhocQueryErrorResponse("Policy check failed.", DocumentConstants.XDS_ERRORCODE_REPOSITORY_ERROR,
+                DocumentConstants.XDS_QUERY_RESPONSE_STATUS_FAILURE);
+    }
+
+    public AdhocQueryResponse createRepositoryErrorResponse(String errorMsg) {
+        return createAdhocQueryErrorResponse(errorMsg, DocumentConstants.XDS_ERRORCODE_REPOSITORY_ERROR,
                 DocumentConstants.XDS_QUERY_RESPONSE_STATUS_FAILURE);
     }
 

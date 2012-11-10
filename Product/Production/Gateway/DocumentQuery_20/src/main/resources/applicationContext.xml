@@ -24,20 +24,16 @@ http://www.springframework.org/schema/aop http://www.springframework.org/schema/
         </property>
     </bean>
 
-    <bean id="entityDocQueryOrchImpl" class="gov.hhs.fha.nhinc.docquery.entity.EntityDocQueryOrchImpl" />
-
     <bean id="entityDQUnsecured" class="gov.hhs.fha.nhinc.docquery._20.entity.EntityDocQueryUnsecured">
+        <property name="outboundDocQuery">
+            <bean class="${docquery.outboundDocQuery}" />
+        </property>
     </bean>
 
     <bean id="entityDQSecured" class="gov.hhs.fha.nhinc.docquery._20.entity.EntityDocQuerySecured">
-    </bean>
-
-    <bean id="passthruDocQueryOrchImpl" class="gov.hhs.fha.nhinc.docquery.passthru.PassthruDocQueryOrchImpl" />
-
-    <bean id="passthruDQUnsecured" class="gov.hhs.fha.nhinc.docquery._20.passthru.NhincProxyDocQueryUnsecured">
-    </bean>
-
-    <bean id="passthruDQSecured" class="gov.hhs.fha.nhinc.docquery._20.passthru.NhincProxyDocQuerySecured">
+        <property name="outboundDocQuery">
+            <bean class="${docquery.outboundDocQuery}" />
+        </property>
     </bean>
 
     <bean id="SOAPHeaderHandler" class="gov.hhs.fha.nhinc.callback.SOAPHeaderHandler" />

@@ -54,7 +54,7 @@ import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 public class StandardInboundDocQueryTest {
 
     @Test
-    public void standardDocQuery() {
+    public void standardInboundDocQuery() {
         AdhocQueryRequest request = new AdhocQueryRequest();
         AssertionType assertion = new AssertionType();
         AdhocQueryResponse expectedResponse = new AdhocQueryResponse();

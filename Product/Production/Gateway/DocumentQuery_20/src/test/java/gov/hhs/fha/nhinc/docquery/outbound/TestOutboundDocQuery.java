@@ -24,32 +24,33 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.docquery.passthru.proxy;
+package gov.hhs.fha.nhinc.docquery.outbound;
 
-import gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
+
+import java.util.concurrent.ExecutorService;
+
+import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
+import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 
 /**
+ * @author akong
  *
- * @author JHOPPESC
  */
-public class PassthruDocQueryProxyObjectFactory extends ComponentProxyObjectFactory {
+public class TestOutboundDocQuery implements OutboundDocQuery {
 
-    private static final String CONFIG_FILE_NAME = "DocumentQueryProxyConfig.xml";
-    private static final String BEAN_NAME = "passthrudocquery";
 
-    /**
-     * @return CONFIG_FILE_NAME This is the filename where the Bean needs to be read to send DocQuery Requests
-     * when in passthru mode.
-     */
-    protected String getConfigFileName() {
-        return CONFIG_FILE_NAME;
+    @Override
+    public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest adhocQueryRequest,
+            AssertionType assertion, NhinTargetCommunitiesType targets) {
+        return new AdhocQueryResponse();
     }
 
-    /**
-     * @return Bean Instantiate dpassthruDocQuery Bean to send DocQuery Requests.
-     */
-    public PassthruDocQueryProxy getPassthruDocQueryProxy() {
-        return getBean(BEAN_NAME, PassthruDocQueryProxy.class);
+
+    @Override
+    public void setExecutorService(ExecutorService regularExecutor, ExecutorService largeJobExecutor) {
+        // Do Nothing
     }
 
 }
