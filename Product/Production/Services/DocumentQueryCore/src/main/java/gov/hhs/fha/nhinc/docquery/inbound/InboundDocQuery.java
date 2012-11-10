@@ -36,7 +36,7 @@ import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 
 public abstract class InboundDocQuery {
 
-    abstract public AdhocQueryResponse processDocQuery(AdhocQueryRequest msg, AssertionType assertion, String hcid);
+    abstract AdhocQueryResponse processDocQuery(AdhocQueryRequest msg, AssertionType assertion, String hcid);
 
     protected DocQueryAuditLog auditLogger;
 

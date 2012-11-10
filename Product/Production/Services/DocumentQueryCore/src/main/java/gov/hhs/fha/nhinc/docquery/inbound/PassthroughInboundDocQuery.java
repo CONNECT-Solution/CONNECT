@@ -59,7 +59,8 @@ public class PassthroughInboundDocQuery extends InboundDocQuery {
      * @param communityID
      * @return
      */
-    public AdhocQueryResponse processDocQuery(AdhocQueryRequest msg, AssertionType assertion, String communityID) {
+    @Override
+    AdhocQueryResponse processDocQuery(AdhocQueryRequest msg, AssertionType assertion, String communityID) {
 
         auditRequestToAdapter(msg, assertion, communityID);
         

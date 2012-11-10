@@ -60,7 +60,8 @@ public class StandardInboundDocQuery extends InboundDocQuery {
      * @param requestCommunityID
      * @return
      */
-    public AdhocQueryResponse processDocQuery(AdhocQueryRequest msg, AssertionType assertion, String requestCommunityID) {
+    @Override
+    AdhocQueryResponse processDocQuery(AdhocQueryRequest msg, AssertionType assertion, String requestCommunityID) {
         AdhocQueryResponse resp = new AdhocQueryResponse();
 
         if (isPolicyValid(msg, assertion)) {
