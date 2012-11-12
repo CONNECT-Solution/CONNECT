@@ -5,7 +5,7 @@ package gov.hhs.fha.nhinc.docretrieve.orchestration;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.connectmgr.NhinEndpointManager;
-import gov.hhs.fha.nhinc.docretrieve.entity.OutboundDocRetrieveFactory;
+import gov.hhs.fha.nhinc.docretrieve.entity.OutboundDocRetrieveOrchestrationContextFactory;
 import gov.hhs.fha.nhinc.docretrieve.nhin.InboundDocRetrieveFactory;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.orchestration.OrchestrationContextBuilder;
@@ -32,7 +32,7 @@ public class OrchestrationContextFactory extends AbstractOrchestrationContextFac
         NhinEndpointManager nem = new NhinEndpointManager();
         NhincConstants.GATEWAY_API_LEVEL apiLevel = nem.getApiVersion(homeCommunityType.getHomeCommunityId(),
                 serviceName);
-        return OutboundDocRetrieveFactory.getInstance().createOrchestrationContextBuilder(apiLevel);
+        return OutboundDocRetrieveOrchestrationContextFactory.getInstance().createOrchestrationContextBuilder(apiLevel);
     }
     
     private OrchestrationContextBuilder getBuilder(NhincConstants.ADAPTER_API_LEVEL apiLevel, String serviceName) {
@@ -52,7 +52,7 @@ public class OrchestrationContextFactory extends AbstractOrchestrationContextFac
     
     private OrchestrationContextBuilder getBuilder(NhincConstants.GATEWAY_API_LEVEL apiLevel,
             NhincConstants.NHIN_SERVICE_NAMES serviceName) {
-        return OutboundDocRetrieveFactory.getInstance().createOrchestrationContextBuilder(apiLevel);
+        return OutboundDocRetrieveOrchestrationContextFactory.getInstance().createOrchestrationContextBuilder(apiLevel);
     }
 
 

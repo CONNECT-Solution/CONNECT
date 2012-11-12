@@ -24,31 +24,23 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.docquery._20.entity;
+package gov.hhs.fha.nhinc.docquery.outbound;
 
-import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayQueryRequestType;
-import gov.hhs.fha.nhinc.docquery.outbound.OutboundDocQuery;
+import java.util.concurrent.ExecutorService;
 
-import javax.annotation.Resource;
-import javax.xml.ws.BindingType;
-import javax.xml.ws.WebServiceContext;
-import javax.xml.ws.soap.Addressing;
-
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
+import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 
-@BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
-@Addressing(enabled = true)
-public class EntityDocQueryUnsecured implements gov.hhs.fha.nhinc.entitydocquery.EntityDocQueryPortType {
-    private OutboundDocQuery outboundDocQuery;
+/**
+ * @author akong
+ * 
+ */
+public interface OutboundDocQuery {
 
-    @Resource
-    private WebServiceContext context;
-
-    public AdhocQueryResponse respondingGatewayCrossGatewayQuery(RespondingGatewayCrossGatewayQueryRequestType request) {
-        return new EntityDocQueryImpl(outboundDocQuery).respondingGatewayCrossGatewayQueryUnsecured(request, context);
-    }
-
-    public void setOutboundDocQuery(OutboundDocQuery outboundDocQuery) {
-        this.outboundDocQuery = outboundDocQuery;
-    }
+    public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest adhocQueryRequest,
+            AssertionType assertion, NhinTargetCommunitiesType targets);
+    
+    public void setExecutorService(ExecutorService regularExecutor, ExecutorService largeJobExecutor);
 }
