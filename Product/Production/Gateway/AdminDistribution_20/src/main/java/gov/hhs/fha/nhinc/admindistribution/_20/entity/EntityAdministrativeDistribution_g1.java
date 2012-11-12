@@ -30,8 +30,10 @@ import javax.xml.ws.BindingType;
 import javax.xml.ws.soap.Addressing;
 
 import gov.hhs.fha.nhinc.admindistribution.entity.EntityAdminDistributionOrchImpl;
+import gov.hhs.fha.nhinc.aspect.InboundMessageEvent;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewaySendAlertMessageType;
 import gov.hhs.fha.nhinc.entityadmindistribution.AdministrativeDistributionPortType;
+import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
 
 /**
  *
@@ -45,6 +47,9 @@ public class EntityAdministrativeDistribution_g1 implements AdministrativeDistri
     private EntityAdminDistributionOrchImpl orchImpl;
 
     @Override
+    @InboundMessageEvent(serviceType = "Admin Distribution", version = "2.0",
+            afterReturningBuilder = DefaultEventDescriptionBuilder.class,
+            beforeBuilder = DefaultEventDescriptionBuilder.class)
     public void sendAlertMessage(RespondingGatewaySendAlertMessageType body) {
         orchImpl.sendAlertMessage(body, body.getAssertion(), body.getNhinTargetCommunities());
     }
@@ -53,7 +58,7 @@ public class EntityAdministrativeDistribution_g1 implements AdministrativeDistri
         this.orchImpl = orchImpl;
     }
 
-    protected EntityAdminDistributionOrchImpl getOrchImpl(){
+    protected EntityAdminDistributionOrchImpl getOrchImpl() {
         return this.orchImpl;
     }
 }

@@ -30,7 +30,7 @@ public class PRPAIN201306UV02EventDescriptionBuilder extends BaseEventDescriptio
     }
 
     @Override
-    public void buildPayloadSize() {
+    public void buildPayloadSizes() {
     }
 
     @Override

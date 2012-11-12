@@ -58,7 +58,7 @@ public class RetrieveDocumentSetRequestTypeDescriptionBuilder extends BaseEventD
     }
 
     @Override
-    public void buildPayloadSize() {
+    public void buildPayloadSizes() {
     }
 
     @Override

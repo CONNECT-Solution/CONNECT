@@ -68,7 +68,7 @@ public class ArgTransformerEventDescriptionBuilderTest extends BaseDescriptionBu
         verify(mockDelegate).buildTimeStamp();
         verify(mockDelegate).buildStatuses();
         verify(mockDelegate).buildRespondingHCIDs();
-        verify(mockDelegate).buildPayloadSize();
+        verify(mockDelegate).buildPayloadSizes();
         verify(mockDelegate).buildPayloadTypes();
         verify(mockDelegate).buildNPI();
         verify(mockDelegate).buildInitiatingHCID();

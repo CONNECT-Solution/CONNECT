@@ -82,7 +82,7 @@ public final class DefaultEventDescriptionBuilder extends BaseEventDescriptionBu
      * @see gov.hhs.fha.nhinc.event.EventDescriptionBuilder#buildPayloadSize()
      */
     @Override
-    public void buildPayloadSize() {
+    public void buildPayloadSizes() {
 
     }
 
