@@ -84,11 +84,11 @@ public class InboundMessageHandler implements MessageHandler {
         if (processedMessage == null) {
             logNotfications(result);
             return;
+        } else {
+            // use the internal direct client to resend the derypted message.
+            // TODO - this needs to be a decision point - how do we handle the DIRECT message once it's been decrypted?
+            internalDirectClient.send(message);
         }
-        
-        // use the internal direct client to resend the derypted message.
-        // TODO - this needs to be a decision point - how do we handle the DIRECT message once it's been decrypted?
-        internalDirectClient.send(origSender, (NHINDAddress[]) origRecipients.toArray(), message);        
     }
     
     
@@ -100,6 +100,7 @@ public class InboundMessageHandler implements MessageHandler {
             } catch (Exception e) {
                 LOG.warn("Exception while logging notification messages.", e);
             }
-        }        
+        }
+        LOG.warn(builder.toString());
     }
 }

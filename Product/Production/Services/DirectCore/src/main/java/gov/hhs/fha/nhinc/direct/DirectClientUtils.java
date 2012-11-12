@@ -54,6 +54,10 @@ public class DirectClientUtils {
         addRecipients(recipients, message, RecipientType.CC, AddressSource.CC);
         addRecipients(recipients, message, RecipientType.BCC, AddressSource.BCC);
         
+        if (recipients.isEmpty()) {
+            throw new DirectException("No recipients found in message.");
+        }
+        
         return recipients;
     }
 
@@ -87,7 +91,12 @@ public class DirectClientUtils {
     private static void addRecipients(NHINDAddressCollection recipients, MimeMessage message, RecipientType type,
             AddressSource source) throws MessagingException {
 
-        for (Address address : message.getRecipients(type)) {
+        Address[] addresses = message.getRecipients(type);
+        if (addresses == null) {
+            return;
+        }
+        
+        for (Address address : addresses) {
             recipients.add(new NHINDAddress(address.toString(), source));
         }
     }

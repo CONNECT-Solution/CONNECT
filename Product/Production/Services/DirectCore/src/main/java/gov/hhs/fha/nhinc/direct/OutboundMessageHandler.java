@@ -26,7 +26,6 @@
  */
 package gov.hhs.fha.nhinc.direct;
 
-import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
 /**
@@ -50,11 +49,7 @@ public class OutboundMessageHandler implements MessageHandler {
      */
     @Override
     public void handleMessage(MimeMessage message, DirectClient directClient) {
-        try {
-            externalDirectClient.send(DirectClientUtils.getSender(message), message.getAllRecipients(), message);
-        } catch (MessagingException e) {
-            throw new DirectException("Could not convert and send RFC5322 MIME message as DIRECT message.", e);
-        }
+        externalDirectClient.send(message);
     }
     
 }
