@@ -6,19 +6,17 @@
     in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF 
     ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under 
     the License. -->
-<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
-
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:jaxws="http://cxf.apache.org/jaxws" xmlns:soap="http://cxf.apache.org/bindings/soap"
     xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 http://cxf.apache.org/bindings/soap http://cxf.apache.org/schemas/configuration/soap.xsd
-http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd
-http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
 
 
     <!-- Document Submission -->
 
     <!-- Nhin Services -->
-    
+
     <jaxws:endpoint xmlns:nds="urn:ihe:iti:xdr:2007" id="NhinDocSubmission_g1" address="/DocumentRepositoryXDR_Service"
         serviceName="nds:DocumentRepositoryXDR_Service" endpointName="nds:DocumentRepositoryXDR_Port_Soap"
         implementorClass="gov.hhs.fha.nhinc.docsubmission._20.nhin.NhinXDR_g1" implementor="#nhinXDR_g1"
@@ -49,7 +47,8 @@ http://www.springframework.org/schema/aop http://www.springframework.org/schema/
 
     <jaxws:endpoint xmlns:eds="urn:gov:hhs:fha:nhinc:nhincentityxdr" id="EntityDocSubmissionUnsecured_g1"
         address="/EntityService/EntityDocSubmissionUnsecured" serviceName="eds:EntityXDR_Service" endpointName="eds:EntityXDR_Port"
-        implementorClass="gov.hhs.fha.nhinc.docsubmission._20.entity.EntityDocSubmissionUnsecured_g1" implementor="#entityXDRUnsecured_g1" wsdlLocation="classpath:wsdl/EntityXDR.wsdl">
+        implementorClass="gov.hhs.fha.nhinc.docsubmission._20.entity.EntityDocSubmissionUnsecured_g1" implementor="#entityXDRUnsecured_g1"
+        wsdlLocation="classpath:wsdl/EntityXDR.wsdl">
         <jaxws:handlers>
             <ref bean="TransactionHandler" />
         </jaxws:handlers>
@@ -58,11 +57,12 @@ http://www.springframework.org/schema/aop http://www.springframework.org/schema/
         </jaxws:properties>
     </jaxws:endpoint>
 
- 
+
 
     <jaxws:endpoint xmlns:edss="urn:gov:hhs:fha:nhinc:nhincentityxdrsecured" id="EntityDocSubmissionSecured_g1"
         address="/EntityService/EntityDocSubmissionSecured" serviceName="edss:EntityXDRSecured_Service" endpointName="edss:EntityXDRSecured_Port"
-        implementorClass="gov.hhs.fha.nhinc.docsubmission._20.entity.EntityDocSubmissionSecured_g1" implementor="#entityXDRSecured_g1" wsdlLocation="classpath:wsdl/EntityXDRSecured.wsdl">
+        implementorClass="gov.hhs.fha.nhinc.docsubmission._20.entity.EntityDocSubmissionSecured_g1" implementor="#entityXDRSecured_g1"
+        wsdlLocation="classpath:wsdl/EntityXDRSecured.wsdl">
         <jaxws:properties>
             <entry key="ws-security.callback-handler" value="gov.hhs.fha.nhinc.callback.cxf.CXFSAMLCallbackHandler" />
             <entry key="ws-security.signature.properties" value="keystore.properties" />
@@ -85,7 +85,8 @@ http://www.springframework.org/schema/aop http://www.springframework.org/schema/
 
     <jaxws:endpoint xmlns:mpds="urn:gov:hhs:fha:nhinc:nhincproxyxdr" id="NhincProxyXDR_g1"
         address="/EntityService/PassthruDocSubmissionUnsecured" serviceName="mpds:ProxyXDR_Service" endpointName="mpds:ProxyXDR_Port"
-        implementorClass="gov.hhs.fha.nhinc.docsubmission._20.passthru.PassthruDocSubmissionUnsecured_g1" implementor="#passthruXDRUnsecured_g1" wsdlLocation="classpath:wsdl/NhincProxyXDR.wsdl">
+        implementorClass="gov.hhs.fha.nhinc.docsubmission._20.passthru.PassthruDocSubmissionUnsecured_g1" implementor="#passthruXDRUnsecured_g1"
+        wsdlLocation="classpath:wsdl/NhincProxyXDR.wsdl">
         <jaxws:handlers>
             <ref bean="TransactionHandler" />
         </jaxws:handlers>
@@ -97,7 +98,8 @@ http://www.springframework.org/schema/aop http://www.springframework.org/schema/
 
     <jaxws:endpoint xmlns:mpdss="urn:gov:hhs:fha:nhinc:nhincproxyxdrsecured" id="NhincProxyXDRSecured_g1"
         address="/EntityService/PassthruDocSubmissionSecured" serviceName="mpdss:ProxyXDRSecured_Service" endpointName="mpdss:ProxyXDRSecured_Port"
-        implementorClass="gov.hhs.fha.nhinc.docsubmission._20.passthru.PassthruDocSubmissionSecured_g1" implementor="#passthruXDRSecured_g1" wsdlLocation="classpath:wsdl/NhincProxyXDRSecured.wsdl">
+        implementorClass="gov.hhs.fha.nhinc.docsubmission._20.passthru.PassthruDocSubmissionSecured_g1" implementor="#passthruXDRSecured_g1"
+        wsdlLocation="classpath:wsdl/NhincProxyXDRSecured.wsdl">
         <jaxws:properties>
             <entry key="ws-security.callback-handler" value="gov.hhs.fha.nhinc.callback.cxf.CXFSAMLCallbackHandler" />
             <entry key="ws-security.signature.properties" value="keystore.properties" />
@@ -122,7 +124,8 @@ http://www.springframework.org/schema/aop http://www.springframework.org/schema/
 
     <jaxws:endpoint xmlns:tns="urn:ihe:iti:xdr:2007" id="NhinXDRRequest20" address="/NhinService/XDRRequest_Service"
         serviceName="tns:XDRDeferredRequest20_Service" endpointName="tns:XDRDeferredRequest20_Port_Soap"
-        implementorClass="gov.hhs.fha.nhinc.docsubmission._20.nhin.deferred.request.NhinXDRRequest20" implementor="#nhinXDRDeferredRequest_g1" wsdlLocation="classpath:wsdl/NhinXDRDeferredRequest20.wsdl">
+        implementorClass="gov.hhs.fha.nhinc.docsubmission._20.nhin.deferred.request.NhinXDRRequest20" implementor="#nhinXDRDeferredRequest_g1"
+        wsdlLocation="classpath:wsdl/NhinXDRDeferredRequest20.wsdl">
         <jaxws:properties>
             <entry key="ws-security.callback-handler" value="gov.hhs.fha.nhinc.callback.cxf.CXFSAMLCallbackHandler" />
             <entry key="ws-security.signature.properties" value="keystore.properties" />
@@ -232,7 +235,8 @@ http://www.springframework.org/schema/aop http://www.springframework.org/schema/
 
     <jaxws:endpoint xmlns:tns="urn:ihe:iti:xdr:2007" id="NhinXDRResponse20" address="/NhinService/XDRResponse_Service"
         serviceName="tns:XDRDeferredResponse20_Service" endpointName="tns:XDRDeferredResponse20_Port_Soap"
-        implementorClass="gov.hhs.fha.nhinc.docsubmission._20.nhin.deferred.response.NhinXDRResponse20" implementor="#nhinXDRDeferredResponse_g1" wsdlLocation="classpath:wsdl/NhinXDRDeferredResponse20.wsdl">
+        implementorClass="gov.hhs.fha.nhinc.docsubmission._20.nhin.deferred.response.NhinXDRResponse20" implementor="#nhinXDRDeferredResponse_g1"
+        wsdlLocation="classpath:wsdl/NhinXDRDeferredResponse20.wsdl">
         <jaxws:properties>
             <entry key="ws-security.callback-handler" value="gov.hhs.fha.nhinc.callback.cxf.CXFSAMLCallbackHandler" />
             <entry key="ws-security.signature.properties" value="keystore.properties" />
@@ -286,7 +290,8 @@ http://www.springframework.org/schema/aop http://www.springframework.org/schema/
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:nhincproxyxdr:async:response" id="PassthruDocSubmissionDeferredResponseUnsecured_g1"
         address="/EntityService/PassthruDocSubmissionDeferredResponseUnsecured" serviceName="tns:ProxyXDRAsyncResponse_Service"
         endpointName="tns:ProxyXDRAsyncResponse_Port"
-        implementorClass="gov.hhs.fha.nhinc.docsubmission._20.passthru.deferred.response.PassthruDocSubmissionDeferredResponseUnsecured_g1" implementor="#passthruXDRDeferredResponseUnsecured_g1" wsdlLocation="classpath:wsdl/NhincProxyXDRResponse.wsdl">
+        implementorClass="gov.hhs.fha.nhinc.docsubmission._20.passthru.deferred.response.PassthruDocSubmissionDeferredResponseUnsecured_g1"
+        implementor="#passthruXDRDeferredResponseUnsecured_g1" wsdlLocation="classpath:wsdl/NhincProxyXDRResponse.wsdl">
         <jaxws:handlers>
             <ref bean="TransactionHandler" />
         </jaxws:handlers>

@@ -65,7 +65,7 @@ public class PRPAIN201305UV02EventDescriptionBuilder extends BaseEventDescriptio
     }
 
     @Override
-    public void buildPayloadSize() {
+    public void buildPayloadSizes() {
         // TODO Auto-generated method stub
 
     }

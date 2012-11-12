@@ -64,8 +64,8 @@ public abstract class ArgTransformerEventDescriptionBuilder implements EventDesc
     }
 
     @Override
-    public final void buildPayloadSize() {
-        delegate.buildPayloadSize();
+    public final void buildPayloadSizes() {
+        delegate.buildPayloadSizes();
     }
 
     @Override
