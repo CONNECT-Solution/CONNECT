@@ -37,6 +37,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -149,7 +150,8 @@ public class DirectMailClientTest {
         MessageHandler mockMessageHandler = mock(MessageHandler.class);
         assertEquals(NUM_MSGS_ONE_BATCH, testDirectMailClient.handleMessages(mockMessageHandler));
 
-        verify(mockMessageHandler, times(NUM_MSGS_ONE_BATCH)).handleMessage(any(Message.class));
+        verify(mockMessageHandler, times(NUM_MSGS_ONE_BATCH)).handleMessage(any(Message.class), 
+                eq(testDirectMailClient));
     }
 
     /**
@@ -188,7 +190,8 @@ public class DirectMailClientTest {
             int numberOfMsgsHandledInBatch = testDirectMailClient.handleMessages(mockMessageHandler);
             numberOfMsgsHandled += numberOfMsgsHandledInBatch;
             assertTrue(numberOfMsgsHandledInBatch <= DirectUnitTestUtil.MAX_NUM_MSGS_IN_BATCH);
-            verify(mockMessageHandler, times(numberOfMsgsHandled)).handleMessage(any(Message.class));
+            verify(mockMessageHandler, times(numberOfMsgsHandled)).handleMessage(any(Message.class), 
+                    eq(testDirectMailClient));
 
             // there is a greenmail bug that only expunges every other message... delete read messages
             DirectUnitTestUtil.expungeMissedMessages(greenMail, user);
@@ -208,7 +211,7 @@ public class DirectMailClientTest {
         MessageHandler testOutBoundMessageHandler = new OutboundMessageHandler(mockExternalDirectMailClient);
 
         MimeMessage mimeMessage = getSampleMimeMessage();
-        testOutBoundMessageHandler.handleMessage(mimeMessage);
+        testOutBoundMessageHandler.handleMessage(mimeMessage, testDirectMailClient);
 
         verify(mockExternalDirectMailClient).send(getSender(), getRecipients(), mimeMessage);
     }

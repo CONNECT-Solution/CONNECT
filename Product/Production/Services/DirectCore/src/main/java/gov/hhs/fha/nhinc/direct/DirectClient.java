@@ -32,6 +32,7 @@ import javax.mail.Address;
 import javax.mail.internet.MimeMessage;
 
 import org.nhindirect.gateway.smtp.MessageProcessResult;
+import org.nhindirect.gateway.smtp.SmtpAgent;
 
 /**
  * Interface defining a Mail Client.
@@ -72,5 +73,11 @@ public interface DirectClient {
      * @return number of messages handled.
      */
     int handleMessages(MessageHandler handler);
+    
+    /**
+     * Make the smtp agent on this direct cliet available to the caller.
+     * @return SmtpAgent property of this client.
+     */
+    SmtpAgent getSmtpAgent();
 
 }

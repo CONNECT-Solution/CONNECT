@@ -179,7 +179,7 @@ public class DirectMailClient implements DirectClient {
         for (Message message : messages) {
             try {
                 if ((message instanceof MimeMessage)) {
-                    handler.handleMessage((MimeMessage) message);
+                    handler.handleMessage((MimeMessage) message, this);
                     numberOfHandledMsgs++;
                 }
                 message.setFlag(Flags.Flag.DELETED, true);
@@ -249,4 +249,10 @@ public class DirectMailClient implements DirectClient {
         return numberOfMsgsInFolder < maxNumberOfMsgsToHandle ? numberOfMsgsInFolder : maxNumberOfMsgsToHandle;
     }
 
+    /**
+     * @return the smtpAgent direct smtp agent.
+     */
+    public SmtpAgent getSmtpAgent() {
+        return smtpAgent;
+    }
 }
