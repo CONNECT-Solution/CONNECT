@@ -105,6 +105,8 @@ public class DocumentConstants {
     public static final String XDS_RETRIEVE_ERRORCODE_REGISTRY_ERROR = "XDSRegistryError";
     public static final String XDS_RETRIEVE_CODECONTEXT_TIMEDOUT_MSG = "We did not recieve a response to a document query message from this NHIN gateway.";
     public static final String XDS_RETRIEVE_ERRORCODE_REPOSITORY_ERROR = "XDSRepositoryError";
+    
+    public static final String XDS_ERRORCODE_REPOSITORY_ERROR = "XDSRepositoryError";
 
     public static final String FAIL_TEXT = "FAIL";
     public static final String SUCCESS_TEXT = "SUCCESS";

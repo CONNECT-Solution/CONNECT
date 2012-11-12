@@ -24,31 +24,34 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.docquery._20.entity;
+package gov.hhs.fha.nhinc.docquery.inbound;
 
-import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayQueryRequestType;
-import gov.hhs.fha.nhinc.docquery.outbound.OutboundDocQuery;
-
-import javax.annotation.Resource;
-import javax.xml.ws.BindingType;
-import javax.xml.ws.WebServiceContext;
-import javax.xml.ws.soap.Addressing;
-
+import static org.mockito.Mockito.mock;
+import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.docquery.DocQueryAuditLog;
+import gov.hhs.fha.nhinc.docquery.inbound.InboundDocQuery;
 
-@BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
-@Addressing(enabled = true)
-public class EntityDocQueryUnsecured implements gov.hhs.fha.nhinc.entitydocquery.EntityDocQueryPortType {
-    private OutboundDocQuery outboundDocQuery;
+/**
+ * @author akong
+ *
+ */
+public class TestInboundDocQuery extends InboundDocQuery {
 
-    @Resource
-    private WebServiceContext context;
-
-    public AdhocQueryResponse respondingGatewayCrossGatewayQuery(RespondingGatewayCrossGatewayQueryRequestType request) {
-        return new EntityDocQueryImpl(outboundDocQuery).respondingGatewayCrossGatewayQueryUnsecured(request, context);
+    DocQueryAuditLog mockAuditLogger = mock(DocQueryAuditLog.class);
+    
+    TestInboundDocQuery() {
+        this.auditLogger = mockAuditLogger;
     }
-
-    public void setOutboundDocQuery(OutboundDocQuery outboundDocQuery) {
-        this.outboundDocQuery = outboundDocQuery;
+    
+    /**
+     * Test process method that simply returns an empty response.
+     * 
+     * @return an empty AdhocQueryResponse
+     */
+    @Override
+    public AdhocQueryResponse processDocQuery(AdhocQueryRequest msg, AssertionType assertion, String hcid) {
+        return new AdhocQueryResponse();
     }
 }
