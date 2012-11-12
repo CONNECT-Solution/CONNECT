@@ -1,4 +1,4 @@
-/*
+/**
  * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
@@ -24,39 +24,51 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.admindistribution._10.entity;
+package gov.hhs.fha.nhinc.admindistribution.aspect;
 
-import javax.xml.ws.BindingType;
-import javax.xml.ws.soap.Addressing;
+import java.util.ArrayList;
+import java.util.List;
 
-import gov.hhs.fha.nhinc.admindistribution.entity.EntityAdminDistributionOrchImpl;
-import gov.hhs.fha.nhinc.aspect.InboundMessageEvent;
-import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
+import oasis.names.tc.emergency.edxl.de._1.ContentObjectType;
+import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
+ * @author zmelnick
  *
- * @author dunnek
  */
+public class EDXLDistributionDescriptionExtractor {
 
-@BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
-@Addressing(enabled = true)
-public class EntityAdministrativeDistribution implements gov.hhs.fha.nhinc.entityadmindistribution.AdministrativeDistributionPortType {
+    private static final Log LOG = LogFactory.getLog(EDXLDistributionDescriptionExtractor.class);
 
-    private EntityAdminDistributionOrchImpl orchImpl;
-
-    @Override
-    @InboundMessageEvent(serviceType = "Admin Distribution", version = "1.0",
-            afterReturningBuilder = DefaultEventDescriptionBuilder.class,
-            beforeBuilder = DefaultEventDescriptionBuilder.class)
-    public void sendAlertMessage(gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewaySendAlertMessageType body) {
-        getOrchImpl().sendAlertMessage(body, body.getAssertion(), body.getNhinTargetCommunities());
+    /**
+     * Determines the payload sizes for each alert message.
+     * @param alertMessage the EDXLDistribution.
+     * @return list of sizes
+     */
+    public List<String> getPayloadSizes(EDXLDistribution alertMessage) {
+        List<String> payloadSize = new ArrayList<String>();
+        if (alertMessage != null) {
+            List<ContentObjectType> contents = alertMessage.getContentObject();
+            for (ContentObjectType message : contents) {
+                if (isPayloadSizeEmpty(message)) {
+                    LOG.info("Paylod size not provided");
+                    payloadSize.clear();
+                    break;
+                } else {
+                    payloadSize.add(message.getNonXMLContent().getSize().toString());
+                }
+            }
+        }
+        return payloadSize;
     }
 
-    public void setOrchestratorImpl(EntityAdminDistributionOrchImpl orchImpl) {
-        this.orchImpl = orchImpl;
+   
+    private boolean isPayloadSizeEmpty(ContentObjectType message) {
+        return message.getXmlContent() != null
+                || (message.getNonXMLContent() != null && message.getNonXMLContent().getSize() == null);
     }
 
-    protected EntityAdminDistributionOrchImpl getOrchImpl(){
-        return this.orchImpl;
-    }
 }

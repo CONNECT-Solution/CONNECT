@@ -26,14 +26,16 @@
  */
 package gov.hhs.fha.nhinc.admindistribution._10.nhin;
 
+import gov.hhs.fha.nhinc.admindistribution.aspect.InboundProcessingEventDescriptionBuilder;
+import gov.hhs.fha.nhinc.admindistribution.nhin.NhinAdminDistributionOrchImpl;
+import gov.hhs.fha.nhinc.aspect.InboundMessageEvent;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
+
 import javax.annotation.Resource;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
-
-import gov.hhs.fha.nhinc.admindistribution.nhin.NhinAdminDistributionOrchImpl;
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
 
 /**
  *
@@ -42,13 +44,17 @@ import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
 
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 @Addressing(enabled = true)
-public class NhinAdministrativeDistribution implements gov.hhs.fha.nhinc.nhinadmindistribution.RespondingGatewayAdministrativeDistributionPortType {
+public class NhinAdministrativeDistribution implements
+        gov.hhs.fha.nhinc.nhinadmindistribution.RespondingGatewayAdministrativeDistributionPortType {
 
     @Resource
     private WebServiceContext context;
     private NhinAdminDistributionOrchImpl orchImpl;
 
     @Override
+    @InboundMessageEvent(serviceType = "Admin Distribution", version = "1.0",
+            afterReturningBuilder = InboundProcessingEventDescriptionBuilder.class,
+            beforeBuilder = InboundProcessingEventDescriptionBuilder.class)
     public void sendAlertMessage(oasis.names.tc.emergency.edxl.de._1.EDXLDistribution body) {
         AssertionType assertion = extractAssertion(context);
         getOrchestratorImpl().sendAlertMessage(body, assertion);
