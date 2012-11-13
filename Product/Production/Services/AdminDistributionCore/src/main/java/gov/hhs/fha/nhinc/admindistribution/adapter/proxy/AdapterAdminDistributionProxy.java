@@ -35,6 +35,10 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
  */
 public interface AdapterAdminDistributionProxy {
 
-    public void sendAlertMessage(EDXLDistribution body, AssertionType assertion);
+    /** This method implements SendAlertMessage for AdminDist.
+     * @param body  Emergency Message Distribution Element transaction message body received.
+     * @param assertion Assertion received.
+     */
+    void sendAlertMessage(EDXLDistribution body, AssertionType assertion);
 
 }

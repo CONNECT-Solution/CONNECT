@@ -30,10 +30,11 @@ import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
 import gov.hhs.fha.nhinc.admindistribution.AdminDistributionHelper;
+//CHECKSTYLE:OFF
 import gov.hhs.fha.nhinc.admindistribution.passthru.proxy.service.PassthruAdminDistributionG0SecuredServicePortDescriptor;
 import gov.hhs.fha.nhinc.admindistribution.passthru.proxy.service.PassthruAdminDistributionG1SecuredServicePortDescriptor;
+//CHECKSTYLE:ON
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewaySendAlertMessageSecuredType;
@@ -65,6 +66,10 @@ public class PassthruAdminDistributionProxyWebServiceSecuredImpl implements Pass
         return new AdminDistributionHelper();
     }
 
+    /**This method returns PassthruAdminDistributionPortDescriptor based on gateway apiLevel.
+     * @param apiLevel gateway apiLevel received (g0/g1).
+     * @return PassthruAdminDistributionPortDescriptor based on g0/g1 apiLevel received.
+     */
     public ServicePortDescriptor<NhincAdminDistSecuredPortType> getServicePortDescriptor(
             NhincConstants.GATEWAY_API_LEVEL apiLevel) {
         switch (apiLevel) {
@@ -75,6 +80,12 @@ public class PassthruAdminDistributionProxyWebServiceSecuredImpl implements Pass
         }
     }
 
+    /**This method returns CXFClient for AdminDist impl.
+     * @param portDescriptor Comprises of NameSpaceUri,WSDLFile,WS_ADDRESSING_ACTION,ServiceName and Port.
+     * @param url Nhin targetCommunity url received.
+     * @param assertion Assertion received.
+     * @return CXFClient to implement AdminDist Secured Service.
+     */
     protected CONNECTClient<NhincAdminDistSecuredPortType> getCONNECTClientSecured(
             ServicePortDescriptor<NhincAdminDistSecuredPortType> portDescriptor, String url, AssertionType assertion) {
 
@@ -101,11 +112,13 @@ public class PassthruAdminDistributionProxyWebServiceSecuredImpl implements Pass
 
         if (NullChecker.isNotNullish(url)) {
             try {
-                RespondingGatewaySendAlertMessageSecuredType message = new RespondingGatewaySendAlertMessageSecuredType();
+                RespondingGatewaySendAlertMessageSecuredType message = 
+                        new RespondingGatewaySendAlertMessageSecuredType();
                 message.setEDXLDistribution(body);
                 message.setNhinTargetSystem(target);
 
-                ServicePortDescriptor<NhincAdminDistSecuredPortType> portDescriptor = getServicePortDescriptor(apiLevel);
+                ServicePortDescriptor<NhincAdminDistSecuredPortType> portDescriptor = 
+                        getServicePortDescriptor(apiLevel);
 
                 CONNECTClient<NhincAdminDistSecuredPortType> client = getCONNECTClientSecured(portDescriptor, url,
                         assertion);
