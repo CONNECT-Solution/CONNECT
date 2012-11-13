@@ -44,11 +44,24 @@ public class PatientCorrelationProxyJavaImpl implements PatientCorrelationProxy 
 
     private PatientCorrelationOrch orchestration = new PatientCorrelationOrchImpl(new CorrelatedIdentifiersDaoImpl());
 
+    
+    /**
+     * This method retrieves PatientCorrelation from the targeted community. 
+     * @param request PRPAIN201309UV02 HL7 type of Request received.
+     * @param assertion Assertion received.
+     * @return PatientCorrelationresponse.
+     */
     public RetrievePatientCorrelationsResponseType retrievePatientCorrelations(PRPAIN201309UV02 request,
             AssertionType assertion) {
         return orchestration.retrievePatientCorrelations(request, assertion);
     }
 
+    /**
+     * This method add PatientCorrelations to database.
+     * @param request PRPAIN201301UV02 HL7 type of Request received.
+     * @param assertion Assertion received.
+     * @return PatientCorrelationResponse.
+     */
     public AddPatientCorrelationResponseType addPatientCorrelation(PRPAIN201301UV02 request, AssertionType assertion) {
         return orchestration.addPatientCorrelation(request, assertion);
     }

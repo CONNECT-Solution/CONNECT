@@ -8,6 +8,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>Gateway</artifactId>
+    <name>${project.artifactId}</name>
     <packaging>pom</packaging>
     <modules>
         <module>AdminDistribution_10</module>

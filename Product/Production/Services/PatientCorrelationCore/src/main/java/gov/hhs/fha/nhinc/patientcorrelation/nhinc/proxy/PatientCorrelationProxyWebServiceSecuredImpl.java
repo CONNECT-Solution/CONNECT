@@ -33,7 +33,8 @@ import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhinccomponentpatientcorrelation.PatientCorrelationSecuredPortType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.proxy.description.PatientCorrelationSecuredAddServicePortDescriptor;
-import gov.hhs.fha.nhinc.patientcorrelation.nhinc.proxy.description.PatientCorrelationSecuredRetrieveServicePortDescriptor;
+import gov.hhs.fha.nhinc.patientcorrelation.nhinc.proxy.description
+                            .PatientCorrelationSecuredRetrieveServicePortDescriptor;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 
 import org.apache.commons.logging.Log;
@@ -56,19 +57,33 @@ public class PatientCorrelationProxyWebServiceSecuredImpl implements PatientCorr
     
     private WebServiceProxyHelper oProxyHelper = null;
 
+    /**
+     * Default Constructor.
+     */
     public PatientCorrelationProxyWebServiceSecuredImpl() {
         log = createLogger();
         oProxyHelper = createWebServiceProxyHelper();
     }
 
+    /**
+     * @return Log.
+     */
     protected Log createLogger() {
         return LogFactory.getLog(getClass());
     }
 
+    /**
+     * @return WebServiceProxyHelper Object.
+     */
     protected WebServiceProxyHelper createWebServiceProxyHelper() {
         return new WebServiceProxyHelper();
     }
 
+    /**
+     * This method retrieves WS_ADDRESSING_ACTION_RETRIEVE for PatientCorrelationService.
+     * @param apiLevel Adapter apiLevel (this is a0,a1).
+     * @return WS_ADDRESSING_ACTION_RETRIEVE.
+     */
     public ServicePortDescriptor<PatientCorrelationSecuredPortType> getRetrieveServicePortDescriptor(
             NhincConstants.ADAPTER_API_LEVEL apiLevel) {
         switch (apiLevel) {
@@ -79,6 +94,11 @@ public class PatientCorrelationProxyWebServiceSecuredImpl implements PatientCorr
         }
     }
 
+    /**
+     * This method returns WS_ADDRESSING_ACTION_ADD for PatientCorrelationService.
+     * @param apiLevel Adapter apiLevel (this is a0,a1).
+     * @return WS_ADDRESSING_ACTION_ADD.
+     */
     public ServicePortDescriptor<PatientCorrelationSecuredPortType> getAddServicePortDescriptor(
             NhincConstants.ADAPTER_API_LEVEL apiLevel) {
         switch (apiLevel) {
@@ -89,11 +109,18 @@ public class PatientCorrelationProxyWebServiceSecuredImpl implements PatientCorr
         }
     }
     
+    /**
+     * This method retrieves PatientCorrelation from the targeted community. 
+     * @param msg PRPAIN201309UV02 HL7 type of Request received.
+     * @param assertion Assertion received.
+     * @return PatientCorrelationresponse.
+     */
     public RetrievePatientCorrelationsResponseType retrievePatientCorrelations(PRPAIN201309UV02 msg,
             AssertionType assertion) {
         log.debug("Begin retrievePatientCorrelations");
         RetrievePatientCorrelationsResponseType response = new RetrievePatientCorrelationsResponseType();
-        RetrievePatientCorrelationsSecuredResponseType securedResp = new RetrievePatientCorrelationsSecuredResponseType();
+        RetrievePatientCorrelationsSecuredResponseType securedResp = 
+                new RetrievePatientCorrelationsSecuredResponseType();
 
         try {
             String url = oProxyHelper.getUrlLocalHomeCommunity(NhincConstants.PATIENT_CORRELATION_SECURED_SERVICE_NAME);
@@ -101,15 +128,18 @@ public class PatientCorrelationProxyWebServiceSecuredImpl implements PatientCorr
             if (msg == null) {
                 log.error("Message was null");
             } else {
-                RetrievePatientCorrelationsSecuredRequestType request = new RetrievePatientCorrelationsSecuredRequestType();
+                RetrievePatientCorrelationsSecuredRequestType request = 
+                        new RetrievePatientCorrelationsSecuredRequestType();
                 request.setPRPAIN201309UV02(msg);
 
-                ServicePortDescriptor<PatientCorrelationSecuredPortType> portDescriptor = getRetrieveServicePortDescriptor(NhincConstants.ADAPTER_API_LEVEL.LEVEL_a0);
+                ServicePortDescriptor<PatientCorrelationSecuredPortType> portDescriptor = 
+                        getRetrieveServicePortDescriptor(NhincConstants.ADAPTER_API_LEVEL.LEVEL_a0);
 
                 CONNECTClient<PatientCorrelationSecuredPortType> client = CONNECTClientFactory.getInstance()
                         .getCONNECTClientSecured(portDescriptor, url, assertion);
 
-                securedResp = (RetrievePatientCorrelationsSecuredResponseType) client.invokePort(PatientCorrelationSecuredPortType.class,
+                securedResp = (RetrievePatientCorrelationsSecuredResponseType) client
+                        .invokePort(PatientCorrelationSecuredPortType.class,
                         "retrievePatientCorrelations", request);
                 if (securedResp != null && securedResp.getPRPAIN201310UV02() != null) {
                     response.setPRPAIN201310UV02(securedResp.getPRPAIN201310UV02());
@@ -123,6 +153,12 @@ public class PatientCorrelationProxyWebServiceSecuredImpl implements PatientCorr
         return response;
     }
 
+    /**
+     * This method add PatientCorrelations to database.
+     * @param msg PRPAIN201301UV02 HL7 type of Request received.
+     * @param assertion Assertion received.
+     * @return PatientCorrelationResponse.
+     */
     public AddPatientCorrelationResponseType addPatientCorrelation(PRPAIN201301UV02 msg, AssertionType assertion) {
         log.debug("Begin addPatientCorrelation");
         AddPatientCorrelationResponseType response = new AddPatientCorrelationResponseType();
@@ -137,12 +173,14 @@ public class PatientCorrelationProxyWebServiceSecuredImpl implements PatientCorr
                 AddPatientCorrelationSecuredRequestType request = new AddPatientCorrelationSecuredRequestType();
                 request.setPRPAIN201301UV02(msg);
                 
-                ServicePortDescriptor<PatientCorrelationSecuredPortType> portDescriptor = getAddServicePortDescriptor(NhincConstants.ADAPTER_API_LEVEL.LEVEL_a0);
+                ServicePortDescriptor<PatientCorrelationSecuredPortType> portDescriptor = 
+                        getAddServicePortDescriptor(NhincConstants.ADAPTER_API_LEVEL.LEVEL_a0);
 
                 CONNECTClient<PatientCorrelationSecuredPortType> client = CONNECTClientFactory.getInstance()
                         .getCONNECTClientSecured(portDescriptor, url, assertion);
 
-                securedResp = (AddPatientCorrelationSecuredResponseType) client.invokePort(PatientCorrelationSecuredPortType.class,
+                securedResp = (AddPatientCorrelationSecuredResponseType) client
+                        .invokePort(PatientCorrelationSecuredPortType.class,
                         "addPatientCorrelation", request);
 
                 if (securedResp != null && securedResp.getMCCIIN000002UV01() != null) {

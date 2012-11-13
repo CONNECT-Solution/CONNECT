@@ -8,6 +8,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>Common</artifactId>
+    <name>${project.artifactId}</name>
     <packaging>pom</packaging>
     <properties>
         <skip.unpack>true</skip.unpack>

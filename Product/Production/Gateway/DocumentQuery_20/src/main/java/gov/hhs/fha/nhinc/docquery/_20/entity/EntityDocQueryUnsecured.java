@@ -27,6 +27,7 @@
 package gov.hhs.fha.nhinc.docquery._20.entity;
 
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayQueryRequestType;
+import gov.hhs.fha.nhinc.docquery.outbound.OutboundDocQuery;
 
 import javax.annotation.Resource;
 import javax.xml.ws.BindingType;
@@ -35,35 +36,19 @@ import javax.xml.ws.soap.Addressing;
 
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 
-
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
-@Addressing(enabled=true)
-public class EntityDocQueryUnsecured implements gov.hhs.fha.nhinc.entitydocquery.EntityDocQueryPortType
-{
+@Addressing(enabled = true)
+public class EntityDocQueryUnsecured implements gov.hhs.fha.nhinc.entitydocquery.EntityDocQueryPortType {
+    private OutboundDocQuery outboundDocQuery;
 
     @Resource
     private WebServiceContext context;
 
-    public AdhocQueryResponse respondingGatewayCrossGatewayQuery(RespondingGatewayCrossGatewayQueryRequestType request)
-    {
-        AdhocQueryResponse response = null;
-
-        EntityDocQueryImpl impl = getEntityDocQueryImpl();
-        if (impl != null)
-        {
-            response = impl.respondingGatewayCrossGatewayQueryUnsecured(request, getWebServiceContext());
-        }
-
-        return response;
+    public AdhocQueryResponse respondingGatewayCrossGatewayQuery(RespondingGatewayCrossGatewayQueryRequestType request) {
+        return new EntityDocQueryImpl(outboundDocQuery).respondingGatewayCrossGatewayQueryUnsecured(request, context);
     }
 
-    protected EntityDocQueryImpl getEntityDocQueryImpl()
-    {
-        return new EntityDocQueryImpl();
-    }
-
-    protected WebServiceContext getWebServiceContext()
-    {
-        return context;
+    public void setOutboundDocQuery(OutboundDocQuery outboundDocQuery) {
+        this.outboundDocQuery = outboundDocQuery;
     }
 }
