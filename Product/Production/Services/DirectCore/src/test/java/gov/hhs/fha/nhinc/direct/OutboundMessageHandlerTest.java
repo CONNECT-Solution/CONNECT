@@ -26,55 +26,32 @@
  */
 package gov.hhs.fha.nhinc.direct;
 
-import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType.Document;
+import static gov.hhs.fha.nhinc.direct.DirectUnitTestUtil.getSampleMimeMessage;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 
-import javax.mail.Address;
 import javax.mail.internet.MimeMessage;
 
-import org.nhindirect.gateway.smtp.MessageProcessResult;
-import org.nhindirect.gateway.smtp.SmtpAgent;
+import org.junit.Test;
 
 /**
- * Interface defining a Mail Client.
+ * Test {@link OutboundMessageHandler}.
  */
-public interface DirectClient {
-
-    /**
-     * Use the mail server to send a DIRECT message.
-     *
-     * @param sender of the message
-     * @param recipients of the message
-     * @param attachment for the message
-     * @param attachmentName for the attachment
-     */
-    void send(Address sender, Address[] recipients, Document attachment, String attachmentName);
-
-    /**
-     * Use the mail server to send a DIRECT message. When you already have a mail message and you want to send it
-     * as a DIRECT message. Sender and recipients are extracted from the mime message.
-     *
-     * @param message (mime) to be sent using the direct
-     */
-    void send(MimeMessage message);
-
-    /**
-     * Use the mail server to send MDN messages if result contains notification messages.
-     *
-     * @param recipient of the message (should match the sender of the message which was processed)
-     * @param result to be processed for MDN Messages.
-     */
-    void sendMdn(Address recipient, MessageProcessResult result);
-
-    /**
-     * @param handler used to handle messages pulled from the mail server.
-     * @return number of messages handled.
-     */
-    int handleMessages(MessageHandler handler);
+public class OutboundMessageHandlerTest {
     
     /**
-     * Make the smtp agent on this direct cliet available to the caller.
-     * @return SmtpAgent property of this client.
+     * Verify that the Outbound Message Handler will use the external direct mail client to directify the message.
+     * The internal direct mail client passed in will be ignored.
      */
-    SmtpAgent getSmtpAgent();
+    @Test
+    public void canHandleOutboundMsg() {
+        DirectMailClient mockExternalDirectMailClient = mock(DirectMailClient.class);
+        MessageHandler testOutBoundMessageHandler = new OutboundMessageHandler(mockExternalDirectMailClient);
 
+        MimeMessage mimeMessage = getSampleMimeMessage();
+        testOutBoundMessageHandler.handleMessage(mimeMessage, mock(DirectMailClient.class));
+
+        verify(mockExternalDirectMailClient).send(mimeMessage);
+    }
+    
 }

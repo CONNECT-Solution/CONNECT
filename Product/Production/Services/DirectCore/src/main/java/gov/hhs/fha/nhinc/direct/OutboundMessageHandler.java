@@ -26,7 +26,6 @@
  */
 package gov.hhs.fha.nhinc.direct;
 
-import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
 /**
@@ -35,26 +34,22 @@ import javax.mail.internet.MimeMessage;
  */
 public class OutboundMessageHandler implements MessageHandler {
 
-    private final DirectMailClient extDirectMailClient;
+    private final DirectClient externalDirectClient;
     
     /**
      * Constructor.
      * @param extDirectMailClient external direct mail client for sending messages after they have been "directified".
      */
-    public OutboundMessageHandler(DirectMailClient extDirectMailClient) {
-        this.extDirectMailClient = extDirectMailClient;
+    public OutboundMessageHandler(DirectClient externalDirectClient) {
+        this.externalDirectClient = externalDirectClient;
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void handleMessage(MimeMessage message) {
-        try {
-            extDirectMailClient.send(message.getFrom()[0], message.getAllRecipients(), message);
-        } catch (MessagingException e) {
-            throw new DirectException("Could not convert and send RFC5322 MIME message as DIRECT message.", e);
-        }
+    public void handleMessage(MimeMessage message, DirectClient directClient) {
+        externalDirectClient.send(message);
     }
-
+    
 }

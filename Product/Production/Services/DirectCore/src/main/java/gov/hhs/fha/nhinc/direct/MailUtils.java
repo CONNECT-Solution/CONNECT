@@ -42,7 +42,7 @@ import org.apache.commons.logging.LogFactory;
  */
 public class MailUtils {
 
-    private static final Log log = LogFactory.getLog(MailUtils.class);
+    private static final Log LOG = LogFactory.getLog(MailUtils.class);
 
     /**
      * Folder Name for "Inbox".
@@ -69,7 +69,7 @@ public class MailUtils {
             try {
                 folder.close(expunge);
             } catch (Exception e) {
-                log.warn("Exception while closing java mail folder, expunge = " + expunge + ".", e);
+                LOG.warn("Exception while closing java mail folder, expunge = " + expunge + ".", e);
             }
         }
         closeQuietly(store);
@@ -85,7 +85,7 @@ public class MailUtils {
             try {
                 store.close();
             } catch (Exception e) {
-                log.warn("Exception while closing java mail store.", e);
+                LOG.warn("Exception while closing java mail store.", e);
             }
         }
     }
