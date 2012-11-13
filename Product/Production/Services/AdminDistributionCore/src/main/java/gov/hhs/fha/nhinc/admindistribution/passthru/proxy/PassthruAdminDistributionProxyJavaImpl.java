@@ -41,6 +41,9 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 public class PassthruAdminDistributionProxyJavaImpl implements PassthruAdminDistributionProxy {
     private Log log = null;
 
+    /**
+     * Constructor.
+     */
     public PassthruAdminDistributionProxyJavaImpl() {
         log = createLogger();
     }
@@ -49,6 +52,12 @@ public class PassthruAdminDistributionProxyJavaImpl implements PassthruAdminDist
         return LogFactory.getLog(getClass());
     }
 
+    /**This method implements sendAlertMessage for AdminDist.
+     * @param body Emergency Message Distribution Element transaction message body.
+     * @param assertion Assertion received.
+     * @param target NhinTargetSystem received to forward a message.
+     * @param apiLevel gateway apiLevel received (g0/g1).
+     */
     public void sendAlertMessage(EDXLDistribution body, AssertionType assertion, NhinTargetSystemType target,
             NhincConstants.GATEWAY_API_LEVEL apiLevel) {
         log.info("begin sendAlert");
@@ -56,6 +65,9 @@ public class PassthruAdminDistributionProxyJavaImpl implements PassthruAdminDist
 
     }
 
+    /**
+     * @return PassthruAdminDistributionOrchImpl instance.
+     */
     protected PassthruAdminDistributionOrchImpl getNhincAdminDistImpl() {
         return new PassthruAdminDistributionOrchImpl();
     }

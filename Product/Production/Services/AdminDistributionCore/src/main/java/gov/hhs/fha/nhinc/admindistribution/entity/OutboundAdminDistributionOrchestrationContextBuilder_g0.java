@@ -35,8 +35,10 @@ import gov.hhs.fha.nhinc.orchestration.OrchestrationContext;
  *
  * @author nnguyen
  */
+//CHECKSTYLE:OFF
 public class OutboundAdminDistributionOrchestrationContextBuilder_g0 extends
         OutboundAdminDistributionOrchestrationContextBuilder {
+//CHECKSTYLE:ON
 
     private static Log log = LogFactory.getLog(OutboundAdminDistributionOrchestrationContextBuilder_g0.class);
 

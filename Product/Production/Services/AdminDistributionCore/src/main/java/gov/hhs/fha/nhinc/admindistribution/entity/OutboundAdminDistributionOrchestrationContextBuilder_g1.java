@@ -34,9 +34,10 @@ import org.apache.commons.logging.LogFactory;
  * 
  * @author nnguyen
  */
+//CHECKSTYLE:OFF
 public class OutboundAdminDistributionOrchestrationContextBuilder_g1 extends
         OutboundAdminDistributionOrchestrationContextBuilder {
-
+//CHECKSTYLE:ON
     private static Log log = LogFactory.getLog(OutboundAdminDistributionOrchestrationContextBuilder_g1.class);
 
     @Override
