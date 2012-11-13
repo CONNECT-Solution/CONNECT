@@ -36,7 +36,8 @@ public interface MessageHandler {
     /**
      * Handle a message retrieved from the mail server.
      * @param message to be handled.
+     * @param directClient CONNECT-DIRECT client used to send and receive messages.
      */
-    void handleMessage(MimeMessage message);
+    void handleMessage(MimeMessage message, DirectClient directClient);
     
 }

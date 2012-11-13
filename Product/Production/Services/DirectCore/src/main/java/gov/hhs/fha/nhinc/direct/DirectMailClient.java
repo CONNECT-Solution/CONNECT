@@ -46,9 +46,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.nhindirect.gateway.smtp.MessageProcessResult;
 import org.nhindirect.gateway.smtp.SmtpAgent;
-import org.nhindirect.stagent.AddressSource;
-import org.nhindirect.stagent.NHINDAddress;
-import org.nhindirect.stagent.NHINDAddressCollection;
 import org.nhindirect.stagent.mail.notifications.NotificationMessage;
 
 /**
@@ -89,15 +86,15 @@ public class DirectMailClient implements DirectClient {
         MimeMessage mimeMessage = new MimeMessageBuilder(session, sender, recipients).subject(MSG_SUBJECT)
                 .text(MSG_TEXT).attachment(attachment).attachmentName(attachmentName).build();
 
-        send(sender, recipients, mimeMessage, session);
+        send(mimeMessage, session);
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void send(Address sender, Address[] recipients, MimeMessage message) {
-        send(sender, recipients, message, getMailSession());
+    public void send(MimeMessage message) {
+        send(message, getMailSession());
     }
 
     /**
@@ -179,7 +176,7 @@ public class DirectMailClient implements DirectClient {
         for (Message message : messages) {
             try {
                 if ((message instanceof MimeMessage)) {
-                    handler.handleMessage((MimeMessage) message);
+                    handler.handleMessage((MimeMessage) message, this);
                     numberOfHandledMsgs++;
                 }
                 message.setFlag(Flags.Flag.DELETED, true);
@@ -193,19 +190,27 @@ public class DirectMailClient implements DirectClient {
         MailUtils.closeQuietly(store, inbox, MailUtils.FOLDER_EXPUNGE_INBOX_TRUE);
         return numberOfHandledMsgs;
     }
+    
+    /**
+     * @return the smtpAgent direct smtp agent.
+     */
+    public SmtpAgent getSmtpAgent() {
+        return smtpAgent;
+    }
+
 
     private Session getMailSession() {
         return MailUtils.getMailSession(mailServerProps, mailServerProps.getProperty("direct.mail.user"),
                 mailServerProps.getProperty("direct.mail.pass"));
     }
 
-    private void send(Address sender, Address[] recipients, MimeMessage mimeMessage, Session session) {
-        MessageProcessResult result = processAsDirectMessage(sender, recipients, mimeMessage);
+    private void send(MimeMessage mimeMessage, Session session) {
+        MessageProcessResult result = processAsDirectMessage(mimeMessage);
         if (null == result || null == result.getProcessedMessage()) {
             throw new DirectException("Message processed by Direct is null.");
         }
         try {
-            sendDirectProcessedMessage(recipients, session, result);
+            sendDirectProcessedMessage(mimeMessage.getAllRecipients(), session, result);
         } catch (MessagingException e) {
             throw new DirectException("Could not send message.", e);
         }
@@ -224,15 +229,13 @@ public class DirectMailClient implements DirectClient {
         }
     }
 
-    private MessageProcessResult processAsDirectMessage(Address sender, Address[] recipients, MimeMessage mimeMessage) {
-
-        NHINDAddressCollection recipientsCollection = new NHINDAddressCollection();
-        for (Address recipient : recipients) {
-            recipientsCollection.add(new NHINDAddress(recipient.toString(), (AddressSource) null));
+    private MessageProcessResult processAsDirectMessage(MimeMessage mimeMessage) {
+        try {
+            return smtpAgent.processMessage(mimeMessage, DirectClientUtils.getNhindRecipients(mimeMessage),
+                    DirectClientUtils.getNhindSender(mimeMessage));
+        } catch (MessagingException e) {
+            throw new DirectException("Error occurred while extracting addresses.", e);
         }
-
-        NHINDAddress senderNhindAddress = new NHINDAddress(sender.toString(), AddressSource.From);
-        return smtpAgent.processMessage(mimeMessage, recipientsCollection, senderNhindAddress);
     }
 
     /**
