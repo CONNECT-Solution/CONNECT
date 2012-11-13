@@ -38,17 +38,29 @@ import gov.hhs.fha.nhinc.orchestration.AbstractOrchestrationContextFactory;
  * @author zmelnick
  *
  */
-public class OrchestrationContextFactory extends AbstractOrchestrationContextFactory{
+public final class OrchestrationContextFactory extends AbstractOrchestrationContextFactory {
 
+    //CHECKSTYLE:OFF
     private static OrchestrationContextFactory INSTANCE = new OrchestrationContextFactory();
+    //CHECKSTYLE:ON
 
     private OrchestrationContextFactory() {
     }
 
+    /**
+     * This method returns DocQueryInstance of Orchestartion.
+     * @return OrchestrationContextFactory for DocQuery.
+     */
     public static OrchestrationContextFactory getInstance() {
         return INSTANCE;
     }
 
+    /**
+     * This method creates OrchestrationContextBuilder based on g0 or g1 apiLevel.
+     * @param homeCommunityType The homeCommunityId.
+     * @param serviceName The serviceName is DocQuery.
+     * @return OrchestrationContextFactory for DocQuery.
+     */
     public OrchestrationContextBuilder getBuilder(HomeCommunityType homeCommunityType,
             NhincConstants.NHIN_SERVICE_NAMES serviceName) {
         NhinEndpointManager nem = new NhinEndpointManager();

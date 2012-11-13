@@ -51,26 +51,33 @@ public class AdapterDocQueryOrchImpl {
     private static final String ERROR_CODE_CONTEXT = AdapterDocQueryOrchImpl.class.getName();
     private static final String ERROR_VALUE = "Input has null value";
 
+    /**
+     * constructor.
+     */
     public AdapterDocQueryOrchImpl() {
         log = createLogger();
     }
 
+    /**
+     * @return Log log
+     */
     protected Log createLogger() {
         return LogFactory.getLog(getClass());
     }
 
     /**
      *
-     * @param request
-     * @param assertion
-     * @return AdhocQueryResponse
+     * @param request The AdhocQUeryRequest message.
+     * @param assertion Assertion received.
+     * @return AdhocQueryResponse The AdhocQuery response received.
      */
     public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest request, AssertionType assertion) {
         log.debug("Enter AdapterDocQueryOrchImpl.respondingGatewayCrossGatewayQuery()");
         AdhocQueryResponse response = null;
         try {
             if (request != null) {
-                AdapterComponentDocRegistryProxyObjectFactory objFactory = new AdapterComponentDocRegistryProxyObjectFactory();
+                AdapterComponentDocRegistryProxyObjectFactory objFactory =
+                        new AdapterComponentDocRegistryProxyObjectFactory();
                 AdapterComponentDocRegistryProxy registryProxy = objFactory.getAdapterComponentDocRegistryProxy();
                 AdhocQueryRequest adhocQueryRequest = new AdhocQueryRequest();
                 adhocQueryRequest.setAdhocQuery(request.getAdhocQuery());
@@ -105,6 +112,12 @@ public class AdapterDocQueryOrchImpl {
 
     }
 
+    /**
+     * @param queryRequest The AdhocRequest message send to RedactionEngine.
+     * @param queryResponse The AdhocQueryResponse received from AdapterComponentDocRegistry.
+     * @param assertion Assertion received.
+     * @return redactionEngine AdhocQueryResponse.
+     */
     protected AdhocQueryResponse callRedactionEngine(AdhocQueryRequest queryRequest, AdhocQueryResponse queryResponse,
             AssertionType assertion) {
         AdhocQueryResponse response = null;
@@ -117,6 +130,9 @@ public class AdapterDocQueryOrchImpl {
         return response;
     }
 
+    /**
+     * @return RedactionEngineProxy.
+     */
     protected AdapterRedactionEngineProxy getRedactionEngineProxy() {
         return new AdapterRedactionEngineProxyObjectFactory().getRedactionEngineProxy();
     }
