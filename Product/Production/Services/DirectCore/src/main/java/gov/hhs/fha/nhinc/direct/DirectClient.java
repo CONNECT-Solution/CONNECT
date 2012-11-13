@@ -72,7 +72,7 @@ public interface DirectClient {
     int handleMessages(MessageHandler handler);
     
     /**
-     * Make the smtp agent on this direct cliet available to the caller.
+     * Make the smtp agent on this direct client available to the caller.
      * @return SmtpAgent property of this client.
      */
     SmtpAgent getSmtpAgent();

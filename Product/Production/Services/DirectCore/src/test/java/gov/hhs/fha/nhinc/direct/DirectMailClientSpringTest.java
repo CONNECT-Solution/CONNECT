@@ -55,6 +55,15 @@ public class DirectMailClientSpringTest {
     @Autowired
     private DirectMailClient extDirectMailClient;
     
+    @Autowired
+    private MessageHandler outboundMessageHandler;
+
+    @Autowired
+    private MessageHandler inboundMessageHandlerSmtp;
+
+    @Autowired
+    private MessageHandler inboundMessageHandlerSoap;
+
     /**
      * Set up keystore for test.
      */
@@ -87,6 +96,29 @@ public class DirectMailClientSpringTest {
         assertNotSame(intDirectMailClient, extDirectMailClient);        
     }
     
+    @Test
+    public void canGetOutboundMessageHandler() {
+        assertNotNull(outboundMessageHandler);
+    }
+    
+    @Test
+    public void canGetInboundMessageHandlerForSmtp() {
+        assertNotNull(inboundMessageHandlerSmtp);
+    }
+
+    @Test
+    public void canGetInboundMessageHandlerForSoap() {
+        assertNotNull(inboundMessageHandlerSoap);
+    }
+    
+    @Test
+    public void canDistinguishMessageHandlers() {
+        assertNotSame(outboundMessageHandler, inboundMessageHandlerSmtp);
+        assertNotSame(outboundMessageHandler, inboundMessageHandlerSoap);
+        assertNotSame(inboundMessageHandlerSoap, inboundMessageHandlerSmtp);
+    }
+    
+
     /**
      * Tear down keystore created in setup.
      */
