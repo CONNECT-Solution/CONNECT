@@ -157,7 +157,7 @@ public class HomeCommunityMap {
      * @param body
      * @return The home community OID string
      */
-    public static String getCommunityIdForDeferredQDRequest(AdhocQueryType body) {
+    public static String getCommunityId(AdhocQueryType body) {
         String responseCommunityID = null;
         if (body != null && body.getHome() != null) {
             responseCommunityID = body.getHome();

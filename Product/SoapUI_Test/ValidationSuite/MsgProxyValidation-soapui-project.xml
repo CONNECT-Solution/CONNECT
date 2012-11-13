@@ -2518,7 +2518,7 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 </con:properties>
 <con:reportParameters/>
 </con:testCase>
-<con:testCase failOnError="true" failTestCaseOnErrors="true" id="34af0ba4-ebd0-4ffb-9bfc-99f69bfdc1b0" keepSession="false" maxResults="0" name="Document Query" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" id="34af0ba4-ebd0-4ffb-9bfc-99f69bfdc1b0" keepSession="false" maxResults="0" name="Document Query" searchProperties="true" disabled="true">
 	<con:settings/>
 	<con:testStep name="Document Query" type="request">
 		<con:settings/>
@@ -7209,7 +7209,7 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 </con:properties>
 <con:reportParameters/>
 </con:testCase>
-<con:testCase failOnError="true" failTestCaseOnErrors="true" id="cd5d3a85-d1ff-4a08-98ff-def03e8d8e58" keepSession="false" maxResults="0" name="Document Query" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" id="cd5d3a85-d1ff-4a08-98ff-def03e8d8e58" keepSession="false" maxResults="0" name="Document Query" searchProperties="true" disabled="true">
 	<con:settings/>
 	<con:testStep name="Document Query" type="request">
 		<con:settings/>

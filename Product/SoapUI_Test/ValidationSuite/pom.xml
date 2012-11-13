@@ -39,9 +39,9 @@
                 <executions>
                     <execution>
                         <id>unpack-soapui-test-resources</id>
-                        <!-- Using the initialize phase because it is before the generate sources
-                            phase -->
-                        <phase>initialize</phase>
+                        <!-- Using the initialize phase because it is before 
+                            the generate sources phase -->
+                        <phase>pre-integration-test</phase>
                         <goals>
                             <goal>unpack</goal>
                         </goals>
@@ -62,7 +62,7 @@
                     </execution>
                     <execution>
                         <id>unpack-soapui-xsd-resources</id>
-                        <phase>initialize</phase>
+                        <phase>pre-integration-test</phase>
                         <goals>
                             <goal>unpack</goal>
                         </goals>
@@ -82,7 +82,7 @@
                     </execution>
                     <execution>
                         <id>unpack-soapui-wsdl-resources1</id>
-                        <phase>initialize</phase>
+                        <phase>pre-integration-test</phase>
                         <goals>
                             <goal>unpack</goal>
                         </goals>
@@ -102,7 +102,7 @@
                     </execution>
                     <execution>
                         <id>unpack-soapui-wsdl-resources2</id>
-                        <phase>initialize</phase>
+                        <phase>pre-integration-test</phase>
                         <goals>
                             <goal>unpack</goal>
                         </goals>
@@ -212,7 +212,7 @@
                     </execution>
                     <execution>
                         <id>unpack-sql-scripts</id>
-                        <phase>initialize</phase>
+                        <phase>pre-integration-test</phase>
                         <goals>
                             <goal>unpack</goal>
                         </goals>
@@ -239,14 +239,16 @@
                 <executions>
                     <execution>
                         <id>flatten-soapui-test-resources</id>
-                        <phase>process-test-resources</phase>
+                        <phase>pre-integration-test</phase>
                         <goals>
                             <goal>run</goal>
                         </goals>
                         <configuration>
                             <target>
-                                <copy todir="${project.build.directory}/wsdl" flatten="true">
-                                    <fileset dir="${project.build.directory}/wsdl-extracted">
+                                <copy todir="${project.build.directory}/wsdl"
+                                    flatten="true">
+                                    <fileset
+                                        dir="${project.build.directory}/wsdl-extracted">
                                         <include name="**/*.wsdl" />
                                     </fileset>
                                 </copy>
@@ -261,7 +263,7 @@
                 <executions>
                     <execution>
                         <id>fix-wsdl-schemalocation</id>
-                        <phase>process-test-resources</phase>
+                        <phase>pre-integration-test</phase>
                         <goals>
                             <goal>replace</goal>
                         </goals>
@@ -324,9 +326,9 @@
                             <skip>${entity.skip}</skip>
                             <projectFile>${basedir}/EntityValidation-soapui-project.xml</projectFile>
                             <outputFolder>${basedir}/target/soapui/output/EntityValidation</outputFolder>
-							<host>${host}:${port}</host>
-							<testSuite>${test.suite}</testSuite>
-							<testCase>${test.case}</testCase>
+                            <host>${host}:${port}</host>
+                            <testSuite>${test.suite}</testSuite>
+                            <testCase>${test.case}</testCase>
                             <projectProperties>
                                 <value>GatewayPropDir=${properties.dir}</value>
                                 <value>DBHost=${db.host}</value>
@@ -349,9 +351,9 @@
                             <skip>${msgproxy.skip}</skip>
                             <projectFile>${basedir}/MsgProxyValidation-soapui-project.xml</projectFile>
                             <outputFolder>${basedir}/target/soapui/output/MsgProxyValidation</outputFolder>
-							<host>${host}:${port}</host>
-							<testSuite>${test.suite}</testSuite>
-							<testCase>${test.case}</testCase>
+                            <host>${host}:${port}</host>
+                            <testSuite>${test.suite}</testSuite>
+                            <testCase>${test.case}</testCase>
                             <projectProperties>
                                 <value>GatewayPropDir=${properties.dir}</value>
                                 <value>DBHost=${db.host}</value>
@@ -388,6 +390,39 @@
             </properties>
             <build>
                 <plugins>
+                 <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>sql-maven-plugin</artifactId>
+                        <version>1.5</version>
+                        <dependencies>
+                            <dependency>
+                                <groupId>mysql</groupId>
+                                <artifactId>mysql-connector-java</artifactId>
+                                <version>5.1.10</version>
+                            </dependency>
+                        </dependencies>
+                        <configuration>
+                            <driver>com.mysql.jdbc.Driver</driver>
+                            <url>jdbc:mysql://localhost</url>
+                            <username>root</username>
+                            <password>${mysql.root.password}</password>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <phase>pre-integration-tes</phase>
+                                <goals>
+                                    <goal>execute</goal>
+                                </goals>
+                                <configuration>
+                                    <srcFiles>
+                                        <srcFile>${project.build.directory}/DBScripts/nhincdb/dropall.sql</srcFile>
+                                        <srcFile>${project.build.directory}/DBScripts/nhincdb/nhincdb.sql</srcFile>
+                                        <srcFile>${project.build.directory}/DBScripts/nhincdb/populateTestData.sql</srcFile>
+                                    </srcFiles>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
                     <plugin>
                         <groupId>org.glassfish.embedded</groupId>
                         <artifactId>maven-embedded-glassfish-plugin</artifactId>
@@ -423,39 +458,7 @@
                             </execution>
                         </executions>
                     </plugin>
-                    <plugin>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>sql-maven-plugin</artifactId>
-                        <version>1.5</version>
-                        <dependencies>
-                            <dependency>
-                                <groupId>mysql</groupId>
-                                <artifactId>mysql-connector-java</artifactId>
-                                <version>5.1.10</version>
-                            </dependency>
-                        </dependencies>
-                        <configuration>
-                            <driver>com.mysql.jdbc.Driver</driver>
-                            <url>jdbc:mysql://localhost</url>
-                            <username>root</username>
-                            <password>${mysql.root.password}</password>
-                        </configuration>
-                        <executions>
-                            <execution>
-                                <phase>process-test-resources</phase>
-                                <goals>
-                                    <goal>execute</goal>
-                                </goals>
-                                <configuration>
-                                    <srcFiles>
-                                        <srcFile>${project.build.directory}/DBScripts/nhincdb/dropall.sql</srcFile>
-                                        <srcFile>${project.build.directory}/DBScripts/nhincdb/nhincdb.sql</srcFile>
-                                        <srcFile>${project.build.directory}/DBScripts/nhincdb/populateTestData.sql</srcFile>
-                                    </srcFiles>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
+                   
                 </plugins>
             </build>
         </profile>

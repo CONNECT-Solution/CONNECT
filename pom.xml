@@ -7,14 +7,155 @@
     <version>4.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>CONNECT Solution</name>
-    <url>http://www.connectopensource.org/</url>
+    <url>www.connectopensource.org</url>
+    <description>CONNECT is an open source software solution that supports health information exchange – both locally and at the national level. CONNECT uses Nationwide Health Information Network standards and governance to make sure that health information exchanges are compatible with other exchanges being set up throughout the country.
+This software solution was initially developed by federal agencies to support their health-related missions, but it is now available to all organizations and can be used to help set up health information exchanges and share data using nationally-recognized interoperability standards.
+CONNECT can be used to:
+Set up a health information exchange within an organization
+Tie a health information exchange into a regional network of health information exchanges using Nationwide Health Information Network standards
+By advancing the adoption of interoperable health IT systems and health information exchanges, the country will better be able to achieve the goal of making sure all citizens have electronic health records by 2014. Health data will be able to follow a patient across the street or across the country.</description>
+    <properties>
+        <git.username>CONNECT-Solution</git.username>
+    </properties>
     <scm>
-        <connection>scm:git:git@github.com:CONNECT-Solution/CONNECT.git</connection>
-        <developerConnection>scm:git:git@github.com:CONNECT-Solution/CONNECT.git</developerConnection>
-        <url>https://github.com/CONNECT-Solution/CONNECT</url>
+        <connection>scm:git:git@github.com:${git.username}/CONNECT.git</connection>
+        <developerConnection>scm:git:git@github.com:${git.username}/CONNECT.git</developerConnection>
+        <url>https://github.com/${git.username}/CONNECT</url>
     </scm>
     <modules>
     	<module>ThirdParty</module>
     	<module>Product</module>
     </modules>
+    <licenses>
+        <license>
+            <name>CONNECT License Agreement</name>
+            <url>http://www.connectopensource.org/product/licensing</url>
+        </license>
+    </licenses>
+    <distributionManagement>
+        <site>
+            <id>github-pages-site</id>
+            <name>Deployment through GitHub's site deployment plugin</name>
+            <url>site/${project.version}</url>
+        </site>
+    </distributionManagement>
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-site-plugin</artifactId>
+                    <version>3.1</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-site-plugin</artifactId>
+                <dependencies>
+                    <dependency>
+                        <!-- | allows markdown syntax for site generation. 
+                            To use it place files below | src/site/markdown/[filename].md -->
+                        <groupId>org.apache.maven.doxia</groupId>
+                        <artifactId>doxia-module-markdown</artifactId>
+                        <version>1.3</version>
+                    </dependency>
+                </dependencies>
+                <configuration>
+                    <skipDeploy>true</skipDeploy>
+                    <reportPlugins>
+                        <plugin>
+                            <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-project-info-reports-plugin</artifactId>
+                            <version>2.5.1</version>
+                            <configuration>
+                                <dependencyDetailsEnabled>true</dependencyDetailsEnabled>
+                                <dependencyLocationsEnabled>false</dependencyLocationsEnabled>
+                                <linkOnly>true</linkOnly>
+                            </configuration>
+                        </plugin>
+                        <!-- <plugin> <groupId>org.apache.maven.plugins</groupId> 
+                            <artifactId>maven-javadoc-plugin</artifactId> <version>2.9</version> </plugin> -->
+                        <plugin>
+                            <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-surefire-report-plugin</artifactId>
+                            <version>2.12.4</version>
+                        </plugin>
+                        <plugin>
+                            <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-checkstyle-plugin</artifactId>
+                            <version>2.9.1</version>
+                        </plugin>
+                        <plugin>
+                            <groupId>org.codehaus.mojo</groupId>
+                            <artifactId>cobertura-maven-plugin</artifactId>
+                            <version>2.5.2</version>
+                            <configuration>
+                                <formats>
+                                    <format>html</format>
+                                </formats>
+                            </configuration>
+                        </plugin>
+                        <plugin>
+                            <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-pmd-plugin</artifactId>
+                            <version>2.7.1</version>
+                            <configuration>
+                                <targetJdk>1.7</targetJdk>
+                            </configuration>
+                        </plugin>
+                    </reportPlugins>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>attach-descriptor</id>
+                        <goals>
+                            <goal>attach-descriptor</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+    <profiles>
+        <profile>
+            <id>github-site-deploy</id>
+            <properties>
+                <github.site.merge>true</github.site.merge>
+            </properties>
+            <build>
+                <plugins>
+                    <!-- <plugin> <groupId>com.github.github</groupId> <artifactId>downloads-maven-plugin</artifactId> 
+                        <version>0.6</version> <configuration> <description>Official ${project.name} 
+                        build of the ${project.version} release</description> <override>true</override> 
+                        <includeAttached>true</includeAttached> <server>github</server> </configuration> 
+                        <executions> <execution> <goals> <goal>upload</goal> </goals> <phase>install</phase> 
+                        </execution> </executions> </plugin> -->
+                    <plugin>
+                        <groupId>com.github.github</groupId>
+                        <artifactId>site-maven-plugin</artifactId>
+                        <version>0.7</version>
+                        <configuration>
+                            <!-- this does the trick to place every module 
+                                in the correct subfolder -->
+                            <path>${project.distributionManagement.site.url}</path>
+                            <merge>${github.site.merge}</merge>
+                            <message>Building site for
+                                ${project.version}</message>
+                            <server>github</server>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>site</goal>
+                                </goals>
+                                <phase>site-deploy</phase>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>
