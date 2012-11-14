@@ -26,26 +26,27 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.docquery.aspect;
+package gov.hhs.fha.nhinc.docretrieve.aspect;
 
-import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayQuerySecuredRequestType;
-import gov.hhs.fha.nhinc.event.ArgTransformerEventDescriptionBuilder;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayRetrieveRequestType;
+import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 
-public class RespondingGatewayCrossGatewayQuerySecuredRequestTypeDescriptionBuilder extends
-        ArgTransformerEventDescriptionBuilder {
+public class RespondingGatewayCrossGatewayRetrieveRequestTypeDescriptionBuilderTest extends
+        ArgTransformerTest<RespondingGatewayCrossGatewayRetrieveRequestTypeDescriptionBuilder> {
 
-    public RespondingGatewayCrossGatewayQuerySecuredRequestTypeDescriptionBuilder() {
-        setDelegate(new AdhocQueryRequestDescriptionBuilder());
+    @Override
+    protected RespondingGatewayCrossGatewayRetrieveRequestTypeDescriptionBuilder getBuilder() {
+        return new RespondingGatewayCrossGatewayRetrieveRequestTypeDescriptionBuilder();
     }
 
     @Override
-    public Object[] transformArguments(Object[] arguments) {
-        RespondingGatewayCrossGatewayQuerySecuredRequestType request = (RespondingGatewayCrossGatewayQuerySecuredRequestType) arguments[0];
-        return new Object[] { request.getAdhocQueryRequest() };
-    }
-
-    @Override
-    public Object transformReturnValue(Object returnValue) {
-        return returnValue;
+    protected Object getArgument(RetrieveDocumentSetRequestType mockRequest, AssertionType mockAssertion) {
+        RespondingGatewayCrossGatewayRetrieveRequestType request = mock(RespondingGatewayCrossGatewayRetrieveRequestType.class);
+        when(request.getRetrieveDocumentSetRequest()).thenReturn(mockRequest);
+        when(request.getAssertion()).thenReturn(mockAssertion);
+        return request;
     }
 }
