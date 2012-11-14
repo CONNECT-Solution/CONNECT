@@ -1,4 +1,6 @@
-/*
+/**
+ * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
+ *
  * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
@@ -26,43 +28,29 @@
  */
 package gov.hhs.fha.nhinc.docquery._20.passthru;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import gov.hhs.fha.nhinc.aspect.OutboundMessageEvent;
-import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayCrossGatewayQueryRequestType;
+import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayCrossGatewayQuerySecuredRequestType;
 import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryResponseDescriptionBuilder;
-import gov.hhs.fha.nhinc.docquery.aspect.NhincProxyQueryRequestTypeDescriptionBuilder;
-import gov.hhs.fha.nhinc.docquery.passthru.PassthruDocQueryOrchImpl;
-import gov.hhs.fha.nhinc.nhincproxydocquery.NhincProxyDocQueryPortType;
+import gov.hhs.fha.nhinc.docquery.aspect.NhincProxyQuerySecuredRequestTypeDescriptionBuilder;
 
-import javax.annotation.Resource;
-import javax.xml.ws.BindingType;
-import javax.xml.ws.WebServiceContext;
-import javax.xml.ws.soap.Addressing;
+import java.lang.reflect.Method;
 
-import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
+import org.junit.Test;
 
-/**
- * 
- * @author JHOPPESC
- */
-@BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
-@Addressing(enabled = true)
-public class NhincProxyDocQueryUnsecured implements NhincProxyDocQueryPortType {
+public class NhincProxyDocQuerySecuredTest {
 
-    private PassthruDocQueryOrchImpl orchImpl;
-
-    @Resource
-    private WebServiceContext context;
-
-    @OutboundMessageEvent(beforeBuilder = NhincProxyQueryRequestTypeDescriptionBuilder.class,
-            afterReturningBuilder = AdhocQueryResponseDescriptionBuilder.class, serviceType = "Document Query",
-            version = "2.0")
-    public AdhocQueryResponse respondingGatewayCrossGatewayQuery(
-            RespondingGatewayCrossGatewayQueryRequestType respondingGatewayCrossGatewayQueryRequest) {
-        return new NhincProxyDocQueryImpl(orchImpl).respondingGatewayCrossGatewayQuery(
-                respondingGatewayCrossGatewayQueryRequest, context);
-    }
-
-    public void setOrchestratorImpl(PassthruDocQueryOrchImpl orchImpl) {
-        this.orchImpl = orchImpl;
+    @Test
+    public void hasBeginOutboundMessageEvent() throws Exception {
+        Class<NhincProxyDocQuerySecured> clazz = NhincProxyDocQuerySecured.class;
+        Method method = clazz.getMethod("respondingGatewayCrossGatewayQuery",
+                RespondingGatewayCrossGatewayQuerySecuredRequestType.class);
+        OutboundMessageEvent annotation = method.getAnnotation(OutboundMessageEvent.class);
+        assertNotNull(annotation);
+        assertEquals(NhincProxyQuerySecuredRequestTypeDescriptionBuilder.class, annotation.beforeBuilder());
+        assertEquals(AdhocQueryResponseDescriptionBuilder.class, annotation.afterReturningBuilder());
+        assertEquals("Document Query", annotation.serviceType());
+        assertEquals("2.0", annotation.version());
     }
 }

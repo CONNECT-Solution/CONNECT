@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.docquery.entity;
 
+import gov.hhs.fha.nhinc.aspect.OutboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.auditlog.AdhocQueryResponseMessageType;
 import gov.hhs.fha.nhinc.common.eventcommon.AdhocQueryRequestEventType;
 import gov.hhs.fha.nhinc.common.eventcommon.AdhocQueryRequestMessageType;
@@ -41,6 +42,8 @@ import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.connectmgr.NhinEndpointManager;
 import gov.hhs.fha.nhinc.connectmgr.UrlInfo;
 import gov.hhs.fha.nhinc.docquery.DocQueryAuditLog;
+import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryRequestDescriptionBuilder;
+import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryResponseDescriptionBuilder;
 import gov.hhs.fha.nhinc.gateway.aggregator.document.DocumentConstants;
 import gov.hhs.fha.nhinc.gateway.executorservice.ExecutorServiceHelper;
 import gov.hhs.fha.nhinc.gateway.executorservice.NhinCallableRequest;
@@ -111,7 +114,7 @@ public class EntityDocQueryOrchImpl {
         log = createLogger();
         setExecutorService(e, le);
     }
-    
+
     public void setExecutorService(ExecutorService e, ExecutorService le) {
         regularExecutor = e;
         largejobExecutor = le;
@@ -129,6 +132,9 @@ public class EntityDocQueryOrchImpl {
      * @return <code>AdhocQueryResponse</code>
      */
     @SuppressWarnings("static-access")
+    @OutboundProcessingEvent(beforeBuilder = AdhocQueryRequestDescriptionBuilder.class,
+            afterReturningBuilder = AdhocQueryResponseDescriptionBuilder.class, serviceType = "Document Query",
+            version = "")
     public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest adhocQueryRequest,
             AssertionType assertion, NhinTargetCommunitiesType targets) {
         log.debug("EntityDocQueryOrchImpl.respondingGatewayCrossGatewayQuery...");
@@ -532,10 +538,10 @@ public class EntityDocQueryOrchImpl {
         AdhocQueryResponse response = new AdhocQueryResponse();
         response.setRegistryErrorList(createErrorListWithError(errorCode, codeContext));
         response.setStatus(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_FAILURE);
-        
+
         RegistryObjectListType regObjectList = new RegistryObjectListType();
         response.setRegistryObjectList(regObjectList);
-        
+
         return response;
     }
 
@@ -562,25 +568,20 @@ public class EntityDocQueryOrchImpl {
             orchResponse_g0 = (OutboundDocQueryOrchestratable_a0) dqexecutor.getFinalResponse();
             response = orchResponse_g0.getCumulativeResponse();
         } else {
-            log.debug("No callable requests were sent out.  " +
-                    "Setting response to failure.");
-            response.setStatus(DocumentConstants.
-                    XDS_QUERY_RESPONSE_STATUS_FAILURE);
-            
-            if(response.getRegistryErrorList() == null){
+            log.debug("No callable requests were sent out.  " + "Setting response to failure.");
+            response.setStatus(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_FAILURE);
+
+            if (response.getRegistryErrorList() == null) {
                 RegistryErrorList regErrList = createErrorListWithError(
-                    DocumentConstants.XDS_RETRIEVE_ERRORCODE_REPOSITORY_ERROR,
-                    "Unable to find any callable targets.");
+                        DocumentConstants.XDS_RETRIEVE_ERRORCODE_REPOSITORY_ERROR,
+                        "Unable to find any callable targets.");
                 response.setRegistryErrorList(regErrList);
-            }else {
+            } else {
                 RegistryError regErr = new RegistryError();
                 regErr.setCodeContext("Unable to find any callable targets.");
-                regErr.setErrorCode(DocumentConstants.
-                        XDS_RETRIEVE_ERRORCODE_REPOSITORY_ERROR);
-                regErr.setSeverity(NhincConstants.
-                        XDS_REGISTRY_ERROR_SEVERITY_ERROR);
-                response.getRegistryErrorList().getRegistryError().
-                        add(regErr);  
+                regErr.setErrorCode(DocumentConstants.XDS_RETRIEVE_ERRORCODE_REPOSITORY_ERROR);
+                regErr.setSeverity(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR);
+                response.getRegistryErrorList().getRegistryError().add(regErr);
             }
         }
 
@@ -592,13 +593,12 @@ public class EntityDocQueryOrchImpl {
                 response.getRegistryErrorList().getRegistryError().addAll(policyErrList.getRegistryError());
             }
         }
-        
-        if(response.getRegistryObjectList() == null )
-        {
-        	RegistryObjectListType regObjectList = new RegistryObjectListType();
+
+        if (response.getRegistryObjectList() == null) {
+            RegistryObjectListType regObjectList = new RegistryObjectListType();
             response.setRegistryObjectList(regObjectList);
         }
-        
+
         return response;
 
     }
@@ -619,20 +619,17 @@ public class EntityDocQueryOrchImpl {
             log.debug("No callable requests were sent out.  Setting response to failure.");
             response.setStatus(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_FAILURE);
 
-            if(response.getRegistryErrorList() == null){
+            if (response.getRegistryErrorList() == null) {
                 RegistryErrorList regErrList = createErrorListWithError(
-                    DocumentConstants.XDS_RETRIEVE_ERRORCODE_REPOSITORY_ERROR,
-                    "Unable to find any callable targets.");
+                        DocumentConstants.XDS_RETRIEVE_ERRORCODE_REPOSITORY_ERROR,
+                        "Unable to find any callable targets.");
                 response.setRegistryErrorList(regErrList);
-            }else {
+            } else {
                 RegistryError regErr = new RegistryError();
                 regErr.setCodeContext("Unable to find any callable targets.");
-                regErr.setErrorCode(DocumentConstants.
-                        XDS_RETRIEVE_ERRORCODE_REPOSITORY_ERROR);
-                regErr.setSeverity(NhincConstants.
-                        XDS_REGISTRY_ERROR_SEVERITY_ERROR);
-                response.getRegistryErrorList().getRegistryError().
-                        add(regErr);
+                regErr.setErrorCode(DocumentConstants.XDS_RETRIEVE_ERRORCODE_REPOSITORY_ERROR);
+                regErr.setSeverity(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR);
+                response.getRegistryErrorList().getRegistryError().add(regErr);
             }
         }
 
@@ -644,13 +641,12 @@ public class EntityDocQueryOrchImpl {
                 response.getRegistryErrorList().getRegistryError().addAll(policyErrList.getRegistryError());
             }
         }
-        
-        if(response.getRegistryObjectList() == null )
-        {
-        	RegistryObjectListType regObjectList = new RegistryObjectListType();
+
+        if (response.getRegistryObjectList() == null) {
+            RegistryObjectListType regObjectList = new RegistryObjectListType();
             response.setRegistryObjectList(regObjectList);
         }
-        
+
         return response;
 
     }
