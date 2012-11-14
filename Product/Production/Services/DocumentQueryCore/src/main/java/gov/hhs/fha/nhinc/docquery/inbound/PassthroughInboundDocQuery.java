@@ -39,7 +39,7 @@ import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
  * @author akong
  * 
  */
-public class PassthroughInboundDocQuery extends InboundDocQuery {
+public class PassthroughInboundDocQuery extends AbstractInboundDocQuery {
 
     private AdapterDocQueryProxyObjectFactory adapterFactory = new AdapterDocQueryProxyObjectFactory();
     
