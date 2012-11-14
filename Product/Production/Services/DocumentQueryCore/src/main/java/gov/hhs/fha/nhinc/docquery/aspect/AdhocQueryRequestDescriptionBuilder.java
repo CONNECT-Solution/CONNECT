@@ -28,9 +28,7 @@
  */
 package gov.hhs.fha.nhinc.docquery.aspect;
 
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.event.BaseEventDescriptionBuilder;
-import gov.hhs.fha.nhinc.event.builder.AssertionDescriptionExtractor;
+import gov.hhs.fha.nhinc.event.AssertionEventDescriptionBuilder;
 
 import java.util.Arrays;
 
@@ -42,16 +40,13 @@ import org.apache.commons.logging.LogFactory;
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 
-public class AdhocQueryRequestDescriptionBuilder extends BaseEventDescriptionBuilder {
+public class AdhocQueryRequestDescriptionBuilder extends AssertionEventDescriptionBuilder {
 
     private static final Log LOG = LogFactory.getLog(AdhocQueryRequestDescriptionBuilder.class);
-    private AssertionDescriptionExtractor assertionExtractor = new AssertionDescriptionExtractor();
     private Optional<AdhocQueryRequest> request;
-    private Optional<AssertionType> assertion;
 
     public AdhocQueryRequestDescriptionBuilder() {
         request = Optional.absent();
-        assertion = Optional.absent();
     }
 
     @Override
@@ -84,20 +79,6 @@ public class AdhocQueryRequestDescriptionBuilder extends BaseEventDescriptionBui
     }
 
     @Override
-    public void buildNPI() {
-        if (assertion.isPresent()) {
-            setNpi(assertionExtractor.getNPI(assertion.get()));
-        }
-    }
-
-    @Override
-    public void buildInitiatingHCID() {
-        if (assertion.isPresent()) {
-            setInitiatingHCID(assertionExtractor.getInitiatingHCID(assertion.get()));
-        }
-    }
-
-    @Override
     public void buildErrorCodes() {
         // error codes not available in request
     }
@@ -105,13 +86,11 @@ public class AdhocQueryRequestDescriptionBuilder extends BaseEventDescriptionBui
     @Override
     public void setArguments(Object... arguments) {
         Optional<AdhocQueryRequest> request = extractRequest(arguments);
-        Optional<AssertionType> assertion = extractAssertion(arguments);
         if (!request.isPresent()) {
             LOG.warn("Unexpected argument list: " + Arrays.toString(arguments));
         } else {
             this.request = request;
-            this.assertion = assertion;
-
+            extractAssertion(arguments);
         }
     }
 
@@ -120,32 +99,13 @@ public class AdhocQueryRequestDescriptionBuilder extends BaseEventDescriptionBui
         // return value not dealt with by request builder
     }
 
-    public void setAssertionExtractor(AssertionDescriptionExtractor assertionExtractor) {
-        this.assertionExtractor = assertionExtractor;
-    }
-
-    protected AssertionDescriptionExtractor getAssertionExtractor() {
-        return assertionExtractor;
-    }
-
     protected Optional<AdhocQueryRequest> getRequest() {
         return request;
-    }
-
-    protected Optional<AssertionType> getAssertion() {
-        return assertion;
     }
 
     private Optional<AdhocQueryRequest> extractRequest(Object[] arguments) {
         if (arguments != null && arguments.length > 0 && arguments[0] instanceof AdhocQueryRequest) {
             return Optional.of((AdhocQueryRequest) arguments[0]);
-        }
-        return Optional.absent();
-    }
-
-    private Optional<AssertionType> extractAssertion(Object[] arguments) {
-        if (arguments != null && arguments.length > 1 && arguments[1] instanceof AssertionType) {
-            return Optional.of((AssertionType) arguments[1]);
         }
         return Optional.absent();
     }

@@ -26,71 +26,78 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.docquery.aspect;
+package gov.hhs.fha.nhinc.event;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.event.BaseDescriptionBuilderTest;
-import gov.hhs.fha.nhinc.event.EventDescription;
 import gov.hhs.fha.nhinc.event.builder.AssertionDescriptionExtractor;
-import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.util.CollectionUtils;
+import org.mockito.Mockito;
 
-public class AdhocQueryRequestDescriptionBuilderTest extends BaseDescriptionBuilderTest {
+public class AssertionEventDescriptionBuilderTest extends BaseDescriptionBuilderTest {
 
-    private AdhocQueryRequestDescriptionBuilder builder = new AdhocQueryRequestDescriptionBuilder();
+    private AssertionEventDescriptionBuilder builder;
     private AssertionType assertion;
     private AssertionDescriptionExtractor assertionExtractor;
-    private AdhocQueryRequest request;
 
     @Before
     public void before() {
-        request = new AdhocQueryRequest();
-        builder = new AdhocQueryRequestDescriptionBuilder();
-        assertion = new AssertionType();
+        assertion = mock(AssertionType.class);
+
         assertionExtractor = mock(AssertionDescriptionExtractor.class);
         when(assertionExtractor.getInitiatingHCID(assertion)).thenReturn("hcid");
         when(assertionExtractor.getNPI(assertion)).thenReturn("npi");
+
+        builder = mock(AssertionEventDescriptionBuilder.class, Mockito.CALLS_REAL_METHODS);
+        doNothing().when(builder).buildTimeStamp();
+        doNothing().when(builder).buildStatuses();
+        doNothing().when(builder).buildRespondingHCIDs();
+        doNothing().when(builder).buildPayloadTypes();
+        doNothing().when(builder).buildPayloadSizes();
+        doNothing().when(builder).buildErrorCodes();
     }
 
     @Test
-    public void noAssertion() {
-        Object[] arguments = { request };
-        builder.setArguments(arguments);
-        EventDescription eventDescription = assertBasicBuild(builder);
-        assertNull(eventDescription.getNPI());
-        assertNull(eventDescription.getInitiatingHCID());
+    public void correctType() {
+        assertTrue(BaseEventDescriptionBuilder.class.isAssignableFrom(AssertionEventDescriptionBuilder.class));
     }
 
     @Test
-    public void withAssertion() {
+    public void extractsAssertion() {
         builder.setAssertionExtractor(assertionExtractor);
-        Object[] arguments = { request, assertion };
-        builder.setArguments(arguments);
-        EventDescription eventDescription = assertBasicBuild(builder);
+        Object[] params = new Object[] { new Object(), new Object(), assertion };
+        builder.extractAssertion(params);
+
+        EventDescription eventDescription = getEventDescription(builder);
         assertEquals("hcid", eventDescription.getInitiatingHCID());
         assertEquals("npi", eventDescription.getNPI());
     }
 
-    private EventDescription assertBasicBuild(AdhocQueryRequestDescriptionBuilder builder) {
+    @Test
+    public void worksWithNoAssertion() {
+        builder.setAssertionExtractor(assertionExtractor);
+        Object[] params = new Object[] {};
+        builder.extractAssertion(params);
+
         EventDescription eventDescription = getEventDescription(builder);
+        assertNull(eventDescription.getInitiatingHCID());
+        assertNull(eventDescription.getNPI());
+    }
 
-        assertEquals(1, eventDescription.getPayloadTypes().size());
-        assertEquals(AdhocQueryRequest.class.getSimpleName(), eventDescription.getPayloadTypes().get(0));
+    @Test
+    public void worksWithEmptyParams() {
+        builder.setAssertionExtractor(assertionExtractor);
+        builder.extractAssertion((Object[]) null);
 
-        assertNull(eventDescription.getTimeStamp());
-        assertTrue(CollectionUtils.isEmpty(eventDescription.getStatuses()));
-        assertNull(eventDescription.getRespondingHCIDs());
-        assertTrue(CollectionUtils.isEmpty(eventDescription.getPayloadSizes()));
-        assertNull(eventDescription.getErrorCodes());
-
-        return eventDescription;
+        EventDescription eventDescription = getEventDescription(builder);
+        assertNull(eventDescription.getInitiatingHCID());
+        assertNull(eventDescription.getNPI());
     }
 }
