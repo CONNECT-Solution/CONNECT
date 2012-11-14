@@ -26,12 +26,7 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.docquery.aspect;
-
-import gov.hhs.fha.nhinc.event.EventContextAccessor;
-import gov.hhs.fha.nhinc.event.EventDescription;
-import gov.hhs.fha.nhinc.event.EventDescriptionBuilder;
-import gov.hhs.fha.nhinc.event.MessageRoutingAccessor;
+package gov.hhs.fha.nhinc.event;
 
 /**
  * EventDescriptionBuilder that transforms arguments from one method into the format used by another concrete builder,
@@ -126,7 +121,7 @@ public abstract class ArgTransformerEventDescriptionBuilder implements EventDesc
      * 
      * @return the delegate set by a previous call to <code>setDelegate</code>.
      */
-    protected final EventDescriptionBuilder getDelegate() {
+    public final EventDescriptionBuilder getDelegate() {
         return delegate;
     }
 
@@ -173,7 +168,7 @@ public abstract class ArgTransformerEventDescriptionBuilder implements EventDesc
      *            input arguments that <code>setArguments</code> will be called with
      * @return arguments expected by the delegate
      */
-    protected abstract Object[] transformArguments(Object[] arguments);
+    public abstract Object[] transformArguments(Object[] arguments);
 
     /**
      * Go from the input return value to the delegate's return value.
@@ -182,7 +177,7 @@ public abstract class ArgTransformerEventDescriptionBuilder implements EventDesc
      *            value <code>setReturnValue</code> will be called with
      * @return value expected by the delegate
      */
-    protected abstract Object transformReturnValue(Object returnValue);
+    public abstract Object transformReturnValue(Object returnValue);
 
     private void setMsgObjects() {
         if (delegate != null) {

@@ -26,26 +26,26 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.docquery.aspect;
+package gov.hhs.fha.nhinc.docretrieve.aspect;
 
-import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayQuerySecuredRequestType;
+import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayCrossGatewayRetrieveRequestType;
 import gov.hhs.fha.nhinc.event.ArgTransformerEventDescriptionBuilder;
 
-public class RespondingGatewayCrossGatewayQuerySecuredRequestTypeDescriptionBuilder extends
-        ArgTransformerEventDescriptionBuilder {
+public class NhincProxyRetrieveRequestTypeDescriptionBuilder extends ArgTransformerEventDescriptionBuilder {
 
-    public RespondingGatewayCrossGatewayQuerySecuredRequestTypeDescriptionBuilder() {
-        setDelegate(new AdhocQueryRequestDescriptionBuilder());
+    public NhincProxyRetrieveRequestTypeDescriptionBuilder() {
+        setDelegate(new RetrieveDocumentSetRequestTypeDescriptionBuilder());
     }
 
     @Override
     public Object[] transformArguments(Object[] arguments) {
-        RespondingGatewayCrossGatewayQuerySecuredRequestType request = (RespondingGatewayCrossGatewayQuerySecuredRequestType) arguments[0];
-        return new Object[] { request.getAdhocQueryRequest() };
+        RespondingGatewayCrossGatewayRetrieveRequestType request = (RespondingGatewayCrossGatewayRetrieveRequestType) arguments[0];
+        return new Object[] { request.getRetrieveDocumentSetRequest(), request.getAssertion() };
     }
 
     @Override
     public Object transformReturnValue(Object returnValue) {
         return returnValue;
     }
+
 }

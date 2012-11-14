@@ -29,6 +29,7 @@
 package gov.hhs.fha.nhinc.docquery.aspect;
 
 import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayCrossGatewayQuerySecuredRequestType;
+import gov.hhs.fha.nhinc.event.ArgTransformerEventDescriptionBuilder;
 
 public class NhincProxyQuerySecuredRequestTypeDescriptionBuilder extends ArgTransformerEventDescriptionBuilder {
 
@@ -37,13 +38,13 @@ public class NhincProxyQuerySecuredRequestTypeDescriptionBuilder extends ArgTran
     }
 
     @Override
-    protected Object[] transformArguments(Object[] arguments) {
+    public Object[] transformArguments(Object[] arguments) {
         RespondingGatewayCrossGatewayQuerySecuredRequestType request = (RespondingGatewayCrossGatewayQuerySecuredRequestType) arguments[0];
         return new Object[] { request.getAdhocQueryRequest() };
     }
 
     @Override
-    protected Object transformReturnValue(Object returnValue) {
+    public Object transformReturnValue(Object returnValue) {
         return returnValue;
     }
 }
