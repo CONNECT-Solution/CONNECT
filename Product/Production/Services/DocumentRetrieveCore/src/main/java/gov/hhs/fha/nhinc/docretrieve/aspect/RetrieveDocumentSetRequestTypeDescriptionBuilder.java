@@ -28,18 +28,14 @@
  */
 package gov.hhs.fha.nhinc.docretrieve.aspect;
 
-import gov.hhs.fha.nhinc.event.BaseEventDescriptionBuilder;
-import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
+import gov.hhs.fha.nhinc.event.AssertionEventDescriptionBuilder;
 
 /**
- * Event description builder for retrieve document set request objects. The retreive document set object does not
+ * Event description builder for retrieve document set request objects. The retrieve document set object does not
  * contain any fields that contribute to event descriptions. Only the routing and event context extraction from the
  * superclass are necessary.
  */
-public class RetrieveDocumentSetRequestTypeDescriptionBuilder extends BaseEventDescriptionBuilder {
-
-    public RetrieveDocumentSetRequestTypeDescriptionBuilder(RetrieveDocumentSetRequestType request) {
-    }
+public class RetrieveDocumentSetRequestTypeDescriptionBuilder extends AssertionEventDescriptionBuilder {
 
     @Override
     public void buildTimeStamp() {
@@ -62,26 +58,15 @@ public class RetrieveDocumentSetRequestTypeDescriptionBuilder extends BaseEventD
     }
 
     @Override
-    public void buildNPI() {
-    }
-
-    @Override
-    public void buildInitiatingHCID() {
-    }
-
-    @Override
     public void buildErrorCodes() {
     }
 
     @Override
     public void setArguments(Object... arguments) {
-        // TODO need to do
-        
+        extractAssertion(arguments);
     }
 
     @Override
     public void setReturnValue(Object returnValue) {
-        // TODO Auto-generated method stub
-        
     }
 }

@@ -26,31 +26,27 @@
  */
 package gov.hhs.fha.nhinc.docsubmission.aspect;
 
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.event.AssertionEventDescriptionBuilder;
+import gov.hhs.fha.nhinc.event.builder.AssertionDescriptionExtractor;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.event.BaseEventDescriptionBuilder;
-import gov.hhs.fha.nhinc.event.builder.AssertionDescriptionExtractor;
-
 /**
  * @author akong
- *
+ * 
  */
-public class InboundProcessingEventDescriptionBuilder extends BaseEventDescriptionBuilder {
+public class InboundProcessingEventDescriptionBuilder extends AssertionEventDescriptionBuilder {
 
     private final ProvideAndRegisterDocumentSetDescriptionExtractor REQUEST_EXTRACTOR;
     private final RegistryResponseDescriptionExtractor RESPONSE_EXTRACTOR;
-    private final AssertionDescriptionExtractor ASSERTION_EXTRACTOR;
 
     private ProvideAndRegisterDocumentSetRequestType request;
-    private AssertionType assertion;
     private RegistryResponseType response;
 
     public InboundProcessingEventDescriptionBuilder() {
         REQUEST_EXTRACTOR = new ProvideAndRegisterDocumentSetDescriptionExtractor();
         RESPONSE_EXTRACTOR = new RegistryResponseDescriptionExtractor();
-        ASSERTION_EXTRACTOR = new AssertionDescriptionExtractor();
     }
 
     public InboundProcessingEventDescriptionBuilder(
@@ -59,12 +55,12 @@ public class InboundProcessingEventDescriptionBuilder extends BaseEventDescripti
             final RegistryResponseDescriptionExtractor responseExtractor) {
         REQUEST_EXTRACTOR = requestExtractor;
         RESPONSE_EXTRACTOR = responseExtractor;
-        ASSERTION_EXTRACTOR = assertionExtractor;
+        super.setAssertionExtractor(assertionExtractor);
     }
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see gov.hhs.fha.nhinc.event.EventDescriptionBuilder#buildTimeStamp()
      */
     @Override
@@ -74,7 +70,7 @@ public class InboundProcessingEventDescriptionBuilder extends BaseEventDescripti
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see gov.hhs.fha.nhinc.event.EventDescriptionBuilder#buildStatuses()
      */
     @Override
@@ -84,7 +80,7 @@ public class InboundProcessingEventDescriptionBuilder extends BaseEventDescripti
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see gov.hhs.fha.nhinc.event.EventDescriptionBuilder#buildRespondingHCIDs()
      */
     @Override
@@ -94,7 +90,7 @@ public class InboundProcessingEventDescriptionBuilder extends BaseEventDescripti
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see gov.hhs.fha.nhinc.event.EventDescriptionBuilder#buildPayloadTypes()
      */
     @Override
@@ -104,7 +100,7 @@ public class InboundProcessingEventDescriptionBuilder extends BaseEventDescripti
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see gov.hhs.fha.nhinc.event.EventDescriptionBuilder#buildPayloadSize()
      */
     @Override
@@ -114,27 +110,7 @@ public class InboundProcessingEventDescriptionBuilder extends BaseEventDescripti
 
     /*
      * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.event.EventDescriptionBuilder#buildNPI()
-     */
-    @Override
-    public void buildNPI() {
-        setNpi(ASSERTION_EXTRACTOR.getNPI(assertion));
-    }
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.event.EventDescriptionBuilder#buildInitiatingHCID()
-     */
-    @Override
-    public void buildInitiatingHCID() {
-        setInitiatingHCID(ASSERTION_EXTRACTOR.getInitiatingHCID(assertion));
-    }
-
-    /*
-     * (non-Javadoc)
-     *
+     * 
      * @see gov.hhs.fha.nhinc.event.EventDescriptionBuilder#buildErrorCodes()
      */
     @Override
@@ -144,14 +120,14 @@ public class InboundProcessingEventDescriptionBuilder extends BaseEventDescripti
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see gov.hhs.fha.nhinc.event.BaseEventDescriptionBuilder#setArguments(java.lang.Object[])
      */
     @Override
     public void setArguments(Object... arguments) {
         if (arguments != null && arguments.length == 2 && areArgumentTypesExpected(arguments)) {
             this.request = (ProvideAndRegisterDocumentSetRequestType) arguments[0];
-            this.assertion = (AssertionType) arguments[1];
+            extractAssertion(arguments);
         }
     }
 
@@ -162,7 +138,7 @@ public class InboundProcessingEventDescriptionBuilder extends BaseEventDescripti
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see gov.hhs.fha.nhinc.event.BaseEventDescriptionBuilder#setReturnValue(java.lang.Object)
      */
     @Override

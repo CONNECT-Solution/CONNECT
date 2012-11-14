@@ -29,6 +29,10 @@ package gov.hhs.fha.nhinc.admindistribution.aspect;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.event.BaseDescriptionBuilderTest;
+import gov.hhs.fha.nhinc.event.EventDescription;
+import gov.hhs.fha.nhinc.event.builder.AssertionDescriptionExtractor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,14 +42,9 @@ import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 
 import org.junit.Test;
 
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.event.BaseDescriptionBuilderTest;
-import gov.hhs.fha.nhinc.event.EventDescription;
-import gov.hhs.fha.nhinc.event.builder.AssertionDescriptionExtractor;
-
 /**
  * @author akong
- *
+ * 
  */
 public class InboundProcessingEventDescriptionBuilderTest extends BaseDescriptionBuilderTest {
 

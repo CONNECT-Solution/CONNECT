@@ -26,43 +26,44 @@
  */
 package gov.hhs.fha.nhinc.admindistribution.aspect;
 
-import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
-
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.event.BaseEventDescriptionBuilder;
+import gov.hhs.fha.nhinc.event.AssertionEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.event.builder.AssertionDescriptionExtractor;
+import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 
 /**
  * @author zmelnick
- *
+ * 
  */
-public class InboundProcessingEventDescriptionBuilder extends BaseEventDescriptionBuilder {
+public class InboundProcessingEventDescriptionBuilder extends AssertionEventDescriptionBuilder {
 
     private final EDXLDistributionDescriptionExtractor AD_EXTRACTOR;
-    private final AssertionDescriptionExtractor ASSERTION_EXTRACTOR;
 
     EDXLDistribution alertMessage;
-    AssertionType assertion;
 
     /**
      * Public constructor
      */
     public InboundProcessingEventDescriptionBuilder() {
-        this(new EDXLDistributionDescriptionExtractor(), new AssertionDescriptionExtractor());
+        this(new EDXLDistributionDescriptionExtractor());
     }
 
     /**
      * Public Constructor
      */
-    public InboundProcessingEventDescriptionBuilder(final EDXLDistributionDescriptionExtractor adExtractor,
-            final AssertionDescriptionExtractor assertionExtractor) {
+    public InboundProcessingEventDescriptionBuilder(final EDXLDistributionDescriptionExtractor adExtractor) {
         AD_EXTRACTOR = adExtractor;
-        ASSERTION_EXTRACTOR = assertionExtractor;
+    }
+
+    public InboundProcessingEventDescriptionBuilder(EDXLDistributionDescriptionExtractor edxldExtractor,
+            AssertionDescriptionExtractor assertionExtractor) {
+        this(edxldExtractor);
+        setAssertionExtractor(assertionExtractor);
     }
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see gov.hhs.fha.nhinc.event.EventDescriptionBuilder#buildTimeStamp()
      */
     @Override
@@ -72,7 +73,7 @@ public class InboundProcessingEventDescriptionBuilder extends BaseEventDescripti
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see gov.hhs.fha.nhinc.event.EventDescriptionBuilder#buildStatuses()
      */
     @Override
@@ -83,7 +84,7 @@ public class InboundProcessingEventDescriptionBuilder extends BaseEventDescripti
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see gov.hhs.fha.nhinc.event.EventDescriptionBuilder#buildRespondingHCIDs()
      */
     @Override
@@ -93,7 +94,7 @@ public class InboundProcessingEventDescriptionBuilder extends BaseEventDescripti
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see gov.hhs.fha.nhinc.event.EventDescriptionBuilder#buildPayloadTypes()
      */
     @Override
@@ -103,7 +104,7 @@ public class InboundProcessingEventDescriptionBuilder extends BaseEventDescripti
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see gov.hhs.fha.nhinc.event.EventDescriptionBuilder#buildPayloadSize()
      */
     @Override
@@ -113,27 +114,7 @@ public class InboundProcessingEventDescriptionBuilder extends BaseEventDescripti
 
     /*
      * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.event.EventDescriptionBuilder#buildNPI()
-     */
-    @Override
-    public void buildNPI() {
-        setNpi(ASSERTION_EXTRACTOR.getNPI(assertion));
-    }
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.event.EventDescriptionBuilder#buildInitiatingHCID()
-     */
-    @Override
-    public void buildInitiatingHCID() {
-        setInitiatingHCID(ASSERTION_EXTRACTOR.getInitiatingHCID(assertion));
-    }
-
-    /*
-     * (non-Javadoc)
-     *
+     * 
      * @see gov.hhs.fha.nhinc.event.EventDescriptionBuilder#buildErrorCodes()
      */
     @Override
@@ -143,14 +124,14 @@ public class InboundProcessingEventDescriptionBuilder extends BaseEventDescripti
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see gov.hhs.fha.nhinc.event.BaseEventDescriptionBuilder#setArguments(java.lang.Object[])
      */
     @Override
     public void setArguments(Object... arguements) {
         if (arguements != null && arguements.length == 2 && areArgumentTypesExpected(arguements)) {
             this.alertMessage = (EDXLDistribution) arguements[0];
-            this.assertion = (AssertionType) arguements[1];
+            extractAssertion(arguements);
         }
     }
 
@@ -160,7 +141,7 @@ public class InboundProcessingEventDescriptionBuilder extends BaseEventDescripti
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see gov.hhs.fha.nhinc.event.BaseEventDescriptionBuilder#setReturnValue(java.lang.Object)
      */
     @Override
