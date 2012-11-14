@@ -28,39 +28,71 @@
  */
 package gov.hhs.fha.nhinc.docretrieve.aspect;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.event.BaseDescriptionBuilderTest;
 import gov.hhs.fha.nhinc.event.EventDescription;
+import gov.hhs.fha.nhinc.event.builder.AssertionDescriptionExtractor;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.springframework.util.CollectionUtils;
 
 public class RetrieveDocumentSetRequestTypeDescriptionBuilderTest extends BaseDescriptionBuilderTest {
 
+    private RetrieveDocumentSetRequestTypeDescriptionBuilder builder;
+    private RetrieveDocumentSetRequestType request;
+    private AssertionType assertion;
+    private AssertionDescriptionExtractor assertionExtractor;
+
+    @Before
+    public void before() {
+        builder = new RetrieveDocumentSetRequestTypeDescriptionBuilder();
+        request = new RetrieveDocumentSetRequestType();
+        assertion = new AssertionType();
+        assertionExtractor = mock(AssertionDescriptionExtractor.class);
+        when(assertionExtractor.getInitiatingHCID(assertion)).thenReturn("hcid");
+        when(assertionExtractor.getNPI(assertion)).thenReturn("npi");
+    }
+
     @Test
     public void emptyBuild() {
-        RetrieveDocumentSetRequestTypeDescriptionBuilder builder = new RetrieveDocumentSetRequestTypeDescriptionBuilder(
-                null);
         EventDescription eventDescription = getEventDescription(builder);
         assertNotNull(eventDescription);
     }
 
     @Test
-    public void basicBuild() {
-        RetrieveDocumentSetRequestType request = new RetrieveDocumentSetRequestType();
-        RetrieveDocumentSetRequestTypeDescriptionBuilder builder = new RetrieveDocumentSetRequestTypeDescriptionBuilder(
-                request);
+    public void noAssertion() {
+        builder.setArguments(request);
+        EventDescription eventDescription = assertBasicBuild();
+        assertNull(eventDescription.getNPI());
+        assertNull(eventDescription.getInitiatingHCID());
+    }
+
+    @Test
+    public void withAssertion() {
+        builder.setAssertionExtractor(assertionExtractor);
+        Object[] arguments = { request, assertion };
+        builder.setArguments(arguments);
+        EventDescription eventDescription = assertBasicBuild();
+        assertEquals("hcid", eventDescription.getInitiatingHCID());
+        assertEquals("npi", eventDescription.getNPI());
+    }
+
+    private EventDescription assertBasicBuild() {
         EventDescription eventDescription = getEventDescription(builder);
         assertNull(eventDescription.getTimeStamp());
         assertTrue(CollectionUtils.isEmpty(eventDescription.getStatuses()));
         assertNull(eventDescription.getRespondingHCIDs());
         assertTrue(CollectionUtils.isEmpty(eventDescription.getPayloadTypes()));
         assertTrue(CollectionUtils.isEmpty(eventDescription.getPayloadSizes()));
-        assertNull(eventDescription.getNPI());
-        assertNull(eventDescription.getInitiatingHCID());
         assertTrue(CollectionUtils.isEmpty(eventDescription.getErrorCodes()));
+        return eventDescription;
     }
 }
