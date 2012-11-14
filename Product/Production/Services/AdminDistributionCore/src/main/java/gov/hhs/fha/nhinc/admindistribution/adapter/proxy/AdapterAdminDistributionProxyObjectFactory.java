@@ -42,6 +42,9 @@ public class AdapterAdminDistributionProxyObjectFactory extends ComponentProxyOb
         return CONFIG_FILE_NAME;
     }
 
+    /**
+     * @return AdapterAdminDist Bean to instantiate from Spring Proxy File.
+     */
     public AdapterAdminDistributionProxy getAdapterAdminDistProxy() {
         log.debug("Begin getAdapterAdminDistProxy()");
 

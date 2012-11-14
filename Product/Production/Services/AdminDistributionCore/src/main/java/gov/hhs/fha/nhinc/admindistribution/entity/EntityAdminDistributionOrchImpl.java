@@ -58,10 +58,18 @@ public class EntityAdminDistributionOrchImpl {
     private Log log = null;
     private final AdminDistributionAuditLogger auditLogger = null;
 
+    /**
+     * Constructor.
+     */
     public EntityAdminDistributionOrchImpl() {
         log = getLog();
     }
 
+    /**
+     * @param message SendAlerMessage Received.
+     * @param assertion Assertion received.
+     * @param target NhinTargetCommunity received.
+     */
     public void sendAlertMessage(RespondingGatewaySendAlertMessageType message, AssertionType assertion,
             NhinTargetCommunitiesType target) {
         auditMessage(message, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
@@ -81,26 +89,37 @@ public class EntityAdminDistributionOrchImpl {
                     NhinTargetSystemType targetSystem = buildTargetSystem(urlInfo);
                     auditMessage(message, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
                     sendToNhinProxy(message, assertion, targetSystem);
-                }
-                else {
+                } else {
                     log.error("The policy engine evaluated the request and denied the request.");
                 }
             }
         }
     }
 
-    protected void auditMessage(RespondingGatewaySendAlertMessageType message, AssertionType assertion, String direction) {
+    /** This method audits the AdminDist Entity Message.
+     * @param message SendAlertMessage received.
+     * @param assertion Assertion received.
+     * @param direction The direction can be eigther outbound or inbound.
+     */
+    protected void auditMessage(RespondingGatewaySendAlertMessageType message, AssertionType assertion,
+            String direction) {
         AcknowledgementType ack = getAuditLogger().auditEntityAdminDist(message, assertion, direction);
         if (ack != null) {
             log.debug("ack: " + ack.getMessage());
         }
     }
 
+    /**
+     * @return auditLogger to audit.
+     */
     protected AdminDistributionAuditLogger getAuditLogger() {
         return (auditLogger != null) ? auditLogger : new AdminDistributionAuditLogger();
     }
 
-    protected Log getLog(){
+    /**
+     * @return log.
+     */
+    protected Log getLog() {
         return (log != null) ? log : LogFactory.getLog(getClass());
     }
 
@@ -116,6 +135,11 @@ public class EntityAdminDistributionOrchImpl {
         return result;
     }
 
+    /** This method sends AlertMessage to the target.
+     * @param message SendAlertMessage received.
+     * @param assertion Assertion received.
+     * @param target NhinTargetCommunity received.
+     */
     public void sendAlertMessage(RespondingGatewaySendAlertMessageSecuredType message, AssertionType assertion,
             NhinTargetCommunitiesType target) {
         RespondingGatewaySendAlertMessageType unsecured = new RespondingGatewaySendAlertMessageType();
@@ -128,6 +152,11 @@ public class EntityAdminDistributionOrchImpl {
 
     }
 
+    /**
+     * @param body Emergency Message Distribution Element transaction received.
+     * @param assertion Assertion received.
+     * @param target NhinTargetCommunity received.
+     */
     public void sendAlertMessage(EDXLDistribution body, AssertionType assertion, NhinTargetCommunitiesType target) {
         RespondingGatewaySendAlertMessageType unsecured = new RespondingGatewaySendAlertMessageType();
 
@@ -139,6 +168,10 @@ public class EntityAdminDistributionOrchImpl {
 
     }
 
+    /** This method returns the list of url's of targetCommunities.
+     * @param targetCommunities NhinTargetCommunities received.
+     * @return list of urlInfo for target Communities.
+     */
     protected List<UrlInfo> getEndpoints(NhinTargetCommunitiesType targetCommunities) {
         List<UrlInfo> urlInfoList = null;
 
@@ -152,6 +185,12 @@ public class EntityAdminDistributionOrchImpl {
         return urlInfoList;
     }
 
+    /** This method returns boolean for the policyCheck for a specific HCID.
+     * @param request SendAlertMessage received.
+     * @param assertion Assertion received.
+     * @param hcid homeCommunityId to check policy.
+     * @return true if checkpolicy is permit; else false.
+     */
     protected boolean checkPolicy(RespondingGatewaySendAlertMessageType request, AssertionType assertion, String hcid) {
         if (request != null) {
             request.setAssertion(assertion);
@@ -159,11 +198,17 @@ public class EntityAdminDistributionOrchImpl {
         return new AdminDistributionPolicyChecker().checkOutgoingPolicy(request, hcid);
     }
 
+    /** This method send message to Nhin Proxy.  
+     * @param newRequest SendAlertMessage received.
+     * @param assertion Assertion received.
+     * @param target NhinTargetSystem received.
+     */
     protected void sendToNhinProxy(RespondingGatewaySendAlertMessageType newRequest, AssertionType assertion,
             NhinTargetSystemType target) {
         log.debug("begin sendToNhinProxy");
         OutboundAdminDistributionDelegate adDelegate = getNewOutboundAdminDistributionDelegate();
-        OutboundAdminDistributionOrchestratable orchestratable = new OutboundAdminDistributionOrchestratable(adDelegate);
+        OutboundAdminDistributionOrchestratable orchestratable = 
+                new OutboundAdminDistributionOrchestratable(adDelegate);
         orchestratable.setRequest(newRequest);
         orchestratable.setAssertion(assertion);
         orchestratable.setTarget(target);
@@ -171,12 +216,15 @@ public class EntityAdminDistributionOrchImpl {
     }
 
     /**
-     * @return
+     * @return an instance of OutboundAdminDistributionDelegate 
      */
     protected OutboundAdminDistributionDelegate getNewOutboundAdminDistributionDelegate() {
         return new OutboundAdminDistributionDelegate();
     }
 
+    /**
+     * @return Bean to instantiate MsgProxy.
+     */
     protected PassthruAdminDistributionProxy getNhincAdminDist() {
         return new PassthruAdminDistributionProxyObjectFactory().getNhincAdminDistProxy();
     }
