@@ -50,6 +50,7 @@ import org.nhindirect.stagent.AddressSource;
 import org.nhindirect.stagent.NHINDAddress;
 import org.nhindirect.stagent.NHINDAddressCollection;
 import org.nhindirect.stagent.mail.notifications.NotificationMessage;
+import org.nhindirect.xd.common.DirectDocuments;
 
 /**
  * Mail Server implementation which used the direct libraries to send encrypted mail.
@@ -91,6 +92,20 @@ public class DirectMailClient implements DirectClient {
 
         send(sender, recipients, mimeMessage, session);
     }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void send(Address sender, Address[] recipients, DirectDocuments documents, String messageId) {
+
+        Session session = getMailSession();
+
+        MimeMessage mimeMessage = new MimeMessageBuilder(session, sender, recipients).subject(MSG_SUBJECT)
+                .text(MSG_TEXT).documents(documents).messageId(messageId).build();
+
+        send(sender, recipients, mimeMessage, session);
+    }    
 
     /**
      * {@inheritDoc}

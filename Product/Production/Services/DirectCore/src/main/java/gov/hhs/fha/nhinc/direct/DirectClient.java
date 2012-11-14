@@ -32,6 +32,7 @@ import javax.mail.Address;
 import javax.mail.internet.MimeMessage;
 
 import org.nhindirect.gateway.smtp.MessageProcessResult;
+import org.nhindirect.xd.common.DirectDocuments;
 
 /**
  * Interface defining a Mail Client.
@@ -48,6 +49,16 @@ public interface DirectClient {
      */
     void send(Address sender, Address[] recipients, Document attachment, String attachmentName);
 
+    /**
+     * Use the mail server to send a DIRECT message.
+     *
+     * @param sender of the message
+     * @param recipients of the message
+     * @param documents to be attached to the message
+     * @param messageId for the message
+     */
+	void send(Address sender, Address[] recipients, DirectDocuments documents, String messageId);
+	
     /**
      * Use the mail server to send a DIRECT message. When you already have a mail message and you want to send it
      * as a DIRECT message.
@@ -72,5 +83,4 @@ public interface DirectClient {
      * @return number of messages handled.
      */
     int handleMessages(MessageHandler handler);
-
 }

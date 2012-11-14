@@ -3,8 +3,10 @@ package gov.hhs.fha.nhinc.direct;
 import static org.junit.Assert.fail;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+import static org.mockito.Matchers.anyString;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType.Document;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
@@ -18,6 +20,8 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 
 import org.apache.commons.io.IOUtils;
+import org.nhindirect.xd.common.DirectDocuments;
+import org.nhindirect.xd.common.XdmPackage;
 
 import com.icegreen.greenmail.store.MailFolder;
 import com.icegreen.greenmail.store.SimpleStoredMessage;
@@ -124,7 +128,18 @@ public class DirectUnitTestUtil {
 
         return mockDocument;        
     }
-
+    
+    public static DirectDocuments getMockDirectDocuments() {
+    	DirectDocuments mockDirectDocuments = mock(DirectDocuments.class);
+    	XdmPackage mockXdm = mock(XdmPackage.class);
+    	File mockFile = mock(File.class);
+    	
+    	when(mockDirectDocuments.toXdmPackage(anyString())).thenReturn(mockXdm);
+    	when(mockXdm.toFile()).thenReturn(mockFile);
+    	when(mockFile.getName()).thenReturn("fileName");
+    	
+    	return mockDirectDocuments;
+    }
     
     /**
      * Workaround for defect in greenmail expunging messages: 
@@ -178,7 +193,7 @@ public class DirectUnitTestUtil {
      */
     public static MimeMessageBuilder getMimeMessageBuilder(Session session) throws IOException {
         MimeMessageBuilder testBuilder = new MimeMessageBuilder(session, getSender(), getRecipients());
-        testBuilder.text("text").subject("subject").attachment(getMockDocument()).attachmentName("attachmentName");
+        testBuilder.text("text").subject("subject").attachment(getMockDocument()).attachmentName("attachmentName").documents(getMockDirectDocuments()).messageId("1234");
         return testBuilder;
     }
 
