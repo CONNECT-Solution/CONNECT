@@ -48,28 +48,31 @@ import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
  */
 public class PatientDiscoveryDeferredReqQueueClient {
 
-    private static final Log log = LogFactory.getLog(PatientDiscoveryDeferredReqQueueClient.class);
-    private static final String SERVICE_NAME = NhincConstants.PATIENT_DISCOVERY_ADAPTER_ASYNC_REQ_QUEUE_PROCESS_SERVICE_NAME;
+    private static final Log LOG = LogFactory.getLog(PatientDiscoveryDeferredReqQueueClient.class);
+    private static final String SERVICE_NAME =
+            NhincConstants.PATIENT_DISCOVERY_ADAPTER_ASYNC_REQ_QUEUE_PROCESS_SERVICE_NAME;
 
     private final WebServiceProxyHelper proxyHelper;
 
     /**
-     * Default constructor
+     * Default constructor.
      */
     public PatientDiscoveryDeferredReqQueueClient() {
         proxyHelper = new WebServiceProxyHelper();
     }
 
     /**
-     * Send queue process request for a deferred patient discovery queue record
+     * Send queue process request for a deferred patient discovery queue record.
      *
-     * @param messageId
+     * @param messageId takes in MessageID
      * @return queue process response
      */
-    public PatientDiscoveryDeferredReqQueueProcessResponseType processPatientDiscoveryDeferredReqQueue(String messageId) {
+    public PatientDiscoveryDeferredReqQueueProcessResponseType
+            processPatientDiscoveryDeferredReqQueue(String messageId) {
         String msgText = "";
 
-        PatientDiscoveryDeferredReqQueueProcessResponseType response = new PatientDiscoveryDeferredReqQueueProcessResponseType();
+        PatientDiscoveryDeferredReqQueueProcessResponseType response =
+                new PatientDiscoveryDeferredReqQueueProcessResponseType();
         SuccessOrFailType sof = new SuccessOrFailType();
         sof.setSuccess(Boolean.FALSE);
         response.setSuccessOrFail(sof);
@@ -81,29 +84,37 @@ public class PatientDiscoveryDeferredReqQueueClient {
             if (NullChecker.isNotNullish(endpointURL)) {
                 ServicePortDescriptor<AdapterPatientDiscoveryDeferredReqQueueProcessPortType> portDescriptor =
                         new AdapterPatientDiscoveryDeferredReqQueueProcessServicePortDescriptor();
-                CONNECTClient<AdapterPatientDiscoveryDeferredReqQueueProcessPortType> client = CONNECTClientFactory
-                        .getInstance().getCONNECTClientUnsecured(portDescriptor, endpointURL, null);
+                CONNECTClient<AdapterPatientDiscoveryDeferredReqQueueProcessPortType> client =
+                        CONNECTClientFactory.getInstance().getCONNECTClientUnsecured(portDescriptor, endpointURL, null);
 
                 PatientDiscoveryDeferredReqQueueProcessRequestType request =
                         new PatientDiscoveryDeferredReqQueueProcessRequestType();
                 request.setMessageId(messageId);
-                response = (PatientDiscoveryDeferredReqQueueProcessResponseType) client.invokePort(
-                        AdapterPatientDiscoveryDeferredReqQueueProcessPortType.class,
-                        "processPatientDiscoveryDeferredReqQueue", request);
+                response =
+                        (PatientDiscoveryDeferredReqQueueProcessResponseType) client.invokePort(
+                                AdapterPatientDiscoveryDeferredReqQueueProcessPortType.class,
+                                "processPatientDiscoveryDeferredReqQueue", request);
             } else {
-                msgText = "Endpoint URL not found for local home community service name ["
-                        + NhincConstants.PATIENT_DISCOVERY_ADAPTER_ASYNC_REQ_QUEUE_PROCESS_SERVICE_NAME + "]";
-                log.error(msgText);
+                msgText =
+                        "Endpoint URL not found for local home community service name ["
+                                + NhincConstants.PATIENT_DISCOVERY_ADAPTER_ASYNC_REQ_QUEUE_PROCESS_SERVICE_NAME + "]";
+                LOG.error(msgText);
                 response.setResponse(msgText);
             }
         } catch (Exception ex) {
             msgText = "Exception occurred during deferred patient discovery queue processing";
-            log.error(msgText, ex);
+            LOG.error(msgText, ex);
             response.setResponse(msgText);
         }
         return response;
     }
 
+    /**
+     * Get's the URL.
+     * @param serviceName String servicename
+     * @return the URL
+     * @throws ConnectionManagerException an error
+     */
     protected String getUrl(String serviceName) throws ConnectionManagerException {
         return proxyHelper.getAdapterEndPointFromConnectionManager(serviceName);
     }

@@ -38,6 +38,7 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd ">
         </jaxws:inInterceptors>
         <jaxws:handlers>
             <ref bean="SOAPHeaderHandler" />
+            <ref bean="TransactionHandler"/>
         </jaxws:handlers>
     </jaxws:endpoint>
 
@@ -62,6 +63,7 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd ">
         </jaxws:inInterceptors>
         <jaxws:handlers>
             <ref bean="SOAPHeaderHandler" />
+            <ref bean="TransactionHandler"/>
         </jaxws:handlers>
     </jaxws:endpoint>
 
@@ -70,6 +72,9 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd ">
         serviceName="tns:EntityPatientDiscovery" endpointName="tns:EntityPatientDiscoveryPortSoap"
         implementorClass="gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.EntityPatientDiscoveryUnsecured"
         implementor="#entityPDUnsecured" wsdlLocation="classpath:wsdl/EntityPatientDiscovery.wsdl">
+        <jaxws:handlers>
+            <ref bean="TransactionHandler"/>
+        </jaxws:handlers>
     </jaxws:endpoint>
 
     <!-- MsgProxy/NhincProxy/Passthru services -->
@@ -94,6 +99,7 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd ">
         </jaxws:inInterceptors>
         <jaxws:handlers>
             <ref bean="SOAPHeaderHandler" />
+            <ref bean="TransactionHandler"/>
         </jaxws:handlers>
     </jaxws:endpoint>
 
@@ -102,6 +108,9 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd ">
         serviceName="tns:NhincProxyPatientDiscovery" endpointName="tns:NhincProxyPatientDiscoveryPort"
         implementorClass="gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.NhincProxyPatientDiscovery"
         implementor="#passthruPDUnsecured" wsdlLocation="classpath:wsdl/NhincProxyPatientDiscovery.wsdl">
+        <jaxws:handlers>
+            <ref bean="TransactionHandler"/>
+        </jaxws:handlers>
     </jaxws:endpoint>
 
 
