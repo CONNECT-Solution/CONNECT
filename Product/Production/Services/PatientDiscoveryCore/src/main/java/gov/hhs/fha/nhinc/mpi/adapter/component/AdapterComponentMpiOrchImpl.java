@@ -53,7 +53,7 @@ public class AdapterComponentMpiOrchImpl {
         AdapterComponentMpiChecker oMpiChecker = null;
         AdapterComponentMpiCheckerObjectFactory oFactory = new AdapterComponentMpiCheckerObjectFactory();
         oMpiChecker = oFactory.getAdapterComponentMpiChecker();
-        PRPAIN201306UV02 oResponse = oMpiChecker.FindPatient(findCandidatesRequest);
+        PRPAIN201306UV02 oResponse = oMpiChecker.findPatient(findCandidatesRequest);
         return oResponse;
     }
 }
