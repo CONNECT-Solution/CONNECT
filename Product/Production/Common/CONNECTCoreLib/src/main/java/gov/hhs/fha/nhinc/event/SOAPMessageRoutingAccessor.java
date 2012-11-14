@@ -28,19 +28,19 @@
  */
 package gov.hhs.fha.nhinc.event;
 
-import java.util.List;
-
 import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
 import gov.hhs.fha.nhinc.logging.transaction.dao.TransactionDAO;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+
+import java.util.List;
 
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.handler.MessageContext;
 
 import org.apache.cxf.jaxws.context.WebServiceContextImpl;
 
-public class SOAPMessageRoutingAccessor implements MessageRoutingAccessor  {
+public class SOAPMessageRoutingAccessor implements MessageRoutingAccessor {
 
     private WebServiceContext context;
 
@@ -52,16 +52,19 @@ public class SOAPMessageRoutingAccessor implements MessageRoutingAccessor  {
         this.context = context;
     }
 
-    
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see gov.hhs.fha.nhinc.event.HeaderEvent#getMessageId()
      */
     @Override
-    public  String getMessageId() {
+    public String getMessageId() {
         return AsyncMessageIdExtractor.getMessageId(context);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see gov.hhs.fha.nhinc.event.HeaderEvent#getTransactionId()
      */
     @Override
@@ -82,15 +85,19 @@ public class SOAPMessageRoutingAccessor implements MessageRoutingAccessor  {
         return transactionId;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see gov.hhs.fha.nhinc.event.HeaderEvent#buildResponseMsgIdList()
      */
+    @SuppressWarnings("unchecked")
     @Override
     public List<String> getResponseMsgIdList() {
         MessageContext mContext = context.getMessageContext();
+        if (mContext == null) {
+            return null;
+        }
         return (List<String>) mContext.get(NhincConstants.RESPONSE_MESSAGE_ID_LIST_KEY);
     }
-    
-    
 
 }

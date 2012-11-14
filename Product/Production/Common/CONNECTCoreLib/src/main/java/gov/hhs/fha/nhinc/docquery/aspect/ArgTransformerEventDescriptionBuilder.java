@@ -37,6 +37,9 @@ import gov.hhs.fha.nhinc.event.MessageRoutingAccessor;
  * EventDescriptionBuilder that transforms arguments from one method into the format used by another concrete builder,
  * then delegates all work to the other builder. Useful for gateway to non-gateway transformations. Concrete
  * implementations should call <code>setDelegate</code> during construction.
+ * 
+ * <p>
+ * All of the build* methods are final. They each delegate to the builder passed in via setDelegate.
  */
 public abstract class ArgTransformerEventDescriptionBuilder implements EventDescriptionBuilder {
     private EventDescriptionBuilder delegate;
@@ -118,10 +121,19 @@ public abstract class ArgTransformerEventDescriptionBuilder implements EventDesc
         delegate.createEventDescription();
     }
 
+    /**
+     * For testing purposes.
+     * 
+     * @return the delegate set by a previous call to <code>setDelegate</code>.
+     */
     protected final EventDescriptionBuilder getDelegate() {
         return delegate;
     }
 
+    /**
+     * @param delegate
+     *            The builder to delegate to, after transforming the arguments. Must not be null.
+     */
     protected final void setDelegate(EventDescriptionBuilder delegate) {
         if (delegate == null) {
             throw new IllegalArgumentException("delegate cannot be null");
