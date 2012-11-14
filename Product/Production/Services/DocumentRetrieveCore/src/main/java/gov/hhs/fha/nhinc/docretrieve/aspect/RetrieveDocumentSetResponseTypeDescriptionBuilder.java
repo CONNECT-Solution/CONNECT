@@ -29,6 +29,7 @@
 package gov.hhs.fha.nhinc.docretrieve.aspect;
 
 import gov.hhs.fha.nhinc.event.BaseEventDescriptionBuilder;
+import gov.hhs.fha.nhinc.util.NhincCollections;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType.DocumentResponse;
 
@@ -37,19 +38,15 @@ import java.util.List;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
 
 import com.google.common.base.Function;
+import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Lists;
 
 public class RetrieveDocumentSetResponseTypeDescriptionBuilder extends BaseEventDescriptionBuilder {
 
     private static final HCIDExtractor HCID_EXTRACTOR = new HCIDExtractor();
     private static final ErrorCodeExtractor ERROR_CODE_EXTRACTOR = new ErrorCodeExtractor();
-    private RetrieveDocumentSetResponseType response;
-
-    public RetrieveDocumentSetResponseTypeDescriptionBuilder(RetrieveDocumentSetResponseType response) {
-        this.response = response;
-    }
+    private Optional<RetrieveDocumentSetResponseType> response = Optional.absent();
 
     @Override
     public void buildTimeStamp() {
@@ -57,16 +54,16 @@ public class RetrieveDocumentSetResponseTypeDescriptionBuilder extends BaseEvent
 
     @Override
     public void buildStatuses() {
-        if (response != null) {
-            setStatuses(ImmutableList.of(response.getRegistryResponse().getStatus()));
+        if (response.isPresent()) {
+            setStatuses(ImmutableList.of(response.get().getRegistryResponse().getStatus()));
         }
     }
 
     @Override
     public void buildRespondingHCIDs() {
-        if (response != null) {
-            List<String> listWithDups = Lists.transform(response.getDocumentResponse(), HCID_EXTRACTOR);
-            setRespondingHCIDs(ImmutableSet.copyOf(listWithDups).asList());
+        if (response.isPresent()) {
+            List<Optional<String>> listWithDups = Lists.transform(response.get().getDocumentResponse(), HCID_EXTRACTOR);
+            setRespondingHCIDs(NhincCollections.fillAbsents(listWithDups, ""));
         }
     }
 
@@ -92,18 +89,22 @@ public class RetrieveDocumentSetResponseTypeDescriptionBuilder extends BaseEvent
 
     @Override
     public void buildErrorCodes() {
-        if (response != null && response.getRegistryResponse().getRegistryErrorList() != null) {
-            List<String> listWithDups = Lists.transform(response.getRegistryResponse().getRegistryErrorList()
+        if (response.isPresent() && response.get().getRegistryResponse().getRegistryErrorList() != null) {
+            List<String> listWithDups = Lists.transform(response.get().getRegistryResponse().getRegistryErrorList()
                     .getRegistryError(), ERROR_CODE_EXTRACTOR);
-            setErrorCodes(ImmutableSet.copyOf(listWithDups).asList());
+            setErrorCodes(listWithDups);
         }
     }
 
-    private static class HCIDExtractor implements Function<DocumentResponse, String> {
+    private static class HCIDExtractor implements Function<DocumentResponse, Optional<String>> {
 
         @Override
-        public String apply(DocumentResponse documentResponse) {
-            return documentResponse.getHomeCommunityId();
+        public Optional<String> apply(DocumentResponse documentResponse) {
+            if (documentResponse.getHomeCommunityId() != null) {
+                return Optional.of(documentResponse.getHomeCommunityId());
+            } else {
+                return Optional.absent();
+            }
         }
     }
 
@@ -116,14 +117,15 @@ public class RetrieveDocumentSetResponseTypeDescriptionBuilder extends BaseEvent
     }
 
     @Override
-    public void setArguments(Object... aguements) {
-        // TODO Auto-generated method stub
-
+    public void setArguments(Object... arguments) {
     }
 
     @Override
     public void setReturnValue(Object returnValue) {
-        // TODO Auto-generated method stub
-        
+        if (returnValue != null && returnValue instanceof RetrieveDocumentSetResponseType) {
+            response = Optional.of((RetrieveDocumentSetResponseType) returnValue);
+        } else {
+            response = Optional.absent();
+        }
     }
 }
