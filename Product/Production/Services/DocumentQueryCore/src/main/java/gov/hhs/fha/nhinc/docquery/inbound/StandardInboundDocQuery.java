@@ -37,7 +37,7 @@ import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
  * @author akong
  * 
  */
-public class StandardInboundDocQuery extends InboundDocQuery {
+public class StandardInboundDocQuery extends AbstractInboundDocQuery {
 
     private DocQueryPolicyChecker policyChecker = new DocQueryPolicyChecker();
     private PassthroughInboundDocQuery passthroughDQ = new PassthroughInboundDocQuery();

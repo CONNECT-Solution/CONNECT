@@ -48,7 +48,7 @@ public class OutboundDocSubmissionDeferredRequestStrategyImpl_g1 implements Orch
     private static Log log = LogFactory.getLog(OutboundDocSubmissionDeferredRequestStrategyImpl_g1.class);
 
     /**
-     * Generic construcor method.
+     * Generic constructor method.
      */
     public OutboundDocSubmissionDeferredRequestStrategyImpl_g1() {
     }
