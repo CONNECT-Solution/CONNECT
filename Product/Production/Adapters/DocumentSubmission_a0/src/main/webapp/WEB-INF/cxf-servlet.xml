@@ -35,6 +35,9 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
             <ref bean="timestampInInterceptor" />
             <ref bean="securityInInterceptor" />
         </jaxws:inInterceptors>
+        <jaxws:outFaultInterceptors>
+            <ref bean="attachmentFaultOutInterceptor" />
+        </jaxws:outFaultInterceptors>
     </jaxws:endpoint>
     
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adapterxdr" id="AdapterDocSubmissionUnsecured"
@@ -66,6 +69,9 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
             <ref bean="timestampInInterceptor" />
             <ref bean="securityInInterceptor" />
         </jaxws:inInterceptors>
+        <jaxws:outFaultInterceptors>
+            <ref bean="attachmentFaultOutInterceptor" />
+        </jaxws:outFaultInterceptors>
     </jaxws:endpoint>
     
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adaptercomponentxdr" id="AdapterComponentDocSubmissionUnsecured"
@@ -94,6 +100,9 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
             <ref bean="timestampInInterceptor" />
             <ref bean="securityInInterceptor" />
         </jaxws:inInterceptors>
+        <jaxws:outFaultInterceptors>
+            <ref bean="attachmentFaultOutInterceptor" />
+        </jaxws:outFaultInterceptors>
     </jaxws:endpoint>
 
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adapterxdrrequest" id="AdapterXDRRequest"
@@ -135,6 +144,9 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
             <ref bean="timestampInInterceptor" />
             <ref bean="securityInInterceptor" />
         </jaxws:inInterceptors>
+        <jaxws:outFaultInterceptors>
+            <ref bean="attachmentFaultOutInterceptor" />
+        </jaxws:outFaultInterceptors>
     </jaxws:endpoint>
         
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adapterxdrrequesterror" id="AdapterXDRRequestError"
@@ -162,6 +174,7 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
         <jaxws:inInterceptors>
             <ref bean="securityInInterceptor" />
         </jaxws:inInterceptors>
+        
     </jaxws:endpoint>
     
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adapterxdrresponse" id="AdapterXDRResponse"

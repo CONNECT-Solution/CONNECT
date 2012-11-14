@@ -1,37 +1,30 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
- * All rights reserved. 
+ * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * All rights reserved.
  *
- * Redistribution and use in source and binary forms, with or without 
- * modification, are permitted provided that the following conditions are met: 
- *     * Redistributions of source code must retain the above 
- *       copyright notice, this list of conditions and the following disclaimer. 
- *     * Redistributions in binary form must reproduce the above copyright 
- *       notice, this list of conditions and the following disclaimer in the documentation 
- *       and/or other materials provided with the distribution. 
- *     * Neither the name of the United States Government nor the 
- *       names of its contributors may be used to endorse or promote products 
- *       derived from this software without specific prior written permission. 
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *     * Redistributions of source code must retain the above
+ *       copyright notice, this list of conditions and the following disclaimer.
+ *     * Redistributions in binary form must reproduce the above copyright
+ *       notice, this list of conditions and the following disclaimer in the documentation
+ *       and/or other materials provided with the distribution.
+ *     * Neither the name of the United States Government nor the
+ *       names of its contributors may be used to endorse or promote products
+ *       derived from this software without specific prior written permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
- * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
- * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY 
- * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES 
- * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
- * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND 
- * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
- * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package gov.hhs.fha.nhinc.mpi.adapter.component.hl7parsers;
-
-import gov.hhs.fha.nhinc.mpilib.Address;
-import gov.hhs.fha.nhinc.mpilib.Identifier;
-import gov.hhs.fha.nhinc.mpilib.Identifiers;
-import gov.hhs.fha.nhinc.mpilib.Patient;
-import gov.hhs.fha.nhinc.mpilib.PersonName;
-import gov.hhs.fha.nhinc.mpilib.PhoneNumber;
 
 import java.io.Serializable;
 import java.util.Iterator;
@@ -42,17 +35,16 @@ import javax.xml.bind.JAXBElement;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.ADExplicit;
-import org.hl7.v3.ADXPExplicit;
 import org.hl7.v3.AdxpExplicitCity;
 import org.hl7.v3.AdxpExplicitPostalCode;
 import org.hl7.v3.AdxpExplicitState;
 import org.hl7.v3.AdxpExplicitStreetAddressLine;
 import org.hl7.v3.CE;
-import org.hl7.v3.ENXPExplicit;
 import org.hl7.v3.EnExplicitFamily;
 import org.hl7.v3.EnExplicitGiven;
 import org.hl7.v3.II;
 import org.hl7.v3.IVLTSExplicit;
+import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201305UV02QUQIMT021001UV01ControlActProcess;
 import org.hl7.v3.PRPAMT201306UV02LivingSubjectAdministrativeGender;
 import org.hl7.v3.PRPAMT201306UV02LivingSubjectBirthTime;
@@ -64,15 +56,28 @@ import org.hl7.v3.PRPAMT201306UV02PatientTelecom;
 import org.hl7.v3.PRPAMT201306UV02QueryByParameter;
 import org.hl7.v3.TELExplicit;
 
+import gov.hhs.fha.nhinc.mpilib.Address;
+import gov.hhs.fha.nhinc.mpilib.Identifier;
+import gov.hhs.fha.nhinc.mpilib.Identifiers;
+import gov.hhs.fha.nhinc.mpilib.Patient;
+import gov.hhs.fha.nhinc.mpilib.PersonName;
+import gov.hhs.fha.nhinc.mpilib.PhoneNumber;
+
 /**
- * 
+ *
  * @author rayj
  */
 public class HL7Parser201305 {
 
     private static Log log = LogFactory.getLog(HL7Parser201305.class);
 
-    public static String ExtractGender(PRPAMT201306UV02ParameterList params) {
+    /**
+     * Method to extract Gender Code from a PRPAMT201306UV02ParameterList.
+     *
+     * @param params the Paramater list from which to extract a Gender Code
+     * @return The Gender Code is returned
+     */
+    public static String extractGender(PRPAMT201306UV02ParameterList params) {
         log.debug("Entering HL7Parser201305.ExtractGender method...");
 
         String genderCode = null;
@@ -81,8 +86,8 @@ public class HL7Parser201305 {
         if (params.getLivingSubjectAdministrativeGender() != null
                 && params.getLivingSubjectAdministrativeGender().size() > 0
                 && params.getLivingSubjectAdministrativeGender().get(0) != null) {
-            PRPAMT201306UV02LivingSubjectAdministrativeGender gender = params.getLivingSubjectAdministrativeGender()
-                    .get(0);
+            PRPAMT201306UV02LivingSubjectAdministrativeGender gender =
+                    params.getLivingSubjectAdministrativeGender().get(0);
 
             if (gender.getValue() != null && gender.getValue().size() > 0 && gender.getValue().get(0) != null) {
                 CE administrativeGenderCode = gender.getValue().get(0);
@@ -100,7 +105,13 @@ public class HL7Parser201305 {
         return genderCode;
     }
 
-    public static String ExtractBirthdate(PRPAMT201306UV02ParameterList params) {
+    /**
+     * Method to extract birthdate from a PRPAMT201306UV02ParameterList.
+     *
+     * @param params the parameterList from which to extract the birthdate
+     * @return a Timestamp object containing the birthdate.
+     */
+    public static String extractBirthdate(PRPAMT201306UV02ParameterList params) {
         log.debug("Entering HL7Parser201305.ExtractBirthdate method...");
 
         String birthDate = null;
@@ -110,7 +121,8 @@ public class HL7Parser201305 {
                 && params.getLivingSubjectBirthTime().get(0) != null) {
             PRPAMT201306UV02LivingSubjectBirthTime birthTime = params.getLivingSubjectBirthTime().get(0);
 
-            if (birthTime.getValue() != null && birthTime.getValue().size() > 0 && birthTime.getValue().get(0) != null) {
+            if (birthTime.getValue() != null && birthTime.getValue().size() > 0
+                    && birthTime.getValue().get(0) != null) {
                 IVLTSExplicit birthday = birthTime.getValue().get(0);
                 log.info("Found birthTime in query parameters = " + birthday.getValue());
                 birthDate = birthday.getValue();
@@ -125,7 +137,12 @@ public class HL7Parser201305 {
         return birthDate;
     }
 
-    public static PersonName ExtractPersonName(PRPAMT201306UV02ParameterList params) {
+    /**
+     * Method to extract a list of Person names from a PRPAMT201306UV02ParameterList.
+     * @param params the ParamaterList from which to extract names.
+     * @return a list of names from the ParamaterList.
+     */
+    public static PersonName extractPersonName(PRPAMT201306UV02ParameterList params) {
         log.debug("Entering HL7Parser201305.ExtractPersonName method...");
 
         PersonName personname = new PersonName();
@@ -164,7 +181,7 @@ public class HL7Parser201305 {
                     } else if (contentItem instanceof JAXBElement) {
                         log.info("contentItem is JAXBElement");
 
-                        JAXBElement oJAXBElement = (JAXBElement) contentItem;
+                        JAXBElement<?> oJAXBElement = (JAXBElement) contentItem;
 
                         if (oJAXBElement.getValue() instanceof EnExplicitFamily) {
                             lastname = new EnExplicitFamily();
@@ -179,7 +196,7 @@ public class HL7Parser201305 {
                                 // this would be where to add handle for middlename
                             }
                         } else {
-                            log.info("other name part=" + (ENXPExplicit) oJAXBElement.getValue());
+                            log.info("other name part=" + oJAXBElement.getValue());
                         }
                     } else {
                         log.info("contentItem is other");
@@ -217,7 +234,12 @@ public class HL7Parser201305 {
         return personname;
     }
 
-    public static Identifiers ExtractPersonIdentifiers(PRPAMT201306UV02ParameterList params) {
+    /**
+     * Method to extract a list of Person Identifiers from a PRPAMT201306UV02ParameterList.
+     * @param params the PRPAMT201306UV02ParameterList from which to extract a list of Person Identifiers
+     * @return a List of Identifiers.
+     */
+    public static Identifiers extractPersonIdentifiers(PRPAMT201306UV02ParameterList params) {
         log.debug("Entering HL7Parser201305.ExtractPersonIdentifiers method...");
 
         Identifiers ids = new Identifiers();
@@ -252,7 +274,12 @@ public class HL7Parser201305 {
         return ids;
     }
 
-    public static Address ExtractPersonAddress(PRPAMT201306UV02ParameterList params) {
+    /**
+     * Method to extract an Address from a PRPAMT201306UV02ParameterList.
+     * @param params the PRPAMT201306UV02ParameterList from which to extract the Address
+     * @return an Address from PRPAMT201306UV02ParameterList.
+     */
+    public static Address extractPersonAddress(PRPAMT201306UV02ParameterList params) {
         log.debug("Entering HL7Parser201305.ExtractPersonAddress method...");
 
         Address address = null;
@@ -294,41 +321,46 @@ public class HL7Parser201305 {
                                 addressLine1 = new AdxpExplicitStreetAddressLine();
                                 addressLine1 = (AdxpExplicitStreetAddressLine) oJAXBElement.getValue();
                                 log.info("found addressLine1 element; content=" + addressLine1.getContent());
-                                if (address == null)
+                                if (address == null) {
                                     address = new Address();
+                                }
                                 address.setStreet1(addressLine1.getContent());
                             }
                             if (addressLineCounter == 2) {
                                 addressLine2 = new AdxpExplicitStreetAddressLine();
                                 addressLine2 = (AdxpExplicitStreetAddressLine) oJAXBElement.getValue();
                                 log.info("found addressLine2 element; content=" + addressLine2.getContent());
-                                if (address == null)
+                                if (address == null) {
                                     address = new Address();
+                                }
                                 address.setStreet2(addressLine2.getContent());
                             }
                         } else if (oJAXBElement.getValue() instanceof AdxpExplicitCity) {
                             city = new AdxpExplicitCity();
                             city = (AdxpExplicitCity) oJAXBElement.getValue();
                             log.info("found city element; content=" + city.getContent());
-                            if (address == null)
+                            if (address == null) {
                                 address = new Address();
+                            }
                             address.setCity(city.getContent());
                         } else if (oJAXBElement.getValue() instanceof AdxpExplicitState) {
                             state = new AdxpExplicitState();
                             state = (AdxpExplicitState) oJAXBElement.getValue();
                             log.info("found state element; content=" + state.getContent());
-                            if (address == null)
+                            if (address == null) {
                                 address = new Address();
+                            }
                             address.setState(state.getContent());
                         } else if (oJAXBElement.getValue() instanceof AdxpExplicitPostalCode) {
                             postalCode = new AdxpExplicitPostalCode();
                             postalCode = (AdxpExplicitPostalCode) oJAXBElement.getValue();
                             log.info("found postalCode element; content=" + postalCode.getContent());
-                            if (address == null)
+                            if (address == null) {
                                 address = new Address();
+                            }
                             address.setZip(postalCode.getContent());
                         } else {
-                            log.info("other address part=" + (ADXPExplicit) oJAXBElement.getValue());
+                            log.info("other address part=" + oJAXBElement.getValue());
                         }
                     } else {
                         log.info("contentItem is other");
@@ -341,7 +373,12 @@ public class HL7Parser201305 {
         return address;
     }
 
-    public static String ExtractTelecom(PRPAMT201306UV02ParameterList params) {
+    /**
+     * Method to extract the Phone Number from a PRPAMT201306UV02ParameterList.
+     * @param params the PRPAMT201306UV02ParameterList from which to extract Phone Number
+     * @return Phone Number from the PRPAMT201306UV02ParameterList
+     */
+    public static String extractTelecom(PRPAMT201306UV02ParameterList params) {
         log.debug("Entering HL7Parser201305.ExtractTelecom method...");
 
         String telecom = null;
@@ -374,7 +411,12 @@ public class HL7Parser201305 {
         return telecom;
     }
 
-    public static PRPAMT201306UV02ParameterList ExtractHL7QueryParamsFromMessage(org.hl7.v3.PRPAIN201305UV02 message) {
+    /**
+     * Method to extract a PRPAMT201306UV02ParameterList object from a PRPAIN201305UV02 message.
+     * @param message the PRPAIN201305UV02 message from which to extract the PRPAMT201306UV02ParameterList
+     * @return PRPAMT201306UV02ParameterList
+     */
+    public static PRPAMT201306UV02ParameterList extractHL7QueryParamsFromMessage(PRPAIN201305UV02 message) {
         log.debug("Entering HL7Parser201305.ExtractHL7QueryParamsFromMessage method...");
         PRPAMT201306UV02ParameterList queryParamList = null;
 
@@ -391,8 +433,7 @@ public class HL7Parser201305 {
 
         if (controlActProcess.getQueryByParameter() != null
                 && controlActProcess.getQueryByParameter().getValue() != null) {
-            PRPAMT201306UV02QueryByParameter queryParams = (PRPAMT201306UV02QueryByParameter) controlActProcess
-                    .getQueryByParameter().getValue();
+            PRPAMT201306UV02QueryByParameter queryParams = controlActProcess.getQueryByParameter().getValue();
 
             if (queryParams.getParameterList() != null) {
                 queryParamList = queryParams.getParameterList();
@@ -404,17 +445,27 @@ public class HL7Parser201305 {
         return queryParamList;
     }
 
-    public static Patient ExtractMpiPatientFromMessage(org.hl7.v3.PRPAIN201305UV02 message) {
+    /**
+     * Method to extract the Patient from a PRPAIN201305UV02 message.
+     * @param message the incoming message which contains the patient to be extracted.
+     * @return a Patient from the PRPAIN201305UV02 object
+     */
+    public static Patient extractMpiPatientFromMessage(PRPAIN201305UV02 message) {
         log.debug("Entering HL7Parser201305.ExtractMpiPatientFromMessage method...");
 
-        PRPAMT201306UV02ParameterList queryParamList = ExtractHL7QueryParamsFromMessage(message);
-        Patient mpipatient = ExtractMpiPatientFromQueryParams(queryParamList);
+        PRPAMT201306UV02ParameterList queryParamList = extractHL7QueryParamsFromMessage(message);
+        Patient mpipatient = extractMpiPatientFromQueryParams(queryParamList);
 
         log.debug("Exiting HL7Parser201305.ExtractMpiPatientFromMessage method...");
         return mpipatient;
     }
 
-    public static Patient ExtractMpiPatientFromQueryParams(PRPAMT201306UV02ParameterList params) {
+    /**
+     * Method to extract the Patient from a PRPAMT201306UV02ParameterList message.
+     * @param params the incoming message which contains the patient to be extracted.
+     * @return a Patient from the PRPAMT201306UV02ParameterList object
+     */
+    public static Patient extractMpiPatientFromQueryParams(PRPAMT201306UV02ParameterList params) {
         log.debug("Entering HL7Parser201305.ExtractMpiPatientFromQueryParams method...");
 
         Patient mpiPatient = new Patient();
@@ -422,21 +473,21 @@ public class HL7Parser201305 {
         if (params != null) {
 
             // mpiPatient.setName(ExtractPersonName(params));
-            mpiPatient.getNames().add(ExtractPersonName(params));
-            mpiPatient.setGender(ExtractGender(params));
+            mpiPatient.getNames().add(extractPersonName(params));
+            mpiPatient.setGender(extractGender(params));
 
-            String birthdateString = ExtractBirthdate(params);
+            String birthdateString = extractBirthdate(params);
             mpiPatient.setDateOfBirth(birthdateString);
 
-            Identifiers ids = ExtractPersonIdentifiers(params);
+            Identifiers ids = extractPersonIdentifiers(params);
             mpiPatient.setIdentifiers(ids);
 
-            Address address = ExtractPersonAddress(params);
+            Address address = extractPersonAddress(params);
             if (address != null) {
                 mpiPatient.getAddresses().add(address);
             }
 
-            String telecom = ExtractTelecom(params);
+            String telecom = extractTelecom(params);
             if (telecom != null) {
                 PhoneNumber phoneNumber = new PhoneNumber();
                 phoneNumber.setPhoneNumber(telecom);

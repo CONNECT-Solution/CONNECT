@@ -39,6 +39,9 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
             <ref bean="timestampInInterceptor" />
             <ref bean="securityInInterceptor" />
         </jaxws:inInterceptors>
+        <jaxws:outFaultInterceptors>
+            <ref bean="attachmentFaultOutInterceptor" />
+        </jaxws:outFaultInterceptors>
         <jaxws:handlers>
             <ref bean="SOAPHeaderHandler" />
             <ref bean="TransactionHandler"/>
@@ -66,6 +69,9 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
             <ref bean="timestampInInterceptor" />
             <ref bean="securityInInterceptor" />
         </jaxws:inInterceptors>
+        <jaxws:outFaultInterceptors>
+            <ref bean="attachmentFaultOutInterceptor" />
+        </jaxws:outFaultInterceptors>
         <jaxws:handlers>
             <ref bean="TransactionHandler"/>
         </jaxws:handlers>
@@ -108,6 +114,9 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
             <ref bean="timestampInInterceptor" />
             <ref bean="securityInInterceptor" />
         </jaxws:inInterceptors>
+        <jaxws:outFaultInterceptors>
+            <ref bean="attachmentFaultOutInterceptor" />
+        </jaxws:outFaultInterceptors>
         <jaxws:handlers>
             <ref bean="TransactionHandler"/>
         </jaxws:handlers>

@@ -1,32 +1,30 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
- * All rights reserved. 
+ * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * All rights reserved.
  *
- * Redistribution and use in source and binary forms, with or without 
- * modification, are permitted provided that the following conditions are met: 
- *     * Redistributions of source code must retain the above 
- *       copyright notice, this list of conditions and the following disclaimer. 
- *     * Redistributions in binary form must reproduce the above copyright 
- *       notice, this list of conditions and the following disclaimer in the documentation 
- *       and/or other materials provided with the distribution. 
- *     * Neither the name of the United States Government nor the 
- *       names of its contributors may be used to endorse or promote products 
- *       derived from this software without specific prior written permission. 
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *     * Redistributions of source code must retain the above
+ *       copyright notice, this list of conditions and the following disclaimer.
+ *     * Redistributions in binary form must reproduce the above copyright
+ *       notice, this list of conditions and the following disclaimer in the documentation
+ *       and/or other materials provided with the distribution.
+ *     * Neither the name of the United States Government nor the
+ *       names of its contributors may be used to endorse or promote products
+ *       derived from this software without specific prior written permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
- * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
- * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY 
- * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES 
- * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
- * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND 
- * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
- * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package gov.hhs.fha.nhinc.mpilib;
-
-import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 
 import java.beans.XMLDecoder;
 import java.beans.XMLEncoder;
@@ -40,19 +38,39 @@ import java.util.logging.Logger;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import gov.hhs.fha.nhinc.properties.PropertyAccessor;
+
+/**
+ *
+ *
+ */
 public class MpiDataSaver {
     private Log log = null;
     private String defaultMpiFilename = null;
 
+    /**
+     * Default constructor for this class.
+     */
     public MpiDataSaver() {
         log = createLogger();
         defaultMpiFilename = getDefaultMpiFilename();
     }
 
+    /**
+     * Method saves the MPI with the patient list passed in, and uses the default MPI filename.
+     *
+     * @param patientList the PatientList used to create the MPI
+     */
     public void saveMpi(Patients patientList) {
         saveMpi(patientList, defaultMpiFilename);
     }
 
+    /**
+     * Method saves the MPI with the patient list passed in to the file provided.
+     *
+     * @param patientList the PatientList used to create the MPI
+     * @param file the file to save the MPI to
+     */
     public void saveMpi(Patients patientList, String file) {
         if ((patientList == null)) {
             patientList = new Patients();
@@ -74,10 +92,17 @@ public class MpiDataSaver {
         log.info("Save complete");
     }
 
+    /**
+     * @return the patient list from the default MPI file.
+     */
     public Patients loadMpi() {
         return loadMpi(defaultMpiFilename);
     }
 
+    /**
+     * @param file the MPI file
+     * @return the patient list from the given filename
+     */
     public Patients loadMpi(String file) {
         log.info("Loading patients from " + file);
 
@@ -98,19 +123,32 @@ public class MpiDataSaver {
         return patientList;
     }
 
+    /**
+     * @return an instance of the logger. It is created if it did not already exist.
+     */
     protected Log createLogger() {
         return ((log != null) ? log : LogFactory.getLog(getClass()));
     }
 
+    /**
+     * @param e the exception to log.
+     */
     protected void logException(Exception e) {
         Logger.getLogger(MpiDataSaver.class.getName()).log(Level.SEVERE, null, e);
     }
 
+    /**
+     * @return the default mpi filename
+     */
     protected String getDefaultMpiFilename() {
-        return ((defaultMpiFilename != null) ? defaultMpiFilename : PropertyAccessor.getInstance().getPropertyFileLocation()
-                + File.separator + "mpi.xml");
+        return ((defaultMpiFilename != null) ? defaultMpiFilename : PropertyAccessor.getInstance()
+                .getPropertyFileLocation() + File.separator + "mpi.xml");
     }
 
+    /**
+     * @param file
+     * @return a file output stream
+     */
     protected FileOutputStream createFileOutputStream(String file) {
         try {
             return new FileOutputStream(file);

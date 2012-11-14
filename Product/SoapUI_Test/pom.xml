@@ -94,9 +94,7 @@
                     </execution>
                     <execution>
                         <id>unpack-nhin-properties</id>
-                        <!-- Using the initialize phase because it is before the generate sources
-                            phase -->
-                        <phase>initialize</phase>
+                        <phase>process-resources</phase>
                         <goals>
                             <goal>unpack</goal>
                         </goals>
