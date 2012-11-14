@@ -48,6 +48,10 @@ public class PassthroughOutboundDocQuery implements OutboundDocQuery {
 
     private DocQueryAuditLog auditLog = new DocQueryAuditLog();
     private OutboundDocQueryDelegate delegate = new OutboundDocQueryDelegate();
+    
+    PassthroughOutboundDocQuery() {
+        super();
+    }
 
     PassthroughOutboundDocQuery(DocQueryAuditLog auditLog, OutboundDocQueryDelegate delegate) {
         this.auditLog = auditLog;
