@@ -26,43 +26,27 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery.aspect;
 
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.mock;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.event.AssertionEventDescriptionBuilder;
+import gov.hhs.fha.nhinc.event.BaseDescriptionBuilderTest;
 
-public class PRPAIN201306UV02EventDescriptionBuilder extends AssertionEventDescriptionBuilder {
+import org.hl7.v3.PRPAIN201306UV02;
+import org.junit.Test;
 
-    public PRPAIN201306UV02EventDescriptionBuilder() {
-    }
+public class PRPAIN201306UV02EventDescriptionBuilderTest extends BaseDescriptionBuilderTest {
 
-    @Override
-    public void buildErrorCodes() {
-    }
+    @Test
+    public void handlesAssertions() {
+        assertTrue(AssertionEventDescriptionBuilder.class
+                .isAssignableFrom(PRPAIN201306UV02EventDescriptionBuilder.class));
+        PRPAIN201306UV02EventDescriptionBuilder builder = new PRPAIN201306UV02EventDescriptionBuilder();
 
-    @Override
-    public void buildPayloadSizes() {
-    }
+        PRPAIN201306UV02 body = mock(PRPAIN201306UV02.class);
+        AssertionType assertion = mock(AssertionType.class);
 
-    @Override
-    public void buildPayloadTypes() {
-    }
-
-    @Override
-    public void buildRespondingHCIDs() {
-    }
-
-    @Override
-    public void buildStatuses() {
-    }
-
-    @Override
-    public void buildTimeStamp() {
-    }
-
-    @Override
-    public void setArguments(Object... arguements) {
-        extractAssertion(arguements);
-    }
-
-    @Override
-    public void setReturnValue(Object returnValue) {
+        builder.setArguments(new Object[] { body, assertion });
+        assertTrue(builder.getAssertion().isPresent());
     }
 }

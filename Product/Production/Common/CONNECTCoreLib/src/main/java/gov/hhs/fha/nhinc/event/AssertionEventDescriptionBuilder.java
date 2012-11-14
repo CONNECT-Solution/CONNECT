@@ -75,6 +75,15 @@ public abstract class AssertionEventDescriptionBuilder extends BaseEventDescript
     }
 
     /**
+     * For testing, to make sure subclasses called extractAssertion.
+     * 
+     * @return current assertion value
+     */
+    public final Optional<AssertionType> getAssertion() {
+        return assertion;
+    }
+
+    /**
      * Dependency injection (for tests).
      * 
      * @param assertionExtractor
