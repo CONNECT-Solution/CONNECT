@@ -26,6 +26,18 @@
  */
 package gov.hhs.fha.nhinc.docquery.passthru;
 
+import gov.hhs.fha.nhinc.aspect.OutboundProcessingEvent;
+import gov.hhs.fha.nhinc.common.auditlog.AdhocQueryResponseMessageType;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+import gov.hhs.fha.nhinc.docquery.DocQueryAuditLog;
+import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryRequestDescriptionBuilder;
+import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryResponseDescriptionBuilder;
+import gov.hhs.fha.nhinc.docquery.entity.OutboundDocQueryDelegate;
+import gov.hhs.fha.nhinc.docquery.entity.OutboundDocQueryOrchestratable;
+import gov.hhs.fha.nhinc.gateway.aggregator.document.DocumentConstants;
+import gov.hhs.fha.nhinc.gateway.executorservice.ExecutorServiceHelper;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryObjectListType;
@@ -35,18 +47,8 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import gov.hhs.fha.nhinc.common.auditlog.AdhocQueryResponseMessageType;
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
-import gov.hhs.fha.nhinc.docquery.DocQueryAuditLog;
-import gov.hhs.fha.nhinc.docquery.entity.OutboundDocQueryDelegate;
-import gov.hhs.fha.nhinc.docquery.entity.OutboundDocQueryOrchestratable;
-import gov.hhs.fha.nhinc.gateway.aggregator.document.DocumentConstants;
-import gov.hhs.fha.nhinc.gateway.executorservice.ExecutorServiceHelper;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-
 /**
- *
+ * 
  * @author JHOPPESC
  * @paul.eftis updated exception handling to return DQ error response with error/exception detail within DQ response.
  */
@@ -55,12 +57,15 @@ public class PassthruDocQueryOrchImpl {
     private static Log log = LogFactory.getLog(PassthruDocQueryOrchImpl.class);
 
     /**
-     *
+     * 
      * @param body
      * @param assertion
      * @param target
      * @return <code>AdhocQueryResponse</code>
      */
+    @OutboundProcessingEvent(beforeBuilder = AdhocQueryRequestDescriptionBuilder.class,
+            afterReturningBuilder = AdhocQueryResponseDescriptionBuilder.class, serviceType = "Document Query",
+            version = "")
     public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest body, AssertionType assertion,
             NhinTargetSystemType target) {
         log.debug("Entering NhincProxyDocQuerySecuredImpl.respondingGatewayCrossGatewayQuery...");
