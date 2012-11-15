@@ -26,6 +26,11 @@
  */
 package gov.hhs.fha.nhinc.admindistribution.adapter;
 
+import gov.hhs.fha.nhinc.aspect.InboundMessageEvent;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
+import gov.hhs.fha.nhinc.largefile.LargeFileUtils;
+
 import java.net.URI;
 import java.util.List;
 
@@ -37,26 +42,33 @@ import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import gov.hhs.fha.nhinc.aspect.InboundMessageEvent;
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
-import gov.hhs.fha.nhinc.largefile.LargeFileUtils;
-
 /**
- *
+ * 
  * @author dunnek
  */
 public class AdapterAdminDistributionOrchImpl {
     private Log log = null;
 
+    /**
+     * Default Constructor.
+     */
     public AdapterAdminDistributionOrchImpl() {
         log = createLogger();
     }
 
+    /**
+     * @return log.
+     */
     protected Log createLogger() {
         return LogFactory.getLog(getClass());
     }
 
+    /**
+     * @param body
+     *            Emergency Message Distribution Element transaction received.
+     * @param assertion
+     *            Assertion received.
+     */
     @InboundMessageEvent(serviceType = "Admin Distribution", version = "",
             afterReturningBuilder = DefaultEventDescriptionBuilder.class,
             beforeBuilder = DefaultEventDescriptionBuilder.class)
