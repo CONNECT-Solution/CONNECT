@@ -1,0 +1,49 @@
+<<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:aop="http://www.springframework.org/schema/aop" xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="
+http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+">
+
+    <aop:aspectj-autoproxy proxy-target-class="true" />
+    <context:annotation-config />
+
+    <!-- Document Retrieve -->
+
+    <!-- Nhin services -->
+    
+    <bean id="nhinDocRetrieveOrchImpl" class="gov.hhs.fha.nhinc.docretrieve.nhin.NhinDocRetrieveOrchImpl" />
+
+    <bean id="nhinDocRetrieve" class="gov.hhs.fha.nhinc.docretrieve._30.nhin.DocRetrieve">
+       <property name="orchestratorImpl"><ref bean="nhinDocRetrieveOrchImpl"/></property>
+    </bean>
+    
+    <!-- Entity services -->
+    
+    <bean id="entityDocRetrieveOrchImpl" class="gov.hhs.fha.nhinc.docretrieve.entity.EntityDocRetrieveOrchImpl" />
+    
+    <bean id="entityDocRetrieveUnsecured" class="gov.hhs.fha.nhinc.docretrieve._30.entity.EntityDocRetrieve">
+       <property name="orchestratorImpl"><ref bean="entityDocRetrieveOrchImpl"/></property>
+    </bean>
+    
+    <bean id="entityDocRetrieveSecured" class="gov.hhs.fha.nhinc.docretrieve._30.entity.EntityDocRetrieveSecured">
+       <property name="orchestratorImpl"><ref bean="entityDocRetrieveOrchImpl"/></property>
+    </bean>
+    
+    <!-- MsgProxy/NhincProxy/Passthru services -->
+    
+    <bean id="passthruDocRetrieveOrchImpl" class="gov.hhs.fha.nhinc.docretrieve.passthru.NhincProxyDocRetrieveOrchImpl" />
+    
+    <bean id="passthruDocRetrieveUnsecured" class="gov.hhs.fha.nhinc.docretrieve._30.passthru.NhincProxyDocRetrieveUnsecured">
+       <property name="orchestratorImpl"><ref bean="passthruDocRetrieveOrchImpl"/></property>
+    </bean>
+    
+    <bean id="passthruDocRetrieveSecured" class="gov.hhs.fha.nhinc.docretrieve._30.passthru.NhincProxyDocRetrieveSecured">
+       <property name="orchestratorImpl"><ref bean="passthruDocRetrieveOrchImpl"/></property>
+    </bean>
+    
+    <bean id="SOAPHeaderHandler" class="gov.hhs.fha.nhinc.callback.SOAPHeaderHandler" />
+    <bean id="TransactionHandler" class="gov.hhs.fha.nhinc.logging.transaction.TransactionHandler" />
+</beans>
