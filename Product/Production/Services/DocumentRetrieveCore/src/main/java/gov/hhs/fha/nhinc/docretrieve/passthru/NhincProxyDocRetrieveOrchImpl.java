@@ -34,7 +34,9 @@ import gov.hhs.fha.nhinc.docretrieve.entity.OutboundDocRetrieveDelegate;
 import gov.hhs.fha.nhinc.docretrieve.entity.OutboundDocRetrieveOrchestratableImpl;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
-
+import gov.hhs.fha.nhinc.aspect.OutboundProcessingEvent;
+import gov.hhs.fha.nhinc.docretrieve.aspect.RetrieveDocumentSetRequestTypeDescriptionBuilder;
+import gov.hhs.fha.nhinc.docretrieve.aspect.RetrieveDocumentSetResponseTypeDescriptionBuilder;
 import java.io.IOException;
 
 import org.apache.commons.logging.Log;
@@ -56,6 +58,9 @@ public class NhincProxyDocRetrieveOrchImpl {
         return LogFactory.getLog(getClass());
     }
 
+    @OutboundProcessingEvent(beforeBuilder = RetrieveDocumentSetRequestTypeDescriptionBuilder.class,
+            afterReturningBuilder = RetrieveDocumentSetResponseTypeDescriptionBuilder.class, 
+            serviceType = "Retrieve Document", version = "2.0")
     public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(
             RetrieveDocumentSetRequestType request, AssertionType assertion, NhinTargetSystemType targetSystem) {
         log.debug("Begin NhincProxyDocRetrieveOrchImpl.respondingGatewayCrossGatewayRetrieve(...)");

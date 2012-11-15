@@ -33,8 +33,11 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import gov.hhs.fha.nhinc.adapterdocretrievesecured.AdapterDocRetrieveSecuredPortType;
+import gov.hhs.fha.nhinc.aspect.AdapterDelegationEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.docretrieve.adapter.proxy.service.AdapterDocRetrieveSecuredServicePortDescriptor;
+import gov.hhs.fha.nhinc.docretrieve.aspect.RetrieveDocumentSetRequestTypeDescriptionBuilder;
+import gov.hhs.fha.nhinc.docretrieve.aspect.RetrieveDocumentSetResponseTypeDescriptionBuilder;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTCXFClientFactory;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
@@ -76,6 +79,9 @@ public class AdapterDocRetrieveProxyWebServiceSecuredImpl implements AdapterDocR
      * @return The document(s) that were retrieved.
      */
     @Override
+    @AdapterDelegationEvent(beforeBuilder = RetrieveDocumentSetRequestTypeDescriptionBuilder.class,
+    afterReturningBuilder = RetrieveDocumentSetResponseTypeDescriptionBuilder.class, 
+    serviceType = "Retrieve Document", version = "2.0")
     public RetrieveDocumentSetResponseType retrieveDocumentSet(RetrieveDocumentSetRequestType request,
             AssertionType assertion) {
         String url = null;
@@ -90,7 +96,8 @@ public class AdapterDocRetrieveProxyWebServiceSecuredImpl implements AdapterDocR
                 log.debug("After target system URL look up. URL for service: " + sServiceName + " is: " + url);
 
                 if (NullChecker.isNotNullish(url)) {
-                    ServicePortDescriptor<AdapterDocRetrieveSecuredPortType> portDescriptor = new AdapterDocRetrieveSecuredServicePortDescriptor();
+                    ServicePortDescriptor<AdapterDocRetrieveSecuredPortType> portDescriptor = 
+                            new AdapterDocRetrieveSecuredServicePortDescriptor();
                     CONNECTClient<AdapterDocRetrieveSecuredPortType> client = getCONNECTClientSecured(portDescriptor,
                             url, assertion);
                     response = (RetrieveDocumentSetResponseType) client.invokePort(
