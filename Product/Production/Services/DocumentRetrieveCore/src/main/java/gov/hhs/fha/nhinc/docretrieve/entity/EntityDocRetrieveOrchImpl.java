@@ -52,7 +52,7 @@ public class EntityDocRetrieveOrchImpl {
 
     @OutboundProcessingEvent(beforeBuilder = RetrieveDocumentSetRequestTypeDescriptionBuilder.class,
             afterReturningBuilder = RetrieveDocumentSetResponseTypeDescriptionBuilder.class, serviceType = "Retrieve Document",
-            version = "2.0")
+            version = "")
     public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(
             RetrieveDocumentSetRequestType body, AssertionType assertion) {
 
