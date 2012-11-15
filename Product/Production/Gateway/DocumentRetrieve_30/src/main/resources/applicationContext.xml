@@ -19,7 +19,7 @@ http://www.springframework.org/schema/aop http://www.springframework.org/schema/
     </bean>
  
  
-    <bean name="inboundDocRetrieve" class="${docretrieve.20.inbound}" />
+    <bean name="inboundDocRetrieve" class="${docretrieve.30.inbound}" />
  
     <bean id="SOAPHeaderHandler" class="gov.hhs.fha.nhinc.callback.SOAPHeaderHandler" />
     <bean id="TransactionHandler" class="gov.hhs.fha.nhinc.logging.transaction.TransactionHandler" />

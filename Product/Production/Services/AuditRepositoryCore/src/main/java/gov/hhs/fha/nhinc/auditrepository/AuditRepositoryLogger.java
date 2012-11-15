@@ -94,7 +94,7 @@ import gov.hhs.healthit.nhin.XDRAcknowledgementType;
  * 
  * @author Jon Hoppesch
  */
-public class AuditRepositoryLogger {
+public class AuditRepositoryLogger implements AuditRepositoryDocuementRetrieveLogger  {
 
     private static Log log = LogFactory.getLog(AuditRepositoryLogger.class);
     private final PatientDiscoveryTransforms pdAuditTransformer = new PatientDiscoveryTransforms();
@@ -436,27 +436,18 @@ public class AuditRepositoryLogger {
         return auditMsg;
     }
 
-    /**
-     * This method will create the generic Audit Log Message from a document retrieve request.
-     * 
-     * @param message The Document Retrieve Request message to be audit logged.
-     * @param direction The direction this message is going (Inbound or Outbound)
-     * @param _interface The interface this message is being received/sent on (Entity, Adapter, or Nhin)
-     * @return A generic audit log message that can be passed to the Audit Repository
+    /* (non-Javadoc)
+     * @see gov.hhs.fha.nhinc.auditrepository.AuditRepositoryDocuementRetrieveLogger#logDocRetrieve(gov.hhs.fha.nhinc.common.auditlog.DocRetrieveMessageType, java.lang.String, java.lang.String)
      */
+    @Override
     public LogEventRequestType logDocRetrieve(DocRetrieveMessageType message, String direction, String _interface) {
         return logDocRetrieve(message, direction, _interface, null);
     }
 
-    /**
-     * This method will create the generic Audit Log Message from a document retrieve request.
-     * 
-     * @param message The Document Retrieve Request message to be audit logged.
-     * @param direction The direction this message is going (Inbound or Outbound)
-     * @param _interface The interface this message is being received/sent on (Entity, Adapter, or Nhin)
-     * @param responseCommunityID The response Community ID
-     * @return A generic audit log message that can be passed to the Audit Repository
+    /* (non-Javadoc)
+     * @see gov.hhs.fha.nhinc.auditrepository.AuditRepositoryDocuementRetrieveLogger#logDocRetrieve(gov.hhs.fha.nhinc.common.auditlog.DocRetrieveMessageType, java.lang.String, java.lang.String, java.lang.String)
      */
+    @Override
     public LogEventRequestType logDocRetrieve(DocRetrieveMessageType message, String direction, String _interface,
             String responseCommunityID) {
         log.debug("Entering AuditRepositoryLogger.logDocRetrieve(...)");
@@ -470,28 +461,19 @@ public class AuditRepositoryLogger {
         return auditMsg;
     }
 
-    /**
-     * This method will create the generic Audit Log Message from a document retrieve response.
-     * 
-     * @param message The Document Retrieve Response message to be audit logged.
-     * @param direction The direction this message is going (Inbound or Outbound)
-     * @param _interface The interface this message is being received/sent on (Entity, Adapter, or Nhin)
-     * @return A generic audit log message that can be passed to the Audit Repository
+    /* (non-Javadoc)
+     * @see gov.hhs.fha.nhinc.auditrepository.AuditRepositoryDocuementRetrieveLogger#logDocRetrieveResult(gov.hhs.fha.nhinc.common.auditlog.DocRetrieveResponseMessageType, java.lang.String, java.lang.String)
      */
+    @Override
     public LogEventRequestType logDocRetrieveResult(DocRetrieveResponseMessageType message, String direction,
             String _interface) {
         return logDocRetrieveResult(message, direction, _interface, null);
     }
 
-    /**
-     * This method will create the generic Audit Log Message from a document retrieve response.
-     * 
-     * @param message The Document Retrieve Response message to be audit logged.
-     * @param direction The direction this message is going (Inbound or Outbound)
-     * @param _interface The interface this message is being received/sent on (Entity, Adapter, or Nhin)
-     * @param requestCommunityID The Request Community ID
-     * @return A generic audit log message that can be passed to the Audit Repository
+    /* (non-Javadoc)
+     * @see gov.hhs.fha.nhinc.auditrepository.AuditRepositoryDocuementRetrieveLogger#logDocRetrieveResult(gov.hhs.fha.nhinc.common.auditlog.DocRetrieveResponseMessageType, java.lang.String, java.lang.String, java.lang.String)
      */
+    @Override
     public LogEventRequestType logDocRetrieveResult(DocRetrieveResponseMessageType message, String direction,
             String _interface, String requestCommunityID) {
         log.debug("Entering AuditRepositoryLogger.logDocRetrieveResult(...)");

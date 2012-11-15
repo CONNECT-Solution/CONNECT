@@ -5,10 +5,12 @@
 
 package gov.hhs.fha.nhinc.docretrieve.nhin;
 
+import gov.hhs.fha.nhinc.orchestration.OrchestrationStrategy;
+
 /**
  * 
  * @author mweaver
  */
-public interface InboundDocRetrieveStrategy {
+public interface InboundDocRetrieveStrategy extends OrchestrationStrategy {
     public void execute(InboundDocRetrieveOrchestratable message);
 }

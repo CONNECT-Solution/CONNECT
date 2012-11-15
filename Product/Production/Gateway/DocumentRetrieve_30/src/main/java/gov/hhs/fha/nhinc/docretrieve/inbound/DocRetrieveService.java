@@ -24,39 +24,26 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
-package gov.hhs.fha.nhinc.docretrieve.nhin;
+package gov.hhs.fha.nhinc.docretrieve.inbound;
 
-import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import gov.hhs.fha.nhinc.common.eventcommon.DocRetrieveEventType;
-import gov.hhs.fha.nhinc.orchestration.PolicyTransformer.Direction;
-import gov.hhs.fha.nhinc.policyengine.DocumentRetrievePolicyEngineChecker;
-
-import org.junit.Test;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
+import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 
 /**
  * 
- * @author mweaver
+ * @author bhumphrey
+ *
  */
-public class NhinDocRetrievePolicyTransformer_g0Test {
-
-   
-
+public interface DocRetrieveService {
+    
     /**
-     * Test of tranform method, of class NhinDocRetrievePolicyTransformer_g0.
+     * 
+     * @param body
+     * @param assertion
+     * @return
      */
-    @Test
-    public void testTranform() {
-        DocumentRetrievePolicyEngineChecker mockPolicyEngine = mock(DocumentRetrievePolicyEngineChecker.class);
-        InboundDocRetrievePolicyTransformer_g0 policyTransform = new InboundDocRetrievePolicyTransformer_g0(mockPolicyEngine);
-        InboundDocRetrieveOrchestratable message = mock(InboundDocRetrieveOrchestratable.class);
-        policyTransform.transform(message, Direction.INBOUND);
-        
-        verify(message).getAssertion();
-        verify(message).getRequest();
-        verify(mockPolicyEngine).checkPolicyDocRetrieve(any(DocRetrieveEventType.class));
-        
-    }
+    RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(RetrieveDocumentSetRequestType body,
+            AssertionType assertion);
 
 }

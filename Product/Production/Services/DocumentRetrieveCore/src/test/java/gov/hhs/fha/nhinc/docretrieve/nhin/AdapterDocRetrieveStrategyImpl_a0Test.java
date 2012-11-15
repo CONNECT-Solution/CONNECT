@@ -26,12 +26,20 @@
  */
 package gov.hhs.fha.nhinc.docretrieve.nhin;
 
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.eq;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyZeroInteractions;
+import gov.hhs.fha.nhinc.auditrepository.AuditRepositoryDocuementRetrieveLogger;
+import gov.hhs.fha.nhinc.common.auditlog.DocRetrieveMessageType;
+import gov.hhs.fha.nhinc.common.auditlog.DocRetrieveResponseMessageType;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.docretrieve.adapter.proxy.AdapterDocRetrieveProxy;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
+
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  * 
@@ -39,34 +47,38 @@ import static org.junit.Assert.*;
  */
 public class AdapterDocRetrieveStrategyImpl_a0Test {
 
-    public AdapterDocRetrieveStrategyImpl_a0Test() {
-    }
-
-    @BeforeClass
-    public static void setUpClass() throws Exception {
-    }
-
-    @AfterClass
-    public static void tearDownClass() throws Exception {
-    }
-
-    @Before
-    public void setUp() {
-    }
-
-    @After
-    public void tearDown() {
-    }
-
     /**
      * Test of execute method, of class AdapterDocRetrieveStrategyImpl_a0.
      */
     @Test
     public void testExecute() {
-        InboundDocRetrieveOrchestratable message = null;
-        InboundDocRetrieveStrategyImpl instance = new InboundDocRetrieveStrategyImpl();
+        InboundDocRetrieveOrchestratable message = mock(InboundDocRetrieveOrchestratable.class);
+        AdapterDocRetrieveProxy adapterProxy = mock(AdapterDocRetrieveProxy.class);
+        AuditRepositoryDocuementRetrieveLogger logger = mock(AuditRepositoryDocuementRetrieveLogger.class);
+        InboundDocRetrieveStrategyImpl instance = new InboundDocRetrieveStrategyImpl(adapterProxy, logger);
         instance.execute(message);
-        // TODO: update this test once we can mock NhinDocRetrieveOrchestratable
+
+        verify(logger).logDocRetrieveResult(any(DocRetrieveResponseMessageType.class),
+                eq(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE),
+                any(String.class));
+        
+        verify(adapterProxy).retrieveDocumentSet(any(RetrieveDocumentSetRequestType.class), any(AssertionType.class));
+
+        
+        verify(logger).logDocRetrieve(any(DocRetrieveMessageType.class),
+                eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE),
+                any(String.class));
+    }
+    
+    @Test
+    public void testExecuteNull() {
+        InboundDocRetrieveOrchestratable message = null;
+        AdapterDocRetrieveProxy adapterProxy = mock(AdapterDocRetrieveProxy.class);
+        AuditRepositoryDocuementRetrieveLogger logger = mock(AuditRepositoryDocuementRetrieveLogger.class);
+        InboundDocRetrieveStrategyImpl instance = new InboundDocRetrieveStrategyImpl(adapterProxy, logger);
+        instance.execute(message);
+        verifyZeroInteractions(adapterProxy, logger);
+
     }
 
 }
