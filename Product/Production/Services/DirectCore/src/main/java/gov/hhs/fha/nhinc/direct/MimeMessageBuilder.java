@@ -43,6 +43,9 @@ import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 import javax.mail.util.ByteArrayDataSource;
 
+import org.apache.commons.lang.StringUtils;
+import org.nhindirect.xd.common.DirectDocuments;
+
 /**
  * Builder for {@link MimeMessage}.
  */
@@ -54,6 +57,8 @@ public class MimeMessageBuilder {
 
     private String subject;
     private String text;
+    private DirectDocuments documents;
+    private String messageId;
     private Document attachment;
     private String attachmentName;
 
@@ -89,6 +94,24 @@ public class MimeMessageBuilder {
         return this;
     }
 
+    /**
+     * @param documents for attachment
+     * @return builder
+     */
+    public MimeMessageBuilder documents(DirectDocuments documents) {
+        this.documents = documents;
+        return this;
+    }
+    
+    /**
+     * @param messageId for message
+     * @return builder
+     */
+    public MimeMessageBuilder messageId(String messageId) {
+        this.messageId = messageId;
+        return this;
+    }
+    
     /**
      * @param doc for attachment
      * @return builder
@@ -142,11 +165,21 @@ public class MimeMessageBuilder {
         }
 
         MimeBodyPart attachmentPart = null;
-        try {
-            attachmentPart = createAttachmentFromSOAPRequest(attachment, attachmentName);
-        } catch (Exception e) {
-            throw new DirectException("Exception creating attachment: " + attachmentName, e);
-        }
+		try {
+			if (null != documents && !StringUtils.isBlank(messageId)) {
+				attachmentPart = getMimeBodyPart();
+				attachmentPart.attachFile(documents.toXdmPackage(messageId)
+						.toFile());
+			} else if (null != attachment && !StringUtils.isBlank(attachmentName)) {
+				attachmentPart = createAttachmentFromSOAPRequest(attachment,
+						attachmentName);
+			} else {
+				throw new Exception("Could not create attachment. Need documents and messageId or attachment and attachmentName.");
+			}
+		} catch (Exception e) {
+			throw new DirectException("Exception creating attachment: "
+					+ attachmentName, e);
+		}
 
         Multipart multipart = new MimeMultipart();
         try {
@@ -166,7 +199,11 @@ public class MimeMessageBuilder {
         return message;
     }
 
-    private MimeBodyPart createAttachmentFromSOAPRequest(Document data, String name) throws MessagingException,
+    protected MimeBodyPart getMimeBodyPart() {
+		return new MimeBodyPart();
+	}
+
+	private MimeBodyPart createAttachmentFromSOAPRequest(Document data, String name) throws MessagingException,
             IOException {
         DataSource source = new ByteArrayDataSource(data.getValue().getInputStream(), "application/octet-stream");
         DataHandler dhnew = new DataHandler(source);
