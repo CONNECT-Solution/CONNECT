@@ -4,7 +4,7 @@
  */
 package gov.hhs.fha.nhinc.docretrieve.nhin;
 
-import gov.hhs.fha.nhinc.auditrepository.AuditRepositoryDocuementRetrieveLogger;
+import gov.hhs.fha.nhinc.auditrepository.AuditRepositoryDocumentRetrieveLogger;
 import gov.hhs.fha.nhinc.auditrepository.AuditRepositoryLogger;
 import gov.hhs.fha.nhinc.auditrepository.nhinc.proxy.AuditRepositoryProxy;
 import gov.hhs.fha.nhinc.auditrepository.nhinc.proxy.AuditRepositoryProxyObjectFactory;
@@ -33,7 +33,7 @@ public class InboundDocRetrieveStrategyImpl implements InboundDocRetrieveStrateg
 
     private static Log log = LogFactory.getLog(InboundDocRetrieveStrategyImpl.class);
     AdapterDocRetrieveProxy proxy;
-    AuditRepositoryDocuementRetrieveLogger auditLogger;
+    AuditRepositoryDocumentRetrieveLogger auditLogger;
 
     /**
      * Default constructor.
@@ -49,7 +49,7 @@ public class InboundDocRetrieveStrategyImpl implements InboundDocRetrieveStrateg
      * @param proxy AdapterDocRetrieveProxy
      * @param auditLogger the auditLogger
      */
-    InboundDocRetrieveStrategyImpl(AdapterDocRetrieveProxy proxy, AuditRepositoryDocuementRetrieveLogger auditLogger) {
+    InboundDocRetrieveStrategyImpl(AdapterDocRetrieveProxy proxy, AuditRepositoryDocumentRetrieveLogger auditLogger) {
         super();
         this.proxy = proxy;
         this.auditLogger = auditLogger;

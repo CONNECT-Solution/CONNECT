@@ -6,7 +6,7 @@ package gov.hhs.fha.nhinc.docretrieve.nhin;
 
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
-import gov.hhs.fha.nhinc.auditrepository.AuditRepositoryDocuementRetrieveLogger;
+import gov.hhs.fha.nhinc.auditrepository.AuditRepositoryDocumentRetrieveLogger;
 import gov.hhs.fha.nhinc.auditrepository.AuditRepositoryLogger;
 import gov.hhs.fha.nhinc.common.auditlog.DocRetrieveMessageType;
 import gov.hhs.fha.nhinc.common.auditlog.DocRetrieveResponseMessageType;
@@ -23,7 +23,7 @@ import gov.hhs.fha.nhinc.util.HomeCommunityMap;
  */
 public class InboundDocRetrieveAuditTransformer_g0 implements AuditTransformer {
     
-    AuditRepositoryDocuementRetrieveLogger auditLogger;
+    AuditRepositoryDocumentRetrieveLogger auditLogger;
     
     
     /**
@@ -37,7 +37,7 @@ public class InboundDocRetrieveAuditTransformer_g0 implements AuditTransformer {
      * injectablet constructor.
      * @param logger a logger.
      */
-    InboundDocRetrieveAuditTransformer_g0(AuditRepositoryDocuementRetrieveLogger logger) {
+    InboundDocRetrieveAuditTransformer_g0(AuditRepositoryDocumentRetrieveLogger logger) {
         auditLogger = logger;
     }
 

@@ -94,7 +94,7 @@ import gov.hhs.healthit.nhin.XDRAcknowledgementType;
  * 
  * @author Jon Hoppesch
  */
-public class AuditRepositoryLogger implements AuditRepositoryDocuementRetrieveLogger  {
+public class AuditRepositoryLogger implements AuditRepositoryDocumentRetrieveLogger  {
 
     private static Log log = LogFactory.getLog(AuditRepositoryLogger.class);
     private final PatientDiscoveryTransforms pdAuditTransformer = new PatientDiscoveryTransforms();

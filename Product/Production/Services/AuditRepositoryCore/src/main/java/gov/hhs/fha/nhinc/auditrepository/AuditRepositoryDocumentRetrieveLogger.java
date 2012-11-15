@@ -4,7 +4,7 @@ import gov.hhs.fha.nhinc.common.auditlog.DocRetrieveMessageType;
 import gov.hhs.fha.nhinc.common.auditlog.DocRetrieveResponseMessageType;
 import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
 
-public interface AuditRepositoryDocuementRetrieveLogger {
+public interface AuditRepositoryDocumentRetrieveLogger {
 
     /**
      * This method will create the generic Audit Log Message from a document retrieve request.

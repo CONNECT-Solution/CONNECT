@@ -32,7 +32,7 @@ import static org.mockito.Matchers.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import gov.hhs.fha.nhinc.auditrepository.AuditRepositoryDocuementRetrieveLogger;
+import gov.hhs.fha.nhinc.auditrepository.AuditRepositoryDocumentRetrieveLogger;
 import gov.hhs.fha.nhinc.common.auditlog.DocRetrieveMessageType;
 import gov.hhs.fha.nhinc.common.auditlog.DocRetrieveResponseMessageType;
 import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
@@ -52,7 +52,7 @@ public class NhinDocRetrieveAuditTransformer_g0Test {
      */
     @Test
     public void testTransformRequest() {
-        AuditRepositoryDocuementRetrieveLogger mockLogger = mock(AuditRepositoryDocuementRetrieveLogger.class);
+        AuditRepositoryDocumentRetrieveLogger mockLogger = mock(AuditRepositoryDocumentRetrieveLogger.class);
         InboundDocRetrieveAuditTransformer_g0 transform = new InboundDocRetrieveAuditTransformer_g0(mockLogger);
         InboundDocRetrieveOrchestratable mockMessage = mock(InboundDocRetrieveOrchestratable.class);
         
@@ -73,7 +73,7 @@ public class NhinDocRetrieveAuditTransformer_g0Test {
      */
      @Test
      public void testTransformResponse() {
-         AuditRepositoryDocuementRetrieveLogger mockLogger = mock(AuditRepositoryDocuementRetrieveLogger.class);
+         AuditRepositoryDocumentRetrieveLogger mockLogger = mock(AuditRepositoryDocumentRetrieveLogger.class);
          InboundDocRetrieveAuditTransformer_g0 transform = new InboundDocRetrieveAuditTransformer_g0(mockLogger);
          InboundDocRetrieveOrchestratable mockMessage = mock(InboundDocRetrieveOrchestratable.class);
          

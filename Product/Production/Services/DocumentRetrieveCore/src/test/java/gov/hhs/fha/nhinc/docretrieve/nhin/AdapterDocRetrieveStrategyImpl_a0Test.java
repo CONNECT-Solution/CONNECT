@@ -31,7 +31,7 @@ import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyZeroInteractions;
-import gov.hhs.fha.nhinc.auditrepository.AuditRepositoryDocuementRetrieveLogger;
+import gov.hhs.fha.nhinc.auditrepository.AuditRepositoryDocumentRetrieveLogger;
 import gov.hhs.fha.nhinc.common.auditlog.DocRetrieveMessageType;
 import gov.hhs.fha.nhinc.common.auditlog.DocRetrieveResponseMessageType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
@@ -54,7 +54,7 @@ public class AdapterDocRetrieveStrategyImpl_a0Test {
     public void testExecute() {
         InboundDocRetrieveOrchestratable message = mock(InboundDocRetrieveOrchestratable.class);
         AdapterDocRetrieveProxy adapterProxy = mock(AdapterDocRetrieveProxy.class);
-        AuditRepositoryDocuementRetrieveLogger logger = mock(AuditRepositoryDocuementRetrieveLogger.class);
+        AuditRepositoryDocumentRetrieveLogger logger = mock(AuditRepositoryDocumentRetrieveLogger.class);
         InboundDocRetrieveStrategyImpl instance = new InboundDocRetrieveStrategyImpl(adapterProxy, logger);
         instance.execute(message);
 
@@ -74,7 +74,7 @@ public class AdapterDocRetrieveStrategyImpl_a0Test {
     public void testExecuteNull() {
         InboundDocRetrieveOrchestratable message = null;
         AdapterDocRetrieveProxy adapterProxy = mock(AdapterDocRetrieveProxy.class);
-        AuditRepositoryDocuementRetrieveLogger logger = mock(AuditRepositoryDocuementRetrieveLogger.class);
+        AuditRepositoryDocumentRetrieveLogger logger = mock(AuditRepositoryDocumentRetrieveLogger.class);
         InboundDocRetrieveStrategyImpl instance = new InboundDocRetrieveStrategyImpl(adapterProxy, logger);
         instance.execute(message);
         verifyZeroInteractions(adapterProxy, logger);
