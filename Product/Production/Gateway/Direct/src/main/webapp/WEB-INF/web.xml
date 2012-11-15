@@ -11,6 +11,7 @@
             org.springframework.web.context.ContextLoaderListener
         </listener-class>
     </listener>
+   
     <!-- Remove below context-param element if using Metro -->
     <context-param>
         <param-name>contextConfigLocation</param-name>
