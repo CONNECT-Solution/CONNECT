@@ -71,7 +71,7 @@ public class AdapterDocRetrieveProxyJavaImpl implements AdapterDocRetrieveProxy 
      */
     @AdapterDelegationEvent(beforeBuilder = RetrieveDocumentSetRequestTypeDescriptionBuilder.class,
             afterReturningBuilder = RetrieveDocumentSetResponseTypeDescriptionBuilder.class, 
-            serviceType = "Retrieve Document", version = "2.0")
+            serviceType = "Retrieve Document", version = "")
     public RetrieveDocumentSetResponseType retrieveDocumentSet(RetrieveDocumentSetRequestType request,
             AssertionType assertion) {
         log.debug("Entering AdapterDocRetrieveProxyJavaImpl.retrieveDocumentSet");
