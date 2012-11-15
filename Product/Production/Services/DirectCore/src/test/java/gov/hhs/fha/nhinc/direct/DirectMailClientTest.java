@@ -26,10 +26,13 @@
  */
 package gov.hhs.fha.nhinc.direct;
 
+import static gov.hhs.fha.nhinc.direct.DirectUnitTestUtil.getFileAsString;
 import static gov.hhs.fha.nhinc.direct.DirectUnitTestUtil.getMailServerProps;
 import static gov.hhs.fha.nhinc.direct.DirectUnitTestUtil.getMockDocument;
 import static gov.hhs.fha.nhinc.direct.DirectUnitTestUtil.getRecipients;
 import static gov.hhs.fha.nhinc.direct.DirectUnitTestUtil.getSender;
+import static gov.hhs.fha.nhinc.direct.DirectUnitTestUtil.removeSmtpAgentConfig;
+import static gov.hhs.fha.nhinc.direct.DirectUnitTestUtil.writeSmtpAgentConfig;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -48,11 +51,16 @@ import java.util.Properties;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
+import org.apache.commons.io.IOUtils;
 import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.nhindirect.gateway.smtp.MessageProcessResult;
 import org.nhindirect.gateway.smtp.SmtpAgent;
+import org.nhindirect.gateway.smtp.SmtpAgentFactory;
 import org.nhindirect.stagent.MessageEnvelope;
 import org.nhindirect.stagent.NHINDAddress;
 import org.nhindirect.stagent.NHINDAddressCollection;
@@ -60,6 +68,7 @@ import org.nhindirect.stagent.mail.Message;
 import org.nhindirect.stagent.mail.notifications.NotificationMessage;
 
 import com.icegreen.greenmail.user.GreenMailUser;
+import com.icegreen.greenmail.user.UserException;
 import com.icegreen.greenmail.util.GreenMail;
 import com.icegreen.greenmail.util.ServerSetup;
 import com.icegreen.greenmail.util.ServerSetupTest;
@@ -74,27 +83,54 @@ public class DirectMailClientTest {
 
     private static final String ATTACHMENT_NAME = "mymockattachment";
 
-    protected Properties mailServerProps;
+    protected Properties intMailServerProps;
+//    protected Properties extMailServerProps;
     private SmtpAgent mockSmtpAgent;
     private DirectMailClient testDirectMailClient;
 
-    private GreenMail greenMail;
+    private GreenMail intGreenMail;
+//    private GreenMail extGreenMail;
     private GreenMailUser user;
 
+    /**
+     * Set up keystore for test.
+     */
+    @BeforeClass
+    public static void setUpClass() {
+        writeSmtpAgentConfig();
+    }
+    
+    /**
+     * Tear down keystore created in setup.
+     */
+    @AfterClass
+    public static void tearDownClass() {
+        removeSmtpAgentConfig();
+    }  
+    
     /**
      * Set up tests.
      */
     @Before
     public void setUp() {
         mockSmtpAgent = mock(SmtpAgent.class);
-        greenMail = new GreenMail(new ServerSetup[] { ServerSetupTest.SMTPS, ServerSetupTest.IMAPS });
-        greenMail.start();
-        user = greenMail.setUser(DirectUnitTestUtil.RECIPIENT, DirectUnitTestUtil.USER, DirectUnitTestUtil.PASS);
+        intGreenMail = new GreenMail(new ServerSetup[] { ServerSetupTest.SMTPS, ServerSetupTest.IMAPS });
+        intGreenMail.start();
+        user = intGreenMail.setUser(DirectUnitTestUtil.RECIPIENT, DirectUnitTestUtil.USER, DirectUnitTestUtil.PASS);
 
-        mailServerProps =
-                getMailServerProps(greenMail.getSmtps().getServerSetup().getPort(), greenMail.getImaps()
+        intMailServerProps =
+                getMailServerProps(intGreenMail.getSmtps().getServerSetup().getPort(), intGreenMail.getImaps()
                         .getServerSetup().getPort());
-        testDirectMailClient = new DirectMailClient(mailServerProps, mockSmtpAgent);
+        testDirectMailClient = new DirectMailClient(intMailServerProps, mockSmtpAgent);
+        
+//        extGreenMail = new GreenMail(new ServerSetup[] { 
+//                new ServerSetup(465 + 3001, null, ServerSetup.PROTOCOL_SMTPS), 
+//                new ServerSetup(993 + 3001, null, ServerSetup.PROTOCOL_IMAPS) });
+//        extGreenMail.start();
+//        extGreenMail.setUser(DirectUnitTestUtil.RECIPIENT, DirectUnitTestUtil.USER, DirectUnitTestUtil.PASS);
+//        extMailServerProps =
+//                getMailServerProps(extGreenMail.getSmtps().getServerSetup().getPort(), extGreenMail.getImaps()
+//                        .getServerSetup().getPort());
     }
 
     /**
@@ -102,8 +138,8 @@ public class DirectMailClientTest {
      */
     @After
     public void tearDown() {
-        if (greenMail != null) {
-            greenMail.stop();
+        if (intGreenMail != null) {
+            intGreenMail.stop();
         }
     }
 
@@ -112,15 +148,15 @@ public class DirectMailClientTest {
      */
     @Test
     public void canReadPropsAsStrings() {
-        assertNotNull(mailServerProps.getProperty("direct.mail.user"));
-        assertNotNull(mailServerProps.getProperty("direct.mail.pass"));
-        assertNotNull(mailServerProps.getProperty("direct.max.msgs.in.batch"));
-        assertNotNull(mailServerProps.getProperty("mail.smtps.host"));
-        assertNotNull(mailServerProps.getProperty("mail.smtps.auth"));
-        assertNotNull(mailServerProps.getProperty("mail.smtps.port"));
-        assertNotNull(mailServerProps.getProperty("mail.smtps.starttls.enabled"));
-        assertNotNull(mailServerProps.getProperty("mail.imaps.host"));
-        assertNotNull(mailServerProps.getProperty("mail.imaps.port"));
+        assertNotNull(intMailServerProps.getProperty("direct.mail.user"));
+        assertNotNull(intMailServerProps.getProperty("direct.mail.pass"));
+        assertNotNull(intMailServerProps.getProperty("direct.max.msgs.in.batch"));
+        assertNotNull(intMailServerProps.getProperty("mail.smtps.host"));
+        assertNotNull(intMailServerProps.getProperty("mail.smtps.auth"));
+        assertNotNull(intMailServerProps.getProperty("mail.smtps.port"));
+        assertNotNull(intMailServerProps.getProperty("mail.smtps.starttls.enabled"));
+        assertNotNull(intMailServerProps.getProperty("mail.imaps.host"));
+        assertNotNull(intMailServerProps.getProperty("mail.imaps.port"));
     }
 
     /**
@@ -188,19 +224,19 @@ public class DirectMailClientTest {
                     eq(testDirectMailClient));
 
             // there is a greenmail bug that only expunges every other message... delete read messages
-            DirectUnitTestUtil.expungeMissedMessages(greenMail, user);
+            DirectUnitTestUtil.expungeMissedMessages(intGreenMail, user);
         }
 
         assertEquals("Expected number of batches that ran", expectedBatchCount, batchCount);
         assertEquals("All messages were handled", NUM_MSGS_MULTI_BATCH, numberOfMsgsHandled);
-        assertEquals("No messages should be left on the server", 0, greenMail.getReceivedMessages().length);
+        assertEquals("No messages should be left on the server", 0, intGreenMail.getReceivedMessages().length);
     }
 
     @Test
     public void canSendSingleMDNMessage() throws MessagingException {
         MessageProcessResult mockMessageProcessResult = getMockMessageProcessResult();
         testDirectMailClient.sendMdn(getSender(), mockMessageProcessResult);
-        assertEquals(1, greenMail.getReceivedMessages().length);
+        assertEquals(1, intGreenMail.getReceivedMessages().length);
     }
 
     @Test
@@ -208,9 +244,42 @@ public class DirectMailClientTest {
         int numMdnMessages = 5;
         MessageProcessResult mockMessageProcessResult = getMockMessageProcessResult(numMdnMessages);
         testDirectMailClient.sendMdn(getSender(), mockMessageProcessResult);
-        assertEquals(numMdnMessages, greenMail.getReceivedMessages().length);
+        assertEquals(numMdnMessages, intGreenMail.getReceivedMessages().length);
     }
 
+    @Test
+    @Ignore
+    public void canSendEndToEnd() throws UserException, MessagingException {        
+
+        final MimeMessage originalMsg = new MimeMessage(null,
+                IOUtils.toInputStream(getFileAsString("PlainOutgoingMessage.txt")));
+
+        assertNotNull(originalMsg);
+        
+        // place message on internal server (simulates the user sending a message)
+        user.deliver(originalMsg);
+        assertEquals(1, intGreenMail.getReceivedMessages().length);
+        
+        /*
+         * Initiating Gateway...
+         */
+        // handle the messages on the internal server
+        SmtpAgent smtpAgent = SmtpAgentFactory.createAgent(getClass().getClassLoader().getResource(
+                "smtp.agent.config.xml"));
+        DirectClient internalDirectClient = new DirectMailClient(intMailServerProps, smtpAgent);
+        
+        // we can use the same greenmail as external direct client
+//        DirectClient externalDirectClient = new DirectMailClient(intMailServerProps, smtpAgent);
+//        MessageHandler handler = new OutboundMessageHandler(externalDirectClient);
+        internalDirectClient.handleMessages(mock(MessageHandler.class));
+        
+        /*
+         * Responding Gateway...
+         */
+        
+    }
+    
+    
     private MessageProcessResult getMockMessageProcessResult() {
         return getMockMessageProcessResult(1);
     }
