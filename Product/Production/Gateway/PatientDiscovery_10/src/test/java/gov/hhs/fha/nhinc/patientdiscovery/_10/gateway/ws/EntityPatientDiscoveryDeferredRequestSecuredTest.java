@@ -69,13 +69,11 @@ public class EntityPatientDiscoveryDeferredRequestSecuredTest {
                 oneOf(mockService).processPatientDiscoveryAsyncRequestSecured(with(same(mockRequest)),
                         with(any(WebServiceContext.class)));
                 will(returnValue(expectedResponse));
-
-                oneOf(mockFactory).getEntityPatientDiscoveryDeferredRequestImpl();
-                will(returnValue(mockService));
             }
         });
 
         EntityPatientDiscoveryDeferredRequestSecured ws = new EntityPatientDiscoveryDeferredRequestSecured(mockFactory);
+        ws.setOrchestratorImpl(mockService);
 
         MCCIIN000002UV01 actualResponse = ws.processPatientDiscoveryAsyncReq(mockRequest);
 

@@ -26,8 +26,9 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws;
 
+import gov.hhs.fha.nhinc.patientdiscovery._10.passthru.deferred.request.NhincProxyPatientDiscoveryDeferredRequestImpl;
+
 import javax.annotation.Resource;
-import javax.jws.WebService;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
@@ -35,12 +36,12 @@ import javax.xml.ws.soap.Addressing;
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.ProxyPRPAIN201305UVProxySecuredRequestType;
 
-import gov.hhs.fha.nhinc.patientdiscovery._10.passthru.deferred.request.NhincProxyPatientDiscoveryDeferredRequestImpl;
-
 @Addressing(enabled = true)
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 public class NhincProxyPatientDiscoveryDeferredRequestSecured extends PatientDiscoveryBase implements gov.hhs.fha.nhinc.nhincproxypatientdiscoverysecuredasyncreq.NhincProxyPatientDiscoverySecuredAsyncReqPortType{
 
+    private NhincProxyPatientDiscoveryDeferredRequestImpl orchImpl;
+    
     @Resource
     private WebServiceContext context;
 
@@ -55,12 +56,14 @@ public class NhincProxyPatientDiscoveryDeferredRequestSecured extends PatientDis
     public MCCIIN000002UV01 proxyProcessPatientDiscoveryAsyncReq(ProxyPRPAIN201305UVProxySecuredRequestType request) {
         MCCIIN000002UV01 response = null;
 
-        NhincProxyPatientDiscoveryDeferredRequestImpl serviceImpl = getServiceFactory()
-                .getNhincProxyPatientDiscoveryDeferredRequestImpl();
-        if (serviceImpl != null) {
-            response = serviceImpl.processPatientDiscoveryAsyncRequestSecured(request, getWebServiceContext());
+        if (orchImpl != null) {
+            response = orchImpl.processPatientDiscoveryAsyncRequestSecured(request, getWebServiceContext());
         }
         return response;
+    }
+    
+    public void setOrchestratorImpl(NhincProxyPatientDiscoveryDeferredRequestImpl orchImpl) {
+        this.orchImpl = orchImpl;
     }
 
     protected WebServiceContext getWebServiceContext() {

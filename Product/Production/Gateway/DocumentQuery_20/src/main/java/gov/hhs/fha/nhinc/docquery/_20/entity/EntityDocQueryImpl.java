@@ -89,10 +89,10 @@ public class EntityDocQueryImpl extends BaseService {
     }
 
     /**
-     * Sends the request to the Nwhin. This method is invoked by the unsecured outbound interface and the assertion object
-     * is read from the request object itself.
+     * Sends the request to the Nwhin. This method is invoked by the unsecured outbound interface and the assertion
+     * object is read from the request object itself.
      * 
-     * @param request 
+     * @param request
      * @param context
      * @return AdhocQueryResponse
      */
@@ -116,5 +116,4 @@ public class EntityDocQueryImpl extends BaseService {
 
         return response;
     }
-
 }

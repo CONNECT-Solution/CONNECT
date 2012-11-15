@@ -57,12 +57,9 @@ public class EntityPatientDiscoveryUnsecuredTest {
     @Test
     public void testRespondingGatewayPRPAIN201305UV02Happy() {
         try {
-            EntityPatientDiscoveryUnsecured unsecuredService = new EntityPatientDiscoveryUnsecured() {
-                @Override
-                protected EntityPatientDiscoveryImpl getEntityPatientDiscoveryImpl() {
-                    return mockServiceImpl;
-                }
-            };
+            EntityPatientDiscoveryUnsecured unsecuredService = new EntityPatientDiscoveryUnsecured();
+            unsecuredService.setOrchestratorImpl(mockServiceImpl);
+            
             context.checking(new Expectations() {
                 {
                     oneOf(mockServiceImpl).respondingGatewayPRPAIN201305UV02(
@@ -85,12 +82,8 @@ public class EntityPatientDiscoveryUnsecuredTest {
     @Test
     public void testRespondingGatewayPRPAIN201305UV02NullImpl() {
         try {
-            EntityPatientDiscoveryUnsecured unsecuredService = new EntityPatientDiscoveryUnsecured() {
-                @Override
-                protected EntityPatientDiscoveryImpl getEntityPatientDiscoveryImpl() {
-                    return null;
-                }
-            };
+            EntityPatientDiscoveryUnsecured unsecuredService = new EntityPatientDiscoveryUnsecured();
+            unsecuredService.setOrchestratorImpl(null);
 
             RespondingGatewayPRPAIN201305UV02RequestType request = new RespondingGatewayPRPAIN201305UV02RequestType();
 

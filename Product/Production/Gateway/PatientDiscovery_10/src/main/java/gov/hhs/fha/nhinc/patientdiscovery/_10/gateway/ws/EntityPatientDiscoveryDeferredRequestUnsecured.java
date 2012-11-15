@@ -40,6 +40,8 @@ import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 public class EntityPatientDiscoveryDeferredRequestUnsecured extends PatientDiscoveryBase implements gov.hhs.fha.nhinc.entitypatientdiscoveryasyncreq.EntityPatientDiscoveryAsyncReqPortType {
 
+    private EntityPatientDiscoveryDeferredRequestImpl orchImpl;
+    
     @Resource
     private WebServiceContext context;
 
@@ -54,13 +56,15 @@ public class EntityPatientDiscoveryDeferredRequestUnsecured extends PatientDisco
     public MCCIIN000002UV01 processPatientDiscoveryAsyncReq(RespondingGatewayPRPAIN201305UV02RequestType request) {
         MCCIIN000002UV01 response = null;
 
-        EntityPatientDiscoveryDeferredRequestImpl impl = getServiceFactory()
-                .getEntityPatientDiscoveryDeferredRequestImpl();
-        if (impl != null) {
-            response = impl.processPatientDiscoveryAsyncRequestUnsecured(request, getWebServiceContext());
+        if (orchImpl != null) {
+            response = orchImpl.processPatientDiscoveryAsyncRequestUnsecured(request, getWebServiceContext());
         }
 
         return response;
+    }
+    
+    public void setOrchestratorImpl(EntityPatientDiscoveryDeferredRequestImpl orchImpl) {
+        this.orchImpl = orchImpl;
     }
 
     protected WebServiceContext getWebServiceContext() {

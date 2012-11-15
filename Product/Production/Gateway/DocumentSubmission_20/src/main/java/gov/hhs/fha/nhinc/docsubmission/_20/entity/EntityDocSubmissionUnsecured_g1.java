@@ -47,7 +47,6 @@ public class EntityDocSubmissionUnsecured_g1 implements gov.hhs.fha.nhinc.nhince
     @Override
     public RegistryResponseType provideAndRegisterDocumentSetB(
             RespondingGatewayProvideAndRegisterDocumentSetRequestType body) {
-
         return new EntityDocSubmissionImpl_g1(outboundDocSubmission).provideAndRegisterDocumentSetBUnsecured(body, context);
     }
 

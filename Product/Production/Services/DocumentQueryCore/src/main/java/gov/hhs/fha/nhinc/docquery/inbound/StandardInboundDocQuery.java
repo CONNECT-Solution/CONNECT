@@ -42,11 +42,11 @@ public class StandardInboundDocQuery extends AbstractInboundDocQuery {
     private DocQueryPolicyChecker policyChecker = new DocQueryPolicyChecker();
     private PassthroughInboundDocQuery passthroughDQ = new PassthroughInboundDocQuery();
 
-    StandardInboundDocQuery() {
+    public StandardInboundDocQuery() {
         super();
     }
 
-    StandardInboundDocQuery(DocQueryPolicyChecker policyChecker, PassthroughInboundDocQuery passthroughDQ,
+    public StandardInboundDocQuery(DocQueryPolicyChecker policyChecker, PassthroughInboundDocQuery passthroughDQ,
             DocQueryAuditLog auditLogger) {
         this.policyChecker = policyChecker;
         this.passthroughDQ = passthroughDQ;

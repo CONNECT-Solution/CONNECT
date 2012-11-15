@@ -43,5 +43,4 @@ public class TestOutboundDocSubmission implements OutboundDocSubmission {
             AssertionType assertion, NhinTargetCommunitiesType targets, UrlInfoType urlInfo) {
         return new RegistryResponseType();
     }
-
 }

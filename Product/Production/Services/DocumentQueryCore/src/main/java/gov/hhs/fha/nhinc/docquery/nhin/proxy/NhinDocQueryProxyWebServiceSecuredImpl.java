@@ -26,9 +26,12 @@
  */
 package gov.hhs.fha.nhinc.docquery.nhin.proxy;
 
+import gov.hhs.fha.nhinc.aspect.NwhinInvocationEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
+import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryRequestDescriptionBuilder;
+import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryResponseDescriptionBuilder;
 import gov.hhs.fha.nhinc.docquery.nhin.proxy.description.NhinDocQueryServicePortDescriptor;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
@@ -100,6 +103,9 @@ public class NhinDocQueryProxyWebServiceSecuredImpl implements NhinDocQueryProxy
      * @throws Exception Throws Exception.
      * @return The AdhocQUery response from the web service.
      */
+    @NwhinInvocationEvent(beforeBuilder = AdhocQueryRequestDescriptionBuilder.class,
+            afterReturningBuilder = AdhocQueryResponseDescriptionBuilder.class, serviceType = "Document Query",
+            version = "")
     public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest request, AssertionType assertion,
             NhinTargetSystemType target) throws Exception {
         AdhocQueryResponse response = new AdhocQueryResponse();

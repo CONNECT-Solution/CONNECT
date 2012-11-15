@@ -26,10 +26,11 @@
  */
 package gov.hhs.fha.nhinc.docquery.outbound;
 
-import java.util.concurrent.ExecutorService;
-
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
+
+import java.util.concurrent.ExecutorService;
+
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 
@@ -41,6 +42,6 @@ public interface OutboundDocQuery {
 
     public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest adhocQueryRequest,
             AssertionType assertion, NhinTargetCommunitiesType targets);
-    
+
     public void setExecutorService(ExecutorService regularExecutor, ExecutorService largeJobExecutor);
 }

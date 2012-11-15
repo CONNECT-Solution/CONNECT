@@ -46,6 +46,8 @@ import org.hl7.v3.RespondingGatewayPRPAIN201306UV02ResponseType;
 public class EntityPatientDiscoveryUnsecured extends PatientDiscoveryBase implements gov.hhs.fha.nhinc.entitypatientdiscovery.EntityPatientDiscoveryPortType {
     private static final Log log = LogFactory.getLog(EntityPatientDiscoveryUnsecured.class);
 
+    private EntityPatientDiscoveryImpl orchImpl;
+    
     public EntityPatientDiscoveryUnsecured() {
         super();
     }
@@ -54,21 +56,20 @@ public class EntityPatientDiscoveryUnsecured extends PatientDiscoveryBase implem
         super(serviceFactory);
     }
 
-    protected EntityPatientDiscoveryImpl getEntityPatientDiscoveryImpl() {
-        return getServiceFactory().getEntityPatientDiscoveryImpl();
-    }
-
     public RespondingGatewayPRPAIN201306UV02ResponseType respondingGatewayPRPAIN201305UV02(
             RespondingGatewayPRPAIN201305UV02RequestType respondingGatewayPRPAIN201305UV02Request) {
         log.debug("Begin EntityPatientDiscoveryUnsecured.respondingGatewayPRPAIN201305UV02...");
         RespondingGatewayPRPAIN201306UV02ResponseType response = null;
 
-        EntityPatientDiscoveryImpl impl = getEntityPatientDiscoveryImpl();
-        if (impl != null) {
-            response = impl.respondingGatewayPRPAIN201305UV02(respondingGatewayPRPAIN201305UV02Request);
+        if (orchImpl != null) {
+            response = orchImpl.respondingGatewayPRPAIN201305UV02(respondingGatewayPRPAIN201305UV02Request);
         }
         log.debug("End EntityPatientDiscoveryUnsecured.respondingGatewayPRPAIN201305UV02...");
         return response;
     }
-
+    
+    public void setOrchestratorImpl(EntityPatientDiscoveryImpl orchImpl) {
+        this.orchImpl = orchImpl;
+    }
+    
 }

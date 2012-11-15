@@ -26,42 +26,63 @@
  */
 package gov.hhs.fha.nhinc.admindistribution.nhin;
 
-import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import gov.hhs.fha.nhinc.admindistribution.AdminDistributionAuditLogger;
 import gov.hhs.fha.nhinc.admindistribution.AdminDistributionHelper;
 import gov.hhs.fha.nhinc.admindistribution.AdminDistributionPolicyChecker;
 import gov.hhs.fha.nhinc.admindistribution.AdminDistributionUtils;
 import gov.hhs.fha.nhinc.admindistribution.adapter.proxy.AdapterAdminDistributionProxy;
 import gov.hhs.fha.nhinc.admindistribution.adapter.proxy.AdapterAdminDistributionProxyObjectFactory;
+import gov.hhs.fha.nhinc.admindistribution.aspect.InboundProcessingEventDescriptionBuilder;
+import gov.hhs.fha.nhinc.aspect.InboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.largefile.LargePayloadException;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * 
  * @author dunnek
  */
+
 public class NhinAdminDistributionOrchImpl {
     private Log log = null;
 
+    /**
+     * Constructor.
+     */
     public NhinAdminDistributionOrchImpl() {
         log = createLogger();
     }
 
+    /**
+     * @return log.
+     */
     protected Log createLogger() {
         return LogFactory.getLog(getClass());
     }
 
+    /**
+     * @return AdminDistributionUtils instance.
+     */
     protected AdminDistributionUtils getAdminDistributionUtils() {
         return AdminDistributionUtils.getInstance();
     }
 
+    /**
+     * This method sends sendAlertMessage to agency/agencies.
+     * 
+     * @param body
+     *            Emergency Message Distribution Element transaction message body.
+     * @param assertion
+     *            Assertion received.
+     */
+    @InboundProcessingEvent(serviceType = "Admin Distribution", version = "2.0",
+            afterReturningBuilder = InboundProcessingEventDescriptionBuilder.class,
+            beforeBuilder = InboundProcessingEventDescriptionBuilder.class)
     public void sendAlertMessage(EDXLDistribution body, AssertionType assertion) {
         log.info("begin sendAlert");
         // With the one-way service in a one-machine setup,
@@ -83,10 +104,23 @@ public class NhinAdminDistributionOrchImpl {
         log.info("End sendAlert");
     }
 
+    /**
+     * This method returns boolean true if in passthru mode.
+     * 
+     * @return true if in AdminDist is in passthrumode.
+     */
     protected boolean isInPassThroughMode() {
         return new AdminDistributionHelper().isInPassThroughMode();
     }
 
+    /**
+     * This method forwards AdminDist message to Agency/Agencies.
+     * 
+     * @param body
+     *            Emergency Message Distribution Element transaction message body.
+     * @param assertion
+     *            Assertion received.
+     */
     protected void sendToAgency(EDXLDistribution body, AssertionType assertion) {
         auditMessage(body, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION,
                 NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE);
@@ -95,18 +129,36 @@ public class NhinAdminDistributionOrchImpl {
 
     }
 
+    /**
+     * @return AdapterAdminDist Bean from Spring Proxy config file and instantiate the classes based on defined beans.
+     */
     protected AdapterAdminDistributionProxy getAdapterAdminDistProxy() {
         return this.getAdminFactory().getAdapterAdminDistProxy();
     }
 
+    /**
+     * @return AdapterAdminDistributionProxyObjectFactory instance.
+     */
     protected AdapterAdminDistributionProxyObjectFactory getAdminFactory() {
         return new AdapterAdminDistributionProxyObjectFactory();
     }
 
+    /**
+     * @return AdminDist Auditlogger.
+     */
     protected AdminDistributionAuditLogger getLogger() {
         return new AdminDistributionAuditLogger();
     }
 
+    /**
+     * This method checks the policy for AdminDist Service and returns boolean.
+     * 
+     * @param body
+     *            Emergency Message Distribution Element transaction message body.
+     * @param assertion
+     *            Assertion received.
+     * @return true if Permit; else denied.
+     */
     protected boolean checkPolicy(EDXLDistribution body, AssertionType assertion) {
         boolean result = false;
 
@@ -121,11 +173,23 @@ public class NhinAdminDistributionOrchImpl {
         return result;
     }
 
+    /**
+     * @return AdminDistributionPolicyChecker instance.
+     */
     protected AdminDistributionPolicyChecker getPolicyChecker() {
         return new AdminDistributionPolicyChecker();
     }
 
-
+    /**
+     * @param body
+     *            Emergency Message Distribution Element transaction message body.
+     * @param assertion
+     *            Assertion received.
+     * @param direction
+     *            The direction can be eigther outbound or inbound.
+     * @param logInterface
+     *            The interface can be Adapter/Entity/Nhin.
+     */
     protected void auditMessage(EDXLDistribution body, AssertionType assertion, String direction, String logInterface) {
         AcknowledgementType ack = getLogger().auditNhinAdminDist(body, assertion, direction, logInterface);
         if (ack != null) {

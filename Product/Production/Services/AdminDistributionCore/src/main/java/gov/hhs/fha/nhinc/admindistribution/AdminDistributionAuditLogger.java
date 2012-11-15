@@ -45,10 +45,16 @@ import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewaySendAlertMess
 public class AdminDistributionAuditLogger {
     private Log log = null;
 
+    /**
+     * Default Constructor.
+     */
     public AdminDistributionAuditLogger() {
         log = createLogger();
     }
 
+    /**
+     * @return log4j logger for this class.
+     */
     protected Log createLogger() {
         return LogFactory.getLog(getClass());
     }
@@ -61,6 +67,12 @@ public class AdminDistributionAuditLogger {
         return proxy.auditLog(auditLogMsg, assertion);
     }
 
+    /** This method audits the Entity AdminDist.
+     * @param request SendAlertMessage received.
+     * @param assertion Assertion received.
+     * @param direction The direction could be eigther outbound or inbound.
+     * @return ack Acknowledgement 
+     */
     public AcknowledgementType auditEntityAdminDist(RespondingGatewaySendAlertMessageType request,
             AssertionType assertion, String direction) {
         log.debug("begin auditEntityAdminDist() " + direction);
@@ -77,6 +89,13 @@ public class AdminDistributionAuditLogger {
         return ack;
     }
 
+    /** This method audits the MsgProxy AdminDist.
+     * @param body Emergency Message Distribution Element transaction body received.
+     * @param assertion Assertion received.
+     * @param target Target community to send/receive to be audited.
+     * @param direction The direction could be eigther outbound or indound. 
+     * @return ack Acknowledgement.
+     */
     public AcknowledgementType auditNhincAdminDist(EDXLDistribution body, AssertionType assertion,
             NhinTargetSystemType target, String direction) {
         log.debug("begin auditNhincAdminDist() " + direction);
@@ -94,6 +113,13 @@ public class AdminDistributionAuditLogger {
         return ack;
     }
 
+    /**this method audits the Nhin AdminDist.
+     * @param body Emergency Message Distribution Element transaction body received.
+     * @param assertion Assertion received.
+     * @param direction The direction could be outbound/inbound.
+     * @param logInterface The logInterface could be Adapter/Entity/MsgProxy.
+     * @return ack Acknowledgement.
+     */
     public AcknowledgementType auditNhinAdminDist(EDXLDistribution body, AssertionType assertion, String direction,
             String logInterface) {
         log.debug("begin auditNhinAdminDist() " + direction);
