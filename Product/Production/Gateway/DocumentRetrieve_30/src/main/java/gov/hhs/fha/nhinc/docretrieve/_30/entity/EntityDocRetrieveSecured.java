@@ -6,6 +6,8 @@
  */
 package gov.hhs.fha.nhinc.docretrieve._30.entity;
 
+import gov.hhs.fha.nhinc.docretrieve.entity.EntityDocRetrieveOrchImpl;
+
 import javax.annotation.Resource;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
@@ -20,6 +22,8 @@ import javax.xml.ws.soap.Addressing;
 @Addressing(enabled = true)
 public class EntityDocRetrieveSecured implements gov.hhs.fha.nhinc.entitydocretrievesecured.EntityDocRetrieveSecuredPortType {
 
+    private EntityDocRetrieveOrchImpl orchImpl;
+    
     @Resource
     private WebServiceContext context;
 
@@ -28,7 +32,11 @@ public class EntityDocRetrieveSecured implements gov.hhs.fha.nhinc.entitydocretr
         return getImpl().respondingGatewayCrossGatewayRetrieve(body, context);
     }
 
-    protected EntityDocRetreiveImpl getImpl() {
-        return new EntityDocRetreiveImpl();
+    protected EntityDocRetrieveImpl getImpl() {
+        return new EntityDocRetrieveImpl(orchImpl);
+    }
+    
+    public void setOrchestratorImpl(EntityDocRetrieveOrchImpl orchImpl) {
+        this.orchImpl = orchImpl;
     }
 }

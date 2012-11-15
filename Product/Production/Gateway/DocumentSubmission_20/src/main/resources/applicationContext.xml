@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:aop="http://www.springframework.org/schema/aop" xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="
+http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+">
+
+    <aop:aspectj-autoproxy proxy-target-class="true" />
+    <context:annotation-config />
+
+    <bean id="SOAPHeaderHandler" class="gov.hhs.fha.nhinc.callback.SOAPHeaderHandler" />
+    <bean id="TransactionHandler" class="gov.hhs.fha.nhinc.logging.transaction.TransactionHandler" />
+
+    <!-- Do we need these? -->
+    <bean id="auditRepositoryLogger" class="gov.hhs.fha.nhinc.auditrepository.AuditRepositoryLogger" />
+    <bean id="auditRepositoryProxyObjectFactory" class="gov.hhs.fha.nhinc.auditrepository.nhinc.proxy.AuditRepositoryProxyObjectFactory" />
+
+
+    <bean id="nhinDocSubmissionOrchImpl" class="gov.hhs.fha.nhinc.docsubmission.nhin.NhinDocSubmissionOrchImpl" />
+    <bean id="nhinXDR_g1" class="gov.hhs.fha.nhinc.docsubmission._20.nhin.NhinXDR_g1">
+        <property name="orchestratorImpl">
+            <ref bean="nhinDocSubmissionOrchImpl" />
+        </property>
+    </bean>
+
+    <bean id="entityDocSubmissionOrchImpl" class="gov.hhs.fha.nhinc.docsubmission.entity.EntityDocSubmissionOrchImpl" />
+
+    <bean id="entityXDRUnsecured_g1" class="gov.hhs.fha.nhinc.docsubmission._20.entity.EntityDocSubmissionUnsecured_g1">
+        <property name="orchestratorImpl">
+            <ref bean="entityDocSubmissionOrchImpl" />
+        </property>
+    </bean>
+
+    <bean id="entityXDRSecured_g1" class="gov.hhs.fha.nhinc.docsubmission._20.entity.EntityDocSubmissionSecured_g1">
+        <property name="orchestratorImpl">
+            <ref bean="entityDocSubmissionOrchImpl" />
+        </property>
+    </bean>
+
+    <bean id="passthruDocSubmissionOrchImpl" class="gov.hhs.fha.nhinc.docsubmission.passthru.PassthruDocSubmissionOrchImpl" />
+
+    <bean id="passthruXDRUnsecured_g1" class="gov.hhs.fha.nhinc.docsubmission._20.passthru.PassthruDocSubmissionUnsecured_g1">
+        <property name="orchestratorImpl">
+            <ref bean="passthruDocSubmissionOrchImpl" />
+        </property>
+    </bean>
+
+    <bean id="passthruXDRSecured_g1" class="gov.hhs.fha.nhinc.docsubmission._20.passthru.PassthruDocSubmissionSecured_g1">
+        <property name="orchestratorImpl">
+            <ref bean="passthruDocSubmissionOrchImpl" />
+        </property>
+    </bean>
+
+    <bean id="nhinDocSubmissionDeferredRequestOrchImpl" class="gov.hhs.fha.nhinc.docsubmission.nhin.deferred.request.NhinDocSubmissionDeferredRequestOrchImpl" />
+
+    <bean id="nhinXDRDeferredRequest_g1" class="gov.hhs.fha.nhinc.docsubmission._20.nhin.deferred.request.NhinXDRRequest20">
+        <property name="orchestratorImpl">
+            <ref bean="nhinDocSubmissionDeferredRequestOrchImpl" />
+        </property>
+    </bean>
+
+    <bean id="entityDocSubmissionDeferredRequestOrchImpl" class="gov.hhs.fha.nhinc.docsubmission.entity.deferred.request.EntityDocSubmissionDeferredRequestOrchImpl" />
+
+    <bean id="entityXDRDeferredRequestUnsecured_g1"
+        class="gov.hhs.fha.nhinc.docsubmission._20.entity.deferred.request.EntityDocSubmissionDeferredRequestUnsecured_g1">
+        <property name="orchestratorImpl">
+            <ref bean="entityDocSubmissionDeferredRequestOrchImpl" />
+        </property>
+    </bean>
+
+    <bean id="entityXDRDeferredRequestSecured_g1"
+        class="gov.hhs.fha.nhinc.docsubmission._20.entity.deferred.request.EntityDocSubmissionDeferredRequestSecured_g1">
+        <property name="orchestratorImpl">
+            <ref bean="entityDocSubmissionDeferredRequestOrchImpl" />
+        </property>
+    </bean>
+
+    <bean id="passthruDocSubmissionDeferredRequestOrchImpl"
+        class="gov.hhs.fha.nhinc.docsubmission.passthru.deferred.request.PassthruDocSubmissionDeferredRequestOrchImpl" />
+
+    <bean id="passthruXDRDeferredRequestUnsecured_g1"
+        class="gov.hhs.fha.nhinc.docsubmission._20.passthru.deferred.request.PassthruDocSubmissionDeferredRequestUnsecured_g1">
+        <property name="orchestratorImpl">
+            <ref bean="passthruDocSubmissionDeferredRequestOrchImpl" />
+        </property>
+    </bean>
+
+    <bean id="passthruXDRDeferredRequestSecured_g1"
+        class="gov.hhs.fha.nhinc.docsubmission._20.passthru.deferred.request.PassthruDocSubmissionDeferredRequestSecured_g1">
+        <property name="orchestratorImpl">
+            <ref bean="passthruDocSubmissionDeferredRequestOrchImpl" />
+        </property>
+    </bean>
+
+    <bean id="nhinDocSubmissionDeferredResponseOrchImpl" class="gov.hhs.fha.nhinc.docsubmission.nhin.deferred.response.NhinDocSubmissionDeferredResponseOrchImpl" />
+
+    <bean id="nhinXDRDeferredResponse_g1" class="gov.hhs.fha.nhinc.docsubmission._20.nhin.deferred.response.NhinXDRResponse20">
+        <property name="orchestratorImpl">
+            <ref bean="nhinDocSubmissionDeferredResponseOrchImpl" />
+        </property>
+    </bean>
+
+    <bean id="entityDocSubmissionDeferredResponseOrchImpl" class="gov.hhs.fha.nhinc.docsubmission.entity.deferred.response.EntityDocSubmissionDeferredResponseOrchImpl" />
+
+    <bean id="entityXDRDeferredResponseUnsecured_g1"
+        class="gov.hhs.fha.nhinc.docsubmission._20.entity.deferred.response.EntityDocSubmissionDeferredResponseUnsecured_g1">
+        <property name="orchestratorImpl">
+            <ref bean="entityDocSubmissionDeferredResponseOrchImpl" />
+        </property>
+    </bean>
+
+    <bean id="entityXDRDeferredResponseSecured_g1"
+        class="gov.hhs.fha.nhinc.docsubmission._20.entity.deferred.response.EntityDocSubmissionDeferredResponseSecured_g1">
+        <property name="orchestratorImpl">
+            <ref bean="entityDocSubmissionDeferredResponseOrchImpl" />
+        </property>
+    </bean>
+
+    <bean id="passthruDocSubmissionDeferredResponseOrchImpl"
+        class="gov.hhs.fha.nhinc.docsubmission.passthru.deferred.response.PassthruDocSubmissionDeferredResponseOrchImpl" />
+
+    <bean id="passthruXDRDeferredResponseUnsecured_g1"
+        class="gov.hhs.fha.nhinc.docsubmission._20.passthru.deferred.response.PassthruDocSubmissionDeferredResponseUnsecured_g1">
+        <property name="orchestratorImpl">
+            <ref bean="passthruDocSubmissionDeferredResponseOrchImpl" />
+        </property>
+    </bean>
+
+    <bean id="passthruXDRDeferredResponseSecured_g1"
+        class="gov.hhs.fha.nhinc.docsubmission._20.passthru.deferred.response.PassthruDocSubmissionDeferredResponseSecured_g1">
+        <property name="orchestratorImpl">
+            <ref bean="passthruDocSubmissionDeferredResponseOrchImpl" />
+        </property>
+    </bean>
+</beans>

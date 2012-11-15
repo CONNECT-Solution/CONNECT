@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.docsubmission.nhin;
 
+import gov.hhs.fha.nhinc.aspect.InboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.docsubmission.DocSubmissionUtils;
 import gov.hhs.fha.nhinc.docsubmission.MessageGeneratorUtils;
@@ -33,6 +34,7 @@ import gov.hhs.fha.nhinc.docsubmission.XDRAuditLogger;
 import gov.hhs.fha.nhinc.docsubmission.XDRPolicyChecker;
 import gov.hhs.fha.nhinc.docsubmission.adapter.proxy.AdapterDocSubmissionProxy;
 import gov.hhs.fha.nhinc.docsubmission.adapter.proxy.AdapterDocSubmissionProxyObjectFactory;
+import gov.hhs.fha.nhinc.docsubmission.aspect.InboundProcessingEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.gateway.aggregator.document.DocumentConstants;
 import gov.hhs.fha.nhinc.largefile.LargePayloadException;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
@@ -62,6 +64,9 @@ public class NhinDocSubmissionOrchImpl {
         auditLogger = getXDRAuditLogger();
     }
 
+    @InboundProcessingEvent(serviceType = "Document Submission", version = "",
+            beforeBuilder = InboundProcessingEventDescriptionBuilder.class,
+            afterReturningBuilder = InboundProcessingEventDescriptionBuilder.class)
     public RegistryResponseType documentRepositoryProvideAndRegisterDocumentSetB(
             ProvideAndRegisterDocumentSetRequestType body, AssertionType assertion) {
         RegistryResponseType response = null;
@@ -118,7 +123,7 @@ public class NhinDocSubmissionOrchImpl {
     protected MessageGeneratorUtils getMessageGeneratorUtils() {
         return MessageGeneratorUtils.getInstance();
     }
-    
+
     protected boolean hasHomeCommunityId(AssertionType assertion) {
         if (assertion != null && assertion.getHomeCommunity() != null
                 && NullChecker.isNotNullish(assertion.getHomeCommunity().getHomeCommunityId())) {

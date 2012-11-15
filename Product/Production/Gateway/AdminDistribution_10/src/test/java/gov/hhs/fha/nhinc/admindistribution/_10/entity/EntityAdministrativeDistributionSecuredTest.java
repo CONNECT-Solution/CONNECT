@@ -79,7 +79,7 @@ public class EntityAdministrativeDistributionSecuredTest {
             }
 
             @Override
-            protected EntityAdminDistributionOrchImpl getEntityImpl() {
+            protected EntityAdminDistributionOrchImpl getOrchImpl() {
                 return mockImpl;
             }
         };

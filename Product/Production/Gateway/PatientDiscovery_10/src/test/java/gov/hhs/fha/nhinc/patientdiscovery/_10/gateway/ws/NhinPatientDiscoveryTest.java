@@ -28,8 +28,13 @@ package gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
+import gov.hhs.fha.nhinc.generic.GenericFactory;
 import gov.hhs.fha.nhinc.patientdiscovery.NhinPatientDiscoveryImpl;
+import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditLogger;
+import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditor;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryException;
+import gov.hhs.fha.nhinc.patientdiscovery.nhin.InboundPatientDiscoveryOrchestration;
+import gov.hhs.fha.nhinc.transform.audit.PatientDiscoveryTransforms;
 import ihe.iti.xcpd._2009.PRPAIN201305UV02Fault;
 
 import javax.xml.ws.WebServiceContext;
@@ -63,19 +68,32 @@ public class NhinPatientDiscoveryTest {
         final PRPAIN201306UV02 expectedResponse = context.mock(PRPAIN201306UV02.class);
         final NhinPatientDiscoveryImpl mockService = context.mock(NhinPatientDiscoveryImpl.class);
         final PatientDiscoveryServiceFactory mockFactory = context.mock(PatientDiscoveryServiceFactory.class);
+        final PatientDiscoveryAuditLogger mockAuditLogger = context.mock(PatientDiscoveryAuditLogger.class);
+        final GenericFactory<InboundPatientDiscoveryOrchestration> mockOrch = context.mock(GenericFactory.class);
 
-        NhinPatientDiscovery patientDiscovery = new NhinPatientDiscovery(mockFactory);
+        NhinPatientDiscovery patientDiscovery = new NhinPatientDiscovery(mockFactory) {
+            @Override
+            protected PatientDiscoveryAuditLogger getPatientDiscoveryAuditLogger() {
+                return mockAuditLogger;
+            }
 
+            @Override
+            protected GenericFactory<InboundPatientDiscoveryOrchestration> getOrchestrationFactory() {
+                return mockOrch;
+            }  
+        };
+        
         context.checking(new Expectations() {
-            {
+            {                
+                oneOf(mockService).configure(with(same(mockAuditLogger)), with(same(mockOrch)));
+                
                 oneOf(mockService).respondingGatewayPRPAIN201305UV02(with(same(mockBody)),
                         with(any(WebServiceContext.class)));
                 will(returnValue(expectedResponse));
-
-                oneOf(mockFactory).getNhinPatientDiscoveryService();
-                will(returnValue(mockService));
             }
         });
+        
+        patientDiscovery.setOrchestratorImpl(mockService);
 
         PRPAIN201306UV02 actualResponse = patientDiscovery.respondingGatewayPRPAIN201305UV02(mockBody);
 

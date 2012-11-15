@@ -83,7 +83,7 @@ public class PatientCorrelationServiceUnsecured implements gov.hhs.fha.nhinc.nhi
     }
 
   private String createMessageId(WebServiceContext context) {
-        return AsyncMessageIdExtractor.GetAsyncMessageId(context);
+        return AsyncMessageIdExtractor.getOrCreateAsyncMessageId(context);
     }
 
 }

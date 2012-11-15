@@ -154,7 +154,7 @@ public class TransactionHandler implements SOAPHandler<SOAPMessageContext> {
             transRepo.setTransactionId(transactionId);
             transRepo.setTime(this.createTimestamp());
 
-            if (TransactionDAO.getTransactionDAOInstance().insertIntoTransactionRepo(transRepo)) {
+            if (TransactionDAO.getInstance().insertIntoTransactionRepo(transRepo)) {
                 newId = transRepo.getId();
                 getLogger().info("TransactionHandler.createTransactionId() - New Transaction Log Id = " + newId);
             } else {
@@ -173,7 +173,7 @@ public class TransactionHandler implements SOAPHandler<SOAPMessageContext> {
         String transactionId = null;
         
         if(NullChecker.isNotNullish(id)) {
-            transactionId = TransactionDAO.getTransactionDAOInstance().getTransactionId(id);
+            transactionId = TransactionDAO.getInstance().getTransactionId(id);
         }
             
         return transactionId;
