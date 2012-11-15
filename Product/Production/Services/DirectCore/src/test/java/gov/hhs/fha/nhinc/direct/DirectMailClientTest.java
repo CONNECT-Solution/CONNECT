@@ -84,12 +84,10 @@ public class DirectMailClientTest {
     private static final String ATTACHMENT_NAME = "mymockattachment";
 
     protected Properties intMailServerProps;
-//    protected Properties extMailServerProps;
     private SmtpAgent mockSmtpAgent;
     private DirectMailClient testDirectMailClient;
 
     private GreenMail intGreenMail;
-//    private GreenMail extGreenMail;
     private GreenMailUser user;
 
     /**
@@ -121,16 +119,7 @@ public class DirectMailClientTest {
         intMailServerProps =
                 getMailServerProps(intGreenMail.getSmtps().getServerSetup().getPort(), intGreenMail.getImaps()
                         .getServerSetup().getPort());
-        testDirectMailClient = new DirectMailClient(intMailServerProps, mockSmtpAgent);
-        
-//        extGreenMail = new GreenMail(new ServerSetup[] { 
-//                new ServerSetup(465 + 3001, null, ServerSetup.PROTOCOL_SMTPS), 
-//                new ServerSetup(993 + 3001, null, ServerSetup.PROTOCOL_IMAPS) });
-//        extGreenMail.start();
-//        extGreenMail.setUser(DirectUnitTestUtil.RECIPIENT, DirectUnitTestUtil.USER, DirectUnitTestUtil.PASS);
-//        extMailServerProps =
-//                getMailServerProps(extGreenMail.getSmtps().getServerSetup().getPort(), extGreenMail.getImaps()
-//                        .getServerSetup().getPort());
+        testDirectMailClient = new DirectMailClient(intMailServerProps, mockSmtpAgent);        
     }
 
     /**
@@ -247,6 +236,13 @@ public class DirectMailClientTest {
         assertEquals(numMdnMessages, intGreenMail.getReceivedMessages().length);
     }
 
+    /**
+     * This test is intended to simulate the end-to-end send, receive and MDN of a direct mail send use case, with SMTP edge
+     * clients on the sending and receiving side. Currently it does not run because Greenmail does not support the 
+     * envelope fetching part of the IMAP spec.
+     * @throws UserException when the test fails with a user exception.
+     * @throws MessagingException when the test fails with a MessagingException.
+     */
     @Test
     @Ignore
     public void canSendEndToEnd() throws UserException, MessagingException {        
@@ -269,14 +265,11 @@ public class DirectMailClientTest {
         DirectClient internalDirectClient = new DirectMailClient(intMailServerProps, smtpAgent);
         
         // we can use the same greenmail as external direct client
-//        DirectClient externalDirectClient = new DirectMailClient(intMailServerProps, smtpAgent);
-//        MessageHandler handler = new OutboundMessageHandler(externalDirectClient);
         internalDirectClient.handleMessages(mock(MessageHandler.class));
         
         /*
          * Responding Gateway...
-         */
-        
+         */      
     }
     
     

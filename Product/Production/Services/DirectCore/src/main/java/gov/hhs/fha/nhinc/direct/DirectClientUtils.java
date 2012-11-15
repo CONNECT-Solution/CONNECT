@@ -27,12 +27,9 @@
 package gov.hhs.fha.nhinc.direct;
 
 import javax.mail.Address;
-import javax.mail.Folder;
-import javax.mail.FolderClosedException;
 import javax.mail.Message;
 import javax.mail.Message.RecipientType;
 import javax.mail.MessagingException;
-import javax.mail.Store;
 import javax.mail.internet.InternetAddress;
 
 import org.apache.commons.logging.Log;
@@ -57,10 +54,6 @@ public class DirectClientUtils {
     protected static NHINDAddressCollection getNhindRecipients(Message message) throws MessagingException {
 
         NHINDAddressCollection recipients = new NHINDAddressCollection();
-//        for (Address address : message.getAllRecipients()) {
-//            recipients.add(new NHINDAddress(address.toString()));
-//        }
-//        
         addRecipients(recipients, message, RecipientType.TO, AddressSource.To);
         addRecipients(recipients, message, RecipientType.CC, AddressSource.CC);
         addRecipients(recipients, message, RecipientType.BCC, AddressSource.BCC);
@@ -103,21 +96,7 @@ public class DirectClientUtils {
             AddressSource source) throws MessagingException {
 
         Address[] addresses = null;
-        try {
-            addresses = message.getRecipients(type);            
-        } catch (FolderClosedException e) {
-            LOG.warn("Folder was closed unexpectedly.", e);
-            Folder folder = message.getFolder();;
-            Store store = folder.getStore();
-            if (store.isConnected()) {
-                store.close();
-            }
-            folder.getStore().connect();
-            if (!folder.isOpen()) {
-                folder.open(Folder.READ_WRITE);
-                addresses = message.getRecipients(type);            
-            }
-        } 
+        addresses = message.getRecipients(type);            
         
         if (addresses == null) {
             return;
