@@ -37,6 +37,11 @@ import gov.hhs.fha.nhinc.admindistribution.entity.EntityAdminDistributionOrchImp
  */
 public class EntityAdminDistributionProxyJavaImpl implements EntityAdminDistributionProxy {
 
+    /** This method implements sendAlertMessage from initiater to responder.
+     * @param body Emergency Message Distribution Element transaction message body received.
+     * @param assertion Assertion received.
+     * @param target NhinTargetCommunity receievd.
+     */
     public void sendAlertMessage(EDXLDistribution body, AssertionType assertion, NhinTargetCommunitiesType target) {
         new EntityAdminDistributionOrchImpl().sendAlertMessage(body, assertion, target);
     }

@@ -30,7 +30,7 @@ import gov.hhs.fha.nhinc.aspect.OutboundMessageEvent;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayQuerySecuredRequestType;
 import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryResponseDescriptionBuilder;
 import gov.hhs.fha.nhinc.docquery.aspect.RespondingGatewayCrossGatewayQuerySecuredRequestTypeDescriptionBuilder;
-import gov.hhs.fha.nhinc.docquery.entity.EntityDocQueryOrchImpl;
+import gov.hhs.fha.nhinc.docquery.outbound.OutboundDocQuery;
 
 import javax.annotation.Resource;
 import javax.xml.ws.BindingType;
@@ -42,8 +42,7 @@ import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 @Addressing(enabled = true)
 public class EntityDocQuerySecured implements gov.hhs.fha.nhinc.entitydocquery.EntityDocQuerySecuredPortType {
-
-    private EntityDocQueryOrchImpl orchImpl;
+    private OutboundDocQuery outboundDocQuery;
 
     @Resource
     private WebServiceContext context;
@@ -52,25 +51,11 @@ public class EntityDocQuerySecured implements gov.hhs.fha.nhinc.entitydocquery.E
             afterReturningBuilder = AdhocQueryResponseDescriptionBuilder.class, serviceType = "Document Query",
             version = "2.0")
     public AdhocQueryResponse respondingGatewayCrossGatewayQuery(
-            RespondingGatewayCrossGatewayQuerySecuredRequestType body) {
-        AdhocQueryResponse response = null;
-
-        EntityDocQueryImpl serviceImpl = getEntityDocQueryImpl();
-        if (serviceImpl != null) {
-            response = serviceImpl.respondingGatewayCrossGatewayQuerySecured(body, getWebServiceContext());
-        }
-        return response;
+            RespondingGatewayCrossGatewayQuerySecuredRequestType body) {        
+        return new EntityDocQueryImpl(outboundDocQuery).respondingGatewayCrossGatewayQuerySecured(body, context);
     }
 
-    protected EntityDocQueryImpl getEntityDocQueryImpl() {
-        return new EntityDocQueryImpl(orchImpl);
-    }
-
-    protected WebServiceContext getWebServiceContext() {
-        return context;
-    }
-
-    public void setOrchestratorImpl(EntityDocQueryOrchImpl orchImpl) {
-        this.orchImpl = orchImpl;
+    public void setOutboundDocQuery(OutboundDocQuery outboundDocQuery) {
+        this.outboundDocQuery = outboundDocQuery;
     }
 }
