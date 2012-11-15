@@ -69,7 +69,7 @@ public class AdapterPatientDiscoveryDeferredRequestImpl {
 
         // Extract the message id value from the WS-Addressing Header and place it in the Assertion Class
         if (assertion != null) {
-            assertion.setMessageId(AsyncMessageIdExtractor.GetAsyncMessageId(context));
+            assertion.setMessageId(AsyncMessageIdExtractor.getOrCreateAsyncMessageId(context));
         }
 
         return assertion;

@@ -70,14 +70,12 @@ public class NhincProxyPatientDiscoveryDeferredRequestSecuredTest {
                 oneOf(mockService).processPatientDiscoveryAsyncRequestSecured(with(same(mockRequest)),
                         with(any(WebServiceContext.class)));
                 will(returnValue(expectedResponse));
-
-                oneOf(mockFactory).getNhincProxyPatientDiscoveryDeferredRequestImpl();
-                will(returnValue(mockService));
             }
         });
 
         NhincProxyPatientDiscoveryDeferredRequestSecured ws = new NhincProxyPatientDiscoveryDeferredRequestSecured(
                 mockFactory);
+        ws.setOrchestratorImpl(mockService);
 
         MCCIIN000002UV01 actualResponse = ws.proxyProcessPatientDiscoveryAsyncReq(mockRequest);
 
@@ -90,17 +88,9 @@ public class NhincProxyPatientDiscoveryDeferredRequestSecuredTest {
         final ProxyPRPAIN201305UVProxySecuredRequestType mockRequest = context
                 .mock(ProxyPRPAIN201305UVProxySecuredRequestType.class);
 
-        context.checking(new Expectations() {
-            {
-
-                oneOf(mockFactory).getNhincProxyPatientDiscoveryDeferredRequestImpl();
-                will(returnValue(null));
-
-            }
-        });
-
         NhincProxyPatientDiscoveryDeferredRequestSecured ws = new NhincProxyPatientDiscoveryDeferredRequestSecured(
                 mockFactory);
+        ws.setOrchestratorImpl(null);
 
         MCCIIN000002UV01 actualResponse = ws.proxyProcessPatientDiscoveryAsyncReq(mockRequest);
 
