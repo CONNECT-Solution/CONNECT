@@ -26,8 +26,11 @@
  */
 package gov.hhs.fha.nhinc.direct;
 
+import static gov.hhs.fha.nhinc.direct.DirectUnitTestUtil.removeSmtpAgentConfig;
+import static gov.hhs.fha.nhinc.direct.DirectUnitTestUtil.writeSmtpAgentConfig;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNotSame;
+
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -49,12 +52,21 @@ public class DirectMailClientSpringTest {
     @Autowired
     private DirectMailClient extDirectMailClient;
     
+    @Autowired
+    private MessageHandler outboundMessageHandler;
+
+    @Autowired
+    private MessageHandler inboundMessageHandlerSmtp;
+
+    @Autowired
+    private MessageHandler inboundMessageHandlerSoap;
+
     /**
      * Set up keystore for test.
      */
     @BeforeClass
     public static void setUpClass() {
-        DirectUnitTestUtil.writeSmtpAgentConfig();
+        writeSmtpAgentConfig();
     }
 
     /**
@@ -81,11 +93,33 @@ public class DirectMailClientSpringTest {
         assertNotSame(intDirectMailClient, extDirectMailClient);        
     }
     
+    @Test
+    public void canGetOutboundMessageHandler() {
+        assertNotNull(outboundMessageHandler);
+    }
+    
+    @Test
+    public void canGetInboundMessageHandlerForSmtp() {
+        assertNotNull(inboundMessageHandlerSmtp);
+}
+
+    @Test
+    public void canGetInboundMessageHandlerForSoap() {
+        assertNotNull(inboundMessageHandlerSoap);
+    }
+    
+    @Test
+    public void canDistinguishMessageHandlers() {
+        assertNotSame(outboundMessageHandler, inboundMessageHandlerSmtp);
+        assertNotSame(outboundMessageHandler, inboundMessageHandlerSoap);
+        assertNotSame(inboundMessageHandlerSoap, inboundMessageHandlerSmtp);
+    }    
+
     /**
      * Tear down keystore created in setup.
      */
     @AfterClass
     public static void tearDownClass() {
-        DirectUnitTestUtil.removeSmtpAgentConfig();
-    }
+        removeSmtpAgentConfig();
+    }    
 }

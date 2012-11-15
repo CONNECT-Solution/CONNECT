@@ -48,7 +48,7 @@ public class OutboundMessageHandler implements MessageHandler {
      * {@inheritDoc}
      */
     @Override
-    public void handleMessage(MimeMessage message, DirectClient directClient) {
+    public void handleMessage(MimeMessage message, DirectClient internaldirectClient) {
         externalDirectClient.send(message);
     }
     

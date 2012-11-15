@@ -73,7 +73,7 @@ public class DirectMailClient implements DirectClient {
      */
     public DirectMailClient(final Properties mailServerProps, final SmtpAgent smtpAgent) {
         this.mailServerProps = mailServerProps;
-        this.smtpAgent = smtpAgent;
+        this.smtpAgent = smtpAgent;        
     }
 
     /**
@@ -155,7 +155,10 @@ public class DirectMailClient implements DirectClient {
     public int handleMessages(MessageHandler handler) {
 
         Session session = getMailSession();
-
+        session.setDebug(true);
+        session.setDebugOut(System.out);
+        
+        
         Store store = null;
         try {
             store = session.getStore("imaps");
@@ -173,7 +176,7 @@ public class DirectMailClient implements DirectClient {
         Folder inbox = null;
         try {
             inbox = store.getFolder(MailUtils.FOLDER_NAME_INBOX);
-            inbox.open(Folder.READ_WRITE);
+            inbox.open(Folder.READ_WRITE);            
         } catch (MessagingException e) {
             MailUtils.closeQuietly(store);
             throw new DirectException("Could not open " + MailUtils.FOLDER_NAME_INBOX + " for READ_WRITE", e);
@@ -185,8 +188,8 @@ public class DirectMailClient implements DirectClient {
         } catch (MessagingException e) {
             MailUtils.closeQuietly(store, inbox, MailUtils.FOLDER_EXPUNGE_INBOX_FALSE);
             throw new DirectException("Exception while retrieving messages from inbox.", e);
-        }
-
+        } 
+        
         int numberOfHandledMsgs = 0;
         for (Message message : messages) {
             try {

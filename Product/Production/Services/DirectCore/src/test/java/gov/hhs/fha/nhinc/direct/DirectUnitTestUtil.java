@@ -105,7 +105,9 @@ public class DirectUnitTestUtil {
 
         props.setProperty("mail.imaps.host", "localhost");
         props.setProperty("mail.imaps.port", Integer.toString(imapPort));
-
+        props.setProperty("mail.imaps.connectiontimeout", Integer.toString(15 * 1000));
+        props.setProperty("mail.imaps.timeout", Integer.toString(15 * 60 * 1000));
+        
         // this allows us to run the test using a dummy in-memory keystore provided by GreenMail... don't use in prod.
         props.setProperty("mail.smtps.ssl.socketFactory.class", "com.icegreen.greenmail.util.DummySSLSocketFactory");
         props.setProperty("mail.smtps.ssl.socketFactory.port", Integer.toString(smtpPort));
@@ -226,6 +228,49 @@ public class DirectUnitTestUtil {
         }
         return address;        
     }
+    
+    /**
+     * The keystores references in smtp.agent.config.xml are fully qualified, so we have to make an absolute path
+     * for them from a relative path in order to use inside a junit test. The template config file references the 
+     * keystore with a placeholder {jks.keystore.path} which we will replace with the classpath used by this test.
+     */
+    public static void writeSmtpAgentConfig() {
+        try {
+            String smtpAgentConfigTmpl = getFileAsString("smtp.agent.config.tmpl.xml");
+            String classpath = getClassPath();
+            FileUtils.writeStringToFile(new File(classpath + "smtp.agent.config.xml"),
+                    smtpAgentConfigTmpl.replaceAll("\\{jks.keystore.path\\}", classpath));
+        } catch (IOException e) {
+            fail(e.getMessage());
+        }
+    }
+    
+    /**
+     * Retrieve the contents of the resource file (relative to classpath) as a string .
+     * @param filename resource file name to be stringified
+     * @return String representation of the contents of the file
+     */
+    public static String getFileAsString(String filename) {
+        String fileAsString = null;
+        try {
+            fileAsString =  FileUtils.readFileToString(new File(getClassPath() + filename));
+        } catch (IOException e) {
+            fail(e.getMessage());            
+        }
+        return fileAsString;
+    }
+    
+    /**
+     * Delete the auto-generated smtp.agent.config.xml once the test is complete.
+     */
+    public static void removeSmtpAgentConfig() {
+        FileUtils.deleteQuietly(new File(getClassPath() + "smtp.agent.config.xml"));
+    }
+    
+    private static String getClassPath() {
+        return DirectMailClientSpringTest.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+    }
+
 
     /**
      * The keystores references in smtp.agent.config.xml are fully qualified, so we have to make an absolute path

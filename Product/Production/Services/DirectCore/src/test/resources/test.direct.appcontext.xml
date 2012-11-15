@@ -22,6 +22,24 @@
         <constructor-arg><ref bean="smtpAgent" /></constructor-arg>
     </bean>
 
+    <!-- Set up message handlers -->
+    <bean id="outboundMessageHandler" class="gov.hhs.fha.nhinc.direct.OutboundMessageHandler">
+        <constructor-arg><ref bean="extDirectMailClient" /></constructor-arg>
+    </bean>
+    <!-- In practice choose SMTP or SOAP for the Inbound Message Handler... -->
+    <bean id="inboundMessageHandlerSmtp" class="gov.hhs.fha.nhinc.direct.InboundMessageHandler">
+        <property name="edgeClientType">
+            <util:constant static-field="gov.hhs.fha.nhinc.direct.InboundMessageHandler.EDGE_CLIENT_TYPE_SMTP"/>
+        </property>
+        <!-- SMTP requires an internal direct mail client to use for the decrypted messages -->
+        <property name="internalDirectClient"><ref bean="intDirectMailClient" /></property>
+    </bean>
+    <bean id="inboundMessageHandlerSoap" class="gov.hhs.fha.nhinc.direct.InboundMessageHandler">
+        <property name="edgeClientType">
+            <util:constant static-field="gov.hhs.fha.nhinc.direct.InboundMessageHandler.EDGE_CLIENT_TYPE_SOAP"/>
+        </property>
+    </bean>
+    
     <!-- There could also be a separate agent for each mail client, if needed. -->
     <bean id="smtpAgent" class="org.nhindirect.gateway.smtp.SmtpAgentFactory" factory-method="createAgent">
         <constructor-arg type="java.net.URL" value="classpath:/smtp.agent.config.xml" />        
