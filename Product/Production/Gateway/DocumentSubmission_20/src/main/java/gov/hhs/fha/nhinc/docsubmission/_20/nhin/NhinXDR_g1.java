@@ -26,10 +26,18 @@
  */
 package gov.hhs.fha.nhinc.docsubmission._20.nhin;
 
-import javax.xml.ws.BindingType;
+import ihe.iti.xdr._2007.DocumentRepositoryXDRPortType;
+import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
+import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
+import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
+import gov.hhs.fha.nhinc.docsubmission.inbound.InboundDocSubmission;
+
 import javax.annotation.Resource;
+import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
+
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 /**
  * 
@@ -37,18 +45,28 @@ import javax.xml.ws.soap.Addressing;
  */
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 @Addressing(enabled = true)
-public class NhinXDR_g1 implements ihe.iti.xdr._2007.DocumentRepositoryXDRPortType {
-    @Resource
+public class NhinXDR_g1 implements DocumentRepositoryXDRPortType {
     private WebServiceContext context;
 
-    public oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType documentRepositoryProvideAndRegisterDocumentSetB(
-            ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType body) {
-        return new NhinDocSubmissionImpl_g1().documentRepositoryProvideAndRegisterDocumentSetB(body, context);
+    private InboundDocSubmission inboundDocSubmission;
+
+    public RegistryResponseType documentRepositoryProvideAndRegisterDocumentSetB(
+            ProvideAndRegisterDocumentSetRequestType body) {
+        return new NhinDocSubmissionImpl_g1(inboundDocSubmission).documentRepositoryProvideAndRegisterDocumentSetB(
+                body, context);
     }
 
-    public ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType documentRepositoryRetrieveDocumentSet(
-            ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType body) {
+    public RetrieveDocumentSetResponseType documentRepositoryRetrieveDocumentSet(RetrieveDocumentSetRequestType body) {
         throw new UnsupportedOperationException("Not implemented yet.");
+    }
+
+    public void setInboundDocSubmission(InboundDocSubmission inboundDocSubmission) {
+        this.inboundDocSubmission = inboundDocSubmission;
+    }
+
+    @Resource
+    public void setContext(WebServiceContext context) {
+        this.context = context;
     }
 
 }

@@ -107,6 +107,7 @@ public class DocumentConstants {
     public static final String XDS_RETRIEVE_ERRORCODE_REPOSITORY_ERROR = "XDSRepositoryError";
     
     public static final String XDS_ERRORCODE_REPOSITORY_ERROR = "XDSRepositoryError";
+    public static final String XDS_REGISTRY_BUSY = "XDSRegistryBusy";
 
     public static final String FAIL_TEXT = "FAIL";
     public static final String SUCCESS_TEXT = "SUCCESS";
@@ -115,5 +116,7 @@ public class DocumentConstants {
     
     public static final String XDS_REGISTRY_ERROR = "XDSRegistryError";
     public static final String XDS_MISSING_DOCUMENT = "XDSMissingDocument";
+    public static final String XDR_POLICY_ERROR = "CONNECTPolicyCheckFailed";
+    public static final String XDR_POLICY_ERROR_CONTEXT = "Policy Check Failed";
 
 }
