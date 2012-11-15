@@ -269,33 +269,5 @@ public class DirectUnitTestUtil {
     
     private static String getClassPath() {
         return DirectMailClientSpringTest.class.getProtectionDomain().getCodeSource().getLocation().getPath();
-    }
-
-
-    /**
-     * The keystores references in smtp.agent.config.xml are fully qualified, so we have to make an absolute path
-     * for them from a relative path in order to use inside a junit test. The template config file references the 
-     * keystore with a placeholder {jks.keystore.path} which we will replace with the classpath used by this test.
-     */
-    public static void writeSmtpAgentConfig() {
-        String classpath = getClassPath();
-        try {
-            String smtpAgentConfigTmpl = FileUtils.readFileToString(new File(classpath + "smtp.agent.config.tmpl.xml"));
-            FileUtils.writeStringToFile(new File(classpath + "smtp.agent.config.xml"),
-                    smtpAgentConfigTmpl.replaceAll("\\{jks.keystore.path\\}", classpath));
-        } catch (IOException e) {
-            fail(e.getMessage());
-        }
-    }
-    
-    /**
-     * Delete the auto-generated smtp.agent.config.xml once the test is complete.
-     */
-    public static void removeSmtpAgentConfig() {
-        FileUtils.deleteQuietly(new File(getClassPath() + "smtp.agent.config.xml"));
-    }
-    
-    private static String getClassPath() {
-        return DirectMailClientSpringTest.class.getProtectionDomain().getCodeSource().getLocation().getPath();
-    }
+    }    
 }
