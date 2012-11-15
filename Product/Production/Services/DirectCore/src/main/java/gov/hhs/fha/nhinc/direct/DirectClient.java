@@ -33,6 +33,7 @@ import javax.mail.internet.MimeMessage;
 
 import org.nhindirect.gateway.smtp.MessageProcessResult;
 import org.nhindirect.xd.common.DirectDocuments;
+import org.nhindirect.gateway.smtp.SmtpAgent;
 
 /**
  * Interface defining a Mail Client.
@@ -61,19 +62,16 @@ public interface DirectClient {
 	
     /**
      * Use the mail server to send a DIRECT message. When you already have a mail message and you want to send it
-     * as a DIRECT message.
+     * as a DIRECT message. Sender and recipients are extracted from the mime message.
      *
-     * @param sender of the message
-     * @param recipients of the message
      * @param message (mime) to be sent using the direct
      */
-    void send(Address sender, Address[] recipients, MimeMessage message);
+    void send(MimeMessage message);
 
     /**
      * Use the mail server to send MDN messages if result contains notification messages.
      *
-     * @param sender of the message
-     * @param recipient of the message
+     * @param recipient of the message (should match the sender of the message which was processed)
      * @param result to be processed for MDN Messages.
      */
     void sendMdn(Address recipient, MessageProcessResult result);
@@ -83,4 +81,10 @@ public interface DirectClient {
      * @return number of messages handled.
      */
     int handleMessages(MessageHandler handler);
+    
+    /**
+     * Make the smtp agent on this direct cliet available to the caller.
+     * @return SmtpAgent property of this client.
+     */
+    SmtpAgent getSmtpAgent();
 }

@@ -18,6 +18,7 @@ import javax.mail.MessagingException;
 import javax.mail.Session;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
@@ -80,6 +81,8 @@ public class DirectUnitTestUtil {
      * Max number of messages to process at once, allows us to throttle and distribute load.
      */
     protected static final int MAX_NUM_MSGS_IN_BATCH = 5;
+
+    private static final int DUMMY_PORT = 998;
 
     /**
      * Sets up the properties in order to connect to the green mail test server.
@@ -186,6 +189,21 @@ public class DirectUnitTestUtil {
         return new InternetAddress[] {toInternetAddress(RECIPIENT)};
     }
     
+    /**
+     * @return mime message with sample generic content.
+     */
+    public static MimeMessage getSampleMimeMessage() {
+        MimeMessage mimeMessage = null;
+        try {
+            Session session = MailUtils.getMailSession(getMailServerProps(DUMMY_PORT, DUMMY_PORT), USER, PASS);
+            mimeMessage = getMimeMessageBuilder(session).build();
+        } catch (IOException e) {
+            fail(e.getMessage());
+        }
+        return mimeMessage;
+    }
+
+
     /**
      * Return a stubbed out mime message builder.
      * @param session mail session
