@@ -26,9 +26,12 @@
  */
 package gov.hhs.fha.nhinc.docretrieve.nhin.proxy;
 
+import gov.hhs.fha.nhinc.aspect.NwhinInvocationEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.docretrieve.MessageGenerator;
+import gov.hhs.fha.nhinc.docretrieve.aspect.RetrieveDocumentSetRequestTypeDescriptionBuilder;
+import gov.hhs.fha.nhinc.docretrieve.aspect.RetrieveDocumentSetResponseTypeDescriptionBuilder;
 import gov.hhs.fha.nhinc.docretrieve.nhin.proxy.description.NhinDocRetrieveServicePortDescriptor;
 import gov.hhs.fha.nhinc.gateway.aggregator.document.DocumentConstants;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
@@ -84,6 +87,9 @@ public class NhinDocRetrieveProxyWebServiceSecuredImpl implements NhinDocRetriev
      * @param targetSystem The target system where the message is being sent to.
      * @return The document(s) that were retrieved.
      */
+    @NwhinInvocationEvent(beforeBuilder = RetrieveDocumentSetRequestTypeDescriptionBuilder.class,
+            afterReturningBuilder = RetrieveDocumentSetResponseTypeDescriptionBuilder.class, 
+            serviceType = "Retrieve Document", version = "2.0")
     public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(
             RetrieveDocumentSetRequestType request, AssertionType assertion, NhinTargetSystemType targetSystem,
             GATEWAY_API_LEVEL level) {
