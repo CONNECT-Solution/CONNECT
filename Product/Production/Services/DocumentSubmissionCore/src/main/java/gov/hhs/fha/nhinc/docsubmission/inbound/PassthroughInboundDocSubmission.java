@@ -51,11 +51,11 @@ public class PassthroughInboundDocSubmission extends AbstractInboundDocSubmissio
     private DocSubmissionUtils dsUtils = DocSubmissionUtils.getInstance();
     private MessageGeneratorUtils msgUtils = MessageGeneratorUtils.getInstance();
     
-    PassthroughInboundDocSubmission() {
+    public PassthroughInboundDocSubmission() {
         super();
     }
 
-    PassthroughInboundDocSubmission(AdapterDocSubmissionProxyObjectFactory adapterFactory, XDRAuditLogger auditLogger,
+    public PassthroughInboundDocSubmission(AdapterDocSubmissionProxyObjectFactory adapterFactory, XDRAuditLogger auditLogger,
             DocSubmissionUtils dsUtils, Log log) {
         this.adapterFactory = adapterFactory;
         this.auditLogger = auditLogger;

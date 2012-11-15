@@ -35,7 +35,10 @@ import gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory;
 public class EntityAdminDistributionProxyObjectFactory extends ComponentProxyObjectFactory {
     private static final String CONFIG_FILE_NAME = "AdminDistProxyConfig.xml";
     private static final String BEAN_NAME_ADMIN_DISTRIBUTION = "entityadmindist";
-
+    
+    /**
+    * @return CONFIG_FILE_NAME FileName to read AdapterAuditQueryProxy Bean info. 
+    */
     protected String getConfigFileName() {
         return CONFIG_FILE_NAME;
     }

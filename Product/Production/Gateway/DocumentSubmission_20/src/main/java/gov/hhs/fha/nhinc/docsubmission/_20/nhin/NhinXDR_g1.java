@@ -32,6 +32,10 @@ import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import gov.hhs.fha.nhinc.docsubmission.inbound.InboundDocSubmission;
 
+import gov.hhs.fha.nhinc.aspect.InboundMessageEvent;
+
+import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
+
 import javax.annotation.Resource;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
@@ -50,6 +54,9 @@ public class NhinXDR_g1 implements DocumentRepositoryXDRPortType {
 
     private InboundDocSubmission inboundDocSubmission;
 
+    @InboundMessageEvent(serviceType = "Document Submission", version = "2.0", 
+            beforeBuilder = DefaultEventDescriptionBuilder.class, 
+            afterReturningBuilder = DefaultEventDescriptionBuilder.class)
     public RegistryResponseType documentRepositoryProvideAndRegisterDocumentSetB(
             ProvideAndRegisterDocumentSetRequestType body) {
         return new NhinDocSubmissionImpl_g1(inboundDocSubmission).documentRepositoryProvideAndRegisterDocumentSetB(

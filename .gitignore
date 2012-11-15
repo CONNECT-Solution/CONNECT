@@ -2,8 +2,10 @@
 .project
 .settings
 .metadata
+.checkstyle
 .DS_Store
 *.log
+MANIFEST.MF
 .externalToolBuilders/
 maven-eclipse.xml
 build/
@@ -18,7 +20,7 @@ ivy-cache/
 ivy-project-cache/
 target/
 Product/NHINC/
-Product/.ant-deploy-staging/
+Product/.ant-deploy-*/
 Product/Production/Common/Properties/Dev/test*.properties
 Product/Production/Common/CONNECTCoreLib/*test*.properties
 Product/Production/Services/PatientDiscoveryCore/testMPI.xml
@@ -28,4 +30,4 @@ Product/Install/.installer.temp/
 Product/Install/.backup*/
 Product/PmdReport/
 CheckstyleReport/
-MANIFEST.MF
+

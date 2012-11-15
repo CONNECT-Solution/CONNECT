@@ -26,6 +26,8 @@
  */
 package gov.hhs.fha.nhinc.docretrieve._20.passthru;
 
+import gov.hhs.fha.nhinc.docretrieve.passthru.NhincProxyDocRetrieveOrchImpl;
+
 import javax.annotation.Resource;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
@@ -39,13 +41,20 @@ import javax.xml.ws.soap.Addressing;
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 @Addressing(enabled = true)
 public class NhincProxyDocRetrieveUnsecured implements gov.hhs.fha.nhinc.nhincproxydocretrieve.NhincProxyDocRetrievePortType {
+    
+    private NhincProxyDocRetrieveOrchImpl orchImpl;
+    
     @Resource
     private WebServiceContext context;
 
     public ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(
             gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayCrossGatewayRetrieveRequestType respondingGatewayCrossGatewayRetrieveRequest) {
-        return new NhincProxyDocRetrieveImpl().respondingGatewayCrossGatewayRetrieve(
+        return new NhincProxyDocRetrieveImpl(orchImpl).respondingGatewayCrossGatewayRetrieve(
                 respondingGatewayCrossGatewayRetrieveRequest, context);
+    }
+    
+    public void setOrchestratorImpl(NhincProxyDocRetrieveOrchImpl orchImpl) {
+        this.orchImpl = orchImpl;
     }
 
 }
