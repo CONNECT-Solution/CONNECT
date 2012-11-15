@@ -90,7 +90,7 @@ public class DirectMailClientSpringTest {
      */
     @Test
     public void canDistinguishInternalExternal() {
-        assertNotSame(intDirectMailClient, extDirectMailClient);    
+        assertNotSame(intDirectMailClient, extDirectMailClient);        
     }
     
     @Test
@@ -101,7 +101,7 @@ public class DirectMailClientSpringTest {
     @Test
     public void canGetInboundMessageHandlerForSmtp() {
         assertNotNull(inboundMessageHandlerSmtp);
-    }
+}
 
     @Test
     public void canGetInboundMessageHandlerForSoap() {

@@ -3,6 +3,7 @@ package gov.hhs.fha.nhinc.direct;
 import static org.junit.Assert.fail;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+import static org.mockito.Matchers.anyString;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType.Document;
 
 import java.io.File;
@@ -21,6 +22,8 @@ import javax.mail.internet.MimeMessage;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
+import org.nhindirect.xd.common.DirectDocuments;
+import org.nhindirect.xd.common.XdmPackage;
 
 import com.icegreen.greenmail.store.MailFolder;
 import com.icegreen.greenmail.store.SimpleStoredMessage;
@@ -131,7 +134,18 @@ public class DirectUnitTestUtil {
 
         return mockDocument;        
     }
-
+    
+    public static DirectDocuments getMockDirectDocuments() {
+    	DirectDocuments mockDirectDocuments = mock(DirectDocuments.class);
+    	XdmPackage mockXdm = mock(XdmPackage.class);
+    	File mockFile = mock(File.class);
+    	
+    	when(mockDirectDocuments.toXdmPackage(anyString())).thenReturn(mockXdm);
+    	when(mockXdm.toFile()).thenReturn(mockFile);
+    	when(mockFile.getName()).thenReturn("fileName");
+    	
+    	return mockDirectDocuments;
+    }
     
     /**
      * Workaround for defect in greenmail expunging messages: 
@@ -200,7 +214,7 @@ public class DirectUnitTestUtil {
      */
     public static MimeMessageBuilder getMimeMessageBuilder(Session session) throws IOException {
         MimeMessageBuilder testBuilder = new MimeMessageBuilder(session, getSender(), getRecipients());
-        testBuilder.text("text").subject("subject").attachment(getMockDocument()).attachmentName("attachmentName");
+        testBuilder.text("text").subject("subject").attachment(getMockDocument()).attachmentName("attachmentName").documents(getMockDirectDocuments()).messageId("1234");
         return testBuilder;
     }
 
@@ -258,4 +272,30 @@ public class DirectUnitTestUtil {
     }
 
 
+    /**
+     * The keystores references in smtp.agent.config.xml are fully qualified, so we have to make an absolute path
+     * for them from a relative path in order to use inside a junit test. The template config file references the 
+     * keystore with a placeholder {jks.keystore.path} which we will replace with the classpath used by this test.
+     */
+    public static void writeSmtpAgentConfig() {
+        String classpath = getClassPath();
+        try {
+            String smtpAgentConfigTmpl = FileUtils.readFileToString(new File(classpath + "smtp.agent.config.tmpl.xml"));
+            FileUtils.writeStringToFile(new File(classpath + "smtp.agent.config.xml"),
+                    smtpAgentConfigTmpl.replaceAll("\\{jks.keystore.path\\}", classpath));
+        } catch (IOException e) {
+            fail(e.getMessage());
+        }
+    }
+    
+    /**
+     * Delete the auto-generated smtp.agent.config.xml once the test is complete.
+     */
+    public static void removeSmtpAgentConfig() {
+        FileUtils.deleteQuietly(new File(getClassPath() + "smtp.agent.config.xml"));
+    }
+    
+    private static String getClassPath() {
+        return DirectMailClientSpringTest.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+    }
 }

@@ -55,6 +55,15 @@ public class MimeMessageBuilderTest {
     public void canBuildMessage() throws IOException {
         assertNotNull(getBuilder().build());
     }
+    
+    /**
+     * Test that we can build a message with all of the properties of the mime message set.
+     * @throws IOException is a possible error.
+     */
+    @Test
+    public void canBuildMessageWithDirectDocuments() throws IOException {
+        assertNotNull(getBuilder().attachment(null).attachmentName(null).build());
+    }
 
     /**
      * Throw an exception when the text of the message is missing.
@@ -82,7 +91,7 @@ public class MimeMessageBuilderTest {
      */
     @Test(expected = DirectException.class)
     public void willThrowExceptionWhenAttachmentIsMissing() throws IOException {
-        MimeMessageBuilder testBuilder = getBuilder().attachment(null);
+        MimeMessageBuilder testBuilder = getBuilder().documents(null).messageId(null).attachment(null);
         testBuilder.build();        
     }
 
@@ -92,9 +101,29 @@ public class MimeMessageBuilderTest {
      */
     @Test(expected = DirectException.class)
     public void willThrowExceptionWhenAttachmentNameIsMissing() throws IOException {
-        MimeMessageBuilder testBuilder = getBuilder().attachmentName(null);
+        MimeMessageBuilder testBuilder = getBuilder().documents(null).messageId(null).attachmentName(null);
         testBuilder.build();        
     }
+    
+    /**
+     * Throw an exception when the direct documents are missing.
+     * @throws IOException is a possible error.
+     */
+    @Test(expected = DirectException.class)
+    public void willThrowExceptionWhenDocumentsAreMissing() throws IOException {
+        MimeMessageBuilder testBuilder = getBuilder().attachment(null).attachmentName(null).documents(null);
+        testBuilder.build();        
+    }
+    
+    /**
+     * Throw an exception when the direct documents messageId is missing.
+     * @throws IOException is a possible error.
+     */
+    @Test(expected = DirectException.class)
+    public void willThrowExceptionWhenMessageIdIsMissing() throws IOException {
+        MimeMessageBuilder testBuilder = getBuilder().attachment(null).attachmentName(null).messageId(null);
+        testBuilder.build();        
+    } 
     
     private MimeMessageBuilder getBuilder() {
         MimeMessageBuilder builder = null;
