@@ -65,8 +65,8 @@
     </dependency>
   </dependencies>
   <build>
-    <!-- Caution: If <resources> or <testResources> is overridden by 
-            a child POM then all <resource> and <testResouce> elements will need to be 
+    <!-- Caution: If <resources> or <testResources> is overridden by
+            a child POM then all <resource> and <testResouce> elements will need to be
             placed within the child POM that overrides the <resourcs> or <testResources> -->
     <resources>
       <resource>
@@ -106,7 +106,7 @@
         <executions>
           <execution>
             <id>unpack-gateway-properties</id>
-            <!-- Using the initialize phase because it is before 
+            <!-- Using the initialize phase because it is before
                             the generate sources phase -->
             <phase>initialize</phase>
             <goals>
@@ -129,7 +129,7 @@
           </execution>
           <execution>
             <id>unpack-xsd-files</id>
-            <!-- Using the initialize phase because it is before 
+            <!-- Using the initialize phase because it is before
                             the generate sources phase -->
             <phase>initialize</phase>
             <goals>
@@ -182,7 +182,7 @@
                   <extraarg>-wsdlLocation</extraarg>
                   <extraarg></extraarg>
                 </extraargs>
-                <!-- <bindingFiles> <bindingFile>${basedir}/src/main/resources/sun-jaxb.episode</bindingFile> 
+                <!-- <bindingFiles> <bindingFile>${basedir}/src/main/resources/sun-jaxb.episode</bindingFile>
                                     </bindingFiles> -->
                 <noAddressBinding>true</noAddressBinding>
               </defaultOptions>

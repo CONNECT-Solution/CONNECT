@@ -10,39 +10,32 @@ http://www.springframework.org/schema/aop http://www.springframework.org/schema/
     <aop:aspectj-autoproxy proxy-target-class="true" />
     <context:annotation-config />
 
-    <bean id="nhinDocQueryOrchImpl" class="gov.hhs.fha.nhinc.docquery.nhin.NhinDocQueryOrchImpl" />
-
-    <bean id="nhinDQ" class="gov.hhs.fha.nhinc.docquery._20.nhin.DocQuery">
-        <property name="orchestratorImpl">
-            <ref bean="nhinDocQueryOrchImpl" />
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="ignoreResourceNotFound" value="true"/>
+        <property name="locations">
+            <list>
+                <value>classpath:documentquery.properties</value>
+                <value>file://${nhinc.properties.dir}/gateway.properties</value>
+                <value>classpath:documentquery-test.properties</value>
+            </list>
         </property>
     </bean>
 
-    <bean id="entityDocQueryOrchImpl" class="gov.hhs.fha.nhinc.docquery.entity.EntityDocQueryOrchImpl" />
+    <bean id="nhinDQ" class="gov.hhs.fha.nhinc.docquery._20.nhin.DocQuery">
+        <property name="inboundDocQuery">
+            <bean class="${docquery.inboundDocQuery}" />
+        </property>
+    </bean>
 
     <bean id="entityDQUnsecured" class="gov.hhs.fha.nhinc.docquery._20.entity.EntityDocQueryUnsecured">
-        <property name="orchestratorImpl">
-            <ref bean="entityDocQueryOrchImpl" />
+        <property name="outboundDocQuery">
+            <bean class="${docquery.outboundDocQuery}" />
         </property>
     </bean>
 
     <bean id="entityDQSecured" class="gov.hhs.fha.nhinc.docquery._20.entity.EntityDocQuerySecured">
-        <property name="orchestratorImpl">
-            <ref bean="entityDocQueryOrchImpl" />
-        </property>
-    </bean>
-
-    <bean id="passthruDocQueryOrchImpl" class="gov.hhs.fha.nhinc.docquery.passthru.PassthruDocQueryOrchImpl" />
-
-    <bean id="passthruDQUnsecured" class="gov.hhs.fha.nhinc.docquery._20.passthru.NhincProxyDocQueryUnsecured">
-        <property name="orchestratorImpl">
-            <ref bean="passthruDocQueryOrchImpl" />
-        </property>
-    </bean>
-
-    <bean id="passthruDQSecured" class="gov.hhs.fha.nhinc.docquery._20.passthru.NhincProxyDocQuerySecured">
-        <property name="orchestratorImpl">
-            <ref bean="passthruDocQueryOrchImpl" />
+        <property name="outboundDocQuery">
+            <bean class="${docquery.outboundDocQuery}" />
         </property>
     </bean>
 

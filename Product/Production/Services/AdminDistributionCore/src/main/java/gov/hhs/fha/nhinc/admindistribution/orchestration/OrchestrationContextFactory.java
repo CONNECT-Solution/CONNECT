@@ -38,19 +38,26 @@ import gov.hhs.fha.nhinc.orchestration.OrchestrationContextBuilder;
  * @author zmelnick
  *
  */
-public class OrchestrationContextFactory extends AbstractOrchestrationContextFactory {
+public final class OrchestrationContextFactory extends AbstractOrchestrationContextFactory {
 
+    //CHECKSTYLE:OFF
     private static OrchestrationContextFactory INSTANCE = new OrchestrationContextFactory();
+    //CHECKSTYLE:ON
 
     private OrchestrationContextFactory() {
     }
 
+    /**
+     * @return OrchestrationContextFactory instance.
+     */
     public static OrchestrationContextFactory getInstance() {
         return INSTANCE;
     }
 
-    /* (non-Javadoc)
-     * @see gov.hhs.fha.nhinc.orchestration.AbstractOrchestrationContextFactory#getBuilder(gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType, gov.hhs.fha.nhinc.nhinclib.NhincConstants.NHIN_SERVICE_NAMES)
+    /**This method returns outbound OrchestrationContextBuilder for AdminDist based on gateway apiLevel (g0/g1).
+     * @param homeCommunityType Nhin TargetHomeCommunity received.
+     * @param serviceName serviceName (Administrative Distribution) received.
+     * @return OrchestrationContextBuilder for AdminDist based on gateway apiLevel.
      */
     public OrchestrationContextBuilder getBuilder(HomeCommunityType homeCommunityType, NHIN_SERVICE_NAMES serviceName) {
         NhinEndpointManager nem = new NhinEndpointManager();

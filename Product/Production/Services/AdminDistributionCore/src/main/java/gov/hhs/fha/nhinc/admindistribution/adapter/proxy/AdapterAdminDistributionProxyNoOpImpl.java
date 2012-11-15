@@ -38,14 +38,24 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 public class AdapterAdminDistributionProxyNoOpImpl implements AdapterAdminDistributionProxy {
     private Log log = null;
 
+    /**
+     * Default Constructor. 
+     */
     public AdapterAdminDistributionProxyNoOpImpl() {
         log = createLogger();
     }
 
+    /**
+     * @return log.
+     */
     protected Log createLogger() {
         return LogFactory.getLog(getClass());
     }
 
+    /** This method does not implement anything.
+     * @param body  Emergency Message Distribution Element transaction message body received.
+     * @param assertion Assertion received.
+     */
     public void sendAlertMessage(EDXLDistribution body, AssertionType assertion) {
         log.debug("Begin sendAlertMessage");
     }

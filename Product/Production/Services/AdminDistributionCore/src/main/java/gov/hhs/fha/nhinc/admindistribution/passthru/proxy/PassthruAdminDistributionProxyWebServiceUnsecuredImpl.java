@@ -32,8 +32,10 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import gov.hhs.fha.nhinc.admindistribution.AdminDistributionHelper;
+//CHECKSTYLE:OFF
 import gov.hhs.fha.nhinc.admindistribution.passthru.proxy.service.PassthruAdminDistributionG0UnsecuredServicePortDescriptor;
 import gov.hhs.fha.nhinc.admindistribution.passthru.proxy.service.PassthruAdminDistributionG1UnsecuredServicePortDescriptor;
+//CHECKSTYLE:ON
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewaySendAlertMessageType;
@@ -59,6 +61,10 @@ public class PassthruAdminDistributionProxyWebServiceUnsecuredImpl implements Pa
 
     }
 
+    /**This method returns PassthruAdminDistributionServicePortDescriptor. 
+     * @param apiLevel gateway apiLevel received (g0/g1).
+     * @return PassthruAdminDistributionServicePortDescriptor based on gateway apiLevel.
+     */
     public ServicePortDescriptor<NhincAdminDistPortType> getServicePortDescriptor(
             NhincConstants.GATEWAY_API_LEVEL apiLevel) {
         switch (apiLevel) {
@@ -69,6 +75,12 @@ public class PassthruAdminDistributionProxyWebServiceUnsecuredImpl implements Pa
         }
     }
 
+    /**This method returns CXFClient for AdminDist Unsecured Service impl.
+     * @param portDescriptor Comprises of 
+     * @param url Nhin TargetCommunity url received.
+     * @param assertion Assertion received.
+     * @return CXFClient to implement AdminDist Unsecured Service.
+     */
     protected CONNECTClient<NhincAdminDistPortType> getCONNECTClientUnsecured(
             ServicePortDescriptor<NhincAdminDistPortType> portDescriptor, String url, AssertionType assertion) {
 
@@ -109,7 +121,8 @@ public class PassthruAdminDistributionProxyWebServiceUnsecuredImpl implements Pa
 
                 ServicePortDescriptor<NhincAdminDistPortType> portDescriptor = getServicePortDescriptor(apiLevel);
 
-                CONNECTClient<NhincAdminDistPortType> client = getCONNECTClientUnsecured(portDescriptor, url, assertion);
+                CONNECTClient<NhincAdminDistPortType> client = 
+                        getCONNECTClientUnsecured(portDescriptor, url, assertion);
 
                 client.invokePort(NhincAdminDistPortType.class, "sendAlertMessage", message);
             } catch (Exception ex) {

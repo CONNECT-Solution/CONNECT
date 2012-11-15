@@ -12,15 +12,18 @@
     <name>CONNECT Product</name>
     <properties>
         <checkstyle.skip>false</checkstyle.skip>
-        <checkstyle.settings.file>checkstyle.settings.xml</checkstyle.settings.file>
         <cxf.version>2.6.0</cxf.version>
+        <checkstyle.settings.file>checkstyle.settings.xml</checkstyle.settings.file>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <connect.common.properties>Dev</connect.common.properties>
         <skip.cobertura>false</skip.cobertura>
         <skip.source>true</skip.source>
+        <pmd.failOnViolation>false</pmd.failOnViolation>
         <cobertura.check.haltOnFailure>false</cobertura.check.haltOnFailure>
         <cobertura.totalBranchRate>85</cobertura.totalBranchRate>
         <cobertura.totalLineRate>85</cobertura.totalLineRate>
+        <compiler.source>1.7</compiler.source>
+        <compiler.target>1.7</compiler.target>
     </properties>
     <modules>
         <module>Production</module>
@@ -278,6 +281,11 @@
                     <artifactId>maven-dependency-plugin</artifactId>
                     <version>2.5.1</version>
                 </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-pmd-plugin</artifactId>
+                    <version>2.7.1</version>
+                </plugin>
             </plugins>
         </pluginManagement>
         <plugins>
@@ -285,10 +293,10 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-                    <source>1.7</source>
-                    <target>1.7</target>
-                    <testSource>1.7</testSource>
-                    <testTarget>1.7</testTarget>
+                    <source>${compiler.source}</source>
+                    <target>${compiler.target}</target>
+                    <testSource>${compiler.source}</testSource>
+                    <testTarget>${compiler.target}</testTarget>
                 </configuration>
             </plugin>
             <plugin>
@@ -306,6 +314,17 @@
                     <configLocation>${checkstyle.settings.file}</configLocation>
                     <failOnViolation>false</failOnViolation>
                     <enableRulesSummary>false</enableRulesSummary>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-pmd-plugin</artifactId>
+                <configuration>
+                    <rulesets>
+                        <ruleset>${basedir}/pmd.xml</ruleset>
+                    </rulesets>
+                    <targetJdk>${compiler.source}</targetJdk>
+                    <failOnViolation>${pmd.failOnViolation}</failOnViolation>
                 </configuration>
             </plugin>
             <plugin>
@@ -362,6 +381,7 @@
         </plugins>
     </build>
     <reporting>
+        <excludeDefaults>true</excludeDefaults>
         <plugins>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
@@ -408,13 +428,6 @@
                 <skip.test>true</skip.test>
                 <skip.cobertura>true</skip.cobertura>
             </properties>
-        </profile>
-        <profile>
-            <id>site</id>
-            <properties>
-                <skip.unpack>true</skip.unpack>
-            </properties>
-            <build />
         </profile>
     </profiles>
 </project>
