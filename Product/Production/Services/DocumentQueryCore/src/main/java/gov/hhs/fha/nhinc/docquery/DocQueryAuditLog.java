@@ -78,42 +78,46 @@ public class DocQueryAuditLog {
      */
 
     /**
-     * This method will log Audit Query Requests received on the NHIN Proxy Interface
+     * This method will log Audit Query Requests received on the NHIN Proxy Interface.
      * 
-     * @param auditMsg The Audit Query Request message to be audit logged.
-     * @param assertion Assertion received
+     * @param msg The Audit Query Request message to be audit logged.
+     * @param assertion Assertion received.
+     * @param direction The direction this message going inbound or outbound.
+     * @param msgInterface The interface can be Entity,MsgProxy or Adapter.
      * @return An acknowledgment of whether or not the message was successfully logged.
      */
     public AcknowledgementType auditDQResponse(AdhocQueryResponse msg, AssertionType assertion, String direction,
-            String _interface) {
+            String msgInterface) {
         getLog().debug("Entering DocQueryAuditLog.auditDQResponse()...");
-        return auditDQResponse(msg, assertion, direction, _interface, null);
+        return auditDQResponse(msg, assertion, direction, msgInterface, null);
     }
 
     /**
-     * This method will log Audit Query Requests received on the NHIN Proxy Interface
+     * This method will log Audit Query Requests received on the NHIN Proxy Interface.
      * 
-     * @param auditMsg The Audit Query Request message to be audit logged.
-     * @param assertion Assertion received
-     * @param requestCommunityID
+     * @param msg The Audit Query Request message to be audit logged.
+     * @param assertion Assertion received.
+     * @param direction The direction the message is going inbound or outbound.
+     * @param msgInterface The interface can be Entity,MsgProxy or Adapter.
+     * @param requestCommunityID communityID of the request passed in.
      * @return An acknowledgment of whether or not the message was successfully logged.
      */
     public AcknowledgementType auditDQResponse(AdhocQueryResponse msg, AssertionType assertion, String direction,
-            String _interface, String requestCommunityID) {
+            String msgInterface, String requestCommunityID) {
         getLog().debug("Entering DocQueryAuditLog.auditDQResponse()...");
 
         AdhocQueryResponseMessageType auditMsg = new AdhocQueryResponseMessageType();
         auditMsg.setAssertion(assertion);
         auditMsg.setAdhocQueryResponse(msg);
 
-        AcknowledgementType ack = logDocQueryResponse(auditMsg, direction, _interface, requestCommunityID);
+        AcknowledgementType ack = logDocQueryResponse(auditMsg, direction, msgInterface, requestCommunityID);
 
         getLog().debug("Exiting DocQueryAuditLog.auditDQResponse()...");
         return ack;
     }
 
     /**
-     * This method will log Document Query Requests sent on the Nhin Interface
+     * This method will log Document Query Requests sent on the Nhin Interface.
      * 
      * @param auditMsg The Document Query Request message to be audit logged.
      * @return An acknowledgment of whether or not the message was successfully logged.
@@ -132,56 +136,60 @@ public class DocQueryAuditLog {
      */
 
     /**
-     * This method will log Audit Query Requests received on the NHIN Proxy Interface
+     * This method will log Audit Query Requests received on the NHIN Proxy Interface.
      * 
-     * @param auditMsg The Audit Query Request message to be audit logged.
-     * @param assertion Assertion received
+     * @param msg The Audit Query Request message to be audit logged.
+     * @param assertion Assertion received.
+     * @param direction The direction the message is going inbound or outbound.
+     * @param msgInterface The interface can be Entity,MsgProxy or Adapter.
      * @return An acknowledgment of whether or not the message was successfully logged.
      */
     public AcknowledgementType auditDQRequest(AdhocQueryRequest msg, AssertionType assertion, String direction,
-            String _interface) {
+            String msgInterface) {
         getLog().debug("Entering DocQueryAuditLog.auditDQRequest()...");
-        return auditDQRequest(msg, assertion, direction, _interface, null);
+        return auditDQRequest(msg, assertion, direction, msgInterface, null);
     }
 
     /**
-     * This method will log Audit Query Requests received on the NHIN Proxy Interface
+     * This method will log Audit Query Requests received on the NHIN Proxy Interface.
      * 
-     * @param auditMsg The Audit Query Request message to be audit logged.
-     * @param assertion Assertion received
-     * @param responseCommunityId
+     * @param msg The Audit Query Request message to be audit logged.
+     * @param assertion Assertion received.
+     * @param responseCommunityId communityID of the response.
+     * @param direction The direction the message is going inbound or outbound.
+     * @param msgInterface The interface can be Entity,MsgProxy or Adapter.
      * @return An acknowledgment of whether or not the message was successfully logged.
      */
     public AcknowledgementType auditDQRequest(AdhocQueryRequest msg, AssertionType assertion, String direction,
-            String _interface, String responseCommunityId) {
+            String msgInterface, String responseCommunityId) {
         getLog().debug("Entering DocQueryAuditLog.auditDQRequest()...");
 
         AdhocQueryMessageType auditMsg = new AdhocQueryMessageType();
         auditMsg.setAssertion(assertion);
         auditMsg.setAdhocQueryRequest(msg);
 
-        AcknowledgementType ack = logDocQueryRequest(auditMsg, direction, _interface, responseCommunityId);
+        AcknowledgementType ack = logDocQueryRequest(auditMsg, direction, msgInterface, responseCommunityId);
 
         getLog().debug("Exiting DocQueryAuditLog.auditDQRequest()...");
         return ack;
     }
 
     /**
-     * This method will log Document Query Requests received/sent on a particular public interface
+     * This method will log Document Query Requests received/sent on a particular public interface.
      * 
      * @param message The Document Query Request message to be audit logged.
      * @param direction The direction this message is going (Inbound or Outbound)
-     * @param _interface The interface this message is being received/sent on (Entity, Adapter, or Nhin)
+     * @param msgInterface The interface this message is being received/sent on (Entity, Adapter, or Nhin)
      * @param responseCommunityId Target response community id
      * @return An acknowledgment of whether or not the message was successfully logged.
      */
-    private AcknowledgementType logDocQueryRequest(AdhocQueryMessageType message, String direction, String _interface,
+    private AcknowledgementType logDocQueryRequest(AdhocQueryMessageType message, String direction, String msgInterface,
             String responseCommunityId) {
         getLog().debug("Entering DocQueryAuditLog.logDocQuery(...)...");
         AcknowledgementType ack = new AcknowledgementType();
         AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
         LogEventRequestType auditLogMsg = auditLogger
-                .logAdhocQuery(message, direction, _interface, responseCommunityId);
+                .logAdhocQuery(message, direction, msgInterface, responseCommunityId);
 
         if (auditLogMsg != null) {
             AuditRepositoryProxyObjectFactory auditRepoFactory = new AuditRepositoryProxyObjectFactory();
@@ -193,33 +201,33 @@ public class DocQueryAuditLog {
     }
 
     /**
-     * This method will log Document Query Responses received/sent on a particular public interface
+     * This method will log Document Query Responses received/sent on a particular public interface.
      * 
      * @param message The Document Query Response message to be audit logged.
      * @param direction The direction this message is going (Inbound or Outbound)
-     * @param _interface The interface this message is being received/sent on (Entity, Adapter, or Nhin)
+     * @param msgInterface The interface this message is being received/sent on (Entity, Adapter, or Nhin)
      * @return An acknowledgment of whether or not the message was successfully logged.
      */
     public AcknowledgementType logDocQueryResponse(AdhocQueryResponseMessageType message, String direction,
-            String _interface) {
-        return this.logDocQueryResponse(message, direction, _interface, null);
+            String msgInterface) {
+        return this.logDocQueryResponse(message, direction, msgInterface, null);
     }
 
     /**
-     * This method will log Document Query Responses received/sent on a particular public interface
+     * This method will log Document Query Responses received/sent on a particular public interface.
      * 
      * @param message The Document Query Response message to be audit logged.
      * @param direction The direction this message is going (Inbound or Outbound)
-     * @param _interface The interface this message is being received/sent on (Entity, Adapter, or Nhin)
-     * @param requestCommunityID
+     * @param msgInterface The interface this message is being received/sent on (Entity, Adapter, or Nhin)
+     * @param requestCommunityID requesting communityID.
      * @return An acknowledgment of whether or not the message was successfully logged.
      */
     public AcknowledgementType logDocQueryResponse(AdhocQueryResponseMessageType message, String direction,
-            String _interface, String requestCommunityID) {
+            String msgInterface, String requestCommunityID) {
         getLog().debug("Entering DocQueryAuditLog.auditResponse(...)...");
         AcknowledgementType ack = new AcknowledgementType();
         AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
-        LogEventRequestType auditLogMsg = auditLogger.logAdhocQueryResult(message, direction, _interface,
+        LogEventRequestType auditLogMsg = auditLogger.logAdhocQueryResult(message, direction, msgInterface,
                 requestCommunityID);
 
         if (auditLogMsg != null) {
@@ -233,34 +241,36 @@ public class DocQueryAuditLog {
     }
 
     /**
-     * This method will log Document Query Responses received/sent on a particular public interface
+     * This method will log Document Query Responses received/sent on a particular public interface.
      * 
      * @param message The Document Query Response message to be audit logged.
+     * @param assertion Assertion received.
      * @param direction The direction this message is going (Inbound or Outbound)
-     * @param _interface The interface this message is being received/sent on (Entity, Adapter, or Nhin)
+     * @param msgInterface The interface this message is being received/sent on (Entity, Adapter, or Nhin)
      * @return An acknowledgment of whether or not the message was successfully logged.
      */
     public AcknowledgementType logDocQueryAck(DocQueryAcknowledgementType message, AssertionType assertion,
-            String direction, String _interface) {
-        return logDocQueryAck(message, assertion, direction, _interface, null);
+            String direction, String msgInterface) {
+        return logDocQueryAck(message, assertion, direction, msgInterface, null);
     }
 
     /**
-     * This method will log Document Query Responses received/sent on a particular public interface
+     * This method will log Document Query Responses received/sent on a particular public interface.
      * 
      * @param message The Document Query Response message to be audit logged.
+     * @param assertion Assertion received.
      * @param direction The direction this message is going (Inbound or Outbound)
-     * @param _interface The interface this message is being received/sent on (Entity, Adapter, or Nhin)
+     * @param msgInterface The interface this message is being received/sent on (Entity, Adapter, or Nhin)
      * @param requestCommunityID Target response community id
      * @return An acknowledgment of whether or not the message was successfully logged.
      */
     public AcknowledgementType logDocQueryAck(DocQueryAcknowledgementType message, AssertionType assertion,
-            String direction, String _interface, String requestCommunityID) {
+            String direction, String msgInterface, String requestCommunityID) {
         getLog().debug("Entering DocQueryAuditLog.auditResponse(...)...");
         AcknowledgementType ack = new AcknowledgementType();
         AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
         LogEventRequestType auditLogMsg = auditLogger.logAdhocQueryDeferredAck(message, assertion, direction,
-                _interface, requestCommunityID);
+                msgInterface, requestCommunityID);
 
         if (auditLogMsg != null) {
             AuditRepositoryProxyObjectFactory auditRepoFactory = new AuditRepositoryProxyObjectFactory();
@@ -272,6 +282,9 @@ public class DocQueryAuditLog {
         return ack;
     }
 
+    /**
+     * @return Log log.
+     */
     protected Log getLog() {
         return LOG;
     }

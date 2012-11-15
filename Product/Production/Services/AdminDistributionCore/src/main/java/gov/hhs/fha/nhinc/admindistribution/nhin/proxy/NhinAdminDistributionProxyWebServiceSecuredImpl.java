@@ -58,6 +58,9 @@ public class NhinAdminDistributionProxyWebServiceSecuredImpl implements NhinAdmi
     private AdminDistributionAuditLogger adLogger = null;
 
 
+    /**
+     * Constructor.
+     */
     public NhinAdminDistributionProxyWebServiceSecuredImpl() {
         log = createLogger();
     }
@@ -66,6 +69,9 @@ public class NhinAdminDistributionProxyWebServiceSecuredImpl implements NhinAdmi
         return LogFactory.getLog(getClass());
     }
     
+    /**
+     * @return AdminDistributionUtils instance.
+     */
     protected AdminDistributionUtils getAdminDistributionUtils() {
         return AdminDistributionUtils.getInstance();
     }
@@ -74,10 +80,17 @@ public class NhinAdminDistributionProxyWebServiceSecuredImpl implements NhinAdmi
         return new AdminDistributionHelper();
     }
 
+    /**
+     * @return WebServiceProxyHelper instance.
+     */
     protected WebServiceProxyHelper getWebServiceProxyHelper() {
         return new WebServiceProxyHelper();
     }
 
+    /**This method returns ServicePortDescriptor for AdminDist based on gateway apiLevel.
+     * @param apiLevel gateway apiLevel received (g0/g1).
+     * @return NhinAdminDistributionPortDescriptor based on g0/g1 impl
+     */
     public ServicePortDescriptor<RespondingGatewayAdministrativeDistributionPortType> getServicePortDescriptor(
             NhincConstants.GATEWAY_API_LEVEL apiLevel) {
         switch (apiLevel) {
@@ -88,6 +101,12 @@ public class NhinAdminDistributionProxyWebServiceSecuredImpl implements NhinAdmi
         }
     }
 
+    /**This method returns CXFClient to implement AdminDist Secured Service.
+     * @param portDescriptor Comprises of 
+     * @param url target community url to send the message.
+     * @param assertion Assertion received.
+     * @return CXFClient to implement Secured Service.
+     */
     protected CONNECTClient<RespondingGatewayAdministrativeDistributionPortType> getCONNECTClientSecured(
             ServicePortDescriptor<RespondingGatewayAdministrativeDistributionPortType> portDescriptor, String url,
             AssertionType assertion) {
@@ -95,6 +114,12 @@ public class NhinAdminDistributionProxyWebServiceSecuredImpl implements NhinAdmi
         return CONNECTCXFClientFactory.getInstance().getCONNECTClientSecured(portDescriptor, url, assertion);
     }
 
+    /**This method implements sendAlertMessage for AdminDist.
+     * @param body Emergency Message Distribution Element transaction messgae body.
+     * @param assertion Assertion received.
+     * @param target NhinTargetCommunity received.
+     * @param apiLevel gateway apiLevel (g0/g1).
+     */
     @Override
     public void sendAlertMessage(EDXLDistribution body, AssertionType assertion, NhinTargetSystemType target,
             NhincConstants.GATEWAY_API_LEVEL apiLevel) {
@@ -132,13 +157,22 @@ public class NhinAdminDistributionProxyWebServiceSecuredImpl implements NhinAdmi
         }
     }
 
+    /**This method audits the AdminDist Service at Nhin interface.
+     * @param message Emergency Message Distribution Element transaction message.
+     * @param assertion Assertion received.
+     * @param direction The direction can be eigther outbound or inbound.
+     */
     protected void auditMessage(EDXLDistribution message, AssertionType assertion, String direction) {
-        AcknowledgementType ack = getLogger().auditNhinAdminDist(message, assertion, direction, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
+        AcknowledgementType ack = getLogger().auditNhinAdminDist(message, assertion, direction, 
+                NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
         if (ack != null) {
             log.debug("ack: " + ack.getMessage());
         }
     }
 
+    /**
+     * @return Nhin AdminDist audit logger.
+     */
     protected AdminDistributionAuditLogger getLogger() {
         return (adLogger != null) ? adLogger : new AdminDistributionAuditLogger();
     }

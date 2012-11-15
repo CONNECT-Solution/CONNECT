@@ -10,7 +10,8 @@ import gov.hhs.fha.nhinc.nhinccomponentpatientcorrelation.PatientCorrelationSecu
  * @author mweaver
  *
  */
-public abstract class AbstractSecuredServicePortDescriptor implements ServicePortDescriptor<PatientCorrelationSecuredPortType> {
+public abstract class AbstractSecuredServicePortDescriptor implements 
+ServicePortDescriptor<PatientCorrelationSecuredPortType> {
 
     private static final String NAMESPACE_URI = "urn:gov:hhs:fha:nhinc:nhinccomponentpatientcorrelation";
     private static final String SERVICE_LOCAL_PART = "PatientCorrelationServiceSecured";

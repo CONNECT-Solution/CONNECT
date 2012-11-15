@@ -48,14 +48,25 @@ public class AdminDistributionPolicyChecker {
 
     private Log log = null;
 
+    /**
+     * Constructor. 
+     */
     public AdminDistributionPolicyChecker() {
         log = createLogger();
     }
 
+    /**
+     * @return log.
+     */
     protected Log createLogger() {
         return LogFactory.getLog(getClass());
     }
 
+    /**
+     * @param request SendAlertMessage Request received.
+     * @param target Nhin Target
+     * @return true if checkPolicy is Permit; else denied.
+     */
     public boolean checkOutgoingPolicy(RespondingGatewaySendAlertMessageType request, String target) {
         log.debug("checking the policy engine for the new request to a target community");
 
@@ -68,6 +79,11 @@ public class AdminDistributionPolicyChecker {
         return invokePolicyEngine(checkPolicyRequest);
     }
 
+    /**This method checks the incoming policy and returns boolean.
+     * @param request Emergency Message Distribution Element transaction message request.
+     * @param assertion Assertion received.
+     * @return true or false.
+     */
     public boolean checkIncomingPolicy(EDXLDistribution request, AssertionType assertion) {
         log.debug("checking the policy engine for the new request to a target community");
 
@@ -80,6 +96,10 @@ public class AdminDistributionPolicyChecker {
         return invokePolicyEngine(checkPolicyRequest);
     }
 
+    /**This method returns boolean and true if policycheck is Permit; else denied.
+     * @param policyCheckReq CheckPolicyRequestType request received.
+     * @return boolean true if Permit;else denied.
+     */
     protected boolean invokePolicyEngine(CheckPolicyRequestType policyCheckReq) {
         boolean policyIsValid = false;
 

@@ -201,15 +201,15 @@ public class HomeCommunityMapTest {
 
     @Test
     public void testGetCommunityIdForDeferredQDRequest() {
-        String communityId = HomeCommunityMap.getCommunityIdForDeferredQDRequest(null);
+        String communityId = HomeCommunityMap.getCommunityId(null);
         assertEquals(null, communityId);
 
         AdhocQueryType doc = new AdhocQueryType();
-        communityId = HomeCommunityMap.getCommunityIdForDeferredQDRequest(doc);
+        communityId = HomeCommunityMap.getCommunityId(doc);
         assertEquals(null, communityId);
 
         doc.setHome("1.1");
-        communityId = HomeCommunityMap.getCommunityIdForDeferredQDRequest(doc);
+        communityId = HomeCommunityMap.getCommunityId(doc);
         assertEquals("1.1", communityId);
     }
 

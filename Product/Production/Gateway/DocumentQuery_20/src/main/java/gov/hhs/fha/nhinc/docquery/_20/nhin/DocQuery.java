@@ -29,7 +29,7 @@ package gov.hhs.fha.nhinc.docquery._20.nhin;
 import gov.hhs.fha.nhinc.aspect.InboundMessageEvent;
 import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryRequestDescriptionBuilder;
 import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryResponseDescriptionBuilder;
-import gov.hhs.fha.nhinc.docquery.nhin.NhinDocQueryOrchImpl;
+import gov.hhs.fha.nhinc.docquery.inbound.InboundDocQuery;
 import ihe.iti.xds_b._2007.RespondingGatewayQueryPortType;
 
 import javax.annotation.Resource;
@@ -47,7 +47,7 @@ import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 @Addressing(enabled = true)
 public class DocQuery implements RespondingGatewayQueryPortType {
-    private NhinDocQueryOrchImpl orchImpl;
+    private InboundDocQuery inboundDocQuery;
 
     @Resource
     private WebServiceContext context;
@@ -63,10 +63,10 @@ public class DocQuery implements RespondingGatewayQueryPortType {
             afterReturningBuilder = AdhocQueryResponseDescriptionBuilder.class, serviceType = "Document Query",
             version = "2.0")
     public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest body) {
-        return new DocQueryImpl(orchImpl).respondingGatewayCrossGatewayQuery(body, context);
+        return new DocQueryImpl(inboundDocQuery).respondingGatewayCrossGatewayQuery(body, context);
     }
 
-    public void setOrchestratorImpl(NhinDocQueryOrchImpl orchImpl) {
-        this.orchImpl = orchImpl;
+    public void setInboundDocQuery(InboundDocQuery inboundDocQuery) {
+        this.inboundDocQuery = inboundDocQuery;
     }
 }
