@@ -27,11 +27,16 @@
 package gov.hhs.fha.nhinc.docretrieve._20.nhin;
 
 import gov.hhs.fha.nhinc.docretrieve.nhin.NhinDocRetrieveOrchImpl;
+import gov.hhs.fha.nhinc.aspect.InboundMessageEvent;
+import gov.hhs.fha.nhinc.docretrieve.aspect.RetrieveDocumentSetRequestTypeDescriptionBuilder;
+import gov.hhs.fha.nhinc.docretrieve.aspect.RetrieveDocumentSetResponseTypeDescriptionBuilder;
 
 import javax.annotation.Resource;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
+import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
+import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 
 /**
  * 
@@ -52,8 +57,11 @@ public class DocRetrieve implements ihe.iti.xds_b._2007.RespondingGatewayRetriev
      * @param body the body of the request
      * @return the document set of the retrieve request
      */
-    public ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(
-            ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType body) {
+    @InboundMessageEvent(beforeBuilder = RetrieveDocumentSetRequestTypeDescriptionBuilder.class,
+            afterReturningBuilder = RetrieveDocumentSetResponseTypeDescriptionBuilder.class, 
+            serviceType = "Retrieve Document",version = "2.0")
+    public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(
+            RetrieveDocumentSetRequestType body) {
         return new DocRetrieveImpl(orchImpl).respondingGatewayCrossGatewayRetrieve(body, context);
     }
     

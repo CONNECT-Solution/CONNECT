@@ -1,4 +1,6 @@
-/*
+/**
+ * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
+ *
  * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
@@ -26,45 +28,35 @@
  */
 package gov.hhs.fha.nhinc.docretrieve._20.entity;
 
-import gov.hhs.fha.nhinc.docretrieve.entity.EntityDocRetrieveOrchImpl;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
+import java.lang.reflect.Method;
+
 import gov.hhs.fha.nhinc.aspect.OutboundMessageEvent;
 import gov.hhs.fha.nhinc.docretrieve.aspect.RetrieveDocumentSetRequestTypeDescriptionBuilder;
 import gov.hhs.fha.nhinc.docretrieve.aspect.RetrieveDocumentSetResponseTypeDescriptionBuilder;
-import gov.hhs.fha.nhinc.entitydocretrievesecured.EntityDocRetrieveSecuredPortType;
-
-import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
-import javax.annotation.Resource;
-import javax.xml.ws.BindingType;
-import javax.xml.ws.WebServiceContext;
-import javax.xml.ws.soap.Addressing;
+
+import org.junit.Test;
 
 /**
- * 
- * @author Sai Valluripalli
+ * @author achidamb
+ *
  */
-
-@BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
-@Addressing(enabled = true)
-public class EntityDocRetrieveSecured implements EntityDocRetrieveSecuredPortType {
-
-    private EntityDocRetrieveOrchImpl orchImpl;
+public class EntityDocRetrieveSecuredTest {
     
-    @Resource
-    private WebServiceContext context;
-
-    @OutboundMessageEvent(beforeBuilder = RetrieveDocumentSetRequestTypeDescriptionBuilder.class,
-            afterReturningBuilder = RetrieveDocumentSetResponseTypeDescriptionBuilder.class, 
-            serviceType = "Retrieve Document",version = "2.0")
-    public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(RetrieveDocumentSetRequestType body) {
-        return getImpl().respondingGatewayCrossGatewayRetrieve(body, context);
+    @Test
+    public void hasOutboundMessageEvent() throws Exception {
+        Class<EntityDocRetrieveSecured> clazz = EntityDocRetrieveSecured.class;
+        Method method = clazz.getMethod("respondingGatewayCrossGatewayRetrieve",
+                RetrieveDocumentSetRequestType.class);
+        OutboundMessageEvent annotation = method.getAnnotation(OutboundMessageEvent.class);
+        assertNotNull(annotation);
+        assertEquals(RetrieveDocumentSetRequestTypeDescriptionBuilder.class, annotation.beforeBuilder());
+        assertEquals(RetrieveDocumentSetResponseTypeDescriptionBuilder.class, annotation.afterReturningBuilder());
+        assertEquals("Retrieve Document", annotation.serviceType());
+        assertEquals("2.0", annotation.version());
     }
 
-    protected EntityDocRetrieveImpl getImpl() {
-        return new EntityDocRetrieveImpl(orchImpl);
-    }
-    
-    public void setOrchestratorImpl(EntityDocRetrieveOrchImpl orchImpl) {
-        this.orchImpl = orchImpl;
-    }
 }

@@ -7,35 +7,26 @@
     ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under 
     the License. -->
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:jaxws="http://cxf.apache.org/jaxws" xmlns:soap="http://cxf.apache.org/bindings/soap" xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:soap="http://cxf.apache.org/bindings/soap" xmlns:aop="http://www.springframework.org/schema/aop" xmlns:jaxws="http://cxf.apache.org/jaxws"
     xsi:schemaLocation="
 http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 http://cxf.apache.org/bindings/soap http://cxf.apache.org/schemas/configuration/soap.xsd
 http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
-    <import resource="classpath:META-INF/cxf/cxf.xml" />
-    <import resource="classpath:META-INF/cxf/cxf-extension-soap.xml" />
-    <import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
-    <import resource="classpath:CONNECT-interceptor-beans.xml" />
-
     <!-- Document Retrieve -->
-
-    <!-- Nhin services -->
     
-    <bean id="nhinDocRetrieveOrchImpl" class="gov.hhs.fha.nhinc.docretrieve.nhin.NhinDocRetrieveOrchImpl" />
-
-    <bean id="nhinDocRetrieve" class="gov.hhs.fha.nhinc.docretrieve._30.nhin.DocRetrieve">
-       <property name="orchestratorImpl"><ref bean="nhinDocRetrieveOrchImpl"/></property>
-    </bean>
-    
-    <jaxws:endpoint xmlns:ndr="urn:ihe:iti:xds-b:2007" id="NhinDocRetrieve30" address="/NhinService/RespondingGateway_Retrieve_Service/DocRetrieve"
-        serviceName="ndr:RespondingGateway_Retrieve_Service" endpointName="ndr:RespondingGateway_Retrieve_Port_Soap"
-        implementorClass="gov.hhs.fha.nhinc.docretrieve._30.nhin.DocRetrieve" implementor="#nhinDocRetrieve"
-        wsdlLocation="classpath:wsdl/NhinDocRetrieve30.wsdl">
+    <!-- Nhin services -->    
+    <jaxws:endpoint xmlns:ndr="urn:ihe:iti:xds-b:2007" id="NhinDocumentRetrieve"
+        address="/NhinService/RespondingGateway_Retrieve_Service/DocRetrieve" serviceName="ndr:RespondingGateway_Retrieve_Service"
+        endpointName="ndr:RespondingGateway_Retrieve_Port_Soap" implementorClass="gov.hhs.fha.nhinc.docretrieve._20.nhin.DocRetrieve"
+        implementor="#nhinDocRetrieve" wsdlLocation="classpath:wsdl/NhinDocRetrieve.wsdl">
         <jaxws:properties>
             <entry key="ws-security.callback-handler" value="gov.hhs.fha.nhinc.callback.cxf.CXFSAMLCallbackHandler" />
             <entry key="ws-security.signature.properties" value="keystore.properties" />
             <entry key="ws-security.encryption.properties" value="truststore.properties" />
+            <entry key="ws-security.saml2.validator">
+                <bean class="gov.hhs.fha.nhinc.callback.cxf.CONNECTSamlAssertionValidator" />
+            </entry>
             <entry key="mtom-enabled" value="true" />
         </jaxws:properties>
         <jaxws:inInterceptors>
@@ -48,20 +39,10 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd http://www.s
     </jaxws:endpoint>
 
     <!-- Entity services -->
-    
-    <bean id="entityDocRetrieveOrchImpl" class="gov.hhs.fha.nhinc.docretrieve.entity.EntityDocRetrieveOrchImpl" />
-    
-    <bean id="entityDocRetrieveUnsecured" class="gov.hhs.fha.nhinc.docretrieve._30.entity.EntityDocRetrieve">
-       <property name="orchestratorImpl"><ref bean="entityDocRetrieveOrchImpl"/></property>
-    </bean>
-    
-    <bean id="entityDocRetrieveSecured" class="gov.hhs.fha.nhinc.docretrieve._30.entity.EntityDocRetrieveSecured">
-       <property name="orchestratorImpl"><ref bean="entityDocRetrieveOrchImpl"/></property>
-    </bean>
-    
-    <jaxws:endpoint xmlns:edr="urn:gov:hhs:fha:nhinc:entitydocretrieve" id="EntityDocRetrieveUnsecured_a1"
+
+    <jaxws:endpoint xmlns:edr="urn:gov:hhs:fha:nhinc:entitydocretrieve" id="EntityDocumentRetrieve"
         address="/EntityService/EntityDocRetrieve" serviceName="edr:EntityDocRetrieve" endpointName="edr:EntityDocRetrievePortSoap"
-        implementorClass="gov.hhs.fha.nhinc.docretrieve._30.entity.EntityDocRetrieve" implementor="#entityDocRetrieveUnsecured"
+        implementorClass="gov.hhs.fha.nhinc.docretrieve._20.entity.EntityDocRetrieve" implementor="#entityDocRetrieveUnsecured"
         wsdlLocation="classpath:/wsdl/EntityDocRetrieve.wsdl">
         <jaxws:handlers>
             <ref bean="TransactionHandler"/>
@@ -71,9 +52,9 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd http://www.s
         </jaxws:properties>
     </jaxws:endpoint>
 
-    <jaxws:endpoint xmlns:edrs="urn:gov:hhs:fha:nhinc:entitydocretrievesecured" id="EntityDocRetrieveSecured_a1"
+    <jaxws:endpoint xmlns:edrs="urn:gov:hhs:fha:nhinc:entitydocretrievesecured" id="EntityDocumentRetrieveSecured"
         address="/EntityService/EntityDocRetrieveSecured" serviceName="edrs:EntityDocRetrieveSecured" endpointName="edrs:EntityDocRetrieveSecuredPortSoap"
-        implementorClass="gov.hhs.fha.nhinc.docretrieve._30.entity.EntityDocRetrieveSecured" implementor="#entityDocRetrieveSecured"
+        implementorClass="gov.hhs.fha.nhinc.docretrieve._20.entity.EntityDocRetrieveSecured" implementor="#entityDocRetrieveSecured"
         wsdlLocation="classpath:wsdl/EntityDocRetrieveSecured.wsdl">
         <jaxws:properties>
             <entry key="ws-security.callback-handler" value="gov.hhs.fha.nhinc.callback.cxf.CXFSAMLCallbackHandler" />
@@ -90,21 +71,11 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd http://www.s
     </jaxws:endpoint>
 
     <!-- MsgProxy/NhincProxy/Passthru services -->
-    
-    <bean id="passthruDocRetrieveOrchImpl" class="gov.hhs.fha.nhinc.docretrieve.passthru.NhincProxyDocRetrieveOrchImpl" />
-    
-    <bean id="passthruDocRetrieveUnsecured" class="gov.hhs.fha.nhinc.docretrieve._30.passthru.NhincProxyDocRetrieveUnsecured">
-       <property name="orchestratorImpl"><ref bean="passthruDocRetrieveOrchImpl"/></property>
-    </bean>
-    
-    <bean id="passthruDocRetrieveSecured" class="gov.hhs.fha.nhinc.docretrieve._30.passthru.NhincProxyDocRetrieveSecured">
-       <property name="orchestratorImpl"><ref bean="passthruDocRetrieveOrchImpl"/></property>
-    </bean>
-    
-    <jaxws:endpoint xmlns:mpdr="urn:gov:hhs:fha:nhinc:nhincproxydocretrieve" id="NhincProxyDocRetrieve_a1"
+
+    <jaxws:endpoint xmlns:mpdr="urn:gov:hhs:fha:nhinc:nhincproxydocretrieve" id="NhincProxyDocumentRetrieve"
         address="/NhincProxyDocRetrieveUnsecured" serviceName="mpdr:NhincProxyDocRetrieve" endpointName="mpdr:NhincProxyDocRetrievePortSoap"
-        implementorClass="gov.hhs.fha.nhinc.docretrieve._30.passthru.NhincProxyDocRetrieveUnsecured" implementor="#passthruDocRetrieveUnsecured"
-        wsdlLocation="classpath:/wsdl/NhincProxyDocRetrieve.wsdl">
+        implementorClass="gov.hhs.fha.nhinc.docretrieve._20.passthru.NhincProxyDocRetrieveUnsecured" implementor="#passthruDocRetrieveUnsecured"
+        wsdlLocation="classpath:wsdl/NhincProxyDocRetrieve.wsdl">
         <jaxws:handlers>
             <ref bean="TransactionHandler"/>
         </jaxws:handlers>
@@ -113,10 +84,10 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd http://www.s
         </jaxws:properties>
     </jaxws:endpoint>
 
-    <jaxws:endpoint xmlns:mpdrs="urn:gov:hhs:fha:nhinc:nhincproxydocretrievesecured" id="NhincProxyDocRetrieveSecured_a1"
-        address="/EntityService/NhincProxyDocRetrieveSecured" serviceName="mpdrs:NhincProxyDocRetrieveSecured" endpointName="mpdrs:NhincProxyDocRetrieveSecuredPortSoap"
-        implementorClass="gov.hhs.fha.nhinc.docretrieve._30.passthru.NhincProxyDocRetrieveSecured" implementor="#passthruDocRetrieveSecured"
-        wsdlLocation="classpath:wsdl/NhincProxyDocRetrieveSecured.wsdl">
+    <jaxws:endpoint xmlns:mpdrs="urn:gov:hhs:fha:nhinc:nhincproxydocretrievesecured" id="NhincProxyDocumentRetrieveSecured"
+        address="/EntityService/NhincProxyDocRetrieveSecured" serviceName="mpdrs:NhincProxyDocRetrieveSecured"
+        endpointName="mpdrs:NhincProxyDocRetrieveSecuredPortSoap" implementorClass="gov.hhs.fha.nhinc.docretrieve._20.passthru.NhincProxyDocRetrieveSecured"
+        implementor="#passthruDocRetrieveSecured" wsdlLocation="classpath:wsdl/NhincProxyDocRetrieveSecured.wsdl">
         <jaxws:properties>
             <entry key="ws-security.callback-handler" value="gov.hhs.fha.nhinc.callback.cxf.CXFSAMLCallbackHandler" />
             <entry key="ws-security.signature.properties" value="keystore.properties" />
@@ -130,10 +101,5 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd http://www.s
             <ref bean="TransactionHandler"/>
         </jaxws:handlers>
     </jaxws:endpoint>
-
-    <bean id="SOAPHeaderHandler" class="gov.hhs.fha.nhinc.callback.SOAPHeaderHandler" />
-    <bean id="TransactionHandler" class="gov.hhs.fha.nhinc.logging.transaction.TransactionHandler" />
-    
-    <!-- Aspect Service -->
-    <aop:aspectj-autoproxy />    
 </beans>
+    
