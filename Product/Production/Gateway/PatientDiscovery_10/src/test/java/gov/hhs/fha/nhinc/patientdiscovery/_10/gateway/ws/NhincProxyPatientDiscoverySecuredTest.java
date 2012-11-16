@@ -26,8 +26,14 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
+
+import java.lang.reflect.Method;
+
+import gov.hhs.fha.nhinc.aspect.OutboundMessageEvent;
+import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.patientdiscovery._10.passthru.NhincProxyPatientDiscoveryImpl;
 
 import javax.xml.ws.WebServiceContext;
@@ -79,6 +85,18 @@ public class NhincProxyPatientDiscoverySecuredTest {
 
         assertSame(expectedResponse, actualResponse);
 
+    }
+    
+    @Test
+    public void hasOutboundMessageEvent() throws Exception {
+        Class<NhincProxyPatientDiscoverySecured> clazz = NhincProxyPatientDiscoverySecured.class;
+        Method method = clazz.getMethod("proxyPRPAIN201305UV", ProxyPRPAIN201305UVProxySecuredRequestType.class);
+        OutboundMessageEvent annotation = method.getAnnotation(OutboundMessageEvent.class);
+        assertNotNull(annotation);
+        assertEquals(DefaultEventDescriptionBuilder.class, annotation.beforeBuilder());
+        assertEquals(DefaultEventDescriptionBuilder.class, annotation.afterReturningBuilder());
+        assertEquals("Patient Discovery", annotation.serviceType());
+        assertEquals("1.0", annotation.version());
     }
 
 }

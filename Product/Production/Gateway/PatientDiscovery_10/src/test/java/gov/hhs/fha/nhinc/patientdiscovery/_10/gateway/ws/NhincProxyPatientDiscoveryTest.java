@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
 import static org.mockito.Matchers.any;
@@ -34,6 +35,11 @@ import static org.mockito.Matchers.isA;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+
+import java.lang.reflect.Method;
+
+import gov.hhs.fha.nhinc.aspect.OutboundMessageEvent;
+import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.event.EventRecorder;
 import gov.hhs.fha.nhinc.event.initiator.BeginOutboundMessageEvent;
 import gov.hhs.fha.nhinc.event.initiator.EndOutboundMessageEvent;
@@ -47,6 +53,7 @@ import org.apache.cxf.message.MessageImpl;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
 import org.hl7.v3.ProxyPRPAIN201305UVProxyRequestType;
+import org.hl7.v3.ProxyPRPAIN201305UVProxySecuredRequestType;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -115,5 +122,6 @@ public class NhincProxyPatientDiscoveryTest {
     public static PatientDiscoveryServiceFactory getPatientDiscoveryServiceFactory() {
         return mockFactory;
     }
+    
 
 }
