@@ -28,7 +28,7 @@ package gov.hhs.fha.nhinc.docsubmission._20.entity;
 
 import gov.hhs.fha.nhinc.aspect.InboundMessageEvent;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType;
-import gov.hhs.fha.nhinc.docsubmission.entity.EntityDocSubmissionOrchImpl;
+import gov.hhs.fha.nhinc.docsubmission.outbound.OutboundDocSubmission;
 import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
 
 import javax.annotation.Resource;
@@ -44,7 +44,7 @@ public class EntityDocSubmissionSecured_g1 implements gov.hhs.fha.nhinc.nhincent
 
     private WebServiceContext context;
 
-    private EntityDocSubmissionOrchImpl orchImpl;
+    private OutboundDocSubmission outboundDocSubmission;
 
     @Override
     @InboundMessageEvent(serviceType = "Document Submission", version = "2.0",
@@ -52,11 +52,7 @@ public class EntityDocSubmissionSecured_g1 implements gov.hhs.fha.nhinc.nhincent
             afterReturningBuilder = DefaultEventDescriptionBuilder.class)
     public RegistryResponseType provideAndRegisterDocumentSetB(
             RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType body) {
-
-        RegistryResponseType response = new EntityDocSubmissionImpl_g1(orchImpl).provideAndRegisterDocumentSetB(body,
-                context);
-
-        return response;
+        return new EntityDocSubmissionImpl_g1(outboundDocSubmission).provideAndRegisterDocumentSetBSecured(body, context);
     }
 
     @Resource
@@ -64,11 +60,7 @@ public class EntityDocSubmissionSecured_g1 implements gov.hhs.fha.nhinc.nhincent
         this.context = context;
     }
 
-    protected WebServiceContext getWebServiceContext() {
-        return context;
-    }
-
-    public void setOrchestratorImpl(EntityDocSubmissionOrchImpl orchImpl) {
-        this.orchImpl = orchImpl;
+    public void setOutboundDocSubmission(OutboundDocSubmission outboundDocSubmission) {
+        this.outboundDocSubmission = outboundDocSubmission;
     }
 }

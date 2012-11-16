@@ -39,15 +39,15 @@ import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
  * @author akong
  * 
  */
-public class PassthroughInboundDocQuery extends InboundDocQuery {
+public class PassthroughInboundDocQuery extends AbstractInboundDocQuery {
 
     private AdapterDocQueryProxyObjectFactory adapterFactory = new AdapterDocQueryProxyObjectFactory();
     
-    PassthroughInboundDocQuery() {
+    public PassthroughInboundDocQuery() {
         super();
     }
     
-    PassthroughInboundDocQuery(AdapterDocQueryProxyObjectFactory adapterFactory, DocQueryAuditLog auditLogger) {
+    public PassthroughInboundDocQuery(AdapterDocQueryProxyObjectFactory adapterFactory, DocQueryAuditLog auditLogger) {
         this.adapterFactory = adapterFactory;
         this.auditLogger = auditLogger;
     }

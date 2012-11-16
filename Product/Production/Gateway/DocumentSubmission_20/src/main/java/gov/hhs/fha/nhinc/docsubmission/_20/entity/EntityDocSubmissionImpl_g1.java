@@ -26,6 +26,14 @@
  */
 package gov.hhs.fha.nhinc.docsubmission._20.entity;
 
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
+import gov.hhs.fha.nhinc.common.nhinccommon.UrlInfoType;
+import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetRequestType;
+import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType;
+import gov.hhs.fha.nhinc.docsubmission.outbound.OutboundDocSubmission;
+import gov.hhs.fha.nhinc.messaging.server.BaseService;
+
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 
 import javax.xml.ws.WebServiceContext;
@@ -35,56 +43,40 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
-import gov.hhs.fha.nhinc.common.nhinccommon.UrlInfoType;
-import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetRequestType;
-import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType;
-import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
-import gov.hhs.fha.nhinc.docsubmission.entity.EntityDocSubmissionOrchImpl;
-
-class EntityDocSubmissionImpl_g1 {
+class EntityDocSubmissionImpl_g1 extends BaseService {
 
     private static final Log log = LogFactory.getLog(EntityDocSubmissionImpl_g1.class);
-    private EntityDocSubmissionOrchImpl orchImpl;
 
-    public EntityDocSubmissionImpl_g1(EntityDocSubmissionOrchImpl orchImpl) {
-        this.orchImpl = orchImpl;
+    private OutboundDocSubmission outboundDocSubmission;
+
+    public EntityDocSubmissionImpl_g1(OutboundDocSubmission outboundDocSubmission) {
+        this.outboundDocSubmission = outboundDocSubmission;
     }
 
-
-    public RegistryResponseType provideAndRegisterDocumentSetB(
+    public RegistryResponseType provideAndRegisterDocumentSetBUnsecured(
             RespondingGatewayProvideAndRegisterDocumentSetRequestType body, WebServiceContext context) {
         return provideAndRegisterDocumentSetB(body.getProvideAndRegisterDocumentSetRequest(), body.getAssertion(),
                 body.getNhinTargetCommunities(), body.getUrl());
     }
 
-    public RegistryResponseType provideAndRegisterDocumentSetB(
+    public RegistryResponseType provideAndRegisterDocumentSetBSecured(
             RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType body, WebServiceContext context) {
+        AssertionType assertion = getAssertion(context, null);
 
-        AssertionType assertion = SAML2AssertionExtractor.getInstance().extractSamlAssertion(context);
-
-        return provideAndRegisterDocumentSetB(body.getProvideAndRegisterDocumentSetRequest(),
-                assertion, body.getNhinTargetCommunities(), body.getUrl());
+        return provideAndRegisterDocumentSetB(body.getProvideAndRegisterDocumentSetRequest(), assertion,
+                body.getNhinTargetCommunities(), body.getUrl());
     }
 
     RegistryResponseType provideAndRegisterDocumentSetB(ProvideAndRegisterDocumentSetRequestType request,
             AssertionType assertIn, NhinTargetCommunitiesType targets, UrlInfoType urlInfo) {
-        log.info("Begin EntityDocSubmissionImpl.provideAndRegisterDocumentSetBUnsecured(RespondingGatewayProvideAndRegisterDocumentSetRequestType, WebServiceContext)");
 
         RegistryResponseType response = null;
         try {
-            response = orchImpl.provideAndRegisterDocumentSetB(request, assertIn, targets, urlInfo);
-
+            response = outboundDocSubmission.provideAndRegisterDocumentSetB(request, assertIn, targets, urlInfo);
         } catch (Exception e) {
-            log.error("Failed to call entity DS orchestration. Exception: " + e.getMessage(), e);
+            log.error("Failed to send request to Nwhin.", e);
         }
-        log.info("End EntityDocSubmissionImpl.provideAndRegisterDocumentSetBUnsecured with response: " + response);
+
         return response;
     }
-
-    public void setOrchestratorImpl(EntityDocSubmissionOrchImpl orchImpl) {
-        this.orchImpl = orchImpl;
-    }
-
 }

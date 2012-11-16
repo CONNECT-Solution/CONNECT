@@ -9,50 +9,39 @@ http://www.springframework.org/schema/aop http://www.springframework.org/schema/
 
     <aop:aspectj-autoproxy proxy-target-class="true" />
     <context:annotation-config />
-
+    
     <bean id="SOAPHeaderHandler" class="gov.hhs.fha.nhinc.callback.SOAPHeaderHandler" />
     <bean id="TransactionHandler" class="gov.hhs.fha.nhinc.logging.transaction.TransactionHandler" />
 
-    <!-- Do we need these? -->
-    <bean id="auditRepositoryLogger" class="gov.hhs.fha.nhinc.auditrepository.AuditRepositoryLogger" />
-    <bean id="auditRepositoryProxyObjectFactory" class="gov.hhs.fha.nhinc.auditrepository.nhinc.proxy.AuditRepositoryProxyObjectFactory" />
-
-
-    <bean id="nhinDocSubmissionOrchImpl" class="gov.hhs.fha.nhinc.docsubmission.nhin.NhinDocSubmissionOrchImpl" />
-    <bean id="nhinXDR_g1" class="gov.hhs.fha.nhinc.docsubmission._20.nhin.NhinXDR_g1">
-        <property name="orchestratorImpl">
-            <ref bean="nhinDocSubmissionOrchImpl" />
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="ignoreResourceNotFound" value="true"/>
+        <property name="locations">
+            <list>
+                <value>classpath:documentsubmission.properties</value>
+                <value>file://${nhinc.properties.dir}/gateway.properties</value>
+                <value>classpath:documentsubmission-test.properties</value>
+            </list>
         </property>
     </bean>
 
-    <bean id="entityDocSubmissionOrchImpl" class="gov.hhs.fha.nhinc.docsubmission.entity.EntityDocSubmissionOrchImpl" />
+    <bean id="nhinXDR_g1" class="gov.hhs.fha.nhinc.docsubmission._20.nhin.NhinXDR_g1">
+        <property name="inboundDocSubmission">
+            <bean class="${docsubmission.inboundDocSubmission}" />
+        </property>
+    </bean>
 
     <bean id="entityXDRUnsecured_g1" class="gov.hhs.fha.nhinc.docsubmission._20.entity.EntityDocSubmissionUnsecured_g1">
-        <property name="orchestratorImpl">
-            <ref bean="entityDocSubmissionOrchImpl" />
+        <property name="outboundDocSubmission">
+            <bean class="${docsubmission.outboundDocSubmission}" />
         </property>
     </bean>
 
     <bean id="entityXDRSecured_g1" class="gov.hhs.fha.nhinc.docsubmission._20.entity.EntityDocSubmissionSecured_g1">
-        <property name="orchestratorImpl">
-            <ref bean="entityDocSubmissionOrchImpl" />
+        <property name="outboundDocSubmission">
+            <bean class="${docsubmission.outboundDocSubmission}" />
         </property>
     </bean>
-
-    <bean id="passthruDocSubmissionOrchImpl" class="gov.hhs.fha.nhinc.docsubmission.passthru.PassthruDocSubmissionOrchImpl" />
-
-    <bean id="passthruXDRUnsecured_g1" class="gov.hhs.fha.nhinc.docsubmission._20.passthru.PassthruDocSubmissionUnsecured_g1">
-        <property name="orchestratorImpl">
-            <ref bean="passthruDocSubmissionOrchImpl" />
-        </property>
-    </bean>
-
-    <bean id="passthruXDRSecured_g1" class="gov.hhs.fha.nhinc.docsubmission._20.passthru.PassthruDocSubmissionSecured_g1">
-        <property name="orchestratorImpl">
-            <ref bean="passthruDocSubmissionOrchImpl" />
-        </property>
-    </bean>
-
+    
     <bean id="nhinDocSubmissionDeferredRequestOrchImpl" class="gov.hhs.fha.nhinc.docsubmission.nhin.deferred.request.NhinDocSubmissionDeferredRequestOrchImpl" />
 
     <bean id="nhinXDRDeferredRequest_g1" class="gov.hhs.fha.nhinc.docsubmission._20.nhin.deferred.request.NhinXDRRequest20">
@@ -134,4 +123,5 @@ http://www.springframework.org/schema/aop http://www.springframework.org/schema/
             <ref bean="passthruDocSubmissionDeferredResponseOrchImpl" />
         </property>
     </bean>
+
 </beans>

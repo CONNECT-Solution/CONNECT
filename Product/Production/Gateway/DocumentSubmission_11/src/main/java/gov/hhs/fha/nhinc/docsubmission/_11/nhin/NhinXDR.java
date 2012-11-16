@@ -26,8 +26,9 @@
  */
 package gov.hhs.fha.nhinc.docsubmission._11.nhin;
 
+import gov.hhs.fha.nhinc.docsubmission.inbound.InboundDocSubmission;
+
 import gov.hhs.fha.nhinc.aspect.InboundMessageEvent;
-import gov.hhs.fha.nhinc.docsubmission.nhin.NhinDocSubmissionOrchImpl;
 import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
 
 import javax.annotation.Resource;
@@ -42,14 +43,15 @@ import javax.xml.ws.soap.Addressing;
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 @Addressing(enabled = true)
 public class NhinXDR implements ihe.iti.xdr._2007.DocumentRepositoryXDRPortType {
+
     private WebServiceContext context;
-    private NhinDocSubmissionOrchImpl orchImpl;
+
+    private InboundDocSubmission inboundDocSubmission;
 
     /**
      * The web service implementation for Document Submission.
      * 
-     * @param body
-     *            The message of the request
+     * @param body The message of the request
      * @return a registry response
      */
     @Override
@@ -58,14 +60,14 @@ public class NhinXDR implements ihe.iti.xdr._2007.DocumentRepositoryXDRPortType 
             afterReturningBuilder = DefaultEventDescriptionBuilder.class)
     public oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType documentRepositoryProvideAndRegisterDocumentSetB(
             ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType body) {
-        return new NhinDocSubmissionImpl(orchImpl).documentRepositoryProvideAndRegisterDocumentSetB(body, context);
+        return new NhinDocSubmissionImpl(inboundDocSubmission).documentRepositoryProvideAndRegisterDocumentSetB(body,
+                context);
     }
 
     /**
      * The web service implementation for Document Submission.
      * 
-     * @param body
-     *            the message of the request
+     * @param body the message of the request
      * @return a retrieved document
      */
     @Override
@@ -74,8 +76,8 @@ public class NhinXDR implements ihe.iti.xdr._2007.DocumentRepositoryXDRPortType 
         throw new UnsupportedOperationException("Not implemented yet.");
     }
 
-    public void setOrchestratorImpl(NhinDocSubmissionOrchImpl orchImpl) {
-        this.orchImpl = orchImpl;
+    public void setInboundDocSubmission(InboundDocSubmission inboundDocSubmission) {
+        this.inboundDocSubmission = inboundDocSubmission;
     }
 
     @Resource

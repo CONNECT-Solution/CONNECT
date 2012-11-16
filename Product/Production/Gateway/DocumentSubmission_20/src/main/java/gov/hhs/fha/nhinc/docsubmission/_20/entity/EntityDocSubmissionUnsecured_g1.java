@@ -34,32 +34,28 @@ import javax.xml.ws.soap.Addressing;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetRequestType;
-import gov.hhs.fha.nhinc.docsubmission.entity.EntityDocSubmissionOrchImpl;
+import gov.hhs.fha.nhinc.docsubmission.outbound.OutboundDocSubmission;
 
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 @Addressing(enabled = true)
 public class EntityDocSubmissionUnsecured_g1 implements gov.hhs.fha.nhinc.nhincentityxdr.EntityXDRPortType {
 
-    @Resource
     private WebServiceContext context;
 
-    private EntityDocSubmissionOrchImpl orchImpl;
+    private OutboundDocSubmission outboundDocSubmission;
 
     @Override
     public RegistryResponseType provideAndRegisterDocumentSetB(
             RespondingGatewayProvideAndRegisterDocumentSetRequestType body) {
-        RegistryResponseType response = null;
-
-        response = new EntityDocSubmissionImpl_g1(orchImpl).provideAndRegisterDocumentSetB(body, context);
-
-        return response;
+        return new EntityDocSubmissionImpl_g1(outboundDocSubmission).provideAndRegisterDocumentSetBUnsecured(body, context);
     }
 
-    protected WebServiceContext getWebServiceContext() {
-        return context;
+    @Resource
+    public void setContext(WebServiceContext context) {
+        this.context = context;
     }
-
-    public void setOrchestratorImpl(EntityDocSubmissionOrchImpl orchImpl) {
-        this.orchImpl = orchImpl;
+    
+    public void setOutboundDocSubmission(OutboundDocSubmission outboundDocSubmission) {
+        this.outboundDocSubmission = outboundDocSubmission;
     }
 }

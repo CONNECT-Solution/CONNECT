@@ -141,6 +141,7 @@ public class StandardOutboundDocQuery implements OutboundDocQuery {
      * @param targets Target to send request.
      * @return AdhocQueryResponse from Entity Interface.
      */
+    @Override
     @OutboundProcessingEvent(beforeBuilder = AdhocQueryRequestDescriptionBuilder.class,
             afterReturningBuilder = AdhocQueryResponseDescriptionBuilder.class, serviceType = "Document Query",
             version = "")

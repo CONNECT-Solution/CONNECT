@@ -26,6 +26,10 @@
  */
 package gov.hhs.fha.nhinc.docsubmission._11.entity;
 
+
+import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType;
+import gov.hhs.fha.nhinc.docsubmission.outbound.OutboundDocSubmission;
+
 import javax.annotation.Resource;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
@@ -33,34 +37,27 @@ import javax.xml.ws.soap.Addressing;
 
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
-import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType;
-import gov.hhs.fha.nhinc.docsubmission.entity.EntityDocSubmissionOrchImpl;
 
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 @Addressing(enabled = true)
 public class EntityDocSubmissionSecured implements gov.hhs.fha.nhinc.nhincentityxdrsecured.EntityXDRSecuredPortType {
 
-    @Resource
     private WebServiceContext context;
-    private EntityDocSubmissionOrchImpl orchImpl;
+
+    private OutboundDocSubmission outboundDocSubmission;
 
     @Override
     public RegistryResponseType provideAndRegisterDocumentSetB(
             RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType body) {
-        RegistryResponseType response = null;
-
-        EntityDocSubmissionImpl impl = new EntityDocSubmissionImpl(orchImpl);
-        if (impl != null) {
-            response = impl.provideAndRegisterDocumentSetBSecured(body, getWebServiceContext());
-        }
-
-        return response;
-    }
-    protected WebServiceContext getWebServiceContext() {
-        return context;
+        return new EntityDocSubmissionImpl(outboundDocSubmission).provideAndRegisterDocumentSetBSecured(body, context);
     }
 
-    public void setOrchestratorImpl(EntityDocSubmissionOrchImpl orchImpl) {
-        this.orchImpl = orchImpl;
+    @Resource
+    public void setContext(WebServiceContext context) {
+        this.context = context;
+    }
+
+    public void setOutboundDocSubmission(OutboundDocSubmission outboundDocSubmission) {
+        this.outboundDocSubmission = outboundDocSubmission;
     }
 }
