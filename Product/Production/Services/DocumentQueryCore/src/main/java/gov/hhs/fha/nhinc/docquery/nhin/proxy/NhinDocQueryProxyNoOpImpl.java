@@ -26,8 +26,11 @@
  */
 package gov.hhs.fha.nhinc.docquery.nhin.proxy;
 
+import gov.hhs.fha.nhinc.aspect.NwhinInvocationEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryRequestDescriptionBuilder;
+import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryResponseDescriptionBuilder;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 
@@ -45,6 +48,9 @@ public class NhinDocQueryProxyNoOpImpl implements NhinDocQueryProxy {
      * @param target NhinTargetCommunities to send DocQueryRequest.
      * @return null AdhocQuery Response since this does not send Query request.
      */
+    @NwhinInvocationEvent(beforeBuilder = AdhocQueryRequestDescriptionBuilder.class,
+            afterReturningBuilder = AdhocQueryResponseDescriptionBuilder.class, serviceType = "Document Query",
+            version = "")
     public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest request, AssertionType assertion,
             NhinTargetSystemType target) {
         return new AdhocQueryResponse();

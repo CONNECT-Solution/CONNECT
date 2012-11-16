@@ -52,11 +52,11 @@ public class StandardInboundDocSubmission extends AbstractInboundDocSubmission {
     private XDRPolicyChecker policyChecker = new XDRPolicyChecker();
     private PassthroughInboundDocSubmission passthroughDS = new PassthroughInboundDocSubmission();
 
-    StandardInboundDocSubmission() {
+    public StandardInboundDocSubmission() {
         super();
     }
 
-    StandardInboundDocSubmission(PassthroughInboundDocSubmission passthroughDS, XDRPolicyChecker policyChecker,
+    public StandardInboundDocSubmission(PassthroughInboundDocSubmission passthroughDS, XDRPolicyChecker policyChecker,
             PropertyAccessor propertyAccessor, XDRAuditLogger auditLogger, Log log) {
         this.passthroughDS = passthroughDS;
         this.policyChecker = policyChecker;

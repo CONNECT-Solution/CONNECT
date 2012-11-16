@@ -21,6 +21,35 @@ http://www.springframework.org/schema/aop http://www.springframework.org/schema/
  
     <bean name="inboundDocRetrieve" class="${docretrieve.30.inbound}" />
  
+ 
+    <bean id="passthruDocRetrieveOrchImpl" class="gov.hhs.fha.nhinc.docretrieve.passthru.NhincProxyDocRetrieveOrchImpl" />
+    
+    <bean id="passthruDocRetrieveUnsecured" class="gov.hhs.fha.nhinc.docretrieve._30.passthru.NhincProxyDocRetrieveUnsecured">
+       <property name="orchestratorImpl"><ref bean="passthruDocRetrieveOrchImpl"/></property>
+    </bean>
+    
+    <bean id="passthruDocRetrieveSecured" class="gov.hhs.fha.nhinc.docretrieve._30.passthru.NhincProxyDocRetrieveSecured">
+       <property name="orchestratorImpl"><ref bean="passthruDocRetrieveOrchImpl"/></property>
+    </bean>
+    
+ 
+ 
+    <bean id="entityDocRetrieveOrchImpl" class="gov.hhs.fha.nhinc.docretrieve.entity.EntityDocRetrieveOrchImpl" />
+    
+    <bean id="entityDocRetrieveUnsecured" class="gov.hhs.fha.nhinc.docretrieve._30.entity.EntityDocRetrieve">
+       <property name="orchestratorImpl"><ref bean="entityDocRetrieveOrchImpl"/></property>
+    </bean>
+    
+    <bean id="entityDocRetrieveSecured" class="gov.hhs.fha.nhinc.docretrieve._30.entity.EntityDocRetrieveSecured">
+       <property name="orchestratorImpl"><ref bean="entityDocRetrieveOrchImpl"/></property>
+    </bean>
+    
+ 
+ 
     <bean id="SOAPHeaderHandler" class="gov.hhs.fha.nhinc.callback.SOAPHeaderHandler" />
     <bean id="TransactionHandler" class="gov.hhs.fha.nhinc.logging.transaction.TransactionHandler" />
+    
+    <!-- Aspect Service -->
+    <aop:aspectj-autoproxy />    
+    
 </beans>

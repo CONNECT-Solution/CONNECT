@@ -26,13 +26,13 @@
  */
 package gov.hhs.fha.nhinc.docsubmission._20.entity.deferred.request;
 
+import javax.xml.ws.WebServiceContext;
+
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType;
 import gov.hhs.fha.nhinc.docsubmission.entity.deferred.request.EntityDocSubmissionDeferredRequestOrchImpl;
 import gov.hhs.fha.nhinc.messaging.server.BaseService;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
-
-import javax.xml.ws.WebServiceContext;
 
 /**
  *
@@ -40,13 +40,18 @@ import javax.xml.ws.WebServiceContext;
  */
 public class EntityDocSubmissionDeferredRequestImpl_g1 extends BaseService {
 
+    private EntityDocSubmissionDeferredRequestOrchImpl orchImpl;
+
+    EntityDocSubmissionDeferredRequestImpl_g1(EntityDocSubmissionDeferredRequestOrchImpl orchImpl) {
+        this.orchImpl = orchImpl;
+    }
+
     public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(
             RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType provideAndRegisterRequestRequest,
             WebServiceContext context) {
         AssertionType assertion = getAssertion(context, null);
 
-        XDRAcknowledgementType response = new EntityDocSubmissionDeferredRequestOrchImpl()
-                .provideAndRegisterDocumentSetBAsyncRequest(
+        XDRAcknowledgementType response = orchImpl.provideAndRegisterDocumentSetBAsyncRequest(
                         provideAndRegisterRequestRequest.getProvideAndRegisterDocumentSetRequest(), assertion,
                         provideAndRegisterRequestRequest.getNhinTargetCommunities(),
                         provideAndRegisterRequestRequest.getUrl());
@@ -59,12 +64,15 @@ public class EntityDocSubmissionDeferredRequestImpl_g1 extends BaseService {
             WebServiceContext context) {
         AssertionType assertion = getAssertion(context, provideAndRegisterAsyncReqRequest.getAssertion());
 
-        XDRAcknowledgementType response = new EntityDocSubmissionDeferredRequestOrchImpl()
-                .provideAndRegisterDocumentSetBAsyncRequest(
+        XDRAcknowledgementType response = orchImpl.provideAndRegisterDocumentSetBAsyncRequest(
                         provideAndRegisterAsyncReqRequest.getProvideAndRegisterDocumentSetRequest(), assertion,
                         provideAndRegisterAsyncReqRequest.getNhinTargetCommunities(),
                         provideAndRegisterAsyncReqRequest.getUrl());
 
         return response;
+    }
+
+    public void setOrchestratorImpl(EntityDocSubmissionDeferredRequestOrchImpl orchImpl) {
+        this.orchImpl = orchImpl;
     }
 }

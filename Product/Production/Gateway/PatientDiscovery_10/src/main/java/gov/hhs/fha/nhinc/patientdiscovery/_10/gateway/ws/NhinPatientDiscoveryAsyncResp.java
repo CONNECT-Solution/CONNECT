@@ -26,11 +26,11 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws;
 
+import gov.hhs.fha.nhinc.patientdiscovery._10.deferred.response.NhinPatientDiscoveryAsyncRespImpl;
+
 import javax.annotation.Resource;
-import javax.jws.WebService;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
-import javax.xml.ws.soap.Addressing;
 
 import org.hl7.v3.PRPAIN201306UV02;
 
@@ -40,7 +40,11 @@ import org.hl7.v3.PRPAIN201306UV02;
  */
 
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
-public class NhinPatientDiscoveryAsyncResp extends PatientDiscoveryBase implements ihe.iti.xcpd._2009.RespondingGatewayDeferredResponsePortType {
+public class NhinPatientDiscoveryAsyncResp extends PatientDiscoveryBase implements
+        ihe.iti.xcpd._2009.RespondingGatewayDeferredResponsePortType {
+
+    private NhinPatientDiscoveryAsyncRespImpl orchImpl;
+
     @Resource
     private WebServiceContext context;
 
@@ -53,8 +57,11 @@ public class NhinPatientDiscoveryAsyncResp extends PatientDiscoveryBase implemen
     }
 
     public org.hl7.v3.MCCIIN000002UV01 respondingGatewayDeferredPRPAIN201306UV02(PRPAIN201306UV02 body) {
-        return getServiceFactory().getNhinPatientDiscoveryAsyncRespImpl().respondingGatewayPRPAIN201306UV02(body,
-                getWebServiceContext());
+        return orchImpl.respondingGatewayPRPAIN201306UV02(body, getWebServiceContext());
+    }
+
+    public void setOrchestratorImpl(NhinPatientDiscoveryAsyncRespImpl orchImpl) {
+        this.orchImpl = orchImpl;
     }
 
     protected WebServiceContext getWebServiceContext() {

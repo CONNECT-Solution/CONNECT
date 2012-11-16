@@ -63,18 +63,16 @@ public class NhinPatientDiscoveryAsyncRespTest {
         final PatientDiscoveryServiceFactory mockFactory = context.mock(PatientDiscoveryServiceFactory.class);
 
         NhinPatientDiscoveryAsyncResp patientDiscovery = new NhinPatientDiscoveryAsyncResp(mockFactory);
+        patientDiscovery.setOrchestratorImpl(mockService);
 
         context.checking(new Expectations() {
             {
                 oneOf(mockService).respondingGatewayPRPAIN201306UV02(with(same(mockBody)),
                         with(any(WebServiceContext.class)));
                 will(returnValue(expectedResponse));
-
-                oneOf(mockFactory).getNhinPatientDiscoveryAsyncRespImpl();
-                will(returnValue(mockService));
             }
         });
-
+        
         MCCIIN000002UV01 actualResponse = patientDiscovery.respondingGatewayDeferredPRPAIN201306UV02(mockBody);
 
         assertSame(expectedResponse, actualResponse);

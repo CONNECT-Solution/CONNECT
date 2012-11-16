@@ -27,7 +27,6 @@
 package gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws;
 
 import javax.annotation.Resource;
-import javax.jws.WebService;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
@@ -41,6 +40,8 @@ import gov.hhs.fha.nhinc.patientdiscovery._10.passthru.deferred.request.NhincPro
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 public class NhincProxyPatientDiscoveryDeferredRequestUnsecured extends PatientDiscoveryBase implements gov.hhs.fha.nhinc.nhincproxypatientdiscoveryasyncreq.NhincProxyPatientDiscoveryAsyncReqPortType {
 
+    private NhincProxyPatientDiscoveryDeferredRequestImpl orchImpl;
+    
     @Resource
     private WebServiceContext context;
 
@@ -55,12 +56,14 @@ public class NhincProxyPatientDiscoveryDeferredRequestUnsecured extends PatientD
     public MCCIIN000002UV01 proxyProcessPatientDiscoveryAsyncReq(ProxyPRPAIN201305UVProxyRequestType request) {
         MCCIIN000002UV01 response = null;
 
-        NhincProxyPatientDiscoveryDeferredRequestImpl serviceImpl = getServiceFactory()
-                .getNhincProxyPatientDiscoveryDeferredRequestImpl();
-        if (serviceImpl != null) {
-            response = serviceImpl.processPatientDiscoveryAsyncRequestUnsecured(request, getWebServiceContext());
+        if (orchImpl != null) {
+            response = orchImpl.processPatientDiscoveryAsyncRequestUnsecured(request, getWebServiceContext());
         }
         return response;
+    }
+    
+    public void setOrchestratorImpl(NhincProxyPatientDiscoveryDeferredRequestImpl orchImpl) {
+        this.orchImpl = orchImpl;
     }
 
     protected WebServiceContext getWebServiceContext() {
