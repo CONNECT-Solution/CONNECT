@@ -44,7 +44,7 @@ import org.junit.Test;
 public class DocRetrieveTest {
 
     @Test
-    public void bazinga() {
+    public void respondingGatewayCrossGatewayRetrieve() {
         DocRetrieve docRetrieve = new DocRetrieve();
      
         
