@@ -89,18 +89,10 @@
     <!-- Document Submission Deferred Request -->
 
     <!-- Nhin services -->
-    <bean id="nhinDocSubmissionDeferredRequestOrchImpl" class="gov.hhs.fha.nhinc.docsubmission.nhin.deferred.request.NhinDocSubmissionDeferredRequestOrchImpl" />
 
-    <bean id="nhinXDRDeferredRequest" class="gov.hhs.fha.nhinc.docsubmission._11.nhin.deferred.request.NhinXDRRequest">
-        <property name="orchestratorImpl">
-            <ref bean="nhinDocSubmissionDeferredRequestOrchImpl" />
-        </property>
-    </bean>
     <jaxws:endpoint xmlns:tns="urn:ihe:iti:xdr:2007" id="NhinXDRRequest" address="/NhinService/XDRRequest_Service"
         serviceName="tns:XDRDeferredRequest_Service" endpointName="tns:XDRDeferredRequest_Port_Soap"
-        implementorClass="gov.hhs.fha.nhinc.docsubmission._11.nhin.deferred.request.NhinXDRRequest"
-        implementor="#nhinXDRDeferredRequest"
-        wsdlLocation="classpath:wsdl/NhinXDRDeferredRequest.wsdl">
+        implementor="#nhinXDRDeferredRequest" wsdlLocation="classpath:wsdl/NhinXDRDeferredRequest.wsdl">
         <jaxws:properties>
             <entry key="ws-security.callback-handler" value="gov.hhs.fha.nhinc.callback.cxf.CXFSAMLCallbackHandler" />
             <entry key="ws-security.signature.properties" value="keystore.properties" />
@@ -127,17 +119,10 @@
     </jaxws:endpoint>
 
     <!-- Entity services -->
-    <bean id="entityDocSubmissionDeferredRequestOrchImpl" class="gov.hhs.fha.nhinc.docsubmission.entity.deferred.request.EntityDocSubmissionDeferredRequestOrchImpl" />
 
-    <bean id="entityXDRDeferredRequestUnsecured" class="gov.hhs.fha.nhinc.docsubmission._11.entity.deferred.request.EntityDocSubmissionDeferredRequestUnsecured">
-        <property name="orchestratorImpl">
-            <ref bean="entityDocSubmissionDeferredRequestOrchImpl" />
-        </property>
-    </bean>
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:nhincentityxdr:async:request" id="EntityDocSubmissionDeferredRequestUnsecured"
         address="/EntityService/EntityDocSubmissionDeferredRequestUnsecured" serviceName="tns:EntityXDRAsyncRequest_Service"
         endpointName="tns:EntityXDRAsyncRequest_Port"
-        implementorClass="gov.hhs.fha.nhinc.docsubmission._11.entity.deferred.request.EntityDocSubmissionDeferredRequestUnsecured"
         implementor="#entityXDRDeferredRequestUnsecured"
         wsdlLocation="classpath:wsdl/EntityXDRRequest.wsdl">
         <jaxws:handlers>
@@ -148,15 +133,9 @@
         </jaxws:properties>
     </jaxws:endpoint>
 
-    <bean id="entityXDRDeferredRequestSecured" class="gov.hhs.fha.nhinc.docsubmission._11.entity.deferred.request.EntityDocSubmissionDeferredRequestSecured">
-        <property name="orchestratorImpl">
-            <ref bean="entityDocSubmissionDeferredRequestOrchImpl" />
-        </property>
-    </bean>
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:nhincentityxdrsecured:async:request" id="EntityDocSubmissionDeferredRequestSecured"
         address="/EntityService/EntityDocSubmissionDeferredRequestSecured" serviceName="tns:EntityXDRSecuredAsyncRequest_Service"
         endpointName="tns:EntityXDRSecuredAsyncRequest_Port"
-        implementorClass="gov.hhs.fha.nhinc.docsubmission._11.entity.deferred.request.EntityDocSubmissionDeferredRequestSecured"
         implementor="#entityXDRDeferredRequestSecured"
         wsdlLocation="classpath:wsdl/EntityXDRSecuredRequest.wsdl">
         <jaxws:properties>

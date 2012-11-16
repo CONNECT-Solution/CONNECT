@@ -24,36 +24,22 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.docsubmission._20.passthru.deferred.request;
+package gov.hhs.fha.nhinc.docsubmission.inbound.deferred.request;
 
-import javax.annotation.Resource;
-import javax.xml.ws.BindingType;
-import javax.xml.ws.WebServiceContext;
-import javax.xml.ws.soap.Addressing;
-
-import gov.hhs.fha.nhinc.docsubmission.passthru.deferred.request.PassthruDocSubmissionDeferredRequestOrchImpl;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.healthit.nhin.XDRAcknowledgementType;
+import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 
 /**
+ * @author akong
  *
- * @author JHOPPESC
  */
-@BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
-@Addressing(enabled = true)
-public class PassthruDocSubmissionDeferredRequestSecured_g1 implements gov.hhs.fha.nhinc.nhincproxyxdrsecured.async.request.ProxyXDRSecuredAsyncRequestPortType {
-    @Resource
-    private WebServiceContext context;
-
-    private PassthruDocSubmissionDeferredRequestOrchImpl orchImpl;
+public class TestInboundDocSubmissionDeferredRequest implements InboundDocSubmissionDeferredRequest{
 
     @Override
-    public gov.hhs.healthit.nhin.XDRAcknowledgementType provideAndRegisterDocumentSetBAsyncRequest(
-            gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType provideAndRegisterAsyncReqRequest) {
-        return new PassthruDocSubmissionDeferredRequestImpl_g1(orchImpl).provideAndRegisterDocumentSetBRequest(
-                provideAndRegisterAsyncReqRequest, context);
-    }
-
-    public void setOrchestratorImpl(PassthruDocSubmissionDeferredRequestOrchImpl orchImpl) {
-        this.orchImpl = orchImpl;
+    public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(ProvideAndRegisterDocumentSetRequestType body,
+            AssertionType assertion) {
+        return new XDRAcknowledgementType();
     }
 
 }

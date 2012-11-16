@@ -26,34 +26,37 @@
  */
 package gov.hhs.fha.nhinc.docsubmission._20.entity.deferred.request;
 
+import gov.hhs.fha.nhinc.docsubmission.outbound.deferred.request.OutboundDocSubmissionDeferredRequest;
+
 import javax.annotation.Resource;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
 
-import gov.hhs.fha.nhinc.docsubmission.entity.deferred.request.EntityDocSubmissionDeferredRequestOrchImpl;
 
-/**
- *
- * @author jhoppesc
- */
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 @Addressing(enabled = true)
-public class EntityDocSubmissionDeferredRequestUnsecured_g1 implements gov.hhs.fha.nhinc.nhincentityxdr.async.request.EntityXDRAsyncRequestPortType {
+public class EntityDocSubmissionDeferredRequestUnsecured_g1 implements
+        gov.hhs.fha.nhinc.nhincentityxdr.async.request.EntityXDRAsyncRequestPortType {
     @Resource
     private WebServiceContext context;
 
-    private EntityDocSubmissionDeferredRequestOrchImpl orchImpl;
+    private OutboundDocSubmissionDeferredRequest outboundDocSubmissionRequest;
 
     @Override
     public gov.hhs.healthit.nhin.XDRAcknowledgementType provideAndRegisterDocumentSetBAsyncRequest(
             gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetRequestType provideAndRegisterAsyncReqRequest) {
-        return new EntityDocSubmissionDeferredRequestImpl_g1(orchImpl).provideAndRegisterDocumentSetBAsyncRequest(
-                provideAndRegisterAsyncReqRequest, context);
+        return new EntityDocSubmissionDeferredRequestImpl_g1(outboundDocSubmissionRequest)
+                .provideAndRegisterDocumentSetBAsyncRequest(provideAndRegisterAsyncReqRequest, context);
     }
 
-    public void setOrchestratorImpl(EntityDocSubmissionDeferredRequestOrchImpl orchImpl) {
-        this.orchImpl = orchImpl;
+    @Resource
+    public void setContext(WebServiceContext context) {
+        this.context = context;
+    }
+
+    public void setOutboundDocSubmissionRequest(OutboundDocSubmissionDeferredRequest outboundDocSubmissionRequest) {
+        this.outboundDocSubmissionRequest = outboundDocSubmissionRequest;
     }
 
 }

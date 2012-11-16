@@ -25,7 +25,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
 
-package gov.hhs.fha.nhinc.docsubmission.entity.deferred.request;
+package gov.hhs.fha.nhinc.docsubmission.outbound.deferred.request;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -40,6 +40,9 @@ import gov.hhs.fha.nhinc.common.nhinccommon.UrlInfoType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType;
 import gov.hhs.fha.nhinc.docsubmission.XDRAuditLogger;
 import gov.hhs.fha.nhinc.docsubmission.XDRPolicyChecker;
+import gov.hhs.fha.nhinc.docsubmission.entity.deferred.request.OutboundDocSubmissionDeferredRequestDelegate;
+import gov.hhs.fha.nhinc.docsubmission.entity.deferred.request.OutboundDocSubmissionDeferredRequestOrchestratable;
+import gov.hhs.fha.nhinc.docsubmission.outbound.deferred.request.StandardOutboundDocSubmissionDeferredRequest;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.transform.policy.SubjectHelper;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
@@ -57,7 +60,7 @@ import org.junit.Test;
  * @author akong
  *
  */
-public class EntityDocSubmissionDeferredRequestOrchImplTest {
+public class StandardOutboundDocSubmissionDeferredRequestTest {
     
     protected Mockery context = new JUnit4Mockery() {
         {
@@ -113,7 +116,7 @@ public class EntityDocSubmissionDeferredRequestOrchImplTest {
     
     @Test
     public void testHasNhinTargetHomeCommunityId() {
-        EntityDocSubmissionDeferredRequestOrchImpl entityOrch = createEntityDocSubmissionDeferredRequestOrchImpl();
+        StandardOutboundDocSubmissionDeferredRequest entityOrch = createEntityDocSubmissionDeferredRequestOrchImpl();
 
         boolean hasTargets = entityOrch.hasNhinTargetHomeCommunityId(null);
         assertFalse(hasTargets);
@@ -148,7 +151,7 @@ public class EntityDocSubmissionDeferredRequestOrchImplTest {
     
     @Test
     public void testGetters() {
-        EntityDocSubmissionDeferredRequestOrchImpl entityOrch = new EntityDocSubmissionDeferredRequestOrchImpl();
+        StandardOutboundDocSubmissionDeferredRequest entityOrch = new StandardOutboundDocSubmissionDeferredRequest();
 
         assertNotNull(entityOrch.getLogger());
         assertNotNull(entityOrch.getOutboundDocSubmissionDeferredRequestDelegate());
@@ -163,7 +166,7 @@ public class EntityDocSubmissionDeferredRequestOrchImplTest {
         NhinTargetCommunitiesType targets = createNhinTargetCommunitiesType();
         UrlInfoType urlInfo = new UrlInfoType();
 
-        EntityDocSubmissionDeferredRequestOrchImpl entityOrch = createEntityDocSubmissionDeferredRequestOrchImpl();
+        StandardOutboundDocSubmissionDeferredRequest entityOrch = createEntityDocSubmissionDeferredRequestOrchImpl();
         return entityOrch.provideAndRegisterDocumentSetBAsyncRequest(request, assertion, targets, urlInfo);
     }
     
@@ -173,7 +176,7 @@ public class EntityDocSubmissionDeferredRequestOrchImplTest {
         NhinTargetCommunitiesType targets = new NhinTargetCommunitiesType();
         UrlInfoType urlInfo = new UrlInfoType();
 
-        EntityDocSubmissionDeferredRequestOrchImpl entityOrch = createEntityDocSubmissionDeferredRequestOrchImpl();
+        StandardOutboundDocSubmissionDeferredRequest entityOrch = createEntityDocSubmissionDeferredRequestOrchImpl();
         return entityOrch.provideAndRegisterDocumentSetBAsyncRequest(request, assertion, targets, urlInfo);
     }
     
@@ -253,8 +256,8 @@ public class EntityDocSubmissionDeferredRequestOrchImplTest {
         return orchestratable;
     }
     
-    private EntityDocSubmissionDeferredRequestOrchImpl createEntityDocSubmissionDeferredRequestOrchImpl() {
-        return new EntityDocSubmissionDeferredRequestOrchImpl() {
+    private StandardOutboundDocSubmissionDeferredRequest createEntityDocSubmissionDeferredRequestOrchImpl() {
+        return new StandardOutboundDocSubmissionDeferredRequest() {
             protected Log getLogger() {
                 return mockLog;
             }

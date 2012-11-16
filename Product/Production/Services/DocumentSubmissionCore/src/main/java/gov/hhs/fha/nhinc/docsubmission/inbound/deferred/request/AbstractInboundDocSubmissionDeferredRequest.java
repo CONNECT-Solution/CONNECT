@@ -24,53 +24,39 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.docsubmission._20.nhin.deferred.response;
+package gov.hhs.fha.nhinc.docsubmission.inbound.deferred.request;
 
-import java.util.List;
-
-import javax.xml.ws.WebServiceContext;
-
-import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
-
-import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
-import gov.hhs.fha.nhinc.docsubmission.inbound.deferred.response.NhinDocSubmissionDeferredResponseOrchImpl;
-import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import gov.hhs.fha.nhinc.docsubmission.XDRAuditLogger;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.healthit.nhin.XDRAcknowledgementType;
+import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 
-/**
- *
- * @author patlollav
- */
-public class NhinDocSubmissionDeferredResponseImpl20
-{
+public abstract class AbstractInboundDocSubmissionDeferredRequest implements InboundDocSubmissionDeferredRequest {
 
-    private final NhinDocSubmissionDeferredResponseOrchImpl orchImpl;
+    abstract XDRAcknowledgementType processDocSubmissionRequest(ProvideAndRegisterDocumentSetRequestType body,
+            AssertionType assertion);
+    
+    protected XDRAuditLogger auditLogger = new XDRAuditLogger();
+    
+    public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(ProvideAndRegisterDocumentSetRequestType body,
+            AssertionType assertion) {
 
-    public NhinDocSubmissionDeferredResponseImpl20(NhinDocSubmissionDeferredResponseOrchImpl orchImpl) {
-        this.orchImpl = orchImpl;
+        auditRequestFromNhin(body, assertion);
+
+        XDRAcknowledgementType response = processDocSubmissionRequest(body, assertion);
+
+        auditResponseToNhin(response, assertion);
+
+        return response;
     }
 
-    /**
-     *
-     * @param body
-     * @param context
-     * @return
-     */
-    public RegistryResponseType provideAndRegisterDocumentSetBResponse(RegistryResponseType body, WebServiceContext context)
-    {
-       SAML2AssertionExtractor extractor = SAML2AssertionExtractor.getInstance();
-       AssertionType assertion = extractor.extractSamlAssertion(context);
+    private void auditRequestFromNhin(ProvideAndRegisterDocumentSetRequestType request, AssertionType assertion) {
+        auditLogger.auditNhinXDR(request, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
+    }
 
-       if (assertion != null) {
-            assertion.setMessageId(AsyncMessageIdExtractor.getOrCreateAsyncMessageId(context));
-            List<String> relatesToList = AsyncMessageIdExtractor.getAsyncRelatesTo(context);
-            if (NullChecker.isNotNullish(relatesToList)) {
-                assertion.getRelatesToList().addAll(relatesToList);
-            }
-        }
-
-       return orchImpl.provideAndRegisterDocumentSetBResponse(body, assertion).getMessage();
-
+    private void auditResponseToNhin(XDRAcknowledgementType response, AssertionType assertion) {
+        auditLogger.auditAcknowledgement(response, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION,
+                NhincConstants.XDR_REQUEST_ACTION);
     }
 }

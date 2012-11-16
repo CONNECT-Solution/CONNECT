@@ -24,53 +24,25 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.docsubmission._20.nhin.deferred.response;
+package gov.hhs.fha.nhinc.docsubmission.outbound.deferred.request;
 
-import java.util.List;
-
-import javax.xml.ws.WebServiceContext;
-
-import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
-
-import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
-import gov.hhs.fha.nhinc.docsubmission.inbound.deferred.response.NhinDocSubmissionDeferredResponseOrchImpl;
-import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
+import gov.hhs.fha.nhinc.common.nhinccommon.UrlInfoType;
+import gov.hhs.healthit.nhin.XDRAcknowledgementType;
+import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 
 /**
- *
- * @author patlollav
+ * @author akong
+ * 
  */
-public class NhinDocSubmissionDeferredResponseImpl20
-{
+public class TestOutboundDocSubmissionDeferredRequest implements OutboundDocSubmissionDeferredRequest {
 
-    private final NhinDocSubmissionDeferredResponseOrchImpl orchImpl;
-
-    public NhinDocSubmissionDeferredResponseImpl20(NhinDocSubmissionDeferredResponseOrchImpl orchImpl) {
-        this.orchImpl = orchImpl;
+    @Override
+    public XDRAcknowledgementType provideAndRegisterDocumentSetBAsyncRequest(
+            ProvideAndRegisterDocumentSetRequestType request, AssertionType assertion,
+            NhinTargetCommunitiesType targets, UrlInfoType urlInfo) {
+        return new XDRAcknowledgementType();
     }
 
-    /**
-     *
-     * @param body
-     * @param context
-     * @return
-     */
-    public RegistryResponseType provideAndRegisterDocumentSetBResponse(RegistryResponseType body, WebServiceContext context)
-    {
-       SAML2AssertionExtractor extractor = SAML2AssertionExtractor.getInstance();
-       AssertionType assertion = extractor.extractSamlAssertion(context);
-
-       if (assertion != null) {
-            assertion.setMessageId(AsyncMessageIdExtractor.getOrCreateAsyncMessageId(context));
-            List<String> relatesToList = AsyncMessageIdExtractor.getAsyncRelatesTo(context);
-            if (NullChecker.isNotNullish(relatesToList)) {
-                assertion.getRelatesToList().addAll(relatesToList);
-            }
-        }
-
-       return orchImpl.provideAndRegisterDocumentSetBResponse(body, assertion).getMessage();
-
-    }
 }

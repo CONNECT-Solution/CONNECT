@@ -29,7 +29,7 @@ package gov.hhs.fha.nhinc.docsubmission.entity.deferred.request.proxy;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.UrlInfoType;
-import gov.hhs.fha.nhinc.docsubmission.entity.deferred.request.EntityDocSubmissionDeferredRequestOrchImpl;
+import gov.hhs.fha.nhinc.docsubmission.outbound.deferred.request.StandardOutboundDocSubmissionDeferredRequest;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import org.apache.commons.logging.Log;
@@ -47,7 +47,7 @@ public class EntityDocSubmissionDeferredRequestProxyJavaImpl implements EntityDo
             NhinTargetCommunitiesType targets, UrlInfoType urlInfo) {
         log.debug("Using Java Implementation for Entity Doc Submission Deferred Request Service");
 
-        return new EntityDocSubmissionDeferredRequestOrchImpl().provideAndRegisterDocumentSetBAsyncRequest(request,
+        return new StandardOutboundDocSubmissionDeferredRequest().provideAndRegisterDocumentSetBAsyncRequest(request,
                 assertion, targets, urlInfo);
     }
 

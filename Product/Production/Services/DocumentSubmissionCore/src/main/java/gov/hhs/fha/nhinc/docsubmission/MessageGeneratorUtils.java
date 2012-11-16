@@ -55,7 +55,13 @@ public class MessageGeneratorUtils {
     public static MessageGeneratorUtils getInstance() {
         return INSTANCE;
     }
-    
+
+    /**
+     * Converts the first target into a NhinTargetSystemType format.
+     * 
+     * @param targets
+     * @return NhinTargetSystemType
+     */
     public NhinTargetSystemType convertFirstToNhinTargetSystemType(NhinTargetCommunitiesType targets) {
         NhinTargetSystemType nhinTargetSystem = new NhinTargetSystemType();
 
@@ -64,7 +70,6 @@ public class MessageGeneratorUtils {
         }
 
         return nhinTargetSystem;
-
     }
 
     /**
@@ -111,6 +116,19 @@ public class MessageGeneratorUtils {
     public RegistryResponseType createRegistryErrorResponse() {
         return createRegistryErrorResponse("Failed to retrieve document from request.",
                 DocumentConstants.XDS_REGISTRY_ERROR, DocumentConstants.XDS_SUBMISSION_RESPONSE_STATUS_FAILURE);
+    }
+
+    /**
+     * Create a XDRAcknowledgementType containing a RegistryErrorResponse with severity set to error. The errorCode is
+     * set to registry error and status set to failure.
+     * 
+     * @return the generated XDRAcknowledgementType message
+     */
+    public XDRAcknowledgementType createXDRAckWithRegistryErrorResponse() {
+        XDRAcknowledgementType response = new XDRAcknowledgementType();
+        response.setMessage(createRegistryErrorResponse());
+
+        return response;
     }
 
     /**

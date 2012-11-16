@@ -25,12 +25,12 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
 
-package gov.hhs.fha.nhinc.docsubmission.passthru.deferred.request;
+package gov.hhs.fha.nhinc.docsubmission.outbound.deferred.request;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.docsubmission.XDRAuditLogger;
 import gov.hhs.fha.nhinc.docsubmission.entity.deferred.request.OutboundDocSubmissionDeferredRequestDelegate;
 import gov.hhs.fha.nhinc.docsubmission.entity.deferred.request.OutboundDocSubmissionDeferredRequestOrchestratable;
@@ -50,7 +50,7 @@ import org.junit.Test;
  * @author akong
  *
  */
-public class PassthruDocSubmissionDeferredRequestOrchImplTest {
+public class PassthroughOutboundDocSubmissionDeferredRequestTest {
     protected Mockery context = new JUnit4Mockery() {
         {
             setImposteriser(ClassImposteriser.INSTANCE);
@@ -74,7 +74,7 @@ public class PassthruDocSubmissionDeferredRequestOrchImplTest {
     
     @Test
     public void testGetters() {
-        PassthruDocSubmissionDeferredRequestOrchImpl passthruOrch = new PassthruDocSubmissionDeferredRequestOrchImpl();
+        PassthroughOutboundDocSubmissionDeferredRequest passthruOrch = new PassthroughOutboundDocSubmissionDeferredRequest();
         
         assertNotNull(passthruOrch.getLogger());
         assertNotNull(passthruOrch.getOutboundDocSubmissionDeferredRequestDelegate());
@@ -84,10 +84,10 @@ public class PassthruDocSubmissionDeferredRequestOrchImplTest {
     private XDRAcknowledgementType runProvideAndRegisterDocumentSetBRequest() {
         ProvideAndRegisterDocumentSetRequestType request = new ProvideAndRegisterDocumentSetRequestType();
         AssertionType assertion = new AssertionType();
-        NhinTargetSystemType targets = new NhinTargetSystemType();
+        NhinTargetCommunitiesType targetCommunities = new NhinTargetCommunitiesType();
         
-        PassthruDocSubmissionDeferredRequestOrchImpl passthruOrch = createPassthruDocSubmissionDeferredRequestOrchImpl();
-        return passthruOrch.provideAndRegisterDocumentSetBRequest(request, assertion, targets);       
+        PassthroughOutboundDocSubmissionDeferredRequest passthruOrch = createPassthruDocSubmissionDeferredRequestOrchImpl();
+        return passthruOrch.provideAndRegisterDocumentSetBAsyncRequest(request, assertion, targetCommunities, null);       
     }
     
     private void expect2MockAudits() {
@@ -134,8 +134,8 @@ public class PassthruDocSubmissionDeferredRequestOrchImplTest {
         return orchestratable;
     }
     
-    private PassthruDocSubmissionDeferredRequestOrchImpl createPassthruDocSubmissionDeferredRequestOrchImpl() {
-        return new PassthruDocSubmissionDeferredRequestOrchImpl() {
+    private PassthroughOutboundDocSubmissionDeferredRequest createPassthruDocSubmissionDeferredRequestOrchImpl() {
+        return new PassthroughOutboundDocSubmissionDeferredRequest() {
             protected Log getLogger() {
                 return mockLog;
             }

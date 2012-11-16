@@ -89,8 +89,7 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
 
     <jaxws:endpoint xmlns:tns="urn:ihe:iti:xdr:2007" id="NhinXDRRequest20" address="/NhinService/XDRRequest_Service"
         serviceName="tns:XDRDeferredRequest20_Service" endpointName="tns:XDRDeferredRequest20_Port_Soap"
-        implementorClass="gov.hhs.fha.nhinc.docsubmission._20.nhin.deferred.request.NhinXDRRequest20" implementor="#nhinXDRDeferredRequest_g1"
-        wsdlLocation="classpath:wsdl/NhinXDRDeferredRequest20.wsdl">
+        implementor="#nhinXDRDeferredRequest_g1" wsdlLocation="classpath:wsdl/NhinXDRDeferredRequest20.wsdl">
         <jaxws:properties>
             <entry key="ws-security.callback-handler" value="gov.hhs.fha.nhinc.callback.cxf.CXFSAMLCallbackHandler" />
             <entry key="ws-security.signature.properties" value="keystore.properties" />

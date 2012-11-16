@@ -33,7 +33,7 @@ import javax.xml.ws.soap.Addressing;
 
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
-import gov.hhs.fha.nhinc.docsubmission.nhin.deferred.response.NhinDocSubmissionDeferredResponseOrchImpl;
+import gov.hhs.fha.nhinc.docsubmission.inbound.deferred.response.NhinDocSubmissionDeferredResponseOrchImpl;
 
 /**
  *

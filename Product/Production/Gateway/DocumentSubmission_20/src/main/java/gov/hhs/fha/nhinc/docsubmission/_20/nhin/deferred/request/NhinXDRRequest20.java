@@ -26,7 +26,10 @@
  */
 package gov.hhs.fha.nhinc.docsubmission._20.nhin.deferred.request;
 
+
+import ihe.iti.xdr._2007.XDRDeferredRequest20PortType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
+import gov.hhs.fha.nhinc.docsubmission.inbound.deferred.request.InboundDocSubmissionDeferredRequest;
 
 import javax.annotation.Resource;
 import javax.xml.ws.BindingType;
@@ -35,26 +38,31 @@ import javax.xml.ws.soap.Addressing;
 
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
-import gov.hhs.fha.nhinc.docsubmission.nhin.deferred.request.NhinDocSubmissionDeferredRequestOrchImpl;
 
 /**
- *
+ * 
  * @author JHOPPESC
  */
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 @Addressing(enabled = true)
-public class NhinXDRRequest20 implements ihe.iti.xdr._2007.XDRDeferredRequest20PortType {
-    @Resource
-    private WebServiceContext context;
-    private NhinDocSubmissionDeferredRequestOrchImpl orchImpl;
+public class NhinXDRRequest20 implements XDRDeferredRequest20PortType {
 
-    @Override
+    private WebServiceContext context;
+
+    private InboundDocSubmissionDeferredRequest inboundDocSubmissionRequest;
+
     public RegistryResponseType provideAndRegisterDocumentSetBDeferredRequest(
             ProvideAndRegisterDocumentSetRequestType body) {
-        return new NhinDocSubmissionDeferredRequestImpl20(orchImpl).provideAndRegisterDocumentSetBRequest(body, context);
+        return new NhinDocSubmissionDeferredRequestImpl20(inboundDocSubmissionRequest)
+                .provideAndRegisterDocumentSetBRequest(body, context);
     }
 
-    public void setOrchestratorImpl(NhinDocSubmissionDeferredRequestOrchImpl orchImpl) {
-        this.orchImpl = orchImpl;
+    public void setInboundDocSubmissionRequest(InboundDocSubmissionDeferredRequest inboundDocSubmissionRequest) {
+        this.inboundDocSubmissionRequest = inboundDocSubmissionRequest;
+    }
+
+    @Resource
+    public void setContext(WebServiceContext context) {
+        this.context = context;
     }
 }

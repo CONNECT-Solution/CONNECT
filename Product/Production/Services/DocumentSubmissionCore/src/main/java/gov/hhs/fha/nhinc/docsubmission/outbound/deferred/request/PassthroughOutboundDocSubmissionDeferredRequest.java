@@ -24,31 +24,38 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
-package gov.hhs.fha.nhinc.docsubmission.passthru.deferred.request;
+package gov.hhs.fha.nhinc.docsubmission.outbound.deferred.request;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+import gov.hhs.fha.nhinc.common.nhinccommon.UrlInfoType;
 import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType;
+import gov.hhs.fha.nhinc.docsubmission.MessageGeneratorUtils;
 import gov.hhs.fha.nhinc.docsubmission.XDRAuditLogger;
 import gov.hhs.fha.nhinc.docsubmission.entity.deferred.request.OutboundDocSubmissionDeferredRequestDelegate;
 import gov.hhs.fha.nhinc.docsubmission.entity.deferred.request.OutboundDocSubmissionDeferredRequestOrchestratable;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-public class PassthruDocSubmissionDeferredRequestOrchImpl {
-    private static Log log = LogFactory.getLog(PassthruDocSubmissionDeferredRequestOrchImpl.class);
+public class PassthroughOutboundDocSubmissionDeferredRequest implements OutboundDocSubmissionDeferredRequest {
+    private static Log log = LogFactory.getLog(PassthroughOutboundDocSubmissionDeferredRequest.class);
     private XDRAuditLogger auditLogger = null;
 
-    public PassthruDocSubmissionDeferredRequestOrchImpl() {
+    public PassthroughOutboundDocSubmissionDeferredRequest() {
         log = getLogger();
         auditLogger = getXDRAuditLogger();
     }
-
-    public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(ProvideAndRegisterDocumentSetRequestType body,
-            AssertionType assertion, NhinTargetSystemType targetSystem) {
+    
+    public XDRAcknowledgementType provideAndRegisterDocumentSetBAsyncRequest(
+            ProvideAndRegisterDocumentSetRequestType body, AssertionType assertion,
+            NhinTargetCommunitiesType targets, UrlInfoType urlInfo) {
+        
+        NhinTargetSystemType targetSystem = MessageGeneratorUtils.getInstance().convertFirstToNhinTargetSystemType(targets);
 
         RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request = createRequestForInternalProcessing(
                 body, targetSystem);

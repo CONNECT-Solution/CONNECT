@@ -25,7 +25,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
 
-package gov.hhs.fha.nhinc.docsubmission.entity.deferred.request;
+package gov.hhs.fha.nhinc.docsubmission.outbound.deferred.request;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
@@ -35,6 +35,8 @@ import gov.hhs.fha.nhinc.common.nhinccommon.UrlInfoType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType;
 import gov.hhs.fha.nhinc.docsubmission.XDRAuditLogger;
 import gov.hhs.fha.nhinc.docsubmission.XDRPolicyChecker;
+import gov.hhs.fha.nhinc.docsubmission.entity.deferred.request.OutboundDocSubmissionDeferredRequestDelegate;
+import gov.hhs.fha.nhinc.docsubmission.entity.deferred.request.OutboundDocSubmissionDeferredRequestOrchestratable;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.transform.policy.SubjectHelper;
@@ -44,11 +46,11 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-public class EntityDocSubmissionDeferredRequestOrchImpl {
-    private static Log log = LogFactory.getLog(EntityDocSubmissionDeferredRequestOrchImpl.class);
+public class StandardOutboundDocSubmissionDeferredRequest implements OutboundDocSubmissionDeferredRequest {
+    private static Log log = LogFactory.getLog(StandardOutboundDocSubmissionDeferredRequest.class);
     private XDRAuditLogger auditLogger = null;
 
-    public EntityDocSubmissionDeferredRequestOrchImpl() {
+    public StandardOutboundDocSubmissionDeferredRequest() {
         log = getLogger();
         auditLogger = getXDRAuditLogger();
     }
