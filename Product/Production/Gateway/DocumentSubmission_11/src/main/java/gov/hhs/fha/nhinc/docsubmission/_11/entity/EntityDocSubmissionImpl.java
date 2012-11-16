@@ -94,17 +94,17 @@ class EntityDocSubmissionImpl {
     
     // These props will be loaded by Spring - the POC will be re-worked, this is to keep it compiling...
     private static final String USER = "mlandis@5amsolutions.com";
-    private static final String PASS = "xxxx";
+    private static final String PASS = "xxxxxxxx";
     private static final Properties mailServerProps = new Properties();
     static {
-        mailServerProps.setProperty("mail.smtps.host", "localhost");
+        mailServerProps.setProperty("mail.smtps.host", "smtp.gmail.com");
         mailServerProps.setProperty("mail.smtps.auth", "TRUE");
-        mailServerProps.setProperty("mail.smtps.port", "456");
+        mailServerProps.setProperty("mail.smtps.port", "465");
         mailServerProps.setProperty("mail.smtps.starttls.enabled", "TRUE");
         mailServerProps.setProperty("direct.mail.user", USER);
         mailServerProps.setProperty("direct.mail.pass", PASS);
         mailServerProps.setProperty("mail.imaps.host", "imap.gmail.com");
-        mailServerProps.setProperty("mail.imaps.port", "imap.gmail.com");
+        mailServerProps.setProperty("mail.imaps.port", "993");
     }
     
     private static void copyMessage(MimeMessage message, String folder) {
@@ -211,7 +211,7 @@ class EntityDocSubmissionImpl {
         try {
             Session session = Session.getDefaultInstance(props, null);
             store = session.getStore("imaps");
-            store.connect(mailServerProps.getProperty("imap.host"), USER, PASS);
+            store.connect(mailServerProps.getProperty("mail.imaps.host"), USER, PASS);
             inbox = store.getFolder("Inbox");
             inbox.open(Folder.READ_ONLY);
             FlagTerm ft = new FlagTerm(new Flags(Flags.Flag.SEEN), false);
