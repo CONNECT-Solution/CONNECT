@@ -26,65 +26,16 @@
  */
 package gov.hhs.fha.nhinc.docquery.inbound;
 
-import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.docquery.DocQueryAuditLog;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 
-public abstract class InboundDocQuery {
+/**
+ * @author akong
+ *
+ */
+public interface InboundDocQuery {
 
-    abstract AdhocQueryResponse processDocQuery(AdhocQueryRequest msg, AssertionType assertion, String hcid);
-
-    protected DocQueryAuditLog auditLogger;
-
-    InboundDocQuery() {
-        this.auditLogger = new DocQueryAuditLog();
-    }
+    public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest msg, AssertionType assertion);
     
-    InboundDocQuery(DocQueryAuditLog auditLogger) {
-        this.auditLogger = auditLogger;
-    }
-
-    /**
-     * 
-     * @param body
-     * @param assertion
-     * @return <code>AdhocQueryResponse</code>
-     */
-    public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest msg, AssertionType assertion) {
-        String requestCommunityID = null;
-        if (msg != null) {
-            requestCommunityID = HomeCommunityMap.getCommunityId(msg.getAdhocQuery());
-        }
-
-        auditRequestFromNhin(msg, assertion, requestCommunityID);
-
-        AdhocQueryResponse resp = processDocQuery(msg, assertion, HomeCommunityMap.getLocalHomeCommunityId());
-
-        auditResponseToNhin(resp, assertion, requestCommunityID);
-
-        return resp;
-    }
-
-    private AcknowledgementType auditRequestFromNhin(AdhocQueryRequest msg, AssertionType assertion,
-            String requestCommunityID) {
-        AcknowledgementType ack = auditLogger
-                .auditDQRequest(msg, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
-                        NhincConstants.AUDIT_LOG_NHIN_INTERFACE, requestCommunityID);
-
-        return ack;
-    }
-
-    private AcknowledgementType auditResponseToNhin(AdhocQueryResponse msg, AssertionType assertion,
-            String requestCommunityID) {
-        AcknowledgementType ack = auditLogger.auditDQResponse(msg, assertion,
-                NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE,
-                requestCommunityID);
-
-        return ack;
-    }
-
 }

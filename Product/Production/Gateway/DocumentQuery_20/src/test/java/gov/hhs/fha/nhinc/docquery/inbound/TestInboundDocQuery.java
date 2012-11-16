@@ -26,24 +26,15 @@
  */
 package gov.hhs.fha.nhinc.docquery.inbound;
 
-import static org.mockito.Mockito.mock;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.docquery.DocQueryAuditLog;
-import gov.hhs.fha.nhinc.docquery.inbound.InboundDocQuery;
 
 /**
  * @author akong
  *
  */
-public class TestInboundDocQuery extends InboundDocQuery {
-
-    DocQueryAuditLog mockAuditLogger = mock(DocQueryAuditLog.class);
-    
-    TestInboundDocQuery() {
-        this.auditLogger = mockAuditLogger;
-    }
+public class TestInboundDocQuery implements InboundDocQuery {
     
     /**
      * Test process method that simply returns an empty response.
@@ -51,7 +42,7 @@ public class TestInboundDocQuery extends InboundDocQuery {
      * @return an empty AdhocQueryResponse
      */
     @Override
-    public AdhocQueryResponse processDocQuery(AdhocQueryRequest msg, AssertionType assertion, String hcid) {
+    public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest msg, AssertionType assertion) {
         return new AdhocQueryResponse();
     }
 }

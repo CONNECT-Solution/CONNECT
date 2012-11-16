@@ -63,34 +63,6 @@ http://www.springframework.org/schema/aop http://www.springframework.org/schema/
 	</bean> 
 
 
-
-	<!-- Beans defined : passthrudocquery -->
-	
-	<alias alias="passthrudocquery" name="passthrudocqueryjava" />
-	
-	<!-- No-op Implementation -->
-	<bean lazy-init="true" class="gov.hhs.fha.nhinc.docquery.passthru.proxy.PassthruDocQueryProxyNoOpImpl" id="passthrudocquerynoop" name="passthrudocquerynoop"> 
-		<meta key="impltype" value="noop"/>
-	</bean> 
-
-	<!-- Java Implementation -->
-	<bean lazy-init="true" class="gov.hhs.fha.nhinc.docquery.passthru.proxy.PassthruDocQueryProxyJavaImpl" id="passthrudocqueryjava" name="passthrudocqueryjava"> 
-		<meta key="impltype" value="java"/>
-		<meta key="default" value="true"/>
-	</bean> 
-
-	<!-- Secured web service Implementation -->
-    <bean lazy-init="true" class="gov.hhs.fha.nhinc.docquery.passthru.proxy.PassthruDocQueryProxyWebServiceSecuredImpl" id="passthrudocquerywssecured" name="passthrudocquerywssecured"> 
-		<meta key="impltype" value="wssecured"/>
-	</bean> 
-
-	<!-- Unsecured web service Implementation -->
-	<bean lazy-init="true" class="gov.hhs.fha.nhinc.docquery.passthru.proxy.PassthruDocQueryProxyWebServiceUnsecuredImpl" id="passthrudocquerywsunsecured" name="passthrudocquerywsunsecured"> 
-		<meta key="impltype" value="wsunsecured"/>
-	</bean>
-	
-	
-	
     <!-- Beans defined : adapterdocquery -->
     
     <alias alias="adapterdocquery" name="adapterdocquerywssecured" />

@@ -362,7 +362,6 @@ public class NhincConstants {
     public static final String ADAPTER_DOC_REGISTRY_SERVICE_NAME = "adapterxdsbdocregistry";
     public static final String DOC_QUERY_XDS_PATIENT_ID_SLOT_NAME = "$XDSDocumentEntryPatientId";
     public static final String DOC_QUERY_SELF_PROPERTY_NAME = "documentQueryQuerySelf";
-    public static final String NHINC_DOCUMENT_QUERY_SERVICE_PASSTHRU_PROPERTY = "documentQueryPassthrough";
     public static final String DOC_QUERY_SERVICE_NAME = "QueryForDocuments";
     public static final String ENTITY_DOC_QUERY_PROXY_SERVICE_NAME = "entitydocqueryproxy";
     public static final String ENTITY_DOC_QUERY_SECURED_SERVICE_NAME = "entitydocquerysecured";
@@ -370,36 +369,6 @@ public class NhincConstants {
     public static final BigInteger NHINC_ADHOC_QUERY_NO_RESULT_COUNT = BigInteger.valueOf(0L);
     public static final String NHINC_PROXY_DOC_QUERY_SERVICE_NAME = "nhincproxydocquery";
     public static final String NHINC_PROXY_DOC_QUERY_SECURED_SERVICE_NAME = "nhincproxydocquerysecured";
-    public static final String NHINC_DOCUMENT_QUERY_DEFERRED_REQ_SERVICE_PASSTHRU_PROPERTY = "documentQueryDeferredReqPassthrough";
-    public static final String NHINC_DOCUMENT_QUERY_DEFERRED_RESP_SERVICE_PASSTHRU_PROPERTY = "documentQueryDeferredRespPassthrough";
-    public static final String ADAPTER_DOCUMENT_QUERY_DEFERRED_REQ_SERVICE_NAME = "adapterdocquerydeferredrequest";
-    public static final String ADAPTER_DOCUMENT_QUERY_DEFERRED_REQ_SECURED_SERVICE_NAME = "adapterdocquerydeferredrequestsecured";
-    public static final String ADAPTER_DOCUMENT_QUERY_DEFERRED_RESP_SERVICE_NAME = "adapterdocquerydeferredresponse";
-    public static final String ADAPTER_DOCUMENT_QUERY_DEFERRED_RESP_SECURED_SERVICE_NAME = "adapterdocquerydeferredresponsesecured";
-    public static final String ADAPTER_COMP_DOCUMENT_QUERY_DEFERRED_REQ_SERVICE_NAME = "adaptercomponentdocquerydeferredrequest";
-    public static final String ADAPTER_COMP_DOCUMENT_QUERY_DEFERRED_RESP_SERVICE_NAME = "adaptercomponentdocquerydeferredresponse";
-    public static final String ADAPTER_DOCUMENT_QUERY_DEFERRED_REQ_ERROR_SERVICE_NAME = "adapterdocquerydeferredrequesterror";
-    public static final String ADAPTER_DOCUMENT_QUERY_DEFERRED_REQ_ERROR_SECURED_SERVICE_NAME = "adapterdocquerydeferredrequesterrorsecured";
-    public static final String ADAPTER_DOCUMENT_QUERY_DEFERRED_REQ_QUEUE_PROCESS_SERVICE_NAME = "adapterdocquerydeferredreqqueueprocess";
-    public static final String NHIN_DOCUMENT_QUERY_DEFERRED_REQ_SERVICE_NAME = "QueryForDocumentsDeferredRequest";
-    public static final String NHIN_DOCUMENT_QUERY_DEFERRED_RESP_SERVICE_NAME = "QueryForDocumentsDeferredResponse";
-    public static final String PASSTHRU_DOCUMENT_QUERY_DEFERRED_REQ_SERVICE_NAME = "passthrudocquerydeferredrequest";
-    public static final String PASSTHRU_DOCUMENT_QUERY_DEFERRED_REQ_SECURED_SERVICE_NAME = "passthrudocquerydeferredrequestsecured";
-    public static final String PASSTHRU_DOCUMENT_QUERY_DEFERRED_RESP_SERVICE_NAME = "passthrudocquerydeferredresponse";
-    public static final String PASSTHRU_DOCUMENT_QUERY_DEFERRED_RESP_SECURED_SERVICE_NAME = "passthrudocquerydeferredresponsesecured";
-    public static final String ENTITY_DOCUMENT_QUERY_DEFERRED_REQ_SERVICE_NAME = "entitydocquerydeferredrequest";
-    public static final String ENTITY_DOCUMENT_QUERY_DEFERRED_REQ_SECURED_SERVICE_NAME = "entitydocquerydeferredrequestsecured";
-    public static final String ENTITY_DOCUMENT_QUERY_DEFERRED_RESP_SERVICE_NAME = "entitydocquerydeferredresponse";
-    public static final String ENTITY_DOCUMENT_QUERY_DEFERRED_RESP_SECURED_SERVICE_NAME = "entitydocquerydeferredresponsesecured";
-    public static final String DOC_QUERY_DEFERRED_REQ_ACK_STATUS_MSG = "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:RequestAccepted";
-    public static final String DOC_QUERY_DEFERRED_RESP_ACK_STATUS_MSG = "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:ResponseAccepted";
-    public static final String DOC_QUERY_DEFERRED_REQ_ACK_FAILURE_STATUS_MSG = "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure";
-    public static final String DOC_QUERY_DEFERRED_RESP_ACK_FAILURE_STATUS_MSG = "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure";
-    public static final String DOC_QUERY_DEFERRED_ACK_ERROR_AUTHORIZATION = "AuthorizationException";
-    public static final String DOC_QUERY_DEFERRED_ACK_ERROR_INVALID = "InvalidRequestException";
-    public static final String DOC_QUERY_DEFERRED_ACK_ERROR_SIGNATURE = "SignatureValidationException";
-    public static final String DOC_QUERY_DEFERRED_ACK_ERROR_TIMEOUT = "TimeoutException";
-    public static final String DOC_QUERY_DEFERRED_ACK_ERROR_UNSUPPORTED = "UnsupportedCapabilityException";
     // Document Retrieve Constants
     public static final String ADAPTER_DOC_RETRIEVE_SERVICE_NAME = "adapterdocretrieve";
     public static final String ADAPTER_DOC_RETRIEVE_SECURED_SERVICE_NAME = "adapterdocretrievesecured";
@@ -411,16 +380,6 @@ public class NhincConstants {
     public static final String NHINC_PROXY_DOC_RETRIEVE_SECURED_SERVICE_NAME = "nhincproxydocretrievesecured";
     public static final String DOC_RETRIEVE_SERVICE_NAME = "RetrieveDocuments";
     public static final String NHINC_DOCUMENT_RETRIEVE_SERVICE_PASSTHRU_PROPERTY = "documentRetrievePassthrough";
-    public static final String ADAPTER_DOC_RETRIEVE_DEFERRED_REQ_QUEUE_PROCESS_SERVICE_NAME = "adapterdocretrievedeferredreqqueueprocess";
-    public static final String DOC_RETRIEVE_DEFERRED_REQ_ACK_STATUS_MSG = "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:RequestAccepted";
-    public static final String DOC_RETRIEVE_DEFERRED_RESP_ACK_STATUS_MSG = "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:ResponseAccepted";
-    public static final String DOC_RETRIEVE_DEFERRED_REQ_ACK_FAILURE_STATUS_MSG = "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure";
-    public static final String DOC_RETRIEVE_DEFERRED_RESP_ACK_FAILURE_STATUS_MSG = "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure";
-    public static final String DOC_RETRIEVE_DEFERRED_ACK_ERROR_AUTHORIZATION = "AuthorizationException";
-    public static final String DOC_RETRIEVE_DEFERRED_ACK_ERROR_INVALID = "InvalidRequestException";
-    public static final String DOC_RETRIEVE_DEFERRED_ACK_ERROR_SIGNATURE = "SignatureValidationException";
-    public static final String DOC_RETRIEVE_DEFERRED_ACK_ERROR_TIMEOUT = "TimeoutException";
-    public static final String DOC_RETRIEVE_DEFERRED_ACK_ERROR_UNSUPPORTED = "UnsupportedCapabilityException";
     // Patient Correlation Constants
     public static final String PATIENT_CORRELATION_SERVICE_NAME = "patientcorrelation";
     public static final String PATIENT_CORRELATION_SECURED_SERVICE_NAME = "patientcorrelationsecured";
@@ -501,7 +460,7 @@ public class NhincConstants {
     public static final String XDR_ACK_STATUS_MSG = "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:RequestAccepted";
     public static final String XDR_RESP_ACK_STATUS_MSG = "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:ResponseAccepted";
     public static final String XDR_ACK_FAILURE_STATUS_MSG = "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure";
-    public static final String DOC_SUBMISSION_PASSTHRU_PROP = "documentSubmissionPassthrough";
+    
     public static final String DOC_SUBMISSION_DEFERRED_REQ_PASSTHRU_PROP = "documentSubmissionDeferredReqPassthrough";
     public static final String DOC_SUBMISSION_DEFERRED_RESP_PASSTHRU_PROP = "documentSubmissionDeferredRespPassthrough";
     // Administrative Distribution Constants
@@ -529,31 +488,7 @@ public class NhincConstants {
     public static final String HIBERNATE_EVENT_REPOSITORY = "event.hibernate.cfg.xml";
     public static final String AGGREGATOR_LARGE_RESP_DIR_PROP = "aggregatorLargeResponseDir";
     public static final String AGGREGATOR_LARGE_RESP_SIZE_PROP = "aggregatorMaxDbResponseSize";
-    /* -- Begin Document Retrieve deferred Service Name -- */
-    public static final String DOCRETRIEVE_DEFERRED_ACTION = "docretrievedeferred";
-    public static final String NHINC_DOCUMENT_RETRIEVE_DEFERRED_REQUEST_SERVICE_PASSTHRU_PROPERTY = "documentRetrieveDeferredReqPassthrough";
-    public static final String NHINC_DOCUMENT_RETRIEVE_DEFERRED_RESPONSE_SERVICE_PASSTHRU_PROPERTY = "documentRetrieveDeferredRespPassthrough";
-    public static final String ENTITY_DOCRETRIEVE_DEFERRED_UNSECURED_REQUEST = "entitydocretrievedeferredrequest";
-    public static final String ENTITY_DOCRETRIEVE_DEFERRED_SECURED_REQUEST = "entitydocretrievedeferredrequestsecured";
-    public static final String NHINCPROXY_DOCRETRIEVE_DEFERRED_UNSECURED_REQUEST = "nhincproxydocretrievedeferredrequest";
-    public static final String NHINCPROXY_DOCRETRIEVE_DEFERRED_SECURED_REQUEST = "nhincproxydocretrievedeferredrequestsecured";
-    public static final String ENTITY_DOCRETRIEVE_DEFERRED_UNSECURED_RESPONSE = "entitydocretrievedeferredresponse";
-    public static final String ENTITY_DOCRETRIEVE_DEFERRED_SECURED_RESPONSE = "entitydocretrievedeferredresponsesecured";
-    public static final String NHINCPROXY_DOCRETRIEVE_DEFERRED_UNSECURED_RESPONSE = "nhincproxydocretrievedeferredresponse";
-    public static final String NHINCPROXY_DOCRETRIEVE_DEFERRED_SECURED_RESPONSE = "nhincproxydocretrievedeferredresponsesecured";
-    public static final String NHIN_DOCRETRIEVE_DEFERRED_REQUEST = "nhindocretrievedeferredrequest";
-    public static final String NHIN_DOCRETRIEVE_DEFERRED_RESPONSE = "nhindocretrievedeferredresponse";
-    public static final String DOCRETRIEVEDEFERRED_REQUEST_ACTION = "docretrievedeferredrequest";
-    public static final String DOCRETRIEVEDEFERRED_RESPONSE_ACTION = "docretrievedeferredresponse";
-    public static final String ADAPTER_COMPONENT_DOC_RETRIEVE_DEFERRED_REQUEST_SERVICE_NAME = "adaptercomponentdocretrievedeferredrequest";
-    public static final String ADAPTER_DOC_RETRIEVE_DEFERRED_REQUEST_SERVICE_NAME = "adapterdocretrievedeferredrequest";
-    public static final String ADAPTER_DOC_RETRIEVE_DEFERRED_REQUEST_SECURED_SERVICE_NAME = "adapterdocretrievedeferredrequestsecured";
-    public static final String ADAPTER_DOC_RETRIEVE_DEFERRED_REQUEST_ERROR_SERVICE_NAME = "adapterdocretrievedeferredrequesterror";
-    public static final String ADAPTER_DOC_RETRIEVE_DEFERRED_REQUEST_ERROR_SECURED_SERVICE_NAME = "adapterdocretrievedeferredrequesterrorsecured";
-    public static final String ADAPTER_COMPONENT_DOC_RETRIEVE_DEFERRED_RESPONSE_SERVICE_NAME = "adaptercomponentdocretrievedeferredresponse";
-    public static final String ADAPTER_DOC_RETRIEVE_DEFERRED_RESPONSE_SERVICE_NAME = "adapterdocretrievedeferredresponse";
-    public static final String ADAPTER_DOC_RETRIEVE_DEFERRED_RESPONSE_SECURED_SERVICE_NAME = "adapterdocretrievedeferredresponsesecured";
-
+    
     public static final String XDS_REGISTRY_ERROR_SEVERITY_WARNING = "urn:oasis:names:tc:ebxml-regrep:ErrorSeverityType:Warning";
     public static final String XDS_REGISTRY_ERROR_SEVERITY_ERROR = "urn:oasis:names:tc:ebxml-regrep:ErrorSeverityType:Error";
 

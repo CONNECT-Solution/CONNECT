@@ -26,39 +26,31 @@
  */
 package gov.hhs.fha.nhinc.docsubmission._11.nhin;
 
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.docsubmission.inbound.InboundDocSubmission;
+import gov.hhs.fha.nhinc.messaging.server.BaseService;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 
 import javax.xml.ws.WebServiceContext;
 
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.docsubmission.nhin.NhinDocSubmissionOrchImpl;
-import gov.hhs.fha.nhinc.messaging.server.BaseService;
-
 /**
  *
  * @author dunnek
  */
 public class NhinDocSubmissionImpl extends BaseService {
-
-    private NhinDocSubmissionOrchImpl orchImpl;
-
-    NhinDocSubmissionImpl(NhinDocSubmissionOrchImpl orchImpl) {
-        this.orchImpl = orchImpl;
+    
+    private InboundDocSubmission inboundDocSubmission;
+    
+    public NhinDocSubmissionImpl(InboundDocSubmission inboundDocSubmission) {
+        this.inboundDocSubmission = inboundDocSubmission;
     }
 
     public RegistryResponseType documentRepositoryProvideAndRegisterDocumentSetB(
             ProvideAndRegisterDocumentSetRequestType body, WebServiceContext context) {
-
         AssertionType assertion = getAssertion(context, null);
 
-        return orchImpl.documentRepositoryProvideAndRegisterDocumentSetB(body, assertion);
-
+        return inboundDocSubmission.documentRepositoryProvideAndRegisterDocumentSetB(body, assertion);
     }
-
-    public void setOrchestratorImpl(NhinDocSubmissionOrchImpl orchImpl) {
-        this.orchImpl = orchImpl;
-    }
-
 }

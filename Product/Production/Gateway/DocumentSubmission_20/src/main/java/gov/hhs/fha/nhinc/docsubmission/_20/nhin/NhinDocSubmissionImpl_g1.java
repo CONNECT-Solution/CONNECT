@@ -26,38 +26,32 @@
  */
 package gov.hhs.fha.nhinc.docsubmission._20.nhin;
 
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.docsubmission.inbound.InboundDocSubmission;
+import gov.hhs.fha.nhinc.messaging.server.BaseService;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 
 import javax.xml.ws.WebServiceContext;
 
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
-import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
-import gov.hhs.fha.nhinc.docsubmission.nhin.NhinDocSubmissionOrchImpl;
-
 /**
  *
  * @author dunnek
  */
-public class NhinDocSubmissionImpl_g1 {
+public class NhinDocSubmissionImpl_g1 extends BaseService {
 
-    private NhinDocSubmissionOrchImpl orchImpl;
+    private InboundDocSubmission inboundDocSubmission;
     
-    public NhinDocSubmissionImpl_g1(NhinDocSubmissionOrchImpl orchImpl) {
-        this.orchImpl = orchImpl;
+    public NhinDocSubmissionImpl_g1(InboundDocSubmission inboundDocSubmission) {
+        this.inboundDocSubmission = inboundDocSubmission;
     }
     
     public RegistryResponseType documentRepositoryProvideAndRegisterDocumentSetB(
             ProvideAndRegisterDocumentSetRequestType body, WebServiceContext context) {
-        SAML2AssertionExtractor extractor = SAML2AssertionExtractor.getInstance();
-        AssertionType assertion = extractor.extractSamlAssertion(context);
-
-        if (assertion != null) {
-            assertion.setMessageId(AsyncMessageIdExtractor.getOrCreateAsyncMessageId(context));
-        }
-        return orchImpl.documentRepositoryProvideAndRegisterDocumentSetB(body, assertion);
+        AssertionType assertion = getAssertion(context, null);
+        
+        return inboundDocSubmission.documentRepositoryProvideAndRegisterDocumentSetB(body, assertion);
     }
 
 }

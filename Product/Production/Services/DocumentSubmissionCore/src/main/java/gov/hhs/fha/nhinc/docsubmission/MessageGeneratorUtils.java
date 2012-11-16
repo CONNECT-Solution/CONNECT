@@ -27,6 +27,8 @@
 
 package gov.hhs.fha.nhinc.docsubmission;
 
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.gateway.aggregator.document.DocumentConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
@@ -53,6 +55,17 @@ public class MessageGeneratorUtils {
     public static MessageGeneratorUtils getInstance() {
         return INSTANCE;
     }
+    
+    public NhinTargetSystemType convertFirstToNhinTargetSystemType(NhinTargetCommunitiesType targets) {
+        NhinTargetSystemType nhinTargetSystem = new NhinTargetSystemType();
+
+        if (targets != null && targets.getNhinTargetCommunity() != null && targets.getNhinTargetCommunity().size() > 0) {
+            nhinTargetSystem.setHomeCommunity(targets.getNhinTargetCommunity().get(0).getHomeCommunity());
+        }
+
+        return nhinTargetSystem;
+
+    }
 
     /**
      * Create a RegistryErrorResponse with severity set to error.
@@ -77,6 +90,16 @@ public class MessageGeneratorUtils {
         response.setStatus(status);
 
         return response;
+    }
+
+    /**
+     * Create a RegistryErrorResponse with severity set to error. The errorCode is set to policy check error.
+     * 
+     * @return the generated RegistryErrorResponse message
+     */
+    public RegistryResponseType createFailedPolicyCheckResponse() {
+        return createRegistryErrorResponse(DocumentConstants.XDR_POLICY_ERROR_CONTEXT,
+                DocumentConstants.XDR_POLICY_ERROR, DocumentConstants.XDS_SUBMISSION_RESPONSE_STATUS_FAILURE);
     }
 
     /**
@@ -111,6 +134,18 @@ public class MessageGeneratorUtils {
     public RegistryResponseType createRegistryErrorResponseWithAckFailure(String errorMsg) {
         return createRegistryErrorResponse(errorMsg, DocumentConstants.XDS_REGISTRY_ERROR,
                 NhincConstants.XDR_ACK_FAILURE_STATUS_MSG);
+    }
+
+    /**
+     * Create a RegistryErrorResponse with severity set to error. The error code is set to registry busy and the status
+     * set to failure.
+     * 
+     * @param errorMsg
+     * @return
+     */
+    public RegistryResponseType createRegistryBusyErrorResponse(String errorMsg) {
+        return createRegistryErrorResponse(errorMsg, DocumentConstants.XDS_REGISTRY_BUSY,
+                DocumentConstants.XDS_SUBMISSION_RESPONSE_STATUS_FAILURE);
     }
 
     /**
