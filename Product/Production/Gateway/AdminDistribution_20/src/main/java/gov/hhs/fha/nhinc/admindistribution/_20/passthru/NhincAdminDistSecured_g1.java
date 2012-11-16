@@ -26,32 +26,35 @@
  */
 package gov.hhs.fha.nhinc.admindistribution._20.passthru;
 
-import gov.hhs.fha.nhinc.admindistribution.passthru.PassthruAdminDistributionOrchImpl;
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-
 import javax.annotation.Resource;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
 
+import gov.hhs.fha.nhinc.admindistribution.passthru.PassthruAdminDistributionOrchImpl;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewaySendAlertMessageSecuredType;
+import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
+import gov.hhs.fha.nhinc.nhincadmindistribution.NhincAdminDistSecuredPortType;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+
 /**
- * 
+ *
  * @author dunnek
  */
 
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
-@Addressing(enabled = true) 
-public class NhincAdminDistSecured_g1 implements gov.hhs.fha.nhinc.nhincadmindistribution.NhincAdminDistSecuredPortType {
+@Addressing(enabled = true)
+public class NhincAdminDistSecured_g1 implements NhincAdminDistSecuredPortType {
     @Resource
     private WebServiceContext context;
+    private PassthruAdminDistributionOrchImpl orchImpl;
 
-    public void sendAlertMessage(
-            gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewaySendAlertMessageSecuredType body) {
+    @Override
+    public void sendAlertMessage(RespondingGatewaySendAlertMessageSecuredType body) {
         AssertionType assertion = extractAssertion(context);
 
-        getNhincImpl().sendAlertMessage(body.getEDXLDistribution(), assertion, body.getNhinTargetSystem(),
+        orchImpl.sendAlertMessage(body.getEDXLDistribution(), assertion, body.getNhinTargetSystem(),
                 NhincConstants.GATEWAY_API_LEVEL.LEVEL_g1);
     }
 
@@ -59,7 +62,7 @@ public class NhincAdminDistSecured_g1 implements gov.hhs.fha.nhinc.nhincadmindis
         return SAML2AssertionExtractor.getInstance().extractSamlAssertion(context);
     }
 
-    public PassthruAdminDistributionOrchImpl getNhincImpl() {
-        return new PassthruAdminDistributionOrchImpl();
+    public void setOrchestratorImpl(PassthruAdminDistributionOrchImpl orchImpl) {
+        this.orchImpl = orchImpl;
     }
 }

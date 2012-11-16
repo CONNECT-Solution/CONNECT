@@ -195,9 +195,9 @@
             <type>war</type>
             <optional>true</optional>
         </dependency>
-        <!-- Shared JARs - In order for the SKINNY WARs to work you must include
-            each dependency in the EAR manually and the JARS will be magically removed
-            from the WAR's WEB-INF/lib -->
+        <!-- Shared JARs - In order for the SKINNY WARs to work you must 
+            include each dependency in the EAR manually and the JARS will be magically 
+            removed from the WAR's WEB-INF/lib -->
         <dependency>
             <groupId>org.connectopensource</groupId>
             <artifactId>CONNECTCommonTypesLib</artifactId>
@@ -290,6 +290,16 @@
             <version>3.0.7.RELEASE</version>
         </dependency>
         <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjrt</artifactId>
+            <version>1.7.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+            <version>1.7.0</version>
+        </dependency>
+        <dependency>
             <groupId>com.thoughtworks.xstream</groupId>
             <artifactId>xstream</artifactId>
             <version>1.4.3</version>
@@ -378,7 +388,7 @@
             <groupId>com.megginson.sax</groupId>
             <artifactId>xml-writer</artifactId>
             <version>0.2</version>
-            <!-- <exclusions> <exclusion> <groupId>xml-apis</groupId> <artifactId>xml-apis</artifactId>
+            <!-- <exclusions> <exclusion> <groupId>xml-apis</groupId> <artifactId>xml-apis</artifactId> 
                 </exclusion> </exclusions> -->
         </dependency>
         <dependency>
@@ -460,6 +470,11 @@
             <groupId>xerces</groupId>
             <artifactId>xercesImpl</artifactId>
             <version>2.10.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20090211</version>
         </dependency>
     </dependencies>
     <build>
@@ -585,7 +600,8 @@
                         <version>6</version>
                         <defaultLibBundleDir>lib</defaultLibBundleDir>
                         <skinnyWars>true</skinnyWars>
-                        <!-- this causes all archives to be exploded on server SLOW!!! <includeLibInApplicationXml>true</includeLibInApplicationXml> -->
+                        <!-- this causes all archives to be exploded on server 
+                            SLOW!!! <includeLibInApplicationXml>true</includeLibInApplicationXml> -->
                     </configuration>
                 </plugin>
             </plugins>
@@ -694,6 +710,12 @@
                 <dependency>
                     <groupId>org.connectopensource</groupId>
                     <artifactId>DocumentQueryCore</artifactId>
+                    <version>${project.parent.version}</version>
+                    <optional>false</optional>
+                </dependency>
+                <dependency>
+                    <groupId>org.connectopensource</groupId>
+                    <artifactId>PatientCorrelationCore</artifactId>
                     <version>${project.parent.version}</version>
                     <optional>false</optional>
                 </dependency>

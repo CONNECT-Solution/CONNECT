@@ -30,21 +30,35 @@ import javax.xml.ws.BindingType;
 import javax.xml.ws.soap.Addressing;
 
 import gov.hhs.fha.nhinc.admindistribution.entity.EntityAdminDistributionOrchImpl;
+import gov.hhs.fha.nhinc.aspect.InboundMessageEvent;
+import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewaySendAlertMessageType;
+import gov.hhs.fha.nhinc.entityadmindistribution.AdministrativeDistributionPortType;
+import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
 
 /**
- * 
+ *
  * @author dunnek
  */
 
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 @Addressing(enabled = true)
-public class EntityAdministrativeDistribution_g1 implements gov.hhs.fha.nhinc.entityadmindistribution.AdministrativeDistributionPortType {
+public class EntityAdministrativeDistribution_g1 implements AdministrativeDistributionPortType {
 
-    public void sendAlertMessage(gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewaySendAlertMessageType body) {
-        getEntityImpl().sendAlertMessage(body, body.getAssertion(), body.getNhinTargetCommunities());
+    private EntityAdminDistributionOrchImpl orchImpl;
+
+    @Override
+    @InboundMessageEvent(serviceType = "Admin Distribution", version = "2.0",
+            afterReturningBuilder = DefaultEventDescriptionBuilder.class,
+            beforeBuilder = DefaultEventDescriptionBuilder.class)
+    public void sendAlertMessage(RespondingGatewaySendAlertMessageType body) {
+        orchImpl.sendAlertMessage(body, body.getAssertion(), body.getNhinTargetCommunities());
     }
 
-    protected EntityAdminDistributionOrchImpl getEntityImpl() {
-        return new EntityAdminDistributionOrchImpl();
+    public void setOrchestratorImpl(EntityAdminDistributionOrchImpl orchImpl) {
+        this.orchImpl = orchImpl;
+    }
+
+    protected EntityAdminDistributionOrchImpl getOrchImpl() {
+        return this.orchImpl;
     }
 }
