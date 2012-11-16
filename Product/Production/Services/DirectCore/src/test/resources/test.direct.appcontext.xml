@@ -16,10 +16,12 @@
     <bean id="intDirectMailClient" class="gov.hhs.fha.nhinc.direct.DirectMailClient">
         <constructor-arg><ref bean="internalMailProperties" /></constructor-arg>
         <constructor-arg><ref bean="smtpAgent" /></constructor-arg>
+        <constructor-arg><ref bean="outboundMessageHandler" /></constructor-arg>
     </bean>
     <bean id="extDirectMailClient" class="gov.hhs.fha.nhinc.direct.DirectMailClient">
         <constructor-arg><ref bean="externalMailProperties" /></constructor-arg>
         <constructor-arg><ref bean="smtpAgent" /></constructor-arg>
+        <constructor-arg><ref bean="inboundMessageHandlerSmtp" /></constructor-arg>
     </bean>
 
     <!-- Set up message handlers -->
@@ -47,4 +49,12 @@
 
     <util:properties id="internalMailProperties" location="classpath:/test.mail.internal.properties" />
     <util:properties id="externalMailProperties" location="classpath:/test.mail.external.properties" />
+    
+    <!-- Set up polling for inbound and outbound direct messages -->
+    <task:scheduled-tasks scheduler="directScheduler">
+        <task:scheduled ref="intDirectMailClient" method="handleMessages" cron="*/5 * * * * *"/>
+        <task:scheduled ref="extDirectMailClient" method="handleMessages" cron="*/5 * * * * *"/>
+    </task:scheduled-tasks>
+    <task:scheduler id="myScheduler" />
+    
 </beans>

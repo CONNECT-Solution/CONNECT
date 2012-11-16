@@ -77,10 +77,9 @@ public interface DirectClient {
     void sendMdn(Address recipient, MessageProcessResult result);
 
     /**
-     * @param handler used to handle messages pulled from the mail server.
-     * @return number of messages handled.
+     * Pull messages from a server and use an injected MessageHandler to handle them.
      */
-    int handleMessages(MessageHandler handler);
+    void handleMessages();
     
     /**
      * Make the smtp agent on this direct client available to the caller.

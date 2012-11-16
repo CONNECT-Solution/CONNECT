@@ -35,7 +35,6 @@ import static gov.hhs.fha.nhinc.direct.DirectUnitTestUtil.removeSmtpAgentConfig;
 import static gov.hhs.fha.nhinc.direct.DirectUnitTestUtil.writeSmtpAgentConfig;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.mock;
@@ -86,6 +85,7 @@ public class DirectMailClientTest {
     protected Properties intMailServerProps;
     private SmtpAgent mockSmtpAgent;
     private DirectMailClient testDirectMailClient;
+    private MessageHandler mockMessageHandler;
 
     private GreenMail intGreenMail;
     private GreenMailUser user;
@@ -119,7 +119,9 @@ public class DirectMailClientTest {
         intMailServerProps =
                 getMailServerProps(intGreenMail.getSmtps().getServerSetup().getPort(), intGreenMail.getImaps()
                         .getServerSetup().getPort());
-        testDirectMailClient = new DirectMailClient(intMailServerProps, mockSmtpAgent);        
+        mockMessageHandler = mock(MessageHandler.class);
+
+        testDirectMailClient = new DirectMailClient(intMailServerProps, mockSmtpAgent, mockMessageHandler);        
     }
 
     /**
@@ -167,8 +169,7 @@ public class DirectMailClientTest {
         verify(mockSmtpAgent, times(NUM_MSGS_ONE_BATCH)).processMessage(any(MimeMessage.class),
                 any(NHINDAddressCollection.class), any(NHINDAddress.class));
 
-        MessageHandler mockMessageHandler = mock(MessageHandler.class);
-        assertEquals(NUM_MSGS_ONE_BATCH, testDirectMailClient.handleMessages(mockMessageHandler));
+        testDirectMailClient.handleMessages();
 
         verify(mockMessageHandler, times(NUM_MSGS_ONE_BATCH)).handleMessage(any(Message.class), 
                 eq(testDirectMailClient));
@@ -194,9 +195,6 @@ public class DirectMailClientTest {
         verify(mockSmtpAgent, times(NUM_MSGS_MULTI_BATCH)).processMessage(any(MimeMessage.class),
                 any(NHINDAddressCollection.class), any(NHINDAddress.class));
 
-        // retrieve messages in batches based on the max number of messages to process.
-        MessageHandler mockMessageHandler = mock(MessageHandler.class);
-
         int expectedBatchCount = NUM_MSGS_MULTI_BATCH / DirectUnitTestUtil.MAX_NUM_MSGS_IN_BATCH;
         if (NUM_MSGS_MULTI_BATCH % DirectUnitTestUtil.MAX_NUM_MSGS_IN_BATCH > 0) {
             expectedBatchCount++;
@@ -206,9 +204,8 @@ public class DirectMailClientTest {
         int batchCount = 0;
         while (numberOfMsgsHandled < NUM_MSGS_MULTI_BATCH) {
             batchCount++;
-            int numberOfMsgsHandledInBatch = testDirectMailClient.handleMessages(mockMessageHandler);
-            numberOfMsgsHandled += numberOfMsgsHandledInBatch;
-            assertTrue(numberOfMsgsHandledInBatch <= DirectUnitTestUtil.MAX_NUM_MSGS_IN_BATCH);
+            testDirectMailClient.handleMessages();
+            numberOfMsgsHandled = testDirectMailClient.getNumberOfMsgsHandled();
             verify(mockMessageHandler, times(numberOfMsgsHandled)).handleMessage(any(Message.class), 
                     eq(testDirectMailClient));
 
@@ -262,10 +259,10 @@ public class DirectMailClientTest {
         // handle the messages on the internal server
         SmtpAgent smtpAgent = SmtpAgentFactory.createAgent(getClass().getClassLoader().getResource(
                 "smtp.agent.config.xml"));
-        DirectClient internalDirectClient = new DirectMailClient(intMailServerProps, smtpAgent);
+        DirectClient internalDirectClient = new DirectMailClient(intMailServerProps, smtpAgent, mockMessageHandler);
         
         // we can use the same greenmail as external direct client
-        internalDirectClient.handleMessages(mock(MessageHandler.class));
+        internalDirectClient.handleMessages();
         
         /*
          * Responding Gateway...

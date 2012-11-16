@@ -64,16 +64,21 @@ public class DirectMailClient implements DirectClient {
 
     private final Properties mailServerProps;
     private final SmtpAgent smtpAgent;
+    private final MessageHandler messageHandler;
+    
+    private volatile int numberOfMsgsHandled = 0;
 
     /**
      * Construct a direct mail server with mail server settings.
      *
      * @param mailServerProps used to define this mail server
      * @param smtpAgent direct smtp agent config file path relative to classpath used to configure SmtpAgent
+     * @param message handler for handling messages from the server.
      */
-    public DirectMailClient(final Properties mailServerProps, final SmtpAgent smtpAgent) {
+    public DirectMailClient(final Properties mailServerProps, final SmtpAgent smtpAgent, MessageHandler messageHandler) {
         this.mailServerProps = mailServerProps;
         this.smtpAgent = smtpAgent;        
+        this.messageHandler = messageHandler;
     }
 
     /**
@@ -152,7 +157,7 @@ public class DirectMailClient implements DirectClient {
      * {@inheritDoc}
      */
     @Override
-    public int handleMessages(MessageHandler handler) {
+    public void handleMessages() {
 
         Session session = getMailSession();
         session.setDebug(true);
@@ -190,12 +195,11 @@ public class DirectMailClient implements DirectClient {
             throw new DirectException("Exception while retrieving messages from inbox.", e);
         } 
         
-        int numberOfHandledMsgs = 0;
         for (Message message : messages) {
             try {
                 if ((message instanceof MimeMessage)) {
-                    handler.handleMessage((MimeMessage) message, this);
-                    numberOfHandledMsgs++;
+                    messageHandler.handleMessage((MimeMessage) message, this);
+                    numberOfMsgsHandled++;
                 }
                 message.setFlag(Flags.Flag.DELETED, true);
             } catch (Exception e) {
@@ -204,9 +208,9 @@ public class DirectMailClient implements DirectClient {
                 throw new DirectException("Exception while handling message.", e);
             }
         }
+        LOG.info("Handled " + numberOfMsgsHandled + " messages.");
 
         MailUtils.closeQuietly(store, inbox, MailUtils.FOLDER_EXPUNGE_INBOX_TRUE);
-        return numberOfHandledMsgs;
     }
     
     /**
@@ -216,6 +220,19 @@ public class DirectMailClient implements DirectClient {
         return smtpAgent;
     }
 
+    /**
+     * @return the numberOfMsgsHandled
+     */
+    public int getNumberOfMsgsHandled() {
+        return numberOfMsgsHandled;
+    }
+
+    /**
+     * @param numberOfMsgsHandled the numberOfMsgsHandled to set
+     */
+    public void setNumberOfMsgsHandled(int numberOfMsgsHandled) {
+        this.numberOfMsgsHandled = numberOfMsgsHandled;
+    }
 
     private Session getMailSession() {
         return MailUtils.getMailSession(mailServerProps, mailServerProps.getProperty("direct.mail.user"),
