@@ -24,39 +24,51 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
-package gov.hhs.fha.nhinc.docretrieve.nhin;
+package gov.hhs.fha.nhinc.docretrieve.inbound;
 
-import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import gov.hhs.fha.nhinc.common.eventcommon.DocRetrieveEventType;
-import gov.hhs.fha.nhinc.orchestration.PolicyTransformer.Direction;
-import gov.hhs.fha.nhinc.policyengine.DocumentRetrievePolicyEngineChecker;
+import gov.hhs.fha.nhinc.messaging.server.BaseService;
 
-import org.junit.Test;
+import javax.annotation.Resource;
+import javax.xml.ws.BindingType;
+import javax.xml.ws.WebServiceContext;
+import javax.xml.ws.soap.Addressing;
 
 /**
  * 
- * @author mweaver
+ * @author Neil Webb
  */
-public class NhinDocRetrievePolicyTransformer_g0Test {
 
-   
+@BindingType(value = "http://www.w3.org/2003/05/soap/bindings/HTTP/")
+@Addressing(enabled = true)
+public class DocRetrieve  extends BaseService implements ihe.iti.xds_b._2007.RespondingGatewayRetrievePortType {
+    private WebServiceContext context;
+    
+    private DocRetrieveService service;
+
+    /* (non-Javadoc)
+     * @see gov.hhs.fha.nhinc.docretrieve._20.nhin.DocRetrieveService#respondingGatewayCrossGatewayRetrieve(ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType)
+     */
+    @Override
+    public ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(
+            ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType body) {
+        return service.respondingGatewayCrossGatewayRetrieve(body, getAssertion(context, null));
+    }
 
     /**
-     * Test of tranform method, of class NhinDocRetrievePolicyTransformer_g0.
+     * @param context the context to set
      */
-    @Test
-    public void testTranform() {
-        DocumentRetrievePolicyEngineChecker mockPolicyEngine = mock(DocumentRetrievePolicyEngineChecker.class);
-        InboundDocRetrievePolicyTransformer_g0 policyTransform = new InboundDocRetrievePolicyTransformer_g0(mockPolicyEngine);
-        InboundDocRetrieveOrchestratable message = mock(InboundDocRetrieveOrchestratable.class);
-        policyTransform.transform(message, Direction.INBOUND);
-        
-        verify(message).getAssertion();
-        verify(message).getRequest();
-        verify(mockPolicyEngine).checkPolicyDocRetrieve(any(DocRetrieveEventType.class));
-        
+    @Resource
+    public void setContext(WebServiceContext context) {
+        this.context = context;
     }
+
+    /**
+     * @param service the service to set
+     */
+    public void setService(DocRetrieveService service) {
+        this.service = service;
+    }
+    
+    
 
 }
