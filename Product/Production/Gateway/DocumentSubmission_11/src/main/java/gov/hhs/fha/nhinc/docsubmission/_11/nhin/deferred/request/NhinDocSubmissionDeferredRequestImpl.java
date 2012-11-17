@@ -31,7 +31,7 @@ import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import javax.xml.ws.WebServiceContext;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.docsubmission.nhin.deferred.request.NhinDocSubmissionDeferredRequestOrchImpl;
+import gov.hhs.fha.nhinc.docsubmission.inbound.deferred.request.InboundDocSubmissionDeferredRequest;
 import gov.hhs.fha.nhinc.messaging.server.BaseService;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 
@@ -41,11 +41,12 @@ import gov.hhs.healthit.nhin.XDRAcknowledgementType;
  */
 public class NhinDocSubmissionDeferredRequestImpl extends BaseService {
 
-    private NhinDocSubmissionDeferredRequestOrchImpl orchImpl;
+    private InboundDocSubmissionDeferredRequest inboundDocSubmissionRequest;
 
-    NhinDocSubmissionDeferredRequestImpl(NhinDocSubmissionDeferredRequestOrchImpl orchImpl) {
-        this.orchImpl = orchImpl;
+    public NhinDocSubmissionDeferredRequestImpl(InboundDocSubmissionDeferredRequest inboundDocSubmissionRequest) {
+        this.inboundDocSubmissionRequest = inboundDocSubmissionRequest;
     }
+    
     /**
      *
      * @param body
@@ -56,12 +57,7 @@ public class NhinDocSubmissionDeferredRequestImpl extends BaseService {
             WebServiceContext context) {
 
         AssertionType assertion = getAssertion(context, null);
-
-        return orchImpl.provideAndRegisterDocumentSetBRequest(body, assertion);
-    }
-
-    public void setOrchestratorImpl(NhinDocSubmissionDeferredRequestOrchImpl orchImpl) {
-        this.orchImpl = orchImpl;
+        return inboundDocSubmissionRequest.provideAndRegisterDocumentSetBRequest(body, assertion);
     }
 
 }

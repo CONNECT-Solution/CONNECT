@@ -26,35 +26,37 @@
  */
 package gov.hhs.fha.nhinc.docsubmission._11.entity.deferred.response;
 
+import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetResponseRequestType;
+import gov.hhs.fha.nhinc.docsubmission.outbound.deferred.response.OutboundDocSubmissionDeferredResponse;
+import gov.hhs.fha.nhinc.nhincentityxdr.async.response.EntityXDRAsyncResponsePortType;
+import gov.hhs.healthit.nhin.XDRAcknowledgementType;
+
 import javax.annotation.Resource;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
 
-import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetResponseRequestType;
-import gov.hhs.fha.nhinc.docsubmission.entity.deferred.response.EntityDocSubmissionDeferredResponseOrchImpl;
-import gov.hhs.fha.nhinc.nhincentityxdr.async.response.EntityXDRAsyncResponsePortType;
-import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 
-/**
- *
- * @author jhoppesc
- */
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 @Addressing(enabled = true)
 public class EntityDocSubmissionDeferredResponseUnsecured implements EntityXDRAsyncResponsePortType {
-    @Resource
+    
     private WebServiceContext context;
-    private EntityDocSubmissionDeferredResponseOrchImpl orchImpl;
+    private OutboundDocSubmissionDeferredResponse outboundDocSubmissionResponse;
 
     @Override
     public XDRAcknowledgementType provideAndRegisterDocumentSetBAsyncResponse(
             RespondingGatewayProvideAndRegisterDocumentSetResponseRequestType provideAndRegisterDocumentSetAsyncRespRequest) {
-        return new EntityDocSubmissionDeferredResponseImpl(orchImpl).provideAndRegisterDocumentSetBAsyncResponse(
-                provideAndRegisterDocumentSetAsyncRespRequest, context);
+        return new EntityDocSubmissionDeferredResponseImpl(outboundDocSubmissionResponse)
+                .provideAndRegisterDocumentSetBAsyncResponse(provideAndRegisterDocumentSetAsyncRespRequest, context);
+    }
+    
+    @Resource
+    public void setContext(WebServiceContext context) {
+        this.context = context;
     }
 
-    public void setOrchestratorImpl(EntityDocSubmissionDeferredResponseOrchImpl orchImpl) {
-        this.orchImpl = orchImpl;
+    public void setOutboundDocSubmissionResponse(OutboundDocSubmissionDeferredResponse outboundDocSubmissionResponse) {
+        this.outboundDocSubmissionResponse = outboundDocSubmissionResponse;
     }
 }
