@@ -18,10 +18,11 @@ http://www.springframework.org/schema/aop http://www.springframework.org/schema/
         </property>
     </bean>
  
- 
-    <bean name="inboundDocRetrieve" class="${docretrieve.20.inbound}" />
-    
-    
+    <bean id="inboundDocRetrieve" class="gov.hhs.fha.nhinc.docretrieve.inbound.DocRetrieve">
+       <property name="service">
+            <bean class="${docretrieve.20.inbound}" />
+        </property>
+    </bean>
     
     <bean id="entityDocRetrieveOrchImpl" class="gov.hhs.fha.nhinc.docretrieve.entity.EntityDocRetrieveOrchImpl" />
     
