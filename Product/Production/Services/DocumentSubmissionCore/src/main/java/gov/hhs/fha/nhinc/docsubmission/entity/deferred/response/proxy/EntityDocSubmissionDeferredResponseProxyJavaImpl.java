@@ -28,7 +28,7 @@ package gov.hhs.fha.nhinc.docsubmission.entity.deferred.response.proxy;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
-import gov.hhs.fha.nhinc.docsubmission.entity.deferred.response.EntityDocSubmissionDeferredResponseOrchImpl;
+import gov.hhs.fha.nhinc.docsubmission.outbound.deferred.response.StandardOutboundDocSubmissionDeferredResponse;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import org.apache.commons.logging.Log;
@@ -44,7 +44,7 @@ public class EntityDocSubmissionDeferredResponseProxyJavaImpl implements EntityD
     public XDRAcknowledgementType provideAndRegisterDocumentSetBAsyncResponse(RegistryResponseType request,
             AssertionType assertion, NhinTargetCommunitiesType targets) {
         log.debug("Using NoOp Implementation for Entity Doc Submission Deferred Response Service");
-        return new EntityDocSubmissionDeferredResponseOrchImpl().provideAndRegisterDocumentSetBAsyncResponse(request,
+        return new StandardOutboundDocSubmissionDeferredResponse().provideAndRegisterDocumentSetBAsyncResponse(request,
                 assertion, targets);
     }
 
