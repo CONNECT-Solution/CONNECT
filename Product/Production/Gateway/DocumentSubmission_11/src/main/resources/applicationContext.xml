@@ -53,6 +53,24 @@ http://www.springframework.org/schema/aop http://www.springframework.org/schema/
             <bean class="${docsubmission.outboundDocSubmissionRequest}" />
         </property>
     </bean>
+    
+    <bean id="nhinXDRDeferredResponse" class="gov.hhs.fha.nhinc.docsubmission._11.nhin.deferred.response.NhinXDRResponse">
+        <property name="inboundDocSubmissionResponse">
+            <bean class="${docsubmission.inboundDocSubmissionResponse}" />
+        </property>
+    </bean>
+    
+    <bean id="entityXDRDeferredResponseUnsecured" class="gov.hhs.fha.nhinc.docsubmission._11.entity.deferred.response.EntityDocSubmissionDeferredResponseUnsecured">
+        <property name="outboundDocSubmissionResponse">
+            <bean class="${docsubmission.outboundDocSubmissionResponse}" />
+        </property>
+    </bean>
+    
+    <bean id="entityXDRDeferredResponseSecured" class="gov.hhs.fha.nhinc.docsubmission._11.entity.deferred.response.EntityDocSubmissionDeferredResponseSecured">
+        <property name="outboundDocSubmissionResponse">
+            <bean class="${docsubmission.outboundDocSubmissionResponse}" />
+        </property>
+    </bean>
         
     <bean id="SOAPHeaderHandler" class="gov.hhs.fha.nhinc.callback.SOAPHeaderHandler" />
     <bean id="TransactionHandler" class="gov.hhs.fha.nhinc.logging.transaction.TransactionHandler" />

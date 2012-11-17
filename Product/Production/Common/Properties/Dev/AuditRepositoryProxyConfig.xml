@@ -9,7 +9,7 @@
 -->
 	<description>Beans included in this file: {auditrepository}</description>
 
-    <alias alias="auditrepository" name="auditrepositorynoop" />
+    <alias alias="auditrepository" name="auditrepositorywssecured" />
 
 	<!-- No-op Implementation -->
 	<bean lazy-init="true" class="gov.hhs.fha.nhinc.auditrepository.nhinc.proxy.AuditRepositoryProxyNoOpImpl" id="auditrepositorynoop" name="auditrepositorynoop"> 

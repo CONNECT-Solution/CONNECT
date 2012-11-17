@@ -62,49 +62,24 @@ http://www.springframework.org/schema/aop http://www.springframework.org/schema/
         </property>
     </bean>
 
-
-    <bean id="nhinDocSubmissionDeferredResponseOrchImpl" class="gov.hhs.fha.nhinc.docsubmission.nhin.deferred.response.NhinDocSubmissionDeferredResponseOrchImpl" />
-
     <bean id="nhinXDRDeferredResponse_g1" class="gov.hhs.fha.nhinc.docsubmission._20.nhin.deferred.response.NhinXDRResponse20">
-        <property name="orchestratorImpl">
-            <ref bean="nhinDocSubmissionDeferredResponseOrchImpl" />
+        <property name="inboundDocSubmissionResponse">
+            <bean class="${docsubmission.inboundDocSubmissionResponse}" />
         </property>
     </bean>
 
-    <bean id="entityDocSubmissionDeferredResponseOrchImpl" class="gov.hhs.fha.nhinc.docsubmission.entity.deferred.response.EntityDocSubmissionDeferredResponseOrchImpl" />
-
     <bean id="entityXDRDeferredResponseUnsecured_g1"
         class="gov.hhs.fha.nhinc.docsubmission._20.entity.deferred.response.EntityDocSubmissionDeferredResponseUnsecured_g1">
-        <property name="orchestratorImpl">
-            <ref bean="entityDocSubmissionDeferredResponseOrchImpl" />
+        <property name="outboundDocSubmissionResponse">
+            <bean class="${docsubmission.outboundDocSubmissionResponse}" />
         </property>
     </bean>
 
     <bean id="entityXDRDeferredResponseSecured_g1"
         class="gov.hhs.fha.nhinc.docsubmission._20.entity.deferred.response.EntityDocSubmissionDeferredResponseSecured_g1">
-        <property name="orchestratorImpl">
-            <ref bean="entityDocSubmissionDeferredResponseOrchImpl" />
+        <property name="outboundDocSubmissionResponse">
+            <bean class="${docsubmission.outboundDocSubmissionResponse}" />
         </property>
     </bean>
-
-    <bean id="passthruDocSubmissionDeferredResponseOrchImpl"
-        class="gov.hhs.fha.nhinc.docsubmission.passthru.deferred.response.PassthruDocSubmissionDeferredResponseOrchImpl" />
-
-    <bean id="passthruXDRDeferredResponseUnsecured_g1"
-        class="gov.hhs.fha.nhinc.docsubmission._20.passthru.deferred.response.PassthruDocSubmissionDeferredResponseUnsecured_g1">
-        <property name="orchestratorImpl">
-            <ref bean="passthruDocSubmissionDeferredResponseOrchImpl" />
-        </property>
-    </bean>
-
-    <bean id="passthruXDRDeferredResponseSecured_g1"
-        class="gov.hhs.fha.nhinc.docsubmission._20.passthru.deferred.response.PassthruDocSubmissionDeferredResponseSecured_g1">
-        <property name="orchestratorImpl">
-            <ref bean="passthruDocSubmissionDeferredResponseOrchImpl" />
-        </property>
-    </bean>
-
-    
-    
    
 </beans>

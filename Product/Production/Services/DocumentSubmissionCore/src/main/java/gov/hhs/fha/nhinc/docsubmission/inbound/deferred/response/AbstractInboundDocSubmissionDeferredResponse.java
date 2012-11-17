@@ -24,39 +24,37 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.docsubmission._11.entity.deferred.response;
+package gov.hhs.fha.nhinc.docsubmission.inbound.deferred.response;
 
-import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetResponseRequestType;
-import gov.hhs.fha.nhinc.docsubmission.outbound.deferred.response.OutboundDocSubmissionDeferredResponse;
-import gov.hhs.fha.nhinc.nhincentityxdr.async.response.EntityXDRAsyncResponsePortType;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.docsubmission.XDRAuditLogger;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
-import javax.annotation.Resource;
-import javax.xml.ws.BindingType;
-import javax.xml.ws.WebServiceContext;
-import javax.xml.ws.soap.Addressing;
+public abstract class AbstractInboundDocSubmissionDeferredResponse implements InboundDocSubmissionDeferredResponse {
 
+    abstract XDRAcknowledgementType processDocSubmissionResponse(RegistryResponseType body, AssertionType assertion);
 
-@BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
-@Addressing(enabled = true)
-public class EntityDocSubmissionDeferredResponseUnsecured implements EntityXDRAsyncResponsePortType {
-    
-    private WebServiceContext context;
-    private OutboundDocSubmissionDeferredResponse outboundDocSubmissionResponse;
+    protected XDRAuditLogger auditLogger = new XDRAuditLogger();
 
-    @Override
-    public XDRAcknowledgementType provideAndRegisterDocumentSetBAsyncResponse(
-            RespondingGatewayProvideAndRegisterDocumentSetResponseRequestType provideAndRegisterDocumentSetAsyncRespRequest) {
-        return new EntityDocSubmissionDeferredResponseImpl(outboundDocSubmissionResponse)
-                .provideAndRegisterDocumentSetBAsyncResponse(provideAndRegisterDocumentSetAsyncRespRequest, context);
-    }
-    
-    @Resource
-    public void setContext(WebServiceContext context) {
-        this.context = context;
+    public XDRAcknowledgementType provideAndRegisterDocumentSetBResponse(RegistryResponseType body,
+            AssertionType assertion) {
+        auditRequestFromNhin(body, assertion);
+
+        XDRAcknowledgementType response = processDocSubmissionResponse(body, assertion);
+
+        auditResponseToNhin(response, assertion);
+
+        return response;
     }
 
-    public void setOutboundDocSubmissionResponse(OutboundDocSubmissionDeferredResponse outboundDocSubmissionResponse) {
-        this.outboundDocSubmissionResponse = outboundDocSubmissionResponse;
+    private void auditRequestFromNhin(RegistryResponseType body, AssertionType assertion) {
+        auditLogger.auditNhinXDRResponse(body, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
+    }
+
+    private void auditResponseToNhin(XDRAcknowledgementType response, AssertionType assertion) {
+        auditLogger.auditAcknowledgement(response, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION,
+                NhincConstants.XDR_RESPONSE_ACTION);
     }
 }

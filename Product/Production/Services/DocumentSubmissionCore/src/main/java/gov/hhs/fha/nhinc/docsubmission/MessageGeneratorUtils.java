@@ -135,7 +135,7 @@ public class MessageGeneratorUtils {
      * Create a RegistryErrorResponse with severity set to error. The error code is set to missing document and status
      * set to failure.
      * 
-     * @return
+     * @return the generated RegistryResponseType message
      */
     public RegistryResponseType createMissingDocumentRegistryResponse() {
         return createRegistryErrorResponse("Failed to retrieve document for sending.",
@@ -147,7 +147,7 @@ public class MessageGeneratorUtils {
      * set to ack failure.
      * 
      * @param errorMsg
-     * @return
+     * @return the generated RegistryResponseType message
      */
     public RegistryResponseType createRegistryErrorResponseWithAckFailure(String errorMsg) {
         return createRegistryErrorResponse(errorMsg, DocumentConstants.XDS_REGISTRY_ERROR,
@@ -159,7 +159,7 @@ public class MessageGeneratorUtils {
      * set to failure.
      * 
      * @param errorMsg
-     * @return
+     * @return the generated RegistryResponseType message
      */
     public RegistryResponseType createRegistryBusyErrorResponse(String errorMsg) {
         return createRegistryErrorResponse(errorMsg, DocumentConstants.XDS_REGISTRY_BUSY,
@@ -170,14 +170,14 @@ public class MessageGeneratorUtils {
      * Create a XDRAcknowledgementType with a message containing a RegistryErrorResponse with an ack failure status.
      * 
      * @param errorMsg
-     * @return
+     * @return the generated XDRAcknowledgementType message
      */
     public XDRAcknowledgementType createRegistryErrorXDRAcknowledgementType(String errorMsg) {
         XDRAcknowledgementType response = new XDRAcknowledgementType();
 
         RegistryResponseType regResponse = createRegistryErrorResponseWithAckFailure(errorMsg);
-
         response.setMessage(regResponse);
+        
         return response;
     }
 
@@ -185,14 +185,28 @@ public class MessageGeneratorUtils {
      * Create a XDRAcknowledgementType with a message containing a RegistryErrorResponse with a missing document error
      * code.
      * 
-     * @return
+     * @return the generated XDRAcknowledgementType message
      */
     public XDRAcknowledgementType createMissingDocumentXDRAcknowledgementType() {
         XDRAcknowledgementType response = new XDRAcknowledgementType();
 
         RegistryResponseType regResponse = createMissingDocumentRegistryResponse();
-
         response.setMessage(regResponse);
+        
+        return response;
+    }
+    
+    /**
+     * Create a XDRAcknowledgementType with a message containing a RegistryErrorResponse with a policy check error.
+     * 
+     * @return the generated XDRAcknowledgementType message
+     */
+    public XDRAcknowledgementType createFailedPolicyCheckXDRAcknowledgementType() {
+        XDRAcknowledgementType response = new XDRAcknowledgementType();
+        
+        RegistryResponseType regResponse = createFailedPolicyCheckResponse();
+        response.setMessage(regResponse);
+
         return response;
     }
 }

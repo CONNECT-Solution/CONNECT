@@ -11,7 +11,7 @@
 	
 	<!-- Beans defined : Adapter Policy Engine -->
 	
-	<alias alias="policyengine" name="policyenginenoop" />
+	<alias alias="policyengine" name="policyenginewsunsecured" />
 
 	<!-- No-op Implementation -->
 	<bean lazy-init="true" class="gov.hhs.fha.nhinc.policyengine.adapter.proxy.PolicyEngineProxyNoOpImpl" id="policyenginenoop" name="policyenginenoop"> 
