@@ -26,7 +26,10 @@
  */
 package gov.hhs.fha.nhinc.docretrieve.inbound;
 
+import gov.hhs.fha.nhinc.aspect.InboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.docretrieve.aspect.RetrieveDocumentSetRequestTypeDescriptionBuilder;
+import gov.hhs.fha.nhinc.docretrieve.aspect.RetrieveDocumentSetResponseTypeDescriptionBuilder;
 import gov.hhs.fha.nhinc.docretrieve.nhin.InboundDocRetrieveOrchestratable;
 import gov.hhs.fha.nhinc.orchestration.CONNECTInboundOrchestrator;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
@@ -49,8 +52,7 @@ public abstract class BaseInboundDocRetrieve implements DocRetrieveService {
      * @param assertion
      */
     abstract public InboundDocRetrieveOrchestratable createInboundOrchestrable(RetrieveDocumentSetRequestType body, AssertionType assertion);
-    
-
+        
     /**
      * @param inboundOrchestrable
      * @return
@@ -64,6 +66,9 @@ public abstract class BaseInboundDocRetrieve implements DocRetrieveService {
         return response;
     }
     
+    @InboundProcessingEvent(beforeBuilder = RetrieveDocumentSetRequestTypeDescriptionBuilder.class,
+            afterReturningBuilder = RetrieveDocumentSetResponseTypeDescriptionBuilder.class, 
+            serviceType = "Retrieve Document", version = "")
     public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(RetrieveDocumentSetRequestType body,
             AssertionType assertion) {
         log.debug("Entering DocRetrieveImpl.respondingGatewayCrossGatewayRetrieve");

@@ -6,8 +6,12 @@
  */
 package gov.hhs.fha.nhinc.docretrieve._30.passthru;
 
+import gov.hhs.fha.nhinc.aspect.OutboundMessageEvent;
+import gov.hhs.fha.nhinc.docretrieve.aspect.NhincProxyRetrieveRequestTypeDescriptionBuilder;
+import gov.hhs.fha.nhinc.docretrieve.aspect.RetrieveDocumentSetResponseTypeDescriptionBuilder;
 import gov.hhs.fha.nhinc.docretrieve.passthru.NhincProxyDocRetrieveOrchImpl;
-
+import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
+import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayCrossGatewayRetrieveRequestType;
 import javax.annotation.Resource;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
@@ -27,8 +31,11 @@ public class NhincProxyDocRetrieveUnsecured implements gov.hhs.fha.nhinc.nhincpr
     @Resource
     private WebServiceContext context;
 
-    public ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(
-            gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayCrossGatewayRetrieveRequestType respondingGatewayCrossGatewayRetrieveRequest) {
+    @OutboundMessageEvent(beforeBuilder = NhincProxyRetrieveRequestTypeDescriptionBuilder.class,
+            afterReturningBuilder = RetrieveDocumentSetResponseTypeDescriptionBuilder.class, 
+            serviceType = "Retrieve Document", version = "3.0")
+    public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(
+            RespondingGatewayCrossGatewayRetrieveRequestType respondingGatewayCrossGatewayRetrieveRequest) {
         return new NhincProxyDocRetrieveImpl(orchImpl).respondingGatewayCrossGatewayRetrieve(
                 respondingGatewayCrossGatewayRetrieveRequest, context);
     }

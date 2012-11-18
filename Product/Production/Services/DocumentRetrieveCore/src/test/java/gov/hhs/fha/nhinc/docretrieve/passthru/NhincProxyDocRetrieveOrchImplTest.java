@@ -24,57 +24,37 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
-package gov.hhs.fha.nhinc.docretrieve.inbound;
+package gov.hhs.fha.nhinc.docretrieve.passthru;
 
-import gov.hhs.fha.nhinc.aspect.InboundMessageEvent;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
+import java.lang.reflect.Method;
+
+import gov.hhs.fha.nhinc.aspect.OutboundProcessingEvent;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.docretrieve.aspect.RetrieveDocumentSetRequestTypeDescriptionBuilder;
 import gov.hhs.fha.nhinc.docretrieve.aspect.RetrieveDocumentSetResponseTypeDescriptionBuilder;
-import gov.hhs.fha.nhinc.messaging.server.BaseService;
+import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 
-import javax.annotation.Resource;
-import javax.xml.ws.BindingType;
-import javax.xml.ws.WebServiceContext;
-import javax.xml.ws.soap.Addressing;
+import org.junit.Test;
 
 /**
- * 
- * @author Neil Webb
+ * @author achidamb
+ *
  */
-
-@BindingType(value = "http://www.w3.org/2003/05/soap/bindings/HTTP/")
-@Addressing(enabled = true)
-public class DocRetrieve  extends BaseService implements ihe.iti.xds_b._2007.RespondingGatewayRetrievePortType {
-    private WebServiceContext context;
-    
-    private DocRetrieveService service;
-
-    /* (non-Javadoc)
-     * @see gov.hhs.fha.nhinc.docretrieve._20.nhin.DocRetrieveService#respondingGatewayCrossGatewayRetrieve(ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType)
-     */
-    @Override
-    @InboundMessageEvent(beforeBuilder = RetrieveDocumentSetRequestTypeDescriptionBuilder.class,
-            afterReturningBuilder = RetrieveDocumentSetResponseTypeDescriptionBuilder.class, 
-            serviceType = "Retrieve Document",version = "2.0")
-    public ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(
-            ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType body) {
-        return service.respondingGatewayCrossGatewayRetrieve(body, getAssertion(context, null));
+public class NhincProxyDocRetrieveOrchImplTest {
+    @Test
+    public void hasOutboundProcessingEvent() throws Exception {
+        Class<NhincProxyDocRetrieveOrchImpl> clazz = NhincProxyDocRetrieveOrchImpl.class;
+        Method method = clazz.getMethod("respondingGatewayCrossGatewayRetrieve", RetrieveDocumentSetRequestType.class,
+                AssertionType.class, NhinTargetSystemType.class);
+        OutboundProcessingEvent annotation = method.getAnnotation(OutboundProcessingEvent.class);
+        assertNotNull(annotation);
+        assertEquals(RetrieveDocumentSetRequestTypeDescriptionBuilder.class, annotation.beforeBuilder());
+        assertEquals(RetrieveDocumentSetResponseTypeDescriptionBuilder.class, annotation.afterReturningBuilder());
+        assertEquals("Retrieve Document", annotation.serviceType());
+        assertEquals("", annotation.version());
     }
-
-    /**
-     * @param context the context to set
-     */
-    @Resource
-    public void setContext(WebServiceContext context) {
-        this.context = context;
-    }
-
-    /**
-     * @param service the service to set
-     */
-    public void setService(DocRetrieveService service) {
-        this.service = service;
-    }
-    
-    
-
 }
