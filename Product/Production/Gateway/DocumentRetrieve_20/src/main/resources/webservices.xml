@@ -16,10 +16,11 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd http://www.s
     <!-- Document Retrieve -->
     
     <!-- Nhin services -->    
+
     <jaxws:endpoint xmlns:ndr="urn:ihe:iti:xds-b:2007" id="NhinDocumentRetrieve"
         address="/NhinService/RespondingGateway_Retrieve_Service/DocRetrieve" serviceName="ndr:RespondingGateway_Retrieve_Service"
-        endpointName="ndr:RespondingGateway_Retrieve_Port_Soap" implementorClass="gov.hhs.fha.nhinc.docretrieve._20.nhin.DocRetrieve"
-        implementor="#nhinDocRetrieve" wsdlLocation="classpath:wsdl/NhinDocRetrieve.wsdl">
+        endpointName="ndr:RespondingGateway_Retrieve_Port_Soap" implementor="#inboundDocRetrieve"
+        wsdlLocation="classpath:wsdl/NhinDocRetrieve.wsdl">
         <jaxws:properties>
             <entry key="ws-security.callback-handler" value="gov.hhs.fha.nhinc.callback.cxf.CXFSAMLCallbackHandler" />
             <entry key="ws-security.signature.properties" value="keystore.properties" />
@@ -101,5 +102,6 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd http://www.s
             <ref bean="TransactionHandler"/>
         </jaxws:handlers>
     </jaxws:endpoint>
+
 </beans>
     

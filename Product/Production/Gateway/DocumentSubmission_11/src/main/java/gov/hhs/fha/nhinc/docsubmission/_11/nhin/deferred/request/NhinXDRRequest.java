@@ -26,43 +26,44 @@
  */
 package gov.hhs.fha.nhinc.docsubmission._11.nhin.deferred.request;
 
+import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import gov.hhs.fha.nhinc.aspect.InboundMessageEvent;
-import gov.hhs.fha.nhinc.docsubmission.nhin.deferred.request.NhinDocSubmissionDeferredRequestOrchImpl;
 import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
+
+import gov.hhs.fha.nhinc.docsubmission.inbound.deferred.request.InboundDocSubmissionDeferredRequest;
+import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 
 import javax.annotation.Resource;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
 
-/**
- * 
- * @author JHOPPESC
- */
+
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 @Addressing(enabled = true)
 public class NhinXDRRequest implements ihe.iti.xdr._2007.XDRDeferredRequestPortType {
+
     private WebServiceContext context;
-    private NhinDocSubmissionDeferredRequestOrchImpl orchImpl;
+    private InboundDocSubmissionDeferredRequest inboundDocSubmissionRequest;
 
     /**
-     * The web service implemenation for Document Submission request.
+     * The web service implementation for Document Submission request.
      * 
-     * @param body
-     *            The message of the request
-     * @return an acknowledgement
+     * @param body The message of the request
+     * @return an acknowledgment
      */
     @Override
-    @InboundMessageEvent(serviceType = "Document Submission Deferred Request", version = "1.1",
-            beforeBuilder = DefaultEventDescriptionBuilder.class,
+    @InboundMessageEvent(serviceType = "Document Submission Deferred Request", version = "1.1", 
+            beforeBuilder = DefaultEventDescriptionBuilder.class, 
             afterReturningBuilder = DefaultEventDescriptionBuilder.class)
-    public gov.hhs.healthit.nhin.XDRAcknowledgementType provideAndRegisterDocumentSetBDeferredRequest(
-            ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType body) {
-        return new NhinDocSubmissionDeferredRequestImpl(orchImpl).provideAndRegisterDocumentSetBRequest(body, context);
+    public XDRAcknowledgementType provideAndRegisterDocumentSetBDeferredRequest(
+            ProvideAndRegisterDocumentSetRequestType body) {
+        return new NhinDocSubmissionDeferredRequestImpl(inboundDocSubmissionRequest)
+                .provideAndRegisterDocumentSetBRequest(body, context);
     }
 
-    public void setOrchestratorImpl(NhinDocSubmissionDeferredRequestOrchImpl orchImpl) {
-        this.orchImpl = orchImpl;
+    public void setInboundDocSubmissionRequest(InboundDocSubmissionDeferredRequest inboundDocSubmissionRequest) {
+        this.inboundDocSubmissionRequest = inboundDocSubmissionRequest;
     }
 
     @Resource
