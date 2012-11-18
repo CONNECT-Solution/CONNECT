@@ -7,6 +7,9 @@ http://www.springframework.org/schema/beans http://www.springframework.org/schem
 http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
 ">
 
+    <aop:aspectj-autoproxy proxy-target-class="true" />
+    <context:annotation-config />
+
     <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="ignoreResourceNotFound" value="true"/>
         <property name="locations">
@@ -35,8 +38,6 @@ http://www.springframework.org/schema/aop http://www.springframework.org/schema/
        <property name="orchestratorImpl"><ref bean="passthruDocRetrieveOrchImpl"/></property>
     </bean>
     
- 
- 
     <bean id="entityDocRetrieveOrchImpl" class="gov.hhs.fha.nhinc.docretrieve.entity.EntityDocRetrieveOrchImpl" />
     
     <bean id="entityDocRetrieveUnsecured" class="gov.hhs.fha.nhinc.docretrieve._30.entity.EntityDocRetrieve">
@@ -46,13 +47,11 @@ http://www.springframework.org/schema/aop http://www.springframework.org/schema/
     <bean id="entityDocRetrieveSecured" class="gov.hhs.fha.nhinc.docretrieve._30.entity.EntityDocRetrieveSecured">
        <property name="orchestratorImpl"><ref bean="entityDocRetrieveOrchImpl"/></property>
     </bean>
-    
- 
+     
  
     <bean id="SOAPHeaderHandler" class="gov.hhs.fha.nhinc.callback.SOAPHeaderHandler" />
     <bean id="TransactionHandler" class="gov.hhs.fha.nhinc.logging.transaction.TransactionHandler" />
-    
-    <!-- Aspect Service -->
-    <aop:aspectj-autoproxy />    
-    
+        
 </beans>
+
+    

@@ -28,6 +28,21 @@
         <url-pattern>/*</url-pattern>
     </servlet-mapping>
     
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>
+            classpath:CONNECT-interceptor-beans.xml
+            classpath:CONNECT-context.xml
+            classpath:eventlogging.xml
+            classpath:applicationContext.xml
+            classpath:webservices.xml
+        </param-value>
+    </context-param>
+
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+
     <login-config>
         <auth-method>CLIENT-CERT</auth-method>
         <realm-name>certificate</realm-name>
@@ -58,5 +73,10 @@
         <res-auth>Container</res-auth>
         <res-sharing-scope>Shareable</res-sharing-scope>
     </resource-ref>
-    
+    <resource-ref>
+        <res-ref-name>jdbc/eventdb_datasource</res-ref-name>
+        <res-type>javax.sql.DataSource</res-type>
+        <res-auth>Container</res-auth>
+        <res-sharing-scope>Shareable</res-sharing-scope>
+    </resource-ref>
 </web-app>
