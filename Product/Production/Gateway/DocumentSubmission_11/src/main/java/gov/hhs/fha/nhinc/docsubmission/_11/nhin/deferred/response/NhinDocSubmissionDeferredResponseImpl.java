@@ -26,30 +26,24 @@
  */
 package gov.hhs.fha.nhinc.docsubmission._11.nhin.deferred.response;
 
-import java.util.List;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.docsubmission.inbound.deferred.response.InboundDocSubmissionDeferredResponse;
+import gov.hhs.fha.nhinc.messaging.server.BaseService;
+import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 
 import javax.xml.ws.WebServiceContext;
 
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
-import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
-import gov.hhs.fha.nhinc.docsubmission.nhin.deferred.response.NhinDocSubmissionDeferredResponseOrchImpl;
-import gov.hhs.fha.nhinc.nhinclib.NullChecker;
-import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 
-/**
- *
- * @author patlollav
- */
-public class NhinDocSubmissionDeferredResponseImpl {
+public class NhinDocSubmissionDeferredResponseImpl extends BaseService {
 
-    private NhinDocSubmissionDeferredResponseOrchImpl orchImpl;
+    private InboundDocSubmissionDeferredResponse inboundDocSubmissionResponse;
 
-    NhinDocSubmissionDeferredResponseImpl(NhinDocSubmissionDeferredResponseOrchImpl orchImpl) {
-        this.orchImpl = orchImpl;
+    NhinDocSubmissionDeferredResponseImpl(InboundDocSubmissionDeferredResponse inboundDocSubmissionResponse) {
+        this.inboundDocSubmissionResponse = inboundDocSubmissionResponse;
     }
+    
     /**
      *
      * @param body
@@ -58,23 +52,9 @@ public class NhinDocSubmissionDeferredResponseImpl {
      */
     public XDRAcknowledgementType provideAndRegisterDocumentSetBResponse(RegistryResponseType body,
             WebServiceContext context) {
+        AssertionType assertion = getAssertion(context, null);
 
-        AssertionType assertion = SAML2AssertionExtractor.getInstance().extractSamlAssertion(context);
-
-        if (assertion != null) {
-            AsyncMessageIdExtractor msgIdExtractor = new AsyncMessageIdExtractor();
-            assertion.setMessageId(msgIdExtractor.getOrCreateAsyncMessageId(context));
-            List<String> relatesToList = AsyncMessageIdExtractor.getAsyncRelatesTo(context);
-            if (NullChecker.isNotNullish(relatesToList)) {
-                assertion.getRelatesToList().addAll(relatesToList);
-            }
-        }
-        return orchImpl.provideAndRegisterDocumentSetBResponse(body, assertion);
+        return inboundDocSubmissionResponse.provideAndRegisterDocumentSetBResponse(body, assertion);
     }
-
-    public void setOrchestratorImpl(NhinDocSubmissionDeferredResponseOrchImpl orchImpl) {
-        this.orchImpl = orchImpl;
-    }
-
 
 }

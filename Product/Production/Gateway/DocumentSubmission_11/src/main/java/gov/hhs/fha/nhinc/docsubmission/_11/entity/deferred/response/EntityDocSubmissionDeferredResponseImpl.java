@@ -26,76 +26,45 @@
  */
 package gov.hhs.fha.nhinc.docsubmission._11.entity.deferred.response;
 
-import java.util.List;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetResponseRequestType;
+import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType;
+import gov.hhs.fha.nhinc.docsubmission.outbound.deferred.response.OutboundDocSubmissionDeferredResponse;
+import gov.hhs.fha.nhinc.messaging.server.BaseService;
+import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 
 import javax.xml.ws.WebServiceContext;
 
-import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType;
-import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
-import gov.hhs.fha.nhinc.docsubmission.entity.deferred.response.EntityDocSubmissionDeferredResponseOrchImpl;
-import gov.hhs.fha.nhinc.nhinclib.NullChecker;
-import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 
-/**
- *
- * @author Neil Webb
- */
-public class EntityDocSubmissionDeferredResponseImpl {
+public class EntityDocSubmissionDeferredResponseImpl extends BaseService {
 
-    private EntityDocSubmissionDeferredResponseOrchImpl orchImpl;
+    private OutboundDocSubmissionDeferredResponse outboundDocSubmissionResponse;
 
-    EntityDocSubmissionDeferredResponseImpl(EntityDocSubmissionDeferredResponseOrchImpl orchImpl) {
-        this.orchImpl = orchImpl;
+    EntityDocSubmissionDeferredResponseImpl(OutboundDocSubmissionDeferredResponse outboundDocSubmissionResponse) {
+        this.outboundDocSubmissionResponse = outboundDocSubmissionResponse;
     }
 
     public XDRAcknowledgementType provideAndRegisterDocumentSetBResponse(
             RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType provideAndRegisterDocumentSetSecuredResponseRequest,
             WebServiceContext context) {
-        AssertionType assertion = extractAssertionFromContext(context, null);
+        AssertionType assertion = getAssertion(context, null);
 
-        XDRAcknowledgementType response = orchImpl.provideAndRegisterDocumentSetBAsyncResponse(
-                        provideAndRegisterDocumentSetSecuredResponseRequest.getRegistryResponse(), assertion,
-                        provideAndRegisterDocumentSetSecuredResponseRequest.getNhinTargetCommunities());
+        XDRAcknowledgementType response = outboundDocSubmissionResponse.provideAndRegisterDocumentSetBAsyncResponse(
+                provideAndRegisterDocumentSetSecuredResponseRequest.getRegistryResponse(), assertion,
+                provideAndRegisterDocumentSetSecuredResponseRequest.getNhinTargetCommunities());
 
         return response;
     }
 
-    public gov.hhs.healthit.nhin.XDRAcknowledgementType provideAndRegisterDocumentSetBAsyncResponse(
-            gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetResponseRequestType provideAndRegisterDocumentSetAsyncRespRequest,
+    public XDRAcknowledgementType provideAndRegisterDocumentSetBAsyncResponse(
+            RespondingGatewayProvideAndRegisterDocumentSetResponseRequestType provideAndRegisterDocumentSetAsyncRespRequest,
             WebServiceContext context) {
-        AssertionType assertion = extractAssertionFromContext(context,
-                provideAndRegisterDocumentSetAsyncRespRequest.getAssertion());
+        AssertionType assertion = getAssertion(context, provideAndRegisterDocumentSetAsyncRespRequest.getAssertion());
 
-        XDRAcknowledgementType response = orchImpl.provideAndRegisterDocumentSetBAsyncResponse(
-                        provideAndRegisterDocumentSetAsyncRespRequest.getRegistryResponse(), assertion,
-                        provideAndRegisterDocumentSetAsyncRespRequest.getNhinTargetCommunities());
+        XDRAcknowledgementType response = outboundDocSubmissionResponse.provideAndRegisterDocumentSetBAsyncResponse(
+                provideAndRegisterDocumentSetAsyncRespRequest.getRegistryResponse(), assertion,
+                provideAndRegisterDocumentSetAsyncRespRequest.getNhinTargetCommunities());
 
         return response;
     }
-
-    protected AssertionType extractAssertionFromContext(WebServiceContext context, AssertionType oAssertionIn) {
-        AssertionType assertion = null;
-        if (oAssertionIn == null) {
-            assertion = SAML2AssertionExtractor.getInstance().extractSamlAssertion(context);
-        } else {
-            assertion = oAssertionIn;
-        }
-
-        if (assertion != null) {
-            assertion.setMessageId(AsyncMessageIdExtractor.getOrCreateAsyncMessageId(context));
-            List<String> relatesToList = AsyncMessageIdExtractor.getAsyncRelatesTo(context);
-            if (NullChecker.isNotNullish(relatesToList)) {
-                assertion.getRelatesToList().addAll(relatesToList);
-            }
-        }
-
-        return assertion;
-    }
-
-    public void setOrchestratorImpl(EntityDocSubmissionDeferredResponseOrchImpl orchImpl) {
-        this.orchImpl = orchImpl;
-    }
-
 }
