@@ -1,4 +1,6 @@
-/*
+/**
+ * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
+ *
  * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
@@ -24,47 +26,35 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.docretrieve._20.entity;
+package gov.hhs.fha.nhinc.docretrieve._20.passthru;
 
-import gov.hhs.fha.nhinc.docretrieve.entity.EntityDocRetrieveOrchImpl;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
+import java.lang.reflect.Method;
+
 import gov.hhs.fha.nhinc.aspect.OutboundMessageEvent;
-import gov.hhs.fha.nhinc.docretrieve.aspect.RetrieveDocumentSetRequestTypeDescriptionBuilder;
+import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayCrossGatewayRetrieveSecuredRequestType;
+import gov.hhs.fha.nhinc.docretrieve.aspect.NhincProxyRetrieveSecuredRequestTypeDescriptionBuilder;
 import gov.hhs.fha.nhinc.docretrieve.aspect.RetrieveDocumentSetResponseTypeDescriptionBuilder;
-import gov.hhs.fha.nhinc.entitydocretrievesecured.EntityDocRetrieveSecuredPortType;
 
-import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
-import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
-import javax.annotation.Resource;
-import javax.xml.ws.BindingType;
-import javax.xml.ws.WebServiceContext;
-import javax.xml.ws.soap.Addressing;
+import org.junit.Test;
 
 /**
- * 
- * @author Sai Valluripalli
+ * @author achidamb
+ *
  */
-
-@BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
-@Addressing(enabled = true)
-public class EntityDocRetrieveSecured implements EntityDocRetrieveSecuredPortType {
-
-    private EntityDocRetrieveOrchImpl orchImpl;
-    
-    @Resource
-    private WebServiceContext context;
-
-    @OutboundMessageEvent(beforeBuilder = RetrieveDocumentSetRequestTypeDescriptionBuilder.class,
-            afterReturningBuilder = RetrieveDocumentSetResponseTypeDescriptionBuilder.class, 
-            serviceType = "Retrieve Document",version = "2.0")
-    public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(RetrieveDocumentSetRequestType body) {
-        return getImpl().respondingGatewayCrossGatewayRetrieve(body, context);
-    }
-
-    protected EntityDocRetrieveImpl getImpl() {
-        return new EntityDocRetrieveImpl(orchImpl);
-    }
-    
-    public void setOrchestratorImpl(EntityDocRetrieveOrchImpl orchImpl) {
-        this.orchImpl = orchImpl;
+public class NhincProxyDocRetrieveSecuredTest {
+    @Test
+    public void hasOutboundMessageEvent() throws Exception {
+        Class<NhincProxyDocRetrieveSecured> clazz = NhincProxyDocRetrieveSecured.class;
+        Method method = clazz.getMethod("respondingGatewayCrossGatewayRetrieve",
+                RespondingGatewayCrossGatewayRetrieveSecuredRequestType.class);
+        OutboundMessageEvent annotation = method.getAnnotation(OutboundMessageEvent.class);
+        assertNotNull(annotation);
+        assertEquals(NhincProxyRetrieveSecuredRequestTypeDescriptionBuilder.class, annotation.beforeBuilder());
+        assertEquals(RetrieveDocumentSetResponseTypeDescriptionBuilder.class, annotation.afterReturningBuilder());
+        assertEquals("Retrieve Document", annotation.serviceType());
+        assertEquals("2.0", annotation.version());
     }
 }

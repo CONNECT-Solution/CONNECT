@@ -26,18 +26,26 @@
  */
 package gov.hhs.fha.nhinc.docretrieve.inbound;
 
+
 import gov.hhs.fha.nhinc.messaging.server.BaseService;
+
+
+import gov.hhs.fha.nhinc.aspect.InboundMessageEvent;
+import gov.hhs.fha.nhinc.docretrieve.aspect.RetrieveDocumentSetRequestTypeDescriptionBuilder;
+import gov.hhs.fha.nhinc.docretrieve.aspect.RetrieveDocumentSetResponseTypeDescriptionBuilder;
+
 
 import javax.annotation.Resource;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
+import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
+import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 
 /**
  * 
  * @author Neil Webb
  */
-
 @BindingType(value = "http://www.w3.org/2003/05/soap/bindings/HTTP/")
 @Addressing(enabled = true)
 public class DocRetrieve extends BaseService implements ihe.iti.xds_b._2007.RespondingGatewayRetrievePortType {
@@ -50,8 +58,10 @@ public class DocRetrieve extends BaseService implements ihe.iti.xds_b._2007.Resp
      * @param body the message of the request
      * @return the document set of the retrieve
      */
-    public ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(
-            ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType body) {
+    @InboundMessageEvent(beforeBuilder = RetrieveDocumentSetRequestTypeDescriptionBuilder.class,
+            afterReturningBuilder = RetrieveDocumentSetResponseTypeDescriptionBuilder.class, 
+            serviceType = "Retrieve Document",version = "3.0")
+    public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(RetrieveDocumentSetRequestType body) {
         return service.respondingGatewayCrossGatewayRetrieve(body, getAssertion(context, null));
     }
 
@@ -69,7 +79,4 @@ public class DocRetrieve extends BaseService implements ihe.iti.xds_b._2007.Resp
     public void setService(DocRetrieveService service) {
         this.service = service;
     }
-    
-    
-
 }
