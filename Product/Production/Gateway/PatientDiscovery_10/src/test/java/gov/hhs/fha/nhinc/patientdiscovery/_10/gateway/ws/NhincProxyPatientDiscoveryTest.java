@@ -31,7 +31,6 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
-import static org.mockito.Matchers.isA;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -40,9 +39,6 @@ import java.lang.reflect.Method;
 
 import gov.hhs.fha.nhinc.aspect.OutboundMessageEvent;
 import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
-import gov.hhs.fha.nhinc.event.EventRecorder;
-import gov.hhs.fha.nhinc.event.initiator.BeginOutboundMessageEvent;
-import gov.hhs.fha.nhinc.event.initiator.EndOutboundMessageEvent;
 import gov.hhs.fha.nhinc.patientdiscovery._10.passthru.NhincProxyPatientDiscoveryImpl;
 
 import javax.xml.ws.WebServiceContext;
@@ -53,13 +49,10 @@ import org.apache.cxf.message.MessageImpl;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
 import org.hl7.v3.ProxyPRPAIN201305UVProxyRequestType;
-import org.hl7.v3.ProxyPRPAIN201305UVProxySecuredRequestType;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InOrder;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -121,6 +114,18 @@ public class NhincProxyPatientDiscoveryTest {
      */
     public static PatientDiscoveryServiceFactory getPatientDiscoveryServiceFactory() {
         return mockFactory;
+    }
+    
+    @Test
+    public void hasOutboundMessageEvent() throws Exception {
+        Class<NhincProxyPatientDiscovery> clazz = NhincProxyPatientDiscovery.class;
+        Method method = clazz.getMethod("proxyPRPAIN201305UV", ProxyPRPAIN201305UVProxyRequestType.class);
+        OutboundMessageEvent annotation = method.getAnnotation(OutboundMessageEvent.class);
+        assertNotNull(annotation);
+        assertEquals(DefaultEventDescriptionBuilder.class, annotation.beforeBuilder());
+        assertEquals(DefaultEventDescriptionBuilder.class, annotation.afterReturningBuilder());
+        assertEquals("Patient Discovery", annotation.serviceType());
+        assertEquals("1.0", annotation.version());
     }
     
 

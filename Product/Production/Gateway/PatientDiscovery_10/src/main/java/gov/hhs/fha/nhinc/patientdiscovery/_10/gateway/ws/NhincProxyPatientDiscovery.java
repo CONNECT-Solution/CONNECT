@@ -30,6 +30,9 @@ import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.patientdiscovery._10.passthru.NhincProxyPatientDiscoveryImpl;
 import gov.hhs.fha.nhinc.aspect.OutboundMessageEvent;
 
+import org.hl7.v3.ProxyPRPAIN201305UVProxyRequestType;
+import org.hl7.v3.PRPAIN201306UV02;
+
 import javax.annotation.Resource;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
@@ -59,8 +62,8 @@ public class NhincProxyPatientDiscovery extends PatientDiscoveryBase implements
     @OutboundMessageEvent(beforeBuilder = DefaultEventDescriptionBuilder.class,
             afterReturningBuilder = DefaultEventDescriptionBuilder.class, serviceType = "Patient Discovery",
             version = "1.0")
-    public org.hl7.v3.PRPAIN201306UV02 proxyPRPAIN201305UV(
-            org.hl7.v3.ProxyPRPAIN201305UVProxyRequestType proxyPRPAIN201305UVProxyRequest) {
+    public PRPAIN201306UV02 proxyPRPAIN201305UV(ProxyPRPAIN201305UVProxyRequestType 
+            proxyPRPAIN201305UVProxyRequest) {
 
         return orchImpl.proxyPRPAIN201305UV(proxyPRPAIN201305UVProxyRequest, getWebServiceContext());
     }

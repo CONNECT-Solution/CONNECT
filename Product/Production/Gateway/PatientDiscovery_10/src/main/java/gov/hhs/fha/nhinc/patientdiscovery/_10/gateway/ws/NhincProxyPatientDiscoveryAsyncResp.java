@@ -26,7 +26,12 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws;
 
+import gov.hhs.fha.nhinc.aspect.OutboundMessageEvent;
+import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.patientdiscovery._10.passthru.deferred.response.NhincProxyPatientDiscoveryAsyncRespImpl;
+
+import org.hl7.v3.MCCIIN000002UV01;
+import org.hl7.v3.ProxyPRPAIN201306UVProxyRequestType;
 
 import javax.annotation.Resource;
 import javax.xml.ws.BindingType;
@@ -55,8 +60,11 @@ public class NhincProxyPatientDiscoveryAsyncResp extends PatientDiscoveryBase im
         super(serviceFactory);
     }
 
-    public org.hl7.v3.MCCIIN000002UV01 proxyProcessPatientDiscoveryAsyncResp(
-            org.hl7.v3.ProxyPRPAIN201306UVProxyRequestType proxyProcessPatientDiscoveryAsyncRespRequest) {
+    @OutboundMessageEvent(beforeBuilder = DefaultEventDescriptionBuilder.class,
+            afterReturningBuilder = DefaultEventDescriptionBuilder.class, serviceType = "Patient Discovery",
+            version = "1.0")
+    public MCCIIN000002UV01 proxyProcessPatientDiscoveryAsyncResp(
+            ProxyPRPAIN201306UVProxyRequestType proxyProcessPatientDiscoveryAsyncRespRequest) {
         return orchImpl.proxyProcessPatientDiscoveryAsyncResp(proxyProcessPatientDiscoveryAsyncRespRequest,
                 getWebServiceContext());
     }

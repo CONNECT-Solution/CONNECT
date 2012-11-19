@@ -26,6 +26,8 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws;
 
+import gov.hhs.fha.nhinc.aspect.OutboundMessageEvent;
+import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.patientdiscovery._10.entity.deferred.response.EntityPatientDiscoveryDeferredResponseImpl;
 
 import javax.annotation.Resource;
@@ -57,6 +59,9 @@ public class EntityPatientDiscoveryDeferredResponseUnsecured extends PatientDisc
         super(serviceFactory);
     }
 
+    @OutboundMessageEvent(beforeBuilder = DefaultEventDescriptionBuilder.class,
+            afterReturningBuilder = DefaultEventDescriptionBuilder.class, serviceType = "Patient Discovery",
+            version = "1.0")
     public org.hl7.v3.MCCIIN000002UV01 processPatientDiscoveryAsyncResp(
             RespondingGatewayPRPAIN201306UV02RequestType processPatientDiscoveryAsyncRespAsyncRequest) {
         return orchImpl.processPatientDiscoveryAsyncResp(processPatientDiscoveryAsyncRespAsyncRequest,
