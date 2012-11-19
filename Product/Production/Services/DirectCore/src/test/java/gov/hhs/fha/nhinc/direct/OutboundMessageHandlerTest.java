@@ -46,8 +46,9 @@ public class OutboundMessageHandlerTest {
     @Test
     public void canHandleOutboundMsg() {
         DirectMailClient mockExternalDirectMailClient = mock(DirectMailClient.class);
-        MessageHandler testOutBoundMessageHandler = new OutboundMessageHandler(mockExternalDirectMailClient);
-
+        OutboundMessageHandler testOutBoundMessageHandler = new OutboundMessageHandler();
+        testOutBoundMessageHandler.setExternalDirectClient(mockExternalDirectMailClient);
+        
         MimeMessage mimeMessage = getSampleMimeMessage();
         testOutBoundMessageHandler.handleMessage(mimeMessage, mock(DirectMailClient.class));
 

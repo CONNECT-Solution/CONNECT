@@ -34,16 +34,11 @@ import javax.mail.internet.MimeMessage;
  */
 public class OutboundMessageHandler implements MessageHandler {
 
-    private final DirectClient externalDirectClient;
-    
     /**
-     * Constructor.
-     * @param extDirectMailClient external direct mail client for sending messages after they have been "directified".
+     * Property for the external direct client used to send the outbound message.
      */
-    public OutboundMessageHandler(DirectClient externalDirectClient) {
-        this.externalDirectClient = externalDirectClient;
-    }
-
+    private DirectClient externalDirectClient;
+    
     /**
      * {@inheritDoc}
      */
@@ -51,5 +46,11 @@ public class OutboundMessageHandler implements MessageHandler {
     public void handleMessage(MimeMessage message, DirectClient internaldirectClient) {
         externalDirectClient.send(message);
     }
-    
+
+    /**
+     * @param externalDirectClient the externalDirectClient to set
+     */
+    public void setExternalDirectClient(DirectClient externalDirectClient) {
+        this.externalDirectClient = externalDirectClient;
+    }    
 }

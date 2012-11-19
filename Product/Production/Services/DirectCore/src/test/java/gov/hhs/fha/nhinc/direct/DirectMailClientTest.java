@@ -121,7 +121,8 @@ public class DirectMailClientTest {
                         .getServerSetup().getPort());
         mockMessageHandler = mock(MessageHandler.class);
 
-        testDirectMailClient = new DirectMailClient(intMailServerProps, mockSmtpAgent, mockMessageHandler);        
+        testDirectMailClient = new DirectMailClient(intMailServerProps, mockSmtpAgent);
+        testDirectMailClient.setMessageHandler(mockMessageHandler);
     }
 
     /**
@@ -259,7 +260,8 @@ public class DirectMailClientTest {
         // handle the messages on the internal server
         SmtpAgent smtpAgent = SmtpAgentFactory.createAgent(getClass().getClassLoader().getResource(
                 "smtp.agent.config.xml"));
-        DirectClient internalDirectClient = new DirectMailClient(intMailServerProps, smtpAgent, mockMessageHandler);
+        DirectMailClient internalDirectClient = new DirectMailClient(intMailServerProps, smtpAgent);
+        internalDirectClient.setMessageHandler(mockMessageHandler);
         
         // we can use the same greenmail as external direct client
         internalDirectClient.handleMessages();

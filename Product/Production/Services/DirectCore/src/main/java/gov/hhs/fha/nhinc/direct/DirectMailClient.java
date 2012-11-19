@@ -48,11 +48,12 @@ import org.nhindirect.gateway.smtp.MessageProcessResult;
 import org.nhindirect.gateway.smtp.SmtpAgent;
 import org.nhindirect.stagent.mail.notifications.NotificationMessage;
 import org.nhindirect.xd.common.DirectDocuments;
+import org.springframework.beans.factory.InitializingBean;
 
 /**
  * Mail Server implementation which used the direct libraries to send encrypted mail.
  */
-public class DirectMailClient implements DirectClient {
+public class DirectMailClient implements DirectClient, InitializingBean {
 
     private static final Log LOG = LogFactory.getLog(DirectMailClient.class);
 
@@ -64,9 +65,11 @@ public class DirectMailClient implements DirectClient {
 
     private final Properties mailServerProps;
     private final SmtpAgent smtpAgent;
-    private final MessageHandler messageHandler;
+
+    private MessageHandler messageHandler;
     
-    private volatile int numberOfMsgsHandled = 0;
+    private int numberOfMsgsHandled = 0;
+    private int handlerInvocations = 0;
 
     /**
      * Construct a direct mail server with mail server settings.
@@ -75,10 +78,9 @@ public class DirectMailClient implements DirectClient {
      * @param smtpAgent direct smtp agent config file path relative to classpath used to configure SmtpAgent
      * @param message handler for handling messages from the server.
      */
-    public DirectMailClient(final Properties mailServerProps, final SmtpAgent smtpAgent, MessageHandler messageHandler) {
+    public DirectMailClient(final Properties mailServerProps, final SmtpAgent smtpAgent) {
         this.mailServerProps = mailServerProps;
         this.smtpAgent = smtpAgent;        
-        this.messageHandler = messageHandler;
     }
 
     /**
@@ -127,18 +129,15 @@ public class DirectMailClient implements DirectClient {
             LOG.trace("Calling agent.processMessage");
             Session session = getMailSession();
 
-           if (result.getProcessedMessage() != null)
-           {
+           if (result.getProcessedMessage() != null) {
                transport = session.getTransport("smtps");
                transport.connect();
                Address[] addressTo = { recipient };
                Collection<NotificationMessage> notifications = result.getNotificationMessages();
 
                LOG.info("# of notifications message: " + notifications.size());
-               if (notifications != null && notifications.size() > 0)
-               {
-                   for (NotificationMessage mdnMsg : notifications)
-                   {
+               if (notifications != null && notifications.size() > 0) {
+                   for (NotificationMessage mdnMsg : notifications) {
                        transport.sendMessage(mdnMsg, addressTo);
                        LOG.info("MDN notification sent.");
                    }
@@ -146,9 +145,8 @@ public class DirectMailClient implements DirectClient {
            }
            transport.close();
        }
-       catch (Exception e)
-       {
-           LOG.error("Failed to process message: " + e.getMessage(), e);
+       catch (Exception e) {
+           throw new DirectException("Failed to process and send MDN message: " + e.getMessage(), e);
        }
 
     }
@@ -159,10 +157,11 @@ public class DirectMailClient implements DirectClient {
     @Override
     public void handleMessages() {
 
+        handlerInvocations++;
+        
         Session session = getMailSession();
         session.setDebug(true);
         session.setDebugOut(System.out);
-        
         
         Store store = null;
         try {
@@ -286,5 +285,28 @@ public class DirectMailClient implements DirectClient {
 
         return numberOfMsgsInFolder < maxNumberOfMsgsToHandle ? numberOfMsgsInFolder : maxNumberOfMsgsToHandle;
     }
+    
+    /**
+     * @param messageHandler the messageHandler to set
+     */
+    public void setMessageHandler(MessageHandler messageHandler) {
+        this.messageHandler = messageHandler;
+    }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        if (this.messageHandler == null) {
+            throw new DirectException("DirectMailClient instantiated without setting a message handler property.");
+        }
+    }
+
+    /**
+     * @return the handlerInvocations
+     */
+    public int getHandlerInvocations() {
+        return handlerInvocations;
+    }
 }

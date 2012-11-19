@@ -78,7 +78,8 @@ public class DirectClientGmailTest {
     @Ignore
     public void testImapsFetchWithGmail() throws Exception {        
         MessageHandler mockHandler = mock(MessageHandler.class);
-        DirectClient directClient = new DirectMailClient(props, getSmtpAgent(), mockHandler);
+        DirectMailClient directClient = new DirectMailClient(props, getSmtpAgent());
+        directClient.setMessageHandler(mockHandler);
         initiateEmail();
         directClient.handleMessages();
     }
