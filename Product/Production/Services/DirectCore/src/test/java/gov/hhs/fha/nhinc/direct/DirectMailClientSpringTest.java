@@ -122,9 +122,6 @@ public class DirectMailClientSpringTest {
         int internalInvocations = intDirectMailClient.getHandlerInvocations();
         int externalInvocations = extDirectMailClient.getHandlerInvocations();
         
-        System.out.println(internalInvocations);
-        System.out.println(externalInvocations);
-        
         assert(internalInvocations >= 2);
         assert(externalInvocations >= 2);
     }
