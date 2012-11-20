@@ -27,16 +27,21 @@
 package gov.hhs.fha.nhinc.patientdiscovery.aspect;
 
 import gov.hhs.fha.nhinc.event.AssertionEventDescriptionBuilder;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.util.Base64Coder;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.hl7.v3.BinaryDataEncoding;
+import org.hl7.v3.COCTMT090003UV01AssignedEntity;
 import org.hl7.v3.EDExplicit;
+import org.hl7.v3.II;
 import org.hl7.v3.MCCIMT000300UV01Acknowledgement;
 import org.hl7.v3.MCCIMT000300UV01AcknowledgementDetail;
 import org.hl7.v3.PRPAIN201306UV02;
+import org.hl7.v3.PRPAIN201306UV02MFMIMT700711UV01ControlActProcess;
+import org.hl7.v3.PRPAIN201306UV02MFMIMT700711UV01Subject1;
 
 import com.google.common.base.Function;
 import com.google.common.base.Optional;
@@ -46,7 +51,7 @@ public class PRPAIN201306UV02EventDescriptionBuilder extends AssertionEventDescr
 
     private static final StatusExtractor STATUS_EXTRACTOR = new StatusExtractor();
 
-    private PRPAIN201306UV02 body;
+    private Optional<PRPAIN201306UV02> body = Optional.absent();
 
     public PRPAIN201306UV02EventDescriptionBuilder() {
     }
@@ -65,13 +70,50 @@ public class PRPAIN201306UV02EventDescriptionBuilder extends AssertionEventDescr
 
     @Override
     public void buildRespondingHCIDs() {
+        if (!body.isPresent()) {
+            return;
+        }
+        List<String> hcids = new ArrayList<String>();
+        PRPAIN201306UV02MFMIMT700711UV01ControlActProcess controlActProcess = body.get().getControlActProcess();
+        if (controlActProcess != null) {
+            for (PRPAIN201306UV02MFMIMT700711UV01Subject1 subject : controlActProcess.getSubject()) {
+                hcids.addAll(getSubjectHCIDs(subject));
+            }
+        }
+        setRespondingHCIDs(hcids);
+    }
+
+    private List<String> getSubjectHCIDs(PRPAIN201306UV02MFMIMT700711UV01Subject1 subject) {
+        List<String> result = new ArrayList<String>();
+        if (hasAssignedEntity(subject)) {
+            result.addAll(getIis(subject.getRegistrationEvent().getCustodian().getAssignedEntity()));
+        }
+        return result;
+    }
+
+    private boolean hasAssignedEntity(PRPAIN201306UV02MFMIMT700711UV01Subject1 subject) {
+        return subject != null && subject.getRegistrationEvent() != null
+                && subject.getRegistrationEvent().getCustodian() != null
+                && subject.getRegistrationEvent().getCustodian().getAssignedEntity() != null;
+    }
+
+    private List<String> getIis(COCTMT090003UV01AssignedEntity assignedEntity) {
+        List<String> result = new ArrayList<String>();
+        for (II ii : assignedEntity.getId()) {
+            String fromResponse = ii.getRoot();
+            result.add(NhincConstants.HCID_PREFIX + fromResponse);
+        }
+        return result;
     }
 
     @Override
     public void buildStatuses() {
+        if (!body.isPresent()) {
+            return;
+        }
         List<String> statuses = new ArrayList<String>();
 
-        for (MCCIMT000300UV01Acknowledgement acknowledgement : body.getAcknowledgement()) {
+        for (MCCIMT000300UV01Acknowledgement acknowledgement : body.get().getAcknowledgement()) {
             List<Optional<String>> tmp = Lists.transform(acknowledgement.getAcknowledgementDetail(), STATUS_EXTRACTOR);
             statuses.addAll(Lists.newArrayList(Optional.presentInstances(tmp)));
         }
@@ -85,19 +127,15 @@ public class PRPAIN201306UV02EventDescriptionBuilder extends AssertionEventDescr
     @Override
     public void setArguments(Object... arguments) {
         extractAssertion(arguments);
-        extractBody(arguments);
-    }
-
-    private void extractBody(Object[] arguments) {
-        for (int i = 0; i < arguments.length; ++i) {
-            if (arguments[i] instanceof PRPAIN201306UV02) {
-                body = (PRPAIN201306UV02) arguments[i];
-            }
-        }
     }
 
     @Override
     public void setReturnValue(Object returnValue) {
+        if (returnValue == null || !(returnValue instanceof PRPAIN201306UV02)) {
+            body = Optional.absent();
+        } else {
+            body = Optional.of((PRPAIN201306UV02) returnValue);
+        }
     }
 
     private static class StatusExtractor implements Function<MCCIMT000300UV01AcknowledgementDetail, Optional<String>> {
