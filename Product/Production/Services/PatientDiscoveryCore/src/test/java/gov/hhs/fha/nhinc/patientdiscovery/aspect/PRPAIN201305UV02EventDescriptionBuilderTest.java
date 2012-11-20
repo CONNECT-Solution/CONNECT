@@ -28,44 +28,34 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery.aspect;
 
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.mock;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.event.AssertionEventDescriptionBuilder;
+import gov.hhs.fha.nhinc.event.BaseDescriptionBuilderTest;
+import gov.hhs.fha.nhinc.event.EventDescription;
 
-/**
- * Populates the description from a PRPAIN201305UV02 object. Currently, no information is extracted from this object.
- * Only the Assertion is used.
- */
-public class PRPAIN201305UV02EventDescriptionBuilder extends AssertionEventDescriptionBuilder {
+import org.junit.Test;
 
-    @Override
-    public void buildRespondingHCIDs() {
+public class PRPAIN201305UV02EventDescriptionBuilderTest extends BaseDescriptionBuilderTest {
+
+    @Test
+    public void handlesAssertions() {
+        assertTrue(AssertionEventDescriptionBuilder.class
+                .isAssignableFrom(PRPAIN201305UV02EventDescriptionBuilder.class));
+        PRPAIN201305UV02EventDescriptionBuilder builder = new PRPAIN201305UV02EventDescriptionBuilder();
+
+        AssertionType assertion = mock(AssertionType.class);
+
+        builder.setArguments(new Object[] { assertion });
+        assertTrue(builder.getAssertion().isPresent());
     }
 
-    @Override
-    public void buildTimeStamp() {
-    }
-
-    @Override
-    public void buildStatuses() {
-    }
-
-    @Override
-    public void buildPayloadTypes() {
-    }
-
-    @Override
-    public void buildPayloadSizes() {
-    }
-
-    @Override
-    public void buildErrorCodes() {
-    }
-
-    @Override
-    public void setArguments(Object... arguments) {
-        extractAssertion(arguments);
-    }
-
-    @Override
-    public void setReturnValue(Object returnValue) {
+    @Test
+    public void noRequestObject() {
+        PRPAIN201305UV02EventDescriptionBuilder builder = new PRPAIN201305UV02EventDescriptionBuilder();
+        EventDescription eventDescription = getEventDescription(builder);
+        assertNotNull(eventDescription);
     }
 }
