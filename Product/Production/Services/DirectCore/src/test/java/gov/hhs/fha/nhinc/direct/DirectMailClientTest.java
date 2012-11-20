@@ -241,7 +241,6 @@ public class DirectMailClientTest {
      * @throws MessagingException when the test fails with a MessagingException.
      */
     @Test
-    @Ignore
     public void canSendEndToEnd() throws UserException, MessagingException {        
 
         final MimeMessage originalMsg = new MimeMessage(null,
@@ -267,7 +266,8 @@ public class DirectMailClientTest {
         
         /*
          * Responding Gateway...
-         */      
+         */
+        
     }
     
     
