@@ -79,7 +79,7 @@ public interface DirectClient {
     /**
      * Pull messages from a server and use an injected MessageHandler to handle them.
      */
-    void handleMessages();
+    int handleMessages();
     
     /**
      * Make the smtp agent on this direct client available to the caller.

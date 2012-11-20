@@ -68,7 +68,6 @@ public class DirectMailClient implements DirectClient, InitializingBean {
 
     private MessageHandler messageHandler;
     
-    private int numberOfMsgsHandled = 0;
     private int handlerInvocations = 0;
 
     /**
@@ -155,9 +154,11 @@ public class DirectMailClient implements DirectClient, InitializingBean {
      * {@inheritDoc}
      */
     @Override
-    public void handleMessages() {
+    public int handleMessages() {
 
+        int numberOfMsgsHandled = 0;
         handlerInvocations++;
+        LOG.trace("handleMessages() invoked, invocation count = " + handlerInvocations);
         
         Session session = getMailSession();
         session.setDebug(true);
@@ -210,6 +211,7 @@ public class DirectMailClient implements DirectClient, InitializingBean {
         LOG.info("Handled " + numberOfMsgsHandled + " messages.");
 
         MailUtils.closeQuietly(store, inbox, MailUtils.FOLDER_EXPUNGE_INBOX_TRUE);
+        return numberOfMsgsHandled;
     }
     
     /**
@@ -217,20 +219,6 @@ public class DirectMailClient implements DirectClient, InitializingBean {
      */
     public SmtpAgent getSmtpAgent() {
         return smtpAgent;
-    }
-
-    /**
-     * @return the numberOfMsgsHandled
-     */
-    public int getNumberOfMsgsHandled() {
-        return numberOfMsgsHandled;
-    }
-
-    /**
-     * @param numberOfMsgsHandled the numberOfMsgsHandled to set
-     */
-    public void setNumberOfMsgsHandled(int numberOfMsgsHandled) {
-        this.numberOfMsgsHandled = numberOfMsgsHandled;
     }
 
     private Session getMailSession() {

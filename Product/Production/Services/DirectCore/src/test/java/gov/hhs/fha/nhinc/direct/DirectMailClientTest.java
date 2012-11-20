@@ -205,8 +205,7 @@ public class DirectMailClientTest {
         int batchCount = 0;
         while (numberOfMsgsHandled < NUM_MSGS_MULTI_BATCH) {
             batchCount++;
-            testDirectMailClient.handleMessages();
-            numberOfMsgsHandled = testDirectMailClient.getNumberOfMsgsHandled();
+            numberOfMsgsHandled += testDirectMailClient.handleMessages();
             verify(mockMessageHandler, times(numberOfMsgsHandled)).handleMessage(any(Message.class), 
                     eq(testDirectMailClient));
 
