@@ -78,6 +78,7 @@ public interface DirectClient {
 
     /**
      * Pull messages from a server and use an injected MessageHandler to handle them.
+     * @return number of messages handled.
      */
     int handleMessages();
     
