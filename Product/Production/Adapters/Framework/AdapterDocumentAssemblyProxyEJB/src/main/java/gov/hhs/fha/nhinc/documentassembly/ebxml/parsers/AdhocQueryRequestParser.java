@@ -34,18 +34,17 @@ import gov.hhs.fha.nhinc.documentassembly.ebxml.EBXMLConstants;
 
 import gov.hhs.fha.nhinc.util.format.PatientIdFormatUtil;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 import java.util.ArrayList;
 
 import java.util.Date;
-
-import java.util.HashMap;
-
 import java.util.LinkedList;
 
 import java.util.List;
 
+import java.util.Locale;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1;
@@ -64,18 +63,17 @@ import org.apache.commons.logging.LogFactory;
  */
 public class AdhocQueryRequestParser extends EBXMLConstants {
 
-    private static Log log = LogFactory.getLog(AdhocQueryRequestParser.class);
+    private static final Log LOG = LogFactory.getLog(AdhocQueryRequestParser.class);
     private static final String DATE_FORMAT_FULL = "yyyyMMddhhmmssZ";
-    public LinkedList<String> requiredQueryParametersList;
-    public LinkedList<String> queryParametersList;
-    private AdhocQueryRequest adhocQueryReq = null;
-    private HashMap<String, ValueListType> querySlotHashMap = null;
-
+    public List<String> requiredQueryParametersList;
+    public List<String> queryParametersList;
+    private final AdhocQueryRequest adhocQueryReq;
+    
     /**
      * 
      * Constructor
      * 
-     * @param adhocQuery
+     * @param adhocQueryReq
      */
     public AdhocQueryRequestParser(AdhocQueryRequest adhocQueryReq) {
 
@@ -217,7 +215,7 @@ public class AdhocQueryRequestParser extends EBXMLConstants {
 
         // returns the first class code in the list
 
-        return (classCodes == null || classCodes.size() == 0) ? null : classCodes.get(0);
+        return (classCodes == null || classCodes.isEmpty()) ? null : classCodes.get(0);
 
     }
 
@@ -279,7 +277,7 @@ public class AdhocQueryRequestParser extends EBXMLConstants {
 
         if (adhocQueryReq.getResponseOption().getReturnType().compareTo("LeafClass") != 0) {
 
-            log.warn("query:ResponseOption returnType=" + adhocQueryReq.getResponseOption().getReturnType() +
+            LOG.warn("query:ResponseOption returnType=" + adhocQueryReq.getResponseOption().getReturnType() +
                 " changed to LeafClass");
 
             adhocQueryReq.getResponseOption().setReturnType("LeafClass");
@@ -288,7 +286,7 @@ public class AdhocQueryRequestParser extends EBXMLConstants {
 
         if (!adhocQueryReq.getResponseOption().isReturnComposedObjects()) {
 
-            log.warn("query:ResponseOption returnComposedObjects = false, changing to true");
+            LOG.warn("query:ResponseOption returnComposedObjects = false, changing to true");
 
             adhocQueryReq.getResponseOption().setReturnComposedObjects(true);
 
@@ -315,13 +313,9 @@ public class AdhocQueryRequestParser extends EBXMLConstants {
 
         for (SlotType1 slot : slots) {
 
-            if ((slot.getName() != null) &&
-                (slot.getName().length() > 0) &&
-                (slot.getValueList() != null) &&
-                (slot.getValueList().getValue() != null) &&
-                (slot.getValueList().getValue().size() > 0)) {
-
-                if (slot.getName().equals(slotName)) {
+            if ((slot.getName() != null) && (slot.getName().length() > 0) && (slot.getValueList() != null)
+                && (slot.getValueList().getValue() != null) && (slot.getValueList().getValue().size() > 0)
+                && (slot.getName().equals(slotName))) {
 
                     ValueListType valueListType = slot.getValueList();
 
@@ -334,9 +328,6 @@ public class AdhocQueryRequestParser extends EBXMLConstants {
                         returnValues.add(slotValue);
 
                     }
-
-                }
-
             }
 
         }
@@ -353,7 +344,7 @@ public class AdhocQueryRequestParser extends EBXMLConstants {
 
                 String working = paramFormattedString.substring(1);
 
-                int endIndex = working.indexOf(")");
+                int endIndex = working.indexOf(')');
 
                 if (endIndex != -1) {
 
@@ -391,10 +382,8 @@ public class AdhocQueryRequestParser extends EBXMLConstants {
 
                         resultCollection.add(singleValue);
 
-                        if (log.isDebugEnabled()) {
-
-                            log.debug("Added single value: " + singleValue + " to query parameters");
-
+                        if (LOG.isDebugEnabled()) {
+                            LOG.debug("Added single value: " + singleValue + " to query parameters");
                         }
 
                     }
@@ -405,9 +394,9 @@ public class AdhocQueryRequestParser extends EBXMLConstants {
 
                 resultCollection.add(paramFormattedString);
 
-                if (log.isDebugEnabled()) {
+                if (LOG.isDebugEnabled()) {
 
-                    log.debug("No wrapper on status - adding status: " + paramFormattedString + " to query parameters");
+                    LOG.debug("No wrapper on status - adding status: " + paramFormattedString + " to query parameters");
 
                 }
 
@@ -439,9 +428,9 @@ public class AdhocQueryRequestParser extends EBXMLConstants {
 
             formatString = dateFormat.substring(0, dateString.length());
 
-            if (log.isDebugEnabled()) {
+            if (LOG.isDebugEnabled()) {
 
-                log.debug("New dateFormat: " + dateFormat);
+                LOG.debug("New dateFormat: " + dateFormat);
 
             }
 
@@ -461,11 +450,11 @@ public class AdhocQueryRequestParser extends EBXMLConstants {
 
                 String formatString = prepareDateFormatString(dateFormat, dateString);
 
-                parsed = new SimpleDateFormat(formatString).parse(dateString);
+                parsed = new SimpleDateFormat(formatString,Locale.getDefault()).parse(dateString);
 
-            } catch (Throwable t) {
+            } catch (ParseException t) {
 
-                log.warn("Error parsing '" + dateString + "' using format: '" + dateFormat + "'", t);
+                LOG.error("Error parsing '" + dateString + "' using format: '" + dateFormat + "'", t);
 
             }
 

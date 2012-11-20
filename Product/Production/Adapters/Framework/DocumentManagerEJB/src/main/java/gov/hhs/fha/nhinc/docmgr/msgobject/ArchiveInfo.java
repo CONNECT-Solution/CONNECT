@@ -40,19 +40,36 @@ public class ArchiveInfo
 
     private String repositoryId;
     private String documentUniqueId;
+    private static final long serialVersionUID = 1L;
 
+    /**
+     *
+     * @return repositoryId as String
+     */
     public String getRepositoryId() {
         return repositoryId;
     }
 
+    /**
+     *
+     * @param repositoryId as String
+     */
     public void setRepositoryId(String repositoryId) {
         this.repositoryId = repositoryId;
     }
 
+    /**
+     * 
+     * @return documentUniqueId as String
+     */
     public String getDocumentUniqueId() {
         return documentUniqueId;
     }
 
+    /**
+     *
+     * @param documentUniqueId as String
+     */
     public void setDocumentUniqueId(String documentUniqueId) {
         this.documentUniqueId = documentUniqueId;
     }

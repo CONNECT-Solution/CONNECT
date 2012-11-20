@@ -50,25 +50,39 @@ import org.apache.commons.logging.LogFactory;
  */
 public class AssemblerFactory {
 
-    private static Log log = LogFactory.getLog(AssemblerFactory.class);
+    private static final Log LOG = LogFactory.getLog(AssemblerFactory.class);
 
-    public static C32DocumentBuilder C32Builder(String docType) {
+    /**
+     *
+     * @param docType as String
+     * @return C32DocumentBuilder builder
+     */
+    public static C32DocumentBuilder c32Builder(String docType) {
         List<CdaTemplate> templates;
         C32DocumentBuilder builder = null;
-        try {
+   
             templates = TemplateManagerDAO.getInstance().getSectionTemplatesForDocument(docType, true);
-            log.debug(templates.size() + " templates for document type " + docType);
 
+            if (LOG.isDebugEnabled()) {
+                LOG.debug(templates.size() + " templates for document type " + docType);
+            }
+            
             builder = new C32DocumentBuilder(templates);
-        } catch (Exception ex) {
-            log.error("No templates located - error: " + ex.getMessage());
-            builder = new C32DocumentBuilder();
-        }
+
+            if (templates == null || templates.isEmpty()) {
+                LOG.warn("No templates located for document type: " + docType);
+                builder = new C32DocumentBuilder();
+            }
 
         builder.setDocumentType(docType);
         return builder;
     }
 
+    /**
+     *
+     * @param docType as String
+     * @return C62DocumentBuilder builder
+     */
     public static C62DocumentBuilder c62Builder(String docType) {
         C62DocumentBuilder builder = null;
         builder = new C62DocumentBuilder();

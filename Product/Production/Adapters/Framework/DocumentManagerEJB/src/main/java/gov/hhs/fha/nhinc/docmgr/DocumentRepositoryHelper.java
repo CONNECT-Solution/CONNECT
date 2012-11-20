@@ -59,6 +59,8 @@ import org.apache.commons.logging.LogFactory;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType.DocumentRequest;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType.DocumentResponse;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
+import java.text.ParseException;
+import java.util.Locale;
 
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
@@ -84,17 +86,23 @@ public class DocumentRepositoryHelper {
     private static final String PROPERTY_FILE_KEY_LOCAL_REPOSITORY_IDS = "localRepositoryIds";
     public static final String REPOSITORY_PROPERTY_FILE = "repository";
     public static final String DEFAULT_REPOSITORY_ID_PROP = "defaultRepositoryId";
-    public static final String XDS_RETRIEVE_RESPONSE_STATUS_FAILURE = "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure";
-    public static final String XDS_RETRIEVE_RESPONSE_STATUS_PARTIAL_SUCCESS = "urn:ihe:iti:2007:ResponseStatusType:PartialSuccess";
-    public static final String XDS_RETRIEVE_RESPONSE_STATUS_SUCCESS = "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Success";
+    public static final String XDS_RETRIEVE_RESPONSE_STATUS_FAILURE =
+            "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure";
+    public static final String XDS_RETRIEVE_RESPONSE_STATUS_PARTIAL_SUCCESS =
+            "urn:ihe:iti:2007:ResponseStatusType:PartialSuccess";
+    public static final String XDS_RETRIEVE_RESPONSE_STATUS_SUCCESS =
+            "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Success";
     public static final String XDS_AVAILABLILTY_STATUS_APPROVED = "Active";
     public static final String XDS_STATUS = "urn:oasis:names:tc:ebxml-regrep:StatusType:Approved";
     public static final String XDS_STATUS_ONLINE = "Online";
     public static final String XDS_STATUS_OFFLINE = "Offline";
     public static final String XDS_NAME = "Name";
-    public static final String XDS_CLASSIFIED_OBJECT = "classifiedObject";      //this is the reference to the extrinsicObject/document element
-    public static final String XDS_NODE_REPRESENTATION = "nodeRepresentation";  //this the actual code in a classification element
-    public static final String XDS_CLASSIFICATION_ID = "id";                    //this is the id of the classification element
+    //this is the reference to the extrinsicObject/document element
+    public static final String XDS_CLASSIFIED_OBJECT = "classifiedObject";
+    //this the actual code in a classification element
+    public static final String XDS_NODE_REPRESENTATION = "nodeRepresentation";
+    //this is the id of the classification element
+    public static final String XDS_CLASSIFICATION_ID = "id";
     public static final String XDS_DOCUMENT_UNIQUE_ID = "XDSDocumentEntry.uniqueId";
     public static final String XDS_PATIENT_ID = "XDSDocumentEntry.patientId";
     public static final String XDS_CREATION_TIME_SLOT = "creationTime";
@@ -117,25 +125,33 @@ public class DocumentRepositoryHelper {
     public static final String XDS_SOURCE_PATIENT_INFO_PID8 = "PID-8";
     public static final String XDS_SOURCE_PATIENT_INFO_PID11 = "PID-11";
     public static final String XDS_EXTRA_METADATA_START = "urn:";
-    public static final String XDS_AUTHOR_CLASSIFICATION = "urn:uuid:93606bcf-9494-43ec-9b4e-a7748d1a838d";
+    public static final String XDS_AUTHOR_CLASSIFICATION
+            = "urn:uuid:93606bcf-9494-43ec-9b4e-a7748d1a838d";
     public static final String XDS_CLASSCODE_CLASSIFICATION = "urn:uuid:41a5887f-8865-4c09-adf7-e362475b143a";
     public static final String XDS_CONTENT_TYPE_CODE_CLASSIFICATION = "urn:uuid:aa543740-bdda-424e-8c96-df4873be8500";
-    public static final String XDS_CONFIDENTIALITY_CODE_CLASSIFICATION = "urn:uuid:f4f85eac-e6cb-4883-b524-f2705394840f";
+    public static final String XDS_CONFIDENTIALITY_CODE_CLASSIFICATION
+            = "urn:uuid:f4f85eac-e6cb-4883-b524-f2705394840f";
     public static final String XDS_FORMAT_CODE_CLASSIFICATION = "urn:uuid:a09d5840-386c-46f2-b5ad-9c3699a4309d";
-    public static final String XDS_HEALTHCARE_FACILITY_TYPE_CODE_CLASSIFICATION = "urn:uuid:f33fb8ac-18af-42cc-ae0e-ed0b0bdb91e1";
-    public static final String XDS_PRACTICE_SETTING_CODE_CLASSIFICATION = "urn:uuid:cccf5598-8b07-4b77-a05e-ae952c785ead";
+    public static final String XDS_HEALTHCARE_FACILITY_TYPE_CODE_CLASSIFICATION
+            = "urn:uuid:f33fb8ac-18af-42cc-ae0e-ed0b0bdb91e1";
+    public static final String XDS_PRACTICE_SETTING_CODE_CLASSIFICATION
+            = "urn:uuid:cccf5598-8b07-4b77-a05e-ae952c785ead";
     public static final String XDS_EVENT_CODE_LIST_CLASSIFICATION = "urn:uuid:2c6b8cb7-8b2a-4051-b291-b1ae6a575ef4";
     public static final String XDS_CODE_LIST_CLASSIFICATION = "urn:uuid:1ba97051-7806-41a8-a48b-8fce7af683c5";
     public static final String XDS_TYPE_CODE_CLASSIFICATION = "urn:uuid:f0306f51-975f-434e-a61c-c59651d33983";
     public static final String XDS_ERROR_CODE_MISSING_REQUEST_MESSAGE_DATA = "MISSING_DATA";
     public static final String XDS_ERROR_CODE_MISSING_DOCUMENT_METADATA = "MISSING_METADATA";
     public static final String XDS_ERROR_CODE_REPOSITORY_ERROR = "REPOSITORY_ERROR";
-    public static final String XDS_MISSING_REQUEST_MESSAGE_DATA = "The ProvideAndRegisterDocumentSetRequest message did not contain any data to operate on. No documents will be stored.";
-    public static final String XDS_MISSING_DOCUMENT_METADATA = "A document exists in the submission with no corresponding document metadata. Document will not be stored.";
+    public static final String XDS_MISSING_REQUEST_MESSAGE_DATA
+            = "The ProvideAndRegisterDocumentSetRequest message did not contain any data to operate on."
+            + " No documents will be stored.";
+    public static final String XDS_MISSING_DOCUMENT_METADATA = "A document exists in the submission with no "
+            + "corresponding document metadata. Document will not be stored.";
     public static final String XDS_REPOSITORY_ERROR = "An error occurred while storing a document to the repository.";
     public static final String XDS_ERROR_SEVERITY_SEVERE = "SEVERE";
     public static final String XDS_ERROR_SEVERITY_ERROR = "ERROR";
-    public static final String XDS_ERROR_REGISTRY_SEVERITY_ERROR = "urn:oasis:names:tc:ebxml-regrep:ErrorSeverityType:Error";
+    public static final String XDS_ERROR_REGISTRY_SEVERITY_ERROR
+            = "urn:oasis:names:tc:ebxml-regrep:ErrorSeverityType:Error";
     public static final String XDS_DOCUMENT_ERROR_CODE_GENERAL = "XDSRepositoryError";
     public static final String XDS_DOCUMENT_ERROR_CODE_REPOSITORY_BUSY = "XDSRepositoryBusy";
     public static final String XDS_DOCUMENT_ERROR_CODE_REPOSITORY_OUT_OF_RESOURCES = "XDSRepositoryOutOfResources";
@@ -146,7 +162,7 @@ public class DocumentRepositoryHelper {
     public static final String XDS_ASSOCIATION_TYPE_REPLACE = "urn:oasis:names:tc:ebxml-regrep:AssociationType:RPLC";
     private static final String DATE_FORMAT_STRING = "yyyyMMddhhmmss";
     private static final String VALUE_LIST_SEPERATOR = "~";
-    private static Log log = LogFactory.getLog(DocumentRepositoryHelper.class);
+    private static final Log LOG = LogFactory.getLog(DocumentRepositoryHelper.class);
     private static List<String> localRepositoryIds;
 
     static {
@@ -157,7 +173,8 @@ public class DocumentRepositoryHelper {
         PropertyAccessor oProp = PropertyAccessor.getInstance();
 
         try {
-            propertyRepositoryIds = oProp.getProperty(PROPERTY_FILE_NAME_REPOSITORY, PROPERTY_FILE_KEY_LOCAL_REPOSITORY_IDS);
+            propertyRepositoryIds
+                    = oProp.getProperty(PROPERTY_FILE_NAME_REPOSITORY, PROPERTY_FILE_KEY_LOCAL_REPOSITORY_IDS);
 
 
             // Process the string from the property file
@@ -168,8 +185,8 @@ public class DocumentRepositoryHelper {
             for (String repId : localIds) {
                 repositoryIds.add(repId.trim());
             }
-        } catch (Throwable t) {
-            log.error("Error retrieving the home community id: " + t.getMessage(), t);
+        } catch (PropertyAccessException pae) {
+            LOG.error("Error retrieving the home community id: ", pae);
         }
         localRepositoryIds = repositoryIds;
     }
@@ -180,10 +197,13 @@ public class DocumentRepositoryHelper {
      * @param body Message containing docurment retrieve parameters
      * @return Document retrieve response message.
      */
-    public ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType documentRepositoryRetrieveDocumentSet(ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType body) {
-        log.debug("Entering docRepositoryHelper.documentRepositoryRetrieveDocumentSet method.");
-        ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType response = new ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType();
-        RegistryResponseType registryResponse = new oasis.names.tc.ebxml_regrep.xsd.rs._3.ObjectFactory().createRegistryResponseType();
+    public ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType documentRepositoryRetrieveDocumentSet(
+            ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType body) {
+        LOG.debug("Entering docRepositoryHelper.documentRepositoryRetrieveDocumentSet method.");
+        ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType response
+                = new ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType();
+        RegistryResponseType registryResponse
+                = new oasis.names.tc.ebxml_regrep.xsd.rs._3.ObjectFactory().createRegistryResponseType();
         response.setRegistryResponse(registryResponse);
         RegistryErrorList errorList = new RegistryErrorList();
         registryResponse.setRegistryErrorList(errorList);
@@ -231,13 +251,16 @@ public class DocumentRepositoryHelper {
 
             // Evaluate the quality of the query parameters
             if (repositoryUniqueIds.isEmpty()) {
-                log.info("Document Retrieve did not specify a repository id");
-                InsertResponseError(errorList, XDS_DOCUMENT_ERROR_CODE_UNKNOWN_REPOSITORY_ID, "Repository Id is missing");
+                LOG.info("Document Retrieve did not specify a repository id");
+                insertResponseError(errorList, XDS_DOCUMENT_ERROR_CODE_UNKNOWN_REPOSITORY_ID,
+                        "Repository Id is missing");
             }
 
             if (documentUniqueIds.isEmpty()) {
-                log.error("Document unique id missing");
-                InsertResponseError(errorList, XDS_DOCUMENT_ERROR_CODE_UNIQUE_ID_ERROR, "Document Unique Id is missing");
+
+                LOG.error("Document unique id missing");
+                insertResponseError(errorList, XDS_DOCUMENT_ERROR_CODE_UNIQUE_ID_ERROR,
+                        "Document Unique Id is missing");
             }
 
             int numDocs = documentUniqueIds.size();
@@ -248,17 +271,30 @@ public class DocumentRepositoryHelper {
                     // Repository Unique Id
                     //---------------------
                     if (repositoryUniqueId == null) {
-                        log.info("Document Retrieve Request did not specify a repository id");
-                        InsertResponseError(errorList, XDS_DOCUMENT_ERROR_CODE_UNKNOWN_REPOSITORY_ID, "Repository Id is invalid");
+
+
+                        LOG.info("Document Retrieve Request did not specify a repository id");
+                        insertResponseError(errorList, XDS_DOCUMENT_ERROR_CODE_UNKNOWN_REPOSITORY_ID,
+                                "Repository Id is invalid");
                         repositoryIdValid = false;
                         break;
                     }
                     if (!localRepositoryIds.contains(repositoryUniqueId)) {
-                        log.info("Document Retrieve specified an invalid reporitory id. Found " + repositoryUniqueId);
-                        InsertResponseError(errorList, XDS_DOCUMENT_ERROR_CODE_UNKNOWN_REPOSITORY_ID, "Repository Id is invalid");
+
+                            if (LOG.isInfoEnabled()) {
+                                LOG.info("Document Retrieve specified an invalid reporitory id. Found "
+                                        + repositoryUniqueId);
+                            }
+
+                        insertResponseError(errorList, XDS_DOCUMENT_ERROR_CODE_UNKNOWN_REPOSITORY_ID,
+                                "Repository Id is invalid");
                         repositoryIdValid = false;
-                        log.warn("Document repository message not processed due to unknown repository " +
-                            " unique id " + repositoryUniqueId);
+
+                            if (LOG.isWarnEnabled()) {
+                                LOG.warn("Document repository message not processed due to unknown repository "
+                            + " unique id " + repositoryUniqueId);
+                            }
+
                     }
                 }
 
@@ -277,14 +313,17 @@ public class DocumentRepositoryHelper {
                         if (foundDocumentIds.contains(docId)) {
                             continue;
                         } else {
-                            log.error("Document unique error. No such document in the repository");
-                            InsertResponseError(errorList, XDS_DOCUMENT_ERROR_CODE_UNIQUE_ID_ERROR, "Document with specified Unique Id cannot be found");
+
+                            LOG.error("Document unique error. No such document in the repository");
+                            insertResponseError(errorList, XDS_DOCUMENT_ERROR_CODE_UNIQUE_ID_ERROR,
+                                    "Document with specified Unique Id cannot be found");
                         }
                     }
 
                     loadDocumentResponses(response, docs, homeCommunityId);
                     String returnedStatus = response.getRegistryResponse().getStatus();
-                    if (docs.size() != numDocs && returnedStatus.equalsIgnoreCase(XDS_RETRIEVE_RESPONSE_STATUS_SUCCESS)) {
+                    if (docs.size() != numDocs
+                            && returnedStatus.equalsIgnoreCase(XDS_RETRIEVE_RESPONSE_STATUS_SUCCESS)) {
                         /* We had an error BEFORE we called loadDocumentResponse
                          * but there were no errors for other documents
                          * return partial success
@@ -298,13 +337,14 @@ public class DocumentRepositoryHelper {
                 }
             }
         } else {
-            InsertResponseError(errorList, XDS_DOCUMENT_ERROR_CODE_UNIQUE_ID_ERROR, "Document Unique Id is missing");
+            insertResponseError(errorList, XDS_DOCUMENT_ERROR_CODE_UNIQUE_ID_ERROR, "Document Unique Id is missing");
         }
         return response;
     }
 
-    private void loadDocumentResponses(ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType response, List<Document> docs, String homeCommunityId) {
-        log.debug("Entering docRepositoryHelper.loadDocumentResponses method.");
+    private void loadDocumentResponses(ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType response,
+            List<Document> docs, String homeCommunityId) {
+        LOG.debug("Entering docRepositoryHelper.loadDocumentResponses method.");
         if (response != null) {
             String responseStatus = XDS_RETRIEVE_RESPONSE_STATUS_FAILURE;
             List<DocumentResponse> olDocResponse = response.getDocumentResponse();
@@ -320,8 +360,9 @@ public class DocumentRepositoryHelper {
                     //Test if this gateway supports the given HCID
 
                     if (homeCommunityId == null || homeCommunityId.length() == 0) {
-                        log.error("No Home Community specified");
-                        InsertResponseError(errorList, XDS_DOCUMENT_ERROR_CODE_MISSING_HOME_COMMUNITY_ID, "Home Community Id is missing");
+                        LOG.error("No Home Community specified");
+                        insertResponseError(errorList, XDS_DOCUMENT_ERROR_CODE_MISSING_HOME_COMMUNITY_ID,
+                                "Home Community Id is missing");
                         break;
                     }
                     String prefix = "urn:oid:";
@@ -329,16 +370,23 @@ public class DocumentRepositoryHelper {
                     if (homeCommunityId.startsWith(prefix)) {
                         strippedHCID = homeCommunityId.substring(prefix.length());
                         if (strippedHCID == null || strippedHCID.length() == 0) {
-                            log.error("No Home Community specified");
-                            InsertResponseError(errorList, XDS_DOCUMENT_ERROR_CODE_MISSING_HOME_COMMUNITY_ID, "Home Community Id is missing");
+                            LOG.error("No Home Community specified");
+                            insertResponseError(errorList, XDS_DOCUMENT_ERROR_CODE_MISSING_HOME_COMMUNITY_ID,
+                                    "Home Community Id is missing");
                             break;
                         }
                     }
 
                     String myHomeCommunityId = retrieveHomeCommunityId();
                     if (!(myHomeCommunityId.equals(homeCommunityId))) {
-                        log.error("Incorrect Home Community Id. Found: " + homeCommunityId + " expected " + myHomeCommunityId);
-                        InsertResponseError(errorList, XDS_DOCUMENT_ERROR_CODE_UNKNOWN_COMMUNITY, "Home Community Id cannot be serviced");
+
+                        if (LOG.isErrorEnabled()) {
+                            LOG.error("Incorrect Home Community Id. Found: " + homeCommunityId
+                                    + " expected " + myHomeCommunityId);
+                        }
+
+                        insertResponseError(errorList, XDS_DOCUMENT_ERROR_CODE_UNKNOWN_COMMUNITY,
+                                "Home Community Id cannot be serviced");
                         break;
                     }
                     oDocResponse.setHomeCommunityId(homeCommunityId);
@@ -348,7 +396,11 @@ public class DocumentRepositoryHelper {
                     String repositoryId = doc.getRepositoryId();
 
                     if (repositoryId == null) {
-                        log.info("Document Retrieve specified a reporitory = " + repositoryId);
+
+                        if (LOG.isDebugEnabled()) {
+                            LOG.info("Document Retrieve specified a reporitory = " + repositoryId);
+                        }
+
                     } else {
                         oDocResponse.setRepositoryUniqueId(doc.getRepositoryId());
                     }
@@ -357,11 +409,20 @@ public class DocumentRepositoryHelper {
                     //--------------------
                     if (NullChecker.isNotNullish(doc.getDocumentUniqueId())) {
                         oDocResponse.setDocumentUniqueId(doc.getDocumentUniqueId());
-                        log.info("Document unique id: " + doc.getDocumentUniqueId());
+
+                        if (LOG.isInfoEnabled()) {
+                             LOG.info("Document unique id: " + doc.getDocumentUniqueId());
+                        }
+
                         bHasData = true;
                     } else {
-                        log.error("Document unique id missing");
-                        InsertResponseError(errorList, XDS_DOCUMENT_ERROR_CODE_UNIQUE_ID_ERROR, "Document Unique Id is missing");
+
+
+                            LOG.error("Document unique id missing");
+
+
+                        insertResponseError(errorList, XDS_DOCUMENT_ERROR_CODE_UNIQUE_ID_ERROR,
+                                "Document Unique Id is missing");
                         break;
                     }
 
@@ -369,7 +430,11 @@ public class DocumentRepositoryHelper {
                     //----------
                     if (NullChecker.isNotNullish(doc.getMimeType())) {
                         oDocResponse.setMimeType(doc.getMimeType());
-                        log.info("Mime type: " + doc.getMimeType());
+
+                        if (LOG.isInfoEnabled()) {
+                            LOG.info("Mime type: " + doc.getMimeType());
+                        }
+
                         bHasData = true;
                     }
 
@@ -377,11 +442,20 @@ public class DocumentRepositoryHelper {
                     //---------
                     if ((doc.getRawData() != null) && (doc.getRawData().length > 0)) {
                         oDocResponse.setDocument(doc.getRawData());
-                        log.info("Document data: " + doc.getRawData());
+
+                        if (LOG.isInfoEnabled()) {
+                            LOG.info("Document data: " + doc.getRawData());
+                        }
+
                         bHasData = true;
                     } else {
-                        log.error("Document unique error. No such document in the repository");
-                        InsertResponseError(errorList, XDS_DOCUMENT_ERROR_CODE_UNIQUE_ID_ERROR, "Document with specified Unique Id cannot be found");
+
+
+                            LOG.error("Document unique error. No such document in the repository");
+
+
+                        insertResponseError(errorList, XDS_DOCUMENT_ERROR_CODE_UNIQUE_ID_ERROR,
+                                "Document with specified Unique Id cannot be found");
                         break;
                     }
 
@@ -391,12 +465,20 @@ public class DocumentRepositoryHelper {
                     }
                 }
             } else {
-                log.info("loadDocumentResponses - no response messages returned.");
+
+
+                    LOG.info("loadDocumentResponses - no response messages returned.");
+
+
             }
 
             registryResponse.setStatus(responseStatus);
         } else {
-            log.info("loadDocumentResponses - response object was null");
+
+
+                LOG.info("loadDocumentResponses - response object was null");
+
+
         }
     }
 
@@ -410,8 +492,9 @@ public class DocumentRepositoryHelper {
      * @param body The ProvideAndRequestDocumentSet request to parse and store metadata and documents.
      * @return Returns an XDS successful or failure response message.
      */
-    public oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType documentRepositoryProvideAndRegisterDocumentSet(ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType body) {
-        log.debug("Entering docRepositoryHelper.documentRepositoryProvideAndRegisterDocumentSet method.");
+    public oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType documentRepositoryProvideAndRegisterDocumentSet(
+            ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType body) {
+        LOG.debug("Entering docRepositoryHelper.documentRepositoryProvideAndRegisterDocumentSet method.");
 
         RegistryResponseType registryResponse =
             new oasis.names.tc.ebxml_regrep.xsd.rs._3.ObjectFactory().createRegistryResponseType();
@@ -420,25 +503,37 @@ public class DocumentRepositoryHelper {
         //convert input XDS message to internal message
         if (body == null) {
             RegistryError error = new oasis.names.tc.ebxml_regrep.xsd.rs._3.ObjectFactory().createRegistryError();
-            error.setCodeContext("ProvideAndRegisterDocumentSetRequest message handler did not find a required element");
-            error.setLocation("DocumentRepositoryService.documentRepositoryProvideAndRegisterDocumentSetB -> " +
+            error.setCodeContext("ProvideAndRegisterDocumentSetRequest message "
+                    + "handler did not find a required element");
+            error.setLocation("DocumentRepositoryService.documentRepositoryProvideAndRegisterDocumentSetB: " +
                 "DocumentRepositoryHelper.documentRepositoryProvideAndRegisterDocumentSet; "); //kludgy?
             error.setErrorCode(XDS_ERROR_CODE_MISSING_REQUEST_MESSAGE_DATA);
             error.setSeverity(XDS_ERROR_SEVERITY_SEVERE);
-            error.setValue(XDS_MISSING_REQUEST_MESSAGE_DATA + "ProvideAndRegisterDocumentSetRequestType element is null.");
+            error.setValue(XDS_MISSING_REQUEST_MESSAGE_DATA
+                    + "ProvideAndRegisterDocumentSetRequestType element is null.");
 
 
             errorList.getRegistryError().add(error);
 
-            log.error("Error Location: " + error.getLocation() + "; \n" + "Error Severity: " + error.getSeverity() + "; \n" + "Error ErrorCode: " + error.getErrorCode() + "; \n" + "Error CodeContext: " + error.getCodeContext());
+            if (LOG.isErrorEnabled()) {
+                LOG.error("Location of Error: " + error.getLocation() + "; " + "getSeverity: "
+                        + error.getSeverity() + "; " + "Error ErrorCode: " + error.getErrorCode()
+                        + "; " + "Error Code Context: " + error.getCodeContext());
+            }
+
 
         } else {
-            log.debug("ProvideAndRegisterDocumentSetRequestType element is not null.");
+            LOG.debug("ProvideAndRegisterDocumentSetRequestType element is not null.");
 
             //retrieve the documents (base64encoded representation)
             List<ProvideAndRegisterDocumentSetRequestType.Document> binaryDocs = body.getDocument();
             int numDocsInRequest = binaryDocs.size();
-            log.debug("There are " + numDocsInRequest + " binary documents in this request.");
+
+            if (LOG.isDebugEnabled()) {
+                LOG.debug("There are " + numDocsInRequest + " binary documents in this request.");
+            }
+
+
 
             //loop through binaryDocs list and put them into a hashmap for later use
             //when looping through the metadata - we need to associate the metadata
@@ -448,30 +543,50 @@ public class DocumentRepositoryHelper {
                 String storeRequestId = binaryDocs.get(docNum).getId();
                 byte[] storeRequestValue = binaryDocs.get(docNum).getValue();
                 docMap.put(storeRequestId, storeRequestValue);
-                log.debug("Found Document with id = " + storeRequestId + " with size = " + storeRequestValue.length);
+
+                if (LOG.isDebugEnabled()) {
+                    LOG.debug("Found Document with id = " + storeRequestId + " with size = "
+                            + storeRequestValue.length);
+                }
 
                 //retrieve the document metadata and store each doc in the request
                 SubmitObjectsRequest submitObjectsRequest = body.getSubmitObjectsRequest();
                 RegistryObjectListType regObjectList = submitObjectsRequest.getRegistryObjectList();
-                List<JAXBElement<? extends oasis.names.tc.ebxml_regrep.xsd.rim._3.IdentifiableType>> identifiableObjectList = regObjectList.getIdentifiable();
-                log.debug("There is/are " + identifiableObjectList.size() + " identifiableObject(s) in this registryObjectsList.");
+                List<JAXBElement<? extends oasis.names.tc.ebxml_regrep.xsd.rim._3.IdentifiableType>>
+                        identifiableObjectList = regObjectList.getIdentifiable();
 
-                boolean requestHasReplacementAssociation = checkForReplacementAssociation(identifiableObjectList, errorList);
+                if (LOG.isDebugEnabled()) {
+                    LOG.debug("There is/are " + identifiableObjectList.size()
+                            + " identifiableObject(s) in this registryObjectsList.");
+                }
+
+
+                boolean requestHasReplacementAssociation
+                        = checkForReplacementAssociation(identifiableObjectList, errorList);
 
                 for (int i = 0; i < identifiableObjectList.size(); i++) {
                     oasis.names.tc.ebxml_regrep.xsd.rim._3.ExtrinsicObjectType extrinsicObject = null;
-                    log.debug("Item " + i + " identifiableObject is of DeclaredType: " + identifiableObjectList.get(i).getDeclaredType());
+
+                    if (LOG.isDebugEnabled()) {
+                        LOG.debug("Item " + i + " identifiableObject is of DeclaredType: "
+                                + identifiableObjectList.get(i).getDeclaredType());
+                    }
+
 
                     //the getValue method will return the non-JAXBElement<? extends...> object
                     Object tempObj = identifiableObjectList.get(i).getValue();
                     if (tempObj instanceof oasis.names.tc.ebxml_regrep.xsd.rim._3.ExtrinsicObjectType) {
                         extrinsicObject = (ExtrinsicObjectType) tempObj;
-                        log.debug("extrinsicObject successfully populated");
+                        LOG.debug("extrinsicObject successfully populated");
 
                         if (extrinsicObject == null) {
-                            RegistryError error = new oasis.names.tc.ebxml_regrep.xsd.rs._3.ObjectFactory().createRegistryError();
-                            error.setCodeContext("ProvideAndRegisterDocumentSetRequest message handler did not find a required element");
-                            error.setLocation("DocumentRepositoryService.documentRepositoryProvideAndRegisterDocumentSetB -> " +
+                            RegistryError error
+                                    = new oasis.names.tc.ebxml_regrep.xsd.rs._3.ObjectFactory().createRegistryError();
+                            error.setCodeContext(
+                                    "ProvideAndRegisterDocumentSetRequest message"
+                                    + " handler did not find a required element");
+                            error.setLocation(
+                                    "DocumentRepositoryService documentRepositoryProvideAndRegisterDocumentSetB -- " +
                                 "DocumentRepositoryHelper.documentRepositoryProvideAndRegisterDocumentSet"); //kludgy?
                             error.setErrorCode(XDS_ERROR_CODE_MISSING_DOCUMENT_METADATA);
                             error.setSeverity(XDS_ERROR_SEVERITY_SEVERE);
@@ -479,7 +594,13 @@ public class DocumentRepositoryHelper {
 
                             errorList.getRegistryError().add(error);
 
-                            log.error("Error Location: " + error.getLocation() + "; \n" + "Error Severity: " + error.getSeverity() + "; \n" + "Error ErrorCode: " + error.getErrorCode() + "; \n" + "Error CodeContext: " + error.getCodeContext());
+                            if (LOG.isErrorEnabled()) {
+                                LOG.error("Error Location= " + error.getLocation() + "; "
+                                        + "Error getSeverity(): " + error.getSeverity() + "; "
+                                        + "Error getErrorCode : " + error.getErrorCode() + "; "
+                                        + "Error CodeContext(): " + error.getCodeContext());
+                            }
+
 
                         } else {
                             //prepare for the translation to the NHINC doc repository
@@ -487,78 +608,131 @@ public class DocumentRepositoryHelper {
                                 new gov.hhs.fha.nhinc.docmgr.repository.model.Document();
 
                             //get the externalIdentifiers so that we can get the docId and patientId
-                            List<oasis.names.tc.ebxml_regrep.xsd.rim._3.ExternalIdentifierType> externalIdentifiers = extrinsicObject.getExternalIdentifier();
+                            List<oasis.names.tc.ebxml_regrep.xsd.rim._3.ExternalIdentifierType> externalIdentifiers
+                                    = extrinsicObject.getExternalIdentifier();
 
                             //extract the docId
-                            String documentUniqueId = extractMetadataFromExternalIdentifiers(externalIdentifiers, XDS_DOCUMENT_UNIQUE_ID);
+                            String documentUniqueId = extractMetadataFromExternalIdentifiers(externalIdentifiers,
+                                    XDS_DOCUMENT_UNIQUE_ID);
                             if (documentUniqueId != null) {
-                                log.debug("DocumentUniqueId for ExtrinsicObject " + i + ": " + documentUniqueId);
+
+                                if (LOG.isDebugEnabled()) {
+                                    LOG.debug("DocumentUniqueId for ExtrinsicObject " + i + ": " + documentUniqueId);
+                                }
+
                                 doc.setDocumentUniqueId(documentUniqueId);
                             } else {
-                                RegistryError error = new oasis.names.tc.ebxml_regrep.xsd.rs._3.ObjectFactory().createRegistryError();
-                                error.setCodeContext("ProvideAndRegisterDocumentSetRequest message handler did not find a required element");
-                                error.setLocation("DocumentRepositoryService.documentRepositoryProvideAndRegisterDocumentSetB -> " +
-                                    "DocumentRepositoryHelper.documentRepositoryProvideAndRegisterDocumentSet extractDocumentId"); //kludgy?
+                                RegistryError error
+                                        = new oasis.names.tc.ebxml_regrep.xsd.rs._3.ObjectFactory()
+                                        .createRegistryError();
+                                error.setCodeContext("ProvideAndRegisterDocumentSetRequest message"
+                                        + " handler did not find a required element");
+                                error.setLocation(
+                                        "DocumentRepositoryService - documentRepositoryProvideAndRegisterDocumentSetB -> "
+                                        + "DocumentRepositoryHelper.documentRepositoryProvideAndRegisterDocumentSet"
+                                        + " extractDocumentId"); //kludgy?
                                 error.setErrorCode(XDS_ERROR_CODE_MISSING_DOCUMENT_METADATA);
                                 error.setSeverity(XDS_ERROR_SEVERITY_SEVERE);
                                 error.setValue(XDS_MISSING_DOCUMENT_METADATA + "DocumentUniqueId was missing.");
 
                                 errorList.getRegistryError().add(error);
 
-                                log.error("Error Location: " + error.getLocation() + "; \n" + "Error Severity: " + error.getSeverity() + "; \n" + "Error ErrorCode: " + error.getErrorCode() + "; \n" + "Error CodeContext: " + error.getCodeContext());
+                                if (LOG.isErrorEnabled()) {
+                                    LOG.error("Error getLocation: " + error.getLocation() + "; "
+                                            + "Error getSeverity= " + error.getSeverity() + "; " + "Error ErrorCode- "
+                                            + error.getErrorCode() + "; " + "Error Code Context= "
+                                            + error.getCodeContext());
+                                }
+
                             }
 
                             //extract the patientId
-                            String patientId = extractMetadataFromExternalIdentifiers(externalIdentifiers, XDS_PATIENT_ID);
+                            String patientId = extractMetadataFromExternalIdentifiers(externalIdentifiers,
+                                    XDS_PATIENT_ID);
                             if (patientId != null) {
                                 //remove the assigning authority value
-                                log.debug("patientId for ExtrinsicObject " + i + ": " + patientId);
+                                if (LOG.isDebugEnabled()) {
+                                    LOG.debug("patientId for ExtrinsicObject " + i + ": " + patientId);
+                                }
+
                                 String patientIdReformatted = PatientIdFormatUtil.parsePatientId(patientId);
-                                log.debug("Reformatted patientId for ExtrinsicObject " + i + ": " + patientIdReformatted);
+
+                                if (LOG.isDebugEnabled()) {
+                                    LOG.debug("Reformatted patientId for ExtrinsicObject " + i + ": "
+                                            + patientIdReformatted);
+                                }
+
                                 doc.setPatientId(patientIdReformatted);
                             } else {
-                                RegistryError error = new oasis.names.tc.ebxml_regrep.xsd.rs._3.ObjectFactory().createRegistryError();
-                                error.setCodeContext("ProvideAndRegisterDocumentSetRequest message handler did not find a required element");
-                                error.setLocation("DocumentRepositoryService.documentRepositoryProvideAndRegisterDocumentSetB -> " +
-                                    "DocumentRepositoryHelper.documentRepositoryProvideAndRegisterDocumentSet extractPatientId"); //kludgy?
+                                RegistryError error
+                                        = new oasis.names.tc.ebxml_regrep.xsd.rs._3.ObjectFactory()
+                                        .createRegistryError();
+                                error.setCodeContext("ProvideAndRegisterDocumentSetRequest message "
+                                        + "handler did not find a required element");
+                                error.setLocation(
+                                        "DocumentRepositoryService documentRepositoryProvideAndRegisterDocumentSetB -> "
+                                        + "DocumentRepositoryHelper.documentRepositoryProvideAndRegisterDocumentSet "
+                                        + "extractPatientId"); //kludgy?
                                 error.setErrorCode(XDS_ERROR_CODE_MISSING_DOCUMENT_METADATA);
                                 error.setSeverity(XDS_ERROR_SEVERITY_SEVERE);
                                 error.setValue(XDS_MISSING_DOCUMENT_METADATA + "PatientId was missing.");
 
                                 errorList.getRegistryError().add(error);
 
-                                log.error("Error Location: " + error.getLocation() + "; \n" + "Error Severity: " + error.getSeverity() + "; \n" + "Error ErrorCode: " + error.getErrorCode() + "; \n" + "Error CodeContext: " + error.getCodeContext());
+                                if (LOG.isErrorEnabled()) {
+                                    LOG.error("Error getLocation(): " + error.getLocation() + "; " + "Error Severity= "
+                                            + error.getSeverity() + "; " + "Error ErrorCode --> "
+                                            + error.getErrorCode() + "; " + "Error CodeContext: "
+                                            + error.getCodeContext());
                             }
+                                }
+
 
                             //extract the document title
                             InternationalStringType docTitle = extrinsicObject.getName();
                             if (docTitle != null) {
-                                log.debug("DocumentTitle for ExtrinsicObject " + i + ": " + docTitle.getLocalizedString().get(0).getValue());
+
+                                if (LOG.isDebugEnabled()) {
+                                    LOG.debug("DocumentTitle for ExtrinsicObject " + i + ": "
+                                            + docTitle.getLocalizedString().get(0).getValue());
+                                }
+
                                 doc.setDocumentTitle(docTitle.getLocalizedString().get(0).getValue());
                             }
 
                             //extract the document comments
                             InternationalStringType docComments = extrinsicObject.getDescription();
                             if (docComments != null) {
-                                log.debug("DocumentComments for ExtrinsicObject " + i + ": " + docComments.getLocalizedString().get(0).getValue());
+
+                                if (LOG.isDebugEnabled()) {
+                                     LOG.debug("DocumentComments for ExtrinsicObject " + i + ": "
+                                             + docComments.getLocalizedString().get(0).getValue());
+                                }
+
                                 doc.setComments(docComments.getLocalizedString().get(0).getValue());
                             }
 
                             //extract mimeType
-                            log.debug("Document mimeType for ExtrinsicObject " + i + ": " + extrinsicObject.getMimeType());
+                            if (LOG.isDebugEnabled()) {
+                                LOG.debug("Document mimeType for ExtrinsicObject " + i + ": "
+                                        + extrinsicObject.getMimeType());
+                            }
+
                             doc.setMimeType(extrinsicObject.getMimeType());
 
 
                             //there are many metadata items at the extrinsicObject/document
                             //level that we need to translate to the NHINC format
-                            List<oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1> documentSlots = extrinsicObject.getSlot();
+                            List<oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1> documentSlots
+                                    = extrinsicObject.getSlot();
 
                             //extract intendedRecipient - format: organization|person
-                            String intendedRecipientValue = extractMetadataFromSlots(documentSlots, XDS_INTENDED_RECIPIENT_SLOT, 0);
+                            String intendedRecipientValue = extractMetadataFromSlots(documentSlots,
+                                    XDS_INTENDED_RECIPIENT_SLOT, 0);
                             if (intendedRecipientValue != null) {
                                 String intendedRecipientPerson = "";
                                 String intendedRecipientOrganization = "";
-                                int separatorIdx = intendedRecipientValue.indexOf("|");
+                                int separatorIdx = intendedRecipientValue.indexOf('|');
                                 if (separatorIdx != -1) {
                                     intendedRecipientPerson = intendedRecipientValue.substring(separatorIdx + 1);
                                     intendedRecipientOrganization = intendedRecipientValue.substring(0, separatorIdx);
@@ -566,38 +740,70 @@ public class DocumentRepositoryHelper {
                                     intendedRecipientOrganization = intendedRecipientValue;
                                 }
 
-                                log.debug("Document intendedRecipientPerson for ExtrinsicObject " + i + ": " + intendedRecipientPerson);
-                                log.debug("Document intendedRecipientOrganization for ExtrinsicObject " + i + ": " + intendedRecipientOrganization);
+                                if (LOG.isDebugEnabled()) {
+                                    LOG.debug("Document intendedRecipientPerson for ExtrinsicObject "
+                                            + i + ": " + intendedRecipientPerson);
+                                    LOG.debug("Document intendedRecipientOrganization for ExtrinsicObject "
+                                            + i + ": " + intendedRecipientOrganization);
+                                }
+
+
                                 doc.setIntendedRecipientPerson(intendedRecipientPerson);
                                 doc.setIntendedRecipientOrganization(intendedRecipientOrganization);
                             }
 
                             //extract languageCode
                             doc.setLanguageCode(extractMetadataFromSlots(documentSlots, XDS_LANGUAGE_CODE_SLOT, 0));
-                            log.debug("Document LanguageCode for ExtrinsicObject " + i + ": " + doc.getLanguageCode());
+
+                            if (LOG.isDebugEnabled()) {
+                                LOG.debug("Document LanguageCode for ExtrinsicObject " + i + ": "
+                                        + doc.getLanguageCode());
+                            }
+
 
                             //extract legalAuthenticator
-                            doc.setLegalAuthenticator(extractMetadataFromSlots(documentSlots, XDS_LEGAL_AUTHENTICATOR_SLOT, 0));
-                            log.debug("Document LegalAuthenticator for ExtrinsicObject " + i + ": " + doc.getLegalAuthenticator());
+                            doc.setLegalAuthenticator(extractMetadataFromSlots(documentSlots,
+                                    XDS_LEGAL_AUTHENTICATOR_SLOT, 0));
+
+                            if (LOG.isDebugEnabled()) {
+                                LOG.debug("Document LegalAuthenticator for ExtrinsicObject " + i + ": "
+                                        + doc.getLegalAuthenticator());
+                            }
+
 
                             //extract repositoryId
                             doc.setRepositoryId(extractMetadataFromSlots(documentSlots, XDS_REPOSITORY_ID_SLOT, 0));
-                            log.debug("Document repositoryId for ExtrinsicObject " + i + ": " + doc.getRepositoryId());
+
+                            if (LOG.isDebugEnabled()) {
+                                LOG.debug("Document repositoryId for ExtrinsicObject " + i + ": "
+                                        + doc.getRepositoryId());
+                            }
+
                             if (doc.getRepositoryId() == null) {
                                 try {
                                     PropertyAccessor oProp = PropertyAccessor.getInstance();
-                                    doc.setRepositoryId(oProp.getProperty(REPOSITORY_PROPERTY_FILE, DEFAULT_REPOSITORY_ID_PROP));
+                                    doc.setRepositoryId(oProp.getProperty(REPOSITORY_PROPERTY_FILE,
+                                            DEFAULT_REPOSITORY_ID_PROP));
                                 } catch (PropertyAccessException e) {
-                                    log.error("Could not find property:" + DEFAULT_REPOSITORY_ID_PROP + " in file:" + REPOSITORY_PROPERTY_FILE, e);
+                                    LOG.error("Could not find property:" + DEFAULT_REPOSITORY_ID_PROP
+                                            + " in file:" + REPOSITORY_PROPERTY_FILE, e);
                                 }
-                                log.debug("Document repositoryId for ExtrinsicObject set to default: " + doc.getRepositoryId());
+
+                                if (LOG.isDebugEnabled()) {
+                                    LOG.debug("Document repositoryId for ExtrinsicObject set to default: "
+                                            + doc.getRepositoryId());
+                                }
+
                             }
 
                             //extract Date fields
                             String creationTime = extractMetadataFromSlots(documentSlots, XDS_CREATION_TIME_SLOT, 0);
 
-                            log.debug("Creation Time from Request = " + creationTime);
-                            log.debug("Rolling back creation time 24 hours to prevent stuck documents...");
+                            if (LOG.isDebugEnabled()) {
+                                LOG.debug("Creation Time from Request = " + creationTime);
+                            }
+
+                            LOG.debug("Rolling back creation time 24 hours to prevent stuck documents...");
 
                             /*  This was put in to relieve the issue of stuck
                              * documents.  Now it is being taken out due to issues
@@ -614,148 +820,286 @@ public class DocumentRepositoryHelper {
                             // Substract 1 days from the calendar
                             cal.setTime(dt);
                             cal.add(java.util.Calendar.DATE, -1);
-                            log.debug("1 days ago: " + cal.getTime());
+                            LOG.debug("1 days ago: " + cal.getTime());
 
                             creationTime = sdf.format(cal.getTime());
                             }
                             catch(Exception e)
                             {
-                            log.error("Could not manipulate date: " + e);
+                            LOG.error("Could not manipulate date: " + e);
                             }*/
 
-                            log.debug("Document creationTime for ExtrinsicObject " + i + ": " + creationTime);
+                            if (LOG.isDebugEnabled()) {
+                                LOG.debug("Document creationTime for ExtrinsicObject " + i + ": " + creationTime);
+                            }
+
                             //TODO add an error code for invalid date format
                             doc.setCreationTime(parseDate(creationTime, DATE_FORMAT_STRING));
 
                             String startTime = extractMetadataFromSlots(documentSlots, XDS_START_TIME_SLOT, 0);
-                            log.debug("Document startTime for ExtrinsicObject " + i + ": " + startTime);
+
+                            if (LOG.isDebugEnabled()) {
+                                LOG.debug("Document startTime for ExtrinsicObject " + i + ": " + startTime);
+                            }
+
                             doc.setServiceStartTime(parseDate(startTime, DATE_FORMAT_STRING));
 
                             String stopTime = extractMetadataFromSlots(documentSlots, XDS_STOP_TIME_SLOT, 0);
-                            log.debug("Document stopTime for ExtrinsicObject " + i + ": " + stopTime);
+
+                            if (LOG.isDebugEnabled()) {
+                                LOG.debug("Document stopTime for ExtrinsicObject " + i + ": " + stopTime);
+                            }
+
                             doc.setServiceStopTime(parseDate(stopTime, DATE_FORMAT_STRING));
 
                             //extract sourcePatientInfo metadata
-                            String sourcePatientId = extractMetadataFromSlots(documentSlots, XDS_SOURCE_PATIENT_ID_SLOT, 0);
-                            log.debug("sourcePatientid: " + sourcePatientId);
+                            String sourcePatientId = extractMetadataFromSlots(documentSlots,
+                                    XDS_SOURCE_PATIENT_ID_SLOT, 0);
+
+                            if (LOG.isDebugEnabled()) {
+                                LOG.debug("sourcePatientid: " + sourcePatientId);
+                            }
+
                             if (sourcePatientId != null) {
                                 //remove the assigning authority value
                                 String sourcePatientIdReformatted = PatientIdFormatUtil.parsePatientId(sourcePatientId);
-                                log.debug("Reformatted sourcePatientId for ExtrinsicObject " + i + ": " + sourcePatientIdReformatted);
+
+                                if (LOG.isDebugEnabled()) {
+                                    LOG.debug("Reformatted sourcePatientId for ExtrinsicObject " + i + ": "
+                                            + sourcePatientIdReformatted);
+                                }
+
                                 doc.setSourcePatientId(sourcePatientIdReformatted);
                             }
 
                             String pid3 = extractPatientInfo(documentSlots, XDS_SOURCE_PATIENT_INFO_PID3);
-                            log.debug("pid3: " + pid3);
+                            if (LOG.isDebugEnabled()) {
+                               LOG.debug("pid3: " + pid3);
+                            }
+
                             doc.setPid3(pid3);
 
                             String pid5 = extractPatientInfo(documentSlots, XDS_SOURCE_PATIENT_INFO_PID5);
-                            log.debug("pid5: " + pid5);
+
+                            if (LOG.isDebugEnabled()) {
+                               LOG.debug("pid5: " + pid5);
+                            }
+
                             doc.setPid5(pid5);
 
                             String pid7 = extractPatientInfo(documentSlots, XDS_SOURCE_PATIENT_INFO_PID7);
-                            log.debug("pid7: " + pid7);
+
+                            if (LOG.isDebugEnabled()) {
+                                 LOG.debug("pid7: " + pid7);
+                            }
+
                             doc.setPid7(pid7);
 
                             String pid8 = extractPatientInfo(documentSlots, XDS_SOURCE_PATIENT_INFO_PID8);
-                            log.debug("pid8: " + pid8);
+
+                            if (LOG.isDebugEnabled()) {
+                                LOG.debug("pid8: " + pid8);
+                            }
+
                             doc.setPid8(pid8);
 
                             String pid11 = extractPatientInfo(documentSlots, XDS_SOURCE_PATIENT_INFO_PID11);
-                            log.debug("pid11: " + pid11);
+
+                            if (LOG.isDebugEnabled()) {
+                                LOG.debug("pid11: " + pid11);
+                            }
+
                             doc.setPid11(pid11);
 
                             //extract extra metadata
                             extractExtraMetadataFromSlots(documentSlots, doc);
 
                             //extract classification metadata items
-                            List<oasis.names.tc.ebxml_regrep.xsd.rim._3.ClassificationType> classifications = extrinsicObject.getClassification();
+                            List<oasis.names.tc.ebxml_regrep.xsd.rim._3.ClassificationType> classifications
+                                    = extrinsicObject.getClassification();
 
                             //extract the document's author info
-                            String authorPerson = extractClassificationMetadata(classifications, XDS_AUTHOR_CLASSIFICATION, XDS_AUTHOR_PERSON_SLOT, -1);
-                            log.debug("authorPerson: " + authorPerson);
+                            String authorPerson = extractClassificationMetadata(classifications,
+                                    XDS_AUTHOR_CLASSIFICATION, XDS_AUTHOR_PERSON_SLOT, -1);
+
+                            if (LOG.isDebugEnabled()) {
+                                LOG.debug("authorPerson: " + authorPerson);
+                            }
+
                             doc.setAuthorPerson(authorPerson);
 
-                            String authorInstitution = extractClassificationMetadata(classifications, XDS_AUTHOR_CLASSIFICATION, XDS_AUTHOR_INSTITUTION_SLOT, -1);
-                            log.debug("authorInstitution: " + authorInstitution);
+                            String authorInstitution = extractClassificationMetadata(classifications,
+                                    XDS_AUTHOR_CLASSIFICATION, XDS_AUTHOR_INSTITUTION_SLOT, -1);
+
+                            if (LOG.isDebugEnabled()) {
+                                LOG.debug("authorInstitution: " + authorInstitution);
+                            }
+
                             doc.setAuthorInstitution(authorInstitution);
 
-                            String authorRole = extractClassificationMetadata(classifications, XDS_AUTHOR_CLASSIFICATION, XDS_AUTHOR_ROLE_SLOT, -1);
-                            log.debug("authorRole: " + authorRole);
+                            String authorRole = extractClassificationMetadata(classifications,
+                                    XDS_AUTHOR_CLASSIFICATION, XDS_AUTHOR_ROLE_SLOT, -1);
+
+                            if (LOG.isDebugEnabled()) {
+                                LOG.debug("authorRole: " + authorRole);
+                            }
+
                             doc.setAuthorRole(authorRole);
 
-                            String authorSpeciality = extractClassificationMetadata(classifications, XDS_AUTHOR_CLASSIFICATION, XDS_AUTHOR_SPECIALITY_SLOT, -1);
-                            log.debug("authorSpeciality: " + authorSpeciality);
+                            String authorSpeciality = extractClassificationMetadata(classifications,
+                                    XDS_AUTHOR_CLASSIFICATION, XDS_AUTHOR_SPECIALITY_SLOT, -1);
+
+                            if (LOG.isDebugEnabled()) {
+                                LOG.debug("authorSpeciality: " + authorSpeciality);
+                            }
+
                             doc.setAuthorSpecialty(authorSpeciality);
 
                             //extract classCode
-                            String classCode = extractClassificationMetadata(classifications, XDS_CLASSCODE_CLASSIFICATION, XDS_NODE_REPRESENTATION);
-                            log.debug("classCode: " + classCode);
+                            String classCode = extractClassificationMetadata(classifications,
+                                    XDS_CLASSCODE_CLASSIFICATION, XDS_NODE_REPRESENTATION);
+
+                            if (LOG.isDebugEnabled()) {
+                               LOG.debug("classCode: " + classCode);
+                            }
+
                             doc.setClassCode(classCode);
 
-                            String classCodeScheme = extractClassificationMetadata(classifications, XDS_CLASSCODE_CLASSIFICATION, XDS_CODING_SCHEME_SLOT, 0);
-                            log.debug("classCodeScheme: " + classCodeScheme);
+                            String classCodeScheme = extractClassificationMetadata(classifications,
+                                    XDS_CLASSCODE_CLASSIFICATION, XDS_CODING_SCHEME_SLOT, 0);
+
+                            if (LOG.isDebugEnabled()) {
+                                LOG.debug("classCodeScheme: " + classCodeScheme);
+                            }
+
                             doc.setClassCodeScheme(classCodeScheme);
 
-                            String classCodeDisplayName = extractClassificationMetadata(classifications, XDS_CLASSCODE_CLASSIFICATION, XDS_NAME);
-                            log.debug("classCodeDisplayName: " + classCodeDisplayName);
+                            String classCodeDisplayName = extractClassificationMetadata(classifications,
+                                    XDS_CLASSCODE_CLASSIFICATION, XDS_NAME);
+
+                            if (LOG.isDebugEnabled()) {
+                                LOG.debug("classCodeDisplayName: " + classCodeDisplayName);
+                            }
+
                             doc.setClassCodeDisplayName(classCodeDisplayName);
 
                             //extract confidentialityCode
-                            String confidentialityCode = extractClassificationMetadata(classifications, XDS_CONFIDENTIALITY_CODE_CLASSIFICATION, XDS_NODE_REPRESENTATION);
-                            log.debug("confidentialityCode: " + confidentialityCode);
+                            String confidentialityCode = extractClassificationMetadata(classifications,
+                                    XDS_CONFIDENTIALITY_CODE_CLASSIFICATION, XDS_NODE_REPRESENTATION);
+
+                            if (LOG.isDebugEnabled()) {
+                                 LOG.debug("confidentialityCode: " + confidentialityCode);
+
+                            }
                             doc.setConfidentialityCode(confidentialityCode);
 
-                            String confidentialityCodeScheme = extractClassificationMetadata(classifications, XDS_CONFIDENTIALITY_CODE_CLASSIFICATION, XDS_CODING_SCHEME_SLOT, 0);
-                            log.debug("confidentialityCodeScheme: " + confidentialityCodeScheme);
+                            String confidentialityCodeScheme = extractClassificationMetadata(classifications,
+                                    XDS_CONFIDENTIALITY_CODE_CLASSIFICATION, XDS_CODING_SCHEME_SLOT, 0);
+
+                            if (LOG.isDebugEnabled()) {
+                                LOG.debug("confidentialityCodeScheme: " + confidentialityCodeScheme);
+                            }
+
                             doc.setConfidentialityCodeScheme(confidentialityCodeScheme);
 
-                            String confidentialityCodeDisplayName = extractClassificationMetadata(classifications, XDS_CONFIDENTIALITY_CODE_CLASSIFICATION, XDS_NAME);
-                            log.debug("confidentialityCodeDisplayName: " + confidentialityCodeDisplayName);
+                            String confidentialityCodeDisplayName = extractClassificationMetadata(classifications,
+                                    XDS_CONFIDENTIALITY_CODE_CLASSIFICATION, XDS_NAME);
+                            if (LOG.isDebugEnabled()) {
+                                LOG.debug("confidentialityCodeDisplayName: " + confidentialityCodeDisplayName);
+                            }
+
                             doc.setConfidentialityCodeDisplayName(confidentialityCodeDisplayName);
 
                             //extract formatCode
-                            String formatCode = extractClassificationMetadata(classifications, XDS_FORMAT_CODE_CLASSIFICATION, XDS_NODE_REPRESENTATION);
-                            log.debug("formatCode: " + formatCode);
+                            String formatCode = extractClassificationMetadata(classifications,
+                                    XDS_FORMAT_CODE_CLASSIFICATION, XDS_NODE_REPRESENTATION);
+
+                            if (LOG.isDebugEnabled()) {
+                                LOG.debug("formatCode: " + formatCode);
+                            }
+
                             doc.setFormatCode(formatCode);
 
-                            String formatCodeScheme = extractClassificationMetadata(classifications, XDS_FORMAT_CODE_CLASSIFICATION, XDS_CODING_SCHEME_SLOT, 0);
-                            log.debug("formatCodeScheme: " + formatCodeScheme);
+                            String formatCodeScheme = extractClassificationMetadata(classifications,
+                                    XDS_FORMAT_CODE_CLASSIFICATION, XDS_CODING_SCHEME_SLOT, 0);
+
+                            if (LOG.isDebugEnabled()) {
+                                LOG.debug("formatCodeScheme: " + formatCodeScheme);
+                            }
+
                             doc.setFormatCodeScheme(formatCodeScheme);
 
-                            String formatCodeDisplayName = extractClassificationMetadata(classifications, XDS_FORMAT_CODE_CLASSIFICATION, XDS_NAME);
-                            log.debug("formatCodeDisplayName: " + formatCodeDisplayName);
+                            String formatCodeDisplayName = extractClassificationMetadata(classifications,
+                                    XDS_FORMAT_CODE_CLASSIFICATION, XDS_NAME);
+
+                            if (LOG.isDebugEnabled()) {
+                                LOG.debug("formatCodeDisplayName: " + formatCodeDisplayName);
+                            }
+
                             doc.setFormatCodeDisplayName(formatCodeDisplayName);
 
                             //extract healthcareFacilityTypeCode
-                            doc.setFacilityCode(extractClassificationMetadata(classifications, XDS_HEALTHCARE_FACILITY_TYPE_CODE_CLASSIFICATION, XDS_NODE_REPRESENTATION));
-                            doc.setFacilityCodeScheme(extractClassificationMetadata(classifications, XDS_HEALTHCARE_FACILITY_TYPE_CODE_CLASSIFICATION, XDS_CODING_SCHEME_SLOT, 0));
-                            doc.setFacilityCodeDisplayName(extractClassificationMetadata(classifications, XDS_HEALTHCARE_FACILITY_TYPE_CODE_CLASSIFICATION, XDS_NAME));
+                            doc.setFacilityCode(extractClassificationMetadata(classifications,
+                                    XDS_HEALTHCARE_FACILITY_TYPE_CODE_CLASSIFICATION, XDS_NODE_REPRESENTATION));
+                            doc.setFacilityCodeScheme(extractClassificationMetadata(classifications,
+                                    XDS_HEALTHCARE_FACILITY_TYPE_CODE_CLASSIFICATION, XDS_CODING_SCHEME_SLOT, 0));
+                            doc.setFacilityCodeDisplayName(extractClassificationMetadata(classifications,
+                                    XDS_HEALTHCARE_FACILITY_TYPE_CODE_CLASSIFICATION, XDS_NAME));
 
                             //extract practiceSettingCode
-                            String practiceSetting = extractClassificationMetadata(classifications, XDS_PRACTICE_SETTING_CODE_CLASSIFICATION, XDS_NODE_REPRESENTATION);
-                            log.debug("practiceSetting: " + practiceSetting);
+                            String practiceSetting = extractClassificationMetadata(classifications,
+                                    XDS_PRACTICE_SETTING_CODE_CLASSIFICATION, XDS_NODE_REPRESENTATION);
+
+                            if (LOG.isDebugEnabled()) {
+                                LOG.debug("practiceSetting: " + practiceSetting);
+                            }
+
                             doc.setPracticeSetting(practiceSetting);
 
-                            String practiceSettingScheme = extractClassificationMetadata(classifications, XDS_PRACTICE_SETTING_CODE_CLASSIFICATION, XDS_CODING_SCHEME_SLOT, 0);
-                            log.debug("practiceSettingScheme: " + practiceSettingScheme);
+                            String practiceSettingScheme = extractClassificationMetadata(classifications,
+                                    XDS_PRACTICE_SETTING_CODE_CLASSIFICATION, XDS_CODING_SCHEME_SLOT, 0);
+
+                            if (LOG.isDebugEnabled()) {
+                                LOG.debug("practiceSettingScheme: " + practiceSettingScheme);
+                            }
+
                             doc.setPracticeSettingScheme(practiceSettingScheme);
 
-                            String practiceSettingDisplayName = extractClassificationMetadata(classifications, XDS_PRACTICE_SETTING_CODE_CLASSIFICATION, XDS_NAME);
-                            log.debug("practiceSettingDisplayName: " + practiceSettingDisplayName);
+                            String practiceSettingDisplayName = extractClassificationMetadata(classifications,
+                                    XDS_PRACTICE_SETTING_CODE_CLASSIFICATION, XDS_NAME);
+
+                            if (LOG.isDebugEnabled()) {
+                                LOG.debug("practiceSettingDisplayName: " + practiceSettingDisplayName);
+                            }
+
                             doc.setPracticeSettingDisplayName(practiceSettingDisplayName);
 
                             //extract typeCode
-                            String typeCode = extractClassificationMetadata(classifications, XDS_TYPE_CODE_CLASSIFICATION, XDS_NODE_REPRESENTATION);
-                            log.debug("typeCode: " + typeCode);
+                            String typeCode = extractClassificationMetadata(classifications,
+                                    XDS_TYPE_CODE_CLASSIFICATION, XDS_NODE_REPRESENTATION);
+
+                            if (LOG.isDebugEnabled()) {
+                                LOG.debug("typeCode: " + typeCode);
+                            }
+
                             doc.setTypeCode(typeCode);
 
-                            String typeCodeScheme = extractClassificationMetadata(classifications, XDS_TYPE_CODE_CLASSIFICATION, XDS_CODING_SCHEME_SLOT, 0);
-                            log.debug("typeCodeScheme: " + typeCodeScheme);
+                            String typeCodeScheme = extractClassificationMetadata(classifications,
+                                    XDS_TYPE_CODE_CLASSIFICATION, XDS_CODING_SCHEME_SLOT, 0);
+
+                            if (LOG.isDebugEnabled()) {
+                                LOG.debug("typeCodeScheme: " + typeCodeScheme);
+                            }
+
                             doc.setTypeCodeScheme(typeCodeScheme);
 
-                            String typeCodeDisplayName = extractClassificationMetadata(classifications, XDS_TYPE_CODE_CLASSIFICATION, XDS_NAME);
-                            log.debug("typeCodeDisplayName: " + typeCodeDisplayName);
+                            String typeCodeDisplayName = extractClassificationMetadata(classifications,
+                                    XDS_TYPE_CODE_CLASSIFICATION, XDS_NAME);
+
+                            if (LOG.isDebugEnabled()) {
+                                LOG.debug("typeCodeDisplayName: " + typeCodeDisplayName);
+                            }
+
                             doc.setTypeCodeDisplayName(typeCodeDisplayName);
 
                             //extract eventCodes
@@ -765,12 +1109,15 @@ public class DocumentRepositoryHelper {
                             doc.setRawData(storeRequestValue);
 
                             //default value for new documents
-                            //TODO implement logic for the replacement of a document - it means changing the status of the referenced document in the submission set association element
+                            //TODO implement logic for the replacement of a document -
+                            //it means changing the status of the referenced document in
+                            //the submission set association element
                             doc.setStatus(XDS_STATUS);
                             doc.setAvailablityStatus(XDS_AVAILABLILTY_STATUS_APPROVED);
                             //parent document id and relationship values deal with document replacements
-                            //                        doc.setParentDocumentId(getChildElementStringValue(documentElement, "parentDocumentId"));
-                            //                        doc.setParentDocumentRelationship(getChildElementStringValue(documentElement, "parentDocumentRelationship"));
+                            //doc.setParentDocumentId(getChildElementStringValue(documentElement, "parentDocumentId"));
+                            //doc.setParentDocumentRelationship(getChildElementStringValue(documentElement,
+                            //"parentDocumentRelationship"));
 
                             //TODO verify that this size logic is correct - it seems kludgy
                             doc.setSize((long) storeRequestValue.length);
@@ -783,25 +1130,36 @@ public class DocumentRepositoryHelper {
                             //set the NHINC repository documentId value
                             if (requestHasReplacementAssociation) {
                                 //query for the documentId using the documentUniqueId
-                                long documentid = queryRepositoryByPatientId(doc.getPatientId(), doc.getClassCode(), doc.getStatus(), doc.getDocumentUniqueId(), docService);
+                                long documentid = queryRepositoryByPatientId(doc.getPatientId(), doc.getClassCode(),
+                                        doc.getStatus(), doc.getDocumentUniqueId(), docService);
                                 doc.setDocumentid(documentid);
                             }
                             //call the DocumentService.save method
                             docService.saveDocument(doc);
-                            log.debug("doc.documentId: " + doc.getDocumentid());
-                            //                        log.debug("document.isPersistent: " + doc.isPersistent()); //TODO need a better way to determine if the doc was actually persisted.
+
+                            if (LOG.isDebugEnabled()) {
+                                LOG.debug("doc.documentId: " + doc.getDocumentid());
+                            }
+
+                            //                        LOG.debug("document.isPersistent: " + doc.isPersistent());
+                            //to do: need a better way to determine if the doc was actually persisted.
 
                             //determine if the save was successful - Hibernate will generate
                             //a documentId for the record and populate this value in the
                             //document object if the save was successful.
                             if (doc.getDocumentid() < 1) {
-                                RegistryError error = new oasis.names.tc.ebxml_regrep.xsd.rs._3.ObjectFactory().createRegistryError();
-                                error.setCodeContext("ProvideAndRegisterDocumentSetRequest message handler did not store a document.");
-                                error.setLocation("DocumentRepositoryService.documentRepositoryProvideAndRegisterDocumentSetB -> " +
-                                    "DocumentRepositoryHelper.documentRepositoryProvideAndRegisterDocumentSet storeDocument"); //kludgy?
+                                RegistryError error
+                                        = new oasis.names.tc.ebxml_regrep.xsd.rs._3.ObjectFactory()
+                                        .createRegistryError();
+                                error.setCodeContext("ProvideAndRegisterDocumentSetRequest message handler did "
+                                        + "not store a document.");
+                                error.setLocation(
+                                        "DocumentRepositoryService.documentRepositoryProvideAndRegisterDocumentSetB - "
+                                        + "DocumentRepositoryHelper.documentRepositoryProvideAndRegisterDocumentSet "
+                                        + "storeDocument"); //kludgy?
                                 error.setErrorCode(XDS_ERROR_CODE_REPOSITORY_ERROR);
                                 error.setSeverity(XDS_ERROR_SEVERITY_ERROR);
-                                error.setValue(XDS_REPOSITORY_ERROR + "\n" + "DocumentUniqueId: " + documentUniqueId);
+                                error.setValue(XDS_REPOSITORY_ERROR  + " DocumentUniqueId: " + documentUniqueId);
 
                                 errorList.getRegistryError().add(error);
                             }
@@ -809,7 +1167,7 @@ public class DocumentRepositoryHelper {
                         } //if (extrinsicObject != null)
                     } //if (tempObj instanceof oasis.names.tc.ebxml_regrep.xsd.rim._3.ExtrinsicObjectType)
 
-                } //for (JAXBElement<? extends oasis.names.tc.ebxml_regrep.xsd.rim._3.IdentifiableType> identifiableObject : identifiableObjectList)
+                } //for (JAXBElement<? extends oasis.names.tc.ebxml_regrep.xsd.rim._3.IdentifiableType>
             }
         } //if body is not null
 
@@ -827,40 +1185,60 @@ public class DocumentRepositoryHelper {
         return registryResponse;
     }
 
-    private boolean checkForReplacementAssociation(List<JAXBElement<? extends oasis.names.tc.ebxml_regrep.xsd.rim._3.IdentifiableType>> identifiableObjectList, RegistryErrorList errorList) {
+    private boolean checkForReplacementAssociation(List<JAXBElement<?
+            extends oasis.names.tc.ebxml_regrep.xsd.rim._3.IdentifiableType>> identifiableObjectList,
+            RegistryErrorList errorList) {
         boolean replacementAssociationExists = false;
 
         for (int i = 0; i < identifiableObjectList.size(); i++) {
-            log.debug("Item " + i + " identifiableObject is of DeclaredType: " + identifiableObjectList.get(i).getDeclaredType());
+
+            if (LOG.isDebugEnabled()) {
+                LOG.debug("Item " + i + " identifiableObject is of DeclaredType: "
+                        + identifiableObjectList.get(i).getDeclaredType());
+            }
+
 
             //the getValue method will return the non-JAXBElement<? extends...> object
             Object tempObj = identifiableObjectList.get(i).getValue();
 
             if (tempObj instanceof oasis.names.tc.ebxml_regrep.xsd.rim._3.AssociationType1) {
-                //TODO logic for the replacement of a document - it means changing the status of the referenced document in the submission set association element
-                //WARNING: The following logic is NOT XDS compliant - we are assuming that the document in the request is already persisted and that we are only updating
-                //that document. If there is another document that actually replaces/deprecates the old, then this logic will not work.
+                //TODO logic for the replacement of a document - it means changing the status of the
+                //referenced document in the submission set association element
+                //WARNING: The following logic is NOT XDS compliant - we are assuming that the document in the request
+                //is already persisted and that we are only updating
+                //that document. If there is another document that actually replaces/deprecates the old,
+                //then this logic will not work.
                 AssociationType1 associationObj = (AssociationType1) tempObj;
 
-                log.debug("associationType object present");
+                LOG.debug("associationType object present");
 
                 if (associationObj == null) {
-                    RegistryError error = new oasis.names.tc.ebxml_regrep.xsd.rs._3.ObjectFactory().createRegistryError();
-                    error.setCodeContext("ProvideAndRegisterDocumentSetRequest message handler did not find a required element");
-                    error.setLocation("DocumentRepositoryService.documentRepositoryProvideAndRegisterDocumentSetB -> " +
-                        "DocumentRepositoryHelper.documentRepositoryProvideAndRegisterDocumentSet"); //kludgy?
+                    RegistryError error
+                            = new oasis.names.tc.ebxml_regrep.xsd.rs._3.ObjectFactory().createRegistryError();
+                    error.setCodeContext("ProvideAndRegisterDocumentSetRequest message handler did not"
+                            + " find a required element");
+                    error.setLocation("DocumentRepositoryService.documentRepositoryProvideAndRegisterDocumentSetB -> "
+                            + "DocumentRepositoryHelper.documentRepositoryProvideAndRegisterDocumentSet"); //kludgy?
                     error.setErrorCode(XDS_ERROR_CODE_MISSING_DOCUMENT_METADATA);
                     error.setSeverity(XDS_ERROR_SEVERITY_SEVERE);
                     error.setValue(XDS_MISSING_DOCUMENT_METADATA + "associationType element is null.");
 
                     errorList.getRegistryError().add(error);
 
-                    log.error("Error Location: " + error.getLocation() + "; \n" + "Error Severity: " + error.getSeverity() + "; \n" + "Error ErrorCode: " + error.getErrorCode() + "; \n" + "Error CodeContext: " + error.getCodeContext());
+                    if (LOG.isErrorEnabled()) {
+                        LOG.error("Error Location: " + error.getLocation() + "; " + "Error Severity: "
+                                + error.getSeverity() + "; " + "Error getErrorCode(): " + error.getErrorCode()
+                                + "; " + "Error getCodeContext: " + error.getCodeContext());
+                    }
 
                 } else {
                     //check to see if the associationType is rplc
                     String associationType = associationObj.getAssociationType();
-                    log.debug("Association element associationType = " + associationType);
+
+                    if (LOG.isDebugEnabled()) {
+                        LOG.debug("Association element associationType = " + associationType);
+                    }
+
                     if (XDS_ASSOCIATION_TYPE_REPLACE.equalsIgnoreCase(associationType)) {
                         replacementAssociationExists = true;
                         break;
@@ -873,11 +1251,15 @@ public class DocumentRepositoryHelper {
             } //if (tempObj instanceof oasis.names.tc.ebxml_regrep.xsd.rim._3.AssociationType1)
         } //for (int i = 0; i < identifiableObjectList.size(); i++)
 
-        log.debug("replacementAssociationExists = " + replacementAssociationExists);
+        if (LOG.isDebugEnabled()) {
+             LOG.debug("replacementAssociationExists = " + replacementAssociationExists);
+        }
+
         return replacementAssociationExists;
     }
 
-    private long queryRepositoryByPatientId(String sPatId, String sClassCode, String sStatus, String sDocUniqueId, DocumentService docService) {
+    private long queryRepositoryByPatientId(String sPatId, String sClassCode, String sStatus, String sDocUniqueId,
+            DocumentService docService) {
         long nhincDocRepositoryDocId = 0;
 
         //query for the doc unique id
@@ -896,7 +1278,8 @@ public class DocumentRepositoryHelper {
 
         List<Document> documents = docService.documentQuery(params);
         if (documents != null && !documents.isEmpty()) {
-            //the returned list should only have one document because the documentUniqueId should be unique in the repository.
+            //the returned list should only have one document because the documentUniqueId should be unique
+            //in the repository.
             nhincDocRepositoryDocId = documents.get(0).getDocumentid();
         }
 
@@ -911,15 +1294,24 @@ public class DocumentRepositoryHelper {
      * @return Returns the string representation of the metadata item. Returns
      * null if not present.
      */
-    private String extractMetadataFromExternalIdentifiers(List<oasis.names.tc.ebxml_regrep.xsd.rim._3.ExternalIdentifierType> externalIdentifiers,
+    private String extractMetadataFromExternalIdentifiers(
+            List<oasis.names.tc.ebxml_regrep.xsd.rim._3.ExternalIdentifierType> externalIdentifiers,
         String metadataItemName) {
         String metadataItemValue = null;
-        log.debug("extractMetadataFromExternalIdentifiers metadataItemName: " + metadataItemName);
+
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("extractMetadataFromExternalIdentifiers metadataItemName: " + metadataItemName);
+        }
+
 
         //loop through the externalIdentifiers looking for the for the desired name
         for (oasis.names.tc.ebxml_regrep.xsd.rim._3.ExternalIdentifierType externalIdentifier : externalIdentifiers) {
             String externalIdentifierName = externalIdentifier.getName().getLocalizedString().get(0).getValue();
-            log.debug("externalIdentifierName: " + externalIdentifierName);
+
+            if (LOG.isDebugEnabled()) {
+                LOG.debug("externalIdentifierName: " + externalIdentifierName);
+            }
+
             if (metadataItemName.equalsIgnoreCase(externalIdentifierName)) {
                 metadataItemValue = externalIdentifier.getValue();
                 break;
@@ -940,7 +1332,9 @@ public class DocumentRepositoryHelper {
      * @return Returns the value of the metadata item found in the XDS classification
      *         element given the slotname.
      */
-    private String extractClassificationMetadata(List<oasis.names.tc.ebxml_regrep.xsd.rim._3.ClassificationType> classifications, String classificationSchemeUUID, String slotName, int valueIndex) {
+    private String extractClassificationMetadata(
+            List<oasis.names.tc.ebxml_regrep.xsd.rim._3.ClassificationType> classifications,
+            String classificationSchemeUUID, String slotName, int valueIndex) {
         String classificationValue = null;
 
         //loop through the classifications looking for the desired classification uuid
@@ -975,15 +1369,24 @@ public class DocumentRepositoryHelper {
      *         element given the classification scheme and the name of the desired
      *         metadata element.
      */
-    private String extractClassificationMetadata(List<oasis.names.tc.ebxml_regrep.xsd.rim._3.ClassificationType> classifications, String classificationSchemeUUID, String classificationValueName) {
+    private String extractClassificationMetadata(
+            List<oasis.names.tc.ebxml_regrep.xsd.rim._3.ClassificationType> classifications,
+            String classificationSchemeUUID, String classificationValueName) {
         String classificationValue = null;
 
-        log.debug("Looking for classificationScheme=" + classificationSchemeUUID);
-        log.debug("Looking for classificationValueName=" + classificationValueName);
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("Looking for classificationScheme=" + classificationSchemeUUID);
+        LOG.debug("Looking for classificationValueName=" + classificationValueName);
+        }
+
         //loop through the classifications looking for the desired classification uuid
         for (oasis.names.tc.ebxml_regrep.xsd.rim._3.ClassificationType classification : classifications) {
             String classificationSchemeName = classification.getClassificationScheme();
-            log.debug("Found classificationScheme=" + classificationSchemeName);
+
+            if (LOG.isDebugEnabled()) {
+                LOG.debug("Found classificationScheme=" + classificationSchemeName);
+            }
+
 
             if (classificationSchemeUUID.equals(classificationSchemeName)) {
                 if (classificationValueName.equals(XDS_NAME)) {
@@ -1002,7 +1405,11 @@ public class DocumentRepositoryHelper {
             !classificationValue.equals("")) {
             classificationValue = StringUtil.extractStringFromTokens(classificationValue, "'()");
         }
-        log.debug(classificationValueName + ": " + classificationValue);
+
+        if (LOG.isDebugEnabled()) {
+            LOG.debug(classificationValueName + ": " + classificationValue);
+        }
+
         return classificationValue;
     }
 
@@ -1016,8 +1423,14 @@ public class DocumentRepositoryHelper {
      * @return Returns the value of the first metadata value with the given metadata
      * name. Null if not present.
      */
-    private String extractMetadataFromSlots(List<oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1> documentSlots, String slotName, int valueIndex) {
-        log.debug("extractMetadataFromSlots slotname: " + slotName + "; index: " + valueIndex);
+    private String extractMetadataFromSlots(List<oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1> documentSlots,
+            String slotName, int valueIndex) {
+
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("extractMetadataFromSlots slotname: " + slotName + "; index: " + valueIndex);
+        }
+
+
         String slotValue = null;
         StringBuffer slotValues = null;
         boolean returnAllValues = false;
@@ -1027,7 +1440,11 @@ public class DocumentRepositoryHelper {
         }
         for (oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1 slot : documentSlots) {
             if (slotName.equals(slot.getName())) {
-                log.debug("Found " + slotName + ": " + slot.getValueList().getValue());
+
+                if (LOG.isDebugEnabled()) {
+                     LOG.debug("Found " + slotName + ": " + slot.getValueList().getValue());
+                }
+
                 if (returnAllValues) {
                     int listSize = slot.getValueList().getValue().size();
                     int counter = 0;
@@ -1051,7 +1468,10 @@ public class DocumentRepositoryHelper {
             slotValue = slotValues.toString();
         }
 
-        log.debug(slotName + ": " + slotValue);
+        if (LOG.isDebugEnabled()) {
+            LOG.debug(slotName + ": " + slotValue);
+        }
+
         return slotValue;
     }
 
@@ -1064,13 +1484,17 @@ public class DocumentRepositoryHelper {
     private void extractExtraMetadataFromSlots(
         List<oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1> documentSlots,
         gov.hhs.fha.nhinc.docmgr.repository.model.Document doc) {
-        log.debug("extractExtraMetadataFromSlots");
+        LOG.debug("extractExtraMetadataFromSlots");
         Set<ExtraSlot> extraSlots = new HashSet<ExtraSlot>();
         for (oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1 slot : documentSlots) {
             if (slot.getName().startsWith(XDS_EXTRA_METADATA_START)) {
-                log.debug("Found " + slot.getName() + ": " + slot.getValueList().getValue());
 
-                StringBuffer slotValues = new StringBuffer();
+                if (LOG.isDebugEnabled()) {
+                    LOG.debug("Found " + slot.getName() + ": " + slot.getValueList().getValue());
+                }
+
+                StringBuilder slotValues;
+                slotValues = new StringBuilder();
                 int listSize = slot.getValueList().getValue().size();
                 int counter = 0;
                 Iterator iter = slot.getValueList().getValue().iterator();
@@ -1093,7 +1517,11 @@ public class DocumentRepositoryHelper {
         } //for (oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1 slot : documentSlots)
 
         doc.setExtraSlots(extraSlots);
-        log.debug("Found " + extraSlots.size() + "extraSlots.");
+
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("Found " + extraSlots.size() + "extraSlots.");
+        }
+
     }
 
     /**
@@ -1103,7 +1531,8 @@ public class DocumentRepositoryHelper {
      * @return Returns the value of the first metadata value with the given metadata
      * name. Null if not present.
      */
-    private String extractPatientInfo(List<oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1> documentSlots, String patientInfoName) {
+    private String extractPatientInfo(List<oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1> documentSlots,
+            String patientInfoName) {
         String slotValue = null;
 
         for (oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1 slot : documentSlots) {
@@ -1113,7 +1542,11 @@ public class DocumentRepositoryHelper {
                     String nextSlotValue = (String) iter.next();
                     if (nextSlotValue.startsWith(patientInfoName)) {
                         slotValue = nextSlotValue.substring(patientInfoName.length() + 1);
-                        log.debug(patientInfoName + " extractionValue: " + slotValue);
+
+                        if (LOG.isDebugEnabled()) {
+                            LOG.debug(patientInfoName + " extractionValue: " + slotValue);
+                        }
+
                     }
                 }
             } //if (XDS_SOURCE_PATIENT_INFO_SLOT.equals(slot.getName()))
@@ -1133,9 +1566,9 @@ public class DocumentRepositoryHelper {
         if ((dateString != null) && (dateFormat != null)) {
             try {
                 String formatString = DocumentLoadUtil.prepareDateFormatString(dateFormat, dateString);
-                parsed = new SimpleDateFormat(formatString).parse(dateString);
-            } catch (Throwable t) {
-                log.warn("Error parsing '" + dateString + "' using format: '" + dateFormat + "'", t);
+                parsed = new SimpleDateFormat(formatString,Locale.getDefault()).parse(dateString);
+            } catch (ParseException pe) {
+                LOG.warn("Error parsing '" + dateString + "' using format: '" + dateFormat + "'", pe);
             }
         }
         return parsed;
@@ -1146,7 +1579,8 @@ public class DocumentRepositoryHelper {
      * @param classifications The list of metadata classification objects for the document
      * @param doc The NHINC document object to be persisted.
      */
-    private void extractEventCodes(List<oasis.names.tc.ebxml_regrep.xsd.rim._3.ClassificationType> classifications, gov.hhs.fha.nhinc.docmgr.repository.model.Document doc) {
+    private void extractEventCodes(List<oasis.names.tc.ebxml_regrep.xsd.rim._3.ClassificationType> classifications,
+            gov.hhs.fha.nhinc.docmgr.repository.model.Document doc) {
         Set<EventCode> eventCodes = new HashSet<EventCode>();
         for (oasis.names.tc.ebxml_regrep.xsd.rim._3.ClassificationType classification : classifications) {
             String classificationSchemeName = classification.getClassificationScheme();
@@ -1156,7 +1590,8 @@ public class DocumentRepositoryHelper {
 
                 //eventCode.setEventCodeId(getChildElementLongValue(eventCodeElement, "codeId"));
                 eventCode.setEventCode(classification.getNodeRepresentation());
-                eventCode.setEventCodeScheme(extractMetadataFromSlots(classification.getSlot(), XDS_CODING_SCHEME_SLOT, 0));
+                eventCode.setEventCodeScheme(extractMetadataFromSlots(classification.getSlot(),
+                        XDS_CODING_SCHEME_SLOT, 0));
                 eventCode.setEventCodeDisplayName(classification.getName().getLocalizedString().get(0).getValue());
 
                 eventCodes.add(eventCode);
@@ -1174,14 +1609,15 @@ public class DocumentRepositoryHelper {
         String homeCommunityId = null;
         try {
             PropertyAccessor oProp = PropertyAccessor.getInstance();
-            homeCommunityId = "urn:oid:" + oProp.getProperty(PROPERTY_FILE_NAME_GATEWAY, PROPERTY_FILE_KEY_HOME_COMMUNITY);
-        } catch (Throwable t) {
-            log.error("Error retrieving the home community id: " + t.getMessage(), t);
+            homeCommunityId = "urn:oid:" + oProp.getProperty(PROPERTY_FILE_NAME_GATEWAY,
+                    PROPERTY_FILE_KEY_HOME_COMMUNITY);
+        } catch (PropertyAccessException pae) {
+            LOG.error("Error retrieving the home community id: " , pae);
         }
         return homeCommunityId;
     }
 
-    private void InsertResponseError(RegistryErrorList list, String XDSDocumentErrorCode, String context) {
+    private void insertResponseError(RegistryErrorList list, String XDSDocumentErrorCode, String context) {
         RegistryError err = new RegistryError();
         err.setErrorCode(XDSDocumentErrorCode);
         err.setCodeContext(context);

@@ -73,6 +73,8 @@ import org.hl7.v3.POCDMT000040AuthoringDevice;
 import org.hl7.v3.POCDMT000040Person;
 import org.hl7.v3.TSExplicit;
 import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
+import java.text.ParseException;
+import java.util.Locale;
 
 /**
  *
@@ -80,36 +82,59 @@ import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
  */
 public class C62DocumentBuilder extends DocumentBuilder {
 
-    private static Log log = LogFactory.getLog(C62DocumentBuilder.class);
+    private static final Log LOG = LogFactory.getLog(C62DocumentBuilder.class);
     private static String endpoint = AssemblyConstants.DAS_DATASERVICE_ENDPOINT;
     private static DataService dataService = new DataService(endpoint);
     private List<POCDMT000040ClinicalDocument> c62DocumentList = null;
     private POCDMT000040ClinicalDocument c62Document = null;
-    private String docId = "";
+    private static final String DOCID = "";
 
+    /**
+     * 
+     */
     public C62DocumentBuilder() {
         super();
     }
 
+    /**
+     *
+     * @param id String
+     */
     public C62DocumentBuilder(String id) {
         super(id);
     }
 
+    /**
+     *
+     * @return c62Document
+     */
     public POCDMT000040ClinicalDocument getCdaDocument() {
         return c62Document;
     }
 
+    /**
+     *
+     * @return docId
+     */
     public String getDocId() {
-        return docId;
+        return DOCID;
     }
 
+    /**
+     *
+     * @return c62DocumentList
+     * @throws DocumentBuilderException DocumentBuilderException
+     */
     public List<POCDMT000040ClinicalDocument> build() throws DocumentBuilderException {
 
         //check for C62 class code or Radiology Report class code
-        if (documentType.getTypeId().equalsIgnoreCase(AssemblyConstants.C62_CLASS_CODE) || documentType.getTypeId().equalsIgnoreCase(AssemblyConstants.C62_RR_CLASS_CODE)) {
+        if (documentType.getTypeId().equalsIgnoreCase(AssemblyConstants.C62_CLASS_CODE)
+            || documentType.getTypeId().equalsIgnoreCase(AssemblyConstants.C62_RR_CLASS_CODE)) {
 
-            log.debug("Requested C62 has a class code of " + documentType.getTypeId());
-
+            if (LOG.isDebugEnabled()) {
+                LOG.debug("Requested C62 has a class code of " + documentType.getTypeId());
+            }
+            
             buildC62();
 
         } else {
@@ -120,14 +145,14 @@ public class C62DocumentBuilder extends DocumentBuilder {
     }
 
     private String formatDate(String dateString, String inputFormat, String outputFormat) {
-        SimpleDateFormat inputFormatter = new SimpleDateFormat(inputFormat);
-        SimpleDateFormat outputFormatter = new SimpleDateFormat(outputFormat);
+        SimpleDateFormat inputFormatter = new SimpleDateFormat(inputFormat,Locale.getDefault());
+        SimpleDateFormat outputFormatter = new SimpleDateFormat(outputFormat, Locale.getDefault());
         Date date = null;
 
         try {
             date = inputFormatter.parse(dateString);
-        } catch (Exception ex) {
-            log.error(ex);
+        } catch (ParseException ex) {
+            LOG.error("Exception while formatting Date: ", ex);
         }
 
         return outputFormatter.format(date);
@@ -143,19 +168,25 @@ public class C62DocumentBuilder extends DocumentBuilder {
 
         //call CAL FDWC endpoint - we need to pass appropriate class code in request
         String documentClassCode = documentType.getTypeId();
-        log.debug("Building a FDWC request with the following class code entry - " + documentClassCode);
 
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("Building a FDWC request with the following class code entry - " + documentClassCode);
+        }
+        
         FindDocumentWithContentRCMRIN000032UV01ResponseType response =
             dataService.findDocumentWithContent(subjectId, endpoint, documentClassCode);
 
         if (response != null) {
-            log.debug("******************  RCMR Response Received from Internal Provider *************");
-            log.debug("RCMR Response from EMR: " + XMLUtil.toPrettyXML(response));
+            LOG.debug("******************  RCMR Response Received from Internal Provider *************");
+
+            if (LOG.isDebugEnabled()) {
+                LOG.debug("RCMR Response from EMR: " + XMLUtil.toPrettyXML(response));
+            }
         }
-        if (response != null && response.getResponse() != null &&
-            response.getResponse().getControlActProcess() != null &&
-            response.getResponse().getControlActProcess().getSubject() != null &&
-            response.getResponse().getControlActProcess().getSubject().size() > 0) {
+        if (response != null && response.getResponse() != null 
+            && response.getResponse().getControlActProcess() != null
+            && response.getResponse().getControlActProcess().getSubject() != null 
+            && response.getResponse().getControlActProcess().getSubject().size() > 0) {
 
             //retrieve the home community id for this gateway
             String localHomeCommunityOID = "";
@@ -167,21 +198,29 @@ public class C62DocumentBuilder extends DocumentBuilder {
                 localHomeCommunityOID = PropertyAccessor.getInstance().getProperty("gateway", "localHomeCommunityId");
                 localHealthSystemTelecom = PropertyAccessor.getInstance().getProperty("infoSource", "TelecomC62");
             } catch (PropertyAccessException pae) {
-                log.error("Error reading from properties files: " + pae);
+                LOG.error("Error reading from properties files: ", pae);
             }
 
             for (int i = 0; i < response.getResponse().getControlActProcess().getSubject().size(); i++) {
                 // Extract CDA from RCMR response
                 // The C62 CDA document is encoded in the RCMR package as non-XML text
-                RCMRIN000032UV01QUQIMT120001UV01Subject2 subject = response.getResponse().getControlActProcess().getSubject().get(i);
+                RCMRIN000032UV01QUQIMT120001UV01Subject2 subject
+                    = response.getResponse().getControlActProcess().getSubject().get(i);
                 if (subject.getClinicalDocument() != null && subject.getClinicalDocument().getText() != null) {
 
                     // Change effective time to complete time with TimeZone offset
                     String effectiveTimeC62 = subject.getClinicalDocument().getEffectiveTime().getValue();
-                    log.debug("EffectiveTime from RCMR = " + effectiveTimeC62);
-                    effectiveTimeC62 = formatDate(effectiveTimeC62, "yyyyMMddHHmmss", "yyyyMMddHHmmssZ");
-                    log.debug("EffectiveTime after time zone conversion = " + effectiveTimeC62);
 
+                    if (LOG.isDebugEnabled()) {
+                        LOG.debug("EffectiveTime from RCMR = " + effectiveTimeC62);
+                    }
+                    
+                    effectiveTimeC62 = formatDate(effectiveTimeC62, "yyyyMMddHHmmss", "yyyyMMddHHmmssZ");
+
+                    if (LOG.isDebugEnabled()) {
+                        LOG.debug("EffectiveTime after time zone conversion = " + effectiveTimeC62);
+                    }
+                    
                     EDExplicit text = subject.getClinicalDocument().getText();
                     String encodedDocument = text.getContent().get(0).toString();
                     String xmlDocument = Base64Coder.decodeString(encodedDocument);
@@ -195,7 +234,7 @@ public class C62DocumentBuilder extends DocumentBuilder {
 
                             II senderId = senderList.get(k);
                             if (senderId.getRoot().equals(localHomeCommunityOID)) {
-                                log.debug("The sender OID matches the local home community OID");
+                                LOG.debug("The sender OID matches the local home community OID");
                                 senderIsLocalOID = true;
                                 break;
                             } else {
@@ -214,14 +253,16 @@ public class C62DocumentBuilder extends DocumentBuilder {
                         Object o = u.unmarshal(new StreamSource(new StringReader(xmlStr.toString())));
                         element = (JAXBElement) o;
                     } catch (javax.xml.bind.JAXBException e) {
-                        log.error("Unable to process RCMR Response from EMR. Document number " + i + " skipped");
+                        LOG.error("Unable to process RCMR Response from EMR. Document number " + i + " skipped", e);
                         continue;
                     }
                     org.hl7.v3.ObjectFactory obf = new org.hl7.v3.ObjectFactory();
-                    JAXBElement<POCDMT000040ClinicalDocument> clinDocElement = obf.createClinicalDocument((POCDMT000040ClinicalDocument) element.getValue());
+                    JAXBElement<POCDMT000040ClinicalDocument> clinDocElement
+                        = obf.createClinicalDocument((POCDMT000040ClinicalDocument) element.getValue());
 
                     c62Document = clinDocElement.getValue();
-                    c62Document.getId().setRoot(UUIDGenerator.generateUUIDFromString(subject.getClinicalDocument().getId().getExtension()));
+                    c62Document.getId().setRoot(UUIDGenerator.generateUUIDFromString(subject.getClinicalDocument()
+                        .getId().getExtension()));
                     // Specific Fixes for data from McKesson System
                     // Not able to engineer these fixes into the RCMR document
                     // So we patch up the C62 document returned in the RCMR below
@@ -276,7 +317,8 @@ public class C62DocumentBuilder extends DocumentBuilder {
 
                         //assigned person name comes from McKesson
                         org.hl7.v3.POCDMT000040Person assignedPerson = new org.hl7.v3.POCDMT000040Person();
-                        assignedPerson.getName().add(subject.getClinicalDocument().getAuthor().get(0).getAssignedAuthor().getAssignedPerson().getValue().getName().get(0));
+                        assignedPerson.getName().add(subject.getClinicalDocument().getAuthor().get(0)
+                            .getAssignedAuthor().getAssignedPerson().getValue().getName().get(0));
                         assignedPerson.getName().get(0).getUse().add("L");  //indicates legal name
 
                         // Fix up the content of the recordTarget
@@ -298,7 +340,8 @@ public class C62DocumentBuilder extends DocumentBuilder {
                         c62Document.getAuthor().get(0).getTime().setValue(effectiveTimeC62);
 
                         //create a temp authoring device before deleting it from C62documentobject
-                        POCDMT000040AuthoringDevice tempAuthoringDevice = c62Document.getAuthor().get(0).getAssignedAuthor().getAssignedAuthoringDevice();
+                        POCDMT000040AuthoringDevice tempAuthoringDevice
+                            = c62Document.getAuthor().get(0).getAssignedAuthor().getAssignedAuthoringDevice();
 
                         // Fix up the content of AssignedAuthor
                         if (c62Document.getAuthor().get(0).getAssignedAuthor() != null) {
@@ -328,8 +371,7 @@ public class C62DocumentBuilder extends DocumentBuilder {
                             c62Document.getAuthor().get(0).getAssignedAuthor().setAssignedAuthoringDevice(null);
                         }
 
-                        //  POCDMT000040Organization  tempRepresentedOrganization = obf.createPOCDMT000040Organization();
-
+                        // POCDMT000040Organization  tempRepresentedOrganization = obf.createPOCDMT000040Organization();
                         POCDMT000040Organization tempRepresentedOrganization = obf.createPOCDMT000040Organization();
 
                         //declare objects to hold values from property file
@@ -340,46 +382,74 @@ public class C62DocumentBuilder extends DocumentBuilder {
                         String rOZip = null;
 
                         // Fix up the content of RepresentedOrganization
-                        if (subject.getClinicalDocument().getAuthor().get(0).getAssignedAuthor().getRepresentedOrganization().getValue().getName() != null) {
+                        if (subject.getClinicalDocument().getAuthor().get(0).getAssignedAuthor()
+                            .getRepresentedOrganization().getValue().getName() != null) {
 
                             //grab the name from McKesson and populate temp object
-                            tempRepresentedOrganization.getName().add(subject.getClinicalDocument().getAuthor().get(0).getAssignedAuthor().getRepresentedOrganization().getValue().getName().get(0));
+                            tempRepresentedOrganization.getName().add(subject.getClinicalDocument()
+                                .getAuthor().get(0).getAssignedAuthor().getRepresentedOrganization().getValue()
+                                .getName().get(0));
 
-                            log.debug("Parsed Represented Organization Name from RCMR = " + extractStringFromSerializableArray(subject.getClinicalDocument().getAuthor().get(0).getAssignedAuthor().getRepresentedOrganization().getValue().getName().get(0).getContent()));
+                            if (LOG.isDebugEnabled()) {
+                                LOG.debug("Parsed Represented Organization Name from RCMR = "
+                                + extractStringFromSerializableArray(subject.getClinicalDocument().getAuthor()
+                                .get(0).getAssignedAuthor().getRepresentedOrganization().getValue().getName()
+                                .get(0).getContent()));
+                            }
+                            
+                           try {
+                                //check the name value from RCMR response and then do lookup for appropriate addr
+                                //and telecom
+                                if (extractStringFromSerializableArray(subject.getClinicalDocument().getAuthor()
+                                    .get(0).getAssignedAuthor().getRepresentedOrganization().getValue().getName()
+                                    .get(0).getContent()).equals(getInfoSourceProperty("HospitalName"))) {
 
-                            try {
-                                //check the name value from RCMR response and then do lookup for appropriate addr and telecom
-                                if (extractStringFromSerializableArray(subject.getClinicalDocument().getAuthor().get(0).getAssignedAuthor().getRepresentedOrganization().getValue().getName().get(0).getContent()).equals(getInfoSourceProperty("HospitalName"))) {
-                                    log.debug("C62 Represented Organization Name = " + getInfoSourceProperty("HospitalName"));
-
+                                    if (LOG.isDebugEnabled()) {
+                                        LOG.debug("C62 Represented Organization Name = "
+                                        + getInfoSourceProperty("HospitalName"));
+                                    }
+                                    
                                     rOTelecom = getInfoSourceProperty("TelecomC62");
                                     rOCity = getInfoSourceProperty("City");
                                     rOStreet = getInfoSourceProperty("Street");
                                     rOState = getInfoSourceProperty("State");
                                     rOZip = getInfoSourceProperty("Zip");
-                                } else if (extractStringFromSerializableArray(subject.getClinicalDocument().getAuthor().get(0).getAssignedAuthor().getRepresentedOrganization().getValue().getName().get(0).getContent()).equals(getInfoSourceProperty("MedicalCenterName"))) {
-                                    log.debug(" C62 Represented Organization Name = " + getInfoSourceProperty("MedicalCenterName"));
+                                } else if (extractStringFromSerializableArray(subject.getClinicalDocument()
+                                    .getAuthor().get(0).getAssignedAuthor().getRepresentedOrganization().getValue()
+                                    .getName().get(0).getContent()).equals(
+                                    getInfoSourceProperty("MedicalCenterName"))) {
 
+                                    if (LOG.isDebugEnabled()) {
+                                         LOG.debug(" C62 Represented Organization Name = "
+                                        + getInfoSourceProperty("MedicalCenterName"));
+                                    }
+                                
                                     rOTelecom = getInfoSourceProperty("MedicalCenterTelecom");
                                     rOCity = getInfoSourceProperty("MedicalCenterCity");
                                     rOStreet = getInfoSourceProperty("MedicalCenterStreet");
                                     rOState = getInfoSourceProperty("State");
                                     rOZip = getInfoSourceProperty("MedicalCenterZip");
-                                } else if (extractStringFromSerializableArray(subject.getClinicalDocument().getAuthor().get(0).getAssignedAuthor().getRepresentedOrganization().getValue().getName().get(0).getContent()).equals(getInfoSourceProperty("SecondaryMedicalCenterName"))) {
-                                    log.debug("C62 Represented Organization Name =  " + getInfoSourceProperty("SecondaryMedicalCenterName"));
+                                } else if (extractStringFromSerializableArray(subject.getClinicalDocument()
+                                    .getAuthor().get(0).getAssignedAuthor().getRepresentedOrganization().getValue()
+                                    .getName().get(0).getContent()).equals(
+                                    getInfoSourceProperty("SecondaryMedicalCenterName"))) {
 
+                                    if (LOG.isDebugEnabled()) {
+                                        LOG.debug("C62 Represented Organization Name =  "
+                                        + getInfoSourceProperty("SecondaryMedicalCenterName"));
+                                    }
+                                    
                                     rOTelecom = getInfoSourceProperty("SecondaryMedicalCenterTelecom");
                                     rOCity = getInfoSourceProperty("SecondaryMedicalCenterCity");
                                     rOStreet = getInfoSourceProperty("SecondaryMedicalCenterStreet");
                                     rOState = getInfoSourceProperty("State");
                                     rOZip = getInfoSourceProperty("SecondaryMedicalCenterZip");
                                 }
-                            } catch (Exception e) {
-                                log.error("Exception creating C62 RepresnetedOrganization: " + e);
-                            }
+                            } catch (PropertyAccessException pae) {
+                                LOG.error("PropertyAccessException while creating C62 RepresnetedOrganization: ", pae);
+                         }
 
                             //build out temp RO telecom & addr with values from properties file
-
                             //telecom
                             TELExplicit tele = obf.createTELExplicit();
 
@@ -398,7 +468,8 @@ public class C62DocumentBuilder extends DocumentBuilder {
                             city.setContent(rOCity);
 
                             //street
-                            org.hl7.v3.AdxpExplicitStreetAddressLine street = new org.hl7.v3.AdxpExplicitStreetAddressLine();
+                            org.hl7.v3.AdxpExplicitStreetAddressLine street
+                                = new org.hl7.v3.AdxpExplicitStreetAddressLine();
                             street.setContent(rOStreet);
 
                             //state
@@ -423,13 +494,15 @@ public class C62DocumentBuilder extends DocumentBuilder {
 
                         }
 
-                        c62Document.getAuthor().get(0).getAssignedAuthor().setRepresentedOrganization(tempRepresentedOrganization);
+                        c62Document.getAuthor().get(0).getAssignedAuthor()
+                            .setRepresentedOrganization(tempRepresentedOrganization);
 
                         //create device author section for addition to C62
                         Author authInstance = new Author();
                         POCDMT000040Author deviceAuthor = authInstance.build();
                         deviceAuthor.setContextControlCode("OP");
-                        deviceAuthor.getTypeCode().add(subject.getClinicalDocument().getAuthor().get(0).getTypeCode().get(0));
+                        deviceAuthor.getTypeCode().add(subject.getClinicalDocument()
+                            .getAuthor().get(0).getTypeCode().get(0));
 
                         //fix time
                         deviceAuthor.getTime().setValue(effectiveTimeC62);
@@ -455,11 +528,10 @@ public class C62DocumentBuilder extends DocumentBuilder {
                         deviceAuthor.getAssignedAuthor().setAssignedAuthoringDevice(tempAuthoringDevice);
 
                         //fix represented organization telecom
-                        deviceAuthor.getAssignedAuthor().getRepresentedOrganization().getTelecom().get(0).setValue(rOTelecom);
+                        deviceAuthor.getAssignedAuthor().getRepresentedOrganization().getTelecom().get(0)
+                            .setValue(rOTelecom);
 
                         c62Document.getAuthor().add(deviceAuthor);
-
-
 
                         // Fix up /ClinicalDocument/DateEnterer
                         if (c62Document.getDataEnterer().getAssignedEntity() != null) {
@@ -487,8 +559,10 @@ public class C62DocumentBuilder extends DocumentBuilder {
                                 telList.add(unknownTele);
                             }
                         }
-                        // Add the Health System Telephone Number to /ClinicalDOcument/AssignedEntity/RepresentedOrganization
-                        POCDMT000040Organization ro = c62Document.getDataEnterer().getAssignedEntity().getRepresentedOrganization();
+                        // Add the Health System Telephone Number to /ClinicalDOcument/AssignedEntity/
+                        //RepresentedOrganization
+                        POCDMT000040Organization ro = c62Document.getDataEnterer().getAssignedEntity()
+                            .getRepresentedOrganization();
                         List<TELExplicit> telList = ro.getTelecom();
                         if (telList.isEmpty()) {
                             TELExplicit tele = new TELExplicit();
@@ -496,8 +570,10 @@ public class C62DocumentBuilder extends DocumentBuilder {
                             telList.add(tele);
                         }
 
-                        // Add the Health System Telephone Number to ClinicalDocument[1]/custodian[1]/assignedCustodian[1]/representedCustodianOrganization[1]
-                        POCDMT000040CustodianOrganization co = c62Document.getCustodian().getAssignedCustodian().getRepresentedCustodianOrganization();
+                        // Add the Health System Telephone Number to ClinicalDocument[1]/custodian[1]
+                        ///assignedCustodian[1]/representedCustodianOrganization[1]
+                        POCDMT000040CustodianOrganization co = c62Document.getCustodian().getAssignedCustodian()
+                            .getRepresentedCustodianOrganization();
                         TELExplicit tele = co.getTelecom();
                         if (tele == null) {
                             tele = new TELExplicit();
@@ -519,26 +595,27 @@ public class C62DocumentBuilder extends DocumentBuilder {
 
                     c62DocumentList.add(c62Document);
 
-                    log.debug("C62 Clinical Document Assembly Complete. Content follows:");
-                    log.debug(XMLUtil.toPrettyXML(c62Document));
-
+                    LOG.debug("C62 Clinical Document Assembly Complete. Content follows:");
+                    LOG.debug(XMLUtil.toPrettyXML(c62Document));
                 }
             }
         } else {
-            log.info("No documents for patient(" + subjectId.getExtension() + "), docId(" + docId + ")");
+
+            if (LOG.isDebugEnabled()) {
+                LOG.info("No documents for patient(" + subjectId.getExtension() + "), docId(" + DOCID + ")");
+            }
         }
     }
 
     private String extractStringFromSerializableArray(List<Serializable> olHL7Serializable) {
         String sText = null;
 
-        if ((olHL7Serializable != null) &&
-            (olHL7Serializable.size() > 0)) {
+        if ((olHL7Serializable != null) && (!olHL7Serializable.isEmpty())) {
             StringBuilder sbText = new StringBuilder();
             for (Serializable oSerialElement : olHL7Serializable) {
                 if (oSerialElement instanceof String) {
                     String sElement = (String) oSerialElement;
-                    if (sElement.length() > 0) {
+                    if (!sElement.isEmpty()) {
                         sbText.append(sElement);
                     }
                 }

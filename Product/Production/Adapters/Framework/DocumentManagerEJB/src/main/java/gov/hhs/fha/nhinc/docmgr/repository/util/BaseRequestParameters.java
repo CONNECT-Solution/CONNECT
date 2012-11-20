@@ -43,6 +43,12 @@ public class BaseRequestParameters {
     /*
      * Constructor that sets each base request parameter
      */
+    /**
+     *
+     * @param repositoryId String
+     * @param documentId String
+     * @param homeCommunityId String
+     */
     public BaseRequestParameters(String repositoryId, String documentId, String homeCommunityId) {
         this.setRepositoryId(repositoryId);
         this.setDocumentId(documentId);

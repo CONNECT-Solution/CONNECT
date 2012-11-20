@@ -31,39 +31,57 @@
 package gov.hhs.fha.nhinc.docmgr.repository.util;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.StringReader;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import javax.xml.parsers.ParserConfigurationException;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
 
 /**
- * Utility class for XML processing
+ * Utility class for XML processing.
  * 
  * @author Neil Webb
  */
 public class XmlUtil {
 
+    /**
+     *
+     * @param xmlString as String
+     * @return Document
+     * @throws IllegalArgumentException
+     * @throws ParserConfigurationException
+     * @throws SAXException
+     * @throws IOException
+     */
     public static Document getDocumentFromString(String xmlString)
-        throws Exception {
+        throws IllegalArgumentException, ParserConfigurationException, SAXException, IOException {
         DocumentBuilderFactory oDocumentBuilderFactory = DocumentBuilderFactory.newInstance();
-        try {
+      
             // Do not load the DTD
-            oDocumentBuilderFactory.setAttribute(
-                "http://apache.org/xml/features/nonvalidating/load-external-dtd",
+            oDocumentBuilderFactory.setAttribute("http://apache.org/xml/features/nonvalidating/load-external-dtd",
                 Boolean.FALSE);
-        } catch (IllegalArgumentException e) {
-        }
+      
         DocumentBuilder oDocumentBuilder = oDocumentBuilderFactory.newDocumentBuilder();
 
         InputSource inputSource = new InputSource(new StringReader(xmlString));
         return oDocumentBuilder.parse(inputSource);
     }
 
+    /**
+     *
+     * @param absolutePath as String
+     * @return oDocument as Document
+     * @throws ParserConfigurationException
+     * @throws SAXException
+     * @throws IOException
+     */
     public static Document getDocumentFromFile(String absolutePath)
-        throws Exception {
+        throws ParserConfigurationException, SAXException, IOException {
         DocumentBuilderFactory oDocumentBuilderFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder oDocumentBuilder = oDocumentBuilderFactory.newDocumentBuilder();
 

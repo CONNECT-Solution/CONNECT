@@ -46,16 +46,19 @@ import org.hl7.v3.QUPCMT040300UV01ParameterList;
  */
 public class StaticAllergiesQuery {
 
-    private static Log logger = LogFactory.getLog(StaticAllergiesQuery.class);
+    private static final Log LOG = LogFactory.getLog(StaticAllergiesQuery.class);
+    private static final String LOG_LINE_SEPERATOR = "= = = = = = = = = = = = = = = = = = = = = = = = = "
+       + "= = = = = = = = = =";
 
-    public static CareRecordQUPCIN043200UV01ResponseType createAllergiesResponse(CareRecordQUPCIN043100UV01RequestType request) {
+    public static CareRecordQUPCIN043200UV01ResponseType createAllergiesResponse(
+        CareRecordQUPCIN043100UV01RequestType request) {
 
         CareRecordQUPCIN043200UV01ResponseType response = new CareRecordQUPCIN043200UV01ResponseType();
 
         // check properties file for test/live data mode
         if (AdapterCommonDataLayerConstants.ALLERGIES_TEST.equalsIgnoreCase("Y")) {
 
-            logger.info("Calling Static Allergies Data...");
+            LOG.info("Calling Static Allergies Data...");
 
             // Get Provider OID from request
             String receiverOID = request.getReceiverOID();
@@ -72,15 +75,20 @@ public class StaticAllergiesQuery {
             // Get ALLERGIES_RESPONSE_TYPE from the properties file
             String allergiesResponseType = AdapterCommonDataLayerConstants.EMULATOR_ALLERGIES_RESPONSE_TYPE;
 
-            logger.debug("Retrieving Emulated Data File for : Patient ID: " + reqPatientID + ", receiverOID: " + receiverOID);
-            response = StaticUtil.createCareRecordResponse(reqPatientID, receiverOID, allergiesTag, allergiesResponseType);
+            if (LOG.isDebugEnabled()) {
+                LOG.debug("Retrieving Emulated Data File for : Patient ID: " + reqPatientID
+                + ", receiverOID: " + receiverOID);
+            }
+            
+            response = StaticUtil.createCareRecordResponse(reqPatientID, receiverOID,
+                allergiesTag, allergiesResponseType);
 
         } else {
-            logger.debug("= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =");
-            logger.debug("= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =");
-            logger.debug(" Insert Adapter Agency specific dynamic document data accessors here ");
-            logger.debug("= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =");
-            logger.debug("= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =");
+            LOG.debug(LOG_LINE_SEPERATOR);
+            LOG.debug(LOG_LINE_SEPERATOR);
+            LOG.debug(" Insert Adapter Agency specific dynamic document data accessors here ");
+            LOG.debug(LOG_LINE_SEPERATOR);
+            LOG.debug(LOG_LINE_SEPERATOR);
         }
 
         return response;

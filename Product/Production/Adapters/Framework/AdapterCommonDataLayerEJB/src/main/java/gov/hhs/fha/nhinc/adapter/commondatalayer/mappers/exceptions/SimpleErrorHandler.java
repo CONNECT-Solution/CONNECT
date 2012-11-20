@@ -43,20 +43,20 @@ import org.apache.commons.logging.LogFactory;
  */
 public class SimpleErrorHandler implements ErrorHandler {
 
-    private static Log logger = LogFactory.getLog(SimpleErrorHandler.class);
+    private static final Log LOG = LogFactory.getLog(SimpleErrorHandler.class);
 
     @Override
     public void warning(SAXParseException e) throws SAXException {
-        logger.warn(e.getMessage());
+        LOG.warn(e.getMessage());
     }
 
     @Override
     public void error(SAXParseException e) throws SAXException {
-        logger.error(e.getMessage());
+        LOG.error(e.getMessage());
     }
 
     @Override
     public void fatalError(SAXParseException e) throws SAXException {
-        logger.fatal(e.getMessage());
+        LOG.fatal(e.getMessage());
     }
 }

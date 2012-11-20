@@ -40,15 +40,28 @@ import org.apache.commons.logging.LogFactory;
  */
 public class UUIDGenerator {
 
-    private static Log log = LogFactory.getLog(UUIDGenerator.class);
+    private static final Log LOG = LogFactory.getLog(UUIDGenerator.class);
 
+    /**
+     *
+     * @return uid as String
+     */
     public static String generateRandomUUID() {
         //java.rmi.server.UID uid = new java.rmi.server.UID();
         UUID uid = UUID.randomUUID();
-        log.debug("generated document id=" + uid.toString());
+
+        if (LOG.isDebugEnabled()) {
+           LOG.debug("generated document id=" + uid.toString());
+        }
+        
         return uid.toString();
     }
 
+    /**
+     *
+     * @param idVal as String
+     * @return uid as String
+     */
     public static String generateUUIDFromString(String idVal) {
         byte[] uuid1 = idVal.getBytes();
         UUID uid = UUID.nameUUIDFromBytes(uuid1);

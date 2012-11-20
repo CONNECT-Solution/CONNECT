@@ -1,9 +1,10 @@
 package gov.hhs.fha.nhinc.repository.service;
 
-import gov.hhs.fha.nhinc.repository.model.Document;
-import gov.hhs.fha.nhinc.repository.model.DocumentQueryParams;
-import gov.hhs.fha.nhinc.repository.model.EventCode;
-import gov.hhs.fha.nhinc.repository.model.ExtraSlot;
+import gov.hhs.fha.nhinc.docmgr.repository.model.Document;
+import gov.hhs.fha.nhinc.docmgr.repository.model.DocumentQueryParams;
+import gov.hhs.fha.nhinc.docmgr.repository.model.EventCode;
+import gov.hhs.fha.nhinc.docmgr.repository.model.ExtraSlot;
+import gov.hhs.fha.nhinc.docmgr.repository.service.DocumentService;
 import gov.hhs.fha.nhinc.util.hash.SHA1HashCode;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -91,7 +92,7 @@ public class DocumentServiceTest
             String practiceSetting = "practiceSetting";
             String practiceSettingScheme = "practiceSettingScheme";
             String practiceSettingDisplayName = "practiceSettingDisplayName";
-            Integer size = new Integer(8989);
+            Long size = new Long(8989);
             String sourcePatientId = "sourcePatientId";
             String pid3 = "pid3";
             String pid5 = "pid5";

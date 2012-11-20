@@ -38,14 +38,20 @@ import javax.xml.ws.BindingType;
  * 
  * @author kim
  */
-@WebService(serviceName = "CommonDataLayerService", portName = "CommonDataLayerPort", endpointInterface = "gov.hhs.fha.nhinc.adapter.commondatalayer.CommonDataLayerPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:adapter:commondatalayer", wsdlLocation = "META-INF/wsdl/AdapterCommonDataLayer/AdapterCommonDataLayer.wsdl")
+@WebService(serviceName = "CommonDataLayerService", portName = "CommonDataLayerPort",
+endpointInterface = "gov.hhs.fha.nhinc.adapter.commondatalayer.CommonDataLayerPortType", 
+    targetNamespace = "urn:gov:hhs:fha:nhinc:adapter:commondatalayer",
+    wsdlLocation = "META-INF/wsdl/AdapterCommonDataLayer/AdapterCommonDataLayer.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 @Stateless
 public class AdapterCommonDataLayer implements CommonDataLayerPortType {
 
+    private static final String UO_EXCEPTION_MESSAGE="Not implemented yet.";
+
     @Override
-    public org.hl7.v3.FindDocumentRCMRIN000032UV01ResponseType findDocument(org.hl7.v3.FindDocumentRCMRIN000031UV01RequestType param0) {
-        throw new UnsupportedOperationException("Not implemented yet.");
+    public org.hl7.v3.FindDocumentRCMRIN000032UV01ResponseType findDocument(
+        org.hl7.v3.FindDocumentRCMRIN000031UV01RequestType param0) {
+        throw new UnsupportedOperationException(UO_EXCEPTION_MESSAGE);
     }
 
     @Override
@@ -56,13 +62,13 @@ public class AdapterCommonDataLayer implements CommonDataLayerPortType {
     @Override
     public org.hl7.v3.FindEncountersPRPAMT900350UV02ResponseType getEncounters(org.hl7.v3.FindEncountersPRPAIN900300UV02RequestType param0) {
         //TODO implement this method
-        throw new UnsupportedOperationException("Not implemented yet.");
+        throw new UnsupportedOperationException(UO_EXCEPTION_MESSAGE);
     }
 
     @Override
     public org.hl7.v3.CareRecordQUPCIN043200UV01ResponseType getProcedures(org.hl7.v3.CareRecordQUPCIN043100UV01RequestType param0) {
         //TODO implement this method
-        throw new UnsupportedOperationException("Not implemented yet.");
+        throw new UnsupportedOperationException(UO_EXCEPTION_MESSAGE);
     }
 
     @Override
@@ -78,7 +84,7 @@ public class AdapterCommonDataLayer implements CommonDataLayerPortType {
     @Override
     public org.hl7.v3.CareRecordQUPCIN043200UV01ResponseType getVitals(org.hl7.v3.CareRecordQUPCIN043100UV01RequestType param0) {
         //TODO implement this method
-        throw new UnsupportedOperationException("Not implemented yet.");
+        throw new UnsupportedOperationException(UO_EXCEPTION_MESSAGE);
     }
 
     @Override
@@ -88,49 +94,49 @@ public class AdapterCommonDataLayer implements CommonDataLayerPortType {
 
     @Override
     public org.hl7.v3.CareRecordQUPCIN043200UV01ResponseType getTestResults(org.hl7.v3.CareRecordQUPCIN043100UV01RequestType param0) {
-        throw new UnsupportedOperationException("Not implemented yet.");
+        throw new UnsupportedOperationException(UO_EXCEPTION_MESSAGE);
     }
 
     @Override
     public org.hl7.v3.CareRecordQUPCIN043200UV01ResponseType getAdmissions(org.hl7.v3.CareRecordQUPCIN043100UV01RequestType param0) {
         //TODO implement this method
-        throw new UnsupportedOperationException("Not implemented yet.");
+        throw new UnsupportedOperationException(UO_EXCEPTION_MESSAGE);
     }
 
     @Override
     public org.hl7.v3.CareRecordQUPCIN043200UV01ResponseType getAppointments(org.hl7.v3.CareRecordQUPCIN043100UV01RequestType param0) {
         //TODO implement this method
-        throw new UnsupportedOperationException("Not implemented yet.");
+        throw new UnsupportedOperationException(UO_EXCEPTION_MESSAGE);
     }
 
     @Override
     public org.hl7.v3.CareRecordQUPCIN043200UV01ResponseType getImmunizations(org.hl7.v3.CareRecordQUPCIN043100UV01RequestType param0) {
         //TODO implement this method
-        throw new UnsupportedOperationException("Not implemented yet.");
+        throw new UnsupportedOperationException(UO_EXCEPTION_MESSAGE);
     }
 
     @Override
     public org.hl7.v3.CareRecordQUPCIN043200UV01ResponseType getFamilyHistory(org.hl7.v3.CareRecordQUPCIN043100UV01RequestType param0) {
         //TODO implement this method
-        throw new UnsupportedOperationException("Not implemented yet.");
+        throw new UnsupportedOperationException(UO_EXCEPTION_MESSAGE);
     }
 
     @Override
     public org.hl7.v3.CareRecordQUPCIN043200UV01ResponseType getSocialHistory(org.hl7.v3.CareRecordQUPCIN043100UV01RequestType param0) {
         //TODO implement this method
-        throw new UnsupportedOperationException("Not implemented yet.");
+        throw new UnsupportedOperationException(UO_EXCEPTION_MESSAGE);
     }
 
     @Override
     public org.hl7.v3.CareRecordQUPCIN043200UV01ResponseType getInsurances(org.hl7.v3.CareRecordQUPCIN043100UV01RequestType param0) {
         //TODO implement this method
-        throw new UnsupportedOperationException("Not implemented yet.");
+        throw new UnsupportedOperationException(UO_EXCEPTION_MESSAGE);
     }
 
     @Override
     public org.hl7.v3.CareRecordQUPCIN043200UV01ResponseType getOrders(org.hl7.v3.CareRecordQUPCIN043100UV01RequestType param0) {
         //TODO implement this method
-        throw new UnsupportedOperationException("Not implemented yet.");
+        throw new UnsupportedOperationException(UO_EXCEPTION_MESSAGE);
     }
 
     @Override

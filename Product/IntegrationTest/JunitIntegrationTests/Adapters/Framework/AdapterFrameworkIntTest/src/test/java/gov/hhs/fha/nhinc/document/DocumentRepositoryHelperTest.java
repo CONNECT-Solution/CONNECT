@@ -29,6 +29,7 @@ import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryPackageType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.ValueListType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
+import gov.hhs.fha.nhinc.docmgr.DocumentRepositoryHelper;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

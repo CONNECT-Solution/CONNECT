@@ -36,11 +36,14 @@ import java.text.ParseException;
 
 import java.text.SimpleDateFormat;
 
+import java.util.Calendar;
 import java.util.Date;
 
-import java.util.Calendar;
 
 import java.util.GregorianCalendar;
+import java.util.Locale;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * 
@@ -50,34 +53,45 @@ import java.util.GregorianCalendar;
  */
 public class DateUtil {
 
-    private static DateFormat dfYYYYMMDD = null;
-    private static DateFormat cdaDateFormat = null;
+    private static final DateFormat DFYYYYMMDD = new SimpleDateFormat("yyyyMMdd", Locale.getDefault());
+    private static final DateFormat CDA_DATE_FORMAT = new SimpleDateFormat("yyyyMMddHHmmss", Locale.getDefault());
+    private static final Log LOG = LogFactory.getLog(DateUtil.class);
 
-    static {
-
-        dfYYYYMMDD = new SimpleDateFormat("yyyyMMdd");
-
-        cdaDateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
-
-    }
-
+    /**
+     *
+     * @param gCal as GregorianCalendar
+     * @return StringBuffer as String
+     */
     public static String formatYYYYMMDD(GregorianCalendar gCal) {
 
-        return String.valueOf(gCal.get(GregorianCalendar.YEAR)) +
-            String.valueOf(gCal.get(GregorianCalendar.MONTH)) +
-            String.valueOf(gCal.get(GregorianCalendar.DATE));
+        StringBuffer sb = new StringBuffer();
+        sb.append(gCal.get(GregorianCalendar.YEAR));
+        sb.append(gCal.get(GregorianCalendar.MONTH));
+        sb.append(gCal.get(GregorianCalendar.DATE));
+
+        return sb.toString();
 
     }
 
+    /**
+     *
+     * @param date as String
+     * @return parsedDate as Date
+     */
     public static Date unmarshalYYYYMMDD(String date) {
+
+        Date parsedDate = null;
 
         try {
 
-            return dfYYYYMMDD.parse(date);
+            synchronized (DFYYYYMMDD) {
+                parsedDate = DFYYYYMMDD.parse(date);
+            }
+            return parsedDate;
 
         } catch (ParseException ex) {
 
-            ex.printStackTrace();
+            LOG.error("Exception while parsing Date value: ", ex);
 
             return null;
 
@@ -85,15 +99,37 @@ public class DateUtil {
 
     }
 
+    /**
+     *
+     * @param date as Date
+     * @return parsedDate as String
+     */
     public static String marshalYYYYMMDD(Date date) {
 
-        return dfYYYYMMDD.format(date);
+        String parsedDate = null;
+
+        synchronized (DFYYYYMMDD) {
+            parsedDate = DFYYYYMMDD.format(date);
+        }
+
+        return parsedDate;
 
     }
 
+    /**
+     *
+     * @param date as Date
+     * @return parsedDate as String
+     */
     public static String convertToCDATime(Date date) {
 
-        return cdaDateFormat.format(date);
+        String parsedDate = null;
+
+        synchronized (CDA_DATE_FORMAT) {
+            parsedDate = CDA_DATE_FORMAT.format(date);
+        }
+
+        return parsedDate;
 
     }
 
@@ -104,10 +140,10 @@ public class DateUtil {
      * 
      * 
      * @param tDate
-     * 
+     * @throws Exception as Exception
      * @return
      */
-    public static String convertTFormatToCDATime(String tDate) throws Exception {
+    public static String convertTFormatToCDATime(String tDate) throws Exception  {
 
         if (tDate == null || tDate.length() < 0) {
             return null;
@@ -119,7 +155,7 @@ public class DateUtil {
             convertToCDATime(Calendar.getInstance().getTime());
         }
 
-        throw new Exception("Need to be implemented!");
-
+        throw new Exception("Needs to be implemented");
     }
+
 }

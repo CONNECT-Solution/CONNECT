@@ -30,7 +30,10 @@
  */
 package gov.hhs.fha.nhinc.assemblymanager;
 
+import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * 
@@ -38,80 +41,289 @@ import gov.hhs.fha.nhinc.properties.PropertyAccessor;
  */
 public class AssemblyConstants {
 
+    private static final Log LOG = LogFactory.getLog(AssemblyConstants.class);
+
+    /**
+     *
+     */
     public static final String DAS_DATASERVICE_ENDPOINT;
+    /**
+     *
+     */
     public static final String DAS_DOCMGRSERVICE_ENDPOINT;
+    /**
+     *
+     */
     public static final String DAS_HITSP_PRE25_TEMPLATES;
+    /**
+     *
+     */
     public static final String LANGUAGE;
+    /**
+     *
+     */
     public static final String ORGANIZATION_OID;
+    /**
+     *
+     */
     public static final String LOCAL_DEVICE_OID;
+    /**
+     *
+     */
     public static final String ORGANIZATION_NAME;
     // DISPLAY NAMES
+    /**
+     *
+     */
     public static final String NDC_CODE_SYSTEM_DISPLAY_NAME;
+    /**
+     *
+     */
     public static final String SNOMED_CT_CODE_SYS_DISPLAY_NAME;
+    /**
+     *
+     */
     public static final String LOINC_STATUS_CODE_DISPLAY_NAME;
+    /**
+     *
+     */
     public static final String ICD9_CODE_SYS_DISPLAY_NAME;
     // C32 Specific Properties
+    /**
+     *
+     */
     public static final String C32_DISPLAY_NAME;
+    /**
+     *
+     */
     public static final String C32_CLASS_CODE;
+    /**
+     *
+     */
     public static final String C32_STYLESHEET;
+    /**
+     *
+     */
     public static final String C32_ORGANIZATION_SYS;
+    /**
+     *
+     */
     public static final String C32_ORGANIZATION_SYS_TYPE;
+    /**
+     *
+     */
     public static final String C32_CONFIDENTIAL_CODE;
+    /**
+     *
+     */
     public static final String C32_CONFIDENTIAL_CODE_DESCR;
+    /**
+     *
+     */
     public static final String C32_FORMAT_CODE;
+    /**
+     *
+     */
     public static final String C32_FORMAT_CODE_DESCR;
+    /**
+     *
+     */
     public static final String C32_HCFT_CODE;
+    /**
+     *
+     */
     public static final String C32_HCFT_CODE_DESCR;
+    /**
+     *
+     */
     public static final String C32_ICD9_CODE_SYS_NAME;
+    /**
+     *
+     */
     public static final String C32_NDC_CODE_SYS_NAME;
+    /**
+     *
+     */
     public static final String C32_PRACTICE_SETTING_CODE;
+    /**
+     *
+     */
     public static final String C32_PRACTICE_SETTING_CODE_DESCR;
+    /**
+     *
+     */
     public static final String C32_PRACTICE_SETTING_CODE_SYS_NAME;
+    /**
+     *
+     */
     public static final String C32_RXNORM_CODE_SYS_NAME;
+    /**
+     *
+     */
     public static final String C32_SNOMED_CODE_SYS_NAME;
+    /**
+     *
+     */
     public static final String C32_VERSION;
     // C62 Specific Properties
+    /**
+     *
+     */
     public static final String C62_DISPLAY_NAME;
+    /**
+     *
+     */
     public static final String C62_CLASS_CODE;
+    /**
+     *
+     */
     public static final String C62_ORGANIZATION_SYS;
+    /**
+     *
+     */
     public static final String C62_ORGANIZATION_SYS_TYPE;
+    /**
+     *
+     */
     public static final String C62_CONFIDENTIAL_CODE;
+    /**
+     *
+     */
     public static final String C62_CONFIDENTIAL_CODE_DESCR;
+    /**
+     *
+     */
     public static final String C62_FORMAT_CODE;
+    /**
+     *
+     */
     public static final String C62_FORMAT_CODE_DESCR;
+    /**
+     *
+     */
     public static final String C62_HCFT_CODE;
+    /**
+     *
+     */
     public static final String C62_HCFT_CODE_DESCR;
+    /**
+     *
+     */
     public static final String C62_ICD9_CODE_SYS_NAME;
+    /**
+     *
+     */
     public static final String C62_NDC_CODE_SYS_NAME;
+    /**
+     *
+     */
     public static final String C62_PRACTICE_SETTING_CODE;
+    /**
+     *
+     */
     public static final String C62_PRACTICE_SETTING_CODE_DESCR;
+    /**
+     *
+     */
     public static final String C62_PRACTICE_SETTING_CODE_SYS_NAME;
+    /**
+     *
+     */
     public static final String C62_RXNORM_CODE_SYS_NAME;
+    /**
+     *
+     */
     public static final String C62_SNOMED_CODE_SYS_NAME;
+    /**
+     *
+     */
     public static final String C62_VERSION;
     // C62 Specific Properties - Discharge Summary only
+    /**
+     *
+     */
     public static final String C62_DS_DISPLAY_NAME;
+    /**
+     *
+     */
     public static final String C62_DS_HCFT_CODE;
+    /**
+     *
+     */
     public static final String C62_DS_HCFT_CODE_DESCR;
+    /**
+     *
+     */
     public static final String C62_DS_PRACTICE_SETTING_CODE;
+    /**
+     *
+     */
     public static final String C62_DS_PRACTICE_SETTING_CODE_DESCR;
     // C62 Specific Properties - Radiology Reports only
+    /**
+     *
+     */
     public static final String C62_RR_DISPLAY_NAME;
+    /**
+     * 
+     */
     public static final String C62_RR_HCFT_CODE;
+    /**
+     *
+     */
     public static final String C62_RR_HCFT_CODE_DESCR;
+    /**
+     *
+     */
     public static final String C62_RR_PRACTICE_SETTING_CODE;
+    /**
+     *
+     */
     public static final String C62_RR_PRACTICE_SETTING_CODE_DESCR;
+    /**
+     *
+     */
     public static final String C62_RR_CLASS_CODE;
+    /**
+     *
+     */
     public static final String DAS_PU_VALUE = "docassemblyPU";
+    /**
+     *
+     */
     public static final String TEMPLATE_MANAGER_PU = "TemplateManagerPU";
+    /**
+     *
+     */
     public static final String CARE_RECORD_QUERY_INTERACTION_ID = "QUPC_IN043100UV";
+    /**
+     *
+     */
     public static final String CARE_RECORD_QUERY_TRIGGER = "QUPC_TE043100UV01";
+    /**
+     *
+     */
     public static final String CDL_SERVICE = "Common Data Layer Service";
+    /**
+     *
+     */
     public static final String ADAS_SERVICE = "Adapter Document Assembly Service";
+    /**
+     *
+     */
     public static final String REPOSITORY_PROPERTY_FILE = "repository";
+    /**
+     *
+     */
     public static final String DOCUMENT_UNIQUE_OID_PROP = "documentUniqueOID";
+
+    private static final String DOC_ASSEMBLY_PROPERTY_FILE = "docassembly";
     private static String pre25TemplatesSupport = "N";   // default to HITSP 2.5 templates
 
+    /**
+     *
+     * @return boolean
+     */
     public static boolean usePre25Templates() {
         pre25TemplatesSupport = AssemblyConstants.DAS_HITSP_PRE25_TEMPLATES;
 
@@ -205,80 +417,96 @@ public class AssemblyConstants {
         try {
             PropertyAccessor oProps = PropertyAccessor.getInstance();
 
-            sDAS_DATASERVICE_ENDPOINT = oProps.getProperty("docassembly", "DAS_DATASERVICE_ENDPOINT");
-            sDAS_DOCMGRSERVICE_ENDPOINT = oProps.getProperty("docassembly", "DAS_DOCMGRSERVICE_ENDPOINT").trim() + "?WSDL";
-            sDAS_HITSP_PRE25_TEMPLATES = oProps.getProperty("docassembly", "DAS_HITSP_PRE25_TEMPLATES");
+            sDAS_DATASERVICE_ENDPOINT = oProps.getProperty(DOC_ASSEMBLY_PROPERTY_FILE, "DAS_DATASERVICE_ENDPOINT");
+            sDAS_DOCMGRSERVICE_ENDPOINT = oProps.getProperty(DOC_ASSEMBLY_PROPERTY_FILE,
+                "DAS_DOCMGRSERVICE_ENDPOINT").trim()
+                + "?WSDL";
+            sDAS_HITSP_PRE25_TEMPLATES = oProps.getProperty(DOC_ASSEMBLY_PROPERTY_FILE, "DAS_HITSP_PRE25_TEMPLATES");
 
-            sLANGUAGE = oProps.getProperty("docassembly", "LANGUAGE");
+            sLANGUAGE = oProps.getProperty(DOC_ASSEMBLY_PROPERTY_FILE, "LANGUAGE");
 
             sORGANIZATION_OID = oProps.getProperty("gateway", "localHomeCommunityId");
             sLOCAL_DEVICE_OID = oProps.getProperty("gateway", "localDeviceId");
             sORGANIZATION_NAME = oProps.getProperty("gateway", "localHomeCommunityDescription");
 
             // DISPLAY NAMES
-            sNDC_CODE_SYSTEM_DISPLAY_NAME = oProps.getProperty("docassembly", "NDC_CODE_SYSTEM_DISPLAY_NAME");
-            sSNOMED_CT_CODE_SYS_DISPLAY_NAME = oProps.getProperty("docassembly", "SNOMED_CT_CODE_SYS_DISPLAY_NAME");
-            sLOINC_STATUS_CODE_DISPLAY_NAME = oProps.getProperty("docassembly", "LOINC_STATUS_CODE_DISPLAY_NAME");
-            sICD9_CODE_SYS_DISPLAY_NAME = oProps.getProperty("docassembly", "ICD9_CODE_SYS_DISPLAY_NAME");
+            sNDC_CODE_SYSTEM_DISPLAY_NAME = oProps.getProperty(DOC_ASSEMBLY_PROPERTY_FILE,
+                "NDC_CODE_SYSTEM_DISPLAY_NAME");
+            sSNOMED_CT_CODE_SYS_DISPLAY_NAME = oProps.getProperty(DOC_ASSEMBLY_PROPERTY_FILE,
+                "SNOMED_CT_CODE_SYS_DISPLAY_NAME");
+            sLOINC_STATUS_CODE_DISPLAY_NAME = oProps.getProperty(DOC_ASSEMBLY_PROPERTY_FILE,
+                "LOINC_STATUS_CODE_DISPLAY_NAME");
+            sICD9_CODE_SYS_DISPLAY_NAME = oProps.getProperty(DOC_ASSEMBLY_PROPERTY_FILE,
+                "ICD9_CODE_SYS_DISPLAY_NAME");
 
             // C32 Specific Properties
-            sC32_DISPLAY_NAME = oProps.getProperty("docassembly", "C32_DISPLAY_NAME");
-            sC32_CLASS_CODE = oProps.getProperty("docassembly", "C32_CLASS_CODE");
-            sC32_STYLESHEET = oProps.getProperty("docassembly", "C32_STYLESHEET");
-            sC32_ORGANIZATION_SYS = oProps.getProperty("docassembly", "C32_ORGANIZATION_SYS");
-            sC32_ORGANIZATION_SYS_TYPE = oProps.getProperty("docassembly", "C32_ORGANIZATION_SYS_TYPE");
-            sC32_CONFIDENTIAL_CODE = oProps.getProperty("docassembly", "C32_CONFIDENTIAL_CODE");
-            sC32_CONFIDENTIAL_CODE_DESCR = oProps.getProperty("docassembly", "C32_CONFIDENTIAL_CODE_DESCR");
-            sC32_FORMAT_CODE = oProps.getProperty("docassembly", "C32_FORMAT_CODE");
-            sC32_FORMAT_CODE_DESCR = oProps.getProperty("docassembly", "C32_FORMAT_CODE_DESCR");
-            sC32_HCFT_CODE = oProps.getProperty("docassembly", "C32_HCFT_CODE");
-            sC32_HCFT_CODE_DESCR = oProps.getProperty("docassembly", "C32_HCFT_CODE_DESCR");
-            sC32_ICD9_CODE_SYS_NAME = oProps.getProperty("docassembly", "C32_ICD9_CODE_SYS_NAME");
-            sC32_NDC_CODE_SYS_NAME = oProps.getProperty("docassembly", "C32_NDC_CODE_SYS_NAME");
-            sC32_PRACTICE_SETTING_CODE = oProps.getProperty("docassembly", "C32_PRACTICE_SETTING_CODE");
-            sC32_PRACTICE_SETTING_CODE_DESCR = oProps.getProperty("docassembly", "C32_PRACTICE_SETTING_CODE_DESCR");
-            sC32_PRACTICE_SETTING_CODE_SYS_NAME = oProps.getProperty("docassembly", "C32_PRACTICE_SETTING_CODE_SYS_NAME");
-            sC32_RXNORM_CODE_SYS_NAME = oProps.getProperty("docassembly", "C32_RXNORM_CODE_SYS_NAME");
-            sC32_SNOMED_CODE_SYS_NAME = oProps.getProperty("docassembly", "C32_SNOMED_CODE_SYS_NAME");
-            sC32_VERSION = oProps.getProperty("docassembly", "C32_VERSION");
+            sC32_DISPLAY_NAME = oProps.getProperty(DOC_ASSEMBLY_PROPERTY_FILE, "C32_DISPLAY_NAME");
+            sC32_CLASS_CODE = oProps.getProperty(DOC_ASSEMBLY_PROPERTY_FILE, "C32_CLASS_CODE");
+            sC32_STYLESHEET = oProps.getProperty(DOC_ASSEMBLY_PROPERTY_FILE, "C32_STYLESHEET");
+            sC32_ORGANIZATION_SYS = oProps.getProperty(DOC_ASSEMBLY_PROPERTY_FILE, "C32_ORGANIZATION_SYS");
+            sC32_ORGANIZATION_SYS_TYPE = oProps.getProperty(DOC_ASSEMBLY_PROPERTY_FILE, "C32_ORGANIZATION_SYS_TYPE");
+            sC32_CONFIDENTIAL_CODE = oProps.getProperty(DOC_ASSEMBLY_PROPERTY_FILE, "C32_CONFIDENTIAL_CODE");
+            sC32_CONFIDENTIAL_CODE_DESCR = oProps.getProperty(DOC_ASSEMBLY_PROPERTY_FILE,
+                "C32_CONFIDENTIAL_CODE_DESCR");
+            sC32_FORMAT_CODE = oProps.getProperty(DOC_ASSEMBLY_PROPERTY_FILE, "C32_FORMAT_CODE");
+            sC32_FORMAT_CODE_DESCR = oProps.getProperty(DOC_ASSEMBLY_PROPERTY_FILE, "C32_FORMAT_CODE_DESCR");
+            sC32_HCFT_CODE = oProps.getProperty(DOC_ASSEMBLY_PROPERTY_FILE, "C32_HCFT_CODE");
+            sC32_HCFT_CODE_DESCR = oProps.getProperty(DOC_ASSEMBLY_PROPERTY_FILE, "C32_HCFT_CODE_DESCR");
+            sC32_ICD9_CODE_SYS_NAME = oProps.getProperty(DOC_ASSEMBLY_PROPERTY_FILE, "C32_ICD9_CODE_SYS_NAME");
+            sC32_NDC_CODE_SYS_NAME = oProps.getProperty(DOC_ASSEMBLY_PROPERTY_FILE, "C32_NDC_CODE_SYS_NAME");
+            sC32_PRACTICE_SETTING_CODE = oProps.getProperty(DOC_ASSEMBLY_PROPERTY_FILE, "C32_PRACTICE_SETTING_CODE");
+            sC32_PRACTICE_SETTING_CODE_DESCR = oProps.getProperty(DOC_ASSEMBLY_PROPERTY_FILE,
+                "C32_PRACTICE_SETTING_CODE_DESCR");
+            sC32_PRACTICE_SETTING_CODE_SYS_NAME = oProps.getProperty(DOC_ASSEMBLY_PROPERTY_FILE,
+                "C32_PRACTICE_SETTING_CODE_SYS_NAME");
+            sC32_RXNORM_CODE_SYS_NAME = oProps.getProperty(DOC_ASSEMBLY_PROPERTY_FILE, "C32_RXNORM_CODE_SYS_NAME");
+            sC32_SNOMED_CODE_SYS_NAME = oProps.getProperty(DOC_ASSEMBLY_PROPERTY_FILE, "C32_SNOMED_CODE_SYS_NAME");
+            sC32_VERSION = oProps.getProperty(DOC_ASSEMBLY_PROPERTY_FILE, "C32_VERSION");
 
             // C62 Specific Properties
-            sC62_DISPLAY_NAME = oProps.getProperty("docassembly", "C62_DISPLAY_NAME");
-            sC62_CLASS_CODE = oProps.getProperty("docassembly", "C62_CLASS_CODE");
-            sC62_ORGANIZATION_SYS = oProps.getProperty("docassembly", "C62_ORGANIZATION_SYS");
-            sC62_ORGANIZATION_SYS_TYPE = oProps.getProperty("docassembly", "C62_ORGANIZATION_SYS_TYPE");
-            sC62_CONFIDENTIAL_CODE = oProps.getProperty("docassembly", "C62_CONFIDENTIAL_CODE");
-            sC62_CONFIDENTIAL_CODE_DESCR = oProps.getProperty("docassembly", "C62_CONFIDENTIAL_CODE_DESCR");
-            sC62_FORMAT_CODE = oProps.getProperty("docassembly", "C62_FORMAT_CODE");
-            sC62_FORMAT_CODE_DESCR = oProps.getProperty("docassembly", "C62_FORMAT_CODE_DESCR");
-            sC62_HCFT_CODE = oProps.getProperty("docassembly", "C62_HCFT_CODE");
-            sC62_HCFT_CODE_DESCR = oProps.getProperty("docassembly", "C62_HCFT_CODE_DESCR");
-            sC62_ICD9_CODE_SYS_NAME = oProps.getProperty("docassembly", "C62_ICD9_CODE_SYS_NAME");
-            sC62_NDC_CODE_SYS_NAME = oProps.getProperty("docassembly", "C62_NDC_CODE_SYS_NAME");
-            sC62_PRACTICE_SETTING_CODE = oProps.getProperty("docassembly", "C62_PRACTICE_SETTING_CODE");
-            sC62_PRACTICE_SETTING_CODE_DESCR = oProps.getProperty("docassembly", "C62_PRACTICE_SETTING_CODE_DESCR");
-            sC62_PRACTICE_SETTING_CODE_SYS_NAME = oProps.getProperty("docassembly", "C62_PRACTICE_SETTING_CODE_SYS_NAME");
-            sC62_RXNORM_CODE_SYS_NAME = oProps.getProperty("docassembly", "C62_RXNORM_CODE_SYS_NAME");
-            sC62_SNOMED_CODE_SYS_NAME = oProps.getProperty("docassembly", "C62_SNOMED_CODE_SYS_NAME");
-            sC62_VERSION = oProps.getProperty("docassembly", "C62_VERSION");
+            sC62_DISPLAY_NAME = oProps.getProperty(DOC_ASSEMBLY_PROPERTY_FILE, "C62_DISPLAY_NAME");
+            sC62_CLASS_CODE = oProps.getProperty(DOC_ASSEMBLY_PROPERTY_FILE, "C62_CLASS_CODE");
+            sC62_ORGANIZATION_SYS = oProps.getProperty(DOC_ASSEMBLY_PROPERTY_FILE, "C62_ORGANIZATION_SYS");
+            sC62_ORGANIZATION_SYS_TYPE = oProps.getProperty(DOC_ASSEMBLY_PROPERTY_FILE, "C62_ORGANIZATION_SYS_TYPE");
+            sC62_CONFIDENTIAL_CODE = oProps.getProperty(DOC_ASSEMBLY_PROPERTY_FILE, "C62_CONFIDENTIAL_CODE");
+            sC62_CONFIDENTIAL_CODE_DESCR = oProps.getProperty(DOC_ASSEMBLY_PROPERTY_FILE,
+                "C62_CONFIDENTIAL_CODE_DESCR");
+            sC62_FORMAT_CODE = oProps.getProperty(DOC_ASSEMBLY_PROPERTY_FILE, "C62_FORMAT_CODE");
+            sC62_FORMAT_CODE_DESCR = oProps.getProperty(DOC_ASSEMBLY_PROPERTY_FILE, "C62_FORMAT_CODE_DESCR");
+            sC62_HCFT_CODE = oProps.getProperty(DOC_ASSEMBLY_PROPERTY_FILE, "C62_HCFT_CODE");
+            sC62_HCFT_CODE_DESCR = oProps.getProperty(DOC_ASSEMBLY_PROPERTY_FILE, "C62_HCFT_CODE_DESCR");
+            sC62_ICD9_CODE_SYS_NAME = oProps.getProperty(DOC_ASSEMBLY_PROPERTY_FILE, "C62_ICD9_CODE_SYS_NAME");
+            sC62_NDC_CODE_SYS_NAME = oProps.getProperty(DOC_ASSEMBLY_PROPERTY_FILE, "C62_NDC_CODE_SYS_NAME");
+            sC62_PRACTICE_SETTING_CODE = oProps.getProperty(DOC_ASSEMBLY_PROPERTY_FILE, "C62_PRACTICE_SETTING_CODE");
+            sC62_PRACTICE_SETTING_CODE_DESCR = oProps.getProperty(DOC_ASSEMBLY_PROPERTY_FILE,
+                "C62_PRACTICE_SETTING_CODE_DESCR");
+            sC62_PRACTICE_SETTING_CODE_SYS_NAME = oProps.getProperty(DOC_ASSEMBLY_PROPERTY_FILE,
+                "C62_PRACTICE_SETTING_CODE_SYS_NAME");
+            sC62_RXNORM_CODE_SYS_NAME = oProps.getProperty(DOC_ASSEMBLY_PROPERTY_FILE, "C62_RXNORM_CODE_SYS_NAME");
+            sC62_SNOMED_CODE_SYS_NAME = oProps.getProperty(DOC_ASSEMBLY_PROPERTY_FILE, "C62_SNOMED_CODE_SYS_NAME");
+            sC62_VERSION = oProps.getProperty(DOC_ASSEMBLY_PROPERTY_FILE, "C62_VERSION");
 
             // C62 Specific Properties - Discharge Summaries only
-            sC62_DS_DISPLAY_NAME = oProps.getProperty("docassembly", "C62_DS_DISPLAY_NAME");
-            sC62_DS_HCFT_CODE = oProps.getProperty("docassembly", "C62_DS_HCFT_CODE");
-            sC62_DS_HCFT_CODE_DESCR = oProps.getProperty("docassembly", "C62_DS_HCFT_CODE_DESCR");
-            sC62_DS_PRACTICE_SETTING_CODE = oProps.getProperty("docassembly", "C62_DS_PRACTICE_SETTING_CODE");
-            sC62_DS_PRACTICE_SETTING_CODE_DESCR = oProps.getProperty("docassembly", "C62_DS_PRACTICE_SETTING_CODE_DESCR");
+            sC62_DS_DISPLAY_NAME = oProps.getProperty(DOC_ASSEMBLY_PROPERTY_FILE, "C62_DS_DISPLAY_NAME");
+            sC62_DS_HCFT_CODE = oProps.getProperty(DOC_ASSEMBLY_PROPERTY_FILE, "C62_DS_HCFT_CODE");
+            sC62_DS_HCFT_CODE_DESCR = oProps.getProperty(DOC_ASSEMBLY_PROPERTY_FILE, "C62_DS_HCFT_CODE_DESCR");
+            sC62_DS_PRACTICE_SETTING_CODE = oProps.getProperty(DOC_ASSEMBLY_PROPERTY_FILE,
+                "C62_DS_PRACTICE_SETTING_CODE");
+            sC62_DS_PRACTICE_SETTING_CODE_DESCR = oProps.getProperty(DOC_ASSEMBLY_PROPERTY_FILE,
+                "C62_DS_PRACTICE_SETTING_CODE_DESCR");
 
             // C62 Specific Properties - Radiology Reports only
-            sC62_RR_DISPLAY_NAME = oProps.getProperty("docassembly", "C62_RR_DISPLAY_NAME");
-            sC62_RR_HCFT_CODE = oProps.getProperty("docassembly", "C62_RR_HCFT_CODE");
-            sC62_RR_HCFT_CODE_DESCR = oProps.getProperty("docassembly", "C62_RR_HCFT_CODE_DESCR");
-            sC62_RR_PRACTICE_SETTING_CODE = oProps.getProperty("docassembly", "C62_RR_PRACTICE_SETTING_CODE");
-            sC62_RR_PRACTICE_SETTING_CODE_DESCR = oProps.getProperty("docassembly", "C62_RR_PRACTICE_SETTING_CODE_DESCR");
-            sC62_RR_CLASS_CODE = oProps.getProperty("docassembly", "C62_RR_CLASS_CODE");
+            sC62_RR_DISPLAY_NAME = oProps.getProperty(DOC_ASSEMBLY_PROPERTY_FILE, "C62_RR_DISPLAY_NAME");
+            sC62_RR_HCFT_CODE = oProps.getProperty(DOC_ASSEMBLY_PROPERTY_FILE, "C62_RR_HCFT_CODE");
+            sC62_RR_HCFT_CODE_DESCR = oProps.getProperty(DOC_ASSEMBLY_PROPERTY_FILE, "C62_RR_HCFT_CODE_DESCR");
+            sC62_RR_PRACTICE_SETTING_CODE = oProps.getProperty(DOC_ASSEMBLY_PROPERTY_FILE,
+                "C62_RR_PRACTICE_SETTING_CODE");
+            sC62_RR_PRACTICE_SETTING_CODE_DESCR = oProps.getProperty(DOC_ASSEMBLY_PROPERTY_FILE,
+                "C62_RR_PRACTICE_SETTING_CODE_DESCR");
+            sC62_RR_CLASS_CODE = oProps.getProperty(DOC_ASSEMBLY_PROPERTY_FILE, "C62_RR_CLASS_CODE");
 
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (PropertyAccessException e) {
+            LOG.error("Exception retrieving properties from the docassembly.properties file", e);
         }
 
         DAS_DATASERVICE_ENDPOINT = sDAS_DATASERVICE_ENDPOINT;

@@ -34,6 +34,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.hibernate.HibernateException;
 
 /**
  * Utility to obtain hibernate connections.
@@ -42,22 +43,29 @@ import org.apache.commons.logging.LogFactory;
  */
 public class HibernateUtil {
 
+    /**
+     *
+     */
     public static final String HIBERNATE_DOCMGR_REPOSITORY = "docmgr.hibernate.cfg.xml";
-    private static final SessionFactory sessionFactory;
-    private static Log log = LogFactory.getLog(HibernateUtil.class);
+    private static final SessionFactory SESSION_FACTORY;
+    private static final Log LOG = LogFactory.getLog(HibernateUtil.class);
 
     static {
         try {
             // Create the SessionFactory from hibernate.cfg.xml
-            sessionFactory = new Configuration().configure(HIBERNATE_DOCMGR_REPOSITORY).buildSessionFactory();
-        } catch (Throwable ex) {
+            SESSION_FACTORY = new Configuration().configure(HIBERNATE_DOCMGR_REPOSITORY).buildSessionFactory();
+        } catch (HibernateException ex) {
             // Make sure you log the exception, as it might be swallowed
-            log.error("Initial SessionFactory creation failed." + ex);
+            LOG.error("Initial SessionFactory creation failed.", ex);
             throw new ExceptionInInitializerError(ex);
         }
     }
 
+    /**
+     *
+     * @return SESSION_FACTORY as SessionFactory
+     */
     public static SessionFactory getSessionFactory() {
-        return sessionFactory;
+        return SESSION_FACTORY;
     }
 }

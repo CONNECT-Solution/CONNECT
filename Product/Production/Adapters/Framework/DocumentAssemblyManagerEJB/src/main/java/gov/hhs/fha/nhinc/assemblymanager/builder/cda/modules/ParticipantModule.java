@@ -58,28 +58,35 @@ import org.hl7.v3.ADExplicit;
  */
 public class ParticipantModule extends DocumentBuilder {
 
-    private static Log log = LogFactory.getLog(ParticipantModule.class);
-    private static String propertyFile = "SupportModule";
-    private static String DATE_PROPERTY = "Date";
-    private static String TYPE_PROPERTY = "ContactType";
-    private static String PREFIX_PROPERTY = "ContactPrefix";
-    private static String GIVEN_PROPERTY = "ContactGivenName";
-    private static String GIVEN_QUALIFIER_PROPERTY = "ContactGivenQualifier";
-    private static String FAMILY_PROPERTY = "ContactFamilyName";
-    private static String FAMILY_QUALIFIER_PROPERTY = "ContactFamilyQualifier";
-    private static String RELATIONSHIP_DISPLAY_NAME_PROPERTY = "ContactRelationshipDisplayName";
-    private static String RELATIONSHIP_CODESYSTEM_NAME_PROPERTY = "ContactRelationshipCodeSystemName";
-    private static String RELATIONSHIP_CODESYSTEM_PROPERTY = "ContactRelationshipCodeSystem";
-    private static String RELATIONSHIP_CODE_PROPERTY = "ContactRelationshipCode";
-    private static String STREET_ADRESS_LINE_PROPERTY = "ContactStreetAddressLine";
-    private static String CITY_PROPERTY = "ContactCity";
-    private static String STATE_PROPERTY = "ContactState";
-    private static String POSTAL_CODE_PROPERTY = "ContactPostalCode";
-    private static String COUNTRY_PROPERTY = "ContactCountry";
-    private static String TELECOM_PROPERTY = "ContactTelecom";
-    private static String TELECOMTYPE_PROPERTY = "ContactTelecomType";
-
-    public POCDMT000040Participant1 build(PatientDemographicsPRPAMT201303UV02ResponseType response, POCDMT000040Participant1 participant) throws DocumentBuilderException {
+    private static final Log LOG = LogFactory.getLog(ParticipantModule.class);
+    private static final String PROPERTY_FILE = "SupportModule";
+    private static final String DATE_PROPERTY = "Date";
+    private static final String TYPE_PROPERTY = "ContactType";
+    private static final String PREFIX_PROPERTY = "ContactPrefix";
+    private static final String GIVEN_PROPERTY = "ContactGivenName";
+    private static final String GIVEN_QUALIFIER_PROPERTY = "ContactGivenQualifier";
+    private static final String FAMILY_PROPERTY = "ContactFamilyName";
+    private static final String FAMILY_QUALIFIER_PROPERTY = "ContactFamilyQualifier";
+    private static final String RELATIONSHIP_DISPLAY_NAME_PROPERTY = "ContactRelationshipDisplayName";
+    private static final String RELATIONSHIP_CODESYSTEM_NAME_PROPERTY = "ContactRelationshipCodeSystemName";
+    private static final String RELATIONSHIP_CODESYSTEM_PROPERTY = "ContactRelationshipCodeSystem";
+    private static final String RELATIONSHIP_CODE_PROPERTY = "ContactRelationshipCode";
+    private static final String STREET_ADRESS_LINE_PROPERTY = "ContactStreetAddressLine";
+    private static final String CITY_PROPERTY = "ContactCity";
+    private static final String STATE_PROPERTY = "ContactState";
+    private static final String POSTAL_CODE_PROPERTY = "ContactPostalCode";
+    private static final String COUNTRY_PROPERTY = "ContactCountry";
+    private static final String TELECOM_PROPERTY = "ContactTelecom";
+    private static final String TELECOMTYPE_PROPERTY = "ContactTelecomType";
+/**
+     *
+     * @param response PatientDemographicsPRPAMT201303UV02ResponseType
+ * @param participant  POCDMT000040Participant1
+ * @return  participant POCDMT000040Participant1
+ * @throws DocumentBuilderException DocumentBuilderException
+     */
+    public POCDMT000040Participant1 build(PatientDemographicsPRPAMT201303UV02ResponseType response,
+        POCDMT000040Participant1 participant) throws DocumentBuilderException {
         // set up the initial shell for the participant module
         participant.getTypeCode().add("IND");
 
@@ -101,19 +108,19 @@ public class ParticipantModule extends DocumentBuilder {
         PRPAMT201303UV02ContactParty contactParty = null;
 
         //If contact party section is not empty, then we have live data from which to get our emergency contact info
-        if (response.getSubject() != null && response.getSubject().getPatientPerson() != null &&
-            response.getSubject().getPatientPerson().getValue() != null &&
-            response.getSubject().getPatientPerson().getValue().getContactParty() != null &&
-            response.getSubject().getPatientPerson().getValue().getContactParty().size() > 0) {
+        if (response.getSubject() != null && response.getSubject().getPatientPerson() != null 
+           && response.getSubject().getPatientPerson().getValue() != null
+           && response.getSubject().getPatientPerson().getValue().getContactParty() != null
+           && response.getSubject().getPatientPerson().getValue().getContactParty().size() > 0) {
             contactParty = response.getSubject().getPatientPerson().getValue().getContactParty().get(0);
 
             //Date: Required
-            if (contactParty.getEffectiveTime() != null &&
-                contactParty.getEffectiveTime().getValue() != null &&
-                !contactParty.getEffectiveTime().getValue().equals("")) {
+            if (contactParty.getEffectiveTime() != null 
+                && contactParty.getEffectiveTime().getValue() != null
+                && !contactParty.getEffectiveTime().getValue().equals("")) {
                 participant.setTime(contactParty.getEffectiveTime());
             } else {
-                log.warn("Participant support date is null.");
+                LOG.warn("Participant support date is null.");
                 IVLTSExplicit participantTime = new IVLTSExplicit();
                 participantTime.getNullFlavor().add("UNK");
                 //     IVXBTSExplicit lowVal = new IVXBTSExplicit();
@@ -124,16 +131,16 @@ public class ParticipantModule extends DocumentBuilder {
             }
 
             participant.setAssociatedEntity(createAssociatedEntity(contactParty));
-        } // The contactParty section is not available. Construct a default participant module from a properties file.
-        else {
-            log.info("Emergency Contatct Info not available from source system.  Will statically construct a participant module.");
+        } else {
+            // The contactParty section is not available. Construct a default participant module from a properties file.
+            LOG.info("Emergency Contatct Info not available from source system.  Will statically construct module.");
             IVLTSExplicit time = objectFactory.createIVLTSExplicit();
             try {
-                String timeValue = PropertyAccessor.getInstance().getProperty(propertyFile, DATE_PROPERTY);
+                String timeValue = PropertyAccessor.getInstance().getProperty(PROPERTY_FILE, DATE_PROPERTY);
                 time.setValue(timeValue);
                 participant.setTime(time);
             } catch (PropertyAccessException pae) {
-                log.info("Could not access date property from properties file for participant module. Error is: " + pae + ". Inserting default value.");
+                LOG.error("Could not access date property from properties file for participant module. Error is: ", pae);
                 time.setValue("01/01/1800");
                 participant.setTime(time);
             }
@@ -143,15 +150,21 @@ public class ParticipantModule extends DocumentBuilder {
         return participant;
     }
 
+    /**
+     *
+     * @param contactParty PRPAMT201303UV02ContactParty
+     * @return associatedEntity
+     */
     public POCDMT000040AssociatedEntity createAssociatedEntity(PRPAMT201303UV02ContactParty contactParty) {
         POCDMT000040AssociatedEntity associatedEntity = objectFactory.createPOCDMT000040AssociatedEntity();
 
         //Contact Type: Required
 
-        if (contactParty.getClassCode() != null && contactParty.getClassCode().value() != null && !(contactParty.getClassCode().value().equals(""))) {
+        if (contactParty.getClassCode() != null && contactParty.getClassCode().value() != null
+            && !(contactParty.getClassCode().value().equals(""))) {
             associatedEntity.getClassCode().add(contactParty.getClassCode().value());
         } else {
-            log.warn("Contact Type, a required field, is missing from the source system. The field will not be populated in the CDA.");
+            LOG.warn("Contact Type, a required field, is missing from the source. The field will not be populated");
         }
 
         //Contact Relationship: Required if known
@@ -180,15 +193,22 @@ public class ParticipantModule extends DocumentBuilder {
             }
         }
 
-        if (contactParty.getContactPerson() != null && contactParty.getContactPerson().getValue() != null && contactParty.getContactPerson().getValue().getName() != null && contactParty.getContactPerson().getValue().getName().size() > 0) {
+        if (contactParty.getContactPerson() != null && contactParty.getContactPerson().getValue() != null 
+            && contactParty.getContactPerson().getValue().getName() != null
+            && contactParty.getContactPerson().getValue().getName().size() > 0) {
             associatedEntity.setAssociatedPerson(createAssociatedPerson(contactParty.getContactPerson().getValue()));
         } else {
-            log.warn("Contact name, a required field, is missing from the source system. The field will not be populated in the CDA.");
+            LOG.warn("Contact name, a required field, is missing from the source. The field will not be populated.");
         }
 
         return associatedEntity;
     }
 
+    /**
+     *
+     * @param contactPerson COCTMT030207UVPerson
+     * @return associatedPerson
+     */
     public POCDMT000040Person createAssociatedPerson(COCTMT030207UVPerson contactPerson) {
         //Contact Name: Required
         POCDMT000040Person associatedPerson = objectFactory.createPOCDMT000040Person();
@@ -199,17 +219,21 @@ public class ParticipantModule extends DocumentBuilder {
         return associatedPerson;
     }
 
+    /**
+     *
+     * @return staticAssociatedEntity
+     */
     public POCDMT000040AssociatedEntity createStaticAssociatedEntity() {
         POCDMT000040AssociatedEntity staticAssociatedEntity = objectFactory.createPOCDMT000040AssociatedEntity();
-        //try to access the properties file. If successfull, fill in the fields that the file has to offer. Otherwise, fill in default values
-
+        //try to access the properties file. If successfull, fill in the fields that the file has to offer. Otherwise,
+        //fill in default values
         // contact type
         String classCode = "";
 
         try {
-            classCode = PropertyAccessor.getInstance().getProperty(propertyFile, TYPE_PROPERTY);
+            classCode = PropertyAccessor.getInstance().getProperty(PROPERTY_FILE, TYPE_PROPERTY);
         } catch (PropertyAccessException pae) {
-            log.info("Could not access contact type property from properties file for participant module. Error is: " + pae + ". Inserting default value.");
+            LOG.error("Could not access contact type property from properties file for participant module. Error is: ", pae);
             classCode = "ECON";
         }
         staticAssociatedEntity.getClassCode().add(classCode);
@@ -224,13 +248,13 @@ public class ParticipantModule extends DocumentBuilder {
         String familyQualifierValue = "";
 
         try {
-            prefixValue = PropertyAccessor.getInstance().getProperty(propertyFile, PREFIX_PROPERTY);
-            givenValue = PropertyAccessor.getInstance().getProperty(propertyFile, GIVEN_PROPERTY);
-            familyValue = PropertyAccessor.getInstance().getProperty(propertyFile, FAMILY_PROPERTY);
-            givenQualifierValue = PropertyAccessor.getInstance().getProperty(propertyFile, GIVEN_QUALIFIER_PROPERTY);
-            familyQualifierValue = PropertyAccessor.getInstance().getProperty(propertyFile, FAMILY_QUALIFIER_PROPERTY);
+            prefixValue = PropertyAccessor.getInstance().getProperty(PROPERTY_FILE, PREFIX_PROPERTY);
+            givenValue = PropertyAccessor.getInstance().getProperty(PROPERTY_FILE, GIVEN_PROPERTY);
+            familyValue = PropertyAccessor.getInstance().getProperty(PROPERTY_FILE, FAMILY_PROPERTY);
+            givenQualifierValue = PropertyAccessor.getInstance().getProperty(PROPERTY_FILE, GIVEN_QUALIFIER_PROPERTY);
+            familyQualifierValue = PropertyAccessor.getInstance().getProperty(PROPERTY_FILE, FAMILY_QUALIFIER_PROPERTY);
         } catch (PropertyAccessException pae) {
-            log.info("Could not load name property from properties file. Filling with default values");
+            LOG.error("Could not load name property from properties file. Filling with default values", pae);
             prefixValue = "Mrs";
             givenValue = "Sample";
             familyValue = "Name";
@@ -238,8 +262,9 @@ public class ParticipantModule extends DocumentBuilder {
             familyQualifierValue = "BR";
         }
 
-        if (prefixValue.equals("") || givenValue.equals("") || familyValue.equals("") || givenQualifierValue.equals("") || familyQualifierValue.equals("")) {
-            log.warn("Insufficient data from properties file for contact name, a required field. The component will be added with default values");
+        if (("").equals(prefixValue) || ("").equals(givenValue) || ("").equals(familyValue) 
+            || ("").equals(givenQualifierValue) || ("").equals(familyQualifierValue)) {
+            LOG.warn("Insufficient data from properties file. The component will be added with default values");
             prefixValue = "Mrs";
             givenValue = "Sample";
             familyValue = "Name";
@@ -276,16 +301,21 @@ public class ParticipantModule extends DocumentBuilder {
         String relationshipCodeValue = "";
 
         try {
-            relationshipDisplayNameValue = PropertyAccessor.getInstance().getProperty(propertyFile, RELATIONSHIP_DISPLAY_NAME_PROPERTY);
-            relationshipCodeSystemValue = PropertyAccessor.getInstance().getProperty(propertyFile, RELATIONSHIP_CODESYSTEM_PROPERTY);
-            relationshipCodeSystemNameValue = PropertyAccessor.getInstance().getProperty(propertyFile, RELATIONSHIP_CODESYSTEM_NAME_PROPERTY);
-            relationshipCodeValue = PropertyAccessor.getInstance().getProperty(propertyFile, RELATIONSHIP_CODE_PROPERTY);
+            relationshipDisplayNameValue = PropertyAccessor.getInstance().getProperty(PROPERTY_FILE,
+                RELATIONSHIP_DISPLAY_NAME_PROPERTY);
+            relationshipCodeSystemValue = PropertyAccessor.getInstance().getProperty(PROPERTY_FILE,
+                RELATIONSHIP_CODESYSTEM_PROPERTY);
+            relationshipCodeSystemNameValue = PropertyAccessor.getInstance().getProperty(PROPERTY_FILE,
+                RELATIONSHIP_CODESYSTEM_NAME_PROPERTY);
+            relationshipCodeValue = PropertyAccessor.getInstance().getProperty(PROPERTY_FILE,
+                RELATIONSHIP_CODE_PROPERTY);
         } catch (PropertyAccessException pae) {
-            log.debug("Could not retrieve info for contact relationship in support module. The component will not be added");
+            LOG.error("Could not retrieve info for contact relationship. The component will not be added", pae);
         }
 
-        if (relationshipDisplayNameValue.equals("") || relationshipCodeSystemValue.equals("") || relationshipCodeSystemNameValue.equals("") || relationshipCodeValue.equals("")) {
-            log.debug("Insufficient data from properties file for contact relationship in support module. The component will not be added");
+        if (("").equals(relationshipDisplayNameValue) || ("").equals(relationshipCodeSystemValue)
+            || ("").equals(relationshipCodeSystemNameValue) || ("").equals(relationshipCodeValue)) {
+            LOG.debug("Insufficient data from properties file. The component will not be added");
         } else {
             staticRelationshipCode.setCode(relationshipCodeValue);
             staticRelationshipCode.setCodeSystem(relationshipCodeSystemValue);
@@ -295,7 +325,6 @@ public class ParticipantModule extends DocumentBuilder {
         }
 
         //contact address
-
         String streetValue = "";
         String cityValue = "";
         String stateValue = "";
@@ -303,17 +332,18 @@ public class ParticipantModule extends DocumentBuilder {
         String countryValue = "";
 
         try {
-            streetValue = PropertyAccessor.getInstance().getProperty(propertyFile, STREET_ADRESS_LINE_PROPERTY);
-            cityValue = PropertyAccessor.getInstance().getProperty(propertyFile, CITY_PROPERTY);
-            stateValue = PropertyAccessor.getInstance().getProperty(propertyFile, STATE_PROPERTY);
-            postalValue = PropertyAccessor.getInstance().getProperty(propertyFile, POSTAL_CODE_PROPERTY);
-            countryValue = PropertyAccessor.getInstance().getProperty(propertyFile, COUNTRY_PROPERTY);
+            streetValue = PropertyAccessor.getInstance().getProperty(PROPERTY_FILE, STREET_ADRESS_LINE_PROPERTY);
+            cityValue = PropertyAccessor.getInstance().getProperty(PROPERTY_FILE, CITY_PROPERTY);
+            stateValue = PropertyAccessor.getInstance().getProperty(PROPERTY_FILE, STATE_PROPERTY);
+            postalValue = PropertyAccessor.getInstance().getProperty(PROPERTY_FILE, POSTAL_CODE_PROPERTY);
+            countryValue = PropertyAccessor.getInstance().getProperty(PROPERTY_FILE, COUNTRY_PROPERTY);
         } catch (PropertyAccessException pae) {
-            log.debug("Could not retrieve info for contact address in support module. The component will not be added");
+            LOG.debug("Could not retrieve info for contact address in support module. The component will not be added");
         }
 
-        if (streetValue.equals("") || cityValue.equals("") || stateValue.equals("") || postalValue.equals("") || countryValue.equals("")) {
-            log.debug("Insufficient data from properties file for contact address in support module. The component will not be added");
+        if (("").equals(streetValue) || ("").equals(cityValue) || ("").equals(stateValue) || ("").equals(postalValue)
+            || ("").equals(countryValue)) {
+            LOG.debug("Insufficient data from properties file. The component will not be added");
         } else {
             ADExplicit staticAddress = objectFactory.createADExplicit();
 
@@ -348,14 +378,14 @@ public class ParticipantModule extends DocumentBuilder {
         String telUseValue = "";
 
         try {
-            telValue = PropertyAccessor.getInstance().getProperty(propertyFile, TELECOM_PROPERTY);
-            telUseValue = PropertyAccessor.getInstance().getProperty(propertyFile, TELECOMTYPE_PROPERTY);
+            telValue = PropertyAccessor.getInstance().getProperty(PROPERTY_FILE, TELECOM_PROPERTY);
+            telUseValue = PropertyAccessor.getInstance().getProperty(PROPERTY_FILE, TELECOMTYPE_PROPERTY);
         } catch (PropertyAccessException pae) {
-            log.debug("Could not retrieve info for contact telecom in support module. The component will not be added");
+            LOG.debug("Could not retrieve info for contact telecom in support module. The component will not be added");
         }
 
-        if (telValue.equals("") || telUseValue.equals("")) {
-            log.debug("Insufficient data from properties file for contact telecom in support module. The component will not be added");
+        if (("").equals(telValue) || ("").equals( telUseValue)) {
+            LOG.debug("Insufficient data from properties file . The component will not be added");
         } else {
             org.hl7.v3.TELExplicit telecom = new org.hl7.v3.TELExplicit();
             telecom.setValue(telValue);

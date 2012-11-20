@@ -242,20 +242,6 @@
         <should.deploy>true</should.deploy>
     </project>
     <project>
-        <name>AdapterDocumentRepository</name>
-        <directory>/Production/Adapters/Framework/AdapterDocumentRepository</directory>
-        <dist.type>jar</dist.type>
-        <should.build>true</should.build>
-        <should.deploy>true</should.deploy>
-    </project>
-    <project>
-        <name>AdapterDocumentRepositoryEJB</name>
-        <directory>/Production/Adapters/Framework/AdapterDocumentRepositoryEJB</directory>
-        <dist.type>jar</dist.type>
-        <should.build>true</should.build>
-        <should.deploy>true</should.deploy>
-    </project>
-    <project>
         <name>DocumentManagerEJB</name>
         <directory>/Production/Adapters/Framework/DocumentManagerEJB</directory>
         <dist.type>jar</dist.type>

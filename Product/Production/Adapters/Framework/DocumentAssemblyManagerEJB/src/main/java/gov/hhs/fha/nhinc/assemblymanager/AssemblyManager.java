@@ -57,20 +57,33 @@ import org.hl7.v3.POCDMT000040ClinicalDocument;
  */
 public class AssemblyManager {
 
-    private static Log log = LogFactory.getLog(AssemblyManager.class);
+    private static final Log LOG = LogFactory.getLog(AssemblyManager.class);
     private String documentType = "";
 
-    public List<POCDMT000040ClinicalDocument> getDocuments(String docType, String patientId) throws InvalidTypeException, InvalidIdentifierException, DocumentBuilderException {
+    /**
+     *
+     * @param docType as String
+     * @param patientId as String
+     * @return List<POCDMT000040ClinicalDocument> clinDocsList
+     * @throws InvalidTypeException
+     * @throws InvalidIdentifierException
+     * @throws DocumentBuilderException
+     */
+    public List<POCDMT000040ClinicalDocument> getDocuments(String docType, String patientId) throws
+        InvalidTypeException, InvalidIdentifierException, DocumentBuilderException {
 
         List<POCDMT000040ClinicalDocument> clinDocsList = null;
-        String displayName = null;
-
+        
         // check for valid document type
         if (docType == null) {
             throw new InvalidTypeException("Must specify a document type.");
         }
         if (!DocumentType.isValidDocumentType(docType)) {
-            log.debug("Requested document type \"" + docType + "\" is not supported!");
+
+            if (LOG.isDebugEnabled()) {
+                LOG.debug("Requested document type \"" + docType + "\" is not supported!");
+            }
+            
             throw new InvalidTypeException("Requested document type \"" + docType + "\" is not supported.");
         }
 
@@ -78,38 +91,54 @@ public class AssemblyManager {
 
         // check for valid patient identifier parameter
         if (patientId == null || patientId.length() < 1) {
-            log.debug("Patient identifier \"" + patientId + "\" is invalid!");
+
+            if (LOG.isDebugEnabled()) {
+                LOG.debug("Patient identifier \"" + patientId + "\" is invalid!");
+            }
+            
             throw new InvalidIdentifierException("Identifier is invalid.");
         }
 
-        log.debug("Requesting document of type=" + docType + " for patient=" + patientId);
-
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("Requesting document of type=" + docType + " for patient=" + patientId);
+        }
+        
         // get a document builder
         if (docType.equalsIgnoreCase(AssemblyConstants.C32_CLASS_CODE)) {
-            C32DocumentBuilder c32Builder = AssemblerFactory.C32Builder(docType);
+            C32DocumentBuilder c32Builder = AssemblerFactory.c32Builder(docType);
             c32Builder.setPatientId(patientId);
             clinDocsList = c32Builder.build();
-            if (clinDocsList.size() == 0) {
+            if (clinDocsList.isEmpty()) {
                 clinDocsList = null;
             }
-            displayName = c32Builder.getDocumentType().getDisplayName();
-        } else if (docType.equalsIgnoreCase(AssemblyConstants.C62_CLASS_CODE) || docType.equalsIgnoreCase(AssemblyConstants.C62_RR_CLASS_CODE)) {
+            
+        } else if (docType.equalsIgnoreCase(AssemblyConstants.C62_CLASS_CODE)
+            || docType.equalsIgnoreCase(AssemblyConstants.C62_RR_CLASS_CODE)) {
             //build a Discharge Summary, ER Report or Radiology Report
             C62DocumentBuilder c62Builder = AssemblerFactory.c62Builder(docType);
             c62Builder.setPatientId(patientId);
             clinDocsList = c62Builder.build();
-            if (clinDocsList.size() == 0) {
+            if (clinDocsList.isEmpty()) {
                 clinDocsList = null;
             }
         } else {
-            log.debug("Document of type: " + docType + " not supported...");
+
+            if (LOG.isDebugEnabled()) {
+                LOG.debug("Document of type: " + docType + " not supported...");
+            }
+            
         }
         return clinDocsList;
     }
 
+    /**
+     *
+     * @param docType as String
+     * @return DocumentType
+     */
     public DocumentType getDocumentType(String docType) {
-        DocumentType d = DocumentType.getDocument(docType);
-        return d;
+        
+        return DocumentType.getDocument(docType);
     }
 
     /**
@@ -141,8 +170,8 @@ public class AssemblyManager {
         //   <?xml-stylesheet type="text/xsl" href="CCD.xsl"?>
         if (!documentType.equalsIgnoreCase(AssemblyConstants.C62_CLASS_CODE)) {
             String replacementString =
-                "<?xml-stylesheet type=\"text/xsl\" href=\"" + getStyleSheet() + "\"?>" +
-                System.getProperty("line.separator") + "<ClinicalDocument";
+                "<?xml-stylesheet type=\"text/xsl\" href=\"" + getStyleSheet() + "\"?>" 
+               + System.getProperty("line.separator") + "<ClinicalDocument";
 
             clinDocString = clinDocString.replaceFirst("<ClinicalDocument", replacementString);
         }
@@ -171,6 +200,12 @@ public class AssemblyManager {
 
     }
 
+    /**
+     *
+     * @param pObject as POCDMT000040ClinicalDocument
+     * @return String xmlString
+     * @throws JAXBException
+     */
     public byte[] serializeCDAContentToXMLBytes(POCDMT000040ClinicalDocument pObject) throws JAXBException {
 
         String xmlString = serializeCDAContentToXMLString(pObject);
@@ -184,7 +219,7 @@ public class AssemblyManager {
         if (documentType.equalsIgnoreCase(AssemblyConstants.C32_CLASS_CODE)) {
             return AssemblyConstants.C32_STYLESHEET;
         } else {
-            log.error("No stylesheet defined for document type \"" + documentType + "\"");
+            LOG.error("No stylesheet defined for document type \"" + documentType + "\"");
         }
 
         return "CCD.xsl";

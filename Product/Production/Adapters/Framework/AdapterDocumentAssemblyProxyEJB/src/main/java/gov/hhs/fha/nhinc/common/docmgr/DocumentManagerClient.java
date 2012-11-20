@@ -35,6 +35,8 @@ import ihe.iti.xds_b._2007.DocumentManagerService;
 import java.net.MalformedURLException;
 import java.net.URL;
 import javax.xml.namespace.QName;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * 
@@ -43,11 +45,24 @@ import javax.xml.namespace.QName;
 public class DocumentManagerClient {
 
     private DocumentManagerService service = null;
+    /**
+     *
+     */
     public static final String DOCUMENT_MANAGER_QNAME = "urn:ihe:iti:xds-b:2007";
+    private static final Log LOG = LogFactory.getLog(DocumentManagerClient.class);
 
+    /**
+     *
+     */
     public DocumentManagerClient() {
+
+        //empty constructor
     }
 
+    /**
+     *
+     * @param endpoint as String
+     */
     public DocumentManagerClient(String endpoint) {
         initService(endpoint);
     }
@@ -60,10 +75,15 @@ public class DocumentManagerClient {
             URL url = new URL(baseUrl, serviceEndpoint);
             service = new DocumentManagerService(url, new QName(DOCUMENT_MANAGER_QNAME, "DocumentManager_Service"));
         } catch (MalformedURLException e) {
-            System.err.println("Failed to create URL for the wsdl Location: " + serviceEndpoint);
+            LOG.error("Failed to create URL for the wsdl Location: " + serviceEndpoint, e);
         }
     }
 
+    /**
+     *
+     * @param serviceEndpoint as String
+     * @return response as String
+     */
     public String generateUniqueId(String serviceEndpoint) {
         if (service == null) {
             initService(serviceEndpoint);

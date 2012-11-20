@@ -30,18 +30,6 @@
  */
 package gov.hhs.fha.nhinc.docmgr;
 
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommon.CeType;
-import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
-import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
-import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunityType;
-import gov.hhs.fha.nhinc.common.nhinccommon.PersonNameType;
-import gov.hhs.fha.nhinc.common.nhinccommon.SamlAuthnStatementType;
-import gov.hhs.fha.nhinc.common.nhinccommon.SamlAuthzDecisionStatementEvidenceAssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommon.SamlAuthzDecisionStatementEvidenceConditionsType;
-import gov.hhs.fha.nhinc.common.nhinccommon.SamlAuthzDecisionStatementEvidenceType;
-import gov.hhs.fha.nhinc.common.nhinccommon.SamlAuthzDecisionStatementType;
-import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
 import gov.hhs.fha.nhinc.docmgr.repository.util.BaseRequestParameters;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
@@ -50,13 +38,14 @@ import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType.Document;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType.DocumentRequest;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
-import java.math.BigInteger;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Hashtable;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 import javax.jms.JMSException;
 import javax.jms.ObjectMessage;
 import javax.jms.Queue;
@@ -102,72 +91,218 @@ public class DocumentManagerImpl {
 
     /** Infobutton xds slot for query result. */
     public static final String INFOBUTTON_QUERY_SLOT = "$InfoButtonQuery";
+    /**
+     *
+     */
     public static final String INFOBUTTON_RETRIEVERESULT_SLOT = "urn:infobuttonSearchResult";
     /** Property constants. */
     public static final String REPOSITORY_PROPERTY_FILE = "repository";
+    /**
+     *
+     */
     public static final String DYNAMIC_DOCUMENT_REPOSITORY_ID_PROP = "dynamicDocumentRepositoryId";
+    /**
+     *
+     */
     public static final String INBOUND_DOCUMENT_REPOSITORY_ID_PROP = "inboundDocumentRepositoryId";
+    /**
+     *
+     */
     public static final String INBOUND_DOCUMENT_MIRTH_WSDL = "mirthChannel";
+    /**
+     *
+     */
     public static final String POLICY_REPOSITORY_ID_PROP = "policyRepositoryId";
+    /**
+     *
+     */
     public static final String DOCUMENT_UNIQUE_OID_PROP = "documentUniqueOID";
+    /**
+     *
+     */
     public static final String DOCMGR_QUEUE = "documentManager.queue";
+    /**
+     *
+     */
     public static final String DOCMGR_QUEUE_FACTORY = "documentManager.queueFactory";
+    /**
+     *
+     */
     public static final String NHINDOCQUERY_ENDPOINT_PROP = "nhinDocQuery";
+    /**
+     *
+     */
     public static final String NHINDOCRETRIEVE_ENDPOINT_PROP = "nhinDocRetrieve";
+    /**
+     *
+     */
     public static final String INFOBUTTON_COUNT_PROP = "infobutton.count";
+    /**
+     *
+     */
     public static final String INFOBUTTON_PREFIX = "infobutton.";
+    /**
+     *
+     */
     public static final String INFOBUTTON_NAME_SUFFIX = ".name";
+    /**
+     *
+     */
     public static final String INFOBUTTON_OID_SUFFIX = ".oid";
     /** InfoButton Assertion properties. */
     public static final String IB_SIGNATURE_DATE_PROP = "ib.assertion.signature_date";
+    /**
+     *
+     */
     public static final String IB_EXPIRATION_DATE_PROP = "ib.assertion.expiration_date";
+    /**
+     *
+     */
     public static final String IB_ROLE_NAME_PROP = "ib.assertion.role_name";
+    /**
+     *
+     */
     public static final String IB_ROLE_CODE_PROP = "ib.assertion.role_code";
+    /**
+     *
+     */
     public static final String IB_ROLE_CODE_SYSTEM_PROP = "ib.assertion.role_code_system";
+    /**
+     *
+     */
     public static final String IB_ROLE_CODE_SYSTEM_NAME_PROP = "ib.assertion.role_code_system_name";
+    /**
+     *
+     */
     public static final String IB_ROLE_CODE_SYSTEM_VERSION_PROP = "ib.assertion.role_code_system_version";
+    /**
+     *
+     */
     public static final String IB_USER_DOD_EXTENSION_PROP = "ib.assertion.user_dod_extension";
+    /**
+     *
+     */
     public static final String IB_DOD_ROLE_NAME_PROP = "ib.assertion.dod_role_name";
+    /**
+     *
+     */
     public static final String IB_DOD_ROLE_CODE_PROP = "ib.assertion.dod_role_code";
+    /**
+     *
+     */
     public static final String IB_DOD_ROLE_CODE_SYSTEM_PROP = "ib.assertion.dod_role_code_system";
+    /**
+     *
+     */
     public static final String IB_DOD_ROLE_CODE_SYSTEM_NAME_PROP = "ib.assertion.dod_role_code_system_name";
+    /**
+     *
+     */
     public static final String IB_DOD_ROLE_CODE_SYSTEM_VERSION_PROP = "ib.assertion.dod_role_code_system_version";
+    /**
+     *
+     */
     public static final String IB_PURPOSE_OF_USE_ROLE_NAME_PROP = "ib.assertion.purpose_of_use_role_name";
+    /**
+     *
+     */
     public static final String IB_PURPOSE_OF_USE_ROLE_CODE_PROP = "ib.assertion.purpose_of_use_role_code";
+    /**
+     *
+     */
     public static final String IB_PURPOSE_OF_USE_ROLE_CODE_SYSTEM_PROP = "ib.assertion.purpose_of_use_role_code_system";
-    public static final String IB_PURPOSE_OF_USE_ROLE_CODE_SYSTEM_NAME_PROP = "ib.assertion.purpose_of_use_role_code_system_name";
-    public static final String IB_PURPOSE_OF_USE_ROLE_CODE_SYSTEM_VERSION_PROP = "ib.assertion.purpose_of_use_role_code_system_version";
+    /**
+     * 
+     */
+    public static final String IB_PURPOSE_OF_USE_ROLE_CODE_SYSTEM_NAME_PROP
+        = "ib.assertion.purpose_of_use_role_code_system_name";
+    /**
+     * 
+     */
+    public static final String IB_PURPOSE_OF_USE_ROLE_CODE_SYSTEM_VERSION_PROP
+        = "ib.assertion.purpose_of_use_role_code_system_version";
+    /**
+     *
+     */
     public static final String IB_CLAIM_FORM_REF_PROP = "ib.assertion.claim_form_ref";
+    /**
+     *
+     */
     public static final String IB_CLAIM_FORM_STRING_PROP = "ib.assertion.claim_form_string";
     /** Date precision. */
     public static final int XDS_DATE_QUERY_FROM_PRECISION = 8;
+    /**
+     *
+     */
     public static final int XDS_DATE_QUERY_TO_PRECISION = 14;
+    /**
+     *
+     */
     public static final int ASSERTION_DOB_PRECISION = 12;
+    /**
+     *
+     */
     public static final String XDS_DATE_FORMAT_FULL = "yyyyMMddHHmmssZ";
-    /** Value for archive field in metadata */
+    /** Value for archive field in metadata. */
     public static final String XDS_ARCHIVE_SLOT = "urn:gov:hhs:fha:nhinc:xds:hasBeenAccessed";
     /** Repository id field for segmenting the data. */
     public static final String XDS_REPOSITORY_ID_RETRIEVE = "repositoryUniqueId";
+    /**
+     *
+     */
     public static final String XDS_DOCUMENT_UNIQUE_ID_RETRIEVE = "documentUniqueId";
+    /**
+     *
+     */
     public static final String XDS_HOME_COMMUNITY_ID_RETRIEVE = "homeCommunityId";
+    /**
+     *
+     */
     public static final String XDS_REPOSITORY_ID_QUERY = "$XDSRepositoryUniqueId";
+    /**
+     *
+     */
     public static final String XDS_REPOSITORY_DOCUMENT_UNIQUE_ID = "$XDSDocumentEntryUniqueId";
-    public final static String XDSHasBeenAccessed = "urn:gov:hhs:fha:nhinc:xds:hasBeenAccessed";
+    /**
+     *
+     */
+    public static final String XDS_HAS_BEEN_ACCESSED = "urn:gov:hhs:fha:nhinc:xds:hasBeenAccessed";
+    /**
+     *
+     */
     public static final String INFOBUTTON_PATIENTID_SLOT = "$XDSDocumentEntryPatientId";
-    /** Error values */
+    /** Error values. */
     public static final String XDS_SUCCESS_STATUS = "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Success";
+    /**
+     *
+     */
     public static final String XDS_FAILED_STATUS = "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure";
+    /**
+     *
+     */
     public static final String XDS_ERROR_CODE = "DOCUMENT_MANAGER_ERROR";
+    /**
+     *
+     */
     public static final String XDS_ERROR_SEVERITY = "ERROR";
+    /**
+     *
+     */
     public static final int INFOBUTTON_ERROR = -1;
     /** Message constants. */
     public static final String MESSAGE_START_SUCCESS = "Success";
+    /**
+     *
+     */
     public static final String MESSAGE_START_FAILURE = "Failure";
+    /**
+     *
+     */
     public static final String FAILURE_TICKET = "-1";
-    /** Date format for XDS */
-    public static final DateFormat XDS_DATE_FORMAT = new SimpleDateFormat("yyyyMMddHHmmss");
+    /** Date format for XDS. */
+    public static final DateFormat XDS_DATE_FORMAT = new SimpleDateFormat("yyyyMMddHHmmss", Locale.getDefault());
     /** Logging. */
-    private static Log log = LogFactory.getLog(DocumentManagerImpl.class);
+    private static final Log LOG = LogFactory.getLog(DocumentManagerImpl.class);
 
     ////////////////////////////////////////////////////////////////////////////
     //Interface implementation
@@ -181,7 +316,8 @@ public class DocumentManagerImpl {
         RegistryResponseType result = null;
         result = new oasis.names.tc.ebxml_regrep.xsd.rs._3.ObjectFactory().createRegistryResponseType();
         result.setStatus(statusCode);
-        RegistryErrorList errorList = new oasis.names.tc.ebxml_regrep.xsd.rs._3.ObjectFactory().createRegistryErrorList();
+        RegistryErrorList errorList
+            = new oasis.names.tc.ebxml_regrep.xsd.rs._3.ObjectFactory().createRegistryErrorList();
         RegistryError error = new RegistryError();
         error.setErrorCode(errorCode);
         error.setSeverity(severityCode);
@@ -198,32 +334,40 @@ public class DocumentManagerImpl {
      * When these values are NULL, that indicates they are not expected to be passed to the given function
      */
     private void analyzeBaseParameters(BaseRequestParameters baseValues) {
-        String message = "Request message contained these key values: ";
+        StringBuffer messageBuffer = new StringBuffer();
+        messageBuffer.append("Request message contained these key values: ");
+       
 
         // WARN on no valid repository id in query
         String repositoryId = baseValues.getRepositoryId();
         if (repositoryId != null && repositoryId.equals("")) {
-            log.warn("Request did not contain a repository id.");
+            LOG.warn("Request did not contain a repository id.");
         } else {
             if (!getValidRepositories().contains(repositoryId)) {
                 //throw new Exception("Repository id not valid: " + repositoryId);
-                log.warn("Request contained an invalid repository id=" + repositoryId);
+                LOG.warn("Request contained an invalid repository id=" + repositoryId);
             }
-            message += " repositoryId = " + repositoryId;
+            messageBuffer.append(" repositoryId = ");
+            messageBuffer.append(repositoryId);
+            
         }
         String documentId = baseValues.getDocumentId();
         if (documentId != null && documentId.equals("")) {
-            log.warn("Request did not conain a doumentId");
+            LOG.warn("Request did not conain a doumentId");
         } else {
-            message += " documentId = " + documentId;
+            messageBuffer.append(" documentId = ");
+            messageBuffer.append(documentId);
+            
         }
         String homeCommunityId = baseValues.getHomeCommunityId();
         if (homeCommunityId != null && homeCommunityId.equals("")) {
-            log.warn("Request did not conain a homeCommunityId");
+            LOG.warn("Request did not conain a homeCommunityId");
         } else {
-            message += " homeCommunityId = " + homeCommunityId;
+            messageBuffer.append(" homeCommunityId = ");
+            messageBuffer.append(homeCommunityId);
+           
         }
-        log.debug(message);
+        LOG.debug(messageBuffer);
     }
 
     /**
@@ -234,11 +378,12 @@ public class DocumentManagerImpl {
      * isn't how a real XDS Registry behaves.  So when/if we use one, there will
      * need to be a rework done here.
      * 
-     * @param body
-     * @return
+     * @param body AdhocQueryRequest
+     * @return result
      */
-    public oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse documentManagerQueryForDocument(oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest body) {
-        log.debug("Querying document archive.");
+    public oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse documentManagerQueryForDocument(
+        oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest body) {
+        LOG.debug("Querying document archive.");
 
         oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse result = null;
 
@@ -250,11 +395,11 @@ public class DocumentManagerImpl {
 
             result = new DocumentRegistryHelper().documentRegistryRegistryStoredQuery(body);
         } catch (Exception e) {
-            result = new oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse();
+           result = new oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse();
             result.setStatus(XDS_FAILED_STATUS);
             result.setRegistryObjectList(new RegistryObjectListType());
 
-            log.error("Error querying for document.", e);
+            LOG.error("Error querying for document.", e);
         }
 
         return result;
@@ -268,11 +413,12 @@ public class DocumentManagerImpl {
      * Here we can just forward the request to the repository.  For a real XDS
      * server, we would need to call the appropriate repository for the document.
      *
-     * @param body
-     * @return
+     * @param body RetrieveDocumentSetRequestType
+     * @return result
      */
-    public ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType documentManagerRetrieveDocument(ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType body) {
-        log.debug("Retrieving document.");
+    public ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType documentManagerRetrieveDocument(
+        ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType body) {
+        LOG.debug("Retrieving document.");
 
         RetrieveDocumentSetResponseType result = null;
 
@@ -283,7 +429,8 @@ public class DocumentManagerImpl {
             analyzeBaseParameters(baseValues);
             result = new DocumentRepositoryHelper().documentRepositoryRetrieveDocumentSet(body);
         } catch (Exception e) {
-            RegistryResponseType response = new oasis.names.tc.ebxml_regrep.xsd.rs._3.ObjectFactory().createRegistryResponseType();
+            RegistryResponseType response
+                = new oasis.names.tc.ebxml_regrep.xsd.rs._3.ObjectFactory().createRegistryResponseType();
             response.setStatus(XDS_FAILED_STATUS);
             RegistryErrorList errorList = new oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList();
             RegistryError error = new oasis.names.tc.ebxml_regrep.xsd.rs._3.ObjectFactory().createRegistryError();
@@ -296,7 +443,7 @@ public class DocumentManagerImpl {
             response.setRegistryErrorList(errorList);
             result.setRegistryResponse(response);
 
-            log.error("Error retrieving document.", e);
+            LOG.error("Error retrieving document.", e);
         }
 
         return result;
@@ -313,11 +460,12 @@ public class DocumentManagerImpl {
      * isn't how a real XDS Registry behaves.  So when/if we use one, there will
      * need to be a rework done here.
      *
-     * @param body
-     * @return
+     * @param body RegistryResponseType
+     * @return result
      */
-    public oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType documentManagerStoreDocument(ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType body) {
-        log.debug("Storing document.");
+    public oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType documentManagerStoreDocument(
+        ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType body) {
+        LOG.debug("Storing document.");
 
         oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType result = null;
 
@@ -334,9 +482,10 @@ public class DocumentManagerImpl {
 
             PropertyAccessor oProp = PropertyAccessor.getInstance();
 
-            String inboundRepositoryId = oProp.getProperty(REPOSITORY_PROPERTY_FILE, INBOUND_DOCUMENT_REPOSITORY_ID_PROP);
+            String inboundRepositoryId = oProp.getProperty(REPOSITORY_PROPERTY_FILE,
+                INBOUND_DOCUMENT_REPOSITORY_ID_PROP);
             if (baseValues.getRepositoryId().equals(inboundRepositoryId)) {
-                try {
+             
                     String mirthWSDL = oProp.getProperty(REPOSITORY_PROPERTY_FILE, INBOUND_DOCUMENT_MIRTH_WSDL);
                     if ((mirthWSDL != null) && !mirthWSDL.isEmpty()) {
                         String msgBody = null;
@@ -348,16 +497,13 @@ public class DocumentManagerImpl {
                             throw new Exception("Message body not found in request.");
                         }
                     }
-                } catch (Exception e) {
-                    log.error("Error sending inbound document to Mirth channel", e);
-                    //continue to store locally
-                }
+               
             }
             result = new DocumentRepositoryHelper().documentRepositoryProvideAndRegisterDocumentSet(body);
         } catch (Exception e) {
             result = formatRegistryErrorResponse(XDS_FAILED_STATUS, XDS_ERROR_CODE, XDS_ERROR_SEVERITY,
                 "Could not store document.", "DocumentManagerImpl.storeDocument");
-            log.error("Error storing document.", e);
+            LOG.error("Error storing document.", e);
         }
 
         return result;
@@ -369,11 +515,12 @@ public class DocumentManagerImpl {
      * of the original (updating the hasBeenAccessed flag).  The hasBeenAccessed flag is our
      * archiving flag.
      * 
-     * @param body
-     * @return
+     * @param body RegistryResponseType
+     * @return result
      */
-    public oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType documentManagerArchiveDocument(gov.hhs.fha.nhinc.common.docmgr.ArchiveDocumentRequestType body) {
-        log.debug("Archiving document.");
+    public oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType documentManagerArchiveDocument(
+        gov.hhs.fha.nhinc.common.docmgr.ArchiveDocumentRequestType body) {
+        LOG.debug("Archiving document.");
 
         RegistryResponseType result = null;
         String homeCommunityId = null;
@@ -386,7 +533,8 @@ public class DocumentManagerImpl {
             repositoryId = body.getRepositoryUniqueId();
             documentUniqueId = body.getDocumentUniqueId();
 
-            BaseRequestParameters baseValues = new BaseRequestParameters(repositoryId, documentUniqueId, homeCommunityId);
+            BaseRequestParameters baseValues = new BaseRequestParameters(repositoryId, documentUniqueId,
+                homeCommunityId);
             analyzeBaseParameters(baseValues);
 
             //Ensure valid repository id in query
@@ -398,7 +546,7 @@ public class DocumentManagerImpl {
         } catch (Exception e) {
             result = formatRegistryErrorResponse(XDS_FAILED_STATUS, XDS_ERROR_CODE, XDS_ERROR_SEVERITY,
                 "Could not archive document.", "DocumentManagerImpl.archiveDocument");
-            log.error("Error archving document.", e);
+            LOG.error("Error archving document.", e);
 
             return result;
         }
@@ -415,11 +563,12 @@ public class DocumentManagerImpl {
     /**
      * Update document slot.
      * 
-     * @param body
-     * @return
+     * @param body RegistryResponseType
+     * @return result
      */
-    public oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType documentManagerUpdateDocumentSlot(gov.hhs.fha.nhinc.common.docmgr.UpdateDocumentSlotRequestType body) {
-        log.debug("Updating document slot.");
+    public oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType documentManagerUpdateDocumentSlot(
+        gov.hhs.fha.nhinc.common.docmgr.UpdateDocumentSlotRequestType body) {
+        LOG.debug("Updating document slot.");
 
         RegistryResponseType result = null;
         String homeCommunityId = null;
@@ -432,12 +581,13 @@ public class DocumentManagerImpl {
             repositoryId = body.getRepositoryUniqueId();
             documentUniqueId = body.getDocumentUniqueId();
 
-            BaseRequestParameters baseValues = new BaseRequestParameters(repositoryId, documentUniqueId, homeCommunityId);
+            BaseRequestParameters baseValues = new BaseRequestParameters(repositoryId, documentUniqueId,
+                homeCommunityId);
             analyzeBaseParameters(baseValues);
 
             //Ensure valid repository id in query
             if (!getValidRepositories().contains(repositoryId)) {
-                log.error("DocumentManagerUpdateDocumentSlot: Invalid repository id provided. Id = " + repositoryId);
+                LOG.error("DocumentManagerUpdateDocumentSlot: Invalid repository id provided. Id = " + repositoryId);
             }
 
             //Handle update
@@ -448,7 +598,8 @@ public class DocumentManagerImpl {
         } catch (Exception e) {
             result = new oasis.names.tc.ebxml_regrep.xsd.rs._3.ObjectFactory().createRegistryResponseType();
             result.setStatus(XDS_FAILED_STATUS);
-            RegistryErrorList errorList = new oasis.names.tc.ebxml_regrep.xsd.rs._3.ObjectFactory().createRegistryErrorList();
+            RegistryErrorList errorList
+                = new oasis.names.tc.ebxml_regrep.xsd.rs._3.ObjectFactory().createRegistryErrorList();
             RegistryError error = new RegistryError();
             error.setValue(e.getMessage());
             error.setErrorCode(XDS_ERROR_CODE);
@@ -458,7 +609,7 @@ public class DocumentManagerImpl {
             errorList.getRegistryError().add(error);
             result.setRegistryErrorList(errorList);
 
-            log.error("Error updating document slot.", e);
+            LOG.error("Error updating document slot.", e);
 
             return result;
         }
@@ -469,11 +620,13 @@ public class DocumentManagerImpl {
     /**
      * Generate unique Id that can be used for document unique ids.
      * 
-     * @param request
-     * @return
+     * @param request GenerateUniqueIdRequestType
+     * @return response
      */
-    public gov.hhs.fha.nhinc.common.docmgr.GenerateUniqueIdResponseType generateUniqueId(gov.hhs.fha.nhinc.common.docmgr.GenerateUniqueIdRequestType request) {
-        gov.hhs.fha.nhinc.common.docmgr.GenerateUniqueIdResponseType response = new gov.hhs.fha.nhinc.common.docmgr.GenerateUniqueIdResponseType();
+    public gov.hhs.fha.nhinc.common.docmgr.GenerateUniqueIdResponseType generateUniqueId(
+        gov.hhs.fha.nhinc.common.docmgr.GenerateUniqueIdRequestType request) {
+        gov.hhs.fha.nhinc.common.docmgr.GenerateUniqueIdResponseType response
+            = new gov.hhs.fha.nhinc.common.docmgr.GenerateUniqueIdResponseType();
         String oid = "1.1.1.1.1.1";
 
         PropertyAccessor oProp = PropertyAccessor.getInstance();
@@ -481,7 +634,8 @@ public class DocumentManagerImpl {
         try {
             oid = oProp.getProperty(REPOSITORY_PROPERTY_FILE, DOCUMENT_UNIQUE_OID_PROP);
         } catch (PropertyAccessException e) {
-            log.error("Error accessing property:" + DOCUMENT_UNIQUE_OID_PROP + " in file:" + REPOSITORY_PROPERTY_FILE + ".", e);
+            LOG.error("Error accessing property:" + DOCUMENT_UNIQUE_OID_PROP + " in file:"
+                + REPOSITORY_PROPERTY_FILE + ".", e);
         }
 
         //OID^extension format
@@ -493,32 +647,32 @@ public class DocumentManagerImpl {
     /**
      * Internal method to handle document slot update.
      * 
-     * @param repositoryId
-     * @param documentUniqueId
-     * @param slotName
-     * @param slotValueList
-     * @throws Exception
+     * @param repositoryId String
+     * @param documentUniqueId String
+     * @param slotName String
+     * @param slotValueList String
+     * @throws Exception Exception
      */
     private void doUpdateSlot(String repositoryId, String documentUniqueId, String homeCommunityId,
         String slotName, List<String> slotValueList)
         throws Exception {
 
         try {
-            log.debug("Querying document to update slot.");
+            LOG.debug("Querying document to update slot.");
 
             //Create metadata query
             AdhocQueryRequest metaRequest = createQuery(
                 new String[]{
                     "$XDSRepositoryUniqueId",
-                    "$XDSDocumentEntryUniqueId",},
+                    "$XDSDocumentEntryUniqueId", },
                 new String[]{
                     repositoryId,
-                    documentUniqueId,});
+                    documentUniqueId, });
 
             //Perform query for metadata
             AdhocQueryResponse queryResponse = documentManagerQueryForDocument(metaRequest);
 
-            log.debug("Retrieving document to update slot.");
+            LOG.debug("Retrieving document to update slot.");
 
             //Create document retrieve
             RetrieveDocumentSetRequestType docRequest = createRetrieve(
@@ -527,7 +681,7 @@ public class DocumentManagerImpl {
             //Retrieve document
             RetrieveDocumentSetResponseType docResponse = documentManagerRetrieveDocument(docRequest);
 
-            log.debug("Replacing document to update slot.");
+            LOG.debug("Replacing document to update slot.");
 
             //Create document retrieve
             //Create replacement
@@ -537,7 +691,7 @@ public class DocumentManagerImpl {
             //Do store with updated metdata
             documentManagerStoreDocument(replaceRequest);
         } catch (Exception e) {
-            log.error("Error performing slot update.", e);
+            LOG.error("Error performing slot update.", e);
             throw new Exception("Error performing slot update.", e);
         }
 
@@ -546,9 +700,9 @@ public class DocumentManagerImpl {
     /**
      * Internal method to create query used in document update slot.
      *
-     * @param names
-     * @param values
-     * @return
+     * @param names String
+     * @param values String
+     * @return request
      */
     private AdhocQueryRequest createQuery(String[] names, String[] values) {
         if ((names == null) || (values == null) || (names.length != values.length)) {
@@ -583,11 +737,12 @@ public class DocumentManagerImpl {
     /**
      * Internal method to create retrieve request used by doument update slot.
      *
-     * @param repositoryId
-     * @param documentUniqueId
-     * @return
+     * @param repositoryId String
+     * @param documentUniqueId  String
+     * @return request
      */
-    private RetrieveDocumentSetRequestType createRetrieve(String repositoryId, String documentUniqueId, String homeCommunityId) {
+    private RetrieveDocumentSetRequestType createRetrieve(String repositoryId,
+        String documentUniqueId, String homeCommunityId) {
         RetrieveDocumentSetRequestType request = new RetrieveDocumentSetRequestType();
 
         //Create retrieve request
@@ -602,18 +757,14 @@ public class DocumentManagerImpl {
 
     /**
      * Internal method to create store request used by document update slot.
-     * @param queryResponse
-     * @param docResponse
-     * @return
+     * @param queryResponse AdhocQueryResponse
+     * @param docResponse RetrieveDocumentSetResponseType
+     * @return  request
      * @throws Exception
      */
-    private ProvideAndRegisterDocumentSetRequestType createReplaceRequest(
-        AdhocQueryResponse queryResponse,
-        RetrieveDocumentSetResponseType docResponse,
-        String slotName,
-        List<String> slotValueList)
+    private ProvideAndRegisterDocumentSetRequestType createReplaceRequest(AdhocQueryResponse queryResponse,
+        RetrieveDocumentSetResponseType docResponse, String slotName, List<String> slotValueList)
         throws Exception {
-
         ProvideAndRegisterDocumentSetRequestType request = new ProvideAndRegisterDocumentSetRequestType();
 
         //Check for document metadata
@@ -623,7 +774,8 @@ public class DocumentManagerImpl {
         }
 
         //Find document metadata
-        List<JAXBElement<? extends IdentifiableType>> objectList = queryResponse.getRegistryObjectList().getIdentifiable();
+        List<JAXBElement<? extends IdentifiableType>> objectList
+            = queryResponse.getRegistryObjectList().getIdentifiable();
         for (JAXBElement<? extends IdentifiableType> object : objectList) {
             IdentifiableType identifiableType = object.getValue();
             if (identifiableType instanceof ExtrinsicObjectType) {
@@ -675,13 +827,13 @@ public class DocumentManagerImpl {
                 "authorPerson",
                 "authorInstitution",
                 "authorRole",
-                "authorSpecialty",}, //slot names
+                "authorSpecialty", }, //slot names
             new String[][]{
                 new String[]{"^DocumentManager^Automated^^^"},
                 new String[]{
-                    "LocalMHS",},
+                    "LocalMHS", },
                 new String[]{"Automated"},
-                new String[]{"Automated"},} //slot values
+                new String[]{"Automated"}, } //slot values
             );
 
         //Add submission content type classification
@@ -692,9 +844,9 @@ public class DocumentManagerImpl {
             "id_21", //id
             "contentTypeDisplayName", //name
             new String[]{
-                "codingScheme",}, //slot names
+                "codingScheme", }, //slot names
             new String[][]{
-                new String[]{"Connect-a-thon contentTypeCodes"},} //slot values
+                new String[]{"Connect-a-thon contentTypeCodes"}, } //slot values
             );
 
         //Add submission uniqueId identifier
@@ -730,7 +882,6 @@ public class DocumentManagerImpl {
         association.setId("ID_25276323_1");
         association.setSourceObject("SubmissionSet01");
         association.setTargetObject(extrinsic.getId());
-
         //Add submission status to assocation
         addSlot(association, "SubmissionSetStatus", new String[]{"Original"});
 
@@ -740,7 +891,6 @@ public class DocumentManagerImpl {
         classification.setObjectType("urn:oasis:names:tc:ebxml-regrep:ObjectType:RegistryObject:Classification");
         classification.setClassifiedObject("SubmissionSet01");
         classification.setId("ID_25276323_3");
-
         //Build registry object
         ObjectFactory rimObjectFactory = new ObjectFactory();
         JAXBElement<ExtrinsicObjectType> extrinsicMetadata = rimObjectFactory.createExtrinsicObject(extrinsic);
@@ -752,12 +902,10 @@ public class DocumentManagerImpl {
         registryList.getIdentifiable().add(submission);
         registryList.getIdentifiable().add(associationObject);
         registryList.getIdentifiable().add(classificationObject);
-
         //Build document object
         Document document = new Document();
         document.setId(extrinsic.getId());
         document.setValue(docResponse.getDocumentResponse().get(0).getDocument());
-
         //Add request to body for submission
         SubmitObjectsRequest submitObjects = new SubmitObjectsRequest();
         submitObjects.setRegistryObjectList(registryList);
@@ -770,14 +918,14 @@ public class DocumentManagerImpl {
     /**
      * Add classification to submission object.
      *
-     * @param registry
-     * @param classifiedObject
-     * @param classificationScheme
-     * @param nodeRepresentation
-     * @param id
-     * @param name
-     * @param slotNames
-     * @param slotValues
+     * @param registry RegistryObjectType
+     * @param classifiedObject String
+     * @param classificationScheme String
+     * @param nodeRepresentation String
+     * @param id String
+     * @param name String
+     * @param slotNames String
+     * @param slotValues String[]
      */
     private static void addClassification(
         RegistryObjectType registry,
@@ -888,7 +1036,7 @@ public class DocumentManagerImpl {
             repoIds.add(oProp.getProperty(REPOSITORY_PROPERTY_FILE, INBOUND_DOCUMENT_REPOSITORY_ID_PROP));
             repoIds.add(oProp.getProperty(REPOSITORY_PROPERTY_FILE, POLICY_REPOSITORY_ID_PROP));
         } catch (PropertyAccessException e) {
-            log.error("Error accessing repository id properties.", e);
+            LOG.error("Error accessing repository id properties.", e);
         }
 
         return repoIds;
@@ -919,7 +1067,8 @@ public class DocumentManagerImpl {
      * @param body
      * @return
      */
-    private BaseRequestParameters pullBaseRequestParameters(oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest body) {
+    private BaseRequestParameters pullBaseRequestParameters(
+        oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest body) {
         String repositoryIdValue = null;
         String documentIdValue = null;
 
@@ -957,10 +1106,11 @@ public class DocumentManagerImpl {
     /**
      * Pull query va;ies out of document store request.
      * 
-     * @param body
-     * @return
+     * @param body ProvideAndRegisterDocumentSetRequestType
+     * @return BaseRequestParameters
      */
-    public BaseRequestParameters pullBaseRequestParameters(ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType body) {
+    public BaseRequestParameters pullBaseRequestParameters(
+        ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType body) {
         ExtrinsicObjectType extrinsic = null;
         String repositoryIdValue = null;
         String documentIdValue = null;
@@ -1004,7 +1154,7 @@ public class DocumentManagerImpl {
      * @return ticket, detail
      */
     private String[] sendJMSMessage(java.io.Serializable jmsMsg) {
-        String result[] = new String[2];
+        String [] result = new String[2];
         String docMgrMsgQ = null;
         QueueConnection queueConnection = null;
 
@@ -1035,23 +1185,25 @@ public class DocumentManagerImpl {
             result[0] = message.getJMSMessageID();
             result[1] = MESSAGE_START_SUCCESS;
         } catch (PropertyAccessException pae) {
-            String msg = MESSAGE_START_FAILURE + ": error accessing properties in file:" + REPOSITORY_PROPERTY_FILE + ".";
-            log.error(msg, pae);
+            String msg = MESSAGE_START_FAILURE + ": error accessing properties in file:"
+                + REPOSITORY_PROPERTY_FILE + ".";
+            LOG.error(msg, pae);
             result[0] = FAILURE_TICKET;
             result[1] = msg;
         } catch (NamingException ne) {
             String msg = MESSAGE_START_FAILURE + ": error creating connection to queue: " + docMgrMsgQ + ".";
-            log.error(msg, ne);
+            LOG.error(msg, ne);
             result[0] = FAILURE_TICKET;
             result[1] = msg;
         } catch (JMSException jmse) {
-            String msg = MESSAGE_START_FAILURE + ": error occurred trying to send message to queue: " + docMgrMsgQ + ".";
-            log.error(msg, jmse);
+            String msg = MESSAGE_START_FAILURE + ": error occurred trying to send message to queue: "
+                + docMgrMsgQ + ".";
+            LOG.error(msg, jmse);
             result[0] = FAILURE_TICKET;
             result[1] = msg;
         } catch (Throwable t) {
             String msg = MESSAGE_START_FAILURE + ": error occurred trying to start NHIN query process.";
-            log.error(msg, t);
+            LOG.error(msg, t);
             result[0] = FAILURE_TICKET;
             result[1] = msg;
         } finally {
@@ -1060,6 +1212,7 @@ public class DocumentManagerImpl {
                 try {
                     queueConnection.close();
                 } catch (JMSException e) {
+                    LOG.error("JMSException while closing queue connection: ", e);
                 }
             }
         }
@@ -1136,229 +1289,6 @@ public class DocumentManagerImpl {
     }
 
     /**
-     * Before storing, ensure that repositoryID is present.
-     * 
-     * @param request
-     * @param repositoryId
-     */
-    private void insertRepositoryId(
-        ProvideAndRegisterDocumentSetRequestType request,
-        String repositoryId) {
-
-        ExtrinsicObjectType extrinsic = null;
-        SlotType1 repositoryIdSlot = null;
-
-        //Pull out submit objects
-        List<JAXBElement<? extends IdentifiableType>> objectList =
-            request.getSubmitObjectsRequest().getRegistryObjectList().getIdentifiable();
-
-        //Find extrinsic object
-        for (JAXBElement<? extends IdentifiableType> object : objectList) {
-            IdentifiableType identifiableType = object.getValue();
-            if (identifiableType instanceof ExtrinsicObjectType) {
-                extrinsic = (ExtrinsicObjectType) identifiableType;
-
-                //Find repositoryl id (if present)
-                for (SlotType1 slot : extrinsic.getSlot()) {
-                    if (XDS_REPOSITORY_ID_RETRIEVE.equals(slot.getName())) {
-                        repositoryIdSlot = slot;
-                        break;
-                    }
-                }
-            }
-        }
-
-        //Create repository ID if not found
-        if (repositoryIdSlot == null) {
-            repositoryIdSlot = new SlotType1();
-            addSlot(extrinsic, XDS_REPOSITORY_ID_RETRIEVE, new String[]{repositoryId});
-            return;
-        }
-
-        //Ensure repository ID is correct
-        ValueListType valList = new ValueListType();
-        valList.getValue().add(repositoryId);
-        repositoryIdSlot.setValueList(valList);
-    }
-
-    /**
-     * Before query, ensure repository id present.
-     *
-     * @param request
-     * @param repositoryId
-     */
-    private void insertRepositoryIdQuery(
-        AdhocQueryRequest request,
-        String repositoryId) {
-
-        SlotType1 repositoryIdSlot = null;
-
-        //Find repositoryl id (if present)
-        for (SlotType1 slot : request.getAdhocQuery().getSlot()) {
-            if (XDS_REPOSITORY_ID_QUERY.equals(slot.getName())) {
-                repositoryIdSlot = slot;
-                break;
-            }
-        }
-
-        //Create repository ID if not found
-        if (repositoryIdSlot == null) {
-            repositoryIdSlot = new SlotType1();
-            addSlot(request.getAdhocQuery(), XDS_REPOSITORY_ID_QUERY, new String[]{repositoryId});
-            return;
-        }
-
-        //Ensure repository ID is correct
-        ValueListType valList = new ValueListType();
-        valList.getValue().add(repositoryId);
-        repositoryIdSlot.setValueList(valList);
-    }
-
-    /**
-     * Create the nhin query for infoButton request.
-     *
-     * @param request
-     * @return
-     */
-    private AdhocQueryRequest createInfoButtonQuery(gov.hhs.fha.nhinc.common.docmgr.InfoButtonQueryRequestType request) {
-        AdhocQueryRequest retVal = new AdhocQueryRequest();
-        retVal.setFederated(false);
-        retVal.setStartIndex(BigInteger.valueOf(0));
-        retVal.setMaxResults(BigInteger.valueOf(-1));
-
-        ResponseOptionType resp = new ResponseOptionType();
-        resp.setReturnComposedObjects(true);
-        resp.setReturnType("LeafClass");
-        retVal.setResponseOption(resp);
-
-        AdhocQueryType queryType = new AdhocQueryType();
-        queryType.setId("urn:uuid:14d4debf-8f97-4251-9a74-a90016b0af0d");
-
-        addSlot(queryType, INFOBUTTON_PATIENTID_SLOT,
-            new String[]{request.getAssertionInfo().getPatientUnitNumber() + "^^^&" + request.getAssertionInfo().getHomeCommunityId() + "&ISO"});
-
-        addSlot(queryType, INFOBUTTON_QUERY_SLOT,
-            new String[]{request.getQuery()});
-
-        retVal.setAdhocQuery(queryType);
-
-        return retVal;
-    }
-
-    /**
-     * Create gateway assertion object based on the passed parameters and some fixed values.
-     *
-     * @param msg
-     * @return
-     */
-    private AssertionType createInfoButtonAssertion(gov.hhs.fha.nhinc.common.docmgr.AssertionInfoType assertionInfo)
-        throws Exception {
-
-        AssertionType assertion = new AssertionType();
-        assertion.setDateOfBirth(formatXDSDate(assertionInfo.getPatientDOB().toGregorianCalendar().getTime(), ASSERTION_DOB_PRECISION));
-
-        PropertyAccessor oProp = PropertyAccessor.getInstance();
-
-        //SAMLAuthStatementType is new for CONNECT v3.1
-        SamlAuthnStatementType samlAuthnStatement = new SamlAuthnStatementType();
-        SamlAuthzDecisionStatementType samlAuthzDecisionStatement = new SamlAuthzDecisionStatementType();
-        SamlAuthzDecisionStatementEvidenceType samlAuthzDecisionStatementEvidence = new SamlAuthzDecisionStatementEvidenceType();
-        SamlAuthzDecisionStatementEvidenceAssertionType samlAuthzDecisionStatementAssertion = new SamlAuthzDecisionStatementEvidenceAssertionType();
-        SamlAuthzDecisionStatementEvidenceConditionsType samlAuthzDecisionStatementEvidenceConditions = new SamlAuthzDecisionStatementEvidenceConditionsType();
-        samlAuthzDecisionStatementEvidenceConditions.setNotOnOrAfter(oProp.getProperty(REPOSITORY_PROPERTY_FILE, IB_EXPIRATION_DATE_PROP));
-        samlAuthzDecisionStatementEvidenceConditions.setNotBefore(oProp.getProperty(REPOSITORY_PROPERTY_FILE, IB_SIGNATURE_DATE_PROP));
-        samlAuthzDecisionStatementAssertion.setConditions(samlAuthzDecisionStatementEvidenceConditions);
-        samlAuthzDecisionStatementAssertion.getAccessConsentPolicy().add(oProp.getProperty(REPOSITORY_PROPERTY_FILE, IB_CLAIM_FORM_REF_PROP));
-        samlAuthzDecisionStatementEvidence.setAssertion(samlAuthzDecisionStatementAssertion);
-        samlAuthzDecisionStatement.setEvidence(samlAuthzDecisionStatementEvidence);
-        assertion.setSamlAuthzDecisionStatement(samlAuthzDecisionStatement);
-        assertion.setSamlAuthnStatement(samlAuthnStatement);
-
-        PersonNameType pName = new PersonNameType();
-        pName.setFamilyName(assertionInfo.getPatientLastName());
-        pName.setGivenName(assertionInfo.getPatientFirstName());
-        pName.setSecondNameOrInitials(assertionInfo.getPatientMiddleName());
-        assertion.setPersonName(pName);
-
-        HomeCommunityType hc = new HomeCommunityType();
-        hc.setDescription(assertionInfo.getHomeCommunityDescription());
-        hc.setHomeCommunityId(assertionInfo.getHomeCommunityId());
-        hc.setName(assertionInfo.getHomeCommunityName());
-
-        UserType muser = new UserType();
-        CeType roleType = new CeType();
-        roleType.setCode(oProp.getProperty(REPOSITORY_PROPERTY_FILE, IB_ROLE_CODE_PROP));
-        roleType.setCodeSystem(oProp.getProperty(REPOSITORY_PROPERTY_FILE, IB_ROLE_CODE_SYSTEM_PROP));
-        roleType.setCodeSystemName(oProp.getProperty(REPOSITORY_PROPERTY_FILE, IB_ROLE_CODE_SYSTEM_NAME_PROP));
-        roleType.setCodeSystemVersion(oProp.getProperty(REPOSITORY_PROPERTY_FILE, IB_ROLE_CODE_SYSTEM_VERSION_PROP));
-        roleType.setDisplayName(oProp.getProperty(REPOSITORY_PROPERTY_FILE, IB_ROLE_NAME_PROP));
-        roleType.setOriginalText(oProp.getProperty(REPOSITORY_PROPERTY_FILE, IB_ROLE_NAME_PROP));
-        muser.setOrg(hc);
-        muser.setRoleCoded(roleType);
-
-        //VA DoD Requirement
-        String uPlusDoD = assertionInfo.getUsername() + oProp.getProperty(REPOSITORY_PROPERTY_FILE, IB_USER_DOD_EXTENSION_PROP);
-        muser.setUserName(uPlusDoD);
-        PersonNameType uName = new PersonNameType();
-        CeType nType = new CeType();
-        nType.setCode(oProp.getProperty(REPOSITORY_PROPERTY_FILE, IB_DOD_ROLE_CODE_PROP));
-        nType.setCodeSystem(oProp.getProperty(REPOSITORY_PROPERTY_FILE, IB_DOD_ROLE_CODE_SYSTEM_PROP));
-        nType.setCodeSystemName(oProp.getProperty(REPOSITORY_PROPERTY_FILE, IB_DOD_ROLE_CODE_SYSTEM_NAME_PROP));
-        nType.setCodeSystemVersion(oProp.getProperty(REPOSITORY_PROPERTY_FILE, IB_DOD_ROLE_CODE_SYSTEM_VERSION_PROP));
-        nType.setDisplayName(oProp.getProperty(REPOSITORY_PROPERTY_FILE, IB_DOD_ROLE_NAME_PROP));
-        nType.setOriginalText(oProp.getProperty(REPOSITORY_PROPERTY_FILE, IB_DOD_ROLE_NAME_PROP));
-
-        uName.setNameType(nType);
-        uName.setFamilyName(assertionInfo.getProviderLastName());
-        uName.setGivenName(assertionInfo.getProviderFirstName());
-        uName.setSecondNameOrInitials(assertionInfo.getProviderMiddleName());
-        muser.setPersonName(uName);
-        assertion.setUserInfo(muser);
-
-        assertion.setHomeCommunity(hc);
-        CeType pouType = new CeType();
-        pouType.setCode(oProp.getProperty(REPOSITORY_PROPERTY_FILE, IB_PURPOSE_OF_USE_ROLE_CODE_PROP));
-        pouType.setCodeSystem(oProp.getProperty(REPOSITORY_PROPERTY_FILE, IB_PURPOSE_OF_USE_ROLE_CODE_SYSTEM_PROP));
-        pouType.setCodeSystemName(oProp.getProperty(REPOSITORY_PROPERTY_FILE, IB_PURPOSE_OF_USE_ROLE_CODE_SYSTEM_NAME_PROP));
-        pouType.setCodeSystemVersion(oProp.getProperty(REPOSITORY_PROPERTY_FILE, IB_PURPOSE_OF_USE_ROLE_CODE_SYSTEM_VERSION_PROP));
-        pouType.setDisplayName(oProp.getProperty(REPOSITORY_PROPERTY_FILE, IB_PURPOSE_OF_USE_ROLE_NAME_PROP));
-        pouType.setOriginalText(oProp.getProperty(REPOSITORY_PROPERTY_FILE, IB_PURPOSE_OF_USE_ROLE_NAME_PROP));
-        assertion.setPurposeOfDisclosureCoded(pouType);
-
-        return assertion;
-    }
-
-    /**
-     * 
-     * @param request
-     * @return
-     */
-    private NhinTargetCommunitiesType createTargetCommunities(List<String> targetNames)
-        throws Exception {
-        NhinTargetCommunitiesType targetCommunities = new gov.hhs.fha.nhinc.common.nhinccommon.ObjectFactory().createNhinTargetCommunitiesType();
-
-        for (String target : targetNames) {
-            String targetOID = getInfoButtonCommunityTargets().get(target);
-
-            if (targetOID != null) {
-                NhinTargetCommunityType targetType = new gov.hhs.fha.nhinc.common.nhinccommon.ObjectFactory().createNhinTargetCommunityType();
-                HomeCommunityType homeType = new HomeCommunityType();
-                homeType.setHomeCommunityId(targetOID);
-                targetType.setHomeCommunity(homeType);
-                targetCommunities.getNhinTargetCommunity().add(targetType);
-            } else {
-                throw new Exception("Infobutton target community not found: " + target);
-            }
-        }
-
-        if (targetCommunities.getNhinTargetCommunity().size() == 0) {
-            throw new Exception("Infobutton target community is undefined.");
-        }
-
-        return targetCommunities;
-    }
-
-    /**
      * Format XDS date using scaling precision (as according to XDS Spec).
      *
      * @param date
@@ -1366,7 +1296,7 @@ public class DocumentManagerImpl {
      * @return
      */
     private String formatXDSDate(Date date, int precision) {
-        DateFormat xdsFormat = new SimpleDateFormat(XDS_DATE_FORMAT_FULL.substring(0, precision));
+        DateFormat xdsFormat = new SimpleDateFormat(XDS_DATE_FORMAT_FULL.substring(0, precision), Locale.getDefault());
         return xdsFormat.format(date);
     }
 
@@ -1375,8 +1305,8 @@ public class DocumentManagerImpl {
      *
      * @return
      */
-    private Hashtable<String, String> getInfoButtonCommunityTargets() {
-        Hashtable<String, String> targets = new Hashtable<String, String>();
+    private Map<String, String> getInfoButtonCommunityTargets() {
+        Map<String, String> targets = new Hashtable<String, String>();
 
         PropertyAccessor oProp = PropertyAccessor.getInstance();
 
@@ -1396,7 +1326,7 @@ public class DocumentManagerImpl {
                 targets.put(targetName, targetOID);
             }
         } catch (PropertyAccessException e) {
-            log.error("Error accessing InfoButton Community Target properties.", e);
+            LOG.error("Error accessing InfoButton Community Target properties.", e);
         }
 
         return targets;

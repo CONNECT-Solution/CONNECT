@@ -46,12 +46,14 @@ import org.hl7.v3.QUPCMT040300UV01ParameterList;
  */
 public class StaticMedicationsQuery {
 
-    private static Log logger = LogFactory.getLog(StaticMedicationsQuery.class);
+    private static final Log LOG = LogFactory.getLog(StaticMedicationsQuery.class);
+    private static final String DEBUG_LINE_BREAK = "= = = = = = = = = = = = = = = = = = ="
+       + " = = = = = = = = = = = = = = = =";
 
     public static CareRecordQUPCIN043200UV01ResponseType createMedicationsResponse(CareRecordQUPCIN043100UV01RequestType request) {
         CareRecordQUPCIN043200UV01ResponseType response = new CareRecordQUPCIN043200UV01ResponseType();
 
-        logger.info("Calling Static Medications Data...");
+        LOG.info("Calling Static Medications Data...");
 
         // check properties file for test/live data mode
         if (AdapterCommonDataLayerConstants.MEDICATIONS_TEST.equalsIgnoreCase("Y")) {
@@ -71,15 +73,19 @@ public class StaticMedicationsQuery {
             // Get MEDS_RESPONSE_TYPE from the properties file
             String medsResponseType = AdapterCommonDataLayerConstants.EMULATOR_MEDS_RESPONSE_TYPE;
 
-            logger.debug("Retrieving Emulated Data File for : Patient ID: " + reqPatientID + ", receiverOID: " + receiverOID);
+            if (LOG.isDebugEnabled()) {
+                LOG.debug("Retrieving Emulated Data File for : Patient ID: "
+                + reqPatientID + ", receiverOID: " + receiverOID);
+            }
+            
             response = StaticUtil.createCareRecordResponse(reqPatientID, receiverOID, medsTag, medsResponseType);
 
         } else {
-            logger.debug("= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =");
-            logger.debug("= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =");
-            logger.debug(" Insert Adapter Agency specific dynamic document data accessors here ");
-            logger.debug("= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =");
-            logger.debug("= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =");
+            LOG.debug(DEBUG_LINE_BREAK);
+            LOG.debug(DEBUG_LINE_BREAK);
+            LOG.debug("Insert Adapter Agency specific dynamic document data accessors here ");
+            LOG.debug(DEBUG_LINE_BREAK);
+            LOG.debug(DEBUG_LINE_BREAK);
         }
 
         return response;

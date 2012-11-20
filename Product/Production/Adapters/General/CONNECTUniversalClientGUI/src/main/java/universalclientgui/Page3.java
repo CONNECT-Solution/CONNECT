@@ -1,7 +1,8 @@
 /*
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
  *
- * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
+ * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health
+ * and Human Services.  All rights reserved.
  *
  */
 /*
@@ -42,7 +43,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 //JAXB libs
-import javax.xml.parsers.*;
+
 import org.xml.sax.InputSource;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
@@ -62,6 +63,8 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.FileReader;
 import javax.faces.context.FacesContext;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 
@@ -79,16 +82,17 @@ import javax.xml.transform.TransformerFactory;
 public class Page3 extends AbstractPageBean {
 
     //logging properties
-    private static Log log = LogFactory.getLog(Page3.class);
+    private static final Log LOG = LogFactory.getLog(Page3.class);
     //dynamic stylesheet properties
     private static final String UC_PROPERTY_FILE = "universalClient";
     private static final String C32_STYLE_SHEET_PROPERTY = "C32StyleSheet";
-    private static String m_sPropertyFileDir = "";
-    private static String m_sFileSeparator =
-            System.getProperty("file.separator");
-    private static final String m_sFailedEnvVarMessage =
-            "Unable to access environment variable: NHINC_PROPERTIES_DIR.";
-    private static boolean m_bFailedToLoadEnvVar = false;
+    private static String msPropertyFileDir = "";
+    private static String msFileSeparator =
+        System.getProperty("file.separator");
+    private static final String M_SFAILED_ENV_VAR_MESSAGE =
+        "Unable to access environment variable: NHINC_PROPERTIES_DIR.";
+    private static boolean mBFailedToLoadEnvVar = false;
+    private static final String DOCID_REQUEST_PARAM = "docid";
 
     static {
         String sValue = PropertyAccessor.getInstance().getPropertyFileLocation();
@@ -97,16 +101,20 @@ public class Page3 extends AbstractPageBean {
             // Set it up so that we always have a "/" at the end - in case
             //------------------------------------------------------------
             if ((sValue.endsWith("/")) || (sValue.endsWith("\\"))) {
-                m_sPropertyFileDir = sValue;
+                msPropertyFileDir = sValue;
             } else {
-                m_sPropertyFileDir = sValue + m_sFileSeparator;
+                msPropertyFileDir = sValue + msFileSeparator;
             }
         } else {
-            log.error(m_sFailedEnvVarMessage);
-            m_bFailedToLoadEnvVar = true;
+            LOG.error(M_SFAILED_ENV_VAR_MESSAGE);
+            mBFailedToLoadEnvVar = true;
         }
     }
 
+    /**
+     *
+     * @return PatientSearchData
+     */
     public PatientSearchData getPatientSearchData() {
         return (PatientSearchData) getSessionBean1().getPatientSearchDataList().get(0);
     }
@@ -117,14 +125,24 @@ public class Page3 extends AbstractPageBean {
      * here is subject to being replaced.</p>
      */
     private void _init() throws Exception {
+
+        //required JSF method
     }
     //Page binding components
     private Page page1 = new Page();
 
+    /**
+     *
+     * @return Page
+     */
     public Page getPage1() {
         return page1;
     }
 
+    /**
+     *
+     * @param p Page
+     */
     public void setPage1(Page p) {
         this.page1 = p;
     }
@@ -174,7 +192,7 @@ public class Page3 extends AbstractPageBean {
             try {
                 getExternalContext().redirect("Page1.jsp");
             } catch (IOException ex) {
-                log.error("Universal Client can not prerender Page3: " + ex.getMessage());
+                LOG.error("Universal Client can not prerender Page3: " + ex.getMessage());
             }
 
         }
@@ -206,25 +224,25 @@ public class Page3 extends AbstractPageBean {
     @Override
     public void prerender() {
 
-
-
         //check for appropriate request parameter
-        if (getExternalContext().getRequestParameterMap().containsKey("docid")) {
-
+        if (getExternalContext().getRequestParameterMap().containsKey(DOCID_REQUEST_PARAM)) {
             //retrieve docid value
-            if (getExternalContext().getRequestParameterMap().get("docid") != null && !getExternalContext().getRequestParameterMap().get("docid").isEmpty()) {
+            if (getExternalContext().getRequestParameterMap().get(DOCID_REQUEST_PARAM) != null
+                && !getExternalContext().getRequestParameterMap().get(DOCID_REQUEST_PARAM).isEmpty()) {
                 //docid parameter contains a value
-                log.debug("Selected document ID: " + getExternalContext().getRequestParameterMap().get("docid"));
+                if (LOG.isDebugEnabled()) {
+                    LOG.debug("Selected document ID: " + getExternalContext().getRequestParameterMap().get(DOCID_REQUEST_PARAM));
+                }
 
                 //assign id to variable
-                String documentID = getExternalContext().getRequestParameterMap().get("docid");
+                String documentID = getExternalContext().getRequestParameterMap().get(DOCID_REQUEST_PARAM);
 
                 //create DocumentInformation instance
                 DocumentInformation currentDocument = null;
                 //doc query & retrieve client instance
 
-                String localPatientId = (String) getPatientSearchData().getPatientId() + "^^^&" +
-                       getPatientSearchData().getAssigningAuthorityID() + "&ISO";
+                String localPatientId = (String) getPatientSearchData().getPatientId() + "^^^&" 
+                    + getPatientSearchData().getAssigningAuthorityID() + "&ISO";
 
                 DocumentRetrieveClient docRetrieveClient = new DocumentRetrieveClient();
                 docRetrieveClient.setLocalPatientId(localPatientId);
@@ -249,77 +267,90 @@ public class Page3 extends AbstractPageBean {
                             HttpServletResponse response = (HttpServletResponse) getExternalContext().getResponse();
                             ServletOutputStream out = response.getOutputStream();
 
-                            log.debug("Document " + documentID + " successfully retrieved from DocRetrieveClient.");
-                            log.debug("Document Type = " + currentDocument.getDocumentType());
-                            log.debug("Document LOINC = " + currentDocument.getDocumentLOINC());
-
+                            if (LOG.isDebugEnabled()) {
+                                LOG.debug("Document " + documentID + " successfully retrieved from DocRetrieveClient.");
+                                LOG.debug("Document Type = " + currentDocument.getDocumentType());
+                                LOG.debug("Document LOINC = " + currentDocument.getDocumentLOINC());
+                            }
+                   
                             //traverse the doc and return all C62 <nonXMLBody> tags
                             NodeList nonXMLBodyNodes = checkRetievedDocType(document);
 
                             //check to see if C62 nonXMLBody tag exists
                             if (nonXMLBodyNodes != null && nonXMLBodyNodes.getLength() > 0) {
-                                log.debug("Retrieved Doc Type is a C64. Determining document payload...");
+                                LOG.debug("Retrieved Doc Type is a C64. Determining document payload...");
 
+                                List<String> c62Payload = retrieveC64PayloadType(nonXMLBodyNodes);
 
-                                List<String> C64Payload = retrieveC64PayloadType(nonXMLBodyNodes);
-
-                                if (C64Payload.get(0).equals("text")) {
+                                if (c62Payload.get(0).equals("text")) {
                                     //set response content type
                                     response.setContentType("text/plain;charset=UTF-8");
-                                    
-                                } else if (C64Payload.get(0).equals("pdf")) {
+
+                                } else if (c62Payload.get(0).equals("pdf")) {
                                     //set response content type
                                     response.setContentType("application/pdf");
                                 }
 
-                                log.debug("C62FileHandler : base64 string = " + C64Payload.get(1));
-
-                                byte decoded[] = new sun.misc.BASE64Decoder().decodeBuffer(C64Payload.get(1));
+                                if (LOG.isDebugEnabled()) {
+                                    LOG.debug("C62FileHandler : base64 string = " + c62Payload.get(1));
+                                }
+                                
+                                byte[] decoded = new sun.misc.BASE64Decoder().decodeBuffer(c62Payload.get(1));
 
                                 // save it to a binary stream
                                 out.write(decoded);
 
                             } else {
-                                log.debug("Retrieved Doc Type is probably a C32.");
+                                LOG.debug("Retrieved Doc Type is probably a C32.");
 
-                                if (currentDocument.getDocumentLOINC() != null && currentDocument.getDocumentLOINC().equals("34133-9"))
-                                {
-                                        // Look for the C32 stylesheet specific to this provider
-                                        log.debug("Lookup stylesheet for: " + currentDocument.getHomeCommunityID());
-                                        String styleSheet = null;
+                                if (currentDocument.getDocumentLOINC() != null
+                                    && currentDocument.getDocumentLOINC().equals("34133-9")) {
+                                    // Look for the C32 stylesheet specific to this provider
+                                    if (LOG.isDebugEnabled()) {
+                                        LOG.debug("Lookup stylesheet for: " + currentDocument.getHomeCommunityID());
+                                    }
+                                    
+                                    String styleSheet = null;
 
-                                        if (currentDocument.getHomeCommunityID() != null) {
-                                            String[] saArgs = currentDocument.getHomeCommunityID().split(":");
-
-                                            log.debug("Lookup property value for: C32StyleSheet_" + saArgs[saArgs.length - 1]);
-
-                                            styleSheet = PropertyAccessor.getInstance().getProperty(UC_PROPERTY_FILE, "C32StyleSheet_" + saArgs[saArgs.length - 1]);
+                                    if (currentDocument.getHomeCommunityID() != null) {
+                                        String[] saArgs = currentDocument.getHomeCommunityID().split(":");
+                                        if (LOG.isDebugEnabled()){
+                                            LOG.debug("Lookup property value for: C32StyleSheet_"
+                                            + saArgs[saArgs.length - 1]);
                                         }
-                                        if ((styleSheet == null) || (styleSheet.isEmpty())) {
-                                            // Provider-specific stylesheet not defined... use default
-                                            String c32 = PropertyAccessor.getInstance().getProperty(UC_PROPERTY_FILE, C32_STYLE_SHEET_PROPERTY);
-                                            styleSheet = c32;
-                                        }
+                
+                                        styleSheet = PropertyAccessor.getInstance().getProperty(UC_PROPERTY_FILE,
+                                            "C32StyleSheet_" + saArgs[saArgs.length - 1]);
+                                    }
+                                    if ((styleSheet == null) || (styleSheet.isEmpty())) {
+                                        // Provider-specific stylesheet not defined... use default
+                                        String c32 = PropertyAccessor.getInstance().getProperty(UC_PROPERTY_FILE,
+                                            C32_STYLE_SHEET_PROPERTY);
+                                        styleSheet = c32;
+                                    }
 
-                                        log.debug("Converting raw XML using stylesheet: " + styleSheet);
+                                    if (LOG.isDebugEnabled()) {
+                                        LOG.debug("Converting raw XML using stylesheet: " + styleSheet);
+                                    }
+                          
+                                    //read stylesheet file and prepare to render with document
+                                    FileReader reader = new FileReader(msPropertyFileDir + styleSheet);
 
-                                        //read stylesheet file and prepare to render with document
-                                        FileReader reader = new FileReader(m_sPropertyFileDir + styleSheet);
+                                    String html = convertXMLToHTML(new ByteArrayInputStream(document.getBytes()),
+                                        reader);
 
-                                        String html = convertXMLToHTML(new ByteArrayInputStream(document.getBytes()), reader);
+                                    if (LOG.isDebugEnabled()) {
+                                        LOG.debug("HTML PAGE: " + html);
+                                    }
+                                    
+                                    if (html == null || html.isEmpty()) {
+                                        sendToErrorPage();
+                                    }
 
-                                        log.debug("HTML PAGE: " + html);
-
-                                        if (html == null || html.isEmpty()) {
-                                            sendToErrorPage();
-                                        }
-
-                                        out.write(html.getBytes());
-                                }
-                                else
-                                {
-                                    //output blob text to the screen because it is not a c32 and we don't have a stylesheet for it
-                                     out.write(document.getBytes());
+                                    out.write(html.getBytes());
+                                } else {
+                                    //output blob text to the screen 
+                                    out.write(document.getBytes());
                                 }
                             }
 
@@ -329,30 +360,27 @@ public class Page3 extends AbstractPageBean {
 
                             //complete faces response
                             FacesContext.getCurrentInstance().responseComplete();
-
                         } catch (Exception ex) {
-                            log.error("Exception: " + ex);
+                            LOG.error("Exception: ", ex);
                             sendToErrorPage();
                         }
                     } else {
-                        log.error("Display Document Error - retrieved document is null or empty");
-
+                        LOG.error("Display Document Error - retrieved document is null or empty");
                         sendToErrorPage();
                     }
                 } else {
-                    log.error("Display Document Error - Document Information cannot be retrieved.");
-
+                    LOG.error("Display Document Error - Document Information cannot be retrieved.");
                     sendToErrorPage();
                 }
             } else {
                 //the docid query parameter is null or empty
-                log.debug("The docid value is null or empty. Cannot process doc retrieve request.");
+                LOG.debug("The docid value is null or empty. Cannot process doc retrieve request.");
 
                 sendToErrorPage();
             }
         } else {
             //docid query parameter is missing from the url
-            log.debug("No document id has been passed to the FileRetrieveHandler for processing.");
+            LOG.debug("No document id has been passed to the FileRetrieveHandler for processing.");
 
             sendToErrorPage();
 
@@ -367,44 +395,46 @@ public class Page3 extends AbstractPageBean {
             //forward to document.jsp error page
             FacesContext.getCurrentInstance().getExternalContext().dispatch("document.jsp");
         } catch (Exception ex) {
-            log.error("Forward Exception: " + ex);
+            LOG.error("Forward Exception: " + ex);
         }
 
     }
 
     /**
      *
-     * this method checks the payload type of the C64 document - text or pdf
+     * this method checks the payload type of the C64 document - text or pdf.
      *
-     * valid return values are "pdf" or "text"
+     * valid return values are "pdf" or "text".
      */
     private List<String> retrieveC64PayloadType(NodeList nList) {
-        log.debug("Retrieving text tag values...");
+        LOG.debug("Retrieving text tag values...");
 
         //retrieve text tag from nonXMLBody
         Node node;
         String mediaType = "";
-        String payloadType = null;
         String representationType = null;
         String base64 = null;
         List<String> payloadList = new ArrayList<String>();
 
         //retrieve the "mediaType" attribute from nonXMLBody Tag
         if (nList != null) {
-            log.debug("Passed NodeList is not null");
+            LOG.debug("Passed NodeList is not null");
 
             for (int i = 0; i < nList.getLength(); i++) {
                 node = nList.item(i);
 
                 if (node != null && node.getNodeName().equals("text")) {
-                    log.debug("Located text tag within nonXMLBody Tag. Retrieving attributes...");
+                    LOG.debug("Located text tag within nonXMLBody Tag. Retrieving attributes...");
 
                     //get text node attributes
                     NamedNodeMap nnm = node.getAttributes();
 
                     if (nnm != null) {
-                        log.debug("# of <text> attributes = " + String.valueOf(nnm.getLength()));
 
+                        if (LOG.isDebugEnabled()) {
+                            LOG.debug("# of <text> attributes = " + String.valueOf(nnm.getLength()));
+                        }
+                        
                         if (nnm.getNamedItem("representation") != null) {
                             representationType = nnm.getNamedItem("representation").getTextContent();
                         }
@@ -416,7 +446,7 @@ public class Page3 extends AbstractPageBean {
                         //check if string should be decoded.
                         if (representationType != null && representationType.equals("B64")) {
                             //B64 - decode string
-                            log.debug("representationType = B64 -  Decode Text");
+                            LOG.debug("representationType = B64 -  Decode Text");
 
                             //retrive Base64 encoded string
                             base64 = node.getTextContent();
@@ -457,28 +487,27 @@ public class Page3 extends AbstractPageBean {
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
             DocumentBuilder db = dbf.newDocumentBuilder();
 
-            log.debug("Successfuly created DocumentBuilder instances.");
+            LOG.debug("Successfuly created DocumentBuilder instances.");
 
             InputSource is = new InputSource();
 
-            log.debug("Successfuly created InputSource instance.");
+            LOG.debug("Successfuly created InputSource instance.");
 
             is.setCharacterStream(new StringReader(pDocument));
 
-            log.debug("Sucessfully set CharacterStream");
+            LOG.debug("Sucessfully set CharacterStream");
 
             //parse XML Document and search for C62 nonXMLBody tag
             Document doc = db.parse(is);
-           
 
-            if (doc.getElementsByTagName("nonXMLBody") != null)
-            {
-              nodes = doc.getElementsByTagName("nonXMLBody");
-              nList = nodes.item(0).getChildNodes();
+
+            if (doc.getElementsByTagName("nonXMLBody") != null) {
+                nodes = doc.getElementsByTagName("nonXMLBody");
+                nList = nodes.item(0).getChildNodes();
             }
 
         } catch (Exception ex) {
-            log.error("checkRetrievedDocTypeError: " + ex);
+            LOG.error("checkRetrievedDocTypeError: " + ex);
         }
 
         return nList;
@@ -499,13 +528,13 @@ public class Page3 extends AbstractPageBean {
             TransformerFactory tFactory = TransformerFactory.newInstance();
 
             Transformer transformer =
-                    tFactory.newTransformer(new javax.xml.transform.stream.StreamSource(xsl));
+                tFactory.newTransformer(new javax.xml.transform.stream.StreamSource(xsl));
 
             transformer.transform(new javax.xml.transform.stream.StreamSource(xml),
-                    new javax.xml.transform.stream.StreamResult(output));
+                new javax.xml.transform.stream.StreamResult(output));
 
         } catch (Exception e) {
-            log.error("Exception in transforming xml to html", e);
+            LOG.error("Exception in transforming xml to html", e);
         }
 
         return output.toString();

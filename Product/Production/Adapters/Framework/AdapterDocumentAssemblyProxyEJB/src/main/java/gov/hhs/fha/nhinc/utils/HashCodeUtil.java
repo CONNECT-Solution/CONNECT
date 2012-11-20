@@ -31,6 +31,11 @@
 package gov.hhs.fha.nhinc.utils;
 
 import gov.hhs.fha.nhinc.util.hash.SHA1HashCode;
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 
 /**
  *
@@ -38,22 +43,30 @@ import gov.hhs.fha.nhinc.util.hash.SHA1HashCode;
  */
 public class HashCodeUtil {
 
+    //logging properties
+    private static final Log LOG = LogFactory.getLog(HashCodeUtil.class);
+
     /**
      * Calculate the hash code.
-     * @param rawData
-     * @return
+     * @param rawData byte[]
+     * @return sHash
      */
     public static String calculateHashCode(byte[] rawData) {
         String sHash = "";
         if (rawData != null) {
-            try {
+          try {
                 sHash = SHA1HashCode.calculateSHA1(new String(rawData));
-            } catch (Throwable t) {
-                System.err.println("Failed to create SHA-1 Hash code.  Error: " + t.getMessage() +
-                    "Data Text: " + new String(rawData));
-            }
+          } catch (NoSuchAlgorithmException t) {
+                String sError = "Failed to create SHA-1 Hash code.  Error: " + t.getMessage()
+                    + "Data Text: " + new String(rawData);
+                LOG.error(sError, t);
+          } catch (UnsupportedEncodingException uee) {
+                String sError = "Failed to create SHA-1 Hash code.  Error: " + uee.getMessage()
+                    + "Data Text: " + new String(rawData);
+                LOG.error(sError, uee);
+          }
         } else {
-            System.out.println("No SHA-1 Hash Code created because document was null.");
+            LOG.debug("No SHA-1 Hash Code created because document was null.");
         }
 
         return sHash;

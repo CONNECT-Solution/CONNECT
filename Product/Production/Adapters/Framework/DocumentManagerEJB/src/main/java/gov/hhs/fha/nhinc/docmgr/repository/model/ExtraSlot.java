@@ -42,34 +42,66 @@ public class ExtraSlot {
     private String extraSlotValue;
     private Document document;
 
+    /**
+     *
+     * @return extraSlotName as String
+     */
     public String getExtraSlotName() {
         return extraSlotName;
     }
 
+    /**
+     *
+     * @param extraSlotName as String
+     */
     public void setExtraSlotName(String extraSlotName) {
         this.extraSlotName = extraSlotName;
     }
 
+    /**
+     *
+     * @return extraSlotValue as String
+     */
     public String getExtraSlotValue() {
         return extraSlotValue;
     }
 
+    /**
+     *
+     * @param extraSlotValue as String
+     */
     public void setExtraSlotValue(String extraSlotValue) {
         this.extraSlotValue = extraSlotValue;
     }
 
+    /**
+     *
+     * @return extraSlotId as Long
+     */
     public Long getExtraSlotId() {
         return extraSlotId;
     }
 
+    /**
+     * 
+     * @param extraSlotId as Long
+     */
     public void setExtraSlotId(Long extraSlotId) {
         this.extraSlotId = extraSlotId;
     }
 
+    /**
+     *
+     * @return document as Document
+     */
     public Document getDocument() {
         return document;
     }
 
+    /**
+     *
+     * @param document as Document
+     */
     public void setDocument(Document document) {
         this.document = document;
     }

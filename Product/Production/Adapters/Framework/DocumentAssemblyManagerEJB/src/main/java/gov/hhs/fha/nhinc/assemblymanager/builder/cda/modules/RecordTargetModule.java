@@ -60,15 +60,15 @@ import org.hl7.v3.POCDMT000040Participant1;
  */
 public class RecordTargetModule extends DocumentBuilder {
 
-    private static Log log = LogFactory.getLog(RecordTargetModule.class);
+    private static final Log LOG = LogFactory.getLog(RecordTargetModule.class);
     private II subjectId = null;
-    private String MaritalStatusCodeSystem = "2.16.840.1.113883.5.2";
-    private String MaritalStatusCodeSystemName = "MaritalStatusCode";
+    private static final String MARITAL_STATUS_CODE_SYSTEM = "2.16.840.1.113883.5.2";
+    private static final String MARITAL_STATUS_CODE_SYSTEM_NAME = "MaritalStatusCode";
 
     /**
      * Constructor
-     * @param patientId  Unique identifer for patient in the EMR system.
-     * @param rootId      Unique object identifier representing the EMR system.
+     * @param subjectId  Unique identifer for patient in the EMR system.
+     * 
      */
     public RecordTargetModule(II subjectId) {
         super();
@@ -90,12 +90,13 @@ public class RecordTargetModule extends DocumentBuilder {
         DataService dataService = new DataService(serviceEndpoint);
 
         // query patient registry for demographics information (including contact info)
-        PatientDemographicsPRPAMT201303UV02ResponseType response = dataService.getPatientDemographics(subjectId, serviceEndpoint);
+        PatientDemographicsPRPAMT201303UV02ResponseType response = dataService.getPatientDemographics(subjectId,
+            serviceEndpoint);
 
         if (response.getSubject() != null) {
             recordTarget.setPatientRole(createPatient(response.getSubject()));
         } else {
-            log.error("response.getSubject() = null");
+            LOG.warn("response.getSubject() = null");
             recordTarget = null;
         }
 
@@ -109,7 +110,8 @@ public class RecordTargetModule extends DocumentBuilder {
         DataService dataService = new DataService(serviceEndpoint);
 
         // query patient registry for demographics information (including contact info)
-        PatientDemographicsPRPAMT201303UV02ResponseType response = dataService.getPatientDemographics(subjectId, serviceEndpoint);
+        PatientDemographicsPRPAMT201303UV02ResponseType response = dataService.getPatientDemographics(subjectId,
+            serviceEndpoint);
 
         if (response.getSubject() != null) {
             recordTarget.setPatientRole(createPatient(response.getSubject()));
@@ -117,7 +119,7 @@ public class RecordTargetModule extends DocumentBuilder {
             ParticipantModule participantModule = new ParticipantModule();
             participantModule.build(response, participant);
         } else {
-            log.debug("response.getSubject() = null");
+            LOG.debug("response.getSubject() = null");
             recordTarget = null;
         }
 
@@ -159,12 +161,13 @@ public class RecordTargetModule extends DocumentBuilder {
         if (subject.getPatientPerson() != null) {
             patientRole.setPatient(createPOCDMT000040Patient(subject.getPatientPerson().getValue()));
         } else {
-            log.debug("patient.getPatientPerson() = null");
+            LOG.debug("patient.getPatientPerson() = null");
         }
 
         // provider organization
         if (subject.getProviderOrganization() != null) {
-            patientRole.setProviderOrganization(createPOCDMT000040Organization(subject.getProviderOrganization().getValue()));
+            patientRole.setProviderOrganization(
+                createPOCDMT000040Organization(subject.getProviderOrganization().getValue()));
         }
 
         return patientRole;
@@ -226,8 +229,8 @@ public class RecordTargetModule extends DocumentBuilder {
             org.hl7.v3.CE patientPersonMaritalStatusCode = patientPerson.getMaritalStatusCode();
 
             //added for NIST compliance
-            patientPersonMaritalStatusCode.setCodeSystem(MaritalStatusCodeSystem);
-            patientPersonMaritalStatusCode.setCodeSystemName(MaritalStatusCodeSystemName);
+            patientPersonMaritalStatusCode.setCodeSystem(MARITAL_STATUS_CODE_SYSTEM);
+            patientPersonMaritalStatusCode.setCodeSystemName(MARITAL_STATUS_CODE_SYSTEM_NAME);
 
             cdaPatient.setMaritalStatusCode(patientPersonMaritalStatusCode);
 

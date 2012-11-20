@@ -87,18 +87,35 @@ public class DocumentType {
         allDocumentClassCodes.add(AssemblyConstants.C62_RR_CLASS_CODE);
     }
 
+    /**
+     *
+     * @param type String
+     * @return retBool
+     */
     public static boolean isValidDocumentType(String type) {
+        
+        boolean retBool = false;
+
         if (allDocumentClassCodes.contains(type)) {
             return true;
-        } else {
-            return false;
         }
+
+        return retBool;
     }
 
+    /**
+     *
+     * @return allDocumentClassCodes
+     */
     public static List<String> getSupportedTypesList() {
         return allDocumentClassCodes;
     }
 
+    /**
+     *
+     * @param documentClassCode String
+     * @return DocumentType
+     */
     public static DocumentType getDocument(String documentClassCode) {
         if (documentClassCode.equals(AssemblyConstants.C32_CLASS_CODE)) {
             return c32Document;
@@ -112,61 +129,122 @@ public class DocumentType {
         return null;
     }
 
+    /**
+     *
+     */
     public DocumentType() {
+
+        //empty constructor
     }
 
+    /**
+     *
+     * @return typeId
+     */
     public String getTypeId() {
         return typeId;
     }
 
+    /**
+     *
+     * @param typeId String
+     */
     public void setTypeId(String typeId) {
         this.typeId = typeId;
     }
 
+    /**
+     *
+     * @return displayName
+     */
     public String getDisplayName() {
         return displayName != null ? displayName : "";
     }
 
+    /**
+     *
+     * @param displayName String
+     */
     public void setDisplayName(String displayName) {
         this.displayName = displayName;
     }
 
+    /**
+     *
+     * @return active
+     */
     public boolean getActive() {
         return active;
     }
 
+    /**
+     *
+     * @param active boolean
+     */
     public void setActive(boolean active) {
         this.active = active;
     }
 
+    /**
+     *
+     * @return version
+     */
     public String getVersion() {
         return version;
     }
 
+    /**
+     *
+     * @param version String
+     */
     public void setVersion(String version) {
         this.version = version;
     }
 
+    /**
+     *
+     * @return comments
+     */
     public String getComments() {
         return comments;
     }
 
+    /**
+     *
+     * @param comments String
+     */
     public void setComments(String comments) {
         this.comments = comments;
     }
 
+    /**
+     *
+     * @return codeSystemOid
+     */
     public String getCodeSystemOid() {
         return codeSystemOid != null ? codeSystemOid : "";
     }
 
+    /**
+     *
+     * @param codeSystemOid String
+     */
     public void setCodeSystemOid(String codeSystemOid) {
         this.codeSystemOid = codeSystemOid;
     }
 
+    /**
+     *
+     * @return codeSystemName
+     */
     public String getCodeSystemName() {
         return codeSystemName;
     }
 
+    /**
+     *
+     * @param codeSystem String
+     */
     public void setCodeSystemName(String codeSystem) {
         this.codeSystemName = codeSystem;
     }
@@ -180,12 +258,13 @@ public class DocumentType {
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
+        // this method won't work in the case the id fields are not set
         if (!(object instanceof DocumentType)) {
             return false;
         }
         DocumentType other = (DocumentType) object;
-        if ((this.typeId == null && other.typeId != null) || (this.typeId != null && !this.typeId.equals(other.typeId))) {
+        if ((this.typeId == null && other.typeId != null) || (this.typeId != null
+            && !this.typeId.equals(other.typeId))) {
             return false;
         }
         return true;
@@ -195,11 +274,33 @@ public class DocumentType {
     public String toString() {
         StringBuffer str = new StringBuffer();
 
-        str.append("DocumentType[" + System.getProperty("line.separator"));
-        str.append("\ttypeId=" + typeId + System.getProperty("line.separator"));
-        str.append("\tdisplayName=" + displayName + System.getProperty("line.separator"));
-        str.append("\tactive=" + active + System.getProperty("line.separator"));
-        str.append("\tcodeSystemOid=" + codeSystemOid + ",codeSystem=" + codeSystemName + "]");
+        String lineSeperator = System.getProperty("line.separator");
+
+        String str1 = "DocumentType[";
+        String str2 = "\ttypeId=";
+        String str3 = "\tdisplayName=";
+        String str4 = "\tactive=";
+        String str5 = "\tcodeSystemOid=";
+        String str6 = ",codeSystem=";
+        String str7 = "]";
+
+        str.append(str1);
+        str.append(lineSeperator);
+        str.append(str2);
+        str.append(typeId);
+        str.append(lineSeperator);
+        str.append(str3);
+        str.append(displayName);
+        str.append(lineSeperator);
+        str.append(str4);
+        str.append(active);
+        str.append(lineSeperator);
+        str.append(str5);
+        str.append(codeSystemOid);
+        str.append(str6);
+        str.append(codeSystemName);
+        str.append(str7);
+
         return str.toString();
     }
 }

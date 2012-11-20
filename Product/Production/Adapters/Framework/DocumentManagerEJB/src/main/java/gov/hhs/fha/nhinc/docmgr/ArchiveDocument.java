@@ -31,13 +31,8 @@
 package gov.hhs.fha.nhinc.docmgr;
 
 import gov.hhs.fha.nhinc.common.docmgr.UpdateDocumentSlotRequestType;
-import gov.hhs.fha.nhinc.docmgr.msgobject.ArchiveInfo;
 import java.util.Date;
-import javax.annotation.Resource;
-import javax.ejb.Stateless;
 import javax.ejb.Timeout;
-import javax.ejb.Timer;
-import javax.ejb.TimerService;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -48,7 +43,7 @@ import org.apache.commons.logging.LogFactory;
  */
 public class ArchiveDocument {
 
-    private static Log log = LogFactory.getLog(ArchiveDocument.class);
+    private static final Log LOG = LogFactory.getLog(ArchiveDocument.class);
 
     /**
      * Handle archive.
@@ -60,17 +55,21 @@ public class ArchiveDocument {
      *
      * Updated to use new "updateSlot" method.
      *
-     * @param timer
+     * @param repositoryId as String
+     * @param documentUniqueId as String
+     * @param homeCommunityId  as String
+     * @return response as RegistryResponseType
      */
     @Timeout
-    public RegistryResponseType setArchiveMetaData(String repositoryId, String documentUniqueId, String homeCommunityId) {
+    public RegistryResponseType setArchiveMetaData(String repositoryId, String documentUniqueId,
+        String homeCommunityId) {
         RegistryResponseType response = null;
 
-        log.debug("Starting archive document.");
+        LOG.debug("Starting archive document.");
 
-        try {
             if ((repositoryId == null) || (documentUniqueId == null) || homeCommunityId == null) {
-                throw new Exception("ArchiveDocument.setArchiveMetaData(): Either repositoryId or documentUniqueId or homeCommunityId is missing.");
+                LOG.warn("ArchiveDocument.setArchiveMetaData(): Either repositoryId or documentUniqueId"
+                    + " or homeCommunityId is missing.");
             }
             //Prepare request for update
             UpdateDocumentSlotRequestType updateRequest = new UpdateDocumentSlotRequestType();
@@ -82,9 +81,7 @@ public class ArchiveDocument {
 
             //Do store with metdata for "accessed" set
             response = new DocumentManagerImpl().documentManagerUpdateDocumentSlot(updateRequest);
-        } catch (Exception e) {
-            log.error("ArchiveDocument.setArchiveMetaData(): Error performing archive.", e);
-        }
+   
         return response;
     }
 }

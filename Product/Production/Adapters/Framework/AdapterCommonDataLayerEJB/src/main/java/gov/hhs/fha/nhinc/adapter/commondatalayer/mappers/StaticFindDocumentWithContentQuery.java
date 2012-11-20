@@ -46,12 +46,21 @@ import gov.hhs.fha.nhinc.adapter.commondatalayer.mappers.constants.AdapterCommon
  */
 public class StaticFindDocumentWithContentQuery {
 
-    private static Log logger = LogFactory.getLog(StaticFindDocumentWithContentQuery.class);
+    private static final Log LOG = LogFactory.getLog(StaticFindDocumentWithContentQuery.class);
+    private static final String DEBUG_LINE_BREAK = "= = = = = = = = = = = = = = = = = = = = = ="
+        + " = = = = = = = = = = = = =";
 
-    public static FindDocumentWithContentRCMRIN000032UV01ResponseType createFindDocumentWithContentResponse(FindDocumentWithContentRCMRIN000031UV01RequestType request) {
-        FindDocumentWithContentRCMRIN000032UV01ResponseType response = new FindDocumentWithContentRCMRIN000032UV01ResponseType();
+    /**
+     *
+     * @param request FindDocumentWithContentRCMRIN000031UV01RequestType
+     * @return FindDocumentWithContentRCMRIN000032UV01ResponseType
+     */
+    public static FindDocumentWithContentRCMRIN000032UV01ResponseType createFindDocumentWithContentResponse(
+        FindDocumentWithContentRCMRIN000031UV01RequestType request) {
+        FindDocumentWithContentRCMRIN000032UV01ResponseType response
+            = new FindDocumentWithContentRCMRIN000032UV01ResponseType();
 
-        logger.info("Calling Static Find Document With Content Data...");
+        LOG.info("Calling Static Find Document With Content Data...");
 
         // check properties file for test/live data mode
         if (AdapterCommonDataLayerConstants.FDWC_TEST.equalsIgnoreCase("Y")) {
@@ -64,17 +73,23 @@ public class StaticFindDocumentWithContentQuery {
             RCMRMT000003UV01QueryByParameter queryByParam = query.getQueryByParameter().getValue();
             List<RCMRMT000003UV01PatientId> patientIdList = queryByParam.getPatientId();
             String reqPatientID = patientIdList.get(0).getValue().getExtension();
-            String documentType = request.getQuery().getControlActProcess().getQueryByParameter().getValue().getClinicalDocumentCode().getValue().getValue().getCode();
+            String documentType 
+                = request.getQuery().getControlActProcess().getQueryByParameter().getValue().getClinicalDocumentCode()
+                .getValue().getValue().getCode();
 
-            logger.debug("Retrieving Emulated Data File for : Patient ID " + reqPatientID + ",receiverOID: " + receiverOID + ", DocType: " + documentType);
+            if (LOG.isDebugEnabled()) {
+                LOG.debug("Retrieving Emulated Data File for : Patient ID " + reqPatientID + ",receiverOID: "
+                + receiverOID + ", DocType: " + documentType);
+            }
+
             response = StaticUtil.createFindDocumentWithContentResponse(reqPatientID, receiverOID, documentType);
 
         } else {
-            logger.debug("= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =");
-            logger.debug("= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =");
-            logger.debug(" Insert Adapter Agency specific dynamic document data accessors here ");
-            logger.debug("= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =");
-            logger.debug("= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =");
+            LOG.debug(DEBUG_LINE_BREAK);
+            LOG.debug(DEBUG_LINE_BREAK);
+            LOG.debug("= Insert Adapter Agency specific dynamic document data accessors here =");
+            LOG.debug(DEBUG_LINE_BREAK);
+            LOG.debug(DEBUG_LINE_BREAK);
         }
 
         return response;

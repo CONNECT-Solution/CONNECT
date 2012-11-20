@@ -31,9 +31,7 @@
   </configurations>
 
   <dependencies>
-	<dependency name="AdapterDocumentRepository" rev="latest.integration">
-		<exclude module="AdapterDocumentRepository"/>
-	</dependency>
+
 	<dependency name="CONNECTCoreLib" rev="latest.integration">
 		<exclude module="CONNECTCoreLib"/>
 	</dependency>
@@ -46,8 +44,8 @@
 	<dependency name="DocumentAssemblyManagerEJB" rev="latest.integration">
 		<exclude module="DocumentAssemblyManagerEJB"/>
 	</dependency>
-	<dependency name="AdapterDocumentRepositoryEJB" rev="latest.integration">
-		<exclude module="AdapterDocumentRepositoryEJB"/>
+	<dependency name="DocumentManagerEJB" rev="latest.integration">
+		<exclude module="DocumentManagerEJB"/>
 	</dependency>
 	<dependency name="CONNECTCommonWeb" rev="latest.integration">
 		<exclude module="CONNECTCommonWeb"/>

@@ -48,9 +48,12 @@ import gov.hhs.fha.nhinc.docmgr.repository.model.EventCode;
 import gov.hhs.fha.nhinc.docmgr.repository.model.ExtraSlot;
 import gov.hhs.fha.nhinc.docmgr.repository.service.DocumentService;
 import gov.hhs.fha.nhinc.docmgr.repository.util.DocumentLoadUtil;
+import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.util.StringUtil;
 import gov.hhs.fha.nhinc.util.format.PatientIdFormatUtil;
 
+import java.text.ParseException;
+import java.util.Locale;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.AdhocQueryType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.ClassificationType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.ExternalIdentifierType;
@@ -64,13 +67,13 @@ import oasis.names.tc.ebxml_regrep.xsd.rim._3.ValueListType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.VersionInfoType;
 
 /**
- * Helper class for performing document registry operations
+ * Helper class for performing document registry operations.
  * 
  * @author Neil Webb
  */
 public class DocumentRegistryHelper {
 
-    private static Log log = LogFactory.getLog(DocumentRegistryHelper.class);
+    private static final Log LOG = LogFactory.getLog(DocumentRegistryHelper.class);
     private static final String EBXML_DOCENTRY_PATIENT_ID = "$XDSDocumentEntryPatientId";
     private static final String EBXML_DOCENTRY_CLASS_CODE = "$XDSDocumentEntryClassCode";
     private static final String EBXML_DOCENTRY_CLASS_CODE_SCHEME = "$XDSDocumentEntryClassCodeScheme";
@@ -88,22 +91,31 @@ public class DocumentRegistryHelper {
     private static final String NHINC_CUSTOM_REPOSITORY_ID = "$XDSRepositoryUniqueId";
     private static final String NHINC_CUSTOM_DOCUMENT_ID = "$XDSDocumentEntryUniqueId";
     private static final String EBXML_RESPONSE_REPOSITORY_UNIQUE_ID_SLOTNAME = "repositoryUniqueId";
-    private static final String EBXML_RESPONSE_DOCID_IDENTIFICATION_SCHEME = "urn:uuid:2e82c1f6-a085-4c72-9da3-8640a32e42ab";
+    private static final String EBXML_RESPONSE_DOCID_IDENTIFICATION_SCHEME
+        = "urn:uuid:2e82c1f6-a085-4c72-9da3-8640a32e42ab";
     private static final String EBXML_RESPONSE_DOCID_NAME = "XDSDocumentEntry.uniqueId";
-    private static final String EBXML_RESPONSE_PATIENTID_IDENTIFICATION_SCHEME = "urn:uuid:58a6f841-87b3-4a3e-92fd-a8ffeff98427";
+    private static final String EBXML_RESPONSE_PATIENTID_IDENTIFICATION_SCHEME
+        = "urn:uuid:58a6f841-87b3-4a3e-92fd-a8ffeff98427";
     private static final String EBXML_RESPONSE_PATIENTID_NAME = "XDSDocumentEntry.patientId";
     private static final String EBXML_RESPONSE_AUTHOR_CLASS_SCHEME = "urn:uuid:93606bcf-9494-43ec-9b4e-a7748d1a838d";
     private static final String EBXML_RESPONSE_AUTHOR_PERSON_SLOTNAME = "authorPerson";
     private static final String EBXML_RESPONSE_AUTHOR_INSTITUTION_SLOTNAME = "authorInstitution";
     private static final String EBXML_RESPONSE_AUTHOR_ROLE_SLOTNAME = "authorRole";
     private static final String EBXML_RESPONSE_AUTHOR_SPECIALTY_SLOTNAME = "authorSpecialty";
-    private static final String EBXML_RESPONSE_DOCTYPE_CLASSCODE_CLASS_SCHEME = "urn:uuid:41a5887f-8865-4c09-adf7-e362475b143a";
-    private static final String EBXML_RESPONSE_CONFIDENTIALITYCODE_CLASS_SCHEME = "urn:uuid:f4f85eac-e6cb-4883-b524-f2705394840f";
-    private static final String EBXML_RESPONSE_EVENTCODE_CLASS_SCHEME = "urn:uuid:2c6b8cb7-8b2a-4051-b291-b1ae6a575ef4";
-    private static final String EBXML_RESPONSE_FORMATCODE_CLASS_SCHEME = "urn:uuid:a09d5840-386c-46f2-b5ad-9c3699a4309d";
-    private static final String EBXML_RESPONSE_HEALTHCAREFACILITYTYPE_CLASS_SCHEME = "urn:uuid:f33fb8ac-18af-42cc-ae0e-ed0b0bdb91e1";
-    private static final String EBXML_RESPONSE_PRACTICESETTING_CLASS_SCHEME = "urn:uuid:cccf5598-8b07-4b77-a05e-ae952c785ead";
-    private static final String EBXML_RESPONSE_TYPECODE_CLASS_SCHEME = "urn:uuid:f0306f51-975f-434e-a61c-c59651d33983";
+    private static final String EBXML_RESPONSE_DOCTYPE_CLASSCODE_CLASS_SCHEME
+        = "urn:uuid:41a5887f-8865-4c09-adf7-e362475b143a";
+    private static final String EBXML_RESPONSE_CONFIDENTIALITYCODE_CLASS_SCHEME
+        = "urn:uuid:f4f85eac-e6cb-4883-b524-f2705394840f";
+    private static final String EBXML_RESPONSE_EVENTCODE_CLASS_SCHEME
+        = "urn:uuid:2c6b8cb7-8b2a-4051-b291-b1ae6a575ef4";
+    private static final String EBXML_RESPONSE_FORMATCODE_CLASS_SCHEME
+        = "urn:uuid:a09d5840-386c-46f2-b5ad-9c3699a4309d";
+    private static final String EBXML_RESPONSE_HEALTHCAREFACILITYTYPE_CLASS_SCHEME
+        = "urn:uuid:f33fb8ac-18af-42cc-ae0e-ed0b0bdb91e1";
+    private static final String EBXML_RESPONSE_PRACTICESETTING_CLASS_SCHEME
+        = "urn:uuid:cccf5598-8b07-4b77-a05e-ae952c785ead";
+    private static final String EBXML_RESPONSE_TYPECODE_CLASS_SCHEME
+        = "urn:uuid:f0306f51-975f-434e-a61c-c59651d33983";
     private static final String EBXML_RESPONSE_CODE_CODESCHEME_SLOTNAME = "codingScheme";
     private static final String EBXML_RESPONSE_CREATIONTIME_SLOTNAME = "creationTime";
     private static final String EBXML_RESPONSE_HASH_SLOTNAME = "hash";
@@ -115,25 +127,35 @@ public class DocumentRegistryHelper {
     private static final String EBXML_RESPONSE_SIZE_SLOTNAME = "size";
     private static final String EBXML_RESPONSE_SOURCEPATIENTID_SLOTNAME = "sourcePatientId";
     private static final String EBXML_RESPONSE_SOURCEPATIENTINFO_SLOTNAME = "sourcePatientInfo";
-    private static final String EBXML_RESPONSE_URI_SLOTNAME = "URI"; //Unused for now
-    private static final String EBXML_ADDON_CLINICAL_UNIQUE_HASH_SLOT_NAME = "urn:gov:hhs:fha:nhinc:xds:clinicalUniqueHash";
-    private static final String EBXML_ADDON_HAS_BEEN_ACCESSED_SLOT_NAME = "urn:gov:hhs:fha:nhinc:xds:hasBeenAccessed";
-    private static final String EBXML_REGISTRY_OBJECT_CLASSIFICATION_TYPE = "urn:oasis:names:tc:ebxml-regrep:ObjectType:RegistryObject:Classification";
-    private static final String EBXML_REGISTRY_OBJECT_EXTERNAL_IDENTIFIER_TYPE = "urn:oasis:names:tc:ebxml-regrep:ObjectType:RegistryObject:ExternalIdentifier";
-    private static final String XDS_QUERY_RESPONSE_STATUS_SUCCESS = "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Success";
-    private static final String XDS_QUERY_RESPONSE_STATUS_FAILURE = "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure";
-    private static final String XDS_QUERY_RESPONSE_OPTION_RETURN_TYPE_OBJECT_REF = "ObjectRef";
-    private static final String XDS_QUERY_RESPONSE_OPTION_RETURN_TYPE_LEAF_CLASS = "LeafClass";
-    private static final String XDS_QUERY_RESPONSE_EXTRINSIC_OBJCECT_OBJECT_TYPE = "urn:uuid:7edca82f-054d-47f2-a032-9b2a5b5186c1";
-    private static final int EBXML_RESPONSE_URI_LINE_LENGTH = 128;
+    private static final String EBXML_ADDON_CLINICAL_UNIQUE_HASH_SLOT_NAME
+        = "urn:gov:hhs:fha:nhinc:xds:clinicalUniqueHash";
+    private static final String EBXML_ADDON_HAS_BEEN_ACCESSED_SLOT_NAME
+        = "urn:gov:hhs:fha:nhinc:xds:hasBeenAccessed";
+    private static final String EBXML_REGISTRY_OBJECT_CLASSIFICATION_TYPE
+        = "urn:oasis:names:tc:ebxml-regrep:ObjectType:RegistryObject:Classification";
+    private static final String EBXML_REGISTRY_OBJECT_EXTERNAL_IDENTIFIER_TYPE
+        = "urn:oasis:names:tc:ebxml-regrep:ObjectType:RegistryObject:ExternalIdentifier";
+    private static final String XDS_QUERY_RESPONSE_STATUS_SUCCESS
+        = "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Success";
+    private static final String XDS_QUERY_RESPONSE_STATUS_FAILURE
+        = "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure";
+    private static final String XDS_QUERY_RESPONSE_EXTRINSIC_OBJCECT_OBJECT_TYPE
+        = "urn:uuid:7edca82f-054d-47f2-a032-9b2a5b5186c1";
     private static final String UUID_PREFIX = "urn:uuid:";
     private static final String DATE_FORMAT_FULL = "yyyyMMddhhmmss";
     // Properties file keys
     private static final String PROPERTY_FILE_NAME_GATEWAY = "gateway";
     private static final String PROPERTY_FILE_KEY_HOME_COMMUNITY = "localHomeCommunityId";
 
-    public oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse documentRegistryRegistryStoredQuery(oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest body) {
-        oasis.names.tc.ebxml_regrep.xsd.query._3.ObjectFactory queryObjFact = new oasis.names.tc.ebxml_regrep.xsd.query._3.ObjectFactory();
+    /**
+     *
+     * @param body AdhocQueryRequest
+     * @return response as AdhocQueryResponse
+     */
+    public oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse documentRegistryRegistryStoredQuery(
+        oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest body) {
+        oasis.names.tc.ebxml_regrep.xsd.query._3.ObjectFactory queryObjFact
+            = new oasis.names.tc.ebxml_regrep.xsd.query._3.ObjectFactory();
         oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse response = queryObjFact.createAdhocQueryResponse();
 
         // Collect input values from query.
@@ -317,7 +339,7 @@ public class DocumentRegistryHelper {
     }
 
     /**
-     * Extract the repository ID from the slots
+     * Extract the repository ID from the slots.
      * 
      * @param slots The slots to be searched.
      * @return The repository Id.
@@ -334,15 +356,16 @@ public class DocumentRegistryHelper {
         return repositoryId;
     }
 
-    private void loadResponseMessage(oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse response, List<Document> docs) {
-        if (docs != null &&
-            docs.size() > 0) {
+    private void loadResponseMessage(
+        oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse response, List<Document> docs) {
+        if (docs != null && !docs.isEmpty()) {
             response.setStatus(XDS_QUERY_RESPONSE_STATUS_SUCCESS);
         } else {
             response.setStatus(XDS_QUERY_RESPONSE_STATUS_FAILURE);
         }
 
-        oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory oRimObjectFactory = new oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory();
+        oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory oRimObjectFactory
+            = new oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory();
 
         RegistryObjectListType regObjList = new RegistryObjectListType();
         response.setRegistryObjectList(regObjList);
@@ -355,8 +378,10 @@ public class DocumentRegistryHelper {
 
             // Save these so that theyu can be added in later after all of the other items..
             //------------------------------------------------------------------------------
-            ArrayList<JAXBElement<? extends IdentifiableType>> olObjRef = new ArrayList<JAXBElement<? extends IdentifiableType>>();
-            ArrayList<JAXBElement<? extends IdentifiableType>> olAssoc = new ArrayList<JAXBElement<? extends IdentifiableType>>();
+            ArrayList<JAXBElement<? extends IdentifiableType>> olObjRef
+                = new ArrayList<JAXBElement<? extends IdentifiableType>>();
+            ArrayList<JAXBElement<? extends IdentifiableType>> olAssoc
+                = new ArrayList<JAXBElement<? extends IdentifiableType>>();
 
             for (Document doc : docs) {
                 ExtrinsicObjectType oExtObj = new ExtrinsicObjectType();
@@ -367,15 +392,8 @@ public class DocumentRegistryHelper {
 
                 String formattedPatientId = PatientIdFormatUtil.hl7EncodePatientId(doc.getPatientId(), homeCommunityId);
                 formattedPatientId = formattedPatientId.replaceAll("'", "");
-
-                // Get the document type
-                String docType = doc.getClassCode();
-
+              
                 // Set Extrinsic Object Attributes
-
-                // Opaque - Not in dynamic generated documents
-                //oExtObj.setIsOpaque(Boolean.FALSE);
-
                 // Extrinsic Object Type Code
                 oExtObj.setObjectType(XDS_QUERY_RESPONSE_EXTRINSIC_OBJCECT_OBJECT_TYPE);
 
@@ -397,7 +415,7 @@ public class DocumentRegistryHelper {
                 // Title
                 //-------
                 if (NullChecker.isNotNullish(doc.getDocumentTitle())) {
-                    InternationalStringType oTitle = CreateSingleValueInternationalStringType(doc.getDocumentTitle());
+                    InternationalStringType oTitle = createSingleValueInternationalStringType(doc.getDocumentTitle());
                     oExtObj.setName(oTitle);
                     bHaveData = true;
                 }
@@ -405,7 +423,7 @@ public class DocumentRegistryHelper {
                 // Comments
                 //---------
                 if (NullChecker.isNotNullish(doc.getComments())) {
-                    InternationalStringType oComments = CreateSingleValueInternationalStringType(doc.getComments());
+                    InternationalStringType oComments = createSingleValueInternationalStringType(doc.getComments());
                     oExtObj.setDescription(oComments);
                     bHaveData = true;
                 }
@@ -425,7 +443,8 @@ public class DocumentRegistryHelper {
                     oExtId.setObjectType(EBXML_REGISTRY_OBJECT_EXTERNAL_IDENTIFIER_TYPE);
                     oExtId.setId(UUID_PREFIX + UUIDGenerator.generateRandomUUID());
                     oExtId.setIdentificationScheme(EBXML_RESPONSE_PATIENTID_IDENTIFICATION_SCHEME);
-                    InternationalStringType oPatIdName = CreateSingleValueInternationalStringType(EBXML_RESPONSE_PATIENTID_NAME);
+                    InternationalStringType oPatIdName
+                        = createSingleValueInternationalStringType(EBXML_RESPONSE_PATIENTID_NAME);
                     oExtId.setName(oPatIdName);
                     oExtId.setRegistryObject(sDocumentUUID);
                     oExtId.setValue(formattedPatientId);
@@ -445,7 +464,7 @@ public class DocumentRegistryHelper {
                     oExtId.setValue(sDocumentId);
                     oExtId.setObjectType(EBXML_REGISTRY_OBJECT_EXTERNAL_IDENTIFIER_TYPE);
                     oExtId.setIdentificationScheme(EBXML_RESPONSE_DOCID_IDENTIFICATION_SCHEME);
-                    InternationalStringType oName = CreateSingleValueInternationalStringType(EBXML_RESPONSE_DOCID_NAME);
+                    InternationalStringType oName = createSingleValueInternationalStringType(EBXML_RESPONSE_DOCID_NAME);
                     oExtId.setName(oName);
                     bHaveData = true;
                 }
@@ -464,7 +483,7 @@ public class DocumentRegistryHelper {
                 // AuthorPerson
                 //-------------
                 if (NullChecker.isNotNullish(doc.getAuthorPerson())) {
-                    SlotType1 oSlot = CreateSingleValueSlot(EBXML_RESPONSE_AUTHOR_PERSON_SLOTNAME,
+                    SlotType1 oSlot = createSingleValueSlot(EBXML_RESPONSE_AUTHOR_PERSON_SLOTNAME,
                         doc.getAuthorPerson());
                     olClassificationSlot.add(oSlot);
                     bHasAuthorData = true;
@@ -472,7 +491,7 @@ public class DocumentRegistryHelper {
                 // AuthorInstitution
                 //------------------
                 if (NullChecker.isNotNullish(doc.getAuthorInstitution())) {
-                    SlotType1 oSlot = CreateSingleValueSlot(EBXML_RESPONSE_AUTHOR_INSTITUTION_SLOTNAME,
+                    SlotType1 oSlot = createSingleValueSlot(EBXML_RESPONSE_AUTHOR_INSTITUTION_SLOTNAME,
                         doc.getAuthorInstitution());
                     olClassificationSlot.add(oSlot);
                     bHasAuthorData = true;
@@ -480,7 +499,7 @@ public class DocumentRegistryHelper {
                 // AuthorRole
                 //------------
                 if (NullChecker.isNotNullish(doc.getAuthorRole())) {
-                    SlotType1 oSlot = CreateSingleValueSlot(EBXML_RESPONSE_AUTHOR_ROLE_SLOTNAME,
+                    SlotType1 oSlot = createSingleValueSlot(EBXML_RESPONSE_AUTHOR_ROLE_SLOTNAME,
                         doc.getAuthorRole());
                     olClassificationSlot.add(oSlot);
                     bHasAuthorData = true;
@@ -488,7 +507,7 @@ public class DocumentRegistryHelper {
                 // AuthorSpecialty
                 //----------------
                 if (NullChecker.isNotNullish(doc.getAuthorSpecialty())) {
-                    SlotType1 oSlot = CreateSingleValueSlot(EBXML_RESPONSE_AUTHOR_SPECIALTY_SLOTNAME,
+                    SlotType1 oSlot = createSingleValueSlot(EBXML_RESPONSE_AUTHOR_SPECIALTY_SLOTNAME,
                         doc.getAuthorSpecialty());
                     olClassificationSlot.add(oSlot);
                     bHasAuthorData = true;
@@ -590,7 +609,7 @@ public class DocumentRegistryHelper {
                 // Creation Time
                 //--------------
                 if (doc.getCreationTime() != null) {
-                    SlotType1 oSlot = CreateSingleValueSlot(EBXML_RESPONSE_CREATIONTIME_SLOTNAME,
+                    SlotType1 oSlot = createSingleValueSlot(EBXML_RESPONSE_CREATIONTIME_SLOTNAME,
                         formatEBXMLDate(doc.getCreationTime()));
                     olSlot.add(oSlot);
                     bHaveData = true;
@@ -599,7 +618,7 @@ public class DocumentRegistryHelper {
                 // Language Code
                 //---------------
                 if (NullChecker.isNotNullish(doc.getLanguageCode())) {
-                    SlotType1 oSlot = CreateSingleValueSlot(EBXML_RESPONSE_LANGUAGECODE_SLOTNAME,
+                    SlotType1 oSlot = createSingleValueSlot(EBXML_RESPONSE_LANGUAGECODE_SLOTNAME,
                         doc.getLanguageCode());
                     olSlot.add(oSlot);
                     bHaveData = true;
@@ -608,7 +627,7 @@ public class DocumentRegistryHelper {
                 // Service Start Time
                 //-------------------
                 if (doc.getServiceStartTime() != null) {
-                    SlotType1 oSlot = CreateSingleValueSlot(EBXML_RESPONSE_SERVICESTARTTIME_SLOTNAME,
+                    SlotType1 oSlot = createSingleValueSlot(EBXML_RESPONSE_SERVICESTARTTIME_SLOTNAME,
                         formatEBXMLDate(doc.getServiceStartTime()));
                     olSlot.add(oSlot);
                     bHaveData = true;
@@ -617,7 +636,7 @@ public class DocumentRegistryHelper {
                 // Service Stop Time
                 //------------------
                 if (doc.getServiceStopTime() != null) {
-                    SlotType1 oSlot = CreateSingleValueSlot(EBXML_RESPONSE_SERVICESTOPTIME_SLOTNAME,
+                    SlotType1 oSlot = createSingleValueSlot(EBXML_RESPONSE_SERVICESTOPTIME_SLOTNAME,
                         formatEBXMLDate(doc.getServiceStopTime()));
                     olSlot.add(oSlot);
                     bHaveData = true;
@@ -626,7 +645,7 @@ public class DocumentRegistryHelper {
                 // Source Patient Id
                 //------------------
                 if (NullChecker.isNotNullish(doc.getSourcePatientId())) {
-                    SlotType1 oSlot = CreateSingleValueSlot(EBXML_RESPONSE_SOURCEPATIENTID_SLOTNAME,
+                    SlotType1 oSlot = createSingleValueSlot(EBXML_RESPONSE_SOURCEPATIENTID_SLOTNAME,
                         formattedPatientId);
                     olSlot.add(oSlot);
                     bHaveData = true;
@@ -652,8 +671,9 @@ public class DocumentRegistryHelper {
                 }
 
                 if (!sourcePatientInfoValues.isEmpty()) {
-                    String[] sourcePatientInfoValuesArray = sourcePatientInfoValues.toArray(new String[sourcePatientInfoValues.size()]);
-                    SlotType1 oSlot = CreateMultiValueSlot(EBXML_RESPONSE_SOURCEPATIENTINFO_SLOTNAME,
+                    String[] sourcePatientInfoValuesArray
+                        = sourcePatientInfoValues.toArray(new String[sourcePatientInfoValues.size()]);
+                    SlotType1 oSlot = createMultiValueSlot(EBXML_RESPONSE_SOURCEPATIENTINFO_SLOTNAME,
                         sourcePatientInfoValuesArray);
                     olSlot.add(oSlot);
                     bHaveData = true;
@@ -662,7 +682,7 @@ public class DocumentRegistryHelper {
                 // Hash Code
                 //----------
                 if (NullChecker.isNotNullish(doc.getHash())) {
-                    SlotType1 oSlot = CreateSingleValueSlot(EBXML_RESPONSE_HASH_SLOTNAME,
+                    SlotType1 oSlot = createSingleValueSlot(EBXML_RESPONSE_HASH_SLOTNAME,
                         doc.getHash());
                     olSlot.add(oSlot);
                     bHaveData = true;
@@ -679,12 +699,12 @@ public class DocumentRegistryHelper {
 
                     for (ExtraSlot extraSlot : doc.getExtraSlots()) {
                         if (extraSlot.getExtraSlotName().equalsIgnoreCase(EBXML_ADDON_CLINICAL_UNIQUE_HASH_SLOT_NAME)) {
-                            clinicalUniqueHashSlot = CreateSingleValueSlot(
+                            clinicalUniqueHashSlot = createSingleValueSlot(
                                 extraSlot.getExtraSlotName(),
                                 extraSlot.getExtraSlotValue());
                         }
                         if (extraSlot.getExtraSlotName().equalsIgnoreCase(EBXML_ADDON_HAS_BEEN_ACCESSED_SLOT_NAME)) {
-                            hasBeenAccessedSlot = CreateSingleValueSlot(
+                            hasBeenAccessedSlot = createSingleValueSlot(
                                 extraSlot.getExtraSlotName(),
                                 extraSlot.getExtraSlotValue());
                         }
@@ -727,8 +747,10 @@ public class DocumentRegistryHelper {
                 }
 
                 if (!intendedRecipients.isEmpty()) {
-                    String[] intendedRecipientArray = intendedRecipients.toArray(new String[intendedRecipients.size()]);
-                    SlotType1 oSlot = CreateMultiValueSlot(EBXML_RESPONSE_INTENDEDRECIPIENTS_SLOTNAME, intendedRecipientArray);
+                    String[] intendedRecipientArray
+                        = intendedRecipients.toArray(new String[intendedRecipients.size()]);
+                    SlotType1 oSlot = createMultiValueSlot(
+                        EBXML_RESPONSE_INTENDEDRECIPIENTS_SLOTNAME, intendedRecipientArray);
                     olSlot.add(oSlot);
                     bHaveData = true;
                 }
@@ -736,7 +758,7 @@ public class DocumentRegistryHelper {
                 // LegalAuthenticator Code
                 //------------------------
                 if (NullChecker.isNotNullish(doc.getLegalAuthenticator())) {
-                    SlotType1 oSlot = CreateSingleValueSlot(EBXML_RESPONSE_LEGALAUTHENTICATOR_SLOTNAME,
+                    SlotType1 oSlot = createSingleValueSlot(EBXML_RESPONSE_LEGALAUTHENTICATOR_SLOTNAME,
                         doc.getLegalAuthenticator());
                     olSlot.add(oSlot);
                     bHaveData = true;
@@ -745,7 +767,7 @@ public class DocumentRegistryHelper {
                 // Size
                 //-----
                 if ((doc.getSize() != null) && (doc.getSize().intValue() > 0)) {
-                    SlotType1 oSlot = CreateSingleValueSlot(EBXML_RESPONSE_SIZE_SLOTNAME,
+                    SlotType1 oSlot = createSingleValueSlot(EBXML_RESPONSE_SIZE_SLOTNAME,
                         doc.getSize().toString());
                     olSlot.add(oSlot);
                     bHaveData = true;
@@ -761,7 +783,7 @@ public class DocumentRegistryHelper {
                 String documentUri = doc.getDocumentUri();
                 if (documentUri.length() <= EBXML_RESPONSE_URI_LINE_LENGTH)
                 {
-                oSlot = CreateSingleValueSlot(EBXML_RESPONSE_URI_SLOTNAME, documentUri);
+                oSlot = createSingleValueSlot(EBXML_RESPONSE_URI_SLOTNAME, documentUri);
                 }
                 else
                 {
@@ -794,7 +816,7 @@ public class DocumentRegistryHelper {
                 iIndex++;
                 }
 
-                oSlot = CreateMultiValueSlot(EBXML_RESPONSE_URI_SLOTNAME,
+                oSlot = createMultiValueSlot(EBXML_RESPONSE_URI_SLOTNAME,
                 saURIPart);
                 }   // else
 
@@ -808,7 +830,8 @@ public class DocumentRegistryHelper {
                 // Repository Unique ID
                 //---------------------
                 if (NullChecker.isNotNullish(doc.getRepositoryId())) {
-                    SlotType1 oSlot = CreateSingleValueSlot(EBXML_RESPONSE_REPOSITORY_UNIQUE_ID_SLOTNAME, doc.getRepositoryId());
+                    SlotType1 oSlot
+                        = createSingleValueSlot(EBXML_RESPONSE_REPOSITORY_UNIQUE_ID_SLOTNAME, doc.getRepositoryId());
                     olSlot.add(oSlot);
                     bHaveData = true;
                 }
@@ -825,13 +848,13 @@ public class DocumentRegistryHelper {
 
             // if we have any Object References, add them in now.
             //---------------------------------------------------
-            if (olObjRef.size() > 0) {
+            if (!olObjRef.isEmpty()) {
                 olRegObjs.addAll(olObjRef);
             }
 
             // if we have any associations, add them in now.
             //---------------------------------------------------
-            if (olAssoc.size() > 0) {
+            if (!olAssoc.isEmpty()) {
                 olRegObjs.addAll(olAssoc);
             }
 
@@ -847,8 +870,9 @@ public class DocumentRegistryHelper {
      * @param sDocumentId The document ID for the document associated with this classificaation.
      * @return The classification created based on the information in the coded.
      */
-    private ClassificationType createClassificationFromCodedData(String code, String codeScheme, String codeDisplayName, String sClassificationScheme, String nodeRepresentation, String sDocumentId) {
-        log.debug("DocumentRegistryHelper.CreateClassificationFromCodedData() -- Begin");
+    private ClassificationType createClassificationFromCodedData(String code, String codeScheme,
+        String codeDisplayName, String sClassificationScheme, String nodeRepresentation, String sDocumentId) {
+        LOG.debug("DocumentRegistryHelper.CreateClassificationFromCodedData() -- Begin");
         ClassificationType oClassification = new ClassificationType();
         oClassification.setId(UUID_PREFIX + UUIDGenerator.generateRandomUUID());
         boolean bHasCode = false;
@@ -868,7 +892,7 @@ public class DocumentRegistryHelper {
         // Code System
         //------------
         if (NullChecker.isNotNullish(codeScheme)) {
-            SlotType1 oSlot = CreateSingleValueSlot(EBXML_RESPONSE_CODE_CODESCHEME_SLOTNAME,
+            SlotType1 oSlot = createSingleValueSlot(EBXML_RESPONSE_CODE_CODESCHEME_SLOTNAME,
                 codeScheme);
             olClassificationSlot.add(oSlot);
             bHasCode = true;
@@ -877,7 +901,7 @@ public class DocumentRegistryHelper {
         // DisplayName
         //------------
         if (NullChecker.isNotNullish(codeDisplayName)) {
-            InternationalStringType oDisplayName = CreateSingleValueInternationalStringType(codeDisplayName);
+            InternationalStringType oDisplayName = createSingleValueInternationalStringType(codeDisplayName);
             oClassification.setName(oDisplayName);
             bHasCode = true;
         }
@@ -885,7 +909,7 @@ public class DocumentRegistryHelper {
         if (bHasCode) {
             return oClassification;
         } else {
-            log.debug("DocumentRegistryHelper.CreateClassificationFromCodedData() -- End");
+            LOG.debug("DocumentRegistryHelper.CreateClassificationFromCodedData() -- End");
             return null;
         }
     }
@@ -896,9 +920,10 @@ public class DocumentRegistryHelper {
         PropertyAccessor oProp = PropertyAccessor.getInstance();
 
         try {
-            homeCommunityId = "urn:oid:" + oProp.getProperty(PROPERTY_FILE_NAME_GATEWAY, PROPERTY_FILE_KEY_HOME_COMMUNITY);
-        } catch (Throwable t) {
-            log.error("Error retrieving the home community id: " + t.getMessage(), t);
+            homeCommunityId = "urn:oid:" + oProp.getProperty(PROPERTY_FILE_NAME_GATEWAY,
+                PROPERTY_FILE_KEY_HOME_COMMUNITY);
+        } catch (PropertyAccessException pae) {
+            LOG.error("Error retrieving the home community id: ", pae);
         }
         return homeCommunityId;
     }
@@ -906,31 +931,32 @@ public class DocumentRegistryHelper {
     private List<String> extractSlotValues(List<SlotType1> slots, String slotName) {
         List<String> returnValues = null;
         for (SlotType1 slot : slots) {
-            if ((slot.getName() != null) &&
-                (slot.getName().length() > 0) &&
-                (slot.getValueList() != null) &&
-                (slot.getValueList().getValue() != null) &&
-                (slot.getValueList().getValue().size() > 0)) {
-
-                if (slot.getName().equals(slotName)) {
+            if ((slot.getName() != null) && (slot.getName().length() > 0) && (slot.getValueList() != null) 
+                && (slot.getValueList().getValue() != null)
+                && (slot.getValueList().getValue().size() > 0) && slot.getName().equals(slotName)) {
+                
                     ValueListType valueListType = slot.getValueList();
                     List<String> slotValues = valueListType.getValue();
                     returnValues = new ArrayList<String>();
                     for (String slotValue : slotValues) {
                         returnValues.add(slotValue);
                     }
-                }
             }
 
         }
         return returnValues;
     }
 
+    /**
+     *
+     * @param paramFormattedString String
+     * @param resultCollection List<String>
+     */
     public void parseParamFormattedString(String paramFormattedString, List<String> resultCollection) {
         if ((paramFormattedString != null) && (resultCollection != null)) {
             if (paramFormattedString.startsWith("(")) {
                 String working = paramFormattedString.substring(1);
-                int endIndex = working.indexOf(")");
+                int endIndex = working.indexOf(')');
                 if (endIndex != -1) {
                     working = working.substring(0, endIndex);
                 }
@@ -949,24 +975,34 @@ public class DocumentRegistryHelper {
                             }
                         }
                         resultCollection.add(singleValue);
-                        if (log.isDebugEnabled()) {
-                            log.debug("Added single value: " + singleValue + " to query parameters");
+                        if (LOG.isDebugEnabled()) {
+                            LOG.debug("Added single value: " + singleValue + " to query parameters");
                         }
                     }
                 }
             } else {
                 resultCollection.add(paramFormattedString);
-                if (log.isDebugEnabled()) {
-                    log.debug("No wrapper on status - adding status: " + paramFormattedString + " to query parameters");
+                if (LOG.isDebugEnabled()) {
+                    LOG.debug("No wrapper on status - adding status: " + paramFormattedString + " to query parameters");
                 }
             }
         }
     }
 
+    /**
+     *
+     * @param dateString String
+     * @return parseDate as Date
+     */
     protected Date parseCreationDate(String dateString) {
         return parseDate(dateString, DATE_FORMAT_FULL);
     }
 
+    /**
+     *
+     * @param dateString String
+     * @return Date
+     */
     protected Date parseServiceDate(String dateString) {
         return parseDate(dateString, DATE_FORMAT_FULL);
     }
@@ -976,21 +1012,31 @@ public class DocumentRegistryHelper {
         if ((dateString != null) && (dateFormat != null)) {
             try {
                 String formatString = DocumentLoadUtil.prepareDateFormatString(dateFormat, dateString);
-                parsed = new SimpleDateFormat(formatString).parse(dateString);
-            } catch (Throwable t) {
-                log.warn("Error parsing '" + dateString + "' using format: '" + dateFormat + "'", t);
+                parsed = new SimpleDateFormat(formatString,Locale.getDefault()).parse(dateString);
+            } catch (ParseException pe) {
+
+                if (LOG.isWarnEnabled()) {
+                    LOG.warn("Error parsing '" + dateString + "' using format: '" + dateFormat + "'", pe);
+                }
+                
             }
         }
         return parsed;
     }
 
+    /**
+     *
+     * @param sourceDate Date
+     * @return formatted
+     */
     protected String formatEBXMLDate(Date sourceDate) {
         String formatted = "";
         if (sourceDate != null) {
-            try {
-                formatted = new SimpleDateFormat("yyyyMMddHHmmss").format(sourceDate);
-            } catch (Throwable t) {
-                log.error("Failed to format a date (" + sourceDate.toString() + ") to a formatted string using the format 'yyyyMMddHHmmss': " + t.getMessage(), t);
+           try {
+                formatted = new SimpleDateFormat("yyyyMMddHHmmss",Locale.getDefault()).format(sourceDate);
+            } catch (IllegalArgumentException iae) {
+                LOG.error("Failed to format a date (" + sourceDate.toString()
+                    + ") to a formatted string using the format 'yyyyMMddHHmmss': ", iae);
             }
         }
         return formatted;
@@ -1003,12 +1049,12 @@ public class DocumentRegistryHelper {
      * @param sSlotValue The value for the slot.
      * @return The SlotType1 object containing the data passed in.
      */
-    private SlotType1 CreateSingleValueSlot(String sSlotName, String sSlotValue) {
-        log.debug("DocumentRegistryHelper.CreateSingleValueSlot() -- Begin");
-        String saSlotValue[] = new String[1];
+    private SlotType1 createSingleValueSlot(String sSlotName, String sSlotValue) {
+        LOG.debug("DocumentRegistryHelper.createSingleValueSlot() -- Begin");
+        String[] saSlotValue = new String[1];
         saSlotValue[0] = sSlotValue;
-        log.debug("DocumentRegistryHelper.CreateSingleValueSlot() -- End");
-        return CreateMultiValueSlot(sSlotName, saSlotValue);
+        LOG.debug("DocumentRegistryHelper.createSingleValueSlot() -- End");
+        return createMultiValueSlot(sSlotName, saSlotValue);
     }
 
     /**
@@ -1018,8 +1064,8 @@ public class DocumentRegistryHelper {
      * @param saSlotValue The array of values for the slot.
      * @return The SlotType1 object containing the data passed in.
      */
-    private SlotType1 CreateMultiValueSlot(String sSlotName, String[] saSlotValue) {
-        log.debug("DocumentRegistryHelper.CreateMultiValueSlot() -- Begin");
+    private SlotType1 createMultiValueSlot(String sSlotName, String[] saSlotValue) {
+        LOG.debug("DocumentRegistryHelper.createMultiValueSlot() -- Begin");
         SlotType1 oSlot = new SlotType1();
         oSlot.setName(sSlotName);
         ValueListType oValueList = new ValueListType();
@@ -1028,7 +1074,7 @@ public class DocumentRegistryHelper {
         for (int i = 0; i < saSlotValue.length; i++) {
             olValue.add(saSlotValue[i]);
         }
-        log.debug("DocumentRegistryHelper.CreateMultiValueSlot() -- End");
+        LOG.debug("DocumentRegistryHelper.createMultiValueSlot() -- End");
         return oSlot;
     }
 
@@ -1038,14 +1084,14 @@ public class DocumentRegistryHelper {
      * @param sLocStrValue The value to be placed in the string.
      * @return The InternationStringType that is being returned.
      */
-    private InternationalStringType CreateSingleValueInternationalStringType(String sLocStrValue) {
-        log.debug("DocumentTransforms.CreateSingleValueInternationalStringType() -- Begin");
+    private InternationalStringType createSingleValueInternationalStringType(String sLocStrValue) {
+        LOG.debug("DocumentTransforms.createSingleValueInternationalStringType() -- Begin");
         InternationalStringType oName = new InternationalStringType();
         List<LocalizedStringType> olLocStr = oName.getLocalizedString();
         LocalizedStringType oNameLocStr = new LocalizedStringType();
         olLocStr.add(oNameLocStr);
         oNameLocStr.setValue(sLocStrValue);
-        log.debug("DocumentTransforms.CreateSingleValueInternationalStringType() -- End");
+        LOG.debug("DocumentTransforms.createSingleValueInternationalStringType() -- End");
         return oName;
     }
 }

@@ -1,7 +1,8 @@
 /*
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
  *
- * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
+ * Copyright 2010(Year date of delivery) United States Government, as represented by the Secretary of Health and Human
+ * Services.  All rights reserved.
  *
  */
 /*
@@ -57,7 +58,7 @@ import org.hl7.v3.XActMoodIntentEvent;
 import org.hl7.v3.FindDocumentWithContentRCMRIN000031UV01RequestType;
 
 /**
- * This
+ * This.
  * @author kim
  */
 public class FindDocumentRequestHelper {
@@ -70,6 +71,11 @@ public class FindDocumentRequestHelper {
         factory = new ObjectFactory();
     }
 
+    /**
+     *
+     * @param subjectId II
+     * @return msg
+     */
     public static FindDocumentRCMRIN000031UV01RequestType findDocumentRequest(II subjectId) {
         FindDocumentRCMRIN000031UV01RequestType msg = new FindDocumentRCMRIN000031UV01RequestType();
 
@@ -78,7 +84,15 @@ public class FindDocumentRequestHelper {
         return msg;
     }
 
-    public static FindDocumentRCMRIN000031UV01RequestType findDocumentRequest(II subjectId, String dataStartDate, String dataEndDate) {
+    /**
+     *
+     * @param subjectId II
+     * @param dataStartDate String
+     * @param dataEndDate String
+     * @return msg
+     */
+    public static FindDocumentRCMRIN000031UV01RequestType findDocumentRequest(II subjectId, String dataStartDate,
+        String dataEndDate) {
         FindDocumentRCMRIN000031UV01RequestType msg = new FindDocumentRCMRIN000031UV01RequestType();
 
         if (dataStartDate == null) {
@@ -90,16 +104,33 @@ public class FindDocumentRequestHelper {
         return msg;
     }
 
-    public static FindDocumentWithContentRCMRIN000031UV01RequestType findDocumentWithContentRequest(II subjectId, String documentClassCode) {
-        FindDocumentWithContentRCMRIN000031UV01RequestType msg = new FindDocumentWithContentRCMRIN000031UV01RequestType();
+    /**
+     *
+     * @param subjectId II
+     * @param documentClassCode String
+     * @return msg
+     */
+    public static FindDocumentWithContentRCMRIN000031UV01RequestType findDocumentWithContentRequest(II subjectId,
+        String documentClassCode) {
+        FindDocumentWithContentRCMRIN000031UV01RequestType msg
+            = new FindDocumentWithContentRCMRIN000031UV01RequestType();
 
         msg.setQuery(build000031(subjectId, null, null, documentClassCode));
 
         return msg;
     }
 
-    public static FindDocumentWithContentRCMRIN000031UV01RequestType findDocumentWithContentRequest(II subjectId, String dataStartDate, String dataEndDate) {
-        FindDocumentWithContentRCMRIN000031UV01RequestType msg = new FindDocumentWithContentRCMRIN000031UV01RequestType();
+    /**
+     *
+     * @param subjectId II
+     * @param dataStartDate String
+     * @param dataEndDate String
+     * @return msg
+     */
+    public static FindDocumentWithContentRCMRIN000031UV01RequestType findDocumentWithContentRequest(II subjectId,
+        String dataStartDate, String dataEndDate) {
+        FindDocumentWithContentRCMRIN000031UV01RequestType msg
+            = new FindDocumentWithContentRCMRIN000031UV01RequestType();
 
         if (dataStartDate == null) {
             msg.setQuery(build000031(subjectId, null, null, null));
@@ -110,7 +141,8 @@ public class FindDocumentRequestHelper {
         return msg;
     }
 
-    private static RCMRIN000031UV01MCCIMT000100UV01Message build000031(II subjectId, String dataStartDate, String dataEndDate, String documentClassCode) {
+    private static RCMRIN000031UV01MCCIMT000100UV01Message build000031(II subjectId, String dataStartDate,
+        String dataEndDate, String documentClassCode) {
 
         RCMRIN000031UV01MCCIMT000100UV01Message query = new RCMRIN000031UV01MCCIMT000100UV01Message();
 
@@ -163,10 +195,12 @@ public class FindDocumentRequestHelper {
         RCMRMT000003UV01ClinicalDocumentCode docCode = new RCMRMT000003UV01ClinicalDocumentCode();
         docCode.setValue(docCodeId);
 
-        queryParams.setClinicalDocumentCode(factory.createRCMRMT000003UV01QueryByParameterClinicalDocumentCode(docCode));
+        queryParams.setClinicalDocumentCode(
+            factory.createRCMRMT000003UV01QueryByParameterClinicalDocumentCode(docCode));
 
         // set QueryByParameter in ControlActProcess object
-        controlActProcess.setQueryByParameter(factory.createRCMRIN000031UV01QUQIMT021001UV01ControlActProcessQueryByParameter(queryParams));
+        controlActProcess.setQueryByParameter(
+            factory.createRCMRIN000031UV01QUQIMT021001UV01ControlActProcessQueryByParameter(queryParams));
 
         // set ControlActProcess in Message object
         query.setControlActProcess(controlActProcess);

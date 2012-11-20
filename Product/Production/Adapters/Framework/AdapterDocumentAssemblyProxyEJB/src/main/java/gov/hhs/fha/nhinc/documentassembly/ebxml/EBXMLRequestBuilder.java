@@ -80,10 +80,15 @@ import gov.hhs.fha.nhinc.util.format.UTCDateUtil;
 public class EBXMLRequestBuilder {
 
     private static final String UUID_PREFIX = "urn:uuid:";
-    private static Log log = LogFactory.getLog(EBXMLRequestBuilder.class);
+    private static final Log LOG = LogFactory.getLog(EBXMLRequestBuilder.class);
     ProvideAndRegisterDocumentSetRequestType documentSetRequest = null;
+    private static final String ER_REPORT_TITLE = "Emergency Report";
+    private static final String DISCHARGE_SUMMARY_TITLE = "Discharge Summary";
+    private static final String CODING_SCHEME_SLOT = "codingScheme";
+    private static final String SUBMISSION_SET = "SubmissionSet01";
 
     public EBXMLRequestBuilder() {
+        //empty constructor
     }
 
     public ProvideAndRegisterDocumentSetRequestType createDocumentSetRequest() {
@@ -102,17 +107,20 @@ public class EBXMLRequestBuilder {
 
         //display name is dynamic between ER Discharge Summaries and Discharge Summaries
         String docDisplayName = "";
-        log.debug("EBXMLRequestBuilder document title from Conemaugh = " + docTitle);
+
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("EBXMLRequestBuilder document title from Conemaugh = " + docTitle);
+        }
 
         //create displayName
         if ((docType.getTypeId()).equals(AssemblyConstants.C32_CLASS_CODE)) {
             //C32 - Summarization of Episode Note
             docDisplayName = AssemblyConstants.C32_DISPLAY_NAME;
         } else if ((docType.getTypeId()).equals(AssemblyConstants.C62_CLASS_CODE)) {
-            if (docTitle.contains("Emergency Report")) {
+            if (docTitle.contains(ER_REPORT_TITLE)) {
                 //ER Discharge Summary
                 docDisplayName = AssemblyConstants.C62_DISPLAY_NAME;
-            } else if (docTitle.contains("Discharge Summary")) {
+            } else if (docTitle.contains(DISCHARGE_SUMMARY_TITLE)) {
                 //Discharge Summary
                 docDisplayName = AssemblyConstants.C62_DS_DISPLAY_NAME;
             }
@@ -121,8 +129,10 @@ public class EBXMLRequestBuilder {
             docDisplayName = AssemblyConstants.C62_RR_DISPLAY_NAME;
         }
 
-        log.debug("EBXMLRequestBuilder: docDisplayName = " + docDisplayName);
-
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("EBXMLRequestBuilder: docDisplayName = " + docDisplayName);
+        }
+        
         ExtrinsicObjectType extrinsic = new ExtrinsicObjectType();
 
         extrinsic.setId(rimId);
@@ -147,7 +157,7 @@ public class EBXMLRequestBuilder {
                 NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
             extrinsic.setHome("urn:oid:" + sHomeCommunityId);
         } catch (PropertyAccessException e) {
-            log.error("Failed to read " +
+            LOG.error("Failed to read " +
                 NhincConstants.HOME_COMMUNITY_ID_PROPERTY +
                 " property from the " + NhincConstants.GATEWAY_PROPERTY_FILE +
                 ".properties  file.  Error: " + e.getMessage(), e);
@@ -320,7 +330,7 @@ public class EBXMLRequestBuilder {
             docType.getTypeId(), //node representation - Document Type Class Code
             UUID_PREFIX + UUIDGenerator.generateRandomUUID(), //id
             docDisplayName, //name
-            new String[]{"codingScheme",}, //slot names
+            new String[]{CODING_SCHEME_SLOT,}, //slot names
             new String[][]{
                 new String[]{"2.16.840.1.113883.6.1"},} //slot values
             );
@@ -332,7 +342,7 @@ public class EBXMLRequestBuilder {
             docType.getTypeId(), //node representation
             UUID_PREFIX + UUIDGenerator.generateRandomUUID(), //id
             docDisplayName, //name
-            new String[]{"codingScheme",}, //slot names
+            new String[]{CODING_SCHEME_SLOT,}, //slot names
             new String[][]{
                 new String[]{"2.16.840.1.113883.6.1"},} //slot values
             );
@@ -358,7 +368,7 @@ public class EBXMLRequestBuilder {
             confCode, //node representation
             UUID_PREFIX + UUIDGenerator.generateRandomUUID(), //id
             confCodeDesc, //name
-            new String[]{"codingScheme",}, //slot names
+            new String[]{CODING_SCHEME_SLOT,}, //slot names
             new String[][]{
                 new String[]{(confCodeOID)},} //slot values
             );
@@ -383,7 +393,7 @@ public class EBXMLRequestBuilder {
             formatCode, //node representation
             UUID_PREFIX + UUIDGenerator.generateRandomUUID(), //id
             formatCodeDesc, //name
-            new String[]{"codingScheme",}, //slot names
+            new String[]{CODING_SCHEME_SLOT,}, //slot names
             new String[][]{
                 new String[]{formatCodeOID},} //slot values
             );
@@ -399,12 +409,12 @@ public class EBXMLRequestBuilder {
             hcftCodeOID = CDAConstants.HCFT_CODE_SYS_OID;
         } else if ((docType.getTypeId()).equals(AssemblyConstants.C62_CLASS_CODE)) {
             //check docuemnt title for ER discharge summary or Discharge Summary
-            if (docTitle.contains("Emergency Report")) {
+            if (docTitle.contains(ER_REPORT_TITLE)) {
                 //ER Discharge Summary
                 hcftCode = AssemblyConstants.C62_HCFT_CODE;
                 hcftCodeDesc = AssemblyConstants.C62_HCFT_CODE_DESCR;
                 hcftCodeOID = CDAConstants.HCFT_CODE_SYS_OID;
-            } else if (docTitle.contains("Discharge Summary")) {
+            } else if (docTitle.contains(DISCHARGE_SUMMARY_TITLE)) {
                 //Discharge Summary
                 hcftCode = AssemblyConstants.C62_DS_HCFT_CODE; // This is not correct - AssemblyConstants.C62_HCFT_CODE;
                 hcftCodeDesc = AssemblyConstants.C62_DS_HCFT_CODE_DESCR;
@@ -424,7 +434,7 @@ public class EBXMLRequestBuilder {
             hcftCode, //hcftCode, //node representation
             UUID_PREFIX + UUIDGenerator.generateRandomUUID(), //id
             hcftCodeDesc, //name
-            new String[]{"codingScheme",}, //slot names
+            new String[]{CODING_SCHEME_SLOT,}, //slot names
             new String[][]{
                 new String[]{hcftCodeOID},} //slot values
             );
@@ -440,12 +450,12 @@ public class EBXMLRequestBuilder {
             practiceCodeOID = CDAConstants.PRACTICE_SETTING_CODE_SYS_OID;
         } else if ((docType.getTypeId()).equals(AssemblyConstants.C62_CLASS_CODE)) {
 
-            if (docTitle.contains("Emergency Report")) {
+            if (docTitle.contains(ER_REPORT_TITLE)) {
                 //ER Discharge Summary
                 practiceCode = AssemblyConstants.C62_PRACTICE_SETTING_CODE;
                 practiceCodeDesc = AssemblyConstants.C62_PRACTICE_SETTING_CODE_DESCR;
                 practiceCodeOID = CDAConstants.PRACTICE_SETTING_CODE_SYS_OID;
-            } else if (docTitle.contains("Discharge Summary")) {
+            } else if (docTitle.contains(DISCHARGE_SUMMARY_TITLE)) {
                 //Discharge Summary
                 practiceCode = AssemblyConstants.C62_DS_PRACTICE_SETTING_CODE;
                 practiceCodeDesc = AssemblyConstants.C62_DS_PRACTICE_SETTING_CODE_DESCR;
@@ -464,7 +474,7 @@ public class EBXMLRequestBuilder {
             practiceCode,//practiceCode, //node representation for Military Medicine in SNOMED-CT
             UUID_PREFIX + UUIDGenerator.generateRandomUUID(), //id
             practiceCodeDesc, //name
-            new String[]{"codingScheme",}, //slot names
+            new String[]{CODING_SCHEME_SLOT,}, //slot names
             new String[][]{
                 new String[]{(practiceCodeOID)},} //slot values
             );
@@ -499,7 +509,7 @@ public class EBXMLRequestBuilder {
             UUID_PREFIX + "a54d6aa5-d40d-43f9-88c5-b4633d873bdd");
         classification.setObjectType(
             "urn:oasis:names:tc:ebxml-regrep:ObjectType:RegistryObject:Classification");
-        classification.setClassifiedObject("SubmissionSet01");
+        classification.setClassifiedObject(SUBMISSION_SET);
         classification.setId("ID_25276323_3");
 
         return classification;
@@ -513,7 +523,7 @@ public class EBXMLRequestBuilder {
         association.setObjectType(
             "urn:oasis:names:tc:ebxml-regrep:ObjectType:RegistryObject:Association");
         association.setId("ID_25276323_1");
-        association.setSourceObject("SubmissionSet01");
+        association.setSourceObject(SUBMISSION_SET);
         association.setTargetObject(documentId);
 
         //Add submission status to assocation
@@ -532,17 +542,17 @@ public class EBXMLRequestBuilder {
 
         //display name is dynamic between ER Discharge Summaries and Discharge Summaries
         String docDisplayName = "";
-        if (documentTitle.contains("Emergency Report")) {
+        if (documentTitle.contains(ER_REPORT_TITLE)) {
             //ER Discharge Summary
             docDisplayName = AssemblyConstants.C62_DISPLAY_NAME;
-        } else if (documentTitle.contains("Discharge Summary")) {
+        } else if (documentTitle.contains(DISCHARGE_SUMMARY_TITLE)) {
             //Discharge Summary
             docDisplayName = AssemblyConstants.C62_DS_DISPLAY_NAME;
         }
 
         RegistryPackageType registryPackage = new RegistryPackageType();
 
-        registryPackage.setId("SubmissionSet01");
+        registryPackage.setId(SUBMISSION_SET);
         registryPackage.setObjectType(
             "urn:oasis:names:tc:ebxml-regrep:ObjectType:RegistryObject:RegistryPackage");
 
@@ -558,14 +568,10 @@ public class EBXMLRequestBuilder {
         LocalizedStringType localString = new LocalizedStringType();
         InternationalStringType intlString = new InternationalStringType();
 
-        try {
-            // Submission name
-            localString.setValue(docDisplayName);
-            intlString.getLocalizedString().add(localString);
-            registryPackage.setName(intlString);
-        } catch (Exception ex) {
-            log.error("Failed setting Submission Name.", ex);
-        }
+        // Submission name
+        localString.setValue(docDisplayName);
+        intlString.getLocalizedString().add(localString);
+        registryPackage.setName(intlString);
 
         // Submission description
         localString = new LocalizedStringType();
@@ -576,7 +582,7 @@ public class EBXMLRequestBuilder {
 
         // Add submission uniqueId identifier
         addExternalIdentifier(registryPackage,
-            "SubmissionSet01", //registryObject
+            SUBMISSION_SET, //registryObject
             UUID_PREFIX + "96fdda7c-d067-4183-912e-bf5ee74998a8", //identificationScheme
             UUID_PREFIX + UUIDGenerator.generateRandomUUID(), //id
             "XDSSubmissionSet.uniqueId", //name
@@ -586,7 +592,7 @@ public class EBXMLRequestBuilder {
         //TODO: Fix this up for a submission source - I suspect this need to be a configuration parameter
         //Add submission sourceId identifier
         addExternalIdentifier(registryPackage,
-            "SubmissionSet01", //registryObject
+            SUBMISSION_SET, //registryObject
             UUID_PREFIX + "554ac39e-e3fe-47fe-b233-965d2a147832", //identificationScheme
             UUID_PREFIX + UUIDGenerator.generateRandomUUID(), //id
             "XDSSubmissionSet.sourceId", //name
@@ -595,7 +601,7 @@ public class EBXMLRequestBuilder {
 
         // Add submission patientId identifier
         addExternalIdentifier(registryPackage,
-            "SubmissionSet01", //registryObject
+            SUBMISSION_SET, //registryObject
             UUID_PREFIX + "6b5aea1a-874d-4603-a4bc-96a0a7b38446", //identificationScheme
             UUID_PREFIX + UUIDGenerator.generateRandomUUID(), //id
             "XDSSubmissionSet.patientId", //name
@@ -610,7 +616,7 @@ public class EBXMLRequestBuilder {
         StringBuffer pid5 = new StringBuffer();
         pid5.append("PID-5|");
 
-        if (names.size() > 0) {
+        if (!names.isEmpty()) {
             PNExplicit name = names.get(0);
             String lastName = "";
             String firstName = "";
@@ -629,9 +635,12 @@ public class EBXMLRequestBuilder {
                 }
             }
 
-            pid5.append(lastName + "^");
-            pid5.append(firstName + "^");
-            pid5.append(suffix + "^^");
+            pid5.append(lastName);
+            pid5.append('^');
+            pid5.append(firstName);
+            pid5.append('^');
+            pid5.append(suffix);
+            pid5.append("^^");
         }
 
         return pid5.toString();
@@ -642,7 +651,7 @@ public class EBXMLRequestBuilder {
         StringBuffer pid11 = new StringBuffer();
         pid11.append("PID-11|");
 
-        if (addresses.size() > 0) {
+        if (!addresses.isEmpty()) {
             ADExplicit address = addresses.get(0);
             String streetname = "";
             String city = "";
@@ -670,11 +679,16 @@ public class EBXMLRequestBuilder {
             }
 
             //PID-11|100 MainSt^^Riverton^Ut^84065^USA
-            pid11.append(streetname + "^^");
-            pid11.append(city + "^");
-            pid11.append(state + "^");
-            pid11.append(postalCode + "^");
-            pid11.append(country + "^");
+            pid11.append(streetname);
+            pid11.append("^^");
+            pid11.append(city);
+            pid11.append('^');
+            pid11.append(state);
+            pid11.append('^');
+            pid11.append(postalCode);
+            pid11.append('^');
+            pid11.append(country);
+            pid11.append('^');
         }
 
         return pid11.toString();

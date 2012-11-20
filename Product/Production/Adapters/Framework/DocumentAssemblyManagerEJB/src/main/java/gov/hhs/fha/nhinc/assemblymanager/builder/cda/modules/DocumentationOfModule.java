@@ -52,9 +52,14 @@ import org.hl7.v3.POCDMT000040ServiceEvent;
 public class DocumentationOfModule extends DocumentBuilder {
 
     private static Log log = LogFactory.getLog(ParticipantModule.class);
-    private static String SERVICE_EVENT_CLASS_CODE = "PCPR";
-    private static String EFFECTIVE_TIME_NULL_FLAVOR = "UNK";
+    private static final String SERVICE_EVENT_CLASS_CODE = "PCPR";
+    private static final String EFFECTIVE_TIME_NULL_FLAVOR = "UNK";
 
+    /**
+     *
+     * @return documentationOf
+     * @throws DocumentBuilderException
+     */
     public POCDMT000040DocumentationOf build() throws DocumentBuilderException {
         //create documentationOf object
         POCDMT000040DocumentationOf documentationOf = objectFactory.createPOCDMT000040DocumentationOf();

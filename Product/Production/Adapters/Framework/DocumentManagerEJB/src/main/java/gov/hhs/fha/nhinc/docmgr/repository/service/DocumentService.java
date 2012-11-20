@@ -38,6 +38,8 @@ import gov.hhs.fha.nhinc.docmgr.repository.model.DocumentQueryParams;
 import gov.hhs.fha.nhinc.docmgr.repository.model.EventCode;
 import gov.hhs.fha.nhinc.docmgr.repository.model.ExtraSlot;
 import gov.hhs.fha.nhinc.util.hash.SHA1HashCode;
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -45,13 +47,13 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * Persistence service for Document records
+ * Persistence service for Document records.
  * 
  * @author Neil Webb
  */
 public class DocumentService {
 
-    private static Log log = LogFactory.getLog(DocumentService.class);
+    private static final Log LOG = LogFactory.getLog(DocumentService.class);
 
     /**
      * Save a document record.
@@ -59,11 +61,11 @@ public class DocumentService {
      * @param document Document object to save.
      */
     public void saveDocument(Document document) {
-        log.debug("Saving a document");
+        LOG.debug("Saving a document");
         if (document != null) {
             if (document.getDocumentid() != null) {
-                if (log.isDebugEnabled()) {
-                    log.debug("Performing an update for document: " + document.getDocumentid().longValue());
+                if (LOG.isDebugEnabled()) {
+                    LOG.debug("Performing an update for document: " + document.getDocumentid().longValue());
                 }
                 Document ecDoc = getDocument(document.getDocumentid());
                 if (ecDoc != null) {
@@ -108,7 +110,7 @@ public class DocumentService {
                     }
                 }
             } else {
-                log.debug("Performing an insert");
+                LOG.debug("Performing an insert");
             }
 
             // Calculate the hash code.
@@ -117,19 +119,24 @@ public class DocumentService {
                 try {
                     String sHash = "";
                     sHash = SHA1HashCode.calculateSHA1(new String(document.getRawData()));
-                    if (log.isDebugEnabled()) {
-                        log.debug("Created Hash Code: " + sHash + " for string: " +
-                            new String(document.getRawData()));
+                    if (LOG.isDebugEnabled()) {
+                        LOG.debug("Created Hash Code: " + sHash + " for string: "
+                           + new String(document.getRawData()));
                     }
                     document.setHash(sHash);
-                } catch (Throwable t) {
-                    String sError = "Failed to create SHA-1 Hash code.  Error: " + t.getMessage() +
-                        "Data Text: " + new String(document.getRawData());
-                    log.error(sError, t);
+                } catch (NoSuchAlgorithmException nsae) {
+                    String sError = "Failed to create SHA-1 Hash code.  Error: " + nsae.getMessage()
+                        + "Data Text: " + new String(document.getRawData());
+                    LOG.error(sError, nsae);
+                } catch (UnsupportedEncodingException uee) {
+                    String sError = "Failed to create SHA-1 Hash code.  Error: " + uee.getMessage() 
+                        + "Data Text: " + new String(document.getRawData());
+                    LOG.error(sError, uee);
                 }
+
             } else {
                 document.setHash("");
-                log.warn("No SHA-1 Hash Code created because document was null.");
+                LOG.warn("No SHA-1 Hash Code created because document was null.");
             }
         }
 
@@ -138,14 +145,15 @@ public class DocumentService {
     }
 
     /**
-     * Delete a document
+     * Delete a document.
      * 
      * @param document Document to delete
      * @throws DocumentServiceException 
      */
     public void deleteDocument(Document document) throws DocumentServiceException {
-        log.debug("Deleting a document");
+        LOG.debug("Deleting a document");
         DocumentDao dao = new DocumentDao();
+        Document nDoc = null;
 
         if ((document != null) && (document.getDocumentid() == null) && (document.getDocumentUniqueId() != null)) {
             // Query by unique id and delete if only one exists.
@@ -155,9 +163,10 @@ public class DocumentService {
 
             List<Document> docs = documentQuery(params);
             if ((docs != null) && (docs.size() == 1)) {
-                document = docs.get(0);
+                nDoc = docs.get(0);
             } else {
-                throw new DocumentServiceException("Single document match not found for document unique id: " + document.getDocumentUniqueId());
+                throw new DocumentServiceException("Single document match not found for document unique id: "
+                    + document.getDocumentUniqueId());
             }
         } else {
             if (document == null) {
@@ -167,11 +176,11 @@ public class DocumentService {
             }
         }
 
-        dao.delete(document);
+        dao.delete(nDoc);
     }
 
     /**
-     * Retrieve a document by identifier
+     * Retrieve a document by identifier.
      * 
      * @param documentId Document identifier
      * @return Retrieved document
@@ -182,7 +191,7 @@ public class DocumentService {
     }
 
     /**
-     * Retrieves all documents
+     * Retrieves all documents.
      * 
      * @return All document records
      */
@@ -192,7 +201,7 @@ public class DocumentService {
     }
 
     /**
-     * Document query
+     * Document query.
      * 
      * @param params Document query parameters
      * @return Query results

@@ -60,8 +60,10 @@ import javax.xml.ws.WebServiceFeature;
 public class CommonDataLayerService
     extends Service {
 
-    private final static URL COMMONDATALAYERSERVICE_WSDL_LOCATION;
-    private final static Logger logger = Logger.getLogger(gov.hhs.fha.nhinc.adapter.commondatalayer.CommonDataLayerService.class.getName());
+    private static final URL COMMONDATALAYERSERVICE_WSDL_LOCATION;
+    private static final Logger LOG = Logger.getLogger(gov.hhs.fha.nhinc.adapter.commondatalayer.CommonDataLayerService.class.getName());
+    private static final String TARGET_NAMESPACE = "urn:gov:hhs:fha:nhinc:adapter:commondatalayer";
+    private static final String PORT_NAME = "CommonDataLayerPort";
 
     static {
 
@@ -79,9 +81,9 @@ public class CommonDataLayerService
 
         } catch (MalformedURLException e) {
 
-            logger.warning("Failed to create URL for the wsdl Location: 'file:/C:/Oracle/glassfish/domains/domain1/config/nhin/wsdl/AdapterCommonDataLayer.wsdl', retrying as a local file");
+            LOG.warning("Failed to create URL for the wsdl Location: 'file:/C:/Oracle/glassfish/domains/domain1/config/nhin/wsdl/AdapterCommonDataLayer.wsdl', retrying as a local file");
 
-            logger.warning(e.getMessage());
+            LOG.warning(e.getMessage());
 
         }
 
@@ -97,7 +99,7 @@ public class CommonDataLayerService
 
     public CommonDataLayerService() {
 
-        super(COMMONDATALAYERSERVICE_WSDL_LOCATION, new QName("urn:gov:hhs:fha:nhinc:adapter:commondatalayer",
+        super(COMMONDATALAYERSERVICE_WSDL_LOCATION, new QName(TARGET_NAMESPACE,
             "CommonDataLayerService"));
 
     }
@@ -110,10 +112,10 @@ public class CommonDataLayerService
      * 
      *         returns CommonDataLayerPortType
      */
-    @WebEndpoint(name = "CommonDataLayerPort")
+    @WebEndpoint(name = PORT_NAME)
     public CommonDataLayerPortType getCommonDataLayerPort() {
 
-        return super.getPort(new QName("urn:gov:hhs:fha:nhinc:adapter:commondatalayer", "CommonDataLayerPort"),
+        return super.getPort(new QName(TARGET_NAMESPACE, PORT_NAME),
             CommonDataLayerPortType.class);
 
     }
@@ -131,10 +133,10 @@ public class CommonDataLayerService
      * 
      *         returns CommonDataLayerPortType
      */
-    @WebEndpoint(name = "CommonDataLayerPort")
+    @WebEndpoint(name = PORT_NAME)
     public CommonDataLayerPortType getCommonDataLayerPort(WebServiceFeature... features) {
 
-        return super.getPort(new QName("urn:gov:hhs:fha:nhinc:adapter:commondatalayer", "CommonDataLayerPort"),
+        return super.getPort(new QName(TARGET_NAMESPACE, PORT_NAME),
             CommonDataLayerPortType.class, features);
 
     }

@@ -45,12 +45,15 @@ import gov.hhs.fha.nhinc.adapter.commondatalayer.mappers.constants.AdapterCommon
  */
 public class StaticFindPatientsQuery {
 
-    private static Log logger = LogFactory.getLog(StaticFindPatientsQuery.class);
+    private static final Log LOG = LogFactory.getLog(StaticFindPatientsQuery.class);
+    private static final String DEBUG_LINE_BREAK = "= = = = = = = = = = = = = = = = = = ="
+       + " = = = = = = = = = = = = = = = =";
 
-    public static FindPatientsPRPAMT201310UV02ResponseType createFindPatientsResponse(FindPatientsPRPAIN201305UV02RequestType request) {
+    public static FindPatientsPRPAMT201310UV02ResponseType createFindPatientsResponse(
+        FindPatientsPRPAIN201305UV02RequestType request) {
         FindPatientsPRPAMT201310UV02ResponseType response = new FindPatientsPRPAMT201310UV02ResponseType();
 
-        logger.debug("Creating Static Find Patients Data...");
+        LOG.debug("Creating Static Find Patients Data...");
 
         // check properties file for test/live data mode
         if (AdapterCommonDataLayerConstants.FIND_PATIENTS_TEST.equalsIgnoreCase("Y")) {
@@ -66,7 +69,8 @@ public class StaticFindPatientsQuery {
 
             PRPAIN201305UV02MCCIMT000100UV01Message query = request.getQuery();
             if (query != null) {
-                PRPAMT201306UV02ParameterList paramList = query.getControlActProcess().getQueryByParameter().getValue().getParameterList();
+                PRPAMT201306UV02ParameterList paramList
+                    = query.getControlActProcess().getQueryByParameter().getValue().getParameterList();
 
                 // get patient's first name
                 ptLastName = HL7Parser201305.ExtractPersonName(paramList).getLastName();
@@ -85,11 +89,11 @@ public class StaticFindPatientsQuery {
             response = StaticUtil.createFindPatientsResponse(receiverOID, ptLastName, ptFirstName, ptGender, ptDOB);
 
         } else {
-            logger.debug("= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =");
-            logger.debug("= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =");
-            logger.debug(" Insert Adapter Agency specific dynamic document data accessors here ");
-            logger.debug("= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =");
-            logger.debug("= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =");
+            LOG.debug(DEBUG_LINE_BREAK);
+            LOG.debug(DEBUG_LINE_BREAK);
+            LOG.debug(" Insert Adapter Agency specific dynamic document data accessors here ");
+            LOG.debug(DEBUG_LINE_BREAK);
+            LOG.debug(DEBUG_LINE_BREAK);
         }
 
         return response;

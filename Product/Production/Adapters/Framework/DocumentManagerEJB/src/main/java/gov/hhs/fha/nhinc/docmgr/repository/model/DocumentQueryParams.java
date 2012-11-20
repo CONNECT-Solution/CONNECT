@@ -34,7 +34,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Parameter object for document queries
+ * Parameter object for document queries.
  * 
  * @author Neil Webb
  */
@@ -53,98 +53,194 @@ public class DocumentQueryParams {
     private List<String> documentUniqueIds;
     private List<String> repositoryIds;
 
+    /**
+     *
+     * @return classCodes as List<String>
+     */
     public List<String> getClassCodes() {
         return classCodes;
     }
 
+    /**
+     *
+     * @param classCodes as List<String>
+     */
     public void setClassCodes(List<String> classCodes) {
         this.classCodes = classCodes;
     }
 
+    /**
+     *
+     * @return classCodeScheme as String
+     */
     public String getClassCodeScheme() {
         return classCodeScheme;
     }
 
+    /**
+     *
+     * @param classCodeScheme as String
+     */
     public void setClassCodeScheme(String classCodeScheme) {
         this.classCodeScheme = classCodeScheme;
     }
 
+    /**
+     *
+     * @return creationTimeFrom as Date
+     */
     public Date getCreationTimeFrom() {
         return creationTimeFrom;
     }
 
+    /**
+     *
+     * @param creationTimeFrom as Date
+     */
     public void setCreationTimeFrom(Date creationTimeFrom) {
         this.creationTimeFrom = creationTimeFrom;
     }
 
+    /**
+     *
+     * @return creationTimeTo as Date
+     */
     public Date getCreationTimeTo() {
         return creationTimeTo;
     }
 
+    /**
+     *
+     * @param creationTimeTo as Date
+     */
     public void setCreationTimeTo(Date creationTimeTo) {
         this.creationTimeTo = creationTimeTo;
     }
 
+    /**
+     *
+     * @return documentUniqueIds as List<String>
+     */
     public List<String> getDocumentUniqueIds() {
         return documentUniqueIds;
     }
 
-    public void setDocumentUniqueId(List<String> documentUniqueIds) {
-        this.documentUniqueIds = documentUniqueIds;
+    /**
+     *
+     * @param pDocumentUniqueIds as List<String>
+     */
+    public void setDocumentUniqueId(List<String> pDocumentUniqueIds) {
+        this.documentUniqueIds = pDocumentUniqueIds;
     }
 
+    /**
+     *
+     * @return repositoryIds as List<String>
+     */
     public List<String> getRepositoryIds() {
         return repositoryIds;
     }
 
+    /**
+     *
+     * @param repositoryIds as List<String>
+     */
     public void setRepositoryIds(List<String> repositoryIds) {
         this.repositoryIds = repositoryIds;
     }
 
+    /**
+     *
+     * @return patientId as String
+     */
     public String getPatientId() {
         return patientId;
     }
 
+    /**
+     *
+     * @param patientId as String
+     */
     public void setPatientId(String patientId) {
         this.patientId = patientId;
     }
 
+    /**
+     *
+     * @return serviceStartTimeFrom as Date
+     */
     public Date getServiceStartTimeFrom() {
         return serviceStartTimeFrom;
     }
 
+    /**
+     *
+     * @param serviceStartTimeFrom as Date
+     */
     public void setServiceStartTimeFrom(Date serviceStartTimeFrom) {
         this.serviceStartTimeFrom = serviceStartTimeFrom;
     }
 
+    /**
+     *
+     * @return serviceStartTimeTo as Date
+     */
     public Date getServiceStartTimeTo() {
         return serviceStartTimeTo;
     }
 
+    /**
+     *
+     * @param serviceStartTimeTo as Date
+     */
     public void setServiceStartTimeTo(Date serviceStartTimeTo) {
         this.serviceStartTimeTo = serviceStartTimeTo;
     }
 
+    /**
+     *
+     * @return serviceStopTimeFrom as Date
+     */
     public Date getServiceStopTimeFrom() {
         return serviceStopTimeFrom;
     }
 
+    /**
+     *
+     * @param serviceStopTimeFrom as Date
+     */
     public void setServiceStopTimeFrom(Date serviceStopTimeFrom) {
         this.serviceStopTimeFrom = serviceStopTimeFrom;
     }
 
+    /**
+     *
+     * @return serviceStopTimeTo as Date
+     */
     public Date getServiceStopTimeTo() {
         return serviceStopTimeTo;
     }
 
+    /**
+     *
+     * @param serviceStopTimeTo as Date
+     */
     public void setServiceStopTimeTo(Date serviceStopTimeTo) {
         this.serviceStopTimeTo = serviceStopTimeTo;
     }
 
+    /**
+     *
+     * @return statuses as List<String>
+     */
     public List<String> getStatuses() {
         return statuses;
     }
 
+    /**
+     *
+     * @param statuses as List<String>
+     */
     public void setStatuses(List<String> statuses) {
         this.statuses = statuses;
     }

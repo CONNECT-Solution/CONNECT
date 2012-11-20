@@ -38,47 +38,87 @@ package gov.hhs.fha.nhinc.docmgr.repository.model;
 public class EventCode {
 
     private Long eventCodeId;
-    private String eventCode;
+    private String eventCodeStr;
     private String eventCodeScheme;
     private String eventCodeDisplayName;
     private Document document;
 
+    /**
+     *
+     * @return eventCode as String
+     */
     public String getEventCode() {
-        return eventCode;
+        return eventCodeStr;
     }
 
+    /**
+     *
+     * @param eventCode as String
+     */
     public void setEventCode(String eventCode) {
-        this.eventCode = eventCode;
+        this.eventCodeStr = eventCode;
     }
 
+    /**
+     *
+     * @return eventCodeDisplayName as String
+     */
     public String getEventCodeDisplayName() {
         return eventCodeDisplayName;
     }
 
+    /**
+     *
+     * @param eventCodeDisplayName as String
+     */
     public void setEventCodeDisplayName(String eventCodeDisplayName) {
         this.eventCodeDisplayName = eventCodeDisplayName;
     }
 
+    /**
+     *
+     * @return eventCodeId Long
+     */
     public Long getEventCodeId() {
         return eventCodeId;
     }
 
+    /**
+     *
+     * @param eventCodeId as Long
+     */
     public void setEventCodeId(Long eventCodeId) {
         this.eventCodeId = eventCodeId;
     }
 
+    /**
+     *
+     * @return eventCodeScheme as String
+     */
     public String getEventCodeScheme() {
         return eventCodeScheme;
     }
 
+    /**
+     *
+     * @param eventCodeScheme as String
+     */
     public void setEventCodeScheme(String eventCodeScheme) {
         this.eventCodeScheme = eventCodeScheme;
     }
 
+    /**
+     *
+     * @return docuemnt as Document
+     */
     public Document getDocument() {
         return document;
     }
 
+    /**
+     *
+     * @param document as Document
+     */
     public void setDocument(Document document) {
         this.document = document;
     }

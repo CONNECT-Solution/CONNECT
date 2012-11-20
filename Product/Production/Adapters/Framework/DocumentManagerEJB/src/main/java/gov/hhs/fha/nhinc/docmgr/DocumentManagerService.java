@@ -38,32 +38,70 @@ import javax.xml.ws.BindingType;
  *
  * @author cmatser
  */
-@WebService(serviceName = "DocumentManager_Service", portName = "DocumentManager_Port_Soap", endpointInterface = "ihe.iti.xds_b._2007.DocumentManagerPortType", targetNamespace = "urn:ihe:iti:xds-b:2007", wsdlLocation = "META-INF/wsdl/DocumentManagerService/DocumentManager.wsdl")
+@WebService(serviceName = "DocumentManager_Service", portName = "DocumentManager_Port_Soap",
+endpointInterface = "ihe.iti.xds_b._2007.DocumentManagerPortType", targetNamespace = "urn:ihe:iti:xds-b:2007",
+    wsdlLocation = "META-INF/wsdl/DocumentManagerService/DocumentManager.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 @Stateless
 public class DocumentManagerService {
 
-    public oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse documentManagerQueryForDocument(oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest body) {
+    /**
+     *
+     * @param body AdhocQueryRequest
+     * @return AdhocQueryResponse
+     */
+    public oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse documentManagerQueryForDocument(
+        oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest body) {
         return new DocumentManagerImpl().documentManagerQueryForDocument(body);
     }
 
-    public ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType documentManagerRetrieveDocument(ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType body) {
+    /**
+     *
+     * @param body RetrieveDocumentSetRequestType
+     * @return RetrieveDocumentSetResponseType
+     */
+    public ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType documentManagerRetrieveDocument(
+        ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType body) {
         return new DocumentManagerImpl().documentManagerRetrieveDocument(body);
     }
 
-    public oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType documentManagerStoreDocument(ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType body) {
+    /**
+     *
+     * @param body ProvideAndRegisterDocumentSetRequestType
+     * @return RegistryResponseType
+     */
+    public oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType documentManagerStoreDocument(
+        ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType body) {
         return new DocumentManagerImpl().documentManagerStoreDocument(body);
     }
 
-    public oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType documentManagerArchiveDocument(gov.hhs.fha.nhinc.common.docmgr.ArchiveDocumentRequestType body) {
+    /**
+     *
+     * @param body ArchiveDocumentRequestType
+     * @return RegistryResponseType
+     */
+    public oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType documentManagerArchiveDocument(
+        gov.hhs.fha.nhinc.common.docmgr.ArchiveDocumentRequestType body) {
         return new DocumentManagerImpl().documentManagerArchiveDocument(body);
     }
 
-    public oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType documentManagerUpdateDocumentSlot(gov.hhs.fha.nhinc.common.docmgr.UpdateDocumentSlotRequestType body) {
+    /**
+     *
+     * @param body UpdateDocumentSlotRequestType
+     * @return RegistryResponseType
+     */
+    public oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType documentManagerUpdateDocumentSlot(
+        gov.hhs.fha.nhinc.common.docmgr.UpdateDocumentSlotRequestType body) {
         return new DocumentManagerImpl().documentManagerUpdateDocumentSlot(body);
     }
 
-    public gov.hhs.fha.nhinc.common.docmgr.GenerateUniqueIdResponseType generateUniqueId(gov.hhs.fha.nhinc.common.docmgr.GenerateUniqueIdRequestType request) {
+    /**
+     *
+     * @param request GenerateUniqueIdRequestType
+     * @return GenerateUniqueIdResponseType
+     */
+    public gov.hhs.fha.nhinc.common.docmgr.GenerateUniqueIdResponseType generateUniqueId(
+        gov.hhs.fha.nhinc.common.docmgr.GenerateUniqueIdRequestType request) {
         return new DocumentManagerImpl().generateUniqueId(request);
     }
 }

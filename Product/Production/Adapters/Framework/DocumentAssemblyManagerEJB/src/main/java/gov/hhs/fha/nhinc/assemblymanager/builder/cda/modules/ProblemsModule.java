@@ -79,14 +79,15 @@ import org.hl7.v3.XActRelationshipEntry;
  */
 public class ProblemsModule extends ModuleImpl {
 
-    private static Log log = LogFactory.getLog(ProblemsModule.class);
+    private static final Log LOG = LogFactory.getLog(ProblemsModule.class);
     private ProblemsSectionImpl section = null;
 
     public ProblemsModule(CdaTemplate template, CareRecordQUPCIN043200UV01ResponseType careRecordResponse) {
         super(template, careRecordResponse);
     }
 
-    public ProblemsModule(CdaTemplate template, CareRecordQUPCIN043200UV01ResponseType careRecordResponse, SectionImpl section) {
+    public ProblemsModule(CdaTemplate template, CareRecordQUPCIN043200UV01ResponseType careRecordResponse,
+        SectionImpl section) {
         super(template, careRecordResponse);
         this.section = (ProblemsSectionImpl) section;
     }
@@ -101,8 +102,10 @@ public class ProblemsModule extends ModuleImpl {
 
         List<REPCMT004000UV01PertinentInformation5> problemEvents = careProvisionEvent.getPertinentInformation3();
 
-        log.info("*******************  # of PROBLEM EVENTS: " + problemEvents.size());
-
+        if (LOG.isDebugEnabled()) {
+            LOG.info("*******************  # of PROBLEM EVENTS: " + problemEvents.size());
+        }
+   
         //counter for id values
         int counter = 0;
 
@@ -110,12 +113,12 @@ public class ProblemsModule extends ModuleImpl {
             entries.add(buildProblems(problemEvent, counter++));
         }
 
-        log.info("Entries:");
+        LOG.info("Entries:");
         for (int i = 0; i < entries.size(); i++) {
-            log.info(entries.get(i));
+            LOG.info(entries.get(i));
         }
 
-        if (entries.size() > 0) {
+        if (!entries.isEmpty()) {
             // problems
             return entries;
         } else {
@@ -124,7 +127,7 @@ public class ProblemsModule extends ModuleImpl {
     }
 
     private POCDMT000040Entry buildProblems(REPCMT004000UV01PertinentInformation5 problemEvent, int count) {
-        log.info("Inside buildProblems");
+        LOG.info("Inside buildProblems");
 
         POCDMT000040Entry problemEntry = new POCDMT000040Entry();
         problemEntry.setTypeCode(XActRelationshipEntry.DRIV);
@@ -185,13 +188,16 @@ public class ProblemsModule extends ModuleImpl {
         II id = new II();
 
         //create an id that is sequential and always clinical hash compliant
-        String idStr = "Problem Act Id " + String.valueOf(count);
+        String idStr = "Problem Act Id " + count;
         String idVal = UUIDGenerator.generateUUIDFromString(idStr);
 
         id.setRoot(idVal);
         act.getId().add(id);
-        log.debug("Problem act #" + String.valueOf(count) + " id = " + idVal);
 
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("Problem act #" + count + " id = " + idVal);
+        }
+        
         //unique observation id for this module entry
         if (problemObservation.getId().size() > 0) {
             //value returned from EHR
@@ -202,12 +208,15 @@ public class ProblemsModule extends ModuleImpl {
             II observationId = new II();
 
             //create an id that is sequential and always clinical hash compliant
-            String obsIdStr = "Problem Observation Id " + String.valueOf(count);
+            String obsIdStr = "Problem Observation Id " + count;
             String obsIdVal = UUIDGenerator.generateUUIDFromString(obsIdStr);
 
             observationId.setRoot(obsIdVal);
             actEntryRelationshipObs.getId().add(observationId);
-            log.debug("Problem observation #" + String.valueOf(count) + " id = " + obsIdVal);
+
+            if (LOG.isDebugEnabled()) {
+               LOG.debug("Problem observation #" + count + " id = " + obsIdVal);
+            }
         }
 
         // status code
@@ -236,7 +245,11 @@ public class ProblemsModule extends ModuleImpl {
 
             //actEntryRelationshipObs.setEffectiveTime(effectiveTime);
             actEntryRelationshipObs.setEffectiveTime(effectiveTime);
-            log.debug("Problem Event Date set to : " + effectiveTime.getValue());
+
+            if (LOG.isDebugEnabled()) {
+                LOG.debug("Problem Event Date set to : " + effectiveTime.getValue());
+            }
+            
         } else if (problemObservation.getText() != null) {
 
             //CHS returns problem date in text block
@@ -245,14 +258,17 @@ public class ProblemsModule extends ModuleImpl {
 
             if ((index >= 0) && (textValue.length() > index + 2)) {
                 String newText = textValue.substring(index + 2);
-                log.debug("Parsed effectiveDate from Text = " + newText);
 
+                if (LOG.isDebugEnabled()) {
+                    LOG.debug("Parsed effectiveDate from Text = " + newText);
+                }
+                
                 IVLTSExplicit effectiveTime = new IVLTSExplicit();
                 IVXBTSExplicit lowVal = new IVXBTSExplicit();
 
                 if (newText.trim().equals("No Date Recorded")) {
                     //set the low value to null flavor because date is unknown
-                    log.debug("No Problem Observation Date available. Set NullFlavor value");
+                    LOG.debug("No Problem Observation Date available. Set NullFlavor value");
                     //lowVal.getNullFlavor().add("UNK");
                     // lowVal.setValue("00000000");
                     lowVal.getNullFlavor().add("UNK");
@@ -260,15 +276,18 @@ public class ProblemsModule extends ModuleImpl {
                     lowVal.setValue(newText);
                 }
 
-                log.debug("Setting effectiveTime Low value...");
+                LOG.debug("Setting effectiveTime Low value...");
                 effectiveTime.getContent().add(this.objectFactory.createIVLTSExplicitLow(lowVal));
 
-                log.debug("Setting effectiveTime value...");
+                LOG.debug("Setting effectiveTime value...");
                 actEntryRelationshipObs.setEffectiveTime(effectiveTime);
-                log.debug("Problem Event Date set to : " + effectiveTime.getValue());
+
+                if (LOG.isDebugEnabled()) {
+                    LOG.debug("Problem Event Date set to : " + effectiveTime.getValue());
+                }
             }
         } else {
-            log.debug("Problem Event Date not found.");
+            LOG.debug("Problem Event Date not found.");
         }
 
         // Problem Type
@@ -332,7 +351,8 @@ public class ProblemsModule extends ModuleImpl {
                 }
 
                 if (performerAssignedEntity.getAssignedPerson() != null) {
-                    COCTMT090000UV01Person performerAssignedPerson = performerAssignedEntity.getAssignedPerson().getValue();
+                    COCTMT090000UV01Person performerAssignedPerson
+                        = performerAssignedEntity.getAssignedPerson().getValue();
                     POCDMT000040Person treatingProviderPerson = new POCDMT000040Person();
                     XMLUtil.setName(performerAssignedPerson.getName(), treatingProviderPerson);
                     assignedEntity.setAssignedPerson(treatingProviderPerson);

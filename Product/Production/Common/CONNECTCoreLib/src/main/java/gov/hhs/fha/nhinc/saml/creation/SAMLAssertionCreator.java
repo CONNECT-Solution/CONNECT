@@ -1,7 +1,8 @@
 /*
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
  *  
- * Copyright 2012(Year date of delivery) United States Government, as represented by the Secretary of Health and Human Services.  All rights reserved.
+ * Copyright 2012(Year date of delivery) United States Government, as represented by the
+ * Secretary of Health and Human Services.  All rights reserved.
  *  
  */
 /*
@@ -50,20 +51,27 @@ import org.apache.commons.logging.LogFactory;
 import java.util.List;
 import java.util.ArrayList;
 
-
+/**
+ *
+ * @author Administrator
+ */
 public class SAMLAssertionCreator {
 
     private static final String GATEWAY_PROPERTY_FILE_NAME = "gateway";
     private static final String SAML_ASSERTION_PROPERTY_FILE_NAME = "SAMLAssertions";
+    private static final Log LOG = LogFactory.getLog(SAMLAssertionCreator.class);
 
-    private static Log log = LogFactory.getLog(SAMLAssertionCreator.class);
-
+    /**
+     *
+     * @return AssertionType
+     */
     public AssertionType createAssertion() {
 
         AssertionType assertOut = new AssertionType();
-   
+
         SamlAuthzDecisionStatementType authzDecision = new SamlAuthzDecisionStatementType();
-        SamlAuthzDecisionStatementEvidenceAssertionType evidenceAssertion = new SamlAuthzDecisionStatementEvidenceAssertionType();
+        SamlAuthzDecisionStatementEvidenceAssertionType evidenceAssertion
+            = new SamlAuthzDecisionStatementEvidenceAssertionType();
         SamlAuthzDecisionStatementEvidenceType evidence = new SamlAuthzDecisionStatementEvidenceType();
 
         /* Put evidenceAssertion inside evidence and that inside authzDecision and that inside assertion*/
@@ -83,18 +91,26 @@ public class SAMLAssertionCreator {
         user.setRoleCoded(userRole);
         assertOut.setUserInfo(user);
 
-        CeType purposeOfUse= new CeType();
+        CeType purposeOfUse = new CeType();
         assertOut.setPurposeOfDisclosureCoded(purposeOfUse);
-        try {
-            String homeCommunityId = PropertyAccessor.getInstance().getProperty(GATEWAY_PROPERTY_FILE_NAME, SamlConstants.HOME_COMMUNITY_ID_PROP);
-            homeCommunity.setDescription(PropertyAccessor.getInstance().getProperty(GATEWAY_PROPERTY_FILE_NAME, SamlConstants.HOME_COMMUNITY_DESCRIPTION_PROP));
-            homeCommunity.setHomeCommunityId(homeCommunityId);
-            homeCommunity.setName(PropertyAccessor.getInstance().getProperty(SAML_ASSERTION_PROPERTY_FILE_NAME, SamlConstants.USER_ORG_PROP));
 
-            userPerson.setGivenName(PropertyAccessor.getInstance().getProperty(SAML_ASSERTION_PROPERTY_FILE_NAME, SamlConstants.USER_FIRST_PROP));
-            userPerson.setFamilyName(PropertyAccessor.getInstance().getProperty(SAML_ASSERTION_PROPERTY_FILE_NAME, SamlConstants.USER_LAST_PROP));
-            userPerson.setSecondNameOrInitials(PropertyAccessor.getInstance().getProperty(SAML_ASSERTION_PROPERTY_FILE_NAME,  SamlConstants.USER_MIDDLE_PROP));
-            String userFullName = userPerson.getGivenName() + " " + userPerson.getSecondNameOrInitials() + " " +userPerson.getFamilyName();
+        try {
+            String homeCommunityId = PropertyAccessor.getInstance().getProperty(GATEWAY_PROPERTY_FILE_NAME,
+                SamlConstants.HOME_COMMUNITY_ID_PROP);
+            homeCommunity.setDescription(PropertyAccessor.getInstance().getProperty(GATEWAY_PROPERTY_FILE_NAME,
+                SamlConstants.HOME_COMMUNITY_DESCRIPTION_PROP));
+            homeCommunity.setHomeCommunityId(homeCommunityId);
+            homeCommunity.setName(PropertyAccessor.getInstance().getProperty(SAML_ASSERTION_PROPERTY_FILE_NAME,
+                SamlConstants.USER_ORG_PROP));
+
+            userPerson.setGivenName(PropertyAccessor.getInstance().getProperty(SAML_ASSERTION_PROPERTY_FILE_NAME,
+                SamlConstants.USER_FIRST_PROP));
+            userPerson.setFamilyName(PropertyAccessor.getInstance().getProperty(SAML_ASSERTION_PROPERTY_FILE_NAME,
+                SamlConstants.USER_LAST_PROP));
+            userPerson.setSecondNameOrInitials(PropertyAccessor.getInstance().getProperty(
+                SAML_ASSERTION_PROPERTY_FILE_NAME, SamlConstants.USER_MIDDLE_PROP));
+            String userFullName = userPerson.getGivenName() + " " + userPerson.getSecondNameOrInitials()
+                + " " + userPerson.getFamilyName();
             userPerson.setFullName(userFullName);
             user.setOrg(homeCommunity);
 
@@ -104,135 +120,159 @@ public class SAMLAssertionCreator {
              * Authorization Framework Specification as the 
              * User’s plain-text Name Attribute
              */
-            user.setUserName(PropertyAccessor.getInstance().getProperty(SAML_ASSERTION_PROPERTY_FILE_NAME,  SamlConstants.USER_NAME_PROP));
+            user.setUserName(PropertyAccessor.getInstance().getProperty(SAML_ASSERTION_PROPERTY_FILE_NAME,
+                SamlConstants.USER_NAME_PROP));
 
-            userRole.setCode(PropertyAccessor.getInstance().getProperty(SAML_ASSERTION_PROPERTY_FILE_NAME, SamlConstants.USER_CODE_PROP));
-            userRole.setCodeSystem(PropertyAccessor.getInstance().getProperty(SAML_ASSERTION_PROPERTY_FILE_NAME, SamlConstants.USER_SYST_PROP));
-            userRole.setCodeSystemName(PropertyAccessor.getInstance().getProperty(SAML_ASSERTION_PROPERTY_FILE_NAME, SamlConstants.USER_SYST_NAME_PROP));
-            userRole.setDisplayName(PropertyAccessor.getInstance().getProperty(SAML_ASSERTION_PROPERTY_FILE_NAME, SamlConstants.USER_DISPLAY_PROP));
+            userRole.setCode(PropertyAccessor.getInstance().getProperty(SAML_ASSERTION_PROPERTY_FILE_NAME,
+                SamlConstants.USER_CODE_PROP));
+            userRole.setCodeSystem(PropertyAccessor.getInstance().getProperty(SAML_ASSERTION_PROPERTY_FILE_NAME,
+                SamlConstants.USER_SYST_PROP));
+            userRole.setCodeSystemName(PropertyAccessor.getInstance().getProperty(SAML_ASSERTION_PROPERTY_FILE_NAME,
+                SamlConstants.USER_SYST_NAME_PROP));
+            userRole.setDisplayName(PropertyAccessor.getInstance().getProperty(SAML_ASSERTION_PROPERTY_FILE_NAME,
+                SamlConstants.USER_DISPLAY_PROP));
 
-            purposeOfUse.setCode(PropertyAccessor.getInstance().getProperty(SAML_ASSERTION_PROPERTY_FILE_NAME, SamlConstants.PURPOSE_CODE_PROP));
-            log.debug("PURPOSE_OF_USE_CODE_SYSTEM_PROP =" + SamlConstants.PURPOSE_SYST_PROP);
-            purposeOfUse.setCodeSystem(PropertyAccessor.getInstance().getProperty(SAML_ASSERTION_PROPERTY_FILE_NAME, SamlConstants.PURPOSE_SYST_PROP));
-            purposeOfUse.setCodeSystemName(PropertyAccessor.getInstance().getProperty(SAML_ASSERTION_PROPERTY_FILE_NAME, SamlConstants.PURPOSE_SYST_NAME_PROP));
-            purposeOfUse.setDisplayName(PropertyAccessor.getInstance().getProperty(SAML_ASSERTION_PROPERTY_FILE_NAME, SamlConstants.PURPOSE_DISPLAY_PROP));
+            purposeOfUse.setCode(PropertyAccessor.getInstance().getProperty(SAML_ASSERTION_PROPERTY_FILE_NAME,
+                SamlConstants.PURPOSE_CODE_PROP));
+            if (LOG.isDebugEnabled())
+            {
+                LOG.debug("PURPOSE_OF_USE_CODE_SYSTEM_PROP =" + SamlConstants.PURPOSE_SYST_PROP);
+            }
+            
+            purposeOfUse.setCodeSystem(PropertyAccessor.getInstance().getProperty(SAML_ASSERTION_PROPERTY_FILE_NAME,
+                SamlConstants.PURPOSE_SYST_PROP));
+            purposeOfUse.setCodeSystemName(PropertyAccessor.getInstance().getProperty(SAML_ASSERTION_PROPERTY_FILE_NAME,
+                SamlConstants.PURPOSE_SYST_NAME_PROP));
+            purposeOfUse.setDisplayName(PropertyAccessor.getInstance().getProperty(SAML_ASSERTION_PROPERTY_FILE_NAME,
+                SamlConstants.PURPOSE_DISPLAY_PROP));
 
-            evidenceAssertion.setIssuer(PropertyAccessor.getInstance().getProperty(SAML_ASSERTION_PROPERTY_FILE_NAME, SamlConstants.USER_ORG_X509_NAME));
-            evidenceAssertion.setIssuerFormat(PropertyAccessor.getInstance().getProperty(SAML_ASSERTION_PROPERTY_FILE_NAME, SamlConstants.EVIDENCE_ISSUER_FORMAT_PROP));
-            evidenceAssertion.getAccessConsentPolicy().add(PropertyAccessor.getInstance().getProperty(SAML_ASSERTION_PROPERTY_FILE_NAME, SamlConstants.EVIDENCE_ACCESS_CONSENT_PROP));
+            evidenceAssertion.setIssuer(PropertyAccessor.getInstance().getProperty(SAML_ASSERTION_PROPERTY_FILE_NAME,
+                SamlConstants.USER_ORG_X509_NAME));
+            evidenceAssertion.setIssuerFormat(PropertyAccessor.getInstance().getProperty(
+                SAML_ASSERTION_PROPERTY_FILE_NAME, SamlConstants.EVIDENCE_ISSUER_FORMAT_PROP));
+            evidenceAssertion.getAccessConsentPolicy().add(PropertyAccessor.getInstance().getProperty(
+                SAML_ASSERTION_PROPERTY_FILE_NAME, SamlConstants.EVIDENCE_ACCESS_CONSENT_PROP));
         } catch (PropertyAccessException ex) {
-            log.error("Cannotaccess property: " + ex.getMessage());
+            LOG.error("Cannotaccess property: " + ex.getMessage());
         }
 
         return assertOut;
     }
-    public void SAMLDynamicUpdatePatientId(AssertionType current, String patientId)
-    {
-        List <String> patientIdList = null;
 
-        if (patientId == null) return;
-        if (current != null)
-        {
-            if ((patientIdList = current.getUniquePatientId()) != null)
-            {
+    /**
+     *
+     * @param current AssertionType
+     * @param patientId String
+     */
+    public void getSAMLDynamicUpdatePatientId(AssertionType current, String patientId) {
+        List<String> patientIdList = null;
+
+        if (patientId == null) {
+            return;
+        }
+        if (current != null) {
+            if (current.getUniquePatientId() != null) {
+                patientIdList = current.getUniquePatientId();
                 patientIdList.add(patientId);
-            }
-            else
-            {
+            } else {
                 patientIdList = new ArrayList();
                 patientIdList.add(patientId);
             }
-        }
-        else
-        {
-            log.error("Unable to update the SAML patientId. AssertionType not fully initialized.");            
+        } else {
+            LOG.error("Unable to update the SAML patientId. AssertionType not fully initialized.");
         }
     }
 
-    public void SAMLDynamicUpdateUserRole(AssertionType current, String code, String codeSystemId, String codeSystemName, String displayName)
-    {
-        if (current != null && current.getUserInfo() != null && current.getUserInfo()!=null)
-        {
+    /**
+     *
+     * @param current AssertionType
+     * @param code String
+     * @param codeSystemId String
+     * @param codeSystemName String
+     * @param displayName String
+     */
+    public void getSAMLDynamicUpdateUserRole(AssertionType current, String code, String codeSystemId,
+        String codeSystemName, String displayName) {
+        if (current != null && current.getUserInfo() != null && current.getUserInfo() != null) {
             CeType userRole = current.getUserInfo().getRoleCoded();
-            if (code != null) userRole.setCode(code);
-            if (codeSystemId != null) userRole.setCodeSystem(codeSystemId);
-            if (codeSystemName != null) userRole.setCodeSystemName(codeSystemName);
-            if (displayName != null) userRole.setDisplayName(displayName);
-        }
-        else
-        {
-            log.error("Unable to update the SAML role. AssertionType not fullyinitialized.");
+            if (code != null) {
+                userRole.setCode(code);
+            }
+            if (codeSystemId != null) {
+                userRole.setCodeSystem(codeSystemId);
+            }
+            if (codeSystemName != null) {
+                userRole.setCodeSystemName(codeSystemName);
+            }
+            if (displayName != null) {
+                userRole.setDisplayName(displayName);
+            }
+        } else {
+            LOG.error("Unable to update the SAML role. AssertionType not fullyinitialized.");
         }
     }
 
-    public void SAMLDynamicUpdatePersonAndUserName(AssertionType current, String firstName, String middleName, String lastName, String userId)
-    {
+    /**
+     *
+     * @param current AssertionType
+     * @param firstName String
+     * @param middleName String
+     * @param lastName String
+     * @param userId String
+     */
+    public void getSAMLDynamicUpdatePersonAndUserName(AssertionType current, String firstName, String middleName,
+        String lastName, String userId) {
         // Create a new PersonNameType object
         PersonNameType person = new PersonNameType();
 
-        String userFullName = null;
-        if (current != null)
-        {
-            if (firstName != null && firstName.length() > 0)
-            {
+        StringBuffer userFullName = new StringBuffer();
+        if (current != null) {
+            if (firstName != null && firstName.length() > 0) {
                 person.setGivenName(firstName);
-                userFullName = firstName;
-            }
-            else
-            {
+                userFullName.append(firstName);
+            } else {
                 person.setGivenName("Not specified");
             }
 
-            if (middleName != null &&  middleName.length() > 0)
-            {
+            if (middleName != null && middleName.length() > 0) {
                 person.setSecondNameOrInitials(middleName);
-                if (userFullName.length() > 0)
-                {
-                    userFullName += " " + middleName;
+                if (userFullName.length() > 0) {
+                    userFullName.append(' ');
+                    userFullName.append(middleName);
+                } else {
+                    userFullName.append(middleName);
                 }
-                else
-                {
-                    userFullName = middleName;
-                }
-            }
-            else
-            {
+            } else {
                 person.setSecondNameOrInitials("");
             }
-            if (lastName != null && lastName.length() > 0)
-            {
+            if (lastName != null && lastName.length() > 0) {
                 person.setFamilyName(lastName);
-                if (userFullName.length() > 0)
-                {
-                    userFullName += " " + lastName;
+                if (userFullName.length() > 0) {
+                    userFullName.append(' ');
+                    userFullName.append(lastName);
+                } else {
+                    userFullName.append(lastName);
                 }
-                else
-                {
-                    userFullName = lastName;
-                }
-            }
-            else
-            {
+            } else {
                 person.setFamilyName("Not Specified");
             }
-            person.setFullName(userFullName);
+            person.setFullName(userFullName.toString());
 
             // PersonType lives in two places inside AssertionTYpe
             current.setPersonName(person);
-            UserType user;
-            if ((user  = current.getUserInfo()) != null)
-            {
+            UserType user = null;
+            if (current.getUserInfo() != null) {
+                user = current.getUserInfo();
                 user.setPersonName(person);
                 user.setUserName(userId);
             }
             SamlAuthzDecisionStatementEvidenceAssertionType evidenceAssertion = null;
             SamlAuthzDecisionStatementType authzDecision = current.getSamlAuthzDecisionStatement();
-            if ((evidenceAssertion = current.getSamlAuthzDecisionStatement().getEvidence().getAssertion()) != null)
-            {
-                evidenceAssertion.setIssuer("XUID="+ user.getUserName());
+            if (current.getSamlAuthzDecisionStatement().getEvidence().getAssertion() != null) {
+                evidenceAssertion = current.getSamlAuthzDecisionStatement().getEvidence().getAssertion();
+                evidenceAssertion.setIssuer("XUID=" + user.getUserName());
             }
-            if (authzDecision != null)
-            {
+            if (authzDecision != null) {
                 authzDecision.setResource("UID=" + user.getUserName());
 
             }

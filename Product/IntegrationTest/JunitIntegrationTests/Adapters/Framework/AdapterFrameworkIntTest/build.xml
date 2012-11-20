@@ -20,14 +20,15 @@
 
     <!-- Add classes from other projects like so...-->
 	<pathelement path="${project.CONNECTCommonTypesLib.build.classes.dir}" />
-	<pathelement path="${project.AdapterDocumentRepository.build.classes.dir}" />
+
 	<pathelement path="${project.CONNECTCoreLib.build.classes.dir}" />
 	<pathelement path="${project.AdapterCommonDataLayerEJB.build.classes.dir}" />
 	<pathelement path="${project.DocumentAssemblyManagerEJB.build.classes.dir}" />
-	<pathelement path="${project.AdapterDocumentRepositoryEJB.build.classes.dir}" />
+
 	<pathelement path="${project.CONNECTCommonWeb.build.classes.dir}" />
-    <pathelement path="${project.TemplateManager.build.classes.dir}" />
-	<pathelement path="${project.AdapterMpiEJB.build.classes.dir}" />
+        <pathelement path="${project.TemplateManager.build.classes.dir}" />
+        <pathelement path="${project.DocumentManagerEJB.build.classes.dir}" />
+	<pathelement path="${project.AdapterMpiEJB.build.classes.dir}" /> 
   
   </path>
 

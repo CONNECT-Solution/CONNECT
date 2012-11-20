@@ -38,17 +38,21 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.PropertyResourceBundle;
 import java.util.Set;
+import javax.xml.parsers.ParserConfigurationException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Node;
+import org.xml.sax.SAXException;
 
 /**
  * Utility to load documents from an XML file into the database. 
@@ -58,13 +62,15 @@ import org.w3c.dom.Node;
 public class DocumentLoadUtil {
 
     private static final String DATE_FORMAT_STRING = "yyyyMMddhhmmssZ";
-    private static Log log = LogFactory.getLog(DocumentLoadUtil.class);
+    private static final Log LOG = LogFactory.getLog(DocumentLoadUtil.class);
+    private static final int BYTE_ARRAY_VAL = 1024;
+    private static final int THREAD_SLEEP_TIME = 500;
 
-    private static void loadData(String absoluteFilePath) throws Exception {
+    private static void loadData(String absoluteFilePath) throws ParserConfigurationException, SAXException, IOException {
         // Load file into XML
         Document doc = XmlUtil.getDocumentFromFile(absoluteFilePath);
         if (doc == null) {
-            throw new Exception("Could not load document from file for: " + absoluteFilePath);
+            throw new ParserConfigurationException("Could not load document from file for: " + absoluteFilePath);
         }
 
         // Traverse the DOM and load documents into database
@@ -79,11 +85,12 @@ public class DocumentLoadUtil {
         }
     }
 
-    private static void storeDocument(Element documentElement) throws Exception {
+    private static void storeDocument(Element documentElement)  {
         if (documentElement == null) {
-            throw new Exception("Document element was null.");
+            throw new NullPointerException("Document element was null.");
         }
-        gov.hhs.fha.nhinc.docmgr.repository.model.Document doc = new gov.hhs.fha.nhinc.docmgr.repository.model.Document();
+        gov.hhs.fha.nhinc.docmgr.repository.model.Document doc
+            = new gov.hhs.fha.nhinc.docmgr.repository.model.Document();
         doc.setDocumentid(getChildElementLongValue(documentElement, "documentId"));
         doc.setDocumentUniqueId(getChildElementStringValue(documentElement, "documentUniqueId"));
         doc.setRepositoryId("1");
@@ -98,7 +105,8 @@ public class DocumentLoadUtil {
         doc.setClassCodeDisplayName(getChildElementStringValue(documentElement, "classCodeDisplayName"));
         doc.setConfidentialityCode(getChildElementStringValue(documentElement, "confidentialityCode"));
         doc.setConfidentialityCodeScheme(getChildElementStringValue(documentElement, "confidentialityCodeScheme"));
-        doc.setConfidentialityCodeDisplayName(getChildElementStringValue(documentElement, "confidentialityCodeDisplayName"));
+        doc.setConfidentialityCodeDisplayName(getChildElementStringValue(documentElement,
+            "confidentialityCodeDisplayName"));
         doc.setFormatCode(getChildElementStringValue(documentElement, "formatCode"));
         doc.setFormatCodeScheme(getChildElementStringValue(documentElement, "formatCodeScheme"));
         doc.setFormatCodeDisplayName(getChildElementStringValue(documentElement, "formatCodeDisplayName"));
@@ -109,7 +117,8 @@ public class DocumentLoadUtil {
         doc.setFacilityCodeScheme(getChildElementStringValue(documentElement, "facilityCodeScheme"));
         doc.setFacilityCodeDisplayName(getChildElementStringValue(documentElement, "facilityCodeDisplayName"));
         doc.setIntendedRecipientPerson(getChildElementStringValue(documentElement, "intendedRecipientPerson"));
-        doc.setIntendedRecipientOrganization(getChildElementStringValue(documentElement, "intendedRecipientOrganization"));
+        doc.setIntendedRecipientOrganization(getChildElementStringValue(documentElement,
+            "intendedRecipientOrganization"));
         doc.setLanguageCode(getChildElementStringValue(documentElement, "languageCode"));
         doc.setLegalAuthenticator(getChildElementStringValue(documentElement, "legalAuthenticator"));
         doc.setMimeType(getChildElementStringValue(documentElement, "mimeType"));
@@ -133,10 +142,10 @@ public class DocumentLoadUtil {
 
         // Date fields
         doc.setCreationTime(parseDate(getChildElementStringValue(documentElement, "creationTime"), DATE_FORMAT_STRING));
-        doc.setServiceStartTime(parseDate(getChildElementStringValue(documentElement, "serviceStartTime"), DATE_FORMAT_STRING));
-        doc.setServiceStopTime(parseDate(getChildElementStringValue(documentElement, "serviceStopTime"), DATE_FORMAT_STRING));
-//        doc.setServiceStartTime(parseDate(getChildElementStringValue(documentElement, "serviceStartTime"), "yyyyMMddhhmmss"));
-//        doc.setServiceStopTime(parseDate(getChildElementStringValue(documentElement, "serviceStopTime"), "yyyyMMddhhmmss"));
+        doc.setServiceStartTime(parseDate(getChildElementStringValue(documentElement, "serviceStartTime"),
+            DATE_FORMAT_STRING));
+        doc.setServiceStopTime(parseDate(getChildElementStringValue(documentElement, "serviceStopTime"),
+            DATE_FORMAT_STRING));
 
         loadEventCodes(documentElement, doc);
 
@@ -149,11 +158,11 @@ public class DocumentLoadUtil {
         if ((value != null) && (dateFormat != null)) {
             try {
                 String formatString = prepareDateFormatString(dateFormat, value);
-                SimpleDateFormat dateFormatter = new SimpleDateFormat(formatString);
+                SimpleDateFormat dateFormatter = new SimpleDateFormat(formatString, Locale.getDefault());
                 parsedDate = dateFormatter.parse(value);
-            } catch (Throwable t) {
-                log.error("Error parsing date '" + value + "' using format: '" +
-                    dateFormat + "': " + t.getMessage(), t);
+            } catch (ParseException pe) {
+               LOG.error("Error parsing date '" + value + "' using format: '"
+                    + dateFormat + "': " + pe.getMessage(), pe);
             }
         }
         return parsedDate;
@@ -168,16 +177,18 @@ public class DocumentLoadUtil {
      */
     public static String prepareDateFormatString(String dateFormat, String dateString) {
         String formatString = dateFormat;
-        if ((dateString != null) && (dateFormat != null) && (dateString.length() > 0) && (dateString.length() < dateFormat.length())) {
+        if ((dateString != null) && (dateFormat != null) && (dateString.length() > 0)
+            && (dateString.length() < dateFormat.length())) {
             formatString = dateFormat.substring(0, dateString.length());
-            if (log.isDebugEnabled()) {
-                log.debug("New dateFormat: " + dateFormat);
+            if (LOG.isDebugEnabled()) {
+                LOG.debug("New dateFormat: " + dateFormat);
             }
         }
         return formatString;
     }
 
-    private static void loadEventCodes(Element documentElement, gov.hhs.fha.nhinc.docmgr.repository.model.Document doc) {
+    private static void loadEventCodes(Element documentElement,
+        gov.hhs.fha.nhinc.docmgr.repository.model.Document doc) {
         if (documentElement != null) {
             NodeList nodes = documentElement.getElementsByTagName("eventCode");
             if ((nodes != null) && (nodes.getLength() > 0)) {
@@ -189,10 +200,14 @@ public class DocumentLoadUtil {
                         Element eventCodeElement = (Element) node;
                         EventCode eventCode = new EventCode();
                         eventCode.setDocument(doc);
-                        eventCode.setEventCodeId(getChildElementLongValue(eventCodeElement, "codeId"));
-                        eventCode.setEventCode(getChildElementStringValue(eventCodeElement, "code"));
-                        eventCode.setEventCodeScheme(getChildElementStringValue(eventCodeElement, "codeSchema"));
-                        eventCode.setEventCodeDisplayName(getChildElementStringValue(eventCodeElement, "codeDisplayName"));
+                        eventCode.setEventCodeId(getChildElementLongValue(eventCodeElement,
+                            "codeId"));
+                        eventCode.setEventCode(getChildElementStringValue(eventCodeElement,
+                            "code"));
+                        eventCode.setEventCodeScheme(getChildElementStringValue(eventCodeElement,
+                            "codeSchema"));
+                        eventCode.setEventCodeDisplayName(getChildElementStringValue(eventCodeElement,
+                            "codeDisplayName"));
                         eventCodes.add(eventCode);
                     }
                 }
@@ -204,8 +219,8 @@ public class DocumentLoadUtil {
     private static String getChildElementStringValue(Element element, String childElementName) {
         String value = null;
         if ((element != null) && (childElementName != null)) {
-            if (log.isDebugEnabled()) {
-                log.debug("Extracting child element '" + childElementName + "' from '" + element.getTagName() + "'");
+            if (LOG.isDebugEnabled()) {
+                LOG.debug("Extracted child element '" + childElementName + "' from '" + element.getTagName() + "'");
             }
             NodeList nodes = element.getElementsByTagName(childElementName);
             if ((nodes != null) && (nodes.getLength() > 0)) {
@@ -222,8 +237,8 @@ public class DocumentLoadUtil {
     private static Long getChildElementLongValue(Element element, String childElementName) {
         Long value = null;
         if ((element != null) && (childElementName != null)) {
-            if (log.isDebugEnabled()) {
-                log.debug("Extracting child element '" + childElementName + "' from '" + element.getTagName() + "'");
+            if (LOG.isDebugEnabled()) {
+                LOG.debug("Extract child element '" + childElementName + "' from '" + element.getTagName() + "'");
             }
             NodeList nodes = element.getElementsByTagName(childElementName);
             if ((nodes != null) && (nodes.getLength() > 0)) {
@@ -234,8 +249,8 @@ public class DocumentLoadUtil {
                     if (strVal != null) {
                         try {
                             value = Long.parseLong(strVal);
-                        } catch (Throwable t) {
-                            log.error("Failed to parse long from '" + strVal + "'", t);
+                        } catch (NumberFormatException nfe) {
+                            LOG.error("Failed to parse long from '" + strVal + "'", nfe);
                         }
                     }
                 }
@@ -247,8 +262,8 @@ public class DocumentLoadUtil {
     private static Integer getChildElementIntegerValue(Element element, String childElementName) {
         Integer value = null;
         if ((element != null) && (childElementName != null)) {
-            if (log.isDebugEnabled()) {
-                log.debug("Extracting child element '" + childElementName + "' from '" + element.getTagName() + "'");
+            if (LOG.isDebugEnabled()) {
+                LOG.debug("Extracting element '" + childElementName + "' from '" + element.getTagName() + "'");
             }
             NodeList nodes = element.getElementsByTagName(childElementName);
             if ((nodes != null) && (nodes.getLength() > 0)) {
@@ -258,9 +273,9 @@ public class DocumentLoadUtil {
                     String strVal = childElement.getTextContent();
                     if (strVal != null) {
                         try {
-                            value = new Integer(strVal);
-                        } catch (Throwable t) {
-                            log.error("Failed to parse integer from '" + strVal + "'", t);
+                            value = Integer.valueOf(strVal);
+                        } catch (NumberFormatException nfe) {
+                            LOG.error("Failed to parse integer from '" + strVal + "'", nfe);
                         }
                     }
                 }
@@ -272,8 +287,8 @@ public class DocumentLoadUtil {
     private static byte[] getChildElementByteArray(Element element, String childElementName) {
         byte[] value = null;
         if ((element != null) && (childElementName != null)) {
-            if (log.isDebugEnabled()) {
-                log.debug("Extracting child element '" + childElementName + "' from '" + element.getTagName() + "'");
+            if (LOG.isDebugEnabled()) {
+                LOG.debug("Extracting child element '" + childElementName + "' from '" + element.getTagName() + "'");
             }
             NodeList nodes = element.getElementsByTagName(childElementName);
             if ((nodes != null) && (nodes.getLength() > 0)) {
@@ -305,7 +320,7 @@ public class DocumentLoadUtil {
         try {
             in = new FileInputStream(source);
             out = new FileOutputStream(dest);
-            byte[] buf = new byte[1024];
+            byte[] buf = new byte[BYTE_ARRAY_VAL];
             int len;
             while ((len = in.read(buf)) > 0) {
                 out.write(buf, 0, len);
@@ -325,10 +340,10 @@ public class DocumentLoadUtil {
         PropertyResourceBundle prop = (PropertyResourceBundle) PropertyResourceBundle.getBundle(propFileName);
         String inFilePath = prop.getString("inFilePath");
         String outFilePath = prop.getString("outFilePath");
-        log.info("In Put File Path -> " + inFilePath);
-        log.info("Out Put File Path -> " + outFilePath);
+        LOG.info("In Put File Path -> " + inFilePath);
+        LOG.info("Out Put File Path -> " + outFilePath);
         File inputfolder = new File(inFilePath);
-        File files[] = inputfolder.listFiles();
+        File[] files = inputfolder.listFiles();
         if (files.length != 0) {
             String inFileName = "";
             File destFile = null;
@@ -338,15 +353,19 @@ public class DocumentLoadUtil {
                     try {
                         absolutePath = inFile.getAbsolutePath();
                         try {
-                            log.info("absolutePath" + absolutePath);
+                            LOG.info("absolutePath" + absolutePath);
                             loadData(absolutePath);
-                        } catch (Throwable t) {
-                            log.debug("Failed to load documents: " + t.getMessage());
-                            t.printStackTrace();
+                        } catch (IOException ioe) {
+                            LOG.error("Failed to load docs: " + ioe.getMessage(), ioe);
+                        } catch (ParserConfigurationException pce) {
+                            LOG.error("Failed to load documents= " + pce.getMessage(), pce);
+                        } catch (SAXException sxe) {
+                            LOG.error("Failed to load documents: " + sxe.getMessage(), sxe);
                         }
-                        Thread.sleep(500);
+
+                        Thread.sleep(THREAD_SLEEP_TIME);
                     } catch (InterruptedException ex) {
-                        log.error(ex.getMessage());
+                        LOG.error(ex.getMessage(), ex);
                     }
                     inFileName = inFile.getName();
                     destFile = new File(outFilePath, inFileName);
@@ -354,12 +373,12 @@ public class DocumentLoadUtil {
                         copyFile(inFile, destFile);
                         //inFile.delete();
                     } catch (IOException ex) {
-                        log.error(ex.getMessage());
+                        LOG.error(ex.getMessage(), ex);
                     }
                 }
             }
         } else {
-            log.info("Input files Not found under the specific directory, Please verify filespath.properties and run again");
+            LOG.info("Input files Not found under the specific directory, verify filespath.properties and run again");
         }
     }
 
@@ -370,7 +389,7 @@ public class DocumentLoadUtil {
      * @param args Absolute path to source file as only parameter.
      */
     public static void main(String[] args) {
-        log.debug("Begin DocumentLoad");
+        LOG.debug("Begin DocumentLoad");
         try {
             if (args.length == 0) {
                 readFiles();
@@ -379,15 +398,18 @@ public class DocumentLoadUtil {
                 loadData(args[0]);
             }
             if (args.length > 1) {
-                throw new Exception("Only one argument of the absolute path to a " +
-                    "source file is expected or bunch files expected using a propery file, review ReadMe.tx before uploading");
+                throw new IndexOutOfBoundsException("Only one argument of the absolute path to a "
+                    + "source file is expected or bunch files expected , review ReaMe.tx before uploading");
             }
-
-        } catch (Throwable t) {
-            log.debug("Failed to load documents: " + t.getMessage());
-            t.printStackTrace();
+        } catch (ParserConfigurationException pce) {
+            LOG.error("Failed to load documents to repository: " + pce.getMessage(), pce);
+        } catch (SAXException sxe) {
+            LOG.error("Exception while loading docs: " + sxe.getMessage(), sxe);
+        } catch (IOException ioe) {
+            LOG.error("Exception while loading documents: " + ioe.getMessage(), ioe);
         }
-        log.debug("End DocumentLoad");
+
+        LOG.debug("End DocumentLoad");
         System.exit(0);
     }
 }

@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
-* Copyright (c) 2011, Conemaugh Valley Memorial Hospital
+ * Copyright (c) 2011, Conemaugh Valley Memorial Hospital
  *
  * This source is subject to the Conemaugh public license.  Please see the
  * license.txt file for more information.
@@ -31,7 +31,6 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-
 package universalclientgui;
 
 import java.util.HashMap;
@@ -41,14 +40,7 @@ import java.util.List;
 import gov.hhs.fha.nhinc.saml.creation.SAMLAssertionCreator;
 import gov.hhs.fha.nhinc.saml.creation.UserRolesSNOMED;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-/**
- *
- * @author rhaslam Northrop Grumman Information Systems
- * Under the Military Interoperable Digital Hospital Testbed Contract
- */
+import java.util.Map;
 
 /*
  * This code is currently duplicated in these projects
@@ -68,99 +60,106 @@ import org.apache.commons.logging.LogFactory;
  *      AssertionType obkect which is then used to populate the SAML header
  */
 
+/**
+ *
+ * @author rhaslam
+ *
+ */
 public class AuthenticatedUserInfo {
 
-    private HashMap<String,List> localAuthenticationData;
-    private HashMap<String,String> standardAuthenticationData;
-    private static HashMap<String,String> mapCHSOpenDSToStandard;
+    private Map<String, List> localAuthenticationData;
+    private Map<String, String> standardAuthenticationData;
+    private static Map<String, String> mapCHSOpenDSToStandard;
+    private final SAMLAssertionCreator assertionCreator;
+    private final AssertionType assertions;
     
-    private SAMLAssertionCreator assertionCreator;
-    private AssertionType assertions;
-
-    private static Log log = LogFactory.getLog(UserRolesSNOMED.class);
-
     /*
      * Establish the mapping between local keys and standard keys
      */
-
-    static
-    {        
-           mapCHSOpenDSToStandard = new HashMap<String,String>(5);
-           mapCHSOpenDSToStandard.put("givenname", "firstName");
-           mapCHSOpenDSToStandard.put("sn", "lastName");
-           mapCHSOpenDSToStandard.put("cn", "userName");
-           mapCHSOpenDSToStandard.put("employeetype", "userRole");
+    static {
+        mapCHSOpenDSToStandard = new HashMap<String, String>();
+        mapCHSOpenDSToStandard.put("givenname", "firstName");
+        mapCHSOpenDSToStandard.put("sn", "lastName");
+        mapCHSOpenDSToStandard.put("cn", "userName");
+        mapCHSOpenDSToStandard.put("employeetype", "userRole");
     }
 
     /*
      * Establish the base assertions
      */
-    public AuthenticatedUserInfo()
-    {
+    /**
+     *
+     */
+    public AuthenticatedUserInfo() {
         assertionCreator = new SAMLAssertionCreator();
         assertions = assertionCreator.createAssertion();
     }
 
-    public void setLocalUserData(HashMap<String,List> localData)
-    {
+    /**
+     *
+     * @param localData HashMap
+     */
+    public void setLocalUserData(Map<String, List> localData) {
         localAuthenticationData = localData;
-        standardAuthenticationData = new HashMap<String,String>(5);
+        standardAuthenticationData = new HashMap<String, String>();
         mapLocalToStandardData(mapCHSOpenDSToStandard);
     }
 
-    public AssertionType getAssertions()
-    {
+    /**
+     *
+     * @return AssertionType
+     */
+    public AssertionType getAssertions() {
         return assertions;
     }
 
-    private List getFromLocalMap(String name)
-    {
+    private List getFromLocalMap(String name) {
         return (List) localAuthenticationData.get(name);
     }
-    
-    public String getFromStandardMap(String name)
-    {
-        if (standardAuthenticationData != null)
-        {
+
+    /**
+     *
+     * @param name String
+     * @return String
+     */
+    public String getFromStandardMap(String name) {
+        if (standardAuthenticationData != null) {
             return (String) standardAuthenticationData.get(name);
-        }
-        else
-        {
+        } else {
             return null;
         }
     }
 
-    private void mapLocalToStandardData(HashMap<String,String>nameMap)
-    {
+    private void mapLocalToStandardData(Map<String, String> nameMap) {
         Iterator it = nameMap.keySet().iterator();
-        while(it.hasNext())
-        {
+        while (it.hasNext()) {
             String key = (String) it.next();
             List localDataList = getFromLocalMap(key);
-            if (localDataList != null)
-            {
+            if (localDataList != null) {
                 String localDataString = (String) localDataList.get(0);
                 String newKey = nameMap.get(key);
-                if (newKey != null)
-                {
+                if (newKey != null) {
                     standardAuthenticationData.put(newKey, localDataString);
                 }
             }
         }
     }
-    
-    public AssertionType establishSAMLHeaderValues()
-    {
-        assertionCreator.SAMLDynamicUpdatePersonAndUserName(
-                assertions,
-                getFromStandardMap("firstName"),
-                getFromStandardMap("middleName"),
-                getFromStandardMap("lastName"),
-                getFromStandardMap("userName"));
+
+    /**
+     *
+     * @return AssertionType
+     */
+    public AssertionType establishSAMLHeaderValues() {
+        assertionCreator.getSAMLDynamicUpdatePersonAndUserName(
+            assertions,
+            getFromStandardMap("firstName"),
+            getFromStandardMap("middleName"),
+            getFromStandardMap("lastName"),
+            getFromStandardMap("userName"));
 
         String userRole = (String) getFromStandardMap("userRole");
-        String nameAndCode[] = UserRolesSNOMED.getRoleNameAndCode(userRole);
-        assertionCreator.SAMLDynamicUpdateUserRole(
+        String[] nameAndCode = UserRolesSNOMED.getRoleNameAndCode(userRole);
+        assertionCreator.getSAMLDynamicUpdateUserRole(
             assertions,
             nameAndCode[1],
             UserRolesSNOMED.SNOMED_USER_ROLES_CODE_SYSTEM,
@@ -170,8 +169,11 @@ public class AuthenticatedUserInfo {
         return assertions;
     }
 
-    public void updateAssertedPatientId(String id)
-    {
-        assertionCreator.SAMLDynamicUpdatePatientId(assertions, id);
+    /**
+     *
+     * @param id String
+     */
+    public void updateAssertedPatientId(String id) {
+        assertionCreator.getSAMLDynamicUpdatePatientId(assertions, id);
     }
 }

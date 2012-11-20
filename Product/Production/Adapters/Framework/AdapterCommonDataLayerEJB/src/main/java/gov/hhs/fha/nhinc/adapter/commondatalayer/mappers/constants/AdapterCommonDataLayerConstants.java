@@ -31,6 +31,9 @@
 package gov.hhs.fha.nhinc.adapter.commondatalayer.mappers.constants;
 
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
+import gov.hhs.fha.nhinc.properties.PropertyAccessException;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * 
@@ -38,37 +41,129 @@ import gov.hhs.fha.nhinc.properties.PropertyAccessor;
  */
 public class AdapterCommonDataLayerConstants {
 
+    private static final Log LOG = LogFactory.getLog(AdapterCommonDataLayerConstants.class);
+
+    /**
+     *
+     */
     public static final String ADAPTER_PROPERTIES_FILENAME = "adapter_common_datalayer";
     // static data switches
+    /**
+     *
+     */
     public static final String ALLERGIES_TEST;
+    /**
+     *
+     */
     public static final String PROBLEMS_TEST;
+    /**
+     *
+     */
     public static final String PATIENT_INFO_TEST;
+    /**
+     *
+     */
     public static final String MEDICATIONS_TEST;
+    /**
+     * 
+     */
     public static final String FIND_PATIENTS_TEST;
+    /**
+     *
+     */
     public static final String FDWC_TEST;
     //Emulator Specific Constants
+    /**
+     *
+     */
     public static final String EMULATOR_DATA_LOCATION;
+    /**
+     *
+     */
     public static final String EMULATOR_ALLERGIES_TAG;
+    /**
+     *
+     */
     public static final String EMULATOR_PROBLEMS_TAG;
+    /**
+     *
+     */
     public static final String EMULATOR_MEDS_TAG;
+    /**
+     *
+     */
     public static final String EMULATOR_PATIENT_INFO_TAG;
+    /**
+     *
+     */
     public static final String EMULATOR_FIND_PATIENTS_TAG;
+    /**
+     *
+     */
     public static final String EMULATOR_FIND_PROVIDERS_TAG;
+    /**
+     *
+     */
     public static final String EMULATOR_FIND_DOCUMENT_TAG;
+    /**
+     *
+     */
     public static final String EMULATOR_FIND_DOCUMENT_WITH_CONTENT_TAG;
+    /**
+     *
+     */
     public static final String EMULATOR_ALLERGIES_RESPONSE_TYPE;
+    /**
+     *
+     */
     public static final String EMULATOR_PROBLEMS_RESPONSE_TYPE;
+    /**
+     *
+     */
     public static final String EMULATOR_MEDS_RESPONSE_TYPE;
+    /**
+     *
+     */
     public static final String EMULATOR_PATIENT_INFO_RESPONSE_TYPE;
+    /**
+     *
+     */
     public static final String EMULATOR_FIND_PATIENTS_RESPONSE_TYPE;
+    /**
+     *
+     */
     public static final String EMULATOR_FIND_PROVIDERS_RESPONSE_TYPE;
+    /**
+     *
+     */
     public static final String EMULATOR_FIND_DOCUMENT_RESPONSE_TYPE;
+    /**
+     *
+     */
     public static final String EMULATOR_FIND_DOCUMENT_WITH_CONTENT_RESPONSE_TYPE;
+    /**
+     *
+     */
     public static final String EMULATOR_NO_PATIENT_ID_LABEL;
+    /**
+     *
+     */
     public static final String EMULATOR_NO_LAST_NAME_LABEL;
+    /**
+     *
+     */
     public static final String EMULATOR_NO_FIRST_NAME_LABEL;
+    /**
+     *
+     */
     public static final String EMULATOR_NO_GENDER_LABEL;
+    /**
+     *
+     */
     public static final String EMULATOR_NO_DOB_LABEL;
+    /**
+     *
+     */
     public static final String EMULATOR_NO_PROVIDER_ID_LABEL;
 
     static {
@@ -127,23 +222,32 @@ public class AdapterCommonDataLayerConstants {
             sEMULATOR_FIND_PATIENTS_TAG = oProps.getProperty(ADAPTER_PROPERTIES_FILENAME, "find_patients_tag");
             sEMULATOR_FIND_PROVIDERS_TAG = oProps.getProperty(ADAPTER_PROPERTIES_FILENAME, "find_providers_tag");
             sEMULATOR_FIND_DOCUMENT_TAG = oProps.getProperty(ADAPTER_PROPERTIES_FILENAME, "find_document_tag");
-            sEMULATOR_FIND_DOCUMENT_WITH_CONTENT_TAG = oProps.getProperty(ADAPTER_PROPERTIES_FILENAME, "find_document_with_content_tag");
-            sEMULATOR_ALLERGIES_RESPONSE_TYPE = oProps.getProperty(ADAPTER_PROPERTIES_FILENAME, "allergies_response_type");
-            sEMULATOR_PROBLEMS_RESPONSE_TYPE = oProps.getProperty(ADAPTER_PROPERTIES_FILENAME, "problems_response_type");
-            sEMULATOR_MEDS_RESPONSE_TYPE = oProps.getProperty(ADAPTER_PROPERTIES_FILENAME, "meds_response_type");
-            sEMULATOR_PATIENT_INFO_RESPONSE_TYPE = oProps.getProperty(ADAPTER_PROPERTIES_FILENAME, "patient_info_response_type");
-            sEMULATOR_FIND_PATIENTS_RESPONSE_TYPE = oProps.getProperty(ADAPTER_PROPERTIES_FILENAME, "find_patients_response_type");
-            sEMULATOR_FIND_PROVIDERS_RESPONSE_TYPE = oProps.getProperty(ADAPTER_PROPERTIES_FILENAME, "find_providers_response_type");
-            sEMULATOR_FIND_DOCUMENT_RESPONSE_TYPE = oProps.getProperty(ADAPTER_PROPERTIES_FILENAME, "find_document_response_type");
-            sEMULATOR_FIND_DOCUMENT_WITH_CONTENT_RESPONSE_TYPE = oProps.getProperty(ADAPTER_PROPERTIES_FILENAME, "find_document_with_content_response_type");
+            sEMULATOR_FIND_DOCUMENT_WITH_CONTENT_TAG = oProps.getProperty(ADAPTER_PROPERTIES_FILENAME,
+                "find_document_with_content_tag");
+            sEMULATOR_ALLERGIES_RESPONSE_TYPE = oProps.getProperty(ADAPTER_PROPERTIES_FILENAME,
+                "allergies_response_type");
+            sEMULATOR_PROBLEMS_RESPONSE_TYPE = oProps.getProperty(ADAPTER_PROPERTIES_FILENAME,
+                "problems_response_type");
+            sEMULATOR_MEDS_RESPONSE_TYPE = oProps.getProperty(ADAPTER_PROPERTIES_FILENAME,
+                "meds_response_type");
+            sEMULATOR_PATIENT_INFO_RESPONSE_TYPE = oProps.getProperty(ADAPTER_PROPERTIES_FILENAME,
+                "patient_info_response_type");
+            sEMULATOR_FIND_PATIENTS_RESPONSE_TYPE = oProps.getProperty(ADAPTER_PROPERTIES_FILENAME,
+                "find_patients_response_type");
+            sEMULATOR_FIND_PROVIDERS_RESPONSE_TYPE = oProps.getProperty(ADAPTER_PROPERTIES_FILENAME,
+                "find_providers_response_type");
+            sEMULATOR_FIND_DOCUMENT_RESPONSE_TYPE = oProps.getProperty(ADAPTER_PROPERTIES_FILENAME,
+                "find_document_response_type");
+            sEMULATOR_FIND_DOCUMENT_WITH_CONTENT_RESPONSE_TYPE = oProps.getProperty(ADAPTER_PROPERTIES_FILENAME,
+                "find_document_with_content_response_type");
             sEMULATOR_NO_PATIENT_ID_LABEL = oProps.getProperty(ADAPTER_PROPERTIES_FILENAME, "unknown_patientID");
             sEMULATOR_NO_LAST_NAME_LABEL = oProps.getProperty(ADAPTER_PROPERTIES_FILENAME, "unknown_lastName");
             sEMULATOR_NO_FIRST_NAME_LABEL = oProps.getProperty(ADAPTER_PROPERTIES_FILENAME, "unknown_firstName");
             sEMULATOR_NO_GENDER_LABEL = oProps.getProperty(ADAPTER_PROPERTIES_FILENAME, "unknown_gender");
             sEMULATOR_NO_DOB_LABEL = oProps.getProperty(ADAPTER_PROPERTIES_FILENAME, "unknown_dob");
             sEMULATOR_NO_PROVIDER_ID_LABEL = oProps.getProperty(ADAPTER_PROPERTIES_FILENAME, "unknown_providerID");
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (PropertyAccessException e) {
+            LOG.error("Exception retrieving properties from adapter.properties file: ", e);
         }
 
         // static data tests

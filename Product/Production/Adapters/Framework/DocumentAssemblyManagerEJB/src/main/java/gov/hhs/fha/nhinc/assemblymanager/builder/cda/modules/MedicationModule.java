@@ -103,12 +103,13 @@ import java.util.StringTokenizer;
  */
 public class MedicationModule extends ModuleImpl {
 
-    private static Log log = LogFactory.getLog(MedicationModule.class);
+    private static final Log LOG = LogFactory.getLog(MedicationModule.class);
     private MedicationsSectionImpl section = null;
+    private static final String UNK_NULL_FLAVOR = "UNK";
 
-    public MedicationModule(CdaTemplate template, CareRecordQUPCIN043200UV01ResponseType careRecordResponse, SectionImpl section) {
+    public MedicationModule(CdaTemplate template, CareRecordQUPCIN043200UV01ResponseType careRecordResponse, SectionImpl pSection) {
         super(template, careRecordResponse);
-        this.section = (MedicationsSectionImpl) section;
+        section = (MedicationsSectionImpl) pSection;
 
     }
 
@@ -122,8 +123,10 @@ public class MedicationModule extends ModuleImpl {
 
         List<REPCMT004000UV01PertinentInformation5> medEvents = careProvisionEvent.getPertinentInformation3();
 
-        log.debug("*******************  # of MED EVENTS: " + medEvents.size());
-
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("*******************  # of MED EVENTS: " + medEvents.size());
+        }
+        
         //counter used to create unique id values
         int counter = 0;
 
@@ -131,7 +134,7 @@ public class MedicationModule extends ModuleImpl {
             entries.add(buildMedication(medEvent, counter++));
         }
 
-        if (entries.size() > 0) {
+        if (!entries.isEmpty()) {
             // medications
             return entries;
         } else {
@@ -173,8 +176,16 @@ public class MedicationModule extends ModuleImpl {
 
                     //create medication references to be used by MedicationsSectionImpl to create references
                     String medText = medEventSubsAdmin.getText().getContent().get(0).toString();
-                    int semicolonIndex = medText.indexOf(";");
-                    section.getSigs().put(medText.substring(0, semicolonIndex), medText.substring(semicolonIndex + 1, medText.length()));
+                    int semicolonIndex = medText.indexOf(';');
+
+                    if (semicolonIndex > 0) {
+                        section.getSigs().put(medText.substring(0, semicolonIndex),
+                            medText.substring(semicolonIndex + 1, medText.length()));
+                    }
+                    else {
+                        section.getSigs().put(medText, medText);
+                    }
+                    
                 }
 
                 II tempId = new II();
@@ -188,13 +199,15 @@ public class MedicationModule extends ModuleImpl {
                     II id = new II();
 
                     //create an id that is sequential and always clinical hash compliant
-                    String subsAdminIdStr = "Medication Substance Admin Id " + String.valueOf(count);
+                    String subsAdminIdStr = "Medication Substance Admin Id " + count;
                     String subsAdminIdVal = UUIDGenerator.generateUUIDFromString(subsAdminIdStr);
 
                     id.setRoot(subsAdminIdVal);
                     subsAdmin.getId().add(id);
-                    log.debug("Medication Substance Admin #" + String.valueOf(count) + " id = " + subsAdminIdVal);
 
+                    if (LOG.isDebugEnabled()) {
+                        LOG.debug("Medication Substance Admin #" + count + " id = " + subsAdminIdVal);
+                    }
                 }
 
                 // status code
@@ -272,7 +285,7 @@ public class MedicationModule extends ModuleImpl {
                                     }
 
                                 } catch (PropertyAccessException e) {
-                                    log.error("Exception during building of Medication Supply: " + e);
+                                    LOG.error("Exception during building of Medication Supply: ", e);
 
                                 }
 
@@ -293,12 +306,11 @@ public class MedicationModule extends ModuleImpl {
                             subsAdmin.getEntryRelationship().add(fullfillmentsInfo);
                         } // ---------    STATUS OF INFORMATION   ----------------
                         else if (sourceOf.getTypeCode().get(0).equalsIgnoreCase(CDAConstants.TYPE_CODE_REFR) &&
-                            sourceOf.getObservation() != null) {
-                            if (sourceOf.getObservation().getValue() != null) {
+                            sourceOf.getObservation() != null && sourceOf.getObservation().getValue() != null) {
+                        
                                 POCDMT000040EntryRelationship status =
                                     buildStatusOfMed(sourceOf.getObservation().getValue());
                                 subsAdmin.getEntryRelationship().add(status);
-                            }
                         }
                     }
                 }
@@ -365,7 +377,7 @@ public class MedicationModule extends ModuleImpl {
                 //originalText and reference
                 EDExplicit originalText = objectFactory.createEDExplicit();
                 TELExplicit telExpl = objectFactory.createTELExplicit();
-                telExpl.getNullFlavor().add("UNK");
+                telExpl.getNullFlavor().add(UNK_NULL_FLAVOR);
 
                 originalText.getContent().add(this.objectFactory.createEDExplicitReference(telExpl));
 
@@ -377,7 +389,7 @@ public class MedicationModule extends ModuleImpl {
                 List<Serializable> contents = admm.getDesc().getContent();
                 // no need to check for null as getContent() will returns
                 // a new ArrayList<Serializable>() when null.
-                if (contents.size() > 0) {
+                if (!contents.isEmpty()) {
                     ENExplicit name = new ENExplicit();
                     Serializable oContent = contents.get(0);
                     name.getContent().add(oContent);
@@ -402,9 +414,9 @@ public class MedicationModule extends ModuleImpl {
         POCDMT000040EntryRelationship entry = new POCDMT000040EntryRelationship();
         POCDMT000040Supply orderEntry = new POCDMT000040Supply();
 
-        log.debug("***********  MEDICATION ORDER INFORMATION  ***********");
+        LOG.debug("***********  MEDICATION ORDER INFORMATION  ***********");
 
-        try {
+//        try {
             entry.setTypeCode(XActRelationshipEntryRelationship.REFR);
 
             II templateId1 = new II();
@@ -436,7 +448,7 @@ public class MedicationModule extends ModuleImpl {
             } else {
                 //no id returned- set to nullFlavor
                 II supplyId = objectFactory.createII();
-                supplyId.getNullFlavor().add("UNK");
+                supplyId.getNullFlavor().add(UNK_NULL_FLAVOR);
                 orderEntry.getId().add(templateId1);
             }
 
@@ -458,7 +470,7 @@ public class MedicationModule extends ModuleImpl {
 
             // order information
             List<REPCMT000100UV01Author3> rxSupplyOrders = rxSupply.getAuthor();
-            if (rxSupplyOrders.size() > 0) {
+            if (!rxSupplyOrders.isEmpty()) {
                 REPCMT000100UV01Author3 rxSupplyOrder = rxSupplyOrders.get(0);
                 POCDMT000040Author orderEntryInfo = new POCDMT000040Author();
 
@@ -479,10 +491,10 @@ public class MedicationModule extends ModuleImpl {
 
                     //provider telecom and address
                     ADExplicit addr = objectFactory.createADExplicit();
-                    addr.getNullFlavor().add("UNK");
+                    addr.getNullFlavor().add(UNK_NULL_FLAVOR);
                     orderingProv.getAddr().add(addr);
                     TELExplicit telecom = objectFactory.createTELExplicit();
-                    telecom.getNullFlavor().add("UNK");
+                    telecom.getNullFlavor().add(UNK_NULL_FLAVOR);
                     orderingProv.getTelecom().add(telecom);
 
                     // provider name
@@ -501,9 +513,9 @@ public class MedicationModule extends ModuleImpl {
 
             entry.setSupply(orderEntry);
 
-        } catch (Exception e) {
-            log.error("Received exception(s) in buildOrderInfo()!", e);
-        }
+  //      } catch (Exception e) {
+  //          LOG.error("Received exception(s) in buildOrderInfo()!", e);
+   //     }
 
         return entry;
     }
@@ -517,9 +529,9 @@ public class MedicationModule extends ModuleImpl {
         POCDMT000040EntryRelationship entry = new POCDMT000040EntryRelationship();
         POCDMT000040Observation rxTypeEntry = new POCDMT000040Observation();
 
-        log.debug("***********  TYPE OF MEDICATION  ***********");
+        LOG.debug("***********  TYPE OF MEDICATION  ***********");
 
-        try {
+ //       try {
             entry.setTypeCode(XActRelationshipEntryRelationship.SUBJ);
 
             rxTypeEntry.getClassCode().add("OBS");
@@ -541,9 +553,9 @@ public class MedicationModule extends ModuleImpl {
             rxTypeEntry.setStatusCode(typeOfRx.getStatusCode());
 
             entry.setObservation(rxTypeEntry);
-        } catch (Exception e) {
-            log.error("Received exception(s) in buildTypeOfMedInfo()!", e);
-        }
+ //       } catch (Exception e) {
+ //           LOG.error("Received exception(s) in buildTypeOfMedInfo()!", e);
+ //       }
 
         return entry;
     }
@@ -552,9 +564,9 @@ public class MedicationModule extends ModuleImpl {
         POCDMT000040EntryRelationship entry = new POCDMT000040EntryRelationship();
         POCDMT000040Supply rxSupply = new POCDMT000040Supply();
 
-        log.debug("***********  FULLFILLMENT HISTORY INFORMATION  ***********");
+        LOG.debug("***********  FULLFILLMENT HISTORY INFORMATION  ***********");
 
-        try {
+ //       try {
             entry.setTypeCode(XActRelationshipEntryRelationship.REFR);
 
             rxSupply.setClassCode(ActClassSupply.SPLY);
@@ -601,9 +613,9 @@ public class MedicationModule extends ModuleImpl {
                         COCTMT090000UV01Person pharmacy = rxHistoryDispenser.getAssignedPerson().getValue();
                         POCDMT000040Person dispenser = new POCDMT000040Person();
 
-                        if (pharmacy.getName().size() > 0) {
+                        if (!pharmacy.getName().isEmpty()) {
                             List<ENExplicit> names = pharmacy.getName();
-                            if (names.size() > 0) {
+                            if (!names.isEmpty()) {
                                 ENExplicit name = names.get(0);
                                 for (int i = 0; i < name.getContent().size(); i++) {
                                     Object obj = name.getContent().get(i);
@@ -613,8 +625,10 @@ public class MedicationModule extends ModuleImpl {
                                         dispenser.getName().add(pObj);
                                         rxSupplyDispenser.setAssignedPerson(dispenser);
 
-                                        log.debug("Added pharmacy=" + (String) obj);
-
+                                        if (LOG.isDebugEnabled()) {
+                                            LOG.debug("Added pharmacy=" + (String) obj);
+                                        }
+              
                                         break;
                                     }
                                 }
@@ -628,9 +642,9 @@ public class MedicationModule extends ModuleImpl {
             }
 
             entry.setSupply(rxSupply);
-        } catch (Exception e) {
-            log.error("Received exception(s) in buildFullillmentsInfo()!", e);
-        }
+//        } catch (Exception e) {
+ //           LOG.error("Received exception(s) in buildFullillmentsInfo()!", e);
+//        }
 
         return entry;
     }
@@ -667,8 +681,8 @@ public class MedicationModule extends ModuleImpl {
         if (time != null && time.getContent().size() > 0) {
             JAXBElement o = (JAXBElement) time.getContent().get(0);
             if (o != null && o.getValue().getClass().getName().equalsIgnoreCase("org.hl7.v3.IVXBTSExplicit")) {
-                IVXBTSExplicit ob = (IVXBTSExplicit) o.getValue();
-                return ob;
+                return (IVXBTSExplicit) o.getValue();
+              
             }
         }
         return null;

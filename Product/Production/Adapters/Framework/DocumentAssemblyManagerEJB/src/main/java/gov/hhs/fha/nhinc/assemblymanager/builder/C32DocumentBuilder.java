@@ -65,31 +65,55 @@ import org.hl7.v3.TELExplicit;
  */
 public class C32DocumentBuilder extends DocumentBuilder {
 
-    private static Log log = LogFactory.getLog(C32DocumentBuilder.class);
+    private static final Log LOG = LogFactory.getLog(C32DocumentBuilder.class);
     private List<POCDMT000040ClinicalDocument> cdaDocumentList = null;
     private POCDMT000040ClinicalDocument c32Document = null;
     private String docId = "";
 
+    /**
+     *
+     */
     public C32DocumentBuilder() {
         super();
     }
 
+    /**
+     *
+     * @param sectionTemplates List
+     */
     public C32DocumentBuilder(List<CdaTemplate> sectionTemplates) {
         super(sectionTemplates);
     }
 
+    /**
+     *
+     * @param id String
+     */
     public C32DocumentBuilder(String id) {
         super(id);
     }
 
+    /**
+     *
+     * @return c32Document
+     */
     public POCDMT000040ClinicalDocument getCdaDocument() {
         return c32Document;
     }
 
+    /**
+     *
+     * @return docId
+     */
     public String getDocId() {
         return docId;
     }
 
+    /**
+     *
+     * @return cdaDocumentList
+     * @throws DocumentBuilderException DocumentBuilderException
+     */
     public List<POCDMT000040ClinicalDocument> build() throws DocumentBuilderException {
 
         if (documentType.getTypeId().equalsIgnoreCase(AssemblyConstants.C32_CLASS_CODE)) {
@@ -156,9 +180,9 @@ public class C32DocumentBuilder extends DocumentBuilder {
         unknownTele.getNullFlavor().add("UNK");
 
         //build title of document to conform with validation testing and set value to be same as code display name
-        STExplicit STEtitle = new STExplicit();
-        STEtitle.getContent().add(AssemblyConstants.C32_DISPLAY_NAME);
-        c32Document.setTitle(STEtitle);
+        STExplicit steTitle = new STExplicit();
+        steTitle.getContent().add(AssemblyConstants.C32_DISPLAY_NAME);
+        c32Document.setTitle(steTitle);
         // ClinicalDocument.effectiveTime: Signifies the document creation time, when the document
         // first came into being.  Default to "000000000000000-0000".  Actual value will be set when
         // response is formulated.
@@ -199,7 +223,7 @@ public class C32DocumentBuilder extends DocumentBuilder {
         try {
             recordTarget = rtModule.build(participant);
         } catch (DocumentBuilderException dbe) {
-            log.error("Unable to build a RECORD TARGET MODULE", dbe);
+            LOG.error("Unable to build a RECORD TARGET MODULE", dbe);
         }
 
         if (recordTarget != null) {
@@ -210,7 +234,7 @@ public class C32DocumentBuilder extends DocumentBuilder {
             try {
                 c32Document.getAuthor().add(author.build());
             } catch (DocumentBuilderException dbe) {
-                log.error("Unable to build an AUTHOR MODULE", dbe);
+                LOG.error("Unable to build an AUTHOR MODULE", dbe);
             }
 
             // Author.time
@@ -219,10 +243,11 @@ public class C32DocumentBuilder extends DocumentBuilder {
             }
             // informant: This module contains information about the original author
             InformationSource informant = new InformationSource();
+
             try {
                 c32Document.getInformant().add(informant.build());
             } catch (DocumentBuilderException dbe) {
-                log.error("Unable to build an INFORMATION SOURCE MODULE", dbe);
+                LOG.error("Unable to build an INFORMATION SOURCE MODULE", dbe);
             }
 
             // custodian: This module contains information about the custodian of records
@@ -230,36 +255,30 @@ public class C32DocumentBuilder extends DocumentBuilder {
             try {
                 c32Document.setCustodian(custodianModule.build());
             } catch (DocumentBuilderException dbe) {
-                log.error("Unable to build a CUSTODIAN MODULE", dbe);
+                LOG.error("Unable to build a CUSTODIAN MODULE", dbe);
             }
 
             //participant: This module contains emergency contact information
-            try {
-                c32Document.getParticipant().add(participant);//participantModule.build());
-            } catch (Exception dbe) {
-                log.error("Unable to build a PARTICIPANT module", dbe);
-            }
-
+            c32Document.getParticipant().add(participant); //participantModule.build());
+     
             org.hl7.v3.POCDMT000040Person ap = null;
-            if ((ap = participant.getAssociatedEntity().getAssociatedPerson()) != null) {
-                if (ap.getName().isEmpty()) {
-                    participant = null;
-                }
+            ap = participant.getAssociatedEntity().getAssociatedPerson();
 
+            if (ap != null && ap.getName().isEmpty()) {
+                    participant = null;
             }
+            
             // Fix Participant if telephone is missing.
             List<TELExplicit> tele = participant.getAssociatedEntity().getTelecom();
-            if ((tele.size() == 0) || (tele.get(0) == null) || (tele.get(0).getValue() == null) || (tele.get(0).getValue().equals(""))) {
+            if ((tele.isEmpty()) || (tele.get(0) == null) || (tele.get(0).getValue() == null)
+                || (tele.get(0).getValue().equals(""))) {
                 participant.getAssociatedEntity().getTelecom().add(unknownTele);
             }
             //documentationOf (serviceEvent)
             DocumentationOfModule documentationOfModule = new DocumentationOfModule();
-            try {
-                c32Document.getDocumentationOf().add(documentationOfModule.build());//documentationOfModule.build();
-            } catch (Exception dbe) {
-                log.error("Unable to build a documentationOf module", dbe);
-            }
-            // now build the applicable clinical domain section(s)
+            c32Document.getDocumentationOf().add(documentationOfModule.build()); //documentationOfModule.build();
+
+                // now build the applicable clinical domain section(s)
             POCDMT000040Component2 clinicalComponent = new POCDMT000040Component2();
             POCDMT000040StructuredBody structBody = new POCDMT000040StructuredBody();
 
@@ -267,14 +286,12 @@ public class C32DocumentBuilder extends DocumentBuilder {
                 CdaTemplate template = null;
                 for (int i = 0; i < this.templates.size(); i++) {
                     template = templates.get(i);
-                    log.info("Build section(POCDMT000040Component3) - template:" + template);
+                    LOG.info("Build section(POCDMT000040Component3) - template:" + template);
                     POCDMT000040Component3 component = null;
-                    try {
+                  
                         component = StructureComponentFactoryBuilder.createHITSPComponent(subjectId, template);
-                    } catch (Exception e) {
-                        log.error("Failed to build (section) template:" + template + "due to the following: " + e);
-                    }
-                    if (component != null) {
+
+                        if (component != null) {
                         structBody.getComponent().add(component);
                         clinicalComponent.setStructuredBody(structBody);
                         c32Document.setComponent(clinicalComponent);
@@ -284,21 +301,23 @@ public class C32DocumentBuilder extends DocumentBuilder {
                 }
                 if (structBody.getComponent().size() == 0) {
                     c32Document = null;
-                    log.info("No C32 document created for patient(" + subjectId.getExtension() + ")- no medical information returned from EMR system.");
+                    LOG.info("No C32 document created for patient(" + subjectId.getExtension()
+                        + ")- no medical information returned from EMR system.");
                 } else {
-                    log.info("Created C32 document for patient(" + subjectId.getExtension() + "), docId(" + docId + ")");
+                    LOG.info("Created C32 document for patient(" + subjectId.getExtension()
+                        + "), docId(" + docId + ")");
                 }
             }
         } else {
             c32Document = null;
-            log.info("C32 not created - no Patient Demographic information returned...");
+            LOG.info("C32 not created - no Patient Demographic information returned...");
         }
 
         //Add the current CDA document to the document list
         if (c32Document != null) {
             cdaDocumentList.add(c32Document);
-            log.debug("C32 Clinical Document Complete. Content follows:");
-            log.debug(XMLUtil.toPrettyXML(c32Document));
+            LOG.debug("C32 Clinical Document Complete. Content follows:");
+            LOG.debug(XMLUtil.toPrettyXML(c32Document));
         }
     }
 }

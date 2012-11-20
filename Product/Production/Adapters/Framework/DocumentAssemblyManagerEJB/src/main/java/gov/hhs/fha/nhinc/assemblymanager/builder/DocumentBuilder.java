@@ -74,7 +74,7 @@ public abstract class DocumentBuilder {
     public static final String INFO_SOURCE_STATE = "State";
     public static final String INFO_SOURCE_ZIP = "Zip";
     public static final String INFO_SOURCE_TELECOM = "Telecom";
-    private Log log = null;
+    private static final Log LOG = LogFactory.getLog(DocumentBuilder.class);
 
     public DocumentBuilder() {
         initialize();
@@ -104,16 +104,13 @@ public abstract class DocumentBuilder {
 
         }
 
-        log = createLogger();
+      
         orgOID = AssemblyConstants.ORGANIZATION_OID;
         orgName = AssemblyConstants.ORGANIZATION_NAME;
 
     }
 
-    protected Log createLogger() {
-        return ((log != null) ? log : LogFactory.getLog(getClass()));
-    }
-
+  
     public String getPatientId() {
 
         return patientId;
@@ -168,9 +165,13 @@ public abstract class DocumentBuilder {
         String property = "";
         try {
             property = getInfoSourceProperty(contentChoice);
-            log.debug("Retrieved from property file (" + INFO_SOURCE_FILE + ".properties) " + contentChoice + "='" + property + "')");
+            if (LOG.isDebugEnabled()) {
+                LOG.debug("Retrieved from property file (" + INFO_SOURCE_FILE + ".properties) "
+                    + contentChoice + "='" + property + "')");
+            }
         } catch (PropertyAccessException ex) {
-            log.warn("Error occurred reading retry attempts value from property file (" + INFO_SOURCE_FILE + ".properties).  Exception = " + ex.toString());
+            LOG.error("Error occurred reading retry attempts value from property file (" + INFO_SOURCE_FILE
+                + ".properties).  Exception = ", ex);
         }
         return property;
     }
