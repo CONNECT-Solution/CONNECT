@@ -19,7 +19,7 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
 
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:nhinadmindistribution" id="NhinAdministrativeDistribution"
         address="/NhinService/NhinAdminDist" serviceName="tns:RespondingGateway_AdministrativeDistribution"
-        endpointName="tns:RespondingGateway_AdministrativeDistribution_PortType" implementorClass="gov.hhs.fha.nhinc.admindistribution._10.nhin.NhinAdministrativeDistribution"
+        endpointName="tns:RespondingGateway_AdministrativeDistribution_PortType"
         implementor="#NhinAdministrativeDistributionBean" wsdlLocation="classpath:wsdl/NhinAdminDist.wsdl">
         <jaxws:properties>
             <entry key="ws-security.callback-handler" value="gov.hhs.fha.nhinc.callback.cxf.CXFSAMLCallbackHandler" />
@@ -50,7 +50,7 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
 
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:entityadmindistribution" id="EntityAdministrativeDistributionSecured"
         address="/AdministrativeDistributionSecured_Service" serviceName="tns:AdministrativeDistributionSecured_Service"
-        endpointName="tns:AdministrativeDistributionSecured_PortType" implementorClass="gov.hhs.fha.nhinc.admindistribution._10.entity.EntityAdministrativeDistributionSecured"
+        endpointName="tns:AdministrativeDistributionSecured_PortType"
         implementor="#EntityAdministrativeDistributionSecuredBean" wsdlLocation="classpath:wsdl/EntityAdminDistSecured.wsdl">
         <jaxws:properties>
             <entry key="ws-security.callback-handler" value="gov.hhs.fha.nhinc.callback.cxf.CXFSAMLCallbackHandler" />
@@ -75,7 +75,7 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
 
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:entityadmindistribution" id="EntityAdministrativeDistribution"
         address="/AdministrativeDistribution_Service" serviceName="tns:AdministrativeDistribution_Service" endpointName="tns:AdministrativeDistribution_PortType"
-        implementorClass="gov.hhs.fha.nhinc.admindistribution._10.entity.EntityAdministrativeDistribution" implementor="#EntityAdministrativeDistributionBean"
+        implementor="#EntityAdministrativeDistributionBean"
         wsdlLocation="classpath:wsdl/EntityAdminDist.wsdl">
         <jaxws:handlers>
             <ref bean="TransactionHandler" />
@@ -84,43 +84,5 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
             <entry key="mtom-enabled" value="true" />
         </jaxws:properties>
     </jaxws:endpoint>
-
-    <!-- MsgProxy/NhincProxy/Passthru services -->
-
-    <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:nhincadmindistribution" id="NhincAdminDistSecured"
-        address="/MsgProxy/NhincProxyAdminDistSecured" serviceName="tns:NhincAdminDistSecuredService" endpointName="tns:NhincAdminDistSecured_PortType"
-        implementorClass="gov.hhs.fha.nhinc.admindistribution._10.passthru.NhincAdminDistSecured" implementor="#NhincAdminDistSecuredBean"
-        wsdlLocation="classpath:wsdl/NhincAdminDistSecured.wsdl">
-        <jaxws:properties>
-            <entry key="ws-security.callback-handler" value="gov.hhs.fha.nhinc.callback.cxf.CXFSAMLCallbackHandler" />
-            <entry key="ws-security.signature.properties" value="keystore.properties" />
-            <entry key="ws-security.encryption.properties" value="truststore.properties" />
-            <entry key="mtom-enabled" value="true" />
-            <entry key="ws-security.timestamp.validator">
-                <bean class="gov.hhs.fha.nhinc.callback.cxf.largefile.TimestampValidator" />
-            </entry>
-        </jaxws:properties>
-        <jaxws:inInterceptors>
-            <ref bean="timestampInInterceptor" />
-            <ref bean="securityInInterceptor" />
-        </jaxws:inInterceptors>
-        <jaxws:outFaultInterceptors>
-            <ref bean="attachmentFaultOutInterceptor" />
-        </jaxws:outFaultInterceptors>
-        <jaxws:handlers>
-            <ref bean="TransactionHandler" />
-        </jaxws:handlers>
-    </jaxws:endpoint>
-
-    <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:nhincadmindistribution" id="NhincAdminDist"
-        address="/MsgProxy/NhincProxyAdminDist" serviceName="tns:NhincAdminDistService" endpointName="tns:NhincAdminDist_PortType"
-        implementorClass="gov.hhs.fha.nhinc.admindistribution._10.passthru.NhincAdminDist" implementor="#NhincAdminDistBean"
-        wsdlLocation="classpath:wsdl/NhincAdminDist.wsdl">
-        <jaxws:handlers>
-            <ref bean="TransactionHandler" />
-        </jaxws:handlers>
-        <jaxws:properties>
-            <entry key="mtom-enabled" value="true" />
-        </jaxws:properties>
-    </jaxws:endpoint>
+    
 </beans>
