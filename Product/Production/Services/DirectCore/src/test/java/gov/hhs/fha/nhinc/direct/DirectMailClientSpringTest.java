@@ -115,6 +115,17 @@ public class DirectMailClientSpringTest {
         assertNotSame(inboundMessageHandlerSoap, inboundMessageHandlerSmtp);
     }    
 
+    @Test
+    public void canRunScheduledTaskEveryOneSec() throws InterruptedException {
+        Thread.sleep(2000);
+        
+        int internalInvocations = intDirectMailClient.getHandlerInvocations();
+        int externalInvocations = extDirectMailClient.getHandlerInvocations();
+        
+        assert(internalInvocations >= 2);
+        assert(externalInvocations >= 2);
+    }
+    
     /**
      * Tear down keystore created in setup.
      */

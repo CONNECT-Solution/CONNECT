@@ -48,11 +48,12 @@ import org.nhindirect.gateway.smtp.MessageProcessResult;
 import org.nhindirect.gateway.smtp.SmtpAgent;
 import org.nhindirect.stagent.mail.notifications.NotificationMessage;
 import org.nhindirect.xd.common.DirectDocuments;
+import org.springframework.beans.factory.InitializingBean;
 
 /**
  * Mail Server implementation which used the direct libraries to send encrypted mail.
  */
-public class DirectMailClient implements DirectClient {
+public class DirectMailClient implements DirectClient, InitializingBean {
 
     private static final Log LOG = LogFactory.getLog(DirectMailClient.class);
 
@@ -65,11 +66,16 @@ public class DirectMailClient implements DirectClient {
     private final Properties mailServerProps;
     private final SmtpAgent smtpAgent;
 
+    private MessageHandler messageHandler;
+    
+    private int handlerInvocations = 0;
+
     /**
      * Construct a direct mail server with mail server settings.
      *
      * @param mailServerProps used to define this mail server
      * @param smtpAgent direct smtp agent config file path relative to classpath used to configure SmtpAgent
+     * @param message handler for handling messages from the server.
      */
     public DirectMailClient(final Properties mailServerProps, final SmtpAgent smtpAgent) {
         this.mailServerProps = mailServerProps;
@@ -122,18 +128,15 @@ public class DirectMailClient implements DirectClient {
             LOG.trace("Calling agent.processMessage");
             Session session = getMailSession();
 
-           if (result.getProcessedMessage() != null)
-           {
+           if (result.getProcessedMessage() != null) {
                transport = session.getTransport("smtps");
                transport.connect();
                Address[] addressTo = { recipient };
                Collection<NotificationMessage> notifications = result.getNotificationMessages();
 
                LOG.info("# of notifications message: " + notifications.size());
-               if (notifications != null && notifications.size() > 0)
-               {
-                   for (NotificationMessage mdnMsg : notifications)
-                   {
+               if (notifications != null && notifications.size() > 0) {
+                   for (NotificationMessage mdnMsg : notifications) {
                        transport.sendMessage(mdnMsg, addressTo);
                        LOG.info("MDN notification sent.");
                    }
@@ -141,9 +144,8 @@ public class DirectMailClient implements DirectClient {
            }
            transport.close();
        }
-       catch (Exception e)
-       {
-           LOG.error("Failed to process message: " + e.getMessage(), e);
+       catch (Exception e) {
+           throw new DirectException("Failed to process and send MDN message: " + e.getMessage(), e);
        }
 
     }
@@ -152,12 +154,16 @@ public class DirectMailClient implements DirectClient {
      * {@inheritDoc}
      */
     @Override
-    public int handleMessages(MessageHandler handler) {
+    public int handleMessages() {
 
-        Session session = getMailSession();
-        session.setDebug(true);
-        session.setDebugOut(System.out);
+        int numberOfMsgsHandled = 0;
+        handlerInvocations++;
+        LOG.info("handleMessages() invoked [" + mailServerProps.getProperty("mail.imaps.host") + "], handler: "
+                + messageHandler.getClass().getName() + ", invocation count: " + handlerInvocations);
         
+        Session session = getMailSession();
+        session.setDebug(Boolean.parseBoolean(mailServerProps.getProperty("direct.mail.session.debug")));
+        session.setDebugOut(System.out);
         
         Store store = null;
         try {
@@ -190,12 +196,11 @@ public class DirectMailClient implements DirectClient {
             throw new DirectException("Exception while retrieving messages from inbox.", e);
         } 
         
-        int numberOfHandledMsgs = 0;
         for (Message message : messages) {
             try {
                 if ((message instanceof MimeMessage)) {
-                    handler.handleMessage((MimeMessage) message, this);
-                    numberOfHandledMsgs++;
+                    messageHandler.handleMessage((MimeMessage) message, this);
+                    numberOfMsgsHandled++;
                 }
                 message.setFlag(Flags.Flag.DELETED, true);
             } catch (Exception e) {
@@ -204,9 +209,10 @@ public class DirectMailClient implements DirectClient {
                 throw new DirectException("Exception while handling message.", e);
             }
         }
+        LOG.info("Handled " + numberOfMsgsHandled + " messages.");
 
         MailUtils.closeQuietly(store, inbox, MailUtils.FOLDER_EXPUNGE_INBOX_TRUE);
-        return numberOfHandledMsgs;
+        return numberOfMsgsHandled;
     }
     
     /**
@@ -215,7 +221,6 @@ public class DirectMailClient implements DirectClient {
     public SmtpAgent getSmtpAgent() {
         return smtpAgent;
     }
-
 
     private Session getMailSession() {
         return MailUtils.getMailSession(mailServerProps, mailServerProps.getProperty("direct.mail.user"),
@@ -269,5 +274,28 @@ public class DirectMailClient implements DirectClient {
 
         return numberOfMsgsInFolder < maxNumberOfMsgsToHandle ? numberOfMsgsInFolder : maxNumberOfMsgsToHandle;
     }
+    
+    /**
+     * @param messageHandler the messageHandler to set
+     */
+    public void setMessageHandler(MessageHandler messageHandler) {
+        this.messageHandler = messageHandler;
+    }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        if (this.messageHandler == null) {
+            throw new DirectException("DirectMailClient instantiated without setting a message handler property.");
+        }
+    }
+
+    /**
+     * @return the handlerInvocations
+     */
+    public int getHandlerInvocations() {
+        return handlerInvocations;
+    }
 }
