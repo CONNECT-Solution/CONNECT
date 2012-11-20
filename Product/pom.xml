@@ -355,9 +355,7 @@
                     <downloadJavadocs>true</downloadJavadocs>
                     <useProjectReferences>true</useProjectReferences>
                     <projectNameTemplate>[artifactId]-[version]</projectNameTemplate>
-                    <wtpmanifest>true</wtpmanifest>
-                    <wtpapplicationxml>true</wtpapplicationxml>
-                    <wtpversion>2.0</wtpversion>
+                    <wtpmanifest>false</wtpmanifest>
                     <manifest>${basedir}/src/main/resources/META-INF/MANIFEST.MF</manifest>
                     <workspaceCodeStylesURL>https://developer.connectopensource.org/download/attachments/82509889/formatter.xml</workspaceCodeStylesURL>
                 </configuration>
