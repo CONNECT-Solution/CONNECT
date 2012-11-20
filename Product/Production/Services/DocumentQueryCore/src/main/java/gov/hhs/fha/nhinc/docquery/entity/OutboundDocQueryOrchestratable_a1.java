@@ -81,7 +81,7 @@ public class OutboundDocQueryOrchestratable_a1 extends OutboundDocQueryOrchestra
     public OutboundDelegate getDelegate() {
         return null;
     }
-
+    
     /**
      * @return AdhocQueryResponse which is cumulativeResponse.
      */

@@ -58,6 +58,7 @@ public class OutboundDocQueryOrchestratable implements OutboundOrchestratableMes
 
     private AdhocQueryResponse response = null;
 
+
     /**
      * Default Constructor.
      */
@@ -201,5 +202,8 @@ public class OutboundDocQueryOrchestratable implements OutboundOrchestratableMes
     public boolean isPassthru() {
         return false;
     }
+
+    
+
 
 }
