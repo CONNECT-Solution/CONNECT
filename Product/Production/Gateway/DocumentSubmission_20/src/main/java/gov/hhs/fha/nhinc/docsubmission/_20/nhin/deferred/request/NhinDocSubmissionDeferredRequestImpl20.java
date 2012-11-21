@@ -26,37 +26,38 @@
  */
 package gov.hhs.fha.nhinc.docsubmission._20.nhin.deferred.request;
 
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.docsubmission.inbound.deferred.request.InboundDocSubmissionDeferredRequest;
+import gov.hhs.fha.nhinc.messaging.server.BaseService;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 
 import javax.xml.ws.WebServiceContext;
 
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.docsubmission.nhin.deferred.request.NhinDocSubmissionDeferredRequestOrchImpl;
-import gov.hhs.fha.nhinc.messaging.server.BaseService;
-
 /**
- *
+ * 
  * @author patlollav
  */
 public class NhinDocSubmissionDeferredRequestImpl20 extends BaseService {
 
-    private final NhinDocSubmissionDeferredRequestOrchImpl orchImpl;
+    private InboundDocSubmissionDeferredRequest inboundDocSubmissionRequest;
 
-    public NhinDocSubmissionDeferredRequestImpl20(NhinDocSubmissionDeferredRequestOrchImpl orchImpl) {
-        this.orchImpl = orchImpl;
+    public NhinDocSubmissionDeferredRequestImpl20(InboundDocSubmissionDeferredRequest inboundDocSubmissionRequest) {
+        this.inboundDocSubmissionRequest = inboundDocSubmissionRequest;
     }
 
     /**
-     *
+     * 
      * @param body
      * @param context
      * @return
      */
-    public RegistryResponseType provideAndRegisterDocumentSetBRequest(ProvideAndRegisterDocumentSetRequestType body, WebServiceContext context) {
+    public RegistryResponseType provideAndRegisterDocumentSetBRequest(ProvideAndRegisterDocumentSetRequestType body,
+            WebServiceContext context) {
         AssertionType assertion = getAssertion(context, null);
-        return orchImpl.provideAndRegisterDocumentSetBRequest(body, assertion).getMessage();
+
+        return inboundDocSubmissionRequest.provideAndRegisterDocumentSetBRequest(body, assertion).getMessage();
     }
 
 }

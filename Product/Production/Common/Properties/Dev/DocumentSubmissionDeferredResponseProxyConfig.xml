@@ -120,31 +120,5 @@
 	</bean>
 	
 	
-	
-	<!-- Beans defined for passthruxdrasyncresp -->
-	
-	<alias alias="passthruxdrasyncresp" name="passthruxdrasyncrespjava" />
-
-    <!-- No-op Implementation -->
-	<bean lazy-init="true" class="gov.hhs.fha.nhinc.docsubmission.passthru.deferred.response.proxy.PassthruDocSubmissionDeferredResponseProxyNoOpImpl" id="passthruxdrasyncrespnoop" name="passthruxdrasyncrespnoop"> 
-		<meta key="impltype" value="noop"/>
-	</bean> 
-
-	<!-- Java Implementation -->
-	<bean lazy-init="true" class="gov.hhs.fha.nhinc.docsubmission.passthru.deferred.response.proxy.PassthruDocSubmissionDeferredResponseProxyJavaImpl" id="passthruxdrasyncrespjava" name="passthruxdrasyncrespjava"> 
-		<meta key="impltype" value="java"/>
-		<meta key="default" value="true"/>
-	</bean> 
-    
-	<!-- Secured web service Implementation -->
-    <bean lazy-init="true" class="gov.hhs.fha.nhinc.docsubmission.passthru.deferred.response.proxy.PassthruDocSubmissionDeferredResponseProxyWebServiceSecuredImpl" id="passthruxdrasyncrespwssecured" name="passthruxdrasyncrespwssecured"> 
-		<meta key="impltype" value="wssecured"/>
-	</bean> 
-
-	<!-- Unsecured web service Implementation -->
-	<bean lazy-init="true" class="gov.hhs.fha.nhinc.docsubmission.passthru.deferred.response.proxy.PassthruDocSubmissionDeferredResponseProxyWebServiceUnsecuredImpl" id="passthruxdrasyncrespwsunsecured" name="passthruxdrasyncrespwsunsecured"> 
-		<meta key="impltype" value="wsunsecured"/>
-	</bean>
-
 	<aop:aspectj-autoproxy />    
 </beans>
