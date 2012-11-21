@@ -27,8 +27,13 @@
 package gov.hhs.fha.nhinc.patientdiscovery.passthru;
 
 import static org.junit.Assert.*;
+
+import java.lang.reflect.Method;
+
+import gov.hhs.fha.nhinc.aspect.OutboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.patientdiscovery.nhin.proxy.NhinPatientDiscoveryProxy;
 
 import org.apache.commons.logging.Log;
@@ -141,5 +146,18 @@ public class NhincPatientDiscoveryOrchImplTest {
             fail("Error running testProxyPRPAIN201305UV: " + t.getMessage());
         }
 
+    }
+    
+    @Test
+    public void hasOutboundProcessingEvent() throws Exception {
+        Class<NhincPatientDiscoveryOrchImpl> clazz = NhincPatientDiscoveryOrchImpl.class;
+        Method method = clazz.getMethod("proxyPRPAIN201305UV", ProxyPRPAIN201305UVProxySecuredRequestType.class,
+                AssertionType.class);
+        OutboundProcessingEvent annotation = method.getAnnotation(OutboundProcessingEvent.class);
+        assertNotNull(annotation);
+        assertEquals(DefaultEventDescriptionBuilder.class, annotation.beforeBuilder());
+        assertEquals(DefaultEventDescriptionBuilder.class, annotation.afterReturningBuilder());
+        assertEquals("Patient Discovery", annotation.serviceType());
+        assertEquals("1.0", annotation.version());
     }
 }

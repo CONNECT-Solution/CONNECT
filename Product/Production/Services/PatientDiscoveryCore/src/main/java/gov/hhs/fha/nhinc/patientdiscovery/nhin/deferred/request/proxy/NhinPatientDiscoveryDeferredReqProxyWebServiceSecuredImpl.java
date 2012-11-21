@@ -28,8 +28,10 @@ package gov.hhs.fha.nhinc.patientdiscovery.nhin.deferred.request.proxy;
 
 import javax.xml.ws.BindingProvider;
 
+import gov.hhs.fha.nhinc.aspect.NwhinInvocationEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
@@ -71,6 +73,9 @@ public class NhinPatientDiscoveryDeferredReqProxyWebServiceSecuredImpl implement
         return ((log != null) ? log : LogFactory.getLog(getClass()));
     }
 
+    @NwhinInvocationEvent(beforeBuilder = DefaultEventDescriptionBuilder.class,
+            afterReturningBuilder = DefaultEventDescriptionBuilder.class, serviceType = "Patient Discovery",
+            version = "1.0")
     public MCCIIN000002UV01 respondingGatewayPRPAIN201305UV02(PRPAIN201305UV02 request, AssertionType assertion,
             NhinTargetSystemType target) {
         String url = null;
@@ -86,7 +91,8 @@ public class NhinPatientDiscoveryDeferredReqProxyWebServiceSecuredImpl implement
                         + NhincConstants.PATIENT_DISCOVERY_DEFERRED_REQ_SERVICE_NAME + " is: " + url);
 
                 if (NullChecker.isNotNullish(url)) {
-                    ServicePortDescriptor<RespondingGatewayDeferredRequestPortType> portDescriptor = new RespondingGatewayDeferredRequestServicePortDescriptor();
+                    ServicePortDescriptor<RespondingGatewayDeferredRequestPortType> portDescriptor = 
+                            new RespondingGatewayDeferredRequestServicePortDescriptor();
                     CONNECTClient<RespondingGatewayDeferredRequestPortType> client = CONNECTClientFactory.getInstance()
                             .getCONNECTClientSecured(portDescriptor, url, assertion);
                     

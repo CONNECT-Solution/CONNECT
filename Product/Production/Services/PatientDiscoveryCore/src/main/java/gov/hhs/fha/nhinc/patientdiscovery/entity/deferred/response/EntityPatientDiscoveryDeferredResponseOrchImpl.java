@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.response;
 
+import gov.hhs.fha.nhinc.aspect.OutboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
@@ -33,6 +34,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.connectmgr.UrlInfo;
+import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscovery201306Processor;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditLogger;
@@ -61,10 +63,9 @@ public class EntityPatientDiscoveryDeferredResponseOrchImpl implements EntityPat
     private final WebServiceProxyHelper webserviceProxyhelper;
     private final PatientDiscovery201306Processor pd201306Processor;
 
-    EntityPatientDiscoveryDeferredResponseOrchImpl(
-            PolicyChecker<RespondingGatewayPRPAIN201306UV02RequestType, PRPAIN201306UV02> policyChecker) {
+    EntityPatientDiscoveryDeferredResponseOrchImpl(PolicyChecker<RespondingGatewayPRPAIN201306UV02RequestType, 
+            PRPAIN201306UV02> policyChecker) {
         this.policyChecker = policyChecker;
-
         this.webserviceProxyhelper = new WebServiceProxyHelper();
         this.pd201306Processor = new PatientDiscovery201306Processor();
     }
@@ -78,6 +79,9 @@ public class EntityPatientDiscoveryDeferredResponseOrchImpl implements EntityPat
     }
 
     @Override
+    @OutboundProcessingEvent(beforeBuilder = DefaultEventDescriptionBuilder.class,
+    afterReturningBuilder = DefaultEventDescriptionBuilder.class, serviceType = "Patient Discovery",
+    version = "1.0")
     public MCCIIN000002UV01 processPatientDiscoveryAsyncRespOrch(PRPAIN201306UV02 body, AssertionType assertion,
             NhinTargetCommunitiesType target) {
         MCCIIN000002UV01 ack = new MCCIIN000002UV01();

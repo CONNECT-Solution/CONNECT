@@ -27,8 +27,13 @@
 package gov.hhs.fha.nhinc.patientdiscovery.nhin.deferred.response.proxy;
 
 import static org.junit.Assert.*;
+
+import java.lang.reflect.Method;
+
+import gov.hhs.fha.nhinc.aspect.NwhinInvocationEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
 
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PRPAIN201306UV02;
@@ -77,6 +82,20 @@ public class NhinPatientDiscoveryAsyncRespNoOpImplTest {
         MCCIIN000002UV01 result = instance.respondingGatewayPRPAIN201306UV02(body, assertion, target);
 
         assertNotNull(result);
+    }
+    
+    @Test
+    public void hasNwhinInvocationEvent() throws Exception {
+        Class<NhinPatientDiscoveryDeferredRespProxyNoOpImpl> clazz = 
+                NhinPatientDiscoveryDeferredRespProxyNoOpImpl.class;
+        Method method = clazz.getMethod("respondingGatewayPRPAIN201306UV02", PRPAIN201306UV02.class, 
+                AssertionType.class, NhinTargetSystemType.class );
+        NwhinInvocationEvent annotation = method.getAnnotation(NwhinInvocationEvent.class);
+        assertNotNull(annotation);
+        assertEquals(DefaultEventDescriptionBuilder.class, annotation.beforeBuilder());
+        assertEquals(DefaultEventDescriptionBuilder.class, annotation.afterReturningBuilder());
+        assertEquals("Patient Discovery", annotation.serviceType());
+        assertEquals("1.0", annotation.version());
     }
 
 }

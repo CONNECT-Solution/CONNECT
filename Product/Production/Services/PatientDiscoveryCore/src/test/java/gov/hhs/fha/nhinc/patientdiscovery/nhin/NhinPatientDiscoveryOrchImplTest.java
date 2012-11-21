@@ -26,8 +26,12 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery.nhin;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
+
+import java.lang.reflect.Method;
 
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
@@ -38,7 +42,9 @@ import org.jmock.integration.junit4.JUnit4Mockery;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import gov.hhs.fha.nhinc.aspect.InboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.generic.GenericFactory;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditor;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryException;
@@ -117,6 +123,19 @@ public class NhinPatientDiscoveryOrchImplTest {
             }
         }, auditor, mockProcessor, proxyFactory);
         return impl;
+    }
+    
+    @Test
+    public void hasInboundProcessingEvent() throws Exception {
+        Class<NhinPatientDiscoveryOrchImpl> clazz = NhinPatientDiscoveryOrchImpl.class;
+        Method method = clazz.getMethod("respondingGatewayPRPAIN201305UV02", 
+                PRPAIN201305UV02.class, AssertionType.class);
+        InboundProcessingEvent annotation = method.getAnnotation(InboundProcessingEvent.class);
+        assertNotNull(annotation);
+        assertEquals(DefaultEventDescriptionBuilder.class, annotation.beforeBuilder());
+        assertEquals(DefaultEventDescriptionBuilder.class, annotation.afterReturningBuilder());
+        assertEquals("Patient Discovery", annotation.serviceType());
+        assertEquals("1.0", annotation.version());
     }
 
 }

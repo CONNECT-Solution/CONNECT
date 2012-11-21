@@ -24,30 +24,38 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
-package gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.response.proxy;
+package gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.req.proxy;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
+import java.lang.reflect.Method;
 
 import gov.hhs.fha.nhinc.aspect.AdapterDelegationEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.hl7.v3.MCCIIN000002UV01;
-import org.hl7.v3.PRPAIN201306UV02;
+//CheckStyle:OFF
+import gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.proxy.AdapterPatientDiscoveryDeferredReqProxyWebServiceSecuredImpl;
+//CheckStyle:ON
+import org.hl7.v3.PRPAIN201305UV02;
+import org.junit.Test;
 
 /**
- * 
- * @author JHOPPESC
+ * @author achidamb
+ *
  */
-public class AdapterPatientDiscoveryDeferredRespProxyNoOpImpl implements AdapterPatientDiscoveryDeferredRespProxy {
-    private static Log log = LogFactory.getLog(AdapterPatientDiscoveryDeferredRespProxyJavaImpl.class);
-
-    @AdapterDelegationEvent(beforeBuilder = DefaultEventDescriptionBuilder.class,
-            afterReturningBuilder = DefaultEventDescriptionBuilder.class, serviceType = "Patient Discovery",
-            version = "1.0")
-    public MCCIIN000002UV01 processPatientDiscoveryAsyncResp(PRPAIN201306UV02 request, AssertionType assertion) {
-        log.debug("Using NoOp Implementation for Adapter Patient Discovery Deferred Response Service");
-        return new MCCIIN000002UV01();
+public class AdapterPatientDiscoveryDeferredReqProxyWebServiceSecuredImplTest {
+    @Test
+    public void hasAdapterDelegationEvent() throws Exception {
+        Class<AdapterPatientDiscoveryDeferredReqProxyWebServiceSecuredImpl> clazz = 
+                AdapterPatientDiscoveryDeferredReqProxyWebServiceSecuredImpl.class;
+        Method method = clazz.getMethod("processPatientDiscoveryAsyncReq", PRPAIN201305UV02.class,
+                AssertionType.class);
+        AdapterDelegationEvent annotation = method.getAnnotation(AdapterDelegationEvent.class);
+        assertNotNull(annotation);
+        assertEquals(DefaultEventDescriptionBuilder.class, annotation.beforeBuilder());
+        assertEquals(DefaultEventDescriptionBuilder.class, annotation.afterReturningBuilder());
+        assertEquals("Patient Discovery", annotation.serviceType());
+        assertEquals("1.0", annotation.version());
     }
-
 }

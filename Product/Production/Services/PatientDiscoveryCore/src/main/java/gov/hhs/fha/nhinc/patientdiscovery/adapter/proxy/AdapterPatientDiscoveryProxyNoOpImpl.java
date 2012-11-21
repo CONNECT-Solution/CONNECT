@@ -26,11 +26,14 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery.adapter.proxy;
 
+import gov.hhs.fha.nhinc.aspect.AdapterDelegationEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.PRPAIN201306UV02;
+import org.hl7.v3.PRPAIN201305UV02;
 
 /**
  * 
@@ -63,7 +66,10 @@ public class AdapterPatientDiscoveryProxyNoOpImpl implements AdapterPatientDisco
      * @param assertion The assertion information to go with the message.
      * @return The response from the web service.
      */
-    public PRPAIN201306UV02 respondingGatewayPRPAIN201305UV02(org.hl7.v3.PRPAIN201305UV02 body, AssertionType assertion) {
+    @AdapterDelegationEvent(beforeBuilder = DefaultEventDescriptionBuilder.class,
+            afterReturningBuilder = DefaultEventDescriptionBuilder.class, serviceType = "Patient Discovery",
+            version = "1.0")
+    public PRPAIN201306UV02 respondingGatewayPRPAIN201305UV02(PRPAIN201305UV02 body, AssertionType assertion) {
 
         log.debug("Entering AdapterPatientDiscoveryProxyNoOpImpl.respondingGatewayPRPAIN201305UV02");
         return new PRPAIN201306UV02();

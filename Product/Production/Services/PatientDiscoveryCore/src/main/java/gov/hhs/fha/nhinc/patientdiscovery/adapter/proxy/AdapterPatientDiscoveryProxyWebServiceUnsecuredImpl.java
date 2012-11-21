@@ -27,7 +27,9 @@
 package gov.hhs.fha.nhinc.patientdiscovery.adapter.proxy;
 
 import gov.hhs.fha.nhinc.adapterpatientdiscovery.AdapterPatientDiscoveryPortType;
+import gov.hhs.fha.nhinc.aspect.AdapterDelegationEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
@@ -41,6 +43,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.PRPAIN201306UV02;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
+import org.hl7.v3.PRPAIN201305UV02;
 
 /**
  * 
@@ -75,7 +78,10 @@ public class AdapterPatientDiscoveryProxyWebServiceUnsecuredImpl implements Adap
      * @return The response from the web service.
      * @throws PatientDiscoveryException
      */
-    public PRPAIN201306UV02 respondingGatewayPRPAIN201305UV02(org.hl7.v3.PRPAIN201305UV02 body, AssertionType assertion)
+    @AdapterDelegationEvent(beforeBuilder = DefaultEventDescriptionBuilder.class,
+            afterReturningBuilder = DefaultEventDescriptionBuilder.class, serviceType = "Patient Discovery",
+            version = "1.0")
+    public PRPAIN201306UV02 respondingGatewayPRPAIN201305UV02(PRPAIN201305UV02 body, AssertionType assertion)
             throws PatientDiscoveryException {
         String url = null;
         PRPAIN201306UV02 response = new PRPAIN201306UV02();
@@ -88,12 +94,14 @@ public class AdapterPatientDiscoveryProxyWebServiceUnsecuredImpl implements Adap
                 log.debug("After target system URL look up. URL for service: " + sServiceName + " is: " + url);
 
                 if (NullChecker.isNotNullish(url)) {
-                    RespondingGatewayPRPAIN201305UV02RequestType request = new RespondingGatewayPRPAIN201305UV02RequestType();
+                    RespondingGatewayPRPAIN201305UV02RequestType request = 
+                            new RespondingGatewayPRPAIN201305UV02RequestType();
                     request.setAssertion(assertion);
                     request.setPRPAIN201305UV02(body);
                     request.setNhinTargetCommunities(null);
 
-                    ServicePortDescriptor<AdapterPatientDiscoveryPortType> portDescriptor = new AdapterPatientDiscoveryServicePortDescriptor();
+                    ServicePortDescriptor<AdapterPatientDiscoveryPortType> portDescriptor = 
+                            new AdapterPatientDiscoveryServicePortDescriptor();
                     CONNECTClient<AdapterPatientDiscoveryPortType> client = CONNECTClientFactory.getInstance()
                             .getCONNECTClientUnsecured(portDescriptor, url, assertion);
 

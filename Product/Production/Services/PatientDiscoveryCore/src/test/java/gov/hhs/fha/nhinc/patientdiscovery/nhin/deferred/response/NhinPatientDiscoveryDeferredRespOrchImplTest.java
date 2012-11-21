@@ -24,96 +24,29 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.patientdiscovery.nhin.proxy;
+package gov.hhs.fha.nhinc.patientdiscovery.nhin.deferred.response;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.fail;
+import gov.hhs.fha.nhinc.aspect.NwhinInvocationEvent;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
 
 import java.lang.reflect.Method;
 
-import gov.hhs.fha.nhinc.aspect.NwhinInvocationEvent;
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
-import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
-import ihe.iti.xcpd._2009.RespondingGatewayPortType;
-
-import javax.xml.ws.Service;
-
-import org.apache.commons.logging.Log;
-import org.hl7.v3.PRPAIN201305UV02;
-import org.jmock.Mockery;
-import org.jmock.integration.junit4.JMock;
-import org.jmock.integration.junit4.JUnit4Mockery;
-import org.jmock.lib.legacy.ClassImposteriser;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
+import org.hl7.v3.PRPAIN201306UV02;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
 /**
- * 
- * @author Les Westberg
+ * @author achidamb
+ *
  */
-@RunWith(JMock.class)
-public class NhinPatientDiscoveryProxyWebServiceSecuredImplTest {
-
-    Mockery context = new JUnit4Mockery() {
-
-        {
-            setImposteriser(ClassImposteriser.INSTANCE);
-        }
-    };
-    final Log mockLog = context.mock(Log.class);
-    final Service mockService = context.mock(Service.class);
-    final RespondingGatewayPortType mockPort = context.mock(RespondingGatewayPortType.class);
-
-    public NhinPatientDiscoveryProxyWebServiceSecuredImplTest() {
-    }
-
-    @BeforeClass
-    public static void setUpClass() throws Exception {
-    }
-
-    @AfterClass
-    public static void tearDownClass() throws Exception {
-    }
-
-    @Before
-    public void setUp() {
-    }
-
-    @After
-    public void tearDown() {
-    }
-
-    @Test
-    public void testCreateLogger() {
-        try {
-            NhinPatientDiscoveryProxyWebServiceSecuredImpl sut = new NhinPatientDiscoveryProxyWebServiceSecuredImpl() {
-                @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-
-            };
-            Log log = sut.createLogger();
-            assertNotNull("Log was null", log);
-        } catch (Throwable t) {
-            System.out.println("Error running testCreateLogger test: " + t.getMessage());
-            t.printStackTrace();
-            fail("Error running testCreateLogger test: " + t.getMessage());
-        }
-    }
-    
+public class NhinPatientDiscoveryDeferredRespOrchImplTest {
     @Test
     public void hasNwhinInvocationEvent() throws Exception {
-        Class<NhinPatientDiscoveryProxyWebServiceSecuredImpl> clazz = 
-                NhinPatientDiscoveryProxyWebServiceSecuredImpl.class;
-        Method method = clazz.getMethod("respondingGatewayPRPAIN201305UV02", PRPAIN201305UV02.class,
-                AssertionType.class, NhinTargetSystemType.class);
+        Class<NhinPatientDiscoveryDeferredRespOrchImpl> clazz = NhinPatientDiscoveryDeferredRespOrchImpl.class;
+        Method method = clazz.getMethod("respondingGatewayPRPAIN201306UV02Orch", PRPAIN201306UV02.class, 
+                AssertionType.class);
         NwhinInvocationEvent annotation = method.getAnnotation(NwhinInvocationEvent.class);
         assertNotNull(annotation);
         assertEquals(DefaultEventDescriptionBuilder.class, annotation.beforeBuilder());
@@ -121,5 +54,4 @@ public class NhinPatientDiscoveryProxyWebServiceSecuredImplTest {
         assertEquals("Patient Discovery", annotation.serviceType());
         assertEquals("1.0", annotation.version());
     }
-
 }

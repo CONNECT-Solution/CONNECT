@@ -26,9 +26,11 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery.nhin.proxy;
 
+import gov.hhs.fha.nhinc.aspect.NwhinInvocationEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
+import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
@@ -71,6 +73,9 @@ public class NhinPatientDiscoveryProxyWebServiceSecuredImpl implements NhinPatie
     }
 
     @Override
+    @NwhinInvocationEvent(beforeBuilder = DefaultEventDescriptionBuilder.class,
+    afterReturningBuilder = DefaultEventDescriptionBuilder.class, serviceType = "Patient Discovery",
+    version = "1.0")
     public PRPAIN201306UV02 respondingGatewayPRPAIN201305UV02(PRPAIN201305UV02 request, AssertionType assertion,
             NhinTargetSystemType target) throws Exception {
         PRPAIN201306UV02 response = new PRPAIN201306UV02();

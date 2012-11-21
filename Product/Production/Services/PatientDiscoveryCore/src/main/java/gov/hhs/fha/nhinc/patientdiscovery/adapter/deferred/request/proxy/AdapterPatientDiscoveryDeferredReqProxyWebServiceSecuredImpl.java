@@ -27,7 +27,9 @@
 package gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.proxy;
 
 import gov.hhs.fha.nhinc.adapterpatientdiscoverysecuredasyncreq.AdapterPatientDiscoverySecuredAsyncReqPortType;
+import gov.hhs.fha.nhinc.aspect.AdapterDelegationEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
@@ -65,23 +67,29 @@ public class AdapterPatientDiscoveryDeferredReqProxyWebServiceSecuredImpl implem
         return new WebServiceProxyHelper();
     }
 
+    @AdapterDelegationEvent(beforeBuilder = DefaultEventDescriptionBuilder.class,
+            afterReturningBuilder = DefaultEventDescriptionBuilder.class, serviceType = "Patient Discovery",
+            version = "1.0")
     public MCCIIN000002UV01 processPatientDiscoveryAsyncReq(PRPAIN201305UV02 request, AssertionType assertion) {
         log.debug("Begin processPatientDiscoveryAsyncReqError");
         MCCIIN000002UV01 ack = null;
 
         try {
             String url = oProxyHelper
-                    .getAdapterEndPointFromConnectionManager(NhincConstants.PATIENT_DISCOVERY_ADAPTER_SECURED_ASYNC_REQ_SERVICE_NAME);
+                    .getAdapterEndPointFromConnectionManager(
+                            NhincConstants.PATIENT_DISCOVERY_ADAPTER_SECURED_ASYNC_REQ_SERVICE_NAME);
             if (NullChecker.isNotNullish(url)) {
 
                 if (request == null) {
                     log.error("Request was null");
                 } else {
-                    ServicePortDescriptor<AdapterPatientDiscoverySecuredAsyncReqPortType> portDescriptor = new AdapterPatientDiscoveryDeferredReqSecuredServicePortDescriptor();
+                    ServicePortDescriptor<AdapterPatientDiscoverySecuredAsyncReqPortType> portDescriptor = 
+                            new AdapterPatientDiscoveryDeferredReqSecuredServicePortDescriptor();
                     CONNECTClient<AdapterPatientDiscoverySecuredAsyncReqPortType> client = CONNECTClientFactory
                             .getInstance().getCONNECTClientSecured(portDescriptor, url, assertion);
 
-                    RespondingGatewayPRPAIN201305UV02SecuredRequestType securedRequest = new RespondingGatewayPRPAIN201305UV02SecuredRequestType();
+                    RespondingGatewayPRPAIN201305UV02SecuredRequestType securedRequest = 
+                            new RespondingGatewayPRPAIN201305UV02SecuredRequestType();
                     securedRequest.setPRPAIN201305UV02(request);
 
                     ack = (MCCIIN000002UV01) client.invokePort(AdapterPatientDiscoverySecuredAsyncReqPortType.class,

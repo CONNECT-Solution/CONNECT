@@ -31,7 +31,9 @@ import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
 
+import gov.hhs.fha.nhinc.aspect.InboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.generic.GenericFactory;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditor;
@@ -73,6 +75,9 @@ public class NhinPatientDiscoveryOrchImpl implements InboundPatientDiscoveryOrch
      * (org.hl7.v3.PRPAIN201305UV02, gov.hhs.fha.nhinc.common.nhinccommon.AssertionType)
      */
     @Override
+    @InboundProcessingEvent(beforeBuilder = DefaultEventDescriptionBuilder.class,
+    afterReturningBuilder = DefaultEventDescriptionBuilder.class, serviceType = "Patient Discovery",
+    version = "1.0")
     public PRPAIN201306UV02 respondingGatewayPRPAIN201305UV02(PRPAIN201305UV02 body, AssertionType assertion)
             throws PatientDiscoveryException {
         log.debug("Entering NhinPatientDiscoveryImpl.respondingGatewayPRPAIN201305UV02");
@@ -114,7 +119,8 @@ public class NhinPatientDiscoveryOrchImpl implements InboundPatientDiscoveryOrch
      * @return
      * @throws PatientDiscoveryException
      */
-    protected PRPAIN201306UV02 process(PRPAIN201305UV02 body, AssertionType assertion) throws PatientDiscoveryException {
+    protected PRPAIN201306UV02 process(PRPAIN201305UV02 body, AssertionType assertion) 
+            throws PatientDiscoveryException {
         PRPAIN201306UV02 response;
         // Check if in Pass-Through Mode
         if (isInPassThroughMode()) {

@@ -24,30 +24,37 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
-package gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.response.proxy;
+package gov.hhs.fha.nhinc.patientdiscovery.nhin.deferred.request.proxy;
 
-import gov.hhs.fha.nhinc.aspect.AdapterDelegationEvent;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import gov.hhs.fha.nhinc.aspect.NwhinInvocationEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.hl7.v3.MCCIIN000002UV01;
-import org.hl7.v3.PRPAIN201306UV02;
+import java.lang.reflect.Method;
+
+import org.hl7.v3.PRPAIN201305UV02;
+import org.junit.Test;
 
 /**
- * 
- * @author JHOPPESC
+ * @author achidamb
+ *
  */
-public class AdapterPatientDiscoveryDeferredRespProxyNoOpImpl implements AdapterPatientDiscoveryDeferredRespProxy {
-    private static Log log = LogFactory.getLog(AdapterPatientDiscoveryDeferredRespProxyJavaImpl.class);
-
-    @AdapterDelegationEvent(beforeBuilder = DefaultEventDescriptionBuilder.class,
-            afterReturningBuilder = DefaultEventDescriptionBuilder.class, serviceType = "Patient Discovery",
-            version = "1.0")
-    public MCCIIN000002UV01 processPatientDiscoveryAsyncResp(PRPAIN201306UV02 request, AssertionType assertion) {
-        log.debug("Using NoOp Implementation for Adapter Patient Discovery Deferred Response Service");
-        return new MCCIIN000002UV01();
+public class NhinPatientDiscoveryDeferredReqProxyWebServiceSecuredImplTest {
+    @Test
+    public void hasNwhinInvocationEvent() throws Exception {
+        Class<NhinPatientDiscoveryDeferredReqProxyWebServiceSecuredImpl> clazz = 
+                NhinPatientDiscoveryDeferredReqProxyWebServiceSecuredImpl.class;
+        Method method = clazz.getMethod("respondingGatewayPRPAIN201305UV02", PRPAIN201305UV02.class, 
+                AssertionType.class, NhinTargetSystemType.class);
+        NwhinInvocationEvent annotation = method.getAnnotation(NwhinInvocationEvent.class);
+        assertNotNull(annotation);
+        assertEquals(DefaultEventDescriptionBuilder.class, annotation.beforeBuilder());
+        assertEquals(DefaultEventDescriptionBuilder.class, annotation.afterReturningBuilder());
+        assertEquals("Patient Discovery", annotation.serviceType());
+        assertEquals("1.0", annotation.version());
     }
 
 }
