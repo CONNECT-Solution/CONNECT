@@ -46,7 +46,15 @@ public class DirectMailClientSpringTest {
     @Autowired
     private DirectMailClient intDirectMailClient;
 
-    @Autowired
+    public DirectMailClient getIntDirectMailClient() {
+		return intDirectMailClient;
+	}
+
+	public DirectMailClient getExtDirectMailClient() {
+		return extDirectMailClient;
+	}
+
+	@Autowired
     private DirectMailClient extDirectMailClient;
     
     /**

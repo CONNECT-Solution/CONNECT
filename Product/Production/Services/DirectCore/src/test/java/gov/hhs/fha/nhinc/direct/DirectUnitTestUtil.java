@@ -9,6 +9,8 @@ import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType.Document;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Properties;
 
 import javax.activation.DataHandler;
@@ -22,6 +24,12 @@ import javax.mail.internet.MimeMessage;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.nhindirect.gateway.smtp.SmtpAgent;
+import org.nhindirect.gateway.smtp.SmtpAgentException;
+import org.nhindirect.gateway.smtp.SmtpAgentFactory;
+import org.nhindirect.gateway.smtp.SmtpAgentSettings;
 import org.nhindirect.xd.common.DirectDocuments;
 import org.nhindirect.xd.common.XdmPackage;
 
@@ -60,7 +68,8 @@ import com.icegreen.greenmail.util.GreenMail;
  * Utilities for running Direct Core Unit Tests.
  */
 public class DirectUnitTestUtil {
-
+    
+	private static final Log LOG = LogFactory.getLog(DirectUnitTestUtil.class);
     /**
      * Sender of a mail message.
      */
@@ -188,7 +197,15 @@ public class DirectUnitTestUtil {
     public static Address[] getRecipients() {
         return new InternetAddress[] {toInternetAddress(RECIPIENT)};
     }
-    
+   
+    private static SmtpAgentSettings getSmtpAgentSettings() throws SmtpAgentException, MalformedURLException {
+    	writeSmtpAgentConfig();
+    	SmtpAgent smtpAgent = SmtpAgentFactory.createAgent(DirectUnitTestUtil.class.getClassLoader().getResource(
+                "smtp.agent.config.xml"));
+    	removeSmtpAgentConfig();
+    	return smtpAgent.getSmtpAgentSettings();
+	}
+   
     /**
      * @return mime message with sample generic content.
      */
@@ -211,13 +228,12 @@ public class DirectUnitTestUtil {
      * @throws IOException on io error.
      */
     public static MimeMessageBuilder getMimeMessageBuilder(Session session) throws IOException {
-        MimeMessageBuilder testBuilder = new MimeMessageBuilder(session, getSender(), getRecipients());
+        MimeMessageBuilder testBuilder = new MimeMessageBuilder(session, getSender(), getRecipients(), getSmtpAgentSettings());
         testBuilder.text("text").subject("subject").attachment(getMockDocument()).attachmentName("attachmentName").documents(getMockDirectDocuments()).messageId("1234");
         return testBuilder;
     }
 
-    
-    private static InternetAddress toInternetAddress(String email) {
+	private static InternetAddress toInternetAddress(String email) {
         InternetAddress address = null;
         try {
             address = new InternetAddress(email);
@@ -238,6 +254,7 @@ public class DirectUnitTestUtil {
             String smtpAgentConfigTmpl = FileUtils.readFileToString(new File(classpath + "smtp.agent.config.tmpl.xml"));
             FileUtils.writeStringToFile(new File(classpath + "smtp.agent.config.xml"),
                     smtpAgentConfigTmpl.replaceAll("\\{jks.keystore.path\\}", classpath));
+            LOG.debug("smtp.agent.config.xml: " + smtpAgentConfigTmpl.replaceAll("\\{jks.keystore.path\\}", classpath));
         } catch (IOException e) {
             fail(e.getMessage());
         }
