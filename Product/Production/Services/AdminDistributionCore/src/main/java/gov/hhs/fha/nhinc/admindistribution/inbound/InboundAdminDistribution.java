@@ -24,45 +24,16 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.admindistribution._10.entity;
+package gov.hhs.fha.nhinc.admindistribution.inbound;
 
-import gov.hhs.fha.nhinc.admindistribution.outbound.OutboundAdminDistribution;
-import gov.hhs.fha.nhinc.aspect.InboundMessageEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewaySendAlertMessageType;
-import gov.hhs.fha.nhinc.entityadmindistribution.AdministrativeDistributionPortType;
-import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
-import gov.hhs.fha.nhinc.messaging.server.BaseService;
+import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 
-import javax.annotation.Resource;
-import javax.xml.ws.BindingType;
-import javax.xml.ws.WebServiceContext;
-import javax.xml.ws.soap.Addressing;
+/**
+ * @author akong
+ *
+ */
+public interface InboundAdminDistribution {
 
-
-@BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
-@Addressing(enabled = true)
-public class EntityAdministrativeDistribution extends BaseService implements AdministrativeDistributionPortType {
-
-    private WebServiceContext context;
-    private OutboundAdminDistribution outboundAdminDist;
-    
-    @Override
-    @InboundMessageEvent(serviceType = "Admin Distribution", version = "1.0",
-            afterReturningBuilder = DefaultEventDescriptionBuilder.class,
-            beforeBuilder = DefaultEventDescriptionBuilder.class)
-    public void sendAlertMessage(RespondingGatewaySendAlertMessageType body) {
-        AssertionType assertion = getAssertion(context, body.getAssertion());
-        
-        outboundAdminDist.sendAlertMessage(body, assertion, body.getNhinTargetCommunities());
-    }
-
-    @Resource
-    public void setContext(WebServiceContext context) {
-        this.context = context;
-    }
-    
-    public void setOutboundAdminDistribution(OutboundAdminDistribution outboundAdminDist) {
-        this.outboundAdminDist = outboundAdminDist;
-    }
+    public void sendAlertMessage(EDXLDistribution body, AssertionType assertion);
 }

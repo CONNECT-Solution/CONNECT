@@ -42,6 +42,13 @@
             <version>${project.parent.version}</version>
         </dependency>
         <dependency>
+            <groupId>org.connectopensource</groupId>
+            <artifactId>AdminDistributionCore</artifactId>
+            <version>${project.parent.version}</version>
+            <type>test-jar</type>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
               <groupId>javax</groupId>
               <artifactId>javaee-api</artifactId>
               <version>6.0</version>

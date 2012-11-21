@@ -26,15 +26,14 @@
  */
 package gov.hhs.fha.nhinc.admindistribution.entity;
 
-import gov.hhs.fha.nhinc.admindistribution.AdminDistributionHelper;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewaySendAlertMessageType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.orchestration.AuditTransformer;
-import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratable;
 import gov.hhs.fha.nhinc.orchestration.NhinAggregator;
 import gov.hhs.fha.nhinc.orchestration.OutboundDelegate;
+import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratable;
 import gov.hhs.fha.nhinc.orchestration.PolicyTransformer;
 
 /**
@@ -46,15 +45,13 @@ public class OutboundAdminDistributionOrchestratable implements OutboundOrchestr
     private AssertionType assertion = null;
     private OutboundDelegate nhinDelegate = null;
     private RespondingGatewaySendAlertMessageType request = null;
-    private AdminDistributionHelper adminDistributionHelper;
+    private boolean isPassthru = false;
 
     /**Constructor.
      * @param delegate OutboundDelegate delegate received.
      */
     public OutboundAdminDistributionOrchestratable(OutboundDelegate delegate) {
         nhinDelegate = delegate;
-        this.adminDistributionHelper = new AdminDistributionHelper();
-
     }
 
     /**
@@ -70,7 +67,6 @@ public class OutboundAdminDistributionOrchestratable implements OutboundOrchestr
         setRequest(request);
         setAssertion(assertion);
         setTarget(targetSystem);
-        this.adminDistributionHelper = new AdminDistributionHelper();
     }
 
     /**
@@ -138,7 +134,11 @@ public class OutboundAdminDistributionOrchestratable implements OutboundOrchestr
      * @return boolean true if AdminDist in Passthru mode.
      */
     public boolean isPassthru() {
-        return new AdminDistributionHelper().isInPassThroughMode();
+        return isPassthru;
+    }
+    
+    public void setPassthru(boolean isPassthru) {
+        this.isPassthru = isPassthru;
     }
 
     /**
