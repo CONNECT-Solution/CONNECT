@@ -30,3 +30,8 @@ Product/Install/.backup*/
 Product/PmdReport/
 CheckstyleReport/
 MANIFEST.MF
+RawMsgFolder/
+BadMsgFolder/
+OutgoingMsgFolder/
+IncomingMsgFolder/
+
