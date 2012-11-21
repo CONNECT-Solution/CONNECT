@@ -9,8 +9,6 @@ import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType.Document;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.Properties;
 
 import javax.activation.DataHandler;
@@ -26,10 +24,6 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.nhindirect.gateway.smtp.SmtpAgent;
-import org.nhindirect.gateway.smtp.SmtpAgentException;
-import org.nhindirect.gateway.smtp.SmtpAgentFactory;
-import org.nhindirect.gateway.smtp.SmtpAgentSettings;
 import org.nhindirect.xd.common.DirectDocuments;
 import org.nhindirect.xd.common.XdmPackage;
 
@@ -198,14 +192,6 @@ public class DirectUnitTestUtil {
         return new InternetAddress[] {toInternetAddress(RECIPIENT)};
     }
    
-    private static SmtpAgentSettings getSmtpAgentSettings() throws SmtpAgentException, MalformedURLException {
-    	writeSmtpAgentConfig();
-    	SmtpAgent smtpAgent = SmtpAgentFactory.createAgent(DirectUnitTestUtil.class.getClassLoader().getResource(
-                "smtp.agent.config.xml"));
-    	removeSmtpAgentConfig();
-    	return smtpAgent.getSmtpAgentSettings();
-	}
-   
     /**
      * @return mime message with sample generic content.
      */
@@ -228,7 +214,7 @@ public class DirectUnitTestUtil {
      * @throws IOException on io error.
      */
     public static MimeMessageBuilder getMimeMessageBuilder(Session session) throws IOException {
-        MimeMessageBuilder testBuilder = new MimeMessageBuilder(session, getSender(), getRecipients(), getSmtpAgentSettings());
+        MimeMessageBuilder testBuilder = new MimeMessageBuilder(session, getSender(), getRecipients());
         testBuilder.text("text").subject("subject").attachment(getMockDocument()).attachmentName("attachmentName").documents(getMockDirectDocuments()).messageId("1234");
         return testBuilder;
     }

@@ -84,7 +84,7 @@ public class DirectMailClient implements DirectClient {
 
         Session session = getMailSession();
 
-        MimeMessage mimeMessage = new MimeMessageBuilder(session, sender, recipients, smtpAgent.getSmtpAgentSettings()).subject(MSG_SUBJECT)
+        MimeMessage mimeMessage = new MimeMessageBuilder(session, sender, recipients).subject(MSG_SUBJECT)
                 .text(MSG_TEXT).attachment(attachment).attachmentName(attachmentName).build();
 
         send(mimeMessage, session);
@@ -98,7 +98,7 @@ public class DirectMailClient implements DirectClient {
 
         Session session = getMailSession();
 
-        MimeMessage mimeMessage = new MimeMessageBuilder(session, sender, recipients, smtpAgent.getSmtpAgentSettings()).subject(MSG_SUBJECT)
+        MimeMessage mimeMessage = new MimeMessageBuilder(session, sender, recipients).subject(MSG_SUBJECT)
                 .text(MSG_TEXT).documents(documents).messageId(messageId).build();
 
         send(mimeMessage);

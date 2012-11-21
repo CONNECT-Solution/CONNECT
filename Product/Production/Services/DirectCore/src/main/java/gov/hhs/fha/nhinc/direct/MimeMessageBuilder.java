@@ -28,15 +28,7 @@ package gov.hhs.fha.nhinc.direct;
 
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType.Document;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipOutputStream;
 
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
@@ -52,11 +44,7 @@ import javax.mail.internet.MimeMultipart;
 import javax.mail.util.ByteArrayDataSource;
 
 import org.apache.commons.lang.StringUtils;
-import org.nhindirect.gateway.smtp.SmtpAgentSettings;
-import org.nhindirect.xd.common.DirectDocument2;
 import org.nhindirect.xd.common.DirectDocuments;
-import org.nhindirect.xd.common.XdmPackage;
-import org.nhindirect.xd.transform.util.type.MimeType;
 
 /**
  * Builder for {@link MimeMessage}.
@@ -66,7 +54,6 @@ public class MimeMessageBuilder {
     private final Session session;
     private final Address fromAddress;
     private final Address[] recipients;
-    private final SmtpAgentSettings settings;
 
     private String subject;
     private String text;
@@ -82,12 +69,11 @@ public class MimeMessageBuilder {
      * @param fromAddress sender of the message.
      * @param recipient of the message.
      */
-    public MimeMessageBuilder(Session session, Address fromAddress, Address[] recipients, SmtpAgentSettings settings) {
+    public MimeMessageBuilder(Session session, Address fromAddress, Address[] recipients) {
         super();
         this.session = session;
         this.fromAddress = fromAddress;
         this.recipients = recipients;
-        this.settings = settings;
     }
 
     /**
@@ -183,7 +169,7 @@ public class MimeMessageBuilder {
 			if (null != documents && !StringUtils.isBlank(messageId)) {
 				attachmentPart = getMimeBodyPart();
 				
-				//attachmentPart.attachFile(getXDMFile(documents.toXdmPackage(messageId)));
+				messageId = messageId.replace("urn:uuid:", "");
 				attachmentPart.attachFile(documents.toXdmPackage(messageId).toFile());
 			} else if (null != attachment && !StringUtils.isBlank(attachmentName)) {
 				attachmentPart = createAttachmentFromSOAPRequest(attachment,
@@ -212,69 +198,6 @@ public class MimeMessageBuilder {
         }
 
         return message;
-    }
-
-    protected File getXDMFile(XdmPackage xdmPackage) {
-        File xdmFile = null;
-        final String XDM_SUB_FOLDER = "IHE_XDM/SUBSET01";
-        final String XDM_METADATA_FILE = "METADATA.xml";
-
-        try {
-        	String rawMessagePath = settings.getRawMessageSettings().getSaveMessageFolder().getAbsolutePath();
-            xdmFile = new File(rawMessagePath + File.separator + messageId + "-xdm.zip");
-
-            FileOutputStream dest = new FileOutputStream(xdmFile);
-
-            ZipOutputStream zipOutputStream = new ZipOutputStream(new BufferedOutputStream(dest));
-            zipOutputStream.setMethod(ZipOutputStream.DEFLATED);
-
-            for (DirectDocument2 document : documents.getDocuments()) {
-                if (document.getData() != null) {
-                    String fileName = document.getMetadata().getId() ;
-                    fileName = fileName.replace("urn:uuid:", "");
-                    fileName = fileName + getSuffix(document.getMetadata().getMimeType());
-                  
-                    document.getMetadata().setURI(fileName);
-                    addEntry(zipOutputStream, document.getData(), XDM_SUB_FOLDER + fileName );
-                }
-            }
-
-            addEntry(zipOutputStream, documents.getSubmitObjectsRequestAsString().getBytes(), XDM_SUB_FOLDER + XDM_METADATA_FILE);
-
-            /*addEntry(zipOutputStream, getIndex().getBytes(), "INDEX.htm");
-
-            addEntry(zipOutputStream, getReadme().getBytes(), "README.txt");
-
-            if (SUFFIX.equals(".xml")) {
-                addEntry(zipOutputStream, getXsl().getBytes(), XDM_SUB_FOLDER + "CCD.xsl");
-            }*/
-
-            zipOutputStream.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return xdmFile;
-	}
-    
-    private void addEntry(ZipOutputStream zipOutputStream, byte[] data, String fileName) throws IOException {
-    	final int BUFFER = 2048;
-    	
-        InputStream inputStream = new ByteArrayInputStream(data);
-        BufferedInputStream outputStream = new BufferedInputStream(inputStream);
-
-        ZipEntry zipEntry = new ZipEntry(fileName);
-        zipOutputStream.putNextEntry(zipEntry);
-
-        int count = 0;
-        byte dataOut[] = new byte[BUFFER];
-        while ((count = outputStream.read(dataOut, 0, BUFFER)) != -1) {
-            zipOutputStream.write(dataOut, 0, count);
-        }
-    }
-    
-    private String getSuffix(String mimeType) {
-        return "." + MimeType.lookup(mimeType).getSuffix();
     }
 
 	protected MimeBodyPart getMimeBodyPart() {
