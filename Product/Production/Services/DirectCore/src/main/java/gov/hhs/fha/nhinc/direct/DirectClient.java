@@ -48,7 +48,7 @@ public interface DirectClient {
      * @param attachment for the message
      * @param attachmentName for the attachment
      */
-    void send(Address sender, Address[] recipients, Document attachment, String attachmentName);
+    void processAndSend(Address sender, Address[] recipients, Document attachment, String attachmentName);
 
     /**
      * Use the mail server to send a DIRECT message.
@@ -58,11 +58,20 @@ public interface DirectClient {
      * @param documents to be attached to the message
      * @param messageId for the message
      */
-	void send(Address sender, Address[] recipients, DirectDocuments documents, String messageId);
+	void processAndSend(Address sender, Address[] recipients, DirectDocuments documents, String messageId);
 	
     /**
      * Use the mail server to send a DIRECT message. When you already have a mail message and you want to send it
      * as a DIRECT message. Sender and recipients are extracted from the mime message.
+     *
+     * @param message (mime) to be sent using the direct
+     */
+    void processAndSend(MimeMessage message);
+
+    /**
+     * Use the mail server to send a processed message. When you have a mail message and you want to send it without
+     * performing anymore encryption/decryption or direct processing. Sender and recipients are extracted from the mime 
+     * message.
      *
      * @param message (mime) to be sent using the direct
      */
@@ -71,10 +80,9 @@ public interface DirectClient {
     /**
      * Use the mail server to send MDN messages if result contains notification messages.
      *
-     * @param recipient of the message (should match the sender of the message which was processed)
      * @param result to be processed for MDN Messages.
      */
-    void sendMdn(Address recipient, MessageProcessResult result);
+    void sendMdn(MessageProcessResult result);
 
     /**
      * Pull messages from a server and use an injected MessageHandler to handle them.

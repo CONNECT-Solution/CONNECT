@@ -26,6 +26,8 @@
  */
 package gov.hhs.fha.nhinc.direct;
 
+import java.util.Collection;
+
 import javax.mail.Address;
 import javax.mail.Message;
 import javax.mail.Message.RecipientType;
@@ -34,9 +36,11 @@ import javax.mail.internet.InternetAddress;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.nhindirect.gateway.smtp.MessageProcessResult;
 import org.nhindirect.stagent.AddressSource;
 import org.nhindirect.stagent.NHINDAddress;
 import org.nhindirect.stagent.NHINDAddressCollection;
+import org.nhindirect.stagent.mail.notifications.NotificationMessage;
 
 /**
  * Helper class to provide shared utility methods for interacting with the direct code.
@@ -106,4 +110,32 @@ public class DirectClientUtils {
             recipients.add(new NHINDAddress(address.toString(), source));
         }
     }
+    
+    /**
+     * Return MDN Notification Messages present in a DIRECT Process result, and perform logging. 
+     * @param result to pull notification messages from.
+     * @return collection of Notification Messages.
+     */
+    protected static Collection<NotificationMessage> getMdnMessages(MessageProcessResult result) {
+
+        if (result == null) {
+            LOG.error("Attempted to send MDNs when the process result is null.");
+            return null;
+        }
+        
+        if (result.getProcessedMessage() != null) {
+            LOG.info("Processed message is null while sending MDN.");            
+        }
+        
+        Collection<NotificationMessage> notifications = result.getNotificationMessages();
+        if (notifications == null || notifications.size() <= 0) {
+            LOG.error("MDN Notification messages are not present while attempting to send MDN.");
+            return null;
+        }
+
+        LOG.info("# of notifications message: " + notifications.size());
+        return notifications;
+    }
+
+
 }
