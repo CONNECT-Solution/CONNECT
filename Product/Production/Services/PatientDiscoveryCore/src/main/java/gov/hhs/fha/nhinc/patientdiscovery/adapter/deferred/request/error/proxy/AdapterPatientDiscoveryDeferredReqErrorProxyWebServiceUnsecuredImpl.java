@@ -27,7 +27,9 @@
 package gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.error.proxy;
 
 import gov.hhs.fha.nhinc.adapterpatientdiscoveryasyncreqerror.AdapterPatientDiscoveryAsyncReqErrorPortType;
+import gov.hhs.fha.nhinc.aspect.AdapterDelegationEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
@@ -65,6 +67,9 @@ public class AdapterPatientDiscoveryDeferredReqErrorProxyWebServiceUnsecuredImpl
         return new WebServiceProxyHelper();
     }
 
+    @AdapterDelegationEvent(beforeBuilder = DefaultEventDescriptionBuilder.class,
+            afterReturningBuilder = DefaultEventDescriptionBuilder.class, serviceType = "Patient Discovery",
+            version = "1.0")
     public MCCIIN000002UV01 processPatientDiscoveryAsyncReqError(PRPAIN201305UV02 request, PRPAIN201306UV02 response,
             AssertionType assertion, String errMsg) {
         log.debug("Begin processPatientDiscoveryAsyncReqError");
@@ -72,7 +77,8 @@ public class AdapterPatientDiscoveryDeferredReqErrorProxyWebServiceUnsecuredImpl
 
         try {
             String url = oProxyHelper
-                    .getAdapterEndPointFromConnectionManager(NhincConstants.PATIENT_DISCOVERY_ADAPTER_ASYNC_REQ_ERROR_SERVICE_NAME);
+                    .getAdapterEndPointFromConnectionManager(
+                            NhincConstants.PATIENT_DISCOVERY_ADAPTER_ASYNC_REQ_ERROR_SERVICE_NAME);
             if (NullChecker.isNotNullish(url)) {
 
                 if (request == null) {
@@ -84,10 +90,12 @@ public class AdapterPatientDiscoveryDeferredReqErrorProxyWebServiceUnsecuredImpl
                 } else if (NullChecker.isNullish(errMsg)) {
                     log.error("targets was null");
                 } else {
-                    ServicePortDescriptor<AdapterPatientDiscoveryAsyncReqErrorPortType> portDescriptor = new PatientDiscoveryDeferredReqErrorUnsecuredServicePortDescriptor();
+                    ServicePortDescriptor<AdapterPatientDiscoveryAsyncReqErrorPortType> portDescriptor = 
+                            new PatientDiscoveryDeferredReqErrorUnsecuredServicePortDescriptor();
                     CONNECTClient<AdapterPatientDiscoveryAsyncReqErrorPortType> client = CONNECTClientFactory
                             .getInstance().getCONNECTClientUnsecured(portDescriptor, url, assertion);
-                    AsyncAdapterPatientDiscoveryErrorRequestType msg = new AsyncAdapterPatientDiscoveryErrorRequestType();
+                    AsyncAdapterPatientDiscoveryErrorRequestType msg = 
+                            new AsyncAdapterPatientDiscoveryErrorRequestType();
                     msg.setAssertion(assertion);
                     msg.setPRPAIN201305UV02(request);
                     msg.setPRPAIN201306UV02(response);

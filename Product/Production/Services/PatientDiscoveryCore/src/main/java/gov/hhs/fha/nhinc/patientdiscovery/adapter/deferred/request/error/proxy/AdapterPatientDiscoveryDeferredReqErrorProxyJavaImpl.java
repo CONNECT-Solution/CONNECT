@@ -26,7 +26,9 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.error.proxy;
 
+import gov.hhs.fha.nhinc.aspect.AdapterDelegationEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.error.AdapterPatientDiscoveryDeferredReqErrorOrchImpl;
 
 import org.apache.commons.logging.Log;
@@ -43,6 +45,9 @@ public class AdapterPatientDiscoveryDeferredReqErrorProxyJavaImpl implements
         AdapterPatientDiscoveryDeferredReqErrorProxy {
     private static Log log = LogFactory.getLog(AdapterPatientDiscoveryDeferredReqErrorProxyJavaImpl.class);
 
+    @AdapterDelegationEvent(beforeBuilder = DefaultEventDescriptionBuilder.class,
+            afterReturningBuilder = DefaultEventDescriptionBuilder.class, serviceType = "Patient Discovery",
+            version = "1.0")
     public MCCIIN000002UV01 processPatientDiscoveryAsyncReqError(PRPAIN201305UV02 request, PRPAIN201306UV02 response,
             AssertionType assertion, String errMsg) {
         log.debug("Using Java Implementation for Adapter Patient Discovery Deferred Request Error Service");
