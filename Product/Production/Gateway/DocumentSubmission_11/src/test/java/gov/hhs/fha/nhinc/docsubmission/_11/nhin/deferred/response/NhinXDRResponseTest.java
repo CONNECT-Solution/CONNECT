@@ -24,45 +24,34 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.docsubmission._11.entity;
+package gov.hhs.fha.nhinc.docsubmission._11.nhin.deferred.response;
 
-
-import gov.hhs.fha.nhinc.aspect.OutboundMessageEvent;
-import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType;
-import gov.hhs.fha.nhinc.docsubmission.outbound.OutboundDocSubmission;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import gov.hhs.fha.nhinc.aspect.InboundMessageEvent;
 import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
 
-import javax.annotation.Resource;
-import javax.xml.ws.BindingType;
-import javax.xml.ws.WebServiceContext;
-import javax.xml.ws.soap.Addressing;
+import java.lang.reflect.Method;
 
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
+import org.junit.Test;
 
-@BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
-@Addressing(enabled = true)
-public class EntityDocSubmissionSecured implements gov.hhs.fha.nhinc.nhincentityxdrsecured.EntityXDRSecuredPortType {
-
-    private WebServiceContext context;
-
-    private OutboundDocSubmission outboundDocSubmission;
-
-    @Override
-    @OutboundMessageEvent(beforeBuilder = DefaultEventDescriptionBuilder.class,
-    afterReturningBuilder = DefaultEventDescriptionBuilder.class, serviceType = "Document Submission",
-    version = "1.1")
-    public RegistryResponseType provideAndRegisterDocumentSetB(
-            RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType body) {
-        return new EntityDocSubmissionImpl(outboundDocSubmission).provideAndRegisterDocumentSetBSecured(body, context);
+/**
+ * @author achidamb
+ *
+ */
+public class NhinXDRResponseTest {
+    @Test
+    public void hasInboundMessageEvent() throws Exception {
+        Class<NhinXDRResponse> clazz = NhinXDRResponse.class;
+        Method method = clazz.getMethod("provideAndRegisterDocumentSetBDeferredResponse", RegistryResponseType.class);
+        InboundMessageEvent annotation = method.getAnnotation(InboundMessageEvent.class);
+        assertNotNull(annotation);
+        assertEquals(DefaultEventDescriptionBuilder.class, annotation.beforeBuilder());
+        assertEquals(DefaultEventDescriptionBuilder.class, annotation.afterReturningBuilder());
+        assertEquals("Document Submission Deferred Response", annotation.serviceType());
+        assertEquals("1.1", annotation.version());
     }
 
-    @Resource
-    public void setContext(WebServiceContext context) {
-        this.context = context;
-    }
-
-    public void setOutboundDocSubmission(OutboundDocSubmission outboundDocSubmission) {
-        this.outboundDocSubmission = outboundDocSubmission;
-    }
 }
