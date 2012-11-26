@@ -52,7 +52,7 @@ public class OutboundMessageHandlerTest {
         MimeMessage mimeMessage = getSampleMimeMessage();
         testOutBoundMessageHandler.handleMessage(mimeMessage, mock(DirectMailClient.class));
 
-        verify(mockExternalDirectMailClient).send(mimeMessage);
+        verify(mockExternalDirectMailClient).processAndSend(mimeMessage);
     }
     
 }

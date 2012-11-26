@@ -87,7 +87,7 @@ public class InboundMessageHandler implements MessageHandler {
             throw new DirectException("Error processing message.", e);
         }
         
-        externalDirectClient.sendMdn(origSender, result);
+        externalDirectClient.sendMdn(result);
         
         MessageEnvelope processedMessage = result.getProcessedMessage();
         if (processedMessage == null) {

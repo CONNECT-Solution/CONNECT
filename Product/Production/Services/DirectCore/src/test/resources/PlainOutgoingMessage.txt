@@ -1,4 +1,4 @@
-To: mlandisdirect@gmail.com
+To: mlandis@5amsolutions.com
 From: sender@localhost
 Subject: I-D ACTION:draft-ietf-mailext-pipeline-01.txt
 Date: Thu, 05 Jan 95 10:53:24 -0500

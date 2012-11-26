@@ -61,27 +61,12 @@ import com.icegreen.greenmail.util.GreenMail;
  */
 public class DirectUnitTestUtil {
 
-    /**
-     * Sender of a mail message.
-     */
-    protected static final String SENDER = "testsender@localhost";
-    /**
-     * Recipient of a mail message.
-     */
-    protected static final String RECIPIENT = "testrecip@localhost";
-    /**
-     * Login username.
-     */
-    protected static final String USER = "testuser";    
-    /**
-     * Login password.
-     */
-    protected static final String PASS = "testpass1";
-    /**
-     * Max number of messages to process at once, allows us to throttle and distribute load.
-     */
-    protected static final int MAX_NUM_MSGS_IN_BATCH = 5;
+    protected static final String SENDER_AT_INITIATING_GW = "sender@localhost";
+    protected static final String RECIP_AT_RESPONDING_GW = "mlandis@5amsolutions.com";
+    protected static final String USER = "internaluser";    
+    protected static final String PASS = "internalpass1";
 
+    protected static final int MAX_NUM_MSGS_IN_BATCH = 5;
     private static final int DUMMY_PORT = 998;
 
     /**
@@ -181,14 +166,14 @@ public class DirectUnitTestUtil {
      * @return sender.
      */
     public static Address getSender() {
-        return toInternetAddress(SENDER);
+        return toInternetAddress(SENDER_AT_INITIATING_GW);
     }
     
     /**
      * @return recipients.
      */
     public static Address[] getRecipients() {
-        return new InternetAddress[] {toInternetAddress(RECIPIENT)};
+        return new InternetAddress[] {toInternetAddress(RECIP_AT_RESPONDING_GW)};
     }
     
     /**
@@ -214,7 +199,8 @@ public class DirectUnitTestUtil {
      */
     public static MimeMessageBuilder getMimeMessageBuilder(Session session) throws IOException {
         MimeMessageBuilder testBuilder = new MimeMessageBuilder(session, getSender(), getRecipients());
-        testBuilder.text("text").subject("subject").attachment(getMockDocument()).attachmentName("attachmentName").documents(getMockDirectDocuments()).messageId("1234");
+        testBuilder.text("text").subject("subject").attachment(getMockDocument()).attachmentName("attachmentName")
+                .documents(getMockDirectDocuments()).messageId("1234");
         return testBuilder;
     }
 
