@@ -65,13 +65,6 @@
     </dependency>
   </dependencies>
   <build>
-     <extensions>
-         <extension>
-             <groupId>org.connectopensource</groupId>
-             <artifactId>build-tools</artifactId>
-             <version>4.0.0-SNAPSHOT</version>
-         </extension>
-       </extensions>
     <!-- Caution: If <resources> or <testResources> is overridden by
             a child POM then all <resource> and <testResouce> elements will need to be
             placed within the child POM that overrides the <resourcs> or <testResources> -->
@@ -105,6 +98,12 @@
       </testResource>
     </testResources>
     <plugins>
+      <plugin>
+                 <groupId>org.connectopensource</groupId>
+                 <artifactId>build-tools</artifactId>
+                 <version>4.0.0-SNAPSHOT</version>
+                  <extensions>true</extensions>
+      </plugin>
       <plugin>
         <!-- Used to pull XSD files from the JAR -->
         <groupId>org.apache.maven.plugins</groupId>
