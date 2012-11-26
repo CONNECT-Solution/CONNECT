@@ -26,7 +26,6 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws;
 
-import gov.hhs.fha.nhinc.patientdiscovery.NhinPatientDiscoveryImpl;
 import gov.hhs.fha.nhinc.patientdiscovery._10.deferred.request.NhinPatientDiscoveryAsyncReqImpl;
 import gov.hhs.fha.nhinc.patientdiscovery._10.deferred.response.NhinPatientDiscoveryAsyncRespImpl;
 import gov.hhs.fha.nhinc.patientdiscovery._10.entity.EntityPatientDiscoveryImpl;
@@ -39,8 +38,6 @@ import gov.hhs.fha.nhinc.patientdiscovery._10.passthru.deferred.response.NhincPr
 public interface PatientDiscoveryServiceFactory {
 
     public abstract NhinPatientDiscoveryAsyncReqImpl getNhinPatientDiscoveryAsyncReqImpl();
-
-    public abstract NhinPatientDiscoveryImpl getNhinPatientDiscoveryService();
 
     public abstract NhinPatientDiscoveryAsyncRespImpl getNhinPatientDiscoveryAsyncRespImpl();
 

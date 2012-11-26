@@ -24,38 +24,25 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.patientdiscovery.nhin;
+package gov.hhs.fha.nhinc.patientdiscovery.inbound;
 
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.properties.PropertyAccessException;
-import gov.hhs.fha.nhinc.properties.PropertyAccessor;
-import gov.hhs.fha.nhinc.properties.ServicePropertyAccessor;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryException;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.hl7.v3.PRPAIN201305UV02;
+import org.hl7.v3.PRPAIN201306UV02;
 
-public abstract class AbstractServicePropertyAccessor implements ServicePropertyAccessor {
+/**
+ * @author akong
+ *
+ */
+public class TestInboundPatientDiscovery implements InboundPatientDiscovery {
 
-    static Log log = LogFactory.getLog(AbstractServicePropertyAccessor.class);
-
-    public AbstractServicePropertyAccessor() {
-        super();
-    }
-
-    abstract protected String getPassThruEnabledPropertyName();
 
     @Override
-    public boolean isInPassThroughMode() {
-        boolean passThroughModeEnabled = false;
-        try {
-            passThroughModeEnabled = PropertyAccessor.getInstance().getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE,
-                    getPassThruEnabledPropertyName());
-        } catch (PropertyAccessException ex) {
-            log.error("Error: Failed to retrieve " + getPassThruEnabledPropertyName() + " from property file: "
-                    + NhincConstants.GATEWAY_PROPERTY_FILE);
-            log.error(ex.getMessage());
-        }
-        return passThroughModeEnabled;
+    public PRPAIN201306UV02 respondingGatewayPRPAIN201305UV02(PRPAIN201305UV02 body, AssertionType assertion)
+            throws PatientDiscoveryException {
+        return new PRPAIN201306UV02();
     }
 
 }

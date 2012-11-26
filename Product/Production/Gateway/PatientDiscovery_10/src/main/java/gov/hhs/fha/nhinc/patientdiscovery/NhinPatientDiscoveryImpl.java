@@ -27,89 +27,27 @@
 package gov.hhs.fha.nhinc.patientdiscovery;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.generic.GenericFactory;
 import gov.hhs.fha.nhinc.messaging.server.BaseService;
-import gov.hhs.fha.nhinc.patientdiscovery.nhin.InboundPatientDiscoveryOrchestration;
-import gov.hhs.fha.nhinc.perfrepo.PerformanceManager;
-import gov.hhs.fha.nhinc.transform.audit.PatientDiscoveryTransforms;
+import gov.hhs.fha.nhinc.patientdiscovery.inbound.InboundPatientDiscovery;
 
 import javax.xml.ws.WebServiceContext;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
 
-/**
- * 
- * @author jhoppesc
- */
+
 public class NhinPatientDiscoveryImpl extends BaseService {
 
-    private static Log log = LogFactory.getLog(NhinPatientDiscoveryImpl.class);
+    private InboundPatientDiscovery inboundPatientDiscovery;
 
-    private GenericFactory<InboundPatientDiscoveryOrchestration> orchestrationFactory;
-    private PatientDiscoveryAuditor auditLogger;
-
-    public NhinPatientDiscoveryImpl() {
-        
-    }
-    
-    public NhinPatientDiscoveryImpl(PatientDiscoveryAuditor auditLogger,
-            GenericFactory<InboundPatientDiscoveryOrchestration> orchestrationFactory) {
-        configure(auditLogger, orchestrationFactory);
-    }
-    
-    public void configure(PatientDiscoveryAuditor auditLogger,
-            GenericFactory<InboundPatientDiscoveryOrchestration> orchestrationFactory) {
-        this.orchestrationFactory = orchestrationFactory;
-        this.auditLogger = auditLogger;
+    public NhinPatientDiscoveryImpl(InboundPatientDiscovery inboundPatientDiscovery) {
+        this.inboundPatientDiscovery = inboundPatientDiscovery;
     }
 
-    
-    public void setAuditLogger(PatientDiscoveryAuditor auditLogger) {
-        this.auditLogger = auditLogger;
-    }
-    
-    public void setOrchestrationFactory(GenericFactory<InboundPatientDiscoveryOrchestration> orchestrationFactory) {
-        this.orchestrationFactory = orchestrationFactory;
-    }
-    
     public PRPAIN201306UV02 respondingGatewayPRPAIN201305UV02(PRPAIN201305UV02 body, WebServiceContext context)
             throws PatientDiscoveryException {
-        log.debug("Entering NhinPatientDiscoveryImpl.respondingGatewayPRPAIN201305UV02");
+        AssertionType assertion = getAssertion(context, null);
 
-        AssertionType assertion = extractAssertion(context);
-
-        PRPAIN201306UV02 response;
-        response = respondingGatewayPRPAIN201305UV02(body, assertion);
-
-        // Send response back to the initiating Gateway
-        log.debug("Exiting NhinPatientDiscoveryImpl.respondingGatewayPRPAIN201305UV02");
-        return response;
-
+        return inboundPatientDiscovery.respondingGatewayPRPAIN201305UV02(body, assertion);
     }
-    
- 
-    protected PerformanceManager getPerformanceManager() {
-        return PerformanceManager.getPerformanceManagerInstance();
-    }
-
-    private PRPAIN201306UV02 respondingGatewayPRPAIN201305UV02(PRPAIN201305UV02 body, AssertionType assertion)
-            throws PatientDiscoveryException {
-        InboundPatientDiscoveryOrchestration oOrchestrator1 = orchestrationFactory.create();
-        InboundPatientDiscoveryOrchestration oOrchestrator = oOrchestrator1;
-
-        PRPAIN201306UV02 response = oOrchestrator.respondingGatewayPRPAIN201305UV02(body, assertion);
-        return response;
-    }
-
-    protected PatientDiscoveryAuditor getAuditLogger() {
-        return auditLogger;
-    }
-
-    protected PatientDiscoveryTransforms getTransforms() {
-        return new PatientDiscoveryTransforms();
-    }
-
 }

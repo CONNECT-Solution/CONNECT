@@ -24,36 +24,38 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.patientdiscovery.nhin.deferred.response;
+package gov.hhs.fha.nhinc.patientdiscovery.inbound;
 
-import gov.hhs.fha.nhinc.generic.GenericFactory;
-import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscovery201306PolicyChecker;
-import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditLogger;
-import gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.response.proxy.AdapterPatientDiscoveryDeferredRespProxyObjectFactory;
-import gov.hhs.fha.nhinc.patientdiscovery.inbound.AbstractServicePropertyAccessor;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.properties.PropertyAccessException;
+import gov.hhs.fha.nhinc.properties.PropertyAccessor;
+import gov.hhs.fha.nhinc.properties.ServicePropertyAccessor;
 
-public final class NhinPatientDiscoveryDeferredRespOrchFactory implements
-        GenericFactory<NhinPatientDiscoveryDeferredRespOrchImpl> {
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
-    private static NhinPatientDiscoveryDeferredRespOrchFactory INSTANCE = new NhinPatientDiscoveryDeferredRespOrchFactory();
+public abstract class AbstractServicePropertyAccessor implements ServicePropertyAccessor {
 
-    NhinPatientDiscoveryDeferredRespOrchFactory() {
+    static Log log = LogFactory.getLog(AbstractServicePropertyAccessor.class);
 
+    public AbstractServicePropertyAccessor() {
+        super();
     }
+
+    abstract protected String getPassThruEnabledPropertyName();
 
     @Override
-    public NhinPatientDiscoveryDeferredRespOrchImpl create() {
-
-        return new NhinPatientDiscoveryDeferredRespOrchImpl(new AbstractServicePropertyAccessor() {
-            @Override
-            protected String getPassThruEnabledPropertyName() {
-                return ""; // deferred response passthru doesn't make sense/not supported
-            }
-        }, new PatientDiscoveryAuditLogger(), new AdapterPatientDiscoveryDeferredRespProxyObjectFactory(),
-                PatientDiscovery201306PolicyChecker.getInstance());
+    public boolean isInPassThroughMode() {
+        boolean passThroughModeEnabled = false;
+        try {
+            passThroughModeEnabled = PropertyAccessor.getInstance().getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE,
+                    getPassThruEnabledPropertyName());
+        } catch (PropertyAccessException ex) {
+            log.error("Error: Failed to retrieve " + getPassThruEnabledPropertyName() + " from property file: "
+                    + NhincConstants.GATEWAY_PROPERTY_FILE);
+            log.error(ex.getMessage());
+        }
+        return passThroughModeEnabled;
     }
 
-    public static NhinPatientDiscoveryDeferredRespOrchFactory getInstance() {
-        return INSTANCE;
-    }
 }

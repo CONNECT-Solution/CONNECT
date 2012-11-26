@@ -24,36 +24,52 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.patientdiscovery.nhin.deferred.response;
+package gov.hhs.fha.nhinc.patientdiscovery.inbound;
 
-import gov.hhs.fha.nhinc.generic.GenericFactory;
-import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscovery201306PolicyChecker;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscovery201305Processor;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditLogger;
-import gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.response.proxy.AdapterPatientDiscoveryDeferredRespProxyObjectFactory;
-import gov.hhs.fha.nhinc.patientdiscovery.inbound.AbstractServicePropertyAccessor;
+import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryException;
 
-public final class NhinPatientDiscoveryDeferredRespOrchFactory implements
-        GenericFactory<NhinPatientDiscoveryDeferredRespOrchImpl> {
+import org.hl7.v3.PRPAIN201305UV02;
+import org.hl7.v3.PRPAIN201306UV02;
 
-    private static NhinPatientDiscoveryDeferredRespOrchFactory INSTANCE = new NhinPatientDiscoveryDeferredRespOrchFactory();
+/**
+ * @author akong
+ * 
+ */
+public class StandardInboundPatientDiscovery extends AbstractInboundPatientDiscovery {
 
-    NhinPatientDiscoveryDeferredRespOrchFactory() {
+    private PatientDiscovery201305Processor patientDiscoveryProcessor = new PatientDiscovery201305Processor();
 
+    /**
+     * Constructor.
+     */
+    public StandardInboundPatientDiscovery() {
+        super();
+    }
+
+    /**
+     * Constructor.
+     * 
+     * @param patientDiscoveryProcessor
+     * @param auditLogger
+     */
+    public StandardInboundPatientDiscovery(PatientDiscovery201305Processor patientDiscoveryProcessor,
+            PatientDiscoveryAuditLogger auditLogger) {
+        this.patientDiscoveryProcessor = patientDiscoveryProcessor;
+        this.auditLogger = auditLogger;
     }
 
     @Override
-    public NhinPatientDiscoveryDeferredRespOrchImpl create() {
+    PRPAIN201306UV02 process(PRPAIN201305UV02 body, AssertionType assertion) throws PatientDiscoveryException {
+        auditRequestToAdapter(body, assertion);
 
-        return new NhinPatientDiscoveryDeferredRespOrchImpl(new AbstractServicePropertyAccessor() {
-            @Override
-            protected String getPassThruEnabledPropertyName() {
-                return ""; // deferred response passthru doesn't make sense/not supported
-            }
-        }, new PatientDiscoveryAuditLogger(), new AdapterPatientDiscoveryDeferredRespProxyObjectFactory(),
-                PatientDiscovery201306PolicyChecker.getInstance());
+        PRPAIN201306UV02 response = patientDiscoveryProcessor.process201305(body, assertion);
+
+        auditResponseFromAdapter(response, assertion);
+
+        return response;
     }
 
-    public static NhinPatientDiscoveryDeferredRespOrchFactory getInstance() {
-        return INSTANCE;
-    }
 }
