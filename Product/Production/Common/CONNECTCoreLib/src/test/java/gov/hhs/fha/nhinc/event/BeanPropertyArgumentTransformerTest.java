@@ -26,54 +26,71 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.docretrieve.aspect;
+package gov.hhs.fha.nhinc.event;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.event.ArgTransformerEventDescriptionBuilder;
-import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
+import gov.hhs.fha.nhinc.event.BeanPropertyArgumentTransformer;
 
+import org.apache.commons.lang.ArrayUtils;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mockito;
 
-public abstract class ArgTransformerTest<T extends ArgTransformerEventDescriptionBuilder> {
-    private ArgTransformerEventDescriptionBuilder builder;
+public class BeanPropertyArgumentTransformerTest {
+
+    private final String foo = "foo";
+    private final int bar = 1;
+    private BeanPropertyArgumentTransformer builder;
+    private Object bean;
 
     @Before
     public void before() {
-        builder = getBuilder();
+        builder = mock(BeanPropertyArgumentTransformer.class, Mockito.CALLS_REAL_METHODS);
+        bean = new Object() {
+            public void setFoo(String foo) {
+
+            }
+
+            public String getFoo() {
+                return foo;
+            }
+
+            public void setBar(int bar) {
+
+            }
+
+            public int getBar() {
+                return bar;
+            }
+        };
     }
 
-    protected abstract T getBuilder();
-
     @Test
-    public void delegateIsCorrectType() {
-        assertEquals(RetrieveDocumentSetRequestTypeDescriptionBuilder.class, builder.getDelegate().getClass());
+    public void classExistsOfCorrectType() {
+        assertTrue(builder instanceof ArgTransformerEventDescriptionBuilder);
     }
 
     @Test
-    public void transformArguments() {
-        RetrieveDocumentSetRequestType mockRequest = mock(RetrieveDocumentSetRequestType.class);
-        AssertionType mockAssertion = mock(AssertionType.class);
-
-        Object request = getArgument(mockRequest, mockAssertion);
-
-        Object[] transformArguments = builder.transformArguments(new Object[] { request });
-        assertNotNull(transformArguments);
-        assertTrue(2 >= transformArguments.length);
-        assertEquals(mockRequest, transformArguments[0]);
-        if (transformArguments.length > 1) {
-            assertEquals(mockAssertion, transformArguments[1]);
-        }
+    public void transformsBeanPropertiesToArguments() {
+        Object[] transformedArguments = builder.transformArguments(new Object[] { bean });
+        assertTrue(transformedArguments.length >= 2);
+        assertTrue(ArrayUtils.contains(transformedArguments, foo));
+        assertTrue(ArrayUtils.contains(transformedArguments, bar));
     }
 
-    protected abstract Object getArgument(RetrieveDocumentSetRequestType mockRequest, AssertionType mockAssertion);
+    @Test
+    public void transformsAllArgumentsBeanProperties() {
+        Object[] transformedArguments = builder.transformArguments(new Object[] { new Object(), bean });
+        assertTrue(transformedArguments.length >= 2);
+        assertTrue(ArrayUtils.contains(transformedArguments, foo));
+        assertTrue(ArrayUtils.contains(transformedArguments, bar));
+    }
 
     @Test
-    public void transformReturnValue() {
+    public void transformsReturnValue() {
         Object o = new Object();
         assertEquals(o, builder.transformReturnValue(o));
     }
