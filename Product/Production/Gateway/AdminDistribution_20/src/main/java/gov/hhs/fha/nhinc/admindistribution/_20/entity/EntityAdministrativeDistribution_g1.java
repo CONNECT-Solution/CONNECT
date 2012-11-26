@@ -26,39 +26,43 @@
  */
 package gov.hhs.fha.nhinc.admindistribution._20.entity;
 
-import javax.xml.ws.BindingType;
-import javax.xml.ws.soap.Addressing;
-
-import gov.hhs.fha.nhinc.admindistribution.entity.EntityAdminDistributionOrchImpl;
+import gov.hhs.fha.nhinc.admindistribution.outbound.OutboundAdminDistribution;
 import gov.hhs.fha.nhinc.aspect.InboundMessageEvent;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewaySendAlertMessageType;
 import gov.hhs.fha.nhinc.entityadmindistribution.AdministrativeDistributionPortType;
 import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
+import gov.hhs.fha.nhinc.messaging.server.BaseService;
 
-/**
- *
- * @author dunnek
- */
+import javax.annotation.Resource;
+import javax.xml.ws.BindingType;
+import javax.xml.ws.WebServiceContext;
+import javax.xml.ws.soap.Addressing;
+
 
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 @Addressing(enabled = true)
-public class EntityAdministrativeDistribution_g1 implements AdministrativeDistributionPortType {
+public class EntityAdministrativeDistribution_g1 extends BaseService implements AdministrativeDistributionPortType {
 
-    private EntityAdminDistributionOrchImpl orchImpl;
+    private WebServiceContext context;
+    private OutboundAdminDistribution outboundAdminDist;
 
     @Override
     @InboundMessageEvent(serviceType = "Admin Distribution", version = "2.0",
             afterReturningBuilder = DefaultEventDescriptionBuilder.class,
             beforeBuilder = DefaultEventDescriptionBuilder.class)
     public void sendAlertMessage(RespondingGatewaySendAlertMessageType body) {
-        orchImpl.sendAlertMessage(body, body.getAssertion(), body.getNhinTargetCommunities());
+        AssertionType assertion = getAssertion(context, body.getAssertion());
+        
+        outboundAdminDist.sendAlertMessage(body, assertion, body.getNhinTargetCommunities());
     }
 
-    public void setOrchestratorImpl(EntityAdminDistributionOrchImpl orchImpl) {
-        this.orchImpl = orchImpl;
+    @Resource
+    public void setContext(WebServiceContext context) {
+        this.context = context;
     }
-
-    protected EntityAdminDistributionOrchImpl getOrchImpl() {
-        return this.orchImpl;
+    
+    public void setOutboundAdminDistribution(OutboundAdminDistribution outboundAdminDist) {
+        this.outboundAdminDist = outboundAdminDist;
     }
 }
