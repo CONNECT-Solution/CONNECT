@@ -46,7 +46,6 @@ public class OutboundDocQueryProcessorTest {
     OutboundOrchestratableMessage individual = null;
     OutboundOrchestratableMessage cumulative = null;
     OutboundDocQueryProcessor processor = new OutboundDocQueryProcessor();
-    
 
     @Test
     public void testPartialSuccess() {
@@ -85,84 +84,88 @@ public class OutboundDocQueryProcessorTest {
                 DocumentConstants.XDS_QUERY_RESPONSE_STATUS_FAILURE));
     }
 
-    @Test 
+    @Test
     public void testCasesForPartialSuccess() {
-        
-        assertEquals(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_PARTIAL_SUCCESS, 
+
+        assertEquals(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_PARTIAL_SUCCESS,
                 processor.determineCollectedStatus(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_PARTIAL_SUCCESS, null));
-      
-        assertEquals(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_PARTIAL_SUCCESS, 
-                processor.determineCollectedStatus(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_PARTIAL_SUCCESS, DocumentConstants.XDS_QUERY_RESPONSE_STATUS_SUCCESS));
-        
-        assertEquals(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_PARTIAL_SUCCESS, 
-                processor.determineCollectedStatus(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_FAILURE, DocumentConstants.XDS_QUERY_RESPONSE_STATUS_SUCCESS));
-        
-        assertEquals(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_PARTIAL_SUCCESS, 
-                processor.determineCollectedStatus(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_SUCCESS, DocumentConstants.XDS_QUERY_RESPONSE_STATUS_FAILURE));
+
+        assertEquals(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_PARTIAL_SUCCESS, processor.determineCollectedStatus(
+                DocumentConstants.XDS_QUERY_RESPONSE_STATUS_PARTIAL_SUCCESS,
+                DocumentConstants.XDS_QUERY_RESPONSE_STATUS_SUCCESS));
+
+        assertEquals(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_PARTIAL_SUCCESS, processor.determineCollectedStatus(
+                DocumentConstants.XDS_QUERY_RESPONSE_STATUS_FAILURE,
+                DocumentConstants.XDS_QUERY_RESPONSE_STATUS_SUCCESS));
+
+        assertEquals(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_PARTIAL_SUCCESS, processor.determineCollectedStatus(
+                DocumentConstants.XDS_QUERY_RESPONSE_STATUS_SUCCESS,
+                DocumentConstants.XDS_QUERY_RESPONSE_STATUS_FAILURE));
     }
-    
-    
-    @Test 
+
+    @Test
     public void testCasesForSuccess() {
-        
-        assertEquals(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_SUCCESS, 
+
+        assertEquals(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_SUCCESS,
                 processor.determineCollectedStatus(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_SUCCESS, null));
-      
-        assertEquals(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_SUCCESS, 
-                processor.determineCollectedStatus(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_SUCCESS, DocumentConstants.XDS_QUERY_RESPONSE_STATUS_SUCCESS));
-        
-     }
-    
-    @Test 
+
+        assertEquals(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_SUCCESS, processor.determineCollectedStatus(
+                DocumentConstants.XDS_QUERY_RESPONSE_STATUS_SUCCESS,
+                DocumentConstants.XDS_QUERY_RESPONSE_STATUS_SUCCESS));
+
+    }
+
+    @Test
     public void testCasesForFailure() {
-        
-        assertEquals(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_FAILURE, 
+
+        assertEquals(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_FAILURE,
                 processor.determineCollectedStatus(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_FAILURE, null));
-      
-        assertEquals(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_FAILURE, 
-                processor.determineCollectedStatus(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_FAILURE, DocumentConstants.XDS_QUERY_RESPONSE_STATUS_FAILURE));
-        
-     }
-    
-    
+
+        assertEquals(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_FAILURE, processor.determineCollectedStatus(
+                DocumentConstants.XDS_QUERY_RESPONSE_STATUS_FAILURE,
+                DocumentConstants.XDS_QUERY_RESPONSE_STATUS_FAILURE));
+
+    }
+
     @Test
     public void testRegistryCollection() {
         AdhocQueryResponse aggregatedResponse = new AdhocQueryResponse();
         List<JAXBElement<? extends IdentifiableType>> identifiableList = new ArrayList<JAXBElement<? extends IdentifiableType>>();
-        
+
         RegistryObjectType ro = new RegistryObjectType();
-        JAXBElement<RegistryObjectType> i = new JAXBElement<RegistryObjectType>(new QName("urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0", "Identifiable") , RegistryObjectType.class, ro);
+        JAXBElement<RegistryObjectType> i = new JAXBElement<RegistryObjectType>(new QName(
+                "urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0", "Identifiable"), RegistryObjectType.class, ro);
         identifiableList.add(i);
-       
+
         processor.collectRegistryObjectResponses(identifiableList, aggregatedResponse);
-        
-        assertEquals(1,aggregatedResponse.getRegistryObjectList().getIdentifiable().size());
-        
+
+        assertEquals(1, aggregatedResponse.getRegistryObjectList().getIdentifiable().size());
+
         processor.collectRegistryObjectResponses(identifiableList, aggregatedResponse);
-        
-        assertEquals(2,aggregatedResponse.getRegistryObjectList().getIdentifiable().size());
-        
+
+        assertEquals(2, aggregatedResponse.getRegistryObjectList().getIdentifiable().size());
+
         identifiableList.add(i);
-        
+
         processor.collectRegistryObjectResponses(identifiableList, aggregatedResponse);
-        
-        assertEquals(4,aggregatedResponse.getRegistryObjectList().getIdentifiable().size());
-  
-        
+
+        assertEquals(4, aggregatedResponse.getRegistryObjectList().getIdentifiable().size());
+
     }
-    
+
     @Test
     public void testAggregateRegistryCollection() {
         AdhocQueryResponse aggregatedResponse = new AdhocQueryResponse();
         AdhocQueryResponse individualResponse = new AdhocQueryResponse();
-        
+
         processor.aggregateRegistryObjectList(individualResponse, aggregatedResponse);
         assertNull(aggregatedResponse.getRegistryObjectList());
         RegistryObjectType ro = new RegistryObjectType();
-        JAXBElement<RegistryObjectType> i = new JAXBElement<RegistryObjectType>(new QName("urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0", "Identifiable") , RegistryObjectType.class, ro);
+        JAXBElement<RegistryObjectType> i = new JAXBElement<RegistryObjectType>(new QName(
+                "urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0", "Identifiable"), RegistryObjectType.class, ro);
         individualResponse.setRegistryObjectList(new RegistryObjectListType());
         individualResponse.getRegistryObjectList().getIdentifiable().add(i);
-        
+
         processor.aggregateRegistryObjectList(individualResponse, aggregatedResponse);
         assertEquals(1, aggregatedResponse.getRegistryObjectList().getIdentifiable().size());
     }
