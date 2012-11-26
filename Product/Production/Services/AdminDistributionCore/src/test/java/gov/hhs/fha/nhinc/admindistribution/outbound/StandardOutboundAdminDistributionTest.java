@@ -41,7 +41,6 @@ import gov.hhs.fha.nhinc.admindistribution.AdminDistributionPolicyChecker;
 import gov.hhs.fha.nhinc.admindistribution.entity.OutboundAdminDistributionDelegate;
 import gov.hhs.fha.nhinc.admindistribution.entity.OutboundAdminDistributionOrchestratable;
 import gov.hhs.fha.nhinc.admindistribution.outbound.StandardOutboundAdminDistribution;
-import gov.hhs.fha.nhinc.admindistribution.passthru.proxy.PassthruAdminDistributionProxy;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewaySendAlertMessageType;
