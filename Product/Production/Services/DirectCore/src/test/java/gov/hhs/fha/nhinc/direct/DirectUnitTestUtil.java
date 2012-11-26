@@ -85,6 +85,10 @@ public class DirectUnitTestUtil {
      */
     protected static final int MAX_NUM_MSGS_IN_BATCH = 5;
 
+    protected static final String SENDER_AT_INITIATING_GW = "sender@localhost";
+    protected static final String RECIP_AT_RESPONDING_GW = "mlandis@5amsolutions.com";
+    //protected static final String USER = "internaluser";    
+    //protected static final String PASS = "internalpass1";
     private static final int DUMMY_PORT = 998;
 
     /**
@@ -108,7 +112,9 @@ public class DirectUnitTestUtil {
 
         props.setProperty("mail.imaps.host", "localhost");
         props.setProperty("mail.imaps.port", Integer.toString(imapPort));
-
+        props.setProperty("mail.imaps.connectiontimeout", Integer.toString(15 * 1000));
+        props.setProperty("mail.imaps.timeout", Integer.toString(15 * 60 * 1000));
+        
         // this allows us to run the test using a dummy in-memory keystore provided by GreenMail... don't use in prod.
         props.setProperty("mail.smtps.ssl.socketFactory.class", "com.icegreen.greenmail.util.DummySSLSocketFactory");
         props.setProperty("mail.smtps.ssl.socketFactory.port", Integer.toString(smtpPort));
@@ -182,14 +188,14 @@ public class DirectUnitTestUtil {
      * @return sender.
      */
     public static Address getSender() {
-        return toInternetAddress(SENDER);
+        return toInternetAddress(SENDER_AT_INITIATING_GW);
     }
     
     /**
      * @return recipients.
      */
     public static Address[] getRecipients() {
-        return new InternetAddress[] {toInternetAddress(RECIPIENT)};
+        return new InternetAddress[] {toInternetAddress(RECIP_AT_RESPONDING_GW)};
     }
    
     /**
@@ -215,7 +221,8 @@ public class DirectUnitTestUtil {
      */
     public static MimeMessageBuilder getMimeMessageBuilder(Session session) throws IOException {
         MimeMessageBuilder testBuilder = new MimeMessageBuilder(session, getSender(), getRecipients());
-        testBuilder.text("text").subject("subject").attachment(getMockDocument()).attachmentName("attachmentName").documents(getMockDirectDocuments()).messageId("1234");
+        testBuilder.text("text").subject("subject").attachment(getMockDocument()).attachmentName("attachmentName")
+                .documents(getMockDirectDocuments()).messageId("1234");
         return testBuilder;
     }
 
@@ -228,22 +235,37 @@ public class DirectUnitTestUtil {
         }
         return address;        
     }
-
+    
     /**
      * The keystores references in smtp.agent.config.xml are fully qualified, so we have to make an absolute path
      * for them from a relative path in order to use inside a junit test. The template config file references the 
      * keystore with a placeholder {jks.keystore.path} which we will replace with the classpath used by this test.
      */
     public static void writeSmtpAgentConfig() {
-        String classpath = getClassPath();
         try {
-            String smtpAgentConfigTmpl = FileUtils.readFileToString(new File(classpath + "smtp.agent.config.tmpl.xml"));
+            String smtpAgentConfigTmpl = getFileAsString("smtp.agent.config.tmpl.xml");
+            String classpath = getClassPath();
             FileUtils.writeStringToFile(new File(classpath + "smtp.agent.config.xml"),
                     smtpAgentConfigTmpl.replaceAll("\\{jks.keystore.path\\}", classpath));
             LOG.debug("smtp.agent.config.xml: " + smtpAgentConfigTmpl.replaceAll("\\{jks.keystore.path\\}", classpath));
         } catch (IOException e) {
             fail(e.getMessage());
         }
+    }
+    
+    /**
+     * Retrieve the contents of the resource file (relative to classpath) as a string .
+     * @param filename resource file name to be stringified
+     * @return String representation of the contents of the file
+     */
+    public static String getFileAsString(String filename) {
+        String fileAsString = null;
+        try {
+            fileAsString =  FileUtils.readFileToString(new File(getClassPath() + filename));
+        } catch (IOException e) {
+            fail(e.getMessage());            
+        }
+        return fileAsString;
     }
     
     /**
@@ -255,5 +277,5 @@ public class DirectUnitTestUtil {
     
     private static String getClassPath() {
         return DirectMailClientSpringTest.class.getProtectionDomain().getCodeSource().getLocation().getPath();
-    }
+    }    
 }

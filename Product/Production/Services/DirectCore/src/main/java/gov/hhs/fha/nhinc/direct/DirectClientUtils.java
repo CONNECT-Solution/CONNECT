@@ -26,28 +26,36 @@
  */
 package gov.hhs.fha.nhinc.direct;
 
-import javax.mail.Address;
-import javax.mail.MessagingException;
-import javax.mail.Message.RecipientType;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
+import java.util.Collection;
 
+import javax.mail.Address;
+import javax.mail.Message;
+import javax.mail.Message.RecipientType;
+import javax.mail.MessagingException;
+import javax.mail.internet.InternetAddress;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.nhindirect.gateway.smtp.MessageProcessResult;
 import org.nhindirect.stagent.AddressSource;
 import org.nhindirect.stagent.NHINDAddress;
 import org.nhindirect.stagent.NHINDAddressCollection;
+import org.nhindirect.stagent.mail.notifications.NotificationMessage;
 
 /**
  * Helper class to provide shared utility methods for interacting with the direct code.
  */
 public class DirectClientUtils {
 
+    private static final Log LOG = LogFactory.getLog(DirectClientUtils.class);
+    
     /**
      * Extract the NHINDAddressCollection from the mime headers of the message.
      * @param message mime message
      * @return NHINDAddressCollection - collection of NHIND Addresses
      * @throws MessagingException if there was an exception
      */
-    protected static NHINDAddressCollection getNhindRecipients(MimeMessage message) throws MessagingException {
+    protected static NHINDAddressCollection getNhindRecipients(Message message) throws MessagingException {
 
         NHINDAddressCollection recipients = new NHINDAddressCollection();
         addRecipients(recipients, message, RecipientType.TO, AddressSource.To);
@@ -67,7 +75,7 @@ public class DirectClientUtils {
      * @return NHINDAddress for the sender
      * @throws MessagingException if there was an error
      */
-    protected static NHINDAddress getNhindSender(MimeMessage message) throws MessagingException {
+    protected static NHINDAddress getNhindSender(Message message) throws MessagingException {
         return new NHINDAddress(new InternetAddress(getSender(message).toString()), AddressSource.From);
     }
     
@@ -78,7 +86,7 @@ public class DirectClientUtils {
      * @return Address for the sender
      * @throws MessagingException if there was an error
      */
-    protected static Address getSender(MimeMessage message) throws MessagingException {
+    protected static Address getSender(Message message) throws MessagingException {
         Address[] fromAddresses = message.getFrom();
         if (fromAddresses.length != 1) {
             throw new DirectException("Expected one from address, but encountered: " + fromAddresses.length);
@@ -88,10 +96,12 @@ public class DirectClientUtils {
     }
     
     
-    private static void addRecipients(NHINDAddressCollection recipients, MimeMessage message, RecipientType type,
+    private static void addRecipients(NHINDAddressCollection recipients, Message message, RecipientType type,
             AddressSource source) throws MessagingException {
 
-        Address[] addresses = message.getRecipients(type);
+        Address[] addresses = null;
+        addresses = message.getRecipients(type);            
+        
         if (addresses == null) {
             return;
         }
@@ -100,4 +110,32 @@ public class DirectClientUtils {
             recipients.add(new NHINDAddress(address.toString(), source));
         }
     }
+    
+    /**
+     * Return MDN Notification Messages present in a DIRECT Process result, and perform logging. 
+     * @param result to pull notification messages from.
+     * @return collection of Notification Messages.
+     */
+    protected static Collection<NotificationMessage> getMdnMessages(MessageProcessResult result) {
+
+        if (result == null) {
+            LOG.error("Attempted to send MDNs when the process result is null.");
+            return null;
+        }
+        
+        if (result.getProcessedMessage() != null) {
+            LOG.info("Processed message is null while sending MDN.");            
+        }
+        
+        Collection<NotificationMessage> notifications = result.getNotificationMessages();
+        if (notifications == null || notifications.size() <= 0) {
+            LOG.error("MDN Notification messages are not present while attempting to send MDN.");
+            return null;
+        }
+
+        LOG.info("# of notifications message: " + notifications.size());
+        return notifications;
+    }
+
+
 }

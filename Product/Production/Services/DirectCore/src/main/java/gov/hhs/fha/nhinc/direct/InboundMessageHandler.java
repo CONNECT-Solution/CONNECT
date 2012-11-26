@@ -49,17 +49,26 @@ public class InboundMessageHandler implements MessageHandler {
 
     private static final Log LOG = LogFactory.getLog(InboundMessageHandler.class);
     
-    private final DirectClient internalDirectClient;
+    /**
+     * Define edge client for SMTP.
+     */
+    public static final int EDGE_CLIENT_TYPE_SMTP = 1;
+        
+    /**
+     * Define edge client for SOAP.
+     */
+    public static final int EDGE_CLIENT_TYPE_SOAP = 2;
     
     /**
-     * Constructor.
-     * @param intDirectMailClient internal direct mail client for sending messages after they have been decyrypted.
+     * Instance for Internal Direct Client is only used when the edge client uses SMTP.
      */
-    public InboundMessageHandler(DirectClient internalDirectClient) {
-        super();
-        this.internalDirectClient = internalDirectClient;
-    }
-
+    private DirectClient internalDirectClient;
+    
+    /**
+     * Stores the configuration for which edge client is used.
+     */
+    private int edgeClientType;
+    
     /**
      * {@inheritDoc}
      */
@@ -78,20 +87,56 @@ public class InboundMessageHandler implements MessageHandler {
             throw new DirectException("Error processing message.", e);
         }
         
-        externalDirectClient.sendMdn(origSender, result);
+        externalDirectClient.sendMdn(result);
         
         MessageEnvelope processedMessage = result.getProcessedMessage();
         if (processedMessage == null) {
             logNotfications(result);
             return;
-        } else {
-            // use the internal direct client to resend the derypted message.
-            // TODO - this needs to be a decision point - how do we handle the DIRECT message once it's been decrypted?
-            internalDirectClient.send(message);
+        } 
+
+        switch (edgeClientType) {
+        case EDGE_CLIENT_TYPE_SMTP:
+            handleMessageAsSmtp(processedMessage);
+            break;
+            
+        case EDGE_CLIENT_TYPE_SOAP:
+            handleMessageAsSoap(processedMessage);
+            break;
+
+        default:
+            throw new DirectException("Unknown edge client type: " + edgeClientType);
+        }        
+    }        
+    
+    /**
+     * Handles the message for SMTP edge clients.
+     * @param processedMessage decrypted message to be handled.
+     */
+    private void handleMessageAsSmtp(MessageEnvelope processedMessage) {
+        if (internalDirectClient == null) {
+            throw new DirectException("Internal Direct Client is not set as a property on this Message Handler.");
         }
+        internalDirectClient.send(processedMessage.getMessage());
     }
     
+    /**
+     * Handles the message for SOAP edge clients.
+     * @param processedMessage decrypted message to be handled.
+     */
+    private void handleMessageAsSoap(MessageEnvelope processedMessage) {
+        if (internalDirectClient != null) {
+            LOG.info("Internal Direct Client property is not needed on this Message Handler.");
+        }
+        
+        // TODO - Handle inbound direct messages as a SOAP/XDR transformation.
+        throw new UnsupportedOperationException("TODO - we need to implement SOAP/XDR handling from XDM.");
+    }
     
+    /**
+     * Log any notification messages that were produced by direct processing.
+     * @param result to pull notification messages from
+     */
     private void logNotfications(MessageProcessResult result) {
         StringBuilder builder = new StringBuilder("Inbound Mime Message could not be processed by DIRECT.");
         for (NotificationMessage notif : result.getNotificationMessages()) {
@@ -101,6 +146,20 @@ public class InboundMessageHandler implements MessageHandler {
                 LOG.warn("Exception while logging notification messages.", e);
             }
         }
-        LOG.warn(builder.toString());
+        LOG.info(builder.toString());
     }
+
+    /**
+     * @param internalDirectClient the internalDirectClient to set
+     */
+    public void setInternalDirectClient(DirectClient internalDirectClient) {
+        this.internalDirectClient = internalDirectClient;
+    }
+
+    /**
+     * @param edgeClientType the edge client type to set
+     */
+    public void setEdgeClientType(int edgeClientType) {
+        this.edgeClientType = edgeClientType;
+    }   
 }

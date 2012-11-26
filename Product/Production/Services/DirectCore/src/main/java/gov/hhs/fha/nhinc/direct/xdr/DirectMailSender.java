@@ -27,11 +27,11 @@ public class DirectMailSender extends ComponentProxyObjectFactory {
     }
 	
 	public void send(Address sender, Address[] recipients, Document attachment, String attachmentName) {
-		getDirectMailClient().send(sender, recipients, attachment, attachmentName);
+		getDirectMailClient().processAndSend(sender, recipients, attachment, attachmentName);
 	}
 	
 	public void send(Address sender, Address[] recipients, DirectDocuments documents, String messageId) {
-		getDirectMailClient().send(sender, recipients, documents, messageId);
+		getDirectMailClient().processAndSend(sender, recipients, documents, messageId);
 	}
 	
     public void send(Address sender, Address[] recipients, MimeMessage message) {
@@ -42,7 +42,7 @@ public class DirectMailSender extends ComponentProxyObjectFactory {
 			LOG.error("Error adding To/From to MimeMessage", e);
 		}
 		
-    	getDirectMailClient().send(message);
+    	getDirectMailClient().processAndSend(message);
     }
 
 	@Override

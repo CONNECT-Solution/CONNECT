@@ -28,11 +28,15 @@ package gov.hhs.fha.nhinc.direct;
 
 import java.util.Properties;
 
+import javax.mail.Address;
 import javax.mail.Authenticator;
 import javax.mail.Folder;
+import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Store;
+import javax.mail.Transport;
+import javax.mail.internet.MimeMessage;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -104,6 +108,26 @@ public class MailUtils {
     }
 
     /**
+     * Send a mime message.
+     * @param recipients of the mime message.
+     * @param session used to send the mime message.
+     * @param message to be sent.
+     * @throws MessagingException if there is an error.
+     */
+    public static void sendMessage(Address[] recipients, Session session, MimeMessage message)
+            throws MessagingException {
+
+        Transport transport = null;
+        try {
+            transport = session.getTransport("smtps");
+            transport.connect();
+            transport.sendMessage(message, recipients);
+        } finally {
+            transport.close();
+        }
+    }
+
+    /**
      * @param user username login credential
      * @param pass password login credential
      * @return mail Authenticator using credentials
@@ -118,5 +142,7 @@ public class MailUtils {
             }
         };
     }
+    
+    
 
 }
