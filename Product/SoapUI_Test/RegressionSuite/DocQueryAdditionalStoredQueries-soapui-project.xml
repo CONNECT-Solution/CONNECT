@@ -17756,10 +17756,5 @@ com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.withSql = { d
 		<con:xmlTemplates/>
 		<con:parameters/>
 	</con:reporting>
-	<con:eventHandlers name="TestSuiteRunListener.beforeTestCase" type="TestSuiteRunListener.beforeTestCase">
-		<con:script>FileUtils.backupConfiguration(context, log);</con:script>
-	</con:eventHandlers>
-	<con:eventHandlers name="TestSuiteRunListener.afterTestCase" type="TestSuiteRunListener.afterTestCase">
-		<con:script>FileUtils.restoreConfiguration(context, log)</con:script>
-	</con:eventHandlers>
+
 </con:soapui-project>
