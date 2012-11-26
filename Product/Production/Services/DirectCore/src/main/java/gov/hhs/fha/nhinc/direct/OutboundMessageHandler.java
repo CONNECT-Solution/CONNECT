@@ -44,7 +44,7 @@ public class OutboundMessageHandler implements MessageHandler {
      */
     @Override
     public void handleMessage(MimeMessage message, DirectClient internaldirectClient) {
-        externalDirectClient.send(message);
+        externalDirectClient.processAndSend(message);
     }
 
     /**

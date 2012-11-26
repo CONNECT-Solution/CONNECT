@@ -39,7 +39,6 @@ import javax.mail.MessagingException;
 import javax.mail.NoSuchProviderException;
 import javax.mail.Session;
 import javax.mail.Store;
-import javax.mail.Transport;
 import javax.mail.internet.MimeMessage;
 
 import org.apache.commons.logging.Log;
@@ -86,70 +85,66 @@ public class DirectMailClient implements DirectClient, InitializingBean {
      * {@inheritDoc}
      */
     @Override
-    public void send(Address sender, Address[] recipients, Document attachment, String attachmentName) {
+    public void processAndSend(Address sender, Address[] recipients, Document attachment, String attachmentName) {
 
         Session session = getMailSession();
 
         MimeMessage mimeMessage = new MimeMessageBuilder(session, sender, recipients).subject(MSG_SUBJECT)
                 .text(MSG_TEXT).attachment(attachment).attachmentName(attachmentName).build();
 
-        send(mimeMessage, session);
+        processAndSend(mimeMessage, session);
     }
     
     /**
      * {@inheritDoc}
      */
     @Override
-    public void send(Address sender, Address[] recipients, DirectDocuments documents, String messageId) {
+    public void processAndSend(Address sender, Address[] recipients, DirectDocuments documents, String messageId) {
 
         Session session = getMailSession();
 
         MimeMessage mimeMessage = new MimeMessageBuilder(session, sender, recipients).subject(MSG_SUBJECT)
                 .text(MSG_TEXT).documents(documents).messageId(messageId).build();
 
-        send(mimeMessage);
+        processAndSend(mimeMessage);
     }    
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void send(MimeMessage message) {
-        send(message, getMailSession());
+    public void processAndSend(MimeMessage message) {
+        processAndSend(message, getMailSession());
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void sendMdn(Address recipient, MessageProcessResult result) {
-        Transport transport = null;
+    public void send(MimeMessage message) {
         try {
-            LOG.trace("Calling agent.processMessage");
-            Session session = getMailSession();
-
-           if (result.getProcessedMessage() != null) {
-               transport = session.getTransport("smtps");
-               transport.connect();
-               Address[] addressTo = { recipient };
-               Collection<NotificationMessage> notifications = result.getNotificationMessages();
-
-               LOG.info("# of notifications message: " + notifications.size());
-               if (notifications != null && notifications.size() > 0) {
-                   for (NotificationMessage mdnMsg : notifications) {
-                       transport.sendMessage(mdnMsg, addressTo);
-                       LOG.info("MDN notification sent.");
-                   }
-               }
-           }
-           transport.close();
-       }
-       catch (Exception e) {
-           throw new DirectException("Failed to process and send MDN message: " + e.getMessage(), e);
-       }
-
+            MailUtils.sendMessage(message.getAllRecipients(), getMailSession(), message);
+        } catch (MessagingException e) {
+            throw new DirectException("Exception while sending mime message.", e);
+        }
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void sendMdn(MessageProcessResult result) {
+        
+        Collection<NotificationMessage> mdnMessages = DirectClientUtils.getMdnMessages(result);
+        if (mdnMessages != null) {
+            Session session = getMailSession();
+            for (NotificationMessage mdnMessage : mdnMessages) {
+                processAndSend(mdnMessage, session);
+                LOG.info("MDN notification sent.");
+            }
+        }
+    }
+    
     /**
      * {@inheritDoc}
      */
@@ -222,33 +217,47 @@ public class DirectMailClient implements DirectClient, InitializingBean {
         return smtpAgent;
     }
 
+    /**
+     * @param messageHandler the messageHandler to set
+     */
+    public void setMessageHandler(MessageHandler messageHandler) {
+        this.messageHandler = messageHandler;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        if (this.messageHandler == null) {
+            throw new DirectException("DirectMailClient instantiated without setting a message handler property.");
+        }
+    }
+
+    /**
+     * @return the handlerInvocations
+     */
+    public int getHandlerInvocations() {
+        return handlerInvocations;
+    }
+    
+    
     private Session getMailSession() {
         return MailUtils.getMailSession(mailServerProps, mailServerProps.getProperty("direct.mail.user"),
                 mailServerProps.getProperty("direct.mail.pass"));
     }
 
-    private void send(MimeMessage mimeMessage, Session session) {
+    private void processAndSend(MimeMessage mimeMessage, Session session) {
+
         MessageProcessResult result = processAsDirectMessage(mimeMessage);
         if (null == result || null == result.getProcessedMessage()) {
             throw new DirectException("Message processed by Direct is null.");
         }
+
         try {
-            sendDirectProcessedMessage(mimeMessage.getAllRecipients(), session, result);
+            MailUtils.sendMessage(mimeMessage.getAllRecipients(), session, result.getProcessedMessage().getMessage());
         } catch (MessagingException e) {
             throw new DirectException("Could not send message.", e);
-        }
-    }
-
-    private void sendDirectProcessedMessage(Address[] recipients, Session session, MessageProcessResult result)
-            throws MessagingException {
-
-        Transport transport = null;
-        try {
-            transport = session.getTransport("smtps");
-            transport.connect();
-            transport.sendMessage(result.getProcessedMessage().getMessage(), recipients);
-        } finally {
-            transport.close();
         }
     }
 
@@ -273,29 +282,5 @@ public class DirectMailClient implements DirectClient, InitializingBean {
                 DEF_NUM_MSGS_TO_HANDLE));
 
         return numberOfMsgsInFolder < maxNumberOfMsgsToHandle ? numberOfMsgsInFolder : maxNumberOfMsgsToHandle;
-    }
-    
-    /**
-     * @param messageHandler the messageHandler to set
-     */
-    public void setMessageHandler(MessageHandler messageHandler) {
-        this.messageHandler = messageHandler;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void afterPropertiesSet() throws Exception {
-        if (this.messageHandler == null) {
-            throw new DirectException("DirectMailClient instantiated without setting a message handler property.");
-        }
-    }
-
-    /**
-     * @return the handlerInvocations
-     */
-    public int getHandlerInvocations() {
-        return handlerInvocations;
     }
 }

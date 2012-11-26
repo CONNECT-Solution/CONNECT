@@ -34,7 +34,6 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import javax.mail.Address;
 import javax.mail.internet.MimeMessage;
 
 import org.junit.Before;
@@ -110,9 +109,9 @@ public class InboundMessageHandlerTest {
                 any(NHINDAddress.class));
 
         // verify that the external direct mail client is used to send the MDN notification emails.
-        verify(mockExternalDirectMailClient).sendMdn(any(Address.class), eq(mockResult));
+        verify(mockExternalDirectMailClient).sendMdn(eq(mockResult));
 
-        // verify that the internal direct mail client is not used to resend the message
+        // verify that the internal direct mail client is used n times to resend the message
         verify(mockInternalDirectMailClient, times(timesSentToInternalSmtp)).send(any(MimeMessage.class));        
     }
     
