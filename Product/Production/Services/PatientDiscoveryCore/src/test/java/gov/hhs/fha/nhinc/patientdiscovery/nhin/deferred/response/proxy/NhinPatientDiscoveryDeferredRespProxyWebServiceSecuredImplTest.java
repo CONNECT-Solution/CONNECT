@@ -12,8 +12,8 @@ import static org.junit.Assert.assertNotNull;
 import gov.hhs.fha.nhinc.aspect.NwhinInvocationEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
-import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
-
+import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201306UV02EventDescriptionBuilder;
+import gov.hhs.fha.nhinc.patientdiscovery.aspect.MCCIIN000002UV01EventDescriptionBuilder;
 import java.lang.reflect.Method;
 
 import org.hl7.v3.PRPAIN201306UV02;
@@ -32,9 +32,9 @@ public class NhinPatientDiscoveryDeferredRespProxyWebServiceSecuredImplTest {
                 AssertionType.class, NhinTargetSystemType.class );
         NwhinInvocationEvent annotation = method.getAnnotation(NwhinInvocationEvent.class);
         assertNotNull(annotation);
-        assertEquals(DefaultEventDescriptionBuilder.class, annotation.beforeBuilder());
-        assertEquals(DefaultEventDescriptionBuilder.class, annotation.afterReturningBuilder());
-        assertEquals("Patient Discovery", annotation.serviceType());
+        assertEquals(PRPAIN201306UV02EventDescriptionBuilder.class, annotation.beforeBuilder());
+        assertEquals(MCCIIN000002UV01EventDescriptionBuilder.class, annotation.afterReturningBuilder());
+        assertEquals("Patient Discovery Deferred Response", annotation.serviceType());
         assertEquals("1.0", annotation.version());
     }
 }

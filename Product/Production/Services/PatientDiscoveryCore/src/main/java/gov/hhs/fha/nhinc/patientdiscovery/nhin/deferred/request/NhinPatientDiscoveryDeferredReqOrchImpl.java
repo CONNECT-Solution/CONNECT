@@ -36,7 +36,6 @@ import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 import gov.hhs.fha.nhinc.aspect.InboundProcessingEvent;
 import gov.hhs.fha.nhinc.async.AsyncMessageProcessHelper;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.generic.GenericFactory;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditor;
@@ -45,6 +44,8 @@ import gov.hhs.fha.nhinc.patientdiscovery.PolicyChecker;
 import gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.error.proxy.AdapterPatientDiscoveryDeferredReqErrorProxy;
 //CheckStyle:ON
 import gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.proxy.AdapterPatientDiscoveryDeferredReqProxy;
+import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201305UV02EventDescriptionBuilder;
+import gov.hhs.fha.nhinc.patientdiscovery.aspect.MCCIIN000002UV01EventDescriptionBuilder;
 import gov.hhs.fha.nhinc.properties.ServicePropertyAccessor;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201306Transforms;
 
@@ -82,8 +83,9 @@ public class NhinPatientDiscoveryDeferredReqOrchImpl implements NhinPatientDisco
     }
 
     @Override
-    @InboundProcessingEvent(beforeBuilder = DefaultEventDescriptionBuilder.class,
-    afterReturningBuilder = DefaultEventDescriptionBuilder.class, serviceType = "Patient Discovery",
+    @InboundProcessingEvent(beforeBuilder = PRPAIN201305UV02EventDescriptionBuilder.class,
+    afterReturningBuilder = MCCIIN000002UV01EventDescriptionBuilder.class, 
+    serviceType = "Patient Discovery Deferred Request",
     version = "1.0")
     public MCCIIN000002UV01 respondingGatewayPRPAIN201305UV02(PRPAIN201305UV02 request, AssertionType assertion) {
         MCCIIN000002UV01 resp = new MCCIIN000002UV01();

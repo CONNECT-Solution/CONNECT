@@ -29,8 +29,8 @@ package gov.hhs.fha.nhinc.patientdiscovery.nhin.deferred.response.proxy;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.aspect.NwhinInvocationEvent;
-import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
-
+import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201306UV02EventDescriptionBuilder;
+import gov.hhs.fha.nhinc.patientdiscovery.aspect.MCCIIN000002UV01EventDescriptionBuilder;
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PRPAIN201306UV02;
 
@@ -40,8 +40,9 @@ import org.hl7.v3.PRPAIN201306UV02;
  */
 public class NhinPatientDiscoveryDeferredRespProxyNoOpImpl implements NhinPatientDiscoveryDeferredRespProxy {
 
-    @NwhinInvocationEvent(beforeBuilder = DefaultEventDescriptionBuilder.class,
-            afterReturningBuilder = DefaultEventDescriptionBuilder.class, serviceType = "Patient Discovery",
+    @NwhinInvocationEvent(beforeBuilder = PRPAIN201306UV02EventDescriptionBuilder.class,
+            afterReturningBuilder = MCCIIN000002UV01EventDescriptionBuilder.class, 
+            serviceType = "Patient Discovery Deferred Response",
             version = "1.0")
     public MCCIIN000002UV01 respondingGatewayPRPAIN201306UV02(PRPAIN201306UV02 body, AssertionType assertion,
             NhinTargetSystemType target) {

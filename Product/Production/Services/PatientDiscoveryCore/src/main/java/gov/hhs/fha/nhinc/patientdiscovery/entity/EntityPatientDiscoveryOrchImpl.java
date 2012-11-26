@@ -68,6 +68,7 @@ import gov.hhs.fha.nhinc.orchestration.OutboundResponseProcessor;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscovery201305Processor;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditLogger;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryPolicyChecker;
+import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201305UV02ArgTransformer;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7DataTransformHelper;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201306Transforms;
@@ -101,7 +102,7 @@ public class EntityPatientDiscoveryOrchImpl {
         largejobExecutor = le;
     }
 
-    @OutboundProcessingEvent(beforeBuilder = DefaultEventDescriptionBuilder.class,
+    @OutboundProcessingEvent(beforeBuilder = PRPAIN201305UV02ArgTransformer.class,
             afterReturningBuilder = DefaultEventDescriptionBuilder.class, serviceType = "Patient Discovery",
             version = "1.0")
     public RespondingGatewayPRPAIN201306UV02ResponseType respondingGatewayPRPAIN201305UV02(

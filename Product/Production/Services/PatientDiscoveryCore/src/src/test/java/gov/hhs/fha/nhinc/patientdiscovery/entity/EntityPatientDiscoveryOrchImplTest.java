@@ -53,6 +53,7 @@ import gov.hhs.fha.nhinc.gateway.executorservice.NhinTaskExecutor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditLogger;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryPolicyChecker;
+import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201305UV02ArgTransformer;
 import gov.hhs.fha.nhinc.patientdiscovery.utils.PDTestUtils;
 
 /**
@@ -369,7 +370,7 @@ public class EntityPatientDiscoveryOrchImplTest {
                 RespondingGatewayPRPAIN201305UV02RequestType.class, AssertionType.class);
         OutboundProcessingEvent annotation = method.getAnnotation(OutboundProcessingEvent.class);
         assertNotNull(annotation);
-        assertEquals(DefaultEventDescriptionBuilder.class, annotation.beforeBuilder());
+        assertEquals(PRPAIN201305UV02ArgTransformer.class, annotation.beforeBuilder());
         assertEquals(DefaultEventDescriptionBuilder.class, annotation.afterReturningBuilder());
         assertEquals("Patient Discovery", annotation.serviceType());
         assertEquals("1.0", annotation.version());
