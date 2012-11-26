@@ -28,44 +28,11 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery.aspect;
 
-import gov.hhs.fha.nhinc.event.AssertionEventDescriptionBuilder;
+import gov.hhs.fha.nhinc.event.BeanPropertyArgumentTransformer;
 
-/**
- * Populates the description from a PRPAIN201305UV02 object. Currently, no information is extracted from this object.
- * Only the Assertion is used.
- */
-public class PRPAIN201305UV02EventDescriptionBuilder extends AssertionEventDescriptionBuilder {
+public class PRPAIN201305UV02ArgTransformer extends BeanPropertyArgumentTransformer {
 
-    @Override
-    public void buildRespondingHCIDs() {
-    }
-
-    @Override
-    public void buildTimeStamp() {
-    }
-
-    @Override
-    public void buildStatuses() {
-    }
-
-    @Override
-    public void buildPayloadTypes() {
-    }
-
-    @Override
-    public void buildPayloadSizes() {
-    }
-
-    @Override
-    public void buildErrorCodes() {
-    }
-
-    @Override
-    public void setArguments(Object... arguments) {
-        extractAssertion(arguments);
-    }
-
-    @Override
-    public void setReturnValue(Object returnValue) {
+    public PRPAIN201305UV02ArgTransformer() {
+        setDelegate(new PRPAIN201305UV02EventDescriptionBuilder());
     }
 }
