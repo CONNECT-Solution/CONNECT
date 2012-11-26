@@ -3,7 +3,7 @@
 	<con:settings/>
 	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager}NhincComponentConnectionManagerBindingSoap" definition="${projectDir}/target/wsdl/NhincComponentConnectionManager.wsdl" name="NhincComponentConnectionManagerBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
-		<con:endpoints>
+		<con:definitionCache/><con:endpoints>
 			<con:endpoint>${#Project#Endpoint-ConnectionManager}</con:endpoint>
 		</con:endpoints>
 		<con:operation action="urn:ForceRefreshInternalConnectCache" anonymous="optional" bindingOperationName="ForceRefreshInternalConnectCache" inputName="ForceRefreshInternalConnectCacheRequest" isOneWay="false" name="ForceRefreshInternalConnectCache" outputName="ForceRefreshInternalConnectCacheResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">

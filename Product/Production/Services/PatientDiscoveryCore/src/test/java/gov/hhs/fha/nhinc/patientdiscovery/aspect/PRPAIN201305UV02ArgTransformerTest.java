@@ -26,55 +26,53 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.docretrieve.aspect;
+package gov.hhs.fha.nhinc.patientdiscovery.aspect;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.event.ArgTransformerEventDescriptionBuilder;
-import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
+import gov.hhs.fha.nhinc.event.BaseDescriptionBuilderTest;
+import gov.hhs.fha.nhinc.event.BeanPropertyArgumentTransformer;
 
+import java.beans.PropertyDescriptor;
+
+import org.hl7.v3.PRPAIN201305UV02;
+import org.hl7.v3.ProxyPRPAIN201305UVProxyRequestType;
+import org.hl7.v3.ProxyPRPAIN201305UVProxySecuredRequestType;
+import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
+import org.hl7.v3.RespondingGatewayPRPAIN201305UV02SecuredRequestType;
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.beans.BeanUtils;
 
-public abstract class ArgTransformerTest<T extends ArgTransformerEventDescriptionBuilder> {
-    private ArgTransformerEventDescriptionBuilder builder;
+public class PRPAIN201305UV02ArgTransformerTest extends BaseDescriptionBuilderTest {
+
+    private PRPAIN201305UV02ArgTransformer builder;
 
     @Before
     public void before() {
-        builder = getBuilder();
-    }
-
-    protected abstract T getBuilder();
-
-    @Test
-    public void delegateIsCorrectType() {
-        assertEquals(RetrieveDocumentSetRequestTypeDescriptionBuilder.class, builder.getDelegate().getClass());
+        builder = new PRPAIN201305UV02ArgTransformer();
     }
 
     @Test
-    public void transformArguments() {
-        RetrieveDocumentSetRequestType mockRequest = mock(RetrieveDocumentSetRequestType.class);
-        AssertionType mockAssertion = mock(AssertionType.class);
-
-        Object request = getArgument(mockRequest, mockAssertion);
-
-        Object[] transformArguments = builder.transformArguments(new Object[] { request });
-        assertNotNull(transformArguments);
-        assertTrue(2 >= transformArguments.length);
-        assertEquals(mockRequest, transformArguments[0]);
-        if (transformArguments.length > 1) {
-            assertEquals(mockAssertion, transformArguments[1]);
+    public void jaxbTypesHaveCorrectBeanProperties() {
+        Class<?>[] classes = new Class<?>[] { ProxyPRPAIN201305UVProxyRequestType.class,
+                ProxyPRPAIN201305UVProxySecuredRequestType.class, RespondingGatewayPRPAIN201305UV02RequestType.class,
+                RespondingGatewayPRPAIN201305UV02SecuredRequestType.class };
+        for (int curClass = 0; curClass < classes.length; ++curClass) {
+            PropertyDescriptor[] propertyDescriptors = BeanUtils.getPropertyDescriptors(classes[curClass]);
+            boolean found = false;
+            for (int i = 0; i < propertyDescriptors.length; ++i) {
+                if (propertyDescriptors[0].getPropertyType().equals(PRPAIN201305UV02.class)) {
+                    found = true;
+                }
+            }
+            assertTrue(classes[curClass].toString(), found);
         }
     }
 
-    protected abstract Object getArgument(RetrieveDocumentSetRequestType mockRequest, AssertionType mockAssertion);
-
     @Test
-    public void transformReturnValue() {
-        Object o = new Object();
-        assertEquals(o, builder.transformReturnValue(o));
+    public void correctArgTransformerDelegate() {
+        assertTrue(builder instanceof BeanPropertyArgumentTransformer);
+        assertEquals(PRPAIN201305UV02EventDescriptionBuilder.class, builder.getDelegate().getClass());
     }
 }

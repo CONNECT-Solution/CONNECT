@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?><con:soapui-project xmlns:con="http://eviware.com/soapui/config" abortOnError="false" name="EntityDocRetrieve" resourceRoot="${projectDir}" runType="SEQUENTIAL" soapui-version="3.6">
 	<con:settings/>
-	<con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitydocretrieve}EntityDocRetrieveBindingSoap" definition="WSDL path not set.  #EntityDocRetrieve.wsdl" name="EntityDocRetrieveBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
+	<con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitydocretrieve}EntityDocRetrieveBindingSoap" definition="${ProjectDir}../ValidationSuite/target/wsdl/EntityDocRetrieve.wsdl" name="EntityDocRetrieveBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
 		<con:settings/>
 		
 		<con:endpoints>
@@ -102,8 +102,8 @@ FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml",destConfigFileLocati
                <urn2:zipCode>AddrZip</urn2:zipCode>
             </urn2:address>
             <urn2:dateOfBirth xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">06/04/1959 05:21:00</urn2:dateOfBirth>
-            <urn2:dateOfSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#sigDate}</urn2:dateOfSignature>
-            <urn2:expirationDate xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#expireDate}</urn2:expirationDate>
+            <!--urn2:dateOfSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#sigDate}</urn2:dateOfSignature-->
+            <!--urn2:expirationDate xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#expireDate}</urn2:expirationDate-->
             <urn2:explanationNonClaimantSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">Electronic</urn2:explanationNonClaimantSignature>
             <urn2:haveSecondWitnessSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn2:haveSecondWitnessSignature>
             <urn2:haveSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn2:haveSignature>
@@ -141,7 +141,7 @@ FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml",destConfigFileLocati
                   <urn2:originalText>phoneCode</urn2:originalText>
                </urn2:phoneNumberType>
             </urn2:phoneNumber>
-            <urn2:purposeOfDisclosure xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">TREATMENT</urn2:purposeOfDisclosure>
+            <!--urn2:purposeOfDisclosure xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">TREATMENT</urn2:purposeOfDisclosure-->
             <urn2:secondWitnessAddress xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <urn2:addressType>
                   <urn2:code>AddrCode</urn2:code>
@@ -246,7 +246,7 @@ FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml",destConfigFileLocati
                   <urn2:fullName>Kasrl S. Skagerberg</urn2:fullName>
                </urn2:personName>
                <urn2:userName>kskagerb</urn2:userName>
-               <urn2:role>Pharmacy</urn2:role>
+               <!--urn2:role>Pharmacy</urn2:role-->
                <urn2:org>
                   <urn2:description>${#Project#LocalHCDescription}</urn2:description>
                   <urn2:homeCommunityId>${#Project#LocalHCID}</urn2:homeCommunityId>
@@ -292,9 +292,9 @@ FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml",destConfigFileLocati
                         <urn2:notBefore>2009-04-16T13:10:39.093Z</urn2:notBefore>
                         <urn2:notOnOrAfter>2009-12-31T12:00:00.000Z</urn2:notOnOrAfter>
                      </urn2:conditions>
-                     <urn2:contentReference>Claim-Ref-1234</urn2:contentReference>
-                     <urn2:contentType>application/pdf</urn2:contentType>
-                     <urn2:content>YWVvbGlhbQ==</urn2:content>
+                     <!--urn2:contentReference>Claim-Ref-1234</urn2:contentReference-->
+                     <!--urn2:contentType>application/pdf</urn2:contentType-->
+                     <!--urn2:content>YWVvbGlhbQ==</urn2:content-->
                   </urn2:assertion>
                </urn2:evidence>
             </urn2:samlAuthzDecisionStatement>
@@ -436,8 +436,8 @@ FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml",destConfigFileLocati
                <urn2:zipCode>AddrZip</urn2:zipCode>
             </urn2:address>
             <urn2:dateOfBirth xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">06/04/1959 05:21:00</urn2:dateOfBirth>
-            <urn2:dateOfSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#sigDate}</urn2:dateOfSignature>
-            <urn2:expirationDate xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#expireDate}</urn2:expirationDate>
+            <!--urn2:dateOfSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#sigDate}</urn2:dateOfSignature-->
+            <!--urn2:expirationDate xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#expireDate}</urn2:expirationDate-->
             <urn2:explanationNonClaimantSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">Electronic</urn2:explanationNonClaimantSignature>
             <urn2:haveSecondWitnessSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn2:haveSecondWitnessSignature>
             <urn2:haveSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn2:haveSignature>
@@ -475,7 +475,7 @@ FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml",destConfigFileLocati
                   <urn2:originalText>phoneCode</urn2:originalText>
                </urn2:phoneNumberType>
             </urn2:phoneNumber>
-            <urn2:purposeOfDisclosure xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">TREATMENT</urn2:purposeOfDisclosure>
+            <!--urn2:purposeOfDisclosure xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">TREATMENT</urn2:purposeOfDisclosure-->
             <urn2:secondWitnessAddress xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <urn2:addressType>
                   <urn2:code>AddrCode</urn2:code>
@@ -580,7 +580,7 @@ FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml",destConfigFileLocati
                   <urn2:fullName>Kasrl S. Skagerberg</urn2:fullName>
                </urn2:personName>
                <urn2:userName>kskagerb</urn2:userName>
-               <urn2:role>Pharmacy</urn2:role>
+               <!--urn2:role>Pharmacy</urn2:role-->
                <urn2:org>
                   <urn2:description>${#Project#LocalHCDescription}</urn2:description>
                   <urn2:homeCommunityId>${#Project#LocalHCID}</urn2:homeCommunityId>
@@ -626,9 +626,9 @@ FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml",destConfigFileLocati
                         <urn2:notBefore>2009-04-16T13:10:39.093Z</urn2:notBefore>
                         <urn2:notOnOrAfter>2009-12-31T12:00:00.000Z</urn2:notOnOrAfter>
                      </urn2:conditions>
-                     <urn2:contentReference>Claim-Ref-1234</urn2:contentReference>
-                     <urn2:contentType>application/pdf</urn2:contentType>
-                     <urn2:content>YWVvbGlhbQ==</urn2:content>
+                     <!--urn2:contentReference>Claim-Ref-1234</urn2:contentReference-->
+                     <!--urn2:contentType>application/pdf</urn2:contentType-->
+                     <!--urn2:content>YWVvbGlhbQ==</urn2:content-->
                   </urn2:assertion>
                </urn2:evidence>
             </urn2:samlAuthzDecisionStatement>
@@ -822,10 +822,5 @@ com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.withSql = { d
 		<con:xmlTemplates/>
 		<con:parameters/>
 	</con:reporting>
-	<con:eventHandlers name="TestSuiteRunListener.beforeTestCase" type="TestSuiteRunListener.beforeTestCase">
-		<con:script>FileUtils.backupConfiguration(context, log);</con:script>
-	</con:eventHandlers>
-	<con:eventHandlers name="TestSuiteRunListener.afterTestCase" type="TestSuiteRunListener.afterTestCase">
-		<con:script>FileUtils.restoreConfiguration(context, log)</con:script>
-	</con:eventHandlers>
+
 </con:soapui-project>

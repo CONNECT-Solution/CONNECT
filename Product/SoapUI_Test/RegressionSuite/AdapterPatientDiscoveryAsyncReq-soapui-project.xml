@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project abortOnError="false" name="AdapterPatientDiscoveryAsyncReq" resourceRoot="" runType="SEQUENTIAL" soapui-version="3.5.1" xmlns:con="http://eviware.com/soapui/config">
+<con:soapui-project abortOnError="false" name="AdapterPatientDiscoveryAsyncReq" resourceRoot="${projectDir}" runType="SEQUENTIAL" soapui-version="4.5.1" activeEnvironment="Default" xmlns:con="http://eviware.com/soapui/config">
   <con:settings/>
-  <con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:adapterpatientdiscoveryasyncreq}AdapterPatientDiscoveryAsyncReqBindingSoap" definition="WSDL path not set.  #AdapterPatientDiscoveryAsyncReq.wsdl" name="AdapterPatientDiscoveryAsyncReqBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:adapterpatientdiscoveryasyncreq}AdapterPatientDiscoveryAsyncReqBindingSoap" definition="${ProjectDir}../ValidationSuite/target/wsdl/AdapterPatientDiscoveryAsyncReq.wsdl" name="AdapterPatientDiscoveryAsyncReqBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
     
     <con:endpoints>
@@ -108,8 +108,8 @@
                <urn1:zipCode>20176</urn1:zipCode>
             </urn1:address>
             <urn1:dateOfBirth>19990627</urn1:dateOfBirth>
-            <urn1:dateOfSignature>20080520</urn1:dateOfSignature>
-            <urn1:expirationDate>20100520</urn1:expirationDate>
+            <!--urn1:dateOfSignature>20080520</urn1:dateOfSignature-->
+            <!--urn1:expirationDate>20100520</urn1:expirationDate-->
             <urn1:explanationNonClaimantSignature>NEEDED</urn1:explanationNonClaimantSignature>
             <urn1:haveSecondWitnessSignature>true</urn1:haveSecondWitnessSignature>
             <urn1:haveSignature>true</urn1:haveSignature>
@@ -138,7 +138,7 @@
                   <urn1:code>W</urn1:code>
                </urn1:phoneNumberType>
             </urn1:phoneNumber>
-            <urn1:purposeOfDisclosure>Mental</urn1:purposeOfDisclosure>
+            <!--urn1:purposeOfDisclosure>Mental</urn1:purposeOfDisclosure-->
             <urn1:secondWitnessAddress>
                <urn1:addressType>
                   <urn1:code>W</urn1:code>
@@ -212,7 +212,7 @@
                   <urn1:prefix>Mrs</urn1:prefix>
                </urn1:personName>
                <urn1:userName>wanderson</urn1:userName>
-               <urn1:role>nuse</urn1:role>
+               <!--urn1:role>nuse</urn1:role-->
                <urn1:org>
                   <urn1:description>Test HCID1</urn1:description>
                   <urn1:homeCommunityId>2.16.840.1.113883.3.337</urn1:homeCommunityId>
@@ -232,9 +232,9 @@
             </urn1:userInfo>
             <urn1:authorized>authorized</urn1:authorized>
             <!--Optional:-->
-            <urn1:claimFormRef>claimFormRef</urn1:claimFormRef>
+            <!--urn1:claimFormRef>claimFormRef</urn1:claimFormRef-->
             <!--Optional:-->
-            <urn1:claimFormRaw>cid:610957193055</urn1:claimFormRaw>
+            <!--urn1:claimFormRaw>cid:610957193055</urn1:claimFormRaw-->
             <!--Optional:-->
             <urn1:samlAuthnStatement>
                <!--Optional:-->
@@ -278,11 +278,11 @@
                         <urn1:notOnOrAfter>notOnOrAfter</urn1:notOnOrAfter>
                      </urn1:conditions>
                      <!--Optional:-->
-                     <urn1:contentReference>contentReference</urn1:contentReference>
+                     <!--urn1:contentReference>contentReference</urn1:contentReference-->
                      <!--Optional:-->
-                     <urn1:contentType>contentType</urn1:contentType>
+                     <!--urn1:contentType>contentType</urn1:contentType-->
                      <!--Optional:-->
-                     <urn1:content>cid:574777349023</urn1:content>
+                     <!--urn1:content>cid:574777349023</urn1:content-->
                   </urn1:assertion>
                </urn1:evidence>
             </urn1:samlAuthzDecisionStatement>
@@ -350,40 +350,40 @@
                 <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
               </con:configuration>
             </con:assertion>
-            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
             <con:wsaConfig action="urn:gov:hhs:fha:nhinc:adapterpatientdiscoveryasyncreq:ProcessPatientDiscoveryAsyncReqAsyncRequest" addDefaultTo="true" messageID="uuid:1111111111.11111.111.11" mustUnderstand="NONE" version="200508"/>
             <con:wsrmConfig version="1.2"/>
           </con:request>
         </con:config>
       </con:testStep>
-      <con:properties>
+      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-26T17:40:11Z</con:value>
+          <con:value>2012-11-26T13:49:33Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-26T17:50:11Z</con:value>
+          <con:value>2012-11-26T13:59:33Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/26/2010 17:40:11</con:value>
+          <con:value>11/26/2012 13:49:33</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-25T00:00:00Z</con:value>
+          <con:value>2012-12-26T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    <con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript></con:testCase>
+    <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript></con:testCase>
     <con:properties/>
     <con:reportParameters/>
   </con:testSuite>
   <con:requirements/>
   <con:properties>
     
-  <con:property><con:name>AdapterPatientDiscoveryAsyncReqEndpoint</con:name><con:value>http://localhost:8080/Adapter/PatientDiscovery/A_0/AdapterPatientDiscoveryDeferredRequestUnsecured</con:value></con:property></con:properties>
+  <con:property><con:name>AdapterPatientDiscoveryAsyncReqEndpoint</con:name><con:value>http://localhost:8080/Adapter/PatientDiscovery/A_0/AdapterPatientDiscoveryDeferredRequestUnsecured</con:value></con:property><con:property><con:name>GatewayPropDir</con:name><con:value>c:\glassfish3\glassfish\domains\domain1\config\nhin</con:value></con:property></con:properties>
   <con:afterLoadScript>def propertiesFilename = project.path[0..(project.path.size()-4)] + 'properties'
 def propertiesFile = new File(propertiesFilename)
 if (propertiesFile.exists()) {
@@ -462,10 +462,5 @@ com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.withSql = { d
     <con:xmlTemplates/>
     <con:parameters/>
   </con:reporting>
-  <con:eventHandlers name="TestSuiteRunListener.beforeTestCase" type="TestSuiteRunListener.beforeTestCase">
-    <con:script>FileUtils.backupConfiguration(context, log);</con:script>
-  </con:eventHandlers>
-  <con:eventHandlers name="TestSuiteRunListener.afterTestCase" type="TestSuiteRunListener.afterTestCase">
-    <con:script>FileUtils.restoreConfiguration(context, log)</con:script>
-  </con:eventHandlers>
-</con:soapui-project>
+
+<con:sensitiveInformation/></con:soapui-project>

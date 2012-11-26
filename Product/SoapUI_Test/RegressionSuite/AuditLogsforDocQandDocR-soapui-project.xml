@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project abortOnError="false" name="AuditLogsforDocQandDocR" resourceRoot="" runType="SEQUENTIAL" soapui-version="3.5.1" xmlns:con="http://eviware.com/soapui/config">
+<con:soapui-project abortOnError="false" name="AuditLogsforDocQandDocR" resourceRoot="${projectDir}" runType="SEQUENTIAL" soapui-version="4.5.1" activeEnvironment="Default" xmlns:con="http://eviware.com/soapui/config">
 	<con:settings/>
 	
-	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxydocquery}NhincProxyDocQueryBindingSoap" definition="WSDL path not set.  #NhincProxyDocQuery.wsdl" name="NhincProxyDocQueryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxydocquery}NhincProxyDocQueryBindingSoap" definition="${ProjectDir}../ValidationSuite/target/wsdl/NhincProxyDocQuery.wsdl" name="NhincProxyDocQueryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 		
-		<con:endpoints>
+		<con:definitionCache/><con:endpoints>
 			<con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/NhincProxyDocQuery</con:endpoint>
 			<con:endpoint>http://ATHC-GFAS:9080/NhinConnect/NhincProxyDocQuery</con:endpoint>
 			<con:endpoint>http://mhsnhie3.fedsconnect.org:9080/NhinConnect/NhincProxyDocQuery</con:endpoint>
@@ -17,10 +17,10 @@
 			<con:settings/>
 		</con:operation>
 	</con:interface>
-	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxydocretrieve}NhincProxyDocRetrieveBindingSoap" definition="WSDL path not set.  #NhincProxyDocRetrieve.wsdl" name="NhincProxyDocRetrieveBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxydocretrieve}NhincProxyDocRetrieveBindingSoap" definition="${ProjectDir}../ValidationSuite/target/wsdl/NhincProxyDocRetrieve.wsdl" name="NhincProxyDocRetrieveBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 		
-		<con:endpoints>
+		<con:definitionCache type="TEXT"/><con:endpoints>
 			<con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/NhincProxyDocRetrieve</con:endpoint>
 			<con:endpoint>http://ATHC-GFAS:9080/NhinConnect/NhincProxyDocRetrieve</con:endpoint>
 			<con:endpoint>http://dvanhie3.fedsconnect.org:9080/NhinConnect/NhincProxyDocRetrieve</con:endpoint>
@@ -348,7 +348,7 @@ assert (documentID == msgDocID);
 log.info documentID + " " + msgDocID</scriptText>
 							</con:configuration>
 						</con:assertion>
-						<con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhincproxydocquery/NhincProxyDocQueryPortType/RespondingGateway_CrossGatewayQueryRequest" mustUnderstand="NONE" version="200508"/>
+						<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhincproxydocquery/NhincProxyDocQueryPortType/RespondingGateway_CrossGatewayQueryRequest" mustUnderstand="NONE" version="200508"/>
 						<con:wsrmConfig version="1.2"/>
 					</con:request>
 				</con:config>
@@ -665,11 +665,9 @@ context.testCase.setPropertyValue('UserId',"${AQUserID}${nowDate}1");</script>
 							</con:configuration>
 						</con:assertion>
 						<con:assertion type="Schema Compliance">
-							<con:configuration>
-								<definition/>
-							</con:configuration>
+							<con:configuration><definition/></con:configuration>
 						</con:assertion>
-						<con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhincproxydocretrieve/NhincProxyDocRetrievePortType/RespondingGateway_CrossGatewayRetrieveRequest" mustUnderstand="NONE" version="200508"/>
+						<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhincproxydocretrieve/NhincProxyDocRetrievePortType/RespondingGateway_CrossGatewayRetrieveRequest" mustUnderstand="NONE" version="200508"/>
 						<con:wsrmConfig version="1.2"/>
 					</con:request>
 				</con:config>
@@ -682,19 +680,19 @@ assert (count > 0);</script></con:config></con:testStep>
 			<con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-08-23T19:24:33Z</con:value>
+					<con:value>2012-11-16T22:01:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-08-23T19:34:33Z</con:value>
+					<con:value>2012-11-16T22:11:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>08/23/2012 19:24:33</con:value>
+					<con:value>11/16/2012 22:01:00</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-09-22T00:00:00Z</con:value>
+					<con:value>2012-12-16T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>CorrectedLocalHCID</con:name>
@@ -702,7 +700,7 @@ assert (count > 0);</script></con:config></con:testStep>
 				</con:property>
 				<con:property>
 					<con:name>UserId</con:name>
-					<con:value>TestThu Aug 23 19:29:33 UTC 20121</con:value>
+					<con:value>TestFri Nov 16 22:06:00 UTC 20121</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -848,10 +846,5 @@ com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.withSql = { d
 		<con:xmlTemplates/>
 		<con:parameters/>
 	</con:reporting>
-	<con:eventHandlers name="TestSuiteRunListener.beforeTestCase" type="TestSuiteRunListener.beforeTestCase">
-		<con:script>FileUtils.backupConfiguration(context, log);</con:script>
-	</con:eventHandlers>
-	<con:eventHandlers name="TestSuiteRunListener.afterTestCase" type="TestSuiteRunListener.afterTestCase">
-		<con:script>FileUtils.restoreConfiguration(context, log)</con:script>
-	</con:eventHandlers>
+
 </con:soapui-project>
