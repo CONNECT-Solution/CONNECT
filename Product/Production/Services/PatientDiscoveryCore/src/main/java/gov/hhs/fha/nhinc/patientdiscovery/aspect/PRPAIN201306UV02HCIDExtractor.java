@@ -26,69 +26,53 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery.aspect;
 
-import gov.hhs.fha.nhinc.event.AssertionEventDescriptionBuilder;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 
+import java.util.ArrayList;
+import java.util.List;
 
+import org.hl7.v3.COCTMT090003UV01AssignedEntity;
+import org.hl7.v3.II;
 import org.hl7.v3.PRPAIN201306UV02;
+import org.hl7.v3.PRPAIN201306UV02MFMIMT700711UV01ControlActProcess;
+import org.hl7.v3.PRPAIN201306UV02MFMIMT700711UV01Subject1;
 
-import com.google.common.base.Optional;
+import com.google.common.base.Function;
 
-public class PRPAIN201306UV02EventDescriptionBuilder extends AssertionEventDescriptionBuilder {
-
-    private static final PRPAIN201306UV02HCIDExtractor HCID_EXTRACTOR = new PRPAIN201306UV02HCIDExtractor();
-    private static final PRPAIN201306UV02StatusExtractor STATUS_EXTRACTOR = new PRPAIN201306UV02StatusExtractor();
-
-    private Optional<PRPAIN201306UV02> body = Optional.absent();
-
-    public PRPAIN201306UV02EventDescriptionBuilder() {
-    }
+class PRPAIN201306UV02HCIDExtractor implements Function<PRPAIN201306UV02, List<String>> {
 
     @Override
-    public void buildErrorCodes() {
-    }
-
-    @Override
-    public void buildPayloadSizes() {
-    }
-
-    @Override
-    public void buildPayloadTypes() {
-    }
-
-    @Override
-    public void buildRespondingHCIDs() {
-        if (!body.isPresent()) {
-            return;
+    public List<String> apply(PRPAIN201306UV02 input) {
+        List<String> hcids = new ArrayList<String>();
+        PRPAIN201306UV02MFMIMT700711UV01ControlActProcess controlActProcess = input.getControlActProcess();
+        if (controlActProcess != null) {
+            for (PRPAIN201306UV02MFMIMT700711UV01Subject1 subject : controlActProcess.getSubject()) {
+                hcids.addAll(getSubjectHCIDs(subject));
+            }
         }
-
-        setRespondingHCIDs(HCID_EXTRACTOR.apply(body.get()));
+        return hcids;
     }
 
-    @Override
-    public void buildStatuses() {
-        if (!body.isPresent()) {
-            return;
+    private List<String> getSubjectHCIDs(PRPAIN201306UV02MFMIMT700711UV01Subject1 subject) {
+        List<String> result = new ArrayList<String>();
+        if (hasAssignedEntity(subject)) {
+            result.addAll(getIis(subject.getRegistrationEvent().getCustodian().getAssignedEntity()));
         }
-
-        setStatuses(STATUS_EXTRACTOR.apply(body.get()));
+        return result;
     }
 
-    @Override
-    public void buildTimeStamp() {
+    private boolean hasAssignedEntity(PRPAIN201306UV02MFMIMT700711UV01Subject1 subject) {
+        return subject != null && subject.getRegistrationEvent() != null
+                && subject.getRegistrationEvent().getCustodian() != null
+                && subject.getRegistrationEvent().getCustodian().getAssignedEntity() != null;
     }
 
-    @Override
-    public void setArguments(Object... arguments) {
-        extractAssertion(arguments);
-    }
-
-    @Override
-    public void setReturnValue(Object returnValue) {
-        if (returnValue == null || !(returnValue instanceof PRPAIN201306UV02)) {
-            body = Optional.absent();
-        } else {
-            body = Optional.of((PRPAIN201306UV02) returnValue);
+    private List<String> getIis(COCTMT090003UV01AssignedEntity assignedEntity) {
+        List<String> result = new ArrayList<String>();
+        for (II ii : assignedEntity.getId()) {
+            String fromResponse = ii.getRoot();
+            result.add(NhincConstants.HCID_PREFIX + fromResponse);
         }
+        return result;
     }
-
 }

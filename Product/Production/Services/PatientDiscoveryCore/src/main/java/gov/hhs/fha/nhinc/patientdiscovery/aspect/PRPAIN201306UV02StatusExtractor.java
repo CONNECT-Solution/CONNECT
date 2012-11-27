@@ -26,69 +26,53 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery.aspect;
 
-import gov.hhs.fha.nhinc.event.AssertionEventDescriptionBuilder;
+import gov.hhs.fha.nhinc.util.Base64Coder;
 
+import java.util.ArrayList;
+import java.util.List;
 
+import org.hl7.v3.BinaryDataEncoding;
+import org.hl7.v3.EDExplicit;
+import org.hl7.v3.MCCIMT000300UV01Acknowledgement;
+import org.hl7.v3.MCCIMT000300UV01AcknowledgementDetail;
 import org.hl7.v3.PRPAIN201306UV02;
 
+import com.google.common.base.Function;
 import com.google.common.base.Optional;
+import com.google.common.collect.Lists;
 
-public class PRPAIN201306UV02EventDescriptionBuilder extends AssertionEventDescriptionBuilder {
-
-    private static final PRPAIN201306UV02HCIDExtractor HCID_EXTRACTOR = new PRPAIN201306UV02HCIDExtractor();
-    private static final PRPAIN201306UV02StatusExtractor STATUS_EXTRACTOR = new PRPAIN201306UV02StatusExtractor();
-
-    private Optional<PRPAIN201306UV02> body = Optional.absent();
-
-    public PRPAIN201306UV02EventDescriptionBuilder() {
-    }
+class PRPAIN201306UV02StatusExtractor implements Function<PRPAIN201306UV02, List<String>> {
+    private static final PRPAIN201306UV02StatusExtractor.StatusFunction STATUS_FUNCTION = new StatusFunction();
 
     @Override
-    public void buildErrorCodes() {
+    public List<String> apply(PRPAIN201306UV02 input) {
+        List<String> statuses = new ArrayList<String>();
+
+        for (MCCIMT000300UV01Acknowledgement acknowledgement : input.getAcknowledgement()) {
+            List<Optional<String>> tmp = Lists.transform(acknowledgement.getAcknowledgementDetail(), STATUS_FUNCTION);
+            statuses.addAll(Lists.newArrayList(Optional.presentInstances(tmp)));
+        }
+        return statuses;
     }
 
-    @Override
-    public void buildPayloadSizes() {
-    }
+    private static class StatusFunction implements Function<MCCIMT000300UV01AcknowledgementDetail, Optional<String>> {
 
-    @Override
-    public void buildPayloadTypes() {
-    }
-
-    @Override
-    public void buildRespondingHCIDs() {
-        if (!body.isPresent()) {
-            return;
+        @Override
+        public Optional<String> apply(MCCIMT000300UV01AcknowledgementDetail detail) {
+            EDExplicit edExplicit = detail.getText();
+            if (edExplicit == null || edExplicit.getContent().size() == 0) {
+                return Optional.absent();
+            }
+            return Optional.of(convertContent(edExplicit));
         }
 
-        setRespondingHCIDs(HCID_EXTRACTOR.apply(body.get()));
-    }
-
-    @Override
-    public void buildStatuses() {
-        if (!body.isPresent()) {
-            return;
-        }
-
-        setStatuses(STATUS_EXTRACTOR.apply(body.get()));
-    }
-
-    @Override
-    public void buildTimeStamp() {
-    }
-
-    @Override
-    public void setArguments(Object... arguments) {
-        extractAssertion(arguments);
-    }
-
-    @Override
-    public void setReturnValue(Object returnValue) {
-        if (returnValue == null || !(returnValue instanceof PRPAIN201306UV02)) {
-            body = Optional.absent();
-        } else {
-            body = Optional.of((PRPAIN201306UV02) returnValue);
+        private String convertContent(EDExplicit edExplicit) {
+            String rawText = edExplicit.getContent().get(0).toString(); // Not dealing with multiple contents
+            if (edExplicit.getRepresentation().equals(BinaryDataEncoding.TXT)) {
+                return rawText;
+            } else {
+                return Base64Coder.decodeString(rawText);
+            }
         }
     }
-
 }
