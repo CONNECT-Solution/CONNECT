@@ -2,7 +2,7 @@
 <con:soapui-project abortOnError="false" name="DocQueryOnDemand" resourceRoot="${projectDir}" runType="SEQUENTIAL" soapui-version="4.5.1" activeEnvironment="Default" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitydocquery}EntityDocQueryBindingSoap" definition="${ProjectDir}../ValidationSuite/target/wsdl/EntityDocQuery.wsdl" name="EntityDocQueryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 
-		<con:definitionCache/><con:endpoints>
+		<con:endpoints>
 			<con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/EntityDocQuery</con:endpoint>
 		</con:endpoints>
 		<con:operation action="urn:RespondingGateway_CrossGatewayQuery" anonymous="optional" bindingOperationName="RespondingGateway_CrossGatewayQuery" inputName="RespondingGateway_CrossGatewayQueryRequest" isOneWay="false" name="RespondingGateway_CrossGatewayQuery" outputName="RespondingGateway_CrossGatewayQueryResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
@@ -13,8 +13,7 @@
 			
 			<con:testStep name="update config" type="groovy">
 				<con:settings/>
-				<con:config><script>import nhinc.FileUtils;
-FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.properties","documentQueryQuerySelf","false",log);</script></con:config>
+				<con:config><script>nhinc.FileUtils.updateProperty(context.findProperty ("GatewayPropDir"),"gateway.properties","documentQueryQuerySelf","false",log);</script></con:config>
 		</con:testStep>
 		<con:testStep name="Clear Correlation Table &amp; Add Correlation" type="groovy">
 			<con:settings/>
@@ -348,24 +347,22 @@ FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.propert
 </con:config>
 </con:testStep>
 
-<con:setupScript>import nhinc.FileUtils;
-FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:tearDownScript>import nhinc.FileUtils;
-FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript><con:properties>
+<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript><con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-11-19T21:13:49Z</con:value>
+		<con:value>2012-11-26T17:15:29Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-11-19T21:23:49Z</con:value>
+		<con:value>2012-11-26T17:25:29Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>11/19/2012 21:13:49</con:value>
+		<con:value>11/26/2012 17:15:29</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-12-19T00:00:00Z</con:value>
+		<con:value>2012-12-26T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
@@ -378,8 +375,7 @@ FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</co
 	
 	<con:testStep name="update config" type="groovy">
 		<con:settings/>
-		<con:config><script>import nhinc.FileUtils;
-FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.properties","documentQueryQuerySelf","false",log);</script></con:config>
+		<con:config><script>nhinc.FileUtils.updateProperty(context.findProperty ("GatewayPropDir"),"gateway.properties","documentQueryQuerySelf","false",log);</script></con:config>
 </con:testStep>
 <con:testStep name="Clear Correlation Table &amp; Add Correlation" type="groovy">
 	<con:settings/>
@@ -718,24 +714,22 @@ FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.propert
 </con:config>
 </con:testStep>
 
-<con:setupScript>import nhinc.FileUtils;
-FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:tearDownScript>import nhinc.FileUtils;
-FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript><con:properties>
+<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript><con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-11-19T21:13:52Z</con:value>
+		<con:value>2012-11-26T17:15:12Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-11-19T21:23:52Z</con:value>
+		<con:value>2012-11-26T17:25:12Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>11/19/2012 21:13:52</con:value>
+		<con:value>11/26/2012 17:15:12</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-12-19T00:00:00Z</con:value>
+		<con:value>2012-12-26T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
@@ -748,8 +742,7 @@ FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</co
 	
 	<con:testStep name="update config" type="groovy">
 		<con:settings/>
-		<con:config><script>import nhinc.FileUtils;
-FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.properties","documentQueryQuerySelf","false",log);</script></con:config>
+		<con:config><script>nhinc.FileUtils.updateProperty(context.findProperty ("GatewayPropDir"),"gateway.properties","documentQueryQuerySelf","false",log);</script></con:config>
 </con:testStep>
 <con:testStep name="Clear Correlation Table &amp; Add Correlation" type="groovy">
 	<con:settings/>
@@ -1088,24 +1081,22 @@ FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.propert
 </con:config>
 </con:testStep>
 
-<con:setupScript>import nhinc.FileUtils;
-FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:tearDownScript>import nhinc.FileUtils;
-FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript><con:properties>
+<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript><con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-11-19T21:13:54Z</con:value>
+		<con:value>2012-11-26T17:14:48Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-11-19T21:23:54Z</con:value>
+		<con:value>2012-11-26T17:24:48Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>11/19/2012 21:13:54</con:value>
+		<con:value>11/26/2012 17:14:48</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-12-19T00:00:00Z</con:value>
+		<con:value>2012-12-26T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
@@ -1118,8 +1109,7 @@ FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</co
 	
 	<con:testStep name="update config" type="groovy">
 		<con:settings/>
-		<con:config><script>import nhinc.FileUtils;
-FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.properties","documentQueryQuerySelf","false",log);</script></con:config>
+		<con:config><script>nhinc.FileUtils.updateProperty(context.findProperty ("GatewayPropDir"),"gateway.properties","documentQueryQuerySelf","false",log);</script></con:config>
 </con:testStep>
 <con:testStep name="Clear Correlation Table &amp; Add Correlation" type="groovy">
 	<con:settings/>
@@ -1458,24 +1448,22 @@ FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.propert
 </con:config>
 </con:testStep>
 
-<con:setupScript>import nhinc.FileUtils;
-FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:tearDownScript>import nhinc.FileUtils;
-FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript><con:properties>
+<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript><con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-11-19T21:13:56Z</con:value>
+		<con:value>2012-11-26T17:14:33Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-11-19T21:23:56Z</con:value>
+		<con:value>2012-11-26T17:24:33Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>11/19/2012 21:13:56</con:value>
+		<con:value>11/26/2012 17:14:33</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-12-19T00:00:00Z</con:value>
+		<con:value>2012-12-26T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
@@ -1488,8 +1476,7 @@ FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</co
 	
 	<con:testStep name="update config" type="groovy">
 		<con:settings/>
-		<con:config><script>import nhinc.FileUtils;
-FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.properties","documentQueryQuerySelf","false",log);</script></con:config>
+		<con:config><script>nhinc.FileUtils.updateProperty(context.findProperty ("GatewayPropDir"),"gateway.properties","documentQueryQuerySelf","false",log);</script></con:config>
 </con:testStep>
 <con:testStep name="Clear Correlation Table &amp; Add Correlation" type="groovy">
 	<con:settings/>
@@ -1833,24 +1820,22 @@ FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.propert
 </con:config>
 </con:testStep>
 
-<con:setupScript>import nhinc.FileUtils;
-FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:tearDownScript>import nhinc.FileUtils;
-FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript><con:properties>
+<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript><con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-11-19T21:13:59Z</con:value>
+		<con:value>2012-11-26T17:14:18Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-11-19T21:23:59Z</con:value>
+		<con:value>2012-11-26T17:24:18Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>11/19/2012 21:13:59</con:value>
+		<con:value>11/26/2012 17:14:18</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-12-19T00:00:00Z</con:value>
+		<con:value>2012-12-26T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
@@ -1863,8 +1848,7 @@ FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</co
 	
 	<con:testStep name="update config" type="groovy">
 		<con:settings/>
-		<con:config><script>import nhinc.FileUtils;
-FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.properties","documentQueryQuerySelf","false",log);</script></con:config>
+		<con:config><script>nhinc.FileUtils.updateProperty(context.findProperty ("GatewayPropDir"),"gateway.properties","documentQueryQuerySelf","false",log);</script></con:config>
 </con:testStep>
 <con:testStep name="Clear Correlation Table &amp; Add Correlation" type="groovy">
 	<con:settings/>
@@ -2208,24 +2192,22 @@ FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.propert
 </con:config>
 </con:testStep>
 
-<con:setupScript>import nhinc.FileUtils;
-FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:tearDownScript>import nhinc.FileUtils;
-FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript><con:properties>
+<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript><con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-11-19T21:14:01Z</con:value>
+		<con:value>2012-11-26T17:13:03Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-11-19T21:24:01Z</con:value>
+		<con:value>2012-11-26T17:23:03Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>11/19/2012 21:14:01</con:value>
+		<con:value>11/26/2012 17:13:03</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-12-19T00:00:00Z</con:value>
+		<con:value>2012-12-26T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
