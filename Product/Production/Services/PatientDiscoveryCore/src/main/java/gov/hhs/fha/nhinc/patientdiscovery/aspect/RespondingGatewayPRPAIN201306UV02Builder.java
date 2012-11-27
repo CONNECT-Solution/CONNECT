@@ -28,6 +28,7 @@ package gov.hhs.fha.nhinc.patientdiscovery.aspect;
 
 import gov.hhs.fha.nhinc.event.DelegatingEventDescriptionBuilder;
 
+import org.hl7.v3.RespondingGatewayPRPAIN201306UV02RequestType;
 import org.hl7.v3.RespondingGatewayPRPAIN201306UV02SecuredRequestType;
 
 /**
@@ -43,8 +44,15 @@ public class RespondingGatewayPRPAIN201306UV02Builder extends DelegatingEventDes
 
     @Override
     public void setArguments(Object... arguments) {
-        RespondingGatewayPRPAIN201306UV02SecuredRequestType request = (RespondingGatewayPRPAIN201306UV02SecuredRequestType) arguments[0];
-        getDelegate().setReturnValue(request.getPRPAIN201306UV02());
+        if (arguments[0] instanceof RespondingGatewayPRPAIN201306UV02SecuredRequestType) {
+            RespondingGatewayPRPAIN201306UV02SecuredRequestType request = (RespondingGatewayPRPAIN201306UV02SecuredRequestType) arguments[0];
+            getDelegate().setReturnValue(request.getPRPAIN201306UV02());
+        } else if (arguments[0] instanceof RespondingGatewayPRPAIN201306UV02RequestType) {
+            RespondingGatewayPRPAIN201306UV02RequestType request = (RespondingGatewayPRPAIN201306UV02RequestType) arguments[0];
+            getDelegate().setReturnValue(request.getPRPAIN201306UV02());
+        } else {
+            throw new IllegalArgumentException("Did not expect arguments[0] to be of type: " + arguments[0].getClass());
+        }
     }
 
     @Override

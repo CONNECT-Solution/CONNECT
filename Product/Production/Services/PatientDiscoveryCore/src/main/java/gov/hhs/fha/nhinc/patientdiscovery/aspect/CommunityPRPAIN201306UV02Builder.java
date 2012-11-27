@@ -82,7 +82,11 @@ public class CommunityPRPAIN201306UV02Builder extends AssertionEventDescriptionB
 
     @Override
     public void setReturnValue(Object returnValue) {
-        this.response = Optional.of((RespondingGatewayPRPAIN201306UV02ResponseType) returnValue);
+        if (returnValue != null) {
+            response = Optional.of((RespondingGatewayPRPAIN201306UV02ResponseType) returnValue);
+        } else {
+            response = Optional.absent();
+        }
     }
 
     void setHCIDExtractor(PRPAIN201306UV02HCIDExtractor hcidExtractor) {
@@ -112,5 +116,9 @@ public class CommunityPRPAIN201306UV02Builder extends AssertionEventDescriptionB
             }
         }
         return result;
+    }
+
+    Optional<RespondingGatewayPRPAIN201306UV02ResponseType> getReturnValue() {
+        return response;
     }
 }

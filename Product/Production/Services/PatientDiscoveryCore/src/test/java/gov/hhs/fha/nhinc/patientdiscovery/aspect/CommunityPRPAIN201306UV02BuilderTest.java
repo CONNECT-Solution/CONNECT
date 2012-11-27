@@ -43,6 +43,7 @@ import org.hl7.v3.PRPAIN201306UV02;
 import org.hl7.v3.RespondingGatewayPRPAIN201306UV02ResponseType;
 import org.junit.Test;
 
+import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 
 public class CommunityPRPAIN201306UV02BuilderTest extends BaseDescriptionBuilderTest {
@@ -63,6 +64,13 @@ public class CommunityPRPAIN201306UV02BuilderTest extends BaseDescriptionBuilder
         CommunityPRPAIN201306UV02Builder builder = new CommunityPRPAIN201306UV02Builder();
         EventDescription eventDescription = getEventDescription(builder);
         assertNotNull(eventDescription);
+    }
+
+    @Test
+    public void handlesNullReturnValue() {
+        CommunityPRPAIN201306UV02Builder builder = new CommunityPRPAIN201306UV02Builder();
+        builder.setReturnValue(null);
+        assertEquals(Optional.absent(), builder.getReturnValue());
     }
 
     @Test

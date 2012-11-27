@@ -34,6 +34,7 @@ import static org.mockito.Mockito.when;
 import gov.hhs.fha.nhinc.event.DelegatingEventDescriptionBuilder;
 
 import org.hl7.v3.PRPAIN201306UV02;
+import org.hl7.v3.RespondingGatewayPRPAIN201306UV02RequestType;
 import org.hl7.v3.RespondingGatewayPRPAIN201306UV02SecuredRequestType;
 import org.junit.Before;
 import org.junit.Test;
@@ -60,6 +61,19 @@ public class RespondingGatewayPRPAIN201306UV02BuilderTest {
     @Test
     public void transformsArgumentToDelegate() {
         RespondingGatewayPRPAIN201306UV02SecuredRequestType request = mock(RespondingGatewayPRPAIN201306UV02SecuredRequestType.class);
+        PRPAIN201306UV02 prpain = mock(PRPAIN201306UV02.class);
+        when(request.getPRPAIN201306UV02()).thenReturn(prpain);
+
+        PRPAIN201306UV02EventDescriptionBuilder mockDelegate = mock(PRPAIN201306UV02EventDescriptionBuilder.class);
+        builder.setDelegate(mockDelegate);
+
+        builder.setArguments(new Object[] { request });
+        verify(mockDelegate).setReturnValue(prpain); // note the transformation from argument to return value
+    }
+
+    @Test
+    public void transformsNonSecureArgument() {
+        RespondingGatewayPRPAIN201306UV02RequestType request = mock(RespondingGatewayPRPAIN201306UV02RequestType.class);
         PRPAIN201306UV02 prpain = mock(PRPAIN201306UV02.class);
         when(request.getPRPAIN201306UV02()).thenReturn(prpain);
 
