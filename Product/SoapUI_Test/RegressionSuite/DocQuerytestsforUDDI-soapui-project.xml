@@ -4,7 +4,7 @@
   <con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitydocquery}EntityDocQueryBindingSoap" definition="${ProjectDir}../ValidationSuite/target/wsdl/EntityDocQuery.wsdl" name="EntityDocQueryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
     
-    <con:definitionCache/><con:endpoints>
+    <con:endpoints>
       <con:endpoint>http://localhost:${HttpDefaultPort}/CONNECTGateway/EntityService/EntityDocQueryUnsecured</con:endpoint>
       <con:endpoint>http://ATHC-GFAS:9080/CONNECTGateway/EntityService/EntityDocQueryUnsecured</con:endpoint>
       <con:endpoint>http://172.16.50.54:9080/CONNECTGateway/EntityService/EntityDocQueryUnsecured</con:endpoint>
@@ -19,7 +19,7 @@
   <con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincdocquery}NhincDocQueryPortTypeBinding" definition="${ProjectDir}../ValidationSuite/target/wsdl/NhincDocQuery.wsdl" name="NhincDocQueryPortTypeBinding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
     
-    <con:definitionCache/><con:endpoints>
+    <con:endpoints>
       <con:endpoint>http://localhost:${HttpDefaultPort}/CONNECTAdapter/NhincDocQuery</con:endpoint>
       <con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/NhincDocQuery</con:endpoint>
     </con:endpoints>
@@ -42,19 +42,36 @@ def testSuite = testCase.getTestSuite()
 def project = testSuite.getProject()
 def projectPropFullFile = project.getPath()
 def projectPropPath = groovyUtils.projectPath
-def destDir = context.findProperty("GatewayPropDir");
+
 def sourceDir = projectPropPath;
 def sourceFile = "UDDIcopy-uddiConnectionInfo.xml";
+//def destDir = context.findProperty( "NHINGatewayConfigDir" );
+def destDir = context.findProperty("GatewayPropDir");
 def destFile = "uddiConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.moveFile(sourceDir, sourceFile, context.findProperty("GatewayPropDir"), destFile, log);</script></con:config>
+FileUtils.moveFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
       </con:testStep>
       <con:testStep name="update config" type="groovy">
         <con:settings/>
-        <con:config><script>import nhinc.FileUtils;
-FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.properties","documentQueryQuerySelf","false",log);</script></con:config>
+        <con:config><script>//def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
+def destConfigFileLocation = context.findProperty("GatewayPropDir");
+
+void UpdateProperty(String directory, String filename, String propertyKey, String propertyValue,context,log) {
+			  
+   log.info("begin UpdateProperty; directory='" + directory + "';filename='" + filename + "';key='" + propertyKey + "';value='" + propertyValue + "';");
+   File file = new File(directory,filename);
+   Properties properties = new Properties();
+   FileInputStream frPropFile = new FileInputStream(file);
+   properties.load(frPropFile);
+   properties.setProperty(propertyKey, propertyValue);
+   FileOutputStream fwPropFile = new FileOutputStream(file);
+   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
+   properties = null;
+}
+
+nhinc.FileUtils.updateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySelf","false",log);</script></con:config>
       </con:testStep>
       <con:testStep name="Generate patient ID for Doc Query" type="groovy">
         <con:settings/>
@@ -398,22 +415,22 @@ declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
         </con:config>
       </con:testStep>
       
-      <con:properties>
+      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-11-20T15:39:04Z</con:value>
+          <con:value>2012-11-27T15:54:19Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-11-20T15:49:04Z</con:value>
+          <con:value>2012-11-27T16:04:19Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/20/2012 15:39:04</con:value>
+          <con:value>11/27/2012 15:54:19</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-12-20T00:00:00Z</con:value>
+          <con:value>2012-12-27T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -421,14 +438,7 @@ declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    <con:tearDownScript>import nhinc.FileUtils;
-FileUtils.restoreToMasterConfiguration(context, log);
-
-def sourceDir = System.env['NHINC_PROPERTIES_DIR'] + "/master/";
-def sourceFile = "uddiConnectionInfo.xml";
-def destDir = System.env['NHINC_PROPERTIES_DIR'];
-def destFile = "uddiConnectionInfo.xml";
-FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</con:tearDownScript></con:testCase>
+    <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript></con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="e195718a-c6ce-4de8-a813-7b932eb9f174" keepSession="false" maxResults="0" name="Empty Target XML - Correlation for HCID not in UDDI file" searchProperties="true">
       <con:settings/>
       
@@ -444,18 +454,18 @@ def projectPropPath = groovyUtils.projectPath
 
 def sourceDir = projectPropPath;
 def sourceFile = "UDDIcopy-uddiConnectionInfo.xml";
-def destDir = System.env['NHINC_PROPERTIES_DIR'];
+//def destDir = context.findProperty( "NHINGatewayConfigDir" );
+def destDir = context.findProperty("GatewayPropDir");
 def destFile = "uddiConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</script></con:config>
+FileUtils.moveFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
       </con:testStep>
       <con:testStep name="update config" type="groovy">
         <con:settings/>
-        <con:config>
-          <script>//def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
-def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
+        <con:config><script>//def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
+def destConfigFileLocation = context.findProperty("GatewayPropDir");
 
 void UpdateProperty(String directory, String filename, String propertyKey, String propertyValue,context,log) {
 			  
@@ -470,8 +480,7 @@ void UpdateProperty(String directory, String filename, String propertyKey, Strin
    properties = null;
 }
 
-UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySelf","false",context,log);</script>
-        </con:config>
+nhinc.FileUtils.updateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySelf","false",log);</script></con:config>
       </con:testStep>
       <con:testStep name="Generate patient ID for Doc Query" type="groovy">
         <con:settings/>
@@ -814,22 +823,22 @@ declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
         </con:config>
       </con:testStep>
       
-      <con:properties>
+      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-11-20T15:35:38Z</con:value>
+          <con:value>2012-11-27T15:54:20Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-11-20T15:45:38Z</con:value>
+          <con:value>2012-11-27T16:04:20Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/20/2012 15:35:38</con:value>
+          <con:value>11/27/2012 15:54:20</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-12-20T00:00:00Z</con:value>
+          <con:value>2012-12-27T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -837,14 +846,7 @@ declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    <con:tearDownScript>import nhinc.FileUtils;
-FileUtils.restoreToMasterConfiguration(context, log);
-
-def sourceDir = System.env['NHINC_PROPERTIES_DIR'] + "/master/";
-def sourceFile = "uddiConnectionInfo.xml";
-def destDir = System.env['NHINC_PROPERTIES_DIR'];
-def destFile = "uddiConnectionInfo.xml";
-FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</con:tearDownScript></con:testCase>
+    <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript></con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="887d9364-6c82-4903-8190-46476508147f" keepSession="false" maxResults="0" name="Empty Target XML - No Patient Correlations" searchProperties="true">
       <con:settings/>
       
@@ -861,18 +863,17 @@ def projectPropPath = groovyUtils.projectPath
 def sourceDir = projectPropPath;
 def sourceFile = "UDDIcopy-uddiConnectionInfo.xml";
 //def destDir = context.findProperty( "NHINGatewayConfigDir" );
-def destDir = System.env['NHINC_PROPERTIES_DIR'];
+def destDir = context.findProperty("GatewayPropDir");
 def destFile = "uddiConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</script></con:config>
+FileUtils.moveFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
       </con:testStep>
       <con:testStep name="update config" type="groovy">
         <con:settings/>
-        <con:config>
-          <script>//def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
-def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
+        <con:config><script>//def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
+def destConfigFileLocation = context.findProperty("GatewayPropDir");
 
 void UpdateProperty(String directory, String filename, String propertyKey, String propertyValue,context,log) {
 			  
@@ -887,8 +888,7 @@ void UpdateProperty(String directory, String filename, String propertyKey, Strin
    properties = null;
 }
 
-UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySelf","false",context,log);</script>
-        </con:config>
+nhinc.FileUtils.updateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySelf","false",log);</script></con:config>
       </con:testStep>
       <con:testStep name="Generate patient ID for Doc Query" type="groovy">
         <con:settings/>
@@ -1223,22 +1223,22 @@ declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
         </con:config>
       </con:testStep>
       
-      <con:properties>
+      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-08-27T13:35:31Z</con:value>
+          <con:value>2012-11-27T15:54:21Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-08-27T13:45:31Z</con:value>
+          <con:value>2012-11-27T16:04:21Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/27/2012 13:35:31</con:value>
+          <con:value>11/27/2012 15:54:21</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-09-26T00:00:00Z</con:value>
+          <con:value>2012-12-27T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -1246,14 +1246,7 @@ declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    <con:tearDownScript>import nhinc.FileUtils;
-FileUtils.restoreToMasterConfiguration(context, log);
-
-def sourceDir = System.env['NHINC_PROPERTIES_DIR'] + "/master/";
-def sourceFile = "uddiConnectionInfo.xml";
-def destDir = System.env['NHINC_PROPERTIES_DIR'];
-def destFile = "uddiConnectionInfo.xml";
-//FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</con:tearDownScript></con:testCase>
+    <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript></con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="7b1a13e3-8d02-46ed-bef0-981f0f967fc7" keepSession="false" maxResults="0" name="HCID Happy Path - Correlation for HCID not in UDDI file/target XML" searchProperties="true">
       <con:settings/>
       
@@ -1270,18 +1263,17 @@ def projectPropPath = groovyUtils.projectPath
 def sourceDir = projectPropPath;
 def sourceFile = "UDDIcopy-uddiConnectionInfo.xml";
 //def destDir = context.findProperty( "NHINGatewayConfigDir" );
-def destDir = System.env['NHINC_PROPERTIES_DIR'];
+def destDir = context.findProperty("GatewayPropDir");
 def destFile = "uddiConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</script></con:config>
+FileUtils.moveFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
       </con:testStep>
       <con:testStep name="update config" type="groovy">
         <con:settings/>
-        <con:config>
-          <script>//def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
-def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
+        <con:config><script>//def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
+def destConfigFileLocation = context.findProperty("GatewayPropDir");
 
 void UpdateProperty(String directory, String filename, String propertyKey, String propertyValue,context,log) {
 			  
@@ -1296,8 +1288,7 @@ void UpdateProperty(String directory, String filename, String propertyKey, Strin
    properties = null;
 }
 
-UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySelf","false",context,log);</script>
-        </con:config>
+nhinc.FileUtils.updateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySelf","false",log);</script></con:config>
       </con:testStep>
       <con:testStep name="Generate patient ID for Doc Query" type="groovy">
         <con:settings/>
@@ -1657,22 +1648,22 @@ declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
         </con:config>
       </con:testStep>
       
-      <con:properties>
+      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-08-27T13:38:31Z</con:value>
+          <con:value>2012-11-27T15:54:21Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-08-27T13:48:31Z</con:value>
+          <con:value>2012-11-27T16:04:21Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/27/2012 13:38:31</con:value>
+          <con:value>11/27/2012 15:54:21</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-09-26T00:00:00Z</con:value>
+          <con:value>2012-12-27T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -1680,14 +1671,7 @@ declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    <con:tearDownScript>import nhinc.FileUtils;
-FileUtils.restoreToMasterConfiguration(context, log);
-
-def sourceDir = System.env['NHINC_PROPERTIES_DIR'] + "/master/";
-def sourceFile = "uddiConnectionInfo.xml";
-def destDir = System.env['NHINC_PROPERTIES_DIR'];
-def destFile = "uddiConnectionInfo.xml";
-FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</con:tearDownScript></con:testCase>
+    <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript></con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="4d4e3ed4-32ff-4ac4-9292-e78373844464" keepSession="false" maxResults="0" name="HCID Happy Path - Correlation for both HCID IN UDDI file/target XML" searchProperties="true">
       <con:settings/>
       
@@ -1704,18 +1688,17 @@ def projectPropPath = groovyUtils.projectPath
 def sourceDir = projectPropPath;
 def sourceFile = "UDDIcopy-uddiConnectionInfo.xml";
 //def destDir = context.findProperty( "NHINGatewayConfigDir" );
-def destDir = System.env['NHINC_PROPERTIES_DIR'];
+def destDir = context.findProperty("GatewayPropDir");
 def destFile = "uddiConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</script></con:config>
+FileUtils.moveFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
       </con:testStep>
       <con:testStep name="update config - gateway.properties" type="groovy">
         <con:settings/>
-        <con:config>
-          <script>//def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
-def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
+        <con:config><script>//def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
+def destConfigFileLocation = context.findProperty("GatewayPropDir");
 
 void UpdateProperty(String directory, String filename, String propertyKey, String propertyValue,context,log) {
 			  
@@ -1730,8 +1713,7 @@ void UpdateProperty(String directory, String filename, String propertyKey, Strin
    properties = null;
 }
 
-UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySelf","false",context,log);</script>
-        </con:config>
+nhinc.FileUtils.updateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySelf","false",log);</script></con:config>
       </con:testStep>
       <con:testStep name="Generate patient ID for Doc Query" type="groovy">
         <con:settings/>
@@ -1809,15 +1791,15 @@ sql.executeUpdate(insertSql, [2, localAA, localPatientID, uddiVA3, remotePatient
         <con:config><script>import nhinc.FileUtils;
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 
-def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
+def destConfigFileLocation = context.findProperty("GatewayPropDir");
 def NHINGatewayHost = context.findProperty("NHINGatewayHost");
 def mockHost = context.findProperty("mockHost");
 def dQURL = "https://localhost:8181/Gateway/DocumentQuery/2_0/NhinService/RespondingGateway_Query_Service/DocQuery";
 def remoteHCID1 = context.findProperty("UDDIhcid1");
 def remoteHCID3 = context.findProperty("UDDIhcid3");
 
-FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, remoteHCID1, "QueryForDocuments", dQURL, "2.0", context, log)
-FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, remoteHCID3, "QueryForDocuments", dQURL, "2.0", context, log)</script></con:config>
+FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, remoteHCID1, "QueryForDocuments", dQURL, "2.0", log)
+FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, remoteHCID3, "QueryForDocuments", dQURL, "2.0", log)</script></con:config>
       </con:testStep>
       <con:testStep name="Document Query" type="request">
         <con:settings/>
@@ -2109,22 +2091,22 @@ count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)
       </con:testStep>
       
       
-      <con:properties>
+      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-08-27T13:35:32Z</con:value>
+          <con:value>2012-11-27T15:54:22Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-08-27T13:45:32Z</con:value>
+          <con:value>2012-11-27T16:04:22Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/27/2012 13:35:32</con:value>
+          <con:value>11/27/2012 15:54:22</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-09-26T00:00:00Z</con:value>
+          <con:value>2012-12-27T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -2132,14 +2114,7 @@ count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    <con:tearDownScript>import nhinc.FileUtils;
-FileUtils.restoreToMasterConfiguration(context, log);
-
-def sourceDir = System.env['NHINC_PROPERTIES_DIR'] + "/master/";
-def sourceFile = "uddiConnectionInfo.xml";
-def destDir = System.env['NHINC_PROPERTIES_DIR'];
-def destFile = "uddiConnectionInfo.xml";
-FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</con:tearDownScript></con:testCase>
+    <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript></con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="9e22c57d-13af-4120-ab1d-fe1eae63e18b" keepSession="false" maxResults="0" name="HCID Happy Path - Expired Correlation for HCID IN UDDI file/target XML" searchProperties="true">
       <con:settings/>
       
@@ -2156,34 +2131,32 @@ def projectPropPath = groovyUtils.projectPath
 def sourceDir = projectPropPath;
 def sourceFile = "UDDIcopy-uddiConnectionInfo.xml";
 //def destDir = context.findProperty( "NHINGatewayConfigDir" );
-def destDir = System.env['NHINC_PROPERTIES_DIR'];
+def destDir = context.findProperty("GatewayPropDir");
 def destFile = "uddiConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</script></con:config>
+FileUtils.moveFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
       </con:testStep>
       <con:testStep name="update config - gateway.properties" type="groovy">
         <con:settings/>
-        <con:config>
-          <script>//def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
-def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
+        <con:config><script>import nhinc.FileUtils;
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+def testCase = testRunner.getTestCase()
+def testSuite = testCase.getTestSuite()
+def project = testSuite.getProject()
+def projectPropFullFile = project.getPath()
+def projectPropPath = groovyUtils.projectPath
 
-void UpdateProperty(String directory, String filename, String propertyKey, String propertyValue,context,log) {
-			  
-   log.info("begin UpdateProperty; directory='" + directory + "';filename='" + filename + "';key='" + propertyKey + "';value='" + propertyValue + "';");
-   File file = new File(directory,filename);
-   Properties properties = new Properties();
-   FileInputStream frPropFile = new FileInputStream(file);
-   properties.load(frPropFile);
-   properties.setProperty(propertyKey, propertyValue);
-   FileOutputStream fwPropFile = new FileOutputStream(file);
-   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
-   properties = null;
-}
+def sourceDir = projectPropPath;
+def sourceFile = "UDDIcopy-uddiConnectionInfo.xml";
+//def destDir = context.findProperty( "NHINGatewayConfigDir" );
+def destDir = context.findProperty("GatewayPropDir");
+def destFile = "uddiConnectionInfo.xml";
 
-UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySelf","false",context,log);</script>
-        </con:config>
+log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
+
+FileUtils.moveFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
       </con:testStep>
       <con:testStep name="Generate patient ID for Doc Query" type="groovy">
         <con:settings/>
@@ -2259,13 +2232,15 @@ sql.executeUpdate(insertSql, [1, localAA, localPatientID, uddiVA1, remotePatient
         <con:config><script>import nhinc.FileUtils;
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 
-def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
+def destConfigFileLocation = context.findProperty("GatewayPropDir");
 def NHINGatewayHost = context.findProperty("NHINGatewayHost");
 def mockHost = context.findProperty("mockHost");
 def dQURL = "https://localhost:8181/Gateway/DocumentQuery/2_0/NhinService/RespondingGateway_Query_Service/DocQuery";
-def remoteHCID = context.findProperty( "UDDIhcid1" );
+def remoteHCID1 = context.findProperty("UDDIhcid1");
+def remoteHCID3 = context.findProperty("UDDIhcid3");
 
-FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, remoteHCID, "QueryForDocuments", dQURL, "2.0", context, log)</script></con:config>
+FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, remoteHCID1, "QueryForDocuments", dQURL, "2.0", log)
+FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, remoteHCID3, "QueryForDocuments", dQURL, "2.0", log)</script></con:config>
       </con:testStep>
       <con:testStep name="Document Query" type="request">
         <con:settings/>
@@ -2574,22 +2549,22 @@ declare namespace ns8='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
         </con:config>
       </con:testStep>
       
-      <con:properties>
+      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-08-27T13:35:46Z</con:value>
+          <con:value>2012-11-27T15:55:26Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-08-27T13:45:46Z</con:value>
+          <con:value>2012-11-27T16:05:26Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/27/2012 13:35:46</con:value>
+          <con:value>11/27/2012 15:55:26</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-09-26T00:00:00Z</con:value>
+          <con:value>2012-12-27T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -2597,14 +2572,7 @@ declare namespace ns8='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    <con:tearDownScript>import nhinc.FileUtils;
-FileUtils.restoreToMasterConfiguration(context, log);
-
-def sourceDir = System.env['NHINC_PROPERTIES_DIR'] + "/master/";
-def sourceFile = "uddiConnectionInfo.xml";
-def destDir = System.env['NHINC_PROPERTIES_DIR'];
-def destFile = "uddiConnectionInfo.xml";
-FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</con:tearDownScript></con:testCase>
+    <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript></con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="0d6f86ae-5976-4334-8822-ac08fdb49c77" keepSession="false" maxResults="0" name="HCID Alt Path - No Patient Correlations" searchProperties="true">
       <con:settings/>
       
@@ -2621,18 +2589,17 @@ def projectPropPath = groovyUtils.projectPath
 def sourceDir = projectPropPath;
 def sourceFile = "UDDIcopy-uddiConnectionInfo.xml";
 //def destDir = context.findProperty( "NHINGatewayConfigDir" );
-def destDir = System.env['NHINC_PROPERTIES_DIR'];
+def destDir = context.findProperty("GatewayPropDir");
 def destFile = "uddiConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</script></con:config>
+FileUtils.moveFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
       </con:testStep>
       <con:testStep name="update config" type="groovy">
         <con:settings/>
-        <con:config>
-          <script>//def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
-def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
+        <con:config><script>//def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
+def destConfigFileLocation = context.findProperty("GatewayPropDir");
 
 void UpdateProperty(String directory, String filename, String propertyKey, String propertyValue,context,log) {
 			  
@@ -2647,8 +2614,7 @@ void UpdateProperty(String directory, String filename, String propertyKey, Strin
    properties = null;
 }
 
-UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySelf","false",context,log);</script>
-        </con:config>
+nhinc.FileUtils.updateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySelf","false",log);</script></con:config>
       </con:testStep>
       <con:testStep name="Generate patient ID for Doc Query" type="groovy">
         <con:settings/>
@@ -2972,22 +2938,22 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
         </con:config>
       </con:testStep>
       
-      <con:properties>
+      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-08-27T13:35:46Z</con:value>
+          <con:value>2012-11-27T15:55:27Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-08-27T13:45:46Z</con:value>
+          <con:value>2012-11-27T16:05:27Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/27/2012 13:35:46</con:value>
+          <con:value>11/27/2012 15:55:27</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-09-26T00:00:00Z</con:value>
+          <con:value>2012-12-27T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -2995,14 +2961,7 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    <con:tearDownScript>import nhinc.FileUtils;
-FileUtils.restoreToMasterConfiguration(context, log);
-
-def sourceDir = System.env['NHINC_PROPERTIES_DIR'] + "/master/";
-def sourceFile = "uddiConnectionInfo.xml";
-def destDir = System.env['NHINC_PROPERTIES_DIR'];
-def destFile = "uddiConnectionInfo.xml";
-FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</con:tearDownScript></con:testCase>
+    <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript></con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="02cf8e64-e873-47ae-b7f2-6cc377efb1b5" keepSession="false" maxResults="0" name="HCID Alt Path - Correlation for HCID in target XML and not in UDDI" searchProperties="true">
       <con:settings/>
       
@@ -3019,18 +2978,17 @@ def projectPropPath = groovyUtils.projectPath
 def sourceDir = projectPropPath;
 def sourceFile = "UDDIcopy-uddiConnectionInfo.xml";
 //def destDir = context.findProperty( "NHINGatewayConfigDir" );
-def destDir = System.env['NHINC_PROPERTIES_DIR'];
+def destDir = context.findProperty("GatewayPropDir");
 def destFile = "uddiConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</script></con:config>
+FileUtils.moveFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
       </con:testStep>
       <con:testStep name="update config" type="groovy">
         <con:settings/>
-        <con:config>
-          <script>//def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
-def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
+        <con:config><script>//def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
+def destConfigFileLocation = context.findProperty("GatewayPropDir");
 
 void UpdateProperty(String directory, String filename, String propertyKey, String propertyValue,context,log) {
 			  
@@ -3045,8 +3003,7 @@ void UpdateProperty(String directory, String filename, String propertyKey, Strin
    properties = null;
 }
 
-UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySelf","false",context,log);</script>
-        </con:config>
+nhinc.FileUtils.updateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySelf","false",log);</script></con:config>
       </con:testStep>
       <con:testStep name="Generate patient ID for Doc Query" type="groovy">
         <con:settings/>
@@ -3381,22 +3338,22 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
         </con:config>
       </con:testStep>
       
-      <con:properties>
+      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-08-27T13:35:47Z</con:value>
+          <con:value>2012-11-27T15:55:28Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-08-27T13:45:47Z</con:value>
+          <con:value>2012-11-27T16:05:28Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/27/2012 13:35:47</con:value>
+          <con:value>11/27/2012 15:55:28</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-09-26T00:00:00Z</con:value>
+          <con:value>2012-12-27T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -3404,22 +3361,14 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    <con:tearDownScript>import nhinc.FileUtils;
-FileUtils.restoreToMasterConfiguration(context, log);
-
-def sourceDir = System.env['NHINC_PROPERTIES_DIR'] + "/master/";
-def sourceFile = "uddiConnectionInfo.xml";
-def destDir = System.env['NHINC_PROPERTIES_DIR'];
-def destFile = "uddiConnectionInfo.xml";
-FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</con:tearDownScript></con:testCase>
+    <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript></con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="2ca4b220-9c88-4ea0-b153-bee84cc4e2b3" keepSession="false" maxResults="0" name="State Happy Path - Correlation for HCID IN UDDI file/target XML" searchProperties="true">
       <con:settings/>
       
       <con:testStep name="update config - gateway.properties" type="groovy">
         <con:settings/>
-        <con:config>
-          <script>//def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
-def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
+        <con:config><script>//def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
+def destConfigFileLocation = context.findProperty("GatewayPropDir");
 
 void UpdateProperty(String directory, String filename, String propertyKey, String propertyValue,context,log) {
 			  
@@ -3434,8 +3383,7 @@ void UpdateProperty(String directory, String filename, String propertyKey, Strin
    properties = null;
 }
 
-UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySelf","false",context,log);</script>
-        </con:config>
+nhinc.FileUtils.updateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySelf","false",log);</script></con:config>
       </con:testStep>
       <con:testStep name="Copy uddiConnectionInfo" type="groovy">
         <con:settings/>
@@ -3450,28 +3398,31 @@ def projectPropPath = groovyUtils.projectPath
 def sourceDir = projectPropPath;
 def sourceFile = "UDDIcopy-uddiConnectionInfo.xml";
 //def destDir = context.findProperty( "NHINGatewayConfigDir" );
-def destDir = System.env['NHINC_PROPERTIES_DIR'];
+def destDir = context.findProperty("GatewayPropDir");
 def destFile = "uddiConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</script></con:config>
+FileUtils.moveFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
       </con:testStep>
       <con:testStep name="Copy internalConnectionInfo" type="groovy">
         <con:settings/>
         <con:config><script>import nhinc.FileUtils;
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
-def project = testRunner.getTestCase().getTestSuite().getProject()
+def testCase = testRunner.getTestCase()
+def testSuite = testCase.getTestSuite()
+def project = testSuite.getProject()
 def projectPropFullFile = project.getPath()
+def projectPropPath = groovyUtils.projectPath
 
-def sourceDir = groovyUtils.projectPath;
+def sourceDir = projectPropPath;
 def sourceFile = "UDDIcopy-internalConnectionInfo";
-def destDir = System.env['NHINC_PROPERTIES_DIR'];
+def destDir = context.findProperty("GatewayPropDir");
 def destFile = "internalConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</script></con:config>
+FileUtils.moveFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
       </con:testStep>
       <con:testStep name="Generate patient ID for Doc Query" type="groovy">
         <con:settings/>
@@ -3560,15 +3511,15 @@ context.withSql('PatientCorrelationDB') { sql ->
         <con:config><script>import nhinc.FileUtils;
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 
-def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
+def destConfigFileLocation = context.findProperty("GatewayPropDir");
 def NHINGatewayHost = context.findProperty("NHINGatewayHost");
 def mockHost = context.findProperty("mockHost");
 def dQURL = "https://localhost:8181/Gateway/DocumentQuery/2_0/NhinService/RespondingGateway_Query_Service/DocQuery";
 def remoteHCID1 = context.findProperty("UDDIhcid1");
 def remoteHCID3 = context.findProperty("UDDIhcid3");
 
-FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, remoteHCID1, "QueryForDocuments", dQURL, "2.0", context, log)
-FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, remoteHCID3, "QueryForDocuments", dQURL, "2.0", context, log)</script></con:config>
+FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, remoteHCID1, "QueryForDocuments", dQURL, "2.0", log)
+FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, remoteHCID3, "QueryForDocuments", dQURL, "2.0", log)</script></con:config>
       </con:testStep>
       
       
@@ -3859,22 +3810,22 @@ count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)
             <con:wsrmConfig version="1.2"/>
           </con:request>
         </con:config>
-      </con:testStep><con:properties>
+      </con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-08-27T13:35:48Z</con:value>
+          <con:value>2012-11-27T15:55:28Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-08-27T13:45:48Z</con:value>
+          <con:value>2012-11-27T16:05:28Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/27/2012 13:35:48</con:value>
+          <con:value>11/27/2012 15:55:28</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-09-26T00:00:00Z</con:value>
+          <con:value>2012-12-27T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -3882,14 +3833,7 @@ count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    <con:tearDownScript>import nhinc.FileUtils;
-FileUtils.restoreToMasterConfiguration(context, log);
-
-def sourceDir = System.env['NHINC_PROPERTIES_DIR'] + "/master/";
-def sourceFile = "uddiConnectionInfo.xml";
-def destDir = System.env['NHINC_PROPERTIES_DIR'];
-def destFile = "uddiConnectionInfo.xml";
-FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</con:tearDownScript></con:testCase>
+    <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript></con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="acb08d49-8426-462e-ba13-d78fc9eb1dbc" keepSession="false" maxResults="0" name="State Happy Path - No Patient Correlations" searchProperties="true">
       <con:settings/>
       
@@ -3906,18 +3850,17 @@ def projectPropPath = groovyUtils.projectPath
 def sourceDir = projectPropPath;
 def sourceFile = "UDDIcopy-uddiConnectionInfo.xml";
 //def destDir = context.findProperty( "NHINGatewayConfigDir" );
-def destDir = System.env['NHINC_PROPERTIES_DIR'];
+def destDir = context.findProperty("GatewayPropDir");
 def destFile = "uddiConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</script></con:config>
+FileUtils.moveFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
       </con:testStep>
       <con:testStep name="update config" type="groovy">
         <con:settings/>
-        <con:config>
-          <script>//def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
-def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
+        <con:config><script>//def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
+def destConfigFileLocation = context.findProperty("GatewayPropDir");
 
 void UpdateProperty(String directory, String filename, String propertyKey, String propertyValue,context,log) {
 			  
@@ -3932,8 +3875,7 @@ void UpdateProperty(String directory, String filename, String propertyKey, Strin
    properties = null;
 }
 
-UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySelf","false",context,log);</script>
-        </con:config>
+nhinc.FileUtils.updateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySelf","false",log);</script></con:config>
       </con:testStep>
       <con:testStep name="Generate patient ID for Doc Query" type="groovy">
         <con:settings/>
@@ -3989,13 +3931,15 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
         <con:config><script>import nhinc.FileUtils;
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 
-def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
+def destConfigFileLocation = context.findProperty("GatewayPropDir");
 def NHINGatewayHost = context.findProperty("NHINGatewayHost");
 def mockHost = context.findProperty("mockHost");
 def dQURL = "https://localhost:8181/Gateway/DocumentQuery/2_0/NhinService/RespondingGateway_Query_Service/DocQuery";
-def remoteHCID = context.findProperty( "UDDIhcid4" );
+def remoteHCID1 = context.findProperty("UDDIhcid1");
+def remoteHCID3 = context.findProperty("UDDIhcid3");
 
-FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, remoteHCID, "QueryForDocuments", dQURL, "2.0", context, log)</script></con:config>
+FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, remoteHCID1, "QueryForDocuments", dQURL, "2.0", log)
+FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, remoteHCID3, "QueryForDocuments", dQURL, "2.0", log)</script></con:config>
       </con:testStep>
       
       <con:testStep name="Document Query" type="request">
@@ -4263,22 +4207,22 @@ FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocat
             <con:wsrmConfig version="1.2"/>
           </con:request>
         </con:config>
-      </con:testStep><con:properties>
+      </con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-08-27T13:35:49Z</con:value>
+          <con:value>2012-11-27T15:56:33Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-08-27T13:45:49Z</con:value>
+          <con:value>2012-11-27T16:06:33Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/27/2012 13:35:49</con:value>
+          <con:value>11/27/2012 15:56:33</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-09-26T00:00:00Z</con:value>
+          <con:value>2012-12-27T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -4286,14 +4230,7 @@ FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocat
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    <con:tearDownScript>import nhinc.FileUtils;
-FileUtils.restoreToMasterConfiguration(context, log);
-
-def sourceDir = System.env['NHINC_PROPERTIES_DIR'] + "/master/";
-def sourceFile = "uddiConnectionInfo.xml";
-def destDir = System.env['NHINC_PROPERTIES_DIR'];
-def destFile = "uddiConnectionInfo.xml";
-FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</con:tearDownScript></con:testCase>
+    <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript></con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="213ffdab-3205-42f3-b9f3-b70f0c097c9e" keepSession="false" maxResults="0" name="State Alt Path - No Patient Correlations" searchProperties="true">
       <con:settings/>
       
@@ -4310,12 +4247,12 @@ def projectPropPath = groovyUtils.projectPath
 def sourceDir = projectPropPath;
 def sourceFile = "UDDIcopy-uddiConnectionInfo.xml";
 //def destDir = context.findProperty( "NHINGatewayConfigDir" );
-def destDir = System.env['NHINC_PROPERTIES_DIR'];
+def destDir = context.findProperty("GatewayPropDir");
 def destFile = "uddiConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</script></con:config>
+FileUtils.moveFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
       </con:testStep>
       <con:testStep name="Copy InternalConfigurationInfo" type="groovy">
         <con:settings/>
@@ -4329,19 +4266,17 @@ def projectPropPath = groovyUtils.projectPath
 
 def sourceDir = projectPropPath;
 def sourceFile = "UDDIcopy-internalConnectionInfo";
-//def destDir = context.findProperty( "NHINGatewayConfigDir" );
-def destDir = System.env['NHINC_PROPERTIES_DIR'];
+def destDir = context.findProperty("GatewayPropDir");
 def destFile = "internalConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</script></con:config>
+FileUtils.moveFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
       </con:testStep>
       <con:testStep name="update config" type="groovy">
         <con:settings/>
-        <con:config>
-          <script>//def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
-def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
+        <con:config><script>//def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
+def destConfigFileLocation = context.findProperty("GatewayPropDir");
 
 void UpdateProperty(String directory, String filename, String propertyKey, String propertyValue,context,log) {
 			  
@@ -4356,8 +4291,7 @@ void UpdateProperty(String directory, String filename, String propertyKey, Strin
    properties = null;
 }
 
-UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySelf","false",context,log);</script>
-        </con:config>
+nhinc.FileUtils.updateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySelf","false",log);</script></con:config>
       </con:testStep>
       <con:testStep name="Generate patient ID for Doc Query" type="groovy">
         <con:settings/>
@@ -4710,22 +4644,22 @@ declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
         </con:config>
       </con:testStep>
       
-      <con:properties>
+      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-08-27T13:35:50Z</con:value>
+          <con:value>2012-11-27T15:56:33Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-08-27T13:45:50Z</con:value>
+          <con:value>2012-11-27T16:06:33Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/27/2012 13:35:50</con:value>
+          <con:value>11/27/2012 15:56:33</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-09-26T00:00:00Z</con:value>
+          <con:value>2012-12-27T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -4733,14 +4667,7 @@ declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    <con:tearDownScript>import nhinc.FileUtils;
-FileUtils.restoreToMasterConfiguration(context, log);
-
-def sourceDir = System.env['NHINC_PROPERTIES_DIR'] + "/master/";
-def sourceFile = "uddiConnectionInfo.xml";
-def destDir = System.env['NHINC_PROPERTIES_DIR'];
-def destFile = "uddiConnectionInfo.xml";
-FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</con:tearDownScript></con:testCase>
+    <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript></con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="513d71ab-aff5-45ef-a71d-f2fafb41545f" keepSession="false" maxResults="0" name="State Alt Path - Correlation for HCID not in UDDI file/target XML" searchProperties="true">
       <con:settings/>
       
@@ -4757,12 +4684,12 @@ def projectPropPath = groovyUtils.projectPath
 def sourceDir = projectPropPath;
 def sourceFile = "UDDIcopy-uddiConnectionInfo.xml";
 //def destDir = context.findProperty( "NHINGatewayConfigDir" );
-def destDir = System.env['NHINC_PROPERTIES_DIR'];
+def destDir = context.findProperty("GatewayPropDir");
 def destFile = "uddiConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</script></con:config>
+FileUtils.moveFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
       </con:testStep>
       <con:testStep name="Copy InternalConfigurationInfo" type="groovy">
         <con:settings/>
@@ -4776,19 +4703,17 @@ def projectPropPath = groovyUtils.projectPath
 
 def sourceDir = projectPropPath;
 def sourceFile = "UDDIcopy-internalConnectionInfo";
-//def destDir = context.findProperty( "NHINGatewayConfigDir" );
-def destDir = System.env['NHINC_PROPERTIES_DIR'];
+def destDir = context.findProperty("GatewayPropDir");
 def destFile = "internalConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</script></con:config>
+FileUtils.moveFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
       </con:testStep>
       <con:testStep name="update config" type="groovy">
         <con:settings/>
-        <con:config>
-          <script>//def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
-def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
+        <con:config><script>//def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
+def destConfigFileLocation = context.findProperty("GatewayPropDir");
 
 void UpdateProperty(String directory, String filename, String propertyKey, String propertyValue,context,log) {
 			  
@@ -4803,8 +4728,7 @@ void UpdateProperty(String directory, String filename, String propertyKey, Strin
    properties = null;
 }
 
-UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySelf","false",context,log);</script>
-        </con:config>
+nhinc.FileUtils.updateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySelf","false",log);</script></con:config>
       </con:testStep>
       <con:testStep name="Generate patient ID for Doc Query" type="groovy">
         <con:settings/>
@@ -5161,22 +5085,22 @@ declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
         </con:config>
       </con:testStep>
       
-      <con:properties>
+      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-08-27T13:35:51Z</con:value>
+          <con:value>2012-11-27T15:56:34Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-08-27T13:45:51Z</con:value>
+          <con:value>2012-11-27T16:06:34Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/27/2012 13:35:51</con:value>
+          <con:value>11/27/2012 15:56:34</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-09-26T00:00:00Z</con:value>
+          <con:value>2012-12-27T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -5184,14 +5108,7 @@ declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    <con:tearDownScript>import nhinc.FileUtils;
-FileUtils.restoreToMasterConfiguration(context, log);
-
-def sourceDir = System.env['NHINC_PROPERTIES_DIR'] + "/master/";
-def sourceFile = "uddiConnectionInfo.xml";
-def destDir = System.env['NHINC_PROPERTIES_DIR'];
-def destFile = "uddiConnectionInfo.xml";
-FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</con:tearDownScript></con:testCase>
+    <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript></con:testCase>
     <con:testCase disabled="true" failOnError="true" failTestCaseOnErrors="true" id="9e940daf-b52b-4d96-992c-cef25421fd38" keepSession="false" maxResults="0" name="State Alt Path - Correlation for HCID IN UDDI file/target XML" searchProperties="true">
       <con:settings/>
       
@@ -5707,12 +5624,12 @@ def projectPropPath = groovyUtils.projectPath
 def sourceDir = projectPropPath;
 def sourceFile = "UDDIcopy-uddiConnectionInfo.xml";
 //def destDir = context.findProperty( "NHINGatewayConfigDir" );
-def destDir = System.env['NHINC_PROPERTIES_DIR'];
+def destDir = context.findProperty("GatewayPropDir");
 def destFile = "uddiConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</script></con:config>
+FileUtils.moveFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
       </con:testStep>
       <con:testStep name="Copy InternalConfigurationInfo" type="groovy">
         <con:settings/>
@@ -5726,19 +5643,18 @@ def projectPropPath = groovyUtils.projectPath
 
 def sourceDir = projectPropPath;
 def sourceFile = "UDDIcopy-internalConnectionInfo";
-//def destDir = context.findProperty( "NHINGatewayConfigDir" );
-def destDir = System.env['NHINC_PROPERTIES_DIR'];
+def destDir = context.findProperty("GatewayPropDir");
 def destFile = "internalConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</script></con:config>
+FileUtils.moveFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
       </con:testStep>
       <con:testStep name="update config - gateway.properties" type="groovy">
         <con:settings/>
-        <con:config>
-          <script>//def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
-def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
+        <con:config><script>
+//def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
+def destConfigFileLocation = context.findProperty("GatewayPropDir");
 
 void UpdateProperty(String directory, String filename, String propertyKey, String propertyValue,context,log) {
 			  
@@ -5753,8 +5669,7 @@ void UpdateProperty(String directory, String filename, String propertyKey, Strin
    properties = null;
 }
 
-UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySelf","false",context,log);</script>
-        </con:config>
+nhinc.FileUtils.updateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySelf","false",log);</script></con:config>
       </con:testStep>
       <con:testStep name="Generate patient ID for Doc Query" type="groovy">
         <con:settings/>
@@ -5829,13 +5744,15 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
         <con:config><script>import nhinc.FileUtils;
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 
-def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
+def destConfigFileLocation = context.findProperty("GatewayPropDir");
 def NHINGatewayHost = context.findProperty("NHINGatewayHost");
 def mockHost = context.findProperty("mockHost");
 def dQURL = "https://localhost:8181/Gateway/DocumentQuery/2_0/NhinService/RespondingGateway_Query_Service/DocQuery";
-def remoteHCID = context.findProperty( "UDDIhcid4" );
+def remoteHCID1 = context.findProperty("UDDIhcid1");
+def remoteHCID3 = context.findProperty("UDDIhcid3");
 
-FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, remoteHCID, "QueryForDocuments", dQURL, "2.0", context, log)</script></con:config>
+FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, remoteHCID1, "QueryForDocuments", dQURL, "2.0", log)
+FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, remoteHCID3, "QueryForDocuments", dQURL, "2.0", log)</script></con:config>
       </con:testStep>
       <con:testStep name="Document Query" type="request">
         <con:settings/>
@@ -6131,22 +6048,22 @@ count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)
       </con:testStep>
       
       
-      <con:properties>
+      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-08-27T13:35:51Z</con:value>
+          <con:value>2012-11-27T15:56:35Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-08-27T13:45:51Z</con:value>
+          <con:value>2012-11-27T16:06:35Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/27/2012 13:35:51</con:value>
+          <con:value>11/27/2012 15:56:35</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-09-26T00:00:00Z</con:value>
+          <con:value>2012-12-27T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -6154,14 +6071,7 @@ count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    <con:tearDownScript>import nhinc.FileUtils;
-FileUtils.restoreToMasterConfiguration(context, log);
-
-def sourceDir = System.env['NHINC_PROPERTIES_DIR'] + "/master/";
-def sourceFile = "uddiConnectionInfo.xml";
-def destDir = System.env['NHINC_PROPERTIES_DIR'];
-def destFile = "uddiConnectionInfo.xml";
-FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</con:tearDownScript></con:testCase>
+    <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript></con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="ecb4d188-094b-4f8c-bb59-b5cf33c4e974" keepSession="false" maxResults="0" name="State Alt Path - Multiple regions and correlations" searchProperties="true">
       <con:settings/>
       
@@ -6178,12 +6088,12 @@ def projectPropPath = groovyUtils.projectPath
 def sourceDir = projectPropPath;
 def sourceFile = "UDDIcopy-uddiConnectionInfo.xml";
 //def destDir = context.findProperty( "NHINGatewayConfigDir" );
-def destDir = System.env['NHINC_PROPERTIES_DIR'];
+def destDir = context.findProperty("GatewayPropDir");
 def destFile = "uddiConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</script></con:config>
+FileUtils.moveFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
       </con:testStep>
       <con:testStep name="Copy InternalConfigurationInfo" type="groovy">
         <con:settings/>
@@ -6197,19 +6107,17 @@ def projectPropPath = groovyUtils.projectPath
 
 def sourceDir = projectPropPath;
 def sourceFile = "UDDIcopy-internalConnectionInfo";
-//def destDir = context.findProperty( "NHINGatewayConfigDir" );
-def destDir = System.env['NHINC_PROPERTIES_DIR'];
+def destDir = context.findProperty("GatewayPropDir");
 def destFile = "internalConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</script></con:config>
+FileUtils.moveFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
       </con:testStep>
       <con:testStep name="update config - gateway.properties" type="groovy">
         <con:settings/>
-        <con:config>
-          <script>//def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
-def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
+        <con:config><script>//def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
+def destConfigFileLocation = context.findProperty("GatewayPropDir");
 
 void UpdateProperty(String directory, String filename, String propertyKey, String propertyValue,context,log) {
 			  
@@ -6224,8 +6132,7 @@ void UpdateProperty(String directory, String filename, String propertyKey, Strin
    properties = null;
 }
 
-UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySelf","false",context,log);</script>
-        </con:config>
+nhinc.FileUtils.updateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySelf","false",log);</script></con:config>
       </con:testStep>
       <con:testStep name="Generate patient ID for Doc Query" type="groovy">
         <con:settings/>
@@ -6324,19 +6231,15 @@ context.withSql('PatientCorrelationDB') { sql ->
         <con:config><script>import nhinc.FileUtils;
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 
-def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
+def destConfigFileLocation = context.findProperty("GatewayPropDir");
 def NHINGatewayHost = context.findProperty("NHINGatewayHost");
 def mockHost = context.findProperty("mockHost");
 def dQURL = "https://localhost:8181/Gateway/DocumentQuery/2_0/NhinService/RespondingGateway_Query_Service/DocQuery";
 def remoteHCID1 = context.findProperty("UDDIhcid1");
-def remoteHCID2 = context.findProperty("UDDIhcid2");
 def remoteHCID3 = context.findProperty("UDDIhcid3");
-def remoteHCID4 = context.findProperty("UDDIhcid4");
 
-FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, remoteHCID1, "QueryForDocuments", dQURL, "2.0", context, log)
-FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, remoteHCID2, "QueryForDocuments", dQURL, "2.0", context, log)
-FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, remoteHCID3, "QueryForDocuments", dQURL, "2.0", context, log)
-FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, remoteHCID4, "QueryForDocuments", dQURL, "2.0", context, log)</script></con:config>
+FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, remoteHCID1, "QueryForDocuments", dQURL, "2.0", log)
+FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, remoteHCID3, "QueryForDocuments", dQURL, "2.0", log)</script></con:config>
       </con:testStep>
       <con:testStep name="Document Query" type="request">
         <con:settings/>
@@ -6639,22 +6542,22 @@ count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)
       </con:testStep>
       
       
-      <con:properties>
+      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-08-27T13:35:53Z</con:value>
+          <con:value>2012-11-27T15:56:36Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-08-27T13:45:53Z</con:value>
+          <con:value>2012-11-27T16:06:36Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/27/2012 13:35:53</con:value>
+          <con:value>11/27/2012 15:56:36</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-09-26T00:00:00Z</con:value>
+          <con:value>2012-12-27T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -6662,14 +6565,7 @@ count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    <con:tearDownScript>import nhinc.FileUtils;
-FileUtils.restoreToMasterConfiguration(context, log);
-
-def sourceDir = System.env['NHINC_PROPERTIES_DIR'] + "/master/";
-def sourceFile = "uddiConnectionInfo.xml";
-def destDir = System.env['NHINC_PROPERTIES_DIR'];
-def destFile = "uddiConnectionInfo.xml";
-FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</con:tearDownScript></con:testCase>
+    <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript></con:testCase>
     <con:testCase disabled="true" failOnError="true" failTestCaseOnErrors="true" id="5d62165c-7a92-4211-b4a8-22f1793f3c0c" keepSession="false" maxResults="0" name="Empty Target XML - Correlation for HCID IN UDDI file" searchProperties="true">
       <con:settings/>
       
@@ -7572,12 +7468,12 @@ def projectPropPath = groovyUtils.projectPath
 def sourceDir = projectPropPath;
 def sourceFile = "UDDIcopy-uddiConnectionInfo.xml";
 //def destDir = context.findProperty( "NHINGatewayConfigDir" );
-def destDir = System.env['NHINC_PROPERTIES_DIR'];
+def destDir = context.findProperty("GatewayPropDir");
 def destFile = "uddiConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</script></con:config>
+FileUtils.moveFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
       </con:testStep>
       <con:testStep name="Copy internalConnectionInfo" type="groovy">
         <con:settings/>
@@ -7591,18 +7487,17 @@ def projectPropPath = groovyUtils.projectPath
 
 def sourceDir = projectPropPath;
 def sourceFile = "UDDIcopy-internalConnectionInfo";
-def destDir = System.env['NHINC_PROPERTIES_DIR'];
+def destDir = context.findProperty("GatewayPropDir");
 def destFile = "internalConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</script></con:config>
+FileUtils.moveFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
       </con:testStep>
       <con:testStep name="update config" type="groovy">
         <con:settings/>
-        <con:config>
-          <script>//def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
-def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
+        <con:config><script>//def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
+def destConfigFileLocation = context.findProperty("GatewayPropDir");
 
 void UpdateProperty(String directory, String filename, String propertyKey, String propertyValue,context,log) {
 			  
@@ -7617,8 +7512,7 @@ void UpdateProperty(String directory, String filename, String propertyKey, Strin
    properties = null;
 }
 
-UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySelf","false",context,log);</script>
-        </con:config>
+nhinc.FileUtils.updateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySelf","false",log);</script></con:config>
       </con:testStep>
       <con:testStep name="Generate patient ID for Doc Query" type="groovy">
         <con:settings/>
@@ -7691,15 +7585,15 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
         <con:config><script>import nhinc.FileUtils;
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 
-def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
+def destConfigFileLocation = context.findProperty("GatewayPropDir");
 def NHINGatewayHost = context.findProperty("NHINGatewayHost");
 def mockHost = context.findProperty("mockHost");
 def dQURL = "https://localhost:8181/Gateway/DocumentQuery/2_0/NhinService/RespondingGateway_Query_Service/DocQuery";
 def remoteHCID1 = context.findProperty("UDDIhcid1");
 def remoteHCID3 = context.findProperty("UDDIhcid3");
 
-FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, remoteHCID1, "QueryForDocuments", dQURL, "2.0", context, log)
-FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, remoteHCID3, "QueryForDocuments", dQURL, "2.0", context, log)</script></con:config>
+FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, remoteHCID1, "QueryForDocuments", dQURL, "2.0", log)
+FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, remoteHCID3, "QueryForDocuments", dQURL, "2.0", log)</script></con:config>
       </con:testStep>
       
       <con:testStep name="Document Query" type="request">
@@ -7996,22 +7890,22 @@ declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
             <con:wsrmConfig version="1.2"/>
           </con:request>
         </con:config>
-      </con:testStep><con:properties>
+      </con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-08-27T13:35:55Z</con:value>
+          <con:value>2012-11-27T15:57:13Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-08-27T13:45:55Z</con:value>
+          <con:value>2012-11-27T16:07:13Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/27/2012 13:35:55</con:value>
+          <con:value>11/27/2012 15:57:13</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-09-26T00:00:00Z</con:value>
+          <con:value>2012-12-27T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -8019,14 +7913,7 @@ declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    <con:tearDownScript>import nhinc.FileUtils;
-FileUtils.restoreToMasterConfiguration(context, log);
-
-def sourceDir = System.env['NHINC_PROPERTIES_DIR'] + "/master/";
-def sourceFile = "uddiConnectionInfo.xml";
-def destDir = System.env['NHINC_PROPERTIES_DIR'];
-def destFile = "uddiConnectionInfo.xml";
-FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</con:tearDownScript></con:testCase>
+    <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript></con:testCase>
     <con:properties/>
     <con:reportParameters/>
   </con:testSuite>
@@ -8100,7 +7987,7 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</con
     
     
     
-  <con:property><con:name>UDDIhcid1</con:name><con:value>4.4</con:value></con:property><con:property><con:name>UDDIhcid2</con:name><con:value>5.5</con:value></con:property><con:property><con:name>UDDIhcid3</con:name><con:value>6.6</con:value></con:property><con:property><con:name>UDDIhcid4</con:name><con:value>7.7</con:value></con:property><con:property><con:name>UnSubscriptionID</con:name><con:value>3e74139f-5271-4db1-98c0-88748fa3e4e3</con:value></con:property><con:property><con:name>UDDIhcid9</con:name><con:value>9.9</con:value></con:property><con:property><con:name>UDDIaa9</con:name><con:value>9.9</con:value></con:property></con:properties>
+  <con:property><con:name>UDDIhcid1</con:name><con:value>4.4</con:value></con:property><con:property><con:name>UDDIhcid2</con:name><con:value>5.5</con:value></con:property><con:property><con:name>UDDIhcid3</con:name><con:value>6.6</con:value></con:property><con:property><con:name>UDDIhcid4</con:name><con:value>7.7</con:value></con:property><con:property><con:name>UnSubscriptionID</con:name><con:value>3e74139f-5271-4db1-98c0-88748fa3e4e3</con:value></con:property><con:property><con:name>UDDIhcid9</con:name><con:value>9.9</con:value></con:property><con:property><con:name>UDDIaa9</con:name><con:value>9.9</con:value></con:property><con:property><con:name>GatewayPropDir</con:name><con:value>D:\glassfish3\glassfish\domains\domain1\config\nhin</con:value></con:property></con:properties>
   <con:afterLoadScript>def propertiesFile = new File(new File(project.path).parent, 'DocQueryTestsForUDDI-soapui-project.properties')
 if (propertiesFile.exists()) {
 	def props = new Properties()
