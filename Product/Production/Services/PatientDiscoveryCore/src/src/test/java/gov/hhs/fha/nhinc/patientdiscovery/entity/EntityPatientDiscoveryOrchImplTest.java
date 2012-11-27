@@ -48,12 +48,12 @@ import gov.hhs.fha.nhinc.aspect.OutboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.connectmgr.UrlInfo;
-import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.gateway.executorservice.NhinTaskExecutor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditLogger;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryPolicyChecker;
 import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201305UV02ArgTransformer;
+import gov.hhs.fha.nhinc.patientdiscovery.aspect.RespondingGatewayPRPAIN201306UV02Builder;
 import gov.hhs.fha.nhinc.patientdiscovery.utils.PDTestUtils;
 
 /**
@@ -371,7 +371,7 @@ public class EntityPatientDiscoveryOrchImplTest {
         OutboundProcessingEvent annotation = method.getAnnotation(OutboundProcessingEvent.class);
         assertNotNull(annotation);
         assertEquals(PRPAIN201305UV02ArgTransformer.class, annotation.beforeBuilder());
-        assertEquals(DefaultEventDescriptionBuilder.class, annotation.afterReturningBuilder());
+        assertEquals(RespondingGatewayPRPAIN201306UV02Builder.class, annotation.afterReturningBuilder());
         assertEquals("Patient Discovery", annotation.serviceType());
         assertEquals("1.0", annotation.version());
     }
