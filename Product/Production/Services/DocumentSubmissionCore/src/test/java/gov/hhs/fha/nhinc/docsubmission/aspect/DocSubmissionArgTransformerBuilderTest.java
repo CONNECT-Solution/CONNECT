@@ -1,6 +1,4 @@
-/**
- * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
- *
+/*
  * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
@@ -26,43 +24,47 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.patientdiscovery.aspect;
+package gov.hhs.fha.nhinc.docsubmission.aspect;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 import gov.hhs.fha.nhinc.event.BaseDescriptionBuilderTest;
 import gov.hhs.fha.nhinc.event.BeanPropertyArgumentTransformer;
+import gov.hhs.healthit.nhin.XDRAcknowledgementType;
+import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 
 import java.beans.PropertyDescriptor;
 
-import org.hl7.v3.PRPAIN201305UV02;
-import org.hl7.v3.ProxyPRPAIN201305UVProxyRequestType;
-import org.hl7.v3.ProxyPRPAIN201305UVProxySecuredRequestType;
-import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
-import org.hl7.v3.RespondingGatewayPRPAIN201305UV02SecuredRequestType;
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.BeanUtils;
 
-public class PRPAIN201305UV02ArgTransformerTest extends BaseDescriptionBuilderTest {
-
-    private PRPAIN201305UV02ArgTransformer builder;
+public class DocSubmissionArgTransformerBuilderTest extends BaseDescriptionBuilderTest {
+    private DocSubmissionArgTransformerBuilder builder;
 
     @Before
     public void before() {
-        builder = new PRPAIN201305UV02ArgTransformer();
+        builder = new DocSubmissionArgTransformerBuilder();
     }
 
     @Test
     public void jaxbTypesHaveCorrectBeanProperties() {
-        Class<?>[] classes = new Class<?>[] { ProxyPRPAIN201305UVProxyRequestType.class,
-                ProxyPRPAIN201305UVProxySecuredRequestType.class, RespondingGatewayPRPAIN201305UV02RequestType.class,
-                RespondingGatewayPRPAIN201305UV02SecuredRequestType.class };
+        Class<?>[] classes = new Class<?>[] {
+                gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetRequestType.class,
+                gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetRequestType.class,
+                gov.hhs.fha.nhinc.common.nhinccommoninternalorch.RespondingGatewayProvideAndRegisterDocumentSetRequestType.class,
+                gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType.class,
+                gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType.class };
         for (int curClass = 0; curClass < classes.length; ++curClass) {
             PropertyDescriptor[] propertyDescriptors = BeanUtils.getPropertyDescriptors(classes[curClass]);
             boolean found = false;
             for (int i = 0; i < propertyDescriptors.length; ++i) {
-                if (propertyDescriptors[i].getPropertyType().equals(PRPAIN201305UV02.class)) {
+                Class<?> propertyType = propertyDescriptors[i].getPropertyType();
+                if (propertyType.equals(ProvideAndRegisterDocumentSetRequestType.class)) {
                     found = true;
                 }
             }
@@ -73,6 +75,16 @@ public class PRPAIN201305UV02ArgTransformerTest extends BaseDescriptionBuilderTe
     @Test
     public void correctArgTransformerDelegate() {
         assertTrue(builder instanceof BeanPropertyArgumentTransformer);
-        assertEquals(PRPAIN201305UV02EventDescriptionBuilder.class, builder.getDelegate().getClass());
+        assertEquals(DocSubmissionBaseEventDescriptionBuilder.class, builder.getDelegate().getClass());
+    }
+
+    @Test
+    public void unwrapsResponseIfNecessary() {
+        RegistryResponseType baseResponseMock = mock(RegistryResponseType.class);
+        assertEquals(baseResponseMock, builder.transformReturnValue(baseResponseMock));
+
+        XDRAcknowledgementType wrapperMock = mock(XDRAcknowledgementType.class);
+        when(wrapperMock.getMessage()).thenReturn(baseResponseMock);
+        assertEquals(baseResponseMock, builder.transformReturnValue(wrapperMock));
     }
 }
