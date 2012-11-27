@@ -168,8 +168,9 @@ public class MimeMessageBuilder {
 		try {
 			if (null != documents && !StringUtils.isBlank(messageId)) {
 				attachmentPart = getMimeBodyPart();
-				attachmentPart.attachFile(documents.toXdmPackage(messageId)
-						.toFile());
+				
+				messageId = messageId.replace("urn:uuid:", "");
+				attachmentPart.attachFile(documents.toXdmPackage(messageId).toFile());
 			} else if (null != attachment && !StringUtils.isBlank(attachmentName)) {
 				attachmentPart = createAttachmentFromSOAPRequest(attachment,
 						attachmentName);
@@ -199,7 +200,7 @@ public class MimeMessageBuilder {
         return message;
     }
 
-    protected MimeBodyPart getMimeBodyPart() {
+	protected MimeBodyPart getMimeBodyPart() {
 		return new MimeBodyPart();
 	}
 
