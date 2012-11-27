@@ -26,7 +26,6 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws;
 
-import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.generic.GenericFactory;
 import gov.hhs.fha.nhinc.patientdiscovery.NhinPatientDiscoveryImpl;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditLogger;

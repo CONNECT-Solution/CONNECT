@@ -27,13 +27,17 @@
 package gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws;
 
 import gov.hhs.fha.nhinc.aspect.InboundMessageEvent;
-import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.patientdiscovery._10.deferred.request.NhinPatientDiscoveryAsyncReqImpl;
+import gov.hhs.fha.nhinc.patientdiscovery.aspect.MCCIIN000002UV01EventDescriptionBuilder;
+import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201305UV02EventDescriptionBuilder;
 
 import javax.annotation.Resource;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
+
+import org.hl7.v3.PRPAIN201305UV02;
+import org.hl7.v3.MCCIIN000002UV01;
 
 /**
  * 
@@ -58,10 +62,11 @@ public class NhinPatientDiscoveryAsyncReq extends PatientDiscoveryBase implement
         super(serviceFactory);
     }
 
-    @InboundMessageEvent(beforeBuilder = DefaultEventDescriptionBuilder.class,
-            afterReturningBuilder = DefaultEventDescriptionBuilder.class, serviceType = "Patient Discovery",
+    @InboundMessageEvent(beforeBuilder = PRPAIN201305UV02EventDescriptionBuilder.class,
+            afterReturningBuilder = MCCIIN000002UV01EventDescriptionBuilder.class, 
+            serviceType = "Patient Discovery Deferred Request",
             version = "1.0")
-    public org.hl7.v3.MCCIIN000002UV01 respondingGatewayDeferredPRPAIN201305UV02(org.hl7.v3.PRPAIN201305UV02 body) {
+    public MCCIIN000002UV01 respondingGatewayDeferredPRPAIN201305UV02(PRPAIN201305UV02 body) {
         return orchImpl.respondingGatewayPRPAIN201305UV02(body, context);
     }
 

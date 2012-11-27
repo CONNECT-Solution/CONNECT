@@ -27,7 +27,7 @@
 package gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws;
 
 import gov.hhs.fha.nhinc.aspect.OutboundMessageEvent;
-import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
+import gov.hhs.fha.nhinc.patientdiscovery.aspect.CommunityPRPAIN201306UV02Builder;
 import gov.hhs.fha.nhinc.patientdiscovery._10.passthru.deferred.response.NhincProxyPatientDiscoveryAsyncRespImpl;
 import gov.hhs.fha.nhinc.nhincproxypatientdiscoverysecuredasyncresp.NhincProxyPatientDiscoverySecuredAsyncRespPortType;
 import gov.hhs.fha.nhinc.patientdiscovery.aspect.MCCIIN000002UV01EventDescriptionBuilder;
@@ -60,7 +60,7 @@ public class NhincProxyPatientDiscoverySecuredAsyncResp extends PatientDiscovery
         super(serviceFactory);
     }
 
-    @OutboundMessageEvent(beforeBuilder = DefaultEventDescriptionBuilder.class,
+    @OutboundMessageEvent(beforeBuilder = CommunityPRPAIN201306UV02Builder.class,
             afterReturningBuilder = MCCIIN000002UV01EventDescriptionBuilder.class, 
             serviceType = "Patient Discovery Deferred Response",
             version = "1.0")

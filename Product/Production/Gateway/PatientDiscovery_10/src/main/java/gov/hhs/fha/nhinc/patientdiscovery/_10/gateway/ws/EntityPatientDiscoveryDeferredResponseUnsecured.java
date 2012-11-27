@@ -27,8 +27,8 @@
 package gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws;
 
 import gov.hhs.fha.nhinc.aspect.OutboundMessageEvent;
-import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.patientdiscovery._10.entity.deferred.response.EntityPatientDiscoveryDeferredResponseImpl;
+import gov.hhs.fha.nhinc.patientdiscovery.aspect.RespondingGatewayPRPAIN201306UV02Builder;
 import gov.hhs.fha.nhinc.patientdiscovery.aspect.MCCIIN000002UV01EventDescriptionBuilder;
 import javax.annotation.Resource;
 import javax.xml.ws.BindingType;
@@ -59,7 +59,7 @@ public class EntityPatientDiscoveryDeferredResponseUnsecured extends PatientDisc
         super(serviceFactory);
     }
 
-    @OutboundMessageEvent(beforeBuilder = DefaultEventDescriptionBuilder.class,
+    @OutboundMessageEvent(beforeBuilder = RespondingGatewayPRPAIN201306UV02Builder.class,
             afterReturningBuilder =  MCCIIN000002UV01EventDescriptionBuilder.class, 
             serviceType = "Patient Discovery Deferred Response",
             version = "1.0")
