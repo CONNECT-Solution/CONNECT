@@ -160,14 +160,6 @@ public class AdminDistributionHelper {
 
         return null;
     }
-
-    /** This method returns passthru property value from gateway.properties.
-     * @return true or false. Reads passtrhu property from gateway.properties file.True if AdminDist is in passthru mode
-     *  false if it is not in passthru mode. 
-     */
-    public boolean isInPassThroughMode() {
-        return readBooleanGatewayProperty(NhincConstants.NHIN_ADMIN_DIST_SERVICE_PASSTHRU_PROPERTY);
-    }
     
     /** This method read pasased in property value from gateway.property and returns boolean.
      * @param propertyName The Property name passed in to read property value from gateway.properties.

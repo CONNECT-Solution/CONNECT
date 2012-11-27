@@ -28,65 +28,28 @@
  */
 package gov.hhs.fha.nhinc.event;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mockito;
 
 public class ArgTransformerEventDescriptionBuilderTest extends BaseDescriptionBuilderTest {
 
-    private ArgTransformerEventDescriptionBuilder realMethodsBuilder;
     private ArgTransformerEventDescriptionBuilder mockBuilder;
 
     @Before
     public void before() {
-        realMethodsBuilder = mock(ArgTransformerEventDescriptionBuilder.class, Mockito.CALLS_REAL_METHODS);
         mockBuilder = mock(ArgTransformerEventDescriptionBuilder.class);
     }
 
     @Test
-    public void buildMethodsDelegate() {
-        EventDescriptionBuilder mockDelegate = mock(EventDescriptionBuilder.class);
-        EventDescription eventDescription = mock(EventDescription.class);
-        when(mockDelegate.getEventDescription()).thenReturn(eventDescription);
-        realMethodsBuilder.setDelegate(mockDelegate);
-
-        EventDescription result = getEventDescription(realMethodsBuilder);
-        assertEquals(eventDescription, result);
-
-        verify(mockDelegate).buildTimeStamp();
-        verify(mockDelegate).buildStatuses();
-        verify(mockDelegate).buildRespondingHCIDs();
-        verify(mockDelegate).buildPayloadSizes();
-        verify(mockDelegate).buildPayloadTypes();
-        verify(mockDelegate).buildNPI();
-        verify(mockDelegate).buildInitiatingHCID();
-        verify(mockDelegate).buildErrorCodes();
-        verify(mockDelegate).buildMessageId();
-        verify(mockDelegate).buildTransactionId();
-        verify(mockDelegate).buildServiceType();
-        verify(mockDelegate).buildResponseMsgIdList();
-        verify(mockDelegate).buildAction();
-    }
-
-    @Test
-    public void messageArgs() {
-        EventContextAccessor contextAccessor = mock(EventContextAccessor.class);
-        MessageRoutingAccessor routingAccessor = mock(MessageRoutingAccessor.class);
-        realMethodsBuilder.setMsgContext(contextAccessor);
-        realMethodsBuilder.setMsgRouting(routingAccessor);
-
-        EventDescriptionBuilder mockDelegate = mock(EventDescriptionBuilder.class);
-        realMethodsBuilder.setDelegate(mockDelegate);
-
-        verify(mockDelegate).setMsgContext(any(EventContextAccessor.class));
-        verify(mockDelegate).setMsgRouting(eq(routingAccessor));
+    public void isADelegatingBuilder() {
+        assertTrue(DelegatingEventDescriptionBuilder.class
+                .isAssignableFrom(ArgTransformerEventDescriptionBuilder.class));
     }
 
     @Test

@@ -4,7 +4,7 @@
   <con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:adapterpatientdiscoveryasyncresp}AdapterPatientDiscoveryAsyncRespBindingSoap" definition="${ProjectDir}../ValidationSuite/target/wsdl/AdapterPatientDiscoveryAsyncResp.wsdl" name="AdapterPatientDiscoveryAsyncRespBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
     
-    <con:definitionCache/><con:endpoints>
+    <con:endpoints>
       <con:endpoint>${#Project#AdapterPatientDiscoveryAsyncRespEndpoint}</con:endpoint>
       <con:endpoint>http://localhost/NhinConnect/AdapterPatientDiscoveryAsyncResp</con:endpoint>
     </con:endpoints>
@@ -337,7 +337,7 @@
           </con:request>
         </con:config>
       </con:testStep>
-      <con:properties>
+      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
           <con:value>2012-11-15T22:02:35Z</con:value>
@@ -356,7 +356,7 @@
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    <con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript></con:testCase>
+    <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript></con:testCase>
     <con:properties/>
     <con:reportParameters/>
   </con:testSuite>

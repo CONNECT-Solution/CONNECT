@@ -29,125 +29,11 @@
 package gov.hhs.fha.nhinc.event;
 
 /**
- * EventDescriptionBuilder that transforms arguments from one method into the format used by another concrete builder,
- * then delegates all work to the other builder. Useful for gateway to non-gateway transformations. Concrete
- * implementations should call <code>setDelegate</code> during construction.
- * 
- * <p>
- * All of the build* methods are final. They each delegate to the builder passed in via setDelegate.
+ * DelegatingEventDescriptionBuilder that transforms arguments from one method into the format used by another concrete
+ * builder. Useful for gateway to non-gateway transformations. Concrete implementations should call
+ * <code>setDelegate</code> during construction.
  */
-public abstract class ArgTransformerEventDescriptionBuilder implements EventDescriptionBuilder {
-    private EventDescriptionBuilder delegate;
-    private MessageRoutingAccessor msgRouting;
-    private EventContextAccessor msgContext;
-
-    @Override
-    public final void buildTimeStamp() {
-        delegate.buildTimeStamp();
-    }
-
-    @Override
-    public final void buildStatuses() {
-        delegate.buildStatuses();
-    }
-
-    @Override
-    public final void buildRespondingHCIDs() {
-        delegate.buildRespondingHCIDs();
-    }
-
-    @Override
-    public final void buildPayloadTypes() {
-        delegate.buildPayloadTypes();
-    }
-
-    @Override
-    public final void buildPayloadSizes() {
-        delegate.buildPayloadSizes();
-    }
-
-    @Override
-    public final void buildNPI() {
-        delegate.buildNPI();
-    }
-
-    @Override
-    public final void buildInitiatingHCID() {
-        delegate.buildInitiatingHCID();
-    }
-
-    @Override
-    public final void buildErrorCodes() {
-        delegate.buildErrorCodes();
-    }
-
-    @Override
-    public final void buildMessageId() {
-        delegate.buildMessageId();
-    }
-
-    @Override
-    public final void buildTransactionId() {
-        delegate.buildTransactionId();
-    }
-
-    @Override
-    public final void buildServiceType() {
-        delegate.buildServiceType();
-    }
-
-    @Override
-    public final void buildResponseMsgIdList() {
-        delegate.buildResponseMsgIdList();
-    }
-
-    @Override
-    public final void buildAction() {
-        delegate.buildAction();
-    }
-
-    @Override
-    public final EventDescription getEventDescription() {
-        return delegate.getEventDescription();
-    }
-
-    @Override
-    public final void createEventDescription() {
-        delegate.createEventDescription();
-    }
-
-    /**
-     * For testing purposes.
-     * 
-     * @return the delegate set by a previous call to <code>setDelegate</code>.
-     */
-    public final EventDescriptionBuilder getDelegate() {
-        return delegate;
-    }
-
-    /**
-     * @param delegate
-     *            The builder to delegate to, after transforming the arguments. Must not be null.
-     */
-    protected final void setDelegate(EventDescriptionBuilder delegate) {
-        if (delegate == null) {
-            throw new IllegalArgumentException("delegate cannot be null");
-        }
-        this.delegate = delegate;
-        setMsgObjects();
-    }
-
-    @Override
-    public final void setMsgRouting(MessageRoutingAccessor msgRouting) {
-        this.msgRouting = msgRouting;
-        setMsgObjects();
-    }
-
-    @Override
-    public final void setMsgContext(EventContextAccessor msgContext) {
-        this.msgContext = msgContext;
-        setMsgObjects();
-    }
+public abstract class ArgTransformerEventDescriptionBuilder extends DelegatingEventDescriptionBuilder {
 
     @Override
     public final void setArguments(Object... arguments) {
@@ -178,11 +64,4 @@ public abstract class ArgTransformerEventDescriptionBuilder implements EventDesc
      * @return value expected by the delegate
      */
     public abstract Object transformReturnValue(Object returnValue);
-
-    private void setMsgObjects() {
-        if (delegate != null) {
-            delegate.setMsgContext(msgContext);
-            delegate.setMsgRouting(msgRouting);
-        }
-    }
 }

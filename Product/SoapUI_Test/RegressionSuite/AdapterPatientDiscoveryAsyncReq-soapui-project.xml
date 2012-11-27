@@ -376,7 +376,7 @@
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript></con:testCase>
+    <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript></con:testCase>
     <con:properties/>
     <con:reportParameters/>
   </con:testSuite>

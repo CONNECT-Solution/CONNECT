@@ -4391,7 +4391,7 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 </con:properties>
 <con:reportParameters/>
 </con:testCase>
-<con:testCase failOnError="true" failTestCaseOnErrors="true" id="36996dc3-fe18-4dee-8cb5-a678e1feca79" keepSession="false" maxResults="0" name="Admin Distribution" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" id="36996dc3-fe18-4dee-8cb5-a678e1feca79" keepSession="false" maxResults="0" name="Admin Distribution" searchProperties="true" disabled="true">
 	<con:settings/>
 	<con:testStep name="Admin Distribution" type="request">
 		<con:settings/>
@@ -9086,7 +9086,7 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 </con:properties>
 <con:reportParameters/>
 </con:testCase>
-<con:testCase failOnError="true" failTestCaseOnErrors="true" id="0a172062-32b9-4143-ac3c-6f2a2f1856fc" keepSession="false" maxResults="0" name="Admin Distribution" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" id="0a172062-32b9-4143-ac3c-6f2a2f1856fc" keepSession="false" maxResults="0" name="Admin Distribution" searchProperties="true" disabled="true">
 	<con:settings/>
 	<con:testStep name="Admin Distribution" type="request">
 		<con:settings/>

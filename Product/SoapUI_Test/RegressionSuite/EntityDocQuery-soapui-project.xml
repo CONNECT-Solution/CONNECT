@@ -1,6 +1,7 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><con:soapui-project xmlns:con="http://eviware.com/soapui/config" abortOnError="false" name="EntityDocQuery" resourceRoot="${projectDir}" runType="SEQUENTIAL" soapui-version="3.5.1">
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project abortOnError="false" name="EntityDocQuery" resourceRoot="${projectDir}" runType="SEQUENTIAL" soapui-version="4.5.1" activeEnvironment="Default" xmlns:con="http://eviware.com/soapui/config">
   <con:settings/>
-  <con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitydocquery}EntityDocQueryBindingSoap" definition="${ProjectDir}../ValidationSuite/target/wsdl/EntityDocQuery.wsdl" name="EntityDocQueryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
+  <con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitydocquery}EntityDocQueryBindingSoap" definition="${ProjectDir}../ValidationSuite/target/wsdl/EntityDocQuery.wsdl" name="EntityDocQueryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
     
     <con:endpoints>
@@ -51,7 +52,7 @@ void UpdateProperty(String directory, String filename, String propertyKey, Strin
    properties.load(frPropFile);
    properties.setProperty(propertyKey, propertyValue);
    FileOutputStream fwPropFile = new FileOutputStream(file);
-   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy-&gt;UpdateProperty");
+   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
    properties = null;
 }
 
@@ -69,7 +70,7 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
       </con:testStep>
       <con:testStep name="Clear Correlation Table &amp; Add Correlation" type="groovy">
         <con:settings/>
-        <con:config><script>context.withSql('PatientCorrelationDB') { sql -&gt; 
+        <con:config><script>context.withSql('PatientCorrelationDB') { sql -> 
   def table = context.findProperty('PatientCorrelationTable')
   
   sql.execute('delete from ' + table)
@@ -91,7 +92,7 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
       <con:testStep name="Clear AA Mapping Table &amp; Add Mapping" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('AAMappingDB') { sql -&gt; 
+          <script>context.withSql('AAMappingDB') { sql -> 
   def table = context.findProperty('AAMappingTable')
   
   sql.execute('delete from ' + table)
@@ -126,11 +127,11 @@ FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml",destConfigFileLocati
       
       <con:testStep name="Document Query" type="request">
         <con:settings/>
-        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
           <con:interface>EntityDocQueryBindingSoap</con:interface>
           <con:operation>RespondingGateway_CrossGatewayQuery</con:operation>
           <con:request name="Document Query">
-            <con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting></con:settings>
+            <con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
             <con:encoding>UTF-8</con:encoding>
             <con:endpoint>${#Project#Endpoint-DocQuery}</con:endpoint>
             <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn3="urn:gov:hhs:fha:nhinc:common:nhinccommon">
@@ -397,36 +398,11 @@ count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)
                 <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
               </con:configuration>
             </con:assertion>
-            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
+            <con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
             <con:wsrmConfig version="1.2"/>
           </con:request>
         </con:config>
-      </con:testStep><con:setupScript>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-
-File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
-File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
-
-File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml");
-File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
-
-void MoveFile(File sourceFile, File destinationFile, log){
- 
- if(sourceFile.exists())
-   {
-    def reader = sourceFile.newReader();
-    destinationFile.withWriter 
-    { writer -&gt;       
-     writer &lt;&lt; reader;   
-    }   
-    reader.close();
-   } 
-   else {
-      log.info("unable to find source file " + sourceFile);
-   }   
-}
-
-MoveFile(sourceInternalFile, backupInternalFile, log);
-MoveFile(sourceUddiFile, backupUddiFile, log);</con:setupScript><con:properties>
+      </con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
           <con:value>2012-08-25T02:20:17Z</con:value>
@@ -449,47 +425,7 @@ MoveFile(sourceUddiFile, backupUddiFile, log);</con:setupScript><con:properties>
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    <con:tearDownScript>import nhinc.FileUtils;
-FileUtils.restoreToMasterConfiguration(context, log);
-
-def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-
-File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
-File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
-
-File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml");
-File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
-
-void MoveFile(File sourceFile, File destinationFile, log){
- 
- if(sourceFile.exists())
-   {
-    def reader = sourceFile.newReader();
-    destinationFile.withWriter 
-    { writer -&gt;       
-     writer &lt;&lt; reader;   
-    }   
-    reader.close();
-   } 
-   else {
-      log.info("unable to find source file " + sourceFile);
-   }   
-}
-
-MoveFile(backupInternalFile, sourceInternalFile, log);
-MoveFile(backupUddiFile, sourceUddiFile, log);
-
-void DeleteFile(File file, log) {  
-   if(file.exists()) {    
-      log.info("deleting file " + file);
-      file.delete(); 
-   } else {
-      log.info("file not found, skipping delete for " + file);
-   }
-}
-
-DeleteFile(backupInternalFile, log);
-DeleteFile(backupUddiFile, log); **/</con:tearDownScript></con:testCase>
+    <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript></con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="9c7bc51e-43ca-4c8d-83da-068f42cbfc00" keepSession="false" maxResults="0" name="Document Query Fanout - bad endpoint" searchProperties="true">
       <con:settings/>
       
@@ -530,7 +466,7 @@ void UpdateProperty(String directory, String filename, String propertyKey, Strin
    properties.load(frPropFile);
    properties.setProperty(propertyKey, propertyValue);
    FileOutputStream fwPropFile = new FileOutputStream(file);
-   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy-&gt;UpdateProperty");
+   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
    properties = null;
 }
 
@@ -550,7 +486,7 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
       <con:testStep name="Clear Correlation Table &amp; Add Correlation" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('PatientCorrelationDB') { sql -&gt; 
+          <script>context.withSql('PatientCorrelationDB') { sql -> 
   def table = context.findProperty('PatientCorrelationTable')
   
   sql.execute('delete from ' + table)
@@ -571,7 +507,7 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
       <con:testStep name="Clear AA Mapping Table &amp; Add Mapping" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('AAMappingDB') { sql -&gt; 
+          <script>context.withSql('AAMappingDB') { sql -> 
   def table = context.findProperty('AAMappingTable')
   
   sql.execute('delete from ' + table)
@@ -607,11 +543,11 @@ FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocat
       
       <con:testStep name="Document Query" type="request">
         <con:settings/>
-        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
           <con:interface>EntityDocQueryBindingSoap</con:interface>
           <con:operation>RespondingGateway_CrossGatewayQuery</con:operation>
           <con:request name="Document Query">
-            <con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting></con:settings>
+            <con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
             <con:encoding>UTF-8</con:encoding>
             <con:endpoint>${#Project#Endpoint-DocQuery}</con:endpoint>
             <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn3="urn:gov:hhs:fha:nhinc:common:nhinccommon">
@@ -886,36 +822,11 @@ count(//ns9:AdhocQueryResponse[1]/ns7:RegistryErrorList[1]/ns7:RegistryError)</p
                 <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
               </con:configuration>
             </con:assertion>
-            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
+            <con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
             <con:wsrmConfig version="1.2"/>
           </con:request>
         </con:config>
-      </con:testStep><con:setupScript>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-
-File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
-File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
-
-File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml");
-File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
-
-void MoveFile(File sourceFile, File destinationFile, log){
- 
- if(sourceFile.exists())
-   {
-    def reader = sourceFile.newReader();
-    destinationFile.withWriter 
-    { writer -&gt;       
-     writer &lt;&lt; reader;   
-    }   
-    reader.close();
-   } 
-   else {
-      log.info("unable to find source file " + sourceFile);
-   }   
-}
-
-MoveFile(sourceInternalFile, backupInternalFile, log);
-MoveFile(sourceUddiFile, backupUddiFile, log);</con:setupScript><con:properties>
+      </con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
           <con:value>2012-08-25T02:23:20Z</con:value>
@@ -938,47 +849,7 @@ MoveFile(sourceUddiFile, backupUddiFile, log);</con:setupScript><con:properties>
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    <con:tearDownScript>import nhinc.FileUtils;
-FileUtils.restoreToMasterConfiguration(context, log);
-
-def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-
-File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
-File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
-
-File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml");
-File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
-
-void MoveFile(File sourceFile, File destinationFile, log){
- 
- if(sourceFile.exists())
-   {
-    def reader = sourceFile.newReader();
-    destinationFile.withWriter 
-    { writer -&gt;       
-     writer &lt;&lt; reader;   
-    }   
-    reader.close();
-   } 
-   else {
-      log.info("unable to find source file " + sourceFile);
-   }   
-}
-
-MoveFile(backupInternalFile, sourceInternalFile, log);
-MoveFile(backupUddiFile, sourceUddiFile, log);
-
-void DeleteFile(File file, log) {  
-   if(file.exists()) {    
-      log.info("deleting file " + file);
-      file.delete(); 
-   } else {
-      log.info("file not found, skipping delete for " + file);
-   }
-}
-
-DeleteFile(backupInternalFile, log);
-DeleteFile(backupUddiFile, log);</con:tearDownScript></con:testCase>
+    <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript></con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="eb2fe928-9168-4d20-a4ae-d1cbba57db99" keepSession="false" maxResults="0" name="Document Query SingleEndpoint" searchProperties="true">
       <con:settings/>
       
@@ -1019,7 +890,7 @@ void UpdateProperty(String directory, String filename, String propertyKey, Strin
    properties.load(frPropFile);
    properties.setProperty(propertyKey, propertyValue);
    FileOutputStream fwPropFile = new FileOutputStream(file);
-   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy-&gt;UpdateProperty");
+   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
    properties = null;
 }
 
@@ -1038,7 +909,7 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
       <con:testStep name="Clear Correlation Table &amp; Add Correlation" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('PatientCorrelationDB') { sql -&gt; 
+          <script>context.withSql('PatientCorrelationDB') { sql -> 
   def table = context.findProperty('PatientCorrelationTable')
   
   sql.execute('delete from ' + table)
@@ -1058,7 +929,7 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
       <con:testStep name="Clear AA Mapping Table &amp; Add Mapping" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('AAMappingDB') { sql -&gt; 
+          <script>context.withSql('AAMappingDB') { sql -> 
   def table = context.findProperty('AAMappingTable')
   
   sql.execute('delete from ' + table)
@@ -1088,11 +959,11 @@ FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocat
       
       <con:testStep name="Document Query" type="request">
         <con:settings/>
-        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
           <con:interface>EntityDocQueryBindingSoap</con:interface>
           <con:operation>RespondingGateway_CrossGatewayQuery</con:operation>
           <con:request name="Document Query">
-            <con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting></con:settings>
+            <con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
             <con:encoding>UTF-8</con:encoding>
             <con:endpoint>${#Project#Endpoint-DocQuery}</con:endpoint>
             <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn3="urn:gov:hhs:fha:nhinc:common:nhinccommon">
@@ -1352,36 +1223,11 @@ FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocat
 declare namespace ns6='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)</path><content>3</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration>
             </con:assertion>
-            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
+            <con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
             <con:wsrmConfig version="1.2"/>
           </con:request>
         </con:config>
-      </con:testStep><con:setupScript>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-
-File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
-File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
-
-File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml");
-File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
-
-void MoveFile(File sourceFile, File destinationFile, log){
- 
- if(sourceFile.exists())
-   {
-    def reader = sourceFile.newReader();
-    destinationFile.withWriter 
-    { writer -&gt;       
-     writer &lt;&lt; reader;   
-    }   
-    reader.close();
-   } 
-   else {
-      log.info("unable to find source file " + sourceFile);
-   }   
-}
-
-MoveFile(sourceInternalFile, backupInternalFile, log);
-MoveFile(sourceUddiFile, backupUddiFile, log);</con:setupScript><con:properties>
+      </con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
           <con:value>2012-08-25T02:24:24Z</con:value>
@@ -1404,46 +1250,7 @@ MoveFile(sourceUddiFile, backupUddiFile, log);</con:setupScript><con:properties>
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    <con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);
-
-def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-
-File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
-File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
-
-File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml");
-File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
-
-void MoveFile(File sourceFile, File destinationFile, log){
- 
- if(sourceFile.exists())
-   {
-    def reader = sourceFile.newReader();
-    destinationFile.withWriter 
-    { writer -&gt;       
-     writer &lt;&lt; reader;   
-    }   
-    reader.close();
-   } 
-   else {
-      log.info("unable to find source file " + sourceFile);
-   }   
-}
-
-MoveFile(backupInternalFile, sourceInternalFile, log);
-MoveFile(backupUddiFile, sourceUddiFile, log);
-
-void DeleteFile(File file, log) {  
-   if(file.exists()) {    
-      log.info("deleting file " + file);
-      file.delete(); 
-   } else {
-      log.info("file not found, skipping delete for " + file);
-   }
-}
-
-DeleteFile(backupInternalFile, log);
-DeleteFile(backupUddiFile, log);</con:tearDownScript></con:testCase>
+    <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript></con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="f15669b3-5b74-4be0-84df-ebec541cbbeb" keepSession="false" maxResults="0" name="Document Query State Fanout" searchProperties="true">
       <con:settings/>
       
@@ -1484,7 +1291,7 @@ void UpdateProperty(String directory, String filename, String propertyKey, Strin
    properties.load(frPropFile);
    properties.setProperty(propertyKey, propertyValue);
    FileOutputStream fwPropFile = new FileOutputStream(file);
-   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy-&gt;UpdateProperty");
+   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
    properties = null;
 }
 
@@ -1503,7 +1310,7 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
       <con:testStep name="Clear Correlation Table &amp; Add Correlation" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('PatientCorrelationDB') { sql -&gt; 
+          <script>context.withSql('PatientCorrelationDB') { sql -> 
   def table = context.findProperty('PatientCorrelationTable')
   
   sql.execute('delete from ' + table)
@@ -1524,7 +1331,7 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
       <con:testStep name="Clear AA Mapping Table &amp; Add Mapping" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('AAMappingDB') { sql -&gt; 
+          <script>context.withSql('AAMappingDB') { sql -> 
   def table = context.findProperty('AAMappingTable')
   
   sql.execute('delete from ' + table)
@@ -1560,11 +1367,11 @@ FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocat
       
       <con:testStep name="Document Query" type="request">
         <con:settings/>
-        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
           <con:interface>EntityDocQueryBindingSoap</con:interface>
           <con:operation>RespondingGateway_CrossGatewayQuery</con:operation>
           <con:request name="Document Query">
-            <con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting></con:settings>
+            <con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
             <con:encoding>UTF-8</con:encoding>
             <con:endpoint>${#Project#Endpoint-DocQuery}</con:endpoint>
             <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn3="urn:gov:hhs:fha:nhinc:common:nhinccommon">
@@ -1831,36 +1638,11 @@ count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)
                 <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
               </con:configuration>
             </con:assertion>
-            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
+            <con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
             <con:wsrmConfig version="1.2"/>
           </con:request>
         </con:config>
-      </con:testStep><con:setupScript>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-
-File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
-File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
-
-File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml");
-File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
-
-void MoveFile(File sourceFile, File destinationFile, log){
- 
- if(sourceFile.exists())
-   {
-    def reader = sourceFile.newReader();
-    destinationFile.withWriter 
-    { writer -&gt;       
-     writer &lt;&lt; reader;   
-    }   
-    reader.close();
-   } 
-   else {
-      log.info("unable to find source file " + sourceFile);
-   }   
-}
-
-MoveFile(sourceInternalFile, backupInternalFile, log);
-MoveFile(sourceUddiFile, backupUddiFile, log);</con:setupScript><con:properties>
+      </con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
           <con:value>2012-08-25T02:25:22Z</con:value>
@@ -1883,47 +1665,7 @@ MoveFile(sourceUddiFile, backupUddiFile, log);</con:setupScript><con:properties>
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    <con:tearDownScript>import nhinc.FileUtils;
-FileUtils.restoreToMasterConfiguration(context, log);
-
-def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-
-File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
-File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
-
-File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml");
-File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
-
-void MoveFile(File sourceFile, File destinationFile, log){
- 
- if(sourceFile.exists())
-   {
-    def reader = sourceFile.newReader();
-    destinationFile.withWriter 
-    { writer -&gt;       
-     writer &lt;&lt; reader;   
-    }   
-    reader.close();
-   } 
-   else {
-      log.info("unable to find source file " + sourceFile);
-   }   
-}
-
-MoveFile(backupInternalFile, sourceInternalFile, log);
-MoveFile(backupUddiFile, sourceUddiFile, log);
-
-void DeleteFile(File file, log) {  
-   if(file.exists()) {    
-      log.info("deleting file " + file);
-      file.delete(); 
-   } else {
-      log.info("file not found, skipping delete for " + file);
-   }
-}
-
-DeleteFile(backupInternalFile, log);
-DeleteFile(backupUddiFile, log);</con:tearDownScript></con:testCase>
+    <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript></con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="c7f8f863-a545-48d3-86c2-d7a329f2cb10" keepSession="false" maxResults="0" name="Document Query State Fanout Multiple Communities" searchProperties="true">
       <con:settings/>
       
@@ -1964,7 +1706,7 @@ void UpdateProperty(String directory, String filename, String propertyKey, Strin
    properties.load(frPropFile);
    properties.setProperty(propertyKey, propertyValue);
    FileOutputStream fwPropFile = new FileOutputStream(file);
-   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy-&gt;UpdateProperty");
+   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
    properties = null;
 }
 
@@ -1983,7 +1725,7 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
       <con:testStep name="Clear Correlation Table &amp; Add Correlation" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('PatientCorrelationDB') { sql -&gt; 
+          <script>context.withSql('PatientCorrelationDB') { sql -> 
   def table = context.findProperty('PatientCorrelationTable')
   
   sql.execute('delete from ' + table)
@@ -2004,7 +1746,7 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
       <con:testStep name="Clear AA Mapping Table &amp; Add Mapping" type="groovy">
         <con:settings/>
         <con:config>
-          <script>context.withSql('AAMappingDB') { sql -&gt; 
+          <script>context.withSql('AAMappingDB') { sql -> 
   def table = context.findProperty('AAMappingTable')
   
   sql.execute('delete from ' + table)
@@ -2040,11 +1782,11 @@ FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocat
       
       <con:testStep name="Document Query" type="request">
         <con:settings/>
-        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
           <con:interface>EntityDocQueryBindingSoap</con:interface>
           <con:operation>RespondingGateway_CrossGatewayQuery</con:operation>
           <con:request name="Document Query">
-            <con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting></con:settings>
+            <con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
             <con:encoding>UTF-8</con:encoding>
             <con:endpoint>${#Project#Endpoint-DocQuery}</con:endpoint>
             <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn3="urn:gov:hhs:fha:nhinc:common:nhinccommon">
@@ -2311,36 +2053,11 @@ count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)
                 <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
               </con:configuration>
             </con:assertion>
-            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
+            <con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
             <con:wsrmConfig version="1.2"/>
           </con:request>
         </con:config>
-      </con:testStep><con:setupScript>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-
-File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
-File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
-
-File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml");
-File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
-
-void MoveFile(File sourceFile, File destinationFile, log){
- 
- if(sourceFile.exists())
-   {
-    def reader = sourceFile.newReader();
-    destinationFile.withWriter 
-    { writer -&gt;       
-     writer &lt;&lt; reader;   
-    }   
-    reader.close();
-   } 
-   else {
-      log.info("unable to find source file " + sourceFile);
-   }   
-}
-
-MoveFile(sourceInternalFile, backupInternalFile, log);
-MoveFile(sourceUddiFile, backupUddiFile, log);</con:setupScript><con:properties>
+      </con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
           <con:value>2012-08-25T02:26:25Z</con:value>
@@ -2363,47 +2080,7 @@ MoveFile(sourceUddiFile, backupUddiFile, log);</con:setupScript><con:properties>
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    <con:tearDownScript>import nhinc.FileUtils;
-FileUtils.restoreToMasterConfiguration(context, log);
-
-def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-
-File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
-File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
-
-File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml");
-File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
-
-void MoveFile(File sourceFile, File destinationFile, log){
- 
- if(sourceFile.exists())
-   {
-    def reader = sourceFile.newReader();
-    destinationFile.withWriter 
-    { writer -&gt;       
-     writer &lt;&lt; reader;   
-    }   
-    reader.close();
-   } 
-   else {
-      log.info("unable to find source file " + sourceFile);
-   }   
-}
-
-MoveFile(backupInternalFile, sourceInternalFile, log);
-MoveFile(backupUddiFile, sourceUddiFile, log);
-
-void DeleteFile(File file, log) {  
-   if(file.exists()) {    
-      log.info("deleting file " + file);
-      file.delete(); 
-   } else {
-      log.info("file not found, skipping delete for " + file);
-   }
-}
-
-DeleteFile(backupInternalFile, log);
-DeleteFile(backupUddiFile, log);</con:tearDownScript></con:testCase>
+    <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript></con:testCase>
     <con:properties/>
     <con:setupScript>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 
@@ -2450,7 +2127,7 @@ def propertiesFile = new File(propertiesFilename)
 if (propertiesFile.exists()) {
 	def props = new Properties()
 	props.load(new FileReader(propertiesFile))
-	props.each { key, value -&gt;
+	props.each { key, value ->
 	    project.setPropertyValue(key, value)
 	}
 }
@@ -2458,11 +2135,11 @@ if (propertiesFile.exists()) {
 
 TimeZone.setDefault(TimeZone.getTimeZone("UTC"))
 def testRunListener = [
-  afterRun: { testRunner, runContext -&gt; },
-  afterStep: { testRunner, runContext, result -&gt; },
-  beforeStep: { testRunner, runContext -&gt; },
-  beforeStep: { testRunner, runContext, testStep -&gt; },
-  beforeRun: { testRunner, runContext -&gt; 
+  afterRun: { testRunner, runContext -> },
+  afterStep: { testRunner, runContext, result -> },
+  beforeStep: { testRunner, runContext -> },
+  beforeStep: { testRunner, runContext, testStep -> },
+  beforeRun: { testRunner, runContext -> 
     use (org.codehaus.groovy.runtime.TimeCategory) {
       def startDate = 5.minutes.ago
       def endDate = 5.minutes.from.now
@@ -2483,14 +2160,14 @@ project.testSuiteList*.testCaseList.flatten()*.addTestRunListener(testRunListene
 
 
 
-com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.findProperty = { propertyName -&gt;
+com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.findProperty = { propertyName ->
     return delegate.getProperty(propertyName) ?:
                 delegate.testCase.getPropertyValue(propertyName) ?:
                 delegate.testCase.testSuite.getPropertyValue(propertyName) ?:
                 delegate.testCase.testSuite.project.getPropertyValue(propertyName)
 }
 
-com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.withSql = { dbOrPropertyName, block -&gt;
+com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.withSql = { dbOrPropertyName, block ->
   def dbName = delegate.findProperty(dbOrPropertyName) ?: dbOrPropertyName
   def host = delegate.findProperty('DBHost')
   def port = delegate.findProperty('DBPort')
