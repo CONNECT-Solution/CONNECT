@@ -1,6 +1,7 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><con:soapui-project xmlns:con="http://eviware.com/soapui/config" abortOnError="false" name="XDRAdapter-Tests" resourceRoot="" runType="SEQUENTIAL" soapui-version="3.6">
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project abortOnError="false" name="XDRAdapter-Tests" resourceRoot="${projectDir}" runType="SEQUENTIAL" soapui-version="4.5.1" activeEnvironment="Default" xmlns:con="http://eviware.com/soapui/config">
 	<con:settings/>
-	<con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincadapterxdr}AdapterXDR_Binding" definition="WSDL path not set.  #AdapterComponentXDR.wsdl" name="AdapterXDR_Binding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
+	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincadapterxdr}AdapterXDR_Binding" definition="${ProjectDir}../ValidationSuite/target/wsdl/AdapterComponentXDR.wsdl" name="AdapterXDR_Binding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 		
 		<con:endpoints>
@@ -655,7 +656,7 @@
 			<con:settings/>
 			<con:testStep name="Success" type="request">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:interface>AdapterXDR_Binding</con:interface>
 					<con:operation>ProvideAndRegisterDocumentSetb</con:operation>
 					<con:request incomingWss="" name="Success" outgoingWss="" wssPasswordType="">
@@ -679,8 +680,8 @@
                <urn1:zipCode>12345</urn1:zipCode>
             </urn1:address>
             <urn1:dateOfBirth>19800516</urn1:dateOfBirth>
-            <urn1:dateOfSignature>20080520</urn1:dateOfSignature>
-            <urn1:expirationDate>20100520</urn1:expirationDate>
+            <!--urn1:dateOfSignature>20080520</urn1:dateOfSignature-->
+            <!--urn1:expirationDate>20100520</urn1:expirationDate-->
             <urn1:explanationNonClaimantSignature>NEEDED</urn1:explanationNonClaimantSignature>
             <urn1:haveSecondWitnessSignature>true</urn1:haveSecondWitnessSignature>
             <urn1:haveSignature>true</urn1:haveSignature>
@@ -709,7 +710,7 @@
                   <urn1:code>W</urn1:code>
                </urn1:phoneNumberType>
             </urn1:phoneNumber>
-            <urn1:purposeOfDisclosure>Mental</urn1:purposeOfDisclosure>
+            <!--urn1:purposeOfDisclosure>Mental</urn1:purposeOfDisclosure-->
             <urn1:secondWitnessAddress>
                <urn1:addressType>
                   <urn1:code>W</urn1:code>
@@ -783,7 +784,7 @@
                   <urn1:prefix>Mrs</urn1:prefix>
                </urn1:personName>
                <urn1:userName>wanderson</urn1:userName>
-               <urn1:role>nuse</urn1:role>
+               <!--urn1:role>nuse</urn1:role-->
                <urn1:org>
                   <urn1:description>Test HCID1</urn1:description>
                   <urn1:homeCommunityId>1.1</urn1:homeCommunityId>
@@ -803,9 +804,9 @@
             </urn1:userInfo>
             <urn1:authorized>authorized</urn1:authorized>
             <!--Optional:-->
-            <urn1:claimFormRef>claimFormRef</urn1:claimFormRef>
+            <!--urn1:claimFormRef>claimFormRef</urn1:claimFormRef-->
             <!--Optional:-->
-            <urn1:claimFormRaw>cid:610957193055</urn1:claimFormRaw>
+            <!--urn1:claimFormRaw>cid:610957193055</urn1:claimFormRaw-->
             <!--Optional:-->
             <urn1:samlAuthnStatement>
                <!--Optional:-->
@@ -849,11 +850,11 @@
                         <urn1:notOnOrAfter>notOnOrAfter</urn1:notOnOrAfter>
                      </urn1:conditions>
                      <!--Optional:-->
-                     <urn1:contentReference>contentReference</urn1:contentReference>
+                     <!--urn1:contentReference>contentReference</urn1:contentReference-->
                      <!--Optional:-->
-                     <urn1:contentType>contentType</urn1:contentType>
+                     <!--urn1:contentType>contentType</urn1:contentType-->
                      <!--Optional:-->
-                     <urn1:content>cid:574777349023</urn1:content>
+                     <!--urn1:content>cid:574777349023</urn1:content-->
                   </urn1:assertion>
                </urn1:evidence>
             </urn1:samlAuthzDecisionStatement>
@@ -870,13 +871,13 @@
                <urn1:signatureValue>cid:880867232879</urn1:signatureValue>
             </urn1:samlSignature>
          </urn:assertion>
-         <urn:nhinTargetSystem>
+         <!--urn:nhinTargetSystem>
             <urn1:homeCommunity>
                <urn1:description>Test HCID2</urn1:description>
                <urn1:homeCommunityId>2.2</urn1:homeCommunityId>
                <urn1:name>HCID2</urn1:name>
             </urn1:homeCommunity>
-         </urn:nhinTargetSystem>
+         </urn:nhinTargetSystem-->
          <urn:ProvideAndRegisterDocumentSetRequest>
             <urn2:SubmitObjectsRequest id="123" comment="comme">
                <!--Optional:-->
@@ -1101,12 +1102,12 @@
 								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
 							</con:configuration>
 						</con:assertion>
-						<con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="tns:ProvideAndRegisterDocumentSet-b" mustUnderstand="NONE" version="200508"/>
+						<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="tns:ProvideAndRegisterDocumentSet-b" mustUnderstand="NONE" version="200508"/>
 						<con:wsrmConfig version="1.2"/>
 					</con:request>
 				</con:config>
 			</con:testStep>
-			<con:properties>
+			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
 					<con:value>2012-08-24T23:04:41Z</con:value>
@@ -1132,7 +1133,7 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 			<con:settings/>
 			<con:testStep name="Success - Multiple Documents" type="request">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:interface>AdapterXDR_Binding</con:interface>
 					<con:operation>ProvideAndRegisterDocumentSetb</con:operation>
 					<con:request incomingWss="" name="Success - Multiple Documents" outgoingWss="" wssPasswordType="">
@@ -1637,41 +1638,41 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
 							</con:configuration>
 						</con:assertion>
-						<con:wsaConfig action="tns:ProvideAndRegisterDocumentSet-b" mustUnderstand="NONE" version="200508"/>
+						<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:wsaConfig action="tns:ProvideAndRegisterDocumentSet-b" mustUnderstand="NONE" version="200508"/>
 						<con:wsrmConfig version="1.2"/>
 					</con:request>
 				</con:config>
 			</con:testStep>
-			<con:properties>
+			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-08-24T23:04:41Z</con:value>
+					<con:value>2012-11-27T16:27:26Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-08-24T23:14:41Z</con:value>
+					<con:value>2012-11-27T16:37:26Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>08/24/2012 23:04:41</con:value>
+					<con:value>11/27/2012 16:27:26</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-09-23T00:00:00Z</con:value>
+					<con:value>2012-12-27T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
-			<con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
+			<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript>
 		</con:testCase>
 		<con:testCase failOnError="true" failTestCaseOnErrors="true" id="2b5a6a80-1973-4ee3-8e6a-1fb98c80dd8c" keepSession="false" maxResults="0" name="Failure - XDSUnknownPatientId" searchProperties="true">
 			<con:settings/>
 			<con:testStep name="Failure - XDSUnknownPatientId" type="request">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:interface>AdapterXDR_Binding</con:interface>
 					<con:operation>ProvideAndRegisterDocumentSetb</con:operation>
 					<con:request incomingWss="" name="Failure - XDSUnknownPatientId" outgoingWss="" wssPasswordType="">
-						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting></con:settings>
+						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
 						<con:encoding>UTF-8</con:encoding>
 						<con:endpoint>${#Project#Endpoint-Adapter}</con:endpoint>
 						<con:request><![CDATA[
@@ -1691,8 +1692,8 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
                <urn1:zipCode>12345</urn1:zipCode>
             </urn1:address>
             <urn1:dateOfBirth>19800516</urn1:dateOfBirth>
-            <urn1:dateOfSignature>20080520</urn1:dateOfSignature>
-            <urn1:expirationDate>20100520</urn1:expirationDate>
+            <!--urn1:dateOfSignature>20080520</urn1:dateOfSignature-->
+            <!--urn1:expirationDate>20100520</urn1:expirationDate-->
             <urn1:explanationNonClaimantSignature>NEEDED</urn1:explanationNonClaimantSignature>
             <urn1:haveSecondWitnessSignature>true</urn1:haveSecondWitnessSignature>
             <urn1:haveSignature>true</urn1:haveSignature>
@@ -1721,7 +1722,7 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
                   <urn1:code>W</urn1:code>
                </urn1:phoneNumberType>
             </urn1:phoneNumber>
-            <urn1:purposeOfDisclosure>Mental</urn1:purposeOfDisclosure>
+            <!--urn1:purposeOfDisclosure>Mental</urn1:purposeOfDisclosure-->
             <urn1:secondWitnessAddress>
                <urn1:addressType>
                   <urn1:code>W</urn1:code>
@@ -1795,7 +1796,7 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
                   <urn1:prefix>Mrs</urn1:prefix>
                </urn1:personName>
                <urn1:userName>wanderson</urn1:userName>
-               <urn1:role>nuse</urn1:role>
+               <!--urn1:role>nuse</urn1:role-->
                <urn1:org>
                   <urn1:description>Test HCID1</urn1:description>
                   <urn1:homeCommunityId>1.1</urn1:homeCommunityId>
@@ -1815,9 +1816,9 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
             </urn1:userInfo>
             <urn1:authorized>authorized</urn1:authorized>
             <!--Optional:-->
-            <urn1:claimFormRef>claimFormRef</urn1:claimFormRef>
+            <!--urn1:claimFormRef>claimFormRef</urn1:claimFormRef-->
             <!--Optional:-->
-            <urn1:claimFormRaw>cid:610957193055</urn1:claimFormRaw>
+            <!--urn1:claimFormRaw>cid:610957193055</urn1:claimFormRaw-->
             <!--Optional:-->
             <urn1:samlAuthnStatement>
                <!--Optional:-->
@@ -1861,11 +1862,11 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
                         <urn1:notOnOrAfter>notOnOrAfter</urn1:notOnOrAfter>
                      </urn1:conditions>
                      <!--Optional:-->
-                     <urn1:contentReference>contentReference</urn1:contentReference>
+                     <!--urn1:contentReference>contentReference</urn1:contentReference-->
                      <!--Optional:-->
-                     <urn1:contentType>contentType</urn1:contentType>
+                     <!--urn1:contentType>contentType</urn1:contentType-->
                      <!--Optional:-->
-                     <urn1:content>cid:574777349023</urn1:content>
+                     <!--urn1:content>cid:574777349023</urn1:content-->
                   </urn1:assertion>
                </urn1:evidence>
             </urn1:samlAuthzDecisionStatement>
@@ -1882,13 +1883,13 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
                <urn1:signatureValue>cid:880867232879</urn1:signatureValue>
             </urn1:samlSignature>
          </urn:assertion>
-         <urn:nhinTargetSystem>
+         <!--urn:nhinTargetSystem>
             <urn1:homeCommunity>
                <urn1:description>Test HCID2</urn1:description>
                <urn1:homeCommunityId>2.2</urn1:homeCommunityId>
                <urn1:name>HCID2</urn1:name>
             </urn1:homeCommunity>
-         </urn:nhinTargetSystem>
+         </urn:nhinTargetSystem-->
          <urn:ProvideAndRegisterDocumentSetRequest>
             <urn2:SubmitObjectsRequest id="123" comment="comme">
                <!--Optional:-->
@@ -2140,41 +2141,41 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
 							</con:configuration>
 						</con:assertion>
-						<con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="tns:ProvideAndRegisterDocumentSet-b" mustUnderstand="NONE" version="200508"/>
+						<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="tns:ProvideAndRegisterDocumentSet-b" mustUnderstand="NONE" version="200508"/>
 						<con:wsrmConfig version="1.2"/>
 					</con:request>
 				</con:config>
 			</con:testStep>
-			<con:properties>
+			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-08-24T23:04:42Z</con:value>
+					<con:value>2012-11-27T16:27:48Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-08-24T23:14:42Z</con:value>
+					<con:value>2012-11-27T16:37:48Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>08/24/2012 23:04:42</con:value>
+					<con:value>11/27/2012 16:27:48</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-09-23T00:00:00Z</con:value>
+					<con:value>2012-12-27T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
-			<con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
+			<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript>
 		</con:testCase>
 		<con:testCase failOnError="true" failTestCaseOnErrors="true" id="0754e7cd-4c12-4eb0-b08f-6f2213b2da12" keepSession="false" maxResults="0" name="Failure - XDSPatientIdDoesNotMatch" searchProperties="true">
 			<con:settings/>
 			<con:testStep name="Failure - XDSPatientIdDoesNotMatch" type="request">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:interface>AdapterXDR_Binding</con:interface>
 					<con:operation>ProvideAndRegisterDocumentSetb</con:operation>
 					<con:request incomingWss="" name="Failure - XDSPatientIdDoesNotMatch" outgoingWss="" wssPasswordType="">
-						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting></con:settings>
+						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
 						<con:encoding>UTF-8</con:encoding>
 						<con:endpoint>${#Project#Endpoint-Adapter}</con:endpoint>
 						<con:request><![CDATA[
@@ -2701,41 +2702,41 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
 							</con:configuration>
 						</con:assertion>
-						<con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="tns:ProvideAndRegisterDocumentSet-b" mustUnderstand="NONE" version="200508"/>
+						<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="tns:ProvideAndRegisterDocumentSet-b" mustUnderstand="NONE" version="200508"/>
 						<con:wsrmConfig version="1.2"/>
 					</con:request>
 				</con:config>
 			</con:testStep>
-			<con:properties>
+			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-08-24T23:04:42Z</con:value>
+					<con:value>2012-11-27T16:27:39Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-08-24T23:14:42Z</con:value>
+					<con:value>2012-11-27T16:37:39Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>08/24/2012 23:04:42</con:value>
+					<con:value>11/27/2012 16:27:39</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-09-23T00:00:00Z</con:value>
+					<con:value>2012-12-27T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
-			<con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
+			<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript>
 		</con:testCase>
 		<con:testCase failOnError="true" failTestCaseOnErrors="true" id="21f2e2ae-ac68-4629-897a-9352b279722d" keepSession="false" maxResults="0" name="Failure - XDSMissingDocumentMetadata" searchProperties="true">
 			<con:settings/>
 			<con:testStep name="Failure - XDSMissingDocumentMetadata" type="request">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:interface>AdapterXDR_Binding</con:interface>
 					<con:operation>ProvideAndRegisterDocumentSetb</con:operation>
 					<con:request incomingWss="" name="Failure - XDSMissingDocumentMetadata" outgoingWss="" wssPasswordType="">
-						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting></con:settings>
+						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
 						<con:encoding>UTF-8</con:encoding>
 						<con:endpoint>${#Project#Endpoint-Adapter}</con:endpoint>
 						<con:request><![CDATA[
@@ -2755,8 +2756,8 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
                <urn1:zipCode>12345</urn1:zipCode>
             </urn1:address>
             <urn1:dateOfBirth>19800516</urn1:dateOfBirth>
-            <urn1:dateOfSignature>20080520</urn1:dateOfSignature>
-            <urn1:expirationDate>20100520</urn1:expirationDate>
+            <!--urn1:dateOfSignature>20080520</urn1:dateOfSignature-->
+            <!--urn1:expirationDate>20100520</urn1:expirationDate-->
             <urn1:explanationNonClaimantSignature>NEEDED</urn1:explanationNonClaimantSignature>
             <urn1:haveSecondWitnessSignature>true</urn1:haveSecondWitnessSignature>
             <urn1:haveSignature>true</urn1:haveSignature>
@@ -2785,7 +2786,7 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
                   <urn1:code>W</urn1:code>
                </urn1:phoneNumberType>
             </urn1:phoneNumber>
-            <urn1:purposeOfDisclosure>Mental</urn1:purposeOfDisclosure>
+            <!--urn1:purposeOfDisclosure>Mental</urn1:purposeOfDisclosure-->
             <urn1:secondWitnessAddress>
                <urn1:addressType>
                   <urn1:code>W</urn1:code>
@@ -2859,7 +2860,7 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
                   <urn1:prefix>Mrs</urn1:prefix>
                </urn1:personName>
                <urn1:userName>wanderson</urn1:userName>
-               <urn1:role>nuse</urn1:role>
+               <!--urn1:role>nuse</urn1:role-->
                <urn1:org>
                   <urn1:description>Test HCID1</urn1:description>
                   <urn1:homeCommunityId>1.1</urn1:homeCommunityId>
@@ -2879,9 +2880,9 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
             </urn1:userInfo>
             <urn1:authorized>authorized</urn1:authorized>
             <!--Optional:-->
-            <urn1:claimFormRef>claimFormRef</urn1:claimFormRef>
+            <!--urn1:claimFormRef>claimFormRef</urn1:claimFormRef-->
             <!--Optional:-->
-            <urn1:claimFormRaw>cid:610957193055</urn1:claimFormRaw>
+            <!--urn1:claimFormRaw>cid:610957193055</urn1:claimFormRaw-->
             <!--Optional:-->
             <urn1:samlAuthnStatement>
                <!--Optional:-->
@@ -2925,11 +2926,11 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
                         <urn1:notOnOrAfter>notOnOrAfter</urn1:notOnOrAfter>
                      </urn1:conditions>
                      <!--Optional:-->
-                     <urn1:contentReference>contentReference</urn1:contentReference>
+                     <!--urn1:contentReference>contentReference</urn1:contentReference-->
                      <!--Optional:-->
-                     <urn1:contentType>contentType</urn1:contentType>
+                     <!--urn1:contentType>contentType</urn1:contentType-->
                      <!--Optional:-->
-                     <urn1:content>cid:574777349023</urn1:content>
+                     <!--urn1:content>cid:574777349023</urn1:content-->
                   </urn1:assertion>
                </urn1:evidence>
             </urn1:samlAuthzDecisionStatement>
@@ -2946,13 +2947,13 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
                <urn1:signatureValue>cid:880867232879</urn1:signatureValue>
             </urn1:samlSignature>
          </urn:assertion>
-         <urn:nhinTargetSystem>
+         <!--urn:nhinTargetSystem>
             <urn1:homeCommunity>
                <urn1:description>Test HCID2</urn1:description>
                <urn1:homeCommunityId>2.2</urn1:homeCommunityId>
                <urn1:name>HCID2</urn1:name>
             </urn1:homeCommunity>
-         </urn:nhinTargetSystem>
+         </urn:nhinTargetSystem-->
          <urn:ProvideAndRegisterDocumentSetRequest>
             <urn2:SubmitObjectsRequest id="123" comment="comme">
                <!--Optional:-->
@@ -3203,12 +3204,12 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
 							</con:configuration>
 						</con:assertion>
-						<con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="tns:ProvideAndRegisterDocumentSet-b" mustUnderstand="NONE" version="200508"/>
+						<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="tns:ProvideAndRegisterDocumentSet-b" mustUnderstand="NONE" version="200508"/>
 						<con:wsrmConfig version="1.2"/>
 					</con:request>
 				</con:config>
 			</con:testStep>
-			<con:properties>
+			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
 					<con:value>2012-08-24T23:04:42Z</con:value>
@@ -3227,17 +3228,17 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
-			<con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
+			<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript>
 		</con:testCase>
 		<con:testCase failOnError="true" failTestCaseOnErrors="true" id="221252c1-3759-42ab-9189-bb50f0e50412" keepSession="false" maxResults="0" name="Failure - XDSMissingDocument" searchProperties="true">
 			<con:settings/>
 			<con:testStep name="Failure - XDSMissingDocument" type="request">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:interface>AdapterXDR_Binding</con:interface>
 					<con:operation>ProvideAndRegisterDocumentSetb</con:operation>
 					<con:request incomingWss="" name="Failure - XDSMissingDocument" outgoingWss="" wssPasswordType="">
-						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting></con:settings>
+						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
 						<con:encoding>UTF-8</con:encoding>
 						<con:endpoint>${#Project#Endpoint-Adapter}</con:endpoint>
 						<con:request><![CDATA[
@@ -3257,8 +3258,8 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
                <urn1:zipCode>12345</urn1:zipCode>
             </urn1:address>
             <urn1:dateOfBirth>19800516</urn1:dateOfBirth>
-            <urn1:dateOfSignature>20080520</urn1:dateOfSignature>
-            <urn1:expirationDate>20100520</urn1:expirationDate>
+            <!--urn1:dateOfSignature>20080520</urn1:dateOfSignature-->
+            <!--urn1:expirationDate>20100520</urn1:expirationDate-->
             <urn1:explanationNonClaimantSignature>NEEDED</urn1:explanationNonClaimantSignature>
             <urn1:haveSecondWitnessSignature>true</urn1:haveSecondWitnessSignature>
             <urn1:haveSignature>true</urn1:haveSignature>
@@ -3287,7 +3288,7 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
                   <urn1:code>W</urn1:code>
                </urn1:phoneNumberType>
             </urn1:phoneNumber>
-            <urn1:purposeOfDisclosure>Mental</urn1:purposeOfDisclosure>
+            <!--urn1:purposeOfDisclosure>Mental</urn1:purposeOfDisclosure-->
             <urn1:secondWitnessAddress>
                <urn1:addressType>
                   <urn1:code>W</urn1:code>
@@ -3361,7 +3362,7 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
                   <urn1:prefix>Mrs</urn1:prefix>
                </urn1:personName>
                <urn1:userName>wanderson</urn1:userName>
-               <urn1:role>nuse</urn1:role>
+               <!--urn1:role>nuse</urn1:role-->
                <urn1:org>
                   <urn1:description>Test HCID1</urn1:description>
                   <urn1:homeCommunityId>1.1</urn1:homeCommunityId>
@@ -3381,9 +3382,9 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
             </urn1:userInfo>
             <urn1:authorized>authorized</urn1:authorized>
             <!--Optional:-->
-            <urn1:claimFormRef>claimFormRef</urn1:claimFormRef>
+            <!--urn1:claimFormRef>claimFormRef</urn1:claimFormRef-->
             <!--Optional:-->
-            <urn1:claimFormRaw>cid:610957193055</urn1:claimFormRaw>
+            <!--urn1:claimFormRaw>cid:610957193055</urn1:claimFormRaw-->
             <!--Optional:-->
             <urn1:samlAuthnStatement>
                <!--Optional:-->
@@ -3427,11 +3428,11 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
                         <urn1:notOnOrAfter>notOnOrAfter</urn1:notOnOrAfter>
                      </urn1:conditions>
                      <!--Optional:-->
-                     <urn1:contentReference>contentReference</urn1:contentReference>
+                     <!--urn1:contentReference>contentReference</urn1:contentReference-->
                      <!--Optional:-->
-                     <urn1:contentType>contentType</urn1:contentType>
+                     <!--urn1:contentType>contentType</urn1:contentType-->
                      <!--Optional:-->
-                     <urn1:content>cid:574777349023</urn1:content>
+                     <!--urn1:content>cid:574777349023</urn1:content-->
                   </urn1:assertion>
                </urn1:evidence>
             </urn1:samlAuthzDecisionStatement>
@@ -3448,13 +3449,13 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
                <urn1:signatureValue>cid:880867232879</urn1:signatureValue>
             </urn1:samlSignature>
          </urn:assertion>
-         <urn:nhinTargetSystem>
+         <!--urn:nhinTargetSystem>
             <urn1:homeCommunity>
                <urn1:description>Test HCID2</urn1:description>
                <urn1:homeCommunityId>2.2</urn1:homeCommunityId>
                <urn1:name>HCID2</urn1:name>
             </urn1:homeCommunity>
-         </urn:nhinTargetSystem>
+         </urn:nhinTargetSystem-->
          <urn:ProvideAndRegisterDocumentSetRequest/>
       </urn:Adapter_ProvideAndRegisterDocumentSetRequest>
    </soapenv:Body>
@@ -3495,12 +3496,12 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
 							</con:configuration>
 						</con:assertion>
-						<con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="tns:ProvideAndRegisterDocumentSet-b" mustUnderstand="NONE" version="200508"/>
+						<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="tns:ProvideAndRegisterDocumentSet-b" mustUnderstand="NONE" version="200508"/>
 						<con:wsrmConfig version="1.2"/>
 					</con:request>
 				</con:config>
 			</con:testStep>
-			<con:properties>
+			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
 					<con:value>2012-08-24T23:04:42Z</con:value>
@@ -3519,17 +3520,17 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
-			<con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
+			<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript>
 		</con:testCase>
 		<con:testCase failOnError="true" failTestCaseOnErrors="true" id="0364af6e-7ebd-401b-b57c-5349951e68cc" keepSession="false" maxResults="0" name="Multiple Failure Messages" searchProperties="true">
 			<con:settings/>
 			<con:testStep name="Multiple Failure Messages" type="request">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:interface>AdapterXDR_Binding</con:interface>
 					<con:operation>ProvideAndRegisterDocumentSetb</con:operation>
 					<con:request incomingWss="" name="Multiple Failure Messages" outgoingWss="" wssPasswordType="">
-						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting></con:settings>
+						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
 						<con:encoding>UTF-8</con:encoding>
 						<con:endpoint>${#Project#Endpoint-Adapter}</con:endpoint>
 						<con:request><![CDATA[
@@ -3549,8 +3550,8 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
                <urn1:zipCode>12345</urn1:zipCode>
             </urn1:address>
             <urn1:dateOfBirth>19800516</urn1:dateOfBirth>
-            <urn1:dateOfSignature>20080520</urn1:dateOfSignature>
-            <urn1:expirationDate>20100520</urn1:expirationDate>
+            <!--urn1:dateOfSignature>20080520</urn1:dateOfSignature-->
+            <!--urn1:expirationDate>20100520</urn1:expirationDate-->
             <urn1:explanationNonClaimantSignature>NEEDED</urn1:explanationNonClaimantSignature>
             <urn1:haveSecondWitnessSignature>true</urn1:haveSecondWitnessSignature>
             <urn1:haveSignature>true</urn1:haveSignature>
@@ -3579,7 +3580,7 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
                   <urn1:code>W</urn1:code>
                </urn1:phoneNumberType>
             </urn1:phoneNumber>
-            <urn1:purposeOfDisclosure>Mental</urn1:purposeOfDisclosure>
+            <!--urn1:purposeOfDisclosure>Mental</urn1:purposeOfDisclosure-->
             <urn1:secondWitnessAddress>
                <urn1:addressType>
                   <urn1:code>W</urn1:code>
@@ -3653,7 +3654,7 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
                   <urn1:prefix>Mrs</urn1:prefix>
                </urn1:personName>
                <urn1:userName>wanderson</urn1:userName>
-               <urn1:role>nuse</urn1:role>
+               <!--urn1:role>nuse</urn1:role-->
                <urn1:org>
                   <urn1:description>Test HCID1</urn1:description>
                   <urn1:homeCommunityId>1.1</urn1:homeCommunityId>
@@ -3673,9 +3674,9 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
             </urn1:userInfo>
             <urn1:authorized>authorized</urn1:authorized>
             <!--Optional:-->
-            <urn1:claimFormRef>claimFormRef</urn1:claimFormRef>
+            <!--urn1:claimFormRef>claimFormRef</urn1:claimFormRef-->
             <!--Optional:-->
-            <urn1:claimFormRaw>cid:610957193055</urn1:claimFormRaw>
+            <!--urn1:claimFormRaw>cid:610957193055</urn1:claimFormRaw-->
             <!--Optional:-->
             <urn1:samlAuthnStatement>
                <!--Optional:-->
@@ -3719,11 +3720,11 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
                         <urn1:notOnOrAfter>notOnOrAfter</urn1:notOnOrAfter>
                      </urn1:conditions>
                      <!--Optional:-->
-                     <urn1:contentReference>contentReference</urn1:contentReference>
+                     <!--urn1:contentReference>contentReference</urn1:contentReference-->
                      <!--Optional:-->
-                     <urn1:contentType>contentType</urn1:contentType>
+                     <!--urn1:contentType>contentType</urn1:contentType-->
                      <!--Optional:-->
-                     <urn1:content>cid:574777349023</urn1:content>
+                     <!--urn1:content>cid:574777349023</urn1:content-->
                   </urn1:assertion>
                </urn1:evidence>
             </urn1:samlAuthzDecisionStatement>
@@ -3740,13 +3741,13 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
                <urn1:signatureValue>cid:880867232879</urn1:signatureValue>
             </urn1:samlSignature>
          </urn:assertion>
-         <urn:nhinTargetSystem>
+         <!--urn:nhinTargetSystem>
             <urn1:homeCommunity>
                <urn1:description>Test HCID2</urn1:description>
                <urn1:homeCommunityId>2.2</urn1:homeCommunityId>
                <urn1:name>HCID2</urn1:name>
             </urn1:homeCommunity>
-         </urn:nhinTargetSystem>
+         </urn:nhinTargetSystem-->
          <urn:ProvideAndRegisterDocumentSetRequest>
             <urn2:SubmitObjectsRequest id="123" comment="comme">
                <!--Optional:-->
@@ -4020,12 +4021,12 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
 							</con:configuration>
 						</con:assertion>
-						<con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="tns:ProvideAndRegisterDocumentSet-b" mustUnderstand="NONE" version="200508"/>
+						<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="tns:ProvideAndRegisterDocumentSet-b" mustUnderstand="NONE" version="200508"/>
 						<con:wsrmConfig version="1.2"/>
 					</con:request>
 				</con:config>
 			</con:testStep>
-			<con:properties>
+			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
 					<con:value>2012-08-24T23:04:42Z</con:value>
@@ -4044,7 +4045,7 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
-			<con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
+			<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript>
 		</con:testCase>
 		<con:properties/>
 		<con:reportParameters/>
@@ -4151,12 +4152,12 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 			<con:name>UnknownPatientId</con:name>
 			<con:value>1111</con:value>
 		</con:property>
-	</con:properties>
+	<con:property><con:name>GatewayPropDir</con:name><con:value>D:\glassfish3\glassfish\domains\domain1\config\nhin</con:value></con:property></con:properties>
 	<con:afterLoadScript>def propertiesFile = new File(new File(project.path).parent, 'XDRAdapterTests-soapui-project.properties')
 if (propertiesFile.exists()) {
 	def props = new Properties()
 	props.load(new FileReader(propertiesFile))
-	props.each { key, value -&gt;
+	props.each { key, value ->
 	    project.setPropertyValue(key, value)
 	}
 }
@@ -4164,11 +4165,11 @@ if (propertiesFile.exists()) {
 
 TimeZone.setDefault(TimeZone.getTimeZone("UTC"))
 def testRunListener = [
-  afterRun: { testRunner, runContext -&gt; },
-  afterStep: { testRunner, runContext, result -&gt; },
-  beforeStep: { testRunner, runContext -&gt; },
-  beforeStep: { testRunner, runContext, testStep -&gt; },
-  beforeRun: { testRunner, runContext -&gt; 
+  afterRun: { testRunner, runContext -> },
+  afterStep: { testRunner, runContext, result -> },
+  beforeStep: { testRunner, runContext -> },
+  beforeStep: { testRunner, runContext, testStep -> },
+  beforeRun: { testRunner, runContext -> 
     use (org.codehaus.groovy.runtime.TimeCategory) {
       def startDate = 5.minutes.ago
       def endDate = 5.minutes.from.now
@@ -4189,7 +4190,7 @@ project.testSuiteList*.testCaseList.flatten()*.addTestRunListener(testRunListene
 
 
 
-com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.findProperty = { propertyName -&gt;
+com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.findProperty = { propertyName ->
     return delegate.getProperty(propertyName) ?:
                 delegate.testCase.getPropertyValue(propertyName) ?:
                 delegate.testCase.testSuite.getPropertyValue(propertyName) ?:
