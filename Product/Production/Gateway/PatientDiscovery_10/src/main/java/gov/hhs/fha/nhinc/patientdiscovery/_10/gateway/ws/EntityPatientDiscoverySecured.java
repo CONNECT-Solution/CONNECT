@@ -26,59 +26,49 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws;
 
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.entitypatientdiscoverysecured.EntityPatientDiscoverySecuredPortType;
+import gov.hhs.fha.nhinc.messaging.server.BaseService;
 import gov.hhs.fha.nhinc.patientdiscovery._10.entity.EntityPatientDiscoveryImpl;
+import gov.hhs.fha.nhinc.patientdiscovery.outbound.OutboundPatientDiscovery;
 
 import javax.annotation.Resource;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 import org.hl7.v3.RespondingGatewayPRPAIN201306UV02ResponseType;
 
-/**
- * 
- * @author Neil Webb
- */
+
 @Addressing(enabled = true)
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
-public class EntityPatientDiscoverySecured extends PatientDiscoveryBase implements gov.hhs.fha.nhinc.entitypatientdiscoverysecured.EntityPatientDiscoverySecuredPortType {
-    private static final Log log = LogFactory.getLog(EntityPatientDiscoverySecured.class);
+public class EntityPatientDiscoverySecured extends BaseService implements EntityPatientDiscoverySecuredPortType {
 
-    private EntityPatientDiscoveryImpl orchImpl;
-    
-    @Resource
+    private OutboundPatientDiscovery outboundPatientDiscovery;
+
     private WebServiceContext context;
 
     public EntityPatientDiscoverySecured() {
         super();
     }
 
-    public EntityPatientDiscoverySecured(PatientDiscoveryServiceFactory serviceFactory) {
-        super(serviceFactory);
-    }
-
     public RespondingGatewayPRPAIN201306UV02ResponseType respondingGatewayPRPAIN201305UV02(
-            RespondingGatewayPRPAIN201305UV02RequestType respondingGatewayPRPAIN201305UV02Request) {
-        log.debug("Begin EntityPatientDiscoverySecured.respondingGatewayPRPAIN201305UV02...");
-        RespondingGatewayPRPAIN201306UV02ResponseType response = null;
+            RespondingGatewayPRPAIN201305UV02RequestType request) {
 
-        if (orchImpl != null) {
-            response = orchImpl.respondingGatewayPRPAIN201305UV02(respondingGatewayPRPAIN201305UV02Request,
-                    getWebServiceContext());
-        }
-        log.debug("End EntityPatientDiscoverySecured.respondingGatewayPRPAIN201305UV02...");
-        return response;
+        AssertionType assertion = getAssertion(context, null);
+        
+        return new EntityPatientDiscoveryImpl(outboundPatientDiscovery).respondingGatewayPRPAIN201305UV02(request,
+                assertion);
     }
-    
-    public void setOrchestratorImpl(EntityPatientDiscoveryImpl orchImpl) {
-        this.orchImpl = orchImpl;
+
+    public void setOutboundPatientDiscovery(OutboundPatientDiscovery outboundPatientDiscovery) {
+        this.outboundPatientDiscovery = outboundPatientDiscovery;
     }
-    
-    protected WebServiceContext getWebServiceContext() {
-        return context;
+
+    @Resource
+    public void setContext(WebServiceContext context) {
+        this.context = context;
     }
 
 }

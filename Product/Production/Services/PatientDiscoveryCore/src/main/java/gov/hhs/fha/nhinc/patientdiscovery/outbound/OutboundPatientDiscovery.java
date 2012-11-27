@@ -24,38 +24,24 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws;
+package gov.hhs.fha.nhinc.patientdiscovery.outbound;
 
-import gov.hhs.fha.nhinc.entitypatientdiscovery.EntityPatientDiscoveryPortType;
-import gov.hhs.fha.nhinc.patientdiscovery._10.entity.EntityPatientDiscoveryImpl;
-import gov.hhs.fha.nhinc.patientdiscovery.outbound.OutboundPatientDiscovery;
+import java.util.concurrent.ExecutorService;
 
-import javax.xml.ws.BindingType;
-import javax.xml.ws.soap.Addressing;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 import org.hl7.v3.RespondingGatewayPRPAIN201306UV02ResponseType;
 
-
-@Addressing(enabled = true)
-@BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
-public class EntityPatientDiscoveryUnsecured implements EntityPatientDiscoveryPortType {
-    
-    private OutboundPatientDiscovery outboundPatientDiscovery;
-    
-    public EntityPatientDiscoveryUnsecured() {
-        super();
-    }
+/**
+ * @author akong
+ * 
+ */
+public interface OutboundPatientDiscovery {
 
     public RespondingGatewayPRPAIN201306UV02ResponseType respondingGatewayPRPAIN201305UV02(
-            RespondingGatewayPRPAIN201305UV02RequestType request) {
-        
-        return new EntityPatientDiscoveryImpl(outboundPatientDiscovery).respondingGatewayPRPAIN201305UV02(request,
-                request.getAssertion());
-    }
-    
-    public void setOutboundPatientDiscovery(OutboundPatientDiscovery outboundPatientDiscovery) {
-        this.outboundPatientDiscovery = outboundPatientDiscovery;
-    }
-    
+            RespondingGatewayPRPAIN201305UV02RequestType request, AssertionType assertion);
+
+    public void setExecutorService(ExecutorService regularExecutor, ExecutorService largeJobExecutor);
+
 }

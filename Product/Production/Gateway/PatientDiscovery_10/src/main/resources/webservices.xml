@@ -43,13 +43,10 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd ">
 
     <!-- Entity services -->
 
-   
-
     <jaxws:endpoint
         xmlns:tns="urn:gov:hhs:fha:nhinc:entitypatientdiscoverysecured"
         id="EntityPatientDiscoverySecured" address="/EntityService/EntityPatientDiscoverySecured"
         serviceName="tns:EntityPatientDiscoverySecured" endpointName="tns:EntityPatientDiscoverySecuredPortSoap"
-        implementorClass="gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.EntityPatientDiscoverySecured"
         implementor="#entityPDSecured" wsdlLocation="classpath:wsdl/EntityPatientDiscoverySecured.wsdl">
         <jaxws:properties>
             <entry key="ws-security.callback-handler"
@@ -69,7 +66,6 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd ">
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:entitypatientdiscovery"
         id="EntityPatientDiscovery" address="/EntityPatientDiscovery"
         serviceName="tns:EntityPatientDiscovery" endpointName="tns:EntityPatientDiscoveryPortSoap"
-        implementorClass="gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.EntityPatientDiscoveryUnsecured"
         implementor="#entityPDUnsecured" wsdlLocation="classpath:wsdl/EntityPatientDiscovery.wsdl">
         <jaxws:handlers>
             <ref bean="TransactionHandler"/>

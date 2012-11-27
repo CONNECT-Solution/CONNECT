@@ -26,55 +26,32 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery;
 
+import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunityType;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.hl7.v3.CommunityPRPAIN201306UV02ResponseType;
 import org.hl7.v3.II;
-import org.hl7.v3.PRPAIN201306UV02;
 import org.hl7.v3.PRPAIN201306UV02MFMIMT700711UV01Subject1;
 
 /**
  * 
  * @author JHOPPESC
  */
-public class NhinPatientDiscoveryUtils {
+public class MessageGeneratorUtils extends gov.hhs.fha.nhinc.util.MessageGeneratorUtils {
+    
+    private static MessageGeneratorUtils INSTANCE = new MessageGeneratorUtils();
 
-    private static Log log = LogFactory.getLog(NhinPatientDiscoveryUtils.class);
+    MessageGeneratorUtils() {
+    };
 
     /**
-     * Extracts first patient id from response message
+     * Returns the singleton instance of this class.
      * 
-     * @param msg
-     * @return <code>II</code> with extracted patient id
+     * @return the singleton instance
      */
-    public static II extractPatientIdFrom201306(PRPAIN201306UV02 msg) {
-        II id = new II();
-
-        if (msg != null
-                && msg.getControlActProcess() != null
-                && NullChecker.isNotNullish(msg.getControlActProcess().getSubject())
-                && msg.getControlActProcess().getSubject().get(0) != null
-                && msg.getControlActProcess().getSubject().get(0).getRegistrationEvent() != null
-                && msg.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1() != null
-                && msg.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient() != null
-                && NullChecker.isNotNullish(msg.getControlActProcess().getSubject().get(0).getRegistrationEvent()
-                        .getSubject1().getPatient().getId())
-                && msg.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient()
-                        .getId().get(0) != null
-                && NullChecker.isNotNullish(msg.getControlActProcess().getSubject().get(0).getRegistrationEvent()
-                        .getSubject1().getPatient().getId().get(0).getExtension())
-                && NullChecker.isNotNullish(msg.getControlActProcess().getSubject().get(0).getRegistrationEvent()
-                        .getSubject1().getPatient().getId().get(0).getRoot())) {
-            id.setExtension(msg.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1()
-                    .getPatient().getId().get(0).getExtension());
-            id.setRoot(msg.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient()
-                    .getId().get(0).getRoot());
-        } else {
-            id = null;
-        }
-
-        return id;
+    public static MessageGeneratorUtils getInstance() {
+        return INSTANCE;
     }
 
     /**
@@ -83,7 +60,7 @@ public class NhinPatientDiscoveryUtils {
      * @param msg
      * @return <code>II</code> with extracted patient id
      */
-    public static II extractPatientIdFromSubject(PRPAIN201306UV02MFMIMT700711UV01Subject1 subject) {
+    public II extractPatientIdFromSubject(PRPAIN201306UV02MFMIMT700711UV01Subject1 subject) {
         II id = new II();
 
         if (subject != null
@@ -103,5 +80,24 @@ public class NhinPatientDiscoveryUtils {
         }
 
         return id;
+    }
+    
+    /**
+     * Creates a CommunityPRPAIN201306UV02ResponseType message with the given hcid as the target.  No PRPAIN201306UV02
+     * is set in the community response.
+     * 
+     * @param hcid the value to use for the generated nhin target
+     * @return the generated CommunityPRPAIN201306UV02ResponseType
+     */
+    public CommunityPRPAIN201306UV02ResponseType createCommunityPRPAIN201306UV02ResponseType(String hcid) {
+        NhinTargetCommunityType target = new NhinTargetCommunityType();
+        HomeCommunityType home = new HomeCommunityType();
+        home.setHomeCommunityId(hcid);
+        target.setHomeCommunity(home);
+        
+        CommunityPRPAIN201306UV02ResponseType communityResponse = new CommunityPRPAIN201306UV02ResponseType();
+        communityResponse.setNhinTargetCommunity(target);
+                
+        return communityResponse;
     }
 }

@@ -26,6 +26,8 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws;
 
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.messaging.server.BaseService;
 import gov.hhs.fha.nhinc.patientdiscovery.NhinPatientDiscoveryImpl;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryException;
 import gov.hhs.fha.nhinc.patientdiscovery.inbound.InboundPatientDiscovery;
@@ -44,7 +46,7 @@ import org.hl7.v3.PRPAIN201306UV02;
 
 @Addressing(enabled = true)
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
-public class NhinPatientDiscovery implements RespondingGatewayPortType {
+public class NhinPatientDiscovery extends BaseService implements RespondingGatewayPortType {
 
     private InboundPatientDiscovery inboundPatientDiscovery;
 
@@ -67,8 +69,10 @@ public class NhinPatientDiscovery implements RespondingGatewayPortType {
     public PRPAIN201306UV02 respondingGatewayPRPAIN201305UV02(PRPAIN201305UV02 body)
             throws PRPAIN201305UV02Fault {
         try {
+            AssertionType assertion = getAssertion(context, null);
+            
             return new NhinPatientDiscoveryImpl(inboundPatientDiscovery).respondingGatewayPRPAIN201305UV02(body,
-                    context);
+                    assertion);
         } catch (PatientDiscoveryException e) {
             PatientDiscoveryFaultType type = new PatientDiscoveryFaultType();
             type.setErrorCode("920");

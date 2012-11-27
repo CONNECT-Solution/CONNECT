@@ -24,48 +24,30 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws;
+package gov.hhs.fha.nhinc.patientdiscovery.outbound;
 
-import gov.hhs.fha.nhinc.patientdiscovery._10.passthru.NhincProxyPatientDiscoveryImpl;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 
-import javax.annotation.Resource;
-import javax.xml.ws.BindingType;
-import javax.xml.ws.WebServiceContext;
+import java.util.concurrent.ExecutorService;
+
+import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
+import org.hl7.v3.RespondingGatewayPRPAIN201306UV02ResponseType;
 
 /**
- * 
- * @author Neil Webb
+ * @author akong
+ *
  */
+public class TestOutboundPatientDiscovery implements OutboundPatientDiscovery {
 
-@BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
-public class NhincProxyPatientDiscoverySecured extends PatientDiscoveryBase implements
-        gov.hhs.fha.nhinc.nhincproxypatientdiscoverysecured.NhincProxyPatientDiscoverySecuredPortType {
-
-    private NhincProxyPatientDiscoveryImpl orchImpl;
-
-    @Resource
-    private WebServiceContext context;
-
-    public NhincProxyPatientDiscoverySecured() {
-        super();
+    @Override
+    public RespondingGatewayPRPAIN201306UV02ResponseType respondingGatewayPRPAIN201305UV02(
+            RespondingGatewayPRPAIN201305UV02RequestType request, AssertionType assertion) {
+        return new RespondingGatewayPRPAIN201306UV02ResponseType();
     }
 
-    public NhincProxyPatientDiscoverySecured(PatientDiscoveryServiceFactory serviceFactory) {
-        super(serviceFactory);
-    }
-
-    public org.hl7.v3.PRPAIN201306UV02 proxyPRPAIN201305UV(
-            org.hl7.v3.ProxyPRPAIN201305UVProxySecuredRequestType proxyPRPAIN201305UVProxyRequest) {
-
-        return orchImpl.proxyPRPAIN201305UV(proxyPRPAIN201305UVProxyRequest, getWebServiceContext());
-    }
-
-    public void setOrchestratorImpl(NhincProxyPatientDiscoveryImpl orchImpl) {
-        this.orchImpl = orchImpl;
-    }
-
-    protected WebServiceContext getWebServiceContext() {
-        return context;
+    @Override
+    public void setExecutorService(ExecutorService regularExecutor, ExecutorService largeJobExecutor) {
+        // Do Nothing
     }
 
 }

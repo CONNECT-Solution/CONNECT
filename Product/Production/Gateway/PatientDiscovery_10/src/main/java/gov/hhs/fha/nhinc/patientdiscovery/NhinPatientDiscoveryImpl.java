@@ -30,8 +30,6 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.messaging.server.BaseService;
 import gov.hhs.fha.nhinc.patientdiscovery.inbound.InboundPatientDiscovery;
 
-import javax.xml.ws.WebServiceContext;
-
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
 
@@ -44,10 +42,8 @@ public class NhinPatientDiscoveryImpl extends BaseService {
         this.inboundPatientDiscovery = inboundPatientDiscovery;
     }
 
-    public PRPAIN201306UV02 respondingGatewayPRPAIN201305UV02(PRPAIN201305UV02 body, WebServiceContext context)
+    public PRPAIN201306UV02 respondingGatewayPRPAIN201305UV02(PRPAIN201305UV02 body, AssertionType assertion)
             throws PatientDiscoveryException {
-        AssertionType assertion = getAssertion(context, null);
-
         return inboundPatientDiscovery.respondingGatewayPRPAIN201305UV02(body, assertion);
     }
 }

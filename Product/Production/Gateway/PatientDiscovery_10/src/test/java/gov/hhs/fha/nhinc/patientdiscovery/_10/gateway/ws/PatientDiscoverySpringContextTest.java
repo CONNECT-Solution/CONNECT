@@ -40,6 +40,8 @@ import ihe.iti.xcpd._2009.PRPAIN201305UV02Fault;
 
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
+import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
+import org.hl7.v3.RespondingGatewayPRPAIN201306UV02ResponseType;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -62,6 +64,12 @@ public class PatientDiscoverySpringContextTest {
     @Autowired
     NhinPatientDiscovery inboundPatientDiscoveryEndpoint;
 
+    @Autowired
+    EntityPatientDiscoveryUnsecured outboundPatientDiscoveryUnsecuredEndpoint;
+
+    @Autowired
+    EntityPatientDiscoverySecured outboundPatientDiscoverySecuredEndpoint;
+
     @Test
     public void inbound() throws PRPAIN201305UV02Fault {
         assertNotNull(inboundPatientDiscoveryEndpoint);
@@ -75,16 +83,16 @@ public class PatientDiscoverySpringContextTest {
     @Test
     public void inboundFault() throws PatientDiscoveryException {
         PRPAIN201305UV02 request = new PRPAIN201305UV02();
-        
+
         assertNotNull(inboundPatientDiscoveryEndpoint);
 
         InboundPatientDiscovery inboundPatientDiscovery = mock(InboundPatientDiscovery.class);
 
         when(inboundPatientDiscovery.respondingGatewayPRPAIN201305UV02(eq(request), any(AssertionType.class)))
                 .thenThrow(new PatientDiscoveryException(""));
-        
+
         inboundPatientDiscoveryEndpoint.setInboundPatientDiscovery(inboundPatientDiscovery);
-       
+
         boolean faultThrown = false;
         try {
             inboundPatientDiscoveryEndpoint.respondingGatewayPRPAIN201305UV02(request);
@@ -92,7 +100,29 @@ public class PatientDiscoverySpringContextTest {
             faultThrown = true;
             assertEquals("920", fault.getFaultInfo().getErrorCode());
         }
-        
+
         assertTrue(faultThrown);
+    }
+
+    @Test
+    public void outboundUnsecured() {
+        assertNotNull(outboundPatientDiscoveryUnsecuredEndpoint);
+
+        RespondingGatewayPRPAIN201305UV02RequestType request = new RespondingGatewayPRPAIN201305UV02RequestType();
+        RespondingGatewayPRPAIN201306UV02ResponseType response = outboundPatientDiscoveryUnsecuredEndpoint
+                .respondingGatewayPRPAIN201305UV02(request);
+
+        assertNotNull(response);
+    }
+
+    @Test
+    public void outboundSecured() {
+        assertNotNull(outboundPatientDiscoverySecuredEndpoint);
+
+        RespondingGatewayPRPAIN201305UV02RequestType request = new RespondingGatewayPRPAIN201305UV02RequestType();
+        RespondingGatewayPRPAIN201306UV02ResponseType response = outboundPatientDiscoverySecuredEndpoint
+                .respondingGatewayPRPAIN201305UV02(request);
+        
+        assertNotNull(response);
     }
 }

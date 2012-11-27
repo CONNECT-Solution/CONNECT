@@ -24,7 +24,7 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.patientdiscovery.entity;
+package gov.hhs.fha.nhinc.patientdiscovery.outbound;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -66,6 +66,9 @@ import gov.hhs.fha.nhinc.orchestration.OutboundResponseProcessor;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscovery201305Processor;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditLogger;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryPolicyChecker;
+import gov.hhs.fha.nhinc.patientdiscovery.entity.OutboundPatientDiscoveryDelegate;
+import gov.hhs.fha.nhinc.patientdiscovery.entity.OutboundPatientDiscoveryOrchestratable;
+import gov.hhs.fha.nhinc.patientdiscovery.entity.OutboundPatientDiscoveryProcessor;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7DataTransformHelper;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201306Transforms;
@@ -74,7 +77,7 @@ import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201306Transforms;
  * Orchestrates the Entity (i.e. from Adapter) PatientDiscovery transaction
  *
  */
-public class EntityPatientDiscoveryOrchImpl {
+public class StandardOutboundPatientDiscovery implements OutboundPatientDiscovery {
 
     private final Log log = getLog();
     private ExecutorService regularExecutor = null;
@@ -84,7 +87,7 @@ public class EntityPatientDiscoveryOrchImpl {
      * Add default constructor that is used by test cases Note that implementations should always use constructor that
      * takes the executor services as input
      */
-    public EntityPatientDiscoveryOrchImpl() {
+    public StandardOutboundPatientDiscovery() {
         regularExecutor = Executors.newFixedThreadPool(1);
         largejobExecutor = Executors.newFixedThreadPool(1);
     }
@@ -94,9 +97,19 @@ public class EntityPatientDiscoveryOrchImpl {
      * orchestration instance. Determination of which executor service to use (largejob or regular) is based on the size
      * of the pdlist and configs
      */
-    public EntityPatientDiscoveryOrchImpl(ExecutorService e, ExecutorService le) {
-        regularExecutor = e;
-        largejobExecutor = le;
+    public StandardOutboundPatientDiscovery(ExecutorService e, ExecutorService le) {
+        setExecutorService(e, le);
+    }
+    
+    /**
+     * Sets the executor services to be used for fan out.
+     * 
+     * @param regularExecutor
+     * @param largeJobExecutor
+     */
+    public void setExecutorService(ExecutorService regularExecutor, ExecutorService largeJobExecutor) {
+        this.regularExecutor = regularExecutor;
+        this.largejobExecutor = largeJobExecutor;
     }
 
     public RespondingGatewayPRPAIN201306UV02ResponseType respondingGatewayPRPAIN201305UV02(

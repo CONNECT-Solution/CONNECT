@@ -30,6 +30,20 @@ http://www.springframework.org/schema/aop http://www.springframework.org/schema/
         </property>
     </bean>
     
+    <bean id="entityPDSecured"
+        class="gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.EntityPatientDiscoverySecured">
+        <property name="outboundPatientDiscovery">
+            <bean class="${patientDiscovery.outboundPatientDiscovery}" />
+        </property>
+    </bean>
+
+    <bean id="entityPDUnsecured"
+        class="gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.EntityPatientDiscoveryUnsecured">
+        <property name="outboundPatientDiscovery">
+            <bean class="${patientDiscovery.outboundPatientDiscovery}" />
+        </property>
+    </bean>
+    
      <bean id="passthruPDRespOrchestrator"
         class="gov.hhs.fha.nhinc.patientdiscovery._10.passthru.deferred.response.NhincProxyPatientDiscoveryAsyncRespImpl" />
 
@@ -116,25 +130,6 @@ http://www.springframework.org/schema/aop http://www.springframework.org/schema/
         class="gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.NhinPatientDiscoveryAsyncReq">
         <property name="orchestratorImpl">
             <ref bean="nhinPDReqOrchestrator" />
-        </property>
-    </bean>
-    
-   
-        
-     <bean id="entityPDOrchestrator"
-        class="gov.hhs.fha.nhinc.patientdiscovery._10.entity.EntityPatientDiscoveryImpl" />
-
-    <bean id="entityPDSecured"
-        class="gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.EntityPatientDiscoverySecured">
-        <property name="orchestratorImpl">
-            <ref bean="entityPDOrchestrator" />
-        </property>
-    </bean>
-
-    <bean id="entityPDUnsecured"
-        class="gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.EntityPatientDiscoveryUnsecured">
-        <property name="orchestratorImpl">
-            <ref bean="entityPDOrchestrator" />
         </property>
     </bean>
     

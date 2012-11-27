@@ -24,47 +24,45 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws;
+package gov.hhs.fha.nhinc.util;
 
-import gov.hhs.fha.nhinc.patientdiscovery._10.passthru.NhincProxyPatientDiscoveryImpl;
-
-import javax.annotation.Resource;
-import javax.xml.ws.BindingType;
-import javax.xml.ws.WebServiceContext;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 
 /**
- * 
- * @author mflynn02
+ * @author akong
+ *
  */
-
-@BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
-public class NhincProxyPatientDiscovery extends PatientDiscoveryBase implements
-        gov.hhs.fha.nhinc.nhincproxypatientdiscovery.NhincProxyPatientDiscoveryPortType {
-
-    private NhincProxyPatientDiscoveryImpl orchImpl;
-
-    @Resource
-    private WebServiceContext context;
-
-    public NhincProxyPatientDiscovery() {
-        super();
+public class MessageGeneratorUtils {
+    
+    private static MessageGeneratorUtils INSTANCE = new MessageGeneratorUtils();
+    
+    protected MessageGeneratorUtils() {        
     }
 
-    public NhincProxyPatientDiscovery(PatientDiscoveryServiceFactory serviceFactory) {
-        super(serviceFactory);
+    /**
+     * Returns the singleton instance of this class.
+     * 
+     * @return the singleton instance
+     */
+    public static MessageGeneratorUtils getInstance() {
+        return INSTANCE;
     }
+    
+    /**
+     * Converts the first target into a NhinTargetSystemType format.
+     * 
+     * @param targets
+     * @return NhinTargetSystemType
+     */
+    public NhinTargetSystemType convertFirstToNhinTargetSystemType(NhinTargetCommunitiesType targets) {
+        NhinTargetSystemType nhinTargetSystem = new NhinTargetSystemType();
 
-    public org.hl7.v3.PRPAIN201306UV02 proxyPRPAIN201305UV(
-            org.hl7.v3.ProxyPRPAIN201305UVProxyRequestType proxyPRPAIN201305UVProxyRequest) {
+        if (targets != null && targets.getNhinTargetCommunity() != null && targets.getNhinTargetCommunity().size() > 0) {
+            nhinTargetSystem.setHomeCommunity(targets.getNhinTargetCommunity().get(0).getHomeCommunity());
+        }
 
-        return orchImpl.proxyPRPAIN201305UV(proxyPRPAIN201305UVProxyRequest, getWebServiceContext());
+        return nhinTargetSystem;
     }
-
-    public void setOrchestratorImpl(NhincProxyPatientDiscoveryImpl orchImpl) {
-        this.orchImpl = orchImpl;
-    }
-
-    protected WebServiceContext getWebServiceContext() {
-        return context;
-    }
+    
 }

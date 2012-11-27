@@ -24,53 +24,47 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.patientdiscovery.passthru.proxy;
+package gov.hhs.fha.nhinc.util;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunityType;
 
-import javax.xml.ws.Service;
-
-import org.apache.commons.logging.Log;
-import org.jmock.Mockery;
-import org.jmock.integration.junit4.JUnit4Mockery;
-import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.Test;
 
 /**
+ * @author akong
  * 
- * @author mflynn02
  */
-public class NhincPatientDiscoveryProxyWebServiceSecuredImplTest {
-    Mockery context = new JUnit4Mockery() {
+public class MessageGeneratorUtilsTest {
 
-        {
-            setImposteriser(ClassImposteriser.INSTANCE);
-        }
-    };
-    final Log mockLog = context.mock(Log.class);
-    final Service mockService = context.mock(Service.class);
+    private MessageGeneratorUtils msgUtils = MessageGeneratorUtils.getInstance();
 
-    /**
-     * Test of createLogger method, of class NhincPatientDiscoveryProxyWebServiceSecuredImpl.
-     */
     @Test
-    public void testCreateLogger() {
-        try {
-            PassthruPatientDiscoveryProxyWebServiceSecuredImpl sut = new PassthruPatientDiscoveryProxyWebServiceSecuredImpl() {
-                @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
+    public void convertFirstToNhinTargetSystemType() {
 
-            };
-            Log log = sut.createLogger();
-            assertNotNull("Log was null", log);
-        } catch (Throwable t) {
-            System.out.println("Error running testCreateLogger test: " + t.getMessage());
-            t.printStackTrace();
-            fail("Error running testCreateLogger test: " + t.getMessage());
-        }
+        assertNull(msgUtils.convertFirstToNhinTargetSystemType(null).getHomeCommunity());
+
+        NhinTargetCommunitiesType targets = new NhinTargetCommunitiesType();
+        assertNull(msgUtils.convertFirstToNhinTargetSystemType(targets).getHomeCommunity());
+
+        NhinTargetCommunityType targetCommunity = new NhinTargetCommunityType();
+        targetCommunity.setHomeCommunity(new HomeCommunityType());
+        targetCommunity.getHomeCommunity().setHomeCommunityId("1.1");
+        targets.getNhinTargetCommunity().add(targetCommunity);
+
+        assertEquals("1.1", msgUtils.convertFirstToNhinTargetSystemType(targets).getHomeCommunity()
+                .getHomeCommunityId());
+
+        NhinTargetCommunityType targetCommunity2 = new NhinTargetCommunityType();
+        targetCommunity2.setHomeCommunity(new HomeCommunityType());
+        targetCommunity2.getHomeCommunity().setHomeCommunityId("2.2");
+        targets.getNhinTargetCommunity().add(targetCommunity2);
+
+        assertEquals(2, targets.getNhinTargetCommunity().size());
+        assertEquals("1.1", msgUtils.convertFirstToNhinTargetSystemType(targets).getHomeCommunity()
+                .getHomeCommunityId());
     }
-
 }
