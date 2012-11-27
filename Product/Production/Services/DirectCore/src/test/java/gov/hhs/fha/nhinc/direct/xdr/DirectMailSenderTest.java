@@ -30,7 +30,7 @@ public class DirectMailSenderTest {
 	@Test
 	@Ignore
 	public void test() {
-		DirectMailSender sender = new DirectMailSender() {
+		DirectSender sender = new DirectSender() {
 			@Override
 		    protected DirectMailClient getDirectMailClient() {
 		    	return null;
@@ -42,7 +42,7 @@ public class DirectMailSenderTest {
 			}
 		};
 		
-		assertNotNull(sender.getDirectMailClient());
+		assertNotNull(sender.getDirectClient());
 	}
 
 }

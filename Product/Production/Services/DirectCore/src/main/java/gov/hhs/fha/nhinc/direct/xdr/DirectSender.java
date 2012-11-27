@@ -9,23 +9,23 @@ import javax.mail.Message.RecipientType;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.nhindirect.xd.common.DirectDocuments;
 
-public class DirectMailSender extends ComponentProxyObjectFactory {
+public class DirectSender extends ComponentProxyObjectFactory {
     
-	private static final Log LOG = LogFactory.getLog(DirectMailSender.class);
-    
-    public DirectMailSender() {
-
+	private static final Log LOG = LogFactory.getLog(DirectSender.class);
+	
+    public DirectSender() {
+    	 
+    	extDirectClient = (DirectClient) context.getBean("extDirectMailClient");
     }
     
-    protected DirectMailClient getDirectMailClient() {
+    protected DirectClient getDirectClient() {
     	return getBean("extDirectMailClient", DirectMailClient.class);
     }
-	
+    
 	public void send(Address sender, Address[] recipients, Document attachment, String attachmentName) {
 		getDirectMailClient().processAndSend(sender, recipients, attachment, attachmentName);
 	}
@@ -42,11 +42,11 @@ public class DirectMailSender extends ComponentProxyObjectFactory {
 			LOG.error("Error adding To/From to MimeMessage", e);
 		}
 		
-    	getDirectMailClient().processAndSend(message);
+    	getDirectClient().processAndSend(message);
     }
 
 	@Override
 	protected String getConfigFileName() {
 		return "direct.appcontext.xml";
-	}
+}
 }

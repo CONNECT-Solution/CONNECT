@@ -72,47 +72,27 @@ import com.icegreen.greenmail.util.GreenMail;
  * Utilities for running Direct Core Unit Tests.
  */
 public class DirectUnitTestUtil {
-    
-	private static final Log LOG = LogFactory.getLog(DirectUnitTestUtil.class);
-    /**
-     * Sender of a mail message.
-     */
-    protected static final String SENDER = "testsender@localhost";
-    /**
-     * Recipient of a mail message.
-     */
-    protected static final String RECIPIENT = "testrecip@localhost";
-    /**
-     * Login username.
-     */
-    protected static final String USER = "testuser";    
-    /**
-     * Login password.
-     */
-    protected static final String PASS = "testpass1";
-    /**
-     * Max number of messages to process at once, allows us to throttle and distribute load.
-     */
-    protected static final int MAX_NUM_MSGS_IN_BATCH = 5;
 
     protected static final String SENDER_AT_INITIATING_GW = "sender@localhost";
     protected static final String RECIP_AT_RESPONDING_GW = "mlandis@5amsolutions.com";
-    //protected static final String USER = "internaluser";    
-    //protected static final String PASS = "internalpass1";
+
+    protected static final int MAX_NUM_MSGS_IN_BATCH = 5;
     private static final int DUMMY_PORT = 998;
 
     /**
      * Sets up the properties in order to connect to the green mail test server.
+     * 
+     * @param toAddress is used for the username and password.
      * @param smtpPort for smtps
      * @param imapPort for imaps
      * @return Properties instance holding appropriate values for java mail.
      */
-    public static Properties getMailServerProps(int smtpPort, int imapPort) {
+    public static Properties getMailServerProps(String toAddress, int smtpPort, int imapPort) {
 
         Properties props = new Properties();
         
-        props.setProperty("direct.mail.user", USER);
-        props.setProperty("direct.mail.pass", PASS);
+        props.setProperty("direct.mail.user", toAddress);
+        props.setProperty("direct.mail.pass", toAddress);
         props.setProperty("direct.max.msgs.in.batch", Integer.toString(MAX_NUM_MSGS_IN_BATCH));
                         
         props.setProperty("mail.smtps.host", "localhost");
@@ -207,14 +187,16 @@ public class DirectUnitTestUtil {
     public static Address[] getRecipients() {
         return new InternetAddress[] {toInternetAddress(RECIP_AT_RESPONDING_GW)};
     }
-   
+    
     /**
      * @return mime message with sample generic content.
      */
     public static MimeMessage getSampleMimeMessage() {
         MimeMessage mimeMessage = null;
         try {
-            Session session = MailUtils.getMailSession(getMailServerProps(DUMMY_PORT, DUMMY_PORT), USER, PASS);
+            Session session = MailUtils.getMailSession(
+                    getMailServerProps(RECIP_AT_RESPONDING_GW, DUMMY_PORT, DUMMY_PORT), RECIP_AT_RESPONDING_GW,
+                    RECIP_AT_RESPONDING_GW);
             mimeMessage = getMimeMessageBuilder(session).build();
         } catch (IOException e) {
             fail(e.getMessage());
@@ -236,7 +218,7 @@ public class DirectUnitTestUtil {
         return testBuilder;
     }
 
-	private static InternetAddress toInternetAddress(String email) {
+    private static InternetAddress toInternetAddress(String email) {
         InternetAddress address = null;
         try {
             address = new InternetAddress(email);
@@ -287,7 +269,7 @@ public class DirectUnitTestUtil {
     
     private static String getClassPath() {
         return DirectMailClientSpringTest.class.getProtectionDomain().getCodeSource().getLocation().getPath();
-    }
+    }    
     
 	public static DirectDocuments mockDirectDocs() {
 
@@ -393,5 +375,5 @@ public class DirectUnitTestUtil {
 		documents.getDocuments().add(doc1);
 		documents.getDocuments().add(doc2);
 		return documents;
-	}
+}
 }

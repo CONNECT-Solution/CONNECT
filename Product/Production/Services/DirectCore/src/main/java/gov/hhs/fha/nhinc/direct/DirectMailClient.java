@@ -45,9 +45,12 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.nhindirect.gateway.smtp.MessageProcessResult;
 import org.nhindirect.gateway.smtp.SmtpAgent;
+import org.nhindirect.stagent.NHINDAddressCollection;
 import org.nhindirect.stagent.mail.notifications.NotificationMessage;
 import org.nhindirect.xd.common.DirectDocuments;
 import org.springframework.beans.factory.InitializingBean;
+
+import sun.util.logging.resources.logging_zh_HK;
 
 /**
  * Mail Server implementation which used the direct libraries to send encrypted mail.
@@ -81,20 +84,6 @@ public class DirectMailClient implements DirectClient, InitializingBean {
         this.smtpAgent = smtpAgent;        
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void processAndSend(Address sender, Address[] recipients, Document attachment, String attachmentName) {
-
-        Session session = getMailSession();
-
-        MimeMessage mimeMessage = new MimeMessageBuilder(session, sender, recipients).subject(MSG_SUBJECT)
-                .text(MSG_TEXT).attachment(attachment).attachmentName(attachmentName).build();
-
-        processAndSend(mimeMessage, session);
-    }
-    
     /**
      * {@inheritDoc}
      */
@@ -185,7 +174,7 @@ public class DirectMailClient implements DirectClient, InitializingBean {
 
         Message[] messages = null;
         try {
-            messages = inbox.getMessages(MSG_INDEX_START, getNumberOfMsgsToHandle(inbox));
+            messages = inbox.getMessages(MSG_INDEX_START, getNumberOfMsgsToHandle(inbox));            
         } catch (MessagingException e) {
             MailUtils.closeQuietly(store, inbox, MailUtils.FOLDER_EXPUNGE_INBOX_FALSE);
             throw new DirectException("Exception while retrieving messages from inbox.", e);
@@ -194,6 +183,7 @@ public class DirectMailClient implements DirectClient, InitializingBean {
         for (Message message : messages) {
             try {
                 if ((message instanceof MimeMessage)) {
+                    MailUtils.logHeaders((MimeMessage) message);
                     messageHandler.handleMessage((MimeMessage) message, this);
                     numberOfMsgsHandled++;
                 }
@@ -255,7 +245,8 @@ public class DirectMailClient implements DirectClient, InitializingBean {
         }
 
         try {
-            MailUtils.sendMessage(mimeMessage.getAllRecipients(), session, result.getProcessedMessage().getMessage());
+            Address[] recips = mimeMessage.getAllRecipients();
+            MailUtils.sendMessage(recips, session, result.getProcessedMessage().getMessage());
         } catch (MessagingException e) {
             throw new DirectException("Could not send message.", e);
         }
@@ -263,7 +254,8 @@ public class DirectMailClient implements DirectClient, InitializingBean {
 
     private MessageProcessResult processAsDirectMessage(MimeMessage mimeMessage) {
         try {
-            return smtpAgent.processMessage(mimeMessage, DirectClientUtils.getNhindRecipients(mimeMessage),
+            NHINDAddressCollection collection = DirectClientUtils.getNhindRecipients(mimeMessage);
+            return smtpAgent.processMessage(mimeMessage, collection,
                     DirectClientUtils.getNhindSender(mimeMessage));
         } catch (MessagingException e) {
             throw new DirectException("Error occurred while extracting addresses.", e);
