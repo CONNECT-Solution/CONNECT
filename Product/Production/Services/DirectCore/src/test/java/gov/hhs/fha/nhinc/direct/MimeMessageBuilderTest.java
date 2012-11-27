@@ -42,97 +42,128 @@ import org.junit.Test;
  */
 public class MimeMessageBuilderTest {
 
-    /**
-     * Java mail session.
-     */
-    private final Session session = Session.getInstance(getMailServerProps(3456, 3143));
-    
-    /**
-     * Test that we can build a message with all of the properties of the mime message set.
-     * @throws IOException is a possible error.
-     */
-    @Test
-    public void canBuildMessage() throws IOException {
-        assertNotNull(getBuilder().build());
-    }
-    
-    /**
-     * Test that we can build a message with all of the properties of the mime message set.
-     * @throws IOException is a possible error.
-     */
-    @Test
-    public void canBuildMessageWithDirectDocuments() throws IOException {
-        assertNotNull(getBuilder().attachment(null).attachmentName(null).build());
-    }
+	/**
+	 * Java mail session.
+	 */
+	private final Session session = Session.getInstance(getMailServerProps(
+			3456, 3143));
 
-    /**
-     * Throw an exception when the text of the message is missing.
-     * @throws IOException is a possible error.
-     */
-    @Test(expected = DirectException.class)
-    public void willThrowExceptionWhenTextIsMissing() throws IOException {
-        MimeMessageBuilder testBuilder = getBuilder().text(null);
-        testBuilder.build();        
-    }
-    
-    /**
-     * Allow message to be built if the subject is missing.
-     * @throws IOException is a possible error.
-     */
-    @Test
-    public void canBuildMesageWithoutSubject() throws IOException {
-        MimeMessageBuilder testBuilder = getBuilder().subject(null);
-        testBuilder.build();        
-    }
+	/**
+	 * Test that we can build a message with all of the properties of the mime
+	 * message set.
+	 * 
+	 * @throws IOException
+	 *             is a possible error.
+	 */
+	@Test
+	public void canBuildMessage() throws IOException {
+		assertNotNull(getBuilder().build());
+	}
 
-    /**
-     * Throw an exception when the attachment of the message is missing.
-     * @throws IOException is a possible error.
-     */
-    @Test(expected = DirectException.class)
-    public void willThrowExceptionWhenAttachmentIsMissing() throws IOException {
-        MimeMessageBuilder testBuilder = getBuilder().documents(null).messageId(null).attachment(null);
-        testBuilder.build();        
-    }
+	/**
+	 * Test that we can build a message with all of the properties of the mime
+	 * message set.
+	 * 
+	 * @throws IOException
+	 *             is a possible error.
+	 */
+	@Test
+	public void canBuildMessageWithDirectDocuments() throws IOException {
+		assertNotNull(getBuilder().attachment(null).attachmentName(null)
+				.build());
+	}
 
-    /**
-     * Throw an exception when the attachment name of the message is missing.
-     * @throws IOException is a possible error.
-     */
-    @Test(expected = DirectException.class)
-    public void willThrowExceptionWhenAttachmentNameIsMissing() throws IOException {
-        MimeMessageBuilder testBuilder = getBuilder().documents(null).messageId(null).attachmentName(null);
-        testBuilder.build();        
-    }
-    
-    /**
-     * Throw an exception when the direct documents are missing.
-     * @throws IOException is a possible error.
-     */
-    @Test(expected = DirectException.class)
-    public void willThrowExceptionWhenDocumentsAreMissing() throws IOException {
-        MimeMessageBuilder testBuilder = getBuilder().attachment(null).attachmentName(null).documents(null);
-        testBuilder.build();        
-    }
-    
-    /**
-     * Throw an exception when the direct documents messageId is missing.
-     * @throws IOException is a possible error.
-     */
-    @Test(expected = DirectException.class)
-    public void willThrowExceptionWhenMessageIdIsMissing() throws IOException {
-        MimeMessageBuilder testBuilder = getBuilder().attachment(null).attachmentName(null).messageId(null);
-        testBuilder.build();        
-    } 
-    
-    private MimeMessageBuilder getBuilder() {
-        MimeMessageBuilder builder = null;
-        try {
-            builder = getMimeMessageBuilder(session);
-        } catch (IOException e) {
-            fail(e.getMessage());
-        }
-        return builder;
-    }
+	/**
+	 * Throw an exception when the text of the message is missing.
+	 * 
+	 * @throws IOException
+	 *             is a possible error.
+	 */
+	@Test(expected = DirectException.class)
+	public void willThrowExceptionWhenTextIsMissing() throws IOException {
+		MimeMessageBuilder testBuilder = getBuilder().text(null);
+		testBuilder.build();
+	}
 
+	/**
+	 * Allow message to be built if the subject is missing.
+	 * 
+	 * @throws IOException
+	 *             is a possible error.
+	 */
+	@Test
+	public void canBuildMesageWithoutSubject() throws IOException {
+		MimeMessageBuilder testBuilder = getBuilder().subject(null);
+		testBuilder.build();
+	}
+
+	/**
+	 * Throw an exception when the attachment of the message is missing.
+	 * 
+	 * @throws IOException
+	 *             is a possible error.
+	 */
+	@Test(expected = DirectException.class)
+	public void willThrowExceptionWhenAttachmentIsMissing() throws IOException {
+		MimeMessageBuilder testBuilder = getBuilder().documents(null)
+				.messageId(null).attachment(null);
+		testBuilder.build();
+	}
+
+	/**
+	 * Throw an exception when the attachment name of the message is missing.
+	 * 
+	 * @throws IOException
+	 *             is a possible error.
+	 */
+	@Test(expected = DirectException.class)
+	public void willThrowExceptionWhenAttachmentNameIsMissing()
+			throws IOException {
+		MimeMessageBuilder testBuilder = getBuilder().documents(null)
+				.messageId(null).attachmentName(null);
+		testBuilder.build();
+	}
+
+	/**
+	 * Throw an exception when the direct documents are missing.
+	 * 
+	 * @throws IOException
+	 *             is a possible error.
+	 */
+	@Test(expected = DirectException.class)
+	public void willThrowExceptionWhenDocumentsAreMissing() throws IOException {
+		MimeMessageBuilder testBuilder = getBuilder().attachment(null)
+				.attachmentName(null).documents(null);
+		testBuilder.build();
+	}
+
+	/**
+	 * Throw an exception when the direct documents messageId is missing.
+	 * 
+	 * @throws IOException
+	 *             is a possible error.
+	 */
+	@Test(expected = DirectException.class)
+	public void willThrowExceptionWhenMessageIdIsMissing() throws IOException {
+		MimeMessageBuilder testBuilder = getBuilder().attachment(null)
+				.attachmentName(null).messageId(null);
+		testBuilder.build();
+	}
+	
+	@Test
+	public void buildWithMockDirectDocs() {
+		MimeMessageBuilder testBuilder = getBuilder().attachment(null)
+				.attachmentName(null).documents(DirectUnitTestUtil.mockDirectDocs()).messageId("1234");
+		testBuilder.build();
+	}
+
+	private MimeMessageBuilder getBuilder() {
+		MimeMessageBuilder builder = null;
+		try {
+			builder = getMimeMessageBuilder(session);
+		} catch (IOException e) {
+			fail(e.getMessage());
+		}
+		return builder;
+	}
 }

@@ -1,6 +1,7 @@
 package gov.hhs.fha.nhinc.direct.xdr;
 
 import gov.hhs.fha.nhinc.direct.DirectMailClient;
+import gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType.Document;
 
 import javax.mail.Address;
@@ -12,28 +13,17 @@ import javax.mail.internet.MimeMessage;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.nhindirect.xd.common.DirectDocuments;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-public class DirectMailSender {
+public class DirectMailSender extends ComponentProxyObjectFactory {
     
 	private static final Log LOG = LogFactory.getLog(DirectMailSender.class);
-	
-    private DirectMailClient extDirectMailClient;
     
     public DirectMailSender() {
-    	ApplicationContext context = 
-    	    	  new ClassPathXmlApplicationContext(new String[] {getContextXml()});
-    	 
-    	extDirectMailClient = (DirectMailClient)context.getBean("extDirectMailClient");
+
     }
     
     protected DirectMailClient getDirectMailClient() {
-    	return extDirectMailClient;
-    }
-    
-    protected String getContextXml() {
-    	return "direct.appcontext.xml";
+    	return getBean("extDirectMailClient", DirectMailClient.class);
     }
 	
 	public void send(Address sender, Address[] recipients, Document attachment, String attachmentName) {
@@ -54,4 +44,9 @@ public class DirectMailSender {
 		
     	getDirectMailClient().processAndSend(message);
     }
+
+	@Override
+	protected String getConfigFileName() {
+		return "direct.appcontext.xml";
+	}
 }

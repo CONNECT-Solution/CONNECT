@@ -405,7 +405,7 @@
         <repository>
             <id>project.local</id>
             <name>project</name>
-            <url>file:/Users/mlandis/repos/git/CONNECT/repo/</url>
+            <url>file://${connectdir}/repo/</url>
         </repository>
     </repositories>
     <profiles>
