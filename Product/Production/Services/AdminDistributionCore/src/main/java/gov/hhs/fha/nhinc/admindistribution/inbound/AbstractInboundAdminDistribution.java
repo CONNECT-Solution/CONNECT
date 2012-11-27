@@ -24,45 +24,40 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.admindistribution._10.entity;
+package gov.hhs.fha.nhinc.admindistribution.inbound;
 
-import gov.hhs.fha.nhinc.admindistribution.outbound.OutboundAdminDistribution;
-import gov.hhs.fha.nhinc.aspect.InboundMessageEvent;
+import gov.hhs.fha.nhinc.admindistribution.AdminDistributionAuditLogger;
+import gov.hhs.fha.nhinc.admindistribution.aspect.InboundProcessingEventDescriptionBuilder;
+import gov.hhs.fha.nhinc.aspect.InboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewaySendAlertMessageType;
-import gov.hhs.fha.nhinc.entityadmindistribution.AdministrativeDistributionPortType;
-import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
-import gov.hhs.fha.nhinc.messaging.server.BaseService;
-
-import javax.annotation.Resource;
-import javax.xml.ws.BindingType;
-import javax.xml.ws.WebServiceContext;
-import javax.xml.ws.soap.Addressing;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 
 
-@BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
-@Addressing(enabled = true)
-public class EntityAdministrativeDistribution extends BaseService implements AdministrativeDistributionPortType {
-
-    private WebServiceContext context;
-    private OutboundAdminDistribution outboundAdminDist;
+public abstract class AbstractInboundAdminDistribution implements InboundAdminDistribution {
     
+    abstract void processAdminDistribution(EDXLDistribution body, AssertionType assertion);
+    
+    protected AdminDistributionAuditLogger auditLogger = new AdminDistributionAuditLogger();
+
+    /**
+     * This method sends sendAlertMessage to agency/agencies.
+     * 
+     * @param body - Emergency Message Distribution Element transaction message body.
+     * @param assertion - Assertion received.
+     */
     @Override
-    @InboundMessageEvent(serviceType = "Admin Distribution", version = "1.0",
-            afterReturningBuilder = DefaultEventDescriptionBuilder.class,
-            beforeBuilder = DefaultEventDescriptionBuilder.class)
-    public void sendAlertMessage(RespondingGatewaySendAlertMessageType body) {
-        AssertionType assertion = getAssertion(context, body.getAssertion());
-        
-        outboundAdminDist.sendAlertMessage(body, assertion, body.getNhinTargetCommunities());
-    }
+    @InboundProcessingEvent(serviceType = "Admin Distribution", version = "2.0",
+            afterReturningBuilder = InboundProcessingEventDescriptionBuilder.class,
+            beforeBuilder = InboundProcessingEventDescriptionBuilder.class)
+    public void sendAlertMessage(EDXLDistribution body, AssertionType assertion) {        
+        auditRequestFromNhin(body, assertion);
 
-    @Resource
-    public void setContext(WebServiceContext context) {
-        this.context = context;
+        processAdminDistribution(body, assertion);
     }
     
-    public void setOutboundAdminDistribution(OutboundAdminDistribution outboundAdminDist) {
-        this.outboundAdminDist = outboundAdminDist;
+    private void auditRequestFromNhin(EDXLDistribution body, AssertionType assertion) {
+        auditLogger.auditNhinAdminDist(body, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
+                NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
     }
 }

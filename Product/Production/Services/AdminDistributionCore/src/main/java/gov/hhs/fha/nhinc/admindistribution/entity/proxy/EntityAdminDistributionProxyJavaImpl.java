@@ -29,7 +29,8 @@ package gov.hhs.fha.nhinc.admindistribution.entity.proxy;
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
-import gov.hhs.fha.nhinc.admindistribution.entity.EntityAdminDistributionOrchImpl;
+import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewaySendAlertMessageType;
+import gov.hhs.fha.nhinc.admindistribution.outbound.StandardOutboundAdminDistribution;
 
 /**
  * 
@@ -43,6 +44,11 @@ public class EntityAdminDistributionProxyJavaImpl implements EntityAdminDistribu
      * @param target NhinTargetCommunity receievd.
      */
     public void sendAlertMessage(EDXLDistribution body, AssertionType assertion, NhinTargetCommunitiesType target) {
-        new EntityAdminDistributionOrchImpl().sendAlertMessage(body, assertion, target);
+        RespondingGatewaySendAlertMessageType request = new RespondingGatewaySendAlertMessageType();
+        request.setEDXLDistribution(body);
+        request.setAssertion(assertion);
+        request.setNhinTargetCommunities(target);
+        
+        new StandardOutboundAdminDistribution().sendAlertMessage(request, assertion, target);
     }
 }
