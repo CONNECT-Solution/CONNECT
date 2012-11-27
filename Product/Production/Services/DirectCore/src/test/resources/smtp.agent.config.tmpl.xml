@@ -40,7 +40,7 @@
    </Domains>
    <PublicCertStore type="Keystore" file="{jks.keystore.path}directkeystore.jks" filePass="connectisawesome" privKeyPass="connectisawesome"/>
    <PrivateCertStore type="Keystore" file="{jks.keystore.path}directkeystore.jks" filePass="connectisawesome" privKeyPass="connectisawesome"/>
-   <RawMessageSettings saveFolder="C:\glassfish3\glassfish\domains\domain1\config"/>
+   <RawMessageSettings saveFolder="RawMsgFolder"/>
    <OutgoingMessagesSettings saveFolder="OutgoingMsgFolder"/>
    <IncomingMessagesSettings saveFolder="IncomingMsgFolder"/>
    <BadMessagesSettings saveFolder="BadMsgFolder"/>  
