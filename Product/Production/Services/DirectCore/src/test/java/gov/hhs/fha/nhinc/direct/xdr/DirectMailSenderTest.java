@@ -1,7 +1,7 @@
 package gov.hhs.fha.nhinc.direct.xdr;
 
-import static org.junit.Assert.*;
-import gov.hhs.fha.nhinc.direct.DirectMailClient;
+import static org.junit.Assert.assertNotNull;
+import gov.hhs.fha.nhinc.direct.DirectClient;
 import gov.hhs.fha.nhinc.direct.DirectUnitTestUtil;
 
 import org.junit.AfterClass;
@@ -30,9 +30,9 @@ public class DirectMailSenderTest {
 	@Test
 	@Ignore
 	public void test() {
-		DirectSender sender = new DirectSender() {
+		DirectObjectFactory sender = new DirectObjectFactory() {
 			@Override
-		    protected DirectMailClient getDirectMailClient() {
+		    protected DirectClient getDirectClient() {
 		    	return null;
 		    }
 			

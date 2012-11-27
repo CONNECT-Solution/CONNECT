@@ -26,8 +26,6 @@
  */
 package gov.hhs.fha.nhinc.direct;
 
-import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType.Document;
-
 import java.util.Collection;
 import java.util.Properties;
 
@@ -49,8 +47,6 @@ import org.nhindirect.stagent.NHINDAddressCollection;
 import org.nhindirect.stagent.mail.notifications.NotificationMessage;
 import org.nhindirect.xd.common.DirectDocuments;
 import org.springframework.beans.factory.InitializingBean;
-
-import sun.util.logging.resources.logging_zh_HK;
 
 /**
  * Mail Server implementation which used the direct libraries to send encrypted mail.

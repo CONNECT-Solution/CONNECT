@@ -29,13 +29,9 @@ package gov.hhs.fha.nhinc.direct;
 import static gov.hhs.fha.nhinc.direct.DirectUnitTestUtil.RECIP_AT_RESPONDING_GW;
 import static gov.hhs.fha.nhinc.direct.DirectUnitTestUtil.SENDER_AT_INITIATING_GW;
 import static gov.hhs.fha.nhinc.direct.DirectUnitTestUtil.getFileAsString;
-import static gov.hhs.fha.nhinc.direct.DirectUnitTestUtil.getMailServerProps;
-import static gov.hhs.fha.nhinc.direct.DirectUnitTestUtil.getMockDocument;
 import static gov.hhs.fha.nhinc.direct.DirectUnitTestUtil.getMockDirectDocuments;
 import static gov.hhs.fha.nhinc.direct.DirectUnitTestUtil.getRecipients;
 import static gov.hhs.fha.nhinc.direct.DirectUnitTestUtil.getSender;
-import static gov.hhs.fha.nhinc.direct.DirectUnitTestUtil.removeSmtpAgentConfig;
-import static gov.hhs.fha.nhinc.direct.DirectUnitTestUtil.writeSmtpAgentConfig;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -53,17 +49,12 @@ import java.util.Collection;
 import java.util.Properties;
 
 import javax.mail.Address;
-import javax.mail.Flags;
 import javax.mail.MessagingException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMessage.RecipientType;
 
 import org.apache.commons.io.IOUtils;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.nhindirect.gateway.smtp.MessageProcessResult;
 import org.nhindirect.gateway.smtp.SmtpAgent;
@@ -74,85 +65,14 @@ import org.nhindirect.stagent.NHINDAddressCollection;
 import org.nhindirect.stagent.mail.Message;
 import org.nhindirect.stagent.mail.notifications.NotificationMessage;
 
-import com.icegreen.greenmail.user.GreenMailUser;
 import com.icegreen.greenmail.user.UserException;
-import com.icegreen.greenmail.util.GreenMail;
-import com.icegreen.greenmail.util.ServerSetup;
-import com.icegreen.greenmail.util.ServerSetupTest;
 
 /**
  * Test {@link DirectMailClient}.
  */
 public class DirectMailClientTest extends AbstractDirectMailClientTestBase {
 
-    private static final int NUM_MSGS_ONE_BATCH = 3;
-    private static final int NUM_MSGS_MULTI_BATCH = 28;
-
-    private static final String ATTACHMENT_NAME = "mymockattachment";
-
-    protected Properties recipMailServerProps;
-    protected Properties senderMailServerProps;
-    private SmtpAgent mockSmtpAgent;
-
-    private DirectMailClient intDirectClient;
-    private DirectMailClient extDirectClient;
-
-    private MessageHandler mockMessageHandler;
-
-    private GreenMail intGreenMail;
-    private GreenMailUser recipUser;
-    private GreenMailUser senderUser;
-
-    /**
-     * Set up keystore for test.
-     */
-    @BeforeClass
-    public static void setUpClass() {
-        writeSmtpAgentConfig();
-    }
     
-    /**
-     * Tear down keystore created in setup.
-     */
-    @AfterClass
-    public static void tearDownClass() {
-        removeSmtpAgentConfig();
-    }  
-    
-    /**
-     * Set up tests.
-     */
-    @Before
-    public void setUp() {
-
-        mockSmtpAgent = mock(SmtpAgent.class);
-
-        intGreenMail = new GreenMail(new ServerSetup[] { ServerSetupTest.SMTPS, ServerSetupTest.IMAPS });
-        intGreenMail.start();
-
-        recipMailServerProps = getMailServerProps(RECIP_AT_RESPONDING_GW, intGreenMail.getSmtps().getServerSetup()
-                .getPort(), intGreenMail.getImaps().getServerSetup().getPort());
-        senderMailServerProps = getMailServerProps(SENDER_AT_INITIATING_GW, intGreenMail.getSmtps().getServerSetup()
-                .getPort(), intGreenMail.getImaps().getServerSetup().getPort());
-
-        senderUser = intGreenMail.setUser(SENDER_AT_INITIATING_GW, SENDER_AT_INITIATING_GW, SENDER_AT_INITIATING_GW);
-        recipUser = intGreenMail.setUser(RECIP_AT_RESPONDING_GW, RECIP_AT_RESPONDING_GW, RECIP_AT_RESPONDING_GW);
-        
-        mockMessageHandler = mock(MessageHandler.class);
-        intDirectClient = new DirectMailClient(recipMailServerProps, mockSmtpAgent);
-        intDirectClient.setMessageHandler(mockMessageHandler);
-    }
-
-    /**
-     * Tear down after tests run.
-     */
-    @After
-    public void tearDown() {
-        if (intGreenMail != null) {
-            intGreenMail.stop();
-        }
-    }
-
     /**
      * Ensure that we can read all mail server properties as strings.
      */
@@ -230,19 +150,19 @@ public class DirectMailClientTest extends AbstractDirectMailClientTestBase {
                     eq(intDirectClient));
 
             // there is a greenmail bug that only expunges every other message... delete read messages
-            DirectUnitTestUtil.expungeMissedMessages(intGreenMail, recipUser);
+            DirectUnitTestUtil.expungeMissedMessages(greenMail, recipUser);
         }
 
         assertEquals("Expected number of batches that ran", expectedBatchCount, batchCount);
         assertEquals("All messages were handled", NUM_MSGS_MULTI_BATCH, numberOfMsgsHandled);
-        assertEquals("No messages should be left on the server", 0, intGreenMail.getReceivedMessages().length);
+        assertEquals("No messages should be left on the server", 0, greenMail.getReceivedMessages().length);
     }
 
     @Test
     public void canSendSingleMDNMessage() throws MessagingException {
         MessageProcessResult mockMessageProcessResult = getMockMessageProcessResult();
         intDirectClient.sendMdn(mockMessageProcessResult);
-        assertEquals(1, intGreenMail.getReceivedMessages().length);
+        assertEquals(1, greenMail.getReceivedMessages().length);
     }
 
     @Test
@@ -250,7 +170,7 @@ public class DirectMailClientTest extends AbstractDirectMailClientTestBase {
         int numMdnMessages = 5;
         MessageProcessResult mockMessageProcessResult = getMockMessageProcessResult(numMdnMessages);
         intDirectClient.sendMdn(mockMessageProcessResult);
-        assertEquals(numMdnMessages, intGreenMail.getReceivedMessages().length);
+        assertEquals(numMdnMessages, greenMail.getReceivedMessages().length);
     }
 
     /**
@@ -270,7 +190,7 @@ public class DirectMailClientTest extends AbstractDirectMailClientTestBase {
         
         // place message on internal server (simulates the user sending a message)
         recipUser.deliver(originalMsg);
-        MimeMessage[] messages = intGreenMail.getReceivedMessages();
+        MimeMessage[] messages = greenMail.getReceivedMessages();
         assertEquals(1, messages.length);
         assertEquals(RECIP_AT_RESPONDING_GW, messages[0].getAllRecipients()[0].toString());
         assertEquals(1, messages[0].getAllRecipients().length);        
@@ -282,10 +202,10 @@ public class DirectMailClientTest extends AbstractDirectMailClientTestBase {
 
         // we can use the same greenmail as external direct client
         assertEquals(1, intDirectClient.handleMessages());
-        DirectUnitTestUtil.expungeMissedMessages(intGreenMail, recipUser);
+        DirectUnitTestUtil.expungeMissedMessages(greenMail, recipUser);
         
         // verify that the encrypted message is available on the external mail client
-        messages = intGreenMail.getReceivedMessages();
+        messages = greenMail.getReceivedMessages();
         assertEquals(1, messages.length);
         assertEquals("application/pkcs7-mime; smime-type=enveloped-data; name=\"smime.p7m\"",
                 messages[0].getContentType());
@@ -295,10 +215,10 @@ public class DirectMailClientTest extends AbstractDirectMailClientTestBase {
          * Responding Gateway...
          */
         assertEquals(1, extDirectClient.handleMessages());
-        DirectUnitTestUtil.expungeMissedMessages(intGreenMail, recipUser);        
+        DirectUnitTestUtil.expungeMissedMessages(greenMail, recipUser);        
         
         // ...there are 2 MDNs right now because of a quirk in greenmail.
-        messages = intGreenMail.getReceivedMessages();
+        messages = greenMail.getReceivedMessages();
         int numberOfRecips = messages[0].getAllRecipients().length;
         
         // verify that the decrypted message and MDNs are available on the mail client 
@@ -327,10 +247,10 @@ public class DirectMailClientTest extends AbstractDirectMailClientTestBase {
         setUpDirectClients(senderMailServerProps);
         
         assertEquals(numberOfRecips, extDirectClient.handleMessages());
-        DirectUnitTestUtil.expungeMissedMessages(intGreenMail, senderUser);
+        DirectUnitTestUtil.expungeMissedMessages(greenMail, senderUser);
 
         // verify that the MDNs are collected at the Initiating Gateway
-        messages = intGreenMail.getReceivedMessages();
+        messages = greenMail.getReceivedMessages();
         assertEquals(numberOfRecips + 1, messages.length);        
         for (MimeMessage message : messages) {
             

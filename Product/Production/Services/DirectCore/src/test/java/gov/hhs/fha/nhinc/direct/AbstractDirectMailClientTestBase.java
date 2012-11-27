@@ -28,21 +28,25 @@ import com.icegreen.greenmail.util.ServerSetup;
 import com.icegreen.greenmail.util.ServerSetupTest;
 
 public abstract class AbstractDirectMailClientTestBase {
-	protected static final int NUM_MSGS_ONE_BATCH = 3;
-	protected static final int NUM_MSGS_MULTI_BATCH = 28;
 
-	protected static final String ATTACHMENT_NAME = "mymockattachment";
-
-    protected Properties intMailServerProps;
+    protected static final int NUM_MSGS_ONE_BATCH = 3;
+    protected static final int NUM_MSGS_MULTI_BATCH = 28;
+    protected static final String ATTACHMENT_NAME = "mymockattachment";
+    protected static final String encryptedContentType = "application/pkcs7-mime; smime-type=enveloped-data; name=\"smime.p7m\"";
+    protected static final String unencryptedContentType = "Multipart/Mixed;";
+    
+    protected Properties recipMailServerProps;
+    protected Properties senderMailServerProps;
     protected SmtpAgent mockSmtpAgent;
-    protected DirectMailClient testDirectMailClient;
+
+    protected DirectMailClient intDirectClient;
+    protected DirectMailClient extDirectClient;
+
     protected MessageHandler mockMessageHandler;
 
     protected GreenMail greenMail;
-    protected GreenMailUser intUser;
-    
-    protected static final String encryptedContentType = "application/pkcs7-mime; smime-type=enveloped-data; name=\"smime.p7m\"";
-    protected static final String unencryptedContentType = "Multipart/Mixed;";
+    protected GreenMailUser recipUser;
+    protected GreenMailUser senderUser;
 
     /**
      * Set up keystore for test.
@@ -71,15 +75,17 @@ public abstract class AbstractDirectMailClientTestBase {
         greenMail = new GreenMail(new ServerSetup[] { ServerSetupTest.SMTPS, ServerSetupTest.IMAPS });
         greenMail.start();
 
-        intUser = greenMail.setUser(DirectUnitTestUtil.RECIP_AT_RESPONDING_GW, DirectUnitTestUtil.USER,
-                DirectUnitTestUtil.PASS);
-        intMailServerProps = getMailServerProps(
-                greenMail.getSmtps().getServerSetup().getPort(), greenMail.getImaps().getServerSetup().getPort());
+        recipMailServerProps = getMailServerProps(RECIP_AT_RESPONDING_GW, greenMail.getSmtps().getServerSetup()
+                .getPort(), greenMail.getImaps().getServerSetup().getPort());
+        senderMailServerProps = getMailServerProps(SENDER_AT_INITIATING_GW, greenMail.getSmtps().getServerSetup()
+                .getPort(), greenMail.getImaps().getServerSetup().getPort());
 
+        senderUser = greenMail.setUser(SENDER_AT_INITIATING_GW, SENDER_AT_INITIATING_GW, SENDER_AT_INITIATING_GW);
+        recipUser = greenMail.setUser(RECIP_AT_RESPONDING_GW, RECIP_AT_RESPONDING_GW, RECIP_AT_RESPONDING_GW);
+        
         mockMessageHandler = mock(MessageHandler.class);
-
-        testDirectMailClient = new DirectMailClient(intMailServerProps, mockSmtpAgent);
-        testDirectMailClient.setMessageHandler(mockMessageHandler);
+        intDirectClient = new DirectMailClient(recipMailServerProps, mockSmtpAgent);
+        intDirectClient.setMessageHandler(mockMessageHandler);
     }
 
     /**
@@ -99,16 +105,18 @@ public abstract class AbstractDirectMailClientTestBase {
     }
     
     protected DirectMailClient getOutboundClient() {        
-        DirectMailClient outboundDirectClient = new DirectMailClient(intMailServerProps, getSmtpAgent());
+        DirectMailClient outboundDirectClient = new DirectMailClient(recipMailServerProps, getSmtpAgent());
         return outboundDirectClient;
     }
     
     protected DirectMailClient getInboundClient() {
-    	DirectMailClient inboundDirectClient = new DirectMailClient(intMailServerProps, getSmtpAgent());
+    	DirectMailClient inboundDirectClient = new DirectMailClient(recipMailServerProps, getSmtpAgent());
     	return inboundDirectClient;
     }
     
-    protected void sendMimeMessageToRemoteMailServer(final MimeMessage originalMsg, DirectMailClient outboundDirectClient) throws UserException, MessagingException {
+    protected void sendMimeMessageToRemoteMailServer(final MimeMessage originalMsg,
+            DirectMailClient outboundDirectClient) throws UserException, MessagingException {
+
         assertNotNull(originalMsg);
         
         /*
@@ -149,7 +157,7 @@ public abstract class AbstractDirectMailClientTestBase {
         // we can use the same greenmail as external direct client
         outboundDirectClient.setMessageHandler(inboundMessageHandler);
         outboundDirectClient.handleMessages();
-        DirectUnitTestUtil.expungeMissedMessages(greenMail, intUser);
+        DirectUnitTestUtil.expungeMissedMessages(greenMail, recipUser);
         
         // verify that the decrypted message is available on the mail client
         if (respondingEdgeType == InboundMessageHandler.EDGE_CLIENT_TYPE_SMTP) {
@@ -161,13 +169,13 @@ public abstract class AbstractDirectMailClientTestBase {
     }
     
     protected void processMdn(DirectMailClient outboundDirectClient) {
-        /*
-         * Initiating Gateway collects an MDN 
-         */
-        intUser = greenMail.setUser(SENDER_AT_INITIATING_GW, DirectUnitTestUtil.USER,
-                DirectUnitTestUtil.PASS);
-        outboundDirectClient.handleMessages();
-        DirectUnitTestUtil.expungeMissedMessages(greenMail, intUser);
+//        /*
+//         * Initiating Gateway collects an MDN 
+//         */
+//        intUser = greenMail.setUser(SENDER_AT_INITIATING_GW, DirectUnitTestUtil.USER,
+//                DirectUnitTestUtil.PASS);
+//        outboundDirectClient.handleMessages();
+//        DirectUnitTestUtil.expungeMissedMessages(greenMail, intUser);
     }
     
     protected void verifyOutboundMessageSent() throws MessagingException {
@@ -182,7 +190,8 @@ public abstract class AbstractDirectMailClientTestBase {
     	verifyMessage(2, encryptedContentType, SENDER_AT_INITIATING_GW, RECIP_AT_RESPONDING_GW);
     }
     
-    private void verifyMessage(int expectedNumberOfMessages, String contentType, String recipient, String sender) throws MessagingException {
+    private void verifyMessage(int expectedNumberOfMessages, String contentType, String recipient, String sender)
+            throws MessagingException {
         // verify that the encrypted message is available on the external mail client
         MimeMessage[] messages = greenMail.getReceivedMessages();
         int i = 0;

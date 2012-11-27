@@ -1,6 +1,7 @@
 package gov.hhs.fha.nhinc.direct.xdr;
 
 import static gov.hhs.fha.nhinc.direct.DirectUnitTestUtil.getMailServerProps;
+import static gov.hhs.fha.nhinc.direct.DirectUnitTestUtil.RECIP_AT_RESPONDING_GW;
 
 import java.io.IOException;
 
@@ -38,8 +39,7 @@ public class XDRMockTest extends AbstractDirectMailClientTestBase {
 	
 	@Test
 	public void testWithXdmAttachment() throws MessagingException, UserException, IOException {
-		Session session = Session.getInstance(getMailServerProps(
-				3456, 3143));
+		Session session = Session.getInstance(getMailServerProps(RECIP_AT_RESPONDING_GW, 3456, 3143));
 		MimeMessageBuilder builder = DirectUnitTestUtil.getMimeMessageBuilder(session);
 		builder.attachment(null);
 		builder.attachmentName(null);

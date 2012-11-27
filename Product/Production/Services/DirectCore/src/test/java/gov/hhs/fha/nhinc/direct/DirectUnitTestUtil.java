@@ -73,12 +73,15 @@ import com.icegreen.greenmail.util.GreenMail;
  */
 public class DirectUnitTestUtil {
 
-    protected static final String SENDER_AT_INITIATING_GW = "sender@localhost";
-    protected static final String RECIP_AT_RESPONDING_GW = "mlandis@5amsolutions.com";
+    private static final Log LOG = LogFactory.getLog(DirectUnitTestUtil.class);
+    
+    public static final String SENDER_AT_INITIATING_GW = "sender@localhost";
+    public static final String RECIP_AT_RESPONDING_GW = "mlandis@5amsolutions.com";
 
     protected static final int MAX_NUM_MSGS_IN_BATCH = 5;
     private static final int DUMMY_PORT = 998;
 
+    
     /**
      * Sets up the properties in order to connect to the green mail test server.
      * 
