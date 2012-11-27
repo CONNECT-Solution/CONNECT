@@ -88,10 +88,10 @@ public abstract class BeanPropertyArgumentTransformer extends ArgTransformerEven
     }
 
     /**
-     * Return the input as the result (no bean introspection.)
+     * Default behavior is to return the unmodified argument.
      */
     @Override
-    public final Object transformReturnValue(Object returnValue) {
+    public Object transformReturnValue(Object returnValue) {
         return returnValue;
     }
 }

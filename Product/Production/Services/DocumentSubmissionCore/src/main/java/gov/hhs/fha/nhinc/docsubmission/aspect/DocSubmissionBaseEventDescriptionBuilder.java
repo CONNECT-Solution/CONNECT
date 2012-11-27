@@ -26,7 +26,6 @@
  */
 package gov.hhs.fha.nhinc.docsubmission.aspect;
 
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.event.AssertionEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.event.builder.AssertionDescriptionExtractor;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
@@ -36,7 +35,7 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
  * @author akong
  * 
  */
-public class InboundProcessingEventDescriptionBuilder extends AssertionEventDescriptionBuilder {
+public class DocSubmissionBaseEventDescriptionBuilder extends AssertionEventDescriptionBuilder {
 
     private final ProvideAndRegisterDocumentSetDescriptionExtractor REQUEST_EXTRACTOR;
     private final RegistryResponseDescriptionExtractor RESPONSE_EXTRACTOR;
@@ -44,12 +43,12 @@ public class InboundProcessingEventDescriptionBuilder extends AssertionEventDesc
     private ProvideAndRegisterDocumentSetRequestType request;
     private RegistryResponseType response;
 
-    public InboundProcessingEventDescriptionBuilder() {
+    public DocSubmissionBaseEventDescriptionBuilder() {
         REQUEST_EXTRACTOR = new ProvideAndRegisterDocumentSetDescriptionExtractor();
         RESPONSE_EXTRACTOR = new RegistryResponseDescriptionExtractor();
     }
 
-    public InboundProcessingEventDescriptionBuilder(
+    public DocSubmissionBaseEventDescriptionBuilder(
             final ProvideAndRegisterDocumentSetDescriptionExtractor requestExtractor,
             final AssertionDescriptionExtractor assertionExtractor,
             final RegistryResponseDescriptionExtractor responseExtractor) {
@@ -125,15 +124,20 @@ public class InboundProcessingEventDescriptionBuilder extends AssertionEventDesc
      */
     @Override
     public void setArguments(Object... arguments) {
-        if (arguments != null && arguments.length == 2 && areArgumentTypesExpected(arguments)) {
-            this.request = (ProvideAndRegisterDocumentSetRequestType) arguments[0];
-            extractAssertion(arguments);
-        }
+        extractAssertion(arguments);
+        extractRequest(arguments);
     }
 
-    private boolean areArgumentTypesExpected(Object... arguments) {
-        return arguments[0] instanceof ProvideAndRegisterDocumentSetRequestType
-                && arguments[1] instanceof AssertionType;
+    private void extractRequest(Object[] arguments) {
+        if (arguments != null) {
+            for (int i = 0; i < arguments.length; ++i) {
+                if (arguments[i] instanceof ProvideAndRegisterDocumentSetRequestType) {
+                    request = (ProvideAndRegisterDocumentSetRequestType) arguments[i];
+                    return;
+                }
+            }
+        }
+        request = null;
     }
 
     /*
@@ -146,5 +150,9 @@ public class InboundProcessingEventDescriptionBuilder extends AssertionEventDesc
         if (returnValue != null && returnValue instanceof RegistryResponseType) {
             this.response = (RegistryResponseType) returnValue;
         }
+    }
+
+    ProvideAndRegisterDocumentSetRequestType getRequest() {
+        return request;
     }
 }
