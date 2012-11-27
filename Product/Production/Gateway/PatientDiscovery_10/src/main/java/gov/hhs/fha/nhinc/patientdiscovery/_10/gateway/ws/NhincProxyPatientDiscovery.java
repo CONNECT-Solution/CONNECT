@@ -26,7 +26,8 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws;
 
-import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
+import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201305UV02ArgTransformer;
+import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201306UV02EventDescriptionBuilder;
 import gov.hhs.fha.nhinc.patientdiscovery._10.passthru.NhincProxyPatientDiscoveryImpl;
 import gov.hhs.fha.nhinc.aspect.OutboundMessageEvent;
 
@@ -59,8 +60,8 @@ public class NhincProxyPatientDiscovery extends PatientDiscoveryBase implements
         super(serviceFactory);
     }
 
-    @OutboundMessageEvent(beforeBuilder = DefaultEventDescriptionBuilder.class,
-            afterReturningBuilder = DefaultEventDescriptionBuilder.class, serviceType = "Patient Discovery",
+    @OutboundMessageEvent(beforeBuilder = PRPAIN201305UV02ArgTransformer.class,
+            afterReturningBuilder = PRPAIN201306UV02EventDescriptionBuilder.class, serviceType = "Patient Discovery",
             version = "1.0")
     public PRPAIN201306UV02 proxyPRPAIN201305UV(ProxyPRPAIN201305UVProxyRequestType 
             proxyPRPAIN201305UVProxyRequest) {

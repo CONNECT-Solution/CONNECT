@@ -35,6 +35,7 @@ import java.lang.reflect.Method;
 
 import gov.hhs.fha.nhinc.aspect.OutboundMessageEvent;
 import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
+import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201305UV02ArgTransformer;
 import gov.hhs.fha.nhinc.patientdiscovery._10.entity.EntityPatientDiscoveryImpl;
 
 import javax.xml.ws.WebServiceContext;
@@ -146,7 +147,7 @@ public class EntityPatientDiscoverySecuredTest {
         Method method = clazz.getMethod("respondingGatewayPRPAIN201305UV02", RespondingGatewayPRPAIN201305UV02RequestType.class);
         OutboundMessageEvent annotation = method.getAnnotation(OutboundMessageEvent.class);
         assertNotNull(annotation);
-        assertEquals(DefaultEventDescriptionBuilder.class, annotation.beforeBuilder());
+        assertEquals(PRPAIN201305UV02ArgTransformer.class, annotation.beforeBuilder());
         assertEquals(DefaultEventDescriptionBuilder.class, annotation.afterReturningBuilder());
         assertEquals("Patient Discovery", annotation.serviceType());
         assertEquals("1.0", annotation.version());

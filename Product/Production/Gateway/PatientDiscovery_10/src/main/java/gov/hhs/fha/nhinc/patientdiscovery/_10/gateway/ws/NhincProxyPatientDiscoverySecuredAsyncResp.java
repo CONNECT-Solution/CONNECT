@@ -29,7 +29,8 @@ package gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws;
 import gov.hhs.fha.nhinc.aspect.OutboundMessageEvent;
 import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.patientdiscovery._10.passthru.deferred.response.NhincProxyPatientDiscoveryAsyncRespImpl;
-
+import gov.hhs.fha.nhinc.nhincproxypatientdiscoverysecuredasyncresp.NhincProxyPatientDiscoverySecuredAsyncRespPortType;
+import gov.hhs.fha.nhinc.patientdiscovery.aspect.MCCIIN000002UV01EventDescriptionBuilder;
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.ProxyPRPAIN201306UVProxySecuredRequestType;
 
@@ -45,7 +46,7 @@ import javax.xml.ws.soap.Addressing;
 @Addressing(enabled = true)
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 public class NhincProxyPatientDiscoverySecuredAsyncResp extends PatientDiscoveryBase implements
-        gov.hhs.fha.nhinc.nhincproxypatientdiscoverysecuredasyncresp.NhincProxyPatientDiscoverySecuredAsyncRespPortType {
+       NhincProxyPatientDiscoverySecuredAsyncRespPortType {
 
     private NhincProxyPatientDiscoveryAsyncRespImpl orchImpl;
 
@@ -60,7 +61,8 @@ public class NhincProxyPatientDiscoverySecuredAsyncResp extends PatientDiscovery
     }
 
     @OutboundMessageEvent(beforeBuilder = DefaultEventDescriptionBuilder.class,
-            afterReturningBuilder = DefaultEventDescriptionBuilder.class, serviceType = "Patient Discovery",
+            afterReturningBuilder = MCCIIN000002UV01EventDescriptionBuilder.class, 
+            serviceType = "Patient Discovery Deferred Response",
             version = "1.0")
     public MCCIIN000002UV01 proxyProcessPatientDiscoveryAsyncResp(
             ProxyPRPAIN201306UVProxySecuredRequestType proxyProcessPatientDiscoveryAsyncRespRequest) {

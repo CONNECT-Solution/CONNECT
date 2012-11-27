@@ -34,6 +34,7 @@ import java.lang.reflect.Method;
 
 import gov.hhs.fha.nhinc.aspect.OutboundMessageEvent;
 import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
+import gov.hhs.fha.nhinc.patientdiscovery.aspect.MCCIIN000002UV01EventDescriptionBuilder;
 import gov.hhs.fha.nhinc.patientdiscovery._10.passthru.deferred.response.NhincProxyPatientDiscoveryAsyncRespImpl;
 
 import javax.xml.ws.WebServiceContext;
@@ -97,8 +98,8 @@ public class NhincProxyPatientDiscoverySecuredAsyncRespTest {
         OutboundMessageEvent annotation = method.getAnnotation(OutboundMessageEvent.class);
         assertNotNull(annotation);
         assertEquals(DefaultEventDescriptionBuilder.class, annotation.beforeBuilder());
-        assertEquals(DefaultEventDescriptionBuilder.class, annotation.afterReturningBuilder());
-        assertEquals("Patient Discovery", annotation.serviceType());
+        assertEquals(MCCIIN000002UV01EventDescriptionBuilder.class, annotation.afterReturningBuilder());
+        assertEquals("Patient Discovery Deferred Response", annotation.serviceType());
         assertEquals("1.0", annotation.version());
     }
 }

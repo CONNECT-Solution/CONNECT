@@ -27,7 +27,9 @@
 package gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws;
 
 import gov.hhs.fha.nhinc.aspect.OutboundMessageEvent;
-import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
+import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201305UV02ArgTransformer;
+import gov.hhs.fha.nhinc.patientdiscovery.aspect.MCCIIN000002UV01EventDescriptionBuilder;
+import gov.hhs.fha.nhinc.nhincproxypatientdiscoverysecuredasyncreq.NhincProxyPatientDiscoverySecuredAsyncReqPortType;
 import gov.hhs.fha.nhinc.patientdiscovery._10.passthru.deferred.request.NhincProxyPatientDiscoveryDeferredRequestImpl;
 
 import javax.annotation.Resource;
@@ -40,7 +42,8 @@ import org.hl7.v3.ProxyPRPAIN201305UVProxySecuredRequestType;
 
 @Addressing(enabled = true)
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
-public class NhincProxyPatientDiscoveryDeferredRequestSecured extends PatientDiscoveryBase implements gov.hhs.fha.nhinc.nhincproxypatientdiscoverysecuredasyncreq.NhincProxyPatientDiscoverySecuredAsyncReqPortType{
+public class NhincProxyPatientDiscoveryDeferredRequestSecured extends PatientDiscoveryBase implements 
+                                NhincProxyPatientDiscoverySecuredAsyncReqPortType{
 
     private NhincProxyPatientDiscoveryDeferredRequestImpl orchImpl;
     
@@ -55,8 +58,9 @@ public class NhincProxyPatientDiscoveryDeferredRequestSecured extends PatientDis
         super(serviceFactory);
     }
 
-    @OutboundMessageEvent(beforeBuilder = DefaultEventDescriptionBuilder.class,
-            afterReturningBuilder = DefaultEventDescriptionBuilder.class, serviceType = "Patient Discovery",
+    @OutboundMessageEvent(beforeBuilder = PRPAIN201305UV02ArgTransformer.class,
+            afterReturningBuilder = MCCIIN000002UV01EventDescriptionBuilder.class, 
+            serviceType = "Patient Discovery Deferred Request",
             version = "1.0")
     public MCCIIN000002UV01 proxyProcessPatientDiscoveryAsyncReq(ProxyPRPAIN201305UVProxySecuredRequestType request) {
         MCCIIN000002UV01 response = null;

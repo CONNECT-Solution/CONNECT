@@ -27,6 +27,7 @@
 package gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws;
 
 import gov.hhs.fha.nhinc.aspect.OutboundMessageEvent;
+import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201305UV02ArgTransformer;
 import gov.hhs.fha.nhinc.patientdiscovery._10.entity.EntityPatientDiscoveryImpl;
 import gov.hhs.fha.nhinc.entitypatientdiscoverysecured.EntityPatientDiscoverySecuredPortType;
 import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
@@ -64,7 +65,7 @@ public class EntityPatientDiscoverySecured extends PatientDiscoveryBase implemen
         super(serviceFactory);
     }
 
-    @OutboundMessageEvent(beforeBuilder = DefaultEventDescriptionBuilder.class,
+    @OutboundMessageEvent(beforeBuilder = PRPAIN201305UV02ArgTransformer.class,
             afterReturningBuilder = DefaultEventDescriptionBuilder.class, serviceType = "Patient Discovery",
             version = "1.0")
     public RespondingGatewayPRPAIN201306UV02ResponseType respondingGatewayPRPAIN201305UV02(
