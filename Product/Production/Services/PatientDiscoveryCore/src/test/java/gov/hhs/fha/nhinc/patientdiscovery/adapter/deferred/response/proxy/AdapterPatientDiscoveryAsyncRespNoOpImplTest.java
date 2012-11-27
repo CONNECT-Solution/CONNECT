@@ -27,8 +27,13 @@
 package gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.response.proxy;
 
 import static org.junit.Assert.*;
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 
+import java.lang.reflect.Method;
+
+import gov.hhs.fha.nhinc.aspect.AdapterDelegationEvent;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201306UV02EventDescriptionBuilder;
+import gov.hhs.fha.nhinc.patientdiscovery.aspect.MCCIIN000002UV01EventDescriptionBuilder;
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PRPAIN201306UV02;
 import org.junit.After;
@@ -69,11 +74,26 @@ public class AdapterPatientDiscoveryAsyncRespNoOpImplTest {
     public void testProcessPatientDiscoveryAsyncResp() {
         System.out.println("processPatientDiscoveryAsyncResp");
 
-        AdapterPatientDiscoveryDeferredRespProxyNoOpImpl instance = new AdapterPatientDiscoveryDeferredRespProxyNoOpImpl();
+        AdapterPatientDiscoveryDeferredRespProxyNoOpImpl instance = 
+                new AdapterPatientDiscoveryDeferredRespProxyNoOpImpl();
         MCCIIN000002UV01 result = instance
                 .processPatientDiscoveryAsyncResp(new PRPAIN201306UV02(), new AssertionType());
 
         assertNotNull(result);
+    }
+    
+    @Test
+    public void hasAdapterDelegationEvent() throws Exception {
+        Class<AdapterPatientDiscoveryDeferredRespProxyNoOpImpl> clazz = 
+                AdapterPatientDiscoveryDeferredRespProxyNoOpImpl.class;
+        Method method = clazz.getMethod("processPatientDiscoveryAsyncResp", PRPAIN201306UV02.class,
+                AssertionType.class);
+        AdapterDelegationEvent annotation = method.getAnnotation(AdapterDelegationEvent.class);
+        assertNotNull(annotation);
+        assertEquals(PRPAIN201306UV02EventDescriptionBuilder.class, annotation.beforeBuilder());
+        assertEquals(MCCIIN000002UV01EventDescriptionBuilder.class, annotation.afterReturningBuilder());
+        assertEquals("Patient Discovery Deferred Response", annotation.serviceType());
+        assertEquals("1.0", annotation.version());
     }
 
 }

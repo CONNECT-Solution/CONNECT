@@ -26,14 +26,18 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery.passthru.deferred.response;
 
+import gov.hhs.fha.nhinc.aspect.OutboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditLogger;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditor;
+import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201306UV02EventDescriptionBuilder;
+import gov.hhs.fha.nhinc.patientdiscovery.aspect.MCCIIN000002UV01EventDescriptionBuilder;
 import gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.response.OutboundPatientDiscoveryDeferredResponseDelegate;
+//CheckStyle:OFF
 import gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.response.OutboundPatientDiscoveryDeferredResponseOrchestratable;
-
+//CheckStyle:ON
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.MCCIIN000002UV01;
@@ -54,14 +58,19 @@ public class PassthruPatientDiscoveryDeferredRespOrchImpl {
      * @param targetSystem
      * @return Patient Discovery Response Acknowledgement
      */
+    @OutboundProcessingEvent(beforeBuilder = PRPAIN201306UV02EventDescriptionBuilder.class,
+            afterReturningBuilder = MCCIIN000002UV01EventDescriptionBuilder.class, serviceType = "Patient Discovery",
+            version = "1.0")
     public MCCIIN000002UV01 proxyProcessPatientDiscoveryAsyncResp(PRPAIN201306UV02 request, AssertionType assertion,
             NhinTargetSystemType targetSystem) {
         log.debug("Begin - proxyProcessPatientDiscoveryAsyncResp");
 
         auditRequestToNhin(request, assertion);
         
-        OutboundPatientDiscoveryDeferredResponseDelegate pdRespDelegate = new OutboundPatientDiscoveryDeferredResponseDelegate();
-        OutboundPatientDiscoveryDeferredResponseOrchestratable pdRespOrchestratable = new OutboundPatientDiscoveryDeferredResponseOrchestratable(
+        OutboundPatientDiscoveryDeferredResponseDelegate pdRespDelegate = 
+                new OutboundPatientDiscoveryDeferredResponseDelegate();
+        OutboundPatientDiscoveryDeferredResponseOrchestratable pdRespOrchestratable = 
+                new OutboundPatientDiscoveryDeferredResponseOrchestratable(
                 pdRespDelegate);
         pdRespOrchestratable.setAssertion(assertion);
         pdRespOrchestratable.setRequest(request);

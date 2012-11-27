@@ -26,7 +26,10 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws;
 
+import gov.hhs.fha.nhinc.aspect.OutboundMessageEvent;
 import gov.hhs.fha.nhinc.patientdiscovery._10.entity.deferred.response.EntityPatientDiscoveryDeferredResponseImpl;
+import gov.hhs.fha.nhinc.entitypatientdiscoverysecuredasyncresp.EntityPatientDiscoverySecuredAsyncRespPortType;
+import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
 
 import javax.annotation.Resource;
 import javax.xml.ws.BindingType;
@@ -42,7 +45,7 @@ import org.hl7.v3.RespondingGatewayPRPAIN201306UV02SecuredRequestType;
 @Addressing(enabled = true)
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 public class EntityPatientDiscoveryDeferredResponseSecured extends PatientDiscoveryBase implements
-        gov.hhs.fha.nhinc.entitypatientdiscoverysecuredasyncresp.EntityPatientDiscoverySecuredAsyncRespPortType {
+        EntityPatientDiscoverySecuredAsyncRespPortType {
 
     private EntityPatientDiscoveryDeferredResponseImpl orchImpl;
 
@@ -57,6 +60,9 @@ public class EntityPatientDiscoveryDeferredResponseSecured extends PatientDiscov
         super(serviceFactory);
     }
 
+    @OutboundMessageEvent(beforeBuilder = DefaultEventDescriptionBuilder.class,
+            afterReturningBuilder = DefaultEventDescriptionBuilder.class, serviceType = "Patient Discovery",
+            version = "1.0")
     public org.hl7.v3.MCCIIN000002UV01 processPatientDiscoveryAsyncResp(
             RespondingGatewayPRPAIN201306UV02SecuredRequestType processPatientDiscoveryAsyncRespAsyncRequest) {
         return orchImpl.processPatientDiscoveryAsyncResp(processPatientDiscoveryAsyncRespAsyncRequest,
