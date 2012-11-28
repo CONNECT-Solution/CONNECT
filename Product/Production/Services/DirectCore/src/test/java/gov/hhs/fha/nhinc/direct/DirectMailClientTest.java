@@ -26,51 +26,34 @@
  */
 package gov.hhs.fha.nhinc.direct;
 
-import static gov.hhs.fha.nhinc.direct.DirectUnitTestUtil.RECIP_AT_RESPONDING_GW;
-import static gov.hhs.fha.nhinc.direct.DirectUnitTestUtil.SENDER_AT_INITIATING_GW;
-import static gov.hhs.fha.nhinc.direct.DirectUnitTestUtil.getFileAsString;
 import static gov.hhs.fha.nhinc.direct.DirectUnitTestUtil.getMockDirectDocuments;
 import static gov.hhs.fha.nhinc.direct.DirectUnitTestUtil.getRecipients;
 import static gov.hhs.fha.nhinc.direct.DirectUnitTestUtil.getSender;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Properties;
 
-import javax.mail.Address;
 import javax.mail.MessagingException;
-import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import javax.mail.internet.MimeMessage.RecipientType;
 
-import org.apache.commons.io.IOUtils;
 import org.junit.Test;
 import org.nhindirect.gateway.smtp.MessageProcessResult;
-import org.nhindirect.gateway.smtp.SmtpAgent;
-import org.nhindirect.gateway.smtp.SmtpAgentFactory;
-import org.nhindirect.stagent.MessageEnvelope;
 import org.nhindirect.stagent.NHINDAddress;
 import org.nhindirect.stagent.NHINDAddressCollection;
 import org.nhindirect.stagent.mail.Message;
-import org.nhindirect.stagent.mail.notifications.NotificationMessage;
 
 import com.icegreen.greenmail.user.UserException;
 
 /**
  * Test {@link DirectMailClient}.
  */
-public class DirectMailClientTest extends AbstractDirectMailClientTestBase {
+public class DirectMailClientTest extends AbstractDirectMailClientTest {
 
     
     /**
@@ -174,155 +157,34 @@ public class DirectMailClientTest extends AbstractDirectMailClientTestBase {
     }
 
     /**
-     * This test is intended to simulate the end-to-end send, receive and MDN of a direct mail send use case, with SMTP edge
-     * clients on the sending and receiving side. Currently it does not run because Greenmail does not support the 
-     * envelope fetching part of the IMAP spec.
+     * This test is intended to simulate the end-to-end send, receive and MDN of a direct mail send use case, with SMTP
+     * edge clients on the sending and receiving side. 
+     * 
      * @throws UserException when the test fails with a user exception.
      * @throws MessagingException when the test fails with a MessagingException.
      */
     @Test
-    public void canEndToEndWithSmtpEdgeClients() throws UserException, MessagingException {        
+    public void canEndToEndWithSmtpEdgeClients() throws UserException, MessagingException {
 
-        final MimeMessage originalMsg = new MimeMessage(null,
-                IOUtils.toInputStream(getFileAsString("PlainOutgoingMessage.txt")));
-
-        assertNotNull(originalMsg);
-        
-        // place message on internal server (simulates the user sending a message)
-        recipUser.deliver(originalMsg);
-        MimeMessage[] messages = greenMail.getReceivedMessages();
-        assertEquals(1, messages.length);
-        assertEquals(RECIP_AT_RESPONDING_GW, messages[0].getAllRecipients()[0].toString());
-        assertEquals(1, messages[0].getAllRecipients().length);        
-    
-        /*
-         * Initiating Gateway...
-         */
-        setUpDirectClients(recipMailServerProps);
-
-        // we can use the same greenmail as external direct client
-        assertEquals(1, intDirectClient.handleMessages());
-        DirectUnitTestUtil.expungeMissedMessages(greenMail, recipUser);
-        
-        // verify that the encrypted message is available on the external mail client
-        messages = greenMail.getReceivedMessages();
-        assertEquals(1, messages.length);
-        assertEquals("application/pkcs7-mime; smime-type=enveloped-data; name=\"smime.p7m\"",
-                messages[0].getContentType());
-        assertEquals(RECIP_AT_RESPONDING_GW, messages[0].getAllRecipients()[0].toString());
-
-        /*
-         * Responding Gateway...
-         */
-        assertEquals(1, extDirectClient.handleMessages());
-        DirectUnitTestUtil.expungeMissedMessages(greenMail, recipUser);        
-        
-        // ...there are 2 MDNs right now because of a quirk in greenmail.
-        messages = greenMail.getReceivedMessages();
-        int numberOfRecips = messages[0].getAllRecipients().length;
-        
-        // verify that the decrypted message and MDNs are available on the mail client 
-        assertEquals(numberOfRecips + 1, messages.length);        
-        for (MimeMessage message : messages) {
+        deliverMessage("PlainOutgoingMessage.txt");
+        verifySmtpEdgeMessage();
             
-            String sender = message.getFrom()[0].toString();
-            switch (sender) {
-            case SENDER_AT_INITIATING_GW:
-                assertEquals("Multipart/Mixed; boundary=\"NextPart\"", message.getContentType());
-                assertEquals(RECIP_AT_RESPONDING_GW, message.getAllRecipients()[0].toString());
-                break;
-            case RECIP_AT_RESPONDING_GW:
-                assertEquals("application/pkcs7-mime; smime-type=enveloped-data; name=\"smime.p7m\"",
-                        message.getContentType());
-                assertEquals(SENDER_AT_INITIATING_GW, message.getAllRecipients()[0].toString());
-                break;                
-            default:
-                fail("Sender: " + sender + " is not expected.");
-            }
-        }
+        /* Initiating Gateway */
+        setUpDirectClients(recipMailServerProps);
         
-        /*
-         * Initiating Gateway collects an MDN 
-         */
+        handleMessages(intDirectClient, 1, recipUser);
+        verifyOutboundMessageSent();
+
+        /* Responding Gateway */
+        handleMessages(extDirectClient, 1, recipUser);
+        verifySmtpEdgeMessage();
+        verifyOutboundMdn();
+        
+        /* Initiating Gateway collects an MDN */
         setUpDirectClients(senderMailServerProps);
         
-        assertEquals(numberOfRecips, extDirectClient.handleMessages());
-        DirectUnitTestUtil.expungeMissedMessages(greenMail, senderUser);
-
-        // verify that the MDNs are collected at the Initiating Gateway
-        messages = greenMail.getReceivedMessages();
-        assertEquals(numberOfRecips + 1, messages.length);        
-        for (MimeMessage message : messages) {
-            
-            String sender = message.getFrom()[0].toString();
-            switch (sender) {
-            case SENDER_AT_INITIATING_GW:
-                assertEquals("Multipart/Mixed; boundary=\"NextPart\"", message.getContentType());
-                assertEquals(RECIP_AT_RESPONDING_GW, message.getAllRecipients()[0].toString());
-                break;
-            case RECIP_AT_RESPONDING_GW:
-                assertTrue(message.getContentType().startsWith(
-                        "multipart/report; report-type=disposition-notification; boundary=\""));
-                assertEquals(SENDER_AT_INITIATING_GW, message.getAllRecipients()[0].toString());
-                break;                
-            default:
-                fail("Sender: " + sender + " is not expected.");
-            }
-        }      
+        handleMessages(extDirectClient, 2, senderUser);
+        verifyInboundMdn();
     }
-    
-    /**
-     * Set up direct clients using props.
-     * @param props to use.
-     */
-    private void setUpDirectClients(Properties props) {
-        
-        SmtpAgent smtpAgent = SmtpAgentFactory.createAgent(getClass().getClassLoader().getResource(
-                "smtp.agent.config.xml"));
-
-        extDirectClient = new DirectMailClient(props, smtpAgent);
-        intDirectClient = new DirectMailClient(props, smtpAgent);
-
-        InboundMessageHandler inboundMessageHandler = new InboundMessageHandler();
-        inboundMessageHandler.setEdgeClientType(InboundMessageHandler.EDGE_CLIENT_TYPE_SMTP);
-        inboundMessageHandler.setInternalDirectClient(intDirectClient);
-        extDirectClient.setMessageHandler(inboundMessageHandler);
-
-        OutboundMessageHandler outboundMessageHandler = new OutboundMessageHandler();
-        outboundMessageHandler.setExternalDirectClient(extDirectClient);                
-        intDirectClient.setMessageHandler(outboundMessageHandler);
-    }
-    
-    
-    private MessageProcessResult getMockMessageProcessResult() throws MessagingException {
-        return getMockMessageProcessResult(1);
-    }
-
-    private MessageProcessResult getMockMessageProcessResult(int numNotificationMessages) throws MessagingException {
-
-        MessageProcessResult mockMessageProcessResult = mock(MessageProcessResult.class);
-        MessageEnvelope mockMessageEnvelope = mock(MessageEnvelope.class);
-        Message mockMessage = mock(Message.class);
-
-        Collection<NotificationMessage> notificationCollection = new ArrayList<NotificationMessage>();
-        NotificationMessage mockNotificationMessage = mock(NotificationMessage.class);
-        Address senderAddress = new InternetAddress(SENDER_AT_INITIATING_GW);
-        Address recipAddress = new InternetAddress(RECIP_AT_RESPONDING_GW);
-
-        for (int i = 0; i < numNotificationMessages; i++) {
-            notificationCollection.add(mockNotificationMessage);
-        }
-
-        when(mockMessageProcessResult.getProcessedMessage()).thenReturn(mockMessageEnvelope);
-        when(mockMessageEnvelope.getMessage()).thenReturn(mockMessage);
-        when(mockMessageProcessResult.getNotificationMessages()).thenReturn(notificationCollection);
-        when(mockNotificationMessage.getRecipients(any(RecipientType.class))).thenReturn(new Address[] {recipAddress});
-        when(mockNotificationMessage.getAllRecipients()).thenReturn(new Address[] {recipAddress});
-        when(mockNotificationMessage.getFrom()).thenReturn(new Address[] {senderAddress});
-        when(mockSmtpAgent.processMessage(any(MimeMessage.class), any(NHINDAddressCollection.class),
-                any(NHINDAddress.class))).thenReturn(mockMessageProcessResult);
-
-        return mockMessageProcessResult;
-    }
-
+   
 }

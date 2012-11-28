@@ -105,8 +105,7 @@ public class MailUtils {
      * @return mail session.
      */
     public static Session getMailSession(Properties mailServerProps, String user, String pass) {
-        Session session = Session.getInstance(mailServerProps, getMailAuthenticator(user, pass));
-        return session;
+        return Session.getInstance(mailServerProps, getMailAuthenticator(user, pass));
     }
 
     /**
@@ -162,6 +161,4 @@ public class MailUtils {
             LOG.debug(headerLines.nextElement());
         }
     }
-    
-
 }

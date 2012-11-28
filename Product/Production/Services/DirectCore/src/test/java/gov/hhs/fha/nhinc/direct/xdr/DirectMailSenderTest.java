@@ -1,7 +1,6 @@
 package gov.hhs.fha.nhinc.direct.xdr;
 
 import static org.junit.Assert.assertNotNull;
-import gov.hhs.fha.nhinc.direct.DirectClient;
 import gov.hhs.fha.nhinc.direct.DirectUnitTestUtil;
 
 import org.junit.AfterClass;
@@ -29,20 +28,9 @@ public class DirectMailSenderTest {
     
 	@Test
 	@Ignore
-	public void test() {
-		DirectObjectFactory sender = new DirectObjectFactory() {
-			@Override
-		    protected DirectClient getDirectClient() {
-		    	return null;
-		    }
-			
-			@Override
-			protected String getConfigFileName() {
-				return "direct.appcontext.xml";
-			}
-		};
-		
-		assertNotNull(sender.getDirectClient());
+	public void test() {	    
+	    DirectObjectFactory testDirectObjectFactory = new DirectObjectFactory();
+		assertNotNull(testDirectObjectFactory.getDirectClient());
 	}
 
 }

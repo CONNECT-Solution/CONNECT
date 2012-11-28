@@ -7,9 +7,9 @@ import gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory;
 public class DirectObjectFactory extends ComponentProxyObjectFactory {
     
     private static final String CONFIG_FILE_NAME = "direct.appcontext.xml";
-    private static final String BEAN_NAME = "extDirectClient";
+    private static final String BEAN_NAME = "extDirectMailClient";
 	
-    protected DirectClient getDirectClient() {
+    public DirectClient getDirectClient() {
     	return getBean(BEAN_NAME, DirectMailClient.class);
     }
     
