@@ -26,29 +26,17 @@
  */
 package gov.hhs.fha.nhinc.direct;
 
-import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType.Document;
-
 import javax.mail.Address;
 import javax.mail.internet.MimeMessage;
 
 import org.nhindirect.gateway.smtp.MessageProcessResult;
-import org.nhindirect.xd.common.DirectDocuments;
 import org.nhindirect.gateway.smtp.SmtpAgent;
+import org.nhindirect.xd.common.DirectDocuments;
 
 /**
  * Interface defining a Mail Client.
  */
 public interface DirectClient {
-
-    /**
-     * Use the mail server to send a DIRECT message.
-     *
-     * @param sender of the message
-     * @param recipients of the message
-     * @param attachment for the message
-     * @param attachmentName for the attachment
-     */
-    void processAndSend(Address sender, Address[] recipients, Document attachment, String attachmentName);
 
     /**
      * Use the mail server to send a DIRECT message.

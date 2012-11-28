@@ -1,3 +1,29 @@
+/*
+ * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *     * Redistributions of source code must retain the above
+ *       copyright notice, this list of conditions and the following disclaimer.
+ *     * Redistributions in binary form must reproduce the above copyright
+ *       notice, this list of conditions and the following disclaimer in the documentation
+ *       and/or other materials provided with the distribution.
+ *     * Neither the name of the United States Government nor the
+ *       names of its contributors may be used to endorse or promote products
+ *       derived from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
 package gov.hhs.fha.nhinc.direct;
 
 import static org.junit.Assert.fail;
@@ -41,78 +67,35 @@ import com.icegreen.greenmail.store.MailFolder;
 import com.icegreen.greenmail.store.SimpleStoredMessage;
 import com.icegreen.greenmail.user.GreenMailUser;
 import com.icegreen.greenmail.util.GreenMail;
-/*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
- * All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
- *     * Redistributions of source code must retain the above
- *       copyright notice, this list of conditions and the following disclaimer.
- *     * Redistributions in binary form must reproduce the above copyright
- *       notice, this list of conditions and the following disclaimer in the documentation
- *       and/or other materials provided with the distribution.
- *     * Neither the name of the United States Government nor the
- *       names of its contributors may be used to endorse or promote products
- *       derived from this software without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
- * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY
- * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
- * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
- * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
- * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
- * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */
 
 /**
  * Utilities for running Direct Core Unit Tests.
  */
 public class DirectUnitTestUtil {
-    
-	private static final Log LOG = LogFactory.getLog(DirectUnitTestUtil.class);
-    /**
-     * Sender of a mail message.
-     */
-    protected static final String SENDER = "testsender@localhost";
-    /**
-     * Recipient of a mail message.
-     */
-    protected static final String RECIPIENT = "testrecip@localhost";
-    /**
-     * Login username.
-     */
-    protected static final String USER = "testuser";    
-    /**
-     * Login password.
-     */
-    protected static final String PASS = "testpass1";
-    /**
-     * Max number of messages to process at once, allows us to throttle and distribute load.
-     */
-    protected static final int MAX_NUM_MSGS_IN_BATCH = 5;
 
-    protected static final String SENDER_AT_INITIATING_GW = "sender@localhost";
-    protected static final String RECIP_AT_RESPONDING_GW = "mlandis@5amsolutions.com";
-    //protected static final String USER = "internaluser";    
-    //protected static final String PASS = "internalpass1";
+    private static final Log LOG = LogFactory.getLog(DirectUnitTestUtil.class);
+    
+    public static final String SENDER_AT_INITIATING_GW = "sender@localhost";
+    public static final String RECIP_AT_RESPONDING_GW = "mlandis@5amsolutions.com";
+
+    protected static final int MAX_NUM_MSGS_IN_BATCH = 5;
     private static final int DUMMY_PORT = 998;
 
+    
     /**
      * Sets up the properties in order to connect to the green mail test server.
+     * 
+     * @param toAddress is used for the username and password.
      * @param smtpPort for smtps
      * @param imapPort for imaps
      * @return Properties instance holding appropriate values for java mail.
      */
-    public static Properties getMailServerProps(int smtpPort, int imapPort) {
+    public static Properties getMailServerProps(String toAddress, int smtpPort, int imapPort) {
 
         Properties props = new Properties();
         
-        props.setProperty("direct.mail.user", USER);
-        props.setProperty("direct.mail.pass", PASS);
+        props.setProperty("direct.mail.user", toAddress);
+        props.setProperty("direct.mail.pass", toAddress);
         props.setProperty("direct.max.msgs.in.batch", Integer.toString(MAX_NUM_MSGS_IN_BATCH));
                         
         props.setProperty("mail.smtps.host", "localhost");
@@ -207,14 +190,16 @@ public class DirectUnitTestUtil {
     public static Address[] getRecipients() {
         return new InternetAddress[] {toInternetAddress(RECIP_AT_RESPONDING_GW)};
     }
-   
+    
     /**
      * @return mime message with sample generic content.
      */
     public static MimeMessage getSampleMimeMessage() {
         MimeMessage mimeMessage = null;
         try {
-            Session session = MailUtils.getMailSession(getMailServerProps(DUMMY_PORT, DUMMY_PORT), USER, PASS);
+            Session session = MailUtils.getMailSession(
+                    getMailServerProps(RECIP_AT_RESPONDING_GW, DUMMY_PORT, DUMMY_PORT), RECIP_AT_RESPONDING_GW,
+                    RECIP_AT_RESPONDING_GW);
             mimeMessage = getMimeMessageBuilder(session).build();
         } catch (IOException e) {
             fail(e.getMessage());
@@ -236,7 +221,7 @@ public class DirectUnitTestUtil {
         return testBuilder;
     }
 
-	private static InternetAddress toInternetAddress(String email) {
+    private static InternetAddress toInternetAddress(String email) {
         InternetAddress address = null;
         try {
             address = new InternetAddress(email);
@@ -287,7 +272,7 @@ public class DirectUnitTestUtil {
     
     private static String getClassPath() {
         return DirectMailClientSpringTest.class.getProtectionDomain().getCodeSource().getLocation().getPath();
-    }
+    }    
     
 	public static DirectDocuments mockDirectDocs() {
 
@@ -393,5 +378,5 @@ public class DirectUnitTestUtil {
 		documents.getDocuments().add(doc1);
 		documents.getDocuments().add(doc2);
 		return documents;
-	}
+}
 }

@@ -26,8 +26,6 @@
  */
 package gov.hhs.fha.nhinc.direct;
 
-import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType.Document;
-
 import java.util.Collection;
 import java.util.Properties;
 
@@ -45,6 +43,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.nhindirect.gateway.smtp.MessageProcessResult;
 import org.nhindirect.gateway.smtp.SmtpAgent;
+import org.nhindirect.stagent.NHINDAddressCollection;
 import org.nhindirect.stagent.mail.notifications.NotificationMessage;
 import org.nhindirect.xd.common.DirectDocuments;
 import org.springframework.beans.factory.InitializingBean;
@@ -66,35 +65,21 @@ public class DirectMailClient implements DirectClient, InitializingBean {
     private final SmtpAgent smtpAgent;
 
     private MessageHandler messageHandler;
-    
+
     private int handlerInvocations = 0;
 
     /**
      * Construct a direct mail server with mail server settings.
-     *
+     * 
      * @param mailServerProps used to define this mail server
      * @param smtpAgent direct smtp agent config file path relative to classpath used to configure SmtpAgent
      * @param message handler for handling messages from the server.
      */
     public DirectMailClient(final Properties mailServerProps, final SmtpAgent smtpAgent) {
         this.mailServerProps = mailServerProps;
-        this.smtpAgent = smtpAgent;        
+        this.smtpAgent = smtpAgent;
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void processAndSend(Address sender, Address[] recipients, Document attachment, String attachmentName) {
-
-        Session session = getMailSession();
-
-        MimeMessage mimeMessage = new MimeMessageBuilder(session, sender, recipients).subject(MSG_SUBJECT)
-                .text(MSG_TEXT).attachment(attachment).attachmentName(attachmentName).build();
-
-        processAndSend(mimeMessage, session);
-    }
-    
     /**
      * {@inheritDoc}
      */
@@ -107,7 +92,7 @@ public class DirectMailClient implements DirectClient, InitializingBean {
                 .text(MSG_TEXT).documents(documents).messageId(messageId).build();
 
         processAndSend(mimeMessage);
-    }    
+    }
 
     /**
      * {@inheritDoc}
@@ -134,7 +119,7 @@ public class DirectMailClient implements DirectClient, InitializingBean {
      */
     @Override
     public void sendMdn(MessageProcessResult result) {
-        
+
         Collection<NotificationMessage> mdnMessages = DirectClientUtils.getMdnMessages(result);
         if (mdnMessages != null) {
             Session session = getMailSession();
@@ -144,7 +129,7 @@ public class DirectMailClient implements DirectClient, InitializingBean {
             }
         }
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -155,11 +140,11 @@ public class DirectMailClient implements DirectClient, InitializingBean {
         handlerInvocations++;
         LOG.info("handleMessages() invoked [" + mailServerProps.getProperty("mail.imaps.host") + "], handler: "
                 + messageHandler.getClass().getName() + ", invocation count: " + handlerInvocations);
-        
+
         Session session = getMailSession();
         session.setDebug(Boolean.parseBoolean(mailServerProps.getProperty("direct.mail.session.debug")));
         session.setDebugOut(System.out);
-        
+
         Store store = null;
         try {
             store = session.getStore("imaps");
@@ -177,7 +162,7 @@ public class DirectMailClient implements DirectClient, InitializingBean {
         Folder inbox = null;
         try {
             inbox = store.getFolder(MailUtils.FOLDER_NAME_INBOX);
-            inbox.open(Folder.READ_WRITE);            
+            inbox.open(Folder.READ_WRITE);
         } catch (MessagingException e) {
             MailUtils.closeQuietly(store);
             throw new DirectException("Could not open " + MailUtils.FOLDER_NAME_INBOX + " for READ_WRITE", e);
@@ -189,11 +174,12 @@ public class DirectMailClient implements DirectClient, InitializingBean {
         } catch (MessagingException e) {
             MailUtils.closeQuietly(store, inbox, MailUtils.FOLDER_EXPUNGE_INBOX_FALSE);
             throw new DirectException("Exception while retrieving messages from inbox.", e);
-        } 
-        
+        }
+
         for (Message message : messages) {
             try {
                 if ((message instanceof MimeMessage)) {
+                    MailUtils.logHeaders((MimeMessage) message);
                     messageHandler.handleMessage((MimeMessage) message, this);
                     numberOfMsgsHandled++;
                 }
@@ -209,7 +195,7 @@ public class DirectMailClient implements DirectClient, InitializingBean {
         MailUtils.closeQuietly(store, inbox, MailUtils.FOLDER_EXPUNGE_INBOX_TRUE);
         return numberOfMsgsHandled;
     }
-    
+
     /**
      * @return the smtpAgent direct smtp agent.
      */
@@ -240,8 +226,7 @@ public class DirectMailClient implements DirectClient, InitializingBean {
     public int getHandlerInvocations() {
         return handlerInvocations;
     }
-    
-    
+
     private Session getMailSession() {
         return MailUtils.getMailSession(mailServerProps, mailServerProps.getProperty("direct.mail.user"),
                 mailServerProps.getProperty("direct.mail.pass"));
@@ -255,7 +240,8 @@ public class DirectMailClient implements DirectClient, InitializingBean {
         }
 
         try {
-            MailUtils.sendMessage(mimeMessage.getAllRecipients(), session, result.getProcessedMessage().getMessage());
+            Address[] recips = mimeMessage.getAllRecipients();
+            MailUtils.sendMessage(recips, session, result.getProcessedMessage().getMessage());
         } catch (MessagingException e) {
             throw new DirectException("Could not send message.", e);
         }
@@ -263,8 +249,8 @@ public class DirectMailClient implements DirectClient, InitializingBean {
 
     private MessageProcessResult processAsDirectMessage(MimeMessage mimeMessage) {
         try {
-            return smtpAgent.processMessage(mimeMessage, DirectClientUtils.getNhindRecipients(mimeMessage),
-                    DirectClientUtils.getNhindSender(mimeMessage));
+            NHINDAddressCollection collection = DirectClientUtils.getNhindRecipients(mimeMessage);
+            return smtpAgent.processMessage(mimeMessage, collection, DirectClientUtils.getNhindSender(mimeMessage));
         } catch (MessagingException e) {
             throw new DirectException("Error occurred while extracting addresses.", e);
         }
