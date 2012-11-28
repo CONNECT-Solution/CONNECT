@@ -1,6 +1,4 @@
-/**
- * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
- *
+/*
  * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
@@ -26,27 +24,49 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.docretrieve.aspect;
+package gov.hhs.fha.nhinc.event;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayRetrieveRequestType;
-import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
-public class RespondingGatewayCrossGatewayRetrieveRequestTypeDescriptionBuilderTest extends
-        ArgTransformerTest<RespondingGatewayCrossGatewayRetrieveRequestTypeDescriptionBuilder> {
+import java.beans.PropertyDescriptor;
 
-    @Override
-    protected RespondingGatewayCrossGatewayRetrieveRequestTypeDescriptionBuilder getBuilder() {
-        return new RespondingGatewayCrossGatewayRetrieveRequestTypeDescriptionBuilder();
+import org.junit.Before;
+import org.junit.Test;
+import org.springframework.beans.BeanUtils;
+
+public abstract class BeanTransformerTest<T extends BeanPropertyArgumentTransformer> {
+
+    protected T builder;
+
+    @Before
+    public final void beforeBeanTransformer() {
+        builder = getBuilder();
     }
 
-    @Override
-    protected Object getArgument(RetrieveDocumentSetRequestType mockRequest, AssertionType mockAssertion) {
-        RespondingGatewayCrossGatewayRetrieveRequestType request = mock(RespondingGatewayCrossGatewayRetrieveRequestType.class);
-        when(request.getRetrieveDocumentSetRequest()).thenReturn(mockRequest);
-        when(request.getAssertion()).thenReturn(mockAssertion);
-        return request;
+    @Test
+    public void delegateSetOnConstruction() {
+        assertNotNull(builder.getDelegate());
     }
+
+    @Test
+    public final void jaxbTypesHaveCorrectBeanProperties() {
+        Class<?>[] classes = getExpectedWrapperClasses();
+        for (int curClass = 0; curClass < classes.length; ++curClass) {
+            PropertyDescriptor[] propertyDescriptors = BeanUtils.getPropertyDescriptors(classes[curClass]);
+            boolean found = false;
+            for (int i = 0; i < propertyDescriptors.length; ++i) {
+                if (propertyDescriptors[i].getPropertyType().equals(getTransformToClass())) {
+                    found = true;
+                }
+            }
+            assertTrue(classes[curClass].toString(), found);
+        }
+    }
+
+    public abstract T getBuilder();
+
+    public abstract Class<?> getTransformToClass();
+
+    public abstract Class<?>[] getExpectedWrapperClasses();
 }

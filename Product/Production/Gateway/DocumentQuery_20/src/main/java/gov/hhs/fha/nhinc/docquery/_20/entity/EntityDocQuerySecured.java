@@ -28,8 +28,8 @@ package gov.hhs.fha.nhinc.docquery._20.entity;
 
 import gov.hhs.fha.nhinc.aspect.OutboundMessageEvent;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayQuerySecuredRequestType;
+import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryRequestTransformingBuilder;
 import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryResponseDescriptionBuilder;
-import gov.hhs.fha.nhinc.docquery.aspect.RespondingGatewayCrossGatewayQuerySecuredRequestTypeDescriptionBuilder;
 import gov.hhs.fha.nhinc.docquery.outbound.OutboundDocQuery;
 
 import javax.annotation.Resource;
@@ -47,11 +47,11 @@ public class EntityDocQuerySecured implements gov.hhs.fha.nhinc.entitydocquery.E
     @Resource
     private WebServiceContext context;
 
-    @OutboundMessageEvent(beforeBuilder = RespondingGatewayCrossGatewayQuerySecuredRequestTypeDescriptionBuilder.class,
+    @OutboundMessageEvent(beforeBuilder = AdhocQueryRequestTransformingBuilder.class,
             afterReturningBuilder = AdhocQueryResponseDescriptionBuilder.class, serviceType = "Document Query",
             version = "2.0")
     public AdhocQueryResponse respondingGatewayCrossGatewayQuery(
-            RespondingGatewayCrossGatewayQuerySecuredRequestType body) {        
+            RespondingGatewayCrossGatewayQuerySecuredRequestType body) {
         return new EntityDocQueryImpl(outboundDocQuery).respondingGatewayCrossGatewayQuerySecured(body, context);
     }
 
