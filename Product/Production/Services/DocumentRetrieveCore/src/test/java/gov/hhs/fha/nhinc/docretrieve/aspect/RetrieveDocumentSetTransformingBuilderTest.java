@@ -28,23 +28,28 @@
  */
 package gov.hhs.fha.nhinc.docretrieve.aspect;
 
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayRetrieveSecuredRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayCrossGatewayRetrieveRequestType;
+import gov.hhs.fha.nhinc.event.BeanTransformerTest;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 
-public class NhincProxyRetrieveRequestTypeDescriptionBuilderTest extends
-        ArgTransformerTest<NhincProxyRetrieveRequestTypeDescriptionBuilder> {
+public class RetrieveDocumentSetTransformingBuilderTest extends
+        BeanTransformerTest<RetrieveDocumentSetTransformingBuilder> {
 
     @Override
-    protected NhincProxyRetrieveRequestTypeDescriptionBuilder getBuilder() {
-        return new NhincProxyRetrieveRequestTypeDescriptionBuilder();
+    public RetrieveDocumentSetTransformingBuilder getBuilder() {
+        return new RetrieveDocumentSetTransformingBuilder();
     }
 
     @Override
-    protected Object getArgument(RetrieveDocumentSetRequestType mockRequest, AssertionType mockAssertion) {
-        RespondingGatewayCrossGatewayRetrieveRequestType request = new RespondingGatewayCrossGatewayRetrieveRequestType();
-        request.setAssertion(mockAssertion);
-        request.setRetrieveDocumentSetRequest(mockRequest);
-        return request;
+    public Class<?> getTransformToClass() {
+        return RetrieveDocumentSetRequestType.class;
+    }
+
+    @Override
+    public Class<?>[] getExpectedWrapperClasses() {
+        return new Class<?>[] { RespondingGatewayCrossGatewayRetrieveRequestType.class,
+                RespondingGatewayCrossGatewayRetrieveSecuredRequestType.class,
+                RespondingGatewayCrossGatewayRetrieveRequestType.class };
     }
 }

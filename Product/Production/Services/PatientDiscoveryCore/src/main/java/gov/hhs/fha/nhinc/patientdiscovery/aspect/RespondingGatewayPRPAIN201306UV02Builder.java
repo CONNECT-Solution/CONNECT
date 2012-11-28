@@ -33,8 +33,8 @@ import org.hl7.v3.RespondingGatewayPRPAIN201306UV02SecuredRequestType;
 
 /**
  * Handles responding gateway duty. What's a bit strange here is that the gateway accepts the wrapped PRPAIN201306UV02
- * object as an argument. The delegate builder expect that object as a return value. So while this is a delegating
- * builder, it is <em>not</em> an argument transformer.
+ * object as an argument or as the return value. The delegate builder expect that object as a return value. So while
+ * this is a delegating builder, it is <em>not</em> an argument transformer.
  */
 public class RespondingGatewayPRPAIN201306UV02Builder extends DelegatingEventDescriptionBuilder {
 
@@ -44,23 +44,25 @@ public class RespondingGatewayPRPAIN201306UV02Builder extends DelegatingEventDes
 
     @Override
     public void setArguments(Object... arguments) {
-        if (arguments[0] instanceof RespondingGatewayPRPAIN201306UV02SecuredRequestType) {
-            RespondingGatewayPRPAIN201306UV02SecuredRequestType request = (RespondingGatewayPRPAIN201306UV02SecuredRequestType) arguments[0];
-            getDelegate().setReturnValue(request.getPRPAIN201306UV02());
-        } else if (arguments[0] instanceof RespondingGatewayPRPAIN201306UV02RequestType) {
-            RespondingGatewayPRPAIN201306UV02RequestType request = (RespondingGatewayPRPAIN201306UV02RequestType) arguments[0];
-            getDelegate().setReturnValue(request.getPRPAIN201306UV02());
-        } else {
-            throw new IllegalArgumentException("Did not expect arguments[0] to be of type: " + arguments[0].getClass());
-        }
+        delegatePRPAIN201306UV02(arguments[0]);
     }
 
     @Override
     public void setReturnValue(Object returnValue) {
-        // the PRPAIN201306UV02 is an argument, not a return value.
+        delegatePRPAIN201306UV02(returnValue);
     }
 
     public void setDelegate(PRPAIN201306UV02EventDescriptionBuilder delegate) {
         super.setDelegate(delegate);
+    }
+
+    private void delegatePRPAIN201306UV02(Object input) {
+        if (input instanceof RespondingGatewayPRPAIN201306UV02SecuredRequestType) {
+            RespondingGatewayPRPAIN201306UV02SecuredRequestType request = (RespondingGatewayPRPAIN201306UV02SecuredRequestType) input;
+            getDelegate().setReturnValue(request.getPRPAIN201306UV02());
+        } else if (input instanceof RespondingGatewayPRPAIN201306UV02RequestType) {
+            RespondingGatewayPRPAIN201306UV02RequestType request = (RespondingGatewayPRPAIN201306UV02RequestType) input;
+            getDelegate().setReturnValue(request.getPRPAIN201306UV02());
+        }
     }
 }

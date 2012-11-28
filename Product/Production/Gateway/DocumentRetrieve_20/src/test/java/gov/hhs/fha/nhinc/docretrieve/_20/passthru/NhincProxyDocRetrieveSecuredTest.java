@@ -30,19 +30,18 @@ package gov.hhs.fha.nhinc.docretrieve._20.passthru;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-
-import java.lang.reflect.Method;
-
 import gov.hhs.fha.nhinc.aspect.OutboundMessageEvent;
 import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayCrossGatewayRetrieveSecuredRequestType;
-import gov.hhs.fha.nhinc.docretrieve.aspect.NhincProxyRetrieveSecuredRequestTypeDescriptionBuilder;
+import gov.hhs.fha.nhinc.docretrieve.aspect.RetrieveDocumentSetTransformingBuilder;
 import gov.hhs.fha.nhinc.docretrieve.aspect.RetrieveDocumentSetResponseTypeDescriptionBuilder;
+
+import java.lang.reflect.Method;
 
 import org.junit.Test;
 
 /**
  * @author achidamb
- *
+ * 
  */
 public class NhincProxyDocRetrieveSecuredTest {
     @Test
@@ -52,7 +51,7 @@ public class NhincProxyDocRetrieveSecuredTest {
                 RespondingGatewayCrossGatewayRetrieveSecuredRequestType.class);
         OutboundMessageEvent annotation = method.getAnnotation(OutboundMessageEvent.class);
         assertNotNull(annotation);
-        assertEquals(NhincProxyRetrieveSecuredRequestTypeDescriptionBuilder.class, annotation.beforeBuilder());
+        assertEquals(RetrieveDocumentSetTransformingBuilder.class, annotation.beforeBuilder());
         assertEquals(RetrieveDocumentSetResponseTypeDescriptionBuilder.class, annotation.afterReturningBuilder());
         assertEquals("Retrieve Document", annotation.serviceType());
         assertEquals("2.0", annotation.version());

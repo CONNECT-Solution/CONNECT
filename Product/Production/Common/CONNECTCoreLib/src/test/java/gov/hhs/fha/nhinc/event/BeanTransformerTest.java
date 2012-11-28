@@ -1,6 +1,4 @@
-/**
- * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
- *
+/*
  * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
@@ -26,48 +24,49 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.docquery.aspect;
+package gov.hhs.fha.nhinc.event;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayCrossGatewayQuerySecuredRequestType;
-import gov.hhs.fha.nhinc.event.BaseDescriptionBuilderTest;
-import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
+import static org.junit.Assert.assertTrue;
+
+import java.beans.PropertyDescriptor;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.beans.BeanUtils;
 
-public class NhincProxyQuerySecuredRequestTypeDescriptionBuilderTest extends BaseDescriptionBuilderTest {
+public abstract class BeanTransformerTest<T extends BeanPropertyArgumentTransformer> {
 
-    private NhincProxyQuerySecuredRequestTypeDescriptionBuilder builder;
+    protected T builder;
 
     @Before
-    public void before() {
-        builder = new NhincProxyQuerySecuredRequestTypeDescriptionBuilder();
+    public final void beforeBeanTransformer() {
+        builder = getBuilder();
     }
 
     @Test
-    public void delegateIsCorrectType() {
-        assertEquals(AdhocQueryRequestDescriptionBuilder.class, builder.getDelegate().getClass());
+    public void delegateSetOnConstruction() {
+        assertNotNull(builder.getDelegate());
     }
 
     @Test
-    public void transformArguments() {
-        RespondingGatewayCrossGatewayQuerySecuredRequestType request = mock(RespondingGatewayCrossGatewayQuerySecuredRequestType.class);
-        AdhocQueryRequest mockAdhocQueryRequest = mock(AdhocQueryRequest.class);
-        when(request.getAdhocQueryRequest()).thenReturn(mockAdhocQueryRequest);
-
-        Object[] transformArguments = builder.transformArguments(new Object[] { request });
-        assertNotNull(transformArguments);
-        assertEquals(1, transformArguments.length);
-        assertEquals(mockAdhocQueryRequest, transformArguments[0]);
+    public final void jaxbTypesHaveCorrectBeanProperties() {
+        Class<?>[] classes = getExpectedWrapperClasses();
+        for (int curClass = 0; curClass < classes.length; ++curClass) {
+            PropertyDescriptor[] propertyDescriptors = BeanUtils.getPropertyDescriptors(classes[curClass]);
+            boolean found = false;
+            for (int i = 0; i < propertyDescriptors.length; ++i) {
+                if (propertyDescriptors[i].getPropertyType().equals(getTransformToClass())) {
+                    found = true;
+                }
+            }
+            assertTrue(classes[curClass].toString(), found);
+        }
     }
 
-    @Test
-    public void transformReturnValue() {
-        Object o = new Object();
-        assertEquals(o, builder.transformReturnValue(o));
-    }
+    public abstract T getBuilder();
+
+    public abstract Class<?> getTransformToClass();
+
+    public abstract Class<?>[] getExpectedWrapperClasses();
 }
