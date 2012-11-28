@@ -1,4 +1,6 @@
-/*
+/**
+ * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
+ *
  * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
@@ -26,34 +28,32 @@
  */
 package gov.hhs.fha.nhinc.mpi.adapter.proxy;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import gov.hhs.fha.nhinc.aspect.AdapterDelegationEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201305UV02EventDescriptionBuilder;
 import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201306UV02EventDescriptionBuilder;
 
-import org.hl7.v3.PRPAIN201305UV02;
-import org.hl7.v3.PRPAIN201306UV02;
+import java.lang.reflect.Method;
 
-/**
- * NoOp Implementation for the AdapterMpi component proxy.
- * 
- * @author Les Westberg
- */
-public class AdapterMpiProxyNoOpImpl implements AdapterMpiProxy {
-    /**
-     * Find the matching candidates from the MPI.
-     * 
-     * @param findCandidatesRequest
-     *            The information to use for matching.
-     * @param assertion
-     *            The assertion data.
-     * @return The matches that are found.
-     */
-    @Override
-    @AdapterDelegationEvent(beforeBuilder = PRPAIN201305UV02EventDescriptionBuilder.class,
-            afterReturningBuilder = PRPAIN201306UV02EventDescriptionBuilder.class,
-            serviceType = "Patient Discovery MPI", version = "1.0")
-    public PRPAIN201306UV02 findCandidates(PRPAIN201305UV02 findCandidatesRequest, AssertionType assertion) {
-        return new PRPAIN201306UV02();
+import org.hl7.v3.PRPAIN201305UV02;
+import org.junit.Test;
+
+public class AdapterMpiProxyTest {
+
+    @Test
+    public void hasAdapterDelegationEvent() throws Exception {
+        Class<?>[] classes = new Class<?>[] { AdapterMpiProxyJavaImpl.class, AdapterMpiProxyNoOpImpl.class,
+                AdapterMpiProxyWebServiceSecuredImpl.class, AdapterMpiProxyWebServiceUnsecuredImpl.class };
+        for (Class<?> clazz : classes) {
+            Method method = clazz.getMethod("findCandidates", PRPAIN201305UV02.class, AssertionType.class);
+            AdapterDelegationEvent annotation = method.getAnnotation(AdapterDelegationEvent.class);
+            assertNotNull(annotation);
+            assertEquals(PRPAIN201305UV02EventDescriptionBuilder.class, annotation.beforeBuilder());
+            assertEquals(PRPAIN201306UV02EventDescriptionBuilder.class, annotation.afterReturningBuilder());
+            assertEquals("Patient Discovery MPI", annotation.serviceType());
+            assertEquals("1.0", annotation.version());
+        }
     }
 }
