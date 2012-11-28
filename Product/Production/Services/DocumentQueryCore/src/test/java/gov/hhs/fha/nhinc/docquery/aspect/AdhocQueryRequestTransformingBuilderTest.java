@@ -26,27 +26,38 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.docretrieve.aspect;
+package gov.hhs.fha.nhinc.docquery.aspect;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayRetrieveRequestType;
-import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
+import static org.junit.Assert.assertEquals;
+import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayCrossGatewayQueryRequestType;
+import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayCrossGatewayQuerySecuredRequestType;
+import gov.hhs.fha.nhinc.event.BeanTransformerTest;
+import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 
-public class RespondingGatewayCrossGatewayRetrieveRequestTypeDescriptionBuilderTest extends
-        ArgTransformerTest<RespondingGatewayCrossGatewayRetrieveRequestTypeDescriptionBuilder> {
+import org.junit.Test;
 
-    @Override
-    protected RespondingGatewayCrossGatewayRetrieveRequestTypeDescriptionBuilder getBuilder() {
-        return new RespondingGatewayCrossGatewayRetrieveRequestTypeDescriptionBuilder();
+public class AdhocQueryRequestTransformingBuilderTest extends
+        BeanTransformerTest<AdhocQueryRequestTransformingBuilder> {
+
+    public AdhocQueryRequestTransformingBuilder getBuilder() {
+        return new AdhocQueryRequestTransformingBuilder();
+    }
+
+    @Test
+    public void delegateIsCorrectType() {
+        assertEquals(AdhocQueryRequestDescriptionBuilder.class, builder.getDelegate().getClass());
     }
 
     @Override
-    protected Object getArgument(RetrieveDocumentSetRequestType mockRequest, AssertionType mockAssertion) {
-        RespondingGatewayCrossGatewayRetrieveRequestType request = mock(RespondingGatewayCrossGatewayRetrieveRequestType.class);
-        when(request.getRetrieveDocumentSetRequest()).thenReturn(mockRequest);
-        when(request.getAssertion()).thenReturn(mockAssertion);
-        return request;
+    public Class<?> getTransformToClass() {
+        // TODO Auto-generated method stub
+        return AdhocQueryRequest.class;
+    }
+
+    @Override
+    public Class<?>[] getExpectedWrapperClasses() {
+        return new Class<?>[] { RespondingGatewayCrossGatewayQueryRequestType.class,
+                RespondingGatewayCrossGatewayQueryRequestType.class,
+                RespondingGatewayCrossGatewayQuerySecuredRequestType.class };
     }
 }

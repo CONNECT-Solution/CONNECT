@@ -33,7 +33,7 @@ import static org.junit.Assert.assertNotNull;
 import gov.hhs.fha.nhinc.aspect.OutboundMessageEvent;
 import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayCrossGatewayRetrieveRequestType;
 import gov.hhs.fha.nhinc.docretrieve._30.passthru.NhincProxyDocRetrieveUnsecured;
-import gov.hhs.fha.nhinc.docretrieve.aspect.NhincProxyRetrieveRequestTypeDescriptionBuilder;
+import gov.hhs.fha.nhinc.docretrieve.aspect.RetrieveDocumentSetTransformingBuilder;
 import gov.hhs.fha.nhinc.docretrieve.aspect.RetrieveDocumentSetResponseTypeDescriptionBuilder;
 
 import java.lang.reflect.Method;
@@ -52,7 +52,7 @@ public class NhincProxyDocRetrieveUnsecuredTest {
                 RespondingGatewayCrossGatewayRetrieveRequestType.class);
         OutboundMessageEvent annotation = method.getAnnotation(OutboundMessageEvent.class);
         assertNotNull(annotation);
-        assertEquals(NhincProxyRetrieveRequestTypeDescriptionBuilder.class, annotation.beforeBuilder());
+        assertEquals(RetrieveDocumentSetTransformingBuilder.class, annotation.beforeBuilder());
         assertEquals(RetrieveDocumentSetResponseTypeDescriptionBuilder.class, annotation.afterReturningBuilder());
         assertEquals("Retrieve Document", annotation.serviceType());
         assertEquals("3.0", annotation.version());

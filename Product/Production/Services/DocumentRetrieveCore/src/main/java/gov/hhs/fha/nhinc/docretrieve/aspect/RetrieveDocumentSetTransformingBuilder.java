@@ -28,22 +28,11 @@
  */
 package gov.hhs.fha.nhinc.docretrieve.aspect;
 
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayCrossGatewayRetrieveSecuredRequestType;
-import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
+import gov.hhs.fha.nhinc.event.BeanPropertyArgumentTransformer;
 
-public class NhincProxyRetrieveSecuredRequestTypeDescriptionBuilderTest extends
-        ArgTransformerTest<NhincProxyRetrieveSecuredRequestTypeDescriptionBuilder> {
+public class RetrieveDocumentSetTransformingBuilder extends BeanPropertyArgumentTransformer {
 
-    @Override
-    protected NhincProxyRetrieveSecuredRequestTypeDescriptionBuilder getBuilder() {
-        return new NhincProxyRetrieveSecuredRequestTypeDescriptionBuilder();
-    }
-
-    @Override
-    protected Object getArgument(RetrieveDocumentSetRequestType mockRequest, AssertionType mockAssertion) {
-        RespondingGatewayCrossGatewayRetrieveSecuredRequestType request = new RespondingGatewayCrossGatewayRetrieveSecuredRequestType();
-        request.setRetrieveDocumentSetRequest(mockRequest);
-        return request;
+    public RetrieveDocumentSetTransformingBuilder() {
+        setDelegate(new RetrieveDocumentSetRequestTypeDescriptionBuilder());
     }
 }

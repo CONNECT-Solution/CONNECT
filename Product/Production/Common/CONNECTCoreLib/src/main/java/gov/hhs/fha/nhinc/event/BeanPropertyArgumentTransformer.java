@@ -67,6 +67,9 @@ public abstract class BeanPropertyArgumentTransformer extends ArgTransformerEven
         PropertyDescriptor[] propertyDescriptors = BeanUtils.getPropertyDescriptors(argument.getClass());
         for (int i = 0; i < propertyDescriptors.length; ++i) {
             Method readMethod = propertyDescriptors[i].getReadMethod();
+            if (readMethod == null) {
+                continue;
+            }
             Optional<Object> readValue = readValue(argument, readMethod);
             if (readValue.isPresent()) {
                 result.add(readValue.get());
@@ -78,7 +81,9 @@ public abstract class BeanPropertyArgumentTransformer extends ArgTransformerEven
     private Optional<Object> readValue(Object argument, Method readMethod) {
         try {
             Object readValue = readMethod.invoke(argument);
-            return Optional.of(readValue);
+            if (readValue != null) {
+                return Optional.of(readValue);
+            }
         } catch (IllegalAccessException e) {
             LOG.warn(String.format("Unable to invoke bean read method '%s' on '%s'", readMethod, argument), e);
         } catch (InvocationTargetException e) {
