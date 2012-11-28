@@ -31,7 +31,6 @@ import static org.junit.Assert.assertNotNull;
 import gov.hhs.fha.nhinc.aspect.InboundMessageEvent;
 import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionArgTransformerBuilder;
 import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionBaseEventDescriptionBuilder;
-import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
 
 import java.lang.reflect.Method;
 
@@ -51,7 +50,7 @@ public class NhinXDRResponseTest {
         InboundMessageEvent annotation = method.getAnnotation(InboundMessageEvent.class);
         assertNotNull(annotation);
         assertEquals(DocSubmissionBaseEventDescriptionBuilder.class, annotation.beforeBuilder());
-        assertEquals( DocSubmissionArgTransformerBuilder.class, annotation.afterReturningBuilder());
+        assertEquals(DocSubmissionArgTransformerBuilder.class, annotation.afterReturningBuilder());
         assertEquals("Document Submission Deferred Response", annotation.serviceType());
         assertEquals("1.1", annotation.version());
     }

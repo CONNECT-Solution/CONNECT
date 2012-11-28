@@ -50,6 +50,7 @@ public class EntityDocSubmissionUnsecured implements gov.hhs.fha.nhinc.nhincenti
     private OutboundDocSubmission outboundDocSubmission;
 
     @Override
+
     @OutboundMessageEvent(beforeBuilder = DocSubmissionArgTransformerBuilder.class,
     afterReturningBuilder = DocSubmissionBaseEventDescriptionBuilder.class, serviceType = "Document Submission",
     version = "1.1")

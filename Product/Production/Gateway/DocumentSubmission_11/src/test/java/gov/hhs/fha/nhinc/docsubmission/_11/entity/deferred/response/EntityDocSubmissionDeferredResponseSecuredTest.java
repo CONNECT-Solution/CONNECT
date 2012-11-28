@@ -34,7 +34,10 @@ import java.lang.reflect.Method;
 import org.junit.Test;
 
 import gov.hhs.fha.nhinc.aspect.OutboundMessageEvent;
+//CheckStyle:OFF
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType;
+//CheckStyle:ON
+import gov.hhs.fha.nhinc.docsubmission._11.entity.deferred.response.EntityDocSubmissionDeferredResponseSecured;
 import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionArgTransformerBuilder;
 
 /**
@@ -51,6 +54,7 @@ public class EntityDocSubmissionDeferredResponseSecuredTest {
         assertNotNull(annotation);
         assertEquals(DocSubmissionArgTransformerBuilder.class, annotation.beforeBuilder());
         assertEquals(DocSubmissionArgTransformerBuilder.class, annotation.afterReturningBuilder());
+
         assertEquals("Document Submission Deferred Response", annotation.serviceType());
         assertEquals("1.1", annotation.version());
     }
