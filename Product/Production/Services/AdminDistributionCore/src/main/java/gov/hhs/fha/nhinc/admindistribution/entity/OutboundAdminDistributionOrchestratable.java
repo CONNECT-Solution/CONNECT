@@ -26,15 +26,14 @@
  */
 package gov.hhs.fha.nhinc.admindistribution.entity;
 
-import gov.hhs.fha.nhinc.admindistribution.AdminDistributionHelper;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewaySendAlertMessageType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.orchestration.AuditTransformer;
-import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratable;
 import gov.hhs.fha.nhinc.orchestration.NhinAggregator;
 import gov.hhs.fha.nhinc.orchestration.OutboundDelegate;
+import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratable;
 import gov.hhs.fha.nhinc.orchestration.PolicyTransformer;
 
 /**
@@ -42,55 +41,86 @@ import gov.hhs.fha.nhinc.orchestration.PolicyTransformer;
  * @author nnguyen
  */
 public class OutboundAdminDistributionOrchestratable implements OutboundOrchestratable {
-    protected NhinTargetSystemType target = null;
+    private NhinTargetSystemType target = null;
     private AssertionType assertion = null;
     private OutboundDelegate nhinDelegate = null;
     private RespondingGatewaySendAlertMessageType request = null;
-    private AdminDistributionHelper adminDistributionHelper;
+    private boolean isPassthru = false;
 
+    /**Constructor.
+     * @param delegate OutboundDelegate delegate received.
+     */
     public OutboundAdminDistributionOrchestratable(OutboundDelegate delegate) {
         nhinDelegate = delegate;
-        this.adminDistributionHelper = new AdminDistributionHelper();
-
     }
 
+    /**
+     * Constructor.
+     * @param delegate OutboundDelegate delegate received. 
+     * @param request SendAlertMessage received.
+     * @param targetSystem NhinTargetSystem targetSystem received.
+     * @param assertion Assertion received.
+     */
     public OutboundAdminDistributionOrchestratable(OutboundDelegate delegate,
             RespondingGatewaySendAlertMessageType request, NhinTargetSystemType targetSystem, AssertionType assertion) {
         this(delegate);
         setRequest(request);
         setAssertion(assertion);
         setTarget(targetSystem);
-        this.adminDistributionHelper = new AdminDistributionHelper();
     }
 
+    /**
+     * @return request SendAlertMessage request. 
+     */
     public RespondingGatewaySendAlertMessageType getRequest() {
         return request;
     }
 
+    /**
+     * @param request SendAlertMessage request.
+     */
     public void setRequest(RespondingGatewaySendAlertMessageType request) {
         this.request = request;
     }
 
+    /**
+     * @return target NhinTargetSystem target.
+     */
     public NhinTargetSystemType getTarget() {
         return target;
     }
 
+    /**
+     * @param target NhinTargetSystem target received.
+     */
     public void setTarget(NhinTargetSystemType target) {
         this.target = target;
     }
 
-    public void setAssertion(AssertionType _assertion) {
-        this.assertion = _assertion;
+    /**
+     * @param assertion Assertion assertion received.
+     */
+    public void setAssertion(AssertionType assertion) {
+        this.assertion = assertion;
     }
 
+    /**
+     * @return nhinDelegate.
+     */
     public OutboundDelegate getNhinDelegate() {
         return nhinDelegate;
     }
 
+    /**
+     * @return assertion Assertion assertion received.
+     */
     public AssertionType getAssertion() {
         return assertion;
     }
 
+    /**
+    *  @return serviceName Administrative_Distribution.
+    */
     public String getServiceName() {
         return NhincConstants.ADMIN_DIST_SERVICE_NAME;
     }
@@ -100,18 +130,34 @@ public class OutboundAdminDistributionOrchestratable implements OutboundOrchestr
         return getNhinDelegate();
     }
 
+    /**
+     * @return boolean true if AdminDist in Passthru mode.
+     */
     public boolean isPassthru() {
-        return new AdminDistributionHelper().isInPassThroughMode();
+        return isPassthru;
+    }
+    
+    public void setPassthru(boolean isPassthru) {
+        this.isPassthru = isPassthru;
     }
 
+    /**
+     * @return throws RunTimeException when called.
+     */
     public AuditTransformer getAuditTransformer() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
+    /**
+     * @return throws RunTimeException when called.
+     */
     public PolicyTransformer getPolicyTransformer() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
+    /**
+     * @return throws RunTimeException when called.
+     */
     public NhinAggregator getAggregator() {
         throw new UnsupportedOperationException("Not supported yet.");
     }

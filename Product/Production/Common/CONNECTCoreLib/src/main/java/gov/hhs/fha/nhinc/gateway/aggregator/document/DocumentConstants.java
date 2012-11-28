@@ -70,6 +70,7 @@ public class DocumentConstants {
     public static final String EBXML_RESPONSE_CLASSCODE_CLASS_SCHEME = "urn:uuid:41a5887f-8865-4c09-adf7-e362475b143a";
     public static final String EBXML_RESPONSE_CONFIDENTIALITYCODE_CLASS_SCHEME = "urn:uuid:f4f85eac-e6cb-4883-b524-f2705394840f";
     public static final String EBXML_RESPONSE_EVENTCODE_CLASS_SCHEME = "urn:uuid:2c6b8cb7-8b2a-4051-b291-b1ae6a575ef4";
+    public static final String EBXML_RESPONSE_NODE_REPRESENTATION_FORMAT_CODE = "formatCode";
     public static final String EBXML_RESPONSE_FORMATCODE_CLASS_SCHEME = "urn:uuid:a09d5840-386c-46f2-b5ad-9c3699a4309d";
     public static final String EBXML_RESPONSE_HEALTHCAREFACILITYTYPE_CLASS_SCHEME = "urn:uuid:f33fb8ac-18af-42cc-ae0e-ed0b0bdb91e1";
     public static final String EBXML_RESPONSE_PRACTICESETTING_CLASS_SCHEME = "urn:uuid:cccf5598-8b07-4b77-a05e-ae952c785ead";
@@ -107,6 +108,7 @@ public class DocumentConstants {
     public static final String XDS_RETRIEVE_ERRORCODE_REPOSITORY_ERROR = "XDSRepositoryError";
     
     public static final String XDS_ERRORCODE_REPOSITORY_ERROR = "XDSRepositoryError";
+    public static final String XDS_REGISTRY_BUSY = "XDSRegistryBusy";
 
     public static final String FAIL_TEXT = "FAIL";
     public static final String SUCCESS_TEXT = "SUCCESS";
@@ -115,5 +117,7 @@ public class DocumentConstants {
     
     public static final String XDS_REGISTRY_ERROR = "XDSRegistryError";
     public static final String XDS_MISSING_DOCUMENT = "XDSMissingDocument";
+    public static final String XDR_POLICY_ERROR = "CONNECTPolicyCheckFailed";
+    public static final String XDR_POLICY_ERROR_CONTEXT = "Policy Check Failed";
 
 }

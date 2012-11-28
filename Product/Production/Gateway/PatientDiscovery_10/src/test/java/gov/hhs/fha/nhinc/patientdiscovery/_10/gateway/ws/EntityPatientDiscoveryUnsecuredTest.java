@@ -26,10 +26,16 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.fail;
+import gov.hhs.fha.nhinc.aspect.OutboundMessageEvent;
 import gov.hhs.fha.nhinc.patientdiscovery._10.entity.EntityPatientDiscoveryImpl;
+import gov.hhs.fha.nhinc.patientdiscovery.aspect.CommunityPRPAIN201306UV02Builder;
+import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201305UV02ArgTransformer;
+
+import java.lang.reflect.Method;
 
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 import org.hl7.v3.RespondingGatewayPRPAIN201306UV02ResponseType;
@@ -57,12 +63,9 @@ public class EntityPatientDiscoveryUnsecuredTest {
     @Test
     public void testRespondingGatewayPRPAIN201305UV02Happy() {
         try {
-            EntityPatientDiscoveryUnsecured unsecuredService = new EntityPatientDiscoveryUnsecured() {
-                @Override
-                protected EntityPatientDiscoveryImpl getEntityPatientDiscoveryImpl() {
-                    return mockServiceImpl;
-                }
-            };
+            EntityPatientDiscoveryUnsecured unsecuredService = new EntityPatientDiscoveryUnsecured();
+            unsecuredService.setOrchestratorImpl(mockServiceImpl);
+
             context.checking(new Expectations() {
                 {
                     oneOf(mockServiceImpl).respondingGatewayPRPAIN201305UV02(
@@ -85,12 +88,8 @@ public class EntityPatientDiscoveryUnsecuredTest {
     @Test
     public void testRespondingGatewayPRPAIN201305UV02NullImpl() {
         try {
-            EntityPatientDiscoveryUnsecured unsecuredService = new EntityPatientDiscoveryUnsecured() {
-                @Override
-                protected EntityPatientDiscoveryImpl getEntityPatientDiscoveryImpl() {
-                    return null;
-                }
-            };
+            EntityPatientDiscoveryUnsecured unsecuredService = new EntityPatientDiscoveryUnsecured();
+            unsecuredService.setOrchestratorImpl(null);
 
             RespondingGatewayPRPAIN201305UV02RequestType request = new RespondingGatewayPRPAIN201305UV02RequestType();
 
@@ -102,6 +101,19 @@ public class EntityPatientDiscoveryUnsecuredTest {
             t.printStackTrace();
             fail("Error running testRespondingGatewayPRPAIN201305UV02NullImpl: " + t.getMessage());
         }
+    }
+
+    @Test
+    public void hasOutboundMessageEvent() throws Exception {
+        Class<EntityPatientDiscoveryUnsecured> clazz = EntityPatientDiscoveryUnsecured.class;
+        Method method = clazz.getMethod("respondingGatewayPRPAIN201305UV02",
+                RespondingGatewayPRPAIN201305UV02RequestType.class);
+        OutboundMessageEvent annotation = method.getAnnotation(OutboundMessageEvent.class);
+        assertNotNull(annotation);
+        assertEquals(PRPAIN201305UV02ArgTransformer.class, annotation.beforeBuilder());
+        assertEquals(CommunityPRPAIN201306UV02Builder.class, annotation.afterReturningBuilder());
+        assertEquals("Patient Discovery", annotation.serviceType());
+        assertEquals("1.0", annotation.version());
     }
 
 }

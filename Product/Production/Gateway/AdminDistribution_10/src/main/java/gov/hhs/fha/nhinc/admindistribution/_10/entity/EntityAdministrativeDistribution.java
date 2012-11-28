@@ -26,26 +26,43 @@
  */
 package gov.hhs.fha.nhinc.admindistribution._10.entity;
 
+import gov.hhs.fha.nhinc.admindistribution.outbound.OutboundAdminDistribution;
+import gov.hhs.fha.nhinc.aspect.InboundMessageEvent;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewaySendAlertMessageType;
+import gov.hhs.fha.nhinc.entityadmindistribution.AdministrativeDistributionPortType;
+import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
+import gov.hhs.fha.nhinc.messaging.server.BaseService;
+
+import javax.annotation.Resource;
 import javax.xml.ws.BindingType;
+import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
 
-import gov.hhs.fha.nhinc.admindistribution.entity.EntityAdminDistributionOrchImpl;
-
-/**
- *
- * @author dunnek
- */
 
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 @Addressing(enabled = true)
-public class EntityAdministrativeDistribution implements gov.hhs.fha.nhinc.entityadmindistribution.AdministrativeDistributionPortType {
+public class EntityAdministrativeDistribution extends BaseService implements AdministrativeDistributionPortType {
 
+    private WebServiceContext context;
+    private OutboundAdminDistribution outboundAdminDist;
+    
     @Override
-    public void sendAlertMessage(gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewaySendAlertMessageType body) {
-        getEntityImpl().sendAlertMessage(body, body.getAssertion(), body.getNhinTargetCommunities());
+    @InboundMessageEvent(serviceType = "Admin Distribution", version = "1.0",
+            afterReturningBuilder = DefaultEventDescriptionBuilder.class,
+            beforeBuilder = DefaultEventDescriptionBuilder.class)
+    public void sendAlertMessage(RespondingGatewaySendAlertMessageType body) {
+        AssertionType assertion = getAssertion(context, body.getAssertion());
+        
+        outboundAdminDist.sendAlertMessage(body, assertion, body.getNhinTargetCommunities());
     }
 
-    protected EntityAdminDistributionOrchImpl getEntityImpl() {
-        return new EntityAdminDistributionOrchImpl();
+    @Resource
+    public void setContext(WebServiceContext context) {
+        this.context = context;
+    }
+    
+    public void setOutboundAdminDistribution(OutboundAdminDistribution outboundAdminDist) {
+        this.outboundAdminDist = outboundAdminDist;
     }
 }

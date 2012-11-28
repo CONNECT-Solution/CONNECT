@@ -26,9 +26,16 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
+
+import java.lang.reflect.Method;
+
+import gov.hhs.fha.nhinc.aspect.OutboundMessageEvent;
+import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201305UV02ArgTransformer;
+import gov.hhs.fha.nhinc.patientdiscovery.aspect.MCCIIN000002UV01EventDescriptionBuilder;
 import gov.hhs.fha.nhinc.patientdiscovery._10.passthru.deferred.request.NhincProxyPatientDiscoveryDeferredRequestImpl;
 
 import javax.xml.ws.WebServiceContext;
@@ -53,7 +60,8 @@ public class NhincProxyPatientDiscoveryDeferredRequestUnsecuredTest {
 
     @Test
     public void testDefaultConstructor() {
-        NhincProxyPatientDiscoveryDeferredRequestUnsecured ws = new NhincProxyPatientDiscoveryDeferredRequestUnsecured();
+        NhincProxyPatientDiscoveryDeferredRequestUnsecured ws = 
+                new NhincProxyPatientDiscoveryDeferredRequestUnsecured();
         assertNotNull(ws);
     }
 
@@ -71,14 +79,12 @@ public class NhincProxyPatientDiscoveryDeferredRequestUnsecuredTest {
                 oneOf(mockService).processPatientDiscoveryAsyncRequestUnsecured(with(same(mockRequest)),
                         with(any(WebServiceContext.class)));
                 will(returnValue(expectedResponse));
-
-                oneOf(mockFactory).getNhincProxyPatientDiscoveryDeferredRequestImpl();
-                will(returnValue(mockService));
             }
         });
 
         NhincProxyPatientDiscoveryDeferredRequestUnsecured ws = new NhincProxyPatientDiscoveryDeferredRequestUnsecured(
                 mockFactory);
+        ws.setOrchestratorImpl(mockService);
 
         MCCIIN000002UV01 actualResponse = ws.proxyProcessPatientDiscoveryAsyncReq(mockRequest);
 
@@ -90,21 +96,27 @@ public class NhincProxyPatientDiscoveryDeferredRequestUnsecuredTest {
         final PatientDiscoveryServiceFactory mockFactory = context.mock(PatientDiscoveryServiceFactory.class);
         final ProxyPRPAIN201305UVProxyRequestType mockRequest = context.mock(ProxyPRPAIN201305UVProxyRequestType.class);
 
-        context.checking(new Expectations() {
-            {
-
-                oneOf(mockFactory).getNhincProxyPatientDiscoveryDeferredRequestImpl();
-                will(returnValue(null));
-
-            }
-        });
-
         NhincProxyPatientDiscoveryDeferredRequestUnsecured ws = new NhincProxyPatientDiscoveryDeferredRequestUnsecured(
                 mockFactory);
+        ws.setOrchestratorImpl(null);
 
         MCCIIN000002UV01 actualResponse = ws.proxyProcessPatientDiscoveryAsyncReq(mockRequest);
 
         assertNull(actualResponse);
 
+    }
+    
+    @Test
+    public void hasOutboundMessageEvent() throws Exception {
+        Class<NhincProxyPatientDiscoveryDeferredRequestUnsecured> clazz = 
+                NhincProxyPatientDiscoveryDeferredRequestUnsecured.class;
+        Method method = clazz.getMethod("proxyProcessPatientDiscoveryAsyncReq", 
+                ProxyPRPAIN201305UVProxyRequestType.class);
+        OutboundMessageEvent annotation = method.getAnnotation(OutboundMessageEvent.class);
+        assertNotNull(annotation);
+        assertEquals(PRPAIN201305UV02ArgTransformer.class, annotation.beforeBuilder());
+        assertEquals(MCCIIN000002UV01EventDescriptionBuilder.class, annotation.afterReturningBuilder());
+        assertEquals("Patient Discovery Deferred Request", annotation.serviceType());
+        assertEquals("1.0", annotation.version());
     }
 }

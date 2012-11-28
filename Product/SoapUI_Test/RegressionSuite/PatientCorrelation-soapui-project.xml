@@ -1,6 +1,7 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><con:soapui-project xmlns:con="http://eviware.com/soapui/config" abortOnError="false" name="PatientCorrelation" resourceRoot="" runType="SEQUENTIAL" soapui-version="3.6">
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project abortOnError="false" name="PatientCorrelation" resourceRoot="${projectDir}" runType="SEQUENTIAL" soapui-version="4.5.1" activeEnvironment="Default" xmlns:con="http://eviware.com/soapui/config">
 	<con:settings/>
-	<con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhinccomponentpatientcorrelation}PatientCorrelationBinding" definition="WSDL path not set.  #WSDL path not set.  #NhincComponentPatientCorrelation.wsdl" name="PatientCorrelationBinding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
+	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhinccomponentpatientcorrelation}PatientCorrelationBinding" definition="${ProjectDir}../ValidationSuite/target/wsdl/${ProjectDir}../ValidationSuite/target/wsdl/NhincComponentPatientCorrelation.wsdl" name="PatientCorrelationBinding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 		
 		<con:endpoints>
@@ -29,7 +30,7 @@
 			<con:testStep name="Clear Correlation Table" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql("PatientCorrelationDB") { sql -&gt; 
+					<script>context.withSql("PatientCorrelationDB") { sql -> 
   def table = context.findProperty("PatientCorrelationTable");
 
   sql.execute("delete from " + table);
@@ -44,7 +45,7 @@
 			
 			<con:testStep name="Populate Add1" type="transfer">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:PropertyTransfersStep">
+				<con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					
 					<con:transfers entitize="false" failOnError="true" ignoreEmpty="false" setNullOnMissingSource="true" transferChildNodes="false" transferTextContent="true" transferToAll="false" useXQuery="false">
 						<con:name>LocalAssigningAuthorityID</con:name>
@@ -107,11 +108,11 @@
 			
 			<con:testStep name="Add1" type="request">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:interface>PatientCorrelationBinding</con:interface>
 					<con:operation>AddPatientCorrelation</con:operation>
 					<con:request name="Add1">
-						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting></con:settings>
+						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
 						<con:encoding>UTF-8</con:encoding>
 						<con:endpoint>${#Project#PatientCorrelationEndpoint}</con:endpoint>
 						<con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3">
@@ -120,7 +121,7 @@
       <urn:AddPatientCorrelationRequest>
          <urn:PRPA_IN201301UV02 nullFlavor="?" ITSVersion="XML_1.0">
             <urn:id root="22a0f9e0-4454-11dc-a6be-3603d6866807"/>
-            <urn:creationTime value="2012-08-24T23:01:28Z"/>
+            <urn:creationTime value="2012-11-26T23:50:17Z"/>
             <urn:interactionId root="2.16.840.1.113883.1.6" extension="PRPA_IN201301UV02"/>
             <urn:processingCode code="P"/>
             <urn:processingModeCode code="R"/>
@@ -152,12 +153,12 @@
                </urn:subject>
             </urn:controlActProcess>
          </urn:PRPA_IN201301UV02>
-      <urn:PRPA_IN201301UV><urn:controlActProcess/></urn:PRPA_IN201301UV><urn:PRPA_IN201301UV><urn:controlActProcess/></urn:PRPA_IN201301UV></urn:AddPatientCorrelationRequest>
+      <!--urn:PRPA_IN201301UV><urn:controlActProcess/></urn:PRPA_IN201301UV><urn:PRPA_IN201301UV><urn:controlActProcess/></urn:PRPA_IN201301UV--></urn:AddPatientCorrelationRequest>
    </soapenv:Body>
 </soapenv:Envelope>]]></con:request>
 						<con:assertion type="SOAP Response"/>
 						<con:assertion type="SOAP Fault Assertion"/>
-						<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+						<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 						<con:jmsPropertyConfig/>
 						<con:wsaConfig mustUnderstand="NONE" version="200508"/>
 						<con:wsrmConfig version="1.2"/>
@@ -166,7 +167,7 @@
 			</con:testStep>
 			<con:testStep name="Populate Add2" type="transfer">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:PropertyTransfersStep">
+				<con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					
 					<con:transfers entitize="false" failOnError="true" ignoreEmpty="false" setNullOnMissingSource="true" transferChildNodes="false" transferTextContent="true" transferToAll="false" useXQuery="false">
 						<con:name>LocalAssigningAuthorityID</con:name>
@@ -229,11 +230,11 @@
 			
 			<con:testStep name="Add2" type="request">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:interface>PatientCorrelationBinding</con:interface>
 					<con:operation>AddPatientCorrelation</con:operation>
 					<con:request name="Add2">
-						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting></con:settings>
+						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
 						<con:encoding>UTF-8</con:encoding>
 						<con:endpoint>${#Project#PatientCorrelationEndpoint}</con:endpoint>
 						<con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3">
@@ -274,12 +275,12 @@
                </urn:subject>
             </urn:controlActProcess>
          </urn:PRPA_IN201301UV02>
-      <urn:PRPA_IN201301UV><urn:controlActProcess/></urn:PRPA_IN201301UV><urn:PRPA_IN201301UV><urn:controlActProcess/></urn:PRPA_IN201301UV></urn:AddPatientCorrelationRequest>
+      <!--urn:PRPA_IN201301UV><urn:controlActProcess/></urn:PRPA_IN201301UV><urn:PRPA_IN201301UV><urn:controlActProcess/></urn:PRPA_IN201301UV--></urn:AddPatientCorrelationRequest>
    </soapenv:Body>
 </soapenv:Envelope>]]></con:request>
 						<con:assertion type="SOAP Response"/>
 						<con:assertion type="SOAP Fault Assertion"/>
-						<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+						<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 						<con:jmsPropertyConfig/>
 						<con:wsaConfig mustUnderstand="NONE" version="200508"/>
 						<con:wsrmConfig version="1.2"/>
@@ -287,7 +288,7 @@
 				</con:config>
 			</con:testStep><con:testStep name="Populate Retrieve" type="transfer">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:PropertyTransfersStep">
+				<con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:transfers entitize="false" failOnError="true" ignoreEmpty="false" setNullOnMissingSource="true" transferChildNodes="false" transferTextContent="true" transferToAll="false" useXQuery="false">
 						<con:name>SubjectIdentifier</con:name>
 						<con:sourceType>RemoteSubjectID</con:sourceType>
@@ -357,11 +358,11 @@
 				</con:config>
 			</con:testStep><con:testStep name="Retrieve" type="request">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:interface>PatientCorrelationBinding</con:interface>
 					<con:operation>RetrievePatientCorrelations</con:operation>
 					<con:request name="Retrieve">
-						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting></con:settings>
+						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
 						<con:encoding>UTF-8</con:encoding>
 						<con:endpoint>${#Project#PatientCorrelationEndpoint}</con:endpoint>
 						<con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3">
@@ -427,32 +428,31 @@
 							<con:configuration><path>declare namespace ns3='urn:hl7-org:v3';
 //ns3:PRPA_IN201310UV02[1]/ns3:controlActProcess[1]//ns3:queryByParameter[1]/ns3:parameterList[1]/ns3:patientIdentifier[1]/ns3:value[1]/@root</path><content>2.2</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration>
 						</con:assertion>
-						<con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
+						<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
 						<con:wsrmConfig version="1.2"/>
 					</con:request>
 				</con:config>
-			</con:testStep><con:setupScript/>
+			</con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript>
 			<con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-08-24T23:01:28Z</con:value>
+					<con:value>2012-11-26T23:50:17Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-08-24T23:11:28Z</con:value>
+					<con:value>2012-11-27T00:00:17Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>08/24/2012 23:01:28</con:value>
+					<con:value>11/26/2012 23:50:17</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-09-23T00:00:00Z</con:value>
+					<con:value>2012-12-26T00:00:00Z</con:value>
 				</con:property>
 			<con:property><con:name>LocalAAID</con:name><con:value>1.1</con:value></con:property><con:property><con:name>RemoteAAID</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemoteSubjectID</con:name><con:value>500000000</con:value></con:property><con:property><con:name>LocalSubjectID</con:name><con:value>D123401</con:value></con:property></con:properties>
 			<con:reportParameters/>
-			<con:tearDownScript>import nhinc.FileUtils;
-FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
+			<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript>
 		</con:testCase>
 		<con:testCase failOnError="true" failTestCaseOnErrors="true" id="ff68f1ee-5476-4238-82e5-172761d83dd2" keepSession="false" maxResults="0" name="AddMultiple2" searchProperties="true">
 			<con:settings/>
@@ -460,7 +460,7 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 			<con:testStep name="Clear Correlation Table" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql("PatientCorrelationDB") { sql -&gt; 
+					<script>context.withSql("PatientCorrelationDB") { sql -> 
   def table = context.findProperty("PatientCorrelationTable");
 
   sql.execute("delete from " + table);
@@ -474,7 +474,7 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 			
 			<con:testStep name="Populate Add1" type="transfer">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:PropertyTransfersStep">
+				<con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					
 					<con:transfers entitize="false" failOnError="true" ignoreEmpty="false" setNullOnMissingSource="true" transferChildNodes="false" transferTextContent="true" transferToAll="false" useXQuery="false">
 						<con:name>LocalAssigningAuthorityID</con:name>
@@ -536,7 +536,7 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 			</con:testStep>
 			<con:testStep name="Add1" type="request">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:interface>PatientCorrelationBinding</con:interface>
 					<con:operation>AddPatientCorrelation</con:operation>
 					<con:request name="Add1">
@@ -586,7 +586,7 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 </soapenv:Envelope>]]></con:request>
 						<con:assertion type="SOAP Response"/>
 						<con:assertion type="SOAP Fault Assertion"/>
-						<con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
+						<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
 						<con:wsrmConfig version="1.2"/>
 					</con:request>
 				</con:config>
@@ -594,7 +594,7 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 			
 			<con:testStep name="Populate Add2" type="transfer">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:PropertyTransfersStep">
+				<con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					
 					<con:transfers entitize="false" failOnError="true" ignoreEmpty="false" setNullOnMissingSource="true" transferChildNodes="false" transferTextContent="true" transferToAll="false" useXQuery="false">
 						<con:name>LocalAssigningAuthorityID</con:name>
@@ -656,7 +656,7 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 			</con:testStep>
 			<con:testStep name="Add2" type="request">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:interface>PatientCorrelationBinding</con:interface>
 					<con:operation>AddPatientCorrelation</con:operation>
 					<con:request name="Add2">
@@ -706,14 +706,14 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 </soapenv:Envelope>]]></con:request>
 						<con:assertion type="SOAP Response"/>
 						<con:assertion type="SOAP Fault Assertion"/>
-						<con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
+						<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
 						<con:wsrmConfig version="1.2"/>
 					</con:request>
 				</con:config>
 			</con:testStep>
 			<con:testStep name="Populate Retrieve" type="transfer">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:PropertyTransfersStep">
+				<con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:transfers entitize="false" failOnError="true" ignoreEmpty="false" setNullOnMissingSource="true" transferChildNodes="false" transferTextContent="true" transferToAll="false" useXQuery="false">
 						<con:name>SubjectIdentifier</con:name>
 						<con:sourceType>RemoteSubjectID1</con:sourceType>
@@ -784,11 +784,11 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 			</con:testStep>
 			<con:testStep name="Retrieve" type="request">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:interface>PatientCorrelationBinding</con:interface>
 					<con:operation>RetrievePatientCorrelations</con:operation>
 					<con:request name="Retrieve">
-						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting></con:settings>
+						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
 						<con:encoding>UTF-8</con:encoding>
 						<con:endpoint>${#Project#PatientCorrelationEndpoint}</con:endpoint>
 						<con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3">
@@ -854,7 +854,7 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 							<con:configuration><path>declare namespace ns3='urn:hl7-org:v3';
 //ns3:PRPA_IN201310UV02[1]/ns3:controlActProcess[1]//ns3:queryByParameter[1]/ns3:parameterList[1]/ns3:patientIdentifier[1]/ns3:value[1]/@root</path><content>2.2</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration>
 						</con:assertion>
-						<con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
+						<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
 						<con:wsrmConfig version="1.2"/>
 					</con:request>
 				</con:config>
@@ -887,7 +887,7 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 			<con:testStep name="Clear Correlation Table" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql("PatientCorrelationDB") { sql -&gt; 
+					<script>context.withSql("PatientCorrelationDB") { sql -> 
   def table = context.findProperty("PatientCorrelationTable");
 
   sql.execute("delete from " + table);
@@ -901,7 +901,7 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 			
 			<con:testStep name="Populate Add" type="transfer">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:PropertyTransfersStep">
+				<con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					
 					<con:transfers entitize="false" failOnError="true" ignoreEmpty="false" setNullOnMissingSource="true" transferChildNodes="false" transferTextContent="true" transferToAll="false" useXQuery="false">
 						<con:name>LocalAssigningAuthorityID</con:name>
@@ -963,7 +963,7 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 			</con:testStep>
 			<con:testStep name="Add" type="request">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:interface>PatientCorrelationBinding</con:interface>
 					<con:operation>AddPatientCorrelation</con:operation>
 					<con:request name="Add">
@@ -1013,7 +1013,7 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 </soapenv:Envelope>]]></con:request>
 						<con:assertion type="SOAP Response"/>
 						<con:assertion type="SOAP Fault Assertion"/>
-						<con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
+						<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
 						<con:wsrmConfig version="1.2"/>
 					</con:request>
 				</con:config>
@@ -1021,7 +1021,7 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 			
 			<con:testStep name="Populate Retrieve" type="transfer">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:PropertyTransfersStep">
+				<con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:transfers entitize="false" failOnError="true" ignoreEmpty="false" setNullOnMissingSource="true" transferChildNodes="false" transferTextContent="true" transferToAll="false" useXQuery="false">
 						<con:name>SubjectIdentifier</con:name>
 						<con:sourceType>RemoteSubjectID</con:sourceType>
@@ -1093,11 +1093,11 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 			</con:testStep>
 			<con:testStep name="Retrieve" type="request">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:interface>PatientCorrelationBinding</con:interface>
 					<con:operation>RetrievePatientCorrelations</con:operation>
 					<con:request name="Retrieve">
-						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting></con:settings>
+						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
 						<con:encoding>UTF-8</con:encoding>
 						<con:endpoint>${#Project#PatientCorrelationEndpoint}</con:endpoint>
 						<con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3">
@@ -1163,7 +1163,7 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 							<con:configuration><path>declare namespace ns3='urn:hl7-org:v3';
 //ns3:PRPA_IN201310UV02[1]/ns3:controlActProcess[1]//ns3:queryByParameter[1]/ns3:parameterList[1]/ns3:patientIdentifier[1]/ns3:value[1]/@root</path><content>2.2</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration>
 						</con:assertion>
-						<con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
+						<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
 						<con:wsrmConfig version="1.2"/>
 					</con:request>
 				</con:config>
@@ -1198,7 +1198,7 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 			<con:testStep name="Clear Correlation Table" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql("PatientCorrelationDB") { sql -&gt; 
+					<script>context.withSql("PatientCorrelationDB") { sql -> 
   def table = context.findProperty("PatientCorrelationTable");
 
   sql.execute("delete from " + table);
@@ -1212,7 +1212,7 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 			
 			<con:testStep name="Populate Add1" type="transfer">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:PropertyTransfersStep">
+				<con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:transfers disabled="false" entitize="false" failOnError="true" ignoreEmpty="false" setNullOnMissingSource="true" transferChildNodes="false" transferTextContent="true" transferToAll="false" useXQuery="false">
 						<con:name>LocalSubjectID</con:name>
 						<con:sourceType>LocalSubjectID1</con:sourceType>
@@ -1282,7 +1282,7 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 			</con:testStep>
 			<con:testStep name="Add1" type="request">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:interface>PatientCorrelationBinding</con:interface>
 					<con:operation>AddPatientCorrelation</con:operation>
 					<con:request name="Add1">
@@ -1327,12 +1327,12 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
                </urn:subject>
             </urn:controlActProcess>
          </urn:PRPA_IN201301UV02>
-      <urn:PRPA_IN201301UV><urn:controlActProcess/></urn:PRPA_IN201301UV><urn:PRPA_IN201301UV><urn:controlActProcess/></urn:PRPA_IN201301UV></urn:AddPatientCorrelationRequest>
+      <!--urn:PRPA_IN201301UV><urn:controlActProcess/></urn:PRPA_IN201301UV><urn:PRPA_IN201301UV><urn:controlActProcess/></urn:PRPA_IN201301UV--></urn:AddPatientCorrelationRequest>
    </soapenv:Body>
 </soapenv:Envelope>]]></con:request>
 						<con:assertion type="SOAP Response"/>
 						<con:assertion type="SOAP Fault Assertion"/>
-						<con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
+						<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
 						<con:wsrmConfig version="1.2"/>
 					</con:request>
 				</con:config>
@@ -1340,7 +1340,7 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 			
 			<con:testStep name="Populate Add2" type="transfer">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:PropertyTransfersStep">
+				<con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:transfers disabled="false" entitize="false" failOnError="true" ignoreEmpty="false" setNullOnMissingSource="true" transferChildNodes="false" transferTextContent="true" transferToAll="false" useXQuery="false">
 						<con:name>LocalSubjectID</con:name>
 						<con:sourceType>LocalSubjectID2</con:sourceType>
@@ -1410,7 +1410,7 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 			</con:testStep>
 			<con:testStep name="Add2" type="request">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:interface>PatientCorrelationBinding</con:interface>
 					<con:operation>AddPatientCorrelation</con:operation>
 					<con:request name="Add2">
@@ -1455,12 +1455,12 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
                </urn:subject>
             </urn:controlActProcess>
          </urn:PRPA_IN201301UV02>
-      <urn:PRPA_IN201301UV><urn:controlActProcess/></urn:PRPA_IN201301UV><urn:PRPA_IN201301UV><urn:controlActProcess/></urn:PRPA_IN201301UV></urn:AddPatientCorrelationRequest>
+      <!--urn:PRPA_IN201301UV><urn:controlActProcess/></urn:PRPA_IN201301UV><urn:PRPA_IN201301UV><urn:controlActProcess/></urn:PRPA_IN201301UV--></urn:AddPatientCorrelationRequest>
    </soapenv:Body>
 </soapenv:Envelope>]]></con:request>
 						<con:assertion type="SOAP Response"/>
 						<con:assertion type="SOAP Fault Assertion"/>
-						<con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
+						<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
 						<con:wsrmConfig version="1.2"/>
 					</con:request>
 				</con:config>
@@ -1468,7 +1468,7 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 			
 			<con:testStep name="Populate Add3" type="transfer">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:PropertyTransfersStep">
+				<con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:transfers disabled="false" entitize="false" failOnError="true" ignoreEmpty="false" setNullOnMissingSource="true" transferChildNodes="false" transferTextContent="true" transferToAll="false" useXQuery="false">
 						<con:name>LocalSubjectID</con:name>
 						<con:sourceType>LocalSubjectID3</con:sourceType>
@@ -1537,7 +1537,7 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 				</con:config>
 			</con:testStep><con:testStep name="Add3" type="request">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:interface>PatientCorrelationBinding</con:interface>
 					<con:operation>AddPatientCorrelation</con:operation>
 					<con:request name="Add3">
@@ -1582,18 +1582,18 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
                </urn:subject>
             </urn:controlActProcess>
          </urn:PRPA_IN201301UV02>
-      <urn:PRPA_IN201301UV><urn:controlActProcess/></urn:PRPA_IN201301UV><urn:PRPA_IN201301UV><urn:controlActProcess/></urn:PRPA_IN201301UV></urn:AddPatientCorrelationRequest>
+      <!--urn:PRPA_IN201301UV><urn:controlActProcess/></urn:PRPA_IN201301UV><urn:PRPA_IN201301UV><urn:controlActProcess/></urn:PRPA_IN201301UV--></urn:AddPatientCorrelationRequest>
    </soapenv:Body>
 </soapenv:Envelope>]]></con:request>
 						<con:assertion type="SOAP Response"/>
 						<con:assertion type="SOAP Fault Assertion"/>
-						<con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
+						<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
 						<con:wsrmConfig version="1.2"/>
 					</con:request>
 				</con:config>
 			</con:testStep><con:testStep name="Populate Retrieve" type="transfer">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:PropertyTransfersStep">
+				<con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:transfers entitize="false" failOnError="true" ignoreEmpty="false" setNullOnMissingSource="true" transferChildNodes="false" transferTextContent="true" transferToAll="false" useXQuery="false">
 						<con:name>SubjectIdentifier</con:name>
 						<con:sourceType>RemoteSubjectID1</con:sourceType>
@@ -1663,11 +1663,11 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 				</con:config>
 			</con:testStep><con:testStep name="Retrieve" type="request">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:interface>PatientCorrelationBinding</con:interface>
 					<con:operation>RetrievePatientCorrelations</con:operation>
 					<con:request name="Retrieve">
-						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting></con:settings>
+						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
 						<con:encoding>UTF-8</con:encoding>
 						<con:endpoint>${#Project#PatientCorrelationEndpoint}</con:endpoint>
 						<con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3">
@@ -1741,7 +1741,7 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 							<con:configuration><path>declare namespace ns3='urn:hl7-org:v3';
 //ns3:PRPA_IN201310UV02[1]/ns3:controlActProcess[1]/ns3:queryByParameter[1]/ns3:parameterList[1]/ns3:patientIdentifier[1]/ns3:value[1]/@root</path><content>2.2</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration>
 						</con:assertion>
-						<con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
+						<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
 						<con:wsrmConfig version="1.2"/>
 					</con:request>
 				</con:config>
@@ -1774,7 +1774,7 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 			<con:testStep name="Clear Correlation Table" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql("PatientCorrelationDB") { sql -&gt; 
+					<script>context.withSql("PatientCorrelationDB") { sql -> 
   def table = context.findProperty("PatientCorrelationTable");
 
   sql.execute("delete from " + table);
@@ -1788,7 +1788,7 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 			
 			<con:testStep name="Populate Add1" type="transfer">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:PropertyTransfersStep">
+				<con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:transfers disabled="false" entitize="false" failOnError="true" ignoreEmpty="false" setNullOnMissingSource="true" transferChildNodes="false" transferTextContent="true" transferToAll="false" useXQuery="false">
 						<con:name>LocalSubjectID</con:name>
 						<con:sourceType>LocalSubjectID1</con:sourceType>
@@ -1858,7 +1858,7 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 			</con:testStep>
 			<con:testStep name="Add1" type="request">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:interface>PatientCorrelationBinding</con:interface>
 					<con:operation>AddPatientCorrelation</con:operation>
 					<con:request name="Add1">
@@ -1908,7 +1908,7 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 </soapenv:Envelope>]]></con:request>
 						<con:assertion type="SOAP Response"/>
 						<con:assertion type="SOAP Fault Assertion"/>
-						<con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
+						<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
 						<con:wsrmConfig version="1.2"/>
 					</con:request>
 				</con:config>
@@ -1916,7 +1916,7 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 			
 			<con:testStep name="Populate Add2" type="transfer">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:PropertyTransfersStep">
+				<con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:transfers disabled="false" entitize="false" failOnError="true" ignoreEmpty="false" setNullOnMissingSource="true" transferChildNodes="false" transferTextContent="true" transferToAll="false" useXQuery="false">
 						<con:name>LocalSubjectID</con:name>
 						<con:sourceType>LocalSubjectID2</con:sourceType>
@@ -1986,7 +1986,7 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 			</con:testStep>
 			<con:testStep name="Add2" type="request">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:interface>PatientCorrelationBinding</con:interface>
 					<con:operation>AddPatientCorrelation</con:operation>
 					<con:request name="Add2">
@@ -2036,7 +2036,7 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 </soapenv:Envelope>]]></con:request>
 						<con:assertion type="SOAP Response"/>
 						<con:assertion type="SOAP Fault Assertion"/>
-						<con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
+						<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
 						<con:wsrmConfig version="1.2"/>
 					</con:request>
 				</con:config>
@@ -2044,7 +2044,7 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 			
 			<con:testStep name="Populate Add3" type="transfer">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:PropertyTransfersStep">
+				<con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:transfers disabled="false" entitize="false" failOnError="true" ignoreEmpty="false" setNullOnMissingSource="true" transferChildNodes="false" transferTextContent="true" transferToAll="false" useXQuery="false">
 						<con:name>LocalSubjectID</con:name>
 						<con:sourceType>LocalSubjectID3</con:sourceType>
@@ -2113,7 +2113,7 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 				</con:config>
 			</con:testStep><con:testStep name="Add3" type="request">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:interface>PatientCorrelationBinding</con:interface>
 					<con:operation>AddPatientCorrelation</con:operation>
 					<con:request name="Add3">
@@ -2163,13 +2163,13 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 </soapenv:Envelope>]]></con:request>
 						<con:assertion type="SOAP Response"/>
 						<con:assertion type="SOAP Fault Assertion"/>
-						<con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
+						<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
 						<con:wsrmConfig version="1.2"/>
 					</con:request>
 				</con:config>
 			</con:testStep><con:testStep name="Populate Add4" type="transfer">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:PropertyTransfersStep">
+				<con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:transfers disabled="false" entitize="false" failOnError="true" ignoreEmpty="false" setNullOnMissingSource="true" transferChildNodes="false" transferTextContent="true" transferToAll="false" useXQuery="false">
 						<con:name>LocalSubjectID</con:name>
 						<con:sourceType>LocalSubjectID4</con:sourceType>
@@ -2238,7 +2238,7 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 				</con:config>
 			</con:testStep><con:testStep name="Add4" type="request">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:interface>PatientCorrelationBinding</con:interface>
 					<con:operation>AddPatientCorrelation</con:operation>
 					<con:request name="Add4">
@@ -2288,13 +2288,13 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 </soapenv:Envelope>]]></con:request>
 						<con:assertion type="SOAP Response"/>
 						<con:assertion type="SOAP Fault Assertion"/>
-						<con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
+						<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
 						<con:wsrmConfig version="1.2"/>
 					</con:request>
 				</con:config>
 			</con:testStep><con:testStep name="Populate Add5" type="transfer">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:PropertyTransfersStep">
+				<con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:transfers disabled="false" entitize="false" failOnError="true" ignoreEmpty="false" setNullOnMissingSource="true" transferChildNodes="false" transferTextContent="true" transferToAll="false" useXQuery="false">
 						<con:name>LocalSubjectID</con:name>
 						<con:sourceType>LocalSubjectID5</con:sourceType>
@@ -2363,7 +2363,7 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 				</con:config>
 			</con:testStep><con:testStep name="Add5" type="request">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:interface>PatientCorrelationBinding</con:interface>
 					<con:operation>AddPatientCorrelation</con:operation>
 					<con:request name="Add5">
@@ -2413,13 +2413,13 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 </soapenv:Envelope>]]></con:request>
 						<con:assertion type="SOAP Response"/>
 						<con:assertion type="SOAP Fault Assertion"/>
-						<con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
+						<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
 						<con:wsrmConfig version="1.2"/>
 					</con:request>
 				</con:config>
 			</con:testStep><con:testStep name="Populate Add6" type="transfer">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:PropertyTransfersStep">
+				<con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:transfers disabled="false" entitize="false" failOnError="true" ignoreEmpty="false" setNullOnMissingSource="true" transferChildNodes="false" transferTextContent="true" transferToAll="false" useXQuery="false">
 						<con:name>LocalSubjectID</con:name>
 						<con:sourceType>LocalSubjectID6</con:sourceType>
@@ -2488,7 +2488,7 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 				</con:config>
 			</con:testStep><con:testStep name="Add6" type="request">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:interface>PatientCorrelationBinding</con:interface>
 					<con:operation>AddPatientCorrelation</con:operation>
 					<con:request name="Add6">
@@ -2538,13 +2538,13 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 </soapenv:Envelope>]]></con:request>
 						<con:assertion type="SOAP Response"/>
 						<con:assertion type="SOAP Fault Assertion"/>
-						<con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
+						<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
 						<con:wsrmConfig version="1.2"/>
 					</con:request>
 				</con:config>
 			</con:testStep><con:testStep name="Populate Retrieve" type="transfer">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:PropertyTransfersStep">
+				<con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:transfers entitize="false" failOnError="true" ignoreEmpty="false" setNullOnMissingSource="true" transferChildNodes="false" transferTextContent="true" transferToAll="false" useXQuery="false">
 						<con:name>SubjectIdentifier</con:name>
 						<con:sourceType>RemoteSubjectID3</con:sourceType>
@@ -2614,11 +2614,11 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 				</con:config>
 			</con:testStep><con:testStep name="Retrieve" type="request">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:interface>PatientCorrelationBinding</con:interface>
 					<con:operation>RetrievePatientCorrelations</con:operation>
 					<con:request name="Retrieve">
-						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting></con:settings>
+						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
 						<con:encoding>UTF-8</con:encoding>
 						<con:endpoint>${#Project#PatientCorrelationEndpoint}</con:endpoint>
 						<con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3">
@@ -2684,7 +2684,7 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 							<con:configuration><path>declare namespace ns3='urn:hl7-org:v3';
 //ns3:PRPA_IN201310UV02[1]/ns3:controlActProcess[1]/ns3:queryByParameter[1]/ns3:parameterList[1]/ns3:patientIdentifier[1]/ns3:value[1]/@root</path><content>2.2</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration>
 						</con:assertion>
-						<con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
+						<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
 						<con:wsrmConfig version="1.2"/>
 					</con:request>
 				</con:config>
@@ -2717,7 +2717,7 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 			<con:testStep name="Clear Correlation Table" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql("PatientCorrelationDB") { sql -&gt; 
+					<script>context.withSql("PatientCorrelationDB") { sql -> 
   def table = context.findProperty("PatientCorrelationTable");
 
   sql.execute("delete from " + table);
@@ -2734,7 +2734,7 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 			
 			<con:testStep name="Populate Add" type="transfer">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:PropertyTransfersStep">
+				<con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					
 					<con:transfers entitize="false" failOnError="true" ignoreEmpty="false" setNullOnMissingSource="true" transferChildNodes="false" transferTextContent="true" transferToAll="false" useXQuery="false">
 						<con:name>LocalAssigningAuthorityID</con:name>
@@ -2796,7 +2796,7 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 			</con:testStep>
 			<con:testStep name="Add" type="request">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:interface>PatientCorrelationBinding</con:interface>
 					<con:operation>AddPatientCorrelation</con:operation>
 					<con:request name="Add">
@@ -2846,7 +2846,7 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 </soapenv:Envelope>]]></con:request>
 						<con:assertion type="SOAP Response"/>
 						<con:assertion type="SOAP Fault Assertion"/>
-						<con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
+						<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
 						<con:wsrmConfig version="1.2"/>
 					</con:request>
 				</con:config>
@@ -2854,7 +2854,7 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 			
 			<con:testStep name="Populate Retrieve" type="transfer">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:PropertyTransfersStep">
+				<con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:transfers entitize="false" failOnError="true" ignoreEmpty="false" setNullOnMissingSource="true" transferChildNodes="false" transferTextContent="true" transferToAll="false" useXQuery="false">
 						<con:name>SubjectIdentifier</con:name>
 						<con:sourceType>RemoteSubjectID</con:sourceType>
@@ -2925,11 +2925,11 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 				</con:config>
 			</con:testStep><con:testStep name="Retrieve" type="request">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:interface>PatientCorrelationBinding</con:interface>
 					<con:operation>RetrievePatientCorrelations</con:operation>
 					<con:request name="Retrieve">
-						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting></con:settings>
+						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
 						<con:encoding>UTF-8</con:encoding>
 						<con:endpoint>${#Project#PatientCorrelationEndpoint}</con:endpoint>
 						<con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3">
@@ -2996,7 +2996,7 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
 							</con:configuration>
 						</con:assertion>
-						<con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
+						<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
 						<con:wsrmConfig version="1.2"/>
 					</con:request>
 				</con:config>
@@ -3029,7 +3029,7 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 			<con:testStep name="Clear Correlation Table" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql("PatientCorrelationDB") { sql -&gt; 
+					<script>context.withSql("PatientCorrelationDB") { sql -> 
   def table = context.findProperty("PatientCorrelationTable");
 
   sql.execute("delete from " + table);
@@ -3044,7 +3044,7 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 			
 			<con:testStep name="Populate Add1" type="transfer">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:PropertyTransfersStep">
+				<con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					
 					<con:transfers entitize="false" failOnError="true" ignoreEmpty="false" setNullOnMissingSource="true" transferChildNodes="false" transferTextContent="true" transferToAll="false" useXQuery="false">
 						<con:name>LocalAssigningAuthorityID</con:name>
@@ -3107,7 +3107,7 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 			
 			<con:testStep name="Add1" type="request">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:interface>PatientCorrelationBinding</con:interface>
 					<con:operation>AddPatientCorrelation</con:operation>
 					<con:request name="Add1">
@@ -3157,7 +3157,7 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 </soapenv:Envelope>]]></con:request>
 						<con:assertion type="SOAP Response"/>
 						<con:assertion type="SOAP Fault Assertion"/>
-						<con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
+						<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
 						<con:wsrmConfig version="1.2"/>
 					</con:request>
 				</con:config>
@@ -3166,7 +3166,7 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 			
 			<con:testStep name="Populate Add2" type="transfer">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:PropertyTransfersStep">
+				<con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					
 					<con:transfers entitize="false" failOnError="true" ignoreEmpty="false" setNullOnMissingSource="true" transferChildNodes="false" transferTextContent="true" transferToAll="false" useXQuery="false">
 						<con:name>LocalAssigningAuthorityID</con:name>
@@ -3227,7 +3227,7 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 				</con:config>
 			</con:testStep><con:testStep name="Add2" type="request">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:interface>PatientCorrelationBinding</con:interface>
 					<con:operation>AddPatientCorrelation</con:operation>
 					<con:request name="Add2">
@@ -3277,13 +3277,13 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 </soapenv:Envelope>]]></con:request>
 						<con:assertion type="SOAP Response"/>
 						<con:assertion type="SOAP Fault Assertion"/>
-						<con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
+						<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
 						<con:wsrmConfig version="1.2"/>
 					</con:request>
 				</con:config>
 			</con:testStep><con:testStep name="Populate Retrieve" type="transfer">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:PropertyTransfersStep">
+				<con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:transfers entitize="false" failOnError="true" ignoreEmpty="false" setNullOnMissingSource="true" transferChildNodes="false" transferTextContent="true" transferToAll="false" useXQuery="false">
 						<con:name>SubjectIdentifier</con:name>
 						<con:sourceType>RemoteSubjectID2</con:sourceType>
@@ -3353,11 +3353,11 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 				</con:config>
 			</con:testStep><con:testStep name="Retrieve" type="request">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:interface>PatientCorrelationBinding</con:interface>
 					<con:operation>RetrievePatientCorrelations</con:operation>
 					<con:request name="Retrieve">
-						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting></con:settings>
+						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
 						<con:encoding>UTF-8</con:encoding>
 						<con:endpoint>${#Project#PatientCorrelationEndpoint}</con:endpoint>
 						<con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3">
@@ -3424,7 +3424,7 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
 							</con:configuration>
 						</con:assertion>
-						<con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
+						<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
 						<con:wsrmConfig version="1.2"/>
 					</con:request>
 				</con:config>
@@ -3483,7 +3483,7 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</scr
 			<con:testStep name="Clear Correlation Table" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql("PatientCorrelationDB") { sql -&gt; 
+					<script>context.withSql("PatientCorrelationDB") { sql -> 
   def table = context.findProperty("PatientCorrelationTable");
 
   sql.execute("delete from " + table);
@@ -3520,7 +3520,7 @@ groovyUtils.setPropertyValue( "SelectedPatientData", "creationTime", creationTim
 			</con:testStep>
 			<con:testStep name="Correlations" type="datasource">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:DataSourceStep">
+				<con:config xsi:type="con:DataSourceStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:dataSource type="Excel">
 						<con:configuration>
 							<file>C:/Projects/NHINC/Current/Product/SoapUI_Test/RegressionSuite/CorrelationTests.xls</file>
@@ -3565,7 +3565,7 @@ if (remoteSubjectID == "") testRunner.gotoStepByName( "DataSource Loop" );</scri
 			</con:testStep>
 			<con:testStep name="SelectedPatientData" type="properties">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" saveFirst="true" xsi:type="con:PropertiesStep">
+				<con:config saveFirst="true" xsi:type="con:PropertiesStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:properties>
 						<con:property>
 							<con:name>LocalSubjectID</con:name>
@@ -3590,9 +3590,9 @@ if (remoteSubjectID == "") testRunner.gotoStepByName( "DataSource Loop" );</scri
 					</con:properties>
 				</con:config>
 			</con:testStep>
-			<con:testStep name="Spreadsheet-&gt;Add Transfer" type="transfer">
+			<con:testStep name="Spreadsheet->Add Transfer" type="transfer">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:PropertyTransfersStep">
+				<con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:transfers disabled="false" entitize="false" failOnError="true" ignoreEmpty="false" setNullOnMissingSource="true" transferChildNodes="false" transferTextContent="true" transferToAll="false" useXQuery="false">
 						<con:name>LocalSubjectID</con:name>
 						<con:sourceType>LocalSubjectID</con:sourceType>
@@ -3662,7 +3662,7 @@ if (remoteSubjectID == "") testRunner.gotoStepByName( "DataSource Loop" );</scri
 			</con:testStep>
 			<con:testStep name="Add" type="request">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:interface>PatientCorrelationBinding</con:interface>
 					<con:operation>AddPatientCorrelation</con:operation>
 					<con:request name="Add">
@@ -3713,7 +3713,7 @@ if (remoteSubjectID == "") testRunner.gotoStepByName( "DataSource Loop" );</scri
 </soapenv:Envelope>]]></con:request>
 						<con:assertion type="SOAP Response"/>
 						<con:assertion type="SOAP Fault Assertion"/>
-						<con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
+						<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
 						<con:wsrmConfig version="1.2"/>
 					</con:request>
 				</con:config>
@@ -3728,7 +3728,7 @@ if (remoteSubjectID == "") testRunner.gotoStepByName( "DataSource Loop" );</scri
 			<con:testStep name="Count Correlations (1)" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('PatientCorrelationDB') { sql -&gt; 
+					<script>context.withSql('PatientCorrelationDB') { sql -> 
   assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('PatientCorrelationTable'))[0]
 }</script>
 				</con:config>
@@ -3736,7 +3736,7 @@ if (remoteSubjectID == "") testRunner.gotoStepByName( "DataSource Loop" );</scri
 			<con:testStep name="Check Expiration" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('PatientCorrelationDB') { sql -&gt; 
+					<script>context.withSql('PatientCorrelationDB') { sql -> 
   assert null == sql.firstRow('select CorrelationExpirationDate from ' + context.findProperty('PatientCorrelationTable'))[0]
 }</script>
 				</con:config>
@@ -3803,7 +3803,7 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</scr
 			<con:testStep name="Clear Correlation Table" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql("PatientCorrelationDB") { sql -&gt; 
+					<script>context.withSql("PatientCorrelationDB") { sql -> 
   def table = context.findProperty("PatientCorrelationTable");
 
   sql.execute("delete from " + table);
@@ -3840,7 +3840,7 @@ groovyUtils.setPropertyValue( "SelectedPatientData", "creationTime", creationTim
 			</con:testStep>
 			<con:testStep name="Correlations" type="datasource">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:DataSourceStep">
+				<con:config xsi:type="con:DataSourceStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:dataSource type="Excel">
 						<con:configuration>
 							<file>C:/Projects/NHINC/Current/Product/SoapUI_Test/RegressionSuite/CorrelationTests.xls</file>
@@ -3885,7 +3885,7 @@ if (remoteSubjectID == "") testRunner.gotoStepByName( "DataSource Loop" );</scri
 			</con:testStep>
 			<con:testStep name="SelectedPatientData" type="properties">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" saveFirst="true" xsi:type="con:PropertiesStep">
+				<con:config saveFirst="true" xsi:type="con:PropertiesStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:properties>
 						<con:property>
 							<con:name>LocalSubjectID</con:name>
@@ -3910,9 +3910,9 @@ if (remoteSubjectID == "") testRunner.gotoStepByName( "DataSource Loop" );</scri
 					</con:properties>
 				</con:config>
 			</con:testStep>
-			<con:testStep name="Spreadsheet-&gt;Add Transfer" type="transfer">
+			<con:testStep name="Spreadsheet->Add Transfer" type="transfer">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:PropertyTransfersStep">
+				<con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:transfers disabled="false" entitize="false" failOnError="true" ignoreEmpty="false" setNullOnMissingSource="true" transferChildNodes="false" transferTextContent="true" transferToAll="false" useXQuery="false">
 						<con:name>LocalSubjectID</con:name>
 						<con:sourceType>LocalSubjectID</con:sourceType>
@@ -3982,7 +3982,7 @@ if (remoteSubjectID == "") testRunner.gotoStepByName( "DataSource Loop" );</scri
 			</con:testStep>
 			<con:testStep name="Add" type="request">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:interface>PatientCorrelationBinding</con:interface>
 					<con:operation>AddPatientCorrelation</con:operation>
 					<con:request name="Add">
@@ -4033,7 +4033,7 @@ if (remoteSubjectID == "") testRunner.gotoStepByName( "DataSource Loop" );</scri
 </soapenv:Envelope>]]></con:request>
 						<con:assertion type="SOAP Response"/>
 						<con:assertion type="SOAP Fault Assertion"/>
-						<con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
+						<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
 						<con:wsrmConfig version="1.2"/>
 					</con:request>
 				</con:config>
@@ -4048,7 +4048,7 @@ if (remoteSubjectID == "") testRunner.gotoStepByName( "DataSource Loop" );</scri
 			<con:testStep name="Count Correlations (1)" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('PatientCorrelationDB') { sql -&gt; 
+					<script>context.withSql('PatientCorrelationDB') { sql -> 
   assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('PatientCorrelationTable'))[0]
 }</script>
 				</con:config>
@@ -4056,7 +4056,7 @@ if (remoteSubjectID == "") testRunner.gotoStepByName( "DataSource Loop" );</scri
 			<con:testStep name="Check Expiration" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('PatientCorrelationDB') { sql -&gt; 
+					<script>context.withSql('PatientCorrelationDB') { sql -> 
   assert null != sql.firstRow('select CorrelationExpirationDate from ' + context.findProperty('PatientCorrelationTable'))[0]
 }</script>
 				</con:config>
@@ -4123,7 +4123,7 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</scr
 			<con:testStep name="Clear Correlation Table" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql("PatientCorrelationDB") { sql -&gt; 
+					<script>context.withSql("PatientCorrelationDB") { sql -> 
   def table = context.findProperty("PatientCorrelationTable");
 
   sql.execute("delete from " + table);
@@ -4160,7 +4160,7 @@ groovyUtils.setPropertyValue( "SelectedPatientData", "creationTime", creationTim
 			</con:testStep>
 			<con:testStep name="Correlations" type="datasource">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:DataSourceStep">
+				<con:config xsi:type="con:DataSourceStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:dataSource type="Excel">
 						<con:configuration>
 							<file>C:/Projects/NHINC/Current/Product/SoapUI_Test/RegressionSuite/CorrelationTests.xls</file>
@@ -4205,7 +4205,7 @@ if (remoteSubjectID == "") testRunner.gotoStepByName( "DataSource Loop" );</scri
 			</con:testStep>
 			<con:testStep name="SelectedPatientData" type="properties">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" saveFirst="true" xsi:type="con:PropertiesStep">
+				<con:config saveFirst="true" xsi:type="con:PropertiesStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:properties>
 						<con:property>
 							<con:name>LocalSubjectID</con:name>
@@ -4230,9 +4230,9 @@ if (remoteSubjectID == "") testRunner.gotoStepByName( "DataSource Loop" );</scri
 					</con:properties>
 				</con:config>
 			</con:testStep>
-			<con:testStep name="Spreadsheet-&gt;Add Transfer" type="transfer">
+			<con:testStep name="Spreadsheet->Add Transfer" type="transfer">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:PropertyTransfersStep">
+				<con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:transfers disabled="false" entitize="false" failOnError="true" ignoreEmpty="false" setNullOnMissingSource="true" transferChildNodes="false" transferTextContent="true" transferToAll="false" useXQuery="false">
 						<con:name>LocalSubjectID</con:name>
 						<con:sourceType>LocalSubjectID</con:sourceType>
@@ -4302,7 +4302,7 @@ if (remoteSubjectID == "") testRunner.gotoStepByName( "DataSource Loop" );</scri
 			</con:testStep>
 			<con:testStep name="Add" type="request">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:interface>PatientCorrelationBinding</con:interface>
 					<con:operation>AddPatientCorrelation</con:operation>
 					<con:request name="Add">
@@ -4353,7 +4353,7 @@ if (remoteSubjectID == "") testRunner.gotoStepByName( "DataSource Loop" );</scri
 </soapenv:Envelope>]]></con:request>
 						<con:assertion type="SOAP Response"/>
 						<con:assertion type="SOAP Fault Assertion"/>
-						<con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
+						<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
 						<con:wsrmConfig version="1.2"/>
 					</con:request>
 				</con:config>
@@ -4368,7 +4368,7 @@ if (remoteSubjectID == "") testRunner.gotoStepByName( "DataSource Loop" );</scri
 			<con:testStep name="Count Correlations (1)" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('PatientCorrelationDB') { sql -&gt; 
+					<script>context.withSql('PatientCorrelationDB') { sql -> 
   assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('PatientCorrelationTable'))[0]
 }</script>
 				</con:config>
@@ -4376,14 +4376,14 @@ if (remoteSubjectID == "") testRunner.gotoStepByName( "DataSource Loop" );</scri
 			<con:testStep name="Check Expiration" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('PatientCorrelationDB') { sql -&gt; 
+					<script>context.withSql('PatientCorrelationDB') { sql -> 
   assert null == sql.firstRow('select CorrelationExpirationDate from ' + context.findProperty('PatientCorrelationTable'))[0];
 }</script>
 				</con:config>
 			</con:testStep>
-			<con:testStep name="Spreadsheet-&gt;Retrieve Transfer" type="transfer">
+			<con:testStep name="Spreadsheet->Retrieve Transfer" type="transfer">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:PropertyTransfersStep">
+				<con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:transfers entitize="false" failOnError="true" ignoreEmpty="false" setNullOnMissingSource="true" transferChildNodes="false" transferTextContent="true" transferToAll="false" useXQuery="false">
 						<con:name>SubjectIdentifier</con:name>
 						<con:sourceType>RemoteSubjectID</con:sourceType>
@@ -4454,7 +4454,7 @@ if (remoteSubjectID == "") testRunner.gotoStepByName( "DataSource Loop" );</scri
 			</con:testStep>
 			<con:testStep name="Retrieve" type="request">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:interface>PatientCorrelationBinding</con:interface>
 					<con:operation>RetrievePatientCorrelations</con:operation>
 					<con:request name="Retrieve">
@@ -4563,7 +4563,7 @@ if (remoteSubjectID == "") testRunner.gotoStepByName( "DataSource Loop" );</scri
 								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
 							</con:configuration>
 						</con:assertion>
-						<con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
+						<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
 						<con:wsrmConfig version="1.2"/>
 					</con:request>
 				</con:config>
@@ -4630,7 +4630,7 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</scr
 			<con:testStep name="Clear Correlation Table" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql("PatientCorrelationDB") { sql -&gt; 
+					<script>context.withSql("PatientCorrelationDB") { sql -> 
   def table = context.findProperty("PatientCorrelationTable");
 
   sql.execute("delete from " + table);
@@ -4667,7 +4667,7 @@ groovyUtils.setPropertyValue( "SelectedPatientData", "creationTime", creationTim
 			</con:testStep>
 			<con:testStep name="Correlations" type="datasource">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:DataSourceStep">
+				<con:config xsi:type="con:DataSourceStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:dataSource type="Excel">
 						<con:configuration>
 							<file>C:/Projects/NHINC/Current/Product/SoapUI_Test/RegressionSuite/CorrelationTests.xls</file>
@@ -4712,7 +4712,7 @@ if (remoteSubjectID == "") testRunner.gotoStepByName( "DataSource Loop" );</scri
 			</con:testStep>
 			<con:testStep name="SelectedPatientData" type="properties">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" saveFirst="true" xsi:type="con:PropertiesStep">
+				<con:config saveFirst="true" xsi:type="con:PropertiesStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:properties>
 						<con:property>
 							<con:name>LocalSubjectID</con:name>
@@ -4737,9 +4737,9 @@ if (remoteSubjectID == "") testRunner.gotoStepByName( "DataSource Loop" );</scri
 					</con:properties>
 				</con:config>
 			</con:testStep>
-			<con:testStep name="Spreadsheet-&gt;Add Transfer" type="transfer">
+			<con:testStep name="Spreadsheet->Add Transfer" type="transfer">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:PropertyTransfersStep">
+				<con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:transfers disabled="false" entitize="false" failOnError="true" ignoreEmpty="false" setNullOnMissingSource="true" transferChildNodes="false" transferTextContent="true" transferToAll="false" useXQuery="false">
 						<con:name>LocalSubjectID</con:name>
 						<con:sourceType>LocalSubjectID</con:sourceType>
@@ -4809,7 +4809,7 @@ if (remoteSubjectID == "") testRunner.gotoStepByName( "DataSource Loop" );</scri
 			</con:testStep>
 			<con:testStep name="Add" type="request">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:interface>PatientCorrelationBinding</con:interface>
 					<con:operation>AddPatientCorrelation</con:operation>
 					<con:request name="Add">
@@ -4860,7 +4860,7 @@ if (remoteSubjectID == "") testRunner.gotoStepByName( "DataSource Loop" );</scri
 </soapenv:Envelope>]]></con:request>
 						<con:assertion type="SOAP Response"/>
 						<con:assertion type="SOAP Fault Assertion"/>
-						<con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
+						<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
 						<con:wsrmConfig version="1.2"/>
 					</con:request>
 				</con:config>
@@ -4875,7 +4875,7 @@ if (remoteSubjectID == "") testRunner.gotoStepByName( "DataSource Loop" );</scri
 			<con:testStep name="Count Correlations (1)" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('PatientCorrelationDB') { sql -&gt; 
+					<script>context.withSql('PatientCorrelationDB') { sql -> 
   assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('PatientCorrelationTable'))[0]
 }</script>
 				</con:config>
@@ -4883,14 +4883,14 @@ if (remoteSubjectID == "") testRunner.gotoStepByName( "DataSource Loop" );</scri
 			<con:testStep name="Check Expiration" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('PatientCorrelationDB') { sql -&gt; 
+					<script>context.withSql('PatientCorrelationDB') { sql -> 
   assert null != sql.firstRow('select CorrelationExpirationDate from ' + context.findProperty('PatientCorrelationTable'))[0];
 }</script>
 				</con:config>
 			</con:testStep>
-			<con:testStep name="Spreadsheet-&gt;Retrieve Transfer" type="transfer">
+			<con:testStep name="Spreadsheet->Retrieve Transfer" type="transfer">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:PropertyTransfersStep">
+				<con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:transfers entitize="false" failOnError="true" ignoreEmpty="false" setNullOnMissingSource="true" transferChildNodes="false" transferTextContent="true" transferToAll="false" useXQuery="false">
 						<con:name>SubjectIdentifier</con:name>
 						<con:sourceType>RemoteSubjectID</con:sourceType>
@@ -4961,7 +4961,7 @@ if (remoteSubjectID == "") testRunner.gotoStepByName( "DataSource Loop" );</scri
 			</con:testStep>
 			<con:testStep name="Retrieve" type="request">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:interface>PatientCorrelationBinding</con:interface>
 					<con:operation>RetrievePatientCorrelations</con:operation>
 					<con:request name="Retrieve">
@@ -5070,7 +5070,7 @@ if (remoteSubjectID == "") testRunner.gotoStepByName( "DataSource Loop" );</scri
 								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
 							</con:configuration>
 						</con:assertion>
-						<con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
+						<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
 						<con:wsrmConfig version="1.2"/>
 					</con:request>
 				</con:config>
@@ -5137,7 +5137,7 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</scr
 			<con:testStep name="Clear Correlation Table" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql("PatientCorrelationDB") { sql -&gt; 
+					<script>context.withSql("PatientCorrelationDB") { sql -> 
   def table = context.findProperty("PatientCorrelationTable");
 
   sql.execute("delete from " + table);
@@ -5174,7 +5174,7 @@ groovyUtils.setPropertyValue( "SelectedPatientData", "creationTime", creationTim
 			</con:testStep>
 			<con:testStep name="Correlations" type="datasource">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:DataSourceStep">
+				<con:config xsi:type="con:DataSourceStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:dataSource type="Excel">
 						<con:configuration>
 							<file>C:/Projects/NHINC/Current/Product/SoapUI_Test/RegressionSuite/CorrelationTests.xls</file>
@@ -5219,7 +5219,7 @@ if (localSubjectID == "") testRunner.gotoStepByName( "DataSource Loop" );</scrip
 			</con:testStep>
 			<con:testStep name="SelectedPatientData" type="properties">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" saveFirst="true" xsi:type="con:PropertiesStep">
+				<con:config saveFirst="true" xsi:type="con:PropertiesStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:properties>
 						<con:property>
 							<con:name>LocalSubjectID</con:name>
@@ -5244,9 +5244,9 @@ if (localSubjectID == "") testRunner.gotoStepByName( "DataSource Loop" );</scrip
 					</con:properties>
 				</con:config>
 			</con:testStep>
-			<con:testStep name="Spreadsheet-&gt;Add Transfer" type="transfer">
+			<con:testStep name="Spreadsheet->Add Transfer" type="transfer">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:PropertyTransfersStep">
+				<con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:transfers disabled="true" entitize="false" failOnError="true" ignoreEmpty="false" setNullOnMissingSource="true" transferChildNodes="false" transferTextContent="true" transferToAll="false" useXQuery="false">
 						<con:name>LocalSubjectID</con:name>
 						<con:sourceType>LocalSubjectID</con:sourceType>
@@ -5316,7 +5316,7 @@ if (localSubjectID == "") testRunner.gotoStepByName( "DataSource Loop" );</scrip
 			</con:testStep>
 			<con:testStep name="Add" type="request">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:interface>PatientCorrelationBinding</con:interface>
 					<con:operation>AddPatientCorrelation</con:operation>
 					<con:request name="Add">
@@ -5367,7 +5367,7 @@ if (localSubjectID == "") testRunner.gotoStepByName( "DataSource Loop" );</scrip
 </soapenv:Envelope>]]></con:request>
 						<con:assertion type="SOAP Response"/>
 						<con:assertion type="SOAP Fault Assertion"/>
-						<con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
+						<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
 						<con:wsrmConfig version="1.2"/>
 					</con:request>
 				</con:config>
@@ -5382,14 +5382,14 @@ if (localSubjectID == "") testRunner.gotoStepByName( "DataSource Loop" );</scrip
 			<con:testStep name="Count Correlations (1)" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('PatientCorrelationDB') { sql -&gt; 
+					<script>context.withSql('PatientCorrelationDB') { sql -> 
   assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('PatientCorrelationTable'))[0]
 }</script>
 				</con:config>
 			</con:testStep>
-			<con:testStep name="Spreadsheet-&gt;Retrieve Transfer" type="transfer">
+			<con:testStep name="Spreadsheet->Retrieve Transfer" type="transfer">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:PropertyTransfersStep">
+				<con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:transfers entitize="false" failOnError="true" ignoreEmpty="false" setNullOnMissingSource="true" transferChildNodes="false" transferTextContent="true" transferToAll="false" useXQuery="false">
 						<con:name>SubjectIdentifier</con:name>
 						<con:sourceType>RemoteSubjectID</con:sourceType>
@@ -5460,7 +5460,7 @@ if (localSubjectID == "") testRunner.gotoStepByName( "DataSource Loop" );</scrip
 			</con:testStep>
 			<con:testStep name="Retrieve" type="request">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:interface>PatientCorrelationBinding</con:interface>
 					<con:operation>RetrievePatientCorrelations</con:operation>
 					<con:request name="Retrieve">
@@ -5550,7 +5550,7 @@ if (localSubjectID == "") testRunner.gotoStepByName( "DataSource Loop" );</scrip
 								<useRegEx>false</useRegEx>
 							</con:configuration>
 						</con:assertion>
-						<con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
+						<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
 						<con:wsrmConfig version="1.2"/>
 					</con:request>
 				</con:config>
@@ -5558,7 +5558,7 @@ if (localSubjectID == "") testRunner.gotoStepByName( "DataSource Loop" );</scrip
 			<con:testStep name="Count Correlations (0)" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('PatientCorrelationDB') { sql -&gt; 
+					<script>context.withSql('PatientCorrelationDB') { sql -> 
   assert 0 == sql.firstRow('select count(*) from ' + context.findProperty('PatientCorrelationTable'))[0]
 }</script>
 				</con:config>
@@ -5624,7 +5624,7 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</scr
 			</con:testStep>
 			<con:testStep name="Internal Properties" type="properties">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" saveFirst="true" xsi:type="con:PropertiesStep">
+				<con:config saveFirst="true" xsi:type="con:PropertiesStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:properties>
 						<con:property>
 							<con:name>originalExpiration</con:name>
@@ -5640,7 +5640,7 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</scr
 			<con:testStep name="Clear Correlation Table" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql("PatientCorrelationDB") { sql -&gt; 
+					<script>context.withSql("PatientCorrelationDB") { sql -> 
   def table = context.findProperty("PatientCorrelationTable");
 
   sql.execute("delete from " + table);
@@ -5677,7 +5677,7 @@ groovyUtils.setPropertyValue( "SelectedPatientData", "creationTime", creationTim
 			</con:testStep>
 			<con:testStep name="Correlations" type="datasource">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:DataSourceStep">
+				<con:config xsi:type="con:DataSourceStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:dataSource type="Excel">
 						<con:configuration>
 							<file>C:/Projects/NHINC/Current/Product/SoapUI_Test/RegressionSuite/CorrelationTests.xls</file>
@@ -5722,7 +5722,7 @@ if (remoteSubjectID == "") testRunner.gotoStepByName( "DataSource Loop" );</scri
 			</con:testStep>
 			<con:testStep name="SelectedPatientData" type="properties">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" saveFirst="true" xsi:type="con:PropertiesStep">
+				<con:config saveFirst="true" xsi:type="con:PropertiesStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:properties>
 						<con:property>
 							<con:name>LocalSubjectID</con:name>
@@ -5747,9 +5747,9 @@ if (remoteSubjectID == "") testRunner.gotoStepByName( "DataSource Loop" );</scri
 					</con:properties>
 				</con:config>
 			</con:testStep>
-			<con:testStep name="Spreadsheet-&gt;Add Transfer" type="transfer">
+			<con:testStep name="Spreadsheet->Add Transfer" type="transfer">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:PropertyTransfersStep">
+				<con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:transfers disabled="false" entitize="false" failOnError="true" ignoreEmpty="false" setNullOnMissingSource="true" transferChildNodes="false" transferTextContent="true" transferToAll="false" useXQuery="false">
 						<con:name>LocalSubjectID</con:name>
 						<con:sourceType>LocalSubjectID</con:sourceType>
@@ -5819,7 +5819,7 @@ if (remoteSubjectID == "") testRunner.gotoStepByName( "DataSource Loop" );</scri
 			</con:testStep>
 			<con:testStep name="Add" type="request">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:interface>PatientCorrelationBinding</con:interface>
 					<con:operation>AddPatientCorrelation</con:operation>
 					<con:request name="Add">
@@ -5870,7 +5870,7 @@ if (remoteSubjectID == "") testRunner.gotoStepByName( "DataSource Loop" );</scri
 </soapenv:Envelope>]]></con:request>
 						<con:assertion type="SOAP Response"/>
 						<con:assertion type="SOAP Fault Assertion"/>
-						<con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
+						<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
 						<con:wsrmConfig version="1.2"/>
 					</con:request>
 				</con:config>
@@ -5878,7 +5878,7 @@ if (remoteSubjectID == "") testRunner.gotoStepByName( "DataSource Loop" );</scri
 			<con:testStep name="Count Correlations (1)" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('PatientCorrelationDB') { sql -&gt; 
+					<script>context.withSql('PatientCorrelationDB') { sql -> 
   assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('PatientCorrelationTable'))[0]
 }</script>
 				</con:config>
@@ -5888,16 +5888,16 @@ if (remoteSubjectID == "") testRunner.gotoStepByName( "DataSource Loop" );</scri
 				<con:config>
 					<script>def dataSource2 = testRunner.testCase.getTestStepByName( "Internal Properties" );
 
-context.withSql('PatientCorrelationDB') { sql -&gt; 
+context.withSql('PatientCorrelationDB') { sql -> 
   def exp = sql.firstRow('select CorrelationExpirationDate from ' + context.findProperty('PatientCorrelationTable'))[0];
   assert exp != null;
   dataSource2.setPropertyValue( "originalExpiration", exp.toString());
 }</script>
 				</con:config>
 			</con:testStep>
-			<con:testStep name="Spreadsheet-&gt;Re-Add Transfer" type="transfer">
+			<con:testStep name="Spreadsheet->Re-Add Transfer" type="transfer">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:PropertyTransfersStep">
+				<con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:transfers disabled="false" entitize="false" failOnError="true" ignoreEmpty="false" setNullOnMissingSource="true" transferChildNodes="false" transferTextContent="true" transferToAll="false" useXQuery="false">
 						<con:name>LocalSubjectID</con:name>
 						<con:sourceType>LocalSubjectID</con:sourceType>
@@ -5973,7 +5973,7 @@ context.withSql('PatientCorrelationDB') { sql -&gt;
 			</con:testStep>
 			<con:testStep name="Re-Add" type="request">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:interface>PatientCorrelationBinding</con:interface>
 					<con:operation>AddPatientCorrelation</con:operation>
 					<con:request name="Re-Add">
@@ -6024,7 +6024,7 @@ context.withSql('PatientCorrelationDB') { sql -&gt;
 </soapenv:Envelope>]]></con:request>
 						<con:assertion type="SOAP Response"/>
 						<con:assertion type="SOAP Fault Assertion"/>
-						<con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
+						<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
 						<con:wsrmConfig version="1.2"/>
 					</con:request>
 				</con:config>
@@ -6032,7 +6032,7 @@ context.withSql('PatientCorrelationDB') { sql -&gt;
 			<con:testStep name="Re-Count Correlations (1)" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('PatientCorrelationDB') { sql -&gt; 
+					<script>context.withSql('PatientCorrelationDB') { sql -> 
   assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('PatientCorrelationTable'))[0]
 }</script>
 				</con:config>
@@ -6042,7 +6042,7 @@ context.withSql('PatientCorrelationDB') { sql -&gt;
 				<con:config>
 					<script>def dataSource2 = testRunner.testCase.getTestStepByName( "Internal Properties" );
 
-context.withSql('PatientCorrelationDB') { sql -&gt; 
+context.withSql('PatientCorrelationDB') { sql -> 
   def exp = sql.firstRow('select CorrelationExpirationDate from ' + context.findProperty('PatientCorrelationTable'))[0]
   assert exp != null;
 
@@ -6153,7 +6153,7 @@ context.withSql('PatientCorrelationDB') { sql -&gt;
 if (propertiesFile.exists()) {
 	def props = new Properties()
 	props.load(new FileReader(propertiesFile))
-	props.each { key, value -&gt;
+	props.each { key, value ->
 	    project.setPropertyValue(key, value)
 	}
 }
@@ -6161,11 +6161,11 @@ if (propertiesFile.exists()) {
 
 TimeZone.setDefault(TimeZone.getTimeZone("UTC"))
 def testRunListener = [
-  afterRun: { testRunner, runContext -&gt; },
-  afterStep: { testRunner, runContext, result -&gt; },
-  beforeStep: { testRunner, runContext -&gt; },
-  beforeStep: { testRunner, runContext, testStep -&gt; },
-  beforeRun: { testRunner, runContext -&gt; 
+  afterRun: { testRunner, runContext -> },
+  afterStep: { testRunner, runContext, result -> },
+  beforeStep: { testRunner, runContext -> },
+  beforeStep: { testRunner, runContext, testStep -> },
+  beforeRun: { testRunner, runContext -> 
     use (org.codehaus.groovy.runtime.TimeCategory) {
       def startDate = 5.minutes.ago
       def endDate = 5.minutes.from.now
@@ -6186,14 +6186,14 @@ project.testSuiteList*.testCaseList.flatten()*.addTestRunListener(testRunListene
 
 
 
-com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.findProperty = { propertyName -&gt;
+com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.findProperty = { propertyName ->
     return delegate.getProperty(propertyName) ?:
                 delegate.testCase.getPropertyValue(propertyName) ?:
                 delegate.testCase.testSuite.getPropertyValue(propertyName) ?:
                 delegate.testCase.testSuite.project.getPropertyValue(propertyName)
 }
 
-com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.withSql = { dbOrPropertyName, block -&gt;
+com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.withSql = { dbOrPropertyName, block ->
   def dbName = delegate.findProperty(dbOrPropertyName) ?: dbOrPropertyName
   def host = delegate.findProperty('DBHost')
   def port = delegate.findProperty('DBPort')
@@ -6237,10 +6237,5 @@ com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.withSql = { d
 		<con:xmlTemplates/>
 		<con:parameters/>
 	</con:reporting>
-	<con:eventHandlers name="TestSuiteRunListener.beforeTestCase" type="TestSuiteRunListener.beforeTestCase">
-		<con:script>FileUtils.backupConfiguration(context, log);</con:script>
-	</con:eventHandlers>
-	<con:eventHandlers name="TestSuiteRunListener.afterTestCase" type="TestSuiteRunListener.afterTestCase">
-		<con:script>FileUtils.restoreConfiguration(context, log)</con:script>
-	</con:eventHandlers>
+
 </con:soapui-project>

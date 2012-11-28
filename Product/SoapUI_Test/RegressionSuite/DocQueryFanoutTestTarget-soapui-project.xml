@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project abortOnError="false" name="DocQueryFanoutTestTarget" resourceRoot="" runType="SEQUENTIAL" soapui-version="3.5.1" xmlns:con="http://eviware.com/soapui/config">
+<con:soapui-project abortOnError="false" name="DocQueryFanoutTestTarget" resourceRoot="" runType="SEQUENTIAL" soapui-version="4.5.1" activeEnvironment="Default" xmlns:con="http://eviware.com/soapui/config">
 	<con:settings/>
-	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitydocquery}EntityDocQueryBindingSoap" definition="WSDL path not set.  #EntityDocQuery.wsdl" name="EntityDocQueryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitydocquery}EntityDocQueryBindingSoap" definition="${ProjectDir}../ValidationSuite/target/wsdl/EntityDocQuery.wsdl" name="EntityDocQueryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 		<con:endpoints>
 			<con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/DocumentQuery/2_0/EntityService/EntityDocQueryUnsecured</con:endpoint>
@@ -425,7 +425,7 @@ def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 				def assertError = "No URLs found for targeted DocQueryRequest for homecommunity:4.4"
 				def error = holder["//ns1:AdhocQueryResponse[1]/ns12:RegistryErrorList[1]/ns12:RegistryError/@codeContext"];
 				log.info("Number of Errors: " + error);
-				assert (assertError.equals(error));</scriptText></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+				assert (assertError.equals(error));</scriptText></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 	<con:jmsPropertyConfig/>
 	<con:wsaConfig mustUnderstand="NONE" version="200508"/>
 	<con:wsrmConfig version="1.2"/>
@@ -433,32 +433,7 @@ def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 </con:config>
 </con:testStep>
 
-<con:setupScript>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-
-	File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
-	File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
-
-	File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml");
-	File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
-
-	void MoveFile(File sourceFile, File destinationFile, log){
-
-	if(sourceFile.exists())
-	{
-	def reader = sourceFile.newReader();
-	destinationFile.withWriter 
-	{ writer ->       
-writer &lt;&lt; reader;   
-}   
-reader.close();
-} 
-else {
-log.info("unable to find source file " + sourceFile);
-}   
-}
-
-MoveFile(sourceInternalFile, backupInternalFile, log);
-MoveFile(sourceUddiFile, backupUddiFile, log);</con:setupScript>
+<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
@@ -482,47 +457,7 @@ MoveFile(sourceUddiFile, backupUddiFile, log);</con:setupScript>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
-<con:tearDownScript>import nhinc.FileUtils;
-FileUtils.restoreToMasterConfiguration(context, log);
-
-	def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-
-	File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
-	File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
-
-	File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml");
-	File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
-
-	void MoveFile(File sourceFile, File destinationFile, log){
-
-	if(sourceFile.exists())
-	{
-	def reader = sourceFile.newReader();
-	destinationFile.withWriter 
-	{ writer ->       
-writer &lt;&lt; reader;   
-}   
-reader.close();
-} 
-else {
-log.info("unable to find source file " + sourceFile);
-}   
-}
-
-MoveFile(backupInternalFile, sourceInternalFile, log);
-MoveFile(backupUddiFile, sourceUddiFile, log);
-
-void DeleteFile(File file, log) {  
-if(file.exists()) {    
-log.info("deleting file " + file);
-file.delete(); 
-} else {
-log.info("file not found, skipping delete for " + file);
-}
-}
-
-DeleteFile(backupInternalFile, log);
-DeleteFile(backupUddiFile, log);</con:tearDownScript>
+<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript>
 </con:testCase>
 <con:testCase failOnError="true" failTestCaseOnErrors="true" id="9324f41a-5d01-4528-9520-206957d72ffc" keepSession="false" maxResults="0" name="2 Targets (1 with no DQ Service) but 3 Correlations" searchProperties="true">
 	<con:settings/>
@@ -951,7 +886,7 @@ def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 				def assertError = "No URLs found for targeted DocQueryRequest for homecommunity:4.4"
 				def error = holder["//ns1:AdhocQueryResponse[1]/ns12:RegistryErrorList[1]/ns12:RegistryError/@codeContext"];
 				log.info("Number of Errors: " + error);
-				assert (assertError.equals(error));</scriptText></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+				assert (assertError.equals(error));</scriptText></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 	<con:jmsPropertyConfig/>
 	<con:wsaConfig mustUnderstand="NONE" version="200508"/>
 	<con:wsrmConfig version="1.2"/>
@@ -959,32 +894,7 @@ def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 </con:config>
 </con:testStep>
 
-<con:setupScript>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-
-	File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
-	File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
-
-	File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml");
-	File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
-
-	void MoveFile(File sourceFile, File destinationFile, log){
-
-	if(sourceFile.exists())
-	{
-	def reader = sourceFile.newReader();
-	destinationFile.withWriter 
-	{ writer ->       
-writer &lt;&lt; reader;   
-}   
-reader.close();
-} 
-else {
-log.info("unable to find source file " + sourceFile);
-}   
-}
-
-MoveFile(sourceInternalFile, backupInternalFile, log);
-MoveFile(sourceUddiFile, backupUddiFile, log);</con:setupScript>
+<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
@@ -1008,47 +918,7 @@ MoveFile(sourceUddiFile, backupUddiFile, log);</con:setupScript>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
-<con:tearDownScript>import nhinc.FileUtils;
-FileUtils.restoreToMasterConfiguration(context, log);
-
-	def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-
-	File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
-	File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
-
-	File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml");
-	File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
-
-	void MoveFile(File sourceFile, File destinationFile, log){
-
-	if(sourceFile.exists())
-	{
-	def reader = sourceFile.newReader();
-	destinationFile.withWriter 
-	{ writer ->       
-writer &lt;&lt; reader;   
-}   
-reader.close();
-} 
-else {
-log.info("unable to find source file " + sourceFile);
-}   
-}
-
-MoveFile(backupInternalFile, sourceInternalFile, log);
-MoveFile(backupUddiFile, sourceUddiFile, log);
-
-void DeleteFile(File file, log) {  
-if(file.exists()) {    
-log.info("deleting file " + file);
-file.delete(); 
-} else {
-log.info("file not found, skipping delete for " + file);
-}
-}
-
-DeleteFile(backupInternalFile, log);
-DeleteFile(backupUddiFile, log);</con:tearDownScript>
+<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript>
 </con:testCase>
 <con:testCase failOnError="true" failTestCaseOnErrors="true" id="70151a65-365f-46fa-a1f8-f2d08e3fd5e3" keepSession="false" maxResults="0" name="Target with no DQ Service and No Correlations" searchProperties="true">
 			<con:settings/>
@@ -1427,7 +1297,7 @@ def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
 				def assertError = "No patient correlations found."
 				def error = holder["//ns1:AdhocQueryResponse[1]/ns12:RegistryErrorList[1]/ns12:RegistryError/@codeContext"];
 				log.info("Error: " + error);
-				assert (assertError.equals(error));</scriptText></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+				assert (assertError.equals(error));</scriptText></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 	<con:jmsPropertyConfig/>
 	<con:wsaConfig mustUnderstand="NONE" version="200508"/>
 	<con:wsrmConfig version="1.2"/>
@@ -1435,32 +1305,7 @@ def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
 </con:config>
 </con:testStep>
 
-<con:setupScript>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-
-	File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
-	File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
-
-	File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml");
-	File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
-
-	void MoveFile(File sourceFile, File destinationFile, log){
-
-	if(sourceFile.exists())
-	{
-	def reader = sourceFile.newReader();
-	destinationFile.withWriter 
-	{ writer ->       
-writer &lt;&lt; reader;   
-}   
-reader.close();
-} 
-else {
-log.info("unable to find source file " + sourceFile);
-}   
-}
-
-MoveFile(sourceInternalFile, backupInternalFile, log);
-MoveFile(sourceUddiFile, backupUddiFile, log);</con:setupScript>
+<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
@@ -1484,47 +1329,7 @@ MoveFile(sourceUddiFile, backupUddiFile, log);</con:setupScript>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
-<con:tearDownScript>import nhinc.FileUtils;
-FileUtils.restoreToMasterConfiguration(context, log);
-
-	def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-
-	File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
-	File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
-
-	File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml");
-	File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
-
-	void MoveFile(File sourceFile, File destinationFile, log){
-
-	if(sourceFile.exists())
-	{
-	def reader = sourceFile.newReader();
-	destinationFile.withWriter 
-	{ writer ->       
-writer &lt;&lt; reader;   
-}   
-reader.close();
-} 
-else {
-log.info("unable to find source file " + sourceFile);
-}   
-}
-
-MoveFile(backupInternalFile, sourceInternalFile, log);
-MoveFile(backupUddiFile, sourceUddiFile, log);
-
-void DeleteFile(File file, log) {  
-if(file.exists()) {    
-log.info("deleting file " + file);
-file.delete(); 
-} else {
-log.info("file not found, skipping delete for " + file);
-}
-}
-
-DeleteFile(backupInternalFile, log);
-DeleteFile(backupUddiFile, log);</con:tearDownScript>
+<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript>
 </con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" id="048c641d-b668-4521-b0a1-e518d4ed86e6" keepSession="false" maxResults="0" name="Target with no DQ Service with 1 Matching Correlation" searchProperties="true">
 			<con:settings/>
 
@@ -1930,7 +1735,7 @@ def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 				def assertError = "No URLs found for targeted DocQueryRequest for homecommunity:4.4"
 				def error = holder["//ns1:AdhocQueryResponse[1]/ns12:RegistryErrorList[1]/ns12:RegistryError/@codeContext"];
 				log.info("Error: " + error);
-				assert (assertError.equals(error));</scriptText></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+				assert (assertError.equals(error));</scriptText></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 	<con:jmsPropertyConfig/>
 	<con:wsaConfig mustUnderstand="NONE" version="200508"/>
 	<con:wsrmConfig version="1.2"/>
@@ -1938,32 +1743,7 @@ def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 </con:config>
 </con:testStep>
 
-<con:setupScript>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-
-	File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
-	File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
-
-	File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml");
-	File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
-
-	void MoveFile(File sourceFile, File destinationFile, log){
-
-	if(sourceFile.exists())
-	{
-	def reader = sourceFile.newReader();
-	destinationFile.withWriter 
-	{ writer ->       
-writer &lt;&lt; reader;   
-}   
-reader.close();
-} 
-else {
-log.info("unable to find source file " + sourceFile);
-}   
-}
-
-MoveFile(sourceInternalFile, backupInternalFile, log);
-MoveFile(sourceUddiFile, backupUddiFile, log);</con:setupScript>
+<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
@@ -1987,47 +1767,7 @@ MoveFile(sourceUddiFile, backupUddiFile, log);</con:setupScript>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
-<con:tearDownScript>import nhinc.FileUtils;
-FileUtils.restoreToMasterConfiguration(context, log);
-
-	def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-
-	File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
-	File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
-
-	File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml");
-	File backupUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo_BACKUP.xml");
-
-	void MoveFile(File sourceFile, File destinationFile, log){
-
-	if(sourceFile.exists())
-	{
-	def reader = sourceFile.newReader();
-	destinationFile.withWriter 
-	{ writer ->       
-writer &lt;&lt; reader;   
-}   
-reader.close();
-} 
-else {
-log.info("unable to find source file " + sourceFile);
-}   
-}
-
-MoveFile(backupInternalFile, sourceInternalFile, log);
-MoveFile(backupUddiFile, sourceUddiFile, log);
-
-void DeleteFile(File file, log) {  
-if(file.exists()) {    
-log.info("deleting file " + file);
-file.delete(); 
-} else {
-log.info("file not found, skipping delete for " + file);
-}
-}
-
-DeleteFile(backupInternalFile, log);
-DeleteFile(backupUddiFile, log);</con:tearDownScript>
+<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript>
 </con:testCase><con:properties/>
 </con:testSuite>
 <con:properties>

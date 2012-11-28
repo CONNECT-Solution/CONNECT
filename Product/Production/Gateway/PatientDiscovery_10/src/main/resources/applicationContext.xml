@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="
+http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+">
+
+    <aop:aspectj-autoproxy proxy-target-class="true" />
+    <context:annotation-config/>
+    
+    <bean id="SOAPHeaderHandler" class="gov.hhs.fha.nhinc.callback.SOAPHeaderHandler" />
+    <bean id="TransactionHandler" class="gov.hhs.fha.nhinc.logging.transaction.TransactionHandler" />
+    
+    <bean id="auditRepositoryLogger" class="gov.hhs.fha.nhinc.auditrepository.AuditRepositoryLogger"/>
+    
+    
+    <bean id="auditRepositoryProxyObjectFactory" class="gov.hhs.fha.nhinc.auditrepository.nhinc.proxy.AuditRepositoryProxyObjectFactory" />
+    
+  
+ 
+    <bean id="inboundPatientDiscoveryOrchFactory" class="gov.hhs.fha.nhinc.patientdiscovery.nhin.InboundPatientDiscoveryOrchFactory" factory-method="getInstance" />
+
+  
+    <bean id="patientDiscoveryAuditLogger" class="gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditLogger" >
+        <constructor-arg ref="auditRepositoryLogger" />
+         <constructor-arg ref="auditRepositoryProxyObjectFactory" />
+    </bean>
+
+    <bean id="nhinPDOrchestrator"
+        class="gov.hhs.fha.nhinc.patientdiscovery.NhinPatientDiscoveryImpl">
+        <property name="AuditLogger" ref="patientDiscoveryAuditLogger" />
+        <property name="OrchestrationFactory" ref="inboundPatientDiscoveryOrchFactory" />
+    </bean>
+
+    <bean id="nhinPD"
+        class="gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.NhinPatientDiscovery">
+        <property name="orchestratorImpl">
+            <ref bean="nhinPDOrchestrator" />
+        </property>
+    </bean>
+    
+     <bean id="passthruPDRespOrchestrator"
+        class="gov.hhs.fha.nhinc.patientdiscovery._10.passthru.deferred.response.NhincProxyPatientDiscoveryAsyncRespImpl" />
+
+    <bean id="passthruPDRespSecured"
+        class="gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.NhincProxyPatientDiscoverySecuredAsyncResp">
+        <property name="orchestratorImpl">
+            <ref bean="passthruPDRespOrchestrator" />
+        </property>
+    </bean>
+    
+    
+      <bean id="entityPDRespUnsecured"
+        class="gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.EntityPatientDiscoveryDeferredResponseUnsecured">
+        <property name="orchestratorImpl">
+            <ref bean="entityPDRespOrchestrator" />
+        </property>
+    </bean>
+    
+    
+    
+    <bean id="entityPDRespOrchestrator"
+        class="gov.hhs.fha.nhinc.patientdiscovery._10.entity.deferred.response.EntityPatientDiscoveryDeferredResponseImpl" />
+
+    <bean id="entityPDRespSecured"
+        class="gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.EntityPatientDiscoveryDeferredResponseSecured">
+        <property name="orchestratorImpl">
+            <ref bean="entityPDRespOrchestrator" />
+        </property>
+    </bean>
+    
+    
+    
+    <bean id="nhinPDRespOrchestrator"
+        class="gov.hhs.fha.nhinc.patientdiscovery._10.deferred.response.NhinPatientDiscoveryAsyncRespImpl" />
+
+    <bean id="nhinPDResp"
+        class="gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.NhinPatientDiscoveryAsyncResp">
+        <property name="orchestratorImpl">
+            <ref bean="nhinPDRespOrchestrator" />
+        </property>
+    </bean>
+    
+    
+     <bean id="passthruPDReqOrchestrator"
+        class="gov.hhs.fha.nhinc.patientdiscovery._10.passthru.deferred.request.NhincProxyPatientDiscoveryDeferredRequestImpl" />
+
+    <bean id="passthruPDReqSecured"
+        class="gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.NhincProxyPatientDiscoveryDeferredRequestSecured">
+        <property name="orchestratorImpl">
+            <ref bean="passthruPDReqOrchestrator" />
+        </property>
+    </bean>
+
+    <bean id="passthruPDReqUnsecured"
+        class="gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.NhincProxyPatientDiscoveryDeferredRequestUnsecured">
+        <property name="orchestratorImpl">
+            <ref bean="passthruPDReqOrchestrator" />
+        </property>
+    </bean>
+    
+     <bean id="entityPDReqOrchestrator"
+        class="gov.hhs.fha.nhinc.patientdiscovery._10.entity.deferred.request.EntityPatientDiscoveryDeferredRequestImpl" />
+
+    <bean id="entityPDReqSecured"
+        class="gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.EntityPatientDiscoveryDeferredRequestSecured">
+        <property name="orchestratorImpl">
+            <ref bean="entityPDReqOrchestrator" />
+        </property>
+    </bean>
+
+    <bean id="entityPDReqUnsecured"
+        class="gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.EntityPatientDiscoveryDeferredRequestUnsecured">
+        <property name="orchestratorImpl">
+            <ref bean="entityPDReqOrchestrator" />
+        </property>
+    </bean>
+    
+    
+    
+    <bean id="nhinPDReqOrchestrator"
+        class="gov.hhs.fha.nhinc.patientdiscovery._10.deferred.request.NhinPatientDiscoveryAsyncReqImpl" />
+
+    <bean id="nhinPDReq"
+        class="gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.NhinPatientDiscoveryAsyncReq">
+        <property name="orchestratorImpl">
+            <ref bean="nhinPDReqOrchestrator" />
+        </property>
+    </bean>
+    
+     <bean id="passthruPDOrchestrator"
+        class="gov.hhs.fha.nhinc.patientdiscovery._10.passthru.NhincProxyPatientDiscoveryImpl" />
+
+    <bean id="passthruPDSecured"
+        class="gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.NhincProxyPatientDiscoverySecured">
+        <property name="orchestratorImpl">
+            <ref bean="passthruPDOrchestrator" />
+        </property>
+    </bean>
+
+    <bean id="passthruPDUnsecured"
+        class="gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.NhincProxyPatientDiscovery">
+        <property name="orchestratorImpl">
+            <ref bean="passthruPDOrchestrator" />
+        </property>
+    </bean>
+    
+    
+     <bean id="entityPDOrchestrator"
+        class="gov.hhs.fha.nhinc.patientdiscovery._10.entity.EntityPatientDiscoveryImpl" />
+
+    <bean id="entityPDSecured"
+        class="gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.EntityPatientDiscoverySecured">
+        <property name="orchestratorImpl">
+            <ref bean="entityPDOrchestrator" />
+        </property>
+    </bean>
+
+    <bean id="entityPDUnsecured"
+        class="gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.EntityPatientDiscoveryUnsecured">
+        <property name="orchestratorImpl">
+            <ref bean="entityPDOrchestrator" />
+        </property>
+    </bean>
+    
+</beans>

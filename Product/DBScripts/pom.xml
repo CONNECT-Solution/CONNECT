@@ -16,6 +16,9 @@
                 <includes>
                     <include>**/*.sql</include>
                 </includes>
+                <excludes>
+                    <exclude>target/**</exclude>
+                </excludes>
             </resource>
         </resources>
     </build>
