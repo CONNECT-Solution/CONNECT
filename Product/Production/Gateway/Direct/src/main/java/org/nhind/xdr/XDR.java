@@ -25,15 +25,16 @@ import gov.hhs.fha.nhinc.direct.xdr.DirectXDRWebServiceImpl;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
+
 import java.util.List;
 import java.util.UUID;
 
 import javax.annotation.Resource;
 import javax.jws.HandlerChain;
-import javax.jws.WebService;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.SOAPBinding;
+
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;

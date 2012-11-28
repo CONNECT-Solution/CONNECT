@@ -26,6 +26,8 @@
  */
 package gov.hhs.fha.nhinc.direct;
 
+import java.util.Collections;
+import java.util.Enumeration;
 import java.util.Properties;
 
 import javax.mail.Address;
@@ -103,8 +105,7 @@ public class MailUtils {
      * @return mail session.
      */
     public static Session getMailSession(Properties mailServerProps, String user, String pass) {
-        Session session = Session.getInstance(mailServerProps, getMailAuthenticator(user, pass));
-        return session;
+        return Session.getInstance(mailServerProps, getMailAuthenticator(user, pass));
     }
 
     /**
@@ -122,6 +123,7 @@ public class MailUtils {
             transport = session.getTransport("smtps");
             transport.connect();
             transport.sendMessage(message, recipients);
+            logHeaders(message);
         } finally {
             transport.close();
         }
@@ -143,6 +145,20 @@ public class MailUtils {
         };
     }
     
-    
-
+    /**
+     * Log message headers.
+     * @param mimeMessage to log headers from
+     */
+    @SuppressWarnings("unchecked")
+    public static void logHeaders(final MimeMessage mimeMessage) {
+        Enumeration<String> headerLines = Collections.emptyEnumeration();
+        try {
+            headerLines = mimeMessage.getAllHeaderLines();
+        } catch (MessagingException e) {
+            LOG.error("Could not extract headers: ", e);
+        }
+        while (headerLines != null && headerLines.hasMoreElements()) {
+            LOG.debug(headerLines.nextElement());
+        }
+    }
 }

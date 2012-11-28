@@ -99,9 +99,7 @@ public class DirectClientUtils {
     private static void addRecipients(NHINDAddressCollection recipients, Message message, RecipientType type,
             AddressSource source) throws MessagingException {
 
-        Address[] addresses = null;
-        addresses = message.getRecipients(type);            
-        
+        Address[] addresses = message.getRecipients(type);                    
         if (addresses == null) {
             return;
         }
@@ -136,6 +134,4 @@ public class DirectClientUtils {
         LOG.info("# of notifications message: " + notifications.size());
         return notifications;
     }
-
-
 }

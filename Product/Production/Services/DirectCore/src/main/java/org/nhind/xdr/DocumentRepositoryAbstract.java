@@ -28,7 +28,8 @@
 
 package org.nhind.xdr;
 
-import gov.hhs.fha.nhinc.direct.xdr.DirectMailSender;
+import gov.hhs.fha.nhinc.direct.DirectClient;
+import gov.hhs.fha.nhinc.direct.xdr.DirectObjectFactory;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 
@@ -54,10 +55,9 @@ import org.nhindirect.xd.routing.impl.RoutingResolverImpl;
 import org.nhindirect.xd.soap.ThreadData;
 import org.nhindirect.xd.transform.XdsDirectDocumentsTransformer;
 import org.nhindirect.xd.transform.impl.DefaultXdsDirectDocumentsTransformer;
-
+import org.nhindirect.xd.transform.parse.ParserHL7;
 //import com.gsihealth.auditclient.AuditMessageGenerator;
 //import com.gsihealth.auditclient.type.AuditMethodEnum;
-import org.nhindirect.xd.transform.parse.ParserHL7;
 
 /* 
  Copyright (c) 2010, NHIN Direct Project
@@ -195,10 +195,8 @@ public abstract class DocumentRepositoryAbstract {
 						addressTo[i++] = new InternetAddress(recipient);
 					}
 
-					DirectMailSender sender = getDirectMailSender();
+					getDirectClient().processAndSend(new InternetAddress(replyEmail), addressTo, documents, messageId);
 
-					sender.send(new InternetAddress(replyEmail), addressTo,
-							documents, messageId);
 					// getAuditMessageGenerator().provideAndRegisterAuditSource(
 					// messageId, remoteHost, endpoint, to, thisHost, patId,
 					// subsetId, pid);
@@ -236,8 +234,8 @@ public abstract class DocumentRepositoryAbstract {
 		return resp;
 	}
 
-	private DirectMailSender getDirectMailSender() {
-		return new DirectMailSender();
+	private DirectClient getDirectClient() {
+		return new DirectObjectFactory().getDirectClient();
 	}
 
 	/**
