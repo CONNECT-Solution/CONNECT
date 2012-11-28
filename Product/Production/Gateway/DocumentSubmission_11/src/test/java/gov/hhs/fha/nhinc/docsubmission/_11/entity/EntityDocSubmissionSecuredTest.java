@@ -35,6 +35,8 @@ import org.junit.Test;
 
 import gov.hhs.fha.nhinc.aspect.OutboundMessageEvent;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType;
+import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionArgTransformerBuilder;
+import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionBaseEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
 
 /**
@@ -49,8 +51,8 @@ public class EntityDocSubmissionSecuredTest {
                 RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType.class);
         OutboundMessageEvent annotation = method.getAnnotation(OutboundMessageEvent.class);
         assertNotNull(annotation);
-        assertEquals(DefaultEventDescriptionBuilder.class, annotation.beforeBuilder());
-        assertEquals(DefaultEventDescriptionBuilder.class, annotation.afterReturningBuilder());
+        assertEquals(DocSubmissionArgTransformerBuilder.class, annotation.beforeBuilder());
+        assertEquals(DocSubmissionBaseEventDescriptionBuilder.class, annotation.afterReturningBuilder());
         assertEquals("Document Submission", annotation.serviceType());
         assertEquals("1.1", annotation.version());
     }

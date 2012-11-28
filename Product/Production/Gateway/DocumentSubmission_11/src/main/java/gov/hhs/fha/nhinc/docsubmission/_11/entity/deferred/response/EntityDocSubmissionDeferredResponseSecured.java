@@ -29,7 +29,7 @@ package gov.hhs.fha.nhinc.docsubmission._11.entity.deferred.response;
 import gov.hhs.fha.nhinc.aspect.OutboundMessageEvent;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType;
 import gov.hhs.fha.nhinc.docsubmission.outbound.deferred.response.OutboundDocSubmissionDeferredResponse;
-import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
+import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionArgTransformerBuilder;
 import gov.hhs.fha.nhinc.nhincentityxdrsecured.async.response.EntityXDRSecuredAsyncResponsePortType;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 
@@ -47,8 +47,9 @@ public class EntityDocSubmissionDeferredResponseSecured implements EntityXDRSecu
     private OutboundDocSubmissionDeferredResponse outboundDocSubmissionResponse;
 
     @Override
-    @OutboundMessageEvent(beforeBuilder = DefaultEventDescriptionBuilder.class,
-    afterReturningBuilder = DefaultEventDescriptionBuilder.class, serviceType = "Document Submission Deferred Response",
+    @OutboundMessageEvent(beforeBuilder = DocSubmissionArgTransformerBuilder.class,
+    afterReturningBuilder = DocSubmissionArgTransformerBuilder.class, 
+    serviceType = "Document Submission Deferred Response",
     version = "1.1")
     public XDRAcknowledgementType provideAndRegisterDocumentSetBAsyncResponse(
             RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType 

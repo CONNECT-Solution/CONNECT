@@ -35,7 +35,7 @@ import org.junit.Test;
 
 import gov.hhs.fha.nhinc.aspect.OutboundMessageEvent;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType;
-import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
+import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionArgTransformerBuilder;
 
 /**
  * @author achidamb
@@ -49,8 +49,8 @@ public class EntityDocSubmissionDeferredResponseSecuredTest {
                 RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType.class);
         OutboundMessageEvent annotation = method.getAnnotation(OutboundMessageEvent.class);
         assertNotNull(annotation);
-        assertEquals(DefaultEventDescriptionBuilder.class, annotation.beforeBuilder());
-        assertEquals(DefaultEventDescriptionBuilder.class, annotation.afterReturningBuilder());
+        assertEquals(DocSubmissionArgTransformerBuilder.class, annotation.beforeBuilder());
+        assertEquals(DocSubmissionArgTransformerBuilder.class, annotation.afterReturningBuilder());
         assertEquals("Document Submission Deferred Response", annotation.serviceType());
         assertEquals("1.1", annotation.version());
     }

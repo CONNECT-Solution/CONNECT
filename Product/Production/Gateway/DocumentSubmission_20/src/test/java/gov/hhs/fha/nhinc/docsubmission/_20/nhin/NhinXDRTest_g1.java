@@ -24,7 +24,7 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.docsubmission._11.entity.deferred.response;
+package gov.hhs.fha.nhinc.docsubmission._20.nhin;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -33,26 +33,25 @@ import java.lang.reflect.Method;
 
 import org.junit.Test;
 
-import gov.hhs.fha.nhinc.aspect.OutboundMessageEvent;
-import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetResponseRequestType;
-import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionArgTransformerBuilder;
+import gov.hhs.fha.nhinc.aspect.InboundMessageEvent;
+import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionBaseEventDescriptionBuilder;
+import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 
 /**
  * @author achidamb
  *
  */
-public class EntityDocSubmissionDeferredResponseUnsecuredTest {
+public class NhinXDRTest_g1 {
     @Test
-    public void hasOutboundMessageEvent() throws Exception {
-        Class<EntityDocSubmissionDeferredResponseUnsecured> clazz = EntityDocSubmissionDeferredResponseUnsecured.class;
-        Method method = clazz.getMethod("provideAndRegisterDocumentSetBAsyncResponse", 
-                RespondingGatewayProvideAndRegisterDocumentSetResponseRequestType.class);
-        OutboundMessageEvent annotation = method.getAnnotation(OutboundMessageEvent.class);
+    public void hasInboundMessageEvent() throws Exception {
+        Class<NhinXDR_g1> clazz = NhinXDR_g1.class;
+        Method method = clazz.getMethod("documentRepositoryProvideAndRegisterDocumentSetB",
+                ProvideAndRegisterDocumentSetRequestType.class);
+        InboundMessageEvent annotation = method.getAnnotation(InboundMessageEvent.class);
         assertNotNull(annotation);
-        assertEquals(DocSubmissionArgTransformerBuilder.class, annotation.beforeBuilder());
-        assertEquals(DocSubmissionArgTransformerBuilder.class, annotation.afterReturningBuilder());
-        assertEquals("Document Submission Deferred Response", annotation.serviceType());
-        assertEquals("1.1", annotation.version());
+        assertEquals(DocSubmissionBaseEventDescriptionBuilder.class, annotation.beforeBuilder());
+        assertEquals(DocSubmissionBaseEventDescriptionBuilder.class, annotation.afterReturningBuilder());
+        assertEquals("Document Submission", annotation.serviceType());
+        assertEquals("2.0", annotation.version());
     }
-
 }

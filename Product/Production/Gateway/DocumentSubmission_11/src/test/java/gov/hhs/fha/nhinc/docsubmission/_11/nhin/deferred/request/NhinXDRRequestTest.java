@@ -34,6 +34,8 @@ import java.lang.reflect.Method;
 import org.junit.Test;
 
 import gov.hhs.fha.nhinc.aspect.InboundMessageEvent;
+import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionArgTransformerBuilder;
+import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionBaseEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 
@@ -49,8 +51,8 @@ public class NhinXDRRequestTest {
                 ProvideAndRegisterDocumentSetRequestType.class);
         InboundMessageEvent annotation = method.getAnnotation(InboundMessageEvent.class);
         assertNotNull(annotation);
-        assertEquals(DefaultEventDescriptionBuilder.class, annotation.beforeBuilder());
-        assertEquals(DefaultEventDescriptionBuilder.class, annotation.afterReturningBuilder());
+        assertEquals(DocSubmissionBaseEventDescriptionBuilder.class, annotation.beforeBuilder());
+        assertEquals(DocSubmissionArgTransformerBuilder.class, annotation.afterReturningBuilder());
         assertEquals("Document Submission Deferred Request", annotation.serviceType());
         assertEquals("1.1", annotation.version());
     }

@@ -24,7 +24,7 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.docsubmission._11.entity.deferred.response;
+package gov.hhs.fha.nhinc.docsubmission._20.entity.deferred.request;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -34,25 +34,24 @@ import java.lang.reflect.Method;
 import org.junit.Test;
 
 import gov.hhs.fha.nhinc.aspect.OutboundMessageEvent;
-import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetResponseRequestType;
+import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType;
 import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionArgTransformerBuilder;
 
 /**
  * @author achidamb
  *
  */
-public class EntityDocSubmissionDeferredResponseUnsecuredTest {
+public class EntityDocSubmissionDeferredRequestSecuredTest_g1 {
     @Test
     public void hasOutboundMessageEvent() throws Exception {
-        Class<EntityDocSubmissionDeferredResponseUnsecured> clazz = EntityDocSubmissionDeferredResponseUnsecured.class;
-        Method method = clazz.getMethod("provideAndRegisterDocumentSetBAsyncResponse", 
-                RespondingGatewayProvideAndRegisterDocumentSetResponseRequestType.class);
+        Class<EntityDocSubmissionDeferredRequestSecured_g1> clazz = EntityDocSubmissionDeferredRequestSecured_g1.class;
+        Method method = clazz.getMethod("provideAndRegisterDocumentSetBAsyncRequest", 
+                RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType.class);
         OutboundMessageEvent annotation = method.getAnnotation(OutboundMessageEvent.class);
         assertNotNull(annotation);
         assertEquals(DocSubmissionArgTransformerBuilder.class, annotation.beforeBuilder());
         assertEquals(DocSubmissionArgTransformerBuilder.class, annotation.afterReturningBuilder());
-        assertEquals("Document Submission Deferred Response", annotation.serviceType());
-        assertEquals("1.1", annotation.version());
+        assertEquals("Document Submission Deferred Request", annotation.serviceType());
+        assertEquals("2.0", annotation.version());
     }
-
 }

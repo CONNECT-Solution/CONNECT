@@ -29,6 +29,7 @@ package gov.hhs.fha.nhinc.docsubmission._11.nhin;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import gov.hhs.fha.nhinc.aspect.InboundMessageEvent;
+import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionBaseEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 
@@ -48,8 +49,8 @@ public class NhinXDRTest {
                 ProvideAndRegisterDocumentSetRequestType.class);
         InboundMessageEvent annotation = method.getAnnotation(InboundMessageEvent.class);
         assertNotNull(annotation);
-        assertEquals(DefaultEventDescriptionBuilder.class, annotation.beforeBuilder());
-        assertEquals(DefaultEventDescriptionBuilder.class, annotation.afterReturningBuilder());
+        assertEquals(DocSubmissionBaseEventDescriptionBuilder.class, annotation.beforeBuilder());
+        assertEquals(DocSubmissionBaseEventDescriptionBuilder.class, annotation.afterReturningBuilder());
         assertEquals("Document Submission", annotation.serviceType());
         assertEquals("1.1", annotation.version());
     }
