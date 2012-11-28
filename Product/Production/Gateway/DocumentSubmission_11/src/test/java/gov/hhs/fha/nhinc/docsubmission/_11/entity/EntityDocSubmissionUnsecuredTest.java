@@ -24,44 +24,36 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.docsubmission._20.entity;
+package gov.hhs.fha.nhinc.docsubmission._11.entity;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
+import java.lang.reflect.Method;
 
 import gov.hhs.fha.nhinc.aspect.OutboundMessageEvent;
-import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType;
-import gov.hhs.fha.nhinc.docsubmission.outbound.OutboundDocSubmission;
+import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetRequestType;
+import gov.hhs.fha.nhinc.docsubmission._11.entity.EntityDocSubmissionUnsecured;
 import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionArgTransformerBuilder;
 import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionBaseEventDescriptionBuilder;
+import org.junit.Test;
 
-import javax.annotation.Resource;
-import javax.xml.ws.BindingType;
-import javax.xml.ws.WebServiceContext;
-import javax.xml.ws.soap.Addressing;
-
-import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
-
-@BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
-@Addressing(enabled = true)
-public class EntityDocSubmissionSecured_g1 implements gov.hhs.fha.nhinc.nhincentityxdrsecured.EntityXDRSecuredPortType {
-
-    private WebServiceContext context;
-
-    private OutboundDocSubmission outboundDocSubmission;
-
-    @Override
-    @OutboundMessageEvent(serviceType = "Document Submission", version = "2.0",
-            beforeBuilder = DocSubmissionArgTransformerBuilder.class,
-            afterReturningBuilder = DocSubmissionBaseEventDescriptionBuilder.class)
-    public RegistryResponseType provideAndRegisterDocumentSetB(
-            RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType body) {
-        return new EntityDocSubmissionImpl_g1(outboundDocSubmission).provideAndRegisterDocumentSetBSecured(body, context);
+/**
+ * @author achidamb
+ *
+ */
+public class EntityDocSubmissionUnsecuredTest {
+    @Test
+    public void hasOutboundMessageEvent() throws Exception {
+        Class<EntityDocSubmissionUnsecured> clazz = EntityDocSubmissionUnsecured.class;
+        Method method = clazz.getMethod("provideAndRegisterDocumentSetB", 
+                RespondingGatewayProvideAndRegisterDocumentSetRequestType.class);
+        OutboundMessageEvent annotation = method.getAnnotation(OutboundMessageEvent.class);
+        assertNotNull(annotation);
+        assertEquals(DocSubmissionArgTransformerBuilder.class, annotation.beforeBuilder());
+        assertEquals(DocSubmissionBaseEventDescriptionBuilder.class, annotation.afterReturningBuilder());
+        assertEquals("Document Submission", annotation.serviceType());
+        assertEquals("1.1", annotation.version());
     }
 
-    @Resource
-    public void setContext(WebServiceContext context) {
-        this.context = context;
-    }
-
-    public void setOutboundDocSubmission(OutboundDocSubmission outboundDocSubmission) {
-        this.outboundDocSubmission = outboundDocSubmission;
-    }
 }

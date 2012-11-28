@@ -1,3 +1,4 @@
+package gov.hhs.fha.nhinc.docsubmission._20.nhin.deferred.response;
 /*
  * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
@@ -24,43 +25,30 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.docsubmission._20.nhin.deferred.response;
 
-import javax.annotation.Resource;
-import javax.xml.ws.BindingType;
-import javax.xml.ws.WebServiceContext;
-import javax.xml.ws.soap.Addressing;
-
-import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
-
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import gov.hhs.fha.nhinc.aspect.InboundMessageEvent;
 import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
-import gov.hhs.fha.nhinc.docsubmission.inbound.deferred.response.InboundDocSubmissionDeferredResponse;
 
+import java.lang.reflect.Method;
 
-@BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
-@Addressing(enabled = true)
-public class NhinXDRResponse20 implements ihe.iti.xdr._2007.XDRDeferredResponse20PortType {
+import javax.xml.ws.Holder;
 
-    private WebServiceContext context;
-    private InboundDocSubmissionDeferredResponse inboundDocSubmissionResponse;
-    /** TO-DO Annoatation has to be changed for Request and Response Builder **/
-    @Override
-    @InboundMessageEvent(beforeBuilder = DefaultEventDescriptionBuilder.class,
-    afterReturningBuilder = DefaultEventDescriptionBuilder.class, 
-    serviceType = "Document Submission Deferred Response",
-    version = "2.0")
-    public void provideAndRegisterDocumentSetBDeferredResponse(javax.xml.ws.Holder<RegistryResponseType> body) {
-        body.value = new NhinDocSubmissionDeferredResponseImpl20(inboundDocSubmissionResponse)
-                .provideAndRegisterDocumentSetBResponse(body.value, context);
-    }
+import org.junit.Test;
 
-    public void setInboundDocSubmissionResponse(InboundDocSubmissionDeferredResponse inboundDocSubmissionResponse) {
-        this.inboundDocSubmissionResponse = inboundDocSubmissionResponse;
-    }
-
-    @Resource
-    public void setContext(WebServiceContext context) {
-        this.context = context;
+public class NhinXDRResponse20Test {
+    //To-Do : DefaultEventDescriptionBuilder needs to be replaced with appropriate Builders
+    @Test
+    public void hasInboundMessageEvent() throws Exception {
+        Class<NhinXDRResponse20> clazz = NhinXDRResponse20.class;
+        Method method = clazz.getMethod("provideAndRegisterDocumentSetBDeferredResponse",
+               Holder.class);
+        InboundMessageEvent annotation = method.getAnnotation(InboundMessageEvent.class);
+        assertNotNull(annotation);
+        assertEquals(DefaultEventDescriptionBuilder.class, annotation.beforeBuilder());
+        assertEquals(DefaultEventDescriptionBuilder.class, annotation.afterReturningBuilder());
+        assertEquals("Document Submission Deferred Response", annotation.serviceType());
+        assertEquals("2.0", annotation.version());
     }
 }

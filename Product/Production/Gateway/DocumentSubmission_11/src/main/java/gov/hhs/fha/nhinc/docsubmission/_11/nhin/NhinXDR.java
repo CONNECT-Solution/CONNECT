@@ -29,8 +29,11 @@ package gov.hhs.fha.nhinc.docsubmission._11.nhin;
 import gov.hhs.fha.nhinc.docsubmission.inbound.InboundDocSubmission;
 
 import gov.hhs.fha.nhinc.aspect.InboundMessageEvent;
-import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
-
+import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionBaseEventDescriptionBuilder;
+import  oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
+import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
+import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
+import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import javax.annotation.Resource;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
@@ -56,10 +59,10 @@ public class NhinXDR implements ihe.iti.xdr._2007.DocumentRepositoryXDRPortType 
      */
     @Override
     @InboundMessageEvent(serviceType = "Document Submission", version = "1.1",
-            beforeBuilder = DefaultEventDescriptionBuilder.class,
-            afterReturningBuilder = DefaultEventDescriptionBuilder.class)
-    public oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType documentRepositoryProvideAndRegisterDocumentSetB(
-            ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType body) {
+            beforeBuilder = DocSubmissionBaseEventDescriptionBuilder.class,
+            afterReturningBuilder = DocSubmissionBaseEventDescriptionBuilder.class)
+    public RegistryResponseType documentRepositoryProvideAndRegisterDocumentSetB(
+            ProvideAndRegisterDocumentSetRequestType body) {
         return new NhinDocSubmissionImpl(inboundDocSubmission).documentRepositoryProvideAndRegisterDocumentSetB(body,
                 context);
     }
@@ -71,8 +74,8 @@ public class NhinXDR implements ihe.iti.xdr._2007.DocumentRepositoryXDRPortType 
      * @return a retrieved document
      */
     @Override
-    public ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType documentRepositoryRetrieveDocumentSet(
-            ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType body) {
+    public RetrieveDocumentSetResponseType documentRepositoryRetrieveDocumentSet(
+            RetrieveDocumentSetRequestType body) {
         throw new UnsupportedOperationException("Not implemented yet.");
     }
 

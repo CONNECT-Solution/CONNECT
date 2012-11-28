@@ -24,46 +24,35 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.docsubmission._11.entity.deferred.response;
+package gov.hhs.fha.nhinc.docsubmission._20.entity.deferred.response;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import gov.hhs.fha.nhinc.aspect.OutboundMessageEvent;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetResponseRequestType;
+import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType;
 import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionArgTransformerBuilder;
-import gov.hhs.fha.nhinc.docsubmission.outbound.deferred.response.OutboundDocSubmissionDeferredResponse;
-import gov.hhs.fha.nhinc.nhincentityxdr.async.response.EntityXDRAsyncResponsePortType;
-import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 
-import javax.annotation.Resource;
-import javax.xml.ws.BindingType;
-import javax.xml.ws.WebServiceContext;
-import javax.xml.ws.soap.Addressing;
+import java.lang.reflect.Method;
 
+import org.junit.Test;
 
-@BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
-@Addressing(enabled = true)
-public class EntityDocSubmissionDeferredResponseUnsecured implements EntityXDRAsyncResponsePortType {
-    
-    private WebServiceContext context;
-    private OutboundDocSubmissionDeferredResponse outboundDocSubmissionResponse;
-
-    @Override
-    @OutboundMessageEvent(beforeBuilder = DocSubmissionArgTransformerBuilder.class,
-    afterReturningBuilder = DocSubmissionArgTransformerBuilder.class, 
-    serviceType = "Document Submission Deferred Response",
-    version = "1.1")
-    public XDRAcknowledgementType provideAndRegisterDocumentSetBAsyncResponse(
-            RespondingGatewayProvideAndRegisterDocumentSetResponseRequestType 
-            provideAndRegisterDocumentSetAsyncRespRequest) {
-        return new EntityDocSubmissionDeferredResponseImpl(outboundDocSubmissionResponse)
-                .provideAndRegisterDocumentSetBAsyncResponse(provideAndRegisterDocumentSetAsyncRespRequest, context);
-    }
-    
-    @Resource
-    public void setContext(WebServiceContext context) {
-        this.context = context;
-    }
-
-    public void setOutboundDocSubmissionResponse(OutboundDocSubmissionDeferredResponse outboundDocSubmissionResponse) {
-        this.outboundDocSubmissionResponse = outboundDocSubmissionResponse;
+/**
+ * @author achidamb
+ *
+ */
+public class EntityDocSubmissionDeferredResponseUnsecuredTest_g1 {
+    @Test
+    public void hasOutboundMessageEvent() throws Exception {
+        Class<EntityDocSubmissionDeferredResponseUnsecured_g1> clazz = 
+                EntityDocSubmissionDeferredResponseUnsecured_g1.class;
+        Method method = clazz.getMethod("provideAndRegisterDocumentSetBAsyncResponse", 
+                RespondingGatewayProvideAndRegisterDocumentSetResponseRequestType.class);
+        OutboundMessageEvent annotation = method.getAnnotation(OutboundMessageEvent.class);
+        assertNotNull(annotation);
+        assertEquals(DocSubmissionArgTransformerBuilder.class, annotation.beforeBuilder());
+        assertEquals(DocSubmissionArgTransformerBuilder.class, annotation.afterReturningBuilder());
+        assertEquals("Document Submission Deferred Response", annotation.serviceType());
+        assertEquals("2.0", annotation.version());
     }
 }

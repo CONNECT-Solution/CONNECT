@@ -28,8 +28,8 @@ package gov.hhs.fha.nhinc.docsubmission._11.nhin.deferred.request;
 
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import gov.hhs.fha.nhinc.aspect.InboundMessageEvent;
-import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
-
+import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionArgTransformerBuilder;
+import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionBaseEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.docsubmission.inbound.deferred.request.InboundDocSubmissionDeferredRequest;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 
@@ -54,8 +54,8 @@ public class NhinXDRRequest implements ihe.iti.xdr._2007.XDRDeferredRequestPortT
      */
     @Override
     @InboundMessageEvent(serviceType = "Document Submission Deferred Request", version = "1.1", 
-            beforeBuilder = DefaultEventDescriptionBuilder.class, 
-            afterReturningBuilder = DefaultEventDescriptionBuilder.class)
+            beforeBuilder = DocSubmissionBaseEventDescriptionBuilder.class, 
+            afterReturningBuilder = DocSubmissionArgTransformerBuilder.class)
     public XDRAcknowledgementType provideAndRegisterDocumentSetBDeferredRequest(
             ProvideAndRegisterDocumentSetRequestType body) {
         return new NhinDocSubmissionDeferredRequestImpl(inboundDocSubmissionRequest)
