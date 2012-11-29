@@ -26,18 +26,14 @@
  */
 package gov.hhs.fha.nhinc.docretrieve.nhin;
 
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
-import gov.hhs.fha.nhinc.orchestration.Orchestratable;
-import gov.hhs.fha.nhinc.orchestration.PolicyTransformer;
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import gov.hhs.fha.nhinc.common.eventcommon.DocRetrieveEventType;
 import gov.hhs.fha.nhinc.orchestration.PolicyTransformer.Direction;
-import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
-import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType.DocumentRequest;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
+import gov.hhs.fha.nhinc.policyengine.DocumentRetrievePolicyEngineChecker;
+
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  * 
@@ -45,42 +41,22 @@ import static org.junit.Assert.*;
  */
 public class NhinDocRetrievePolicyTransformer_g0Test {
 
-    public NhinDocRetrievePolicyTransformer_g0Test() {
-    }
-
-    @BeforeClass
-    public static void setUpClass() throws Exception {
-    }
-
-    @AfterClass
-    public static void tearDownClass() throws Exception {
-    }
-
-    @Before
-    public void setUp() {
-    }
-
-    @After
-    public void tearDown() {
-    }
+   
 
     /**
      * Test of tranform method, of class NhinDocRetrievePolicyTransformer_g0.
      */
     @Test
     public void testTranform() {
-        /*
-         * NhinDocRetrievePolicyTransformer_g0 instance = new NhinDocRetrievePolicyTransformer_g0();
-         * 
-         * RetrieveDocumentSetRequestType req = new RetrieveDocumentSetRequestType(); DocumentRequest dreq = new
-         * DocumentRequest(); dreq.setDocumentUniqueId("1"); dreq.setHomeCommunityId("1");
-         * dreq.setRepositoryUniqueId("1"); req.getDocumentRequest().add(dreq); Orchestratable message = new
-         * NhinDocRetrieveOrchestratableImpl_g0(req, null, instance, null, null); Direction direction =
-         * PolicyTransformer.Direction.INBOUND; CheckPolicyRequestType expResult = null; CheckPolicyRequestType result =
-         * instance.tranform(message, direction); assertEquals(expResult, result);
-         */
-        // TODO: this test requires mocking of the CheckPolicyRequestType and NhinDocRetrieveOrchestratableImpl_g0
-        // classes.
+        DocumentRetrievePolicyEngineChecker mockPolicyEngine = mock(DocumentRetrievePolicyEngineChecker.class);
+        InboundDocRetrievePolicyTransformer_g0 policyTransform = new InboundDocRetrievePolicyTransformer_g0(mockPolicyEngine);
+        InboundDocRetrieveOrchestratable message = mock(InboundDocRetrieveOrchestratable.class);
+        policyTransform.transform(message, Direction.INBOUND);
+        
+        verify(message).getAssertion();
+        verify(message).getRequest();
+        verify(mockPolicyEngine).checkPolicyDocRetrieve(any(DocRetrieveEventType.class));
+        
     }
 
 }

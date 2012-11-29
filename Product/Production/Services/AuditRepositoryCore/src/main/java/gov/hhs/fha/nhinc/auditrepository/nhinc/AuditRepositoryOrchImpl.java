@@ -61,6 +61,7 @@ import com.services.nhinc.schema.auditmessage.AuditSourceIdentificationType;
 import com.services.nhinc.schema.auditmessage.EventIdentificationType;
 import com.services.nhinc.schema.auditmessage.FindAuditEventsResponseType;
 import com.services.nhinc.schema.auditmessage.FindAuditEventsType;
+import com.services.nhinc.schema.auditmessage.ObjectFactory;
 import com.services.nhinc.schema.auditmessage.ParticipantObjectIdentificationType;
 
 /**
@@ -83,8 +84,8 @@ public class AuditRepositoryOrchImpl {
      * This method is the actual implementation method for AuditLogMgr Service to Log the AuditEvents and responses the
      * status of logging.
      * 
-     * @param mess
-     * @param assertion
+     * @param mess the message
+     * @param assertion the assertion
      * @return gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType
      */
     public AcknowledgementType logAudit(LogEventSecureRequestType mess, AssertionType assertion) {
@@ -152,20 +153,20 @@ public class AuditRepositoryOrchImpl {
         auditRec.setMessageType(mess.getInterface() + " " + mess.getDirection());
         auditRec.setMessage(getBlobFromAuditMessage(mess.getAuditMessage()));
 
-        XMLGregorianCalendar XMLCalDate = eventIdentification.getEventDateTime();
-        if (XMLCalDate != null) {
-            eventTimeStamp = convertXMLGregorianCalendarToDate(XMLCalDate);
+        XMLGregorianCalendar xMLCalDate = eventIdentification.getEventDateTime();
+        if (xMLCalDate != null) {
+            eventTimeStamp = convertXMLGregorianCalendarToDate(xMLCalDate);
             auditRec.setTimeStamp(eventTimeStamp);
         }
 
-        List<AuditRepositoryRecord> auditRecList = new ArrayList();
+        List<AuditRepositoryRecord> auditRecList = new ArrayList<AuditRepositoryRecord>();
         auditRecList.add(auditRec);
         log.debug("AuditRepositoryOrchImpl.logAudit() -- Calling auditLogDao to insert record into database.");
         boolean result = auditLogDao.insertAuditRepository(auditRecList);
         log.debug("AuditRepositoryOrchImpl.logAudit() -- Done calling auditLogDao to insert record into database.");
 
         response = new AcknowledgementType();
-        if (result == true) {
+        if (result) {
             response.setMessage("Created Log Message in Database...");
         } else {
             response.setMessage("Unable to create Log Message in Database...");
@@ -182,8 +183,8 @@ public class AuditRepositoryOrchImpl {
             Marshaller marshaller = jc.createMarshaller();
             ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
             baOutStrm.reset();
-            com.services.nhinc.schema.auditmessage.ObjectFactory factory = new com.services.nhinc.schema.auditmessage.ObjectFactory();
-            JAXBElement oJaxbElement = factory.createAuditMessage(mess);
+            ObjectFactory factory = new ObjectFactory();
+            JAXBElement<AuditMessageType> oJaxbElement = factory.createAuditMessage(mess);
             baOutStrm.close();
             marshaller.marshal(oJaxbElement, baOutStrm);
             byte[] buffer = baOutStrm.toByteArray();
@@ -196,10 +197,11 @@ public class AuditRepositoryOrchImpl {
     }
 
     /**
-     * This is the actual implementation for AuditLogMgr Service for AuditQuery returns the AuditEventsReponse
+     * This is the actual implementation for AuditLogMgr Service for AuditQuery returns the AuditEventsReponse.
      * 
-     * @param query
-     * @return FindAuditEventsResponseType
+     * @param query the query
+     * @param assertion the assertion
+     * @return the found FindAuditEventsResponseType 
      */
     public FindCommunitiesAndAuditEventsResponseType findAudit(FindAuditEventsType query, AssertionType assertion) {
         log.debug("AuditRepositoryOrchImpl.findAudit() -- Begin");
@@ -241,7 +243,7 @@ public class AuditRepositoryOrchImpl {
     }
 
     /**
-     * This method builds the Actual Response from each of the EventLogList coming from Database
+     * This method builds the Actual Response from each of the EventLogList coming from Database.
      * 
      * @param eventsList
      * @return CommunitiesAndFindAdutiEventResponse

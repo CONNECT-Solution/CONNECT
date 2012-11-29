@@ -27,8 +27,13 @@
 package gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.error.proxy;
 
 import static org.junit.Assert.*;
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 
+import java.lang.reflect.Method;
+
+import gov.hhs.fha.nhinc.aspect.AdapterDelegationEvent;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201305UV02EventDescriptionBuilder;
+import gov.hhs.fha.nhinc.patientdiscovery.aspect.MCCIIN000002UV01EventDescriptionBuilder;
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
@@ -70,11 +75,26 @@ public class AdapterPatientDiscoveryAsyncReqErrorNoOpImplTest {
     public void testProcessPatientDiscoveryAsyncReqError() {
         System.out.println("processPatientDiscoveryAsyncReqError");
 
-        AdapterPatientDiscoveryDeferredReqErrorProxyNoOpImpl instance = new AdapterPatientDiscoveryDeferredReqErrorProxyNoOpImpl();
+        AdapterPatientDiscoveryDeferredReqErrorProxyNoOpImpl instance = 
+                new AdapterPatientDiscoveryDeferredReqErrorProxyNoOpImpl();
         MCCIIN000002UV01 result = instance.processPatientDiscoveryAsyncReqError(new PRPAIN201305UV02(),
                 new PRPAIN201306UV02(), new AssertionType(), "test");
 
         assertNotNull(result);
+    }
+    
+    @Test
+    public void hasAdapterDelegationEvent() throws Exception {
+        Class<AdapterPatientDiscoveryDeferredReqErrorProxyNoOpImpl> clazz = 
+                AdapterPatientDiscoveryDeferredReqErrorProxyNoOpImpl.class;
+        Method method = clazz.getMethod("processPatientDiscoveryAsyncReqError", PRPAIN201305UV02.class, 
+                PRPAIN201306UV02.class, AssertionType.class, String.class );
+        AdapterDelegationEvent annotation = method.getAnnotation(AdapterDelegationEvent.class);
+        assertNotNull(annotation);
+        assertEquals(PRPAIN201305UV02EventDescriptionBuilder.class, annotation.beforeBuilder());
+        assertEquals(MCCIIN000002UV01EventDescriptionBuilder.class, annotation.afterReturningBuilder());
+        assertEquals("Patient Discovery Deferred Request", annotation.serviceType());
+        assertEquals("1.0", annotation.version());
     }
 
 }

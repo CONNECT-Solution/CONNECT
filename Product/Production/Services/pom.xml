@@ -49,5 +49,12 @@
             <artifactId>CONNECTCoreLib</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.connectopensource</groupId>
+            <artifactId>CONNECTCoreLib</artifactId>
+            <version>${project.parent.version}</version>
+            <type>test-jar</type>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 </project>

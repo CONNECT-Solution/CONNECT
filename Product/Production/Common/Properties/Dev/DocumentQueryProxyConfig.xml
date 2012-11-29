@@ -1,13 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
-
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="
+http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+">
 <!-- 
 	The beans available in this file must be identified in the "description" element for the Spring configuration application. Beans are listed between braces 
 	in the description separated with a comma like the following sample: {somebean,anotherbean}
 -->
 	<description>Beans included in this file: {nhindocquery,entitydocquery,passthrudocquery,adapterdocquery, adapterdocumentregistry}</description>
+
+    <aop:aspectj-autoproxy proxy-target-class="true" />
+    <context:annotation-config />
+
+    <import resource="classpath:CONNECT-context.xml"/>
+    <import resource="classpath:eventlogging.xml"/>
 
 	<!-- Beans defined : nhindocquery -->
 	
@@ -52,34 +63,6 @@
 	</bean> 
 
 
-
-	<!-- Beans defined : passthrudocquery -->
-	
-	<alias alias="passthrudocquery" name="passthrudocqueryjava" />
-	
-	<!-- No-op Implementation -->
-	<bean lazy-init="true" class="gov.hhs.fha.nhinc.docquery.passthru.proxy.PassthruDocQueryProxyNoOpImpl" id="passthrudocquerynoop" name="passthrudocquerynoop"> 
-		<meta key="impltype" value="noop"/>
-	</bean> 
-
-	<!-- Java Implementation -->
-	<bean lazy-init="true" class="gov.hhs.fha.nhinc.docquery.passthru.proxy.PassthruDocQueryProxyJavaImpl" id="passthrudocqueryjava" name="passthrudocqueryjava"> 
-		<meta key="impltype" value="java"/>
-		<meta key="default" value="true"/>
-	</bean> 
-
-	<!-- Secured web service Implementation -->
-    <bean lazy-init="true" class="gov.hhs.fha.nhinc.docquery.passthru.proxy.PassthruDocQueryProxyWebServiceSecuredImpl" id="passthrudocquerywssecured" name="passthrudocquerywssecured"> 
-		<meta key="impltype" value="wssecured"/>
-	</bean> 
-
-	<!-- Unsecured web service Implementation -->
-	<bean lazy-init="true" class="gov.hhs.fha.nhinc.docquery.passthru.proxy.PassthruDocQueryProxyWebServiceUnsecuredImpl" id="passthrudocquerywsunsecured" name="passthrudocquerywsunsecured"> 
-		<meta key="impltype" value="wsunsecured"/>
-	</bean>
-	
-	
-	
     <!-- Beans defined : adapterdocquery -->
     
     <alias alias="adapterdocquery" name="adapterdocquerywssecured" />
@@ -125,7 +108,8 @@
 	<bean lazy-init="true" class="gov.hhs.fha.nhinc.docregistry.adapter.proxy.AdapterComponentDocRegistryProxyWebServiceUnsecuredImpl" id="adapterdocumentregistrywsunsecured" name="adapterdocumentregistrywsunsecured"> 
 		<meta key="impltype" value="wsunsecured"/>
 		<meta key="default" value="true"/>
-	</bean> 	
+	</bean>
+    
 	
 
 </beans>

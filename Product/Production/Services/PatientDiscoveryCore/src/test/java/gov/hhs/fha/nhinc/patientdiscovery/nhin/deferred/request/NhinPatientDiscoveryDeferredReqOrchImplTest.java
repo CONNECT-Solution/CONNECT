@@ -26,7 +26,11 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery.nhin.deferred.request;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
+
+import java.lang.reflect.Method;
 
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PRPAIN201305UV02;
@@ -39,11 +43,16 @@ import org.jmock.integration.junit4.JUnit4Mockery;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import gov.hhs.fha.nhinc.aspect.InboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.generic.GenericFactory;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditor;
 import gov.hhs.fha.nhinc.patientdiscovery.PolicyChecker;
+//CheckStyle:OFF
 import gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.error.proxy.AdapterPatientDiscoveryDeferredReqErrorProxy;
+//CheckStyle:ON
+import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201305UV02EventDescriptionBuilder;
+import gov.hhs.fha.nhinc.patientdiscovery.aspect.MCCIIN000002UV01EventDescriptionBuilder;
 import gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.proxy.AdapterPatientDiscoveryDeferredReqProxy;
 import gov.hhs.fha.nhinc.properties.ServicePropertyAccessor;
 
@@ -65,14 +74,16 @@ public class NhinPatientDiscoveryDeferredReqOrchImplTest {
     PolicyChecker<RespondingGatewayPRPAIN201305UV02RequestType, PRPAIN201305UV02> proxyPolicyChecker = context
             .mock(PolicyChecker.class);
 
-    GenericFactory<AdapterPatientDiscoveryDeferredReqErrorProxy> proxyErrorFactory = new GenericFactory<AdapterPatientDiscoveryDeferredReqErrorProxy>() {
+    GenericFactory<AdapterPatientDiscoveryDeferredReqErrorProxy> proxyErrorFactory = 
+            new GenericFactory<AdapterPatientDiscoveryDeferredReqErrorProxy>() {
         @Override
         public AdapterPatientDiscoveryDeferredReqErrorProxy create() {
             return mockErrorProxy;
         }
     };
 
-    GenericFactory<AdapterPatientDiscoveryDeferredReqProxy> proxyFactory = new GenericFactory<AdapterPatientDiscoveryDeferredReqProxy>() {
+    GenericFactory<AdapterPatientDiscoveryDeferredReqProxy> proxyFactory = 
+            new GenericFactory<AdapterPatientDiscoveryDeferredReqProxy>() {
         @Override
         public AdapterPatientDiscoveryDeferredReqProxy create() {
             return mockProxy;
@@ -186,6 +197,19 @@ public class NhinPatientDiscoveryDeferredReqOrchImplTest {
 
         assertSame(expectedResponse, actualResponse);
 
+    }
+    
+    @Test
+    public void hasInboundProcessingEvent() throws Exception {
+        Class<NhinPatientDiscoveryDeferredReqOrchImpl> clazz = NhinPatientDiscoveryDeferredReqOrchImpl.class;
+        Method method = clazz.getMethod("respondingGatewayPRPAIN201305UV02", 
+                PRPAIN201305UV02.class, AssertionType.class);
+        InboundProcessingEvent annotation = method.getAnnotation(InboundProcessingEvent.class);
+        assertNotNull(annotation);
+        assertEquals(PRPAIN201305UV02EventDescriptionBuilder.class, annotation.beforeBuilder());
+        assertEquals(MCCIIN000002UV01EventDescriptionBuilder.class, annotation.afterReturningBuilder());
+        assertEquals("Patient Discovery Deferred Request", annotation.serviceType());
+        assertEquals("1.0", annotation.version());
     }
 
 }

@@ -27,7 +27,10 @@
 package gov.hhs.fha.nhinc.docquery.inbound;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
+
+import java.lang.reflect.Method;
 
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
@@ -37,11 +40,14 @@ import static org.mockito.Mockito.when;
 
 import org.junit.Test;
 
+import gov.hhs.fha.nhinc.aspect.InboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.docquery.DocQueryAuditLog;
 import gov.hhs.fha.nhinc.docquery.DocQueryPolicyChecker;
 import gov.hhs.fha.nhinc.docquery.adapter.proxy.AdapterDocQueryProxy;
 import gov.hhs.fha.nhinc.docquery.adapter.proxy.AdapterDocQueryProxyObjectFactory;
+import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryRequestDescriptionBuilder;
+import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryResponseDescriptionBuilder;
 import gov.hhs.fha.nhinc.gateway.aggregator.document.DocumentConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
@@ -52,6 +58,19 @@ import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
  * 
  */
 public class StandardInboundDocQueryTest {
+    
+    @Test
+    public void hasInboundProcessingEvent() throws Exception {
+        Class<StandardInboundDocQuery> clazz = StandardInboundDocQuery.class;
+        Method method = clazz.getMethod("respondingGatewayCrossGatewayQuery", AdhocQueryRequest.class,
+                AssertionType.class);
+        InboundProcessingEvent annotation = method.getAnnotation(InboundProcessingEvent.class);
+        assertNotNull(annotation);
+        assertEquals(AdhocQueryRequestDescriptionBuilder.class, annotation.beforeBuilder());
+        assertEquals(AdhocQueryResponseDescriptionBuilder.class, annotation.afterReturningBuilder());
+        assertEquals("Document Query", annotation.serviceType());
+        assertEquals("", annotation.version());
+    }
 
     @Test
     public void standardInboundDocQuery() {

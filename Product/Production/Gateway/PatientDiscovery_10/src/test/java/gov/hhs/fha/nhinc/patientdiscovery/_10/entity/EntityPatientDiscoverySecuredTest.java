@@ -26,9 +26,11 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery._10.entity;
 
+
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.fail;
+
 import gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.EntityPatientDiscoverySecured;
 
 import javax.xml.ws.WebServiceContext;
@@ -64,15 +66,12 @@ public class EntityPatientDiscoverySecuredTest {
         try {
             EntityPatientDiscoverySecured pdSecured = new EntityPatientDiscoverySecured() {
                 @Override
-                protected EntityPatientDiscoveryImpl getEntityPatientDiscoveryImpl() {
-                    return mockServiceImpl;
-                }
-
-                @Override
                 protected WebServiceContext getWebServiceContext() {
                     return mockWebServiceContext;
                 }
-            };
+            };            
+            pdSecured.setOrchestratorImpl(mockServiceImpl);
+            
             context.checking(new Expectations() {
                 {
                     oneOf(mockServiceImpl).respondingGatewayPRPAIN201305UV02(
@@ -96,15 +95,11 @@ public class EntityPatientDiscoverySecuredTest {
         try {
             EntityPatientDiscoverySecured pdSecured = new EntityPatientDiscoverySecured() {
                 @Override
-                protected EntityPatientDiscoveryImpl getEntityPatientDiscoveryImpl() {
-                    return null;
-                }
-
-                @Override
                 protected WebServiceContext getWebServiceContext() {
                     return mockWebServiceContext;
                 }
             };
+            pdSecured.setOrchestratorImpl(null);
 
             RespondingGatewayPRPAIN201306UV02ResponseType response = pdSecured
                     .respondingGatewayPRPAIN201305UV02(mockRequest);
@@ -115,5 +110,6 @@ public class EntityPatientDiscoverySecuredTest {
             fail("Error running testRespondingGatewayPRPAIN201305UV02NullServiceImpl: " + t.getMessage());
         }
     }
+    
 
 }

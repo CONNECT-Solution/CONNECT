@@ -43,7 +43,8 @@ import gov.hhs.fha.nhinc.common.eventcommon.XDRResponseEventType;
  * 
  * @author Jon Hoppesch
  */
-public class PolicyEngineChecker {
+public class PolicyEngineChecker implements DocumentRetrievePolicyEngineChecker {
+    PolicyEngineTransformer policyTransformer = new PolicyEngineTransformer();
 
     /**
      * This method will create the generic Policy Check Request Message from a subject discovery announce request
@@ -52,7 +53,6 @@ public class PolicyEngineChecker {
      * @return A generic policy check request message that can be passed to the Policy Engine
      */
     public CheckPolicyRequestType checkPolicyPatDiscRequest(PatDiscReqEventType request) {
-        PolicyEngineTransformer policyTransformer = new PolicyEngineTransformer();
         return policyTransformer.transformPatDiscReqToCheckPolicy(request);
     }
 
@@ -63,23 +63,18 @@ public class PolicyEngineChecker {
      * @return A generic policy check request message that can be passed to the Policy Engine
      */
     public CheckPolicyRequestType checkPolicyAdhocQuery(AdhocQueryRequestEventType request) {
-        PolicyEngineTransformer policyTransformer = new PolicyEngineTransformer();
         return policyTransformer.transformAdhocQueryToCheckPolicy(request);
     }
 
     public CheckPolicyRequestType checkPolicyAdhocQueryResponse(AdhocQueryResultEventType request) {
-        PolicyEngineTransformer policyTransformer = new PolicyEngineTransformer();
         return policyTransformer.transformAdhocQueryResultToCheckPolicy(request);
     }
 
-    /**
-     * This method will create the generic Policy Check Request Message from a document retrieve request
-     * 
-     * @param request Policy check request message for the document retrieve
-     * @return A generic policy check request message that can be passed to the Policy Engine
+    /* (non-Javadoc)
+     * @see gov.hhs.fha.nhinc.policyengine.DocumentRetrievePolicyEngineChecker#checkPolicyDocRetrieve(gov.hhs.fha.nhinc.common.eventcommon.DocRetrieveEventType)
      */
+    @Override
     public CheckPolicyRequestType checkPolicyDocRetrieve(DocRetrieveEventType request) {
-        PolicyEngineTransformer policyTransformer = new PolicyEngineTransformer();
         return policyTransformer.transformDocRetrieveToCheckPolicy(request);
     }
 
@@ -90,7 +85,6 @@ public class PolicyEngineChecker {
      * @return A generic policy check request message that can be passed to the Policy Engine
      */
     public CheckPolicyRequestType checkPolicyFindAuditEvents(FindAuditEventsEventType request) {
-        PolicyEngineTransformer policyTransformer = new PolicyEngineTransformer();
         return policyTransformer.transformFindAuditEventsToCheckPolicy(request);
     }
 
@@ -101,7 +95,6 @@ public class PolicyEngineChecker {
      * @return A generic policy check request message that can be passed to the Policy Engine
      */
     public CheckPolicyRequestType checkPolicySubscribe(SubscribeEventType checkPolicySubscribeRequest) {
-        PolicyEngineTransformer policyTransformer = new PolicyEngineTransformer();
         return policyTransformer.transformSubscribeToCheckPolicy(checkPolicySubscribeRequest);
     }
 
@@ -112,7 +105,6 @@ public class PolicyEngineChecker {
      * @return A generic policy check request message that can be passed to the Policy Engine
      */
     public CheckPolicyRequestType checkPolicyUnsubscribe(UnsubscribeEventType request) {
-        PolicyEngineTransformer policyTransformer = new PolicyEngineTransformer();
         return policyTransformer.transformUnsubscribeToCheckPolicy(request);
     }
 
@@ -123,17 +115,14 @@ public class PolicyEngineChecker {
      * @return A generic policy check request message that can be passed to the Policy Engine
      */
     public CheckPolicyRequestType checkPolicyNotify(NotifyEventType request) {
-        PolicyEngineTransformer policyTransformer = new PolicyEngineTransformer();
         return policyTransformer.transformNotifyToCheckPolicy(request);
     }
 
     public CheckPolicyRequestType checkPolicyXDRRequest(XDREventType request) {
-        PolicyEngineTransformer policyTransformer = new PolicyEngineTransformer();
         return policyTransformer.transformXDRRequestToCheckPolicy(request);
     }
 
     public CheckPolicyRequestType checkPolicyXDRResponse(XDRResponseEventType request) {
-        PolicyEngineTransformer policyTransformer = new PolicyEngineTransformer();
         return policyTransformer.transformXDRResponseInputToCheckPolicy(request);
     }
 

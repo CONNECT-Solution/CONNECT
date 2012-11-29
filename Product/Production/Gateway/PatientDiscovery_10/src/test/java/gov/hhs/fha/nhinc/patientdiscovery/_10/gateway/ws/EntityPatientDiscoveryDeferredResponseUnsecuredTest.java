@@ -26,9 +26,16 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
+
+import java.lang.reflect.Method;
+
+import gov.hhs.fha.nhinc.aspect.OutboundMessageEvent;
 import gov.hhs.fha.nhinc.patientdiscovery._10.entity.deferred.response.EntityPatientDiscoveryDeferredResponseImpl;
+import gov.hhs.fha.nhinc.patientdiscovery.aspect.MCCIIN000002UV01EventDescriptionBuilder;
+import gov.hhs.fha.nhinc.patientdiscovery.aspect.RespondingGatewayPRPAIN201306UV02Builder;
 
 import javax.xml.ws.WebServiceContext;
 
@@ -67,18 +74,30 @@ public class EntityPatientDiscoveryDeferredResponseUnsecuredTest {
                 oneOf(mockService).processPatientDiscoveryAsyncResp(with(same(mockRequest)),
                         with(any(WebServiceContext.class)));
                 will(returnValue(expectedResponse));
-
-                oneOf(mockFactory).getEntityPatientDiscoveryDeferredResponseImpl();
-                will(returnValue(mockService));
             }
         });
 
         EntityPatientDiscoveryDeferredResponseUnsecured ws = new EntityPatientDiscoveryDeferredResponseUnsecured(
                 mockFactory);
+        ws.setOrchestratorImpl(mockService);
 
         MCCIIN000002UV01 actualResponse = ws.processPatientDiscoveryAsyncResp(mockRequest);
 
         assertSame(expectedResponse, actualResponse);
+    }
+    
+    @Test
+    public void hasOutboundMessageEvent() throws Exception {
+        Class<EntityPatientDiscoveryDeferredResponseUnsecured> clazz = 
+                EntityPatientDiscoveryDeferredResponseUnsecured.class;
+        Method method = clazz.getMethod("processPatientDiscoveryAsyncResp", 
+                RespondingGatewayPRPAIN201306UV02RequestType.class);
+        OutboundMessageEvent annotation = method.getAnnotation(OutboundMessageEvent.class);
+        assertNotNull(annotation);
+        assertEquals(RespondingGatewayPRPAIN201306UV02Builder.class, annotation.beforeBuilder());
+        assertEquals( MCCIIN000002UV01EventDescriptionBuilder.class, annotation.afterReturningBuilder());
+        assertEquals("Patient Discovery Deferred Response", annotation.serviceType());
+        assertEquals("1.0", annotation.version());
     }
 
 }

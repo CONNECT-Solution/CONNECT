@@ -26,10 +26,20 @@
  */
 package gov.hhs.fha.nhinc.docquery.adapter.proxy;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
+import gov.hhs.fha.nhinc.adapterdocquerysecured.AdapterDocQuerySecuredPortType;
+import gov.hhs.fha.nhinc.aspect.AdapterDelegationEvent;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryRequestDescriptionBuilder;
+import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryResponseDescriptionBuilder;
+
+import java.lang.reflect.Method;
 
 import javax.xml.ws.Service;
+
+import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 
 import org.apache.commons.logging.Log;
 import org.jmock.Mockery;
@@ -37,10 +47,8 @@ import org.jmock.integration.junit4.JUnit4Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.Test;
 
-import gov.hhs.fha.nhinc.adapterdocquerysecured.AdapterDocQuerySecuredPortType;
-
 /**
- *
+ * 
  * @author Neil Webb
  */
 public class AdapterDocQueryWebServiceProxyTest {
@@ -73,4 +81,22 @@ public class AdapterDocQueryWebServiceProxyTest {
         }
     }
 
+    @Test
+    public void hasAdapterDelegationEvent() throws Exception {
+        assertAdapterDelegationEvent(AdapterDocQueryProxyJavaImpl.class);
+        assertAdapterDelegationEvent(AdapterDocQueryProxyNoOpImpl.class);
+        assertAdapterDelegationEvent(AdapterDocQueryProxyWebServiceSecuredImpl.class);
+        assertAdapterDelegationEvent(AdapterDocQueryProxyWebServiceUnsecuredImpl.class);
+    }
+
+    private void assertAdapterDelegationEvent(Class<? extends AdapterDocQueryProxy> clazz) throws NoSuchMethodException {
+        Method method = clazz.getMethod("respondingGatewayCrossGatewayQuery", AdhocQueryRequest.class,
+                AssertionType.class);
+        AdapterDelegationEvent annotation = method.getAnnotation(AdapterDelegationEvent.class);
+        assertNotNull(annotation);
+        assertEquals(AdhocQueryRequestDescriptionBuilder.class, annotation.beforeBuilder());
+        assertEquals(AdhocQueryResponseDescriptionBuilder.class, annotation.afterReturningBuilder());
+        assertEquals("Document Query", annotation.serviceType());
+        assertEquals("", annotation.version());
+    }
 }

@@ -26,42 +26,43 @@
  */
 package gov.hhs.fha.nhinc.admindistribution._10.nhin;
 
+import gov.hhs.fha.nhinc.admindistribution.aspect.InboundProcessingEventDescriptionBuilder;
+import gov.hhs.fha.nhinc.admindistribution.inbound.InboundAdminDistribution;
+import gov.hhs.fha.nhinc.aspect.InboundMessageEvent;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.messaging.server.BaseService;
+import gov.hhs.fha.nhinc.nhinadmindistribution.RespondingGatewayAdministrativeDistributionPortType;
+
 import javax.annotation.Resource;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
 
-import gov.hhs.fha.nhinc.admindistribution.nhin.NhinAdminDistributionOrchImpl;
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
-
-/**
- *
- * @author dunnek
- */
+import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 @Addressing(enabled = true)
-public class NhinAdministrativeDistribution implements gov.hhs.fha.nhinc.nhinadmindistribution.RespondingGatewayAdministrativeDistributionPortType {
+public class NhinAdministrativeDistribution extends BaseService implements
+        RespondingGatewayAdministrativeDistributionPortType {
 
-    @Resource
     private WebServiceContext context;
+    private InboundAdminDistribution inboundAdminDist;
 
     @Override
-    public void sendAlertMessage(oasis.names.tc.emergency.edxl.de._1.EDXLDistribution body) {
-
-        AssertionType assertion = extractAssertion(context);
-
-        getNhinImpl().sendAlertMessage(body, assertion);
-
+    @InboundMessageEvent(serviceType = "Admin Distribution", version = "1.0", 
+            afterReturningBuilder = InboundProcessingEventDescriptionBuilder.class, 
+            beforeBuilder = InboundProcessingEventDescriptionBuilder.class)
+    public void sendAlertMessage(EDXLDistribution body) {
+        AssertionType assertion = getAssertion(context, null);
+        inboundAdminDist.sendAlertMessage(body, assertion);
+    }
+    
+    @Resource
+    public void setContext(WebServiceContext context) {
+        this.context = context;
     }
 
-    protected AssertionType extractAssertion(WebServiceContext context) {
-        return SAML2AssertionExtractor.getInstance().extractSamlAssertion(context);
+    public void setInboundAdminDistribution(InboundAdminDistribution inboundAdminDist) {
+        this.inboundAdminDist = inboundAdminDist;
     }
-
-    protected NhinAdminDistributionOrchImpl getNhinImpl() {
-        return new NhinAdminDistributionOrchImpl();
-    }
-
 }
