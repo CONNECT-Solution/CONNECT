@@ -179,10 +179,8 @@ public class StandardOutboundDocQuery implements OutboundDocQuery {
             // Obtain all the URLs for the targets being sent to
             urlInfoList = getEndpointForNhinTargetCommunities(targets, NhincConstants.DOC_QUERY_SERVICE_NAME);
 
-            if (isTargeted(targets)) {
-                isTargeted = true;
-            }
-
+            isTargeted |= isTargeted(targets);
+            
             if (!isTargeted || NullChecker.isNotNullish(urlInfoList)) {
                 RegistryErrorList homeCommunityErrorList = new RegistryErrorList();
                 // Validate that the message is not null
