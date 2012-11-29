@@ -318,6 +318,16 @@
                     <testTarget>${compiler.target}</testTarget>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-eclipse-plugin</artifactId>
+                <configuration>
+                    <downloadSources>true</downloadSources>
+                    <downloadJavadocs>true</downloadJavadocs>
+                    <useProjectReferences>true</useProjectReferences>
+                    <projectNameTemplate>[artifactId]-[version]</projectNameTemplate>
+               </configuration>
+            </plugin>
         </plugins>
     </build>
     <repositories>
