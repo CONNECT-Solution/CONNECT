@@ -12,7 +12,7 @@
     <packaging>jar</packaging>
     <name>CONNECT Direct Core</name>
     <properties>
-        <connectdir>${basedir}</connectdir>
+        <connectdir>${basedir}/../../../../</connectdir>
     </properties>
     
     <dependencies>
@@ -24,7 +24,7 @@
         <dependency>
             <groupId>org.nhind</groupId>
             <artifactId>xd-common</artifactId>
-            <version>1.0.2</version>
+            <version>1.1-CONNECT</version>
         </dependency>
         <dependency>
             <groupId>org.mockito</groupId>
