@@ -6,6 +6,12 @@
  */
 package gov.hhs.fha.nhinc.docretrieve._30.entity;
 
+import gov.hhs.fha.nhinc.aspect.OutboundMessageEvent;
+import gov.hhs.fha.nhinc.docretrieve.aspect.RespondingGatewayCrossGatewayRetrieveRequestTypeDescriptionBuilder;
+import gov.hhs.fha.nhinc.docretrieve.aspect.RetrieveDocumentSetResponseTypeDescriptionBuilder;
+import gov.hhs.fha.nhinc.docretrieve.entity.EntityDocRetrieveOrchImpl;
+import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
+import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayRetrieveRequestType;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.soap.Addressing;
 
@@ -18,14 +24,23 @@ import javax.xml.ws.soap.Addressing;
 @Addressing(enabled = true)
 public class EntityDocRetrieve implements gov.hhs.fha.nhinc.entitydocretrieve.EntityDocRetrievePortType {
 
-    public ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(
-            gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayRetrieveRequestType respondingGatewayCrossGatewayRetrieveRequest) {
+    private EntityDocRetrieveOrchImpl orchImpl;
+    
+    @OutboundMessageEvent(beforeBuilder = RespondingGatewayCrossGatewayRetrieveRequestTypeDescriptionBuilder.class,
+            afterReturningBuilder = RetrieveDocumentSetResponseTypeDescriptionBuilder.class, 
+            serviceType = "Retrieve Document",version = "3.0")
+    public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(
+            RespondingGatewayCrossGatewayRetrieveRequestType respondingGatewayCrossGatewayRetrieveRequest) {
         return getImpl().respondingGatewayCrossGatewayRetrieve(
                 respondingGatewayCrossGatewayRetrieveRequest.getRetrieveDocumentSetRequest(),
                 respondingGatewayCrossGatewayRetrieveRequest.getAssertion());
     }
 
-    protected EntityDocRetreiveImpl getImpl() {
-        return new EntityDocRetreiveImpl();
+    protected EntityDocRetrieveImpl getImpl() {
+        return new EntityDocRetrieveImpl(orchImpl);
+    }
+    
+    public void setOrchestratorImpl(EntityDocRetrieveOrchImpl orchImpl) {
+        this.orchImpl = orchImpl;
     }
 }

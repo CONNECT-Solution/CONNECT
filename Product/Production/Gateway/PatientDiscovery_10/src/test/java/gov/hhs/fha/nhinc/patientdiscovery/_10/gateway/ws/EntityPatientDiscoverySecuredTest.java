@@ -26,9 +26,16 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.fail;
+
+import java.lang.reflect.Method;
+
+import gov.hhs.fha.nhinc.aspect.OutboundMessageEvent;
+import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201305UV02ArgTransformer;
+import gov.hhs.fha.nhinc.patientdiscovery.aspect.RespondingGatewayPRPAIN201306UV02Builder;
 import gov.hhs.fha.nhinc.patientdiscovery._10.entity.EntityPatientDiscoveryImpl;
 
 import javax.xml.ws.WebServiceContext;
@@ -66,25 +73,6 @@ public class EntityPatientDiscoverySecuredTest {
     }
 
     @Test
-    public void testGetEntityPatientDiscoverySecuredImpl() {
-        try {
-            EntityPatientDiscoverySecured pdSecured = new EntityPatientDiscoverySecured() {
-                @Override
-                protected EntityPatientDiscoveryImpl getEntityPatientDiscoveryImpl() {
-                    return mockServiceImpl;
-                }
-            };
-
-            EntityPatientDiscoveryImpl servcieImpl = pdSecured.getEntityPatientDiscoveryImpl();
-            assertNotNull("EntityPatientDiscoverySecuredImpl was null", servcieImpl);
-        } catch (Throwable t) {
-            System.out.println("Error running testGetEntityPatientDiscoverySecuredImpl: " + t.getMessage());
-            t.printStackTrace();
-            fail("Error running testGetEntityPatientDiscoverySecuredImpl: " + t.getMessage());
-        }
-    }
-
-    @Test
     public void testGetWebServiceContext() {
         try {
             EntityPatientDiscoverySecured pdSecured = new EntityPatientDiscoverySecured() {
@@ -108,15 +96,12 @@ public class EntityPatientDiscoverySecuredTest {
         try {
             EntityPatientDiscoverySecured pdSecured = new EntityPatientDiscoverySecured() {
                 @Override
-                protected EntityPatientDiscoveryImpl getEntityPatientDiscoveryImpl() {
-                    return mockServiceImpl;
-                }
-
-                @Override
                 protected WebServiceContext getWebServiceContext() {
                     return mockWebServiceContext;
                 }
             };
+            pdSecured.setOrchestratorImpl(mockServiceImpl);
+            
             context.checking(new Expectations() {
                 {
                     oneOf(mockServiceImpl).respondingGatewayPRPAIN201305UV02(
@@ -140,15 +125,11 @@ public class EntityPatientDiscoverySecuredTest {
         try {
             EntityPatientDiscoverySecured pdSecured = new EntityPatientDiscoverySecured() {
                 @Override
-                protected EntityPatientDiscoveryImpl getEntityPatientDiscoveryImpl() {
-                    return null;
-                }
-
-                @Override
                 protected WebServiceContext getWebServiceContext() {
                     return mockWebServiceContext;
                 }
             };
+            pdSecured.setOrchestratorImpl(null);
 
             RespondingGatewayPRPAIN201306UV02ResponseType response = pdSecured
                     .respondingGatewayPRPAIN201305UV02(mockRequest);
@@ -158,6 +139,19 @@ public class EntityPatientDiscoverySecuredTest {
             t.printStackTrace();
             fail("Error running testRespondingGatewayPRPAIN201305UV02NullServiceImpl: " + t.getMessage());
         }
+    }
+    
+    @Test
+    public void hasOutboundMessageEvent() throws Exception {
+        Class<EntityPatientDiscoverySecured> clazz = EntityPatientDiscoverySecured.class;
+        Method method = clazz.getMethod("respondingGatewayPRPAIN201305UV02", 
+                RespondingGatewayPRPAIN201305UV02RequestType.class);
+        OutboundMessageEvent annotation = method.getAnnotation(OutboundMessageEvent.class);
+        assertNotNull(annotation);
+        assertEquals(PRPAIN201305UV02ArgTransformer.class, annotation.beforeBuilder());
+        assertEquals(RespondingGatewayPRPAIN201306UV02Builder.class, annotation.afterReturningBuilder());
+        assertEquals("Patient Discovery", annotation.serviceType());
+        assertEquals("1.0", annotation.version());
     }
 
 }

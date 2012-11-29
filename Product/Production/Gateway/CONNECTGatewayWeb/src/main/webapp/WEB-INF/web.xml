@@ -6,10 +6,16 @@
             <load-on-startup>1</load-on-startup>
     </servlet>
     
+    <servlet>
+        <servlet-name>init</servlet-name>
+            <servlet-class>gov.hhs.fha.nhinc.gateway.servlet.InitServlet</servlet-class>
+            <load-on-startup>1</load-on-startup>
+    </servlet>
+
     <servlet-mapping>
             <servlet-name>cxf</servlet-name>
             <url-pattern>/*</url-pattern>
-        </servlet-mapping>
+    </servlet-mapping>
 
     <session-config>
         <session-timeout>30</session-timeout>

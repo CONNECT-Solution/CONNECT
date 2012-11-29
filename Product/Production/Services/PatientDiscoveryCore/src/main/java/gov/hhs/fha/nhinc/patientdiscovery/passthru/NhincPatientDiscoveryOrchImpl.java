@@ -26,10 +26,13 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery.passthru;
 
+import gov.hhs.fha.nhinc.aspect.OutboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.gateway.executorservice.ExecutorServiceHelper;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201305UV02ArgTransformer;
+import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201306UV02EventDescriptionBuilder;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditLogger;
 import gov.hhs.fha.nhinc.patientdiscovery.entity.OutboundPatientDiscoveryDelegate;
 import gov.hhs.fha.nhinc.patientdiscovery.entity.OutboundPatientDiscoveryOrchestratable;
@@ -88,6 +91,9 @@ public class NhincPatientDiscoveryOrchImpl {
         }
     }
 
+    @OutboundProcessingEvent(beforeBuilder = PRPAIN201305UV02ArgTransformer.class,
+            afterReturningBuilder = PRPAIN201306UV02EventDescriptionBuilder.class, serviceType = "Patient Discovery",
+            version = "1.0")
     public PRPAIN201306UV02 proxyPRPAIN201305UV(ProxyPRPAIN201305UVProxySecuredRequestType request,
             AssertionType assertion) {
         log.debug("Entering NhincProxyPatientDiscoverySecuredImpl.proxyPRPAIN201305UV(request, assertion) method");
@@ -104,7 +110,8 @@ public class NhincPatientDiscoveryOrchImpl {
         return response;
     }
 
-    private PRPAIN201306UV02 generateErrorResponse(NhinTargetSystemType target, PRPAIN201305UV02 request, String error) {
+    private PRPAIN201306UV02 generateErrorResponse(NhinTargetSystemType target, 
+            PRPAIN201305UV02 request, String error) {
         String errStr = "Error from target homeId=" + target.getHomeCommunity().getHomeCommunityId();
         errStr += "  The error received was " + error;
         return (new HL7PRPA201306Transforms()).createPRPA201306ForErrors(request, errStr);

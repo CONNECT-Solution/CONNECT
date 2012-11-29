@@ -26,16 +26,20 @@
  */
 package gov.hhs.fha.nhinc.docquery.outbound;
 
-import java.util.concurrent.ExecutorService;
-
+import gov.hhs.fha.nhinc.aspect.OutboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.docquery.DocQueryAuditLog;
 import gov.hhs.fha.nhinc.docquery.MessageGeneratorUtils;
+import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryRequestDescriptionBuilder;
+import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryResponseDescriptionBuilder;
 import gov.hhs.fha.nhinc.docquery.entity.OutboundDocQueryDelegate;
 import gov.hhs.fha.nhinc.docquery.entity.OutboundDocQueryOrchestratable;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+
+import java.util.concurrent.ExecutorService;
+
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 
@@ -48,8 +52,12 @@ public class PassthroughOutboundDocQuery implements OutboundDocQuery {
 
     private DocQueryAuditLog auditLog = new DocQueryAuditLog();
     private OutboundDocQueryDelegate delegate = new OutboundDocQueryDelegate();
+    
+    public PassthroughOutboundDocQuery() {
+        super();
+    }
 
-    PassthroughOutboundDocQuery(DocQueryAuditLog auditLog, OutboundDocQueryDelegate delegate) {
+    public PassthroughOutboundDocQuery(DocQueryAuditLog auditLog, OutboundDocQueryDelegate delegate) {
         this.auditLog = auditLog;
         this.delegate = delegate;
     }
@@ -74,6 +82,9 @@ public class PassthroughOutboundDocQuery implements OutboundDocQuery {
      * @return AdhocQueryResponse received from the NHIN
      */
     @Override
+    @OutboundProcessingEvent(beforeBuilder = AdhocQueryRequestDescriptionBuilder.class,
+            afterReturningBuilder = AdhocQueryResponseDescriptionBuilder.class, serviceType = "Document Query",
+            version = "")
     public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest request, AssertionType assertion,
             NhinTargetCommunitiesType targets) {
 

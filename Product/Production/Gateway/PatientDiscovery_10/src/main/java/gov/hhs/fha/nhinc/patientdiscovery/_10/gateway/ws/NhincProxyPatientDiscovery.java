@@ -26,6 +26,14 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws;
 
+import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201305UV02ArgTransformer;
+import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201306UV02EventDescriptionBuilder;
+import gov.hhs.fha.nhinc.patientdiscovery._10.passthru.NhincProxyPatientDiscoveryImpl;
+import gov.hhs.fha.nhinc.aspect.OutboundMessageEvent;
+
+import org.hl7.v3.ProxyPRPAIN201305UVProxyRequestType;
+import org.hl7.v3.PRPAIN201306UV02;
+
 import javax.annotation.Resource;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
@@ -36,7 +44,10 @@ import javax.xml.ws.WebServiceContext;
  */
 
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
-public class NhincProxyPatientDiscovery extends PatientDiscoveryBase implements gov.hhs.fha.nhinc.nhincproxypatientdiscovery.NhincProxyPatientDiscoveryPortType{
+public class NhincProxyPatientDiscovery extends PatientDiscoveryBase implements
+        gov.hhs.fha.nhinc.nhincproxypatientdiscovery.NhincProxyPatientDiscoveryPortType {
+
+    private NhincProxyPatientDiscoveryImpl orchImpl;
 
     @Resource
     private WebServiceContext context;
@@ -49,11 +60,17 @@ public class NhincProxyPatientDiscovery extends PatientDiscoveryBase implements 
         super(serviceFactory);
     }
 
-    public org.hl7.v3.PRPAIN201306UV02 proxyPRPAIN201305UV(
-            org.hl7.v3.ProxyPRPAIN201305UVProxyRequestType proxyPRPAIN201305UVProxyRequest) {
+    @OutboundMessageEvent(beforeBuilder = PRPAIN201305UV02ArgTransformer.class,
+            afterReturningBuilder = PRPAIN201306UV02EventDescriptionBuilder.class, serviceType = "Patient Discovery",
+            version = "1.0")
+    public PRPAIN201306UV02 proxyPRPAIN201305UV(ProxyPRPAIN201305UVProxyRequestType 
+            proxyPRPAIN201305UVProxyRequest) {
 
-        return getServiceFactory().getNhincProxyPatientDiscoveryImpl().proxyPRPAIN201305UV(
-                proxyPRPAIN201305UVProxyRequest, getWebServiceContext());
+        return orchImpl.proxyPRPAIN201305UV(proxyPRPAIN201305UVProxyRequest, getWebServiceContext());
+    }
+
+    public void setOrchestratorImpl(NhincProxyPatientDiscoveryImpl orchImpl) {
+        this.orchImpl = orchImpl;
     }
 
     protected WebServiceContext getWebServiceContext() {

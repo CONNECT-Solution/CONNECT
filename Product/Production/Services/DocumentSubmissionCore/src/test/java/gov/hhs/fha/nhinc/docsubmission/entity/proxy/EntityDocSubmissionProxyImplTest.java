@@ -33,7 +33,7 @@ import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.UrlInfoType;
-import gov.hhs.fha.nhinc.docsubmission.entity.EntityDocSubmissionOrchImpl;
+import gov.hhs.fha.nhinc.docsubmission.outbound.StandardOutboundDocSubmission;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 import org.jmock.Expectations;
@@ -55,7 +55,7 @@ public class EntityDocSubmissionProxyImplTest {
             setImposteriser(ClassImposteriser.INSTANCE);
         }
     };
-    final EntityDocSubmissionOrchImpl mockOrchImpl = context.mock(EntityDocSubmissionOrchImpl.class);
+    final StandardOutboundDocSubmission mockOutboundDS = context.mock(StandardOutboundDocSubmission.class);
     
     @Test
     public void testNoOpImpl() {
@@ -71,7 +71,7 @@ public class EntityDocSubmissionProxyImplTest {
     public void testJavaImpl() {
         setEntityOrchJavaImplExpectations();
         
-        EntityDocSubmissionProxyJavaImpl javaImpl = createEntityDocSubmissionProxyJavaImpl();
+        EntityDocSubmissionProxyJavaImpl javaImpl = new EntityDocSubmissionProxyJavaImpl(mockOutboundDS);
         RegistryResponseType response = javaImpl.provideAndRegisterDocumentSetB(null, null, null, null);
         
         assertNotNull(response);
@@ -81,7 +81,7 @@ public class EntityDocSubmissionProxyImplTest {
     private void setEntityOrchJavaImplExpectations() {
         context.checking(new Expectations() {
             {
-                oneOf(mockOrchImpl).provideAndRegisterDocumentSetB(with(any(ProvideAndRegisterDocumentSetRequestType.class)), with(any(AssertionType.class)),
+                oneOf(mockOutboundDS).provideAndRegisterDocumentSetB(with(any(ProvideAndRegisterDocumentSetRequestType.class)), with(any(AssertionType.class)),
                         with(any(NhinTargetCommunitiesType.class)), with(any(UrlInfoType.class)));
                 will(returnValue(createRegistryResponseType()));
             }
@@ -94,12 +94,4 @@ public class EntityDocSubmissionProxyImplTest {
         return response;
     }
     
-    private EntityDocSubmissionProxyJavaImpl createEntityDocSubmissionProxyJavaImpl() {
-        return new EntityDocSubmissionProxyJavaImpl() {
-            protected EntityDocSubmissionOrchImpl getEntityDocSubmissionOrchImpl() {
-                return mockOrchImpl;
-            }
-            
-        };
-    }
 }

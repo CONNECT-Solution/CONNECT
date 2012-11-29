@@ -4117,7 +4117,7 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 </con:properties>
 <con:reportParameters/>
 </con:testCase>
-<con:testCase failOnError="true" failTestCaseOnErrors="true" id="f8b2f1fb-a997-47a1-8acf-99c130f758e2" keepSession="false" maxResults="0" name="Unsubscribe" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" id="f8b2f1fb-a997-47a1-8acf-99c130f758e2" keepSession="false" maxResults="0" name="Unsubscribe" searchProperties="true" disabled="true">
 	<con:settings/>
 
 	<con:testStep name="update config" type="groovy">
@@ -8986,7 +8986,7 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 </con:properties>
 <con:reportParameters/>
 </con:testCase>
-<con:testCase failOnError="true" failTestCaseOnErrors="true" id="77fa6220-7df0-4205-8b0e-d4885ca26e11" keepSession="false" maxResults="0" name="Unsubscribe" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" id="77fa6220-7df0-4205-8b0e-d4885ca26e11" keepSession="false" maxResults="0" name="Unsubscribe" searchProperties="true" disabled="true">
 	<con:settings/>
 
 	<con:testStep name="update config" type="groovy">

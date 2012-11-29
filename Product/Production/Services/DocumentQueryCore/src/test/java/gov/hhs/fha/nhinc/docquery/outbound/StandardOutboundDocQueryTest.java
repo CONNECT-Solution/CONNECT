@@ -3,8 +3,26 @@
  */
 package gov.hhs.fha.nhinc.docquery.outbound;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
+import gov.hhs.fha.nhinc.aspect.OutboundProcessingEvent;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunityType;
+import gov.hhs.fha.nhinc.common.nhinccommon.QualifiedSubjectIdentifierType;
+import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayQuerySecuredRequestType;
+import gov.hhs.fha.nhinc.connectmgr.UrlInfo;
+import gov.hhs.fha.nhinc.docquery.DocQueryAuditLog;
+import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryRequestDescriptionBuilder;
+import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryResponseDescriptionBuilder;
+import gov.hhs.fha.nhinc.docquery.entity.OutboundDocQueryOrchestratable;
+import gov.hhs.fha.nhinc.gateway.aggregator.document.DocumentConstants;
+import gov.hhs.fha.nhinc.gateway.executorservice.NhinCallableRequest;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants.NHIN_SERVICE_NAMES;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -23,24 +41,8 @@ import org.jmock.integration.junit4.JUnit4Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.Test;
 
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
-import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
-import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunityType;
-import gov.hhs.fha.nhinc.common.nhinccommon.QualifiedSubjectIdentifierType;
-import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayQuerySecuredRequestType;
-import gov.hhs.fha.nhinc.connectmgr.UrlInfo;
-import gov.hhs.fha.nhinc.docquery.DocQueryAuditLog;
-import gov.hhs.fha.nhinc.docquery.entity.OutboundDocQueryOrchestratable;
-import gov.hhs.fha.nhinc.docquery.outbound.StandardOutboundDocQuery;
-import gov.hhs.fha.nhinc.gateway.aggregator.document.DocumentConstants;
-import gov.hhs.fha.nhinc.gateway.executorservice.NhinCallableRequest;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants.NHIN_SERVICE_NAMES;
-
 /**
  * @author achidamb
- *
- *
  */
 public class StandardOutboundDocQueryTest {
 
@@ -260,7 +262,7 @@ public class StandardOutboundDocQueryTest {
 
             context.checking(new Expectations() {
                 {
-                    allowing(mockLog).isDebugEnabled();                    
+                    allowing(mockLog).isDebugEnabled();
                     allowing(mockLog).debug(with(any(String.class)));
                     allowing(mockLog).error(with(any(String.class)));
                 }
@@ -274,6 +276,19 @@ public class StandardOutboundDocQueryTest {
         }
         assertSame(response.getStatus(), DocumentConstants.XDS_QUERY_RESPONSE_STATUS_PARTIALSUCCESS);
 
+    }
+
+    @Test
+    public void hasBeginOutboundProcessingEvent() throws Exception {
+        Class<StandardOutboundDocQuery> clazz = StandardOutboundDocQuery.class;
+        Method method = clazz.getMethod("respondingGatewayCrossGatewayQuery", AdhocQueryRequest.class,
+                AssertionType.class, NhinTargetCommunitiesType.class);
+        OutboundProcessingEvent annotation = method.getAnnotation(OutboundProcessingEvent.class);
+        assertNotNull(annotation);
+        assertEquals(AdhocQueryRequestDescriptionBuilder.class, annotation.beforeBuilder());
+        assertEquals(AdhocQueryResponseDescriptionBuilder.class, annotation.afterReturningBuilder());
+        assertEquals("Document Query", annotation.serviceType());
+        assertEquals("", annotation.version());
     }
 
     private AdhocQueryRequest createRequest() {

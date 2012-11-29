@@ -27,13 +27,18 @@
 package gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.response.proxy;
 
 import gov.hhs.fha.nhinc.adapterpatientdiscoveryasyncresp.AdapterPatientDiscoveryAsyncRespPortType;
+import gov.hhs.fha.nhinc.aspect.AdapterDelegationEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+//CheckStyle:OFF
 import gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.response.proxy.service.AdapterPatientDiscoveryAsyncRespServicePortDescriptor;
+//CheckStyle:ON
+import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201306UV02EventDescriptionBuilder;
+import gov.hhs.fha.nhinc.patientdiscovery.aspect.MCCIIN000002UV01EventDescriptionBuilder;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7AckTransforms;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 
@@ -66,6 +71,10 @@ public class AdapterPatientDiscoveryDeferredRespProxyWebServiceUnsecuredImpl imp
         return new WebServiceProxyHelper();
     }
 
+    @AdapterDelegationEvent(beforeBuilder = PRPAIN201306UV02EventDescriptionBuilder.class,
+            afterReturningBuilder = MCCIIN000002UV01EventDescriptionBuilder.class, 
+            serviceType = "Patient Discovery Deferred Response",
+            version = "1.0")
     public MCCIIN000002UV01 processPatientDiscoveryAsyncResp(PRPAIN201306UV02 request, AssertionType assertion) {
         log.debug("Begin processPatientDiscoveryAsyncReqError");
         MCCIIN000002UV01 ack = null;
@@ -79,11 +88,13 @@ public class AdapterPatientDiscoveryDeferredRespProxyWebServiceUnsecuredImpl imp
                 } else if (assertion == null) {
                     log.error("assertion was null");
                 } else {
-                    ServicePortDescriptor<AdapterPatientDiscoveryAsyncRespPortType> portDescriptor = new AdapterPatientDiscoveryAsyncRespServicePortDescriptor();
+                    ServicePortDescriptor<AdapterPatientDiscoveryAsyncRespPortType> portDescriptor = 
+                            new AdapterPatientDiscoveryAsyncRespServicePortDescriptor();
                     CONNECTClient<AdapterPatientDiscoveryAsyncRespPortType> client = CONNECTClientFactory.getInstance()
                             .getCONNECTClientUnsecured(portDescriptor, url, assertion);
 
-                    RespondingGatewayPRPAIN201306UV02RequestType msg = new RespondingGatewayPRPAIN201306UV02RequestType();
+                    RespondingGatewayPRPAIN201306UV02RequestType msg = 
+                            new RespondingGatewayPRPAIN201306UV02RequestType();
                     msg.setAssertion(assertion);
                     msg.setPRPAIN201306UV02(request);
 

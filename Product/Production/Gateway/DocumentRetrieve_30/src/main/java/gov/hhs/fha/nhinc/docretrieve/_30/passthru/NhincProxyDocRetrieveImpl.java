@@ -25,7 +25,13 @@ import org.apache.commons.logging.LogFactory;
  */
 public class NhincProxyDocRetrieveImpl extends BaseService {
 
+    private NhincProxyDocRetrieveOrchImpl orchImpl;
+    
     private static Log log = LogFactory.getLog(NhincProxyDocRetrieveImpl.class);
+    
+    public NhincProxyDocRetrieveImpl(NhincProxyDocRetrieveOrchImpl orchImpl) {
+        this.orchImpl = orchImpl;
+    }
 
     public ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(
             RespondingGatewayCrossGatewayRetrieveSecuredRequestType body, WebServiceContext context) {
@@ -35,7 +41,6 @@ public class NhincProxyDocRetrieveImpl extends BaseService {
 
         if (body != null) {
             AssertionType assertion = getAssertion(context, null);
-            NhincProxyDocRetrieveOrchImpl orchImpl = new NhincProxyDocRetrieveOrchImpl();
             response = orchImpl.respondingGatewayCrossGatewayRetrieve(body.getRetrieveDocumentSetRequest(), assertion,
                     body.getNhinTargetSystem());
         }
@@ -51,7 +56,6 @@ public class NhincProxyDocRetrieveImpl extends BaseService {
 
         if (body != null) {
             AssertionType assertion = getAssertion(context, body.getAssertion());
-            NhincProxyDocRetrieveOrchImpl orchImpl = new NhincProxyDocRetrieveOrchImpl();
             response = orchImpl.respondingGatewayCrossGatewayRetrieve(body.getRetrieveDocumentSetRequest(), assertion,
                     body.getNhinTargetSystem());
         }

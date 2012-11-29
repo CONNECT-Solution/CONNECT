@@ -26,13 +26,21 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws;
 
+import gov.hhs.fha.nhinc.generic.GenericFactory;
 import gov.hhs.fha.nhinc.patientdiscovery.NhinPatientDiscoveryImpl;
+import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditLogger;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryException;
+import gov.hhs.fha.nhinc.patientdiscovery.nhin.InboundPatientDiscoveryOrchFactory;
+import gov.hhs.fha.nhinc.patientdiscovery.nhin.InboundPatientDiscoveryOrchestration;
+import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201305UV02EventDescriptionBuilder;
+import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201306UV02EventDescriptionBuilder;
 import gov.hhs.healthit.nhin.PatientDiscoveryFaultType;
 import ihe.iti.xcpd._2009.PRPAIN201305UV02Fault;
+import gov.hhs.fha.nhinc.aspect.InboundMessageEvent;
 
+import org.hl7.v3.PRPAIN201305UV02;
+import org.hl7.v3.PRPAIN201306UV02;
 import javax.annotation.Resource;
-import javax.jws.WebService;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
@@ -44,36 +52,56 @@ import javax.xml.ws.soap.Addressing;
 
 @Addressing(enabled = true)
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
-public class NhinPatientDiscovery extends PatientDiscoveryBase implements ihe.iti.xcpd._2009.RespondingGatewayPortType {
+public class NhinPatientDiscovery  implements ihe.iti.xcpd._2009.RespondingGatewayPortType {
 
-    @Resource
+    private NhinPatientDiscoveryImpl orchImpl;
+
+   
     private WebServiceContext context;
+    
 
     /**
      * A generic constructor.
      */
     public NhinPatientDiscovery() {
         super();
+        // this is normally done with a @Resource injection
+        // because we are using aop with cxf this will not
+        // work.
+        // see: http://mail-archives.apache.org/mod_mbox/cxf-users/200908.mbox/%3C200908131043.47706.dkulp%40apache.org%3E
+      //  context = new WebServiceContextImpl();
     }
 
     /**
      * A constructor that takes a PD service factory.
+     * 
      * @param serviceFactory the service factory.
      */
     public NhinPatientDiscovery(PatientDiscoveryServiceFactory serviceFactory) {
-        super(serviceFactory);
     }
 
+    
+    @Resource
+    public void setContext(WebServiceContext context) {
+        this.context = context;
+    }
+
+    
+    
     /**
      * The web service implementation of Patient Discovery.
+     * 
      * @param body the body of the request
      * @return the Patient discovery Response
      * @throws PRPAIN201305UV02Fault a fault if there's an exception
      */
-    public org.hl7.v3.PRPAIN201306UV02 respondingGatewayPRPAIN201305UV02(org.hl7.v3.PRPAIN201305UV02 body) 
-    		throws PRPAIN201305UV02Fault {
+    @InboundMessageEvent(beforeBuilder = PRPAIN201305UV02EventDescriptionBuilder.class,
+            afterReturningBuilder = PRPAIN201306UV02EventDescriptionBuilder.class, serviceType = "Patient Discovery",
+            version = "1.0")
+    public PRPAIN201306UV02 respondingGatewayPRPAIN201305UV02(PRPAIN201305UV02 body)
+            throws PRPAIN201305UV02Fault {
         try {
-            return getNhinPatientDiscoveryService().respondingGatewayPRPAIN201305UV02(body, context);
+            return orchImpl.respondingGatewayPRPAIN201305UV02(body, context);
         } catch (PatientDiscoveryException e) {
             PatientDiscoveryFaultType type = new PatientDiscoveryFaultType();
             type.setErrorCode("920");
@@ -83,12 +111,16 @@ public class NhinPatientDiscovery extends PatientDiscoveryBase implements ihe.it
         }
     }
 
-    /**
-     * A getter function that returns the NHIN patient discovery service impl.
-     * @return the service impl.
-     */
-    protected NhinPatientDiscoveryImpl getNhinPatientDiscoveryService() {
-        return getServiceFactory().getNhinPatientDiscoveryService();
+    public void setOrchestratorImpl(NhinPatientDiscoveryImpl orchImpl) {
+        this.orchImpl = orchImpl;
+    }
+    
+    protected PatientDiscoveryAuditLogger getPatientDiscoveryAuditLogger() {
+        return new PatientDiscoveryAuditLogger();
+    }
+    
+    protected GenericFactory<InboundPatientDiscoveryOrchestration> getOrchestrationFactory() {
+        return InboundPatientDiscoveryOrchFactory.getInstance();
     }
 
 }

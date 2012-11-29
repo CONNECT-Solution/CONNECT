@@ -45,10 +45,12 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
  */
 public class PolicyEngineTransformer {
 
+    private PatientDiscoveryPolicyTransformHelper pdPolicyTransformerHelepr = new PatientDiscoveryPolicyTransformHelper();
+    
     public CheckPolicyRequestType transformPatDiscReqToCheckPolicy(
             PatDiscReqEventType transformPatDiscReqToCheckPolicyRequest) {
-        return new PatientDiscoveryPolicyTransformHelper()
-                .transformPatientDiscoveryNhincToCheckPolicy(transformPatDiscReqToCheckPolicyRequest);
+        return 
+                pdPolicyTransformerHelepr.transformPatientDiscoveryNhincToCheckPolicy(transformPatDiscReqToCheckPolicyRequest);
     }
 
     public CheckPolicyRequestType transformAdhocQueryToCheckPolicy(

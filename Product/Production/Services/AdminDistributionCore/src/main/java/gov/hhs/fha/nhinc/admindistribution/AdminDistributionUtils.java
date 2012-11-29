@@ -70,7 +70,8 @@ public class AdminDistributionUtils {
      * is thrown, then the content object will not be converted back to its original value.
      * 
      * @param request - the message to be converted
-     * @throws LargePayloadException
+     * @throws LargePayloadException Throws LargePayloadException when retrieving contentObject or 
+     * saving the attachment to system. 
      */
     public void convertFileLocationToDataIfEnabled(EDXLDistribution request) throws LargePayloadException {
 
@@ -93,7 +94,9 @@ public class AdminDistributionUtils {
      * request! If an exception is thrown, then the content object will not be converted back to its original value.
      * 
      * @param request - the message to be converted
-     * @throws LargePayloadException
+     * @throws LargePayloadException Throws LargePayloadException when retrieving contentObject or 
+     * saving the attachment to system. 
+     * 
      */
     public void convertDataToFileLocationIfEnabled(EDXLDistribution request) throws LargePayloadException {
         if (fileUtils.isSavePayloadToFileEnabled()) {
@@ -161,6 +164,9 @@ public class AdminDistributionUtils {
         nonXmlContentType.setContentData(dh);
     }
 
+    /**
+     * @return an instance of LargeFileUtils.
+     */
     protected LargeFileUtils getLargeFileUtils() {
         return LargeFileUtils.getInstance();
     }

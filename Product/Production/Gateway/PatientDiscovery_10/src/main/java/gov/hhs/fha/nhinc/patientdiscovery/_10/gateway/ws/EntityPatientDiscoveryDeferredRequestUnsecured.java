@@ -26,7 +26,11 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws;
 
+import gov.hhs.fha.nhinc.aspect.OutboundMessageEvent;
+import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201305UV02ArgTransformer;
+import gov.hhs.fha.nhinc.patientdiscovery.aspect.MCCIIN000002UV01EventDescriptionBuilder;
 import gov.hhs.fha.nhinc.patientdiscovery._10.entity.deferred.request.EntityPatientDiscoveryDeferredRequestImpl;
+import gov.hhs.fha.nhinc.entitypatientdiscoveryasyncreq.EntityPatientDiscoveryAsyncReqPortType;
 
 import javax.annotation.Resource;
 import javax.xml.ws.BindingType;
@@ -38,8 +42,11 @@ import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 
 @Addressing(enabled = true)
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
-public class EntityPatientDiscoveryDeferredRequestUnsecured extends PatientDiscoveryBase implements gov.hhs.fha.nhinc.entitypatientdiscoveryasyncreq.EntityPatientDiscoveryAsyncReqPortType {
+public class EntityPatientDiscoveryDeferredRequestUnsecured extends PatientDiscoveryBase 
+                                           implements EntityPatientDiscoveryAsyncReqPortType {
 
+    private EntityPatientDiscoveryDeferredRequestImpl orchImpl;
+    
     @Resource
     private WebServiceContext context;
 
@@ -51,16 +58,22 @@ public class EntityPatientDiscoveryDeferredRequestUnsecured extends PatientDisco
         super(serviceFactory);
     }
 
+    @OutboundMessageEvent(beforeBuilder = PRPAIN201305UV02ArgTransformer.class,
+            afterReturningBuilder = MCCIIN000002UV01EventDescriptionBuilder.class, 
+            serviceType = "Patient Discovery Deferred Request",
+            version = "1.0")
     public MCCIIN000002UV01 processPatientDiscoveryAsyncReq(RespondingGatewayPRPAIN201305UV02RequestType request) {
         MCCIIN000002UV01 response = null;
 
-        EntityPatientDiscoveryDeferredRequestImpl impl = getServiceFactory()
-                .getEntityPatientDiscoveryDeferredRequestImpl();
-        if (impl != null) {
-            response = impl.processPatientDiscoveryAsyncRequestUnsecured(request, getWebServiceContext());
+        if (orchImpl != null) {
+            response = orchImpl.processPatientDiscoveryAsyncRequestUnsecured(request, getWebServiceContext());
         }
 
         return response;
+    }
+    
+    public void setOrchestratorImpl(EntityPatientDiscoveryDeferredRequestImpl orchImpl) {
+        this.orchImpl = orchImpl;
     }
 
     protected WebServiceContext getWebServiceContext() {

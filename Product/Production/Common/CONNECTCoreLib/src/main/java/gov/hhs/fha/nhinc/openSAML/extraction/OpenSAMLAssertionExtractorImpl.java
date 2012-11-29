@@ -215,6 +215,13 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
                         log.debug("Assertion.uniquePatientId = " + patientId);
                         break;
                     }
+                    
+                case NhincConstants.ATTRIBUTE_NAME_NPI:
+                    String nationalProviderId = getAttributeValue(attribute);
+                    target.setNationalProviderId(nationalProviderId);
+                    log.debug("Assertion.nationalProviderId = " + nationalProviderId);
+                    break;
+                    
                 default:
                     log.warn("Unrecognized Name Attribute: " + attribute.getName());
                     break;

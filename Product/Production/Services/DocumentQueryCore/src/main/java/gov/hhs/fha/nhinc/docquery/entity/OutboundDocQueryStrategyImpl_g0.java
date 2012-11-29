@@ -28,11 +28,11 @@ package gov.hhs.fha.nhinc.docquery.entity;
 
 import gov.hhs.fha.nhinc.docquery.nhin.proxy.NhinDocQueryProxy;
 import gov.hhs.fha.nhinc.docquery.nhin.proxy.NhinDocQueryProxyObjectFactory;
+import gov.hhs.fha.nhinc.gateway.executorservice.ExecutorServiceHelper;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
 import gov.hhs.fha.nhinc.orchestration.OutboundResponseProcessor;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
-import gov.hhs.fha.nhinc.gateway.executorservice.ExecutorServiceHelper;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -87,9 +87,8 @@ public class OutboundDocQueryStrategyImpl_g0 extends OutboundDocQueryStrategy {
                         .getHomeCommunityId());
         try {
             NhinDocQueryProxy proxy = new NhinDocQueryProxyObjectFactory().getNhinDocQueryProxy();
-            String url = (new WebServiceProxyHelper()).getUrlFromTargetSystemByGatewayAPILevel(
-                    message.getTarget(), NhincConstants.DOC_QUERY_SERVICE_NAME,
-                    GATEWAY_API_LEVEL.LEVEL_g0);
+            String url = (new WebServiceProxyHelper()).getUrlFromTargetSystemByGatewayAPILevel(message.getTarget(),
+                    NhincConstants.DOC_QUERY_SERVICE_NAME, GATEWAY_API_LEVEL.LEVEL_g0);
             message.getTarget().setUrl(url);
             getLogger().debug(
                     "NhinDocQueryStrategyImpl_g0::executeStrategy sending nhin doc query request to " + " target hcid="
@@ -101,6 +100,7 @@ public class OutboundDocQueryStrategyImpl_g0 extends OutboundDocQueryStrategy {
 
             getLogger().debug("NhinDocQueryStrategyImpl_g0::executeStrategy returning response");
         } catch (Exception ex) {
+            getLogger().error("Caught exception executing strategy: " + ex.getMessage(), ex);
             String err = ExecutorServiceHelper.getFormattedExceptionInfo(ex, message.getTarget(),
                     message.getServiceName());
             OutboundResponseProcessor processor = message.getResponseProcessor();
