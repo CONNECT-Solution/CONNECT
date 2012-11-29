@@ -38,7 +38,7 @@ import gov.hhs.fha.nhinc.connectmgr.UrlInfo;
  * @author akong
  * 
  */
-public class MessageGeneratorUtils {
+public class MessageGeneratorUtils extends gov.hhs.fha.nhinc.util.MessageGeneratorUtils {
     private static MessageGeneratorUtils INSTANCE = new MessageGeneratorUtils();
 
     MessageGeneratorUtils() {
@@ -51,22 +51,6 @@ public class MessageGeneratorUtils {
      */
     public static MessageGeneratorUtils getInstance() {
         return INSTANCE;
-    }
-
-    /**
-     * Converts the first target into a NhinTargetSystemType format.
-     * 
-     * @param targets
-     * @return NhinTargetSystemType
-     */
-    public NhinTargetSystemType convertFirstToNhinTargetSystemType(NhinTargetCommunitiesType targets) {
-        NhinTargetSystemType nhinTargetSystem = new NhinTargetSystemType();
-
-        if (targets != null && targets.getNhinTargetCommunity() != null && targets.getNhinTargetCommunity().size() > 0) {
-            nhinTargetSystem.setHomeCommunity(targets.getNhinTargetCommunity().get(0).getHomeCommunity());
-        }
-
-        return nhinTargetSystem;
     }
 
     /**

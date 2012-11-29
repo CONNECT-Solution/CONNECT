@@ -24,36 +24,45 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.patientdiscovery.nhin.deferred.response;
+package gov.hhs.fha.nhinc.util;
 
-import gov.hhs.fha.nhinc.generic.GenericFactory;
-import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscovery201306PolicyChecker;
-import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditLogger;
-import gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.response.proxy.AdapterPatientDiscoveryDeferredRespProxyObjectFactory;
-import gov.hhs.fha.nhinc.patientdiscovery.inbound.AbstractServicePropertyAccessor;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 
-public final class NhinPatientDiscoveryDeferredRespOrchFactory implements
-        GenericFactory<NhinPatientDiscoveryDeferredRespOrchImpl> {
+/**
+ * @author akong
+ * 
+ */
+public class MessageGeneratorUtils {
 
-    private static NhinPatientDiscoveryDeferredRespOrchFactory INSTANCE = new NhinPatientDiscoveryDeferredRespOrchFactory();
+    private static MessageGeneratorUtils INSTANCE = new MessageGeneratorUtils();
 
-    NhinPatientDiscoveryDeferredRespOrchFactory() {
-
+    protected MessageGeneratorUtils() {
     }
 
-    @Override
-    public NhinPatientDiscoveryDeferredRespOrchImpl create() {
-
-        return new NhinPatientDiscoveryDeferredRespOrchImpl(new AbstractServicePropertyAccessor() {
-            @Override
-            protected String getPassThruEnabledPropertyName() {
-                return ""; // deferred response passthru doesn't make sense/not supported
-            }
-        }, new PatientDiscoveryAuditLogger(), new AdapterPatientDiscoveryDeferredRespProxyObjectFactory(),
-                PatientDiscovery201306PolicyChecker.getInstance());
-    }
-
-    public static NhinPatientDiscoveryDeferredRespOrchFactory getInstance() {
+    /**
+     * Returns the singleton instance of this class.
+     * 
+     * @return the singleton instance
+     */
+    public static MessageGeneratorUtils getInstance() {
         return INSTANCE;
     }
+
+    /**
+     * Converts the first target into a NhinTargetSystemType format.
+     * 
+     * @param targets
+     * @return NhinTargetSystemType
+     */
+    public NhinTargetSystemType convertFirstToNhinTargetSystemType(NhinTargetCommunitiesType targets) {
+        NhinTargetSystemType nhinTargetSystem = new NhinTargetSystemType();
+
+        if (targets != null && targets.getNhinTargetCommunity() != null && targets.getNhinTargetCommunity().size() > 0) {
+            nhinTargetSystem.setHomeCommunity(targets.getNhinTargetCommunity().get(0).getHomeCommunity());
+        }
+
+        return nhinTargetSystem;
+    }
+
 }

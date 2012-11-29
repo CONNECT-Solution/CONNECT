@@ -68,6 +68,8 @@ import org.hl7.v3.XParticipationAuthorPerformer;
 public class PatientDiscovery201305Processor implements PatientDiscoveryProcessor {
 
     private static Log log = LogFactory.getLog(PatientDiscovery201305Processor.class);
+    
+    private MessageGeneratorUtils msgUtils = MessageGeneratorUtils.getInstance();
 
     /*
      * (non-Javadoc)
@@ -144,7 +146,7 @@ public class PatientDiscovery201305Processor implements PatientDiscoveryProcesso
             response.getControlActProcess().getSubject().set(pRPAINSubjectInd, subjReplaced);
 
             // Extract patient for current subject and perform policy check
-            patId = NhinPatientDiscoveryUtils.extractPatientIdFromSubject(pRPAINSubject);
+            patId = msgUtils.extractPatientIdFromSubject(pRPAINSubject);
             if (policyChecker.check201305Policy(response, patId, assertion)) {
                 log.debug("checkPolicy -policy returns permit for patient: " + pRPAINSubjectInd);
             } else {

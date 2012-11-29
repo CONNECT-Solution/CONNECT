@@ -32,7 +32,7 @@ import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditLogger;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryPolicyChecker;
 import gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.error.proxy.AdapterPatientDiscoveryDeferredReqErrorProxyObjectFactory;
 import gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.proxy.AdapterPatientDiscoveryDeferredReqProxyObjectFactory;
-import gov.hhs.fha.nhinc.patientdiscovery.nhin.AbstractServicePropertyAccessor;
+import gov.hhs.fha.nhinc.patientdiscovery.inbound.AbstractServicePropertyAccessor;
 
 /**
  * @author bhumphrey
