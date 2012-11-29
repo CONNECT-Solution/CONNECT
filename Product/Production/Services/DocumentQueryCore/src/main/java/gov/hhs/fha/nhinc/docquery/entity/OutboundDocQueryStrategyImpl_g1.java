@@ -61,7 +61,6 @@ public class OutboundDocQueryStrategyImpl_g1 extends OutboundDocQueryStrategy {
 
     @Override
     protected GATEWAY_API_LEVEL getAPILevel() {
-        // TODO Auto-generated method stub
         return GATEWAY_API_LEVEL.LEVEL_g1;
     }
 

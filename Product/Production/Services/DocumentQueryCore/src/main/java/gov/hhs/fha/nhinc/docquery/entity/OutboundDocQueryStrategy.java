@@ -100,8 +100,7 @@ public abstract class OutboundDocQueryStrategy implements OrchestrationStrategy 
      * @param ex
      */
     protected void handleError(OutboundDocQueryOrchestratable message, Exception ex) {
-        String err = ExecutorServiceHelper.getFormattedExceptionInfo(ex, message.getTarget(),
-                message.getServiceName());
+        String err = ExecutorServiceHelper.getFormattedExceptionInfo(ex, message.getTarget(), message.getServiceName());
         OutboundResponseProcessor processor = message.getResponseProcessor();
         message.setResponse(((OutboundDocQueryOrchestratable) processor.processErrorResponse(message, err))
                 .getResponse());
@@ -125,7 +124,6 @@ public abstract class OutboundDocQueryStrategy implements OrchestrationStrategy 
                 .getHomeCommunityId());
     }
 
-
     /**
      * This method takes Orchestrated message request and returns reponse.
      * 
@@ -134,22 +132,19 @@ public abstract class OutboundDocQueryStrategy implements OrchestrationStrategy 
      * @throws ConnectionManagerException
      * @throws IllegalArgumentException
      */
-    @SuppressWarnings("static-access")
     public void executeStrategy(OutboundDocQueryOrchestratable message) throws IllegalArgumentException,
             ConnectionManagerException, Exception {
-        
+
         final String url = getUrl(message.getTarget());
-        message.getTarget().setUrl(url)
-        ;
+        message.getTarget().setUrl(url);
         if (log.isDebugEnabled()) {
             log.debug("executeStrategy sending nhin doc query request to " + " target hcid="
-                    + message.getTarget().getHomeCommunity().getHomeCommunityId() + " at url="
-                    + url);
+                    + message.getTarget().getHomeCommunity().getHomeCommunityId() + " at url=" + url);
         }
 
-        AdhocQueryResponse response = proxyFactory.getNhinDocQueryProxy().respondingGatewayCrossGatewayQuery(message.getRequest(), message.getAssertion(),
-                message.getTarget());
-        
+        AdhocQueryResponse response = proxyFactory.getNhinDocQueryProxy().respondingGatewayCrossGatewayQuery(
+                message.getRequest(), message.getAssertion(), message.getTarget());
+
         message.setResponse(response);
 
         log.debug("executeStrategy returning response");
@@ -159,14 +154,14 @@ public abstract class OutboundDocQueryStrategy implements OrchestrationStrategy 
     /**
      * @param message
      * @return
-     * @throws IllegalArgumentException 
+     * @throws IllegalArgumentException
      * @throws ConnectionManagerException
      * @throws Exception
      */
-    public String getUrl(NhinTargetSystemType target) throws IllegalArgumentException, ConnectionManagerException, Exception {
-        
-        return webServiceProxyHelper.getUrlFromTargetSystemByGatewayAPILevel(target,
-                getServiceName(), getAPILevel());
+    public String getUrl(NhinTargetSystemType target) throws IllegalArgumentException, ConnectionManagerException,
+            Exception {
+
+        return webServiceProxyHelper.getUrlFromTargetSystemByGatewayAPILevel(target, getServiceName(), getAPILevel());
     }
 
     private void auditMessage(LogEventRequestType auditLogMsg, AssertionType assertion) {
@@ -207,7 +202,5 @@ public abstract class OutboundDocQueryStrategy implements OrchestrationStrategy 
                         NhincConstants.AUDIT_LOG_NHIN_INTERFACE, requestCommunityID);
         auditMessage(auditLogMsg, assertion);
     }
-
-   
 
 }
