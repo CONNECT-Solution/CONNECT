@@ -24,32 +24,13 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.direct;
-
+package gov.hhs.fha.nhinc.direct.event;
 
 /**
- * Exceptions for {@link MimeMessageBuilder}.
+ * Enumeration of event types for direct event logging.
  */
-public class DirectException extends RuntimeException {
+public enum DirectEventType {
+    
+    OUTBOUND_DIRECT, INBOUND_DIRECT, OUTBOUND_MDN, INBOUND_MDN, INBOUND_ERROR, DIRECT_ERROR;
 
-    private static final long serialVersionUID = 4636463959045310435L;
-
-    /**
-     * Constructor.
-     * 
-     * @param message for the exception
-     * @param cause chained exception
-     */
-    public DirectException(String message, Throwable cause) {
-        super(message, cause);
-    }
-
-    /**
-     * Constructor.
-     * 
-     * @param message for the exception
-     */
-    public DirectException(String message) {
-        super(message);
-    }
 }

@@ -33,6 +33,7 @@ import javax.mail.Message;
 import javax.mail.Message.RecipientType;
 import javax.mail.MessagingException;
 import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -133,5 +134,18 @@ public class DirectClientUtils {
 
         LOG.info("# of notifications message: " + notifications.size());
         return notifications;
+    }
+    
+    /**
+     * @param message to be tested.
+     * @return true if the message is an MDN Notification.
+     * @throws MessagingException 
+     */
+    protected static boolean isMdn(MimeMessage message) { 
+        try {
+            return message.getContentType().contains("disposition-notification");
+        } catch (MessagingException e) {
+            throw new DirectException("Error checking for MDN.", e);
+        }
     }
 }

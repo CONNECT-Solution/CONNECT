@@ -24,32 +24,57 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.direct;
+package gov.hhs.fha.nhinc.direct.event;
 
+import gov.hhs.fha.nhinc.event.EventManager;
+
+import javax.mail.internet.MimeMessage;
 
 /**
- * Exceptions for {@link MimeMessageBuilder}.
+ * Implements event logging for direct.
  */
-public class DirectException extends RuntimeException {
+public class DirectEventLogger {
 
-    private static final long serialVersionUID = 4636463959045310435L;
-
+    private final EventManager eventManager;
+    
     /**
-     * Constructor.
-     * 
-     * @param message for the exception
-     * @param cause chained exception
+     * Construct a Direct Event Logger using singleton event manager.
      */
-    public DirectException(String message, Throwable cause) {
-        super(message, cause);
+    public DirectEventLogger() {
+        this.eventManager = EventManager.getInstance();
     }
 
     /**
-     * Constructor.
-     * 
-     * @param message for the exception
+     * Log a success direct event using event logger.
+     * @param type direct event type.
+     * @param message used to pull info from.
      */
-    public DirectException(String message) {
-        super(message);
+    public void log(DirectEventType type, MimeMessage message) {
+        log(type, message, null);
+    }   
+
+    /**
+     * Log a failed event due to exception.
+     * @param type of event which failed.
+     * @param message used to pull info from.
+     * @param exception encountered triggering event.
+     */
+    public void logException(DirectEventType type, MimeMessage message, Exception exception) {
+        if (exception == null) {
+            log(type, message, null);
+        } else {
+            log(type, message, exception.getLocalizedMessage());
+        }
     }
+    
+    /**
+     * Log a success or failed direct event using event logger.
+     * @param type direct event type.
+     * @param message used to pull info from.
+     * @param errorMsg optional error message - if not null status = error.
+     */
+    public void log(DirectEventType type, MimeMessage message, String errorMsg) {
+        eventManager.recordEvent(new DirectEvent.Builder().mimeMessage(message).errorMsg(errorMsg).build(type)); 
+    }
+    
 }

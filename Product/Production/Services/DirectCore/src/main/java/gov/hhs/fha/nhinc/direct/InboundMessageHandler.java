@@ -26,6 +26,9 @@
  */
 package gov.hhs.fha.nhinc.direct;
 
+import gov.hhs.fha.nhinc.direct.event.DirectEventLogger;
+import gov.hhs.fha.nhinc.direct.event.DirectEventType;
+
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
@@ -70,10 +73,27 @@ public class InboundMessageHandler implements MessageHandler {
     private int edgeClientType;
     
     /**
+     * Direct event logger.
+     */
+    private DirectEventLogger eventLogger = new DirectEventLogger();
+
+    /**
      * {@inheritDoc}
      */
     @Override
-    public void handleMessage(MimeMessage message, DirectClient externalDirectClient) {
+    public void handleMessage(MimeMessage message, DirectClient externalDirectClient) {        
+        try {
+            MimeMessage processedMessage = processAndHandleMessage(message, externalDirectClient);
+            if (processedMessage != null) {
+                logInboundEvent(processedMessage);
+            }
+        } catch (Exception e) {
+            eventLogger.logException(DirectEventType.INBOUND_ERROR, null, e);
+            throw e;
+        }
+    }
+    
+    private MimeMessage processAndHandleMessage(MimeMessage message, DirectClient externalDirectClient) {
 
         MessageProcessResult result = null;
         NHINDAddress origSender = null;
@@ -92,7 +112,7 @@ public class InboundMessageHandler implements MessageHandler {
         MessageEnvelope processedMessage = result.getProcessedMessage();
         if (processedMessage == null) {
             logNotfications(result);
-            return;
+            return null;
         } 
 
         switch (edgeClientType) {
@@ -106,9 +126,19 @@ public class InboundMessageHandler implements MessageHandler {
 
         default:
             throw new DirectException("Unknown edge client type: " + edgeClientType);
-        }        
+        }
+        
+        return processedMessage.getMessage();
     }        
     
+    private void logInboundEvent(MimeMessage message) {
+        if (DirectClientUtils.isMdn(message)) {
+            eventLogger.log(DirectEventType.INBOUND_MDN, message);
+        } else {
+            eventLogger.log(DirectEventType.INBOUND_DIRECT, message);            
+        }
+    }
+
     /**
      * Handles the message for SMTP edge clients.
      * @param processedMessage decrypted message to be handled.
@@ -146,7 +176,9 @@ public class InboundMessageHandler implements MessageHandler {
                 LOG.warn("Exception while logging notification messages.", e);
             }
         }
-        LOG.info(builder.toString());
+        String errorMsg = builder.toString();
+        LOG.info(errorMsg);
+        eventLogger.log(DirectEventType.INBOUND_ERROR, null, errorMsg);
     }
 
     /**

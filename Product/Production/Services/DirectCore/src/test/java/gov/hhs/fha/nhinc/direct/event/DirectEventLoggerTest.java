@@ -24,32 +24,43 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.direct;
+package gov.hhs.fha.nhinc.direct.event;
 
+import gov.hhs.fha.nhinc.direct.DirectException;
+
+import org.junit.Test;
 
 /**
- * Exceptions for {@link MimeMessageBuilder}.
+ * Test {@link DirectEventLogger}.
  */
-public class DirectException extends RuntimeException {
+public class DirectEventLoggerTest extends DirectEventTest {
 
-    private static final long serialVersionUID = 4636463959045310435L;
-
+    private static final String ERROR_MESSAGE = "I've got blisters on me fingers...";
+    
+    private DirectEventLogger testLogger = new DirectEventLogger();
+    
     /**
-     * Constructor.
-     * 
-     * @param message for the exception
-     * @param cause chained exception
+     * {@link DirectEventLogger#log(DirectEventType, javax.mail.internet.MimeMessage)}
      */
-    public DirectException(String message, Throwable cause) {
-        super(message, cause);
+    @Test
+    public void canLogSuccess() {
+        testLogger.log(DirectEventType.OUTBOUND_DIRECT, mockMimeMessage);
     }
 
     /**
-     * Constructor.
-     * 
-     * @param message for the exception
+     * {@link DirectEventLogger#log(DirectEventType, javax.mail.internet.MimeMessage, String)}
      */
-    public DirectException(String message) {
-        super(message);
+    @Test
+    public void canLogError() {
+        testLogger.log(DirectEventType.INBOUND_DIRECT, mockMimeMessage, ERROR_MESSAGE);
     }
+
+    /**
+     * {@link DirectEventLogger#logException(DirectEventType, javax.mail.internet.MimeMessage, Exception)}
+     */
+    @Test
+    public void canLogException() {
+        testLogger.logException(DirectEventType.INBOUND_MDN, mockMimeMessage, new DirectException(ERROR_MESSAGE));
+    }
+
 }
