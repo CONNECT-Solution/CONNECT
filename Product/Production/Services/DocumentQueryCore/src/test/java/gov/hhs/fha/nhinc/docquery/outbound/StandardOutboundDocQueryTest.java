@@ -274,7 +274,7 @@ public class StandardOutboundDocQueryTest {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        assertSame(response.getStatus(), DocumentConstants.XDS_QUERY_RESPONSE_STATUS_PARTIALSUCCESS);
+        assertSame(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_PARTIALSUCCESS, response.getStatus());
 
     }
 
