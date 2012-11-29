@@ -24,36 +24,24 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.patientdiscovery.nhin.deferred.response;
+package gov.hhs.fha.nhinc.patientdiscovery.outbound;
 
-import gov.hhs.fha.nhinc.generic.GenericFactory;
-import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscovery201306PolicyChecker;
-import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditLogger;
-import gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.response.proxy.AdapterPatientDiscoveryDeferredRespProxyObjectFactory;
-import gov.hhs.fha.nhinc.patientdiscovery.inbound.AbstractServicePropertyAccessor;
+import java.util.concurrent.ExecutorService;
 
-public final class NhinPatientDiscoveryDeferredRespOrchFactory implements
-        GenericFactory<NhinPatientDiscoveryDeferredRespOrchImpl> {
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 
-    private static NhinPatientDiscoveryDeferredRespOrchFactory INSTANCE = new NhinPatientDiscoveryDeferredRespOrchFactory();
+import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
+import org.hl7.v3.RespondingGatewayPRPAIN201306UV02ResponseType;
 
-    NhinPatientDiscoveryDeferredRespOrchFactory() {
+/**
+ * @author akong
+ * 
+ */
+public interface OutboundPatientDiscovery {
 
-    }
+    public RespondingGatewayPRPAIN201306UV02ResponseType respondingGatewayPRPAIN201305UV02(
+            RespondingGatewayPRPAIN201305UV02RequestType request, AssertionType assertion);
 
-    @Override
-    public NhinPatientDiscoveryDeferredRespOrchImpl create() {
+    public void setExecutorService(ExecutorService regularExecutor, ExecutorService largeJobExecutor);
 
-        return new NhinPatientDiscoveryDeferredRespOrchImpl(new AbstractServicePropertyAccessor() {
-            @Override
-            protected String getPassThruEnabledPropertyName() {
-                return ""; // deferred response passthru doesn't make sense/not supported
-            }
-        }, new PatientDiscoveryAuditLogger(), new AdapterPatientDiscoveryDeferredRespProxyObjectFactory(),
-                PatientDiscovery201306PolicyChecker.getInstance());
-    }
-
-    public static NhinPatientDiscoveryDeferredRespOrchFactory getInstance() {
-        return INSTANCE;
-    }
 }

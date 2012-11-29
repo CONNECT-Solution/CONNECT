@@ -2180,7 +2180,7 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 </con:properties>
 <con:reportParameters/>
 </con:testCase>
-<con:testCase failOnError="true" failTestCaseOnErrors="true" id="564f6338-004e-4199-a8e7-58f7df76e913" keepSession="false" maxResults="0" name="Patient Discovery" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" id="564f6338-004e-4199-a8e7-58f7df76e913" keepSession="false" maxResults="0" name="Patient Discovery" disabled="true" searchProperties="true">
 	<con:settings/>
 	<con:testStep name="clear correlations table" type="groovy">
 		<con:settings/>
@@ -6871,7 +6871,7 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 </con:properties>
 <con:reportParameters/>
 </con:testCase>
-<con:testCase failOnError="true" failTestCaseOnErrors="true" id="803da81d-206f-441a-841c-31071b9508ae" keepSession="false" maxResults="0" name="Patient Discovery" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" id="803da81d-206f-441a-841c-31071b9508ae" keepSession="false" maxResults="0" name="Patient Discovery" disabled="true" searchProperties="true">
 	<con:settings/>
 	<con:testStep name="clear correlations table" type="groovy">
 		<con:settings/>

@@ -24,36 +24,25 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.patientdiscovery.nhin.deferred.response;
+package gov.hhs.fha.nhinc.patientdiscovery.inbound;
 
-import gov.hhs.fha.nhinc.generic.GenericFactory;
-import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscovery201306PolicyChecker;
-import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditLogger;
-import gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.response.proxy.AdapterPatientDiscoveryDeferredRespProxyObjectFactory;
-import gov.hhs.fha.nhinc.patientdiscovery.inbound.AbstractServicePropertyAccessor;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryException;
 
-public final class NhinPatientDiscoveryDeferredRespOrchFactory implements
-        GenericFactory<NhinPatientDiscoveryDeferredRespOrchImpl> {
+import org.hl7.v3.PRPAIN201305UV02;
+import org.hl7.v3.PRPAIN201306UV02;
 
-    private static NhinPatientDiscoveryDeferredRespOrchFactory INSTANCE = new NhinPatientDiscoveryDeferredRespOrchFactory();
+/**
+ * @author akong
+ *
+ */
+public class TestInboundPatientDiscovery implements InboundPatientDiscovery {
 
-    NhinPatientDiscoveryDeferredRespOrchFactory() {
-
-    }
 
     @Override
-    public NhinPatientDiscoveryDeferredRespOrchImpl create() {
-
-        return new NhinPatientDiscoveryDeferredRespOrchImpl(new AbstractServicePropertyAccessor() {
-            @Override
-            protected String getPassThruEnabledPropertyName() {
-                return ""; // deferred response passthru doesn't make sense/not supported
-            }
-        }, new PatientDiscoveryAuditLogger(), new AdapterPatientDiscoveryDeferredRespProxyObjectFactory(),
-                PatientDiscovery201306PolicyChecker.getInstance());
+    public PRPAIN201306UV02 respondingGatewayPRPAIN201305UV02(PRPAIN201305UV02 body, AssertionType assertion)
+            throws PatientDiscoveryException {
+        return new PRPAIN201306UV02();
     }
 
-    public static NhinPatientDiscoveryDeferredRespOrchFactory getInstance() {
-        return INSTANCE;
-    }
 }
