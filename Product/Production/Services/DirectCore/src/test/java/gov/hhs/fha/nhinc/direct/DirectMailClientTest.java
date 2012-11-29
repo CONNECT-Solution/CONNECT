@@ -37,6 +37,8 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import gov.hhs.fha.nhinc.direct.edge.proxy.DirectEdgeProxySmtpImpl;
+
 import java.io.IOException;
 
 import javax.mail.MessagingException;
@@ -55,7 +57,6 @@ import com.icegreen.greenmail.user.UserException;
  */
 public class DirectMailClientTest extends AbstractDirectMailClientTest {
 
-    
     /**
      * Ensure that we can read all mail server properties as strings.
      */
@@ -75,14 +76,15 @@ public class DirectMailClientTest extends AbstractDirectMailClientTest {
     /**
      * Test {@link DirectMailClient#handleMessages(MessageHandler)} Verify that we can send an receive messages on the
      * direct mail client with one batch when the message count is less than the max batch size.
-     *
+     * 
      * @throws IOException on io error.
-     * @throws MessagingException 
+     * @throws MessagingException
      */
     @Test
     public void canSendAndReceiveInOneBatch() throws IOException, MessagingException {
         MessageProcessResult mockMessageProcessResult = getMockMessageProcessResult();
-        when(mockSmtpAgent.processMessage(any(MimeMessage.class), any(NHINDAddressCollection.class),
+        when(
+                mockSmtpAgent.processMessage(any(MimeMessage.class), any(NHINDAddressCollection.class),
                         any(NHINDAddress.class))).thenReturn(mockMessageProcessResult);
 
         for (int i = 0; i < NUM_MSGS_ONE_BATCH; i++) {
@@ -94,21 +96,21 @@ public class DirectMailClientTest extends AbstractDirectMailClientTest {
 
         intDirectClient.handleMessages();
 
-        verify(mockMessageHandler, times(NUM_MSGS_ONE_BATCH)).handleMessage(any(Message.class), 
-                eq(intDirectClient));
+        verify(mockMessageHandler, times(NUM_MSGS_ONE_BATCH)).handleMessage(any(Message.class), eq(intDirectClient));
     }
 
     /**
      * Test {@link DirectMailClient#handleMessages(MessageHandler)} Verify that we can send an receive messages on the
      * direct mail client with one batch when the message count is less than the max batch size.
-     *
+     * 
      * @throws IOException on io error.
-     * @throws MessagingException 
+     * @throws MessagingException
      */
     @Test
     public void canSendAndReceiveMultipleMsgsInBatches() throws IOException, MessagingException {
         MessageProcessResult mockMessageProcessResult = getMockMessageProcessResult();
-        when(mockSmtpAgent.processMessage(any(MimeMessage.class), any(NHINDAddressCollection.class),
+        when(
+                mockSmtpAgent.processMessage(any(MimeMessage.class), any(NHINDAddressCollection.class),
                         any(NHINDAddress.class))).thenReturn(mockMessageProcessResult);
 
         // blast out all of the messages at once...
@@ -129,7 +131,7 @@ public class DirectMailClientTest extends AbstractDirectMailClientTest {
         while (numberOfMsgsHandled < NUM_MSGS_MULTI_BATCH) {
             batchCount++;
             numberOfMsgsHandled += intDirectClient.handleMessages();
-            verify(mockMessageHandler, times(numberOfMsgsHandled)).handleMessage(any(Message.class), 
+            verify(mockMessageHandler, times(numberOfMsgsHandled)).handleMessage(any(Message.class),
                     eq(intDirectClient));
 
             // there is a greenmail bug that only expunges every other message... delete read messages
@@ -158,7 +160,7 @@ public class DirectMailClientTest extends AbstractDirectMailClientTest {
 
     /**
      * This test is intended to simulate the end-to-end send, receive and MDN of a direct mail send use case, with SMTP
-     * edge clients on the sending and receiving side. 
+     * edge clients on the sending and receiving side.
      * 
      * @throws UserException when the test fails with a user exception.
      * @throws MessagingException when the test fails with a MessagingException.
@@ -168,10 +170,12 @@ public class DirectMailClientTest extends AbstractDirectMailClientTest {
 
         deliverMessage("PlainOutgoingMessage.txt");
         verifySmtpEdgeMessage();
-            
+
         /* Initiating Gateway */
-        setUpDirectClients(recipMailServerProps);
-        
+        DirectEdgeProxySmtpImpl initiatingSmtp = new DirectEdgeProxySmtpImpl();
+        initiatingSmtp.setInternalDirectClient(getInternalDirectClient(recipMailServerProps));
+        setUpDirectClients(recipMailServerProps, initiatingSmtp);
+
         handleMessages(intDirectClient, 1, recipUser);
         verifyOutboundMessageSent();
 
@@ -179,12 +183,14 @@ public class DirectMailClientTest extends AbstractDirectMailClientTest {
         handleMessages(extDirectClient, 1, recipUser);
         verifySmtpEdgeMessage();
         verifyOutboundMdn();
-        
+
         /* Initiating Gateway collects an MDN */
-        setUpDirectClients(senderMailServerProps);
-        
+        DirectEdgeProxySmtpImpl respondingSmtp = new DirectEdgeProxySmtpImpl();
+        respondingSmtp.setInternalDirectClient(getInternalDirectClient(senderMailServerProps));
+        setUpDirectClients(senderMailServerProps, respondingSmtp);
+
         handleMessages(extDirectClient, 2, senderUser);
         verifyInboundMdn();
     }
-   
+
 }
