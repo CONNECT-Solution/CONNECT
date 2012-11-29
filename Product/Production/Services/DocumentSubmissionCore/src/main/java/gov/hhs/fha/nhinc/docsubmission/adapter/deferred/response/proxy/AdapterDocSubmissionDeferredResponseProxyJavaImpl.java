@@ -26,8 +26,11 @@
  */
 package gov.hhs.fha.nhinc.docsubmission.adapter.deferred.response.proxy;
 
+import gov.hhs.fha.nhinc.aspect.AdapterDelegationEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.docsubmission.adapter.deferred.response.AdapterDocSubmissionDeferredResponseOrchImpl;
+import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionArgTransformerBuilder;
+import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionBaseEventDescriptionBuilder;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import org.apache.commons.logging.Log;
@@ -48,6 +51,10 @@ public class AdapterDocSubmissionDeferredResponseProxyJavaImpl implements Adapte
         return LogFactory.getLog(getClass());
     }
 
+    @AdapterDelegationEvent(beforeBuilder = DocSubmissionBaseEventDescriptionBuilder.class,
+            afterReturningBuilder = DocSubmissionArgTransformerBuilder.class, 
+            serviceType = "Document Submission Deferred Response",
+            version = "")
     public XDRAcknowledgementType provideAndRegisterDocumentSetBResponse(RegistryResponseType regResponse,
             AssertionType assertion) {
         log.debug("Begin AdapterDocSubmissionDeferredResponseProxyJavaImpl.provideAndRegisterDocumentSetBResponse");

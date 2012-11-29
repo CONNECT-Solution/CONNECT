@@ -26,15 +26,23 @@
  */
 package gov.hhs.fha.nhinc.docsubmission.inbound.deferred.response;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+
+import java.lang.reflect.Method;
+
+import gov.hhs.fha.nhinc.aspect.InboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.docsubmission.XDRAuditLogger;
 import gov.hhs.fha.nhinc.docsubmission.adapter.deferred.response.proxy.AdapterDocSubmissionDeferredResponseProxy;
 import gov.hhs.fha.nhinc.docsubmission.adapter.deferred.response.proxy.AdapterDocSubmissionDeferredResponseProxyObjectFactory;
+import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionArgTransformerBuilder;
+import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionBaseEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
@@ -79,5 +87,19 @@ public class PassthroughInboundDocSubmissionDeferredResponseTest {
 
         verify(auditLogger).auditAcknowledgement(eq(actualResponse), eq(assertion),
                 eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.XDR_RESPONSE_ACTION));
+    }
+    
+    @Test
+    public void hasInboundProcessingEvent() throws Exception {
+        Class<PassthroughInboundDocSubmissionDeferredResponse> clazz = 
+                PassthroughInboundDocSubmissionDeferredResponse.class;
+        Method method = clazz.getMethod("provideAndRegisterDocumentSetBResponse", RegistryResponseType.class, 
+                AssertionType.class);
+        InboundProcessingEvent annotation = method.getAnnotation(InboundProcessingEvent.class);
+        assertNotNull(annotation);
+        assertEquals(DocSubmissionBaseEventDescriptionBuilder.class, annotation.beforeBuilder());
+        assertEquals(DocSubmissionArgTransformerBuilder.class, annotation.afterReturningBuilder());
+        assertEquals("Document Submission Deferred Response", annotation.serviceType());
+        assertEquals("", annotation.version());
     }
 }

@@ -31,15 +31,24 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
+
+import java.lang.reflect.Method;
+
+import gov.hhs.fha.nhinc.aspect.OutboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunityType;
+import gov.hhs.fha.nhinc.common.nhinccommon.UrlInfoType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType;
 import gov.hhs.fha.nhinc.docsubmission.XDRAuditLogger;
 import gov.hhs.fha.nhinc.docsubmission.XDRPolicyChecker;
+import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionArgTransformerBuilder;
+import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionBaseEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.docsubmission.entity.deferred.response.OutboundDocSubmissionDeferredResponseDelegate;
 import gov.hhs.fha.nhinc.docsubmission.entity.deferred.response.OutboundDocSubmissionDeferredResponseOrchestratable;
+import gov.hhs.fha.nhinc.docsubmission.outbound.deferred.request.StandardOutboundDocSubmissionDeferredRequest;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.transform.policy.SubjectHelper;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
@@ -271,5 +280,18 @@ public class StandardOutboundDocSubmissionDeferredResponseTest {
                 return mockDelegate;
             }
         };
+    }
+    
+    @Test
+    public void hasOutboundProcessingEvent() throws Exception {
+        Class<StandardOutboundDocSubmissionDeferredResponse> clazz = StandardOutboundDocSubmissionDeferredResponse.class;
+        Method method = clazz.getMethod("provideAndRegisterDocumentSetBAsyncResponse", 
+                RegistryResponseType.class, AssertionType.class,  NhinTargetCommunitiesType.class);
+        OutboundProcessingEvent annotation = method.getAnnotation(OutboundProcessingEvent.class);
+        assertNotNull(annotation);
+        assertEquals(DocSubmissionBaseEventDescriptionBuilder.class, annotation.beforeBuilder());
+        assertEquals(DocSubmissionArgTransformerBuilder.class, annotation.afterReturningBuilder());
+        assertEquals("Document Submission Deferred Response", annotation.serviceType());
+        assertEquals("", annotation.version());
     }
 }

@@ -27,9 +27,16 @@
 package gov.hhs.fha.nhinc.docsubmission.adapter.deferred.response.proxy;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+
+import java.lang.reflect.Method;
+
 import gov.hhs.fha.nhinc.adapterxdrresponsesecured.AdapterXDRResponseSecuredPortType;
+import gov.hhs.fha.nhinc.aspect.AdapterDelegationEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionArgTransformerBuilder;
+import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionBaseEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
@@ -178,5 +185,19 @@ public class AdapterDocSubmissionDeferredResponseProxyWebServiceSecuredImplTest 
         XDRAcknowledgementType result = adapterXDRResponseWebServiceProxy.provideAndRegisterDocumentSetBResponse(body,
                 assertion);
         assertNull(result);
+    }
+    
+    @Test
+    public void hasAdapterDelegationEvent() throws Exception {
+        Class<AdapterDocSubmissionDeferredResponseProxyWebServiceSecuredImpl> clazz = 
+                AdapterDocSubmissionDeferredResponseProxyWebServiceSecuredImpl.class;
+        Method method = clazz.getMethod("provideAndRegisterDocumentSetBResponse", RegistryResponseType.class,
+                AssertionType.class);
+        AdapterDelegationEvent annotation = method.getAnnotation(AdapterDelegationEvent.class);
+        assertNotNull(annotation);
+        assertEquals(DocSubmissionBaseEventDescriptionBuilder.class, annotation.beforeBuilder());
+        assertEquals(DocSubmissionArgTransformerBuilder.class, annotation.afterReturningBuilder());
+        assertEquals("Document Submission Deferred Response", annotation.serviceType());
+        assertEquals("", annotation.version());
     }
 }

@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.docsubmission.outbound.deferred.response;
 
+import gov.hhs.fha.nhinc.aspect.OutboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
@@ -33,6 +34,8 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType;
 import gov.hhs.fha.nhinc.docsubmission.XDRAuditLogger;
 import gov.hhs.fha.nhinc.docsubmission.XDRPolicyChecker;
+import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionArgTransformerBuilder;
+import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionBaseEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.docsubmission.entity.deferred.response.OutboundDocSubmissionDeferredResponseDelegate;
 import gov.hhs.fha.nhinc.docsubmission.entity.deferred.response.OutboundDocSubmissionDeferredResponseOrchestratable;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
@@ -54,6 +57,10 @@ public class StandardOutboundDocSubmissionDeferredResponse implements OutboundDo
         auditLogger = getXDRAuditLogger();
     }
 
+    @OutboundProcessingEvent(beforeBuilder = DocSubmissionBaseEventDescriptionBuilder.class,
+            afterReturningBuilder = DocSubmissionArgTransformerBuilder.class, 
+            serviceType = "Document Submission Deferred Response",
+            version = "")
     public XDRAcknowledgementType provideAndRegisterDocumentSetBAsyncResponse(RegistryResponseType request,
             AssertionType assertion, NhinTargetCommunitiesType targets) {
 

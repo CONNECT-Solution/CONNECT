@@ -29,10 +29,17 @@ package gov.hhs.fha.nhinc.docsubmission.outbound.deferred.response;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
+
+import java.lang.reflect.Method;
+
+import gov.hhs.fha.nhinc.aspect.OutboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType;
 import gov.hhs.fha.nhinc.docsubmission.XDRAuditLogger;
+import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionArgTransformerBuilder;
+import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionBaseEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.docsubmission.entity.deferred.response.OutboundDocSubmissionDeferredResponseDelegate;
 import gov.hhs.fha.nhinc.docsubmission.entity.deferred.response.OutboundDocSubmissionDeferredResponseOrchestratable;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
@@ -149,5 +156,19 @@ public class PassthroughOutboundDocSubmissionDeferredResponseTest {
                 return mockDelegate;
             }
         };
+    }
+    
+    @Test
+    public void hasOutboundProcessingEvent() throws Exception {
+        Class<PassthroughOutboundDocSubmissionDeferredResponse> clazz = 
+                PassthroughOutboundDocSubmissionDeferredResponse.class;
+        Method method = clazz.getMethod("provideAndRegisterDocumentSetBAsyncResponse", 
+                RegistryResponseType.class, AssertionType.class,  NhinTargetCommunitiesType.class);
+        OutboundProcessingEvent annotation = method.getAnnotation(OutboundProcessingEvent.class);
+        assertNotNull(annotation);
+        assertEquals(DocSubmissionBaseEventDescriptionBuilder.class, annotation.beforeBuilder());
+        assertEquals(DocSubmissionArgTransformerBuilder.class, annotation.afterReturningBuilder());
+        assertEquals("Document Submission Deferred Response", annotation.serviceType());
+        assertEquals("", annotation.version());
     }
 }

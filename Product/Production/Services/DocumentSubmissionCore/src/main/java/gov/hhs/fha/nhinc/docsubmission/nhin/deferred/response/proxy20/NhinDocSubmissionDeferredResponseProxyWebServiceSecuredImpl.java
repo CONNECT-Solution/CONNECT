@@ -26,9 +26,11 @@
  */
 package gov.hhs.fha.nhinc.docsubmission.nhin.deferred.response.proxy20;
 
+import gov.hhs.fha.nhinc.aspect.NwhinInvocationEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.docsubmission.MessageGeneratorUtils;
+import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionBaseEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.docsubmission.nhin.deferred.response.proxy20.service.NhinDocSubmissionDeferredResponseServicePortDescriptor;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTCXFClientFactory;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
@@ -78,6 +80,10 @@ public class NhinDocSubmissionDeferredResponseProxyWebServiceSecuredImpl impleme
         return CONNECTCXFClientFactory.getInstance().getCONNECTClientSecured(portDescriptor, url, assertion);
     }
 
+    @NwhinInvocationEvent(beforeBuilder = DocSubmissionBaseEventDescriptionBuilder.class,
+            afterReturningBuilder = DocSubmissionBaseEventDescriptionBuilder.class, 
+            serviceType = "Document Submission Deferred Response",
+            version = "")
     public RegistryResponseType provideAndRegisterDocumentSetBDeferredResponse20(RegistryResponseType request,
             AssertionType assertion, NhinTargetSystemType target) {
         log.debug("Begin provideAndRegisterDocumentSetBDeferredResponse");

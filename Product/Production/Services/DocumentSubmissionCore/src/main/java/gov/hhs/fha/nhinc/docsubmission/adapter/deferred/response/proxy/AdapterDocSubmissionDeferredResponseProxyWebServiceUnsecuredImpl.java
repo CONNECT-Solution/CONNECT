@@ -27,9 +27,12 @@
 package gov.hhs.fha.nhinc.docsubmission.adapter.deferred.response.proxy;
 
 import gov.hhs.fha.nhinc.adapterxdrresponse.AdapterXDRResponsePortType;
+import gov.hhs.fha.nhinc.aspect.AdapterDelegationEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterRegistryResponseType;
 import gov.hhs.fha.nhinc.docsubmission.adapter.deferred.response.proxy.service.AdapterDocSubmissionDeferredResponseUnsecuredServicePortDescriptor;
+import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionArgTransformerBuilder;
+import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionBaseEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
@@ -70,6 +73,10 @@ public class AdapterDocSubmissionDeferredResponseProxyWebServiceUnsecuredImpl im
         return CONNECTClientFactory.getInstance().getCONNECTClientUnsecured(portDescriptor, url, assertion);
     } 
 
+    @AdapterDelegationEvent(beforeBuilder = DocSubmissionBaseEventDescriptionBuilder.class,
+            afterReturningBuilder = DocSubmissionArgTransformerBuilder.class, 
+            serviceType = "Document Submission Deferred Response",
+            version = "")
     public XDRAcknowledgementType provideAndRegisterDocumentSetBResponse(RegistryResponseType regResponse,
             AssertionType assertion) {
         log.debug("Begin AdapterDocSubmissionDeferredResponseProxyWebServiceUnsecuredImpl.provideAndRegisterDocumentSetBResponse");

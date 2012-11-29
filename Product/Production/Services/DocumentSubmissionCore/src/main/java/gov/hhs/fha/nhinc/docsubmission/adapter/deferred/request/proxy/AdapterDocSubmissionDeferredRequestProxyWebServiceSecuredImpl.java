@@ -32,9 +32,12 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import gov.hhs.fha.nhinc.adapterxdrrequestsecured.AdapterXDRRequestSecuredPortType;
+import gov.hhs.fha.nhinc.aspect.AdapterDelegationEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterProvideAndRegisterDocumentSetSecuredRequestType;
 import gov.hhs.fha.nhinc.docsubmission.adapter.deferred.request.proxy.service.AdapterDocSubmissionDeferredRequestSecuredServicePortDescriptor;
+import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionArgTransformerBuilder;
+import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionBaseEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTCXFClientFactory;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
@@ -73,6 +76,10 @@ public class AdapterDocSubmissionDeferredRequestProxyWebServiceSecuredImpl imple
                 url, assertion);
     }
 
+    @AdapterDelegationEvent(beforeBuilder = DocSubmissionBaseEventDescriptionBuilder.class,
+            afterReturningBuilder = DocSubmissionArgTransformerBuilder.class, 
+            serviceType = "Document Submission Deferred Request",
+            version = "")
     public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(
             ProvideAndRegisterDocumentSetRequestType request, AssertionType assertion) {
         log.debug("Begin AdapterDocSubmissionDeferredRequestProxyWebServiceSecuredImpl.provideAndRegisterDocumentSetBRequest");
