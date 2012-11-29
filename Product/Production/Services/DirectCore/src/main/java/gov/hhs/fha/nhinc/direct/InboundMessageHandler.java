@@ -26,8 +26,8 @@
  */
 package gov.hhs.fha.nhinc.direct;
 
-import gov.hhs.fha.nhinc.direct.adapter.proxy.DirectSoapAdapterProxy;
-import gov.hhs.fha.nhinc.direct.adapter.proxy.DirectSoapAdapterProxyObjectFactory;
+//import gov.hhs.fha.nhinc.direct.adapter.proxy.DirectSoapAdapterProxy;
+//import gov.hhs.fha.nhinc.direct.adapter.proxy.DirectSoapAdapterProxyObjectFactory;
 import gov.hhs.fha.nhinc.direct.transform.MimeMessageTransformer;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 
@@ -139,10 +139,10 @@ public class InboundMessageHandler implements MessageHandler {
             ProvideAndRegisterDocumentSetRequestType prdsrt;
 
             prdsrt = transformer.transform(message);
-            DirectSoapAdapterProxyObjectFactory factory = new DirectSoapAdapterProxyObjectFactory();
-            DirectSoapAdapterProxy proxy = factory.getDirectSoapAdapterProxy();
+            //DirectSoapAdapterProxyObjectFactory factory = new DirectSoapAdapterProxyObjectFactory();
+            //DirectSoapAdapterProxy proxy = factory.getDirectSoapAdapterProxy();
 
-            proxy.provideAndRegisterDocumentSetB(prdsrt, null);
+            //proxy.provideAndRegisterDocumentSetB(prdsrt, null);
         } else {
             LOG.warn("MimeMessage was expected but not recieved.");
         }
