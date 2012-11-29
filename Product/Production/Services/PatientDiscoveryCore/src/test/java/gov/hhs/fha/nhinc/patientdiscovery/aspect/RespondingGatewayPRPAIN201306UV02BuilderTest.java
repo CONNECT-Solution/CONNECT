@@ -28,7 +28,9 @@ package gov.hhs.fha.nhinc.patientdiscovery.aspect;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import gov.hhs.fha.nhinc.event.DelegatingEventDescriptionBuilder;
@@ -59,28 +61,57 @@ public class RespondingGatewayPRPAIN201306UV02BuilderTest {
     }
 
     @Test
-    public void transformsArgumentToDelegate() {
-        RespondingGatewayPRPAIN201306UV02SecuredRequestType request = mock(RespondingGatewayPRPAIN201306UV02SecuredRequestType.class);
-        PRPAIN201306UV02 prpain = mock(PRPAIN201306UV02.class);
-        when(request.getPRPAIN201306UV02()).thenReturn(prpain);
+    public void transformsSecureArgumentToDelegate() {
+        secureHelper(true);
+    }
 
-        PRPAIN201306UV02EventDescriptionBuilder mockDelegate = mock(PRPAIN201306UV02EventDescriptionBuilder.class);
-        builder.setDelegate(mockDelegate);
-
-        builder.setArguments(new Object[] { request });
-        verify(mockDelegate).setReturnValue(prpain); // note the transformation from argument to return value
+    @Test
+    public void transformsSecureReturnValue() {
+        secureHelper(false);
     }
 
     @Test
     public void transformsNonSecureArgument() {
+        nonSecureHelper(true);
+    }
+
+    @Test
+    public void transformsNonSecureReturnValue() {
+        nonSecureHelper(false);
+    }
+
+    @Test
+    public void gracefullyIgnoresUnexpectedTypes() {
+        PRPAIN201306UV02EventDescriptionBuilder mockDelegate = mock(PRPAIN201306UV02EventDescriptionBuilder.class);
+        builder.setDelegate(mockDelegate);
+        builder.setReturnValue(new Object());
+        verify(mockDelegate, never()).setReturnValue(any());
+    }
+
+    private void nonSecureHelper(boolean asArguments) {
         RespondingGatewayPRPAIN201306UV02RequestType request = mock(RespondingGatewayPRPAIN201306UV02RequestType.class);
         PRPAIN201306UV02 prpain = mock(PRPAIN201306UV02.class);
         when(request.getPRPAIN201306UV02()).thenReturn(prpain);
+        handleVerification(asArguments, request, prpain);
+    }
 
+    private void secureHelper(boolean asArguments) {
+        RespondingGatewayPRPAIN201306UV02SecuredRequestType request = mock(RespondingGatewayPRPAIN201306UV02SecuredRequestType.class);
+        PRPAIN201306UV02 prpain = mock(PRPAIN201306UV02.class);
+        when(request.getPRPAIN201306UV02()).thenReturn(prpain);
+        handleVerification(asArguments, request, prpain);
+    }
+
+    private void handleVerification(boolean requestAsArguments, Object request, PRPAIN201306UV02 expected) {
         PRPAIN201306UV02EventDescriptionBuilder mockDelegate = mock(PRPAIN201306UV02EventDescriptionBuilder.class);
         builder.setDelegate(mockDelegate);
 
-        builder.setArguments(new Object[] { request });
-        verify(mockDelegate).setReturnValue(prpain); // note the transformation from argument to return value
+        if (requestAsArguments) {
+            builder.setArguments(new Object[] { request });
+        } else {
+            builder.setReturnValue(request);
+        }
+
+        verify(mockDelegate).setReturnValue(expected);
     }
 }

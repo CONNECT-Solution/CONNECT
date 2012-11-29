@@ -26,26 +26,34 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.docquery.aspect;
+package gov.hhs.fha.nhinc.mpi.adapter.proxy;
 
-import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayQuerySecuredRequestType;
-import gov.hhs.fha.nhinc.event.ArgTransformerEventDescriptionBuilder;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import gov.hhs.fha.nhinc.aspect.AdapterDelegationEvent;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201305UV02EventDescriptionBuilder;
+import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201306UV02EventDescriptionBuilder;
 
-public class RespondingGatewayCrossGatewayQuerySecuredRequestTypeDescriptionBuilder extends
-        ArgTransformerEventDescriptionBuilder {
+import java.lang.reflect.Method;
 
-    public RespondingGatewayCrossGatewayQuerySecuredRequestTypeDescriptionBuilder() {
-        setDelegate(new AdhocQueryRequestDescriptionBuilder());
-    }
+import org.hl7.v3.PRPAIN201305UV02;
+import org.junit.Test;
 
-    @Override
-    public Object[] transformArguments(Object[] arguments) {
-        RespondingGatewayCrossGatewayQuerySecuredRequestType request = (RespondingGatewayCrossGatewayQuerySecuredRequestType) arguments[0];
-        return new Object[] { request.getAdhocQueryRequest() };
-    }
+public class AdapterMpiProxyTest {
 
-    @Override
-    public Object transformReturnValue(Object returnValue) {
-        return returnValue;
+    @Test
+    public void hasAdapterDelegationEvent() throws Exception {
+        Class<?>[] classes = new Class<?>[] { AdapterMpiProxyJavaImpl.class, AdapterMpiProxyNoOpImpl.class,
+                AdapterMpiProxyWebServiceSecuredImpl.class, AdapterMpiProxyWebServiceUnsecuredImpl.class };
+        for (Class<?> clazz : classes) {
+            Method method = clazz.getMethod("findCandidates", PRPAIN201305UV02.class, AssertionType.class);
+            AdapterDelegationEvent annotation = method.getAnnotation(AdapterDelegationEvent.class);
+            assertNotNull(annotation);
+            assertEquals(PRPAIN201305UV02EventDescriptionBuilder.class, annotation.beforeBuilder());
+            assertEquals(PRPAIN201306UV02EventDescriptionBuilder.class, annotation.afterReturningBuilder());
+            assertEquals("Patient Discovery MPI", annotation.serviceType());
+            assertEquals("1.0", annotation.version());
+        }
     }
 }

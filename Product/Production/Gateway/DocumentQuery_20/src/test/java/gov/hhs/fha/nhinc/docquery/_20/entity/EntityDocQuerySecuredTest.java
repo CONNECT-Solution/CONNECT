@@ -32,8 +32,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import gov.hhs.fha.nhinc.aspect.OutboundMessageEvent;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayQuerySecuredRequestType;
+import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryRequestTransformingBuilder;
 import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryResponseDescriptionBuilder;
-import gov.hhs.fha.nhinc.docquery.aspect.RespondingGatewayCrossGatewayQuerySecuredRequestTypeDescriptionBuilder;
 
 import java.lang.reflect.Method;
 
@@ -48,8 +48,7 @@ public class EntityDocQuerySecuredTest {
                 RespondingGatewayCrossGatewayQuerySecuredRequestType.class);
         OutboundMessageEvent annotation = method.getAnnotation(OutboundMessageEvent.class);
         assertNotNull(annotation);
-        assertEquals(RespondingGatewayCrossGatewayQuerySecuredRequestTypeDescriptionBuilder.class,
-                annotation.beforeBuilder());
+        assertEquals(AdhocQueryRequestTransformingBuilder.class, annotation.beforeBuilder());
         assertEquals(AdhocQueryResponseDescriptionBuilder.class, annotation.afterReturningBuilder());
         assertEquals("Document Query", annotation.serviceType());
         assertEquals("2.0", annotation.version());
