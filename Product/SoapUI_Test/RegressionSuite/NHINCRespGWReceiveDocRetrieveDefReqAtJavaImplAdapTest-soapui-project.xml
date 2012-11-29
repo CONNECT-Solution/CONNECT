@@ -336,19 +336,19 @@
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-11-26T22:12:36Z</con:value>
+					<con:value>2012-11-28T20:36:26Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-11-26T22:22:36Z</con:value>
+					<con:value>2012-11-28T20:46:26Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>11/26/2012 22:12:36</con:value>
+					<con:value>11/28/2012 20:36:26</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-12-26T00:00:00Z</con:value>
+					<con:value>2012-12-28T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -634,19 +634,19 @@
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-11-26T22:21:54Z</con:value>
+					<con:value>2012-11-28T20:36:18Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-11-26T22:31:54Z</con:value>
+					<con:value>2012-11-28T20:46:18Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>11/26/2012 22:21:54</con:value>
+					<con:value>11/28/2012 20:36:18</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-12-26T00:00:00Z</con:value>
+					<con:value>2012-12-28T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -2429,19 +2429,19 @@ declare namespace ns9='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-11-26T22:20:34Z</con:value>
+					<con:value>2012-11-28T20:36:19Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-11-26T22:30:34Z</con:value>
+					<con:value>2012-11-28T20:46:19Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>11/26/2012 22:20:34</con:value>
+					<con:value>11/28/2012 20:36:19</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-12-26T00:00:00Z</con:value>
+					<con:value>2012-12-28T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -4229,19 +4229,19 @@ declare namespace ns9='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-11-26T22:18:36Z</con:value>
+					<con:value>2012-11-28T20:36:19Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-11-26T22:28:36Z</con:value>
+					<con:value>2012-11-28T20:46:19Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>11/26/2012 22:18:36</con:value>
+					<con:value>11/28/2012 20:36:19</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-12-26T00:00:00Z</con:value>
+					<con:value>2012-12-28T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -4526,19 +4526,19 @@ nhinc.FileUtils.updateProperty(destDir, 'gateway.properties', 'serviceDocumentRe
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-11-26T22:16:51Z</con:value>
+					<con:value>2012-11-28T20:36:20Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-11-26T22:26:51Z</con:value>
+					<con:value>2012-11-28T20:46:20Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>11/26/2012 22:16:51</con:value>
+					<con:value>11/28/2012 20:36:20</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-12-26T00:00:00Z</con:value>
+					<con:value>2012-12-28T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -4848,19 +4848,19 @@ context.testCase.setPropertyValue('DocRetDefUserID',"${UserID}${nowDate}");</scr
 assert (count > 0);</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-11-26T22:15:55Z</con:value>
+					<con:value>2012-11-28T20:36:20Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-11-26T22:25:55Z</con:value>
+					<con:value>2012-11-28T20:46:20Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>11/26/2012 22:15:55</con:value>
+					<con:value>11/28/2012 20:36:20</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-12-26T00:00:00Z</con:value>
+					<con:value>2012-12-28T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>FullPatientID</con:name>
@@ -4868,7 +4868,7 @@ assert (count > 0);</script></con:config></con:testStep><con:setupScript>nhinc.F
 				</con:property>
 				<con:property>
 					<con:name>DocRetDefUserID</con:name>
-					<con:value>DocfRetrieveDefUserMon Nov 26 22:20:55 UTC 2012</con:value>
+					<con:value>DocfRetrieveDefUserWed Nov 28 20:41:20 UTC 2012</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -4947,7 +4947,7 @@ assert (count > 0);</script></con:config></con:testStep><con:setupScript>nhinc.F
 			<con:name>DocRetPatientID</con:name>
 			<con:value>D123401</con:value>
 		</con:property>
-	<con:property><con:name>AuditTable</con:name><con:value>auditrepository</con:value></con:property><con:property><con:name>AuditDB</con:name><con:value>auditrepo</con:value></con:property><con:property><con:name>DBPort</con:name><con:value>3306</con:value></con:property><con:property><con:name>DBHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>DBUser</con:name><con:value>nhincuser</con:value></con:property><con:property><con:name>DBPass</con:name><con:value>nhincpass</con:value></con:property></con:properties>
+	<con:property><con:name>AuditTable</con:name><con:value>auditrepository</con:value></con:property><con:property><con:name>AuditDB</con:name><con:value>auditrepo</con:value></con:property><con:property><con:name>DBPort</con:name><con:value>3306</con:value></con:property><con:property><con:name>DBHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>DBUser</con:name><con:value>nhincuser</con:value></con:property><con:property><con:name>DBPass</con:name><con:value>nhincpass</con:value></con:property><con:property><con:name>GatewayPropDir</con:name><con:value>D:\glassfish3\glassfish\domains\domain1\config\nhin</con:value></con:property></con:properties>
 	<con:afterLoadScript>def propertiesFilename = project.path[0..(project.path.size()-4)] + 'properties'
 def propertiesFile = new File(propertiesFilename)
 if (propertiesFile.exists()) {
