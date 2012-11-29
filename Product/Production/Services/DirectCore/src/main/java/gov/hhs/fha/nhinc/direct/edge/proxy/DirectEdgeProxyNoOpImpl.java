@@ -24,27 +24,17 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
+package gov.hhs.fha.nhinc.direct.edge.proxy;
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.nhindirect.stagent.MessageEnvelope;
 
-package gov.hhs.fha.nhinc.messaging.client;
+public class DirectEdgeProxyNoOpImpl implements DirectEdgeProxy {
+    private static Log log = LogFactory.getLog(DirectEdgeProxyNoOpImpl.class);
 
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
-
-/**
- * @author akong
- * 
- */
-public class CONNECTCXFClientUnsecured<T>  extends CONNECTCXFClient<T>  {
-
- 
-    CONNECTCXFClientUnsecured(ServicePortDescriptor<T> portDescriptor, String url, AssertionType assertion) {
-        super(portDescriptor, url, assertion);
-
-        serviceEndpoint.configure();
+    public RegistryResponseType provideAndRegisterDocumentSetB(MessageEnvelope message) {
+        log.debug("Using NoOp Implementation for Adapter Doc Submission Service");
+        return new RegistryResponseType();
     }
-
-    public T getPort() {
-        return serviceEndpoint.getPort();
-    }
-
 }

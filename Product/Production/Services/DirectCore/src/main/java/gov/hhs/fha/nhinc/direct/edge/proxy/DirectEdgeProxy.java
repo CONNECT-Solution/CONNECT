@@ -24,27 +24,12 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
+package gov.hhs.fha.nhinc.direct.edge.proxy;
 
-package gov.hhs.fha.nhinc.messaging.client;
+import org.nhindirect.stagent.MessageEnvelope;
 
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
-/**
- * @author akong
- * 
- */
-public class CONNECTCXFClientUnsecured<T>  extends CONNECTCXFClient<T>  {
-
- 
-    CONNECTCXFClientUnsecured(ServicePortDescriptor<T> portDescriptor, String url, AssertionType assertion) {
-        super(portDescriptor, url, assertion);
-
-        serviceEndpoint.configure();
-    }
-
-    public T getPort() {
-        return serviceEndpoint.getPort();
-    }
-
+public interface DirectEdgeProxy {
+    public RegistryResponseType provideAndRegisterDocumentSetB(MessageEnvelope message);
 }

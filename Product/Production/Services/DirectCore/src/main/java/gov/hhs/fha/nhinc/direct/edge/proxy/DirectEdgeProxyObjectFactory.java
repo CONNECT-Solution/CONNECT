@@ -24,27 +24,23 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
+package gov.hhs.fha.nhinc.direct.edge.proxy;
 
-package gov.hhs.fha.nhinc.messaging.client;
-
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
+import gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory;
 
 /**
- * @author akong
- * 
+ * @author svalluripalli
  */
-public class CONNECTCXFClientUnsecured<T>  extends CONNECTCXFClient<T>  {
+public class DirectEdgeProxyObjectFactory extends ComponentProxyObjectFactory {
+    private static final String CONFIG_FILE_NAME = "DirectEdgeClientProxyConfig.xml";
+    private static final String BEAN_NAME = "directedgeclient";
 
- 
-    CONNECTCXFClientUnsecured(ServicePortDescriptor<T> portDescriptor, String url, AssertionType assertion) {
-        super(portDescriptor, url, assertion);
-
-        serviceEndpoint.configure();
+    protected String getConfigFileName() {
+        return CONFIG_FILE_NAME;
     }
 
-    public T getPort() {
-        return serviceEndpoint.getPort();
+    public DirectEdgeProxy getDirectEdgeProxy() {
+        return getBean(BEAN_NAME, DirectEdgeProxy.class);
     }
 
 }
