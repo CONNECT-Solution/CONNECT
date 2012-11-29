@@ -26,6 +26,11 @@
  */
 package gov.hhs.fha.nhinc.direct;
 
+//import gov.hhs.fha.nhinc.direct.adapter.proxy.DirectSoapAdapterProxy;
+//import gov.hhs.fha.nhinc.direct.adapter.proxy.DirectSoapAdapterProxyObjectFactory;
+import gov.hhs.fha.nhinc.direct.transform.MimeMessageTransformer;
+import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
+
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
@@ -35,40 +40,37 @@ import org.nhindirect.gateway.smtp.MessageProcessResult;
 import org.nhindirect.stagent.MessageEnvelope;
 import org.nhindirect.stagent.NHINDAddress;
 import org.nhindirect.stagent.NHINDAddressCollection;
+import org.nhindirect.stagent.mail.Message;
 import org.nhindirect.stagent.mail.notifications.NotificationMessage;
 
 /**
- * Handles inbound messages from an external mail client. Inbound messages are un-directified and either
- * - sent to a recipient on an internal mail client
- *      - SMTP+Mime
- *      - SMTP+XDM
- * - process XDM as XDR
- * - SOAP+XDR       
+ * Handles inbound messages from an external mail client. Inbound messages are un-directified and either - sent to a
+ * recipient on an internal mail client - SMTP+Mime - SMTP+XDM - process XDM as XDR - SOAP+XDR
  */
 public class InboundMessageHandler implements MessageHandler {
 
     private static final Log LOG = LogFactory.getLog(InboundMessageHandler.class);
-    
+
     /**
      * Define edge client for SMTP.
      */
     public static final int EDGE_CLIENT_TYPE_SMTP = 1;
-        
+
     /**
      * Define edge client for SOAP.
      */
     public static final int EDGE_CLIENT_TYPE_SOAP = 2;
-    
+
     /**
      * Instance for Internal Direct Client is only used when the edge client uses SMTP.
      */
     private DirectClient internalDirectClient;
-    
+
     /**
      * Stores the configuration for which edge client is used.
      */
     private int edgeClientType;
-    
+
     /**
      * {@inheritDoc}
      */
@@ -78,7 +80,7 @@ public class InboundMessageHandler implements MessageHandler {
         MessageProcessResult result = null;
         NHINDAddress origSender = null;
         NHINDAddressCollection origRecipients = null;
-        
+
         try {
             origSender = DirectClientUtils.getNhindSender(message);
             origRecipients = DirectClientUtils.getNhindRecipients(message);
@@ -86,31 +88,32 @@ public class InboundMessageHandler implements MessageHandler {
         } catch (MessagingException e) {
             throw new DirectException("Error processing message.", e);
         }
-        
+
         externalDirectClient.sendMdn(result);
-        
+
         MessageEnvelope processedMessage = result.getProcessedMessage();
         if (processedMessage == null) {
             logNotfications(result);
             return;
-        } 
+        }
 
         switch (edgeClientType) {
         case EDGE_CLIENT_TYPE_SMTP:
             handleMessageAsSmtp(processedMessage);
             break;
-            
+
         case EDGE_CLIENT_TYPE_SOAP:
             handleMessageAsSoap(processedMessage);
             break;
 
         default:
             throw new DirectException("Unknown edge client type: " + edgeClientType);
-        }        
-    }        
-    
+        }
+    }
+
     /**
      * Handles the message for SMTP edge clients.
+     * 
      * @param processedMessage decrypted message to be handled.
      */
     private void handleMessageAsSmtp(MessageEnvelope processedMessage) {
@@ -119,22 +122,35 @@ public class InboundMessageHandler implements MessageHandler {
         }
         internalDirectClient.send(processedMessage.getMessage());
     }
-    
+
     /**
      * Handles the message for SOAP edge clients.
+     * 
      * @param processedMessage decrypted message to be handled.
      */
     private void handleMessageAsSoap(MessageEnvelope processedMessage) {
         if (internalDirectClient != null) {
             LOG.info("Internal Direct Client property is not needed on this Message Handler.");
         }
-        
-        // TODO - Handle inbound direct messages as a SOAP/XDR transformation.
-        throw new UnsupportedOperationException("TODO - we need to implement SOAP/XDR handling from XDM.");
+
+        Message message = processedMessage.getMessage();
+        if (message instanceof MimeMessage) {
+            MimeMessageTransformer transformer = new MimeMessageTransformer();
+            ProvideAndRegisterDocumentSetRequestType prdsrt;
+
+            prdsrt = transformer.transform(message);
+            //DirectSoapAdapterProxyObjectFactory factory = new DirectSoapAdapterProxyObjectFactory();
+            //DirectSoapAdapterProxy proxy = factory.getDirectSoapAdapterProxy();
+
+            //proxy.provideAndRegisterDocumentSetB(prdsrt, null);
+        } else {
+            LOG.warn("MimeMessage was expected but not recieved.");
+        }
     }
-    
+
     /**
      * Log any notification messages that were produced by direct processing.
+     * 
      * @param result to pull notification messages from
      */
     private void logNotfications(MessageProcessResult result) {
@@ -161,5 +177,5 @@ public class InboundMessageHandler implements MessageHandler {
      */
     public void setEdgeClientType(int edgeClientType) {
         this.edgeClientType = edgeClientType;
-    }   
+    }
 }
