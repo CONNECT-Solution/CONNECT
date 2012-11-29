@@ -26,8 +26,15 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
+
+import java.lang.reflect.Method;
+
+import gov.hhs.fha.nhinc.aspect.OutboundMessageEvent;
+import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201305UV02ArgTransformer;
+import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201306UV02EventDescriptionBuilder;
 import gov.hhs.fha.nhinc.patientdiscovery._10.passthru.NhincProxyPatientDiscoveryImpl;
 
 import javax.xml.ws.WebServiceContext;
@@ -79,6 +86,18 @@ public class NhincProxyPatientDiscoverySecuredTest {
 
         assertSame(expectedResponse, actualResponse);
 
+    }
+    
+    @Test
+    public void hasOutboundMessageEvent() throws Exception {
+        Class<NhincProxyPatientDiscoverySecured> clazz = NhincProxyPatientDiscoverySecured.class;
+        Method method = clazz.getMethod("proxyPRPAIN201305UV", ProxyPRPAIN201305UVProxySecuredRequestType.class);
+        OutboundMessageEvent annotation = method.getAnnotation(OutboundMessageEvent.class);
+        assertNotNull(annotation);
+        assertEquals(PRPAIN201305UV02ArgTransformer.class, annotation.beforeBuilder());
+        assertEquals(PRPAIN201306UV02EventDescriptionBuilder.class, annotation.afterReturningBuilder());
+        assertEquals("Patient Discovery", annotation.serviceType());
+        assertEquals("1.0", annotation.version());
     }
 
 }

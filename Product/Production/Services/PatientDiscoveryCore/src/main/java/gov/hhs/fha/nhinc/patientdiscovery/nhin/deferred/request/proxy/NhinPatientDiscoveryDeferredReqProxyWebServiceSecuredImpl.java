@@ -28,6 +28,7 @@ package gov.hhs.fha.nhinc.patientdiscovery.nhin.deferred.request.proxy;
 
 import javax.xml.ws.BindingProvider;
 
+import gov.hhs.fha.nhinc.aspect.NwhinInvocationEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
@@ -36,7 +37,11 @@ import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201305UV02EventDescriptionBuilder;
+import gov.hhs.fha.nhinc.patientdiscovery.aspect.MCCIIN000002UV01EventDescriptionBuilder;
+//CheckStyle:OFF
 import gov.hhs.fha.nhinc.patientdiscovery.nhin.deferred.request.proxy.service.RespondingGatewayDeferredRequestServicePortDescriptor;
+//CheckStyle:ON
 import gov.hhs.fha.nhinc.transform.subdisc.HL7AckTransforms;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import ihe.iti.xcpd._2009.RespondingGatewayDeferredRequestPortType;
@@ -71,6 +76,10 @@ public class NhinPatientDiscoveryDeferredReqProxyWebServiceSecuredImpl implement
         return ((log != null) ? log : LogFactory.getLog(getClass()));
     }
 
+    @NwhinInvocationEvent(beforeBuilder = PRPAIN201305UV02EventDescriptionBuilder.class,
+            afterReturningBuilder = MCCIIN000002UV01EventDescriptionBuilder.class, 
+            serviceType = "Patient Discovery Deferred Request",
+            version = "1.0")
     public MCCIIN000002UV01 respondingGatewayPRPAIN201305UV02(PRPAIN201305UV02 request, AssertionType assertion,
             NhinTargetSystemType target) {
         String url = null;
@@ -86,7 +95,8 @@ public class NhinPatientDiscoveryDeferredReqProxyWebServiceSecuredImpl implement
                         + NhincConstants.PATIENT_DISCOVERY_DEFERRED_REQ_SERVICE_NAME + " is: " + url);
 
                 if (NullChecker.isNotNullish(url)) {
-                    ServicePortDescriptor<RespondingGatewayDeferredRequestPortType> portDescriptor = new RespondingGatewayDeferredRequestServicePortDescriptor();
+                    ServicePortDescriptor<RespondingGatewayDeferredRequestPortType> portDescriptor = 
+                            new RespondingGatewayDeferredRequestServicePortDescriptor();
                     CONNECTClient<RespondingGatewayDeferredRequestPortType> client = CONNECTClientFactory.getInstance()
                             .getCONNECTClientSecured(portDescriptor, url, assertion);
                     

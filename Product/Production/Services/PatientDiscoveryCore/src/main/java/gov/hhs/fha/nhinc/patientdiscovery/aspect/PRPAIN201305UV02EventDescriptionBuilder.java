@@ -1,106 +1,71 @@
+/**
+ * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
+ *
+ * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *     * Redistributions of source code must retain the above
+ *       copyright notice, this list of conditions and the following disclaimer.
+ *     * Redistributions in binary form must reproduce the above copyright
+ *       notice, this list of conditions and the following disclaimer in the documentation
+ *       and/or other materials provided with the distribution.
+ *     * Neither the name of the United States Government nor the
+ *       names of its contributors may be used to endorse or promote products
+ *       derived from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
 package gov.hhs.fha.nhinc.patientdiscovery.aspect;
 
-import gov.hhs.fha.nhinc.event.BaseEventDescriptionBuilder;
+import gov.hhs.fha.nhinc.event.AssertionEventDescriptionBuilder;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.xml.bind.JAXBElement;
-
-import org.hl7.v3.II;
-import org.hl7.v3.MCCIMT000100UV01Agent;
-import org.hl7.v3.MCCIMT000100UV01Device;
-import org.hl7.v3.MCCIMT000100UV01Organization;
-import org.hl7.v3.MCCIMT000100UV01Sender;
-import org.hl7.v3.PRPAIN201305UV02;
-
-public class PRPAIN201305UV02EventDescriptionBuilder extends BaseEventDescriptionBuilder {
-
-    private PRPAIN201305UV02 body;
-    
-    public PRPAIN201305UV02EventDescriptionBuilder() {
-        
-    }
-
-    public PRPAIN201305UV02EventDescriptionBuilder(PRPAIN201305UV02 body) {
-        this.body = body;
-    }
+/**
+ * Populates the description from a PRPAIN201305UV02 object. Currently, no information is extracted from this object.
+ * Only the Assertion is used.
+ */
+public class PRPAIN201305UV02EventDescriptionBuilder extends AssertionEventDescriptionBuilder {
 
     @Override
     public void buildRespondingHCIDs() {
-        MCCIMT000100UV01Sender sender = body.getSender();
-        // added to help in testing
-        // odd to be added here.. there needs to be another way.
-        if (sender != null) {
-            MCCIMT000100UV01Device device = sender.getDevice();
-            JAXBElement<MCCIMT000100UV01Agent> jaxbAgent = device.getAsAgent();
-            MCCIMT000100UV01Agent agent = jaxbAgent.getValue();
-            JAXBElement<MCCIMT000100UV01Organization> jaxbRepresentedOrganization = agent.getRepresentedOrganization();
-            MCCIMT000100UV01Organization representedOrganization = jaxbRepresentedOrganization.getValue();
-            List<II> ids = representedOrganization.getId();
-            List<String> hcids = new ArrayList<String> ();
-            for(II ii : ids) {
-                 hcids.add(ii.getRoot());
-            }
-            setRespondingHCIDs(hcids); 
-        }
     }
 
     @Override
     public void buildTimeStamp() {
-        // TODO Auto-generated method stub
-
     }
 
     @Override
     public void buildStatuses() {
-        // TODO Auto-generated method stub
-
     }
 
     @Override
     public void buildPayloadTypes() {
-        // TODO Auto-generated method stub
-
     }
 
     @Override
     public void buildPayloadSizes() {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void buildNPI() {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void buildInitiatingHCID() {
-        // TODO Auto-generated method stub
-
     }
 
     @Override
     public void buildErrorCodes() {
-        // TODO Auto-generated method stub
-
     }
 
     @Override
-    public void setArguments(Object... arguements) {
-        if (arguements.length == 1) {
-            if ( arguements[0] instanceof PRPAIN201305UV02) {
-                this.body = (PRPAIN201305UV02)arguements[0];
-            }
-        }
+    public void setArguments(Object... arguments) {
+        extractAssertion(arguments);
     }
 
     @Override
     public void setReturnValue(Object returnValue) {
-        // TODO Auto-generated method stub
-        
     }
-
 }

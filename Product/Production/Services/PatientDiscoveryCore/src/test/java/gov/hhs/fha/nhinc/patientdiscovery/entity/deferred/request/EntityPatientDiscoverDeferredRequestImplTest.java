@@ -26,11 +26,15 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.request;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
+import gov.hhs.fha.nhinc.aspect.OutboundProcessingEvent;
 import gov.hhs.fha.nhinc.async.AsyncMessageProcessHelper;
 import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
+import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201305UV02EventDescriptionBuilder;
+import gov.hhs.fha.nhinc.patientdiscovery.aspect.MCCIIN000002UV01EventDescriptionBuilder;
 import gov.hhs.fha.nhinc.patientdiscovery.testhelper.TestHelper;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
@@ -319,7 +323,8 @@ public class EntityPatientDiscoverDeferredRequestImplTest {
             }
 
             @Override
-            protected MCCIIN000002UV01 sendToProxy(PRPAIN201305UV02 request, AssertionType newAssertion, UrlInfo urlInfo) {
+            protected MCCIIN000002UV01 sendToProxy(PRPAIN201305UV02 request, AssertionType newAssertion, 
+                    UrlInfo urlInfo) {
                 return HL7AckTransforms.createAckFrom201305(request, "Success");
             }
 
@@ -401,5 +406,19 @@ public class EntityPatientDiscoverDeferredRequestImplTest {
         TestHelper.assertReceiverEquals("1.1", result);
         TestHelper.assertSenderEquals("2.2", result);
         TestHelper.assertAckMsgIdEquals(msg.getId(), result);
+    }
+    
+    @Test
+    public void hasOutboundProcessingEvent() throws Exception {
+        Class<EntityPatientDiscoveryDeferredRequestOrchImpl> clazz = 
+                EntityPatientDiscoveryDeferredRequestOrchImpl.class;
+        Method method = clazz.getMethod("processPatientDiscoveryAsyncReq", PRPAIN201305UV02.class, AssertionType.class,
+                NhinTargetCommunitiesType.class);
+        OutboundProcessingEvent annotation = method.getAnnotation(OutboundProcessingEvent.class);
+        assertNotNull(annotation);
+        assertEquals(PRPAIN201305UV02EventDescriptionBuilder.class, annotation.beforeBuilder());
+        assertEquals(MCCIIN000002UV01EventDescriptionBuilder.class, annotation.afterReturningBuilder());
+        assertEquals("Patient Discovery Deferred Request", annotation.serviceType());
+        assertEquals("1.0", annotation.version());
     }
 }

@@ -26,13 +26,8 @@
  */
 package gov.hhs.fha.nhinc.mpi.adapter.proxy;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.hl7.v3.PRPAIN201305UV02;
-import org.hl7.v3.PRPAIN201306UV02;
-import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
-
 import gov.hhs.fha.nhinc.adaptermpi.AdapterMpiPortType;
+import gov.hhs.fha.nhinc.aspect.AdapterDelegationEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTCXFClientFactory;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
@@ -40,7 +35,15 @@ import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.mpi.adapter.proxy.service.AdapterMpiUnsecuredServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201305UV02EventDescriptionBuilder;
+import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201306UV02EventDescriptionBuilder;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.hl7.v3.PRPAIN201305UV02;
+import org.hl7.v3.PRPAIN201306UV02;
+import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 
 /**
  * This is the proxy class for the unsecued AdapterComponentProxy interface.
@@ -59,7 +62,7 @@ public class AdapterMpiProxyWebServiceUnsecuredImpl implements AdapterMpiProxy {
 
     /**
      * Creates the log object for logging.
-     *
+     * 
      * @return The log object.
      */
     protected Log createLogger() {
@@ -68,9 +71,13 @@ public class AdapterMpiProxyWebServiceUnsecuredImpl implements AdapterMpiProxy {
 
     /**
      * Method to get an Unsecured CONNECT Client.
-     * @param portDescriptor the portDescriptor
-     * @param url the intended URL
-     * @param assertion the assertion
+     * 
+     * @param portDescriptor
+     *            the portDescriptor
+     * @param url
+     *            the intended URL
+     * @param assertion
+     *            the assertion
      * @return a CONNECTClient of type AdapterMpiPortType
      */
     protected CONNECTClient<AdapterMpiPortType> getCONNECTClientUnsecured(
@@ -81,12 +88,17 @@ public class AdapterMpiProxyWebServiceUnsecuredImpl implements AdapterMpiProxy {
 
     /**
      * Find the matching candidates from the MPI.
-     *
-     * @param request The information to use for matching.
-     * @param assertion The assertion data.
+     * 
+     * @param request
+     *            The information to use for matching.
+     * @param assertion
+     *            The assertion data.
      * @return The matches that are found.
      */
     @Override
+    @AdapterDelegationEvent(beforeBuilder = PRPAIN201305UV02EventDescriptionBuilder.class,
+            afterReturningBuilder = PRPAIN201306UV02EventDescriptionBuilder.class,
+            serviceType = "Patient Discovery MPI", version = "1.0")
     public PRPAIN201306UV02 findCandidates(PRPAIN201305UV02 request, AssertionType assertion) {
         String url = null;
         PRPAIN201306UV02 response = new PRPAIN201306UV02();
@@ -97,18 +109,15 @@ public class AdapterMpiProxyWebServiceUnsecuredImpl implements AdapterMpiProxy {
                 url = oProxyHelper.getAdapterEndPointFromConnectionManager(sServiceName);
 
                 if (NullChecker.isNotNullish(url)) {
-                    RespondingGatewayPRPAIN201305UV02RequestType wsRequest =
-                            new RespondingGatewayPRPAIN201305UV02RequestType();
+                    RespondingGatewayPRPAIN201305UV02RequestType wsRequest = new RespondingGatewayPRPAIN201305UV02RequestType();
                     wsRequest.setPRPAIN201305UV02(request);
                     wsRequest.setAssertion(assertion);
 
-                    ServicePortDescriptor<AdapterMpiPortType> portDescriptor =
-                            new AdapterMpiUnsecuredServicePortDescriptor();
-                    CONNECTClient<AdapterMpiPortType> client =
-                            getCONNECTClientUnsecured(portDescriptor, url, assertion);
+                    ServicePortDescriptor<AdapterMpiPortType> portDescriptor = new AdapterMpiUnsecuredServicePortDescriptor();
+                    CONNECTClient<AdapterMpiPortType> client = getCONNECTClientUnsecured(portDescriptor, url, assertion);
 
-                    response =
-                            (PRPAIN201306UV02) client.invokePort(AdapterMpiPortType.class, "findCandidates", wsRequest);
+                    response = (PRPAIN201306UV02) client.invokePort(AdapterMpiPortType.class, "findCandidates",
+                            wsRequest);
                 } else {
                     log.error("Failed to call the web service (" + sServiceName + ").  The URL is null.");
                 }

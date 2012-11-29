@@ -29,6 +29,8 @@ package gov.hhs.fha.nhinc.docsubmission._20.nhin.deferred.request;
 
 import ihe.iti.xdr._2007.XDRDeferredRequest20PortType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
+import gov.hhs.fha.nhinc.aspect.InboundMessageEvent;
+import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionBaseEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.docsubmission.inbound.deferred.request.InboundDocSubmissionDeferredRequest;
 
 import javax.annotation.Resource;
@@ -51,6 +53,9 @@ public class NhinXDRRequest20 implements XDRDeferredRequest20PortType {
 
     private InboundDocSubmissionDeferredRequest inboundDocSubmissionRequest;
 
+    @InboundMessageEvent(serviceType = "Document Submission Deferred Request", version = "2.0", 
+            beforeBuilder = DocSubmissionBaseEventDescriptionBuilder.class, 
+            afterReturningBuilder = DocSubmissionBaseEventDescriptionBuilder.class)
     public RegistryResponseType provideAndRegisterDocumentSetBDeferredRequest(
             ProvideAndRegisterDocumentSetRequestType body) {
         return new NhinDocSubmissionDeferredRequestImpl20(inboundDocSubmissionRequest)

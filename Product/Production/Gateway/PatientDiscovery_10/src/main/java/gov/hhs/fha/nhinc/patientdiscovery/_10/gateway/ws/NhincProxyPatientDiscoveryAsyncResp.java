@@ -26,7 +26,14 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws;
 
+import gov.hhs.fha.nhinc.aspect.OutboundMessageEvent;
+import gov.hhs.fha.nhinc.patientdiscovery.aspect.CommunityPRPAIN201306UV02Builder;
+
+import gov.hhs.fha.nhinc.patientdiscovery.aspect.MCCIIN000002UV01EventDescriptionBuilder;
 import gov.hhs.fha.nhinc.patientdiscovery._10.passthru.deferred.response.NhincProxyPatientDiscoveryAsyncRespImpl;
+import gov.hhs.fha.nhinc.nhincproxypatientdiscoveryasyncresp.NhincProxyPatientDiscoveryAsyncRespPortType;
+import org.hl7.v3.MCCIIN000002UV01;
+import org.hl7.v3.ProxyPRPAIN201306UVProxyRequestType;
 
 import javax.annotation.Resource;
 import javax.xml.ws.BindingType;
@@ -40,7 +47,7 @@ import javax.xml.ws.soap.Addressing;
 @Addressing(enabled = true)
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 public class NhincProxyPatientDiscoveryAsyncResp extends PatientDiscoveryBase implements
-        gov.hhs.fha.nhinc.nhincproxypatientdiscoveryasyncresp.NhincProxyPatientDiscoveryAsyncRespPortType {
+        NhincProxyPatientDiscoveryAsyncRespPortType {
 
     private NhincProxyPatientDiscoveryAsyncRespImpl orchImpl;
 
@@ -55,8 +62,12 @@ public class NhincProxyPatientDiscoveryAsyncResp extends PatientDiscoveryBase im
         super(serviceFactory);
     }
 
-    public org.hl7.v3.MCCIIN000002UV01 proxyProcessPatientDiscoveryAsyncResp(
-            org.hl7.v3.ProxyPRPAIN201306UVProxyRequestType proxyProcessPatientDiscoveryAsyncRespRequest) {
+    @OutboundMessageEvent(beforeBuilder = CommunityPRPAIN201306UV02Builder.class,
+            afterReturningBuilder = MCCIIN000002UV01EventDescriptionBuilder.class, 
+            serviceType = "Patient Discovery Deferred Response",
+            version = "1.0")
+    public MCCIIN000002UV01 proxyProcessPatientDiscoveryAsyncResp(
+            ProxyPRPAIN201306UVProxyRequestType proxyProcessPatientDiscoveryAsyncRespRequest) {
         return orchImpl.proxyProcessPatientDiscoveryAsyncResp(proxyProcessPatientDiscoveryAsyncRespRequest,
                 getWebServiceContext());
     }

@@ -29,6 +29,7 @@ package gov.hhs.fha.nhinc.patientdiscovery._10.entity;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.fail;
+
 import gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.EntityPatientDiscoveryUnsecured;
 
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
@@ -96,5 +97,6 @@ public class EntityPatientDiscoveryUnsecuredTest {
             fail("Error running testRespondingGatewayPRPAIN201305UV02NullImpl: " + t.getMessage());
         }
     }
+    
 
 }

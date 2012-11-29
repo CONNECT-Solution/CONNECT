@@ -34,11 +34,16 @@ import javax.xml.ws.soap.Addressing;
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.ProxyPRPAIN201305UVProxyRequestType;
 
+import gov.hhs.fha.nhinc.aspect.OutboundMessageEvent;
+import gov.hhs.fha.nhinc.nhincproxypatientdiscoveryasyncreq.NhincProxyPatientDiscoveryAsyncReqPortType;
+import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201305UV02ArgTransformer;
+import gov.hhs.fha.nhinc.patientdiscovery.aspect.MCCIIN000002UV01EventDescriptionBuilder;
 import gov.hhs.fha.nhinc.patientdiscovery._10.passthru.deferred.request.NhincProxyPatientDiscoveryDeferredRequestImpl;
 
 @Addressing(enabled = true)
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
-public class NhincProxyPatientDiscoveryDeferredRequestUnsecured extends PatientDiscoveryBase implements gov.hhs.fha.nhinc.nhincproxypatientdiscoveryasyncreq.NhincProxyPatientDiscoveryAsyncReqPortType {
+public class NhincProxyPatientDiscoveryDeferredRequestUnsecured extends PatientDiscoveryBase implements 
+                           NhincProxyPatientDiscoveryAsyncReqPortType {
 
     private NhincProxyPatientDiscoveryDeferredRequestImpl orchImpl;
     
@@ -53,6 +58,10 @@ public class NhincProxyPatientDiscoveryDeferredRequestUnsecured extends PatientD
         super(serviceFactory);
     }
 
+    @OutboundMessageEvent(beforeBuilder = PRPAIN201305UV02ArgTransformer.class,
+            afterReturningBuilder = MCCIIN000002UV01EventDescriptionBuilder.class, 
+            serviceType = "Patient Discovery Deferred Request",
+            version = "1.0")
     public MCCIIN000002UV01 proxyProcessPatientDiscoveryAsyncReq(ProxyPRPAIN201305UVProxyRequestType request) {
         MCCIIN000002UV01 response = null;
 
