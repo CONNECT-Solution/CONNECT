@@ -26,51 +26,66 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery.inbound;
 
+import gov.hhs.fha.nhinc.aspect.InboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditLogger;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryException;
+import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201305UV02EventDescriptionBuilder;
+import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201306UV02EventDescriptionBuilder;
 
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
 
-
 public abstract class AbstractInboundPatientDiscovery implements InboundPatientDiscovery {
-    
+
     abstract PRPAIN201306UV02 process(PRPAIN201305UV02 body, AssertionType assertion) throws PatientDiscoveryException;
 
     protected PatientDiscoveryAuditLogger auditLogger;
-    
+
+    /**
+     * Constructor.
+     */
     public AbstractInboundPatientDiscovery() {
         if (auditLogger == null) {
             auditLogger = new PatientDiscoveryAuditLogger();
         }
     }
-    
+
+    /**
+     * Method that processes the Patient Discovery request
+     * 
+     * @param body the body of the PD request
+     * @param assertion the assertion of the PD request
+     * @return PRPAIN201306UV02 response message
+     */
     @Override
+    @InboundProcessingEvent(beforeBuilder = PRPAIN201305UV02EventDescriptionBuilder.class, 
+            afterReturningBuilder = PRPAIN201306UV02EventDescriptionBuilder.class, 
+            serviceType = "Patient Discovery", version = "1.0")
     public PRPAIN201306UV02 respondingGatewayPRPAIN201305UV02(PRPAIN201305UV02 body, AssertionType assertion)
             throws PatientDiscoveryException {
         auditRequestFromNhin(body, assertion);
-        
+
         PRPAIN201306UV02 response = process(body, assertion);
 
         auditResponseToNhin(response, assertion);
 
         return response;
     }
-    
+
     private void auditRequestFromNhin(PRPAIN201305UV02 body, AssertionType assertion) {
         auditLogger.auditNhin201305(body, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
     }
-    
+
     private void auditResponseToNhin(PRPAIN201306UV02 response, AssertionType assertion) {
         auditLogger.auditNhin201306(response, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
     }
-    
+
     protected void auditRequestToAdapter(PRPAIN201305UV02 body, AssertionType assertion) {
         auditLogger.auditAdapter201305(body, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
     }
-    
+
     protected void auditResponseFromAdapter(PRPAIN201306UV02 response, AssertionType assertion) {
         auditLogger.auditAdapter201306(response, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
     }

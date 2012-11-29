@@ -27,29 +27,16 @@
 package gov.hhs.fha.nhinc.patientdiscovery.aspect;
 
 import gov.hhs.fha.nhinc.event.AssertionEventDescriptionBuilder;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.util.Base64Coder;
 
-import java.util.ArrayList;
-import java.util.List;
 
-import org.hl7.v3.BinaryDataEncoding;
-import org.hl7.v3.COCTMT090003UV01AssignedEntity;
-import org.hl7.v3.EDExplicit;
-import org.hl7.v3.II;
-import org.hl7.v3.MCCIMT000300UV01Acknowledgement;
-import org.hl7.v3.MCCIMT000300UV01AcknowledgementDetail;
 import org.hl7.v3.PRPAIN201306UV02;
-import org.hl7.v3.PRPAIN201306UV02MFMIMT700711UV01ControlActProcess;
-import org.hl7.v3.PRPAIN201306UV02MFMIMT700711UV01Subject1;
 
-import com.google.common.base.Function;
 import com.google.common.base.Optional;
-import com.google.common.collect.Lists;
 
 public class PRPAIN201306UV02EventDescriptionBuilder extends AssertionEventDescriptionBuilder {
 
-    private static final StatusExtractor STATUS_EXTRACTOR = new StatusExtractor();
+    private static final PRPAIN201306UV02HCIDExtractor HCID_EXTRACTOR = new PRPAIN201306UV02HCIDExtractor();
+    private static final PRPAIN201306UV02StatusExtractor STATUS_EXTRACTOR = new PRPAIN201306UV02StatusExtractor();
 
     private Optional<PRPAIN201306UV02> body = Optional.absent();
 
@@ -73,37 +60,8 @@ public class PRPAIN201306UV02EventDescriptionBuilder extends AssertionEventDescr
         if (!body.isPresent()) {
             return;
         }
-        List<String> hcids = new ArrayList<String>();
-        PRPAIN201306UV02MFMIMT700711UV01ControlActProcess controlActProcess = body.get().getControlActProcess();
-        if (controlActProcess != null) {
-            for (PRPAIN201306UV02MFMIMT700711UV01Subject1 subject : controlActProcess.getSubject()) {
-                hcids.addAll(getSubjectHCIDs(subject));
-            }
-        }
-        setRespondingHCIDs(hcids);
-    }
 
-    private List<String> getSubjectHCIDs(PRPAIN201306UV02MFMIMT700711UV01Subject1 subject) {
-        List<String> result = new ArrayList<String>();
-        if (hasAssignedEntity(subject)) {
-            result.addAll(getIis(subject.getRegistrationEvent().getCustodian().getAssignedEntity()));
-        }
-        return result;
-    }
-
-    private boolean hasAssignedEntity(PRPAIN201306UV02MFMIMT700711UV01Subject1 subject) {
-        return subject != null && subject.getRegistrationEvent() != null
-                && subject.getRegistrationEvent().getCustodian() != null
-                && subject.getRegistrationEvent().getCustodian().getAssignedEntity() != null;
-    }
-
-    private List<String> getIis(COCTMT090003UV01AssignedEntity assignedEntity) {
-        List<String> result = new ArrayList<String>();
-        for (II ii : assignedEntity.getId()) {
-            String fromResponse = ii.getRoot();
-            result.add(NhincConstants.HCID_PREFIX + fromResponse);
-        }
-        return result;
+        setRespondingHCIDs(HCID_EXTRACTOR.apply(body.get()));
     }
 
     @Override
@@ -111,13 +69,8 @@ public class PRPAIN201306UV02EventDescriptionBuilder extends AssertionEventDescr
         if (!body.isPresent()) {
             return;
         }
-        List<String> statuses = new ArrayList<String>();
 
-        for (MCCIMT000300UV01Acknowledgement acknowledgement : body.get().getAcknowledgement()) {
-            List<Optional<String>> tmp = Lists.transform(acknowledgement.getAcknowledgementDetail(), STATUS_EXTRACTOR);
-            statuses.addAll(Lists.newArrayList(Optional.presentInstances(tmp)));
-        }
-        setStatuses(statuses);
+        setStatuses(STATUS_EXTRACTOR.apply(body.get()));
     }
 
     @Override
@@ -138,24 +91,4 @@ public class PRPAIN201306UV02EventDescriptionBuilder extends AssertionEventDescr
         }
     }
 
-    private static class StatusExtractor implements Function<MCCIMT000300UV01AcknowledgementDetail, Optional<String>> {
-
-        @Override
-        public Optional<String> apply(MCCIMT000300UV01AcknowledgementDetail detail) {
-            EDExplicit edExplicit = detail.getText();
-            if (edExplicit == null || edExplicit.getContent().size() == 0) {
-                return Optional.absent();
-            }
-            return Optional.of(convertContent(edExplicit));
-        }
-
-        private String convertContent(EDExplicit edExplicit) {
-            String rawText = edExplicit.getContent().get(0).toString(); // Not dealing with multiple contents
-            if (edExplicit.getRepresentation().equals(BinaryDataEncoding.TXT)) {
-                return rawText;
-            } else {
-                return Base64Coder.decodeString(rawText);
-            }
-        }
-    }
 }

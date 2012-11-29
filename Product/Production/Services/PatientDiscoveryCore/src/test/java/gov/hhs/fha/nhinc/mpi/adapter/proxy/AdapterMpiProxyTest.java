@@ -26,27 +26,34 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.docretrieve.aspect;
+package gov.hhs.fha.nhinc.mpi.adapter.proxy;
 
-import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayRetrieveRequestType;
-import gov.hhs.fha.nhinc.event.ArgTransformerEventDescriptionBuilder;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import gov.hhs.fha.nhinc.aspect.AdapterDelegationEvent;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201305UV02EventDescriptionBuilder;
+import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201306UV02EventDescriptionBuilder;
 
-public class RespondingGatewayCrossGatewayRetrieveRequestTypeDescriptionBuilder extends
-        ArgTransformerEventDescriptionBuilder {
+import java.lang.reflect.Method;
 
-    public RespondingGatewayCrossGatewayRetrieveRequestTypeDescriptionBuilder() {
-        setDelegate(new RetrieveDocumentSetRequestTypeDescriptionBuilder());
+import org.hl7.v3.PRPAIN201305UV02;
+import org.junit.Test;
+
+public class AdapterMpiProxyTest {
+
+    @Test
+    public void hasAdapterDelegationEvent() throws Exception {
+        Class<?>[] classes = new Class<?>[] { AdapterMpiProxyJavaImpl.class, AdapterMpiProxyNoOpImpl.class,
+                AdapterMpiProxyWebServiceSecuredImpl.class, AdapterMpiProxyWebServiceUnsecuredImpl.class };
+        for (Class<?> clazz : classes) {
+            Method method = clazz.getMethod("findCandidates", PRPAIN201305UV02.class, AssertionType.class);
+            AdapterDelegationEvent annotation = method.getAnnotation(AdapterDelegationEvent.class);
+            assertNotNull(annotation);
+            assertEquals(PRPAIN201305UV02EventDescriptionBuilder.class, annotation.beforeBuilder());
+            assertEquals(PRPAIN201306UV02EventDescriptionBuilder.class, annotation.afterReturningBuilder());
+            assertEquals("Patient Discovery MPI", annotation.serviceType());
+            assertEquals("1.0", annotation.version());
+        }
     }
-
-    @Override
-    public Object[] transformArguments(Object[] arguments) {
-        RespondingGatewayCrossGatewayRetrieveRequestType request = (RespondingGatewayCrossGatewayRetrieveRequestType) arguments[0];
-        return new Object[] { request.getRetrieveDocumentSetRequest(), request.getAssertion() };
-    }
-
-    @Override
-    public Object transformReturnValue(Object returnValue) {
-        return returnValue;
-    }
-
 }

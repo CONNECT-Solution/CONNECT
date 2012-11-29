@@ -26,10 +26,17 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
+
+import java.lang.reflect.Method;
+
+import gov.hhs.fha.nhinc.aspect.OutboundMessageEvent;
 import gov.hhs.fha.nhinc.patientdiscovery._10.entity.deferred.request.EntityPatientDiscoveryDeferredRequestImpl;
+import gov.hhs.fha.nhinc.patientdiscovery.aspect.MCCIIN000002UV01EventDescriptionBuilder;
+import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201305UV02ArgTransformer;
 
 import javax.xml.ws.WebServiceContext;
 
@@ -101,5 +108,18 @@ public class EntityPatientDiscoveryDeferredRequestSecuredTest {
 
         assertNull(actualResponse);
 
+    }
+    
+    @Test
+    public void hasOutboundMessageEvent() throws Exception {
+        Class<EntityPatientDiscoveryDeferredRequestSecured> clazz = EntityPatientDiscoveryDeferredRequestSecured.class;
+        Method method = clazz.getMethod("processPatientDiscoveryAsyncReq",
+                RespondingGatewayPRPAIN201305UV02SecuredRequestType.class);
+        OutboundMessageEvent annotation = method.getAnnotation(OutboundMessageEvent.class);
+        assertNotNull(annotation);
+        assertEquals(PRPAIN201305UV02ArgTransformer.class, annotation.beforeBuilder());
+        assertEquals(MCCIIN000002UV01EventDescriptionBuilder.class, annotation.afterReturningBuilder());
+        assertEquals("Patient Discovery Deferred Request", annotation.serviceType());
+        assertEquals("1.0", annotation.version());
     }
 }

@@ -1,6 +1,4 @@
-/**
- * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
- *
+/*
  * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
@@ -26,49 +24,34 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.docquery.aspect;
+package gov.hhs.fha.nhinc.patientdiscovery.nhin.deferred.response;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayQuerySecuredRequestType;
-import gov.hhs.fha.nhinc.event.BaseDescriptionBuilderTest;
-import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
+import gov.hhs.fha.nhinc.aspect.InboundProcessingEvent;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201306UV02EventDescriptionBuilder;
+import gov.hhs.fha.nhinc.patientdiscovery.aspect.MCCIIN000002UV01EventDescriptionBuilder;
+import java.lang.reflect.Method;
 
-import org.junit.Before;
+import org.hl7.v3.PRPAIN201306UV02;
 import org.junit.Test;
 
-public class RespondingGatewayCrossGatewayQuerySecuredRequestTypeDescriptionBuilderTest extends
-        BaseDescriptionBuilderTest {
-
-    private RespondingGatewayCrossGatewayQuerySecuredRequestTypeDescriptionBuilder builder;
-
-    @Before
-    public void before() {
-        builder = new RespondingGatewayCrossGatewayQuerySecuredRequestTypeDescriptionBuilder();
-    }
-
+/**
+ * @author achidamb
+ *
+ */
+public class NhinPatientDiscoveryDeferredRespOrchImplTest {
     @Test
-    public void delegateIsCorrectType() {
-        assertEquals(AdhocQueryRequestDescriptionBuilder.class, builder.getDelegate().getClass());
-    }
-
-    @Test
-    public void transformArguments() {
-        RespondingGatewayCrossGatewayQuerySecuredRequestType request = mock(RespondingGatewayCrossGatewayQuerySecuredRequestType.class);
-        AdhocQueryRequest mockAdhocQueryRequest = mock(AdhocQueryRequest.class);
-        when(request.getAdhocQueryRequest()).thenReturn(mockAdhocQueryRequest);
-
-        Object[] transformArguments = builder.transformArguments(new Object[] { request });
-        assertNotNull(transformArguments);
-        assertEquals(1, transformArguments.length);
-        assertEquals(mockAdhocQueryRequest, transformArguments[0]);
-    }
-
-    @Test
-    public void transformReturnValue() {
-        Object o = new Object();
-        assertEquals(o, builder.transformReturnValue(o));
+    public void hasNwhinInvocationEvent() throws Exception {
+        Class<NhinPatientDiscoveryDeferredRespOrchImpl> clazz = NhinPatientDiscoveryDeferredRespOrchImpl.class;
+        Method method = clazz.getMethod("respondingGatewayPRPAIN201306UV02Orch", PRPAIN201306UV02.class, 
+                AssertionType.class);
+        InboundProcessingEvent annotation = method.getAnnotation(InboundProcessingEvent.class);
+        assertNotNull(annotation);
+        assertEquals(PRPAIN201306UV02EventDescriptionBuilder.class, annotation.beforeBuilder());
+        assertEquals(MCCIIN000002UV01EventDescriptionBuilder.class, annotation.afterReturningBuilder());
+        assertEquals("Patient Discovery Deferred Response", annotation.serviceType());
+        assertEquals("1.0", annotation.version());
     }
 }

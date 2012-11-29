@@ -27,6 +27,7 @@
 package gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.proxy;
 
 import gov.hhs.fha.nhinc.adapterpatientdiscoveryasyncreq.AdapterPatientDiscoveryAsyncReqPortType;
+import gov.hhs.fha.nhinc.aspect.AdapterDelegationEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
@@ -34,6 +35,8 @@ import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.proxy.service.AdapterPatientDiscoveryDeferredReqUnsecuredServicePortDescriptor;
+import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201305UV02EventDescriptionBuilder;
+import gov.hhs.fha.nhinc.patientdiscovery.aspect.MCCIIN000002UV01EventDescriptionBuilder;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7AckTransforms;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 
@@ -66,13 +69,17 @@ public class AdapterPatientDiscoveryDeferredReqProxyWebServiceUnsecuredImpl impl
         return new WebServiceProxyHelper();
     }
 
+    @AdapterDelegationEvent(beforeBuilder = PRPAIN201305UV02EventDescriptionBuilder.class,
+            afterReturningBuilder = MCCIIN000002UV01EventDescriptionBuilder.class, 
+            serviceType = "Patient Discovery Deferred Request", version = "1.0")
     public MCCIIN000002UV01 processPatientDiscoveryAsyncReq(PRPAIN201305UV02 request, AssertionType assertion) {
         log.debug("Begin processPatientDiscoveryAsyncReqError");
         MCCIIN000002UV01 ack = null;
 
         try {
             String url = oProxyHelper
-                    .getAdapterEndPointFromConnectionManager(NhincConstants.PATIENT_DISCOVERY_ADAPTER_ASYNC_REQ_SERVICE_NAME);
+                    .getAdapterEndPointFromConnectionManager(
+                            NhincConstants.PATIENT_DISCOVERY_ADAPTER_ASYNC_REQ_SERVICE_NAME);
             if (NullChecker.isNotNullish(url)) {
 
                 if (request == null) {
@@ -80,11 +87,13 @@ public class AdapterPatientDiscoveryDeferredReqProxyWebServiceUnsecuredImpl impl
                 } else if (assertion == null) {
                     log.error("assertion was null");
                 } else {
-                    ServicePortDescriptor<AdapterPatientDiscoveryAsyncReqPortType> portDescriptor = new AdapterPatientDiscoveryDeferredReqUnsecuredServicePortDescriptor();
+                    ServicePortDescriptor<AdapterPatientDiscoveryAsyncReqPortType> portDescriptor = 
+                            new AdapterPatientDiscoveryDeferredReqUnsecuredServicePortDescriptor();
                     CONNECTClient<AdapterPatientDiscoveryAsyncReqPortType> client = CONNECTClientFactory.getInstance()
                             .getCONNECTClientUnsecured(portDescriptor, url, assertion);
 
-                    RespondingGatewayPRPAIN201305UV02RequestType msg = new RespondingGatewayPRPAIN201305UV02RequestType();
+                    RespondingGatewayPRPAIN201305UV02RequestType msg = 
+                            new RespondingGatewayPRPAIN201305UV02RequestType();
                     msg.setAssertion(assertion);
                     msg.setPRPAIN201305UV02(request);
 

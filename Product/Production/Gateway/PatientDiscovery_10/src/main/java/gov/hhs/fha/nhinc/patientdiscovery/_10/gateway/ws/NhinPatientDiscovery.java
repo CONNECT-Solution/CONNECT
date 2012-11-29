@@ -26,10 +26,13 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws;
 
+import gov.hhs.fha.nhinc.aspect.InboundMessageEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.messaging.server.BaseService;
 import gov.hhs.fha.nhinc.patientdiscovery.NhinPatientDiscoveryImpl;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryException;
+import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201305UV02EventDescriptionBuilder;
+import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201306UV02EventDescriptionBuilder;
 import gov.hhs.fha.nhinc.patientdiscovery.inbound.InboundPatientDiscovery;
 import gov.hhs.healthit.nhin.PatientDiscoveryFaultType;
 import ihe.iti.xcpd._2009.PRPAIN201305UV02Fault;
@@ -66,6 +69,9 @@ public class NhinPatientDiscovery extends BaseService implements RespondingGatew
      * @return the Patient discovery Response
      * @throws PRPAIN201305UV02Fault a fault if there's an exception
      */
+    @InboundMessageEvent(beforeBuilder = PRPAIN201305UV02EventDescriptionBuilder.class,
+            afterReturningBuilder = PRPAIN201306UV02EventDescriptionBuilder.class, serviceType = "Patient Discovery",
+            version = "1.0")
     public PRPAIN201306UV02 respondingGatewayPRPAIN201305UV02(PRPAIN201305UV02 body)
             throws PRPAIN201305UV02Fault {
         try {

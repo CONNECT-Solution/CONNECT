@@ -26,52 +26,36 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.docquery.aspect;
+package gov.hhs.fha.nhinc.patientdiscovery.adapter.proxy;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import gov.hhs.fha.nhinc.aspect.AdapterDelegationEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayQueryRequestType;
-import gov.hhs.fha.nhinc.event.BaseDescriptionBuilderTest;
-import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
+import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201305UV02EventDescriptionBuilder;
+import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201306UV02EventDescriptionBuilder;
 
-import org.junit.Before;
+import java.lang.reflect.Method;
+
+import org.hl7.v3.PRPAIN201305UV02;
 import org.junit.Test;
 
-public class RespondingGatewayCrossGatewayQueryRequestTypeDescriptionBuilderTest extends BaseDescriptionBuilderTest {
-
-    private RespondingGatewayCrossGatewayQueryRequestTypeDescriptionBuilder builder;
-
-    @Before
-    public void before() {
-        builder = new RespondingGatewayCrossGatewayQueryRequestTypeDescriptionBuilder();
-    }
-
+/**
+ * @author achidamb
+ *
+ */
+public class AdapterPatientDiscoveryProxyWebServiceUnsecuredImplTest {
     @Test
-    public void delegateIsCorrectType() {
-        assertEquals(AdhocQueryRequestDescriptionBuilder.class, builder.getDelegate().getClass());
-    }
-
-    @Test
-    public void transformArguments() {
-        RespondingGatewayCrossGatewayQueryRequestType request = mock(RespondingGatewayCrossGatewayQueryRequestType.class);
-        AdhocQueryRequest mockAdhocQueryRequest = mock(AdhocQueryRequest.class);
-        AssertionType mockAssertion = mock(AssertionType.class);
-        when(request.getAdhocQueryRequest()).thenReturn(mockAdhocQueryRequest);
-        when(request.getAssertion()).thenReturn(mockAssertion);
-
-        Object[] transformArguments = builder.transformArguments(new Object[] { request });
-        assertNotNull(transformArguments);
-        assertEquals(2, transformArguments.length);
-        assertEquals(mockAdhocQueryRequest, transformArguments[0]);
-        assertEquals(mockAssertion, transformArguments[1]);
-    }
-
-    @Test
-    public void transformReturnValue() {
-        Object o = new Object();
-        assertEquals(o, builder.transformReturnValue(o));
+    public void hasAdapterDelegationEvent() throws Exception {
+        Class<AdapterPatientDiscoveryProxyWebServiceUnsecuredImpl> clazz = 
+                AdapterPatientDiscoveryProxyWebServiceUnsecuredImpl.class;
+        Method method = clazz.getMethod("respondingGatewayPRPAIN201305UV02", 
+                PRPAIN201305UV02.class, AssertionType.class);
+        AdapterDelegationEvent annotation = method.getAnnotation(AdapterDelegationEvent.class);
+        assertNotNull(annotation);
+        assertEquals(PRPAIN201305UV02EventDescriptionBuilder.class, annotation.beforeBuilder());
+        assertEquals(PRPAIN201306UV02EventDescriptionBuilder.class, annotation.afterReturningBuilder());
+        assertEquals("Patient Discovery", annotation.serviceType());
+        assertEquals("1.0", annotation.version());
     }
 }

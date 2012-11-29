@@ -1,6 +1,4 @@
-/**
- * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
- *
+/*
  * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
@@ -26,52 +24,36 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.docquery.aspect;
+package gov.hhs.fha.nhinc.patientdiscovery.outbound;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import gov.hhs.fha.nhinc.aspect.OutboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayCrossGatewayQueryRequestType;
-import gov.hhs.fha.nhinc.event.BaseDescriptionBuilderTest;
-import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
+import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201305UV02ArgTransformer;
+import gov.hhs.fha.nhinc.patientdiscovery.aspect.RespondingGatewayPRPAIN201306UV02Builder;
 
-import org.junit.Before;
+import java.lang.reflect.Method;
+
+import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 import org.junit.Test;
 
-public class NhincProxyQueryRequestTypeDescriptionBuilderTest extends BaseDescriptionBuilderTest {
-
-    private NhincProxyQueryRequestTypeDescriptionBuilder builder;
-
-    @Before
-    public void before() {
-        builder = new NhincProxyQueryRequestTypeDescriptionBuilder();
-    }
-
+/**
+ * @author akong
+ *
+ */
+public class StandardOutboundPatientDiscoveryTest {
+    
     @Test
-    public void delegateIsCorrectType() {
-        assertEquals(AdhocQueryRequestDescriptionBuilder.class, builder.getDelegate().getClass());
-    }
-
-    @Test
-    public void transformArguments() {
-        RespondingGatewayCrossGatewayQueryRequestType request = mock(RespondingGatewayCrossGatewayQueryRequestType.class);
-        AdhocQueryRequest mockAdhocQueryRequest = mock(AdhocQueryRequest.class);
-        AssertionType mockAssertion = mock(AssertionType.class);
-        when(request.getAdhocQueryRequest()).thenReturn(mockAdhocQueryRequest);
-        when(request.getAssertion()).thenReturn(mockAssertion);
-
-        Object[] transformArguments = builder.transformArguments(new Object[] { request });
-        assertNotNull(transformArguments);
-        assertEquals(2, transformArguments.length);
-        assertEquals(mockAdhocQueryRequest, transformArguments[0]);
-        assertEquals(mockAssertion, transformArguments[1]);
-    }
-
-    @Test
-    public void transformReturnValue() {
-        Object o = new Object();
-        assertEquals(o, builder.transformReturnValue(o));
+    public void hasOutboundProcessingEvent() throws Exception {
+        Class<StandardOutboundPatientDiscovery> clazz = StandardOutboundPatientDiscovery.class;
+        Method method = clazz.getMethod("respondingGatewayPRPAIN201305UV02", RespondingGatewayPRPAIN201305UV02RequestType.class,
+                AssertionType.class);
+        OutboundProcessingEvent annotation = method.getAnnotation(OutboundProcessingEvent.class);
+        assertNotNull(annotation);
+        assertEquals(PRPAIN201305UV02ArgTransformer.class, annotation.beforeBuilder());
+        assertEquals(RespondingGatewayPRPAIN201306UV02Builder.class, annotation.afterReturningBuilder());
+        assertEquals("Patient Discovery", annotation.serviceType());
+        assertEquals("1.0", annotation.version());
     }
 }

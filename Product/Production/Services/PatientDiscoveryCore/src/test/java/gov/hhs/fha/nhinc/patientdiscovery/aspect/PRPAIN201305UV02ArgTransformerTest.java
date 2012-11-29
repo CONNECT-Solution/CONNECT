@@ -30,49 +30,38 @@ package gov.hhs.fha.nhinc.patientdiscovery.aspect;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import gov.hhs.fha.nhinc.event.BaseDescriptionBuilderTest;
 import gov.hhs.fha.nhinc.event.BeanPropertyArgumentTransformer;
-
-import java.beans.PropertyDescriptor;
+import gov.hhs.fha.nhinc.event.BeanTransformerTest;
 
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.ProxyPRPAIN201305UVProxyRequestType;
 import org.hl7.v3.ProxyPRPAIN201305UVProxySecuredRequestType;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02SecuredRequestType;
-import org.junit.Before;
 import org.junit.Test;
-import org.springframework.beans.BeanUtils;
 
-public class PRPAIN201305UV02ArgTransformerTest extends BaseDescriptionBuilderTest {
+public class PRPAIN201305UV02ArgTransformerTest extends BeanTransformerTest<PRPAIN201305UV02ArgTransformer> {
 
-    private PRPAIN201305UV02ArgTransformer builder;
-
-    @Before
-    public void before() {
-        builder = new PRPAIN201305UV02ArgTransformer();
-    }
-
-    @Test
-    public void jaxbTypesHaveCorrectBeanProperties() {
-        Class<?>[] classes = new Class<?>[] { ProxyPRPAIN201305UVProxyRequestType.class,
-                ProxyPRPAIN201305UVProxySecuredRequestType.class, RespondingGatewayPRPAIN201305UV02RequestType.class,
-                RespondingGatewayPRPAIN201305UV02SecuredRequestType.class };
-        for (int curClass = 0; curClass < classes.length; ++curClass) {
-            PropertyDescriptor[] propertyDescriptors = BeanUtils.getPropertyDescriptors(classes[curClass]);
-            boolean found = false;
-            for (int i = 0; i < propertyDescriptors.length; ++i) {
-                if (propertyDescriptors[0].getPropertyType().equals(PRPAIN201305UV02.class)) {
-                    found = true;
-                }
-            }
-            assertTrue(classes[curClass].toString(), found);
-        }
+    @Override
+    public PRPAIN201305UV02ArgTransformer getBuilder() {
+        return new PRPAIN201305UV02ArgTransformer();
     }
 
     @Test
     public void correctArgTransformerDelegate() {
         assertTrue(builder instanceof BeanPropertyArgumentTransformer);
         assertEquals(PRPAIN201305UV02EventDescriptionBuilder.class, builder.getDelegate().getClass());
+    }
+
+    @Override
+    public Class<?> getTransformToClass() {
+        return PRPAIN201305UV02.class;
+    }
+
+    @Override
+    public Class<?>[] getExpectedWrapperClasses() {
+        return new Class<?>[] { ProxyPRPAIN201305UVProxyRequestType.class,
+                ProxyPRPAIN201305UVProxySecuredRequestType.class, RespondingGatewayPRPAIN201305UV02RequestType.class,
+                RespondingGatewayPRPAIN201305UV02SecuredRequestType.class };
     }
 }

@@ -1,6 +1,4 @@
-/**
- * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
- *
+/*
  * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
@@ -26,26 +24,26 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.docquery.aspect;
+package gov.hhs.fha.nhinc.docsubmission.aspect;
 
-import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayQuerySecuredRequestType;
-import gov.hhs.fha.nhinc.event.ArgTransformerEventDescriptionBuilder;
+import gov.hhs.fha.nhinc.event.BeanPropertyArgumentTransformer;
+import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 
-public class RespondingGatewayCrossGatewayQuerySecuredRequestTypeDescriptionBuilder extends
-        ArgTransformerEventDescriptionBuilder {
+public class DocSubmissionArgTransformerBuilder extends BeanPropertyArgumentTransformer {
 
-    public RespondingGatewayCrossGatewayQuerySecuredRequestTypeDescriptionBuilder() {
-        setDelegate(new AdhocQueryRequestDescriptionBuilder());
+    public DocSubmissionArgTransformerBuilder() {
+        setDelegate(new DocSubmissionBaseEventDescriptionBuilder());
     }
 
+    /**
+     * Handle XDRAcknowledgementType or RegistryResponseType.
+     */
     @Override
-    public Object[] transformArguments(Object[] arguments) {
-        RespondingGatewayCrossGatewayQuerySecuredRequestType request = (RespondingGatewayCrossGatewayQuerySecuredRequestType) arguments[0];
-        return new Object[] { request.getAdhocQueryRequest() };
-    }
-
-    @Override
-    public Object transformReturnValue(Object returnValue) {
-        return returnValue;
+    public Object transformReturnValue(Object input) {
+        if (input instanceof XDRAcknowledgementType) {
+            XDRAcknowledgementType ack = (XDRAcknowledgementType) input;
+            return ack.getMessage();
+        }
+        return input;
     }
 }

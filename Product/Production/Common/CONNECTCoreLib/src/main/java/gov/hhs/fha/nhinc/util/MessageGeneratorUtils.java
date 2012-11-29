@@ -31,13 +31,13 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 
 /**
  * @author akong
- *
+ * 
  */
 public class MessageGeneratorUtils {
-    
+
     private static MessageGeneratorUtils INSTANCE = new MessageGeneratorUtils();
-    
-    protected MessageGeneratorUtils() {        
+
+    protected MessageGeneratorUtils() {
     }
 
     /**
@@ -48,7 +48,7 @@ public class MessageGeneratorUtils {
     public static MessageGeneratorUtils getInstance() {
         return INSTANCE;
     }
-    
+
     /**
      * Converts the first target into a NhinTargetSystemType format.
      * 
@@ -64,5 +64,5 @@ public class MessageGeneratorUtils {
 
         return nhinTargetSystem;
     }
-    
+
 }

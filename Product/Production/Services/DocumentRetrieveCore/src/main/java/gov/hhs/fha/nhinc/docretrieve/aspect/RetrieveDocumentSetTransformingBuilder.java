@@ -26,25 +26,13 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.docquery.aspect;
+package gov.hhs.fha.nhinc.docretrieve.aspect;
 
-import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayCrossGatewayQueryRequestType;
-import gov.hhs.fha.nhinc.event.ArgTransformerEventDescriptionBuilder;
+import gov.hhs.fha.nhinc.event.BeanPropertyArgumentTransformer;
 
-public class NhincProxyQueryRequestTypeDescriptionBuilder extends ArgTransformerEventDescriptionBuilder {
+public class RetrieveDocumentSetTransformingBuilder extends BeanPropertyArgumentTransformer {
 
-    public NhincProxyQueryRequestTypeDescriptionBuilder() {
-        setDelegate(new AdhocQueryRequestDescriptionBuilder());
-    }
-
-    @Override
-    public Object[] transformArguments(Object[] arguments) {
-        RespondingGatewayCrossGatewayQueryRequestType request = (RespondingGatewayCrossGatewayQueryRequestType) arguments[0];
-        return new Object[] { request.getAdhocQueryRequest(), request.getAssertion() };
-    }
-
-    @Override
-    public Object transformReturnValue(Object returnValue) {
-        return returnValue;
+    public RetrieveDocumentSetTransformingBuilder() {
+        setDelegate(new RetrieveDocumentSetRequestTypeDescriptionBuilder());
     }
 }

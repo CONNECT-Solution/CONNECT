@@ -30,6 +30,13 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
+
+import java.lang.reflect.Method;
+
+import gov.hhs.fha.nhinc.aspect.OutboundMessageEvent;
+import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
+import gov.hhs.fha.nhinc.patientdiscovery.aspect.CommunityPRPAIN201306UV02Builder;
+import gov.hhs.fha.nhinc.patientdiscovery.aspect.MCCIIN000002UV01EventDescriptionBuilder;
 import gov.hhs.fha.nhinc.patientdiscovery._10.passthru.deferred.response.NhincProxyPatientDiscoveryAsyncRespImpl;
 
 import javax.jws.WebService;
@@ -89,6 +96,20 @@ public class NhincProxyPatientDiscoveryAsyncRespTest {
     public void verifyAddressingIsEnabled() {
         Addressing addressingAnnotation = NhincProxyPatientDiscoveryAsyncResp.class.getAnnotation(Addressing.class);
         assertTrue(addressingAnnotation.enabled());
+    }
+    
+    @Test
+    public void hasOutboundMessageEvent() throws Exception {
+        Class<NhincProxyPatientDiscoveryAsyncResp> clazz = 
+                NhincProxyPatientDiscoveryAsyncResp.class;
+        Method method = clazz.getMethod("proxyProcessPatientDiscoveryAsyncResp", 
+                ProxyPRPAIN201306UVProxyRequestType.class);
+        OutboundMessageEvent annotation = method.getAnnotation(OutboundMessageEvent.class);
+        assertNotNull(annotation);
+        assertEquals(CommunityPRPAIN201306UV02Builder.class, annotation.beforeBuilder());
+        assertEquals(MCCIIN000002UV01EventDescriptionBuilder.class, annotation.afterReturningBuilder());
+        assertEquals("Patient Discovery Deferred Response", annotation.serviceType());
+        assertEquals("1.0", annotation.version());
     }
 
 }

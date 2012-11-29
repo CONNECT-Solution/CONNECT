@@ -26,26 +26,38 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.docretrieve.aspect;
+package gov.hhs.fha.nhinc.docquery.aspect;
 
-import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayCrossGatewayRetrieveSecuredRequestType;
-import gov.hhs.fha.nhinc.event.ArgTransformerEventDescriptionBuilder;
+import static org.junit.Assert.assertEquals;
+import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayCrossGatewayQueryRequestType;
+import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayCrossGatewayQuerySecuredRequestType;
+import gov.hhs.fha.nhinc.event.BeanTransformerTest;
+import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 
-public class NhincProxyRetrieveSecuredRequestTypeDescriptionBuilder extends ArgTransformerEventDescriptionBuilder {
+import org.junit.Test;
 
-    public NhincProxyRetrieveSecuredRequestTypeDescriptionBuilder() {
-        setDelegate(new RetrieveDocumentSetRequestTypeDescriptionBuilder());
+public class AdhocQueryRequestTransformingBuilderTest extends
+        BeanTransformerTest<AdhocQueryRequestTransformingBuilder> {
+
+    public AdhocQueryRequestTransformingBuilder getBuilder() {
+        return new AdhocQueryRequestTransformingBuilder();
+    }
+
+    @Test
+    public void delegateIsCorrectType() {
+        assertEquals(AdhocQueryRequestDescriptionBuilder.class, builder.getDelegate().getClass());
     }
 
     @Override
-    public Object[] transformArguments(Object[] arguments) {
-        RespondingGatewayCrossGatewayRetrieveSecuredRequestType request = (RespondingGatewayCrossGatewayRetrieveSecuredRequestType) arguments[0];
-        return new Object[] { request.getRetrieveDocumentSetRequest() };
+    public Class<?> getTransformToClass() {
+        // TODO Auto-generated method stub
+        return AdhocQueryRequest.class;
     }
 
     @Override
-    public Object transformReturnValue(Object returnValue) {
-        return returnValue;
+    public Class<?>[] getExpectedWrapperClasses() {
+        return new Class<?>[] { RespondingGatewayCrossGatewayQueryRequestType.class,
+                RespondingGatewayCrossGatewayQueryRequestType.class,
+                RespondingGatewayCrossGatewayQuerySecuredRequestType.class };
     }
-
 }

@@ -26,27 +26,13 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.docretrieve.aspect;
+package gov.hhs.fha.nhinc.docquery.aspect;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayRetrieveRequestType;
-import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
+import gov.hhs.fha.nhinc.event.BeanPropertyArgumentTransformer;
 
-public class RespondingGatewayCrossGatewayRetrieveRequestTypeDescriptionBuilderTest extends
-        ArgTransformerTest<RespondingGatewayCrossGatewayRetrieveRequestTypeDescriptionBuilder> {
+public class AdhocQueryRequestTransformingBuilder extends BeanPropertyArgumentTransformer {
 
-    @Override
-    protected RespondingGatewayCrossGatewayRetrieveRequestTypeDescriptionBuilder getBuilder() {
-        return new RespondingGatewayCrossGatewayRetrieveRequestTypeDescriptionBuilder();
-    }
-
-    @Override
-    protected Object getArgument(RetrieveDocumentSetRequestType mockRequest, AssertionType mockAssertion) {
-        RespondingGatewayCrossGatewayRetrieveRequestType request = mock(RespondingGatewayCrossGatewayRetrieveRequestType.class);
-        when(request.getRetrieveDocumentSetRequest()).thenReturn(mockRequest);
-        when(request.getAssertion()).thenReturn(mockAssertion);
-        return request;
+    public AdhocQueryRequestTransformingBuilder() {
+        setDelegate(new AdhocQueryRequestDescriptionBuilder());
     }
 }

@@ -26,9 +26,9 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery.entity;
 
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,6 +44,7 @@ import org.jmock.integration.junit4.JUnit4Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.Test;
 
+import gov.hhs.fha.nhinc.aspect.OutboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.connectmgr.UrlInfo;
@@ -51,6 +52,8 @@ import gov.hhs.fha.nhinc.gateway.executorservice.NhinTaskExecutor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditLogger;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryPolicyChecker;
+import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201305UV02ArgTransformer;
+import gov.hhs.fha.nhinc.patientdiscovery.aspect.RespondingGatewayPRPAIN201306UV02Builder;
 import gov.hhs.fha.nhinc.patientdiscovery.utils.PDTestUtils;
 
 /**
@@ -78,12 +81,14 @@ public class EntityPatientDiscoveryOrchImplTest {
         allowAnyMockLogging();
         expect2Audits();
 
-        final RespondingGatewayPRPAIN201306UV02ResponseType response = new RespondingGatewayPRPAIN201306UV02ResponseType();
+        final RespondingGatewayPRPAIN201306UV02ResponseType response = 
+                new RespondingGatewayPRPAIN201306UV02ResponseType();
 
         final EntityPatientDiscoveryOrchImpl entityOrchImpl = new EntityPatientDiscoveryOrchImpl() {
 
             @Override
-            protected boolean checkPolicy(RespondingGatewayPRPAIN201305UV02RequestType request, AssertionType assertion) {
+            protected boolean checkPolicy(RespondingGatewayPRPAIN201305UV02RequestType request, 
+                    AssertionType assertion) {
                 return mockPolicyCheck.checkOutgoingPolicy(request);
             }
 
@@ -106,7 +111,8 @@ public class EntityPatientDiscoveryOrchImplTest {
 
     @Test
     public void testGetResponseFromCommunities_Success() {
-        final RespondingGatewayPRPAIN201306UV02ResponseType response = new RespondingGatewayPRPAIN201306UV02ResponseType();
+        final RespondingGatewayPRPAIN201306UV02ResponseType response = 
+                new RespondingGatewayPRPAIN201306UV02ResponseType();
         final NhinTargetCommunitiesType mockTargetCommunity = context.mock(NhinTargetCommunitiesType.class);
         final RespondingGatewayPRPAIN201305UV02RequestType newRequest = context
                 .mock(RespondingGatewayPRPAIN201305UV02RequestType.class);
@@ -121,7 +127,8 @@ public class EntityPatientDiscoveryOrchImplTest {
         final EntityPatientDiscoveryOrchImpl entityOrchImpl = new EntityPatientDiscoveryOrchImpl() {
             @Override
             protected RespondingGatewayPRPAIN201306UV02ResponseType getCumulativeResponse(
-                    NhinTaskExecutor<OutboundPatientDiscoveryOrchestratable, OutboundPatientDiscoveryOrchestratable> dqexecutor) {
+                    NhinTaskExecutor<OutboundPatientDiscoveryOrchestratable,
+                    OutboundPatientDiscoveryOrchestratable> dqexecutor) {
                 return response;
             }
 
@@ -150,7 +157,8 @@ public class EntityPatientDiscoveryOrchImplTest {
             }
 
             @Override
-            protected boolean checkPolicy(RespondingGatewayPRPAIN201305UV02RequestType request, AssertionType assertion) {
+            protected boolean checkPolicy(RespondingGatewayPRPAIN201305UV02RequestType request, 
+                    AssertionType assertion) {
                 return mockPolicyCheck.checkOutgoingPolicy(request);
             }
 
@@ -176,7 +184,8 @@ public class EntityPatientDiscoveryOrchImplTest {
 
     @Test
     public void testGetResponseFromCommunities_PolicyFail() {
-        final RespondingGatewayPRPAIN201306UV02ResponseType response = new RespondingGatewayPRPAIN201306UV02ResponseType();
+        final RespondingGatewayPRPAIN201306UV02ResponseType response = 
+                new RespondingGatewayPRPAIN201306UV02ResponseType();
         PDTestUtils testUtils = new PDTestUtils();
         final RespondingGatewayPRPAIN201305UV02RequestType newRequest = testUtils.createValidEntityRequest();
 
@@ -185,7 +194,8 @@ public class EntityPatientDiscoveryOrchImplTest {
         final EntityPatientDiscoveryOrchImpl entityOrchImpl = new EntityPatientDiscoveryOrchImpl() {
             @Override
             protected RespondingGatewayPRPAIN201306UV02ResponseType getCumulativeResponse(
-                    NhinTaskExecutor<OutboundPatientDiscoveryOrchestratable, OutboundPatientDiscoveryOrchestratable> dqexecutor) {
+                    NhinTaskExecutor<OutboundPatientDiscoveryOrchestratable, 
+                    OutboundPatientDiscoveryOrchestratable> dqexecutor) {
                 return response;
             }
 
@@ -207,7 +217,8 @@ public class EntityPatientDiscoveryOrchImplTest {
             }
 
             @Override
-            protected boolean checkPolicy(RespondingGatewayPRPAIN201305UV02RequestType request, AssertionType assertion) {
+            protected boolean checkPolicy(RespondingGatewayPRPAIN201305UV02RequestType request, 
+                    AssertionType assertion) {
                 return mockPolicyCheck.checkOutgoingPolicy(request);
             }
 
@@ -234,7 +245,8 @@ public class EntityPatientDiscoveryOrchImplTest {
     public void testRespondingGatewayPRPAIN201305UV02_NullRequest(){
         RespondingGatewayPRPAIN201305UV02RequestType request = null;
         AssertionType assertion = context.mock(AssertionType.class);
-        final CommunityPRPAIN201306UV02ResponseType communityResponseError = new CommunityPRPAIN201306UV02ResponseType();
+        final CommunityPRPAIN201306UV02ResponseType communityResponseError = 
+                new CommunityPRPAIN201306UV02ResponseType();
 
 
 
@@ -258,14 +270,16 @@ public class EntityPatientDiscoveryOrchImplTest {
             }
         });
 
-        assertSame(communityResponseError,entityOrchImpl.respondingGatewayPRPAIN201305UV02(request, assertion).getCommunityResponse().get(0));
+        assertSame(communityResponseError,entityOrchImpl.respondingGatewayPRPAIN201305UV02(request, assertion)
+                .getCommunityResponse().get(0));
         context.assertIsSatisfied();
     }
 
 
     @Test
     public void testRespondingGatewayPRPAIN201305UV02_NullAssertion(){
-        final RespondingGatewayPRPAIN201305UV02RequestType mockRequest = context.mock(RespondingGatewayPRPAIN201305UV02RequestType.class);
+        final RespondingGatewayPRPAIN201305UV02RequestType mockRequest = 
+                context.mock(RespondingGatewayPRPAIN201305UV02RequestType.class);
         AssertionType assertion = null;
         final CommunityPRPAIN201306UV02ResponseType communityResponseError = new CommunityPRPAIN201306UV02ResponseType();
 
@@ -290,7 +304,8 @@ public class EntityPatientDiscoveryOrchImplTest {
             }
         });
 
-        assertSame(communityResponseError,entityOrchImpl.respondingGatewayPRPAIN201305UV02(mockRequest, assertion).getCommunityResponse().get(0));
+        assertSame(communityResponseError,entityOrchImpl.respondingGatewayPRPAIN201305UV02(mockRequest, assertion)
+                .getCommunityResponse().get(0));
         context.assertIsSatisfied();
     }
 
@@ -335,7 +350,8 @@ public class EntityPatientDiscoveryOrchImplTest {
         return new EntityPatientDiscoveryOrchImpl() {
 
             @Override
-            protected boolean checkPolicy(RespondingGatewayPRPAIN201305UV02RequestType request, AssertionType assertion) {
+            protected boolean checkPolicy(RespondingGatewayPRPAIN201305UV02RequestType request, 
+                    AssertionType assertion) {
                 return mockPolicyCheck.checkOutgoingPolicy(request);
             }
 
@@ -345,6 +361,19 @@ public class EntityPatientDiscoveryOrchImplTest {
             }
 
         };
+    }
+    
+    @Test
+    public void hasOutboundProcessingEvent() throws Exception {
+        Class<EntityPatientDiscoveryOrchImpl> clazz = EntityPatientDiscoveryOrchImpl.class;
+        Method method = clazz.getMethod("respondingGatewayPRPAIN201305UV02", 
+                RespondingGatewayPRPAIN201305UV02RequestType.class, AssertionType.class);
+        OutboundProcessingEvent annotation = method.getAnnotation(OutboundProcessingEvent.class);
+        assertNotNull(annotation);
+        assertEquals(PRPAIN201305UV02ArgTransformer.class, annotation.beforeBuilder());
+        assertEquals(RespondingGatewayPRPAIN201306UV02Builder.class, annotation.afterReturningBuilder());
+        assertEquals("Patient Discovery", annotation.serviceType());
+        assertEquals("1.0", annotation.version());
     }
 
 }

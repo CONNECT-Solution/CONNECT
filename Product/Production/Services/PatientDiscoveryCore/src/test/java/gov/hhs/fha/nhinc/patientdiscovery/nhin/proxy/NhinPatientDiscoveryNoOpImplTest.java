@@ -1,6 +1,4 @@
-/**
- * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
- *
+/*
  * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
@@ -26,25 +24,37 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.docretrieve.aspect;
+package gov.hhs.fha.nhinc.patientdiscovery.nhin.proxy;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import gov.hhs.fha.nhinc.aspect.NwhinInvocationEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayCrossGatewayRetrieveRequestType;
-import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
+import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201305UV02EventDescriptionBuilder;
+import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201306UV02EventDescriptionBuilder;
 
-public class NhincProxyRetrieveRequestTypeDescriptionBuilderTest extends
-        ArgTransformerTest<NhincProxyRetrieveRequestTypeDescriptionBuilder> {
+import java.lang.reflect.Method;
 
-    @Override
-    protected NhincProxyRetrieveRequestTypeDescriptionBuilder getBuilder() {
-        return new NhincProxyRetrieveRequestTypeDescriptionBuilder();
-    }
+import org.hl7.v3.PRPAIN201305UV02;
+import org.junit.Test;
 
-    @Override
-    protected Object getArgument(RetrieveDocumentSetRequestType mockRequest, AssertionType mockAssertion) {
-        RespondingGatewayCrossGatewayRetrieveRequestType request = new RespondingGatewayCrossGatewayRetrieveRequestType();
-        request.setAssertion(mockAssertion);
-        request.setRetrieveDocumentSetRequest(mockRequest);
-        return request;
+/**
+ * @author achidamb
+ *
+ */
+public class NhinPatientDiscoveryNoOpImplTest {
+    @Test
+    public void hasNwhinInvocationEvent() throws Exception {
+        Class<NhinPatientDiscoveryNoOpImpl> clazz = NhinPatientDiscoveryNoOpImpl.class;
+        Method method = clazz.getMethod("respondingGatewayPRPAIN201305UV02", PRPAIN201305UV02.class, 
+                AssertionType.class, NhinTargetSystemType.class);
+        NwhinInvocationEvent annotation = method.getAnnotation(NwhinInvocationEvent.class);
+        assertNotNull(annotation);
+        assertEquals(PRPAIN201305UV02EventDescriptionBuilder.class, annotation.beforeBuilder());
+        assertEquals(PRPAIN201306UV02EventDescriptionBuilder.class, annotation.afterReturningBuilder());
+        assertEquals("Patient Discovery", annotation.serviceType());
+        assertEquals("1.0", annotation.version());
     }
 }

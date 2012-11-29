@@ -26,13 +26,22 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
+
+import java.lang.reflect.Method;
+
+import gov.hhs.fha.nhinc.aspect.InboundMessageEvent;
+import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.patientdiscovery._10.deferred.response.NhinPatientDiscoveryAsyncRespImpl;
+import gov.hhs.fha.nhinc.patientdiscovery.aspect.MCCIIN000002UV01EventDescriptionBuilder;
+import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201306UV02EventDescriptionBuilder;
 
 import javax.xml.ws.WebServiceContext;
 
 import org.hl7.v3.MCCIIN000002UV01;
+import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
@@ -77,6 +86,18 @@ public class NhinPatientDiscoveryAsyncRespTest {
 
         assertSame(expectedResponse, actualResponse);
 
+    }
+    
+    @Test
+    public void hasInboundMessageEvent() throws Exception {
+        Class<NhinPatientDiscoveryAsyncResp> clazz = NhinPatientDiscoveryAsyncResp.class;
+        Method method = clazz.getMethod("respondingGatewayDeferredPRPAIN201306UV02", PRPAIN201306UV02.class);
+        InboundMessageEvent annotation = method.getAnnotation(InboundMessageEvent.class);
+        assertNotNull(annotation);
+        assertEquals(PRPAIN201306UV02EventDescriptionBuilder.class, annotation.beforeBuilder());
+        assertEquals(MCCIIN000002UV01EventDescriptionBuilder.class, annotation.afterReturningBuilder());
+        assertEquals("Patient Discovery Deferred Response", annotation.serviceType());
+        assertEquals("1.0", annotation.version());
     }
 
 }

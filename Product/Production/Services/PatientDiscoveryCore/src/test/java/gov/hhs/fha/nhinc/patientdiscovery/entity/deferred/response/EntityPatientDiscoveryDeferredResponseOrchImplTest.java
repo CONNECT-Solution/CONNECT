@@ -1,6 +1,4 @@
-/**
- * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
- *
+/*
  * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
@@ -26,25 +24,38 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.docquery.aspect;
+package gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.response;
 
-import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayCrossGatewayQuerySecuredRequestType;
-import gov.hhs.fha.nhinc.event.ArgTransformerEventDescriptionBuilder;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import gov.hhs.fha.nhinc.aspect.OutboundProcessingEvent;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
+import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201306UV02EventDescriptionBuilder;
+import gov.hhs.fha.nhinc.patientdiscovery.aspect.MCCIIN000002UV01EventDescriptionBuilder;
 
-public class NhincProxyQuerySecuredRequestTypeDescriptionBuilder extends ArgTransformerEventDescriptionBuilder {
+import java.lang.reflect.Method;
 
-    public NhincProxyQuerySecuredRequestTypeDescriptionBuilder() {
-        setDelegate(new AdhocQueryRequestDescriptionBuilder());
+import org.hl7.v3.PRPAIN201306UV02;
+import org.junit.Test;
+
+/**
+ * @author achidamb
+ *
+ */
+public class EntityPatientDiscoveryDeferredResponseOrchImplTest {
+    @Test
+    public void hasOutboundProcessingEvent() throws Exception {
+        Class<EntityPatientDiscoveryDeferredResponseOrchImpl> clazz = 
+                EntityPatientDiscoveryDeferredResponseOrchImpl.class;
+        Method method = clazz.getMethod("processPatientDiscoveryAsyncRespOrch", PRPAIN201306UV02.class,
+                AssertionType.class, NhinTargetCommunitiesType.class);
+        OutboundProcessingEvent annotation = method.getAnnotation(OutboundProcessingEvent.class);
+        assertNotNull(annotation);
+        assertEquals(PRPAIN201306UV02EventDescriptionBuilder.class, annotation.beforeBuilder());
+        assertEquals(MCCIIN000002UV01EventDescriptionBuilder.class, annotation.afterReturningBuilder());
+        assertEquals("Patient Discovery Deferred Response", annotation.serviceType());
+        assertEquals("1.0", annotation.version());
     }
 
-    @Override
-    public Object[] transformArguments(Object[] arguments) {
-        RespondingGatewayCrossGatewayQuerySecuredRequestType request = (RespondingGatewayCrossGatewayQuerySecuredRequestType) arguments[0];
-        return new Object[] { request.getAdhocQueryRequest() };
-    }
-
-    @Override
-    public Object transformReturnValue(Object returnValue) {
-        return returnValue;
-    }
 }

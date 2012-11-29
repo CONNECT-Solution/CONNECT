@@ -26,26 +26,30 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.docquery.aspect;
+package gov.hhs.fha.nhinc.docretrieve.aspect;
 
-import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayQueryRequestType;
-import gov.hhs.fha.nhinc.event.ArgTransformerEventDescriptionBuilder;
+import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayRetrieveSecuredRequestType;
+import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayCrossGatewayRetrieveRequestType;
+import gov.hhs.fha.nhinc.event.BeanTransformerTest;
+import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 
-public class RespondingGatewayCrossGatewayQueryRequestTypeDescriptionBuilder extends
-        ArgTransformerEventDescriptionBuilder {
+public class RetrieveDocumentSetTransformingBuilderTest extends
+        BeanTransformerTest<RetrieveDocumentSetTransformingBuilder> {
 
-    public RespondingGatewayCrossGatewayQueryRequestTypeDescriptionBuilder() {
-        setDelegate(new AdhocQueryRequestDescriptionBuilder());
+    @Override
+    public RetrieveDocumentSetTransformingBuilder getBuilder() {
+        return new RetrieveDocumentSetTransformingBuilder();
     }
 
     @Override
-    public Object[] transformArguments(Object[] arguments) {
-        RespondingGatewayCrossGatewayQueryRequestType request = (RespondingGatewayCrossGatewayQueryRequestType) arguments[0];
-        return new Object[] { request.getAdhocQueryRequest(), request.getAssertion() };
+    public Class<?> getTransformToClass() {
+        return RetrieveDocumentSetRequestType.class;
     }
 
     @Override
-    public Object transformReturnValue(Object returnValue) {
-        return returnValue;
+    public Class<?>[] getExpectedWrapperClasses() {
+        return new Class<?>[] { RespondingGatewayCrossGatewayRetrieveRequestType.class,
+                RespondingGatewayCrossGatewayRetrieveSecuredRequestType.class,
+                RespondingGatewayCrossGatewayRetrieveRequestType.class };
     }
 }
