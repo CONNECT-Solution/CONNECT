@@ -302,12 +302,9 @@ public class StandardOutboundDocQuery implements OutboundDocQuery {
             String assigningAuthorityIdentifier) {
         String formattedPatientId = PatientIdFormatUtil.hl7EncodePatientId(subjectIdentifier,
                 assigningAuthorityIdentifier);
-        List<SlotType1> slotType1 = request.getAdhocQuery().getSlot();
-        Iterator<SlotType1> iterSlotType1 = slotType1.iterator();
-        while (iterSlotType1.hasNext()) {
-            SlotType1 slot = iterSlotType1.next();
-            if ((slot.getName() != null)
-                    && (slot.getName().equals(DocumentTransformConstants.EBXML_DOCENTRY_PATIENT_ID))) {
+        
+        for(SlotType1 slot : request.getAdhocQuery().getSlot()) {
+            if (DocumentTransformConstants.EBXML_DOCENTRY_PATIENT_ID.equals(slot.getName())) {
                 ValueListType slotValueList = new ValueListType();
                 slotValueList.getValue().add(formattedPatientId);
                 slot.setValueList(slotValueList);
