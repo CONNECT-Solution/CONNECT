@@ -4,8 +4,23 @@
         <name xml:lang="en">DoD</name>
         <businessServices>
 
+            <!-- Direct Soap Edge  -->
+            <businessService serviceKey="uddi:nhincnode:directsoapedge">
+                <name xml:lang="en">directsoapedge</name>
+                <bindingTemplates>
+                    <bindingTemplate bindingKey="uddi:nhincnode:directsoapedge" serviceKey="uddi:nhincnode:directsoapedge">
+                        <accessPoint useType="endPoint">https://localhost:8080/YourDirectSoapEndpoint</accessPoint>
+                        <categoryBag>
+                            <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/> 
+                        </categoryBag>
+                    </bindingTemplate>
+                </bindingTemplates>
+                <categoryBag>
+                    <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="directsoapedge" keyValue="directsoapedge"/>
+                </categoryBag>
+            </businessService>
+            
             <!--  Administrative Distribution  -->
-
             <businessService serviceKey="uddi:nhincnode:adapteradmindistsecured">
                 <name xml:lang="en">adapteradmindistsecured</name>
                 <bindingTemplates>
