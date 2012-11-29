@@ -31,8 +31,8 @@ import static org.junit.Assert.assertNotNull;
 import gov.hhs.fha.nhinc.aspect.NwhinInvocationEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+import gov.hhs.fha.nhinc.docsubmission.aspect.DeferredResponseDescriptionBuilder;
 import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionArgTransformerBuilder;
-import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionBaseEventDescriptionBuilder;
 
 import java.lang.reflect.Method;
 
@@ -42,18 +42,17 @@ import org.junit.Test;
 
 /**
  * @author achidamb
- *
+ * 
  */
 public class NhinDocSubmissionDeferredResponseProxyWebServiceSecuredImplTest {
     @Test
     public void hasNwhinInvocationEvent() throws Exception {
-        Class<NhinDocSubmissionDeferredResponseProxyWebServiceSecuredImpl> clazz = 
-                NhinDocSubmissionDeferredResponseProxyWebServiceSecuredImpl.class;
+        Class<NhinDocSubmissionDeferredResponseProxyWebServiceSecuredImpl> clazz = NhinDocSubmissionDeferredResponseProxyWebServiceSecuredImpl.class;
         Method method = clazz.getMethod("provideAndRegisterDocumentSetBDeferredResponse11", RegistryResponseType.class,
                 AssertionType.class, NhinTargetSystemType.class);
         NwhinInvocationEvent annotation = method.getAnnotation(NwhinInvocationEvent.class);
         assertNotNull(annotation);
-        assertEquals(DocSubmissionBaseEventDescriptionBuilder.class, annotation.beforeBuilder());
+        assertEquals(DeferredResponseDescriptionBuilder.class, annotation.beforeBuilder());
         assertEquals(DocSubmissionArgTransformerBuilder.class, annotation.afterReturningBuilder());
         assertEquals("Document Submission Deferred Response", annotation.serviceType());
         assertEquals("", annotation.version());

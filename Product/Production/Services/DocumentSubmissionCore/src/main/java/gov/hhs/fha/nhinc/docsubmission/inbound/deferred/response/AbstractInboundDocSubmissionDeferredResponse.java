@@ -29,7 +29,7 @@ package gov.hhs.fha.nhinc.docsubmission.inbound.deferred.response;
 import gov.hhs.fha.nhinc.aspect.InboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.docsubmission.XDRAuditLogger;
-import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionBaseEventDescriptionBuilder;
+import gov.hhs.fha.nhinc.docsubmission.aspect.DeferredResponseDescriptionBuilder;
 import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionArgTransformerBuilder;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
@@ -41,10 +41,9 @@ public abstract class AbstractInboundDocSubmissionDeferredResponse implements In
 
     protected XDRAuditLogger auditLogger = new XDRAuditLogger();
 
-    @InboundProcessingEvent(beforeBuilder = DocSubmissionBaseEventDescriptionBuilder.class,
-            afterReturningBuilder = DocSubmissionArgTransformerBuilder.class, 
-            serviceType = "Document Submission Deferred Response",
-            version = "")
+    @InboundProcessingEvent(beforeBuilder = DeferredResponseDescriptionBuilder.class,
+            afterReturningBuilder = DocSubmissionArgTransformerBuilder.class,
+            serviceType = "Document Submission Deferred Response", version = "")
     public XDRAcknowledgementType provideAndRegisterDocumentSetBResponse(RegistryResponseType body,
             AssertionType assertion) {
         auditRequestFromNhin(body, assertion);

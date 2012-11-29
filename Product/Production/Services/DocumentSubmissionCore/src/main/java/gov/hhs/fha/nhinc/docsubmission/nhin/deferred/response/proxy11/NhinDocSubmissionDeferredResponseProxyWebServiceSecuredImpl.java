@@ -30,8 +30,8 @@ import gov.hhs.fha.nhinc.aspect.NwhinInvocationEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.docsubmission.MessageGeneratorUtils;
+import gov.hhs.fha.nhinc.docsubmission.aspect.DeferredResponseDescriptionBuilder;
 import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionArgTransformerBuilder;
-import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionBaseEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.docsubmission.nhin.deferred.response.proxy11.service.NhinDocSubmissionDeferredResponseServicePortDescriptor;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
@@ -82,10 +82,9 @@ public class NhinDocSubmissionDeferredResponseProxyWebServiceSecuredImpl impleme
         return CONNECTClientFactory.getInstance().getCONNECTClientSecured(portDescriptor, url, assertion);
     }
 
-    @NwhinInvocationEvent(beforeBuilder = DocSubmissionBaseEventDescriptionBuilder.class,
-            afterReturningBuilder = DocSubmissionArgTransformerBuilder.class, 
-            serviceType = "Document Submission Deferred Response",
-            version = "")
+    @NwhinInvocationEvent(beforeBuilder = DeferredResponseDescriptionBuilder.class,
+            afterReturningBuilder = DocSubmissionArgTransformerBuilder.class,
+            serviceType = "Document Submission Deferred Response", version = "")
     public XDRAcknowledgementType provideAndRegisterDocumentSetBDeferredResponse11(RegistryResponseType request,
             AssertionType assertion, NhinTargetSystemType target) {
         log.debug("Begin provideAndRegisterDocumentSetBDeferredResponse");

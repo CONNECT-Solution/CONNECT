@@ -33,8 +33,8 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType;
 import gov.hhs.fha.nhinc.docsubmission.MessageGeneratorUtils;
 import gov.hhs.fha.nhinc.docsubmission.XDRAuditLogger;
+import gov.hhs.fha.nhinc.docsubmission.aspect.DeferredResponseDescriptionBuilder;
 import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionArgTransformerBuilder;
-import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionBaseEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.docsubmission.entity.deferred.response.OutboundDocSubmissionDeferredResponseDelegate;
 import gov.hhs.fha.nhinc.docsubmission.entity.deferred.response.OutboundDocSubmissionDeferredResponseOrchestratable;
 import gov.hhs.fha.nhinc.docsubmission.nhin.deferred.response.proxy11.NhinDocSubmissionDeferredResponseProxy;
@@ -55,16 +55,15 @@ public class PassthroughOutboundDocSubmissionDeferredResponse implements Outboun
         log = getLogger();
         auditLogger = getXDRAuditLogger();
     }
-    
-    @OutboundProcessingEvent(beforeBuilder = DocSubmissionBaseEventDescriptionBuilder.class,
-            afterReturningBuilder = DocSubmissionArgTransformerBuilder.class, 
-            serviceType = "Document Submission Deferred Response",
-            version = "")
+
+    @OutboundProcessingEvent(beforeBuilder = DeferredResponseDescriptionBuilder.class,
+            afterReturningBuilder = DocSubmissionArgTransformerBuilder.class,
+            serviceType = "Document Submission Deferred Response", version = "")
     public XDRAcknowledgementType provideAndRegisterDocumentSetBAsyncResponse(RegistryResponseType body,
             AssertionType assertion, NhinTargetCommunitiesType targets) {
-        
+
         NhinTargetSystemType targetSystem = msgUtils.convertFirstToNhinTargetSystemType(targets);
-        
+
         RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType request = createRequestForInternalProcessing(
                 body, targetSystem);
 
@@ -119,7 +118,7 @@ public class PassthroughOutboundDocSubmissionDeferredResponse implements Outboun
     protected Log getLogger() {
         return log;
     }
-    
+
     protected OutboundDocSubmissionDeferredResponseDelegate getOutboundDocSubmissionDeferredResponseDelegate() {
         return new OutboundDocSubmissionDeferredResponseDelegate();
     }

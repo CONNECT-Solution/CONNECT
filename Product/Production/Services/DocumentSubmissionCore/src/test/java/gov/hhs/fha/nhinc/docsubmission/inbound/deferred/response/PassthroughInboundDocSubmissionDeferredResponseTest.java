@@ -33,25 +33,25 @@ import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-
-import java.lang.reflect.Method;
-
 import gov.hhs.fha.nhinc.aspect.InboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.docsubmission.XDRAuditLogger;
 import gov.hhs.fha.nhinc.docsubmission.adapter.deferred.response.proxy.AdapterDocSubmissionDeferredResponseProxy;
 import gov.hhs.fha.nhinc.docsubmission.adapter.deferred.response.proxy.AdapterDocSubmissionDeferredResponseProxyObjectFactory;
+import gov.hhs.fha.nhinc.docsubmission.aspect.DeferredResponseDescriptionBuilder;
 import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionArgTransformerBuilder;
-import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionBaseEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
+
+import java.lang.reflect.Method;
+
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 import org.junit.Test;
 
 /**
  * @author akong
- *
+ * 
  */
 public class PassthroughInboundDocSubmissionDeferredResponseTest {
 
@@ -72,32 +72,32 @@ public class PassthroughInboundDocSubmissionDeferredResponseTest {
         PassthroughInboundDocSubmissionDeferredResponse passthroughDocSubmission = new PassthroughInboundDocSubmissionDeferredResponse(
                 adapterFactory, auditLogger);
 
-        XDRAcknowledgementType actualResponse = passthroughDocSubmission.provideAndRegisterDocumentSetBResponse(regResponse,
-                assertion);
+        XDRAcknowledgementType actualResponse = passthroughDocSubmission.provideAndRegisterDocumentSetBResponse(
+                regResponse, assertion);
 
         assertSame(expectedResponse, actualResponse);
 
-        verify(auditLogger)
-                .auditAdapterXDRResponse(eq(regResponse), eq(assertion), eq(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION));
+        verify(auditLogger).auditAdapterXDRResponse(eq(regResponse), eq(assertion),
+                eq(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION));
 
         verify(auditLogger).auditAdapterAcknowledgement(eq(actualResponse), eq(assertion),
                 eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.XDR_RESPONSE_ACTION));
 
-        verify(auditLogger).auditNhinXDRResponse(eq(regResponse), eq(assertion), eq(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION));
+        verify(auditLogger).auditNhinXDRResponse(eq(regResponse), eq(assertion),
+                eq(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION));
 
         verify(auditLogger).auditAcknowledgement(eq(actualResponse), eq(assertion),
                 eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.XDR_RESPONSE_ACTION));
     }
-    
+
     @Test
     public void hasInboundProcessingEvent() throws Exception {
-        Class<PassthroughInboundDocSubmissionDeferredResponse> clazz = 
-                PassthroughInboundDocSubmissionDeferredResponse.class;
-        Method method = clazz.getMethod("provideAndRegisterDocumentSetBResponse", RegistryResponseType.class, 
+        Class<PassthroughInboundDocSubmissionDeferredResponse> clazz = PassthroughInboundDocSubmissionDeferredResponse.class;
+        Method method = clazz.getMethod("provideAndRegisterDocumentSetBResponse", RegistryResponseType.class,
                 AssertionType.class);
         InboundProcessingEvent annotation = method.getAnnotation(InboundProcessingEvent.class);
         assertNotNull(annotation);
-        assertEquals(DocSubmissionBaseEventDescriptionBuilder.class, annotation.beforeBuilder());
+        assertEquals(DeferredResponseDescriptionBuilder.class, annotation.beforeBuilder());
         assertEquals(DocSubmissionArgTransformerBuilder.class, annotation.afterReturningBuilder());
         assertEquals("Document Submission Deferred Response", annotation.serviceType());
         assertEquals("", annotation.version());

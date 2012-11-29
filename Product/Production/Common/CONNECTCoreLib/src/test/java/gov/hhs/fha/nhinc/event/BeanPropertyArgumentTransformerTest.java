@@ -31,8 +31,6 @@ package gov.hhs.fha.nhinc.event;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
-import gov.hhs.fha.nhinc.event.ArgTransformerEventDescriptionBuilder;
-import gov.hhs.fha.nhinc.event.BeanPropertyArgumentTransformer;
 
 import org.apache.commons.lang.ArrayUtils;
 import org.junit.Before;
@@ -93,5 +91,17 @@ public class BeanPropertyArgumentTransformerTest {
     public void transformsReturnValue() {
         Object o = new Object();
         assertEquals(o, builder.transformReturnValue(o));
+    }
+
+    @Test
+    public void handlesNullArguments() {
+        Object[] transformedArguments = builder.transformArguments(new Object[] { null });
+        assertEquals(0, transformedArguments.length);
+    }
+
+    @Test
+    public void handlesNullArray() {
+        Object[] transformedArguments = builder.transformArguments((Object[]) null);
+        assertEquals(0, transformedArguments.length);
     }
 }

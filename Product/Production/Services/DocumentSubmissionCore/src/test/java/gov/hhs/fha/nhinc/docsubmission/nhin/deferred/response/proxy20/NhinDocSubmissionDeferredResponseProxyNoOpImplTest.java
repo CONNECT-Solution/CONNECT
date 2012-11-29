@@ -28,6 +28,11 @@ package gov.hhs.fha.nhinc.docsubmission.nhin.deferred.response.proxy20;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import gov.hhs.fha.nhinc.aspect.NwhinInvocationEvent;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+import gov.hhs.fha.nhinc.docsubmission.aspect.DeferredResponseDescriptionBuilder;
+import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionBaseEventDescriptionBuilder;
 
 import java.lang.reflect.Method;
 
@@ -35,25 +40,19 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 import org.junit.Test;
 
-import gov.hhs.fha.nhinc.aspect.NwhinInvocationEvent;
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
-import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionBaseEventDescriptionBuilder;
-
 /**
  * @author achidamb
- *
+ * 
  */
 public class NhinDocSubmissionDeferredResponseProxyNoOpImplTest {
     @Test
     public void hasNwhinInvocationEvent() throws Exception {
-        Class<NhinDocSubmissionDeferredResponseProxyNoOpImpl> clazz = 
-                NhinDocSubmissionDeferredResponseProxyNoOpImpl.class;
+        Class<NhinDocSubmissionDeferredResponseProxyNoOpImpl> clazz = NhinDocSubmissionDeferredResponseProxyNoOpImpl.class;
         Method method = clazz.getMethod("provideAndRegisterDocumentSetBDeferredResponse20", RegistryResponseType.class,
                 AssertionType.class, NhinTargetSystemType.class);
         NwhinInvocationEvent annotation = method.getAnnotation(NwhinInvocationEvent.class);
         assertNotNull(annotation);
-        assertEquals(DocSubmissionBaseEventDescriptionBuilder.class, annotation.beforeBuilder());
+        assertEquals(DeferredResponseDescriptionBuilder.class, annotation.beforeBuilder());
         assertEquals(DocSubmissionBaseEventDescriptionBuilder.class, annotation.afterReturningBuilder());
         assertEquals("Document Submission Deferred Response", annotation.serviceType());
         assertEquals("", annotation.version());
