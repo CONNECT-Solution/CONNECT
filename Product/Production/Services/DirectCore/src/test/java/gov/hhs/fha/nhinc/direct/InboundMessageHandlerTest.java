@@ -33,6 +33,9 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import gov.hhs.fha.nhinc.direct.edge.proxy.DirectEdgeProxy;
+import gov.hhs.fha.nhinc.direct.edge.proxy.DirectEdgeProxySmtpImpl;
+import gov.hhs.fha.nhinc.direct.edge.proxy.DirectEdgeProxySoapImpl;
 
 import javax.mail.internet.MimeMessage;
 
@@ -55,7 +58,7 @@ public class InboundMessageHandlerTest {
     private final DirectMailClient mockInternalDirectMailClient = mock(DirectMailClient.class);
     private final MessageProcessResult mockResult = mock(MessageProcessResult.class);
     private final MessageEnvelope mockProcessedMessage = mock(MessageEnvelope.class);
-    private final InboundMessageHandler testInBoundMessageHandler = new InboundMessageHandler();
+    private InboundMessageHandler testInBoundMessageHandler = new InboundMessageHandler();
 
     /**
      * Set up before each test.
@@ -116,13 +119,23 @@ public class InboundMessageHandlerTest {
     }
     
     private void setUpForSmtpEdgeClient() {
-        testInBoundMessageHandler.setEdgeClientType(InboundMessageHandler.EDGE_CLIENT_TYPE_SMTP);
-        testInBoundMessageHandler.setInternalDirectClient(mockInternalDirectMailClient);        
+        testInBoundMessageHandler = new InboundMessageHandler() {
+            @Override
+            protected DirectEdgeProxy getDirectEdgeProxy() {
+                DirectEdgeProxySmtpImpl impl = new DirectEdgeProxySmtpImpl();
+                impl.setInternalDirectClient(mockInternalDirectMailClient);
+                return impl;
+            }
+        };
     }
 
     private void setUpForSoapEdgeClient() {
-        testInBoundMessageHandler.setEdgeClientType(InboundMessageHandler.EDGE_CLIENT_TYPE_SOAP);
-        testInBoundMessageHandler.setInternalDirectClient(null);        
+        testInBoundMessageHandler = new InboundMessageHandler() {
+            @Override
+            protected DirectEdgeProxy getDirectEdgeProxy() {
+                return new DirectEdgeProxySoapImpl();
+            }
+        };        
     }
 
 }
