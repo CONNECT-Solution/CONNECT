@@ -93,7 +93,6 @@ public class StandardOutboundDocQuery implements OutboundDocQuery {
     private ExecutorService largejobExecutor = null;
     private ConnectionManager connectionManager;
     private DocQueryAuditLog auditLog = new DocQueryAuditLog();
-    
 
     /**
      * Add default constructor that is used by test cases Note that implementations should always use constructor that
@@ -158,7 +157,7 @@ public class StandardOutboundDocQuery implements OutboundDocQuery {
                 NhincConstants.NHIN_SERVICE_NAMES.DOCUMENT_QUERY);
 
         log.debug("EntityDocQueryOrchImpl set responseIsSpecA0=" + responseIsSpecA0);
-        
+
         OutboundDelegate nd = new OutboundDocQueryDelegate();
         OutboundResponseProcessor np = null;
         if (responseIsSpecA0) {
@@ -169,18 +168,15 @@ public class StandardOutboundDocQuery implements OutboundDocQuery {
 
         List<UrlInfo> urlInfoList = null;
         boolean isTargeted = false;
-        // audit initial request
-        RespondingGatewayCrossGatewayQuerySecuredRequestType request = new RespondingGatewayCrossGatewayQuerySecuredRequestType();
-        request.setAdhocQueryRequest(adhocQueryRequest);
-        request.setNhinTargetCommunities(targets);
-        auditInitialEntityRequest(request, assertion, auditLog);
+        
+        auditInitialEntityRequest(adhocQueryRequest, assertion, targets);
 
         try {
             // Obtain all the URLs for the targets being sent to
             urlInfoList = getEndpointForNhinTargetCommunities(targets, NhincConstants.DOC_QUERY_SERVICE_NAME);
 
             isTargeted |= isTargeted(targets);
-            
+
             if (!isTargeted || NullChecker.isNotNullish(urlInfoList)) {
                 RegistryErrorList homeCommunityErrorList = new RegistryErrorList();
                 // Validate that the message is not null
@@ -188,13 +184,12 @@ public class StandardOutboundDocQuery implements OutboundDocQuery {
                 if (adhocQueryRequest != null && adhocQueryRequest.getAdhocQuery() != null
                         && NullChecker.isNotNullish(adhocQueryRequest.getAdhocQuery().getSlot())) {
                     List<SlotType1> slotList = adhocQueryRequest.getAdhocQuery().getSlot();
-                    
+
                     String localAA = new StandardOutboundDocQueryHelper().getLocalAssigningAuthority(slotList);
                     String uniquePatientId = new StandardOutboundDocQueryHelper().getUniquePatientId(slotList);
-                    
+
                     log.debug("EntityDocQueryOrchImpl uniquePatientId: " + uniquePatientId + " and localAA=" + localAA);
-                   
-                    
+
                     List<QualifiedSubjectIdentifierType> correlationsResult = retrieveCorrelation(slotList,
                             urlInfoList, assertion, isTargeted, getLocalHomeCommunityId());
 
@@ -219,11 +214,11 @@ public class StandardOutboundDocQuery implements OutboundDocQuery {
                             log.debug("EntityDocQueryOrchImpl correlated target hcid="
                                     + targetCommunity.getHomeCommunityId());
                             if (isValidPolicy(adhocQueryRequest, assertion, targetCommunity)) {
-                                
+
                                 // clone the request
                                 AdhocQueryRequest clonedRequest = cloneRequest(adhocQueryRequest);
-                                setPatientIdOnRequest(clonedRequest,
-                                        identifier.getSubjectIdentifier(), identifier.getAssigningAuthorityIdentifier());
+                                setPatientIdOnRequest(clonedRequest, identifier.getSubjectIdentifier(),
+                                        identifier.getAssigningAuthorityIdentifier());
                                 // set the home community id to the target hcid
                                 String targetHomeCommunityId = target.getHomeCommunity().getHomeCommunityId();
                                 setTargetHomeCommunityId(clonedRequest, targetHomeCommunityId);
@@ -242,10 +237,11 @@ public class StandardOutboundDocQuery implements OutboundDocQuery {
                                     }
                                 }
                                 if (log.isDebugEnabled()) {
-                                log.debug("EntityDocQueryOrchImpl added NhinCallableRequest" + " for hcid="
-                                        + target.getHomeCommunity().getHomeCommunityId() + " with subjectIdentifier"
-                                        + identifier.getSubjectIdentifier() + "and assigning authority id"
-                                        + identifier.getAssigningAuthorityIdentifier());
+                                    log.debug("EntityDocQueryOrchImpl added NhinCallableRequest" + " for hcid="
+                                            + target.getHomeCommunity().getHomeCommunityId()
+                                            + " with subjectIdentifier" + identifier.getSubjectIdentifier()
+                                            + "and assigning authority id"
+                                            + identifier.getAssigningAuthorityIdentifier());
                                 }
                             } else {
                                 policyErrList = createPolicyError(policyErrList,
@@ -293,6 +289,21 @@ public class StandardOutboundDocQuery implements OutboundDocQuery {
     }
 
     /**
+     * @param adhocQueryRequest
+     * @param assertion
+     * @param targets
+     */
+    protected void auditInitialEntityRequest(AdhocQueryRequest adhocQueryRequest, AssertionType assertion,
+            NhinTargetCommunitiesType targets) {
+        // audit initial request
+        RespondingGatewayCrossGatewayQuerySecuredRequestType request = new RespondingGatewayCrossGatewayQuerySecuredRequestType();
+        request.setAdhocQueryRequest(adhocQueryRequest);
+        request.setNhinTargetCommunities(targets);
+        
+        auditInitialEntityRequest(request, assertion, auditLog);
+    }
+
+    /**
      * @param request
      * @param subjectIdentifier
      * @param assigningAuthorityIdentifier
@@ -302,8 +313,8 @@ public class StandardOutboundDocQuery implements OutboundDocQuery {
             String assigningAuthorityIdentifier) {
         String formattedPatientId = PatientIdFormatUtil.hl7EncodePatientId(subjectIdentifier,
                 assigningAuthorityIdentifier);
-        
-        for(SlotType1 slot : request.getAdhocQuery().getSlot()) {
+
+        for (SlotType1 slot : request.getAdhocQuery().getSlot()) {
             if (DocumentTransformConstants.EBXML_DOCENTRY_PATIENT_ID.equals(slot.getName())) {
                 ValueListType slotValueList = new ValueListType();
                 slotValueList.getValue().add(formattedPatientId);

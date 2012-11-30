@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.docquery.entity;
 
+import gov.hhs.fha.nhinc.docquery.MessageGeneratorUtils;
 import gov.hhs.fha.nhinc.gateway.aggregator.document.DocumentConstants;
 import gov.hhs.fha.nhinc.gateway.executorservice.ExecutorServiceHelper;
 import gov.hhs.fha.nhinc.orchestration.OutboundResponseProcessor;
@@ -60,13 +61,16 @@ public class OutboundDocQueryProcessor implements OutboundResponseProcessor {
     private static Log log = LogFactory.getLog(OutboundDocQueryProcessor.class);
 
     private NhincConstants.GATEWAY_API_LEVEL cumulativeSpecLevel = null;
-    private int count = 0;
+
+    AdhocQueryResponse cumlativeResponse;
 
     /**
      * Default Constructor.
      */
     public OutboundDocQueryProcessor() {
-
+        cumlativeResponse = new AdhocQueryResponse();
+        cumlativeResponse.setStartIndex(BigInteger.ZERO);
+        cumlativeResponse.setTotalResultCount(BigInteger.ZERO);
     }
 
     /**
@@ -86,18 +90,10 @@ public class OutboundDocQueryProcessor implements OutboundResponseProcessor {
     public OutboundOrchestratableMessage processNhinResponse(OutboundOrchestratableMessage individual,
             OutboundOrchestratableMessage cumulativeResponse) {
 
-        count++;
-        log.debug("EntityDocQueryProcessor::processNhinResponse count=" + count);
-
         OutboundOrchestratableMessage response = null;
         cumulativeResponse = getCumulativeResponseBasedGLEVEL(cumulativeResponse, individual);
 
-        if (individual == null) {
-            // can't get here as NhinCallableRequest will always return something
-            // but if we ever do, log it and return cumulativeResponse passed in
-            log.error("EntityDocQueryProcessor::handleNhinResponse individual received was null!!!");
-            response = cumulativeResponse;
-        } else {
+        if (individual != null) {
             OutboundOrchestratableMessage individualResponse = processResponse(individual);
             response = aggregateResponse((OutboundDocQueryOrchestratable) individualResponse, cumulativeResponse);
         }
@@ -153,7 +149,7 @@ public class OutboundDocQueryProcessor implements OutboundResponseProcessor {
             // DQ response requires no processing
             return individualResponse;
         } catch (Exception ex) {
-            ExecutorServiceHelper.getInstance().outputCompleteException(ex);
+            log.error(ex);
             OutboundOrchestratableMessage response = processErrorResponse(individualResponse,
                     "Exception processing response.  Exception message=" + ex.getMessage());
             return response;
@@ -227,14 +223,10 @@ public class OutboundDocQueryProcessor implements OutboundResponseProcessor {
                         "EntityDocQueryProcessor::aggregateResponse cumulativeResponse received was unknown!!!");
             }
         } catch (Exception e) {
-            ExecutorServiceHelper.getInstance().outputCompleteException(e);
+            log.error(e);
             // add error response for exception to cumulativeResponse
-            RegistryError regErr = new RegistryError();
-            regErr.setErrorCode("XDSRepositoryError");
-            regErr.setCodeContext(e.getMessage());
-            regErr.setValue("Exception aggregating response from target homeId="
-                    + individual.getTarget().getHomeCommunity().getHomeCommunityId());
-            regErr.setSeverity(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR);
+            RegistryError regErr = MessageGeneratorUtils.getInstance().createRegistryError(e.getMessage(), "XDSRepositoryError");
+            
             if (cumulative instanceof OutboundDocQueryOrchestratable_a0) {
                 OutboundDocQueryOrchestratable_a0 cumulativeResponse = (OutboundDocQueryOrchestratable_a0) cumulative;
                 if (cumulativeResponse.getCumulativeResponse().getRegistryErrorList() == null) {
@@ -291,15 +283,8 @@ public class OutboundDocQueryProcessor implements OutboundResponseProcessor {
         OutboundDocQueryOrchestratable_a0 response = new OutboundDocQueryOrchestratable_a0(null,
                 request.getResponseProcessor(), null, null, request.getAssertion(), request.getServiceName(),
                 request.getTarget(), request.getRequest());
-        AdhocQueryResponse adhocresponse = new AdhocQueryResponse();
-        RegistryErrorList regErrList = new RegistryErrorList();
-        adhocresponse.setStatus(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_FAILURE);
-        RegistryError regErr = new RegistryError();
-        regErr.setErrorCode("XDSRepositoryError");
-        regErr.setCodeContext("Error from target homeId=" + request.getTarget().getHomeCommunity().getHomeCommunityId());
-        regErr.setSeverity(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR);
-        regErrList.getRegistryError().add(regErr);
-        adhocresponse.setRegistryErrorList(regErrList);
+        AdhocQueryResponse adhocresponse = MessageGeneratorUtils.getInstance().createRepositoryErrorResponse(
+                error);
         response.setResponse(adhocresponse);
         return response;
     }
@@ -319,15 +304,8 @@ public class OutboundDocQueryProcessor implements OutboundResponseProcessor {
         OutboundDocQueryOrchestratable_a1 response = new OutboundDocQueryOrchestratable_a1(null,
                 request.getResponseProcessor(), null, null, request.getAssertion(), request.getServiceName(),
                 request.getTarget(), request.getRequest());
-        AdhocQueryResponse adhocresponse = new AdhocQueryResponse();
-        RegistryErrorList regErrList = new RegistryErrorList();
-        adhocresponse.setStatus(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_FAILURE);
-        RegistryError regErr = new RegistryError();
-        regErr.setErrorCode("XDSRepositoryError");
-        regErr.setCodeContext("Error from target homeId=" + request.getTarget().getHomeCommunity().getHomeCommunityId());
-        regErr.setSeverity(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR);
-        regErrList.getRegistryError().add(regErr);
-        adhocresponse.setRegistryErrorList(regErrList);
+        AdhocQueryResponse adhocresponse = MessageGeneratorUtils.getInstance().createRepositoryErrorResponse(
+                "Error from target homeId=" + request.getTarget().getHomeCommunity().getHomeCommunityId());
         response.setResponse(adhocresponse);
         return response;
     }
@@ -356,6 +334,25 @@ public class OutboundDocQueryProcessor implements OutboundResponseProcessor {
             throw new Exception(
                     "EntityDocQueryProcessor::aggregateResponse_a1 received a null AdhocQueryResponse response!!!");
         }
+    }
+
+    /**
+     * @param current
+     * @throws Exception
+     */
+    protected void collect(AdhocQueryResponse current) {
+        aggregate(current, cumlativeResponse);
+
+    }
+
+    protected void collect(OutboundDocQueryOrchestratable individual) throws Exception {
+        AdhocQueryResponse response = individual.getResponse();
+        if (response == null) {
+            response = MessageGeneratorUtils.getInstance().createAdhocQueryErrorResponse(
+                    "received a null AdhocQueryResponse response", DocumentConstants.XDS_ERRORCODE_REPOSITORY_ERROR,
+                    DocumentConstants.XDS_QUERY_RESPONSE_STATUS_FAILURE);
+        }
+        collect(response);
     }
 
     /**
@@ -504,8 +501,7 @@ public class OutboundDocQueryProcessor implements OutboundResponseProcessor {
      * @param aggregatedResponse
      * @throws Exception
      */
-    protected void aggregate(AdhocQueryResponse individualResponse, AdhocQueryResponse aggregatedResponse)
-            throws Exception {
+    protected void aggregate(AdhocQueryResponse individualResponse, AdhocQueryResponse aggregatedResponse) {
 
         aggregateStatus(individualResponse, aggregatedResponse);
 
