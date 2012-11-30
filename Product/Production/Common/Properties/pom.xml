@@ -9,6 +9,9 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>Properties</artifactId>
     <name>${project.artifactId}</name>
+    <properties>
+        <log4jDefaultLevel>INFO</log4jDefaultLevel>
+    </properties>
     <packaging>jar</packaging>
     <build>
         <resources>
@@ -17,6 +20,7 @@
                 <includes>
                     <include>**/*</include>
                 </includes>
+                <filtering>true</filtering>
             </resource>
         </resources>
         <plugins>
