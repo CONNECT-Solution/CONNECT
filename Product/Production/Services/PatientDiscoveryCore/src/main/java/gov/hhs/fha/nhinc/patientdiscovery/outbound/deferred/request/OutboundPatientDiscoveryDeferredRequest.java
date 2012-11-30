@@ -24,23 +24,21 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws;
+package gov.hhs.fha.nhinc.patientdiscovery.outbound.deferred.request;
 
-import gov.hhs.fha.nhinc.patientdiscovery._10.deferred.response.NhinPatientDiscoveryAsyncRespImpl;
-import gov.hhs.fha.nhinc.patientdiscovery._10.entity.deferred.response.EntityPatientDiscoveryDeferredResponseImpl;
-import gov.hhs.fha.nhinc.patientdiscovery._10.passthru.deferred.response.NhincProxyPatientDiscoveryAsyncRespImpl;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 
-public class PatientDiscoveryServiceFactoryImpl implements PatientDiscoveryServiceFactory {
+import org.hl7.v3.MCCIIN000002UV01;
+import org.hl7.v3.PRPAIN201305UV02;
 
-    public NhinPatientDiscoveryAsyncRespImpl getNhinPatientDiscoveryAsyncRespImpl() {
-        return new NhinPatientDiscoveryAsyncRespImpl();
-    }
+/**
+ * @author akong
+ * 
+ */
+public interface OutboundPatientDiscoveryDeferredRequest {
 
-    public EntityPatientDiscoveryDeferredResponseImpl getEntityPatientDiscoveryDeferredResponseImpl() {
-        return new EntityPatientDiscoveryDeferredResponseImpl();
-    }
+    public MCCIIN000002UV01 processPatientDiscoveryAsyncReq(PRPAIN201305UV02 message, AssertionType assertion,
+            NhinTargetCommunitiesType targets);
 
-    public NhincProxyPatientDiscoveryAsyncRespImpl getNhincProxyPatientDiscoveryAsyncRespImpl() {
-        return new NhincProxyPatientDiscoveryAsyncRespImpl();
-    }
 }

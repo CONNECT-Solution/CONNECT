@@ -24,37 +24,30 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
-package gov.hhs.fha.nhinc.patientdiscovery.passthru.deferred.request;
+package gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import gov.hhs.fha.nhinc.aspect.OutboundProcessingEvent;
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
-import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201305UV02EventDescriptionBuilder;
+import gov.hhs.fha.nhinc.aspect.InboundMessageEvent;
 import gov.hhs.fha.nhinc.patientdiscovery.aspect.MCCIIN000002UV01EventDescriptionBuilder;
+import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201305UV02EventDescriptionBuilder;
+
 import java.lang.reflect.Method;
 
 import org.hl7.v3.PRPAIN201305UV02;
 import org.junit.Test;
 
-/**
- * @author achidamb
- *
- */
-public class PassthruPatientDiscoveryDeferredRequestOrchImplTest {
+public class NhinPatientDiscoveryDeferredRequestTest {
+    
     @Test
-    public void hasOutboundProcessingEvent() throws Exception {
-        Class<PassthruPatientDiscoveryDeferredRequestOrchImpl> clazz = 
-                PassthruPatientDiscoveryDeferredRequestOrchImpl.class;
-        Method method = clazz.getMethod("processPatientDiscoveryAsyncReq", PRPAIN201305UV02.class,
-                AssertionType.class, NhinTargetSystemType.class);
-        OutboundProcessingEvent annotation = method.getAnnotation(OutboundProcessingEvent.class);
+    public void hasInboundMessageEvent() throws Exception {
+        Class<NhinPatientDiscoveryDeferredRequest> clazz = NhinPatientDiscoveryDeferredRequest.class;
+        Method method = clazz.getMethod("respondingGatewayDeferredPRPAIN201305UV02", PRPAIN201305UV02.class);
+        InboundMessageEvent annotation = method.getAnnotation(InboundMessageEvent.class);
         assertNotNull(annotation);
         assertEquals(PRPAIN201305UV02EventDescriptionBuilder.class, annotation.beforeBuilder());
         assertEquals(MCCIIN000002UV01EventDescriptionBuilder.class, annotation.afterReturningBuilder());
         assertEquals("Patient Discovery Deferred Request", annotation.serviceType());
         assertEquals("1.0", annotation.version());
     }
-
 }

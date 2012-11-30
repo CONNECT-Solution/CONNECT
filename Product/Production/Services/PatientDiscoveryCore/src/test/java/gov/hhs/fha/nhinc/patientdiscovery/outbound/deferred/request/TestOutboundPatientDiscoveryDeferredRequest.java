@@ -24,43 +24,24 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.patientdiscovery.nhin.deferred.request;
+package gov.hhs.fha.nhinc.patientdiscovery.outbound.deferred.request;
 
-import gov.hhs.fha.nhinc.generic.GenericFactory;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditLogger;
-import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryPolicyChecker;
-import gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.error.proxy.AdapterPatientDiscoveryDeferredReqErrorProxyObjectFactory;
-import gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.proxy.AdapterPatientDiscoveryDeferredReqProxyObjectFactory;
-import gov.hhs.fha.nhinc.patientdiscovery.inbound.AbstractServicePropertyAccessor;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
+
+import org.hl7.v3.MCCIIN000002UV01;
+import org.hl7.v3.PRPAIN201305UV02;
 
 /**
- * @author bhumphrey
+ * @author akong
  *
  */
-public final class NhinPatientDiscoveryDeferredReqOrchFactory implements
-        GenericFactory<NhinPatientDiscoveryDeferredReqOrch> {
-
-    private static NhinPatientDiscoveryDeferredReqOrchFactory INSTANCE = new NhinPatientDiscoveryDeferredReqOrchFactory();
-
-    NhinPatientDiscoveryDeferredReqOrchFactory() {
-
-    }
+public class TestOutboundPatientDiscoveryDeferredRequest implements OutboundPatientDiscoveryDeferredRequest {
 
     @Override
-    public NhinPatientDiscoveryDeferredReqOrch create() {
-        return new NhinPatientDiscoveryDeferredReqOrchImpl(new AbstractServicePropertyAccessor() {
-            @Override
-            protected String getPassThruEnabledPropertyName() {
-                return NhincConstants.PATIENT_DISCOVERY_SERVICE_ASYNC_REQ_PASSTHRU_PROPERTY;
-            }
-        }, new PatientDiscoveryAuditLogger(), new AdapterPatientDiscoveryDeferredReqProxyObjectFactory(),
-                new AdapterPatientDiscoveryDeferredReqErrorProxyObjectFactory(),
-                PatientDiscoveryPolicyChecker.getInstance());
-    }
-
-    public static NhinPatientDiscoveryDeferredReqOrchFactory getInstance() {
-        return INSTANCE;
+    public MCCIIN000002UV01 processPatientDiscoveryAsyncReq(PRPAIN201305UV02 message, AssertionType assertion,
+            NhinTargetCommunitiesType targets) {
+        return new MCCIIN000002UV01();
     }
 
 }

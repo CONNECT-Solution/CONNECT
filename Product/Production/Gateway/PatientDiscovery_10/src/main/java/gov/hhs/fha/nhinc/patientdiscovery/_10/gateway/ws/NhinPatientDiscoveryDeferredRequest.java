@@ -27,51 +27,59 @@
 package gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws;
 
 import gov.hhs.fha.nhinc.aspect.InboundMessageEvent;
-import gov.hhs.fha.nhinc.patientdiscovery._10.deferred.request.NhinPatientDiscoveryAsyncReqImpl;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.messaging.server.BaseService;
 import gov.hhs.fha.nhinc.patientdiscovery.aspect.MCCIIN000002UV01EventDescriptionBuilder;
 import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201305UV02EventDescriptionBuilder;
+import gov.hhs.fha.nhinc.patientdiscovery.inbound.deferred.request.InboundPatientDiscoveryDeferredRequest;
+import ihe.iti.xcpd._2009.RespondingGatewayDeferredRequestPortType;
 
 import javax.annotation.Resource;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
 
-import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.MCCIIN000002UV01;
-
-/**
- * 
- * @author JHOPPESC
- */
+import org.hl7.v3.PRPAIN201305UV02;
 
 @Addressing(enabled = true)
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
-public class NhinPatientDiscoveryAsyncReq extends PatientDiscoveryBase implements
-        ihe.iti.xcpd._2009.RespondingGatewayDeferredRequestPortType {
+public class NhinPatientDiscoveryDeferredRequest extends BaseService implements
+        RespondingGatewayDeferredRequestPortType {
 
-    private NhinPatientDiscoveryAsyncReqImpl orchImpl;
+    private InboundPatientDiscoveryDeferredRequest inboundPatientDiscoveryRequest;
 
-    @Resource
     private WebServiceContext context;
 
-    public NhinPatientDiscoveryAsyncReq() {
+    /**
+     * Constructor.
+     */
+    public NhinPatientDiscoveryDeferredRequest() {
         super();
     }
 
-    public NhinPatientDiscoveryAsyncReq(PatientDiscoveryServiceFactory serviceFactory) {
-        super(serviceFactory);
-    }
-
-    @InboundMessageEvent(beforeBuilder = PRPAIN201305UV02EventDescriptionBuilder.class,
+    /**
+     * Web Service implementation of Patient Discovery Deferred Request.
+     * 
+     * @param body the request message from the Nhin
+     * @return the response message to the Nhin
+     */
+    @InboundMessageEvent(beforeBuilder = PRPAIN201305UV02EventDescriptionBuilder.class, 
             afterReturningBuilder = MCCIIN000002UV01EventDescriptionBuilder.class, 
-            serviceType = "Patient Discovery Deferred Request",
-            version = "1.0")
+            serviceType = "Patient Discovery Deferred Request", version = "1.0")
     public MCCIIN000002UV01 respondingGatewayDeferredPRPAIN201305UV02(PRPAIN201305UV02 body) {
-        return orchImpl.respondingGatewayPRPAIN201305UV02(body, context);
+        AssertionType assertion = getAssertion(context, null);
+
+        return inboundPatientDiscoveryRequest.respondingGatewayPRPAIN201305UV02(body, assertion);
     }
 
-    public void setOrchestratorImpl(NhinPatientDiscoveryAsyncReqImpl orchImpl) {
-        this.orchImpl = orchImpl;
+    @Resource
+    public void setContext(WebServiceContext context) {
+        this.context = context;
+    }
+
+    public void setInboundPatientDiscoveryRequest(InboundPatientDiscoveryDeferredRequest inboundPatientDiscoveryRequest) {
+        this.inboundPatientDiscoveryRequest = inboundPatientDiscoveryRequest;
     }
 
 }
