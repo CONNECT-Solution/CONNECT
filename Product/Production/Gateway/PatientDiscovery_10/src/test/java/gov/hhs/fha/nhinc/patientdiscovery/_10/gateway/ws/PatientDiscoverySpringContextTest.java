@@ -84,18 +84,18 @@ public class PatientDiscoverySpringContextTest {
     public void inboundFault() throws PatientDiscoveryException {
         PRPAIN201305UV02 request = new PRPAIN201305UV02();
 
-        assertNotNull(inboundPatientDiscoveryEndpoint);
+        NhinPatientDiscovery inboundPDEndpoint = new NhinPatientDiscovery();
 
         InboundPatientDiscovery inboundPatientDiscovery = mock(InboundPatientDiscovery.class);
 
         when(inboundPatientDiscovery.respondingGatewayPRPAIN201305UV02(eq(request), any(AssertionType.class)))
                 .thenThrow(new PatientDiscoveryException(""));
 
-        inboundPatientDiscoveryEndpoint.setInboundPatientDiscovery(inboundPatientDiscovery);
+        inboundPDEndpoint.setInboundPatientDiscovery(inboundPatientDiscovery);
 
         boolean faultThrown = false;
         try {
-            inboundPatientDiscoveryEndpoint.respondingGatewayPRPAIN201305UV02(request);
+            inboundPDEndpoint.respondingGatewayPRPAIN201305UV02(request);
         } catch (PRPAIN201305UV02Fault fault) {
             faultThrown = true;
             assertEquals("920", fault.getFaultInfo().getErrorCode());
