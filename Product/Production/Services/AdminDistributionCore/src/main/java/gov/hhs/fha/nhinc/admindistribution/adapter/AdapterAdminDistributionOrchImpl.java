@@ -26,9 +26,7 @@
  */
 package gov.hhs.fha.nhinc.admindistribution.adapter;
 
-import gov.hhs.fha.nhinc.aspect.InboundMessageEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.largefile.LargeFileUtils;
 
 import java.net.URI;
@@ -69,9 +67,6 @@ public class AdapterAdminDistributionOrchImpl {
      * @param assertion
      *            Assertion received.
      */
-    @InboundMessageEvent(serviceType = "Admin Distribution", version = "",
-            afterReturningBuilder = DefaultEventDescriptionBuilder.class,
-            beforeBuilder = DefaultEventDescriptionBuilder.class)
     public void sendAlertMessage(EDXLDistribution body, AssertionType assertion) {
         log.info("Received Alert Message");
         log.info(body.getCombinedConfidentiality());

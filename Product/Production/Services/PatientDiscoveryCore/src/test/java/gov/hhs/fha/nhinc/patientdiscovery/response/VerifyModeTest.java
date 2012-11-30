@@ -196,7 +196,7 @@ public class VerifyModeTest {
             }
         });
 
-        PRPAIN201306UV02 result = verifyMode.processResponse(localPatId, response, assertion);
+        PRPAIN201306UV02 result = verifyMode.processResponse(response, assertion, localPatId);
         assertEquals(null, result);
     }
 

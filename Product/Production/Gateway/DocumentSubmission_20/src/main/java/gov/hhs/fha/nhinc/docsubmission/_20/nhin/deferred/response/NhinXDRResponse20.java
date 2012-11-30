@@ -33,6 +33,8 @@ import javax.xml.ws.soap.Addressing;
 
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
+import gov.hhs.fha.nhinc.aspect.InboundMessageEvent;
+import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.docsubmission.inbound.deferred.response.InboundDocSubmissionDeferredResponse;
 
 
@@ -42,8 +44,12 @@ public class NhinXDRResponse20 implements ihe.iti.xdr._2007.XDRDeferredResponse2
 
     private WebServiceContext context;
     private InboundDocSubmissionDeferredResponse inboundDocSubmissionResponse;
-
+    /** TO-DO Annoatation has to be changed for Request and Response Builder **/
     @Override
+    @InboundMessageEvent(beforeBuilder = DefaultEventDescriptionBuilder.class,
+    afterReturningBuilder = DefaultEventDescriptionBuilder.class, 
+    serviceType = "Document Submission Deferred Response",
+    version = "2.0")
     public void provideAndRegisterDocumentSetBDeferredResponse(javax.xml.ws.Holder<RegistryResponseType> body) {
         body.value = new NhinDocSubmissionDeferredResponseImpl20(inboundDocSubmissionResponse)
                 .provideAndRegisterDocumentSetBResponse(body.value, context);

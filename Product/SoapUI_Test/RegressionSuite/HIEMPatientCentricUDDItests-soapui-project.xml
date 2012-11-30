@@ -91,7 +91,7 @@ def destFile = "uddiConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.moveFile(sourceDir, sourceFile, context.findProperty("GatewayPropDir"), destFile, log);</script></con:config>
+FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
 			</con:testStep>
 			<con:testStep name="Copy hiemTopicConnection" type="groovy">
 				<con:settings/>
@@ -112,7 +112,7 @@ def destFile = "hiemTopicConfiguration.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.moveFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
+FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
 			</con:testStep>
 			<con:testStep name="update config" type="groovy">
 				<con:settings/>
@@ -408,23 +408,23 @@ FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.propert
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-11-27T15:29:21Z</con:value>
+					<con:value>2012-11-28T20:23:39Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-11-27T15:39:21Z</con:value>
+					<con:value>2012-11-28T20:33:39Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>11/27/2012 15:29:21</con:value>
+					<con:value>11/28/2012 20:23:39</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-12-27T00:00:00Z</con:value>
+					<con:value>2012-12-28T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>date</con:name>
-					<con:value>12/27/2012 00:00:00</con:value>
+					<con:value>12/28/2012 00:00:00</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -450,7 +450,7 @@ def destFile = "uddiConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.moveFile(sourceDir, sourceFile, context.findProperty("GatewayPropDir"), destFile, log);</script></con:config>
+FileUtils.copyFile(sourceDir, sourceFile, context.findProperty("GatewayPropDir"), destFile, log);</script></con:config>
 			</con:testStep>
 			<con:testStep name="Copy hiemTopicConnection" type="groovy">
 				<con:settings/>
@@ -471,7 +471,7 @@ def destFile = "hiemTopicConfiguration.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.moveFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
+FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
 			</con:testStep>
 			<con:testStep name="update config" type="groovy">
 				<con:settings/>
@@ -783,23 +783,23 @@ nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.p
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-11-27T15:29:22Z</con:value>
+					<con:value>2012-11-28T20:23:39Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-11-27T15:39:22Z</con:value>
+					<con:value>2012-11-28T20:33:39Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>11/27/2012 15:29:22</con:value>
+					<con:value>11/28/2012 20:23:39</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-12-27T00:00:00Z</con:value>
+					<con:value>2012-12-28T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>date</con:name>
-					<con:value>12/27/2012 00:00:00</con:value>
+					<con:value>12/28/2012 00:00:00</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -825,7 +825,7 @@ def destFile = "uddiConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.moveFile(sourceDir, sourceFile, context.findProperty("GatewayPropDir"), destFile, log);</script></con:config>
+FileUtils.copyFile(sourceDir, sourceFile, context.findProperty("GatewayPropDir"), destFile, log);</script></con:config>
 			</con:testStep>
 			<con:testStep name="Copy hiemTopicConnection" type="groovy">
 				<con:settings/>
@@ -846,7 +846,7 @@ def destFile = "hiemTopicConfiguration.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.moveFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
+FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
 			</con:testStep>
 			<con:testStep name="update config" type="groovy">
 				<con:settings/>
@@ -1190,23 +1190,23 @@ nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.p
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-11-27T15:29:22Z</con:value>
+					<con:value>2012-11-28T20:23:40Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-11-27T15:39:22Z</con:value>
+					<con:value>2012-11-28T20:33:40Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>11/27/2012 15:29:22</con:value>
+					<con:value>11/28/2012 20:23:40</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-12-27T00:00:00Z</con:value>
+					<con:value>2012-12-28T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>date</con:name>
-					<con:value>12/27/2012 00:00:00</con:value>
+					<con:value>12/28/2012 00:00:00</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -1232,7 +1232,7 @@ def destFile = "uddiConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.moveFile(sourceDir, sourceFile, context.findProperty("GatewayPropDir"), destFile, log);</script></con:config>
+FileUtils.copyFile(sourceDir, sourceFile, context.findProperty("GatewayPropDir"), destFile, log);</script></con:config>
 			</con:testStep>
 			<con:testStep name="Copy hiemTopicConnection" type="groovy">
 				<con:settings/>
@@ -1253,7 +1253,7 @@ def destFile = "hiemTopicConfiguration.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.moveFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
+FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
 			</con:testStep>
 			<con:testStep name="update config" type="groovy">
 				<con:settings/>
@@ -1566,23 +1566,23 @@ nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.p
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-11-27T15:29:23Z</con:value>
+					<con:value>2012-11-28T20:23:40Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-11-27T15:39:23Z</con:value>
+					<con:value>2012-11-28T20:33:40Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>11/27/2012 15:29:23</con:value>
+					<con:value>11/28/2012 20:23:40</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-12-27T00:00:00Z</con:value>
+					<con:value>2012-12-28T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>date</con:name>
-					<con:value>12/27/2012 00:00:00</con:value>
+					<con:value>12/28/2012 00:00:00</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -1608,7 +1608,7 @@ def destFile = "uddiConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.moveFile(sourceDir, sourceFile, context.findProperty("GatewayPropDir"), destFile, log);</script></con:config>
+FileUtils.copyFile(sourceDir, sourceFile, context.findProperty("GatewayPropDir"), destFile, log);</script></con:config>
 			</con:testStep>
 			<con:testStep name="Copy hiemTopicConnection" type="groovy">
 				<con:settings/>
@@ -1629,7 +1629,7 @@ def destFile = "hiemTopicConfiguration.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.moveFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
+FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
 			</con:testStep>
 			<con:testStep name="update config" type="groovy">
 				<con:settings/>
@@ -1991,23 +1991,23 @@ nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.p
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-11-27T15:29:27Z</con:value>
+					<con:value>2012-11-28T20:23:44Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-11-27T15:39:27Z</con:value>
+					<con:value>2012-11-28T20:33:44Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>11/27/2012 15:29:27</con:value>
+					<con:value>11/28/2012 20:23:44</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-12-27T00:00:00Z</con:value>
+					<con:value>2012-12-28T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>date</con:name>
-					<con:value>12/27/2012 00:00:00</con:value>
+					<con:value>12/28/2012 00:00:00</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -2033,7 +2033,7 @@ def destFile = "uddiConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.moveFile(sourceDir, sourceFile, context.findProperty("GatewayPropDir"), destFile, log);</script></con:config>
+FileUtils.copyFile(sourceDir, sourceFile, context.findProperty("GatewayPropDir"), destFile, log);</script></con:config>
 			</con:testStep>
 			<con:testStep name="Copy hiemTopicConnection" type="groovy">
 				<con:settings/>
@@ -2054,7 +2054,7 @@ def destFile = "hiemTopicConfiguration.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.moveFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
+FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
 			</con:testStep>
 			<con:testStep name="update config" type="groovy">
 				<con:settings/>
@@ -2384,23 +2384,23 @@ nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.p
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-11-27T15:29:31Z</con:value>
+					<con:value>2012-11-28T20:23:47Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-11-27T15:39:31Z</con:value>
+					<con:value>2012-11-28T20:33:47Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>11/27/2012 15:29:31</con:value>
+					<con:value>11/28/2012 20:23:47</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-12-27T00:00:00Z</con:value>
+					<con:value>2012-12-28T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>date</con:name>
-					<con:value>12/27/2012 00:00:00</con:value>
+					<con:value>12/28/2012 00:00:00</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -2426,7 +2426,7 @@ def destFile = "uddiConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.moveFile(sourceDir, sourceFile, context.findProperty("GatewayPropDir"), destFile, log);</script></con:config>
+FileUtils.copyFile(sourceDir, sourceFile, context.findProperty("GatewayPropDir"), destFile, log);</script></con:config>
 			</con:testStep>
 			<con:testStep name="Copy hiemTopicConnection" type="groovy">
 				<con:settings/>
@@ -2447,7 +2447,7 @@ def destFile = "hiemTopicConfiguration.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.moveFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
+FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
 			</con:testStep>
 			<con:testStep name="update config" type="groovy">
 				<con:settings/>
@@ -2812,23 +2812,23 @@ sql.executeUpdate(insertSql, [2, localAA, localPatientID, uddiVA3, remotePatient
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-11-27T15:29:36Z</con:value>
+					<con:value>2012-11-28T20:23:50Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-11-27T15:39:36Z</con:value>
+					<con:value>2012-11-28T20:33:50Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>11/27/2012 15:29:36</con:value>
+					<con:value>11/28/2012 20:23:50</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-12-27T00:00:00Z</con:value>
+					<con:value>2012-12-28T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>date</con:name>
-					<con:value>12/27/2012 00:00:00</con:value>
+					<con:value>12/28/2012 00:00:00</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -2854,7 +2854,7 @@ def destFile = "uddiConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.moveFile(sourceDir, sourceFile, context.findProperty("GatewayPropDir"), destFile, log);</script></con:config>
+FileUtils.copyFile(sourceDir, sourceFile, context.findProperty("GatewayPropDir"), destFile, log);</script></con:config>
 			</con:testStep>
 			<con:testStep name="Copy hiemTopicConnection" type="groovy">
 				<con:settings/>
@@ -2875,7 +2875,7 @@ def destFile = "hiemTopicConfiguration.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.moveFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
+FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
 			</con:testStep>
 			<con:testStep name="update config" type="groovy">
 				<con:settings/>
@@ -3198,23 +3198,23 @@ sql.executeUpdate(insertSql, [1, localAA, localPatientID, uddiVA1, remotePatient
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-11-27T15:29:41Z</con:value>
+					<con:value>2012-11-28T20:23:53Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-11-27T15:39:41Z</con:value>
+					<con:value>2012-11-28T20:33:53Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>11/27/2012 15:29:41</con:value>
+					<con:value>11/28/2012 20:23:53</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-12-27T00:00:00Z</con:value>
+					<con:value>2012-12-28T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>date</con:name>
-					<con:value>12/27/2012 00:00:00</con:value>
+					<con:value>12/28/2012 00:00:00</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -3240,7 +3240,7 @@ def destFile = "uddiConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.moveFile(sourceDir, sourceFile, context.findProperty("GatewayPropDir"), destFile, log);</script></con:config>
+FileUtils.copyFile(sourceDir, sourceFile, context.findProperty("GatewayPropDir"), destFile, log);</script></con:config>
 			</con:testStep>
 			<con:testStep name="Copy hiemTopicConnection" type="groovy">
 				<con:settings/>
@@ -3261,7 +3261,7 @@ def destFile = "hiemTopicConfiguration.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.moveFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
+FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
 			</con:testStep>
 			<con:testStep name="update config" type="groovy">
 				<con:settings/>
@@ -3565,23 +3565,23 @@ nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.p
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-11-27T15:29:44Z</con:value>
+					<con:value>2012-11-28T20:23:55Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-11-27T15:39:44Z</con:value>
+					<con:value>2012-11-28T20:33:55Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>11/27/2012 15:29:44</con:value>
+					<con:value>11/28/2012 20:23:55</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-12-27T00:00:00Z</con:value>
+					<con:value>2012-12-28T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>date</con:name>
-					<con:value>12/27/2012 00:00:00</con:value>
+					<con:value>12/28/2012 00:00:00</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -3607,7 +3607,7 @@ def destFile = "uddiConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.moveFile(sourceDir, sourceFile, context.findProperty("GatewayPropDir"), destFile, log);</script></con:config>
+FileUtils.copyFile(sourceDir, sourceFile, context.findProperty("GatewayPropDir"), destFile, log);</script></con:config>
 			</con:testStep>
 			<con:testStep name="Copy hiemTopicConnection" type="groovy">
 				<con:settings/>
@@ -3628,7 +3628,7 @@ def destFile = "hiemTopicConfiguration.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.moveFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
+FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
 			</con:testStep>
 			<con:testStep name="update config" type="groovy">
 				<con:settings/>
@@ -3957,23 +3957,23 @@ nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.p
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-11-27T15:29:45Z</con:value>
+					<con:value>2012-11-28T20:23:56Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-11-27T15:39:45Z</con:value>
+					<con:value>2012-11-28T20:33:56Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>11/27/2012 15:29:45</con:value>
+					<con:value>11/28/2012 20:23:56</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-12-27T00:00:00Z</con:value>
+					<con:value>2012-12-28T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>date</con:name>
-					<con:value>12/27/2012 00:00:00</con:value>
+					<con:value>12/28/2012 00:00:00</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -3999,7 +3999,7 @@ def destFile = "uddiConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.moveFile(sourceDir, sourceFile, context.findProperty("GatewayPropDir"), destFile, log);</script></con:config>
+FileUtils.copyFile(sourceDir, sourceFile, context.findProperty("GatewayPropDir"), destFile, log);</script></con:config>
 			</con:testStep>
 			<con:testStep name="Copy hiemTopicConnection" type="groovy">
 				<con:settings/>
@@ -4020,7 +4020,7 @@ def destFile = "hiemTopicConfiguration.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.moveFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
+FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
 			</con:testStep>
 			<con:testStep name="update config" type="groovy">
 				<con:settings/>
@@ -4335,23 +4335,23 @@ nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.p
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-11-27T15:29:49Z</con:value>
+					<con:value>2012-11-28T20:24:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-11-27T15:39:49Z</con:value>
+					<con:value>2012-11-28T20:34:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>11/27/2012 15:29:49</con:value>
+					<con:value>11/28/2012 20:24:00</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-12-27T00:00:00Z</con:value>
+					<con:value>2012-12-28T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>date</con:name>
-					<con:value>12/27/2012 00:00:00</con:value>
+					<con:value>12/28/2012 00:00:00</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -4377,7 +4377,7 @@ def destFile = "uddiConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.moveFile(sourceDir, sourceFile, context.findProperty("GatewayPropDir"), destFile, log);</script></con:config>
+FileUtils.copyFile(sourceDir, sourceFile, context.findProperty("GatewayPropDir"), destFile, log);</script></con:config>
 			</con:testStep>
 			<con:testStep name="Copy hiemTopicConnection" type="groovy">
 				<con:settings/>
@@ -4398,7 +4398,7 @@ def destFile = "hiemTopicConfiguration.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.moveFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
+FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
 			</con:testStep>
 			<con:testStep name="update config" type="groovy">
 				<con:settings/>
@@ -4729,23 +4729,23 @@ nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.p
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-11-27T15:29:52Z</con:value>
+					<con:value>2012-11-28T20:24:01Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-11-27T15:39:52Z</con:value>
+					<con:value>2012-11-28T20:34:01Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>11/27/2012 15:29:52</con:value>
+					<con:value>11/28/2012 20:24:01</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-12-27T00:00:00Z</con:value>
+					<con:value>2012-12-28T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>date</con:name>
-					<con:value>12/27/2012 00:00:00</con:value>
+					<con:value>12/28/2012 00:00:00</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -4771,7 +4771,7 @@ def destFile = "uddiConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.moveFile(sourceDir, sourceFile, context.findProperty("GatewayPropDir"), destFile, log);</script></con:config>
+FileUtils.copyFile(sourceDir, sourceFile, context.findProperty("GatewayPropDir"), destFile, log);</script></con:config>
 			</con:testStep>
 			<con:testStep name="Copy hiemTopicConnection" type="groovy">
 				<con:settings/>
@@ -4792,7 +4792,7 @@ def destFile = "hiemTopicConfiguration.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.moveFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
+FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
 			</con:testStep>
 			<con:testStep name="update config" type="groovy">
 				<con:settings/>
@@ -5174,23 +5174,23 @@ FileUtils.InitializeNHINCProperties(context, log);
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-11-27T15:29:54Z</con:value>
+					<con:value>2012-11-28T20:24:03Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-11-27T15:39:54Z</con:value>
+					<con:value>2012-11-28T20:34:03Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>11/27/2012 15:29:54</con:value>
+					<con:value>11/28/2012 20:24:03</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-12-27T00:00:00Z</con:value>
+					<con:value>2012-12-28T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>date</con:name>
-					<con:value>12/27/2012 00:00:00</con:value>
+					<con:value>12/28/2012 00:00:00</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -5216,7 +5216,7 @@ def destFile = "uddiConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.moveFile(sourceDir, sourceFile, context.findProperty("GatewayPropDir"), destFile, log);</script></con:config>
+FileUtils.copyFile(sourceDir, sourceFile, context.findProperty("GatewayPropDir"), destFile, log);</script></con:config>
 			</con:testStep>
 			<con:testStep name="Copy hiemTopicConnection" type="groovy">
 				<con:settings/>
@@ -5237,7 +5237,7 @@ def destFile = "hiemTopicConfiguration.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.moveFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
+FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
 			</con:testStep>
 			<con:testStep name="update config" type="groovy">
 				<con:settings/>
@@ -5555,23 +5555,23 @@ FileUtils.InitializeNHINCProperties(context, log);
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-11-27T15:29:57Z</con:value>
+					<con:value>2012-11-28T20:24:04Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-11-27T15:39:57Z</con:value>
+					<con:value>2012-11-28T20:34:04Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>11/27/2012 15:29:57</con:value>
+					<con:value>11/28/2012 20:24:04</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-12-27T00:00:00Z</con:value>
+					<con:value>2012-12-28T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>date</con:name>
-					<con:value>12/27/2012 00:00:00</con:value>
+					<con:value>12/28/2012 00:00:00</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -5597,7 +5597,7 @@ def destFile = "uddiConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.moveFile(sourceDir, sourceFile, context.findProperty("GatewayPropDir"), destFile, log);</script></con:config>
+FileUtils.copyFile(sourceDir, sourceFile, context.findProperty("GatewayPropDir"), destFile, log);</script></con:config>
 			</con:testStep>
 			<con:testStep name="Copy hiemTopicConnection" type="groovy">
 				<con:settings/>
@@ -5618,7 +5618,7 @@ def destFile = "hiemTopicConfiguration.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.moveFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
+FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
 			</con:testStep>
 			<con:testStep name="update config" type="groovy">
 				<con:settings/>
@@ -5947,23 +5947,23 @@ nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.p
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-11-27T15:48:32Z</con:value>
+					<con:value>2012-11-28T20:24:06Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-11-27T15:58:32Z</con:value>
+					<con:value>2012-11-28T20:34:06Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>11/27/2012 15:48:32</con:value>
+					<con:value>11/28/2012 20:24:06</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-12-27T00:00:00Z</con:value>
+					<con:value>2012-12-28T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>date</con:name>
-					<con:value>12/27/2012 00:00:00</con:value>
+					<con:value>12/28/2012 00:00:00</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -5989,7 +5989,7 @@ def destFile = "uddiConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.moveFile(sourceDir, sourceFile, context.findProperty("GatewayPropDir"), destFile, log);</script></con:config>
+FileUtils.copyFile(sourceDir, sourceFile, context.findProperty("GatewayPropDir"), destFile, log);</script></con:config>
 			</con:testStep>
 			<con:testStep name="Copy hiemTopicConnection" type="groovy">
 				<con:settings/>
@@ -6010,7 +6010,7 @@ def destFile = "hiemTopicConfiguration.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.moveFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
+FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
 			</con:testStep>
 			<con:testStep name="update config" type="groovy">
 				<con:settings/>
@@ -6385,23 +6385,23 @@ context.withSql('PatientCorrelationDB') { sql ->
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-11-27T15:30:04Z</con:value>
+					<con:value>2012-11-28T20:24:08Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-11-27T15:40:04Z</con:value>
+					<con:value>2012-11-28T20:34:08Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>11/27/2012 15:30:04</con:value>
+					<con:value>11/28/2012 20:24:08</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-12-27T00:00:00Z</con:value>
+					<con:value>2012-12-28T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>date</con:name>
-					<con:value>12/27/2012 00:00:00</con:value>
+					<con:value>12/28/2012 00:00:00</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -6427,7 +6427,7 @@ def destFile = "uddiConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.moveFile(sourceDir, sourceFile, context.findProperty("GatewayPropDir"), destFile, log);</script></con:config>
+FileUtils.copyFile(sourceDir, sourceFile, context.findProperty("GatewayPropDir"), destFile, log);</script></con:config>
 			</con:testStep>
 			<con:testStep name="Copy hiemTopicConnection" type="groovy">
 				<con:settings/>
@@ -6448,7 +6448,7 @@ def destFile = "hiemTopicConfiguration.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.moveFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
+FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
 			</con:testStep>
 			<con:testStep name="update config" type="groovy">
 				<con:settings/>
@@ -6810,23 +6810,23 @@ nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.p
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-11-27T15:30:08Z</con:value>
+					<con:value>2012-11-28T20:24:11Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-11-27T15:40:08Z</con:value>
+					<con:value>2012-11-28T20:34:11Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>11/27/2012 15:30:08</con:value>
+					<con:value>11/28/2012 20:24:11</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-12-27T00:00:00Z</con:value>
+					<con:value>2012-12-28T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>date</con:name>
-					<con:value>12/27/2012 00:00:00</con:value>
+					<con:value>12/28/2012 00:00:00</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -6852,7 +6852,7 @@ def destFile = "uddiConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.moveFile(sourceDir, sourceFile, context.findProperty("GatewayPropDir"), destFile, log);</script></con:config>
+FileUtils.copyFile(sourceDir, sourceFile, context.findProperty("GatewayPropDir"), destFile, log);</script></con:config>
 			</con:testStep>
 			<con:testStep name="Copy hiemTopicConnection" type="groovy">
 				<con:settings/>
@@ -6873,7 +6873,7 @@ def destFile = "hiemTopicConfiguration.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.moveFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
+FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
 			</con:testStep>
 			<con:testStep name="update config" type="groovy">
 				<con:settings/>
@@ -7270,23 +7270,23 @@ context.withSql('PatientCorrelationDB') { sql ->
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-11-27T15:30:12Z</con:value>
+					<con:value>2012-11-28T20:24:13Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-11-27T15:40:12Z</con:value>
+					<con:value>2012-11-28T20:34:13Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>11/27/2012 15:30:12</con:value>
+					<con:value>11/28/2012 20:24:13</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-12-27T00:00:00Z</con:value>
+					<con:value>2012-12-28T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>date</con:name>
-					<con:value>12/27/2012 00:00:00</con:value>
+					<con:value>12/28/2012 00:00:00</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>

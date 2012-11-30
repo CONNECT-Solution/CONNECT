@@ -29,9 +29,15 @@ package gov.hhs.fha.nhinc.docsubmission.outbound;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+
+import java.lang.reflect.Method;
+
+import gov.hhs.fha.nhinc.aspect.OutboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
+import gov.hhs.fha.nhinc.common.nhinccommon.UrlInfoType;
 import gov.hhs.fha.nhinc.docsubmission.XDRAuditLogger;
+import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionBaseEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.docsubmission.entity.OutboundDocSubmissionDelegate;
 import gov.hhs.fha.nhinc.docsubmission.entity.OutboundDocSubmissionOrchestratable;
 import gov.hhs.fha.nhinc.docsubmission.outbound.PassthroughOutboundDocSubmission;
@@ -121,6 +127,20 @@ public class PassthroughOutboundDocSubmissionTest {
         orchestratable.setResponse(response);
 
         return orchestratable;
+    }
+    
+    @Test
+    public void hasOutboundProcessingEvent() throws Exception {
+        Class<PassthroughOutboundDocSubmission> clazz = PassthroughOutboundDocSubmission.class;
+        Method method = clazz.getMethod("provideAndRegisterDocumentSetB", 
+                ProvideAndRegisterDocumentSetRequestType.class, AssertionType.class, NhinTargetCommunitiesType.class,
+                UrlInfoType.class);
+        OutboundProcessingEvent annotation = method.getAnnotation(OutboundProcessingEvent.class);
+        assertNotNull(annotation);
+        assertEquals(DocSubmissionBaseEventDescriptionBuilder.class, annotation.beforeBuilder());
+        assertEquals(DocSubmissionBaseEventDescriptionBuilder.class, annotation.afterReturningBuilder());
+        assertEquals("Document Submission", annotation.serviceType());
+        assertEquals("", annotation.version());
     }
    
 }

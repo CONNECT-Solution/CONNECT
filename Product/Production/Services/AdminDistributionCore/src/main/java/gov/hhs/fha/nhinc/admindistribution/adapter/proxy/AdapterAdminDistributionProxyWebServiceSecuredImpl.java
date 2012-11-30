@@ -29,8 +29,11 @@ package gov.hhs.fha.nhinc.admindistribution.adapter.proxy;
 import gov.hhs.fha.nhinc.adapteradmindistribution.AdapterAdministrativeDistributionSecuredPortType;
 import gov.hhs.fha.nhinc.admindistribution.AdminDistributionHelper;
 import gov.hhs.fha.nhinc.admindistribution.adapter.proxy.service.AdapterAdminDistributionSecuredServicePortDescriptor;
+import gov.hhs.fha.nhinc.admindistribution.aspect.EDXLDistributionEventDescriptionBuilder;
+import gov.hhs.fha.nhinc.aspect.AdapterDelegationEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewaySendAlertMessageSecuredType;
+import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTCXFClientFactory;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
@@ -53,7 +56,7 @@ public class AdapterAdminDistributionProxyWebServiceSecuredImpl implements Adapt
     private AdminDistributionHelper adminDistributionHelper;
 
     /**
-     *Constructor.
+     * Constructor.
      */
     public AdapterAdminDistributionProxyWebServiceSecuredImpl() {
         log = createLogger();
@@ -66,7 +69,7 @@ public class AdapterAdminDistributionProxyWebServiceSecuredImpl implements Adapt
     protected Log createLogger() {
         return LogFactory.getLog(getClass());
     }
-    
+
     /**
      * @return an instance of AdminDistributionHelper.
      */
@@ -74,10 +77,15 @@ public class AdapterAdminDistributionProxyWebServiceSecuredImpl implements Adapt
         return new AdminDistributionHelper();
     }
 
-    /** This method returns CXFClient to implement AdpaterAdmin Dist Secured Service.
-     * @param portDescriptor comprises of NameSpaceUri, WSDLFile to read,Port, ServiceName and WS_ADDRESSING_ACTION.   
-     * @param url targetCommunity Url received.
-     * @param assertion Assertion received.
+    /**
+     * This method returns CXFClient to implement AdpaterAdmin Dist Secured Service.
+     * 
+     * @param portDescriptor
+     *            comprises of NameSpaceUri, WSDLFile to read,Port, ServiceName and WS_ADDRESSING_ACTION.
+     * @param url
+     *            targetCommunity Url received.
+     * @param assertion
+     *            Assertion received.
      * @return CXFClient for AdapterAdminDist Secured Service.
      */
     protected CONNECTClient<AdapterAdministrativeDistributionSecuredPortType> getCONNECTClientSecured(
@@ -87,10 +95,17 @@ public class AdapterAdminDistributionProxyWebServiceSecuredImpl implements Adapt
         return CONNECTCXFClientFactory.getInstance().getCONNECTClientSecured(portDescriptor, url, assertion);
     }
 
-    /** This method implements SendAlertMessage for AdminDist.
-     * @param body  Emergency Message Distribution Element transaction message body received.
-     * @param assertion Assertion received.
+    /**
+     * This method implements SendAlertMessage for AdminDist.
+     * 
+     * @param body
+     *            Emergency Message Distribution Element transaction message body received.
+     * @param assertion
+     *            Assertion received.
      */
+    @AdapterDelegationEvent(beforeBuilder = EDXLDistributionEventDescriptionBuilder.class,
+            afterReturningBuilder = DefaultEventDescriptionBuilder.class, serviceType = "Admin Distribution",
+            version = "")
     public void sendAlertMessage(EDXLDistribution body, AssertionType assertion) {
         log.debug("Begin sendAlertMessage");
         String url = adminDistributionHelper.getAdapterUrl(NhincConstants.ADAPTER_ADMIN_DIST_SECURED_SERVICE_NAME,
@@ -98,12 +113,10 @@ public class AdapterAdminDistributionProxyWebServiceSecuredImpl implements Adapt
 
         if (NullChecker.isNotNullish(url)) {
             try {
-                RespondingGatewaySendAlertMessageSecuredType message = 
-                        new RespondingGatewaySendAlertMessageSecuredType();
+                RespondingGatewaySendAlertMessageSecuredType message = new RespondingGatewaySendAlertMessageSecuredType();
                 message.setEDXLDistribution(body);
 
-                ServicePortDescriptor<AdapterAdministrativeDistributionSecuredPortType> portDescriptor = 
-                        new AdapterAdminDistributionSecuredServicePortDescriptor();
+                ServicePortDescriptor<AdapterAdministrativeDistributionSecuredPortType> portDescriptor = new AdapterAdminDistributionSecuredServicePortDescriptor();
 
                 CONNECTClient<AdapterAdministrativeDistributionSecuredPortType> client = getCONNECTClientSecured(
                         portDescriptor, url, assertion);
