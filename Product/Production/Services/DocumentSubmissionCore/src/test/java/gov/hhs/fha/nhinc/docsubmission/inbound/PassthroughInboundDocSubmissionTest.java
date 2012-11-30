@@ -26,12 +26,16 @@
  */
 package gov.hhs.fha.nhinc.docsubmission.inbound;
 
+import java.lang.reflect.Method;
+
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
+import gov.hhs.fha.nhinc.aspect.InboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.docsubmission.DocSubmissionUtils;
 import gov.hhs.fha.nhinc.docsubmission.XDRAuditLogger;
 import gov.hhs.fha.nhinc.docsubmission.adapter.proxy.AdapterDocSubmissionProxy;
 import gov.hhs.fha.nhinc.docsubmission.adapter.proxy.AdapterDocSubmissionProxyObjectFactory;
+import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionBaseEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.largefile.LargePayloadException;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 
@@ -41,6 +45,7 @@ import org.apache.commons.logging.Log;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.eq;
@@ -117,6 +122,19 @@ public class PassthroughInboundDocSubmissionTest {
 
         verify(auditLogger).auditNhinXDRResponse(eq(actualResponse), eq(assertion),
                 eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION));
+    }
+    
+    @Test
+    public void hasInboundProcessingEvent() throws Exception {
+        Class<PassthroughInboundDocSubmission> clazz = PassthroughInboundDocSubmission.class;
+        Method method = clazz.getMethod("documentRepositoryProvideAndRegisterDocumentSetB", 
+                ProvideAndRegisterDocumentSetRequestType.class, AssertionType.class);
+        InboundProcessingEvent annotation = method.getAnnotation(InboundProcessingEvent.class);
+        assertNotNull(annotation);
+        assertEquals(DocSubmissionBaseEventDescriptionBuilder.class, annotation.beforeBuilder());
+        assertEquals(DocSubmissionBaseEventDescriptionBuilder.class, annotation.afterReturningBuilder());
+        assertEquals("Document Submission", annotation.serviceType());
+        assertEquals("", annotation.version());
     }
 
 }
