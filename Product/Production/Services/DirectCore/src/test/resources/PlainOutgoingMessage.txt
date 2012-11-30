@@ -4,7 +4,7 @@ Subject: I-D ACTION:draft-ietf-mailext-pipeline-01.txt
 Date: Thu, 05 Jan 95 10:53:24 -0500
 Message-ID: <9501051053.aa04167@IETF.CNR I.Reston.VA.US>
 Mime-Version: 1.0
-Content-type: Multipart/Mixed; boundary="NextPart"
+Content-type: multipart/Mixed; boundary="NextPart"
 
 --NextPart
 

@@ -13,6 +13,8 @@ import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import gov.hhs.fha.nhinc.direct.edge.proxy.DirectEdgeProxy;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Properties;
@@ -155,55 +157,29 @@ public abstract class AbstractDirectMailClientTest {
         verifyOutboundMessageSent();
     }
     
-    /**
-     * This test is intended to simulate the end-to-end send, receive and MDN of a direct mail send use case, with SMTP edge
-     * clients on the sending and receiving side. Currently it does not run because Greenmail does not support the 
-     * envelope fetching part of the IMAP spec.
-     * @param smtpAgent 
-     * @param outboundDirectClient 
-     * @throws UserException when the test fails with a user exception.
-     * @throws MessagingException when the test fails with a MessagingException.
-     */
-    protected void processDirectMessage(DirectMailClient inboundDirectClient, DirectMailClient outboundDirectClient, int respondingEdgeType) throws UserException, MessagingException {    	
-    	
-        /*
-         * Responding Gateway...
-         */
+    protected DirectClient getInternalDirectClient(Properties props) {
+        SmtpAgent smtpAgent = getSmtpAgent();
         
-        // create a real outbound Message Handler
-        InboundMessageHandler inboundMessageHandler = new InboundMessageHandler();
-        inboundMessageHandler.setEdgeClientType(respondingEdgeType);
-        inboundMessageHandler.setInternalDirectClient(inboundDirectClient);
-        
-        // we can use the same greenmail as external direct client
-        outboundDirectClient.setMessageHandler(inboundMessageHandler);
-        outboundDirectClient.handleMessages();
-        DirectUnitTestUtil.expungeMissedMessages(greenMail, recipUser);
-        
-        // verify that the decrypted message is available on the mail client
-        if (respondingEdgeType == InboundMessageHandler.EDGE_CLIENT_TYPE_SMTP) {
-        	verifySmtpEdgeMessage();
-        	verifyOutboundMdn();
-        } else {
-        	// need a way to verify soap
-        }
+        return new DirectMailClient(props, smtpAgent);
     }
     
     /**
      * Set up direct clients using props.
      * @param props to use.
      */
-    protected void setUpDirectClients(Properties props) {
+    protected void setUpDirectClients(Properties props, final DirectEdgeProxy proxy) {
         
-        SmtpAgent smtpAgent = SmtpAgentFactory.createAgent(getClass().getClassLoader().getResource(
-                "smtp.agent.config.xml"));
+        SmtpAgent smtpAgent = getSmtpAgent();
 
         extDirectClient = new DirectMailClient(props, smtpAgent);
         intDirectClient = new DirectMailClient(props, smtpAgent);
 
-        InboundMessageHandler inboundMessageHandler = new InboundMessageHandler();
-        inboundMessageHandler.setEdgeClientType(InboundMessageHandler.EDGE_CLIENT_TYPE_SMTP);
-        inboundMessageHandler.setInternalDirectClient(intDirectClient);
+        InboundMessageHandler inboundMessageHandler = new InboundMessageHandler() {
+            @Override
+            protected DirectEdgeProxy getDirectEdgeProxy() {
+                return proxy;
+            }
+        };
         extDirectClient.setMessageHandler(inboundMessageHandler);
 
         OutboundMessageHandler outboundMessageHandler = new OutboundMessageHandler();
@@ -227,6 +203,10 @@ public abstract class AbstractDirectMailClientTest {
             fail(e.getMessage());
         }
     }
+    
+    protected void verifySoapEdgeMessage() throws MessagingException {
+        
+     }
     
     protected void verifyOutboundMessageSent() throws MessagingException {
     	verifyMessage(1, encryptedContentType, RECIP_AT_RESPONDING_GW, SENDER_AT_INITIATING_GW);
