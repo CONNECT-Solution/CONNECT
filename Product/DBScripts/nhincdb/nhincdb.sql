@@ -334,6 +334,7 @@ CREATE TABLE transrepo.transactionrepository (
     messageId VARCHAR(100) NOT NULL,
     time TIMESTAMP NULL,
     PRIMARY KEY (id),
+    INDEX messageId_idx (messageId),
     UNIQUE transID_UNIQUE (transactionId, messageId) )
 COMMENT = 'Message Transaction Repository';
 
