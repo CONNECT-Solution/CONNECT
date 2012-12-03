@@ -12,8 +12,8 @@ import static org.junit.Assert.fail;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-
 import gov.hhs.fha.nhinc.direct.edge.proxy.DirectEdgeProxy;
+import gov.hhs.fha.nhinc.event.EventManager;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -119,6 +119,8 @@ public abstract class AbstractDirectMailClientTest {
         if (greenMail != null) {
             greenMail.stop();
         }
+    
+        EventManager.getInstance().deleteObservers();
     }
     
     protected SmtpAgent getSmtpAgent() {

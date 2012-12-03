@@ -39,6 +39,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.nhindirect.gateway.smtp.MessageProcessResult;
 import org.nhindirect.stagent.AddressSource;
+import org.nhindirect.stagent.MessageEnvelope;
 import org.nhindirect.stagent.NHINDAddress;
 import org.nhindirect.stagent.NHINDAddressCollection;
 import org.nhindirect.stagent.mail.notifications.NotificationMessage;
@@ -138,12 +139,16 @@ public class DirectClientUtils {
     }
     
     /**
-     * @param message to be tested.
-     * @return true if the message is an MDN Notification.
+     * @param message envelope to be tested.
+     * @return true if the envelope exists, the message exists and is an MDN Notification.
      * @throws MessagingException 
      */
-    public static boolean isMdn(MimeMessage message) { 
+    public static boolean isMdn(MessageEnvelope envelope) { 
         try {
+            if (envelope == null) {
+                return false;
+            }
+            MimeMessage message = envelope.getMessage();
             return (message != null ? message.getContentType().toUpperCase().contains(MDN_CONTENT_TYPE) : false);
         } catch (MessagingException e) {
             throw new DirectException("Error checking for MDN.", e);

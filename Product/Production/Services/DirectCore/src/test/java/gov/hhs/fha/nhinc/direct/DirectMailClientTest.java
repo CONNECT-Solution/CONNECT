@@ -44,6 +44,7 @@ import gov.hhs.fha.nhinc.event.Event;
 import gov.hhs.fha.nhinc.event.EventLogger;
 import gov.hhs.fha.nhinc.event.EventLoggerFactory;
 import gov.hhs.fha.nhinc.event.EventManager;
+import gov.hhs.fha.nhinc.event.Log4jEventLogger;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -176,6 +177,7 @@ public class DirectMailClientTest extends AbstractDirectMailClientTest {
      * 
      * @throws UserException when the test fails with a user exception.
      * @throws MessagingException when the test fails with a MessagingException.
+     * @throws InterruptedException 
      */
     private void canEndToEndWithSmtpEdgeClients() throws UserException, MessagingException {
 
@@ -216,14 +218,14 @@ public class DirectMailClientTest extends AbstractDirectMailClientTest {
             
             public Void answer(InvocationOnMock invocation) throws Throwable {
 
-                Event event = (Event) invocation.getArguments()[1];                           
+                Event event = (Event) invocation.getArguments()[1];                
                 triggeredEvents.add(event);
                 
                 return null;
             }
         }).when(mockEventLogger).update(Mockito.isA(EventManager.class), Mockito.isA(Event.class));
 
-        loggerFactory.setLoggers(ImmutableList.of(mockEventLogger));
+        loggerFactory.setLoggers(ImmutableList.of(mockEventLogger, new Log4jEventLogger()));
         loggerFactory.registerLoggers();
         
         canEndToEndWithSmtpEdgeClients();
@@ -247,11 +249,12 @@ public class DirectMailClientTest extends AbstractDirectMailClientTest {
         
         // extra MDN generated (Greenmail quirk)
         assertTriggered(10, DirectEventType.BEGIN_INBOUND_MDN, triggeredEvents);
-        assertTriggered(11, DirectEventType.END_INBOUND_MDN, triggeredEvents);
-
+        assertTriggered(11, DirectEventType.END_INBOUND_MDN, triggeredEvents);        
     }
     
     private void assertTriggered(int index, DirectEventType eventType, List<Event> events) {
-        assertEquals(eventType.toString(), events.get(index).getEventName());        
+        Event event = events.get(index);
+        assertEquals("Event at index: " + index + " --> " + event.getDescription(), eventType.toString(),
+                event.getEventName());
     }
 }

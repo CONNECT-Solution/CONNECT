@@ -70,12 +70,8 @@ public class InboundMessageHandler implements MessageHandler {
         }
 
         MessageEnvelope processedEnvelope = result.getProcessedMessage();
-        if (processedEnvelope == null) {
-            logNotfications(result);
-            return;
-        }
 
-        boolean isMdn = DirectClientUtils.isMdn(processedEnvelope.getMessage());
+        boolean isMdn = DirectClientUtils.isMdn(processedEnvelope);
         if (isMdn) {
             DirectEventLogger.getInstance().log(DirectEventType.BEGIN_INBOUND_MDN, message);
         } else {
@@ -83,6 +79,12 @@ public class InboundMessageHandler implements MessageHandler {
         }
 
         externalDirectClient.sendMdn(result);
+
+        if (result.getProcessedMessage() == null) {
+            logNotfications(result);
+            return;
+        }
+        
         DirectEdgeProxy proxy = getDirectEdgeProxy();
         proxy.provideAndRegisterDocumentSetB(processedEnvelope);
         
@@ -92,8 +94,8 @@ public class InboundMessageHandler implements MessageHandler {
             DirectEventLogger.getInstance().log(DirectEventType.END_INBOUND_DIRECT, message);            
         }
 
-    }        
-
+    }    
+    
     /**
      * @return DirectEdgeProxy implementation to handle the direct edge
      */
@@ -101,7 +103,7 @@ public class InboundMessageHandler implements MessageHandler {
         DirectEdgeProxyObjectFactory factory = new DirectEdgeProxyObjectFactory();
         return factory.getDirectEdgeProxy();
     }
-
+    
     /**
      * Log any notification messages that were produced by direct processing.
      * 

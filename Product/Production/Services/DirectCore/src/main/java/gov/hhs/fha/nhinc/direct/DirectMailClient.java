@@ -149,8 +149,9 @@ public class DirectMailClient implements DirectClient, InitializingBean {
 
         int numberOfMsgsHandled = 0;
         handlerInvocations++;
-        LOG.info("handleMessages() invoked [" + mailServerProps.getProperty("mail.imaps.host") + "], handler: "
-                + messageHandler.getClass().getName() + ", invocation count: " + handlerInvocations);
+        LOG.info("handleMessages() invoked, (" + this.hashCode() + " : " + Thread.currentThread().getId() + "), ["
+                + mailServerProps.getProperty("mail.imaps.host") + "], handler: " + messageHandler.getClass().getName()
+                + ", invocation count: " + handlerInvocations);
 
         Session session = getMailSession();
         session.setDebug(Boolean.parseBoolean(mailServerProps.getProperty("direct.mail.session.debug")));
