@@ -26,37 +26,21 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery._10.deferred.request;
 
-import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
-import gov.hhs.fha.nhinc.patientdiscovery.nhin.deferred.request.NhinPatientDiscoveryDeferredReqOrchFactory;
+import gov.hhs.fha.nhinc.patientdiscovery.inbound.deferred.request.InboundPatientDiscoveryDeferredRequest;
 
-import javax.xml.ws.WebServiceContext;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PRPAIN201305UV02;
 
-/**
- * 
- * @author JHOPPESC
- */
-public class NhinPatientDiscoveryAsyncReqImpl {
+public class NhinPatientDiscoveryDeferredRequestImpl {
 
-    private static Log log = LogFactory.getLog(NhinPatientDiscoveryAsyncReqImpl.class);
+    private InboundPatientDiscoveryDeferredRequest inboundPatientDiscoveryRequest;
 
-    public MCCIIN000002UV01 respondingGatewayPRPAIN201305UV02(PRPAIN201305UV02 request, WebServiceContext context) {
-        AssertionType assertion = SAML2AssertionExtractor.getInstance().extractSamlAssertion(context);
+    public NhinPatientDiscoveryDeferredRequestImpl(InboundPatientDiscoveryDeferredRequest inboundPatientDiscoveryRequest) {
+        this.inboundPatientDiscoveryRequest = inboundPatientDiscoveryRequest;
+    }
 
-        // Extract the message id value from the WS-Addressing Header and place it in the Assertion Class
-        if (assertion != null) {
-            assertion.setMessageId(AsyncMessageIdExtractor.getOrCreateAsyncMessageId(context));
-        }
-
-        MCCIIN000002UV01 resp = NhinPatientDiscoveryDeferredReqOrchFactory.getInstance().create()
-                .respondingGatewayPRPAIN201305UV02(request, assertion);
-
-        return resp;
+    public MCCIIN000002UV01 respondingGatewayPRPAIN201305UV02(PRPAIN201305UV02 request, AssertionType assertion) {
+        return inboundPatientDiscoveryRequest.respondingGatewayPRPAIN201305UV02(request, assertion);
     }
 }
