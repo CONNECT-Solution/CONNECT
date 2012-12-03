@@ -34,13 +34,24 @@ import javax.mail.internet.MimeMessage;
  * Implements event logging for direct.
  */
 public class DirectEventLogger {
-
-    private final EventManager eventManager;
     
+    private final EventManager eventManager;    
+    
+    private static class SingletonHolder { 
+        public static final DirectEventLogger INSTANCE = new DirectEventLogger();
+    }
+
+    /**
+     * @return singleton instance of DirectEventLogger.
+     */
+    public static DirectEventLogger getInstance() {
+        return SingletonHolder.INSTANCE;
+    }
+
     /**
      * Construct a Direct Event Logger using singleton event manager.
      */
-    public DirectEventLogger() {
+    private DirectEventLogger() {
         this.eventManager = EventManager.getInstance();
     }
 
@@ -76,5 +87,14 @@ public class DirectEventLogger {
     public void log(DirectEventType type, MimeMessage message, String errorMsg) {
         eventManager.recordEvent(new DirectEvent.Builder().mimeMessage(message).errorMsg(errorMsg).build(type)); 
     }
-    
+
+    /**
+     * Log a success or failed direct event using event logger.
+     * @param type direct event type.
+     * @param errorMsg optional error message - if not null status = error.
+     */
+    public void log(DirectEventType type, String errorMsg) {
+        eventManager.recordEvent(new DirectEvent.Builder().errorMsg(errorMsg).build(type)); 
+    }
+
 }

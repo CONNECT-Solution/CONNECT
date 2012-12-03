@@ -33,23 +33,35 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
+import static org.mockito.Mockito.doAnswer;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-
 import gov.hhs.fha.nhinc.direct.edge.proxy.DirectEdgeProxySmtpImpl;
+import gov.hhs.fha.nhinc.direct.event.DirectEventType;
+import gov.hhs.fha.nhinc.event.Event;
+import gov.hhs.fha.nhinc.event.EventLogger;
+import gov.hhs.fha.nhinc.event.EventLoggerFactory;
+import gov.hhs.fha.nhinc.event.EventManager;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
 import org.junit.Test;
+import org.mockito.Mockito;
+import org.mockito.invocation.InvocationOnMock;
+import org.mockito.stubbing.Answer;
 import org.nhindirect.gateway.smtp.MessageProcessResult;
 import org.nhindirect.stagent.NHINDAddress;
 import org.nhindirect.stagent.NHINDAddressCollection;
 import org.nhindirect.stagent.mail.Message;
 
+import com.google.common.collect.ImmutableList;
 import com.icegreen.greenmail.user.UserException;
 
 /**
@@ -165,8 +177,7 @@ public class DirectMailClientTest extends AbstractDirectMailClientTest {
      * @throws UserException when the test fails with a user exception.
      * @throws MessagingException when the test fails with a MessagingException.
      */
-    @Test
-    public void canEndToEndWithSmtpEdgeClients() throws UserException, MessagingException {
+    private void canEndToEndWithSmtpEdgeClients() throws UserException, MessagingException {
 
         deliverMessage("PlainOutgoingMessage.txt");
         verifySmtpEdgeMessage();
@@ -192,5 +203,55 @@ public class DirectMailClientTest extends AbstractDirectMailClientTest {
         handleMessages(extDirectClient, 2, senderUser);
         verifyInboundMdn();
     }
+    
+    @Test
+    public void canLogEventsDuringEndToEnd() throws UserException, MessagingException {
+        
+        final EventLoggerFactory loggerFactory = new EventLoggerFactory(EventManager.getInstance());        
+        final EventLogger mockEventLogger = mock(EventLogger.class);
+        final List<Event> triggeredEvents = new ArrayList<Event>();
+        
+        // mock up the first callback to serviceB:
+        doAnswer(new Answer<Void>(){
+            
+            public Void answer(InvocationOnMock invocation) throws Throwable {
 
+                Event event = (Event) invocation.getArguments()[1];                           
+                triggeredEvents.add(event);
+                
+                return null;
+            }
+        }).when(mockEventLogger).update(Mockito.isA(EventManager.class), Mockito.isA(Event.class));
+
+        loggerFactory.setLoggers(ImmutableList.of(mockEventLogger));
+        loggerFactory.registerLoggers();
+        
+        canEndToEndWithSmtpEdgeClients();
+        
+        // verify that the events were fired in order.
+        assertTriggered(0, DirectEventType.BEGIN_OUTBOUND_DIRECT, triggeredEvents);
+        assertTriggered(1, DirectEventType.END_OUTBOUND_DIRECT, triggeredEvents);
+
+        assertTriggered(2, DirectEventType.BEGIN_OUTBOUND_MDN, triggeredEvents);
+        assertTriggered(3, DirectEventType.END_OUTBOUND_MDN, triggeredEvents);
+
+        // extra MDN generated (Greenmail quirk)
+        assertTriggered(4, DirectEventType.BEGIN_OUTBOUND_MDN, triggeredEvents);
+        assertTriggered(5, DirectEventType.END_OUTBOUND_MDN, triggeredEvents);
+
+        assertTriggered(6, DirectEventType.BEGIN_INBOUND_DIRECT, triggeredEvents);
+        assertTriggered(7, DirectEventType.END_INBOUND_DIRECT, triggeredEvents);
+        
+        assertTriggered(8, DirectEventType.BEGIN_INBOUND_MDN, triggeredEvents);
+        assertTriggered(9, DirectEventType.END_INBOUND_MDN, triggeredEvents);
+        
+        // extra MDN generated (Greenmail quirk)
+        assertTriggered(10, DirectEventType.BEGIN_INBOUND_MDN, triggeredEvents);
+        assertTriggered(11, DirectEventType.END_INBOUND_MDN, triggeredEvents);
+
+    }
+    
+    private void assertTriggered(int index, DirectEventType eventType, List<Event> events) {
+        assertEquals(eventType.toString(), events.get(index).getEventName());        
+    }
 }

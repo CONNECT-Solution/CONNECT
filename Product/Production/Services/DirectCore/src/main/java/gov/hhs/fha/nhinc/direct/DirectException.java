@@ -26,6 +26,11 @@
  */
 package gov.hhs.fha.nhinc.direct;
 
+import gov.hhs.fha.nhinc.direct.event.DirectEventLogger;
+import gov.hhs.fha.nhinc.direct.event.DirectEventType;
+
+import javax.mail.internet.MimeMessage;
+
 
 /**
  * Exceptions for {@link MimeMessageBuilder}.
@@ -33,6 +38,19 @@ package gov.hhs.fha.nhinc.direct;
 public class DirectException extends RuntimeException {
 
     private static final long serialVersionUID = 4636463959045310435L;
+
+    
+    /**
+     * Constructor.
+     * 
+     * @param message for the exception
+     * @param cause chained exception
+     * @param mimeMessage associated with the exception for event logging.
+     */
+    public DirectException(String message, Throwable cause, MimeMessage mimeMessage) {
+        super(message, cause);
+        getDirectEventLogger().log(DirectEventType.DIRECT_ERROR, mimeMessage, message);
+    }
 
     /**
      * Constructor.
@@ -42,6 +60,7 @@ public class DirectException extends RuntimeException {
      */
     public DirectException(String message, Throwable cause) {
         super(message, cause);
+        getDirectEventLogger().log(DirectEventType.DIRECT_ERROR, message);
     }
 
     /**
@@ -51,5 +70,10 @@ public class DirectException extends RuntimeException {
      */
     public DirectException(String message) {
         super(message);
+        getDirectEventLogger().log(DirectEventType.DIRECT_ERROR, message);
+    }
+    
+    private DirectEventLogger getDirectEventLogger() {
+        return DirectEventLogger.getInstance();
     }
 }

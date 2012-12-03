@@ -61,19 +61,19 @@ public class DirectEventTest {
     @Test
     public void canCreateDirectEvent() {
         DirectEvent testDirectEvent = new DirectEvent.Builder().mimeMessage(mockMimeMessage).build(
-                DirectEventType.OUTBOUND_DIRECT);
+                DirectEventType.BEGIN_OUTBOUND_DIRECT);
         verifyEventFields(testDirectEvent, "success", null); 
     }
     
     @Test
     public void canCreateFailedDirectEvent() {
         DirectEvent testDirectEvent = new DirectEvent.Builder().mimeMessage(mockMimeMessage).errorMsg(ERROR_MSG)
-                .build(DirectEventType.OUTBOUND_DIRECT);        
+                .build(DirectEventType.BEGIN_OUTBOUND_DIRECT);        
         verifyEventFields(testDirectEvent, "error", ERROR_MSG); 
     }
 
     private void verifyEventFields(DirectEvent event, String status, String errorMsg) {
-        String eventName = DirectEventType.OUTBOUND_DIRECT.toString();
+        String eventName = DirectEventType.BEGIN_OUTBOUND_DIRECT.toString();
         assertEquals(eventName, event.getEventName());
         assertEquals(MSG_ID, event.getMessageID());
         assertJsonStrContains(event.getDescription(), "\"action\":\"" + eventName);

@@ -70,7 +70,6 @@ public class DirectMailClient implements DirectClient, InitializingBean {
     private MessageHandler messageHandler;
 
     private int handlerInvocations = 0;
-    private DirectEventLogger eventLogger = new DirectEventLogger();
 
     /**
      * Construct a direct mail server with mail server settings.
@@ -96,8 +95,7 @@ public class DirectMailClient implements DirectClient, InitializingBean {
             message = new MimeMessageBuilder(session, sender, recipients).subject(MSG_SUBJECT).text(MSG_TEXT)
                     .documents(documents).messageId(messageId).build();
         } catch (Exception e) {
-            eventLogger.logException(DirectEventType.OUTBOUND_DIRECT, message, e);
-            throw e;
+            throw new DirectException("Error building mime message.", e, message);
         }
         processAndSend(message);
         
@@ -108,13 +106,9 @@ public class DirectMailClient implements DirectClient, InitializingBean {
      */
     @Override
     public void processAndSend(MimeMessage message) {
-        try {
-            processAndSend(message, getMailSession());
-            eventLogger.log(DirectEventType.OUTBOUND_DIRECT, message);
-        } catch (Exception e) {
-            eventLogger.logException(DirectEventType.OUTBOUND_DIRECT, message, e);
-            throw e;
-        }
+        DirectEventLogger.getInstance().log(DirectEventType.BEGIN_OUTBOUND_DIRECT, message);
+        processAndSend(message, getMailSession());
+        DirectEventLogger.getInstance().log(DirectEventType.END_OUTBOUND_DIRECT, message);
     }
 
     /**
@@ -139,13 +133,9 @@ public class DirectMailClient implements DirectClient, InitializingBean {
         if (mdnMessages != null) {
             Session session = getMailSession();
             for (NotificationMessage mdnMessage : mdnMessages) {
-                try {
-                    processAndSend(mdnMessage, session);
-                    eventLogger.log(DirectEventType.OUTBOUND_MDN, mdnMessage);
-                } catch (Exception e) {
-                    eventLogger.logException(DirectEventType.OUTBOUND_MDN, mdnMessage, e);
-                    throw e;
-                }
+                DirectEventLogger.getInstance().log(DirectEventType.BEGIN_OUTBOUND_MDN, mdnMessage);
+                processAndSend(mdnMessage, session);
+                DirectEventLogger.getInstance().log(DirectEventType.END_OUTBOUND_MDN, mdnMessage);
                 LOG.info("MDN notification sent.");
             }
         }
@@ -156,15 +146,6 @@ public class DirectMailClient implements DirectClient, InitializingBean {
      */
     @Override
     public int handleMessages() {
-        try {
-            return pollAndhandleMessages();
-        } catch (Exception e) {
-            eventLogger.logException(DirectEventType.DIRECT_ERROR, null, e);
-            throw e;
-        }
-    }
-
-    public int pollAndhandleMessages() {
 
         int numberOfMsgsHandled = 0;
         handlerInvocations++;
@@ -241,20 +222,6 @@ public class DirectMailClient implements DirectClient, InitializingBean {
     }
     
     /**
-     * @return the eventLogger
-     */
-    protected DirectEventLogger getEventLogger() {
-        return eventLogger;
-    }
-
-    /**
-     * @param eventLogger the eventLogger to set
-     */
-    public void setEventLogger(DirectEventLogger eventLogger) {
-        this.eventLogger = eventLogger;
-    }
-
-    /**
      * {@inheritDoc}
      */
     @Override
@@ -313,4 +280,5 @@ public class DirectMailClient implements DirectClient, InitializingBean {
 
         return numberOfMsgsInFolder < maxNumberOfMsgsToHandle ? numberOfMsgsInFolder : maxNumberOfMsgsToHandle;
     }
+    
 }

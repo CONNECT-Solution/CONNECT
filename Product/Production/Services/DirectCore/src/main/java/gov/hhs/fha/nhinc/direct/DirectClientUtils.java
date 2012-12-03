@@ -48,6 +48,7 @@ import org.nhindirect.stagent.mail.notifications.NotificationMessage;
  */
 public class DirectClientUtils {
 
+    private static final String MDN_CONTENT_TYPE = "DISPOSITION-NOTIFICATION";
     private static final Log LOG = LogFactory.getLog(DirectClientUtils.class);
     
     /**
@@ -141,9 +142,9 @@ public class DirectClientUtils {
      * @return true if the message is an MDN Notification.
      * @throws MessagingException 
      */
-    protected static boolean isMdn(MimeMessage message) { 
+    public static boolean isMdn(MimeMessage message) { 
         try {
-            return message.getContentType().contains("disposition-notification");
+            return (message != null ? message.getContentType().toUpperCase().contains(MDN_CONTENT_TYPE) : false);
         } catch (MessagingException e) {
             throw new DirectException("Error checking for MDN.", e);
         }

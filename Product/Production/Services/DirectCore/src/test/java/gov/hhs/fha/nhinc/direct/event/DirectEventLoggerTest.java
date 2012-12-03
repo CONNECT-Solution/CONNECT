@@ -37,14 +37,14 @@ public class DirectEventLoggerTest extends DirectEventTest {
 
     private static final String ERROR_MESSAGE = "I've got blisters on me fingers...";
     
-    private DirectEventLogger testLogger = new DirectEventLogger();
+    private DirectEventLogger testLogger = DirectEventLogger.getInstance();
     
     /**
      * {@link DirectEventLogger#log(DirectEventType, javax.mail.internet.MimeMessage)}
      */
     @Test
     public void canLogSuccess() {
-        testLogger.log(DirectEventType.OUTBOUND_DIRECT, mockMimeMessage);
+        testLogger.log(DirectEventType.BEGIN_OUTBOUND_DIRECT, mockMimeMessage);
     }
 
     /**
@@ -52,7 +52,7 @@ public class DirectEventLoggerTest extends DirectEventTest {
      */
     @Test
     public void canLogError() {
-        testLogger.log(DirectEventType.INBOUND_DIRECT, mockMimeMessage, ERROR_MESSAGE);
+        testLogger.log(DirectEventType.DIRECT_ERROR, mockMimeMessage, ERROR_MESSAGE);
     }
 
     /**
@@ -60,7 +60,7 @@ public class DirectEventLoggerTest extends DirectEventTest {
      */
     @Test
     public void canLogException() {
-        testLogger.logException(DirectEventType.INBOUND_MDN, mockMimeMessage, new DirectException(ERROR_MESSAGE));
+        testLogger.logException(DirectEventType.DIRECT_ERROR, mockMimeMessage, new DirectException(ERROR_MESSAGE));
     }
 
 }
