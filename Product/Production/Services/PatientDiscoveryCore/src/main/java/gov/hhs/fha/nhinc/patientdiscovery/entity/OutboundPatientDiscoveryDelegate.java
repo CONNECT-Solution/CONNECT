@@ -74,8 +74,10 @@ public class OutboundPatientDiscoveryDelegate implements OutboundDelegate {
     public OutboundPatientDiscoveryOrchestratable process(OutboundPatientDiscoveryOrchestratable message) {
         getLogger().debug("NhinPatientDiscoveryDelegate::process EntityPatientDiscoveryOrchestratable");
 
-        OutboundPatientDiscoveryOrchestrationContextBuilder contextBuilder = (OutboundPatientDiscoveryOrchestrationContextBuilder) OrchestrationContextFactory
-                .getInstance().getBuilder(message.getTarget().getHomeCommunity(), NhincConstants.NHIN_SERVICE_NAMES.PATIENT_DISCOVERY);
+        AbstractOutboundPatientDiscoveryOrchestrationContextBuilder contextBuilder = 
+                (AbstractOutboundPatientDiscoveryOrchestrationContextBuilder) OrchestrationContextFactory
+                .getInstance().getBuilder(message.getTarget().getHomeCommunity(), 
+                        NhincConstants.NHIN_SERVICE_NAMES.PATIENT_DISCOVERY);
 
         contextBuilder.setAssertionType(message.getAssertion());
         contextBuilder.setRequest(message.getRequest());

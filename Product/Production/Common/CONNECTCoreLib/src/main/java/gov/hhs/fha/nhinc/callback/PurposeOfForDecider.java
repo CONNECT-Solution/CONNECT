@@ -26,12 +26,10 @@
  */
 package gov.hhs.fha.nhinc.callback;
 
-import java.util.Map;
-
+import gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties;
 import gov.hhs.fha.nhinc.callback.purposeuse.PurposeUseProxy;
 import gov.hhs.fha.nhinc.callback.purposeuse.PurposeUseProxyObjectFactory;
 import gov.hhs.fha.nhinc.connectmgr.NhinEndpointManager;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.NHIN_SERVICE_NAMES;
 
@@ -54,16 +52,16 @@ public class PurposeOfForDecider {
         return purposeFactory.getPurposeUseProxy();
     }
 
-    public boolean isPurposeFor(Map<Object, Object> tokenVals) {
+    public boolean isPurposeFor(CallbackProperties properties) {
         // determine 2010 vs 2011 spec version
-        GATEWAY_API_LEVEL apiLevel = (GATEWAY_API_LEVEL) tokenVals.get(NhincConstants.TARGET_API_LEVEL);
-        String hcid = (String) tokenVals.get(NhincConstants.WS_SOAP_TARGET_HOME_COMMUNITY_ID);
-        String action = (String) tokenVals.get(NhincConstants.ACTION_PROP);
+        GATEWAY_API_LEVEL apiLevel = (GATEWAY_API_LEVEL) properties.getTargetApiLevel();
+        String hcid = (String) properties.getTargetHomeCommunityId();
+        String action = (String) properties.getAction();
         NHIN_SERVICE_NAMES serviceName = null;
         try {
             serviceName = NHIN_SERVICE_NAMES.fromValueString(action);// AddressingActionToServiceNameMapping.get(action);
         } catch (IllegalArgumentException exc) {
-            throw new IllegalArgumentException("Service name from " + NhincConstants.ACTION_PROP
+            throw new IllegalArgumentException("Service name from " + properties.getAction()
                     + " key was not a valid NHIN Service Name.", exc);
         }
         boolean purposeFor = false;
@@ -75,7 +73,7 @@ public class PurposeOfForDecider {
 
         if (GATEWAY_API_LEVEL.LEVEL_g0 == apiLevel) {
             PurposeUseProxy purposeUse = getPurposeUseProxyObjectFactory();
-            purposeFor = purposeUse.createPurposeUseElement(tokenVals);
+            purposeFor = purposeUse.isPurposeForUseEnabled(properties);
         }
         return purposeFor;
     }
