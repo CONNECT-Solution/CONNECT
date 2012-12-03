@@ -29,7 +29,6 @@ package gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws;
 import gov.hhs.fha.nhinc.aspect.InboundMessageEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.messaging.server.BaseService;
-import gov.hhs.fha.nhinc.patientdiscovery.NhinPatientDiscoveryImpl;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryException;
 import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201305UV02EventDescriptionBuilder;
 import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201306UV02EventDescriptionBuilder;
@@ -45,7 +44,6 @@ import javax.xml.ws.soap.Addressing;
 
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
-
 
 @Addressing(enabled = true)
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
@@ -69,16 +67,14 @@ public class NhinPatientDiscovery extends BaseService implements RespondingGatew
      * @return the Patient discovery Response
      * @throws PRPAIN201305UV02Fault a fault if there's an exception
      */
-    @InboundMessageEvent(beforeBuilder = PRPAIN201305UV02EventDescriptionBuilder.class,
-            afterReturningBuilder = PRPAIN201306UV02EventDescriptionBuilder.class, serviceType = "Patient Discovery",
-            version = "1.0")
-    public PRPAIN201306UV02 respondingGatewayPRPAIN201305UV02(PRPAIN201305UV02 body)
-            throws PRPAIN201305UV02Fault {
+    @InboundMessageEvent(beforeBuilder = PRPAIN201305UV02EventDescriptionBuilder.class, 
+            afterReturningBuilder = PRPAIN201306UV02EventDescriptionBuilder.class, 
+            serviceType = "Patient Discovery", version = "1.0")
+    public PRPAIN201306UV02 respondingGatewayPRPAIN201305UV02(PRPAIN201305UV02 body) throws PRPAIN201305UV02Fault {
         try {
             AssertionType assertion = getAssertion(context, null);
-            
-            return new NhinPatientDiscoveryImpl(inboundPatientDiscovery).respondingGatewayPRPAIN201305UV02(body,
-                    assertion);
+
+            return inboundPatientDiscovery.respondingGatewayPRPAIN201305UV02(body, assertion);
         } catch (PatientDiscoveryException e) {
             PatientDiscoveryFaultType type = new PatientDiscoveryFaultType();
             type.setErrorCode("920");
@@ -92,7 +88,7 @@ public class NhinPatientDiscovery extends BaseService implements RespondingGatew
     public void setContext(WebServiceContext context) {
         this.context = context;
     }
-    
+
     public void setInboundPatientDiscovery(InboundPatientDiscovery inboundPatientDiscovery) {
         this.inboundPatientDiscovery = inboundPatientDiscovery;
     }

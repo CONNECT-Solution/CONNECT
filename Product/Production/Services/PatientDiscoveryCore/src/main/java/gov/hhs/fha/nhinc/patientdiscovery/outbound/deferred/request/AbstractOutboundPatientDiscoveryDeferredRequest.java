@@ -24,23 +24,31 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws;
+package gov.hhs.fha.nhinc.patientdiscovery.outbound.deferred.request;
 
-import gov.hhs.fha.nhinc.patientdiscovery._10.deferred.response.NhinPatientDiscoveryAsyncRespImpl;
-import gov.hhs.fha.nhinc.patientdiscovery._10.entity.deferred.response.EntityPatientDiscoveryDeferredResponseImpl;
-import gov.hhs.fha.nhinc.patientdiscovery._10.passthru.deferred.response.NhincProxyPatientDiscoveryAsyncRespImpl;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditor;
 
-public class PatientDiscoveryServiceFactoryImpl implements PatientDiscoveryServiceFactory {
+import org.hl7.v3.MCCIIN000002UV01;
+import org.hl7.v3.PRPAIN201305UV02;
 
-    public NhinPatientDiscoveryAsyncRespImpl getNhinPatientDiscoveryAsyncRespImpl() {
-        return new NhinPatientDiscoveryAsyncRespImpl();
+/**
+ * @author akong
+ * 
+ */
+public abstract class AbstractOutboundPatientDiscoveryDeferredRequest implements
+        OutboundPatientDiscoveryDeferredRequest {
+
+    abstract PatientDiscoveryAuditor getPatientDiscoveryAuditor();
+
+    protected void auditRequestFromAdapter(PRPAIN201305UV02 request, AssertionType assertion) {
+        getPatientDiscoveryAuditor().auditNhinDeferred201305(request, assertion,
+                NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
     }
 
-    public EntityPatientDiscoveryDeferredResponseImpl getEntityPatientDiscoveryDeferredResponseImpl() {
-        return new EntityPatientDiscoveryDeferredResponseImpl();
-    }
-
-    public NhincProxyPatientDiscoveryAsyncRespImpl getNhincProxyPatientDiscoveryAsyncRespImpl() {
-        return new NhincProxyPatientDiscoveryAsyncRespImpl();
+    protected void auditResponseToAdapter(MCCIIN000002UV01 resp, AssertionType assertion) {
+        getPatientDiscoveryAuditor().auditAck(resp, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION,
+                NhincConstants.AUDIT_LOG_ENTITY_INTERFACE);
     }
 }

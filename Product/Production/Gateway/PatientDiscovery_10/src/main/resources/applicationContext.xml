@@ -17,7 +17,7 @@ http://www.springframework.org/schema/aop http://www.springframework.org/schema/
         <property name="locations">
             <list>
                 <value>classpath:patientdiscovery.properties</value>
-                <value>file://${nhinc.properties.dir}/gateway.properties</value>
+                <value>file:///${nhinc.properties.dir}/gateway.properties</value>
                 <value>classpath:patientdiscovery-test.properties</value>
             </list>
         </property>
@@ -44,7 +44,30 @@ http://www.springframework.org/schema/aop http://www.springframework.org/schema/
         </property>
     </bean>
     
-     <bean id="passthruPDRespOrchestrator"
+
+    <bean id="nhinPDReq"
+        class="gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.NhinPatientDiscoveryDeferredRequest">
+        <property name="inboundPatientDiscoveryRequest">
+            <bean class="${patientDiscovery.inboundPatientDiscoveryRequest}" />
+        </property>
+    </bean>
+    
+    <bean id="entityPDReqSecured"
+        class="gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.EntityPatientDiscoveryDeferredRequestSecured">
+        <property name="outboundPatientDiscoveryRequest">
+            <bean class="${patientDiscovery.outboundPatientDiscoveryRequest}" />
+        </property>
+    </bean>
+
+    <bean id="entityPDReqUnsecured"
+        class="gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.EntityPatientDiscoveryDeferredRequestUnsecured">
+        <property name="outboundPatientDiscoveryRequest">
+            <bean class="${patientDiscovery.outboundPatientDiscoveryRequest}" />
+        </property>
+    </bean>
+    
+    
+    <bean id="passthruPDRespOrchestrator"
         class="gov.hhs.fha.nhinc.patientdiscovery._10.passthru.deferred.response.NhincProxyPatientDiscoveryAsyncRespImpl" />
 
     <bean id="passthruPDRespSecured"
@@ -86,53 +109,7 @@ http://www.springframework.org/schema/aop http://www.springframework.org/schema/
         </property>
     </bean>
     
-    
-     <bean id="passthruPDReqOrchestrator"
-        class="gov.hhs.fha.nhinc.patientdiscovery._10.passthru.deferred.request.NhincProxyPatientDiscoveryDeferredRequestImpl" />
-
-    <bean id="passthruPDReqSecured"
-        class="gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.NhincProxyPatientDiscoveryDeferredRequestSecured">
-        <property name="orchestratorImpl">
-            <ref bean="passthruPDReqOrchestrator" />
-        </property>
-    </bean>
-
-    <bean id="passthruPDReqUnsecured"
-        class="gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.NhincProxyPatientDiscoveryDeferredRequestUnsecured">
-        <property name="orchestratorImpl">
-            <ref bean="passthruPDReqOrchestrator" />
-        </property>
-    </bean>
-    
-     <bean id="entityPDReqOrchestrator"
-        class="gov.hhs.fha.nhinc.patientdiscovery._10.entity.deferred.request.EntityPatientDiscoveryDeferredRequestImpl" />
-
-    <bean id="entityPDReqSecured"
-        class="gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.EntityPatientDiscoveryDeferredRequestSecured">
-        <property name="orchestratorImpl">
-            <ref bean="entityPDReqOrchestrator" />
-        </property>
-    </bean>
-
-    <bean id="entityPDReqUnsecured"
-        class="gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.EntityPatientDiscoveryDeferredRequestUnsecured">
-        <property name="orchestratorImpl">
-            <ref bean="entityPDReqOrchestrator" />
-        </property>
-    </bean>
-    
-    
-    
-    <bean id="nhinPDReqOrchestrator"
-        class="gov.hhs.fha.nhinc.patientdiscovery._10.deferred.request.NhinPatientDiscoveryAsyncReqImpl" />
-
-    <bean id="nhinPDReq"
-        class="gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.NhinPatientDiscoveryAsyncReq">
-        <property name="orchestratorImpl">
-            <ref bean="nhinPDReqOrchestrator" />
-        </property>
-    </bean>
-    
+        
     <bean id="SOAPHeaderHandler" class="gov.hhs.fha.nhinc.callback.SOAPHeaderHandler" />
     <bean id="TransactionHandler" class="gov.hhs.fha.nhinc.logging.transaction.TransactionHandler" />
     
