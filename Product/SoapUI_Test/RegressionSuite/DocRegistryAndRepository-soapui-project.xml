@@ -1,6 +1,7 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><con:soapui-project xmlns:con="http://eviware.com/soapui/config" abortOnError="false" name="DocRegistryAndRepository" resourceRoot="${projectDir}" runType="SEQUENTIAL" soapui-version="3.5.1">
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project abortOnError="false" name="DocRegistryAndRepository" resourceRoot="${projectDir}" runType="SEQUENTIAL" soapui-version="4.5.1" activeEnvironment="Default" xmlns:con="http://eviware.com/soapui/config">
 	<con:settings/>
-	<con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:ihe:iti:xds-b:2007}DocumentRepository_Binding" definition="WSDL path not set.  #AdapterComponentDocRepository.wsdl" name="DocumentRepository_Binding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
+	<con:interface anonymous="optional" bindingName="{urn:ihe:iti:xds-b:2007}DocumentRepository_Binding" definition="${ProjectDir}../ValidationSuite/target/wsdl/AdapterComponentDocRepository.wsdl" name="DocumentRepository_Binding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 		
 		<con:endpoints>
@@ -15,7 +16,7 @@
 		</con:operation>
 	</con:interface>
 	
-	<con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:ihe:iti:xds-b:2007}DocumentRegistry_Binding_Soap" definition="WSDL path not set.  #AdapterComponentDocRegistry.wsdl" name="DocumentRegistry_Binding_Soap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
+	<con:interface anonymous="optional" bindingName="{urn:ihe:iti:xds-b:2007}DocumentRegistry_Binding_Soap" definition="${ProjectDir}../ValidationSuite/target/wsdl/AdapterComponentDocRegistry.wsdl" name="DocumentRegistry_Binding_Soap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 		
 		<con:endpoints>
@@ -46,7 +47,7 @@
 			<con:testStep name="Clear Document" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('DocRepositoryDB') { sql -&gt; 
+					<script>context.withSql('DocRepositoryDB') { sql -> 
   def table = context.findProperty('DocumentTable')
   def col = context.findProperty('DocCol')
   def val = context.findProperty('DocVal')
@@ -63,11 +64,11 @@
 			</con:testStep>
 			<con:testStep name="Store Document" type="request">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:interface>DocumentRepository_Binding</con:interface>
 					<con:operation>DocumentRepository_ProvideAndRegisterDocumentSet-b</con:operation>
 					<con:request name="Store Document">
-						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting></con:settings>
+						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
 						<con:encoding>UTF-8</con:encoding>
 						<con:endpoint>${#Project#Endpoint-DocRepository}</con:endpoint>
 						<con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope">
@@ -318,7 +319,7 @@
 								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
 							</con:configuration>
 						</con:assertion>
-						<con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
+						<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
 						<con:wsrmConfig version="1.2"/>
 					</con:request>
 				</con:config>
@@ -326,7 +327,7 @@
 			<con:testStep name="Delete Document" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('DocRepositoryDB') { sql -&gt; 
+					<script>context.withSql('DocRepositoryDB') { sql -> 
   def table = context.findProperty('DocumentTable')
   def col = context.findProperty('DocCol')
   def val = context.findProperty('DocVal')
@@ -341,33 +342,33 @@
 					</script>
 				</con:config>
 			</con:testStep>
-			<con:properties>
+			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-08-24T16:54:06Z</con:value>
+					<con:value>2012-11-27T19:34:01Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-08-24T17:04:06Z</con:value>
+					<con:value>2012-11-27T19:44:01Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>08/24/2012 16:54:06</con:value>
+					<con:value>11/27/2012 19:34:01</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-09-23T00:00:00Z</con:value>
+					<con:value>2012-12-27T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
-			<con:tearDownScript/>
+			<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript>
 		</con:testCase>
 		<con:testCase failOnError="true" failTestCaseOnErrors="true" id="276bc324-fade-4c00-a205-45dd1d24092a" keepSession="false" maxResults="0" name="DocumentQueryTest" searchProperties="true">
 			<con:settings/>
 			<con:testStep name="Clear Documents" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('DocRepositoryDB') { sql -&gt; 
+					<script>context.withSql('DocRepositoryDB') { sql -> 
   def table = context.findProperty('DocumentTable')
   def col = context.findProperty('DocCol')
   def val = context.findProperty('DocVal1')
@@ -386,7 +387,7 @@
 			</con:testStep>
 			<con:testStep name="Store Document" type="request">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:interface>DocumentRepository_Binding</con:interface>
 					<con:operation>DocumentRepository_ProvideAndRegisterDocumentSet-b</con:operation>
 					<con:request name="Store Document">
@@ -643,14 +644,14 @@
 								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
 							</con:configuration>
 						</con:assertion>
-						<con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
+						<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
 						<con:wsrmConfig version="1.2"/>
 					</con:request>
 				</con:config>
 			</con:testStep>
 			<con:testStep name="QueryByPatientId" type="request">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:interface>DocumentRegistry_Binding_Soap</con:interface>
 					<con:operation>DocumentRegistry_RegistryStoredQuery</con:operation>
 					<con:request name="QueryByPatientId">
@@ -698,18 +699,18 @@ count(//ns4:AdhocQueryResponse[1]/ns2:RegistryObjectList[1]/ns2:ExtrinsicObject)
 								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
 							</con:configuration>
 						</con:assertion>
-						<con:wsaConfig mustUnderstand="NONE" version="200508"/>
+						<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:wsaConfig mustUnderstand="NONE" version="200508"/>
 						<con:wsrmConfig version="1.2"/>
 					</con:request>
 				</con:config>
 			</con:testStep>
 			<con:testStep name="QueryByDocUniqueId" type="request">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:interface>DocumentRegistry_Binding_Soap</con:interface>
 					<con:operation>DocumentRegistry_RegistryStoredQuery</con:operation>
 					<con:request name="QueryByDocUniqueId">
-						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting></con:settings>
+						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
 						<con:encoding>UTF-8</con:encoding>
 						<con:endpoint>${#Project#Endpoint-DocRegistry}</con:endpoint>
 						<con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0">
@@ -787,18 +788,18 @@ declare namespace ns4='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 								<ignoreNamspaceDifferences>true</ignoreNamspaceDifferences>
 							</con:configuration>
 						</con:assertion>
-						<con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
+						<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
 						<con:wsrmConfig version="1.2"/>
 					</con:request>
 				</con:config>
 			</con:testStep>
 			<con:testStep name="QueryByEventCode" type="request">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:interface>DocumentRegistry_Binding_Soap</con:interface>
 					<con:operation>DocumentRegistry_RegistryStoredQuery</con:operation>
 					<con:request name="QueryByEventCode">
-						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting></con:settings>
+						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
 						<con:encoding>UTF-8</con:encoding>
 						<con:endpoint>${#Project#Endpoint-DocRegistry}</con:endpoint>
 						<con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0">
@@ -876,18 +877,18 @@ declare namespace ns4='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 								<ignoreNamspaceDifferences>true</ignoreNamspaceDifferences>
 							</con:configuration>
 						</con:assertion>
-						<con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
+						<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
 						<con:wsrmConfig version="1.2"/>
 					</con:request>
 				</con:config>
 			</con:testStep>
 			<con:testStep name="QueryByEventCodeAndScheme" type="request">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:interface>DocumentRegistry_Binding_Soap</con:interface>
 					<con:operation>DocumentRegistry_RegistryStoredQuery</con:operation>
 					<con:request name="QueryByEventCodeAndScheme">
-						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting></con:settings>
+						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
 						<con:encoding>UTF-8</con:encoding>
 						<con:endpoint>${#Project#Endpoint-DocRegistry}</con:endpoint>
 						<con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0">
@@ -970,18 +971,18 @@ declare namespace ns4='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 								<ignoreNamspaceDifferences>true</ignoreNamspaceDifferences>
 							</con:configuration>
 						</con:assertion>
-						<con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
+						<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
 						<con:wsrmConfig version="1.2"/>
 					</con:request>
 				</con:config>
 			</con:testStep>
 			<con:testStep name="QueryNoResults" type="request">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:interface>DocumentRegistry_Binding_Soap</con:interface>
 					<con:operation>DocumentRegistry_RegistryStoredQuery</con:operation>
 					<con:request name="QueryNoResults">
-						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting></con:settings>
+						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
 						<con:encoding>UTF-8</con:encoding>
 						<con:endpoint>${#Project#Endpoint-DocRegistry}</con:endpoint>
 						<con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0">
@@ -1014,7 +1015,7 @@ count(//ns4:AdhocQueryResponse[1]/ns2:RegistryObjectList[1]/ns2:ExtrinsicObject)
 								<ignoreNamspaceDifferences>true</ignoreNamspaceDifferences>
 							</con:configuration>
 						</con:assertion>
-						<con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
+						<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
 						<con:wsrmConfig version="1.2"/>
 					</con:request>
 				</con:config>
@@ -1022,7 +1023,7 @@ count(//ns4:AdhocQueryResponse[1]/ns2:RegistryObjectList[1]/ns2:ExtrinsicObject)
 			<con:testStep name="Delete Document" type="groovy">
 				<con:settings/>
 				<con:config>
-					<script>context.withSql('DocRepositoryDB') { sql -&gt; 
+					<script>context.withSql('DocRepositoryDB') { sql -> 
   def table = context.findProperty('DocumentTable')
   def col = context.findProperty('DocCol')
   def val = context.findProperty('DocVal1')
@@ -1037,26 +1038,26 @@ count(//ns4:AdhocQueryResponse[1]/ns2:RegistryObjectList[1]/ns2:ExtrinsicObject)
 					</script>
 				</con:config>
 			</con:testStep>
-			<con:properties>
+			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-08-24T16:54:23Z</con:value>
+					<con:value>2012-11-27T19:33:52Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-08-24T17:04:23Z</con:value>
+					<con:value>2012-11-27T19:43:52Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>08/24/2012 16:54:23</con:value>
+					<con:value>11/27/2012 19:33:52</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-09-23T00:00:00Z</con:value>
+					<con:value>2012-12-27T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
-			<con:tearDownScript/>
+			<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript>
 		</con:testCase>
 		<con:properties/>
 		<con:reportParameters/>
@@ -1078,13 +1079,13 @@ count(//ns4:AdhocQueryResponse[1]/ns2:RegistryObjectList[1]/ns2:ExtrinsicObject)
 		
 		
 		
-	<con:property><con:name>EventCodeTable</con:name><con:value>eventcode</con:value></con:property><con:property><con:name>EventCol</con:name><con:value>EventCode</con:value></con:property><con:property><con:name>EventVal</con:name><con:value>'ProvideAndRegisterTestEventCodeValue'</con:value></con:property><con:property><con:name>EventVal1</con:name><con:value>'DocQueryTestEventCodeValue'</con:value></con:property></con:properties>
+	<con:property><con:name>EventCodeTable</con:name><con:value>eventcode</con:value></con:property><con:property><con:name>EventCol</con:name><con:value>EventCode</con:value></con:property><con:property><con:name>EventVal</con:name><con:value>'ProvideAndRegisterTestEventCodeValue'</con:value></con:property><con:property><con:name>EventVal1</con:name><con:value>'DocQueryTestEventCodeValue'</con:value></con:property><con:property><con:name>GatewayPropDir</con:name><con:value>D:\glassfish3\glassfish\domains\domain1\config\nhin</con:value></con:property></con:properties>
 	<con:afterLoadScript>def propertiesFilename = project.path[0..(project.path.size()-4)] + 'properties'
 def propertiesFile = new File(propertiesFilename)
 if (propertiesFile.exists()) {
 	def props = new Properties()
 	props.load(new FileReader(propertiesFile))
-	props.each { key, value -&gt;
+	props.each { key, value ->
 	    project.setPropertyValue(key, value)
 	}
 }
@@ -1092,11 +1093,11 @@ if (propertiesFile.exists()) {
 
 TimeZone.setDefault(TimeZone.getTimeZone("UTC"))
 def testRunListener = [
-  afterRun: { testRunner, runContext -&gt; },
-  afterStep: { testRunner, runContext, result -&gt; },
-  beforeStep: { testRunner, runContext -&gt; },
-  beforeStep: { testRunner, runContext, testStep -&gt; },
-  beforeRun: { testRunner, runContext -&gt; 
+  afterRun: { testRunner, runContext -> },
+  afterStep: { testRunner, runContext, result -> },
+  beforeStep: { testRunner, runContext -> },
+  beforeStep: { testRunner, runContext, testStep -> },
+  beforeRun: { testRunner, runContext -> 
     use (org.codehaus.groovy.runtime.TimeCategory) {
       def startDate = 5.minutes.ago
       def endDate = 5.minutes.from.now
@@ -1117,14 +1118,14 @@ project.testSuiteList*.testCaseList.flatten()*.addTestRunListener(testRunListene
 
 
 
-com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.findProperty = { propertyName -&gt;
+com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.findProperty = { propertyName ->
     return delegate.getProperty(propertyName) ?:
                 delegate.testCase.getPropertyValue(propertyName) ?:
                 delegate.testCase.testSuite.getPropertyValue(propertyName) ?:
                 delegate.testCase.testSuite.project.getPropertyValue(propertyName)
 }
 
-com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.withSql = { dbOrPropertyName, block -&gt;
+com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.withSql = { dbOrPropertyName, block ->
   def dbName = delegate.findProperty(dbOrPropertyName) ?: dbOrPropertyName
   def host = delegate.findProperty('DBHost')
   def port = delegate.findProperty('DBPort')

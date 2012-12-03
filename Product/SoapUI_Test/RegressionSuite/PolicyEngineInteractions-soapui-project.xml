@@ -342,8 +342,8 @@
                         <urn3:version>AuthzDecisionStatementEvidenceAssertionVersion</urn3:version>
                         <urn3:issuer>AuthzDecisionStatementEvidenceAssertionIssuer</urn3:issuer>
                         <urn3:conditions>
-                           <urn3:notBefore>01/01/2001 01:00:00</urn3:notBefore>
-                           <urn3:notOnOrAfter>05/06/2009 22:00:17</urn3:notOnOrAfter>
+                           <urn3:notBefore>2001-01-01T01:00:00.000Z</urn3:notBefore>
+                           <urn3:notOnOrAfter>2005-05-06T22:00:17.000Z</urn3:notOnOrAfter>
                         </urn3:conditions>
                         <!--urn3:contentReference>myAuthzDecisionStatementEvidenceAssertionContentReference</urn3:contentReference-->
                         <!--urn3:contentType>myAuthzDecisionStatementEvidenceAssertionContentType</urn3:contentType-->
@@ -1586,8 +1586,8 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation,"1.1","policyengineser
                      <urn3:issuer>CN=Mr Saml User,OU=SU,O=Mr SAML Org,L=Chantilly,ST=VA,C=US</urn3:issuer>
                      <urn3:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn3:issuerFormat>
                      <urn3:conditions>
-                        <urn3:notBefore>01/01/2001 01:00:00</urn3:notBefore>
-                        <urn3:notOnOrAfter>05/06/2009 22:00:17</urn3:notOnOrAfter>
+                        <urn3:notBefore>2001-01-01T01:00:00.000Z</urn3:notBefore>
+                        <urn3:notOnOrAfter>2005-05-06T22:00:17.000Z</urn3:notOnOrAfter>
                      </urn3:conditions>
                      <urn3:accessConsentPolicy>urn:oid:1.2.3.4</urn3:accessConsentPolicy>
                      <urn3:instanceAccessConsentPolicy>urn:oid:1.2.3.4.123456789</urn3:instanceAccessConsentPolicy>
@@ -4012,8 +4012,8 @@ declare namespace ns19='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
                      <urn3:issuer>CN=Mr Saml User,OU=SU,O=Mr SAML Org,L=Chantilly,ST=VA,C=US</urn3:issuer>
                      <urn3:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn3:issuerFormat>
                      <urn3:conditions>
-                        <urn3:notBefore>01/01/2001 01:00:00</urn3:notBefore>
-                        <urn3:notOnOrAfter>05/06/2009 22:00:17</urn3:notOnOrAfter>
+                        <urn3:notBefore>2001-01-01T01:00:00.000Z</urn3:notBefore>
+                        <urn3:notOnOrAfter>2005-05-06T22:00:17.000Z</urn3:notOnOrAfter>
                      </urn3:conditions>
                      <urn3:accessConsentPolicy>urn:oid:1.2.3.4</urn3:accessConsentPolicy>
                      <urn3:instanceAccessConsentPolicy>urn:oid:1.2.3.4.123456789</urn3:instanceAccessConsentPolicy>
