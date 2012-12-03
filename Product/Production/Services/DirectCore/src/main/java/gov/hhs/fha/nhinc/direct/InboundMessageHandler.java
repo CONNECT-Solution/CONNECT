@@ -69,8 +69,6 @@ public class InboundMessageHandler implements MessageHandler {
             throw new DirectException("Error processing message.", e, message);
         }
 
-        externalDirectClient.sendMdn(result);
-
         MessageEnvelope processedEnvelope = result.getProcessedMessage();
         if (processedEnvelope == null) {
             logNotfications(result);
@@ -84,6 +82,7 @@ public class InboundMessageHandler implements MessageHandler {
             DirectEventLogger.getInstance().log(DirectEventType.BEGIN_INBOUND_DIRECT, message);            
         }
 
+        externalDirectClient.sendMdn(result);
         DirectEdgeProxy proxy = getDirectEdgeProxy();
         proxy.provideAndRegisterDocumentSetB(processedEnvelope);
         

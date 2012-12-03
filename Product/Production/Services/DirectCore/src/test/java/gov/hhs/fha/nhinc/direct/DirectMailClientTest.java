@@ -232,14 +232,14 @@ public class DirectMailClientTest extends AbstractDirectMailClientTest {
         assertTriggered(0, DirectEventType.BEGIN_OUTBOUND_DIRECT, triggeredEvents);
         assertTriggered(1, DirectEventType.END_OUTBOUND_DIRECT, triggeredEvents);
 
-        assertTriggered(2, DirectEventType.BEGIN_OUTBOUND_MDN, triggeredEvents);
-        assertTriggered(3, DirectEventType.END_OUTBOUND_MDN, triggeredEvents);
+        assertTriggered(2, DirectEventType.BEGIN_INBOUND_DIRECT, triggeredEvents);
+        assertTriggered(3, DirectEventType.BEGIN_OUTBOUND_MDN, triggeredEvents);
+        assertTriggered(4, DirectEventType.END_OUTBOUND_MDN, triggeredEvents);
 
         // extra MDN generated (Greenmail quirk)
-        assertTriggered(4, DirectEventType.BEGIN_OUTBOUND_MDN, triggeredEvents);
-        assertTriggered(5, DirectEventType.END_OUTBOUND_MDN, triggeredEvents);
+        assertTriggered(5, DirectEventType.BEGIN_OUTBOUND_MDN, triggeredEvents);
+        assertTriggered(6, DirectEventType.END_OUTBOUND_MDN, triggeredEvents);
 
-        assertTriggered(6, DirectEventType.BEGIN_INBOUND_DIRECT, triggeredEvents);
         assertTriggered(7, DirectEventType.END_INBOUND_DIRECT, triggeredEvents);
         
         assertTriggered(8, DirectEventType.BEGIN_INBOUND_MDN, triggeredEvents);
