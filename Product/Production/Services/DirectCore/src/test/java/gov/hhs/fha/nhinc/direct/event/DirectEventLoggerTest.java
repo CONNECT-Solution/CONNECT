@@ -24,56 +24,43 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.direct;
+package gov.hhs.fha.nhinc.direct.event;
 
-import gov.hhs.fha.nhinc.direct.event.DirectEventLogger;
-import gov.hhs.fha.nhinc.direct.event.DirectEventType;
+import gov.hhs.fha.nhinc.direct.DirectException;
 
-import javax.mail.internet.MimeMessage;
-
+import org.junit.Test;
 
 /**
- * Exceptions for {@link MimeMessageBuilder}.
+ * Test {@link DirectEventLogger}.
  */
-public class DirectException extends RuntimeException {
+public class DirectEventLoggerTest extends DirectEventTest {
 
-    private static final long serialVersionUID = 4636463959045310435L;
-
+    private static final String ERROR_MESSAGE = "I've got blisters on me fingers...";
+    
+    private DirectEventLogger testLogger = DirectEventLogger.getInstance();
     
     /**
-     * Constructor.
-     * 
-     * @param message for the exception
-     * @param cause chained exception
-     * @param mimeMessage associated with the exception for event logging.
+     * {@link DirectEventLogger#log(DirectEventType, javax.mail.internet.MimeMessage)}
      */
-    public DirectException(String message, Throwable cause, MimeMessage mimeMessage) {
-        super(message, cause);
-        getDirectEventLogger().log(DirectEventType.DIRECT_ERROR, mimeMessage, message);
+    @Test
+    public void canLogSuccess() {
+        testLogger.log(DirectEventType.BEGIN_OUTBOUND_DIRECT, mockMimeMessage);
     }
 
     /**
-     * Constructor.
-     * 
-     * @param message for the exception
-     * @param cause chained exception
+     * {@link DirectEventLogger#log(DirectEventType, javax.mail.internet.MimeMessage, String)}
      */
-    public DirectException(String message, Throwable cause) {
-        super(message, cause);
-        getDirectEventLogger().log(DirectEventType.DIRECT_ERROR, message);
+    @Test
+    public void canLogError() {
+        testLogger.log(DirectEventType.DIRECT_ERROR, mockMimeMessage, ERROR_MESSAGE);
     }
 
     /**
-     * Constructor.
-     * 
-     * @param message for the exception
+     * {@link DirectEventLogger#logException(DirectEventType, javax.mail.internet.MimeMessage, Exception)}
      */
-    public DirectException(String message) {
-        super(message);
-        getDirectEventLogger().log(DirectEventType.DIRECT_ERROR, message);
+    @Test
+    public void canLogException() {
+        testLogger.logException(DirectEventType.DIRECT_ERROR, mockMimeMessage, new DirectException(ERROR_MESSAGE));
     }
-    
-    private DirectEventLogger getDirectEventLogger() {
-        return DirectEventLogger.getInstance();
-    }
+
 }

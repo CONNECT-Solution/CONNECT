@@ -28,6 +28,9 @@ package gov.hhs.fha.nhinc.direct;
 
 import gov.hhs.fha.nhinc.direct.edge.proxy.DirectEdgeProxy;
 import gov.hhs.fha.nhinc.direct.edge.proxy.DirectEdgeProxyObjectFactory;
+import gov.hhs.fha.nhinc.direct.event.DirectEventLogger;
+import gov.hhs.fha.nhinc.direct.event.DirectEventType;
+
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
@@ -46,6 +49,7 @@ import org.nhindirect.stagent.mail.notifications.NotificationMessage;
 public class InboundMessageHandler implements MessageHandler {
 
     private static final Log LOG = LogFactory.getLog(InboundMessageHandler.class);
+    DirectEventLogger eventLogger = DirectEventLogger.getInstance();
 
     /**
      * {@inheritDoc}
@@ -62,21 +66,36 @@ public class InboundMessageHandler implements MessageHandler {
             origRecipients = DirectClientUtils.getNhindRecipients(message);
             result = externalDirectClient.getSmtpAgent().processMessage(message, origRecipients, origSender);
         } catch (MessagingException e) {
-            throw new DirectException("Error processing message.", e);
+            throw new DirectException("Error processing message.", e, message);
+        }
+
+        MessageEnvelope processedEnvelope = result.getProcessedMessage();
+
+        boolean isMdn = DirectClientUtils.isMdn(processedEnvelope);
+        if (isMdn) {
+            DirectEventLogger.getInstance().log(DirectEventType.BEGIN_INBOUND_MDN, message);
+        } else {
+            DirectEventLogger.getInstance().log(DirectEventType.BEGIN_INBOUND_DIRECT, message);            
         }
 
         externalDirectClient.sendMdn(result);
 
-        MessageEnvelope processedMessage = result.getProcessedMessage();
-        if (processedMessage == null) {
+        if (result.getProcessedMessage() == null) {
             logNotfications(result);
             return;
         }
         
         DirectEdgeProxy proxy = getDirectEdgeProxy();
         proxy.provideAndRegisterDocumentSetB(processedMessage.getMessage());
+        
+        if (isMdn) {
+            DirectEventLogger.getInstance().log(DirectEventType.END_INBOUND_MDN, message);
+        } else {
+            DirectEventLogger.getInstance().log(DirectEventType.END_INBOUND_DIRECT, message);            
     }
 
+    }    
+    
     /**
      * @return DirectEdgeProxy implementation to handle the direct edge
      */
@@ -99,6 +118,8 @@ public class InboundMessageHandler implements MessageHandler {
                 LOG.warn("Exception while logging notification messages.", e);
             }
         }
-        LOG.info(builder.toString());
+        String errorMsg = builder.toString();
+        LOG.info(errorMsg);
+        DirectEventLogger.getInstance().log(DirectEventType.DIRECT_ERROR, null, errorMsg);
     }
 }

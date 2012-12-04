@@ -31,12 +31,18 @@ import static gov.hhs.fha.nhinc.direct.DirectUnitTestUtil.writeSmtpAgentConfig;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNotSame;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.junit.AfterClass;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.AbstractApplicationContext;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -46,7 +52,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("/test.direct.appcontext.xml")
 public class DirectMailClientSpringTest {
-
+    
+    private static final Log LOG = LogFactory.getLog(DirectMailClientSpringTest.class);
+    
     @Autowired
     private DirectMailClient intDirectMailClient;
 
@@ -69,6 +77,16 @@ public class DirectMailClientSpringTest {
 
     @Autowired
     private MessageHandler inboundMessageHandlerSoap;
+    
+    @Autowired
+    private ApplicationContext applicationContext;
+    
+    @Autowired 
+    private ThreadPoolTaskScheduler scheduler;    
+
+    // these need to be static so we can shut them down in an AfterClass annotation.
+    private static ApplicationContext staticContext;
+    private static ThreadPoolTaskScheduler staticScheduler;
 
     /**
      * Set up keystore for test.
@@ -78,6 +96,33 @@ public class DirectMailClientSpringTest {
         writeSmtpAgentConfig();
     }
 
+    /**
+     * Capture the app context and scheduler so we can shut them down later.
+     */
+    @Before
+    public void setUp() {
+        staticContext = applicationContext;
+        staticScheduler = scheduler;
+    }
+    
+    /**
+     * Tear down keystore created in setup. Cleanup the context and scheduler, so they don't interfere with other
+     * tests.
+     */
+    @AfterClass
+    public static void tearDownClass() {        
+        removeSmtpAgentConfig();
+
+        if (staticScheduler != null) {            
+            LOG.debug("shutting down scheduler");
+            staticScheduler.shutdown();   
+        }
+        if (staticContext != null) {
+            LOG.debug("closing context");
+            ((AbstractApplicationContext) staticContext).close();
+        }
+    }    
+    
     /**
      * Test that we can get an external mail client with spring.
      */
@@ -134,13 +179,5 @@ public class DirectMailClientSpringTest {
         
         assert(internalInvocations >= 2);
         assert(externalInvocations >= 2);
-    }
-    
-    /**
-     * Tear down keystore created in setup.
-     */
-    @AfterClass
-    public static void tearDownClass() {
-        removeSmtpAgentConfig();
     }    
 }
