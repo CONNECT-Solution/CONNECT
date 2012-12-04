@@ -10,8 +10,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Properties;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import java.lang.Exception;
 
 import java.io.FileOutputStream;
@@ -29,18 +27,27 @@ import javax.xml.transform.stream.StreamResult;
 
 import org.apache.log4j.Logger;
 
-class FileUtils {
+/**
+ * Utility class for SoapUI Connect testing.  Utility methods are for file
+ * manipulation for CONNECT config files.  Logs to SoapUI logger.
+ * @author jasonasmith, mtiller
+ *
+ */
+public class FileUtils {
 
-	static String[] files2restore = { "hiemTopicConfiguration.xml",
+	static String[] backupFiles = { "hiemTopicConfiguration.xml",
 			"internalConnectionInfo.xml", "PCConfiguration.xml",
 			"uddiConnectionInfo.xml", "XDSUniqueIds.properties",
 			"gateway.properties", "adapter.properties", "purposeUse.properties" };
-	// should these match?
-	static String[] files2backup = { "hiemTopicConfiguration.xml",
-			"internalConnectionInfo.xml", "PCConfiguration.xml",
-			"uddiConnectionInfo.xml", "XDSUniqueIds.properties",
-			"gateway.properties", "adapter.properties", "purposeUse.properties" };
+	
+	static final String TEMP_DIR = "prop_temp";
 
+	/**
+	 * Reads in a file with a given file name and converts to a String.
+	 * @param fileName Name of file to be read.
+	 * @param log SoapUI logger.
+	 * @return String value of file.
+	 */
 	public static String readFile(String fileName, Logger log) {
 		try {
 
@@ -83,23 +90,45 @@ class FileUtils {
 
 	}
 
+	/**
+	 * Sets the connection info files in a given config directory to have
+	 * only endpoints that support the CONNECT specs prior to July, 2011.
+	 * @param sourceDirectory Directory the config  files are read from.
+	 * @param destDirectory The config directory the files are copied to.
+	 * @param log SoapUI logger.
+	 */
 	public static void setG0ConnectionInfo(String sourceDirectory,
 			String destDirectory, Logger log) {
-		moveFile(sourceDirectory, "uddiConnectionInfo_g0.xml", destDirectory,
+		copyFile(sourceDirectory, "uddiConnectionInfo_g0.xml", destDirectory,
 				"uddiConnectionInfo.xml", log);
-		moveFile(sourceDirectory, "internalConnectionInfo_g0.xml",
+		copyFile(sourceDirectory, "internalConnectionInfo_g0.xml",
 				destDirectory, "internalConnectionInfo.xml", log);
 	}
 
+	/**
+	 * Sets the connection info files in a given config directory to have
+	 * only endpoints that support the CONNECT specs post July, 2011.
+	 * @param sourceDirectory Directory the config files are read from.
+	 * @param destDirectory The config directory the files are copied to.
+	 * @param log SoapUI logger.
+	 */
 	public static void setG1ConnectionInfo(String sourceDirectory,
 			String destDirectory, Logger log) {
-		moveFile(sourceDirectory, "uddiConnectionInfo_g1.xml", destDirectory,
+		copyFile(sourceDirectory, "uddiConnectionInfo_g1.xml", destDirectory,
 				"uddiConnectionInfo.xml", log);
-		moveFile(sourceDirectory, "internalConnectionInfo_g1.xml",
+		copyFile(sourceDirectory, "internalConnectionInfo_g1.xml",
 				destDirectory, "internalConnectionInfo.xml", log);
 	}
 
-	public static void moveFile(String sourceDirectory, String sourceFileName,
+	/**
+	 * Copies given source file to the given destination file.
+	 * @param sourceDirectory Directory of file to be copied.
+	 * @param sourceFileName File name of file to be copied.
+	 * @param destinationDirectory Directory that file is copied into.
+	 * @param destinationFileName File name of file copy.
+	 * @param log SoapUI logger.
+	 */
+	public static void copyFile(String sourceDirectory, String sourceFileName,
 			String destinationDirectory, String destinationFileName, Logger log) {
 
 		File sourceFile = new File(sourceDirectory, sourceFileName);
@@ -140,6 +169,12 @@ class FileUtils {
 		}
 	}
 
+	/**
+	 * Deletes a given file.
+	 * @param sourceDirectory Directory of file to be deleted.
+	 * @param sourceFileName File name of file to be deleted.
+	 * @param log SoapUI logger.
+	 */
 	public static void deleteFile(String sourceDirectory,
 			String sourceFileName, Logger log) {
 
@@ -152,6 +187,14 @@ class FileUtils {
 		}
 	}
 
+	/**
+	 * Updates a property file with the given key/value pair.
+	 * @param directory Directory of properties file.
+	 * @param filename File name of properties file.
+	 * @param propertyKey Key value for property to be updated.
+	 * @param propertyValue Value of property for updating.
+	 * @param log SoapUI logger.
+	 */
 	public static void updateProperty(String directory, String filename,
 			String propertyKey, String propertyValue, Logger log) {
 		FileWriter fwPropFile = null;
@@ -194,6 +237,14 @@ class FileUtils {
 		}
 	}
 
+	/**
+	 * Reads a property from the given property file with the given key.
+	 * @param directory Directory of properties file.
+	 * @param filename File name of properties file.
+	 * @param propertyKey Key value of property to be read.
+	 * @param log SoapUI logger.
+	 * @return The string value of the read property.
+	 */
 	public static String readProperty(String directory, String filename,
 			String propertyKey, Logger log) {
 		try {
@@ -221,150 +272,93 @@ class FileUtils {
 			return null;
 		}
 	}
-
-	public static void changeSpringConfig(String configDir, String fileName,
-			String desiredImpltype, String beanName, Logger log)
-			throws Exception {
-		log.info("begin changeSpringConfig; file='" + fileName
-				+ "';specified bean name='" + beanName + "';desired impl='"
-				+ desiredImpltype + "';");
-
-		// find the config file and insert into document builder
-		String fullPath = configDir + "/" + fileName;
-		log.info("Path to config file: " + fullPath);
-		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-		factory.setNamespaceAware(true);
-		Document doc = null;
-		try {
-			DocumentBuilder builder = factory.newDocumentBuilder();
-			doc = builder.parse(fullPath);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return;
-		}
-
-		// grab the top-level element
-		Element beans = (Element) doc.getElementsByTagName("beans").item(0);
-
-		// grab the description element and parse out the string
-		// containing the bean name(s)
-		Element description = (Element) beans.getElementsByTagName(
-				"description").item(0);
-		Pattern p = Pattern.compile("\\{(\\w*,?)*\\}");
-		Matcher m = p.matcher(description.getTextContent());
-		m.find();
-		String beansInFile = m.group().substring(1, m.group().length() - 1);
-
-		// if the bean is not specified and it needs to be because there is
-		// more than one bean in the file then throw an exception
-		if ((beansInFile.split(",").length > 1) && beanName.equals("none")) {
-			log.info("There are multiple beans present in the configuration file "
-					+ fileName + ". Please specify the bean to configure.");
-			throw new Exception(
-					"There are multiple beans present in the configuration file "
-							+ fileName
-							+ ". Must specify the bean to configure.");
-		}
-
-		boolean foundMatch = false;
-
-		// if no beanName is given via the overloaded method
-		if (beanName.equals("none")) {
-			// set beanName to the one present from the config file
-			beanName = beansInFile;
-			foundMatch = true;
-			log.info("matched bean name:" + beanName);
-
-			// otherwise ensure a match between the provided beanName and one
-			// present in the file
-		} else {
-			String[] beanNameArray = beansInFile.split(",");
-			for (int i = 0; i < beanNameArray.length; i++) {
-				if (beanNameArray[i].equals(beanName)) {
-					log.info("matched bean name:" + beanName);
-					foundMatch = true;
-				}
-			}
-		}
-
-		// if no match for beanName is found, throw an exception
-		if (!foundMatch) {
-			log.info("No bean by name " + beanName + "present in file "
-					+ fileName);
-			throw new Exception("No bean by name " + beanName
-					+ "present in file " + fileName);
-		}
-
-		// get the list of beans and iterate though them
-		NodeList beanList = beans.getElementsByTagName("bean");
-		for (int i = 0; i < beanList.getLength(); i++) {
-			Element bean = (Element) beanList.item(i);
-
-			// skip bean if it is not one of the ones that we are interested in
-			if (!bean.getAttribute("id").startsWith(beanName))
-				continue;
-
-			// find the active Spring implementation and modify
-			// to the non-active form
-			if (bean.getAttribute("id").equals(beanName)) {
-				NodeList metaList = bean.getElementsByTagName("meta");
-				for (int j = 0; j < metaList.getLength(); j++) {
-					Element meta = (Element) metaList.item(j);
-					if (meta.getAttribute("key").equals("impltype")) {
-						bean.setAttribute("id",
-								beanName.concat(meta.getAttribute("value")));
+	
+	/**
+	 *
+	 * Updates a Spring config file in the given CONNECT config directory
+	 * with the desired implementation setting.
+	 * @param configDir Directory of spring proxy file.
+	 * @param fileName File name of spring proxy file.
+	 * @param alias Alias of the spring configuration.
+	 * @param oldAliasName Current name of spring alias.
+	 * @param newAliasName Updated name of spring alias.
+	 * @param log SoapUI logger.
+	 */
+	public static void updateSpringConfig(String configDir, String fileName,
+			String alias, String oldAliasName, String newAliasName, Logger log){
+		
+		Boolean foundAlias = false;
+		String oldAliasLine = "<alias alias=\"" + alias + "\" name=\"" + oldAliasName +
+				"\" />";
+		String newAliasLine = "<alias alias=\"" + alias + "\" name=\"" + newAliasName +
+				"\" />";
+		
+		log.info("OLD: " + oldAliasLine + "NEW: " + newAliasLine);
+		
+		File configDirFile = new File(configDir);
+		File tempConfigFile = new File(configDirFile.getAbsolutePath(),
+				"tempConfigFile.xml");
+		File sourceFile = new File(configDirFile.getAbsolutePath(),
+				fileName);
+		
+		if (sourceFile.exists()) {
+			try {		
+				BufferedReader input =  new BufferedReader(new FileReader(
+						sourceFile));
+				FileWriter output = new FileWriter(tempConfigFile);
+			
+				try {
+					 
+					String line = null; // not declared within while loop
+					/*
+					 * readLine is a bit quirky : it returns the content of a
+					 * line MINUS the newline. it returns null only for the END
+					 * of the stream. it returns an empty String if two newlines
+					 * appear in a row.
+					 */
+					while ((line = input.readLine()) != null) {
+						if(line.contains(oldAliasLine)){
+							line = newAliasLine;
+							foundAlias = true;
+						}
+						output.append(line);
+						output.append(System.getProperty("line.separator"));
 					}
+					
+				} finally {
+					input.close();
+					output.close();
+				}				
+				
+				sourceFile.delete();
+				copyFile(configDir, "tempConfigFile.xml", configDir, fileName, log);
+				tempConfigFile.delete();
+				
+				if(!foundAlias){
+					log.error("Did not find alias line in Spring Config file." +
+							"  No modification made.");
 				}
-			}
-
-			// Search the meta list for the desired implementation type.
-			// If found, change the bean attribute "id" to the beanName.
-			NodeList metaList = bean.getElementsByTagName("meta");
-			for (int j = 0; j < metaList.getLength(); j++) {
-				Element meta = (Element) metaList.item(j);
-
-				// if the desired implementation type is NOT "default"...
-				if (!desiredImpltype.equals("default")) {
-					// ... search for the desired implementation type and
-					// set the bean to the active form
-					if (meta.getAttribute("key").equals("impltype")
-							&& meta.getAttribute("value").equals(
-									desiredImpltype)) {
-						bean.setAttribute("id", beanName);
-					}
-
-					// otherwise the desired implementation type is "default"...
-				} else {
-					// ... search for "default" equals "true" and
-					// set the bean to the active form
-					if (meta.getAttribute("key").equals("default")
-							&& meta.getAttribute("value").equals("true")) {
-						bean.setAttribute("id", beanName);
-					}
-				}
-			}
-		}
-
-		// write the document
-		try {
-			Transformer transformer = TransformerFactory.newInstance()
-					.newTransformer();
-			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-
-			// initialize StreamResult with File object to save to file
-			DOMSource source = new DOMSource(doc);
-			FileOutputStream fileOutput = new FileOutputStream(fullPath);
-			StreamResult stream = new StreamResult(fileOutput);
-			transformer.transform(source, stream);
-			fileOutput.close();
-			log.info("Done createorupdate: " + fileName);
-		} catch (Exception e) {
-			log.error(
-					"Exception writing out connection info file: "
-							+ e.getMessage(), e);
-		}
+				
+			} catch (IOException e) {
+				log.error(e.getMessage());
+			} 
+		}else {
+			log.info("unable to find source file " + fileName);
+		}	
 	}
 
+	/**
+	 * Creates or edits an endpoint in the given connection info file in the 
+	 * given CONNECT config directory.
+	 * @param fileName File name of config file to be updated.
+	 * @param directory Directory of config file to be updated.
+	 * @param communityId Home Community ID of endpoint update.
+	 * @param serviceName The name of the CONNECT service that is getting
+	 * updated/added.
+	 * @param serviceUrl URL of service for updating/adding.
+	 * @param defaultVersion The default spec version.
+	 * @param log SoapUI logger.
+	 */
 	public static void createOrUpdateConnection(String fileName,
 			String directory, String communityId, String serviceName,
 			String serviceUrl, String defaultVersion, Logger log) {
@@ -566,17 +560,22 @@ class FileUtils {
 							+ e.getMessage(), e);
 		}
 	}
-
+	
+	/**
+	 * Copies a list of configuration values to a temporary directory.
+	 * @param configDir Configuration directory of files to be backed up.
+	 * @param log SoapUI logger.
+	 */
 	public static void backupConfiguration(String configDir, Logger log) {
 		log.info("Start backupConfiguration");
 		try {
-			File backupDir = new File(configDir, "prop_temp");
+			File backupDir = new File(configDir, TEMP_DIR);
 			File confDir = new File(configDir);
 
 			backupDir.mkdir();
 
-			for (String fileName : files2backup) {
-				moveFile(confDir.getAbsolutePath(), fileName,
+			for (String fileName : backupFiles) {
+				copyFile(confDir.getAbsolutePath(), fileName,
 						backupDir.getAbsolutePath(), fileName, log);
 			}
 		} catch (Throwable e) {
@@ -585,15 +584,23 @@ class FileUtils {
 		log.info("End backupConfiguration");
 	}
 
+	/**
+	 * Restores a list of configuration values from a temporary directory.
+	 * The temporary directory is deleted after the restore based on the
+	 * passed in optionDel boolean.
+	 * @param configDir Configuration directory for files to be restored to.
+	 * @param log SoapUI logger.
+	 * @param optionDel Flag for deleting the temporary directory.
+	 */
 	public static void restoreConfiguration(String configDir, Logger log,
 			Boolean optionDel) {
 		log.info("Start restoreConfiguration");
 		try {
-			File backupDir = new File(configDir, "prop_temp");
+			File backupDir = new File(configDir, TEMP_DIR);
 			File confDir = new File(configDir);
 
-			for (String fileName : files2restore) {
-				moveFile(backupDir.getAbsolutePath(), fileName,
+			for (String fileName : backupFiles) {
+				copyFile(backupDir.getAbsolutePath(), fileName,
 						confDir.getAbsolutePath(), fileName, log);
 				if (optionDel == true) {
 					File tmpFile = new File(backupDir.getAbsolutePath(),
@@ -611,31 +618,46 @@ class FileUtils {
 		log.info("End restoreConfiguration");
 	}
 
+	/**
+	 * Restores a list of configurable values from a temporary directory which
+	 * is deleted on completion.
+	 * @param configDir Configuration directory for files to be restored to.
+	 * @param log SoapUI logger.
+	 */
 	public static void restoreConfiguration(String configDir, Logger log) {
 		restoreConfiguration(configDir, log, true);
 	}
-
-	public static void restoreToMasterConfiguration(String configFile,
-			Logger log) {
-
-		log.info("Start restoreToMasterConfiguration");
-		try {
-
-			String masterDirFile = configFile + "/master";
-			File masterDir = new File(masterDirFile);
-			File confDir = new File(configFile);
-
-			for (String fileName : files2restore) {
-				moveFile(masterDir.getAbsolutePath(), fileName,
-						confDir.getAbsolutePath(), fileName, log);
-			}
-
-		} catch (Throwable e) {
-			log.error(e.getMessage());
-		}
-		log.info("End restoreToMasterConfiguration");
-	}
-
 	
-
+	/**
+	 * Backs up a single file.
+	 * @param configDir The directory that the file to be backed up is in.
+	 * @param fileName	The name of the file to be backed up.
+	 * @param log SoapUI logger.
+	 */
+	public static void backupFile(String configDir, String fileName, Logger log){
+		log.info("Backing up file " + fileName + " in " + configDir + " directory." );
+		copyFile(configDir, fileName, configDir + File.separator +
+				TEMP_DIR, fileName, log);
+	}
+	
+	/**
+	 * Restores a single file from backup.
+	 * @param configDir Directory that the file is restored to.
+	 * @param fileName The name of the file to be restored.
+	 * @param log SoapUI logger.
+	 */
+	public static void restoreFile(String configDir, String fileName, Logger log){
+		log.info("Restoring file " + fileName);
+		File configDirFile = new File(configDir);
+		File backupDir = new File(configDir, TEMP_DIR);
+		copyFile(backupDir.getAbsolutePath(), fileName, configDirFile.getAbsolutePath(),
+				fileName, log);
+		
+		new File(backupDir.getAbsolutePath(), fileName).delete();
+		
+		if(backupDir.listFiles().length == 0){
+			backupDir.delete();
+		}
+	}
+	
 }
