@@ -26,51 +26,18 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws;
 
-import gov.hhs.fha.nhinc.patientdiscovery.NhinPatientDiscoveryImpl;
-import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditLogger;
-import gov.hhs.fha.nhinc.patientdiscovery._10.deferred.request.NhinPatientDiscoveryAsyncReqImpl;
 import gov.hhs.fha.nhinc.patientdiscovery._10.deferred.response.NhinPatientDiscoveryAsyncRespImpl;
-import gov.hhs.fha.nhinc.patientdiscovery._10.entity.EntityPatientDiscoveryImpl;
-import gov.hhs.fha.nhinc.patientdiscovery._10.entity.deferred.request.EntityPatientDiscoveryDeferredRequestImpl;
 import gov.hhs.fha.nhinc.patientdiscovery._10.entity.deferred.response.EntityPatientDiscoveryDeferredResponseImpl;
-import gov.hhs.fha.nhinc.patientdiscovery._10.passthru.NhincProxyPatientDiscoveryImpl;
-import gov.hhs.fha.nhinc.patientdiscovery._10.passthru.deferred.request.NhincProxyPatientDiscoveryDeferredRequestImpl;
 import gov.hhs.fha.nhinc.patientdiscovery._10.passthru.deferred.response.NhincProxyPatientDiscoveryAsyncRespImpl;
-import gov.hhs.fha.nhinc.patientdiscovery.nhin.InboundPatientDiscoveryOrchFactory;
 
 public class PatientDiscoveryServiceFactoryImpl implements PatientDiscoveryServiceFactory {
-
-    public NhinPatientDiscoveryImpl getNhinPatientDiscoveryService() {
-        return new NhinPatientDiscoveryImpl(new PatientDiscoveryAuditLogger(),
-                InboundPatientDiscoveryOrchFactory.getInstance());
-    }
-
-    public NhinPatientDiscoveryAsyncReqImpl getNhinPatientDiscoveryAsyncReqImpl() {
-        return new NhinPatientDiscoveryAsyncReqImpl();
-    }
 
     public NhinPatientDiscoveryAsyncRespImpl getNhinPatientDiscoveryAsyncRespImpl() {
         return new NhinPatientDiscoveryAsyncRespImpl();
     }
 
-    public EntityPatientDiscoveryImpl getEntityPatientDiscoveryImpl() {
-        return new EntityPatientDiscoveryImpl();
-    }
-
-    public EntityPatientDiscoveryDeferredRequestImpl getEntityPatientDiscoveryDeferredRequestImpl() {
-        return new EntityPatientDiscoveryDeferredRequestImpl();
-    }
-
     public EntityPatientDiscoveryDeferredResponseImpl getEntityPatientDiscoveryDeferredResponseImpl() {
         return new EntityPatientDiscoveryDeferredResponseImpl();
-    }
-
-    public NhincProxyPatientDiscoveryImpl getNhincProxyPatientDiscoveryImpl() {
-        return new NhincProxyPatientDiscoveryImpl();
-    }
-
-    public NhincProxyPatientDiscoveryDeferredRequestImpl getNhincProxyPatientDiscoveryDeferredRequestImpl() {
-        return new NhincProxyPatientDiscoveryDeferredRequestImpl();
     }
 
     public NhincProxyPatientDiscoveryAsyncRespImpl getNhincProxyPatientDiscoveryAsyncRespImpl() {

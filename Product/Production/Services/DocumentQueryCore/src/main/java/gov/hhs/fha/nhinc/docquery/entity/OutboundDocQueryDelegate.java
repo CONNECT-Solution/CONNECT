@@ -36,7 +36,7 @@ import gov.hhs.fha.nhinc.orchestration.OutboundDelegate;
 import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratable;
 
 /**
- * Doc Query implementation of OutboundDelegate
+ * Doc Query implementation of OutboundDelegate.
  *
  * @author paul.eftis
  */
@@ -44,6 +44,9 @@ public class OutboundDocQueryDelegate implements OutboundDelegate {
 
     private static Log log = LogFactory.getLog(OutboundDocQueryDelegate.class);
 
+    /**
+     * Default constructor.
+     */
     public OutboundDocQueryDelegate() {
     }
 
@@ -69,12 +72,16 @@ public class OutboundDocQueryDelegate implements OutboundDelegate {
         return null;
     }
 
+    /**
+     * @param message Orchestarted message send to outbound.
+     * @return response Response received from Nhin.
+     */
     public OutboundDocQueryOrchestratable process(OutboundDocQueryOrchestratable message) {
         getLogger().debug("NhinDocQueryDelegate::process EntityDocQueryOrchestratable");
 
-        OutboundDocQueryOrchestrationContextBuilder contextBuilder = (OutboundDocQueryOrchestrationContextBuilder) OrchestrationContextFactory
-                .getInstance().getBuilder(message.getTarget().getHomeCommunity(), NhincConstants.NHIN_SERVICE_NAMES.DOCUMENT_QUERY);
-
+        OutboundDocQueryOrchestrationContextBuilder contextBuilder =
+           (OutboundDocQueryOrchestrationContextBuilder) OrchestrationContextFactory.getInstance().
+           getBuilder(message.getTarget().getHomeCommunity(), NhincConstants.NHIN_SERVICE_NAMES.DOCUMENT_QUERY);
         contextBuilder.setAssertionType(message.getAssertion());
         contextBuilder.setRequest(message.getRequest());
         contextBuilder.setTarget(message.getTarget());
@@ -99,13 +106,10 @@ public class OutboundDocQueryDelegate implements OutboundDelegate {
         return log;
     }
 
-	/* (non-Javadoc)
-	 * @see gov.hhs.fha.nhinc.orchestration.OutboundDelegate#createErrorResponse(gov.hhs.fha.nhinc.orchestration.OutboundOrchestratable, java.lang.String)
-	 */
-	@Override
-	public void createErrorResponse(OutboundOrchestratable message, String error) {
-		// TODO Auto-generated method stub
+    @Override
+    public void createErrorResponse(OutboundOrchestratable message, String error) {
+        // TODO Auto-generated method stub
 
-	}
+    }
 
 }

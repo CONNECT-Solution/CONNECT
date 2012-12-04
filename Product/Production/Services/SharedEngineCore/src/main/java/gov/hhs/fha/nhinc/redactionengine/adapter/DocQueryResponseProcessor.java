@@ -136,7 +136,7 @@ public class DocQueryResponseProcessor {
         } else {
             AdhocQueryType adhocQuery = adhocQueryRequest.getAdhocQuery();
             if (adhocQuery != null) {
-                homeCommunityId = HomeCommunityMap.getCommunityIdForDeferredQDRequest(adhocQuery);
+                homeCommunityId = HomeCommunityMap.getCommunityId(adhocQuery);
 
                 List<SlotType1> slots = null;
                 if (adhocQuery != null) {

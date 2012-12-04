@@ -1,7 +1,7 @@
 CONNECT
 =======
 
-CONNECT is an open source software solution that supports health information exchange – both locally and at the national level. CONNECT uses Nationwide Health Information Network standards and governance to make sure that health information exchanges are compatible with other exchanges being set up throughout the country.
+CONNECT is an open source software solution that supports health information exchange - both locally and at the national level. CONNECT uses Nationwide Health Information Network standards and governance to make sure that health information exchanges are compatible with other exchanges being set up throughout the country.
 
 This software solution was initially developed by federal agencies to support their health-related missions, but it is now available to all organizations and can be used to help set up health information exchanges and share data using nationally-recognized interoperability standards.
 
@@ -222,10 +222,20 @@ Run the Validation Suite project files MsgProxyValidation-soapui-project.xml and
 ##Setting up SoapUI
 Install SoapUI v4.5.1.
 
-Copy the MySQL jdbc driver mydql-connector-java-5.1.10.jar from the Maven repository directory .m2/repository/mysql/mysql-connector-java/5.1.10 to <SoapUI home>/bin/ext.
+Copy the MySQL jdbc driver mysql-connector-java-5.1.10.jar from the Maven repository directory .m2/repository/mysql/mysql-connector-java/5.1.10 to <SoapUI home>/bin/ext.
 
 Copy the file FileUtils-4.0.0-SNAPSHOT.jar (or similarly named) to <SoapUI home>/bin/ext.
 
+
+Documentation
+-------------
+
+###Generate & View
+You can generate the project's site information by performing the following: 
+
+        $ mvn -P\!embedded-testing site:site site:stage -DstagingSiteURL=/tmp/fullsite
+
+Then open your browser and view [file:///tmp/fullsite/index.html]
 
 Contributing
 ------------

@@ -6,6 +6,13 @@
  */
 package gov.hhs.fha.nhinc.docretrieve._30.passthru;
 
+import gov.hhs.fha.nhinc.aspect.OutboundMessageEvent;
+import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayCrossGatewayRetrieveSecuredRequestType;
+import gov.hhs.fha.nhinc.docretrieve.aspect.RetrieveDocumentSetTransformingBuilder;
+import gov.hhs.fha.nhinc.docretrieve.aspect.RetrieveDocumentSetResponseTypeDescriptionBuilder;
+import gov.hhs.fha.nhinc.docretrieve.passthru.NhincProxyDocRetrieveOrchImpl;
+import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
+
 import javax.annotation.Resource;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
@@ -18,13 +25,24 @@ import javax.xml.ws.soap.Addressing;
 
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 @Addressing(enabled = true)
-public class NhincProxyDocRetrieveSecured implements gov.hhs.fha.nhinc.nhincproxydocretrievesecured.NhincProxyDocRetrieveSecuredPortType {
+public class NhincProxyDocRetrieveSecured implements
+        gov.hhs.fha.nhinc.nhincproxydocretrievesecured.NhincProxyDocRetrieveSecuredPortType {
+
+    private NhincProxyDocRetrieveOrchImpl orchImpl;
+
     @Resource
     private WebServiceContext context;
 
-    public ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(
-            gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayCrossGatewayRetrieveSecuredRequestType body) {
-        return new NhincProxyDocRetrieveImpl().respondingGatewayCrossGatewayRetrieve(body, context);
+    @OutboundMessageEvent(beforeBuilder = RetrieveDocumentSetTransformingBuilder.class,
+            afterReturningBuilder = RetrieveDocumentSetResponseTypeDescriptionBuilder.class,
+            serviceType = "Retrieve Document", version = "3.0")
+    public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(
+            RespondingGatewayCrossGatewayRetrieveSecuredRequestType body) {
+        return new NhincProxyDocRetrieveImpl(orchImpl).respondingGatewayCrossGatewayRetrieve(body, context);
+    }
+
+    public void setOrchestratorImpl(NhincProxyDocRetrieveOrchImpl orchImpl) {
+        this.orchImpl = orchImpl;
     }
 
 }

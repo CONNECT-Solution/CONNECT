@@ -52,19 +52,34 @@ public class AdapterAdminDistributionProxyWebServiceSecuredImpl implements Adapt
     private Log log = null;
     private AdminDistributionHelper adminDistributionHelper;
 
+    /**
+     *Constructor.
+     */
     public AdapterAdminDistributionProxyWebServiceSecuredImpl() {
         log = createLogger();
         adminDistributionHelper = getHelper();
     }
 
+    /**
+     * @return log.
+     */
     protected Log createLogger() {
         return LogFactory.getLog(getClass());
     }
     
+    /**
+     * @return an instance of AdminDistributionHelper.
+     */
     protected AdminDistributionHelper getHelper() {
         return new AdminDistributionHelper();
     }
 
+    /** This method returns CXFClient to implement AdpaterAdmin Dist Secured Service.
+     * @param portDescriptor comprises of NameSpaceUri, WSDLFile to read,Port, ServiceName and WS_ADDRESSING_ACTION.   
+     * @param url targetCommunity Url received.
+     * @param assertion Assertion received.
+     * @return CXFClient for AdapterAdminDist Secured Service.
+     */
     protected CONNECTClient<AdapterAdministrativeDistributionSecuredPortType> getCONNECTClientSecured(
             ServicePortDescriptor<AdapterAdministrativeDistributionSecuredPortType> portDescriptor, String url,
             AssertionType assertion) {
@@ -72,6 +87,10 @@ public class AdapterAdminDistributionProxyWebServiceSecuredImpl implements Adapt
         return CONNECTCXFClientFactory.getInstance().getCONNECTClientSecured(portDescriptor, url, assertion);
     }
 
+    /** This method implements SendAlertMessage for AdminDist.
+     * @param body  Emergency Message Distribution Element transaction message body received.
+     * @param assertion Assertion received.
+     */
     public void sendAlertMessage(EDXLDistribution body, AssertionType assertion) {
         log.debug("Begin sendAlertMessage");
         String url = adminDistributionHelper.getAdapterUrl(NhincConstants.ADAPTER_ADMIN_DIST_SECURED_SERVICE_NAME,
@@ -79,10 +98,12 @@ public class AdapterAdminDistributionProxyWebServiceSecuredImpl implements Adapt
 
         if (NullChecker.isNotNullish(url)) {
             try {
-                RespondingGatewaySendAlertMessageSecuredType message = new RespondingGatewaySendAlertMessageSecuredType();
+                RespondingGatewaySendAlertMessageSecuredType message = 
+                        new RespondingGatewaySendAlertMessageSecuredType();
                 message.setEDXLDistribution(body);
 
-                ServicePortDescriptor<AdapterAdministrativeDistributionSecuredPortType> portDescriptor = new AdapterAdminDistributionSecuredServicePortDescriptor();
+                ServicePortDescriptor<AdapterAdministrativeDistributionSecuredPortType> portDescriptor = 
+                        new AdapterAdminDistributionSecuredServicePortDescriptor();
 
                 CONNECTClient<AdapterAdministrativeDistributionSecuredPortType> client = getCONNECTClientSecured(
                         portDescriptor, url, assertion);
@@ -97,6 +118,9 @@ public class AdapterAdminDistributionProxyWebServiceSecuredImpl implements Adapt
         }
     }
 
+    /**
+     * @return an instance of webServiceProxyHelper.
+     */
     protected WebServiceProxyHelper getWebServiceProxyHelper() {
         return new WebServiceProxyHelper();
     }

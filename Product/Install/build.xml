@@ -46,6 +46,7 @@
         <dependency groupId="org.connectopensource" artifactId="Properties" version="${deployment.version}" type="jar" scope="runtime">
             <exclusion groupId="commons-logging" artifactId="commons-logging"/>
             <exclusion groupId="log4j" artifactId="log4j"/>
+            <exclusion groupId="com.google.guava" artifactId="guava"/>
             </dependency>
         <localRepository path="${m2.local.repo.path}"/>
     </artifact:dependencies>

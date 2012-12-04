@@ -1,45 +1,44 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
- * All rights reserved. 
+ * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * All rights reserved.
  *
- * Redistribution and use in source and binary forms, with or without 
- * modification, are permitted provided that the following conditions are met: 
- *     * Redistributions of source code must retain the above 
- *       copyright notice, this list of conditions and the following disclaimer. 
- *     * Redistributions in binary form must reproduce the above copyright 
- *       notice, this list of conditions and the following disclaimer in the documentation 
- *       and/or other materials provided with the distribution. 
- *     * Neither the name of the United States Government nor the 
- *       names of its contributors may be used to endorse or promote products 
- *       derived from this software without specific prior written permission. 
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *     * Redistributions of source code must retain the above
+ *       copyright notice, this list of conditions and the following disclaimer.
+ *     * Redistributions in binary form must reproduce the above copyright
+ *       notice, this list of conditions and the following disclaimer in the documentation
+ *       and/or other materials provided with the distribution.
+ *     * Neither the name of the United States Government nor the
+ *       names of its contributors may be used to endorse or promote products
+ *       derived from this software without specific prior written permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
- * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
- * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY 
- * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES 
- * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
- * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND 
- * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
- * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package gov.hhs.fha.nhinc.logging.transaction.dao;
-
-import java.util.List;
 
 import gov.hhs.fha.nhinc.logging.transaction.model.TransactionRepo;
 import gov.hhs.fha.nhinc.logging.transaction.persistance.HibernateUtil;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 
+import java.util.List;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.criterion.Expression;
 
 /**
  * TransactionDAO provides methods to query and update the transrepo database.
@@ -50,7 +49,7 @@ import org.hibernate.criterion.Expression;
 public final class TransactionDAO {
 
     private static final Log LOG = LogFactory.getLog(TransactionDAO.class);
-    private static TransactionDAO transDAOInstance = new TransactionDAO();
+    private static final TransactionDAO INSTANCE = new TransactionDAO();
 
     /**
      * The constructor.
@@ -64,9 +63,9 @@ public final class TransactionDAO {
      * 
      * @return TransactionDAO
      */
-    public static TransactionDAO getTransactionDAOInstance() {
+    public static TransactionDAO getInstance() {
         LOG.debug("getTransactionDAOInstance()...");
-        return transDAOInstance;
+        return INSTANCE;
     }
 
     /**
@@ -111,6 +110,7 @@ public final class TransactionDAO {
      * @param messageId
      * @return String
      */
+    @SuppressWarnings("unchecked")
     public String getTransactionId(String messageId) {
         LOG.debug("TransactionDAO.getTransactinId() - Begin");
 
@@ -121,37 +121,29 @@ public final class TransactionDAO {
         }
 
         Session session = null;
-        List<TransactionRepo> queryList = null;
-        TransactionRepo foundRecord = null;
-        String transactionId = null;
-        
-        try {
 
+        try {
             SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
             session = sessionFactory.openSession();
-            LOG.info("Getting Records");
 
-            Criteria aCriteria = session.createCriteria(TransactionRepo.class);
-
-            aCriteria.add(Expression.eq("messageId", messageId));
-
-            queryList = aCriteria.list();
-
-            if (queryList != null && !queryList.isEmpty()) {
-                foundRecord = queryList.get(0);
+            if (LOG.isDebugEnabled()) {
+                LOG.info("Getting Records");
             }
+            Query namedQuery = session.getNamedQuery("findTransactionByMessageId");
+            namedQuery.setString("messageId", messageId);
 
+            List<Object[]> queryList = (List<Object[]>) namedQuery.list();
+
+            if (!queryList.isEmpty()) {
+                return queryList.get(0).toString();
+            }
         } catch (Exception e) {
             LOG.error("Exception in getPerfrepository() occured due to :" + e.getMessage(), e);
         } finally {
-            closeSession(session, true);
-        }
-        
-        if (foundRecord != null) {
-            transactionId = foundRecord.getTransactionId();
+            closeSession(session, false);
         }
 
-        return transactionId;
+        return null;
     }
 
     private void closeSession(Session session, boolean flush) {

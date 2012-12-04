@@ -51,22 +51,38 @@ import org.apache.commons.logging.LogFactory;
 public class EntityAdminDistributionProxyWebServiceSecuredImpl {
     private Log log = null;
 
+    /**
+     * Constructor.
+     */
     public EntityAdminDistributionProxyWebServiceSecuredImpl() {
         log = createLogger();
     }
 
+    /**
+     * @return log.
+     */
     private Log createLogger() {
         return LogFactory.getLog(getClass());
     }
 
+    /**
+     * @return instance of AdminDistributionHelper.
+     */
     protected AdminDistributionHelper getHelper() {
         return new AdminDistributionHelper();
     }
 
+    /**
+     * @return instance of WebServiceProxyHelper.
+     */
     protected WebServiceProxyHelper getWebServiceProxyHelper() {
         return new WebServiceProxyHelper();
     }
 
+    /**This method returns EntityAdminDistributionSecuredServicePortDescriptor based on gateway apiLevel. 
+     * @param apiLevel gateway apiLevel received (g0/g1).
+     * @return instance of EntityAdminDistributionSecuredServicePortDescriptor based on gateway apiLevel. 
+     */
     public ServicePortDescriptor<AdministrativeDistributionSecuredPortType> getServicePortDescriptor(
             NhincConstants.GATEWAY_API_LEVEL apiLevel) {
         switch (apiLevel) {
@@ -77,6 +93,12 @@ public class EntityAdminDistributionProxyWebServiceSecuredImpl {
         }
     }
 
+    /** This method returns CXFClient to implement AdminDist Secured Service.
+     * @param portDescriptor comprises of NameSpaceUri, WSDL File, Port, ServiceName  and WS_ADDRESSING_ACTION.
+     * @param url target community url .
+     * @param assertion Assertion received.
+     * @return CXFClient to implement AdminDist Secured Service.
+     */
     protected CONNECTClient<AdministrativeDistributionSecuredPortType> getCONNECTClientSecured(
             ServicePortDescriptor<AdministrativeDistributionSecuredPortType> portDescriptor, String url,
             AssertionType assertion) {
@@ -84,6 +106,12 @@ public class EntityAdminDistributionProxyWebServiceSecuredImpl {
         return CONNECTCXFClientFactory.getInstance().getCONNECTClientSecured(portDescriptor, url, assertion);
     }
 
+    /** This method implements sendAlertMessage from initiater to responder.
+     * @param body Emergency Message Distribution Element transaction message body received.
+     * @param assertion Assertion received.
+     * @param target NhinTargetCommunity receievd.
+     * @param apiLevel gateway apiLevel received (g0/g1).
+     */
     public void sendAlertMessage(EDXLDistribution body, AssertionType assertion, NhinTargetCommunitiesType target,
             NhincConstants.GATEWAY_API_LEVEL apiLevel) {
         log.debug("begin sendAlertMessage");
@@ -93,11 +121,13 @@ public class EntityAdminDistributionProxyWebServiceSecuredImpl {
 
         if (NullChecker.isNotNullish(url)) {
             try {
-                RespondingGatewaySendAlertMessageSecuredType message = new RespondingGatewaySendAlertMessageSecuredType();
+                RespondingGatewaySendAlertMessageSecuredType message = 
+                        new RespondingGatewaySendAlertMessageSecuredType();
                 message.setEDXLDistribution(body);
                 message.setNhinTargetCommunities(target);
 
-                ServicePortDescriptor<AdministrativeDistributionSecuredPortType> portDescriptor = getServicePortDescriptor(apiLevel);
+                ServicePortDescriptor<AdministrativeDistributionSecuredPortType> portDescriptor = 
+                        getServicePortDescriptor(apiLevel);
 
                 CONNECTClient<AdministrativeDistributionSecuredPortType> client = getCONNECTClientSecured(
                         portDescriptor, url, assertion);

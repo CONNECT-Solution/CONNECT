@@ -51,25 +51,45 @@ public class AdapterAdminDistributionProxyWebServiceUnsecuredImpl implements Ada
     private Log log = null;
     private AdminDistributionHelper adminDistributionHelper;
 
+    /**
+     * Constructor.
+     */
     public AdapterAdminDistributionProxyWebServiceUnsecuredImpl() {
         log = createLogger();
         adminDistributionHelper = getHelper();
     }
 
+    /**
+     * @return log.
+     */
     protected Log createLogger() {
         return LogFactory.getLog(getClass());
     }
 
+    /**
+     * @return an instance of AdminDistributionHelper.
+     */
     protected AdminDistributionHelper getHelper() {
         return new AdminDistributionHelper();
     }
 
+    /** This method returns CXFClient to implement AdpaterAdmin Dist Unsecured Service.
+     * @param portDescriptor comprises of NameSpaceUri, WSDLFile to read,Port, ServiceName and WS_ADDRESSING_ACTION.   
+     * @param url targetCommunity Url received.
+     * @param assertion Assertion received.
+     * @return CXFClient for AdapterAdminDist Unsecured Service.
+     */
     protected CONNECTClient<AdapterAdministrativeDistributionPortType> getCONNECTClientUnsecured(
-            ServicePortDescriptor<AdapterAdministrativeDistributionPortType> portDescriptor, String url, AssertionType assertion) {
+            ServicePortDescriptor<AdapterAdministrativeDistributionPortType> portDescriptor,
+            String url, AssertionType assertion) {
 
         return CONNECTCXFClientFactory.getInstance().getCONNECTClientUnsecured(portDescriptor, url, assertion);
     }
 
+    /** This method implements SendAlertMessage for AdminDist.
+     * @param body  Emergency Message Distribution Element transaction message body received.
+     * @param assertion Assertion received.
+     */
     public void sendAlertMessage(EDXLDistribution body, AssertionType assertion) {
         log.debug("Begin sendAlertMessage");
         String url = adminDistributionHelper.getAdapterUrl(NhincConstants.ADAPTER_ADMIN_DIST_SERVICE_NAME,
@@ -82,9 +102,11 @@ public class AdapterAdminDistributionProxyWebServiceUnsecuredImpl implements Ada
                 message.setEDXLDistribution(body);
                 message.setAssertion(assertion);
                 
-                ServicePortDescriptor<AdapterAdministrativeDistributionPortType> portDescriptor = new AdapterAdminDistributionUnsecuredServicePortDescriptor();
+                ServicePortDescriptor<AdapterAdministrativeDistributionPortType> portDescriptor = 
+                        new AdapterAdminDistributionUnsecuredServicePortDescriptor();
 
-                CONNECTClient<AdapterAdministrativeDistributionPortType> client = getCONNECTClientUnsecured(portDescriptor, url, assertion);
+                CONNECTClient<AdapterAdministrativeDistributionPortType> client = 
+                        getCONNECTClientUnsecured(portDescriptor, url, assertion);
 
                 client.invokePort(AdapterAdministrativeDistributionPortType.class, "sendAlertMessage",
                         message);

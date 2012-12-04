@@ -40,14 +40,26 @@ import org.apache.commons.logging.LogFactory;
 public class NhinAdminDistributionProxyNoOpImpl implements NhinAdminDistributionProxy {
     private Log log = null;
 
+    /**
+     * Constructor.
+     */
     public NhinAdminDistributionProxyNoOpImpl() {
         log = createLogger();
     }
 
+    /**
+     * @return log.
+     */
     protected Log createLogger() {
         return LogFactory.getLog(getClass());
     }
 
+    /**This method does not do any implementation.
+     * @param body Emergency Message Distribution Element transaction messgae body.
+     * @param assertion Assertion received.
+     * @param target NhinTargetCommunity received.
+     * @param apiLevel gateway apiLevel (g0/g1).
+     */
     public void sendAlertMessage(EDXLDistribution body, AssertionType assertion, NhinTargetSystemType target,
             NhincConstants.GATEWAY_API_LEVEL apiLevel) {
         log.info("begin send alert");

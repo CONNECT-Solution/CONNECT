@@ -26,7 +26,11 @@
  */
 package gov.hhs.fha.nhinc.docsubmission._20.entity;
 
+import gov.hhs.fha.nhinc.aspect.OutboundMessageEvent;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType;
+import gov.hhs.fha.nhinc.docsubmission.outbound.OutboundDocSubmission;
+import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionArgTransformerBuilder;
+import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionBaseEventDescriptionBuilder;
 
 import javax.annotation.Resource;
 import javax.xml.ws.BindingType;
@@ -39,23 +43,25 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 @Addressing(enabled = true)
 public class EntityDocSubmissionSecured_g1 implements gov.hhs.fha.nhinc.nhincentityxdrsecured.EntityXDRSecuredPortType {
 
-    @Resource
     private WebServiceContext context;
 
+    private OutboundDocSubmission outboundDocSubmission;
+
+    @Override
+    @OutboundMessageEvent(serviceType = "Document Submission", version = "2.0",
+            beforeBuilder = DocSubmissionArgTransformerBuilder.class,
+            afterReturningBuilder = DocSubmissionBaseEventDescriptionBuilder.class)
     public RegistryResponseType provideAndRegisterDocumentSetB(
             RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType body) {
-        
-        EntityDocSubmissionImpl_g1 impl = getEntityDocSubmissionImpl();
-        RegistryResponseType response = impl.provideAndRegisterDocumentSetB(body, context);
-
-        return response;
+        return new EntityDocSubmissionImpl_g1(outboundDocSubmission).provideAndRegisterDocumentSetBSecured(body, context);
     }
 
-    protected EntityDocSubmissionImpl_g1 getEntityDocSubmissionImpl() {
-        return new EntityDocSubmissionImpl_g1();
+    @Resource
+    public void setContext(WebServiceContext context) {
+        this.context = context;
     }
 
-    protected WebServiceContext getWebServiceContext() {
-        return context;
+    public void setOutboundDocSubmission(OutboundDocSubmission outboundDocSubmission) {
+        this.outboundDocSubmission = outboundDocSubmission;
     }
 }

@@ -33,13 +33,19 @@ import gov.hhs.fha.nhinc.orchestration.OrchestrationContextBuilder;
  * 
  * @author nnguyen
  */
-public class OutboundAdminDistributionFactory {
+public final class OutboundAdminDistributionFactory {
 
+    //CHECKSTYLE:OFF
     private static OutboundAdminDistributionFactory INSTANCE = new OutboundAdminDistributionFactory();
-
+    //CHECKSTYLE:ON
+    
     private OutboundAdminDistributionFactory() {
     }
 
+    /** This method returns OutboundAdminDistributionOrchestrationContextBuilder based on gateway apiLevel.
+     * @param apiLevel gateway apiLevel received (g0 or g1).
+     * @return instance of OutboundAdminDistributionOrchestrationContextBuilder based on gateway apiLevel.
+     */
     public OrchestrationContextBuilder createOrchestrationContextBuilder(NhincConstants.GATEWAY_API_LEVEL apiLevel) {
         switch (apiLevel) {
         case LEVEL_g0:
@@ -51,6 +57,9 @@ public class OutboundAdminDistributionFactory {
         }
     }
 
+    /**
+     * @return instance of OutboundAdminDistributionFactory. 
+     */
     public static OutboundAdminDistributionFactory getInstance() {
         return INSTANCE;
     }

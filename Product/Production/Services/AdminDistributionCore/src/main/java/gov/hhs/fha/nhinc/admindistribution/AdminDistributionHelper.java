@@ -118,6 +118,12 @@ public class AdminDistributionHelper {
         return getUrl(ts, targetSystem, apiLevel);
     }
 
+    /** This method retrieves url of the Nhin targetcommunity.
+     * @param target The Nhin target Community received.
+     * @param targetSystem The targetsystem received.
+     * @param apiLevel The gateway apiLevel g0 or g1.
+     * @return url Url of the targetcommunity based on g0 or g1 apiLevel.
+     */
     public String getUrl(NhinTargetSystemType target, String targetSystem, GATEWAY_API_LEVEL apiLevel) {
         log.debug("begin getUrl target/targetSystem: " + target + " / " + targetSystem);
         String url = null;
@@ -138,6 +144,11 @@ public class AdminDistributionHelper {
         return url;
     }
 
+    /** This method retrieves adapterservice url for AdminDist..
+     * @param adapterServcice The name of AdapterService in internalconnectionInfo.xml.
+     * @param adapterApiLevel The adapter apiLevel a0 or a1.
+     * @return adapter url from internalconnectioninfo.xml.
+     */
     public String getAdapterUrl(String adapterServcice, NhincConstants.ADAPTER_API_LEVEL adapterApiLevel) {
         try {
             return ConnectionManagerCache.getInstance().getAdapterEndpointURL(adapterServcice, adapterApiLevel);
@@ -149,15 +160,16 @@ public class AdminDistributionHelper {
 
         return null;
     }
-
-    public boolean isInPassThroughMode() {
-        return readBooleanGatewayProperty(NhincConstants.NHIN_ADMIN_DIST_SERVICE_PASSTHRU_PROPERTY);
-    }
     
+    /** This method read pasased in property value from gateway.property and returns boolean.
+     * @param propertyName The Property name passed in to read property value from gateway.properties.
+     * @return true or false value from gateway.properties for that specific property.
+     */
     public boolean readBooleanGatewayProperty(String propertyName) {
         boolean result = false;
         try {
-            result = PropertyAccessor.getInstance().getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE, propertyName);
+            result = PropertyAccessor.getInstance().
+                    getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE, propertyName);
         } catch (PropertyAccessException ex) {
             log.error("Error: Failed to retrieve " + propertyName + " from property file: "
                     + NhincConstants.GATEWAY_PROPERTY_FILE);
@@ -166,6 +178,10 @@ public class AdminDistributionHelper {
         return result;
     }
 
+    /** This method read PropertyName from gateway.properties.
+     * @param propertyName Property received to read from gateway.properties.
+     * @return PropertyName from gateway.properties.
+     */
     public String readStringGatewayProperty(String propertyName) {
         String result = "";
         try {
@@ -178,6 +194,10 @@ public class AdminDistributionHelper {
         return result;
     }
 
+    /** This method builds NhinTargetSystem for the homeCommunityId passed.
+     * @param homeCommunityId homeCommunityId received.
+     * @return targetSystem.
+     */
     public NhinTargetSystemType buildHomeCommunity(String homeCommunityId) {
         NhinTargetSystemType nhinTargetSystem = new NhinTargetSystemType();
         HomeCommunityType homeCommunity = new HomeCommunityType();

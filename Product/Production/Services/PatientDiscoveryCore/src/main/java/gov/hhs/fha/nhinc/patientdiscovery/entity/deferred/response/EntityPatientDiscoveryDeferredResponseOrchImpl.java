@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.response;
 
+import gov.hhs.fha.nhinc.aspect.OutboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
@@ -38,6 +39,8 @@ import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscovery201306Processor;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditLogger;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditor;
 import gov.hhs.fha.nhinc.patientdiscovery.PolicyChecker;
+import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201306UV02EventDescriptionBuilder;
+import gov.hhs.fha.nhinc.patientdiscovery.aspect.MCCIIN000002UV01EventDescriptionBuilder;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7AckTransforms;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 
@@ -61,10 +64,9 @@ public class EntityPatientDiscoveryDeferredResponseOrchImpl implements EntityPat
     private final WebServiceProxyHelper webserviceProxyhelper;
     private final PatientDiscovery201306Processor pd201306Processor;
 
-    EntityPatientDiscoveryDeferredResponseOrchImpl(
-            PolicyChecker<RespondingGatewayPRPAIN201306UV02RequestType, PRPAIN201306UV02> policyChecker) {
+    EntityPatientDiscoveryDeferredResponseOrchImpl(PolicyChecker<RespondingGatewayPRPAIN201306UV02RequestType, 
+            PRPAIN201306UV02> policyChecker) {
         this.policyChecker = policyChecker;
-
         this.webserviceProxyhelper = new WebServiceProxyHelper();
         this.pd201306Processor = new PatientDiscovery201306Processor();
     }
@@ -78,6 +80,10 @@ public class EntityPatientDiscoveryDeferredResponseOrchImpl implements EntityPat
     }
 
     @Override
+    @OutboundProcessingEvent(beforeBuilder = PRPAIN201306UV02EventDescriptionBuilder.class,
+    afterReturningBuilder = MCCIIN000002UV01EventDescriptionBuilder.class, 
+    serviceType = "Patient Discovery Deferred Response",
+    version = "1.0")
     public MCCIIN000002UV01 processPatientDiscoveryAsyncRespOrch(PRPAIN201306UV02 body, AssertionType assertion,
             NhinTargetCommunitiesType target) {
         MCCIIN000002UV01 ack = new MCCIIN000002UV01();

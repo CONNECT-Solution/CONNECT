@@ -34,6 +34,10 @@
       <artifactId>log4j</artifactId>
     </dependency>
     <dependency>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava</artifactId>
+    </dependency>
+    <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <scope>test</scope>
@@ -53,10 +57,16 @@
       <artifactId>jmock-junit4</artifactId>
       <scope>test</scope>
     </dependency>
+    <dependency>
+        <groupId>org.mockito</groupId>
+        <artifactId>mockito-all</artifactId>
+        <version>1.9.0</version>
+        <scope>test</scope>
+    </dependency>
   </dependencies>
   <build>
-    <!-- Caution: If <resources> or <testResources> is overridden by 
-            a child POM then all <resource> and <testResouce> elements will need to be 
+    <!-- Caution: If <resources> or <testResources> is overridden by
+            a child POM then all <resource> and <testResouce> elements will need to be
             placed within the child POM that overrides the <resourcs> or <testResources> -->
     <resources>
       <resource>
@@ -96,7 +106,7 @@
         <executions>
           <execution>
             <id>unpack-gateway-properties</id>
-            <!-- Using the initialize phase because it is before 
+            <!-- Using the initialize phase because it is before
                             the generate sources phase -->
             <phase>initialize</phase>
             <goals>
@@ -119,7 +129,7 @@
           </execution>
           <execution>
             <id>unpack-xsd-files</id>
-            <!-- Using the initialize phase because it is before 
+            <!-- Using the initialize phase because it is before
                             the generate sources phase -->
             <phase>initialize</phase>
             <goals>
@@ -172,7 +182,7 @@
                   <extraarg>-wsdlLocation</extraarg>
                   <extraarg></extraarg>
                 </extraargs>
-                <!-- <bindingFiles> <bindingFile>${basedir}/src/main/resources/sun-jaxb.episode</bindingFile> 
+                <!-- <bindingFiles> <bindingFile>${basedir}/src/main/resources/sun-jaxb.episode</bindingFile>
                                     </bindingFiles> -->
                 <noAddressBinding>true</noAddressBinding>
               </defaultOptions>
@@ -256,5 +266,57 @@
         </executions>
       </plugin>
     </plugins>
+    <pluginManagement>
+    	<plugins>
+    		<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
+    		<plugin>
+    			<groupId>org.eclipse.m2e</groupId>
+    			<artifactId>lifecycle-mapping</artifactId>
+    			<version>1.0.0</version>
+    			<configuration>
+    				<lifecycleMappingMetadata>
+    					<pluginExecutions>
+    						<pluginExecution>
+    							<pluginExecutionFilter>
+    								<groupId>
+    									org.apache.maven.plugins
+    								</groupId>
+    								<artifactId>
+    									maven-dependency-plugin
+    								</artifactId>
+    								<versionRange>
+    									[2.5.1,)
+    								</versionRange>
+    								<goals>
+    									<goal>unpack</goal>
+    								</goals>
+    							</pluginExecutionFilter>
+    							<action>
+    								<ignore></ignore>
+    							</action>
+    						</pluginExecution>
+    						<pluginExecution>
+    							<pluginExecutionFilter>
+    								<groupId>org.apache.cxf</groupId>
+    								<artifactId>
+    									cxf-codegen-plugin
+    								</artifactId>
+    								<versionRange>
+    									[2.6.0,)
+    								</versionRange>
+    								<goals>
+    									<goal>wsdl2java</goal>
+    								</goals>
+    							</pluginExecutionFilter>
+    							<action>
+    								<ignore></ignore>
+    							</action>
+    						</pluginExecution>
+    					</pluginExecutions>
+    				</lifecycleMappingMetadata>
+    			</configuration>
+    		</plugin>
+    	</plugins>
+    </pluginManagement>
   </build>
 </project>

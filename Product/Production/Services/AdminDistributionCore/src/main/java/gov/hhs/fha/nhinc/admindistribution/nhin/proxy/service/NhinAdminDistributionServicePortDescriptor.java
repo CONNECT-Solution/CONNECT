@@ -34,7 +34,8 @@ import gov.hhs.fha.nhinc.nhinadmindistribution.RespondingGatewayAdministrativeDi
  * @author akong
  *
  */
-public abstract class NhinAdminDistributionServicePortDescriptor implements ServicePortDescriptor<RespondingGatewayAdministrativeDistributionPortType> {
+public abstract class NhinAdminDistributionServicePortDescriptor implements 
+                ServicePortDescriptor<RespondingGatewayAdministrativeDistributionPortType> {
     
     private static final String NAMESPACE_URI = "urn:gov:hhs:fha:nhinc:nhinadmindistribution";
     private static final String SERVICE_LOCAL_PART = "RespondingGateway_AdministrativeDistribution";

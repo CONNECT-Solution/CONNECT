@@ -26,49 +26,43 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws;
 
+
+import gov.hhs.fha.nhinc.aspect.OutboundMessageEvent;
+import gov.hhs.fha.nhinc.entitypatientdiscovery.EntityPatientDiscoveryPortType;
 import gov.hhs.fha.nhinc.patientdiscovery._10.entity.EntityPatientDiscoveryImpl;
+import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201305UV02ArgTransformer;
+import gov.hhs.fha.nhinc.patientdiscovery.aspect.RespondingGatewayPRPAIN201306UV02Builder;
+import gov.hhs.fha.nhinc.patientdiscovery.outbound.OutboundPatientDiscovery;
 
 import javax.xml.ws.BindingType;
 import javax.xml.ws.soap.Addressing;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 import org.hl7.v3.RespondingGatewayPRPAIN201306UV02ResponseType;
 
-/**
- * 
- * @author Neil Webb
- */
 
 @Addressing(enabled = true)
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
-public class EntityPatientDiscoveryUnsecured extends PatientDiscoveryBase implements gov.hhs.fha.nhinc.entitypatientdiscovery.EntityPatientDiscoveryPortType {
-    private static final Log log = LogFactory.getLog(EntityPatientDiscoveryUnsecured.class);
-
+public class EntityPatientDiscoveryUnsecured implements EntityPatientDiscoveryPortType {
+    
+    private OutboundPatientDiscovery outboundPatientDiscovery;
+    
     public EntityPatientDiscoveryUnsecured() {
         super();
     }
 
-    public EntityPatientDiscoveryUnsecured(PatientDiscoveryServiceFactory serviceFactory) {
-        super(serviceFactory);
-    }
-
-    protected EntityPatientDiscoveryImpl getEntityPatientDiscoveryImpl() {
-        return getServiceFactory().getEntityPatientDiscoveryImpl();
-    }
-
+    @OutboundMessageEvent(beforeBuilder = PRPAIN201305UV02ArgTransformer.class,
+            afterReturningBuilder = RespondingGatewayPRPAIN201306UV02Builder.class, serviceType = "Patient Discovery",
+            version = "1.0")
     public RespondingGatewayPRPAIN201306UV02ResponseType respondingGatewayPRPAIN201305UV02(
-            RespondingGatewayPRPAIN201305UV02RequestType respondingGatewayPRPAIN201305UV02Request) {
-        log.debug("Begin EntityPatientDiscoveryUnsecured.respondingGatewayPRPAIN201305UV02...");
-        RespondingGatewayPRPAIN201306UV02ResponseType response = null;
-
-        EntityPatientDiscoveryImpl impl = getEntityPatientDiscoveryImpl();
-        if (impl != null) {
-            response = impl.respondingGatewayPRPAIN201305UV02(respondingGatewayPRPAIN201305UV02Request);
-        }
-        log.debug("End EntityPatientDiscoveryUnsecured.respondingGatewayPRPAIN201305UV02...");
-        return response;
+            RespondingGatewayPRPAIN201305UV02RequestType request) {
+        
+        return new EntityPatientDiscoveryImpl(outboundPatientDiscovery).respondingGatewayPRPAIN201305UV02(request,
+                request.getAssertion());
+    }
+   
+    public void setOutboundPatientDiscovery(OutboundPatientDiscovery outboundPatientDiscovery) {
+        this.outboundPatientDiscovery = outboundPatientDiscovery;
     }
 
 }

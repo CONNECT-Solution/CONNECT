@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project abortOnError="false" name="AuditLogsforDocQandDocR" resourceRoot="" runType="SEQUENTIAL" soapui-version="3.5.1" xmlns:con="http://eviware.com/soapui/config">
+<con:soapui-project abortOnError="false" name="AuditLogsforDocQandDocR" resourceRoot="${projectDir}" runType="SEQUENTIAL" soapui-version="4.5.1" activeEnvironment="Default" xmlns:con="http://eviware.com/soapui/config">
 	<con:settings/>
 	
-	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxydocquery}NhincProxyDocQueryBindingSoap" definition="WSDL path not set.  #NhincProxyDocQuery.wsdl" name="NhincProxyDocQueryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxydocquery}NhincProxyDocQueryBindingSoap" definition="${ProjectDir}../ValidationSuite/target/wsdl/NhincProxyDocQuery.wsdl" name="NhincProxyDocQueryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 		
 		<con:endpoints>
@@ -17,7 +17,7 @@
 			<con:settings/>
 		</con:operation>
 	</con:interface>
-	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxydocretrieve}NhincProxyDocRetrieveBindingSoap" definition="WSDL path not set.  #NhincProxyDocRetrieve.wsdl" name="NhincProxyDocRetrieveBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxydocretrieve}NhincProxyDocRetrieveBindingSoap" definition="${ProjectDir}../ValidationSuite/target/wsdl/NhincProxyDocRetrieve.wsdl" name="NhincProxyDocRetrieveBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 		
 		<con:endpoints>
@@ -348,7 +348,7 @@ assert (documentID == msgDocID);
 log.info documentID + " " + msgDocID</scriptText>
 							</con:configuration>
 						</con:assertion>
-						<con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhincproxydocquery/NhincProxyDocQueryPortType/RespondingGateway_CrossGatewayQueryRequest" mustUnderstand="NONE" version="200508"/>
+						<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhincproxydocquery/NhincProxyDocQueryPortType/RespondingGateway_CrossGatewayQueryRequest" mustUnderstand="NONE" version="200508"/>
 						<con:wsrmConfig version="1.2"/>
 					</con:request>
 				</con:config>
@@ -358,22 +358,22 @@ log.info documentID + " " + msgDocID</scriptText>
 //log.info "Count: " + count;
 assert (count > 0);</script></con:config></con:testStep>
 			
-			<con:properties>
+			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-08-23T19:21:24Z</con:value>
+					<con:value>2012-11-27T18:38:19Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-08-23T19:31:24Z</con:value>
+					<con:value>2012-11-27T18:48:19Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>08/23/2012 19:21:24</con:value>
+					<con:value>11/27/2012 18:38:19</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-09-22T00:00:00Z</con:value>
+					<con:value>2012-12-27T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>FullPatientID</con:name>
@@ -381,12 +381,11 @@ assert (count > 0);</script></con:config></con:testStep>
 				</con:property>
 				<con:property>
 					<con:name>UserId</con:name>
-					<con:value>TestThu Aug 23 19:26:24 UTC 20121</con:value>
+					<con:value>TestTue Nov 27 18:43:19 UTC 20121</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
-			<con:tearDownScript>import nhinc.FileUtils;
-FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
+			<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript>
 		</con:testCase>
 		<con:testCase failOnError="true" failTestCaseOnErrors="true" id="70bf8740-4a40-4990-8940-320839d4fc9d" keepSession="false" maxResults="0" name="DocRetrieve - AuditLog TestCase" searchProperties="true">
 			<con:settings/>
@@ -665,11 +664,9 @@ context.testCase.setPropertyValue('UserId',"${AQUserID}${nowDate}1");</script>
 							</con:configuration>
 						</con:assertion>
 						<con:assertion type="Schema Compliance">
-							<con:configuration>
-								<definition/>
-							</con:configuration>
+							<con:configuration><definition/></con:configuration>
 						</con:assertion>
-						<con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhincproxydocretrieve/NhincProxyDocRetrievePortType/RespondingGateway_CrossGatewayRetrieveRequest" mustUnderstand="NONE" version="200508"/>
+						<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhincproxydocretrieve/NhincProxyDocRetrievePortType/RespondingGateway_CrossGatewayRetrieveRequest" mustUnderstand="NONE" version="200508"/>
 						<con:wsrmConfig version="1.2"/>
 					</con:request>
 				</con:config>
@@ -679,22 +676,22 @@ context.testCase.setPropertyValue('UserId',"${AQUserID}${nowDate}1");</script>
 }
 //log.info "Count: " + count;
 assert (count > 0);</script></con:config></con:testStep>
-			<con:properties>
+			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-08-23T19:24:33Z</con:value>
+					<con:value>2012-11-27T18:38:07Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-08-23T19:34:33Z</con:value>
+					<con:value>2012-11-27T18:48:07Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>08/23/2012 19:24:33</con:value>
+					<con:value>11/27/2012 18:38:07</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-09-22T00:00:00Z</con:value>
+					<con:value>2012-12-27T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>CorrectedLocalHCID</con:name>
@@ -702,12 +699,11 @@ assert (count > 0);</script></con:config></con:testStep>
 				</con:property>
 				<con:property>
 					<con:name>UserId</con:name>
-					<con:value>TestThu Aug 23 19:29:33 UTC 20121</con:value>
+					<con:value>TestTue Nov 27 18:43:07 UTC 20121</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
-			<con:tearDownScript>import nhinc.FileUtils;
-FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
+			<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript>
 		</con:testCase>
 		<con:properties/>
 		<con:reportParameters/>
@@ -740,7 +736,7 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 		
 		<con:property><con:name>LocalAA</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalHCDescription</con:name><con:value>Test1</con:value></con:property><con:property><con:name>LocalHCID</con:name><con:value>1.1</con:value></con:property><con:property><con:name>RemoteAA</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemoteHCDescription</con:name><con:value>Test2</con:value></con:property><con:property><con:name>RemoteHCID</con:name><con:value>2.2</con:value></con:property>
 		
-	<con:property><con:name>Request_Query</con:name><con:value>110112</con:value></con:property><con:property><con:name>Request_Retrieve</con:name><con:value>110107</con:value></con:property><con:property><con:name>Response_Query</con:name><con:value>110112</con:value></con:property><con:property><con:name>Response_Retrieve</con:name><con:value>110106</con:value></con:property><con:property><con:name>Test</con:name><con:value>Test</con:value></con:property><con:property><con:name>Endpoint-AuditLogQuery</con:name><con:value>http://localhost:8080/CONNECTAdapter/NhincProxyAuditQuery</con:value></con:property></con:properties>
+	<con:property><con:name>Request_Query</con:name><con:value>110112</con:value></con:property><con:property><con:name>Request_Retrieve</con:name><con:value>110107</con:value></con:property><con:property><con:name>Response_Query</con:name><con:value>110112</con:value></con:property><con:property><con:name>Response_Retrieve</con:name><con:value>110106</con:value></con:property><con:property><con:name>Test</con:name><con:value>Test</con:value></con:property><con:property><con:name>Endpoint-AuditLogQuery</con:name><con:value>http://localhost:8080/CONNECTAdapter/NhincProxyAuditQuery</con:value></con:property><con:property><con:name>GatewayPropDir</con:name><con:value>D:\glassfish3\glassfish\domains\domain1\config\nhin</con:value></con:property></con:properties>
 	<con:afterLoadScript>def propertiesFilename = project.path[0..(project.path.size()-4)] + 'properties'
 def propertiesFile = new File(propertiesFilename)
 if (propertiesFile.exists()) {
@@ -848,10 +844,5 @@ com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.withSql = { d
 		<con:xmlTemplates/>
 		<con:parameters/>
 	</con:reporting>
-	<con:eventHandlers name="TestSuiteRunListener.beforeTestCase" type="TestSuiteRunListener.beforeTestCase">
-		<con:script>FileUtils.backupConfiguration(context, log);</con:script>
-	</con:eventHandlers>
-	<con:eventHandlers name="TestSuiteRunListener.afterTestCase" type="TestSuiteRunListener.afterTestCase">
-		<con:script>FileUtils.restoreConfiguration(context, log)</con:script>
-	</con:eventHandlers>
+
 </con:soapui-project>

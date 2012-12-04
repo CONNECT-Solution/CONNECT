@@ -1,28 +1,28 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
- * All rights reserved. 
+ * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * All rights reserved.
  *
- * Redistribution and use in source and binary forms, with or without 
- * modification, are permitted provided that the following conditions are met: 
- *     * Redistributions of source code must retain the above 
- *       copyright notice, this list of conditions and the following disclaimer. 
- *     * Redistributions in binary form must reproduce the above copyright 
- *       notice, this list of conditions and the following disclaimer in the documentation 
- *       and/or other materials provided with the distribution. 
- *     * Neither the name of the United States Government nor the 
- *       names of its contributors may be used to endorse or promote products 
- *       derived from this software without specific prior written permission. 
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *     * Redistributions of source code must retain the above
+ *       copyright notice, this list of conditions and the following disclaimer.
+ *     * Redistributions in binary form must reproduce the above copyright
+ *       notice, this list of conditions and the following disclaimer in the documentation
+ *       and/or other materials provided with the distribution.
+ *     * Neither the name of the United States Government nor the
+ *       names of its contributors may be used to endorse or promote products
+ *       derived from this software without specific prior written permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
- * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
- * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY 
- * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES 
- * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
- * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND 
- * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
- * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package gov.hhs.fha.nhinc.docquery.entity;
 
@@ -33,21 +33,16 @@ import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratableMessage;
 import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratable;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 
-import gov.hhs.fha.nhinc.common.nhinccommon.QualifiedSubjectIdentifierType;
-import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
-import oasis.names.tc.ebxml_regrep.xsd.rim._3.ExtrinsicObjectType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryObjectListType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.IdentifiableType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotListType;
-import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1;
 
 import java.math.BigInteger;
 import java.util.List;
 import javax.xml.bind.JAXBElement;
-import javax.xml.namespace.QName;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -57,7 +52,7 @@ import org.apache.commons.logging.LogFactory;
  * is spec a0 and an individual Response is spec a0 2. CumulativeResponse is spec a0 and an individual Response is spec
  * a1 3. CumulativeResponse is spec a1 and an individual Response is spec a0 4. CumulativeResponse is spec a1 and an
  * individual Response is spec a1
- * 
+ *
  * @author paul.eftis
  */
 public class OutboundDocQueryProcessor implements OutboundResponseProcessor {
@@ -67,22 +62,26 @@ public class OutboundDocQueryProcessor implements OutboundResponseProcessor {
     private NhincConstants.GATEWAY_API_LEVEL cumulativeSpecLevel = null;
     private int count = 0;
 
-    private static final QName ExtrinsicObjectQname = new QName("urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0",
-            "ExtrinsicObject");
-
+    /**
+     * Default Constructor.
+     */
     public OutboundDocQueryProcessor() {
 
     }
 
+    /**
+     * @param level Gateway apiLevel passed in (g0,g1).
+     */
     public OutboundDocQueryProcessor(NhincConstants.GATEWAY_API_LEVEL level) {
         cumulativeSpecLevel = level;
     }
 
     /**
-     * Handles all processing and aggregation of individual responses from TaskExecutor execution of a NhinDelegate
-     * 
-     * @param individual
-     * @param cumulativeResponse
+     * Handles all processing and aggregation of individual responses from TaskExecutor execution of a NhinDelegate.
+     *
+     * @param individual Individual DocQueryResponse passed.
+     * @param cumulativeResponse cumulativeResponse Based on Gateway apiLevel passed.
+     * @return response aggregated response of individual and cumulative Response.
      */
     public OutboundOrchestratableMessage processNhinResponse(OutboundOrchestratableMessage individual,
             OutboundOrchestratableMessage cumulativeResponse) {
@@ -106,28 +105,35 @@ public class OutboundDocQueryProcessor implements OutboundResponseProcessor {
         return response;
     }
 
+    /**
+     * This method aggregates individual and cumulative response.
+     * @param cumulativeResponse cumulativeresponse passed in.
+     * @param individual Individual DocQuery Response passed.
+     * @return Orchestratable CumulativeResponse.
+     */
     protected OutboundOrchestratableMessage getCumulativeResponseBasedGLEVEL(
             OutboundOrchestratableMessage cumulativeResponse, OutboundOrchestratableMessage individual) {
         if (cumulativeResponse == null) {
             switch (cumulativeSpecLevel) {
-            case LEVEL_g0: {
+            case LEVEL_g0:
                 log.debug("EntityDocQueryProcessor::processNhinResponse createNewCumulativeResponse_a0");
                 cumulativeResponse = OutboundDocQueryProcessorHelper
                         .createNewCumulativeResponse_a0((OutboundDocQueryOrchestratable) individual);
                 break;
-            }
-            case LEVEL_g1: {
+
+            case LEVEL_g1:
                 log.debug("EntityDocQueryProcessor::processNhinResponse createNewCumulativeResponse_a1");
                 cumulativeResponse = OutboundDocQueryProcessorHelper
                         .createNewCumulativeResponse_a1((OutboundDocQueryOrchestratable) individual);
                 break;
-            }
-            default: {
-                log.debug("EntityDocQueryProcessor::processNhinResponse unknown cumulativeSpecLevel so createNewCumulativeResponse_a1");
+
+            default:
+                log.debug("EntityDocQueryProcessor::processNhinResponse unknown cumulativeSpecLevel so "
+                        + "createNewCumulativeResponse_a1");
                 cumulativeResponse = OutboundDocQueryProcessorHelper
                         .createNewCumulativeResponse_a1((OutboundDocQueryOrchestratable) individual);
                 break;
-            }
+
             }
         }
         return cumulativeResponse;
@@ -135,9 +141,10 @@ public class OutboundDocQueryProcessor implements OutboundResponseProcessor {
     }
 
     /**
-     * DQ response requires no processing
-     * 
-     * @param individualResponse
+     * DQ response requires no processing.
+     *
+     * @param individualResponse individual reponse passed.
+     * @return individualResponse if there is no Exception; else returns DQ Error Response.
      */
     @SuppressWarnings("static-access")
     public OutboundOrchestratableMessage processResponse(OutboundOrchestratableMessage individualResponse) {
@@ -154,8 +161,8 @@ public class OutboundDocQueryProcessor implements OutboundResponseProcessor {
 
     /**
      * Aggregates an individual DQ response into the cumulative response Note that all response aggregation exceptions
-     * are caught here and handled by returning a DQ response with the error/exception and hcid for response
-     * 
+     * are caught here and handled by returning a DQ response with the error/exception and hcid for response.
+     *
      * @param individual is individual DQ response
      * @param cumulative is current cumulative DQ response
      * @return cumulative response with individual added
@@ -170,7 +177,8 @@ public class OutboundDocQueryProcessor implements OutboundResponseProcessor {
                 OutboundDocQueryOrchestratable_a0 cumulativeResponse = (OutboundDocQueryOrchestratable_a0) cumulative;
                 if (individual instanceof OutboundDocQueryOrchestratable_a0) {
                     // individual is spec_a0 and cumulative is spec_a0, so just aggregate_a0
-                    OutboundDocQueryOrchestratable_a0 individualResponse = (OutboundDocQueryOrchestratable_a0) individual;
+                    OutboundDocQueryOrchestratable_a0 individualResponse =
+                            (OutboundDocQueryOrchestratable_a0) individual;
                     aggregateResponse_a0(individualResponse, cumulativeResponse);
                 } else if (individual instanceof OutboundDocQueryOrchestratable_a1) {
                     // individual is spec_a1 and cumulative is spec_a0
@@ -200,7 +208,8 @@ public class OutboundDocQueryProcessor implements OutboundResponseProcessor {
                     aggregateResponse_a1(individualResponse, cumulativeResponse);
                 } else if (individual instanceof OutboundDocQueryOrchestratable_a1) {
                     // individual is spec_a1 and cumulative is spec_a1, so just aggregate_a1
-                    OutboundDocQueryOrchestratable_a1 individualResponse = (OutboundDocQueryOrchestratable_a1) individual;
+                    OutboundDocQueryOrchestratable_a1 individualResponse =
+                            (OutboundDocQueryOrchestratable_a1) individual;
                     aggregateResponse_a1(individualResponse, cumulativeResponse);
                 } else {
                     log.error("EntityDocQueryProcessor::aggregateResponse individualResponse received was unknown!!!");
@@ -250,11 +259,11 @@ public class OutboundDocQueryProcessor implements OutboundResponseProcessor {
 
     /**
      * General error handler that calls appropriate error handler based on request (i.e. if request is spec a0 will call
-     * processError_a0 and if request is spec a1 will call processError_a1)
-     * 
+     * processError_a0 and if request is spec a1 will call processError_a1).
+     *
      * @param request is initial request
      * @param error is String with error message
-     * @return
+     * @return ErrorResponse (a0 if specLevel is a0, a1 if specLevel is a1).
      */
     public OutboundOrchestratableMessage processErrorResponse(OutboundOrchestratableMessage request, String error) {
         log.debug("EntityDocQueryProcessor::processErrorResponse error=" + error);
@@ -270,13 +279,15 @@ public class OutboundDocQueryProcessor implements OutboundResponseProcessor {
 
     /**
      * Generates an OutboundDocQueryOrchestratable_a0 response with an error response for spec a0 that contains target
-     * hcid that produced error as well as error string passed in
-     * 
+     * hcid that produced error as well as error string passed in.
+     *
      * @param request is initial request
      * @param error is String with error message
      * @return OutboundDocQueryOrchestratable_a0 with error response
      */
+    //CHECKSTYLE:OFF
     public OutboundDocQueryOrchestratable_a0 processError_a0(OutboundDocQueryOrchestratable request, String error) {
+    //CHECKSTYLE:ON   
         log.debug("EntityDocQueryProcessor::processError_a0 error=" + error);
         OutboundDocQueryOrchestratable_a0 response = new OutboundDocQueryOrchestratable_a0(null,
                 request.getResponseProcessor(), null, null, request.getAssertion(), request.getServiceName(),
@@ -286,7 +297,8 @@ public class OutboundDocQueryProcessor implements OutboundResponseProcessor {
         adhocresponse.setStatus(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_FAILURE);
         RegistryError regErr = new RegistryError();
         regErr.setErrorCode("XDSRepositoryError");
-        regErr.setCodeContext("Error from target homeId=" + request.getTarget().getHomeCommunity().getHomeCommunityId());
+        regErr.setCodeContext("Error from target homeId=" + request.getTarget().getHomeCommunity()
+                .getHomeCommunityId());
         regErr.setSeverity(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR);
         regErrList.getRegistryError().add(regErr);
         adhocresponse.setRegistryErrorList(regErrList);
@@ -296,13 +308,15 @@ public class OutboundDocQueryProcessor implements OutboundResponseProcessor {
 
     /**
      * Generates an OutboundDocQueryOrchestratable_a1 response with an error response for spec a1 that contains target
-     * hcid that produced error as well as error string passed in
-     * 
-     * @param request is initial request
-     * @param error is String with error message
-     * @return OutboundDocQueryOrchestratable_a1 with error response
+     * hcid that produced error as well as error string passed in.
+     *
+     * @param request is initial request.
+     * @param error is String with error message.
+     * @return OutboundDocQueryOrchestratable_a1 with error response.
      */
+    //CHECKSTYLE:OFF
     public OutboundDocQueryOrchestratable_a1 processError_a1(OutboundDocQueryOrchestratable request, String error) {
+    //CHECKSTYLE:ON
         log.debug("EntityDocQueryProcessor::processError_a1 error=" + error);
         OutboundDocQueryOrchestratable_a1 response = new OutboundDocQueryOrchestratable_a1(null,
                 request.getResponseProcessor(), null, null, request.getAssertion(), request.getServiceName(),
@@ -312,7 +326,8 @@ public class OutboundDocQueryProcessor implements OutboundResponseProcessor {
         adhocresponse.setStatus(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_FAILURE);
         RegistryError regErr = new RegistryError();
         regErr.setErrorCode("XDSRepositoryError");
-        regErr.setCodeContext("Error from target homeId=" + request.getTarget().getHomeCommunity().getHomeCommunityId());
+        regErr.setCodeContext("Error from target homeId=" + request.getTarget().getHomeCommunity()
+                .getHomeCommunityId());
         regErr.setSeverity(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR);
         regErrList.getRegistryError().add(regErr);
         adhocresponse.setRegistryErrorList(regErrList);
@@ -322,12 +337,17 @@ public class OutboundDocQueryProcessor implements OutboundResponseProcessor {
 
     /**
      * aggregates an a0 spec individualResponse into an a0 spec cumulativeResponse exception will throw out and be
-     * caught by aggregateResponse
+     * caught by aggregateResponse.
+     * @param individual individual response passed in (if specLevel is a0).
+     * @param cumulativeResponse CumulativeResponse is passed in (if specLevel is a0).
+     * @throws Exception java.lang.Exception.
+     *
      */
     @SuppressWarnings("static-access")
+    //CHECKSTYLE:OFF
     protected void aggregateResponse_a0(OutboundDocQueryOrchestratable_a0 individual,
             OutboundDocQueryOrchestratable_a0 cumulativeResponse) throws Exception {
-
+   //CHECKSTYLE:ON
         AdhocQueryResponse current = individual.getResponse();
         if (current != null) {
             // handle status first
@@ -374,7 +394,8 @@ public class OutboundDocQueryProcessor implements OutboundResponseProcessor {
             if (current.getRegistryErrorList() != null && current.getRegistryErrorList().getRegistryError() != null
                     && current.getRegistryErrorList().getRegistryError().size() > 0) {
                 if (cumulativeResponse.getCumulativeResponse().getRegistryErrorList() == null
-                        || cumulativeResponse.getCumulativeResponse().getRegistryErrorList().getRegistryError() == null) {
+                        || cumulativeResponse.getCumulativeResponse().getRegistryErrorList()
+                        .getRegistryError() == null) {
                     cumulativeResponse.getCumulativeResponse().setRegistryErrorList(new RegistryErrorList());
                 }
                 cumulativeResponse.getCumulativeResponse().getRegistryErrorList().getRegistryError()
@@ -390,8 +411,8 @@ public class OutboundDocQueryProcessor implements OutboundResponseProcessor {
 
             cumulativeResponse.getCumulativeResponse().setTotalResultCount(
                     cumulativeResponse.getCumulativeResponse().getTotalResultCount().add(BigInteger.ONE));
-            log.debug("EntityDocQueryProcessor::aggregateResponse_a0 combine next response done cumulativeResponse count="
-                    + cumulativeResponse.getCumulativeResponse().getTotalResultCount().toString());
+            log.debug("EntityDocQueryProcessor::aggregateResponse_a0 combine next response done cumulativeResponse "
+                    + "count=" + cumulativeResponse.getCumulativeResponse().getTotalResultCount().toString());
         } else {
             throw new Exception(
                     "EntityDocQueryProcessor::aggregateResponse_a0 received a null AdhocQueryResponse response!!!");
@@ -400,12 +421,13 @@ public class OutboundDocQueryProcessor implements OutboundResponseProcessor {
 
     /**
      * aggregates an a1 spec individualResponse into an a1 spec cumulativeResponse exception will throw out and be
-     * caught by aggregateResponse
+     * caught by aggregateResponse.
      */
     @SuppressWarnings("static-access")
+    //CHECKSTYLE:OFF
     private void aggregateResponse_a1(OutboundDocQueryOrchestratable_a1 individual,
             OutboundDocQueryOrchestratable_a1 cumulativeResponse) throws Exception {
-
+    //CHECKSTYLE:ON
         AdhocQueryResponse current = individual.getResponse();
         if (current != null) {
             // add the responses from registry object list
@@ -429,7 +451,8 @@ public class OutboundDocQueryProcessor implements OutboundResponseProcessor {
             if (current.getRegistryErrorList() != null && current.getRegistryErrorList().getRegistryError() != null
                     && current.getRegistryErrorList().getRegistryError().size() > 0) {
                 if (cumulativeResponse.getCumulativeResponse().getRegistryErrorList() == null
-                        || cumulativeResponse.getCumulativeResponse().getRegistryErrorList().getRegistryError() == null) {
+                        || cumulativeResponse.getCumulativeResponse().getRegistryErrorList()
+                        .getRegistryError() == null) {
                     cumulativeResponse.getCumulativeResponse().setRegistryErrorList(new RegistryErrorList());
                 }
                 cumulativeResponse.getCumulativeResponse().getRegistryErrorList().getRegistryError()
@@ -445,8 +468,8 @@ public class OutboundDocQueryProcessor implements OutboundResponseProcessor {
 
             cumulativeResponse.getCumulativeResponse().setTotalResultCount(
                     cumulativeResponse.getCumulativeResponse().getTotalResultCount().add(BigInteger.ONE));
-            log.debug("EntityDocQueryProcessor::aggregateResponse_a1 combine next response done cumulativeResponse count="
-                    + cumulativeResponse.getCumulativeResponse().getTotalResultCount().toString());
+            log.debug("EntityDocQueryProcessor::aggregateResponse_a1 combine next response done cumulativeResponse "
+                    + "count=" + cumulativeResponse.getCumulativeResponse().getTotalResultCount().toString());
         } else {
             throw new Exception(
                     "EntityDocQueryProcessor::aggregateResponse_a1 received a null AdhocQueryResponse response!!!");
@@ -461,7 +484,10 @@ public class OutboundDocQueryProcessor implements OutboundResponseProcessor {
     }
 
     /**
-     * NOT USED
+     * Does not process anything.
+     * @param individualResponse Individual DocQuery Response.
+     * @param cumulativeResponse cumulativeResponse passed in.
+     *
      */
     public void aggregate(OutboundOrchestratable individualResponse, OutboundOrchestratable cumulativeResponse) {
     }

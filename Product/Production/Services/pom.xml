@@ -8,6 +8,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>Services</artifactId>
+    <name>${project.artifactId}</name>
     <packaging>pom</packaging>
     <modules>
         <module>AdapterAuthenticationCore</module>
@@ -46,6 +47,13 @@
             <groupId>org.connectopensource</groupId>
             <artifactId>CONNECTCoreLib</artifactId>
             <version>${project.parent.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.connectopensource</groupId>
+            <artifactId>CONNECTCoreLib</artifactId>
+            <version>${project.parent.version}</version>
+            <type>test-jar</type>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 </project>

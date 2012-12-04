@@ -1,9 +1,10 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><con:soapui-project xmlns:con="http://eviware.com/soapui/config" abortOnError="false" name="AdapterPatientDiscoveryAsyncReqError" resourceRoot="" runType="SEQUENTIAL" soapui-version="3.5.1">
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project abortOnError="false" name="AdapterPatientDiscoveryAsyncReqError" resourceRoot="${projectDir}" runType="SEQUENTIAL" soapui-version="4.5.1" activeEnvironment="Default" xmlns:con="http://eviware.com/soapui/config">
   <con:settings/>
-  <con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:adapterpatientdiscoveryasyncreqerror}AdapterPatientDiscoveryAsyncReqErrorBindingSoap" definition="WSDL path not set.  #AdapterPatientDiscoveryAsyncReqError.wsdl" name="AdapterPatientDiscoveryAsyncReqErrorBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
+  <con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:adapterpatientdiscoveryasyncreqerror}AdapterPatientDiscoveryAsyncReqErrorBindingSoap" definition="${ProjectDir}../ValidationSuite/target/wsdl/AdapterPatientDiscoveryAsyncReqError.wsdl" name="AdapterPatientDiscoveryAsyncReqErrorBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
     
-    <con:definitionCache/><con:endpoints>
+    <con:endpoints>
       <con:endpoint>${#Project#AdapterPatientDiscoveryAsyncReqErrorEndpoint}</con:endpoint>
       <con:endpoint>http://localhost/NhinConnect/AdapterPatientDiscoveryAsyncReqError</con:endpoint>
     </con:endpoints>
@@ -18,12 +19,12 @@
       <con:settings/>
       <con:testStep name="AdapterPatientDiscoveryAsyncErrorRequest" type="request">
         <con:settings/>
-        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
           <con:interface>AdapterPatientDiscoveryAsyncReqErrorBindingSoap</con:interface>
           <con:operation>ProcessPatientDiscoveryAsyncReqError</con:operation>
           <con:request name="AdapterPatientDiscoveryAsyncErrorRequest" useWsAddressing="true">
             <con:settings>
-              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
             <con:endpoint>${#Project#AdapterPatientDiscoveryAsyncReqErrorEndpoint}</con:endpoint>
@@ -135,8 +136,8 @@
                <urn1:zipCode>20176</urn1:zipCode>
             </urn1:address>
             <urn1:dateOfBirth>19990627</urn1:dateOfBirth>
-            <urn1:dateOfSignature>20080520</urn1:dateOfSignature>
-            <urn1:expirationDate>20100520</urn1:expirationDate>
+            <!--urn1:dateOfSignature>20080520</urn1:dateOfSignature-->
+            <!--urn1:expirationDate>20100520</urn1:expirationDate-->
             <urn1:explanationNonClaimantSignature>NEEDED</urn1:explanationNonClaimantSignature>
             <urn1:haveSecondWitnessSignature>true</urn1:haveSecondWitnessSignature>
             <urn1:haveSignature>true</urn1:haveSignature>
@@ -165,7 +166,7 @@
                   <urn1:code>W</urn1:code>
                </urn1:phoneNumberType>
             </urn1:phoneNumber>
-            <urn1:purposeOfDisclosure>Mental</urn1:purposeOfDisclosure>
+            <!--urn1:purposeOfDisclosure>Mental</urn1:purposeOfDisclosure-->
             <urn1:secondWitnessAddress>
                <urn1:addressType>
                   <urn1:code>W</urn1:code>
@@ -239,7 +240,7 @@
                   <urn1:prefix>Mrs</urn1:prefix>
                </urn1:personName>
                <urn1:userName>wanderson</urn1:userName>
-               <urn1:role>nuse</urn1:role>
+               <!--urn1:role>nuse</urn1:role-->
                <urn1:org>
                   <urn1:description>Test HCID1</urn1:description>
                   <urn1:homeCommunityId>2.16.840.1.113883.3.337</urn1:homeCommunityId>
@@ -259,9 +260,9 @@
             </urn1:userInfo>
             <urn1:authorized>authorized</urn1:authorized>
             <!--Optional:-->
-            <urn1:claimFormRef>claimFormRef</urn1:claimFormRef>
+            <!--urn1:claimFormRef>claimFormRef</urn1:claimFormRef-->
             <!--Optional:-->
-            <urn1:claimFormRaw>cid:610957193055</urn1:claimFormRaw>
+            <!--urn1:claimFormRaw>cid:610957193055</urn1:claimFormRaw-->
             <!--Optional:-->
             <urn1:samlAuthnStatement>
                <!--Optional:-->
@@ -305,11 +306,11 @@
                         <urn1:notOnOrAfter>notOnOrAfter</urn1:notOnOrAfter>
                      </urn1:conditions>
                      <!--Optional:-->
-                     <urn1:contentReference>contentReference</urn1:contentReference>
+                     <!--urn1:contentReference>contentReference</urn1:contentReference-->
                      <!--Optional:-->
-                     <urn1:contentType>contentType</urn1:contentType>
+                     <!--urn1:contentType>contentType</urn1:contentType-->
                      <!--Optional:-->
-                     <urn1:content>cid:574777349023</urn1:content>
+                     <!--urn1:content>cid:574777349023</urn1:content-->
                   </urn1:assertion>
                </urn1:evidence>
             </urn1:samlAuthzDecisionStatement>
@@ -377,46 +378,46 @@
                 <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
               </con:configuration>
             </con:assertion>
-            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
             <con:wsaConfig action="urn:gov:hhs:fha:nhinc:adapterpatientdiscoveryasyncreqerror:ProcessPatientDiscoveryAsyncReqErrorRequest" addDefaultTo="true" messageID="uuid:2222222222.22222.222.22" mustUnderstand="NONE" version="200508"/>
             <con:wsrmConfig version="1.2"/>
           </con:request>
         </con:config>
       </con:testStep>
-      <con:properties>
+      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2010-08-26T18:14:38Z</con:value>
+          <con:value>2012-11-26T16:37:49Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2010-08-26T18:24:38Z</con:value>
+          <con:value>2012-11-26T16:47:49Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/26/2010 18:14:38</con:value>
+          <con:value>11/26/2012 16:37:49</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2010-09-25T00:00:00Z</con:value>
+          <con:value>2012-12-26T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    <con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript></con:testCase>
+    <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript></con:testCase>
     <con:properties/>
     <con:reportParameters/>
   </con:testSuite>
   <con:requirements/>
   <con:properties>
     
-  <con:property><con:name>AdapterPatientDiscoveryAsyncReqErrorEndpoint</con:name><con:value>http://localhost:8080/CONNECTAdapter/AdapterPatientDiscoveryDeferredRequestErrorUnsecured</con:value></con:property></con:properties>
+  <con:property><con:name>AdapterPatientDiscoveryAsyncReqErrorEndpoint</con:name><con:value>http://localhost:8080/Adapter/PatientDiscovery/A_0/AdapterPatientDiscoveryDeferredRequestErrorUnsecured</con:value></con:property><con:property><con:name>GatewayPropDir</con:name><con:value>D:\glassfish3\glassfish\domains\domain1\config\nhin</con:value></con:property></con:properties>
   <con:afterLoadScript>def propertiesFilename = project.path[0..(project.path.size()-4)] + 'properties'
 def propertiesFile = new File(propertiesFilename)
 if (propertiesFile.exists()) {
 	def props = new Properties()
 	props.load(new FileInputStream(propertiesFile))
-	props.each { key, value -&gt;
+	props.each { key, value ->
 	    project.setPropertyValue(key, value)
 	}
 }
@@ -424,11 +425,11 @@ if (propertiesFile.exists()) {
 
 TimeZone.setDefault(TimeZone.getTimeZone("UTC"))
 def testRunListener = [
-  afterRun: { testRunner, runContext -&gt; },
-  afterStep: { testRunner, runContext, result -&gt; },
-  beforeStep: { testRunner, runContext -&gt; },
-  beforeStep: { testRunner, runContext, testStep -&gt; },
-  beforeRun: { testRunner, runContext -&gt; 
+  afterRun: { testRunner, runContext -> },
+  afterStep: { testRunner, runContext, result -> },
+  beforeStep: { testRunner, runContext -> },
+  beforeStep: { testRunner, runContext, testStep -> },
+  beforeRun: { testRunner, runContext -> 
     use (org.codehaus.groovy.runtime.TimeCategory) {
       def startDate = 5.minutes.ago
       def endDate = 5.minutes.from.now
@@ -449,14 +450,14 @@ project.testSuiteList*.testCaseList.flatten()*.addTestRunListener(testRunListene
 
 
 
-com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.findProperty = { propertyName -&gt;
+com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.findProperty = { propertyName ->
     return delegate.getProperty(propertyName) ?:
                 delegate.testCase.getPropertyValue(propertyName) ?:
                 delegate.testCase.testSuite.getPropertyValue(propertyName) ?:
                 delegate.testCase.testSuite.project.getPropertyValue(propertyName)
 }
 
-com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.withSql = { dbOrPropertyName, block -&gt;
+com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.withSql = { dbOrPropertyName, block ->
   def dbName = delegate.findProperty(dbOrPropertyName) ?: dbOrPropertyName
   def host = delegate.findProperty('DBHost')
   def port = delegate.findProperty('DBPort')
@@ -489,10 +490,5 @@ com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.withSql = { d
     <con:xmlTemplates/>
     <con:parameters/>
   </con:reporting>
-  <con:eventHandlers name="TestSuiteRunListener.beforeTestCase" type="TestSuiteRunListener.beforeTestCase">
-    <con:script>FileUtils.backupConfiguration(context, log);</con:script>
-  </con:eventHandlers>
-  <con:eventHandlers name="TestSuiteRunListener.afterTestCase" type="TestSuiteRunListener.afterTestCase">
-    <con:script>FileUtils.restoreConfiguration(context, log)</con:script>
-  </con:eventHandlers>
+
 </con:soapui-project>

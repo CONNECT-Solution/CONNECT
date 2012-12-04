@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project abortOnError="false" name="Admin-Distribution" resourceRoot="" runType="SEQUENTIAL" soapui-version="3.5.1" xmlns:con="http://eviware.com/soapui/config">
+<con:soapui-project abortOnError="false" name="Admin-Distribution" resourceRoot="${projectDir}" runType="SEQUENTIAL" soapui-version="4.5.1" activeEnvironment="Default" xmlns:con="http://eviware.com/soapui/config">
   <con:settings/>
-  <con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entityadmindistribution}AdministrativeDistribution_Binding_Soap12" definition="WSDL path not set.  #EntityAdminDist.wsdl" name="AdministrativeDistribution_Binding_Soap12" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entityadmindistribution}AdministrativeDistribution_Binding_Soap12" definition="${ProjectDir}../ValidationSuite/target/wsdl/EntityAdminDist.wsdl" name="AdministrativeDistribution_Binding_Soap12" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
     
     <con:endpoints>
@@ -13,7 +13,7 @@
     </con:operation>
   </con:interface>
   
-  <con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:adapterpolicyengine}AdapterPolicyEngineBindingSoap" definition="WSDL path not set.  #AdapterPolicyEngine.wsdl" name="AdapterPolicyEngineBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:adapterpolicyengine}AdapterPolicyEngineBindingSoap" definition="${ProjectDir}../ValidationSuite/target/wsdl/AdapterPolicyEngine.wsdl" name="AdapterPolicyEngineBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
     
     <con:endpoints>
@@ -24,7 +24,7 @@
       
     </con:operation>
   </con:interface>
-  <con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincadmindistribution}NhincAdminDist_Binding_Soap12" definition="WSDL path not set.  #NhincAdminDist.wsdl" name="NhincAdminDist_Binding_Soap12" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincadmindistribution}NhincAdminDist_Binding_Soap12" definition="${ProjectDir}../ValidationSuite/target/wsdl/NhincAdminDist.wsdl" name="NhincAdminDist_Binding_Soap12" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
     
     <con:endpoints>
@@ -86,8 +86,8 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
                <urn1:zipCode>AddrZip</urn1:zipCode>
             </urn1:address>
             <urn1:dateOfBirth>06/04/1959 05:21:00</urn1:dateOfBirth>
-            <urn1:dateOfSignature>${#Project#sigDate}</urn1:dateOfSignature>
-            <urn1:expirationDate>${#Project#expireDate}</urn1:expirationDate>
+            <!--urn1:dateOfSignature>${#Project#sigDate}</urn1:dateOfSignature-->
+            <!--urn1:expirationDate>${#Project#expireDate}</urn1:expirationDate-->
             <urn1:explanationNonClaimantSignature>Electronic</urn1:explanationNonClaimantSignature>
             <urn1:haveSecondWitnessSignature>false</urn1:haveSecondWitnessSignature>
             <urn1:haveSignature>false</urn1:haveSignature>
@@ -125,7 +125,7 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
                   <urn1:originalText>phoneCode</urn1:originalText>
                </urn1:phoneNumberType>
             </urn1:phoneNumber>
-            <urn1:purposeOfDisclosure>TREATMENT</urn1:purposeOfDisclosure>
+            <!--urn1:purposeOfDisclosure>TREATMENT</urn1:purposeOfDisclosure-->
             <urn1:secondWitnessAddress>
                <urn1:addressType>
                   <urn1:code>AddrCode</urn1:code>
@@ -231,7 +231,7 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
                   <urn1:fullName>Kasrl S. Skagerberg</urn1:fullName>
                </urn1:personName>
                <urn1:userName>${#TestCase#UserId}</urn1:userName>
-               <urn1:role>Pharmacy</urn1:role>
+               <!--urn1:role>Pharmacy</urn1:role-->
                <urn1:org>
                   <urn1:description>${#Project#LocalHCDescription}</urn1:description>
                   <urn1:homeCommunityId>${#Project#LocalHCID}</urn1:homeCommunityId>
@@ -255,8 +255,8 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
                <urn1:displayName>Use or disclosure of Psychotherapy Notes</urn1:displayName>
                <urn1:originalText>Psychotherapy Notes</urn1:originalText>
             </urn1:purposeOfDisclosureCoded>
-            <urn1:claimFormRef>Ref-Clm-123</urn1:claimFormRef>
-            <urn1:claimFormRaw>YWVvbGlhbQ==</urn1:claimFormRaw>
+            <!--urn1:claimFormRef>Ref-Clm-123</urn1:claimFormRef-->
+            <!--urn1:claimFormRaw>YWVvbGlhbQ==</urn1:claimFormRaw-->
             <urn1:samlAuthnStatement>
                <urn1:authInstant>2009-09-01T13:00:00.000Z</urn1:authInstant>
                <urn1:sessionIndex>mySessionIndex</urn1:sessionIndex>
@@ -276,8 +276,8 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
                      <urn1:issuer>CN=Mr Saml User,OU=SU,O=Mr SAML Org,L=Chantilly,ST=VA,C=US</urn1:issuer>
                      <urn1:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn1:issuerFormat>
                      <urn1:conditions>
-                        <urn1:notBefore>01/01/2001 01:00:00</urn1:notBefore>
-                        <urn1:notOnOrAfter>05/06/2009 22:00:17</urn1:notOnOrAfter>
+                        <urn1:notBefore>2001-01-01T01:00:00.000Z</urn1:notBefore>
+                        <urn1:notOnOrAfter>2009-05-06T14:00:00.000Z</urn1:notOnOrAfter>
                      </urn1:conditions>
                      <urn1:accessConsentPolicy>urn:oid:1.2.3.4</urn1:accessConsentPolicy>
                      <urn1:instanceAccessConsentPolicy>urn:oid:1.2.3.4.123456789</urn1:instanceAccessConsentPolicy>
@@ -296,7 +296,7 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
                <urn1:signatureValue>cid:175264679488</urn1:signatureValue>
             </urn1:samlSignature>
             <!--Optional:-->
-            <urn1:asyncMessageId>?</urn1:asyncMessageId>
+            <!--urn1:asyncMessageId>?</urn1:asyncMessageId-->
          </urn:assertion>
          <!--Optional:-->
          <urn:nhinTargetCommunities>
@@ -405,7 +405,7 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
       </urn:RespondingGateway_SendAlertMessage>
    </soap:Body>
 </soap:Envelope>]]></con:request>
-            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
             <con:wsaConfig mustUnderstand="NONE" version="200508"/>
             <con:wsrmConfig version="1.2"/>
@@ -416,31 +416,30 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
 }
 //log.info "Count: " + count;
 assert (count > 0);</script></con:config></con:testStep>
-      <con:properties>
+      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-08-23T19:13:03Z</con:value>
+          <con:value>2012-11-27T18:10:56Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-08-23T19:23:03Z</con:value>
+          <con:value>2012-11-27T18:20:56Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/23/2012 19:13:03</con:value>
+          <con:value>11/27/2012 18:10:56</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-09-22T00:00:00Z</con:value>
+          <con:value>2012-12-27T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>UserId</con:name>
-          <con:value>admindistThu Aug 23 19:18:03 UTC 20121</con:value>
+          <con:value>admindistTue Nov 27 18:15:56 UTC 20121</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    <con:tearDownScript>import nhinc.FileUtils;
-FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript></con:testCase>
+    <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript></con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="febe5a83-a7e4-4b4e-9a43-cb75355caa50" keepSession="false" maxResults="0" name="EntityRequest with XML data" searchProperties="true">
       <con:settings/>
       <con:testStep name="clear audit table" type="groovy"><con:settings/><con:config><script>context.withSql('AuditDB') { sql -> 
@@ -489,8 +488,8 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
                <urn1:zipCode>AddrZip</urn1:zipCode>
             </urn1:address>
             <urn1:dateOfBirth>06/04/1959 05:21:00</urn1:dateOfBirth>
-            <urn1:dateOfSignature>${#Project#sigDate}</urn1:dateOfSignature>
-            <urn1:expirationDate>${#Project#expireDate}</urn1:expirationDate>
+            <!--urn1:dateOfSignature>${#Project#sigDate}</urn1:dateOfSignature-->
+            <!--urn1:expirationDate>${#Project#expireDate}</urn1:expirationDate-->
             <urn1:explanationNonClaimantSignature>Electronic</urn1:explanationNonClaimantSignature>
             <urn1:haveSecondWitnessSignature>false</urn1:haveSecondWitnessSignature>
             <urn1:haveSignature>false</urn1:haveSignature>
@@ -528,7 +527,7 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
                   <urn1:originalText>phoneCode</urn1:originalText>
                </urn1:phoneNumberType>
             </urn1:phoneNumber>
-            <urn1:purposeOfDisclosure>TREATMENT</urn1:purposeOfDisclosure>
+            <!--urn1:purposeOfDisclosure>TREATMENT</urn1:purposeOfDisclosure-->
             <urn1:secondWitnessAddress>
                <urn1:addressType>
                   <urn1:code>AddrCode</urn1:code>
@@ -634,7 +633,7 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
                   <urn1:fullName>Kasrl S. Skagerberg</urn1:fullName>
                </urn1:personName>
                <urn1:userName>${#TestCase#UserId}</urn1:userName>
-               <urn1:role>Pharmacy</urn1:role>
+               <!--urn1:role>Pharmacy</urn1:role-->
                <urn1:org>
                   <urn1:description>${#Project#LocalHCDescription}</urn1:description>
                   <urn1:homeCommunityId>${#Project#LocalHCID}</urn1:homeCommunityId>
@@ -658,8 +657,8 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
                <urn1:displayName>Use or disclosure of Psychotherapy Notes</urn1:displayName>
                <urn1:originalText>Psychotherapy Notes</urn1:originalText>
             </urn1:purposeOfDisclosureCoded>
-            <urn1:claimFormRef>Ref-Clm-123</urn1:claimFormRef>
-            <urn1:claimFormRaw>YWVvbGlhbQ==</urn1:claimFormRaw>
+            <!--urn1:claimFormRef>Ref-Clm-123</urn1:claimFormRef-->
+            <!--urn1:claimFormRaw>YWVvbGlhbQ==</urn1:claimFormRaw-->
             <urn1:samlAuthnStatement>
                <urn1:authInstant>2009-09-01T13:00:00.000Z</urn1:authInstant>
                <urn1:sessionIndex>mySessionIndex</urn1:sessionIndex>
@@ -679,8 +678,8 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
                      <urn1:issuer>CN=Mr Saml User,OU=SU,O=Mr SAML Org,L=Chantilly,ST=VA,C=US</urn1:issuer>
                      <urn1:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn1:issuerFormat>
                      <urn1:conditions>
-                        <urn1:notBefore>01/01/2001 01:00:00</urn1:notBefore>
-                        <urn1:notOnOrAfter>05/06/2009 22:00:17</urn1:notOnOrAfter>
+                        <urn1:notBefore>2001-01-01T01:00:00.000Z</urn1:notBefore>
+                        <urn1:notOnOrAfter>2009-05-06T14:00:00.000Z</urn1:notOnOrAfter>
                      </urn1:conditions>
                      <urn1:accessConsentPolicy>urn:oid:1.2.3.4</urn1:accessConsentPolicy>
                      <urn1:instanceAccessConsentPolicy>urn:oid:1.2.3.4.123456789</urn1:instanceAccessConsentPolicy>
@@ -699,7 +698,7 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
                <urn1:signatureValue>cid:175264679488</urn1:signatureValue>
             </urn1:samlSignature>
             <!--Optional:-->
-            <urn1:asyncMessageId>?</urn1:asyncMessageId>
+            <!--urn1:asyncMessageId>?</urn1:asyncMessageId-->
          </urn:assertion>
          <!--Optional:-->
          <urn:nhinTargetCommunities>
@@ -807,7 +806,7 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
       </urn:RespondingGateway_SendAlertMessage>
    </soap:Body>
 </soap:Envelope>]]></con:request>
-            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
             <con:wsaConfig mustUnderstand="NONE" version="200508"/>
             <con:wsrmConfig version="1.2"/>
@@ -818,31 +817,30 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
 	sql.firstRow('select count(*) from ' + context.findProperty('AuditTable')).'count(*)'
 }
 //log.info "Count: " + count;
-assert (count > 0);</script></con:config></con:testStep><con:properties>
+assert (count > 0);</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-08-23T19:13:23Z</con:value>
+          <con:value>2012-11-27T18:11:16Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-08-23T19:23:23Z</con:value>
+          <con:value>2012-11-27T18:21:16Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/23/2012 19:13:23</con:value>
+          <con:value>11/27/2012 18:11:16</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-09-22T00:00:00Z</con:value>
+          <con:value>2012-12-27T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>UserId</con:name>
-          <con:value>admindistThu Aug 23 19:18:23 UTC 20121</con:value>
+          <con:value>admindistTue Nov 27 18:16:16 UTC 20121</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    <con:tearDownScript>import nhinc.FileUtils;
-FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript></con:testCase>
+    <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript></con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="4064a914-3d3e-43a9-9ee9-4da23586b0e9" keepSession="false" maxResults="0" name="EntityRequest with multiple documents ( XML and Binary )" searchProperties="true">
       <con:settings/>
       <con:testStep name="clear audit table" type="groovy"><con:settings/><con:config><script>context.withSql('AuditDB') { sql -> 
@@ -891,8 +889,8 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
                <urn1:zipCode>AddrZip</urn1:zipCode>
             </urn1:address>
             <urn1:dateOfBirth>06/04/1959 05:21:00</urn1:dateOfBirth>
-            <urn1:dateOfSignature>${#Project#sigDate}</urn1:dateOfSignature>
-            <urn1:expirationDate>${#Project#expireDate}</urn1:expirationDate>
+            <!--urn1:dateOfSignature>${#Project#sigDate}</urn1:dateOfSignature-->
+            <!--urn1:expirationDate>${#Project#expireDate}</urn1:expirationDate-->
             <urn1:explanationNonClaimantSignature>Electronic</urn1:explanationNonClaimantSignature>
             <urn1:haveSecondWitnessSignature>false</urn1:haveSecondWitnessSignature>
             <urn1:haveSignature>false</urn1:haveSignature>
@@ -930,7 +928,7 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
                   <urn1:originalText>phoneCode</urn1:originalText>
                </urn1:phoneNumberType>
             </urn1:phoneNumber>
-            <urn1:purposeOfDisclosure>TREATMENT</urn1:purposeOfDisclosure>
+            <!--urn1:purposeOfDisclosure>TREATMENT</urn1:purposeOfDisclosure-->
             <urn1:secondWitnessAddress>
                <urn1:addressType>
                   <urn1:code>AddrCode</urn1:code>
@@ -1036,7 +1034,7 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
                   <urn1:fullName>Kasrl S. Skagerberg</urn1:fullName>
                </urn1:personName>
                <urn1:userName>${#TestCase#UserId}</urn1:userName>
-               <urn1:role>Pharmacy</urn1:role>
+               <!--urn1:role>Pharmacy</urn1:role-->
                <urn1:org>
                   <urn1:description>${#Project#LocalHCDescription}</urn1:description>
                   <urn1:homeCommunityId>${#Project#LocalHCID}</urn1:homeCommunityId>
@@ -1060,8 +1058,8 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
                <urn1:displayName>Use or disclosure of Psychotherapy Notes</urn1:displayName>
                <urn1:originalText>Psychotherapy Notes</urn1:originalText>
             </urn1:purposeOfDisclosureCoded>
-            <urn1:claimFormRef>Ref-Clm-123</urn1:claimFormRef>
-            <urn1:claimFormRaw>YWVvbGlhbQ==</urn1:claimFormRaw>
+            <!--urn1:claimFormRef>Ref-Clm-123</urn1:claimFormRef-->
+            <!--urn1:claimFormRaw>YWVvbGlhbQ==</urn1:claimFormRaw-->
             <urn1:samlAuthnStatement>
                <urn1:authInstant>2009-09-01T13:00:00.000Z</urn1:authInstant>
                <urn1:sessionIndex>mySessionIndex</urn1:sessionIndex>
@@ -1081,8 +1079,8 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
                      <urn1:issuer>CN=Mr Saml User,OU=SU,O=Mr SAML Org,L=Chantilly,ST=VA,C=US</urn1:issuer>
                      <urn1:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn1:issuerFormat>
                      <urn1:conditions>
-                        <urn1:notBefore>01/01/2001 01:00:00</urn1:notBefore>
-                        <urn1:notOnOrAfter>05/06/2009 22:00:17</urn1:notOnOrAfter>
+                        <urn1:notBefore>2001-01-01T01:00:00.000Z</urn1:notBefore>
+                        <urn1:notOnOrAfter>2009-05-06T14:00:00.000Z</urn1:notOnOrAfter>
                      </urn1:conditions>
                      <urn1:accessConsentPolicy>urn:oid:1.2.3.4</urn1:accessConsentPolicy>
                      <urn1:instanceAccessConsentPolicy>urn:oid:1.2.3.4.123456789</urn1:instanceAccessConsentPolicy>
@@ -1101,7 +1099,7 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
                <urn1:signatureValue>cid:175264679488</urn1:signatureValue>
             </urn1:samlSignature>
             <!--Optional:-->
-            <urn1:asyncMessageId>?</urn1:asyncMessageId>
+            <!--urn1:asyncMessageId>?</urn1:asyncMessageId-->
          </urn:assertion>
          <!--Optional:-->
          <urn:nhinTargetCommunities>
@@ -1220,7 +1218,7 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
       </urn:RespondingGateway_SendAlertMessage>
    </soap:Body>
 </soap:Envelope>]]></con:request>
-            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
             <con:wsaConfig mustUnderstand="NONE" version="200508"/>
             <con:wsrmConfig version="1.2"/>
@@ -1231,31 +1229,30 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
 	sql.firstRow('select count(*) from ' + context.findProperty('AuditTable')).'count(*)'
 }
 //log.info "Count: " + count;
-assert (count > 0);</script></con:config></con:testStep><con:properties>
+assert (count > 0);</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-08-23T19:13:43Z</con:value>
+          <con:value>2012-11-27T18:11:36Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-08-23T19:23:43Z</con:value>
+          <con:value>2012-11-27T18:21:36Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/23/2012 19:13:43</con:value>
+          <con:value>11/27/2012 18:11:36</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-09-22T00:00:00Z</con:value>
+          <con:value>2012-12-27T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>UserId</con:name>
-          <con:value>admindistThu Aug 23 19:18:43 UTC 20121</con:value>
+          <con:value>admindistTue Nov 27 18:16:36 UTC 20121</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    <con:tearDownScript>import nhinc.FileUtils;
-FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript></con:testCase>
+    <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript></con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="b46af245-7eb5-4d2d-8184-9dfd4a0f9ba1" keepSession="false" maxResults="0" name="EntityRequest with multiple documents ( multiple contentObjects )" searchProperties="true">
       <con:settings/>
       <con:testStep name="clear audit table" type="groovy"><con:settings/><con:config><script>context.withSql('AuditDB') { sql -> 
@@ -1304,8 +1301,8 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
                <urn1:zipCode>AddrZip</urn1:zipCode>
             </urn1:address>
             <urn1:dateOfBirth>06/04/1959 05:21:00</urn1:dateOfBirth>
-            <urn1:dateOfSignature>${#Project#sigDate}</urn1:dateOfSignature>
-            <urn1:expirationDate>${#Project#expireDate}</urn1:expirationDate>
+            <!--urn1:dateOfSignature>${#Project#sigDate}</urn1:dateOfSignature-->
+            <!--urn1:expirationDate>${#Project#expireDate}</urn1:expirationDate-->
             <urn1:explanationNonClaimantSignature>Electronic</urn1:explanationNonClaimantSignature>
             <urn1:haveSecondWitnessSignature>false</urn1:haveSecondWitnessSignature>
             <urn1:haveSignature>false</urn1:haveSignature>
@@ -1343,7 +1340,7 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
                   <urn1:originalText>phoneCode</urn1:originalText>
                </urn1:phoneNumberType>
             </urn1:phoneNumber>
-            <urn1:purposeOfDisclosure>TREATMENT</urn1:purposeOfDisclosure>
+            <!--urn1:purposeOfDisclosure>TREATMENT</urn1:purposeOfDisclosure-->
             <urn1:secondWitnessAddress>
                <urn1:addressType>
                   <urn1:code>AddrCode</urn1:code>
@@ -1449,7 +1446,7 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
                   <urn1:fullName>Kasrl S. Skagerberg</urn1:fullName>
                </urn1:personName>
                <urn1:userName>${#TestCase#UserId}</urn1:userName>
-               <urn1:role>Pharmacy</urn1:role>
+               <!--urn1:role>Pharmacy</urn1:role-->
                <urn1:org>
                   <urn1:description>${#Project#LocalHCDescription}</urn1:description>
                   <urn1:homeCommunityId>${#Project#LocalHCID}</urn1:homeCommunityId>
@@ -1473,8 +1470,8 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
                <urn1:displayName>Use or disclosure of Psychotherapy Notes</urn1:displayName>
                <urn1:originalText>Psychotherapy Notes</urn1:originalText>
             </urn1:purposeOfDisclosureCoded>
-            <urn1:claimFormRef>Ref-Clm-123</urn1:claimFormRef>
-            <urn1:claimFormRaw>YWVvbGlhbQ==</urn1:claimFormRaw>
+            <!--urn1:claimFormRef>Ref-Clm-123</urn1:claimFormRef-->
+            <!--urn1:claimFormRaw>YWVvbGlhbQ==</urn1:claimFormRaw-->
             <urn1:samlAuthnStatement>
                <urn1:authInstant>2009-09-01T13:00:00.000Z</urn1:authInstant>
                <urn1:sessionIndex>mySessionIndex</urn1:sessionIndex>
@@ -1494,8 +1491,8 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
                      <urn1:issuer>CN=Mr Saml User,OU=SU,O=Mr SAML Org,L=Chantilly,ST=VA,C=US</urn1:issuer>
                      <urn1:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn1:issuerFormat>
                      <urn1:conditions>
-                        <urn1:notBefore>01/01/2001 01:00:00</urn1:notBefore>
-                        <urn1:notOnOrAfter>05/06/2009 22:00:17</urn1:notOnOrAfter>
+                        <urn1:notBefore>2001-01-01T01:00:00.000Z</urn1:notBefore>
+                        <urn1:notOnOrAfter>2009-05-06T14:00:00.000Z</urn1:notOnOrAfter>
                      </urn1:conditions>
                      <urn1:accessConsentPolicy>urn:oid:1.2.3.4</urn1:accessConsentPolicy>
                      <urn1:instanceAccessConsentPolicy>urn:oid:1.2.3.4.123456789</urn1:instanceAccessConsentPolicy>
@@ -1514,7 +1511,7 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
                <urn1:signatureValue>cid:175264679488</urn1:signatureValue>
             </urn1:samlSignature>
             <!--Optional:-->
-            <urn1:asyncMessageId>?</urn1:asyncMessageId>
+            <!--urn1:asyncMessageId>?</urn1:asyncMessageId-->
          </urn:assertion>
          <!--Optional:-->
          <urn:nhinTargetCommunities>
@@ -1662,7 +1659,7 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
       </urn:RespondingGateway_SendAlertMessage>
    </soap:Body>
 </soap:Envelope>]]></con:request>
-            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
             <con:wsaConfig mustUnderstand="NONE" version="200508"/>
             <con:wsrmConfig version="1.2"/>
@@ -1673,31 +1670,30 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
 	sql.firstRow('select count(*) from ' + context.findProperty('AuditTable')).'count(*)'
 }
 //log.info "Count: " + count;
-assert (count > 0);</script></con:config></con:testStep><con:properties>
+assert (count > 0);</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-08-23T19:14:03Z</con:value>
+          <con:value>2012-11-27T18:11:56Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-08-23T19:24:03Z</con:value>
+          <con:value>2012-11-27T18:21:56Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/23/2012 19:14:03</con:value>
+          <con:value>11/27/2012 18:11:56</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-09-22T00:00:00Z</con:value>
+          <con:value>2012-12-27T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>UserId</con:name>
-          <con:value>admindistThu Aug 23 19:19:03 UTC 20121</con:value>
+          <con:value>admindistTue Nov 27 18:16:56 UTC 20121</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    <con:tearDownScript>import nhinc.FileUtils;
-FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript></con:testCase>
+    <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript></con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="bd07e541-6730-45b7-9800-7e149ac7e486" keepSession="false" maxResults="0" name="EntityRequest without a ContentObject tag" searchProperties="true">
       <con:settings/>
       <con:testStep name="clear audit table" type="groovy"><con:settings/><con:config><script>context.withSql('AuditDB') { sql -> 
@@ -1747,8 +1743,8 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
                <urn1:zipCode>AddrZip</urn1:zipCode>
             </urn1:address>
             <urn1:dateOfBirth>06/04/1959 05:21:00</urn1:dateOfBirth>
-            <urn1:dateOfSignature>${#Project#sigDate}</urn1:dateOfSignature>
-            <urn1:expirationDate>${#Project#expireDate}</urn1:expirationDate>
+            <!--urn1:dateOfSignature>${#Project#sigDate}</urn1:dateOfSignature-->
+            <!--urn1:expirationDate>${#Project#expireDate}</urn1:expirationDate-->
             <urn1:explanationNonClaimantSignature>Electronic</urn1:explanationNonClaimantSignature>
             <urn1:haveSecondWitnessSignature>false</urn1:haveSecondWitnessSignature>
             <urn1:haveSignature>false</urn1:haveSignature>
@@ -1786,7 +1782,7 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
                   <urn1:originalText>phoneCode</urn1:originalText>
                </urn1:phoneNumberType>
             </urn1:phoneNumber>
-            <urn1:purposeOfDisclosure>TREATMENT</urn1:purposeOfDisclosure>
+            <!--urn1:purposeOfDisclosure>TREATMENT</urn1:purposeOfDisclosure-->
             <urn1:secondWitnessAddress>
                <urn1:addressType>
                   <urn1:code>AddrCode</urn1:code>
@@ -1892,7 +1888,7 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
                   <urn1:fullName>Kasrl S. Skagerberg</urn1:fullName>
                </urn1:personName>
                <urn1:userName>${#TestCase#UserId}</urn1:userName>
-               <urn1:role>Pharmacy</urn1:role>
+               <!--urn1:role>Pharmacy</urn1:role-->
                <urn1:org>
                   <urn1:description>${#Project#LocalHCDescription}</urn1:description>
                   <urn1:homeCommunityId>${#Project#LocalHCID}</urn1:homeCommunityId>
@@ -1916,8 +1912,8 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
                <urn1:displayName>Use or disclosure of Psychotherapy Notes</urn1:displayName>
                <urn1:originalText>Psychotherapy Notes</urn1:originalText>
             </urn1:purposeOfDisclosureCoded>
-            <urn1:claimFormRef>Ref-Clm-123</urn1:claimFormRef>
-            <urn1:claimFormRaw>YWVvbGlhbQ==</urn1:claimFormRaw>
+            <!--urn1:claimFormRef>Ref-Clm-123</urn1:claimFormRef-->
+            <!--urn1:claimFormRaw>YWVvbGlhbQ==</urn1:claimFormRaw-->
             <urn1:samlAuthnStatement>
                <urn1:authInstant>2009-09-01T13:00:00.000Z</urn1:authInstant>
                <urn1:sessionIndex>mySessionIndex</urn1:sessionIndex>
@@ -1937,8 +1933,8 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
                      <urn1:issuer>CN=Mr Saml User,OU=SU,O=Mr SAML Org,L=Chantilly,ST=VA,C=US</urn1:issuer>
                      <urn1:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn1:issuerFormat>
                      <urn1:conditions>
-                        <urn1:notBefore>01/01/2001 01:00:00</urn1:notBefore>
-                        <urn1:notOnOrAfter>05/06/2009 22:00:17</urn1:notOnOrAfter>
+                        <urn1:notBefore>2001-01-01T01:00:00.000Z</urn1:notBefore>
+                        <urn1:notOnOrAfter>2009-05-06T14:00:00.000Z</urn1:notOnOrAfter>
                      </urn1:conditions>
                      <urn1:accessConsentPolicy>urn:oid:1.2.3.4</urn1:accessConsentPolicy>
                      <urn1:instanceAccessConsentPolicy>urn:oid:1.2.3.4.123456789</urn1:instanceAccessConsentPolicy>
@@ -1957,7 +1953,7 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
                <urn1:signatureValue>cid:175264679488</urn1:signatureValue>
             </urn1:samlSignature>
             <!--Optional:-->
-            <urn1:asyncMessageId>?</urn1:asyncMessageId>
+            <!--urn1:asyncMessageId>?</urn1:asyncMessageId-->
          </urn:assertion>
          <!--Optional:-->
          <urn:nhinTargetCommunities>
@@ -2025,7 +2021,7 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
       </urn:RespondingGateway_SendAlertMessage>
    </soap:Body>
 </soap:Envelope>]]></con:request>
-            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
             <con:wsaConfig mustUnderstand="NONE" version="200508"/>
             <con:wsrmConfig version="1.2"/>
@@ -2035,31 +2031,30 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
 	sql.firstRow('select count(*) from ' + context.findProperty('AuditTable')).'count(*)'
 }
 //log.info "Count: " + count;
-assert (count > 0);</script></con:config></con:testStep><con:properties>
+assert (count > 0);</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-08-23T19:14:23Z</con:value>
+          <con:value>2012-11-27T18:12:16Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-08-23T19:24:23Z</con:value>
+          <con:value>2012-11-27T18:22:16Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/23/2012 19:14:23</con:value>
+          <con:value>11/27/2012 18:12:16</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-09-22T00:00:00Z</con:value>
+          <con:value>2012-12-27T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>UserId</con:name>
-          <con:value>admindistThu Aug 23 19:19:24 UTC 20121</con:value>
+          <con:value>admindistTue Nov 27 18:17:17 UTC 20121</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    <con:tearDownScript>import nhinc.FileUtils;
-FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript></con:testCase>
+    <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript></con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="360faaee-f3c0-43cb-b37c-c88cdaccd791" keepSession="false" maxResults="0" name="EntityRequest with an empty ContentObject" searchProperties="true">
       <con:settings/>
       <con:testStep name="clear audit table" type="groovy"><con:settings/><con:config><script>context.withSql('AuditDB') { sql -> 
@@ -2109,8 +2104,8 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
                <urn1:zipCode>AddrZip</urn1:zipCode>
             </urn1:address>
             <urn1:dateOfBirth>06/04/1959 05:21:00</urn1:dateOfBirth>
-            <urn1:dateOfSignature>${#Project#sigDate}</urn1:dateOfSignature>
-            <urn1:expirationDate>${#Project#expireDate}</urn1:expirationDate>
+            <!--urn1:dateOfSignature>${#Project#sigDate}</urn1:dateOfSignature-->
+            <!--urn1:expirationDate>${#Project#expireDate}</urn1:expirationDate-->
             <urn1:explanationNonClaimantSignature>Electronic</urn1:explanationNonClaimantSignature>
             <urn1:haveSecondWitnessSignature>false</urn1:haveSecondWitnessSignature>
             <urn1:haveSignature>false</urn1:haveSignature>
@@ -2148,7 +2143,7 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
                   <urn1:originalText>phoneCode</urn1:originalText>
                </urn1:phoneNumberType>
             </urn1:phoneNumber>
-            <urn1:purposeOfDisclosure>TREATMENT</urn1:purposeOfDisclosure>
+            <!--urn1:purposeOfDisclosure>TREATMENT</urn1:purposeOfDisclosure-->
             <urn1:secondWitnessAddress>
                <urn1:addressType>
                   <urn1:code>AddrCode</urn1:code>
@@ -2254,7 +2249,7 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
                   <urn1:fullName>Kasrl S. Skagerberg</urn1:fullName>
                </urn1:personName>
                <urn1:userName>${#TestCase#UserId}</urn1:userName>
-               <urn1:role>Pharmacy</urn1:role>
+               <!--urn1:role>Pharmacy</urn1:role-->
                <urn1:org>
                   <urn1:description>${#Project#LocalHCDescription}</urn1:description>
                   <urn1:homeCommunityId>${#Project#LocalHCID}</urn1:homeCommunityId>
@@ -2278,8 +2273,8 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
                <urn1:displayName>Use or disclosure of Psychotherapy Notes</urn1:displayName>
                <urn1:originalText>Psychotherapy Notes</urn1:originalText>
             </urn1:purposeOfDisclosureCoded>
-            <urn1:claimFormRef>Ref-Clm-123</urn1:claimFormRef>
-            <urn1:claimFormRaw>YWVvbGlhbQ==</urn1:claimFormRaw>
+            <!--urn1:claimFormRef>Ref-Clm-123</urn1:claimFormRef-->
+            <!--urn1:claimFormRaw>YWVvbGlhbQ==</urn1:claimFormRaw-->
             <urn1:samlAuthnStatement>
                <urn1:authInstant>2009-09-01T13:00:00.000Z</urn1:authInstant>
                <urn1:sessionIndex>mySessionIndex</urn1:sessionIndex>
@@ -2299,8 +2294,8 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
                      <urn1:issuer>CN=Mr Saml User,OU=SU,O=Mr SAML Org,L=Chantilly,ST=VA,C=US</urn1:issuer>
                      <urn1:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn1:issuerFormat>
                      <urn1:conditions>
-                        <urn1:notBefore>01/01/2001 01:00:00</urn1:notBefore>
-                        <urn1:notOnOrAfter>05/06/2009 22:00:17</urn1:notOnOrAfter>
+                        <urn1:notBefore>2001-01-01T01:00:00.000Z</urn1:notBefore>
+                        <urn1:notOnOrAfter>2009-05-06T14:00:00.000Z</urn1:notOnOrAfter>
                      </urn1:conditions>
                      <urn1:accessConsentPolicy>urn:oid:1.2.3.4</urn1:accessConsentPolicy>
                      <urn1:instanceAccessConsentPolicy>urn:oid:1.2.3.4.123456789</urn1:instanceAccessConsentPolicy>
@@ -2319,7 +2314,7 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
                <urn1:signatureValue>cid:175264679488</urn1:signatureValue>
             </urn1:samlSignature>
             <!--Optional:-->
-            <urn1:asyncMessageId>?</urn1:asyncMessageId>
+            <!--urn1:asyncMessageId>?</urn1:asyncMessageId-->
          </urn:assertion>
          <!--Optional:-->
          <urn:nhinTargetCommunities>
@@ -2391,7 +2386,7 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
       </urn:RespondingGateway_SendAlertMessage>
    </soap:Body>
 </soap:Envelope>]]></con:request>
-            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
             <con:wsaConfig mustUnderstand="NONE" version="200508"/>
             <con:wsrmConfig version="1.2"/>
@@ -2401,31 +2396,30 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
 	sql.firstRow('select count(*) from ' + context.findProperty('AuditTable')).'count(*)'
 }
 //log.info "Count: " + count;
-assert (count > 0);</script></con:config></con:testStep><con:properties>
+assert (count > 0);</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-08-23T19:14:44Z</con:value>
+          <con:value>2012-11-27T18:12:37Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-08-23T19:24:44Z</con:value>
+          <con:value>2012-11-27T18:22:37Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/23/2012 19:14:44</con:value>
+          <con:value>11/27/2012 18:12:37</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-09-22T00:00:00Z</con:value>
+          <con:value>2012-12-27T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>UserId</con:name>
-          <con:value>admindistThu Aug 23 19:19:44 UTC 20121</con:value>
+          <con:value>admindistTue Nov 27 18:17:37 UTC 20121</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    <con:tearDownScript>import nhinc.FileUtils;
-FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript></con:testCase>
+    <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript></con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="b2ddcf67-2269-4ef4-ab64-e016d5f5b690" keepSession="false" maxResults="0" name="EntityRequest sent to multiple targets" searchProperties="true">
       <con:settings/>
       <con:testStep name="clear audit table" type="groovy"><con:settings/><con:config><script>context.withSql('AuditDB') { sql -> 
@@ -2475,8 +2469,8 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
                <urn1:zipCode>AddrZip</urn1:zipCode>
             </urn1:address>
             <urn1:dateOfBirth>06/04/1959 05:21:00</urn1:dateOfBirth>
-            <urn1:dateOfSignature>${#Project#sigDate}</urn1:dateOfSignature>
-            <urn1:expirationDate>${#Project#expireDate}</urn1:expirationDate>
+            <!--urn1:dateOfSignature>${#Project#sigDate}</urn1:dateOfSignature-->
+            <!--urn1:expirationDate>${#Project#expireDate}</urn1:expirationDate-->
             <urn1:explanationNonClaimantSignature>Electronic</urn1:explanationNonClaimantSignature>
             <urn1:haveSecondWitnessSignature>false</urn1:haveSecondWitnessSignature>
             <urn1:haveSignature>false</urn1:haveSignature>
@@ -2514,7 +2508,7 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
                   <urn1:originalText>phoneCode</urn1:originalText>
                </urn1:phoneNumberType>
             </urn1:phoneNumber>
-            <urn1:purposeOfDisclosure>TREATMENT</urn1:purposeOfDisclosure>
+            <!--urn1:purposeOfDisclosure>TREATMENT</urn1:purposeOfDisclosure-->
             <urn1:secondWitnessAddress>
                <urn1:addressType>
                   <urn1:code>AddrCode</urn1:code>
@@ -2620,7 +2614,7 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
                   <urn1:fullName>Kasrl S. Skagerberg</urn1:fullName>
                </urn1:personName>
                <urn1:userName>${#TestCase#UserId}</urn1:userName>
-               <urn1:role>Pharmacy</urn1:role>
+               <!--urn1:role>Pharmacy</urn1:role-->
                <urn1:org>
                   <urn1:description>${#Project#LocalHCDescription}</urn1:description>
                   <urn1:homeCommunityId>${#Project#LocalHCID}</urn1:homeCommunityId>
@@ -2644,8 +2638,8 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
                <urn1:displayName>Use or disclosure of Psychotherapy Notes</urn1:displayName>
                <urn1:originalText>Psychotherapy Notes</urn1:originalText>
             </urn1:purposeOfDisclosureCoded>
-            <urn1:claimFormRef>Ref-Clm-123</urn1:claimFormRef>
-            <urn1:claimFormRaw>YWVvbGlhbQ==</urn1:claimFormRaw>
+            <!--urn1:claimFormRef>Ref-Clm-123</urn1:claimFormRef-->
+            <!--urn1:claimFormRaw>YWVvbGlhbQ==</urn1:claimFormRaw-->
             <urn1:samlAuthnStatement>
                <urn1:authInstant>2009-09-01T13:00:00.000Z</urn1:authInstant>
                <urn1:sessionIndex>mySessionIndex</urn1:sessionIndex>
@@ -2665,8 +2659,8 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
                      <urn1:issuer>CN=Mr Saml User,OU=SU,O=Mr SAML Org,L=Chantilly,ST=VA,C=US</urn1:issuer>
                      <urn1:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn1:issuerFormat>
                      <urn1:conditions>
-                        <urn1:notBefore>01/01/2001 01:00:00</urn1:notBefore>
-                        <urn1:notOnOrAfter>05/06/2009 22:00:17</urn1:notOnOrAfter>
+                        <urn1:notBefore>2001-01-01T01:00:00.000Z</urn1:notBefore>
+                        <urn1:notOnOrAfter>2009-05-06T14:00:00.000Z</urn1:notOnOrAfter>
                      </urn1:conditions>
                      <urn1:accessConsentPolicy>urn:oid:1.2.3.4</urn1:accessConsentPolicy>
                      <urn1:instanceAccessConsentPolicy>urn:oid:1.2.3.4.123456789</urn1:instanceAccessConsentPolicy>
@@ -2685,7 +2679,7 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
                <urn1:signatureValue>cid:175264679488</urn1:signatureValue>
             </urn1:samlSignature>
             <!--Optional:-->
-            <urn1:asyncMessageId>?</urn1:asyncMessageId>
+            <!--urn1:asyncMessageId>?</urn1:asyncMessageId-->
          </urn:assertion>
          <!--Optional:-->
          <urn:nhinTargetCommunities>
@@ -2794,7 +2788,7 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
       </urn:RespondingGateway_SendAlertMessage>
    </soap:Body>
 </soap:Envelope>]]></con:request>
-            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
             <con:wsaConfig mustUnderstand="NONE" version="200508"/>
             <con:wsrmConfig version="1.2"/>
@@ -2804,31 +2798,30 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
 	sql.firstRow('select count(*) from ' + context.findProperty('AuditTable')).'count(*)'
 }
 //log.info "Count: " + count;
-assert (count > 0);</script></con:config></con:testStep><con:properties>
+assert (count > 0);</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-08-23T19:15:04Z</con:value>
+          <con:value>2012-11-27T18:12:57Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-08-23T19:25:04Z</con:value>
+          <con:value>2012-11-27T18:22:57Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/23/2012 19:15:04</con:value>
+          <con:value>11/27/2012 18:12:57</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-09-22T00:00:00Z</con:value>
+          <con:value>2012-12-27T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>UserId</con:name>
-          <con:value>admindistThu Aug 23 19:20:04 UTC 20121</con:value>
+          <con:value>admindistTue Nov 27 18:17:57 UTC 20121</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    <con:tearDownScript>import nhinc.FileUtils;
-FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript></con:testCase>
+    <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript></con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="237d62e0-94dc-48ef-b47e-6e03c8fbfd7b" keepSession="false" maxResults="0" name="EntityRequest - Policy engine deny" searchProperties="true">
       <con:settings/>
       <con:testStep name="clear audit table" type="groovy"><con:settings/><con:config><script>context.withSql('AuditDB') { sql -> 
@@ -2838,13 +2831,12 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript></con:
         <con:settings/>
         <con:config><script>import nhinc.FileUtils;
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
-def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 def NHINGatewayHost = context.findProperty("NHINGatewayHost");
 def mockHost = context.findProperty("mockHost");
 def mockPEURL = "http://" + mockHost + ":18082/mockPE";
 def LocalHCID = context.findProperty( "LocalHCID" );
 
-FileUtils.CreateOrUpdateConnection("internalConnectionInfo.xml", destConfigFileLocation, LocalHCID, "policyengineservice", mockPEURL, "LEVEL_a0", context, log)</script></con:config>
+FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", context.findProperty("GatewayPropDir"), LocalHCID, "policyengineservice", mockPEURL, "LEVEL_a0", log)</script></con:config>
       </con:testStep><con:testStep name="send request" type="request">
         <con:settings/>
         <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
@@ -2877,8 +2869,8 @@ FileUtils.CreateOrUpdateConnection("internalConnectionInfo.xml", destConfigFileL
                <urn1:zipCode>AddrZip</urn1:zipCode>
             </urn1:address>
             <urn1:dateOfBirth>06/04/1959 05:21:00</urn1:dateOfBirth>
-            <urn1:dateOfSignature>${#Project#sigDate}</urn1:dateOfSignature>
-            <urn1:expirationDate>${#Project#expireDate}</urn1:expirationDate>
+            <!--urn1:dateOfSignature>${#Project#sigDate}</urn1:dateOfSignature-->
+            <!--urn1:expirationDate>${#Project#expireDate}</urn1:expirationDate-->
             <urn1:explanationNonClaimantSignature>Electronic</urn1:explanationNonClaimantSignature>
             <urn1:haveSecondWitnessSignature>false</urn1:haveSecondWitnessSignature>
             <urn1:haveSignature>false</urn1:haveSignature>
@@ -2916,7 +2908,7 @@ FileUtils.CreateOrUpdateConnection("internalConnectionInfo.xml", destConfigFileL
                   <urn1:originalText>phoneCode</urn1:originalText>
                </urn1:phoneNumberType>
             </urn1:phoneNumber>
-            <urn1:purposeOfDisclosure>TREATMENT</urn1:purposeOfDisclosure>
+            <!--urn1:purposeOfDisclosure>TREATMENT</urn1:purposeOfDisclosure-->
             <urn1:secondWitnessAddress>
                <urn1:addressType>
                   <urn1:code>AddrCode</urn1:code>
@@ -3022,7 +3014,7 @@ FileUtils.CreateOrUpdateConnection("internalConnectionInfo.xml", destConfigFileL
                   <urn1:fullName>Kasrl S. Skagerberg</urn1:fullName>
                </urn1:personName>
                <urn1:userName>kkagerberg</urn1:userName>
-               <urn1:role>Pharmacy</urn1:role>
+               <!--urn1:role>Pharmacy</urn1:role-->
                <urn1:org>
                   <urn1:description>${#Project#LocalHCDescription}</urn1:description>
                   <urn1:homeCommunityId>1.1</urn1:homeCommunityId>
@@ -3046,8 +3038,8 @@ FileUtils.CreateOrUpdateConnection("internalConnectionInfo.xml", destConfigFileL
                <urn1:displayName>Use or disclosure of Psychotherapy Notes</urn1:displayName>
                <urn1:originalText>Psychotherapy Notes</urn1:originalText>
             </urn1:purposeOfDisclosureCoded>
-            <urn1:claimFormRef>Ref-Clm-123</urn1:claimFormRef>
-            <urn1:claimFormRaw>YWVvbGlhbQ==</urn1:claimFormRaw>
+            <!--urn1:claimFormRef>Ref-Clm-123</urn1:claimFormRef-->
+            <!--urn1:claimFormRaw>YWVvbGlhbQ==</urn1:claimFormRaw-->
             <urn1:samlAuthnStatement>
                <urn1:authInstant>2009-09-01T13:00:00.000Z</urn1:authInstant>
                <urn1:sessionIndex>mySessionIndex</urn1:sessionIndex>
@@ -3067,8 +3059,8 @@ FileUtils.CreateOrUpdateConnection("internalConnectionInfo.xml", destConfigFileL
                      <urn1:issuer>CN=Mr Saml User,OU=SU,O=Mr SAML Org,L=Chantilly,ST=VA,C=US</urn1:issuer>
                      <urn1:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn1:issuerFormat>
                      <urn1:conditions>
-                        <urn1:notBefore>01/01/2001 01:00:00</urn1:notBefore>
-                        <urn1:notOnOrAfter>05/06/2009 22:00:17</urn1:notOnOrAfter>
+                        <urn1:notBefore>2001-01-01T01:00:00.000Z</urn1:notBefore>
+                        <urn1:notOnOrAfter>2009-05-06T14:00:00.000Z</urn1:notOnOrAfter>
                      </urn1:conditions>
                      <urn1:accessConsentPolicy>urn:oid:1.2.3.4</urn1:accessConsentPolicy>
                      <urn1:instanceAccessConsentPolicy>urn:oid:1.2.3.4.123456789</urn1:instanceAccessConsentPolicy>
@@ -3087,7 +3079,7 @@ FileUtils.CreateOrUpdateConnection("internalConnectionInfo.xml", destConfigFileL
                <urn1:signatureValue>cid:175264679488</urn1:signatureValue>
             </urn1:samlSignature>
             <!--Optional:-->
-            <urn1:asyncMessageId>?</urn1:asyncMessageId>
+            <!--urn1:asyncMessageId>?</urn1:asyncMessageId-->
          </urn:assertion>
          <!--Optional:-->
          <urn:nhinTargetCommunities>
@@ -3196,14 +3188,14 @@ FileUtils.CreateOrUpdateConnection("internalConnectionInfo.xml", destConfigFileL
       </urn:RespondingGateway_SendAlertMessage>
    </soap:Body>
 </soap:Envelope>]]></con:request>
-            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
             <con:wsaConfig mustUnderstand="NONE" version="200508"/>
             <con:wsrmConfig version="1.2"/>
           </con:request>
         </con:config>
       </con:testStep>
-      <con:testStep disabled="true" name="Delay" type="delay"><con:settings/><con:config><delay>20000</delay></con:config></con:testStep>
+      <con:testStep name="Delay" type="delay"><con:settings/><con:config><delay>3000</delay></con:config></con:testStep>
       
       <con:testStep name="Mock Policy Engine" type="mockresponse">
         <con:settings/>
@@ -4694,40 +4686,38 @@ declare namespace ns17='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
               <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
             </con:configuration>
           </con:assertion>
-        </con:config>
-      </con:testStep><con:properties>
+        <con:host>localhost</con:host></con:config>
+      </con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-08-23T19:15:49Z</con:value>
+          <con:value>2012-11-27T18:30:45Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-08-23T19:25:49Z</con:value>
+          <con:value>2012-11-27T18:40:45Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/23/2012 19:15:49</con:value>
+          <con:value>11/27/2012 18:30:45</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-09-22T00:00:00Z</con:value>
+          <con:value>2012-12-27T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    <con:tearDownScript>import nhinc.FileUtils;
-FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript></con:testCase>
+    <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript></con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="eed4b1bc-9a96-4d4b-9bfd-dc40d9dfdbe7" keepSession="false" maxResults="0" name="EntityRequest - 404 or 500 error" searchProperties="true">
       <con:settings/>
       <con:testStep name="Modify endpoint" type="groovy">
         <con:settings/>
         <con:config><script>import nhinc.FileUtils;
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
-def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 def NHINGatewayHost = context.findProperty("NHINGatewayHost");
 def URL = "https://localhost:8181/CONNECTNhinServicesWeb/NhinService/NhinAdmin";
 def RemoteHCID = context.findProperty( "RemoteHCID" );
 
-FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, RemoteHCID, "nhinadmindist", URL, "2.0", context, log)</script></con:config>
+FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", context.findProperty("GatewayPropDir"), RemoteHCID, "nhinadmindist", URL, "2.0", log)</script></con:config>
       </con:testStep>
       <con:testStep name="AdminDist Request" type="request">
         <con:settings/>
@@ -4761,8 +4751,8 @@ FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocat
                <urn1:zipCode>AddrZip</urn1:zipCode>
             </urn1:address>
             <urn1:dateOfBirth>06/04/1959 05:21:00</urn1:dateOfBirth>
-            <urn1:dateOfSignature>${#Project#sigDate}</urn1:dateOfSignature>
-            <urn1:expirationDate>${#Project#expireDate}</urn1:expirationDate>
+            <!--urn1:dateOfSignature>${#Project#sigDate}</urn1:dateOfSignature-->
+            <!--urn1:expirationDate>${#Project#expireDate}</urn1:expirationDate-->
             <urn1:explanationNonClaimantSignature>Electronic</urn1:explanationNonClaimantSignature>
             <urn1:haveSecondWitnessSignature>false</urn1:haveSecondWitnessSignature>
             <urn1:haveSignature>false</urn1:haveSignature>
@@ -4800,7 +4790,7 @@ FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocat
                   <urn1:originalText>phoneCode</urn1:originalText>
                </urn1:phoneNumberType>
             </urn1:phoneNumber>
-            <urn1:purposeOfDisclosure>TREATMENT</urn1:purposeOfDisclosure>
+            <!--urn1:purposeOfDisclosure>TREATMENT</urn1:purposeOfDisclosure-->
             <urn1:secondWitnessAddress>
                <urn1:addressType>
                   <urn1:code>AddrCode</urn1:code>
@@ -4906,7 +4896,7 @@ FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocat
                   <urn1:fullName>Kasrl S. Skagerberg</urn1:fullName>
                </urn1:personName>
                <urn1:userName>${#TestCase#UserId}</urn1:userName>
-               <urn1:role>Pharmacy</urn1:role>
+               <!--urn1:role>Pharmacy</urn1:role-->
                <urn1:org>
                   <urn1:description>${#Project#LocalHCDescription}</urn1:description>
                   <urn1:homeCommunityId>${#Project#LocalHCID}</urn1:homeCommunityId>
@@ -4930,8 +4920,8 @@ FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocat
                <urn1:displayName>Use or disclosure of Psychotherapy Notes</urn1:displayName>
                <urn1:originalText>Psychotherapy Notes</urn1:originalText>
             </urn1:purposeOfDisclosureCoded>
-            <urn1:claimFormRef>Ref-Clm-123</urn1:claimFormRef>
-            <urn1:claimFormRaw>YWVvbGlhbQ==</urn1:claimFormRaw>
+            <!--urn1:claimFormRef>Ref-Clm-123</urn1:claimFormRef-->
+            <!--urn1:claimFormRaw>YWVvbGlhbQ==</urn1:claimFormRaw-->
             <urn1:samlAuthnStatement>
                <urn1:authInstant>2009-09-01T13:00:00.000Z</urn1:authInstant>
                <urn1:sessionIndex>mySessionIndex</urn1:sessionIndex>
@@ -4951,8 +4941,8 @@ FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocat
                      <urn1:issuer>CN=Mr Saml User,OU=SU,O=Mr SAML Org,L=Chantilly,ST=VA,C=US</urn1:issuer>
                      <urn1:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn1:issuerFormat>
                      <urn1:conditions>
-                        <urn1:notBefore>01/01/2001 01:00:00</urn1:notBefore>
-                        <urn1:notOnOrAfter>05/06/2009 22:00:17</urn1:notOnOrAfter>
+                        <urn1:notBefore>2001-01-01T01:00:00.000Z</urn1:notBefore>
+                        <urn1:notOnOrAfter>2009-05-06T14:00:00.000Z</urn1:notOnOrAfter>
                      </urn1:conditions>
                      <urn1:accessConsentPolicy>urn:oid:1.2.3.4</urn1:accessConsentPolicy>
                      <urn1:instanceAccessConsentPolicy>urn:oid:1.2.3.4.123456789</urn1:instanceAccessConsentPolicy>
@@ -4971,7 +4961,7 @@ FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocat
                <urn1:signatureValue>cid:175264679488</urn1:signatureValue>
             </urn1:samlSignature>
             <!--Optional:-->
-            <urn1:asyncMessageId>?</urn1:asyncMessageId>
+            <!--urn1:asyncMessageId>?</urn1:asyncMessageId-->
          </urn:assertion>
          <!--Optional:-->
          <urn:nhinTargetCommunities>
@@ -5079,7 +5069,7 @@ FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocat
       </urn:RespondingGateway_SendAlertMessage>
    </soap:Body>
 </soap:Envelope>]]></con:request>
-            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
             <con:wsaConfig mustUnderstand="NONE" version="200508"/>
             <con:wsrmConfig version="1.2"/>
@@ -5087,27 +5077,26 @@ FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocat
         </con:config>
       </con:testStep>
       
-      <con:properties>
+      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-08-23T19:15:50Z</con:value>
+          <con:value>2012-11-27T18:13:45Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-08-23T19:25:50Z</con:value>
+          <con:value>2012-11-27T18:23:45Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/23/2012 19:15:50</con:value>
+          <con:value>11/27/2012 18:13:45</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-09-22T00:00:00Z</con:value>
+          <con:value>2012-12-27T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    <con:tearDownScript>import nhinc.FileUtils;
-FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript></con:testCase>
+    <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript></con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="e0c96169-f42c-4c42-b566-7950411603be" keepSession="false" maxResults="0" name="NhincProxyRequest with a Binary doc" searchProperties="true">
       <con:settings/>
       <con:testStep name="clear audit table" type="groovy"><con:settings/><con:config><script>context.withSql('AuditDB') { sql -> 
@@ -5393,9 +5382,9 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
                      <!--Optional:-->
                      <urn1:conditions>
                         <!--Optional:-->
-                        <urn1:notBefore>01/01/2001 01:00:00</urn1:notBefore>
+                        <urn1:notBefore>2001-01-01T01:00:00.000Z</urn1:notBefore>
                         <!--Optional:-->
-                        <urn1:notOnOrAfter>05/06/2009 22:00:17</urn1:notOnOrAfter>
+                        <urn1:notOnOrAfter>2009-05-06T14:00:00.000Z</urn1:notOnOrAfter>
                      </urn1:conditions>
                      <!--Optional:-->
                      <urn1:accessConsentPolicy>urn:oid:1.2.3.4</urn1:accessConsentPolicy>
@@ -5417,7 +5406,7 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
                <urn1:signatureValue>cid:175264679488</urn1:signatureValue>
             </urn1:samlSignature>
             <!--Optional:-->
-            <urn1:asyncMessageId>?</urn1:asyncMessageId>
+            <!--urn1:asyncMessageId>?</urn1:asyncMessageId-->
          </urn:assertion>
          <urn:nhinTargetSystem>
             <!--You have a CHOICE of the next 3 items at this level-->
@@ -5523,7 +5512,7 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
       </urn:RespondingGateway_SendAlertMessage>
    </soap:Body>
 </soap:Envelope>]]></con:request>
-            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
             <con:wsaConfig mustUnderstand="NONE" version="200508"/>
             <con:wsrmConfig version="1.2"/>
@@ -5534,31 +5523,30 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
 	sql.firstRow('select count(*) from ' + context.findProperty('AuditTable')).'count(*)'
 }
 //log.info "Count: " + count;
-assert (count > 0);</script></con:config></con:testStep><con:properties>
+assert (count > 0);</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-08-23T19:15:50Z</con:value>
+          <con:value>2012-11-27T18:13:45Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-08-23T19:25:50Z</con:value>
+          <con:value>2012-11-27T18:23:45Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/23/2012 19:15:50</con:value>
+          <con:value>11/27/2012 18:13:45</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-09-22T00:00:00Z</con:value>
+          <con:value>2012-12-27T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>UserId</con:name>
-          <con:value>admindistThu Aug 23 19:20:50 UTC 20121</con:value>
+          <con:value>admindistTue Nov 27 18:18:45 UTC 20121</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    <con:tearDownScript>import nhinc.FileUtils;
-FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript></con:testCase>
+    <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript></con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="e10c8690-4f9f-4c68-a67c-1e5f11a66eec" keepSession="false" maxResults="0" name="NhincProxyRequest with XML data" searchProperties="true">
       <con:settings/>
       <con:testStep name="clear audit table" type="groovy"><con:settings/><con:config><script>context.withSql('AuditDB') { sql -> 
@@ -5845,9 +5833,9 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
                      <!--Optional:-->
                      <urn1:conditions>
                         <!--Optional:-->
-                        <urn1:notBefore>01/01/2001 01:00:00</urn1:notBefore>
+                        <urn1:notBefore>2001-01-01T01:00:00.000Z</urn1:notBefore>
                         <!--Optional:-->
-                        <urn1:notOnOrAfter>05/06/2009 22:00:17</urn1:notOnOrAfter>
+                        <urn1:notOnOrAfter>2009-05-06T14:00:00.000Z</urn1:notOnOrAfter>
                      </urn1:conditions>
                      <!--Optional:-->
                      <urn1:accessConsentPolicy>urn:oid:1.2.3.4</urn1:accessConsentPolicy>
@@ -5971,7 +5959,7 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
       </urn:RespondingGateway_SendAlertMessage>
    </soap:Body>
 </soap:Envelope>]]></con:request>
-            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
             <con:wsaConfig mustUnderstand="NONE" version="200508"/>
             <con:wsrmConfig version="1.2"/>
@@ -5981,31 +5969,30 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
 	sql.firstRow('select count(*) from ' + context.findProperty('AuditTable')).'count(*)'
 }
 //log.info "Count: " + count;
-assert (count > 0);</script></con:config></con:testStep><con:properties>
+assert (count > 0);</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-08-23T19:16:10Z</con:value>
+          <con:value>2012-11-27T18:14:06Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-08-23T19:26:10Z</con:value>
+          <con:value>2012-11-27T18:24:06Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/23/2012 19:16:10</con:value>
+          <con:value>11/27/2012 18:14:06</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-09-22T00:00:00Z</con:value>
+          <con:value>2012-12-27T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>UserId</con:name>
-          <con:value>admindistThu Aug 23 19:21:10 UTC 20121</con:value>
+          <con:value>admindistTue Nov 27 18:19:06 UTC 20121</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    <con:tearDownScript>import nhinc.FileUtils;
-FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript></con:testCase>
+    <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript></con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="ed85ad92-3732-424e-a5e6-dd6f3bdc24fe" keepSession="false" maxResults="0" name="NhincProxyRequest with multiple documents (multiple contentObjects)" searchProperties="true">
       <con:settings/>
       <con:testStep name="clear audit table" type="groovy"><con:settings/><con:config><script>context.withSql('AuditDB') { sql -> 
@@ -6292,9 +6279,9 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
                      <!--Optional:-->
                      <urn1:conditions>
                         <!--Optional:-->
-                        <urn1:notBefore>01/01/2001 01:00:00</urn1:notBefore>
+                        <urn1:notBefore>2001-01-01T01:00:00.000Z</urn1:notBefore>
                         <!--Optional:-->
-                        <urn1:notOnOrAfter>05/06/2009 22:00:17</urn1:notOnOrAfter>
+                        <urn1:notOnOrAfter>2009-05-06T14:00:00.000Z</urn1:notOnOrAfter>
                      </urn1:conditions>
                      <!--Optional:-->
                      <urn1:accessConsentPolicy>urn:oid:1.2.3.4</urn1:accessConsentPolicy>
@@ -6460,7 +6447,7 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
       </urn:RespondingGateway_SendAlertMessage>
    </soap:Body>
 </soap:Envelope>]]></con:request>
-            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
             <con:wsaConfig mustUnderstand="NONE" version="200508"/>
             <con:wsrmConfig version="1.2"/>
@@ -6470,31 +6457,30 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
 	sql.firstRow('select count(*) from ' + context.findProperty('AuditTable')).'count(*)'
 }
 //log.info "Count: " + count;
-assert (count > 0);</script></con:config></con:testStep><con:properties>
+assert (count > 0);</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-08-23T19:16:30Z</con:value>
+          <con:value>2012-11-27T18:14:26Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-08-23T19:26:30Z</con:value>
+          <con:value>2012-11-27T18:24:26Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/23/2012 19:16:30</con:value>
+          <con:value>11/27/2012 18:14:26</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-09-22T00:00:00Z</con:value>
+          <con:value>2012-12-27T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>UserId</con:name>
-          <con:value>admindistThu Aug 23 19:21:30 UTC 20121</con:value>
+          <con:value>admindistTue Nov 27 18:19:26 UTC 20121</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    <con:tearDownScript>import nhinc.FileUtils;
-FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript></con:testCase>
+    <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript></con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="9f036a35-2b5f-4432-8dbc-f91db0b4e861" keepSession="false" maxResults="0" name="NhincProxyRequest with multiple documents (XML and Binary)" searchProperties="true">
       <con:settings/>
       <con:testStep name="clear audit table" type="groovy"><con:settings/><con:config><script>context.withSql('AuditDB') { sql -> 
@@ -6781,9 +6767,9 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
                      <!--Optional:-->
                      <urn1:conditions>
                         <!--Optional:-->
-                        <urn1:notBefore>01/01/2001 01:00:00</urn1:notBefore>
+                        <urn1:notBefore>2001-01-01T01:00:00.000Z</urn1:notBefore>
                         <!--Optional:-->
-                        <urn1:notOnOrAfter>05/06/2009 22:00:17</urn1:notOnOrAfter>
+                        <urn1:notOnOrAfter>2009-05-06T14:00:00.000Z</urn1:notOnOrAfter>
                      </urn1:conditions>
                      <!--Optional:-->
                      <urn1:accessConsentPolicy>urn:oid:1.2.3.4</urn1:accessConsentPolicy>
@@ -6918,7 +6904,7 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
       </urn:RespondingGateway_SendAlertMessage>
    </soap:Body>
 </soap:Envelope>]]></con:request>
-            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
             <con:wsaConfig mustUnderstand="NONE" version="200508"/>
             <con:wsrmConfig version="1.2"/>
@@ -6928,31 +6914,30 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
 	sql.firstRow('select count(*) from ' + context.findProperty('AuditTable')).'count(*)'
 }
 //log.info "Count: " + count;
-assert (count > 0);</script></con:config></con:testStep><con:properties>
+assert (count > 0);</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-08-23T19:16:50Z</con:value>
+          <con:value>2012-11-27T18:14:46Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-08-23T19:26:50Z</con:value>
+          <con:value>2012-11-27T18:24:46Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/23/2012 19:16:50</con:value>
+          <con:value>11/27/2012 18:14:46</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-09-22T00:00:00Z</con:value>
+          <con:value>2012-12-27T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>UserId</con:name>
-          <con:value>admindistThu Aug 23 19:21:50 UTC 20121</con:value>
+          <con:value>admindistTue Nov 27 18:19:46 UTC 20121</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    <con:tearDownScript>import nhinc.FileUtils;
-FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript></con:testCase>
+    <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript></con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="73e8702c-7b4b-4eeb-8bba-dbcfc2ddb322" keepSession="false" maxResults="0" name="NhincProxyRequest without a ContentObject" searchProperties="true">
       <con:settings/>
       <con:testStep name="clear audit table" type="groovy"><con:settings/><con:config><script>context.withSql('AuditDB') { sql -> 
@@ -7239,9 +7224,9 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
                      <!--Optional:-->
                      <urn1:conditions>
                         <!--Optional:-->
-                        <urn1:notBefore>01/01/2001 01:00:00</urn1:notBefore>
+                        <urn1:notBefore>2001-01-01T01:00:00.000Z</urn1:notBefore>
                         <!--Optional:-->
-                        <urn1:notOnOrAfter>05/06/2009 22:00:17</urn1:notOnOrAfter>
+                        <urn1:notOnOrAfter>2009-05-06T14:00:00.000Z</urn1:notOnOrAfter>
                      </urn1:conditions>
                      <!--Optional:-->
                      <urn1:accessConsentPolicy>urn:oid:1.2.3.4</urn1:accessConsentPolicy>
@@ -7326,7 +7311,7 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
       </urn:RespondingGateway_SendAlertMessage>
    </soap:Body>
 </soap:Envelope>]]></con:request>
-            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
             <con:wsaConfig mustUnderstand="NONE" version="200508"/>
             <con:wsrmConfig version="1.2"/>
@@ -7336,31 +7321,30 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
 	sql.firstRow('select count(*) from ' + context.findProperty('AuditTable')).'count(*)'
 }
 //log.info "Count: " + count;
-assert (count > 0);</script></con:config></con:testStep><con:properties>
+assert (count > 0);</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-08-23T19:17:10Z</con:value>
+          <con:value>2012-11-27T18:15:06Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-08-23T19:27:10Z</con:value>
+          <con:value>2012-11-27T18:25:06Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/23/2012 19:17:10</con:value>
+          <con:value>11/27/2012 18:15:06</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-09-22T00:00:00Z</con:value>
+          <con:value>2012-12-27T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>UserId</con:name>
-          <con:value>admindistThu Aug 23 19:22:10 UTC 20121</con:value>
+          <con:value>admindistTue Nov 27 18:20:06 UTC 20121</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    <con:tearDownScript>import nhinc.FileUtils;
-FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript></con:testCase>
+    <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript></con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="5361bf64-5349-4b98-8d4b-f414271422e0" keepSession="false" maxResults="0" name="NhincProxyRequest with an empty ContentObject" searchProperties="true">
       <con:settings/>
       <con:testStep name="clear audit table" type="groovy"><con:settings/><con:config><script>context.withSql('AuditDB') { sql -> 
@@ -7647,9 +7631,9 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
                      <!--Optional:-->
                      <urn1:conditions>
                         <!--Optional:-->
-                        <urn1:notBefore>01/01/2001 01:00:00</urn1:notBefore>
+                        <urn1:notBefore>2001-01-01T01:00:00.000Z</urn1:notBefore>
                         <!--Optional:-->
-                        <urn1:notOnOrAfter>05/06/2009 22:00:17</urn1:notOnOrAfter>
+                        <urn1:notOnOrAfter>2009-05-06T14:00:00.000Z</urn1:notOnOrAfter>
                      </urn1:conditions>
                      <!--Optional:-->
                      <urn1:accessConsentPolicy>urn:oid:1.2.3.4</urn1:accessConsentPolicy>
@@ -7738,7 +7722,7 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
       </urn:RespondingGateway_SendAlertMessage>
    </soap:Body>
 </soap:Envelope>]]></con:request>
-            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
             <con:wsaConfig mustUnderstand="NONE" version="200508"/>
             <con:wsrmConfig version="1.2"/>
@@ -7748,44 +7732,42 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
 	sql.firstRow('select count(*) from ' + context.findProperty('AuditTable')).'count(*)'
 }
 //log.info "Count: " + count;
-assert (count > 0);</script></con:config></con:testStep><con:properties>
+assert (count > 0);</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-08-23T19:17:31Z</con:value>
+          <con:value>2012-11-27T18:15:26Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-08-23T19:27:31Z</con:value>
+          <con:value>2012-11-27T18:25:26Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/23/2012 19:17:31</con:value>
+          <con:value>11/27/2012 18:15:26</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-09-22T00:00:00Z</con:value>
+          <con:value>2012-12-27T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>UserId</con:name>
-          <con:value>admindistThu Aug 23 19:22:31 UTC 20121</con:value>
+          <con:value>admindistTue Nov 27 18:20:26 UTC 20121</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    <con:tearDownScript>import nhinc.FileUtils;
-FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript></con:testCase>
+    <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript></con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="d9e6e4ca-39fd-4d1e-ac8e-f6bb2ef5e63d" keepSession="false" maxResults="0" name="NhincProxyRequest - Policy engine deny" searchProperties="true">
       <con:settings/>
       <con:testStep name="Set PolicyEngine Mock" type="groovy">
         <con:settings/>
         <con:config><script>import nhinc.FileUtils;
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
-def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 def NHINGatewayHost = context.findProperty("NHINGatewayHost");
 def mockHost = context.findProperty("mockHost");
 def mockPEURL = "http://" + mockHost + ":18082/mockPE";
 def LocalHCID = context.findProperty( "LocalHCID" );
 
-FileUtils.CreateOrUpdateConnection("internalConnectionInfo.xml", destConfigFileLocation, LocalHCID, "policyengineservice", mockPEURL, "LEVEL_a0", context, log)</script></con:config>
+FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", context.findProperty("GatewayPropDir"), LocalHCID, "policyengineservice", mockPEURL, "LEVEL_a0", log)</script></con:config>
       </con:testStep>
       <con:testStep name="send request" type="request">
         <con:settings/>
@@ -8056,9 +8038,9 @@ FileUtils.CreateOrUpdateConnection("internalConnectionInfo.xml", destConfigFileL
                      <!--Optional:-->
                      <urn1:conditions>
                         <!--Optional:-->
-                        <urn1:notBefore>01/01/2001 01:00:00</urn1:notBefore>
+                        <urn1:notBefore>2001-01-01T01:00:00.000Z</urn1:notBefore>
                         <!--Optional:-->
-                        <urn1:notOnOrAfter>05/06/2009 22:00:17</urn1:notOnOrAfter>
+                        <urn1:notOnOrAfter>2009-05-06T14:00:00.000Z</urn1:notOnOrAfter>
                      </urn1:conditions>
                      <!--Optional:-->
                      <urn1:accessConsentPolicy>urn:oid:1.2.3.4</urn1:accessConsentPolicy>
@@ -8080,7 +8062,7 @@ FileUtils.CreateOrUpdateConnection("internalConnectionInfo.xml", destConfigFileL
                <urn1:signatureValue>cid:175264679488</urn1:signatureValue>
             </urn1:samlSignature>
             <!--Optional:-->
-            <urn1:asyncMessageId>?</urn1:asyncMessageId>
+            <!--urn1:asyncMessageId>?</urn1:asyncMessageId-->
          </urn:assertion>
          <!--Optional:-->
          <urn:nhinTargetSystem>
@@ -8185,7 +8167,7 @@ FileUtils.CreateOrUpdateConnection("internalConnectionInfo.xml", destConfigFileL
       </urn:RespondingGateway_SendAlertMessage>
    </soap:Body>
 </soap:Envelope>]]></con:request>
-            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
             <con:wsaConfig mustUnderstand="NONE" version="200508"/>
             <con:wsrmConfig version="1.2"/>
@@ -8194,7 +8176,7 @@ FileUtils.CreateOrUpdateConnection("internalConnectionInfo.xml", destConfigFileL
       </con:testStep>
       <con:testStep name="Mock Policy Engine" type="mockresponse">
         <con:settings/>
-        <con:config startStep="send request" xsi:type="con:MockResponseStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config startStep="Set PolicyEngine Mock" xsi:type="con:MockResponseStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
           <con:interface>AdapterPolicyEngineBindingSoap</con:interface>
           <con:operation>CheckPolicy</con:operation>
           <con:path>/mockPE</con:path>
@@ -9681,39 +9663,37 @@ declare namespace ns19='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
         </con:config>
       </con:testStep>
       
-      <con:properties>
+      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-08-23T19:17:51Z</con:value>
+          <con:value>2012-11-27T18:31:15Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-08-23T19:27:51Z</con:value>
+          <con:value>2012-11-27T18:41:15Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/23/2012 19:17:51</con:value>
+          <con:value>11/27/2012 18:31:15</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-09-22T00:00:00Z</con:value>
+          <con:value>2012-12-27T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    <con:tearDownScript>import nhinc.FileUtils;
-FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript></con:testCase>
+    <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript></con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="25050fb5-059d-4875-8ab5-337cd145f06d" keepSession="false" maxResults="0" name="NhincProxyRequest - 404 or 500 error" searchProperties="true">
       <con:settings/>
       <con:testStep name="Modify endpoint" type="groovy">
         <con:settings/>
         <con:config><script>import nhinc.FileUtils;
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
-def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 def NHINGatewayHost = context.findProperty("NHINGatewayHost");
 def URL = "https://localhost:8181/badURL";
 def LocalHCID = context.findProperty( "LocalHCID" );
 
-FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, LocalHCID, "nhinadmindist", "2.0", URL, context, log)</script></con:config>
+FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", context.findProperty("GatewayPropDir"), LocalHCID, "nhinadmindist", "2.0", URL, log)</script></con:config>
       </con:testStep>
       <con:testStep name="NhincRequest" type="request">
         <con:settings/>
@@ -9984,9 +9964,9 @@ FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocat
                      <!--Optional:-->
                      <urn1:conditions>
                         <!--Optional:-->
-                        <urn1:notBefore>01/01/2001 01:00:00</urn1:notBefore>
+                        <urn1:notBefore>2001-01-01T01:00:00.000Z</urn1:notBefore>
                         <!--Optional:-->
-                        <urn1:notOnOrAfter>05/06/2009 22:00:17</urn1:notOnOrAfter>
+                        <urn1:notOnOrAfter>2009-05-06T14:00:00.000Z</urn1:notOnOrAfter>
                      </urn1:conditions>
                      <!--Optional:-->
                      <urn1:accessConsentPolicy>urn:oid:1.2.3.4</urn1:accessConsentPolicy>
@@ -10008,7 +9988,7 @@ FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocat
                <urn1:signatureValue>cid:175264679488</urn1:signatureValue>
             </urn1:samlSignature>
             <!--Optional:-->
-            <urn1:asyncMessageId>?</urn1:asyncMessageId>
+            <!--urn1:asyncMessageId>?</urn1:asyncMessageId-->
          </urn:assertion>
          <!--Optional:-->
          <urn:nhinTargetSystem>
@@ -10113,7 +10093,7 @@ FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocat
       </urn:RespondingGateway_SendAlertMessage>
    </soap:Body>
 </soap:Envelope>]]></con:request>
-            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
             <con:wsaConfig mustUnderstand="NONE" version="200508"/>
             <con:wsrmConfig version="1.2"/>
@@ -10121,27 +10101,26 @@ FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocat
         </con:config>
       </con:testStep>
       
-      <con:properties>
+      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-08-23T19:18:07Z</con:value>
+          <con:value>2012-11-27T18:15:47Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-08-23T19:28:07Z</con:value>
+          <con:value>2012-11-27T18:25:47Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/23/2012 19:18:07</con:value>
+          <con:value>11/27/2012 18:15:47</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-09-22T00:00:00Z</con:value>
+          <con:value>2012-12-27T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    <con:tearDownScript>import nhinc.FileUtils;
-FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript></con:testCase>
+    <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript></con:testCase>
     <con:properties/>
     <con:reportParameters/>
   </con:testSuite>
@@ -10166,7 +10145,7 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript></con:
     
     
     
-  <con:property><con:name>LocalAA</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalHCDescription</con:name><con:value>InternalTest1</con:value></con:property><con:property><con:name>LocalHCID</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>mockHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>RemoteAA</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemoteHCDescription</con:name><con:value>InternalTest2</con:value></con:property><con:property><con:name>RemoteHCID</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemotePatientID</con:name><con:value>D123401</con:value></con:property></con:properties>
+  <con:property><con:name>LocalAA</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalHCDescription</con:name><con:value>InternalTest1</con:value></con:property><con:property><con:name>LocalHCID</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>mockHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>RemoteAA</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemoteHCDescription</con:name><con:value>InternalTest2</con:value></con:property><con:property><con:name>RemoteHCID</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemotePatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>GatewayPropDir</con:name><con:value>D:\glassfish3\glassfish\domains\domain1\config\nhin</con:value></con:property></con:properties>
   <con:afterLoadScript>def propertiesFilename = project.path[0..(project.path.size()-4)] + 'properties'
 def propertiesFile = new File(propertiesFilename)
 if (propertiesFile.exists()) {
@@ -10233,10 +10212,5 @@ com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.withSql = { d
     <con:xmlTemplates/>
     <con:parameters/>
   </con:reporting>
-  <con:eventHandlers name="TestSuiteRunListener.beforeTestCase" type="TestSuiteRunListener.beforeTestCase">
-    <con:script>FileUtils.backupConfiguration(context, log);</con:script>
-  </con:eventHandlers>
-  <con:eventHandlers name="TestSuiteRunListener.afterTestCase" type="TestSuiteRunListener.afterTestCase">
-    <con:script>FileUtils.restoreConfiguration(context, log)</con:script>
-  </con:eventHandlers>
-</con:soapui-project>
+
+<con:sensitiveInformation/></con:soapui-project>
