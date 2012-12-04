@@ -50,7 +50,7 @@ public class InboundMessageHandler implements MessageHandler {
 
     private static final Log LOG = LogFactory.getLog(InboundMessageHandler.class);
     DirectEventLogger eventLogger = DirectEventLogger.getInstance();
-    
+
     /**
      * {@inheritDoc}
      */
@@ -86,13 +86,13 @@ public class InboundMessageHandler implements MessageHandler {
         }
         
         DirectEdgeProxy proxy = getDirectEdgeProxy();
-        proxy.provideAndRegisterDocumentSetB(processedEnvelope);
+        proxy.provideAndRegisterDocumentSetB(processedMessage.getMessage());
         
         if (isMdn) {
             DirectEventLogger.getInstance().log(DirectEventType.END_INBOUND_MDN, message);
         } else {
             DirectEventLogger.getInstance().log(DirectEventType.END_INBOUND_DIRECT, message);            
-        }
+    }
 
     }    
     
@@ -103,7 +103,7 @@ public class InboundMessageHandler implements MessageHandler {
         DirectEdgeProxyObjectFactory factory = new DirectEdgeProxyObjectFactory();
         return factory.getDirectEdgeProxy();
     }
-    
+
     /**
      * Log any notification messages that were produced by direct processing.
      * 

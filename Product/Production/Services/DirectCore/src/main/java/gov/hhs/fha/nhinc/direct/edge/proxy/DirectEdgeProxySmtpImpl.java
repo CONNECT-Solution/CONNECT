@@ -3,11 +3,10 @@
  */
 package gov.hhs.fha.nhinc.direct.edge.proxy;
 
+import javax.mail.internet.MimeMessage;
+
 import gov.hhs.fha.nhinc.direct.DirectClient;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
-
-import org.nhindirect.stagent.MessageEnvelope;
-import org.nhindirect.stagent.mail.Message;
 
 /**
  * @author mweaver
@@ -21,9 +20,8 @@ public class DirectEdgeProxySmtpImpl implements DirectEdgeProxy {
      * @see gov.hhs.fha.nhinc.direct.edge.proxy.DirectEdgeProxy#provideAndRegisterDocumentSetB(org.nhindirect.stagent.MessageEnvelope)
      */
     @Override
-    public RegistryResponseType provideAndRegisterDocumentSetB(MessageEnvelope message) {
-        Message msg = message.getMessage();
-        intDirectClient.send(msg);
+    public RegistryResponseType provideAndRegisterDocumentSetB(MimeMessage message) {
+        intDirectClient.send(message);
         return null;
     }
     
