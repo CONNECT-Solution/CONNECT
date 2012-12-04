@@ -30,6 +30,7 @@ import gov.hhs.fha.nhinc.admindistribution.aspect.EDXLDistributionEventDescripti
 import gov.hhs.fha.nhinc.admindistribution.inbound.InboundAdminDistribution;
 import gov.hhs.fha.nhinc.aspect.InboundMessageEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.messaging.server.BaseService;
 import gov.hhs.fha.nhinc.nhinadmindistribution.RespondingGatewayAdministrativeDistributionPortType;
 
@@ -54,15 +55,15 @@ public class NhinAdministrativeDistribution_g1 extends BaseService implements
     private InboundAdminDistribution inboundAdminDist;
 
     @Override
-    @InboundMessageEvent(serviceType = "Admin Distribution", version = "2.0", 
-            afterReturningBuilder = EDXLDistributionEventDescriptionBuilder.class, 
+    @InboundMessageEvent(serviceType = "Admin Distribution", version = "2.0",
+            afterReturningBuilder = DefaultEventDescriptionBuilder.class,
             beforeBuilder = EDXLDistributionEventDescriptionBuilder.class)
     public void sendAlertMessage(EDXLDistribution body) {
         AssertionType assertion = getAssertion(context, null);
 
         inboundAdminDist.sendAlertMessage(body, assertion);
     }
-    
+
     @Resource
     public void setContext(WebServiceContext context) {
         this.context = context;
