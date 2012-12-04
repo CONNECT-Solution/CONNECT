@@ -24,56 +24,21 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.direct;
-
-import gov.hhs.fha.nhinc.direct.event.DirectEventLogger;
-import gov.hhs.fha.nhinc.direct.event.DirectEventType;
-
-import javax.mail.internet.MimeMessage;
-
+package gov.hhs.fha.nhinc.direct.event;
 
 /**
- * Exceptions for {@link MimeMessageBuilder}.
+ * Enumeration of event types for direct event logging.
  */
-public class DirectException extends RuntimeException {
-
-    private static final long serialVersionUID = 4636463959045310435L;
-
+public enum DirectEventType {
     
-    /**
-     * Constructor.
-     * 
-     * @param message for the exception
-     * @param cause chained exception
-     * @param mimeMessage associated with the exception for event logging.
-     */
-    public DirectException(String message, Throwable cause, MimeMessage mimeMessage) {
-        super(message, cause);
-        getDirectEventLogger().log(DirectEventType.DIRECT_ERROR, mimeMessage, message);
-    }
+    BEGIN_OUTBOUND_DIRECT, 
+    END_OUTBOUND_DIRECT, 
+    BEGIN_INBOUND_DIRECT, 
+    END_INBOUND_DIRECT, 
+    BEGIN_OUTBOUND_MDN, 
+    END_OUTBOUND_MDN, 
+    BEGIN_INBOUND_MDN, 
+    END_INBOUND_MDN, 
+    DIRECT_ERROR;
 
-    /**
-     * Constructor.
-     * 
-     * @param message for the exception
-     * @param cause chained exception
-     */
-    public DirectException(String message, Throwable cause) {
-        super(message, cause);
-        getDirectEventLogger().log(DirectEventType.DIRECT_ERROR, message);
-    }
-
-    /**
-     * Constructor.
-     * 
-     * @param message for the exception
-     */
-    public DirectException(String message) {
-        super(message);
-        getDirectEventLogger().log(DirectEventType.DIRECT_ERROR, message);
-    }
-    
-    private DirectEventLogger getDirectEventLogger() {
-        return DirectEventLogger.getInstance();
-    }
 }
