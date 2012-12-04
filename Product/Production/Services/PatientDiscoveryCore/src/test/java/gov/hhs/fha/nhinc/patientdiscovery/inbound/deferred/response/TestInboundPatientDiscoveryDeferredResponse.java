@@ -24,65 +24,22 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.patientdiscovery.inbound;
+package gov.hhs.fha.nhinc.patientdiscovery.inbound.deferred.response;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscovery201305Processor;
-import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditLogger;
-import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditor;
-import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryException;
 
-import org.hl7.v3.PRPAIN201305UV02;
+import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PRPAIN201306UV02;
 
 /**
  * @author akong
- * 
+ *
  */
-public class StandardInboundPatientDiscovery extends AbstractInboundPatientDiscovery {
-
-    private final PatientDiscovery201305Processor patientDiscoveryProcessor;
-    private final PatientDiscoveryAuditor auditLogger;
-
-    /**
-     * Constructor.
-     */
-    public StandardInboundPatientDiscovery() {
-        patientDiscoveryProcessor = new PatientDiscovery201305Processor();
-        auditLogger = new PatientDiscoveryAuditLogger();
-    }
-
-    /**
-     * Constructor.
-     * 
-     * @param patientDiscoveryProcessor
-     * @param auditLogger
-     */
-    public StandardInboundPatientDiscovery(PatientDiscovery201305Processor patientDiscoveryProcessor,
-            PatientDiscoveryAuditor auditLogger) {
-        this.patientDiscoveryProcessor = patientDiscoveryProcessor;
-        this.auditLogger = auditLogger;
-    }
+public class TestInboundPatientDiscoveryDeferredResponse implements InboundPatientDiscoveryDeferredResponse{
 
     @Override
-    PRPAIN201306UV02 process(PRPAIN201305UV02 body, AssertionType assertion) throws PatientDiscoveryException {
-        auditRequestToAdapter(body, assertion);
-
-        PRPAIN201306UV02 response = patientDiscoveryProcessor.process201305(body, assertion);
-
-        auditResponseFromAdapter(response, assertion);
-
-        return response;
-    }
-    
-    /*
-     * (non-Javadoc)
-     * 
-     * @see gov.hhs.fha.nhinc.patientdiscovery.inbound.AbstractInboundPatientDiscovery#getAuditLogger()
-     */
-    @Override
-    PatientDiscoveryAuditor getAuditLogger() {
-        return auditLogger;
+    public MCCIIN000002UV01 respondingGatewayDeferredPRPAIN201306UV02(PRPAIN201306UV02 body, AssertionType assertion) {
+        return new MCCIIN000002UV01();
     }
 
 }

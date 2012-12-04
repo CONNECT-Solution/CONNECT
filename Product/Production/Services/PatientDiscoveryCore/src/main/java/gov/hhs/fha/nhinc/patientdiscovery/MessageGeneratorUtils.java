@@ -36,8 +36,10 @@ import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import org.hl7.v3.CommunityPRPAIN201306UV02ResponseType;
 import org.hl7.v3.II;
 import org.hl7.v3.PRPAIN201305UV02;
+import org.hl7.v3.PRPAIN201306UV02;
 import org.hl7.v3.PRPAIN201306UV02MFMIMT700711UV01Subject1;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
+import org.hl7.v3.RespondingGatewayPRPAIN201306UV02RequestType;
 
 /**
  * 
@@ -105,13 +107,23 @@ public class MessageGeneratorUtils extends gov.hhs.fha.nhinc.util.MessageGenerat
                 
         return communityResponse;
     }
-    
+        
     public RespondingGatewayPRPAIN201305UV02RequestType createRespondingGatewayRequest(PRPAIN201305UV02 message,
             AssertionType assertion, NhinTargetCommunitiesType targets) {
         RespondingGatewayPRPAIN201305UV02RequestType newRequest = new RespondingGatewayPRPAIN201305UV02RequestType();
         newRequest.setAssertion(assertion);
         newRequest.setPRPAIN201305UV02(message);
         newRequest.setNhinTargetCommunities(targets);
+
+        return newRequest;
+    }
+    
+    public RespondingGatewayPRPAIN201306UV02RequestType createRespondingGatewayRequest(PRPAIN201306UV02 message,
+            AssertionType assertion, NhinTargetCommunitiesType target) {
+        RespondingGatewayPRPAIN201306UV02RequestType newRequest = new RespondingGatewayPRPAIN201306UV02RequestType();
+        newRequest.setAssertion(assertion);
+        newRequest.setPRPAIN201306UV02(message);
+        newRequest.setNhinTargetCommunities(target);
 
         return newRequest;
     }

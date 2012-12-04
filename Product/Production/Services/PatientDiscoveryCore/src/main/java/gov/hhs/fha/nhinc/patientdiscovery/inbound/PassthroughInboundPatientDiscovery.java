@@ -28,6 +28,7 @@ package gov.hhs.fha.nhinc.patientdiscovery.inbound;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditLogger;
+import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditor;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryException;
 import gov.hhs.fha.nhinc.patientdiscovery.adapter.proxy.AdapterPatientDiscoveryProxy;
 import gov.hhs.fha.nhinc.patientdiscovery.adapter.proxy.AdapterPatientDiscoveryProxyObjectFactory;
@@ -41,13 +42,15 @@ import org.hl7.v3.PRPAIN201306UV02;
  */
 public class PassthroughInboundPatientDiscovery extends AbstractInboundPatientDiscovery {
 
-    private AdapterPatientDiscoveryProxyObjectFactory adapterFactory;
+    private final AdapterPatientDiscoveryProxyObjectFactory adapterFactory;
+    private final PatientDiscoveryAuditor auditLogger;
 
     /**
      * Constructor.
      */
     public PassthroughInboundPatientDiscovery() {
         adapterFactory = new AdapterPatientDiscoveryProxyObjectFactory();
+        auditLogger = new PatientDiscoveryAuditLogger();
     }
 
     /**
@@ -57,7 +60,7 @@ public class PassthroughInboundPatientDiscovery extends AbstractInboundPatientDi
      * @param auditLogger
      */
     public PassthroughInboundPatientDiscovery(AdapterPatientDiscoveryProxyObjectFactory adapterFactory,
-            PatientDiscoveryAuditLogger auditLogger) {
+            PatientDiscoveryAuditor auditLogger) {
         this.adapterFactory = adapterFactory;
         this.auditLogger = auditLogger;
     }
@@ -71,6 +74,16 @@ public class PassthroughInboundPatientDiscovery extends AbstractInboundPatientDi
         auditResponseFromAdapter(response, assertion);
 
         return response;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see gov.hhs.fha.nhinc.patientdiscovery.inbound.AbstractInboundPatientDiscovery#getAuditLogger()
+     */
+    @Override
+    PatientDiscoveryAuditor getAuditLogger() {
+        return auditLogger;
     }
 
     private PRPAIN201306UV02 sendToAdapter(PRPAIN201305UV02 request, AssertionType assertion)

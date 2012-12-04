@@ -49,9 +49,9 @@ import org.hl7.v3.RespondingGatewayPRPAIN201306UV02ResponseType;
 
 public class PassthroughOutboundPatientDiscovery implements OutboundPatientDiscovery {
 
-    private final MessageGeneratorUtils msgUtils = MessageGeneratorUtils.getInstance();
-    private OutboundPatientDiscoveryDelegate delegate;
-    private PatientDiscoveryAuditLogger auditLogger;
+    private static final MessageGeneratorUtils msgUtils = MessageGeneratorUtils.getInstance();
+    private final OutboundPatientDiscoveryDelegate delegate;
+    private final PatientDiscoveryAuditLogger auditLogger;
 
     /**
      * Constructor.
