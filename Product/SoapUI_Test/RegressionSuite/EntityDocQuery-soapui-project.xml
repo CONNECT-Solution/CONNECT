@@ -34,7 +34,7 @@ def destFile = "uddiConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</script></con:config>
+FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, context, log);</script></con:config>
       </con:testStep>
       <con:testStep name="update config" type="groovy">
         <con:settings/>
@@ -447,7 +447,7 @@ def destFile = "uddiConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</script></con:config>
+FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, context, log);</script></con:config>
       </con:testStep>
       
       <con:testStep name="update config" type="groovy">
@@ -871,7 +871,7 @@ def destFile = "uddiConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.moveFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
+FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
       </con:testStep>
       
       <con:testStep name="update config" type="groovy">
@@ -1270,7 +1270,7 @@ def destFile = "uddiConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</script></con:config>
+FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, context, log);</script></con:config>
       </con:testStep>
       
       <con:testStep name="update config" type="groovy">
@@ -1685,7 +1685,7 @@ def destFile = "uddiConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</script></con:config>
+FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, context, log);</script></con:config>
       </con:testStep>
       
       <con:testStep name="update config" type="groovy">
@@ -2082,10 +2082,10 @@ count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)
     <con:properties/>
     <con:setupScript>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 
-FileUtils.MoveFile(destConfigFileLocation,"uddiConnectionInfo.xml",destConfigFileLocation,"uddiConnectionInfo_BACKUP.xml",context,log);
-FileUtils.MoveFile(destConfigFileLocation,"uddiConnectionInfo_FANOUT.xml",destConfigFileLocation,"uddiConnectionInfo.xml",context,log);</con:setupScript><con:tearDownScript>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
+FileUtils.copyFile(destConfigFileLocation,"uddiConnectionInfo.xml",destConfigFileLocation,"uddiConnectionInfo_BACKUP.xml",context,log);
+FileUtils.copyFile(destConfigFileLocation,"uddiConnectionInfo_FANOUT.xml",destConfigFileLocation,"uddiConnectionInfo.xml",context,log);</con:setupScript><con:tearDownScript>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 
-FileUtils.MoveFile(destConfigFileLocation,"uddiConnectionInfo_BACKUP.xml",destConfigFileLocation,"uddiConnectionInfo.xml",context,log);
+FileUtils.copyFile(destConfigFileLocation,"uddiConnectionInfo_BACKUP.xml",destConfigFileLocation,"uddiConnectionInfo.xml",context,log);
 FileUtils.DeleteFile(destConfigFileLocation,"uddiConnectionInfo_BACKUP.xml",context,log);
 </con:tearDownScript><con:reportParameters/>
   </con:testSuite>
