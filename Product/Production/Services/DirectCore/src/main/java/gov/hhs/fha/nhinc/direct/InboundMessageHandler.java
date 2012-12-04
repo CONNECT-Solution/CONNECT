@@ -86,7 +86,7 @@ public class InboundMessageHandler implements MessageHandler {
         }
         
         DirectEdgeProxy proxy = getDirectEdgeProxy();
-        proxy.provideAndRegisterDocumentSetB(processedMessage.getMessage());
+        proxy.provideAndRegisterDocumentSetB(result.getProcessedMessage().getMessage());
         
         if (isMdn) {
             DirectEventLogger.getInstance().log(DirectEventType.END_INBOUND_MDN, message);
