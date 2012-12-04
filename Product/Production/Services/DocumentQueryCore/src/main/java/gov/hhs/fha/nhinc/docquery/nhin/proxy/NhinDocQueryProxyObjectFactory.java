@@ -31,7 +31,7 @@ import gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory;
 /**
  * @author Jon Hoppesch
  */
-public class NhinDocQueryProxyObjectFactory extends ComponentProxyObjectFactory {
+public class NhinDocQueryProxyObjectFactory extends ComponentProxyObjectFactory implements NhinDocQueryProxyFactory {
 
     private static final String CONFIG_FILE_NAME = "DocumentQueryProxyConfig.xml";
     private static final String BEAN_NAME = "nhindocquery";
@@ -43,9 +43,11 @@ public class NhinDocQueryProxyObjectFactory extends ComponentProxyObjectFactory 
         return CONFIG_FILE_NAME;
     }
 
-    /**
-     * @return Bean Instantiate NhinDocQuery Bean to send DocQuery Requests.
+    /** 
+     *  {@inheritDoc}
+     * @see gov.hhs.fha.nhinc.docquery.nhin.proxy.NhinDocQueryProxyFactory#getNhinDocQueryProxy()
      */
+    @Override
     public NhinDocQueryProxy getNhinDocQueryProxy() {
         return getBean(BEAN_NAME, NhinDocQueryProxy.class);
     }
