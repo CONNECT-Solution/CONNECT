@@ -27,13 +27,13 @@
 package gov.hhs.fha.nhinc.patientdiscovery.entity;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
-import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.gateway.executorservice.ExecutorServiceHelper;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratable;
 import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratableMessage;
 import gov.hhs.fha.nhinc.orchestration.OutboundResponseProcessor;
+import gov.hhs.fha.nhinc.patientdiscovery.MessageGeneratorUtils;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscovery201306Processor;
 import gov.hhs.fha.nhinc.patientdiscovery.response.ResponseFactory;
 import gov.hhs.fha.nhinc.patientdiscovery.response.ResponseParams;
@@ -52,6 +52,8 @@ import org.hl7.v3.ProxyPRPAIN201305UVProxySecuredRequestType;
 public class OutboundPatientDiscoveryProcessor implements OutboundResponseProcessor {
 
     private static Log log = LogFactory.getLog(OutboundPatientDiscoveryProcessor.class);
+    
+    private MessageGeneratorUtils msgUtils = MessageGeneratorUtils.getInstance();
 
     private NhincConstants.GATEWAY_API_LEVEL cumulativeSpecLevel = null;
     private int count = 0;
@@ -230,16 +232,8 @@ public class OutboundPatientDiscoveryProcessor implements OutboundResponseProces
         }
     }
 
-    protected CommunityPRPAIN201306UV02ResponseType createCommunityPRPAIN201306UV02ResponseType(String hcid) {
-        NhinTargetCommunityType target = new NhinTargetCommunityType();
-        HomeCommunityType home = new HomeCommunityType();
-        home.setHomeCommunityId(hcid);
-        target.setHomeCommunity(home);
-        
-        CommunityPRPAIN201306UV02ResponseType communityResponse = new CommunityPRPAIN201306UV02ResponseType();
-        communityResponse.setNhinTargetCommunity(target);
-                
-        return communityResponse;
+    protected CommunityPRPAIN201306UV02ResponseType createCommunityPRPAIN201306UV02ResponseType(String hcid) {        
+        return msgUtils.createCommunityPRPAIN201306UV02ResponseType(hcid);
     }
     
     /**

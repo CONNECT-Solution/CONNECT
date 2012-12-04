@@ -28,30 +28,31 @@
  */
 package gov.hhs.fha.nhinc.docretrieve._20.entity;
 
-import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayRetrieveRequestType;
-import gov.hhs.fha.nhinc.docretrieve.aspect.RespondingGatewayCrossGatewayRetrieveRequestTypeDescriptionBuilder;
-import gov.hhs.fha.nhinc.docretrieve.aspect.RetrieveDocumentSetResponseTypeDescriptionBuilder;
-import gov.hhs.fha.nhinc.aspect.OutboundMessageEvent;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import org.junit.Test;
+import gov.hhs.fha.nhinc.aspect.OutboundMessageEvent;
+import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayRetrieveRequestType;
+import gov.hhs.fha.nhinc.docretrieve.aspect.RetrieveDocumentSetResponseTypeDescriptionBuilder;
+import gov.hhs.fha.nhinc.docretrieve.aspect.RetrieveDocumentSetTransformingBuilder;
+
 import java.lang.reflect.Method;
+
+import org.junit.Test;
 
 /**
  * @author achidamb
- *
+ * 
  */
 public class EntityDocRetrieveTest {
 
     @Test
     public void hasBeginOutboundMessageEvent() throws Exception {
         Class<EntityDocRetrieve> clazz = EntityDocRetrieve.class;
-        Method method = clazz.getMethod("respondingGatewayCrossGatewayRetrieve", 
+        Method method = clazz.getMethod("respondingGatewayCrossGatewayRetrieve",
                 RespondingGatewayCrossGatewayRetrieveRequestType.class);
         OutboundMessageEvent annotation = method.getAnnotation(OutboundMessageEvent.class);
         assertNotNull(annotation);
-        assertEquals(RespondingGatewayCrossGatewayRetrieveRequestTypeDescriptionBuilder.class, 
-                annotation.beforeBuilder());
+        assertEquals(RetrieveDocumentSetTransformingBuilder.class, annotation.beforeBuilder());
         assertEquals(RetrieveDocumentSetResponseTypeDescriptionBuilder.class, annotation.afterReturningBuilder());
         assertEquals("Retrieve Document", annotation.serviceType());
         assertEquals("2.0", annotation.version());

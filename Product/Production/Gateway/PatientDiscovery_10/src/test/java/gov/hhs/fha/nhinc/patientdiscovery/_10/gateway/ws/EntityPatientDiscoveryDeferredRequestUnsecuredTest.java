@@ -28,82 +28,16 @@ package gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
-
-import java.lang.reflect.Method;
-
 import gov.hhs.fha.nhinc.aspect.OutboundMessageEvent;
-import gov.hhs.fha.nhinc.patientdiscovery._10.entity.deferred.request.EntityPatientDiscoveryDeferredRequestImpl;
 import gov.hhs.fha.nhinc.patientdiscovery.aspect.MCCIIN000002UV01EventDescriptionBuilder;
 import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201305UV02ArgTransformer;
 
-import javax.xml.ws.WebServiceContext;
+import java.lang.reflect.Method;
 
-import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
-import org.hl7.v3.RespondingGatewayPRPAIN201305UV02SecuredRequestType;
-import org.jmock.Expectations;
-import org.jmock.Mockery;
-import org.jmock.integration.junit4.JUnit4Mockery;
-import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.Test;
 
 public class EntityPatientDiscoveryDeferredRequestUnsecuredTest {
-    Mockery context = new JUnit4Mockery() {
-        {
-            setImposteriser(ClassImposteriser.INSTANCE);
-        }
-    };
-
-    @Test
-    public void testDefaultConstructor() {
-        EntityPatientDiscoveryDeferredRequestUnsecured ws = new EntityPatientDiscoveryDeferredRequestUnsecured();
-        assertNotNull(ws);
-    }
-
-    @Test
-    public void testMockService() {
-        final PatientDiscoveryServiceFactory mockFactory = context.mock(PatientDiscoveryServiceFactory.class);
-        final RespondingGatewayPRPAIN201305UV02RequestType mockRequest = context
-                .mock(RespondingGatewayPRPAIN201305UV02RequestType.class);
-        final MCCIIN000002UV01 expectedResponse = context.mock(MCCIIN000002UV01.class);
-
-        final EntityPatientDiscoveryDeferredRequestImpl mockService = context
-                .mock(EntityPatientDiscoveryDeferredRequestImpl.class);
-
-        context.checking(new Expectations() {
-            {
-                oneOf(mockService).processPatientDiscoveryAsyncRequestUnsecured(with(same(mockRequest)),
-                        with(any(WebServiceContext.class)));
-                will(returnValue(expectedResponse));
-            }
-        });
-
-        EntityPatientDiscoveryDeferredRequestUnsecured ws = new EntityPatientDiscoveryDeferredRequestUnsecured(
-                mockFactory);
-        ws.setOrchestratorImpl(mockService);
-
-        MCCIIN000002UV01 actualResponse = ws.processPatientDiscoveryAsyncReq(mockRequest);
-
-        assertSame(expectedResponse, actualResponse);
-    }
-
-    @Test
-    public void testNullService() {
-        final PatientDiscoveryServiceFactory mockFactory = context.mock(PatientDiscoveryServiceFactory.class);
-        final RespondingGatewayPRPAIN201305UV02RequestType mockRequest = context
-                .mock(RespondingGatewayPRPAIN201305UV02RequestType.class);
-
-        EntityPatientDiscoveryDeferredRequestUnsecured ws = new EntityPatientDiscoveryDeferredRequestUnsecured(
-                mockFactory);
-        ws.setOrchestratorImpl(null);
-
-        MCCIIN000002UV01 actualResponse = ws.processPatientDiscoveryAsyncReq(mockRequest);
-
-        assertNull(actualResponse);
-
-    }
     
     @Test
     public void hasOutboundMessageEvent() throws Exception {

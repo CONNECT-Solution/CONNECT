@@ -434,19 +434,19 @@ declare namespace ns18='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-11-27T15:52:40Z</con:value>
+					<con:value>2012-11-28T03:54:18Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-11-27T16:02:40Z</con:value>
+					<con:value>2012-11-28T04:04:18Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>11/27/2012 15:52:40</con:value>
+					<con:value>11/28/2012 03:54:18</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-12-27T00:00:00Z</con:value>
+					<con:value>2012-12-28T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>FullPatientID</con:name>
@@ -631,15 +631,15 @@ nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfi
                <urn2:originalText>Psychotherapy Notes</urn2:originalText>
             </urn2:purposeOfDisclosureCoded>
             <!--urn2:claimFormRef>Ref-Clm-123</urn2:claimFormRef-->
-            <urn2:claimFormRaw>YWVvbGlhbQ==</urn2:claimFormRaw>
+            <!--urn2:claimFormRaw>YWVvbGlhbQ==</urn2:claimFormRaw-->
          </urn:assertion>
-         <urn:nhinTargetSystem>
+         <!--urn:nhinTargetSystem>
             <urn2:homeCommunity>
                <urn2:description>${#Project#RemoteHCDescription}</urn2:description>
                <urn2:homeCommunityId>${#Project#RemoteHCID}</urn2:homeCommunityId>
                <urn2:name>${#Project#RemoteHCDescription}</urn2:name>
             </urn2:homeCommunity>
-         </urn:nhinTargetSystem>
+         </urn:nhinTargetSystem-->
       </urn:RespondingGateway_CrossGatewayRetrieveRequest>
    </soapenv:Body>
 </soapenv:Envelope>]]></con:request>
@@ -694,19 +694,19 @@ declare namespace ns18='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-11-27T15:52:42Z</con:value>
+					<con:value>2012-11-28T03:54:20Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-11-27T16:02:42Z</con:value>
+					<con:value>2012-11-28T04:04:20Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>11/27/2012 15:52:42</con:value>
+					<con:value>11/28/2012 03:54:20</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-12-27T00:00:00Z</con:value>
+					<con:value>2012-12-28T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>correctedRemoteHCID</con:name>
@@ -759,14 +759,12 @@ nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfi
 			</con:testStep>
 			<con:testStep name="Clear Subscription Table" type="groovy">
 				<con:settings/>
-				<con:config>
-					<script>context.withSql('SubscriptionDB') { sql -> 
+				<con:config><script>context.withSql('SubscriptionDB') { sql -> 
   sql.execute('delete from ' + context.findProperty('SubscriptionTable'))
 }
 
 
-					</script>
-				</con:config>
+					</script></con:config>
 			</con:testStep>
 			<con:testStep name="Subscribe" type="request">
 				<con:settings/>
@@ -1042,19 +1040,19 @@ declare namespace ns18='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-11-27T15:52:42Z</con:value>
+					<con:value>2012-11-28T03:54:21Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-11-27T16:02:42Z</con:value>
+					<con:value>2012-11-28T04:04:21Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>11/27/2012 15:52:42</con:value>
+					<con:value>11/28/2012 03:54:21</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-12-27T00:00:00Z</con:value>
+					<con:value>2012-12-28T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -1348,8 +1346,7 @@ declare namespace ns18='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
 }
 
 context.testCase.setPropertyValue("NotifySubscriptionID", subscriptionID);
-log.info "SubscriptionID: " + subscriptionID;
-					</script></con:config>
+log.info "SubscriptionID: " + subscriptionID;				</script></con:config>
 			</con:testStep>
 			<con:testStep name="Count Subscriptions (>0)" type="groovy">
 				<con:settings/>
@@ -1621,19 +1618,19 @@ log.info "SubscriptionID: " + subscriptionID;
 			</con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-11-27T15:52:43Z</con:value>
+					<con:value>2012-11-28T03:54:22Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-11-27T16:02:43Z</con:value>
+					<con:value>2012-11-28T04:04:22Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>11/27/2012 15:52:43</con:value>
+					<con:value>11/28/2012 03:54:22</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-12-27T00:00:00Z</con:value>
+					<con:value>2012-12-28T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>NotifySubscriptionID</con:name>

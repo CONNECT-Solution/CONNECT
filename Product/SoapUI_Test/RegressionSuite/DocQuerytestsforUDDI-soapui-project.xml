@@ -418,15 +418,15 @@ declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-11-27T15:54:19Z</con:value>
+          <con:value>2012-11-27T19:03:10Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-11-27T16:04:19Z</con:value>
+          <con:value>2012-11-27T19:13:10Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/27/2012 15:54:19</con:value>
+          <con:value>11/27/2012 19:03:10</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
@@ -826,15 +826,15 @@ declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-11-27T15:54:20Z</con:value>
+          <con:value>2012-11-27T19:03:11Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-11-27T16:04:20Z</con:value>
+          <con:value>2012-11-27T19:13:11Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/27/2012 15:54:20</con:value>
+          <con:value>11/27/2012 19:03:11</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
@@ -1226,15 +1226,15 @@ declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-11-27T15:54:21Z</con:value>
+          <con:value>2012-11-27T19:03:12Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-11-27T16:04:21Z</con:value>
+          <con:value>2012-11-27T19:13:12Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/27/2012 15:54:21</con:value>
+          <con:value>11/27/2012 19:03:12</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
@@ -1651,15 +1651,15 @@ declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-11-27T15:54:21Z</con:value>
+          <con:value>2012-11-27T19:03:13Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-11-27T16:04:21Z</con:value>
+          <con:value>2012-11-27T19:13:13Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/27/2012 15:54:21</con:value>
+          <con:value>11/27/2012 19:03:13</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
@@ -2094,15 +2094,15 @@ count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-11-27T15:54:22Z</con:value>
+          <con:value>2012-11-27T19:06:09Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-11-27T16:04:22Z</con:value>
+          <con:value>2012-11-27T19:16:09Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/27/2012 15:54:22</con:value>
+          <con:value>11/27/2012 19:06:09</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
@@ -2552,15 +2552,15 @@ declare namespace ns8='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-11-27T15:55:26Z</con:value>
+          <con:value>2012-11-27T19:08:37Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-11-27T16:05:26Z</con:value>
+          <con:value>2012-11-27T19:18:37Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/27/2012 15:55:26</con:value>
+          <con:value>11/27/2012 19:08:37</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
@@ -2941,15 +2941,15 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-11-27T15:55:27Z</con:value>
+          <con:value>2012-11-27T19:03:18Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-11-27T16:05:27Z</con:value>
+          <con:value>2012-11-27T19:13:18Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/27/2012 15:55:27</con:value>
+          <con:value>11/27/2012 19:03:18</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
@@ -3341,15 +3341,15 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-11-27T15:55:28Z</con:value>
+          <con:value>2012-11-27T19:03:19Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-11-27T16:05:28Z</con:value>
+          <con:value>2012-11-27T19:13:19Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/27/2012 15:55:28</con:value>
+          <con:value>11/27/2012 19:03:19</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
@@ -3813,15 +3813,15 @@ count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)
       </con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-11-27T15:55:28Z</con:value>
+          <con:value>2012-11-27T19:03:20Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-11-27T16:05:28Z</con:value>
+          <con:value>2012-11-27T19:13:20Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/27/2012 15:55:28</con:value>
+          <con:value>11/27/2012 19:03:20</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
@@ -4210,15 +4210,15 @@ FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocat
       </con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-11-27T15:56:33Z</con:value>
+          <con:value>2012-11-27T19:04:23Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-11-27T16:06:33Z</con:value>
+          <con:value>2012-11-27T19:14:23Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/27/2012 15:56:33</con:value>
+          <con:value>11/27/2012 19:04:23</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
@@ -4647,15 +4647,15 @@ declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-11-27T15:56:33Z</con:value>
+          <con:value>2012-11-27T19:04:24Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-11-27T16:06:33Z</con:value>
+          <con:value>2012-11-27T19:14:24Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/27/2012 15:56:33</con:value>
+          <con:value>11/27/2012 19:04:24</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
@@ -5088,15 +5088,15 @@ declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-11-27T15:56:34Z</con:value>
+          <con:value>2012-11-27T19:04:24Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-11-27T16:06:34Z</con:value>
+          <con:value>2012-11-27T19:14:24Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/27/2012 15:56:34</con:value>
+          <con:value>11/27/2012 19:04:24</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
@@ -6051,15 +6051,15 @@ count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-11-27T15:56:35Z</con:value>
+          <con:value>2012-11-27T19:04:25Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-11-27T16:06:35Z</con:value>
+          <con:value>2012-11-27T19:14:25Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/27/2012 15:56:35</con:value>
+          <con:value>11/27/2012 19:04:25</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
@@ -6545,15 +6545,15 @@ count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-11-27T15:56:36Z</con:value>
+          <con:value>2012-11-27T19:11:38Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-11-27T16:06:36Z</con:value>
+          <con:value>2012-11-27T19:21:38Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/27/2012 15:56:36</con:value>
+          <con:value>11/27/2012 19:11:38</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
@@ -7893,15 +7893,15 @@ declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
       </con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-11-27T15:57:13Z</con:value>
+          <con:value>2012-11-27T19:05:31Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-11-27T16:07:13Z</con:value>
+          <con:value>2012-11-27T19:15:31Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/27/2012 15:57:13</con:value>
+          <con:value>11/27/2012 19:05:31</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
