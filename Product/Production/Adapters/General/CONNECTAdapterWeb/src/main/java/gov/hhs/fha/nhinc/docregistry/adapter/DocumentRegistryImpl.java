@@ -28,7 +28,9 @@ package gov.hhs.fha.nhinc.docregistry.adapter;
 
 import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+
 import javax.xml.ws.WebServiceContext;
+
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 
@@ -48,7 +50,7 @@ public class DocumentRegistryImpl {
         AssertionType assertion = new AssertionType();
 
         // Extract the relates to value from the WS-Addressing Header and place it in the Assertion Class
-        assertion.setMessageId(AsyncMessageIdExtractor.getOrCreateAsyncMessageId(context));
+        assertion.setMessageId(new AsyncMessageIdExtractor().getOrCreateAsyncMessageId(context));
 
         return assertion;
     }

@@ -236,9 +236,9 @@ public class EventAspectAdviceTest {
 
     @Test
     public void verifyFailEvent() {
+        Throwable mockThrowable = mock(Throwable.class);
+        advice.failEvent(mockJoinPoint, mockThrowable);
 
-        advice.failEvent(mockJoinPoint);
-
-        verify(failureAdviceDelegate).fail(any(Object[].class));
+        verify(failureAdviceDelegate).fail(any(Object[].class), eq(mockThrowable));
     }
 }

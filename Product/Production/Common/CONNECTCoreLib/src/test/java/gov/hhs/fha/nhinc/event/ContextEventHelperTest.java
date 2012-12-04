@@ -28,36 +28,58 @@
  */
 package gov.hhs.fha.nhinc.event;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
+import gov.hhs.fha.nhinc.event.ContextEventHelper;
+
 import javax.xml.ws.WebServiceContext;
 
 import org.apache.cxf.jaxws.context.WebServiceContextImpl;
+import org.junit.Test;
 
-public abstract class ContextEventBuilder extends BaseEventBuilder {
+import com.google.common.collect.ImmutableList;
 
-    private ContextEventHelper helper = new ContextEventHelper();
-    protected WebServiceContext context = new WebServiceContextImpl();
+public class ContextEventHelperTest {
 
-    @Override
-    public Event getEvent() {
-        return event;
+    @Test
+    public void defaultsToMagicImpls() {
+        ContextEventHelper helper = new ContextEventHelper();
+        WebServiceContext context = helper.getContext();
+        assertTrue(context instanceof WebServiceContextImpl);
+
+        AsyncMessageIdExtractor extractor = helper.getExtractor();
+        assertNotNull(extractor);
     }
 
-    @Override
-    public void buildMessageID() {
-        event.setMessageID(helper.getMessageId());
+    @Test
+    public void getsMessageIdFromContext() {
+        AsyncMessageIdExtractor mockExtractor = mock(AsyncMessageIdExtractor.class);
+        when(mockExtractor.getMessageId(any(WebServiceContext.class))).thenReturn("messageId");
+
+        ContextEventHelper helper = new ContextEventHelper();
+        helper.setAsyncMessageIdExtractor(mockExtractor);
+
+        String messageId = helper.getMessageId();
+        assertEquals("messageId", messageId);
     }
 
-    @Override
-    public void buildTransactionID() {
-        event.setTransactionID(helper.getTransactionId());
+    @Test
+    public void getsTransactionIdFromContext() {
+        AsyncMessageIdExtractor mockExtractor = mock(AsyncMessageIdExtractor.class);
+        when(mockExtractor.getAsyncRelatesTo(any(WebServiceContext.class))).thenReturn(
+                ImmutableList.of("transactionId"));
+
+        ContextEventHelper helper = new ContextEventHelper();
+        helper.setAsyncMessageIdExtractor(mockExtractor);
+
+        String transactionId = helper.getTransactionId();
+        assertEquals("transactionId", transactionId);
     }
 
-    ContextEventHelper getContextHelper() {
-        return helper;
-    }
-
-    void setContextHelper(ContextEventHelper helper) {
-        this.helper = helper;
-    }
-
+    // TODO: missing exhaustive tests for getTransactionId
 }

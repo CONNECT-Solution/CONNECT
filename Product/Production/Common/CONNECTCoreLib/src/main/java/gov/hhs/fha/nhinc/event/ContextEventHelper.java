@@ -26,12 +26,53 @@
  *(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.aspect;
+package gov.hhs.fha.nhinc.event;
 
-/**
- * @author bhumphrey
- * 
- */
-public interface FailureAdviceDelegate {
-    void fail(Object[] arguments, Throwable throwable);
+import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
+import gov.hhs.fha.nhinc.logging.transaction.dao.TransactionDAO;
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+
+import java.util.List;
+
+import javax.xml.ws.WebServiceContext;
+
+import org.apache.cxf.jaxws.context.WebServiceContextImpl;
+
+public class ContextEventHelper {
+
+    private AsyncMessageIdExtractor extractor = new AsyncMessageIdExtractor();
+    private WebServiceContextImpl context = new WebServiceContextImpl();
+
+    public String getMessageId() {
+        return extractor.getMessageId(context);
+    }
+
+    public String getTransactionId() {
+        String transactionId = null;
+        String messageId = getMessageId();
+
+        List<String> transactionIdList = extractor.getAsyncRelatesTo(context);
+        if (NullChecker.isNotNullish(transactionIdList)) {
+            transactionId = transactionIdList.get(0);
+        }
+
+        if ((transactionId == null) && (messageId != null)) {
+            transactionId = TransactionDAO.getInstance().getTransactionId(messageId);
+        }
+
+        return transactionId;
+    }
+
+    void setAsyncMessageIdExtractor(AsyncMessageIdExtractor extractor) {
+        this.extractor = extractor;
+    }
+
+    WebServiceContext getContext() {
+        return context;
+    }
+
+    AsyncMessageIdExtractor getExtractor() {
+        return extractor;
+    }
+
 }

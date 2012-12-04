@@ -59,7 +59,7 @@ public class SOAPMessageRoutingAccessor implements MessageRoutingAccessor {
      */
     @Override
     public String getMessageId() {
-        return AsyncMessageIdExtractor.getMessageId(context);
+        return new AsyncMessageIdExtractor().getMessageId(context);
     }
 
     /*
@@ -69,11 +69,11 @@ public class SOAPMessageRoutingAccessor implements MessageRoutingAccessor {
      */
     @Override
     public String getTransactionId() {
-
-        String messageId = AsyncMessageIdExtractor.getMessageId(context);
+        AsyncMessageIdExtractor extractor = new AsyncMessageIdExtractor();
+        String messageId = extractor.getMessageId(context);
         String transactionId = null;
 
-        List<String> transactionIdList = AsyncMessageIdExtractor.getAsyncRelatesTo(context);
+        List<String> transactionIdList = extractor.getAsyncRelatesTo(context);
         if (NullChecker.isNotNullish(transactionIdList)) {
             transactionId = transactionIdList.get(0);
         }

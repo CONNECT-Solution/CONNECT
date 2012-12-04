@@ -32,11 +32,14 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.FilterDocQueryResultsRequestT
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.FilterDocQueryResultsResponseType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.FilterDocRetrieveResultsRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.FilterDocRetrieveResultsResponseType;
+import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
+
+import javax.xml.ws.WebServiceContext;
+
+import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
-import javax.xml.ws.WebServiceContext;
-import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 
 /**
  * 
@@ -90,7 +93,7 @@ public class AdapterComponentRedactionEngineImpl {
         AssertionType assertion = new AssertionType();
 
         // Extract the relates to value from the WS-Addressing Header and place it in the Assertion Class
-        assertion.setMessageId(AsyncMessageIdExtractor.getOrCreateAsyncMessageId(context));
+        assertion.setMessageId(new AsyncMessageIdExtractor().getOrCreateAsyncMessageId(context));
 
         return assertion;
     }

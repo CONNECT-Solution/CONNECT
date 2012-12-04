@@ -62,14 +62,14 @@ public class AdapterPatientDiscoveryDeferredRequestImpl {
     private AssertionType getAssertion(WebServiceContext context, AssertionType oAssertionIn) {
         AssertionType assertion = null;
         if (oAssertionIn == null) {
-            assertion =  SAML2AssertionExtractor.getInstance().extractSamlAssertion(context);
+            assertion = SAML2AssertionExtractor.getInstance().extractSamlAssertion(context);
         } else {
             assertion = oAssertionIn;
         }
 
         // Extract the message id value from the WS-Addressing Header and place it in the Assertion Class
         if (assertion != null) {
-            assertion.setMessageId(AsyncMessageIdExtractor.getOrCreateAsyncMessageId(context));
+            assertion.setMessageId(new AsyncMessageIdExtractor().getOrCreateAsyncMessageId(context));
         }
 
         return assertion;
