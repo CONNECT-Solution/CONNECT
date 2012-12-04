@@ -32,20 +32,17 @@ import java.util.List;
 import oasis.names.tc.emergency.edxl.de._1.ContentObjectType;
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 /**
  * @author zmelnick
- *
+ * 
  */
-public class EDXLDistributionDescriptionExtractor {
-
-    private static final Log LOG = LogFactory.getLog(EDXLDistributionDescriptionExtractor.class);
+public class EDXLDistributionPayloadSizeExtractor {
 
     /**
      * Determines the payload sizes for each alert message.
-     * @param alertMessage the EDXLDistribution.
+     * 
+     * @param alertMessage
+     *            the EDXLDistribution.
      * @return list of sizes
      */
     public List<String> getPayloadSizes(EDXLDistribution alertMessage) {
@@ -54,9 +51,7 @@ public class EDXLDistributionDescriptionExtractor {
             List<ContentObjectType> contents = alertMessage.getContentObject();
             for (ContentObjectType message : contents) {
                 if (isPayloadSizeEmpty(message)) {
-                    LOG.info("Paylod size not provided");
-                    payloadSize.clear();
-                    break;
+                    payloadSize.add("");
                 } else {
                     payloadSize.add(message.getNonXMLContent().getSize().toString());
                 }
@@ -65,7 +60,6 @@ public class EDXLDistributionDescriptionExtractor {
         return payloadSize;
     }
 
-   
     private boolean isPayloadSizeEmpty(ContentObjectType message) {
         return message.getXmlContent() != null
                 || (message.getNonXMLContent() != null && message.getNonXMLContent().getSize() == null);

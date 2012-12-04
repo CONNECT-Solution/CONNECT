@@ -32,6 +32,7 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 
 import java.math.BigInteger;
+import java.util.List;
 
 import javax.activation.DataHandler;
 
@@ -42,17 +43,15 @@ import oasis.names.tc.emergency.edxl.de._1.XmlContentType;
 
 import org.junit.Test;
 
-import gov.hhs.fha.nhinc.event.BaseDescriptionBuilderTest;
-
 /**
  * @author zmelnick
  * 
  */
-public class EDXLDistributionDescriptionBuilderTest extends BaseDescriptionBuilderTest {
+public class EDXLDistributionPayloadSizeExtractorTest {
 
     @Test
     public void emptyBuild() {
-        EDXLDistributionDescriptionExtractor extractor = new EDXLDistributionDescriptionExtractor();
+        EDXLDistributionPayloadSizeExtractor extractor = new EDXLDistributionPayloadSizeExtractor();
         assertNotNull(extractor);
     }
 
@@ -60,7 +59,7 @@ public class EDXLDistributionDescriptionBuilderTest extends BaseDescriptionBuild
     public void testPayloadSizeOnSingleNonXMLPayload() {
         EDXLDistribution alert = new EDXLDistribution();
         setNonXmlPayloadWithSize(alert, BigInteger.TEN);
-        EDXLDistributionDescriptionExtractor extractor = new EDXLDistributionDescriptionExtractor();
+        EDXLDistributionPayloadSizeExtractor extractor = new EDXLDistributionPayloadSizeExtractor();
 
         assertEquals(BigInteger.TEN.toString(), extractor.getPayloadSizes(alert).get(0));
     }
@@ -74,7 +73,7 @@ public class EDXLDistributionDescriptionBuilderTest extends BaseDescriptionBuild
 
         BigInteger testSize = BigInteger.TEN;
 
-        EDXLDistributionDescriptionExtractor extractor = new EDXLDistributionDescriptionExtractor();
+        EDXLDistributionPayloadSizeExtractor extractor = new EDXLDistributionPayloadSizeExtractor();
 
         assertTrue(extractor.getPayloadSizes(alert).size() == 2);
         assertEquals(testSize.toString(), extractor.getPayloadSizes(alert).get(0));
@@ -83,11 +82,13 @@ public class EDXLDistributionDescriptionBuilderTest extends BaseDescriptionBuild
 
     @Test
     public void testPayloadSizeXmlPayload() {
-        EDXLDistributionDescriptionExtractor extractor = new EDXLDistributionDescriptionExtractor();
+        EDXLDistributionPayloadSizeExtractor extractor = new EDXLDistributionPayloadSizeExtractor();
         EDXLDistribution alert = new EDXLDistribution();
 
         setXmlPayload(alert);
-        assertEquals(0, extractor.getPayloadSizes(alert).size());
+        List<String> payloadSizes = extractor.getPayloadSizes(alert);
+        assertEquals(1, payloadSizes.size());
+        assertEquals("", payloadSizes.get(0));
     }
 
     @Test
@@ -96,9 +97,12 @@ public class EDXLDistributionDescriptionBuilderTest extends BaseDescriptionBuild
         setXmlPayload(alert);
         setNonXmlPayloadWithSize(alert, BigInteger.TEN);
 
-        EDXLDistributionDescriptionExtractor extractor = new EDXLDistributionDescriptionExtractor();
+        EDXLDistributionPayloadSizeExtractor extractor = new EDXLDistributionPayloadSizeExtractor();
 
-        assertEquals(0, extractor.getPayloadSizes(alert).size());
+        List<String> payloadSizes = extractor.getPayloadSizes(alert);
+        assertEquals(2, payloadSizes.size());
+        assertEquals("", payloadSizes.get(0));
+        assertEquals("10", payloadSizes.get(1));
     }
 
     /**
@@ -112,7 +116,8 @@ public class EDXLDistributionDescriptionBuilderTest extends BaseDescriptionBuild
     }
 
     /**
-     * @param alert the object to set the payload for
+     * @param alert
+     *            the object to set the payload for
      */
     private void setNonXmlPayloadWithSize(EDXLDistribution alert, BigInteger... payloadSizes) {
         for (BigInteger payloadSize : payloadSizes) {

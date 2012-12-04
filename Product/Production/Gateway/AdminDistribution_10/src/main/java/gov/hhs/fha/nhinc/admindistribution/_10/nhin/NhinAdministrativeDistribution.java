@@ -26,7 +26,7 @@
  */
 package gov.hhs.fha.nhinc.admindistribution._10.nhin;
 
-import gov.hhs.fha.nhinc.admindistribution.aspect.InboundProcessingEventDescriptionBuilder;
+import gov.hhs.fha.nhinc.admindistribution.aspect.EDXLDistributionEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.admindistribution.inbound.InboundAdminDistribution;
 import gov.hhs.fha.nhinc.aspect.InboundMessageEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
@@ -50,8 +50,8 @@ public class NhinAdministrativeDistribution extends BaseService implements
 
     @Override
     @InboundMessageEvent(serviceType = "Admin Distribution", version = "1.0", 
-            afterReturningBuilder = InboundProcessingEventDescriptionBuilder.class, 
-            beforeBuilder = InboundProcessingEventDescriptionBuilder.class)
+            afterReturningBuilder = EDXLDistributionEventDescriptionBuilder.class, 
+            beforeBuilder = EDXLDistributionEventDescriptionBuilder.class)
     public void sendAlertMessage(EDXLDistribution body) {
         AssertionType assertion = getAssertion(context, null);
         inboundAdminDist.sendAlertMessage(body, assertion);

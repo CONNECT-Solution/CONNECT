@@ -27,7 +27,7 @@
 package gov.hhs.fha.nhinc.admindistribution.inbound;
 
 import gov.hhs.fha.nhinc.admindistribution.AdminDistributionAuditLogger;
-import gov.hhs.fha.nhinc.admindistribution.aspect.InboundProcessingEventDescriptionBuilder;
+import gov.hhs.fha.nhinc.admindistribution.aspect.EDXLDistributionEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.aspect.InboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
@@ -48,8 +48,8 @@ public abstract class AbstractInboundAdminDistribution implements InboundAdminDi
      */
     @Override
     @InboundProcessingEvent(serviceType = "Admin Distribution", version = "2.0",
-            afterReturningBuilder = InboundProcessingEventDescriptionBuilder.class,
-            beforeBuilder = InboundProcessingEventDescriptionBuilder.class)
+            afterReturningBuilder = EDXLDistributionEventDescriptionBuilder.class,
+            beforeBuilder = EDXLDistributionEventDescriptionBuilder.class)
     public void sendAlertMessage(EDXLDistribution body, AssertionType assertion) {        
         auditRequestFromNhin(body, assertion);
 
