@@ -74,7 +74,7 @@ public class InboundMessageHandler implements MessageHandler {
         }
         
         DirectEdgeProxy proxy = getDirectEdgeProxy();
-        proxy.provideAndRegisterDocumentSetB(processedMessage);
+        proxy.provideAndRegisterDocumentSetB(processedMessage.getMessage());
     }
 
     /**
