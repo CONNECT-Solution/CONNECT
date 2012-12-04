@@ -27,8 +27,6 @@
 
 package gov.hhs.fha.nhinc.docsubmission;
 
-import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
-import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.gateway.aggregator.document.DocumentConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
@@ -40,7 +38,7 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
  * @author akong
  * 
  */
-public class MessageGeneratorUtils {
+public class MessageGeneratorUtils extends gov.hhs.fha.nhinc.util.MessageGeneratorUtils {
 
     private static MessageGeneratorUtils INSTANCE = new MessageGeneratorUtils();
 
@@ -54,22 +52,6 @@ public class MessageGeneratorUtils {
      */
     public static MessageGeneratorUtils getInstance() {
         return INSTANCE;
-    }
-
-    /**
-     * Converts the first target into a NhinTargetSystemType format.
-     * 
-     * @param targets
-     * @return NhinTargetSystemType
-     */
-    public NhinTargetSystemType convertFirstToNhinTargetSystemType(NhinTargetCommunitiesType targets) {
-        NhinTargetSystemType nhinTargetSystem = new NhinTargetSystemType();
-
-        if (targets != null && targets.getNhinTargetCommunity() != null && targets.getNhinTargetCommunity().size() > 0) {
-            nhinTargetSystem.setHomeCommunity(targets.getNhinTargetCommunity().get(0).getHomeCommunity());
-        }
-
-        return nhinTargetSystem;
     }
 
     /**

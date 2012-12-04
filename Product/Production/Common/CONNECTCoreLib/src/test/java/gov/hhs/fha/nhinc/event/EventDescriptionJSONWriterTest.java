@@ -1,20 +1,20 @@
 package gov.hhs.fha.nhinc.event;
 
-import static org.junit.Assert.assertEquals;
-
 import java.util.Arrays;
 import java.util.List;
 
+import org.json.JSONException;
 import org.junit.Test;
+import org.skyscreamer.jsonassert.JSONAssert;
 
 public class EventDescriptionJSONWriterTest {
 
     @Test
-    public void testSimpleCase() {
+    public void testSimpleCase() throws JSONException {
 
         EventDescriptionJSONDecorator jsonDescription = new EventDescriptionJSONDecorator(description);
 
-        assertEquals("the generate json isn't correct", expectedJSON, jsonDescription.toJSONString());
+        JSONAssert.assertEquals(expectedJSON, jsonDescription.toJSONString(), false);
     }
 
     public String expectedJSON = "{\"action\":\"myAction\",\"response_ids\":[\"111-111-1111\",\"222-222-22222\"]}";

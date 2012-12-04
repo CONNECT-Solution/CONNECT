@@ -26,12 +26,9 @@
  */
 package gov.hhs.fha.nhinc.docquery;
 
-import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
-import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.gateway.aggregator.document.DocumentConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
-import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryObjectListType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
 
@@ -39,7 +36,7 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
  * @author akong
  * 
  */
-public class MessageGeneratorUtils {
+public class MessageGeneratorUtils extends gov.hhs.fha.nhinc.util.MessageGeneratorUtils {
 
     private static MessageGeneratorUtils INSTANCE = new MessageGeneratorUtils();
 
@@ -53,17 +50,6 @@ public class MessageGeneratorUtils {
      */
     public static MessageGeneratorUtils getInstance() {
         return INSTANCE;
-    }
-
-    public NhinTargetSystemType convertFirstToNhinTargetSystemType(NhinTargetCommunitiesType targets) {
-        NhinTargetSystemType nhinTargetSystem = new NhinTargetSystemType();
-
-        if (targets != null && targets.getNhinTargetCommunity() != null && targets.getNhinTargetCommunity().size() > 0) {
-            nhinTargetSystem.setHomeCommunity(targets.getNhinTargetCommunity().get(0).getHomeCommunity());
-        }
-
-        return nhinTargetSystem;
-
     }
     
     /**

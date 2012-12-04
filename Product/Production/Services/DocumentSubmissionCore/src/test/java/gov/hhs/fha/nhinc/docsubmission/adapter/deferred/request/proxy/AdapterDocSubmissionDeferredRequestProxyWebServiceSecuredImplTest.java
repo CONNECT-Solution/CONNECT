@@ -27,6 +27,10 @@
 package gov.hhs.fha.nhinc.docsubmission.adapter.deferred.request.proxy;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
+import java.lang.reflect.Method;
+
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 
 import javax.xml.ws.Service;
@@ -44,7 +48,10 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import gov.hhs.fha.nhinc.adapterxdrrequestsecured.AdapterXDRRequestSecuredPortType;
+import gov.hhs.fha.nhinc.aspect.AdapterDelegationEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionArgTransformerBuilder;
+import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionBaseEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
@@ -187,5 +194,19 @@ public class AdapterDocSubmissionDeferredRequestProxyWebServiceSecuredImplTest {
         XDRAcknowledgementType result = adapterXDRRequestWebServiceProxy.provideAndRegisterDocumentSetBRequest(iheMsg,
                 assertion);
         assertEquals(NhincConstants.XDR_ACK_STATUS_MSG, result.getMessage().getStatus());
+    }
+    
+    @Test
+    public void hasAdapterDelegationEvent() throws Exception {
+        Class<AdapterDocSubmissionDeferredRequestProxyWebServiceSecuredImpl> clazz = 
+                AdapterDocSubmissionDeferredRequestProxyWebServiceSecuredImpl.class;
+        Method method = clazz.getMethod("provideAndRegisterDocumentSetBRequest", 
+                ProvideAndRegisterDocumentSetRequestType.class, AssertionType.class);
+        AdapterDelegationEvent annotation = method.getAnnotation(AdapterDelegationEvent.class);
+        assertNotNull(annotation);
+        assertEquals(DocSubmissionBaseEventDescriptionBuilder.class, annotation.beforeBuilder());
+        assertEquals(DocSubmissionArgTransformerBuilder.class, annotation.afterReturningBuilder());
+        assertEquals("Document Submission Deferred Request", annotation.serviceType());
+        assertEquals("", annotation.version());
     }
 }

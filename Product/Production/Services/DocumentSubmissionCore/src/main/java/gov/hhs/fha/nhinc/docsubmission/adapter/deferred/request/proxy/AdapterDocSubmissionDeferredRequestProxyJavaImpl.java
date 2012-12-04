@@ -26,8 +26,11 @@
  */
 package gov.hhs.fha.nhinc.docsubmission.adapter.deferred.request.proxy;
 
+import gov.hhs.fha.nhinc.aspect.AdapterDelegationEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.docsubmission.adapter.deferred.request.AdapterDocSubmissionDeferredRequestOrchImpl;
+import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionArgTransformerBuilder;
+import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionBaseEventDescriptionBuilder;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import org.apache.commons.logging.Log;
@@ -48,6 +51,10 @@ public class AdapterDocSubmissionDeferredRequestProxyJavaImpl implements Adapter
         return LogFactory.getLog(this.getClass());
     }
 
+    @AdapterDelegationEvent(beforeBuilder = DocSubmissionBaseEventDescriptionBuilder.class,
+            afterReturningBuilder = DocSubmissionArgTransformerBuilder.class, 
+            serviceType = "Document Submission Deferred Request",
+            version = "")
     public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(
             ProvideAndRegisterDocumentSetRequestType request, AssertionType assertion) {
         log.debug("Begin AdapterDocSubmissionDeferredRequestProxyJavaImpl.provideAndRegisterDocumentSetBRequest");

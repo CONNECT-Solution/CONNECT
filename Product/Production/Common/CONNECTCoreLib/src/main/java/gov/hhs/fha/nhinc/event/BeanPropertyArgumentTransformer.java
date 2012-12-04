@@ -32,6 +32,7 @@ import java.beans.PropertyDescriptor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.apache.commons.logging.Log;
@@ -55,6 +56,9 @@ public abstract class BeanPropertyArgumentTransformer extends ArgTransformerEven
      */
     @Override
     public final Object[] transformArguments(Object[] arguments) {
+        if (arguments == null) {
+            return new Object[] {};
+        }
         List<Object> resultList = new ArrayList<Object>();
         for (int curArg = 0; curArg < arguments.length; ++curArg) {
             resultList.addAll(transformSingleArgument(arguments[curArg]));
@@ -63,6 +67,9 @@ public abstract class BeanPropertyArgumentTransformer extends ArgTransformerEven
     }
 
     private List<Object> transformSingleArgument(Object argument) {
+        if (argument == null) {
+            return Collections.emptyList();
+        }
         List<Object> result = new ArrayList<Object>();
         PropertyDescriptor[] propertyDescriptors = BeanUtils.getPropertyDescriptors(argument.getClass());
         for (int i = 0; i < propertyDescriptors.length; ++i) {
