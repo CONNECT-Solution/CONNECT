@@ -28,7 +28,7 @@ package gov.hhs.fha.nhinc.patientdiscovery.entity.proxy;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
-import gov.hhs.fha.nhinc.patientdiscovery.entity.EntityPatientDiscoveryOrchImpl;
+import gov.hhs.fha.nhinc.patientdiscovery.outbound.StandardOutboundPatientDiscovery;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -52,15 +52,15 @@ public class EntityPatientDiscoveryProxyJavaImpl implements EntityPatientDiscove
         return LogFactory.getLog(getClass());
     }
 
-    protected EntityPatientDiscoveryOrchImpl getEntityPatientDiscoveryProcessor() {
-        return new EntityPatientDiscoveryOrchImpl();
+    protected StandardOutboundPatientDiscovery getEntityPatientDiscoveryProcessor() {
+        return new StandardOutboundPatientDiscovery();
     }
 
     public RespondingGatewayPRPAIN201306UV02ResponseType respondingGatewayPRPAIN201305UV02(PRPAIN201305UV02 pdRequest,
             AssertionType assertion, NhinTargetCommunitiesType targetCommunities) {
         log.debug("Begin respondingGatewayPRPAIN201305UV02");
         RespondingGatewayPRPAIN201306UV02ResponseType response = null;
-        EntityPatientDiscoveryOrchImpl processor = getEntityPatientDiscoveryProcessor();
+        StandardOutboundPatientDiscovery processor = getEntityPatientDiscoveryProcessor();
         if (processor == null) {
             log.warn("EntityPatientDiscoveryProcessor was null");
         } else {

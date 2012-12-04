@@ -26,10 +26,11 @@
  */
 package gov.hhs.fha.nhinc.docsubmission._20.entity;
 
-import gov.hhs.fha.nhinc.aspect.InboundMessageEvent;
+import gov.hhs.fha.nhinc.aspect.OutboundMessageEvent;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType;
 import gov.hhs.fha.nhinc.docsubmission.outbound.OutboundDocSubmission;
-import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
+import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionArgTransformerBuilder;
+import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionBaseEventDescriptionBuilder;
 
 import javax.annotation.Resource;
 import javax.xml.ws.BindingType;
@@ -47,9 +48,9 @@ public class EntityDocSubmissionSecured_g1 implements gov.hhs.fha.nhinc.nhincent
     private OutboundDocSubmission outboundDocSubmission;
 
     @Override
-    @InboundMessageEvent(serviceType = "Document Submission", version = "2.0",
-            beforeBuilder = DefaultEventDescriptionBuilder.class,
-            afterReturningBuilder = DefaultEventDescriptionBuilder.class)
+    @OutboundMessageEvent(serviceType = "Document Submission", version = "2.0",
+            beforeBuilder = DocSubmissionArgTransformerBuilder.class,
+            afterReturningBuilder = DocSubmissionBaseEventDescriptionBuilder.class)
     public RegistryResponseType provideAndRegisterDocumentSetB(
             RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType body) {
         return new EntityDocSubmissionImpl_g1(outboundDocSubmission).provideAndRegisterDocumentSetBSecured(body, context);

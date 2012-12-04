@@ -28,8 +28,8 @@ package gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.request.proxy;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
-import gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.request.EntityPatientDiscoveryDeferredRequestOrch;
-import gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.request.EntityPatientDiscoveryDeferredRequestOrchImpl;
+import gov.hhs.fha.nhinc.patientdiscovery.outbound.deferred.request.StandardOutboundPatientDiscoveryDeferredRequest;
+
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PRPAIN201305UV02;
 
@@ -39,8 +39,8 @@ public class EntityPatientDiscoveryDeferredRequestProxyJavaImpl implements Entit
             NhinTargetCommunitiesType targets) {
         MCCIIN000002UV01 response = new MCCIIN000002UV01();
 
-        EntityPatientDiscoveryDeferredRequestOrch orchImpl = new EntityPatientDiscoveryDeferredRequestOrchImpl();
-        response = orchImpl.processPatientDiscoveryAsyncReq(request, assertion, targets);
+        StandardOutboundPatientDiscoveryDeferredRequest outboundPatientDiscovery = new StandardOutboundPatientDiscoveryDeferredRequest();
+        response = outboundPatientDiscovery.processPatientDiscoveryAsyncReq(request, assertion, targets);
 
         return response;
     }

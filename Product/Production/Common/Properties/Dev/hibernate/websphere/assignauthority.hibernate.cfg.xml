@@ -16,9 +16,6 @@
         <!-- Disable the second-level cache  -->
         <property name="cache.provider_class">org.hibernate.cache.NoCacheProvider</property>
 
-        <!-- Echo all executed SQL to stdout -->
-        <property name="show_sql">true</property>
-
         <property name="connection.datasource">java:comp/env/jdbc/assigningauthoritydb_datasource</property>
 
         <mapping resource="assignauthoritytohomecommunitymapping.hbm.xml"/>

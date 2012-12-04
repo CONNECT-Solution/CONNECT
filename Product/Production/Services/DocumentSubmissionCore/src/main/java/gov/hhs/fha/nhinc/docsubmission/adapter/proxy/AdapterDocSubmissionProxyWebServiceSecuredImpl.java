@@ -27,8 +27,10 @@
 package gov.hhs.fha.nhinc.docsubmission.adapter.proxy;
 
 import gov.hhs.fha.nhinc.adapterxdrsecured.AdapterXDRSecuredPortType;
+import gov.hhs.fha.nhinc.aspect.AdapterDelegationEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.docsubmission.adapter.proxy.service.AdapterDocSubmissionSecuredServicePortDescriptor;
+import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionBaseEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
@@ -63,6 +65,9 @@ public class AdapterDocSubmissionProxyWebServiceSecuredImpl implements AdapterDo
         return new WebServiceProxyHelper();
     }
 
+    @AdapterDelegationEvent(beforeBuilder = DocSubmissionBaseEventDescriptionBuilder.class,
+            afterReturningBuilder = DocSubmissionBaseEventDescriptionBuilder.class, serviceType = "Document Submission",
+            version = "")
     public RegistryResponseType provideAndRegisterDocumentSetB(ProvideAndRegisterDocumentSetRequestType msg,
             AssertionType assertion) {
         RegistryResponseType response = null;

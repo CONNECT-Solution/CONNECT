@@ -30,7 +30,7 @@ import gov.hhs.fha.nhinc.generic.GenericFactory;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscovery201306PolicyChecker;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditLogger;
 import gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.response.proxy.AdapterPatientDiscoveryDeferredRespProxyObjectFactory;
-import gov.hhs.fha.nhinc.patientdiscovery.nhin.AbstractServicePropertyAccessor;
+import gov.hhs.fha.nhinc.patientdiscovery.inbound.AbstractServicePropertyAccessor;
 
 public final class NhinPatientDiscoveryDeferredRespOrchFactory implements
         GenericFactory<NhinPatientDiscoveryDeferredRespOrchImpl> {

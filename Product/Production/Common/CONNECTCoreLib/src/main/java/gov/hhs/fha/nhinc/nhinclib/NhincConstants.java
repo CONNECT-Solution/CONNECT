@@ -289,7 +289,6 @@ public class NhincConstants {
     public static final String AUDIT_LOG_SYNC_TYPE = "Synchronous";
     public static final String AUDIT_LOG_REQUEST_PROCESS = "Request";
     public static final String AUDIT_LOG_RESPONSE_PROCESS = "Response";
-    public static final String AUDIT_LOG_SERVICE_PASSTHRU_PROPERTY = "auditRepositoryPassthrough";
     public static final String AUDIT_DISABLED_ACK_MSG = "Audit Service is not enabled";
     // Policy Engine Constants
     public static final String POLICYENGINE_DTE_SERVICE_NAME = "policyenginedte";
@@ -388,9 +387,6 @@ public class NhincConstants {
     public static final String PATIENT_DISCOVERY_DEFERRED_SERVICE_NAME = "DeferredPatientDiscovery";
     public static final String PATIENT_DISCOVERY_DEFERRED_REQ_SERVICE_NAME = "PatientDiscoveryDeferredReq";
     public static final String PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME = "PatientDiscoveryDeferredResp";
-    public static final String PATIENT_DISCOVERY_SERVICE_PASSTHRU_PROPERTY = "patientDiscoveryPassthrough";
-    public static final String PATIENT_DISCOVERY_SERVICE_ASYNC_REQ_PASSTHRU_PROPERTY = "patientDiscoveryAsyncReqPassthrough";
-    public static final String PATIENT_DISCOVERY_DISABLED_ACK_MSG = "Patient Discovery Service is not enabled";
     public static final String PATIENT_DISCOVERY_POLICY_FAILED_ACK_MSG = "Policy Check failed for Patient Discovery";
     public static final String PATIENT_DISCOVERY_ADAPTER_SERVICE_NAME = "adapterpatientdiscovery";
     public static final String ADAPTER_PATIENT_DISCOVERY_SECURED_SERVICE_NAME = "adapterpatientdiscoverysecured";

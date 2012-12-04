@@ -26,26 +26,25 @@
  */
 package gov.hhs.fha.nhinc.logging.transaction.dao;
 
-import java.util.List;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.hibernate.Criteria;
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-import org.hibernate.criterion.Expression;
-
 import gov.hhs.fha.nhinc.logging.transaction.model.TransactionRepo;
 import gov.hhs.fha.nhinc.logging.transaction.persistance.HibernateUtil;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 
+import java.util.List;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.hibernate.HibernateException;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+
 /**
  * TransactionDAO provides methods to query and update the transrepo database.
- *
+ * 
  * @author jasonasmith
- *
+ * 
  */
 public final class TransactionDAO {
 
@@ -61,7 +60,7 @@ public final class TransactionDAO {
 
     /**
      * Returns the instance of the DAO according to the Singleton Pattern.
-     *
+     * 
      * @return TransactionDAO
      */
     public static TransactionDAO getInstance() {
@@ -71,7 +70,7 @@ public final class TransactionDAO {
 
     /**
      * Inserts a single TransactionRepo object into the database, returns boolean on success or failure.
-     *
+     * 
      * @param transactionRepo
      * @return boolean
      */
@@ -107,10 +106,11 @@ public final class TransactionDAO {
 
     /**
      * Queries the database for a transaction record using the messageId.
-     *
+     * 
      * @param messageId
      * @return String
      */
+    @SuppressWarnings("unchecked")
     public String getTransactionId(String messageId) {
         LOG.debug("TransactionDAO.getTransactinId() - Begin");
 
@@ -121,37 +121,29 @@ public final class TransactionDAO {
         }
 
         Session session = null;
-        List<TransactionRepo> queryList = null;
-        TransactionRepo foundRecord = null;
-        String transactionId = null;
 
         try {
-
             SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
             session = sessionFactory.openSession();
-            LOG.info("Getting Records");
 
-            Criteria aCriteria = session.createCriteria(TransactionRepo.class);
-
-            aCriteria.add(Expression.eq("messageId", messageId));
-
-            queryList = aCriteria.list();
-
-            if (queryList != null && !queryList.isEmpty()) {
-                foundRecord = queryList.get(0);
+            if (LOG.isDebugEnabled()) {
+                LOG.info("Getting Records");
             }
+            Query namedQuery = session.getNamedQuery("findTransactionByMessageId");
+            namedQuery.setString("messageId", messageId);
 
+            List<Object[]> queryList = (List<Object[]>) namedQuery.list();
+
+            if (!queryList.isEmpty()) {
+                return queryList.get(0).toString();
+            }
         } catch (Exception e) {
             LOG.error("Exception in getPerfrepository() occured due to :" + e.getMessage(), e);
         } finally {
-            closeSession(session, true);
+            closeSession(session, false);
         }
 
-        if (foundRecord != null) {
-            transactionId = foundRecord.getTransactionId();
-        }
-
-        return transactionId;
+        return null;
     }
 
     private void closeSession(Session session, boolean flush) {

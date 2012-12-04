@@ -1,6 +1,7 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><con:soapui-project xmlns:con="http://eviware.com/soapui/config" abortOnError="false" name="DocumentRetrieveXDSErrorValidation" resourceRoot="" runType="SEQUENTIAL" soapui-version="3.5.1">
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project abortOnError="false" name="DocumentRetrieveXDSErrorValidation" resourceRoot="${projectDir}" runType="SEQUENTIAL" soapui-version="4.5.1" activeEnvironment="Default" xmlns:con="http://eviware.com/soapui/config">
 	<con:settings/>
-	<con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxydocretrieve}NhincProxyDocRetrieveBindingSoap" definition="WSDL path not set.  #NhincProxyDocRetrieve.wsdl" name="NhincProxyDocRetrieveBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
+	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxydocretrieve}NhincProxyDocRetrieveBindingSoap" definition="${ProjectDir}../ValidationSuite/target/wsdl/NhincProxyDocRetrieve.wsdl" name="NhincProxyDocRetrieveBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 		
 		<con:endpoints>
@@ -11,7 +12,7 @@
 			<con:settings/>
 		</con:operation>
 	</con:interface>
-	<con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:ihe:iti:xds-b:2007}DocumentRepository_Binding" definition="WSDL path not set.  #AdapterComponentDocRepository.wsdl" name="DocumentRepository_Binding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
+	<con:interface anonymous="optional" bindingName="{urn:ihe:iti:xds-b:2007}DocumentRepository_Binding" definition="${projectDir}../ValidationSuite/target/wsdl/AdapterComponentDocRepository.wsdl" name="DocumentRepository_Binding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 		
 		<con:endpoints>
@@ -25,7 +26,7 @@
 			<con:settings/>
 		</con:operation>
 	</con:interface>
-	<con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:ihe:iti:xds-b:2007}DocumentRepository_Binding" definition="WSDL path not set.  #AdapterComponentDocRepository.wsdl" name="DocumentRepository_Binding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
+	<con:interface anonymous="optional" bindingName="{urn:ihe:iti:xds-b:2007}DocumentRepository_Binding" definition="${ProjectDir}../ValidationSuite/target/wsdl/AdapterComponentDocRepository.wsdl" name="DocumentRepository_Binding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 		
 		<con:endpoints>
@@ -49,17 +50,17 @@
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 //def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
 //def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
-def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
+def destConfigFileLocation = context.findProperty("GatewayPropDir");
 def NHINGatewayHost = context.findProperty("NHINGatewayHost");
 def mockHost = context.findProperty("mockHost");
 def adapterxdsbdocrepositoryURL = "http://" + NHINGatewayHost + ":18088/mockXDSRepository";
 def LocalHCID = context.findProperty( "LocalHCID" );
 
-FileUtils.CreateOrUpdateConnection("internalConnectionInfo.xml", destConfigFileLocation, LocalHCID, "adapterxdsbdocrepository", adapterxdsbdocrepositoryURL, "LEVEL_a0", context, log)</script></con:config>
+FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileLocation, LocalHCID, "adapterxdsbdocrepository", adapterxdsbdocrepositoryURL, "LEVEL_a0", log)</script></con:config>
 			</con:testStep>
 			<con:testStep name="Nhinc Doc Retrieve Request" type="request">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:interface>NhincProxyDocRetrieveBindingSoap</con:interface>
 					<con:operation>RespondingGateway_CrossGatewayRetrieve</con:operation>
 					<con:request name="Nhinc Doc Retrieve Request">
@@ -308,14 +309,14 @@ declare namespace ns12='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
 								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
 							</con:configuration>
 						</con:assertion>
-						<con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhincproxydocretrieve/NhincProxyDocRetrievePortType/RespondingGateway_CrossGatewayRetrieveRequest" mustUnderstand="NONE" version="200508"/>
+						<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhincproxydocretrieve/NhincProxyDocRetrievePortType/RespondingGateway_CrossGatewayRetrieveRequest" mustUnderstand="NONE" version="200508"/>
 						<con:wsrmConfig version="1.2"/>
 					</con:request>
 				</con:config>
 			</con:testStep>
 			<con:testStep name="Mock XDS.b Repository Response" type="mockresponse">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" startStep="Nhinc Doc Retrieve Request" xsi:type="con:MockResponseStep">
+				<con:config startStep="Nhinc Doc Retrieve Request" xsi:type="con:MockResponseStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:interface>DocumentRepository_Binding</con:interface>
 					<con:operation>DocumentRepository_RetrieveDocumentSet</con:operation>
 					<con:path>/mockXDSRepository</con:path>
@@ -340,27 +341,26 @@ declare namespace ns12='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
 				</con:config>
 			</con:testStep>
 			
-			<con:properties>
+			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-08-25T01:00:04Z</con:value>
+					<con:value>2012-11-27T20:17:15Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-08-25T01:10:04Z</con:value>
+					<con:value>2012-11-27T20:27:15Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>08/25/2012 01:00:04</con:value>
+					<con:value>11/27/2012 20:17:15</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-09-24T00:00:00Z</con:value>
+					<con:value>2012-12-27T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
-			<con:tearDownScript>import nhinc.FileUtils;
-FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
+			<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript>
 		</con:testCase>
 		<con:testCase failOnError="true" failTestCaseOnErrors="true" id="53232109-4583-4658-80ee-3f0d6639d4c2" keepSession="false" maxResults="0" name="XDSRegistryBusy TestCase" searchProperties="true">
 			<con:settings/>
@@ -370,17 +370,17 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 //def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
 //def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
-def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
+def destConfigFileLocation = context.findProperty("GatewayPropDir");
 def NHINGatewayHost = context.findProperty("NHINGatewayHost");
 def mockHost = context.findProperty("mockHost");
 def adapterxdsbdocrepositoryURL = "http://" + NHINGatewayHost + ":18088/mockXDSRepository";
 def LocalHCID = context.findProperty( "LocalHCID" );
 
-FileUtils.CreateOrUpdateConnection("internalConnectionInfo.xml", destConfigFileLocation, LocalHCID, "adapterxdsbdocrepository", adapterxdsbdocrepositoryURL, "LEVEL_a0", context, log)</script></con:config>
+FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileLocation, LocalHCID, "adapterxdsbdocrepository", adapterxdsbdocrepositoryURL, "LEVEL_a0", log)</script></con:config>
 			</con:testStep>
 			<con:testStep name="Nhinc Doc Retrieve Request" type="request">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:interface>NhincProxyDocRetrieveBindingSoap</con:interface>
 					<con:operation>RespondingGateway_CrossGatewayRetrieve</con:operation>
 					<con:request name="Nhinc Doc Retrieve Request">
@@ -629,14 +629,14 @@ declare namespace ns12='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
 								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
 							</con:configuration>
 						</con:assertion>
-						<con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhincproxydocretrieve/NhincProxyDocRetrievePortType/RespondingGateway_CrossGatewayRetrieveRequest" mustUnderstand="NONE" version="200508"/>
+						<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhincproxydocretrieve/NhincProxyDocRetrievePortType/RespondingGateway_CrossGatewayRetrieveRequest" mustUnderstand="NONE" version="200508"/>
 						<con:wsrmConfig version="1.2"/>
 					</con:request>
 				</con:config>
 			</con:testStep>
 			<con:testStep name="Mock XDS.b Repository Response" type="mockresponse">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" startStep="Nhinc Doc Retrieve Request" xsi:type="con:MockResponseStep">
+				<con:config startStep="Nhinc Doc Retrieve Request" xsi:type="con:MockResponseStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:interface>DocumentRepository_Binding</con:interface>
 					<con:operation>DocumentRepository_RetrieveDocumentSet</con:operation>
 					<con:path>/mockXDSRepository</con:path>
@@ -660,27 +660,26 @@ declare namespace ns12='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
 				</con:config>
 			</con:testStep>
 			
-			<con:properties>
+			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-08-25T01:06:32Z</con:value>
+					<con:value>2012-11-27T20:16:50Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-08-25T01:16:32Z</con:value>
+					<con:value>2012-11-27T20:26:50Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>08/25/2012 01:06:32</con:value>
+					<con:value>11/27/2012 20:16:50</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-09-24T00:00:00Z</con:value>
+					<con:value>2012-12-27T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
-			<con:tearDownScript>import nhinc.FileUtils;
-FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
+			<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript>
 		</con:testCase>
 		<con:testCase failOnError="true" failTestCaseOnErrors="true" id="d3730e5f-ed63-4c74-8cab-41c3ad9af515" keepSession="false" maxResults="0" name="XDSRegistryOutOfResources TestCase" searchProperties="true">
 			<con:settings/>
@@ -690,17 +689,17 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 //def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
 //def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
-def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
+def destConfigFileLocation = context.findProperty("GatewayPropDir");
 def NHINGatewayHost = context.findProperty("NHINGatewayHost");
 def mockHost = context.findProperty("mockHost");
 def adapterxdsbdocrepositoryURL = "http://" + NHINGatewayHost + ":18088/mockXDSRepository";
 def LocalHCID = context.findProperty( "LocalHCID" );
 
-FileUtils.CreateOrUpdateConnection("internalConnectionInfo.xml", destConfigFileLocation, LocalHCID, "adapterxdsbdocrepository", adapterxdsbdocrepositoryURL, "LEVEL_a0", context, log)</script></con:config>
+FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileLocation, LocalHCID, "adapterxdsbdocrepository", adapterxdsbdocrepositoryURL, "LEVEL_a0", log)</script></con:config>
 			</con:testStep>
 			<con:testStep name="Nhinc Doc Retrieve Request" type="request">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:interface>NhincProxyDocRetrieveBindingSoap</con:interface>
 					<con:operation>RespondingGateway_CrossGatewayRetrieve</con:operation>
 					<con:request name="Nhinc Doc Retrieve Request">
@@ -949,14 +948,14 @@ declare namespace ns12='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
 								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
 							</con:configuration>
 						</con:assertion>
-						<con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhincproxydocretrieve/NhincProxyDocRetrievePortType/RespondingGateway_CrossGatewayRetrieveRequest" mustUnderstand="NONE" version="200508"/>
+						<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhincproxydocretrieve/NhincProxyDocRetrievePortType/RespondingGateway_CrossGatewayRetrieveRequest" mustUnderstand="NONE" version="200508"/>
 						<con:wsrmConfig version="1.2"/>
 					</con:request>
 				</con:config>
 			</con:testStep>
 			<con:testStep name="Mock XDS.b Repository Response" type="mockresponse">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" startStep="Nhinc Doc Retrieve Request" xsi:type="con:MockResponseStep">
+				<con:config startStep="Nhinc Doc Retrieve Request" xsi:type="con:MockResponseStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:interface>DocumentRepository_Binding</con:interface>
 					<con:operation>DocumentRepository_RetrieveDocumentSet</con:operation>
 					<con:path>/mockXDSRepository</con:path>
@@ -980,7 +979,7 @@ declare namespace ns12='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
 				</con:config>
 			</con:testStep>
 			
-			<con:properties>
+			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
 					<con:value>2012-08-25T01:06:56Z</con:value>
@@ -999,8 +998,7 @@ declare namespace ns12='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
-			<con:tearDownScript>import nhinc.FileUtils;
-FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
+			<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript>
 		</con:testCase>
 		<con:testCase failOnError="true" failTestCaseOnErrors="true" id="0f6d5b79-dac4-48f6-ace5-917c09447835" keepSession="false" maxResults="0" name="XDSTooManyResults TestCase" searchProperties="true">
 			<con:settings/>
@@ -1010,17 +1008,17 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 //def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
 //def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
-def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
+def destConfigFileLocation = context.findProperty("GatewayPropDir");
 def NHINGatewayHost = context.findProperty("NHINGatewayHost");
 def mockHost = context.findProperty("mockHost");
 def adapterxdsbdocrepositoryURL = "http://" + NHINGatewayHost + ":18088/mockXDSRepository";
 def LocalHCID = context.findProperty( "LocalHCID" );
 
-FileUtils.CreateOrUpdateConnection("internalConnectionInfo.xml", destConfigFileLocation, LocalHCID, "adapterxdsbdocrepository", adapterxdsbdocrepositoryURL, "LEVEL_a0", context, log)</script></con:config>
+FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileLocation, LocalHCID, "adapterxdsbdocrepository", adapterxdsbdocrepositoryURL, "LEVEL_a0", log)</script></con:config>
 			</con:testStep>
 			<con:testStep name="Nhinc Doc Retrieve Request" type="request">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:interface>NhincProxyDocRetrieveBindingSoap</con:interface>
 					<con:operation>RespondingGateway_CrossGatewayRetrieve</con:operation>
 					<con:request name="Nhinc Doc Retrieve Request">
@@ -1269,14 +1267,14 @@ declare namespace ns12='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
 								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
 							</con:configuration>
 						</con:assertion>
-						<con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhincproxydocretrieve/NhincProxyDocRetrievePortType/RespondingGateway_CrossGatewayRetrieveRequest" mustUnderstand="NONE" version="200508"/>
+						<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhincproxydocretrieve/NhincProxyDocRetrievePortType/RespondingGateway_CrossGatewayRetrieveRequest" mustUnderstand="NONE" version="200508"/>
 						<con:wsrmConfig version="1.2"/>
 					</con:request>
 				</con:config>
 			</con:testStep>
 			<con:testStep name="Mock XDS.b Repository Response" type="mockresponse">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" startStep="Nhinc Doc Retrieve Request" xsi:type="con:MockResponseStep">
+				<con:config startStep="Nhinc Doc Retrieve Request" xsi:type="con:MockResponseStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:interface>DocumentRepository_Binding</con:interface>
 					<con:operation>DocumentRepository_RetrieveDocumentSet</con:operation>
 					<con:path>/mockXDSRepository</con:path>
@@ -1300,7 +1298,7 @@ declare namespace ns12='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
 				</con:config>
 			</con:testStep>
 			
-			<con:properties>
+			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
 					<con:value>2012-08-25T01:07:51Z</con:value>
@@ -1319,8 +1317,7 @@ declare namespace ns12='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
-			<con:tearDownScript>import nhinc.FileUtils;
-FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
+			<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript>
 		</con:testCase>
 		<con:testCase failOnError="true" failTestCaseOnErrors="true" id="edf7a61e-c1de-4946-9b6d-ba16e971745c" keepSession="false" maxResults="0" name="XDSUnknownStoredQuery TestCase" searchProperties="true">
 			<con:settings/>
@@ -1330,17 +1327,17 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 //def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
 //def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
-def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
+def destConfigFileLocation = context.findProperty("GatewayPropDir");
 def NHINGatewayHost = context.findProperty("NHINGatewayHost");
 def mockHost = context.findProperty("mockHost");
 def adapterxdsbdocrepositoryURL = "http://" + NHINGatewayHost + ":18088/mockXDSRepository";
 def LocalHCID = context.findProperty( "LocalHCID" );
 
-FileUtils.CreateOrUpdateConnection("internalConnectionInfo.xml", destConfigFileLocation, LocalHCID, "adapterxdsbdocrepository", adapterxdsbdocrepositoryURL, "LEVEL_a0", context, log)</script></con:config>
+FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileLocation, LocalHCID, "adapterxdsbdocrepository", adapterxdsbdocrepositoryURL, "LEVEL_a0", log)</script></con:config>
 			</con:testStep>
 			<con:testStep name="Nhinc Doc Retrieve Request" type="request">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:interface>NhincProxyDocRetrieveBindingSoap</con:interface>
 					<con:operation>RespondingGateway_CrossGatewayRetrieve</con:operation>
 					<con:request name="Nhinc Doc Retrieve Request">
@@ -1589,14 +1586,14 @@ declare namespace ns12='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
 								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
 							</con:configuration>
 						</con:assertion>
-						<con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhincproxydocretrieve/NhincProxyDocRetrievePortType/RespondingGateway_CrossGatewayRetrieveRequest" mustUnderstand="NONE" version="200508"/>
+						<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhincproxydocretrieve/NhincProxyDocRetrievePortType/RespondingGateway_CrossGatewayRetrieveRequest" mustUnderstand="NONE" version="200508"/>
 						<con:wsrmConfig version="1.2"/>
 					</con:request>
 				</con:config>
 			</con:testStep>
 			<con:testStep name="Mock XDS.b Repository Response" type="mockresponse">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" startStep="Nhinc Doc Retrieve Request" xsi:type="con:MockResponseStep">
+				<con:config startStep="Nhinc Doc Retrieve Request" xsi:type="con:MockResponseStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:interface>DocumentRepository_Binding</con:interface>
 					<con:operation>DocumentRepository_RetrieveDocumentSet</con:operation>
 					<con:path>/mockXDSRepository</con:path>
@@ -1620,7 +1617,7 @@ declare namespace ns12='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
 				</con:config>
 			</con:testStep>
 			
-			<con:properties>
+			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
 					<con:value>2012-08-25T01:08:24Z</con:value>
@@ -1639,8 +1636,7 @@ declare namespace ns12='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
-			<con:tearDownScript>import nhinc.FileUtils;
-FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
+			<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript>
 		</con:testCase>
 		<con:testCase failOnError="true" failTestCaseOnErrors="true" id="e1bbe1b4-f6ab-4cee-9a47-4ebd046424ea" keepSession="false" maxResults="0" name="XDSStoredQueryMissingParam TestCase" searchProperties="true">
 			<con:settings/>
@@ -1650,17 +1646,17 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 //def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
 //def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
-def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
+def destConfigFileLocation = context.findProperty("GatewayPropDir");
 def NHINGatewayHost = context.findProperty("NHINGatewayHost");
 def mockHost = context.findProperty("mockHost");
 def adapterxdsbdocrepositoryURL = "http://" + NHINGatewayHost + ":18088/mockXDSRepository";
 def LocalHCID = context.findProperty( "LocalHCID" );
 
-FileUtils.CreateOrUpdateConnection("internalConnectionInfo.xml", destConfigFileLocation, LocalHCID, "adapterxdsbdocrepository", adapterxdsbdocrepositoryURL, "LEVEL_a0", context, log)</script></con:config>
+FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileLocation, LocalHCID, "adapterxdsbdocrepository", adapterxdsbdocrepositoryURL, "LEVEL_a0", log)</script></con:config>
 			</con:testStep>
 			<con:testStep name="Nhinc Doc Retrieve Request" type="request">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:interface>NhincProxyDocRetrieveBindingSoap</con:interface>
 					<con:operation>RespondingGateway_CrossGatewayRetrieve</con:operation>
 					<con:request name="Nhinc Doc Retrieve Request">
@@ -1909,14 +1905,14 @@ declare namespace ns12='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
 								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
 							</con:configuration>
 						</con:assertion>
-						<con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhincproxydocretrieve/NhincProxyDocRetrievePortType/RespondingGateway_CrossGatewayRetrieveRequest" mustUnderstand="NONE" version="200508"/>
+						<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhincproxydocretrieve/NhincProxyDocRetrievePortType/RespondingGateway_CrossGatewayRetrieveRequest" mustUnderstand="NONE" version="200508"/>
 						<con:wsrmConfig version="1.2"/>
 					</con:request>
 				</con:config>
 			</con:testStep>
 			<con:testStep name="Mock XDS.b Repository Response" type="mockresponse">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" startStep="Nhinc Doc Retrieve Request" xsi:type="con:MockResponseStep">
+				<con:config startStep="Nhinc Doc Retrieve Request" xsi:type="con:MockResponseStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:interface>DocumentRepository_Binding</con:interface>
 					<con:operation>DocumentRepository_RetrieveDocumentSet</con:operation>
 					<con:path>/mockXDSRepository</con:path>
@@ -1940,7 +1936,7 @@ declare namespace ns12='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
 				</con:config>
 			</con:testStep>
 			
-			<con:properties>
+			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
 					<con:value>2012-08-25T01:11:07Z</con:value>
@@ -1959,8 +1955,7 @@ declare namespace ns12='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
-			<con:tearDownScript>import nhinc.FileUtils;
-FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
+			<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript>
 		</con:testCase>
 		<con:testCase failOnError="true" failTestCaseOnErrors="true" id="62a67620-6f92-4dd7-8c51-705ab554d6f2" keepSession="false" maxResults="0" name="XDSStoredQueryParamNumber TestCase" searchProperties="true">
 			<con:settings/>
@@ -1970,17 +1965,17 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 //def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
 //def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
-def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
+def destConfigFileLocation = context.findProperty("GatewayPropDir");
 def NHINGatewayHost = context.findProperty("NHINGatewayHost");
 def mockHost = context.findProperty("mockHost");
 def adapterxdsbdocrepositoryURL = "http://" + NHINGatewayHost + ":18088/mockXDSRepository";
 def LocalHCID = context.findProperty( "LocalHCID" );
 
-FileUtils.CreateOrUpdateConnection("internalConnectionInfo.xml", destConfigFileLocation, LocalHCID, "adapterxdsbdocrepository", adapterxdsbdocrepositoryURL, "LEVEL_a0", context, log)</script></con:config>
+FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileLocation, LocalHCID, "adapterxdsbdocrepository", adapterxdsbdocrepositoryURL, "LEVEL_a0", log)</script></con:config>
 			</con:testStep>
 			<con:testStep name="Nhinc Doc Retrieve Request" type="request">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:interface>NhincProxyDocRetrieveBindingSoap</con:interface>
 					<con:operation>RespondingGateway_CrossGatewayRetrieve</con:operation>
 					<con:request name="Nhinc Doc Retrieve Request">
@@ -2229,14 +2224,14 @@ declare namespace ns12='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
 								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
 							</con:configuration>
 						</con:assertion>
-						<con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhincproxydocretrieve/NhincProxyDocRetrievePortType/RespondingGateway_CrossGatewayRetrieveRequest" mustUnderstand="NONE" version="200508"/>
+						<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhincproxydocretrieve/NhincProxyDocRetrievePortType/RespondingGateway_CrossGatewayRetrieveRequest" mustUnderstand="NONE" version="200508"/>
 						<con:wsrmConfig version="1.2"/>
 					</con:request>
 				</con:config>
 			</con:testStep>
 			<con:testStep name="Mock XDS.b Repository Response" type="mockresponse">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" startStep="Nhinc Doc Retrieve Request" xsi:type="con:MockResponseStep">
+				<con:config startStep="Nhinc Doc Retrieve Request" xsi:type="con:MockResponseStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:interface>DocumentRepository_Binding</con:interface>
 					<con:operation>DocumentRepository_RetrieveDocumentSet</con:operation>
 					<con:path>/mockXDSRepository</con:path>
@@ -2260,7 +2255,7 @@ declare namespace ns12='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
 				</con:config>
 			</con:testStep>
 			
-			<con:properties>
+			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
 					<con:value>2012-08-25T01:12:36Z</con:value>
@@ -2279,8 +2274,7 @@ declare namespace ns12='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
-			<con:tearDownScript>import nhinc.FileUtils;
-FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
+			<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript>
 		</con:testCase>
 		<con:testCase failOnError="true" failTestCaseOnErrors="true" id="33a3dd3b-130f-43e6-b21d-1b7aa9d967e9" keepSession="false" maxResults="0" name="PartialSuccess TestCase" searchProperties="true">
 			<con:settings/>
@@ -2290,17 +2284,17 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 //def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
 //def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
-def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
+def destConfigFileLocation = context.findProperty("GatewayPropDir");
 def NHINGatewayHost = context.findProperty("NHINGatewayHost");
 def mockHost = context.findProperty("mockHost");
 def adapterxdsbdocrepositoryURL = "http://" + NHINGatewayHost + ":18088/mockXDSRepository";
 def LocalHCID = context.findProperty( "LocalHCID" );
 
-FileUtils.CreateOrUpdateConnection("internalConnectionInfo.xml", destConfigFileLocation, LocalHCID, "adapterxdsbdocrepository", adapterxdsbdocrepositoryURL, "LEVEL_a0", context, log)</script></con:config>
+FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileLocation, LocalHCID, "adapterxdsbdocrepository", adapterxdsbdocrepositoryURL, "LEVEL_a0", log)</script></con:config>
 			</con:testStep>
 			<con:testStep name="Nhinc Doc Retrieve Request" type="request">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
+				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:interface>NhincProxyDocRetrieveBindingSoap</con:interface>
 					<con:operation>RespondingGateway_CrossGatewayRetrieve</con:operation>
 					<con:request name="Nhinc Doc Retrieve Request">
@@ -2549,14 +2543,14 @@ declare namespace ns12='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
 								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
 							</con:configuration>
 						</con:assertion>
-						<con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhincproxydocretrieve/NhincProxyDocRetrievePortType/RespondingGateway_CrossGatewayRetrieveRequest" mustUnderstand="NONE" version="200508"/>
+						<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhincproxydocretrieve/NhincProxyDocRetrievePortType/RespondingGateway_CrossGatewayRetrieveRequest" mustUnderstand="NONE" version="200508"/>
 						<con:wsrmConfig version="1.2"/>
 					</con:request>
 				</con:config>
 			</con:testStep>
 			<con:testStep name="Mock XDS.b Repository Response" type="mockresponse">
 				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" startStep="Nhinc Doc Retrieve Request" xsi:type="con:MockResponseStep">
+				<con:config startStep="Nhinc Doc Retrieve Request" xsi:type="con:MockResponseStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:interface>DocumentRepository_Binding</con:interface>
 					<con:operation>DocumentRepository_RetrieveDocumentSet</con:operation>
 					<con:path>/mockXDSRepository</con:path>
@@ -2580,7 +2574,7 @@ declare namespace ns12='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
 				</con:config>
 			</con:testStep>
 			
-			<con:properties>
+			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
 					<con:value>2012-08-25T01:12:57Z</con:value>
@@ -2599,8 +2593,7 @@ declare namespace ns12='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
-			<con:tearDownScript>import nhinc.FileUtils;
-FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
+			<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript>
 		</con:testCase>
 		<con:properties/>
 		<con:reportParameters/>
@@ -2635,13 +2628,13 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 			<con:name>AuditPatientID</con:name>
 			<con:value>D123401</con:value>
 		</con:property>
-	</con:properties>
+	<con:property><con:name>GatewayPropDir</con:name><con:value>D:\glassfish3\glassfish\domains\domain1\config\nhin</con:value></con:property></con:properties>
 	<con:afterLoadScript>def propertiesFilename = project.path[0..(project.path.size()-4)] + 'properties'
 def propertiesFile = new File(propertiesFilename)
 if (propertiesFile.exists()) {
 	def props = new Properties()
 	props.load(new FileReader(propertiesFile))
-	props.each { key, value -&gt;
+	props.each { key, value ->
 	    project.setPropertyValue(key, value)
 	}
 }
@@ -2649,11 +2642,11 @@ if (propertiesFile.exists()) {
 
 TimeZone.setDefault(TimeZone.getTimeZone("UTC"))
 def testRunListener = [
-  afterRun: { testRunner, runContext -&gt; },
-  afterStep: { testRunner, runContext, result -&gt; },
-  beforeStep: { testRunner, runContext -&gt; },
-  beforeStep: { testRunner, runContext, testStep -&gt; },
-  beforeRun: { testRunner, runContext -&gt; 
+  afterRun: { testRunner, runContext -> },
+  afterStep: { testRunner, runContext, result -> },
+  beforeStep: { testRunner, runContext -> },
+  beforeStep: { testRunner, runContext, testStep -> },
+  beforeRun: { testRunner, runContext -> 
     use (org.codehaus.groovy.runtime.TimeCategory) {
       def startDate = 5.minutes.ago
       def endDate = 5.minutes.from.now
@@ -2674,14 +2667,14 @@ project.testSuiteList*.testCaseList.flatten()*.addTestRunListener(testRunListene
 
 
 
-com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.findProperty = { propertyName -&gt;
+com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.findProperty = { propertyName ->
     return delegate.getProperty(propertyName) ?:
                 delegate.testCase.getPropertyValue(propertyName) ?:
                 delegate.testCase.testSuite.getPropertyValue(propertyName) ?:
                 delegate.testCase.testSuite.project.getPropertyValue(propertyName)
 }
 
-com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.withSql = { dbOrPropertyName, block -&gt;
+com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.withSql = { dbOrPropertyName, block ->
   def dbName = delegate.findProperty(dbOrPropertyName) ?: dbOrPropertyName
   def host = delegate.findProperty('DBHost')
   def port = delegate.findProperty('DBPort')
@@ -2722,4 +2715,4 @@ com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.withSql = { d
 		<con:parameters/>
 	</con:reporting>
 
-</con:soapui-project>
+<con:sensitiveInformation/></con:soapui-project>
