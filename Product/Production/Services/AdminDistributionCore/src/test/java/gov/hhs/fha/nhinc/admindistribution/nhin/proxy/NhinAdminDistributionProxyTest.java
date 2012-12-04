@@ -1,4 +1,6 @@
-/*
+/**
+ * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
+ *
  * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
@@ -24,42 +26,38 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.admindistribution.inbound;
+package gov.hhs.fha.nhinc.admindistribution.nhin.proxy;
 
-import gov.hhs.fha.nhinc.admindistribution.AdminDistributionAuditLogger;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import gov.hhs.fha.nhinc.admindistribution.aspect.EDXLDistributionEventDescriptionBuilder;
-import gov.hhs.fha.nhinc.aspect.InboundProcessingEvent;
+import gov.hhs.fha.nhinc.aspect.NwhinInvocationEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+
+import java.lang.reflect.Method;
+
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 
-public abstract class AbstractInboundAdminDistribution implements InboundAdminDistribution {
+import org.junit.Test;
 
-    abstract void processAdminDistribution(EDXLDistribution body, AssertionType assertion);
+public class NhinAdminDistributionProxyTest {
 
-    protected AdminDistributionAuditLogger auditLogger = new AdminDistributionAuditLogger();
-
-    /**
-     * This method sends sendAlertMessage to agency/agencies.
-     * 
-     * @param body
-     *            - Emergency Message Distribution Element transaction message body.
-     * @param assertion
-     *            - Assertion received.
-     */
-    @Override
-    @InboundProcessingEvent(serviceType = "Admin Distribution", version = "",
-            afterReturningBuilder = DefaultEventDescriptionBuilder.class,
-            beforeBuilder = EDXLDistributionEventDescriptionBuilder.class)
-    public void sendAlertMessage(EDXLDistribution body, AssertionType assertion) {
-        auditRequestFromNhin(body, assertion);
-
-        processAdminDistribution(body, assertion);
-    }
-
-    private void auditRequestFromNhin(EDXLDistribution body, AssertionType assertion) {
-        auditLogger.auditNhinAdminDist(body, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
-                NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
+    @Test
+    public void hasEventAnnotation() throws Exception {
+        Class<?>[] classes = { NhinAdminDistributionProxyNoOpImpl.class,
+                NhinAdminDistributionProxyWebServiceSecuredImpl.class };
+        for (Class<?> clazz : classes) {
+            Method method = clazz.getMethod("sendAlertMessage", EDXLDistribution.class, AssertionType.class,
+                    NhinTargetSystemType.class, NhincConstants.GATEWAY_API_LEVEL.class);
+            NwhinInvocationEvent annotation = method.getAnnotation(NwhinInvocationEvent.class);
+            assertNotNull(annotation);
+            assertEquals(EDXLDistributionEventDescriptionBuilder.class, annotation.beforeBuilder());
+            assertEquals(DefaultEventDescriptionBuilder.class, annotation.afterReturningBuilder());
+            assertEquals("Admin Distribution", annotation.serviceType());
+            assertEquals("", annotation.version());
+        }
     }
 }

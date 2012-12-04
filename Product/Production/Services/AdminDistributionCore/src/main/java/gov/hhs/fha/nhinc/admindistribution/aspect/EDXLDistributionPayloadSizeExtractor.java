@@ -50,14 +50,18 @@ public class EDXLDistributionPayloadSizeExtractor {
         if (alertMessage != null) {
             List<ContentObjectType> contents = alertMessage.getContentObject();
             for (ContentObjectType message : contents) {
-                if (isPayloadSizeEmpty(message)) {
-                    payloadSize.add("");
-                } else {
-                    payloadSize.add(message.getNonXMLContent().getSize().toString());
-                }
+                payloadSize.add(getPayloadSize(message));
             }
         }
         return payloadSize;
+    }
+
+    private String getPayloadSize(ContentObjectType message) {
+        if (isPayloadSizeEmpty(message)) {
+            return "";
+        } else {
+            return message.getNonXMLContent().getSize().toString();
+        }
     }
 
     private boolean isPayloadSizeEmpty(ContentObjectType message) {
