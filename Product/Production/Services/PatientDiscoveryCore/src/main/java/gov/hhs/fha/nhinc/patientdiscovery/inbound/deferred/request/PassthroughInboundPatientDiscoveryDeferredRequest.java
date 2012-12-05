@@ -41,8 +41,8 @@ import org.hl7.v3.PRPAIN201305UV02;
  */
 public class PassthroughInboundPatientDiscoveryDeferredRequest extends AbstractInboundPatientDiscoveryDeferredRequest {
 
-    private AdapterPatientDiscoveryDeferredReqProxyObjectFactory adapterFactory;
-    private PatientDiscoveryAuditor auditLogger; 
+    private final AdapterPatientDiscoveryDeferredReqProxyObjectFactory adapterFactory;
+    private final PatientDiscoveryAuditor auditLogger; 
 
     /**
      * Constructor.
