@@ -32,9 +32,13 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterRegistryResponseType;
 import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
+
 import java.util.List;
+
 import javax.xml.ws.WebServiceContext;
+
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -44,6 +48,7 @@ import org.apache.commons.logging.LogFactory;
  */
 public class AdapterXDRResponseImpl {
     private Log log = null;
+    private AsyncMessageIdExtractor extractor = new AsyncMessageIdExtractor();
 
     public AdapterXDRResponseImpl() {
         log = createLogger();
@@ -94,8 +99,8 @@ public class AdapterXDRResponseImpl {
 
         // Extract the message id value from the WS-Addressing Header and place it in the Assertion Class
         if (assertion != null) {
-            assertion.setMessageId(AsyncMessageIdExtractor.getOrCreateAsyncMessageId(context));
-            List<String> relatesToList = AsyncMessageIdExtractor.getAsyncRelatesTo(context);
+            assertion.setMessageId(extractor.getOrCreateAsyncMessageId(context));
+            List<String> relatesToList = extractor.getAsyncRelatesTo(context);
             if (NullChecker.isNotNullish(relatesToList)) {
                 assertion.getRelatesToList().add(relatesToList.get(0));
             }

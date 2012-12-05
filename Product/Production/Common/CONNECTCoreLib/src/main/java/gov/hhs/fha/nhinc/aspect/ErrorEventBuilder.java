@@ -28,10 +28,62 @@
  */
 package gov.hhs.fha.nhinc.aspect;
 
-/**
- * @author bhumphrey
- * 
- */
-public interface FailureAdviceDelegate {
-    void fail(Object[] arguments, Throwable throwable);
+import gov.hhs.fha.nhinc.event.ContextEventHelper;
+import gov.hhs.fha.nhinc.event.Event;
+import gov.hhs.fha.nhinc.event.EventBuilder;
+import gov.hhs.fha.nhinc.event.error.MessageProcessingFailedEvent;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+public class ErrorEventBuilder implements EventBuilder {
+
+    private MessageProcessingFailedEvent event = new MessageProcessingFailedEvent();
+    private ContextEventHelper helper = new ContextEventHelper();
+    private Throwable throwable;
+
+    @Override
+    public void createNewEvent() {
+        event = new MessageProcessingFailedEvent();
+    }
+
+    @Override
+    public void buildDescription() {
+        JSONObject jsonObject = new JSONObject();
+        if (throwable != null) {
+            try {
+                jsonObject.put("message", throwable.getMessage());
+                jsonObject.put("class", throwable.getClass());
+            } catch (JSONException e) {
+            }
+        }
+        event.setDescription(jsonObject.toString());
+    }
+
+    @Override
+    public void buildMessageID() {
+        event.setMessageID(helper.getMessageId());
+    }
+
+    @Override
+    public void buildTransactionID() {
+        event.setTransactionID(helper.getTransactionId());
+    }
+
+    @Override
+    public Event getEvent() {
+        return event;
+    }
+
+    ContextEventHelper getContextHelper() {
+        return helper;
+    }
+
+    void setContextHelper(ContextEventHelper helper) {
+        this.helper = helper;
+    }
+
+    public void setThrowable(Throwable t) {
+        this.throwable = t;
+    }
 }
