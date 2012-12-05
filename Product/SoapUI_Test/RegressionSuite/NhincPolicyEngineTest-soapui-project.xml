@@ -144,12 +144,7 @@
 		
 		<con:testCase failOnError="true" failTestCaseOnErrors="true" id="5605bf46-c41c-47b3-897f-ce4a782917ef" keepSession="false" maxResults="0" name="Document Query" searchProperties="true">
 			<con:settings/>
-			<con:testStep name="Intialize Configurations" type="groovy">
-				<con:settings/>
-				<con:config><script>import nhinc.FileUtils;
-FileUtils.InitializeNHINCProperties(context, log);
-					</script></con:config>
-			</con:testStep>
+			
 			<con:testStep name="ModifyInterrnalConnectionInfo" type="groovy">
 				<con:settings/>
 				<con:config><script>import nhinc.FileUtils;
@@ -502,19 +497,19 @@ declare namespace ns18='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-08-24T23:09:27Z</con:value>
+					<con:value>2012-11-28T20:31:50Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-08-24T23:19:27Z</con:value>
+					<con:value>2012-11-28T20:41:50Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>08/24/2012 23:09:27</con:value>
+					<con:value>11/28/2012 20:31:50</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-09-23T00:00:00Z</con:value>
+					<con:value>2012-12-28T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>FullPatientID</con:name>
@@ -526,12 +521,7 @@ declare namespace ns18='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
 		</con:testCase>
 		<con:testCase failOnError="true" failTestCaseOnErrors="true" id="5c8330cc-e382-4dad-9c68-716bf8595ae1" keepSession="false" maxResults="0" name="Document Retrieve" searchProperties="true">
 			<con:settings/>
-			<con:testStep name="Intialize Configurations" type="groovy">
-				<con:settings/>
-				<con:config><script>import nhinc.FileUtils;
-FileUtils.InitializeNHINCProperties(context, log);
-					</script></con:config>
-			</con:testStep>
+			
 			<con:testStep name="ModifyInterrnalConnectionInfo" type="groovy">
 				<con:settings/>
 				<con:config><script>import nhinc.FileUtils;
@@ -864,19 +854,19 @@ declare namespace ns18='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
 				</con:property>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-08-24T23:09:29Z</con:value>
+					<con:value>2012-11-28T20:32:34Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-08-24T23:19:29Z</con:value>
+					<con:value>2012-11-28T20:42:34Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>08/24/2012 23:09:29</con:value>
+					<con:value>11/28/2012 20:32:34</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-09-23T00:00:00Z</con:value>
+					<con:value>2012-12-28T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>CorrectedLocalHCID</con:name>
@@ -3633,7 +3623,7 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, InitiatingHCID, "poli
 			<con:name>Endpoint-Notify</con:name>
 			<con:value>http://localhost:8080/CONNECTAdapter/NhincProxyNotificationConsumer</con:value>
 		</con:property>
-	</con:properties>
+	<con:property><con:name>GatewayPropDIr</con:name><con:value>D:\glassfish3\glassfish\domains\domain1\config\nhin</con:value></con:property></con:properties>
 	<con:afterLoadScript>def propertiesFilename = project.path[0..(project.path.size()-4)] + 'properties'
 def propertiesFile = new File(propertiesFilename)
 if (propertiesFile.exists()) {

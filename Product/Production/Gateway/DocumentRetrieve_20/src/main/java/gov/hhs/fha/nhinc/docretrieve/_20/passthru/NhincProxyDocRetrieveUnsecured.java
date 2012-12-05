@@ -27,7 +27,7 @@
 package gov.hhs.fha.nhinc.docretrieve._20.passthru;
 
 import gov.hhs.fha.nhinc.aspect.OutboundMessageEvent;
-import gov.hhs.fha.nhinc.docretrieve.aspect.NhincProxyRetrieveRequestTypeDescriptionBuilder;
+import gov.hhs.fha.nhinc.docretrieve.aspect.RetrieveDocumentSetTransformingBuilder;
 import gov.hhs.fha.nhinc.docretrieve.aspect.RetrieveDocumentSetResponseTypeDescriptionBuilder;
 import gov.hhs.fha.nhinc.docretrieve.passthru.NhincProxyDocRetrieveOrchImpl;
 import gov.hhs.fha.nhinc.nhincproxydocretrieve.NhincProxyDocRetrievePortType;
@@ -53,7 +53,7 @@ public class NhincProxyDocRetrieveUnsecured implements NhincProxyDocRetrievePort
     @Resource
     private WebServiceContext context;
 
-    @OutboundMessageEvent(beforeBuilder = NhincProxyRetrieveRequestTypeDescriptionBuilder.class,
+    @OutboundMessageEvent(beforeBuilder = RetrieveDocumentSetTransformingBuilder.class,
             afterReturningBuilder = RetrieveDocumentSetResponseTypeDescriptionBuilder.class, 
             serviceType = "Retrieve Document", version = "2.0")
     public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(

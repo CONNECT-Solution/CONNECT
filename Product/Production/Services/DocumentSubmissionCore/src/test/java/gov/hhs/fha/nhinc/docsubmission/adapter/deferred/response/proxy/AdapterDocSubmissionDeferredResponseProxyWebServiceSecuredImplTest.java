@@ -27,14 +27,21 @@
 package gov.hhs.fha.nhinc.docsubmission.adapter.deferred.response.proxy;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import gov.hhs.fha.nhinc.adapterxdrresponsesecured.AdapterXDRResponseSecuredPortType;
+import gov.hhs.fha.nhinc.aspect.AdapterDelegationEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.docsubmission.aspect.DeferredResponseDescriptionBuilder;
+import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionArgTransformerBuilder;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
+
+import java.lang.reflect.Method;
+
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 import org.apache.commons.logging.Log;
@@ -58,10 +65,10 @@ public class AdapterDocSubmissionDeferredResponseProxyWebServiceSecuredImplTest 
             setImposteriser(ClassImposteriser.INSTANCE);
         }
     };
-    
-    final Log mockLogger = mockery.mock(Log.class);      
+
+    final Log mockLogger = mockery.mock(Log.class);
     final CONNECTClient<AdapterXDRResponseSecuredPortType> client = new CONNECTClientMock();
-    
+
     public AdapterDocSubmissionDeferredResponseProxyWebServiceSecuredImplTest() {
     }
 
@@ -80,25 +87,25 @@ public class AdapterDocSubmissionDeferredResponseProxyWebServiceSecuredImplTest 
     @After
     public void tearDown() {
     }
-    
+
     class CONNECTClientMock extends CONNECTClient<AdapterXDRResponseSecuredPortType> {
 
         @Override
         public AdapterXDRResponseSecuredPortType getPort() {
             return null;
         }
-        
+
         @Override
-        public Object invokePort(Class<AdapterXDRResponseSecuredPortType> portClass, String methodName, Object operationInput)
-                throws Exception {
+        public Object invokePort(Class<AdapterXDRResponseSecuredPortType> portClass, String methodName,
+                Object operationInput) throws Exception {
             XDRAcknowledgementType response = new XDRAcknowledgementType();
             RegistryResponseType regResp = new RegistryResponseType();
             regResp.setStatus(NhincConstants.XDR_ACK_STATUS_MSG);
             response.setMessage(regResp);
             return response;
-        }    
+        }
     }
-    
+
     private WebServiceProxyHelper createMockWebServiceProxyHelper(final String url) {
         return new WebServiceProxyHelper() {
             @Override
@@ -107,14 +114,14 @@ public class AdapterDocSubmissionDeferredResponseProxyWebServiceSecuredImplTest 
             }
 
             @Override
-            public String getAdapterEndPointFromConnectionManager(String sServiceName)
-            {
+            public String getAdapterEndPointFromConnectionManager(String sServiceName) {
                 return url;
-            }            
+            }
         };
     }
-    
-    private AdapterDocSubmissionDeferredResponseProxyWebServiceSecuredImpl createWebServiceProxy(final WebServiceProxyHelper proxyHelper) {
+
+    private AdapterDocSubmissionDeferredResponseProxyWebServiceSecuredImpl createWebServiceProxy(
+            final WebServiceProxyHelper proxyHelper) {
         return new AdapterDocSubmissionDeferredResponseProxyWebServiceSecuredImpl() {
             @Override
             protected Log createLogger() {
@@ -125,12 +132,13 @@ public class AdapterDocSubmissionDeferredResponseProxyWebServiceSecuredImplTest 
             protected WebServiceProxyHelper createWebServiceProxyHelper() {
                 return proxyHelper;
             }
-            
+
             @Override
             protected CONNECTClient<AdapterXDRResponseSecuredPortType> getCONNECTClientSecured(
-                    ServicePortDescriptor<AdapterXDRResponseSecuredPortType> portDescriptor, String url, AssertionType assertion) {
-                
-                return client;            
+                    ServicePortDescriptor<AdapterXDRResponseSecuredPortType> portDescriptor, String url,
+                    AssertionType assertion) {
+
+                return client;
             }
         };
     }
@@ -139,8 +147,8 @@ public class AdapterDocSubmissionDeferredResponseProxyWebServiceSecuredImplTest 
      * Test of provideAndRegisterDocumentSetBResponse method, of class AdapterXDRResponseWebServiceProxy.
      */
     @Test
-    public void testProvideAndRegisterDocumentSetBResponse() {        
-        WebServiceProxyHelper proxyHelper = createMockWebServiceProxyHelper("url"); 
+    public void testProvideAndRegisterDocumentSetBResponse() {
+        WebServiceProxyHelper proxyHelper = createMockWebServiceProxyHelper("url");
         AdapterDocSubmissionDeferredResponseProxyWebServiceSecuredImpl adapterXDRResponseWebServiceProxy = createWebServiceProxy(proxyHelper);
 
         mockery.checking(new Expectations() {
@@ -162,9 +170,9 @@ public class AdapterDocSubmissionDeferredResponseProxyWebServiceSecuredImplTest 
      */
     @Test
     public void testProvideAndRegisterDocumentSetBResponseFailureCase() {
-        WebServiceProxyHelper proxyHelper = createMockWebServiceProxyHelper(null);        
+        WebServiceProxyHelper proxyHelper = createMockWebServiceProxyHelper(null);
         AdapterDocSubmissionDeferredResponseProxyWebServiceSecuredImpl adapterXDRResponseWebServiceProxy = createWebServiceProxy(proxyHelper);
-        
+
         mockery.checking(new Expectations() {
             {
                 allowing(mockLogger).isDebugEnabled();
@@ -178,5 +186,18 @@ public class AdapterDocSubmissionDeferredResponseProxyWebServiceSecuredImplTest 
         XDRAcknowledgementType result = adapterXDRResponseWebServiceProxy.provideAndRegisterDocumentSetBResponse(body,
                 assertion);
         assertNull(result);
+    }
+
+    @Test
+    public void hasAdapterDelegationEvent() throws Exception {
+        Class<AdapterDocSubmissionDeferredResponseProxyWebServiceSecuredImpl> clazz = AdapterDocSubmissionDeferredResponseProxyWebServiceSecuredImpl.class;
+        Method method = clazz.getMethod("provideAndRegisterDocumentSetBResponse", RegistryResponseType.class,
+                AssertionType.class);
+        AdapterDelegationEvent annotation = method.getAnnotation(AdapterDelegationEvent.class);
+        assertNotNull(annotation);
+        assertEquals(DeferredResponseDescriptionBuilder.class, annotation.beforeBuilder());
+        assertEquals(DocSubmissionArgTransformerBuilder.class, annotation.afterReturningBuilder());
+        assertEquals("Document Submission Deferred Response", annotation.serviceType());
+        assertEquals("", annotation.version());
     }
 }

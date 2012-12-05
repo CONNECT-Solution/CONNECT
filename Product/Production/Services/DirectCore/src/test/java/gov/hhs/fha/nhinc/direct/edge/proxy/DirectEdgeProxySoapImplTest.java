@@ -37,6 +37,7 @@ import gov.hhs.fha.nhinc.direct.DirectUnitTestUtil;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
@@ -52,13 +53,15 @@ import static org.mockito.Matchers.eq;
 
 /**
  * @author mweaver
- *
+ * 
  */
 public class DirectEdgeProxySoapImplTest {
 
     private DirectEdgeProxy objectUnderTest = null;
     private DirectEdgeProxyObjectFactory factory = null;
     private CONNECTClient<DocumentRepositoryPortType> mockClient;
+    private WebServiceProxyHelper mockWebServiceProxyHelper = mock(WebServiceProxyHelper.class);
+    private String endpointUrl = "http://localhost:8080/DirectEdgeProxySoapImpl";
 
     /**
      * Setup for tests.
@@ -107,8 +110,8 @@ public class DirectEdgeProxySoapImplTest {
     }
 
     /**
-     * Tests the DirectEdgeProxySoapImpl class with a mocked up CONNECTClient. This test will ensure that the url can
-     * be looked up successfully, as well as the transformation from XDM to XDR.
+     * Tests the DirectEdgeProxySoapImpl class with a mocked up CONNECTClient. This test will ensure that the
+     * transformation from XDM to XDR was successful.
      * 
      * @throws Exception
      */
@@ -121,6 +124,8 @@ public class DirectEdgeProxySoapImplTest {
                 mockClient.invokePort(eq(DocumentRepositoryPortType.class),
                         eq("documentRepositoryProvideAndRegisterDocumentSetB"),
                         any(ProvideAndRegisterDocumentSetRequestType.class))).thenReturn(getSuccessResponse());
+        when(mockWebServiceProxyHelper.getAdapterEndPointFromConnectionManager(any(String.class))).thenReturn(
+                endpointUrl);
 
         MimeMessage message = new MimeMessage(null, IOUtils.toInputStream(DirectUnitTestUtil
                 .getFileAsString("Example_A.txt")));
@@ -140,9 +145,14 @@ public class DirectEdgeProxySoapImplTest {
                     ServicePortDescriptor<DocumentRepositoryPortType> portDescriptor, String url) {
                 return mockClient;
             }
+
+            @Override
+            protected WebServiceProxyHelper createWebServiceProxyHelper() {
+                return mockWebServiceProxyHelper;
+            }
         };
     }
-    
+
     /**
      * @return a RegistryResponseType with a status of success.
      */

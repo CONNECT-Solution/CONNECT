@@ -26,14 +26,19 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.request;
 
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.orchestration.Orchestratable;
 import gov.hhs.fha.nhinc.orchestration.OrchestrationStrategy;
+import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditLogger;
+import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditor;
 import gov.hhs.fha.nhinc.patientdiscovery.nhin.deferred.request.proxy.NhinPatientDiscoveryDeferredReqProxy;
 import gov.hhs.fha.nhinc.patientdiscovery.nhin.deferred.request.proxy.NhinPatientDiscoveryDeferredReqProxyObjectFactory;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.MCCIIN000002UV01;
+import org.hl7.v3.PRPAIN201305UV02;
 
 /**
  * @author akong
@@ -67,17 +72,32 @@ public class OutboundPatientDiscoveryDeferredRequestStrategyImpl_g0 implements O
         }
 
         if (message instanceof OutboundPatientDiscoveryDeferredRequestOrchestratable) {
+            auditRequestToNhin(message.getRequest(), message.getAssertion());
+            
             NhinPatientDiscoveryDeferredReqProxy nhinPatientDiscovery = new NhinPatientDiscoveryDeferredReqProxyObjectFactory()
                     .getNhinPatientDiscoveryAsyncReqProxy();
 
             MCCIIN000002UV01 response = nhinPatientDiscovery.respondingGatewayPRPAIN201305UV02(message.getRequest(),
                     message.getAssertion(), message.getTarget());
             message.setResponse(response);
+            
+            auditResponseFromNhin(message.getResponse(), message.getAssertion());
         } else {
             getLogger().error(
                     "OutboundPatientDiscoveryDeferredRequestStrategyImpl_g0 received a message "
                             + "which was not of type OutboundPatientDiscoveryDeferredRequestOrchestratable.");
         }
         getLogger().debug("End OutboundPatientDiscoveryDeferredRequestStrategyImpl_g0.process");
+    }
+    
+    private void auditRequestToNhin(PRPAIN201305UV02 request, AssertionType newAssertion) {
+        PatientDiscoveryAuditor auditLog = new PatientDiscoveryAuditLogger();
+        auditLog.auditNhinDeferred201305(request, newAssertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
+    }
+
+    private void auditResponseFromNhin(MCCIIN000002UV01 resp, AssertionType newAssertion) {
+        PatientDiscoveryAuditor auditLog = new PatientDiscoveryAuditLogger();
+        auditLog.auditAck(resp, newAssertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
+                NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
     }
 }

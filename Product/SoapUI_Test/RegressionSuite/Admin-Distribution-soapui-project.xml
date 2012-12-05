@@ -419,23 +419,23 @@ assert (count > 0);</script></con:config></con:testStep>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-11-19T17:09:05Z</con:value>
+          <con:value>2012-11-27T18:10:56Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-11-19T17:19:05Z</con:value>
+          <con:value>2012-11-27T18:20:56Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/19/2012 17:09:05</con:value>
+          <con:value>11/27/2012 18:10:56</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-12-19T00:00:00Z</con:value>
+          <con:value>2012-12-27T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>UserId</con:name>
-          <con:value>admindistMon Nov 19 17:14:05 UTC 20121</con:value>
+          <con:value>admindistTue Nov 27 18:15:56 UTC 20121</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -820,23 +820,23 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
 assert (count > 0);</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-11-19T17:09:26Z</con:value>
+          <con:value>2012-11-27T18:11:16Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-11-19T17:19:26Z</con:value>
+          <con:value>2012-11-27T18:21:16Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/19/2012 17:09:26</con:value>
+          <con:value>11/27/2012 18:11:16</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-12-19T00:00:00Z</con:value>
+          <con:value>2012-12-27T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>UserId</con:name>
-          <con:value>admindistMon Nov 19 17:14:26 UTC 20121</con:value>
+          <con:value>admindistTue Nov 27 18:16:16 UTC 20121</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -1232,23 +1232,23 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
 assert (count > 0);</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-11-19T17:09:46Z</con:value>
+          <con:value>2012-11-27T18:11:36Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-11-19T17:19:46Z</con:value>
+          <con:value>2012-11-27T18:21:36Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/19/2012 17:09:46</con:value>
+          <con:value>11/27/2012 18:11:36</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-12-19T00:00:00Z</con:value>
+          <con:value>2012-12-27T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>UserId</con:name>
-          <con:value>admindistMon Nov 19 17:14:46 UTC 20121</con:value>
+          <con:value>admindistTue Nov 27 18:16:36 UTC 20121</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -1673,23 +1673,23 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
 assert (count > 0);</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-11-19T17:10:06Z</con:value>
+          <con:value>2012-11-27T18:11:56Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-11-19T17:20:06Z</con:value>
+          <con:value>2012-11-27T18:21:56Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/19/2012 17:10:06</con:value>
+          <con:value>11/27/2012 18:11:56</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-12-19T00:00:00Z</con:value>
+          <con:value>2012-12-27T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>UserId</con:name>
-          <con:value>admindistMon Nov 19 17:15:06 UTC 20121</con:value>
+          <con:value>admindistTue Nov 27 18:16:56 UTC 20121</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -2034,23 +2034,23 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
 assert (count > 0);</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-11-19T17:10:26Z</con:value>
+          <con:value>2012-11-27T18:12:16Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-11-19T17:20:26Z</con:value>
+          <con:value>2012-11-27T18:22:16Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/19/2012 17:10:26</con:value>
+          <con:value>11/27/2012 18:12:16</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-12-19T00:00:00Z</con:value>
+          <con:value>2012-12-27T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>UserId</con:name>
-          <con:value>admindistMon Nov 19 17:15:26 UTC 20121</con:value>
+          <con:value>admindistTue Nov 27 18:17:17 UTC 20121</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -2399,23 +2399,23 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
 assert (count > 0);</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-11-19T17:10:46Z</con:value>
+          <con:value>2012-11-27T18:12:37Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-11-19T17:20:46Z</con:value>
+          <con:value>2012-11-27T18:22:37Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/19/2012 17:10:46</con:value>
+          <con:value>11/27/2012 18:12:37</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-12-19T00:00:00Z</con:value>
+          <con:value>2012-12-27T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>UserId</con:name>
-          <con:value>admindistMon Nov 19 17:15:46 UTC 20121</con:value>
+          <con:value>admindistTue Nov 27 18:17:37 UTC 20121</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -2801,23 +2801,23 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
 assert (count > 0);</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-11-19T17:11:07Z</con:value>
+          <con:value>2012-11-27T18:12:57Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-11-19T17:21:07Z</con:value>
+          <con:value>2012-11-27T18:22:57Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/19/2012 17:11:07</con:value>
+          <con:value>11/27/2012 18:12:57</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-12-19T00:00:00Z</con:value>
+          <con:value>2012-12-27T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>UserId</con:name>
-          <con:value>admindistMon Nov 19 17:16:07 UTC 20121</con:value>
+          <con:value>admindistTue Nov 27 18:17:57 UTC 20121</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -4690,19 +4690,19 @@ declare namespace ns17='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
       </con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-11-19T17:11:52Z</con:value>
+          <con:value>2012-11-27T18:30:45Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-11-19T17:21:52Z</con:value>
+          <con:value>2012-11-27T18:40:45Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/19/2012 17:11:52</con:value>
+          <con:value>11/27/2012 18:30:45</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-12-19T00:00:00Z</con:value>
+          <con:value>2012-12-27T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -5080,19 +5080,19 @@ FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", context.findPropert
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-11-19T18:00:28Z</con:value>
+          <con:value>2012-11-27T18:13:45Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-11-19T18:10:28Z</con:value>
+          <con:value>2012-11-27T18:23:45Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/19/2012 18:00:28</con:value>
+          <con:value>11/27/2012 18:13:45</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-12-19T00:00:00Z</con:value>
+          <con:value>2012-12-27T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -5526,23 +5526,23 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
 assert (count > 0);</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-11-19T17:11:59Z</con:value>
+          <con:value>2012-11-27T18:13:45Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-11-19T17:21:59Z</con:value>
+          <con:value>2012-11-27T18:23:45Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/19/2012 17:11:59</con:value>
+          <con:value>11/27/2012 18:13:45</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-12-19T00:00:00Z</con:value>
+          <con:value>2012-12-27T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>UserId</con:name>
-          <con:value>admindistMon Nov 19 17:16:59 UTC 20121</con:value>
+          <con:value>admindistTue Nov 27 18:18:45 UTC 20121</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -5972,23 +5972,23 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
 assert (count > 0);</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-11-19T17:12:20Z</con:value>
+          <con:value>2012-11-27T18:14:06Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-11-19T17:22:20Z</con:value>
+          <con:value>2012-11-27T18:24:06Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/19/2012 17:12:20</con:value>
+          <con:value>11/27/2012 18:14:06</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-12-19T00:00:00Z</con:value>
+          <con:value>2012-12-27T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>UserId</con:name>
-          <con:value>admindistMon Nov 19 17:17:20 UTC 20121</con:value>
+          <con:value>admindistTue Nov 27 18:19:06 UTC 20121</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -6460,23 +6460,23 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
 assert (count > 0);</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-11-19T17:12:40Z</con:value>
+          <con:value>2012-11-27T18:14:26Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-11-19T17:22:40Z</con:value>
+          <con:value>2012-11-27T18:24:26Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/19/2012 17:12:40</con:value>
+          <con:value>11/27/2012 18:14:26</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-12-19T00:00:00Z</con:value>
+          <con:value>2012-12-27T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>UserId</con:name>
-          <con:value>admindistMon Nov 19 17:17:40 UTC 20121</con:value>
+          <con:value>admindistTue Nov 27 18:19:26 UTC 20121</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -6917,23 +6917,23 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
 assert (count > 0);</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-11-19T17:13:00Z</con:value>
+          <con:value>2012-11-27T18:14:46Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-11-19T17:23:00Z</con:value>
+          <con:value>2012-11-27T18:24:46Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/19/2012 17:13:00</con:value>
+          <con:value>11/27/2012 18:14:46</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-12-19T00:00:00Z</con:value>
+          <con:value>2012-12-27T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>UserId</con:name>
-          <con:value>admindistMon Nov 19 17:18:00 UTC 20121</con:value>
+          <con:value>admindistTue Nov 27 18:19:46 UTC 20121</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -7324,23 +7324,23 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
 assert (count > 0);</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-11-19T17:13:21Z</con:value>
+          <con:value>2012-11-27T18:15:06Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-11-19T17:23:21Z</con:value>
+          <con:value>2012-11-27T18:25:06Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/19/2012 17:13:21</con:value>
+          <con:value>11/27/2012 18:15:06</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-12-19T00:00:00Z</con:value>
+          <con:value>2012-12-27T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>UserId</con:name>
-          <con:value>admindistMon Nov 19 17:18:21 UTC 20121</con:value>
+          <con:value>admindistTue Nov 27 18:20:06 UTC 20121</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -7735,23 +7735,23 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
 assert (count > 0);</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-11-19T17:13:44Z</con:value>
+          <con:value>2012-11-27T18:15:26Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-11-19T17:23:44Z</con:value>
+          <con:value>2012-11-27T18:25:26Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/19/2012 17:13:44</con:value>
+          <con:value>11/27/2012 18:15:26</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-12-19T00:00:00Z</con:value>
+          <con:value>2012-12-27T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>UserId</con:name>
-          <con:value>admindistMon Nov 19 17:18:44 UTC 20121</con:value>
+          <con:value>admindistTue Nov 27 18:20:26 UTC 20121</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -8176,7 +8176,7 @@ FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", context.findPro
       </con:testStep>
       <con:testStep name="Mock Policy Engine" type="mockresponse">
         <con:settings/>
-        <con:config startStep="send request" xsi:type="con:MockResponseStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config startStep="Set PolicyEngine Mock" xsi:type="con:MockResponseStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
           <con:interface>AdapterPolicyEngineBindingSoap</con:interface>
           <con:operation>CheckPolicy</con:operation>
           <con:path>/mockPE</con:path>
@@ -9666,19 +9666,19 @@ declare namespace ns19='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-11-19T18:00:41Z</con:value>
+          <con:value>2012-11-27T18:31:15Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-11-19T18:10:41Z</con:value>
+          <con:value>2012-11-27T18:41:15Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/19/2012 18:00:41</con:value>
+          <con:value>11/27/2012 18:31:15</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-12-19T00:00:00Z</con:value>
+          <con:value>2012-12-27T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -10104,19 +10104,19 @@ FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", context.findPropert
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-11-19T18:00:36Z</con:value>
+          <con:value>2012-11-27T18:15:47Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-11-19T18:10:36Z</con:value>
+          <con:value>2012-11-27T18:25:47Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/19/2012 18:00:36</con:value>
+          <con:value>11/27/2012 18:15:47</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-12-19T00:00:00Z</con:value>
+          <con:value>2012-12-27T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
