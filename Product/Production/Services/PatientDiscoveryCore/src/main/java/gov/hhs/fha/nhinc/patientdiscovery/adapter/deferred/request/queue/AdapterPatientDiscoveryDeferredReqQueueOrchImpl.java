@@ -53,8 +53,8 @@ import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditLogger;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditor;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryException;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryProcessor;
-import gov.hhs.fha.nhinc.patientdiscovery.passthru.deferred.response.proxy.PassthruPatientDiscoveryDeferredRespProxy;
-import gov.hhs.fha.nhinc.patientdiscovery.passthru.deferred.response.proxy.PassthruPatientDiscoveryDeferredRespProxyObjectFactory;
+import gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.response.proxy.EntityPatientDiscoveryDeferredResponseProxy;
+import gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.response.proxy.EntityPatientDiscoveryDeferredResponseProxyObjectFactory;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7AckTransforms;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 
@@ -147,7 +147,6 @@ public class AdapterPatientDiscoveryDeferredReqQueueOrchImpl {
     protected MCCIIN000002UV01 sendToNhin(PRPAIN201306UV02 respMsg, AssertionType assertion,
             NhinTargetCommunitiesType targets) {
         MCCIIN000002UV01 resp = new MCCIIN000002UV01();
-        NhinTargetSystemType targetSystem = new NhinTargetSystemType();
         java.util.List<UrlInfo> urlInfoList = null;
 
         if (targets != null) {
@@ -157,17 +156,10 @@ public class AdapterPatientDiscoveryDeferredReqQueueOrchImpl {
         if (NullChecker.isNotNullish(urlInfoList) && urlInfoList.get(0) != null
                 && NullChecker.isNotNullish(urlInfoList.get(0).getUrl())) {
 
-            UrlInfo urlInfo = urlInfoList.get(0);
-            targetSystem.setUrl(urlInfo.getUrl());
+            EntityPatientDiscoveryDeferredResponseProxyObjectFactory patientDiscoveryFactory = new EntityPatientDiscoveryDeferredResponseProxyObjectFactory();
+            EntityPatientDiscoveryDeferredResponseProxy proxy = patientDiscoveryFactory.getNhincPatientDiscoveryProxy();
 
-            HomeCommunityType homeCommunity = new HomeCommunityType();
-            homeCommunity.setHomeCommunityId(urlInfo.getHcid());
-            targetSystem.setHomeCommunity(homeCommunity);
-
-            PassthruPatientDiscoveryDeferredRespProxyObjectFactory patientDiscoveryFactory = new PassthruPatientDiscoveryDeferredRespProxyObjectFactory();
-            PassthruPatientDiscoveryDeferredRespProxy proxy = patientDiscoveryFactory.create();
-
-            resp = proxy.proxyProcessPatientDiscoveryAsyncResp(respMsg, assertion, targetSystem);
+            resp = proxy.processPatientDiscoveryAsyncResp(respMsg, assertion, targets);
         } else {
             log.error("Failed to send response to the Nhin as no target endpoints can be found.");
         }

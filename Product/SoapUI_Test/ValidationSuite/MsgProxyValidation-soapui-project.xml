@@ -1813,7 +1813,7 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 </con:properties>
 <con:reportParameters/>
 </con:testCase>
-<con:testCase failOnError="true" failTestCaseOnErrors="true" id="23843e47-a4ee-4d8c-939f-ae78cfc64bda" keepSession="false" maxResults="0" name="Patient Discovery Deferred Resp" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" id="23843e47-a4ee-4d8c-939f-ae78cfc64bda" keepSession="false" maxResults="0" name="Patient Discovery Deferred Resp" disabled="true"  searchProperties="true">
 	<con:settings/>      
 	<con:testStep name="Patient Discovery Deferred Resp" type="request">
 		<con:settings/>
@@ -6504,7 +6504,7 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 <con:reportParameters/>
 </con:testCase>
 
-<con:testCase failOnError="true" failTestCaseOnErrors="true" id="adbf725a-b15f-4188-a5f6-da1115f1b6f7" keepSession="false" maxResults="0" name="Patient Discovery Deferred Resp" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" id="adbf725a-b15f-4188-a5f6-da1115f1b6f7" keepSession="false" maxResults="0" name="Patient Discovery Deferred Resp" disabled="true"  searchProperties="true">
 	<con:settings/>      
 	<con:testStep name="Patient Discovery Deferred Resp" type="request">
 		<con:settings/>

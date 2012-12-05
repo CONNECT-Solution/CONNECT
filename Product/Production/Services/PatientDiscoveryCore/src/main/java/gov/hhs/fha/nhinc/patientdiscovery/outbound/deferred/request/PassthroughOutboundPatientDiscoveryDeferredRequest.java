@@ -43,10 +43,11 @@ import org.hl7.v3.PRPAIN201305UV02;
 
 public class PassthroughOutboundPatientDiscoveryDeferredRequest extends AbstractOutboundPatientDiscoveryDeferredRequest {
 
-    private OutboundPatientDiscoveryDeferredRequestDelegate delegate;
-    private PatientDiscoveryAuditor auditLogger;
-    private MessageGeneratorUtils msgUtils = MessageGeneratorUtils.getInstance();
-
+    private static final MessageGeneratorUtils msgUtils = MessageGeneratorUtils.getInstance();
+    
+    private final OutboundPatientDiscoveryDeferredRequestDelegate delegate;
+    private final PatientDiscoveryAuditor auditLogger;
+    
     /**
      * Constructor.
      */

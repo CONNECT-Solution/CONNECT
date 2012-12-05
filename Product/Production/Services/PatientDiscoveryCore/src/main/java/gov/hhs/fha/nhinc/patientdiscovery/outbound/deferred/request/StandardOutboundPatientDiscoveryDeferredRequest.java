@@ -61,16 +61,16 @@ import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 
 public class StandardOutboundPatientDiscoveryDeferredRequest extends AbstractOutboundPatientDiscoveryDeferredRequest {
 
-    private static MessageGeneratorUtils msgUtils = MessageGeneratorUtils.getInstance();
+    private static final MessageGeneratorUtils msgUtils = MessageGeneratorUtils.getInstance();
 
-    private Log log;
-    private PatientDiscovery201305Processor pd201305Processor;
-    private AsyncMessageProcessHelper asyncProcessHelper;
-    private PatientDiscoveryPolicyChecker policyChecker;
-    private OutboundPatientDiscoveryDeferredRequestDelegate delegate;
-    private PDDeferredCorrelationDao correlationDao;
-    private ConnectionManagerCache connectionManager;
-    private PatientDiscoveryAuditor auditLogger;
+    private final Log log;
+    private final PatientDiscovery201305Processor pd201305Processor;
+    private final AsyncMessageProcessHelper asyncProcessHelper;
+    private final PatientDiscoveryPolicyChecker policyChecker;
+    private final OutboundPatientDiscoveryDeferredRequestDelegate delegate;
+    private final PDDeferredCorrelationDao correlationDao;
+    private final ConnectionManagerCache connectionManager;
+    private final PatientDiscoveryAuditor auditLogger;
 
     /**
      * Constructor.
@@ -144,7 +144,7 @@ public class StandardOutboundPatientDiscoveryDeferredRequest extends AbstractOut
                 if (isPolicyValid(newRequest)) {
                     ack = sendToNhin(newRequest.getPRPAIN201305UV02(), newRequest.getAssertion(), urlInfo);
                 } else {
-                    ack = HL7AckTransforms.createAckErrorFrom201305(message, "Policy Failed");
+                    ack = HL7AckTransforms.createAckErrorFrom201305(message, "Policy Check Failed");
                 }
             }
         } else {
