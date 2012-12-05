@@ -37,7 +37,7 @@ import javax.xml.ws.WebServiceContext;
  * @author Neil Webb
  */
 public class DocumentRepositoryServiceImpl {
-    private AsyncMessageIdExtractor = new AsyncMessageIdExtractor();
+    private AsyncMessageIdExtractor extractor = new AsyncMessageIdExtractor();
 
     public ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType documentRepositoryRetrieveDocumentSet(
             ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType body, WebServiceContext context) {
