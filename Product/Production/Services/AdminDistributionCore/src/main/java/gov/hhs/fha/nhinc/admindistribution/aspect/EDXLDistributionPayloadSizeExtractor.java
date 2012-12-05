@@ -1,4 +1,4 @@
-/*
+/**
  * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
@@ -24,52 +24,49 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.admindistribution._20.nhin;
+package gov.hhs.fha.nhinc.admindistribution.aspect;
 
-import gov.hhs.fha.nhinc.admindistribution.aspect.EDXLDistributionEventDescriptionBuilder;
-import gov.hhs.fha.nhinc.admindistribution.inbound.InboundAdminDistribution;
-import gov.hhs.fha.nhinc.aspect.InboundMessageEvent;
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
-import gov.hhs.fha.nhinc.messaging.server.BaseService;
-import gov.hhs.fha.nhinc.nhinadmindistribution.RespondingGatewayAdministrativeDistributionPortType;
+import java.util.ArrayList;
+import java.util.List;
 
-import javax.annotation.Resource;
-import javax.xml.ws.BindingType;
-import javax.xml.ws.WebServiceContext;
-import javax.xml.ws.soap.Addressing;
-
+import oasis.names.tc.emergency.edxl.de._1.ContentObjectType;
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 
 /**
+ * @author zmelnick
  * 
- * @author dunnek
  */
+public class EDXLDistributionPayloadSizeExtractor {
 
-@BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
-@Addressing(enabled = true)
-public class NhinAdministrativeDistribution_g1 extends BaseService implements
-        RespondingGatewayAdministrativeDistributionPortType {
-
-    private WebServiceContext context;
-    private InboundAdminDistribution inboundAdminDist;
-
-    @Override
-    @InboundMessageEvent(serviceType = "Admin Distribution", version = "2.0",
-            afterReturningBuilder = DefaultEventDescriptionBuilder.class,
-            beforeBuilder = EDXLDistributionEventDescriptionBuilder.class)
-    public void sendAlertMessage(EDXLDistribution body) {
-        AssertionType assertion = getAssertion(context, null);
-
-        inboundAdminDist.sendAlertMessage(body, assertion);
+    /**
+     * Determines the payload sizes for each alert message.
+     * 
+     * @param alertMessage
+     *            the EDXLDistribution.
+     * @return list of sizes
+     */
+    public List<String> getPayloadSizes(EDXLDistribution alertMessage) {
+        List<String> payloadSize = new ArrayList<String>();
+        if (alertMessage != null) {
+            List<ContentObjectType> contents = alertMessage.getContentObject();
+            for (ContentObjectType message : contents) {
+                payloadSize.add(getPayloadSize(message));
+            }
+        }
+        return payloadSize;
     }
 
-    @Resource
-    public void setContext(WebServiceContext context) {
-        this.context = context;
+    private String getPayloadSize(ContentObjectType message) {
+        if (isPayloadSizeEmpty(message)) {
+            return "";
+        } else {
+            return message.getNonXMLContent().getSize().toString();
+        }
     }
 
-    public void setInboundAdminDistribution(InboundAdminDistribution inboundAdminDist) {
-        this.inboundAdminDist = inboundAdminDist;
+    private boolean isPayloadSizeEmpty(ContentObjectType message) {
+        return message.getXmlContent() != null
+                || (message.getNonXMLContent() != null && message.getNonXMLContent().getSize() == null);
     }
+
 }

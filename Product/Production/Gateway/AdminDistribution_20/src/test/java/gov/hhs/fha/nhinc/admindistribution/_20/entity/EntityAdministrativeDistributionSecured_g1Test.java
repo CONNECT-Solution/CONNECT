@@ -1,4 +1,6 @@
 /**
+ * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
+ *
  * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
@@ -24,51 +26,30 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.admindistribution.aspect;
+package gov.hhs.fha.nhinc.admindistribution._20.entity;
 
-import java.util.ArrayList;
-import java.util.List;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import gov.hhs.fha.nhinc.admindistribution.aspect.ADRequestTransformingBuilder;
+import gov.hhs.fha.nhinc.aspect.OutboundMessageEvent;
+import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewaySendAlertMessageSecuredType;
+import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
 
-import oasis.names.tc.emergency.edxl.de._1.ContentObjectType;
-import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
+import java.lang.reflect.Method;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.junit.Test;
 
-/**
- * @author zmelnick
- *
- */
-public class EDXLDistributionDescriptionExtractor {
+public class EntityAdministrativeDistributionSecured_g1Test {
 
-    private static final Log LOG = LogFactory.getLog(EDXLDistributionDescriptionExtractor.class);
-
-    /**
-     * Determines the payload sizes for each alert message.
-     * @param alertMessage the EDXLDistribution.
-     * @return list of sizes
-     */
-    public List<String> getPayloadSizes(EDXLDistribution alertMessage) {
-        List<String> payloadSize = new ArrayList<String>();
-        if (alertMessage != null) {
-            List<ContentObjectType> contents = alertMessage.getContentObject();
-            for (ContentObjectType message : contents) {
-                if (isPayloadSizeEmpty(message)) {
-                    LOG.info("Paylod size not provided");
-                    payloadSize.clear();
-                    break;
-                } else {
-                    payloadSize.add(message.getNonXMLContent().getSize().toString());
-                }
-            }
-        }
-        return payloadSize;
+    @Test
+    public void hasEventAnnotation() throws Exception {
+        Class<?> clazz = EntityAdministrativeDistributionSecured_g1.class;
+        Method method = clazz.getMethod("sendAlertMessage", RespondingGatewaySendAlertMessageSecuredType.class);
+        OutboundMessageEvent annotation = method.getAnnotation(OutboundMessageEvent.class);
+        assertNotNull(annotation);
+        assertEquals(ADRequestTransformingBuilder.class, annotation.beforeBuilder());
+        assertEquals(DefaultEventDescriptionBuilder.class, annotation.afterReturningBuilder());
+        assertEquals("Admin Distribution", annotation.serviceType());
+        assertEquals("2.0", annotation.version());
     }
-
-   
-    private boolean isPayloadSizeEmpty(ContentObjectType message) {
-        return message.getXmlContent() != null
-                || (message.getNonXMLContent() != null && message.getNonXMLContent().getSize() == null);
-    }
-
 }

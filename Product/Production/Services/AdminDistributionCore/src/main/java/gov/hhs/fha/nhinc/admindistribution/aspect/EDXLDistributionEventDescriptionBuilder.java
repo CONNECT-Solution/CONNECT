@@ -26,40 +26,20 @@
  */
 package gov.hhs.fha.nhinc.admindistribution.aspect;
 
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.event.AssertionEventDescriptionBuilder;
-import gov.hhs.fha.nhinc.event.builder.AssertionDescriptionExtractor;
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
+
+import com.google.common.collect.ImmutableList;
 
 /**
  * @author zmelnick
  * 
  */
-public class InboundProcessingEventDescriptionBuilder extends AssertionEventDescriptionBuilder {
+public class EDXLDistributionEventDescriptionBuilder extends AssertionEventDescriptionBuilder {
 
-    private final EDXLDistributionDescriptionExtractor AD_EXTRACTOR;
+    private EDXLDistributionPayloadSizeExtractor payloadSizeExtractor = new EDXLDistributionPayloadSizeExtractor();
 
     EDXLDistribution alertMessage;
-
-    /**
-     * Public constructor
-     */
-    public InboundProcessingEventDescriptionBuilder() {
-        this(new EDXLDistributionDescriptionExtractor());
-    }
-
-    /**
-     * Public Constructor
-     */
-    public InboundProcessingEventDescriptionBuilder(final EDXLDistributionDescriptionExtractor adExtractor) {
-        AD_EXTRACTOR = adExtractor;
-    }
-
-    public InboundProcessingEventDescriptionBuilder(EDXLDistributionDescriptionExtractor edxldExtractor,
-            AssertionDescriptionExtractor assertionExtractor) {
-        this(edxldExtractor);
-        setAssertionExtractor(assertionExtractor);
-    }
 
     /*
      * (non-Javadoc)
@@ -68,7 +48,10 @@ public class InboundProcessingEventDescriptionBuilder extends AssertionEventDesc
      */
     @Override
     public void buildTimeStamp() {
-
+        if (alertMessage == null || alertMessage.getDateTimeSent() == null) {
+            return;
+        }
+        setTimeStamp(alertMessage.getDateTimeSent().toString());
     }
 
     /*
@@ -78,8 +61,10 @@ public class InboundProcessingEventDescriptionBuilder extends AssertionEventDesc
      */
     @Override
     public void buildStatuses() {
-        // no status response in AD messages
-
+        if (alertMessage == null || alertMessage.getDistributionStatus() == null) {
+            return;
+        }
+        setStatuses(ImmutableList.of(alertMessage.getDistributionStatus().toString()));
     }
 
     /*
@@ -109,7 +94,7 @@ public class InboundProcessingEventDescriptionBuilder extends AssertionEventDesc
      */
     @Override
     public void buildPayloadSizes() {
-        setPayloadSizes(AD_EXTRACTOR.getPayloadSizes(alertMessage));
+        setPayloadSizes(payloadSizeExtractor.getPayloadSizes(alertMessage));
     }
 
     /*
@@ -129,14 +114,20 @@ public class InboundProcessingEventDescriptionBuilder extends AssertionEventDesc
      */
     @Override
     public void setArguments(Object... arguements) {
-        if (arguements != null && arguements.length == 2 && areArgumentTypesExpected(arguements)) {
-            this.alertMessage = (EDXLDistribution) arguements[0];
-            extractAssertion(arguements);
-        }
+        extractAssertion(arguements);
+        extractAlertMessage(arguements);
     }
 
-    private boolean areArgumentTypesExpected(Object... arguments) {
-        return arguments[0] instanceof EDXLDistribution && arguments[1] instanceof AssertionType;
+    private void extractAlertMessage(Object... arguments) {
+        if (arguments == null) {
+            return;
+        }
+        for (Object argument : arguments) {
+            if (argument instanceof EDXLDistribution) {
+                this.alertMessage = (EDXLDistribution) argument;
+                break;
+            }
+        }
     }
 
     /*
@@ -147,5 +138,13 @@ public class InboundProcessingEventDescriptionBuilder extends AssertionEventDesc
     @Override
     public void setReturnValue(Object returnValue) {
         // no action needed. Return value is "void" for AD. The object "return value" is a null object.
+    }
+
+    EDXLDistributionPayloadSizeExtractor getPayloadSizeExtractor() {
+        return payloadSizeExtractor;
+    }
+
+    void setPayloadSizeExtractor(EDXLDistributionPayloadSizeExtractor edxldExtractor) {
+        payloadSizeExtractor = edxldExtractor;
     }
 }

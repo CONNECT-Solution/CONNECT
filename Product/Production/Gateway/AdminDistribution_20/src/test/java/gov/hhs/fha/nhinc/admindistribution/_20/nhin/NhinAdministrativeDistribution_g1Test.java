@@ -1,4 +1,6 @@
-/*
+/**
+ * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
+ *
  * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
@@ -26,50 +28,29 @@
  */
 package gov.hhs.fha.nhinc.admindistribution._20.nhin;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import gov.hhs.fha.nhinc.admindistribution.aspect.EDXLDistributionEventDescriptionBuilder;
-import gov.hhs.fha.nhinc.admindistribution.inbound.InboundAdminDistribution;
 import gov.hhs.fha.nhinc.aspect.InboundMessageEvent;
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
-import gov.hhs.fha.nhinc.messaging.server.BaseService;
-import gov.hhs.fha.nhinc.nhinadmindistribution.RespondingGatewayAdministrativeDistributionPortType;
 
-import javax.annotation.Resource;
-import javax.xml.ws.BindingType;
-import javax.xml.ws.WebServiceContext;
-import javax.xml.ws.soap.Addressing;
+import java.lang.reflect.Method;
 
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 
-/**
- * 
- * @author dunnek
- */
+import org.junit.Test;
 
-@BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
-@Addressing(enabled = true)
-public class NhinAdministrativeDistribution_g1 extends BaseService implements
-        RespondingGatewayAdministrativeDistributionPortType {
+public class NhinAdministrativeDistribution_g1Test {
 
-    private WebServiceContext context;
-    private InboundAdminDistribution inboundAdminDist;
-
-    @Override
-    @InboundMessageEvent(serviceType = "Admin Distribution", version = "2.0",
-            afterReturningBuilder = DefaultEventDescriptionBuilder.class,
-            beforeBuilder = EDXLDistributionEventDescriptionBuilder.class)
-    public void sendAlertMessage(EDXLDistribution body) {
-        AssertionType assertion = getAssertion(context, null);
-
-        inboundAdminDist.sendAlertMessage(body, assertion);
-    }
-
-    @Resource
-    public void setContext(WebServiceContext context) {
-        this.context = context;
-    }
-
-    public void setInboundAdminDistribution(InboundAdminDistribution inboundAdminDist) {
-        this.inboundAdminDist = inboundAdminDist;
+    @Test
+    public void hasEventAnnotation() throws Exception {
+        Class<?> clazz = NhinAdministrativeDistribution_g1.class;
+        Method method = clazz.getMethod("sendAlertMessage", EDXLDistribution.class);
+        InboundMessageEvent annotation = method.getAnnotation(InboundMessageEvent.class);
+        assertNotNull(annotation);
+        assertEquals(EDXLDistributionEventDescriptionBuilder.class, annotation.beforeBuilder());
+        assertEquals(DefaultEventDescriptionBuilder.class, annotation.afterReturningBuilder());
+        assertEquals("Admin Distribution", annotation.serviceType());
+        assertEquals("2.0", annotation.version());
     }
 }
