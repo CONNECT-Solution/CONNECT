@@ -40,6 +40,7 @@ import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
  * @author Neil Webb
  */
 public class DocumentRegistryImpl {
+    private AsyncMessageIdExtractor extractor = new AsyncMessageIdExtractor();
 
     public AdhocQueryResponse documentRegistryRegistryStoredQuery(AdhocQueryRequest body, WebServiceContext context) {
         AssertionType assertion = getAssertion(context);
@@ -50,7 +51,7 @@ public class DocumentRegistryImpl {
         AssertionType assertion = new AssertionType();
 
         // Extract the relates to value from the WS-Addressing Header and place it in the Assertion Class
-        assertion.setMessageId(new AsyncMessageIdExtractor().getOrCreateAsyncMessageId(context));
+        assertion.setMessageId(extractor.getOrCreateAsyncMessageId(context));
 
         return assertion;
     }

@@ -48,6 +48,7 @@ import org.apache.commons.logging.LogFactory;
 public class AdapterComponentRedactionEngineImpl {
 
     private Log log = null;
+    private AsyncMessageIdExtractor extractor = new AsyncMessageIdExtractor();
 
     public AdapterComponentRedactionEngineImpl() {
         log = createLogger();
@@ -93,7 +94,7 @@ public class AdapterComponentRedactionEngineImpl {
         AssertionType assertion = new AssertionType();
 
         // Extract the relates to value from the WS-Addressing Header and place it in the Assertion Class
-        assertion.setMessageId(new AsyncMessageIdExtractor().getOrCreateAsyncMessageId(context));
+        assertion.setMessageId(extractor.getOrCreateAsyncMessageId(context));
 
         return assertion;
     }

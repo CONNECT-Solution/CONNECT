@@ -19,6 +19,8 @@ import javax.xml.ws.WebServiceContext;
  */
 public abstract class BaseService {
 
+    private AsyncMessageIdExtractor extractor = new AsyncMessageIdExtractor();
+    
     protected AssertionType getAssertion(WebServiceContext context, AssertionType oAssertionIn) {
         AssertionType assertion = null;
         if (oAssertionIn == null) {
@@ -26,7 +28,6 @@ public abstract class BaseService {
         } else {
             assertion = oAssertionIn;
         }
-        AsyncMessageIdExtractor extractor = new AsyncMessageIdExtractor();
         // Extract the message id value from the WS-Addressing Header and place it in the Assertion Class
         if (assertion != null) {
             assertion.setMessageId(extractor.getOrCreateAsyncMessageId(context));

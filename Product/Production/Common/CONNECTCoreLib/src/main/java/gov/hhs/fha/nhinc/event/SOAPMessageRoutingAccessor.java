@@ -43,6 +43,7 @@ import org.apache.cxf.jaxws.context.WebServiceContextImpl;
 public class SOAPMessageRoutingAccessor implements MessageRoutingAccessor {
 
     private WebServiceContext context;
+    private AsyncMessageIdExtractor extractor = new AsyncMessageIdExtractor();
 
     public SOAPMessageRoutingAccessor() {
         this.context = new WebServiceContextImpl();
@@ -59,7 +60,7 @@ public class SOAPMessageRoutingAccessor implements MessageRoutingAccessor {
      */
     @Override
     public String getMessageId() {
-        return new AsyncMessageIdExtractor().getMessageId(context);
+        return extractor.getMessageId(context);
     }
 
     /*
@@ -69,7 +70,6 @@ public class SOAPMessageRoutingAccessor implements MessageRoutingAccessor {
      */
     @Override
     public String getTransactionId() {
-        AsyncMessageIdExtractor extractor = new AsyncMessageIdExtractor();
         String messageId = extractor.getMessageId(context);
         String transactionId = null;
 

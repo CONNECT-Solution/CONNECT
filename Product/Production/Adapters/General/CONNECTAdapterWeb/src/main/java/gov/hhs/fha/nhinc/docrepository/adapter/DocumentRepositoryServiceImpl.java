@@ -37,6 +37,7 @@ import javax.xml.ws.WebServiceContext;
  * @author Neil Webb
  */
 public class DocumentRepositoryServiceImpl {
+    private AsyncMessageIdExtractor = new AsyncMessageIdExtractor();
 
     public ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType documentRepositoryRetrieveDocumentSet(
             ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType body, WebServiceContext context) {
@@ -54,7 +55,7 @@ public class DocumentRepositoryServiceImpl {
         AssertionType assertion = new AssertionType();
 
         // Extract the relates to value from the WS-Addressing Header and place it in the Assertion Class
-        assertion.setMessageId(new AsyncMessageIdExtractor().getOrCreateAsyncMessageId(context));
+        assertion.setMessageId(extractor.getOrCreateAsyncMessageId(context));
 
         return assertion;
     }
