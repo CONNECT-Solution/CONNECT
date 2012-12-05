@@ -27,8 +27,11 @@
 package gov.hhs.fha.nhinc.docsubmission.adapter.deferred.response.proxy;
 
 import gov.hhs.fha.nhinc.adapterxdrresponsesecured.AdapterXDRResponseSecuredPortType;
+import gov.hhs.fha.nhinc.aspect.AdapterDelegationEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.docsubmission.adapter.deferred.response.proxy.service.AdapterDocSubmissionDeferredResponseSecuredServicePortDescriptor;
+import gov.hhs.fha.nhinc.docsubmission.aspect.DeferredResponseDescriptionBuilder;
+import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionArgTransformerBuilder;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
@@ -66,11 +69,13 @@ public class AdapterDocSubmissionDeferredResponseProxyWebServiceSecuredImpl impl
 
     protected CONNECTClient<AdapterXDRResponseSecuredPortType> getCONNECTClientSecured(
             ServicePortDescriptor<AdapterXDRResponseSecuredPortType> portDescriptor, String url, AssertionType assertion) {
-        
-        return CONNECTClientFactory.getInstance().getCONNECTClientSecured(portDescriptor,
-                url, assertion);
+
+        return CONNECTClientFactory.getInstance().getCONNECTClientSecured(portDescriptor, url, assertion);
     }
 
+    @AdapterDelegationEvent(beforeBuilder = DeferredResponseDescriptionBuilder.class,
+            afterReturningBuilder = DocSubmissionArgTransformerBuilder.class,
+            serviceType = "Document Submission Deferred Response", version = "")
     public XDRAcknowledgementType provideAndRegisterDocumentSetBResponse(RegistryResponseType regResponse,
             AssertionType assertion) {
         log.debug("Begin AdapterDocSubmissionDeferredResponseProxyWebServiceSecuredImpl.provideAndRegisterDocumentSetBResponse");
@@ -83,7 +88,8 @@ public class AdapterDocSubmissionDeferredResponseProxyWebServiceSecuredImpl impl
             if (NullChecker.isNotNullish(url)) {
                 ServicePortDescriptor<AdapterXDRResponseSecuredPortType> portDescriptor = new AdapterDocSubmissionDeferredResponseSecuredServicePortDescriptor();
 
-                CONNECTClient<AdapterXDRResponseSecuredPortType> client = getCONNECTClientSecured(portDescriptor, url, assertion);
+                CONNECTClient<AdapterXDRResponseSecuredPortType> client = getCONNECTClientSecured(portDescriptor, url,
+                        assertion);
 
                 response = (XDRAcknowledgementType) client.invokePort(AdapterXDRResponseSecuredPortType.class,
                         "provideAndRegisterDocumentSetBResponse", regResponse);

@@ -29,7 +29,7 @@ package gov.hhs.fha.nhinc.patientdiscovery.entity.proxy;
 import static org.junit.Assert.*;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
-import gov.hhs.fha.nhinc.patientdiscovery.entity.EntityPatientDiscoveryOrchImpl;
+import gov.hhs.fha.nhinc.patientdiscovery.outbound.StandardOutboundPatientDiscovery;
 
 import org.apache.commons.logging.Log;
 import org.hl7.v3.PRPAIN201305UV02;
@@ -58,7 +58,7 @@ public class EntityPatientDiscoveryProxyJavaImplTest {
     final PRPAIN201305UV02 mockPdRequest = context.mock(PRPAIN201305UV02.class);
     final AssertionType mockAssertion = context.mock(AssertionType.class);
     final NhinTargetCommunitiesType mockTargetCommunities = context.mock(NhinTargetCommunitiesType.class);
-    final EntityPatientDiscoveryOrchImpl mockProcessor = context.mock(EntityPatientDiscoveryOrchImpl.class);
+    final StandardOutboundPatientDiscovery mockProcessor = context.mock(StandardOutboundPatientDiscovery.class);
 
     @Test
     public void testCreateLogger() {
@@ -88,11 +88,11 @@ public class EntityPatientDiscoveryProxyJavaImplTest {
                 }
 
                 @Override
-                protected EntityPatientDiscoveryOrchImpl getEntityPatientDiscoveryProcessor() {
+                protected StandardOutboundPatientDiscovery getEntityPatientDiscoveryProcessor() {
                     return mockProcessor;
                 }
             };
-            EntityPatientDiscoveryOrchImpl processor = sut.getEntityPatientDiscoveryProcessor();
+            StandardOutboundPatientDiscovery processor = sut.getEntityPatientDiscoveryProcessor();
             assertNotNull("EntityPatientDiscoveryProcessor was null", processor);
         } catch (Throwable t) {
             System.out.println("Error running testGetEntityPatientDiscoveryProcessor test: " + t.getMessage());
@@ -112,7 +112,7 @@ public class EntityPatientDiscoveryProxyJavaImplTest {
                 }
 
                 @Override
-                protected EntityPatientDiscoveryOrchImpl getEntityPatientDiscoveryProcessor() {
+                protected StandardOutboundPatientDiscovery getEntityPatientDiscoveryProcessor() {
                     return mockProcessor;
                 }
             };
@@ -145,7 +145,7 @@ public class EntityPatientDiscoveryProxyJavaImplTest {
                 }
 
                 @Override
-                protected EntityPatientDiscoveryOrchImpl getEntityPatientDiscoveryProcessor() {
+                protected StandardOutboundPatientDiscovery getEntityPatientDiscoveryProcessor() {
                     return null;
                 }
             };

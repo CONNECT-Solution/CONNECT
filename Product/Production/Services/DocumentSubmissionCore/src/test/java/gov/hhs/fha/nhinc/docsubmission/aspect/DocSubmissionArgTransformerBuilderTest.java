@@ -30,46 +30,19 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-import gov.hhs.fha.nhinc.event.BaseDescriptionBuilderTest;
 import gov.hhs.fha.nhinc.event.BeanPropertyArgumentTransformer;
+import gov.hhs.fha.nhinc.event.BeanTransformerTest;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
-
-import java.beans.PropertyDescriptor;
-
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
-import org.junit.Before;
 import org.junit.Test;
-import org.springframework.beans.BeanUtils;
 
-public class DocSubmissionArgTransformerBuilderTest extends BaseDescriptionBuilderTest {
-    private DocSubmissionArgTransformerBuilder builder;
+public class DocSubmissionArgTransformerBuilderTest extends BeanTransformerTest<DocSubmissionArgTransformerBuilder> {
 
-    @Before
-    public void before() {
-        builder = new DocSubmissionArgTransformerBuilder();
-    }
-
-    @Test
-    public void jaxbTypesHaveCorrectBeanProperties() {
-        Class<?>[] classes = new Class<?>[] {
-                gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetRequestType.class,
-                gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetRequestType.class,
-                gov.hhs.fha.nhinc.common.nhinccommoninternalorch.RespondingGatewayProvideAndRegisterDocumentSetRequestType.class,
-                gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType.class,
-                gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType.class };
-        for (int curClass = 0; curClass < classes.length; ++curClass) {
-            PropertyDescriptor[] propertyDescriptors = BeanUtils.getPropertyDescriptors(classes[curClass]);
-            boolean found = false;
-            for (int i = 0; i < propertyDescriptors.length; ++i) {
-                Class<?> propertyType = propertyDescriptors[i].getPropertyType();
-                if (propertyType.equals(ProvideAndRegisterDocumentSetRequestType.class)) {
-                    found = true;
-                }
-            }
-            assertTrue(classes[curClass].toString(), found);
-        }
+    @Override
+    public DocSubmissionArgTransformerBuilder getBuilder() {
+        return new DocSubmissionArgTransformerBuilder();
     }
 
     @Test
@@ -86,5 +59,20 @@ public class DocSubmissionArgTransformerBuilderTest extends BaseDescriptionBuild
         XDRAcknowledgementType wrapperMock = mock(XDRAcknowledgementType.class);
         when(wrapperMock.getMessage()).thenReturn(baseResponseMock);
         assertEquals(baseResponseMock, builder.transformReturnValue(wrapperMock));
+    }
+
+    @Override
+    public Class<?> getTransformToClass() {
+        return ProvideAndRegisterDocumentSetRequestType.class;
+    }
+
+    @Override
+    public Class<?>[] getExpectedWrapperClasses() {
+        return new Class<?>[] {
+                gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetRequestType.class,
+                gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetRequestType.class,
+                gov.hhs.fha.nhinc.common.nhinccommoninternalorch.RespondingGatewayProvideAndRegisterDocumentSetRequestType.class,
+                gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType.class,
+                gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType.class };
     }
 }

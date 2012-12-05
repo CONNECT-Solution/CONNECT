@@ -26,9 +26,12 @@
  */
 package gov.hhs.fha.nhinc.docsubmission._11.nhin.deferred.response;
 
+import gov.hhs.healthit.nhin.XDRAcknowledgementType;
+import  oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import gov.hhs.fha.nhinc.aspect.InboundMessageEvent;
+import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionBaseEventDescriptionBuilder;
+import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionArgTransformerBuilder;
 import gov.hhs.fha.nhinc.docsubmission.inbound.deferred.response.InboundDocSubmissionDeferredResponse;
-import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
 
 import javax.annotation.Resource;
 import javax.xml.ws.BindingType;
@@ -54,10 +57,10 @@ public class NhinXDRResponse implements ihe.iti.xdr._2007.XDRDeferredResponsePor
      */
     @Override
     @InboundMessageEvent(serviceType = "Document Submission Deferred Response", version = "1.1",
-            beforeBuilder = DefaultEventDescriptionBuilder.class,
-            afterReturningBuilder = DefaultEventDescriptionBuilder.class)
-    public gov.hhs.healthit.nhin.XDRAcknowledgementType provideAndRegisterDocumentSetBDeferredResponse(
-            oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType body) {
+            beforeBuilder = DocSubmissionBaseEventDescriptionBuilder.class,
+            afterReturningBuilder = DocSubmissionArgTransformerBuilder.class)
+    public XDRAcknowledgementType provideAndRegisterDocumentSetBDeferredResponse(
+            RegistryResponseType body) {
         return new NhinDocSubmissionDeferredResponseImpl(inboundDocSubmissionResponse)
                 .provideAndRegisterDocumentSetBResponse(body, context);
     }
