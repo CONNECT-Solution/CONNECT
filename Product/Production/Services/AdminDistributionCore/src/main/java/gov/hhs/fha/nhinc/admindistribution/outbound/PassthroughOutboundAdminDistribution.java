@@ -28,13 +28,16 @@ package gov.hhs.fha.nhinc.admindistribution.outbound;
 
 import gov.hhs.fha.nhinc.admindistribution.AdminDistributionAuditLogger;
 import gov.hhs.fha.nhinc.admindistribution.MessageGeneratorUtils;
+import gov.hhs.fha.nhinc.admindistribution.aspect.ADRequestTransformingBuilder;
 import gov.hhs.fha.nhinc.admindistribution.entity.OutboundAdminDistributionDelegate;
 import gov.hhs.fha.nhinc.admindistribution.entity.OutboundAdminDistributionOrchestratable;
+import gov.hhs.fha.nhinc.aspect.OutboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewaySendAlertMessageSecuredType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewaySendAlertMessageType;
+import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 
 public class PassthroughOutboundAdminDistribution implements OutboundAdminDistribution {
@@ -67,6 +70,9 @@ public class PassthroughOutboundAdminDistribution implements OutboundAdminDistri
      * @param target
      */
     @Override
+    @OutboundProcessingEvent(beforeBuilder = ADRequestTransformingBuilder.class,
+            afterReturningBuilder = DefaultEventDescriptionBuilder.class, serviceType = "Admin Distribution",
+            version = "")
     public void sendAlertMessage(RespondingGatewaySendAlertMessageSecuredType message, AssertionType assertion,
             NhinTargetCommunitiesType target) {
         RespondingGatewaySendAlertMessageType request = msgUtils.convertToUnsecured(message, assertion, target);
@@ -82,6 +88,9 @@ public class PassthroughOutboundAdminDistribution implements OutboundAdminDistri
      * @param target
      */
     @Override
+    @OutboundProcessingEvent(beforeBuilder = ADRequestTransformingBuilder.class,
+            afterReturningBuilder = DefaultEventDescriptionBuilder.class, serviceType = "Admin Distribution",
+            version = "")
     public void sendAlertMessage(RespondingGatewaySendAlertMessageType request, AssertionType assertion,
             NhinTargetCommunitiesType targetCommunities) {
         NhinTargetSystemType target = msgUtils.convertFirstToNhinTargetSystemType(targetCommunities);
@@ -93,7 +102,7 @@ public class PassthroughOutboundAdminDistribution implements OutboundAdminDistri
 
     private void sendToNhin(RespondingGatewaySendAlertMessageType request, AssertionType assertion,
             NhinTargetSystemType target) {
-        
+
         auditRequestToNhin(request, assertion, target);
 
         OutboundAdminDistributionOrchestratable orchestratable = new OutboundAdminDistributionOrchestratable(adDelegate);
@@ -104,13 +113,13 @@ public class PassthroughOutboundAdminDistribution implements OutboundAdminDistri
 
         adDelegate.process(orchestratable);
     }
-    
+
     private void auditRequestFromAdapter(RespondingGatewaySendAlertMessageType request, AssertionType assertion,
             NhinTargetSystemType target) {
         auditLogger.auditNhincAdminDist(request.getEDXLDistribution(), assertion, target,
                 NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
     }
-    
+
     private void auditRequestToNhin(RespondingGatewaySendAlertMessageType request, AssertionType assertion,
             NhinTargetSystemType target) {
         auditLogger.auditNhincAdminDist(request.getEDXLDistribution(), assertion, target,
