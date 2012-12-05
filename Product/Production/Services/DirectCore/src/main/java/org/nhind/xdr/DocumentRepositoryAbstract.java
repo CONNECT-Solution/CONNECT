@@ -29,7 +29,7 @@
 package org.nhind.xdr;
 
 import gov.hhs.fha.nhinc.direct.DirectClient;
-import gov.hhs.fha.nhinc.direct.xdr.DirectObjectFactory;
+import gov.hhs.fha.nhinc.direct.DirectClientFactory;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 
@@ -235,7 +235,7 @@ public abstract class DocumentRepositoryAbstract {
 	}
 
 	private DirectClient getDirectClient() {
-		return new DirectObjectFactory().getDirectClient();
+		return new DirectClientFactory().getDirectClient();
 	}
 
 	/**

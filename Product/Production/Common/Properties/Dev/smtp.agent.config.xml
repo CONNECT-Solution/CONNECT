@@ -1,45 +1,21 @@
 <SmtpAgentConfig>
-   <Domains>
-      <AnchorStore type="Uniform" storeType="KeyStore" file="C:\glassfish3\glassfish\domains\domain1\config\gateway.jks" filePass="changeit" privKeyPass="changeit"/>    
-      <Domain name="localhost" postmaster="postmaster@localhost">
+   <Domains>        
+      <AnchorStore type="Uniform" storeType="KeyStore" file="/path/to/config/directkeystore.jks" filePass="changeit" privKeyPass="changeit"/>    
+      <Domain name="direct.connectopensource.org" postmaster="postmaster@direct.connectopensource.org">
          <IncomingTrustAnchors> 
-            <Anchor name="cacert"/>
-            <Anchor name="cacert-5am"/>
-            <Anchor name="provider-localhost"/>
-            <Anchor name="provider-5am"/>
-            <Anchor name="org-localhost"/>
-            <Anchor name="org-5am"/>
+            <Anchor name="direct.connectopensource.org_ca"/>
+            <Anchor name="direct.connectopensource.org"/>            
+            <Anchor name="direct.icaetc.com"/>
          </IncomingTrustAnchors>  
          <OutgoingTrustAnchors> 
-            <Anchor name="cacert"/>
-            <Anchor name="cacert-5am"/>
-            <Anchor name="provider-localhost"/>
-            <Anchor name="provider-5am"/>
-            <Anchor name="org-localhost"/>
-            <Anchor name="org-5am"/>
+            <Anchor name="direct.connectopensource.org_ca"/>
+            <Anchor name="direct.connectopensource.org"/>            
+            <Anchor name="direct.icaetc.com"/>
          </OutgoingTrustAnchors>           
       </Domain> 
-      <Domain name="5amsolutions.com" postmaster="postmaster@5amsolutions.com">    
-         <IncomingTrustAnchors> 
-            <Anchor name="cacert"/>
-            <Anchor name="cacert-5am"/>
-            <Anchor name="provider-localhost"/>
-            <Anchor name="provider-5am"/>
-            <Anchor name="org-localhost"/>
-            <Anchor name="org-5am"/>
-         </IncomingTrustAnchors>  
-         <OutgoingTrustAnchors> 
-            <Anchor name="cacert"/>
-            <Anchor name="cacert-5am"/>
-            <Anchor name="provider-localhost"/>
-            <Anchor name="provider-5am"/>
-            <Anchor name="org-localhost"/>
-            <Anchor name="org-5am"/>
-         </OutgoingTrustAnchors>         
-      </Domain> 
    </Domains>
-   <PublicCertStore type="Keystore" file="C:\glassfish3\glassfish\domains\domain1\config\gateway.jks" filePass="changeit" privKeyPass="changeit"/>
-   <PrivateCertStore type="Keystore" file="C:\glassfish3\glassfish\domains\domain1\config\gateway.jks" filePass="changeit" privKeyPass="changeit"/>
+   <PublicCertStore type="Keystore" file="/path/to/config/directkeystore.jks" filePass="changeit" privKeyPass="changeit"/>
+   <PrivateCertStore type="Keystore" file="/path/to/config/directkeystore.jks" filePass="changeit" privKeyPass="changeit"/>
    <RawMessageSettings saveFolder="RawMsgFolder"/>
    <OutgoingMessagesSettings saveFolder="OutgoingMsgFolder"/>
    <IncomingMessagesSettings saveFolder="IncomingMsgFolder"/>
