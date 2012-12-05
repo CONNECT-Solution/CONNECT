@@ -6780,7 +6780,7 @@ def destFile = "uddiConnectionInfo.xml.BACKUP";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-nhinc.FileUtils.moveFile(sourceDir, sourceFile, destDir, destFile, log);
+nhinc.FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);
 
 
 
@@ -6802,7 +6802,7 @@ def destFile = "uddiConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-nhinc.FileUtils.moveFile(sourceDir, sourceFile, destDir, destFile, log);
+nhinc.FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);
 
 
 
@@ -7158,7 +7158,7 @@ def destFile = "uddiConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-nhinc.FileUtils.moveFile(sourceDir, sourceFile, destDir, destFile, log);
+nhinc.FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);
 
 new File(sourceDir + "/" + sourceFile).delete();</con:tearDownScript><con:properties/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="HIEM" searchProperties="true" id="de4fb969-9d5c-4f37-b3ba-4bf11375fd99">
 	<con:settings/>

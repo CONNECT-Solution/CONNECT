@@ -3477,7 +3477,7 @@ def destFile = "PCConfiguration.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</script>
+FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, context, log);</script>
 				</con:config>
 			</con:testStep>
 			<con:testStep name="Clear Correlation Table" type="groovy">
@@ -3797,7 +3797,7 @@ def destFile = "PCConfiguration.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</script>
+FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, context, log);</script>
 				</con:config>
 			</con:testStep>
 			<con:testStep name="Clear Correlation Table" type="groovy">
@@ -4117,7 +4117,7 @@ def destFile = "PCConfiguration.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</script>
+FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, context, log);</script>
 				</con:config>
 			</con:testStep>
 			<con:testStep name="Clear Correlation Table" type="groovy">
@@ -4624,7 +4624,7 @@ def destFile = "PCConfiguration.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</script>
+FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, context, log);</script>
 				</con:config>
 			</con:testStep>
 			<con:testStep name="Clear Correlation Table" type="groovy">
@@ -5131,7 +5131,7 @@ def destFile = "PCConfiguration.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</script>
+FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, context, log);</script>
 				</con:config>
 			</con:testStep>
 			<con:testStep name="Clear Correlation Table" type="groovy">
@@ -5619,7 +5619,7 @@ def destFile = "PCConfiguration.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</script>
+FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, context, log);</script>
 				</con:config>
 			</con:testStep>
 			<con:testStep name="Internal Properties" type="properties">

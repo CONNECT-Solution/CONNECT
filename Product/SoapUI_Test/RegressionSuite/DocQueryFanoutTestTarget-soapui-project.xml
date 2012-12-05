@@ -23,7 +23,7 @@ def sourceFile = "UDDIcopy-uddiConnectionInfo.xml";
 def destDir = context.findProperty( "GatewayPropDir" );
 def destFile = "uddiConnectionInfo.xml";
 
-nhinc.FileUtils.moveFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
+nhinc.FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
 			</con:testStep>
 			<con:testStep name="update config" type="groovy">
 				<con:settings/>
@@ -375,7 +375,7 @@ nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFil
 	
 
 				def assertError = "No URLs found for targeted DocQueryRequest for homecommunity:4.4"
-				def error = holder["//ns1:AdhocQueryResponse[1]/ns12:RegistryErrorList[1]/ns12:RegistryError/@codeContext"];
+				def error = holder["//ns1:AdhocQueryResponse[1]/ns12:RegistryErrorList[1]/ns12:RegistryError[2]/@codeContext"];
 				log.info("Number of Errors: " + error);
 				assert (assertError.equals(error));</scriptText></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 	<con:jmsPropertyConfig/>
@@ -389,15 +389,15 @@ nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFil
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-12-04T16:19:47Z</con:value>
+		<con:value>2012-12-04T16:23:03Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-12-04T16:29:47Z</con:value>
+		<con:value>2012-12-04T16:33:03Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>12/04/2012 16:19:47</con:value>
+		<con:value>12/04/2012 16:23:03</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
@@ -421,7 +421,7 @@ def sourceFile = "UDDIcopy-uddiConnectionInfo.xml";
 def destDir = context.findProperty( "GatewayPropDir" );
 def destFile = "uddiConnectionInfo.xml";
 
-nhinc.FileUtils.moveFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
+nhinc.FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
 	</con:testStep>
 	<con:testStep name="update config" type="groovy">
 		<con:settings/>
@@ -754,12 +754,13 @@ nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFil
                   <urn3:name>${#Project#UDDIhc1description}</urn3:name>
                </urn3:homeCommunity>
             </urn3:nhinTargetCommunity>
-            					<urn3:homeCommunity>
-						<urn3:description>${#Project#UDDIhc1description}</urn3:description>
-						<urn3:homeCommunityId>${#Project#UDDIhcid3}</urn3:homeCommunityId>
-						<urn3:name>${#Project#UDDIhc1description}</urn3:name>
-					</urn3:homeCommunity>
-				</urn3:nhinTargetCommunity>
+            <urn3:nhinTargetCommunity>
+               <urn3:homeCommunity>
+                  <urn3:description>${#Project#UDDIhc1description}</urn3:description>
+                  <urn3:homeCommunityId>${#Project#UDDIhcid3}</urn3:homeCommunityId>
+                  <urn3:name>${#Project#UDDIhc1description}</urn3:name>
+               </urn3:homeCommunity>
+            </urn3:nhinTargetCommunity>
          </urn:NhinTargetCommunities>
       </urn:RespondingGateway_CrossGatewayQueryRequest>
    </soap:Body>
@@ -809,15 +810,15 @@ nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFil
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-12-04T16:19:47Z</con:value>
+		<con:value>2012-12-04T16:23:05Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-12-04T16:29:47Z</con:value>
+		<con:value>2012-12-04T16:33:05Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>12/04/2012 16:19:47</con:value>
+		<con:value>12/04/2012 16:23:05</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
@@ -841,7 +842,7 @@ def sourceFile = "UDDIcopy-uddiConnectionInfo.xml";
 def destDir = context.findProperty( "GatewayPropDir" );
 def destFile = "uddiConnectionInfo.xml";
 
-nhinc.FileUtils.moveFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
+nhinc.FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
 			</con:testStep>
 			<con:testStep name="update config" type="groovy">
 				<con:settings/>
@@ -1185,15 +1186,15 @@ nhinc.FileUtils.updateProperty(destConfigFileLocation, "gateway.properties", "do
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-12-04T16:19:48Z</con:value>
+		<con:value>2012-12-04T16:23:08Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-12-04T16:29:48Z</con:value>
+		<con:value>2012-12-04T16:33:08Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>12/04/2012 16:19:48</con:value>
+		<con:value>12/04/2012 16:23:08</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
@@ -1216,7 +1217,7 @@ def sourceFile = "UDDIcopy-uddiConnectionInfo.xml";
 def destDir = context.findProperty( "GatewayPropDir" );
 def destFile = "uddiConnectionInfo.xml";
 
-nhinc.FileUtils.moveFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
+nhinc.FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
 			</con:testStep>
 			<con:testStep name="update config" type="groovy">
 				<con:settings/>
@@ -1569,7 +1570,7 @@ nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFil
 	
 
 				def assertError = "No URLs found for targeted DocQueryRequest for homecommunity:4.4"
-				def error = holder["//ns1:AdhocQueryResponse[1]/ns12:RegistryErrorList[1]/ns12:RegistryError/@codeContext"];
+				def error = holder["//ns1:AdhocQueryResponse[1]/ns12:RegistryErrorList[1]/ns12:RegistryError[2]/@codeContext"];
 				log.info("Error: " + error);
 				assert (assertError.equals(error));</scriptText></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 	<con:jmsPropertyConfig/>
@@ -1583,15 +1584,15 @@ nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFil
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-12-04T16:19:48Z</con:value>
+		<con:value>2012-12-04T16:23:09Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-12-04T16:29:48Z</con:value>
+		<con:value>2012-12-04T16:33:09Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>12/04/2012 16:19:48</con:value>
+		<con:value>12/04/2012 16:23:09</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
