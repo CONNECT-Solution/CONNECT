@@ -28,76 +28,58 @@
  */
 package gov.hhs.fha.nhinc.event;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
-import gov.hhs.fha.nhinc.logging.transaction.dao.TransactionDAO;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.nhinclib.NullChecker;
-
-import java.util.List;
+import gov.hhs.fha.nhinc.event.ContextEventHelper;
 
 import javax.xml.ws.WebServiceContext;
-import javax.xml.ws.handler.MessageContext;
 
 import org.apache.cxf.jaxws.context.WebServiceContextImpl;
+import org.junit.Test;
 
-public class SOAPMessageRoutingAccessor implements MessageRoutingAccessor {
+import com.google.common.collect.ImmutableList;
 
-    private WebServiceContext context;
-    private AsyncMessageIdExtractor extractor = new AsyncMessageIdExtractor();
+public class ContextEventHelperTest {
 
-    public SOAPMessageRoutingAccessor() {
-        this.context = new WebServiceContextImpl();
+    @Test
+    public void defaultsToMagicImpls() {
+        ContextEventHelper helper = new ContextEventHelper();
+        WebServiceContext context = helper.getContext();
+        assertTrue(context instanceof WebServiceContextImpl);
+
+        AsyncMessageIdExtractor extractor = helper.getExtractor();
+        assertNotNull(extractor);
     }
 
-    public SOAPMessageRoutingAccessor(WebServiceContext context) {
-        this.context = context;
+    @Test
+    public void getsMessageIdFromContext() {
+        AsyncMessageIdExtractor mockExtractor = mock(AsyncMessageIdExtractor.class);
+        when(mockExtractor.getMessageId(any(WebServiceContext.class))).thenReturn("messageId");
+
+        ContextEventHelper helper = new ContextEventHelper();
+        helper.setAsyncMessageIdExtractor(mockExtractor);
+
+        String messageId = helper.getMessageId();
+        assertEquals("messageId", messageId);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see gov.hhs.fha.nhinc.event.HeaderEvent#getMessageId()
-     */
-    @Override
-    public String getMessageId() {
-        return extractor.getMessageId(context);
+    @Test
+    public void getsTransactionIdFromContext() {
+        AsyncMessageIdExtractor mockExtractor = mock(AsyncMessageIdExtractor.class);
+        when(mockExtractor.getAsyncRelatesTo(any(WebServiceContext.class))).thenReturn(
+                ImmutableList.of("transactionId"));
+
+        ContextEventHelper helper = new ContextEventHelper();
+        helper.setAsyncMessageIdExtractor(mockExtractor);
+
+        String transactionId = helper.getTransactionId();
+        assertEquals("transactionId", transactionId);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see gov.hhs.fha.nhinc.event.HeaderEvent#getTransactionId()
-     */
-    @Override
-    public String getTransactionId() {
-        String messageId = extractor.getMessageId(context);
-        String transactionId = null;
-
-        List<String> transactionIdList = extractor.getAsyncRelatesTo(context);
-        if (NullChecker.isNotNullish(transactionIdList)) {
-            transactionId = transactionIdList.get(0);
-        }
-
-        if ((transactionId == null) && (messageId != null)) {
-            transactionId = TransactionDAO.getInstance().getTransactionId(messageId);
-        }
-
-        return transactionId;
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see gov.hhs.fha.nhinc.event.HeaderEvent#buildResponseMsgIdList()
-     */
-    @SuppressWarnings("unchecked")
-    @Override
-    public List<String> getResponseMsgIdList() {
-        MessageContext mContext = context.getMessageContext();
-        if (mContext == null) {
-            return null;
-        }
-        return (List<String>) mContext.get(NhincConstants.RESPONSE_MESSAGE_ID_LIST_KEY);
-    }
-
+    // TODO: missing exhaustive tests for getTransactionId
 }

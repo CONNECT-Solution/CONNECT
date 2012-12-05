@@ -26,12 +26,31 @@
  *(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.aspect;
+package gov.hhs.fha.nhinc.event;
 
-/**
- * @author bhumphrey
- * 
- */
-public interface FailureAdviceDelegate {
-    void fail(Object[] arguments, Throwable throwable);
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+import org.junit.Test;
+import org.mockito.Mockito;
+
+public class ContextEventBuilderTest {
+
+    @Test
+    public void dispatchesToHelper() {
+        ContextEventHelper helper = mock(ContextEventHelper.class);
+        when(helper.getMessageId()).thenReturn("messageId");
+        when(helper.getTransactionId()).thenReturn("transactionId");
+
+        ContextEventBuilder builder = mock(ContextEventBuilder.class, Mockito.CALLS_REAL_METHODS);
+        builder.setContextHelper(helper);
+
+        builder.event = mock(Event.class);
+        builder.buildMessageID();
+        builder.buildTransactionID();
+
+        verify(builder.event).setMessageID("messageId");
+        verify(builder.event).setTransactionID("transactionId");
+    }
 }

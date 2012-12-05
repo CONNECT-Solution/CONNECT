@@ -28,16 +28,16 @@ package gov.hhs.fha.nhinc.event.error;
 
 /**
  * @author zmelnick
- *
+ * 
  */
 public class MessageProcessingFailedEvent extends ErrorEvent {
 
-    private static final String EVENT_NAME = "MESSAGE_PROCESSING_FAILED";
+    public static final String EVENT_NAME = "MESSAGE_PROCESSING_FAILED";
 
     public MessageProcessingFailedEvent() {
-        
+
     }
-    
+
     /**
      * @param messageID
      * @param transactionID
@@ -47,7 +47,9 @@ public class MessageProcessingFailedEvent extends ErrorEvent {
         super(messageID, transactionID, description);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see gov.hhs.fha.nhinc.event.Event#getEventName()
      */
     @Override
