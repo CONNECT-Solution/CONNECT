@@ -36,17 +36,38 @@ import gov.hhs.fha.nhinc.nhinclib.NullChecker;
  */
 public class ConnectionManagerCommunityMapping {
 
+    AssigningAuthorityHomeCommunityMappingDAO mappingDao;
+
+    /**
+     * 
+     */
+    public ConnectionManagerCommunityMapping() {
+        mappingDao = new AssigningAuthorityHomeCommunityMappingDAO();
+    }
+    
+    
+    
+    
+    /**
+     * @param mappingDao
+     */
+    public ConnectionManagerCommunityMapping(AssigningAuthorityHomeCommunityMappingDAO mappingDao) {
+        this.mappingDao = mappingDao;
+    }
+
+
+
+
     /**
      * 
      * @param requestType
      * @return GetHomeCommunityByAssigningAuthorityResponseType
      */
-    public static HomeCommunityType getHomeCommunityByAssigningAuthority(String assigningAuthId) {
+    public  HomeCommunityType getHomeCommunityByAssigningAuthority(String assigningAuthId) {
         HomeCommunityType hc = new HomeCommunityType();
 
         // Verify assigning authority id is valid
         if (NullChecker.isNotNullish(assigningAuthId)) {
-            AssigningAuthorityHomeCommunityMappingDAO mappingDao = new AssigningAuthorityHomeCommunityMappingDAO();
             hc.setHomeCommunityId(mappingDao.getHomeCommunityId(assigningAuthId));
         } else {
             hc = null;
@@ -54,4 +75,6 @@ public class ConnectionManagerCommunityMapping {
 
         return hc;
     }
+
+    
 }

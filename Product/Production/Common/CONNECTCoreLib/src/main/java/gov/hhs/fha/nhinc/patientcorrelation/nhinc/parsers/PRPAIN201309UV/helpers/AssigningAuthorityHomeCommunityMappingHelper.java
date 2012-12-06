@@ -39,25 +39,29 @@ import gov.hhs.fha.nhinc.nhinclib.NullChecker;
  */
 public class AssigningAuthorityHomeCommunityMappingHelper {
 
-    private static Log log = LogFactory.getLog(AssigningAuthorityHomeCommunityMappingDAO.class);
+    private AssigningAuthorityHomeCommunityMappingDAO mappingDao;
+    private Log log = LogFactory.getLog(AssigningAuthorityHomeCommunityMappingDAO.class);
 
-    public static List<String> lookupAssigningAuthorities(String homeCommunityId) {
-        log.info("converting homeCommunityId [" + homeCommunityId + "] to assigning authority");
-        AssigningAuthorityHomeCommunityMappingDAO mappingDao = new AssigningAuthorityHomeCommunityMappingDAO();
-        // this really should be a list returned, not a single value
-
-        // ****************************************************************************************************
-        // String assigningAuthorityId = mappingDao.getAssigningAuthority(homeCommunityId);
-        // log.info("found assigning authority? [" + assigningAuthorityId + "]");
-        // ****************************************************************************************************
-
-        List<String> assigningAuthorityIds = new ArrayList<String>();
-        // assigningAuthorityIds.add(assigningAuthorityId);
-        assigningAuthorityIds = mappingDao.getAssigningAuthoritiesByHomeCommunity(homeCommunityId);
-        return assigningAuthorityIds;
+    /**
+     * 
+     */
+    public AssigningAuthorityHomeCommunityMappingHelper() {
+        mappingDao = new AssigningAuthorityHomeCommunityMappingDAO();
+    }
+ 
+    /**
+     * @param mappingDao
+     */
+    public AssigningAuthorityHomeCommunityMappingHelper(AssigningAuthorityHomeCommunityMappingDAO mappingDao) {
+        this.mappingDao = mappingDao;
     }
 
-    public static List<String> lookupAssigningAuthorities(List<String> homeCommunityIds) {
+    public List<String> lookupAssigningAuthorities(String homeCommunityId) {
+        log.trace("converting homeCommunityId [" + homeCommunityId + "] to assigning authority");
+        return mappingDao.getAssigningAuthoritiesByHomeCommunity(homeCommunityId);
+    }
+
+    public List<String> lookupAssigningAuthorities(List<String> homeCommunityIds) {
         List<String> fullListOfAssigningAuthorities = null;
         if (NullChecker.isNotNullish(homeCommunityIds)) {
             log.info("converting homeCommunityIds [count=" + homeCommunityIds.size() + "] to assigning authorities");
@@ -67,7 +71,7 @@ public class AssigningAuthorityHomeCommunityMappingHelper {
 
             for (String homeCommunity : homeCommunityIds) {
                 partialListOfAssigningAuthorities = lookupAssigningAuthorities(homeCommunity);
-                combineLists(fullListOfAssigningAuthorities, partialListOfAssigningAuthorities);
+                fullListOfAssigningAuthorities.addAll(partialListOfAssigningAuthorities);
             }
             log.info("converted homeCommunityIds [count=" + homeCommunityIds.size()
                     + "] to assigning authorities [count=" + fullListOfAssigningAuthorities.size() + "]");
@@ -75,17 +79,5 @@ public class AssigningAuthorityHomeCommunityMappingHelper {
         return fullListOfAssigningAuthorities;
     }
 
-    private static List<String> combineLists(List<String> a, List<String> b) {
-        if (a == null) {
-            a = new ArrayList<String>();
-        }
-
-        if ((b != null) && (b.size() > 0)) {
-            a.addAll(b);
-        } else {
-            log.debug("combineLists - Assignin authorities not found for the home community");
-        }
-
-        return a;
-    }
+   
 }
