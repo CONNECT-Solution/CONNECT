@@ -291,6 +291,8 @@ public class Page2 extends AbstractPageBean {
         this.errorMessage = errorMessage;
     }
     private String errors;
+    private PixRetrieveBuilder pixRetrieveBuilder = new PixRetrieveBuilder();
+    private ConnectionManagerCommunityMapping connectionManagerCommunityMapping = new ConnectionManagerCommunityMapping();
 
     public String getErrors() {
         return errors;
@@ -706,7 +708,7 @@ public class Page2 extends AbstractPageBean {
         retrieveRequest.setQualifiedPatientIdentifier(homeQualifiedSubjectId);
         retrieveRequest.setAssertion(getSessionBean1().getAssertionInfo());
         
-        PRPAIN201309UV02 patCorrelationRequest = PixRetrieveBuilder.createPixRetrieve(retrieveRequest);
+        PRPAIN201309UV02 patCorrelationRequest = pixRetrieveBuilder.createPixRetrieve(retrieveRequest);
         RetrievePatientCorrelationsResponseType response = pcProxy.retrievePatientCorrelations(patCorrelationRequest, retrieveRequest.getAssertion());
         List<QualifiedSubjectIdentifierType> retrievedPatCorrList = new ArrayList<QualifiedSubjectIdentifierType>();
 
@@ -730,7 +732,7 @@ public class Page2 extends AbstractPageBean {
                 for (QualifiedSubjectIdentifierType qualSubject : retrievedPatCorrList) {
                     String remoteAssigningAuth = qualSubject.getAssigningAuthorityIdentifier();
                     String remotePatientId = qualSubject.getSubjectIdentifier();
-                    HomeCommunityType remoteHomeCommunity = ConnectionManagerCommunityMapping.getHomeCommunityByAssigningAuthority(remoteAssigningAuth);
+                    HomeCommunityType remoteHomeCommunity = connectionManagerCommunityMapping.getHomeCommunityByAssigningAuthority(remoteAssigningAuth);
                     String remoteHomeCommunityId = remoteHomeCommunity.getHomeCommunityId();
                     HomeCommunityMap hcMapping = new HomeCommunityMap();
                     String remoteHomeCommunityName = hcMapping.getHomeCommunityName(remoteHomeCommunityId);
