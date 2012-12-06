@@ -42,9 +42,8 @@ import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 @Addressing(enabled = true)
 public class EntityDocQueryUnsecured implements gov.hhs.fha.nhinc.entitydocquery.EntityDocQueryPortType {
+    
     private OutboundDocQuery outboundDocQuery;
-
-    @Resource
     private WebServiceContext context;
 
     @OutboundMessageEvent(beforeBuilder = AdhocQueryRequestTransformingBuilder.class,
@@ -52,6 +51,11 @@ public class EntityDocQueryUnsecured implements gov.hhs.fha.nhinc.entitydocquery
             version = "2.0")
     public AdhocQueryResponse respondingGatewayCrossGatewayQuery(RespondingGatewayCrossGatewayQueryRequestType request) {
         return new EntityDocQueryImpl(outboundDocQuery).respondingGatewayCrossGatewayQueryUnsecured(request, context);
+    }
+    
+    @Resource
+    public void setContext(WebServiceContext context) {
+        this.context = context;
     }
 
     public void setOutboundDocQuery(OutboundDocQuery outboundDocQuery) {
