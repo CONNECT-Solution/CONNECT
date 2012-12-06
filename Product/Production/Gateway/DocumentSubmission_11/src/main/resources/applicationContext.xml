@@ -15,7 +15,7 @@ http://www.springframework.org/schema/aop http://www.springframework.org/schema/
         <property name="locations">
             <list>
                 <value>classpath:documentsubmission.properties</value>
-                <value>file://${nhinc.properties.dir}/gateway.properties</value>
+                <value>file:///${nhinc.properties.dir}/gateway.properties</value>
                 <value>classpath:documentsubmission-test.properties</value>
             </list>
         </property>
