@@ -12,4 +12,8 @@
       <one-to-many class="gov.hhs.fha.nhinc.gateway.aggregator.model.AggMessageResult"/>
     </set>
   </class>
+
+  <query name="findOlderThan">
+    <![CDATA[FROM AggTransaction at WHERE at.transactionStartTime < :transactionStartTime]]>
+  </query>
 </hibernate-mapping>

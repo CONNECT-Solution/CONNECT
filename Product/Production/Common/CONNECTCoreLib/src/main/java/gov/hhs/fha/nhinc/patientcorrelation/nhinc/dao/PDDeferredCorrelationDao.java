@@ -28,23 +28,16 @@ package gov.hhs.fha.nhinc.patientcorrelation.nhinc.dao;
 
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.model.PDDeferredCorrelation;
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.persistence.HibernateUtil;
-import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
-import java.io.ByteArrayOutputStream;
-import java.sql.Blob;
+
 import java.util.Date;
 import java.util.List;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBElement;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.Unmarshaller;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.hibernate.Criteria;
-import org.hibernate.Hibernate;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.criterion.Restrictions;
 import org.hl7.v3.II;
 
 /**
@@ -73,10 +66,9 @@ public class PDDeferredCorrelationDao {
             if (fact != null) {
                 sess = fact.openSession();
                 if (sess != null) {
-                    Criteria criteria = sess.createCriteria(PDDeferredCorrelation.class);
-                    criteria.add(Restrictions.eq("MessageId", messageId));
-
-                    pdCorrelations = criteria.list();
+                    Query query = sess.getNamedQuery("queryByMessageId");
+                    query.setParameter("MessageId", messageId);
+                    pdCorrelations = query.list();
                 } else {
                     log.error("Failed to obtain a session from the sessionFactory");
                 }
@@ -140,7 +132,8 @@ public class PDDeferredCorrelationDao {
     /**
      * Save a record to the database. Updates if the message id already exists in the database.
      * 
-     * @param object to save.
+     * @param object
+     *            to save.
      */
     public void saveOrUpdate(PDDeferredCorrelation pdCorrelation) {
         log.debug("PDDeferredCorrelationDao.save() - Begin");
@@ -154,9 +147,9 @@ public class PDDeferredCorrelationDao {
                 if (sess != null) {
                     trans = sess.beginTransaction();
 
-                    Criteria criteria = sess.createCriteria(PDDeferredCorrelation.class);
-                    criteria.add(Restrictions.eq("MessageId", pdCorrelation.getMessageId()));
-                    List<PDDeferredCorrelation> pdCorrelations = criteria.list();
+                    Query query = sess.getNamedQuery("queryByMessageId");
+                    query.setParameter("MessageId", pdCorrelation.getMessageId());
+                    List<PDDeferredCorrelation> pdCorrelations = query.list();
                     if ((pdCorrelations != null) && (pdCorrelations.size() == 1)) {
                         PDDeferredCorrelation updatedPdCorrelation = pdCorrelations.get(0);
                         copyValues(pdCorrelation, updatedPdCorrelation);

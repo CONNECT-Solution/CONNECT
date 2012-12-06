@@ -26,22 +26,18 @@
  */
 package gov.hhs.fha.nhinc.gateway.aggregator.dao;
 
+import gov.hhs.fha.nhinc.gateway.aggregator.AggregatorException;
+import gov.hhs.fha.nhinc.gateway.aggregator.model.AggMessageResult;
+import gov.hhs.fha.nhinc.gateway.aggregator.persistence.HibernateUtil;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
-import gov.hhs.fha.nhinc.gateway.aggregator.model.AggMessageResult;
-
-import gov.hhs.fha.nhinc.gateway.aggregator.persistence.HibernateUtil;
-
-import gov.hhs.fha.nhinc.gateway.aggregator.AggregatorException;
-
-import java.util.ArrayList;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Criteria;
-import org.hibernate.criterion.Expression;
 
 /**
  * This class is responsible for the persistence of data into the AGGREGATOR.AGG_MESSAGE_RESULTS table. This is
@@ -62,7 +58,8 @@ public class AggMessageResultDao {
     /**
      * This method saves the specified data into the AGGREGATOR_AGG_MESSAGE_RESULTS tables.
      * 
-     * @param AggMessageResult The data to be written to the table.
+     * @param AggMessageResult
+     *            The data to be written to the table.
      */
     public void save(AggMessageResult oAggMessageResult) {
 
@@ -82,7 +79,8 @@ public class AggMessageResultDao {
     /**
      * Delete a row in the AGGREGATOR.AGG_MESSAGE_RESULTS table.
      * 
-     * @param document Document to delete
+     * @param document
+     *            Document to delete
      */
     public void delete(AggMessageResult oAggMessageResult) {
         String sMessageId = null;
@@ -102,7 +100,8 @@ public class AggMessageResultDao {
     /**
      * Retrieve a record by identifier (MessageId)
      * 
-     * @param sMessageId Message ID for the message result being returned.
+     * @param sMessageId
+     *            Message ID for the message result being returned.
      * @return Retrieved message result.
      */
     public AggMessageResult findById(String sMessageId) {
@@ -117,13 +116,16 @@ public class AggMessageResultDao {
     /**
      * Retrieve the record based on the specified message key.
      * 
-     * @param sTransactionId The transaction Id of the set of messages.
-     * @param sMessageKey The message key that uniquely identifies this record.
+     * @param sTransactionId
+     *            The transaction Id of the set of messages.
+     * @param sMessageKey
+     *            The message key that uniquely identifies this record.
      * @return The row from the table that has this message key.
-     * @throws AggregatorException This is thrown if there is an issue with the passed in parameter.
+     * @throws AggregatorException
+     *             This is thrown if there is an issue with the passed in parameter.
      */
     @SuppressWarnings("unchecked")
-    // Occurs because of olAggTransaction = oCriteria.list(); - but it is safe so suppress the warning
+    // Occurs because of olAggTransaction = query.list(); - but it is safe so suppress the warning
     public AggMessageResult findByMessageKey(String sTransactionId, String sMessageKey) throws AggregatorException {
         List<AggMessageResult> olAggMessageResult = new ArrayList<AggMessageResult>();
         if ((sTransactionId == null) || (sTransactionId.length() <= 0)) {
@@ -148,10 +150,10 @@ public class AggMessageResultDao {
             if (oSessionFactory != null) {
                 oSession = oSessionFactory.openSession();
                 if (oSession != null) {
-                    Criteria oCriteria = oSession.createCriteria(AggMessageResult.class);
-                    oCriteria.add(Expression.eq("aggTransaction.transactionId", sTransactionId));
-                    oCriteria.add(Expression.eq("messageKey", sMessageKey));
-                    olAggMessageResult = oCriteria.list();
+                    Query query = oSession.getNamedQuery("findByMessageKey");
+                    query.setParameter("transactionId", sTransactionId);
+                    query.setParameter("messageKey", sMessageKey);
+                    olAggMessageResult = query.list();
                 } else {
                     log.error("Failed to obtain a session from the sessionFactory " + "while calling findByMessageKey("
                             + sTransactionId + ", " + sMessageKey + ").  ");
