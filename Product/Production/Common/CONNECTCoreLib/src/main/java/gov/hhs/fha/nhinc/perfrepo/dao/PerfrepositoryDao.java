@@ -29,23 +29,23 @@ package gov.hhs.fha.nhinc.perfrepo.dao;
 import gov.hhs.fha.nhinc.common.entityperformancelogquery.CountDataType;
 import gov.hhs.fha.nhinc.common.entityperformancelogquery.DetailDataType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.perfrepo.persistance.HibernateUtil;
 import gov.hhs.fha.nhinc.perfrepo.model.Perfrepository;
+import gov.hhs.fha.nhinc.perfrepo.persistance.HibernateUtil;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
+
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
-import java.sql.Timestamp;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.hibernate.Hibernate;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.Criteria;
-import org.hibernate.Hibernate;
-import org.hibernate.Query;
-import org.hibernate.criterion.Expression;
 
 /**
  * PerfrepositoryDao Class provides methods to query and update Performance Data to/from MySQL Database using Hibernate
@@ -176,23 +176,13 @@ public class PerfrepositoryDao {
         }
 
         Session session = null;
-        List<Perfrepository> queryList = null;
         Perfrepository foundRecord = null;
         try {
             SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
             session = sessionFactory.openSession();
             log.info("Getting Records");
 
-            // Build the criteria
-            Criteria aCriteria = session.createCriteria(Perfrepository.class);
-
-            aCriteria.add(Expression.eq("id", id));
-
-            queryList = aCriteria.list();
-
-            if (queryList != null && queryList.size() > 0) {
-                foundRecord = queryList.get(0);
-            }
+            foundRecord = (Perfrepository) session.get(Perfrepository.class, id);
         } catch (Exception e) {
             log.error("Exception in getPerfrepository() occured due to :" + e.getMessage(), e);
         } finally {
@@ -229,12 +219,10 @@ public class PerfrepositoryDao {
             session = sessionFactory.openSession();
             log.info("Getting Records");
 
-            // Build the criteria
-            Criteria aCriteria = session.createCriteria(Perfrepository.class);
-
-            aCriteria.add(Expression.between("starttime", beginTime, endTime));
-
-            queryList = aCriteria.list();
+            Query query = session.getNamedQuery("getPerfrepositoryRange");
+            query.setParameter("start", beginTime);
+            query.setParameter("stop", endTime);
+            queryList = query.list();
         } catch (Exception e) {
             log.error("Exception in getPerfrepositoryRange() occured due to :" + e.getMessage(), e);
         } finally {
