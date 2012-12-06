@@ -54,8 +54,6 @@ public class EntityDocQueryImpl extends BaseService {
      */
     public EntityDocQueryImpl(OutboundDocQuery outboundDocQuery) {
         this.outboundDocQuery = outboundDocQuery;
-        this.outboundDocQuery.setExecutorService(InitServlet.getExecutorService(),
-                InitServlet.getLargeJobExecutorService());
     }
 
     /**
@@ -67,8 +65,6 @@ public class EntityDocQueryImpl extends BaseService {
     public EntityDocQueryImpl(OutboundDocQuery outboundDocQuery, Log log) {
         this.log = log;
         this.outboundDocQuery = outboundDocQuery;
-        this.outboundDocQuery.setExecutorService(InitServlet.getExecutorService(),
-                InitServlet.getLargeJobExecutorService());
     }
 
     /**

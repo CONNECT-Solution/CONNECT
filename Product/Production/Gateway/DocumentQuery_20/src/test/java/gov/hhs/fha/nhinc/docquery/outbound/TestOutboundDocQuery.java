@@ -48,9 +48,6 @@ public class TestOutboundDocQuery implements OutboundDocQuery {
     }
 
 
-    @Override
-    public void setExecutorService(ExecutorService regularExecutor, ExecutorService largeJobExecutor) {
-        // Do Nothing
-    }
+    
 
 }
