@@ -43,5 +43,4 @@ public interface OutboundDocQuery {
     public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest adhocQueryRequest,
             AssertionType assertion, NhinTargetCommunitiesType targets);
 
-    public void setExecutorService(ExecutorService regularExecutor, ExecutorService largeJobExecutor);
 }
