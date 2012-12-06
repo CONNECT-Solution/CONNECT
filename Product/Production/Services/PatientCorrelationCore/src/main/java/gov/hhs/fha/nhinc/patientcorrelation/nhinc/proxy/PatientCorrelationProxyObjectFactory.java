@@ -33,7 +33,7 @@ import gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory;
  * 
  * @author Jon Hoppesch
  */
-public class PatientCorrelationProxyObjectFactory extends ComponentProxyObjectFactory {
+public class PatientCorrelationProxyObjectFactory extends ComponentProxyObjectFactory implements PatientCorrelationProxyFactory {
 
     private static final String CONFIG_FILE_NAME = "PatientCorrelationConfig.xml";
     private static final String BEAN_NAME = "patientcorrelation";
