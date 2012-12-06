@@ -189,17 +189,23 @@ public class DirectMailClient implements DirectClient, InitializingBean {
         }
 
         for (Message message : messages) {
-            try {
-                if ((message instanceof MimeMessage)) {
+            if ((message instanceof MimeMessage)) {
+                try {
                     MailUtils.logHeaders((MimeMessage) message);
                     messageHandler.handleMessage((MimeMessage) message, this);
                     numberOfMsgsHandled++;
+                } catch (Exception e) {
+                    DirectException directException = new DirectException("Error handling message.", e,
+                            (MimeMessage) message);
+                    LOG.error(directException);
                 }
-                message.setFlag(Flags.Flag.DELETED, true);
-            } catch (Exception e) {
-                // messages that were handled successfully are removed from the server...
-                MailUtils.closeQuietly(store, inbox, MailUtils.FOLDER_EXPUNGE_INBOX_TRUE);
-                throw new DirectException("Exception while handling message.", e);
+                try {
+                    message.setFlag(Flags.Flag.DELETED, true);
+                } catch (MessagingException e) {
+                    DirectException directException = new DirectException("Error setting deleted flag.", e,
+                            (MimeMessage) message);
+                    LOG.error(directException);
+                }
             }
         }
         LOG.info("Handled " + numberOfMsgsHandled + " messages.");
