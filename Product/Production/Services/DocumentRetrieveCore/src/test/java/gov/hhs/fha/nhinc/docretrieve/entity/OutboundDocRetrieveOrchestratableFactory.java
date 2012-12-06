@@ -48,10 +48,9 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
  */
 public class OutboundDocRetrieveOrchestratableFactory {
 
-    public OutboundDocRetrieveOrchestratableImpl getEntityDocRetrieveOrchestratableImpl_a0() {
-        OutboundDocRetrieveOrchestratableImpl impl = new OutboundDocRetrieveOrchestratableImpl(
-                getRetrieveDocumentSetRequestType(), getAssertion(), null, null, null, null, getNhinTargetSystemType());
-        return impl;
+    public OutboundStandardDocRetrieveOrchestratable createOutboundStandardDocRetrieveOrchestratable() {
+        return new OutboundStandardDocRetrieveOrchestratable(
+                null, null, null, null, getRetrieveDocumentSetRequestType(), getAssertion(), getNhinTargetSystemType());
     }
 
     public RetrieveDocumentSetRequestType getRetrieveDocumentSetRequestType() {
