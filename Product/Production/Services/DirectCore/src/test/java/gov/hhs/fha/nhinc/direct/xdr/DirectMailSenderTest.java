@@ -1,6 +1,7 @@
 package gov.hhs.fha.nhinc.direct.xdr;
 
 import static org.junit.Assert.assertNotNull;
+import gov.hhs.fha.nhinc.direct.DirectClientFactory;
 import gov.hhs.fha.nhinc.direct.DirectUnitTestUtil;
 
 import org.junit.AfterClass;
@@ -29,8 +30,8 @@ public class DirectMailSenderTest {
 	@Test
 	@Ignore
 	public void test() {	    
-	    DirectObjectFactory testDirectObjectFactory = new DirectObjectFactory();
-		assertNotNull(testDirectObjectFactory.getDirectClient());
+	    DirectClientFactory testDirectFactory = new DirectClientFactory();
+		assertNotNull(testDirectFactory.getDirectClient());
 	}
 
 }
