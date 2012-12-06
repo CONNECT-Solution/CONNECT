@@ -64,7 +64,7 @@ public class StandardOutboundDocRetrieveTest {
         assertEquals(RetrieveDocumentSetRequestTypeDescriptionBuilder.class, annotation.beforeBuilder());
         assertEquals(RetrieveDocumentSetResponseTypeDescriptionBuilder.class, annotation.afterReturningBuilder());
         assertEquals("Retrieve Document", annotation.serviceType());
-        assertEquals("", annotation.version());
+        assertEquals("2.0", annotation.version());
     }
     
     @Test
