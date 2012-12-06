@@ -27,4 +27,31 @@
     <property column="RspData" name="RspData" not-null="false"/>
     <property column="AckData" name="AckData" not-null="false"/>
   </class>
+  
+  <query name="queryByMessageIdAndDirection">
+    <![CDATA[FROM AsyncMsgRecord amr WHERE amr.MessageId = :MessageId AND amr.Direction = :Direction]]>
+  </query>
+  <query name="queryByMessageIdAndServiceName">
+    <![CDATA[FROM AsyncMsgRecord amr WHERE amr.MessageId = :MessageId AND amr.ServiceName = :ServiceName]]>
+  </query>
+  <query name="queryByTime">
+    <![CDATA[FROM AsyncMsgRecord amr WHERE amr.CreationTime < :CreationTime]]>
+  </query>
+  <query name="queryForExpired">
+    <![CDATA[FROM AsyncMsgRecord amr
+             WHERE amr.CreationTime < :CreationTime
+               AND amr.Status in ('REQRCVD', 'REQRCVDACK')]]>
+  </query>
+  <query name="queryForDeferredQueueProcessing">
+    <![CDATA[FROM AsyncMsgRecord amr
+             WHERE amr.Direction = 'INBOUND'
+               AND amr.ResponseType = 'AUTO'
+               AND amr.Status = 'REQRCVDACK']]>
+  </query>
+  <query name="queryForDeferredQueueSelected">
+    <![CDATA[FROM AsyncMsgRecord amr
+             WHERE amr.Direction = 'INBOUND'
+               AND amr.ResponseType = 'AUTO'
+               AND amr.Status = 'RSPSELECT']]>
+  </query>
 </hibernate-mapping>

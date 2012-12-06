@@ -18,4 +18,8 @@
     <property column="PatientId" length="128" name="PatientId" not-null="true" type="string"/>
     <property column="CreationTime" name="CreationTime" not-null="true" type="timestamp"/>
   </class>
+
+  <query name="queryByMessageId">
+    <![CDATA[FROM PDDeferredCorrelation dc WHERE dc.MessageId = :MessageId]]>
+  </query>
 </hibernate-mapping>
