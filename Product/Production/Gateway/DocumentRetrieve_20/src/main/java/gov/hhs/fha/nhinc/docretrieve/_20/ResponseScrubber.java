@@ -12,14 +12,30 @@ import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
  */
 public class ResponseScrubber {
 
-    public ResponseScrubber() {
+    private static ResponseScrubber INSTANCE = new ResponseScrubber();
+
+    ResponseScrubber() {
     }
 
-    public RetrieveDocumentSetResponseType Scrub(RetrieveDocumentSetResponseType resp) {
+    /**
+     * Returns the singleton instance of this class.
+     * 
+     * @return the singleton instance
+     */
+    public static ResponseScrubber getInstance() {
+        return INSTANCE;
+    }
+
+    /**
+     * Scrubs the RetrieveDocumentSetResponseType message to conform to DR 2.0 specs by removing unsupported dynamic
+     * document ids.  This call has a side effecto actually modifying the passed in message.
+     * 
+     * @param resp The message to be scrubbed.
+     */
+    public void scrub(RetrieveDocumentSetResponseType resp) {
         for (RetrieveDocumentSetResponseType.DocumentResponse dr : resp.getDocumentResponse()) {
             dr.setNewDocumentUniqueId(null);
             dr.setNewRepositoryUniqueId(null);
         }
-        return resp;
     }
 }

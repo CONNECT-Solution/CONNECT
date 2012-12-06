@@ -29,7 +29,7 @@
 package gov.hhs.fha.nhinc.docretrieve.nhin;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.orchestration.AbstractStandardOrchestratable;
+import gov.hhs.fha.nhinc.orchestration.AbstractPassthroughOrchestratable;
 import gov.hhs.fha.nhinc.orchestration.AuditTransformer;
 import gov.hhs.fha.nhinc.orchestration.Delegate;
 import gov.hhs.fha.nhinc.orchestration.InboundDelegate;
@@ -42,7 +42,7 @@ import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
  * @author bhumphrey
  *
  */
-public class InboundPassThroughDocRetrieveOrchestratable extends AbstractStandardOrchestratable implements
+public class InboundPassthroughDocRetrieveOrchestratable extends AbstractPassthroughOrchestratable implements
         InboundDocRetrieveOrchestratable {
 
     private InboundDelegate inboundDelegate;
@@ -54,7 +54,7 @@ public class InboundPassThroughDocRetrieveOrchestratable extends AbstractStandar
     /**
      * default constructor.
      */
-    public InboundPassThroughDocRetrieveOrchestratable() {
+    public InboundPassthroughDocRetrieveOrchestratable() {
         super();
         inboundDelegate = null;
     }
@@ -64,11 +64,10 @@ public class InboundPassThroughDocRetrieveOrchestratable extends AbstractStandar
      * @param pt policy transformer
      * @param at audit transformer
      */
-    public InboundPassThroughDocRetrieveOrchestratable(PolicyTransformer pt, AuditTransformer at, InboundDelegate id) {
+    public InboundPassthroughDocRetrieveOrchestratable(PolicyTransformer pt, AuditTransformer at, InboundDelegate id) {
         super(pt, at);
         inboundDelegate = id;
     }
-
 
     /**
      * getter for delegate.
@@ -77,7 +76,6 @@ public class InboundPassThroughDocRetrieveOrchestratable extends AbstractStandar
     public Delegate getDelegate() {
         return getAdapterDelegate();
     }
-
       
     /**
      * getter for service name.
@@ -136,5 +134,4 @@ public class InboundPassThroughDocRetrieveOrchestratable extends AbstractStandar
     public void setResponse(RetrieveDocumentSetResponseType response) {
         this.response = response;
     }
-
 }

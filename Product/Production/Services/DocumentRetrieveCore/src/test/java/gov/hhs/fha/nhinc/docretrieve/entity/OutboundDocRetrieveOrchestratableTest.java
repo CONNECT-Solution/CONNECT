@@ -71,8 +71,7 @@ public class OutboundDocRetrieveOrchestratableTest {
      */
     @Test
     public void testGetTarget() {
-        System.out.println("getTarget");
-        OutboundDocRetrieveOrchestratable instance = new OutboundDocRetrieveOrchestratable();
+        OutboundDocRetrieveOrchestratable instance = new OutboundStandardDocRetrieveOrchestratable();
         NhinTargetSystemType expResult = null;
         NhinTargetSystemType result = instance.getTarget();
         assertEquals(expResult, result);
@@ -83,10 +82,10 @@ public class OutboundDocRetrieveOrchestratableTest {
      */
     @Test
     public void testSetTarget() {
-        System.out.println("setTarget");
-        NhinTargetSystemType target = null;
-        OutboundDocRetrieveOrchestratable instance = new OutboundDocRetrieveOrchestratable();
+        NhinTargetSystemType target = new NhinTargetSystemType();
+        OutboundDocRetrieveOrchestratable instance = new OutboundStandardDocRetrieveOrchestratable();
         instance.setTarget(target);
+        assertEquals(target, instance.getTarget());
     }
 
     /**
@@ -94,10 +93,10 @@ public class OutboundDocRetrieveOrchestratableTest {
      */
     @Test
     public void testSetAssertion() {
-        System.out.println("setAssertion");
-        AssertionType _assertion = null;
-        OutboundDocRetrieveOrchestratable instance = new OutboundDocRetrieveOrchestratable();
-        instance.setAssertion(_assertion);
+        AssertionType assertion = new AssertionType();
+        OutboundDocRetrieveOrchestratable instance = new OutboundStandardDocRetrieveOrchestratable();
+        instance.setAssertion(assertion);
+        assertEquals(assertion, instance.getAssertion());
     }
 
     /**
@@ -105,8 +104,7 @@ public class OutboundDocRetrieveOrchestratableTest {
      */
     @Test
     public void testGetRequest() {
-        System.out.println("getRequest");
-        OutboundDocRetrieveOrchestratable instance = new OutboundDocRetrieveOrchestratable();
+        OutboundDocRetrieveOrchestratable instance = new OutboundStandardDocRetrieveOrchestratable();
         RetrieveDocumentSetRequestType expResult = null;
         RetrieveDocumentSetRequestType result = instance.getRequest();
         assertEquals(expResult, result);
@@ -117,10 +115,10 @@ public class OutboundDocRetrieveOrchestratableTest {
      */
     @Test
     public void testSetRequest() {
-        System.out.println("setRequest");
-        RetrieveDocumentSetRequestType request = null;
-        OutboundDocRetrieveOrchestratable instance = new OutboundDocRetrieveOrchestratable();
+        RetrieveDocumentSetRequestType request = new RetrieveDocumentSetRequestType();
+        OutboundDocRetrieveOrchestratable instance = new OutboundStandardDocRetrieveOrchestratable();
         instance.setRequest(request);
+        assertEquals(request, instance.getRequest());
     }
 
     /**
@@ -128,8 +126,7 @@ public class OutboundDocRetrieveOrchestratableTest {
      */
     @Test
     public void testGetNhinDelegate() {
-        System.out.println("getNhinDelegate");
-        OutboundDocRetrieveOrchestratable instance = new OutboundDocRetrieveOrchestratable();
+        OutboundDocRetrieveOrchestratable instance = new OutboundStandardDocRetrieveOrchestratable();
         OutboundDelegate expResult = null;
         OutboundDelegate result = instance.getNhinDelegate();
         assertEquals(expResult, result);
@@ -139,10 +136,20 @@ public class OutboundDocRetrieveOrchestratableTest {
      * Test of isPassthru method, of class OutboundDocRetrieveOrchestratable.
      */
     @Test
-    public void testIsPassthru() {
-        System.out.println("isPassthru");
-        OutboundDocRetrieveOrchestratable instance = new OutboundDocRetrieveOrchestratable();
+    public void testIsPassthruStandard() {
+        OutboundDocRetrieveOrchestratable instance = new OutboundStandardDocRetrieveOrchestratable();
         boolean expResult = false;
+        boolean result = instance.isPassthru();
+        assertEquals(expResult, result);
+    }
+    
+    /**
+     * Test of isPassthru method, of class OutboundDocRetrieveOrchestratable.
+     */
+    @Test
+    public void testIsPassthruPassthrough() {
+        OutboundDocRetrieveOrchestratable instance = new OutboundPassthroughDocRetrieveOrchestratable();
+        boolean expResult = true;
         boolean result = instance.isPassthru();
         assertEquals(expResult, result);
     }
@@ -152,8 +159,7 @@ public class OutboundDocRetrieveOrchestratableTest {
      */
     @Test
     public void testGetAuditTransformer() {
-        System.out.println("getAuditTransformer");
-        OutboundDocRetrieveOrchestratable instance = new OutboundDocRetrieveOrchestratable();
+        OutboundDocRetrieveOrchestratable instance = new OutboundStandardDocRetrieveOrchestratable();
         AuditTransformer expResult = null;
         AuditTransformer result = instance.getAuditTransformer();
         assertEquals(expResult, result);
@@ -164,8 +170,7 @@ public class OutboundDocRetrieveOrchestratableTest {
      */
     @Test
     public void testGetPolicyTransformer() {
-        System.out.println("getPolicyTransformer");
-        OutboundDocRetrieveOrchestratable instance = new OutboundDocRetrieveOrchestratable();
+        OutboundDocRetrieveOrchestratable instance = new OutboundStandardDocRetrieveOrchestratable();
         PolicyTransformer expResult = null;
         PolicyTransformer result = instance.getPolicyTransformer();
         assertEquals(expResult, result);
@@ -176,8 +181,7 @@ public class OutboundDocRetrieveOrchestratableTest {
      */
     @Test
     public void testGetAssertion() {
-        System.out.println("getAssertion");
-        OutboundDocRetrieveOrchestratable instance = new OutboundDocRetrieveOrchestratable();
+        OutboundDocRetrieveOrchestratable instance = new OutboundStandardDocRetrieveOrchestratable();
         AssertionType expResult = null;
         AssertionType result = instance.getAssertion();
         assertEquals(expResult, result);
@@ -188,8 +192,7 @@ public class OutboundDocRetrieveOrchestratableTest {
      */
     @Test
     public void testGetServiceName() {
-        System.out.println("getServiceName");
-        OutboundDocRetrieveOrchestratable instance = new OutboundDocRetrieveOrchestratable();
+        OutboundDocRetrieveOrchestratable instance = new OutboundStandardDocRetrieveOrchestratable();
         String expResult = NhincConstants.DOC_RETRIEVE_SERVICE_NAME;
         String result = instance.getServiceName();
         assertEquals(expResult, result);
@@ -200,8 +203,7 @@ public class OutboundDocRetrieveOrchestratableTest {
      */
     @Test
     public void testGetAggregator() {
-        System.out.println("getAggregator");
-        OutboundDocRetrieveOrchestratable instance = new OutboundDocRetrieveOrchestratable();
+        OutboundDocRetrieveOrchestratable instance = new OutboundStandardDocRetrieveOrchestratable();
         NhinAggregator expResult = null;
         NhinAggregator result = instance.getAggregator();
         assertEquals(expResult, result);

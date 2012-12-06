@@ -26,45 +26,45 @@
  */
 package gov.hhs.fha.nhinc.docretrieve._20.entity;
 
-import gov.hhs.fha.nhinc.docretrieve.entity.EntityDocRetrieveOrchImpl;
 import gov.hhs.fha.nhinc.aspect.OutboundMessageEvent;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.docretrieve.aspect.RetrieveDocumentSetRequestTypeDescriptionBuilder;
 import gov.hhs.fha.nhinc.docretrieve.aspect.RetrieveDocumentSetResponseTypeDescriptionBuilder;
+import gov.hhs.fha.nhinc.docretrieve.outbound.OutboundDocRetrieve;
 import gov.hhs.fha.nhinc.entitydocretrievesecured.EntityDocRetrieveSecuredPortType;
-
-import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
+import gov.hhs.fha.nhinc.messaging.server.BaseService;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
+import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
+
 import javax.annotation.Resource;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
 
-/**
- * 
- * @author Sai Valluripalli
- */
 
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 @Addressing(enabled = true)
-public class EntityDocRetrieveSecured implements EntityDocRetrieveSecuredPortType {
+public class EntityDocRetrieveSecured extends BaseService implements EntityDocRetrieveSecuredPortType {
 
-    private EntityDocRetrieveOrchImpl orchImpl;
+    private OutboundDocRetrieve outboundDocRetrieve;
     
-    @Resource
     private WebServiceContext context;
 
     @OutboundMessageEvent(beforeBuilder = RetrieveDocumentSetRequestTypeDescriptionBuilder.class,
             afterReturningBuilder = RetrieveDocumentSetResponseTypeDescriptionBuilder.class, 
             serviceType = "Retrieve Document",version = "2.0")
     public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(RetrieveDocumentSetRequestType body) {
-        return getImpl().respondingGatewayCrossGatewayRetrieve(body, context);
+        AssertionType assertion = getAssertion(context, null);
+        
+        return outboundDocRetrieve.respondingGatewayCrossGatewayRetrieve(body, assertion, null);
     }
 
-    protected EntityDocRetrieveImpl getImpl() {
-        return new EntityDocRetrieveImpl(orchImpl);
+    @Resource
+    public void setContext(WebServiceContext context) {
+        this.context = context;
     }
-    
-    public void setOrchestratorImpl(EntityDocRetrieveOrchImpl orchImpl) {
-        this.orchImpl = orchImpl;
+
+    public void setOutboundDocRetrieve(OutboundDocRetrieve outboundDocRetrieve) {
+        this.outboundDocRetrieve = outboundDocRetrieve;
     }
 }

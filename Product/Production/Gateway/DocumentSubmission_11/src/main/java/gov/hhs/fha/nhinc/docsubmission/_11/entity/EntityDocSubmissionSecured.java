@@ -50,9 +50,9 @@ public class EntityDocSubmissionSecured implements gov.hhs.fha.nhinc.nhincentity
     private OutboundDocSubmission outboundDocSubmission;
 
     @Override
-    @OutboundMessageEvent(beforeBuilder = DocSubmissionArgTransformerBuilder.class,
-    afterReturningBuilder = DocSubmissionBaseEventDescriptionBuilder.class, serviceType = "Document Submission",
-    version = "1.1")
+    @OutboundMessageEvent(beforeBuilder = DocSubmissionArgTransformerBuilder.class, 
+            afterReturningBuilder = DocSubmissionBaseEventDescriptionBuilder.class, 
+            serviceType = "Document Submission", version = "1.1")
     public RegistryResponseType provideAndRegisterDocumentSetB(
             RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType body) {
         return new EntityDocSubmissionImpl(outboundDocSubmission).provideAndRegisterDocumentSetBSecured(body, context);
