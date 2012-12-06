@@ -2836,7 +2836,7 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 </con:properties>
 <con:reportParameters/>
 </con:testCase>
-<con:testCase failOnError="true" failTestCaseOnErrors="true" id="5afd92e4-4f8e-4ca4-8803-432c53200f82" keepSession="false" maxResults="0" name="Document Retrieve" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" id="5afd92e4-4f8e-4ca4-8803-432c53200f82" keepSession="false" maxResults="0" name="Document Retrieve" disabled="true"  searchProperties="true">
 	<con:settings/>
 	<con:testStep name="Document Retrieve" type="request">
 		<con:settings/>
@@ -7527,7 +7527,7 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 </con:properties>
 <con:reportParameters/>
 </con:testCase>
-<con:testCase failOnError="true" failTestCaseOnErrors="true" id="dc10b2cf-f433-4c1b-af78-fc831e76309d" keepSession="false" maxResults="0" name="Document Retrieve" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" id="dc10b2cf-f433-4c1b-af78-fc831e76309d" keepSession="false" maxResults="0" name="Document Retrieve" disabled="true" searchProperties="true">
 	<con:settings/>
 	<con:testStep name="Document Retrieve" type="request">
 		<con:settings/>

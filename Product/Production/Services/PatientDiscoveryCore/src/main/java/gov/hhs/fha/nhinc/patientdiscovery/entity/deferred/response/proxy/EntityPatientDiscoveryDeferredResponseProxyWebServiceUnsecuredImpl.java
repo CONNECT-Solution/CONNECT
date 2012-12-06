@@ -71,7 +71,7 @@ public class EntityPatientDiscoveryDeferredResponseProxyWebServiceUnsecuredImpl 
         log.debug("Begin EntityPatientDiscoveryDeferredResponseProxyWebServiceUnsecuredImpl.processPatientDiscoveryAsyncResp(...)");
         MCCIIN000002UV01 response = new MCCIIN000002UV01();
 
-        String serviceName = NhincConstants.PATIENT_DISCOVERY_PASSTHRU_ASYNC_RESP_SERVICE_NAME;
+        String serviceName = NhincConstants.PATIENT_DISCOVERY_ENTITY_ASYNC_RESP_SERVICE_NAME;
 
         try {
             log.debug("Before target system URL look up.");
