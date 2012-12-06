@@ -14,7 +14,7 @@ public class ResponseScrubber {
 
     private static ResponseScrubber INSTANCE = new ResponseScrubber();
 
-    ResponseScrubber() {
+    private ResponseScrubber() {
     }
 
     /**
@@ -28,7 +28,7 @@ public class ResponseScrubber {
 
     /**
      * Scrubs the RetrieveDocumentSetResponseType message to conform to DR 2.0 specs by removing unsupported dynamic
-     * document ids.  This call has a side effecto actually modifying the passed in message.
+     * document ids.  This call has a side effect of actually modifying the passed in message.
      * 
      * @param resp The message to be scrubbed.
      */
