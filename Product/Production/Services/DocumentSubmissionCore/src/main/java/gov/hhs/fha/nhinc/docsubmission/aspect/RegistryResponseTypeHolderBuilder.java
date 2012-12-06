@@ -1,4 +1,3 @@
-package gov.hhs.fha.nhinc.docsubmission._20.nhin.deferred.response;
 /*
  * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
@@ -25,31 +24,33 @@ package gov.hhs.fha.nhinc.docsubmission._20.nhin.deferred.response;
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+package gov.hhs.fha.nhinc.docsubmission.aspect;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import gov.hhs.fha.nhinc.aspect.InboundMessageEvent;
-import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
-import gov.hhs.fha.nhinc.docsubmission.aspect.RegistryResponseTypeHolderBuilder;
-
-import java.lang.reflect.Method;
+import gov.hhs.fha.nhinc.event.ArgTransformerEventDescriptionBuilder;
 
 import javax.xml.ws.Holder;
 
-import org.junit.Test;
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
-public class NhinXDRResponse20Test {
-    //To-Do : DefaultEventDescriptionBuilder needs to be replaced with appropriate Builders
-    @Test
-    public void hasInboundMessageEvent() throws Exception {
-        Class<NhinXDRResponse20> clazz = NhinXDRResponse20.class;
-        Method method = clazz.getMethod("provideAndRegisterDocumentSetBDeferredResponse",
-               Holder.class);
-        InboundMessageEvent annotation = method.getAnnotation(InboundMessageEvent.class);
-        assertNotNull(annotation);
-        assertEquals(RegistryResponseTypeHolderBuilder.class, annotation.beforeBuilder());
-        assertEquals(DefaultEventDescriptionBuilder.class, annotation.afterReturningBuilder());
-        assertEquals("Document Submission Deferred Response", annotation.serviceType());
-        assertEquals("2.0", annotation.version());
+public class RegistryResponseTypeHolderBuilder extends ArgTransformerEventDescriptionBuilder {
+
+    public RegistryResponseTypeHolderBuilder() {
+        setDelegate(new DeferredResponseDescriptionBuilder());
     }
+
+    @Override
+    public Object[] transformArguments(Object[] arguments) {
+        if (arguments == null || arguments[0] == null) {
+            return new Object[] {};
+        }
+        @SuppressWarnings("unchecked")
+        Holder<RegistryResponseType> holder = (Holder<RegistryResponseType>) arguments[0];
+        return new Object[] { holder.value };
+    }
+
+    @Override
+    public Object transformReturnValue(Object returnValue) {
+        return returnValue;
+    }
+
 }
