@@ -2805,7 +2805,7 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 	</con:property>
 	<con:property>
 		<con:name>DateOfSignature</con:name>
-		<con:value>20080520>>>>>>> .r3844</con:value>
+		<con:value>20080520</con:value>
 </con:property>
 <con:property>
 	<con:name>startDate</con:name>
@@ -8584,7 +8584,7 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 	</con:property>
 	<con:property>
 		<con:name>DateOfSignature</con:name>
-		<con:value>20080520>>>>>>> .r3844</con:value>
+		<con:value>20080520</con:value>
 </con:property>
 <con:property>
 	<con:name>startDate</con:name>
