@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+    <display-name>Sample web service provider</display-name>
+
+    <context-param>
+        <param-name>configService</param-name>
+        <param-value>http://localhost:8081/config-service/ConfigurationService</param-value>
+    </context-param>
+
+    <!-- Uncomment if using 'syslog' audit method -->
+    <!--     
+    <context-param>
+        <param-name>auditHost</param-name>
+        <param-value>localhost</param-value>
+    </context-param>
+    <context-param>
+        <param-name>auditPort</param-name>
+        <param-value>514</param-value>
+    </context-param>
+    -->
+
+    <servlet>
+        <servlet-name>init</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.direct.servlet.InitServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    
+    <servlet>
+        <servlet-name>WebServicePort</servlet-name>
+        <!-- For Metro, use this servlet-class instead:
+              com.sun.xml.ws.transport.http.servlet.WSServlet -->
+        <servlet-class>org.apache.cxf.transport.servlet.CXFServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>WebServicePort</servlet-name>
+        <url-pattern>/*</url-pattern>
+    </servlet-mapping>
+    <session-config>
+        <session-timeout>60</session-timeout>
+    </session-config>
+</web-app>
+

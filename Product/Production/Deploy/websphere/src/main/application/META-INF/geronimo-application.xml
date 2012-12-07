@@ -29,7 +29,7 @@
             <sys:filter>javax.xml.ws</sys:filter>
             <sys:filter>javax.xml.soap</sys:filter>
             <sys:filter>javax.xml.crypto</sys:filter>
-            <sys:filter>javax.xml.stream</sys:filter>
+            <sys:filter>com.sun.xml.messaging</sys:filter>
             <sys:filter>org.springframework</sys:filter>
             <sys:filter>antlr</sys:filter>
             <sys:filter>net.sf.cglib</sys:filter>

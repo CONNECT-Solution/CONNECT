@@ -4,6 +4,7 @@
 .metadata
 .checkstyle
 .DS_Store
+.pmd
 *.log
 MANIFEST.MF
 .externalToolBuilders/
@@ -30,4 +31,10 @@ Product/Install/.installer.temp/
 Product/Install/.backup*/
 Product/PmdReport/
 CheckstyleReport/
+MANIFEST.MF
+RawMsgFolder/
+BadMsgFolder/
+OutgoingMsgFolder/
+IncomingMsgFolder/
+1234-xdm.zip
 
