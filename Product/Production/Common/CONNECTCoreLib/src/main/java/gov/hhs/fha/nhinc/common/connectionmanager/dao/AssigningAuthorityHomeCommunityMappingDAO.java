@@ -101,9 +101,9 @@ public class AssigningAuthorityHomeCommunityMappingDAO {
         } else {
             log.error("Please provide a valid homeCommunityId");
         }
-        if (log.isDebugEnabled()) {
-            log.debug("-- End AssigningAuthorityHomeCommunityMappingDAO.getAssigningAuthoritiesByHomeCommunity() ---");
-            log.debug("getAssigningAuthoritiesByHomeCommunity - listOfAAs.size: " + listOfAAs.size());
+        if (log.isTraceEnabled()) {
+            log.trace("-- End AssigningAuthorityHomeCommunityMappingDAO.getAssigningAuthoritiesByHomeCommunity() ---");
+            log.trace("getAssigningAuthoritiesByHomeCommunity - listOfAAs.size: " + listOfAAs.size());
         }
         return listOfAAs;
     }

@@ -125,8 +125,7 @@ public class AggregationService {
                     .getPatientCorrelationProxy().retrievePatientCorrelations(
                             pixRetrieveBuilder.createPixRetrieve(patientCorrelationReq), assertion);
 
-            List<QualifiedSubjectIdentifierType> subIdList = new ArrayList<QualifiedSubjectIdentifierType>();
-            List<II> identities = Collections.EMPTY_LIST;
+            List<II> identities = Collections.emptyList();
             if (hasIdentities(results)) {
                 identities = results.getPRPAIN201310UV02().getControlActProcess().getSubject().get(0)
                         .getRegistrationEvent().getSubject1().getPatient().getId();
@@ -215,8 +214,8 @@ public class AggregationService {
      */
     protected AdhocQueryRequest setTargetHomeCommunityId(AdhocQueryRequest request, String sTargetHomeCommunityId) {
         if (NullChecker.isNotNullish(sTargetHomeCommunityId)) {
-            if (!(sTargetHomeCommunityId.startsWith("urn:oid:"))) {
-                sTargetHomeCommunityId = "urn:oid:" + sTargetHomeCommunityId;
+            if (!(sTargetHomeCommunityId.startsWith(NhincConstants.HCID_PREFIX))) {
+                sTargetHomeCommunityId = NhincConstants.HCID_PREFIX + sTargetHomeCommunityId;
             }
             request.getAdhocQuery().setHome(sTargetHomeCommunityId);
         }
@@ -266,7 +265,6 @@ public class AggregationService {
         newRequest.setAdhocQuery(newQuery);
 
         newRequest.setComment(request.getComment());
-        // newRequest.setFederated(request.isFederated());
         newRequest.setFederation(request.getFederation());
         newRequest.setId(request.getId());
         newRequest.setMaxResults(request.getMaxResults());

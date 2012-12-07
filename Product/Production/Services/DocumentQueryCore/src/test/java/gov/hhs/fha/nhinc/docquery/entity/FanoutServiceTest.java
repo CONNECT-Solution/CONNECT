@@ -90,11 +90,7 @@ public class FanoutServiceTest {
 
         List<UrlInfo> urlInfoList = new ArrayList<UrlInfo>();
         urlInfoList.add(createUrlInfo("4.4", ""));
-        // UrlInfo urlInfo1 = new UrlInfo();
-        // urlInfo1.setHcid("2.2");
-        // urlInfo1.setUrl("https://localhost:8080/connect/DocQuery");
-        // urlInfoList.add(urlInfo1);
-
+   
         when(patientCorrelationProxyFactory.getPatientCorrelationProxy()).thenReturn(patientCorrelationProxy);
 
         when(
@@ -295,9 +291,6 @@ public class FanoutServiceTest {
         List<SlotType1> slotList2 = query1.getSlot();
 
         assertSame(slotList1, slotList2);
-
-        // query2.getClassification().addAll(query1.getClassification());
-        // query2.getExternalIdentifier().addAll(query1.getExternalIdentifier());
 
         assertEquals(query1.getDescription(), query1.getDescription());
 

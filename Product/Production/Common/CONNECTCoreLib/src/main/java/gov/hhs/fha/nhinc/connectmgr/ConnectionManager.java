@@ -39,7 +39,6 @@ import org.uddi.api_v3.BusinessEntity;
 
 public interface ConnectionManager {
 
-    /**
     
     /**
      * This method will return a list of all business entities that are known by the connection manager.

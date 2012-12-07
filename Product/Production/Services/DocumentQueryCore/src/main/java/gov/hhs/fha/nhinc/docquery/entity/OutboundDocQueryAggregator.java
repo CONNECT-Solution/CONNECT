@@ -51,11 +51,9 @@ public class OutboundDocQueryAggregator implements NhinAggregator {
      * @param aggregatedResponse
      */
     protected void aggregateRegistryErrors(AdhocQueryResponse aggregatedResponse, AdhocQueryResponse individualResponse) {
-        // add any registry errors
         RegistryErrorList registryErrorList = individualResponse.getRegistryErrorList();
-        if (registryErrorList != null
-                && registryErrorList.getRegistryError() != null
-                && registryErrorList.getRegistryError().size() > 0) {
+        if (registryErrorList != null &&
+                registryErrorList.getRegistryError().size() > 0) {
 
             if (aggregatedResponse.getRegistryErrorList() == null) {
                 aggregatedResponse.setRegistryErrorList(new RegistryErrorList());
@@ -73,10 +71,8 @@ public class OutboundDocQueryAggregator implements NhinAggregator {
      */
     protected void aggregateSlotlistResponse(AdhocQueryResponse aggregatedResponse,
             AdhocQueryResponse individualResponse) {
-        // add any slotlist response data
         SlotListType individualResponseSlotList = individualResponse.getResponseSlotList();
-        if (individualResponseSlotList != null && individualResponseSlotList.getSlot() != null
-                && individualResponseSlotList.getSlot().size() > 0) {
+        if (individualResponseSlotList != null && individualResponseSlotList.getSlot().size() > 0) {
             aggregatedResponse.getResponseSlotList().getSlot().addAll(individualResponseSlotList.getSlot());
         }
     }
@@ -97,7 +93,6 @@ public class OutboundDocQueryAggregator implements NhinAggregator {
      */
     protected void aggregateRegistryObjectList(AdhocQueryResponse aggregatedResponse,
             AdhocQueryResponse individualResponse) {
-        // add the responses from registry object list
         RegistryObjectListType registryObjectList = individualResponse.getRegistryObjectList();
         if (registryObjectList != null) {
             collectRegistryObjectResponses(aggregatedResponse, registryObjectList);

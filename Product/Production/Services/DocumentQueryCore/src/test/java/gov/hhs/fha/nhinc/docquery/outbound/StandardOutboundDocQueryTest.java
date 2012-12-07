@@ -37,35 +37,30 @@ import org.mockito.ArgumentCaptor;
  */
 public class StandardOutboundDocQueryTest {
 
-  
-    
     @Test
     public void testrespondingGatewayCrossGatewayQueryforNullEndPoint() {
 
         AggregationStrategy strategy = mock(AggregationStrategy.class);
-        
-        
+
         AdhocQueryRequest adhocQueryRequest = new AdhocQueryRequest();
         adhocQueryRequest = createRequest(createSlotList());
 
         AssertionType assertion = new AssertionType();
 
-        AdhocQueryResponse response = null;
         StandardOutboundDocQuery entitydocqueryimpl = new StandardOutboundDocQuery(strategy);
-     
-            NhinTargetCommunitiesType targets = createNhinTargetCommunites();
-            response = entitydocqueryimpl.respondingGatewayCrossGatewayQuery(adhocQueryRequest, assertion,
-                    targets);
-            
-            ArgumentCaptor<OutboundDocQueryAggregate> aggregate = ArgumentCaptor.forClass(OutboundDocQueryAggregate.class);
+
+        NhinTargetCommunitiesType targets = createNhinTargetCommunites();
+        AdhocQueryResponse response = entitydocqueryimpl.respondingGatewayCrossGatewayQuery(adhocQueryRequest, assertion, targets);
+
+        ArgumentCaptor<OutboundDocQueryAggregate> aggregate = ArgumentCaptor.forClass(OutboundDocQueryAggregate.class);
 
         verify(strategy).execute(aggregate.capture());
-        
+
         assertSame(aggregate.getValue().getAdhocQueryRequest(), adhocQueryRequest);
         assertSame(aggregate.getValue().getAssertion(), assertion);
         assertSame(aggregate.getValue().getTargets(), targets);
     }
-    
+
     private AdhocQueryRequest createRequest(List<SlotType1> slotList) {
         AdhocQueryRequest adhocQueryRequest = new AdhocQueryRequest();
         AdhocQueryType adhocQuery = new AdhocQueryType();
@@ -89,17 +84,17 @@ public class StandardOutboundDocQueryTest {
         slotList.add(t);
         return slotList;
     }
-    
+
     /**
      * @param targetCommunity
      * @return
      */
     public NhinTargetCommunitiesType createTargetCommunities(NhinTargetCommunityType... targetCommunities) {
         NhinTargetCommunitiesType targetCommunitiesType = new NhinTargetCommunitiesType();
-        
-        for(NhinTargetCommunityType targetCommunity: targetCommunities)
+
+        for (NhinTargetCommunityType targetCommunity : targetCommunities)
             targetCommunitiesType.getNhinTargetCommunity().add(targetCommunity);
-        
+
         return targetCommunitiesType;
     }
 
@@ -118,138 +113,10 @@ public class StandardOutboundDocQueryTest {
         targetCommunity.setList(list);
         return targetCommunity;
     }
-    
+
     private NhinTargetCommunitiesType createNhinTargetCommunites() {
         return createTargetCommunities(createTargetCommunity("4.4", "US-FL", "Unimplemented"));
     }
-    
-//    @Test
-//    public void testrespondingGatewayCrossGatewayQueryforMultipleTragets() {
-//
-//        AdhocQueryRequest adhocQueryRequest = null;
-//        adhocQueryRequest = createRequest();
-//
-//        AssertionType assertion = new AssertionType();
-//
-//        AdhocQueryResponse response = new AdhocQueryResponse();
-//        StandardOutboundDocQuery entitydocqueryimpl = new StandardOutboundDocQuery() {
-//
-//            @Override
-//            protected boolean isValidPolicy(AdhocQueryRequest queryRequest, AssertionType assertion,
-//                    HomeCommunityType targetCommunity) {
-//                return true;
-//            }
-//
-//            @Override
-//            protected void auditInitialEntityRequest(RespondingGatewayCrossGatewayQuerySecuredRequestType request,
-//                    AssertionType assertion, DocQueryAuditLog auditLog) {
-//
-//            }
-//
-//            @Override
-//            protected List<QualifiedSubjectIdentifierType> retrieveCorrelation(List<SlotType1> slotList,
-//                    List<UrlInfo> urlInfoList, AssertionType assertion, boolean isTargeted, String localHomeCommunityId) {
-//                List<QualifiedSubjectIdentifierType> correlationResult = new ArrayList<QualifiedSubjectIdentifierType>();
-//                QualifiedSubjectIdentifierType qualSubId = new QualifiedSubjectIdentifierType();
-//                qualSubId.setAssigningAuthorityIdentifier("4.4");
-//                qualSubId.setSubjectIdentifier("D123401");
-//                correlationResult.add(qualSubId);
-//                QualifiedSubjectIdentifierType qualSubId1 = new QualifiedSubjectIdentifierType();
-//                qualSubId1.setAssigningAuthorityIdentifier("2.2");
-//                qualSubId1.setSubjectIdentifier("D123401");
-//                correlationResult.add(qualSubId1);
-//                return correlationResult;
-//            }
-//
-//            @Override
-//            protected void auditDocQueryResponse(AdhocQueryResponse response, AssertionType assertion,
-//                    DocQueryAuditLog auditLog) {
-//
-//            }
-//
-//            @Override
-//            protected AdhocQueryRequest cloneRequest(AdhocQueryRequest request) {
-//                return request;
-//            }
-//
-//            @Override
-//            protected AdhocQueryResponse specResponseA0(List<QualifiedSubjectIdentifierType> correlationsResult,
-//                    List<NhinCallableRequest<OutboundDocQueryOrchestratable>> callableList, String transactionId,
-//                    AdhocQueryResponse response, RegistryErrorList policyErrList) throws InterruptedException,
-//                    ExecutionException {
-//
-//                if (callableList.size() > 0) {
-//                    response.setStatus(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_SUCCESS);
-//                } else {
-//                    response.setStatus(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_FAILURE);
-//                }
-//                return response;
-//            }
-//
-//            @Override
-//            protected AdhocQueryResponse specResponseA1(List<QualifiedSubjectIdentifierType> correlationsResult,
-//                    List<NhinCallableRequest<OutboundDocQueryOrchestratable>> callableList, String transactionId,
-//                    AdhocQueryResponse response, RegistryErrorList policyErrList) throws InterruptedException,
-//                    ExecutionException {
-//                return response;
-//            }
-//
-//            @Override
-//            protected Log createLogger() {
-//                return mockLog;
-//            }
-//
-//            @Override
-//            protected HomeCommunityType getTargetCommunity(String assigningAuthorityIdentifier, String localAA,
-//                    String localHomeCommunityId) {
-//
-//                HomeCommunityType targetCommunity = new HomeCommunityType();
-//                targetCommunity.setHomeCommunityId(assigningAuthorityIdentifier);
-//                return targetCommunity;
-//
-//            }
-//
-//            @Override
-//            protected List<UrlInfo> getEndpointForNhinTargetCommunities(NhinTargetCommunitiesType targets,
-//                    String docQueryServiceName) {
-//                List<UrlInfo> urlInfoList = new ArrayList<UrlInfo>();
-//                UrlInfo urlInfo = new UrlInfo();
-//                urlInfo.setHcid("4.4");
-//                urlInfo.setUrl("");
-//                urlInfoList.add(urlInfo);
-//                UrlInfo urlInfo1 = new UrlInfo();
-//                urlInfo1.setHcid("2.2");
-//                urlInfo1.setUrl("https://localhost:8080/connect/DocQuery");
-//                urlInfoList.add(urlInfo1);
-//                return urlInfoList;
-//
-//            }
-//
-//            @Override
-//            protected boolean getApiLevel(String localHomeCommunityId, NHIN_SERVICE_NAMES documentQuery) {
-//                return true;
-//            }
-//
-//        };
-//        try {
-//
-//            context.checking(new Expectations() {
-//                {
-//                    allowing(mockLog).isDebugEnabled();
-//                    allowing(mockLog).debug(with(any(String.class)));
-//                    allowing(mockLog).error(with(any(String.class)));
-//                }
-//            });
-//
-//            response = entitydocqueryimpl.respondingGatewayCrossGatewayQuery(adhocQueryRequest, assertion,
-//                    createNhinTargetCommunitesForMultipleTargets());
-//
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        assertSame(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_PARTIALSUCCESS, response.getStatus());
-//
-//    }
 
     @Test
     public void hasBeginOutboundProcessingEvent() throws Exception {
@@ -263,7 +130,5 @@ public class StandardOutboundDocQueryTest {
         assertEquals("Document Query", annotation.serviceType());
         assertEquals("", annotation.version());
     }
-
- 
 
 }
