@@ -24,51 +24,13 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.docquery.entity;
+package gov.hhs.fha.nhinc.docquery.nhin.proxy;
 
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
-import gov.hhs.fha.nhinc.docquery.nhin.proxy.NhinDocQueryProxy;
-import gov.hhs.fha.nhinc.docquery.nhin.proxy.NhinDocQueryProxyObjectFactory;
-import gov.hhs.fha.nhinc.gateway.executorservice.ExecutorServiceHelper;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
-import gov.hhs.fha.nhinc.orchestration.OutboundResponseProcessor;
-import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
-/**
- * Implements the DocQuery client strategy for spec g0 endpoint.
- * 
- * @author paul.eftis
- */
-// CHECKSTYLE:OFF
-public class OutboundDocQueryStrategyImpl_g0 extends OutboundDocQueryStrategy {
-    // CHECKSTYLE:ON
-    private static Log log = LogFactory.getLog(OutboundDocQueryStrategyImpl_g0.class);
+public interface NhinDocQueryProxyFactory {
 
     /**
-     * Default Constructor.
+     * @return Bean Instantiate NhinDocQuery Bean to send DocQuery Requests.
      */
-    public OutboundDocQueryStrategyImpl_g0() {
-
-    }
-
-   
-
-    /**
-     * @return
-     */
-    protected GATEWAY_API_LEVEL getAPILevel() {
-        return GATEWAY_API_LEVEL.LEVEL_g0;
-    }
-
-    /**
-     * @return
-     */
-    protected String getServiceName() {
-        return NhincConstants.DOC_QUERY_SERVICE_NAME;
-    }
+    public NhinDocQueryProxy getNhinDocQueryProxy();
 
 }
