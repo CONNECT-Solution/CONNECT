@@ -65,7 +65,7 @@ public class MailUtils {
 
     /**
      * Close the java mail store and folder, specifying whether deleted messages should be expunged. Log exceptions.
-     * 
+     *
      * @param store to be closed.
      * @param folder to be closed.
      * @param expunge true if deleted messages should be expunged from the folder.
@@ -83,7 +83,7 @@ public class MailUtils {
 
     /**
      * Close the java mail store. Log exceptions.
-     * 
+     *
      * @param store to be closed.
      */
     public static void closeQuietly(Store store) {
@@ -98,7 +98,7 @@ public class MailUtils {
 
     /**
      * Return a mail session using the provided properties, username and password.
-     * 
+     *
      * @param mailServerProps properties for the mail server
      * @param user username credential
      * @param pass password credential
@@ -120,7 +120,7 @@ public class MailUtils {
 
         Transport transport = null;
         try {
-            transport = session.getTransport("smtps");
+            transport = session.getTransport("smtp");
             transport.connect();
             transport.sendMessage(message, recipients);
             logHeaders(message);
@@ -144,7 +144,7 @@ public class MailUtils {
             }
         };
     }
-    
+
     /**
      * Log message headers.
      * @param mimeMessage to log headers from
