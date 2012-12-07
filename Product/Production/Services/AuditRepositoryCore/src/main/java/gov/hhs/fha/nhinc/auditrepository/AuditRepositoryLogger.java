@@ -26,19 +26,6 @@
  */
 package gov.hhs.fha.nhinc.auditrepository;
 
-import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
-import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
-import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.hl7.v3.MCCIIN000002UV01;
-import org.hl7.v3.PRPAIN201305UV02;
-import org.hl7.v3.PRPAIN201306UV02;
-import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
-import org.hl7.v3.RespondingGatewayPRPAIN201306UV02RequestType;
-import org.hl7.v3.RespondingGatewayPRPAIN201306UV02ResponseType;
-
 import gov.hhs.fha.nhinc.common.auditlog.AdhocQueryMessageType;
 import gov.hhs.fha.nhinc.common.auditlog.AdhocQueryResponseMessageType;
 import gov.hhs.fha.nhinc.common.auditlog.DocRetrieveMessageType;
@@ -89,6 +76,17 @@ import gov.hhs.fha.nhinc.transform.audit.UnsubscribeTransforms;
 import gov.hhs.fha.nhinc.transform.audit.XDRTransforms;
 import gov.hhs.healthit.nhin.DocQueryAcknowledgementType;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
+import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
+import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
+
+import org.apache.log4j.Logger;
+import org.hl7.v3.MCCIIN000002UV01;
+import org.hl7.v3.PRPAIN201305UV02;
+import org.hl7.v3.PRPAIN201306UV02;
+import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
+import org.hl7.v3.RespondingGatewayPRPAIN201306UV02RequestType;
+import org.hl7.v3.RespondingGatewayPRPAIN201306UV02ResponseType;
 
 /**
  * 
@@ -96,7 +94,7 @@ import gov.hhs.healthit.nhin.XDRAcknowledgementType;
  */
 public class AuditRepositoryLogger implements AuditRepositoryDocumentRetrieveLogger  {
 
-    private static Log log = LogFactory.getLog(AuditRepositoryLogger.class);
+    private Logger log = Logger.getLogger(AuditRepositoryLogger.class);
     private final PatientDiscoveryTransforms pdAuditTransformer = new PatientDiscoveryTransforms();
     private final XDRTransforms xdrAuditTransformer = new XDRTransforms();
     private final AdminDistTransforms adAuditTransformer = new AdminDistTransforms();
@@ -880,14 +878,14 @@ public class AuditRepositoryLogger implements AuditRepositoryDocumentRetrieveLog
      */
     public LogEventRequestType logAcknowledgement(XDRAcknowledgementType acknowledgement, AssertionType assertion,
             String direction, String action) {
-        getLogger().debug("Entering AuditRepositoryLogger.logAcknowledgement(...)");
+        log.debug("Entering AuditRepositoryLogger.logAcknowledgement(...)");
 
         LogEventRequestType auditMsg = null;
 
             auditMsg = xdrAuditTransformer.transformAcknowledgementToAuditMsg(acknowledgement, assertion, direction,
                     NhincConstants.AUDIT_LOG_NHIN_INTERFACE, action);
 
-        getLogger().debug("Exiting AuditRepositoryLogger.logAcknowledgement(...)");
+        log.debug("Exiting AuditRepositoryLogger.logAcknowledgement(...)");
         return auditMsg;
     }
 
@@ -901,10 +899,10 @@ public class AuditRepositoryLogger implements AuditRepositoryDocumentRetrieveLog
      */
     public LogEventRequestType logAdapterAcknowledgement(XDRAcknowledgementType acknowledgement, AssertionType assertion,
             String direction, String action) {
-        getLogger().debug("Entering AuditRepositoryLogger.logAcknowledgement(...)");
+        log.debug("Entering AuditRepositoryLogger.logAcknowledgement(...)");
 
         LogEventRequestType auditMsg = null;
-        getLogger().debug("Exiting AuditRepositoryLogger.logAcknowledgement(...)");
+        log.debug("Exiting AuditRepositoryLogger.logAcknowledgement(...)");
         return auditMsg;
     }
 
@@ -918,11 +916,11 @@ public class AuditRepositoryLogger implements AuditRepositoryDocumentRetrieveLog
      */
     public LogEventRequestType logEntityAcknowledgement(XDRAcknowledgementType acknowledgement,
             AssertionType assertion, String direction, String action) {
-        getLogger().debug("Entering AuditRepositoryLogger.logAcknowledgement(...)");
+        log.debug("Entering AuditRepositoryLogger.logAcknowledgement(...)");
         LogEventRequestType auditMsg = null;
             auditMsg = xdrAuditTransformer.transformAcknowledgementToAuditMsg(acknowledgement, assertion, direction,
                     NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, action);
-        getLogger().debug("Exiting AuditRepositoryLogger.logAcknowledgement(...)");
+        log.debug("Exiting AuditRepositoryLogger.logAcknowledgement(...)");
         return auditMsg;
     }
 
@@ -976,14 +974,6 @@ public class AuditRepositoryLogger implements AuditRepositoryDocumentRetrieveLog
                 logInterface);
         log.debug("Exiting AuditRepositoryLogger.logEntityPatientDiscResp(...)");
         return auditMsg;
-    }
-
-    /**
-     * Returns the Log object.
-     * @return the log object
-     */
-    protected Log getLogger() {
-        return log;
     }
 
 }

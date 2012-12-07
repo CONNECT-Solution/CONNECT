@@ -26,15 +26,14 @@
  */
 package gov.hhs.fha.nhinc.asyncmsgs.persistence;
 
-import java.io.File;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
-
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.properties.HibernateAccessor;
+
+import java.io.File;
+
+import org.apache.log4j.Logger;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
 
 /**
  *
@@ -42,7 +41,7 @@ import gov.hhs.fha.nhinc.properties.HibernateAccessor;
  */
 public class HibernateUtil {
     private static final SessionFactory sessionFactory;
-    private static Log log = LogFactory.getLog(HibernateUtil.class);
+    private static Logger log = Logger.getLogger(HibernateUtil.class);
     static {
         try {
             // Create the SessionFactory from hibernate.cfg.xml
