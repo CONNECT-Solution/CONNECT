@@ -51,7 +51,6 @@ public class XACMLConstants {
     public static final String ATTRIBUTE_VALUE_TYPE_X500 = "urn:oasis:names:tc:xacml:1.0:data-type:x500Name";
     public static final String ATTRIBUTE_VALUE_TYPE_DATE = "http://www.w3.org/2001/XMLSchema#date";
 
-    public static final String ATTRIBUTE_VALUE_RETRIEVE_DOCUMENT = "urn:ihe:iti:2007:CrossGatewayRetrieve";
     public static final String ATTRIBUTE_VALUE_QUERY_DOCUMENT = "urn:ihe:iti:2007:CrossGatewayQuery";
 
     public static final String ACTION_ID = "urn:oasis:names:tc:xacml:1.0:action:action-id";
