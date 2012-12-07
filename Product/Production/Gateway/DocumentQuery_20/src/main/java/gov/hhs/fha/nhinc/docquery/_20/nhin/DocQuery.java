@@ -47,9 +47,8 @@ import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 @Addressing(enabled = true)
 public class DocQuery implements RespondingGatewayQueryPortType {
+    
     private InboundDocQuery inboundDocQuery;
-
-    @Resource
     private WebServiceContext context;
 
     /**
@@ -64,6 +63,11 @@ public class DocQuery implements RespondingGatewayQueryPortType {
             version = "2.0")
     public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest body) {
         return new DocQueryImpl(inboundDocQuery).respondingGatewayCrossGatewayQuery(body, context);
+    }
+    
+    @Resource
+    public void setContext(WebServiceContext context) {
+        this.context = context;
     }
 
     public void setInboundDocQuery(InboundDocQuery inboundDocQuery) {

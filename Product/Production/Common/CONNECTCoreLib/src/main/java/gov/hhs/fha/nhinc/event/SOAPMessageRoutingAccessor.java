@@ -43,6 +43,7 @@ import org.apache.cxf.jaxws.context.WebServiceContextImpl;
 public class SOAPMessageRoutingAccessor implements MessageRoutingAccessor {
 
     private WebServiceContext context;
+    private AsyncMessageIdExtractor extractor = new AsyncMessageIdExtractor();
 
     public SOAPMessageRoutingAccessor() {
         this.context = new WebServiceContextImpl();
@@ -59,7 +60,7 @@ public class SOAPMessageRoutingAccessor implements MessageRoutingAccessor {
      */
     @Override
     public String getMessageId() {
-        return AsyncMessageIdExtractor.getMessageId(context);
+        return extractor.getMessageId(context);
     }
 
     /*
@@ -69,11 +70,10 @@ public class SOAPMessageRoutingAccessor implements MessageRoutingAccessor {
      */
     @Override
     public String getTransactionId() {
-
-        String messageId = AsyncMessageIdExtractor.getMessageId(context);
+        String messageId = extractor.getMessageId(context);
         String transactionId = null;
 
-        List<String> transactionIdList = AsyncMessageIdExtractor.getAsyncRelatesTo(context);
+        List<String> transactionIdList = extractor.getAsyncRelatesTo(context);
         if (NullChecker.isNotNullish(transactionIdList)) {
             transactionId = transactionIdList.get(0);
         }

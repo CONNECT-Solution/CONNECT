@@ -31,7 +31,6 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
 
 import javax.annotation.Resource;
-import javax.jws.WebService;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 
@@ -45,9 +44,12 @@ import org.hl7.v3.RetrievePatientCorrelationsResponseType;
  * @author jhoppesc
  */
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
-public class PatientCorrelationServiceUnsecured implements gov.hhs.fha.nhinc.nhinccomponentpatientcorrelation.PatientCorrelationPortType {
+public class PatientCorrelationServiceUnsecured implements
+        gov.hhs.fha.nhinc.nhinccomponentpatientcorrelation.PatientCorrelationPortType {
     @Resource
     private WebServiceContext context;
+
+    private AsyncMessageIdExtractor extractor = new AsyncMessageIdExtractor();
 
     private PatientCorrelationService<RetrievePatientCorrelationsRequestType, RetrievePatientCorrelationsResponseType, AddPatientCorrelationRequestType, AddPatientCorrelationResponseType> service;
 
@@ -82,8 +84,8 @@ public class PatientCorrelationServiceUnsecured implements gov.hhs.fha.nhinc.nhi
         return service.addPatientCorrelation(addPatientCorrelationRequest, assertionType);
     }
 
-  private String createMessageId(WebServiceContext context) {
-        return AsyncMessageIdExtractor.getOrCreateAsyncMessageId(context);
+    private String createMessageId(WebServiceContext context) {
+        return extractor.getOrCreateAsyncMessageId(context);
     }
 
 }

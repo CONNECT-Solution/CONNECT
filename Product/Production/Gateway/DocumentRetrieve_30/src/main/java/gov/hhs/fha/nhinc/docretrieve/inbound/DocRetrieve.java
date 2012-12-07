@@ -39,6 +39,8 @@ import javax.annotation.Resource;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
+
+import ihe.iti.xds_b._2007.RespondingGatewayRetrievePortType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 
@@ -48,10 +50,11 @@ import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
  */
 @BindingType(value = "http://www.w3.org/2003/05/soap/bindings/HTTP/")
 @Addressing(enabled = true)
-public class DocRetrieve extends BaseService implements ihe.iti.xds_b._2007.RespondingGatewayRetrievePortType {
+public class DocRetrieve extends BaseService implements RespondingGatewayRetrievePortType {
+    
     private WebServiceContext context;
     
-    private DocRetrieveService service;
+    private InboundDocRetrieve service;
 
     /**
      * The web service implementation for Document Retrieve.
@@ -76,7 +79,7 @@ public class DocRetrieve extends BaseService implements ihe.iti.xds_b._2007.Resp
     /**
      * @param service the service to set
      */
-    public void setService(DocRetrieveService service) {
+    public void setInboundDocRetrieve(InboundDocRetrieve service) {
         this.service = service;
     }
 }

@@ -66,7 +66,6 @@ public class OutboundDocRetrievePolicyTransformer_a0Test {
      */
     @Test
     public void testTranform() {
-        System.out.println("tranform");
         Orchestratable message = null;
         Direction direction = null;
         OutboundDocRetrievePolicyTransformer_a0 instance = new OutboundDocRetrievePolicyTransformer_a0();

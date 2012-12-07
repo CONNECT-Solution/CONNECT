@@ -15,4 +15,16 @@
     <property column="assigningauthorityid" length="64" name="assigningAuthorityId" not-null="true" type="string"/>
     <property column="homecommunityid" length="64" name="homeCommunityId" not-null="true" type="string"/>
   </class>
+
+  <query name="findAAByHomeCommunityId">
+    <![CDATA[FROM AssigningAuthorityToHomeCommunityMapping aa WHERE aa.homeCommunityId = :homeCommunityId]]>
+  </query>
+  <query name="findAAByAAId">
+    <![CDATA[FROM AssigningAuthorityToHomeCommunityMapping aa WHERE aa.assigningAuthorityId = :assigningAuthorityId]]>
+  </query>
+  <query name="findAAByAAIdAndHomeCommunityId">
+    <![CDATA[FROM AssigningAuthorityToHomeCommunityMapping aa
+             WHERE aa.assigningAuthorityId = :assigningAuthorityId
+               AND aa.homeCommunityId = :homeCommunityId]]>
+  </query>
 </hibernate-mapping>

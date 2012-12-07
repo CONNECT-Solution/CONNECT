@@ -40,6 +40,7 @@ import java.lang.reflect.Method;
 import gov.hhs.fha.nhinc.aspect.InboundMessageEvent;
 import gov.hhs.fha.nhinc.aspect.InboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.docretrieve._20.inbound.DocRetrieve;
 import gov.hhs.fha.nhinc.docretrieve.aspect.RetrieveDocumentSetRequestTypeDescriptionBuilder;
 import gov.hhs.fha.nhinc.docretrieve.aspect.RetrieveDocumentSetResponseTypeDescriptionBuilder;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
@@ -56,14 +57,13 @@ public class DocRetrieveTest {
     public void respondingGatewayCrossGatewayRetrieve() {
         DocRetrieve docRetrieve = new DocRetrieve();
            
-        DocRetrieveService service = mock(DocRetrieveService.class);
-        docRetrieve.setService(service);
+        InboundDocRetrieve service = mock(InboundDocRetrieve.class);
+        docRetrieve.setInboundDocRetrieve(service);
         
         RetrieveDocumentSetRequestType body = new RetrieveDocumentSetRequestType();
         docRetrieve.respondingGatewayCrossGatewayRetrieve(body);
         
-        verify(service).respondingGatewayCrossGatewayRetrieve(same(body), any(AssertionType.class));
-        
+        verify(service).respondingGatewayCrossGatewayRetrieve(same(body), any(AssertionType.class));        
     }
     
     @Test
@@ -80,7 +80,7 @@ public class DocRetrieveTest {
     
     @Test
     public void hasInboundProcessingEventStandard() throws Exception {
-        Class<StandardDocRetrieve> clazz = StandardDocRetrieve.class;
+        Class<StandardInboundDocRetrieve> clazz = StandardInboundDocRetrieve.class;
         Method method = clazz.getMethod("respondingGatewayCrossGatewayRetrieve",
                 RetrieveDocumentSetRequestType.class, AssertionType.class);
         InboundProcessingEvent annotation = method.getAnnotation(InboundProcessingEvent.class);
@@ -93,7 +93,7 @@ public class DocRetrieveTest {
     
     @Test
     public void hasInboundProcessingEventPassthrough() throws Exception {
-        Class<PassThroughDocRetrieve> clazz = PassThroughDocRetrieve.class;
+        Class<PassthroughInboundDocRetrieve> clazz = PassthroughInboundDocRetrieve.class;
         Method method = clazz.getMethod("respondingGatewayCrossGatewayRetrieve",
                 RetrieveDocumentSetRequestType.class, AssertionType.class);
         InboundProcessingEvent annotation = method.getAnnotation(InboundProcessingEvent.class);
