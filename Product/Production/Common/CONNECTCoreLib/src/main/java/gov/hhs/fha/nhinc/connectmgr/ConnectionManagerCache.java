@@ -43,11 +43,8 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.uddi.api_v3.BindingTemplate;
 import org.uddi.api_v3.BusinessDetail;
 import org.uddi.api_v3.BusinessEntity;
@@ -63,7 +60,7 @@ import org.uddi.api_v3.KeyedReference;
  */
 public class ConnectionManagerCache {
 
-    private static Log log = LogFactory.getLog(ConnectionManagerCache.class);
+    private static Logger log = Logger.getLogger(ConnectionManagerCache.class);
     private static String UDDI_SPEC_VERSION_KEY = "uddi:nhin:versionofservice";
     private static final String HOME_COMMUNITY_PREFIX = "urn:oid:";
     // Hash maps for the UDDI connection information. This hash map is keyed by home community ID.
@@ -113,7 +110,7 @@ public class ConnectionManagerCache {
         try {
             businessDetail = getUddiConnectionManagerDAO().loadBusinessDetail();
         } catch (Exception ex) {
-            Logger.getLogger(ConnectionManagerCache.class.getName()).log(Level.SEVERE, null, ex);
+            log.error(ex);
         }
 
         if (businessDetail != null) {
@@ -179,7 +176,7 @@ public class ConnectionManagerCache {
         try {
             businessDetail = getInternalConnectionManagerDAO().loadBusinessDetail();
         } catch (Exception ex) {
-            Logger.getLogger(ConnectionManagerCache.class.getName()).log(Level.SEVERE, null, ex);
+            log.error(ex);
         }
 
         if (businessDetail != null) {
@@ -613,7 +610,7 @@ public class ConnectionManagerCache {
                     serviceName);
             
         } catch (Exception ex) {
-            Logger.getLogger(ConnectionManagerCache.class.getName()).log(Level.SEVERE, null, ex);
+            log.error(ex);
         }
 
         return specVersions;

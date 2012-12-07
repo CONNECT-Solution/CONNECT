@@ -35,6 +35,7 @@ import javax.xml.bind.JAXBContext;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 import com.services.nhinc.schema.auditmessage.AuditMessageType;
 import com.services.nhinc.schema.auditmessage.AuditSourceIdentificationType;
@@ -61,16 +62,12 @@ import oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectRefType;
  */
 public class DocumentQueryTransforms {
 
-    private Log log = null;
+    private Logger log = Logger.getLogger(DocumentQueryTransforms.class);
     private static final String PATIENT_ID_SLOT = "$XDSDocumentEntryPatientId";
 
     public DocumentQueryTransforms() {
-        log = createLogger();
     }
 
-    protected Log createLogger() {
-        return ((log != null) ? log : LogFactory.getLog(getClass()));
-    }
 
     /**
      * 
@@ -94,9 +91,9 @@ public class DocumentQueryTransforms {
         response.setDirection(message.getDirection());
         response.setInterface(message.getInterface());
 
-        log.info("******************************************************************");
-        log.info("Entering transformDocQueryReq2AuditMsg() method.");
-        log.info("******************************************************************");
+        log.trace("******************************************************************");
+        log.trace("Entering transformDocQueryReq2AuditMsg() method.");
+        log.trace("******************************************************************");
 
         // Extract UserInfo from Message.Assertion
         UserType userInfo = new UserType();
@@ -185,9 +182,9 @@ public class DocumentQueryTransforms {
         auditMsg.getParticipantObjectIdentification().add(partObjId);
         response.setAuditMessage(auditMsg);
 
-        log.info("******************************************************************");
-        log.info("Exiting transformDocQueryReq2AuditMsg() method.");
-        log.info("******************************************************************");
+        log.trace("******************************************************************");
+        log.trace("Exiting transformDocQueryReq2AuditMsg() method.");
+        log.trace("******************************************************************");
 
         return response;
     }
@@ -214,17 +211,17 @@ public class DocumentQueryTransforms {
         response.setDirection(message.getDirection());
         response.setInterface(message.getInterface());
 
-        log.info("******************************************************************");
-        log.info("Entering transformDocQueryResp2AuditMsg() method.");
-        log.info("******************************************************************");
+        log.trace("******************************************************************");
+        log.trace("Entering transformDocQueryResp2AuditMsg() method.");
+        log.trace("******************************************************************");
 
         // Extract UserInfo from Message.Assertion
         UserType userInfo = new UserType();
         if (message != null && message.getMessage() != null && message.getMessage().getAssertion() != null
                 && message.getMessage().getAssertion().getUserInfo() != null) {
             userInfo = message.getMessage().getAssertion().getUserInfo();
-            log.info("***** ASSERTION UserInfo UserName contains: " + userInfo.getUserName() + " *****");
-            log.info("***** ASSERTION UserInfo Org HomeCommunityId contains: " + userInfo.getOrg().getHomeCommunityId()
+            log.debug("***** ASSERTION UserInfo UserName contains: " + userInfo.getUserName() + " *****");
+            log.debug("***** ASSERTION UserInfo Org HomeCommunityId contains: " + userInfo.getOrg().getHomeCommunityId()
                     + " *****");
         } else {
             log.info("***** ASSERTION IS NULL *****");
@@ -342,9 +339,9 @@ public class DocumentQueryTransforms {
         }
         response.setAuditMessage(auditMsg);
 
-        log.info("******************************************************************");
-        log.info("Exiting transformDocQueryResp2AuditMsg() method.");
-        log.info("******************************************************************");
+        log.trace("******************************************************************");
+        log.trace("Exiting transformDocQueryResp2AuditMsg() method.");
+        log.trace("******************************************************************");
         return response;
     }
 

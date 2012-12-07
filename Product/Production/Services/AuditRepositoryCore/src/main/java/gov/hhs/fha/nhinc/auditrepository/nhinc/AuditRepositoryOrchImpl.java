@@ -51,8 +51,7 @@ import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.datatype.XMLGregorianCalendar;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.hibernate.Hibernate;
 
 import com.services.nhinc.schema.auditmessage.AuditMessageType;
@@ -69,7 +68,7 @@ import com.services.nhinc.schema.auditmessage.ParticipantObjectIdentificationTyp
  * @author mflynn02
  */
 public class AuditRepositoryOrchImpl {
-    private static Log log = LogFactory.getLog(AuditRepositoryOrchImpl.class);
+    private static Logger log = Logger.getLogger(AuditRepositoryOrchImpl.class);
     private static AuditRepositoryDAO auditLogDao = AuditRepositoryDAO.getAuditRepositoryDAOInstance();
     private static String logStatus = "";
 

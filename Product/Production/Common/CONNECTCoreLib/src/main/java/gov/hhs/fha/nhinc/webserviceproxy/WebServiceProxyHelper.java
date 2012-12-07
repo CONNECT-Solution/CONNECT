@@ -45,6 +45,7 @@ import javax.xml.ws.BindingProvider;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 /**
  * This class is used as a helper in each of the Web Service Proxies. Since the bulk of the work being done in each web
@@ -57,10 +58,9 @@ public class WebServiceProxyHelper {
     public static final String KEY_CONNECT_TIMEOUT = "com.sun.xml.ws.connect.timeout";
     public static final String KEY_REQUEST_TIMEOUT = "com.sun.xml.ws.request.timeout";
     public static final String KEY_URL = javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY;
-    private Log log = null;
+    private Logger log = Logger.getLogger(WebServiceProxyHelper.class);
     private final WebServiceProxyHelperProperties properties;
     public WebServiceProxyHelper() {
-        log = createLogger();
         properties = WebServiceProxyHelperProperties.getInstance();
 
     }
@@ -68,22 +68,13 @@ public class WebServiceProxyHelper {
     /**
      * DI constructor.
      *
-     * @param log
      * @param propertyAccessor
      */
-    public WebServiceProxyHelper(Log log, IPropertyAcessor propertyAccessor) {
-        this.log = log;
+    public WebServiceProxyHelper(IPropertyAcessor propertyAccessor) {
         properties = new WebServiceProxyHelperProperties(propertyAccessor);
     }
 
-    /**
-     * Create a logger object.
-     *
-     * @return The logger object.
-     */
-    protected Log createLogger() {
-        return ((log != null) ? log : LogFactory.getLog(getClass()));
-    }
+    
 
     /**
      * This method returns the URL endpoint of the passed in service name from the given target

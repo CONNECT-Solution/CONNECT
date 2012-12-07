@@ -34,22 +34,17 @@ import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
 
 import javax.xml.ws.WebServiceContext;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 import com.services.nhinc.schema.auditmessage.FindAuditEventsType;
 
 public class AuditRepositorySecuredImpl {
 
-    private Log log = null;
+    private Logger log = Logger.getLogger(AuditRepositorySecuredImpl.class);
 
     public AuditRepositorySecuredImpl() {
-        log = createLogger();
     }
 
-    protected Log createLogger() {
-        return LogFactory.getLog(getClass());
-    }
 
     protected AuditRepositoryOrchImpl getAuditRepositoryOrchImpl() {
         return new AuditRepositoryOrchImpl();

@@ -259,10 +259,6 @@ public class EntityPatientDiscoveryProxyWebServiceSecuredImplTest {
                 }
             });
             final WebServiceProxyHelper wsProxyHelper = new WebServiceProxyHelper() {
-                @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
 
                 @Override
                 public Object invokePort(Object portObject, Class portClass, String methodName, Object operationInput)
