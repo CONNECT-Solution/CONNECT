@@ -91,8 +91,7 @@ public class AggregationStrategy {
 
         @Override
         public OutboundOrchestratable call() throws Exception {
-            orchestrable.getDelegate().process(orchestrable);
-            return orchestrable;
+            return orchestrable.getDelegate().process(orchestrable);
         }
         
     }

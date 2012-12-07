@@ -56,6 +56,12 @@ public class OutboundDocQueryAggregator implements NhinAggregator {
         if (registryErrorList != null
                 && registryErrorList.getRegistryError() != null
                 && registryErrorList.getRegistryError().size() > 0) {
+
+            if (aggregatedResponse.getRegistryErrorList() == null) {
+                aggregatedResponse.setRegistryErrorList(new RegistryErrorList());
+            }
+
+            
             aggregatedResponse.getRegistryErrorList().getRegistryError()
                     .addAll(registryErrorList.getRegistryError());
         }
@@ -214,11 +220,6 @@ public class OutboundDocQueryAggregator implements NhinAggregator {
         if (registryObjectList == null) {
             registryObjectList = new RegistryObjectListType();
             aggreatedResponse.setRegistryObjectList(registryObjectList);
-        }
-
-        if (aggreatedResponse.getRegistryErrorList() == null
-                || aggreatedResponse.getRegistryErrorList().getRegistryError() == null) {
-            aggreatedResponse.setRegistryErrorList(new RegistryErrorList());
         }
 
         if (aggreatedResponse.getResponseSlotList() == null) {

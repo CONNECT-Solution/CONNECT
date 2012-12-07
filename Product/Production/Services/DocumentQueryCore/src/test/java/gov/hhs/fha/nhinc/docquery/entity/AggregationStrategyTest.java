@@ -29,6 +29,7 @@
 package gov.hhs.fha.nhinc.docquery.entity;
 
 import static org.mockito.Matchers.eq;
+import static org.mockito.AdditionalMatchers.not;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -64,6 +65,6 @@ public class AggregationStrategyTest {
 
         verify(delegate).process(eq(message));
 
-        verify(aggregate).aggregate(eq(message));
+        verify(aggregate).aggregate(not(eq(message)));
     }
 }

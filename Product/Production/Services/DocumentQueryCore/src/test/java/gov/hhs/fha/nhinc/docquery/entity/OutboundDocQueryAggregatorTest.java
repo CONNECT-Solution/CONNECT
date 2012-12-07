@@ -251,11 +251,9 @@ public class OutboundDocQueryAggregatorTest {
         AdhocQueryResponse aggregatedResponse = new AdhocQueryResponse();
         AdhocQueryResponse individualResponse = new AdhocQueryResponse();
 
-        aggregatedResponse.setRegistryErrorList(new RegistryErrorList());
         nhinAggregator.aggregateRegistryErrors(aggregatedResponse, individualResponse);
-        
 
-        assertEquals(0, aggregatedResponse.getRegistryErrorList().getRegistryError().size());
+        assertNull(aggregatedResponse.getRegistryErrorList());
 
         individualResponse.setRegistryErrorList(new RegistryErrorList());
         individualResponse.getRegistryErrorList().getRegistryError().add(new RegistryError());
