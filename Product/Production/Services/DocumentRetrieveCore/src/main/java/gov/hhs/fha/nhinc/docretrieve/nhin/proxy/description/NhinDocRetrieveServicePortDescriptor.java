@@ -17,7 +17,7 @@ public class NhinDocRetrieveServicePortDescriptor implements ServicePortDescript
     private static final String SERVICE_LOCAL_PART = "RespondingGateway_Retrieve_Service";
     private static final String PORT_LOCAL_PART = "RespondingGateway_Retrieve_Port_Soap";
     private static final String WSDL_FILE = "NhinDocRetrieve.wsdl";
-    private static final String WS_ADDRESSING_ACTION = "urn:ihe:iti:2007:CrossGatewayQuery";
+    private static final String WS_ADDRESSING_ACTION = "urn:ihe:iti:2007:CrossGatewayRetrieve";
 
     
     @Override
