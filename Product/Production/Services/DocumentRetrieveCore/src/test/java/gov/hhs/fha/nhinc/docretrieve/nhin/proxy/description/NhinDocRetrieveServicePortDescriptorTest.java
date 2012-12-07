@@ -41,6 +41,8 @@ public class NhinDocRetrieveServicePortDescriptorTest {
     public void valueCheck() {
         NhinDocRetrieveServicePortDescriptor descriptor = new NhinDocRetrieveServicePortDescriptor();
         
+        // Using the actual values for comparison instead of the constants to ensure that the unit tests fail if
+        // the constants are modified as these values are set in stone.
         assertEquals("urn:ihe:iti:xds-b:2007", descriptor.getNamespaceUri());
         assertEquals("RespondingGateway_Retrieve_Service", descriptor.getServiceLocalPart());
         assertEquals("RespondingGateway_Retrieve_Port_Soap", descriptor.getPortLocalPart());
