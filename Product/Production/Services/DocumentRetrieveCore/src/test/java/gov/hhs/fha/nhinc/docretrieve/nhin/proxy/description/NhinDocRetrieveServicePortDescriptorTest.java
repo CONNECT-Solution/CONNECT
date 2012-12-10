@@ -24,51 +24,30 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.docquery.entity;
+package gov.hhs.fha.nhinc.docretrieve.nhin.proxy.description;
 
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
-import gov.hhs.fha.nhinc.docquery.nhin.proxy.NhinDocQueryProxy;
-import gov.hhs.fha.nhinc.docquery.nhin.proxy.NhinDocQueryProxyObjectFactory;
-import gov.hhs.fha.nhinc.gateway.executorservice.ExecutorServiceHelper;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
-import gov.hhs.fha.nhinc.orchestration.OutboundResponseProcessor;
-import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
+import static org.junit.Assert.assertEquals;
+import ihe.iti.xds_b._2007.RespondingGatewayRetrievePortType;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.junit.Test;
 
 /**
- * Implements the DocQuery client strategy for spec g0 endpoint.
- * 
- * @author paul.eftis
+ * @author akong
+ *
  */
-// CHECKSTYLE:OFF
-public class OutboundDocQueryStrategyImpl_g0 extends OutboundDocQueryStrategy {
-    // CHECKSTYLE:ON
-    private static Log log = LogFactory.getLog(OutboundDocQueryStrategyImpl_g0.class);
+public class NhinDocRetrieveServicePortDescriptorTest {
 
-    /**
-     * Default Constructor.
-     */
-    public OutboundDocQueryStrategyImpl_g0() {
-
+    @Test
+    public void valueCheck() {
+        NhinDocRetrieveServicePortDescriptor descriptor = new NhinDocRetrieveServicePortDescriptor();
+        
+        // Using the actual values for comparison instead of the constants to ensure that the unit tests fail if
+        // the constants are modified as these values are set in stone.
+        assertEquals("urn:ihe:iti:xds-b:2007", descriptor.getNamespaceUri());
+        assertEquals("RespondingGateway_Retrieve_Service", descriptor.getServiceLocalPart());
+        assertEquals("RespondingGateway_Retrieve_Port_Soap", descriptor.getPortLocalPart());
+        assertEquals("NhinDocRetrieve.wsdl", descriptor.getWSDLFileName());
+        assertEquals("urn:ihe:iti:2007:CrossGatewayRetrieve", descriptor.getWSAddressingAction());
+        assertEquals(RespondingGatewayRetrievePortType.class, descriptor.getPortClass());
     }
-
-   
-
-    /**
-     * @return
-     */
-    protected GATEWAY_API_LEVEL getAPILevel() {
-        return GATEWAY_API_LEVEL.LEVEL_g0;
-    }
-
-    /**
-     * @return
-     */
-    protected String getServiceName() {
-        return NhincConstants.DOC_QUERY_SERVICE_NAME;
-    }
-
 }

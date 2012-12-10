@@ -189,26 +189,9 @@ public class NhincConstants {
     public static final String EVIDENCE_CONDITION_NOT_AFTER_PROP = "evidenceConditionNotAfter";
     public static final String EVIDENCE_ACCESS_CONSENT_PROP = "evidenceAccessConsent";
     public static final String EVIDENCE_INST_ACCESS_CONSENT_PROP = "evidenceInstanceAccessConsent";
-    public static final String AUDIT_QUERY_ACTION = "queryAuditLog";
-    public static final String NOTIFY_ACTION = "notify";
-    public static final String SUBSCRIBE_ACTION = "subscribe";
-    public static final String UNSUBSCRIBE_ACTION = "unsubscribe";
     public static final String DOC_QUERY_ACTION = "queryDocuments";
-    public static final String DOC_RETRIEVE_ACTION = "retrieveDocuments";
     public static final String PATIENT_DISCOVERY_ACTION = "patientDiscovery";
-    public static final String ADMIN_DIST_ACTION = "administrativedistribution";
-    public static final String ADAPTER_XDR_ACTION = "adapterXDRSecured";
-    public static final String ADAPTER_XDRREQUEST_SECURED_ACTION = "adapterXDRRequestSecured";
-    public static final String ADAPTER_XDRREQUEST_ACTION = "adapterXDRRequest";
-    public static final String ADAPTER_XDRRESPONSE_SECURED_ACTION = "adapterXDRResponseSecured";
-    public static final String ADAPTER_XDRRESPONSE_ACTION = "adapterXDRResponse";
-    public static final String ENTITY_XDR_SECURED_RESPONSE_ACTION = "entityXDRSecuredResponse";
-    public static final String AUDIT_REPO_ACTION = "auditrepository";
-    public static final String POLICY_ENGINE_ACTION = "policyengine";
-    public static final String POLICY_INFORMATION_POINT_ACTION = "policyinformationpoint";
     public static final String PAT_CORR_ACTION = "patientcorrelation";
-    public static final String ADAPTER_MPI_ACTION = "mpi";
-    public static final String XDR_ACTION = "xdr";
     public static final String XDR_REQUEST_ACTION = "xdrrequest";
     public static final String XDR_RESPONSE_ACTION = "xdrresponse";
 
@@ -374,6 +357,7 @@ public class NhincConstants {
     public static final String ENTITY_DOC_RETRIEVE_PROXY_SERVICE_NAME = "entitydocretrieveproxy";
     public static final String ENTITY_DOC_RETRIEVE_SECURED_SERVICE_NAME = "entitydocretrievesecured";    
     public static final String DOC_RETRIEVE_SERVICE_NAME = "RetrieveDocuments";
+    public static final String DOC_RETRIEVE_WS_ADDRESS_ACTION = "urn:ihe:iti:2007:CrossGatewayRetrieve";    
     // Patient Correlation Constants
     public static final String PATIENT_CORRELATION_SERVICE_NAME = "patientcorrelation";
     public static final String PATIENT_CORRELATION_SECURED_SERVICE_NAME = "patientcorrelationsecured";
@@ -399,10 +383,6 @@ public class NhincConstants {
     public static final String PATIENT_DISCOVERY_ENTITY_SECURED_ASYNC_RESP_SERVICE_NAME = "entitypatientdiscoverysecuredasyncresp";
     public static final String PATIENT_DISCOVERY_ADAPTER_ASYNC_REQ_QUEUE_SERVICE_NAME = "adapterpatientdiscoveryasyncreqqueue";
     public static final String PATIENT_DISCOVERY_ADAPTER_SECURED_ASYNC_REQ_QUEUE_SERVICE_NAME = "adapterpatientdiscoverysecuredasyncreqqueue";
-    // public static final String PATIENT_DISCOVERY_ENTITY_ASYNC_REQ_QUEUE_SERVICE_NAME =
-    // "entitypatientdiscoveryasyncreqqueue";
-    // public static final String PATIENT_DISCOVERY_ENTITY_SECURED_ASYNC_REQ_QUEUE_SERVICE_NAME =
-    // "entitypatientdiscoverysecuredasyncreqqueue";
     public static final String PATIENT_DISCOVERY_ADAPTER_ASYNC_REQ_QUEUE_PROCESS_SERVICE_NAME = "adapterpatientdiscoverydeferredreqqueueprocess";
     // Patient Discovery Error Constants
     public static final String PATIENT_DISCOVERY_ANSWER_NOT_AVAIL_ERR_CODE = "AnswerNotAvailable";
