@@ -64,17 +64,26 @@ public class MessageGeneratorUtils extends gov.hhs.fha.nhinc.util.MessageGenerat
         RegistryErrorList regErrList = new RegistryErrorList();
         regErrList.setHighestSeverity(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR);
 
-        RegistryError regErr = new RegistryError();
-        regErrList.getRegistryError().add(regErr);
-        regErr.setCodeContext(errorMsg);
-        regErr.setErrorCode(errorCode);
-        regErr.setSeverity(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR);
+        regErrList.getRegistryError().add(createRegistryError(errorMsg, errorCode));
 
         AdhocQueryResponse response = new AdhocQueryResponse();
         response.setRegistryErrorList(regErrList);
         response.setStatus(status);
 
         return response;
+    }
+
+    /**
+     * @param errorMsg
+     * @param errorCode
+     * @return
+     */
+    public RegistryError createRegistryError(String errorMsg, String errorCode) {
+        RegistryError regErr = new RegistryError();
+        regErr.setCodeContext(errorMsg);
+        regErr.setErrorCode(errorCode);
+        regErr.setSeverity(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR);
+        return regErr;
     }
 
     /**

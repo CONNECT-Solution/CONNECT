@@ -57,6 +57,8 @@ public class OutboundDocQueryOrchestratable implements OutboundOrchestratableMes
     private AdhocQueryRequest request = null;
 
     private AdhocQueryResponse response = null;
+    private NhinAggregator aggregator = null;
+
 
     /**
      * Default Constructor.
@@ -96,6 +98,16 @@ public class OutboundDocQueryOrchestratable implements OutboundOrchestratableMes
         this.request = r;
     }
 
+    public OutboundDocQueryOrchestratable(NhinAggregator agg, AssertionType a, String name, AdhocQueryRequest r) {
+    //CHECKSTYLE:ON
+
+        this.assertion = a;
+        this.serviceName = name;
+        this.request = r;
+        this.aggregator = agg;
+    }
+    
+    
     /**
      * @param assertion Assertion received.
      */
@@ -138,12 +150,11 @@ public class OutboundDocQueryOrchestratable implements OutboundOrchestratableMes
         return delegate;
     }
 
-    // NOT USED.......use getResponseProcessor instead
     /**This is not used.
      * @return Null.
      */
     public NhinAggregator getAggregator() {
-        return null;
+        return aggregator;
     }
 
     /**
@@ -201,5 +212,8 @@ public class OutboundDocQueryOrchestratable implements OutboundOrchestratableMes
     public boolean isPassthru() {
         return false;
     }
+
+    
+
 
 }

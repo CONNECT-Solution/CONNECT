@@ -318,6 +318,33 @@
                     <testTarget>${compiler.target}</testTarget>
                 </configuration>
             </plugin>
+ 			  <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-eclipse-plugin</artifactId>
+                <configuration>
+                    <downloadSources>true</downloadSources>
+                    <downloadJavadocs>true</downloadJavadocs>
+                    <useProjectReferences>true</useProjectReferences>
+                    <projectNameTemplate>[artifactId]-[version]</projectNameTemplate>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <skipSource>${skip.source}</skipSource>
+                    <attach>true</attach>
+                </configuration>
+            </plugin>
+
         </plugins>
     </build>
     <repositories>
