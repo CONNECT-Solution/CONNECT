@@ -20,7 +20,6 @@
         <module>PolicyEngineCore</module>
         <module>RedactionEngineCore</module>
         <module>PatientDiscoveryCore</module>
-        <module>HIEMCore</module>
         <module>DocumentSubmissionCore</module>
         <module>DocumentRetrieveCore</module>
         <module>DocumentQueryCore</module>
@@ -56,4 +55,30 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+    <profiles>
+        <profile>
+            <id>HIEM</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <modules>
+                <module>AdapterAuthenticationCore</module>
+                <module>AuditRepositoryCore</module>
+                <module>ConnectionManagerCore</module>
+                <module>DocRegistryCore</module>
+                <module>DocRepositoryCore</module>
+                <module>PatientCorrelationCore</module>
+                <module>PolicyEngineCore</module>
+                <module>RedactionEngineCore</module>
+                <module>PatientDiscoveryCore</module>
+                <!-- GATEWAY-3223: HIEM disabled by default -->
+                <module>HIEMCore</module>
+                <module>DocumentSubmissionCore</module>
+                <module>DocumentRetrieveCore</module>
+                <module>DocumentQueryCore</module>
+                <module>AdminDistributionCore</module>
+                <module>SharedEngineCore</module>
+            </modules>
+        </profile>
+    </profiles>
 </project>
