@@ -60,12 +60,12 @@ public class OutboundDocRetrieveOrchestratableImpl_a0Test {
     }
 
     /**
-     * Test of getResponse method, of class EntityDocRetrieveOrchestratableImpl_a0.
+     * Test of getResponse method, of class OutboundDocRetrieveOrchestratable.
      */
     @Test
     public void testResponse() {
         OutboundDocRetrieveOrchestratableFactory factory = new OutboundDocRetrieveOrchestratableFactory();
-        OutboundDocRetrieveOrchestratableImpl instance = factory.getEntityDocRetrieveOrchestratableImpl_a0();
+        OutboundDocRetrieveOrchestratable instance = factory.createOutboundStandardDocRetrieveOrchestratable();
         RetrieveDocumentSetResponseType expResult = factory.getRetrieveDocumentSetResponseType();
         instance.setResponse(expResult);
         RetrieveDocumentSetResponseType result = instance.getResponse();
@@ -74,7 +74,7 @@ public class OutboundDocRetrieveOrchestratableImpl_a0Test {
     @Test
     public void testResponsePartialSuccess(){
         OutboundDocRetrieveOrchestratableFactory factory = new OutboundDocRetrieveOrchestratableFactory();
-        OutboundDocRetrieveOrchestratableImpl instance = factory.getEntityDocRetrieveOrchestratableImpl_a0();
+        OutboundDocRetrieveOrchestratable instance = factory.createOutboundStandardDocRetrieveOrchestratable();
         RetrieveDocumentSetResponseType expResult = factory.getRetrieveDocumentSetResponseTypePartialSuccess();
         instance.setResponse(expResult);
         RetrieveDocumentSetResponseType result = instance.getResponse();

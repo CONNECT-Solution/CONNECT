@@ -75,10 +75,6 @@ public class SenderReceiverHelper {
         }
         device.getId().add(deviceId);
 
-        // TELExplicit tel = new TELExplicit();
-        // tel.getNullFlavor().add("NA");
-        // device.getTelecom().add(tel);
-
         return device;
     }
 }

@@ -29,6 +29,7 @@ package gov.hhs.fha.nhinc.patientdiscovery.inbound;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscovery201305Processor;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditLogger;
+import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditor;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryException;
 
 import org.hl7.v3.PRPAIN201305UV02;
@@ -40,13 +41,15 @@ import org.hl7.v3.PRPAIN201306UV02;
  */
 public class StandardInboundPatientDiscovery extends AbstractInboundPatientDiscovery {
 
-    private PatientDiscovery201305Processor patientDiscoveryProcessor = new PatientDiscovery201305Processor();
+    private final PatientDiscovery201305Processor patientDiscoveryProcessor;
+    private final PatientDiscoveryAuditor auditLogger;
 
     /**
      * Constructor.
      */
     public StandardInboundPatientDiscovery() {
-        super();
+        patientDiscoveryProcessor = new PatientDiscovery201305Processor();
+        auditLogger = new PatientDiscoveryAuditLogger();
     }
 
     /**
@@ -56,7 +59,7 @@ public class StandardInboundPatientDiscovery extends AbstractInboundPatientDisco
      * @param auditLogger
      */
     public StandardInboundPatientDiscovery(PatientDiscovery201305Processor patientDiscoveryProcessor,
-            PatientDiscoveryAuditLogger auditLogger) {
+            PatientDiscoveryAuditor auditLogger) {
         this.patientDiscoveryProcessor = patientDiscoveryProcessor;
         this.auditLogger = auditLogger;
     }
@@ -70,6 +73,16 @@ public class StandardInboundPatientDiscovery extends AbstractInboundPatientDisco
         auditResponseFromAdapter(response, assertion);
 
         return response;
+    }
+    
+    /*
+     * (non-Javadoc)
+     * 
+     * @see gov.hhs.fha.nhinc.patientdiscovery.inbound.AbstractInboundPatientDiscovery#getAuditLogger()
+     */
+    @Override
+    PatientDiscoveryAuditor getAuditLogger() {
+        return auditLogger;
     }
 
 }

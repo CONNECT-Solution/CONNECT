@@ -26,22 +26,21 @@
  */
 package gov.hhs.fha.nhinc.common.connectionmanager.dao;
 
+import gov.hhs.fha.nhinc.common.connectionmanager.model.AssigningAuthorityToHomeCommunityMapping;
+import gov.hhs.fha.nhinc.common.connectionmanager.persistence.HibernateUtil;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.criterion.Expression;
-
-import gov.hhs.fha.nhinc.common.connectionmanager.model.AssigningAuthorityToHomeCommunityMapping;
-import gov.hhs.fha.nhinc.common.connectionmanager.persistence.HibernateUtil;
 
 /**
- *
+ * 
  * @author svalluripalli
  */
 public class AssigningAuthorityHomeCommunityMappingDAO {
@@ -50,74 +49,43 @@ public class AssigningAuthorityHomeCommunityMappingDAO {
 
     /**
      * This method retrieves and returns a AssigningAuthority for an Home Community...
-     *
+     * 
      * @param homeCommunityId
      * @return String
      */
     public String getAssigningAuthority(String homeCommunityId) {
-        log.debug("--Begin AssigningAuthorityHomeCommunityMappingDAO.getACommunityIdForAssigningAuthority() ---");
-        Session sess = null;
+        log.trace("--Begin AssigningAuthorityHomeCommunityMappingDAO.getACommunityIdForAssigningAuthority() ---");
         String assigningAuthId = "";
-        if (homeCommunityId != null && !homeCommunityId.equals("")) {
-            SessionFactory fact = HibernateUtil.getSessionFactory();
-            try {
-                sess = fact.openSession();
-                if (sess != null) {
-                    Criteria criteria = sess.createCriteria(AssigningAuthorityToHomeCommunityMapping.class);
-                    criteria.add(Expression.eq("homeCommunityId", homeCommunityId));
-                    List<AssigningAuthorityToHomeCommunityMapping> l = criteria.list();
-                    if (l != null && l.size() > 0) {
-                        assigningAuthId = l.get(0).getAssigningAuthorityId();
-                    }
-                } else {
-                    log.error("Unable create Hibernate Sessions");
-                }
-            } finally {
-                if (sess != null) {
-                    try {
-                        sess.close();
-                    } catch (Throwable t) {
-                        log.error("Failed to close session: " + t.getMessage(), t);
-                    }
-                }
-            }
-        } else {
-            log.error("Please provide a valid homeCommunityId");
-            return null;
+        List<String> aaids = getAssigningAuthoritiesByHomeCommunity(homeCommunityId);
+        if (aaids.size() > 1) {
+            assigningAuthId = aaids.get(0);
         }
-        log.debug("--End AssigningAuthorityHomeCommunityMappingDAO.getACommunityIdForAssigningAuthority() ---");
+        log.trace("--End AssigningAuthorityHomeCommunityMappingDAO.getACommunityIdForAssigningAuthority() ---");
         return assigningAuthId;
     }
 
     /**
      * returns List of Assigning Authorities for a given Home Community Id
-     *
+     * 
      * @param homeCommId
      * @return List
      */
+    @SuppressWarnings("unchecked")
     public List<String> getAssigningAuthoritiesByHomeCommunity(String homeCommunityId) {
-        log.debug("-- Begin AssigningAuthorityHomeCommunityMappingDAO.getAssigningAuthoritiesByHomeCommunity() ---");
+        log.trace("-- Begin AssigningAuthorityHomeCommunityMappingDAO.getAssigningAuthoritiesByHomeCommunity() ---");
         Session sess = null;
-        List<String> listOfAAs = null;
+        List<String> listOfAAs = new ArrayList<String>();
         if (homeCommunityId != null && !homeCommunityId.equals("")) {
-            // String sql = "select assigningauthorityid from aa_to_home_community_mapping where homecommunityid = '" +
-            // homeCommunityId +"'";
             SessionFactory fact = HibernateUtil.getSessionFactory();
             try {
                 sess = fact.openSession();
                 if (sess != null) {
-                    Criteria criteria = sess.createCriteria(AssigningAuthorityToHomeCommunityMapping.class);
-                    criteria.add(Expression.eq("homeCommunityId", homeCommunityId));
-                    List<AssigningAuthorityToHomeCommunityMapping> l = criteria.list();
-                    if (l != null && l.size() > 0) {
-                        listOfAAs = new ArrayList<String>();
-                        int size = l.size();
-                        String sAA = "";
-                        for (int i = 0; i < size; i++) {
-                            sAA = l.get(i).getAssigningAuthorityId();
-                            listOfAAs.add(sAA);
-                        }
+                    Query namedQuery = sess.getNamedQuery("findAAByHomeCommunityId");
+                    namedQuery.setParameter("homeCommunityId", homeCommunityId);
+                    for (AssigningAuthorityToHomeCommunityMapping mapping : (List<AssigningAuthorityToHomeCommunityMapping>) namedQuery.list()) {
+                        listOfAAs.add(mapping.getAssigningAuthorityId());
                     }
+
                 } else {
                     log.error("Unable create Hibernate Sessions");
                 }
@@ -132,20 +100,17 @@ public class AssigningAuthorityHomeCommunityMappingDAO {
             }
         } else {
             log.error("Please provide a valid homeCommunityId");
-            return null;
         }
-        log.debug("-- End AssigningAuthorityHomeCommunityMappingDAO.getAssigningAuthoritiesByHomeCommunity() ---");
-        if (listOfAAs != null) {
-            log.debug("getAssigningAuthoritiesByHomeCommunity - listOfAAs.size: " + listOfAAs.size());
-        } else {
-            log.debug("getAssigningAuthoritiesByHomeCommunity - listOfAAs is null");
+        if (log.isTraceEnabled()) {
+            log.trace("-- End AssigningAuthorityHomeCommunityMappingDAO.getAssigningAuthoritiesByHomeCommunity() ---");
+            log.trace("getAssigningAuthoritiesByHomeCommunity - listOfAAs.size: " + listOfAAs.size());
         }
         return listOfAAs;
     }
 
     /**
      * This method retrieves Home Community for an Assigning Authority...
-     *
+     * 
      * @param assigningAuthority
      */
     public String getHomeCommunityId(String assigningAuthority) {
@@ -157,9 +122,9 @@ public class AssigningAuthorityHomeCommunityMappingDAO {
             try {
                 sess = fact.openSession();
                 if (sess != null) {
-                    Criteria criteria = sess.createCriteria(AssigningAuthorityToHomeCommunityMapping.class);
-                    criteria.add(Expression.eq("assigningAuthorityId", assigningAuthority));
-                    List<AssigningAuthorityToHomeCommunityMapping> l = criteria.list();
+                    Query namedQuery = sess.getNamedQuery("findAAByAAId");
+                    namedQuery.setParameter("assigningAuthorityId", assigningAuthority);
+                    List<AssigningAuthorityToHomeCommunityMapping> l = namedQuery.list();
                     if (l != null && l.size() > 0) {
                         homeCommunity = l.get(0).getHomeCommunityId();
                     }
@@ -184,7 +149,7 @@ public class AssigningAuthorityHomeCommunityMappingDAO {
 
     /**
      * This method stores Assigning Authority To Home Community Mapping...
-     *
+     * 
      * @param homeCommunityId
      * @param assigningAuthority
      */
@@ -202,10 +167,11 @@ public class AssigningAuthorityHomeCommunityMappingDAO {
             try {
                 sess = fact.openSession();
                 if (sess != null) {
-                    Criteria criteria = sess.createCriteria(AssigningAuthorityToHomeCommunityMapping.class);
-                    criteria.add(Expression.eq("assigningAuthorityId", assigningAuthority));
-                    criteria.add(Expression.eq("homeCommunityId", homeCommunityId));
-                    List<AssigningAuthorityToHomeCommunityMapping> l = criteria.list();
+                    Query namedQuery = sess.getNamedQuery("findAAByAAIdAndHomeCommunityId");
+                    namedQuery.setParameter("assigningAuthorityId", assigningAuthority);
+                    namedQuery.setParameter("homeCommunityId", homeCommunityId);
+                    List<AssigningAuthorityToHomeCommunityMapping> l = namedQuery.list();
+
                     if (l != null && l.size() > 0) {
                         log.info("Assigning Authority and Home Community pair already present in the repository");
                     } else {

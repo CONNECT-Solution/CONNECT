@@ -28,13 +28,17 @@ package gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws;
 
 
 import gov.hhs.fha.nhinc.aspect.OutboundMessageEvent;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.entitypatientdiscovery.EntityPatientDiscoveryPortType;
+import gov.hhs.fha.nhinc.messaging.server.BaseService;
 import gov.hhs.fha.nhinc.patientdiscovery._10.entity.EntityPatientDiscoveryImpl;
 import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201305UV02ArgTransformer;
 import gov.hhs.fha.nhinc.patientdiscovery.aspect.RespondingGatewayPRPAIN201306UV02Builder;
 import gov.hhs.fha.nhinc.patientdiscovery.outbound.OutboundPatientDiscovery;
 
+import javax.annotation.Resource;
 import javax.xml.ws.BindingType;
+import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
 
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
@@ -43,9 +47,11 @@ import org.hl7.v3.RespondingGatewayPRPAIN201306UV02ResponseType;
 
 @Addressing(enabled = true)
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
-public class EntityPatientDiscoveryUnsecured implements EntityPatientDiscoveryPortType {
+public class EntityPatientDiscoveryUnsecured extends BaseService implements EntityPatientDiscoveryPortType {
     
     private OutboundPatientDiscovery outboundPatientDiscovery;
+    
+    private WebServiceContext context;
     
     public EntityPatientDiscoveryUnsecured() {
         super();
@@ -57,12 +63,19 @@ public class EntityPatientDiscoveryUnsecured implements EntityPatientDiscoveryPo
     public RespondingGatewayPRPAIN201306UV02ResponseType respondingGatewayPRPAIN201305UV02(
             RespondingGatewayPRPAIN201305UV02RequestType request) {
         
+        AssertionType assertion = getAssertion(context, request.getAssertion());
+        
         return new EntityPatientDiscoveryImpl(outboundPatientDiscovery).respondingGatewayPRPAIN201305UV02(request,
-                request.getAssertion());
+                assertion);
     }
    
     public void setOutboundPatientDiscovery(OutboundPatientDiscovery outboundPatientDiscovery) {
         this.outboundPatientDiscovery = outboundPatientDiscovery;
+    }
+    
+    @Resource
+    public void setContext(WebServiceContext context) {
+        this.context = context;
     }
 
 }

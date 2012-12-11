@@ -30,23 +30,31 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.orchestration.AuditTransformer;
-import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratable;
 import gov.hhs.fha.nhinc.orchestration.NhinAggregator;
 import gov.hhs.fha.nhinc.orchestration.OutboundDelegate;
+import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratable;
 import gov.hhs.fha.nhinc.orchestration.PolicyTransformer;
-import gov.hhs.fha.nhinc.properties.PropertyAccessException;
-import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
-
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * 
  * @author mweaver
  */
-public class OutboundDocRetrieveOrchestratable implements OutboundOrchestratable {
+public abstract class OutboundDocRetrieveOrchestratable implements OutboundOrchestratable {
+
+    /**
+     * Create an instance of the concrete orchestratable class that is the same type as the caller.
+     * 
+     * @param pt the PolicyTransformer to use
+     * @param at the AuditTransformer to use
+     * @param od the Outbound Delegate to use
+     * @param na the Aggregator to use
+     * @return a concrete instance of the orchestratable
+     */
+    abstract public OutboundDocRetrieveOrchestratable create(PolicyTransformer pt, AuditTransformer at,
+            OutboundDelegate nd, NhinAggregator na);
+
     protected RetrieveDocumentSetRequestType request = null;
     protected RetrieveDocumentSetResponseType response = null;
     protected NhinTargetSystemType target = null;
@@ -81,6 +89,14 @@ public class OutboundDocRetrieveOrchestratable implements OutboundOrchestratable
         _nhinAggregator = na;
     }
 
+    public OutboundDocRetrieveOrchestratable(PolicyTransformer pt, AuditTransformer at, OutboundDelegate nd,
+            NhinAggregator na, RetrieveDocumentSetRequestType body, AssertionType assertion, NhinTargetSystemType target) {
+        this(pt, at, nd, na);
+        setRequest(body);
+        setAssertion(assertion);
+        setTarget(target);
+    }
+
     public RetrieveDocumentSetRequestType getRequest() {
         return request;
     }
@@ -91,17 +107,6 @@ public class OutboundDocRetrieveOrchestratable implements OutboundOrchestratable
 
     public OutboundDelegate getNhinDelegate() {
         return _nhinDelegate;
-    }
-
-    public boolean isPassthru() {
-        boolean result = false;
-        try {
-            result = PropertyAccessor.getInstance().getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE,
-                    NhincConstants.NHINC_DOCUMENT_RETRIEVE_SERVICE_PASSTHRU_PROPERTY);
-        } catch (PropertyAccessException ex) {
-            Logger.getLogger(OutboundDocRetrieveOrchestratable.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return result;
     }
 
     public AuditTransformer getAuditTransformer() {
@@ -128,7 +133,7 @@ public class OutboundDocRetrieveOrchestratable implements OutboundOrchestratable
     public OutboundDelegate getDelegate() {
         return getNhinDelegate();
     }
-    
+
     public RetrieveDocumentSetResponseType getResponse() {
         return response;
     }

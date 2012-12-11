@@ -33,10 +33,4 @@ public class OrchestrationContextFactory extends AbstractOrchestrationContextFac
         return OutboundDocRetrieveOrchestrationContextFactory.getInstance().createOrchestrationContextBuilder(apiLevel);
     }
     
-    private OrchestrationContextBuilder getBuilder(NhincConstants.GATEWAY_API_LEVEL apiLevel,
-            NhincConstants.NHIN_SERVICE_NAMES serviceName) {
-        return OutboundDocRetrieveOrchestrationContextFactory.getInstance().createOrchestrationContextBuilder(apiLevel);
-    }
-
-
 }

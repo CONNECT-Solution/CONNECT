@@ -26,6 +26,9 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery.response;
 
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+
+import org.hl7.v3.II;
 import org.hl7.v3.PRPAIN201306UV02;
 
 /**
@@ -34,4 +37,6 @@ import org.hl7.v3.PRPAIN201306UV02;
  */
 public interface ResponseMode {
     public PRPAIN201306UV02 processResponse(ResponseParams params);
+    
+    public PRPAIN201306UV02 processResponse(PRPAIN201306UV02 response, AssertionType assertion, II localPatientId);
 }

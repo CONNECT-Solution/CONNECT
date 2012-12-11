@@ -30,8 +30,8 @@ package gov.hhs.fha.nhinc.aspect;
 
 /**
  * @author bhumphrey
- *
+ * 
  */
 public interface FailureAdviceDelegate {
-    void fail(Object[] any);
+    void fail(Object[] arguments, Throwable throwable);
 }

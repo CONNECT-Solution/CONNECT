@@ -29,8 +29,11 @@ package gov.hhs.fha.nhinc.admindistribution.adapter.proxy;
 import gov.hhs.fha.nhinc.adapteradmindistribution.AdapterAdministrativeDistributionPortType;
 import gov.hhs.fha.nhinc.admindistribution.AdminDistributionHelper;
 import gov.hhs.fha.nhinc.admindistribution.adapter.proxy.service.AdapterAdminDistributionUnsecuredServicePortDescriptor;
+import gov.hhs.fha.nhinc.admindistribution.aspect.EDXLDistributionEventDescriptionBuilder;
+import gov.hhs.fha.nhinc.aspect.AdapterDelegationEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewaySendAlertMessageType;
+import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTCXFClientFactory;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
@@ -73,23 +76,35 @@ public class AdapterAdminDistributionProxyWebServiceUnsecuredImpl implements Ada
         return new AdminDistributionHelper();
     }
 
-    /** This method returns CXFClient to implement AdpaterAdmin Dist Unsecured Service.
-     * @param portDescriptor comprises of NameSpaceUri, WSDLFile to read,Port, ServiceName and WS_ADDRESSING_ACTION.   
-     * @param url targetCommunity Url received.
-     * @param assertion Assertion received.
+    /**
+     * This method returns CXFClient to implement AdpaterAdmin Dist Unsecured Service.
+     * 
+     * @param portDescriptor
+     *            comprises of NameSpaceUri, WSDLFile to read,Port, ServiceName and WS_ADDRESSING_ACTION.
+     * @param url
+     *            targetCommunity Url received.
+     * @param assertion
+     *            Assertion received.
      * @return CXFClient for AdapterAdminDist Unsecured Service.
      */
     protected CONNECTClient<AdapterAdministrativeDistributionPortType> getCONNECTClientUnsecured(
-            ServicePortDescriptor<AdapterAdministrativeDistributionPortType> portDescriptor,
-            String url, AssertionType assertion) {
+            ServicePortDescriptor<AdapterAdministrativeDistributionPortType> portDescriptor, String url,
+            AssertionType assertion) {
 
         return CONNECTCXFClientFactory.getInstance().getCONNECTClientUnsecured(portDescriptor, url, assertion);
     }
 
-    /** This method implements SendAlertMessage for AdminDist.
-     * @param body  Emergency Message Distribution Element transaction message body received.
-     * @param assertion Assertion received.
+    /**
+     * This method implements SendAlertMessage for AdminDist.
+     * 
+     * @param body
+     *            Emergency Message Distribution Element transaction message body received.
+     * @param assertion
+     *            Assertion received.
      */
+    @AdapterDelegationEvent(beforeBuilder = EDXLDistributionEventDescriptionBuilder.class,
+            afterReturningBuilder = DefaultEventDescriptionBuilder.class, serviceType = "Admin Distribution",
+            version = "")
     public void sendAlertMessage(EDXLDistribution body, AssertionType assertion) {
         log.debug("Begin sendAlertMessage");
         String url = adminDistributionHelper.getAdapterUrl(NhincConstants.ADAPTER_ADMIN_DIST_SERVICE_NAME,
@@ -101,15 +116,13 @@ public class AdapterAdminDistributionProxyWebServiceUnsecuredImpl implements Ada
                 RespondingGatewaySendAlertMessageType message = new RespondingGatewaySendAlertMessageType();
                 message.setEDXLDistribution(body);
                 message.setAssertion(assertion);
-                
-                ServicePortDescriptor<AdapterAdministrativeDistributionPortType> portDescriptor = 
-                        new AdapterAdminDistributionUnsecuredServicePortDescriptor();
 
-                CONNECTClient<AdapterAdministrativeDistributionPortType> client = 
-                        getCONNECTClientUnsecured(portDescriptor, url, assertion);
+                ServicePortDescriptor<AdapterAdministrativeDistributionPortType> portDescriptor = new AdapterAdminDistributionUnsecuredServicePortDescriptor();
 
-                client.invokePort(AdapterAdministrativeDistributionPortType.class, "sendAlertMessage",
-                        message);
+                CONNECTClient<AdapterAdministrativeDistributionPortType> client = getCONNECTClientUnsecured(
+                        portDescriptor, url, assertion);
+
+                client.invokePort(AdapterAdministrativeDistributionPortType.class, "sendAlertMessage", message);
             } catch (Exception ex) {
                 log.error("Unable to send message: " + ex.getMessage(), ex);
             }

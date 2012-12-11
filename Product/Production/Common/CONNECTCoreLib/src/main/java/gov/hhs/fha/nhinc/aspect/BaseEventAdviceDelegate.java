@@ -126,6 +126,18 @@ public abstract class BaseEventAdviceDelegate implements EventAdviceDelegate {
         createAndRecordEvent(getEndEventBuilder(eventDescriptionBuilder));
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see gov.hhs.fha.nhinc.aspect.FailureAdviceDelegate#fail(java.lang.Object[], java.lang.Throwable)
+     */
+    @Override
+    public void fail(Object[] arguments, Throwable throwable) {
+        ErrorEventBuilder builder = new ErrorEventBuilder();
+        builder.setThrowable(throwable);
+        createAndRecordEvent(builder);
+    }
+
     /**
      * after creating the event builder populate with args, context and routing accessor.
      * 

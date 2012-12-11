@@ -9408,7 +9408,7 @@ def destFile = "DocumentRetrieveDeferredProxyConfig.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</con:script>
+FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, context, log);</con:script>
 	</con:eventHandlers>
 	<con:eventHandlers name="TestRunListener.afterRun" type="TestRunListener.afterRun">
 		<con:script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
@@ -9425,6 +9425,6 @@ def destFile = "DocumentRetrieveDeferredProxyConfig.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</con:script>
+FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, context, log);</con:script>
 	</con:eventHandlers>
 </con:soapui-project>

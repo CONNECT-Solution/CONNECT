@@ -26,8 +26,11 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery.response;
 
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.hl7.v3.II;
 import org.hl7.v3.PRPAIN201306UV02;
 
 /**
@@ -47,6 +50,10 @@ public class PassThruMode implements ResponseMode {
         // 201306 is returned directly to the agency.
         log.debug("begin processResponse");
         return params.response;
+    }
+    
+    public PRPAIN201306UV02 processResponse(PRPAIN201306UV02 response, AssertionType assertion, II localPatientId) {
+        return response;
     }
 
     protected Log createLogger() {

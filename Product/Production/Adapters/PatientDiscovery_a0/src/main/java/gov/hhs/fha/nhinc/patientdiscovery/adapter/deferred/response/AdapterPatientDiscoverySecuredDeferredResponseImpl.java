@@ -40,6 +40,7 @@ import org.hl7.v3.PRPAIN201306UV02;
  * @author JHOPPESC
  */
 public class AdapterPatientDiscoverySecuredDeferredResponseImpl {
+    private AsyncMessageIdExtractor extractor = new AsyncMessageIdExtractor();
 
     public MCCIIN000002UV01 processPatientDiscoveryAsyncResp(PRPAIN201306UV02 request, WebServiceContext context) {
         AssertionType assertion = getAssertion(context, null);
@@ -70,7 +71,7 @@ public class AdapterPatientDiscoverySecuredDeferredResponseImpl {
 
         // Extract the message id value from the WS-Addressing Header and place it in the Assertion Class
         if (assertion != null) {
-            assertion.setMessageId(AsyncMessageIdExtractor.getOrCreateAsyncMessageId(context));
+            assertion.setMessageId(extractor.getOrCreateAsyncMessageId(context));
         }
 
         return assertion;

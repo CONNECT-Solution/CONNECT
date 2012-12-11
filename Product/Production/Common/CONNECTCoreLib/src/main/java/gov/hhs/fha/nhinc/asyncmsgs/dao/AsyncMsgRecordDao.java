@@ -26,19 +26,6 @@
  */
 package gov.hhs.fha.nhinc.asyncmsgs.dao;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.TimeZone;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.hibernate.Criteria;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-import org.hibernate.criterion.Restrictions;
-
 import gov.hhs.fha.nhinc.asyncmsgs.model.AsyncMsgRecord;
 import gov.hhs.fha.nhinc.asyncmsgs.persistence.HibernateUtil;
 import gov.hhs.fha.nhinc.common.deferredqueuemanager.QueryDeferredQueueRequestType;
@@ -48,8 +35,22 @@ import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.util.format.XMLDateUtil;
 
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+import java.util.TimeZone;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.hibernate.Criteria;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
+
 /**
- *
+ * 
  * @author JHOPPESC
  */
 public class AsyncMsgRecordDao {
@@ -83,7 +84,7 @@ public class AsyncMsgRecordDao {
 
     /**
      * Query by Message Id. This should return only one record.
-     *
+     * 
      * @param messageId
      * @return matching records
      */
@@ -98,11 +99,10 @@ public class AsyncMsgRecordDao {
             if (fact != null) {
                 sess = fact.openSession();
                 if (sess != null) {
-                    Criteria criteria = sess.createCriteria(AsyncMsgRecord.class);
-                    criteria.add(Restrictions.eq("MessageId", messageId));
-                    criteria.add(Restrictions.eq("Direction", direction));
-
-                    asyncMsgRecs = criteria.list();
+                    Query query = sess.getNamedQuery("queryByMessageIdAndDirection");
+                    query.setParameter("MessageId", messageId);
+                    query.setParameter("Direction", direction);
+                    asyncMsgRecs = query.list();
                 } else {
                     log.error("Failed to obtain a session from the sessionFactory");
                 }
@@ -129,7 +129,7 @@ public class AsyncMsgRecordDao {
 
     /**
      * Query by Message Id and Service Name. This should return only one record.
-     *
+     * 
      * @param messageId
      * @param serviceName
      * @return matching records
@@ -146,10 +146,10 @@ public class AsyncMsgRecordDao {
             if (fact != null) {
                 sess = fact.openSession();
                 if (sess != null) {
-                    Criteria criteria = sess.createCriteria(AsyncMsgRecord.class);
-                    criteria.add(Restrictions.eq("MessageId", messageId));
-                    criteria.add(Restrictions.eq("ServiceName", serviceName));
-                    asyncMsgRecs = criteria.list();
+                    Query query = sess.getNamedQuery("queryByMessageIdAndServiceName");
+                    query.setParameter("MessageId", messageId);
+                    query.setParameter("ServiceName", serviceName);
+                    asyncMsgRecs = query.list();
                 } else {
                     log.error("Failed to obtain a session from the sessionFactory");
                 }
@@ -176,8 +176,9 @@ public class AsyncMsgRecordDao {
 
     /**
      * Query for Creation Time less than passed timestamp.
-     *
-     * @param timestamp A timestamp
+     * 
+     * @param timestamp
+     *            A timestamp
      * @return matching records
      */
     public List<AsyncMsgRecord> queryByTime(Date timestamp) {
@@ -191,9 +192,9 @@ public class AsyncMsgRecordDao {
             if (fact != null) {
                 sess = fact.openSession();
                 if (sess != null) {
-                    Criteria criteria = sess.createCriteria(AsyncMsgRecord.class);
-                    criteria.add(Restrictions.lt("CreationTime", timestamp));
-                    asyncMsgRecs = criteria.list();
+                    Query query = sess.getNamedQuery("queryByTime");
+                    query.setParameter("CreationTime", timestamp);
+                    asyncMsgRecs = query.list();
                 } else {
                     log.error("Failed to obtain a session from the sessionFactory");
                 }
@@ -221,8 +222,9 @@ public class AsyncMsgRecordDao {
     /**
      * Query for Creation Time less than passed timestamp and status equal to Request Receieved Acknowledged
      * [REQRCVDACK]
-     *
-     * @param timestamp A timestamp
+     * 
+     * @param timestamp
+     *            A timestamp
      * @return matching records
      */
     public List<AsyncMsgRecord> queryForExpired(Date timestamp) {
@@ -236,11 +238,9 @@ public class AsyncMsgRecordDao {
             if (fact != null) {
                 sess = fact.openSession();
                 if (sess != null) {
-                    Criteria criteria = sess.createCriteria(AsyncMsgRecord.class);
-                    criteria.add(Restrictions.lt("CreationTime", timestamp));
-                    criteria.add(Restrictions.or(Restrictions.eq("Status", QUEUE_STATUS_REQRCVD),
-                            Restrictions.eq("Status", QUEUE_STATUS_REQRCVDACK)));
-                    asyncMsgRecs = criteria.list();
+                    Query query = sess.getNamedQuery("queryForExpired");
+                    query.setParameter("CreationTime", timestamp);
+                    asyncMsgRecs = query.list();
                 } else {
                     log.error("Failed to obtain a session from the sessionFactory");
                 }
@@ -267,7 +267,7 @@ public class AsyncMsgRecordDao {
 
     /**
      * Query for all records to be processed by the Deferred Queue Manager.
-     *
+     * 
      * @return matching records
      */
     public List<AsyncMsgRecord> queryForDeferredQueueProcessing() {
@@ -281,11 +281,8 @@ public class AsyncMsgRecordDao {
             if (fact != null) {
                 sess = fact.openSession();
                 if (sess != null) {
-                    Criteria criteria = sess.createCriteria(AsyncMsgRecord.class);
-                    criteria.add(Restrictions.eq("Direction", QUEUE_DIRECTION_INBOUND));
-                    criteria.add(Restrictions.eq("ResponseType", QUEUE_RESPONSE_TYPE_AUTO));
-                    criteria.add(Restrictions.eq("Status", QUEUE_STATUS_REQRCVDACK));
-                    asyncMsgRecs = criteria.list();
+                    Query query = sess.getNamedQuery("queryForDeferredQueueProcessing");
+                    asyncMsgRecs = query.list();
                 } else {
                     log.error("Failed to obtain a session from the sessionFactory");
                 }
@@ -313,7 +310,7 @@ public class AsyncMsgRecordDao {
     /**
      * Query for all records that are already selected. This will occur if a prior process was interrupted before all
      * selected records processing was complete.
-     *
+     * 
      * @return matching records
      */
     public List<AsyncMsgRecord> queryForDeferredQueueSelected() {
@@ -327,11 +324,8 @@ public class AsyncMsgRecordDao {
             if (fact != null) {
                 sess = fact.openSession();
                 if (sess != null) {
-                    Criteria criteria = sess.createCriteria(AsyncMsgRecord.class);
-                    criteria.add(Restrictions.eq("Direction", QUEUE_DIRECTION_INBOUND));
-                    criteria.add(Restrictions.eq("ResponseType", QUEUE_RESPONSE_TYPE_AUTO));
-                    criteria.add(Restrictions.eq("Status", QUEUE_STATUS_RSPSELECT));
-                    asyncMsgRecs = criteria.list();
+                    Query query = sess.getNamedQuery("queryForDeferredQueueSelected");
+                    asyncMsgRecs = query.list();
                 } else {
                     log.error("Failed to obtain a session from the sessionFactory");
                 }
@@ -358,7 +352,7 @@ public class AsyncMsgRecordDao {
 
     /**
      * Query by Message Id and Service Name. This should return only one record.
-     *
+     * 
      * @param messageId
      * @param serviceName
      * @return matching records
@@ -451,8 +445,9 @@ public class AsyncMsgRecordDao {
 
     /**
      * Insert list of records.
-     *
-     * @param asyncMsgRecs object to save.
+     * 
+     * @param asyncMsgRecs
+     *            object to save.
      * @return true - success; false - failure
      */
     public boolean insertRecords(List<AsyncMsgRecord> asyncMsgRecs) {
@@ -500,8 +495,9 @@ public class AsyncMsgRecordDao {
 
     /**
      * Save a record to the database. Insert if pk is null. Update otherwise.
-     *
-     * @param asyncMsgRecord object to save.
+     * 
+     * @param asyncMsgRecord
+     *            object to save.
      */
     public void save(AsyncMsgRecord asyncMsgRecord) {
         log.debug("AsyncMsgRecordDao.save() - Begin");
@@ -543,8 +539,9 @@ public class AsyncMsgRecordDao {
 
     /**
      * Save records to the database. Insert if pk is null. Update otherwise.
-     *
-     * @param asyncMsgRecs object to save.
+     * 
+     * @param asyncMsgRecs
+     *            object to save.
      */
     public void save(List<AsyncMsgRecord> asyncMsgRecs) {
         log.debug("AsyncMsgRecordDao.save(list) - Begin");
@@ -597,8 +594,9 @@ public class AsyncMsgRecordDao {
 
     /**
      * Delete the specified record.
-     *
-     * @param asyncMsgRecord object to save.
+     * 
+     * @param asyncMsgRecord
+     *            object to save.
      */
     public void delete(AsyncMsgRecord asyncMsgRecord) {
         log.debug("Performing a database record delete on asyncmsgrepo table");

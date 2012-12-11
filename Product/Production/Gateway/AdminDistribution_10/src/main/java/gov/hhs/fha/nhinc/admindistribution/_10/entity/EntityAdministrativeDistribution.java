@@ -26,8 +26,9 @@
  */
 package gov.hhs.fha.nhinc.admindistribution._10.entity;
 
+import gov.hhs.fha.nhinc.admindistribution.aspect.ADRequestTransformingBuilder;
 import gov.hhs.fha.nhinc.admindistribution.outbound.OutboundAdminDistribution;
-import gov.hhs.fha.nhinc.aspect.InboundMessageEvent;
+import gov.hhs.fha.nhinc.aspect.OutboundMessageEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewaySendAlertMessageType;
 import gov.hhs.fha.nhinc.entityadmindistribution.AdministrativeDistributionPortType;
@@ -39,21 +40,20 @@ import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
 
-
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 @Addressing(enabled = true)
 public class EntityAdministrativeDistribution extends BaseService implements AdministrativeDistributionPortType {
 
     private WebServiceContext context;
     private OutboundAdminDistribution outboundAdminDist;
-    
+
     @Override
-    @InboundMessageEvent(serviceType = "Admin Distribution", version = "1.0",
+    @OutboundMessageEvent(serviceType = "Admin Distribution", version = "1.0",
             afterReturningBuilder = DefaultEventDescriptionBuilder.class,
-            beforeBuilder = DefaultEventDescriptionBuilder.class)
+            beforeBuilder = ADRequestTransformingBuilder.class)
     public void sendAlertMessage(RespondingGatewaySendAlertMessageType body) {
         AssertionType assertion = getAssertion(context, body.getAssertion());
-        
+
         outboundAdminDist.sendAlertMessage(body, assertion, body.getNhinTargetCommunities());
     }
 
@@ -61,7 +61,7 @@ public class EntityAdministrativeDistribution extends BaseService implements Adm
     public void setContext(WebServiceContext context) {
         this.context = context;
     }
-    
+
     public void setOutboundAdminDistribution(OutboundAdminDistribution outboundAdminDist) {
         this.outboundAdminDist = outboundAdminDist;
     }

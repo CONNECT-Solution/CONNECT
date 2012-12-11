@@ -45,11 +45,11 @@ import org.hl7.v3.PRPAIN201306UV02;
  */
 public class StandardInboundPatientDiscoveryDeferredRequest extends AbstractInboundPatientDiscoveryDeferredRequest {
 
-    private Log log;
-    private PatientDiscoveryPolicyChecker policyChecker;
-    private AdapterPatientDiscoveryDeferredReqErrorProxyObjectFactory proxyErrorFactory;
-    private PassthroughInboundPatientDiscoveryDeferredRequest passthroughPatientDiscovery;
-    private PatientDiscoveryAuditor auditLogger; 
+    private final Log log;
+    private final PatientDiscoveryPolicyChecker policyChecker;
+    private final AdapterPatientDiscoveryDeferredReqErrorProxyObjectFactory proxyErrorFactory;
+    private final PassthroughInboundPatientDiscoveryDeferredRequest passthroughPatientDiscovery;
+    private final PatientDiscoveryAuditor auditLogger; 
 
     /**
      * Constructor.

@@ -126,14 +126,14 @@ public class EventAspectAdvice {
                 annotation.afterReturningBuilder(), returnValue);
     }
 
-    @AfterThrowing("@annotation(gov.hhs.fha.nhinc.aspect.InboundMessageEvent) &&"
+    @AfterThrowing(pointcut = "@annotation(gov.hhs.fha.nhinc.aspect.InboundMessageEvent) &&"
             + "@annotation(gov.hhs.fha.nhinc.aspect.InboundProcessingEvent) &&"
             + "@annotation(gov.hhs.fha.nhinc.aspect.AdapterDelegationEvent) && "
             + "@annotation(gov.hhs.fha.nhinc.aspect.OutboundMessageEvent) && "
             + "@annotation(gov.hhs.fha.nhinc.aspect.OutboundProcessingEvent) && "
-            + "@annotation(gov.hhs.fha.nhinc.aspect.NwhinInvocationEvent)")
-    public void failEvent(JoinPoint joinPoint) {
-        failureAdviceDelegate.fail(joinPoint.getArgs());
+            + "@annotation(gov.hhs.fha.nhinc.aspect.NwhinInvocationEvent)", throwing = "e")
+    public void failEvent(JoinPoint joinPoint, Throwable e) {
+        failureAdviceDelegate.fail(joinPoint.getArgs(), e);
     }
 
     @Autowired
