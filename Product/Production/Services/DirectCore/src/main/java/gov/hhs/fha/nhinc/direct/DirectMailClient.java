@@ -93,11 +93,10 @@ public class DirectMailClient implements DirectClient, InitializingBean {
             Session session = getMailSession();
             message = new MimeMessageBuilder(session, sender, recipients).subject(MSG_SUBJECT).text(MSG_TEXT)
                     .documents(documents).messageId(messageId).build();
+            processAndSend(message, session);
         } catch (Exception e) {
             throw new DirectException("Error building mime message.", e, message);
         }
-        processAndSend(message);
-        
     }
 
     /**
@@ -118,7 +117,9 @@ public class DirectMailClient implements DirectClient, InitializingBean {
         try {
             MailUtils.sendMessage(message.getAllRecipients(), getMailSession(), message);
         } catch (MessagingException e) {
-            throw new DirectException("Exception while sending mime message.", e);
+        	String errorText = "Exception while sending mime message.";
+        	LOG.error(errorText, e);
+            throw new DirectException(errorText, e);
         }
     }
 
@@ -258,7 +259,9 @@ public class DirectMailClient implements DirectClient, InitializingBean {
             Address[] recips = mimeMessage.getAllRecipients();
             MailUtils.sendMessage(recips, session, result.getProcessedMessage().getMessage());
         } catch (MessagingException e) {
-            throw new DirectException("Could not send message.", e);
+        	String errorString = "Could not send message.";
+        	LOG.error(errorString, e);
+            throw new DirectException(errorString, e);
         }
     }
 
@@ -267,7 +270,9 @@ public class DirectMailClient implements DirectClient, InitializingBean {
             NHINDAddressCollection collection = DirectClientUtils.getNhindRecipients(mimeMessage);
             return smtpAgent.processMessage(mimeMessage, collection, DirectClientUtils.getNhindSender(mimeMessage));
         } catch (MessagingException e) {
-            throw new DirectException("Error occurred while extracting addresses.", e);
+        	String errorString = "Error occurred while extracting addresses.";
+        	LOG.error(errorString, e);
+            throw new DirectException(errorString, e);
         }
     }
 
