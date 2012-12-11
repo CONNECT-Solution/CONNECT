@@ -97,6 +97,7 @@ public class DirectUnitTestUtil {
         props.setProperty("direct.mail.user", toAddress);
         props.setProperty("direct.mail.pass", toAddress);
         props.setProperty("direct.max.msgs.in.batch", Integer.toString(MAX_NUM_MSGS_IN_BATCH));
+        props.setProperty("direct.delete.unhandled.msgs", "false");
                         
         props.setProperty("mail.smtps.host", "localhost");
         props.setProperty("mail.smtps.auth", "TRUE");
