@@ -32,6 +32,7 @@ import java.util.Properties;
 
 import javax.mail.Address;
 import javax.mail.Authenticator;
+import javax.mail.Flags;
 import javax.mail.Folder;
 import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
@@ -120,7 +121,7 @@ public class MailUtils {
 
         Transport transport = null;
         try {
-            transport = session.getTransport("smtp");
+            transport = session.getTransport("smtps");
             transport.connect();
             transport.sendMessage(message, recipients);
             logHeaders(message);
@@ -161,4 +162,17 @@ public class MailUtils {
             LOG.debug(headerLines.nextElement());
         }
     }
+    
+    /**
+     * Set the deleted flag on a message, log and swallow exceptions.
+     * @param message
+     */
+    public static void setDeletedQuietly(MimeMessage message) {
+        try {
+            message.setFlag(Flags.Flag.DELETED, true);
+        } catch (MessagingException e) {
+            LOG.warn("Exception ", e);            
+        }
+    }
+
 }

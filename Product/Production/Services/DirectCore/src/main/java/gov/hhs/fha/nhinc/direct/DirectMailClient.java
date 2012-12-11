@@ -33,7 +33,6 @@ import java.util.Collection;
 import java.util.Properties;
 
 import javax.mail.Address;
-import javax.mail.Flags;
 import javax.mail.Folder;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -194,11 +193,15 @@ public class DirectMailClient implements DirectClient, InitializingBean {
                 try {
                     MailUtils.logHeaders(mimeMessage);
                     messageHandler.handleMessage(mimeMessage, this);
-                    numberOfMsgsHandled++;                    
-                    message.setFlag(Flags.Flag.DELETED, true);
+                    numberOfMsgsHandled++;
+                    MailUtils.setDeletedQuietly(mimeMessage);
                 } catch (Exception e) {
                     DirectException directException = new DirectException("Error handling message.", e, mimeMessage);
                     LOG.error(directException);
+                    if (isDeleteUnhandledMsgs()) {
+                        LOG.warn("Deleting unhandled message (check events and logs for more info)");
+                        MailUtils.setDeletedQuietly(mimeMessage);
+                    }
                 }
             }
         }
@@ -281,5 +284,9 @@ public class DirectMailClient implements DirectClient, InitializingBean {
 
         return numberOfMsgsInFolder < maxNumberOfMsgsToHandle ? numberOfMsgsInFolder : maxNumberOfMsgsToHandle;
     }
+    
+    private boolean isDeleteUnhandledMsgs() {
+        return Boolean.parseBoolean(mailServerProps.getProperty("direct.delete.unhandled.msgs"));
+    }    
     
 }

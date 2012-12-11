@@ -38,7 +38,6 @@ import javax.mail.internet.MimeMessage;
 public class DirectException extends RuntimeException {
 
     private static final long serialVersionUID = 4636463959045310435L;
-
     
     /**
      * Constructor.
