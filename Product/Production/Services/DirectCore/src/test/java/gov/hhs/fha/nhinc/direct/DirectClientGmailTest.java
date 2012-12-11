@@ -95,16 +95,19 @@ public class DirectClientGmailTest {
 
         Properties props = new Properties();
 
-        props.setProperty("direct.mail.user", "mlandisdirect@gmail.com");
-        props.setProperty("direct.mail.pass", "xxxxxxx");
+        props.setProperty("direct.mail.user", "xxx");
+        props.setProperty("direct.mail.pass", "xxx");
         props.setProperty("direct.max.msgs.in.batch", "5");
 
-        props.setProperty("mail.smtps.host", "smtp.gmail.com");
-        props.setProperty("mail.smtps.auth", "TRUE");
-        props.setProperty("mail.smtps.port", "465");
-        props.setProperty("mail.smtps.starttls.enabled", "TRUE");
-
-        props.setProperty("mail.imaps.host", "imap.gmail.com");
+        props.setProperty("direct.mail.session.debug", "true");
+        props.setProperty("direct.delete.unhandled.msgs", "false");
+        
+        props.setProperty("mail.smtp.host", "smtp-01.direct.connectopensource.org");
+        props.setProperty("mail.smtp.auth", "false");
+        props.setProperty("mail.smtp.port", "587");
+        props.setProperty("mail.smtp.starttls.enable", "true");        
+        
+        props.setProperty("mail.imaps.host", "imap-01.direct.connectopensource.org");
         props.setProperty("mail.imaps.port", "993");
         props.setProperty("mail.imaps.connectiontimeout", Integer.toString(15 * 1000));
         props.setProperty("mail.imaps.timeout", Integer.toString(15 * 60 * 1000));
@@ -117,15 +120,15 @@ public class DirectClientGmailTest {
     }
 
     private void initiateEmail() throws Exception {
-        MimeMessage originalMsg = new MimeMessage(null, IOUtils.toInputStream(getFileAsString("PlainOutgoingMessage.txt")));
-
+       
         Session session = MailUtils.getMailSession(props, props.getProperty("direct.mail.user"),
                 props.getProperty("direct.mail.pass"));
+        MimeMessage originalMsg = new MimeMessage(session, IOUtils.toInputStream(getFileAsString("PlainOutgoingMessage.txt")));
         session.setDebug(true);
         session.setDebugOut(System.out);
         Transport transport = null;
         try {
-            transport = session.getTransport("smtps");
+            transport = session.getTransport("smtp");
             transport.connect();
             transport.sendMessage(originalMsg, originalMsg.getAllRecipients());
         } finally {
