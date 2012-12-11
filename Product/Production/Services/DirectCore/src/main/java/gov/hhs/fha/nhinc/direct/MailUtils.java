@@ -123,7 +123,11 @@ public class MailUtils {
         try {
             transport = session.getTransport("smtp");
             String host = session.getProperty("mail.smtp.host");
-            transport.connect(host, 587, "user", "pass");
+            String port = session.getProperty("mail.smtp.port");
+            String user = session.getProperty("direct.mail.user");
+            String pass = session.getProperty("direct.mail.pass");
+            
+            transport.connect(host, Integer.parseInt(port), user, pass);
             transport.sendMessage(message, recipients);
             logHeaders(message);
         } finally {
