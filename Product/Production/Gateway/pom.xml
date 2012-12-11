@@ -18,7 +18,6 @@
         <module>DocumentRetrieve_30</module>
         <module>DocumentSubmission_11</module>
         <module>DocumentSubmission_20</module>
-        <module>HIEM_20</module>
         <module>PatientDiscovery_10</module>
         <module>CONNECTGatewayWeb</module>
     </modules>
@@ -73,4 +72,25 @@
             <version>1.6.4</version>
         </dependency>
     </dependencies>
+    <profiles>
+        <profile>
+            <id>HIEM</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <modules>
+                <module>AdminDistribution_10</module>
+                <module>AdminDistribution_20</module>
+                <module>DocumentQuery_20</module>
+                <module>DocumentRetrieve_20</module>
+                <module>DocumentRetrieve_30</module>
+                <module>DocumentSubmission_11</module>
+                <module>DocumentSubmission_20</module>
+                <!-- GATEWAY-3223: HIEM disabled by default -->
+                <module>HIEM_20</module>
+                <module>PatientDiscovery_10</module>
+                <module>CONNECTGatewayWeb</module>
+            </modules>
+        </profile>
+    </profiles>
 </project>
