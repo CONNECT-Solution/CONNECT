@@ -45,11 +45,7 @@ public enum EventType {
     END_ADAPTER_DELEGATION("endAdapterDelegation"), 
     END_INBOUND_PROCESSING("endInboundProcessing"), 
     END_INBOUND_MESSAGE("endInboundMessage"),
-    MESSAGE_PROCESSING_FAILED("messageProcessingFailed"),
-    OUTBOUND_DIRECT("outboundDirect"), 
-    INBOUND_DIRECT("inboundDirect"),
-    OUTBOUND_MDN("outboundMdn"), 
-    INBOUND_MDN("inboundMdn");
+    MESSAGE_PROCESSING_FAILED("messageProcessingFailed");
     
     private final String name;
 

@@ -22,7 +22,7 @@ public class XDCommonErrorHelper {
         return createRegistryResponse(message, ErrorCodes.XDSRegistryError, "CONNECT");
     }
     
-    public RegistryResponseType createError(Exception e) {
+    public RegistryResponseType createError(Throwable e) {
         return createRegistryResponse(e.getLocalizedMessage(), ErrorCodes.XDSRegistryError, e.getStackTrace().toString());
     }
     
