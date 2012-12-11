@@ -79,10 +79,10 @@ public class DirectMailClientTest extends AbstractDirectMailClientTest {
         assertNotNull(recipMailServerProps.getProperty("direct.mail.pass"));
         assertNotNull(recipMailServerProps.getProperty("direct.max.msgs.in.batch"));
         assertNotNull(recipMailServerProps.getProperty("direct.delete.unhandled.msgs"));
-        assertNotNull(recipMailServerProps.getProperty("mail.smtps.host"));
-        assertNotNull(recipMailServerProps.getProperty("mail.smtps.auth"));
-        assertNotNull(recipMailServerProps.getProperty("mail.smtps.port"));
-        assertNotNull(recipMailServerProps.getProperty("mail.smtps.starttls.enabled"));
+        assertNotNull(recipMailServerProps.getProperty("mail.smtp.host"));
+        assertNotNull(recipMailServerProps.getProperty("mail.smtp.auth"));
+        assertNotNull(recipMailServerProps.getProperty("mail.smtp.port"));
+        assertNotNull(recipMailServerProps.getProperty("mail.smtp.starttls.enabled"));
         assertNotNull(recipMailServerProps.getProperty("mail.imaps.host"));
         assertNotNull(recipMailServerProps.getProperty("mail.imaps.port"));
     }
