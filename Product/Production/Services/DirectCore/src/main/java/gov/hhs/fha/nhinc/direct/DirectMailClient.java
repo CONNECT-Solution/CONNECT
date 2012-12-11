@@ -33,7 +33,6 @@ import java.util.Collection;
 import java.util.Properties;
 
 import javax.mail.Address;
-import javax.mail.Flags;
 import javax.mail.Folder;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -190,21 +189,19 @@ public class DirectMailClient implements DirectClient, InitializingBean {
 
         for (Message message : messages) {
             if ((message instanceof MimeMessage)) {
+                MimeMessage mimeMessage = (MimeMessage) message;
                 try {
-                    MailUtils.logHeaders((MimeMessage) message);
-                    messageHandler.handleMessage((MimeMessage) message, this);
+                    MailUtils.logHeaders(mimeMessage);
+                    messageHandler.handleMessage(mimeMessage, this);
                     numberOfMsgsHandled++;
+                    MailUtils.setDeletedQuietly(mimeMessage);
                 } catch (Exception e) {
-                    DirectException directException = new DirectException("Error handling message.", e,
-                            (MimeMessage) message);
+                    DirectException directException = new DirectException("Error handling message.", e, mimeMessage);
                     LOG.error(directException);
-                }
-                try {
-                    message.setFlag(Flags.Flag.DELETED, true);
-                } catch (MessagingException e) {
-                    DirectException directException = new DirectException("Error setting deleted flag.", e,
-                            (MimeMessage) message);
-                    LOG.error(directException);
+                    if (isDeleteUnhandledMsgs()) {
+                        LOG.warn("Deleting unhandled message (check events and logs for more info)");
+                        MailUtils.setDeletedQuietly(mimeMessage);
+                    }
                 }
             }
         }
@@ -287,5 +284,9 @@ public class DirectMailClient implements DirectClient, InitializingBean {
 
         return numberOfMsgsInFolder < maxNumberOfMsgsToHandle ? numberOfMsgsInFolder : maxNumberOfMsgsToHandle;
     }
+    
+    private boolean isDeleteUnhandledMsgs() {
+        return Boolean.parseBoolean(mailServerProps.getProperty("direct.delete.unhandled.msgs"));
+    }    
     
 }

@@ -38,7 +38,6 @@ import javax.mail.internet.MimeMessage;
 public class DirectException extends RuntimeException {
 
     private static final long serialVersionUID = 4636463959045310435L;
-
     
     /**
      * Constructor.
@@ -49,7 +48,7 @@ public class DirectException extends RuntimeException {
      */
     public DirectException(String message, Throwable cause, MimeMessage mimeMessage) {
         super(message, cause);
-        getDirectEventLogger().log(DirectEventType.DIRECT_ERROR, mimeMessage, message);
+        getDirectEventLogger().log(DirectEventType.DIRECT_ERROR, mimeMessage, message + cause.getMessage());
     }
 
     /**
@@ -60,7 +59,7 @@ public class DirectException extends RuntimeException {
      */
     public DirectException(String message, Throwable cause) {
         super(message, cause);
-        getDirectEventLogger().log(DirectEventType.DIRECT_ERROR, message);
+        getDirectEventLogger().log(DirectEventType.DIRECT_ERROR, message + cause.getMessage());
     }
 
     /**
