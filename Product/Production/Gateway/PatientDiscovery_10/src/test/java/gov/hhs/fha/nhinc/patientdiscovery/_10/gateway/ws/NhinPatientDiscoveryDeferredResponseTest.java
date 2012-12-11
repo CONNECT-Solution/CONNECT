@@ -34,6 +34,8 @@ import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201306UV02EventDescriptio
 
 import java.lang.reflect.Method;
 
+import javax.xml.ws.soap.Addressing;
+
 import org.hl7.v3.PRPAIN201306UV02;
 import org.junit.Test;
 
@@ -49,6 +51,14 @@ public class NhinPatientDiscoveryDeferredResponseTest {
         assertEquals(MCCIIN000002UV01EventDescriptionBuilder.class, annotation.afterReturningBuilder());
         assertEquals("Patient Discovery Deferred Response", annotation.serviceType());
         assertEquals("1.0", annotation.version());
+    }
+    
+    @Test
+    public void hasAddressAnnotation() {
+        Class<NhinPatientDiscoveryDeferredResponse> clazz = NhinPatientDiscoveryDeferredResponse.class;
+        Addressing addressing = clazz.getAnnotation(Addressing.class);
+        assertNotNull(addressing);
+        assert(addressing.enabled());
     }
 
 }
