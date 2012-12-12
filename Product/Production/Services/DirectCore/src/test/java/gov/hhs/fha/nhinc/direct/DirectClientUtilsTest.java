@@ -91,12 +91,11 @@ public class DirectClientUtilsTest {
      */
     @Test(expected = DirectException.class)
     public void willThrowDirectExceptionWhenNoRecipientsPresent() throws MessagingException {
-
         when(mockMessage.getRecipients(RecipientType.TO)).thenReturn(EMPTY_ADDRESS_ARRAY);
         when(mockMessage.getRecipients(RecipientType.CC)).thenReturn(EMPTY_ADDRESS_ARRAY);
         when(mockMessage.getRecipients(RecipientType.BCC)).thenReturn(EMPTY_ADDRESS_ARRAY);
-
-        assertNotNull(DirectClientUtils.getNhindRecipients(mockMessage));
+        
+        DirectClientUtils.getNhindRecipients(mockMessage);
     }
 
 }

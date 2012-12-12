@@ -51,7 +51,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  * Test {@link DirectMailClient} with Spring Framework Configuration.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("/test.direct.appcontext.xml")
+@ContextConfiguration("/direct.appcontext.xml")
 public class DirectMailClientSpringTest {
     
     private static final Log LOG = LogFactory.getLog(DirectMailClientSpringTest.class);
@@ -106,7 +106,7 @@ public class DirectMailClientSpringTest {
     @Before
     public void setUp() {
         staticContext = applicationContext;
-        staticScheduler = scheduler;
+        staticScheduler = scheduler;        
     }
     
     /**
@@ -124,6 +124,7 @@ public class DirectMailClientSpringTest {
         if (staticContext != null) {
             LOG.debug("closing context");
             ((AbstractApplicationContext) staticContext).close();
+            ((AbstractApplicationContext) staticContext).destroy();
         }
     }    
     

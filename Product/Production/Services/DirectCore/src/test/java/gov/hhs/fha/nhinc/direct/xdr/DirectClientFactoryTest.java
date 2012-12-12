@@ -30,6 +30,8 @@ import static org.junit.Assert.assertNotNull;
 import gov.hhs.fha.nhinc.direct.DirectClientFactory;
 import gov.hhs.fha.nhinc.direct.DirectUnitTestUtil;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
@@ -40,6 +42,8 @@ import org.junit.Test;
  */
 public class DirectClientFactoryTest {
 
+    private static final Log LOG = LogFactory.getLog(DirectClientFactoryTest.class);
+    
     /**
      * Set up keystore for test.
      */
@@ -55,13 +59,22 @@ public class DirectClientFactoryTest {
     public static void tearDownClass() {
         DirectUnitTestUtil.removeSmtpAgentConfig();
     }
-
+    
     /**
      * Test {@link DirectClientFactory#getDirectClient()}.
+     * Note: This test fails when run as part of the suite - it seems that the config is loaded in another test before
+     * we are setting the system property for the nhinc.properties.dir. Ignoring for now til more time can be spent on
+     * it.
      */
     @Test
     @Ignore
     public void canGetDirectClientFromFactory() {
+
+        LOG.info("nhinc.properties.dir...");
+        String propertiesDir = DirectUnitTestUtil.getClassPath();
+        System.setProperty("nhinc.properties.dir", propertiesDir);
+        LOG.info("nhinc.properties.dir: " + propertiesDir);
+
         DirectClientFactory testDirectFactory = new DirectClientFactory();
         assertNotNull(testDirectFactory.getDirectClient());
     }

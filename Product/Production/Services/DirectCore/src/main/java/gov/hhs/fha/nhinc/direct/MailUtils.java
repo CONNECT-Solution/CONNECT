@@ -152,14 +152,16 @@ public class MailUtils {
      */
     @SuppressWarnings("unchecked")
     public static void logHeaders(final MimeMessage mimeMessage) {
-        Enumeration<String> headerLines = Collections.emptyEnumeration();
-        try {
-            headerLines = mimeMessage.getAllHeaderLines();
-        } catch (MessagingException e) {
-            LOG.error("Could not extract headers: ", e);
-        }
-        while (headerLines != null && headerLines.hasMoreElements()) {
-            LOG.debug(headerLines.nextElement());
+        if (LOG.isDebugEnabled()) {
+            Enumeration<String> headerLines = Collections.emptyEnumeration();
+            try {
+                headerLines = mimeMessage.getAllHeaderLines();
+            } catch (MessagingException e) {
+                LOG.error("Could not extract headers: ", e);
+            }
+            while (headerLines != null && headerLines.hasMoreElements()) {
+                LOG.debug(headerLines.nextElement());
+            }
         }
     }
     

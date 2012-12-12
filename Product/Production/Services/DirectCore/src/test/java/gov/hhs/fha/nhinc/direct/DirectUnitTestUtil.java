@@ -302,8 +302,12 @@ public class DirectUnitTestUtil {
         FileUtils.deleteQuietly(new File(getClassPath() + "smtp.agent.config.xml"));
     }
     
-    private static String getClassPath() {
-        return DirectMailClientSpringTest.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+    /**
+     * Used when calling code requires absolute paths to test resources.
+     * @return absolute classpath.
+     */
+    public static String getClassPath() {
+        return DirectUnitTestUtil.class.getProtectionDomain().getCodeSource().getLocation().getPath();
     }    
     
     /**

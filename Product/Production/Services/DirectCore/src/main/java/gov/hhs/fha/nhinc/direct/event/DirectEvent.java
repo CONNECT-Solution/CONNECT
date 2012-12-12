@@ -50,12 +50,7 @@ public class DirectEvent extends BaseEvent {
     
     private static final Log LOG = LogFactory.getLog(DirectEvent.class);
 
-    private static final ThreadLocal<SimpleDateFormat> XML_DATE_FORMAT = new ThreadLocal<SimpleDateFormat>() {
-        @Override
-        protected SimpleDateFormat initialValue() {
-            return new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ", Locale.getDefault());
-        }
-    };
+    private static final String XML_DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSSZ";
     
     /*
      * JSON fields and values. (should use a standard enum here? )
@@ -128,7 +123,7 @@ public class DirectEvent extends BaseEvent {
             event.setTransactionID("");            
             
             JSONObject jsonDescription = new JSONObject();
-            addToJSON(jsonDescription, TIMESTAMP, XML_DATE_FORMAT.get().format(new Date()));
+            addToJSON(jsonDescription, TIMESTAMP, formatDateForXml(new Date()));
             addToJSON(jsonDescription, ACTION, eventName);
             addToJSON(jsonDescription, ERROR_MSG, errorMsg);
             if (message != null) {
@@ -156,13 +151,15 @@ public class DirectEvent extends BaseEvent {
         }
         
         private void addToJSON(JSONObject jsonObject, String key, Object value)  {
-            if (value != null) {
-                try {
-                    jsonObject.put(key, value);
-                } catch (JSONException e) {
-                    LOG.error("Exception while building JSON description for direct event.", e);
-                }
+            try {
+                jsonObject.put(key, value);
+            } catch (JSONException e) {
+                LOG.error("Exception while building JSON description for direct event.", e);
             }
         }
-    }    
+    }   
+    
+    private static String formatDateForXml(Date date) {        
+        return new SimpleDateFormat(XML_DATE_FORMAT, Locale.getDefault()).format(date);
+    }
 }

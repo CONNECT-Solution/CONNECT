@@ -99,14 +99,9 @@ public class DirectMailClientTest extends AbstractDirectMailClientTest {
      */
     @Test
     public void canSendAndReceiveInOneBatch() throws IOException, MessagingException {
-        MessageProcessResult mockMessageProcessResult = getMockMessageProcessResult();
-        when(
-                mockSmtpAgent.processMessage(any(MimeMessage.class), any(NHINDAddressCollection.class),
-                        any(NHINDAddress.class))).thenReturn(mockMessageProcessResult);
 
-        for (int i = 0; i < NUM_MSGS_ONE_BATCH; i++) {
-            intDirectClient.processAndSend(getSender(), getRecipients(), getMockDirectDocuments(), ATTACHMENT_NAME);
-        }
+        whenProcessingMessageReturnMockResult();     
+        processAndSendMultipleMsgs(NUM_MSGS_ONE_BATCH);
 
         verify(mockSmtpAgent, times(NUM_MSGS_ONE_BATCH)).processMessage(any(MimeMessage.class),
                 any(NHINDAddressCollection.class), any(NHINDAddress.class));
@@ -125,15 +120,9 @@ public class DirectMailClientTest extends AbstractDirectMailClientTest {
      */
     @Test
     public void canSendAndReceiveMultipleMsgsInBatches() throws IOException, MessagingException {
-        MessageProcessResult mockMessageProcessResult = getMockMessageProcessResult();
-        when(
-                mockSmtpAgent.processMessage(any(MimeMessage.class), any(NHINDAddressCollection.class),
-                        any(NHINDAddress.class))).thenReturn(mockMessageProcessResult);
-
-        // blast out all of the messages at once...
-        for (int i = 0; i < NUM_MSGS_MULTI_BATCH; i++) {
-            intDirectClient.processAndSend(getSender(), getRecipients(), getMockDirectDocuments(), ATTACHMENT_NAME);
-        }
+        
+        whenProcessingMessageReturnMockResult();
+        processAndSendMultipleMsgs(NUM_MSGS_MULTI_BATCH);
 
         verify(mockSmtpAgent, times(NUM_MSGS_MULTI_BATCH)).processMessage(any(MimeMessage.class),
                 any(NHINDAddressCollection.class), any(NHINDAddress.class));
@@ -160,6 +149,18 @@ public class DirectMailClientTest extends AbstractDirectMailClientTest {
         assertEquals("No messages should be left on the server", 0, greenMail.getReceivedMessages().length);
     }
 
+    private void whenProcessingMessageReturnMockResult() throws MessagingException {
+        MessageProcessResult messageProcessResult = getMockMessageProcessResult();
+        when(mockSmtpAgent.processMessage(any(MimeMessage.class), any(NHINDAddressCollection.class),
+                        any(NHINDAddress.class))).thenReturn(messageProcessResult);
+    }
+    
+    private void processAndSendMultipleMsgs(int numberOfMsgs) {
+        for (int i = 0; i < numberOfMsgs; i++) {
+            intDirectClient.processAndSend(getSender(), getRecipients(), getMockDirectDocuments(), ATTACHMENT_NAME);
+        }
+    }
+    
     /**
      * Test that we can send a single MDN message.
      * @throws MessagingException on failure.
