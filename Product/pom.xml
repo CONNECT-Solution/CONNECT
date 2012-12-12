@@ -318,7 +318,7 @@
                     <testTarget>${compiler.target}</testTarget>
                 </configuration>
             </plugin>
- 			  <plugin>
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-eclipse-plugin</artifactId>
                 <configuration>
@@ -326,25 +326,8 @@
                     <downloadJavadocs>true</downloadJavadocs>
                     <useProjectReferences>true</useProjectReferences>
                     <projectNameTemplate>[artifactId]-[version]</projectNameTemplate>
-                </configuration>
+               </configuration>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-source-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>attach-sources</id>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <skipSource>${skip.source}</skipSource>
-                    <attach>true</attach>
-                </configuration>
-            </plugin>
-
         </plugins>
     </build>
     <repositories>
@@ -363,6 +346,15 @@
             <snapshots>
                 <enabled>false</enabled>
             </snapshots>
+        </repository>
+        <repository>
+            <id>sonatype-snapshots</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+        </repository>
+        <repository>
+            <id>project.local</id>
+            <name>project</name>
+            <url>file://${connectdir}/repo/</url>
         </repository>
     </repositories>
     <profiles>

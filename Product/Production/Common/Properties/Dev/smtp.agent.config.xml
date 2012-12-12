@@ -1,0 +1,66 @@
+<SmtpAgentConfig>
+   <Domains>        
+      <AnchorStore type="Uniform" storeType="KeyStore" file="/tmp/directkeystore.jks" filePass="changeit" privKeyPass="changeit"/>    
+      <Domain name="direct.connectopensource.org" postmaster="postmaster@direct.connectopensource.org">
+         <IncomingTrustAnchors> 
+            <Anchor name="infomedtrix"/>
+            <Anchor name="direct.careevolutiondirect.com"/>
+            <Anchor name="browsersoftdirect.com"/>
+            <Anchor name="direct.connectopensource.org"/>
+            <Anchor name="direct.azhisp.com"/>
+            <Anchor name="direct.healthvault-ppe.com"/>
+            <Anchor name="direct.max.md"/>
+            <Anchor name="ssdev.direct.cert.clinicalinterop.com"/>
+            <Anchor name="phimail.emrdirect.com"/>
+            <Anchor name="direct.securehealthemail.com_ca"/>
+            <Anchor name="direct.connectopensource.org_ca"/>
+            <Anchor name="direct.icaetc.com"/>
+            <Anchor name="direct.hispdev1.hispdirect.com"/>
+            <Anchor name="common.root.der"/>         
+         </IncomingTrustAnchors>  
+         <OutgoingTrustAnchors> 
+            <Anchor name="infomedtrix"/>
+            <Anchor name="direct.careevolutiondirect.com"/>
+            <Anchor name="browsersoftdirect.com"/>
+            <Anchor name="direct.connectopensource.org"/>
+            <Anchor name="direct.azhisp.com"/>
+            <Anchor name="direct.healthvault-ppe.com"/>
+            <Anchor name="direct.max.md"/>
+            <Anchor name="ssdev.direct.cert.clinicalinterop.com"/>
+            <Anchor name="phimail.emrdirect.com"/>
+            <Anchor name="direct.securehealthemail.com_ca"/>
+            <Anchor name="direct.connectopensource.org_ca"/>
+            <Anchor name="direct.icaetc.com"/>
+            <Anchor name="direct.hispdev1.hispdirect.com"/>
+            <Anchor name="common.root.der"/> 
+         </OutgoingTrustAnchors>           
+      </Domain> 
+      <!--Domain name="5amsolutions.com" postmaster="postmaster@5amsolutions.com">    
+         <IncomingTrustAnchors> 
+            <Anchor name="cacert"/>
+            <Anchor name="cacert-5am"/>
+            <Anchor name="provider-localhost"/>
+            <Anchor name="provider-5am"/>
+            <Anchor name="org-localhost"/>
+            <Anchor name="org-5am"/>
+         </IncomingTrustAnchors>  
+         <OutgoingTrustAnchors> 
+            <Anchor name="cacert"/>
+            <Anchor name="cacert-5am"/>
+            <Anchor name="provider-localhost"/>
+            <Anchor name="provider-5am"/>
+            <Anchor name="org-localhost"/>
+            <Anchor name="org-5am"/>
+         </OutgoingTrustAnchors>         
+      </Domain--> 
+   </Domains>
+   <PublicCertStore type="Keystore" file="/tmp/directkeystore.jks" filePass="changeit" privKeyPass="changeit"/>
+   <PrivateCertStore type="Keystore" file="/tmp/directkeystore.jks" filePass="changeit" privKeyPass="changeit"/>
+   <RawMessageSettings saveFolder="RawMsgFolder"/>
+   <OutgoingMessagesSettings saveFolder="OutgoingMsgFolder"/>
+   <IncomingMessagesSettings saveFolder="IncomingMsgFolder"/>
+   <BadMessagesSettings saveFolder="BadMsgFolder"/>  
+   <MDNSettings autoResponse="true" productName="NHIN Direct Security Agent">
+       <Text><![CDATA[This is a CDATA subject]]></Text>
+   </MDNSettings>
+</SmtpAgentConfig>
