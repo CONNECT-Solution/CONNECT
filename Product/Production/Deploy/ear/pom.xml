@@ -798,9 +798,19 @@
             </dependencies>
         </profile>
         <profile>
+            <!--
+                The HIEM profile is disabled by default per GATEWAY-3223.  To enable by default,
+                change the activeByDefault setting here and change two more pom files:
+
+                - Gateway/pom.xml
+                - Services/pom.xml
+
+                Within those pom files, remove the HIEM profile and add the HIEM submodule back
+                into the default modules list.
+             -->
             <id>HIEM</id>
             <activation>
-                <activeByDefault>true</activeByDefault>
+                <activeByDefault>false</activeByDefault>
             </activation>
             <properties>
                 <hiem.excluded>false</hiem.excluded>
