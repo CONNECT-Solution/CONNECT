@@ -8,8 +8,9 @@
 	in the description separated with a comma like the following sample: {somebean,anotherbean}
 -->
 	<description>Beans included in this file: {directedgeclient}</description>
+	<import resource="direct.appcontext.xml"/>
 
-    <alias alias="directedgeclient" name="directedgeclientsoap" />
+   	<alias alias="directedgeclient" name="directedgeclientsmtp" />
 
 	<!-- No-op Implementation -->
 	<bean lazy-init="true" class="gov.hhs.fha.nhinc.direct.edge.proxy.DirectEdgeProxyNoOpImpl" id="directedgeclientnoop" name="directedgeclientnoop"> 
@@ -29,6 +30,7 @@
     <!-- SMTP Implementation -->
     <bean lazy-init="true" class="gov.hhs.fha.nhinc.direct.edge.proxy.DirectEdgeProxySmtpImpl" id="directedgeclientsmtp" name="directedgeclientsmtp"> 
         <meta key="impltype" value="smtp"/>
+        <property name="internalDirectClient" ref="intDirectMailClient"/>
     </bean> 
 
 </beans>

@@ -99,10 +99,10 @@ public class DirectUnitTestUtil {
         props.setProperty("direct.max.msgs.in.batch", Integer.toString(MAX_NUM_MSGS_IN_BATCH));
         props.setProperty("direct.delete.unhandled.msgs", "false");
                         
-        props.setProperty("mail.smtps.host", "localhost");
-        props.setProperty("mail.smtps.auth", "TRUE");
-        props.setProperty("mail.smtps.port", Integer.toString(smtpPort));
-        props.setProperty("mail.smtps.starttls.enabled", "TRUE");
+        props.setProperty("mail.smtp.host", "localhost");
+        props.setProperty("mail.smtp.auth", "TRUE");
+        props.setProperty("mail.smtp.port", Integer.toString(smtpPort));
+        props.setProperty("mail.smtp.starttls.enabled", "TRUE");
 
         props.setProperty("mail.imaps.host", "localhost");
         props.setProperty("mail.imaps.port", Integer.toString(imapPort));

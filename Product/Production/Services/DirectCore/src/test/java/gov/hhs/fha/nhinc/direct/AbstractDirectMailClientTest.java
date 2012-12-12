@@ -121,12 +121,12 @@ public abstract class AbstractDirectMailClientTest {
 
         mockSmtpAgent = mock(SmtpAgent.class);
 
-        greenMail = new GreenMail(new ServerSetup[] { ServerSetupTest.SMTPS, ServerSetupTest.IMAPS });
+        greenMail = new GreenMail(new ServerSetup[] { ServerSetupTest.SMTP, ServerSetupTest.IMAPS });
         greenMail.start();
 
-        recipMailServerProps = getMailServerProps(RECIP_AT_RESPONDING_GW, greenMail.getSmtps().getServerSetup()
+        recipMailServerProps = getMailServerProps(RECIP_AT_RESPONDING_GW, greenMail.getSmtp().getServerSetup()
                 .getPort(), greenMail.getImaps().getServerSetup().getPort());
-        senderMailServerProps = getMailServerProps(SENDER_AT_INITIATING_GW, greenMail.getSmtps().getServerSetup()
+        senderMailServerProps = getMailServerProps(SENDER_AT_INITIATING_GW, greenMail.getSmtp().getServerSetup()
                 .getPort(), greenMail.getImaps().getServerSetup().getPort());
 
         senderUser = greenMail.setUser(SENDER_AT_INITIATING_GW, SENDER_AT_INITIATING_GW, SENDER_AT_INITIATING_GW);
