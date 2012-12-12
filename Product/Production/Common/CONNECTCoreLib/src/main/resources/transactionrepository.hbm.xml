@@ -18,6 +18,6 @@
   </class>
   
   <query name="findTransactionByMessageId">
-    <![CDATA[SELECT tr.transactionId FROM TransactionRepo tr WHERE tr.messageId = :messageId]]>
+    <![CDATA[FROM TransactionRepo tr WHERE tr.messageId = :messageId]]>
   </query>
  </hibernate-mapping>
