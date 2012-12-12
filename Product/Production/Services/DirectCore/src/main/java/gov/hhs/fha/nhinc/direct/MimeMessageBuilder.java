@@ -67,7 +67,7 @@ public class MimeMessageBuilder {
      * 
      * @param session used to build the message.
      * @param fromAddress sender of the message.
-     * @param recipient of the message.
+     * @param recipients - list of recipients of the message.
      */
     public MimeMessageBuilder(Session session, Address fromAddress, Address[] recipients) {
         super();
@@ -95,23 +95,23 @@ public class MimeMessageBuilder {
     }
 
     /**
-     * @param documents for attachment
-     * @return builder
+     * @param directDocuments for attachment
+     * @return builder of mime messages.
      */
-    public MimeMessageBuilder documents(DirectDocuments documents) {
-        this.documents = documents;
+    public MimeMessageBuilder documents(DirectDocuments directDocuments) {
+        this.documents = directDocuments;
         return this;
     }
     
     /**
-     * @param messageId for message
-     * @return builder
+     * @param str messageId for message
+     * @return builder of mime messages.
      */
-    public MimeMessageBuilder messageId(String messageId) {
-        this.messageId = messageId;
+    public MimeMessageBuilder messageId(String str) {
+        this.messageId = str;
         return this;
     }
-    
+
     /**
      * @param doc for attachment
      * @return builder
@@ -165,22 +165,21 @@ public class MimeMessageBuilder {
         }
 
         MimeBodyPart attachmentPart = null;
-		try {
-			if (null != documents && !StringUtils.isBlank(messageId)) {
-				attachmentPart = getMimeBodyPart();
-				
-				messageId = messageId.replace("urn:uuid:", "");
-				attachmentPart.attachFile(documents.toXdmPackage(messageId).toFile());
-			} else if (null != attachment && !StringUtils.isBlank(attachmentName)) {
-				attachmentPart = createAttachmentFromSOAPRequest(attachment,
-						attachmentName);
-			} else {
-				throw new Exception("Could not create attachment. Need documents and messageId or attachment and attachmentName.");
-			}
-		} catch (Exception e) {
-			throw new DirectException("Exception creating attachment: "
-					+ attachmentName, e);
-		}
+        try {
+            if (null != documents && !StringUtils.isBlank(messageId)) {
+                attachmentPart = getMimeBodyPart();
+
+                messageId = messageId.replace("urn:uuid:", "");
+                attachmentPart.attachFile(documents.toXdmPackage(messageId).toFile());
+            } else if (null != attachment && !StringUtils.isBlank(attachmentName)) {
+                attachmentPart = createAttachmentFromSOAPRequest(attachment, attachmentName);
+            } else {
+                throw new Exception(
+                        "Could not create attachment. Need documents and messageId or attachment and attachmentName.");
+            }
+        } catch (Exception e) {
+            throw new DirectException("Exception creating attachment: " + attachmentName, e);
+        }
 
         Multipart multipart = new MimeMultipart();
         try {
@@ -200,11 +199,14 @@ public class MimeMessageBuilder {
         return message;
     }
 
-	protected MimeBodyPart getMimeBodyPart() {
-		return new MimeBodyPart();
-	}
+    /**
+     * @return mime body part of the message.
+     */
+    protected MimeBodyPart getMimeBodyPart() {
+        return new MimeBodyPart();
+    }
 
-	private MimeBodyPart createAttachmentFromSOAPRequest(Document data, String name) throws MessagingException,
+    private MimeBodyPart createAttachmentFromSOAPRequest(Document data, String name) throws MessagingException,
             IOException {
         DataSource source = new ByteArrayDataSource(data.getValue().getInputStream(), "application/octet-stream");
         DataHandler dhnew = new DataHandler(source);

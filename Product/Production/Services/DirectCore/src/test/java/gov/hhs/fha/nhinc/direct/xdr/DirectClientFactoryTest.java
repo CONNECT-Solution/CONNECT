@@ -24,37 +24,46 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.direct;
+package gov.hhs.fha.nhinc.direct.xdr;
 
-import gov.hhs.fha.nhinc.proxy.ComponentProxyFactory;
+import static org.junit.Assert.assertNotNull;
+import gov.hhs.fha.nhinc.direct.DirectClientFactory;
+import gov.hhs.fha.nhinc.direct.DirectUnitTestUtil;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
+import org.junit.Ignore;
+import org.junit.Test;
 
 /**
- * Direct Client Factory responsible for {@link DirectClient}.
+ * Test {@link DirectClientFactory}.
  */
-public class DirectClientFactory {
-    
-    private static final Log LOG = LogFactory.getLog(DirectClientFactory.class);
-    
-    private static final String CONFIG_FILE_NAME = "direct.appcontext.xml";
-    private static final String BEAN_NAME = "extDirectMailClient";
-    
+public class DirectClientFactoryTest {
+
     /**
-     * Register Handlers will invoke getInstance, thereby loading the spring context and task scheduler for polling mail
-     * servers.
+     * Set up keystore for test.
      */
-    public void registerHandlers() {
-        LOG.debug("Registering handlers...");
-        getDirectClient();
+    @BeforeClass
+    public static void setUpClass() {
+        DirectUnitTestUtil.writeSmtpAgentConfig();
     }
-    
+
     /**
-     * @return a {@link DirectClient} from the factory.
+     * Tear down keystore created in setup.
      */
-    public DirectClient getDirectClient() {
-        return new ComponentProxyFactory(CONFIG_FILE_NAME).getInstance(BEAN_NAME, DirectClient.class);
+    @AfterClass
+    public static void tearDownClass() {
+        DirectUnitTestUtil.removeSmtpAgentConfig();
     }
-    
+
+    /**
+     * Test {@link DirectClientFactory#getDirectClient()}.
+     */
+    @Test
+    @Ignore
+    public void canGetDirectClientFromFactory() {
+        DirectClientFactory testDirectFactory = new DirectClientFactory();
+        assertNotNull(testDirectFactory.getDirectClient());
+    }
+
 }

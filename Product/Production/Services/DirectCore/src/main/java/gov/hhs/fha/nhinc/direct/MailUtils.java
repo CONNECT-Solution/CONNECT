@@ -164,8 +164,9 @@ public class MailUtils {
     }
     
     /**
-     * Set the deleted flag on a message, log and swallow exceptions.
-     * @param message
+     * Set the deleted flag on a message, log and swallow exceptions. Note: deleted messages must be "expunged" to be
+     * removed from server.
+     * @param message mime message to be deleted.
      */
     public static void setDeletedQuietly(MimeMessage message) {
         try {

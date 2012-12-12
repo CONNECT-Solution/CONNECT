@@ -70,6 +70,9 @@ import com.icegreen.greenmail.user.UserException;
  */
 public class DirectMailClientTest extends AbstractDirectMailClientTest {
 
+    private static final int NUM_MULTIPLE_MDNS = 5;
+    private static int eventIndex = 0;    
+
     /**
      * Ensure that we can read all mail server properties as strings.
      */
@@ -92,7 +95,7 @@ public class DirectMailClientTest extends AbstractDirectMailClientTest {
      * direct mail client with one batch when the message count is less than the max batch size.
      * 
      * @throws IOException on io error.
-     * @throws MessagingException
+     * @throws MessagingException on failure.
      */
     @Test
     public void canSendAndReceiveInOneBatch() throws IOException, MessagingException {
@@ -118,7 +121,7 @@ public class DirectMailClientTest extends AbstractDirectMailClientTest {
      * direct mail client with one batch when the message count is less than the max batch size.
      * 
      * @throws IOException on io error.
-     * @throws MessagingException
+     * @throws MessagingException on failure.
      */
     @Test
     public void canSendAndReceiveMultipleMsgsInBatches() throws IOException, MessagingException {
@@ -157,6 +160,10 @@ public class DirectMailClientTest extends AbstractDirectMailClientTest {
         assertEquals("No messages should be left on the server", 0, greenMail.getReceivedMessages().length);
     }
 
+    /**
+     * Test that we can send a single MDN message.
+     * @throws MessagingException on failure.
+     */
     @Test
     public void canSendSingleMDNMessage() throws MessagingException {
         MessageProcessResult mockMessageProcessResult = getMockMessageProcessResult();
@@ -164,9 +171,13 @@ public class DirectMailClientTest extends AbstractDirectMailClientTest {
         assertEquals(1, greenMail.getReceivedMessages().length);
     }
 
+    /**
+     * Test that we can send multiple MDN messages.
+     * @throws MessagingException on failure.
+     */
     @Test
     public void canSendMultipleMDNMessages() throws MessagingException {
-        int numMdnMessages = 5;
+        int numMdnMessages = NUM_MULTIPLE_MDNS;
         MessageProcessResult mockMessageProcessResult = getMockMessageProcessResult(numMdnMessages);
         intDirectClient.sendMdn(mockMessageProcessResult);
         assertEquals(numMdnMessages, greenMail.getReceivedMessages().length);
@@ -207,6 +218,11 @@ public class DirectMailClientTest extends AbstractDirectMailClientTest {
         verifyInboundMdn();
     }
     
+    /**
+     * Run the end to end test and also verify that the events are logged in the correct order.
+     * @throws UserException on failure.
+     * @throws MessagingException on failure.
+     */
     @Test
     public void canLogEventsDuringEndToEnd() throws UserException, MessagingException {
         
@@ -215,13 +231,13 @@ public class DirectMailClientTest extends AbstractDirectMailClientTest {
         final List<Event> triggeredEvents = new ArrayList<Event>();
         
         // mock up the first callback to serviceB:
-        doAnswer(new Answer<Void>(){
-            
+        doAnswer(new Answer<Void>() {
+
             public Void answer(InvocationOnMock invocation) throws Throwable {
 
-                Event event = (Event) invocation.getArguments()[1];                
+                Event event = (Event) invocation.getArguments()[1];
                 triggeredEvents.add(event);
-                
+
                 return null;
             }
         }).when(mockEventLogger).update(Mockito.isA(EventManager.class), Mockito.isA(Event.class));
@@ -232,30 +248,31 @@ public class DirectMailClientTest extends AbstractDirectMailClientTest {
         canEndToEndWithSmtpEdgeClients();
         
         // verify that the events were fired in order.
-        assertTriggered(0, DirectEventType.BEGIN_OUTBOUND_DIRECT, triggeredEvents);
-        assertTriggered(1, DirectEventType.END_OUTBOUND_DIRECT, triggeredEvents);
+        assertTriggered(DirectEventType.BEGIN_OUTBOUND_DIRECT, triggeredEvents);
+        assertTriggered(DirectEventType.END_OUTBOUND_DIRECT, triggeredEvents);
 
-        assertTriggered(2, DirectEventType.BEGIN_INBOUND_DIRECT, triggeredEvents);
-        assertTriggered(3, DirectEventType.BEGIN_OUTBOUND_MDN, triggeredEvents);
-        assertTriggered(4, DirectEventType.END_OUTBOUND_MDN, triggeredEvents);
+        assertTriggered(DirectEventType.BEGIN_INBOUND_DIRECT, triggeredEvents);
+        assertTriggered(DirectEventType.BEGIN_OUTBOUND_MDN, triggeredEvents);
+        assertTriggered(DirectEventType.END_OUTBOUND_MDN, triggeredEvents);
 
         // extra MDN generated (Greenmail quirk)
-        assertTriggered(5, DirectEventType.BEGIN_OUTBOUND_MDN, triggeredEvents);
-        assertTriggered(6, DirectEventType.END_OUTBOUND_MDN, triggeredEvents);
+        assertTriggered(DirectEventType.BEGIN_OUTBOUND_MDN, triggeredEvents);
+        assertTriggered(DirectEventType.END_OUTBOUND_MDN, triggeredEvents);
 
-        assertTriggered(7, DirectEventType.END_INBOUND_DIRECT, triggeredEvents);
+        assertTriggered(DirectEventType.END_INBOUND_DIRECT, triggeredEvents);
         
-        assertTriggered(8, DirectEventType.BEGIN_INBOUND_MDN, triggeredEvents);
-        assertTriggered(9, DirectEventType.END_INBOUND_MDN, triggeredEvents);
+        assertTriggered(DirectEventType.BEGIN_INBOUND_MDN, triggeredEvents);
+        assertTriggered(DirectEventType.END_INBOUND_MDN, triggeredEvents);
         
         // extra MDN generated (Greenmail quirk)
-        assertTriggered(10, DirectEventType.BEGIN_INBOUND_MDN, triggeredEvents);
-        assertTriggered(11, DirectEventType.END_INBOUND_MDN, triggeredEvents);        
+        assertTriggered(DirectEventType.BEGIN_INBOUND_MDN, triggeredEvents);
+        assertTriggered(DirectEventType.END_INBOUND_MDN, triggeredEvents);        
     }
     
-    private void assertTriggered(int index, DirectEventType eventType, List<Event> events) {
-        Event event = events.get(index);
-        assertEquals("Event at index: " + index + " --> " + event.getDescription(), eventType.toString(),
+    private void assertTriggered(DirectEventType eventType, List<Event> events) {        
+        Event event = events.get(eventIndex);
+        assertEquals("Event at index: " + eventIndex + " --> " + event.getDescription(), eventType.toString(),
                 event.getEventName());
+        eventIndex++;
     }
 }

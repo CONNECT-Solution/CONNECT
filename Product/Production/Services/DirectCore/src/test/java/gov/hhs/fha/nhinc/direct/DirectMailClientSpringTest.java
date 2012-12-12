@@ -30,6 +30,7 @@ import static gov.hhs.fha.nhinc.direct.DirectUnitTestUtil.removeSmtpAgentConfig;
 import static gov.hhs.fha.nhinc.direct.DirectUnitTestUtil.writeSmtpAgentConfig;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertTrue;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -58,26 +59,29 @@ public class DirectMailClientSpringTest {
     @Autowired
     private DirectMailClient intDirectMailClient;
 
+    /**
+     * @return DirectMailClient for internal mail server.
+     */
     public DirectMailClient getIntDirectMailClient() {
-		return intDirectMailClient;
-	}
+        return intDirectMailClient;
+    }
 
-	public DirectMailClient getExtDirectMailClient() {
-		return extDirectMailClient;
-	}
+    /**
+     * @return DirectMailClient for external mail server.
+     */
+    public DirectMailClient getExtDirectMailClient() {
+        return extDirectMailClient;
+    }
 
-	@Autowired
+    @Autowired
     private DirectMailClient extDirectMailClient;
     
     @Autowired
     private MessageHandler outboundMessageHandler;
 
     @Autowired
-    private MessageHandler inboundMessageHandlerSmtp;
+    private MessageHandler inboundMessageHandler;
 
-    @Autowired
-    private MessageHandler inboundMessageHandlerSoap;
-    
     @Autowired
     private ApplicationContext applicationContext;
     
@@ -147,37 +151,35 @@ public class DirectMailClientSpringTest {
         assertNotSame(intDirectMailClient, extDirectMailClient);        
     }
     
+    /**
+     * Test that we can get an outbound message handler from spring.
+     */
     @Test
     public void canGetOutboundMessageHandler() {
         assertNotNull(outboundMessageHandler);
     }
     
+    /**
+     * Test that we can get an inbound message handler from spring.
+     */
     @Test
-    public void canGetInboundMessageHandlerForSmtp() {
-        assertNotNull(inboundMessageHandlerSmtp);
-}
-
-    @Test
-    public void canGetInboundMessageHandlerForSoap() {
-        assertNotNull(inboundMessageHandlerSoap);
+    public void canGetInboundMessageHandler() {
+        assertNotNull(inboundMessageHandler);
     }
-    
-    @Test
-    public void canDistinguishMessageHandlers() {
-        assertNotSame(outboundMessageHandler, inboundMessageHandlerSmtp);
-        assertNotSame(outboundMessageHandler, inboundMessageHandlerSoap);
-        assertNotSame(inboundMessageHandlerSoap, inboundMessageHandlerSmtp);
-    }    
 
+    /**
+     * Test that we can use spring task scheduler to run the polling mail handlers.
+     * @throws InterruptedException on failure.
+     */
     @Test
     @Ignore
     public void canRunScheduledTaskEveryOneSec() throws InterruptedException {
-        Thread.sleep(3000);
+        Thread.sleep(DirectUnitTestUtil.WAIT_TIME_FOR_MAIL_HANDLER);
         
         int internalInvocations = intDirectMailClient.getHandlerInvocations();
         int externalInvocations = extDirectMailClient.getHandlerInvocations();
         
-        assert(internalInvocations >= 2);
-        assert(externalInvocations >= 2);
+        assertTrue(internalInvocations >= 2);
+        assertTrue(externalInvocations >= 2);
     }    
 }

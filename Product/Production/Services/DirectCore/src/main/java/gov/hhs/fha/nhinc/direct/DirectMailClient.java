@@ -75,7 +75,6 @@ public class DirectMailClient implements DirectClient, InitializingBean {
      * 
      * @param mailServerProps used to define this mail server
      * @param smtpAgent direct smtp agent config file path relative to classpath used to configure SmtpAgent
-     * @param message handler for handling messages from the server.
      */
     public DirectMailClient(final Properties mailServerProps, final SmtpAgent smtpAgent) {
         this.mailServerProps = mailServerProps;

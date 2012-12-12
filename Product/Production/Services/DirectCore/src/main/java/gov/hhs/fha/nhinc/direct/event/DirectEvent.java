@@ -27,7 +27,6 @@
 package gov.hhs.fha.nhinc.direct.event;
 
 import gov.hhs.fha.nhinc.event.BaseEvent;
-import gov.hhs.fha.nhinc.event.Event;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -88,31 +87,31 @@ public class DirectEvent extends BaseEvent {
      */
     public static final class Builder {
 
-        MimeMessage mimeMessage;
-        String errorMsg;
+        private MimeMessage message;
+        private String errorMsg;
         
         /**
          * @param mimeMessage source for messageid, sender, recips, etc
          * @return this builder.
          */
         public Builder mimeMessage(MimeMessage mimeMessage) {
-            this.mimeMessage = mimeMessage;
+            this.message = mimeMessage;
             return this;
         }
         
         /**
          * Create an event with an error status.
-         * @param errorMsg error message encountered.
+         * @param str error message encountered.
          * @return this builder.
          */
-        public Builder errorMsg(String errorMsg) {
-            this.errorMsg = errorMsg;
+        public Builder errorMsg(String str) {
+            this.errorMsg = str;
             return this;
         }
 
         /**
          * Build a direct event.
-         * @param name event name.
+         * @param type - {@link DirectEventType} to build.
          * @return the created event.
          */
         public DirectEvent build(DirectEventType type) {
@@ -125,12 +124,12 @@ public class DirectEvent extends BaseEvent {
             addToJSON(jsonDescription, TIMESTAMP, XML_DATE_FORMAT.format(new Date()));
             addToJSON(jsonDescription, ACTION, eventName);
             addToJSON(jsonDescription, ERROR_MSG, errorMsg);
-            if (mimeMessage != null) {
+            if (message != null) {
                 try {
-                    addToJSON(jsonDescription, SENDER, mimeMessage.getSender());
-                    addToJSON(jsonDescription, RECIPIENT, mimeMessage.getAllRecipients());
+                    addToJSON(jsonDescription, SENDER, message.getSender());
+                    addToJSON(jsonDescription, RECIPIENT, message.getAllRecipients());
 
-                    String messageId = mimeMessage.getMessageID();
+                    String messageId = message.getMessageID();
                     event.setMessageID(messageId);
                     addToJSON(jsonDescription, MESSAGE_ID, messageId);
 

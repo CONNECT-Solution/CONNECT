@@ -32,6 +32,7 @@ import static gov.hhs.fha.nhinc.direct.DirectUnitTestUtil.writeSmtpAgentConfig;
 import static org.mockito.Mockito.mock;
 
 import java.util.Properties;
+import java.util.concurrent.TimeUnit;
 
 import javax.mail.Session;
 import javax.mail.Transport;
@@ -46,11 +47,14 @@ import org.nhindirect.gateway.smtp.SmtpAgent;
 import org.nhindirect.gateway.smtp.SmtpAgentFactory;
 
 /**
- * the SMTP/IMAP using gmail
+ * the SMTP/IMAP using gmail.
  */
 public class DirectClientGmailTest {
     
     private final Properties props = getMailServerProps();
+    
+    private static final String TIMEOUT_CONNECTION_MILLIS = Long.toString(TimeUnit.SECONDS.toMillis(15));
+    private static final String TIMEOUT_MILLIS = Long.toString(TimeUnit.MINUTES.toMillis(3));
     
     /**
      * Set up keystore for test.
@@ -72,7 +76,7 @@ public class DirectClientGmailTest {
     /**
      * Prove that fetch problem for {@link MimeMessage#getRecipients(javax.mail.Message.RecipientType)} is related to
      * greenmail and not the client code.
-     * @throws Exception
+     * @throws Exception on error.
      */
     @Test
     @Ignore
@@ -109,8 +113,8 @@ public class DirectClientGmailTest {
         
         props.setProperty("mail.imaps.host", "imap-01.direct.connectopensource.org");
         props.setProperty("mail.imaps.port", "993");
-        props.setProperty("mail.imaps.connectiontimeout", Integer.toString(15 * 1000));
-        props.setProperty("mail.imaps.timeout", Integer.toString(15 * 60 * 1000));
+        props.setProperty("mail.imaps.connectiontimeout", TIMEOUT_CONNECTION_MILLIS);
+        props.setProperty("mail.imaps.timeout", TIMEOUT_MILLIS);
 
         return props;
     }
@@ -123,7 +127,8 @@ public class DirectClientGmailTest {
        
         Session session = MailUtils.getMailSession(props, props.getProperty("direct.mail.user"),
                 props.getProperty("direct.mail.pass"));
-        MimeMessage originalMsg = new MimeMessage(session, IOUtils.toInputStream(getFileAsString("PlainOutgoingMessage.txt")));
+        MimeMessage originalMsg = new MimeMessage(session,
+                IOUtils.toInputStream(getFileAsString("PlainOutgoingMessage.txt")));
         session.setDebug(true);
         session.setDebugOut(System.out);
         Transport transport = null;

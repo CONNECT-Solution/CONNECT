@@ -139,9 +139,8 @@ public class DirectClientUtils {
     }
     
     /**
-     * @param message envelope to be tested.
+     * @param envelope containing the message to be tested.
      * @return true if the envelope exists, the message exists and is an MDN Notification.
-     * @throws MessagingException 
      */
     public static boolean isMdn(MessageEnvelope envelope) { 
         try {
