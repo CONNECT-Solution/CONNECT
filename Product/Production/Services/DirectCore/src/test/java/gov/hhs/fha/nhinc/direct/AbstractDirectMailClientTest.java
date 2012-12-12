@@ -43,6 +43,7 @@ import gov.hhs.fha.nhinc.event.EventManager;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Locale;
 import java.util.Properties;
 
 import javax.mail.Address;
@@ -187,16 +188,14 @@ public abstract class AbstractDirectMailClientTest {
      * @return oubound client.
      */
     protected DirectMailClient getOutboundClient() {        
-        DirectMailClient outboundDirectClient = new DirectMailClient(recipMailServerProps, getSmtpAgent());
-        return outboundDirectClient;
+        return new DirectMailClient(recipMailServerProps, getSmtpAgent());
     }
     
     /**
      * @return inbound client.
      */
     protected DirectMailClient getInboundClient() {
-        DirectMailClient inboundDirectClient = new DirectMailClient(recipMailServerProps, getSmtpAgent());
-        return inboundDirectClient;
+        return new DirectMailClient(recipMailServerProps, getSmtpAgent());
     }
     
     /**
@@ -275,13 +274,6 @@ public abstract class AbstractDirectMailClientTest {
             fail(e.getMessage());
         }
     }
-    
-    /**
-     * @throws MessagingException on error.
-     */
-    protected void verifySoapEdgeMessage() throws MessagingException {
-        
-     }
     
     /**
      * @throws MessagingException on error.

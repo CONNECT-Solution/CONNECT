@@ -37,7 +37,7 @@ public class DirectEventLoggerTest extends DirectEventTest {
 
     private static final String ERROR_MESSAGE = "I've got blisters on me fingers...";
     
-    private DirectEventLogger testLogger = DirectEventLogger.getInstance();
+    private final DirectEventLogger testLogger = DirectEventLogger.getInstance();
     
     /**
      * {@link DirectEventLogger#log(DirectEventType, javax.mail.internet.MimeMessage)}.

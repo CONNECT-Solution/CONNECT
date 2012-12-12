@@ -31,6 +31,7 @@ import gov.hhs.fha.nhinc.event.BaseEvent;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
@@ -48,8 +49,14 @@ import com.google.common.collect.ImmutableList;
 public class DirectEvent extends BaseEvent {
     
     private static final Log LOG = LogFactory.getLog(DirectEvent.class);
-    private static final SimpleDateFormat XML_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
 
+    private static final ThreadLocal<SimpleDateFormat> XML_DATE_FORMAT = new ThreadLocal<SimpleDateFormat>() {
+        @Override
+        protected SimpleDateFormat initialValue() {
+            return new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ", Locale.getDefault());
+        }
+    };
+    
     /*
      * JSON fields and values. (should use a standard enum here? )
      */
@@ -121,7 +128,7 @@ public class DirectEvent extends BaseEvent {
             event.setTransactionID("");            
             
             JSONObject jsonDescription = new JSONObject();
-            addToJSON(jsonDescription, TIMESTAMP, XML_DATE_FORMAT.format(new Date()));
+            addToJSON(jsonDescription, TIMESTAMP, XML_DATE_FORMAT.get().format(new Date()));
             addToJSON(jsonDescription, ACTION, eventName);
             addToJSON(jsonDescription, ERROR_MSG, errorMsg);
             if (message != null) {

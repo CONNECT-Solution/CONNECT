@@ -32,7 +32,6 @@ import static gov.hhs.fha.nhinc.direct.DirectUnitTestUtil.writeSmtpAgentConfig;
 import static org.mockito.Mockito.mock;
 
 import java.util.Properties;
-import java.util.concurrent.TimeUnit;
 
 import javax.mail.Session;
 import javax.mail.Transport;
@@ -52,10 +51,7 @@ import org.nhindirect.gateway.smtp.SmtpAgentFactory;
 public class DirectClientGmailTest {
     
     private final Properties props = getMailServerProps();
-    
-    private static final String TIMEOUT_CONNECTION_MILLIS = Long.toString(TimeUnit.SECONDS.toMillis(15));
-    private static final String TIMEOUT_MILLIS = Long.toString(TimeUnit.MINUTES.toMillis(3));
-    
+        
     /**
      * Set up keystore for test.
      */
@@ -113,8 +109,8 @@ public class DirectClientGmailTest {
         
         props.setProperty("mail.imaps.host", "imap-01.direct.connectopensource.org");
         props.setProperty("mail.imaps.port", "993");
-        props.setProperty("mail.imaps.connectiontimeout", TIMEOUT_CONNECTION_MILLIS);
-        props.setProperty("mail.imaps.timeout", TIMEOUT_MILLIS);
+        props.setProperty("mail.imaps.connectiontimeout", DirectUnitTestUtil.TIMEOUT_CONNECTION_MILLIS);
+        props.setProperty("mail.imaps.timeout", DirectUnitTestUtil.TIMEOUT_MILLIS);
 
         return props;
     }

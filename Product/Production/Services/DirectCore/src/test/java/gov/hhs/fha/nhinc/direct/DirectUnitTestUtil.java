@@ -331,7 +331,7 @@ public class DirectUnitTestUtil {
         documents.getSubmissionSet().setPatientId("xxx");
 
         DirectDocument2 doc1 = new DirectDocument2();
-        doc1.setData(new String("data1").getBytes());
+        doc1.setData("data1".getBytes());
 
         DirectDocument2.Metadata metadata1 = doc1.getMetadata();
         metadata1.setMimeType(MimeType.TEXT_PLAIN.getType());
@@ -362,7 +362,7 @@ public class DirectUnitTestUtil {
         metadata1.setUniqueId("1.27");
 
         DirectDocument2 doc2 = new DirectDocument2();
-        doc2.setData(new String("doc2").getBytes());
+        doc2.setData("doc2".getBytes());
 
         DirectDocument2.Metadata metadata2 = doc2.getMetadata();
         metadata2.setMimeType(MimeType.TEXT_XML.getType());
