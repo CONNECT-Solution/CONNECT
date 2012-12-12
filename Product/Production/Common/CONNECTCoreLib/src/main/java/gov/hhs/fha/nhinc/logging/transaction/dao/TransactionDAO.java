@@ -132,13 +132,14 @@ public final class TransactionDAO {
             Query namedQuery = session.getNamedQuery("findTransactionByMessageId");
             namedQuery.setString("messageId", messageId);
 
-            List<Object[]> queryList = (List<Object[]>) namedQuery.list();
-
+            List<TransactionRepo> queryList = (List<TransactionRepo>) namedQuery.list();
+            
             if (!queryList.isEmpty()) {
-                return queryList.get(0).toString();
+            	TransactionRepo trans = queryList.get(0);
+                return trans.getTransactionId();
             }
         } catch (Exception e) {
-            LOG.error("Exception in getPerfrepository() occured due to :" + e.getMessage(), e);
+            LOG.error("Exception in getTransactionId() occured due to :" + e.getMessage(), e);
         } finally {
             closeSession(session, false);
         }
