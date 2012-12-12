@@ -27,11 +27,11 @@
 package gov.hhs.fha.nhinc.direct.event;
 
 import gov.hhs.fha.nhinc.event.BaseEvent;
-import gov.hhs.fha.nhinc.event.Event;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
@@ -49,8 +49,9 @@ import com.google.common.collect.ImmutableList;
 public class DirectEvent extends BaseEvent {
     
     private static final Log LOG = LogFactory.getLog(DirectEvent.class);
-    private static final SimpleDateFormat XML_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
 
+    private static final String XML_DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSSZ";
+    
     /*
      * JSON fields and values. (should use a standard enum here? )
      */
@@ -88,31 +89,31 @@ public class DirectEvent extends BaseEvent {
      */
     public static final class Builder {
 
-        MimeMessage mimeMessage;
-        String errorMsg;
+        private MimeMessage message;
+        private String errorMsg;
         
         /**
          * @param mimeMessage source for messageid, sender, recips, etc
          * @return this builder.
          */
         public Builder mimeMessage(MimeMessage mimeMessage) {
-            this.mimeMessage = mimeMessage;
+            this.message = mimeMessage;
             return this;
         }
         
         /**
          * Create an event with an error status.
-         * @param errorMsg error message encountered.
+         * @param str error message encountered.
          * @return this builder.
          */
-        public Builder errorMsg(String errorMsg) {
-            this.errorMsg = errorMsg;
+        public Builder errorMsg(String str) {
+            this.errorMsg = str;
             return this;
         }
 
         /**
          * Build a direct event.
-         * @param name event name.
+         * @param type - {@link DirectEventType} to build.
          * @return the created event.
          */
         public DirectEvent build(DirectEventType type) {
@@ -122,15 +123,15 @@ public class DirectEvent extends BaseEvent {
             event.setTransactionID("");            
             
             JSONObject jsonDescription = new JSONObject();
-            addToJSON(jsonDescription, TIMESTAMP, XML_DATE_FORMAT.format(new Date()));
+            addToJSON(jsonDescription, TIMESTAMP, formatDateForXml(new Date()));
             addToJSON(jsonDescription, ACTION, eventName);
             addToJSON(jsonDescription, ERROR_MSG, errorMsg);
-            if (mimeMessage != null) {
+            if (message != null) {
                 try {
-                    addToJSON(jsonDescription, SENDER, mimeMessage.getSender());
-                    addToJSON(jsonDescription, RECIPIENT, mimeMessage.getAllRecipients());
+                    addToJSON(jsonDescription, SENDER, message.getSender());
+                    addToJSON(jsonDescription, RECIPIENT, message.getAllRecipients());
 
-                    String messageId = mimeMessage.getMessageID();
+                    String messageId = message.getMessageID();
                     event.setMessageID(messageId);
                     addToJSON(jsonDescription, MESSAGE_ID, messageId);
 
@@ -150,13 +151,15 @@ public class DirectEvent extends BaseEvent {
         }
         
         private void addToJSON(JSONObject jsonObject, String key, Object value)  {
-            if (value != null) {
-                try {
-                    jsonObject.put(key, value);
-                } catch (JSONException e) {
-                    LOG.error("Exception while building JSON description for direct event.", e);
-                }
+            try {
+                jsonObject.put(key, value);
+            } catch (JSONException e) {
+                LOG.error("Exception while building JSON description for direct event.", e);
             }
         }
-    }    
+    }   
+    
+    private static String formatDateForXml(Date date) {        
+        return new SimpleDateFormat(XML_DATE_FORMAT, Locale.getDefault()).format(date);
+    }
 }

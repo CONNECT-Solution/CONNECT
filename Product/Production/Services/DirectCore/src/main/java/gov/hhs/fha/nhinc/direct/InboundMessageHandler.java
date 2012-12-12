@@ -49,7 +49,6 @@ import org.nhindirect.stagent.mail.notifications.NotificationMessage;
 public class InboundMessageHandler implements MessageHandler {
 
     private static final Log LOG = LogFactory.getLog(InboundMessageHandler.class);
-    DirectEventLogger eventLogger = DirectEventLogger.getInstance();
 
     /**
      * {@inheritDoc}

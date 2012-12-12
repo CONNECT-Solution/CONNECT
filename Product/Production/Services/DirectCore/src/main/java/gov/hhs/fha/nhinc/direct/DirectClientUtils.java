@@ -35,6 +35,7 @@ import javax.mail.MessagingException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.nhindirect.gateway.smtp.MessageProcessResult;
@@ -129,7 +130,7 @@ public class DirectClientUtils {
         }
         
         Collection<NotificationMessage> notifications = result.getNotificationMessages();
-        if (notifications == null || notifications.size() <= 0) {
+        if (CollectionUtils.isEmpty(notifications)) {
             LOG.error("MDN Notification messages are not present while attempting to send MDN.");
             return null;
         }
@@ -139,9 +140,8 @@ public class DirectClientUtils {
     }
     
     /**
-     * @param message envelope to be tested.
+     * @param envelope containing the message to be tested.
      * @return true if the envelope exists, the message exists and is an MDN Notification.
-     * @throws MessagingException 
      */
     public static boolean isMdn(MessageEnvelope envelope) { 
         try {

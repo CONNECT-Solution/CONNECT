@@ -126,12 +126,15 @@ public class MimeMessageBuilderTest {
         testBuilder.build();        
     } 
     
-	@Test
-	public void buildWithMockDirectDocs() {
-		MimeMessageBuilder testBuilder = getBuilder().attachment(null)
-				.attachmentName(null).documents(DirectUnitTestUtil.mockDirectDocs()).messageId("1234");
-		testBuilder.build();
-	}
+    /**
+     * Test that we can build a mime message with mock direct docs.
+     */
+    @Test
+    public void buildWithMockDirectDocs() {
+        MimeMessageBuilder testBuilder = getBuilder().attachment(null).attachmentName(null)
+                .documents(DirectUnitTestUtil.mockDirectDocs()).messageId("1234");
+        testBuilder.build();
+    }
 
     private MimeMessageBuilder getBuilder() {
         MimeMessageBuilder builder = null;

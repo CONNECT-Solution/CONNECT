@@ -157,20 +157,23 @@ public class MailUtils {
      */
     @SuppressWarnings("unchecked")
     public static void logHeaders(final MimeMessage mimeMessage) {
-        Enumeration<String> headerLines = Collections.emptyEnumeration();
-        try {
-            headerLines = mimeMessage.getAllHeaderLines();
-        } catch (MessagingException e) {
-            LOG.error("Could not extract headers: ", e);
-        }
-        while (headerLines != null && headerLines.hasMoreElements()) {
-            LOG.debug(headerLines.nextElement());
+        if (LOG.isDebugEnabled()) {
+            Enumeration<String> headerLines = Collections.emptyEnumeration();
+            try {
+                headerLines = mimeMessage.getAllHeaderLines();
+            } catch (MessagingException e) {
+                LOG.error("Could not extract headers: ", e);
+            }
+            while (headerLines != null && headerLines.hasMoreElements()) {
+                LOG.debug(headerLines.nextElement());
+            }
         }
     }
     
     /**
-     * Set the deleted flag on a message, log and swallow exceptions.
-     * @param message
+     * Set the deleted flag on a message, log and swallow exceptions. Note: deleted messages must be "expunged" to be
+     * removed from server.
+     * @param message mime message to be deleted.
      */
     public static void setDeletedQuietly(MimeMessage message) {
         try {

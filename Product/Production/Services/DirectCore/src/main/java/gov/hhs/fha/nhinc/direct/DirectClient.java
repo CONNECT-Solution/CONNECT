@@ -46,8 +46,8 @@ public interface DirectClient {
      * @param documents to be attached to the message
      * @param messageId for the message
      */
-	void processAndSend(Address sender, Address[] recipients, DirectDocuments documents, String messageId);
-	
+    void processAndSend(Address sender, Address[] recipients, DirectDocuments documents, String messageId);
+    
     /**
      * Use the mail server to send a DIRECT message. When you already have a mail message and you want to send it
      * as a DIRECT message. Sender and recipients are extracted from the mime message.

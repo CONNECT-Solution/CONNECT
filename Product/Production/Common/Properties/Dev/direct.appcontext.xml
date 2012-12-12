@@ -13,7 +13,7 @@
         http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd"> 
 
     <import resource="direct.beans.xml"/>
-    
+
     <!-- Set up polling for inbound and outbound direct messages -->
     <task:scheduled-tasks scheduler="directScheduler">
         <task:scheduled ref="intDirectMailClient" method="handleMessages" cron="0,30 * * * * *"/>

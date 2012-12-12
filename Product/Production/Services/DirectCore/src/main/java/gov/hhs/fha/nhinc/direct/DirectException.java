@@ -31,6 +31,9 @@ import gov.hhs.fha.nhinc.direct.event.DirectEventType;
 
 import javax.mail.internet.MimeMessage;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 
 /**
  * Exceptions for {@link MimeMessageBuilder}.
@@ -38,6 +41,7 @@ import javax.mail.internet.MimeMessage;
 public class DirectException extends RuntimeException {
 
     private static final long serialVersionUID = 4636463959045310435L;
+    private static final Log LOG = LogFactory.getLog(DirectMailClient.class);
     
     /**
      * Constructor.
@@ -48,9 +52,23 @@ public class DirectException extends RuntimeException {
      */
     public DirectException(String message, Throwable cause, MimeMessage mimeMessage) {
         super(message, cause);
+        LOG.error(message, cause);
         getDirectEventLogger().log(DirectEventType.DIRECT_ERROR, mimeMessage, message + cause.getMessage());
     }
 
+    /**
+     * Constructor.
+     * 
+     * @param message for the exception
+     * @param mimeMessage associated with the exception for event logging.
+     */
+    public DirectException(String message, MimeMessage mimeMessage) {
+        super(message);
+        LOG.error(message);
+        getDirectEventLogger().log(DirectEventType.DIRECT_ERROR, mimeMessage, message);
+    }
+
+    
     /**
      * Constructor.
      * 
@@ -59,6 +77,7 @@ public class DirectException extends RuntimeException {
      */
     public DirectException(String message, Throwable cause) {
         super(message, cause);
+        LOG.error(message, cause);
         getDirectEventLogger().log(DirectEventType.DIRECT_ERROR, message + cause.getMessage());
     }
 
@@ -69,6 +88,7 @@ public class DirectException extends RuntimeException {
      */
     public DirectException(String message) {
         super(message);
+        LOG.error(message);
         getDirectEventLogger().log(DirectEventType.DIRECT_ERROR, message);
     }
     
