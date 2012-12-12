@@ -31,14 +31,41 @@ package gov.hhs.fha.nhinc.direct.event;
  */
 public enum DirectEventType {
     
+    /**
+     * Begin sending outbound direct message.
+     */
     BEGIN_OUTBOUND_DIRECT, 
+    /**
+     * End sending outbound direct message.
+     */
     END_OUTBOUND_DIRECT, 
+    /**
+     * Begin handling an inbound direct (non-MDN) message.
+     */
     BEGIN_INBOUND_DIRECT, 
+    /**
+     * End handling an inbound direct (non-MDN) message.
+     */
     END_INBOUND_DIRECT, 
+    /**
+     * Begin sending an outbound MDN message.
+     */
     BEGIN_OUTBOUND_MDN, 
+    /**
+     * End sending an outbound MDN message.
+     */
     END_OUTBOUND_MDN, 
+    /**
+     * Begin handling an inbound MDN message.
+     */
     BEGIN_INBOUND_MDN, 
+    /**
+     * End handling an inbound MDN message.
+     */
     END_INBOUND_MDN, 
+    /**
+     * An error or exception condition was generated in the Direct Module.
+     */
     DIRECT_ERROR;
 
 }

@@ -75,7 +75,6 @@ public class DirectMailClient implements DirectClient, InitializingBean {
      * 
      * @param mailServerProps used to define this mail server
      * @param smtpAgent direct smtp agent config file path relative to classpath used to configure SmtpAgent
-     * @param message handler for handling messages from the server.
      */
     public DirectMailClient(final Properties mailServerProps, final SmtpAgent smtpAgent) {
         this.mailServerProps = mailServerProps;
@@ -149,10 +148,15 @@ public class DirectMailClient implements DirectClient, InitializingBean {
 
         int numberOfMsgsHandled = 0;
         handlerInvocations++;
-        LOG.info("handleMessages() invoked, (" + this.hashCode() + " : " + Thread.currentThread().getId() + "), ["
-                + mailServerProps.getProperty("mail.imaps.host") + "], handler: " + messageHandler.getClass().getName()
-                + ", invocation count: " + handlerInvocations);
-
+        
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("handleMessages() invoked, (" + this.hashCode() + " : " + Thread.currentThread().getId() + "), ["
+                    + mailServerProps.getProperty("mail.imaps.host") + "], handler: "
+                    + messageHandler.getClass().getName() + ", invocation count: " + handlerInvocations);
+        } else {
+            LOG.info("handleMessages() invoked");            
+        }
+        
         Session session = getMailSession();
         session.setDebug(Boolean.parseBoolean(mailServerProps.getProperty("direct.mail.session.debug")));
         session.setDebugOut(System.out);
@@ -239,7 +243,7 @@ public class DirectMailClient implements DirectClient, InitializingBean {
     /**
      * @return the handlerInvocations
      */
-    public int getHandlerInvocations() {
+    protected int getHandlerInvocations() {
         return handlerInvocations;
     }
 

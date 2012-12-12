@@ -26,8 +26,7 @@
  */
 package gov.hhs.fha.nhinc.direct.edge.proxy;
 
-import javax.mail.internet.MimeMessage;
-
+import gov.hhs.fha.nhinc.direct.DirectException;
 import gov.hhs.fha.nhinc.direct.edge.proxy.service.DirectEdgeSoapServicePortDescriptor;
 import gov.hhs.fha.nhinc.direct.transform.MimeMessageTransformer;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
@@ -39,6 +38,9 @@ import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import gov.hhs.fha.nhinc.xdcommon.XDCommonErrorHelper;
 import ihe.iti.xds_b._2007.DocumentRepositoryPortType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
+
+import javax.mail.internet.MimeMessage;
+
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 import org.apache.commons.logging.Log;
@@ -108,22 +110,33 @@ public class DirectEdgeProxySoapImpl implements DirectEdgeProxy {
                         "documentRepositoryProvideAndRegisterDocumentSetB", prdsrt);
 
             } else {
-                String errorMessage = "Failed to call the web service (" + NhincConstants.DIRECT_SOAP_EDGE_SERVICE_NAME
-                        + ").  The URL is null.";
-                log.error(errorMessage);
-                XDCommonErrorHelper helper = new XDCommonErrorHelper();
-                response = helper.createError(errorMessage);
+                handleError("Failed to call the web service (" + NhincConstants.DIRECT_SOAP_EDGE_SERVICE_NAME
+                        + ").  The URL is null.", message);
             }
-        } catch (Exception ex) {
-            log.error("Error sending Adapter Doc Submission Unsecured message: " + ex.getMessage(), ex);
-            XDCommonErrorHelper helper = new XDCommonErrorHelper();
-            response = helper.createError(ex);
+        } catch (Exception ex) {            
+            handleError("Error sending Adapter Doc Submission Unsecured message: ", ex, message);
         }
 
         log.debug("End provideAndRegisterDocumentSetB");
         return response;
     }
 
+    private void handleError(String errorMessage, MimeMessage mimeMessage) {
+        handleError(errorMessage, null, mimeMessage);
+    }
+
+    private void handleError(String errorMessage, Throwable e, MimeMessage mimeMessage) {
+        XDCommonErrorHelper helper = new XDCommonErrorHelper();
+        if (e != null) {                        
+            String message = errorMessage + e.getMessage();            
+            log.error(helper.createError(message));
+            throw new DirectException(errorMessage, e, mimeMessage);
+        } else {
+            log.error(helper.createError(errorMessage));
+            throw new DirectException(errorMessage, mimeMessage);            
+        }
+    }    
+    
     /**
      * @param portDescriptor description object representing the WSDL port for the service to be called.
      * @param url endpoint url to be called.
@@ -133,5 +146,5 @@ public class DirectEdgeProxySoapImpl implements DirectEdgeProxy {
             ServicePortDescriptor<DocumentRepositoryPortType> portDescriptor, String url) {
         return CONNECTClientFactory.getInstance().getCONNECTClientUnsecured(portDescriptor, url, null);
     }
-
+    
 }

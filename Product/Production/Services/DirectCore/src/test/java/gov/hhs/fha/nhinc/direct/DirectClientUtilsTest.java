@@ -26,7 +26,7 @@
  */
 package gov.hhs.fha.nhinc.direct;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -50,7 +50,7 @@ public class DirectClientUtilsTest {
     /**
      * Test {@link DirectClientUtils#getSender(MimeMessage)} 
      * Method should throw DirectException if multiple senders are present.
-     * @throws MessagingException
+     * @throws MessagingException on failure.
      */
     @Test(expected = DirectException.class)
     public void willThrowDirectExceptionWhenMultipleFromsPresent() throws MessagingException {
@@ -62,7 +62,7 @@ public class DirectClientUtilsTest {
     /**
      * Test {@link DirectClientUtils#getSender(MimeMessage)} 
      * Method should throw DirectException if zero senders are present.
-     * @throws MessagingException
+     * @throws MessagingException on failure.
      */
     @Test(expected = DirectException.class)
     public void willThrowDirectExceptionWhenNoFromsPresent() throws MessagingException {
@@ -71,14 +71,14 @@ public class DirectClientUtilsTest {
     }
 
     /**
-     * Test {@link DirectClientUtils#getNhindRecipients(MimeMessage)}
-     * @throws MessagingException
+     * Test {@link DirectClientUtils#getNhindRecipients(MimeMessage)}.
+     * @throws MessagingException on failure.
      */
     @Test
     public void canGetNhindRecipients() throws MessagingException {
 
         when(mockMessage.getRecipients(RecipientType.TO)).thenReturn(
-                new Address[] { new InternetAddress("test@test1.com") });
+                new Address[] {new InternetAddress("test@test1.com")});
         when(mockMessage.getRecipients(RecipientType.CC)).thenReturn(EMPTY_ADDRESS_ARRAY);
         when(mockMessage.getRecipients(RecipientType.BCC)).thenReturn(EMPTY_ADDRESS_ARRAY);
 
@@ -86,17 +86,16 @@ public class DirectClientUtilsTest {
     }
     
     /**
-     * Test {@link DirectClientUtils#getNhindRecipients(MimeMessage)}
-     * @throws MessagingException
+     * Test {@link DirectClientUtils#getNhindRecipients(MimeMessage)}.
+     * @throws MessagingException on failure.
      */
     @Test(expected = DirectException.class)
     public void willThrowDirectExceptionWhenNoRecipientsPresent() throws MessagingException {
-
         when(mockMessage.getRecipients(RecipientType.TO)).thenReturn(EMPTY_ADDRESS_ARRAY);
         when(mockMessage.getRecipients(RecipientType.CC)).thenReturn(EMPTY_ADDRESS_ARRAY);
         when(mockMessage.getRecipients(RecipientType.BCC)).thenReturn(EMPTY_ADDRESS_ARRAY);
-
-        assertNotNull(DirectClientUtils.getNhindRecipients(mockMessage));
+        
+        DirectClientUtils.getNhindRecipients(mockMessage);
     }
 
 }

@@ -27,16 +27,20 @@
 package gov.hhs.fha.nhinc.direct.event;
 
 import gov.hhs.fha.nhinc.event.EventManager;
+import gov.hhs.fha.nhinc.event.EventRecorder;
 
 import javax.mail.internet.MimeMessage;
 
 /**
  * Implements event logging for direct.
  */
-public class DirectEventLogger {
+public final class DirectEventLogger {
     
-    private final EventManager eventManager;    
+    private final EventRecorder eventRecorder;    
     
+    /**
+     * Singleton holder for {@link DirectEventLogger}.
+     */
     private static class SingletonHolder { 
         public static final DirectEventLogger INSTANCE = new DirectEventLogger();
     }
@@ -52,7 +56,7 @@ public class DirectEventLogger {
      * Construct a Direct Event Logger using singleton event manager.
      */
     private DirectEventLogger() {
-        this.eventManager = EventManager.getInstance();
+        this.eventRecorder = EventManager.getInstance();
     }
 
     /**
@@ -85,7 +89,7 @@ public class DirectEventLogger {
      * @param errorMsg optional error message - if not null status = error.
      */
     public void log(DirectEventType type, MimeMessage message, String errorMsg) {
-        eventManager.recordEvent(new DirectEvent.Builder().mimeMessage(message).errorMsg(errorMsg).build(type)); 
+        eventRecorder.recordEvent(new DirectEvent.Builder().mimeMessage(message).errorMsg(errorMsg).build(type)); 
     }
 
     /**
@@ -94,7 +98,7 @@ public class DirectEventLogger {
      * @param errorMsg optional error message - if not null status = error.
      */
     public void log(DirectEventType type, String errorMsg) {
-        eventManager.recordEvent(new DirectEvent.Builder().errorMsg(errorMsg).build(type)); 
+        eventRecorder.recordEvent(new DirectEvent.Builder().errorMsg(errorMsg).build(type)); 
     }
 
 }

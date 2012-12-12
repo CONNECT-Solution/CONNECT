@@ -43,6 +43,7 @@ import gov.hhs.fha.nhinc.event.EventManager;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Locale;
 import java.util.Properties;
 
 import javax.mail.Address;
@@ -73,24 +74,49 @@ import com.icegreen.greenmail.util.GreenMail;
 import com.icegreen.greenmail.util.ServerSetup;
 import com.icegreen.greenmail.util.ServerSetupTest;
 
+/**
+ * Base Test class for Direct Mail Client tests.
+ */
+/**
+ * 
+ */
 public abstract class AbstractDirectMailClientTest {
 
+    /**
+     * number of messages in one batch.
+     */
     protected static final int NUM_MSGS_ONE_BATCH = 3;
+    /**
+     * total number of messages in a multi-batch test.
+     */
     protected static final int NUM_MSGS_MULTI_BATCH = 28;
+    /**
+     * attachment name.
+     */
     protected static final String ATTACHMENT_NAME = "mymockattachment";
-    protected static final String encryptedContentType = "application/pkcs7-mime; smime-type=enveloped-data; name=\"smime.p7m\"";
-    protected static final String unencryptedContentType = "Multipart/Mixed;";
-    protected static final String unencryptedMdnContentType = "multipart/report; report-type=disposition-notification; boundary=\"";
+    
+    /**
+     * content type for encrypted messages.
+     */
+    protected static final String CONTENT_TYPE_ENCRYPTED = 
+            "application/pkcs7-mime; smime-type=enveloped-data; name=\"smime.p7m\"";
+    /**
+     * content type for multi-part mixed mime messages.
+     */
+    protected static final String CONTENT_TYPE_MULTIPART = "Multipart/Mixed;";
+    /**
+     * content type for mdn messages.
+     */
+    protected static final String CONTENT_TYPE_MDN = 
+            "multipart/report; report-type=disposition-notification; boundary=\"";
     
     private static final Log LOG = LogFactory.getLog(AbstractDirectMailClientTest.class);
 
     protected Properties recipMailServerProps;
     protected Properties senderMailServerProps;
     protected SmtpAgent mockSmtpAgent;
-
     protected DirectMailClient intDirectClient;
     protected DirectMailClient extDirectClient;
-
     protected MessageHandler mockMessageHandler;
 
     protected GreenMail greenMail;
@@ -149,22 +175,36 @@ public abstract class AbstractDirectMailClientTest {
         EventManager.getInstance().deleteObservers();
     }
     
+    /**
+     * @return smtp agent.
+     */
     protected SmtpAgent getSmtpAgent() {
-    	SmtpAgent smtpAgent = SmtpAgentFactory.createAgent(getClass().getClassLoader().getResource(
+        SmtpAgent smtpAgent = SmtpAgentFactory.createAgent(getClass().getClassLoader().getResource(
                 "smtp.agent.config.xml"));
-    	return smtpAgent;
+        return smtpAgent;
     }
     
+    /**
+     * @return oubound client.
+     */
     protected DirectMailClient getOutboundClient() {        
-        DirectMailClient outboundDirectClient = new DirectMailClient(recipMailServerProps, getSmtpAgent());
-        return outboundDirectClient;
+        return new DirectMailClient(recipMailServerProps, getSmtpAgent());
     }
     
+    /**
+     * @return inbound client.
+     */
     protected DirectMailClient getInboundClient() {
-    	DirectMailClient inboundDirectClient = new DirectMailClient(recipMailServerProps, getSmtpAgent());
-    	return inboundDirectClient;
+        return new DirectMailClient(recipMailServerProps, getSmtpAgent());
     }
     
+    /**
+     * Handle outbound messages. 
+     * @param originalMsg to be sent.
+     * @param outboundDirectClient outbound mail client to use.
+     * @throws UserException on user exception.
+     * @throws MessagingException on messaging exception.
+     */
     protected void sendMimeMessageToRemoteMailServer(final MimeMessage originalMsg,
             DirectMailClient outboundDirectClient) throws UserException, MessagingException {
 
@@ -185,6 +225,10 @@ public abstract class AbstractDirectMailClientTest {
         verifyOutboundMessageSent();
     }
     
+    /**
+     * @param props mail properties to set on the internal client.
+     * @return direct client.
+     */
     protected DirectClient getInternalDirectClient(Properties props) {
         SmtpAgent smtpAgent = getSmtpAgent();
         
@@ -194,6 +238,7 @@ public abstract class AbstractDirectMailClientTest {
     /**
      * Set up direct clients using props.
      * @param props to use.
+     * @param proxy edge proxy to use for handling message.
      */
     protected void setUpDirectClients(Properties props, final DirectEdgeProxy proxy) {
         
@@ -217,8 +262,6 @@ public abstract class AbstractDirectMailClientTest {
     
     /**
      * @param messageFile to be delivered.
-     * @throws MessagingException on error.
-     * @throws UserException
      */
     protected void deliverMessage(String messageFile) {
         
@@ -232,26 +275,34 @@ public abstract class AbstractDirectMailClientTest {
         }
     }
     
-    protected void verifySoapEdgeMessage() throws MessagingException {
-        
-     }
-    
+    /**
+     * @throws MessagingException on error.
+     */
     protected void verifyOutboundMessageSent() throws MessagingException {
-    	verifyMessage(1, encryptedContentType, RECIP_AT_RESPONDING_GW, SENDER_AT_INITIATING_GW);
+        verifyMessage(1, CONTENT_TYPE_ENCRYPTED, RECIP_AT_RESPONDING_GW, SENDER_AT_INITIATING_GW);
     }
     
+    /**
+     * @throws MessagingException on error.
+     */
     protected void verifySmtpEdgeMessage() throws MessagingException {
-       verifyMessage(1, unencryptedContentType, RECIP_AT_RESPONDING_GW, SENDER_AT_INITIATING_GW);
+       verifyMessage(1, CONTENT_TYPE_MULTIPART, RECIP_AT_RESPONDING_GW, SENDER_AT_INITIATING_GW);
     }
     
+    /**
+     * @throws MessagingException on error.
+     */
     protected void verifyOutboundMdn() throws MessagingException {
         // ...there are 2 MDNs right now because of a quirk in greenmail.
-    	verifyMessage(2, encryptedContentType, SENDER_AT_INITIATING_GW, RECIP_AT_RESPONDING_GW);
+        verifyMessage(2, CONTENT_TYPE_ENCRYPTED, SENDER_AT_INITIATING_GW, RECIP_AT_RESPONDING_GW);
     }
     
+    /**
+     * @throws MessagingException on error.
+     */
     protected void verifyInboundMdn() throws MessagingException {
         // ...there are 2 MDNs right now because of a quirk in greenmail.
-        verifyMessage(2, unencryptedMdnContentType, SENDER_AT_INITIATING_GW, RECIP_AT_RESPONDING_GW);
+        verifyMessage(2, CONTENT_TYPE_MDN, SENDER_AT_INITIATING_GW, RECIP_AT_RESPONDING_GW);
     }
 
     private void verifyMessage(int expectedNumberOfMessages, String contentType, String recipient, String sender)
@@ -260,20 +311,29 @@ public abstract class AbstractDirectMailClientTest {
         MimeMessage[] messages = greenMail.getReceivedMessages();
         int i = 0;
         for (MimeMessage message : messages) {
-        	if (message.getContentType().toUpperCase().startsWith(contentType.toUpperCase())) {
-        		assertEquals(sender, message.getFrom()[0].toString());
-        		assertEquals(recipient, message.getAllRecipients()[0].toString());
-        		LOG.debug(message.getAllRecipients()[0] + message.getContentType());
-        		i++;
-        	}
+            if (message.getContentType().toUpperCase().startsWith(contentType.toUpperCase())) {
+                assertEquals(sender, message.getFrom()[0].toString());
+                assertEquals(recipient, message.getAllRecipients()[0].toString());
+                LOG.debug(message.getAllRecipients()[0] + message.getContentType());
+                i++;
+            }
         }
         assertEquals(expectedNumberOfMessages, i);
     }
     
+    /**
+     * @return mock message process result.
+     * @throws MessagingException on messaging error.
+     */
     protected MessageProcessResult getMockMessageProcessResult() throws MessagingException {
         return getMockMessageProcessResult(1);
     }
 
+    /**
+     * @param numNotificationMessages number of notification messages expected.
+     * @return mocked message process result.
+     * @throws MessagingException on error.
+     */
     protected MessageProcessResult getMockMessageProcessResult(int numNotificationMessages) throws MessagingException {
 
         MessageProcessResult mockMessageProcessResult = mock(MessageProcessResult.class);

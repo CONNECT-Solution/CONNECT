@@ -26,18 +26,22 @@
  */
 package gov.hhs.fha.nhinc.direct.edge.proxy;
 
-import static org.junit.Assert.*;
-import ihe.iti.xds_b._2007.DocumentRepositoryPortType;
-import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
-
-import javax.mail.MessagingException;
-import javax.mail.internet.MimeMessage;
-
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.eq;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 import gov.hhs.fha.nhinc.direct.DirectUnitTestUtil;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
+import ihe.iti.xds_b._2007.DocumentRepositoryPortType;
+import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
+
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
@@ -45,11 +49,6 @@ import org.apache.commons.io.IOUtils;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
-
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.eq;
 
 /**
  * @author mweaver
@@ -97,7 +96,7 @@ public class DirectEdgeProxySoapImplTest {
      * This test requires a mock or otherwise endpoint stood up at the url defined for the directedgesoap entry in
      * internalConnectionInfo.xml.
      * 
-     * @throws MessagingException
+     * @throws MessagingException on failure.
      */
     @Test
     @Ignore
@@ -113,7 +112,7 @@ public class DirectEdgeProxySoapImplTest {
      * Tests the DirectEdgeProxySoapImpl class with a mocked up CONNECTClient. This test will ensure that the
      * transformation from XDM to XDR was successful.
      * 
-     * @throws Exception
+     * @throws Exception on failure.
      */
     @SuppressWarnings("unchecked")
     @Test
