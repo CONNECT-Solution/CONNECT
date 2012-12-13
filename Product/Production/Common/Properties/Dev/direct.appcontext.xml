@@ -40,10 +40,12 @@
     <util:properties id="externalMailProperties" location="file:${NHINC_PROPERTIES_DIR}/direct.mail.external.properties" />
     
     <!-- Set up polling for inbound and outbound direct messages -->
+    <!-- 
     <task:scheduled-tasks scheduler="directScheduler">
         <task:scheduled ref="intDirectMailClient" method="handleMessages" cron="*/15 * * * * *"/>
         <task:scheduled ref="extDirectMailClient" method="handleMessages" cron="*/15 * * * * *"/>
     </task:scheduled-tasks>
     <task:scheduler id="directScheduler" />
-    
+     -->
+     
 </beans>
