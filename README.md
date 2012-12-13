@@ -106,6 +106,11 @@ OR
         $ cd Product/Production/CONNECT/
         $ mvn clean package -P \!PD,\!DQ,!DR
 
+You can also specify explicitly what services are included in the ear by passing in the individual profiles.  For example, if you only want to include PD:
+
+        $ cd Product/Production/CONNECT/
+        $ mvn clean package -P PD
+
 ######Altering targeted application server
 For some application server deployments the generated .ear needs different dependencies. The following profiles are available to control which type of .ear is generated (use value within parentheses):
 * GlassFish v3.1.2.2 (glassfish)
@@ -114,7 +119,7 @@ For some application server deployments the generated .ear needs different depen
 This profile options are used just like above. As an example to generate a WebSphere specific .ear with only Patient Discovery.
 
         $ cd <CONNECT_CLONE_DIR>
-        $ mvn clean install -P \!AD,\!DQ,\!DS,\!RD,\!HIEM,websphere
+        $ mvn clean install -P PD,websphere
 
 ###Setup Glassfish, MySQL & Deploy CONNECT
 These steps will install and configure a Glassfish Application Server, prepare your MySQL databases and deploy CONNECT for use. Lets get started.
