@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.openSAML.extraction;
 
+import gov.hhs.fha.nhinc.callback.SamlConstants;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.CeType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
@@ -66,13 +67,15 @@ import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.schema.XSAny;
 import org.opensaml.xml.util.AttributeMap;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 /**
  * @author mweaver
  * 
  */
 public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
-    
+
     private static final Logger log = Logger.getLogger(OpenSAMLAssertionExtractorImpl.class);
     private static final String EMPTY_STRING = "";
     private static final String X509_FORMAT = "urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName";
@@ -108,41 +111,52 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
     }
 
     /**
-     * This method is used extract the saml2Assertion from Context.
-     * @param context context
-     * @return saml2 assertion from context
+     * This method will return the first Assertion encountered in the passed in element. 
+     * 
+     * @param element the xml element to extract the assertion from
+     * @return The first encountered Assertion object in the element
      */
     private Assertion extractSaml2Assertion(final Element element) {
-        
-        Assertion assertion = null;
+
+        if (element.getNamespaceURI().equals(SamlConstants.SAML2_ASSERTION_NS)
+                && element.getLocalName().equals(SamlConstants.SAML2_ASSERTION_TAG)) {
+            return convertToAssertion(element);
+        }
+
+        return extractSaml2AssertionFromDescendants(element);        
+    }
+    
+    private Assertion extractSaml2AssertionFromDescendants(final Element element) { 
+        NodeList assertionNodes = element.getElementsByTagNameNS(SamlConstants.SAML2_ASSERTION_NS,
+                SamlConstants.SAML2_ASSERTION_TAG);
+
+        if (assertionNodes.getLength() > 0) {
+            Node assertionNode = assertionNodes.item(0);
+            if (assertionNode instanceof Element) {
+                return convertToAssertion((Element) assertionNode);
+            }
+        }
+
+        return null;
+    }
+    
+    private Assertion convertToAssertion(final Element element) {
         try {
-            XMLObject xmlObj = OpenSAMLUtil.fromDom(element);
-            assertion = extractSaml2Assertion(xmlObj);
+            XMLObject xmlObject = OpenSAMLUtil.fromDom(element);
+            if (xmlObject instanceof org.opensaml.saml2.core.Assertion) {
+                return (Assertion) xmlObject;
+            }
         } catch (WSSecurityException e) {
             log.error("error extracting SAML assertion", e);
         }
-        return assertion;
+        
+        return null;
     }
     
-    /**
-     * This method navigates xml elements until a Saml Assertion child is found.
-     * @param xmlObject element 
-     * @return saml2 assertion from context
-     */
-    private Assertion extractSaml2Assertion(final XMLObject xmlObject) {
-        
-        if (xmlObject == null || xmlObject instanceof org.opensaml.saml2.core.Assertion) {
-            return (Assertion) xmlObject;
-        }
-        
-        return extractSaml2Assertion(xmlObject.getOrderedChildren().get(0));
-    }
-    
-    
-    private void populateIssuer(final Assertion saml2Assertion, final AssertionType target) {        
+    private void populateIssuer(final Assertion saml2Assertion, final AssertionType target) {
         target.setSamlIssuer(new SamlIssuerType());
         target.getSamlIssuer().setIssuer(saml2Assertion.getIssuer().getValue());
-        target.getSamlIssuer().setIssuerFormat(saml2Assertion.getIssuer().getFormat());        
+        target.getSamlIssuer().setIssuerFormat(saml2Assertion.getIssuer().getFormat());
     }
 
     /**
@@ -215,13 +229,13 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
                         log.debug("Assertion.uniquePatientId = " + patientId);
                         break;
                     }
-                    
+
                 case NhincConstants.ATTRIBUTE_NAME_NPI:
                     String nationalProviderId = getAttributeValue(attribute);
                     target.setNationalProviderId(nationalProviderId);
                     log.debug("Assertion.nationalProviderId = " + nationalProviderId);
                     break;
-                    
+
                 default:
                     log.warn("Unrecognized Name Attribute: " + attribute.getName());
                     break;
@@ -315,7 +329,7 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
             target.setSamlAuthzDecisionStatement(null);
             return;
         }
-    
+
         AuthzDecisionStatement saml2AuthzDecisionStatement = saml2AuthzDecisionStatements.get(0);
 
         SamlAuthzDecisionStatementType targetAuthzDecisionStatement = new SamlAuthzDecisionStatementType();
@@ -345,7 +359,7 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
         targetEvidenceAssertion.setId(saml2EvidenceAssertion.getID());
         targetEvidenceAssertion.setIssueInstant(saml2EvidenceAssertion.getIssueInstant().toString());
         targetEvidenceAssertion.setVersion(saml2EvidenceAssertion.getVersion().toString());
-        
+
         // Translate Evidence Attribute Statement
         AttributeStatement saml2EvidenceAttributeStatement = saml2EvidenceAssertion.getAttributeStatements().get(0);
         List<Attribute> saml2EvidenceAttributes = saml2EvidenceAttributeStatement.getAttributes();
@@ -395,9 +409,9 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
         log.debug("Executing Saml2AssertionExtractor.populatePurposeOfUseAttribute...");
 
         CeType purposeOfUse = new CeType();
-        
+
         XMLObject purposeOfUseAttribute = attribute.getAttributeValues().get(0);
-        XMLObject purposeOfUseElement = purposeOfUseAttribute.getOrderedChildren().get(0);        
+        XMLObject purposeOfUseElement = purposeOfUseAttribute.getOrderedChildren().get(0);
 
         populateCeType((XSAny) purposeOfUseElement, purposeOfUse);
         target.setPurposeOfDisclosureCoded(purposeOfUse);
@@ -506,21 +520,21 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
 
         log.debug("Executing Saml2AssertionExtractor.populateSubjectRole...");
 
-        XMLObject subjRoleAttribute = attribute.getAttributeValues().get(0);         
+        XMLObject subjRoleAttribute = attribute.getAttributeValues().get(0);
         XMLObject roleElement = subjRoleAttribute.getOrderedChildren().get(0);
-        
+
         populateCeType((XSAny) roleElement, target.getUserInfo().getRoleCoded());
 
         log.debug("end populateSubjectRole()");
     }
-    
+
     private void populateCeType(XSAny samlAttrValElement, CeType ceType) {
 
         ceType.setCode("");
         ceType.setCodeSystem("");
         ceType.setCodeSystemName("");
         ceType.setDisplayName("");
-        
+
         // check namespace and break out on mismatch...
         if (!samlAttrValElement.getElementQName().getNamespaceURI().equals(NhincConstants.HL7_NS)) {
             return;
@@ -545,6 +559,6 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
                 ceType.setDisplayName(String.valueOf(entry.getValue()));
                 break;
             }
-        }        
-    }    
+        }
+    }
 }
