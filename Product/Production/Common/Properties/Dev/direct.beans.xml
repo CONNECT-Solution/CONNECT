@@ -21,7 +21,7 @@
     <bean id="extDirectMailClient" class="gov.hhs.fha.nhinc.direct.DirectMailClient">
         <constructor-arg><ref bean="externalMailProperties" /></constructor-arg>
         <constructor-arg><ref bean="smtpAgent" /></constructor-arg>
-        <property name="messageHandler"><ref bean="inboundMessageHandlerSmtp" /></property>
+        <property name="messageHandler"><ref bean="inboundMessageHandler" /></property>
     </bean>
 
     <!-- Set up message handlers -->
@@ -29,9 +29,7 @@
         <!-- requires an external direct mail client to use for processing outbound messages -->
         <property name="externalDirectClient"><ref bean="extDirectMailClient" /></property>
     </bean>
-    <!-- In practice choose SMTP or SOAP for the Inbound Message Handler... -->
-    <bean id="inboundMessageHandlerSmtp" class="gov.hhs.fha.nhinc.direct.InboundMessageHandler"/>
-    <bean id="inboundMessageHandlerSoap" class="gov.hhs.fha.nhinc.direct.InboundMessageHandler"/>
+    <bean id="inboundMessageHandler" class="gov.hhs.fha.nhinc.direct.InboundMessageHandler"/>
     
     <!-- There could also be a separate agent for each mail client, if needed. -->
     <bean id="smtpAgent" class="org.nhindirect.gateway.smtp.SmtpAgentFactory" factory-method="createAgent">
