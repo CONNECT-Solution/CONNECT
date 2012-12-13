@@ -27,6 +27,7 @@
 package gov.hhs.fha.nhinc.direct.event;
 
 import gov.hhs.fha.nhinc.event.BaseEvent;
+import gov.hhs.fha.nhinc.event.Event;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -36,8 +37,7 @@ import java.util.Locale;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -48,7 +48,7 @@ import com.google.common.collect.ImmutableList;
  */
 public class DirectEvent extends BaseEvent {
     
-    private static final Log LOG = LogFactory.getLog(DirectEvent.class);
+    private static final Logger LOG = Logger.getLogger(DirectEvent.class);
 
     private static final String XML_DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSSZ";
     

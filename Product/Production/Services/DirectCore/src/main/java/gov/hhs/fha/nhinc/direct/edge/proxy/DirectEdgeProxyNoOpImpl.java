@@ -28,14 +28,14 @@ package gov.hhs.fha.nhinc.direct.edge.proxy;
 import javax.mail.internet.MimeMessage;
 
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+
+import org.apache.log4j.Logger;
 
 public class DirectEdgeProxyNoOpImpl implements DirectEdgeProxy {
-    private static Log log = LogFactory.getLog(DirectEdgeProxyNoOpImpl.class);
+    private static final Logger LOG = Logger.getLogger(DirectEdgeProxyNoOpImpl.class);
 
     public RegistryResponseType provideAndRegisterDocumentSetB(MimeMessage message) {
-        log.debug("Using NoOp Implementation for Adapter Doc Submission Service");
+        LOG.debug("Using NoOp Implementation for Adapter Doc Submission Service");
         return new RegistryResponseType();
     }
 }

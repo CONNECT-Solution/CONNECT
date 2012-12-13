@@ -51,8 +51,7 @@ import javax.mail.internet.MimeMessage;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.nhindirect.xd.common.DirectDocument2;
 import org.nhindirect.xd.common.DirectDocuments;
 import org.nhindirect.xd.common.XdmPackage;
@@ -74,7 +73,8 @@ import com.icegreen.greenmail.util.GreenMail;
  */
 public class DirectUnitTestUtil {
 
-    private static final Log LOG = LogFactory.getLog(DirectUnitTestUtil.class);
+    private static final Logger LOG = Logger.getLogger(DirectUnitTestUtil.class);
+
     
     /**
      * email for the sender at the initiating gateway.

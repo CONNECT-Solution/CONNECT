@@ -43,8 +43,7 @@ import javax.mail.internet.MimeMessage;
 
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 /**
  * 
@@ -55,22 +54,14 @@ import org.apache.commons.logging.LogFactory;
  *
  */
 public class DirectEdgeProxySoapImpl implements DirectEdgeProxy {
-    private Log log = null;
+    private static final Logger LOG = Logger.getLogger(DirectEdgeProxySoapImpl.class);
     private WebServiceProxyHelper oProxyHelper = null;
 
     /**
      * Default constructor.
      */
     public DirectEdgeProxySoapImpl() {
-        log = createLogger();
         oProxyHelper = createWebServiceProxyHelper();
-    }
-
-    /**
-     * @return a logger for this class.
-     */
-    protected Log createLogger() {
-        return LogFactory.getLog(getClass());
     }
 
     /**
@@ -84,7 +75,7 @@ public class DirectEdgeProxySoapImpl implements DirectEdgeProxy {
      * @see gov.hhs.fha.nhinc.direct.edge.proxy.DirectEdgeProxy#provideAndRegisterDocumentSetB(javax.mail.internet.MimeMessage)
      */
     public RegistryResponseType provideAndRegisterDocumentSetB(MimeMessage message) {
-        log.debug("Begin provideAndRegisterDocumentSetB");
+        LOG.debug("Begin provideAndRegisterDocumentSetB");
         RegistryResponseType response = null;
 
         try {
@@ -95,7 +86,7 @@ public class DirectEdgeProxySoapImpl implements DirectEdgeProxy {
 
                 prdsrt = transformer.transform(message);
             } else {
-                log.warn("MimeMessage was expected but not recieved.");
+                LOG.warn("MimeMessage was expected but not recieved.");
             }
 
             String url = oProxyHelper
@@ -117,7 +108,7 @@ public class DirectEdgeProxySoapImpl implements DirectEdgeProxy {
             handleError("Error sending Adapter Doc Submission Unsecured message: ", ex, message);
         }
 
-        log.debug("End provideAndRegisterDocumentSetB");
+        LOG.debug("End provideAndRegisterDocumentSetB");
         return response;
     }
 
@@ -129,10 +120,10 @@ public class DirectEdgeProxySoapImpl implements DirectEdgeProxy {
         XDCommonErrorHelper helper = new XDCommonErrorHelper();
         if (e != null) {                        
             String message = errorMessage + e.getMessage();            
-            log.error(helper.createError(message));
+            LOG.error(helper.createError(message));
             throw new DirectException(errorMessage, e, mimeMessage);
         } else {
-            log.error(helper.createError(errorMessage));
+            LOG.error(helper.createError(errorMessage));
             throw new DirectException(errorMessage, mimeMessage);            
         }
     }    

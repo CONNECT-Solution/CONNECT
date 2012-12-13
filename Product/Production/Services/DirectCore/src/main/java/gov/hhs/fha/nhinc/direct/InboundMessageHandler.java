@@ -34,8 +34,7 @@ import gov.hhs.fha.nhinc.direct.event.DirectEventType;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.nhindirect.gateway.smtp.MessageProcessResult;
 import org.nhindirect.stagent.MessageEnvelope;
 import org.nhindirect.stagent.NHINDAddress;
@@ -48,7 +47,7 @@ import org.nhindirect.stagent.mail.notifications.NotificationMessage;
  */
 public class InboundMessageHandler implements MessageHandler {
 
-    private static final Log LOG = LogFactory.getLog(InboundMessageHandler.class);
+    private static final Logger LOG = Logger.getLogger(InboundMessageHandler.class);
 
     /**
      * {@inheritDoc}

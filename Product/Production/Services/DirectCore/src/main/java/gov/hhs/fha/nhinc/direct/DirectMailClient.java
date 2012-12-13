@@ -41,8 +41,7 @@ import javax.mail.Session;
 import javax.mail.Store;
 import javax.mail.internet.MimeMessage;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.nhindirect.gateway.smtp.MessageProcessResult;
 import org.nhindirect.gateway.smtp.SmtpAgent;
 import org.nhindirect.stagent.NHINDAddressCollection;
@@ -55,7 +54,7 @@ import org.springframework.beans.factory.InitializingBean;
  */
 public class DirectMailClient implements DirectClient, InitializingBean {
 
-    private static final Log LOG = LogFactory.getLog(DirectMailClient.class);
+    private static final Logger LOG = Logger.getLogger(DirectMailClient.class);
 
     // TODO - Where should these come from?...
     private static final String MSG_SUBJECT = "DIRECT Message";

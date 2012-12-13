@@ -28,15 +28,14 @@ package gov.hhs.fha.nhinc.direct;
 
 import gov.hhs.fha.nhinc.proxy.ComponentProxyFactory;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 /**
  * Direct Client Factory responsible for {@link DirectClient}.
  */
 public class DirectClientFactory {
     
-    private static final Log LOG = LogFactory.getLog(DirectClientFactory.class);
+    private static final Logger LOG = Logger.getLogger(DirectClientFactory.class);
     
     private static final String CONFIG_FILE_NAME = "direct.appcontext.xml";
     private static final String BEAN_NAME = "extDirectMailClient";

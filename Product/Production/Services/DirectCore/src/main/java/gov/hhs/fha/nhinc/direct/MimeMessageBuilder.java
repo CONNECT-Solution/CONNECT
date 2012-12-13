@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.direct;
 
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType.Document;
 
 import java.io.IOException;
@@ -166,12 +167,12 @@ public class MimeMessageBuilder {
 
         MimeBodyPart attachmentPart = null;
         try {
-            if (null != documents && !StringUtils.isBlank(messageId)) {
+            if (documents != null && !StringUtils.isBlank(messageId)) {
                 attachmentPart = getMimeBodyPart();
 
-                messageId = messageId.replace("urn:uuid:", "");
+                messageId = messageId.replace(NhincConstants.WS_SOAP_HEADER_MESSAGE_ID_PREFIX, "");
                 attachmentPart.attachFile(documents.toXdmPackage(messageId).toFile());
-            } else if (null != attachment && !StringUtils.isBlank(attachmentName)) {
+            } else if (attachment != null && !StringUtils.isBlank(attachmentName)) {
                 attachmentPart = createAttachmentFromSOAPRequest(attachment, attachmentName);
             } else {
                 throw new Exception(

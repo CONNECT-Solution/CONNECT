@@ -43,7 +43,6 @@ import gov.hhs.fha.nhinc.event.EventManager;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Locale;
 import java.util.Properties;
 
 import javax.mail.Address;
@@ -53,8 +52,7 @@ import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMessage.RecipientType;
 
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -110,7 +108,7 @@ public abstract class AbstractDirectMailClientTest {
     protected static final String CONTENT_TYPE_MDN = 
             "multipart/report; report-type=disposition-notification; boundary=\"";
     
-    private static final Log LOG = LogFactory.getLog(AbstractDirectMailClientTest.class);
+    private static final Logger LOG = Logger.getLogger(AbstractDirectMailClientTest.class);
 
     protected Properties recipMailServerProps;
     protected Properties senderMailServerProps;

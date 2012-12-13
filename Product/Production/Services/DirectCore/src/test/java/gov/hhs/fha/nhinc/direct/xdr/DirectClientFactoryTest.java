@@ -30,8 +30,7 @@ import static org.junit.Assert.assertNotNull;
 import gov.hhs.fha.nhinc.direct.DirectClientFactory;
 import gov.hhs.fha.nhinc.direct.DirectUnitTestUtil;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
@@ -42,7 +41,7 @@ import org.junit.Test;
  */
 public class DirectClientFactoryTest {
 
-    private static final Log LOG = LogFactory.getLog(DirectClientFactoryTest.class);
+    private static final Logger LOG = Logger.getLogger(DirectClientFactoryTest.class);
     
     /**
      * Set up keystore for test.

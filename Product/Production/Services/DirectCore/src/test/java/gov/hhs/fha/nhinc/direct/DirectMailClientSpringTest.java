@@ -32,8 +32,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertTrue;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -54,7 +53,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ContextConfiguration("/direct.appcontext.xml")
 public class DirectMailClientSpringTest {
     
-    private static final Log LOG = LogFactory.getLog(DirectMailClientSpringTest.class);
+    private static final Logger LOG = Logger.getLogger(DirectMailClientSpringTest.class);
+
     
     @Autowired
     private DirectMailClient intDirectMailClient;

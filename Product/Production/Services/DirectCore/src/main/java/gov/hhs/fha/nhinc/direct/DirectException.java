@@ -31,8 +31,7 @@ import gov.hhs.fha.nhinc.direct.event.DirectEventType;
 
 import javax.mail.internet.MimeMessage;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 
 /**
@@ -41,8 +40,8 @@ import org.apache.commons.logging.LogFactory;
 public class DirectException extends RuntimeException {
 
     private static final long serialVersionUID = 4636463959045310435L;
-    private static final Log LOG = LogFactory.getLog(DirectMailClient.class);
-    
+    private static final Logger LOG = Logger.getLogger(DirectException.class);
+
     /**
      * Constructor.
      * 

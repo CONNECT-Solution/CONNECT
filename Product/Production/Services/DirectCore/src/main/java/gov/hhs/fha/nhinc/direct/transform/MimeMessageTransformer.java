@@ -26,16 +26,15 @@
  */
 package gov.hhs.fha.nhinc.direct.transform;
 
+import gov.hhs.fha.nhinc.direct.DirectException;
+import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
+
 import javax.mail.internet.MimeMessage;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.nhindirect.xd.transform.MimeXdsTransformer;
 import org.nhindirect.xd.transform.exception.TransformationException;
 import org.nhindirect.xd.transform.impl.DefaultMimeXdsTransformer;
-
-import gov.hhs.fha.nhinc.direct.DirectException;
-import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 
 /**
  * @author mweaver
@@ -43,7 +42,7 @@ import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
  */
 public class MimeMessageTransformer {
     
-    private static final Log LOG = LogFactory.getLog(MimeMessageTransformer.class);
+    private static final Logger LOG = Logger.getLogger(MimeMessageTransformer.class);
     private MimeXdsTransformer transformer = null;
     private String errorMessage = "Error transforming message to XDR";
     

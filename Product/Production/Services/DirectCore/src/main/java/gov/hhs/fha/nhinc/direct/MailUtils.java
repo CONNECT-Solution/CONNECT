@@ -41,15 +41,14 @@ import javax.mail.Store;
 import javax.mail.Transport;
 import javax.mail.internet.MimeMessage;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 /**
  * Utility methods to help with Java Mail.
  */
 public class MailUtils {
 
-    private static final Log LOG = LogFactory.getLog(MailUtils.class);
+    private static final Logger LOG = Logger.getLogger(MailUtils.class);
 
     /**
      * Folder Name for "Inbox".
