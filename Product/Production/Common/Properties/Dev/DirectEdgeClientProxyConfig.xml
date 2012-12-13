@@ -8,7 +8,7 @@
 	in the description separated with a comma like the following sample: {somebean,anotherbean}
 -->
 	<description>Beans included in this file: {directedgeclient}</description>
-	<import resource="direct.appcontext.xml"/>
+	<import resource="direct.beans.xml"/>
 
    	<alias alias="directedgeclient" name="directedgeclientsmtp" />
 

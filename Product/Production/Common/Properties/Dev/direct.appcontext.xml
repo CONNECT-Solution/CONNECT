@@ -12,39 +12,12 @@
         http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
         http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd"> 
 
-    <!-- Set up 2 direct mail clients, for both internal and external. -->
-    <bean id="intDirectMailClient" class="gov.hhs.fha.nhinc.direct.DirectMailClient">
-        <constructor-arg><ref bean="internalMailProperties" /></constructor-arg>
-        <constructor-arg><ref bean="smtpAgent" /></constructor-arg>
-        <property name="messageHandler"><ref bean="outboundMessageHandler" /></property>
-    </bean>
-    <bean id="extDirectMailClient" class="gov.hhs.fha.nhinc.direct.DirectMailClient">
-        <constructor-arg><ref bean="externalMailProperties" /></constructor-arg>
-        <constructor-arg><ref bean="smtpAgent" /></constructor-arg>
-        <property name="messageHandler"><ref bean="inboundMessageHandlerSmtp" /></property>
-    </bean>
-
-    <!-- Set up message handlers -->
-    <bean id="outboundMessageHandler" class="gov.hhs.fha.nhinc.direct.OutboundMessageHandler">
-        <!-- requires an external direct mail client to use for processing outbound messages -->
-        <property name="externalDirectClient"><ref bean="extDirectMailClient" /></property>
-    </bean>
-    <!-- In practice choose SMTP or SOAP for the Inbound Message Handler... -->
-    <bean id="inboundMessageHandlerSmtp" class="gov.hhs.fha.nhinc.direct.InboundMessageHandler"/>
-    <bean id="inboundMessageHandlerSoap" class="gov.hhs.fha.nhinc.direct.InboundMessageHandler"/>
-    
-    <!-- There could also be a separate agent for each mail client, if needed. -->
-    <bean id="smtpAgent" class="org.nhindirect.gateway.smtp.SmtpAgentFactory" factory-method="createAgent">
-        <constructor-arg type="java.net.URL" value="file:${NHINC_PROPERTIES_DIR}/smtp.agent.config.xml" />        
-    </bean>
-
-    <util:properties id="internalMailProperties" location="file:${NHINC_PROPERTIES_DIR}/direct.mail.internal.properties" />
-    <util:properties id="externalMailProperties" location="file:${NHINC_PROPERTIES_DIR}/direct.mail.external.properties" />
+    <import resource="direct.beans.xml"/>
     
     <!-- Set up polling for inbound and outbound direct messages -->
     <task:scheduled-tasks scheduler="directScheduler">
-        <task:scheduled ref="intDirectMailClient" method="handleMessages" cron="*/15 * * * * *"/>
-        <task:scheduled ref="extDirectMailClient" method="handleMessages" cron="*/15 * * * * *"/>
+        <task:scheduled ref="intDirectMailClient" method="handleMessages" cron="0,30 * * * * *"/>
+        <task:scheduled ref="extDirectMailClient" method="handleMessages" cron="0,30 * * * * *"/>
     </task:scheduled-tasks>
     <task:scheduler id="directScheduler" />
     
