@@ -385,23 +385,23 @@ nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFil
 </con:config>
 </con:testStep>
 
-<con:setupScript>//nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);</con:setupScript>
+<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);</con:setupScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-12-04T16:23:03Z</con:value>
+		<con:value>2012-12-12T20:44:50Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-12-04T16:33:03Z</con:value>
+		<con:value>2012-12-12T20:54:50Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>12/04/2012 16:23:03</con:value>
+		<con:value>12/12/2012 20:44:50</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-01-03T00:00:00Z</con:value>
+		<con:value>2013-01-11T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
@@ -409,7 +409,7 @@ nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFil
 	</con:property>
 </con:properties>
 <con:reportParameters/>
-<con:tearDownScript>//nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript>
+<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript>
 </con:testCase>
 <con:testCase failOnError="true" failTestCaseOnErrors="true" id="9324f41a-5d01-4528-9520-206957d72ffc" keepSession="false" maxResults="0" name="2 Targets (1 with no DQ Service) but 3 Correlations" searchProperties="true">
 	<con:settings/>
@@ -810,19 +810,19 @@ nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFil
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-12-04T16:23:05Z</con:value>
+		<con:value>2012-12-12T20:44:51Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-12-04T16:33:05Z</con:value>
+		<con:value>2012-12-12T20:54:51Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>12/04/2012 16:23:05</con:value>
+		<con:value>12/12/2012 20:44:51</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-01-03T00:00:00Z</con:value>
+		<con:value>2013-01-11T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
@@ -1186,19 +1186,19 @@ nhinc.FileUtils.updateProperty(destConfigFileLocation, "gateway.properties", "do
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-12-04T16:23:08Z</con:value>
+		<con:value>2012-12-12T20:44:52Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-12-04T16:33:08Z</con:value>
+		<con:value>2012-12-12T20:54:52Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>12/04/2012 16:23:08</con:value>
+		<con:value>12/12/2012 20:44:52</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-01-03T00:00:00Z</con:value>
+		<con:value>2013-01-11T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
@@ -1584,19 +1584,19 @@ nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFil
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-12-04T16:23:09Z</con:value>
+		<con:value>2012-12-12T20:44:52Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-12-04T16:33:09Z</con:value>
+		<con:value>2012-12-12T20:54:52Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>12/04/2012 16:23:09</con:value>
+		<con:value>12/12/2012 20:44:52</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-01-03T00:00:00Z</con:value>
+		<con:value>2013-01-11T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
@@ -1609,13 +1609,13 @@ nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFil
 </con:testSuite>
 <con:properties>
 	
-	<con:property><con:name>AAMappingDB</con:name><con:value>assigningauthoritydb</con:value></con:property>
 	
-	<con:property><con:name>AAMappingTable</con:name><con:value>aa_to_home_community_mapping</con:value></con:property><con:property><con:name>DBHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>DBPass</con:name><con:value>nhincpass</con:value></con:property>
+	
+	<con:property><con:name>AAMappingDB</con:name><con:value>assigningauthoritydb</con:value></con:property><con:property><con:name>AAMappingTable</con:name><con:value>aa_to_home_community_mapping</con:value></con:property><con:property><con:name>DBHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>DBPass</con:name><con:value>nhincpass</con:value></con:property>
 	
 	<con:property><con:name>DBPort</con:name><con:value>3306</con:value></con:property><con:property><con:name>DBUser</con:name><con:value>nhincuser</con:value></con:property>
 	
-	<con:property><con:name>DQDocID</con:name><con:value>1.123401.11111</con:value></con:property><con:property><con:name>DQPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>Endpoint-DocQuery</con:name><con:value>http://localhost:8080/Gateway/DocumentQuery/2_0/EntityService/EntityDocQueryUnsecured</con:value></con:property><con:property><con:name>LocalAA</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalHCDescription</con:name><con:value>InternalTest1</con:value></con:property><con:property><con:name>LocalHCID</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>MockHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>NHINGatewayHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>PatientCorrelationDB</con:name><con:value>patientcorrelationdb</con:value></con:property><con:property><con:name>PatientCorrelationTable</con:name><con:value>correlatedidentifiers</con:value></con:property><con:property><con:name>Region1</con:name><con:value>US-VA</con:value></con:property><con:property><con:name>Region2</con:name><con:value>US-FL</con:value></con:property><con:property><con:name>Region3</con:name><con:value>US-GA</con:value></con:property>
+	<con:property><con:name>DQDocID</con:name><con:value>1.123401.11111</con:value></con:property><con:property><con:name>DQPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>Endpoint-DocQuery</con:name><con:value>http://localhost:8080/Gateway/DocumentQuery/2_0/EntityService/EntityDocQueryUnsecured</con:value></con:property><con:property><con:name>GatewayPropDir</con:name><con:value>c:\glassfish3\glassfish\domains\domain1\config\nhin</con:value></con:property><con:property><con:name>LocalAA</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalHCDescription</con:name><con:value>InternalTest1</con:value></con:property><con:property><con:name>LocalHCID</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>MockHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>NHINGatewayHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>PatientCorrelationDB</con:name><con:value>patientcorrelationdb</con:value></con:property><con:property><con:name>PatientCorrelationTable</con:name><con:value>correlatedidentifiers</con:value></con:property><con:property><con:name>Region1</con:name><con:value>US-VA</con:value></con:property>
 	
 	
 	
@@ -1629,26 +1629,26 @@ nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFil
 	
 	
 	
-	<con:property><con:name>Region4</con:name><con:value>US-MA</con:value></con:property>
+	<con:property><con:name>Region2</con:name><con:value>US-FL</con:value></con:property><con:property><con:name>Region3</con:name><con:value>US-GA</con:value></con:property>
 	
-	<con:property><con:name>RemoteAA</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemoteHCDescription</con:name><con:value>InternalTest2</con:value></con:property><con:property><con:name>RemoteHCID</con:name><con:value>2.2</con:value></con:property>
-	
-	<con:property><con:name>RemotePatientID</con:name><con:value>D123401</con:value></con:property>
-	
-	<con:property><con:name>testAA</con:name><con:value>8.8</con:value></con:property>
-	
-	<con:property><con:name>testHCDescription</con:name><con:value>Test HCID</con:value></con:property>
+	<con:property><con:name>Region4</con:name><con:value>US-MA</con:value></con:property><con:property><con:name>RemoteAA</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemoteHCDescription</con:name><con:value>InternalTest2</con:value></con:property><con:property><con:name>RemoteHCID</con:name><con:value>2.2</con:value></con:property>
 	
 	
 	
-	<con:property><con:name>testHCID</con:name><con:value>8.8</con:value></con:property><con:property><con:name>UDDIaa1</con:name><con:value>4.4</con:value></con:property><con:property><con:name>UDDIaa2</con:name><con:value>5.5</con:value></con:property><con:property><con:name>UDDIaa3</con:name><con:value>6.6</con:value></con:property>
-	
-	<con:property><con:name>UDDIaa4</con:name><con:value>7.7</con:value></con:property><con:property><con:name>UDDIdc3description</con:name><con:value>UDDI Test3</con:value></con:property><con:property><con:name>UDDIhc1description</con:name><con:value>UDDI Test1</con:value></con:property>
-	
-	<con:property><con:name>UDDIhc2description</con:name><con:value>UDDI Test2</con:value></con:property><con:property><con:name>UDDIhc4description</con:name><con:value>UDDI Test4</con:value></con:property><con:property><con:name>UDDIhcid1</con:name><con:value>4.4</con:value></con:property>
 	
 	
-<con:property><con:name>UDDIhcid2</con:name><con:value>5.5</con:value></con:property><con:property><con:name>UDDIhcid3</con:name><con:value>6.6</con:value></con:property><con:property><con:name>UDDIhcid4</con:name><con:value>7.7</con:value></con:property><con:property><con:name>GatewayPropDir</con:name><con:value>c:\glassfish3\glassfish\domains\domain1\config\nhin</con:value></con:property></con:properties>
+	<con:property><con:name>RemotePatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>testAA</con:name><con:value>8.8</con:value></con:property>
+	
+	
+	
+	<con:property><con:name>testHCDescription</con:name><con:value>Test HCID</con:value></con:property><con:property><con:name>testHCID</con:name><con:value>8.8</con:value></con:property><con:property><con:name>UDDIaa1</con:name><con:value>4.4</con:value></con:property><con:property><con:name>UDDIaa2</con:name><con:value>5.5</con:value></con:property>
+	
+	
+	
+	<con:property><con:name>UDDIaa3</con:name><con:value>6.6</con:value></con:property><con:property><con:name>UDDIaa4</con:name><con:value>7.7</con:value></con:property><con:property><con:name>UDDIdc3description</con:name><con:value>UDDI Test3</con:value></con:property><con:property><con:name>UDDIhc1description</con:name><con:value>UDDI Test1</con:value></con:property><con:property><con:name>UDDIhc2description</con:name><con:value>UDDI Test2</con:value></con:property><con:property><con:name>UDDIhc4description</con:name><con:value>UDDI Test4</con:value></con:property>
+	
+	
+<con:property><con:name>UDDIhcid1</con:name><con:value>4.4</con:value></con:property><con:property><con:name>UDDIhcid2</con:name><con:value>5.5</con:value></con:property><con:property><con:name>UDDIhcid3</con:name><con:value>6.6</con:value></con:property><con:property><con:name>UDDIhcid4</con:name><con:value>7.7</con:value></con:property></con:properties>
 <con:afterLoadScript>def propertiesFile = new File(new File(project.path).parent, 'DocQueryTestsForUDDI-soapui-project.properties')
 	if (propertiesFile.exists()) {
 	def props = new Properties()
