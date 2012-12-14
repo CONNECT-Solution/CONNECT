@@ -28,6 +28,8 @@ package gov.hhs.fha.nhinc.direct;
 
 import gov.hhs.fha.nhinc.direct.event.DirectEventLogger;
 import gov.hhs.fha.nhinc.direct.event.DirectEventType;
+import gov.hhs.fha.nhinc.mail.MailUtils;
+import gov.hhs.fha.nhinc.mail.MessageHandler;
 
 import java.util.Collection;
 import java.util.Properties;

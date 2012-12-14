@@ -30,29 +30,42 @@ import gov.hhs.fha.nhinc.mail.MessageHandler;
 
 import javax.mail.internet.MimeMessage;
 
+import org.apache.log4j.Logger;
+
 /**
- * Handles outbound messages from an internal mail client. Outbound messages are directified and resent using the
- * external mail server.
+ * Handles inbound messages from an external mail client. Inbound messages are un-directified and either - sent to a
+ * recipient on an internal mail client - SMTP+Mime - SMTP+XDM - process XDM as XDR - SOAP+XDR
  */
-public class OutboundMessageHandler implements MessageHandler {
+public class NewInboundMsgHandler implements MessageHandler {
+
+    private static final Logger LOG = Logger.getLogger(NewInboundMsgHandler.class);
 
     /**
      * Property for the external direct client used to send the outbound message.
      */
-    private DirectClient externalDirectClient;
+    private final NewDirectAdapter directAdapter;
     
+    /**
+     * Constructor.
+     * @param directAdapter direct adapter used to process messages.
+     */
+    public NewInboundMsgHandler(NewDirectAdapter directAdapter) {
+        super();
+        this.directAdapter = directAdapter;
+    }
+
     /**
      * {@inheritDoc}
      */
     @Override
-    public void handleMessage(MimeMessage message, DirectClient internaldirectClient) {
-        externalDirectClient.processAndSend(message);
+    public boolean handleMessage(MimeMessage message) {
+        boolean handled = false;
+        try {
+           directAdapter.receiveInbound(message);
+           handled = true;
+        } catch (Exception e) {
+            LOG.error("Exception while processing and sending outbound direct message");
+        }
+        return handled;
     }
-
-    /**
-     * @param externalDirectClient the externalDirectClient to set
-     */
-    public void setExternalDirectClient(DirectClient externalDirectClient) {
-        this.externalDirectClient = externalDirectClient;
-    }    
 }

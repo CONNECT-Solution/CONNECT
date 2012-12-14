@@ -24,35 +24,35 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.direct;
+package gov.hhs.fha.nhinc.mail;
 
-import gov.hhs.fha.nhinc.mail.MessageHandler;
-
+import javax.mail.MessagingException;
+import javax.mail.Session;
 import javax.mail.internet.MimeMessage;
 
 /**
- * Handles outbound messages from an internal mail client. Outbound messages are directified and resent using the
- * external mail server.
+ * Mail Client responsible for sending and receiving messages using Javamail.
  */
-public class OutboundMessageHandler implements MessageHandler {
+public interface MailClient {
 
     /**
-     * Property for the external direct client used to send the outbound message.
+     * Send a mime message.
+     * @param message to be sent.
+     * @throws MessagingException 
      */
-    private DirectClient externalDirectClient;
+    void send(MimeMessage message) throws MailClientException;
     
     /**
-     * {@inheritDoc}
+     * Pull messages from a server and use an injected MessageHandler to handle them.
+     * @param handler used to handle messages pulled down from the server.
+     * @return number of messages handled.
+     * @throws MailClientException
      */
-    @Override
-    public void handleMessage(MimeMessage message, DirectClient internaldirectClient) {
-        externalDirectClient.processAndSend(message);
-    }
-
+    int handleMessages(MessageHandler handler) throws MailClientException;
+ 
     /**
-     * @param externalDirectClient the externalDirectClient to set
+     * Expose the mail session used by this client so we can use it to create mime messages.
+     * @return mail session this client is using.
      */
-    public void setExternalDirectClient(DirectClient externalDirectClient) {
-        this.externalDirectClient = externalDirectClient;
-    }    
+    Session getMailSession();
 }

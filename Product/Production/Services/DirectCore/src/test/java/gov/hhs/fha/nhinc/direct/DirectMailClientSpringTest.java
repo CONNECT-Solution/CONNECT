@@ -31,6 +31,7 @@ import static gov.hhs.fha.nhinc.direct.DirectUnitTestUtil.writeSmtpAgentConfig;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertTrue;
+import gov.hhs.fha.nhinc.mail.MessageHandler;
 
 import org.apache.log4j.Logger;
 import org.junit.AfterClass;

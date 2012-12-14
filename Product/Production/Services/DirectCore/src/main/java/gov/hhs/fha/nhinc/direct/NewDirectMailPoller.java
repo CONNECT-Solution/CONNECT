@@ -26,33 +26,30 @@
  */
 package gov.hhs.fha.nhinc.direct;
 
+import gov.hhs.fha.nhinc.mail.AbstractMailPoller;
+import gov.hhs.fha.nhinc.mail.MailClient;
+import gov.hhs.fha.nhinc.mail.MailClientException;
 import gov.hhs.fha.nhinc.mail.MessageHandler;
 
-import javax.mail.internet.MimeMessage;
-
 /**
- * Handles outbound messages from an internal mail client. Outbound messages are directified and resent using the
- * external mail server.
+ * Direct Mail Poller handles any exceptions incurred by {@link AbstractMailPoller#poll()}
  */
-public class OutboundMessageHandler implements MessageHandler {
+public class NewDirectMailPoller extends AbstractMailPoller {
 
     /**
-     * Property for the external direct client used to send the outbound message.
+     * @param mailClient mail client talking to the server we want to poll.
+     * @param messageHandler message handler invoked on each message returned.
      */
-    private DirectClient externalDirectClient;
-    
+    public NewDirectMailPoller(MailClient mailClient, MessageHandler messageHandler) {
+        super(mailClient, messageHandler);
+    }
+
     /**
      * {@inheritDoc}
      */
     @Override
-    public void handleMessage(MimeMessage message, DirectClient internaldirectClient) {
-        externalDirectClient.processAndSend(message);
+    public void handleException(MailClientException e) {
+        throw new DirectException("Exception while polling mail server.", e);
     }
 
-    /**
-     * @param externalDirectClient the externalDirectClient to set
-     */
-    public void setExternalDirectClient(DirectClient externalDirectClient) {
-        this.externalDirectClient = externalDirectClient;
-    }    
 }

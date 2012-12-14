@@ -24,35 +24,28 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.direct;
-
-import gov.hhs.fha.nhinc.mail.MessageHandler;
-
-import javax.mail.internet.MimeMessage;
+package gov.hhs.fha.nhinc.mail;
 
 /**
- * Handles outbound messages from an internal mail client. Outbound messages are directified and resent using the
- * external mail server.
+ * Mail Client Exceptions.
  */
-public class OutboundMessageHandler implements MessageHandler {
+public class MailClientException extends Exception {
+
+    private static final long serialVersionUID = 9172182296895105633L;
 
     /**
-     * Property for the external direct client used to send the outbound message.
+     * @param message
+     * @param cause
      */
-    private DirectClient externalDirectClient;
-    
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void handleMessage(MimeMessage message, DirectClient internaldirectClient) {
-        externalDirectClient.processAndSend(message);
+    public MailClientException(String message, Throwable cause) {
+        super(message, cause);
     }
 
     /**
-     * @param externalDirectClient the externalDirectClient to set
+     * @param message
      */
-    public void setExternalDirectClient(DirectClient externalDirectClient) {
-        this.externalDirectClient = externalDirectClient;
-    }    
+    public MailClientException(String message) {
+        super(message);
+    }
+
 }

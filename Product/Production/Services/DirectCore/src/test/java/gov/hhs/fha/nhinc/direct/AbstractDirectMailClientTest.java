@@ -40,6 +40,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import gov.hhs.fha.nhinc.direct.edge.proxy.DirectEdgeProxy;
 import gov.hhs.fha.nhinc.event.EventManager;
+import gov.hhs.fha.nhinc.mail.MessageHandler;
 
 import java.util.ArrayList;
 import java.util.Collection;

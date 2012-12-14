@@ -31,6 +31,9 @@ import static gov.hhs.fha.nhinc.direct.DirectUnitTestUtil.removeSmtpAgentConfig;
 import static gov.hhs.fha.nhinc.direct.DirectUnitTestUtil.writeSmtpAgentConfig;
 import static org.mockito.Mockito.mock;
 
+import gov.hhs.fha.nhinc.mail.MailUtils;
+import gov.hhs.fha.nhinc.mail.MessageHandler;
+
 import java.util.Properties;
 
 import javax.mail.Session;

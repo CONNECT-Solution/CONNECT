@@ -24,35 +24,33 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.direct;
-
-import gov.hhs.fha.nhinc.mail.MessageHandler;
-
-import javax.mail.internet.MimeMessage;
+package gov.hhs.fha.nhinc.mail;
 
 /**
- * Handles outbound messages from an internal mail client. Outbound messages are directified and resent using the
- * external mail server.
+ * Uses a mail client and handler to poll and handle mail messages from a server.
  */
-public class OutboundMessageHandler implements MessageHandler {
+public abstract class AbstractMailPoller {
 
-    /**
-     * Property for the external direct client used to send the outbound message.
-     */
-    private DirectClient externalDirectClient;
+    private final MailClient mailClient;
+    private final MessageHandler messageHandler;
     
     /**
-     * {@inheritDoc}
+     * @param mailClient
+     * @param messageHa
      */
-    @Override
-    public void handleMessage(MimeMessage message, DirectClient internaldirectClient) {
-        externalDirectClient.processAndSend(message);
+    public AbstractMailPoller(MailClient mailClient, MessageHandler messageHandler) {
+        super();
+        this.mailClient = mailClient;
+        this.messageHandler = messageHandler;
     }
-
-    /**
-     * @param externalDirectClient the externalDirectClient to set
-     */
-    public void setExternalDirectClient(DirectClient externalDirectClient) {
-        this.externalDirectClient = externalDirectClient;
-    }    
+    
+    public void poll() {
+        try {
+            mailClient.handleMessages(messageHandler);
+        } catch (MailClientException e) {
+            handleException(e);
+        }
+    }
+    
+    public abstract void handleException(MailClientException e);
 }
