@@ -1,0 +1,18 @@
+MAIL FROM: <drjones@direct.sunnyfamily.example.org>
+RCPT TO: <drsmith@direct.happyvalley.example.com>
+DATA
+MIME-Version: 1.0
+From: Doctor Jones <drjones@direct.sunnyfamily.example.org>
+Date: Thu, 11 Nov 2010 11:55:40 -0800
+Message-ID: <AANLkTikLULq=xbbxBFPEnbMwQFZmN6CrtT7pz2EmXPVK@mail.gmail.com>
+Subject: Clinical data communication
+To: drsmith@direct.happyvalley.example.com
+Content-Type: text/plain; charset=ISO-8859-1
+ 
+Dr. Jones,
+ 
+I saw your lovely patient, Ms. Norah Jones, this past Thursday, and
+found her in splendid health.
+ 
+Hope all is well with you,
+Dr. Smith

@@ -32,6 +32,7 @@ package gov.hhs.fha.nhinc.event;
  *
  */
 public enum EventType {
+
     BEGIN_OUTBOUND_MESSAGE("beginOutboundMessage"), 
     BEGIN_OUTBOUND_PROCESSING("beginOutboundProcessing"), 
     BEGIN_NWHIN_INVOCATION("beginNwhinInvocation"), 
@@ -45,7 +46,7 @@ public enum EventType {
     END_INBOUND_PROCESSING("endInboundProcessing"), 
     END_INBOUND_MESSAGE("endInboundMessage"),
     MESSAGE_PROCESSING_FAILED("messageProcessingFailed");
-
+    
     private final String name;
 
     private EventType(String name) {

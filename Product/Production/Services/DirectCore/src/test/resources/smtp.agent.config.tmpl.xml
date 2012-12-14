@@ -1,0 +1,50 @@
+<SmtpAgentConfig>
+   <Domains>
+      <AnchorStore type="Uniform" storeType="KeyStore" file="{jks.keystore.path}directkeystore.jks" filePass="connectisawesome" privKeyPass="connectisawesome"/>    
+      <Domain name="localhost" postmaster="postmaster@localhost">
+         <IncomingTrustAnchors> 
+            <Anchor name="cacert"/>
+            <Anchor name="cacert-5am"/>
+            <Anchor name="provider-localhost"/>
+            <Anchor name="provider-5am"/>
+            <Anchor name="org-localhost"/>
+            <Anchor name="org-5am"/>
+         </IncomingTrustAnchors>  
+         <OutgoingTrustAnchors> 
+            <Anchor name="cacert"/>
+            <Anchor name="cacert-5am"/>
+            <Anchor name="provider-localhost"/>
+            <Anchor name="provider-5am"/>
+            <Anchor name="org-localhost"/>
+            <Anchor name="org-5am"/>
+         </OutgoingTrustAnchors>           
+      </Domain> 
+      <Domain name="5amsolutions.com" postmaster="postmaster@5amsolutions.com">    
+         <IncomingTrustAnchors> 
+            <Anchor name="cacert"/>
+            <Anchor name="cacert-5am"/>
+            <Anchor name="provider-localhost"/>
+            <Anchor name="provider-5am"/>
+            <Anchor name="org-localhost"/>
+            <Anchor name="org-5am"/>
+         </IncomingTrustAnchors>  
+         <OutgoingTrustAnchors> 
+            <Anchor name="cacert"/>
+            <Anchor name="cacert-5am"/>
+            <Anchor name="provider-localhost"/>
+            <Anchor name="provider-5am"/>
+            <Anchor name="org-localhost"/>
+            <Anchor name="org-5am"/>
+         </OutgoingTrustAnchors>         
+      </Domain> 
+   </Domains>
+   <PublicCertStore type="Keystore" file="{jks.keystore.path}directkeystore.jks" filePass="connectisawesome" privKeyPass="connectisawesome"/>
+   <PrivateCertStore type="Keystore" file="{jks.keystore.path}directkeystore.jks" filePass="connectisawesome" privKeyPass="connectisawesome"/>
+   <RawMessageSettings saveFolder="RawMsgFolder"/>
+   <OutgoingMessagesSettings saveFolder="OutgoingMsgFolder"/>
+   <IncomingMessagesSettings saveFolder="IncomingMsgFolder"/>
+   <BadMessagesSettings saveFolder="BadMsgFolder"/>  
+   <MDNSettings autoResponse="true" productName="NHIN Direct Security Agent">
+       <Text><![CDATA[This is a CDATA subject]]></Text>
+   </MDNSettings>
+</SmtpAgentConfig>
