@@ -119,8 +119,6 @@
                <urn1:zipCode>${#Project#ZipCode}</urn1:zipCode>
             </urn1:address>
             <urn1:dateOfBirth>${#Project#DOB}</urn1:dateOfBirth>
-            <!--urn1:dateOfSignature>${#Project#DateOfSignature}</urn1:dateOfSignature-->
-            <!--urn1:expirationDate>${#Project#ExpirationDate}</urn1:expirationDate-->
             <urn1:explanationNonClaimantSignature>NEEDED</urn1:explanationNonClaimantSignature>
             <urn1:haveSecondWitnessSignature>true</urn1:haveSecondWitnessSignature>
             <urn1:haveSignature>true</urn1:haveSignature>
@@ -149,7 +147,6 @@
                   <urn1:code>W</urn1:code>
                </urn1:phoneNumberType>
             </urn1:phoneNumber>
-            <!--urn1:purposeOfDisclosure>${#Project#PurposeOfDisclosure}</urn1:purposeOfDisclosure-->
             <urn1:secondWitnessAddress>
                <urn1:addressType>
                   <urn1:code>W</urn1:code>
@@ -222,7 +219,6 @@
                   <urn1:prefix>Mrs</urn1:prefix>
                </urn1:personName>
                <urn1:userName>wanderson</urn1:userName>
-               <!--urn1:role>nurse</urn1:role-->
                <urn1:org>
                   <urn1:description>${#Project#LocalHCDescription}</urn1:description>
                   <urn1:homeCommunityId>${#Project#LocalHCID}</urn1:homeCommunityId>
@@ -455,8 +451,6 @@
                <urn1:zipCode>${#Project#ZipCode}</urn1:zipCode>
             </urn1:address>
             <urn1:dateOfBirth>${#Project#DOB}</urn1:dateOfBirth>
-            <!--urn1:dateOfSignature>${#Project#DateOfSignature}</urn1:dateOfSignature-->
-            <!--urn1:expirationDate>${#Project#ExpirationDate}</urn1:expirationDate-->
             <urn1:explanationNonClaimantSignature>NEEDED</urn1:explanationNonClaimantSignature>
             <urn1:haveSecondWitnessSignature>true</urn1:haveSecondWitnessSignature>
             <urn1:haveSignature>true</urn1:haveSignature>
@@ -485,7 +479,6 @@
                   <urn1:code>W</urn1:code>
                </urn1:phoneNumberType>
             </urn1:phoneNumber>
-            <!--urn1:purposeOfDisclosure>${#Project#PurposeOfDisclosure}</urn1:purposeOfDisclosure-->
             <urn1:secondWitnessAddress>
                <urn1:addressType>
                   <urn1:code>W</urn1:code>
@@ -558,7 +551,6 @@
                   <urn1:prefix>Mrs</urn1:prefix>
                </urn1:personName>
                <urn1:userName>wanderson</urn1:userName>
-               <!--urn1:role>nurse</urn1:role-->
                <urn1:org>
                   <urn1:description>${#Project#LocalHCDescription}</urn1:description>
                   <urn1:homeCommunityId>${#Project#LocalHCID}</urn1:homeCommunityId>
@@ -791,8 +783,6 @@
                <urn1:zipCode>${#Project#ZipCode}</urn1:zipCode>
             </urn1:address>
             <urn1:dateOfBirth>${#Project#DOB}</urn1:dateOfBirth>
-            <!--urn1:dateOfSignature>${#Project#DateOfSignature}</urn1:dateOfSignature-->
-            <!--urn1:expirationDate>${#Project#ExpirationDate}</urn1:expirationDate-->
             <urn1:explanationNonClaimantSignature>NEEDED</urn1:explanationNonClaimantSignature>
             <urn1:haveSecondWitnessSignature>true</urn1:haveSecondWitnessSignature>
             <urn1:haveSignature>true</urn1:haveSignature>
@@ -821,7 +811,6 @@
                   <urn1:code>W</urn1:code>
                </urn1:phoneNumberType>
             </urn1:phoneNumber>
-            <!--urn1:purposeOfDisclosure>${#Project#PurposeOfDisclosure}</urn1:purposeOfDisclosure-->
             <urn1:secondWitnessAddress>
                <urn1:addressType>
                   <urn1:code>W</urn1:code>
@@ -894,7 +883,6 @@
                   <urn1:prefix>Mrs</urn1:prefix>
                </urn1:personName>
                <urn1:userName>wanderson</urn1:userName>
-               <!--urn1:role>nurse</urn1:role-->
                <urn1:org>
                   <urn1:description>${#Project#LocalHCDescription}</urn1:description>
                   <urn1:homeCommunityId>${#Project#LocalHCID}</urn1:homeCommunityId>
@@ -1125,8 +1113,6 @@
                <urn1:zipCode>${#Project#ZipCode}</urn1:zipCode>
             </urn1:address>
             <urn1:dateOfBirth>${#Project#DOB}</urn1:dateOfBirth>
-            <!--urn1:dateOfSignature>${#Project#DateOfSignature}</urn1:dateOfSignature-->
-            <!--urn1:expirationDate>${#Project#ExpirationDate}</urn1:expirationDate-->
             <urn1:explanationNonClaimantSignature>NEEDED</urn1:explanationNonClaimantSignature>
             <urn1:haveSecondWitnessSignature>true</urn1:haveSecondWitnessSignature>
             <urn1:haveSignature>true</urn1:haveSignature>
@@ -1155,7 +1141,6 @@
                   <urn1:code>W</urn1:code>
                </urn1:phoneNumberType>
             </urn1:phoneNumber>
-            <!--urn1:purposeOfDisclosure>${#Project#PurposeOfDisclosure}</urn1:purposeOfDisclosure-->
             <urn1:secondWitnessAddress>
                <urn1:addressType>
                   <urn1:code>W</urn1:code>
@@ -1228,7 +1213,6 @@
                   <urn1:prefix>Mrs</urn1:prefix>
                </urn1:personName>
                <urn1:userName>wanderson</urn1:userName>
-               <!--urn1:role>nurse</urn1:role-->
                <urn1:org>
                   <urn1:description>${#Project#RemoteHCDescription}</urn1:description>
                   <urn1:homeCommunityId>${#Project#RemoteHCID}</urn1:homeCommunityId>

@@ -3,7 +3,7 @@
 	<con:settings>
 
 	</con:settings>
-	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:adapterpolicyengine}AdapterPolicyEngineBindingSoap" definition="${ProjectDir}../ValidationSuite/target/wsdl/AdapterPolicyEngine.wsdl" name="AdapterPolicyEngineBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:adapterpolicyengine}AdapterPolicyEngineBindingSoap" definition="${projectDir}/../ValidationSuite/target/wsdl/AdapterPolicyEngine.wsdl" name="AdapterPolicyEngineBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 
 		
@@ -15,7 +15,7 @@
 			
 		</con:operation>
 	</con:interface>
-	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxydocretrieve}NhincProxyDocRetrieveBindingSoap" definition="${ProjectDir}../ValidationSuite/target/wsdl/NhincProxyDocRetrieve.wsdl" name="NhincProxyDocRetrieveBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxydocretrieve}NhincProxyDocRetrieveBindingSoap" definition="${projectDir}/../ValidationSuite/target/wsdl/NhincProxyDocRetrieve.wsdl" name="NhincProxyDocRetrieveBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 
 		
@@ -29,7 +29,7 @@
 			
 		</con:operation>
 	</con:interface>
-	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxydocquery}NhincProxyDocQueryBindingSoap" definition="${ProjectDir}../ValidationSuite/target/wsdl/NhincProxyDocQuery.wsdl" name="NhincProxyDocQueryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxydocquery}NhincProxyDocQueryBindingSoap" definition="${projectDir}/../ValidationSuite/target/wsdl/NhincProxyDocQuery.wsdl" name="NhincProxyDocQueryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 
 		
@@ -41,7 +41,7 @@
 			
 		</con:operation>
 	</con:interface>
-	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincinternalcomponentpolicyenginetransform}NhincInternalComponentPolicyEngineTransformPortTypeBinding" definition="${ProjectDir}../ValidationSuite/target/wsdl/NhincComponentInternalPolicyEngineTransform.wsdl" name="NhincInternalComponentPolicyEngineTransformPortTypeBinding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincinternalcomponentpolicyenginetransform}NhincInternalComponentPolicyEngineTransformPortTypeBinding" definition="${projectDir}/../ValidationSuite/target/wsdl/NhincComponentInternalPolicyEngineTransform.wsdl" name="NhincInternalComponentPolicyEngineTransformPortTypeBinding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 
 		
@@ -154,8 +154,6 @@
                   <urn3:zipCode>01010</urn3:zipCode>
                </urn3:address>
                <urn3:dateOfBirth>19800516</urn3:dateOfBirth>
-               <!--urn3:dateOfSignature>04/06/2009 21:55:17</urn3:dateOfSignature-->
-               <!--urn3:expirationDate>05/06/2009 22:00:17</urn3:expirationDate-->
                <urn3:explanationNonClaimantSignature>NEEDED</urn3:explanationNonClaimantSignature>
                <urn3:haveSecondWitnessSignature>true</urn3:haveSecondWitnessSignature>
                <urn3:haveSignature>true</urn3:haveSignature>
@@ -193,7 +191,6 @@
                      <urn3:originalText/>
                   </urn3:phoneNumberType>
                </urn3:phoneNumber>
-               <!--urn3:purposeOfDisclosure>NEEDED FOR SSA</urn3:purposeOfDisclosure-->
                <urn3:secondWitnessAddress>
                   <urn3:addressType>
                      <urn3:code>W</urn3:code>
@@ -298,7 +295,6 @@
                      <urn3:fullName/>
                   </urn3:personName>
                   <urn3:userName>mfranklin</urn3:userName>
-                  <!--urn3:role>Administrator</urn3:role-->
                   <urn3:org>
                      <urn3:description>Federal - VA</urn3:description>
                      <urn3:homeCommunityId>2.16.840.1.113883.3.200</urn3:homeCommunityId>
@@ -345,9 +341,6 @@
                            <urn3:notBefore>2001-01-01T01:00:00.000Z</urn3:notBefore>
                            <urn3:notOnOrAfter>2005-05-06T22:00:17.000Z</urn3:notOnOrAfter>
                         </urn3:conditions>
-                        <!--urn3:contentReference>myAuthzDecisionStatementEvidenceAssertionContentReference</urn3:contentReference-->
-                        <!--urn3:contentType>myAuthzDecisionStatementEvidenceAssertionContentType</urn3:contentType-->
-                        <!--urn3:content>YWVvbGlhbQ==</urn3:content-->
                      </urn3:assertion>
                   </urn3:evidence>
                </urn3:samlAuthzDecisionStatement>
@@ -1397,8 +1390,6 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation,"1.1","policyengineser
                <urn3:zipCode>01010</urn3:zipCode>
             </urn3:address>
             <urn3:dateOfBirth>19800516</urn3:dateOfBirth>
-            <!--urn3:dateOfSignature>04/06/2009 21:55:17</urn3:dateOfSignature-->
-            <!--urn3:expirationDate>05/06/2009 22:00:17</urn3:expirationDate-->
             <urn3:explanationNonClaimantSignature>NEEDED</urn3:explanationNonClaimantSignature>
             <urn3:haveSecondWitnessSignature>true</urn3:haveSecondWitnessSignature>
             <urn3:haveSignature>true</urn3:haveSignature>
@@ -1436,7 +1427,6 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation,"1.1","policyengineser
                   <urn3:originalText/>
                </urn3:phoneNumberType>
             </urn3:phoneNumber>
-            <!--urn3:purposeOfDisclosure>NEEDED FOR SSA</urn3:purposeOfDisclosure-->
             <urn3:secondWitnessAddress>
                <urn3:addressType>
                   <urn3:code>W</urn3:code>
@@ -1541,7 +1531,6 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation,"1.1","policyengineser
                   <urn3:fullName/>
                </urn3:personName>
                <urn3:userName>mfranklin</urn3:userName>
-               <!--urn3:role>Administrator</urn3:role-->
                <urn3:org>
                   <urn3:description>Federal - VA</urn3:description>
                   <urn3:homeCommunityId>2.2</urn3:homeCommunityId>
@@ -3823,8 +3812,6 @@ declare namespace ns19='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
                <urn3:zipCode>01010</urn3:zipCode>
             </urn3:address>
             <urn3:dateOfBirth>19800516</urn3:dateOfBirth>
-            <!--urn3:dateOfSignature>04/06/2009 21:55:17</urn3:dateOfSignature-->
-            <!--urn3:expirationDate>05/06/2009 22:00:17</urn3:expirationDate-->
             <urn3:explanationNonClaimantSignature>NEEDED</urn3:explanationNonClaimantSignature>
             <urn3:haveSecondWitnessSignature>true</urn3:haveSecondWitnessSignature>
             <urn3:haveSignature>true</urn3:haveSignature>
@@ -3862,7 +3849,6 @@ declare namespace ns19='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
                   <urn3:originalText/>
                </urn3:phoneNumberType>
             </urn3:phoneNumber>
-            <!--urn3:purposeOfDisclosure>NEEDED FOR SSA</urn3:purposeOfDisclosure-->
             <urn3:secondWitnessAddress>
                <urn3:addressType>
                   <urn3:code>W</urn3:code>
@@ -3967,7 +3953,6 @@ declare namespace ns19='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
                   <urn3:fullName/>
                </urn3:personName>
                <urn3:userName>mfranklin</urn3:userName>
-               <!--urn3:role>Administrator</urn3:role-->
                <urn3:org>
                   <urn3:description>Federal - VA</urn3:description>
                   <urn3:homeCommunityId>2.16.840.1.113883.3.200</urn3:homeCommunityId>
@@ -6218,7 +6203,7 @@ declare namespace ns19='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
 			<con:name>Mockhost</con:name>
 			<con:value>localhost</con:value>
 		</con:property>
-	<con:property><con:name>GatewayPropDir</con:name><con:value>D:\glassfish3\glassfish\domains\domain1\config\nhin</con:value></con:property></con:properties>
+	<con:property><con:name>GatewayPropDir</con:name><con:value>c:\glassfish3\glassfish\domains\domain1\config\nhin</con:value></con:property></con:properties>
 	<con:afterLoadScript>def propertiesFile = new File(new File(project.path).parent, 'PolicyEngineInteractions-soapui-project.properties')
 if (propertiesFile.exists()) {
 	def props = new Properties()
