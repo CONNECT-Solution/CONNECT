@@ -11,6 +11,9 @@
     <name>${project.artifactId}</name>
     <properties>
         <log4jDefaultLevel>INFO</log4jDefaultLevel>
+        <directAnchorStore>${env.NHINC_PROPERTIES_DIR}/../gateway.jks</directAnchorStore>
+        <directPublicCertStore>${env.NHINC_PROPERTIES_DIR}/../gateway.jks</directPublicCertStore>
+        <directPrivateCertStore>${env.NHINC_PROPERTIES_DIR}/../gateway.jks</directPrivateCertStore>
     </properties>
     <packaging>jar</packaging>
     <build>

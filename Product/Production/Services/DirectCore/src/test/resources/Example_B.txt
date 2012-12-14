@@ -1,0 +1,32 @@
+MAIL FROM: <drsmith@direct.happyvalley.example.com>
+RCPT TO: <drjones@direct.sunnyfamily.example.org>
+DATA
+MIME-Version: 1.0
+From:  drsmith@direct.happyvalley.example.com
+Date: Thu, 11 Nov 2010 11:53:50 -0800
+Message-ID: <AANLkTik0fF+3stN0favnbp8XKJuzHm43asg4N3n=dXRQ@mail.gmail.com>
+Subject: Clinical data communication
+To: Doctor Jones <drjones@direct.sunnyfamily.example.org>
+Content-Type: multipart/mixed; boundary="NextPart"
+ 
+--NextPart
+
+Content-Type: text/plain; charset=ISO-8859-1
+ 
+Dear Dr. Smith,
+ 
+Attached, please find the clinical summary for the patient I am
+referring to you.
+ 
+Best regards,
+Dr. Jones
+ 
+--NextPart
+
+Content-Type: text/xml; charset=US-ASCII;
+         name="HITSP_C32v2.5_Rev4_11Sections_Entries_MinimalErrors.xml"
+Content-Transfer-Encoding: base64
+
+ABCDEF0123456789
+
+--NextPart
