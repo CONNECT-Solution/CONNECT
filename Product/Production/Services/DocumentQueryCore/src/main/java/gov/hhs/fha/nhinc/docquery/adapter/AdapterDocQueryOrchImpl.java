@@ -33,6 +33,7 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.docregistry.adapter.proxy.AdapterComponentDocRegistryProxy;
@@ -47,7 +48,7 @@ import gov.hhs.fha.nhinc.redactionengine.adapter.proxy.AdapterRedactionEnginePro
  * @author jhoppesc
  */
 public class AdapterDocQueryOrchImpl {
-    private Log log = null;
+    private Logger log = Logger.getLogger(AdapterDocQueryOrchImpl.class);
     private static final String ERROR_CODE_CONTEXT = AdapterDocQueryOrchImpl.class.getName();
     private static final String ERROR_VALUE = "Input has null value";
 
@@ -55,15 +56,8 @@ public class AdapterDocQueryOrchImpl {
      * constructor.
      */
     public AdapterDocQueryOrchImpl() {
-        log = createLogger();
     }
 
-    /**
-     * @return Log log
-     */
-    protected Log createLogger() {
-        return LogFactory.getLog(getClass());
-    }
 
     /**
      *

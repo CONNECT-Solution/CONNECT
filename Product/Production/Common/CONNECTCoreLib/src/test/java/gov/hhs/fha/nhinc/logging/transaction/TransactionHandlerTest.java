@@ -55,8 +55,7 @@ public class TransactionHandlerTest {
     private final String RELATESTO_ID = "urn:uuid:CCC-CCC-CCC-CCC";
     private final String WSA_NS = "http://www.w3.org/2005/08/addressing";
     private final String TRANS_NS = "http://connectopensource.org/transaction/";
-    private Log log = context.mock(Log.class);
-
+   
     /**
      * Test of TransactionHandler.handleMessage() with transaction and message elements in the soap message.
      */
@@ -64,11 +63,7 @@ public class TransactionHandlerTest {
     public void testHandleMessage_transaction_element_in_message() {
 
         final TransactionHandler transHandler = new TransactionHandler() {
-            @Override
-            protected Log getLogger() {
-                return log;
-            }
-
+          
             @Override
             protected void createTransactionRecord(String messageId, String transactionId) {
                 assertEquals(messageId, MESSAGE_ID);
@@ -93,11 +88,7 @@ public class TransactionHandlerTest {
     public void testHandleMessage_transaction_in_database() {
 
         final TransactionHandler transHandler = new TransactionHandler() {
-            @Override
-            protected Log getLogger() {
-                return log;
-            }
-
+        
             @Override
             protected void createTransactionRecord(String messageId, String transactionId) {
                 assertEquals(messageId, MESSAGE_ID);
@@ -122,10 +113,7 @@ public class TransactionHandlerTest {
     public void testHandleMessage_no_transaction_in_message_or_database() {
 
         final TransactionHandler transHandler = new TransactionHandler() {
-            @Override
-            protected Log getLogger() {
-                return log;
-            }
+         
 
             @Override
             protected void createTransactionRecord(String messageId, String transactionId) {
@@ -150,11 +138,7 @@ public class TransactionHandlerTest {
     public void testHandleMessage_relatesTo_with_transaction() {
 
         final TransactionHandler transHandler = new TransactionHandler() {
-            @Override
-            protected Log getLogger() {
-                return log;
-            }
-
+          
             @Override
             protected void createTransactionRecord(String messageId, String transactionId) {
                 assertEquals(messageId, MESSAGE_ID);
@@ -182,10 +166,7 @@ public class TransactionHandlerTest {
         final TransactionHandler transHandler = new TransactionHandler() {
             private int counter = 0;
 
-            @Override
-            protected Log getLogger() {
-                return log;
-            }
+        
 
             @Override
             protected void createTransactionRecord(String messageId, String transactionId) {
@@ -215,10 +196,7 @@ public class TransactionHandlerTest {
     public void testHandleMessage_with_no_messageId() {
 
         final TransactionHandler transHandler = new TransactionHandler() {
-            @Override
-            protected Log getLogger() {
-                return log;
-            }
+      
 
             @Override
             protected void createTransactionRecord(String messageId, String transactionId) {
@@ -282,7 +260,6 @@ public class TransactionHandlerTest {
                 {
                     oneOf(mockSoapContext).getMessage();
                     will(returnValue(soapMessage));
-                    ignoring(log);
                 }
             });
 

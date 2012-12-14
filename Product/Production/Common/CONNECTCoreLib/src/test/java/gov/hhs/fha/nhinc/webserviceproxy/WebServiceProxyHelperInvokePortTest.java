@@ -47,8 +47,7 @@ import org.junit.Test;
 
 public class WebServiceProxyHelperInvokePortTest extends AbstractWebServiceProxyHelpTest {
 
-    final Log mockLog = context.mock(Log.class);
-
+ 
     WebServiceProxyHelper oHelper;
 
     /**
@@ -99,7 +98,7 @@ public class WebServiceProxyHelperInvokePortTest extends AbstractWebServiceProxy
             }
         });
 
-        oHelper = new WebServiceProxyHelper(mockLog, mockPropertyAccessor);
+        oHelper = new WebServiceProxyHelper(mockPropertyAccessor);
     }
 
     /**
@@ -120,13 +119,7 @@ public class WebServiceProxyHelperInvokePortTest extends AbstractWebServiceProxy
      */
     @Test
     public void testInvokePortHappyPath() throws Exception {
-        context.checking(new Expectations() {
-
-            {
-                ignoring(mockLog).debug(with(any(String.class)));
-
-            }
-        });
+       
 
         Integer oResponse = (Integer) oHelper.invokePort(this, this.getClass(), "helperMethod", new Integer(100));
         assertNotNull("invokePort failed to return a value.", oResponse);
@@ -142,15 +135,7 @@ public class WebServiceProxyHelperInvokePortTest extends AbstractWebServiceProxy
      */
     @Test(expected = IllegalArgumentException.class)
     public void testInvokePortIllegalArgumentException() throws Exception {
-        context.checking(new Expectations() {
-
-            {
-                ignoring(mockLog).debug(with(any(String.class)));
-                oneOf(mockLog).error(with(any(String.class)), with(any(WebServiceException.class)));
-
-            }
-        });
-
+   
         oHelper.invokePort(this, this.getClass(), "helperMethod2", new Integer(100));
 
     }
@@ -163,15 +148,7 @@ public class WebServiceProxyHelperInvokePortTest extends AbstractWebServiceProxy
     @Test(expected = SocketTimeoutException.class)
     public void testInvokePortWithInvocationTargetException() throws Exception {
 
-        context.checking(new Expectations() {
-
-            {
-                ignoring(mockLog).debug(with(any(String.class)));
-                oneOf(mockLog).error(with(any(String.class)), with(any(SocketTimeoutException.class)));
-
-            }
-        });
-
+        
         oHelper.invokePort(this, this.getClass(), "exceptionalMethod", 100);
 
     }
@@ -183,14 +160,7 @@ public class WebServiceProxyHelperInvokePortTest extends AbstractWebServiceProxy
      */
     @Test
     public void testInvokePortRetrySettingsHappyPath() throws Exception {
-        context.checking(new Expectations() {
-
-            {
-                ignoring(mockLog).debug(with(any(String.class)));
-                oneOf(mockLog).error(with(any(String.class)), with(any(WebServiceException.class)));
-
-            }
-        });
+       
 
         Integer oResponse = (Integer) oHelper.invokePort(this, this.getClass(), "helperMethod", new Integer(100));
         assertNotNull("invokePort failed to return a value.", oResponse);
@@ -205,15 +175,7 @@ public class WebServiceProxyHelperInvokePortTest extends AbstractWebServiceProxy
      */
     @Test(expected = WebServiceException.class)
     public void testInvokePortRetrySettingsWithWebServiceException() throws Exception {
-        context.checking(new Expectations() {
-
-            {
-                ignoring(mockLog).debug(with(any(String.class)));
-
-                exactly(3).of(mockLog).error(with(any(String.class)), with(any(WebServiceException.class)));
-
-            }
-        });
+        
 
         Integer oResponse = (Integer) oHelper
                 .invokePort(this, this.getClass(), "exceptionalWSMethod", new Integer(100));
@@ -227,14 +189,7 @@ public class WebServiceProxyHelperInvokePortTest extends AbstractWebServiceProxy
      */
     @Test(expected = IllegalArgumentException.class)
     public void testInvokePortRetrySettingsWithWebServiceExceptionNoTextMatch() throws Exception {
-        context.checking(new Expectations() {
-
-            {
-                ignoring(mockLog).debug(with(any(String.class)));
-                oneOf(mockLog).error(with(any(String.class)), with(any(WebServiceException.class)));
-
-            }
-        });
+       
 
         oHelper.invokePort(this, this.getClass(), "badMethodName", new Integer(100));
 
@@ -247,14 +202,7 @@ public class WebServiceProxyHelperInvokePortTest extends AbstractWebServiceProxy
      */
     @Test(expected = IllegalArgumentException.class)
     public void testInvokePortRetrySettingsWithIllegalArgumentException() throws Exception {
-        context.checking(new Expectations() {
-
-            {
-                ignoring(mockLog).debug(with(any(String.class)));
-                oneOf(mockLog).error(with(any(String.class)), with(any(WebServiceException.class)));
-
-            }
-        });
+        
 
         oHelper.invokePort(this, this.getClass(), "exceptionalMethod", "100");
     }
@@ -267,14 +215,7 @@ public class WebServiceProxyHelperInvokePortTest extends AbstractWebServiceProxy
     @Test(expected = WebServiceException.class)
     public void testInvokePortRetrySettingsWithInvocationTargetException() throws Exception {
 
-        context.checking(new Expectations() {
-
-            {
-                ignoring(mockLog).debug(with(any(String.class)));
-                exactly(3).of(mockLog).error(with(any(String.class)), with(any(WebServiceException.class)));
-
-            }
-        });
+       
 
         oHelper.invokePort(this, this.getClass(), "exceptionalWSMethod", 100);
     }

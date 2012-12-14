@@ -26,15 +26,16 @@
  */
 package gov.hhs.fha.nhinc.hibernate;
 
-import gov.hhs.fha.nhinc.hibernate.util.*;
+import gov.hhs.fha.nhinc.hibernate.util.HibernateUtil;
+
+import java.util.Date;
 import java.util.List;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+
+import org.apache.log4j.Logger;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import java.util.Date;
-import org.hibernate.Criteria;
 import org.hibernate.criterion.Expression;
 
 /**
@@ -44,7 +45,7 @@ import org.hibernate.criterion.Expression;
  */
 public class AuditRepositoryDAO {
     // Log4j logging initiated
-    private static Log log = LogFactory.getLog(AuditRepositoryDAO.class);
+    private static Logger log = Logger.getLogger(AuditRepositoryDAO.class);
     private static AuditRepositoryDAO auditDAO = new AuditRepositoryDAO();
     public static String JAVA_IO_TMPDIR = "java.io.tmpdir";
 

@@ -138,25 +138,10 @@ public class DocumentQueryTransformsTest {
         eventId.setEventActionCode(AuditDataTransformConstants.EVENT_ACTION_CODE_EXECUTE);
         expResult.getAuditMessage().setEventIdentification(eventId);
 
-        // Create mock objects
-        final Log mockLog = context.mock(Log.class);
 
-        DocumentQueryTransforms transformer = new DocumentQueryTransforms() {
-            @Override
-            protected Log createLogger() {
-                return mockLog;
-            }
-        };
+        DocumentQueryTransforms transformer = new DocumentQueryTransforms();
 
-        // Set expectations
-        context.checking(new Expectations() {
-            {
-                allowing(mockLog).isDebugEnabled();
-                allowing(mockLog).debug(with(any(String.class)));
-                allowing(mockLog).info(with(any(String.class)));
-            }
-        });
-
+        
         LogEventRequestType result = transformer.transformDocQueryReq2AuditMsg(logMessage, home.getHomeCommunityId());
 
         assertEquals(expResult.getAuditMessage().getActiveParticipant().get(0).getUserName(), result.getAuditMessage()
@@ -224,25 +209,10 @@ public class DocumentQueryTransformsTest {
         LogEventRequestType expected = new LogEventRequestType();
         expected.setAuditMessage(expResult);
 
-        // Create mock objects
-        final Log mockLog = context.mock(Log.class);
+      
+        DocumentQueryTransforms transformer = new DocumentQueryTransforms();
 
-        DocumentQueryTransforms transformer = new DocumentQueryTransforms() {
-            @Override
-            protected Log createLogger() {
-                return mockLog;
-            }
-        };
-
-        // Set expectations
-        context.checking(new Expectations() {
-            {
-                allowing(mockLog).isDebugEnabled();
-                allowing(mockLog).debug(with(any(String.class)));
-                allowing(mockLog).info(with(any(String.class)));
-            }
-        });
-
+      
         LogEventRequestType result = transformer.transformDocQueryResp2AuditMsg(logMessage, expectedHomeCommunity);
 
         assertEquals(expected.getAuditMessage().getActiveParticipant().get(0).getUserName(), result.getAuditMessage()
@@ -329,24 +299,9 @@ public class DocumentQueryTransformsTest {
         LogEventRequestType expected = new LogEventRequestType();
         expected.setAuditMessage(expResult);
 
-        // Create mock objects
-        final Log mockLog = context.mock(Log.class);
-
-        DocumentQueryTransforms transformer = new DocumentQueryTransforms() {
-            @Override
-            protected Log createLogger() {
-                return mockLog;
-            }
-        };
-
-        // Set expectations
-        context.checking(new Expectations() {
-            {
-                allowing(mockLog).isDebugEnabled();
-                allowing(mockLog).debug(with(any(String.class)));
-                allowing(mockLog).info(with(any(String.class)));
-            }
-        });
+      
+        DocumentQueryTransforms transformer = new DocumentQueryTransforms();
+        
 
         LogEventRequestType result = transformer.transformDocQueryResp2AuditMsg(logMessage, expectedHomeCommunity);
 
