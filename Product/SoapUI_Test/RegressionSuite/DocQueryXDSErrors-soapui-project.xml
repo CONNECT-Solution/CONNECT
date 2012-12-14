@@ -1,17 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <con:soapui-project abortOnError="false" name="DocQueryXDSErrors" resourceRoot="${projectDir}" runType="SEQUENTIAL" soapui-version="4.5.1" activeEnvironment="Default" xmlns:con="http://eviware.com/soapui/config">
 	<con:settings/>
-	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxydocquery}NhincProxyDocQueryBindingSoap" definition="${ProjectDir}../ValidationSuite/target/wsdl/NhincProxyDocQuery.wsdl" name="NhincProxyDocQueryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-		<con:settings/>
-		
-		<con:endpoints>
-			<con:endpoint>${#Project#Endpoint-DocQuery}</con:endpoint>
-		<con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/NhincProxyDocQuery</con:endpoint></con:endpoints>
-		<con:operation action="urn:RespondingGateway_CrossGatewayQuery" anonymous="optional" bindingOperationName="RespondingGateway_CrossGatewayQuery" inputName="RespondingGateway_CrossGatewayQueryRequest" isOneWay="false" name="RespondingGateway_CrossGatewayQuery" outputName="RespondingGateway_CrossGatewayQueryResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
-			<con:settings/>
-		</con:operation>
-	</con:interface>
-	<con:interface anonymous="optional" bindingName="{urn:ihe:iti:xds-b:2007}DocumentRegistry_Binding_Soap" definition="${ProjectDir}../ValidationSuite/target/wsdl/AdapterComponentDocRegistry.wsdl" name="DocumentRegistry_Binding_Soap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	
+	<con:interface anonymous="optional" bindingName="{urn:ihe:iti:xds-b:2007}DocumentRegistry_Binding_Soap" definition="${projectDir}/../ValidationSuite/target/wsdl/AdapterComponentDocRegistry.wsdl" name="DocumentRegistry_Binding_Soap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 		
 		<con:endpoints>
@@ -33,7 +24,7 @@
 			<con:settings/>
 		</con:operation>
 	</con:interface>
-	<con:testSuite name="DocQueryXDSErrors TestSuite">
+	<con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="EntityDocQueryBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:entitydocquery}EntityDocQueryBindingSoap" soapVersion="1_2" anonymous="optional" definition="../ValidationSuite/target/wsdl/EntityDocQuery.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:endpoints><con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/DocumentQuery/2_0/EntityService/EntityDocQueryUnsecured</con:endpoint></con:endpoints><con:operation isOneWay="false" action="urn:RespondingGateway_CrossGatewayQuery" name="RespondingGateway_CrossGatewayQuery" bindingOperationName="RespondingGateway_CrossGatewayQuery" type="Request-Response" outputName="RespondingGateway_CrossGatewayQueryResponse" inputName="RespondingGateway_CrossGatewayQueryRequest" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation></con:interface><con:testSuite name="DocQueryXDSErrors TestSuite">
 		<con:settings/>
 		<con:runType>SEQUENTIAL</con:runType>
 		<con:testCase failOnError="true" failTestCaseOnErrors="true" id="19577cda-1d33-489e-9b2a-de6d3178a5d2" keepSession="false" maxResults="0" name="XDSStoredQueryParamNumber TestCase" searchProperties="true">
@@ -55,7 +46,7 @@ FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileL
 			<con:testStep name="Nhin Doc Query Request" type="request">
 				<con:settings/>
 				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-					<con:interface>NhincProxyDocQueryBindingSoap</con:interface>
+					<con:interface>EntityDocQueryBindingSoap</con:interface>
 					<con:operation>RespondingGateway_CrossGatewayQuery</con:operation>
 					<con:request name="Nhin Doc Query Request">
 						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
@@ -97,8 +88,6 @@ FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileL
                <urn3:zipCode>AddrZip</urn3:zipCode>
             </urn3:address>
             <urn3:dateOfBirth xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">06/04/1959 05:21:00</urn3:dateOfBirth>
-            <!--urn3:dateOfSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">11/20/2009 16:35:08</urn3:dateOfSignature-->
-            <!--urn3:expirationDate xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">12/20/2009 16:40:08</urn3:expirationDate-->
             <urn3:explanationNonClaimantSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">Electronic</urn3:explanationNonClaimantSignature>
             <urn3:haveSecondWitnessSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn3:haveSecondWitnessSignature>
             <urn3:haveSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn3:haveSignature>
@@ -136,7 +125,6 @@ FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileL
                   <urn3:originalText>phoneCode</urn3:originalText>
                </urn3:phoneNumberType>
             </urn3:phoneNumber>
-            <!--urn3:purposeOfDisclosure xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">TREATMENT</urn3:purposeOfDisclosure-->
             <urn3:secondWitnessAddress xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <urn3:addressType>
                   <urn3:code>AddrCode</urn3:code>
@@ -241,7 +229,6 @@ FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileL
                   <urn3:fullName>Kasrl S. Skagerberg</urn3:fullName>
                </urn3:personName>
                <urn3:userName>kskagerb</urn3:userName>
-               <!--urn3:role>Pharmacy</urn3:role-->
                <urn3:org>
                   <urn3:description>InternalTest2</urn3:description>
                   <urn3:homeCommunityId>2.2</urn3:homeCommunityId>
@@ -287,20 +274,19 @@ FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileL
                         <urn3:notBefore>2009-04-16T13:10:39.093Z</urn3:notBefore>
                         <urn3:notOnOrAfter>2009-12-31T12:00:00.000Z</urn3:notOnOrAfter>
                      </urn3:conditions>
-                     <!--urn3:contentReference>Claim-Ref-1234</urn3:contentReference-->
-                     <!--urn3:contentType>application/pdf</urn3:contentType-->
-                     <!--urn3:content>YWVvbGlhbQ==</urn3:content-->
                   </urn3:assertion>
                </urn3:evidence>
             </urn3:samlAuthzDecisionStatement>
          </urn:assertion>
-         <urn:nhinTargetSystem>
-            <urn3:homeCommunity>
+         <urn:NhinTargetCommunities>
+            <urn3:nhinTargetCommunity>
+               <urn3:homeCommunity>
                <urn3:description>InternalTest1</urn3:description>
                <urn3:homeCommunityId>1.1</urn3:homeCommunityId>
                <urn3:name>InternalTest1</urn3:name>
             </urn3:homeCommunity>
-         </urn:nhinTargetSystem>
+            </urn3:nhinTargetCommunity>
+         </urn:NhinTargetCommunities>
       </urn:RespondingGateway_CrossGatewayQueryRequest>
    </soap:Body>
 </soap:Envelope>]]></con:request>
@@ -354,19 +340,19 @@ declare namespace ns12='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-11-27T19:18:27Z</con:value>
+					<con:value>2012-12-12T23:23:37Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-11-27T19:28:27Z</con:value>
+					<con:value>2012-12-12T23:33:37Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>11/27/2012 19:18:27</con:value>
+					<con:value>12/12/2012 23:23:37</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-12-27T00:00:00Z</con:value>
+					<con:value>2013-01-11T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -391,7 +377,7 @@ FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileL
 			<con:testStep name="Nhin Doc Query Request" type="request">
 				<con:settings/>
 				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-					<con:interface>NhincProxyDocQueryBindingSoap</con:interface>
+					<con:interface>EntityDocQueryBindingSoap</con:interface>
 					<con:operation>RespondingGateway_CrossGatewayQuery</con:operation>
 					<con:request name="Nhin Doc Query Request">
 						<con:settings/>
@@ -434,8 +420,6 @@ FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileL
                <urn3:zipCode>AddrZip</urn3:zipCode>
             </urn3:address>
             <urn3:dateOfBirth xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">06/04/1959 05:21:00</urn3:dateOfBirth>
-            <!--urn3:dateOfSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">11/20/2009 16:35:08</urn3:dateOfSignature-->
-            <!--urn3:expirationDate xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">12/20/2009 16:40:08</urn3:expirationDate-->
             <urn3:explanationNonClaimantSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">Electronic</urn3:explanationNonClaimantSignature>
             <urn3:haveSecondWitnessSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn3:haveSecondWitnessSignature>
             <urn3:haveSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn3:haveSignature>
@@ -473,7 +457,6 @@ FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileL
                   <urn3:originalText>phoneCode</urn3:originalText>
                </urn3:phoneNumberType>
             </urn3:phoneNumber>
-            <!--urn3:purposeOfDisclosure xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">TREATMENT</urn3:purposeOfDisclosure-->
             <urn3:secondWitnessAddress xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <urn3:addressType>
                   <urn3:code>AddrCode</urn3:code>
@@ -578,7 +561,6 @@ FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileL
                   <urn3:fullName>Kasrl S. Skagerberg</urn3:fullName>
                </urn3:personName>
                <urn3:userName>kskagerb</urn3:userName>
-               <!--urn3:role>Pharmacy</urn3:role-->
                <urn3:org>
                   <urn3:description>InternalTest2</urn3:description>
                   <urn3:homeCommunityId>2.2</urn3:homeCommunityId>
@@ -624,20 +606,19 @@ FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileL
                         <urn3:notBefore>2009-04-16T13:10:39.093Z</urn3:notBefore>
                         <urn3:notOnOrAfter>2009-12-31T12:00:00.000Z</urn3:notOnOrAfter>
                      </urn3:conditions>
-                     <!--urn3:contentReference>Claim-Ref-1234</urn3:contentReference-->
-                     <!--urn3:contentType>application/pdf</urn3:contentType-->
-                     <!--urn3:content>YWVvbGlhbQ==</urn3:content-->
                   </urn3:assertion>
                </urn3:evidence>
             </urn3:samlAuthzDecisionStatement>
          </urn:assertion>
-         <urn:nhinTargetSystem>
-            <urn3:homeCommunity>
+         <urn:NhinTargetCommunities>
+            <urn3:nhinTargetCommunity>
+               <urn3:homeCommunity>
                <urn3:description>InternalTest1</urn3:description>
                <urn3:homeCommunityId>1.1</urn3:homeCommunityId>
                <urn3:name>InternalTest1</urn3:name>
             </urn3:homeCommunity>
-         </urn:nhinTargetSystem>
+            </urn3:nhinTargetCommunity>
+         </urn:NhinTargetCommunities>
       </urn:RespondingGateway_CrossGatewayQueryRequest>
    </soap:Body>
 </soap:Envelope>]]></con:request>
@@ -691,19 +672,19 @@ declare namespace ns12='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-11-27T19:16:49Z</con:value>
+					<con:value>2012-12-12T23:23:39Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-11-27T19:26:49Z</con:value>
+					<con:value>2012-12-12T23:33:39Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>11/27/2012 19:16:49</con:value>
+					<con:value>12/12/2012 23:23:39</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-12-27T00:00:00Z</con:value>
+					<con:value>2013-01-11T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -728,7 +709,7 @@ FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileL
 			<con:testStep name="Nhin Doc Query Request" type="request">
 				<con:settings/>
 				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-					<con:interface>NhincProxyDocQueryBindingSoap</con:interface>
+					<con:interface>EntityDocQueryBindingSoap</con:interface>
 					<con:operation>RespondingGateway_CrossGatewayQuery</con:operation>
 					<con:request name="Nhin Doc Query Request">
 						<con:settings/>
@@ -771,8 +752,6 @@ FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileL
                <urn3:zipCode>AddrZip</urn3:zipCode>
             </urn3:address>
             <urn3:dateOfBirth xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">06/04/1959 05:21:00</urn3:dateOfBirth>
-            <!--urn3:dateOfSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">11/20/2009 16:35:08</urn3:dateOfSignature-->
-            <!--urn3:expirationDate xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">12/20/2009 16:40:08</urn3:expirationDate-->
             <urn3:explanationNonClaimantSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">Electronic</urn3:explanationNonClaimantSignature>
             <urn3:haveSecondWitnessSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn3:haveSecondWitnessSignature>
             <urn3:haveSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn3:haveSignature>
@@ -810,7 +789,6 @@ FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileL
                   <urn3:originalText>phoneCode</urn3:originalText>
                </urn3:phoneNumberType>
             </urn3:phoneNumber>
-            <!--urn3:purposeOfDisclosure xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">TREATMENT</urn3:purposeOfDisclosure-->
             <urn3:secondWitnessAddress xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <urn3:addressType>
                   <urn3:code>AddrCode</urn3:code>
@@ -915,7 +893,6 @@ FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileL
                   <urn3:fullName>Kasrl S. Skagerberg</urn3:fullName>
                </urn3:personName>
                <urn3:userName>kskagerb</urn3:userName>
-               <!--urn3:role>Pharmacy</urn3:role-->
                <urn3:org>
                   <urn3:description>InternalTest2</urn3:description>
                   <urn3:homeCommunityId>2.2</urn3:homeCommunityId>
@@ -961,20 +938,19 @@ FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileL
                         <urn3:notBefore>2009-04-16T13:10:39.093Z</urn3:notBefore>
                         <urn3:notOnOrAfter>2009-12-31T12:00:00.000Z</urn3:notOnOrAfter>
                      </urn3:conditions>
-                     <!--urn3:contentReference>Claim-Ref-1234</urn3:contentReference-->
-                     <!--urn3:contentType>application/pdf</urn3:contentType-->
-                     <!--urn3:content>YWVvbGlhbQ==</urn3:content-->
                   </urn3:assertion>
                </urn3:evidence>
             </urn3:samlAuthzDecisionStatement>
          </urn:assertion>
-         <urn:nhinTargetSystem>
-            <urn3:homeCommunity>
+         <urn:NhinTargetCommunities>
+            <urn3:nhinTargetCommunity>
+               <urn3:homeCommunity>
                <urn3:description>InternalTest1</urn3:description>
                <urn3:homeCommunityId>1.1</urn3:homeCommunityId>
                <urn3:name>InternalTest1</urn3:name>
             </urn3:homeCommunity>
-         </urn:nhinTargetSystem>
+            </urn3:nhinTargetCommunity>
+         </urn:NhinTargetCommunities>
       </urn:RespondingGateway_CrossGatewayQueryRequest>
    </soap:Body>
 </soap:Envelope>]]></con:request>
@@ -1028,19 +1004,19 @@ declare namespace ns12='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-11-27T19:16:50Z</con:value>
+					<con:value>2012-12-12T23:23:39Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-11-27T19:26:50Z</con:value>
+					<con:value>2012-12-12T23:33:39Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>11/27/2012 19:16:50</con:value>
+					<con:value>12/12/2012 23:23:39</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-12-27T00:00:00Z</con:value>
+					<con:value>2013-01-11T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -1065,7 +1041,7 @@ FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileL
 			<con:testStep name="Nhin Doc Query Request" type="request">
 				<con:settings/>
 				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-					<con:interface>NhincProxyDocQueryBindingSoap</con:interface>
+					<con:interface>EntityDocQueryBindingSoap</con:interface>
 					<con:operation>RespondingGateway_CrossGatewayQuery</con:operation>
 					<con:request name="Nhin Doc Query Request">
 						<con:settings/>
@@ -1108,8 +1084,6 @@ FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileL
                <urn3:zipCode>AddrZip</urn3:zipCode>
             </urn3:address>
             <urn3:dateOfBirth xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">06/04/1959 05:21:00</urn3:dateOfBirth>
-            <!--urn3:dateOfSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">11/20/2009 16:35:08</urn3:dateOfSignature-->
-            <!--urn3:expirationDate xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">12/20/2009 16:40:08</urn3:expirationDate-->
             <urn3:explanationNonClaimantSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">Electronic</urn3:explanationNonClaimantSignature>
             <urn3:haveSecondWitnessSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn3:haveSecondWitnessSignature>
             <urn3:haveSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn3:haveSignature>
@@ -1147,7 +1121,6 @@ FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileL
                   <urn3:originalText>phoneCode</urn3:originalText>
                </urn3:phoneNumberType>
             </urn3:phoneNumber>
-            <!--urn3:purposeOfDisclosure xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">TREATMENT</urn3:purposeOfDisclosure-->
             <urn3:secondWitnessAddress xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <urn3:addressType>
                   <urn3:code>AddrCode</urn3:code>
@@ -1252,7 +1225,6 @@ FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileL
                   <urn3:fullName>Kasrl S. Skagerberg</urn3:fullName>
                </urn3:personName>
                <urn3:userName>kskagerb</urn3:userName>
-               <!--urn3:role>Pharmacy</urn3:role-->
                <urn3:org>
                   <urn3:description>InternalTest2</urn3:description>
                   <urn3:homeCommunityId>2.2</urn3:homeCommunityId>
@@ -1298,20 +1270,19 @@ FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileL
                         <urn3:notBefore>2009-04-16T13:10:39.093Z</urn3:notBefore>
                         <urn3:notOnOrAfter>2009-12-31T12:00:00.000Z</urn3:notOnOrAfter>
                      </urn3:conditions>
-                     <!--urn3:contentReference>Claim-Ref-1234</urn3:contentReference-->
-                     <!--urn3:contentType>application/pdf</urn3:contentType-->
-                     <!--urn3:content>YWVvbGlhbQ==</urn3:content-->
                   </urn3:assertion>
                </urn3:evidence>
             </urn3:samlAuthzDecisionStatement>
          </urn:assertion>
-         <urn:nhinTargetSystem>
-            <urn3:homeCommunity>
+         <urn:NhinTargetCommunities>
+            <urn3:nhinTargetCommunity>
+               <urn3:homeCommunity>
                <urn3:description>InternalTest1</urn3:description>
                <urn3:homeCommunityId>1.1</urn3:homeCommunityId>
                <urn3:name>InternalTest1</urn3:name>
             </urn3:homeCommunity>
-         </urn:nhinTargetSystem>
+            </urn3:nhinTargetCommunity>
+         </urn:NhinTargetCommunities>
       </urn:RespondingGateway_CrossGatewayQueryRequest>
    </soap:Body>
 </soap:Envelope>]]></con:request>
@@ -1365,19 +1336,19 @@ declare namespace ns12='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-11-27T19:16:50Z</con:value>
+					<con:value>2012-12-12T23:23:40Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-11-27T19:26:50Z</con:value>
+					<con:value>2012-12-12T23:33:40Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>11/27/2012 19:16:50</con:value>
+					<con:value>12/12/2012 23:23:40</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-12-27T00:00:00Z</con:value>
+					<con:value>2013-01-11T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -1402,7 +1373,7 @@ FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileL
 			<con:testStep name="Nhin Doc Query Request" type="request">
 				<con:settings/>
 				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-					<con:interface>NhincProxyDocQueryBindingSoap</con:interface>
+					<con:interface>EntityDocQueryBindingSoap</con:interface>
 					<con:operation>RespondingGateway_CrossGatewayQuery</con:operation>
 					<con:request name="Nhin Doc Query Request">
 						<con:settings/>
@@ -1445,8 +1416,6 @@ FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileL
                <urn3:zipCode>AddrZip</urn3:zipCode>
             </urn3:address>
             <urn3:dateOfBirth xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">06/04/1959 05:21:00</urn3:dateOfBirth>
-            <!--urn3:dateOfSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">11/20/2009 16:35:08</urn3:dateOfSignature-->
-            <!--urn3:expirationDate xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">12/20/2009 16:40:08</urn3:expirationDate-->
             <urn3:explanationNonClaimantSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">Electronic</urn3:explanationNonClaimantSignature>
             <urn3:haveSecondWitnessSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn3:haveSecondWitnessSignature>
             <urn3:haveSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn3:haveSignature>
@@ -1484,7 +1453,6 @@ FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileL
                   <urn3:originalText>phoneCode</urn3:originalText>
                </urn3:phoneNumberType>
             </urn3:phoneNumber>
-            <!--urn3:purposeOfDisclosure xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">TREATMENT</urn3:purposeOfDisclosure-->
             <urn3:secondWitnessAddress xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <urn3:addressType>
                   <urn3:code>AddrCode</urn3:code>
@@ -1589,7 +1557,6 @@ FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileL
                   <urn3:fullName>Kasrl S. Skagerberg</urn3:fullName>
                </urn3:personName>
                <urn3:userName>kskagerb</urn3:userName>
-               <!--urn3:role>Pharmacy</urn3:role-->
                <urn3:org>
                   <urn3:description>InternalTest2</urn3:description>
                   <urn3:homeCommunityId>2.2</urn3:homeCommunityId>
@@ -1635,20 +1602,19 @@ FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileL
                         <urn3:notBefore>2009-04-16T13:10:39.093Z</urn3:notBefore>
                         <urn3:notOnOrAfter>2009-12-31T12:00:00.000Z</urn3:notOnOrAfter>
                      </urn3:conditions>
-                     <!--urn3:contentReference>Claim-Ref-1234</urn3:contentReference-->
-                     <!--urn3:contentType>application/pdf</urn3:contentType-->
-                     <!--urn3:content>YWVvbGlhbQ==</urn3:content-->
                   </urn3:assertion>
                </urn3:evidence>
             </urn3:samlAuthzDecisionStatement>
          </urn:assertion>
-         <urn:nhinTargetSystem>
-            <urn3:homeCommunity>
+         <urn:NhinTargetCommunities>
+            <urn3:nhinTargetCommunity>
+               <urn3:homeCommunity>
                <urn3:description>InternalTest1</urn3:description>
                <urn3:homeCommunityId>1.1</urn3:homeCommunityId>
                <urn3:name>InternalTest1</urn3:name>
             </urn3:homeCommunity>
-         </urn:nhinTargetSystem>
+            </urn3:nhinTargetCommunity>
+         </urn:NhinTargetCommunities>
       </urn:RespondingGateway_CrossGatewayQueryRequest>
    </soap:Body>
 </soap:Envelope>]]></con:request>
@@ -1702,19 +1668,19 @@ declare namespace ns12='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-11-27T19:16:50Z</con:value>
+					<con:value>2012-12-12T23:23:41Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-11-27T19:26:50Z</con:value>
+					<con:value>2012-12-12T23:33:41Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>11/27/2012 19:16:50</con:value>
+					<con:value>12/12/2012 23:23:41</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-12-27T00:00:00Z</con:value>
+					<con:value>2013-01-11T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -1739,7 +1705,7 @@ FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileL
 			<con:testStep name="Nhin Doc Query Request" type="request">
 				<con:settings/>
 				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-					<con:interface>NhincProxyDocQueryBindingSoap</con:interface>
+					<con:interface>EntityDocQueryBindingSoap</con:interface>
 					<con:operation>RespondingGateway_CrossGatewayQuery</con:operation>
 					<con:request name="Nhin Doc Query Request">
 						<con:settings/>
@@ -1782,8 +1748,6 @@ FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileL
                <urn3:zipCode>AddrZip</urn3:zipCode>
             </urn3:address>
             <urn3:dateOfBirth xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">06/04/1959 05:21:00</urn3:dateOfBirth>
-            <!--urn3:dateOfSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">11/20/2009 16:35:08</urn3:dateOfSignature-->
-            <!--urn3:expirationDate xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">12/20/2009 16:40:08</urn3:expirationDate-->
             <urn3:explanationNonClaimantSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">Electronic</urn3:explanationNonClaimantSignature>
             <urn3:haveSecondWitnessSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn3:haveSecondWitnessSignature>
             <urn3:haveSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn3:haveSignature>
@@ -1821,7 +1785,6 @@ FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileL
                   <urn3:originalText>phoneCode</urn3:originalText>
                </urn3:phoneNumberType>
             </urn3:phoneNumber>
-            <!--urn3:purposeOfDisclosure xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">TREATMENT</urn3:purposeOfDisclosure-->
             <urn3:secondWitnessAddress xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <urn3:addressType>
                   <urn3:code>AddrCode</urn3:code>
@@ -1926,7 +1889,6 @@ FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileL
                   <urn3:fullName>Kasrl S. Skagerberg</urn3:fullName>
                </urn3:personName>
                <urn3:userName>kskagerb</urn3:userName>
-               <!--urn3:role>Pharmacy</urn3:role-->
                <urn3:org>
                   <urn3:description>InternalTest2</urn3:description>
                   <urn3:homeCommunityId>2.2</urn3:homeCommunityId>
@@ -1972,20 +1934,19 @@ FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileL
                         <urn3:notBefore>2009-04-16T13:10:39.093Z</urn3:notBefore>
                         <urn3:notOnOrAfter>2009-12-31T12:00:00.000Z</urn3:notOnOrAfter>
                      </urn3:conditions>
-                     <!--urn3:contentReference>Claim-Ref-1234</urn3:contentReference-->
-                     <!--urn3:contentType>application/pdf</urn3:contentType-->
-                     <!--urn3:content>YWVvbGlhbQ==</urn3:content-->
                   </urn3:assertion>
                </urn3:evidence>
             </urn3:samlAuthzDecisionStatement>
          </urn:assertion>
-         <urn:nhinTargetSystem>
-            <urn3:homeCommunity>
+         <urn:NhinTargetCommunities>
+            <urn3:nhinTargetCommunity>
+               <urn3:homeCommunity>
                <urn3:description>InternalTest1</urn3:description>
                <urn3:homeCommunityId>1.1</urn3:homeCommunityId>
                <urn3:name>InternalTest1</urn3:name>
             </urn3:homeCommunity>
-         </urn:nhinTargetSystem>
+            </urn3:nhinTargetCommunity>
+         </urn:NhinTargetCommunities>
       </urn:RespondingGateway_CrossGatewayQueryRequest>
    </soap:Body>
 </soap:Envelope>]]></con:request>
@@ -2039,19 +2000,19 @@ declare namespace ns12='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-11-27T19:16:51Z</con:value>
+					<con:value>2012-12-12T23:23:41Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-11-27T19:26:51Z</con:value>
+					<con:value>2012-12-12T23:33:41Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>11/27/2012 19:16:51</con:value>
+					<con:value>12/12/2012 23:23:41</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-12-27T00:00:00Z</con:value>
+					<con:value>2013-01-11T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -2076,7 +2037,7 @@ FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileL
 			<con:testStep name="Nhin Doc Query Request" type="request">
 				<con:settings/>
 				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-					<con:interface>NhincProxyDocQueryBindingSoap</con:interface>
+					<con:interface>EntityDocQueryBindingSoap</con:interface>
 					<con:operation>RespondingGateway_CrossGatewayQuery</con:operation>
 					<con:request name="Nhin Doc Query Request">
 						<con:settings/>
@@ -2119,8 +2080,6 @@ FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileL
                <urn3:zipCode>AddrZip</urn3:zipCode>
             </urn3:address>
             <urn3:dateOfBirth xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">06/04/1959 05:21:00</urn3:dateOfBirth>
-            <!--urn3:dateOfSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">11/20/2009 16:35:08</urn3:dateOfSignature-->
-            <!--urn3:expirationDate xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">12/20/2009 16:40:08</urn3:expirationDate-->
             <urn3:explanationNonClaimantSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">Electronic</urn3:explanationNonClaimantSignature>
             <urn3:haveSecondWitnessSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn3:haveSecondWitnessSignature>
             <urn3:haveSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn3:haveSignature>
@@ -2158,7 +2117,6 @@ FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileL
                   <urn3:originalText>phoneCode</urn3:originalText>
                </urn3:phoneNumberType>
             </urn3:phoneNumber>
-            <!--urn3:purposeOfDisclosure xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">TREATMENT</urn3:purposeOfDisclosure-->
             <urn3:secondWitnessAddress xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <urn3:addressType>
                   <urn3:code>AddrCode</urn3:code>
@@ -2263,7 +2221,6 @@ FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileL
                   <urn3:fullName>Kasrl S. Skagerberg</urn3:fullName>
                </urn3:personName>
                <urn3:userName>kskagerb</urn3:userName>
-               <!--urn3:role>Pharmacy</urn3:role-->
                <urn3:org>
                   <urn3:description>InternalTest2</urn3:description>
                   <urn3:homeCommunityId>2.2</urn3:homeCommunityId>
@@ -2309,20 +2266,19 @@ FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileL
                         <urn3:notBefore>2009-04-16T13:10:39.093Z</urn3:notBefore>
                         <urn3:notOnOrAfter>2009-12-31T12:00:00.000Z</urn3:notOnOrAfter>
                      </urn3:conditions>
-                     <!--urn3:contentReference>Claim-Ref-1234</urn3:contentReference-->
-                     <!--urn3:contentType>application/pdf</urn3:contentType-->
-                     <!--urn3:content>YWVvbGlhbQ==</urn3:content-->
                   </urn3:assertion>
                </urn3:evidence>
             </urn3:samlAuthzDecisionStatement>
          </urn:assertion>
-         <urn:nhinTargetSystem>
-            <urn3:homeCommunity>
+         <urn:NhinTargetCommunities>
+            <urn3:nhinTargetCommunity>
+               <urn3:homeCommunity>
                <urn3:description>InternalTest1</urn3:description>
                <urn3:homeCommunityId>1.1</urn3:homeCommunityId>
                <urn3:name>InternalTest1</urn3:name>
             </urn3:homeCommunity>
-         </urn:nhinTargetSystem>
+            </urn3:nhinTargetCommunity>
+         </urn:NhinTargetCommunities>
       </urn:RespondingGateway_CrossGatewayQueryRequest>
    </soap:Body>
 </soap:Envelope>]]></con:request>
@@ -2376,19 +2332,19 @@ declare namespace ns12='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-11-27T19:16:51Z</con:value>
+					<con:value>2012-12-12T23:23:42Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-11-27T19:26:51Z</con:value>
+					<con:value>2012-12-12T23:33:42Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>11/27/2012 19:16:51</con:value>
+					<con:value>12/12/2012 23:23:42</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-12-27T00:00:00Z</con:value>
+					<con:value>2013-01-11T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -2413,7 +2369,7 @@ FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileL
 			<con:testStep name="Nhin Doc Query Request" type="request">
 				<con:settings/>
 				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-					<con:interface>NhincProxyDocQueryBindingSoap</con:interface>
+					<con:interface>EntityDocQueryBindingSoap</con:interface>
 					<con:operation>RespondingGateway_CrossGatewayQuery</con:operation>
 					<con:request name="Nhin Doc Query Request">
 						<con:settings/>
@@ -2456,8 +2412,6 @@ FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileL
                <urn3:zipCode>AddrZip</urn3:zipCode>
             </urn3:address>
             <urn3:dateOfBirth xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">06/04/1959 05:21:00</urn3:dateOfBirth>
-            <!--urn3:dateOfSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">11/20/2009 16:35:08</urn3:dateOfSignature-->
-            <!--urn3:expirationDate xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">12/20/2009 16:40:08</urn3:expirationDate-->
             <urn3:explanationNonClaimantSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">Electronic</urn3:explanationNonClaimantSignature>
             <urn3:haveSecondWitnessSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn3:haveSecondWitnessSignature>
             <urn3:haveSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn3:haveSignature>
@@ -2495,7 +2449,6 @@ FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileL
                   <urn3:originalText>phoneCode</urn3:originalText>
                </urn3:phoneNumberType>
             </urn3:phoneNumber>
-            <!--urn3:purposeOfDisclosure xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">TREATMENT</urn3:purposeOfDisclosure-->
             <urn3:secondWitnessAddress xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <urn3:addressType>
                   <urn3:code>AddrCode</urn3:code>
@@ -2600,7 +2553,6 @@ FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileL
                   <urn3:fullName>Kasrl S. Skagerberg</urn3:fullName>
                </urn3:personName>
                <urn3:userName>kskagerb</urn3:userName>
-               <!--urn3:role>Pharmacy</urn3:role-->
                <urn3:org>
                   <urn3:description>InternalTest2</urn3:description>
                   <urn3:homeCommunityId>2.2</urn3:homeCommunityId>
@@ -2646,20 +2598,19 @@ FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileL
                         <urn3:notBefore>2009-04-16T13:10:39.093Z</urn3:notBefore>
                         <urn3:notOnOrAfter>2009-12-31T12:00:00.000Z</urn3:notOnOrAfter>
                      </urn3:conditions>
-                     <!--urn3:contentReference>Claim-Ref-1234</urn3:contentReference-->
-                     <!--urn3:contentType>application/pdf</urn3:contentType-->
-                     <!--urn3:content>YWVvbGlhbQ==</urn3:content-->
                   </urn3:assertion>
                </urn3:evidence>
             </urn3:samlAuthzDecisionStatement>
          </urn:assertion>
-         <urn:nhinTargetSystem>
-            <urn3:homeCommunity>
+         <urn:NhinTargetCommunities>
+            <urn3:nhinTargetCommunity>
+               <urn3:homeCommunity>
                <urn3:description>InternalTest1</urn3:description>
                <urn3:homeCommunityId>1.1</urn3:homeCommunityId>
                <urn3:name>InternalTest1</urn3:name>
             </urn3:homeCommunity>
-         </urn:nhinTargetSystem>
+            </urn3:nhinTargetCommunity>
+         </urn:NhinTargetCommunities>
       </urn:RespondingGateway_CrossGatewayQueryRequest>
    </soap:Body>
 </soap:Envelope>]]></con:request>
@@ -2713,19 +2664,19 @@ declare namespace ns12='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-11-27T19:16:52Z</con:value>
+					<con:value>2012-12-12T23:23:42Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-11-27T19:26:52Z</con:value>
+					<con:value>2012-12-12T23:33:42Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>11/27/2012 19:16:52</con:value>
+					<con:value>12/12/2012 23:23:42</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-12-27T00:00:00Z</con:value>
+					<con:value>2013-01-11T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -2758,13 +2709,13 @@ declare namespace ns12='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
 		</con:property>
 		<con:property>
 			<con:name>Endpoint-DocQuery</con:name>
-			<con:value>http://localhost:8080/Gateway/DocumentQuery/2_0/EntityService/NhincProxyDocQueryUnsecured</con:value>
+			<con:value>http://localhost:8080/Gateway/DocumentQuery/2_0/EntityService/EntityDocQueryUnsecured</con:value>
 		</con:property>
 		<con:property>
 			<con:name>AuditPatientID</con:name>
 			<con:value>D123401</con:value>
 		</con:property>
-	<con:property><con:name>GatewayPropDir</con:name><con:value>D:\glassfish3\glassfish\domains\domain1\config\nhin</con:value></con:property></con:properties>
+	<con:property><con:name>GatewayPropDir</con:name><con:value>c:\glassfish3\glassfish\domains\domain1\config\nhin</con:value></con:property></con:properties>
 	<con:afterLoadScript>def propertiesFilename = project.path[0..(project.path.size()-4)] + 'properties'
 def propertiesFile = new File(propertiesFilename)
 if (propertiesFile.exists()) {

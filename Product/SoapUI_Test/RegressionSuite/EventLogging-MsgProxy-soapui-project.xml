@@ -2152,10 +2152,6 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 		<con:value>19800516</con:value>
 	</con:property>
 	<con:property>
-		<con:name>DateOfSignature</con:name>
-		<con:value>20080520</con:value>
-	</con:property>
-	<con:property>
 		<con:name>PseudonymAA</con:name>
 		<con:value>ABC</con:value>
 	</con:property>
@@ -2803,10 +2799,6 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 	<con:property>
 		<con:name>DOB</con:name>
 		<con:value>19800516</con:value>
-	</con:property>
-	<con:property>
-		<con:name>DateOfSignature</con:name>
-		<con:value>20080520</con:value>
 	</con:property>
 	<con:property>
 		<con:name>PseudonymAA</con:name>
@@ -7865,10 +7857,6 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 		<con:value>19800516</con:value>
 	</con:property>
 	<con:property>
-		<con:name>DateOfSignature</con:name>
-		<con:value>20080520</con:value>
-	</con:property>
-	<con:property>
 		<con:name>PseudonymAA</con:name>
 		<con:value>ABC</con:value>
 	</con:property>
@@ -8517,10 +8505,6 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 	<con:property>
 		<con:name>DOB</con:name>
 		<con:value>19800516</con:value>
-	</con:property>
-	<con:property>
-		<con:name>DateOfSignature</con:name>
-		<con:value>20080520</con:value>
 	</con:property>
 	<con:property>
 		<con:name>PseudonymAA</con:name>
@@ -11649,10 +11633,7 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 		<con:value>Melbourne</con:value>
 	</con:property>
 	
-	<con:property><con:name>Country</con:name><con:value>US</con:value></con:property><con:property>
-		<con:name>DateOfSignature</con:name>
-		<con:value>20080520</con:value>
-	</con:property>
+	<con:property><con:name>Country</con:name><con:value>US</con:value></con:property>
 	
 	<con:property><con:name>DBHost</con:name><con:value>localhost</con:value></con:property><con:property>
 		<con:name>DBPass</con:name>
