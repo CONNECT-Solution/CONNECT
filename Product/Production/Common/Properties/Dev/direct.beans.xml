@@ -33,10 +33,10 @@
     
     <!-- There could also be a separate agent for each mail client, if needed. -->
     <bean id="smtpAgent" class="org.nhindirect.gateway.smtp.SmtpAgentFactory" factory-method="createAgent">
-        <constructor-arg type="java.net.URL" value="file:${NHINC_PROPERTIES_DIR}/smtp.agent.config.xml" />        
+        <constructor-arg type="java.net.URL" value="file:${nhinc.properties.dir}/smtp.agent.config.xml" />        
     </bean>
 
-    <util:properties id="internalMailProperties" location="file:${NHINC_PROPERTIES_DIR}/direct.mail.internal.properties" />
-    <util:properties id="externalMailProperties" location="file:${NHINC_PROPERTIES_DIR}/direct.mail.external.properties" />
+    <util:properties id="internalMailProperties" location="file:${nhinc.properties.dir}/direct.mail.internal.properties" />
+    <util:properties id="externalMailProperties" location="file:${nhinc.properties.dir}/direct.mail.external.properties" />
     
 </beans>
