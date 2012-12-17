@@ -800,7 +800,7 @@ FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileL
       </con:testStep>
       <con:testStep name="Policy Engine Mock" type="mockresponse">
         <con:settings/>
-        <con:config startStep="" xsi:type="con:MockResponseStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config startStep="EntityXDRAsyncRequest" xsi:type="con:MockResponseStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
           <con:interface>AdapterPolicyEngineBindingSoap</con:interface>
           <con:operation>CheckPolicy</con:operation>
           <con:path>/mockPE</con:path>
@@ -813,7 +813,7 @@ FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileL
       <ns2:CheckPolicyResponse xmlns="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:ns2="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" xmlns:ns3="urn:oasis:names:tc:xacml:2.0:context:schema:os" xmlns:ns4="urn:oasis:names:tc:xacml:2.0:policy:schema:os" xmlns:ns5="http://www.w3.org/2005/08/addressing" xmlns:ns6="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:ns7="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:ns8="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:ns9="urn:ihe:iti:xds-b:2007" xmlns:ns10="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:ns11="http://nhinc.services.com/schema/auditmessage" xmlns:ns12="http://docs.oasis-open.org/wsn/b-2" xmlns:ns13="http://www.hhs.gov/healthit/nhin/cdc" xmlns:ns14="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc" xmlns:ns15="http://docs.oasis-open.org/wsrf/bf-2" xmlns:ns16="http://docs.oasis-open.org/wsn/t-1" xmlns:ns17="urn:oasis:names:tc:emergency:EDXL:DE:1.0" xmlns:ns18="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments">
          <ns2:response>
             <ns3:Result>
-               <ns3:Decision>Permit</ns3:Decision>
+               <ns3:Decision>Pppppermit</ns3:Decision>
             </ns3:Result>
          </ns2:response>
       </ns2:CheckPolicyResponse>
@@ -2282,19 +2282,19 @@ declare namespace adapter='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-12-13T02:37:25Z</con:value>
+          <con:value>2012-12-16T16:07:29Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-12-13T02:47:25Z</con:value>
+          <con:value>2012-12-16T16:17:29Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>12/13/2012 02:37:25</con:value>
+          <con:value>12/16/2012 16:07:29</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2013-01-12T00:00:00Z</con:value>
+          <con:value>2013-01-15T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -2791,17 +2791,17 @@ FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileL
           <con:timeout>30000</con:timeout>
           <con:response>
             <con:settings/>
-            <con:responseContent><![CDATA[<S:Envelope xmlns:S="http://www.w3.org/2003/05/soap-envelope">
-   <S:Body>
-      <ns15:CheckPolicyResponse xmlns:ns2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:ns3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:ns4="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:ns5="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:ns6="http://www.hhs.gov/healthit/nhin/cdc" xmlns:ns7="http://nhinc.services.com/schema/auditmessage" xmlns:ns8="http://www.w3.org/2005/08/addressing" xmlns:ns9="http://docs.oasis-open.org/wsn/b-2" xmlns:ns10="urn:ihe:iti:xds-b:2007" xmlns:ns11="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments" xmlns:ns12="http://docs.oasis-open.org/wsrf/bf-2" xmlns:ns13="http://docs.oasis-open.org/wsn/t-1" xmlns:ns14="urn:oasis:names:tc:xacml:2.0:policy:schema:os" xmlns:ns15="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" xmlns:ns16="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:ns17="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc" xmlns:ns18="urn:oasis:names:tc:xacml:2.0:context:schema:os" xmlns:ns19="http://schemas.xmlsoap.org/ws/2004/08/addressing">
-         <ns15:response>
-            <ns18:Result>
-               <ns18:Decision>Deny</ns18:Decision>
-            </ns18:Result>
-         </ns15:response>
-      </ns15:CheckPolicyResponse>
-   </S:Body>
-</S:Envelope>]]></con:responseContent>
+            <con:responseContent><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope">
+   <soap:Body>
+      <ns2:CheckPolicyResponse xmlns="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:ns2="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" xmlns:ns3="urn:oasis:names:tc:xacml:2.0:context:schema:os" xmlns:ns4="urn:oasis:names:tc:xacml:2.0:policy:schema:os" xmlns:ns5="http://www.w3.org/2005/08/addressing" xmlns:ns6="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:ns7="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:ns8="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:ns9="urn:ihe:iti:xds-b:2007" xmlns:ns10="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:ns11="http://nhinc.services.com/schema/auditmessage" xmlns:ns12="http://docs.oasis-open.org/wsn/b-2" xmlns:ns13="http://www.hhs.gov/healthit/nhin/cdc" xmlns:ns14="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc" xmlns:ns15="http://docs.oasis-open.org/wsrf/bf-2" xmlns:ns16="http://docs.oasis-open.org/wsn/t-1" xmlns:ns17="urn:oasis:names:tc:emergency:EDXL:DE:1.0" xmlns:ns18="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments">
+         <ns2:response>
+            <ns3:Result>
+               <ns3:Decision>Deny</ns3:Decision>
+            </ns3:Result>
+         </ns2:response>
+      </ns2:CheckPolicyResponse>
+   </soap:Body>
+</soap:Envelope>]]></con:responseContent>
             <con:wsaConfig mustUnderstand="NONE" version="200508"/>
           </con:response>
           <con:assertion name="AuthnStatementAuthnInstant " type="GroovyScriptAssertion">
@@ -4265,19 +4265,19 @@ declare namespace adapter='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-12-13T02:32:54Z</con:value>
+          <con:value>2012-12-16T16:08:02Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-12-13T02:42:54Z</con:value>
+          <con:value>2012-12-16T16:18:02Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>12/13/2012 02:32:54</con:value>
+          <con:value>12/16/2012 16:08:02</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2013-01-12T00:00:00Z</con:value>
+          <con:value>2013-01-15T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -4786,19 +4786,19 @@ context.testCase.setPropertyValue('XDRUserId',"${UserID}${nowDate}");</script>
 assert (count > 0);</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-12-13T02:32:55Z</con:value>
+          <con:value>2012-12-16T16:08:03Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-12-13T02:42:55Z</con:value>
+          <con:value>2012-12-16T16:18:03Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>12/13/2012 02:32:55</con:value>
+          <con:value>12/16/2012 16:08:03</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2013-01-12T00:00:00Z</con:value>
+          <con:value>2013-01-15T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -4806,7 +4806,7 @@ assert (count > 0);</script></con:config></con:testStep><con:setupScript>nhinc.F
         </con:property>
         <con:property>
           <con:name>XDRUserId</con:name>
-          <con:value>XDR Request Inbound UserThu Dec 13 02:37:55 UTC 2012</con:value>
+          <con:value>XDR Request Inbound UserSun Dec 16 16:13:03 UTC 2012</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -4903,4 +4903,4 @@ com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.withSql = { d
     <con:parameters/>
   </con:reporting>
 
-</con:soapui-project>
+<con:sensitiveInformation/></con:soapui-project>

@@ -25,7 +25,7 @@
 		<con:config><script>context.withSql('PatientCorrelationDB') { sql -> 
 sql.execute('delete from ' + context.findProperty('PatientCorrelationTable'))}</script></con:config>
 </con:testStep>
-<con:testStep name="Set PolicyEngine Mock" type="groovy" disabled="true">
+<con:testStep name="Set PolicyEngine Mock" type="groovy">
         <con:settings/>
         <con:config><script>def destConfigFileLocation = context.findProperty("GatewayPropDir");
 def NHINGatewayHost = context.findProperty("NHINGatewayHost");
@@ -316,7 +316,7 @@ declare namespace ns3='http://www.w3.org/2005/08/addressing';
 </con:request>
 </con:config>
 </con:testStep>
-<con:testStep name="Mock Policy Engine" type="mockresponse" disabled="true">
+<con:testStep name="Mock Policy Engine" type="mockresponse">
         <con:settings/>
         <con:config startStep="clear correlations table" xsi:type="con:MockResponseStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
           <con:interface>AdapterPolicyEngineBindingSoap</con:interface>
