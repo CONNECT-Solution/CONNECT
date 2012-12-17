@@ -38,15 +38,14 @@ import java.util.Iterator;
 import java.util.Properties;
 import java.util.Set;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 /**
  * @author akong
  * 
  */
 public class PropertyFileDAO {
-    private static Log log = LogFactory.getLog(PropertyFileDAO.class);
+    private Logger log = Logger.getLogger(PropertyFileDAO.class);
     
     private Hashtable<String, Properties> propertyFilesHashmap = new Hashtable<String, Properties>();
 
@@ -135,7 +134,7 @@ public class PropertyFileDAO {
                 } catch (Exception e) {
                     String errorMsg = "Failed to convert string value: '" + propertyValue + "' to a long.  Error: "
                             + e.getMessage();
-                    getLogger().error(errorMsg, e);
+                    log.error(errorMsg, e);
                     throw new PropertyAccessException(errorMsg, e);
                 }
             }
@@ -162,7 +161,6 @@ public class PropertyFileDAO {
     }
     
     public void printToLog(String propertyFileName) {
-        Log log = getLogger();
         
         Properties properties = propertyFilesHashmap.get(propertyFileName);        
         log.info("Dumping information for property file: " + propertyFileName);
@@ -185,10 +183,6 @@ public class PropertyFileDAO {
         } else {
             log.info("No content.  Property file has never been loaded.");
         }
-    }
-        
-    protected Log getLogger() {
-        return log;
     }
     
     /**

@@ -42,8 +42,7 @@ import oasis.names.tc.ebxml_regrep.xsd.rim._3.AdhocQueryType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.ValueListType;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 /**
  * Class to perform transform operations for document query messages.
@@ -51,7 +50,7 @@ import org.apache.commons.logging.LogFactory;
  * @author Neil Webb
  */
 public class DocumentQueryTransform {
-    private static Log log = LogFactory.getLog(DocumentQueryTransform.class);
+    private static Logger log = Logger.getLogger(DocumentQueryTransform.class);
 
     /**
      * Replace the patient identifier information in an AdhocQuery message with the information provided.

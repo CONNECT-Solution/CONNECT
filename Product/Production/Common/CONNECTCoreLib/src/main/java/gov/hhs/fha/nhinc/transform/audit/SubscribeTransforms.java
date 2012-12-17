@@ -48,16 +48,14 @@ import javax.xml.bind.JAXBElement;
 import javax.xml.bind.Marshaller;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.AdhocQueryType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
+import org.apache.log4j.Logger;
 /**
  * Transforms for subscribe messages.
  * 
  * @author webbn
  */
 public class SubscribeTransforms {
-    private static Log log = LogFactory.getLog(SubscribeTransforms.class);
+    private Logger log = Logger.getLogger(SubscribeTransforms.class);
     private static final String SLOT_NAME_PATIENT_ID = "$XDSDocumentEntryPatientId";
 
     public LogEventRequestType transformNhinSubscribeRequestToAuditMessage(LogNhinSubscribeRequestType message) {

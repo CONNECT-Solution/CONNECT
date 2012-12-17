@@ -29,8 +29,7 @@ package gov.hhs.fha.nhinc.transform.audit;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
 import com.services.nhinc.schema.auditmessage.AuditMessageType.ActiveParticipant;
 import com.services.nhinc.schema.auditmessage.AuditMessageType;
@@ -54,11 +53,7 @@ import javax.xml.bind.Marshaller;
  * @author dunnek
  */
 public class XDRTransforms {
-    private Log log = null;
-
-    public XDRTransforms() {
-        log = createLogger();
-    }
+    private Logger log = Logger.getLogger(XDRTransforms.class);
 
     public LogEventRequestType transformRequestToAuditMsg(ProvideAndRegisterDocumentSetRequestType request,
             AssertionType assertion, String direction, String _interface) {
@@ -378,10 +373,6 @@ public class XDRTransforms {
 
         return result;
 
-    }
-
-    protected Log createLogger() {
-        return ((log != null) ? log : LogFactory.getLog(getClass()));
     }
 
     protected boolean areRequiredXDSfieldsNull(ProvideAndRegisterDocumentSetRequestType body, AssertionType assertion) {

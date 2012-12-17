@@ -40,8 +40,7 @@ import java.util.UUID;
 
 import javax.xml.bind.JAXBElement;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 import gov.hhs.fha.nhinc.docrepository.adapter.model.Document;
 import gov.hhs.fha.nhinc.docrepository.adapter.model.DocumentQueryParams;
@@ -71,7 +70,7 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
  * @author jhoppesc
  */
 public class AdapterComponentDocRegistryOrchImpl {
-    private Log log = null;
+    private Logger log = Logger.getLogger(AdapterComponentDocRegistryOrchImpl.class);
     private UTCDateUtil utcDateUtil = null;
 
     /*
@@ -162,15 +161,7 @@ public class AdapterComponentDocRegistryOrchImpl {
      * Constructor.
      */
     public AdapterComponentDocRegistryOrchImpl() {
-        log = createLogger();
         utcDateUtil = createDateUtil();
-    }
-
-    /**
-     * @return log
-     */
-    protected Log createLogger() {
-        return ((log != null) ? log : LogFactory.getLog(getClass()));
     }
 
     /**

@@ -26,8 +26,20 @@
  */
 package gov.hhs.fha.nhinc.transform.audit;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import static org.junit.Assert.assertEquals;
+import gov.hhs.fha.nhinc.common.auditlog.FindAuditEventsMessageType;
+import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
+import gov.hhs.fha.nhinc.common.auditlog.LogFindAuditEventsRequestType;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
+import gov.hhs.fha.nhinc.common.nhinccommon.PersonNameType;
+import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
+
+import org.junit.After;
+import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
 
 import com.services.nhinc.schema.auditmessage.AuditMessageType;
 import com.services.nhinc.schema.auditmessage.AuditSourceIdentificationType;
@@ -35,29 +47,13 @@ import com.services.nhinc.schema.auditmessage.EventIdentificationType;
 import com.services.nhinc.schema.auditmessage.FindAuditEventsType;
 import com.services.nhinc.schema.auditmessage.ParticipantObjectIdentificationType;
 
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import static org.junit.Assert.*;
-
-import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
-import gov.hhs.fha.nhinc.common.nhinccommon.PersonNameType;
-import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
-import gov.hhs.fha.nhinc.common.auditlog.LogFindAuditEventsRequestType;
-import gov.hhs.fha.nhinc.common.auditlog.FindAuditEventsMessageType;
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
-
 /**
  * 
  * @author mflynn02
  */
 public class FindAuditEventsTransformsTest {
-    private static Log log = LogFactory.getLog(FindAuditEventsTransformsTest.class);
-
-    public FindAuditEventsTransformsTest() {
+    
+	public FindAuditEventsTransformsTest() {
     }
 
     @BeforeClass
@@ -81,7 +77,6 @@ public class FindAuditEventsTransformsTest {
      */
     @Test
     public void testTransformFindAuditEventsReq2AuditMsg() {
-        log.debug("Begin - testTransformFindAuditEventsReq2AuditMsg");
         LogFindAuditEventsRequestType logMessage = new LogFindAuditEventsRequestType();
         FindAuditEventsMessageType FAEMessage = new FindAuditEventsMessageType();
         AssertionType assertion = new AssertionType();
@@ -134,7 +129,6 @@ public class FindAuditEventsTransformsTest {
         assertEquals(expected.getAuditMessage().getEventIdentification().getEventActionCode(), result.getAuditMessage()
                 .getEventIdentification().getEventID().getCode());
 
-        log.debug("End - testTransformFindAuditEventsReq2AuditMsg");
     }
 
 }

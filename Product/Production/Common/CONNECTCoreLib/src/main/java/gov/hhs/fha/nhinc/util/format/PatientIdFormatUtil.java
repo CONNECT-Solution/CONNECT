@@ -26,8 +26,7 @@
  */
 package gov.hhs.fha.nhinc.util.format;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 /**
  * Format utility for patient identifiers.
@@ -36,7 +35,7 @@ import org.apache.commons.logging.LogFactory;
  */
 public class PatientIdFormatUtil {
 
-    private static Log log = LogFactory.getLog(PatientIdFormatUtil.class);
+    private static Logger log = Logger.getLogger(PatientIdFormatUtil.class);
 
     /**
      * Parse an optionally HL7 encoded patient identifier. If the patient identifier is not HL7 encoded, the original id

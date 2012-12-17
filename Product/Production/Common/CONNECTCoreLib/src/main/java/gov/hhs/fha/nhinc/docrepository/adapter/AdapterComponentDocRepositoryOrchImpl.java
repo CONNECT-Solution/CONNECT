@@ -63,8 +63,7 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 /**
  * 
@@ -124,7 +123,7 @@ public class AdapterComponentDocRepositoryOrchImpl {
     public static final String XDS_ASSOCIATION_TYPE_REPLACE = "urn:oasis:names:tc:ebxml-regrep:AssociationType:RPLC";
     // private static final String DATE_FORMAT_STRING = "yyyyMMddhhmmss";
     private static final String VALUE_LIST_SEPERATOR = "~";
-    private Log log = null;
+    private Logger log = Logger.getLogger(AdapterComponentDocRepositoryOrchImpl.class);
     private UTCDateUtil utcDateUtil = null;
     private static final String REPOSITORY_UNIQUE_ID = "1";
     private static final String XDS_DOCUMENT_UNIQUE_ID_ERROR = "XDSDocumentUniqueIdError";
@@ -132,14 +131,9 @@ public class AdapterComponentDocRepositoryOrchImpl {
     // private final static int FILECHUNK = 65536;
 
     public AdapterComponentDocRepositoryOrchImpl() {
-        log = createLogger();
         utcDateUtil = createDateUtil();
     }
-
-    protected Log createLogger() {
-        return ((log != null) ? log : LogFactory.getLog(getClass()));
-    }
-
+    
     protected DocumentService getDocumentService() {
         return new DocumentService();
     }

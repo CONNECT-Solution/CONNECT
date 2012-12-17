@@ -27,15 +27,14 @@
 
 package gov.hhs.fha.nhinc.properties;
 
-import java.io.File;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
-import org.apache.commons.logging.Log;
-import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JUnit4Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  * @author akong
@@ -51,11 +50,10 @@ public class PropertyFileRefreshHandlerTest {
             setImposteriser(ClassImposteriser.INSTANCE);
         }
     };
-    final Log mockLog = context.mock(Log.class);
     
     @Test
     public void testAddRefreshInfo_Periodic() {
-        PropertyFileRefreshHandler refreshHandler = createPropertyFileRefreshHandler();
+        PropertyFileRefreshHandler refreshHandler = new PropertyFileRefreshHandler();
         
         refreshHandler.addRefreshInfo(PROPERTY_FILE_NAME, String.valueOf(REFRESH_DURATION));
         
@@ -65,7 +63,7 @@ public class PropertyFileRefreshHandlerTest {
     
     @Test
     public void testAddRefreshInfo_Always() throws InterruptedException {
-        PropertyFileRefreshHandler refreshHandler = createPropertyFileRefreshHandler();
+        PropertyFileRefreshHandler refreshHandler = new PropertyFileRefreshHandler();
         
         refreshHandler.addRefreshInfo(PROPERTY_FILE_NAME, "0");       
         int duration = refreshHandler.getDurationBeforeNextRefresh(PROPERTY_FILE_NAME);
@@ -74,7 +72,7 @@ public class PropertyFileRefreshHandlerTest {
     
     @Test
     public void testAddRefreshInfo_nullRefreshDuration() {
-        PropertyFileRefreshHandler refreshHandler = createPropertyFileRefreshHandler();
+        PropertyFileRefreshHandler refreshHandler = new PropertyFileRefreshHandler();
         refreshHandler.addRefreshInfo(PROPERTY_FILE_NAME, null);
         
         int refreshDuration = refreshHandler.getRefreshDuration(PROPERTY_FILE_NAME);
@@ -83,7 +81,7 @@ public class PropertyFileRefreshHandlerTest {
     
     @Test
     public void testAddRefreshInfo_badRefreshDuration() {
-        PropertyFileRefreshHandler refreshHandler = createPropertyFileRefreshHandler();
+        PropertyFileRefreshHandler refreshHandler = new PropertyFileRefreshHandler();
         refreshHandler.addRefreshInfo(PROPERTY_FILE_NAME, "abc");
         
         int refreshDuration = refreshHandler.getRefreshDuration(PROPERTY_FILE_NAME);
@@ -92,7 +90,7 @@ public class PropertyFileRefreshHandlerTest {
     
     @Test
     public void testResetRefreshTime_Periodic_GetDuration() throws InterruptedException {
-        PropertyFileRefreshHandler refreshHandler = createPropertyFileRefreshHandler();        
+        PropertyFileRefreshHandler refreshHandler = new PropertyFileRefreshHandler();        
         refreshHandler.addRefreshInfo(PROPERTY_FILE_NAME, String.valueOf(REFRESH_DURATION));
         
         int initialDuration = refreshHandler.getDurationBeforeNextRefresh(PROPERTY_FILE_NAME);
@@ -107,7 +105,7 @@ public class PropertyFileRefreshHandlerTest {
     
     @Test
     public void testResetRefreshTime_Periodic_NeedsRefresh() throws InterruptedException {
-        PropertyFileRefreshHandler refreshHandler = createPropertyFileRefreshHandler();       
+        PropertyFileRefreshHandler refreshHandler = new PropertyFileRefreshHandler();       
         refreshHandler.addRefreshInfo(PROPERTY_FILE_NAME, String.valueOf(REFRESH_DURATION));
                
         Thread.sleep(REFRESH_DURATION + 100);
@@ -118,7 +116,7 @@ public class PropertyFileRefreshHandlerTest {
     
     @Test
     public void testResetRefreshTime_Always() throws InterruptedException {
-        PropertyFileRefreshHandler refreshHandler = createPropertyFileRefreshHandler();        
+        PropertyFileRefreshHandler refreshHandler = new PropertyFileRefreshHandler();        
         refreshHandler.addRefreshInfo(PROPERTY_FILE_NAME, "0");       
         
         assertTrue(refreshHandler.needsRefresh(PROPERTY_FILE_NAME));
@@ -131,7 +129,7 @@ public class PropertyFileRefreshHandlerTest {
     
     @Test
     public void testResetRefreshTime_Never() throws InterruptedException {
-        PropertyFileRefreshHandler refreshHandler = createPropertyFileRefreshHandler();        
+        PropertyFileRefreshHandler refreshHandler = new PropertyFileRefreshHandler();        
         refreshHandler.addRefreshInfo(PROPERTY_FILE_NAME, "-1");
         
         assertFalse(refreshHandler.needsRefresh(PROPERTY_FILE_NAME));
@@ -141,28 +139,6 @@ public class PropertyFileRefreshHandlerTest {
         int duration = refreshHandler.getDurationBeforeNextRefresh(PROPERTY_FILE_NAME);
         assertEquals(-1, duration);    
         
-    }
-    
-    @Test
-    public void testPrintToLog() {
-        PropertyFileRefreshHandler refreshHandler = createPropertyFileRefreshHandler();
-        context.checking(new Expectations() {
-            {
-                atLeast(1).of(mockLog).info(with(any(String.class)));
-            }
-        });        
-        refreshHandler.printToLog(PROPERTY_FILE_NAME);
-        
-        refreshHandler.addRefreshInfo(PROPERTY_FILE_NAME, String.valueOf(REFRESH_DURATION));
-        refreshHandler.printToLog(PROPERTY_FILE_NAME);
-    }
-    
-    private PropertyFileRefreshHandler createPropertyFileRefreshHandler() {
-        return new PropertyFileRefreshHandler() {
-            protected Log getLogger() {
-                return mockLog;
-            }
-        };
     }
     
 }

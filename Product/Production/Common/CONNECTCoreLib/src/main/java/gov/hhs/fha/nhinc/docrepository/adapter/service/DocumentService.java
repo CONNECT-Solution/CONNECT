@@ -34,12 +34,14 @@ import gov.hhs.fha.nhinc.docrepository.adapter.model.DocumentQueryParams;
 import gov.hhs.fha.nhinc.docrepository.adapter.model.EventCode;
 import gov.hhs.fha.nhinc.docrepository.adapter.model.EventCodeParam;
 import gov.hhs.fha.nhinc.util.hash.SHA1HashCode;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+
+import org.apache.log4j.Logger;
+
 
 /**
  * Persistence service for Document records
@@ -47,7 +49,7 @@ import org.apache.commons.logging.LogFactory;
  * @author Neil Webb
  */
 public class DocumentService {
-    private static Log log = LogFactory.getLog(DocumentService.class);
+    private static Logger log = Logger.getLogger(DocumentService.class);
 
     /**
      * Save a document record.

@@ -34,8 +34,7 @@ import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.transform.stream.StreamSource;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.uddi.api_v3.BusinessDetail;
 import org.uddi.api_v3.ObjectFactory;
 
@@ -45,7 +44,7 @@ import org.uddi.api_v3.ObjectFactory;
  */
 public class ConnectionManagerDAOBase {
 
-    private Log log = null;
+    private Logger log = Logger.getLogger(ConnectionManagerDAOBase.class);
 
     protected BusinessDetail loadBusinessDetail(File file) throws JAXBException {
         BusinessDetail resp = null;
@@ -70,17 +69,9 @@ public class ConnectionManagerDAOBase {
         } catch (JAXBException ex) {
             throw new RuntimeException("Unable to save to Connection Information File " + file.getName(), ex);
         }
-        getLogger().info("Connection info saved to " + file.getName());
-    }
-
-    protected Log getLogger() {
-        if (log == null) {
-            setLogger(LogFactory.getLog(this.getClass()));
+        if(log.isInfoEnabled()){
+        	log.info("Connection info saved to " + file.getName());
         }
-        return log;
     }
 
-    protected void setLogger(Log log) {
-        this.log = log;
-    }
 }

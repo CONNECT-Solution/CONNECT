@@ -29,6 +29,9 @@ package gov.hhs.fha.nhinc.transform.subdisc;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import java.util.List;
 import javax.xml.bind.JAXBElement;
+
+import org.apache.log4j.Logger;
+
 import org.hl7.v3.CE;
 import org.hl7.v3.II;
 import org.hl7.v3.ADExplicit;
@@ -38,8 +41,6 @@ import org.hl7.v3.PRPAMT201301UV02OtherIDs;
 import org.hl7.v3.ENExplicit;
 import org.hl7.v3.IVLTSExplicit;
 import org.hl7.v3.TSExplicit;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.PRPAMT201302UV02OtherIDs;
 import org.hl7.v3.PRPAMT201302UV02OtherIDsId;
 import org.hl7.v3.PRPAMT201310UV02Patient;
@@ -67,7 +68,7 @@ import org.hl7.v3.PRPAMT201310UV02BirthPlace;
  */
 public class HL7PatientTransforms {
 
-    private static Log log = LogFactory.getLog(HL7PatientTransforms.class);
+    private static Logger log = Logger.getLogger(HL7PatientTransforms.class);
 
     public static org.hl7.v3.PRPAMT201301UV02Patient create201301Patient(PRPAMT201306UV02ParameterList paramList,
             String aaId) {

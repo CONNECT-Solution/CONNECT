@@ -27,25 +27,16 @@
 package gov.hhs.fha.nhinc.policyengine.adapter.pdp.proxy;
 
 import java.util.ArrayList;
-
 import java.util.List;
 
-import org.apache.commons.logging.Log;
-
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 import com.sun.identity.xacml.common.XACMLException;
-
 import com.sun.identity.xacml.context.Decision;
-
 import com.sun.identity.xacml.context.Request;
-
 import com.sun.identity.xacml.context.Response;
-
 import com.sun.identity.xacml.context.Result;
-
 import com.sun.identity.xacml.context.Status;
-
 import com.sun.identity.xacml.policy.Obligations;
 
 /**
@@ -58,28 +49,9 @@ import com.sun.identity.xacml.policy.Obligations;
  */
 
 public class AdapterPDPProxyNoopImpl implements AdapterPDPProxy
-
 {
-
     private static final String DECISION_VALUE_PERMIT = "Permit";
-
-    private Log log = null;
-
-    public AdapterPDPProxyNoopImpl()
-
-    {
-
-        log = createLogger();
-
-    }
-
-    protected Log createLogger()
-
-    {
-
-        return LogFactory.getLog(getClass());
-
-    }
+    private Logger log = Logger.getLogger(AdapterPDPProxyNoopImpl.class);
 
     /*
      * (non-Javadoc)
@@ -91,27 +63,17 @@ public class AdapterPDPProxyNoopImpl implements AdapterPDPProxy
 
     @Override
     public Response processPDPRequest(Request pdpRequest)
-
     {
-
         log.debug("Begin AdapterPDPProxyNoopImpl.processPDPRequest(...)");
-
         Response resp = createResponse();
-
         log.debug("End AdapterPDPProxyNoopImpl.processPDPRequest(...)");
-
         return resp;
-
     }
 
     protected Response createResponse()
-
     {
-
         Response response = new Response()
-
         {
-
             @SuppressWarnings("unchecked")
             List results = null;
 

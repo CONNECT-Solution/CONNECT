@@ -30,8 +30,7 @@ import java.util.List;
 import java.io.Serializable;
 import java.util.Iterator;
 import javax.xml.bind.JAXBElement;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.hl7.v3.*;
 import gov.hhs.fha.nhinc.common.nhinccommon.PersonNameType;
 import gov.hhs.fha.nhinc.common.nhinccommon.CeType;
@@ -43,7 +42,7 @@ import gov.hhs.fha.nhinc.nhinclib.NullChecker;
  */
 public class HL7Extractors {
 
-    private static Log log = LogFactory.getLog(HL7Extractors.class);
+    private static Logger log = Logger.getLogger(HL7Extractors.class);
 
     public static PRPAIN201301UV02MFMIMT700701UV01Subject1 ExtractSubjectFromMessage(org.hl7.v3.PRPAIN201301UV02 message) {
         // assume one subject for now

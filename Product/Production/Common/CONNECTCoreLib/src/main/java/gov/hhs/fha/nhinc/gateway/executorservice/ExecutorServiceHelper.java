@@ -29,18 +29,12 @@ package gov.hhs.fha.nhinc.gateway.executorservice;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
-//import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
-//import gov.hhs.fha.nhinc.connectmgr.NhinEndpointManager;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
-
 import java.io.CharArrayWriter;
 import java.io.PrintWriter;
 import java.util.Map;
 import java.util.HashMap;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 /**
  * Singleton class that holds the ExecutorService configs as follows - concurrentPoolSize is the size of the pool for
@@ -59,7 +53,7 @@ import org.apache.commons.logging.LogFactory;
  */
 public class ExecutorServiceHelper {
 
-    private static Log log = LogFactory.getLog(ExecutorServiceHelper.class);
+    private static Logger log = Logger.getLogger(ExecutorServiceHelper.class);
 
     private static ExecutorServiceHelper instance = null;
     private static final Object EXSYNC = new Object();

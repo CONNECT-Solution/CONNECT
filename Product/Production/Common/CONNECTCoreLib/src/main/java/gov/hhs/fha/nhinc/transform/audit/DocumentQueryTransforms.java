@@ -33,8 +33,7 @@ import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBContext;
 
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+
 import org.apache.log4j.Logger;
 
 import com.services.nhinc.schema.auditmessage.AuditMessageType;

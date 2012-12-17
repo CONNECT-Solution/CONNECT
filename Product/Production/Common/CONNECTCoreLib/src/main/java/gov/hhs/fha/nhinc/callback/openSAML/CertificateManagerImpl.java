@@ -16,7 +16,7 @@ import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.security.interfaces.RSAPublicKey;
 
-import org.apache.commons.logging.Log;
+import org.apache.log4j.Logger;
 import org.apache.commons.logging.LogFactory;
 
 /**
@@ -24,7 +24,7 @@ import org.apache.commons.logging.LogFactory;
  * 
  */
 public class CertificateManagerImpl implements CertificateManager {
-    private static Log log = LogFactory.getLog(CertificateManagerImpl.class);
+    private static Logger log = Logger.getLogger(CertificateManagerImpl.class);
 
     private KeyStore keyStore = null;
 

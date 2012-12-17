@@ -29,8 +29,8 @@ package gov.hhs.fha.nhinc.transform.audit;
 import com.services.nhinc.schema.auditmessage.AuditMessageType.ActiveParticipant;
 import java.util.List;
 import javax.xml.bind.JAXBElement;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+
+import org.apache.log4j.Logger;
 
 import javax.xml.bind.JAXBContext;
 import java.io.ByteArrayOutputStream;
@@ -77,14 +77,7 @@ import org.hl7.v3.RespondingGatewayPRPAIN201306UV02ResponseType;
 public class PatientDiscoveryTransforms {
 
     private static final String JAXB_HL7_CONTEXT_NAME = "org.hl7.v3";
-    private Log log = null;// LogFactory.getLog(PatientDiscoveryTransforms.class);
-
-    /**
-     * Default Constructor
-     */
-    public PatientDiscoveryTransforms() {
-        log = createLogger();
-    }
+    private Logger log = Logger.getLogger(PatientDiscoveryTransforms.class);
 
     /**
      * This method tranforms a patient discovery request into an audit log message but it leaves the direction decision
@@ -651,15 +644,6 @@ public class PatientDiscoveryTransforms {
         addLogInfo("****************************************************************");
 
         return oReturnLogEventRequestType;
-    }
-
-    /**
-     * Instantiating log4j logger
-     * 
-     * @return
-     */
-    protected Log createLogger() {
-        return ((log != null) ? log : LogFactory.getLog(getClass()));
     }
 
     protected ActiveParticipant getActiveParticipant(UserType oUserInfo) {

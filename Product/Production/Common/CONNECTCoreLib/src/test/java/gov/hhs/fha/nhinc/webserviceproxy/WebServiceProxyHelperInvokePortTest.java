@@ -28,19 +28,14 @@ package gov.hhs.fha.nhinc.webserviceproxy;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.SocketTimeoutException;
 
 import javax.xml.ws.WebServiceException;
 
-import org.apache.commons.logging.Log;
 import org.jmock.Expectations;
 import org.junit.Before;
 import org.junit.Test;

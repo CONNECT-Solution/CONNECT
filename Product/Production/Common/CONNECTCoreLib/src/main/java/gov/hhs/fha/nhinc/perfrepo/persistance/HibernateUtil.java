@@ -30,8 +30,7 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.properties.HibernateAccessor;
 import java.io.File;
 import org.hibernate.cfg.Configuration;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.hibernate.SessionFactory;
 
 /**
@@ -41,7 +40,7 @@ import org.hibernate.SessionFactory;
 public class HibernateUtil {
 
     private static final SessionFactory sessionFactory;
-    private static Log log = LogFactory.getLog(HibernateUtil.class);
+    private static Logger log = Logger.getLogger(HibernateUtil.class);
 
     static {
         try {

@@ -26,8 +26,7 @@
  */
 package gov.hhs.fha.nhinc.webserviceproxy;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.properties.IPropertyAcessor;
@@ -42,7 +41,7 @@ public class WebServiceProxyHelperProperties {
     public static final String CONFIG_KEY_EXCEPTION = "webserviceproxy.exceptionstext";
     public static final String CONFIG_KEY_REQUESTTIMEOUT = "webserviceproxy.request.timeout";
 
-    private Log log = LogFactory.getLog(WebServiceProxyHelperProperties.class);
+    private Logger log = Logger.getLogger(WebServiceProxyHelperProperties.class);
 
     private IPropertyAcessor propertyAccessor;
 

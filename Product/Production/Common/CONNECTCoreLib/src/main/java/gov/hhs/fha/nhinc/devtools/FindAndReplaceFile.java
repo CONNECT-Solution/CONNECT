@@ -35,15 +35,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 /**
  *
  * @author westbergl
  */
 public class FindAndReplaceFile {
-    private static Log log = LogFactory.getLog(FindAndReplaceFile.class);
+    private static Logger log = Logger.getLogger(FindAndReplaceFile.class);
 
     /**
      * Copy contents of the file from the src to the dest. If the dest exists, it will be deleted first.

@@ -31,11 +31,8 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.xml.bind.JAXBException;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 import com.sun.identity.shared.xml.XMLUtils;
 import com.sun.identity.xacml.common.XACMLException;
@@ -74,18 +71,10 @@ import org.w3c.dom.Element;
  */
 public class AdapterPDPProxyJavaImpl implements AdapterPDPProxy {
 
-    private Log log = null;
+    private Logger log = Logger.getLogger(AdapterPDPProxyJavaImpl.class);
     private String statusCodeValue = "";
     private String statusMessageValue = "";
     private boolean foundMatchingAttributes = false;
-
-    public AdapterPDPProxyJavaImpl() {
-        log = createLogger();
-    }
-
-    protected Log createLogger() {
-        return LogFactory.getLog(getClass());
-    }
 
     /**
      * processPDPRequest process the pdp request and evaluates the policy to permit or deny

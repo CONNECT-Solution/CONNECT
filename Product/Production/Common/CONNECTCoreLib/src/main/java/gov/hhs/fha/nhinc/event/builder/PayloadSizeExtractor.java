@@ -31,8 +31,7 @@ import javax.xml.bind.JAXBElement;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.ExtrinsicObjectType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.IdentifiableType;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 import com.google.common.base.Function;
 import com.google.common.base.Optional;
@@ -49,7 +48,7 @@ import gov.hhs.fha.nhinc.util.JaxbDocumentUtils;
 public class PayloadSizeExtractor implements
         Function<JAXBElement<? extends IdentifiableType>, Optional<String>> {
 
-    private static Log log = LogFactory.getLog(PayloadSizeExtractor.class);
+    private Logger log = Logger.getLogger(PayloadSizeExtractor.class);
 
     @Override
     public Optional<String> apply(JAXBElement<? extends IdentifiableType> jaxbElement) {

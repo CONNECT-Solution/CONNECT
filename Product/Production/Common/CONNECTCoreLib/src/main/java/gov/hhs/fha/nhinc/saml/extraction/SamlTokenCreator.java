@@ -38,8 +38,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 /**
  * 
@@ -47,7 +46,7 @@ import org.apache.commons.logging.LogFactory;
  */
 public class SamlTokenCreator {
 
-    private static Log log = LogFactory.getLog(SamlTokenCreator.class);
+    private Logger log = Logger.getLogger(SamlTokenCreator.class);
 
     /**
      * This method will populate a Map with information from the assertion that is used within the SAML Token. This Map

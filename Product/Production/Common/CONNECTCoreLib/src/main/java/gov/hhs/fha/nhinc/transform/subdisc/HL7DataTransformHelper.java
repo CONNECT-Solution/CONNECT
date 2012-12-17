@@ -33,8 +33,7 @@ import java.util.GregorianCalendar;
 import java.util.Iterator;
 import java.util.List;
 import javax.xml.bind.JAXBElement;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.hl7.v3.*;
 
 /**
@@ -43,7 +42,7 @@ import org.hl7.v3.*;
  */
 public class HL7DataTransformHelper {
 
-    private static Log log = LogFactory.getLog(HL7DataTransformHelper.class);
+    private static Logger log = Logger.getLogger(HL7DataTransformHelper.class);
 
     public static II IIFactory(String root) {
         return IIFactory(root, null, null);

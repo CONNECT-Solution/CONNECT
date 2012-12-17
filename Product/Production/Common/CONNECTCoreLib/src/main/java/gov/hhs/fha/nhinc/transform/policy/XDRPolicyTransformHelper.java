@@ -32,8 +32,7 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.util.format.PatientIdFormatUtil;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryObjectListType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryPackageType;
@@ -47,17 +46,13 @@ import oasis.names.tc.xacml._2_0.context.schema.os.ResourceType;
  */
 public class XDRPolicyTransformHelper {
 
-    private static Log log = null;
+    private Logger log = Logger.getLogger(XDRPolicyTransformHelper.class);
     private static final String ActionInValue = "XDRIn";
     private static final String ActionOutValue = "XDROut";
     private static final String XDRRESPONSE_ACTION_IN_VALUE = "XDRResponseIn";
     private static final String XDRRESPONSE_ACTION_OUT_VALUE = "XDRResponseOut";
     private static final String PatientAssigningAuthorityAttributeId = Constants.AssigningAuthorityAttributeId;
     private static final String PatientIdAttributeId = Constants.ResourceIdAttributeId;
-
-    public XDRPolicyTransformHelper() {
-        log = createLogger();
-    }
 
     /**
      * Transform method to create a CheckPolicyRequest object from a 201306 message
@@ -117,10 +112,6 @@ public class XDRPolicyTransformHelper {
         checkPolicyRequest.setAssertion(event.getMessage().getAssertion());
         log.debug("End -- XDRPolicyTransformHelper.transformXDRToCheckPolicy()");
         return checkPolicyRequest;
-    }
-
-    protected Log createLogger() {
-        return ((log != null) ? log : LogFactory.getLog(getClass()));
     }
 
     private String getPatientIdFromEvent(XDREventType event) {
@@ -186,11 +177,11 @@ public class XDRPolicyTransformHelper {
      */
     public CheckPolicyRequestType transformXDRResponseToCheckPolicy(XDRResponseEventType event) {
 
-        createLogger().debug("Begin -- XDRPolicyTransformHelper.transformXDRResponseToCheckPolicy()");
+        log.debug("Begin -- XDRPolicyTransformHelper.transformXDRResponseToCheckPolicy()");
         CheckPolicyRequestType checkPolicyRequest = null;
 
         if (event == null) {
-            createLogger().debug("Request is null.");
+            log.debug("Request is null.");
             return checkPolicyRequest;
         } else {
             checkPolicyRequest = new CheckPolicyRequestType();
@@ -201,10 +192,10 @@ public class XDRPolicyTransformHelper {
         SubjectHelper subjHelp = new SubjectHelper();
         SubjectType subject = subjHelp.subjectFactory(event.getSendingHomeCommunity(), event.getMessage()
                 .getAssertion());
-        createLogger().debug("transformXDRResponseToCheckPolicy - adding subject");
+        log.debug("transformXDRResponseToCheckPolicy - adding subject");
         request.getSubject().add(subject);
 
-        createLogger().debug("transformXDRResponseToCheckPolicy - adding assertion data");
+        log.debug("transformXDRResponseToCheckPolicy - adding assertion data");
         AssertionHelper assertHelp = new AssertionHelper();
         assertHelp.appendAssertionDataToRequest(request, event.getMessage().getAssertion());
 

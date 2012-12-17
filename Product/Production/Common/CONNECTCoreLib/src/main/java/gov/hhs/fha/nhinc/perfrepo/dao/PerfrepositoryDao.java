@@ -39,8 +39,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.hibernate.Hibernate;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -54,7 +53,7 @@ import org.hibernate.Transaction;
  */
 public class PerfrepositoryDao {
 
-    private static Log log = LogFactory.getLog(PerfrepositoryDao.class);
+    private static Logger log = Logger.getLogger(PerfrepositoryDao.class);
     private static PerfrepositoryDao perfDAO = new PerfrepositoryDao();
     private static final String DIRECTION_INBOUND = "inbound";
     private static final String DIRECTION_OUTBOUND = "outbound";

@@ -28,8 +28,7 @@ package gov.hhs.fha.nhinc.gateway.executorservice;
 
 import java.util.concurrent.Callable;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratableMessage;
 import gov.hhs.fha.nhinc.orchestration.OutboundDelegate;
@@ -49,15 +48,12 @@ public class NhinCallableRequest<Response extends OutboundOrchestratableMessage>
     private OutboundDelegate client = null;
     private OutboundResponseProcessor processor = null;
     private OutboundOrchestratableMessage entityRequest = null;
+    private Logger log = Logger.getLogger(NhinCallableRequest.class);
     
     public NhinCallableRequest(OutboundOrchestratableMessage orch) {
         this.client = orch.getDelegate();
         this.processor = orch.getResponseProcessor();
         this.entityRequest = orch;
-    }
-    
-    protected Log getLogger() {
-        return LogFactory.getLog(getClass());
     }
 
     /**
@@ -79,7 +75,7 @@ public class NhinCallableRequest<Response extends OutboundOrchestratableMessage>
                 throw new Exception("NhinDelegate is null!!!");
             }
         } catch (Exception e) {
-            getLogger().error("Failed to process callable request.", e);
+            log.error("Failed to process callable request.", e);
             response = (Response) processor.processErrorResponse(entityRequest, e.getMessage());
         }
         return response;

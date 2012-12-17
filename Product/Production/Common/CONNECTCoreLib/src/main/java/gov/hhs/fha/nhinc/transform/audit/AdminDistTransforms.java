@@ -33,8 +33,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewaySendAlertMessageType;
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 import com.services.nhinc.schema.auditmessage.AuditMessageType;
 import com.services.nhinc.schema.auditmessage.AuditSourceIdentificationType;
@@ -45,20 +44,7 @@ import com.services.nhinc.schema.auditmessage.CodedValueType;
  * @author dunnek
  */
 public class AdminDistTransforms {
-    private Log log = null;
-
-    public AdminDistTransforms() {
-        log = createLogger();
-    }
-
-    /**
-     * Instantiating log4j logger.
-     *
-     * @return the instance of the logger
-     */
-    protected Log createLogger() {
-        return ((log != null) ? log : LogFactory.getLog(getClass()));
-    }
+    private Logger log = Logger.getLogger(AdminDistTransforms.class);
 
     public LogEventRequestType transformEntitySendAlertToAuditMsg(RespondingGatewaySendAlertMessageType message,
             AssertionType assertion, String direction, String _interface) {

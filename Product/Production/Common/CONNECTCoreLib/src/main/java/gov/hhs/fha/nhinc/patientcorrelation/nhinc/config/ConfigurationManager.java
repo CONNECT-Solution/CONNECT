@@ -26,18 +26,17 @@
  */
 package gov.hhs.fha.nhinc.patientcorrelation.nhinc.config;
 
-import gov.hhs.fha.nhinc.properties.*;
-import java.util.List;
-import java.util.ArrayList;
+import gov.hhs.fha.nhinc.properties.PropertyAccessor;
+
 import java.io.File;
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+
+import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
-import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 /**
  * 
@@ -45,11 +44,7 @@ import org.apache.commons.logging.LogFactory;
  */
 public class ConfigurationManager {
     public static final String FTA_CONFIG_FILE = "PCConfiguration.xml";
-    private Log log = null; // LogFactory.getLog(ConfigurationManager.class);
-
-    public ConfigurationManager() {
-        log = createLogger();
-    }
+    private Logger log = Logger.getLogger(ConfigurationManager.class);
 
     public ExpirationConfiguration loadExpirationConfiguration() {
         ExpirationConfiguration result = null;
@@ -159,7 +154,4 @@ public class ConfigurationManager {
         return result;
     }
 
-    protected Log createLogger() {
-        return ((log != null) ? log : LogFactory.getLog(getClass()));
-    }
 }

@@ -26,6 +26,9 @@
  */
 package gov.hhs.fha.nhinc.logging.transaction;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+
 import javax.xml.soap.MessageFactory;
 import javax.xml.soap.SOAPEnvelope;
 import javax.xml.soap.SOAPException;
@@ -35,12 +38,10 @@ import javax.xml.soap.SOAPMessage;
 import javax.xml.soap.SOAPPart;
 import javax.xml.ws.handler.soap.SOAPMessageContext;
 
-import org.apache.commons.logging.Log;
 import org.apache.log4j.MDC;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  * 

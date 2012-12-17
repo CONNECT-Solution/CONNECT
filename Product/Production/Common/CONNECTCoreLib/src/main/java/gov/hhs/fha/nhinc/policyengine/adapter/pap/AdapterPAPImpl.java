@@ -31,8 +31,7 @@ import gov.hhs.fha.nhinc.docrepository.adapter.model.DocumentQueryParams;
 import gov.hhs.fha.nhinc.docrepository.adapter.service.DocumentService;
 import java.util.ArrayList;
 import java.util.List;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 /**
  * This class implements the policy engine PAP (Policy Access Point).
@@ -41,7 +40,7 @@ import org.apache.commons.logging.LogFactory;
  */
 public class AdapterPAPImpl {
 
-    private static Log log = LogFactory.getLog(AdapterPAPImpl.class);
+    private Logger log = Logger.getLogger(AdapterPAPImpl.class);
 
     /**
      * Get the Access Consent Policy (ACP) document for the patient.

@@ -27,11 +27,12 @@
 package gov.hhs.fha.nhinc.proxy;
 
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
+
 import java.io.File;
 import java.net.URI;
 import java.util.HashMap;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+
+import org.apache.log4j.Logger;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
@@ -43,30 +44,14 @@ import org.springframework.context.support.FileSystemXmlApplicationContext;
  * @author Neil Webb, Les Westberg
  */
 public abstract class ComponentProxyObjectFactory {
-    protected Log log = null;
+    private Logger log = Logger.getLogger(ComponentProxyObjectFactory.class) ;
 
     // Getting a context is very expensive. We want to keep them around when we get them. Since
     // the context is specific to each of the derived classes, we need to keep a map for all of them.
     // We have synchronized the method that sets and retrieves this to make it thread safe.
     // ------------------------------------------------------------------------------------------------
     private static HashMap<String, LocalApplicationContextInfo> contextMap = new HashMap<String, LocalApplicationContextInfo>();
-
-    /**
-     * Default constructor.
-     */
-    public ComponentProxyObjectFactory() {
-        log = createLogger();
-    }
-
-    /**
-     * Create the logger.
-     * 
-     * @return Logger
-     */
-    protected Log createLogger() {
-        return LogFactory.getLog(getClass());
-    }
-
+    
     /**
      * Get the URL to properties files.
      * 

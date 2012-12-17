@@ -45,8 +45,7 @@ import oasis.names.tc.xacml._2_0.context.schema.os.RequestType;
 import oasis.names.tc.xacml._2_0.context.schema.os.ResourceType;
 import oasis.names.tc.xacml._2_0.context.schema.os.AttributeType;
 import oasis.names.tc.xacml._2_0.context.schema.os.SubjectType;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.hl7.v3.II;
 
 /**
@@ -55,16 +54,8 @@ import org.hl7.v3.II;
  */
 public class AssertionHelper {
 
-    private Log log = null;
+    private Logger log = Logger.getLogger(AssertionHelper.class);
     private static final boolean appendAttributesIfNull = false;
-
-    public AssertionHelper() {
-        log = createLogger();
-    }
-
-    protected Log createLogger() {
-        return ((log != null) ? log : LogFactory.getLog(getClass()));
-    }
 
     public void appendAssertionDataToRequest(RequestType policyRequest, AssertionType assertion) {
         log.debug("begin appending assertion data to xacml request");

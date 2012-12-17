@@ -26,12 +26,11 @@
  */
 package gov.hhs.fha.nhinc.transform.marshallers;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
 import java.util.Hashtable;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import javax.xml.bind.JAXBContext;
+
+import org.apache.log4j.Logger;
 
 /**
  * This class is used to manage JAXB contexts. Once loaded a JAXB context is kept in static memory so that it does not
@@ -41,7 +40,7 @@ import org.apache.commons.logging.LogFactory;
  * 
  */
 public class JAXBContextHandler {
-    private static Log log = LogFactory.getLog(JAXBContextHandler.class);
+    private Logger log = Logger.getLogger(JAXBContextHandler.class);
 
     // Contexts that are being managed. The name will be the context.
     // ----------------------------------------------------------------

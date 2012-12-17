@@ -27,8 +27,7 @@
 package gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.PRPAIN201301UV;
 
 import java.util.List;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.hl7.v3.PRPAIN201301UV02MFMIMT700701UV01ControlActProcess;
 import org.hl7.v3.PRPAIN201301UV02MFMIMT700701UV01RegistrationEvent;
 import org.hl7.v3.PRPAIN201301UV02MFMIMT700701UV01Subject1;
@@ -40,7 +39,7 @@ import org.hl7.v3.PRPAMT201301UV02Patient;
  * @author svalluripalli
  */
 public class PRPAIN201301UVParser {
-    private static Log log = LogFactory.getLog(PRPAIN201301UVParser.class);
+    private static Logger log = Logger.getLogger(PRPAIN201301UVParser.class);
 
     /**
      * This method gets the patientPerson from HL7V3 message of type PRPAIN201301UV

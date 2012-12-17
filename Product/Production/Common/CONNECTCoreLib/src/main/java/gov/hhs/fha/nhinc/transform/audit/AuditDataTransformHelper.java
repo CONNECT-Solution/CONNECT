@@ -26,8 +26,7 @@
  */
 package gov.hhs.fha.nhinc.transform.audit;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 import com.services.nhinc.schema.auditmessage.AuditMessageType;
 import com.services.nhinc.schema.auditmessage.AuditSourceIdentificationType;
@@ -53,7 +52,7 @@ import javax.xml.datatype.DatatypeConfigurationException;
  */
 public class AuditDataTransformHelper {
 
-    private static Log log = LogFactory.getLog(AuditDataTransformHelper.class);
+    private static Logger log = Logger.getLogger(AuditDataTransformHelper.class);
 
     private static String ipAddr = null;
 

@@ -32,8 +32,7 @@ import gov.hhs.fha.nhinc.properties.IPropertyAcessor;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 
 /**
@@ -42,7 +41,7 @@ import org.apache.commons.logging.LogFactory;
  */
 public class PurposeUseProxyDefaultImpl implements PurposeUseProxy {
 
-    private static Log log = LogFactory.getLog(PurposeUseProxyDefaultImpl.class);
+    private static Logger log = Logger.getLogger(PurposeUseProxyDefaultImpl.class);
     private static final String PURPOSE_FOR_USE_DEPRECATED_ENABLED = "purposeForUseEnabled";
     
     private final IPropertyAcessor propertyAccessor;

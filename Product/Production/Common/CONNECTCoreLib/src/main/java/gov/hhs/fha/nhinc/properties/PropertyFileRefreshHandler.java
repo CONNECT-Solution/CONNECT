@@ -34,8 +34,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Hashtable;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 /**
  * @author akong
@@ -43,7 +42,7 @@ import org.apache.commons.logging.LogFactory;
  */
 public class PropertyFileRefreshHandler {
 
-    private static Log log = LogFactory.getLog(PropertyFileRefreshHandler.class);
+    private Logger log = Logger.getLogger(PropertyFileRefreshHandler.class);
     private Hashtable<String, RefreshInfo> refreshInfoHashtable = new Hashtable<String, RefreshInfo>();
 
     PropertyFileRefreshHandler() {
@@ -145,7 +144,6 @@ public class PropertyFileRefreshHandler {
     }
 
     public void printToLog(String propertyFile) {
-        Log log = getLogger();
         RefreshInfo refreshInfo = refreshInfoHashtable.get(propertyFile);
         log.info("Dumping refresh information for property file: " + propertyFile);
         if (refreshInfo != null) {
@@ -160,10 +158,6 @@ public class PropertyFileRefreshHandler {
         } else {
             log.info("No refresh information found.");
         }
-    }
-    
-    protected Log getLogger() {
-        return log;
     }
 
     private int parseCacheRefreshDuration(String cacheRefreshDuration) {

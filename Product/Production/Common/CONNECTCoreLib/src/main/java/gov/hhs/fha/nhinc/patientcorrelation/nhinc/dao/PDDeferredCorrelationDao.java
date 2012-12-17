@@ -32,8 +32,7 @@ import gov.hhs.fha.nhinc.patientcorrelation.nhinc.persistence.HibernateUtil;
 import java.util.Date;
 import java.util.List;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -46,7 +45,7 @@ import org.hl7.v3.II;
  */
 public class PDDeferredCorrelationDao {
 
-    private static Log log = LogFactory.getLog(PDDeferredCorrelationDao.class);
+    private Logger log = Logger.getLogger(PDDeferredCorrelationDao.class);
 
     /**
      * Query by Message Id. This should return only one record.

@@ -34,8 +34,8 @@ import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
+
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -48,14 +48,7 @@ import org.hibernate.criterion.Restrictions;
  * @author Neil Webb
  */
 public class EventCodeDao {
-    private Log log = null;
-
-    protected Log getLogger() {
-        if (log == null) {
-            log = LogFactory.getLog(getClass());
-        }
-        return log;
-    }
+    private Logger log = Logger.getLogger(EventCodeDao.class);
 
     protected SessionFactory getSessionFactory() {
         return HibernateUtil.getSessionFactory();
@@ -86,24 +79,24 @@ public class EventCodeDao {
                     trans = sess.beginTransaction();
                     sess.delete(eventCode);
                 } else {
-                    getLogger().error("Failed to obtain a session from the sessionFactory");
+                    log.error("Failed to obtain a session from the sessionFactory");
                 }
             } else {
-                getLogger().error("Session factory was null");
+                log.error("Session factory was null");
             }
         } finally {
             if (trans != null) {
                 try {
                     trans.commit();
                 } catch (Throwable t) {
-                    getLogger().error("Failed to commit transaction: " + t.getMessage(), t);
+                    log.error("Failed to commit transaction: " + t.getMessage(), t);
                 }
             }
             if (sess != null) {
                 try {
                     sess.close();
                 } catch (Throwable t) {
-                    getLogger().error("Failed to close session: " + t.getMessage(), t);
+                    log.error("Failed to close session: " + t.getMessage(), t);
                 }
             }
         }
@@ -143,17 +136,17 @@ public class EventCodeDao {
                         eventCodes = new ArrayList<EventCode>();
                     }
                 } else {
-                    getLogger().error("Failed to obtain a session from the sessionFactory");
+                    log.error("Failed to obtain a session from the sessionFactory");
                 }
             } else {
-                getLogger().error("Session factory was null");
+                log.error("Session factory was null");
             }
         } finally {
             if (sess != null) {
                 try {
                     sess.close();
                 } catch (Throwable t) {
-                    getLogger().error("Failed to close session: " + t.getMessage(), t);
+                    log.error("Failed to close session: " + t.getMessage(), t);
                 }
             }
         }
