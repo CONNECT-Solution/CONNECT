@@ -6238,4 +6238,4 @@ com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.withSql = { d
 		<con:parameters/>
 	</con:reporting>
 
-</con:soapui-project>
+<con:sensitiveInformation/></con:soapui-project>

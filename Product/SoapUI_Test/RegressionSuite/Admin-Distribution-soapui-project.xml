@@ -2375,23 +2375,23 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
 assert (count > 0);</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-11-27T18:12:37Z</con:value>
+          <con:value>2012-12-17T02:20:48Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-11-27T18:22:37Z</con:value>
+          <con:value>2012-12-17T02:30:48Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/27/2012 18:12:37</con:value>
+          <con:value>12/17/2012 02:20:48</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-12-27T00:00:00Z</con:value>
+          <con:value>2013-01-16T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>UserId</con:name>
-          <con:value>admindistTue Nov 27 18:17:37 UTC 20121</con:value>
+          <con:value>admindistMon Dec 17 02:25:48 UTC 20121</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -5061,7 +5061,7 @@ FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", context.findPropert
       </con:properties>
       <con:reportParameters/>
     <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript></con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="e0c96169-f42c-4c42-b566-7950411603be" keepSession="false" maxResults="0" name="NhincProxyRequest with a Binary doc" searchProperties="true">
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="e0c96169-f42c-4c42-b566-7950411603be" keepSession="false" maxResults="0" name="NhincProxyRequest with a Binary doc" searchProperties="true" disabled="true">
       <con:settings/>
       <con:testStep name="clear audit table" type="groovy"><con:settings/><con:config><script>context.withSql('AuditDB') { sql -> 
   sql.execute('delete from ' + context.findProperty('AuditTable'))
@@ -5087,7 +5087,7 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
               <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
-            <con:endpoint>${#Project#Endpoint-NhincProxyAdminDist}</con:endpoint>
+            <con:endpoint>${#Project#Endpoint-EntityAdminDist}</con:endpoint>
             <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:emergency:EDXL:DE:1.0">
    <soap:Header/>
    <soap:Body projectName="Admin-Distribution" testCase="NhincProxyRequest with a Binary doc">
@@ -5490,28 +5490,28 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
 assert (count > 0);</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-11-27T18:13:45Z</con:value>
+          <con:value>2012-12-17T02:21:02Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-11-27T18:23:45Z</con:value>
+          <con:value>2012-12-17T02:31:02Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/27/2012 18:13:45</con:value>
+          <con:value>12/17/2012 02:21:02</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-12-27T00:00:00Z</con:value>
+          <con:value>2013-01-16T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>UserId</con:name>
-          <con:value>admindistTue Nov 27 18:18:45 UTC 20121</con:value>
+          <con:value>admindistMon Dec 17 02:26:02 UTC 20121</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
     <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript></con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="e10c8690-4f9f-4c68-a67c-1e5f11a66eec" keepSession="false" maxResults="0" name="NhincProxyRequest with XML data" searchProperties="true">
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="e10c8690-4f9f-4c68-a67c-1e5f11a66eec" keepSession="false" maxResults="0" name="NhincProxyRequest with XML data" searchProperties="true" disabled="true">
       <con:settings/>
       <con:testStep name="clear audit table" type="groovy"><con:settings/><con:config><script>context.withSql('AuditDB') { sql -> 
   sql.execute('delete from ' + context.findProperty('AuditTable'))
@@ -5538,7 +5538,7 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
               <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
-            <con:endpoint>${#Project#Endpoint-NhincProxyAdminDist}</con:endpoint>
+            <con:endpoint>${#Project#Endpoint-EntityAdminDist}</con:endpoint>
             <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:emergency:EDXL:DE:1.0">
    <soap:Header/>
    <soap:Body projectName="Admin-Distribution" testCase="NhincProxyRequest with XML data">
@@ -5936,28 +5936,28 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
 assert (count > 0);</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-11-27T18:14:06Z</con:value>
+          <con:value>2012-12-17T01:54:18Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-11-27T18:24:06Z</con:value>
+          <con:value>2012-12-17T02:04:18Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/27/2012 18:14:06</con:value>
+          <con:value>12/17/2012 01:54:18</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-12-27T00:00:00Z</con:value>
+          <con:value>2013-01-16T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>UserId</con:name>
-          <con:value>admindistTue Nov 27 18:19:06 UTC 20121</con:value>
+          <con:value>admindistMon Dec 17 01:59:19 UTC 20121</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
     <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript></con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="ed85ad92-3732-424e-a5e6-dd6f3bdc24fe" keepSession="false" maxResults="0" name="NhincProxyRequest with multiple documents (multiple contentObjects)" searchProperties="true">
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="ed85ad92-3732-424e-a5e6-dd6f3bdc24fe" keepSession="false" maxResults="0" name="NhincProxyRequest with multiple documents (multiple contentObjects)" searchProperties="true" disabled="true">
       <con:settings/>
       <con:testStep name="clear audit table" type="groovy"><con:settings/><con:config><script>context.withSql('AuditDB') { sql -> 
   sql.execute('delete from ' + context.findProperty('AuditTable'))
@@ -5984,7 +5984,7 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
               <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
-            <con:endpoint>${#Project#Endpoint-NhincProxyAdminDist}</con:endpoint>
+            <con:endpoint>${#Project#Endpoint-EntityAdminDist}</con:endpoint>
             <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:emergency:EDXL:DE:1.0">
    <soap:Header/>
    <soap:Body projectName="Admin-Distribution" testCase="NhincProxyRequest with multiple documents (multiple contentObjects)">
@@ -6424,28 +6424,28 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
 assert (count > 0);</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-11-27T18:14:26Z</con:value>
+          <con:value>2012-12-17T01:54:20Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-11-27T18:24:26Z</con:value>
+          <con:value>2012-12-17T02:04:20Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/27/2012 18:14:26</con:value>
+          <con:value>12/17/2012 01:54:20</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-12-27T00:00:00Z</con:value>
+          <con:value>2013-01-16T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>UserId</con:name>
-          <con:value>admindistTue Nov 27 18:19:26 UTC 20121</con:value>
+          <con:value>admindistMon Dec 17 01:59:20 UTC 20121</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
     <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript></con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="9f036a35-2b5f-4432-8dbc-f91db0b4e861" keepSession="false" maxResults="0" name="NhincProxyRequest with multiple documents (XML and Binary)" searchProperties="true">
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="9f036a35-2b5f-4432-8dbc-f91db0b4e861" keepSession="false" maxResults="0" name="NhincProxyRequest with multiple documents (XML and Binary)" searchProperties="true" disabled="true">
       <con:settings/>
       <con:testStep name="clear audit table" type="groovy"><con:settings/><con:config><script>context.withSql('AuditDB') { sql -> 
   sql.execute('delete from ' + context.findProperty('AuditTable'))
@@ -6472,7 +6472,7 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
               <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
-            <con:endpoint>${#Project#Endpoint-NhincProxyAdminDist}</con:endpoint>
+            <con:endpoint>${#Project#Endpoint-EntityAdminDist}</con:endpoint>
             <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:emergency:EDXL:DE:1.0">
    <soap:Header/>
    <soap:Body projectName="Admin-Distribution" testCase="NhincProxyRequest with multiple documents (XML and Binary)">
@@ -6881,28 +6881,28 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
 assert (count > 0);</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-11-27T18:14:46Z</con:value>
+          <con:value>2012-12-17T01:54:22Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-11-27T18:24:46Z</con:value>
+          <con:value>2012-12-17T02:04:22Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/27/2012 18:14:46</con:value>
+          <con:value>12/17/2012 01:54:22</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-12-27T00:00:00Z</con:value>
+          <con:value>2013-01-16T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>UserId</con:name>
-          <con:value>admindistTue Nov 27 18:19:46 UTC 20121</con:value>
+          <con:value>admindistMon Dec 17 01:59:22 UTC 20121</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
     <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript></con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="73e8702c-7b4b-4eeb-8bba-dbcfc2ddb322" keepSession="false" maxResults="0" name="NhincProxyRequest without a ContentObject" searchProperties="true">
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="73e8702c-7b4b-4eeb-8bba-dbcfc2ddb322" keepSession="false" maxResults="0" name="NhincProxyRequest without a ContentObject" searchProperties="true" disabled="true">
       <con:settings/>
       <con:testStep name="clear audit table" type="groovy"><con:settings/><con:config><script>context.withSql('AuditDB') { sql -> 
   sql.execute('delete from ' + context.findProperty('AuditTable'))
@@ -6929,7 +6929,7 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
               <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
-            <con:endpoint>${#Project#Endpoint-NhincProxyAdminDist}</con:endpoint>
+            <con:endpoint>${#Project#Endpoint-EntityAdminDist}</con:endpoint>
             <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:emergency:EDXL:DE:1.0">
    <soap:Header/>
    <soap:Body projectName="Admin-Distribution" testCase="NhincProxyRequest without a ContentObject">
@@ -7288,28 +7288,28 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
 assert (count > 0);</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-11-27T18:15:06Z</con:value>
+          <con:value>2012-12-17T02:20:03Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-11-27T18:25:06Z</con:value>
+          <con:value>2012-12-17T02:30:03Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/27/2012 18:15:06</con:value>
+          <con:value>12/17/2012 02:20:03</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-12-27T00:00:00Z</con:value>
+          <con:value>2013-01-16T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>UserId</con:name>
-          <con:value>admindistTue Nov 27 18:20:06 UTC 20121</con:value>
+          <con:value>admindistMon Dec 17 02:25:03 UTC 20121</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
     <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript></con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="5361bf64-5349-4b98-8d4b-f414271422e0" keepSession="false" maxResults="0" name="NhincProxyRequest with an empty ContentObject" searchProperties="true">
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="5361bf64-5349-4b98-8d4b-f414271422e0" keepSession="false" maxResults="0" name="NhincProxyRequest with an empty ContentObject" searchProperties="true" disabled="true">
       <con:settings/>
       <con:testStep name="clear audit table" type="groovy"><con:settings/><con:config><script>context.withSql('AuditDB') { sql -> 
   sql.execute('delete from ' + context.findProperty('AuditTable'))
@@ -7336,7 +7336,7 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
               <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
-            <con:endpoint>${#Project#Endpoint-NhincProxyAdminDist}</con:endpoint>
+            <con:endpoint>${#Project#Endpoint-EntityAdminDist}</con:endpoint>
             <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:emergency:EDXL:DE:1.0">
    <soap:Header/>
    <soap:Body projectName="Admin-Distribution" testCase="NhincProxyRequest with an empty ContentObject">
@@ -7699,28 +7699,28 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
 assert (count > 0);</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-11-27T18:15:26Z</con:value>
+          <con:value>2012-12-17T02:19:56Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-11-27T18:25:26Z</con:value>
+          <con:value>2012-12-17T02:29:56Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/27/2012 18:15:26</con:value>
+          <con:value>12/17/2012 02:19:56</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-12-27T00:00:00Z</con:value>
+          <con:value>2013-01-16T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>UserId</con:name>
-          <con:value>admindistTue Nov 27 18:20:26 UTC 20121</con:value>
+          <con:value>admindistMon Dec 17 02:24:56 UTC 20121</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
     <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript></con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="d9e6e4ca-39fd-4d1e-ac8e-f6bb2ef5e63d" keepSession="false" maxResults="0" name="NhincProxyRequest - Policy engine deny" searchProperties="true">
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="d9e6e4ca-39fd-4d1e-ac8e-f6bb2ef5e63d" keepSession="false" maxResults="0" name="NhincProxyRequest - Policy engine deny" searchProperties="true" disabled="true">
       <con:settings/>
       <con:testStep name="Set PolicyEngine Mock" type="groovy">
         <con:settings/>
@@ -7743,7 +7743,7 @@ FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", context.findPro
               <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
-            <con:endpoint>${#Project#Endpoint-NhincProxyAdminDist}</con:endpoint>
+            <con:endpoint>${#Project#Endpoint-EntityAdminDist}</con:endpoint>
             <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:emergency:EDXL:DE:1.0">
    <soap:Header/>
    <soap:Body projectName="Admin-Distribution" testCase="NhincProxyRequest with a Binary doc">
@@ -9630,24 +9630,24 @@ declare namespace ns19='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-11-27T18:31:15Z</con:value>
+          <con:value>2012-12-17T02:19:57Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-11-27T18:41:15Z</con:value>
+          <con:value>2012-12-17T02:29:57Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/27/2012 18:31:15</con:value>
+          <con:value>12/17/2012 02:19:57</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-12-27T00:00:00Z</con:value>
+          <con:value>2013-01-16T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
     <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript></con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="25050fb5-059d-4875-8ab5-337cd145f06d" keepSession="false" maxResults="0" name="NhincProxyRequest - 404 or 500 error" searchProperties="true">
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="25050fb5-059d-4875-8ab5-337cd145f06d" keepSession="false" maxResults="0" name="NhincProxyRequest - 404 or 500 error" searchProperties="true" disabled="true">
       <con:settings/>
       <con:testStep name="Modify endpoint" type="groovy">
         <con:settings/>
@@ -9669,7 +9669,7 @@ FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", context.findPropert
               <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
-            <con:endpoint>${#Project#Endpoint-NhincProxyAdminDist}</con:endpoint>
+            <con:endpoint>${#Project#Endpoint-EntityAdminDist}</con:endpoint>
             <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:emergency:EDXL:DE:1.0">
    <soap:Header/>
    <soap:Body projectName="Admin-Distribution" testCase="NhincProxyRequest with a Binary doc">
@@ -10068,19 +10068,19 @@ FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", context.findPropert
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-11-27T18:15:47Z</con:value>
+          <con:value>2012-12-17T02:20:28Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-11-27T18:25:47Z</con:value>
+          <con:value>2012-12-17T02:30:28Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/27/2012 18:15:47</con:value>
+          <con:value>12/17/2012 02:20:28</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-12-27T00:00:00Z</con:value>
+          <con:value>2013-01-16T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>

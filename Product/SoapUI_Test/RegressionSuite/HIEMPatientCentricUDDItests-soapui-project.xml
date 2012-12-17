@@ -149,7 +149,7 @@ FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.propert
 					<con:interface>EntityNotificationProducerBindingSoap</con:interface>
 					<con:operation>Subscribe</con:operation>
 					<con:request incomingWss="" name="Subscribe" outgoingWss="" wssPasswordType="">
-						<con:settings/>
+						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
 						<con:encoding>UTF-8</con:encoding>
 						<con:endpoint>${#Project#Endpoint-Subscribe}</con:endpoint>
 						<con:request><![CDATA[
@@ -404,23 +404,23 @@ FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.propert
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-11-28T20:23:39Z</con:value>
+					<con:value>2012-12-16T17:50:23Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-11-28T20:33:39Z</con:value>
+					<con:value>2012-12-16T18:00:23Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>11/28/2012 20:23:39</con:value>
+					<con:value>12/16/2012 17:50:23</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-12-28T00:00:00Z</con:value>
+					<con:value>2013-01-15T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>date</con:name>
-					<con:value>12/28/2012 00:00:00</con:value>
+					<con:value>01/15/2013 00:00:00</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>

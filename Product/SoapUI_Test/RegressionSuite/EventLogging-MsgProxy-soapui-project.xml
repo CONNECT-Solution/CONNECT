@@ -650,42 +650,18 @@
 	</con:testStep>
 	<con:testStep type="groovy" name="Verify Event Logs"><con:settings/><con:config><script>context.withSql('eventdb') {sql ->
 	assert 12 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_INBOUND_MESSAGE"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_INBOUND_MESSAGE"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_INBOUND_PROCESSING"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_INBOUND_PROCESSING"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_DELEGATION_TO_ADAPTER"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_DELEGATION_TO_ADAPTER"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_OUTBOUND_MESSAGE"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_OUTBOUND_MESSAGE"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_OUTBOUND_PROCESSING"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_OUTBOUND_PROCESSING"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_INVOCATION_TO_NWHIN"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_INVOCATION_TO_NWHIN"'))[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INBOUND_MESSAGE"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INBOUND_MESSAGE"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INBOUND_PROCESSING"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INBOUND_PROCESSING"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_DELEGATION_TO_ADAPTER"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_DELEGATION_TO_ADAPTER"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_OUTBOUND_MESSAGE"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_OUTBOUND_MESSAGE"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_OUTBOUND_PROCESSING"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_OUTBOUND_PROCESSING"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INVOCATION_TO_NWHIN"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INVOCATION_TO_NWHIN"')[0]
 }</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);
 </con:setupScript>
@@ -1056,42 +1032,18 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 </con:testStep>
 <con:testStep type="groovy" name="Verify Event Logs"><con:settings/><con:config><script>context.withSql('eventdb') {sql ->
 	assert 12 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_INBOUND_MESSAGE"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_INBOUND_MESSAGE"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_INBOUND_PROCESSING"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_INBOUND_PROCESSING"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_DELEGATION_TO_ADAPTER"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_DELEGATION_TO_ADAPTER"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_OUTBOUND_MESSAGE"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_OUTBOUND_MESSAGE"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_OUTBOUND_PROCESSING"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_OUTBOUND_PROCESSING"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_INVOCATION_TO_NWHIN"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_INVOCATION_TO_NWHIN"'))[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INBOUND_MESSAGE"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INBOUND_MESSAGE"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INBOUND_PROCESSING"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INBOUND_PROCESSING"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_DELEGATION_TO_ADAPTER"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_DELEGATION_TO_ADAPTER"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_OUTBOUND_MESSAGE"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_OUTBOUND_MESSAGE"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_OUTBOUND_PROCESSING"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_OUTBOUND_PROCESSING"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INVOCATION_TO_NWHIN"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INVOCATION_TO_NWHIN"')[0]
 }</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);
 </con:setupScript>
@@ -1591,42 +1543,18 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 </con:testStep>
 <con:testStep type="groovy" name="Verify Event Logs"><con:settings/><con:config><script>context.withSql('eventdb') {sql ->
 	assert 12 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_INBOUND_MESSAGE"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_INBOUND_MESSAGE"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_INBOUND_PROCESSING"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_INBOUND_PROCESSING"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_DELEGATION_TO_ADAPTER"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_DELEGATION_TO_ADAPTER"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_OUTBOUND_MESSAGE"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_OUTBOUND_MESSAGE"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_OUTBOUND_PROCESSING"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_OUTBOUND_PROCESSING"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_INVOCATION_TO_NWHIN"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_INVOCATION_TO_NWHIN"'))[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INBOUND_MESSAGE"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INBOUND_MESSAGE"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INBOUND_PROCESSING"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INBOUND_PROCESSING"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_DELEGATION_TO_ADAPTER"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_DELEGATION_TO_ADAPTER"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_OUTBOUND_MESSAGE"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_OUTBOUND_MESSAGE"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_OUTBOUND_PROCESSING"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_OUTBOUND_PROCESSING"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INVOCATION_TO_NWHIN"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INVOCATION_TO_NWHIN"')[0]
 }</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
 <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);
@@ -1958,42 +1886,18 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 </con:testStep>
 <con:testStep type="groovy" name="Verify Event Logs"><con:settings/><con:config><script>context.withSql('eventdb') {sql ->
 	assert 12 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_INBOUND_MESSAGE"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_INBOUND_MESSAGE"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_INBOUND_PROCESSING"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_INBOUND_PROCESSING"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_DELEGATION_TO_ADAPTER"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_DELEGATION_TO_ADAPTER"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_OUTBOUND_MESSAGE"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_OUTBOUND_MESSAGE"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_OUTBOUND_PROCESSING"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_OUTBOUND_PROCESSING"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_INVOCATION_TO_NWHIN"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_INVOCATION_TO_NWHIN"'))[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INBOUND_MESSAGE"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INBOUND_MESSAGE"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INBOUND_PROCESSING"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INBOUND_PROCESSING"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_DELEGATION_TO_ADAPTER"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_DELEGATION_TO_ADAPTER"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_OUTBOUND_MESSAGE"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_OUTBOUND_MESSAGE"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_OUTBOUND_PROCESSING"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_OUTBOUND_PROCESSING"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INVOCATION_TO_NWHIN"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INVOCATION_TO_NWHIN"')[0]
 }</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
 <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);
@@ -2603,42 +2507,18 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 </con:testStep>
 <con:testStep type="groovy" name="Verify Event Logs"><con:settings/><con:config><script>context.withSql('eventdb') {sql ->
 	assert 12 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_INBOUND_MESSAGE"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_INBOUND_MESSAGE"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_INBOUND_PROCESSING"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_INBOUND_PROCESSING"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_DELEGATION_TO_ADAPTER"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_DELEGATION_TO_ADAPTER"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_OUTBOUND_MESSAGE"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_OUTBOUND_MESSAGE"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_OUTBOUND_PROCESSING"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_OUTBOUND_PROCESSING"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_INVOCATION_TO_NWHIN"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_INVOCATION_TO_NWHIN"'))[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INBOUND_MESSAGE"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INBOUND_MESSAGE"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INBOUND_PROCESSING"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INBOUND_PROCESSING"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_DELEGATION_TO_ADAPTER"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_DELEGATION_TO_ADAPTER"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_OUTBOUND_MESSAGE"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_OUTBOUND_MESSAGE"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_OUTBOUND_PROCESSING"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_OUTBOUND_PROCESSING"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INVOCATION_TO_NWHIN"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INVOCATION_TO_NWHIN"')[0]
 }</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
 <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);
@@ -3218,42 +3098,18 @@ exists( //ns3:PRPA_IN201306UV02/ns3:controlActProcess)</path>
 </con:testStep>
 <con:testStep type="groovy" name="Verify Event Logs"><con:settings/><con:config><script>context.withSql('eventdb') {sql ->
 	assert 12 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_INBOUND_MESSAGE"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_INBOUND_MESSAGE"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_INBOUND_PROCESSING"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_INBOUND_PROCESSING"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_DELEGATION_TO_ADAPTER"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_DELEGATION_TO_ADAPTER"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_OUTBOUND_MESSAGE"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_OUTBOUND_MESSAGE"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_OUTBOUND_PROCESSING"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_OUTBOUND_PROCESSING"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_INVOCATION_TO_NWHIN"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_INVOCATION_TO_NWHIN"'))[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INBOUND_MESSAGE"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INBOUND_MESSAGE"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INBOUND_PROCESSING"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INBOUND_PROCESSING"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_DELEGATION_TO_ADAPTER"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_DELEGATION_TO_ADAPTER"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_OUTBOUND_MESSAGE"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_OUTBOUND_MESSAGE"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_OUTBOUND_PROCESSING"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_OUTBOUND_PROCESSING"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INVOCATION_TO_NWHIN"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INVOCATION_TO_NWHIN"')[0]
 }</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
 <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);
@@ -3573,42 +3429,18 @@ log.info documentID + " " + msgDocID</scriptText>
 </con:testStep>
 <con:testStep type="groovy" name="Verify Event Logs"><con:settings/><con:config><script>context.withSql('eventdb') {sql ->
 	assert 12 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_INBOUND_MESSAGE"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_INBOUND_MESSAGE"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_INBOUND_PROCESSING"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_INBOUND_PROCESSING"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_DELEGATION_TO_ADAPTER"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_DELEGATION_TO_ADAPTER"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_OUTBOUND_MESSAGE"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_OUTBOUND_MESSAGE"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_OUTBOUND_PROCESSING"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_OUTBOUND_PROCESSING"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_INVOCATION_TO_NWHIN"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_INVOCATION_TO_NWHIN"'))[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INBOUND_MESSAGE"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INBOUND_MESSAGE"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INBOUND_PROCESSING"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INBOUND_PROCESSING"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_DELEGATION_TO_ADAPTER"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_DELEGATION_TO_ADAPTER"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_OUTBOUND_MESSAGE"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_OUTBOUND_MESSAGE"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_OUTBOUND_PROCESSING"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_OUTBOUND_PROCESSING"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INVOCATION_TO_NWHIN"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INVOCATION_TO_NWHIN"')[0]
 }</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
 <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);
@@ -3929,42 +3761,18 @@ assert (docData.size() != 0)</scriptText>
 </con:testStep>
 <con:testStep type="groovy" name="Verify Event Logs"><con:settings/><con:config><script>context.withSql('eventdb') {sql ->
 	assert 12 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_INBOUND_MESSAGE"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_INBOUND_MESSAGE"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_INBOUND_PROCESSING"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_INBOUND_PROCESSING"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_DELEGATION_TO_ADAPTER"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_DELEGATION_TO_ADAPTER"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_OUTBOUND_MESSAGE"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_OUTBOUND_MESSAGE"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_OUTBOUND_PROCESSING"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_OUTBOUND_PROCESSING"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_INVOCATION_TO_NWHIN"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_INVOCATION_TO_NWHIN"'))[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INBOUND_MESSAGE"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INBOUND_MESSAGE"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INBOUND_PROCESSING"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INBOUND_PROCESSING"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_DELEGATION_TO_ADAPTER"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_DELEGATION_TO_ADAPTER"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_OUTBOUND_MESSAGE"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_OUTBOUND_MESSAGE"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_OUTBOUND_PROCESSING"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_OUTBOUND_PROCESSING"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INVOCATION_TO_NWHIN"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INVOCATION_TO_NWHIN"')[0]
 }</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
 <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);
@@ -4295,42 +4103,18 @@ assert holder["//ns4:SubscribeResponse[1]/ns4:SubscriptionReference[1]/ns3:Refer
 </con:testStep>
 <con:testStep type="groovy" name="Verify Event Logs"><con:settings/><con:config><script>context.withSql('eventdb') {sql ->
 	assert 12 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_INBOUND_MESSAGE"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_INBOUND_MESSAGE"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_INBOUND_PROCESSING"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_INBOUND_PROCESSING"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_DELEGATION_TO_ADAPTER"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_DELEGATION_TO_ADAPTER"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_OUTBOUND_MESSAGE"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_OUTBOUND_MESSAGE"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_OUTBOUND_PROCESSING"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_OUTBOUND_PROCESSING"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_INVOCATION_TO_NWHIN"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_INVOCATION_TO_NWHIN"'))[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INBOUND_MESSAGE"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INBOUND_MESSAGE"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INBOUND_PROCESSING"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INBOUND_PROCESSING"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_DELEGATION_TO_ADAPTER"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_DELEGATION_TO_ADAPTER"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_OUTBOUND_MESSAGE"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_OUTBOUND_MESSAGE"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_OUTBOUND_PROCESSING"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_OUTBOUND_PROCESSING"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INVOCATION_TO_NWHIN"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INVOCATION_TO_NWHIN"')[0]
 }</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
 <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);
@@ -4927,42 +4711,18 @@ testRunner.testCase.testSuite.project.setPropertyValue( "NotifySubscriptionID", 
 </con:testStep>
 <con:testStep type="groovy" name="Verify Event Logs"><con:settings/><con:config><script>context.withSql('eventdb') {sql ->
 	assert 12 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_INBOUND_MESSAGE"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_INBOUND_MESSAGE"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_INBOUND_PROCESSING"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_INBOUND_PROCESSING"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_DELEGATION_TO_ADAPTER"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_DELEGATION_TO_ADAPTER"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_OUTBOUND_MESSAGE"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_OUTBOUND_MESSAGE"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_OUTBOUND_PROCESSING"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_OUTBOUND_PROCESSING"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_INVOCATION_TO_NWHIN"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_INVOCATION_TO_NWHIN"'))[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INBOUND_MESSAGE"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INBOUND_MESSAGE"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INBOUND_PROCESSING"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INBOUND_PROCESSING"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_DELEGATION_TO_ADAPTER"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_DELEGATION_TO_ADAPTER"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_OUTBOUND_MESSAGE"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_OUTBOUND_MESSAGE"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_OUTBOUND_PROCESSING"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_OUTBOUND_PROCESSING"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INVOCATION_TO_NWHIN"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INVOCATION_TO_NWHIN"')[0]
 }</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
 <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);
@@ -5296,42 +5056,18 @@ nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.
 </con:testStep>
 <con:testStep type="groovy" name="Verify Event Logs"><con:settings/><con:config><script>context.withSql('eventdb') {sql ->
 	assert 12 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_INBOUND_MESSAGE"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_INBOUND_MESSAGE"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_INBOUND_PROCESSING"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_INBOUND_PROCESSING"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_DELEGATION_TO_ADAPTER"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_DELEGATION_TO_ADAPTER"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_OUTBOUND_MESSAGE"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_OUTBOUND_MESSAGE"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_OUTBOUND_PROCESSING"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_OUTBOUND_PROCESSING"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_INVOCATION_TO_NWHIN"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_INVOCATION_TO_NWHIN"'))[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INBOUND_MESSAGE"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INBOUND_MESSAGE"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INBOUND_PROCESSING"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INBOUND_PROCESSING"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_DELEGATION_TO_ADAPTER"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_DELEGATION_TO_ADAPTER"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_OUTBOUND_MESSAGE"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_OUTBOUND_MESSAGE"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_OUTBOUND_PROCESSING"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_OUTBOUND_PROCESSING"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INVOCATION_TO_NWHIN"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INVOCATION_TO_NWHIN"')[0]
 }</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
 <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);
@@ -5774,42 +5510,18 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 </con:testStep>
 <con:testStep type="groovy" name="Verify Event Logs"><con:settings/><con:config><script>context.withSql('eventdb') {sql ->
 	assert 12 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_INBOUND_MESSAGE"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_INBOUND_MESSAGE"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_INBOUND_PROCESSING"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_INBOUND_PROCESSING"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_DELEGATION_TO_ADAPTER"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_DELEGATION_TO_ADAPTER"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_OUTBOUND_MESSAGE"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_OUTBOUND_MESSAGE"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_OUTBOUND_PROCESSING"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_OUTBOUND_PROCESSING"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_INVOCATION_TO_NWHIN"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_INVOCATION_TO_NWHIN"'))[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INBOUND_MESSAGE"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INBOUND_MESSAGE"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INBOUND_PROCESSING"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INBOUND_PROCESSING"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_DELEGATION_TO_ADAPTER"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_DELEGATION_TO_ADAPTER"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_OUTBOUND_MESSAGE"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_OUTBOUND_MESSAGE"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_OUTBOUND_PROCESSING"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_OUTBOUND_PROCESSING"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INVOCATION_TO_NWHIN"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INVOCATION_TO_NWHIN"')[0]
 }</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
 <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);
@@ -6368,42 +6080,18 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 </con:testStep>
 <con:testStep type="groovy" name="Verify Event Logs"><con:settings/><con:config><script>context.withSql('eventdb') {sql ->
 	assert 12 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_INBOUND_MESSAGE"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_INBOUND_MESSAGE"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_INBOUND_PROCESSING"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_INBOUND_PROCESSING"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_DELEGATION_TO_ADAPTER"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_DELEGATION_TO_ADAPTER"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_OUTBOUND_MESSAGE"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_OUTBOUND_MESSAGE"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_OUTBOUND_PROCESSING"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_OUTBOUND_PROCESSING"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_INVOCATION_TO_NWHIN"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_INVOCATION_TO_NWHIN"'))[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INBOUND_MESSAGE"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INBOUND_MESSAGE"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INBOUND_PROCESSING"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INBOUND_PROCESSING"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_DELEGATION_TO_ADAPTER"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_DELEGATION_TO_ADAPTER"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_OUTBOUND_MESSAGE"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_OUTBOUND_MESSAGE"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_OUTBOUND_PROCESSING"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_OUTBOUND_PROCESSING"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INVOCATION_TO_NWHIN"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INVOCATION_TO_NWHIN"')[0]
 }</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);
 </con:setupScript>
@@ -6763,42 +6451,18 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 </con:testStep>
 <con:testStep type="groovy" name="Verify Event Logs"><con:settings/><con:config><script>context.withSql('eventdb') {sql ->
 	assert 12 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_INBOUND_MESSAGE"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_INBOUND_MESSAGE"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_INBOUND_PROCESSING"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_INBOUND_PROCESSING"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_DELEGATION_TO_ADAPTER"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_DELEGATION_TO_ADAPTER"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_OUTBOUND_MESSAGE"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_OUTBOUND_MESSAGE"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_OUTBOUND_PROCESSING"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_OUTBOUND_PROCESSING"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_INVOCATION_TO_NWHIN"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_INVOCATION_TO_NWHIN"'))[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INBOUND_MESSAGE"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INBOUND_MESSAGE"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INBOUND_PROCESSING"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INBOUND_PROCESSING"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_DELEGATION_TO_ADAPTER"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_DELEGATION_TO_ADAPTER"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_OUTBOUND_MESSAGE"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_OUTBOUND_MESSAGE"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_OUTBOUND_PROCESSING"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_OUTBOUND_PROCESSING"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INVOCATION_TO_NWHIN"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INVOCATION_TO_NWHIN"')[0]
 }</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);
 </con:setupScript>
@@ -7292,42 +6956,18 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 </con:testStep>
 <con:testStep type="groovy" name="Verify Event Logs"><con:settings/><con:config><script>context.withSql('eventdb') {sql ->
 	assert 12 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_INBOUND_MESSAGE"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_INBOUND_MESSAGE"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_INBOUND_PROCESSING"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_INBOUND_PROCESSING"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_DELEGATION_TO_ADAPTER"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_DELEGATION_TO_ADAPTER"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_OUTBOUND_MESSAGE"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_OUTBOUND_MESSAGE"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_OUTBOUND_PROCESSING"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_OUTBOUND_PROCESSING"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_INVOCATION_TO_NWHIN"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_INVOCATION_TO_NWHIN"'))[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INBOUND_MESSAGE"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INBOUND_MESSAGE"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INBOUND_PROCESSING"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INBOUND_PROCESSING"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_DELEGATION_TO_ADAPTER"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_DELEGATION_TO_ADAPTER"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_OUTBOUND_MESSAGE"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_OUTBOUND_MESSAGE"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_OUTBOUND_PROCESSING"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_OUTBOUND_PROCESSING"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INVOCATION_TO_NWHIN"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INVOCATION_TO_NWHIN"')[0]
 }</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
 <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);
@@ -7663,42 +7303,18 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 </con:testStep>
 <con:testStep type="groovy" name="Verify Event Logs"><con:settings/><con:config><script>context.withSql('eventdb') {sql ->
 	assert 12 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_INBOUND_MESSAGE"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_INBOUND_MESSAGE"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_INBOUND_PROCESSING"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_INBOUND_PROCESSING"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_DELEGATION_TO_ADAPTER"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_DELEGATION_TO_ADAPTER"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_OUTBOUND_MESSAGE"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_OUTBOUND_MESSAGE"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_OUTBOUND_PROCESSING"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_OUTBOUND_PROCESSING"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_INVOCATION_TO_NWHIN"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_INVOCATION_TO_NWHIN"'))[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INBOUND_MESSAGE"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INBOUND_MESSAGE"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INBOUND_PROCESSING"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INBOUND_PROCESSING"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_DELEGATION_TO_ADAPTER"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_DELEGATION_TO_ADAPTER"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_OUTBOUND_MESSAGE"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_OUTBOUND_MESSAGE"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_OUTBOUND_PROCESSING"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_OUTBOUND_PROCESSING"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INVOCATION_TO_NWHIN"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INVOCATION_TO_NWHIN"')[0]
 }</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
 <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);
@@ -8309,42 +7925,18 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 </con:testStep>
 <con:testStep type="groovy" name="Verify Event Logs"><con:settings/><con:config><script>context.withSql('eventdb') {sql ->
 	assert 12 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_INBOUND_MESSAGE"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_INBOUND_MESSAGE"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_INBOUND_PROCESSING"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_INBOUND_PROCESSING"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_DELEGATION_TO_ADAPTER"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_DELEGATION_TO_ADAPTER"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_OUTBOUND_MESSAGE"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_OUTBOUND_MESSAGE"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_OUTBOUND_PROCESSING"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_OUTBOUND_PROCESSING"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_INVOCATION_TO_NWHIN"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_INVOCATION_TO_NWHIN"'))[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INBOUND_MESSAGE"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INBOUND_MESSAGE"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INBOUND_PROCESSING"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INBOUND_PROCESSING"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_DELEGATION_TO_ADAPTER"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_DELEGATION_TO_ADAPTER"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_OUTBOUND_MESSAGE"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_OUTBOUND_MESSAGE"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_OUTBOUND_PROCESSING"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_OUTBOUND_PROCESSING"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INVOCATION_TO_NWHIN"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INVOCATION_TO_NWHIN"')[0]
 }</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
 <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);
@@ -8924,42 +8516,18 @@ exists( //ns3:PRPA_IN201306UV02/ns3:controlActProcess)</path>
 </con:testStep>
 <con:testStep type="groovy" name="Verify Event Logs"><con:settings/><con:config><script>context.withSql('eventdb') {sql ->
 	assert 12 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_INBOUND_MESSAGE"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_INBOUND_MESSAGE"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_INBOUND_PROCESSING"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_INBOUND_PROCESSING"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_DELEGATION_TO_ADAPTER"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_DELEGATION_TO_ADAPTER"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_OUTBOUND_MESSAGE"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_OUTBOUND_MESSAGE"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_OUTBOUND_PROCESSING"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_OUTBOUND_PROCESSING"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_INVOCATION_TO_NWHIN"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_INVOCATION_TO_NWHIN"'))[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INBOUND_MESSAGE"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INBOUND_MESSAGE"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INBOUND_PROCESSING"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INBOUND_PROCESSING"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_DELEGATION_TO_ADAPTER"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_DELEGATION_TO_ADAPTER"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_OUTBOUND_MESSAGE"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_OUTBOUND_MESSAGE"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_OUTBOUND_PROCESSING"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_OUTBOUND_PROCESSING"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INVOCATION_TO_NWHIN"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INVOCATION_TO_NWHIN"')[0]
 }</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
 <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);
@@ -9279,42 +8847,18 @@ log.info documentID + " " + msgDocID</scriptText>
 </con:testStep>
 <con:testStep type="groovy" name="Verify Event Logs"><con:settings/><con:config><script>context.withSql('eventdb') {sql ->
 	assert 12 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_INBOUND_MESSAGE"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_INBOUND_MESSAGE"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_INBOUND_PROCESSING"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_INBOUND_PROCESSING"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_DELEGATION_TO_ADAPTER"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_DELEGATION_TO_ADAPTER"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_OUTBOUND_MESSAGE"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_OUTBOUND_MESSAGE"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_OUTBOUND_PROCESSING"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_OUTBOUND_PROCESSING"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_INVOCATION_TO_NWHIN"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_INVOCATION_TO_NWHIN"'))[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INBOUND_MESSAGE"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INBOUND_MESSAGE"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INBOUND_PROCESSING"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INBOUND_PROCESSING"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_DELEGATION_TO_ADAPTER"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_DELEGATION_TO_ADAPTER"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_OUTBOUND_MESSAGE"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_OUTBOUND_MESSAGE"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_OUTBOUND_PROCESSING"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_OUTBOUND_PROCESSING"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INVOCATION_TO_NWHIN"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INVOCATION_TO_NWHIN"')[0]
 }</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
 <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);
@@ -9635,42 +9179,18 @@ assert (docData.size() != 0)</scriptText>
 </con:testStep>
 <con:testStep type="groovy" name="Verify Event Logs"><con:settings/><con:config><script>context.withSql('eventdb') {sql ->
 	assert 12 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_INBOUND_MESSAGE"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_INBOUND_MESSAGE"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_INBOUND_PROCESSING"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_INBOUND_PROCESSING"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_DELEGATION_TO_ADAPTER"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_DELEGATION_TO_ADAPTER"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_OUTBOUND_MESSAGE"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_OUTBOUND_MESSAGE"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_OUTBOUND_PROCESSING"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_OUTBOUND_PROCESSING"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_INVOCATION_TO_NWHIN"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_INVOCATION_TO_NWHIN"'))[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INBOUND_MESSAGE"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INBOUND_MESSAGE"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INBOUND_PROCESSING"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INBOUND_PROCESSING"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_DELEGATION_TO_ADAPTER"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_DELEGATION_TO_ADAPTER"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_OUTBOUND_MESSAGE"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_OUTBOUND_MESSAGE"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_OUTBOUND_PROCESSING"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_OUTBOUND_PROCESSING"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INVOCATION_TO_NWHIN"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INVOCATION_TO_NWHIN"')[0]
 }</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);
 </con:setupScript>
@@ -10002,42 +9522,18 @@ assert holder["//ns4:SubscribeResponse[1]/ns4:SubscriptionReference[1]/ns3:Refer
 </con:testStep>
 <con:testStep type="groovy" name="Verify Event Logs"><con:settings/><con:config><script>context.withSql('eventdb') {sql ->
 	assert 12 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_INBOUND_MESSAGE"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_INBOUND_MESSAGE"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_INBOUND_PROCESSING"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_INBOUND_PROCESSING"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_DELEGATION_TO_ADAPTER"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_DELEGATION_TO_ADAPTER"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_OUTBOUND_MESSAGE"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_OUTBOUND_MESSAGE"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_OUTBOUND_PROCESSING"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_OUTBOUND_PROCESSING"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_INVOCATION_TO_NWHIN"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_INVOCATION_TO_NWHIN"'))[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INBOUND_MESSAGE"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INBOUND_MESSAGE"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INBOUND_PROCESSING"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INBOUND_PROCESSING"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_DELEGATION_TO_ADAPTER"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_DELEGATION_TO_ADAPTER"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_OUTBOUND_MESSAGE"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_OUTBOUND_MESSAGE"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_OUTBOUND_PROCESSING"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_OUTBOUND_PROCESSING"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INVOCATION_TO_NWHIN"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INVOCATION_TO_NWHIN"')[0]
 }</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);
 </con:setupScript>
@@ -10636,42 +10132,18 @@ testRunner.testCase.testSuite.project.setPropertyValue( "NotifySubscriptionID", 
 </con:testStep>
 <con:testStep type="groovy" name="Verify Event Logs"><con:settings/><con:config><script>context.withSql('eventdb') {sql ->
 	assert 12 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_INBOUND_MESSAGE"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_INBOUND_MESSAGE"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_INBOUND_PROCESSING"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_INBOUND_PROCESSING"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_DELEGATION_TO_ADAPTER"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_DELEGATION_TO_ADAPTER"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_OUTBOUND_MESSAGE"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_OUTBOUND_MESSAGE"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_OUTBOUND_PROCESSING"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_OUTBOUND_PROCESSING"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_INVOCATION_TO_NWHIN"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_INVOCATION_TO_NWHIN"'))[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INBOUND_MESSAGE"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INBOUND_MESSAGE"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INBOUND_PROCESSING"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INBOUND_PROCESSING"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_DELEGATION_TO_ADAPTER"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_DELEGATION_TO_ADAPTER"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_OUTBOUND_MESSAGE"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_OUTBOUND_MESSAGE"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_OUTBOUND_PROCESSING"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_OUTBOUND_PROCESSING"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INVOCATION_TO_NWHIN"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INVOCATION_TO_NWHIN"')[0]
 }</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);
 </con:setupScript>
@@ -11005,42 +10477,18 @@ nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.
 </con:testStep>
 <con:testStep type="groovy" name="Verify Event Logs"><con:settings/><con:config><script>context.withSql('eventdb') {sql ->
 	assert 12 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_INBOUND_MESSAGE"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_INBOUND_MESSAGE"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_INBOUND_PROCESSING"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_INBOUND_PROCESSING"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_DELEGATION_TO_ADAPTER"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_DELEGATION_TO_ADAPTER"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_OUTBOUND_MESSAGE"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_OUTBOUND_MESSAGE"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_OUTBOUND_PROCESSING"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_OUTBOUND_PROCESSING"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_INVOCATION_TO_NWHIN"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_INVOCATION_TO_NWHIN"'))[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INBOUND_MESSAGE"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INBOUND_MESSAGE"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INBOUND_PROCESSING"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INBOUND_PROCESSING"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_DELEGATION_TO_ADAPTER"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_DELEGATION_TO_ADAPTER"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_OUTBOUND_MESSAGE"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_OUTBOUND_MESSAGE"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_OUTBOUND_PROCESSING"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_OUTBOUND_PROCESSING"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INVOCATION_TO_NWHIN"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INVOCATION_TO_NWHIN"')[0]
 }</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);
 </con:setupScript>
@@ -11484,42 +10932,18 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 </con:testStep>
 <con:testStep type="groovy" name="Verify Event Logs"><con:settings/><con:config><script>context.withSql('eventdb') {sql ->
 	assert 12 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_INBOUND_MESSAGE"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_INBOUND_MESSAGE"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_INBOUND_PROCESSING"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_INBOUND_PROCESSING"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_DELEGATION_TO_ADAPTER"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_DELEGATION_TO_ADAPTER"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_OUTBOUND_MESSAGE"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_OUTBOUND_MESSAGE"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_OUTBOUND_PROCESSING"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_OUTBOUND_PROCESSING"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="BEGIN_INVOCATION_TO_NWHIN"'))[0]
-}
-context.withSql('eventdb') {sql ->
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable' + ' where eventName="END_INVOCATION_TO_NWHIN"'))[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INBOUND_MESSAGE"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INBOUND_MESSAGE"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INBOUND_PROCESSING"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INBOUND_PROCESSING"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_DELEGATION_TO_ADAPTER"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_DELEGATION_TO_ADAPTER"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_OUTBOUND_MESSAGE"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_OUTBOUND_MESSAGE"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_OUTBOUND_PROCESSING"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_OUTBOUND_PROCESSING"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INVOCATION_TO_NWHIN"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INVOCATION_TO_NWHIN"')[0]
 }</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);
 </con:setupScript>
