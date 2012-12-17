@@ -21,6 +21,7 @@
         <hiem.excluded>true</hiem.excluded>
         <gui.excluded>true</gui.excluded>
         <pd.excluded>true</pd.excluded>
+        <direct.excluded>true</direct.excluded>
     </properties>
     <dependencies>
         <dependency>
@@ -58,12 +59,6 @@
         <dependency>
             <groupId>org.connectopensource</groupId>
             <artifactId>PatientDiscoveryCore</artifactId>
-            <version>${project.parent.version}</version>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>org.connectopensource</groupId>
-            <artifactId>PatientCorrelationCore</artifactId>
             <version>${project.parent.version}</version>
             <optional>true</optional>
         </dependency>
@@ -195,9 +190,22 @@
             <type>war</type>
             <optional>true</optional>
         </dependency>
-        <!-- Shared JARs - In order for the SKINNY WARs to work you must 
-            include each dependency in the EAR manually and the JARS will be magically 
-            removed from the WAR's WEB-INF/lib -->
+        <dependency>
+            <groupId>org.connectopensource</groupId>
+            <artifactId>DirectCore</artifactId>
+            <version>${project.parent.version}</version>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.connectopensource</groupId>
+            <artifactId>Direct</artifactId>
+            <version>${project.parent.version}</version>
+            <type>war</type>
+            <optional>true</optional>
+        </dependency>        
+        <!-- Shared JARs - In order for the SKINNY WARs to work you must include
+            each dependency in the EAR manually and the JARS will be magically removed
+            from the WAR's WEB-INF/lib -->
         <dependency>
             <groupId>org.connectopensource</groupId>
             <artifactId>CONNECTCommonTypesLib</artifactId>
@@ -253,6 +261,11 @@
         <dependency>
             <groupId>org.connectopensource</groupId>
             <artifactId>DocRepositoryCore</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.connectopensource</groupId>
+            <artifactId>PatientCorrelationCore</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
         <dependency>
@@ -850,5 +863,29 @@
                 </dependency>
             </dependencies>
         </profile>
+        <profile>
+            <id>Direct</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <properties>
+                <direct.excluded>false</direct.excluded>
+            </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>org.connectopensource</groupId>
+                    <artifactId>Direct</artifactId>
+                    <version>${project.parent.version}</version>
+                    <type>war</type>
+                    <optional>false</optional>
+                </dependency>
+                <dependency>
+                    <groupId>org.connectopensource</groupId>
+                    <artifactId>DirectCore</artifactId>
+                    <version>${project.parent.version}</version>
+                    <optional>false</optional>
+                </dependency>
+            </dependencies>
+        </profile>        
     </profiles>
 </project>

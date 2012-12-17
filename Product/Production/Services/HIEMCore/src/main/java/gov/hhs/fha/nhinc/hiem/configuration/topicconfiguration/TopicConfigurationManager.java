@@ -104,7 +104,7 @@ public class TopicConfigurationManager {
         try {
             loadTopicConfigurations();
         } catch (Exception ex) {
-            log.error("failed to load topic configuration. [" + ex.getMessage() + "]");
+            log.error("failed to load topic configuration. [" + ex.getMessage() + "]", ex);
             throw new ConfigurationException("Unable to load topic configuration", ex);
         }
 

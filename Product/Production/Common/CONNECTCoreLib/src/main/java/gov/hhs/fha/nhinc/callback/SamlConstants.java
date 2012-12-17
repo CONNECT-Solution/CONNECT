@@ -101,5 +101,8 @@ public class SamlConstants {
     public static final String CE_CODESYS_ID = "codeSystem";
     public static final String CE_CODESYSNAME_ID = "codeSystemName";
     public static final String CE_DISPLAYNAME_ID = "displayName";
+    public static final String SAML2_ASSERTION_NS = "urn:oasis:names:tc:SAML:2.0:assertion";
+    public static final String SAML2_ASSERTION_TAG = "Assertion";
+    
 
 }

@@ -446,6 +446,8 @@ public class NhincConstants {
     public static final String XDS_REGISTRY_ERROR_SEVERITY_WARNING = "urn:oasis:names:tc:ebxml-regrep:ErrorSeverityType:Warning";
     public static final String XDS_REGISTRY_ERROR_SEVERITY_ERROR = "urn:oasis:names:tc:ebxml-regrep:ErrorSeverityType:Error";
 
+	public static final String DIRECT_SOAP_EDGE_SERVICE_NAME = "directsoapedge";
+
     /* -- End Document Retrieve deferred Service Name -- */
     private NhincConstants() {
     }
