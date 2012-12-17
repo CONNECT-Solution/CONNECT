@@ -29,15 +29,15 @@ package gov.hhs.fha.nhinc.connectmgr.uddi;
 import gov.hhs.fha.nhinc.common.connectionmanagerinfo.SuccessOrFailType;
 import gov.hhs.fha.nhinc.common.connectionmanagerinfo.UDDIUpdateManagerForceRefreshRequestType;
 import gov.hhs.fha.nhinc.common.connectionmanagerinfo.UDDIUpdateManagerForceRefreshResponseType;
-
 import gov.hhs.fha.nhinc.connectmgr.persistance.dao.UddiConnectionInfoDAOFileImpl;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
+
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+
+import org.apache.log4j.Logger;
 import org.uddi.api_v3.BusinessDetail;
 
 /**
@@ -47,7 +47,7 @@ import org.uddi.api_v3.BusinessDetail;
  */
 public class UDDIUpdateManagerHelper {
 
-    private static Log log = LogFactory.getLog(UDDIUpdateManagerHelper.class);
+    private Logger log = Logger.getLogger(UDDIUpdateManagerHelper.class);
     private static final String GATEWAY_PROPERTY_FILE = "gateway";
     private static final String UDDI_REFRESH_KEEP_BACKUPS_PROPERTY = "UDDIRefreshKeepBackups";
     private static final String UDDI_MAX_NUM_BACKUPS_PROPERTY = "UDDIMaxNumBackups";

@@ -26,8 +26,7 @@
  */
 package gov.hhs.fha.nhinc.connectmgr.uddi;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 /**
  * 
@@ -35,7 +34,7 @@ import org.apache.commons.logging.LogFactory;
  */
 public class UDDIUpdateManager implements gov.hhs.fha.nhinc.nhinccomponentuddiupdatemanager.NhincComponentUDDIUpdateManagerPortType {
 
-    private static Log log = LogFactory.getLog(UDDIUpdateManager.class);
+    private Logger log = Logger.getLogger(UDDIUpdateManager.class);
 
     /**
      * Default constructor.

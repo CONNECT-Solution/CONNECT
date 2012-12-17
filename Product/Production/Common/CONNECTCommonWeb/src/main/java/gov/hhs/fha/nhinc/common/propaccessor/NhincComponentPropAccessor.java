@@ -26,32 +26,32 @@
  */
 package gov.hhs.fha.nhinc.common.propaccessor;
 
-import gov.hhs.fha.nhinc.common.propertyaccess.GetPropertyResponseType;
-import gov.hhs.fha.nhinc.common.propertyaccess.GetPropertyRequestType;
-import gov.hhs.fha.nhinc.common.propertyaccess.GetPropertyBooleanResponseType;
-import gov.hhs.fha.nhinc.common.propertyaccess.GetPropertyBooleanRequestType;
-import gov.hhs.fha.nhinc.common.propertyaccess.GetPropertyNamesResponseType;
-import gov.hhs.fha.nhinc.common.propertyaccess.GetPropertyNamesRequestType;
-import gov.hhs.fha.nhinc.common.propertyaccess.GetPropertiesResponseType;
-import gov.hhs.fha.nhinc.common.propertyaccess.GetPropertiesRequestType;
-import gov.hhs.fha.nhinc.common.propertyaccess.GetRefreshDurationResponseType;
-import gov.hhs.fha.nhinc.common.propertyaccess.GetRefreshDurationRequestType;
-import gov.hhs.fha.nhinc.common.propertyaccess.GetDurationBeforeNextRefreshResponseType;
-import gov.hhs.fha.nhinc.common.propertyaccess.GetDurationBeforeNextRefreshRequestType;
-import gov.hhs.fha.nhinc.common.propertyaccess.ForceRefreshResponseType;
-import gov.hhs.fha.nhinc.common.propertyaccess.ForceRefreshRequestType;
-import gov.hhs.fha.nhinc.common.propertyaccess.GetPropertyFileLocationResponseType;
-import gov.hhs.fha.nhinc.common.propertyaccess.GetPropertyFileLocationRequestType;
-import gov.hhs.fha.nhinc.common.propertyaccess.DumpPropsToLogResponseType;
-import gov.hhs.fha.nhinc.common.propertyaccess.DumpPropsToLogRequestType;
-import gov.hhs.fha.nhinc.common.propertyaccess.WritePropertyFileResponseType;
-import gov.hhs.fha.nhinc.common.propertyaccess.WritePropertyFileRequestType;
-import gov.hhs.fha.nhinc.common.propertyaccess.DeletePropertyFileResponseType;
 import gov.hhs.fha.nhinc.common.propertyaccess.DeletePropertyFileRequestType;
-import javax.jws.WebService;
+import gov.hhs.fha.nhinc.common.propertyaccess.DeletePropertyFileResponseType;
+import gov.hhs.fha.nhinc.common.propertyaccess.DumpPropsToLogRequestType;
+import gov.hhs.fha.nhinc.common.propertyaccess.DumpPropsToLogResponseType;
+import gov.hhs.fha.nhinc.common.propertyaccess.ForceRefreshRequestType;
+import gov.hhs.fha.nhinc.common.propertyaccess.ForceRefreshResponseType;
+import gov.hhs.fha.nhinc.common.propertyaccess.GetDurationBeforeNextRefreshRequestType;
+import gov.hhs.fha.nhinc.common.propertyaccess.GetDurationBeforeNextRefreshResponseType;
+import gov.hhs.fha.nhinc.common.propertyaccess.GetPropertiesRequestType;
+import gov.hhs.fha.nhinc.common.propertyaccess.GetPropertiesResponseType;
+import gov.hhs.fha.nhinc.common.propertyaccess.GetPropertyBooleanRequestType;
+import gov.hhs.fha.nhinc.common.propertyaccess.GetPropertyBooleanResponseType;
+import gov.hhs.fha.nhinc.common.propertyaccess.GetPropertyFileLocationRequestType;
+import gov.hhs.fha.nhinc.common.propertyaccess.GetPropertyFileLocationResponseType;
+import gov.hhs.fha.nhinc.common.propertyaccess.GetPropertyNamesRequestType;
+import gov.hhs.fha.nhinc.common.propertyaccess.GetPropertyNamesResponseType;
+import gov.hhs.fha.nhinc.common.propertyaccess.GetPropertyRequestType;
+import gov.hhs.fha.nhinc.common.propertyaccess.GetPropertyResponseType;
+import gov.hhs.fha.nhinc.common.propertyaccess.GetRefreshDurationRequestType;
+import gov.hhs.fha.nhinc.common.propertyaccess.GetRefreshDurationResponseType;
+import gov.hhs.fha.nhinc.common.propertyaccess.WritePropertyFileRequestType;
+import gov.hhs.fha.nhinc.common.propertyaccess.WritePropertyFileResponseType;
+
 import javax.xml.ws.BindingType;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+
+import org.apache.log4j.Logger;
 
 /**
  * 
@@ -60,7 +60,7 @@ import org.apache.commons.logging.LogFactory;
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 public class NhincComponentPropAccessor implements gov.hhs.fha.nhinc.nhinccomponentpropaccessor.NhincComponentPropAccessorPortType  {
 
-    private static Log log = LogFactory.getLog(NhincComponentPropAccessor.class);
+    private Logger log = Logger.getLogger(NhincComponentPropAccessor.class);
 
     /**
      * This method returns the value of the given property that is located within the given property file. If the

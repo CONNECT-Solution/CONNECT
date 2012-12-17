@@ -30,8 +30,7 @@ import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 /**
  * This class is responsible for handling the work that is done each time the timer goes off. It will read the data from
@@ -42,17 +41,9 @@ import org.apache.commons.logging.LogFactory;
  */
 public class UDDITimerTask {
 
-    private static Log log = null;
+    private Logger log = Logger.getLogger(UDDITimerTask.class);
     private static final String GATEWAY_PROPERTY_FILE = "gateway";
     private static final String UDDI_SWITCH_PROPERTY = "UDDIRefreshActive";
-
-    public UDDITimerTask() {
-        log = createLogger();
-    }
-
-    protected Log createLogger() {
-        return ((log != null) ? log : LogFactory.getLog(getClass()));
-    }
 
     protected boolean isLogEnabled() {
         boolean isEnabled = false;
@@ -102,9 +93,7 @@ public class UDDITimerTask {
                 }
             }
         } catch (PropertyAccessException ex) {
-            if (isLogEnabled()) {
-                log.debug("UDDITimerTask.run method unable to read UDDIRefreshActive property: " + ex.getMessage());
-            }
+        	log.error("UDDITimerTask.run method unable to read UDDIRefreshActive property: " + ex.getMessage());
         }
     }
 
