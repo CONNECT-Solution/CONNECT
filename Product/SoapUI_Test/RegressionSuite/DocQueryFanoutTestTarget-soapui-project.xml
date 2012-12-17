@@ -389,19 +389,19 @@ nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFil
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-12-12T20:44:50Z</con:value>
+		<con:value>2012-12-16T15:23:51Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-12-12T20:54:50Z</con:value>
+		<con:value>2012-12-16T15:33:51Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>12/12/2012 20:44:50</con:value>
+		<con:value>12/16/2012 15:23:51</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-01-11T00:00:00Z</con:value>
+		<con:value>2013-01-15T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
@@ -810,19 +810,19 @@ nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFil
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-12-12T20:44:51Z</con:value>
+		<con:value>2012-12-15T02:34:18Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-12-12T20:54:51Z</con:value>
+		<con:value>2012-12-15T02:44:18Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>12/12/2012 20:44:51</con:value>
+		<con:value>12/15/2012 02:34:18</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-01-11T00:00:00Z</con:value>
+		<con:value>2013-01-14T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
@@ -1186,19 +1186,19 @@ nhinc.FileUtils.updateProperty(destConfigFileLocation, "gateway.properties", "do
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-12-12T20:44:52Z</con:value>
+		<con:value>2012-12-15T02:34:19Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-12-12T20:54:52Z</con:value>
+		<con:value>2012-12-15T02:44:19Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>12/12/2012 20:44:52</con:value>
+		<con:value>12/15/2012 02:34:19</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-01-11T00:00:00Z</con:value>
+		<con:value>2013-01-14T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
@@ -1584,19 +1584,19 @@ nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFil
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-12-12T20:44:52Z</con:value>
+		<con:value>2012-12-15T02:34:19Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-12-12T20:54:52Z</con:value>
+		<con:value>2012-12-15T02:44:19Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>12/12/2012 20:44:52</con:value>
+		<con:value>12/15/2012 02:34:19</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-01-11T00:00:00Z</con:value>
+		<con:value>2013-01-14T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
