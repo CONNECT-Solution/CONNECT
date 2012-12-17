@@ -26,50 +26,61 @@
  */
 package gov.hhs.fha.nhinc.direct.xdr.audit;
 
-import gov.hhs.fha.nhinc.direct.xdr.SoapEdgeHeadersPropertiesImpl;
-import java.util.UUID;
-
-import org.junit.Test;
+import java.util.Map;
 
 /**
+ * An interface for an auditable object. Implementing this interface forces a class to provide a set of key value pairs
+ * for data to be audited.
+ * 
  * @author mweaver
  * 
  */
-public class DirectRIAuditorTest {
+public interface Auditable {
 
-    @Test
-    public void testWithNoProperties() {
-        DirectRIAuditor auditor = getDirectRIAuditor();
-        auditor.audit("this is my principal.", "name", "type", null);
-    }
+    public static final String MESSAGE_ID = "MESSAGE_ID";
+    public static final String REMOTE_HOST = "REMOTE_HOST";
+    public static final String ENDPOINT = "ENDPOINT";
+    public static final String TO = "TO";
+    public static final String THIS_HOST = "THIS_HOST";
+    public static final String PAT_ID = "PAT_ID";
+    public static final String SUBSET_ID = "SUBSET_ID";
+    public static final String P_ID = "P_ID";
 
-    @Test
-    public void testWithProperties() {
-        DirectRIAuditor auditor = getDirectRIAuditor();
-        auditor.audit("this is my principal.", "name", "type", getAuditable());
-    }
+    public static final String[] AuditKeys = { MESSAGE_ID, REMOTE_HOST, ENDPOINT, TO, THIS_HOST, PAT_ID, SUBSET_ID,
+            P_ID };
 
-    @Test(expected = IllegalArgumentException.class)
-    public void testWithAllNulls() {
-        DirectRIAuditor auditor = getDirectRIAuditor();
-        auditor.audit(null, null, null, null);
-    }
+    public Map<String, String> getAuditableValues();
 
-    protected DirectRIAuditor getDirectRIAuditor() {
-        return new DirectRIAuditor();
-    }
+    public String getMessageId();
 
+    public void setMessageId(String messageId);
 
-    protected Auditable getAuditable() {
-        Auditable auditable = new SoapEdgeHeadersPropertiesImpl();
-        auditable.setEndpoint("test@direct.connectopensource.org");
-        auditable.setMessageId(UUID.randomUUID().toString());
-        auditable.setPatId("1234");
-        auditable.setPid("80341");
-        auditable.setRemoteHost("www.connectopensource.org");
-        auditable.setThisHost("direct.connectopensource.org");
-        auditable.setTo("drtony@direct.connectopensource.org");
-        return auditable;
-    }
+    public String getRemoteHost();
+
+    public void setRemoteHost(String remoteHost);
+
+    public String getEndpoint();
+
+    public void setEndpoint(String endpoint);
+
+    public String getTo();
+
+    public void setTo(String to);
+
+    public String getThisHost();
+
+    public void setThisHost(String thisHost);
+
+    public String getPatId();
+
+    public void setPatId(String patId);
+
+    public String getSubsetId();
+
+    public void SubsetId(String subsetId);
+
+    public String getPid();
+
+    public void setPid(String pid);
 
 }
