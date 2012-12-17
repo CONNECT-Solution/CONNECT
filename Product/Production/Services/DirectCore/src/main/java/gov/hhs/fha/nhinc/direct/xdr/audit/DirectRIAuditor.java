@@ -59,7 +59,7 @@ public class DirectRIAuditor implements SoapEdgeAuditor {
 	 */
 	@Override
 	public void audit(String principal, String category, String message,
-	        SoapEdgeContext properties) {
+			SoapEdgeContext properties) {
 
 		AuditEvent event = new AuditEvent(category, message);
 
@@ -77,7 +77,8 @@ public class DirectRIAuditor implements SoapEdgeAuditor {
 	 *            A {@link Auditable} object, must not be null.
 	 * @return A Collection of @{link AuditContext} objects.
 	 */
-    private Collection<? extends AuditContext> getContexts(SoapEdgeContext auditable) {
+	private Collection<? extends AuditContext> getContexts(
+			SoapEdgeContext auditable) {
 		Collection<AuditContext> contexts = new LinkedList<AuditContext>();
 
 		if (auditable.getAuditableValues() != null) {

@@ -24,29 +24,15 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.direct.xdr.audit;
+package gov.hhs.fha.nhinc.direct.xdr;
 
-import gov.hhs.fha.nhinc.direct.xdr.SoapEdgeContext;
 /**
- * Interface to describe a soap edge client or server auditor.
+ * Interface to define the data elements which are extracted from the web services headers for an XD* message.
  * 
  * @author mweaver
+ * 
  */
-public interface SoapEdgeAuditor {
+public interface SoapEdgeHeaders {
 
-    public static final String PRINCIPAL = "XDR Edge Service";
-    public static final String REQUESTRECIEVED_CATEGORY = "Inbound Request to Soap Edge Service.";
-    public static final String REQUESTRECIEVED_MESSAGE = "Processing Request.";
-    public static final String RESPONSERETURNED_CATEGORY = "Outbound Responset from Soap Edge Service.";
-    public static final String RESPONSERETURNED_MESSAGE = "Sending Response.";
-
-    /**
-     * @param principal The principal metadata for the audit call.
-     * @param category The category metadata for the audit call.
-     * @param message The message metadata for the audit call.
-     * @param properties An implementation of DirectRIAuditable with properties which can be populated as Direct RI
-     *            AuditContexts.
-     */
-    void audit(String principal, String category, String message, SoapEdgeContext properties);
-
+    // TODO complete this class. It is currently being included for compilation purposes only.
 }
