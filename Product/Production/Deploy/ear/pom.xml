@@ -64,6 +64,12 @@
         </dependency>
         <dependency>
             <groupId>org.connectopensource</groupId>
+            <artifactId>PatientCorrelationCore</artifactId>
+            <version>${project.parent.version}</version>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.connectopensource</groupId>
             <artifactId>AdminDistribution_10</artifactId>
             <version>${project.parent.version}</version>
             <type>war</type>
@@ -336,12 +342,12 @@
         <dependency>
             <groupId>com.sun.xml.bind</groupId>
             <artifactId>jaxb-impl</artifactId>
-            <version>2.1.13</version> <!-- 2.2.7-b41 -->
+            <version>2.2.7-b41</version> 
         </dependency>
         <dependency>
             <groupId>com.sun.xml.bind</groupId>
             <artifactId>jaxb-xjc</artifactId>
-            <version>2.1.13</version> <!-- 2.2.7-b41 -->
+            <version>2.2.7-b41</version> 
         </dependency>
         <!-- <dependency> <groupId>xml-apis</groupId> <artifactId>xml-apis</artifactId> 
             <version>1.4.01</version> </dependency> -->
@@ -822,10 +828,6 @@
             </dependencies>
         </profile>
         <profile>
-            <!--
-                The HIEM profile is disabled by default per GATEWAY-3223.  To enable by default,
-                change the activeByDefault setting here
-             -->
             <id>HIEM</id>
             <activation>
                 <activeByDefault>false</activeByDefault>
