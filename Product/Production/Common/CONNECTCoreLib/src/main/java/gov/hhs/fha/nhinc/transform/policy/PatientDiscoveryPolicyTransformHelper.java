@@ -34,8 +34,7 @@ import oasis.names.tc.xacml._2_0.context.schema.os.RequestType;
 import oasis.names.tc.xacml._2_0.context.schema.os.ResourceType;
 import oasis.names.tc.xacml._2_0.context.schema.os.SubjectType;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.hl7.v3.II;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
@@ -58,21 +57,11 @@ import gov.hhs.fha.nhinc.util.format.PatientIdFormatUtil;
  */
 public class PatientDiscoveryPolicyTransformHelper {
 
-    private static Log log = null;
+    private Logger log = Logger.getLogger(PatientDiscoveryPolicyTransformHelper.class);
     private static final String ActionInValue = "PatientDiscoveryIn";
     private static final String ActionOutValue = "PatientDiscoveryOut";
     private static final String PatientAssigningAuthorityAttributeId = Constants.AssigningAuthorityAttributeId;
     private static final String PatientIdAttributeId = Constants.ResourceIdAttributeId;
-
-    /**
-     *
-     * Default Constructor.
-     */
-    public PatientDiscoveryPolicyTransformHelper() {
-
-        log = createLogger();
-
-    }
 
     /**
      *
@@ -556,18 +545,6 @@ public class PatientDiscoveryPolicyTransformHelper {
     private void addDebugLog(String debugMessage) {
 
         log.debug(debugMessage);
-
-    }
-
-    /**
-     *
-     * Instantiating log4j logger
-     *
-     * @return
-     */
-    protected Log createLogger() {
-
-        return ((log != null) ? log : LogFactory.getLog(getClass()));
 
     }
 

@@ -29,8 +29,8 @@ package gov.hhs.fha.nhinc.event.dao;
 import gov.hhs.fha.nhinc.event.model.DatabaseEvent;
 import gov.hhs.fha.nhinc.event.persistence.HibernateUtil;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
+
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -41,7 +41,7 @@ import org.hibernate.Transaction;
  */
 public class DatabaseEventLoggerDao {
 
-    private static final Log LOG = LogFactory.getLog(DatabaseEventLoggerDao.class);    
+    private static Logger log = Logger.getLogger(DatabaseEventLoggerDao.class);    
 
     private static class SingletonHolder { 
         public static final DatabaseEventLoggerDao INSTANCE = new DatabaseEventLoggerDao();
@@ -52,7 +52,7 @@ public class DatabaseEventLoggerDao {
      * @return singleton instance of DatabaseEventLoggerDao
      */
     public static DatabaseEventLoggerDao getInstance() {
-        LOG.debug("getInstance()...");
+        log.debug("getInstance()...");
         return SingletonHolder.INSTANCE;
     }
     
@@ -80,7 +80,7 @@ public class DatabaseEventLoggerDao {
         } catch (HibernateException e) {
             result = false;
             transactionRollback(tx);
-            LOG.error("Exception during insertion caused by :" + e.getMessage(), e);
+            log.error("Exception during insertion caused by :" + e.getMessage(), e);
         } finally {
             closeSession(session, false);
         }

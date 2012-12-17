@@ -27,21 +27,14 @@
 package gov.hhs.fha.nhinc.policyengine.adapter.pdp.proxy;
 
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
-
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 
-import org.apache.commons.logging.Log;
-
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 import com.sun.identity.saml2.common.SAML2Exception;
-
 import com.sun.identity.xacml.client.XACMLRequestProcessor;
-
 import com.sun.identity.xacml.common.XACMLException;
-
 import com.sun.identity.xacml.context.Request;
-
 import com.sun.identity.xacml.context.Response;
 
 /**
@@ -54,34 +47,12 @@ import com.sun.identity.xacml.context.Response;
  */
 
 public class AdapterPDPProxyOpenSSOClientImpl implements AdapterPDPProxy
-
 {
-
     private static final String PROPERTY_FILE_NAME_GATEWAY = "gateway";
-
     private static final String PROPERTY_FILE_KEY_PDP_ENTITY = "PdpEntityName";
-
     private static final String OPENSSO_PEP_NAME = "ConnectOpenSSOPepEntity";
-
     private static final String PDP_ENTITY_SUFFIX = "PdpEntity";
-
-    private Log log = null;
-
-    public AdapterPDPProxyOpenSSOClientImpl()
-
-    {
-
-        log = createLogger();
-
-    }
-
-    protected Log createLogger()
-
-    {
-
-        return LogFactory.getLog(getClass());
-
-    }
+    private Logger log = Logger.getLogger(AdapterPDPProxyOpenSSOClientImpl.class);
 
     /*
      * (non-Javadoc)
@@ -90,7 +61,6 @@ public class AdapterPDPProxyOpenSSOClientImpl implements AdapterPDPProxy
      * gov.hhs.fha.nhinc.policyengine.adapter.pdp.proxy.AdapterPDPProxy#processPDPRequest(com.sun.identity.xacml.context
      * .Request)
      */
-
     @Override
     public Response processPDPRequest(Request pdpRequest) throws PropertyAccessException, XACMLException,
             SAML2Exception

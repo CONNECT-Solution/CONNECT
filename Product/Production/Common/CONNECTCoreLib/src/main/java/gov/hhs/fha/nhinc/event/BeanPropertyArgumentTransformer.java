@@ -35,8 +35,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.springframework.beans.BeanUtils;
 
 import com.google.common.base.Optional;
@@ -48,7 +47,7 @@ import com.google.common.base.Optional;
  */
 public abstract class BeanPropertyArgumentTransformer extends ArgTransformerEventDescriptionBuilder {
 
-    private static final Log LOG = LogFactory.getLog(BeanPropertyArgumentTransformer.class);
+    private Logger log = Logger.getLogger(BeanPropertyArgumentTransformer.class);
 
     /**
      * Transforms the input argument list into the result by taking every argument, introspecting the bean properties,
@@ -92,9 +91,9 @@ public abstract class BeanPropertyArgumentTransformer extends ArgTransformerEven
                 return Optional.of(readValue);
             }
         } catch (IllegalAccessException e) {
-            LOG.warn(String.format("Unable to invoke bean read method '%s' on '%s'", readMethod, argument), e);
+            log.warn(String.format("Unable to invoke bean read method '%s' on '%s'", readMethod, argument), e);
         } catch (InvocationTargetException e) {
-            LOG.warn(String.format("Unable to invoke bean read method '%s' on '%s'", readMethod, argument), e);
+            log.warn(String.format("Unable to invoke bean read method '%s' on '%s'", readMethod, argument), e);
         }
         return Optional.absent();
     }

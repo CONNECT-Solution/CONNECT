@@ -35,12 +35,7 @@ import org.apache.commons.logging.LogFactory;
  */
 public class CONNECTOutboundOrchestrator extends CONNECTOrchestrationBase {
 
-    private static final Log logger = LogFactory.getLog(CONNECTOutboundOrchestrator.class);
-
-    @Override
-    protected Log getLogger() {
-        return logger;
-    }
+    private Log log = LogFactory.getLog(CONNECTOutboundOrchestrator.class);
 
     @Override
     protected Orchestratable processIfPolicyIsOk(Orchestratable message) {

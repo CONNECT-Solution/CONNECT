@@ -38,8 +38,7 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.patientdiscovery.entity.proxy.service.EntityPatientDiscoveryServicePortDescriptor;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 import org.hl7.v3.RespondingGatewayPRPAIN201306UV02ResponseType;
@@ -50,18 +49,14 @@ import org.hl7.v3.RespondingGatewayPRPAIN201306UV02ResponseType;
  */
 public class EntityPatientDiscoveryProxyWebServiceUnsecuredImpl implements EntityPatientDiscoveryProxy {
 
-    private Log log = null;
+    private Logger log = Logger.getLogger(EntityPatientDiscoveryProxyWebServiceUnsecuredImpl.class);
     private WebServiceProxyHelper oProxyHelper = null;
 
     public EntityPatientDiscoveryProxyWebServiceUnsecuredImpl() {
-        log = createLogger();
         oProxyHelper = createWebServiceProxyHelper();
     }
 
-    protected Log createLogger() {
-        return LogFactory.getLog(getClass());
-    }
-
+   
     protected WebServiceProxyHelper createWebServiceProxyHelper() {
         return new WebServiceProxyHelper();
     }

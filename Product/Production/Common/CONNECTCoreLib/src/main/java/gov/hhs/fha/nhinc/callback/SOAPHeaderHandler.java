@@ -40,8 +40,7 @@ import javax.xml.ws.handler.MessageContext;
 import javax.xml.ws.handler.soap.SOAPHandler;
 import javax.xml.ws.handler.soap.SOAPMessageContext;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 import gov.hhs.fha.nhinc.async.AddressingHeaderCreator;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
@@ -52,7 +51,7 @@ import gov.hhs.fha.nhinc.nhinclib.NullChecker;
  */
 public class SOAPHeaderHandler implements SOAPHandler<SOAPMessageContext> {
 
-    private static Log log = LogFactory.getLog(SOAPHeaderHandler.class);
+    private static Logger log = Logger.getLogger(SOAPHeaderHandler.class);
     private static final String WSA_NS = "http://www.w3.org/2005/08/addressing";
     private static final String MESSAGE_ID_CONTEXT = "com.sun.xml.ws.addressing.response.messageID";
     private static final String MESSAGE_ID = "MessageID";

@@ -30,17 +30,20 @@ import com.services.nhinc.schema.auditmessage.AuditMessageType;
 import com.services.nhinc.schema.auditmessage.AuditSourceIdentificationType;
 import com.services.nhinc.schema.auditmessage.CodedValueType;
 import com.services.nhinc.schema.auditmessage.ParticipantObjectIdentificationType;
+
 import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
 import gov.hhs.fha.nhinc.common.hiemauditlog.LogEntityNotifyResponseType;
 import gov.hhs.fha.nhinc.common.hiemauditlog.LogNhinNotifyRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
+
 import java.io.ByteArrayOutputStream;
+
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+
+import org.apache.log4j.Logger;
 
 /**
  * 
@@ -48,7 +51,7 @@ import org.apache.commons.logging.LogFactory;
  */
 public class NotifyTransforms {
 
-    private static Log log = LogFactory.getLog(NotifyTransforms.class);
+    private Logger log = Logger.getLogger(NotifyTransforms.class);
 
     public LogEventRequestType transformNhinNotifyRequestToAuditMessage(LogNhinNotifyRequestType message) {
         LogEventRequestType response = new LogEventRequestType();

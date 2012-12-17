@@ -33,8 +33,8 @@ import gov.hhs.fha.nhinc.patientcorrelation.nhinc.persistence.HibernateUtil;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+
+import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -46,7 +46,7 @@ import org.hibernate.criterion.Expression;
  */
 public class Retriever {
 
-    static Log log = LogFactory.getLog(Retriever.class);
+    private static Logger log = Logger.getLogger(Retriever.class);
 
     public static List<QualifiedPatientIdentifier> retrievePatientCorrelation(
             QualifiedPatientIdentifier qualifiedPatientIdentifier, List<String> includeOnlyAssigningAuthorities) {

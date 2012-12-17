@@ -31,8 +31,7 @@ import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.AdhocQueryType;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.uddi.api_v3.BusinessEntity;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
@@ -57,7 +56,7 @@ import gov.hhs.fha.nhinc.properties.PropertyAccessor;
  */
 public class HomeCommunityMap {
 
-    private static Log log = LogFactory.getLog(HomeCommunityMap.class);
+    private static Logger log = Logger.getLogger(HomeCommunityMap.class);
 
     protected ConnectionManagerCache getConnectionManagerCache() {
         return ConnectionManagerCache.getInstance();

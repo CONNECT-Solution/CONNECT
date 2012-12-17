@@ -37,8 +37,7 @@ import java.util.concurrent.Future;
 import gov.hhs.fha.nhinc.orchestration.OutboundResponseProcessor;
 import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratableMessage;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 /**
  * Main unit of execution Executes a DQ or PD request currently, but could be used to execute any of the Nhin
@@ -58,7 +57,7 @@ import org.apache.commons.logging.LogFactory;
  */
 public class NhinTaskExecutor<CumulativeResponse extends OutboundOrchestratableMessage, IndividualResponse extends OutboundOrchestratableMessage> {
 
-    private Log log = LogFactory.getLog(getClass());
+    private Logger log = Logger.getLogger(NhinTaskExecutor.class);
 
     private CumulativeResponse cumulativeResponse = null;
 

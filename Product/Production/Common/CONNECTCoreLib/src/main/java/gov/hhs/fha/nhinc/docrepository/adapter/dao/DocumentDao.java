@@ -30,8 +30,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
+
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -50,7 +50,7 @@ import gov.hhs.fha.nhinc.docrepository.adapter.persistence.HibernateUtil;
  * @author Neil Webb
  */
 public class DocumentDao {
-    Log log = LogFactory.getLog(DocumentDao.class);
+    private Logger log = Logger.getLogger(DocumentDao.class);
 
     /**
      * Save a document record to the database. Insert if document id is null. Update otherwise.
@@ -143,7 +143,7 @@ public class DocumentDao {
      * @return Retrieved document
      */
     public Document findById(Long documentId) {
-        getLogger().debug("Performing document retrieve using id: " + documentId);
+        log.debug("Performing document retrieve using id: " + documentId);
         Document document = null;
         Session sess = null;
         try {
@@ -153,30 +153,26 @@ public class DocumentDao {
                 if (sess != null) {
                     document = (Document) sess.get(Document.class, documentId);
                 } else {
-                    getLogger().error("Failed to obtain a session from the sessionFactory");
+                    log.error("Failed to obtain a session from the sessionFactory");
                 }
             } else {
-                getLogger().error("Session factory was null");
+                log.error("Session factory was null");
             }
-            if (getLogger().isDebugEnabled()) {
-                getLogger()
-                        .debug("Completed document retrieve by id. Result was " + ((document == null) ? "not " : "")
-                                + "found");
+            if (log.isDebugEnabled()) {
+                log.debug("Completed document retrieve by id. Result was "
+                		+ ((document == null) ? "not " : "")
+                        + "found");
             }
         } finally {
             if (sess != null) {
                 try {
                     sess.close();
                 } catch (Throwable t) {
-                    getLogger().error("Failed to close session: " + t.getMessage(), t);
+                    log.error("Failed to close session: " + t.getMessage(), t);
                 }
             }
         }
         return document;
-    }
-
-    protected Log getLogger() {
-        return log;
     }
 
     protected SessionFactory getSessionFactory() {

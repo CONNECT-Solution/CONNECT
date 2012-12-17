@@ -26,36 +26,37 @@
  */
 package gov.hhs.fha.nhinc.transform.audit;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
+import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
+import gov.hhs.fha.nhinc.common.nhinccommon.PersonNameType;
+import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
+
+import java.net.InetAddress;
+import java.util.ArrayList;
+import java.util.List;
+
+import oasis.names.tc.ebxml_regrep.xsd.rim._3.ExternalIdentifierType;
+
+import org.junit.After;
+import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
+
 import com.services.nhinc.schema.auditmessage.AuditMessageType;
 import com.services.nhinc.schema.auditmessage.AuditMessageType.ActiveParticipant;
 import com.services.nhinc.schema.auditmessage.AuditSourceIdentificationType;
 import com.services.nhinc.schema.auditmessage.CodedValueType;
 import com.services.nhinc.schema.auditmessage.EventIdentificationType;
 import com.services.nhinc.schema.auditmessage.ParticipantObjectIdentificationType;
-import java.util.ArrayList;
-import java.util.List;
-import java.net.InetAddress;
-import oasis.names.tc.ebxml_regrep.xsd.rim._3.ExternalIdentifierType;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import static org.junit.Assert.*;
-import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
-import gov.hhs.fha.nhinc.common.nhinccommon.PersonNameType;
-import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 /**
  * 
  * @author MFLYNN02
  */
 public class AuditDataTransformHelperTest {
-    private static Log log = LogFactory.getLog(AuditDataTransformHelperTest.class);
-
+    
     public AuditDataTransformHelperTest() {
     }
 
@@ -80,9 +81,7 @@ public class AuditDataTransformHelperTest {
      */
     @Test
     public void testCreateEventIdentification() {
-        log.debug("Begin - testCreateEventIdentification");
-
-        String actionCode = AuditDataTransformConstants.EVENT_ACTION_CODE_CREATE;
+       String actionCode = AuditDataTransformConstants.EVENT_ACTION_CODE_CREATE;
         Integer eventOutcome = AuditDataTransformConstants.EVENT_OUTCOME_INDICATOR_SUCCESS;
         CodedValueType eventId = new CodedValueType();
         eventId.setCodeSystem(AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_ACK);
@@ -97,8 +96,6 @@ public class AuditDataTransformHelperTest {
 
         assertSame(expResult.getEventID(), result.getEventID());
         assertSame(expResult.getEventActionCode(), result.getEventActionCode());
-
-        log.debug("End - testCreateEventIdentification");
     }
 
     /**
@@ -106,8 +103,6 @@ public class AuditDataTransformHelperTest {
      */
     @Test
     public void testCreateEventId() {
-        log.debug("Begin - testCreateEventId");
-
         String eventCode = AuditDataTransformConstants.EVENT_ACTION_CODE_DELETE;
         String eventCodeSys = "";
         String eventCodeSysName = AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_SDD;
@@ -124,8 +119,6 @@ public class AuditDataTransformHelperTest {
         assertSame(expResult.getCodeSystemName(), result.getCodeSystemName());
         assertSame(expResult.getDisplayName(), result.getDisplayName());
         assertSame(expResult.getCode(), result.getCode());
-
-        log.debug("End - testCreateEventId");
     }
 
     /**
@@ -133,8 +126,6 @@ public class AuditDataTransformHelperTest {
      */
     @Test
     public void testCreateActiveParticipantFromAssertion() {
-        log.debug("End - testCreateActiveParticipantFromAssertion");
-
         String ipAddr = null;
 
         try {
@@ -162,8 +153,6 @@ public class AuditDataTransformHelperTest {
         assertEquals(expResult.getNetworkAccessPointID(), result.getNetworkAccessPointID());
         assertEquals(expResult.getUserID(), result.getUserID());
         assertEquals(expResult.getUserName(), result.getUserName());
-
-        log.debug("End - testCreateActiveParticipantFromAssertion");
     }
 
     /**
@@ -171,8 +160,6 @@ public class AuditDataTransformHelperTest {
      */
     @Test
     public void testCreateActiveParticipant() {
-        log.debug("Begin - testCreateActiveParticipant");
-
         String userId = "test1";
         String altUserId = "John";
         String userName = "Thomas John Smith";
@@ -189,8 +176,6 @@ public class AuditDataTransformHelperTest {
         assertEquals(expResult.getAlternativeUserID(), result.getAlternativeUserID());
         assertEquals(expResult.getUserID(), result.getUserID());
         assertEquals(expResult.getUserName(), result.getUserName());
-
-        log.debug("End - testCreateActiveParticipant");
     }
 
     /**
@@ -198,8 +183,6 @@ public class AuditDataTransformHelperTest {
      */
     @Test
     public void testCreateAuditSourceIdentificationFromAssertion() {
-        log.debug("Begin - testCreateAuditSourceIdentificationFromAssertion");
-
         HomeCommunityType home = new HomeCommunityType();
         home.setHomeCommunityId("2.16.840.1.113883.3.200");
         home.setName("Federal - VA");
@@ -215,8 +198,6 @@ public class AuditDataTransformHelperTest {
 
         assertEquals(expResult.getAuditEnterpriseSiteID(), result.getAuditEnterpriseSiteID());
         assertEquals(expResult.getAuditSourceID(), result.getAuditSourceID());
-
-        log.debug("End - testCreateAuditSourceIdentificationFromAssertion");
     }
 
     /**
@@ -224,8 +205,6 @@ public class AuditDataTransformHelperTest {
      */
     @Test
     public void testCreateAuditSourceIdentification() {
-        log.debug("Begin - testCreateAuditSourceIdentification");
-
         String communityId = "2.16.840.1.113883.3.198";
         String communityName = "Federal - DoD";
 
@@ -238,8 +217,6 @@ public class AuditDataTransformHelperTest {
 
         assertEquals(expResult.getAuditEnterpriseSiteID(), result.getAuditEnterpriseSiteID());
         assertEquals(expResult.getAuditSourceID(), result.getAuditSourceID());
-
-        log.debug("End - testCreateAuditSourceIdentification");
     }
 
     /**
@@ -247,8 +224,6 @@ public class AuditDataTransformHelperTest {
      */
     @Test
     public void testCreateParticipantObjectIdentification() {
-        log.debug("Begin - testCreateParticipantObjectIdentification");
-
         String patientId = "44444";
 
         ParticipantObjectIdentificationType expResult = new ParticipantObjectIdentificationType();
@@ -257,9 +232,7 @@ public class AuditDataTransformHelperTest {
         ParticipantObjectIdentificationType result = AuditDataTransformHelper
                 .createParticipantObjectIdentification(patientId);
 
-        assertEquals(expResult.getParticipantObjectID(), result.getParticipantObjectID());
-
-        log.debug("End - testCreateParticipantObjectIdentification");
+        assertEquals(expResult.getParticipantObjectID(), result.getParticipantObjectID());    
     }
 
     /**
@@ -267,8 +240,6 @@ public class AuditDataTransformHelperTest {
      */
     @Test
     public void testLogAuditMessage() {
-        log.debug("Begin - testLogAuditMessage");
-
         EventIdentificationType eventId = new EventIdentificationType();
         CodedValueType code = new CodedValueType();
         code.setCode(AuditDataTransformConstants.EVENT_ACTION_CODE_EXECUTE);
@@ -290,7 +261,6 @@ public class AuditDataTransformHelperTest {
 
         AuditDataTransformHelper.logAuditMessage(message);
 
-        log.debug("End - testLogAuditMessage");
     }
 
     /**
@@ -298,8 +268,6 @@ public class AuditDataTransformHelperTest {
      */
     @Test
     public void testFindSingleExternalIdentifier() {
-        log.debug("Begin - testFindSingleExternalIdentifier");
-
         ExternalIdentifierType extId1 = new ExternalIdentifierType();
         ExternalIdentifierType extId2 = new ExternalIdentifierType();
         extId1.setIdentificationScheme("2.16.840.1.113883.3.198");
@@ -314,7 +282,6 @@ public class AuditDataTransformHelperTest {
         ExternalIdentifierType result = AuditDataTransformHelper.findSingleExternalIdentifier(olExtId, sIdentScheme);
         assertEquals(expResult.getIdentificationScheme(), result.getIdentificationScheme());
 
-        log.debug("End - testFindSingleExternalIdentifier");
     }
 
     /**
@@ -322,8 +289,6 @@ public class AuditDataTransformHelperTest {
      */
     @Test
     public void testFindSingleExternalIdentifierAndExtractValue() {
-        log.debug("Begin - testFindSingleExternalIdentifierAndExtractValue");
-
         ExternalIdentifierType extId1 = new ExternalIdentifierType();
         extId1.setIdentificationScheme("2.16.840.1.113883.3.198");
         extId1.setValue("198");
@@ -343,7 +308,6 @@ public class AuditDataTransformHelperTest {
 
         assertEquals(expResult, result);
 
-        log.debug("End - testFindSingleExternalIdentifierAndExtractValue");
     }
 
     /**
@@ -351,8 +315,6 @@ public class AuditDataTransformHelperTest {
      */
     @Test
     public void testCreateCompositePatientId() {
-        log.debug("Begin - testCreateCompositePatientId");
-
         String communityId = "2.16.840.1.113883.3.200";
         String patientId = "12332";
         String expResult = patientId + "^^^&" + communityId + "&ISO";
@@ -361,7 +323,6 @@ public class AuditDataTransformHelperTest {
 
         assertEquals(expResult, result);
 
-        log.debug("End - testCreateCompositePatientId");
     }
 
     /**
@@ -369,8 +330,6 @@ public class AuditDataTransformHelperTest {
      */
     @Test
     public void testCreateCompositePatientIdFromAssertion() {
-        log.debug("Begin - testCreateCompositePatientIdFromAssertion");
-
         HomeCommunityType home = new HomeCommunityType();
         home.setHomeCommunityId("2.16.840.1.113883.3.200");
         home.setName("Federal - VA");
@@ -383,7 +342,6 @@ public class AuditDataTransformHelperTest {
         String result = AuditDataTransformHelper.createCompositePatientIdFromAssertion(userInfo, uniquePatientId);
         assertEquals(expResult, result);
 
-        log.debug("End - testCreateCompositePatientIdFromAssertion");
     }
 
 }

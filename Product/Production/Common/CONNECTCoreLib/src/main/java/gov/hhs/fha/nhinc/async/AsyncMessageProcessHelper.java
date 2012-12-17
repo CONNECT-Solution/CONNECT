@@ -39,8 +39,7 @@ import javax.xml.bind.JAXBElement;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.hibernate.Hibernate;
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PIXConsumerMCCIIN000002UV01RequestType;
@@ -62,7 +61,7 @@ import gov.hhs.fha.nhinc.transform.subdisc.HL7AckTransforms;
  */
 public class AsyncMessageProcessHelper {
 
-    private Log log = null;
+    private Logger log = Logger.getLogger(AsyncMessageProcessHelper.class);
 
     private static HashMap<String, String> statusToDirectionMap = new HashMap<String, String>();
 
@@ -81,22 +80,6 @@ public class AsyncMessageProcessHelper {
         statusToDirectionMap.put(AsyncMsgRecordDao.QUEUE_STATUS_RSPSENTACK, AsyncMsgRecordDao.QUEUE_DIRECTION_INBOUND);
         statusToDirectionMap.put(AsyncMsgRecordDao.QUEUE_STATUS_RSPSENTERR, AsyncMsgRecordDao.QUEUE_DIRECTION_INBOUND);
         statusToDirectionMap.put(AsyncMsgRecordDao.QUEUE_STATUS_RSPSELECT, AsyncMsgRecordDao.QUEUE_DIRECTION_INBOUND);
-    }
-
-    /**
-     * Creates the log.
-     */
-    public AsyncMessageProcessHelper() {
-        log = createLogger();
-    }
-
-    /**
-     * Create a logger object.
-     *
-     * @return The logger object.
-     */
-    protected Log createLogger() {
-        return ((log != null) ? log : LogFactory.getLog(getClass()));
     }
 
     /**

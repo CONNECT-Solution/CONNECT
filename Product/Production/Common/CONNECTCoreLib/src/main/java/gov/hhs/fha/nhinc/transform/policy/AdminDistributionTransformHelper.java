@@ -31,8 +31,7 @@ import oasis.names.tc.xacml._2_0.context.schema.os.RequestType;
 import oasis.names.tc.xacml._2_0.context.schema.os.ResourceType;
 import oasis.names.tc.xacml._2_0.context.schema.os.SubjectType;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
@@ -46,20 +45,7 @@ import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewaySendAlertMess
 public class AdminDistributionTransformHelper {
     private static final String ActionInValue = "AdminDistIn";
     private static final String ActionOutValue = "AdminDistOut";
-    private static Log log = null;
-
-    public AdminDistributionTransformHelper() {
-        log = createLogger();
-    }
-
-    /**
-     * Instantiating log4j logger
-     *
-     * @return
-     */
-    protected Log createLogger() {
-        return ((log != null) ? log : LogFactory.getLog(getClass()));
-    }
+    private Logger log = Logger.getLogger(AdminDistributionTransformHelper.class);
 
     public CheckPolicyRequestType transformNhinAlertToCheckPolicy(EDXLDistribution message, AssertionType assertion) {
         CheckPolicyRequestType result = new CheckPolicyRequestType();

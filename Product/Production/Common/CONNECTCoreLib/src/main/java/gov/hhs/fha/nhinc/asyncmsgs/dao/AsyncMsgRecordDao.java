@@ -40,8 +40,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -55,7 +54,7 @@ import org.hibernate.criterion.Restrictions;
  */
 public class AsyncMsgRecordDao {
 
-    private static Log log = LogFactory.getLog(AsyncMsgRecordDao.class);
+    private static Logger log = Logger.getLogger(AsyncMsgRecordDao.class);
 
     public static final String QUEUE_DIRECTION_INBOUND = "INBOUND";
     public static final String QUEUE_DIRECTION_OUTBOUND = "OUTBOUND";

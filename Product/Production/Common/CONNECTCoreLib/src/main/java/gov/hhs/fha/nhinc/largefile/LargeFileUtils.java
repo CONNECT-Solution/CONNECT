@@ -43,21 +43,16 @@ import java.net.URISyntaxException;
 
 import javax.activation.DataHandler;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.apache.cxf.aegis.type.mtom.StreamDataSource;
 import org.apache.cxf.attachment.ByteDataSource;
 
 public class LargeFileUtils {
-    private static Log log = null;
+    private Logger log = Logger.getLogger(LargeFileUtils.class);
 
     private static LargeFileUtils INSTANCE = new LargeFileUtils();
     private static String ATTACHMENT_FILE_PREFIX = "nhin";
     private static String ATTACHMENT_FILE_SUFFIX = ".clf";
-
-    LargeFileUtils() {
-        log = createLogger();
-    };
 
     /**
      * Returns the singleton instance of this class.
@@ -303,10 +298,4 @@ public class LargeFileUtils {
         return null;
     }
 
-    protected Log createLogger() {
-        if (log == null) {
-            log = LogFactory.getLog(LargeFileUtils.class);
-        }
-        return log;
-    }
 }

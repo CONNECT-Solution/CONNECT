@@ -32,8 +32,7 @@ import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 
 import java.util.List;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -48,14 +47,14 @@ import org.hibernate.Transaction;
  */
 public final class TransactionDAO {
 
-    private static final Log LOG = LogFactory.getLog(TransactionDAO.class);
+    private static final Logger log = Logger.getLogger(TransactionDAO.class);
     private static final TransactionDAO INSTANCE = new TransactionDAO();
 
     /**
      * The constructor.
      */
     private TransactionDAO() {
-        LOG.info("TransactionDAO initialized");
+        log.info("TransactionDAO initialized");
     }
 
     /**
@@ -64,7 +63,7 @@ public final class TransactionDAO {
      * @return TransactionDAO
      */
     public static TransactionDAO getInstance() {
-        LOG.debug("getTransactionDAOInstance()...");
+        log.debug("getTransactionDAOInstance()...");
         return INSTANCE;
     }
 
@@ -76,7 +75,7 @@ public final class TransactionDAO {
      */
     public boolean insertIntoTransactionRepo(TransactionRepo transactionRepo) {
 
-        LOG.debug("TransactionDAO.insertIntoTransactionRepo() - Begin");
+        log.debug("TransactionDAO.insertIntoTransactionRepo() - Begin");
         Session session = null;
         Transaction tx = null;
         boolean result = true;
@@ -86,21 +85,21 @@ public final class TransactionDAO {
                 SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
                 session = sessionFactory.openSession();
                 tx = session.beginTransaction();
-                LOG.info("Inserting Record...");
+                log.info("Inserting Record...");
 
                 session.persist(transactionRepo);
 
-                LOG.info("TransactionRepo Inserted successfully...");
+                log.info("TransactionRepo Inserted successfully...");
                 tx.commit();
             } catch (HibernateException e) {
                 result = false;
                 transactionRollback(tx);
-                LOG.error("Exception during insertion caused by :" + e.getMessage(), e);
+                log.error("Exception during insertion caused by :" + e.getMessage(), e);
             } finally {
                 closeSession(session, false);
             }
         }
-        LOG.debug("TransactionDAO.insertIntoTransactionRepo() - End");
+        log.debug("TransactionDAO.insertIntoTransactionRepo() - End");
         return result;
     }
 
@@ -112,11 +111,11 @@ public final class TransactionDAO {
      */
     @SuppressWarnings("unchecked")
     public String getTransactionId(String messageId) {
-        LOG.debug("TransactionDAO.getTransactinId() - Begin");
+        log.debug("TransactionDAO.getTransactinId() - Begin");
 
         if (NullChecker.isNullish(messageId)) {
-            LOG.info("-- MessageId Parameter is required for Transaction Query --");
-            LOG.debug("TransactionDAO.getTransactinId() - End");
+            log.info("-- MessageId Parameter is required for Transaction Query --");
+            log.debug("TransactionDAO.getTransactinId() - End");
             return null;
         }
 
@@ -126,8 +125,8 @@ public final class TransactionDAO {
             SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
             session = sessionFactory.openSession();
 
-            if (LOG.isDebugEnabled()) {
-                LOG.info("Getting Records");
+            if (log.isDebugEnabled()) {
+                log.info("Getting Records");
             }
             Query namedQuery = session.getNamedQuery("findTransactionByMessageId");
             namedQuery.setString("messageId", messageId);
@@ -139,7 +138,7 @@ public final class TransactionDAO {
                 return trans.getTransactionId();
             }
         } catch (Exception e) {
-            LOG.error("Exception in getTransactionId() occured due to :" + e.getMessage(), e);
+            log.error("Exception in getTransactionId() occured due to :" + e.getMessage(), e);
         } finally {
             closeSession(session, false);
         }

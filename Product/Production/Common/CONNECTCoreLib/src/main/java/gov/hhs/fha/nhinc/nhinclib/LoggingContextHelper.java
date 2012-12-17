@@ -31,8 +31,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 import javax.xml.ws.WebServiceContext;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.apache.log4j.NDC;
 
 /**
@@ -40,26 +39,7 @@ import org.apache.log4j.NDC;
  */
 public class LoggingContextHelper {
 
-    private Log log = null;
-
-    /**
-     * Default Constructor defines the logger
-     */
-    public LoggingContextHelper() {
-        log = createLogger();
-    }
-
-    /**
-     * Creates the error logger
-     * 
-     * @return The Logger
-     */
-    protected Log createLogger() {
-        if (log == null) {
-            log = LogFactory.getLog(getClass());
-        }
-        return log;
-    }
+    private Logger log = Logger.getLogger(LoggingContextHelper.class);
 
     /**
      * Builds the Nested Diapnostic Context for the current thread and initializes the generated logging context id in
@@ -102,7 +82,9 @@ public class LoggingContextHelper {
         }
         buffer.append(".");
         buffer.append(UUID.randomUUID().toString());
-        log.info("Setting contextId: " + buffer.toString());
+        if(log.isInfoEnabled()){
+        	log.info("Setting contextId: " + buffer.toString());
+        }
         return buffer.toString();
     }
 

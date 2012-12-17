@@ -30,8 +30,7 @@ import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.List;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 import gov.hhs.fha.nhinc.common.entityperformancelogquery.CountDataType;
 import gov.hhs.fha.nhinc.common.entityperformancelogquery.DetailDataType;
@@ -48,7 +47,7 @@ import gov.hhs.fha.nhinc.properties.PropertyAccessor;
  */
 public class PerformanceManager {
 
-    private static Log log = LogFactory.getLog(PerformanceManager.class);
+    private static Logger log = Logger.getLogger(PerformanceManager.class);
     private static PerformanceManager perfManager = new PerformanceManager();
     private static final String PERF_LOG_ENABLED = "performanceLogEnabled";
 

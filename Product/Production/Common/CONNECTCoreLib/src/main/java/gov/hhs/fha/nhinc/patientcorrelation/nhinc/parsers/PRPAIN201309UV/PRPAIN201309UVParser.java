@@ -29,8 +29,7 @@ package gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.PRPAIN201309UV;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.JAXBElement;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.hl7.v3.CS;
 import org.hl7.v3.II;
 import org.hl7.v3.PRPAIN201309UV02;
@@ -46,7 +45,7 @@ import org.hl7.v3.PRPAMT201307UV02QueryByParameter;
  */
 public class PRPAIN201309UVParser {
 
-    private static Log log = LogFactory.getLog(PRPAIN201309UVParser.class);
+    private static Logger log = Logger.getLogger(PRPAIN201309UVParser.class);
     private static String CODE = "CA";
     private static String CNTRL_MODCODE = "EVN";
     private static String CNTRL_CODE = "PRPA_TE201310UV";

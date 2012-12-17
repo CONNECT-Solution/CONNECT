@@ -29,15 +29,14 @@ package gov.hhs.fha.nhinc.gateway.aggregator.persistence;
 import gov.hhs.fha.nhinc.gateway.aggregator.dao.AggTransactionDao;
 import gov.hhs.fha.nhinc.gateway.aggregator.model.AggTransaction;
 import java.util.Date;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 /**
  * 
  * @author westbergl
  */
 public class GarbageCollectorThread extends Thread {
-    private static Log log = LogFactory.getLog(GarbageCollectorThread.class);
+    private Logger log = Logger.getLogger(GarbageCollectorThread.class);
     private Date pivotDate = null;
 
     /**

@@ -12,8 +12,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
 import org.opensaml.Configuration;
 import org.opensaml.saml2.core.Assertion;
@@ -42,7 +41,7 @@ import gov.hhs.fha.nhinc.nhinclib.NullChecker;
  */
 public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
 
-    private static Log log = LogFactory.getLog(HOKSAMLAssertionBuilder.class);
+    private static Logger log = Logger.getLogger(HOKSAMLAssertionBuilder.class);
 
 	private final CertificateManager certificateManager;
 

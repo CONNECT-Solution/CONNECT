@@ -34,8 +34,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.uddi.api_v3.BindingTemplate;
 import org.uddi.api_v3.BusinessEntity;
 import org.uddi.api_v3.BusinessService;
@@ -43,11 +42,7 @@ import org.uddi.api_v3.KeyedReference;
 
 public class ConnectionManagerCacheHelper {
 
-	private static Log log = LogFactory.getLog(ConnectionManagerCacheHelper.class);
-	
-	protected Log getLogger() {
-		return log;
-	}
+	private static Logger log = Logger.getLogger(ConnectionManagerCacheHelper.class);
 	
 	private static String UDDI_SPEC_VERSION_KEY = "uddi:nhin:versionofservice";
 	private static String UDDI_HOME_COMMUNITY_ID_KEY = "uddi:nhin:nhie:homecommunityid";
@@ -256,7 +251,7 @@ public class ConnectionManagerCacheHelper {
                 }
             }
         } catch (Exception ex) {
-            getLogger().error("Error deducing highest spec version.", ex);
+            log.error("Error deducing highest spec version.", ex);
         }
 
         return highestSpecVersion;

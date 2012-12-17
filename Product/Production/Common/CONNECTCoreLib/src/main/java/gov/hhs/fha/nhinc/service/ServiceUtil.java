@@ -31,8 +31,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 /**
  * 
@@ -40,15 +39,7 @@ import org.apache.commons.logging.LogFactory;
  */
 public class ServiceUtil {
 
-    private Log log = null;
-
-    public ServiceUtil() {
-        log = createLogger();
-    }
-
-    protected Log createLogger() {
-        return ((log != null) ? log : LogFactory.getLog(getClass()));
-    }
+    private Logger log = Logger.getLogger(ServiceUtil.class);
 
     protected String getWsdlPath() {
         return ServicePropertyLoader.getBaseWsdlPath();

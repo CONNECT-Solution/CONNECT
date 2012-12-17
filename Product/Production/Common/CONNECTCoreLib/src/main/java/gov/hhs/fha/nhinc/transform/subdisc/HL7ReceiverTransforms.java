@@ -27,8 +27,7 @@
 package gov.hhs.fha.nhinc.transform.subdisc;
 
 import javax.xml.bind.JAXBElement;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.hl7.v3.CommunicationFunctionType;
 import org.hl7.v3.EntityClassDevice;
 import org.hl7.v3.II;
@@ -51,7 +50,7 @@ import org.hl7.v3.MCCIMT000300UV01Receiver;
  */
 public class HL7ReceiverTransforms {
 
-    private static Log log = LogFactory.getLog(HL7DataTransformHelper.class);
+    private static Logger log = Logger.getLogger(HL7DataTransformHelper.class);
 
     /**
      * Create receiver element. The passed OID will be used as the HL7 device application id and the organization home

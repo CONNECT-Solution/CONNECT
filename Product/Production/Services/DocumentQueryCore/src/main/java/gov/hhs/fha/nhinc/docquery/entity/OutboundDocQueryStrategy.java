@@ -45,8 +45,7 @@ import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 /**
  * @author bhumphrey/paul
@@ -54,7 +53,7 @@ import org.apache.commons.logging.LogFactory;
  */
 public abstract class OutboundDocQueryStrategy implements OrchestrationStrategy {
 
-    private static Log log = LogFactory.getLog(OutboundDocQueryStrategy.class);
+    private static Logger log = Logger.getLogger(OutboundDocQueryStrategy.class);
 
     private AuditRepositoryLogger auditLogger;
     private NhinDocQueryProxyFactory proxyFactory;

@@ -38,8 +38,7 @@ import javax.xml.bind.JAXBElement;
 import javax.xml.bind.Marshaller;
 import javax.xml.namespace.QName;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.oasis_open.docs.wsn.b_2.ObjectFactory;
 import org.oasis_open.docs.wsn.b_2.Unsubscribe;
 
@@ -54,7 +53,7 @@ import com.services.nhinc.schema.auditmessage.ParticipantObjectIdentificationTyp
  * @author Neil Webb
  */
 public class UnsubscribeTransforms {
-    private static Log log = LogFactory.getLog(SubscribeTransforms.class);
+    private Logger log = Logger.getLogger(SubscribeTransforms.class);
 
     public LogEventRequestType transformNhinUnsubscribeRequestToAuditMessage(LogNhinUnsubscribeRequestType message) {
         LogEventRequestType response = new LogEventRequestType();

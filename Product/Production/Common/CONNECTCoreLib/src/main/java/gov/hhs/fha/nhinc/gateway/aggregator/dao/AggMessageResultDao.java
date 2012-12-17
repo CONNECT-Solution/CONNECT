@@ -33,8 +33,7 @@ import gov.hhs.fha.nhinc.gateway.aggregator.persistence.HibernateUtil;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -47,7 +46,7 @@ import org.hibernate.SessionFactory;
  * @author Les Westberg
  */
 public class AggMessageResultDao {
-    private static Log log = LogFactory.getLog(AggMessageResultDao.class);
+    private Logger log = Logger.getLogger(AggMessageResultDao.class);
 
     /**
      * Default constructor.

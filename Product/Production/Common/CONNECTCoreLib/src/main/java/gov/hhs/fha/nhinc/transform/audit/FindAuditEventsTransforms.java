@@ -30,8 +30,7 @@ package gov.hhs.fha.nhinc.transform.audit;
  *
  * @author mflynn02
  */
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 import java.io.ByteArrayOutputStream;
 import javax.xml.bind.Marshaller;
@@ -51,7 +50,7 @@ import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
 
 public class FindAuditEventsTransforms {
 
-    private static Log log = LogFactory.getLog(FindAuditEventsTransforms.class);
+    private static Logger log = Logger.getLogger(FindAuditEventsTransforms.class);
 
     public static LogEventRequestType transformFindAuditEventsReq2AuditMsg(LogFindAuditEventsRequestType message) {
 

@@ -51,32 +51,10 @@ public class AdapterDocQueryOrchImplTest {
     final AdapterRedactionEngineProxy mockRedactionEngineProxy = context.mock(AdapterRedactionEngineProxy.class);
 
     @Test
-    public void testCreateLogger() {
-        try {
-            AdapterDocQueryOrchImpl docQueryImpl = new AdapterDocQueryOrchImpl() {
-                @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-            };
-
-            Log log = docQueryImpl.createLogger();
-            assertNotNull("Log was null", log);
-        } catch (Throwable t) {
-            System.out.println("Error running testCreateLogger test: " + t.getMessage());
-            t.printStackTrace();
-            fail("Error running testCreateLogger test: " + t.getMessage());
-        }
-    }
-
-    @Test
     public void testGetRedactionEngineProxy() {
         try {
             AdapterDocQueryOrchImpl docQueryImpl = new AdapterDocQueryOrchImpl() {
-                @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
+              
 
                 @Override
                 protected AdapterRedactionEngineProxy getRedactionEngineProxy() {

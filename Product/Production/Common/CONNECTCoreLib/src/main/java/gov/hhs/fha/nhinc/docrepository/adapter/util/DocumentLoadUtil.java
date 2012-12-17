@@ -41,8 +41,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.PropertyResourceBundle;
 import java.util.Set;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -55,7 +54,7 @@ import org.w3c.dom.Node;
  */
 public class DocumentLoadUtil {
 	private static final String DATE_FORMAT_STRING = "yyyyMMddhhmmssZ";
-	private static Log log = LogFactory.getLog(DocumentLoadUtil.class);
+	private static Logger log = Logger.getLogger(DocumentLoadUtil.class);
 
 	private static void loadData(String absoluteFilePath) throws Exception {
 		// Load file into XML

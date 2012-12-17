@@ -66,7 +66,6 @@ public class AdapterDocSubmissionDeferredResponseProxyWebServiceSecuredImplTest 
         }
     };
 
-    final Log mockLogger = mockery.mock(Log.class);
     final CONNECTClient<AdapterXDRResponseSecuredPortType> client = new CONNECTClientMock();
 
     public AdapterDocSubmissionDeferredResponseProxyWebServiceSecuredImplTest() {
@@ -108,10 +107,7 @@ public class AdapterDocSubmissionDeferredResponseProxyWebServiceSecuredImplTest 
 
     private WebServiceProxyHelper createMockWebServiceProxyHelper(final String url) {
         return new WebServiceProxyHelper() {
-            @Override
-            protected Log createLogger() {
-                return mockLogger;
-            }
+           
 
             @Override
             public String getAdapterEndPointFromConnectionManager(String sServiceName) {
@@ -123,10 +119,7 @@ public class AdapterDocSubmissionDeferredResponseProxyWebServiceSecuredImplTest 
     private AdapterDocSubmissionDeferredResponseProxyWebServiceSecuredImpl createWebServiceProxy(
             final WebServiceProxyHelper proxyHelper) {
         return new AdapterDocSubmissionDeferredResponseProxyWebServiceSecuredImpl() {
-            @Override
-            protected Log createLogger() {
-                return mockLogger;
-            }
+            
 
             @Override
             protected WebServiceProxyHelper createWebServiceProxyHelper() {
@@ -151,12 +144,7 @@ public class AdapterDocSubmissionDeferredResponseProxyWebServiceSecuredImplTest 
         WebServiceProxyHelper proxyHelper = createMockWebServiceProxyHelper("url");
         AdapterDocSubmissionDeferredResponseProxyWebServiceSecuredImpl adapterXDRResponseWebServiceProxy = createWebServiceProxy(proxyHelper);
 
-        mockery.checking(new Expectations() {
-            {
-                allowing(mockLogger).isDebugEnabled();
-                allowing(mockLogger).debug(with(any(String.class)));
-            }
-        });
+       
 
         RegistryResponseType body = new RegistryResponseType();
         AssertionType assertion = new AssertionType();
@@ -173,13 +161,7 @@ public class AdapterDocSubmissionDeferredResponseProxyWebServiceSecuredImplTest 
         WebServiceProxyHelper proxyHelper = createMockWebServiceProxyHelper(null);
         AdapterDocSubmissionDeferredResponseProxyWebServiceSecuredImpl adapterXDRResponseWebServiceProxy = createWebServiceProxy(proxyHelper);
 
-        mockery.checking(new Expectations() {
-            {
-                allowing(mockLogger).isDebugEnabled();
-                allowing(mockLogger).debug(with(any(String.class)));
-                allowing(mockLogger).error(with(any(String.class)));
-            }
-        });
+       
 
         RegistryResponseType body = new RegistryResponseType();
         AssertionType assertion = new AssertionType();

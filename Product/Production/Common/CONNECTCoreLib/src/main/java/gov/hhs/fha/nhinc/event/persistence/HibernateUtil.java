@@ -31,8 +31,7 @@ import gov.hhs.fha.nhinc.properties.HibernateAccessor;
 
 import java.io.File;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
@@ -44,7 +43,7 @@ import org.hibernate.cfg.Configuration;
 public class HibernateUtil {
 
     private static final SessionFactory SESSION_FACTORY;
-    private static final Log LOG = LogFactory.getLog(HibernateUtil.class);
+    private static Logger log = Logger.getLogger(HibernateUtil.class);
 
     static {
         try {
@@ -52,7 +51,7 @@ public class HibernateUtil {
             SESSION_FACTORY = new Configuration().configure(getConfigFile()).buildSessionFactory();
         } catch (Throwable ex) {
             // Make sure you log the exception, as it might be swallowed
-            LOG.error("Initial SessionFactory creation failed." + ex, ex.getCause());
+            log.error("Initial SessionFactory creation failed." + ex, ex.getCause());
             throw ex;
         }
     }
@@ -72,7 +71,7 @@ public class HibernateUtil {
         try {
             result = HibernateAccessor.getInstance().getHibernateFile(NhincConstants.HIBERNATE_EVENT_REPOSITORY);
         } catch (Exception ex) {
-            LOG.error("Unable to load " + NhincConstants.HIBERNATE_EVENT_REPOSITORY + " " + ex.getMessage(), ex);
+            log.error("Unable to load " + NhincConstants.HIBERNATE_EVENT_REPOSITORY + " " + ex.getMessage(), ex);
         }
 
         return result;

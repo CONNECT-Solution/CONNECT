@@ -37,8 +37,6 @@ import java.net.URISyntaxException;
 
 import javax.activation.DataHandler;
 
-import org.apache.commons.logging.Log;
-import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JUnit4Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
@@ -54,15 +52,12 @@ public class LargeFileUtilsTest {
             setImposteriser(ClassImposteriser.INSTANCE);
         }
     };
-    final Log mockLog = context.mock(Log.class);
     
     @Test
     public void testParseBase64DataAsUri() throws IOException, URISyntaxException {
-        allowAnyMockLogging();
-        
         String URI_STRING = "file:///nhin/temp";
         
-        LargeFileUtils fileUtils = createLargeFileUtils();
+        LargeFileUtils fileUtils = new LargeFileUtils();
         
         DataHandler dh = fileUtils.convertToDataHandler(URI_STRING);
         URI uri = fileUtils.parseBase64DataAsUri(dh);
@@ -72,11 +67,9 @@ public class LargeFileUtilsTest {
     
     @Test(expected=URISyntaxException.class)
     public void testParseBase64DataAsUri_badUri() throws IOException, URISyntaxException {
-        allowAnyMockLogging();
-        
         String BAD_URI_STRING = "::::::";
         
-        LargeFileUtils fileUtils = createLargeFileUtils();
+        LargeFileUtils fileUtils = new LargeFileUtils();
         
         DataHandler dh = fileUtils.convertToDataHandler(BAD_URI_STRING);
         fileUtils.parseBase64DataAsUri(dh);
@@ -84,11 +77,9 @@ public class LargeFileUtilsTest {
     
     @Test
     public void testSaveDataToFile() throws Exception {
-        allowAnyMockLogging();
-        
         String RANDOM_DATA = "1234567890";
         
-        LargeFileUtils fileUtils = createLargeFileUtils();
+        LargeFileUtils fileUtils = new LargeFileUtils();
         
         File tempFile = File.createTempFile("temp", ".tmp");
         tempFile.deleteOnExit();
@@ -105,19 +96,4 @@ public class LargeFileUtilsTest {
         assertEquals(string, RANDOM_DATA);    
     }
     
-    private void allowAnyMockLogging() {
-        context.checking(new Expectations() {
-            {
-                ignoring(mockLog);
-            }
-        });
-    }
-    
-    private LargeFileUtils createLargeFileUtils() {
-        return new LargeFileUtils() {
-            protected Log createLogger() {
-                return mockLog;
-            }
-        };       
-    }
 }

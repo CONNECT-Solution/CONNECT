@@ -28,8 +28,7 @@ package gov.hhs.fha.nhinc.gateway.aggregator.persistence;
 
 import java.util.Date;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import java.util.Calendar;
@@ -42,7 +41,7 @@ import java.util.Calendar;
  * @author Les Westberg
  */
 public class GarbageCollectorMgr {
-    private static Log log = LogFactory.getLog(GarbageCollectorMgr.class);
+    private static Logger log = Logger.getLogger(GarbageCollectorMgr.class);
     private static Date dtLastRun = new Date(); // The date that the garbage collector was last run.
     private static final String GATEWAY_PROPERTY_FILE = "gateway";
     private static final String GARBAGE_COLLECT_TIME_DURATION = "aggregatorGarbageCollectionTimeDuration";

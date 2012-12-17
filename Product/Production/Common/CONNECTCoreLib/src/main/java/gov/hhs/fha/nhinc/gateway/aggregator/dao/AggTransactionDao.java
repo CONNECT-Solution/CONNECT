@@ -35,8 +35,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
+
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -48,7 +48,7 @@ import org.hibernate.SessionFactory;
  * @author Les Westberg
  */
 public class AggTransactionDao {
-    private static Log log = LogFactory.getLog(AggTransactionDao.class);
+    private Logger log = Logger.getLogger(AggTransactionDao.class);
 
     /**
      * Default constructor
@@ -131,10 +131,8 @@ public class AggTransactionDao {
         List<AggTransaction> olAggTransaction = new ArrayList<AggTransaction>();
         SimpleDateFormat oFormat = new SimpleDateFormat("MM/dd/yyyy.HH:mm:ss");
 
-        String sDateTime = "";
-        if (sDateTime != null) {
-            sDateTime = oFormat.format(dtDateTime);
-        } else {
+        String sDateTime = oFormat.format(dtDateTime);
+        if (sDateTime == null) {
             String sErrorMessage = "AggTransactionDao.findOlderThan(dtDateTime) must be called with a valid date/time but dtDateTime was null.";
             log.error(sErrorMessage);
             throw new AggregatorException(sErrorMessage);

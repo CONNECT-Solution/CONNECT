@@ -30,8 +30,7 @@ import gov.hhs.fha.nhinc.properties.HibernateAccessor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import java.io.File;
 import java.io.Serializable;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -44,7 +43,7 @@ import org.hibernate.Transaction;
  * @author Neil Webb, Les Westberg
  */
 public class HibernateUtil {
-    private static Log log = LogFactory.getLog(HibernateUtil.class);
+    private static Logger log = Logger.getLogger(HibernateUtil.class);
     private static final SessionFactory sessionFactory;
 
     static {
@@ -53,7 +52,7 @@ public class HibernateUtil {
             sessionFactory = new Configuration().configure(getConfigFile()).buildSessionFactory();
         } catch (Throwable ex) {
             // Make sure you log the exception, as it might be swallowed
-            System.err.println("Initial SessionFactory creation failed." + ex);
+            log.error("Initial SessionFactory creation failed.", ex);
             throw new ExceptionInInitializerError(ex);
         }
     }
