@@ -59,7 +59,7 @@ public class PurposeOfForDecider {
         
         String action = properties.getAction();
         try {
-            serviceName = NHIN_SERVICE_NAMES.fromValueString(action);//AddressingActionToServiceNameMapping.get(action);
+            serviceName = NHIN_SERVICE_NAMES.fromValueString(action);
         } catch (IllegalArgumentException exc) {
             return purposeFor;
         }

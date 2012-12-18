@@ -30,6 +30,8 @@ import static org.junit.Assert.*;
 
 import java.util.HashMap;
 
+import gov.hhs.fha.nhinc.callback.openSAML.CallbackMapProperties;
+import gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 
 import org.junit.Test;
@@ -45,13 +47,14 @@ public class PDPurposeOfForDeciderDefaultConfigTest {
      */
     @Test
     public void testIsPurposeFor_g0() {
-        HashMap<Object, Object> tokenVals = new HashMap<Object, Object>();
+        HashMap<String, Object> tokenVals = new HashMap<String, Object>();
         tokenVals.put(NhincConstants.TARGET_API_LEVEL, NhincConstants.GATEWAY_API_LEVEL.LEVEL_g0);
         tokenVals.put(NhincConstants.WS_SOAP_TARGET_HOME_COMMUNITY_ID, "1.1");
-        tokenVals.put(NhincConstants.ACTION_PROP, NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME);
+        tokenVals.put(NhincConstants.SERVICE_NAME, NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME);
         
+        CallbackProperties properties = new CallbackMapProperties(tokenVals);
         PurposeOfForDecider decider = new PurposeOfForDecider();
-        assertTrue(!decider.isPurposeFor(tokenVals));
+        assertTrue(!decider.isPurposeFor(properties));
     }
 
     /**
@@ -59,12 +62,13 @@ public class PDPurposeOfForDeciderDefaultConfigTest {
      */
     @Test
     public void testIsPurposeForNoApiProvided() {
-        HashMap<Object, Object> tokenVals = new HashMap<Object, Object>();
+        HashMap<String, Object> tokenVals = new HashMap<String, Object>();
         tokenVals.put(NhincConstants.WS_SOAP_TARGET_HOME_COMMUNITY_ID, "1.1");
         tokenVals.put(NhincConstants.ACTION_PROP, NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME);
         
+        CallbackProperties properties = new CallbackMapProperties(tokenVals);
         PurposeOfForDecider decider = new PurposeOfForDecider();
-        assertTrue(!decider.isPurposeFor(tokenVals));
+        assertTrue(!decider.isPurposeFor(properties));
     }
     
     /**
@@ -72,12 +76,13 @@ public class PDPurposeOfForDeciderDefaultConfigTest {
      */
     @Test
     public void testIsPurposeFor_g1() {
-        HashMap<Object, Object> tokenVals = new HashMap<Object, Object>();
+        HashMap<String, Object> tokenVals = new HashMap<String, Object>();
         tokenVals.put(NhincConstants.TARGET_API_LEVEL, NhincConstants.GATEWAY_API_LEVEL.LEVEL_g1);
         tokenVals.put(NhincConstants.WS_SOAP_TARGET_HOME_COMMUNITY_ID, "1.1");
         tokenVals.put(NhincConstants.ACTION_PROP, NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME);
         
+        CallbackProperties properties = new CallbackMapProperties(tokenVals);
         PurposeOfForDecider decider = new PurposeOfForDecider();
-        assertTrue(!decider.isPurposeFor(tokenVals));
+        assertTrue(!decider.isPurposeFor(properties));
     }
 }

@@ -96,55 +96,6 @@ abstract public class SAMLAssertionBuilder {
 
     static boolean isValidIssuerFormat(String format) {
         return VALID_NAME_LIST.contains(format);
-
-    }
-
-    /**
-     * @param callbackProperties used to pull target api level, target hcid and service name.
-     * @return true if deprecated "purposeForUse" syntax is allowed in outgoing saml assertion.
-     */
-    static boolean isPurposeForUseAllowed(CallbackProperties callbackProperties) {
-
-        // first check if target api level is explicitly specified...
-        GATEWAY_API_LEVEL targetApiLevel = callbackProperties.getTargetApiLevel();
-        if (targetApiLevel != null) {
-            return (targetApiLevel == GATEWAY_API_LEVEL.LEVEL_g0);
-        }
-        
-        // then check target api level based on target HCID and service name (action)...
-        NHIN_SERVICE_NAMES serviceName = null;
-        try {
-            serviceName = NHIN_SERVICE_NAMES.fromValueString(callbackProperties.getAction());
-        } catch  (IllegalArgumentException exc) {
-            // Do nothing, this isnt an NHIN service
-            return false;            
-        }           
-        String targetHcid = callbackProperties.getTargetHomeCommunityId();
-        if (serviceName == null || targetHcid == null) {
-            return false;
-        }
-        
-        NhinEndpointManager nem = new NhinEndpointManager();
-        return (nem.getApiVersion(targetHcid, serviceName) == GATEWAY_API_LEVEL.LEVEL_g0);        
-    }
-    
-    /**
-     * Returns boolean condition on whether PurposeForUse is enabled.
-     *
-     * @return The PurposeForUse enabled setting
-     */
-    static boolean isPurposeForUseEnabled(CallbackProperties callbackProperties) {
-        
-        // default return value
-        boolean purposeForUseEnabled = false;
-        
-        if (isPurposeForUseAllowed(callbackProperties)) {            
-            PurposeUseProxyObjectFactory purposeFactory = new PurposeUseProxyObjectFactory();
-            PurposeUseProxy purposeUseProxy = purposeFactory.getPurposeUseProxy();
-            purposeForUseEnabled = purposeUseProxy.isPurposeForUseEnabled(callbackProperties); 
-        }
-        
-        return purposeForUseEnabled;
     }
 
     abstract public Element build(CallbackProperties properties) throws Exception;

@@ -12,8 +12,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
-import javax.xml.parsers.DocumentBuilderFactory;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.joda.time.DateTime;
@@ -33,7 +31,6 @@ import org.opensaml.xml.io.MarshallerFactory;
 import org.opensaml.xml.signature.Signature;
 import org.opensaml.xml.signature.SignatureException;
 import org.opensaml.xml.signature.Signer;
-import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import gov.hhs.fha.nhinc.callback.PurposeOfForDecider;
@@ -522,30 +519,20 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
 		 * Gateway-347 - Support for both values will remain until NHIN Specs
 		 * updated Determine whether to use PurposeOfUse or PuposeForUse
 		 */
-		/*if (isPurposeForUseEnabled(properties)) {
-			statements = OpenSAML2ComponentBuilder.getInstance()
-					.createPurposeForUseAttributeStatements(purposeCode, purposeSystem,
-							purposeSystemName, purposeDisplay);
-		} else {
-			statements = OpenSAML2ComponentBuilder.getInstance()
-					.createPurposeOfUseAttributeStatements(purposeCode, purposeSystem,
-							purposeSystemName, purposeDisplay);
-		} */
 		
-		final Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
-        final Element elemPFUAttr = document.createElementNS("urn:oasis:names:tc:SAML:2.0:assertion",
-                "AttibuteValue");
-        
-     // Call out to the purpose decider to determine whether to use purposeofuse or purposeforuse.
-        PurposeOfForDecider pd = new PurposeOfForDecider();                
-        Element purpose = createPurposeUseElement(document, pd.isPurposeFor(properties));
-        
-        elemPFUAttr.appendChild(purpose);
-
-        purpose.setAttributeNS("http://www.w3.org/2001/XMLSchema-instance", "xsi:type", "hl7:CE");
-
+         // Call out to the purpose decider to determine whether to use purposeofuse or purposeforuse.
+            PurposeOfForDecider pd = new PurposeOfForDecider();                
+            if(pd.isPurposeFor(properties)) {
+                  statements = OpenSAML2ComponentBuilder.getInstance()
+                    .createPurposeForUseAttributeStatements(purposeCode, purposeSystem,
+                            purposeSystemName, purposeDisplay);
+            } else {
+                statements = OpenSAML2ComponentBuilder.getInstance()
+                        .createPurposeOfUseAttributeStatements(purposeCode, purposeSystem,
+                                purposeSystemName, purposeDisplay);
+            } 
+            
 		return statements;
-
 	}
 
 	/**
@@ -641,4 +628,5 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
 		return statements;
 
 	}
+	
 }

@@ -27,8 +27,9 @@
 package gov.hhs.fha.nhinc.callback;
 
 import static org.junit.Assert.assertTrue;
+import gov.hhs.fha.nhinc.callback.openSAML.CallbackMapProperties;
+import gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -44,10 +45,10 @@ public class NegativePurposeOfForDeciderMockTest extends AbstractPurposeOfForDec
     /*-----------------Setup Methods---------------*/
     
     @Override
-    protected Map<Object,Object> createTokenValues() {
-        HashMap<Object, Object> tokenVals = new HashMap<Object, Object>();
+    protected Map<String,Object> createTokenValues() {
+        HashMap<String, Object> tokenVals = new HashMap<String, Object>();
         tokenVals.put(NhincConstants.WS_SOAP_TARGET_HOME_COMMUNITY_ID, "1.1");
-        tokenVals.put(NhincConstants.ACTION_PROP, "auditrepositorysecured");
+        tokenVals.put(NhincConstants.SERVICE_NAME, "auditrepositorysecured");
         return tokenVals;
     }
     
@@ -62,7 +63,8 @@ public class NegativePurposeOfForDeciderMockTest extends AbstractPurposeOfForDec
         expectNoMockEndpointLookups();
         expectNoMockPurposeUseProxy();
         
-        assertTrue(!mockPurposeOfForDecider.isPurposeFor(createTokenValuesg0()));
+        CallbackProperties properties = new CallbackMapProperties(createTokenValuesg0());
+        assertTrue(!mockPurposeOfForDecider.isPurposeFor(properties));
         context.assertIsSatisfied();
     }
     
@@ -75,7 +77,8 @@ public class NegativePurposeOfForDeciderMockTest extends AbstractPurposeOfForDec
         expectNoMockEndpointLookups();
         expectNoMockPurposeUseProxy();
         
-        assertTrue(!mockPurposeOfForDecider.isPurposeFor(createTokenValuesg0()));
+        CallbackProperties properties = new CallbackMapProperties(createTokenValuesg0());
+        assertTrue(!mockPurposeOfForDecider.isPurposeFor(properties));
         context.assertIsSatisfied();
     }
  
@@ -88,7 +91,8 @@ public class NegativePurposeOfForDeciderMockTest extends AbstractPurposeOfForDec
         expectNoMockEndpointLookups();
         expectNoMockPurposeUseProxy();
         
-        assertTrue(!mockPurposeOfForDecider.isPurposeFor(createTokenValuesg1()));
+        CallbackProperties properties = new CallbackMapProperties(createTokenValuesg0());
+        assertTrue(!mockPurposeOfForDecider.isPurposeFor(properties));
         context.assertIsSatisfied();
     }
     
@@ -98,7 +102,8 @@ public class NegativePurposeOfForDeciderMockTest extends AbstractPurposeOfForDec
         expectNoMockEndpointLookups();
         expectNoMockPurposeUseProxy();
         
-        assertTrue(!mockPurposeOfForDecider.isPurposeFor(createTokenValues()));
+        CallbackProperties properties = new CallbackMapProperties(createTokenValuesg0());
+        assertTrue(!mockPurposeOfForDecider.isPurposeFor(properties));
         context.assertIsSatisfied();
     }
     
@@ -108,7 +113,8 @@ public class NegativePurposeOfForDeciderMockTest extends AbstractPurposeOfForDec
         expectNoMockEndpointLookups();
         expectNoMockPurposeUseProxy();
         
-        assertTrue(!mockPurposeOfForDecider.isPurposeFor(createTokenValues()));
+        CallbackProperties properties = new CallbackMapProperties(createTokenValuesg0());
+        assertTrue(!mockPurposeOfForDecider.isPurposeFor(properties));
         context.assertIsSatisfied();
     }
     
@@ -118,7 +124,8 @@ public class NegativePurposeOfForDeciderMockTest extends AbstractPurposeOfForDec
         expectNoMockEndpointLookups();
         expectNoMockPurposeUseProxy();
         
-        assertTrue(!mockPurposeOfForDecider.isPurposeFor(createTokenValues()));
+        CallbackProperties properties = new CallbackMapProperties(createTokenValuesg0());
+        assertTrue(!mockPurposeOfForDecider.isPurposeFor(properties));
         context.assertIsSatisfied();
     }
 }

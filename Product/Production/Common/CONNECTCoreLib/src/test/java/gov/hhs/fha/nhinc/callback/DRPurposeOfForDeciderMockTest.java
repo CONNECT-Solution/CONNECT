@@ -40,8 +40,8 @@ public class DRPurposeOfForDeciderMockTest extends AbstractPurposeOfForDeciderMo
     /*-----------------Setup Methods---------------*/
     
     @Override
-    protected Map<Object,Object> createTokenValues() {
-        HashMap<Object, Object> tokenVals = new HashMap<Object, Object>();
+    protected Map<String,Object> createTokenValues() {
+        HashMap<String, Object> tokenVals = new HashMap<String, Object>();
         tokenVals.put(NhincConstants.WS_SOAP_TARGET_HOME_COMMUNITY_ID, "1.1");
         tokenVals.put(NhincConstants.ACTION_PROP, NhincConstants.DOC_RETRIEVE_SERVICE_NAME);
         return tokenVals;

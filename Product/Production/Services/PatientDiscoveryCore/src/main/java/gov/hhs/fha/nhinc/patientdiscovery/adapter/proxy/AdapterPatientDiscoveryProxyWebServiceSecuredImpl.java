@@ -38,6 +38,7 @@ import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryException;
 import gov.hhs.fha.nhinc.patientdiscovery.adapter.proxy.service.AdapterPatientDiscoverySecuredServicePortDescriptor;
 import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201305UV02EventDescriptionBuilder;
 import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201306UV02EventDescriptionBuilder;
+import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 
 import org.apache.commons.logging.Log;
@@ -104,8 +105,11 @@ public class AdapterPatientDiscoveryProxyWebServiceSecuredImpl implements Adapte
 
                     ServicePortDescriptor<AdapterPatientDiscoverySecuredPortType> portDescriptor = 
                             new AdapterPatientDiscoverySecuredServicePortDescriptor();
+                    String targetHomeCommunityId = PropertyAccessor.getInstance().getProperty(
+                            NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
                     CONNECTClient<AdapterPatientDiscoverySecuredPortType> client = CONNECTClientFactory.getInstance()
-                            .getCONNECTClientSecured(portDescriptor, url, assertion);
+                            .getCONNECTClientSecured(portDescriptor, assertion, url, targetHomeCommunityId,
+                                    NhincConstants.ADAPTER_PATIENT_DISCOVERY_SECURED_SERVICE_NAME);
 
                     response = (PRPAIN201306UV02) client.invokePort(AdapterPatientDiscoverySecuredPortType.class,
                             "respondingGatewayPRPAIN201305UV02", request);

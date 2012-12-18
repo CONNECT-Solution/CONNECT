@@ -31,6 +31,7 @@ import gov.hhs.fha.nhinc.messaging.client.CONNECTCXFClientUnsecured;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
 
 /**
  * @author akong
@@ -61,6 +62,16 @@ public class CONNECTCXFClientFactory extends CONNECTClientFactory {
         return client;
 
     }
+    
+    public <T> CONNECTClient<T> getCONNECTClientSecured(ServicePortDescriptor<T> portDescriptor, 
+            AssertionType assertion, String url, String targetHomeCommunityId, String serviceName) {
+        CONNECTCXFClientSecured<T> client = new CONNECTCXFClientSecured<T>(portDescriptor, assertion, url,
+                targetHomeCommunityId, serviceName);
+
+        return client;
+
+    }
+    
 
     public <T> CONNECTClient<T> getCONNECTClientUnsecured(ServicePortDescriptor<T> portDescriptor, String url,
             AssertionType assertion) {

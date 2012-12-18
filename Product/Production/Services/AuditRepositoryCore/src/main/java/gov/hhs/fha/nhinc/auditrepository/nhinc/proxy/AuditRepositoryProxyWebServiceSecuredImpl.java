@@ -38,6 +38,7 @@ import gov.hhs.fha.nhinc.nhinccomponentauditrepository.AuditRepositoryManagerSec
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
+import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -81,9 +82,12 @@ public class AuditRepositoryProxyWebServiceSecuredImpl implements AuditRepositor
                 if (NullChecker.isNotNullish(url)) {
 
                     ServicePortDescriptor<AuditRepositoryManagerSecuredPortType> portDescriptor = new AuditRepositorySecuredServicePortDescriptor();
+                    String targetHomeCommunityId = PropertyAccessor.getInstance().getProperty(
+                            NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
 
                     CONNECTClient<AuditRepositoryManagerSecuredPortType> client = CONNECTCXFClientFactory.getInstance()
-                            .getCONNECTClientSecured(portDescriptor, url, assertion);
+                            .getCONNECTClientSecured(portDescriptor, assertion, url,targetHomeCommunityId, 
+                                    NhincConstants.AUDIT_REPO_SECURE_SERVICE_NAME);
 
                     result = (AcknowledgementType) client.invokePort(AuditRepositoryManagerSecuredPortType.class,
                             "logEvent", secureRequest);
