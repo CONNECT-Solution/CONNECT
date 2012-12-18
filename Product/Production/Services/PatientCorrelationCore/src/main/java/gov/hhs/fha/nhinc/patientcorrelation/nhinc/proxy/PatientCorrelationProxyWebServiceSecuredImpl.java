@@ -35,7 +35,6 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.proxy.description.PatientCorrelationSecuredAddServicePortDescriptor;
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.proxy.description
                             .PatientCorrelationSecuredRetrieveServicePortDescriptor;
-import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 
 import org.apache.commons.logging.Log;
@@ -135,13 +134,9 @@ public class PatientCorrelationProxyWebServiceSecuredImpl implements PatientCorr
 
                 ServicePortDescriptor<PatientCorrelationSecuredPortType> portDescriptor = 
                         getRetrieveServicePortDescriptor(NhincConstants.ADAPTER_API_LEVEL.LEVEL_a0);
-                String targetHomeCommunityId = null;
-                targetHomeCommunityId = PropertyAccessor.getInstance().getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
-                        NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
 
                 CONNECTClient<PatientCorrelationSecuredPortType> client = CONNECTClientFactory.getInstance()
-                        .getCONNECTClientSecured(portDescriptor, assertion, url, targetHomeCommunityId, 
-                                NhincConstants.PATIENT_CORRELATION_SECURED_SERVICE_NAME );
+                        .getCONNECTClientSecured(portDescriptor, url, assertion);
 
                 securedResp = (RetrievePatientCorrelationsSecuredResponseType) client
                         .invokePort(PatientCorrelationSecuredPortType.class,
@@ -180,13 +175,9 @@ public class PatientCorrelationProxyWebServiceSecuredImpl implements PatientCorr
                 
                 ServicePortDescriptor<PatientCorrelationSecuredPortType> portDescriptor = 
                         getAddServicePortDescriptor(NhincConstants.ADAPTER_API_LEVEL.LEVEL_a0);
-                String targetHomeCommunityId = null;
-                targetHomeCommunityId = PropertyAccessor.getInstance().getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
-                        NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
 
                 CONNECTClient<PatientCorrelationSecuredPortType> client = CONNECTClientFactory.getInstance()
-                        .getCONNECTClientSecured(portDescriptor, assertion, url, targetHomeCommunityId, 
-                                NhincConstants.PATIENT_CORRELATION_SECURED_SERVICE_NAME);
+                        .getCONNECTClientSecured(portDescriptor, url, assertion);
 
                 securedResp = (AddPatientCorrelationSecuredResponseType) client
                         .invokePort(PatientCorrelationSecuredPortType.class,

@@ -94,8 +94,14 @@ public class CONNECTCXFClientSecured<T> extends CONNECTCXFClient<T> {
 
     private void decorateEndpoint(AssertionType assertion, String wsAddressingTo, String wsAddressingActionId,
             String subscriptionId, String targetHomeCommunityId, String serviceName) {
+        if ((targetHomeCommunityId != null) && (serviceName != null)) {
         serviceEndpoint = new SAMLServiceEndpointDecorator<T>(serviceEndpoint, assertion, targetHomeCommunityId, 
                 serviceName);
+        }
+        else {
+            serviceEndpoint = new SAMLServiceEndpointDecorator<T>(serviceEndpoint, assertion);
+        }
+            
         serviceEndpoint = new TLSClientServiceEndpointDecorator<T>(serviceEndpoint);
         serviceEndpoint = new SecurityOutInterceptorServiceEndpointDecorator<T>(serviceEndpoint);
         serviceEndpoint = new WsAddressingServiceEndpointDecorator<T>(serviceEndpoint, wsAddressingTo,

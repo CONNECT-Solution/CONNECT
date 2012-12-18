@@ -39,8 +39,6 @@ import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryException;
 import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201305UV02EventDescriptionBuilder;
 import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201306UV02EventDescriptionBuilder;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
-import gov.hhs.fha.nhinc.properties.PropertyAccessException;
-import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -82,17 +80,11 @@ public class AdapterMpiProxyWebServiceSecuredImpl implements AdapterMpiProxy {
      * @param assertion
      *            the assertion
      * @return a CONNECTClient of type AdapterMpiSecuredPortType
-     * @throws PropertyAccessException 
      */
     protected CONNECTClient<AdapterMpiSecuredPortType> getCONNECTClientSecured(
-            ServicePortDescriptor<AdapterMpiSecuredPortType> portDescriptor, String url, AssertionType assertion) throws PropertyAccessException {
-        
-        String targetHomeCommunityId = null;
-        targetHomeCommunityId = PropertyAccessor.getInstance().getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, 
-                NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
+            ServicePortDescriptor<AdapterMpiSecuredPortType> portDescriptor, String url, AssertionType assertion) {
 
-        return CONNECTCXFClientFactory.getInstance().getCONNECTClientSecured(portDescriptor, assertion, url,
-                targetHomeCommunityId, NhincConstants.PATIENT_DISCOVERY_ACTION);
+        return CONNECTCXFClientFactory.getInstance().getCONNECTClientSecured(portDescriptor, url, assertion);
     }
 
     /**
