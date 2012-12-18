@@ -16,9 +16,9 @@
 
     <!-- Set up polling for inbound and outbound direct messages -->
     <task:scheduled-tasks scheduler="directScheduler">
-        <task:scheduled ref="outboundMessagePoller" method="poll" cron="0,30 * * * * *"/>
-        <task:scheduled ref="inboundMessagePoller" method="poll" cron="15,45 * * * * *"/>
+        <task:scheduled ref="outboundMessagePoller" method="poll" cron="*/1 * * * * *"/>
+        <task:scheduled ref="inboundMessagePoller" method="poll" cron="*/1 * * * * *"/>
     </task:scheduled-tasks>
-    <task:scheduler id="directScheduler" />    
+    <task:scheduler id="directScheduler" />
      
 </beans>
