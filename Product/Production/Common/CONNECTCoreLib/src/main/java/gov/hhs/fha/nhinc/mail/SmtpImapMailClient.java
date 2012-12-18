@@ -55,12 +55,15 @@ public class SmtpImapMailClient implements MailClient {
     
 
     /**
-     * @param mailServerProps.
+     * @param mailServerProps properties defining connection mail server.
      */
     public SmtpImapMailClient(Properties mailServerProps) {
         super();
         this.mailServerProps = mailServerProps;
-        this.mailSession = createMailSession(mailServerProps);
+        this.mailSession = MailUtils.getMailSession(mailServerProps, mailServerProps.getProperty("direct.mail.user"),
+                mailServerProps.getProperty("direct.mail.pass"));
+        mailSession.setDebug(Boolean.parseBoolean(mailServerProps.getProperty("direct.mail.session.debug")));
+        mailSession.setDebugOut(System.out);
     }
     
     /**
@@ -96,10 +99,8 @@ public class SmtpImapMailClient implements MailClient {
         Folder inbox = getInbox(store);
         Message[] messages = getMessages(store, inbox);
         for (Message message : messages) {
-            if ((message instanceof MimeMessage)) {                
-                if (handleMessage(handler, (MimeMessage) message)) {
-                    numberOfMsgsHandled++;
-                }
+            if (handleMessage(handler, message)) {
+                numberOfMsgsHandled++;
             }   
         }   
         LOG.info("Handled " + numberOfMsgsHandled + " messages.");
@@ -125,18 +126,24 @@ public class SmtpImapMailClient implements MailClient {
         return handlerInvocations;
     }
 
-    private boolean handleMessage(MessageHandler handler, MimeMessage message) {
-
-        MailUtils.logHeaders(message);
+    private boolean handleMessage(MessageHandler handler, Message message) {
 
         boolean handled = false;
-        if (handler.handleMessage(message)) {
-            MailUtils.setDeletedQuietly(message);            
+        if (!(message instanceof MimeMessage)) {
+            return handled;
+        }
+        
+        MimeMessage mimeMessage = (MimeMessage) message;
+        MailUtils.logHeaders(mimeMessage);
+
+        if (handler.handleMessage((MimeMessage) message)) {
+            MailUtils.setDeletedQuietly(mimeMessage);            
             handled = true;
         } else if (isDeleteUnhandledMsgs()) {
             LOG.warn("Deleting unhandled message (check events and logs for more info)");
-            MailUtils.setDeletedQuietly(message);
+            MailUtils.setDeletedQuietly(mimeMessage);
         }
+        
         return handled;
     }
 
@@ -189,15 +196,7 @@ public class SmtpImapMailClient implements MailClient {
             throw new MailClientException("Exception getting imaps store from session", e);
         }
     }
-    
-    private Session createMailSession(Properties mailServerProps) {        
-        Session mailSession = MailUtils.getMailSession(mailServerProps, mailServerProps.getProperty("direct.mail.user"),
-                mailServerProps.getProperty("direct.mail.pass"));
-        mailSession.setDebug(Boolean.parseBoolean(mailServerProps.getProperty("direct.mail.session.debug")));
-        mailSession.setDebugOut(System.out);
-        return mailSession;
-    }
-    
+
     private boolean isDeleteUnhandledMsgs() {
         return Boolean.parseBoolean(mailServerProps.getProperty("connect.delete.unhandled.msgs"));
     }    

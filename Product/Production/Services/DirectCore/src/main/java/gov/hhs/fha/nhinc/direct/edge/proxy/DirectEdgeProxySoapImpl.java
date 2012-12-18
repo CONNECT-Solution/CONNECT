@@ -54,26 +54,26 @@ import org.apache.log4j.Logger;
  *
  */
 public class DirectEdgeProxySoapImpl implements DirectEdgeProxy {
+
     private static final Logger LOG = Logger.getLogger(DirectEdgeProxySoapImpl.class);
-    private WebServiceProxyHelper oProxyHelper = null;
+    private final WebServiceProxyHelper oProxyHelper;
 
     /**
-     * Default constructor.
+     * @param oProxyHelper
      */
-    public DirectEdgeProxySoapImpl() {
-        oProxyHelper = createWebServiceProxyHelper();
+    public DirectEdgeProxySoapImpl(WebServiceProxyHelper oProxyHelper) {
+        super();
+        this.oProxyHelper = oProxyHelper;
     }
 
-    /**
-     * @return a instance of WebServiceProxyHelper
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * gov.hhs.fha.nhinc.direct.edge.proxy.DirectEdgeProxy#provideAndRegisterDocumentSetB
+     * (javax.mail.internet.MimeMessage)
      */
-    protected WebServiceProxyHelper createWebServiceProxyHelper() {
-        return new WebServiceProxyHelper();
-    }
-
-    /* (non-Javadoc)
-     * @see gov.hhs.fha.nhinc.direct.edge.proxy.DirectEdgeProxy#provideAndRegisterDocumentSetB(javax.mail.internet.MimeMessage)
-     */
+    @Override
     public RegistryResponseType provideAndRegisterDocumentSetB(MimeMessage message) {
         LOG.debug("Begin provideAndRegisterDocumentSetB");
         RegistryResponseType response = null;

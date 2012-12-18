@@ -132,7 +132,7 @@ public abstract class AbstractDirectMailClientTest {
 
         mockSmtpAgent = mock(SmtpAgent.class);
 
-        greenMail = new GreenMail(new ServerSetup[] { ServerSetupTest.SMTP, ServerSetupTest.IMAPS });
+        greenMail = new GreenMail(new ServerSetup[] {ServerSetupTest.SMTP, ServerSetupTest.IMAPS });
         greenMail.start();
 
         recipMailServerProps = getMailServerProps(RECIP_AT_RESPONDING_GW, greenMail.getSmtp().getServerSetup()
@@ -299,10 +299,11 @@ public abstract class AbstractDirectMailClientTest {
      * Invoke and test {@link MailClient#handleMessages(MessageHandler)}. Note that this method also cleans up after
      * GreenMail by expunging any straggling deleted messages that GreenMail misses.
      * 
-     * @param directAdapter to invoke handleMessages() on.
-     * @param expectedNumberOfMsgs to be handled.
-     * @param user used to connect to mail server. (used to expunge)
-     * @throws MailClientException
+     * @param client mail client used to retrieve messages.
+     * @param handler used to handle retrieved messages.
+     * @param expectedNumberOfMsgs number of messages expected to be retrieved.
+     * @param user used to expunge messages.
+     * @throws MailClientException on error.
      */
     protected void handleMessages(MailClient client, MessageHandler handler, int expectedNumberOfMsgs,
             GreenMailUser user) throws MailClientException {

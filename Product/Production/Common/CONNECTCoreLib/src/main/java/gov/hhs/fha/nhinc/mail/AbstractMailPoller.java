@@ -35,8 +35,8 @@ public abstract class AbstractMailPoller {
     private final MessageHandler messageHandler;
     
     /**
-     * @param mailClient
-     * @param messageHa
+     * @param mailClient of the server to be polled.
+     * @param messageHandler handles messages returned by the poller.
      */
     public AbstractMailPoller(MailClient mailClient, MessageHandler messageHandler) {
         super();

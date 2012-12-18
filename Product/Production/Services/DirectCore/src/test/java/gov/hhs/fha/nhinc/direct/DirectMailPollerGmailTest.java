@@ -37,6 +37,7 @@ import gov.hhs.fha.nhinc.mail.SmtpImapMailClient;
 
 import java.util.Properties;
 
+import javax.mail.MessagingException;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.MimeMessage;
@@ -117,7 +118,7 @@ public class DirectMailPollerGmailTest {
         return props;
     }
     
-    private void initiateEmail() throws Exception {
+    private void initiateEmail() throws MessagingException {
        
         Session session = MailUtils.getMailSession(props, props.getProperty("direct.mail.user"),
                 props.getProperty("direct.mail.pass"));

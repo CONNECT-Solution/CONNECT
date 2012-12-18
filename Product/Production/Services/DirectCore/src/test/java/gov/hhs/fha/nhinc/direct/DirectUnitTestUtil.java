@@ -433,7 +433,8 @@ public class DirectUnitTestUtil {
      * @return mocked message process result.
      * @throws MessagingException on error.
      */
-    public static MessageProcessResult getMockMessageProcessResult(int numNotificationMessages) throws MessagingException {
+    public static MessageProcessResult getMockMessageProcessResult(int numNotificationMessages)
+            throws MessagingException {
 
         MessageProcessResult mockMessageProcessResult = mock(MessageProcessResult.class);
         MessageEnvelope mockMessageEnvelope = mock(MessageEnvelope.class);

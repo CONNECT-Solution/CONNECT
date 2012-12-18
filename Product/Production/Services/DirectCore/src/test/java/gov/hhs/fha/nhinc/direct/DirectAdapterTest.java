@@ -45,7 +45,6 @@ import gov.hhs.fha.nhinc.event.EventLoggerFactory;
 import gov.hhs.fha.nhinc.event.EventManager;
 import gov.hhs.fha.nhinc.event.Log4jEventLogger;
 import gov.hhs.fha.nhinc.mail.MailClientException;
-import gov.hhs.fha.nhinc.mail.MessageHandler;
 
 import java.io.IOException;
 import java.util.ArrayList;

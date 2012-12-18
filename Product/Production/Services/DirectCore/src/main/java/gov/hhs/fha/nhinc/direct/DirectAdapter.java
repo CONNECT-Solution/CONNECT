@@ -55,6 +55,6 @@ public interface DirectAdapter {
      * Receive an inbound direct message.
      * @param message mime message to be received
      */
-    public void receiveInbound(MimeMessage message);
+    void receiveInbound(MimeMessage message);
     
 }

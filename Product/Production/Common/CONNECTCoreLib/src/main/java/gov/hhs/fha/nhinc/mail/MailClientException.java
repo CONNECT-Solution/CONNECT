@@ -34,15 +34,15 @@ public class MailClientException extends Exception {
     private static final long serialVersionUID = 9172182296895105633L;
 
     /**
-     * @param message
-     * @param cause
+     * @param message error message
+     * @param cause root exception
      */
     public MailClientException(String message, Throwable cause) {
         super(message, cause);
     }
 
     /**
-     * @param message
+     * @param message error message
      */
     public MailClientException(String message) {
         super(message);

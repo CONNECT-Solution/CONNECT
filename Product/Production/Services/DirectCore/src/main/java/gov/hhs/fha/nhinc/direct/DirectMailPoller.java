@@ -32,7 +32,7 @@ import gov.hhs.fha.nhinc.mail.MailClientException;
 import gov.hhs.fha.nhinc.mail.MessageHandler;
 
 /**
- * Direct Mail Poller handles any exceptions incurred by {@link AbstractMailPoller#poll()}
+ * Direct Mail Poller handles any exceptions incurred by {@link AbstractMailPoller#poll()}.
  */
 public class DirectMailPoller extends AbstractMailPoller {
 

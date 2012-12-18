@@ -38,6 +38,7 @@ import gov.hhs.fha.nhinc.direct.edge.proxy.DirectEdgeProxySoapImpl;
 import gov.hhs.fha.nhinc.mail.MailClient;
 import gov.hhs.fha.nhinc.mail.MailClientException;
 import gov.hhs.fha.nhinc.mail.MessageHandler;
+import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 
 import javax.mail.Address;
 import javax.mail.MessagingException;
@@ -147,7 +148,7 @@ public class DirectInboundMsgHandlerTest {
              */
             @Override
             protected DirectEdgeProxy getDirectEdgeProxy() {
-                return new DirectEdgeProxySoapImpl();
+                return new DirectEdgeProxySoapImpl(new WebServiceProxyHelper());
             }
             
         };        
