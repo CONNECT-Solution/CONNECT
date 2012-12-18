@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.mail;
 
+import javax.mail.Address;
 import javax.mail.MessagingException;
 import javax.mail.Session;
 import javax.mail.internet.MimeMessage;
@@ -37,10 +38,11 @@ public interface MailClient {
 
     /**
      * Send a mime message.
+     * @param recipients of the message.
      * @param message to be sent.
      * @throws MessagingException 
      */
-    void send(MimeMessage message) throws MailClientException;
+    void send(Address[] recipients, MimeMessage message) throws MailClientException;
     
     /**
      * Pull messages from a server and use an injected MessageHandler to handle them.
@@ -55,4 +57,10 @@ public interface MailClient {
      * @return mail session this client is using.
      */
     Session getMailSession();
+    
+    /**
+     * Expose the number of invocations on {@link MailClient#handleMessages(MessageHandler)}
+     * @return number of invocations.
+     */
+    int getHandlerInvocations();
 }

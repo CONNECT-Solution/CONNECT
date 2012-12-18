@@ -27,6 +27,7 @@
 package gov.hhs.fha.nhinc.direct;
 
 import static org.junit.Assert.fail;
+import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -36,7 +37,9 @@ import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType.Document;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Date;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
@@ -49,10 +52,15 @@ import javax.mail.Session;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMessage.RecipientType;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
+import org.nhindirect.gateway.smtp.MessageProcessResult;
+import org.nhindirect.stagent.MessageEnvelope;
+import org.nhindirect.stagent.mail.Message;
+import org.nhindirect.stagent.mail.notifications.NotificationMessage;
 import org.nhindirect.xd.common.DirectDocument2;
 import org.nhindirect.xd.common.DirectDocuments;
 import org.nhindirect.xd.common.XdmPackage;
@@ -75,7 +83,6 @@ import com.icegreen.greenmail.util.GreenMail;
 public class DirectUnitTestUtil {
 
     private static final Logger LOG = Logger.getLogger(DirectUnitTestUtil.class);
-
     
     /**
      * email for the sender at the initiating gateway.
@@ -112,6 +119,24 @@ public class DirectUnitTestUtil {
     protected static final long WAIT_TIME_FOR_MAIL_HANDLER = TimeUnit.SECONDS.toMillis(3);
     
     /**
+     * content type for encrypted messages.
+     */
+    protected static final String CONTENT_TYPE_ENCRYPTED =
+            "application/pkcs7-mime; smime-type=enveloped-data; name=\"smime.p7m\"";
+
+    /**
+     * content type for multi-part mixed mime messages.
+     */
+    protected static final String CONTENT_TYPE_MULTIPART = "Multipart/Mixed;";
+
+    /**
+     * content type for mdn messages.
+     */
+    protected static final String CONTENT_TYPE_MDN = 
+            "multipart/report; report-type=disposition-notification; boundary=\"";    
+
+    
+    /**
      * Sets up the properties in order to connect to the green mail test server.
      * 
      * @param toAddress is used for the username and password.
@@ -127,6 +152,7 @@ public class DirectUnitTestUtil {
         props.setProperty("direct.mail.pass", toAddress);
         props.setProperty("direct.max.msgs.in.batch", Integer.toString(MAX_NUM_MSGS_IN_BATCH));
         props.setProperty("direct.delete.unhandled.msgs", "false");
+        props.setProperty("direct.mail.session.debug", "true");
                         
         props.setProperty("mail.smtp.host", "localhost");
         props.setProperty("mail.smtp.auth", "TRUE");
@@ -399,5 +425,41 @@ public class DirectUnitTestUtil {
         documents.getDocuments().add(doc1);
         documents.getDocuments().add(doc2);
         return documents;
+    }
+    
+        
+    /**
+     * @param numNotificationMessages number of notification messages expected.
+     * @return mocked message process result.
+     * @throws MessagingException on error.
+     */
+    public static MessageProcessResult getMockMessageProcessResult(int numNotificationMessages) throws MessagingException {
+
+        MessageProcessResult mockMessageProcessResult = mock(MessageProcessResult.class);
+        MessageEnvelope mockMessageEnvelope = mock(MessageEnvelope.class);
+        Message mockMessage = mock(Message.class);
+
+        Collection<NotificationMessage> notificationCollection = new ArrayList<NotificationMessage>();
+        NotificationMessage mockNotificationMessage = mock(NotificationMessage.class);
+        Address senderAddress = new InternetAddress(SENDER_AT_INITIATING_GW);
+        Address recipAddress = new InternetAddress(RECIP_AT_RESPONDING_GW);
+
+        for (int i = 0; i < numNotificationMessages; i++) {
+            notificationCollection.add(mockNotificationMessage);
+        }
+
+        when(mockMessageProcessResult.getProcessedMessage()).thenReturn(mockMessageEnvelope);
+        when(mockMessageEnvelope.getMessage()).thenReturn(mockMessage);
+        when(mockMessage.getContentType()).thenReturn(CONTENT_TYPE_MULTIPART);
+        when(mockMessageProcessResult.getNotificationMessages()).thenReturn(notificationCollection);
+        when(mockMessage.getRecipients(any(RecipientType.class))).thenReturn(new Address[] {recipAddress});
+        when(mockMessage.getAllRecipients()).thenReturn(new Address[] {recipAddress});
+        when(mockMessage.getFrom()).thenReturn(new Address[] {senderAddress});
+        
+        when(mockNotificationMessage.getRecipients(any(RecipientType.class))).thenReturn(new Address[] {senderAddress});
+        when(mockNotificationMessage.getAllRecipients()).thenReturn(new Address[] {senderAddress});
+        when(mockNotificationMessage.getFrom()).thenReturn(new Address[] {recipAddress});
+
+        return mockMessageProcessResult;
     }
 }

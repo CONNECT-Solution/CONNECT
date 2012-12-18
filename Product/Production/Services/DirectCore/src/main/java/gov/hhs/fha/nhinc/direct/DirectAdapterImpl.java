@@ -31,7 +31,6 @@ import gov.hhs.fha.nhinc.direct.edge.proxy.DirectEdgeProxyObjectFactory;
 import gov.hhs.fha.nhinc.direct.event.DirectEventLogger;
 import gov.hhs.fha.nhinc.direct.event.DirectEventType;
 import gov.hhs.fha.nhinc.mail.MailClient;
-import gov.hhs.fha.nhinc.mail.MailClientException;
 
 import java.util.Collection;
 
@@ -50,9 +49,9 @@ import org.nhindirect.xd.common.DirectDocuments;
 /**
  * This class adapts the Direct code responsible for processing messages.
  */
-public class NewDirectAdapter {
+public class DirectAdapterImpl implements DirectAdapter {
 
-    private static final Logger LOG = Logger.getLogger(NewDirectAdapter.class);
+    private static final Logger LOG = Logger.getLogger(DirectAdapterImpl.class);
     
     private final MailClient externalMailClient;
     private final SmtpAgent smtpAgent;
@@ -61,36 +60,33 @@ public class NewDirectAdapter {
     private static final String MSG_TEXT = "DIRECT Message body text";
 
     /**
-     * @param internalMailClient internal mail client.
      * @param externalMailClient external mail client.
      * @param smtpAgent used to process direct messages.
      */
-    public NewDirectAdapter(MailClient externalMailClient, SmtpAgent smtpAgent) {
+    public DirectAdapterImpl(MailClient externalMailClient, SmtpAgent smtpAgent) {
         super();
         this.externalMailClient = externalMailClient;
         this.smtpAgent = smtpAgent;
     }
 
     /**
-     * Process and send an outbound direct message.
-     * @param message to be processed.
+     * {@inheritDoc}
      */
+    @Override
     public void sendOutboundDirect(MimeMessage message) {
         DirectEventLogger.getInstance().log(DirectEventType.BEGIN_OUTBOUND_DIRECT, message);
         try {
-            externalMailClient.send(process(message).getProcessedMessage().getMessage());
-        } catch (MailClientException e) {
+            externalMailClient.send(message.getAllRecipients(), process(message).getProcessedMessage().getMessage());
+        } catch (Exception e) {
             throw new DirectException("Exception sending outbound direct.", e, message);
         }
         DirectEventLogger.getInstance().log(DirectEventType.END_OUTBOUND_DIRECT, message);
     }
     
     /**
-     * @param sender of the message.
-     * @param recipients of the message.
-     * @param documents
-     * @param messageId
+     * {@inheritDoc}
      */
+    @Override
     public void sendOutboundDirect(Address sender, Address[] recipients, DirectDocuments documents, String messageId) {
         MimeMessage message = null;
         try {
@@ -98,14 +94,14 @@ public class NewDirectAdapter {
                     .subject(MSG_SUBJECT).text(MSG_TEXT).documents(documents).messageId(messageId).build();
             sendOutboundDirect(message);
         } catch (Exception e) {
-            throw new DirectException("Error building mime message.", e, message);
+            throw new DirectException("Error building and sending mime message.", e, message);
         }
     }
     
     /**
-     * Receive an inbound direct message, process and handle it.
-     * @param message to be processed, and handled.
+     * {@inheritDoc}
      */
+    @Override
     public void receiveInbound(MimeMessage message) {
         
         MessageProcessResult result = processAsDirectMessage(message);        
@@ -115,7 +111,7 @@ public class NewDirectAdapter {
                     + getErrorNotificationMsgs(result), message);
         }
         
-        boolean isMdn = DirectClientUtils.isMdn(processedEnvelope);
+        boolean isMdn = DirectAdapterUtils.isMdn(processedEnvelope);
         if (isMdn) {
             DirectEventLogger.getInstance().log(DirectEventType.BEGIN_INBOUND_MDN, message);
         } else {
@@ -136,15 +132,16 @@ public class NewDirectAdapter {
     
     private void sendMdn(MessageProcessResult result) {
 
-        Collection<NotificationMessage> mdnMessages = DirectClientUtils.getMdnMessages(result);
+        Collection<NotificationMessage> mdnMessages = DirectAdapterUtils.getMdnMessages(result);
         if (mdnMessages != null) {
             for (NotificationMessage mdnMessage : mdnMessages) {
                 DirectEventLogger.getInstance().log(DirectEventType.BEGIN_OUTBOUND_MDN, mdnMessage);
                 try {
-                    externalMailClient.send(process(mdnMessage).getProcessedMessage().getMessage());
-                } catch (MailClientException e) {
+                    externalMailClient.send(mdnMessage.getAllRecipients(), process(mdnMessage).getProcessedMessage()
+                            .getMessage());
+                } catch (Exception e) {
                     throw new DirectException("Exception sending outbound direct mdn.", e, mdnMessage);
-                }                
+                }
                 DirectEventLogger.getInstance().log(DirectEventType.END_OUTBOUND_MDN, mdnMessage);
                 LOG.info("MDN notification sent.");
             }
@@ -172,8 +169,8 @@ public class NewDirectAdapter {
     private MessageProcessResult processAsDirectMessage(MimeMessage mimeMessage) {
         MessageProcessResult result;
         try {
-            NHINDAddressCollection collection = DirectClientUtils.getNhindRecipients(mimeMessage);
-            result = smtpAgent.processMessage(mimeMessage, collection, DirectClientUtils.getNhindSender(mimeMessage));
+            NHINDAddressCollection collection = DirectAdapterUtils.getNhindRecipients(mimeMessage);
+            result = smtpAgent.processMessage(mimeMessage, collection, DirectAdapterUtils.getNhindSender(mimeMessage));
         } catch (MessagingException e) {
             String errorString = "Error occurred while extracting addresses.";
             LOG.error(errorString, e);

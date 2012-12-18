@@ -39,16 +39,16 @@ import javax.mail.internet.MimeMessage.RecipientType;
 import org.junit.Test;
 
 /**
- * Test {@link DirectClientUtils}.
+ * Test {@link DirectAdapterUtils}.
  */
-public class DirectClientUtilsTest {
+public class DirectAdapterUtilsTest {
 
     private static final Address[] EMPTY_ADDRESS_ARRAY = new Address[] {};
     private final MimeMessage mockMessage = mock(MimeMessage.class);
     
     
     /**
-     * Test {@link DirectClientUtils#getSender(MimeMessage)} 
+     * Test {@link DirectAdapterUtils#getSender(MimeMessage)} 
      * Method should throw DirectException if multiple senders are present.
      * @throws MessagingException on failure.
      */
@@ -56,22 +56,22 @@ public class DirectClientUtilsTest {
     public void willThrowDirectExceptionWhenMultipleFromsPresent() throws MessagingException {
         when(mockMessage.getFrom()).thenReturn(new Address[] {
                 new InternetAddress("test@test1.com"), new InternetAddress("test@test2.com")});        
-        DirectClientUtils.getSender(mockMessage);
+        DirectAdapterUtils.getSender(mockMessage);
     }
 
     /**
-     * Test {@link DirectClientUtils#getSender(MimeMessage)} 
+     * Test {@link DirectAdapterUtils#getSender(MimeMessage)} 
      * Method should throw DirectException if zero senders are present.
      * @throws MessagingException on failure.
      */
     @Test(expected = DirectException.class)
     public void willThrowDirectExceptionWhenNoFromsPresent() throws MessagingException {
         when(mockMessage.getFrom()).thenReturn(EMPTY_ADDRESS_ARRAY);        
-        DirectClientUtils.getSender(mockMessage);
+        DirectAdapterUtils.getSender(mockMessage);
     }
 
     /**
-     * Test {@link DirectClientUtils#getNhindRecipients(MimeMessage)}.
+     * Test {@link DirectAdapterUtils#getNhindRecipients(MimeMessage)}.
      * @throws MessagingException on failure.
      */
     @Test
@@ -82,11 +82,11 @@ public class DirectClientUtilsTest {
         when(mockMessage.getRecipients(RecipientType.CC)).thenReturn(EMPTY_ADDRESS_ARRAY);
         when(mockMessage.getRecipients(RecipientType.BCC)).thenReturn(EMPTY_ADDRESS_ARRAY);
 
-        assertNotNull(DirectClientUtils.getNhindRecipients(mockMessage));
+        assertNotNull(DirectAdapterUtils.getNhindRecipients(mockMessage));
     }
     
     /**
-     * Test {@link DirectClientUtils#getNhindRecipients(MimeMessage)}.
+     * Test {@link DirectAdapterUtils#getNhindRecipients(MimeMessage)}.
      * @throws MessagingException on failure.
      */
     @Test(expected = DirectException.class)
@@ -95,7 +95,7 @@ public class DirectClientUtilsTest {
         when(mockMessage.getRecipients(RecipientType.CC)).thenReturn(EMPTY_ADDRESS_ARRAY);
         when(mockMessage.getRecipients(RecipientType.BCC)).thenReturn(EMPTY_ADDRESS_ARRAY);
         
-        DirectClientUtils.getNhindRecipients(mockMessage);
+        DirectAdapterUtils.getNhindRecipients(mockMessage);
     }
 
 }

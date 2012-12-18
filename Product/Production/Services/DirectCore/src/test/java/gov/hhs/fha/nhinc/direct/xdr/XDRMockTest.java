@@ -27,10 +27,13 @@
 package gov.hhs.fha.nhinc.direct.xdr;
 
 import gov.hhs.fha.nhinc.direct.AbstractDirectMailClientTest;
+import gov.hhs.fha.nhinc.direct.DirectAdapter;
 import gov.hhs.fha.nhinc.direct.DirectUnitTestUtil;
 import gov.hhs.fha.nhinc.direct.MimeMessageBuilder;
 import gov.hhs.fha.nhinc.direct.edge.proxy.DirectEdgeProxySmtpImpl;
 import gov.hhs.fha.nhinc.direct.edge.proxy.DirectEdgeProxySoapImpl;
+import gov.hhs.fha.nhinc.mail.MailClientException;
+import gov.hhs.fha.nhinc.mail.SmtpImapMailClient;
 
 import java.io.IOException;
 
@@ -48,123 +51,115 @@ import com.icegreen.greenmail.user.UserException;
  * Test Direct Client with XDR edge clients.
  */
 public class XDRMockTest extends AbstractDirectMailClientTest {
-
+    
 	@Test
-	public void testWithPlainMimeAttachment() throws MessagingException,
-			UserException {
-		final MimeMessage originalMsg = new MimeMessage(null,
-				IOUtils.toInputStream(DirectUnitTestUtil
-						.getFileAsString("PlainOutgoingMessage.txt")));
+    public void testWithPlainMimeAttachment() throws MessagingException, UserException, MailClientException {
+	    
+        final MimeMessage originalMsg = new MimeMessage(null, IOUtils.toInputStream(DirectUnitTestUtil
+                .getFileAsString("PlainOutgoingMessage.txt")));
 
 		/* Initiating Gateway */
-		DirectEdgeProxySmtpImpl initiatingSmtp = new DirectEdgeProxySmtpImpl();
-        initiatingSmtp.setInternalDirectClient(getInternalDirectClient(recipMailServerProps));
+        extDirectClient = getMailClient(senderMailServerProps);
+		DirectEdgeProxySmtpImpl initiatingSmtp = new DirectEdgeProxySmtpImpl(extDirectClient);
 		setUpDirectClients(recipMailServerProps, initiatingSmtp);
 
 		// use the direct client to send a message
-		extDirectClient.processAndSend(originalMsg);
+		testDirectAdapter.sendOutboundDirect(originalMsg);
 
 		/* Responding Gateway */
-		handleMessages(extDirectClient, 1, recipUser);
+		handleMessages(extDirectClient, inboundMsgHandler, 1, recipUser);
 		verifySmtpEdgeMessage();
 		verifyOutboundMdn();
 
 		/* Initiating Gateway collects an MDN */
-        DirectEdgeProxySmtpImpl respondingSmtp = new DirectEdgeProxySmtpImpl();
-        respondingSmtp.setInternalDirectClient(getInternalDirectClient(senderMailServerProps));
+        DirectEdgeProxySmtpImpl respondingSmtp = new DirectEdgeProxySmtpImpl(intDirectClient);
 		setUpDirectClients(senderMailServerProps, respondingSmtp);
 
-		handleMessages(extDirectClient, 2, senderUser);
+		handleMessages(extDirectClient, inboundMsgHandler, 2, senderUser);
 		verifyInboundMdn();
 	}
 
 	@Test
 	public void testWithXdmAttachment() throws MessagingException,
-			UserException, IOException {
+			UserException, IOException, MailClientException {
 
 		Session session = Session.getInstance(recipMailServerProps);
 
-		MimeMessageBuilder builder = DirectUnitTestUtil
-				.getMimeMessageBuilder(session);
-		builder.attachment(null).attachmentName(null)
-				.documents(DirectUnitTestUtil.mockDirectDocs());
-		MimeMessage originalMsg = builder.build();
+        MimeMessageBuilder builder = DirectUnitTestUtil.getMimeMessageBuilder(session);
+        builder.attachment(null).attachmentName(null).documents(DirectUnitTestUtil.mockDirectDocs());
+        MimeMessage originalMsg = builder.build();
 
 		/* Initiating Gateway */
-		DirectEdgeProxySmtpImpl initiatingSmtp = new DirectEdgeProxySmtpImpl();
-        initiatingSmtp.setInternalDirectClient(getInternalDirectClient(recipMailServerProps));
+		DirectEdgeProxySmtpImpl initiatingSmtp = new DirectEdgeProxySmtpImpl(extDirectClient);
 		setUpDirectClients(recipMailServerProps, initiatingSmtp);
 
 		// use the direct client to send a message
-		extDirectClient.processAndSend(originalMsg);
+        testDirectAdapter.sendOutboundDirect(originalMsg);
 
 		/* Responding Gateway */
-		handleMessages(extDirectClient, 1, recipUser);
+        handleMessages(extDirectClient, inboundMsgHandler, 1, recipUser);
 		verifySmtpEdgeMessage();
 		verifyOutboundMdn();
 
 		/* Initiating Gateway collects an MDN */
-        DirectEdgeProxySmtpImpl respondingSmtp = new DirectEdgeProxySmtpImpl();
-        respondingSmtp.setInternalDirectClient(getInternalDirectClient(senderMailServerProps));
+        DirectEdgeProxySmtpImpl respondingSmtp = new DirectEdgeProxySmtpImpl(intDirectClient);
 		setUpDirectClients(senderMailServerProps, respondingSmtp);
 
-		handleMessages(extDirectClient, 2, senderUser);
+        handleMessages(extDirectClient, inboundMsgHandler, 2, senderUser);
 		verifyInboundMdn();
 	}
 
-	@Test
-	@Ignore
-	public void testWithPlainMimeAttachmentWithXDREdge()
-			throws MessagingException, UserException {
-		final MimeMessage originalMsg = new MimeMessage(null,
-				IOUtils.toInputStream(DirectUnitTestUtil
-						.getFileAsString("PlainOutgoingMessage.txt")));
+    @Test
+    @Ignore
+    public void testWithPlainMimeAttachmentWithXDREdge() throws MessagingException, UserException, MailClientException {
+
+        final MimeMessage originalMsg = new MimeMessage(null, IOUtils.toInputStream(DirectUnitTestUtil
+                .getFileAsString("PlainOutgoingMessage.txt")));
 
 		/* Initiating Gateway */
 		setUpDirectClients(recipMailServerProps, new DirectEdgeProxySoapImpl());
 
 		// use the direct client to send a message
-		extDirectClient.processAndSend(originalMsg);
+        testDirectAdapter.sendOutboundDirect(originalMsg);
 
 		/* Responding Gateway */
-		handleMessages(extDirectClient, 1, recipUser);
+        handleMessages(extDirectClient, inboundMsgHandler, 1, recipUser);
 //		verifySoapEdgeMessage();
 		verifyOutboundMdn();
 
 		/* Initiating Gateway collects an MDN */
 		setUpDirectClients(senderMailServerProps, new DirectEdgeProxySoapImpl());
 
-		handleMessages(extDirectClient, 2, senderUser);
+        handleMessages(extDirectClient, inboundMsgHandler, 2, recipUser);
 		verifyInboundMdn();
 	}
 
-	@Test
-	@Ignore
-	public void testWithXdmAttachmentWithXDREdge() throws MessagingException,
-			UserException, IOException {
-		Session session = Session.getInstance(recipMailServerProps);
+    @Test
+    @Ignore
+    public void testWithXdmAttachmentWithXDREdge() throws MessagingException, UserException, IOException,
+            MailClientException {
 
-		MimeMessageBuilder builder = DirectUnitTestUtil
-				.getMimeMessageBuilder(session);
-		builder.attachment(null).attachmentName(null)
-				.documents(DirectUnitTestUtil.mockDirectDocs());
-		MimeMessage originalMsg = builder.build();
+	    Session session = Session.getInstance(recipMailServerProps);
 
-		/* Initiating Gateway */
-		setUpDirectClients(recipMailServerProps, new DirectEdgeProxySoapImpl());
+        MimeMessageBuilder builder = DirectUnitTestUtil.getMimeMessageBuilder(session);
+        builder.attachment(null).attachmentName(null).documents(DirectUnitTestUtil.mockDirectDocs());
+        MimeMessage originalMsg = builder.build();
+
+        /* Initiating Gateway */
+        setUpDirectClients(recipMailServerProps, new DirectEdgeProxySoapImpl());
 
 		// use the direct client to send a message
-		extDirectClient.processAndSend(originalMsg);
+        testDirectAdapter.sendOutboundDirect(originalMsg);
 
 		/* Responding Gateway */
-		handleMessages(extDirectClient, 1, recipUser);
+        handleMessages(extDirectClient, inboundMsgHandler, 1, recipUser);
 //		verifySoapEdgeMessage();
 		verifyOutboundMdn();
 
 		/* Initiating Gateway collects an MDN */
 		setUpDirectClients(senderMailServerProps, new DirectEdgeProxySoapImpl());
 
-		handleMessages(extDirectClient, 2, senderUser);
+        handleMessages(extDirectClient, inboundMsgHandler, 2, recipUser);
 		verifyInboundMdn();
 	}
 }

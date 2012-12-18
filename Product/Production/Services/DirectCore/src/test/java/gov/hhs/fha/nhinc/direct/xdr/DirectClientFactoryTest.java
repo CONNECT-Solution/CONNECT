@@ -27,7 +27,7 @@
 package gov.hhs.fha.nhinc.direct.xdr;
 
 import static org.junit.Assert.assertNotNull;
-import gov.hhs.fha.nhinc.direct.DirectClientFactory;
+import gov.hhs.fha.nhinc.direct.DirectAdapterFactory;
 import gov.hhs.fha.nhinc.direct.DirectUnitTestUtil;
 
 import org.apache.log4j.Logger;
@@ -37,7 +37,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 /**
- * Test {@link DirectClientFactory}.
+ * Test {@link DirectAdapterFactory}.
  */
 public class DirectClientFactoryTest {
 
@@ -60,7 +60,7 @@ public class DirectClientFactoryTest {
     }
     
     /**
-     * Test {@link DirectClientFactory#getDirectClient()}.
+     * Test {@link DirectAdapterFactory#getDirectAdapter()}.
      * Note: This test fails when run as part of the suite - it seems that the config is loaded in another test before
      * we are setting the system property for the nhinc.properties.dir. Ignoring for now til more time can be spent on
      * it.
@@ -74,8 +74,8 @@ public class DirectClientFactoryTest {
         System.setProperty("nhinc.properties.dir", propertiesDir);
         LOG.info("nhinc.properties.dir: " + propertiesDir);
 
-        DirectClientFactory testDirectFactory = new DirectClientFactory();
-        assertNotNull(testDirectFactory.getDirectClient());
+        DirectAdapterFactory testDirectFactory = new DirectAdapterFactory();
+        assertNotNull(testDirectFactory.getDirectAdapter());
     }
 
 }

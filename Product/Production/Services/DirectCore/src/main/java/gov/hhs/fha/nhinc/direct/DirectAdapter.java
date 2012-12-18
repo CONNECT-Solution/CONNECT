@@ -26,34 +26,35 @@
  */
 package gov.hhs.fha.nhinc.direct;
 
-import gov.hhs.fha.nhinc.proxy.ComponentProxyFactory;
+import javax.mail.Address;
+import javax.mail.internet.MimeMessage;
 
-import org.apache.log4j.Logger;
+import org.nhindirect.xd.common.DirectDocuments;
 
 /**
- * Direct Client Factory responsible for {@link DirectClient}.
+ * Interface defining a Mail Client.
  */
-public class DirectClientFactory {
-    
-    private static final Logger LOG = Logger.getLogger(DirectClientFactory.class);
-    
-    private static final String CONFIG_FILE_NAME = "direct.appcontext.xml";
-    private static final String BEAN_NAME = "extDirectMailClient";
+public interface DirectAdapter {
+
+    /**
+     * Send an outbound mime message with direct.
+     * @param message to be sent.
+     */
+    void sendOutboundDirect(MimeMessage message);
     
     /**
-     * Register Handlers will invoke getInstance, thereby loading the spring context and task scheduler for polling mail
-     * servers.
+     * Send an outbound mime message with direct.
+     * @param sender of the message
+     * @param recipients of the message
+     * @param documents to be attached to the message
+     * @param messageId for the message
      */
-    public void registerHandlers() {
-        LOG.debug("Registering handlers...");
-        getDirectClient();
-    }
+    void sendOutboundDirect(Address sender, Address[] recipients, DirectDocuments documents, String messageId);
     
     /**
-     * @return a {@link DirectClient} from the factory.
+     * Receive an inbound direct message.
+     * @param message mime message to be received
      */
-    public DirectClient getDirectClient() {
-        return new ComponentProxyFactory(CONFIG_FILE_NAME).getInstance(BEAN_NAME, DirectClient.class);
-    }
+    public void receiveInbound(MimeMessage message);
     
 }

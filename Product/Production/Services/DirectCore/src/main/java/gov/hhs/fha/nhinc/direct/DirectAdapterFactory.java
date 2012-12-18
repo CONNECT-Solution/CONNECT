@@ -26,46 +26,34 @@
  */
 package gov.hhs.fha.nhinc.direct;
 
-import gov.hhs.fha.nhinc.mail.MessageHandler;
-
-import javax.mail.internet.MimeMessage;
+import gov.hhs.fha.nhinc.proxy.ComponentProxyFactory;
 
 import org.apache.log4j.Logger;
 
 /**
- * Handles inbound messages from an external mail client. Inbound messages are un-directified and either - sent to a
- * recipient on an internal mail client - SMTP+Mime - SMTP+XDM - process XDM as XDR - SOAP+XDR
+ * Direct Client Factory responsible for {@link DirectAdapter}.
  */
-public class NewInboundMsgHandler implements MessageHandler {
-
-    private static final Logger LOG = Logger.getLogger(NewInboundMsgHandler.class);
-
-    /**
-     * Property for the external direct client used to send the outbound message.
-     */
-    private final NewDirectAdapter directAdapter;
+public class DirectAdapterFactory {
+    
+    private static final Logger LOG = Logger.getLogger(DirectAdapterFactory.class);
+    
+    private static final String CONFIG_FILE_NAME = "direct.appcontext.xml";
+    private static final String BEAN_NAME = "directAdapter";
     
     /**
-     * Constructor.
-     * @param directAdapter direct adapter used to process messages.
+     * Register Handlers will invoke getInstance, thereby loading the spring context and task scheduler for polling mail
+     * servers.
      */
-    public NewInboundMsgHandler(NewDirectAdapter directAdapter) {
-        super();
-        this.directAdapter = directAdapter;
+    public void registerHandlers() {
+        LOG.debug("Registering handlers...");
+        getDirectAdapter();
     }
-
+    
     /**
-     * {@inheritDoc}
+     * @return a {@link DirectAdapter} from the factory.
      */
-    @Override
-    public boolean handleMessage(MimeMessage message) {
-        boolean handled = false;
-        try {
-           directAdapter.receiveInbound(message);
-           handled = true;
-        } catch (Exception e) {
-            LOG.error("Exception while processing and sending outbound direct message");
-        }
-        return handled;
+    public DirectAdapter getDirectAdapter() {
+        return new ComponentProxyFactory(CONFIG_FILE_NAME).getInstance(BEAN_NAME, DirectAdapter.class);
     }
+    
 }

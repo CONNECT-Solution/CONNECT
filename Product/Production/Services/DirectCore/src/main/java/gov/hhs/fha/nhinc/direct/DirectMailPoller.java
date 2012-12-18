@@ -1,4 +1,3 @@
-package gov.hhs.fha.nhinc.direct;
 /*
  * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
@@ -25,50 +24,32 @@ package gov.hhs.fha.nhinc.direct;
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+package gov.hhs.fha.nhinc.direct;
 
-
+import gov.hhs.fha.nhinc.mail.AbstractMailPoller;
+import gov.hhs.fha.nhinc.mail.MailClient;
+import gov.hhs.fha.nhinc.mail.MailClientException;
 import gov.hhs.fha.nhinc.mail.MessageHandler;
 
-import javax.mail.internet.MimeMessage;
-
-import org.apache.log4j.Logger;
-
 /**
- * Handles outbound messages from an internal mail client. Outbound messages are directified and resent using the
- * external mail server.
+ * Direct Mail Poller handles any exceptions incurred by {@link AbstractMailPoller#poll()}
  */
-public class NewOutboundMsgHandler implements MessageHandler {
-
-    private static final Logger LOG = Logger.getLogger(NewOutboundMsgHandler.class);
+public class DirectMailPoller extends AbstractMailPoller {
 
     /**
-     * Property for the external direct client used to send the outbound message.
+     * @param mailClient mail client talking to the server we want to poll.
+     * @param messageHandler message handler invoked on each message returned.
      */
-    private final NewDirectAdapter directAdapter;
-
-    
-    /**
-     * Constructor.
-     * @param directAdapter direct adapter used to process messages.
-     */
-    public NewOutboundMsgHandler(NewDirectAdapter directAdapter) {
-        super();
-        this.directAdapter = directAdapter;
+    public DirectMailPoller(MailClient mailClient, MessageHandler messageHandler) {
+        super(mailClient, messageHandler);
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public boolean handleMessage(MimeMessage message) {
-        boolean handled = false;
-        try {
-           directAdapter.sendOutboundDirect(message);
-           handled = true;
-        } catch (Exception e) {
-            LOG.error("Exception while processing and sending outbound direct message");
-        }
-        return handled;
+    public void handleException(MailClientException e) {
+        throw new DirectException("Exception while polling mail server.", e);
     }
-        
+
 }

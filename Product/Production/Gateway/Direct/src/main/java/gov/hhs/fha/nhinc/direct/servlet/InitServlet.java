@@ -26,7 +26,7 @@
  */
 package gov.hhs.fha.nhinc.direct.servlet;
 
-import gov.hhs.fha.nhinc.direct.DirectClientFactory;
+import gov.hhs.fha.nhinc.direct.DirectAdapterFactory;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -50,6 +50,6 @@ public class InitServlet extends HttpServlet {
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
         log.debug("Direct InitServlet start...");
-        new DirectClientFactory().registerHandlers();        
+        new DirectAdapterFactory().registerHandlers();        
     }
 }

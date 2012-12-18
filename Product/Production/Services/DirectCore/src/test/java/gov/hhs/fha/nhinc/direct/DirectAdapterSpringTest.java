@@ -29,9 +29,8 @@ package gov.hhs.fha.nhinc.direct;
 import static gov.hhs.fha.nhinc.direct.DirectUnitTestUtil.removeSmtpAgentConfig;
 import static gov.hhs.fha.nhinc.direct.DirectUnitTestUtil.writeSmtpAgentConfig;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertTrue;
-import gov.hhs.fha.nhinc.mail.MessageHandler;
+import gov.hhs.fha.nhinc.mail.MailClient;
 
 import org.apache.log4j.Logger;
 import org.junit.AfterClass;
@@ -52,37 +51,20 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("/direct.appcontext.xml")
-public class DirectMailClientSpringTest {
+public class DirectAdapterSpringTest {
     
-    private static final Logger LOG = Logger.getLogger(DirectMailClientSpringTest.class);
-
-    
-    @Autowired
-    private DirectMailClient intDirectMailClient;
-
-    /**
-     * @return DirectMailClient for internal mail server.
-     */
-    public DirectMailClient getIntDirectMailClient() {
-        return intDirectMailClient;
-    }
-
-    /**
-     * @return DirectMailClient for external mail server.
-     */
-    public DirectMailClient getExtDirectMailClient() {
-        return extDirectMailClient;
-    }
-
-    @Autowired
-    private DirectMailClient extDirectMailClient;
+    private static final Logger LOG = Logger.getLogger(DirectAdapterSpringTest.class);
     
     @Autowired
-    private MessageHandler outboundMessageHandler;
+    private DirectAdapter directAdapter;
 
     @Autowired
-    private MessageHandler inboundMessageHandler;
+    private MailClient extMailClient;
 
+    @Autowired
+    private MailClient intMailClient;
+    
+    
     @Autowired
     private ApplicationContext applicationContext;
     
@@ -133,42 +115,10 @@ public class DirectMailClientSpringTest {
      * Test that we can get an external mail client with spring.
      */
     @Test
-    public void canGetExternalMailClient() {
-        assertNotNull(extDirectMailClient);
+    public void canGetDirectAdapter() {
+        assertNotNull(directAdapter);
     }
     
-    /**
-     * Test that we can get an internal mail client with spring.
-     */
-    @Test
-    public void canGetInternalMailClient() {
-        assertNotNull(intDirectMailClient);
-    }
-    
-    /**
-     * Test that the two mail clients are distinct instances.
-     */
-    @Test
-    public void canDistinguishInternalExternal() {
-        assertNotSame(intDirectMailClient, extDirectMailClient);        
-    }
-    
-    /**
-     * Test that we can get an outbound message handler from spring.
-     */
-    @Test
-    public void canGetOutboundMessageHandler() {
-        assertNotNull(outboundMessageHandler);
-    }
-    
-    /**
-     * Test that we can get an inbound message handler from spring.
-     */
-    @Test
-    public void canGetInboundMessageHandler() {
-        assertNotNull(inboundMessageHandler);
-    }
-
     /**
      * Test that we can use spring task scheduler to run the polling mail handlers.
      * @throws InterruptedException on failure.
@@ -178,8 +128,8 @@ public class DirectMailClientSpringTest {
     public void canRunScheduledTaskEveryOneSec() throws InterruptedException {
         Thread.sleep(DirectUnitTestUtil.WAIT_TIME_FOR_MAIL_HANDLER);
         
-        int internalInvocations = intDirectMailClient.getHandlerInvocations();
-        int externalInvocations = extDirectMailClient.getHandlerInvocations();
+        int internalInvocations = intMailClient.getHandlerInvocations();
+        int externalInvocations = extMailClient.getHandlerInvocations();
         
         assertTrue(internalInvocations >= 2);
         assertTrue(externalInvocations >= 2);

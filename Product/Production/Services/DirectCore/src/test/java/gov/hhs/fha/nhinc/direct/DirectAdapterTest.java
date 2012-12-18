@@ -32,7 +32,6 @@ import static gov.hhs.fha.nhinc.direct.DirectUnitTestUtil.getSender;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
@@ -45,6 +44,8 @@ import gov.hhs.fha.nhinc.event.EventLogger;
 import gov.hhs.fha.nhinc.event.EventLoggerFactory;
 import gov.hhs.fha.nhinc.event.EventManager;
 import gov.hhs.fha.nhinc.event.Log4jEventLogger;
+import gov.hhs.fha.nhinc.mail.MailClientException;
+import gov.hhs.fha.nhinc.mail.MessageHandler;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -68,9 +69,8 @@ import com.icegreen.greenmail.user.UserException;
 /**
  * Test {@link DirectMailClient}.
  */
-public class DirectMailClientTest extends AbstractDirectMailClientTest {
+public class DirectAdapterTest extends AbstractDirectMailClientTest {
 
-    private static final int NUM_MULTIPLE_MDNS = 5;
     private static int eventIndex = 0;    
 
     /**
@@ -91,14 +91,15 @@ public class DirectMailClientTest extends AbstractDirectMailClientTest {
     }
 
     /**
-     * Test {@link DirectMailClient#handleMessages(MessageHandler)} Verify that we can send an receive messages on the
+     * Test {@link DirectMailClient#handleMessages(MessageHandler)} Verify that we can send and receive messages on the
      * direct mail client with one batch when the message count is less than the max batch size.
      * 
      * @throws IOException on io error.
      * @throws MessagingException on failure.
+     * @throws MailClientException 
      */
     @Test
-    public void canSendAndReceiveInOneBatch() throws IOException, MessagingException {
+    public void canSendAndReceiveInOneBatch() throws IOException, MessagingException, MailClientException {
 
         whenProcessingMessageReturnMockResult();     
         processAndSendMultipleMsgs(NUM_MSGS_ONE_BATCH);
@@ -106,9 +107,9 @@ public class DirectMailClientTest extends AbstractDirectMailClientTest {
         verify(mockSmtpAgent, times(NUM_MSGS_ONE_BATCH)).processMessage(any(MimeMessage.class),
                 any(NHINDAddressCollection.class), any(NHINDAddress.class));
 
-        intDirectClient.handleMessages();
+        intDirectClient.handleMessages(mockMessageHandler);
 
-        verify(mockMessageHandler, times(NUM_MSGS_ONE_BATCH)).handleMessage(any(Message.class), eq(intDirectClient));
+        verify(mockMessageHandler, times(NUM_MSGS_ONE_BATCH)).handleMessage(any(Message.class));
     }
 
     /**
@@ -117,9 +118,10 @@ public class DirectMailClientTest extends AbstractDirectMailClientTest {
      * 
      * @throws IOException on io error.
      * @throws MessagingException on failure.
+     * @throws MailClientException 
      */
     @Test
-    public void canSendAndReceiveMultipleMsgsInBatches() throws IOException, MessagingException {
+    public void canSendAndReceiveMultipleMsgsInBatches() throws IOException, MessagingException, MailClientException {
         
         whenProcessingMessageReturnMockResult();
         processAndSendMultipleMsgs(NUM_MSGS_MULTI_BATCH);
@@ -136,9 +138,8 @@ public class DirectMailClientTest extends AbstractDirectMailClientTest {
         int batchCount = 0;
         while (numberOfMsgsHandled < NUM_MSGS_MULTI_BATCH) {
             batchCount++;
-            numberOfMsgsHandled += intDirectClient.handleMessages();
-            verify(mockMessageHandler, times(numberOfMsgsHandled)).handleMessage(any(Message.class),
-                    eq(intDirectClient));
+            numberOfMsgsHandled += intDirectClient.handleMessages(mockMessageHandler);
+            verify(mockMessageHandler, times(numberOfMsgsHandled)).handleMessage(any(Message.class));
 
             // there is a greenmail bug that only expunges every other message... delete read messages
             DirectUnitTestUtil.expungeMissedMessages(greenMail, recipUser);
@@ -157,65 +158,42 @@ public class DirectMailClientTest extends AbstractDirectMailClientTest {
     
     private void processAndSendMultipleMsgs(int numberOfMsgs) {
         for (int i = 0; i < numberOfMsgs; i++) {
-            intDirectClient.processAndSend(getSender(), getRecipients(), getMockDirectDocuments(), ATTACHMENT_NAME);
+            testDirectAdapter.sendOutboundDirect(getSender(), getRecipients(), getMockDirectDocuments(),
+                    ATTACHMENT_NAME);
         }
     }
     
-    /**
-     * Test that we can send a single MDN message.
-     * @throws MessagingException on failure.
-     */
-    @Test
-    public void canSendSingleMDNMessage() throws MessagingException {
-        MessageProcessResult mockMessageProcessResult = getMockMessageProcessResult();
-        intDirectClient.sendMdn(mockMessageProcessResult);
-        assertEquals(1, greenMail.getReceivedMessages().length);
-    }
-
-    /**
-     * Test that we can send multiple MDN messages.
-     * @throws MessagingException on failure.
-     */
-    @Test
-    public void canSendMultipleMDNMessages() throws MessagingException {
-        int numMdnMessages = NUM_MULTIPLE_MDNS;
-        MessageProcessResult mockMessageProcessResult = getMockMessageProcessResult(numMdnMessages);
-        intDirectClient.sendMdn(mockMessageProcessResult);
-        assertEquals(numMdnMessages, greenMail.getReceivedMessages().length);
-    }
-
     /**
      * This test is intended to simulate the end-to-end send, receive and MDN of a direct mail send use case, with SMTP
      * edge clients on the sending and receiving side.
      * 
      * @throws UserException when the test fails with a user exception.
      * @throws MessagingException when the test fails with a MessagingException.
+     * @throws MailClientException 
      * @throws InterruptedException 
      */
-    private void canEndToEndWithSmtpEdgeClients() throws UserException, MessagingException {
+    private void canEndToEndWithSmtpEdgeClients() throws UserException, MessagingException, MailClientException {
 
         deliverMessage("PlainOutgoingMessage.txt");
         verifySmtpEdgeMessage();
 
         /* Initiating Gateway */
-        DirectEdgeProxySmtpImpl initiatingSmtp = new DirectEdgeProxySmtpImpl();
-        initiatingSmtp.setInternalDirectClient(getInternalDirectClient(recipMailServerProps));
+        DirectEdgeProxySmtpImpl initiatingSmtp = new DirectEdgeProxySmtpImpl(intDirectClient);
         setUpDirectClients(recipMailServerProps, initiatingSmtp);
 
-        handleMessages(intDirectClient, 1, recipUser);
+        handleMessages(intDirectClient, outboundMsgHandler, 1, recipUser);
         verifyOutboundMessageSent();
 
         /* Responding Gateway */
-        handleMessages(extDirectClient, 1, recipUser);
+        handleMessages(extDirectClient, inboundMsgHandler, 1, recipUser);
         verifySmtpEdgeMessage();
         verifyOutboundMdn();
 
         /* Initiating Gateway collects an MDN */
-        DirectEdgeProxySmtpImpl respondingSmtp = new DirectEdgeProxySmtpImpl();
-        respondingSmtp.setInternalDirectClient(getInternalDirectClient(senderMailServerProps));
+        DirectEdgeProxySmtpImpl respondingSmtp = new DirectEdgeProxySmtpImpl(intDirectClient);
         setUpDirectClients(senderMailServerProps, respondingSmtp);
 
-        handleMessages(extDirectClient, 2, senderUser);
+        handleMessages(extDirectClient, inboundMsgHandler, 2, senderUser);
         verifyInboundMdn();
     }
     
@@ -223,9 +201,10 @@ public class DirectMailClientTest extends AbstractDirectMailClientTest {
      * Run the end to end test and also verify that the events are logged in the correct order.
      * @throws UserException on failure.
      * @throws MessagingException on failure.
+     * @throws MailClientException 
      */
     @Test
-    public void canLogEventsDuringEndToEnd() throws UserException, MessagingException {
+    public void canLogEventsDuringEndToEnd() throws UserException, MessagingException, MailClientException {
         
         final EventLoggerFactory loggerFactory = new EventLoggerFactory(EventManager.getInstance());        
         final EventLogger mockEventLogger = mock(EventLogger.class);

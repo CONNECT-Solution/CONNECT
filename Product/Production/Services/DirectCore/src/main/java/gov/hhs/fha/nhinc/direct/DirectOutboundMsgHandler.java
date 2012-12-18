@@ -1,3 +1,4 @@
+package gov.hhs.fha.nhinc.direct;
 /*
  * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
@@ -24,20 +25,50 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.direct;
+
+
+import gov.hhs.fha.nhinc.mail.MessageHandler;
 
 import javax.mail.internet.MimeMessage;
 
+import org.apache.log4j.Logger;
+
 /**
- * Direct Message Handler is invoked when messages are retrieved from a mail server.
+ * Handles outbound messages from an internal mail client. Outbound messages are directified and resent using the
+ * external mail server.
  */
-public interface MessageHandler {
+public class DirectOutboundMsgHandler implements MessageHandler {
+
+    private static final Logger LOG = Logger.getLogger(DirectOutboundMsgHandler.class);
 
     /**
-     * Handle a message retrieved from the mail server.
-     * @param message to be handled.
-     * @param directClient CONNECT-DIRECT client used to send and receive messages.
+     * Property for the external direct client used to send the outbound message.
      */
-    void handleMessage(MimeMessage message, DirectClient directClient);
+    private final DirectAdapter directAdapter;
+
     
+    /**
+     * Constructor.
+     * @param directAdapter direct adapter used to process messages.
+     */
+    public DirectOutboundMsgHandler(DirectAdapter directAdapter) {
+        super();
+        this.directAdapter = directAdapter;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean handleMessage(MimeMessage message) {
+        boolean handled = false;
+        try {
+           directAdapter.sendOutboundDirect(message);
+           handled = true;
+        } catch (Exception e) {
+            LOG.error("Exception while processing and sending outbound direct message");
+        }
+        return handled;
+    }
+        
 }

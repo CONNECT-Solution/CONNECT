@@ -44,6 +44,9 @@ public abstract class AbstractMailPoller {
         this.messageHandler = messageHandler;
     }
     
+    /**
+     * Poll the mail server for new messages and handle them.
+     */
     public void poll() {
         try {
             mailClient.handleMessages(messageHandler);
@@ -52,5 +55,9 @@ public abstract class AbstractMailPoller {
         }
     }
     
+    /**
+     * Handle an exception thrown during message handling.
+     * @param e exception to be handled.
+     */
     public abstract void handleException(MailClientException e);
 }

@@ -28,6 +28,7 @@ package gov.hhs.fha.nhinc.mail;
 
 import java.util.Properties;
 
+import javax.mail.Address;
 import javax.mail.Folder;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -51,8 +52,8 @@ public class SmtpImapMailClient implements MailClient {
     private final Properties mailServerProps;
     private final Session mailSession;
     private int handlerInvocations = 0;
-
     
+
     /**
      * @param mailServerProps.
      */
@@ -61,21 +62,19 @@ public class SmtpImapMailClient implements MailClient {
         this.mailServerProps = mailServerProps;
         this.mailSession = createMailSession(mailServerProps);
     }
-
     
     /**
      * {@inheritDoc}
-     * @throws MessagingException 
      */
-    public void send(MimeMessage message) throws MailClientException {
+    @Override
+    public void send(Address[] recipients, MimeMessage message) throws MailClientException {
         try {
-            MailUtils.sendMessage(message.getAllRecipients(), mailSession, message);
+            MailUtils.sendMessage(recipients, mailSession, message);
         } catch (MessagingException e) {
             throw new MailClientException("Exception while sending message.", e);
         }
     }
-    
-    
+
     /**
      * {@inheritDoc}
      */
@@ -118,6 +117,13 @@ public class SmtpImapMailClient implements MailClient {
         return mailSession;
     }
 
+    /**
+     * @return the handlerInvocations
+     */
+    @Override
+    public int getHandlerInvocations() {
+        return handlerInvocations;
+    }
 
     private boolean handleMessage(MessageHandler handler, MimeMessage message) {
 
@@ -148,7 +154,7 @@ public class SmtpImapMailClient implements MailClient {
     private int getNumberOfMsgsToHandle(Folder folder) throws MessagingException {
 
         int numberOfMsgsInFolder = folder.getMessageCount();
-        int maxNumberOfMsgsToHandle = Integer.parseInt(mailServerProps.getProperty("connect.max.msgs.in.batch",
+        int maxNumberOfMsgsToHandle = Integer.parseInt(mailServerProps.getProperty("direct.max.msgs.in.batch",
                 DEF_NUM_MSGS_TO_HANDLE));
 
         return numberOfMsgsInFolder < maxNumberOfMsgsToHandle ? numberOfMsgsInFolder : maxNumberOfMsgsToHandle;
@@ -185,9 +191,9 @@ public class SmtpImapMailClient implements MailClient {
     }
     
     private Session createMailSession(Properties mailServerProps) {        
-        Session mailSession = MailUtils.getMailSession(mailServerProps, mailServerProps.getProperty("connect.mail.user"),
-                mailServerProps.getProperty("connect.mail.pass"));
-        mailSession.setDebug(Boolean.parseBoolean(mailServerProps.getProperty("connect.mail.session.debug")));
+        Session mailSession = MailUtils.getMailSession(mailServerProps, mailServerProps.getProperty("direct.mail.user"),
+                mailServerProps.getProperty("direct.mail.pass"));
+        mailSession.setDebug(Boolean.parseBoolean(mailServerProps.getProperty("direct.mail.session.debug")));
         mailSession.setDebugOut(System.out);
         return mailSession;
     }
